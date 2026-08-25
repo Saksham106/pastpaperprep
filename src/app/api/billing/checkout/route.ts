@@ -88,6 +88,9 @@ export async function POST(request: Request) {
     if (error instanceof Error && error.message === "Unknown billing interval") {
       return NextResponse.json({ error: "Unknown billing interval" }, { status: 400 });
     }
+    console.error("Stripe checkout creation failed", error instanceof Error
+      ? { name: error.name, message: error.message }
+      : { type: typeof error });
     return NextResponse.json({ error: "Checkout is temporarily unavailable" }, { status: 503 });
   }
 }

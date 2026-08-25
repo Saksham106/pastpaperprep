@@ -29,7 +29,10 @@ export async function POST() {
       return_url: `${config.siteUrl}/account`,
     });
     return NextResponse.json({ url: session.url });
-  } catch {
-    return NextResponse.json({ error: "Billing is temporarily unavailable" }, { status: 503 });
+  } catch (error) {
+    console.error("Stripe portal creation failed", error instanceof Error
+      ? { name: error.name, message: error.message }
+      : { type: typeof error });
+    return NextResponse.json({ error: "Billing portal is temporarily unavailable" }, { status: 503 });
   }
 }
