@@ -2,12 +2,16 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("server-only", () => ({}));
 const getUser = vi.fn();
-const from = vi.fn();
+const userFrom = vi.fn();
+const adminFrom = vi.fn();
 const portalCreate = vi.fn();
 let billingEnabled = true;
 
 vi.mock("@/lib/supabase/server", () => ({
-  createClient: vi.fn(async () => ({ auth: { getUser }, from })),
+  createClient: vi.fn(async () => ({ auth: { getUser }, from: userFrom })),
+}));
+vi.mock("@/lib/supabase/admin", () => ({
+  createAdminClient: vi.fn(() => ({ from: adminFrom })),
 }));
 vi.mock("@/lib/stripe", () => ({
   createStripeClient: vi.fn(() => ({ billingPortal: { sessions: { create: portalCreate } } })),
@@ -43,7 +47,7 @@ describe("POST /api/billing/portal", () => {
 
   it("fails closed when the authenticated user has no mapped customer", async () => {
     getUser.mockResolvedValue({ data: { user: { id: "user-id" } } });
-    from.mockReturnValue({ select: () => ({ eq: () => ({ maybeSingle: vi.fn().mockResolvedValue({ data: null, error: null }) }) }) });
+    adminFrom.mockReturnValue({ select: () => ({ eq: () => ({ maybeSingle: vi.fn().mockResolvedValue({ data: null, error: null }) }) }) });
 
     const response = await POST();
     expect(response.status).toBe(404);
@@ -52,11 +56,13 @@ describe("POST /api/billing/portal", () => {
 
   it("creates a portal session only for the server-mapped customer", async () => {
     getUser.mockResolvedValue({ data: { user: { id: "user-id" } } });
-    from.mockReturnValue({ select: () => ({ eq: () => ({ maybeSingle: vi.fn().mockResolvedValue({ data: { customer_id: "cus_mapped" }, error: null }) }) }) });
+    adminFrom.mockReturnValue({ select: () => ({ eq: () => ({ maybeSingle: vi.fn().mockResolvedValue({ data: { customer_id: "cus_mapped" }, error: null }) }) }) });
     portalCreate.mockResolvedValue({ url: "https://billing.stripe.com/session" });
 
     const response = await POST();
     expect(response.status).toBe(200);
+    expect(userFrom).not.toHaveBeenCalled();
+    expect(adminFrom).toHaveBeenCalledWith("stripe_customers");
     await expect(response.json()).resolves.toEqual({ url: "https://billing.stripe.com/session" });
     expect(portalCreate).toHaveBeenCalledWith({
       customer: "cus_mapped",

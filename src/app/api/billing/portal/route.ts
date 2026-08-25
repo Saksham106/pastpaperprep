@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createStripeClient } from "@/lib/stripe";
 import { getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
@@ -26,7 +27,8 @@ export async function POST() {
     return NextResponse.json({ error: "Billing is not available yet" }, { status: 503 });
   }
 
-  const { data, error } = await supabase
+  const admin = createAdminClient();
+  const { data, error } = await admin
     .from("stripe_customers")
     .select("customer_id")
     .eq("user_id", user.id)
