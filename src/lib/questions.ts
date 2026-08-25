@@ -94,17 +94,17 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion): UnifiedQuestion {
   const summary = text(raw.summary) || accessibleText.slice(0, 220);
   const primaryTopic = text(raw.primaryTopic) || "Other";
   const secondaryTopics = strings(raw.secondaryTopics);
-  const subtopics = Array.from(new Set([
-    ...strings(raw.skills),
-    ...strings(raw.subtopics),
-    ...strings(raw.detailedSubtopics),
-  ]));
+  const controlledSkills = strings(raw.skills);
+  const studentSubtopics = strings(raw.subtopics);
+  const detailedSubtopics = strings(raw.detailedSubtopics);
+  const subtopics = Array.from(new Set(studentSubtopics.length ? studentSubtopics : controlledSkills));
   const officialMarkscheme = record(raw.officialMarkscheme);
   const solution = nullableText(raw.solution) ?? nullableText(raw.independentSolution);
   const searchable = [
     primaryTopic,
     ...secondaryTopics,
     ...subtopics,
+    ...detailedSubtopics,
     summary,
     accessibleText,
     solution ?? "",
@@ -121,7 +121,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion): UnifiedQuestion {
     session: text(raw.session),
     primaryTopic,
     secondaryTopics,
-    skills: subtopics,
+    skills: controlledSkills.length ? controlledSkills : subtopics,
     subtopics,
     subject: text(raw.subject) || text(raw.course),
     courseEra: text(raw.courseEra),

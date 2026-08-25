@@ -2,9 +2,10 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import { ArrowSquareOut, DownloadSimple, Funnel, MagnifyingGlass, X } from "@phosphor-icons/react";
+import { ArrowSquareOut, DownloadSimple, Funnel, MagnifyingGlass, TextAlignLeft, X } from "@phosphor-icons/react";
 import { downloadQuestionPdf, questionsForPdf, type PdfContent } from "@/lib/pdf-export";
 import { filterQuestions, type QuestionFilters, type QuestionSort, type UnifiedQuestion } from "@/lib/questions";
+import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy";
 
 const PAGE_SIZE = 24;
 type MultiKey = "topics" | "subtopics" | "years" | "papers" | "sessions" | "subjects" | "zones" | "courseEras" | "options" | "components" | "calculator";
@@ -27,10 +28,17 @@ export function QuestionExplorer({ questions }: { questions: UnifiedQuestion[] }
   const [pdfStatus, setPdfStatus] = useState("");
 
   const bank = questions[0]?.bankSlug;
-  const topicFiltered = useMemo(() => filterQuestions(questions, { topics: filters.topics }), [questions, filters.topics]);
+  const subtopicGroups = useMemo(
+    () => getSubtopicGroups(questions, filters.topics ?? [], filters.subtopics ?? []),
+    [questions, filters.topics, filters.subtopics],
+  );
+  const visibleSubtopics = filters.topics?.length
+    ? showAllSubtopics
+      ? subtopicGroups.all
+      : [...subtopicGroups.relevant, ...subtopicGroups.selectedOutsideContext]
+    : subtopicGroups.all;
   const options = useMemo(() => ({
-    topics: unique(questions, (q) => [q.primaryTopic, ...q.secondaryTopics]),
-    subtopics: unique(topicFiltered, (q) => q.subtopics),
+    topics: getTopicOptions(questions),
     years: unique(questions, (q) => String(q.year)).reverse(),
     papers: unique(questions, (q) => String(q.paper)),
     sessions: unique(questions, (q) => q.session),
@@ -39,12 +47,13 @@ export function QuestionExplorer({ questions }: { questions: UnifiedQuestion[] }
     courseEras: unique(questions, (q) => q.courseEra),
     options: unique(questions, (q) => q.option),
     components: unique(questions, (q) => q.component),
-  }), [questions, topicFiltered]);
+  }), [questions]);
 
   const filtered = useMemo(() => filterQuestions(questions, { ...filters, search, sort }), [questions, filters, search, sort]);
   const activeCount = Object.values(filters).reduce((count, values) => count + (values?.length ?? 0), 0);
 
   const toggle = (key: MultiKey, value: string) => {
+    if (key === "topics") setShowAllSubtopics(false);
     setFilters((current) => {
       const values = (current[key] ?? []) as string[];
       const next = values.includes(value) ? values.filter((item) => item !== value) : [...values, value];
@@ -56,6 +65,7 @@ export function QuestionExplorer({ questions }: { questions: UnifiedQuestion[] }
   const clearFilters = () => {
     setSearch("");
     setFilters({});
+    setShowAllSubtopics(false);
     setVisible(PAGE_SIZE);
   };
 
@@ -97,8 +107,8 @@ export function QuestionExplorer({ questions }: { questions: UnifiedQuestion[] }
         <aside className={`filter-sidebar ${filtersOpen ? "is-open" : ""}`} aria-label="Question filters">
           <div className="filter-sidebar-heading"><strong>Filters</strong><button className="filter-close" aria-label="Close filters" onClick={() => setFiltersOpen(false)}><X /></button></div>
           <FilterGroup label="Topics" filterKey="topics" values={options.topics} selected={filters.topics ?? []} onToggle={toggle} />
-          <FilterGroup label="Subtopics" filterKey="subtopics" values={showAllSubtopics ? options.subtopics : options.subtopics.slice(0, 18)} selected={filters.subtopics ?? []} onToggle={toggle} />
-          {options.subtopics.length > 18 && <button className="text-button subtopic-more" onClick={() => setShowAllSubtopics((show) => !show)}>{showAllSubtopics ? "Show fewer subtopics" : `Show ${options.subtopics.length - 18} other subtopics`}</button>}
+          <FilterGroup label="Subtopics" filterKey="subtopics" values={visibleSubtopics} selected={filters.subtopics ?? []} onToggle={toggle} />
+          {!!filters.topics?.length && !!subtopicGroups.other.length && <button className="text-button subtopic-more" aria-expanded={showAllSubtopics} onClick={() => setShowAllSubtopics((show) => !show)}>{showAllSubtopics ? "Hide other subtopics" : "Show other subtopics"}</button>}
           <FilterGroup label="Years" filterKey="years" values={options.years} selected={filters.years ?? []} onToggle={toggle} />
           <FilterGroup label="Sessions" filterKey="sessions" values={options.sessions} selected={filters.sessions ?? []} onToggle={toggle} />
           <FilterGroup label="Papers" filterKey="papers" values={options.papers} selected={filters.papers ?? []} onToggle={toggle} />
@@ -131,7 +141,8 @@ export function QuestionExplorer({ questions }: { questions: UnifiedQuestion[] }
 
 function FilterGroup({ label, filterKey, values, selected, onToggle }: { label: string; filterKey: MultiKey; values: string[]; selected: string[]; onToggle: (key: MultiKey, value: string) => void }) {
   if (!values.length) return null;
-  return <fieldset className="filter-group" aria-label={label}><legend>{label}</legend>{values.map((value) => <label key={value}><input aria-label={`${label}: ${value}`} type="checkbox" checked={selected.includes(value)} onChange={() => onToggle(filterKey, value)} /><span>{value.replace("non-calculator", "Non-calculator").replace("calculator", "Calculator")}</span></label>)}</fieldset>;
+  const headingId = `filter-${filterKey}`;
+  return <div className="filter-group" role="group" aria-labelledby={headingId}><h3 id={headingId}>{label}</h3><div className="filter-options">{values.map((value) => <label key={value}><input aria-label={`${label}: ${value}`} type="checkbox" checked={selected.includes(value)} onChange={() => onToggle(filterKey, value)} /><span>{value.replace("non-calculator", "Non-calculator").replace("calculator", "Calculator")}</span></label>)}</div></div>;
 }
 
 function QuestionCard({ question, selected, onSelect }: { question: UnifiedQuestion; selected: boolean; onSelect: () => void }) {
@@ -143,11 +154,12 @@ function QuestionCard({ question, selected, onSelect }: { question: UnifiedQuest
       <header className="question-card-header"><div className="question-meta"><span>{question.year} {question.session}</span><span>Paper {question.paper}</span><span>Question {question.number}</span>{question.component && <span>Component {question.component}</span>}{question.zone && <span>{question.zone}</span>}{question.marks !== null && <span>{question.marks} {question.marks === 1 ? "mark" : "marks"}</span>}</div><label className="pdf-select"><input aria-label={`Add question ${question.number} to PDF`} type="checkbox" checked={selected} onChange={onSelect} /> Add to PDF</label></header>
       <div className="question-topic"><strong>{question.primaryTopic}</strong>{question.subtopics.slice(0, 4).map((topic) => <span key={topic}>{topic}</span>)}</div>
       <div className="question-images">{question.questionImages.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Original question ${question.number}${question.questionImages.length > 1 ? ` page ${index + 1}` : ""}`} />)}</div>
-      {question.accessibleText && <div className="transcript-wrap"><button className="text-button transcript-toggle" aria-expanded={transcriptOpen} onClick={() => setTranscriptOpen((open) => !open)}>{transcriptOpen ? "Hide transcript" : "Show transcript"}</button>{transcriptOpen && <div className="transcript-panel"><strong>Searchable transcript may contain extraction errors.</strong><p>{question.accessibleText}</p></div>}</div>}
       <div className="question-actions">
-        {(question.solution || question.markschemeImages.length > 0) ? <div className="answer-wrap"><button className="answer-toggle" aria-expanded={answerOpen} onClick={() => setAnswerOpen((open) => !open)}>{answerOpen ? "Hide answer" : "Show answer"}</button>{answerOpen && <div className="answer-panel">{question.markschemeImages.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Official mark scheme page ${index + 1}`} />)}{question.solution && (question.markschemeImages.length ? <div className="solution-wrap"><button className="text-button" aria-expanded={solutionOpen} onClick={() => setSolutionOpen((open) => !open)}>{solutionOpen ? "Hide worked text" : "Show worked text"}</button>{solutionOpen && <p>{question.solution}</p>}</div> : <p>{question.solution}</p>)}</div>}</div> : <span className="muted">Answer coming soon</span>}
+        <div className="question-action-buttons">{(question.solution || question.markschemeImages.length > 0) ? <button className="answer-toggle" aria-expanded={answerOpen} onClick={() => setAnswerOpen((open) => !open)}>{answerOpen ? "Hide answer" : "Show answer"}</button> : <span className="muted">Answer coming soon</span>}{question.accessibleText && <button className="transcript-icon-button" title={transcriptOpen ? "Hide transcript" : "Show transcript"} aria-label={transcriptOpen ? "Hide transcript" : "Show transcript"} aria-expanded={transcriptOpen} onClick={() => setTranscriptOpen((open) => !open)}><TextAlignLeft aria-hidden="true" /></button>}</div>
         <div className="source-links">{question.sourceQuestionUrl && <a href={question.sourceQuestionUrl} target="_blank" rel="noreferrer">Source paper <ArrowSquareOut /></a>}{question.sourceMarkSchemeUrl && <a href={question.sourceMarkSchemeUrl} target="_blank" rel="noreferrer">Mark scheme <ArrowSquareOut /></a>}</div>
       </div>
+      {answerOpen && <div className="answer-panel">{question.markschemeImages.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Official mark scheme page ${index + 1}`} />)}{question.solution && (question.markschemeImages.length ? <div className="solution-wrap"><button className="text-button" aria-expanded={solutionOpen} onClick={() => setSolutionOpen((open) => !open)}>{solutionOpen ? "Hide worked text" : "Show worked text"}</button>{solutionOpen && <p>{question.solution}</p>}</div> : <p>{question.solution}</p>)}</div>}
+      {transcriptOpen && <div className="transcript-panel"><strong>Searchable transcript may contain extraction errors.</strong><p>{question.accessibleText}</p></div>}
     </article>
   );
 }

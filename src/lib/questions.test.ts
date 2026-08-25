@@ -29,6 +29,13 @@ describe("question normalization", () => {
       /^https:\/\/saksham106\.github\.io\/ib-maths-aa-hl-topic-practice\/markschemes\//,
     );
   });
+
+  it("keeps detailed IGCSE audit labels out of the student-facing subtopic filter", () => {
+    const questions = loadBankQuestions("igcse");
+    const subtopics = new Set(questions.flatMap((question) => question.subtopics));
+
+    expect(subtopics.size).toBe(31);
+  });
 });
 
 describe("question filtering", () => {
