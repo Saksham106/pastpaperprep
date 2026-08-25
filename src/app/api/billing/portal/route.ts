@@ -5,6 +5,19 @@ import { createClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
 
+function safeBillingError(error: unknown) {
+  if (error instanceof Error) return { name: error.name, message: error.message };
+  if (error && typeof error === "object") {
+    const record = error as Record<string, unknown>;
+    return {
+      code: typeof record.code === "string" ? record.code : undefined,
+      message: typeof record.message === "string" ? record.message : undefined,
+      status: typeof record.status === "number" ? record.status : undefined,
+    };
+  }
+  return { type: typeof error };
+}
+
 export async function POST() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -30,9 +43,7 @@ export async function POST() {
     });
     return NextResponse.json({ url: session.url });
   } catch (error) {
-    console.error("Stripe portal creation failed", error instanceof Error
-      ? { name: error.name, message: error.message }
-      : { type: typeof error });
+    console.error("Stripe portal creation failed", safeBillingError(error));
     return NextResponse.json({ error: "Billing portal is temporarily unavailable" }, { status: 503 });
   }
 }

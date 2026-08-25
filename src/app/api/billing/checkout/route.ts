@@ -9,6 +9,19 @@ export const runtime = "nodejs";
 
 type CheckoutBody = { interval?: unknown };
 
+function safeBillingError(error: unknown) {
+  if (error instanceof Error) return { name: error.name, message: error.message };
+  if (error && typeof error === "object") {
+    const record = error as Record<string, unknown>;
+    return {
+      code: typeof record.code === "string" ? record.code : undefined,
+      message: typeof record.message === "string" ? record.message : undefined,
+      status: typeof record.status === "number" ? record.status : undefined,
+    };
+  }
+  return { type: typeof error };
+}
+
 export async function POST(request: Request) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -88,9 +101,7 @@ export async function POST(request: Request) {
     if (error instanceof Error && error.message === "Unknown billing interval") {
       return NextResponse.json({ error: "Unknown billing interval" }, { status: 400 });
     }
-    console.error("Stripe checkout creation failed", error instanceof Error
-      ? { name: error.name, message: error.message }
-      : { type: typeof error });
+    console.error("Stripe checkout creation failed", safeBillingError(error));
     return NextResponse.json({ error: "Checkout is temporarily unavailable" }, { status: 503 });
   }
 }
