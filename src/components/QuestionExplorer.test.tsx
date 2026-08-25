@@ -23,7 +23,9 @@ describe("QuestionExplorer", () => {
     expect(screen.queryByText(/searchable transcript may contain extraction errors/i)).not.toBeInTheDocument();
     expect(screen.getByRole("group", { name: /subtopics/i })).toBeInTheDocument();
     expect(screen.getAllByRole("img", { name: /original question/i }).length).toBeGreaterThan(0);
-    expect(screen.getAllByRole("button", { name: /show transcript/i })[0]).toHaveClass("transcript-icon-button");
+    const transcriptButton = screen.getAllByRole("button", { name: /show transcript/i })[0];
+    expect(transcriptButton).toHaveClass("transcript-icon-button");
+    expect(transcriptButton.closest(".source-links")).not.toBeNull();
   });
 
   it("keeps an explicit PDF selection and opens the export options", () => {

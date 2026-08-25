@@ -54,7 +54,7 @@ Keep local values in `.env.local`. Configure production values in Vercel. Never 
 
 Do not make the three source repositories private until the signed delivery cutover has passed production QA. Doing so now would break the images on PastPaperPrep.
 
-Stripe placeholders remain in `.env.example`, but checkout is intentionally disabled until prices, billing periods, refund terms, and product access are finalized.
+Stripe Checkout, Billing Portal, verified webhook handling, and entitlement synchronization are implemented behind server-only configuration. The dedicated PastPaperPrep Stripe sandbox contains the approved founding prices: $4.99 monthly and $39.99 annually. Both billing API routes remain disabled unless `STRIPE_BILLING_ENABLED=true`; live keys additionally require `STRIPE_LIVE_MODE_ENABLED=true`. Keep both flags false until credentials, the webhook endpoint, private asset delivery, and lifecycle tests are complete.
 
 ## Product identifiers
 
@@ -67,13 +67,13 @@ These identifiers are stable internal entitlement keys. Stripe price IDs can cha
 
 ## Remaining commercial launch gates
 
-1. Finalize prices and refund terms.
-2. Create matching Stripe products/prices in Saksham's Stripe account.
-3. Add server-side Checkout, Billing Portal, and signed webhook handling.
-4. Update entitlements only from verified Stripe webhook events.
-5. Cut question and mark-scheme delivery over from public GitHub Pages to the uploaded private objects using authorized signed URLs.
-6. Add transactional email branding and a monitored support inbox.
-7. Run a real purchase, cancellation, renewal, and expired-access test before accepting customers.
+1. Configure the Stripe sandbox secret, webhook signing secret, and approved price IDs in Vercel without exposing them to the browser or repository.
+2. Apply the Stripe subscription-sync migration and verify webhook event deduplication and entitlement lifecycle behavior.
+3. Cut question and mark-scheme delivery over from public GitHub Pages to the uploaded private objects using authorized signed URLs.
+4. Enable purchase and Billing Portal controls, then set `STRIPE_BILLING_ENABLED=true`, only after the protected-content path passes QA. Leave `STRIPE_LIVE_MODE_ENABLED=false` until a separate live-launch review.
+5. Add transactional email branding and a monitored support inbox.
+6. Run sandbox purchase, cancellation, renewal, and expired-access tests.
+7. Retire the old public Pages sites and run a real low-value purchase before accepting customers.
 
 ## Important limitation
 

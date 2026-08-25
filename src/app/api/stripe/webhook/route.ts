@@ -1,0 +1,54 @@
+import { NextResponse } from "next/server";
+import { createStripeClient } from "@/lib/stripe";
+import { getStripeConfig } from "@/lib/stripe-config";
+import { buildSubscriptionSync } from "@/lib/stripe-subscriptions";
+import { createAdminClient } from "@/lib/supabase/admin";
+
+export const runtime = "nodejs";
+
+export async function POST(request: Request) {
+  let config;
+  try {
+    config = getStripeConfig();
+  } catch {
+    return NextResponse.json({ error: "Stripe webhooks are not configured" }, { status: 503 });
+  }
+
+  const signature = request.headers.get("stripe-signature");
+  if (!signature) return NextResponse.json({ error: "Missing signature" }, { status: 400 });
+
+  const rawBody = await request.text();
+  const stripe = createStripeClient(config.secretKey);
+  let event;
+  try {
+    event = stripe.webhooks.constructEvent(rawBody, signature, config.webhookSecret);
+  } catch {
+    return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
+  }
+
+  let sync;
+  try {
+    sync = buildSubscriptionSync(event, new Set([config.monthlyPriceId, config.annualPriceId]));
+  } catch {
+    return NextResponse.json({ error: "Invalid subscription event" }, { status: 400 });
+  }
+  if (!sync) return NextResponse.json({ received: true });
+
+  const admin = createAdminClient();
+  const { error } = await admin.rpc("apply_stripe_subscription_event", {
+    p_event_id: sync.eventId,
+    p_event_created: sync.eventCreated,
+    p_subscription_id: sync.subscriptionId,
+    p_customer_id: sync.customerId,
+    p_user_id: sync.userId,
+    p_product_id: sync.productId,
+    p_status: sync.status,
+    p_starts_at: sync.startsAt,
+    p_expires_at: sync.expiresAt,
+  });
+  if (error) {
+    return NextResponse.json({ error: "Webhook processing failed" }, { status: 500 });
+  }
+
+  return NextResponse.json({ received: true });
+}
