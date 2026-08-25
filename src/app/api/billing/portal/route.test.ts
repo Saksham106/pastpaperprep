@@ -3,18 +3,18 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 vi.mock("server-only", () => ({}));
 const getUser = vi.fn();
 const userFrom = vi.fn();
-const adminRpc = vi.fn();
+const customersSearch = vi.fn();
 const portalCreate = vi.fn();
 let billingEnabled = true;
 
 vi.mock("@/lib/supabase/server", () => ({
   createClient: vi.fn(async () => ({ auth: { getUser }, from: userFrom })),
 }));
-vi.mock("@/lib/supabase/admin", () => ({
-  createAdminClient: vi.fn(() => ({ rpc: adminRpc })),
-}));
 vi.mock("@/lib/stripe", () => ({
-  createStripeClient: vi.fn(() => ({ billingPortal: { sessions: { create: portalCreate } } })),
+  createStripeClient: vi.fn(() => ({
+    customers: { search: customersSearch },
+    billingPortal: { sessions: { create: portalCreate } },
+  })),
 }));
 vi.mock("@/lib/stripe-config", () => ({
   isStripeBillingEnabled: () => billingEnabled,
@@ -38,7 +38,7 @@ describe("POST /api/billing/portal", () => {
 
   it("rejects direct portal calls while billing is disabled", async () => {
     billingEnabled = false;
-    getUser.mockResolvedValue({ data: { user: { id: "user-id" } } });
+    getUser.mockResolvedValue({ data: { user: { id: "user-id", email: "student@example.com" } } });
 
     const response = await POST();
     expect(response.status).toBe(503);
@@ -46,8 +46,8 @@ describe("POST /api/billing/portal", () => {
   });
 
   it("fails closed when the authenticated user has no mapped customer", async () => {
-    getUser.mockResolvedValue({ data: { user: { id: "user-id" } } });
-    adminRpc.mockResolvedValue({ data: null, error: null });
+    getUser.mockResolvedValue({ data: { user: { id: "user-id", email: "student@example.com" } } });
+    customersSearch.mockResolvedValue({ data: [] });
 
     const response = await POST();
     expect(response.status).toBe(404);
@@ -55,14 +55,17 @@ describe("POST /api/billing/portal", () => {
   });
 
   it("creates a portal session only for the server-mapped customer", async () => {
-    getUser.mockResolvedValue({ data: { user: { id: "user-id" } } });
-    adminRpc.mockResolvedValue({ data: "cus_mapped", error: null });
+    getUser.mockResolvedValue({ data: { user: { id: "user-id", email: "student@example.com" } } });
+    customersSearch.mockResolvedValue({ data: [{ id: "cus_mapped", deleted: false, metadata: { user_id: "user-id" } }] });
     portalCreate.mockResolvedValue({ url: "https://billing.stripe.com/session" });
 
     const response = await POST();
     expect(response.status).toBe(200);
     expect(userFrom).not.toHaveBeenCalled();
-    expect(adminRpc).toHaveBeenCalledWith("get_stripe_customer_id", { p_user_id: "user-id" });
+    expect(customersSearch).toHaveBeenCalledWith({
+      query: "metadata['user_id']:'user-id'",
+      limit: 1,
+    });
     await expect(response.json()).resolves.toEqual({ url: "https://billing.stripe.com/session" });
     expect(portalCreate).toHaveBeenCalledWith({
       customer: "cus_mapped",

@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { startCheckout } from "@/lib/stripe-checkout";
 import { getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
 import { createStripeClient } from "@/lib/stripe";
-import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
@@ -45,16 +44,17 @@ export async function POST(request: Request) {
   try {
     const config = getStripeConfig();
     const stripe = createStripeClient(config.secretKey);
-    const admin = createAdminClient();
     const url = await startCheckout({
       interval: body.interval,
       user: { id: user.id, email: user.email },
       config,
     }, {
       async findCustomerId(userId) {
-        const { data, error } = await admin.rpc("get_stripe_customer_id", { p_user_id: userId });
-        if (error) throw error;
-        return typeof data === "string" ? data : null;
+        const customers = await stripe.customers.search({
+          query: `metadata['user_id']:'${userId}'`,
+          limit: 1,
+        });
+        return customers.data[0]?.id ?? null;
       },
       async createCustomer(checkoutUser) {
         const customer = await stripe.customers.create({
@@ -63,12 +63,8 @@ export async function POST(request: Request) {
         }, { idempotencyKey: `pastpaperprep-customer-${checkoutUser.id}` });
         return customer.id;
       },
-      async saveCustomer(userId, customerId) {
-        const { error } = await admin.rpc("upsert_stripe_customer", {
-          p_user_id: userId,
-          p_customer_id: customerId,
-        });
-        if (error) throw error;
+      async saveCustomer() {
+        // The signed subscription webhook atomically establishes this mapping.
       },
       async createSession(input) {
         const session = await stripe.checkout.sessions.create({

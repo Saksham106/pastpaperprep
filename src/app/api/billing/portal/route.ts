@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { createStripeClient } from "@/lib/stripe";
 import { getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
-import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
@@ -22,21 +21,22 @@ function safeBillingError(error: unknown) {
 export async function POST() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return NextResponse.json({ error: "Authentication required" }, { status: 401 });
+  if (!user?.email) return NextResponse.json({ error: "Authentication required" }, { status: 401 });
   if (!isStripeBillingEnabled()) {
     return NextResponse.json({ error: "Billing is not available yet" }, { status: 503 });
   }
 
-  const admin = createAdminClient();
-  const { data, error } = await admin.rpc("get_stripe_customer_id", { p_user_id: user.id });
-  if (error) return NextResponse.json({ error: "Billing is temporarily unavailable" }, { status: 503 });
-  if (typeof data !== "string") return NextResponse.json({ error: "No billing account found" }, { status: 404 });
-
   try {
     const config = getStripeConfig();
     const stripe = createStripeClient(config.secretKey);
+    const customers = await stripe.customers.search({
+      query: `metadata['user_id']:'${user.id}'`,
+      limit: 1,
+    });
+    const customer = customers.data[0];
+    if (!customer) return NextResponse.json({ error: "No billing account found" }, { status: 404 });
     const session = await stripe.billingPortal.sessions.create({
-      customer: data,
+      customer: customer.id,
       return_url: `${config.siteUrl}/account`,
     });
     return NextResponse.json({ url: session.url });
