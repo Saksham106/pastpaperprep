@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { ArrowRight, Check } from "@phosphor-icons/react/dist/ssr";
+import { Check } from "@phosphor-icons/react/dist/ssr";
+import { CheckoutButtons } from "@/components/BillingActions";
 
 export const metadata = { title: "Pricing" };
 
@@ -24,8 +24,8 @@ export default function PricingPage() {
         <div className="founding-prices" aria-label="Founding subscription prices">
           <div><strong>$4.99</strong><span>per month</span></div>
           <div className="annual-price"><strong>$39.99</strong><span>per year</span><small>Save four months</small></div>
-          <Link className="button" href="/login?next=/pricing">Create free account <ArrowRight /></Link>
-          <p>No payment today. Checkout opens after final testing.</p>
+          <CheckoutButtons />
+          <p>Secure checkout by Stripe. Cancel any time.</p>
         </div>
       </article>
       <div className="launch-note"><strong>Founding students keep this price.</strong><p>This is an early-user price. Future students may pay more as PastPaperPrep adds subjects, progress tools, and new study features.</p></div>

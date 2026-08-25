@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { createStripeClient } from "@/lib/stripe";
 import { getStripeConfig } from "@/lib/stripe-config";
-import { buildSubscriptionSync } from "@/lib/stripe-subscriptions";
+import { buildSubscriptionSync, getSubscriptionEventReference } from "@/lib/stripe-subscriptions";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
@@ -26,9 +26,27 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
+  let reference;
+  try {
+    reference = getSubscriptionEventReference(event);
+  } catch {
+    return NextResponse.json({ error: "Invalid subscription event" }, { status: 400 });
+  }
+  if (!reference) return NextResponse.json({ received: true });
+
+  let currentSubscription;
+  try {
+    currentSubscription = await stripe.subscriptions.retrieve(reference.subscriptionId);
+  } catch {
+    return NextResponse.json({ error: "Could not refresh subscription" }, { status: 500 });
+  }
+
   let sync;
   try {
-    sync = buildSubscriptionSync(event, new Set([config.monthlyPriceId, config.annualPriceId]));
+    sync = buildSubscriptionSync(
+      { ...event, data: { object: currentSubscription } },
+      new Set([config.monthlyPriceId, config.annualPriceId]),
+    );
   } catch {
     return NextResponse.json({ error: "Invalid subscription event" }, { status: 400 });
   }

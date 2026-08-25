@@ -2,10 +2,14 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("server-only", () => ({}));
 const constructEvent = vi.fn();
+const retrieveSubscription = vi.fn();
 const rpc = vi.fn();
 
 vi.mock("@/lib/stripe", () => ({
-  createStripeClient: vi.fn(() => ({ webhooks: { constructEvent } })),
+  createStripeClient: vi.fn(() => ({
+    webhooks: { constructEvent },
+    subscriptions: { retrieve: retrieveSubscription },
+  })),
 }));
 vi.mock("@/lib/stripe-config", () => ({
   getStripeConfig: () => ({
@@ -50,7 +54,10 @@ function request(signature = "valid") {
 }
 
 describe("POST /api/stripe/webhook", () => {
-  beforeEach(() => vi.clearAllMocks());
+  beforeEach(() => {
+    vi.clearAllMocks();
+    retrieveSubscription.mockResolvedValue(subscriptionEvent.data.object);
+  });
 
   it("rejects invalid signatures without mutating entitlement state", async () => {
     constructEvent.mockImplementation(() => { throw new Error("bad signature"); });
@@ -65,6 +72,7 @@ describe("POST /api/stripe/webhook", () => {
 
     const response = await POST(request());
     expect(response.status).toBe(200);
+    expect(retrieveSubscription).toHaveBeenCalledWith("sub_1");
     expect(rpc).toHaveBeenCalledWith("apply_stripe_subscription_event", {
       p_event_id: "evt_1",
       p_event_created: 1_800_000_000,
@@ -76,6 +84,24 @@ describe("POST /api/stripe/webhook", () => {
       p_starts_at: new Date(1_799_000_000 * 1000).toISOString(),
       p_expires_at: new Date(1_801_000_000 * 1000).toISOString(),
     });
+  });
+
+  it("uses Stripe's current subscription instead of a stale webhook snapshot", async () => {
+    const staleEvent = structuredClone(subscriptionEvent);
+    staleEvent.data.object.status = "active";
+    constructEvent.mockReturnValue(staleEvent);
+    retrieveSubscription.mockResolvedValue({
+      ...subscriptionEvent.data.object,
+      status: "canceled",
+    });
+    rpc.mockResolvedValue({ data: "applied", error: null });
+
+    const response = await POST(request());
+    expect(response.status).toBe(200);
+    expect(rpc).toHaveBeenCalledWith(
+      "apply_stripe_subscription_event",
+      expect.objectContaining({ p_status: "revoked", p_expires_at: null }),
+    );
   });
 
   it("does not grant access from checkout completion alone", async () => {
@@ -90,5 +116,13 @@ describe("POST /api/stripe/webhook", () => {
     rpc.mockResolvedValue({ data: null, error: { message: "customer mismatch" } });
     const response = await POST(request());
     expect(response.status).toBe(500);
+  });
+
+  it("returns a retryable error when Stripe cannot refresh the subscription", async () => {
+    constructEvent.mockReturnValue(subscriptionEvent);
+    retrieveSubscription.mockRejectedValue(new Error("temporary Stripe error"));
+    const response = await POST(request());
+    expect(response.status).toBe(500);
+    expect(rpc).not.toHaveBeenCalled();
   });
 });

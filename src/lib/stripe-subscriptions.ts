@@ -7,6 +7,10 @@ const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3
 
 type ObjectRecord = Record<string, unknown>;
 
+export type SubscriptionEventReference = {
+  subscriptionId: string;
+};
+
 export type SubscriptionSync = {
   eventId: string;
   eventCreated: number;
@@ -29,6 +33,15 @@ function unixDate(value: unknown): string {
     throw new Error("Invalid subscription period");
   }
   return new Date(value * 1000).toISOString();
+}
+
+export function getSubscriptionEventReference(eventValue: unknown): SubscriptionEventReference | null {
+  const event = record(eventValue, "Invalid Stripe event");
+  if (typeof event.type !== "string" || !SUBSCRIPTION_EVENT_TYPES.has(event.type)) return null;
+  const data = record(event.data, "Invalid Stripe event");
+  const subscription = record(data.object, "Invalid Stripe subscription");
+  if (typeof subscription.id !== "string") throw new Error("Invalid Stripe subscription");
+  return { subscriptionId: subscription.id };
 }
 
 export function buildSubscriptionSync(eventValue: unknown, knownPriceIds: ReadonlySet<string>): SubscriptionSync | null {

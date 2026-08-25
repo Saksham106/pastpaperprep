@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildSubscriptionSync } from "@/lib/stripe-subscriptions";
+import { buildSubscriptionSync, getSubscriptionEventReference } from "@/lib/stripe-subscriptions";
 
 const userId = "150a3d0e-4c34-45cc-9748-68252f0fb8f1";
 
@@ -30,6 +30,11 @@ function event(overrides: Record<string, unknown> = {}) {
 const knownPrices = new Set(["price_monthly", "price_annual"]);
 
 describe("Stripe subscription event normalization", () => {
+  it("extracts subscription references only from supported lifecycle events", () => {
+    expect(getSubscriptionEventReference(event())).toEqual({ subscriptionId: "sub_1" });
+    expect(getSubscriptionEventReference(event({ type: "checkout.session.completed" }))).toBeNull();
+  });
+
   it("maps a known active subscription to the all-access entitlement", () => {
     expect(buildSubscriptionSync(event(), knownPrices)).toEqual({
       eventId: "evt_2",

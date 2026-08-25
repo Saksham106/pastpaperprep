@@ -114,6 +114,10 @@ begin
       last_event_id = excluded.last_event_id,
       last_event_created = excluded.last_event_created,
       updated_at = now()
+  -- The webhook handler refreshes the provider-authoritative subscription before
+  -- calling this function. Equality is intentional: Stripe timestamps have
+  -- second-level precision, and equal-second events therefore converge on the
+  -- freshly retrieved current state instead of trusting either event snapshot.
   where excluded.last_event_created >= public.stripe_subscriptions.last_event_created;
   get diagnostics applied_rows = row_count;
 

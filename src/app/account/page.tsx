@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { signOut } from "@/app/auth/actions";
+import { PortalButton } from "@/components/BillingActions";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata = { title: "Your account" };
@@ -46,19 +47,22 @@ export default async function AccountPage() {
       <article className="account-card">
         <span className="eyebrow">Access</span>
         {entitlements.length ? (
-          <ul className="access-list">
-            {entitlements.map((entitlement, index) => {
-              const product = Array.isArray(entitlement.products)
-                ? entitlement.products[0]
-                : entitlement.products;
-              return (
-                <li key={`${product?.name ?? "access"}-${index}`}>
-                  <strong>{product?.name ?? "Question bank access"}</strong>
-                  <span>{entitlement.status}</span>
-                </li>
-              );
-            })}
-          </ul>
+          <div className="account-access-active">
+            <ul className="access-list">
+              {entitlements.map((entitlement, index) => {
+                const product = Array.isArray(entitlement.products)
+                  ? entitlement.products[0]
+                  : entitlement.products;
+                return (
+                  <li key={`${product?.name ?? "access"}-${index}`}>
+                    <strong>{product?.name ?? "Question bank access"}</strong>
+                    <span>{entitlement.status}</span>
+                  </li>
+                );
+              })}
+            </ul>
+            <PortalButton />
+          </div>
         ) : (
           <div className="empty-access">
             <h2>No paid access yet</h2>

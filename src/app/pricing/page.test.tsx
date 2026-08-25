@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import PricingPage from "@/app/pricing/page";
 
 describe("PricingPage", () => {
-  it("presents the approved founding all-access price without enabling checkout", () => {
+  it("presents the approved founding all-access price and both checkout intervals", () => {
     render(<PricingPage />);
 
     expect(screen.getByRole("heading", { name: /all three question banks/i })).toBeInTheDocument();
@@ -11,6 +11,7 @@ describe("PricingPage", () => {
     expect(screen.getByText("$39.99")).toBeInTheDocument();
     expect(screen.getByText(/founding price/i)).toBeInTheDocument();
     expect(screen.getByText(/future students may pay more/i)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /create free account/i })).toHaveAttribute("href", "/login?next=/pricing");
+    expect(screen.getByRole("button", { name: /choose annual/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /choose monthly/i })).toBeInTheDocument();
   });
 });
