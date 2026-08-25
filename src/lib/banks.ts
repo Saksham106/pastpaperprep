@@ -26,7 +26,7 @@ export const BANKS: readonly Bank[] = [
     paperCount: 147,
     years: "2016-2026",
     accent: "cobalt",
-    sourceBaseUrl: "https://swati1977.github.io/igcse-0580-topic-practice",
+    sourceBaseUrl: "https://saksham106.github.io/igcse-0580-topic-practice",
   },
   {
     slug: "ib-hl",
@@ -39,7 +39,7 @@ export const BANKS: readonly Bank[] = [
     paperCount: 104,
     years: "2017-2026",
     accent: "coral",
-    sourceBaseUrl: "https://swati1977.github.io/ib-maths-aa-hl-topic-practice",
+    sourceBaseUrl: "https://saksham106.github.io/ib-maths-aa-hl-topic-practice",
   },
   {
     slug: "ib-sl",
@@ -52,7 +52,7 @@ export const BANKS: readonly Bank[] = [
     paperCount: 62,
     years: "2017-2026",
     accent: "lime",
-    sourceBaseUrl: "https://swati1977.github.io/ib-maths-aa-topic-finder",
+    sourceBaseUrl: "https://saksham106.github.io/ib-maths-aa-topic-finder",
   },
 ] as const;
 

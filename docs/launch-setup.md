@@ -39,6 +39,16 @@ Required now:
 
 Keep local values in `.env.local`. Configure production values in Vercel. Never expose a Supabase secret/service-role key in a `NEXT_PUBLIC_*` variable.
 
+## Content architecture
+
+- The private `Saksham106/pastpaperprep` repository contains the Next.js application and normalized question metadata in `src/data/raw/*.json`.
+- Vercel builds and serves the application. The bundled metadata tells the browser which questions match each filter.
+- The binary question and mark-scheme images are not in Supabase yet. They are currently served from the three public `Saksham106.github.io` source sites.
+- Supabase currently handles accounts and commercial records: profiles, entitlements, saved questions, attempts, and Stripe customer mappings.
+- The target paid architecture moves the binary assets into a private Supabase Storage bucket and delivers short-lived signed URLs after server-side entitlement checks.
+
+Do not make the three source repositories private until the asset migration is complete and the new signed delivery path has passed production QA. Doing so now would break the images on PastPaperPrep.
+
 Stripe placeholders remain in `.env.example`, but checkout is intentionally disabled until prices, billing periods, refund terms, and product access are finalized.
 
 ## Product identifiers
@@ -62,4 +72,4 @@ These identifiers are stable internal entitlement keys. Stripe price IDs can cha
 
 ## Important limitation
 
-The current question and mark-scheme images are still served from Swati's public GitHub Pages URLs. Account infrastructure is production-ready, but the content is not yet an enforceable paywall while those files remain publicly available. Do not claim paid exclusivity until the asset migration is complete.
+The current question and mark-scheme images are still served from the public GitHub Pages sites owned by `Saksham106`. Account infrastructure is production-ready, but the content is not yet an enforceable paywall while those files remain publicly available. Do not claim paid exclusivity until the asset migration is complete.
