@@ -1,10 +1,14 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowSquareOut, DownloadSimple, Funnel, MagnifyingGlass, TextAlignLeft, X } from "@phosphor-icons/react";
 import { downloadQuestionPdf, questionsForPdf, type PdfContent } from "@/lib/pdf-export";
-import { filterQuestions, type QuestionFilters, type QuestionSort, type UnifiedQuestion } from "@/lib/questions";
+import { isPreviewQuestion } from "@/lib/access";
+import { filterQuestions } from "@/lib/question-filter";
+import type { QuestionFilters, QuestionSort, UnifiedQuestion } from "@/lib/questions";
+import { fetchSignedAssets, isSignedAssetFresh, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy";
 
 const PAGE_SIZE = 24;
@@ -14,7 +18,9 @@ function unique(questions: UnifiedQuestion[], value: (question: UnifiedQuestion)
   return [...new Set(questions.flatMap((question) => value(question)).filter(Boolean))].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 }
 
-export function QuestionExplorer({ questions }: { questions: UnifiedQuestion[] }) {
+export type ExplorerAccess = { authenticated: boolean; bankAccess: boolean; canExportPdf: boolean };
+
+export function QuestionExplorer({ questions, access }: { questions: UnifiedQuestion[]; access: ExplorerAccess }) {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState<QuestionSort>("paper");
   const [filters, setFilters] = useState<Pick<QuestionFilters, MultiKey>>({});
@@ -26,6 +32,10 @@ export function QuestionExplorer({ questions }: { questions: UnifiedQuestion[] }
   const [pdfOpen, setPdfOpen] = useState(false);
   const [pdfContent, setPdfContent] = useState<PdfContent>("both");
   const [pdfStatus, setPdfStatus] = useState("");
+  const [signedAssets, setSignedAssets] = useState(new Map<string, SignedAsset>());
+  const [failedAssetKeys, setFailedAssetKeys] = useState(new Set<string>());
+  const [assetError, setAssetError] = useState("");
+  const [assetEpoch, setAssetEpoch] = useState(() => Date.now());
 
   const bank = questions[0]?.bankSlug;
   const subtopicGroups = useMemo(
@@ -50,7 +60,37 @@ export function QuestionExplorer({ questions }: { questions: UnifiedQuestion[] }
   }), [questions]);
 
   const filtered = useMemo(() => filterQuestions(questions, { ...filters, search, sort }), [questions, filters, search, sort]);
+  const shownQuestions = useMemo(() => filtered.slice(0, visible), [filtered, visible]);
   const activeCount = Object.values(filters).reduce((count, values) => count + (values?.length ?? 0), 0);
+  const questionAssetRequests = useMemo(() => shownQuestions
+    .filter((question) => access.bankAccess || isPreviewQuestion(question.bankSlug, question.id))
+    .filter((question) => !failedAssetKeys.has(signedAssetKey(question.id, "question")))
+    .filter((question) => !isSignedAssetFresh(signedAssets.get(signedAssetKey(question.id, "question")), assetEpoch))
+    .map((question) => ({ questionId: question.id, kind: "question" as const })),
+  [access.bankAccess, assetEpoch, failedAssetKeys, shownQuestions, signedAssets]);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => setAssetEpoch(Date.now()), 30_000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!bank) return;
+    if (!questionAssetRequests.length) return;
+    let cancelled = false;
+    fetchSignedAssets(bank, questionAssetRequests)
+      .then((assets) => {
+        if (cancelled) return;
+        setSignedAssets((current) => new Map([...current, ...assets]));
+        setAssetError("");
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setFailedAssetKeys((current) => new Set([...current, ...questionAssetRequests.map((request) => signedAssetKey(request.questionId, request.kind))]));
+        setAssetError("Some question images could not load. Try refreshing the page.");
+      });
+    return () => { cancelled = true; };
+  }, [bank, questionAssetRequests]);
 
   const toggle = (key: MultiKey, value: string) => {
     if (key === "topics") setShowAllSubtopics(false);
@@ -80,9 +120,22 @@ export function QuestionExplorer({ questions }: { questions: UnifiedQuestion[] }
 
   const exportQuestions = questionsForPdf(filtered, selectedIds, selectionIsExplicit, questions);
   const handleDownload = async () => {
+    if (!access.canExportPdf || !bank) return;
     setPdfStatus(`Preparing ${exportQuestions.length} questions...`);
     try {
-      await downloadQuestionPdf(exportQuestions, pdfContent, (complete, total) => setPdfStatus(`Preparing ${complete} of ${total}...`));
+      const requests = exportQuestions.flatMap((question) => {
+        const items = [];
+        if (pdfContent !== "answers") items.push({ questionId: question.id, kind: "question" as const });
+        if (pdfContent !== "questions" && question.markschemeImageCount > 0) items.push({ questionId: question.id, kind: "answer" as const });
+        return items;
+      });
+      const assets = await fetchSignedAssets(bank, requests);
+      const securedQuestions = exportQuestions.map((question) => ({
+        ...question,
+        questionImages: assets.get(signedAssetKey(question.id, "question"))?.urls ?? [],
+        markschemeImages: assets.get(signedAssetKey(question.id, "answer"))?.urls ?? [],
+      }));
+      await downloadQuestionPdf(securedQuestions, pdfContent, (complete, total) => setPdfStatus(`Preparing ${complete} of ${total}...`));
       setPdfStatus("Downloaded");
       setPdfOpen(false);
     } catch {
@@ -100,8 +153,10 @@ export function QuestionExplorer({ questions }: { questions: UnifiedQuestion[] }
         </label>
         <button className="mobile-filter-button" onClick={() => setFiltersOpen(true)}><Funnel /> Filters {activeCount ? `(${activeCount})` : ""}</button>
         <label className="sort-field">Sort <select value={sort} onChange={(event) => setSort(event.target.value as QuestionSort)}><option value="paper">Newest papers</option><option value="topic">Topic</option><option value="marks-desc">Marks: high to low</option><option value="marks-asc">Marks: low to high</option></select></label>
-        <button className="download-button" onClick={() => setPdfOpen(true)}><DownloadSimple /> Download PDF</button>
+        <button className="download-button" onClick={() => access.canExportPdf ? setPdfOpen(true) : setPdfStatus("upgrade-required")}><DownloadSimple /> Download PDF</button>
       </div>
+      {pdfStatus === "upgrade-required" && <div className="access-notice"><span>PDF export is included with Founding Pro.</span><Link href={access.authenticated ? "/pricing" : `/login?next=/banks/${bank}`}>{access.authenticated ? "View pricing" : "Sign in"}</Link></div>}
+      {assetError && <div className="access-notice" role="alert">{assetError}</div>}
 
       <div className="explorer-layout">
         <aside className={`filter-sidebar ${filtersOpen ? "is-open" : ""}`} aria-label="Question filters">
@@ -127,7 +182,12 @@ export function QuestionExplorer({ questions }: { questions: UnifiedQuestion[] }
           </div>
           {activeCount > 0 && <div className="active-filters">{Object.entries(filters).flatMap(([key, values]) => (values ?? []).map((value) => <button key={`${key}-${value}`} onClick={() => toggle(key as MultiKey, value)}>{value} <X /></button>))}</div>}
           <div className="question-list">
-            {filtered.slice(0, visible).map((question) => <QuestionCard key={question.id} question={question} selected={selectedIds.has(question.id)} onSelect={() => toggleQuestion(question.id)} />)}
+            {shownQuestions.map((question) => {
+              const unlocked = access.bankAccess || isPreviewQuestion(question.bankSlug, question.id);
+              const questionAsset = signedAssets.get(signedAssetKey(question.id, "question"));
+              const answerAsset = signedAssets.get(signedAssetKey(question.id, "answer"));
+              return <QuestionCard key={question.id} question={question} unlocked={unlocked} authenticated={access.authenticated} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onAnswerAsset={(asset) => setSignedAssets((current) => new Map(current).set(signedAssetKey(question.id, "answer"), asset))} selected={selectedIds.has(question.id)} onSelect={() => toggleQuestion(question.id)} />;
+            })}
           </div>
           {filtered.length === 0 && <div className="empty-state"><strong>No questions match that combination.</strong><span>Clear a filter and try again.</span></div>}
           {visible < filtered.length && <button className="load-more" onClick={() => setVisible((count) => count + PAGE_SIZE)}>Show 24 more questions</button>}
@@ -145,20 +205,43 @@ function FilterGroup({ label, filterKey, values, selected, onToggle }: { label: 
   return <div className="filter-group" role="group" aria-labelledby={headingId}><h3 id={headingId}>{label}</h3><div className="filter-options">{values.map((value) => <label key={value}><input aria-label={`${label}: ${value}`} type="checkbox" checked={selected.includes(value)} onChange={() => onToggle(filterKey, value)} /><span>{value.replace("non-calculator", "Non-calculator").replace("calculator", "Calculator")}</span></label>)}</div></div>;
 }
 
-function QuestionCard({ question, selected, onSelect }: { question: UnifiedQuestion; selected: boolean; onSelect: () => void }) {
+function QuestionCard({ question, unlocked, authenticated, questionAsset, answerAsset, onAnswerAsset, selected, onSelect }: { question: UnifiedQuestion; unlocked: boolean; authenticated: boolean; questionAsset?: SignedAsset; answerAsset?: SignedAsset; onAnswerAsset: (asset: SignedAsset) => void; selected: boolean; onSelect: () => void }) {
   const [answerOpen, setAnswerOpen] = useState(false);
   const [transcriptOpen, setTranscriptOpen] = useState(false);
   const [solutionOpen, setSolutionOpen] = useState(false);
+  const [answerLoading, setAnswerLoading] = useState(false);
+  const [answerError, setAnswerError] = useState("");
+
+  const toggleAnswer = async () => {
+    if (answerOpen) { setAnswerOpen(false); return; }
+    if (question.markschemeImageCount > 0 && !answerAsset) {
+      setAnswerLoading(true);
+      setAnswerError("");
+      try {
+        const assets = await fetchSignedAssets(question.bankSlug, [{ questionId: question.id, kind: "answer" }]);
+        const asset = assets.get(signedAssetKey(question.id, "answer"));
+        if (!asset) throw new Error("Missing answer asset");
+        onAnswerAsset(asset);
+      } catch {
+        setAnswerError("The answer could not load. Try again.");
+        setAnswerLoading(false);
+        return;
+      }
+      setAnswerLoading(false);
+    }
+    setAnswerOpen(true);
+  };
+
   return (
     <article className="question-card">
-      <header className="question-card-header"><div className="question-meta"><span>{question.year} {question.session}</span><span>Paper {question.paper}</span><span>Question {question.number}</span>{question.component && <span>Component {question.component}</span>}{question.zone && <span>{question.zone}</span>}{question.marks !== null && <span>{question.marks} {question.marks === 1 ? "mark" : "marks"}</span>}</div><label className="pdf-select"><input aria-label={`Add question ${question.number} to PDF`} type="checkbox" checked={selected} onChange={onSelect} /> Add to PDF</label></header>
+      <header className="question-card-header"><div className="question-meta"><span>{question.year} {question.session}</span><span>Paper {question.paper}</span><span>Question {question.number}</span>{question.component && <span>Component {question.component}</span>}{question.zone && <span>{question.zone}</span>}{question.marks !== null && <span>{question.marks} {question.marks === 1 ? "mark" : "marks"}</span>}</div>{unlocked && <label className="pdf-select"><input aria-label={`Add question ${question.number} to PDF`} type="checkbox" checked={selected} onChange={onSelect} /> Add to PDF</label>}</header>
       <div className="question-topic"><strong>{question.primaryTopic}</strong>{question.subtopics.slice(0, 4).map((topic) => <span key={topic}>{topic}</span>)}</div>
-      <div className="question-images">{question.questionImages.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Original question ${question.number}${question.questionImages.length > 1 ? ` page ${index + 1}` : ""}`} />)}</div>
+      {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} />) : <div className="asset-placeholder">Loading question image...</div>}</div> : <div className="question-locked"><strong>Founding Pro question</strong><span>Unlock the full question, answer, and PDF export.</span><Link href={authenticated ? "/pricing" : `/login?next=/banks/${question.bankSlug}`}>{authenticated ? "View pricing" : "Sign in to unlock"}</Link></div>}
       <div className="question-actions">
-        <div className="question-action-buttons">{(question.solution || question.markschemeImages.length > 0) ? <button className="answer-toggle" aria-expanded={answerOpen} onClick={() => setAnswerOpen((open) => !open)}>{answerOpen ? "Hide answer" : "Show answer"}</button> : <span className="muted">Answer coming soon</span>}</div>
+        <div className="question-action-buttons">{unlocked ? ((question.solution || question.markschemeImageCount > 0) ? <button className="answer-toggle" disabled={answerLoading} aria-expanded={answerOpen} onClick={toggleAnswer}>{answerLoading ? "Loading answer..." : answerOpen ? "Hide answer" : "Show answer"}</button> : <span className="muted">Answer coming soon</span>) : null}{answerError && <span className="muted" role="alert">{answerError}</span>}</div>
         <div className="source-links">{question.sourceQuestionUrl && <a href={question.sourceQuestionUrl} target="_blank" rel="noreferrer">Source paper <ArrowSquareOut /></a>}{question.sourceMarkSchemeUrl && <a href={question.sourceMarkSchemeUrl} target="_blank" rel="noreferrer">Mark scheme <ArrowSquareOut /></a>}{question.accessibleText && <button className="transcript-icon-button" title={transcriptOpen ? "Hide transcript" : "Show transcript"} aria-label={transcriptOpen ? "Hide transcript" : "Show transcript"} aria-expanded={transcriptOpen} onClick={() => setTranscriptOpen((open) => !open)}><TextAlignLeft aria-hidden="true" /></button>}</div>
       </div>
-      {answerOpen && <div className="answer-panel">{question.markschemeImages.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Official mark scheme page ${index + 1}`} />)}{question.solution && (question.markschemeImages.length ? <div className="solution-wrap"><button className="text-button" aria-expanded={solutionOpen} onClick={() => setSolutionOpen((open) => !open)}>{solutionOpen ? "Hide worked text" : "Show worked text"}</button>{solutionOpen && <p>{question.solution}</p>}</div> : <p>{question.solution}</p>)}</div>}
+      {answerOpen && <div className="answer-panel">{answerAsset?.urls.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Official mark scheme page ${index + 1}`} />)}{question.solution && (answerAsset?.urls.length ? <div className="solution-wrap"><button className="text-button" aria-expanded={solutionOpen} onClick={() => setSolutionOpen((open) => !open)}>{solutionOpen ? "Hide worked text" : "Show worked text"}</button>{solutionOpen && <p>{question.solution}</p>}</div> : <p>{question.solution}</p>)}</div>}
       {transcriptOpen && <div className="transcript-panel"><strong>Searchable transcript may contain extraction errors.</strong><p>{question.accessibleText}</p></div>}
     </article>
   );

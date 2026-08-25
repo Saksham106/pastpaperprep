@@ -43,6 +43,9 @@ describe("bank access", () => {
   it("rejects expired, revoked, and unrelated entitlements", () => {
     expect(hasBankAccess("ib-sl", [entitlement("bank_ib_sl", { expiresAt: now.toISOString() })], now)).toBe(false);
     expect(hasBankAccess("ib-sl", [entitlement("bank_ib_sl", { startsAt: "2026-08-26T18:00:00.000Z" })], now)).toBe(false);
+    expect(hasBankAccess("ib-sl", [entitlement("bank_ib_sl", { startsAt: null })], now)).toBe(false);
+    expect(hasBankAccess("ib-sl", [entitlement("bank_ib_sl", { startsAt: "not-a-date" })], now)).toBe(false);
+    expect(hasBankAccess("ib-sl", [entitlement("bank_ib_sl", { expiresAt: "not-a-date" })], now)).toBe(false);
     expect(hasBankAccess("ib-sl", [entitlement("bank_ib_sl", { status: "revoked" })], now)).toBe(false);
     expect(hasBankAccess("ib-sl", [entitlement("bank_ib_hl")], now)).toBe(false);
   });

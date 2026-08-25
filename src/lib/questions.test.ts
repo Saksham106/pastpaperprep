@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { filterQuestions, loadBankQuestions } from "@/lib/questions";
+import { filterQuestions } from "@/lib/question-filter";
+import { loadBankQuestions } from "@/lib/questions";
 
 describe("question normalization", () => {
   it("loads every source bank without dropping questions", () => {

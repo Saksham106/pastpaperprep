@@ -15,6 +15,10 @@ type EntitlementRow = {
   expires_at?: unknown;
 };
 
+function validDate(value: unknown): value is string {
+  return typeof value === "string" && Number.isFinite(Date.parse(value));
+}
+
 export function normalizeEntitlements(rows: unknown[]): AccessEntitlement[] {
   return rows.flatMap((value) => {
     if (!value || typeof value !== "object" || Array.isArray(value)) return [];
@@ -24,8 +28,8 @@ export function normalizeEntitlements(rows: unknown[]): AccessEntitlement[] {
       !PRODUCT_IDS.has(row.product_id as ProductId) ||
       typeof row.status !== "string" ||
       !STATUSES.has(row.status as EntitlementStatus) ||
-      (row.starts_at !== null && typeof row.starts_at !== "string") ||
-      (row.expires_at !== null && typeof row.expires_at !== "string")
+      !validDate(row.starts_at) ||
+      (row.expires_at !== null && !validDate(row.expires_at))
     ) {
       return [];
     }

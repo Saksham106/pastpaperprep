@@ -36,9 +36,12 @@ export const PREVIEW_QUESTION_IDS: Record<BankSlug, readonly string[]> = {
 
 function isCurrent(entitlement: AccessEntitlement, now: Date): boolean {
   if (entitlement.status !== "active" && entitlement.status !== "trialing") return false;
-  if (entitlement.startsAt && new Date(entitlement.startsAt).getTime() > now.getTime()) return false;
+  if (!entitlement.startsAt) return false;
+  const startsAt = new Date(entitlement.startsAt).getTime();
+  if (!Number.isFinite(startsAt) || startsAt > now.getTime()) return false;
   if (!entitlement.expiresAt) return true;
-  return new Date(entitlement.expiresAt).getTime() > now.getTime();
+  const expiresAt = new Date(entitlement.expiresAt).getTime();
+  return Number.isFinite(expiresAt) && expiresAt > now.getTime();
 }
 
 export function hasBankAccess(
