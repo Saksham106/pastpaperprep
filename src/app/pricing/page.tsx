@@ -28,7 +28,7 @@ export default function PricingPage() {
           <p>Secure checkout by Stripe. Cancel any time.</p>
         </div>
       </article>
-      <div className="launch-note"><strong>Founding students keep this price.</strong><p>This is an early-user price. Future students may pay more as PastPaperPrep adds subjects, progress tools, and new study features.</p></div>
+      <div className="launch-note"><strong>Low pricing for our first students.</strong><p>This introductory price may change as PastPaperPrep adds subjects, progress tools, and new study features.</p></div>
     </section>
   );
 }

@@ -10,7 +10,8 @@ describe("PricingPage", () => {
     expect(screen.getByText("$4.99")).toBeInTheDocument();
     expect(screen.getByText("$39.99")).toBeInTheDocument();
     expect(screen.getByText(/founding price/i)).toBeInTheDocument();
-    expect(screen.getByText(/future students may pay more/i)).toBeInTheDocument();
+    expect(screen.getByText(/introductory price may change/i)).toBeInTheDocument();
+    expect(screen.queryByText(/keep this price/i)).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: /choose annual/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /choose monthly/i })).toBeInTheDocument();
   });
