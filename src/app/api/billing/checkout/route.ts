@@ -52,13 +52,9 @@ export async function POST(request: Request) {
       config,
     }, {
       async findCustomerId(userId) {
-        const { data, error } = await admin
-          .from("stripe_customers")
-          .select("customer_id")
-          .eq("user_id", userId)
-          .maybeSingle();
+        const { data, error } = await admin.rpc("get_stripe_customer_id", { p_user_id: userId });
         if (error) throw error;
-        return data?.customer_id ?? null;
+        return typeof data === "string" ? data : null;
       },
       async createCustomer(checkoutUser) {
         const customer = await stripe.customers.create({
@@ -68,9 +64,10 @@ export async function POST(request: Request) {
         return customer.id;
       },
       async saveCustomer(userId, customerId) {
-        const { error } = await admin
-          .from("stripe_customers")
-          .upsert({ user_id: userId, customer_id: customerId }, { onConflict: "user_id" });
+        const { error } = await admin.rpc("upsert_stripe_customer", {
+          p_user_id: userId,
+          p_customer_id: customerId,
+        });
         if (error) throw error;
       },
       async createSession(input) {

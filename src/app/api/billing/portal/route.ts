@@ -28,19 +28,15 @@ export async function POST() {
   }
 
   const admin = createAdminClient();
-  const { data, error } = await admin
-    .from("stripe_customers")
-    .select("customer_id")
-    .eq("user_id", user.id)
-    .maybeSingle();
+  const { data, error } = await admin.rpc("get_stripe_customer_id", { p_user_id: user.id });
   if (error) return NextResponse.json({ error: "Billing is temporarily unavailable" }, { status: 503 });
-  if (!data?.customer_id) return NextResponse.json({ error: "No billing account found" }, { status: 404 });
+  if (typeof data !== "string") return NextResponse.json({ error: "No billing account found" }, { status: 404 });
 
   try {
     const config = getStripeConfig();
     const stripe = createStripeClient(config.secretKey);
     const session = await stripe.billingPortal.sessions.create({
-      customer: data.customer_id,
+      customer: data,
       return_url: `${config.siteUrl}/account`,
     });
     return NextResponse.json({ url: session.url });

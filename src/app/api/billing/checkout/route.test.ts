@@ -4,7 +4,7 @@ vi.mock("server-only", () => ({}));
 
 const getUser = vi.fn();
 const userFrom = vi.fn();
-const adminFrom = vi.fn();
+const adminRpc = vi.fn();
 const customersCreate = vi.fn();
 const sessionsCreate = vi.fn();
 let billingEnabled = true;
@@ -13,7 +13,7 @@ vi.mock("@/lib/supabase/server", () => ({
   createClient: vi.fn(async () => ({ auth: { getUser }, from: userFrom })),
 }));
 vi.mock("@/lib/supabase/admin", () => ({
-  createAdminClient: vi.fn(() => ({ from: adminFrom })),
+  createAdminClient: vi.fn(() => ({ rpc: adminRpc })),
 }));
 vi.mock("@/lib/stripe", () => ({
   createStripeClient: vi.fn(() => ({
@@ -86,8 +86,7 @@ describe("POST /api/billing/checkout", () => {
   it("creates checkout using the mapped authenticated customer", async () => {
     const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
     getUser.mockResolvedValue({ data: { user } });
-    const maybeSingle = vi.fn().mockResolvedValue({ data: { customer_id: "cus_existing" }, error: null });
-    adminFrom.mockReturnValue({ select: () => ({ eq: () => ({ maybeSingle }) }) });
+    adminRpc.mockResolvedValue({ data: "cus_existing", error: null });
     sessionsCreate.mockResolvedValue({ url: "https://checkout.stripe.com/session" });
 
     const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", {
@@ -99,7 +98,7 @@ describe("POST /api/billing/checkout", () => {
     expect(response.status).toBe(200);
     await expect(response.json()).resolves.toEqual({ url: "https://checkout.stripe.com/session" });
     expect(userFrom).not.toHaveBeenCalled();
-    expect(adminFrom).toHaveBeenCalledWith("stripe_customers");
+    expect(adminRpc).toHaveBeenCalledWith("get_stripe_customer_id", { p_user_id: user.id });
     expect(sessionsCreate).toHaveBeenCalledWith(expect.objectContaining({
       customer: "cus_existing",
       mode: "subscription",
@@ -112,11 +111,9 @@ describe("POST /api/billing/checkout", () => {
   it("creates an unmapped Stripe customer with a stable idempotency key", async () => {
     const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
     getUser.mockResolvedValue({ data: { user } });
-    const maybeSingle = vi.fn().mockResolvedValue({ data: null, error: null });
-    const upsert = vi.fn().mockResolvedValue({ error: null });
-    adminFrom.mockImplementation((table: string) => table === "stripe_customers"
-      ? { select: () => ({ eq: () => ({ maybeSingle }) }), upsert }
-      : {});
+    adminRpc.mockImplementation((name: string) => Promise.resolve(name === "get_stripe_customer_id"
+      ? { data: null, error: null }
+      : { data: null, error: null }));
     customersCreate.mockResolvedValue({ id: "cus_created" });
     sessionsCreate.mockResolvedValue({ url: "https://checkout.stripe.com/session" });
 
@@ -132,10 +129,10 @@ describe("POST /api/billing/checkout", () => {
       email: user.email,
       metadata: { user_id: user.id },
     }, { idempotencyKey: `pastpaperprep-customer-${user.id}` });
-    expect(upsert).toHaveBeenCalledWith(
-      { user_id: user.id, customer_id: "cus_created" },
-      { onConflict: "user_id" },
-    );
+    expect(adminRpc).toHaveBeenCalledWith("upsert_stripe_customer", {
+      p_user_id: user.id,
+      p_customer_id: "cus_created",
+    });
     expect(sessionsCreate).toHaveBeenCalledWith(expect.objectContaining({ customer: "cus_created" }));
   });
 });
