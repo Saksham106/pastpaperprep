@@ -1,76 +1,65 @@
 # PastPaperPrep launch setup
 
-The product shell and all three question banks work locally without external services. Launch infrastructure is intentionally separate.
+Updated: 25 August 2026
 
-## 1. Supabase
+## Live infrastructure
 
-Create a dedicated project named `pastpaperprep`. Do not reuse the Insight Academy project because this is a separate commercial product with different users, billing, and data ownership.
+- Production: https://pastpaperprep.com
+- `www.pastpaperprep.com`: permanent redirect to the apex domain
+- Hosting: Vercel project `pastpaperprep`
+- Source: private GitHub repository `Saksham106/pastpaperprep`
+- Database/auth: dedicated Supabase project `PastPaperPrep`
 
-Required environment variables:
+## Supabase
 
-```bash
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
-SUPABASE_SERVICE_ROLE_KEY=
-```
+The initial commercial schema lives in:
 
-Initial schema:
+`supabase/migrations/20260825123000_initial_commercial_schema.sql`
 
-- `profiles`: user identity and display name
-- `products`: IGCSE, IB HL, IB SL, all-access
-- `entitlements`: which product each user can access and expiry state
-- `attempts`: question, answer state, confidence, timestamps
-- `bookmarks`: saved questions
-- `stripe_customers`: Supabase user to Stripe customer mapping
+It creates:
 
-Enable email magic-link login first. Add Google only after the core flow works. All user-scoped tables need Row Level Security before production.
+- `profiles`
+- `products`
+- `entitlements`
+- `saved_questions`
+- `attempts`
+- `stripe_customers`
 
-## 2. Stripe
+RLS is enabled on every user-data table. Browser clients can only read or mutate rows owned by the authenticated user. Entitlements and Stripe mappings are read-only to browser clients and must later be updated by trusted webhook/server code.
 
-Use Saksham's business Stripe account. Create four products:
+Auth uses passwordless email links. Production and local callback URLs are allow-listed in Supabase.
 
-1. IGCSE Mathematics access
-2. IB Math AA HL access
-3. IB Math AA SL access
-4. All-access bundle
+## Environment variables
 
-Use Stripe Checkout rather than collecting card data directly. A verified webhook should update `entitlements`; never trust a browser redirect as proof of payment.
+Required now:
 
-Required environment variables:
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+- `NEXT_PUBLIC_SITE_URL=https://pastpaperprep.com`
 
-```bash
-STRIPE_SECRET_KEY=
-STRIPE_WEBHOOK_SECRET=
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
-```
+Keep local values in `.env.local`. Configure production values in Vercel. Never expose a Supabase secret/service-role key in a `NEXT_PUBLIC_*` variable.
 
-Pricing can be decided later without blocking the build.
+Stripe placeholders remain in `.env.example`, but checkout is intentionally disabled until prices, billing periods, refund terms, and product access are finalized.
 
-## 3. Question assets
+## Product identifiers
 
-The commercial repo stores normalized JSON. Images currently resolve from the source GitHub Pages sites to avoid putting more than 400 MB of media into the Vercel build.
+- `bank_igcse`
+- `bank_ib_hl`
+- `bank_ib_sl`
+- `bundle_all`
 
-Before public launch, migrate `questions/` and `markschemes/` into Supabase Storage or another CDN and update each bank's `sourceBaseUrl`. Keep the bucket public for question images only; do not store user data there.
+These identifiers are stable internal entitlement keys. Stripe price IDs can change without changing the access model.
 
-## 4. Vercel and domain
+## Remaining commercial launch gates
 
-1. Push this codebase to a new private GitHub repository.
-2. Import it into Vercel.
-3. Add production environment variables.
-4. Deploy and verify all routes.
-5. Buy `pastpaperprep.com` only after a final registrar availability check.
-6. Point the domain to Vercel and make `www` redirect to the apex domain.
-7. Add the production URL to Supabase Auth redirect allowlists and Stripe Checkout settings.
+1. Finalize prices and refund terms.
+2. Create matching Stripe products/prices in Saksham's Stripe account.
+3. Add server-side Checkout, Billing Portal, and signed webhook handling.
+4. Update entitlements only from verified Stripe webhook events.
+5. Move question and mark-scheme assets off public GitHub Pages into private storage with authorized delivery.
+6. Add transactional email branding and a monitored support inbox.
+7. Run a real purchase, cancellation, renewal, and expired-access test before accepting customers.
 
-## 5. Release gate
+## Important limitation
 
-Do not accept money until all are true:
-
-- Sign-up, sign-in, sign-out, and passwordless recovery verified
-- Checkout and cancellation verified in Stripe test mode
-- Webhook replay/idempotency tested
-- Entitlements enforced server-side
-- Terms, Privacy, Refund Policy, and contact email published
-- Question/image licensing record retained
-- Mobile, keyboard, dark-mode, and accessibility checks pass
-- Analytics and error monitoring enabled
+The current question and mark-scheme images are still served from Swati's public GitHub Pages URLs. Account infrastructure is production-ready, but the content is not yet an enforceable paywall while those files remain publicly available. Do not claim paid exclusivity until the asset migration is complete.

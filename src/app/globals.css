@@ -129,6 +129,26 @@ main { min-height: 70vh; }
 .pricing-list { margin-top: 54px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 .pricing-list article { background: var(--surface); border: 1px solid var(--line); padding: 25px; border-radius: 11px; }.pricing-list article > span { color: var(--coral); font-weight: 800; font-size: .8rem; }.pricing-list h2 { font: 800 1.7rem var(--font-display), sans-serif; }.pricing-list p, .pricing-list li { color: var(--muted); }.pricing-list ul { list-style: none; padding: 0; display: grid; gap: 9px; }.pricing-list li { display: flex; gap: 8px; }.pricing-list li svg { color: #55992b; }.pricing-list a { display: inline-flex; align-items: center; gap: 8px; margin-top: 15px; font-weight: 800; color: var(--cobalt); }
 .launch-note { margin-top: 20px; padding: 20px; border-left: 4px solid var(--lime); background: var(--surface); }.launch-note p { margin-bottom: 0; color: var(--muted); }
+.auth-page, .account-page, .legal-page { padding-block: 84px 120px; }
+.auth-card, .account-card { max-width: 680px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: clamp(24px, 5vw, 48px); box-shadow: var(--shadow); }
+.auth-card { margin-inline: auto; }
+.auth-card h1, .account-heading h1, .legal-page h1 { margin: 10px 0 16px; font: 850 clamp(2.4rem, 5vw, 4rem)/1 var(--font-display), sans-serif; letter-spacing: -.055em; }
+.auth-card > p, .account-heading p, .legal-page p { color: var(--muted); line-height: 1.7; }
+.auth-form { display: grid; gap: 11px; margin-top: 30px; }
+.auth-form label { font-weight: 800; }
+.auth-form input { width: 100%; min-height: 52px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); padding: 0 14px; }
+.auth-form .button { border: 0; justify-content: center; }
+.form-message { padding: 12px 14px; border-radius: 8px; margin: 4px 0 0; }
+.form-message.success { background: color-mix(in srgb, var(--lime) 28%, var(--surface)); color: var(--ink); }
+.form-message.error { background: color-mix(in srgb, var(--coral) 18%, var(--surface)); color: var(--ink); }
+.auth-fine-print { font-size: .82rem; }.auth-fine-print a { text-decoration: underline; }
+.account-heading { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 34px; }
+.button.secondary { border: 1px solid var(--line); color: var(--ink); background: var(--surface); }
+.access-list { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 10px; }
+.access-list li { display: flex; justify-content: space-between; gap: 20px; padding: 16px; border: 1px solid var(--line); border-radius: 8px; }
+.access-list span { color: var(--muted); text-transform: capitalize; }
+.empty-access { margin-top: 22px; }.empty-access h2 { font: 800 1.8rem var(--font-display), sans-serif; }.empty-access p { color: var(--muted); line-height: 1.7; }.empty-access .button { margin-top: 12px; }
+.legal-page { max-width: 760px; }.legal-page h2 { margin-top: 36px; font: 800 1.45rem var(--font-display), sans-serif; }.legal-updated { font-size: .85rem; }
 .site-footer { min-height: 190px; border-top: 1px solid var(--line); padding: 42px max(20px, calc((100% - 1180px) / 2)); display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 24px; }.site-footer p, .site-footer small { color: var(--muted); }.site-footer small { grid-column: 1 / -1; }.footer-links { display: flex; gap: 22px; font-weight: 700; }
 
 @media (max-width: 850px) {
@@ -149,5 +169,6 @@ main { min-height: 70vh; }
   .bank-hero { padding: 55px 0 38px; }.bank-hero h1 { font-size: 3rem; }.bank-hero-stats { gap: 12px; display: grid; grid-template-columns: 1fr 1fr; }
   .explorer { padding-top: 25px; }.filter-bar { position: static; grid-template-columns: 1fr; }.search-field, .filter-bar .select-field:last-child { grid-column: auto; }
   .question-main { grid-template-columns: 1fr; padding: 18px; }.question-main > img { width: 100%; }.question-actions { align-items: flex-start; flex-direction: column; }
+  .account-heading { align-items: flex-start; flex-direction: column; }
   .site-footer { grid-template-columns: 1fr; }.site-footer small { grid-column: auto; }.footer-links { flex-wrap: wrap; }
 }
