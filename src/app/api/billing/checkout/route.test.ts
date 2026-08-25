@@ -3,16 +3,17 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 vi.mock("server-only", () => ({}));
 
 const getUser = vi.fn();
-const from = vi.fn();
+const userFrom = vi.fn();
+const adminFrom = vi.fn();
 const customersCreate = vi.fn();
 const sessionsCreate = vi.fn();
 let billingEnabled = true;
 
 vi.mock("@/lib/supabase/server", () => ({
-  createClient: vi.fn(async () => ({ auth: { getUser }, from })),
+  createClient: vi.fn(async () => ({ auth: { getUser }, from: userFrom })),
 }));
 vi.mock("@/lib/supabase/admin", () => ({
-  createAdminClient: vi.fn(() => ({ from })),
+  createAdminClient: vi.fn(() => ({ from: adminFrom })),
 }));
 vi.mock("@/lib/stripe", () => ({
   createStripeClient: vi.fn(() => ({
@@ -86,7 +87,7 @@ describe("POST /api/billing/checkout", () => {
     const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
     getUser.mockResolvedValue({ data: { user } });
     const maybeSingle = vi.fn().mockResolvedValue({ data: { customer_id: "cus_existing" }, error: null });
-    from.mockReturnValue({ select: () => ({ eq: () => ({ maybeSingle }) }) });
+    adminFrom.mockReturnValue({ select: () => ({ eq: () => ({ maybeSingle }) }) });
     sessionsCreate.mockResolvedValue({ url: "https://checkout.stripe.com/session" });
 
     const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", {
@@ -97,6 +98,8 @@ describe("POST /api/billing/checkout", () => {
 
     expect(response.status).toBe(200);
     await expect(response.json()).resolves.toEqual({ url: "https://checkout.stripe.com/session" });
+    expect(userFrom).not.toHaveBeenCalled();
+    expect(adminFrom).toHaveBeenCalledWith("stripe_customers");
     expect(sessionsCreate).toHaveBeenCalledWith(expect.objectContaining({
       customer: "cus_existing",
       mode: "subscription",
@@ -111,7 +114,7 @@ describe("POST /api/billing/checkout", () => {
     getUser.mockResolvedValue({ data: { user } });
     const maybeSingle = vi.fn().mockResolvedValue({ data: null, error: null });
     const upsert = vi.fn().mockResolvedValue({ error: null });
-    from.mockImplementation((table: string) => table === "stripe_customers"
+    adminFrom.mockImplementation((table: string) => table === "stripe_customers"
       ? { select: () => ({ eq: () => ({ maybeSingle }) }), upsert }
       : {});
     customersCreate.mockResolvedValue({ id: "cus_created" });
@@ -124,6 +127,7 @@ describe("POST /api/billing/checkout", () => {
     }));
 
     expect(response.status).toBe(200);
+    expect(userFrom).not.toHaveBeenCalled();
     expect(customersCreate).toHaveBeenCalledWith({
       email: user.email,
       metadata: { user_id: user.id },

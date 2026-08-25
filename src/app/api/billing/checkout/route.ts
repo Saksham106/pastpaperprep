@@ -52,7 +52,7 @@ export async function POST(request: Request) {
       config,
     }, {
       async findCustomerId(userId) {
-        const { data, error } = await supabase
+        const { data, error } = await admin
           .from("stripe_customers")
           .select("customer_id")
           .eq("user_id", userId)
