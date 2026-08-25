@@ -28,6 +28,12 @@ describe("question normalization", () => {
     expect(markedQuestion?.markschemeImages[0]).toMatch(
       /^https:\/\/saksham106\.github\.io\/ib-maths-aa-hl-topic-practice\/markschemes\//,
     );
+    expect(igcse.questionAssetPaths[0]).toBe(
+      "igcse/questions/0580-2026-march-22-q1.webp",
+    );
+    expect(markedQuestion?.markschemeAssetPaths[0]).toMatch(
+      /^ib-hl\/markschemes\//,
+    );
   });
 
   it("keeps detailed IGCSE audit labels out of the student-facing subtopic filter", () => {

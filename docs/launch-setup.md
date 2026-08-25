@@ -37,6 +37,10 @@ Required now:
 - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
 - `NEXT_PUBLIC_SITE_URL=https://pastpaperprep.com`
 
+Required when private signed asset delivery is enabled:
+
+- `SUPABASE_SECRET_KEY` (server-only; never expose it through a `NEXT_PUBLIC_*` variable)
+
 Keep local values in `.env.local`. Configure production values in Vercel. Never expose a Supabase secret/service-role key in a `NEXT_PUBLIC_*` variable.
 
 ## Content architecture
@@ -46,6 +50,7 @@ Keep local values in `.env.local`. Configure production values in Vercel. Never 
 - The binary question and mark-scheme images have been copied into the private Supabase Storage bucket `question-assets`. The live application still serves the three public `Saksham106.github.io` source sites until entitlement-aware signed delivery is implemented and verified.
 - Supabase currently handles accounts and commercial records: profiles, entitlements, saved questions, attempts, and Stripe customer mappings.
 - The target paid architecture delivers the uploaded private objects through short-lived signed URLs after server-side entitlement checks.
+- The access policy, strict public-URL-to-private-object mapping, and bounded `/api/assets/sign` endpoint are implemented. The current beta UI does not call that endpoint yet, so deploying this foundation does not interrupt the public testing flow.
 
 Do not make the three source repositories private until the signed delivery cutover has passed production QA. Doing so now would break the images on PastPaperPrep.
 

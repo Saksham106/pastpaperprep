@@ -1,6 +1,7 @@
 import igcseData from "@/data/raw/igcse.json";
 import ibHlData from "@/data/raw/ib-hl.json";
 import ibSlData from "@/data/raw/ib-sl.json";
+import { storageObjectPath } from "@/lib/assets";
 import { getBank, type BankSlug } from "@/lib/banks";
 
 export type UnifiedQuestion = {
@@ -26,6 +27,8 @@ export type UnifiedQuestion = {
   searchText: string;
   questionImages: string[];
   markschemeImages: string[];
+  questionAssetPaths: string[];
+  markschemeAssetPaths: string[];
   solution: string | null;
   sourceQuestionUrl: string | null;
   sourceMarkSchemeUrl: string | null;
@@ -100,6 +103,9 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion): UnifiedQuestion {
   const subtopics = Array.from(new Set(studentSubtopics.length ? studentSubtopics : controlledSkills));
   const officialMarkscheme = record(raw.officialMarkscheme);
   const solution = nullableText(raw.solution) ?? nullableText(raw.independentSolution);
+  const questionImages = strings(raw.questionImages).map((path) => assetUrl(slug, path));
+  const markschemeImages = [...strings(raw.markschemeImages), ...strings(officialMarkscheme.images)]
+    .map((path) => assetUrl(slug, path));
   const searchable = [
     primaryTopic,
     ...secondaryTopics,
@@ -133,9 +139,10 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion): UnifiedQuestion {
     summary,
     accessibleText,
     searchText: searchable,
-    questionImages: strings(raw.questionImages).map((path) => assetUrl(slug, path)),
-    markschemeImages: [...strings(raw.markschemeImages), ...strings(officialMarkscheme.images)]
-      .map((path) => assetUrl(slug, path)),
+    questionImages,
+    markschemeImages,
+    questionAssetPaths: questionImages.map((path) => storageObjectPath(slug, path)),
+    markschemeAssetPaths: markschemeImages.map((path) => storageObjectPath(slug, path)),
     solution,
     sourceQuestionUrl: nullableText(raw.sourceQuestionUrl) ?? nullableText(raw.sourceUrl) ?? nullableText(raw.pdfUrl),
     sourceMarkSchemeUrl: nullableText(raw.sourceMarkSchemeUrl) ?? nullableText(raw.markschemeUrl),
