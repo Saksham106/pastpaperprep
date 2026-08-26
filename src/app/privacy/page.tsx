@@ -15,7 +15,7 @@ export default function PrivacyPage() {
       <h2>Payments</h2>
       <p>Card details are handled by Stripe and are not stored by PastPaperPrep.</p>
       <h2>Your choices</h2>
-      <p>You may request access to or deletion of your account data by contacting support@pastpaperprep.com. Some records may be retained where legally required or needed to prevent fraud.</p>
+      <p>You may request access to or deletion of your account data by contacting <a href="mailto:hello@pastpaperprep.com">hello@pastpaperprep.com</a>. Some records may be retained where legally required or needed to prevent fraud.</p>
     </article>
   );
 }

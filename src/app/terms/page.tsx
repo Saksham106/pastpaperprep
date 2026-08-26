@@ -15,7 +15,7 @@ export default function TermsPage() {
       <h2>Availability</h2>
       <p>We may update, correct, replace, or remove content and features. We do not promise uninterrupted availability.</p>
       <h2>Contact</h2>
-      <p>Questions about these terms can be sent to support@pastpaperprep.com.</p>
+      <p>Questions about these terms can be sent to <a href="mailto:hello@pastpaperprep.com">hello@pastpaperprep.com</a>.</p>
     </article>
   );
 }

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { signOut } from "@/app/auth/actions";
 import { PortalButton } from "@/components/BillingActions";
+import { PasswordSettingsForm } from "@/components/PasswordSettingsForm";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata = { title: "Your account" };
@@ -66,10 +67,16 @@ export default async function AccountPage() {
         ) : (
           <div className="empty-access">
             <h2>No paid access yet</h2>
-            <p>Your account is ready. Paid plans will appear here once checkout launches.</p>
-            <Link className="button primary" href="/pricing">View planned access</Link>
+            <p>Your account is ready. Choose a plan to unlock every question, answer, and PDF export.</p>
+            <Link className="button primary" href="/pricing">View plans</Link>
           </div>
         )}
+      </article>
+      <article className="account-card account-security">
+        <span className="eyebrow">Sign-in options</span>
+        <h2>Add or change your password</h2>
+        <p>Email-link sign-in will keep working even after you add a password.</p>
+        <PasswordSettingsForm />
       </article>
     </section>
   );

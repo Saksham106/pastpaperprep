@@ -74,7 +74,7 @@ export async function POST(request: Request) {
           line_items: [{ price: input.priceId, quantity: 1 }],
           success_url: input.successUrl,
           cancel_url: input.cancelUrl,
-          allow_promotion_codes: false,
+          allow_promotion_codes: true,
           subscription_data: {
             metadata: { user_id: input.userId, product_id: "bundle_all" },
           },

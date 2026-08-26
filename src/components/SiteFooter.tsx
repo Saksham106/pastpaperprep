@@ -14,6 +14,7 @@ export function SiteFooter() {
         <Link href="/terms">Terms</Link>
         <Link href="/privacy">Privacy</Link>
         <Link href="/refund-policy">Refunds</Link>
+        <a href="mailto:hello@pastpaperprep.com">Help</a>
       </div>
       <small>Independent practice platform. Exam-board names identify the relevant qualifications.</small>
     </footer>

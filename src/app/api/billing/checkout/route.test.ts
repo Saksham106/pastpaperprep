@@ -104,6 +104,7 @@ describe("POST /api/billing/checkout", () => {
       mode: "subscription",
       line_items: [{ price: "price_annual", quantity: 1 }],
       client_reference_id: user.id,
+      allow_promotion_codes: true,
       subscription_data: { metadata: { user_id: user.id, product_id: "bundle_all" } },
     }));
   });

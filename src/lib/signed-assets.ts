@@ -73,3 +73,43 @@ export async function fetchSignedAssets(
 
   return signed;
 }
+
+export async function fetchPdfAssets(
+  bank: BankSlug,
+  questionIds: readonly string[],
+  content: "questions" | "answers" | "both",
+  fetcher: Fetcher = fetch,
+): Promise<Map<string, SignedAsset>> {
+  const expectedQuestions = new Set(questionIds);
+  const response = await fetcher("/api/pdf/sign", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ bank, questionIds, content }),
+  });
+  const payload = await response.json().catch(() => null) as Record<string, unknown> | null;
+  if (!response.ok) {
+    const message = typeof payload?.error === "string" ? payload.error : "Could not authorize PDF assets";
+    throw new Error(message);
+  }
+  if (
+    !payload ||
+    typeof payload.expiresIn !== "number" ||
+    payload.expiresIn <= 0 ||
+    !Array.isArray(payload.assets) ||
+    !payload.assets.every(validAsset)
+  ) throw new Error("Invalid signed asset response");
+
+  const signed = new Map<string, SignedAsset>();
+  const expiresAt = Date.now() + Math.max(payload.expiresIn - 30, 1) * 1000;
+  for (const asset of payload.assets) {
+    const key = signedAssetKey(asset.questionId, asset.kind);
+    if (
+      !expectedQuestions.has(asset.questionId) ||
+      (content === "questions" && asset.kind !== "question") ||
+      (content === "answers" && asset.kind !== "answer") ||
+      signed.has(key)
+    ) throw new Error("Invalid signed asset response");
+    signed.set(key, { ...asset, expiresAt });
+  }
+  return signed;
+}

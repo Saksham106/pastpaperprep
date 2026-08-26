@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { notFound } from "next/navigation";
 import { QuestionExplorer } from "@/components/QuestionExplorer";
 import { canExportPdf, hasBankAccess } from "@/lib/access";
@@ -21,6 +22,9 @@ export default async function BankPage({ params }: { params: Promise<{ slug: str
   const supabase = await createClient();
   const { data: claimsData } = await supabase.auth.getClaims();
   const userId = claimsData?.claims?.sub;
+  const exportMarker = typeof userId === "string"
+    ? createHash("sha256").update(userId).digest("hex").slice(0, 10).toUpperCase()
+    : undefined;
   const { data: entitlementRows } = userId
     ? await supabase
       .from("entitlements")
@@ -41,7 +45,7 @@ export default async function BankPage({ params }: { params: Promise<{ slug: str
           <div className="bank-hero-stats"><span><strong>{bank.questionCount.toLocaleString()}</strong> questions</span><span><strong>{bank.paperCount}</strong> papers</span><span><strong>{bank.years}</strong> coverage</span></div>
         </div>
       </section>
-      <div className="shell"><QuestionExplorer questions={questions} access={{ authenticated: Boolean(userId), bankAccess, canExportPdf: canExportPdf(slug, entitlements) }} /></div>
+      <div className="shell"><QuestionExplorer questions={questions} access={{ authenticated: Boolean(userId), bankAccess, canExportPdf: canExportPdf(slug, entitlements) }} exportMarker={exportMarker} /></div>
     </>
   );
 }

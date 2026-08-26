@@ -27,7 +27,7 @@ It creates:
 
 RLS is enabled on every user-data table. Browser clients can only read or mutate rows owned by the authenticated user. Entitlements and Stripe mappings are read-only to browser clients and must later be updated by trusted webhook/server code.
 
-Auth uses passwordless email links. Production and local callback URLs are allow-listed in Supabase.
+Auth supports either a password or a one-time email link. New accounts can start with email and add a password later. Production and local callback URLs are allow-listed in Supabase, and Supabase sends branded authentication mail through Resend custom SMTP.
 
 ## Environment variables
 
@@ -47,12 +47,13 @@ Keep local values in `.env.local`. Configure production values in Vercel. Never 
 
 - The private `Saksham106/pastpaperprep` repository contains the Next.js application and normalized question metadata in `src/data/raw/*.json`.
 - Vercel builds and serves the application. The bundled metadata tells the browser which questions match each filter.
-- The binary question and mark-scheme images have been copied into the private Supabase Storage bucket `question-assets`. The live application still serves the three public `Saksham106.github.io` source sites until entitlement-aware signed delivery is implemented and verified.
+- The binary question and mark-scheme images live in the private Supabase Storage bucket `question-assets` and are delivered through short-lived signed URLs after server-side entitlement checks.
 - Supabase currently handles accounts and commercial records: profiles, entitlements, saved questions, attempts, and Stripe customer mappings.
-- The target paid architecture delivers the uploaded private objects through short-lived signed URLs after server-side entitlement checks.
-- The access policy, strict public-URL-to-private-object mapping, and bounded `/api/assets/sign` endpoint are implemented. The current beta UI does not call that endpoint yet, so deploying this foundation does not interrupt the public testing flow.
+- The access policy, strict logical-question-to-private-object mapping, and bounded `/api/assets/sign` endpoint are live. Locked browser payloads do not contain premium content or private Storage paths.
+- PDF worksheets are capped at 50 questions and require a paid entitlement. The server atomically enforces daily worksheet, exported-question, and signed-asset allowances. Generated PDFs carry a privacy-safe account marker.
+- Operator-approved accounts can be exempted from download allowances through the SQL-editor-only `set_download_allowance_exemption` helper. It is not callable by browser or service roles.
 
-Do not make the three source repositories private until the signed delivery cutover has passed production QA. Doing so now would break the images on PastPaperPrep.
+The three legacy source repositories are private, GitHub Pages is disabled, and the old public content URLs return `404`.
 
 Stripe Checkout, Billing Portal, verified webhook handling, and entitlement synchronization are implemented behind server-only configuration. The dedicated PastPaperPrep Stripe sandbox contains the approved founding prices: $4.99 monthly and $39.99 annually. Both billing API routes remain disabled unless `STRIPE_BILLING_ENABLED=true`; live keys additionally require `STRIPE_LIVE_MODE_ENABLED=true`. Keep both flags false until credentials, the webhook endpoint, private asset delivery, and lifecycle tests are complete.
 
@@ -65,16 +66,12 @@ Stripe Checkout, Billing Portal, verified webhook handling, and entitlement sync
 
 These identifiers are stable internal entitlement keys. Stripe price IDs can change without changing the access model.
 
+Complimentary access uses a manually issued `bundle_all` entitlement. Checkout accepts Stripe promotion codes so the operator can create teacher, partner, or individual discounts without accepting browser-supplied prices. Manual entitlements and promotion codes must be created only after reviewing the target account or campaign.
+
 ## Remaining commercial launch gates
 
-1. Configure the Stripe sandbox secret, webhook signing secret, and approved price IDs in Vercel without exposing them to the browser or repository.
-2. Apply the Stripe subscription-sync migration and verify webhook event deduplication and entitlement lifecycle behavior.
-3. Cut question and mark-scheme delivery over from public GitHub Pages to the uploaded private objects using authorized signed URLs.
-4. Enable purchase and Billing Portal controls, then set `STRIPE_BILLING_ENABLED=true`, only after the protected-content path passes QA. Leave `STRIPE_LIVE_MODE_ENABLED=false` until a separate live-launch review.
-5. Add transactional email branding and a monitored support inbox.
-6. Run sandbox purchase, cancellation, renewal, and expired-access tests.
-7. Retire the old public Pages sites and run a real low-value purchase before accepting customers.
-
-## Important limitation
-
-The current question and mark-scheme images are still served from the public GitHub Pages sites owned by `Saksham106`, even though a byte-matched private copy now exists in Supabase Storage. Account infrastructure is production-ready, but the content is not yet an enforceable paywall while those public files remain reachable. Do not claim paid exclusivity until signed delivery is live and the public source sites have been retired.
+1. Apply and verify the download-allowance migration.
+2. Deploy and test password sign-in, password reset, one-link authentication email, free-only filtering, iPad layouts, PDF limits, and watermarks in production.
+3. Confirm the live Stripe product names, prices, webhook, Billing Portal, and production environment use only live-mode values.
+4. Run a controlled live purchase, entitlement grant, Portal access, cancellation/refund, webhook revocation, and post-revocation denial.
+5. Keep public billing gated until every production lifecycle check passes.

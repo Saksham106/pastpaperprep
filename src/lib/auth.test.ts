@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { isValidEmail, safeNextPath } from "./auth";
+import { isValidEmail, isValidPassword, safeNextPath } from "./auth";
 
 describe("safeNextPath", () => {
   it("allows an internal application path", () => {
@@ -25,5 +25,16 @@ describe("isValidEmail", () => {
   it("rejects malformed or oversized addresses", () => {
     expect(isValidEmail("not-an-email")).toBe(false);
     expect(isValidEmail(`${"a".repeat(250)}@example.com`)).toBe(false);
+  });
+});
+
+describe("isValidPassword", () => {
+  it("accepts a practical passphrase", () => {
+    expect(isValidPassword("three calm otters")).toBe(true);
+  });
+
+  it("rejects short and oversized passwords", () => {
+    expect(isValidPassword("short123")).toBe(false);
+    expect(isValidPassword("x".repeat(73))).toBe(false);
   });
 });

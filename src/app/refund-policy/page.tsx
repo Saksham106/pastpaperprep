@@ -6,9 +6,9 @@ export default function RefundPolicyPage() {
       <p className="eyebrow">Legal</p>
       <h1>Refund policy</h1>
       <p className="legal-updated">Effective 25 August 2026</p>
-      <p>Paid plans are not live yet. Before checkout launches, this page will state the final refund window, cancellation rules, and any exceptions clearly. No customer will be charged under an unpublished policy.</p>
+      <p>You can cancel at any time through your account. Cancellation stops future renewals, and access continues through the paid billing period unless a refund is issued. If something went wrong with a purchase, contact us within 14 days. Refund requests are reviewed case by case and are not guaranteed, except where required by applicable law.</p>
       <h2>Contact</h2>
-      <p>Billing questions can be sent to support@pastpaperprep.com.</p>
+      <p>Billing questions can be sent to <a href="mailto:hello@pastpaperprep.com">hello@pastpaperprep.com</a>.</p>
     </article>
   );
 }

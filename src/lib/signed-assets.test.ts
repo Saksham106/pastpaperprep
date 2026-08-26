@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { fetchSignedAssets, isSignedAssetFresh, signedAssetKey } from "@/lib/signed-assets";
+import { fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, signedAssetKey } from "@/lib/signed-assets";
 
 const requests = Array.from({ length: 21 }, (_, index) => ({
   questionId: `question-${index + 1}`,
@@ -32,6 +32,23 @@ describe("fetchSignedAssets", () => {
     }));
 
     await expect(fetchSignedAssets("ib-sl", requests.slice(0, 1), fetcher)).rejects.toThrow("Access required");
+  });
+
+  it("sends one exact PDF asset batch to the quota-bound endpoint", async () => {
+    const batch = requests.slice(0, 2);
+    const fetcher = vi.fn(async (_input: RequestInfo | URL, init?: RequestInit) => {
+      const body = JSON.parse(String(init?.body)) as { questionIds: string[] };
+      return new Response(JSON.stringify({
+        expiresIn: 600,
+        assets: body.questionIds.map((questionId) => ({ questionId, kind: "question", urls: [`https://signed.test/${questionId}`] })),
+      }), { status: 200, headers: { "content-type": "application/json" } });
+    });
+
+    await fetchPdfAssets("ib-sl", batch.map((request) => request.questionId), "questions", fetcher);
+    expect(fetcher).toHaveBeenCalledOnce();
+    expect(fetcher).toHaveBeenCalledWith("/api/pdf/sign", expect.objectContaining({
+      body: JSON.stringify({ bank: "ib-sl", questionIds: batch.map((request) => request.questionId), content: "questions" }),
+    }));
   });
 
   it("rejects malformed signed asset responses", async () => {

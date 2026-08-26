@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import type { AccessEntitlement } from "@/lib/access";
+import { hasBankAccess, isPreviewQuestion, type AccessEntitlement } from "@/lib/access";
 import { authorizeAssetRequests, type AssetRequest } from "@/lib/asset-access";
 import { QUESTION_ASSET_BUCKET } from "@/lib/assets";
 import { getBank, type BankSlug } from "@/lib/banks";
@@ -61,6 +61,10 @@ export async function POST(request: Request) {
   }
 
   const paths = [...new Set(authorized.flatMap((item) => item.paths))];
+  const premiumPaths = [...new Set(authorized
+    .filter((item) => !isPreviewQuestion(body.bank as BankSlug, item.questionId))
+    .flatMap((item) => item.paths))];
+
   if (!paths.length) {
     return NextResponse.json({ assets: authorized.map((item) => ({ ...item, urls: [] })) });
   }
@@ -76,6 +80,15 @@ export async function POST(request: Request) {
       item.signedUrl ? [[item.path, item.signedUrl] as const] : []
     ));
     if (paths.some((path) => !urlByPath.has(path))) throw new Error("A signed URL was not created");
+
+    if (userId && premiumPaths.length && hasBankAccess(body.bank as BankSlug, entitlements)) {
+      const { data: allowed, error: quotaError } = await supabase.rpc("consume_download_allowance", {
+        p_asset_count: premiumPaths.length,
+        p_pdf_question_count: 0,
+      });
+      if (quotaError) return NextResponse.json({ error: "Could not verify download allowance" }, { status: 503 });
+      if (!allowed) return NextResponse.json({ error: "Daily download limit reached. Try again tomorrow." }, { status: 429 });
+    }
 
     return NextResponse.json({
       expiresIn: 600,

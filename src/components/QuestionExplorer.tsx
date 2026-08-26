@@ -4,11 +4,12 @@ import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowSquareOut, DownloadSimple, Funnel, MagnifyingGlass, TextAlignLeft, X } from "@phosphor-icons/react";
-import { downloadQuestionPdf, questionsForPdf, type PdfContent } from "@/lib/pdf-export";
+import { downloadQuestionPdf, MAX_PDF_QUESTIONS, questionsForPdf, type PdfContent } from "@/lib/pdf-export";
 import { isPreviewQuestion } from "@/lib/access";
+
 import { filterQuestions } from "@/lib/question-filter";
 import type { QuestionFilters, QuestionSort, UnifiedQuestion } from "@/lib/questions";
-import { fetchSignedAssets, isSignedAssetFresh, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
+import { fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy";
 
 const PAGE_SIZE = 24;
@@ -20,12 +21,21 @@ function unique(questions: UnifiedQuestion[], value: (question: UnifiedQuestion)
 
 export type ExplorerAccess = { authenticated: boolean; bankAccess: boolean; canExportPdf: boolean };
 
-export function QuestionExplorer({ questions, access }: { questions: UnifiedQuestion[]; access: ExplorerAccess }) {
+export function QuestionExplorer({
+  questions,
+  access,
+  exportMarker,
+}: {
+  questions: UnifiedQuestion[];
+  access: ExplorerAccess;
+  exportMarker?: string;
+}) {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState<QuestionSort>("paper");
   const [filters, setFilters] = useState<Pick<QuestionFilters, MultiKey>>({});
   const [visible, setVisible] = useState(PAGE_SIZE);
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [freeOnly, setFreeOnly] = useState(false);
   const [showAllSubtopics, setShowAllSubtopics] = useState(false);
   const [selectedIds, setSelectedIds] = useState(new Set<string>());
   const [selectionIsExplicit, setSelectionIsExplicit] = useState(false);
@@ -59,9 +69,12 @@ export function QuestionExplorer({ questions, access }: { questions: UnifiedQues
     components: unique(questions, (q) => q.component),
   }), [questions]);
 
-  const filtered = useMemo(() => filterQuestions(questions, { ...filters, search, sort }), [questions, filters, search, sort]);
+  const filtered = useMemo(() => {
+    const matching = filterQuestions(questions, { ...filters, search, sort });
+    return freeOnly ? matching.filter((question) => isPreviewQuestion(question.bankSlug, question.id)) : matching;
+  }, [questions, filters, freeOnly, search, sort]);
   const shownQuestions = useMemo(() => filtered.slice(0, visible), [filtered, visible]);
-  const activeCount = Object.values(filters).reduce((count, values) => count + (values?.length ?? 0), 0);
+  const activeCount = Object.values(filters).reduce((count, values) => count + (values?.length ?? 0), freeOnly ? 1 : 0);
   const questionAssetRequests = useMemo(() => shownQuestions
     .filter((question) => access.bankAccess || isPreviewQuestion(question.bankSlug, question.id))
     .filter((question) => !failedAssetKeys.has(signedAssetKey(question.id, "question")))
@@ -105,6 +118,7 @@ export function QuestionExplorer({ questions, access }: { questions: UnifiedQues
   const clearFilters = () => {
     setSearch("");
     setFilters({});
+    setFreeOnly(false);
     setShowAllSubtopics(false);
     setVisible(PAGE_SIZE);
   };
@@ -123,23 +137,22 @@ export function QuestionExplorer({ questions, access }: { questions: UnifiedQues
     if (!access.canExportPdf || !bank) return;
     setPdfStatus(`Preparing ${exportQuestions.length} questions...`);
     try {
-      const requests = exportQuestions.flatMap((question) => {
-        const items = [];
-        if (pdfContent !== "answers") items.push({ questionId: question.id, kind: "question" as const });
-        if (pdfContent !== "questions" && question.markschemeImageCount > 0) items.push({ questionId: question.id, kind: "answer" as const });
-        return items;
-      });
-      const assets = await fetchSignedAssets(bank, requests);
+      const assets = await fetchPdfAssets(bank, exportQuestions.map((question) => question.id), pdfContent);
       const securedQuestions = exportQuestions.map((question) => ({
         ...question,
         questionImages: assets.get(signedAssetKey(question.id, "question"))?.urls ?? [],
         markschemeImages: assets.get(signedAssetKey(question.id, "answer"))?.urls ?? [],
       }));
-      await downloadQuestionPdf(securedQuestions, pdfContent, (complete, total) => setPdfStatus(`Preparing ${complete} of ${total}...`));
+      await downloadQuestionPdf(
+        securedQuestions,
+        pdfContent,
+        (complete, total) => setPdfStatus(`Preparing ${complete} of ${total}...`),
+        exportMarker,
+      );
       setPdfStatus("Downloaded");
       setPdfOpen(false);
-    } catch {
-      setPdfStatus("PDF export failed. Check your connection and try again.");
+    } catch (error) {
+      setPdfStatus(error instanceof Error ? error.message : "PDF export failed. Check your connection and try again.");
     }
   };
 
@@ -155,12 +168,13 @@ export function QuestionExplorer({ questions, access }: { questions: UnifiedQues
         <label className="sort-field">Sort <select value={sort} onChange={(event) => setSort(event.target.value as QuestionSort)}><option value="paper">Newest papers</option><option value="topic">Topic</option><option value="marks-desc">Marks: high to low</option><option value="marks-asc">Marks: low to high</option></select></label>
         <button className="download-button" onClick={() => access.canExportPdf ? setPdfOpen(true) : setPdfStatus("upgrade-required")}><DownloadSimple /> Download PDF</button>
       </div>
-      {pdfStatus === "upgrade-required" && <div className="access-notice"><span>PDF export is included with Founding Pro.</span><Link href={access.authenticated ? "/pricing" : `/login?next=/banks/${bank}`}>{access.authenticated ? "View pricing" : "Sign in"}</Link></div>}
+      {pdfStatus === "upgrade-required" && <div className="access-notice"><span>PDF export is included with All-Access.</span><Link href={access.authenticated ? "/pricing" : `/login?next=/banks/${bank}`}>{access.authenticated ? "View pricing" : "Sign in"}</Link></div>}
       {assetError && <div className="access-notice" role="alert">{assetError}</div>}
 
       <div className="explorer-layout">
         <aside className={`filter-sidebar ${filtersOpen ? "is-open" : ""}`} aria-label="Question filters">
           <div className="filter-sidebar-heading"><strong>Filters</strong><button className="filter-close" aria-label="Close filters" onClick={() => setFiltersOpen(false)}><X /></button></div>
+          {!access.bankAccess && <div className="filter-group" role="group" aria-labelledby="filter-access"><h3 id="filter-access">Access</h3><div className="filter-options"><label><input aria-label="Free questions only" type="checkbox" checked={freeOnly} onChange={() => { setFreeOnly((current) => !current); setVisible(PAGE_SIZE); }} /><span>Free questions only</span></label></div></div>}
           <FilterGroup label="Topics" filterKey="topics" values={options.topics} selected={filters.topics ?? []} onToggle={toggle} />
           <FilterGroup label="Subtopics" filterKey="subtopics" values={visibleSubtopics} selected={filters.subtopics ?? []} onToggle={toggle} />
           {!!filters.topics?.length && !!subtopicGroups.other.length && <button className="text-button subtopic-more" aria-expanded={showAllSubtopics} onClick={() => setShowAllSubtopics((show) => !show)}>{showAllSubtopics ? "Hide other subtopics" : "Show other subtopics"}</button>}
@@ -194,7 +208,7 @@ export function QuestionExplorer({ questions, access }: { questions: UnifiedQues
         </div>
       </div>
 
-      {pdfOpen && <div className="pdf-backdrop" role="presentation"><section className="pdf-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-title"><button className="pdf-close" aria-label="Close PDF options" onClick={() => setPdfOpen(false)}><X /></button><p className="eyebrow">Worksheet builder</p><h2 id="pdf-title">Download {exportQuestions.length.toLocaleString()} questions</h2><p>{selectionIsExplicit ? "Using your selected questions, including selections outside the current filters." : "No manual selection yet, so this uses every current result."}</p><div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div><button className="download-button pdf-download" disabled={!exportQuestions.length} onClick={handleDownload}><DownloadSimple /> Build PDF</button>{pdfStatus && <small>{pdfStatus}</small>}</section></div>}
+      {pdfOpen && <div className="pdf-backdrop" role="presentation"><section className="pdf-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-title"><button className="pdf-close" aria-label="Close PDF options" onClick={() => setPdfOpen(false)}><X /></button><p className="eyebrow">Worksheet builder</p><h2 id="pdf-title">Download {exportQuestions.length.toLocaleString()} questions</h2><p>{selectionIsExplicit ? "Using your selected questions, including selections outside the current filters." : filtered.length > MAX_PDF_QUESTIONS ? `Worksheets are limited to ${MAX_PDF_QUESTIONS} questions. Narrow your filters or make a selection for a different set.` : "No manual selection yet, so this uses every current result."}</p><div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div><button className="download-button pdf-download" disabled={!exportQuestions.length} onClick={handleDownload}><DownloadSimple /> Build PDF</button>{pdfStatus && <small>{pdfStatus}</small>}</section></div>}
     </section>
   );
 }
@@ -236,7 +250,7 @@ function QuestionCard({ question, unlocked, authenticated, questionAsset, answer
     <article className="question-card">
       <header className="question-card-header"><div className="question-meta"><span>{question.year} {question.session}</span><span>Paper {question.paper}</span><span>Question {question.number}</span>{question.component && <span>Component {question.component}</span>}{question.zone && <span>{question.zone}</span>}{question.marks !== null && <span>{question.marks} {question.marks === 1 ? "mark" : "marks"}</span>}</div>{unlocked && <label className="pdf-select"><input aria-label={`Add question ${question.number} to PDF`} type="checkbox" checked={selected} onChange={onSelect} /> Add to PDF</label>}</header>
       <div className="question-topic"><strong>{question.primaryTopic}</strong>{question.subtopics.slice(0, 4).map((topic) => <span key={topic}>{topic}</span>)}</div>
-      {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} />) : <div className="asset-placeholder">Loading question image...</div>}</div> : <div className="question-locked"><strong>Founding Pro question</strong><span>Unlock the full question, answer, and PDF export.</span><Link href={authenticated ? "/pricing" : `/login?next=/banks/${question.bankSlug}`}>{authenticated ? "View pricing" : "Sign in to unlock"}</Link></div>}
+      {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} />) : <div className="asset-placeholder">Loading question image...</div>}</div> : <div className="question-locked"><strong>All-Access question</strong><span>Unlock the full question, answer, and PDF export.</span><Link href={authenticated ? "/pricing" : `/login?next=/banks/${question.bankSlug}`}>{authenticated ? "View pricing" : "Sign in to unlock"}</Link></div>}
       <div className="question-actions">
         <div className="question-action-buttons">{unlocked ? ((question.solution || question.markschemeImageCount > 0) ? <button className="answer-toggle" disabled={answerLoading} aria-expanded={answerOpen} onClick={toggleAnswer}>{answerLoading ? "Loading answer..." : answerOpen ? "Hide answer" : "Show answer"}</button> : <span className="muted">Answer coming soon</span>) : null}{answerError && <span className="muted" role="alert">{answerError}</span>}</div>
         <div className="source-links">{question.sourceQuestionUrl && <a href={question.sourceQuestionUrl} target="_blank" rel="noreferrer">Source paper <ArrowSquareOut /></a>}{question.sourceMarkSchemeUrl && <a href={question.sourceMarkSchemeUrl} target="_blank" rel="noreferrer">Mark scheme <ArrowSquareOut /></a>}{question.accessibleText && <button className="transcript-icon-button" title={transcriptOpen ? "Hide transcript" : "Show transcript"} aria-label={transcriptOpen ? "Hide transcript" : "Show transcript"} aria-expanded={transcriptOpen} onClick={() => setTranscriptOpen((open) => !open)}><TextAlignLeft aria-hidden="true" /></button>}</div>

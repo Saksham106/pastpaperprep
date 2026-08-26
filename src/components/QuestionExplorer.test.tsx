@@ -65,8 +65,10 @@ describe("QuestionExplorer", () => {
     render(<QuestionExplorer questions={questions} access={{ authenticated: false, bankAccess: false, canExportPdf: false }} />);
 
     expect(await screen.findByRole("img", { name: /original question/i })).toBeInTheDocument();
-    expect(screen.getByText(/founding pro question/i)).toBeInTheDocument();
+    expect(screen.getByText(/all-access question/i)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /sign in to unlock/i })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("checkbox", { name: /free questions only/i }));
+    expect(screen.queryByText(/all-access question/i)).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
     expect(screen.getByText(/pdf export is included/i)).toBeInTheDocument();
     await waitFor(() => expect(fetch).toHaveBeenCalled());

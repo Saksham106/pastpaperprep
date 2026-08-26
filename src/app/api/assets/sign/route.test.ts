@@ -1,10 +1,35 @@
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+
+const { createClient, createAdminClient, getClaims, from, rpc, createSignedUrls } = vi.hoisted(() => ({
+  createClient: vi.fn(),
+  createAdminClient: vi.fn(),
+  getClaims: vi.fn(),
+  from: vi.fn(),
+  rpc: vi.fn(),
+  createSignedUrls: vi.fn(),
+}));
 
 vi.mock("server-only", () => ({}));
+vi.mock("@/lib/supabase/server", () => ({ createClient }));
+vi.mock("@/lib/supabase/admin", () => ({ createAdminClient }));
 
 import { POST } from "@/app/api/assets/sign/route";
 
 describe("POST /api/assets/sign", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    getClaims.mockResolvedValue({ data: { claims: { sub: "user-id" } } });
+    const entitlementQuery = {
+      select: vi.fn(() => entitlementQuery),
+      eq: vi.fn().mockResolvedValue({ data: [{ product_id: "bundle_all", status: "active", starts_at: "2026-01-01T00:00:00Z", expires_at: null }], error: null }),
+    };
+    from.mockReturnValue(entitlementQuery);
+    rpc.mockResolvedValue({ data: true, error: null });
+    createClient.mockResolvedValue({ auth: { getClaims }, from, rpc });
+    createSignedUrls.mockImplementation(async (paths: string[]) => ({ data: paths.map((path) => ({ path, signedUrl: `https://assets.example/${path}` })), error: null }));
+    createAdminClient.mockReturnValue({ storage: { from: vi.fn(() => ({ createSignedUrls })) } });
+  });
+
   it("rejects invalid JSON before touching authentication", async () => {
     const response = await POST(new Request("https://pastpaperprep.com/api/assets/sign", {
       method: "POST",
@@ -41,5 +66,41 @@ describe("POST /api/assets/sign", () => {
 
     expect(unknownBank.status).toBe(400);
     expect(malformedBatch.status).toBe(400);
+  });
+
+  it("consumes the daily allowance before signing paid assets", async () => {
+    const response = await POST(new Request("https://pastpaperprep.com/api/assets/sign", {
+      method: "POST",
+      body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "m26-math-aasl-p2-tza-q2", kind: "question" }] }),
+      headers: { "content-type": "application/json" },
+    }));
+
+    expect(response.status).toBe(200);
+    expect(rpc).toHaveBeenCalledWith("consume_download_allowance", { p_asset_count: 2, p_pdf_question_count: 0 });
+    expect(createSignedUrls).toHaveBeenCalledOnce();
+  });
+
+  it("does not charge the premium allowance for preview assets", async () => {
+    const response = await POST(new Request("https://pastpaperprep.com/api/assets/sign", {
+      method: "POST",
+      body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "m26-math-aasl-p1-tza-q1", kind: "question" }] }),
+      headers: { "content-type": "application/json" },
+    }));
+
+    expect(response.status).toBe(200);
+    expect(rpc).not.toHaveBeenCalled();
+    expect(createSignedUrls).toHaveBeenCalledOnce();
+  });
+
+  it("does not return paid assets after the daily allowance is exhausted", async () => {
+    rpc.mockResolvedValueOnce({ data: false, error: null });
+    const response = await POST(new Request("https://pastpaperprep.com/api/assets/sign", {
+      method: "POST",
+      body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "m26-math-aasl-p1-tza-q4", kind: "question" }] }),
+      headers: { "content-type": "application/json" },
+    }));
+
+    expect(response.status).toBe(429);
+    expect(createSignedUrls).toHaveBeenCalledOnce();
   });
 });
