@@ -9,6 +9,12 @@ describe("private Storage asset mapping", () => {
         "https://saksham106.github.io/igcse-0580-topic-practice/questions/0580-2026-march-22-q1.webp",
       ),
     ).toBe("igcse/questions/0580-2026-march-22-q1.webp");
+    expect(
+      storageObjectPath(
+        "igcse-additional",
+        "https://saksham106.github.io/igcse-additional-mathematics-0606-topic-practice/questions/0606-2026-june-11-q1.webp",
+      ),
+    ).toBe("igcse-additional/questions/0606-2026-june-11-q1.webp");
   });
 
   it("maps IB question and markscheme images", () => {

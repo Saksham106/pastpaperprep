@@ -5,7 +5,7 @@ import { Key, PaperPlaneTilt } from "@phosphor-icons/react";
 import { requestPasswordReset, signInWithPassword } from "@/app/auth/actions";
 import { initialMagicLinkState } from "@/lib/auth";
 
-export function PasswordSignInForm({ next = "/account" }: { next?: string }) {
+export function PasswordSignInForm({ next = "/pricing" }: { next?: string }) {
   const [signInState, signInAction, signInPending] = useActionState(signInWithPassword, initialMagicLinkState);
   const [resetState, resetAction, resetPending] = useActionState(requestPasswordReset, initialMagicLinkState);
 

@@ -69,7 +69,7 @@ export async function requestPasswordReset(
   const supabase = await createClient();
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   const callbackUrl = new URL("/auth/callback", siteUrl);
-  callbackUrl.searchParams.set("next", "/account?password=reset");
+  callbackUrl.searchParams.set("next", "/account/password");
   await supabase.auth.resetPasswordForEmail(email, { redirectTo: callbackUrl.toString() });
 
   return { status: "success", message: "If that account exists, a password-reset link is on its way." };

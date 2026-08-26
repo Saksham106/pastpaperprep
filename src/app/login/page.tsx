@@ -19,6 +19,7 @@ export default async function LoginPage({
         <p className="eyebrow">Your study account</p>
         <h1>Sign in your way.</h1>
         <p>Use your password, or get a secure email link. New students can start with email and add a password later.</p>
+        {next === "/pricing" && <div className="auth-next-step"><strong>What happens next</strong><span>Choose monthly or annual access, then every bank unlocks immediately.</span></div>}
         {params.error && <p className="form-message error">That sign-in link is invalid or expired. Request a fresh one below.</p>}
         <PasswordSignInForm next={next} />
         <div className="auth-divider"><span>or use a one-time link</span></div>

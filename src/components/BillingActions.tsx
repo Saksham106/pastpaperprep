@@ -23,13 +23,15 @@ async function responsePayload(response: Response): Promise<Record<string, unkno
   return payload as Record<string, unknown>;
 }
 
-export function CheckoutButtons({ navigate = defaultNavigate }: { navigate?: Navigate }) {
-  const [pending, setPending] = useState<"monthly" | "annual" | null>(null);
+type BillingInterval = "monthly" | "annual";
+
+export function CheckoutButton({ interval, navigate = defaultNavigate }: { interval: BillingInterval; navigate?: Navigate }) {
+  const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
   const [needsLogin, setNeedsLogin] = useState(false);
 
-  async function start(interval: "monthly" | "annual") {
-    setPending(interval);
+  async function start() {
+    setPending(true);
     setError("");
     setNeedsLogin(false);
     try {
@@ -51,20 +53,26 @@ export function CheckoutButtons({ navigate = defaultNavigate }: { navigate?: Nav
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "Checkout is temporarily unavailable");
     } finally {
-      setPending(null);
+      setPending(false);
     }
   }
 
   return (
     <div className="billing-actions">
-      <button className="button primary" type="button" disabled={pending !== null} onClick={() => start("annual")}>
-        {pending === "annual" ? "Opening checkout…" : "Choose annual"}
-      </button>
-      <button className="button secondary" type="button" disabled={pending !== null} onClick={() => start("monthly")}>
-        {pending === "monthly" ? "Opening checkout…" : "Choose monthly"}
+      <button className={`button ${interval === "annual" ? "primary" : "secondary"}`} type="button" disabled={pending} onClick={start}>
+        {pending ? "Opening checkout…" : `Choose ${interval}`}
       </button>
       {needsLogin ? <Link href="/login?next=/pricing">Sign in to continue</Link> : null}
       {error ? <p role="alert">{error}</p> : null}
+    </div>
+  );
+}
+
+export function CheckoutButtons({ navigate = defaultNavigate }: { navigate?: Navigate }) {
+  return (
+    <div className="billing-options-actions">
+      <CheckoutButton interval="annual" navigate={navigate} />
+      <CheckoutButton interval="monthly" navigate={navigate} />
     </div>
   );
 }

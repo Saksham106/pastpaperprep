@@ -2,7 +2,7 @@
 
 Updated: 26 August 2026
 
-This is the operational source of truth for adding or rebuilding PastPaperPrep question banks. It was reconstructed from the three private source repositories, their tests and build scripts, the initial ingestion history on Swati's agent, and the current production application. The checked-in code and manifests win if this document ever drifts.
+This is the operational source of truth for adding or rebuilding PastPaperPrep question banks. It was reconstructed from the six private source repositories, their tests and build scripts, the initial ingestion history on Swati's agent, and the current production application. The checked-in code and manifests win if this document ever drifts.
 
 ## Current verified baseline
 
@@ -13,7 +13,8 @@ This is the operational source of truth for adding or rebuilding PastPaperPrep q
 | IB Mathematics SL / AA SL | `Saksham106/ib-maths-aa-topic-finder` | 62 | 578 | 1,463 |
 | IB Mathematics AI HL | `Saksham106/ib-maths-ai-hl-topic-practice` | 48 | 409 | 1,353 |
 | IB Mathematics AI SL | `Saksham106/ib-maths-ai-sl-topic-practice` | 38 | 334 | 1,002 |
-| **Total** |  | **399** | **4,846** | **12,208** |
+| Cambridge IGCSE Additional Mathematics 0606 | `Saksham106/igcse-additional-mathematics-0606-topic-practice` | 145 | 1,633 | 3,266 |
+| **Total** |  | **544** | **6,479** | **15,474** |
 
 The application copies each source bank's generated `site/data/questions.json` to:
 
@@ -22,8 +23,9 @@ The application copies each source bank's generated `site/data/questions.json` t
 - `src/data/raw/ib-sl.json`
 - `src/data/raw/ib-ai-hl.json`
 - `src/data/raw/ib-ai-sl.json`
+- `src/data/raw/igcse-additional.json`
 
-The WebPs live in the private Supabase Storage bucket `question-assets`, under the bank prefixes `igcse/`, `ib-hl/`, `ib-sl/`, `ib-ai-hl/`, and `ib-ai-sl/`. The two AI banks were built but their assets are not yet uploaded; run the uploader for them before enabling paid access (see "AI banks pending steps" below).
+The WebPs live in the private Supabase Storage bucket `question-assets`, under the bank prefixes `igcse/`, `igcse-additional/`, `ib-hl/`, `ib-sl/`, `ib-ai-hl/`, and `ib-ai-sl/`.
 
 ## Non-negotiable rules
 
@@ -40,7 +42,7 @@ The WebPs live in the private Supabase Storage bucket `question-assets`, under t
 
 ## Repository roles
 
-The three source repositories are the ingestion workspaces. They contain:
+The six source repositories are the ingestion workspaces. They contain:
 
 - reviewed source manifests;
 - acquisition, crop, transcript, classification, build, and validation scripts;
@@ -60,8 +62,11 @@ The existing upload script expects this exact temporary layout:
 ```text
 /tmp/pastpaperprep-sources/
   igcse/
+  igcse-additional/
   ib-hl/
   ib-sl/
+  ib-ai-hl/
+  ib-ai-sl/
 ```
 
 Clone the private repositories:
@@ -70,8 +75,11 @@ Clone the private repositories:
 rm -rf /tmp/pastpaperprep-sources
 mkdir -p /tmp/pastpaperprep-sources
 gh repo clone Saksham106/igcse-0580-topic-practice /tmp/pastpaperprep-sources/igcse
+gh repo clone Saksham106/igcse-additional-mathematics-0606-topic-practice /tmp/pastpaperprep-sources/igcse-additional
 gh repo clone Saksham106/ib-maths-aa-hl-topic-practice /tmp/pastpaperprep-sources/ib-hl
 gh repo clone Saksham106/ib-maths-aa-topic-finder /tmp/pastpaperprep-sources/ib-sl
+gh repo clone Saksham106/ib-maths-ai-hl-topic-practice /tmp/pastpaperprep-sources/ib-ai-hl
+gh repo clone Saksham106/ib-maths-ai-sl-topic-practice /tmp/pastpaperprep-sources/ib-ai-sl
 ```
 
 Use Python 3.11+, [`uv`](https://github.com/astral-sh/uv), Node.js, PyMuPDF, Pillow, and, for the SL crop pipeline, NumPy. The source repositories' commands install transient Python dependencies through `uv`; do not add packages to the Next.js application unless its runtime actually needs them.
@@ -264,8 +272,11 @@ From the PastPaperPrep repository root:
 
 ```bash
 cp /tmp/pastpaperprep-sources/igcse/site/data/questions.json src/data/raw/igcse.json
+cp /tmp/pastpaperprep-sources/igcse-additional/site/data/questions.json src/data/raw/igcse-additional.json
 cp /tmp/pastpaperprep-sources/ib-hl/site/data/questions.json src/data/raw/ib-hl.json
 cp /tmp/pastpaperprep-sources/ib-sl/site/data/questions.json src/data/raw/ib-sl.json
+cp /tmp/pastpaperprep-sources/ib-ai-hl/site/data/questions.json src/data/raw/ib-ai-hl.json
+cp /tmp/pastpaperprep-sources/ib-ai-sl/site/data/questions.json src/data/raw/ib-ai-sl.json
 ```
 
 Then verify the canonical totals before touching Storage:
@@ -273,7 +284,7 @@ Then verify the canonical totals before touching Storage:
 ```bash
 node - <<'NODE'
 const fs = require('node:fs');
-const banks = ['igcse', 'ib-hl', 'ib-sl'];
+const banks = ['igcse', 'igcse-additional', 'ib-hl', 'ib-sl', 'ib-ai-hl', 'ib-ai-sl'];
 let questions = 0;
 let papers = 0;
 let assets = 0;
@@ -295,11 +306,11 @@ console.log({ papers, questions, assets });
 NODE
 ```
 
-For the current corpus, this must report 313 papers, 4,103 questions, and 9,853 unique referenced assets. A changed corpus should have an explicitly reviewed new baseline rather than forcing these old numbers.
+For the current corpus, this must report 544 papers, 6,479 questions, and 15,474 unique referenced assets. A changed corpus should have an explicitly reviewed new baseline rather than forcing these numbers.
 
 ### 8. Upload private assets
 
-The uploader reads only `.webp` files under the three temporary source roots and maps them to `<bank>/<relative-path>` in the private bucket.
+The uploader reads only `.webp` files under the configured source roots and maps them to `<bank>/<relative-path>` in the private bucket.
 
 Set the server-only values in the shell without printing them, then run:
 
@@ -307,9 +318,12 @@ Set the server-only values in the shell without printing them, then run:
 SUPABASE_URL='https://PROJECT.supabase.co' \
 SUPABASE_SECRET_KEY='sb_secret_REDACTED' \
 SUPABASE_STORAGE_BUCKET='question-assets' \
+UPLOAD_BANKS='igcse-additional' \
 UPLOAD_CONCURRENCY=16 \
 node scripts/upload-question-assets.mjs
 ```
+
+Omit `UPLOAD_BANKS` to process every configured source root, or provide a comma-separated subset for a bounded bank release.
 
 Operational behavior:
 
@@ -339,7 +353,7 @@ npm audit --omit=dev
 Then perform targeted QA before deployment:
 
 - every bank count and filter count is correct;
-- exactly three deterministic previews remain per bank;
+- each bank's reviewed free-year policy unlocks only the intended questions while newer years remain locked;
 - locked payloads contain no premium transcript, answer, source URL, or Storage path;
 - a paid user can open question and answer assets;
 - a solution-only answer still exports and consumes PDF quota;
@@ -378,7 +392,7 @@ Do not start by editing the Next.js UI. First create a source repository with:
 - fail-closed runtime builder and validator;
 - tests for known layout and classification edge cases.
 
-Only after the bank validates independently should you add its slug/config to PastPaperPrep, import its normalized JSON, upload assets under a new Storage prefix, add product entitlements, and update preview fixtures and access tests.
+Only after the bank validates independently should you add its slug/config to PastPaperPrep, import its normalized JSON, upload assets under a new Storage prefix, add product entitlements, and update the reviewed free-year policy and access tests.
 
 ## AI banks (added August 2026)
 
@@ -401,15 +415,25 @@ Coverage decisions made during the build:
 
 Pipeline commands match "#### IB HL" above, run inside each AI repository.
 
-### AI banks pending steps
+### AI bank release state
 
-1. Upload assets: point the uploader at `/tmp/pastpaperprep-sources/ai-hl/site` and
-   `/tmp/pastpaperprep-sources/ai-sl/site` (or re-clone from the new repos), producing keys under
-   `ib-ai-hl/` and `ib-ai-sl/`.
-2. Apply migration `20260826220000_add_ib_maths_ai_banks.sql` in Supabase.
-3. Create Stripe prices for `bank_ib_ai_hl` / `bank_ib_ai_sl` if selling separately; `bundle_all` already covers them.
-4. Review, merge, deploy, then verify counts: AI HL 48 papers / 409 questions / 1,353 assets;
-   AI SL 38 papers / 334 questions / 1,002 assets.
+- Private assets were uploaded and verified under `ib-ai-hl/` and `ib-ai-sl/`.
+- Migration `20260826220000_add_ib_maths_ai_banks.sql` was applied and read back in production.
+- `bundle_all` covers both banks; separate Stripe prices are unnecessary unless individual-bank sales are introduced later.
+- Verified counts: AI HL 48 papers / 409 questions / 1,353 assets; AI SL 38 papers / 334 questions / 1,002 assets.
+
+## Cambridge IGCSE Additional Mathematics 0606 (added August 2026)
+
+The 0606 source repository covers 145 verified question-paper/mark-scheme pairs from 2016–2025 plus June 2026 components 11, 12, 13, 21, and 22. June 2026 component 23 is explicitly excluded because an official mark scheme was unavailable; do not publish a question-paper-only record.
+
+The bank contains 1,633 questions and 3,266 question/mark-scheme WebPs. Crop generation uses reviewed per-paper overrides only where the PDF text layer cannot reliably expose top-level question or mark-scheme boundaries. A forced deterministic rebuild must reproduce the complete manifests and pass bounded visual samples before release.
+
+Production assets were uploaded and hash-verified under `igcse-additional/questions/` and
+`igcse-additional/markschemes/`. Migration `20260826230000_add_igcse_additional_bank.sql`
+was applied and read back in production; replay updates the product name without reactivating
+a bank that an operator deliberately disabled.
+
+The controlled primary taxonomy is the normalized union of the official [2017–2019](https://www.cambridgeinternational.org/images/203403-2017-2019-syllabus.pdf), [2020–2022](https://www.cambridgeinternational.org/Images/414438-2020-2022-syllabus.pdf), and [2025–2027](https://www.cambridgeinternational.org/Images/662470-2025-2027-syllabus.pdf) Cambridge syllabuses because the bank spans multiple syllabus revisions. It contains: Set language and notation; Functions; Quadratic functions; Indices and surds; Factors of polynomials; Equations, inequalities and graphs; Simultaneous equations; Logarithmic and exponential functions; Straight-line graphs; Coordinate geometry of the circle; Circular measure; Trigonometry; Permutations and combinations; Series (including the historical Binomial expansions topic); Vectors in two dimensions; Matrices; and Calculus (historically Differentiation and integration). Do not force older set, surd, or matrix questions into the current-only taxonomy, and do not substitute the broader 0580 taxonomy. Unresolved classifications block the runtime build.
 
 ## Open-source tools worth using
 

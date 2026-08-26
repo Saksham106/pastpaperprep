@@ -2,6 +2,7 @@ import type { BankSlug } from "@/lib/banks";
 
 const PUBLIC_ASSET_ROOTS: Record<BankSlug, string> = {
   igcse: "https://saksham106.github.io/igcse-0580-topic-practice/",
+  "igcse-additional": "https://saksham106.github.io/igcse-additional-mathematics-0606-topic-practice/",
   "ib-hl": "https://saksham106.github.io/ib-maths-aa-hl-topic-practice/",
   "ib-sl": "https://saksham106.github.io/ib-maths-aa-topic-finder/",
   "ib-ai-hl": "https://saksham106.github.io/ib-maths-ai-hl-topic-practice/",

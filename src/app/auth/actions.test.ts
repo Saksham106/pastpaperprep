@@ -35,7 +35,7 @@ describe("password authentication actions", () => {
     }))).rejects.toThrow("NEXT_REDIRECT");
 
     expect(signInWithPasswordMock).toHaveBeenCalledWith({ email: "student@example.com", password: "three calm otters" });
-    expect(redirect).toHaveBeenCalledWith("/account");
+    expect(redirect).toHaveBeenCalledWith("/pricing");
   });
 
   it("keeps reset requests account-enumeration safe", async () => {
@@ -48,6 +48,7 @@ describe("password authentication actions", () => {
     expect(result.message).not.toMatch(/not found/i);
     const options = resetPasswordForEmail.mock.calls[0][1];
     expect(options.redirectTo).toContain("/auth/callback");
+    expect(options.redirectTo).toContain("next=%2Faccount%2Fpassword");
     expect(options.redirectTo).not.toContain("evil.example");
   });
 

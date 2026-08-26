@@ -1,4 +1,4 @@
-export type BankSlug = "igcse" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl";
+export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl";
 
 export type Bank = {
   slug: BankSlug;
@@ -27,6 +27,19 @@ export const BANKS: readonly Bank[] = [
     years: "2016-2026",
     accent: "cobalt",
     sourceBaseUrl: "https://saksham106.github.io/igcse-0580-topic-practice",
+  },
+  {
+    slug: "igcse-additional",
+    shortName: "IGCSE Additional Math 0606",
+    title: "Cambridge IGCSE Additional Mathematics 0606",
+    description: "Practise Additional Mathematics questions by syllabus topic, year, paper, and component.",
+    qualification: "Cambridge IGCSE",
+    subject: "Additional Mathematics 0606",
+    questionCount: 1633,
+    paperCount: 145,
+    years: "2016-2026",
+    accent: "coral",
+    sourceBaseUrl: "https://saksham106.github.io/igcse-additional-mathematics-0606-topic-practice",
   },
   {
     slug: "ib-hl",

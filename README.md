@@ -4,10 +4,10 @@ PastPaperPrep is an image-first practice platform for Cambridge IGCSE Mathematic
 
 ## Current corpus
 
-- 4,103 questions
-- 313 papers
-- 9,853 private WebP assets
-- Three deterministic free-preview questions per bank
+- 6,479 questions
+- 544 papers
+- 15,474 private WebP assets
+- Reviewed free-year coverage per bank; PDF exports remain part of paid access
 
 ## Operator documentation
 

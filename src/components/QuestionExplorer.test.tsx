@@ -7,7 +7,11 @@ import { loadBankQuestions } from "@/lib/questions";
 
 describe("QuestionExplorer", () => {
   beforeEach(() => {
-    vi.stubGlobal("fetch", vi.fn(async (_input, init) => {
+    vi.stubGlobal("fetch", vi.fn(async (input, init) => {
+      if (String(input) === "/api/study-state") {
+        const body = JSON.parse(String(init?.body));
+        return new Response(JSON.stringify({ saved: body.action === "save", attempted: body.action === "attempt" }), { status: 200 });
+      }
       const body = JSON.parse(String(init?.body));
       return new Response(JSON.stringify({
         expiresIn: 600,
@@ -20,6 +24,22 @@ describe("QuestionExplorer", () => {
   });
 
   const fullAccess = { authenticated: true, bankAccess: true, canExportPdf: true };
+
+  it("restores a shareable workspace and keeps changes in the URL", async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, "clipboard", { configurable: true, value: { writeText } });
+    window.history.replaceState({}, "", "/banks/ib-sl");
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 40), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    render(<QuestionExplorer questions={questions} access={fullAccess} initialState={{ search: "tangent", sort: "topic", filters: {}, freeOnly: false, savedOnly: false, visible: 24 }} />);
+
+    expect(screen.getByLabelText(/search questions/i)).toHaveValue("tangent");
+    expect(screen.getByLabelText(/sort/i)).toHaveValue("topic");
+    expect(screen.getByText(/3 questions/i)).toBeInTheDocument();
+    await waitFor(() => expect(window.location.search).toContain("q=tangent"));
+    fireEvent.click(screen.getByRole("button", { name: /copy link to this view/i }));
+    await waitFor(() => expect(writeText).toHaveBeenCalledWith(expect.stringContaining("q=tangent")));
+    expect(await screen.findByText(/link copied/i)).toBeInTheDocument();
+  });
 
   it("filters the real bank data and reveals a worked answer", async () => {
     const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 40), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
@@ -47,6 +67,16 @@ describe("QuestionExplorer", () => {
     expect(transcriptButton.closest(".source-links")).not.toBeNull();
   });
 
+  it("exposes Cambridge component and calculator filters for Additional Mathematics", () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("igcse-additional").slice(0, 40), [{ productId: "bank_igcse_additional", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    render(<QuestionExplorer questions={questions} access={fullAccess} />);
+
+    expect(screen.getByRole("group", { name: /components/i })).toBeInTheDocument();
+    expect(screen.getByRole("group", { name: /calculator/i })).toBeInTheDocument();
+    expect(screen.queryByRole("group", { name: /course/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole("group", { name: /timezone/i })).not.toBeInTheDocument();
+  });
+
   it("keeps an explicit PDF selection and opens the export options", () => {
     const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-hl").slice(0, 8), [{ productId: "bank_ib_hl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
     render(<QuestionExplorer questions={questions} access={fullAccess} />);
@@ -55,6 +85,25 @@ describe("QuestionExplorer", () => {
     expect(screen.getByText(/1 selected for PDF/i)).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
     expect(screen.getByRole("dialog", { name: /download 1 questions/i })).toBeInTheDocument();
+  });
+
+  it("keeps study actions quiet by saving explicitly and marking an attempt when the answer opens", async () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 8), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    render(<QuestionExplorer questions={questions} access={fullAccess} studyState={{ savedIds: [], attemptedIds: [] }} />);
+
+    fireEvent.click(screen.getAllByRole("button", { name: /save question/i })[0]);
+    await waitFor(() => expect(fetch).toHaveBeenCalledWith("/api/study-state", expect.objectContaining({
+      method: "POST",
+      body: expect.stringContaining('"action":"save"'),
+    })));
+    expect(await screen.findByRole("button", { name: /remove question from saved/i })).toBeInTheDocument();
+
+    fireEvent.click(screen.getAllByRole("button", { name: /show answer/i })[0]);
+    await waitFor(() => expect(fetch).toHaveBeenCalledWith("/api/study-state", expect.objectContaining({
+      method: "POST",
+      body: expect.stringContaining('"action":"attempt"'),
+    })));
+    expect(await screen.findByText("Practised")).toBeInTheDocument();
   });
 
   it("shows only previews to anonymous visitors and gates PDF export", async () => {
@@ -66,7 +115,7 @@ describe("QuestionExplorer", () => {
 
     expect(await screen.findByRole("img", { name: /original question/i })).toBeInTheDocument();
     expect(screen.getByText(/all-access question/i)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /sign in to unlock/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /sign in and choose a plan/i })).toHaveAttribute("href", "/login?next=/pricing");
     fireEvent.click(screen.getByRole("checkbox", { name: /free questions only/i }));
     expect(screen.queryByText(/all-access question/i)).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));

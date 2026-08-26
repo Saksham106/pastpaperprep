@@ -83,7 +83,7 @@ describe("POST /api/assets/sign", () => {
   it("does not charge the premium allowance for preview assets", async () => {
     const response = await POST(new Request("https://pastpaperprep.com/api/assets/sign", {
       method: "POST",
-      body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "m26-math-aasl-p1-tza-q1", kind: "question" }] }),
+      body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "2017-may-p1-tz1-q1", kind: "question" }] }),
       headers: { "content-type": "application/json" },
     }));
 

@@ -1,6 +1,6 @@
 import type { BankSlug } from "@/lib/banks";
 
-export type ProductId = "bank_igcse" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bundle_all";
+export type ProductId = "bank_igcse" | "bank_igcse_additional" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bundle_all";
 export type EntitlementStatus = "active" | "trialing" | "expired" | "revoked";
 
 export type AccessEntitlement = {
@@ -12,6 +12,7 @@ export type AccessEntitlement = {
 
 const BANK_PRODUCTS: Record<BankSlug, ProductId> = {
   igcse: "bank_igcse",
+  "igcse-additional": "bank_igcse_additional",
   "ib-hl": "bank_ib_hl",
   "ib-sl": "bank_ib_sl",
   "ib-ai-hl": "bank_ib_ai_hl",
@@ -20,30 +21,44 @@ const BANK_PRODUCTS: Record<BankSlug, ProductId> = {
 
 export const PREVIEW_QUESTION_IDS: Record<BankSlug, readonly string[]> = {
   igcse: [
-    "0580-2026-march-22-q1",
-    "0580-2026-march-22-q2",
-    "0580-2026-march-22-q3",
+    "0580-2016-march-22-q1",
+    "0580-2016-march-22-q2",
+    "0580-2016-march-22-q3",
+  ],
+  "igcse-additional": [
+    "0606-2016-march-12-q1",
+    "0606-2016-march-12-q2",
+    "0606-2016-march-12-q3",
   ],
   "ib-hl": [
-    "2026-may-tza-p1-q1",
-    "2026-may-tza-p1-q2",
-    "2026-may-tza-p1-q3",
+    "2017-may-tz1-p1-q1",
+    "2017-may-tz1-p1-q2",
+    "2017-may-tz1-p1-q3",
   ],
   "ib-sl": [
-    "m26-math-aasl-p1-tza-q1",
-    "m26-math-aasl-p1-tza-q2",
-    "m26-math-aasl-p1-tza-q3",
+    "2017-may-p1-tz1-q1",
+    "2017-may-p1-tz1-q2",
+    "2017-may-p1-tz1-q3",
   ],
   "ib-ai-hl": [
-    "2025-november-tz0-p1-q1",
-    "2025-november-tz0-p1-q2",
-    "2025-november-tz0-p1-q3",
+    "2021-may-tz1-p1-q1",
+    "2021-may-tz1-p1-q2",
+    "2021-may-tz1-p1-q3",
   ],
   "ib-ai-sl": [
-    "2025-november-tz1-p1-q1",
-    "2025-november-tz1-p1-q2",
-    "2025-november-tz1-p1-q3",
+    "2021-may-tz1-p1-q1",
+    "2021-may-tz1-p1-q2",
+    "2021-may-tz1-p1-q3",
   ],
+};
+
+export const FREE_QUESTION_YEARS: Record<BankSlug, readonly number[]> = {
+  igcse: [2016, 2017, 2018],
+  "igcse-additional": [2016, 2017, 2018],
+  "ib-hl": [2017],
+  "ib-sl": [2017],
+  "ib-ai-hl": [2021],
+  "ib-ai-sl": [2021],
 };
 
 function isCurrent(entitlement: AccessEntitlement, now: Date): boolean {
@@ -70,7 +85,13 @@ export function hasBankAccess(
 }
 
 export function isPreviewQuestion(bankSlug: BankSlug, questionId: string): boolean {
-  return PREVIEW_QUESTION_IDS[bankSlug].includes(questionId);
+  const match = bankSlug === "igcse"
+    ? /^0580-(\d{4})-/.exec(questionId)
+    : bankSlug === "igcse-additional"
+      ? /^0606-(\d{4})-/.exec(questionId)
+      : /^(\d{4})-/.exec(questionId);
+  if (!match) return false;
+  return FREE_QUESTION_YEARS[bankSlug].includes(Number(match[1]));
 }
 
 export function canViewQuestionAsset(

@@ -4,6 +4,7 @@ import { BANKS } from "@/lib/banks";
 
 export default function Home() {
   const totalQuestions = BANKS.reduce((sum, bank) => sum + bank.questionCount, 0);
+  const totalPapers = BANKS.reduce((sum, bank) => sum + bank.paperCount, 0);
   return (
     <>
       <section className="hero shell">
@@ -27,13 +28,13 @@ export default function Home() {
 
       <section className="proof-strip">
         <div><strong>{totalQuestions.toLocaleString()}</strong><span>curated questions</span></div>
-        <div><strong>313</strong><span>exam papers indexed</span></div>
-        <div><strong>3</strong><span>focused question banks</span></div>
+        <div><strong>{totalPapers.toLocaleString()}</strong><span>exam papers indexed</span></div>
+        <div><strong>{BANKS.length}</strong><span>focused question banks</span></div>
       </section>
 
       <section className="banks-section shell" id="question-banks">
         <div className="section-heading">
-          <div><p className="eyebrow">Pick your course</p><h2>One place. Three serious question banks.</h2></div>
+          <div><p className="eyebrow">Pick your course</p><h2>One place. Six serious question banks.</h2></div>
           <p>Start with the syllabus you are sitting now. Your progress and access can move with you as the platform expands.</p>
         </div>
         <div className="bank-grid">

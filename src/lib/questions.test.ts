@@ -5,8 +5,19 @@ import { loadBankQuestions } from "@/lib/questions";
 describe("question normalization", () => {
   it("loads every source bank without dropping questions", () => {
     expect(loadBankQuestions("igcse")).toHaveLength(2684);
+    expect(loadBankQuestions("igcse-additional")).toHaveLength(1633);
     expect(loadBankQuestions("ib-hl")).toHaveLength(841);
     expect(loadBankQuestions("ib-sl")).toHaveLength(578);
+    expect(loadBankQuestions("ib-ai-hl")).toHaveLength(409);
+    expect(loadBankQuestions("ib-ai-sl")).toHaveLength(334);
+  });
+
+  it("keeps every question's skill labels unique", () => {
+    for (const bank of ["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl"] as const) {
+      for (const question of loadBankQuestions(bank)) {
+        expect(new Set(question.skills).size, `${bank}/${question.id}`).toBe(question.skills.length);
+      }
+    }
   });
 
   it("turns source-relative assets into working public URLs", () => {

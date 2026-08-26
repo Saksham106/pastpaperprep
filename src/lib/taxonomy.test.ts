@@ -27,6 +27,28 @@ describe("question taxonomy", () => {
     ]);
   });
 
+  it("orders Additional Mathematics topics across the historical syllabus range", () => {
+    expect(getTopicOptions(loadBankQuestions("igcse-additional"))).toEqual([
+      "Set language and notation",
+      "Functions",
+      "Quadratic functions",
+      "Indices and surds",
+      "Factors of polynomials",
+      "Equations, inequalities and graphs",
+      "Simultaneous equations",
+      "Logarithmic and exponential functions",
+      "Straight-line graphs",
+      "Coordinate geometry of the circle",
+      "Circular measure",
+      "Trigonometry",
+      "Permutations and combinations",
+      "Series",
+      "Vectors in two dimensions",
+      "Matrices",
+      "Calculus",
+    ]);
+  });
+
   it("shows only the selected IB topic taxonomy before other subtopics", () => {
     const questions = loadBankQuestions("ib-sl");
     const groups = getSubtopicGroups(questions, ["Calculus"], []);

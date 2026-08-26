@@ -20,6 +20,32 @@ const IGCSE_TOPIC_ORDER = [
   "Statistics",
 ] as const;
 
+// Historical union for the 2016–2026 bank. Cambridge changed the 0606
+// syllabus during this range, so the current 2025–2027 list alone would hide
+// valid older questions on sets, indices/surds, and matrices.
+// 2017–2019: https://www.cambridgeinternational.org/images/203403-2017-2019-syllabus.pdf
+// 2020–2022: https://www.cambridgeinternational.org/Images/414438-2020-2022-syllabus.pdf
+// 2025–2027: https://www.cambridgeinternational.org/Images/662470-2025-2027-syllabus.pdf
+const IGCSE_ADDITIONAL_TOPIC_ORDER = [
+  "Set language and notation",
+  "Functions",
+  "Quadratic functions",
+  "Indices and surds",
+  "Factors of polynomials",
+  "Equations, inequalities and graphs",
+  "Simultaneous equations",
+  "Logarithmic and exponential functions",
+  "Straight-line graphs",
+  "Coordinate geometry of the circle",
+  "Circular measure",
+  "Trigonometry",
+  "Permutations and combinations",
+  "Series",
+  "Vectors in two dimensions",
+  "Matrices",
+  "Calculus",
+] as const;
+
 const IB_SL_SUBTOPICS: Record<string, readonly string[]> = {
   "Number and algebra": [
     "Number systems and notation",
@@ -243,7 +269,13 @@ function uniqueSorted(values: string[]): string[] {
 
 export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
   const available = new Set(questions.map((question) => question.primaryTopic));
-  const order = questions[0]?.bankSlug === "igcse" ? IGCSE_TOPIC_ORDER : IB_TOPIC_ORDER;
+  const bankSlug = questions[0]?.bankSlug;
+  const order =
+    bankSlug === "igcse"
+      ? IGCSE_TOPIC_ORDER
+      : bankSlug === "igcse-additional"
+        ? IGCSE_ADDITIONAL_TOPIC_ORDER
+        : IB_TOPIC_ORDER;
   const ordered = order.filter((topic) => available.has(topic));
   const remaining = [...available].filter((topic) => !ordered.includes(topic as never)).sort();
   return [...ordered, ...remaining];
@@ -266,7 +298,7 @@ export function getSubtopicGroups(
   let relevant: string[];
   if (!selectedTopics.length) {
     relevant = all;
-  } else if (questions[0]?.bankSlug === "igcse") {
+  } else if (questions[0]?.bankSlug === "igcse" || questions[0]?.bankSlug === "igcse-additional") {
     relevant = uniqueSorted(
       questions
         .filter((question) => selectedTopicSet.has(question.primaryTopic))

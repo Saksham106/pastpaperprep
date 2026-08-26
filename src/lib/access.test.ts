@@ -1,10 +1,12 @@
 import { describe, expect, it } from "vitest";
 import {
+  FREE_QUESTION_YEARS,
   PREVIEW_QUESTION_IDS,
   canExportPdf,
   canViewAnswer,
   canViewQuestionAsset,
   hasBankAccess,
+  isPreviewQuestion,
   type AccessEntitlement,
 } from "@/lib/access";
 
@@ -52,6 +54,26 @@ describe("bank access", () => {
 });
 
 describe("preview and premium actions", () => {
+  it("makes reviewed older years free while keeping newer years paid", () => {
+    expect(FREE_QUESTION_YEARS).toEqual({
+      igcse: [2016, 2017, 2018],
+      "igcse-additional": [2016, 2017, 2018],
+      "ib-hl": [2017],
+      "ib-sl": [2017],
+      "ib-ai-hl": [2021],
+      "ib-ai-sl": [2021],
+    });
+    expect(isPreviewQuestion("igcse", "0580-2018-june-22-q1")).toBe(true);
+    expect(isPreviewQuestion("igcse", "0580-2019-june-22-q1")).toBe(false);
+    expect(isPreviewQuestion("igcse-additional", "0606-2018-june-22-q1")).toBe(true);
+    expect(isPreviewQuestion("igcse-additional", "0606-2019-june-22-q1")).toBe(false);
+    expect(isPreviewQuestion("ib-hl", "2017-may-tz1-p1-q1")).toBe(true);
+    expect(isPreviewQuestion("ib-hl", "2018-may-tz1-p1-q1")).toBe(false);
+    expect(isPreviewQuestion("ib-sl", "2017-may-p1-tz1-q1")).toBe(true);
+    expect(isPreviewQuestion("ib-ai-hl", "2021-may-tz1-p1-q1")).toBe(true);
+    expect(isPreviewQuestion("ib-ai-sl", "2022-may-tz1-p1-q1")).toBe(false);
+  });
+
   it("allows the explicit public sample questions and answers", () => {
     const previewId = PREVIEW_QUESTION_IDS["ib-sl"][0];
 

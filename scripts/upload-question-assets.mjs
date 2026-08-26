@@ -12,8 +12,23 @@ const CONCURRENCY = Number(process.env.UPLOAD_CONCURRENCY ?? 16);
 const SOURCES = [
   { bank: "ib-sl", root: "/tmp/pastpaperprep-sources/ib-sl/site" },
   { bank: "ib-hl", root: "/tmp/pastpaperprep-sources/ib-hl/site" },
+  { bank: "ib-ai-sl", root: "/tmp/pastpaperprep-sources/ib-ai-sl/site" },
+  { bank: "ib-ai-hl", root: "/tmp/pastpaperprep-sources/ib-ai-hl/site" },
   { bank: "igcse", root: "/tmp/pastpaperprep-sources/igcse/site" },
+  { bank: "igcse-additional", root: "/tmp/pastpaperprep-sources/igcse-additional/site" },
 ];
+const requestedBanks = (process.env.UPLOAD_BANKS ?? "")
+  .split(",")
+  .map((bank) => bank.trim())
+  .filter(Boolean);
+const unknownBanks = requestedBanks.filter((bank) => !SOURCES.some((source) => source.bank === bank));
+if (unknownBanks.length) {
+  console.error(`Unknown UPLOAD_BANKS values: ${unknownBanks.join(", ")}`);
+  process.exit(1);
+}
+const activeSources = requestedBanks.length
+  ? SOURCES.filter((source) => requestedBanks.includes(source.bank))
+  : SOURCES;
 
 if (!SUPABASE_URL || !SUPABASE_SECRET_KEY) {
   console.error("SUPABASE_URL and SUPABASE_SECRET_KEY are required.");
@@ -67,7 +82,7 @@ async function upload(source, path) {
 }
 
 const entries = (await Promise.all(
-  SOURCES.map(async (source) => (await walk(source.root)).map((path) => ({ source, path }))),
+  activeSources.map(async (source) => (await walk(source.root)).map((path) => ({ source, path }))),
 )).flat();
 
 console.log(`Uploading ${entries.length.toLocaleString()} WebP assets to ${BUCKET} with concurrency ${CONCURRENCY}.`);

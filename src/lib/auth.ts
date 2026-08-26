@@ -2,7 +2,7 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_EMAIL_LENGTH = 254;
 const MIN_PASSWORD_LENGTH = 12;
 const MAX_PASSWORD_LENGTH = 72;
-const DEFAULT_NEXT_PATH = "/account";
+const DEFAULT_NEXT_PATH = "/pricing";
 
 export type MagicLinkState = {
   status: "idle" | "success" | "error";

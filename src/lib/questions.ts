@@ -1,4 +1,5 @@
 import igcseData from "@/data/raw/igcse.json";
+import igcseAdditionalData from "@/data/raw/igcse-additional.json";
 import ibHlData from "@/data/raw/ib-hl.json";
 import ibSlData from "@/data/raw/ib-sl.json";
 import ibAiHlData from "@/data/raw/ib-ai-hl.json";
@@ -63,6 +64,7 @@ export type QuestionFilters = {
 
 const rawBanks: Record<BankSlug, { questions: RawQuestion[] }> = {
   igcse: igcseData as { questions: RawQuestion[] },
+  "igcse-additional": igcseAdditionalData as { questions: RawQuestion[] },
   "ib-hl": ibHlData as { questions: RawQuestion[] },
   "ib-sl": ibSlData as { questions: RawQuestion[] },
   "ib-ai-hl": ibAiHlData as { questions: RawQuestion[] },

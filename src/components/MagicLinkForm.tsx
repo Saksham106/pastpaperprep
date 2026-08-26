@@ -5,7 +5,7 @@ import { PaperPlaneTilt } from "@phosphor-icons/react";
 import { requestMagicLink } from "@/app/auth/actions";
 import { initialMagicLinkState } from "@/lib/auth";
 
-export function MagicLinkForm({ next = "/account" }: { next?: string }) {
+export function MagicLinkForm({ next = "/pricing" }: { next?: string }) {
   const [state, action, pending] = useActionState(requestMagicLink, initialMagicLinkState);
 
   return (

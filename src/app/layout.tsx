@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans, Manrope } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { createClient } from "@/lib/supabase/server";
 import "./globals.css";
 
 const body = DM_Sans({ variable: "--font-body", subsets: ["latin"] });
@@ -13,10 +14,14 @@ export const metadata: Metadata = {
   description: "Topic-by-topic past paper practice for IGCSE and IB Mathematics, with worked answers and focused filtering.",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const supabase = await createClient();
+  const { data: claimsData } = await supabase.auth.getClaims();
+  const authenticated = typeof claimsData?.claims?.sub === "string";
+
   return (
     <html lang="en" className={`${body.variable} ${display.variable}`}>
-      <body><SiteHeader /><main>{children}</main><SiteFooter /></body>
+      <body><SiteHeader authenticated={authenticated} /><main>{children}</main><SiteFooter /></body>
     </html>
   );
 }

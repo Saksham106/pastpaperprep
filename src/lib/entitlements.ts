@@ -2,6 +2,7 @@ import type { AccessEntitlement, EntitlementStatus, ProductId } from "@/lib/acce
 
 const PRODUCT_IDS = new Set<ProductId>([
   "bank_igcse",
+  "bank_igcse_additional",
   "bank_ib_hl",
   "bank_ib_sl",
   "bank_ib_ai_hl",

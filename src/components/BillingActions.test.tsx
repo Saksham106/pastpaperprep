@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { CheckoutButtons, PortalButton } from "@/components/BillingActions";
+import { CheckoutButton, CheckoutButtons, PortalButton } from "@/components/BillingActions";
 
 const fetchMock = vi.fn();
 
@@ -10,6 +10,25 @@ beforeEach(() => {
 });
 
 describe("CheckoutButtons", () => {
+  it("renders a single independently placeable interval action", async () => {
+    const navigate = vi.fn();
+    fetchMock.mockResolvedValue({
+      ok: true,
+      json: async () => ({ url: "https://checkout.stripe.com/c/pay/monthly" }),
+    });
+
+    render(<CheckoutButton interval="monthly" navigate={navigate} />);
+    expect(screen.queryByRole("button", { name: /choose annual/i })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: /choose monthly/i }));
+
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/billing/checkout", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ interval: "monthly" }),
+    }));
+    expect(navigate).toHaveBeenCalledWith("https://checkout.stripe.com/c/pay/monthly");
+  });
+
   it("starts the selected allowlisted billing interval and follows Stripe's URL", async () => {
     const navigate = vi.fn();
     fetchMock.mockResolvedValue({

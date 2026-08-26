@@ -7,13 +7,13 @@ describe("safeNextPath", () => {
   });
 
   it("rejects absolute and protocol-relative redirects", () => {
-    expect(safeNextPath("https://evil.example")).toBe("/account");
-    expect(safeNextPath("//evil.example")).toBe("/account");
-    expect(safeNextPath("/\\evil.example")).toBe("/account");
+    expect(safeNextPath("https://evil.example")).toBe("/pricing");
+    expect(safeNextPath("//evil.example")).toBe("/pricing");
+    expect(safeNextPath("/\\evil.example")).toBe("/pricing");
   });
 
-  it("uses the account page when no path is supplied", () => {
-    expect(safeNextPath(null)).toBe("/account");
+  it("uses pricing when no path is supplied so sign-in leads to a clear upgrade step", () => {
+    expect(safeNextPath(null)).toBe("/pricing");
   });
 });
 
