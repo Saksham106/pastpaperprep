@@ -11,15 +11,19 @@ This is the operational source of truth for adding or rebuilding PastPaperPrep q
 | Cambridge IGCSE Mathematics 0580 | `Saksham106/igcse-0580-topic-practice` | 147 | 2,684 | 5,368 |
 | IB Mathematics HL / AA HL | `Saksham106/ib-maths-aa-hl-topic-practice` | 104 | 841 | 3,022 |
 | IB Mathematics SL / AA SL | `Saksham106/ib-maths-aa-topic-finder` | 62 | 578 | 1,463 |
-| **Total** |  | **313** | **4,103** | **9,853** |
+| IB Mathematics AI HL | `Saksham106/ib-maths-ai-hl-topic-practice` | 48 | 409 | 1,353 |
+| IB Mathematics AI SL | `Saksham106/ib-maths-ai-sl-topic-practice` | 38 | 334 | 1,002 |
+| **Total** |  | **399** | **4,846** | **12,208** |
 
 The application copies each source bank's generated `site/data/questions.json` to:
 
 - `src/data/raw/igcse.json`
 - `src/data/raw/ib-hl.json`
 - `src/data/raw/ib-sl.json`
+- `src/data/raw/ib-ai-hl.json`
+- `src/data/raw/ib-ai-sl.json`
 
-The 9,853 WebPs live in the private Supabase Storage bucket `question-assets`, under the bank prefixes `igcse/`, `ib-hl/`, and `ib-sl/`.
+The WebPs live in the private Supabase Storage bucket `question-assets`, under the bank prefixes `igcse/`, `ib-hl/`, `ib-sl/`, `ib-ai-hl/`, and `ib-ai-sl/`. The two AI banks were built but their assets are not yet uploaded; run the uploader for them before enabling paid access (see "AI banks pending steps" below).
 
 ## Non-negotiable rules
 
@@ -375,6 +379,37 @@ Do not start by editing the Next.js UI. First create a source repository with:
 - tests for known layout and classification edge cases.
 
 Only after the bank validates independently should you add its slug/config to PastPaperPrep, import its normalized JSON, upload assets under a new Storage prefix, add product entitlements, and update preview fixtures and access tests.
+
+## AI banks (added August 2026)
+
+The AI SL and AI HL banks reuse the IB-HL pipeline end to end. Working copies:
+`git@github.com:Saksham106/ib-maths-ai-hl-topic-practice.git` and
+`git@github.com:Saksham106/ib-maths-ai-sl-topic-practice.git`.
+
+Coverage decisions made during the build:
+
+- Sessions: May + November 2021–2025, every paper with its official markscheme.
+- The extra May-2023 time-zone papers ("More Papers M23") have no official markschemes and are excluded.
+- May 2026 AI papers exist as scans without official markschemes; they follow the 2026 independent-solution
+  policy only if a reviewed reconstruction is prepared first. They are not in the current corpus.
+- Taxonomy: five guide topics; SL carries the SL subtopic vocabulary, HL adds the AHL-only extensions
+  (graph theory, Markov chains, complex numbers, matrices/eigenvalues, Poisson, further calculus,
+  differential equations). Both live in `data/classification-taxonomy.json` per repo and mirror into
+  `src/lib/taxonomy.ts` in the application.
+- Classification: rule pass plus a durable manual-review overlay (118 HL / 159 SL records) applied on
+  every rebuild. Confidence is fail-closed; unresolved records block `build_data`.
+
+Pipeline commands match "#### IB HL" above, run inside each AI repository.
+
+### AI banks pending steps
+
+1. Upload assets: point the uploader at `/tmp/pastpaperprep-sources/ai-hl/site` and
+   `/tmp/pastpaperprep-sources/ai-sl/site` (or re-clone from the new repos), producing keys under
+   `ib-ai-hl/` and `ib-ai-sl/`.
+2. Apply migration `20260826220000_add_ib_maths_ai_banks.sql` in Supabase.
+3. Create Stripe prices for `bank_ib_ai_hl` / `bank_ib_ai_sl` if selling separately; `bundle_all` already covers them.
+4. Review, merge, deploy, then verify counts: AI HL 48 papers / 409 questions / 1,353 assets;
+   AI SL 38 papers / 334 questions / 1,002 assets.
 
 ## Open-source tools worth using
 
