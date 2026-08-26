@@ -42,6 +42,16 @@ describe("bank access", () => {
     expect(hasBankAccess("igcse", entitlements, now)).toBe(true);
   });
 
+  it("grants only the related banks for subject-pair bundles", () => {
+    expect(hasBankAccess("igcse", [entitlement("bundle_igcse")], now)).toBe(true);
+    expect(hasBankAccess("igcse-additional", [entitlement("bundle_igcse")], now)).toBe(true);
+    expect(hasBankAccess("ib-hl", [entitlement("bundle_ib_aa")], now)).toBe(true);
+    expect(hasBankAccess("ib-sl", [entitlement("bundle_ib_aa")], now)).toBe(true);
+    expect(hasBankAccess("ib-ai-hl", [entitlement("bundle_ib_ai")], now)).toBe(true);
+    expect(hasBankAccess("ib-ai-sl", [entitlement("bundle_ib_ai")], now)).toBe(true);
+    expect(hasBankAccess("ib-ai-hl", [entitlement("bundle_ib_aa")], now)).toBe(false);
+  });
+
   it("rejects expired, revoked, and unrelated entitlements", () => {
     expect(hasBankAccess("ib-sl", [entitlement("bank_ib_sl", { expiresAt: now.toISOString() })], now)).toBe(false);
     expect(hasBankAccess("ib-sl", [entitlement("bank_ib_sl", { startsAt: "2026-08-26T18:00:00.000Z" })], now)).toBe(false);

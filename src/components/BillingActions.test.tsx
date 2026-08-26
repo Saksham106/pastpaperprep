@@ -17,14 +17,14 @@ describe("CheckoutButtons", () => {
       json: async () => ({ url: "https://checkout.stripe.com/c/pay/monthly" }),
     });
 
-    render(<CheckoutButton interval="monthly" navigate={navigate} />);
+    render(<CheckoutButton interval="monthly" productId="bank_ib_hl" navigate={navigate} />);
     expect(screen.queryByRole("button", { name: /choose annual/i })).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /choose monthly/i }));
 
     await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/billing/checkout", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ interval: "monthly" }),
+      body: JSON.stringify({ interval: "monthly", productId: "bank_ib_hl" }),
     }));
     expect(navigate).toHaveBeenCalledWith("https://checkout.stripe.com/c/pay/monthly");
   });
@@ -36,27 +36,46 @@ describe("CheckoutButtons", () => {
       json: async () => ({ url: "https://checkout.stripe.com/c/pay/test" }),
     });
 
-    render(<CheckoutButtons navigate={navigate} />);
+    render(<CheckoutButtons productId="bundle_all" navigate={navigate} />);
     fireEvent.click(screen.getByRole("button", { name: /choose annual/i }));
 
     await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/billing/checkout", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ interval: "annual" }),
+      body: JSON.stringify({ interval: "annual", productId: "bundle_all" }),
     }));
     expect(navigate).toHaveBeenCalledWith("https://checkout.stripe.com/c/pay/test");
   });
 
+  it("disables both interval choices while one checkout request is pending", async () => {
+    let resolveFetch!: (value: unknown) => void;
+    fetchMock.mockReturnValue(new Promise((resolve) => { resolveFetch = resolve; }));
+
+    render(<CheckoutButtons productId="bundle_all" />);
+    const annual = screen.getByRole("button", { name: /choose annual/i });
+    const monthly = screen.getByRole("button", { name: /choose monthly/i });
+
+    fireEvent.click(annual);
+
+    expect(annual).toBeDisabled();
+    expect(monthly).toBeDisabled();
+    fireEvent.click(monthly);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+
+    resolveFetch({ ok: false, status: 503, json: async () => ({ error: "Billing is not available yet" }) });
+    expect(await screen.findByRole("alert")).toHaveTextContent("Billing is not available yet");
+  });
+
   it("offers sign-in after an unauthenticated checkout request", async () => {
     fetchMock.mockResolvedValue({ ok: false, status: 401, json: async () => ({ error: "Authentication required" }) });
-    render(<CheckoutButtons />);
+    render(<CheckoutButtons productId="bundle_all" />);
     fireEvent.click(screen.getByRole("button", { name: /choose monthly/i }));
     expect(await screen.findByRole("link", { name: /sign in to continue/i })).toHaveAttribute("href", "/login?next=/pricing");
   });
 
   it("shows a fail-closed message while billing is disabled", async () => {
     fetchMock.mockResolvedValue({ ok: false, status: 503, json: async () => ({ error: "Billing is not available yet" }) });
-    render(<CheckoutButtons />);
+    render(<CheckoutButtons productId="bundle_all" />);
     fireEvent.click(screen.getByRole("button", { name: /choose annual/i }));
     expect(await screen.findByRole("alert")).toHaveTextContent("Billing is not available yet");
   });

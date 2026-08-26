@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createStripeClient } from "@/lib/stripe";
 import { getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
@@ -29,14 +30,22 @@ export async function POST() {
   try {
     const config = getStripeConfig();
     const stripe = createStripeClient(config.secretKey);
-    const customers = await stripe.customers.search({
-      query: `metadata['user_id']:'${user.id}'`,
-      limit: 1,
+    const admin = createAdminClient();
+    const { data: customerId, error: mappingError } = await admin.rpc("get_stripe_customer_id", {
+      p_user_id: user.id,
     });
-    const customer = customers.data[0];
-    if (!customer) return NextResponse.json({ error: "No billing account found" }, { status: 404 });
+    if (mappingError) throw mappingError;
+    if (typeof customerId !== "string" || !customerId) {
+      return NextResponse.json({ error: "No billing account found" }, { status: 404 });
+    }
+    const configurations = await stripe.billingPortal.configurations.list({ active: true, limit: 100 });
+    const defaultConfiguration = configurations.data.find((configuration) => configuration.is_default);
+    if (!defaultConfiguration || defaultConfiguration.features.subscription_update.enabled !== false) {
+      throw new Error("Safe billing portal configuration is unavailable");
+    }
     const session = await stripe.billingPortal.sessions.create({
-      customer: customer.id,
+      customer: customerId,
+      configuration: defaultConfiguration.id,
       return_url: `${config.siteUrl}/account`,
     });
     return NextResponse.json({ url: session.url });

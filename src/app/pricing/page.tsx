@@ -2,6 +2,7 @@ import { PricingContent } from "@/components/PricingContent";
 import { hasBankAccess } from "@/lib/access";
 import { BANKS } from "@/lib/banks";
 import { normalizeEntitlements } from "@/lib/entitlements";
+import { requireEntitlementRows } from "@/lib/entitlement-query";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata = { title: "Pricing" };
@@ -13,12 +14,12 @@ export default async function PricingPage() {
   let hasPaidAccess = false;
 
   if (userId) {
-    const { data } = await supabase
+    const result = await supabase
       .from("entitlements")
       .select("product_id, status, starts_at, expires_at")
       .eq("user_id", userId);
-    const entitlements = normalizeEntitlements(data ?? []);
-    hasPaidAccess = BANKS.every(({ slug }) => hasBankAccess(slug, entitlements));
+    const entitlements = normalizeEntitlements(requireEntitlementRows(result));
+    hasPaidAccess = BANKS.some(({ slug }) => hasBankAccess(slug, entitlements));
   }
 
   return <PricingContent authenticated={Boolean(userId)} hasPaidAccess={hasPaidAccess} />;

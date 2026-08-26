@@ -3,13 +3,13 @@ import { redirect } from "next/navigation";
 import { signOut } from "@/app/auth/actions";
 import { PortalButton } from "@/components/BillingActions";
 import { PasswordSettingsForm } from "@/components/PasswordSettingsForm";
+import { CURRENT_ENTITLEMENT_FILTERS } from "@/lib/current-entitlements";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata = { title: "Your account" };
 
 type Entitlement = {
   status: string;
-  expires_at: string | null;
   products: { name: string } | { name: string }[] | null;
 };
 
@@ -21,14 +21,17 @@ export default async function AccountPage() {
     redirect("/login?next=/account");
   }
 
-  const [{ data: userData }, { data: entitlementData }] = await Promise.all([
+  const [{ data: userData }, { data: entitlementData, error: entitlementError }] = await Promise.all([
     supabase.auth.getUser(),
     supabase
       .from("entitlements")
-      .select("status, expires_at, products(name)")
+      .select("status, products(name)")
       .eq("user_id", claimsData.claims.sub)
-      .in("status", ["active", "trialing"]),
+      .in("status", ["active", "trialing"])
+      .lte("starts_at", CURRENT_ENTITLEMENT_FILTERS.startsAt)
+      .or(CURRENT_ENTITLEMENT_FILTERS.expiresAt),
   ]);
+  if (entitlementError) throw entitlementError;
 
   const entitlements = (entitlementData ?? []) as Entitlement[];
 

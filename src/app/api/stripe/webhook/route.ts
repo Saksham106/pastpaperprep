@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createStripeClient } from "@/lib/stripe";
-import { getStripeConfig } from "@/lib/stripe-config";
+import { getStripeConfig, isStripePriceAllowedForProduct } from "@/lib/stripe-config";
 import { buildSubscriptionSync, getSubscriptionEventReference } from "@/lib/stripe-subscriptions";
 import { createAdminClient } from "@/lib/supabase/admin";
 
@@ -45,10 +45,17 @@ export async function POST(request: Request) {
   try {
     sync = buildSubscriptionSync(
       { ...event, data: { object: currentSubscription } },
-      new Set([config.monthlyPriceId, config.annualPriceId]),
+      (productId, priceId) => isStripePriceAllowedForProduct(productId, priceId, config),
     );
   } catch {
-    return NextResponse.json({ error: "Invalid subscription event" }, { status: 400 });
+    const admin = createAdminClient();
+    const { error } = await admin.rpc("invalidate_stripe_subscription_event", {
+      p_event_id: event.id,
+      p_event_created: event.created,
+      p_subscription_id: reference.subscriptionId,
+    });
+    if (error) return NextResponse.json({ error: "Webhook processing failed" }, { status: 500 });
+    return NextResponse.json({ received: true });
   }
   if (!sync) return NextResponse.json({ received: true });
 

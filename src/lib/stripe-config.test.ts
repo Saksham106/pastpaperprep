@@ -7,20 +7,29 @@ describe("Stripe billing configuration", () => {
     STRIPE_WEBHOOK_SECRET: "whsec_example",
     STRIPE_FOUNDING_MONTHLY_PRICE_ID: "price_monthly",
     STRIPE_FOUNDING_ANNUAL_PRICE_ID: "price_annual",
+    STRIPE_SINGLE_MONTHLY_PRICE_ID: "price_single_monthly",
+    STRIPE_SINGLE_ANNUAL_PRICE_ID: "price_single_annual",
+    STRIPE_PAIR_MONTHLY_PRICE_ID: "price_pair_monthly",
+    STRIPE_PAIR_ANNUAL_PRICE_ID: "price_pair_annual",
+    STRIPE_ALL_MONTHLY_PRICE_ID: "price_all_monthly",
+    STRIPE_ALL_ANNUAL_PRICE_ID: "price_all_annual",
     NEXT_PUBLIC_SITE_URL: "https://pastpaperprep.com",
   };
 
   it("maps only allowlisted billing intervals to server-owned prices", () => {
     const config = validateStripeConfig(env);
 
-    expect(getBillingPlan("monthly", config)).toEqual({ interval: "monthly", priceId: "price_monthly" });
-    expect(getBillingPlan("annual", config)).toEqual({ interval: "annual", priceId: "price_annual" });
-    expect(() => getBillingPlan("price_monthly", config)).toThrow("Unknown billing interval");
+    expect(getBillingPlan("bank_ib_hl", "monthly", config)).toEqual({ interval: "monthly", productId: "bank_ib_hl", priceId: "price_single_monthly" });
+    expect(getBillingPlan("bundle_ib_aa", "annual", config)).toEqual({ interval: "annual", productId: "bundle_ib_aa", priceId: "price_pair_annual" });
+    expect(getBillingPlan("bundle_all", "annual", config)).toEqual({ interval: "annual", productId: "bundle_all", priceId: "price_all_annual" });
+    expect(() => getBillingPlan("admin", "monthly", config)).toThrow("Unknown billing product");
+    expect(() => getBillingPlan("bank_ib_hl", "price_monthly", config)).toThrow("Unknown billing interval");
   });
 
   it("fails closed when required secrets or price IDs are missing", () => {
     expect(() => validateStripeConfig({ ...env, STRIPE_SECRET_KEY: "" })).toThrow("Stripe is not configured");
     expect(() => validateStripeConfig({ ...env, STRIPE_FOUNDING_ANNUAL_PRICE_ID: "" })).toThrow("Stripe is not configured");
+    expect(() => validateStripeConfig({ ...env, STRIPE_SINGLE_ANNUAL_PRICE_ID: "" })).toThrow("Stripe is not configured");
   });
 
   it("requires the canonical HTTPS site URL", () => {

@@ -11,14 +11,21 @@ vi.mock("@/lib/stripe", () => ({
     subscriptions: { retrieve: retrieveSubscription },
   })),
 }));
-vi.mock("@/lib/stripe-config", () => ({
-  getStripeConfig: () => ({
+vi.mock("@/lib/stripe-config", async (importOriginal) => {
+  const original = await importOriginal<typeof import("@/lib/stripe-config")>();
+  return { ...original, getStripeConfig: () => ({
     secretKey: "sk_test_example",
     webhookSecret: "whsec_example",
     monthlyPriceId: "price_monthly",
     annualPriceId: "price_annual",
-  }),
-}));
+    singleMonthlyPriceId: "price_single_monthly",
+    singleAnnualPriceId: "price_single_annual",
+    pairMonthlyPriceId: "price_pair_monthly",
+    pairAnnualPriceId: "price_pair_annual",
+    allMonthlyPriceId: "price_all_monthly",
+    allAnnualPriceId: "price_all_annual",
+  }) };
+});
 vi.mock("@/lib/supabase/admin", () => ({
   createAdminClient: vi.fn(() => ({ rpc })),
 }));
@@ -102,6 +109,24 @@ describe("POST /api/stripe/webhook", () => {
       "apply_stripe_subscription_event",
       expect.objectContaining({ p_status: "revoked", p_expires_at: null }),
     );
+  });
+
+  it("revokes stored access when current Stripe metadata is unsupported", async () => {
+    constructEvent.mockReturnValue(subscriptionEvent);
+    retrieveSubscription.mockResolvedValue({
+      ...subscriptionEvent.data.object,
+      metadata: { user_id: userId, product_id: "unsupported_product" },
+    });
+    rpc.mockResolvedValue({ data: "revoked", error: null });
+
+    const response = await POST(request());
+
+    expect(response.status).toBe(200);
+    expect(rpc).toHaveBeenCalledWith("invalidate_stripe_subscription_event", {
+      p_event_id: "evt_1",
+      p_event_created: 1_800_000_000,
+      p_subscription_id: "sub_1",
+    });
   });
 
   it("does not grant access from checkout completion alone", async () => {

@@ -1,6 +1,6 @@
 import type { BankSlug } from "@/lib/banks";
 
-export type ProductId = "bank_igcse" | "bank_igcse_additional" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bundle_all";
+export type ProductId = "bank_igcse" | "bank_igcse_additional" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bundle_igcse" | "bundle_ib_aa" | "bundle_ib_ai" | "bundle_all";
 export type EntitlementStatus = "active" | "trialing" | "expired" | "revoked";
 
 export type AccessEntitlement = {
@@ -17,6 +17,15 @@ const BANK_PRODUCTS: Record<BankSlug, ProductId> = {
   "ib-sl": "bank_ib_sl",
   "ib-ai-hl": "bank_ib_ai_hl",
   "ib-ai-sl": "bank_ib_ai_sl",
+};
+
+const BANK_BUNDLES: Record<BankSlug, readonly ProductId[]> = {
+  igcse: ["bundle_igcse"],
+  "igcse-additional": ["bundle_igcse"],
+  "ib-hl": ["bundle_ib_aa"],
+  "ib-sl": ["bundle_ib_aa"],
+  "ib-ai-hl": ["bundle_ib_ai"],
+  "ib-ai-sl": ["bundle_ib_ai"],
 };
 
 export const PREVIEW_QUESTION_IDS: Record<BankSlug, readonly string[]> = {
@@ -80,7 +89,7 @@ export function hasBankAccess(
   return entitlements.some(
     (entitlement) =>
       isCurrent(entitlement, now) &&
-      (entitlement.productId === bankProduct || entitlement.productId === "bundle_all"),
+      (entitlement.productId === bankProduct || BANK_BUNDLES[bankSlug].includes(entitlement.productId) || entitlement.productId === "bundle_all"),
   );
 }
 

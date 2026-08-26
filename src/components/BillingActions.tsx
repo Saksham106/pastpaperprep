@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import type { ProductId } from "@/lib/access";
 
 type Navigate = (url: string) => void;
 type BillingError = { error?: unknown };
@@ -25,12 +26,31 @@ async function responsePayload(response: Response): Promise<Record<string, unkno
 
 type BillingInterval = "monthly" | "annual";
 
-export function CheckoutButton({ interval, navigate = defaultNavigate }: { interval: BillingInterval; navigate?: Navigate }) {
-  const [pending, setPending] = useState(false);
+export function CheckoutButton({
+  interval,
+  productId,
+  navigate = defaultNavigate,
+  pending: sharedPending,
+  onPendingChange,
+}: {
+  interval: BillingInterval;
+  productId: ProductId;
+  navigate?: Navigate;
+  pending?: boolean;
+  onPendingChange?: (pending: boolean) => void;
+}) {
+  const [localPending, setLocalPending] = useState(false);
+  const pending = sharedPending ?? localPending;
   const [error, setError] = useState("");
   const [needsLogin, setNeedsLogin] = useState(false);
 
+  function setPending(value: boolean) {
+    setLocalPending(value);
+    onPendingChange?.(value);
+  }
+
   async function start() {
+    if (pending) return;
     setPending(true);
     setError("");
     setNeedsLogin(false);
@@ -38,7 +58,7 @@ export function CheckoutButton({ interval, navigate = defaultNavigate }: { inter
       const response = await fetch("/api/billing/checkout", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ interval }),
+        body: JSON.stringify({ interval, productId }),
       });
       const payload = await responsePayload(response);
       if (response.status === 401) {
@@ -68,11 +88,39 @@ export function CheckoutButton({ interval, navigate = defaultNavigate }: { inter
   );
 }
 
-export function CheckoutButtons({ navigate = defaultNavigate }: { navigate?: Navigate }) {
+export function CheckoutButtons({ productId, navigate = defaultNavigate }: { productId: ProductId; navigate?: Navigate }) {
+  const [pending, setPending] = useState(false);
   return (
     <div className="billing-options-actions">
-      <CheckoutButton interval="annual" navigate={navigate} />
-      <CheckoutButton interval="monthly" navigate={navigate} />
+      <CheckoutButton interval="annual" productId={productId} navigate={navigate} pending={pending} onPendingChange={setPending} />
+      <CheckoutButton interval="monthly" productId={productId} navigate={navigate} pending={pending} onPendingChange={setPending} />
+    </div>
+  );
+}
+
+export function PlanCheckout({
+  options,
+  authenticated,
+  hasPaidAccess,
+}: {
+  options: readonly { productId: ProductId; label: string }[];
+  authenticated: boolean;
+  hasPaidAccess: boolean;
+}) {
+  const [productId, setProductId] = useState<ProductId>(options[0].productId);
+  if (hasPaidAccess) return <Link className="button secondary" href="/account">Manage your access</Link>;
+  if (!authenticated) return <Link className="button secondary" href="/login?next=/pricing">Sign in to choose</Link>;
+  return (
+    <div className="plan-checkout">
+      {options.length > 1 ? (
+        <label className="plan-selector">
+          <span>Choose access</span>
+          <select value={productId} onChange={(event) => setProductId(event.target.value as ProductId)}>
+            {options.map((option) => <option key={option.productId} value={option.productId}>{option.label}</option>)}
+          </select>
+        </label>
+      ) : null}
+      <CheckoutButtons productId={productId} />
     </div>
   );
 }

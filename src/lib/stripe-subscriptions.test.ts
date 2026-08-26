@@ -27,7 +27,8 @@ function event(overrides: Record<string, unknown> = {}) {
   };
 }
 
-const knownPrices = new Set(["price_monthly", "price_annual"]);
+const allowedPrice = (productId: string, priceId: string) =>
+  productId === "bundle_all" && (priceId === "price_monthly" || priceId === "price_annual");
 
 describe("Stripe subscription event normalization", () => {
   it("extracts subscription references only from supported lifecycle events", () => {
@@ -36,7 +37,7 @@ describe("Stripe subscription event normalization", () => {
   });
 
   it("maps a known active subscription to the all-access entitlement", () => {
-    expect(buildSubscriptionSync(event(), knownPrices)).toEqual({
+    expect(buildSubscriptionSync(event(), allowedPrice)).toEqual({
       eventId: "evt_2",
       eventCreated: 1_800_000_000,
       subscriptionId: "sub_1",
@@ -49,24 +50,37 @@ describe("Stripe subscription event normalization", () => {
     });
   });
 
+  it("maps a subject-pair subscription to its exact entitlement", () => {
+    const pair = event();
+    pair.data.object.metadata.product_id = "bundle_ib_aa";
+    expect(buildSubscriptionSync(pair, (productId, priceId) => productId === "bundle_ib_aa" && priceId === "price_monthly"))
+      .toEqual(expect.objectContaining({ productId: "bundle_ib_aa" }));
+  });
+
   it("fails closed for unknown prices, malformed users, and unrelated events", () => {
     const unknownPrice = event();
     (unknownPrice.data.object.items.data[0].price as { id: string }).id = "price_attacker";
-    expect(() => buildSubscriptionSync(unknownPrice, knownPrices)).toThrow("Unknown Stripe price");
+    expect(() => buildSubscriptionSync(unknownPrice, allowedPrice)).toThrow("Stripe price does not match product");
 
     const malformedUser = event();
     malformedUser.data.object.metadata.user_id = "not-a-user";
-    expect(() => buildSubscriptionSync(malformedUser, knownPrices)).toThrow("Invalid subscription metadata");
+    expect(() => buildSubscriptionSync(malformedUser, allowedPrice)).toThrow("Invalid subscription metadata");
 
-    expect(buildSubscriptionSync(event({ type: "checkout.session.completed" }), knownPrices)).toBeNull();
+    expect(buildSubscriptionSync(event({ type: "checkout.session.completed" }), allowedPrice)).toBeNull();
+  });
+
+  it("rejects a known price when it belongs to a different product breadth", () => {
+    const mismatched = event();
+    (mismatched.data.object.items.data[0].price as { id: string }).id = "price_single_monthly";
+    expect(() => buildSubscriptionSync(mismatched, allowedPrice)).toThrow("Stripe price does not match product");
   });
 
   it("revokes access for deleted or non-entitled subscription states", () => {
     const deleted = event({ type: "customer.subscription.deleted" });
-    expect(buildSubscriptionSync(deleted, knownPrices)).toEqual(expect.objectContaining({ status: "revoked", expiresAt: null }));
+    expect(buildSubscriptionSync(deleted, allowedPrice)).toEqual(expect.objectContaining({ status: "revoked", expiresAt: null }));
 
     const unpaid = event();
     unpaid.data.object.status = "unpaid";
-    expect(buildSubscriptionSync(unpaid, knownPrices)).toEqual(expect.objectContaining({ status: "revoked", expiresAt: null }));
+    expect(buildSubscriptionSync(unpaid, allowedPrice)).toEqual(expect.objectContaining({ status: "revoked", expiresAt: null }));
   });
 });
