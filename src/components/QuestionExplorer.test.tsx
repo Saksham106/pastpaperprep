@@ -67,15 +67,42 @@ describe("QuestionExplorer", () => {
     expect(transcriptButton.closest(".source-links")).not.toBeNull();
   });
 
-  it("exposes Cambridge component and calculator filters for Additional Mathematics", () => {
+  it("exposes Cambridge component, variant, and calculator filters for Additional Mathematics", () => {
     const questions = prepareQuestionsForDelivery(loadBankQuestions("igcse-additional").slice(0, 40), [{ productId: "bank_igcse_additional", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
     render(<QuestionExplorer questions={questions} access={fullAccess} />);
 
     fireEvent.click(screen.getByRole("button", { name: /more filters/i }));
     expect(screen.getByRole("group", { name: /components/i })).toBeInTheDocument();
+    expect(screen.getByRole("group", { name: /time zone \/ variant/i })).toBeInTheDocument();
+    expect(screen.getByRole("checkbox", { name: "Time zone / variant: Variant 1" })).toBeInTheDocument();
+    expect(screen.getByRole("checkbox", { name: "Time zone / variant: Variant 2" })).toBeInTheDocument();
+    expect(screen.getByRole("checkbox", { name: "Time zone / variant: Variant 3" })).toBeInTheDocument();
     expect(screen.getByRole("group", { name: /calculator/i })).toBeInTheDocument();
     expect(screen.queryByRole("group", { name: /course/i })).not.toBeInTheDocument();
-    expect(screen.queryByRole("group", { name: /timezone/i })).not.toBeInTheDocument();
+  });
+
+  it("filters Cambridge questions by the selected time-zone variant and keeps it in the URL", async () => {
+    window.history.replaceState({}, "", "/banks/igcse-additional");
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("igcse-additional").slice(0, 120), [{ productId: "bank_igcse_additional", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    render(<QuestionExplorer questions={questions} access={fullAccess} />);
+
+    fireEvent.click(screen.getByRole("button", { name: /more filters/i }));
+    fireEvent.click(screen.getByRole("checkbox", { name: "Time zone / variant: Variant 1" }));
+
+    await waitFor(() => expect(window.location.search).toContain("zone=Variant+1"));
+    expect(screen.getByRole("button", { name: "Variant 1" })).toBeInTheDocument();
+    expect(screen.queryAllByText(/component [^\n]*[23]\b/i)).toHaveLength(0);
+  });
+
+  it("keeps extra filters mounted for a smooth accessible disclosure", () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("igcse").slice(0, 40), [{ productId: "bank_igcse", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const { container } = render(<QuestionExplorer questions={questions} access={fullAccess} />);
+
+    const disclosure = container.querySelector(".secondary-filters");
+    expect(disclosure).toHaveAttribute("aria-hidden", "true");
+    fireEvent.click(screen.getByRole("button", { name: /more filters/i }));
+    expect(disclosure).toHaveClass("is-open");
+    expect(disclosure).toHaveAttribute("aria-hidden", "false");
   });
 
   it("keeps IB time zones available inside compact additional filters", () => {

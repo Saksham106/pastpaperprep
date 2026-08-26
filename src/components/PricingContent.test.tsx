@@ -6,16 +6,16 @@ describe("bank-based pricing", () => {
   it("shows one annual-first monthly-equivalent price per plan", () => {
     render(<PricingContent authenticated={false} hasPaidAccess={false} />);
 
-    expect(screen.getByRole("button", { name: /annual.*save 33%/i })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByRole("button", { name: /annual.*save up to 33%/i })).toHaveAttribute("aria-pressed", "true");
     expect(screen.getByRole("heading", { name: "One bank" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Subject pair" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "All banks" })).toBeInTheDocument();
-    expect(screen.getByText("$3.33")).toBeInTheDocument();
-    expect(screen.getByText("$5.33")).toBeInTheDocument();
+    expect(screen.getByText("$4")).toBeInTheDocument();
+    expect(screen.getByText("$6")).toBeInTheDocument();
     expect(screen.getByText("$8")).toBeInTheDocument();
-    expect(screen.getByText("Billed $40 once a year")).toBeInTheDocument();
-    expect(screen.getByText("Billed $64 once a year")).toBeInTheDocument();
-    expect(screen.getByText("Billed $96 once a year")).toBeInTheDocument();
+    expect(screen.getByText("Billed $48 once a year · Save 20%")).toBeInTheDocument();
+    expect(screen.getByText("Billed $72 once a year · Save 25%")).toBeInTheDocument();
+    expect(screen.getByText("Billed $96 once a year · Save 33%")).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "Monthly" }));
     expect(screen.getByText("$5")).toBeInTheDocument();

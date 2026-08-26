@@ -10,7 +10,7 @@ export function SiteHeader({ authenticated = false }: { authenticated?: boolean 
       </Link>
       <nav aria-label="Main navigation">
         <Link href="/#question-banks">Question banks</Link>
-        {!authenticated && <Link href="/pricing">Pricing</Link>}
+        <Link className="nav-pricing" href="/pricing">Pricing</Link>
         <Link href={authenticated ? "/account" : "/login?next=/pricing"}>{authenticated ? "My account" : "Log in"}</Link>
         <Link className="nav-cta" href="/banks/igcse">Start practising <ArrowRight weight="bold" /></Link>
       </nav>

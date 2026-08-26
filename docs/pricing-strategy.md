@@ -8,8 +8,8 @@ PastPaperPrep sells access by breadth, not by artificial feature restrictions:
 
 | Plan | Monthly | Annual | Annual savings | Access |
 | --- | ---: | ---: | ---: | --- |
-| One bank | $5 | $40 ($3.33/month effective) | $20 (33.3%) | Any one of six banks |
-| Subject pair | $8 | $64 ($5.33/month effective) | $32 (33.3%) | IGCSE Maths, IB AA, or IB AI pair |
+| One bank | $5 | $48 ($4/month effective) | $12 (20%) | Any one of six banks |
+| Subject pair | $8 | $72 ($6/month effective) | $24 (25%) | IGCSE Maths, IB AA, or IB AI pair |
 | All banks | $12 | $96 ($8/month effective) | $48 (33.3%) | All current banks and additions during the subscription |
 
 Free access remains a meaningful set of complete older exam years. Existing All-Access subscriptions remain on their current Stripe price unless the subscriber changes plans.
@@ -20,7 +20,7 @@ Free access remains a meaningful set of complete older exam years. Existing All-
 - Related pairs serve the real middle case without forcing six-bank access: IGCSE 0580 + 0606, IB AA SL + HL, or IB AI SL + HL.
 - All-bank access is materially more valuable to tutors and broad-coverage users, so it should not be priced like a single student course.
 - The paid ladder has three choices. Every paid plan includes the same tools; only access breadth changes. This avoids fake feature gating.
-- Annual discounts are a consistent one-third. The pricing page displays the effective monthly amount first and the annual charge directly below it, so the savings are clear without hiding the actual bill.
+- Annual discounts increase with commitment breadth: 20% for one bank, 25% for a subject pair, and 33.3% for all banks. The pricing page displays clean whole-dollar monthly equivalents first and the annual charge directly below it, so the savings are clear without hiding the actual bill.
 - The launch ladder uses clean whole-dollar monthly prices: $5, $8, and $12. Nine-ending prices can feel materially cheaper when they cross a left digit ($4.99 versus $5.00), but that same effect makes the ladder harder to scan. PastPaperPrep is choosing clarity and trust over a one-cent charm-price nudge, then testing the assumption with real conversion data.
 - The middle plan is the default recommendation: it gives two related banks for less than buying two single-bank subscriptions, without making All Banks a fake decoy.
 

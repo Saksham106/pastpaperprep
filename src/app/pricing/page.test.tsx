@@ -7,12 +7,12 @@ describe("PricingPage", () => {
     const { container } = render(<PricingContent authenticated hasPaidAccess={false} />);
 
     expect(screen.getByRole("heading", { name: /choose how much maths you need/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /annual save 33%/i })).toHaveAttribute("aria-pressed", "true");
-    expect(screen.getByText("$3.33")).toBeInTheDocument();
-    expect(screen.getByText("$5.33")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /annual save up to 33%/i })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByText("$4")).toBeInTheDocument();
+    expect(screen.getByText("$6")).toBeInTheDocument();
     expect(screen.getByText("$8")).toBeInTheDocument();
-    expect(screen.getByText(/billed \$40 once a year/i)).toBeInTheDocument();
-    expect(screen.getByText(/billed \$64 once a year/i)).toBeInTheDocument();
+    expect(screen.getByText(/billed \$48 once a year/i)).toBeInTheDocument();
+    expect(screen.getByText(/billed \$72 once a year/i)).toBeInTheDocument();
     expect(screen.getByText(/billed \$96 once a year/i)).toBeInTheDocument();
     expect(screen.getByText(/most popular/i)).toBeInTheDocument();
     expect(screen.getByText(/simple access/i)).toBeInTheDocument();

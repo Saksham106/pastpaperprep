@@ -21,9 +21,9 @@ const PAIR_OPTIONS = [
 ] as const;
 
 const PLANS = [
-  { name: "One bank", label: "One course", monthly: "$5", annualMonthly: "$3.33", annual: "$40", description: "Choose any one question bank.", options: BANK_OPTIONS, popular: false },
-  { name: "Subject pair", label: "Best for most students", monthly: "$8", annualMonthly: "$5.33", annual: "$64", description: "Choose IGCSE, IB AA, or IB AI.", options: PAIR_OPTIONS, popular: true },
-  { name: "All banks", label: "Complete access", monthly: "$12", annualMonthly: "$8", annual: "$96", description: "Unlock all six question banks.", options: [{ productId: "bundle_all", label: "All banks" }] as const, popular: false },
+  { name: "One bank", label: "One course", monthly: "$5", annualMonthly: "$4", annual: "$48", annualSaving: "20%", description: "Choose any one question bank.", options: BANK_OPTIONS, popular: false },
+  { name: "Subject pair", label: "Best for most students", monthly: "$8", annualMonthly: "$6", annual: "$72", annualSaving: "25%", description: "Choose IGCSE, IB AA, or IB AI.", options: PAIR_OPTIONS, popular: true },
+  { name: "All banks", label: "Complete access", monthly: "$12", annualMonthly: "$8", annual: "$96", annualSaving: "33%", description: "Unlock all six question banks.", options: [{ productId: "bundle_all", label: "All banks" }] as const, popular: false },
 ] as const;
 
 type BillingInterval = "monthly" | "annual";
@@ -37,9 +37,9 @@ export function PricingContent({ authenticated, hasPaidAccess }: { authenticated
       <h1>Choose how much maths you need.</h1>
       <p className="page-lede">Every paid plan includes the same practice tools. You only choose how many banks to unlock.</p>
 
-      <div className="billing-toggle" aria-label="Billing period">
+      <div className="billing-toggle" role="group" aria-label="Billing period">
         <button type="button" aria-pressed={interval === "monthly"} onClick={() => setInterval("monthly")}>Monthly</button>
-        <button type="button" aria-pressed={interval === "annual"} onClick={() => setInterval("annual")}>Annual <span>Save 33%</span></button>
+        <button type="button" aria-pressed={interval === "annual"} onClick={() => setInterval("annual")}>Annual <span>Save up to 33%</span></button>
       </div>
 
       <div className="pricing-options" aria-label="PastPaperPrep plans">
@@ -50,7 +50,7 @@ export function PricingContent({ authenticated, hasPaidAccess }: { authenticated
               {plan.popular ? <span className="pricing-badge">Most popular</span> : null}
             </div>
             <div className="plan-price"><strong>{interval === "annual" ? plan.annualMonthly : plan.monthly}</strong><span>/ month</span></div>
-            {interval === "annual" ? <p className="plan-billing-note">Billed {plan.annual} once a year</p> : <p className="plan-billing-note">Billed monthly</p>}
+            {interval === "annual" ? <p className="plan-billing-note">Billed {plan.annual} once a year · Save {plan.annualSaving}</p> : <p className="plan-billing-note">Billed monthly</p>}
             <p className="plan-description">{plan.description}</p>
             <PlanCheckout options={plan.options} interval={interval} authenticated={authenticated} hasPaidAccess={hasPaidAccess} />
           </article>

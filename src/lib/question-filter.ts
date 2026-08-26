@@ -4,6 +4,14 @@ function includesAny(selected: string[] | undefined, values: string[]): boolean 
   return !selected?.length || selected.some((value) => values.includes(value));
 }
 
+export function questionZoneValue(question: UnifiedQuestion): string {
+  if (question.zone) return question.zone;
+  if ((question.bankSlug === "igcse" || question.bankSlug === "igcse-additional") && /[123]$/.test(question.component)) {
+    return `Variant ${question.component.at(-1)}`;
+  }
+  return "";
+}
+
 export function filterQuestions(questions: UnifiedQuestion[], filters: QuestionFilters): UnifiedQuestion[] {
   const search = filters.search?.trim().toLocaleLowerCase();
   const filtered = questions.filter((question) => {
@@ -16,7 +24,7 @@ export function filterQuestions(questions: UnifiedQuestion[], filters: QuestionF
     if (!includesAny(filters.papers, [String(question.paper)])) return false;
     if (!includesAny(filters.sessions, [question.session])) return false;
     if (!includesAny(filters.subjects, [question.subject])) return false;
-    if (!includesAny(filters.zones, [question.zone])) return false;
+    if (!includesAny(filters.zones, [questionZoneValue(question)])) return false;
     if (!includesAny(filters.courseEras, [question.courseEra])) return false;
     if (!includesAny(filters.options, [question.option])) return false;
     if (!includesAny(filters.components, [question.component])) return false;

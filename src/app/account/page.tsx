@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { signOut } from "@/app/auth/actions";
+import { AccountPlanOverview } from "@/components/AccountPlanOverview";
 import { PortalButton } from "@/components/BillingActions";
-import { PasswordSettingsForm } from "@/components/PasswordSettingsForm";
 import { CURRENT_ENTITLEMENT_FILTERS } from "@/lib/current-entitlements";
 import { createClient } from "@/lib/supabase/server";
 
@@ -68,19 +68,13 @@ export default async function AccountPage() {
             <PortalButton />
           </div>
         ) : (
-          <div className="empty-access">
-            <h2>No paid access yet</h2>
-            <p>Your account is ready. Choose a plan to unlock every question, answer, and PDF export.</p>
-            <Link className="button primary" href="/pricing">View plans</Link>
-          </div>
+          <AccountPlanOverview />
         )}
       </article>
-      <article className="account-card account-security">
-        <span className="eyebrow">Sign-in options</span>
-        <h2>Add or change your password</h2>
-        <p>Email-link sign-in will keep working even after you add a password.</p>
-        <PasswordSettingsForm />
-      </article>
+      <div className="account-security-row">
+        <div><strong>Security</strong><span>Add or change your password.</span></div>
+        <Link className="button secondary" href="/account/password">Password settings</Link>
+      </div>
     </section>
   );
 }
