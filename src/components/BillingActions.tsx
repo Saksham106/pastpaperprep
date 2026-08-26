@@ -100,10 +100,12 @@ export function CheckoutButtons({ productId, navigate = defaultNavigate }: { pro
 
 export function PlanCheckout({
   options,
+  interval,
   authenticated,
   hasPaidAccess,
 }: {
   options: readonly { productId: ProductId; label: string }[];
+  interval: BillingInterval;
   authenticated: boolean;
   hasPaidAccess: boolean;
 }) {
@@ -120,7 +122,7 @@ export function PlanCheckout({
           </select>
         </label>
       ) : null}
-      <CheckoutButtons productId={productId} />
+      <CheckoutButton interval={interval} productId={productId} />
     </div>
   );
 }

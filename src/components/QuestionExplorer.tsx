@@ -15,6 +15,10 @@ import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy";
 
 type MultiKey = ExplorerFilterKey;
 
+const SECONDARY_FILTER_KEYS: MultiKey[] = [
+  "years", "sessions", "papers", "components", "calculator", "subjects", "courseEras", "options", "zones",
+];
+
 function unique(questions: UnifiedQuestion[], value: (question: UnifiedQuestion) => string | string[]): string[] {
   return [...new Set(questions.flatMap((question) => value(question)).filter(Boolean))].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 }
@@ -46,6 +50,9 @@ export function QuestionExplorer({
   const [freeOnly, setFreeOnly] = useState(initialState.freeOnly);
   const [savedOnly, setSavedOnly] = useState(initialState.savedOnly);
   const [showAllSubtopics, setShowAllSubtopics] = useState(false);
+  const [showMoreFilters, setShowMoreFilters] = useState(() => (
+    SECONDARY_FILTER_KEYS.some((key) => Boolean(initialState.filters[key]?.length))
+  ));
   const [selectedIds, setSelectedIds] = useState(new Set<string>());
   const [selectionIsExplicit, setSelectionIsExplicit] = useState(false);
   const [pdfOpen, setPdfOpen] = useState(false);
@@ -233,8 +240,8 @@ export function QuestionExplorer({
         </label>
         <button className="mobile-filter-button" onClick={() => setFiltersOpen(true)}><Funnel /> Filters {activeCount ? `(${activeCount})` : ""}</button>
         <label className="sort-field">Sort <select value={sort} onChange={(event) => setSort(event.target.value as QuestionSort)}><option value="paper">Newest papers</option><option value="topic">Topic</option><option value="marks-desc">Marks: high to low</option><option value="marks-asc">Marks: low to high</option></select></label>
-        <button className="share-view-button" aria-label="Copy link to this view" onClick={shareWorkspace}><ShareNetwork /> Share</button>
-        <button className="download-button" onClick={() => access.canExportPdf ? setPdfOpen(true) : setPdfStatus("upgrade-required")}><DownloadSimple /> Download PDF</button>
+        <button className="share-view-button toolbar-icon-button" title="Share this view" aria-label="Copy link to this view" onClick={shareWorkspace}><ShareNetwork aria-hidden="true" /></button>
+        <button className="download-button toolbar-icon-button" title="Download PDF" aria-label="Download PDF" onClick={() => access.canExportPdf ? setPdfOpen(true) : setPdfStatus("upgrade-required")}><DownloadSimple aria-hidden="true" /></button>
       </div>
       {shareStatus && <p className="toolbar-status" role="status">{shareStatus}</p>}
       {pdfStatus === "upgrade-required" && <div className="access-notice"><span>PDF export is included with All-Access.</span><Link href={access.authenticated ? "/pricing" : "/login?next=/pricing"}>{access.authenticated ? "View pricing" : "Sign in and choose a plan"}</Link></div>}
@@ -249,15 +256,18 @@ export function QuestionExplorer({
           <FilterGroup label="Topics" filterKey="topics" values={options.topics} selected={filters.topics ?? []} onToggle={toggle} />
           <FilterGroup label="Subtopics" filterKey="subtopics" values={visibleSubtopics} selected={filters.subtopics ?? []} onToggle={toggle} />
           {!!filters.topics?.length && !!subtopicGroups.other.length && <button className="text-button subtopic-more" aria-expanded={showAllSubtopics} onClick={() => setShowAllSubtopics((show) => !show)}>{showAllSubtopics ? "Hide other subtopics" : "Show other subtopics"}</button>}
-          <FilterGroup label="Years" filterKey="years" values={options.years} selected={filters.years ?? []} onToggle={toggle} />
-          <FilterGroup label="Sessions" filterKey="sessions" values={options.sessions} selected={filters.sessions ?? []} onToggle={toggle} />
-          <FilterGroup label="Papers" filterKey="papers" values={options.papers} selected={filters.papers ?? []} onToggle={toggle} />
-          {isCambridge && <FilterGroup label="Components" filterKey="components" values={options.components} selected={filters.components ?? []} onToggle={toggle} />}
-          {isCambridge && <FilterGroup label="Calculator" filterKey="calculator" values={["calculator", "non-calculator"]} selected={filters.calculator ?? []} onToggle={toggle} />}
-          {!isCambridge && <FilterGroup label="Course" filterKey="subjects" values={options.subjects} selected={filters.subjects ?? []} onToggle={toggle} />}
-          {bank === "ib-hl" && <FilterGroup label="Course era" filterKey="courseEras" values={options.courseEras} selected={filters.courseEras ?? []} onToggle={toggle} />}
-          {bank === "ib-hl" && <FilterGroup label="Paper 3 option" filterKey="options" values={options.options} selected={filters.options ?? []} onToggle={toggle} />}
-          {!isCambridge && <FilterGroup label="Timezone" filterKey="zones" values={options.zones} selected={filters.zones ?? []} onToggle={toggle} />}
+          <button className="more-filters-button" type="button" aria-expanded={showMoreFilters} onClick={() => setShowMoreFilters((show) => !show)}><Funnel aria-hidden="true" /> {showMoreFilters ? "Fewer filters" : "More filters"}</button>
+          {showMoreFilters && <div className="secondary-filters">
+            <FilterGroup label="Years" filterKey="years" values={options.years} selected={filters.years ?? []} onToggle={toggle} />
+            <FilterGroup label="Sessions" filterKey="sessions" values={options.sessions} selected={filters.sessions ?? []} onToggle={toggle} />
+            <FilterGroup label="Papers" filterKey="papers" values={options.papers} selected={filters.papers ?? []} onToggle={toggle} />
+            {isCambridge && <FilterGroup label="Components" filterKey="components" values={options.components} selected={filters.components ?? []} onToggle={toggle} />}
+            {isCambridge && <FilterGroup label="Calculator" filterKey="calculator" values={["calculator", "non-calculator"]} selected={filters.calculator ?? []} onToggle={toggle} />}
+            {!isCambridge && <FilterGroup label="Course" filterKey="subjects" values={options.subjects} selected={filters.subjects ?? []} onToggle={toggle} />}
+            {bank === "ib-hl" && <FilterGroup label="Course era" filterKey="courseEras" values={options.courseEras} selected={filters.courseEras ?? []} onToggle={toggle} />}
+            {bank === "ib-hl" && <FilterGroup label="Paper 3 option" filterKey="options" values={options.options} selected={filters.options ?? []} onToggle={toggle} />}
+            {!isCambridge && <FilterGroup label="Time zone" filterKey="zones" values={options.zones} selected={filters.zones ?? []} onToggle={toggle} />}
+          </div>}
         </aside>
 
         <div className="explorer-results">
@@ -265,7 +275,11 @@ export function QuestionExplorer({
             <div><strong>{filtered.length.toLocaleString()} {filtered.length === 1 ? "question" : "questions"}</strong>{selectionIsExplicit && <span>{selectedIds.size} selected for PDF</span>}</div>
             <div>{selectionIsExplicit && <button className="text-button" onClick={() => { setSelectionIsExplicit(false); setSelectedIds(new Set()); }}>Use all results for PDF</button>}{(search || activeCount > 0) && <button className="text-button" onClick={clearFilters}>Clear filters</button>}</div>
           </div>
-          {activeCount > 0 && <div className="active-filters">{Object.entries(filters).flatMap(([key, values]) => (values ?? []).map((value) => <button key={`${key}-${value}`} onClick={() => toggle(key as MultiKey, value)}>{value} <X /></button>))}</div>}
+          {activeCount > 0 && <div className="active-filters">
+            {freeOnly && <button aria-label="Remove free questions only filter" onClick={() => setFreeOnly(false)}>Free only <X /></button>}
+            {savedOnly && <button aria-label="Remove saved questions only filter" onClick={() => setSavedOnly(false)}>Saved only <X /></button>}
+            {Object.entries(filters).flatMap(([key, values]) => (values ?? []).map((value) => <button key={`${key}-${value}`} onClick={() => toggle(key as MultiKey, value)}>{value} <X /></button>))}
+          </div>}
           <div className="question-list">
             {shownQuestions.map((question) => {
               const unlocked = access.bankAccess || isPreviewQuestion(question.bankSlug, question.id);

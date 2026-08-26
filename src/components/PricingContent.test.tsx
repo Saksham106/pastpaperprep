@@ -1,20 +1,33 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { PricingContent } from "@/components/PricingContent";
 
 describe("bank-based pricing", () => {
-  it("presents a clear one-bank, subject-pair, and all-bank ladder", () => {
+  it("shows one annual-first monthly-equivalent price per plan", () => {
     render(<PricingContent authenticated={false} hasPaidAccess={false} />);
 
+    expect(screen.getByRole("button", { name: /annual.*save 33%/i })).toHaveAttribute("aria-pressed", "true");
     expect(screen.getByRole("heading", { name: "One bank" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Subject pair" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "All banks" })).toBeInTheDocument();
-    expect(screen.getByText("$29.99")).toBeInTheDocument();
-    expect(screen.getByText("$49.99")).toBeInTheDocument();
-    expect(screen.getByText("$89.99")).toBeInTheDocument();
-    expect(screen.getByText("$2.99 monthly")).toBeInTheDocument();
-    expect(screen.getByText("$4.99 monthly")).toBeInTheDocument();
-    expect(screen.getByText("$8.99 monthly")).toBeInTheDocument();
+    expect(screen.getByText("$3.33")).toBeInTheDocument();
+    expect(screen.getByText("$5.33")).toBeInTheDocument();
+    expect(screen.getByText("$8")).toBeInTheDocument();
+    expect(screen.getByText("Billed $40 once a year")).toBeInTheDocument();
+    expect(screen.getByText("Billed $64 once a year")).toBeInTheDocument();
+    expect(screen.getByText("Billed $96 once a year")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "Monthly" }));
+    expect(screen.getByText("$5")).toBeInTheDocument();
+    expect(screen.getByText("$8")).toBeInTheDocument();
+    expect(screen.getByText("$12")).toBeInTheDocument();
+    expect(screen.queryByText(/billed .* once a year/i)).not.toBeInTheDocument();
+  });
+
+  it("keeps free access compact instead of rendering a fourth full plan card", () => {
+    const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} />);
+    expect(container.querySelector(".pricing-free-strip")).not.toBeNull();
+    expect(container.querySelector(".pricing-option-free")).toBeNull();
   });
 
   it("offers only controlled bank and subject-pair choices", () => {

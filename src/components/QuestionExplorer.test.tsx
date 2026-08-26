@@ -71,10 +71,30 @@ describe("QuestionExplorer", () => {
     const questions = prepareQuestionsForDelivery(loadBankQuestions("igcse-additional").slice(0, 40), [{ productId: "bank_igcse_additional", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
     render(<QuestionExplorer questions={questions} access={fullAccess} />);
 
+    fireEvent.click(screen.getByRole("button", { name: /more filters/i }));
     expect(screen.getByRole("group", { name: /components/i })).toBeInTheDocument();
     expect(screen.getByRole("group", { name: /calculator/i })).toBeInTheDocument();
     expect(screen.queryByRole("group", { name: /course/i })).not.toBeInTheDocument();
     expect(screen.queryByRole("group", { name: /timezone/i })).not.toBeInTheDocument();
+  });
+
+  it("keeps IB time zones available inside compact additional filters", () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-hl").slice(0, 120), [{ productId: "bank_ib_hl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    render(<QuestionExplorer questions={questions} access={fullAccess} />);
+
+    expect(screen.queryByRole("group", { name: /time zone/i })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: /more filters/i }));
+    expect(screen.getByRole("group", { name: /time zone/i })).toBeInTheDocument();
+  });
+
+  it("opens additional filters when a shared workspace already uses one", () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-hl").slice(0, 120), [{ productId: "bank_ib_hl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const year = String(questions[0].year);
+    render(<QuestionExplorer questions={questions} access={fullAccess} initialState={{ search: "", sort: "paper", filters: { years: [year] }, freeOnly: false, savedOnly: false, visible: 24 }} />);
+
+    expect(screen.getByRole("button", { name: /fewer filters/i })).toHaveAttribute("aria-expanded", "true");
+    expect(screen.getByRole("group", { name: /years/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: new RegExp(`^${year}$`) })).toBeInTheDocument();
   });
 
   it("keeps an explicit PDF selection and opens the export options", () => {
@@ -118,6 +138,7 @@ describe("QuestionExplorer", () => {
     expect(screen.getByRole("link", { name: /sign in and choose a plan/i })).toHaveAttribute("href", "/login?next=/pricing");
     fireEvent.click(screen.getByRole("checkbox", { name: /free questions only/i }));
     expect(screen.queryByText(/all-access question/i)).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /free questions only/i })).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
     expect(screen.getByText(/pdf export is included/i)).toBeInTheDocument();
     await waitFor(() => expect(fetch).toHaveBeenCalled());

@@ -133,14 +133,32 @@ export async function POST(request: Request) {
           startingAfter = subscriptions.data.at(-1)?.id;
           if (!startingAfter) throw new Error("Stripe subscription pagination did not advance");
         } while (true);
-        const openSessions = await stripe.checkout.sessions.list({
-          customer: input.customerId,
-          status: "open",
-          limit: 1,
-        });
-        if (hasNonTerminalSubscription || openSessions.data.length > 0) {
+        const openSessionData = [];
+        let openSessionStartingAfter: string | undefined;
+        do {
+          const openSessions = await stripe.checkout.sessions.list({
+            customer: input.customerId,
+            status: "open",
+            limit: 100,
+            ...(openSessionStartingAfter ? { starting_after: openSessionStartingAfter } : {}),
+          });
+          openSessionData.push(...openSessions.data);
+          if (!openSessions.has_more) break;
+          openSessionStartingAfter = openSessions.data.at(-1)?.id;
+          if (!openSessionStartingAfter) throw new Error("Stripe Checkout Session pagination did not advance");
+        } while (true);
+        if (hasNonTerminalSubscription) {
           throw new BillingStateConflictError("Existing Stripe billing state must be managed from your account");
         }
+        const matchingOpenSession = openSessionData.find(({ metadata }) => (
+          metadata?.user_id === input.userId
+          && metadata.product_id === input.productId
+          && metadata.billing_interval === input.interval
+          && metadata.price_id === input.priceId
+        ));
+        const openSessionUrl = matchingOpenSession?.url;
+        if (typeof openSessionUrl === "string" && openSessionUrl) return openSessionUrl;
+        await Promise.all(openSessionData.map(({ id }) => stripe.checkout.sessions.expire(id)));
         const { data: checkoutConfirmed, error: confirmationError } = await admin.rpc("confirm_billing_checkout", {
           p_user_id: user.id,
           p_intent_id: intentId,
@@ -165,6 +183,7 @@ export async function POST(request: Request) {
             user_id: input.userId,
             product_id: input.productId,
             billing_interval: input.interval,
+            price_id: input.priceId,
           },
         }, {
           idempotencyKey: `pastpaperprep-checkout-${intentId}`,
@@ -174,6 +193,13 @@ export async function POST(request: Request) {
         return session.url;
       },
     });
+
+    const { error: releaseError } = await admin.rpc("release_billing_checkout", {
+      p_user_id: user.id,
+      p_intent_id: intentId,
+    });
+    if (releaseError) console.error("Stripe checkout reservation release failed", safeBillingError(releaseError));
+    reservation = null;
 
     return NextResponse.json({ url });
   } catch (error) {

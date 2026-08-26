@@ -1,10 +1,14 @@
 import Link from "next/link";
-import { ArrowRight, CheckCircle, FunnelSimple, Lightning, Target } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, ArrowUpRight, CheckCircle, FunnelSimple, Lightning, Target } from "@phosphor-icons/react/dist/ssr";
 import { BANKS } from "@/lib/banks";
 
 export default function Home() {
-  const totalQuestions = BANKS.reduce((sum, bank) => sum + bank.questionCount, 0);
-  const totalPapers = BANKS.reduce((sum, bank) => sum + bank.paperCount, 0);
+  const totalQuestions = BANKS.reduce((total, bank) => total + bank.questionCount, 0);
+  const totalPapers = BANKS.reduce((total, bank) => total + bank.paperCount, 0);
+  const bankGroups = [
+    { name: "Cambridge IGCSE", description: "Core and Additional Mathematics", banks: BANKS.filter((bank) => bank.qualification === "Cambridge IGCSE") },
+    { name: "IB Mathematics", description: "Analysis and Approaches, Applications and Interpretation", banks: BANKS.filter((bank) => bank.qualification === "International Baccalaureate") },
+  ];
   return (
     <>
       <section className="hero shell">
@@ -37,14 +41,21 @@ export default function Home() {
           <div><p className="eyebrow">Pick your course</p><h2>One place. Six serious question banks.</h2></div>
           <p>Start with the syllabus you are sitting now. Your progress and access can move with you as the platform expands.</p>
         </div>
-        <div className="bank-grid">
-          {BANKS.map((bank, index) => (
-            <Link className={`bank-card ${bank.accent} ${index === 0 ? "bank-featured" : ""}`} key={bank.slug} href={`/banks/${bank.slug}`}>
-              <div className="bank-card-top"><span>{bank.qualification}</span><ArrowRight /></div>
-              <h3>{bank.shortName}</h3>
-              <p>{bank.description}</p>
-              <div className="bank-stats"><strong>{bank.questionCount.toLocaleString()}</strong><span>questions</span><strong>{bank.paperCount}</strong><span>papers</span></div>
-            </Link>
+        <div className="bank-groups">
+          {bankGroups.map((group) => (
+            <section className={`bank-family bank-family-${group.banks[0].qualification === "Cambridge IGCSE" ? "cambridge" : "ib"}`} key={group.name} aria-labelledby={`bank-family-${group.name.replaceAll(" ", "-").toLowerCase()}`}>
+              <header><div><h3 id={`bank-family-${group.name.replaceAll(" ", "-").toLowerCase()}`}>{group.name}</h3><p>{group.description}</p></div><span>{group.banks.length} {group.banks.length === 1 ? "bank" : "banks"}</span></header>
+              <div className="bank-grid">
+                {group.banks.map((bank) => (
+                  <Link key={bank.slug} href={`/banks/${bank.slug}`} className={`bank-card ${bank.accent}`}>
+                    <div className="bank-card-top"><span>{bank.subject}</span><ArrowUpRight /></div>
+                    <h4>{bank.shortName}</h4>
+                    <p>{bank.description}</p>
+                    <div className="bank-stats"><strong>{bank.questionCount.toLocaleString()}</strong><span>questions</span><strong>{bank.paperCount}</strong><span>papers</span></div>
+                  </Link>
+                ))}
+              </div>
+            </section>
           ))}
         </div>
       </section>

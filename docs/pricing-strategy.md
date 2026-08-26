@@ -8,19 +8,21 @@ PastPaperPrep sells access by breadth, not by artificial feature restrictions:
 
 | Plan | Monthly | Annual | Annual savings | Access |
 | --- | ---: | ---: | ---: | --- |
-| One bank | $2.99 | $29.99 | $5.89 (16.4%) | Any one of six banks |
-| Subject pair | $4.99 | $49.99 | $9.89 (16.5%) | IGCSE Maths, IB AA, or IB AI pair |
-| All banks | $8.99 | $89.99 | $17.89 (16.6%) | All current banks and additions during the subscription |
+| One bank | $5 | $40 ($3.33/month effective) | $20 (33.3%) | Any one of six banks |
+| Subject pair | $8 | $64 ($5.33/month effective) | $32 (33.3%) | IGCSE Maths, IB AA, or IB AI pair |
+| All banks | $12 | $96 ($8/month effective) | $48 (33.3%) | All current banks and additions during the subscription |
 
 Free access remains a meaningful set of complete older exam years. Existing All-Access subscriptions remain on their current Stripe price unless the subscriber changes plans.
 
 ## Why this structure
 
-- A student normally needs one course, so the entry paid plan should be cheaper than the old all-bank offer.
+- A student normally needs one course, so the entry plan stays near the familiar $5 monthly price while tying the purchase to the bank they actually need.
 - Related pairs serve the real middle case without forcing six-bank access: IGCSE 0580 + 0606, IB AA SL + HL, or IB AI SL + HL.
 - All-bank access is materially more valuable to tutors and broad-coverage users, so it should not be priced like a single student course.
 - The paid ladder has three choices. Every paid plan includes the same tools; only access breadth changes. This avoids fake feature gating.
-- Annual discounts are consistent at roughly 16.5%, close to the 12-month discount visible in comparable products rather than the old 33.2% discount.
+- Annual discounts are a consistent one-third. The pricing page displays the effective monthly amount first and the annual charge directly below it, so the savings are clear without hiding the actual bill.
+- The launch ladder uses clean whole-dollar monthly prices: $5, $8, and $12. Nine-ending prices can feel materially cheaper when they cross a left digit ($4.99 versus $5.00), but that same effect makes the ladder harder to scan. PastPaperPrep is choosing clarity and trust over a one-cent charm-price nudge, then testing the assumption with real conversion data.
+- The middle plan is the default recommendation: it gives two related banks for less than buying two single-bank subscriptions, without making All Banks a fake decoy.
 
 ## Market evidence
 
@@ -33,6 +35,13 @@ First-party pages checked 2026-08-26:
 - Kognity uses school-led pricing rather than a public low-cost student subscription, making it an institution comparator rather than a direct substitute. Source: https://www.kognity.com/pricing
 
 These are positioning references, not conversion evidence for PastPaperPrep. The launch prices remain assumptions until view-to-checkout, checkout-to-paid, renewal, cancellation, and plan mix are measured.
+
+Pricing-psychology references checked 2026-08-26:
+
+- Thomas and Morwitz found that nine-ending prices are perceived as smaller mainly when the leftmost digit changes, such as $4.99 versus $5.00. DOI: https://doi.org/10.1086/429600
+- Manning and Sprott found that left-digit effects can alter choice between options. DOI: https://doi.org/10.1086/597215
+
+These studies justify testing $4.99 against $5.00; they do not prove that charm pricing will improve retention, trust, or revenue for this specific student product. Start with the clearer ladder and test rather than pretending the answer is universal.
 
 ## Measurement and decision gates
 
