@@ -1,6 +1,6 @@
 import type { BankSlug } from "@/lib/banks";
 
-export type ProductId = "bank_igcse" | "bank_ib_hl" | "bank_ib_sl" | "bundle_all";
+export type ProductId = "bank_igcse" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bundle_all";
 export type EntitlementStatus = "active" | "trialing" | "expired" | "revoked";
 
 export type AccessEntitlement = {
@@ -14,6 +14,8 @@ const BANK_PRODUCTS: Record<BankSlug, ProductId> = {
   igcse: "bank_igcse",
   "ib-hl": "bank_ib_hl",
   "ib-sl": "bank_ib_sl",
+  "ib-ai-hl": "bank_ib_ai_hl",
+  "ib-ai-sl": "bank_ib_ai_sl",
 };
 
 export const PREVIEW_QUESTION_IDS: Record<BankSlug, readonly string[]> = {
@@ -31,6 +33,16 @@ export const PREVIEW_QUESTION_IDS: Record<BankSlug, readonly string[]> = {
     "m26-math-aasl-p1-tza-q1",
     "m26-math-aasl-p1-tza-q2",
     "m26-math-aasl-p1-tza-q3",
+  ],
+  "ib-ai-hl": [
+    "2025-november-tz0-p1-q1",
+    "2025-november-tz0-p1-q2",
+    "2025-november-tz0-p1-q3",
+  ],
+  "ib-ai-sl": [
+    "2025-november-tz1-p1-q1",
+    "2025-november-tz1-p1-q2",
+    "2025-november-tz1-p1-q3",
   ],
 };
 

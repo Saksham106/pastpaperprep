@@ -1,4 +1,4 @@
-export type BankSlug = "igcse" | "ib-hl" | "ib-sl";
+export type BankSlug = "igcse" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl";
 
 export type Bank = {
   slug: BankSlug;
@@ -53,6 +53,32 @@ export const BANKS: readonly Bank[] = [
     years: "2017-2026",
     accent: "lime",
     sourceBaseUrl: "https://saksham106.github.io/ib-maths-aa-topic-finder",
+  },
+  {
+    slug: "ib-ai-hl",
+    shortName: "IB Math AI HL",
+    title: "IB Mathematics AI Higher Level",
+    description: "Practise real AI HL questions by topic, paper, session, and skill with worked mark schemes.",
+    qualification: "International Baccalaureate",
+    subject: "Mathematics AI HL",
+    questionCount: 409,
+    paperCount: 48,
+    years: "2021-2025",
+    accent: "coral",
+    sourceBaseUrl: "https://saksham106.github.io/ib-maths-ai-hl-topic-practice",
+  },
+  {
+    slug: "ib-ai-sl",
+    shortName: "IB Math AI SL",
+    title: "IB Mathematics AI Standard Level",
+    description: "Target AI SL topics with real questions, worked solutions, and mark schemes.",
+    qualification: "International Baccalaureate",
+    subject: "Mathematics AI SL",
+    questionCount: 334,
+    paperCount: 38,
+    years: "2021-2025",
+    accent: "lime",
+    sourceBaseUrl: "https://saksham106.github.io/ib-maths-ai-sl-topic-practice",
   },
 ] as const;
 

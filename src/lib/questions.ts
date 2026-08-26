@@ -1,6 +1,8 @@
 import igcseData from "@/data/raw/igcse.json";
 import ibHlData from "@/data/raw/ib-hl.json";
 import ibSlData from "@/data/raw/ib-sl.json";
+import ibAiHlData from "@/data/raw/ib-ai-hl.json";
+import ibAiSlData from "@/data/raw/ib-ai-sl.json";
 import { storageObjectPath } from "@/lib/assets";
 import { getBank, type BankSlug } from "@/lib/banks";
 
@@ -63,6 +65,8 @@ const rawBanks: Record<BankSlug, { questions: RawQuestion[] }> = {
   igcse: igcseData as { questions: RawQuestion[] },
   "ib-hl": ibHlData as { questions: RawQuestion[] },
   "ib-sl": ibSlData as { questions: RawQuestion[] },
+  "ib-ai-hl": ibAiHlData as { questions: RawQuestion[] },
+  "ib-ai-sl": ibAiSlData as { questions: RawQuestion[] },
 };
 
 const cache = new Map<BankSlug, UnifiedQuestion[]>();
