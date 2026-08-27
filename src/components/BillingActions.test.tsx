@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { CheckoutButton, CheckoutButtons, PortalButton } from "@/components/BillingActions";
+import { CheckoutButton, CheckoutButtons, PlanCheckout, PortalButton } from "@/components/BillingActions";
 
 const fetchMock = vi.fn();
 
@@ -70,7 +70,10 @@ describe("CheckoutButtons", () => {
     fetchMock.mockResolvedValue({ ok: false, status: 401, json: async () => ({ error: "Authentication required" }) });
     render(<CheckoutButtons productId="bundle_all" />);
     fireEvent.click(screen.getByRole("button", { name: /choose monthly/i }));
-    expect(await screen.findByRole("link", { name: /sign in to continue/i })).toHaveAttribute("href", "/login?next=/pricing");
+    expect(await screen.findByRole("link", { name: /sign in to continue/i })).toHaveAttribute(
+      "href",
+      "/login?next=%2Fpricing%3Finterval%3Dmonthly%26product%3Dbundle_all",
+    );
   });
 
   it("shows a fail-closed message while billing is disabled", async () => {
@@ -88,5 +91,25 @@ describe("PortalButton", () => {
     render(<PortalButton navigate={navigate} />);
     fireEvent.click(screen.getByRole("button", { name: /manage billing/i }));
     await waitFor(() => expect(navigate).toHaveBeenCalledWith("https://billing.stripe.com/p/session/test"));
+  });
+});
+
+describe("PlanCheckout", () => {
+  it("lets visitors choose a bank before continuing through sign-in", () => {
+    render(<PlanCheckout
+      authenticated={false}
+      hasPaidAccess={false}
+      interval="monthly"
+      options={[
+        { productId: "bank_igcse", label: "IGCSE 0580" },
+        { productId: "bank_ib_ai_hl", label: "IB AI HL" },
+      ]}
+    />);
+
+    fireEvent.change(screen.getByRole("combobox"), { target: { value: "bank_ib_ai_hl" } });
+    expect(screen.getByRole("link", { name: /continue to checkout/i })).toHaveAttribute(
+      "href",
+      "/login?next=%2Fpricing%3Finterval%3Dmonthly%26product%3Dbank_ib_ai_hl",
+    );
   });
 });

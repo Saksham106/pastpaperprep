@@ -42,4 +42,25 @@ describe("bank-based pricing", () => {
     expect(screen.getByRole("option", { name: "IB Mathematics AA HL" })).toBeInTheDocument();
     expect(screen.getByRole("option", { name: "IB Mathematics AA (SL + HL)" })).toBeInTheDocument();
   });
+
+  it("shows course selectors and checkout continuations before sign-in", () => {
+    render(<PricingContent authenticated={false} hasPaidAccess={false} />);
+
+    expect(screen.getAllByRole("combobox")).toHaveLength(2);
+    expect(screen.getAllByRole("link", { name: /continue to checkout/i })).toHaveLength(3);
+    expect(screen.queryByRole("link", { name: /sign in to choose/i })).not.toBeInTheDocument();
+  });
+
+  it("gives the unselected annual option a truthful savings highlight", () => {
+    render(<PricingContent authenticated={false} hasPaidAccess={false} />);
+    expect(screen.getByRole("button", { name: /annual.*save up to 33%/i })).toHaveClass("billing-toggle-annual");
+    expect(screen.getByText("Save up to 33%", { selector: ".billing-savings" })).toBeInTheDocument();
+  });
+
+  it("restores a visitor's plan choice after sign-in", () => {
+    render(<PricingContent authenticated hasPaidAccess={false} initialInterval="annual" initialProductId="bank_ib_ai_hl" />);
+
+    expect(screen.getByRole("button", { name: /annual.*save up to 33%/i })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getAllByRole("combobox")[0]).toHaveValue("bank_ib_ai_hl");
+  });
 });

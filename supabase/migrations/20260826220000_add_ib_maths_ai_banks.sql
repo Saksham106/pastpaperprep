@@ -4,7 +4,18 @@ begin;
 
 alter table products drop constraint if exists products_known_id;
 alter table products add constraint products_known_id
-  check (id in ('bank_igcse', 'bank_ib_hl', 'bank_ib_sl', 'bank_ib_ai_hl', 'bank_ib_ai_sl', 'bundle_all'));
+  check (id in (
+    'bank_igcse',
+    'bank_igcse_additional',
+    'bank_ib_hl',
+    'bank_ib_sl',
+    'bank_ib_ai_hl',
+    'bank_ib_ai_sl',
+    'bundle_igcse',
+    'bundle_ib_aa',
+    'bundle_ib_ai',
+    'bundle_all'
+  ));
 
 alter table saved_questions drop constraint if exists saved_questions_bank;
 alter table saved_questions add constraint saved_questions_bank

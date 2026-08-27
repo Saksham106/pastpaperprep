@@ -82,7 +82,11 @@ export function CheckoutButton({
       <button className={`button ${interval === "annual" ? "primary" : "secondary"}`} type="button" disabled={pending} onClick={start}>
         {pending ? "Opening checkout…" : `Choose ${interval}`}
       </button>
-      {needsLogin ? <Link href="/login?next=/pricing">Sign in to continue</Link> : null}
+      {needsLogin ? (
+        <Link href={`/login?next=${encodeURIComponent(`/pricing?interval=${interval}&product=${productId}`)}`}>
+          Sign in to continue
+        </Link>
+      ) : null}
       {error ? <p role="alert">{error}</p> : null}
     </div>
   );
@@ -103,15 +107,18 @@ export function PlanCheckout({
   interval,
   authenticated,
   hasPaidAccess,
+  initialProductId,
 }: {
   options: readonly { productId: ProductId; label: string }[];
   interval: BillingInterval;
   authenticated: boolean;
   hasPaidAccess: boolean;
+  initialProductId?: ProductId;
 }) {
-  const [productId, setProductId] = useState<ProductId>(options[0].productId);
+  const availableInitial = initialProductId && options.some((option) => option.productId === initialProductId) ? initialProductId : options[0].productId;
+  const [productId, setProductId] = useState<ProductId>(availableInitial);
   if (hasPaidAccess) return null;
-  if (!authenticated) return <Link className="button secondary" href="/login?next=/pricing">Sign in to choose</Link>;
+  const pricingReturn = `/pricing?interval=${interval}&product=${productId}`;
   return (
     <div className="plan-checkout">
       {options.length > 1 ? (
@@ -122,7 +129,9 @@ export function PlanCheckout({
           </select>
         </label>
       ) : null}
-      <CheckoutButton interval={interval} productId={productId} />
+      {authenticated
+        ? <CheckoutButton interval={interval} productId={productId} />
+        : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`}>Continue to checkout</Link>}
     </div>
   );
 }

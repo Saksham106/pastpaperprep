@@ -6,6 +6,10 @@ const migration = readFileSync(
   join(process.cwd(), "supabase/migrations/20260826194645_add_bank_based_pricing.sql"),
   "utf8",
 );
+const laterBankMigrations = [
+  "20260826220000_add_ib_maths_ai_banks.sql",
+  "20260826230000_add_igcse_additional_bank.sql",
+].map((file) => readFileSync(join(process.cwd(), "supabase/migrations", file), "utf8"));
 
 describe("bank-based pricing migration", () => {
   it("retains the webhook-owned atomic customer claim", () => {
@@ -43,6 +47,15 @@ describe("bank-based pricing migration", () => {
       "bundle_all",
     ]) {
       expect(checks.every((check) => check.includes(productId))).toBe(true);
+    }
+  });
+
+  it("keeps subject-pair products valid through every later bank migration", () => {
+    for (const laterMigration of laterBankMigrations) {
+      const productCheck = laterMigration.match(/add constraint products_known_id[\s\S]*?\);/)?.[0] ?? "";
+      for (const productId of ["bundle_igcse", "bundle_ib_aa", "bundle_ib_ai", "bundle_all"]) {
+        expect(productCheck).toContain(productId);
+      }
     }
   });
 

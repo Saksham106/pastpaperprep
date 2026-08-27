@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Check } from "@phosphor-icons/react";
 import { useState } from "react";
 import { PlanCheckout, PortalButton } from "@/components/BillingActions";
+import type { ProductId } from "@/lib/access";
 
 const BANK_OPTIONS = [
   { productId: "bank_igcse", label: "Cambridge IGCSE Mathematics 0580" },
@@ -28,8 +29,8 @@ const PLANS = [
 
 type BillingInterval = "monthly" | "annual";
 
-export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [] }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[] }) {
-  const [interval, setInterval] = useState<BillingInterval>("monthly");
+export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], initialInterval = "monthly", initialProductId }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; initialInterval?: BillingInterval; initialProductId?: ProductId }) {
+  const [interval, setInterval] = useState<BillingInterval>(initialInterval);
 
   return (
     <section className="simple-page pricing-page shell">
@@ -50,7 +51,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
 
       <div className="billing-toggle" role="group" aria-label="Billing period">
         <button type="button" aria-pressed={interval === "monthly"} onClick={() => setInterval("monthly")}>Monthly</button>
-        <button type="button" aria-pressed={interval === "annual"} onClick={() => setInterval("annual")}>Annual <span>Save up to 33%</span></button>
+        <button className="billing-toggle-annual" type="button" aria-pressed={interval === "annual"} onClick={() => setInterval("annual")}>Annual <span className="billing-savings">Save up to 33%</span></button>
       </div>
 
       <div className="pricing-options" aria-label="PastPaperPrep plans">
@@ -63,7 +64,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
             <div className="plan-price"><strong>{interval === "annual" ? plan.annualMonthly : plan.monthly}</strong><span>/ month</span></div>
             {interval === "annual" ? <p className="plan-billing-note">Billed {plan.annual} once a year · Save {plan.annualSaving}</p> : <p className="plan-billing-note">Billed monthly</p>}
             <p className="plan-description">{plan.description}</p>
-            <PlanCheckout options={plan.options} interval={interval} authenticated={authenticated} hasPaidAccess={hasPaidAccess} />
+            <PlanCheckout options={plan.options} interval={interval} authenticated={authenticated} hasPaidAccess={hasPaidAccess} initialProductId={initialProductId} />
           </article>
         ))}
       </div>
