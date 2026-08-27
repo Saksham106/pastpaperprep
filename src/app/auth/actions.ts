@@ -83,7 +83,7 @@ export async function updatePassword(
   const confirmation = String(formData.get("passwordConfirmation") ?? "");
 
   if (!isValidPassword(password)) {
-    return { status: "error", message: "Use 12–72 characters for your password." };
+    return { status: "error", message: "Use 12-72 characters for your password." };
   }
   if (password !== confirmation) {
     return { status: "error", message: "Those passwords do not match." };

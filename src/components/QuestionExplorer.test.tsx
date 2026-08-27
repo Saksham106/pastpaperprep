@@ -105,6 +105,39 @@ describe("QuestionExplorer", () => {
     expect(disclosure).toHaveAttribute("aria-hidden", "false");
   });
 
+  it("treats the mobile filter drawer as a focus-managed dialog", () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("igcse").slice(0, 40), [{ productId: "bank_igcse", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    render(<QuestionExplorer questions={questions} access={fullAccess} />);
+
+    const trigger = screen.getByRole("button", { name: /^filters/i });
+    trigger.focus();
+    fireEvent.click(trigger);
+    const dialog = screen.getByRole("dialog", { name: "Filters" });
+    expect(dialog).toHaveAttribute("aria-modal", "true");
+    const closeButton = screen.getByRole("button", { name: /close filters/i });
+    const lastVisibleControl = screen.getByRole("button", { name: /more filters/i });
+    expect(closeButton).toHaveFocus();
+
+    fireEvent.keyDown(document, { key: "Tab", shiftKey: true });
+    expect(lastVisibleControl).toHaveFocus();
+    fireEvent.keyDown(document, { key: "Tab" });
+    expect(closeButton).toHaveFocus();
+
+    fireEvent.keyDown(document, { key: "Escape" });
+    expect(screen.queryByRole("dialog", { name: "Filters" })).not.toBeInTheDocument();
+    expect(trigger).toHaveFocus();
+  });
+
+  it("offers image retry when a signed question image fails to render", async () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("igcse").slice(0, 1), [{ productId: "bank_igcse", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    render(<QuestionExplorer questions={questions} access={fullAccess} />);
+
+    const image = await screen.findByRole("img", { name: /original question/i });
+    fireEvent.error(image);
+    expect(screen.getByRole("alert")).toHaveTextContent("Some question images could not load.");
+    expect(screen.getByRole("button", { name: /retry images/i })).toBeInTheDocument();
+  });
+
   it("keeps IB time zones available inside compact additional filters", () => {
     const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-hl").slice(0, 120), [{ productId: "bank_ib_hl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
     render(<QuestionExplorer questions={questions} access={fullAccess} />);
@@ -140,6 +173,10 @@ describe("QuestionExplorer", () => {
     expect(screen.getByText(/1 selected for PDF/i)).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
     expect(screen.getByRole("dialog", { name: /download 1 questions/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /close pdf options/i })).toHaveFocus();
+    fireEvent.keyDown(document, { key: "Escape" });
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /download pdf/i })).toHaveFocus();
   });
 
   it("keeps study actions quiet by saving explicitly and marking an attempt when the answer opens", async () => {
@@ -170,7 +207,7 @@ describe("QuestionExplorer", () => {
 
     expect(await screen.findByRole("img", { name: /original question/i })).toBeInTheDocument();
     expect(screen.queryByText(/all-access question/i)).not.toBeInTheDocument();
-    expect(screen.getByText(/you’re viewing free questions/i)).toBeInTheDocument();
+    expect(screen.getByText(/1 free question ready/i)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /browse all questions/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /view plans/i })).toHaveAttribute("href", "/pricing");
     fireEvent.click(screen.getByRole("checkbox", { name: /free questions only/i }));

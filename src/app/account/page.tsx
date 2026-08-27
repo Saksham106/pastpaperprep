@@ -37,8 +37,8 @@ export default async function AccountPage() {
     <section className="account-page shell">
       <div className="account-heading">
         <div>
-          <p className="eyebrow">Your account</p>
-          <h1>Welcome back.</h1>
+          <p className="eyebrow">Account</p>
+          <h1>Your access and security.</h1>
           <p>{userData.user?.email}</p>
         </div>
         <form action={signOut}>

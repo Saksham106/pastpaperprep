@@ -31,9 +31,9 @@ export function DashboardContent({ authenticated, accessibleBanks }: { authentic
     <section className="dashboard-page shell">
       <header className="dashboard-heading">
         <div>
-          <p className="eyebrow">Study workspace</p>
+          <p className="eyebrow">Question banks</p>
           <h1>{hasPaidAccess ? "Your question banks" : "Choose a question bank"}</h1>
-          <p>{hasPaidAccess ? "Your included banks are ready first. Everything else stays available to preview." : "Start with complete free exam years. Upgrade only when you need the full bank."}</p>
+          <p>{hasPaidAccess ? "Your included banks are first. Every other course stays open for free preview." : "Choose your course and start with complete free exam years. No setup required."}</p>
         </div>
         {authenticated ? (
           <details className="dashboard-settings">
@@ -45,13 +45,13 @@ export function DashboardContent({ authenticated, accessibleBanks }: { authentic
             </div>
           </details>
         ) : (
-          <div className="dashboard-actions"><Link href="/login?next=/dashboard"><LockOpen /> Sign in</Link></div>
+          <Link className="dashboard-sign-in" href="/login?next=/dashboard"><LockOpen /> Sign in</Link>
         )}
       </header>
 
       {!hasPaidAccess && (
         <aside className="dashboard-upgrade-strip">
-          <div><strong>Need the full question set?</strong><span>Unlock one bank from $5/month, or choose a subject pair.</span></div>
+          <div><strong>Ready for the complete bank?</strong><span>Unlock one course from $5/month, or get both levels in a subject pair.</span></div>
           <Link className="button primary" href="/pricing">View plans <ArrowRight weight="bold" /></Link>
         </aside>
       )}

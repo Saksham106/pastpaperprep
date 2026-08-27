@@ -34,9 +34,11 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
 
   return (
     <section className="simple-page pricing-page shell">
-      <p className="eyebrow">Simple access</p>
-      <h1>Choose how much maths you need.</h1>
-      <p className="page-lede">Every paid plan includes the same practice tools. You only choose how many banks to unlock.</p>
+      <div className="pricing-intro">
+        <p className="eyebrow">Pricing</p>
+        <h1>Pay for the maths you actually study.</h1>
+        <p className="page-lede">Every plan includes the complete practice toolkit. Choose one bank, one subject pair, or all six.</p>
+      </div>
 
       {authenticated ? (
         <section className="pricing-current-plan" aria-labelledby="current-plan-heading">
@@ -62,7 +64,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
               {plan.popular ? <span className="pricing-badge">Most popular</span> : null}
             </div>
             <div className="plan-price"><strong>{interval === "annual" ? plan.annualMonthly : plan.monthly}</strong><span>/ month</span></div>
-            {interval === "annual" ? <p className="plan-billing-note">Billed {plan.annual} once a year · Save {plan.annualSaving}</p> : <p className="plan-billing-note">Billed monthly</p>}
+            {interval === "annual" ? <p className="plan-billing-note">Billed {plan.annual} once a year. Save {plan.annualSaving}</p> : <p className="plan-billing-note">Billed monthly</p>}
             <p className="plan-description">{plan.description}</p>
             <PlanCheckout options={plan.options} interval={interval} authenticated={authenticated} hasPaidAccess={hasPaidAccess} initialProductId={initialProductId} />
           </article>

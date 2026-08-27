@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowSquareOut, BookmarkSimple, CheckCircle, DownloadSimple, Funnel, MagnifyingGlass, ShareNetwork, TextAlignLeft, X } from "@phosphor-icons/react";
@@ -66,6 +66,10 @@ export function QuestionExplorer({
   const [attemptedIds, setAttemptedIds] = useState(new Set(studyState.attemptedIds));
   const [studyError, setStudyError] = useState("");
   const [shareStatus, setShareStatus] = useState("");
+  const filterTriggerRef = useRef<HTMLButtonElement>(null);
+  const filterDialogRef = useRef<HTMLElement>(null);
+  const pdfTriggerRef = useRef<HTMLButtonElement>(null);
+  const pdfDialogRef = useRef<HTMLElement>(null);
 
   const bank = questions[0]?.bankSlug;
   const isCambridge = bank === "igcse" || bank === "igcse-additional";
@@ -110,6 +114,71 @@ export function QuestionExplorer({
   }, []);
 
   useEffect(() => {
+    if (!filtersOpen) return;
+    const dialog = filterDialogRef.current;
+    const trigger = filterTriggerRef.current;
+    const focusable = () => [...(dialog?.querySelectorAll<HTMLElement>("button:not([disabled]), input:not([disabled]), select:not([disabled]), a[href]") ?? [])]
+      .filter((element) => element.tabIndex >= 0 && !element.closest("[inert], [aria-hidden='true'], [hidden]"));
+    focusable()[0]?.focus();
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setFiltersOpen(false);
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const items = focusable();
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      trigger?.focus();
+    };
+  }, [filtersOpen]);
+
+  useEffect(() => {
+    if (!pdfOpen) return;
+    const dialog = pdfDialogRef.current;
+    const trigger = pdfTriggerRef.current;
+    const focusable = () => [...(dialog?.querySelectorAll<HTMLElement>("button:not([disabled]), input:not([disabled]), select:not([disabled]), a[href]") ?? [])];
+    focusable()[0]?.focus();
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setPdfOpen(false);
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const items = focusable();
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      trigger?.focus();
+    };
+  }, [pdfOpen]);
+
+  useEffect(() => {
     const query = serializeExplorerState({ search, sort, filters, freeOnly, savedOnly, visible }, { persistFreeChoice: !access.bankAccess });
     const nextUrl = `${window.location.pathname}${query.size ? `?${query}` : ""}${window.location.hash}`;
     window.history.replaceState(window.history.state, "", nextUrl);
@@ -128,7 +197,7 @@ export function QuestionExplorer({
       .catch(() => {
         if (cancelled) return;
         setFailedAssetKeys((current) => new Set([...current, ...questionAssetRequests.map((request) => signedAssetKey(request.questionId, request.kind))]));
-        setAssetError("Some question images could not load. Try refreshing the page.");
+        setAssetError("Some question images could not load.");
       });
     return () => { cancelled = true; };
   }, [bank, questionAssetRequests]);
@@ -160,6 +229,23 @@ export function QuestionExplorer({
     } catch {
       setShareStatus("Could not copy link");
     }
+  };
+
+  const retryQuestionAssets = () => {
+    setAssetError("");
+    setFailedAssetKeys(new Set());
+    setAssetEpoch(Date.now());
+  };
+
+  const markQuestionAssetFailed = (questionId: string) => {
+    const key = signedAssetKey(questionId, "question");
+    setSignedAssets((current) => {
+      const next = new Map(current);
+      next.delete(key);
+      return next;
+    });
+    setFailedAssetKeys((current) => new Set(current).add(key));
+    setAssetError("Some question images could not load.");
   };
 
   const updateStudyState = async (questionId: string, action: "save" | "unsave" | "attempt") => {
@@ -238,20 +324,20 @@ export function QuestionExplorer({
           <MagnifyingGlass aria-hidden="true" />
           <input value={search} onChange={(event) => { setSearch(event.target.value); setVisible(EXPLORER_PAGE_SIZE); }} placeholder="Search questions, topics, or methods" />
         </label>
-        <button className="mobile-filter-button" type="button" onClick={() => setFiltersOpen(true)}><Funnel /> Filters {activeCount ? `(${activeCount})` : ""}</button>
+        <button ref={filterTriggerRef} className="mobile-filter-button" type="button" aria-haspopup="dialog" aria-expanded={filtersOpen} onClick={() => setFiltersOpen(true)}><Funnel /> Filters {activeCount ? `(${activeCount})` : ""}</button>
         <label className="sort-field">Sort <select value={sort} onChange={(event) => setSort(event.target.value as QuestionSort)}><option value="paper">Newest papers</option><option value="topic">Topic</option><option value="marks-desc">Marks: high to low</option><option value="marks-asc">Marks: low to high</option></select></label>
         <button className="share-view-button toolbar-icon-button" type="button" title="Share this view" aria-label="Copy link to this view" onClick={shareWorkspace}><ShareNetwork aria-hidden="true" /></button>
-        <button className="download-button toolbar-icon-button" type="button" title="Download PDF" aria-label="Download PDF" onClick={() => access.canExportPdf ? setPdfOpen(true) : setPdfStatus("upgrade-required")}><DownloadSimple aria-hidden="true" /></button>
+        <button ref={pdfTriggerRef} className="download-button toolbar-icon-button" type="button" title="Download PDF" aria-label="Download PDF" onClick={() => access.canExportPdf ? setPdfOpen(true) : setPdfStatus("upgrade-required")}><DownloadSimple aria-hidden="true" /></button>
       </div>
       {shareStatus && <p className="toolbar-status" role="status">{shareStatus}</p>}
       {pdfStatus === "upgrade-required" && <div className="access-notice"><span>PDF export is included with paid bank access.</span><Link href={access.authenticated ? "/pricing" : "/login?next=/pricing"}>{access.authenticated ? "View pricing" : "Sign in and choose a plan"}</Link></div>}
-      {assetError && <div className="access-notice" role="alert">{assetError}</div>}
+      {assetError && <div className="access-notice" role="alert"><span>{assetError}</span><button className="text-button" type="button" onClick={retryQuestionAssets}>Retry images</button></div>}
       {studyError && <div className="access-notice" role="alert">{studyError}</div>}
-      {!access.bankAccess && <div className="free-value-strip"><div><strong>{freeOnly ? "You’re viewing free questions." : "You’re browsing the full bank."}</strong><span>{freeOnly ? `Try ${filtered.length.toLocaleString()} unlocked questions now, or browse the full catalog.` : "Locked questions show what a paid bank plan unlocks."}</span></div><div>{freeOnly && <button className="text-button" type="button" onClick={() => { setFreeOnly(false); setVisible(EXPLORER_PAGE_SIZE); }}>Browse all questions</button>}<Link href="/pricing">View plans</Link></div></div>}
+      {!access.bankAccess && <div className="free-value-strip"><div><strong>{freeOnly ? `${filtered.length.toLocaleString()} free ${filtered.length === 1 ? "question" : "questions"} ready.` : "You’re browsing the full bank."}</strong><span>{freeOnly ? "Practise now or browse the full catalog." : "Locked questions show what a paid bank plan unlocks."}</span></div><div>{freeOnly && <button className="text-button" type="button" onClick={() => { setFreeOnly(false); setVisible(EXPLORER_PAGE_SIZE); }}>Browse all questions</button>}<Link href="/pricing">View plans</Link></div></div>}
 
       <div className="explorer-layout">
-        <aside className={`filter-sidebar ${filtersOpen ? "is-open" : ""}`} aria-label="Question filters">
-          <div className="filter-sidebar-heading"><strong>Filters</strong><button className="filter-close" type="button" aria-label="Close filters" onClick={() => setFiltersOpen(false)}><X /></button></div>
+        <aside ref={filterDialogRef} className={`filter-sidebar ${filtersOpen ? "is-open" : ""}`} role={filtersOpen ? "dialog" : undefined} aria-modal={filtersOpen ? true : undefined} aria-labelledby={filtersOpen ? "filter-sidebar-title" : undefined} aria-label={filtersOpen ? undefined : "Question filters"}>
+          <div className="filter-sidebar-heading"><strong id="filter-sidebar-title">Filters</strong><button className="filter-close" type="button" aria-label="Close filters" onClick={() => setFiltersOpen(false)}><X /></button></div>
           {!access.bankAccess && <div className="filter-group" role="group" aria-labelledby="filter-access"><h3 id="filter-access">Access</h3><div className="filter-options"><label><input aria-label="Free questions only" type="checkbox" checked={freeOnly} onChange={() => { setFreeOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Free questions only</span></label></div></div>}
           {access.authenticated && <div className="filter-group" role="group" aria-labelledby="filter-study"><h3 id="filter-study">Study</h3><div className="filter-options"><label><input aria-label="Saved questions only" type="checkbox" checked={savedOnly} onChange={() => { setSavedOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Saved questions only</span></label></div></div>}
           <FilterGroup label="Topics" filterKey="topics" values={options.topics} selected={filters.topics ?? []} onToggle={toggle} />
@@ -276,7 +362,7 @@ export function QuestionExplorer({
 
         <div className="explorer-results">
           <div className="results-heading">
-            <div><strong>{filtered.length.toLocaleString()} {filtered.length === 1 ? "question" : "questions"}</strong>{selectionIsExplicit && <span>{selectedIds.size} selected for PDF</span>}</div>
+            <div><strong>{filtered.length.toLocaleString()} {freeOnly ? "free " : ""}{filtered.length === 1 ? "question" : "questions"}</strong>{selectionIsExplicit && <span>{selectedIds.size} selected for PDF</span>}</div>
             <div>{selectionIsExplicit && <button className="text-button" onClick={() => { setSelectionIsExplicit(false); setSelectedIds(new Set()); }}>Use all results for PDF</button>}{(search || activeCount > 0) && <button className="text-button" onClick={clearFilters}>Clear filters</button>}</div>
           </div>
           {activeCount > 0 && <div className="active-filters">
@@ -289,7 +375,7 @@ export function QuestionExplorer({
               const unlocked = access.bankAccess || isPreviewQuestion(question.bankSlug, question.id);
               const questionAsset = signedAssets.get(signedAssetKey(question.id, "question"));
               const answerAsset = signedAssets.get(signedAssetKey(question.id, "answer"));
-              return <QuestionCard key={question.id} question={question} unlocked={unlocked} authenticated={access.authenticated} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onAnswerAsset={(asset) => setSignedAssets((current) => new Map(current).set(signedAssetKey(question.id, "answer"), asset))} selected={selectedIds.has(question.id)} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => toggleSaved(question.id)} onAttempt={() => recordAttempt(question.id)} />;
+              return <QuestionCard key={question.id} question={question} unlocked={unlocked} authenticated={access.authenticated} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAsset={(asset) => setSignedAssets((current) => new Map(current).set(signedAssetKey(question.id, "answer"), asset))} selected={selectedIds.has(question.id)} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => toggleSaved(question.id)} onAttempt={() => recordAttempt(question.id)} />;
             })}
           </div>
           {filtered.length === 0 && <div className="empty-state"><strong>No questions match that combination.</strong><span>Clear a filter and try again.</span></div>}
@@ -297,7 +383,7 @@ export function QuestionExplorer({
         </div>
       </div>
 
-      {pdfOpen && <div className="pdf-backdrop" role="presentation"><section className="pdf-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-title"><button className="pdf-close" aria-label="Close PDF options" onClick={() => setPdfOpen(false)}><X /></button><p className="eyebrow">Worksheet builder</p><h2 id="pdf-title">Download {exportQuestions.length.toLocaleString()} questions</h2><p>{selectionIsExplicit ? "Using your selected questions, including selections outside the current filters." : filtered.length > MAX_PDF_QUESTIONS ? `Worksheets are limited to ${MAX_PDF_QUESTIONS} questions. Narrow your filters or make a selection for a different set.` : "No manual selection yet, so this uses every current result."}</p><div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div><button className="download-button pdf-download" disabled={!exportQuestions.length} onClick={handleDownload}><DownloadSimple /> Build PDF</button>{pdfStatus && <small>{pdfStatus}</small>}</section></div>}
+      {pdfOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfDialogRef} className="pdf-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-title"><button className="pdf-close" aria-label="Close PDF options" onClick={() => setPdfOpen(false)}><X /></button><p className="eyebrow">Worksheet builder</p><h2 id="pdf-title">Download {exportQuestions.length.toLocaleString()} questions</h2><p>{selectionIsExplicit ? "Using your selected questions, including selections outside the current filters." : filtered.length > MAX_PDF_QUESTIONS ? `Worksheets are limited to ${MAX_PDF_QUESTIONS} questions. Narrow your filters or make a selection for a different set.` : "No manual selection yet, so this uses every current result."}</p><div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div><button className="download-button pdf-download" disabled={!exportQuestions.length} onClick={handleDownload}><DownloadSimple /> Build PDF</button>{pdfStatus && <small>{pdfStatus}</small>}</section></div>}
     </section>
   );
 }
@@ -308,12 +394,13 @@ function FilterGroup({ label, filterKey, values, selected, onToggle }: { label: 
   return <div className="filter-group" role="group" aria-labelledby={headingId}><h3 id={headingId}>{label}</h3><div className="filter-options">{values.map((value) => <label key={value}><input aria-label={`${label}: ${value}`} type="checkbox" checked={selected.includes(value)} onChange={() => onToggle(filterKey, value)} /><span>{value.replace("non-calculator", "Non-calculator").replace("calculator", "Calculator")}</span></label>)}</div></div>;
 }
 
-function QuestionCard({ question, unlocked, authenticated, questionAsset, answerAsset, onAnswerAsset, selected, onSelect, saved, attempted, onToggleSaved, onAttempt }: {
+function QuestionCard({ question, unlocked, authenticated, questionAsset, answerAsset, onQuestionAssetError, onAnswerAsset, selected, onSelect, saved, attempted, onToggleSaved, onAttempt }: {
   question: UnifiedQuestion;
   unlocked: boolean;
   authenticated: boolean;
   questionAsset?: SignedAsset;
   answerAsset?: SignedAsset;
+  onQuestionAssetError: () => void;
   onAnswerAsset: (asset: SignedAsset) => void;
   selected: boolean;
   onSelect: () => void;
@@ -353,7 +440,7 @@ function QuestionCard({ question, unlocked, authenticated, questionAsset, answer
     <article className="question-card">
       <header className="question-card-header"><div className="question-meta"><span>{question.year} {question.session}</span><span>Paper {question.paper}</span><span>Question {question.number}</span>{question.component && <span>Component {question.component}</span>}{question.zone && <span>{question.zone}</span>}{question.marks !== null && <span>{question.marks} {question.marks === 1 ? "mark" : "marks"}</span>}</div>{unlocked && <label className="pdf-select"><input aria-label={`Add question ${question.number} to PDF`} type="checkbox" checked={selected} onChange={onSelect} /> Add to PDF</label>}</header>
       <div className="question-topic"><strong>{question.primaryTopic}</strong>{question.subtopics.slice(0, 4).map((topic) => <span key={topic}>{topic}</span>)}</div>
-      {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} />) : <div className="asset-placeholder">Loading question image...</div>}</div> : <div className="question-locked"><strong>Paid plan required</strong><span>Unlock this bank’s full question set, answers, and PDF export.</span><Link href={authenticated ? "/pricing" : "/login?next=/pricing"}>{authenticated ? "View pricing" : "Sign in and choose a plan"}</Link></div>}
+      {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} onError={onQuestionAssetError} />) : <div className="asset-placeholder">Loading question image...</div>}</div> : <div className="question-locked"><strong>Paid plan required</strong><span>Unlock this bank’s full question set, answers, and PDF export.</span><Link href={authenticated ? "/pricing" : "/login?next=/pricing"}>{authenticated ? "View pricing" : "Sign in and choose a plan"}</Link></div>}
       <div className="question-actions">
         <div className="question-action-buttons">{unlocked ? ((question.solution || question.markschemeImageCount > 0) ? <button className="answer-toggle" disabled={answerLoading} aria-expanded={answerOpen} onClick={toggleAnswer}>{answerLoading ? "Loading answer..." : answerOpen ? "Hide answer" : "Show answer"}</button> : <span className="muted">Answer coming soon</span>) : null}{answerError && <span className="muted" role="alert">{answerError}</span>}</div>
         <div className="source-links">{attempted && <span className="study-state"><CheckCircle weight="fill" /> Practised</span>}{authenticated && unlocked && <button className={`study-icon-button ${saved ? "is-saved" : ""}`} title={saved ? "Remove from saved" : "Save question"} aria-label={saved ? `Remove question from saved ${question.id}` : `Save question ${question.id}`} onClick={onToggleSaved}><BookmarkSimple weight={saved ? "fill" : "regular"} aria-hidden="true" /></button>}{question.sourceQuestionUrl && <a href={question.sourceQuestionUrl} target="_blank" rel="noreferrer">Source paper <ArrowSquareOut /></a>}{question.sourceMarkSchemeUrl && <a href={question.sourceMarkSchemeUrl} target="_blank" rel="noreferrer">Mark scheme <ArrowSquareOut /></a>}{question.accessibleText && <button className="transcript-icon-button" title={transcriptOpen ? "Hide transcript" : "Show transcript"} aria-label={transcriptOpen ? "Hide transcript" : "Show transcript"} aria-expanded={transcriptOpen} onClick={() => setTranscriptOpen((open) => !open)}><TextAlignLeft aria-hidden="true" /></button>}</div>

@@ -19,9 +19,9 @@ describe("bank-based pricing", () => {
     expect(screen.getByText("$4")).toBeInTheDocument();
     expect(screen.getByText("$6")).toBeInTheDocument();
     expect(screen.getByText("$8")).toBeInTheDocument();
-    expect(screen.getByText("Billed $48 once a year · Save 20%")).toBeInTheDocument();
-    expect(screen.getByText("Billed $72 once a year · Save 25%")).toBeInTheDocument();
-    expect(screen.getByText("Billed $96 once a year · Save 33%")).toBeInTheDocument();
+    expect(screen.getByText("Billed $48 once a year. Save 20%")).toBeInTheDocument();
+    expect(screen.getByText("Billed $72 once a year. Save 25%")).toBeInTheDocument();
+    expect(screen.getByText("Billed $96 once a year. Save 33%")).toBeInTheDocument();
   });
 
   it("marks the popular plan for responsive first-position styling", () => {

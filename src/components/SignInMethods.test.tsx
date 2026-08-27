@@ -17,4 +17,32 @@ describe("SignInMethods", () => {
     expect(screen.queryByText("Password form")).not.toBeInTheDocument();
     expect(screen.getByText("Email link form")).toBeInTheDocument();
   });
+
+  it("supports arrow-key tab navigation", () => {
+    render(<SignInMethods next="/dashboard" />);
+
+    const password = screen.getByRole("tab", { name: /password/i });
+    const email = screen.getByRole("tab", { name: /email link/i });
+    password.focus();
+    fireEvent.keyDown(password, { key: "ArrowRight" });
+
+    expect(email).toHaveAttribute("aria-selected", "true");
+    expect(email).toHaveAttribute("tabindex", "0");
+    expect(screen.getByRole("tabpanel")).toHaveAttribute("aria-labelledby", "email-link-sign-in-tab");
+  });
+
+  it("keeps every tab target present while showing one panel", () => {
+    const { container } = render(<SignInMethods next="/dashboard" />);
+
+    const password = screen.getByRole("tab", { name: /password/i });
+    const email = screen.getByRole("tab", { name: /email link/i });
+    const passwordPanel = container.querySelector(`#${password.getAttribute("aria-controls")}`);
+    const emailPanel = container.querySelector(`#${email.getAttribute("aria-controls")}`);
+
+    expect(passwordPanel).not.toHaveAttribute("hidden");
+    expect(emailPanel).toHaveAttribute("hidden");
+    fireEvent.click(email);
+    expect(passwordPanel).toHaveAttribute("hidden");
+    expect(emailPanel).not.toHaveAttribute("hidden");
+  });
 });

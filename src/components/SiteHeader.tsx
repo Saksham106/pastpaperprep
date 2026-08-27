@@ -10,7 +10,7 @@ export function SiteHeader({ authenticated = false }: { authenticated?: boolean 
         <span className="brand-mark"><BookOpenText weight="bold" /></span>
         <span>PastPaperPrep</span>
       </Link>
-      <HeaderNavigation authenticated={authenticated} />
+      <HeaderNavigation authenticated={authenticated} workspaceIcon={<BookOpenText aria-hidden="true" weight="bold" />} />
     </header>
   );
 }

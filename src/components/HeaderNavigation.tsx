@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type { ReactNode } from "react";
 
 function current(pathname: string, destination: "banks" | "pricing" | "account" | "dashboard") {
   if (destination === "banks") return pathname.startsWith("/banks/");
@@ -10,7 +11,7 @@ function current(pathname: string, destination: "banks" | "pricing" | "account" 
   return pathname === "/dashboard";
 }
 
-export function HeaderNavigation({ authenticated }: { authenticated: boolean }) {
+export function HeaderNavigation({ authenticated, workspaceIcon }: { authenticated: boolean; workspaceIcon: ReactNode }) {
   const pathname = usePathname();
   const banksHref = authenticated ? "/dashboard" : "/#question-banks";
 
@@ -25,11 +26,7 @@ export function HeaderNavigation({ authenticated }: { authenticated: boolean }) 
         href="/dashboard"
         title="Open question banks"
       >
-        {authenticated ? "Dashboard" : "Start practising"}{" "}
-        <svg aria-hidden="true" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M4.5 5.5h5.25A2.25 2.25 0 0 1 12 7.75V19a2.75 2.75 0 0 0-2.75-2.75H4.5V5.5Z" />
-          <path d="M19.5 5.5h-5.25A2.25 2.25 0 0 0 12 7.75V19a2.75 2.75 0 0 1 2.75-2.75h4.75V5.5Z" />
-        </svg>
+        {authenticated ? "Dashboard" : "Start practising"}{workspaceIcon}
       </Link>
     </nav>
   );

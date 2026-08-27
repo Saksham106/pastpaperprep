@@ -12,7 +12,7 @@ export function PasswordSettingsForm() {
     <form className="auth-form" action={action}>
       <label htmlFor="new-password">New password</label>
       <input id="new-password" name="password" type="password" minLength={12} maxLength={72} autoComplete="new-password" required />
-      <small>Use 12–72 characters. A short passphrase is easiest to remember.</small>
+      <small>Use 12-72 characters. A short passphrase is easiest to remember.</small>
       <label htmlFor="password-confirmation">Confirm new password</label>
       <input id="password-confirmation" name="passwordConfirmation" type="password" minLength={12} maxLength={72} autoComplete="new-password" required />
       <button className="button secondary" type="submit" disabled={pending}>
