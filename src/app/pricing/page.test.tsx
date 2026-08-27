@@ -24,9 +24,17 @@ describe("PricingPage", () => {
   });
 
   it("does not call free the current plan for a paid account", () => {
-    render(<PricingContent authenticated hasPaidAccess />);
-    expect(screen.queryByText(/current plan/i)).not.toBeInTheDocument();
-    expect(screen.getByText(/paid access is active/i)).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: /manage your access/i })).toHaveLength(3);
+    render(<PricingContent authenticated hasPaidAccess currentPlanNames={["IB Mathematics AI"]} />);
+    expect(screen.getByRole("heading", { name: /your current plan/i })).toBeInTheDocument();
+    expect(screen.getByText("IB Mathematics AI")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /manage billing/i })).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /manage your access/i })).not.toBeInTheDocument();
+  });
+
+  it("makes the free account and upgrade path explicit for signed-in users", () => {
+    render(<PricingContent authenticated hasPaidAccess={false} currentPlanNames={[]} />);
+    expect(screen.getByRole("heading", { name: /your current plan/i })).toBeInTheDocument();
+    expect(screen.getByText(/^Free$/)).toBeInTheDocument();
+    expect(screen.getByText(/choose a plan below to unlock every available question/i)).toBeInTheDocument();
   });
 });

@@ -110,7 +110,7 @@ export function PlanCheckout({
   hasPaidAccess: boolean;
 }) {
   const [productId, setProductId] = useState<ProductId>(options[0].productId);
-  if (hasPaidAccess) return <Link className="button secondary" href="/account">Manage your access</Link>;
+  if (hasPaidAccess) return null;
   if (!authenticated) return <Link className="button secondary" href="/login?next=/pricing">Sign in to choose</Link>;
   return (
     <div className="plan-checkout">

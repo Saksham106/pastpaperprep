@@ -3,13 +3,11 @@ import { describe, expect, it } from "vitest";
 import { AccountPlanOverview } from "@/components/AccountPlanOverview";
 
 describe("AccountPlanOverview", () => {
-  it("makes the free plan and upgrade path obvious", () => {
-    render(<AccountPlanOverview />);
+  it("routes plan details and changes to the pricing page", () => {
+    render(<AccountPlanOverview hasPaidAccess={false} />);
 
-    expect(screen.getByRole("heading", { name: "Free plan" })).toBeInTheDocument();
-    expect(screen.getByText("Complete older exam years")).toBeInTheDocument();
-    expect(screen.getByText("Every available question")).toBeInTheDocument();
-    expect(screen.getByText("PDF export")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Upgrade your plan" })).toHaveAttribute("href", "/pricing");
+    expect(screen.getByText(/plan details and billing live together/i)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /view plans/i })).toHaveAttribute("href", "/pricing");
+    expect(screen.queryByText(/every available question/i)).not.toBeInTheDocument();
   });
 });

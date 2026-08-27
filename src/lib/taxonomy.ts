@@ -26,25 +26,24 @@ const IGCSE_TOPIC_ORDER = [
 // 2017–2019: https://www.cambridgeinternational.org/images/203403-2017-2019-syllabus.pdf
 // 2020–2022: https://www.cambridgeinternational.org/Images/414438-2020-2022-syllabus.pdf
 // 2025–2027: https://www.cambridgeinternational.org/Images/662470-2025-2027-syllabus.pdf
-const IGCSE_ADDITIONAL_TOPIC_ORDER = [
-  "Set language and notation",
-  "Functions",
-  "Quadratic functions",
-  "Indices and surds",
-  "Factors of polynomials",
-  "Equations, inequalities and graphs",
-  "Simultaneous equations",
-  "Logarithmic and exponential functions",
-  "Straight-line graphs",
-  "Coordinate geometry of the circle",
-  "Circular measure",
-  "Trigonometry",
-  "Permutations and combinations",
-  "Series",
-  "Vectors in two dimensions",
-  "Matrices",
-  "Calculus",
-] as const;
+const IGCSE_ADDITIONAL_SUBTOPICS: Record<string, readonly string[]> = {
+  "Sets and functions": ["Set language and notation", "Functions"],
+  Algebra: [
+    "Quadratic functions",
+    "Indices and surds",
+    "Factors of polynomials",
+    "Equations, inequalities and graphs",
+    "Simultaneous equations",
+    "Logarithmic and exponential functions",
+  ],
+  "Coordinate geometry": ["Straight-line graphs", "Coordinate geometry of the circle"],
+  "Geometry and trigonometry": ["Circular measure", "Trigonometry"],
+  "Combinatorics and series": ["Permutations and combinations", "Series"],
+  "Vectors and matrices": ["Vectors in two dimensions", "Matrices"],
+  Calculus: ["Calculus"],
+};
+
+const IGCSE_ADDITIONAL_TOPIC_ORDER = Object.keys(IGCSE_ADDITIONAL_SUBTOPICS);
 
 const IB_SL_SUBTOPICS: Record<string, readonly string[]> = {
   "Number and algebra": [
@@ -265,6 +264,15 @@ const IB_AI_HL_SUBTOPICS: Record<string, readonly string[]> = {
 
 function uniqueSorted(values: string[]): string[] {
   return [...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b));
+}
+
+export function getControlledSubtopics(bankSlug: string, topic: string): readonly string[] {
+  if (bankSlug === "igcse-additional") return IGCSE_ADDITIONAL_SUBTOPICS[topic] ?? [];
+  if (bankSlug === "ib-ai-hl") return IB_AI_HL_SUBTOPICS[topic] ?? [];
+  if (bankSlug === "ib-ai-sl") return IB_AI_SL_SUBTOPICS[topic] ?? [];
+  if (bankSlug === "ib-hl") return IB_HL_SUBTOPICS[topic] ?? [];
+  if (bankSlug === "ib-sl") return IB_SL_SUBTOPICS[topic] ?? [];
+  return [];
 }
 
 export function getTopicOptions(questions: UnifiedQuestion[]): string[] {

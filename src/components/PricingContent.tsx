@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Check } from "@phosphor-icons/react";
 import { useState } from "react";
-import { PlanCheckout } from "@/components/BillingActions";
+import { PlanCheckout, PortalButton } from "@/components/BillingActions";
 
 const BANK_OPTIONS = [
   { productId: "bank_igcse", label: "Cambridge IGCSE Mathematics 0580" },
@@ -28,7 +28,7 @@ const PLANS = [
 
 type BillingInterval = "monthly" | "annual";
 
-export function PricingContent({ authenticated, hasPaidAccess }: { authenticated: boolean; hasPaidAccess: boolean }) {
+export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [] }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[] }) {
   const [interval, setInterval] = useState<BillingInterval>("annual");
 
   return (
@@ -36,6 +36,17 @@ export function PricingContent({ authenticated, hasPaidAccess }: { authenticated
       <p className="eyebrow">Simple access</p>
       <h1>Choose how much maths you need.</h1>
       <p className="page-lede">Every paid plan includes the same practice tools. You only choose how many banks to unlock.</p>
+
+      {authenticated ? (
+        <section className="pricing-current-plan" aria-labelledby="current-plan-heading">
+          <div><span className="eyebrow">Account</span><h2 id="current-plan-heading">Your current plan</h2></div>
+          <div className="pricing-current-plan-details">
+            <strong>{hasPaidAccess ? currentPlanNames.join(", ") || "Paid access" : "Free"}</strong>
+            <span>{hasPaidAccess ? "Your access is active. Use billing to cancel or update payment details." : "Choose a plan below to unlock every available question."}</span>
+          </div>
+          {hasPaidAccess ? <PortalButton /> : null}
+        </section>
+      ) : null}
 
       <div className="billing-toggle" role="group" aria-label="Billing period">
         <button type="button" aria-pressed={interval === "monthly"} onClick={() => setInterval("monthly")}>Monthly</button>

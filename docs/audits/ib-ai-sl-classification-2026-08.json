@@ -1,0 +1,3159 @@
+{
+  "manifestVersion": "ib-ai-sl-classification-2026.08.3",
+  "bank": "ib-ai-sl",
+  "reviewedQuestionCount": 334,
+  "corrections": {
+    "2025-may-tz1-p1-q1": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Correlation and regression"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The requested methods are Pearson correlation and regression; balloon volume is only the response variable.",
+      "sourceTextSha256": "2450febcff21b45f873f6949276832bdeae5e9b33c800120b30d00ffe747c6e2"
+    },
+    "2025-may-tz1-p1-q2": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Chi-squared tests"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The question explicitly asks for a chi-squared test for independence.",
+      "sourceTextSha256": "57bfb1f34cdda367d7d5829626461869d5a2068d15ea488efb84993ca6784f6c"
+    },
+    "2025-may-tz1-p1-q3": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Algebraic manipulation",
+        "Solving equations with a GDC"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Algebraic manipulation, Solving equations with a GDC.",
+      "sourceTextSha256": "85fd2f7d612e44287ae6957751bfe3869475aad6229d6b6bb6dd27b86b3902ad"
+    },
+    "2025-may-tz1-p1-q4": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Direct and inverse variation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The stated relationship is inverse proportionality between filling time and flow rate.",
+      "sourceTextSha256": "eaf4921bd004b40554318f0e28e1d95188aa3df32bb5c4b6f74909b6a8ca1eeb"
+    },
+    "2025-may-tz1-p1-q5": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with quadratic and cubic functions",
+        "Properties of functions and graphs"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The model is explicitly a quadratic dolphin-height function with axis, intercept, and context interpretation.",
+      "sourceTextSha256": "c5ceac1a64844af2b3abcb8edf8d50f25260dc7fa6ecb104775e493f7cd24fec"
+    },
+    "2025-may-tz1-p1-q6": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Arcs and sectors"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: Both parts calculate annular-sector area and arc/path length.",
+      "sourceTextSha256": "6ec997fc0f52da22a50aecffb8918e6a3b566a6d1db9174649606ba78a8ae69a"
+    },
+    "2025-may-tz1-p1-q7": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Binomial distribution",
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Binomial distribution, Probability and types of events.",
+      "sourceTextSha256": "a24bb81440c86b9148d284b3c75c436892a28b6151d892c31ec435774f3c7ad7"
+    },
+    "2025-may-tz1-p1-q8": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The question uses a derivative/gradient and proves the function is increasing at a point.",
+      "sourceTextSha256": "b3a59695ec23c7ca88695cac62c3a4eb4392d22bdf2c10abade1b46d4b203842"
+    },
+    "2025-may-tz1-p1-q9": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Properties of functions and graphs"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on the selected controlled subtopic; unrelated cross-topic cues were not retained.",
+      "sourceTextSha256": "4926c830a6224418c0b3890d6e1f64afa28492f4e305983e411da7736c03836b"
+    },
+    "2025-may-tz1-p1-q10": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with linear and piecewise functions"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The central object is a piecewise hat-price cost function C(n).",
+      "sourceTextSha256": "a7277f1d15eee7baa84ed56cb4f85b2e3a59204c2238a5df6b435a9eec66f388"
+    },
+    "2025-may-tz1-p1-q11": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Exponents and logarithms",
+        "Rounding, estimation and percentage error"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: Part (a) requires evaluating ln(v), in addition to percentage-error bounds.",
+      "sourceTextSha256": "b3a9c483d5e399ff9a9ad05f295409665d6e645329a1758b09687118e8c816b3"
+    },
+    "2025-may-tz1-p1-q12": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation",
+        "Modelling with differentiation"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Applications of differentiation, Modelling with differentiation.",
+      "sourceTextSha256": "84fbc25c17c15982ee6b115bd666e0bf400e847f7a7bbac896a7d0d447bde6ad"
+    },
+    "2025-may-tz1-p1-q13": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Non right-angled trigonometry",
+        "Right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Non right-angled trigonometry, Right-angled trigonometry.",
+      "sourceTextSha256": "4842e368dc29bf555c15579ee5c83f1cd1dcae3f2472d83691a5a5474b9fc0e1"
+    },
+    "2025-may-tz2-p1-q1": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Financial mathematics.",
+      "sourceTextSha256": "798be19dce38f60c9b872db9ff01a6b7157a19024fe46d4a3a6a9d0ddf7b9397"
+    },
+    "2025-may-tz2-p1-q2": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Discrete probability distributions",
+        "Conditional probability",
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Discrete probability distributions, Conditional probability, Probability and types of events.",
+      "sourceTextSha256": "60f58d30ae068a008e03dc39a2f4256b76b20d70be504203bbefec2fb5862a64"
+    },
+    "2025-may-tz2-p1-q3": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Sequences and series.",
+      "sourceTextSha256": "1250d45a81fa916ab98fc93305d8773d1a922628b468bbcccb410714ff62e178"
+    },
+    "2025-may-tz2-p1-q4": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Chi-squared tests"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The entire test is a chi-squared test for independence.",
+      "sourceTextSha256": "90d577e8ef7fba91bf77e97509eef4831e9f431dbea948803ad988140f35aeee"
+    },
+    "2025-may-tz2-p1-q5": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Non right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Non right-angled trigonometry.",
+      "sourceTextSha256": "8370aa348c9639b6ff4597cc73425c758e86b8b1d871ccb46e8b2dfb9ceb934e"
+    },
+    "2025-may-tz2-p1-q6": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Rounding, estimation and percentage error"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Rounding, estimation and percentage error.",
+      "sourceTextSha256": "a63ad1504ad85b4a0071e157cb4e07eabb24e8b609273da9113d879ab93943fb"
+    },
+    "2025-may-tz2-p1-q7": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry",
+        "Voronoi diagrams"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Coordinate geometry, Voronoi diagrams.",
+      "sourceTextSha256": "cd5f94828663b2ef7513fda0ee0962a52c1ac847f30819d09f75fec70bb44fef"
+    },
+    "2025-may-tz2-p1-q8": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Statistical measures and frequency tables"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Statistical measures and frequency tables.",
+      "sourceTextSha256": "d492c5e7b222e6325503d06bfc848b2fec44f5886f8846f525843f70019f9f2e"
+    },
+    "2025-may-tz2-p1-q9": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Properties of functions and graphs"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Properties of functions and graphs.",
+      "sourceTextSha256": "be1b172dde6796cc6ac6daa6945fa021b0d6828d73b7873c0a7a9236b2ef64b6"
+    },
+    "2025-may-tz2-p1-q10": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Correlation and regression"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Correlation and regression.",
+      "sourceTextSha256": "0f3955bcd8bda4bb9f4f118986c25bdb63284fd63d7e8bd3ac07530185321477"
+    },
+    "2025-may-tz2-p1-q11": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry",
+        "Right-angled trigonometry"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Coordinate geometry, Right-angled trigonometry.",
+      "sourceTextSha256": "550d3d00e25b8e9c26c82c912eb20b3bded3f5043a60981a6f0f6d8985761359"
+    },
+    "2025-may-tz3-p1-q1": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Coordinate geometry.",
+      "sourceTextSha256": "d63c4dadeb4309846becfabbdeb556a158f9c09a580e70124f07b3e382217344"
+    },
+    "2025-may-tz3-p1-q2": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Statistical measures and frequency tables"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The question asks only for grouped-data mean and standard deviation and their interpretation.",
+      "sourceTextSha256": "7a976cf8f6e840d1a44f559bb7c9f7b1a8b9a740eb06c0513fc34744c190ea25"
+    },
+    "2025-may-tz3-p1-q3": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Properties of functions and graphs"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Properties of functions and graphs.",
+      "sourceTextSha256": "adc5d1a3d43925ce49c78cdba442896dfecc1f4eaeb0297b7e363532289fc602"
+    },
+    "2025-may-tz3-p1-q4": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Properties of functions and graphs"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Properties of functions and graphs.",
+      "sourceTextSha256": "7cb2edd21bdd1d708ba240531f284cedfc703ef295626604c53d6b15bf7e7417"
+    },
+    "2025-may-tz3-p1-q5": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry",
+        "Voronoi diagrams"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Coordinate geometry, Voronoi diagrams.",
+      "sourceTextSha256": "265f8a2bc7a387fc49afd17c7aef34395b5feff68357252cb6a78aeab0950199"
+    },
+    "2025-may-tz3-p1-q6": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Non right-angled trigonometry",
+        "Right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Non right-angled trigonometry, Right-angled trigonometry.",
+      "sourceTextSha256": "92ce5287fe4a060c65c2abcb1dbda623a8bb8a95821c643feaf5251a5fd406df"
+    },
+    "2025-may-tz3-p1-q7": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Exponents and logarithms"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The loudness/intensity equation and its inverse require logarithms and powers of ten.",
+      "sourceTextSha256": "5f4867c589697d85d87bf8d66ac36552daf4d4aa4ceb5d0e741aeaaff97b573f"
+    },
+    "2025-may-tz3-p1-q8": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Chi-squared tests",
+        "Sampling and data collection"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Chi-squared tests, Sampling and data collection.",
+      "sourceTextSha256": "6a6aa656e163cc7b03917ce5db7e9d9b3f0c24a7623302092b308e1d76f60927"
+    },
+    "2025-may-tz3-p1-q9": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Modelling with differentiation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The rate of change dP/dx is integrated to obtain profit and compare profits.",
+      "sourceTextSha256": "c1978809ad66559cc8b167d6a3a9c5a0852cd506dff72ebbe6b27911c5e2a1fc"
+    },
+    "2025-may-tz3-p1-q10": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Statistical measures and frequency tables",
+        "Outliers and data interpretation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The parts are quartiles, IQR, and outlier detection from a box plot.",
+      "sourceTextSha256": "1a533afa3c908335dbef064cb7a42ff2d42ab57228ba9c35d468fec2c4559ec6"
+    },
+    "2025-may-tz3-p1-q11": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Financial mathematics.",
+      "sourceTextSha256": "8db7488ee5795c8210d85830e1ffbb1bdef82a819613e37c0b4293a6fee4531f"
+    },
+    "2025-may-tz3-p1-q12": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Correlation and regression",
+        "Sampling and data collection"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The question explicitly combines stratified selection with Pearson correlation/regression.",
+      "sourceTextSha256": "2f997fb35b79990a0f0d254bf13ae86aeb6b573dedeca62387e3e6d90428b130"
+    },
+    "2025-may-tz1-p2-q1": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Statistical measures and frequency tables"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The data are a frequency table and the task solves for its mean; no function-model topic is used.",
+      "sourceTextSha256": "d9e934af646b20764af6650a758a3b906916e37c155d65d38537afcff539b51c"
+    },
+    "2025-may-tz1-p2-q2": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Financial mathematics.",
+      "sourceTextSha256": "609d435519ca869bd3ff2b1168988ac10f70995f411c17da13bb185f25c8fcd4"
+    },
+    "2025-may-tz1-p2-q3": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Sequences and series.",
+      "sourceTextSha256": "208e52b8b1b5e5ed21881fbb20b7ee9da5b2fd120afc7cd9be454e75a880d43a"
+    },
+    "2025-may-tz1-p2-q4": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry",
+        "Right-angled trigonometry",
+        "Volume and surface area of 3D shapes"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Coordinate geometry, Right-angled trigonometry, Volume and surface area of 3D shapes.",
+      "sourceTextSha256": "659e1073eaea62560cb7db683aefd4b153e28ac68419e34cab4239803e226813"
+    },
+    "2025-may-tz1-p2-q5": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry",
+        "Voronoi diagrams"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The displayed construction is a Voronoi diagram and perpendicular-bisector edge problem.",
+      "sourceTextSha256": "9666aa7bb2d6a8c152dedc6442745b86afdaccd97147681f2b45caeb02337348"
+    },
+    "2025-may-tz2-p2-q1": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Sequences and series.",
+      "sourceTextSha256": "814059869422eb9a282f06fff21e7431ce40ffd400f684b61b8b22edf685529c"
+    },
+    "2025-may-tz2-p2-q2": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation",
+        "Applications of integration"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Applications of differentiation, Applications of integration.",
+      "sourceTextSha256": "7a933a0a0be9d37b4bc8c0a70d93cc7ad8b167f3082a4100e81767a4ac02adc4"
+    },
+    "2025-may-tz2-p2-q3": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Normal distribution",
+        "Binomial distribution",
+        "Probability and types of events"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Normal distribution, Binomial distribution, Probability and types of events.",
+      "sourceTextSha256": "4876d60ae621a080da8aa0e5c725815f05217d77e3c3ae6aff9452cd2c3b1a39"
+    },
+    "2025-may-tz2-p2-q4": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Arcs and sectors"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The clock problem asks for hand-angle/distance plus arc/sector quantities, not a function model.",
+      "sourceTextSha256": "fc254b94910d7702846efd63e4a65e095a4e83a928eb7ce86b3bbb3635fbcc40"
+    },
+    "2025-may-tz2-p2-q5": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Volume and surface area of 3D shapes"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The explicit mathematical content is cylinder/hemisphere surface area and volume.",
+      "sourceTextSha256": "684050ce81e287241074436a78608f61be4e9e7395d1fc0c4a6e9add4e42258c"
+    },
+    "2025-may-tz3-p2-q1": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics",
+        "Sequences and series"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Financial mathematics, Sequences and series.",
+      "sourceTextSha256": "5cecd230c3648f255e1a5ef341fddddc643a438cb60372b7e57097c76f6b0992"
+    },
+    "2025-may-tz3-p2-q2": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Normal distribution",
+        "Binomial distribution",
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Normal distribution, Binomial distribution, Probability and types of events.",
+      "sourceTextSha256": "8484854e39b80ae668dc15d22a3c33509ae5aed17f4490d7ffe148aabdfe735e"
+    },
+    "2025-may-tz3-p2-q3": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation",
+        "Modelling with differentiation"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Applications of differentiation, Modelling with differentiation.",
+      "sourceTextSha256": "e46ebdd89a950e402f35674866e0c9ec5d289d26065a2216798e36b9edcf04f6"
+    },
+    "2025-may-tz3-p2-q4": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Sinusoidal models"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The tide is explicitly modeled by a cosine sinusoid.",
+      "sourceTextSha256": "bb4cb785fad0c90da837820e176cb445da21909c62f7b4a080ec5d0814fb4fac"
+    },
+    "2025-may-tz3-p2-q5": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Trapezoidal rule"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The first task explicitly uses the trapezoidal rule for cross-sectional area.",
+      "sourceTextSha256": "ec9d3995ab7a9f317351f77b25614cfc5fa3b753606e59367277af967d348c2b"
+    },
+    "2025-november-tz1-p1-q1": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Sequences and series.",
+      "sourceTextSha256": "36ec52dbbcb9735150ceea7114ab25d2914278de193c301226dc641f0ba20705"
+    },
+    "2025-november-tz1-p1-q2": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Volume and surface area of 3D shapes"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on the selected controlled subtopic; unrelated cross-topic cues were not retained.",
+      "sourceTextSha256": "5d89fe202cfd4770b678ce62c2c064fed124ffb5960aec19fac2976b69b9e022"
+    },
+    "2025-november-tz1-p1-q3": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Linear functions and graphs"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Linear functions and graphs.",
+      "sourceTextSha256": "a4d175c78fe684998ebe9b0473b6a8ce0386d5e4da85735cd4c69674a6b1059f"
+    },
+    "2025-november-tz1-p1-q4": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "The t-test"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The stated inference procedure is a t-test comparing premium and standard fuel.",
+      "sourceTextSha256": "3b17ff1b1b51e26032d852fb1d592d276ebe4b30ce1201035c983c46485d5b4b"
+    },
+    "2025-november-tz1-p1-q5": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Financial mathematics.",
+      "sourceTextSha256": "d5c54465b8d8418cfe94e0ded8825928b185777d0a4c486c17561ea5fa3ba7b5"
+    },
+    "2025-november-tz1-p1-q6": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Arcs and sectors",
+        "Non right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Arcs and sectors, Non right-angled trigonometry.",
+      "sourceTextSha256": "c77362e4ab9bcee8a8a115b29e292ec65a759ab8b3b324b42e9abbfc01a9aa00"
+    },
+    "2025-november-tz1-p1-q7": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Normal distribution"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The question is a normal-distribution percentile/cutoff problem.",
+      "sourceTextSha256": "e3e32f3079b48124a44c76e5734cd17a44b52507f2451a9ac00c824b67ca7e17"
+    },
+    "2025-november-tz1-p1-q8": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with exponential functions"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The phone value is explicitly an exponential decay model V(t)=2000+30000e^(-kt).",
+      "sourceTextSha256": "cfc68493c43fd04252c1f0bc546ded0ce3bcbc41425d7c1d27b49ae46adfe9c5"
+    },
+    "2025-november-tz1-p1-q9": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Binomial distribution",
+        "Discrete probability distributions"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Binomial distribution, Discrete probability distributions.",
+      "sourceTextSha256": "d00c6ffb91d165d810fd661ba176007881017282a2f0fbb851ac37effe267581"
+    },
+    "2025-november-tz1-p1-q10": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Direct and inverse variation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The volume is stated to vary inversely with time; later parts use the same inverse model.",
+      "sourceTextSha256": "47d085115de972e04498c0b7d9dd95b229d527b81f4bdef401165edb426bf3ea"
+    },
+    "2025-november-tz1-p1-q11": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The question differentiates B(x), finds its minimum, and solves an inequality from that model.",
+      "sourceTextSha256": "84eb6fab068b12d48588de94cf079aac3538125d91dca4eb64cd5fca98c6808d"
+    },
+    "2025-november-tz1-p1-q12": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry",
+        "Voronoi diagrams"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Coordinate geometry, Voronoi diagrams.",
+      "sourceTextSha256": "6a768644f3dfe89ec4ae26d313bf1869626a58a7ba5a77c61675797e44de5382"
+    },
+    "2025-november-tz3-p1-q1": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Statistical measures and frequency tables"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: Only mode, median, standard deviation, and range of a list are requested.",
+      "sourceTextSha256": "21879634d1ee1552a71157ff951c465105358db0382071f2cc6b330b0fc827b7"
+    },
+    "2025-november-tz3-p1-q2": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Exponents and logarithms"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Exponents and logarithms.",
+      "sourceTextSha256": "a629fff13d02c6e8b02d158550fa7faab0294b52ab425ff96d840cfe93bbdb3d"
+    },
+    "2025-november-tz3-p1-q3": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Chi-squared tests"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The hypothesis test described is chi-squared independence.",
+      "sourceTextSha256": "bcd9a143598d4295afb8bb5c7e77b7698802cb860c5f06cf0343b4dd850e7f80"
+    },
+    "2025-november-tz3-p1-q4": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Normal distribution"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: Every part is a normal-distribution probability or percentile calculation.",
+      "sourceTextSha256": "37a46104d08378f20f172045160c5064241dc2b884f61ace13f0126d4461e4a5"
+    },
+    "2025-november-tz3-p1-q5": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry",
+        "Voronoi diagrams"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Coordinate geometry, Voronoi diagrams.",
+      "sourceTextSha256": "158930bc77beffce55286212aa985dde909f462830889a5f704cf629ae257f00"
+    },
+    "2025-november-tz3-p1-q6": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Properties of functions and graphs"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Properties of functions and graphs.",
+      "sourceTextSha256": "2c59b1b26a6427b2e99f65370ac84c4ae49e6ce1f1c33ecf61d05208e880d5b3"
+    },
+    "2025-november-tz3-p1-q7": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Probability and types of events.",
+      "sourceTextSha256": "ebb9405264e6f3a61da71636d92e0aaaa20e5291a49792106bd84b2f01c90f85"
+    },
+    "2025-november-tz3-p1-q8": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with quadratic and cubic functions",
+        "Properties of functions and graphs"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The water path is explicitly modeled by a quadratic function and asks for its roots/vertex parameters.",
+      "sourceTextSha256": "49cc9b625e289769d0c19271e8746c93010713dab4ad82f4fbc3af101781778a"
+    },
+    "2025-november-tz3-p1-q9": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The question explicitly asks for f(1), f′(x), and a tangent line.",
+      "sourceTextSha256": "fe2dee1f684859949873812a4101861b9b3e93ac756bc0eb3fcd29ae9e10d30f"
+    },
+    "2025-november-tz3-p1-q10": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Binomial distribution",
+        "Discrete probability distributions"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Binomial distribution, Discrete probability distributions.",
+      "sourceTextSha256": "3a423611ffb72364bf133d2e0ee237e14accbbe52c70590d43ee3fdb8d2e6832"
+    },
+    "2025-november-tz3-p1-q11": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Arcs and sectors",
+        "Volume and surface area of 3D shapes"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Arcs and sectors, Volume and surface area of 3D shapes.",
+      "sourceTextSha256": "ba8defb16569c134a774c079f6193266af3856f670035d03409941583539c335"
+    },
+    "2025-november-tz3-p1-q12": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with exponential functions"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The radioactive amount is explicitly modeled by f(t)=ab^t and used to infer initial amount.",
+      "sourceTextSha256": "d8313cd366cbc578d7f4b9e384496436717ba881dfe4cc70bb3bef09d8972f4d"
+    },
+    "2025-november-tz3-p1-q13": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation",
+        "Modelling with differentiation"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Applications of differentiation, Modelling with differentiation.",
+      "sourceTextSha256": "2655b63adf84b47586a23cee3cda7e295518090233136003597ee760f2a82c1f"
+    },
+    "2025-november-tz1-p2-q1": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Statistical measures and frequency tables",
+        "Outliers and data interpretation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The task is box-plot quartiles/IQR and outlier identification.",
+      "sourceTextSha256": "8751fe7bd297e420fb6d70e3868852da42e738580d66aad16469acb9c7093164"
+    },
+    "2025-november-tz1-p2-q2": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Modelling with differentiation"
+      ],
+      "confidence": "high",
+      "reason": "Owner-safe adjudication from exact accessibleText: the dominant 11-mark component gives dh/dt, finds a maximum, and recovers h; the smaller exponential comparison is not assigned across owners.",
+      "sourceTextSha256": "a8c7c23e5ba8cc31b88959e7c0ed21b0628b9b767e4be8507b00abf07f5e1001"
+    },
+    "2025-november-tz1-p2-q3": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Conditional probability",
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Conditional probability, Probability and types of events.",
+      "sourceTextSha256": "2c736147ef46fc91df26cbc635544615f56eb57140b47f8d3b63232238b3ff1d"
+    },
+    "2025-november-tz1-p2-q4": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on the selected controlled subtopic; unrelated cross-topic cues were not retained.",
+      "sourceTextSha256": "9ef6beaea04ff17590f763be902c0246c4e0da8a18c7ab64f6ce2f03c9324ae9"
+    },
+    "2025-november-tz1-p2-q5": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Sinusoidal models"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The Ferris-wheel height is a periodic motion model; the explicit model is sinusoidal.",
+      "sourceTextSha256": "4129fd97ae82a7b485a429763117f7ed02f953feb1745ccda27172b5fef2133c"
+    },
+    "2025-november-tz3-p2-q1": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series",
+        "Rounding, estimation and percentage error"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Sequences and series, Rounding, estimation and percentage error.",
+      "sourceTextSha256": "aabeabb79056aeac0a5a33a714971dad44bf19dc2840594e48f7854d96eb2f2b"
+    },
+    "2025-november-tz3-p2-q2": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Correlation and regression"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The only method requested is Spearman rank correlation and its interpretation.",
+      "sourceTextSha256": "2c9e316c5aa3dc8d287ac742561c98a444f6d16e38da7ab75eec1b482cdd09bc"
+    },
+    "2025-november-tz3-p2-q3": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Non right-angled trigonometry",
+        "Right-angled trigonometry"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Non right-angled trigonometry, Right-angled trigonometry.",
+      "sourceTextSha256": "a16404b429b9ca77f2d2e3c4e3c1da4d81e84e1aec021d30fa7f6bc3252aed3b"
+    },
+    "2025-november-tz3-p2-q4": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Sinusoidal models"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The island water height is explicitly a sine model with amplitude, period, and threshold times.",
+      "sourceTextSha256": "6420257cea16074895ede007f0803dc34c9453302e5e0ca1cf6d01c582e6c7bc"
+    },
+    "2025-november-tz3-p2-q5": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation",
+        "Applications of integration"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Applications of differentiation, Applications of integration.",
+      "sourceTextSha256": "b82c62bac25befecd085d49d24874d1accc39eefa1bf40e2b0718b2e11a85e98"
+    },
+    "2024-may-tz1-p1-q1": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Statistical measures and frequency tables"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: Only descriptive statistics of six heights and a rounding bound are required.",
+      "sourceTextSha256": "c53d4686edf55961629572d0b9422e118227b24b060043849c0d98f2dd0558bf"
+    },
+    "2024-may-tz1-p1-q2": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Probability and types of events.",
+      "sourceTextSha256": "ac28907d06efa06372e57c77e84304bef61f2eb0650e72fd21bda83c80042287"
+    },
+    "2024-may-tz1-p1-q3": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Sequences and series.",
+      "sourceTextSha256": "df160176053102f4e2a9c759335fb00f2f79b3dabcbb7149125c65511bc4facc"
+    },
+    "2024-may-tz1-p1-q4": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with exponential functions"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Modelling with exponential functions.",
+      "sourceTextSha256": "d65f5fb700db48875344fbd359369a4bd5c697d4c474bd2cc5186da7105ede68"
+    },
+    "2024-may-tz1-p1-q5": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Financial mathematics.",
+      "sourceTextSha256": "3bc8b70cb96c85ee087941325a26f399045009eab58c896091e6676d8f47da2e"
+    },
+    "2024-may-tz1-p1-q6": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry",
+        "Voronoi diagrams"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The construction is a Voronoi diagram from perpendicular bisectors; rounding is incidental.",
+      "sourceTextSha256": "04e0658db677e73a7b24f6e1197086809035e43c719520eddd9ca0f3c8acec48"
+    },
+    "2024-may-tz1-p1-q7": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Sinusoidal models"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The river depth is explicitly modeled by a sinusoidal function.",
+      "sourceTextSha256": "375be0f3fd1d421924b87255a3eb96b09ded89994c47458ca40bfd8ed5857800"
+    },
+    "2024-may-tz1-p1-q8": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Statistical measures and frequency tables"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Statistical measures and frequency tables.",
+      "sourceTextSha256": "16ec9ecfcca3b8ec1f30e03435d29df0026de0b4dec766be970740944347fc00"
+    },
+    "2024-may-tz1-p1-q9": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Modelling with differentiation"
+      ],
+      "confidence": "high",
+      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Modelling with differentiation.",
+      "sourceTextSha256": "98b021f87639864e934be532c17f268431c21a9ff61eaf3a5924ee40a7c8a433"
+    },
+    "2024-may-tz1-p1-q10": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Direct and inverse variation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: Mass is explicitly directly proportional to h^3 and energy to h^2.",
+      "sourceTextSha256": "71c5724e3a22becfaa71ef39fcb94098df67a8fb048006862edba813d1931318"
+    },
+    "2024-may-tz1-p1-q11": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Arcs and sectors",
+        "Right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Arcs and sectors, Right-angled trigonometry.",
+      "sourceTextSha256": "d3016f166f77dd60218780f85bdef5a40858fae8506eee5e5aa7778ee7504a7e"
+    },
+    "2024-may-tz1-p1-q12": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Discrete probability distributions",
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Discrete probability distributions, Probability and types of events.",
+      "sourceTextSha256": "a309904bfb47bd3cd30e1c20f9a4f614f1ac3e2098b700917fa1c61122aa29c1"
+    },
+    "2024-may-tz2-p1-q1": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Statistical measures and frequency tables"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Statistical measures and frequency tables.",
+      "sourceTextSha256": "0ea593a97abf34a73090e4ad0a4ff596096689f3c44669365a6222c732ac4e1a"
+    },
+    "2024-may-tz2-p1-q2": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Non right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Non right-angled trigonometry.",
+      "sourceTextSha256": "45d63b57f9aae142fa996d3e6446ab4db937c76288b55f123208182e33755593"
+    },
+    "2024-may-tz2-p1-q3": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Chi-squared tests"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The stated procedure is a chi-squared independence test on the pepper table.",
+      "sourceTextSha256": "bebb3ca1386c1ea79181c7d1331c7d8b6a6a9d80e3bec376860d1772afc77d87"
+    },
+    "2024-may-tz2-p1-q4": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Direct and inverse variation"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Direct and inverse variation.",
+      "sourceTextSha256": "5a84ebdea4f45b37f731d57ba0c67fe4cbe26d4710a852413908e481fa578762"
+    },
+    "2024-may-tz2-p1-q5": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Financial mathematics.",
+      "sourceTextSha256": "a9677a70c462be86069d8bd1693a92560c4f6d68bf309f8f5d6aefd9946dfcc9"
+    },
+    "2024-may-tz2-p1-q6": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Binomial distribution",
+        "Discrete probability distributions"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Binomial distribution, Discrete probability distributions.",
+      "sourceTextSha256": "bde113a08f010b336e0e1d4cad43447b8c672eeb9f86bd311fb1987004090944"
+    },
+    "2024-may-tz2-p1-q7": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Exponents and logarithms"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The pH/concentration calculations use log10 and its inverse; no exponential model is defined.",
+      "sourceTextSha256": "e5b0dcbd6446193f1775fcb20ce52f6e279913f0526a25af11bd74bd39c77f21"
+    },
+    "2024-may-tz2-p1-q8": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Discrete probability distributions",
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Discrete probability distributions, Probability and types of events.",
+      "sourceTextSha256": "0443c9a7458a37127b08d20dd2f0520435ad2a3a05d3b79bed752bb2b91ad22d"
+    },
+    "2024-may-tz2-p1-q9": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The comparison is between arithmetic and geometric distance sequences.",
+      "sourceTextSha256": "2b39668104c6ee09ed3c9afe56b7be3034e57d5153313a6acd990f73ad359b65"
+    },
+    "2024-may-tz2-p1-q10": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The gradient of a normal is used to recover a and b from a quadratic curve.",
+      "sourceTextSha256": "172c37edb5b5b3f7c4c64476a0459d0e21edfffc6d6315f3442f4bb103393891"
+    },
+    "2024-may-tz2-p1-q11": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Arcs and sectors",
+        "Non right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Arcs and sectors, Non right-angled trigonometry.",
+      "sourceTextSha256": "0ff4d451e2af086373dc5414a204ffa389a1e56ef7bf85b5ec5fb381c4b45203"
+    },
+    "2024-may-tz2-p1-q12": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The carpet area is differentiated to find the maximizing dimension.",
+      "sourceTextSha256": "6fea7a0c5030448f1e0518311b790b39956e11143a60a4d72640fd11bf2bb9bb"
+    },
+    "2024-may-tz1-p2-q1": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Correlation and regression",
+        "The t-test"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Correlation and regression, The t-test.",
+      "sourceTextSha256": "f64e90d7e860739ab295c6cd3e8c2a80ef9b5af3e6e88c01f7744bfb8148523f"
+    },
+    "2024-may-tz1-p2-q2": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Normal distribution",
+        "Binomial distribution",
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Normal distribution, Binomial distribution, Probability and types of events.",
+      "sourceTextSha256": "1185faf101787d416797c66bbeebb9b42faaee892d7730c5a3a2ea2b82acad40"
+    },
+    "2024-may-tz1-p2-q3": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The profit model is optimized by differentiating P(x) and solving P′(x)=0.",
+      "sourceTextSha256": "13ba8a3b13447d098617034c31b1158173cf0fde399d628438ab22595d52143d"
+    },
+    "2024-may-tz1-p2-q4": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Chi-squared tests",
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Chi-squared tests, Probability and types of events.",
+      "sourceTextSha256": "f8858cf14452075b904c9410ac196f75faabbb5fc4842402b67c88ae9c86151f"
+    },
+    "2024-may-tz1-p2-q5": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of integration",
+        "Modelling with differentiation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The supplied h′(x) is integrated to recover h(x), then an integral gives cross-sectional area.",
+      "sourceTextSha256": "728e6ede54a84874aa5935c80361b5f1c07efbc427fae38acc619b1705f7a0e0"
+    },
+    "2024-may-tz2-p2-q1": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Conditional probability",
+        "Probability and types of events"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Conditional probability, Probability and types of events.",
+      "sourceTextSha256": "39fa102647817f04f430337c113545e7dc951eb9d1389eb0ccfabb2921a6ffef"
+    },
+    "2024-may-tz2-p2-q2": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry",
+        "Right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Coordinate geometry, Right-angled trigonometry.",
+      "sourceTextSha256": "796e793f831a6108cadf987e76ed8c8e540eaa693c94584b6f65673624d6debd"
+    },
+    "2024-may-tz2-p2-q3": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Trapezoidal rule",
+        "Introduction to integration"
+      ],
+      "confidence": "high",
+      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Trapezoidal rule, Introduction to integration.",
+      "sourceTextSha256": "2911d41f01675ba428d35c2d62ec9f10458936f7d27d9f09c73b3f50fbb0c3cc"
+    },
+    "2024-may-tz2-p2-q4": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Normal distribution",
+        "Chi-squared tests",
+        "The t-test"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Normal distribution, Chi-squared tests, The t-test.",
+      "sourceTextSha256": "c0f922fa9a57e390ffe12551eec82f9fc1751f3fae9426afb108f2787017bc9d"
+    },
+    "2024-may-tz2-p2-q5": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Volume and surface area of 3D shapes",
+        "Non right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Volume and surface area of 3D shapes, Non right-angled trigonometry.",
+      "sourceTextSha256": "0f86d9b378e217c3cf652dcb830aa2c284be7bba83c867a94938d098dbbd06ad"
+    },
+    "2024-november-tz1-p1-q1": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Right-angled trigonometry.",
+      "sourceTextSha256": "281462d57964c24527c1953c751edf2a88f93ce5ef3b195e2f56f204439ff81a"
+    },
+    "2024-november-tz1-p1-q2": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Statistical measures and frequency tables"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Statistical measures and frequency tables.",
+      "sourceTextSha256": "ab665e64a21d40d12a56a4779c5ad20b4ce29ef6aaca9e4bc935b93d8921caf4"
+    },
+    "2024-november-tz1-p1-q3": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Algebraic manipulation",
+        "Rounding, estimation and percentage error"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Algebraic manipulation, Rounding, estimation and percentage error.",
+      "sourceTextSha256": "2f151a71332b836582e6a6692d057f1a2503c68ccfcda5efb21dc944e1719501"
+    },
+    "2024-november-tz1-p1-q4": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Non right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Non right-angled trigonometry.",
+      "sourceTextSha256": "d72dfe581beea67ec4dd2badd0a2f48c0eb4dbef0e1fdc346c7fc564b114cc51"
+    },
+    "2024-november-tz1-p1-q5": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with linear and piecewise functions"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The bicycle price is an explicitly linear cost function on an integer domain, including its inverse.",
+      "sourceTextSha256": "fe8cf9c09866d2e53c68b055a6517f115eac697716482b8a6c4d0dfb0b25a1cf"
+    },
+    "2024-november-tz1-p1-q6": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with exponential functions"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: Radioactive carbon is explicitly modeled by an exponential decay function.",
+      "sourceTextSha256": "50b06d050a6e5dd1f1fc885a20e22cc191750cae481ab5e769b4ae09121941d7"
+    },
+    "2024-november-tz1-p1-q7": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Normal distribution"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Normal distribution.",
+      "sourceTextSha256": "b15350dedbfe25dad35b1e25c47513a5c233a9255271040884ec8e1ebe11c242"
+    },
+    "2024-november-tz1-p1-q8": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics",
+        "Sequences and series"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Financial mathematics, Sequences and series.",
+      "sourceTextSha256": "2cd7ca043181cbd20ca3d9c6d192306d797302afe875ff97b2ca9c72dbf25171"
+    },
+    "2024-november-tz1-p1-q9": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Binomial distribution"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Binomial distribution.",
+      "sourceTextSha256": "e84e84d2dd82919c4622dbb1e8b6e632274871249f6926d462b29b7d7bb9ca21"
+    },
+    "2024-november-tz1-p1-q10": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Financial mathematics.",
+      "sourceTextSha256": "840db6cee35f2c4f205b72e297c17fbdbe8bc23844bbb2efc476f1a85e080123"
+    },
+    "2024-november-tz1-p1-q11": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Discrete probability distributions",
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Discrete probability distributions, Probability and types of events.",
+      "sourceTextSha256": "cfd711387377e18c7f5c9c93f3522c240ee37c5dc2593d82141376c0945fc9fd"
+    },
+    "2024-november-tz1-p1-q12": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The question explicitly differentiates a curve and finds its normal.",
+      "sourceTextSha256": "58b1dc7c8b2d70202c3395cde272e04ff34072df604be1a8f15b33865d0d6a29"
+    },
+    "2024-november-tz1-p1-q13": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series",
+        "Solving equations with a GDC"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Sequences and series, Solving equations with a GDC.",
+      "sourceTextSha256": "f8e7b5ebc42cb07838a302a1ba691ef303902e0f6a4be3907a8524aac92fe4f1"
+    },
+    "2024-november-tz2-p1-q1": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Right-angled trigonometry.",
+      "sourceTextSha256": "fc72ce9183e250af2ee4d25fee30df0659470e1b93874e0fc095d6b7d422cc90"
+    },
+    "2024-november-tz2-p1-q2": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Statistical measures and frequency tables"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Statistical measures and frequency tables.",
+      "sourceTextSha256": "5124fbc97d4e92a2cf0bb5fc6c8a288d13e986acf31eefb119b81d2efcd3149b"
+    },
+    "2024-november-tz2-p1-q3": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Algebraic manipulation",
+        "Rounding, estimation and percentage error"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Algebraic manipulation, Rounding, estimation and percentage error.",
+      "sourceTextSha256": "60f4c6272d475ac542ad405c91d61aaf9e8de12d9ab66ce31a92dc36c52748fc"
+    },
+    "2024-november-tz2-p1-q4": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Non right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Non right-angled trigonometry.",
+      "sourceTextSha256": "f4b26562560a9a7b8d1f52fbddac9e0c6ce485906e28b81c94d55a36a9bd09f2"
+    },
+    "2024-november-tz2-p1-q5": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with linear and piecewise functions"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: This duplicate bicycle question is a linear cost-function/inverse-function problem.",
+      "sourceTextSha256": "fe8cf9c09866d2e53c68b055a6517f115eac697716482b8a6c4d0dfb0b25a1cf"
+    },
+    "2024-november-tz2-p1-q6": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with exponential functions"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: Radioactive carbon is explicitly modeled by an exponential decay function.",
+      "sourceTextSha256": "50b06d050a6e5dd1f1fc885a20e22cc191750cae481ab5e769b4ae09121941d7"
+    },
+    "2024-november-tz2-p1-q7": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Normal distribution"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Normal distribution.",
+      "sourceTextSha256": "7351388be2bdeb11a1234e8f4c18f4ffe0f04a5d3732c38b61d75e2fbef86341"
+    },
+    "2024-november-tz2-p1-q8": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics",
+        "Sequences and series"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Financial mathematics, Sequences and series.",
+      "sourceTextSha256": "151aabaebb178047166da8f8316bb561e4fe1f974db0e8445de113d43a8f5d7a"
+    },
+    "2024-november-tz2-p1-q9": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Binomial distribution"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Binomial distribution.",
+      "sourceTextSha256": "7a078612d980b8bafd1b01785e78e82f943e5dd86a6ac5b032cb7e2667c32601"
+    },
+    "2024-november-tz2-p1-q10": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Financial mathematics.",
+      "sourceTextSha256": "24e8368e9442ea0e552b50f950a2cd2226e2f6261c72ace3614c47b414a2b3bb"
+    },
+    "2024-november-tz2-p1-q11": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Discrete probability distributions",
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Discrete probability distributions, Probability and types of events.",
+      "sourceTextSha256": "2008c99eecd16f44b5337055ddcaaf10112ebc4d51dd9aad895c59a67d4cc82a"
+    },
+    "2024-november-tz2-p1-q12": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The question explicitly differentiates a curve and finds its normal.",
+      "sourceTextSha256": "5ddda622cae8fc60b41d2954240fc1f455e52fa63ff78bc3d5b0a624464bdd77"
+    },
+    "2024-november-tz2-p1-q13": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series",
+        "Solving equations with a GDC"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Sequences and series, Solving equations with a GDC.",
+      "sourceTextSha256": "b9fd52d636b60cdc11303ea8efc8cfa02eab8f3c85e131384df755c810944978"
+    },
+    "2024-november-tz1-p2-q1": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry",
+        "Voronoi diagrams"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The diagram and all requested equations are for a restaurant Voronoi partition.",
+      "sourceTextSha256": "6bf545e9f23c84022cac51b39ee004da8360d04591afb72c72766b065e4d0e77"
+    },
+    "2024-november-tz1-p2-q2": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Sinusoidal models"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Sinusoidal models.",
+      "sourceTextSha256": "3e7abcf6b4c3740893a4c5295992308c238a88366491a1bc9ccc434bb0188441"
+    },
+    "2024-november-tz1-p2-q3": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Correlation and regression",
+        "Statistical measures and frequency tables",
+        "Outliers and data interpretation"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Correlation and regression, Statistical measures and frequency tables, Outliers and data interpretation.",
+      "sourceTextSha256": "4911dcd9b6af8641d5d9eb17bc78b41afe3d114ec2531afc05c5bfdf7e27145c"
+    },
+    "2024-november-tz1-p2-q4": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of integration",
+        "Trapezoidal rule"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: Both numerical and exact area parts use trapezoidal rule/integration for a curve.",
+      "sourceTextSha256": "1ee2aa07b528db7114176af83ca496e84fad89514aa94f3cb95363090ddae627"
+    },
+    "2024-november-tz1-p2-q5": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Volume and surface area of 3D shapes",
+        "Non right-angled trigonometry"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Volume and surface area of 3D shapes, Non right-angled trigonometry.",
+      "sourceTextSha256": "6093dc34ec7b9ac8d6dd8bf79c35ca6465ab82005e295dc13e7a341a0907811b"
+    },
+    "2024-november-tz2-p2-q1": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry",
+        "Voronoi diagrams"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The diagram and requested perpendicular bisector are a Voronoi partition.",
+      "sourceTextSha256": "edeac88c7b7feea384f56a9be2c290831c6bed88083e20c64f793937055d4237"
+    },
+    "2024-november-tz2-p2-q2": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Sinusoidal models"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Sinusoidal models.",
+      "sourceTextSha256": "c8dadefa0de546c1859bdb53e77f10ae87bc4c17411d8eb17a8100cc8233b81c"
+    },
+    "2024-november-tz2-p2-q3": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Correlation and regression",
+        "Statistical measures and frequency tables",
+        "Outliers and data interpretation"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Correlation and regression, Statistical measures and frequency tables, Outliers and data interpretation.",
+      "sourceTextSha256": "f379a80c8d77e9a55a817047e1a32801e677a01447ba0ab77734f8daac348ab8"
+    },
+    "2024-november-tz2-p2-q4": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of integration",
+        "Trapezoidal rule"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: Both numerical and exact area parts use trapezoidal rule/integration for a curve.",
+      "sourceTextSha256": "4ba738a1cc15856e0ff97e2a3d82df36dda8cfade75c71473ce8e5d032e3b7f8"
+    },
+    "2024-november-tz2-p2-q5": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Volume and surface area of 3D shapes",
+        "Non right-angled trigonometry"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Volume and surface area of 3D shapes, Non right-angled trigonometry.",
+      "sourceTextSha256": "356ae517fe9a0eacde9d7562b36d0716a5a74eb25a1c3acd0a57b857ee07eca9"
+    },
+    "2023-may-tz1-p1-q1": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Correlation and regression"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Correlation and regression.",
+      "sourceTextSha256": "a1e434e956f9f428a299ec5d97e3fc24a1326e257f895675b9d4d9fd884db5fe"
+    },
+    "2023-may-tz1-p1-q2": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Right-angled trigonometry.",
+      "sourceTextSha256": "0ac106ecfd373cf7ec0b7219922cb38a5ca2324500cef742c7d545533200c49e"
+    },
+    "2023-may-tz1-p1-q3": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Financial mathematics.",
+      "sourceTextSha256": "47c6996cbbd6cdd0b66e9410d6ea906f3763b9cdd96496ca638a9daff275eab1"
+    },
+    "2023-may-tz1-p1-q4": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "The t-test"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The inference test is explicitly a one-tailed t-test.",
+      "sourceTextSha256": "442756897c272ae25a6b4081f76627772d586224d472b3b69f77876a5cd71ac5"
+    },
+    "2023-may-tz1-p1-q5": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Properties of functions and graphs"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Properties of functions and graphs.",
+      "sourceTextSha256": "c15132b1bd9c949a87ea186cae859448ac7c71882aa68ceafc0c06234f77c8b5"
+    },
+    "2023-may-tz1-p1-q6": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Direct and inverse variation"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Direct and inverse variation.",
+      "sourceTextSha256": "b68681aa3b831af49cd291f4de5533e678648dde22b4215ed747afbbdf4cce6b"
+    },
+    "2023-may-tz1-p1-q7": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with quadratic and cubic functions"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The central object is a cardboard-box volume function V(x) optimized over its domain.",
+      "sourceTextSha256": "ef40d7bcdd8619113a727c968d90b401d625792299700882e4b77672ac4f8bab"
+    },
+    "2023-may-tz1-p1-q8": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Exponents and logarithms"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Exponents and logarithms.",
+      "sourceTextSha256": "ac7fc62e5dc7d7f212cfcf29d70803d63acd8678b5ef063c521ccda708570d6d"
+    },
+    "2023-may-tz1-p1-q9": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Trapezoidal rule",
+        "Introduction to integration"
+      ],
+      "confidence": "high",
+      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Trapezoidal rule, Introduction to integration.",
+      "sourceTextSha256": "7506d6c045022a0520efcf74f54e272d28b57bf502fb444c29f31e2e1ec73df8"
+    },
+    "2023-may-tz1-p1-q10": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with quadratic and cubic functions"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Modelling with quadratic and cubic functions.",
+      "sourceTextSha256": "942c3696b15e83020dd1c7654bc923d17e53fd237f9f6b33f4ee20794fe3e27a"
+    },
+    "2023-may-tz1-p1-q11": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Right-angled trigonometry.",
+      "sourceTextSha256": "ea1c9eac6c49fcb4abd9f8a8fe0f1dd2813fcea3f6ec9353580bb4daf17f80fe"
+    },
+    "2023-may-tz1-p1-q12": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Normal distribution"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Normal distribution.",
+      "sourceTextSha256": "b81d15a290f2dc8eac87098954bb7897e48597dc16ebfa3776d1f41d27a14fc6"
+    },
+    "2023-may-tz1-p1-q13": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Non right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Non right-angled trigonometry.",
+      "sourceTextSha256": "53aebc6332baec07394081260e84bc2175070e852435b7e78b8bd584a3faa965"
+    },
+    "2023-may-tz2-p1-q1": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Rounding, estimation and percentage error"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Rounding, estimation and percentage error.",
+      "sourceTextSha256": "afb119af1c5087dbe26d43c0be1da1858c83b6adbe0c617fb49829bdd2d3b52d"
+    },
+    "2023-may-tz2-p1-q2": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Financial mathematics.",
+      "sourceTextSha256": "ab02aa833143c0cf02936aff6ce32b46cf9e53b61fd3a526387be9e6f3870176"
+    },
+    "2023-may-tz2-p1-q3": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Statistical measures and frequency tables",
+        "Outliers and data interpretation"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Statistical measures and frequency tables, Outliers and data interpretation.",
+      "sourceTextSha256": "65d4bbffb0fc805a673899304829536976c2f24cb6fe872277678246ebef94fe"
+    },
+    "2023-may-tz2-p1-q4": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Correlation and regression"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Correlation and regression.",
+      "sourceTextSha256": "5963f10ac911b12925ccaa5036d89e0fe6c04088389eac1f7878709c06617864"
+    },
+    "2023-may-tz2-p1-q5": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Statistical measures and frequency tables"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Statistical measures and frequency tables.",
+      "sourceTextSha256": "441ef07918cd46066c71947eab932a692ea2b7dce9d15cbfc04e737cde195079"
+    },
+    "2023-may-tz2-p1-q6": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Conditional probability",
+        "Chi-squared tests"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The question combines a conditional probability and a chi-squared independence test.",
+      "sourceTextSha256": "255bf981354c2085e12ba76276130db754c885b2a51dd93f960c05edfb647263"
+    },
+    "2023-may-tz2-p1-q7": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry",
+        "Voronoi diagrams"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Coordinate geometry, Voronoi diagrams.",
+      "sourceTextSha256": "1ce994ab9921cd0941ec1dc38da0aa2058059709102a19cf7768e6a31b90c14b"
+    },
+    "2023-may-tz2-p1-q8": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Volume and surface area of 3D shapes"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Volume and surface area of 3D shapes.",
+      "sourceTextSha256": "5a8b5a505cb5ed4064d1797a52b5ccba372b9ebb99eb3ba3ec8f2f6ccbc221f9"
+    },
+    "2023-may-tz2-p1-q9": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Normal distribution"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Normal distribution.",
+      "sourceTextSha256": "522e0b97621f08ced44e3fb86a9e3121c3b1552d25020075235cfa3fae197d49"
+    },
+    "2023-may-tz2-p1-q10": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with quadratic and cubic functions"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Modelling with quadratic and cubic functions.",
+      "sourceTextSha256": "c18ad60df78468554cf4cddf9b957478373084473a9e8ba0dd716d5cad2d9830"
+    },
+    "2023-may-tz2-p1-q11": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Properties of functions and graphs"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Properties of functions and graphs.",
+      "sourceTextSha256": "340816dbb6892bff76a49c877e3e453ab6eab208ef1d394cad48eaa7c9fa3f4b"
+    },
+    "2023-may-tz2-p1-q12": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Discrete probability distributions",
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Discrete probability distributions, Probability and types of events.",
+      "sourceTextSha256": "16da308ebbfc7100b3dec64a3305523ae14273efe21bb80442be8c1b34552f18"
+    },
+    "2023-may-tz2-p1-q13": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation",
+        "Applications of integration",
+        "Trapezoidal rule"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The question explicitly uses the trapezoidal rule, f′(x), and area integration.",
+      "sourceTextSha256": "514e329e9bdac4069e603320ead434979bc9fab3fb73d33eba45bd1c9da0936c"
+    },
+    "2023-may-tz1-p2-q1": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Correlation and regression"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Correlation and regression.",
+      "sourceTextSha256": "b15e767bcb1c79ac103644af459616b04a14239e2c77c60b55f859c61046d97f"
+    },
+    "2023-may-tz1-p2-q2": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Properties of functions and graphs",
+        "Modelling with exponential functions"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Properties of functions and graphs, Modelling with exponential functions.",
+      "sourceTextSha256": "c047c0158e9a99cd3dcbe1b766d8c3b1cc385c795cbf8d67136f19ca466ef6c6"
+    },
+    "2023-may-tz1-p2-q3": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Sinusoidal models"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Sinusoidal models.",
+      "sourceTextSha256": "78f9b67294a72be84022126e1de26cfc3ef07c9ab59a4e32eb2f7885afa4e8b9"
+    },
+    "2023-may-tz1-p2-q4": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Binomial distribution",
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Binomial distribution, Probability and types of events.",
+      "sourceTextSha256": "a71be75b33b1289fc904a08eccd440b1811b8d4b93ae8aa86973cfead4de2bac"
+    },
+    "2023-may-tz1-p2-q5": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation",
+        "Modelling with differentiation"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Applications of differentiation, Modelling with differentiation.",
+      "sourceTextSha256": "d1e956bfb8a6170844b7533f8631411306ae4b8591d1b1bb7184001d2b986018"
+    },
+    "2023-may-tz2-p2-q1": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Non right-angled trigonometry",
+        "Arcs and sectors"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Non right-angled trigonometry, Arcs and sectors.",
+      "sourceTextSha256": "f33c24a80ca0192ba741aa4bca6159c7bdfeadc7cfa207e2ac2bc68b97960dc0"
+    },
+    "2023-may-tz2-p2-q2": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Sequences and series.",
+      "sourceTextSha256": "61087b5c48cb631a4790b51b758f64209c932c2f6a7639abb2c54ad3a11b6066"
+    },
+    "2023-may-tz2-p2-q3": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with exponential functions"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: Both populations are explicit exponential models P(t) and S(t).",
+      "sourceTextSha256": "50c6178e1abf5b316f7f175af769cc7b491fcea37b8753996d112b34298f31d8"
+    },
+    "2023-may-tz2-p2-q4": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Binomial distribution",
+        "The t-test"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Binomial distribution, The t-test.",
+      "sourceTextSha256": "f87e52b10a491d4bf585b77784f34ad005484255a50147938ba5940ab84eb81d"
+    },
+    "2023-may-tz2-p2-q5": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The garden-area function is differentiated and optimized.",
+      "sourceTextSha256": "683290748a41a85c41579c4a0b74244222098568b5a84881fa6ce6a25919841f"
+    },
+    "2023-november-tz1-p1-q1": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Correlation and regression"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Correlation and regression.",
+      "sourceTextSha256": "a446d07071c316a34ff6d2e8c556ddcd61b8bcd4cbf332a966e1458f99aa86a5"
+    },
+    "2023-november-tz1-p1-q2": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Volume and surface area of 3D shapes"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on the selected controlled subtopic; unrelated cross-topic cues were not retained.",
+      "sourceTextSha256": "4ddac213ee7e24770814c51fbc0f319e73cfa47938ca87e9ae70cc72d6ae19e5"
+    },
+    "2023-november-tz1-p1-q3": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The question explicitly asks for f′(x) and the interval where f is increasing.",
+      "sourceTextSha256": "75015667a0f49ab410a1201cc7a42bc73ab106ff21b1ba8972ddc82222a312d8"
+    },
+    "2023-november-tz1-p1-q4": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry",
+        "Voronoi diagrams"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Coordinate geometry, Voronoi diagrams.",
+      "sourceTextSha256": "c1140985502fc8f0aa89d7b88155d856110c1b45db59953653c168996e950052"
+    },
+    "2023-november-tz1-p1-q5": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Non right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Non right-angled trigonometry.",
+      "sourceTextSha256": "97d64631c8c5672ecc26e89f6a8ffb4bc6da438bed3834c3cf38a2dbcb8f7f70"
+    },
+    "2023-november-tz1-p1-q6": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Properties of functions and graphs"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Properties of functions and graphs.",
+      "sourceTextSha256": "4d98bc4bf40c4bdb8c7391619a72673b7ab7a5a735c1b0cb10576047b3a0d5ea"
+    },
+    "2023-november-tz1-p1-q7": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with quadratic and cubic functions"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Modelling with quadratic and cubic functions.",
+      "sourceTextSha256": "6cac45416ea0c7df39b48ba3269637627cf0fdd4d865a3e96a83bc4750a0f362"
+    },
+    "2023-november-tz1-p1-q8": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The road model is differentiated to construct a normal bridge and find its length.",
+      "sourceTextSha256": "2597b1bf253192f3eaf4dcf8abe9c4c50546be8a6cc70e67f588e95b6b46afd1"
+    },
+    "2023-november-tz1-p1-q9": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Statistical measures and frequency tables",
+        "The t-test"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Statistical measures and frequency tables, The t-test.",
+      "sourceTextSha256": "a32e2cc7c405030c82f2e975cdb66b1c85ccef4b92637d668b9be3216a678dae"
+    },
+    "2023-november-tz1-p1-q10": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Conditional probability",
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Conditional probability, Probability and types of events.",
+      "sourceTextSha256": "1a4e9a4e1372e48ee5325189213b9fc4eedc09d5f224f064a85535bc0ba3e83f"
+    },
+    "2023-november-tz1-p1-q11": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Binomial distribution",
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Binomial distribution, Probability and types of events.",
+      "sourceTextSha256": "512a0ebc3e556b439215a30af8056514b1167b3e93d3c108a282201b2f0ffaf9"
+    },
+    "2023-november-tz1-p1-q12": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Correlation and regression"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Correlation and regression.",
+      "sourceTextSha256": "8da9434bcc6cb29e78945a09e751d0f5dc667c97a67c638d45a6444df96730ad"
+    },
+    "2023-november-tz2-p1-q1": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Correlation and regression"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Correlation and regression.",
+      "sourceTextSha256": "1509eb444538dd9c5f8ff58d0f2ccee4783261c6190a3dd102b1c04fdc5447cc"
+    },
+    "2023-november-tz2-p1-q2": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Volume and surface area of 3D shapes"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on the selected controlled subtopic; unrelated cross-topic cues were not retained.",
+      "sourceTextSha256": "4ddac213ee7e24770814c51fbc0f319e73cfa47938ca87e9ae70cc72d6ae19e5"
+    },
+    "2023-november-tz2-p1-q3": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The question explicitly asks for g′(x) and the interval where g is increasing.",
+      "sourceTextSha256": "a18ede917fff00878f80aed62408f8cb351c98ee685bc22ec5d912d4c13cfdc1"
+    },
+    "2023-november-tz2-p1-q4": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry",
+        "Voronoi diagrams"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Coordinate geometry, Voronoi diagrams.",
+      "sourceTextSha256": "bb5c485b9c15e1dad122ade4126bb0c396ad7b10e6de472996527f68ed7ff7f8"
+    },
+    "2023-november-tz2-p1-q5": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Non right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Non right-angled trigonometry.",
+      "sourceTextSha256": "b7a36246a0c7cc6169f0166ec32ea8dc7687575bf4b8184bddb314da471a1c7f"
+    },
+    "2023-november-tz2-p1-q6": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Properties of functions and graphs"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Properties of functions and graphs.",
+      "sourceTextSha256": "4d98bc4bf40c4bdb8c7391619a72673b7ab7a5a735c1b0cb10576047b3a0d5ea"
+    },
+    "2023-november-tz2-p1-q7": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with quadratic and cubic functions"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Modelling with quadratic and cubic functions.",
+      "sourceTextSha256": "79855c36113def0c5f890eb96b371a396f6f7c00ae579e983aa87f55546d9b19"
+    },
+    "2023-november-tz2-p1-q8": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The road model is differentiated to construct a normal bridge and find its length.",
+      "sourceTextSha256": "ce959500541470762c308cce161d91ac648292599495ec70f55d8ee7c771db66"
+    },
+    "2023-november-tz2-p1-q9": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Statistical measures and frequency tables",
+        "The t-test"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Statistical measures and frequency tables, The t-test.",
+      "sourceTextSha256": "5547cee8be32aa6c3821e2da8ae5bda6c028e71f4a72c4cfcc2eb14c24b9cf16"
+    },
+    "2023-november-tz2-p1-q10": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Conditional probability",
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Conditional probability, Probability and types of events.",
+      "sourceTextSha256": "dc112b6302980d3138cac2e17457b57e533bc5a052909d1b63bcfef3a8511670"
+    },
+    "2023-november-tz2-p1-q11": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Binomial distribution",
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Binomial distribution, Probability and types of events.",
+      "sourceTextSha256": "15610e521e4900fb5b9343c5bdf96d56700a71855e3846699ec9cb94892a1b86"
+    },
+    "2023-november-tz2-p1-q12": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Correlation and regression"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Correlation and regression.",
+      "sourceTextSha256": "67328bb02a7a59fd133db96853cea7ae4959f650eb3315f5c103797bbe734794"
+    },
+    "2023-november-tz1-p2-q1": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of integration",
+        "Trapezoidal rule"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The blade area estimate is trapezoidal and the exact area is a definite integral.",
+      "sourceTextSha256": "c317ecc6894beb5fd832a7b80d9ce5377f5f666bbecb43e70ac5bda2cd7e3620"
+    },
+    "2023-november-tz1-p2-q2": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Arcs and sectors",
+        "Volume and surface area of 3D shapes"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Arcs and sectors, Volume and surface area of 3D shapes.",
+      "sourceTextSha256": "f3391ec0a4a053318d56fa3c34751bab410a4860be314e25f75d87432911c425"
+    },
+    "2023-november-tz1-p2-q3": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Statistical measures and frequency tables",
+        "Normal distribution",
+        "Chi-squared tests"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Statistical measures and frequency tables, Normal distribution, Chi-squared tests.",
+      "sourceTextSha256": "41639b0179b15d0432b454431a5174b49a137c1e364d1a701dfee6777e19a473"
+    },
+    "2023-november-tz1-p2-q4": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Financial mathematics.",
+      "sourceTextSha256": "2d90aa45e142b434b4e6b21272794d1d31782a362e628429b31982dca939dae8"
+    },
+    "2023-november-tz1-p2-q5": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation",
+        "Modelling with differentiation"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Applications of differentiation, Modelling with differentiation.",
+      "sourceTextSha256": "9a0e823bf01de515a8173019ae3580f5db1c88a92cae713807bd0b3cf6b79fd5"
+    },
+    "2023-november-tz2-p2-q1": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of integration",
+        "Trapezoidal rule"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The wing area estimate is trapezoidal and the exact area is a definite integral.",
+      "sourceTextSha256": "bd7fbe6269346c4d5041ed8a130e3584bda42a911ebc9cdff6f9540afde3627f"
+    },
+    "2023-november-tz2-p2-q2": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Arcs and sectors",
+        "Volume and surface area of 3D shapes"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Arcs and sectors, Volume and surface area of 3D shapes.",
+      "sourceTextSha256": "5ca07b6cec1262f583a52dc32ea06fd070fa103a3b8945f07b16e7a41fd33df6"
+    },
+    "2023-november-tz2-p2-q3": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Statistical measures and frequency tables",
+        "Normal distribution",
+        "Chi-squared tests"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Statistical measures and frequency tables, Normal distribution, Chi-squared tests.",
+      "sourceTextSha256": "45687b61d1c0f1f12f3373bfc21db7914acc4ecad3a970788be25b71225b19ee"
+    },
+    "2023-november-tz2-p2-q4": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Financial mathematics.",
+      "sourceTextSha256": "7922399d0d4fa77954394b0b56bb1fc80c8701b9005464bc5d9e5c5324091286"
+    },
+    "2023-november-tz2-p2-q5": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation",
+        "Modelling with differentiation"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Applications of differentiation, Modelling with differentiation.",
+      "sourceTextSha256": "fedea3fbcd5669bdf998faafa978e33d06a08e9b18db006a5c427fdfeff9233b"
+    },
+    "2022-may-tz1-p1-q1": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Volume and surface area of 3D shapes"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Volume and surface area of 3D shapes.",
+      "sourceTextSha256": "9e0dfd536ed0d27efc6cf97e5cff1af5ac497db5aa746c76d429d81d8f8b25f0"
+    },
+    "2022-may-tz1-p1-q2": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry",
+        "Right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Coordinate geometry, Right-angled trigonometry.",
+      "sourceTextSha256": "52fa2b1bc586c0a3f74480de9595133b8ca7662cb7a4c66a7e445de3e41167d0"
+    },
+    "2022-may-tz1-p1-q3": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with quadratic and cubic functions"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Modelling with quadratic and cubic functions.",
+      "sourceTextSha256": "78384c83feca29fbf076bec1feef2132d412f3d7d21091349fb33c1138c70869"
+    },
+    "2022-may-tz1-p1-q4": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Coordinate geometry.",
+      "sourceTextSha256": "6e840ff9a154e737bb14a43505c2871e64142dd8209f92d7d5c8abe9bf4744b7"
+    },
+    "2022-may-tz1-p1-q5": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Algebraic manipulation"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Algebraic manipulation.",
+      "sourceTextSha256": "e6075c952276e94adf504c2ec1045b911e9d04be14348d94883e1fb7ea45b672"
+    },
+    "2022-may-tz1-p1-q6": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Trapezoidal rule",
+        "Introduction to integration"
+      ],
+      "confidence": "high",
+      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Trapezoidal rule, Introduction to integration.",
+      "sourceTextSha256": "fd1aeb4d350d79462d842cb2ee7b203ee37ee613e2435c1633533821db81f11b"
+    },
+    "2022-may-tz1-p1-q7": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Chi-squared tests"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The question explicitly describes a chi-squared goodness-of-fit test.",
+      "sourceTextSha256": "a4cf774ad4423a8e86db977cae0f735d4fad7ac513888991410d2f0a5be84fa2"
+    },
+    "2022-may-tz1-p1-q8": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Normal distribution"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Normal distribution.",
+      "sourceTextSha256": "bc554d7a5f51f127c011ce692db89bf5df962bbb804d259fa5945b0053f3512a"
+    },
+    "2022-may-tz1-p1-q9": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The question explicitly differentiates f and finds a normal line.",
+      "sourceTextSha256": "3b1c03a43c31976aecc7726f382d7567d53b7d8b550dc70460cbb97060a5e186"
+    },
+    "2022-may-tz1-p1-q10": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Conditional probability",
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Conditional probability, Probability and types of events.",
+      "sourceTextSha256": "1501a0dcdaf69fdc2f3b1ed7665106beadabbfff84357ea313dfd158526eda34"
+    },
+    "2022-may-tz1-p1-q11": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Exponents and logarithms"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Exponents and logarithms.",
+      "sourceTextSha256": "d61ed753e8be47e820087026b02756e91316f4e5160712aeabd329a0d0bf2f6c"
+    },
+    "2022-may-tz1-p1-q12": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of integration"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The rate dP/dt is integrated to obtain the profit function.",
+      "sourceTextSha256": "2767f106fefe3e7c983c23cad9dbf8ad526ac6a0f5275db0fac4f0715f92ed31"
+    },
+    "2022-may-tz1-p1-q13": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series",
+        "Solving equations with a GDC"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Sequences and series, Solving equations with a GDC.",
+      "sourceTextSha256": "9b430b584cc6ca93c3d8d900eda82131ded81b29d88b67ff2311135855b50ed2"
+    },
+    "2022-may-tz2-p1-q1": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Arcs and sectors"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The windscreen-wiper region is formed by circular arcs and sectors.",
+      "sourceTextSha256": "2c15172a82019a1669622f37d5cfbde3991b5b6752daa5e5c56b300da061a6a5"
+    },
+    "2022-may-tz2-p1-q2": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Conditional probability",
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Conditional probability, Probability and types of events.",
+      "sourceTextSha256": "a4f0b7d62c149ac3f255210b36c89013dc07db78225f9bd88f8358e92a77ba4d"
+    },
+    "2022-may-tz2-p1-q3": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Right-angled trigonometry.",
+      "sourceTextSha256": "3c55958971b7141d48e4c4c8c44d103198d90f0781de89f11d812b39b3734e01"
+    },
+    "2022-may-tz2-p1-q4": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Exponents and logarithms"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Exponents and logarithms.",
+      "sourceTextSha256": "da9c00738bc92a698e09f60192f02bcc8554c3ebddea3fd61055ed1f5312de8b"
+    },
+    "2022-may-tz2-p1-q5": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Binomial distribution",
+        "Discrete probability distributions"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Binomial distribution, Discrete probability distributions.",
+      "sourceTextSha256": "00c18f34d1becc19845b1e70a8001f2d22803c42fc4d91b50aadbfebc265e770"
+    },
+    "2022-may-tz2-p1-q6": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of integration"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The shaded regions are calculated using an integral between curves.",
+      "sourceTextSha256": "c7d4220421d8515e3f8e6a68f9ae21530fbb3556579214d51c6ecd91b53b2d55"
+    },
+    "2022-may-tz2-p1-q7": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Statistical measures and frequency tables",
+        "Outliers and data interpretation"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Statistical measures and frequency tables, Outliers and data interpretation.",
+      "sourceTextSha256": "a51ef4777183639aca62899c3330803184808ada0a06ea8239f9db4115eb3b20"
+    },
+    "2022-may-tz2-p1-q8": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "The t-test"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The stated inference procedure is a two-sample t-test.",
+      "sourceTextSha256": "af4f5b78c60ee308f433f7ac6595675723bcdbc54c86d1c7891eacf0ebc2d930"
+    },
+    "2022-may-tz2-p1-q9": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with quadratic and cubic functions",
+        "Properties of functions and graphs"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Modelling with quadratic and cubic functions, Properties of functions and graphs.",
+      "sourceTextSha256": "0759628b93a322bf5347df473ef050c75b87253b2304a302902f1a35a8b90c16"
+    },
+    "2022-may-tz2-p1-q10": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Normal distribution"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Normal distribution.",
+      "sourceTextSha256": "caaad3d7ea4f4530b2e4fe2d0d011b40949e8c80300d31e08bbebd9c44407d86"
+    },
+    "2022-may-tz2-p1-q11": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The question explicitly differentiates f and analyzes parallel tangent lines.",
+      "sourceTextSha256": "ac8b3fe681b8ab8cf08ca968646171e8cc6f547aefdad0953f7cf347c4dbff17"
+    },
+    "2022-may-tz2-p1-q12": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with quadratic and cubic functions"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The arch is explicitly modeled by a quadratic function and tested against a rectangular crate.",
+      "sourceTextSha256": "d7635428c6846e60ea79d13e73040513585dc00d3fce91a0285a5343c98cd5c2"
+    },
+    "2022-may-tz2-p1-q13": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Financial mathematics.",
+      "sourceTextSha256": "4d4c81f975c27ef31aa64e79e6c78f3048f3a276f089df85bcf716b5d2c28de1"
+    },
+    "2022-may-tz1-p2-q1": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Sinusoidal models",
+        "Properties of functions and graphs"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: Daylight is a cyclic smooth-curve modeling problem; the question asks why a quadratic is unsuitable over years.",
+      "sourceTextSha256": "c2e20de9305b152dc06236ce40f4fda8a9edf714f83bdb812b1fedcd161b1434"
+    },
+    "2022-may-tz1-p2-q2": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Sequences and series.",
+      "sourceTextSha256": "49037998288bd0d9076696667adc92b8410e0b58caf1c3ac3a543dea82e11978"
+    },
+    "2022-may-tz1-p2-q3": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Correlation and regression",
+        "Statistical measures and frequency tables",
+        "Outliers and data interpretation"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Correlation and regression, Statistical measures and frequency tables, Outliers and data interpretation.",
+      "sourceTextSha256": "1ff85fccf4b4d5820f4e0326a10b9df3112fd22262d776df0baade3f9cb3412d"
+    },
+    "2022-may-tz1-p2-q4": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Arcs and sectors",
+        "Volume and surface area of 3D shapes"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Arcs and sectors, Volume and surface area of 3D shapes.",
+      "sourceTextSha256": "d17729126610f2a7b509cf8030c38f4563e5c5a51ba809b52106c9b246e54e2b"
+    },
+    "2022-may-tz1-p2-q5": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Binomial distribution",
+        "Discrete probability distributions"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Binomial distribution, Discrete probability distributions.",
+      "sourceTextSha256": "5cd649b3419b6ba6bf5b9bb04533dde473b892b82a6b7bbdbe4cf5840423d9f1"
+    },
+    "2022-may-tz2-p2-q1": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Statistical measures and frequency tables"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Statistical measures and frequency tables.",
+      "sourceTextSha256": "428ef6cdbfd25dea9110cf1bc6b20ed9ee89d3cd569ef54dce1df94e0169ae14"
+    },
+    "2022-may-tz2-p2-q2": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics",
+        "Sequences and series"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Financial mathematics, Sequences and series.",
+      "sourceTextSha256": "5ea56b80b7300386095f9ca851189dcb3f76c8420b7fc0760bbbce33d5d37546"
+    },
+    "2022-may-tz2-p2-q3": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry",
+        "Voronoi diagrams"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Coordinate geometry, Voronoi diagrams.",
+      "sourceTextSha256": "b8d754cc466227578df596fc64fbfb249873a164b7df44af2f699141fb79b1cd"
+    },
+    "2022-may-tz2-p2-q4": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Sinusoidal models"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Sinusoidal models.",
+      "sourceTextSha256": "fc851c8e5cddcecba424fd27fcd8eef0c104c50def830dfb74ecba6b2652f554"
+    },
+    "2022-may-tz2-p2-q5": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The cafe profit is differentiated and maximized.",
+      "sourceTextSha256": "8737ffa207487887a47ec591f5cde351bbca2e3600a7b5875faeae5c403a4057"
+    },
+    "2022-november-tz0-p1-q1": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Right-angled trigonometry.",
+      "sourceTextSha256": "770758280edec76274a603cf9c59c5dcf3fc39915e4a86beead3ca5007c98c6a"
+    },
+    "2022-november-tz0-p1-q2": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Sequences and series.",
+      "sourceTextSha256": "b7ac49b9e002453e92928123e9d6299cde7388f054b3f6b397010c8a6baa7bcf"
+    },
+    "2022-november-tz0-p1-q3": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with quadratic and cubic functions"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Modelling with quadratic and cubic functions.",
+      "sourceTextSha256": "d8f1824569a597bd1fb395482959f5baeebe87f310337e028ed463723bdeae10"
+    },
+    "2022-november-tz0-p1-q4": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Chi-squared tests"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The stated procedure is a chi-squared independence test.",
+      "sourceTextSha256": "556b683d2a15a3b5e989ce96ccb9a06ac67ae6ab7da6f3f70a794c510e3ce5f1"
+    },
+    "2022-november-tz0-p1-q5": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with exponential functions"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The coffee temperature is explicitly modeled by an exponential decay function.",
+      "sourceTextSha256": "9d9f55d37f25cb0e9058cb16661a03e15c6640b3b99255d5c40a6335b622c72c"
+    },
+    "2022-november-tz0-p1-q6": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "The t-test"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The stated inference procedure is a two-sample t-test.",
+      "sourceTextSha256": "3f1933107e449bad20ea7953b2e60ddb29177d7d0569b637d1eaf066f1e0b0cf"
+    },
+    "2022-november-tz0-p1-q7": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Financial mathematics.",
+      "sourceTextSha256": "c6912fd667f66a33176e94df2e9fd5595a31c29191212a1cce80ff61a419e817"
+    },
+    "2022-november-tz0-p1-q8": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Normal distribution"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Normal distribution.",
+      "sourceTextSha256": "357c64614afe3e2b6e88043d7576290406d6578581667ceb87a5bb26873f5626"
+    },
+    "2022-november-tz0-p1-q9": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Discrete probability distributions",
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Discrete probability distributions, Probability and types of events.",
+      "sourceTextSha256": "deb40d95c829244c7df2b13c175300171e7caba3bde1e36ab38a60421a5f3bc9"
+    },
+    "2022-november-tz0-p1-q10": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Exponents and logarithms"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Exponents and logarithms.",
+      "sourceTextSha256": "3dd460fec22d877edf879c063f15533fb277bbd4c9704c272d9f9f03e8f5731b"
+    },
+    "2022-november-tz0-p1-q11": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Sequences and series.",
+      "sourceTextSha256": "da37db207201fd674828b22ba755f4da85c3cf543297a1905b78d1b678b27807"
+    },
+    "2022-november-tz0-p1-q12": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Sinusoidal models"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The wheel-point height is explicitly modeled by h(t)=a sin(bt)+c.",
+      "sourceTextSha256": "fd0bbf3bcbf533f1e86347627aeb4844743e2374da9ac7cf809e7375902c4b56"
+    },
+    "2022-november-tz0-p1-q13": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The cost-per-hour rate is differentiated to find a local minimum.",
+      "sourceTextSha256": "1f5dd811b0b2323378d2e0e85dd01a5e5bb9fab128f2df3649991effa01da7f0"
+    },
+    "2022-november-tz0-p2-q1": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Statistical measures and frequency tables",
+        "Outliers and data interpretation"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Statistical measures and frequency tables, Outliers and data interpretation.",
+      "sourceTextSha256": "60d5cc696d2c9728a791a6813572604b96ec8a980ef9ca6cf38b84ef2a0ddcf1"
+    },
+    "2022-november-tz0-p2-q2": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Arcs and sectors",
+        "Non right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Arcs and sectors, Non right-angled trigonometry.",
+      "sourceTextSha256": "cdd448b5c99fc10d7488aeb2dca38962ae09f96b66ca17f2d96c156b1cda66c0"
+    },
+    "2022-november-tz0-p2-q3": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry",
+        "Voronoi diagrams"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Coordinate geometry, Voronoi diagrams.",
+      "sourceTextSha256": "319d6799f6d6bec6f8ef36471dc2d6707f3e98ab20240c72859f15971d6b76e6"
+    },
+    "2022-november-tz0-p2-q4": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Binomial distribution",
+        "Conditional probability",
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Binomial distribution, Conditional probability, Probability and types of events.",
+      "sourceTextSha256": "8c47ec87f7e8a3960981495b17ac4358946c9a17dcfa96b7beb30f8449344e49"
+    },
+    "2022-november-tz0-p2-q5": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation",
+        "Applications of integration"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The field boundary is differentiated for its northern maximum and integrated for area.",
+      "sourceTextSha256": "6899b1bd4366c6f97f26e0f6883f4d6eacf7c7f256e5be89d419aa06cf8548c4"
+    },
+    "2021-may-tz1-p1-q1": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Rounding, estimation and percentage error"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Rounding, estimation and percentage error.",
+      "sourceTextSha256": "20f9428c032286f6914d12cf004f367944a44912a2d49620fc1f0a47ef942b05"
+    },
+    "2021-may-tz1-p1-q2": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Statistical measures and frequency tables"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Statistical measures and frequency tables.",
+      "sourceTextSha256": "db7ad546609dac938a6b257946d7f96c03405235a98bb850195595cb7c7b32c9"
+    },
+    "2021-may-tz1-p1-q3": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Volume and surface area of 3D shapes"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Volume and surface area of 3D shapes.",
+      "sourceTextSha256": "f0ed881c4be0a8b9af1a9d946374f3b89f39f3043aaf2374fcb5a6126e63ea7d"
+    },
+    "2021-may-tz1-p1-q4": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Linear functions and graphs",
+        "Properties of functions and graphs"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Linear functions and graphs, Properties of functions and graphs.",
+      "sourceTextSha256": "de0c895262183df832087a728d1b38c3c0627d056ea756a30bc09ad55a6216d9"
+    },
+    "2021-may-tz1-p1-q5": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry",
+        "Voronoi diagrams"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Coordinate geometry, Voronoi diagrams.",
+      "sourceTextSha256": "5dd92ffad8b6734cb1d62d37e218c7867cc5745ca21f0d4f56d8bbc0d6b8916f"
+    },
+    "2021-may-tz1-p1-q6": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "The t-test"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The stated inference procedure is a t-test comparing two means.",
+      "sourceTextSha256": "adf607ed399ddbe3b0938ea2fa10b46d3eb4847fa9dd7df0fa35671298ccfc38"
+    },
+    "2021-may-tz1-p1-q7": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with exponential functions"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: Information retention is explicitly modeled by an exponential decay function.",
+      "sourceTextSha256": "f36049efed0cd0fe7352df17fcee25580a5ac7daac7f11c882f84ab8afb29770"
+    },
+    "2021-may-tz1-p1-q8": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Sequences and series.",
+      "sourceTextSha256": "13e3678beb8331a9dcd5654e8cce392db59a3c73204101270ee4ac93fcb81817"
+    },
+    "2021-may-tz1-p1-q9": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Non right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on the selected controlled subtopic; unrelated cross-topic cues were not retained.",
+      "sourceTextSha256": "dc04caaf81dd0a53c07351e1ebb18ae3745f307ee296b3f51a031cb41af978f1"
+    },
+    "2021-may-tz1-p1-q10": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Discrete probability distributions",
+        "Conditional probability",
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Discrete probability distributions, Conditional probability, Probability and types of events.",
+      "sourceTextSha256": "a9aa5ca9ae37501ff455c72aa1c329facebac57b5081c8676d8c7dc26244872f"
+    },
+    "2021-may-tz1-p1-q11": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Direct and inverse variation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: Sound intensity is explicitly inversely proportional to the square of distance.",
+      "sourceTextSha256": "52f318250f1ca4de3e248fc3164c5cdb6dfaca7179e41db3bbfc4c0375d7da8c"
+    },
+    "2021-may-tz1-p1-q12": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The top area is differentiated and minimized subject to the triangle geometry.",
+      "sourceTextSha256": "55edc6faffca051b808367f51b1d6297cd4571666fc00d93611ab72008d4c2e9"
+    },
+    "2021-may-tz1-p1-q13": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation",
+        "Applications of integration"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The question gives dl/dθ and requires recovering l(θ), so it is a differentiation/integration modeling task.",
+      "sourceTextSha256": "028b3c3b3a88d95a644f7ce537283ed8b01ecb98d0891f762eb5ec112fa16c38"
+    },
+    "2021-may-tz2-p1-q1": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with exponential functions"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Modelling with exponential functions.",
+      "sourceTextSha256": "1c292f620842d7410d682d4c9e5816235eb89a95dcbfa7926e74493fb69a4381"
+    },
+    "2021-may-tz2-p1-q2": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Coordinate geometry.",
+      "sourceTextSha256": "14cfcce06b8bf2e4afed4589d049f959ce93da30612504b439ab14d2972b40e3"
+    },
+    "2021-may-tz2-p1-q3": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Volume and surface area of 3D shapes"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Volume and surface area of 3D shapes.",
+      "sourceTextSha256": "e99bac056b0b3af4f52224cf9a2c169d1a05aeb205c1fa9f71067c8b7bc130ea"
+    },
+    "2021-may-tz2-p1-q4": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Right-angled trigonometry.",
+      "sourceTextSha256": "2b841600af367813494983387844f084f2b2365dedec3fd1bd715ac43f1a05e7"
+    },
+    "2021-may-tz2-p1-q5": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Outliers and data interpretation"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Outliers and data interpretation.",
+      "sourceTextSha256": "2b5d0091b86cdb3b31c7bc1e976ec4b659bd555bae68e8a8e0494c29d23e5972"
+    },
+    "2021-may-tz2-p1-q6": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Coordinate geometry.",
+      "sourceTextSha256": "166f98eafe7927a783cac0662a8678a365a9318c6485d6b0da1df49760f51a6f"
+    },
+    "2021-may-tz2-p1-q7": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Properties of functions and graphs"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Properties of functions and graphs.",
+      "sourceTextSha256": "c9041f5441255d7fe73c36fa43eb5201e6f4addfc970bf46861d2de60e313a1e"
+    },
+    "2021-may-tz2-p1-q8": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "The t-test"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The stated inference procedure is a t-test comparing two means.",
+      "sourceTextSha256": "77dce002764ea6d0e8a72a1da60eec90bc5f5a59482034f14da5474ead22fd90"
+    },
+    "2021-may-tz2-p1-q9": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Arcs and sectors"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Arcs and sectors.",
+      "sourceTextSha256": "2de9add6c74db84215c445f230dfd60cb4f2d49fcd944d0ae9d94a7ca9c55b46"
+    },
+    "2021-may-tz2-p1-q10": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Financial mathematics.",
+      "sourceTextSha256": "d698a2bea519cb5a3e7c113049c4477e669f88fce76a52043c1ef7b4309647f8"
+    },
+    "2021-may-tz2-p1-q11": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Chi-squared tests"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Chi-squared tests.",
+      "sourceTextSha256": "c6037e80678d7fd8422870c83454697b0ee77adbe49f9b4c9ec5ad52d687789f"
+    },
+    "2021-may-tz2-p1-q12": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with quadratic and cubic functions",
+        "Properties of functions and graphs"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Modelling with quadratic and cubic functions, Properties of functions and graphs.",
+      "sourceTextSha256": "f5fb91eef915749c70fcc839b0725383c9ea8e56a09f81a277568e4041428524"
+    },
+    "2021-may-tz2-p1-q13": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Modelling with differentiation"
+      ],
+      "confidence": "high",
+      "reason": "Owner-safe adjudication from exact accessibleText: dP/dx is explicitly supplied and the question asks for profit behavior and recovery of P.",
+      "sourceTextSha256": "07e184faf1ad373f38833cce1d18e365fbce10cb1c953e881ee81e0eda546b7b"
+    },
+    "2021-may-tz1-p2-q1": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Correlation and regression",
+        "Statistical measures and frequency tables",
+        "Sampling and data collection"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Correlation and regression, Statistical measures and frequency tables, Sampling and data collection.",
+      "sourceTextSha256": "ee2022cf2ec7670c07e355259d472a3fe5a1e079e8cd2efe1e58d59905a2fcda"
+    },
+    "2021-may-tz1-p2-q2": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Arcs and sectors"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Arcs and sectors.",
+      "sourceTextSha256": "cd45c0ccd267f40028808399c16eab46a5b58d7caa5b93c58a37469655b3ac7e"
+    },
+    "2021-may-tz1-p2-q3": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Financial mathematics.",
+      "sourceTextSha256": "364a3300d91b4dc08121ca9088b4c86b351a186268ec4c75e664b7339472a914"
+    },
+    "2021-may-tz1-p2-q4": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Normal distribution",
+        "Chi-squared tests"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Normal distribution, Chi-squared tests.",
+      "sourceTextSha256": "3a48812c671feac51431ac1a0a06d58e95c3008d5006bc9e92fc99378f0e4d1d"
+    },
+    "2021-may-tz1-p2-q5": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Trapezoidal rule",
+        "Introduction to integration",
+        "Applications of differentiation"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Trapezoidal rule, Introduction to integration, Applications of differentiation.",
+      "sourceTextSha256": "249bbf6f29e6895b1908dcc53da2aeffec759229a7b8e1cb8e7fac75689784e7"
+    },
+    "2021-may-tz2-p2-q1": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Conditional probability",
+        "Probability and types of events",
+        "Sampling and data collection"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Conditional probability, Probability and types of events, Sampling and data collection.",
+      "sourceTextSha256": "fbcf652dee39f2588c12bbe9e8af75f1e5e1fb8acd7ac54ee1266974ddf7eac9"
+    },
+    "2021-may-tz2-p2-q2": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Non right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Non right-angled trigonometry.",
+      "sourceTextSha256": "8ee76ecca87d83e1c1483a27f9d1d00c56345c58fc65ddd16624bfe7b07c7292"
+    },
+    "2021-may-tz2-p2-q3": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Sequences and series.",
+      "sourceTextSha256": "0fbb8532309ce8cdb632825b671c297bf729ee9204106a9d334eed615fb3fd7b"
+    },
+    "2021-may-tz2-p2-q4": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Normal distribution",
+        "Binomial distribution"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Normal distribution, Binomial distribution.",
+      "sourceTextSha256": "86b53d37b874a9852ca8f613d1c62b530ddf56d53dd1aa108d4560cbc22ecbca"
+    },
+    "2021-may-tz2-p2-q5": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation",
+        "Modelling with differentiation"
+      ],
+      "confidence": "medium",
+      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Applications of differentiation, Modelling with differentiation.",
+      "sourceTextSha256": "55df03b26a270cd79e1f8b287f2374e059e1aa3d03d8b6c988356bc6ffcd060d"
+    },
+    "2021-november-tz0-p1-q1": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Correlation and regression"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Correlation and regression.",
+      "sourceTextSha256": "218944785e06e1cf9495956d23a84d562a4da824e3ca522016e6aa28ec6cf38f"
+    },
+    "2021-november-tz0-p1-q2": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Non right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Non right-angled trigonometry.",
+      "sourceTextSha256": "8c411e0fa26850a2e834349078bc9ea867ded7a4adb8e9810c8f995d3a58a07c"
+    },
+    "2021-november-tz0-p1-q3": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with exponential functions"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Modelling with exponential functions.",
+      "sourceTextSha256": "2cf48ea4136ad296ad7afe1d5693d7a290ab1cc90cf5b6cd8472483a706bc1a6"
+    },
+    "2021-november-tz0-p1-q4": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Coordinate geometry.",
+      "sourceTextSha256": "94f9cab22998de020a49519ef08f8495a45f75a0f1989702dae3b8295030ba1a"
+    },
+    "2021-november-tz0-p1-q5": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Properties of functions and graphs"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Properties of functions and graphs.",
+      "sourceTextSha256": "e6071f44bd2593b7f555f69870cd982d018aebcf05ba6fdf4cdf5ae35c9db2c3"
+    },
+    "2021-november-tz0-p1-q6": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Trapezoidal rule"
+      ],
+      "confidence": "high",
+      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Trapezoidal rule.",
+      "sourceTextSha256": "b16cdd07d01b4fb2cd92bb3bd6502cca2e35c6745880068fea9601016688e46f"
+    },
+    "2021-november-tz0-p1-q7": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry",
+        "Voronoi diagrams"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Coordinate geometry, Voronoi diagrams.",
+      "sourceTextSha256": "0745b1d1a9b2bdd6262561242f547ea4133ec9125d1b95f1b00017bc471e596a"
+    },
+    "2021-november-tz0-p1-q8": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Arcs and sectors",
+        "Volume and surface area of 3D shapes"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Arcs and sectors, Volume and surface area of 3D shapes.",
+      "sourceTextSha256": "6e81e817f21b65ba7a5652c8087ceea86cc7fffc359d1e24e6138480cad4c604"
+    },
+    "2021-november-tz0-p1-q9": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Statistical measures and frequency tables"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Statistical measures and frequency tables.",
+      "sourceTextSha256": "ba2c10924ed2a128d4a28e65e4f4258ec8026a80ef67287687ae44b45a08db1c"
+    },
+    "2021-november-tz0-p1-q10": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Financial mathematics.",
+      "sourceTextSha256": "af4e337e912b6de53db47c1cfa5c30be3e66b25ab0c361aa85401b37e87e9916"
+    },
+    "2021-november-tz0-p1-q11": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Probability and types of events.",
+      "sourceTextSha256": "499190fc63caeda8c46646e7ac5cb9a4cee9d799a540c74db0c865b818d44d98"
+    },
+    "2021-november-tz0-p1-q12": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of differentiation",
+        "Modelling with differentiation"
+      ],
+      "confidence": "high",
+      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Applications of differentiation, Modelling with differentiation.",
+      "sourceTextSha256": "6df4a41db8e2d346fe4d0763b129851d38c8796dbb1b06a59bf99a57426e9936"
+    },
+    "2021-november-tz0-p1-q13": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of integration"
+      ],
+      "confidence": "high",
+      "reason": "The exact text defines a quadratic curve and asks for the area under it, so integration is the governing method.",
+      "sourceTextSha256": "4ea76743a9ed46df571faf415fd86303a37133d124b75a065ca36fc04e699ec7"
+    },
+    "2021-november-tz0-p2-q1": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Chi-squared tests",
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Chi-squared tests, Probability and types of events.",
+      "sourceTextSha256": "79601208a3ae953b53029ea2bc20099bfd0bc48b5d756013e2dc71d9d6b92b3c"
+    },
+    "2021-november-tz0-p2-q2": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Sequences and series.",
+      "sourceTextSha256": "411263b6a94979e88b031e8136fc1f139204ec938b6f613364ac36e602373a0a"
+    },
+    "2021-november-tz0-p2-q3": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Sinusoidal models"
+      ],
+      "confidence": "high",
+      "reason": "Independently validated against the exact full accessibleText for this ID: The turbine-blade endpoint height varies periodically as the blade rotates; this is a sinusoidal model.",
+      "sourceTextSha256": "94cb91411289bee9514b5643fb3e22b2e969aa7bd72cd6be957405027e641fca"
+    },
+    "2021-november-tz0-p2-q4": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Right-angled trigonometry",
+        "Volume and surface area of 3D shapes"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Right-angled trigonometry, Volume and surface area of 3D shapes.",
+      "sourceTextSha256": "e2751661c837d8647f100e17fe8bd940aef4a3a7b6610b1ccce91f5b77c83dd3"
+    },
+    "2021-november-tz0-p2-q5": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Normal distribution",
+        "Binomial distribution"
+      ],
+      "confidence": "high",
+      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Normal distribution, Binomial distribution.",
+      "sourceTextSha256": "9c51ed12607720984859c1a48b03cdd1d5f8d85d3866b300bc12f44663fe225c"
+    }
+  }
+}

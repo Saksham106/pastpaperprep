@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { MAX_PDF_QUESTIONS, pdfFooterText, pdfPageLabel, questionsForPdf } from "@/lib/pdf-export";
+import {
+  MAX_PDF_QUESTIONS,
+  PDF_BOOK_LOGO_PATH,
+  paginatePdfText,
+  pdfFooterText,
+  pdfPageLabel,
+  questionsForPdf,
+} from "@/lib/pdf-export";
 import { loadBankQuestions } from "@/lib/questions";
 
 describe("questionsForPdf", () => {
@@ -25,5 +32,19 @@ describe("questionsForPdf", () => {
   it("adds an account-linked personal-use footer", () => {
     expect(pdfFooterText("A1B2C3D4")).toBe("PastPaperPrep • Account A1B2C3D4 • Personal study only");
     expect(pdfPageLabel(2, 7)).toBe("Page 2 of 7");
+  });
+
+  it("uses the same open-book mark as the website instead of a placeholder letter", () => {
+    expect(PDF_BOOK_LOGO_PATH).toContain("M232,48H160");
+    expect(PDF_BOOK_LOGO_PATH).not.toContain("PastPaperPrep");
+  });
+
+  it("paginates long text answers before they can collide with the footer", () => {
+    const lines = Array.from({ length: 101 }, (_, index) => `Answer line ${index + 1}`);
+    const pages = paginatePdfText(lines);
+
+    expect(pages.map((page) => page.length)).toEqual([48, 48, 5]);
+    expect(pages.flat()).toEqual(lines);
+    expect(() => paginatePdfText(lines, 0)).toThrow("positive integer");
   });
 });

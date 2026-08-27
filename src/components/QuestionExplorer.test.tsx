@@ -114,6 +114,14 @@ describe("QuestionExplorer", () => {
     expect(screen.getByRole("group", { name: /time zone/i })).toBeInTheDocument();
   });
 
+  it("hides a course filter when every question already belongs to the current course", () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-ai-sl").slice(0, 120), [{ productId: "bank_ib_ai_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    render(<QuestionExplorer questions={questions} access={fullAccess} />);
+
+    fireEvent.click(screen.getByRole("button", { name: /more filters/i }));
+    expect(screen.queryByRole("group", { name: /^course$/i })).not.toBeInTheDocument();
+  });
+
   it("opens additional filters when a shared workspace already uses one", () => {
     const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-hl").slice(0, 120), [{ productId: "bank_ib_hl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
     const year = String(questions[0].year);

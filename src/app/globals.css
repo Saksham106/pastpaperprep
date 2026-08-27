@@ -176,18 +176,10 @@ main { min-height: 70vh; }
 .access-list span { color: var(--muted); text-transform: capitalize; }
 .empty-access { margin-top: 22px; }.empty-access h2 { font: 800 1.8rem var(--font-display), sans-serif; }.empty-access p { color: var(--muted); line-height: 1.7; }.empty-access .button { margin-top: 12px; }
 .account-security { margin-top: 22px; }.account-security h2 { margin: 10px 0 6px; font: 800 1.8rem var(--font-display), sans-serif; }.account-security > p { margin: 0; color: var(--muted); line-height: 1.6; }.account-security .auth-form { max-width: 520px; }
-.account-plan-overview { margin-top: 8px; }
-.account-plan-heading { display: flex; align-items: end; justify-content: space-between; gap: 28px; }
-.account-plan-heading h2 { margin: 8px 0 6px; font: 850 2rem var(--font-display), sans-serif; }
-.account-plan-heading p { max-width: 48ch; margin: 0; color: var(--muted); line-height: 1.6; }
-.account-plan-heading .button { flex: 0 0 auto; }
-.account-plan-grid { margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.account-plan-grid section { padding: 18px; border: 1px solid var(--line); border-radius: 10px; }
-.account-plan-grid h3 { margin: 0 0 12px; font-size: .82rem; text-transform: uppercase; letter-spacing: .06em; }
-.account-plan-grid ul { list-style: none; display: grid; gap: 10px; margin: 0; padding: 0; color: var(--muted); font-size: .9rem; }
-.account-plan-grid li { display: flex; align-items: center; gap: 8px; }
-.account-plan-grid svg { flex: 0 0 auto; color: #55992b; }
-.account-paid-preview { background: color-mix(in srgb, var(--lime) 10%, var(--surface)); }
+.account-plan-overview { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.account-plan-overview > div { display: grid; gap: 4px; }
+.account-plan-overview span { color: var(--muted); line-height: 1.5; }
+.account-plan-overview .button { flex: 0 0 auto; }
 .account-security-row { max-width: 680px; margin-top: 14px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 18px; border: 1px solid var(--line); border-radius: 10px; }
 .account-security-row > div { display: grid; gap: 3px; }
 .account-security-row span { color: var(--muted); font-size: .86rem; }
@@ -203,6 +195,8 @@ main { min-height: 70vh; }
   .explorer-toolbar { position: static; grid-template-columns: 1fr 1fr; }.explorer-toolbar .search-field { grid-column: 1 / -1; }.mobile-filter-button { display: inline-flex; }.explorer-layout { grid-template-columns: 1fr; }.filter-sidebar { display: none; position: fixed; inset: 0 0 0 auto; z-index: 40; width: min(340px, 92vw); max-height: none; border-radius: 0; box-shadow: -20px 0 60px rgb(0 0 0 / .25); }.filter-sidebar.is-open { display: block; }.filter-close { display: inline-flex; }.question-card-header { align-items: flex-start; }
   .simple-page { padding-top: 58px; }
   .pricing-options { grid-template-columns: 1fr; margin-top: 36px; }
+  .pricing-current-plan { grid-template-columns: 1fr; align-items: stretch; }
+  .pricing-current-plan .billing-actions { width: 100%; }
   .pricing-option { padding: 24px; }
   .pricing-option-annual { transform: none; }
   .pricing-option-free .plan-price { margin-top: 22px; }
@@ -222,8 +216,7 @@ main { min-height: 70vh; }
   .explorer-toolbar { grid-template-columns: 1fr 1fr; }.explorer-toolbar .search-field { grid-column: 1 / -1; }.sort-field { justify-content: space-between; }.question-card-header { flex-direction: column; }.question-card .question-actions { align-items: center; flex-direction: row; }.question-images { padding: 14px 10px; }.question-topic { padding-left: 14px; padding-right: 14px; }.question-card > .answer-panel, .transcript-panel { margin-left: 10px; margin-right: 10px; }
   .question-main { grid-template-columns: 1fr; padding: 18px; }.question-main > img { width: 100%; }.question-actions { align-items: flex-start; flex-direction: column; }
   .account-heading { align-items: flex-start; flex-direction: column; }
-  .account-plan-heading, .account-security-row { align-items: stretch; flex-direction: column; }
-  .account-plan-grid { grid-template-columns: 1fr; }
+  .account-plan-overview, .account-security-row { align-items: stretch; flex-direction: column; }
   .site-footer { grid-template-columns: 1fr; }.site-footer small { grid-column: auto; }.footer-links { flex-wrap: wrap; }
 }
 
@@ -244,6 +237,11 @@ main { min-height: 70vh; }
 .pricing-page { max-width: 1080px; }
 .pricing-page > h1 { max-width: 680px; }
 .pricing-page > .page-lede { max-width: 650px; }
+.pricing-current-plan { margin-top: 30px; padding: 17px 18px; display: grid; grid-template-columns: minmax(150px, .65fr) minmax(260px, 1.5fr) auto; align-items: center; gap: 20px; background: color-mix(in srgb, var(--lime) 12%, var(--surface)); border: 1px solid var(--line); border-left: 4px solid var(--lime); border-radius: 10px; }
+.pricing-current-plan h2 { margin: 3px 0 0; font: 850 1.35rem var(--font-display), sans-serif; }
+.pricing-current-plan-details { display: grid; gap: 4px; }
+.pricing-current-plan-details span { color: var(--muted); font-size: .86rem; line-height: 1.45; }
+.pricing-current-plan .billing-actions { width: auto; min-width: 150px; }
 .billing-toggle { width: fit-content; margin: 30px auto 0; display: grid; grid-template-columns: 1fr 1.35fr; padding: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
 .billing-toggle button { min-height: 44px; padding: 0 18px; color: var(--muted); background: transparent; border: 0; border-radius: 7px; font-weight: 850; }
 .billing-toggle button[aria-pressed="true"] { color: var(--surface); background: var(--ink); }
