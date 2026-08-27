@@ -3,17 +3,14 @@ import { describe, expect, it } from "vitest";
 import { PricingContent } from "@/components/PricingContent";
 
 describe("PricingPage", () => {
-  it("shows three concise paid plans with annual pricing expressed per month", () => {
+  it("shows three concise paid plans with monthly pricing first", () => {
     const { container } = render(<PricingContent authenticated hasPaidAccess={false} />);
 
     expect(screen.getByRole("heading", { name: /choose how much maths you need/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /annual save up to 33%/i })).toHaveAttribute("aria-pressed", "true");
-    expect(screen.getByText("$4")).toBeInTheDocument();
-    expect(screen.getByText("$6")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Monthly" })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByText("$5")).toBeInTheDocument();
     expect(screen.getByText("$8")).toBeInTheDocument();
-    expect(screen.getByText(/billed \$48 once a year/i)).toBeInTheDocument();
-    expect(screen.getByText(/billed \$72 once a year/i)).toBeInTheDocument();
-    expect(screen.getByText(/billed \$96 once a year/i)).toBeInTheDocument();
+    expect(screen.getByText("$12")).toBeInTheDocument();
     expect(screen.getByText(/most popular/i)).toBeInTheDocument();
     expect(screen.getByText(/simple access/i)).toBeInTheDocument();
     expect(screen.getByText(/existing all-access subscribers keep their current price/i)).toBeInTheDocument();

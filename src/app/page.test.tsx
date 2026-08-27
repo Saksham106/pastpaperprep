@@ -1,10 +1,10 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
-import Home from "@/app/page";
+import { MarketingHome } from "@/components/MarketingHome";
 
 describe("home page corpus summary", () => {
   it("derives the six-bank corpus totals from the bank catalog", () => {
-    const markup = renderToStaticMarkup(<Home />);
+    const markup = renderToStaticMarkup(<MarketingHome />);
 
     expect(markup).toContain("6,479");
     expect(markup).toContain("544");

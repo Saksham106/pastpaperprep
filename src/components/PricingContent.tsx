@@ -29,7 +29,7 @@ const PLANS = [
 type BillingInterval = "monthly" | "annual";
 
 export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [] }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[] }) {
-  const [interval, setInterval] = useState<BillingInterval>("annual");
+  const [interval, setInterval] = useState<BillingInterval>("monthly");
 
   return (
     <section className="simple-page pricing-page shell">
@@ -55,7 +55,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
 
       <div className="pricing-options" aria-label="PastPaperPrep plans">
         {PLANS.map((plan) => (
-          <article className={`pricing-option${plan.popular ? " pricing-option-popular" : ""}`} key={plan.name}>
+          <article className={`pricing-option${plan.popular ? " pricing-option-popular" : ""}`} data-mobile-order={plan.popular ? "first" : undefined} key={plan.name}>
             <div className="pricing-option-heading">
               <div><p className="plan-label">{plan.label}</p><h2>{plan.name}</h2></div>
               {plan.popular ? <span className="pricing-badge">Most popular</span> : null}

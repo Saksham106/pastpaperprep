@@ -69,7 +69,7 @@ export async function POST(request: Request) {
   if (error) return NextResponse.json({ error: "Could not verify access" }, { status: 503 });
   const entitlements = normalizeEntitlements(data ?? []);
   if (!canExportPdf(bank, entitlements)) {
-    return NextResponse.json({ error: "All-Access is required for PDF export" }, { status: 403 });
+    return NextResponse.json({ error: "Paid access to this question bank is required for PDF export" }, { status: 403 });
   }
 
   const authorized: AuthorizedAssetRequest[] = [];

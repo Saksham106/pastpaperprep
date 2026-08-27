@@ -54,4 +54,17 @@ describe("question explorer URL state", () => {
       visible: 24,
     });
   });
+
+  it("defaults free visitors to preview questions while respecting an explicit full-bank choice", () => {
+    expect(parseExplorerState({}, { defaultFreeOnly: true }).freeOnly).toBe(true);
+    expect(parseExplorerState({ free: "0" }, { defaultFreeOnly: true }).freeOnly).toBe(false);
+    expect(serializeExplorerState({
+      search: "",
+      sort: "paper",
+      filters: {},
+      freeOnly: false,
+      savedOnly: false,
+      visible: 24,
+    }, { persistFreeChoice: true }).toString()).toBe("free=0");
+  });
 });

@@ -161,19 +161,21 @@ describe("QuestionExplorer", () => {
     expect(await screen.findByText("Practised")).toBeInTheDocument();
   });
 
-  it("shows only previews to anonymous visitors and gates PDF export", async () => {
+  it("shows free value first to anonymous visitors and keeps the paid catalog discoverable", async () => {
     const all = loadBankQuestions("ib-sl");
     const preview = all.find((question) => question.id === PREVIEW_QUESTION_IDS["ib-sl"][0])!;
     const locked = all.find((question) => !PREVIEW_QUESTION_IDS["ib-sl"].includes(question.id))!;
     const questions = prepareQuestionsForDelivery([preview, locked], []);
-    render(<QuestionExplorer questions={questions} access={{ authenticated: false, bankAccess: false, canExportPdf: false }} />);
+    render(<QuestionExplorer questions={questions} access={{ authenticated: false, bankAccess: false, canExportPdf: false }} initialState={{ search: "", sort: "paper", filters: {}, freeOnly: true, savedOnly: false, visible: 24 }} />);
 
     expect(await screen.findByRole("img", { name: /original question/i })).toBeInTheDocument();
-    expect(screen.getByText(/all-access question/i)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /sign in and choose a plan/i })).toHaveAttribute("href", "/login?next=/pricing");
-    fireEvent.click(screen.getByRole("checkbox", { name: /free questions only/i }));
     expect(screen.queryByText(/all-access question/i)).not.toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /free questions only/i })).toBeInTheDocument();
+    expect(screen.getByText(/you’re viewing free questions/i)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /browse all questions/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /view plans/i })).toHaveAttribute("href", "/pricing");
+    fireEvent.click(screen.getByRole("checkbox", { name: /free questions only/i }));
+    expect(screen.getByText(/paid plan required/i)).toBeInTheDocument();
+    expect(screen.queryByText(/all-access question/i)).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
     expect(screen.getByText(/pdf export is included/i)).toBeInTheDocument();
     await waitFor(() => expect(fetch).toHaveBeenCalled());

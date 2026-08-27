@@ -51,6 +51,18 @@ describe("POST /api/pdf/sign", () => {
     expect(response.status).toBe(401);
   });
 
+  it("describes missing access at the question-bank level", async () => {
+    const entitlementQuery = {
+      select: vi.fn(() => entitlementQuery),
+      eq: vi.fn().mockResolvedValue({ data: [], error: null }),
+    };
+    from.mockReturnValueOnce(entitlementQuery);
+
+    const response = await POST(request({ bank: "ib-sl", questionIds: ["m26-math-aasl-p2-tza-q2"], content: "questions" }));
+    expect(response.status).toBe(403);
+    await expect(response.json()).resolves.toEqual({ error: "Paid access to this question bank is required for PDF export" });
+  });
+
   it("derives and atomically consumes exact question and asset counts after signing", async () => {
     const response = await POST(request({ bank: "ib-sl", questionIds: ["m26-math-aasl-p2-tza-q2"], content: "questions" }));
     expect(response.status).toBe(200);

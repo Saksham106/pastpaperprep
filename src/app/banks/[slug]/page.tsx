@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function BankPage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<ExplorerSearchParams> }) {
   const slug = (await params).slug as BankSlug;
-  const initialState = parseExplorerState(await searchParams);
+  const rawSearchParams = await searchParams;
   const bank = getBank(slug);
   if (!bank) notFound();
   const supabase = await createClient();
@@ -37,6 +37,7 @@ export default async function BankPage({ params, searchParams }: { params: Promi
   const entitlements = normalizeEntitlements(entitlementRows ?? []);
   const questions = prepareQuestionsForDelivery(loadBankQuestions(slug), entitlements);
   const bankAccess = hasBankAccess(slug, entitlements);
+  const initialState = parseExplorerState(rawSearchParams, { defaultFreeOnly: !bankAccess });
 
   return (
     <>

@@ -9,6 +9,8 @@ describe("SiteHeader", () => {
     expect(screen.getByRole("link", { name: "Pricing" })).toHaveAttribute("href", "/pricing");
     expect(screen.getByRole("link", { name: "Pricing" })).toHaveClass("nav-pricing");
     expect(screen.getByRole("link", { name: "My account" })).toHaveAttribute("href", "/account");
+    expect(screen.getByRole("link", { name: "Dashboard" })).toHaveAttribute("href", "/dashboard");
+    expect(screen.getByRole("link", { name: /pastpaperprep home/i })).toHaveAttribute("href", "/dashboard");
   });
 
   it("keeps pricing available before sign-in", () => {
@@ -16,5 +18,6 @@ describe("SiteHeader", () => {
     expect(screen.getByRole("link", { name: "Pricing" })).toHaveAttribute("href", "/pricing");
     expect(screen.getByRole("link", { name: "Pricing" })).toHaveClass("nav-pricing");
     expect(screen.getByRole("link", { name: "Log in" })).toHaveAttribute("href", "/login?next=/pricing");
+    expect(screen.getByRole("link", { name: /start practising/i })).toHaveAttribute("href", "/dashboard");
   });
 });

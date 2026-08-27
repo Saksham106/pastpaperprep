@@ -15,7 +15,7 @@ export function MagicLinkForm({ next = "/pricing" }: { next?: string }) {
       <input id="email" name="email" type="email" autoComplete="email" placeholder="you@example.com" required />
       <button className="button primary" type="submit" disabled={pending}>
         <PaperPlaneTilt weight="bold" />
-        {pending ? "Sending…" : "Email me a sign-in link"}
+        {pending ? "Sending…" : "Send sign-in link"}
       </button>
       {state.message && <p className={`form-message ${state.status}`} role="status">{state.message}</p>}
     </form>
