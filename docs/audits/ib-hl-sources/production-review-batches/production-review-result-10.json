@@ -1,0 +1,896 @@
+{
+  "inputCount": 66,
+  "judgmentCount": 66,
+  "judgments": [
+    {
+      "id": "2025-may-tz3-p2-q4",
+      "decision": "modify",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Triangle geometry",
+        "Radian measure and sectors"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The radius is obtained from the triangle area formula and the requested major arc from radian arc length; both are geometric/radian methods."
+    },
+    {
+      "id": "2025-may-tz3-p2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The marked work differentiates a rational function and applies the tangent-gradient condition to solve for a parameter."
+    },
+    {
+      "id": "2025-may-tz3-p2-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Counting and combinatorics"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The solution counts repeated pairings between students and solves the resulting total-games equation; combinatorial counting is the intended method."
+    },
+    {
+      "id": "2025-may-tz3-p2-q9",
+      "decision": "modify",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation",
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Triangle geometry"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The main seven-mark section differentiates the viewing-angle relation with respect to time; the initial tangent setup is a triangle-geometry prerequisite."
+    },
+    {
+      "id": "2025-may-tz3-p3-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Algebraic manipulation",
+        "Proof and induction",
+        "Sequences and series"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Self-composition is expanded algebraically, its geometric sum is generalized, and the eight-mark induction proof is explicit."
+    },
+    {
+      "id": "2025-may-tz3-p3-q2",
+      "decision": "modify",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Algebraic manipulation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The box maximum is established with first- and second-derivative tests; the later integer parameterization is supporting algebra."
+    },
+    {
+      "id": "2025-november-tz1-p1-q10",
+      "decision": "modify",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Binomial expansion"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Integration"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Negative fractional powers are expanded binomially, while the arcsin and pi approximation use term-by-term integration as a separate calculus method."
+    },
+    {
+      "id": "2025-november-tz1-p1-q11",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Complex numbers"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Multiplication by conjugates, polar form, De Moivre and square roots are all complex-number methods; the remaining tangent expression is derived from that complex work."
+    },
+    {
+      "id": "2025-november-tz1-p1-q3",
+      "decision": "modify",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of integration",
+        "Integration"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Quadratics"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The parabola coefficient is a quadratic setup, and the four-mark enclosed-area calculation is an application of integration."
+    },
+    {
+      "id": "2025-november-tz1-p1-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Quadratics"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Vertex conditions for both quadratics determine the parameters; no transformation or inverse-function operation is marked."
+    },
+    {
+      "id": "2025-november-tz1-p1-q5",
+      "decision": "modify",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Limits and series"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Binomial expansion"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Maclaurin coefficients and the approximation are the central series work; the negative-integer binomial expansion is a supporting secondary method."
+    },
+    {
+      "id": "2025-november-tz1-p1-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Matrices and systems"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Infinite consistency of the three-variable linear system is determined by row reduction/elimination and coefficient comparison."
+    },
+    {
+      "id": "2025-november-tz1-p1-q7",
+      "decision": "modify",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differential equations",
+        "Integration"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Trigonometric identities and equations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Separation and integration solve the differential equation, with the double-angle identity for cos-squared explicitly marked as supporting trigonometry."
+    },
+    {
+      "id": "2025-november-tz1-p1-q8",
+      "decision": "modify",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric identities and equations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Graphs and transformations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The identity proof and graph transformation sequence independently earn marks, so trigonometric identities and function graph transformations are retained."
+    },
+    {
+      "id": "2025-november-tz1-p1-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Applications of differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Stationary and inflection behavior uses derivatives, and the final part integrates f-prime with a point condition to recover f."
+    },
+    {
+      "id": "2025-november-tz1-p2-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The distance function is formed by integrating both velocity models and the final car distance is another definite integral."
+    },
+    {
+      "id": "2025-november-tz1-p2-q11",
+      "decision": "modify",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Continuous random variables"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Integration"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "This is a continuous density with normalization, moments and variance; the density and moment calculations use integration."
+    },
+    {
+      "id": "2025-november-tz1-p2-q12",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Vectors, lines and planes",
+        "Triangle geometry"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Line-plane intersections, cross products, a normal line, triangle area and pyramid volume are vector/geometry methods."
+    },
+    {
+      "id": "2025-november-tz1-p2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Descriptive statistics"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Means from the data and regression line are descriptive-statistics calculations; no inferential procedure is used."
+    },
+    {
+      "id": "2025-november-tz1-p2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The graph supplies amplitude, midline, period and phase information for a sinusoidal function."
+    },
+    {
+      "id": "2025-november-tz1-p2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Descriptive statistics",
+        "Normal distribution"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Grouped-data mean and standard deviation are descriptive statistics, followed by normal percentiles for the IQR estimate."
+    },
+    {
+      "id": "2025-november-tz1-p2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability models",
+        "Conditional probability"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The two-machine calculation uses binomial probability models and then conditional probability given two defects."
+    },
+    {
+      "id": "2025-november-tz1-p2-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The sole substantive method is washer integration after expressing the curves as x in terms of y."
+    },
+    {
+      "id": "2025-november-tz1-p2-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Triangle geometry"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The cosine-rule relation, area condition and rate relation are a triangle-geometry problem with related-rates calculus."
+    },
+    {
+      "id": "2025-november-tz1-p3-q1",
+      "decision": "modify",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Quadratics"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Normals and their stationary/parallel behavior are derivative applications; the root-sum/product step is a quadratic secondary method."
+    },
+    {
+      "id": "2025-november-tz1-p3-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differential equations",
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Logistic/Gompertz modeling, separation, Euler approximation and the auxiliary derivative are differential-equation/calculus work."
+    },
+    {
+      "id": "2025-november-tz3-p1-q11",
+      "decision": "modify",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Complex numbers",
+        "Polynomials and theorems"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Complex polar form, De Moivre, complex roots and conjugate-root factorization are the assessed methods; the final expansion is polynomial theorem work."
+    },
+    {
+      "id": "2025-november-tz3-p1-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "After solving for the constants, the marked five-mark part identifies asymptotes and transformations of a reciprocal graph."
+    },
+    {
+      "id": "2025-november-tz3-p1-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Exponents and logarithms"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Power, quotient and change-of-base rules reduce the logarithmic equation to an algebraic solution."
+    },
+    {
+      "id": "2025-november-tz3-p1-q5",
+      "decision": "modify",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Equations and inequalities"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The reflections are graph transformations, while the final intervals come from solving the stated inequality using the graph crossings."
+    },
+    {
+      "id": "2025-november-tz3-p1-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differential equations",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The integrating-factor solution of the first-order differential equation is the complete marked method."
+    },
+    {
+      "id": "2025-november-tz3-p1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Discrete random variables"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The table is a discrete distribution and the variance is computed from its discrete outcomes."
+    },
+    {
+      "id": "2025-november-tz3-p1-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The time function is differentiated and optimized by setting its derivative to zero; the trigonometric expressions are supplied ingredients."
+    },
+    {
+      "id": "2025-november-tz3-p1-q9",
+      "decision": "modify",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Applications of differentiation",
+        "Applications of integration"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Quadratics"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The normal line and shaded area require differentiation and integration; the discriminant/vertex work is a quadratic secondary method."
+    },
+    {
+      "id": "2025-november-tz3-p2-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric identities and equations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The double-angle identity is used to rewrite the expression and solve the resulting trigonometric equation."
+    },
+    {
+      "id": "2025-november-tz3-p2-q10",
+      "decision": "modify",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Sequences and series"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Extrema and velocity are found by differentiation, while the indefinitely repeated maximum distances form a geometric sequence."
+    },
+    {
+      "id": "2025-november-tz3-p2-q11",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Continuous random variables"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "All probability statements concern one explicitly continuous random variable with a density."
+    },
+    {
+      "id": "2025-november-tz3-p2-q12",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differential equations",
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Euler steps, implicit differentiation and the homogeneous differential-equation solution are explicitly marked calculus methods."
+    },
+    {
+      "id": "2025-november-tz3-p2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Descriptive statistics"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Median, mean, range and recovery of two missing scores are descriptive-statistics tasks."
+    },
+    {
+      "id": "2025-november-tz3-p2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Radian measure and sectors"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Sector perimeter and area relations determine the acute angle in radians; the quadratic algebra is incidental."
+    },
+    {
+      "id": "2025-november-tz3-p2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Normal distribution"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Both parts standardize normal variables and solve for the mean and standard deviation."
+    },
+    {
+      "id": "2025-november-tz3-p2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The volume is obtained by inverting the exponential curve and integrating circular cross-sections about the y-axis."
+    },
+    {
+      "id": "2025-november-tz3-p2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Quadratics",
+        "Polynomials and theorems"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Remainder theorem, Vieta root relations and elimination determine the quadratic polynomial parameters."
+    },
+    {
+      "id": "2025-november-tz3-p2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Matrices and systems"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Row operations or elimination give the parametric and unique solutions and expose the consistency condition."
+    },
+    {
+      "id": "2025-november-tz3-p3-q1",
+      "decision": "modify",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Limits and series"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Proof and induction"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Chain-rule stationary analysis, repeated differentiation and the l’Hopital limit are calculus; the six-mark induction proof is a separate algebra skill."
+    },
+    {
+      "id": "2025-november-tz3-p3-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Limits and series",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The geometric series, alternating-series error bound and definite/integration-by-parts work approximate pi."
+    },
+    {
+      "id": "2026-may-tza-p1-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Quadratics"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The axis of symmetry, vertex and range are determined entirely from the quadratic."
+    },
+    {
+      "id": "2026-may-tza-p1-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The inflection condition, horizontal tangents, local-minimum test and tangent-line result all use differentiation and its applications."
+    },
+    {
+      "id": "2026-may-tza-p1-q11",
+      "decision": "modify",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric identities and equations",
+        "Triangle geometry"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The identity, trigonometric equation and right-triangle ratio are primary; differentiating the identity is a distinct calculus component."
+    },
+    {
+      "id": "2026-may-tza-p1-q12",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differential equations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Separation, partial fractions, the closed-form solution and long-term equilibrium all solve one logistic differential equation."
+    },
+    {
+      "id": "2026-may-tza-p1-q2",
+      "decision": "modify",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The displacement is found by integrating the given velocity and applying the initial position condition."
+    },
+    {
+      "id": "2026-may-tza-p1-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Exponents and logarithms"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The identity and solve require power, product and change-of-base logarithm rules."
+    },
+    {
+      "id": "2026-may-tza-p1-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability models"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The four event regions are combined into an independence equation and solved under the stated domain; this is a probability model."
+    },
+    {
+      "id": "2026-may-tza-p1-q8",
+      "decision": "modify",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Complex numbers",
+        "Polynomials and theorems"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Conjugate roots, sums/products of complex roots and factorization into polynomial factors are all complex-polynomial methods."
+    },
+    {
+      "id": "2026-may-tza-p2-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Descriptive statistics"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The cumulative-frequency reading and grouped-frequency mean are descriptive statistics; the graph is data display rather than a transformation task."
+    },
+    {
+      "id": "2026-may-tza-p2-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sequences and series",
+        "Exponents and logarithms"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Quarterly compound interest and depreciation are geometric growth models, with logarithms determining the first crossing year."
+    },
+    {
+      "id": "2026-may-tza-p2-q12",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Applications of differentiation"
+          ]
+        },
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Equations and inequalities"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The absolute-value graph and asymptotes are primary; extrema use differentiation and the final comparison is an explicit inequality."
+    },
+    {
+      "id": "2026-may-tza-p2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The decreasing interval is determined from the sign of the supplied first derivative."
+    },
+    {
+      "id": "2026-may-tza-p2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Midline, amplitude, period and phase translation determine the Ferris-wheel sinusoid."
+    },
+    {
+      "id": "2026-may-tza-p2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Applications of differentiation",
+        "Applications of integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Coordinates of extrema require solving g-prime equals zero, and the enclosed region is a definite-integral area against the chord."
+    },
+    {
+      "id": "2026-may-tza-p2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Normal distribution",
+        "Conditional probability"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The first tail probability and the explicitly conditional second tail probability determine the two normal parameters."
+    },
+    {
+      "id": "2026-may-tza-p2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Differentiating PV=135 and substituting the instantaneous volume and rate is a direct related-rates application."
+    },
+    {
+      "id": "2026-may-tza-p2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Continuous random variables"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The density is normalized by area and its expectation is evaluated piecewise; X is explicitly continuous."
+    },
+    {
+      "id": "2026-may-tza-p2-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Washer integration gives the required volume formula and the final value of the circle offset."
+    },
+    {
+      "id": "2026-may-tza-p3-q1",
+      "decision": "modify",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sequences and series",
+        "Proof and induction"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Applications of integration"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The question derives sums of powers and proves a telescoping identity by induction; rectangle bounds use integration as a secondary method."
+    },
+    {
+      "id": "2026-may-tza-p3-q2",
+      "decision": "modify",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Complex numbers"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation"
+          ]
+        },
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Coordinate and analytic geometry"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The locus is expressed with complex polar coordinates; implicit/parametric slopes use differentiation and the Cartesian circle conversion is analytic geometry."
+    }
+  ]
+}

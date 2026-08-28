@@ -1,0 +1,857 @@
+{
+  "inputCount": 66,
+  "judgmentCount": 66,
+  "judgments": [
+    {
+      "id": "2018-november-tz0-p1-q10",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration",
+        "Applications of integration",
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Integration by parts and the enclosed-area calculation dominate the item; the extrema coordinates also explicitly assess differentiation as an application.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2018-november-tz0-p1-q11",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Complex numbers"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Trigonometric identities and equations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The roots and their sum are complex-number work. The exact cosine evaluation is a separate scored trigonometric method, so it belongs as a secondary rather than a primary skill.",
+      "decision": "modify"
+    },
+    {
+      "id": "2018-november-tz0-p1-q3",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations",
+        "Functions and inverses"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The graph sketch, restriction for invertibility, inverse domain, and inverse formula directly assess graph transformations and functions/inverses; the trigonometric form is supplied structure.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2018-november-tz0-p1-q4",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Matrices and systems"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Both the singular-system condition and the subsequent solution are handled by elimination/row reduction; algebraic rearrangement is not an independent skill.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2018-november-tz0-p1-q5",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Vectors, lines and planes"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Equations and inequalities"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The dot product and obtuse-angle condition are vector geometry. Solving the resulting inequality is a distinct supporting algebra component, not a primary vector skill.",
+      "decision": "modify"
+    },
+    {
+      "id": "2018-november-tz0-p1-q7",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Implicit differentiation is explicitly required, and the perpendicular-tangent conclusion is a scored geometric application of the derivatives.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2018-november-tz0-p1-q8",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Complex numbers",
+        "Exponents and logarithms",
+        "Polynomials and theorems"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The solution uses the complex root, logarithmic identities, Vieta/root-sum and root-product relations, and polynomial coefficients; all three labels are mark-bearing.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2018-november-tz0-p2-q10",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Discrete random variables",
+        "Descriptive statistics",
+        "Conditional probability"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Poisson calculations, grouped-data estimates and model-fit evidence, and the final conditional Poisson calculation are all explicitly scored.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2018-november-tz0-p2-q11",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric identities and equations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Graphs and transformations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The compound-angle identity is the central algebraic method. The final range is obtained from a graph of p as a function of q, which warrants a secondary graph skill but not a primary Functions topic.",
+      "decision": "modify"
+    },
+    {
+      "id": "2018-november-tz0-p2-q2",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The markscheme obtains f by integrating the supplied second derivative twice and then applying both boundary conditions; integration, rather than generic differentiation, is the materially assessed operation.",
+      "decision": "modify"
+    },
+    {
+      "id": "2018-november-tz0-p2-q3",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Normal distribution"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Both parameter recovery and the final probability use the stated normal model and standardization.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2018-november-tz0-p2-q5",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The first-principles limit is the definition of differentiation; the algebraic expansion and cancellation are supporting steps.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2018-november-tz0-p2-q6",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Polynomials and theorems"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Factor and derivative-factor conditions are used to obtain polynomial coefficient relations; differentiation is only the theorem condition P'(5)=0.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2018-november-tz0-p2-q7",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Triangle geometry",
+        "Radian measure and sectors"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The overlap area is computed from two triangles and two circular sectors using the cosine rule and sector-minus-triangle formulas; inverse-trigonometric notation is incidental.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2018-november-tz0-p2-q8",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The scored work sketches the two rational-function branches and determines asymptotes/parameters from the graph; inverse-function methods are not used.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2018-november-tz0-p2-q9",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Functions and inverses",
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The item materially assesses a function and its inverse together with graph interpretation/transformation. Differentiation is a supporting calculus component in the inflexion analysis, not a Functions skill.",
+      "decision": "modify"
+    },
+    {
+      "id": "2018-november-tz0-p3-calculus-q1",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Limits and series"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The limit-comparison and convergence arguments are the only materially assessed methods.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2018-november-tz0-p3-calculus-q2",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration",
+        "Limits and series"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The first part is a L’Hôpital limit and the second explicitly applies integration to the resulting limit expression; both methods earn marks.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2018-november-tz0-p3-calculus-q3",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differential equations",
+        "Limits and series",
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The differential equation, Taylor coefficients and approximation error require the stated DE work, repeated differentiation, and Taylor/series reasoning.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2018-november-tz0-p3-calculus-q4",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differential equations",
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Euler’s method, solving the differential equation, and the isocline/normal comparison are explicitly assessed differential-equation and derivative methods.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2018-november-tz0-p3-discrete-mathematics-q1",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Number theory and modular arithmetic",
+        "Equations and inequalities"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Euclidean gcd, divisibility of a Diophantine equation, and its integer solution family are number-theory work plus a distinct equation-solving component. Algebraic manipulation is routine support, not an additional tag.",
+      "decision": "modify"
+    },
+    {
+      "id": "2018-november-tz0-p3-discrete-mathematics-q2",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Number theory and modular arithmetic",
+        "Proof and induction"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Base-5 arithmetic and the divisibility equivalence are modular/number-theory work, while the if-and-only-if proof is explicitly mark-bearing.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2018-november-tz0-p3-discrete-mathematics-q3",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sequences and series"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The recurrence relation, its closed form, and the infection-week calculation are sequence/recurrence methods; the modelling limitations are contextual.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2018-november-tz0-p3-discrete-mathematics-q4",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Graph theory and algorithms"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Eulerian-circuit reasoning, Kruskal, Dijkstra, and the route-inspection pairing are all graph algorithms. Counting and combinatorics is not the assessed method.",
+      "decision": "modify"
+    },
+    {
+      "id": "2018-november-tz0-p3-sets-relations-and-groups-q1",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sets, relations and groups",
+        "Proof and induction"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The question proves commutativity, associativity, and the Abelian-group axioms for a custom operation. The legacy group-operation label and proof method are supported; routine expansion is not a separate algebra tag.",
+      "decision": "modify"
+    },
+    {
+      "id": "2018-november-tz0-p3-sets-relations-and-groups-q2",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sets, relations and groups",
+        "Proof and induction"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "De Morgan’s law is proved and a set intersection is enumerated. Set/relations content and proof are assessed, while algebraic manipulation is only incidental.",
+      "decision": "modify"
+    },
+    {
+      "id": "2018-november-tz0-p3-sets-relations-and-groups-q3",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sets, relations and groups",
+        "Proof and induction"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Coordinate and analytic geometry"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The eight-mark core proves an equivalence relation, and the class is identified as a line through a given point. Relation/set proof is primary; the geometric line description is a distinct secondary.",
+      "decision": "modify"
+    },
+    {
+      "id": "2018-november-tz0-p3-sets-relations-and-groups-q4",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Functions and inverses"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Composition, non-commutation, and the inverse of f are directly assessed function operations; the legacy paper option does not change the mathematical ownership.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2018-november-tz0-p3-sets-relations-and-groups-q5",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sets, relations and groups",
+        "Proof and induction"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The coset-style disjointness, bijection, and cardinality argument is group/set theory proved through explicit injectivity and surjectivity reasoning; algebraic manipulation is not independent.",
+      "decision": "modify"
+    },
+    {
+      "id": "2018-november-tz0-p3-statistics-and-probability-q1",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Discrete random variables"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The Poisson assumptions supply the variance and second moments; the entire item is a discrete-random-variable calculation.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2018-november-tz0-p3-statistics-and-probability-q2",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Statistical inference",
+        "Normal distribution",
+        "Descriptive statistics"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Unbiased estimates, confidence intervals and the belief test use descriptive sample quantities, the normal model, and statistical inference.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2018-november-tz0-p3-statistics-and-probability-q3",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Statistical inference",
+        "Descriptive statistics",
+        "Normal distribution"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The fish problem explicitly scores normal probabilities, a hypothesis test, correlation p-value, and regression, with descriptive summaries supporting the inference.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2018-november-tz0-p3-statistics-and-probability-q4",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Discrete random variables"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "A geometric random variable and its probability generating function are the central content; the derivatives used to obtain E(X) are supporting calculus, and a broad probability-model tag adds no separate method.",
+      "decision": "modify"
+    },
+    {
+      "id": "2019-may-tz0-p3-calculus-q1",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differential equations"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The population law is a first-order differential equation solved by separation of variables; logarithmic algebra is enabling work rather than the mathematical topic.",
+      "decision": "modify"
+    },
+    {
+      "id": "2019-may-tz0-p3-calculus-q2",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Limits and series"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The geometric-series expansion and the power series for arctan are the materially assessed methods.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2019-may-tz0-p3-calculus-q3",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Limits and series"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Both parts are comparison/ratio tests for convergence of infinite series.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2019-may-tz0-p3-calculus-q4",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Limits and series"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The entire nine-mark solution is a repeated L’Hôpital limit evaluation; differentiation is the tool, not an independently assessed skill.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2019-may-tz0-p3-calculus-q5",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differential equations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The 11-mark solution solves the differential equation and the horizontal-tangent part is a property of its solution family.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2019-may-tz0-p3-discrete-mathematics-q1",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Graph theory and algorithms"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Nearest-neighbour, deleted-vertex/MST reasoning and bipartite-graph analysis are graph-theory methods. Counting and combinatorics is not independently assessed.",
+      "decision": "modify"
+    },
+    {
+      "id": "2019-may-tz0-p3-discrete-mathematics-q2",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Number theory and modular arithmetic",
+        "Equations and inequalities"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The Euclidean algorithm and linear Diophantine solution family are number theory plus equation solving; the legacy number-theory label is intentional and algebraic manipulation alone is too weak.",
+      "decision": "modify"
+    },
+    {
+      "id": "2019-may-tz0-p3-discrete-mathematics-q3",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sequences and series"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Both first- and second-degree recurrence relations are solved as sequences; no independent proof or calculus method is required.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2019-may-tz0-p3-discrete-mathematics-q4",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Number theory and modular arithmetic"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Fermat’s little theorem, congruence manipulation, and solving the quadratic congruence are directly modular-number-theory work; graph theory and induction are unsupported.",
+      "decision": "modify"
+    },
+    {
+      "id": "2019-may-tz0-p3-sets-relations-and-groups-q2",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sets, relations and groups",
+        "Complex numbers"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Identity, inverses, associativity and distributivity of binary operations are the legacy group/operation content, with complex arithmetic explicitly in the domain and formulas.",
+      "decision": "modify"
+    },
+    {
+      "id": "2019-may-tz0-p3-sets-relations-and-groups-q3",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sets, relations and groups",
+        "Proof and induction"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The non-Abelian group proof and Cayley-table completion are group-theory/set-structure work; proof is materially assessed, while routine algebra is not.",
+      "decision": "modify"
+    },
+    {
+      "id": "2019-may-tz0-p3-sets-relations-and-groups-q4",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sets, relations and groups",
+        "Proof and induction"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Closure, identity and inverses are proved for a multiplicative group. The legacy group label and proof method are supported; algebraic expansion is supporting work.",
+      "decision": "modify"
+    },
+    {
+      "id": "2019-may-tz0-p3-sets-relations-and-groups-q5",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Functions and inverses"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The real-domain map is proved bijective and the integer-domain map is shown non-surjective; this is directly functions/inverses content.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2019-may-tz0-p3-statistics-and-probability-q1",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Continuous random variables"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The PDF is normalized, integrated to form a CDF, and used for a median and interval probability; continuous-random-variable content dominates.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2019-may-tz0-p3-statistics-and-probability-q2",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Normal distribution"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Each part uses sums of normally distributed service times and a normal probability. No descriptive-statistics summary or conditional-probability operation is independently assessed.",
+      "decision": "modify"
+    },
+    {
+      "id": "2019-may-tz0-p3-statistics-and-probability-q3",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Statistical inference",
+        "Normal distribution",
+        "Descriptive statistics"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The sample estimates, confidence interval and one-sided test are normal-model statistical inference supported by descriptive sample calculations.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2019-may-tz1-p1-q1",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Vectors, lines and planes"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Equations and inequalities"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Perpendicularity is established by a vector dot product. Solving the resulting quadratic in k is a distinct secondary algebra step.",
+      "decision": "modify"
+    },
+    {
+      "id": "2019-may-tz1-p1-q10",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Polynomials and theorems"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Graphs and transformations"
+          ]
+        },
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Discrete random variables"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Polynomial remainder/factor and real-root reasoning carry the main work. The graph stretch and Poisson equation are independently scored secondary components.",
+      "decision": "modify"
+    },
+    {
+      "id": "2019-may-tz1-p1-q11",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Vectors, lines and planes"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Counting and combinatorics"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Line intersection, parameters, vectors and quadrilateral area are primary vector geometry; the polygon-selection counts are a separate combinatorics component.",
+      "decision": "modify"
+    },
+    {
+      "id": "2019-may-tz1-p1-q4",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Triangle geometry"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The sine-area relation and the two possible third sides are entirely triangle-geometry work.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2019-may-tz1-p1-q5",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The camera rate is a related-rates problem: the markscheme differentiates the geometric relation and evaluates the instantaneous rate.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2019-may-tz1-p1-q6",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Normal distribution",
+        "Conditional probability"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Symmetry gives the upper tail and the second part explicitly conditions on X being above the lower threshold.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2019-may-tz1-p1-q8",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The scored work interprets areas under f′ to recover values of f and then sketches f; the precise method is an application of integration.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2019-may-tz1-p1-q9",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Trigonometric identities and equations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Integration is the dominant nine-mark calculation, while the two preceding identities are independently proved and belong as a trigonometric secondary.",
+      "decision": "modify"
+    },
+    {
+      "id": "2019-may-tz1-p2-q1",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The tangent is found from the derivative and then used to obtain the x-axis intercept, an explicit differentiation application.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2019-may-tz1-p2-q10",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Integration"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Waveform amplitudes, phase shifts and the product graph are primary graph/transformation work. Average power is independently computed by integration.",
+      "decision": "modify"
+    },
+    {
+      "id": "2019-may-tz1-p2-q11",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sequences and series"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The geometric-sequence structure and root-product/sum argument determine the remaining roots; logarithms only express the given roots.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2019-may-tz1-p2-q3",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Descriptive statistics"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Mean, standard deviation and the unchanged median are the only scored statistical methods.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2019-may-tz1-p2-q5",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The entire solution is integration by parts for an antiderivative involving ln x.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2019-may-tz2-p1-q10",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Continuous random variables"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Integration",
+            "Differentiation"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The PDF and expectation make continuous random variables primary. Integration by parts and the product-rule derivative are independently mark-bearing calculus methods.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2019-may-tz2-p1-q11",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation",
+            "Applications of differentiation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Translation, range, intersections and graph features are primary function/graph work; the tangent-through-origin condition separately assesses differentiation and its application.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2019-may-tz2-p1-q3",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "A two-unit horizontal translation is substituted and expanded; the assessed concept is graph transformation, not inverse functions.",
+      "decision": "accept_recommended"
+    },
+    {
+      "id": "2019-may-tz2-p1-q4",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The substitution u=sin x is used to rewrite and integrate the expression; trigonometry is only the supplied substitution.",
+      "decision": "accept_recommended"
+    }
+  ]
+}

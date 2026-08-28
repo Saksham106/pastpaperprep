@@ -1,0 +1,876 @@
+{
+  "inputCount": 65,
+  "judgmentCount": 65,
+  "judgments": [
+    {
+      "id": "2017-may-tz0-p3-calculus-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Limits and series",
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The solution applies standard limits and L’Hôpital differentiation; the extra logarithm/function labels are notation, not independently assessed methods."
+    },
+    {
+      "id": "2017-may-tz0-p3-calculus-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Limits and series",
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The markscheme differentiates a Maclaurin series and compares it with the tan² identity, so limits/series and differentiation are the assessed methods."
+    },
+    {
+      "id": "2017-may-tz0-p3-calculus-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Limits and series",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The integral test and the subsequent substitution/integration are explicitly marked; differentiation, logarithms and generic sequence labels add no separate method."
+    },
+    {
+      "id": "2017-may-tz0-p3-calculus-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differential equations",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The solution uses the homogeneous-ODE substitution, integrates, and applies the initial condition; differential equations and integration are the material skills."
+    },
+    {
+      "id": "2017-may-tz0-p3-calculus-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration",
+        "Limits and series"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The proof bounds a definite integral and then establishes positivity/decrease and convergence of the sequence; integration and limits/series are retained."
+    },
+    {
+      "id": "2017-may-tz0-p3-discrete-mathematics-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Algebraic manipulation",
+        "Equations and inequalities"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Euclid’s algorithm, linear Diophantine solutions, and prime-factor LCM work earn algebraic-manipulation and equation-solving marks."
+    },
+    {
+      "id": "2017-may-tz0-p3-discrete-mathematics-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Graph theory and algorithms"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The marks require nearest-neighbour, deleted-vertex and Kruskal graph algorithms; the legacy graph-theory skill is the only honest controlled match."
+    },
+    {
+      "id": "2017-may-tz0-p3-discrete-mathematics-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Graph theory and algorithms"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Definitions and conclusions concern circuits, Eulerian trails/circuits, and graph complements; these require the legacy graph-theory skill."
+    },
+    {
+      "id": "2017-may-tz0-p3-discrete-mathematics-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sequences and series",
+        "Quadratics"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The recurrence is solved via its characteristic quadratic and root form; sequences/series and quadratics are directly assessed."
+    },
+    {
+      "id": "2017-may-tz0-p3-sets-relations-and-groups-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sets, relations and groups"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Set listing, symmetric difference, intersections/unions and distributivity are explicitly marked, warranting the legacy sets skill."
+    },
+    {
+      "id": "2017-may-tz0-p3-sets-relations-and-groups-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Functions and inverses"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Nearly all marks prove injectivity/surjectivity of a function and obtain its inverse, making Functions and inverses primary."
+    },
+    {
+      "id": "2017-may-tz0-p3-statistics-and-probability-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Statistical inference",
+        "Normal distribution"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The estimator/test uses unbiased estimates, a t statistic, degrees of freedom and a normal model; descriptive arithmetic is supporting work."
+    },
+    {
+      "id": "2017-may-tz0-p3-statistics-and-probability-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Continuous random variables",
+        "Statistical inference"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Integration"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The markscheme differentiates a continuous CDF to obtain a pdf, integrates for moments, and applies the CLT; integration is a calculus secondary method."
+    },
+    {
+      "id": "2017-may-tz0-p3-statistics-and-probability-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Discrete random variables"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The PGF and its derivative are used for a discrete random variable and its linear transform; discrete random variables are the only material label."
+    },
+    {
+      "id": "2017-may-tz0-p3-statistics-and-probability-q4",
+      "decision": "modify",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Statistical inference"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Applications of differentiation"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Unbiasedness and variance identify the estimator, while differentiating its variance finds the minimum; inference is primary and optimization differentiation is secondary."
+    },
+    {
+      "id": "2017-may-tz0-p3-statistics-and-probability-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Statistical inference"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The hypotheses, p-value interpretation and recovery of t and r are all statistical-inference work; probability models is redundant."
+    },
+    {
+      "id": "2017-may-tz1-p1-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Continuous random variables",
+        "Descriptive statistics",
+        "Conditional probability"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Integration"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The density normalization, summary measures, quartiles and conditional probability are marked; the normalizing definite integral is a calculus secondary method."
+    },
+    {
+      "id": "2017-may-tz1-p1-q11",
+      "decision": "modify",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Integration",
+            "Applications of integration"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Graph/asymptote/reflection marks establish the function focus, while the definite integral and enclosed-area calculation independently assess integration applications."
+    },
+    {
+      "id": "2017-may-tz1-p1-q12",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Polynomials and theorems",
+        "Quadratics",
+        "Complex numbers"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Graphs and transformations"
+          ]
+        },
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Factor theorem, factorization, a quadratic complex-root calculation, graphing and concavity/derivative behavior are separate marked components owned by three topics."
+    },
+    {
+      "id": "2017-may-tz1-p1-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability models"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Counting and combinatorics"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The solution counts block arrangements and then uses a binomial model for repeated games; both probability and counting are independently marked."
+    },
+    {
+      "id": "2017-may-tz1-p2-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability models"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The solution uses the union/intersection probability identity to find k and a complement probability; algebra is only routine rearrangement."
+    },
+    {
+      "id": "2017-may-tz1-p2-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Triangle geometry"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The cosine-rule quadratic, triangle solutions, area and discriminant/range argument are all triangle-geometry work."
+    },
+    {
+      "id": "2017-may-tz1-p2-q11",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of integration",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Distance is obtained by integrating velocity over time, including a second definite integral to determine the height; integration applications and integration are primary."
+    },
+    {
+      "id": "2017-may-tz1-p2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Implicit differentiation supplies the gradient and tangent equation; the logarithm in the curve is not an independently assessed log method."
+    },
+    {
+      "id": "2017-may-tz1-p2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of integration",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The region’s area is set up and evaluated with definite integrals; inverse-function notation only supports the setup."
+    },
+    {
+      "id": "2017-may-tz1-p2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Discrete random variables"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The Poisson model gives the first probability and a binomial model gives the number of qualifying rooms; discrete random variables are the assessed method."
+    },
+    {
+      "id": "2017-may-tz1-p2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Geometric transformations",
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Reflection, vertical stretch and translation are each explicitly marked in the transformed graph equation, so both transformation skills are material."
+    },
+    {
+      "id": "2017-may-tz1-p2-q8",
+      "decision": "modify",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Radian measure and sectors"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Applications of differentiation"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Segment area in radians is the geometric core, followed by a marked related-rate derivative; the latter belongs in Calculus."
+    },
+    {
+      "id": "2017-may-tz1-p2-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Normal distribution"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Each part standardizes a normal variable or finds a normal quantile; broad probability-model and descriptive labels are redundant."
+    },
+    {
+      "id": "2017-may-tz2-p1-q10",
+      "decision": "modify",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The window maximum is found by differentiating the area, locating a stationary point and checking it is a maximum; no radian skill is marked."
+    },
+    {
+      "id": "2017-may-tz2-p1-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Functions and inverses"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The range, inverse formula, and inverse domain/range are all direct function-inverse work; inequality notation is incidental."
+    },
+    {
+      "id": "2017-may-tz2-p1-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The particle-at-rest times and displacement are obtained from the derivative and stationary-time analysis, so Applications of differentiation is sufficient."
+    },
+    {
+      "id": "2017-may-tz2-p1-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Complex numbers"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The square’s coordinates are found from complex-plane geometry and arithmetic with complex numbers; geometric transformations are not separately assessed."
+    },
+    {
+      "id": "2017-may-tz2-p1-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The marked work is a tangent substitution followed by evaluation of an integral; trigonometric identities support rather than independently constitute the method."
+    },
+    {
+      "id": "2017-may-tz2-p1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Discrete random variables"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Poisson probabilities are primary; solving the exponential equations in m and simplifying logarithms earns a secondary exponents/logarithms label."
+    },
+    {
+      "id": "2017-may-tz2-p1-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Proof and induction"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The markscheme explicitly requires base case, induction hypothesis and induction step; binomial notation is enabling algebra, not a separate expansion method."
+    },
+    {
+      "id": "2017-may-tz2-p1-q9",
+      "decision": "modify",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration",
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Graphs and transformations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The sketches use graph transformations, integration by parts is marked, and g′ establishes monotonicity via differentiation; these map to the proposed topics."
+    },
+    {
+      "id": "2017-may-tz2-p2-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Continuous random variables",
+        "Discrete random variables"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Integration"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The continuous pdf/moments/median and the binomial count are separately marked, with integration used for continuous moments."
+    },
+    {
+      "id": "2017-may-tz2-p2-q11",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Polynomials and theorems"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Graphs and transformations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Factor-theorem/factorization marks establish the polynomial topic, while the graph and range are a separate Functions secondary component."
+    },
+    {
+      "id": "2017-may-tz2-p2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Applications of differentiation",
+        "Integration",
+        "Applications of integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Implicit differentiation and normal-line work are marked in part (a), and a disk-method volume integral is marked in part (b); both generic/application calculus skills are present."
+    },
+    {
+      "id": "2017-may-tz2-p2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Normal distribution"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "All parts standardize a normal variable and invert normal probabilities; no conditional, sequence or broad-model method is independently marked."
+    },
+    {
+      "id": "2017-may-tz2-p2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Triangle geometry"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Equations and inequalities"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The cosine rule and valid triangle range are primary; solving the resulting quadratic inequality is an independently used algebra secondary method."
+    },
+    {
+      "id": "2017-may-tz2-p2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Vectors, lines and planes"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The proof uses cross products and parallel/perpendicular vector relationships throughout; proof is not a separate taxonomy skill here."
+    },
+    {
+      "id": "2017-may-tz2-p2-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Vectors, lines and planes"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Every part is vector line/plane work—parametric intersection, plane equations, normals, perpendicularity and angles—without a separate differentiation or inequality method."
+    },
+    {
+      "id": "2017-november-tz0-p1-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Exponents and logarithms"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Log laws and exponent manipulation solve the equation, while the domain check is supporting work; Exponents and logarithms is sufficient."
+    },
+    {
+      "id": "2017-november-tz0-p1-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability models",
+        "Discrete random variables"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Counting and combinatorics"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The first part counts no-match permutations and the repeated-game part uses a binomial model and moments; counting is a Number-and-algebra secondary."
+    },
+    {
+      "id": "2017-november-tz0-p1-q11",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Proof and induction"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The induction proof and derivative/tangent calculation are substantial and separately marked; trig notation and graph display are not extra skills."
+    },
+    {
+      "id": "2017-november-tz0-p1-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of integration",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Distance in the first half-second is the definite integral of velocity, evaluated by integration by parts; both application and integration labels are justified."
+    },
+    {
+      "id": "2017-november-tz0-p1-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Equations and inequalities"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Graphs and transformations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The graph supports the inequality setup, but the five marks solve and sign-analyze an inequality; algebra is primary and graphing is secondary."
+    },
+    {
+      "id": "2017-november-tz0-p1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Implicit differentiation and the vertical-tangent condition are the complete marked method, with no separately assessed graph or application technique."
+    },
+    {
+      "id": "2017-november-tz0-p1-q9",
+      "decision": "modify",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Vectors, lines and planes",
+        "Triangle geometry"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The construction is entirely vector geometry, with the final triangle-area ratio adding a materially marked triangle-geometry method."
+    },
+    {
+      "id": "2017-november-tz0-p2-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Matrices and systems"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The three fruit prices come from a linear system; setting up and solving simultaneous equations is the only assessed method."
+    },
+    {
+      "id": "2017-november-tz0-p2-q10",
+      "decision": "modify",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation",
+        "Applications of integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Differentiation handles the minimum, monotonicity and normal, while a disk integral handles volume; generic labels and radians are supporting notation."
+    },
+    {
+      "id": "2017-november-tz0-p2-q11",
+      "decision": "modify",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Trigonometric identities and equations"
+          ]
+        },
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Polynomials and theorems"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Derivative/graph behavior is primary; the tangent-half-angle substitution and resulting cubic are separately marked trig and polynomial methods."
+    },
+    {
+      "id": "2017-november-tz0-p2-q12",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sequences and series",
+        "Exponents and logarithms"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The loan and withdrawal values are geometric-series calculations; logarithms are not used as a distinct method in the markscheme."
+    },
+    {
+      "id": "2017-november-tz0-p2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Conditional probability"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The solution repeatedly conditions on events and applies conditional-probability identities; probability models adds no distinct marked method."
+    },
+    {
+      "id": "2017-november-tz0-p2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Normal distribution"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The two normal probability statements are standardized and solved simultaneously for the mean and standard deviation; Normal distribution is sufficient."
+    },
+    {
+      "id": "2017-november-tz0-p2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Triangle geometry"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Right-triangle distances and the final cosine rule determine the yacht separation; all marks are triangle-geometry work."
+    },
+    {
+      "id": "2017-november-tz0-p2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Discrete random variables"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The daily and weekly counts use Poisson/binomial reasoning and an expectation over 52 weeks; discrete random variables cover the marked work."
+    },
+    {
+      "id": "2017-november-tz0-p2-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The substitution, differential and bounds evaluate an integral; trigonometry supplies the substitution but is not independently marked."
+    },
+    {
+      "id": "2017-november-tz0-p3-calculus-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Continuity and differentiability at the join are enforced through a limit and derivative equality; Differentiation is the material skill."
+    },
+    {
+      "id": "2017-november-tz0-p3-calculus-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differential equations",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The markscheme constructs an integrating factor, integrates the resulting equation and applies the initial condition; differential equations and integration are retained."
+    },
+    {
+      "id": "2017-november-tz0-p3-calculus-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Limits and series"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Limit comparison and endpoint analysis are the marked convergence methods; differentiation is not independently required."
+    },
+    {
+      "id": "2017-november-tz0-p3-calculus-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The mean-value-theorem chord slope, derivative and solving for the two tangent points are all differentiation work; graphing illustrates it."
+    },
+    {
+      "id": "2017-november-tz0-p3-calculus-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Limits and series",
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The derivative recurrence and Maclaurin coefficients support the limit and induction proof; limits/series and differentiation are the materially assessed methods."
+    }
+  ]
+}

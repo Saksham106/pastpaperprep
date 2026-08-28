@@ -1,0 +1,854 @@
+{
+  "inputCount": 66,
+  "judgmentCount": 66,
+  "judgments": [
+    {
+      "id": "2019-may-tz2-p1-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The markscheme awards implicit differentiation and then the normal-line calculation from the gradient. The trigonometric expression is the context, not a trigonometry-topic method."
+    },
+    {
+      "id": "2019-may-tz2-p1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Exponents and logarithms"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Both equations require logarithm rules and the final algebraic elimination; no matrix method or inequality is materially assessed."
+    },
+    {
+      "id": "2019-may-tz2-p1-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Triangle geometry"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Maximizing the cone volume is the dominant method and is explicitly done by differentiation. The Pythagorean relation in triangle OXB is a distinct, credited geometric setup step."
+    },
+    {
+      "id": "2019-may-tz2-p1-q9",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Applications of differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Trigonometric identities and equations"
+          ]
+        }
+      ],
+      "rationale": "The 5-mark area is a definite-integral calculation, the equal-gradient part differentiates both functions and applies the derivative condition, and the intersection part uses the cosine double-angle identity and solves the resulting trigonometric equation. These are all materially credited; the original Functions ownership is not.",
+      "decision": "modify",
+      "confidence": "medium"
+    },
+    {
+      "id": "2019-may-tz2-p2-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Triangle geometry"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The two independent blind passes agree exactly after runtime normalization."
+    },
+    {
+      "id": "2019-may-tz2-p2-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Discrete random variables",
+        "Probability models"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The Poisson model, capped discrete distribution, yearly binomial count, and expected unfed occasions all materially assess discrete random variables and probability models."
+    },
+    {
+      "id": "2019-may-tz2-p2-q11",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Vectors, lines and planes"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Every credited part constructs or analyzes planes and their intersection line using vectors, normals, scalar products, and equations of planes; the probability label is unsupported."
+    },
+    {
+      "id": "2019-may-tz2-p2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Normal distribution",
+        "Probability models"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Part (a) is a normal-tail calculation and part (b) models the number of profitable days with a binomial distribution, so both controlled skills are materially assessed."
+    },
+    {
+      "id": "2019-may-tz2-p2-q3",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability models",
+        "Conditional probability"
+      ],
+      "finalSecondary": [],
+      "rationale": "The tree is a conditional probability model, and part (c) explicitly asks for the probability of passing the third paper given exactly one prior pass; the markscheme evaluates that conditional ratio. Conditional probability is therefore materially assessed alongside the tree model.",
+      "decision": "modify",
+      "confidence": "high"
+    },
+    {
+      "id": "2019-may-tz2-p2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms",
+            "Equations and inequalities"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The requested sketch and hence-solution are graph interpretation, while the displayed functions and the final strict inequality materially involve logarithms and solving an inequality."
+    },
+    {
+      "id": "2019-may-tz2-p2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric identities and equations"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The two independent blind passes agree exactly after runtime normalization."
+    },
+    {
+      "id": "2019-may-tz2-p2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The official solution integrates acceleration to velocity and velocity to displacement, then determines constants from the two displacement conditions."
+    },
+    {
+      "id": "2019-may-tz2-p2-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Complex numbers",
+        "Polynomials and theorems"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The two independent blind passes agree exactly after runtime normalization."
+    },
+    {
+      "id": "2019-may-tz2-p2-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Polynomials and theorems"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Applications of differentiation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Polynomial factorization is the dominant 7-mark method. The graph’s maxima/minima and the real-root condition are an independently assessed differentiation/optimization application."
+    },
+    {
+      "id": "2019-november-tz0-p1-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Applications of differentiation",
+        "Integration",
+        "Applications of integration"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Graphs and transformations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The markscheme separately credits derivative/stationary-point work, graph behavior, partial-fraction integration, and the enclosed-area integral. The rational-function sketch is a material secondary graph analysis, while logarithms are an antiderivative result rather than a separate topic."
+    },
+    {
+      "id": "2019-november-tz0-p1-q11",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Vectors, lines and planes"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Cross products, normals, scalar products, planes, and line intersections account for all assessed methods; the graph of the angle is interpreted from the vector-derived formula."
+    },
+    {
+      "id": "2019-november-tz0-p1-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The two independent blind passes agree exactly after runtime normalization."
+    },
+    {
+      "id": "2019-november-tz0-p1-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Vectors, lines and planes"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The two independent blind passes agree exactly after runtime normalization."
+    },
+    {
+      "id": "2019-november-tz0-p1-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Complex numbers"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The roots of z^4=-4 are obtained by complex-number arguments/De Moivre, and the polygon area is a short consequence. Counting and combinatorics is not separately assessed."
+    },
+    {
+      "id": "2019-november-tz0-p1-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Proof and induction"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The derivative formula is established by a base case and induction step. Differentiation is the mathematical content, with induction an independently credited proof method."
+    },
+    {
+      "id": "2019-november-tz0-p1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The two independent blind passes agree exactly after runtime normalization."
+    },
+    {
+      "id": "2019-november-tz0-p1-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Vectors, lines and planes"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The two independent blind passes agree exactly after runtime normalization."
+    },
+    {
+      "id": "2019-november-tz0-p2-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Continuous random variables"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Integration"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The piecewise PDF, normalization, expectation, and median make continuous random variables primary. The credited probability, expectation, and median calculations use definite integration as a distinct secondary method."
+    },
+    {
+      "id": "2019-november-tz0-p2-q11",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Applications of integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The two independent blind passes agree exactly after runtime normalization."
+    },
+    {
+      "id": "2019-november-tz0-p2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Discrete random variables"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The two independent blind passes agree exactly after runtime normalization."
+    },
+    {
+      "id": "2019-november-tz0-p2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Normal distribution",
+        "Conditional probability"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The normal model supplies both tail probabilities, and the requested probability is explicitly conditional on qualifying (T<11); descriptive statistics and generic probability models are not needed as separate labels."
+    },
+    {
+      "id": "2019-november-tz0-p2-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The velocity graph problem uses local extrema/maximum speed and acceleration as differentiation applications, then definite integrals for distance in parts (b) and (c)."
+    },
+    {
+      "id": "2019-november-tz0-p3-calculus-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Limits and series"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Continuity is checked through one-sided limits and differentiability through one-sided derivatives; both are explicitly evaluated in the markscheme."
+    },
+    {
+      "id": "2019-november-tz0-p3-calculus-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Limits and series"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Both parts are convergence/divergence tests for infinite series: limit comparison, integral/comparison alternatives, and the ratio test."
+    },
+    {
+      "id": "2019-november-tz0-p3-calculus-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Limits and series",
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The requested Maclaurin expansion and limit are series/limit work, but the first 8-mark part explicitly requires successive derivatives to obtain the coefficients."
+    },
+    {
+      "id": "2019-november-tz0-p3-calculus-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differential equations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Euler’s method, isoclines, the homogeneous differential-equation solution, and the curvature comparison all concern the stated differential equation; the sketch is supporting interpretation."
+    },
+    {
+      "id": "2019-november-tz0-p3-discrete-mathematics-q1",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Graph theory and algorithms"
+      ],
+      "finalSecondary": [],
+      "rationale": "The markscheme awards the deleted-vertex minimum spanning tree and nearest-neighbour route algorithms. The supplied legacy Graph theory and algorithms skill is the faithful controlled owner; no counting label is substituted.",
+      "decision": "modify",
+      "confidence": "high"
+    },
+    {
+      "id": "2019-november-tz0-p3-discrete-mathematics-q2",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Number theory and modular arithmetic"
+      ],
+      "finalSecondary": [],
+      "rationale": "The credited work is Fermat’s little theorem, modular exponentiation, base conversion, and solving a base-n equation. The supplied legacy Number theory and modular arithmetic skill owns this content; proof or polynomial labels would misclassify it.",
+      "decision": "modify",
+      "confidence": "high"
+    },
+    {
+      "id": "2019-november-tz0-p3-discrete-mathematics-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sequences and series"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The two independent blind passes agree exactly after runtime normalization."
+    },
+    {
+      "id": "2019-november-tz0-p3-discrete-mathematics-q4",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Graph theory and algorithms"
+      ],
+      "finalSecondary": [],
+      "rationale": "All marks concern graph structure: edge bounds, Eulerian circuits, planar graphs, face counting, and Euler’s formula. The supplied legacy Graph theory and algorithms skill is materially and directly assessed, rather than Counting and combinatorics.",
+      "decision": "modify",
+      "confidence": "high"
+    },
+    {
+      "id": "2019-november-tz0-p3-sets-relations-and-groups-q1",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sets, relations and groups"
+      ],
+      "finalSecondary": [],
+      "rationale": "The question and markscheme assess set difference, symmetric difference, and distributive/associative properties of set operations. The supplied legacy Sets, relations and groups skill is the direct owner.",
+      "decision": "modify",
+      "confidence": "high"
+    },
+    {
+      "id": "2019-november-tz0-p3-sets-relations-and-groups-q2",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sets, relations and groups"
+      ],
+      "finalSecondary": [],
+      "rationale": "The Cayley table, Latin-square property, identity and inverse, cyclicity, subgroup, and isomorphism are all group-theory methods. The supplied legacy Sets, relations and groups skill directly covers this content.",
+      "decision": "modify",
+      "confidence": "high"
+    },
+    {
+      "id": "2019-november-tz0-p3-sets-relations-and-groups-q3",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Vectors, lines and planes"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Sets, relations and groups"
+          ]
+        }
+      ],
+      "rationale": "Cross products and parallel-vector reasoning earn vector-geometry marks, while most of the remaining work classifies relations and equivalence classes. Those two materially assessed areas are owned by Vectors, lines and planes and the supplied legacy Sets, relations and groups skill.",
+      "decision": "modify",
+      "confidence": "high"
+    },
+    {
+      "id": "2019-november-tz0-p3-sets-relations-and-groups-q4",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sets, relations and groups"
+      ],
+      "finalSecondary": [],
+      "rationale": "The marks prove uniqueness of a group identity and test associativity and identity for a custom binary operation. This is directly group/operation theory, owned by the supplied legacy Sets, relations and groups skill.",
+      "decision": "modify",
+      "confidence": "high"
+    },
+    {
+      "id": "2019-november-tz0-p3-statistics-and-probability-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Statistical inference"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Hypothesis testing, p-value interpretation, correlation/regression validity, and the conclusion are statistical inference. The bivariate-normal assumption is supporting context, not a separately assessed normal-distribution calculation."
+    },
+    {
+      "id": "2019-november-tz0-p3-statistics-and-probability-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Statistical inference",
+        "Discrete random variables",
+        "Probability models"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Bias and efficiency of estimators dominate part (a), while the negative-binomial and reciprocal-expectation work materially assesses discrete random variables and probability models. Binomial expansion is not used."
+    },
+    {
+      "id": "2019-november-tz0-p3-statistics-and-probability-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Statistical inference",
+        "Normal distribution"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Confidence intervals, critical regions, Type I/II errors, and power-style parameter calculation are statistical inference; the normal sampling distribution is explicitly used throughout."
+    },
+    {
+      "id": "2019-november-tz0-p3-statistics-and-probability-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Discrete random variables",
+        "Probability models",
+        "Conditional probability"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The negative-binomial PGF and sum distribution are discrete probability models, and part (b)(iii) explicitly asks for a conditional probability. No binomial expansion is assessed."
+    },
+    {
+      "id": "2020-november-tz0-p1-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Discrete random variables"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The two independent blind passes agree exactly after runtime normalization."
+    },
+    {
+      "id": "2020-november-tz0-p1-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Functions and inverses",
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The cubic is rewritten, shown one-to-one, inverted, transformed, and graphed; the derivative test used to show the inverse exists is a material secondary differentiation method. Sequences and probability labels are unsupported."
+    },
+    {
+      "id": "2020-november-tz0-p1-q12",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations",
+        "Functions and inverses"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The two independent blind passes agree exactly after runtime normalization."
+    },
+    {
+      "id": "2020-november-tz0-p1-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The two independent blind passes agree exactly after runtime normalization."
+    },
+    {
+      "id": "2020-november-tz0-p1-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Complex numbers"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The two independent blind passes agree exactly after runtime normalization."
+    },
+    {
+      "id": "2020-november-tz0-p1-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sequences and series"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The two independent blind passes agree exactly after runtime normalization."
+    },
+    {
+      "id": "2020-november-tz0-p1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Complex numbers"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Triangle geometry"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The two independent blind passes agree exactly after runtime normalization."
+    },
+    {
+      "id": "2020-november-tz0-p1-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric identities and equations"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The two independent blind passes agree exactly after runtime normalization."
+    },
+    {
+      "id": "2020-november-tz0-p2-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Radian measure and sectors",
+        "Triangle geometry"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The chord/sector area calculation requires a central angle, sector-minus-triangle geometry, and radian-based formulas; the extra trigonometric label is not needed."
+    },
+    {
+      "id": "2020-november-tz0-p2-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Vectors, lines and planes"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The two independent blind passes agree exactly after runtime normalization."
+    },
+    {
+      "id": "2020-november-tz0-p2-q11",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration",
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Sequences and series"
+          ]
+        }
+      ],
+      "rationale": "The velocity is integrated to obtain displacement and total distance, while differentiating velocity is used for acceleration-zero times and the geometric progression of successive velocities. The geometric-sequence argument is a distinct secondary legacy-era sequence skill.",
+      "decision": "modify",
+      "confidence": "medium"
+    },
+    {
+      "id": "2020-november-tz0-p2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Discrete random variables"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The two independent blind passes agree exactly after runtime normalization."
+    },
+    {
+      "id": "2020-november-tz0-p2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Integration"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The provided graph and roots/local-maximum information make graph interpretation primary, while the shaded area is independently obtained by a definite integral. No differentiation method is credited."
+    },
+    {
+      "id": "2020-november-tz0-p2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Binomial expansion"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The two independent blind passes agree exactly after runtime normalization."
+    },
+    {
+      "id": "2020-november-tz0-p2-q5",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability models"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Equations and inequalities"
+          ]
+        }
+      ],
+      "rationale": "The markscheme explicitly models the count with a binomial distribution and then solves the inequality 1−0.85^n>0.999 to find the least integer n. Binomial expansion is not the assessed method; probability modelling and inequality solving are.",
+      "decision": "modify",
+      "confidence": "high"
+    },
+    {
+      "id": "2020-november-tz0-p2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Proof and induction"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The two independent blind passes agree exactly after runtime normalization."
+    },
+    {
+      "id": "2020-november-tz0-p2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Counting and combinatorics"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Both parts count five-person groups by cases or complement counting; no proof by induction is involved."
+    },
+    {
+      "id": "2020-november-tz0-p2-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The two independent blind passes agree exactly after runtime normalization."
+    },
+    {
+      "id": "2020-november-tz0-p2-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Normal distribution",
+        "Probability models"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Normal-tail calculations are followed by a binomial count for packets below 95 g; both models are explicitly credited."
+    },
+    {
+      "id": "2020-november-tz0-p3-calculus-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Limits and series",
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The l’Hôpital limit requires two derivative applications, including product-rule differentiation, while the limit evaluation is the organizing calculus method."
+    },
+    {
+      "id": "2020-november-tz0-p3-calculus-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Limits and series"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The ratio-test limit establishes the open interval and the endpoint tests establish divergence at 4/3 and convergence by the alternating-series test at 2."
+    },
+    {
+      "id": "2020-november-tz0-p3-calculus-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differential equations",
+        "Applications of differentiation",
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The question explicitly asks for isoclines, a local minimum, and a solution of a differential equation; the markscheme awards the integrating-factor solution and derivative-sign/local-minimum reasoning. The graph sketch is part of this calculus method, not a separate graph-transformation skill."
+    },
+    {
+      "id": "2020-november-tz0-p3-calculus-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Limits and series",
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The scored work is the Maclaurin series, its differentiated series, and the Lagrange error term; the markscheme gives the series terms, derivative, and seventh-derivative error bound. Logarithms are supplied as the series source rather than a separately assessed algebra skill."
+    }
+  ]
+}

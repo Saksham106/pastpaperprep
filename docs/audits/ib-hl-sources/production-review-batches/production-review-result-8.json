@@ -1,0 +1,888 @@
+{
+  "inputCount": 66,
+  "judgmentCount": 66,
+  "judgments": [
+    {
+      "id": "2023-november-tz2-p2-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Normal distribution",
+        "Conditional probability",
+        "Probability models"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Normal quantiles, binomial counts for harvest-ready plants, and the conditional probability under the count restriction are all explicitly assessed statistical methods."
+    },
+    {
+      "id": "2023-november-tz2-p2-q11",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Equations and inequalities"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The asymptotes, intercepts, range and sketch are graph/function work; solving f(x)>x is a separately marked inequality, owned by Number and algebra."
+    },
+    {
+      "id": "2023-november-tz2-p2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Both parts assess graphing and transformations: the sketch of f and the horizontal stretch/vertical translation to obtain g; no inverse-function method is marked."
+    },
+    {
+      "id": "2023-november-tz2-p2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation",
+        "Applications of integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The first-rest condition uses differentiation of displacement, while total distance through the turning point requires integrating velocity; both are calculus applications."
+    },
+    {
+      "id": "2023-november-tz2-p2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Discrete random variables",
+        "Probability models"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The table is a discrete probability distribution and the marked work uses normalization and expectation to determine its parameter; the added function labels are not assessed."
+    },
+    {
+      "id": "2023-november-tz2-p2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Discrete random variables"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The binomial variance equation and the variance under Y=1-2X are discrete-random-variable work; no separate generic probability-model method is needed."
+    },
+    {
+      "id": "2023-november-tz2-p2-q8",
+      "decision": "modify",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Vectors, lines and planes",
+        "Triangle geometry"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The 4-mark cross-product calculation is explicitly vector work, while minimizing its squared norm and converting it to triangle area are triangle-geometry work; both skills are materially assessed."
+    },
+    {
+      "id": "2023-november-tz2-p2-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differential equations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Euler's approximation, solution of the differential equation and the error comparison are all organized around a differential-equation problem; integration is an inherent solution step rather than a separate assessed classification."
+    },
+    {
+      "id": "2024-may-tz1-p1-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Quadratics"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The rational-function sketch/transformation is primary; the intersections with the quadratic g require a materially assessed quadratic condition, owned by Number and algebra."
+    },
+    {
+      "id": "2024-may-tz1-p1-q11",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Polynomials and theorems",
+        "Algebraic manipulation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Integration",
+            "Limits and series"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Factorization and partial-fraction algebra dominate the first stages; the later antiderivative and limiting argument are independently marked calculus work."
+    },
+    {
+      "id": "2024-may-tz1-p1-q12",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Complex numbers"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Triangle geometry"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Complex expansion/roots and the Argand-diagram triangle area are both assessed; triangle geometry is therefore secondary to the complex-number primary."
+    },
+    {
+      "id": "2024-may-tz1-p1-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Radian measure and sectors"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Sector perimeter and area formulas in radians drive the work; the quadratic is an intermediate elimination/solution step rather than an independently dominant skill."
+    },
+    {
+      "id": "2024-may-tz1-p1-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration",
+        "Applications of integration"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Trigonometric identities and equations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Finding the intersections uses a trigonometric identity, while the enclosed area is evaluated by definite integration; these are separate marked methods."
+    },
+    {
+      "id": "2024-may-tz1-p1-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The solid volume is obtained from a disk integral of pi f(x)^2; rotational geometry is setup, not a separate topic."
+    },
+    {
+      "id": "2024-may-tz1-p1-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Limits and series"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The marked work is Maclaurin expansion and its limiting/series behavior; the trigonometric forms are inputs and Sequences and series would duplicate the calculus classification."
+    },
+    {
+      "id": "2024-may-tz1-p1-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations",
+        "Geometric transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The mark scheme explicitly awards reflection in the x-axis and a 180-degree rotation about the origin, alongside graph transformation work."
+    },
+    {
+      "id": "2024-may-tz1-p2-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Exponents and logarithms",
+        "Equations and inequalities"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Depreciation is modeled by powers and the least time is found from an exponential inequality using logarithms; no sequence method is assessed."
+    },
+    {
+      "id": "2024-may-tz1-p2-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric identities and equations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Applications of differentiation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The tide model requires trigonometric parameter solving, and the rate question independently differentiates the model; these belong to trigonometry and calculus respectively."
+    },
+    {
+      "id": "2024-may-tz1-p2-q11",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Implicit differentiation supplies the main result, while solving the logarithmic equation is a distinct algebraic method owned by Number and algebra."
+    },
+    {
+      "id": "2024-may-tz1-p2-q12",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Vectors, lines and planes",
+        "Triangle geometry"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Dot and cross products establish the vectors and the resulting triangle area; the quadratic is only an intermediate computation."
+    },
+    {
+      "id": "2024-may-tz1-p2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Normal distribution"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The marks assess standardization and normal-distribution probabilities; descriptive-statistics and inverse-function labels are not independent outcomes here."
+    },
+    {
+      "id": "2024-may-tz1-p2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Direction changes and increasing displacement are identified from the velocity model, and displacement is obtained by integrating velocity; these are the explicit calculus applications."
+    },
+    {
+      "id": "2024-may-tz1-p2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Descriptive statistics"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The work fits/interprets a regression relationship and constructs the reverse regression estimate, which is descriptive statistical analysis rather than inference testing."
+    },
+    {
+      "id": "2024-may-tz1-p2-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Continuous random variables"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The pdf is integrated to normalize and locate the median; all materially assessed work is for a continuous random variable."
+    },
+    {
+      "id": "2024-may-tz1-p3-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability models",
+        "Discrete random variables"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation"
+          ]
+        },
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Sequences and series"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The primary task models a discrete waiting-time variable and its probabilities; differentiation and the geometric-series derivation are independently marked secondary methods."
+    },
+    {
+      "id": "2024-may-tz1-p3-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Coordinate and analytic geometry"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Inflection points and the associated optimization drive the question; coordinate geometry is genuinely used for the line/intersection work as a secondary method."
+    },
+    {
+      "id": "2024-may-tz2-p1-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sequences and series"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The requested results use arithmetic and geometric sequence relationships and sums; logarithmic notation is given context, not a separately assessed logarithm method."
+    },
+    {
+      "id": "2024-may-tz2-p1-q11",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Vectors, lines and planes",
+        "Coordinate and analytic geometry"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Plane normals, parallel/perpendicular conditions, vector line equations and distances are explicitly marked; both vector and coordinate-analytic skills belong to the geometry topic."
+    },
+    {
+      "id": "2024-may-tz2-p1-q12",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Limits and series",
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Proof and induction"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The induction proof and derivative calculations support the Maclaurin expansion; induction is a distinct Number-and-algebra proof method."
+    },
+    {
+      "id": "2024-may-tz2-p1-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Quadratics"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Substitution turns the exponential equation into a quadratic, which is the marked solving method; the exponential substitution and final form do not warrant a separate logarithm skill."
+    },
+    {
+      "id": "2024-may-tz2-p1-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Coordinate and analytic geometry",
+        "Vectors, lines and planes"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The midpoint, slope/vector equation and symmetry/area calculation explicitly use coordinate and vector geometry; the area arithmetic is not a separate triangle label."
+    },
+    {
+      "id": "2024-may-tz2-p1-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Quadratics"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The rational graph is primary, while the one-solution and two-solution conditions are obtained through a materially assessed quadratic intersection analysis."
+    },
+    {
+      "id": "2024-may-tz2-p1-q6",
+      "decision": "modify",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Normal distribution",
+        "Conditional probability"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Normal standardization supplies the tail probabilities and the final conditional probability is separately marked; generic probability-model and descriptive labels are unsupported."
+    },
+    {
+      "id": "2024-may-tz2-p1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Complex numbers",
+        "Polynomials and theorems"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Vieta/root relations for the polynomial and conjugate complex roots are both explicit, so complex numbers and polynomial theorems are retained."
+    },
+    {
+      "id": "2024-may-tz2-p2-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration",
+        "Applications of integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The enclosed region is found from the intersections and a definite integral; no separate limits-and-series method is assessed."
+    },
+    {
+      "id": "2024-may-tz2-p2-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Continuous random variables"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Mode, probabilities, median and expected spending are all calculated from one continuous density; generic probability-model, integration and function labels are not needed."
+    },
+    {
+      "id": "2024-may-tz2-p2-q11",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Radian measure and sectors",
+        "Triangle geometry"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Angular speed/radian measure and chord/triangle geometry are explicit; the sine rule is routine triangle work rather than a separate identity classification."
+    },
+    {
+      "id": "2024-may-tz2-p2-q12",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differential equations",
+        "Integration"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Trigonometric identities and equations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Euler/integrating-factor work and integration solve the differential equation, while the later trigonometric derivative/identity is independently marked."
+    },
+    {
+      "id": "2024-may-tz2-p2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Descriptive statistics"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The regression line through the mean point and the resulting data equations are descriptive-statistics work; no separate inference skill is required."
+    },
+    {
+      "id": "2024-may-tz2-p2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Exponents and logarithms"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The decibel model is solved using logarithmic/exponential relationships; this belongs to Exponents and logarithms under Number and algebra."
+    },
+    {
+      "id": "2024-may-tz2-p2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The maximum velocity and acceleration at a direction change are found by differentiating the velocity model; no integration is required."
+    },
+    {
+      "id": "2024-may-tz2-p2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability models",
+        "Discrete random variables"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The binomial distribution is specified and the least n is found from its discrete probabilities; discrete-random-variable work is materially assessed."
+    },
+    {
+      "id": "2024-may-tz2-p2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation",
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The sphere relation is differentiated through the chain rule to obtain dr/dt at the specified volume; this is related-rates/application-of-differentiation work."
+    },
+    {
+      "id": "2024-may-tz2-p2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of integration",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The logarithmic curve is inverted and a disk integral in y evaluates the solid of revolution; both integration technique and its application are marked."
+    },
+    {
+      "id": "2024-may-tz2-p2-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Complex numbers"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Trigonometric identities and equations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Complex modulus/argument is primary, with double-angle identities and the resulting trigonometric equation separately used and marked."
+    },
+    {
+      "id": "2024-may-tz2-p2-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The quotient-rule derivative and local-minimum condition determine the coefficients; graph/transformations are not supported by the mark scheme."
+    },
+    {
+      "id": "2024-may-tz2-p3-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The question explicitly requires derivative and antiderivative calculations; the given formulas do not create separate trig, log or function skills."
+    },
+    {
+      "id": "2024-may-tz2-p3-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Quadratics",
+        "Counting and combinatorics"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Probability models",
+            "Normal distribution",
+            "Conditional probability"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Most marks concern discriminants, quadratic conditions and counting coefficient outcomes; the probability model, normal distribution and conditional probability are genuine secondary statistics methods."
+    },
+    {
+      "id": "2024-november-tz0-p1-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation",
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The surface/volume optimization is driven by differentiating and interpreting a critical point; algebraic setup is not a separate topic."
+    },
+    {
+      "id": "2024-november-tz0-p1-q11",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Limits and series",
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The limit, derivative and higher-derivative work directly produces the Maclaurin series; Sequences and series would duplicate the calculus classification."
+    },
+    {
+      "id": "2024-november-tz0-p1-q12",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Complex numbers",
+        "Sequences and series"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "De Moivre/root calculations and the geometric progression of the complex roots are explicit; trigonometric notation is not a separate assessed identity skill."
+    },
+    {
+      "id": "2024-november-tz0-p1-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability models",
+        "Conditional probability"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Inclusion-exclusion determines the intersection and complements feed the conditional probability; both probability-model and conditional-probability methods are marked."
+    },
+    {
+      "id": "2024-november-tz0-p1-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Triangle geometry"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The triangle side data are used with the cosine rule and a double-angle identity to obtain an exact value; triangle geometry is the adopted primary skill."
+    },
+    {
+      "id": "2024-november-tz0-p1-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Functions and inverses"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Equations and inequalities"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The inverse domain requires solving the quadratic inequality and enforcing one-to-one behavior; the inequality is a distinct Number-and-algebra method."
+    },
+    {
+      "id": "2024-november-tz0-p1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The required range and volume come from a definite integral of secant squared; the geometric setup is an application of integration rather than a separate functions/radian label."
+    },
+    {
+      "id": "2024-november-tz0-p1-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Vectors, lines and planes",
+        "Triangle geometry"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Vector parametrization and scalar products establish the relationships, followed by triangle geometry; no separate trigonometric identity is materially marked."
+    },
+    {
+      "id": "2024-november-tz0-p1-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric identities and equations"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The proof and solution both use trigonometric identities/equations; induction is not an independently assessed proof topic here."
+    },
+    {
+      "id": "2024-november-tz0-p2-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The endpoint/root/extremum sketch is graph-function work; inverse functions are not required."
+    },
+    {
+      "id": "2024-november-tz0-p2-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Descriptive statistics"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The regression fit, extrapolation comment, exponential model interpretation and rate comparison are descriptive modeling/statistics; the exponential form is context."
+    },
+    {
+      "id": "2024-november-tz0-p2-q11",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Vectors, lines and planes"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Vector line equations, minimum distance, plane containment and a line parallel to a plane are all vector/coordinate geometry work; differentiation is unsupported."
+    },
+    {
+      "id": "2024-november-tz0-p2-q12",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Graphs and transformations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Derivative, critical-point and monotonicity work dominate, while asymptotes and sketching graph behavior are independently assessed; the discriminant is intermediate algebra."
+    },
+    {
+      "id": "2024-november-tz0-p2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Discrete random variables"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Normalization of the pmf and the expectation calculation are discrete-random-variable work; no separate generic probability-model label is needed."
+    },
+    {
+      "id": "2024-november-tz0-p2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Triangle geometry",
+        "Trigonometric identities and equations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Right-triangle trigonometry and sine/cosine rules determine the requested angles and lengths; coordinate/radian/differentiation labels are unsupported."
+    },
+    {
+      "id": "2024-november-tz0-p2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Exponents and logarithms",
+        "Quadratics",
+        "Equations and inequalities"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The logarithmic domain restriction, discriminant condition and resulting inequality are all explicit marked algebraic methods."
+    },
+    {
+      "id": "2024-november-tz0-p2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Continuous random variables"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Expectation and the median are obtained by integrating the continuous density; all retained work is owned by continuous random variables."
+    },
+    {
+      "id": "2024-november-tz0-p2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Counting and combinatorics"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The marks count arrangements with a restriction and arrangements with a consecutive block; counting and combinatorics is the sole materially assessed method."
+    }
+  ]
+}
