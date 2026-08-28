@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { CaretDown, Check } from "@phosphor-icons/react";
+import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import type { ProductId } from "@/lib/access";
 
 type Navigate = (url: string) => void;
@@ -25,6 +26,106 @@ async function responsePayload(response: Response): Promise<Record<string, unkno
 }
 
 type BillingInterval = "monthly" | "annual";
+
+function PlanSelector({ options, value, onChange }: {
+  options: readonly { productId: ProductId; label: string }[];
+  value: ProductId;
+  onChange: (productId: ProductId) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const optionRefs = useRef(new Map<ProductId, HTMLButtonElement>());
+  const listboxId = useId();
+  const labelId = useId();
+  const selected = options.find((option) => option.productId === value) ?? options[0];
+
+  useEffect(() => {
+    if (!open) return;
+    optionRefs.current.get(value)?.focus();
+    const closeOutside = (event: PointerEvent) => {
+      if (!rootRef.current?.contains(event.target as Node)) setOpen(false);
+    };
+    document.addEventListener("pointerdown", closeOutside);
+    return () => document.removeEventListener("pointerdown", closeOutside);
+  }, [open, value]);
+
+  function choose(productId: ProductId) {
+    onChange(productId);
+    setOpen(false);
+    triggerRef.current?.focus();
+  }
+
+  function moveOption(event: KeyboardEvent<HTMLButtonElement>, index: number) {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      setOpen(false);
+      triggerRef.current?.focus();
+      return;
+    }
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      choose(options[index].productId);
+      return;
+    }
+    const destination = event.key === "Home" ? 0
+      : event.key === "End" ? options.length - 1
+        : event.key === "ArrowDown" ? (index + 1) % options.length
+          : event.key === "ArrowUp" ? (index - 1 + options.length) % options.length
+            : -1;
+    if (destination >= 0) {
+      event.preventDefault();
+      optionRefs.current.get(options[destination].productId)?.focus();
+    }
+  }
+
+  return (
+    <div ref={rootRef} className="plan-selector">
+      <span id={labelId} className="plan-selector-label">Choose access</span>
+      <button
+        ref={triggerRef}
+        className="plan-select-trigger"
+        type="button"
+        aria-label={`Choose access: ${selected.label}`}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={listboxId}
+        onClick={() => setOpen((current) => !current)}
+        onKeyDown={(event) => {
+          if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+            event.preventDefault();
+            setOpen(true);
+          }
+        }}
+      >
+        <span>{selected.label}</span>
+        <CaretDown aria-hidden="true" weight="bold" />
+      </button>
+      {open ? (
+        <div id={listboxId} className="plan-select-menu" role="listbox" aria-labelledby={labelId}>
+          {options.map((option, index) => (
+            <button
+              key={option.productId}
+              ref={(element) => {
+                if (element) optionRefs.current.set(option.productId, element);
+                else optionRefs.current.delete(option.productId);
+              }}
+              className="plan-select-option"
+              type="button"
+              role="option"
+              aria-selected={option.productId === value}
+              onClick={() => choose(option.productId)}
+              onKeyDown={(event) => moveOption(event, index)}
+            >
+              <span>{option.label}</span>
+              {option.productId === value ? <Check aria-hidden="true" weight="bold" /> : null}
+            </button>
+          ))}
+        </div>
+      ) : null}
+    </div>
+  );
+}
 
 export function CheckoutButton({
   interval,
@@ -122,12 +223,7 @@ export function PlanCheckout({
   return (
     <div className="plan-checkout">
       {options.length > 1 ? (
-        <label className="plan-selector">
-          <span>Choose access</span>
-          <select value={productId} onChange={(event) => setProductId(event.target.value as ProductId)}>
-            {options.map((option) => <option key={option.productId} value={option.productId}>{option.label}</option>)}
-          </select>
-        </label>
+        <PlanSelector options={options} value={productId} onChange={setProductId} />
       ) : null}
       {authenticated
         ? <CheckoutButton interval={interval} productId={productId} />

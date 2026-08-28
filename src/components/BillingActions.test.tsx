@@ -106,10 +106,32 @@ describe("PlanCheckout", () => {
       ]}
     />);
 
-    fireEvent.change(screen.getByRole("combobox"), { target: { value: "bank_ib_ai_hl" } });
+    fireEvent.click(screen.getByRole("button", { name: /choose access.*IGCSE 0580/i }));
+    fireEvent.click(screen.getByRole("option", { name: "IB AI HL" }));
     expect(screen.getByRole("link", { name: /continue to checkout/i })).toHaveAttribute(
       "href",
       "/login?next=%2Fpricing%3Finterval%3Dmonthly%26product%3Dbank_ib_ai_hl",
     );
+  });
+
+  it("supports keyboard selection in the designed access picker", () => {
+    render(<PlanCheckout
+      authenticated={false}
+      hasPaidAccess={false}
+      interval="annual"
+      options={[
+        { productId: "bank_igcse", label: "IGCSE 0580" },
+        { productId: "bank_ib_ai_hl", label: "IB AI HL" },
+      ]}
+    />);
+
+    const trigger = screen.getByRole("button", { name: /choose access.*IGCSE 0580/i });
+    fireEvent.keyDown(trigger, { key: "ArrowDown" });
+    const option = screen.getByRole("option", { name: "IB AI HL" });
+    option.focus();
+    fireEvent.keyDown(option, { key: "Enter" });
+
+    expect(trigger).toHaveTextContent("IB AI HL");
+    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
   });
 });

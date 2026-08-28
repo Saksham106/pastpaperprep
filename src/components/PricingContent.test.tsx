@@ -29,6 +29,15 @@ describe("bank-based pricing", () => {
     expect(container.querySelector(".pricing-option-popular")).toHaveAttribute("data-mobile-order", "first");
   });
 
+  it("keeps all three choices visible in one comparison grid", () => {
+    const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} />);
+
+    expect(container.querySelector(".pricing-decision-grid")).not.toBeNull();
+    expect(container.querySelectorAll(".pricing-decision-grid > .pricing-option")).toHaveLength(3);
+    expect(container.querySelector(".pricing-decision-grid > .pricing-option-popular")).not.toBeNull();
+    expect(screen.getByText("Every paid plan has the same study tools. Choose how many banks you need.")).toBeInTheDocument();
+  });
+
   it("keeps free access compact instead of rendering a fourth full plan card", () => {
     const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} />);
     expect(container.querySelector(".pricing-free-strip")).not.toBeNull();
@@ -37,16 +46,18 @@ describe("bank-based pricing", () => {
 
   it("offers only controlled bank and subject-pair choices", () => {
     render(<PricingContent authenticated={true} hasPaidAccess={false} />);
-    const selects = screen.getAllByRole("combobox");
-    expect(selects).toHaveLength(2);
+    const selectors = screen.getAllByRole("button", { name: /choose access/i });
+    expect(selectors).toHaveLength(2);
+    fireEvent.click(selectors[0]);
     expect(screen.getByRole("option", { name: "IB Mathematics AA HL" })).toBeInTheDocument();
+    fireEvent.click(selectors[1]);
     expect(screen.getByRole("option", { name: "IB Mathematics AA (SL + HL)" })).toBeInTheDocument();
   });
 
   it("shows course selectors and checkout continuations before sign-in", () => {
     render(<PricingContent authenticated={false} hasPaidAccess={false} />);
 
-    expect(screen.getAllByRole("combobox")).toHaveLength(2);
+    expect(screen.getAllByRole("button", { name: /choose access/i })).toHaveLength(2);
     expect(screen.getAllByRole("link", { name: /continue to checkout/i })).toHaveLength(3);
     expect(screen.queryByRole("link", { name: /sign in to choose/i })).not.toBeInTheDocument();
   });
@@ -61,6 +72,6 @@ describe("bank-based pricing", () => {
     render(<PricingContent authenticated hasPaidAccess={false} initialInterval="annual" initialProductId="bank_ib_ai_hl" />);
 
     expect(screen.getByRole("button", { name: /annual.*save up to 33%/i })).toHaveAttribute("aria-pressed", "true");
-    expect(screen.getAllByRole("combobox")[0]).toHaveValue("bank_ib_ai_hl");
+    expect(screen.getByRole("button", { name: /choose access.*IB Mathematics AI HL/i })).toBeInTheDocument();
   });
 });

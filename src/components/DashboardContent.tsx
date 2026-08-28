@@ -1,12 +1,20 @@
 import Link from "next/link";
-import { ArrowRight, CaretDown, Gear, Key, LockOpen } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, CaretDown, Gear, Key } from "@phosphor-icons/react/dist/ssr";
 import { BANKS, type Bank, type BankSlug } from "@/lib/banks";
 
 type BankGroup = {
   name: string;
-  description: string;
   className: string;
   banks: Bank[];
+};
+
+const CARD_NAMES: Record<BankSlug, string> = {
+  igcse: "Mathematics 0580",
+  "igcse-additional": "Additional Mathematics 0606",
+  "ib-hl": "Higher Level",
+  "ib-sl": "Standard Level",
+  "ib-ai-hl": "Higher Level",
+  "ib-ai-sl": "Standard Level",
 };
 
 export function DashboardContent({ authenticated, accessibleBanks }: { authenticated: boolean; accessibleBanks: BankSlug[] }) {
@@ -15,25 +23,28 @@ export function DashboardContent({ authenticated, accessibleBanks }: { authentic
   const groups: BankGroup[] = [
     {
       name: "Cambridge IGCSE",
-      description: "Mathematics 0580 and Additional Mathematics 0606",
       className: "cambridge",
       banks: BANKS.filter((bank) => bank.qualification === "Cambridge IGCSE"),
     },
     {
-      name: "IB Mathematics",
-      description: "Analysis and Approaches, Applications and Interpretation",
-      className: "ib",
-      banks: BANKS.filter((bank) => bank.qualification === "International Baccalaureate"),
+      name: "IB Analysis and Approaches",
+      className: "ib-aa",
+      banks: BANKS.filter((bank) => bank.slug === "ib-hl" || bank.slug === "ib-sl"),
+    },
+    {
+      name: "IB Applications and Interpretation",
+      className: "ib-ai",
+      banks: BANKS.filter((bank) => bank.slug === "ib-ai-hl" || bank.slug === "ib-ai-sl"),
     },
   ].sort((a, b) => Number(b.banks.some((bank) => accessible.has(bank.slug))) - Number(a.banks.some((bank) => accessible.has(bank.slug))));
 
   return (
-    <section className="dashboard-page shell">
+    <section className="dashboard-page dashboard-study-desk shell">
       <header className="dashboard-heading">
         <div>
           <p className="eyebrow">Question banks</p>
-          <h1>{hasPaidAccess ? "Your question banks" : "Choose a question bank"}</h1>
-          <p>{hasPaidAccess ? "Your included banks are first. Every other course stays open for free preview." : "Choose your course and start with complete free exam years. No setup required."}</p>
+          <h1>{hasPaidAccess ? "Your study desk" : "Start practising"}</h1>
+          <p>{hasPaidAccess ? "Open an included bank or sample another course with free questions." : "Pick your course and start with complete older exam years for free."}</p>
         </div>
         {authenticated ? (
           <details className="dashboard-settings">
@@ -44,15 +55,13 @@ export function DashboardContent({ authenticated, accessibleBanks }: { authentic
               <Link href="/account/password"><Key /> Password settings</Link>
             </div>
           </details>
-        ) : (
-          <Link className="dashboard-sign-in" href="/login?next=/dashboard"><LockOpen /> Sign in</Link>
-        )}
+        ) : null}
       </header>
 
       {!hasPaidAccess && (
         <aside className="dashboard-upgrade-strip">
           <div><strong>Ready for the complete bank?</strong><span>Unlock one course from $5/month, or get both levels in a subject pair.</span></div>
-          <Link className="button primary" href="/pricing">View plans <ArrowRight weight="bold" /></Link>
+          <Link className="button secondary" href="/pricing">View plans <ArrowRight weight="bold" /></Link>
         </aside>
       )}
 
@@ -60,7 +69,7 @@ export function DashboardContent({ authenticated, accessibleBanks }: { authentic
         {groups.map((group) => (
           <section className={`dashboard-bank-family dashboard-bank-family-${group.className}`} key={group.name} aria-labelledby={`dashboard-${group.className}`}>
             <header>
-              <div><h2 id={`dashboard-${group.className}`}>{group.name}</h2><p>{group.description}</p></div>
+              <h2 id={`dashboard-${group.className}`}>{group.name}</h2>
               <span>{group.banks.length} banks</span>
             </header>
             <div className="dashboard-bank-grid">
@@ -76,10 +85,9 @@ export function DashboardContent({ authenticated, accessibleBanks }: { authentic
                       aria-label={`${included ? "Open" : "Start free"} ${bank.shortName}`}
                       key={bank.slug}
                     >
-                      <div className="dashboard-bank-meta"><span>{bank.subject}</span><strong>{included ? "Included" : "Free questions"}</strong></div>
-                      <h3>{bank.shortName}</h3>
-                      <p>{bank.description}</p>
-                      <div className="dashboard-bank-stats"><span>{bank.questionCount.toLocaleString()} {included ? "questions" : "total questions"}</span><span>{bank.paperCount} papers</span></div>
+                      <div className="dashboard-bank-meta"><strong>{included ? "Included" : "Free exam years"}</strong></div>
+                      <h3>{CARD_NAMES[bank.slug]}</h3>
+                      <div className="dashboard-bank-stats"><span>{bank.questionCount.toLocaleString()} questions</span><span>{bank.paperCount} papers</span></div>
                       <span className="dashboard-bank-link">{included ? "Open bank" : "Start free"} <ArrowRight weight="bold" /></span>
                     </Link>
                   );

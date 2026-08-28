@@ -12,7 +12,7 @@ describe("PricingPage", () => {
     expect(screen.getByText("$8")).toBeInTheDocument();
     expect(screen.getByText("$12")).toBeInTheDocument();
     expect(screen.getByText(/most popular/i)).toBeInTheDocument();
-    expect(screen.getByText(/complete practice toolkit/i)).toBeInTheDocument();
+    expect(screen.getByText(/every paid plan has the same study tools/i)).toBeInTheDocument();
     expect(screen.getByText(/existing all-access subscribers keep their current price/i)).toBeInTheDocument();
 
     const options = container.querySelectorAll(".pricing-option");

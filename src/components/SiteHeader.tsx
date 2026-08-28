@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BookOpenText } from "@phosphor-icons/react/dist/ssr";
+import { BookOpenText, SquaresFour } from "@phosphor-icons/react/dist/ssr";
 import { HeaderNavigation } from "@/components/HeaderNavigation";
 
 export function SiteHeader({ authenticated = false }: { authenticated?: boolean }) {
@@ -10,7 +10,9 @@ export function SiteHeader({ authenticated = false }: { authenticated?: boolean 
         <span className="brand-mark"><BookOpenText weight="bold" /></span>
         <span>PastPaperPrep</span>
       </Link>
-      <HeaderNavigation authenticated={authenticated} workspaceIcon={<BookOpenText aria-hidden="true" weight="bold" />} />
+      <div className="header-actions">
+        <HeaderNavigation authenticated={authenticated} workspaceIcon={<SquaresFour data-testid="workspace-icon" aria-hidden="true" weight="bold" />} />
+      </div>
     </header>
   );
 }

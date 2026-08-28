@@ -1,68 +1,71 @@
 import Link from "next/link";
-import Image from "next/image";
-import { ArrowRight, ArrowUpRight, CheckCircle, DownloadSimple, FunnelSimple, Lightning, Target } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, ArrowUpRight, Check, DownloadSimple, FunnelSimple, PencilSimpleLine } from "@phosphor-icons/react/dist/ssr";
 import { BANKS } from "@/lib/banks";
+
+const COURSE_GROUPS = [
+  {
+    name: "Cambridge IGCSE",
+    detail: "0580 and 0606",
+    banks: BANKS.filter((bank) => bank.qualification === "Cambridge IGCSE"),
+  },
+  {
+    name: "IB Analysis and Approaches",
+    detail: "Higher and Standard Level",
+    banks: BANKS.filter((bank) => bank.subject.includes("AA")),
+  },
+  {
+    name: "IB Applications and Interpretation",
+    detail: "Higher and Standard Level",
+    banks: BANKS.filter((bank) => bank.subject.includes("AI")),
+  },
+] as const;
 
 export function MarketingHome() {
   const totalQuestions = BANKS.reduce((total, bank) => total + bank.questionCount, 0);
   const totalPapers = BANKS.reduce((total, bank) => total + bank.paperCount, 0);
-  const bankGroups = [
-    { name: "Cambridge IGCSE", description: "Core and Additional Mathematics", banks: BANKS.filter((bank) => bank.qualification === "Cambridge IGCSE") },
-    { name: "IB Mathematics", description: "Analysis and Approaches, Applications and Interpretation", banks: BANKS.filter((bank) => bank.qualification === "International Baccalaureate") },
-  ];
 
   return (
     <>
-      <section className="hero shell">
-        <div className="hero-copy">
-          <p className="kicker"><Lightning weight="fill" /> Built for exam-season focus</p>
-          <h1>Find questions.<span>Start practising.</span></h1>
-          <p className="hero-lede">Filter {totalQuestions.toLocaleString()} real IGCSE and IB Mathematics questions by topic, paper, year, and marks. Start free.</p>
+      <section className="exam-hero shell">
+        <div className="exam-hero-copy">
+          <p className="hero-context">IGCSE + IB Mathematics</p>
+          <h1>Practise the questions that move your grade.</h1>
+          <p className="exam-hero-lede">Filter exact past-paper questions, practise free, and build printable sets. No account needed.</p>
           <div className="hero-actions">
             <Link className="button primary" href="/dashboard">Start practising <ArrowRight weight="bold" /></Link>
-            <Link className="button secondary" href="/pricing">See pricing</Link>
           </div>
+        </div>
 
-        </div>
-        <div className="hero-product-shot">
-          <picture>
-            <source media="(max-width: 640px)" srcSet="/pastpaperprep-workspace-focus.webp" />
-            <Image src="/pastpaperprep-workspace.webp" alt="PastPaperPrep question bank showing topic filters and a searchable exam-question transcript" width={1280} height={650} fetchPriority="high" loading="eager" />
-          </picture>
-        </div>
+        <aside className="exam-index-visual" aria-label="PastPaperPrep question bank coverage">
+          <header><span>Question bank</span><strong>IGCSE + IB</strong></header>
+          <div className="exam-index-mark" aria-hidden="true">x²</div>
+          <div className="exam-index-codes" aria-label="Available mathematics courses">
+            <span><strong>0580</strong><small>Mathematics</small></span>
+            <span><strong>0606</strong><small>Additional</small></span>
+            <span><strong>AA</strong><small>Analysis</small></span>
+            <span><strong>AI</strong><small>Applications</small></span>
+          </div>
+          <footer><span>{totalQuestions.toLocaleString()} questions</span><span>{totalPapers.toLocaleString()} papers</span></footer>
+        </aside>
       </section>
 
-      <section className="proof-strip">
-        <div><strong>{totalQuestions.toLocaleString()}</strong><span>curated questions</span></div>
-        <div><strong>{totalPapers.toLocaleString()}</strong><span>exam papers indexed</span></div>
-        <div><CheckCircle weight="fill" /><span>free questions in every bank</span></div>
-      </section>
-
-      <section className="value-section shell" aria-labelledby="value-heading">
-        <div className="value-intro"><h2 id="value-heading">Revision should feel like doing maths.</h2><p>Not renaming PDFs, hunting mark schemes, or scrolling through questions you do not need.</p></div>
-        <div className="value-sequence">
-          <article><FunnelSimple /><div><h3>Target the gap</h3><p>Search and filter by the exact topic, year, paper, marks, and calculator rules you need.</p></div></article>
-          <article><Target /><div><h3>Attempt the original</h3><p>Work from the real exam question with its marks and source context intact.</p></div></article>
-          <article><CheckCircle /><div><h3>Check the method</h3><p>Open the answer or official mark scheme where available, then keep moving.</p></div></article>
-          <article><DownloadSimple /><div><h3>Build a worksheet</h3><p>Select questions or export the filtered set into a clean, printable PDF.</p></div></article>
-        </div>
-      </section>
-
-      <section className="banks-section shell" id="question-banks">
-        <div className="section-heading">
-          <div><h2>Six banks. One study system.</h2><p>Choose the syllabus you are sitting and get straight to the questions.</p></div>
-        </div>
-        <div className="bank-groups">
-          {bankGroups.map((group) => (
-            <section className={`bank-family bank-family-${group.banks[0].qualification === "Cambridge IGCSE" ? "cambridge" : "ib"}`} key={group.name} aria-labelledby={`bank-family-${group.name.replaceAll(" ", "-").toLowerCase()}`}>
-              <header><div><h3 id={`bank-family-${group.name.replaceAll(" ", "-").toLowerCase()}`}>{group.name}</h3><p>{group.description}</p></div><span>{group.banks.length} {group.banks.length === 1 ? "bank" : "banks"}</span></header>
-              <div className="bank-grid">
+      <section className="course-launcher shell" id="question-banks" aria-labelledby="course-launcher-heading">
+        <header>
+          <h2 id="course-launcher-heading">Choose your course</h2>
+          <p>Every course includes full exam years you can practise for free.</p>
+        </header>
+        <div className="curriculum-index">
+          {COURSE_GROUPS.map((group) => (
+            <section className="curriculum-row" key={group.name} aria-labelledby={`course-${group.name.replaceAll(" ", "-").toLowerCase()}`}>
+              <div className="curriculum-heading">
+                <h3 id={`course-${group.name.replaceAll(" ", "-").toLowerCase()}`}>{group.name}</h3>
+                <span>{group.detail}</span>
+              </div>
+              <div className="curriculum-bank-links">
                 {group.banks.map((bank) => (
-                  <Link key={bank.slug} href={`/banks/${bank.slug}`} className={`bank-card ${bank.accent}`}>
-                    <div className="bank-card-top"><span>{bank.subject}</span><ArrowUpRight aria-hidden="true" /></div>
-                    <h4>{bank.shortName}</h4>
-                    <p>{bank.description}</p>
-                    <div className="bank-stats"><strong>{bank.questionCount.toLocaleString()}</strong><span>questions</span><strong>{bank.paperCount}</strong><span>papers</span></div>
+                  <Link href={`/banks/${bank.slug}?free=1`} key={bank.slug}>
+                    <span><strong>{bank.shortName}</strong><small>{bank.questionCount.toLocaleString()} questions</small></span>
+                    <ArrowUpRight aria-hidden="true" weight="bold" />
                   </Link>
                 ))}
               </div>
@@ -71,9 +74,31 @@ export function MarketingHome() {
         </div>
       </section>
 
-      <section className="conversion-band shell">
-        <div><h2>Need the complete question set?</h2><p>Choose one bank, a subject pair, or all six.</p></div>
-        <div className="conversion-band-actions"><Link className="button primary" href="/pricing">Choose a plan <ArrowRight weight="bold" /></Link></div>
+      <section className="corpus-ledger shell" aria-label="Question bank coverage">
+        <div><strong>{totalQuestions.toLocaleString()}</strong><span>curated questions</span></div>
+        <div><strong>{totalPapers.toLocaleString()}</strong><span>exam papers indexed</span></div>
+        <div><strong>6</strong><span>focused question banks</span></div>
+        <p><Check weight="bold" /> Answers, worked solutions, and official markschemes where available</p>
+      </section>
+
+      <section className="study-method shell" aria-labelledby="study-method-heading">
+        <div className="study-method-copy">
+          <h2 id="study-method-heading">Spend your revision time doing maths.</h2>
+          <p>PastPaperPrep removes the file hunting and keeps every step of practice in one focused workspace.</p>
+          <ol>
+            <li><FunnelSimple aria-hidden="true" /><div><strong>Target the gap</strong><span>Filter by topic, year, paper, marks, and calculator rules.</span></div></li>
+            <li><PencilSimpleLine aria-hidden="true" /><div><strong>Attempt the original</strong><span>Work from the real exam question with its source context intact.</span></div></li>
+            <li><DownloadSimple aria-hidden="true" /><div><strong>Build the next set</strong><span>Select useful questions and export a clean printable PDF.</span></div></li>
+          </ol>
+        </div>
+      </section>
+
+      <section className="pricing-invite shell">
+        <div>
+          <h2>Start free. Unlock more when you need it.</h2>
+          <p>Choose one bank, a subject pair, or the complete six-bank library.</p>
+        </div>
+        <Link className="button primary" href="/pricing">Compare plans <ArrowRight weight="bold" /></Link>
       </section>
     </>
   );

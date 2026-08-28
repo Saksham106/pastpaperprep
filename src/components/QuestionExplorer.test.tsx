@@ -1,5 +1,7 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { QuestionExplorer } from "@/components/QuestionExplorer";
 import { PREVIEW_QUESTION_IDS } from "@/lib/access";
 import { prepareQuestionsForDelivery } from "@/lib/question-delivery";
@@ -33,7 +35,7 @@ describe("QuestionExplorer", () => {
     render(<QuestionExplorer questions={questions} access={fullAccess} initialState={{ search: "tangent", sort: "topic", filters: {}, freeOnly: false, savedOnly: false, visible: 24 }} />);
 
     expect(screen.getByLabelText(/search questions/i)).toHaveValue("tangent");
-    expect(screen.getByLabelText(/sort/i)).toHaveValue("topic");
+    expect(screen.getByRole("button", { name: /sort questions: topic/i })).toBeInTheDocument();
     expect(screen.getByText(/3 questions/i)).toBeInTheDocument();
     await waitFor(() => expect(window.location.search).toContain("q=tangent"));
     fireEvent.click(screen.getByRole("button", { name: /copy link to this view/i }));
@@ -41,11 +43,31 @@ describe("QuestionExplorer", () => {
     expect(await screen.findByText(/link copied/i)).toBeInTheDocument();
   });
 
+  it("uses the designed keyboard-accessible sort listbox instead of a native select", () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 8), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const { container } = render(<QuestionExplorer questions={questions} access={fullAccess} initialState={{ search: "", sort: "paper", filters: {}, freeOnly: false, savedOnly: false, visible: 24 }} />);
+
+    expect(container.querySelector(".sort-field select")).toBeNull();
+    const trigger = screen.getByRole("button", { name: /sort questions: newest papers/i });
+    fireEvent.click(trigger);
+    expect(screen.getByRole("listbox", { name: /sort questions/i })).toBeInTheDocument();
+    expect(screen.getAllByRole("option")).toHaveLength(4);
+    fireEvent.click(screen.getByRole("option", { name: /marks: high to low/i }));
+    expect(screen.getByRole("button", { name: /sort questions: marks: high to low/i })).toHaveAttribute("aria-expanded", "false");
+  });
+
+  it("keeps the PDF download icon visible on hover in both themes", () => {
+    const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+    expect(css).toMatch(/\.download-button:hover\s*\{[^}]*color:\s*var\(--accent-contrast\)/);
+    expect(css).toContain("--accent-contrast:");
+  });
+
   it("filters the real bank data and reveals a worked answer", async () => {
     const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 40), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
-    render(<QuestionExplorer questions={questions} access={fullAccess} />);
+    const { container } = render(<QuestionExplorer questions={questions} access={fullAccess} />);
 
     expect(screen.getByText(/40 questions/i)).toBeInTheDocument();
+    expect(container.querySelector(".question-paper")).not.toBeNull();
     fireEvent.change(screen.getByLabelText(/search questions/i), { target: { value: "tangent" } });
     expect(screen.getByText(/3 questions/i)).toBeInTheDocument();
 
@@ -207,14 +229,22 @@ describe("QuestionExplorer", () => {
 
     expect(await screen.findByRole("img", { name: /original question/i })).toBeInTheDocument();
     expect(screen.queryByText(/all-access question/i)).not.toBeInTheDocument();
-    expect(screen.getByText(/1 free question ready/i)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /browse all questions/i })).toBeInTheDocument();
+    expect(screen.getByText(/free exam years are open/i)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /preview full bank/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /view plans/i })).toHaveAttribute("href", "/pricing");
     fireEvent.click(screen.getByRole("checkbox", { name: /free questions only/i }));
     expect(screen.getByText(/paid plan required/i)).toBeInTheDocument();
     expect(screen.queryByText(/all-access question/i)).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
-    expect(screen.getByText(/pdf export is included/i)).toBeInTheDocument();
+    const upgradeDialog = screen.getByRole("dialog", { name: /pdf export needs paid access/i });
+    expect(upgradeDialog).toBeInTheDocument();
+    expect(document.body.style.overflow).toBe("hidden");
+    expect(screen.getByRole("button", { name: /close pdf access message/i })).toHaveFocus();
+    expect(within(upgradeDialog).getByRole("link", { name: /sign in and choose a plan/i })).toHaveAttribute("href", "/login?next=/pricing");
+    fireEvent.keyDown(document, { key: "Escape" });
+    expect(screen.queryByRole("dialog", { name: /pdf export needs paid access/i })).not.toBeInTheDocument();
+    expect(document.body.style.overflow).toBe("");
+    expect(screen.getByRole("button", { name: /download pdf/i })).toHaveFocus();
     await waitFor(() => expect(fetch).toHaveBeenCalled());
   });
 });

@@ -16,14 +16,19 @@ describe("home page corpus summary", () => {
 
     expect(markup).toContain("6,480");
     expect(markup).toContain("544");
-    expect(markup).toContain("Six banks. One study system.");
-    expect(markup).toContain("Find questions.");
-    expect(markup).toContain("Start practising.");
+    expect(markup).toContain("Practise the questions that move your grade.");
+    expect(markup).toContain("Choose your course");
+    expect(markup).toContain("Start practising");
     expect(markup).toContain("IGCSE Additional Math 0606");
     expect(markup).toContain("Cambridge IGCSE");
     expect(markup).toContain("IB Mathematics");
-    expect(markup).toContain("pastpaperprep-workspace.webp");
-    expect(markup).not.toContain("hero-preview");
+    expect(markup).not.toContain("pastpaperprep-workspace.webp");
+    expect(markup).toContain("class=\"exam-index-visual");
+    expect(markup).toContain("class=\"course-launcher");
+    expect(markup).toContain("class=\"corpus-ledger");
+    expect(markup).toContain("class=\"study-method");
+    expect(markup).not.toContain("class=\"proof-strip");
+    expect(markup).not.toContain("class=\"value-sequence");
     expect(markup).not.toContain("—");
     expect(markup).not.toContain("–");
   });
