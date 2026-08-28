@@ -11,10 +11,10 @@ type BankGroup = {
 const CARD_NAMES: Record<BankSlug, string> = {
   igcse: "Mathematics 0580",
   "igcse-additional": "Additional Mathematics 0606",
-  "ib-hl": "Higher Level",
-  "ib-sl": "Standard Level",
-  "ib-ai-hl": "Higher Level",
-  "ib-ai-sl": "Standard Level",
+  "ib-hl": "Maths AA HL",
+  "ib-sl": "Maths AA SL",
+  "ib-ai-hl": "Maths AI HL",
+  "ib-ai-sl": "Maths AI SL",
 };
 
 export function DashboardContent({ authenticated, accessibleBanks }: { authenticated: boolean; accessibleBanks: BankSlug[] }) {

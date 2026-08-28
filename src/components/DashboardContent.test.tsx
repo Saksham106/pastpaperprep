@@ -44,4 +44,13 @@ describe("DashboardContent", () => {
     expect(card).not.toHaveTextContent(/build confidence across core and extended/i);
     expect(card).not.toHaveTextContent(/mathematics 0580.*igcse 0580/i);
   });
+
+  it("keeps every IB card independently identifiable", () => {
+    render(<DashboardContent authenticated={false} accessibleBanks={[]} />);
+
+    expect(screen.getByRole("heading", { name: "Maths AA HL" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Maths AA SL" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Maths AI HL" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Maths AI SL" })).toBeInTheDocument();
+  });
 });
