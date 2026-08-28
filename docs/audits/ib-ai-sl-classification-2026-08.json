@@ -1,5 +1,5 @@
 {
-  "manifestVersion": "ib-ai-sl-classification-2026.08.3",
+  "manifestVersion": "ib-ai-sl-classification-2026.08.4",
   "bank": "ib-ai-sl",
   "reviewedQuestionCount": 334,
   "corrections": {
@@ -24,12 +24,12 @@
     "2025-may-tz1-p1-q3": {
       "primaryTopic": "Number and algebra",
       "subtopics": [
-        "Algebraic manipulation",
         "Solving equations with a GDC"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Algebraic manipulation, Solving equations with a GDC.",
-      "sourceTextSha256": "85fd2f7d612e44287ae6957751bfe3869475aad6229d6b6bb6dd27b86b3902ad"
+      "reason": "Part (a) only translates the three linear constraints; the assessed solving method in part (b) is the GDC simultaneous-equation solve, so Algebraic manipulation is not materially assessed.",
+      "sourceTextSha256": "85fd2f7d612e44287ae6957751bfe3869475aad6229d6b6bb6dd27b86b3902ad",
+      "secondaryTopics": []
     },
     "2025-may-tz1-p1-q4": {
       "primaryTopic": "Functions",
@@ -43,12 +43,12 @@
     "2025-may-tz1-p1-q5": {
       "primaryTopic": "Functions",
       "subtopics": [
-        "Modelling with quadratic and cubic functions",
-        "Properties of functions and graphs"
+        "Modelling with quadratic and cubic functions"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The model is explicitly a quadratic dolphin-height function with axis, intercept, and context interpretation.",
-      "sourceTextSha256": "c5ceac1a64844af2b3abcb8edf8d50f25260dc7fa6ecb104775e493f7cd24fec"
+      "reason": "The assessed work is entirely quadratic modelling: axis symmetry, parameter determination, intercept, and contextual interpretation; graph properties are not a separate assessed method.",
+      "sourceTextSha256": "c5ceac1a64844af2b3abcb8edf8d50f25260dc7fa6ecb104775e493f7cd24fec",
+      "secondaryTopics": []
     },
     "2025-may-tz1-p1-q6": {
       "primaryTopic": "Geometry and trigonometry",
@@ -62,30 +62,33 @@
     "2025-may-tz1-p1-q7": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
-        "Binomial distribution",
-        "Probability and types of events"
+        "Binomial distribution"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Binomial distribution, Probability and types of events.",
-      "sourceTextSha256": "a24bb81440c86b9148d284b3c75c436892a28b6151d892c31ec435774f3c7ad7"
+      "reason": "The question explicitly establishes binomial conditions and uses a binomial model for exactly 3 and at least 4 successes; the generic events label adds no distinct assessed method.",
+      "sourceTextSha256": "a24bb81440c86b9148d284b3c75c436892a28b6151d892c31ec435774f3c7ad7",
+      "secondaryTopics": []
     },
     "2025-may-tz1-p1-q8": {
       "primaryTopic": "Calculus",
       "subtopics": [
+        "Introduction to differentiation",
         "Applications of differentiation"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The question uses a derivative/gradient and proves the function is increasing at a point.",
-      "sourceTextSha256": "b3a59695ec23c7ca88695cac62c3a4eb4392d22bdf2c10abade1b46d4b203842"
+      "reason": "Power-rule differentiation and evaluating the derivative dominate the work, while interpreting a positive derivative as increasing is a distinct smaller application.",
+      "sourceTextSha256": "b3a59695ec23c7ca88695cac62c3a4eb4392d22bdf2c10abade1b46d4b203842",
+      "secondaryTopics": []
     },
     "2025-may-tz1-p1-q9": {
-      "primaryTopic": "Functions",
+      "primaryTopic": "Calculus",
       "subtopics": [
-        "Properties of functions and graphs"
+        "Applications of integration"
       ],
-      "confidence": "high",
-      "reason": "The exact text centers on the selected controlled subtopic; unrelated cross-topic cues were not retained.",
-      "sourceTextSha256": "4926c830a6224418c0b3890d6e1f64afa28492f4e305983e411da7736c03836b"
+      "confidence": "medium",
+      "reason": "Part (b) explicitly assesses using a definite integral to obtain an enclosed area; the polynomial root in part (a) is setup for the interval, so applications of integration is the best primary classification.",
+      "sourceTextSha256": "4926c830a6224418c0b3890d6e1f64afa28492f4e305983e411da7736c03836b",
+      "secondaryTopics": []
     },
     "2025-may-tz1-p1-q10": {
       "primaryTopic": "Functions",
@@ -110,21 +113,25 @@
       "primaryTopic": "Calculus",
       "subtopics": [
         "Applications of differentiation",
-        "Modelling with differentiation"
+        "Introduction to integration",
+        "Volume and surface area of 3D shapes"
       ],
       "confidence": "medium",
-      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Applications of differentiation, Modelling with differentiation.",
-      "sourceTextSha256": "84fbc25c17c15982ee6b115bd666e0bf400e847f7a7bbac896a7d0d447bde6ad"
+      "reason": "The derivative zero is used for the maximum and integration recovers volume, matching the proposed Calculus skills. Part (c) also materially applies the cuboid volume relation to obtain the height and M, so that distinct geometry skill is retained as secondary.",
+      "sourceTextSha256": "84fbc25c17c15982ee6b115bd666e0bf400e847f7a7bbac896a7d0d447bde6ad",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ]
     },
     "2025-may-tz1-p1-q13": {
       "primaryTopic": "Geometry and trigonometry",
       "subtopics": [
-        "Non right-angled trigonometry",
-        "Right-angled trigonometry"
+        "Non right-angled trigonometry"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Non right-angled trigonometry, Right-angled trigonometry.",
-      "sourceTextSha256": "4842e368dc29bf555c15579ee5c83f1cd1dcae3f2472d83691a5a5474b9fc0e1"
+      "reason": "The markscheme requires cosine/sine-rule work and bearings in an oblique triangle; no right-angled trigonometric method is materially assessed.",
+      "sourceTextSha256": "4842e368dc29bf555c15579ee5c83f1cd1dcae3f2472d83691a5a5474b9fc0e1",
+      "secondaryTopics": []
     },
     "2025-may-tz2-p1-q1": {
       "primaryTopic": "Number and algebra",
@@ -138,13 +145,13 @@
     "2025-may-tz2-p1-q2": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
-        "Discrete probability distributions",
         "Conditional probability",
-        "Probability and types of events"
+        "Discrete probability distributions"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Discrete probability distributions, Conditional probability, Probability and types of events.",
-      "sourceTextSha256": "60f58d30ae068a008e03dc39a2f4256b76b20d70be504203bbefec2fb5862a64"
+      "reason": "The distribution table, expectation, and conditional calculation given an odd difference are directly assessed; the markscheme does not require a separate generic events topic.",
+      "sourceTextSha256": "60f58d30ae068a008e03dc39a2f4256b76b20d70be504203bbefec2fb5862a64",
+      "secondaryTopics": []
     },
     "2025-may-tz2-p1-q3": {
       "primaryTopic": "Number and algebra",
@@ -259,11 +266,13 @@
     "2025-may-tz3-p1-q4": {
       "primaryTopic": "Functions",
       "subtopics": [
-        "Properties of functions and graphs"
+        "Properties of functions and graphs",
+        "Linear functions and graphs"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Properties of functions and graphs.",
-      "sourceTextSha256": "7cb2edd21bdd1d708ba240531f284cedfc703ef295626604c53d6b15bf7e7417"
+      "reason": "The question reads extrema and a decreasing interval from a cubic graph, then explicitly assesses the gradient and equation of a straight tangent.",
+      "sourceTextSha256": "7cb2edd21bdd1d708ba240531f284cedfc703ef295626604c53d6b15bf7e7417",
+      "secondaryTopics": []
     },
     "2025-may-tz3-p1-q5": {
       "primaryTopic": "Geometry and trigonometry",
@@ -297,21 +306,23 @@
     "2025-may-tz3-p1-q8": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
-        "Chi-squared tests",
-        "Sampling and data collection"
+        "Chi-squared tests"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Chi-squared tests, Sampling and data collection.",
-      "sourceTextSha256": "6a6aa656e163cc7b03917ce5db7e9d9b3f0c24a7623302092b308e1d76f60927"
+      "reason": "Every scored step concerns a chi-squared test of independence: hypotheses, degrees of freedom, test statistic, decision, and contextual conclusion. Random sampling is context rather than a separately assessed method.",
+      "sourceTextSha256": "6a6aa656e163cc7b03917ce5db7e9d9b3f0c24a7623302092b308e1d76f60927",
+      "secondaryTopics": []
     },
     "2025-may-tz3-p1-q9": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Modelling with differentiation"
+        "Applications of integration",
+        "Introduction to integration"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The rate of change dP/dx is integrated to obtain profit and compare profits.",
-      "sourceTextSha256": "c1978809ad66559cc8b167d6a3a9c5a0852cd506dff72ebbe6b27911c5e2a1fc"
+      "reason": "Both parts assess integration of a rate of change: recovering the profit function and using a definite integral for the increase in profit.",
+      "sourceTextSha256": "c1978809ad66559cc8b167d6a3a9c5a0852cd506dff72ebbe6b27911c5e2a1fc",
+      "secondaryTopics": []
     },
     "2025-may-tz3-p1-q10": {
       "primaryTopic": "Statistics and probability",
@@ -345,11 +356,14 @@
     "2025-may-tz1-p2-q1": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
+        "Conditional probability",
+        "Probability and types of events",
         "Statistical measures and frequency tables"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The data are a frequency table and the task solves for its mean; no function-model topic is used.",
-      "sourceTextSha256": "d9e934af646b20764af6650a758a3b906916e37c155d65d38537afcff539b51c"
+      "reason": "The question assesses frequency-table statistics, event complements, without-replacement conditional probability, and sequential probability.",
+      "sourceTextSha256": "d9e934af646b20764af6650a758a3b906916e37c155d65d38537afcff539b51c",
+      "secondaryTopics": []
     },
     "2025-may-tz1-p2-q2": {
       "primaryTopic": "Number and algebra",
@@ -373,12 +387,12 @@
       "primaryTopic": "Geometry and trigonometry",
       "subtopics": [
         "Coordinate geometry",
-        "Right-angled trigonometry",
         "Volume and surface area of 3D shapes"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Coordinate geometry, Right-angled trigonometry, Volume and surface area of 3D shapes.",
-      "sourceTextSha256": "659e1073eaea62560cb7db683aefd4b153e28ac68419e34cab4239803e226813"
+      "reason": "Coordinates, 3D distance/right-angle justification, prism volume, scaling, and cost dominate. The right-angle proof is handled by coordinates/Pythagoras or axes, not a distinct trigonometric method.",
+      "sourceTextSha256": "659e1073eaea62560cb7db683aefd4b153e28ac68419e34cab4239803e226813",
+      "secondaryTopics": []
     },
     "2025-may-tz1-p2-q5": {
       "primaryTopic": "Geometry and trigonometry",
@@ -402,41 +416,48 @@
     "2025-may-tz2-p2-q2": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Applications of differentiation",
-        "Applications of integration"
+        "Applications of integration",
+        "Introduction to differentiation"
       ],
-      "confidence": "medium",
-      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Applications of differentiation, Applications of integration.",
-      "sourceTextSha256": "7a933a0a0be9d37b4bc8c0a70d93cc7ad8b167f3082a4100e81767a4ac02adc4"
+      "confidence": "high",
+      "reason": "Area calculations by definite integration account for the largest component, and the parallel-tangent part materially assesses derivative functions and gradients.",
+      "sourceTextSha256": "7a933a0a0be9d37b4bc8c0a70d93cc7ad8b167f3082a4100e81767a4ac02adc4",
+      "secondaryTopics": []
     },
     "2025-may-tz2-p2-q3": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
-        "Normal distribution",
         "Binomial distribution",
-        "Probability and types of events"
+        "Normal distribution"
       ],
-      "confidence": "medium",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Normal distribution, Binomial distribution, Probability and types of events.",
-      "sourceTextSha256": "4876d60ae621a080da8aa0e5c725815f05217d77e3c3ae6aff9452cd2c3b1a39"
+      "confidence": "high",
+      "reason": "The train-time parts use a normal model and the repeated-day parts use a binomial model, including a consecutive-success calculation; probability/types of events is not a distinct materially assessed topic.",
+      "sourceTextSha256": "4876d60ae621a080da8aa0e5c725815f05217d77e3c3ae6aff9452cd2c3b1a39",
+      "secondaryTopics": []
     },
     "2025-may-tz2-p2-q4": {
-      "primaryTopic": "Geometry and trigonometry",
+      "primaryTopic": "Functions",
       "subtopics": [
-        "Arcs and sectors"
+        "Sinusoidal models",
+        "Right-angled trigonometry"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The clock problem asks for hand-angle/distance plus arc/sector quantities, not a function model.",
-      "sourceTextSha256": "fc254b94910d7702846efd63e4a65e095a4e83a928eb7ce86b3bbb3635fbcc40"
+      "reason": "The 13-mark modeling sequence is dominated by sinusoidal functions. Part (a) separately assesses the right-triangle/Pythagorean distance between hand tips, which is a materially assessed secondary method.",
+      "sourceTextSha256": "fc254b94910d7702846efd63e4a65e095a4e83a928eb7ce86b3bbb3635fbcc40",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ]
     },
     "2025-may-tz2-p2-q5": {
-      "primaryTopic": "Geometry and trigonometry",
+      "primaryTopic": "Calculus",
       "subtopics": [
-        "Volume and surface area of 3D shapes"
+        "Applications of differentiation",
+        "Modelling with differentiation"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The explicit mathematical content is cylinder/hemisphere surface area and volume.",
-      "sourceTextSha256": "684050ce81e287241074436a78608f61be4e9e7395d1fc0c4a6e9add4e42258c"
+      "reason": "After deriving the geometric expressions, the central objective is minimizing surface area via a derivative and interpreting the resulting model.",
+      "sourceTextSha256": "684050ce81e287241074436a78608f61be4e9e7395d1fc0c4a6e9add4e42258c",
+      "secondaryTopics": []
     },
     "2025-may-tz3-p2-q1": {
       "primaryTopic": "Number and algebra",
@@ -451,13 +472,13 @@
     "2025-may-tz3-p2-q2": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
-        "Normal distribution",
         "Binomial distribution",
-        "Probability and types of events"
+        "Normal distribution"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Normal distribution, Binomial distribution, Probability and types of events.",
-      "sourceTextSha256": "8484854e39b80ae668dc15d22a3c33509ae5aed17f4490d7ffe148aabdfe735e"
+      "reason": "Parts (a)-(c) use a normal model and parts (d)-(f) use binomial probabilities, including independence; probability/types of events is only generic framing.",
+      "sourceTextSha256": "8484854e39b80ae668dc15d22a3c33509ae5aed17f4490d7ffe148aabdfe735e",
+      "secondaryTopics": []
     },
     "2025-may-tz3-p2-q3": {
       "primaryTopic": "Calculus",
@@ -481,11 +502,15 @@
     "2025-may-tz3-p2-q5": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Trapezoidal rule"
+        "Trapezoidal rule",
+        "Modelling with quadratic and cubic functions"
       ],
-      "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The first task explicitly uses the trapezoidal rule for cross-sectional area.",
-      "sourceTextSha256": "ec9d3995ab7a9f317351f77b25614cfc5fa3b753606e59367277af967d348c2b"
+      "confidence": "medium",
+      "reason": "The opening river-volume calculation is driven by the trapezoidal-rule method, while the supplied quadratic bridge model is a distinct, materially assessed method in parts (d) and (e).",
+      "sourceTextSha256": "ec9d3995ab7a9f317351f77b25614cfc5fa3b753606e59367277af967d348c2b",
+      "secondaryTopics": [
+        "Functions"
+      ]
     },
     "2025-november-tz1-p1-q1": {
       "primaryTopic": "Number and algebra",
@@ -497,13 +522,14 @@
       "sourceTextSha256": "36ec52dbbcb9735150ceea7114ab25d2914278de193c301226dc641f0ba20705"
     },
     "2025-november-tz1-p1-q2": {
-      "primaryTopic": "Geometry and trigonometry",
+      "primaryTopic": "Number and algebra",
       "subtopics": [
-        "Volume and surface area of 3D shapes"
+        "Rounding, estimation and percentage error"
       ],
-      "confidence": "medium",
-      "reason": "The exact text centers on the selected controlled subtopic; unrelated cross-topic cues were not retained.",
-      "sourceTextSha256": "5d89fe202cfd4770b678ce62c2c064fed124ffb5960aec19fac2976b69b9e022"
+      "confidence": "high",
+      "reason": "The assessed focus is measurement bounds and percentage error from a rounded diameter. Sphere volume is a short application within that uncertainty context, not the dominant topic.",
+      "sourceTextSha256": "5d89fe202cfd4770b678ce62c2c064fed124ffb5960aec19fac2976b69b9e022",
+      "secondaryTopics": []
     },
     "2025-november-tz1-p1-q3": {
       "primaryTopic": "Functions",
@@ -554,11 +580,13 @@
     "2025-november-tz1-p1-q8": {
       "primaryTopic": "Functions",
       "subtopics": [
-        "Modelling with exponential functions"
+        "Modelling with exponential functions",
+        "Properties of functions and graphs"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The phone value is explicitly an exponential decay model V(t)=2000+30000e^(-kt).",
-      "sourceTextSha256": "cfc68493c43fd04252c1f0bc546ded0ce3bcbc41425d7c1d27b49ae46adfe9c5"
+      "reason": "The value and parameter calculations use the exponential model, while part (c) explicitly assesses the horizontal-asymptote property and contextual interpretation.",
+      "sourceTextSha256": "cfc68493c43fd04252c1f0bc546ded0ce3bcbc41425d7c1d27b49ae46adfe9c5",
+      "secondaryTopics": []
     },
     "2025-november-tz1-p1-q9": {
       "primaryTopic": "Statistics and probability",
@@ -573,11 +601,13 @@
     "2025-november-tz1-p1-q10": {
       "primaryTopic": "Functions",
       "subtopics": [
-        "Direct and inverse variation"
+        "Direct and inverse variation",
+        "Properties of functions and graphs"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The volume is stated to vary inversely with time; later parts use the same inverse model.",
-      "sourceTextSha256": "47d085115de972e04498c0b7d9dd95b229d527b81f4bdef401165edb426bf3ea"
+      "reason": "Inverse variation is derived and used, while the pond-volume graph and relation require properties and interpretation of functions.",
+      "sourceTextSha256": "47d085115de972e04498c0b7d9dd95b229d527b81f4bdef401165edb426bf3ea",
+      "secondaryTopics": []
     },
     "2025-november-tz1-p1-q11": {
       "primaryTopic": "Calculus",
@@ -665,31 +695,32 @@
     "2025-november-tz3-p1-q8": {
       "primaryTopic": "Functions",
       "subtopics": [
-        "Modelling with quadratic and cubic functions",
-        "Properties of functions and graphs"
+        "Modelling with quadratic and cubic functions"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The water path is explicitly modeled by a quadratic function and asks for its roots/vertex parameters.",
-      "sourceTextSha256": "49cc9b625e289769d0c19271e8746c93010713dab4ad82f4fbc3af101781778a"
+      "reason": "All marks concern fitting a quadratic from intercept/vertex measurements and determining its coefficients, which is quadratic modelling rather than a separate graph-properties assessment.",
+      "sourceTextSha256": "49cc9b625e289769d0c19271e8746c93010713dab4ad82f4fbc3af101781778a",
+      "secondaryTopics": []
     },
     "2025-november-tz3-p1-q9": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Applications of differentiation"
+        "Introduction to differentiation"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The question explicitly asks for f(1), f′(x), and a tangent line.",
-      "sourceTextSha256": "fe2dee1f684859949873812a4101861b9b3e93ac756bc0eb3fcd29ae9e10d30f"
+      "reason": "The assessed calculus is direct power-rule differentiation, evaluation of a gradient, and formation of a tangent line; no optimization or rate model is required.",
+      "sourceTextSha256": "fe2dee1f684859949873812a4101861b9b3e93ac756bc0eb3fcd29ae9e10d30f",
+      "secondaryTopics": []
     },
     "2025-november-tz3-p1-q10": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
-        "Binomial distribution",
-        "Discrete probability distributions"
+        "Binomial distribution"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Binomial distribution, Discrete probability distributions.",
-      "sourceTextSha256": "3a423611ffb72364bf133d2e0ee237e14accbbe52c70590d43ee3fdb8d2e6832"
+      "reason": "The random-answer model is binomial with n=15 and p=0.2; expected value, an exact count, and a tail probability are all assessed through that model. Discrete distributions adds no distinct method here.",
+      "sourceTextSha256": "3a423611ffb72364bf133d2e0ee237e14accbbe52c70590d43ee3fdb8d2e6832",
+      "secondaryTopics": []
     },
     "2025-november-tz3-p1-q11": {
       "primaryTopic": "Geometry and trigonometry",
@@ -723,21 +754,25 @@
     "2025-november-tz1-p2-q1": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
-        "Statistical measures and frequency tables",
-        "Outliers and data interpretation"
+        "Chi-squared tests",
+        "Outliers and data interpretation",
+        "Statistical measures and frequency tables"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The task is box-plot quartiles/IQR and outlier identification.",
-      "sourceTextSha256": "8751fe7bd297e420fb6d70e3868852da42e738580d66aad16469acb9c7093164"
+      "reason": "The question materially assesses a chi-squared goodness-of-fit test in addition to the box plot, outlier threshold, and grouped-data mean.",
+      "sourceTextSha256": "8751fe7bd297e420fb6d70e3868852da42e738580d66aad16469acb9c7093164",
+      "secondaryTopics": []
     },
     "2025-november-tz1-p2-q2": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Modelling with differentiation"
+        "Applications of differentiation",
+        "Introduction to integration"
       ],
       "confidence": "high",
-      "reason": "Owner-safe adjudication from exact accessibleText: the dominant 11-mark component gives dh/dt, finds a maximum, and recovers h; the smaller exponential comparison is not assigned across owners.",
-      "sourceTextSha256": "a8c7c23e5ba8cc31b88959e7c0ed21b0628b9b767e4be8507b00abf07f5e1001"
+      "reason": "Differentiation of the given rate locates when the plant reaches maximum height, and integration reconstructs height; both methods are explicitly marked.",
+      "sourceTextSha256": "a8c7c23e5ba8cc31b88959e7c0ed21b0628b9b767e4be8507b00abf07f5e1001",
+      "secondaryTopics": []
     },
     "2025-november-tz1-p2-q3": {
       "primaryTopic": "Statistics and probability",
@@ -750,13 +785,19 @@
       "sourceTextSha256": "2c736147ef46fc91df26cbc635544615f56eb57140b47f8d3b63232238b3ff1d"
     },
     "2025-november-tz1-p2-q4": {
-      "primaryTopic": "Calculus",
+      "primaryTopic": "Functions",
       "subtopics": [
-        "Applications of differentiation"
+        "Modelling with quadratic and cubic functions",
+        "Applications of differentiation",
+        "Correlation and regression"
       ],
-      "confidence": "medium",
-      "reason": "The exact text centers on the selected controlled subtopic; unrelated cross-topic cues were not retained.",
-      "sourceTextSha256": "9ef6beaea04ff17590f763be902c0246c4e0da8a18c7ab64f6ce2f03c9324ae9"
+      "confidence": "high",
+      "reason": "Quadratic bridge modelling is the dominant thread, but the markscheme separately assesses differentiation/steepest gradient and Pearson correlation, regression interpretation, and model comparison. The recommendation omits both materially assessed cross-topic components.",
+      "sourceTextSha256": "9ef6beaea04ff17590f763be902c0246c4e0da8a18c7ab64f6ce2f03c9324ae9",
+      "secondaryTopics": [
+        "Calculus",
+        "Statistics and probability"
+      ]
     },
     "2025-november-tz1-p2-q5": {
       "primaryTopic": "Functions",
@@ -780,21 +821,27 @@
     "2025-november-tz3-p2-q2": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
-        "Correlation and regression"
+        "Correlation and regression",
+        "The t-test",
+        "Volume and surface area of 3D shapes"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The only method requested is Spearman rank correlation and its interpretation.",
-      "sourceTextSha256": "2c9e316c5aa3dc8d287ac742561c98a444f6d16e38da7ab75eec1b482cdd09bc"
+      "reason": "Correlation and the two-sample t-test are the dominant statistical methods, but the letter-N front-area and volume calculations constitute a distinct, materially assessed 3D-geometry component that must be retained as secondary.",
+      "sourceTextSha256": "2c9e316c5aa3dc8d287ac742561c98a444f6d16e38da7ab75eec1b482cdd09bc",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ]
     },
     "2025-november-tz3-p2-q3": {
       "primaryTopic": "Geometry and trigonometry",
       "subtopics": [
-        "Non right-angled trigonometry",
-        "Right-angled trigonometry"
+        "Coordinate geometry",
+        "Non right-angled trigonometry"
       ],
       "confidence": "medium",
-      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Non right-angled trigonometry, Right-angled trigonometry.",
-      "sourceTextSha256": "a16404b429b9ca77f2d2e3c4e3c1da4d81e84e1aec021d30fa7f6bc3252aed3b"
+      "reason": "The farm area requires cosine rule and the triangle-area formula, while the barn-to-farmhouse distance requires coordinate/Pythagorean distance; the later loan work is contextual finance rather than a proposed topic change.",
+      "sourceTextSha256": "a16404b429b9ca77f2d2e3c4e3c1da4d81e84e1aec021d30fa7f6bc3252aed3b",
+      "secondaryTopics": []
     },
     "2025-november-tz3-p2-q4": {
       "primaryTopic": "Functions",
@@ -809,20 +856,27 @@
       "primaryTopic": "Calculus",
       "subtopics": [
         "Applications of differentiation",
-        "Applications of integration"
+        "Applications of integration",
+        "Introduction to integration",
+        "Trapezoidal rule"
       ],
-      "confidence": "medium",
-      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Applications of differentiation, Applications of integration.",
-      "sourceTextSha256": "b82c62bac25befecd085d49d24874d1accc39eefa1bf40e2b0718b2e11a85e98"
+      "confidence": "high",
+      "reason": "The proposal correctly adds integration and trapezoidal rule but incorrectly drops the assessed local-maximum differentiation in part (b); all four Calculus skills are materially used.",
+      "sourceTextSha256": "b82c62bac25befecd085d49d24874d1accc39eefa1bf40e2b0718b2e11a85e98",
+      "secondaryTopics": []
     },
     "2024-may-tz1-p1-q1": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
-        "Statistical measures and frequency tables"
+        "Statistical measures and frequency tables",
+        "Rounding, estimation and percentage error"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: Only descriptive statistics of six heights and a rounding bound are required.",
-      "sourceTextSha256": "c53d4686edf55961629572d0b9422e118227b24b060043849c0d98f2dd0558bf"
+      "reason": "Mean, median, mode, and range dominate, while the shortest value measured to the nearest centimetre requires a rounding bound.",
+      "sourceTextSha256": "c53d4686edf55961629572d0b9422e118227b24b060043849c0d98f2dd0558bf",
+      "secondaryTopics": [
+        "Number and algebra"
+      ]
     },
     "2024-may-tz1-p1-q2": {
       "primaryTopic": "Statistics and probability",
@@ -845,11 +899,13 @@
     "2024-may-tz1-p1-q4": {
       "primaryTopic": "Functions",
       "subtopics": [
-        "Modelling with exponential functions"
+        "Modelling with exponential functions",
+        "Properties of functions and graphs"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Modelling with exponential functions.",
-      "sourceTextSha256": "d65f5fb700db48875344fbd359369a4bd5c697d4c474bd2cc5186da7105ede68"
+      "reason": "The question models charging exponentially and explicitly assesses the graph's shape, key point, and horizontal asymptote, so both recommended function skills are evidenced.",
+      "sourceTextSha256": "d65f5fb700db48875344fbd359369a4bd5c697d4c474bd2cc5186da7105ede68",
+      "secondaryTopics": []
     },
     "2024-may-tz1-p1-q5": {
       "primaryTopic": "Number and algebra",
@@ -880,22 +936,28 @@
       "sourceTextSha256": "375be0f3fd1d421924b87255a3eb96b09ded89994c47458ca40bfd8ed5857800"
     },
     "2024-may-tz1-p1-q8": {
-      "primaryTopic": "Statistics and probability",
+      "primaryTopic": "Number and algebra",
       "subtopics": [
+        "Algebraic manipulation",
         "Statistical measures and frequency tables"
       ],
-      "confidence": "high",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Statistical measures and frequency tables.",
-      "sourceTextSha256": "16ec9ecfcca3b8ec1f30e03435d29df0026de0b4dec766be970740944347fc00"
+      "confidence": "medium",
+      "reason": "Rearranging and applying the affine temperature conversion is the primary algebraic method; transforming a mean and standard deviation is a distinct statistical component.",
+      "sourceTextSha256": "16ec9ecfcca3b8ec1f30e03435d29df0026de0b4dec766be970740944347fc00",
+      "secondaryTopics": [
+        "Statistics and probability"
+      ]
     },
     "2024-may-tz1-p1-q9": {
       "primaryTopic": "Calculus",
       "subtopics": [
+        "Introduction to differentiation",
         "Modelling with differentiation"
       ],
       "confidence": "high",
-      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Modelling with differentiation.",
-      "sourceTextSha256": "98b021f87639864e934be532c17f268431c21a9ff61eaf3a5924ee40a7c8a433"
+      "reason": "The markscheme assesses a constant-rate model, power-rule differentiation, and evaluation of the volume rate at t=20. Both introductory differentiation and differentiation modelling are directly marked.",
+      "sourceTextSha256": "98b021f87639864e934be532c17f268431c21a9ff61eaf3a5924ee40a7c8a433",
+      "secondaryTopics": []
     },
     "2024-may-tz1-p1-q10": {
       "primaryTopic": "Functions",
@@ -919,12 +981,12 @@
     "2024-may-tz1-p1-q12": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
-        "Discrete probability distributions",
-        "Probability and types of events"
+        "Discrete probability distributions"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Discrete probability distributions, Probability and types of events.",
-      "sourceTextSha256": "a309904bfb47bd3cd30e1c20f9a4f614f1ac3e2098b700917fa1c61122aa29c1"
+      "reason": "The expected-value calculations and fairness analysis are a discrete probability distribution task; the generic probability/types label adds no distinct assessed method.",
+      "sourceTextSha256": "a309904bfb47bd3cd30e1c20f9a4f614f1ac3e2098b700917fa1c61122aa29c1",
+      "secondaryTopics": []
     },
     "2024-may-tz2-p1-q1": {
       "primaryTopic": "Statistics and probability",
@@ -1012,11 +1074,12 @@
     "2024-may-tz2-p1-q10": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Applications of differentiation"
+        "Introduction to differentiation"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The gradient of a normal is used to recover a and b from a quadratic curve.",
-      "sourceTextSha256": "172c37edb5b5b3f7c4c64476a0459d0e21edfffc6d6315f3442f4bb103393891"
+      "reason": "The markscheme assesses differentiating a quadratic and using the derivative value to form a normal; this is introductory differentiation rather than optimization.",
+      "sourceTextSha256": "172c37edb5b5b3f7c4c64476a0459d0e21edfffc6d6315f3442f4bb103393891",
+      "secondaryTopics": []
     },
     "2024-may-tz2-p1-q11": {
       "primaryTopic": "Geometry and trigonometry",
@@ -1031,11 +1094,13 @@
     "2024-may-tz2-p1-q12": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Applications of differentiation"
+        "Applications of differentiation",
+        "Modelling with differentiation"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The carpet area is differentiated to find the maximizing dimension.",
-      "sourceTextSha256": "6fea7a0c5030448f1e0518311b790b39956e11143a60a4d72640fd11bf2bb9bb"
+      "reason": "The carpet context requires constructing an area model, differentiating it, and using the derivative to establish the maximizing dimension; both calculus skills are materially assessed.",
+      "sourceTextSha256": "6fea7a0c5030448f1e0518311b790b39956e11143a60a4d72640fd11bf2bb9bb",
+      "secondaryTopics": []
     },
     "2024-may-tz1-p2-q1": {
       "primaryTopic": "Statistics and probability",
@@ -1052,20 +1117,25 @@
       "subtopics": [
         "Normal distribution",
         "Binomial distribution",
-        "Probability and types of events"
+        "Algebraic manipulation"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Normal distribution, Binomial distribution, Probability and types of events.",
-      "sourceTextSha256": "1185faf101787d416797c66bbeebb9b42faaee892d7730c5a3a2ea2b82acad40"
+      "reason": "Normal and binomial probability account for the main assessed methods, but the piecewise linear pricing model and its inverse calculation occupy five marks and warrant a secondary algebra tag.",
+      "sourceTextSha256": "1185faf101787d416797c66bbeebb9b42faaee892d7730c5a3a2ea2b82acad40",
+      "secondaryTopics": [
+        "Number and algebra"
+      ]
     },
     "2024-may-tz1-p2-q3": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Applications of differentiation"
+        "Applications of differentiation",
+        "Modelling with differentiation"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The profit model is optimized by differentiating P(x) and solving P′(x)=0.",
-      "sourceTextSha256": "13ba8a3b13447d098617034c31b1158173cf0fde399d628438ab22595d52143d"
+      "reason": "The central assessed method is differentiating a profit model derived from smoothie demand, finding the stationary price, and using it to identify the maximizing sales level; this is both optimization and differentiation modelling.",
+      "sourceTextSha256": "13ba8a3b13447d098617034c31b1158173cf0fde399d628438ab22595d52143d",
+      "secondaryTopics": []
     },
     "2024-may-tz1-p2-q4": {
       "primaryTopic": "Statistics and probability",
@@ -1081,11 +1151,13 @@
       "primaryTopic": "Calculus",
       "subtopics": [
         "Applications of integration",
+        "Introduction to integration",
         "Modelling with differentiation"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The supplied h′(x) is integrated to recover h(x), then an integral gives cross-sectional area.",
-      "sourceTextSha256": "728e6ede54a84874aa5935c80361b5f1c07efbc427fae38acc619b1705f7a0e0"
+      "reason": "The question uses the given derivative to reconstruct the slide and integrates for area, while later coefficient and smoothness conditions assess the differentiation model. These are all within Calculus.",
+      "sourceTextSha256": "728e6ede54a84874aa5935c80361b5f1c07efbc427fae38acc619b1705f7a0e0",
+      "secondaryTopics": []
     },
     "2024-may-tz2-p2-q1": {
       "primaryTopic": "Statistics and probability",
@@ -1110,12 +1182,14 @@
     "2024-may-tz2-p2-q3": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Trapezoidal rule",
-        "Introduction to integration"
+        "Applications of integration",
+        "Introduction to integration",
+        "Trapezoidal rule"
       ],
       "confidence": "high",
-      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Trapezoidal rule, Introduction to integration.",
-      "sourceTextSha256": "2911d41f01675ba428d35c2d62ec9f10458936f7d27d9f09c73b3f50fbb0c3cc"
+      "reason": "The question combines a trapezoidal estimate with antiderivatives and exact area calculations, followed by percentage error from the areas.",
+      "sourceTextSha256": "2911d41f01675ba428d35c2d62ec9f10458936f7d27d9f09c73b3f50fbb0c3cc",
+      "secondaryTopics": []
     },
     "2024-may-tz2-p2-q4": {
       "primaryTopic": "Statistics and probability",
@@ -1131,12 +1205,13 @@
     "2024-may-tz2-p2-q5": {
       "primaryTopic": "Geometry and trigonometry",
       "subtopics": [
-        "Volume and surface area of 3D shapes",
-        "Non right-angled trigonometry"
+        "Right-angled trigonometry",
+        "Volume and surface area of 3D shapes"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Volume and surface area of 3D shapes, Non right-angled trigonometry.",
-      "sourceTextSha256": "0f86d9b378e217c3cf652dcb830aa2c284be7bba83c867a94938d098dbbd06ad"
+      "reason": "The trigonometric work resolves horizontal/vertical components of a sloping edge in right triangles, while the central construction is prism volume; non-right-angled trigonometry is not used.",
+      "sourceTextSha256": "0f86d9b378e217c3cf652dcb830aa2c284be7bba83c867a94938d098dbbd06ad",
+      "secondaryTopics": []
     },
     "2024-november-tz1-p1-q1": {
       "primaryTopic": "Geometry and trigonometry",
@@ -1178,11 +1253,13 @@
     "2024-november-tz1-p1-q5": {
       "primaryTopic": "Functions",
       "subtopics": [
-        "Modelling with linear and piecewise functions"
+        "Linear functions and graphs",
+        "Properties of functions and graphs"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The bicycle price is an explicitly linear cost function on an integer domain, including its inverse.",
-      "sourceTextSha256": "fe8cf9c09866d2e53c68b055a6517f115eac697716482b8a6c4d0dfb0b25a1cf"
+      "reason": "The question evaluates and interprets a linear cost function, its domain restriction, and an inverse-function value. Linear modelling and basic function properties are the assessed skills.",
+      "sourceTextSha256": "fe8cf9c09866d2e53c68b055a6517f115eac697716482b8a6c4d0dfb0b25a1cf",
+      "secondaryTopics": []
     },
     "2024-november-tz1-p1-q6": {
       "primaryTopic": "Functions",
@@ -1233,31 +1310,32 @@
     "2024-november-tz1-p1-q11": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
-        "Discrete probability distributions",
-        "Probability and types of events"
+        "Discrete probability distributions"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Discrete probability distributions, Probability and types of events.",
-      "sourceTextSha256": "cfd711387377e18c7f5c9c93f3522c240ee37c5dc2593d82141376c0945fc9fd"
+      "reason": "Finding the missing probability, expected losses, and fair-game score all use a discrete probability distribution; no separate event-type method is materially assessed.",
+      "sourceTextSha256": "cfd711387377e18c7f5c9c93f3522c240ee37c5dc2593d82141376c0945fc9fd",
+      "secondaryTopics": []
     },
     "2024-november-tz1-p1-q12": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Applications of differentiation"
+        "Introduction to differentiation"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The question explicitly differentiates a curve and finds its normal.",
-      "sourceTextSha256": "58b1dc7c8b2d70202c3395cde272e04ff34072df604be1a8f15b33865d0d6a29"
+      "reason": "The assessed methods are power-rule differentiation, evaluating a gradient, and constructing a normal line, with no optimization or rate model.",
+      "sourceTextSha256": "58b1dc7c8b2d70202c3395cde272e04ff34072df604be1a8f15b33865d0d6a29",
+      "secondaryTopics": []
     },
     "2024-november-tz1-p1-q13": {
       "primaryTopic": "Number and algebra",
       "subtopics": [
-        "Sequences and series",
-        "Solving equations with a GDC"
+        "Sequences and series"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Sequences and series, Solving equations with a GDC.",
-      "sourceTextSha256": "f8e7b5ebc42cb07838a302a1ba691ef303902e0f6a4be3907a8524aac92fe4f1"
+      "reason": "The markscheme identifies a geometric sequence, its general term, and a geometric sum for total divisions. Finding the index is embedded in that sequence task, with no separately specified GDC technique.",
+      "sourceTextSha256": "f8e7b5ebc42cb07838a302a1ba691ef303902e0f6a4be3907a8524aac92fe4f1",
+      "secondaryTopics": []
     },
     "2024-november-tz2-p1-q1": {
       "primaryTopic": "Geometry and trigonometry",
@@ -1299,11 +1377,13 @@
     "2024-november-tz2-p1-q5": {
       "primaryTopic": "Functions",
       "subtopics": [
-        "Modelling with linear and piecewise functions"
+        "Linear functions and graphs",
+        "Properties of functions and graphs"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: This duplicate bicycle question is a linear cost-function/inverse-function problem.",
-      "sourceTextSha256": "fe8cf9c09866d2e53c68b055a6517f115eac697716482b8a6c4d0dfb0b25a1cf"
+      "reason": "This is the same linear cost/inverse-function task: interpreting slope and intercept, evaluating the function, applying its domain, and decoding C^-1(1270).",
+      "sourceTextSha256": "fe8cf9c09866d2e53c68b055a6517f115eac697716482b8a6c4d0dfb0b25a1cf",
+      "secondaryTopics": []
     },
     "2024-november-tz2-p1-q6": {
       "primaryTopic": "Functions",
@@ -1354,31 +1434,32 @@
     "2024-november-tz2-p1-q11": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
-        "Discrete probability distributions",
-        "Probability and types of events"
+        "Discrete probability distributions"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Discrete probability distributions, Probability and types of events.",
-      "sourceTextSha256": "2008c99eecd16f44b5337055ddcaaf10112ebc4d51dd9aad895c59a67d4cc82a"
+      "reason": "This parallel fair-game question is entirely probability-distribution and expected-value work, so the generic probability/types skill can be removed.",
+      "sourceTextSha256": "2008c99eecd16f44b5337055ddcaaf10112ebc4d51dd9aad895c59a67d4cc82a",
+      "secondaryTopics": []
     },
     "2024-november-tz2-p1-q12": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Applications of differentiation"
+        "Introduction to differentiation"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The question explicitly differentiates a curve and finds its normal.",
-      "sourceTextSha256": "5ddda622cae8fc60b41d2954240fc1f455e52fa63ff78bc3d5b0a624464bdd77"
+      "reason": "The markscheme directly rewards differentiation, gradient evaluation, and the normal equation; introductory differentiation is the appropriate skill.",
+      "sourceTextSha256": "5ddda622cae8fc60b41d2954240fc1f455e52fa63ff78bc3d5b0a624464bdd77",
+      "secondaryTopics": []
     },
     "2024-november-tz2-p1-q13": {
       "primaryTopic": "Number and algebra",
       "subtopics": [
-        "Sequences and series",
-        "Solving equations with a GDC"
+        "Sequences and series"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Sequences and series, Solving equations with a GDC.",
-      "sourceTextSha256": "b9fd52d636b60cdc11303ea8efc8cfa02eab8f3c85e131384df755c810944978"
+      "reason": "This is the same assessed question and markscheme as the TZ1 version: geometric sequence terms and summation are the evidenced methods, not a distinct GDC subtopic.",
+      "sourceTextSha256": "b9fd52d636b60cdc11303ea8efc8cfa02eab8f3c85e131384df755c810944978",
+      "secondaryTopics": []
     },
     "2024-november-tz1-p2-q1": {
       "primaryTopic": "Geometry and trigonometry",
@@ -1413,22 +1494,29 @@
     "2024-november-tz1-p2-q4": {
       "primaryTopic": "Calculus",
       "subtopics": [
+        "Applications of differentiation",
         "Applications of integration",
-        "Trapezoidal rule"
+        "Trapezoidal rule",
+        "Volume and surface area of 3D shapes"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: Both numerical and exact area parts use trapezoidal rule/integration for a curve.",
-      "sourceTextSha256": "1ee2aa07b528db7114176af83ca496e84fad89514aa94f3cb95363090ddae627"
+      "reason": "Trapezoidal estimation, definite integration, and surface-area minimization make calculus dominant; cylinder volume/surface-area modelling and fit checks are a distinct materially assessed 3D-geometry component.",
+      "sourceTextSha256": "1ee2aa07b528db7114176af83ca496e84fad89514aa94f3cb95363090ddae627",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ]
     },
     "2024-november-tz1-p2-q5": {
       "primaryTopic": "Geometry and trigonometry",
       "subtopics": [
-        "Volume and surface area of 3D shapes",
-        "Non right-angled trigonometry"
+        "Non right-angled trigonometry",
+        "Right-angled trigonometry",
+        "Volume and surface area of 3D shapes"
       ],
-      "confidence": "medium",
-      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Volume and surface area of 3D shapes, Non right-angled trigonometry.",
-      "sourceTextSha256": "6093dc34ec7b9ac8d6dd8bf79c35ca6465ab82005e295dc13e7a341a0907811b"
+      "confidence": "high",
+      "reason": "The tent problem materially assesses 3D volume, right-triangle Pythagoras/cosine work for the pole and angle, and sine/cosine rule in the oblique rope triangles. All three geometry/trigonometry skills are justified.",
+      "sourceTextSha256": "6093dc34ec7b9ac8d6dd8bf79c35ca6465ab82005e295dc13e7a341a0907811b",
+      "secondaryTopics": []
     },
     "2024-november-tz2-p2-q1": {
       "primaryTopic": "Geometry and trigonometry",
@@ -1463,22 +1551,29 @@
     "2024-november-tz2-p2-q4": {
       "primaryTopic": "Calculus",
       "subtopics": [
+        "Applications of differentiation",
         "Applications of integration",
-        "Trapezoidal rule"
+        "Trapezoidal rule",
+        "Volume and surface area of 3D shapes"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: Both numerical and exact area parts use trapezoidal rule/integration for a curve.",
-      "sourceTextSha256": "4ba738a1cc15856e0ff97e2a3d82df36dda8cfade75c71473ce8e5d032e3b7f8"
+      "reason": "The proposal correctly adds optimization by differentiation. The cylinder volume/surface-area model and label-fit checks are also a distinct, materially assessed 3D-geometry component, so it is secondary.",
+      "sourceTextSha256": "4ba738a1cc15856e0ff97e2a3d82df36dda8cfade75c71473ce8e5d032e3b7f8",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ]
     },
     "2024-november-tz2-p2-q5": {
       "primaryTopic": "Geometry and trigonometry",
       "subtopics": [
-        "Volume and surface area of 3D shapes",
-        "Non right-angled trigonometry"
+        "Non right-angled trigonometry",
+        "Right-angled trigonometry",
+        "Volume and surface area of 3D shapes"
       ],
-      "confidence": "medium",
-      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Volume and surface area of 3D shapes, Non right-angled trigonometry.",
-      "sourceTextSha256": "356ae517fe9a0eacde9d7562b36d0716a5a74eb25a1c3acd0a57b857ee07eca9"
+      "confidence": "high",
+      "reason": "The problem assesses 3D volume, oblique-triangle sine/cosine rules, and right-triangle Pythagoras/tangent work for the tent and rope.",
+      "sourceTextSha256": "356ae517fe9a0eacde9d7562b36d0716a5a74eb25a1c3acd0a57b857ee07eca9",
+      "secondaryTopics": []
     },
     "2023-may-tz1-p1-q1": {
       "primaryTopic": "Statistics and probability",
@@ -1492,11 +1587,12 @@
     "2023-may-tz1-p1-q2": {
       "primaryTopic": "Geometry and trigonometry",
       "subtopics": [
-        "Right-angled trigonometry"
+        "Non right-angled trigonometry"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Right-angled trigonometry.",
-      "sourceTextSha256": "0ac106ecfd373cf7ec0b7219922cb38a5ca2324500cef742c7d545533200c49e"
+      "reason": "The angle and balloon distance are solved with the sine rule in a non-right triangle; the later angle-of-depression statement is contextual interpretation.",
+      "sourceTextSha256": "0ac106ecfd373cf7ec0b7219922cb38a5ca2324500cef742c7d545533200c49e",
+      "secondaryTopics": []
     },
     "2023-may-tz1-p1-q3": {
       "primaryTopic": "Number and algebra",
@@ -1519,11 +1615,12 @@
     "2023-may-tz1-p1-q5": {
       "primaryTopic": "Functions",
       "subtopics": [
-        "Properties of functions and graphs"
+        "Linear functions and graphs"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Properties of functions and graphs.",
-      "sourceTextSha256": "c15132b1bd9c949a87ea186cae859448ac7c71882aa68ceafc0c06234f77c8b5"
+      "reason": "Every awarded step concerns gradients, equations of straight lines, or checking whether a point lies on a line; no derivative calculation is assessed.",
+      "sourceTextSha256": "c15132b1bd9c949a87ea186cae859448ac7c71882aa68ceafc0c06234f77c8b5",
+      "secondaryTopics": []
     },
     "2023-may-tz1-p1-q6": {
       "primaryTopic": "Functions",
@@ -1535,13 +1632,14 @@
       "sourceTextSha256": "b68681aa3b831af49cd291f4de5533e678648dde22b4215ed747afbbdf4cce6b"
     },
     "2023-may-tz1-p1-q7": {
-      "primaryTopic": "Functions",
+      "primaryTopic": "Calculus",
       "subtopics": [
-        "Modelling with quadratic and cubic functions"
+        "Applications of differentiation"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The central object is a cardboard-box volume function V(x) optimized over its domain.",
-      "sourceTextSha256": "ef40d7bcdd8619113a727c968d90b401d625792299700882e4b77672ac4f8bab"
+      "reason": "Finding the box dimensions that maximize volume, including after the cardboard is reduced, is an optimization task based on the derivative/stationary point rather than merely quadratic or cubic modelling.",
+      "sourceTextSha256": "ef40d7bcdd8619113a727c968d90b401d625792299700882e4b77672ac4f8bab",
+      "secondaryTopics": []
     },
     "2023-may-tz1-p1-q8": {
       "primaryTopic": "Number and algebra",
@@ -1555,30 +1653,37 @@
     "2023-may-tz1-p1-q9": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Trapezoidal rule",
-        "Introduction to integration"
+        "Applications of integration",
+        "Trapezoidal rule"
       ],
       "confidence": "high",
-      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Trapezoidal rule, Introduction to integration.",
-      "sourceTextSha256": "7506d6c045022a0520efcf74f54e272d28b57bf502fb444c29f31e2e1ec73df8"
+      "reason": "The exact area, numerical trapezoidal estimate, and percentage comparison are centered on area integration and the trapezoidal rule; Introduction to integration is not needed as a separate tag.",
+      "sourceTextSha256": "7506d6c045022a0520efcf74f54e272d28b57bf502fb444c29f31e2e1ec73df8",
+      "secondaryTopics": []
     },
     "2023-may-tz1-p1-q10": {
       "primaryTopic": "Functions",
       "subtopics": [
+        "Linear functions and graphs",
         "Modelling with quadratic and cubic functions"
       ],
-      "confidence": "high",
-      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Modelling with quadratic and cubic functions.",
-      "sourceTextSha256": "942c3696b15e83020dd1c7654bc923d17e53fd237f9f6b33f4ee20794fe3e27a"
+      "confidence": "medium",
+      "reason": "The first throw is evaluated with a linear model and the second with a quadratic model, so both model types are directly assessed.",
+      "sourceTextSha256": "942c3696b15e83020dd1c7654bc923d17e53fd237f9f6b33f4ee20794fe3e27a",
+      "secondaryTopics": []
     },
     "2023-may-tz1-p1-q11": {
       "primaryTopic": "Geometry and trigonometry",
       "subtopics": [
-        "Right-angled trigonometry"
+        "Right-angled trigonometry",
+        "Rounding, estimation and percentage error"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Right-angled trigonometry.",
-      "sourceTextSha256": "ea1c9eac6c49fcb4abd9f8a8fe0f1dd2813fcea3f6ec9353580bb4daf17f80fe"
+      "reason": "The geometry uses bounds and right-triangle/Pythagorean trigonometry to establish safety; the stated nearest-tenth accuracy is materially used for upper/lower bounds, so percentage-error/bounds is an appropriate secondary.",
+      "sourceTextSha256": "ea1c9eac6c49fcb4abd9f8a8fe0f1dd2813fcea3f6ec9353580bb4daf17f80fe",
+      "secondaryTopics": [
+        "Number and algebra"
+      ]
     },
     "2023-may-tz1-p1-q12": {
       "primaryTopic": "Statistics and probability",
@@ -1592,11 +1697,12 @@
     "2023-may-tz1-p1-q13": {
       "primaryTopic": "Geometry and trigonometry",
       "subtopics": [
-        "Non right-angled trigonometry"
+        "Right-angled trigonometry"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Non right-angled trigonometry.",
-      "sourceTextSha256": "53aebc6332baec07394081260e84bc2175070e852435b7e78b8bd584a3faa965"
+      "reason": "The markscheme explicitly constructs a right triangle and uses inverse tangent to obtain the return bearing; the bearing context does not require non-right-angled rules.",
+      "sourceTextSha256": "53aebc6332baec07394081260e84bc2175070e852435b7e78b8bd584a3faa965",
+      "secondaryTopics": []
     },
     "2023-may-tz2-p1-q1": {
       "primaryTopic": "Number and algebra",
@@ -1685,11 +1791,13 @@
     "2023-may-tz2-p1-q10": {
       "primaryTopic": "Functions",
       "subtopics": [
-        "Modelling with quadratic and cubic functions"
+        "Modelling with quadratic and cubic functions",
+        "Properties of functions and graphs"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Modelling with quadratic and cubic functions.",
-      "sourceTextSha256": "c18ad60df78468554cf4cddf9b957478373084473a9e8ba0dd716d5cad2d9830"
+      "reason": "The quadratic trajectory is evaluated through its vertex, ground intercept, and intersection with a horizontal level, with contextual restrictions and limitations; quadratic modelling remains primary and graph/function properties are materially used.",
+      "sourceTextSha256": "c18ad60df78468554cf4cddf9b957478373084473a9e8ba0dd716d5cad2d9830",
+      "secondaryTopics": []
     },
     "2023-may-tz2-p1-q11": {
       "primaryTopic": "Functions",
@@ -1703,32 +1811,37 @@
     "2023-may-tz2-p1-q12": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
-        "Discrete probability distributions",
-        "Probability and types of events"
+        "Discrete probability distributions"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Discrete probability distributions, Probability and types of events.",
-      "sourceTextSha256": "16da308ebbfc7100b3dec64a3305523ae14273efe21bb80442be8c1b34552f18"
+      "reason": "The task is normalization of a discrete distribution followed by expected gain and a fairness decision.",
+      "sourceTextSha256": "16da308ebbfc7100b3dec64a3305523ae14273efe21bb80442be8c1b34552f18",
+      "secondaryTopics": []
     },
     "2023-may-tz2-p1-q13": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Applications of differentiation",
         "Applications of integration",
+        "Introduction to integration",
         "Trapezoidal rule"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The question explicitly uses the trapezoidal rule, f′(x), and area integration.",
-      "sourceTextSha256": "514e329e9bdac4069e603320ead434979bc9fab3fb73d33eba45bd1c9da0936c"
+      "reason": "The markscheme uses the trapezoidal rule, integrates the given derivative to recover the function, and integrates for the exact cross-sectional area.",
+      "sourceTextSha256": "514e329e9bdac4069e603320ead434979bc9fab3fb73d33eba45bd1c9da0936c",
+      "secondaryTopics": []
     },
     "2023-may-tz1-p2-q1": {
-      "primaryTopic": "Statistics and probability",
+      "primaryTopic": "Functions",
       "subtopics": [
+        "Linear functions and graphs",
         "Correlation and regression"
       ],
-      "confidence": "high",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Correlation and regression.",
-      "sourceTextSha256": "b15e767bcb1c79ac103644af459616b04a14239e2c77c60b55f859c61046d97f"
+      "confidence": "medium",
+      "reason": "The first model is a straight-line model with gradient, equation, and estimates (8 marks), while regression, r, and regression prediction are a substantial secondary block; the proposed primary/secondary split reflects that balance.",
+      "sourceTextSha256": "b15e767bcb1c79ac103644af459616b04a14239e2c77c60b55f859c61046d97f",
+      "secondaryTopics": [
+        "Statistics and probability"
+      ]
     },
     "2023-may-tz1-p2-q2": {
       "primaryTopic": "Functions",
@@ -1753,11 +1866,13 @@
       "primaryTopic": "Statistics and probability",
       "subtopics": [
         "Binomial distribution",
+        "Conditional probability",
         "Probability and types of events"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Binomial distribution, Probability and types of events.",
-      "sourceTextSha256": "a71be75b33b1289fc904a08eccd440b1811b8d4b93ae8aa86973cfead4de2bac"
+      "reason": "The tree uses conditional branch probabilities, joint-event multiplication, and incorrect-result complements, followed by binomial calculations for Team X.",
+      "sourceTextSha256": "a71be75b33b1289fc904a08eccd440b1811b8d4b93ae8aa86973cfead4de2bac",
+      "secondaryTopics": []
     },
     "2023-may-tz1-p2-q5": {
       "primaryTopic": "Calculus",
@@ -1810,11 +1925,13 @@
     "2023-may-tz2-p2-q5": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Applications of differentiation"
+        "Applications of differentiation",
+        "Modelling with differentiation"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The garden-area function is differentiated and optimized.",
-      "sourceTextSha256": "683290748a41a85c41579c4a0b74244222098568b5a84881fa6ce6a25919841f"
+      "reason": "After constructing the garden-area model, the scored objective is differentiating it, solving for the maximizing dimension, and interpreting the maximum; modelling with differentiation is a distinct assessed component.",
+      "sourceTextSha256": "683290748a41a85c41579c4a0b74244222098568b5a84881fa6ce6a25919841f",
+      "secondaryTopics": []
     },
     "2023-november-tz1-p1-q1": {
       "primaryTopic": "Statistics and probability",
@@ -1826,22 +1943,27 @@
       "sourceTextSha256": "a446d07071c316a34ff6d2e8c556ddcd61b8bcd4cbf332a966e1458f99aa86a5"
     },
     "2023-november-tz1-p1-q2": {
-      "primaryTopic": "Geometry and trigonometry",
+      "primaryTopic": "Number and algebra",
       "subtopics": [
+        "Rounding, estimation and percentage error",
         "Volume and surface area of 3D shapes"
       ],
-      "confidence": "high",
-      "reason": "The exact text centers on the selected controlled subtopic; unrelated cross-topic cues were not retained.",
-      "sourceTextSha256": "4ddac213ee7e24770814c51fbc0f319e73cfa47938ca87e9ae70cc72d6ae19e5"
+      "confidence": "medium",
+      "reason": "Bounds from a rounded conversion determine the minimum volume, making Number and algebra the dominant topic. The right-pyramid volume formula and calculation are a materially assessed secondary geometry method.",
+      "sourceTextSha256": "4ddac213ee7e24770814c51fbc0f319e73cfa47938ca87e9ae70cc72d6ae19e5",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ]
     },
     "2023-november-tz1-p1-q3": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Applications of differentiation"
+        "Introduction to differentiation"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The question explicitly asks for f′(x) and the interval where f is increasing.",
-      "sourceTextSha256": "75015667a0f49ab410a1201cc7a42bc73ab106ff21b1ba8972ddc82222a312d8"
+      "reason": "Most marks are for applying the power rule and determining the derivative's sign interval; this is an introductory derivative exercise.",
+      "sourceTextSha256": "75015667a0f49ab410a1201cc7a42bc73ab106ff21b1ba8972ddc82222a312d8",
+      "secondaryTopics": []
     },
     "2023-november-tz1-p1-q4": {
       "primaryTopic": "Geometry and trigonometry",
@@ -1883,11 +2005,13 @@
     "2023-november-tz1-p1-q8": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Applications of differentiation"
+        "Applications of differentiation",
+        "Introduction to differentiation"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The road model is differentiated to construct a normal bridge and find its length.",
-      "sourceTextSha256": "2597b1bf253192f3eaf4dcf8abe9c4c50546be8a6cc70e67f588e95b6b46afd1"
+      "reason": "The markscheme requires the derivative at a point, reciprocal slope for a normal, and distance to the bridge endpoint; this is differentiation both computationally and in application.",
+      "sourceTextSha256": "2597b1bf253192f3eaf4dcf8abe9c4c50546be8a6cc70e67f588e95b6b46afd1",
+      "secondaryTopics": []
     },
     "2023-november-tz1-p1-q9": {
       "primaryTopic": "Statistics and probability",
@@ -1938,22 +2062,27 @@
       "sourceTextSha256": "1509eb444538dd9c5f8ff58d0f2ccee4783261c6190a3dd102b1c04fdc5447cc"
     },
     "2023-november-tz2-p1-q2": {
-      "primaryTopic": "Geometry and trigonometry",
+      "primaryTopic": "Number and algebra",
       "subtopics": [
+        "Rounding, estimation and percentage error",
         "Volume and surface area of 3D shapes"
       ],
-      "confidence": "high",
-      "reason": "The exact text centers on the selected controlled subtopic; unrelated cross-topic cues were not retained.",
-      "sourceTextSha256": "4ddac213ee7e24770814c51fbc0f319e73cfa47938ca87e9ae70cc72d6ae19e5"
+      "confidence": "medium",
+      "reason": "The lower-bound conversion drives the minimum-possible interpretation, supporting Number and algebra as primary, but the four-mark calculation materially applies the square-pyramid volume formula and needs a geometry secondary.",
+      "sourceTextSha256": "4ddac213ee7e24770814c51fbc0f319e73cfa47938ca87e9ae70cc72d6ae19e5",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ]
     },
     "2023-november-tz2-p1-q3": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Applications of differentiation"
+        "Introduction to differentiation"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The question explicitly asks for g′(x) and the interval where g is increasing.",
-      "sourceTextSha256": "a18ede917fff00878f80aed62408f8cb351c98ee685bc22ec5d912d4c13cfdc1"
+      "reason": "The markscheme directly rewards power-rule differentiation and using the derivative sign to identify the increasing interval. This is introductory differentiation, not a separate applications-of-differentiation task.",
+      "sourceTextSha256": "a18ede917fff00878f80aed62408f8cb351c98ee685bc22ec5d912d4c13cfdc1",
+      "secondaryTopics": []
     },
     "2023-november-tz2-p1-q4": {
       "primaryTopic": "Geometry and trigonometry",
@@ -1995,11 +2124,13 @@
     "2023-november-tz2-p1-q8": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Applications of differentiation"
+        "Applications of differentiation",
+        "Introduction to differentiation"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The road model is differentiated to construct a normal bridge and find its length.",
-      "sourceTextSha256": "ce959500541470762c308cce161d91ac648292599495ec70f55d8ee7c771db66"
+      "reason": "The derivative at a point, normal line, and bridge length all depend on differentiating the road model and applying the result.",
+      "sourceTextSha256": "ce959500541470762c308cce161d91ac648292599495ec70f55d8ee7c771db66",
+      "secondaryTopics": []
     },
     "2023-november-tz2-p1-q9": {
       "primaryTopic": "Statistics and probability",
@@ -2054,22 +2185,26 @@
       "primaryTopic": "Geometry and trigonometry",
       "subtopics": [
         "Arcs and sectors",
+        "Right-angled trigonometry",
         "Volume and surface area of 3D shapes"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Arcs and sectors, Volume and surface area of 3D shapes.",
-      "sourceTextSha256": "f3391ec0a4a053318d56fa3c34751bab410a4860be314e25f75d87432911c425"
+      "reason": "The solution uses right-triangle Pythagoras/tangent, arc and sector formulas, annular-sector area, and extrusion volume.",
+      "sourceTextSha256": "f3391ec0a4a053318d56fa3c34751bab410a4860be314e25f75d87432911c425",
+      "secondaryTopics": []
     },
     "2023-november-tz1-p2-q3": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
-        "Statistical measures and frequency tables",
+        "Chi-squared tests",
         "Normal distribution",
-        "Chi-squared tests"
+        "Outliers and data interpretation",
+        "Statistical measures and frequency tables"
       ],
-      "confidence": "medium",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Statistical measures and frequency tables, Normal distribution, Chi-squared tests.",
-      "sourceTextSha256": "41639b0179b15d0432b454431a5174b49a137c1e364d1a701dfee6777e19a473"
+      "confidence": "high",
+      "reason": "The proposed outlier addition is supported by the IQR/fence work, but removing Normal distribution is not: expected frequencies and the chi-squared test explicitly use N(88, 6.75²) normal probabilities.",
+      "sourceTextSha256": "41639b0179b15d0432b454431a5174b49a137c1e364d1a701dfee6777e19a473",
+      "secondaryTopics": []
     },
     "2023-november-tz1-p2-q4": {
       "primaryTopic": "Number and algebra",
@@ -2104,22 +2239,25 @@
       "primaryTopic": "Geometry and trigonometry",
       "subtopics": [
         "Arcs and sectors",
+        "Right-angled trigonometry",
         "Volume and surface area of 3D shapes"
       ],
-      "confidence": "medium",
-      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Arcs and sectors, Volume and surface area of 3D shapes.",
-      "sourceTextSha256": "5ca07b6cec1262f583a52dc32ea06fd070fa103a3b8945f07b16e7a41fd33df6"
+      "confidence": "high",
+      "reason": "The solution materially uses Pythagoras and tangent, arc and sector formulae, annular-sector area, and extrusion volume, all within geometry and trigonometry.",
+      "sourceTextSha256": "5ca07b6cec1262f583a52dc32ea06fd070fa103a3b8945f07b16e7a41fd33df6",
+      "secondaryTopics": []
     },
     "2023-november-tz2-p2-q3": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
-        "Statistical measures and frequency tables",
-        "Normal distribution",
-        "Chi-squared tests"
+        "Chi-squared tests",
+        "Outliers and data interpretation",
+        "Statistical measures and frequency tables"
       ],
-      "confidence": "medium",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Statistical measures and frequency tables, Normal distribution, Chi-squared tests.",
-      "sourceTextSha256": "45687b61d1c0f1f12f3373bfc21db7914acc4ecad3a970788be25b71225b19ee"
+      "confidence": "high",
+      "reason": "The question separately assesses grouped-data measures, IQR/outlier interpretation, and a chi-squared goodness-of-fit test. The proposed outlier skill captures the full interquartile-range judgment without displacing the primary chi-squared/statistical measures topics.",
+      "sourceTextSha256": "45687b61d1c0f1f12f3373bfc21db7914acc4ecad3a970788be25b71225b19ee",
+      "secondaryTopics": []
     },
     "2023-november-tz2-p2-q4": {
       "primaryTopic": "Number and algebra",
@@ -2143,11 +2281,13 @@
     "2022-may-tz1-p1-q1": {
       "primaryTopic": "Geometry and trigonometry",
       "subtopics": [
+        "Right-angled trigonometry",
         "Volume and surface area of 3D shapes"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Volume and surface area of 3D shapes.",
-      "sourceTextSha256": "9e0dfd536ed0d27efc6cf97e5cff1af5ac497db5aa746c76d429d81d8f8b25f0"
+      "reason": "The slant height requires right-angled trigonometry, and the painted area is the sum of the two roof rectangles; both proposed geometry skills are materially assessed.",
+      "sourceTextSha256": "9e0dfd536ed0d27efc6cf97e5cff1af5ac497db5aa746c76d429d81d8f8b25f0",
+      "secondaryTopics": []
     },
     "2022-may-tz1-p1-q2": {
       "primaryTopic": "Geometry and trigonometry",
@@ -2162,11 +2302,13 @@
     "2022-may-tz1-p1-q3": {
       "primaryTopic": "Functions",
       "subtopics": [
-        "Modelling with quadratic and cubic functions"
+        "Modelling with quadratic and cubic functions",
+        "Properties of functions and graphs"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on function definitions, graphs, or modelling; relevant evidence includes Modelling with quadratic and cubic functions.",
-      "sourceTextSha256": "78384c83feca29fbf076bec1feef2132d412f3d7d21091349fb33c1138c70869"
+      "reason": "The quadratic model is evaluated and solved for its physically valid root, then restricted to the contextual domain.",
+      "sourceTextSha256": "78384c83feca29fbf076bec1feef2132d412f3d7d21091349fb33c1138c70869",
+      "secondaryTopics": []
     },
     "2022-may-tz1-p1-q4": {
       "primaryTopic": "Geometry and trigonometry",
@@ -2180,21 +2322,23 @@
     "2022-may-tz1-p1-q5": {
       "primaryTopic": "Number and algebra",
       "subtopics": [
-        "Algebraic manipulation"
+        "Solving equations with a GDC"
       ],
-      "confidence": "high",
-      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Algebraic manipulation.",
-      "sourceTextSha256": "e6075c952276e94adf504c2ec1045b911e9d04be14348d94883e1fb7ea45b672"
+      "confidence": "medium",
+      "reason": "The assessed endpoint is solving the three simultaneous ticket equations to obtain all quantities; the recommendation captures the equation-solving task more directly than the broad manipulation label.",
+      "sourceTextSha256": "e6075c952276e94adf504c2ec1045b911e9d04be14348d94883e1fb7ea45b672",
+      "secondaryTopics": []
     },
     "2022-may-tz1-p1-q6": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Trapezoidal rule",
-        "Introduction to integration"
+        "Applications of integration",
+        "Trapezoidal rule"
       ],
       "confidence": "high",
-      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Trapezoidal rule, Introduction to integration.",
-      "sourceTextSha256": "fd1aeb4d350d79462d842cb2ee7b203ee37ee613e2435c1633533821db81f11b"
+      "reason": "The question estimates and then exactly computes a bounded area, with the final part subtracting that integrated area from the frame area.",
+      "sourceTextSha256": "fd1aeb4d350d79462d842cb2ee7b203ee37ee613e2435c1633533821db81f11b",
+      "secondaryTopics": []
     },
     "2022-may-tz1-p1-q7": {
       "primaryTopic": "Statistics and probability",
@@ -2217,11 +2361,13 @@
     "2022-may-tz1-p1-q9": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Applications of differentiation"
+        "Applications of differentiation",
+        "Introduction to differentiation"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The question explicitly differentiates f and finds a normal line.",
-      "sourceTextSha256": "3b1c03a43c31976aecc7726f382d7567d53b7d8b550dc70460cbb97060a5e186"
+      "reason": "The work differentiates a rational-plus-quadratic function and then uses the derivative at a point to construct a normal; the added introductory-differentiation skill is directly assessed alongside the application.",
+      "sourceTextSha256": "3b1c03a43c31976aecc7726f382d7567d53b7d8b550dc70460cbb97060a5e186",
+      "secondaryTopics": []
     },
     "2022-may-tz1-p1-q10": {
       "primaryTopic": "Statistics and probability",
@@ -2245,21 +2391,22 @@
     "2022-may-tz1-p1-q12": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Applications of integration"
+        "Introduction to integration"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The rate dP/dt is integrated to obtain the profit function.",
-      "sourceTextSha256": "2767f106fefe3e7c983c23cad9dbf8ad526ac6a0f5275db0fac4f0715f92ed31"
+      "reason": "Part (a) evaluates the given rate and part (b) integrates it and uses the initial condition; this is introductory antiderivative work rather than an applications-of-integration area problem.",
+      "sourceTextSha256": "2767f106fefe3e7c983c23cad9dbf8ad526ac6a0f5275db0fac4f0715f92ed31",
+      "secondaryTopics": []
     },
     "2022-may-tz1-p1-q13": {
       "primaryTopic": "Number and algebra",
       "subtopics": [
-        "Sequences and series",
-        "Solving equations with a GDC"
+        "Sequences and series"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on numerical/algebraic methods; relevant evidence includes Sequences and series, Solving equations with a GDC.",
-      "sourceTextSha256": "9b430b584cc6ca93c3d8d900eda82131ded81b29d88b67ff2311135855b50ed2"
+      "reason": "All parts use a geometric sequence and finite geometric sums; a GDC or solver is only an optional computational route.",
+      "sourceTextSha256": "9b430b584cc6ca93c3d8d900eda82131ded81b29d88b67ff2311135855b50ed2",
+      "secondaryTopics": []
     },
     "2022-may-tz2-p1-q1": {
       "primaryTopic": "Geometry and trigonometry",
@@ -2301,12 +2448,12 @@
     "2022-may-tz2-p1-q5": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
-        "Binomial distribution",
-        "Discrete probability distributions"
+        "Binomial distribution"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Binomial distribution, Discrete probability distributions.",
-      "sourceTextSha256": "00c18f34d1becc19845b1e70a8001f2d22803c42fc4d91b50aadbfebc265e770"
+      "reason": "With independent tests and a constant pass/fail probability, the expected value and both requested probabilities are binomial calculations; discrete distributions is subsumed by this specific model.",
+      "sourceTextSha256": "00c18f34d1becc19845b1e70a8001f2d22803c42fc4d91b50aadbfebc265e770",
+      "secondaryTopics": []
     },
     "2022-may-tz2-p1-q6": {
       "primaryTopic": "Calculus",
@@ -2358,20 +2505,24 @@
     "2022-may-tz2-p1-q11": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Applications of differentiation"
+        "Applications of differentiation",
+        "Introduction to differentiation"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The question explicitly differentiates f and analyzes parallel tangent lines.",
-      "sourceTextSha256": "ac8b3fe681b8ab8cf08ca968646171e8cc6f547aefdad0953f7cf347c4dbff17"
+      "reason": "Direct differentiation and gradient evaluation support the tangent, then solving f'(x)=5 counts all parallel tangents; both introductory and applied differentiation are explicitly marked.",
+      "sourceTextSha256": "ac8b3fe681b8ab8cf08ca968646171e8cc6f547aefdad0953f7cf347c4dbff17",
+      "secondaryTopics": []
     },
     "2022-may-tz2-p1-q12": {
       "primaryTopic": "Functions",
       "subtopics": [
-        "Modelling with quadratic and cubic functions"
+        "Modelling with quadratic and cubic functions",
+        "Properties of functions and graphs"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The arch is explicitly modeled by a quadratic function and tested against a rectangular crate.",
-      "sourceTextSha256": "d7635428c6846e60ea79d13e73040513585dc00d3fce91a0285a5343c98cd5c2"
+      "reason": "The arch is a quadratic model, and the assessed axis-of-symmetry and fit decision use vertex/graph properties of that function. The added properties skill is materially represented.",
+      "sourceTextSha256": "d7635428c6846e60ea79d13e73040513585dc00d3fce91a0285a5343c98cd5c2",
+      "secondaryTopics": []
     },
     "2022-may-tz2-p1-q13": {
       "primaryTopic": "Number and algebra",
@@ -2386,11 +2537,15 @@
       "primaryTopic": "Functions",
       "subtopics": [
         "Sinusoidal models",
-        "Properties of functions and graphs"
+        "Properties of functions and graphs",
+        "Rounding, estimation and percentage error"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: Daylight is a cyclic smooth-curve modeling problem; the question asks why a quadratic is unsuitable over years.",
-      "sourceTextSha256": "c2e20de9305b152dc06236ce40f4fda8a9edf714f83bdb812b1fedcd161b1434"
+      "reason": "Sinusoidal modeling dominates, but part (a) explicitly assesses why a quadratic is unsuitable using graph/model properties, so that skill remains. Part (e) materially assesses percentage error as a distinct secondary number method.",
+      "sourceTextSha256": "c2e20de9305b152dc06236ce40f4fda8a9edf714f83bdb812b1fedcd161b1434",
+      "secondaryTopics": [
+        "Number and algebra"
+      ]
     },
     "2022-may-tz1-p2-q2": {
       "primaryTopic": "Number and algebra",
@@ -2416,11 +2571,14 @@
       "primaryTopic": "Geometry and trigonometry",
       "subtopics": [
         "Arcs and sectors",
-        "Volume and surface area of 3D shapes"
+        "Applications of differentiation"
       ],
       "confidence": "medium",
-      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Arcs and sectors, Volume and surface area of 3D shapes.",
-      "sourceTextSha256": "d17729126610f2a7b509cf8030c38f4563e5c5a51ba809b52106c9b246e54e2b"
+      "reason": "Arcs and segments dominate, but part (c) explicitly maximizes the rate dV/dt by differentiating; that distinct calculus method warrants a secondary tag.",
+      "sourceTextSha256": "d17729126610f2a7b509cf8030c38f4563e5c5a51ba809b52106c9b246e54e2b",
+      "secondaryTopics": [
+        "Calculus"
+      ]
     },
     "2022-may-tz1-p2-q5": {
       "primaryTopic": "Statistics and probability",
@@ -2455,11 +2613,13 @@
       "primaryTopic": "Geometry and trigonometry",
       "subtopics": [
         "Coordinate geometry",
+        "Non right-angled trigonometry",
         "Voronoi diagrams"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Coordinate geometry, Voronoi diagrams.",
-      "sourceTextSha256": "b8d754cc466227578df596fc64fbfb249873a164b7df44af2f699141fb79b1cd"
+      "reason": "The question uses coordinate/perpendicular-bisector geometry and Voronoi structure, then cosine rule and triangle-area trigonometry for the non-right triangle.",
+      "sourceTextSha256": "b8d754cc466227578df596fc64fbfb249873a164b7df44af2f699141fb79b1cd",
+      "secondaryTopics": []
     },
     "2022-may-tz2-p2-q4": {
       "primaryTopic": "Functions",
@@ -2518,11 +2678,13 @@
     "2022-november-tz0-p1-q5": {
       "primaryTopic": "Functions",
       "subtopics": [
-        "Modelling with exponential functions"
+        "Modelling with exponential functions",
+        "Properties of functions and graphs"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The coffee temperature is explicitly modeled by an exponential decay function.",
-      "sourceTextSha256": "9d9f55d37f25cb0e9058cb16661a03e15c6640b3b99255d5c40a6335b622c72c"
+      "reason": "The exponential cooling model is evaluated and inverted, while the horizontal asymptote and room-temperature interpretation explicitly assess graph/function properties.",
+      "sourceTextSha256": "9d9f55d37f25cb0e9058cb16661a03e15c6640b3b99255d5c40a6335b622c72c",
+      "secondaryTopics": []
     },
     "2022-november-tz0-p1-q6": {
       "primaryTopic": "Statistics and probability",
@@ -2554,12 +2716,12 @@
     "2022-november-tz0-p1-q9": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
-        "Discrete probability distributions",
-        "Probability and types of events"
+        "Discrete probability distributions"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Discrete probability distributions, Probability and types of events.",
-      "sourceTextSha256": "deb40d95c829244c7df2b13c175300171e7caba3bde1e36ab38a60421a5f3bc9"
+      "reason": "The independent-games probability and fair-game expected-value calculation are both discrete-distribution work; the generic event label is not needed.",
+      "sourceTextSha256": "deb40d95c829244c7df2b13c175300171e7caba3bde1e36ab38a60421a5f3bc9",
+      "secondaryTopics": []
     },
     "2022-november-tz0-p1-q10": {
       "primaryTopic": "Number and algebra",
@@ -2591,11 +2753,13 @@
     "2022-november-tz0-p1-q13": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Applications of differentiation"
+        "Applications of differentiation",
+        "Introduction to integration"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The cost-per-hour rate is differentiated to find a local minimum.",
-      "sourceTextSha256": "1f5dd811b0b2323378d2e0e85dd01a5e5bb9fab128f2df3649991effa01da7f0"
+      "reason": "The local minimum comes from setting the given derivative to zero, and the cost function is then reconstructed by integration with a condition.",
+      "sourceTextSha256": "1f5dd811b0b2323378d2e0e85dd01a5e5bb9fab128f2df3649991effa01da7f0",
+      "secondaryTopics": []
     },
     "2022-november-tz0-p2-q1": {
       "primaryTopic": "Statistics and probability",
@@ -2642,11 +2806,14 @@
       "primaryTopic": "Calculus",
       "subtopics": [
         "Applications of differentiation",
-        "Applications of integration"
+        "Applications of integration",
+        "Introduction to differentiation",
+        "Trapezoidal rule"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The field boundary is differentiated for its northern maximum and integrated for area.",
-      "sourceTextSha256": "6899b1bd4366c6f97f26e0f6883f4d6eacf7c7f256e5be89d419aa06cf8548c4"
+      "reason": "The markscheme explicitly assesses f'(x), a stationary point, an integral and area, percentage error from trapezoidal estimation, and a way to reduce that error; all four skills are evidenced.",
+      "sourceTextSha256": "6899b1bd4366c6f97f26e0f6883f4d6eacf7c7f256e5be89d419aa06cf8548c4",
+      "secondaryTopics": []
     },
     "2021-may-tz1-p1-q1": {
       "primaryTopic": "Number and algebra",
@@ -2707,11 +2874,13 @@
     "2021-may-tz1-p1-q7": {
       "primaryTopic": "Functions",
       "subtopics": [
-        "Modelling with exponential functions"
+        "Modelling with exponential functions",
+        "Properties of functions and graphs"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: Information retention is explicitly modeled by an exponential decay function.",
-      "sourceTextSha256": "f36049efed0cd0fe7352df17fcee25580a5ac7daac7f11c882f84ab8afb29770"
+      "reason": "The exponential model is calibrated and evaluated, while the horizontal-asymptote reasoning and domain limitation directly assess function properties.",
+      "sourceTextSha256": "f36049efed0cd0fe7352df17fcee25580a5ac7daac7f11c882f84ab8afb29770",
+      "secondaryTopics": []
     },
     "2021-may-tz1-p1-q8": {
       "primaryTopic": "Number and algebra",
@@ -2723,52 +2892,61 @@
       "sourceTextSha256": "13e3678beb8331a9dcd5654e8cce392db59a3c73204101270ee4ac93fcb81817"
     },
     "2021-may-tz1-p1-q9": {
-      "primaryTopic": "Geometry and trigonometry",
+      "primaryTopic": "Number and algebra",
       "subtopics": [
+        "Rounding, estimation and percentage error",
         "Non right-angled trigonometry"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on the selected controlled subtopic; unrelated cross-topic cues were not retained.",
-      "sourceTextSha256": "dc04caaf81dd0a53c07351e1ebb18ae3745f307ee296b3f51a031cb41af978f1"
+      "reason": "Selecting upper measurement bounds and the lower angle bound to maximize the area makes rounding/measurement uncertainty primary; the sine-area formula is a distinct, materially assessed secondary trigonometry method.",
+      "sourceTextSha256": "dc04caaf81dd0a53c07351e1ebb18ae3745f307ee296b3f51a031cb41af978f1",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ]
     },
     "2021-may-tz1-p1-q10": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
-        "Discrete probability distributions",
         "Conditional probability",
-        "Probability and types of events"
+        "Discrete probability distributions"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Discrete probability distributions, Conditional probability, Probability and types of events.",
-      "sourceTextSha256": "a9aa5ca9ae37501ff455c72aa1c329facebac57b5081c8676d8c7dc26244872f"
+      "reason": "The distribution is built from the maximum of two dice, and part (b)(ii) explicitly uses conditional probability; the generic probability/types label is redundant.",
+      "sourceTextSha256": "a9aa5ca9ae37501ff455c72aa1c329facebac57b5081c8676d8c7dc26244872f",
+      "secondaryTopics": []
     },
     "2021-may-tz1-p1-q11": {
       "primaryTopic": "Functions",
       "subtopics": [
-        "Direct and inverse variation"
+        "Direct and inverse variation",
+        "Properties of functions and graphs"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: Sound intensity is explicitly inversely proportional to the square of distance.",
-      "sourceTextSha256": "52f318250f1ca4de3e248fc3164c5cdb6dfaca7179e41db3bbfc4c0375d7da8c"
+      "reason": "Inverse-square variation is derived, its reciprocal graph is sketched with asymptotic behavior, and an inequality is solved from the model.",
+      "sourceTextSha256": "52f318250f1ca4de3e248fc3164c5cdb6dfaca7179e41db3bbfc4c0375d7da8c",
+      "secondaryTopics": []
     },
     "2021-may-tz1-p1-q12": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Applications of differentiation"
+        "Applications of differentiation",
+        "Modelling with differentiation"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The top area is differentiated and minimized subject to the triangle geometry.",
-      "sourceTextSha256": "55edc6faffca051b808367f51b1d6297cd4571666fc00d93611ab72008d4c2e9"
+      "reason": "The area is derived from a geometric model, differentiated, and minimized by solving the stationary-point equation; the added modelling-with-differentiation tag is directly supported.",
+      "sourceTextSha256": "55edc6faffca051b808367f51b1d6297cd4571666fc00d93611ab72008d4c2e9",
+      "secondaryTopics": []
     },
     "2021-may-tz1-p1-q13": {
       "primaryTopic": "Calculus",
       "subtopics": [
         "Applications of differentiation",
-        "Applications of integration"
+        "Introduction to integration"
       ],
       "confidence": "high",
-      "reason": "Independently validated against the exact full accessibleText for this ID: The question gives dl/dθ and requires recovering l(θ), so it is a differentiation/integration modeling task.",
-      "sourceTextSha256": "028b3c3b3a88d95a644f7ce537283ed8b01ecb98d0891f762eb5ec112fa16c38"
+      "reason": "The derivative determines increasing/decreasing behavior, and integrating the rate with an initial value constructs the distance function; both are materially assessed.",
+      "sourceTextSha256": "028b3c3b3a88d95a644f7ce537283ed8b01ecb98d0891f762eb5ec112fa16c38",
+      "secondaryTopics": []
     },
     "2021-may-tz2-p1-q1": {
       "primaryTopic": "Functions",
@@ -2809,11 +2987,12 @@
     "2021-may-tz2-p1-q5": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
-        "Outliers and data interpretation"
+        "Statistical measures and frequency tables"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Outliers and data interpretation.",
-      "sourceTextSha256": "2b5d0091b86cdb3b31c7bc1e976ec4b659bd555bae68e8a8e0494c29d23e5972"
+      "reason": "The scored work reads a box plot for minimum, lower quartile, and median and interprets quartile percentages; these are statistical measures/data interpretation rather than a separate outlier procedure.",
+      "sourceTextSha256": "2b5d0091b86cdb3b31c7bc1e976ec4b659bd555bae68e8a8e0494c29d23e5972",
+      "secondaryTopics": []
     },
     "2021-may-tz2-p1-q6": {
       "primaryTopic": "Geometry and trigonometry",
@@ -2845,11 +3024,13 @@
     "2021-may-tz2-p1-q9": {
       "primaryTopic": "Geometry and trigonometry",
       "subtopics": [
-        "Arcs and sectors"
+        "Arcs and sectors",
+        "Non right-angled trigonometry"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Arcs and sectors.",
-      "sourceTextSha256": "2de9add6c74db84215c445f230dfd60cb4f2d49fcd944d0ae9d94a7ca9c55b46"
+      "reason": "Arc length and sector area are assessed, and the circular-segment area explicitly uses the non-right-angled triangle formula with sin 135 degrees.",
+      "sourceTextSha256": "2de9add6c74db84215c445f230dfd60cb4f2d49fcd944d0ae9d94a7ca9c55b46",
+      "secondaryTopics": []
     },
     "2021-may-tz2-p1-q10": {
       "primaryTopic": "Number and algebra",
@@ -2882,31 +3063,40 @@
     "2021-may-tz2-p1-q13": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Modelling with differentiation"
+        "Applications of differentiation",
+        "Introduction to integration"
       ],
       "confidence": "high",
-      "reason": "Owner-safe adjudication from exact accessibleText: dP/dx is explicitly supplied and the question asks for profit behavior and recovery of P.",
-      "sourceTextSha256": "07e184faf1ad373f38833cce1d18e365fbce10cb1c953e881ee81e0eda546b7b"
+      "reason": "Profit is obtained by integrating the marginal-profit model, then the derivative's sign is used to justify the decrease beyond 30 cars.",
+      "sourceTextSha256": "07e184faf1ad373f38833cce1d18e365fbce10cb1c953e881ee81e0eda546b7b",
+      "secondaryTopics": []
     },
     "2021-may-tz1-p2-q1": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
         "Correlation and regression",
-        "Statistical measures and frequency tables",
-        "Sampling and data collection"
+        "Outliers and data interpretation",
+        "Sampling and data collection",
+        "Statistical measures and frequency tables"
       ],
-      "confidence": "medium",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Correlation and regression, Statistical measures and frequency tables, Sampling and data collection.",
-      "sourceTextSha256": "ee2022cf2ec7670c07e355259d472a3fe5a1e079e8cd2efe1e58d59905a2fcda"
+      "confidence": "high",
+      "reason": "The question assesses quota sampling, boxplot statistics and IQR outlier interpretation, correlation/regression prediction and validity, and Spearman ranking; the expanded set covers each material block.",
+      "sourceTextSha256": "ee2022cf2ec7670c07e355259d472a3fe5a1e079e8cd2efe1e58d59905a2fcda",
+      "secondaryTopics": []
     },
     "2021-may-tz1-p2-q2": {
       "primaryTopic": "Geometry and trigonometry",
       "subtopics": [
-        "Arcs and sectors"
+        "Arcs and sectors",
+        "Non right-angled trigonometry",
+        "Properties of functions and graphs"
       ],
       "confidence": "medium",
-      "reason": "The exact text centers on geometric, trigonometric, coordinate, or spatial methods; relevant evidence includes Arcs and sectors.",
-      "sourceTextSha256": "cd45c0ccd267f40028808399c16eab46a5b58d7caa5b93c58a37469655b3ac7e"
+      "reason": "Clock angles, cosine rule, arc length, and sector area dominate, while amplitude and intersection of the two cosine height models are a distinct materially assessed function-properties component.",
+      "sourceTextSha256": "cd45c0ccd267f40028808399c16eab46a5b58d7caa5b93c58a37469655b3ac7e",
+      "secondaryTopics": [
+        "Functions"
+      ]
     },
     "2021-may-tz1-p2-q3": {
       "primaryTopic": "Number and algebra",
@@ -2930,13 +3120,14 @@
     "2021-may-tz1-p2-q5": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Trapezoidal rule",
-        "Introduction to integration",
-        "Applications of differentiation"
+        "Applications of differentiation",
+        "Applications of integration",
+        "Trapezoidal rule"
       ],
-      "confidence": "medium",
-      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Trapezoidal rule, Introduction to integration, Applications of differentiation.",
-      "sourceTextSha256": "249bbf6f29e6895b1908dcc53da2aeffec759229a7b8e1cb8e7fac75689784e7"
+      "confidence": "high",
+      "reason": "The tunnel task explicitly marks differentiation for maximum height, the trapezoidal estimate, and both a definite integral and its area evaluation. The proposed calculus skill set covers each distinct assessed method.",
+      "sourceTextSha256": "249bbf6f29e6895b1908dcc53da2aeffec759229a7b8e1cb8e7fac75689784e7",
+      "secondaryTopics": []
     },
     "2021-may-tz2-p2-q1": {
       "primaryTopic": "Statistics and probability",
@@ -3091,31 +3282,38 @@
     "2021-november-tz0-p1-q12": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Applications of differentiation",
-        "Modelling with differentiation"
+        "Applications of differentiation"
       ],
       "confidence": "high",
-      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Applications of differentiation, Modelling with differentiation.",
-      "sourceTextSha256": "6df4a41db8e2d346fe4d0763b129851d38c8796dbb1b06a59bf99a57426e9936"
+      "reason": "The given surface-area model is differentiated, solved for its positive stationary point, and interpreted as the minimum-area box.",
+      "sourceTextSha256": "6df4a41db8e2d346fe4d0763b129851d38c8796dbb1b06a59bf99a57426e9936",
+      "secondaryTopics": []
     },
     "2021-november-tz0-p1-q13": {
-      "primaryTopic": "Calculus",
+      "primaryTopic": "Functions",
       "subtopics": [
+        "Modelling with quadratic and cubic functions",
+        "Properties of functions and graphs",
         "Applications of integration"
       ],
-      "confidence": "high",
-      "reason": "The exact text defines a quadratic curve and asks for the area under it, so integration is the governing method.",
-      "sourceTextSha256": "4ea76743a9ed46df571faf415fd86303a37133d124b75a065ca36fc04e699ec7"
+      "confidence": "medium",
+      "reason": "The dominant task is determining a quadratic from endpoints/vertex and using its graph model; the shaded area is separately found by integrating that model, warranting the calculus secondary.",
+      "sourceTextSha256": "4ea76743a9ed46df571faf415fd86303a37133d124b75a065ca36fc04e699ec7",
+      "secondaryTopics": [
+        "Calculus"
+      ]
     },
     "2021-november-tz0-p2-q1": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
         "Chi-squared tests",
+        "Conditional probability",
         "Probability and types of events"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Chi-squared tests, Probability and types of events.",
-      "sourceTextSha256": "79601208a3ae953b53029ea2bc20099bfd0bc48b5d756013e2dc71d9d6b92b3c"
+      "reason": "The question combines conditional and compound probability from a two-way table with a chi-squared independence test; the added conditional-probability skill is directly assessed in part (a).",
+      "sourceTextSha256": "79601208a3ae953b53029ea2bc20099bfd0bc48b5d756013e2dc71d9d6b92b3c",
+      "secondaryTopics": []
     },
     "2021-november-tz0-p2-q2": {
       "primaryTopic": "Number and algebra",
@@ -3148,12 +3346,19 @@
     "2021-november-tz0-p2-q5": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
-        "Normal distribution",
-        "Binomial distribution"
+        "Binomial distribution",
+        "Conditional probability",
+        "Normal distribution"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Normal distribution, Binomial distribution.",
-      "sourceTextSha256": "9c51ed12607720984859c1a48b03cdd1d5f8d85d3866b300bc12f44663fe225c"
+      "reason": "Normal probabilities drive the dart-distance parts, binomial probabilities model points over turns, and part (d)(iii) explicitly conditions the less-than-eight event on scoring at least five.",
+      "sourceTextSha256": "9c51ed12607720984859c1a48b03cdd1d5f8d85d3866b300bc12f44663fe225c",
+      "secondaryTopics": []
     }
+  },
+  "reconciliation": {
+    "source": "Saksham106/ib-maths-ai-sl-topic-practice draft PR #1",
+    "consensusLockSha256": "efc23b28edc1735c116fd295ec136c4cb5a1b0ecd66efde64555d1bd723ea661",
+    "report": "docs/audits/ib-ai-sl-consensus-reconciliation-2026-08.json"
   }
 }

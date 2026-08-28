@@ -1,0 +1,3849 @@
+{
+  "reportVersion": "ib-ai-sl-consensus-reconciliation-2026.08.1",
+  "bank": "ib-ai-sl",
+  "questionCount": 334,
+  "source": {
+    "repository": "Saksham106/ib-maths-ai-sl-topic-practice",
+    "draftPullRequest": 1,
+    "consensusCommit": "ac34adce22d3728d0dfa134042b56433460eab0f",
+    "consensusLockSha256": "efc23b28edc1735c116fd295ec136c4cb5a1b0ecd66efde64555d1bd723ea661"
+  },
+  "methodology": [
+    "Blind text pass using sanitized question and official markscheme text.",
+    "Independent multimodal pass using question and markscheme images plus text.",
+    "Tie-break review of pass disagreements.",
+    "Independent evidence adjudication of every normalized production difference before application."
+  ],
+  "normalizedComparison": {
+    "noChange": 219,
+    "proposedChanges": 115,
+    "skillOnly": 100,
+    "primaryTopic": 12,
+    "secondaryTopicOnly": 3
+  },
+  "adjudication": {
+    "accept": 96,
+    "reject": 4,
+    "modify": 15,
+    "applied": 111,
+    "retainedCurrent": 4,
+    "highConfidence": 102,
+    "mediumConfidence": 13,
+    "lowConfidence": 0
+  },
+  "nonClassificationSha256": "5fd7a83e868beee4d29637656a2af2acf3b8be14de0918f2954a85ee0a773d3d",
+  "decisions": [
+    {
+      "id": "2025-may-tz1-p1-q3",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Part (a) only translates the three linear constraints; the assessed solving method in part (b) is the GDC simultaneous-equation solve, so Algebraic manipulation is not materially assessed.",
+      "current": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Algebraic manipulation",
+          "Solving equations with a GDC"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Solving equations with a GDC"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Solving equations with a GDC"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-may-tz1-p1-q5",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The assessed work is entirely quadratic modelling: axis symmetry, parameter determination, intercept, and contextual interpretation; graph properties are not a separate assessed method.",
+      "current": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-may-tz1-p1-q7",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The question explicitly establishes binomial conditions and uses a binomial model for exactly 3 and at least 4 successes; the generic events label adds no distinct assessed method.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Binomial distribution",
+          "Probability and types of events"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Binomial distribution"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Binomial distribution"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-may-tz1-p1-q8",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Power-rule differentiation and evaluating the derivative dominate the work, while interpreting a positive derivative as increasing is a distinct smaller application.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Introduction to differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Introduction to differentiation",
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-may-tz1-p1-q9",
+      "category": "primary-topic change",
+      "consensusConfidence": "medium",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "medium",
+      "rationale": "Part (b) explicitly assesses using a definite integral to obtain an enclosed area; the polynomial root in part (a) is setup for the interval, so applications of integration is the best primary classification.",
+      "current": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of integration"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of integration"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-may-tz1-p1-q12",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "modify",
+      "applied": true,
+      "adjudicationConfidence": "medium",
+      "rationale": "The derivative zero is used for the maximum and integration recovers volume, matching the proposed Calculus skills. Part (c) also materially applies the cuboid volume relation to obtain the height and M, so that distinct geometry skill is retained as secondary.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Modelling with differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Introduction to integration"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Introduction to integration",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ]
+      }
+    },
+    {
+      "id": "2025-may-tz1-p1-q13",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The markscheme requires cosine/sine-rule work and bearings in an oblique triangle; no right-angled trigonometric method is materially assessed.",
+      "current": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Non right-angled trigonometry",
+          "Right-angled trigonometry"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Non right-angled trigonometry"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Non right-angled trigonometry"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-may-tz2-p1-q2",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The distribution table, expectation, and conditional calculation given an odd difference are directly assessed; the markscheme does not require a separate generic events topic.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Discrete probability distributions",
+          "Conditional probability",
+          "Probability and types of events"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Conditional probability",
+          "Discrete probability distributions"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Conditional probability",
+          "Discrete probability distributions"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-may-tz3-p1-q4",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "medium",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The question reads extrema and a decreasing interval from a cubic graph, then explicitly assesses the gradient and equation of a straight tangent.",
+      "current": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Linear functions and graphs",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Properties of functions and graphs",
+          "Linear functions and graphs"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-may-tz3-p1-q8",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Every scored step concerns a chi-squared test of independence: hypotheses, degrees of freedom, test statistic, decision, and contextual conclusion. Random sampling is context rather than a separately assessed method.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Chi-squared tests",
+          "Sampling and data collection"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Chi-squared tests"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Chi-squared tests"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-may-tz3-p1-q9",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Both parts assess integration of a rate of change: recovering the profit function and using a definite integral for the increase in profit.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Modelling with differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of integration",
+          "Introduction to integration"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of integration",
+          "Introduction to integration"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-may-tz1-p2-q1",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The question assesses frequency-table statistics, event complements, without-replacement conditional probability, and sequential probability.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Statistical measures and frequency tables"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Conditional probability",
+          "Probability and types of events",
+          "Statistical measures and frequency tables"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Conditional probability",
+          "Probability and types of events",
+          "Statistical measures and frequency tables"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-may-tz1-p2-q4",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Coordinates, 3D distance/right-angle justification, prism volume, scaling, and cost dominate. The right-angle proof is handled by coordinates/Pythagoras or axes, not a distinct trigonometric method.",
+      "current": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Coordinate geometry",
+          "Right-angled trigonometry",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Coordinate geometry",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Coordinate geometry",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-may-tz2-p2-q2",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Area calculations by definite integration account for the largest component, and the parallel-tangent part materially assesses derivative functions and gradients.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Applications of integration"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of integration",
+          "Introduction to differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of integration",
+          "Introduction to differentiation"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-may-tz2-p2-q3",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The train-time parts use a normal model and the repeated-day parts use a binomial model, including a consecutive-success calculation; probability/types of events is not a distinct materially assessed topic.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Normal distribution",
+          "Binomial distribution",
+          "Probability and types of events"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Binomial distribution",
+          "Normal distribution"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Binomial distribution",
+          "Normal distribution"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-may-tz2-p2-q4",
+      "category": "primary-topic change",
+      "consensusConfidence": "high",
+      "decision": "modify",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The 13-mark modeling sequence is dominated by sinusoidal functions. Part (a) separately assesses the right-triangle/Pythagorean distance between hand tips, which is a materially assessed secondary method.",
+      "current": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Arcs and sectors"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Sinusoidal models"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Sinusoidal models",
+          "Right-angled trigonometry"
+        ],
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ]
+      }
+    },
+    {
+      "id": "2025-may-tz2-p2-q5",
+      "category": "primary-topic change",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "After deriving the geometric expressions, the central objective is minimizing surface area via a derivative and interpreting the resulting model.",
+      "current": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Modelling with differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Modelling with differentiation"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-may-tz3-p2-q2",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Parts (a)-(c) use a normal model and parts (d)-(f) use binomial probabilities, including independence; probability/types of events is only generic framing.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Normal distribution",
+          "Binomial distribution",
+          "Probability and types of events"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Binomial distribution",
+          "Normal distribution"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Binomial distribution",
+          "Normal distribution"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-may-tz3-p2-q5",
+      "category": "cross-topic / secondary-topic change",
+      "consensusConfidence": "medium",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "medium",
+      "rationale": "The opening river-volume calculation is driven by the trapezoidal-rule method, while the supplied quadratic bridge model is a distinct, materially assessed method in parts (d) and (e).",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Trapezoidal rule"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Trapezoidal rule"
+        ],
+        "secondaryTopics": [
+          [
+            "Functions",
+            [
+              "Modelling with quadratic and cubic functions"
+            ]
+          ]
+        ]
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Trapezoidal rule",
+          "Modelling with quadratic and cubic functions"
+        ],
+        "secondaryTopics": [
+          "Functions"
+        ]
+      }
+    },
+    {
+      "id": "2025-november-tz1-p1-q2",
+      "category": "primary-topic change",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The assessed focus is measurement bounds and percentage error from a rounded diameter. Sphere volume is a short application within that uncertainty context, not the dominant topic.",
+      "current": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Rounding, estimation and percentage error"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Rounding, estimation and percentage error"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-november-tz1-p1-q8",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The value and parameter calculations use the exponential model, while part (c) explicitly assesses the horizontal-asymptote property and contextual interpretation.",
+      "current": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with exponential functions"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with exponential functions",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with exponential functions",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-november-tz1-p1-q10",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Inverse variation is derived and used, while the pond-volume graph and relation require properties and interpretation of functions.",
+      "current": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Direct and inverse variation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Direct and inverse variation",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Direct and inverse variation",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-november-tz3-p1-q8",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "All marks concern fitting a quadratic from intercept/vertex measurements and determining its coefficients, which is quadratic modelling rather than a separate graph-properties assessment.",
+      "current": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-november-tz3-p1-q9",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The assessed calculus is direct power-rule differentiation, evaluation of a gradient, and formation of a tangent line; no optimization or rate model is required.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Introduction to differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Introduction to differentiation"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-november-tz3-p1-q10",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The random-answer model is binomial with n=15 and p=0.2; expected value, an exact count, and a tail probability are all assessed through that model. Discrete distributions adds no distinct method here.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Binomial distribution",
+          "Discrete probability distributions"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Binomial distribution"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Binomial distribution"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-november-tz1-p2-q1",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The question materially assesses a chi-squared goodness-of-fit test in addition to the box plot, outlier threshold, and grouped-data mean.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Statistical measures and frequency tables",
+          "Outliers and data interpretation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Chi-squared tests",
+          "Outliers and data interpretation",
+          "Statistical measures and frequency tables"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Chi-squared tests",
+          "Outliers and data interpretation",
+          "Statistical measures and frequency tables"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-november-tz1-p2-q2",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Differentiation of the given rate locates when the plant reaches maximum height, and integration reconstructs height; both methods are explicitly marked.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Modelling with differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Introduction to integration"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Introduction to integration"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-november-tz1-p2-q4",
+      "category": "primary-topic change",
+      "consensusConfidence": "medium",
+      "decision": "modify",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Quadratic bridge modelling is the dominant thread, but the markscheme separately assesses differentiation/steepest gradient and Pearson correlation, regression interpretation, and model comparison. The recommendation omits both materially assessed cross-topic components.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions",
+          "Applications of differentiation",
+          "Correlation and regression"
+        ],
+        "secondaryTopics": [
+          "Calculus",
+          "Statistics and probability"
+        ]
+      }
+    },
+    {
+      "id": "2025-november-tz3-p2-q2",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "medium",
+      "decision": "modify",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Correlation and the two-sample t-test are the dominant statistical methods, but the letter-N front-area and volume calculations constitute a distinct, materially assessed 3D-geometry component that must be retained as secondary.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Correlation and regression"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Correlation and regression",
+          "The t-test"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Correlation and regression",
+          "The t-test",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ]
+      }
+    },
+    {
+      "id": "2025-november-tz3-p2-q3",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "medium",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "medium",
+      "rationale": "The farm area requires cosine rule and the triangle-area formula, while the barn-to-farmhouse distance requires coordinate/Pythagorean distance; the later loan work is contextual finance rather than a proposed topic change.",
+      "current": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Non right-angled trigonometry",
+          "Right-angled trigonometry"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Coordinate geometry",
+          "Non right-angled trigonometry"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Coordinate geometry",
+          "Non right-angled trigonometry"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2025-november-tz3-p2-q5",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "modify",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The proposal correctly adds integration and trapezoidal rule but incorrectly drops the assessed local-maximum differentiation in part (b); all four Calculus skills are materially used.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Applications of integration"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of integration",
+          "Introduction to integration",
+          "Trapezoidal rule"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Applications of integration",
+          "Introduction to integration",
+          "Trapezoidal rule"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2024-may-tz1-p1-q1",
+      "category": "cross-topic / secondary-topic change",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Mean, median, mode, and range dominate, while the shortest value measured to the nearest centimetre requires a rounding bound.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Statistical measures and frequency tables"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Statistical measures and frequency tables"
+        ],
+        "secondaryTopics": [
+          [
+            "Number and algebra",
+            [
+              "Rounding, estimation and percentage error"
+            ]
+          ]
+        ]
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Statistical measures and frequency tables",
+          "Rounding, estimation and percentage error"
+        ],
+        "secondaryTopics": [
+          "Number and algebra"
+        ]
+      }
+    },
+    {
+      "id": "2024-may-tz1-p1-q4",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The question models charging exponentially and explicitly assesses the graph's shape, key point, and horizontal asymptote, so both recommended function skills are evidenced.",
+      "current": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with exponential functions"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with exponential functions",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with exponential functions",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2024-may-tz1-p1-q8",
+      "category": "primary-topic change",
+      "consensusConfidence": "medium",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "medium",
+      "rationale": "Rearranging and applying the affine temperature conversion is the primary algebraic method; transforming a mean and standard deviation is a distinct statistical component.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Statistical measures and frequency tables"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Algebraic manipulation"
+        ],
+        "secondaryTopics": [
+          [
+            "Statistics and probability",
+            [
+              "Statistical measures and frequency tables"
+            ]
+          ]
+        ]
+      },
+      "final": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Algebraic manipulation",
+          "Statistical measures and frequency tables"
+        ],
+        "secondaryTopics": [
+          "Statistics and probability"
+        ]
+      }
+    },
+    {
+      "id": "2024-may-tz1-p1-q9",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The markscheme assesses a constant-rate model, power-rule differentiation, and evaluation of the volume rate at t=20. Both introductory differentiation and differentiation modelling are directly marked.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Modelling with differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Introduction to differentiation",
+          "Modelling with differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Introduction to differentiation",
+          "Modelling with differentiation"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2024-may-tz1-p1-q12",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The expected-value calculations and fairness analysis are a discrete probability distribution task; the generic probability/types label adds no distinct assessed method.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Discrete probability distributions",
+          "Probability and types of events"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Discrete probability distributions"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Discrete probability distributions"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2024-may-tz2-p1-q10",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The markscheme assesses differentiating a quadratic and using the derivative value to form a normal; this is introductory differentiation rather than optimization.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Introduction to differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Introduction to differentiation"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2024-may-tz2-p1-q12",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The carpet context requires constructing an area model, differentiating it, and using the derivative to establish the maximizing dimension; both calculus skills are materially assessed.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Modelling with differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Modelling with differentiation"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2024-may-tz1-p2-q2",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "medium",
+      "decision": "modify",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Normal and binomial probability account for the main assessed methods, but the piecewise linear pricing model and its inverse calculation occupy five marks and warrant a secondary algebra tag.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Normal distribution",
+          "Binomial distribution",
+          "Probability and types of events"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Binomial distribution",
+          "Normal distribution"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Normal distribution",
+          "Binomial distribution",
+          "Algebraic manipulation"
+        ],
+        "secondaryTopics": [
+          "Number and algebra"
+        ]
+      }
+    },
+    {
+      "id": "2024-may-tz1-p2-q3",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The central assessed method is differentiating a profit model derived from smoothie demand, finding the stationary price, and using it to identify the maximizing sales level; this is both optimization and differentiation modelling.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Modelling with differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Modelling with differentiation"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2024-may-tz1-p2-q5",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "modify",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The question uses the given derivative to reconstruct the slide and integrates for area, while later coefficient and smoothness conditions assess the differentiation model. These are all within Calculus.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of integration",
+          "Modelling with differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of integration",
+          "Introduction to integration",
+          "Modelling with differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of integration",
+          "Introduction to integration",
+          "Modelling with differentiation"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2024-may-tz2-p2-q3",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The question combines a trapezoidal estimate with antiderivatives and exact area calculations, followed by percentage error from the areas.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Trapezoidal rule",
+          "Introduction to integration"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of integration",
+          "Introduction to integration",
+          "Trapezoidal rule"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of integration",
+          "Introduction to integration",
+          "Trapezoidal rule"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2024-may-tz2-p2-q5",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The trigonometric work resolves horizontal/vertical components of a sloping edge in right triangles, while the central construction is prism volume; non-right-angled trigonometry is not used.",
+      "current": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Volume and surface area of 3D shapes",
+          "Non right-angled trigonometry"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Right-angled trigonometry",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Right-angled trigonometry",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2024-november-tz1-p1-q3",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "reject",
+      "applied": false,
+      "adjudicationConfidence": "high",
+      "rationale": "Writing and solving the simultaneous linear equations dominates four of five marks; the markscheme does not require a GDC, so replacing algebraic manipulation with GDC-solving is not supported.",
+      "current": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Algebraic manipulation",
+          "Rounding, estimation and percentage error"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Rounding, estimation and percentage error",
+          "Solving equations with a GDC"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Algebraic manipulation",
+          "Rounding, estimation and percentage error"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2024-november-tz1-p1-q5",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The question evaluates and interprets a linear cost function, its domain restriction, and an inverse-function value. Linear modelling and basic function properties are the assessed skills.",
+      "current": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with linear and piecewise functions"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Linear functions and graphs",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Linear functions and graphs",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2024-november-tz1-p1-q11",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Finding the missing probability, expected losses, and fair-game score all use a discrete probability distribution; no separate event-type method is materially assessed.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Discrete probability distributions",
+          "Probability and types of events"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Discrete probability distributions"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Discrete probability distributions"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2024-november-tz1-p1-q12",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The assessed methods are power-rule differentiation, evaluating a gradient, and constructing a normal line, with no optimization or rate model.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Introduction to differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Introduction to differentiation"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2024-november-tz1-p1-q13",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The markscheme identifies a geometric sequence, its general term, and a geometric sum for total divisions. Finding the index is embedded in that sequence task, with no separately specified GDC technique.",
+      "current": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Sequences and series",
+          "Solving equations with a GDC"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Sequences and series"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Sequences and series"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2024-november-tz2-p1-q3",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "reject",
+      "applied": false,
+      "adjudicationConfidence": "high",
+      "rationale": "The two equations and their solution are the dominant assessed work, with only the final lower-bound item using rounding; a GDC-specific skill is not demanded by the markscheme.",
+      "current": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Algebraic manipulation",
+          "Rounding, estimation and percentage error"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Rounding, estimation and percentage error",
+          "Solving equations with a GDC"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Algebraic manipulation",
+          "Rounding, estimation and percentage error"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2024-november-tz2-p1-q5",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "This is the same linear cost/inverse-function task: interpreting slope and intercept, evaluating the function, applying its domain, and decoding C^-1(1270).",
+      "current": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with linear and piecewise functions"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Linear functions and graphs",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Linear functions and graphs",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2024-november-tz2-p1-q11",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "This parallel fair-game question is entirely probability-distribution and expected-value work, so the generic probability/types skill can be removed.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Discrete probability distributions",
+          "Probability and types of events"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Discrete probability distributions"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Discrete probability distributions"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2024-november-tz2-p1-q12",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The markscheme directly rewards differentiation, gradient evaluation, and the normal equation; introductory differentiation is the appropriate skill.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Introduction to differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Introduction to differentiation"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2024-november-tz2-p1-q13",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "This is the same assessed question and markscheme as the TZ1 version: geometric sequence terms and summation are the evidenced methods, not a distinct GDC subtopic.",
+      "current": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Sequences and series",
+          "Solving equations with a GDC"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Sequences and series"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Sequences and series"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2024-november-tz1-p2-q4",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "modify",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Trapezoidal estimation, definite integration, and surface-area minimization make calculus dominant; cylinder volume/surface-area modelling and fit checks are a distinct materially assessed 3D-geometry component.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of integration",
+          "Trapezoidal rule"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Applications of integration",
+          "Trapezoidal rule"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Applications of integration",
+          "Trapezoidal rule",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ]
+      }
+    },
+    {
+      "id": "2024-november-tz1-p2-q5",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The tent problem materially assesses 3D volume, right-triangle Pythagoras/cosine work for the pole and angle, and sine/cosine rule in the oblique rope triangles. All three geometry/trigonometry skills are justified.",
+      "current": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Volume and surface area of 3D shapes",
+          "Non right-angled trigonometry"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Non right-angled trigonometry",
+          "Right-angled trigonometry",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Non right-angled trigonometry",
+          "Right-angled trigonometry",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2024-november-tz2-p2-q4",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "modify",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The proposal correctly adds optimization by differentiation. The cylinder volume/surface-area model and label-fit checks are also a distinct, materially assessed 3D-geometry component, so it is secondary.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of integration",
+          "Trapezoidal rule"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Applications of integration",
+          "Trapezoidal rule"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Applications of integration",
+          "Trapezoidal rule",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ]
+      }
+    },
+    {
+      "id": "2024-november-tz2-p2-q5",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The problem assesses 3D volume, oblique-triangle sine/cosine rules, and right-triangle Pythagoras/tangent work for the tent and rope.",
+      "current": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Volume and surface area of 3D shapes",
+          "Non right-angled trigonometry"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Non right-angled trigonometry",
+          "Right-angled trigonometry",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Non right-angled trigonometry",
+          "Right-angled trigonometry",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2023-may-tz1-p1-q2",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The angle and balloon distance are solved with the sine rule in a non-right triangle; the later angle-of-depression statement is contextual interpretation.",
+      "current": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Right-angled trigonometry"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Non right-angled trigonometry"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Non right-angled trigonometry"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2023-may-tz1-p1-q5",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "medium",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Every awarded step concerns gradients, equations of straight lines, or checking whether a point lies on a line; no derivative calculation is assessed.",
+      "current": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Linear functions and graphs"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Linear functions and graphs"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2023-may-tz1-p1-q7",
+      "category": "primary-topic change",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Finding the box dimensions that maximize volume, including after the cardboard is reduced, is an optimization task based on the derivative/stationary point rather than merely quadratic or cubic modelling.",
+      "current": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2023-may-tz1-p1-q9",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The exact area, numerical trapezoidal estimate, and percentage comparison are centered on area integration and the trapezoidal rule; Introduction to integration is not needed as a separate tag.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Trapezoidal rule",
+          "Introduction to integration"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of integration",
+          "Trapezoidal rule"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of integration",
+          "Trapezoidal rule"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2023-may-tz1-p1-q10",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "medium",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "medium",
+      "rationale": "The first throw is evaluated with a linear model and the second with a quadratic model, so both model types are directly assessed.",
+      "current": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Linear functions and graphs",
+          "Modelling with quadratic and cubic functions"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Linear functions and graphs",
+          "Modelling with quadratic and cubic functions"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2023-may-tz1-p1-q11",
+      "category": "cross-topic / secondary-topic change",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The geometry uses bounds and right-triangle/Pythagorean trigonometry to establish safety; the stated nearest-tenth accuracy is materially used for upper/lower bounds, so percentage-error/bounds is an appropriate secondary.",
+      "current": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Right-angled trigonometry"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Right-angled trigonometry"
+        ],
+        "secondaryTopics": [
+          [
+            "Number and algebra",
+            [
+              "Rounding, estimation and percentage error"
+            ]
+          ]
+        ]
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Right-angled trigonometry",
+          "Rounding, estimation and percentage error"
+        ],
+        "secondaryTopics": [
+          "Number and algebra"
+        ]
+      }
+    },
+    {
+      "id": "2023-may-tz1-p1-q13",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The markscheme explicitly constructs a right triangle and uses inverse tangent to obtain the return bearing; the bearing context does not require non-right-angled rules.",
+      "current": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Non right-angled trigonometry"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Right-angled trigonometry"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Right-angled trigonometry"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2023-may-tz2-p1-q10",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The quadratic trajectory is evaluated through its vertex, ground intercept, and intersection with a horizontal level, with contextual restrictions and limitations; quadratic modelling remains primary and graph/function properties are materially used.",
+      "current": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2023-may-tz2-p1-q12",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The task is normalization of a discrete distribution followed by expected gain and a fairness decision.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Discrete probability distributions",
+          "Probability and types of events"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Discrete probability distributions"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Discrete probability distributions"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2023-may-tz2-p1-q13",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The markscheme uses the trapezoidal rule, integrates the given derivative to recover the function, and integrates for the exact cross-sectional area.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Applications of integration",
+          "Trapezoidal rule"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of integration",
+          "Introduction to integration",
+          "Trapezoidal rule"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of integration",
+          "Introduction to integration",
+          "Trapezoidal rule"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2023-may-tz1-p2-q1",
+      "category": "primary-topic change",
+      "consensusConfidence": "medium",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "medium",
+      "rationale": "The first model is a straight-line model with gradient, equation, and estimates (8 marks), while regression, r, and regression prediction are a substantial secondary block; the proposed primary/secondary split reflects that balance.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Correlation and regression"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Linear functions and graphs"
+        ],
+        "secondaryTopics": [
+          [
+            "Statistics and probability",
+            [
+              "Correlation and regression"
+            ]
+          ]
+        ]
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Linear functions and graphs",
+          "Correlation and regression"
+        ],
+        "secondaryTopics": [
+          "Statistics and probability"
+        ]
+      }
+    },
+    {
+      "id": "2023-may-tz1-p2-q4",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The tree uses conditional branch probabilities, joint-event multiplication, and incorrect-result complements, followed by binomial calculations for Team X.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Binomial distribution",
+          "Probability and types of events"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Binomial distribution",
+          "Conditional probability",
+          "Probability and types of events"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Binomial distribution",
+          "Conditional probability",
+          "Probability and types of events"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2023-may-tz2-p2-q5",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "After constructing the garden-area model, the scored objective is differentiating it, solving for the maximizing dimension, and interpreting the maximum; modelling with differentiation is a distinct assessed component.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Modelling with differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Modelling with differentiation"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2023-november-tz1-p1-q2",
+      "category": "primary-topic change",
+      "consensusConfidence": "medium",
+      "decision": "modify",
+      "applied": true,
+      "adjudicationConfidence": "medium",
+      "rationale": "Bounds from a rounded conversion determine the minimum volume, making Number and algebra the dominant topic. The right-pyramid volume formula and calculation are a materially assessed secondary geometry method.",
+      "current": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Rounding, estimation and percentage error"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Rounding, estimation and percentage error",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ]
+      }
+    },
+    {
+      "id": "2023-november-tz1-p1-q3",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Most marks are for applying the power rule and determining the derivative's sign interval; this is an introductory derivative exercise.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Introduction to differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Introduction to differentiation"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2023-november-tz1-p1-q8",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The markscheme requires the derivative at a point, reciprocal slope for a normal, and distance to the bridge endpoint; this is differentiation both computationally and in application.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Introduction to differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Introduction to differentiation"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2023-november-tz2-p1-q2",
+      "category": "primary-topic change",
+      "consensusConfidence": "medium",
+      "decision": "modify",
+      "applied": true,
+      "adjudicationConfidence": "medium",
+      "rationale": "The lower-bound conversion drives the minimum-possible interpretation, supporting Number and algebra as primary, but the four-mark calculation materially applies the square-pyramid volume formula and needs a geometry secondary.",
+      "current": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Rounding, estimation and percentage error"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Rounding, estimation and percentage error",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ]
+      }
+    },
+    {
+      "id": "2023-november-tz2-p1-q3",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The markscheme directly rewards power-rule differentiation and using the derivative sign to identify the increasing interval. This is introductory differentiation, not a separate applications-of-differentiation task.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Introduction to differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Introduction to differentiation"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2023-november-tz2-p1-q8",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The derivative at a point, normal line, and bridge length all depend on differentiating the road model and applying the result.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Introduction to differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Introduction to differentiation"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2023-november-tz1-p2-q2",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The solution uses right-triangle Pythagoras/tangent, arc and sector formulas, annular-sector area, and extrusion volume.",
+      "current": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Arcs and sectors",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Arcs and sectors",
+          "Right-angled trigonometry",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Arcs and sectors",
+          "Right-angled trigonometry",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2023-november-tz1-p2-q3",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "modify",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The proposed outlier addition is supported by the IQR/fence work, but removing Normal distribution is not: expected frequencies and the chi-squared test explicitly use N(88, 6.75²) normal probabilities.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Statistical measures and frequency tables",
+          "Normal distribution",
+          "Chi-squared tests"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Chi-squared tests",
+          "Outliers and data interpretation",
+          "Statistical measures and frequency tables"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Chi-squared tests",
+          "Normal distribution",
+          "Outliers and data interpretation",
+          "Statistical measures and frequency tables"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2023-november-tz2-p2-q2",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The solution materially uses Pythagoras and tangent, arc and sector formulae, annular-sector area, and extrusion volume, all within geometry and trigonometry.",
+      "current": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Arcs and sectors",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Arcs and sectors",
+          "Right-angled trigonometry",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Arcs and sectors",
+          "Right-angled trigonometry",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2023-november-tz2-p2-q3",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The question separately assesses grouped-data measures, IQR/outlier interpretation, and a chi-squared goodness-of-fit test. The proposed outlier skill captures the full interquartile-range judgment without displacing the primary chi-squared/statistical measures topics.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Statistical measures and frequency tables",
+          "Normal distribution",
+          "Chi-squared tests"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Chi-squared tests",
+          "Outliers and data interpretation",
+          "Statistical measures and frequency tables"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Chi-squared tests",
+          "Outliers and data interpretation",
+          "Statistical measures and frequency tables"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2022-may-tz1-p1-q1",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "medium",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The slant height requires right-angled trigonometry, and the painted area is the sum of the two roof rectangles; both proposed geometry skills are materially assessed.",
+      "current": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Right-angled trigonometry",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Right-angled trigonometry",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2022-may-tz1-p1-q3",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The quadratic model is evaluated and solved for its physically valid root, then restricted to the contextual domain.",
+      "current": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2022-may-tz1-p1-q5",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "medium",
+      "rationale": "The assessed endpoint is solving the three simultaneous ticket equations to obtain all quantities; the recommendation captures the equation-solving task more directly than the broad manipulation label.",
+      "current": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Algebraic manipulation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Solving equations with a GDC"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Solving equations with a GDC"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2022-may-tz1-p1-q6",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The question estimates and then exactly computes a bounded area, with the final part subtracting that integrated area from the frame area.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Trapezoidal rule",
+          "Introduction to integration"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of integration",
+          "Trapezoidal rule"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of integration",
+          "Trapezoidal rule"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2022-may-tz1-p1-q9",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The work differentiates a rational-plus-quadratic function and then uses the derivative at a point to construct a normal; the added introductory-differentiation skill is directly assessed alongside the application.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Introduction to differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Introduction to differentiation"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2022-may-tz1-p1-q12",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Part (a) evaluates the given rate and part (b) integrates it and uses the initial condition; this is introductory antiderivative work rather than an applications-of-integration area problem.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of integration"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Introduction to integration"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Introduction to integration"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2022-may-tz1-p1-q13",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "All parts use a geometric sequence and finite geometric sums; a GDC or solver is only an optional computational route.",
+      "current": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Sequences and series",
+          "Solving equations with a GDC"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Sequences and series"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Sequences and series"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2022-may-tz2-p1-q5",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "With independent tests and a constant pass/fail probability, the expected value and both requested probabilities are binomial calculations; discrete distributions is subsumed by this specific model.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Binomial distribution",
+          "Discrete probability distributions"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Binomial distribution"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Binomial distribution"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2022-may-tz2-p1-q11",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Direct differentiation and gradient evaluation support the tangent, then solving f'(x)=5 counts all parallel tangents; both introductory and applied differentiation are explicitly marked.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Introduction to differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Introduction to differentiation"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2022-may-tz2-p1-q12",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The arch is a quadratic model, and the assessed axis-of-symmetry and fit decision use vertex/graph properties of that function. The added properties skill is materially represented.",
+      "current": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2022-may-tz1-p2-q1",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "modify",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Sinusoidal modeling dominates, but part (a) explicitly assesses why a quadratic is unsuitable using graph/model properties, so that skill remains. Part (e) materially assesses percentage error as a distinct secondary number method.",
+      "current": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Sinusoidal models",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Sinusoidal models"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Sinusoidal models",
+          "Properties of functions and graphs",
+          "Rounding, estimation and percentage error"
+        ],
+        "secondaryTopics": [
+          "Number and algebra"
+        ]
+      }
+    },
+    {
+      "id": "2022-may-tz1-p2-q4",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "medium",
+      "decision": "modify",
+      "applied": true,
+      "adjudicationConfidence": "medium",
+      "rationale": "Arcs and segments dominate, but part (c) explicitly maximizes the rate dV/dt by differentiating; that distinct calculus method warrants a secondary tag.",
+      "current": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Arcs and sectors",
+          "Volume and surface area of 3D shapes"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Arcs and sectors"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Arcs and sectors",
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": [
+          "Calculus"
+        ]
+      }
+    },
+    {
+      "id": "2022-may-tz2-p2-q3",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The question uses coordinate/perpendicular-bisector geometry and Voronoi structure, then cosine rule and triangle-area trigonometry for the non-right triangle.",
+      "current": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Coordinate geometry",
+          "Voronoi diagrams"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Coordinate geometry",
+          "Non right-angled trigonometry",
+          "Voronoi diagrams"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Coordinate geometry",
+          "Non right-angled trigonometry",
+          "Voronoi diagrams"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2022-november-tz0-p1-q3",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "reject",
+      "applied": false,
+      "adjudicationConfidence": "high",
+      "rationale": "All parts evaluate, maximize, or solve the supplied contextual quadratic model; no separate graph-property method is required or rewarded.",
+      "current": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2022-november-tz0-p1-q5",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The exponential cooling model is evaluated and inverted, while the horizontal asymptote and room-temperature interpretation explicitly assess graph/function properties.",
+      "current": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with exponential functions"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with exponential functions",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with exponential functions",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2022-november-tz0-p1-q9",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The independent-games probability and fair-game expected-value calculation are both discrete-distribution work; the generic event label is not needed.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Discrete probability distributions",
+          "Probability and types of events"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Discrete probability distributions"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Discrete probability distributions"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2022-november-tz0-p1-q13",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The local minimum comes from setting the given derivative to zero, and the cost function is then reconstructed by integration with a condition.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Introduction to integration"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Introduction to integration"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2022-november-tz0-p2-q5",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The markscheme explicitly assesses f'(x), a stationary point, an integral and area, percentage error from trapezoidal estimation, and a way to reduce that error; all four skills are evidenced.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Applications of integration"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Applications of integration",
+          "Introduction to differentiation",
+          "Trapezoidal rule"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Applications of integration",
+          "Introduction to differentiation",
+          "Trapezoidal rule"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2021-may-tz1-p1-q7",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The exponential model is calibrated and evaluated, while the horizontal-asymptote reasoning and domain limitation directly assess function properties.",
+      "current": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with exponential functions"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with exponential functions",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with exponential functions",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2021-may-tz1-p1-q9",
+      "category": "primary-topic change",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Selecting upper measurement bounds and the lower angle bound to maximize the area makes rounding/measurement uncertainty primary; the sine-area formula is a distinct, materially assessed secondary trigonometry method.",
+      "current": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Non right-angled trigonometry"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Rounding, estimation and percentage error"
+        ],
+        "secondaryTopics": [
+          [
+            "Geometry and trigonometry",
+            [
+              "Non right-angled trigonometry"
+            ]
+          ]
+        ]
+      },
+      "final": {
+        "primaryTopic": "Number and algebra",
+        "skills": [
+          "Rounding, estimation and percentage error",
+          "Non right-angled trigonometry"
+        ],
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ]
+      }
+    },
+    {
+      "id": "2021-may-tz1-p1-q10",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The distribution is built from the maximum of two dice, and part (b)(ii) explicitly uses conditional probability; the generic probability/types label is redundant.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Discrete probability distributions",
+          "Conditional probability",
+          "Probability and types of events"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Conditional probability",
+          "Discrete probability distributions"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Conditional probability",
+          "Discrete probability distributions"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2021-may-tz1-p1-q11",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Inverse-square variation is derived, its reciprocal graph is sketched with asymptotic behavior, and an inequality is solved from the model.",
+      "current": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Direct and inverse variation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Direct and inverse variation",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Direct and inverse variation",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2021-may-tz1-p1-q12",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The area is derived from a geometric model, differentiated, and minimized by solving the stationary-point equation; the added modelling-with-differentiation tag is directly supported.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Modelling with differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Modelling with differentiation"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2021-may-tz1-p1-q13",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The derivative determines increasing/decreasing behavior, and integrating the rate with an initial value constructs the distance function; both are materially assessed.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Applications of integration"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Introduction to integration"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Introduction to integration"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2021-may-tz2-p1-q5",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The scored work reads a box plot for minimum, lower quartile, and median and interprets quartile percentages; these are statistical measures/data interpretation rather than a separate outlier procedure.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Outliers and data interpretation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Statistical measures and frequency tables"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Statistical measures and frequency tables"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2021-may-tz2-p1-q9",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Arc length and sector area are assessed, and the circular-segment area explicitly uses the non-right-angled triangle formula with sin 135 degrees.",
+      "current": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Arcs and sectors"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Arcs and sectors",
+          "Non right-angled trigonometry"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Arcs and sectors",
+          "Non right-angled trigonometry"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2021-may-tz2-p1-q13",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Profit is obtained by integrating the marginal-profit model, then the derivative's sign is used to justify the decrease beyond 30 cars.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Modelling with differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Introduction to integration"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Introduction to integration"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2021-may-tz1-p2-q1",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The question assesses quota sampling, boxplot statistics and IQR outlier interpretation, correlation/regression prediction and validity, and Spearman ranking; the expanded set covers each material block.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Correlation and regression",
+          "Statistical measures and frequency tables",
+          "Sampling and data collection"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Correlation and regression",
+          "Outliers and data interpretation",
+          "Sampling and data collection",
+          "Statistical measures and frequency tables"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Correlation and regression",
+          "Outliers and data interpretation",
+          "Sampling and data collection",
+          "Statistical measures and frequency tables"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2021-may-tz1-p2-q2",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "medium",
+      "decision": "modify",
+      "applied": true,
+      "adjudicationConfidence": "medium",
+      "rationale": "Clock angles, cosine rule, arc length, and sector area dominate, while amplitude and intersection of the two cosine height models are a distinct materially assessed function-properties component.",
+      "current": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Arcs and sectors"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Arcs and sectors",
+          "Non right-angled trigonometry"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "skills": [
+          "Arcs and sectors",
+          "Non right-angled trigonometry",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": [
+          "Functions"
+        ]
+      }
+    },
+    {
+      "id": "2021-may-tz1-p2-q5",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The tunnel task explicitly marks differentiation for maximum height, the trapezoidal estimate, and both a definite integral and its area evaluation. The proposed calculus skill set covers each distinct assessed method.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Trapezoidal rule",
+          "Introduction to integration",
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Applications of integration",
+          "Trapezoidal rule"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Applications of integration",
+          "Trapezoidal rule"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2021-november-tz0-p1-q11",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "reject",
+      "applied": false,
+      "adjudicationConfidence": "high",
+      "rationale": "The conditional probability is supplied as a branch value; the assessed work is complements, multiplication along tree branches, and total probability. No conditional-probability calculation is required.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Probability and types of events"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Conditional probability",
+          "Probability and types of events"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Probability and types of events"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2021-november-tz0-p1-q12",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The given surface-area model is differentiated, solved for its positive stationary point, and interpreted as the minimum-area box.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation",
+          "Modelling with differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of differentiation"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2021-november-tz0-p1-q13",
+      "category": "primary-topic change",
+      "consensusConfidence": "medium",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "medium",
+      "rationale": "The dominant task is determining a quadratic from endpoints/vertex and using its graph model; the shaded area is separately found by integrating that model, warranting the calculus secondary.",
+      "current": {
+        "primaryTopic": "Calculus",
+        "skills": [
+          "Applications of integration"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions",
+          "Properties of functions and graphs"
+        ],
+        "secondaryTopics": [
+          [
+            "Calculus",
+            [
+              "Applications of integration"
+            ]
+          ]
+        ]
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "skills": [
+          "Modelling with quadratic and cubic functions",
+          "Properties of functions and graphs",
+          "Applications of integration"
+        ],
+        "secondaryTopics": [
+          "Calculus"
+        ]
+      }
+    },
+    {
+      "id": "2021-november-tz0-p2-q1",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "The question combines conditional and compound probability from a two-way table with a chi-squared independence test; the added conditional-probability skill is directly assessed in part (a).",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Chi-squared tests",
+          "Probability and types of events"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Chi-squared tests",
+          "Conditional probability",
+          "Probability and types of events"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Chi-squared tests",
+          "Conditional probability",
+          "Probability and types of events"
+        ],
+        "secondaryTopics": []
+      }
+    },
+    {
+      "id": "2021-november-tz0-p2-q5",
+      "category": "skill/subtopic change only",
+      "consensusConfidence": "high",
+      "decision": "accept",
+      "applied": true,
+      "adjudicationConfidence": "high",
+      "rationale": "Normal probabilities drive the dart-distance parts, binomial probabilities model points over turns, and part (d)(iii) explicitly conditions the less-than-eight event on scoring at least five.",
+      "current": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Normal distribution",
+          "Binomial distribution"
+        ],
+        "secondaryTopics": []
+      },
+      "consensus": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Binomial distribution",
+          "Conditional probability",
+          "Normal distribution"
+        ],
+        "secondaryTopics": []
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "skills": [
+          "Binomial distribution",
+          "Conditional probability",
+          "Normal distribution"
+        ],
+        "secondaryTopics": []
+      }
+    }
+  ]
+}
