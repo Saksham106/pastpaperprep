@@ -1,0 +1,2751 @@
+{
+  "schemaVersion": "ai-hl-critical-review-1.0",
+  "status": "complete",
+  "productionMigrationAuthorized": true,
+  "bank": "ib-ai-hl",
+  "questionCount": 409,
+  "criticalReviewCount": 148,
+  "provenance": {
+    "sourceRepository": "Saksham106/ib-maths-ai-hl-topic-practice",
+    "sourceCommit": "7b4418146b3af155ca6d2e85b50b7bc7b08080b0",
+    "taxonomySha256": "5ce925baf2c3cb258489858532a30eefaf2ad72ea6a8ee3da2b6b5872c5fd0d1",
+    "lockedConsensusSha256": "4c44b9ce3dcb8b3030be3ca0f63f0a98dcf8c7e2974074899df2ffdfddf10fdb",
+    "criticalQueueSha256": "1ae3def4cd05d1f57883a4ff27676bd0e037366b76fa82b894c5555ee0270161",
+    "productionBaselineFileSha256": "57d605a95146a9e460f2db07ded4a48afe18556a2614c64c32fda845774c543c",
+    "productionBaselineClassificationSha256": "36d6e098b8c6b21a1aa0b87b59ae32e28fdd170c0be556c54918e62b1811627b",
+    "batchResults": [
+      {
+        "batch": 1,
+        "sha256": "a4d9ea3af1b3547ce412835101406d5199fd006a1861b6892951737a8978fa95",
+        "judgmentCount": 30
+      },
+      {
+        "batch": 2,
+        "sha256": "7ea07ff7ae3d5e2febb96c54839afb045fe03566c04d286b9df1ebbd72a83430",
+        "judgmentCount": 30
+      },
+      {
+        "batch": 3,
+        "sha256": "6791f90d163df30366dbdebb0907b20513938a87d8f562cb94f3e0fd90bf4f36",
+        "judgmentCount": 30
+      },
+      {
+        "batch": 4,
+        "sha256": "bafc3f285964b79df2fa458a8d5e11f22da9e90c88522ed08b55df8a4bdd4d67",
+        "judgmentCount": 29
+      },
+      {
+        "batch": 5,
+        "sha256": "414d8aed5df9b8c2d0a7a9831b4d889e9aec8335efdb8c098d2d3d80db5b2c9c",
+        "judgmentCount": 29
+      }
+    ]
+  },
+  "counts": {
+    "decisions": {
+      "accept_recommended": 144,
+      "keep_current": 1,
+      "modify": 3
+    },
+    "confidence": {
+      "high": 109,
+      "medium": 39
+    }
+  },
+  "judgments": [
+    {
+      "id": "2021-may-tz1-p1-q17",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Transformations of graphs"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Laws of logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 7 marks center on translating the logarithmic graph; logarithm laws are explicitly used in the marked horizontal-shift calculation, so they are a distinct secondary method."
+    },
+    {
+      "id": "2021-may-tz1-p1-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Modelling with exponential functions",
+        "Properties of functions and graphs"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The model is solved and evaluated across four marks, with a separate asymptote/property mark; the logarithmic solution for p is also explicitly marked."
+    },
+    {
+      "id": "2021-may-tz1-p1-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Non right-angled trigonometry"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Rounding, estimation and percentage error"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The central 1/2 ab sin(C) area method earns the main method marks; nearest-unit side bounds and nearest-5-degree angle bounds are separately awarded rounding/estimation work."
+    },
+    {
+      "id": "2021-may-tz1-p1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Right-angled trigonometry"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Differentiation and the stationary-point minimum occupy four marks; the p-q relation uses a distinct right-triangle tangent/similarity method for the other four."
+    },
+    {
+      "id": "2021-may-tz1-p2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Linear functions and graphs",
+        "Modelling with quadratic and cubic functions"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Volumes of revolution"
+          ]
+        },
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Correlation and regression"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Line and quadratic-model construction receive 9 marks combined, exceeding the 5-mark volume-of-revolution section; quadratic least-squares regression is a distinct 3-mark method."
+    },
+    {
+      "id": "2021-may-tz1-p2-q5",
+      "decision": "modify",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Eigenvalues and eigenvectors",
+        "Matrices and determinants"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Transition matrices and Markov chains"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The eigenvalue/eigenvector work and P,D decomposition receive 12 marks, versus 6 marks for transition prediction and long-term probability; algebra therefore dominates under the mark-based primary rule."
+    },
+    {
+      "id": "2021-may-tz1-p2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Techniques of differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Kinematics with vectors",
+            "Vectors"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Velocity and speed are obtained by marked product-rule differentiation and then used throughout the motion problem; vector position and distance work are materially assessed but secondary."
+    },
+    {
+      "id": "2021-may-tz1-p3-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Sinusoidal models"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Non right-angled trigonometry",
+            "Radian measure"
+          ]
+        },
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Complex numbers"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 27-mark problem is principally development and combination of sinusoidal models; the arccos/radian work and complex-exponential representation are distinct marked methods."
+    },
+    {
+      "id": "2021-may-tz2-p1-q14",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Matrix transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Matrices and determinants"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The affine transformation is the primary method; the determinant calculation and area-scale argument are explicitly awarded as a distinct matrix/determinant method."
+    },
+    {
+      "id": "2021-may-tz2-p2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Volume and surface area of 3D shapes"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Applications of differentiation"
+          ]
+        },
+        {
+          "topic": "Functions",
+          "skills": [
+            "Properties of functions and graphs"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Base, surface-area and volume construction earns 7 marks and is the largest block; differentiation of the volume and the separately marked graph sketch are distinct secondary methods."
+    },
+    {
+      "id": "2021-may-tz2-p2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Transition matrices and Markov chains"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Eigenvalues and eigenvectors"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Transition probabilities, patient-ratio prediction and the long-term ratio form the applied context; diagonalization/eigenvectors are a substantial but supporting algebra method."
+    },
+    {
+      "id": "2021-may-tz2-p2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Coupled differential equations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Eigenvalues and eigenvectors"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The system solution, stability, slopes and phase portrait are organized around coupled differential equations; the 6-mark eigen-analysis is a distinct algebra method."
+    },
+    {
+      "id": "2021-may-tz2-p3-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Correlation and regression",
+        "Further hypothesis testing",
+        "Outliers and data interpretation",
+        "Sampling and data collection",
+        "The t-test"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Modelling with quadratic and cubic functions"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Sampling, outlier handling, correlation tests, model comparison and the single-sample t-test account for nearly all marks; the quadratic model is a distinct secondary method."
+    },
+    {
+      "id": "2021-november-tz0-p1-q12",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Non-linear regression and linearizing"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Both marked parts use a log-log regression model and back-transformation; logarithms support the regression method rather than forming a separate dominant skill."
+    },
+    {
+      "id": "2021-november-tz0-p1-q15",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Arcs and sectors",
+            "Volume and surface area of 3D shapes"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Differentiating the volume and solving the stationary equation earn the dominant 5 marks; sector geometry and the volume construction are distinct supporting methods, while radians are incidental."
+    },
+    {
+      "id": "2021-november-tz0-p1-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Trapezoidal rule"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Rounding, estimation and percentage error"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Three marks explicitly assess trapezoidal approximation and two separately assess percentage error, making the latter a distinct secondary method."
+    },
+    {
+      "id": "2021-november-tz0-p2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Sinusoidal models"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "All assessed parts use the sinusoidal height model, including amplitude, period, sketch, threshold timing and changed rotation rate; no separate materially assessed topic is present."
+    },
+    {
+      "id": "2021-november-tz0-p2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Complex numbers"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Sinusoidal models"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Complex-number form and real-part work receive 9 marks, exceeding the 4-mark current-sum sinusoidal application; the latter remains a distinct secondary method."
+    },
+    {
+      "id": "2021-november-tz0-p2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Coupled differential equations",
+        "Differential equations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Eigenvalues and eigenvectors",
+            "Matrices and determinants"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The shock-absorber equation is converted to and solved as a coupled system; constructing A, taking its determinant and finding eigenvectors are explicitly marked algebra methods."
+    },
+    {
+      "id": "2021-november-tz0-p3-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differential equations",
+        "Euler's method for differential equations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Correlation and regression",
+            "Non-linear regression and linearizing"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The later differential-equation solution and Euler work dominate; the earlier linear and quadratic regressions receive distinct, explicitly marked regression credit."
+    },
+    {
+      "id": "2022-may-tz1-p1-q11",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Eigenvalues and eigenvectors"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Transition matrices and Markov chains"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Finding the eigenvector earns 3 marks versus 2 for the long-term Markov probability; eigenvalues/eigenvectors therefore remain primary."
+    },
+    {
+      "id": "2022-may-tz1-p1-q12",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Exponents and logarithms"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Poisson distribution"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Logarithmic/exponential modeling occupies 5 marks across parts (a)-(c); the 3-mark waiting-time calculation is a distinct Poisson secondary method."
+    },
+    {
+      "id": "2022-may-tz1-p1-q17",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Properties of functions and graphs"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Applications of differentiation",
+            "Differentiating special functions"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Parameter values are constrained by the stated local maximum/minimum graph properties; differentiating the special-function model is a separately marked method."
+    },
+    {
+      "id": "2022-may-tz1-p2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Arcs and sectors",
+        "Non right-angled trigonometry"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Applications of differentiation",
+            "Applications of integration"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Sector/segment and cosine-rule/triangle-area work total 12 marks; maximizing a rate and integrating it to volume are distinct 5-mark calculus applications."
+    },
+    {
+      "id": "2022-may-tz1-p2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Coupled differential equations",
+        "Differential equations",
+        "Euler's method for differential equations",
+        "Kinematics"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Eigenvalues and eigenvectors"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The question marks system conversion, eigenvalue use, Euler iteration, displacement and long-term velocity; the eigenvalue calculation is distinct algebra support to the calculus model."
+    },
+    {
+      "id": "2022-may-tz1-p2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation",
+        "Applications of integration",
+        "Introduction to differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Non-linear piecewise models",
+            "Transformations of graphs"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Tangent/derivative and area calculations receive 11 marks, exceeding the 7-mark transformation/piecewise block; both function methods are distinct secondary work."
+    },
+    {
+      "id": "2022-may-tz1-p2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Matrix transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Matrices and determinants"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 18 marks are centered on representing, factoring, rotating and recentering an affine matrix transformation; matrix algebra/inversion is materially assessed as a distinct supporting method."
+    },
+    {
+      "id": "2022-may-tz1-p3-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Correlation and regression",
+        "Non-linear regression and linearizing"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differential equations"
+          ]
+        },
+        {
+          "topic": "Functions",
+          "skills": [
+            "Logistic models",
+            "Modelling with exponential functions"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Regression/correlation and nonlinear regression are repeatedly and substantially marked; the exponential differential equation and logistic/exponential model interpretations are distinct supporting methods."
+    },
+    {
+      "id": "2022-may-tz2-p1-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Composite and inverse functions"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Inverse-function derivation and intersection solving are primary; exponentiating and isolating the logarithmic relation is a distinct marked algebra step."
+    },
+    {
+      "id": "2022-may-tz2-p1-q15",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Matrix transformations",
+        "Vector equations of lines"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Matrices and determinants"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The vector line representation and 4-mark matrix image calculation are the primary assessed methods; the determinant receives a distinct 1-mark algebra method."
+    },
+    {
+      "id": "2022-may-tz2-p1-q16",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Kinematics with vectors",
+        "Vectors"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Techniques of differentiation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Parts (a)-(b) award 2 marks for chain/product differentiation but 5 for vector acceleration and non-parallelism; vector kinematics is primary and differentiation is a distinct secondary method."
+    },
+    {
+      "id": "2022-may-tz2-p1-q17",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of integration",
+        "Kinematics",
+        "Related rates of change"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The 3-mark related-rate part and 2-mark speed/kinematics work are joined by a marked definite-integral time calculation, so all three calculus skills are materially assessed."
+    },
+    {
+      "id": "2022-may-tz2-p1-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Modelling with quadratic and cubic functions",
+        "Properties of functions and graphs"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Solving equations with a GDC"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The graph feature, four-mark cubic coefficient system, and three-mark root/interval calculation assess cubic modelling and graph properties; numerical solving is a distinct secondary method."
+    },
+    {
+      "id": "2022-may-tz2-p1-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Arcs and sectors"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Rounding, estimation and percentage error"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Sector area and bounds use the sector formula across 5 marks; the 3-mark largest-percentage-error calculation is a distinct rounding and percentage-error method."
+    },
+    {
+      "id": "2022-may-tz2-p2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Correlation and regression",
+        "Non-linear regression and linearizing"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiating special functions"
+          ]
+        },
+        {
+          "topic": "Functions",
+          "skills": [
+            "Properties of functions and graphs"
+          ]
+        },
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Derivative (3), graph (3), log-linear relation (4), regression (2), and parameter estimates (3) are all marked; transformed regression is the largest coherent block, with the other methods distinct and secondary."
+    },
+    {
+      "id": "2022-may-tz2-p2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Transition matrices and Markov chains"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Eigenvalues and eigenvectors"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The Markov transition model and long-term state probabilities dominate the question; eigenvalues and eigenvectors receive a separate marked block."
+    },
+    {
+      "id": "2022-may-tz2-p2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Coordinate geometry",
+        "Kinematics with vectors",
+        "Right-angled trigonometry"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Modelling with quadratic and cubic functions"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Vector projectile setup, speed/angle, coordinates, intersections, and release timing dominate; the quadratic trajectory is a distinct marked modelling method."
+    },
+    {
+      "id": "2022-may-tz2-p2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Coupled differential equations",
+        "Differential equations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Eigenvalues and eigenvectors"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The coupled/second-order differential-equation solution and model application occupy most of the 16 marks; eigenvalue calculation is a distinct 3-mark algebra method."
+    },
+    {
+      "id": "2022-may-tz2-p3-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Graph theory",
+        "Minimum spanning trees",
+        "Non right-angled trigonometry",
+        "Travelling salesman problem"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Binomial distribution",
+            "Probability and types of events"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Cosine-rule geometry and the graph/MST/TSP algorithms receive the dominant marks; the network-failure calculation is a separate 5-mark binomial/event-probability method."
+    },
+    {
+      "id": "2022-november-tz0-p1-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Exponents and logarithms",
+        "Laws of logarithms"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Every part evaluates or rearranges the base-10 logarithmic model, and part (c) explicitly requires logarithm-law manipulation."
+    },
+    {
+      "id": "2022-november-tz0-p1-q11",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Modelling with quadratic and cubic functions",
+        "Transformations of graphs"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Correlation and regression"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Cubic regression earns 2 marks and the scale transformation earns 3; together function modelling and transformation dominate, with regression separately assessed."
+    },
+    {
+      "id": "2022-november-tz0-p1-q12",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Coupled differential equations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Eigenvalues and eigenvectors"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 5 marks classify and sketch phase portraits for a coupled system; eigenvalue/eigenvector interpretation supplies a distinct 3-mark table method."
+    },
+    {
+      "id": "2022-november-tz0-p1-q13",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Non-linear regression and linearizing"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The line on (P, log10 Q) and the subsequent model substitutions assess linearization/nonlinear regression across the question; exponential/log rearrangement is secondary."
+    },
+    {
+      "id": "2022-november-tz0-p1-q17",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Sinusoidal models"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Complex numbers"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The requested result is the sinusoidal daylight model and its maximum; complex-exponential manipulation is an explicit alternate marked method, not the primary topic."
+    },
+    {
+      "id": "2022-november-tz0-p1-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Matrix transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Matrices and determinants"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 6-mark inverse-coordinate calculation and area transformation are matrix-transformation work; determinant/matrix algebra is a distinct 2-mark method."
+    },
+    {
+      "id": "2022-november-tz0-p2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation",
+        "Applications of integration",
+        "Trapezoidal rule"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Rounding, estimation and percentage error"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Differentiation optimization, integration area, and trapezoidal-rule work are explicitly marked across the question; percentage error is a distinct secondary method."
+    },
+    {
+      "id": "2022-november-tz0-p2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Further hypothesis testing",
+        "Linear combinations of random variables",
+        "Normal distribution",
+        "The t-test",
+        "Unbiased estimates and sample mean distribution"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Normal sums/probabilities, an unbiased variance estimate, and the two-sample t-test are explicitly assessed across parts (a)-(d), covering all listed statistical skills."
+    },
+    {
+      "id": "2022-november-tz0-p2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Kinematics with vectors",
+        "Vectors"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Kinematics",
+            "Techniques of differentiation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Velocity, acceleration, relative position, and parallel/opposite motion are vector kinematics; chain/product differentiation is explicitly credited as a secondary method."
+    },
+    {
+      "id": "2022-november-tz0-p3-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Binomial distribution",
+        "Chi-squared tests",
+        "Further hypothesis testing",
+        "Transition matrices and Markov chains"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Eigenvalues and eigenvectors",
+            "Matrices and determinants"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Binomial modelling, chi-squared inference, and transition-matrix analysis dominate; the characteristic-polynomial/eigenvector determinant work is a distinct algebra block."
+    },
+    {
+      "id": "2022-november-tz0-p3-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Exponents and logarithms",
+        "Sequences and series",
+        "Sum to infinity"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differential equations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Only the initial 3 marks derive the decay differential equation; repeated dosing uses geometric sequences, sums to infinity, and exponential/log decay for the remaining work."
+    },
+    {
+      "id": "2023-may-tz1-p1-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Modelling with quadratic and cubic functions",
+        "Non-linear piecewise models"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Introduction to differentiation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The line and two quadratic sections plus the final piecewise representation fill all 9 marks; tangent-gradient differentiation is explicitly marked but secondary."
+    },
+    {
+      "id": "2023-may-tz1-p1-q12",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Sinusoidal models"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Complex numbers"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The assessed object is the amplitude and phase of a sum of sinusoids; complex-exponential manipulation is an explicit alternate marked method, not the primary topic."
+    },
+    {
+      "id": "2023-may-tz1-p1-q14",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Non-linear regression and linearizing"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The log-log straight line is converted to a power relationship using the given points; nonlinear regression/linearizing is primary and logarithm/exponent manipulation is secondary."
+    },
+    {
+      "id": "2023-may-tz1-p1-q16",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Correlation and regression",
+        "Non-linear regression and linearizing"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Direct and inverse variation"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "All 6 marks use residual sums and least-squares minimization for a nonlinear regression curve; the inverse-square relationship is the distinct model context."
+    },
+    {
+      "id": "2023-may-tz1-p1-q17",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Related rates of change"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Right-angled trigonometry"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Related-rate chain/quotient-rule work and the final distance occupy 8 of 9 marks; the tangent relation is a distinct 1-mark right-trigonometry step."
+    },
+    {
+      "id": "2023-may-tz1-p2-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Linear functions and graphs",
+        "Modelling with linear and piecewise functions"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Correlation and regression"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The two-point linear model receives 8 marks for gradient, interpretation, equation, and estimate; regression receives 5, so linear modelling is primary."
+    },
+    {
+      "id": "2023-may-tz1-p2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Graph theory",
+        "Minimum spanning trees",
+        "Travelling salesman problem"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Rounding, estimation and percentage error"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Euler-path reasoning, MST/TSP algorithms, and bounds receive the dominant marks; the nearest-kilometre lower-bound correction is a distinct rounding/percentage-error method."
+    },
+    {
+      "id": "2023-may-tz1-p2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Chi-squared tests",
+        "Further hypothesis testing",
+        "Poisson distribution",
+        "Statistical measures and frequency tables",
+        "Unbiased estimates and sample mean distribution"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The markscheme explicitly assesses variance estimation, Poisson expected frequencies, cell combining, chi-squared degrees of freedom/p-value, and the hypothesis-test conclusion."
+    },
+    {
+      "id": "2023-may-tz1-p2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Coupled differential equations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Eigenvalues and eigenvectors"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The speedboat is defined and analyzed as a coupled first-order system with its spiral path; eigenvalue calculation and interpretation are distinct secondary algebra work."
+    },
+    {
+      "id": "2023-may-tz1-p2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Matrix transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Matrices and determinants",
+            "Sequences and series"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Matrix transformations, determinant scaling, and transformed-element areas dominate; determinant algebra and the geometric-series area sum are distinct secondary methods."
+    },
+    {
+      "id": "2023-may-tz1-p3-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation",
+        "Applications of integration",
+        "Volumes of revolution"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Direct and inverse variation",
+            "Modelling with quadratic and cubic functions"
+          ]
+        },
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Volume and surface area of 3D shapes"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The optimization and integral-of-volume work are the dominant calculus methods; direct proportionality, the six-mark quadratic fit, and the cylinder-volume formula are separately marked supporting methods."
+    },
+    {
+      "id": "2023-may-tz2-p1-q12",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Related rates of change"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Volume and surface area of 3D shapes"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Part (b) awards three marks for differentiating sphere volume and applying the chain rule; the two-mark radius calculation is a distinct sphere-volume method."
+    },
+    {
+      "id": "2023-may-tz2-p1-q13",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Matrix transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Matrices and determinants"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The four-mark inverse-composition task is a transformation problem; determinant and area-scale calculations receive a distinct three marks."
+    },
+    {
+      "id": "2023-may-tz2-p2-q2",
+      "decision": "keep_current",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Modelling with exponential functions"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "All 12 marks assess the two exponential population models and their numerical use; the markscheme awards no separate logarithm-law or exponent-method component beyond that modelling."
+    },
+    {
+      "id": "2023-may-tz2-p2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Solving equations with a GDC"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Differentiation and maximizing area dominate parts (c)-(e); the four-mark search for both feasible park dimensions is a distinct GDC equation-solving task."
+    },
+    {
+      "id": "2023-may-tz2-p2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Coupled differential equations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Eigenvalues and eigenvectors"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The system solution, initial conditions, derivative relation, and phase trajectory are governed by the coupled differential-equation method; eigenvalues/eigenvectors receive a separate six-mark block."
+    },
+    {
+      "id": "2023-may-tz2-p3-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Right-angled trigonometry"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Applications of differentiation",
+            "Techniques of differentiation"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Right-triangle distance and route geometry are assessed across the six-mark first route and six-mark revised route; the derivative expression and stationary-route condition form a distinct calculus component."
+    },
+    {
+      "id": "2023-november-tz0-p1-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Correlation and regression",
+        "Non-linear regression and linearizing"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Laws of logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Power regression and log-transformed linear regression account for the central assessed work; the three-mark equivalence proof explicitly uses logarithm laws."
+    },
+    {
+      "id": "2023-november-tz0-p1-q11",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of integration",
+        "Volumes of revolution"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Transformations of graphs"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Area and revolution-volume calculations receive five marks and dominate the seven-mark question; the two-mark vertical stretch is a distinct graph-transformation method."
+    },
+    {
+      "id": "2023-november-tz0-p1-q13",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Introduction to differentiation",
+        "Introduction to integration",
+        "Kinematics"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Non-linear piecewise models"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The marked work differentiates the two velocity pieces and integrates them to recover displacement; solving and using the explicit piecewise model is a distinct function-model component."
+    },
+    {
+      "id": "2023-november-tz0-p1-q15",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Eigenvalues and eigenvectors"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Transition matrices and Markov chains"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Eigenvalues and the non-parallel eigenvector account for five of seven marks; transition interpretation and long-term population ratio are the distinct two-mark context method."
+    },
+    {
+      "id": "2023-november-tz0-p1-q16",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Poisson distribution",
+        "Probability and types of events"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Part (a) is Poisson modelling, while part (b) is intersection/complement reasoning over conditional shot outcomes; no separate binomial-distribution model is awarded."
+    },
+    {
+      "id": "2023-november-tz0-p1-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Volume and surface area of 3D shapes"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Rounding, estimation and percentage error"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The minimum square-pyramid volume receives four marks and is the dominant method; two marks separately assess lower and upper bounds for the rounded conversion."
+    },
+    {
+      "id": "2023-november-tz0-p1-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Complex numbers"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Sinusoidal models"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Polar complex-number manipulation is the assessed vehicle, but the four-mark second part explicitly requires the resulting imaginary part in sinusoidal form."
+    },
+    {
+      "id": "2023-november-tz0-p1-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation",
+        "Differentiating special functions",
+        "Techniques of differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Sinusoidal models"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The markscheme awards chain-rule derivatives and uses the second derivative to locate the first maximum rate; the sinusoidal wave model supplies a distinct two-mark setup."
+    },
+    {
+      "id": "2023-november-tz0-p2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Chi-squared tests",
+        "Further hypothesis testing",
+        "Normal distribution",
+        "Outliers and data interpretation",
+        "Statistical measures and frequency tables"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Mean/frequency estimates, IQR and outlier judgement, normal expected frequencies, hypotheses, and the chi-squared decision all receive explicit marks."
+    },
+    {
+      "id": "2023-november-tz0-p2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation",
+        "Techniques of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Four marks assess chain/quotient-rule differentiation and four assess locating and comparing the maximum gradient; the exponential expression is the given model rather than a separately marked modelling task."
+    },
+    {
+      "id": "2023-november-tz0-p2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Binomial distribution",
+        "Further hypothesis testing",
+        "Linear combinations of random variables",
+        "Normal distribution",
+        "Sampling and data collection"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The marks explicitly cover binomial counts/tests, summed-normal weights, normal inverse probability, test assumptions, hypotheses, and a significance conclusion."
+    },
+    {
+      "id": "2023-november-tz0-p3-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differential equations",
+        "Euler's method for differential equations",
+        "Kinematics",
+        "Modelling with differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Separable differential equations, air-resistance modelling, velocity/displacement interpretation, and the explicitly marked Euler iteration are all materially assessed."
+    },
+    {
+      "id": "2023-november-tz0-p3-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Discrete probability distributions",
+        "Probability and types of events"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Applications of differentiation"
+          ]
+        },
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Most marks compute event probabilities and expected information; the derivative-based maximization and repeated logarithmic information calculations are distinct assessed methods."
+    },
+    {
+      "id": "2024-may-tz1-p1-q13",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Non right-angled trigonometry"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Complex numbers"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The four-mark area calculation uses two side lengths and their included angle; complex modulus and argument provide the separately assessed two-mark inputs."
+    },
+    {
+      "id": "2024-may-tz1-p1-q16",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation",
+        "Differentiating special functions"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The marks require differentiating the cosine curve and equating its tangent gradient to the ladder gradient before finding the contact height."
+    },
+    {
+      "id": "2024-may-tz1-p1-q17",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Transition matrices and Markov chains"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Eigenvalues and eigenvectors"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The customer-state evolution and matrix powers dominate the six-mark expression; finding the second eigenvector is a distinct two-mark algebraic method."
+    },
+    {
+      "id": "2024-may-tz1-p1-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Linear functions and graphs"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Algebraic manipulation"
+          ]
+        },
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Statistical measures and frequency tables"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The inverse temperature conversion is a linear-function mapping; rearrangement is separately marked, and mean/standard-deviation transformation is an explicitly assessed statistical method."
+    },
+    {
+      "id": "2024-may-tz1-p2-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Binomial distribution",
+        "Normal distribution"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Modelling with linear and piecewise functions"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Normal probabilities and a binomial count account for the main probability marks; the separately marked package-fee rule is a linear piecewise model."
+    },
+    {
+      "id": "2024-may-tz1-p2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Direct and inverse variation"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The nine-mark profit optimization is derivative-based; the reciprocal-square sales model is used in separately marked price, sales, and revenue calculations."
+    },
+    {
+      "id": "2024-may-tz1-p2-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Transition matrices and Markov chains"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Adjacency matrices and walks"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Transition probabilities, matrix powers, and long-term state probabilities dominate the later ten marks; the earlier adjacency/walk count is a distinct five-mark graph method."
+    },
+    {
+      "id": "2024-may-tz1-p3-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Binomial distribution",
+        "Chi-squared tests",
+        "Conditional probability",
+        "Further hypothesis testing",
+        "The t-test"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The markscheme explicitly assesses conditional probability, chi-squared independence testing, a one-sided binomial test, and a two-sample mean test with conclusions."
+    },
+    {
+      "id": "2024-may-tz1-p3-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Introduction to integration",
+        "Kinematics"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Modelling with quadratic and cubic functions"
+          ]
+        },
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Kinematics with vectors"
+          ]
+        },
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Sequences and series"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Projectile velocity/displacement and integration are the primary methods; the marked quadratic boundary, vector kinematics, and arithmetic seat-coordinate sequence are distinct supporting methods."
+    },
+    {
+      "id": "2024-may-tz2-p1-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of integration",
+        "Volumes of revolution"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Transformations of graphs"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The integral and transformed volume are the dominant four- and three-mark calculus methods; the stated horizontal and vertical stretches are separately assessed graph transformations."
+    },
+    {
+      "id": "2024-may-tz2-p1-q11",
+      "decision": "modify",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation",
+        "Applications of integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The 6 marks assess derivative-based tangent/normal work and the 3 marks assess the finite area integral. Basic differentiation here is part of the tangent/normal application, not a separate techniques skill."
+    },
+    {
+      "id": "2024-may-tz2-p1-q12",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Kinematics with vectors",
+        "Vector equations of lines",
+        "Vectors"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "All 7 marks use vector motion: speed is a vector magnitude, the hawk equation is a vector line, and interception equates vector components in time."
+    },
+    {
+      "id": "2024-may-tz2-p1-q14",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Modelling with exponential functions"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Correlation and regression"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The model parameters and exponential comparison are the central work; fitting models and the marked R-squared/residual comparison are a distinct regression component."
+    },
+    {
+      "id": "2024-may-tz2-p1-q15",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Complex numbers"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Matrix transformations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Polar form, powers, and complex multiplication drive the question; the requested enlargement/rotation matrix is a separate matrix-transformation method."
+    },
+    {
+      "id": "2024-may-tz2-p2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of integration",
+        "Trapezoidal rule"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Rounding, estimation and percentage error"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Trapezoidal area and exact integration account for the main work, while the final 3 marks explicitly calculate percentage error from the approximate and exact areas."
+    },
+    {
+      "id": "2024-may-tz2-p2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Right-angled trigonometry",
+        "Volume and surface area of 3D shapes"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Applications of differentiation",
+            "Techniques of differentiation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 9-mark construction plus volume work and later volume maximum are chiefly prism geometry; the 6-mark product-rule differentiation is a distinct calculus component."
+    },
+    {
+      "id": "2024-may-tz2-p2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Transition matrices and Markov chains"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Eigenvalues and eigenvectors",
+            "Matrices and determinants"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Transition probabilities and the long-term state receive 8 marks; the equally substantial characteristic-polynomial, eigenvector, and P,D work is separately assessed matrix/eigenvalue algebra."
+    },
+    {
+      "id": "2024-may-tz2-p2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Algebraic manipulation",
+        "Sequences and series"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Probability and types of events"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The triangle-number formula and sums occupy 7 marks and require sequence reasoning plus simplification; the 7-mark without-replacement probability section is a distinct secondary method."
+    },
+    {
+      "id": "2024-may-tz2-p3-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Further hypothesis testing",
+        "Statistical measures and frequency tables",
+        "The t-test",
+        "Type I and Type II errors"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Quartiles and interquartile range are marked before the paired t-test, p-value, error interpretation, and contextual conclusion; all are statistics methods."
+    },
+    {
+      "id": "2024-may-tz2-p3-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Coupled differential equations",
+        "Differential equations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Eigenvalues and eigenvectors"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The predator-prey system, separated solutions, phase trajectories, and linearized system are differential-equation work; eigenvalue analysis is a distinct marked algebra method."
+    },
+    {
+      "id": "2024-november-tz0-p1-q12",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Modelling with exponential functions"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Non-linear regression and linearizing"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The given model and the requested exponential model dominate the item, while the final 3 marks explicitly require exponential least-squares regression."
+    },
+    {
+      "id": "2024-november-tz0-p1-q14",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation",
+        "Techniques of differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Right-angled trigonometry"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Chain-rule differentiation and the normal/tangent application receive 6 of 8 marks; the final angle step uses a separately assessed tangent/right-triangle method."
+    },
+    {
+      "id": "2024-november-tz0-p1-q16",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of integration",
+        "Volumes of revolution"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 6-mark capacity calculation uses washers about the y-axis and requires solving a logarithmic boundary for x; logarithm/exponent manipulation is materially marked but secondary."
+    },
+    {
+      "id": "2024-november-tz0-p1-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Modelling with exponential functions"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The exponential decay model is used throughout; the 3-mark half-decay inequality requires a distinct exponential/logarithmic solution."
+    },
+    {
+      "id": "2024-november-tz0-p2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation",
+        "Introduction to integration",
+        "Trapezoidal rule"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Volume and surface area of 3D shapes"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Trapezoidal and exact area plus derivative-based surface-area minimization total 10 marks; cylinder surface-area/volume modelling and label fit are a distinct 3D-geometry component."
+    },
+    {
+      "id": "2024-november-tz0-p2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Coupled differential equations",
+        "Differential equations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Eigenvalues and eigenvectors"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The second-order spring equation is converted to a coupled first-order system, solved using eigenvectors, and analyzed via phase portraits and decay."
+    },
+    {
+      "id": "2024-november-tz0-p3-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Transition matrices and Markov chains"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Minimum spanning trees",
+            "Travelling salesman problem"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Transition-matrix calculations receive 16 marks, exceeding the 8-mark route-bound section, which nevertheless materially assesses nearest-neighbour/TSP and Prim/MST methods."
+    },
+    {
+      "id": "2024-november-tz0-p3-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Chi-squared tests",
+        "Further hypothesis testing",
+        "Poisson distribution",
+        "The t-test"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differential equations"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The statistical part is 16 marks (Poisson fit, chi-squared test, and t-test) versus 15 marks for the fish-growth differential equation; the latter remains a substantial secondary method."
+    },
+    {
+      "id": "2025-may-tz1-p1-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Composite and inverse functions",
+        "Properties of functions and graphs"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Laws of logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The inverse function, its range, and its explicit inverse form are central; logarithm laws are directly marked in rewriting and solving."
+    },
+    {
+      "id": "2025-may-tz1-p1-q13",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Matrix transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The transformation is represented by rotation and matrix products, then identified with a reflection line; matrix transformation is the dominant assessed method."
+    },
+    {
+      "id": "2025-may-tz1-p1-q14",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Complex numbers"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Sinusoidal models"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Both parts use complex-exponential representation and complex addition; expressing the resulting sum as q sin(0.35x+r) is a distinct sinusoidal-model component."
+    },
+    {
+      "id": "2025-may-tz1-p1-q15",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differential equations",
+        "Euler's method for differential equations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Rounding, estimation and percentage error"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Five marks assess Euler updates for the differential equation; the final 3 marks explicitly use nearest-centimetre bounds and the percentage-error formula."
+    },
+    {
+      "id": "2025-may-tz1-p1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of integration",
+        "Differentiating special functions",
+        "Kinematics"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The item is particle kinematics: zero-acceleration coordinates require differentiating the trigonometric velocity, and distance requires integrating its absolute value."
+    },
+    {
+      "id": "2025-may-tz1-p1-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The area is obtained from definite integrals in parts (b) and (c), accounting for 5 of 7 marks; finding the third root is supporting algebra rather than a distinct secondary topic."
+    },
+    {
+      "id": "2025-may-tz1-p2-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Conditional probability",
+        "Outliers and data interpretation",
+        "Probability and types of events",
+        "Statistical measures and frequency tables"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Frequency-table measures, distribution comparison, complementary events, conditional without-replacement probability, and sequential probabilities are all explicitly marked statistics/probability methods."
+    },
+    {
+      "id": "2025-may-tz1-p2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Logistic models",
+        "Modelling with quadratic and cubic functions"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Applications of differentiation",
+            "Modelling with differentiation"
+          ]
+        },
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Correlation and regression"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Quadratic and logistic modelling are the central proposals; derivative growth-rate analysis and the quadratic-regression/R-squared work are separately assessed methods."
+    },
+    {
+      "id": "2025-may-tz1-p2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Coordinate geometry",
+        "Right-angled trigonometry",
+        "Volume and surface area of 3D shapes"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Financial mathematics"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Coordinates, right-triangle lengths/angles, prism volume, and area scaling dominate; the final 3 marks separately assess cost, wastage, and profit."
+    },
+    {
+      "id": "2025-may-tz1-p2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of integration",
+        "Volumes of revolution"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The 4-mark area and 8-mark rotation/volume work are integration applications, with the latter explicitly using volumes generated by revolution."
+    },
+    {
+      "id": "2025-may-tz1-p3-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Transition matrices and Markov chains"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Sequences and series"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Transition-matrix analysis receives 16 marks, slightly more than the 13-mark arithmetic/geometric sequence section; the sequence models remain a distinct secondary component."
+    },
+    {
+      "id": "2025-may-tz2-p1-q12",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differential equations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "All 8 method marks in (b) are separation, integration and initial-condition work for the differential equation; kinematics is context, not a separately assessed method."
+    },
+    {
+      "id": "2025-may-tz2-p1-q14",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Correlation and regression",
+        "Non-linear regression and linearizing"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 6 marks assess choosing the higher R-squared regression and linearizing/exponentiating the logarithmic regression; exponent/log algebra is a distinct supporting method."
+    },
+    {
+      "id": "2025-may-tz2-p1-q15",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Coordinate geometry",
+        "Non right-angled trigonometry"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Introduction to differentiation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The normal and ray gradients plus the angle calculation dominate the 8 marks as coordinate/angle methods; finding the tangent gradient by differentiating y=x² is a separate 3-mark prerequisite."
+    },
+    {
+      "id": "2025-may-tz2-p2-q1",
+      "decision": "modify",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Algebraic manipulation",
+        "Sequences and series"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Every mark is counting, arithmetic-sequence formulas/sums, or algebraic simplification. The official question and markscheme contain no probability assessment, so the recommended statistics secondary is unsupported."
+    },
+    {
+      "id": "2025-may-tz2-p2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation",
+        "Applications of integration"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Properties of functions and graphs"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The area marks require definite integration and the parallel-tangent part requires equating derivatives; intersections and curve relationships are a distinct functions component."
+    },
+    {
+      "id": "2025-may-tz2-p2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Volume and surface area of 3D shapes"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Applications of differentiation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Surface-area and volume modelling is assessed through parts (a)-(d) and the shape interpretation, while the 7-mark optimization derivative is a distinct calculus method."
+    },
+    {
+      "id": "2025-may-tz2-p2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Coupled differential equations",
+        "Euler's method for differential equations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Eigenvalues and eigenvectors"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The general solution and Euler prediction are coupled-system differential-equation methods; forming eigenvalues/eigenvectors is a distinct marked algebra component."
+    },
+    {
+      "id": "2025-may-tz2-p2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Transition matrices and Markov chains"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Eigenvalues and eigenvectors"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The recurrence, steady-state probability and threshold dominate the 17 marks; the 4-mark proof explicitly computes an eigenvector and its eigenvalue."
+    },
+    {
+      "id": "2025-may-tz2-p3-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Arcs and sectors",
+        "Non right-angled trigonometry",
+        "Radian measure",
+        "Vectors"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The markscheme directly awards vector products, spherical-angle trigonometry, arc-length/radian conversion and spherical arcs; no trigonometric-identity manipulation is required."
+    },
+    {
+      "id": "2025-may-tz3-p1-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Direct and inverse variation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The inverse-square model supplies the main equation and prediction; identifying the log-log linearization and its gradient materially uses exponent/log transformations."
+    },
+    {
+      "id": "2025-may-tz3-p1-q11",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Coupled differential equations",
+        "Euler's method for differential equations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Eigenvalues and eigenvectors"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Five of six marks assess Euler iteration of the coupled system; the explicitly marked eigenvalue selection is a separate algebra method."
+    },
+    {
+      "id": "2025-may-tz3-p1-q15",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Transition matrices and Markov chains"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Eigenvalues and eigenvectors"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The primary task is a Markov-chain steady-state proportion, while part (a)'s 3-mark eigenvector calculation is a distinct algebra method."
+    },
+    {
+      "id": "2025-may-tz3-p1-q16",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of integration",
+        "Volumes of revolution"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Transformations of graphs"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 5-mark material calculation subtracts volumes generated by integration, while the translation used to define g is a distinct graph-transformation method."
+    },
+    {
+      "id": "2025-may-tz3-p1-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Logarithmic models"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The relationship is explicitly logarithmic and the jet-engine part requires solving a logarithmic equation using exponent/log algebra."
+    },
+    {
+      "id": "2025-may-tz3-p1-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Binomial distribution",
+        "Probability and types of events"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Sequences and series"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The two 3-mark parts are balanced: an arithmetic-sequence sum determines the white-sector probability, and a binomial event calculates winning probability."
+    },
+    {
+      "id": "2025-may-tz3-p1-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation",
+        "Techniques of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The 3-mark derivative requires product and chain rules, and the 3-mark tangent task applies the derivative to a gradient and equation; both are materially assessed calculus methods."
+    },
+    {
+      "id": "2025-may-tz3-p2-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Volume and surface area of 3D shapes"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Applications of differentiation",
+            "Second order derivatives and concavity"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Cuboid/cylinder volume and surface-area work dominates the modelling, while first-derivative optimization and second-derivative concavity are separately marked."
+    },
+    {
+      "id": "2025-may-tz3-p2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Modelling with quadratic and cubic functions",
+        "Properties of functions and graphs"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Trapezoidal rule"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The quadratic bridge model drives the 6-mark maximum-height/clearance decision, outweighing the 3-mark trapezoidal approximation; curve properties are used in the comparisons."
+    },
+    {
+      "id": "2025-may-tz3-p3-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Coordinate geometry",
+        "Voronoi diagrams"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Further hypothesis testing",
+            "Normal distribution",
+            "The t-test"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Perpendicular bisectors, Voronoi-cell area and coordinates dominate the geometry marks; the later t-test and normal model are distinct marked statistical sections."
+    },
+    {
+      "id": "2025-november-tz0-p1-q13",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Kinematics with vectors",
+        "Vector equations of lines",
+        "Vectors"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Both position equations and the least-distance calculation use vector kinematics; constructing the second position equation is a separately assessed vector-line step, with no required calculus skill."
+    },
+    {
+      "id": "2025-november-tz0-p1-q16",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Transition matrices and Markov chains"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Eigenvalues and eigenvectors"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Transition probabilities and the steady-state bicycle proportion are primary; the 2-mark steady-state route explicitly permits an eigenvector with eigenvalue 1."
+    },
+    {
+      "id": "2025-november-tz0-p1-q17",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of integration",
+        "Differentiating special functions",
+        "Kinematics",
+        "Techniques of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The motion model requires integrating angular speed, differentiating cosine and applying the chain rule to height; these are marked integration, special-function/technique differentiation and kinematics methods."
+    },
+    {
+      "id": "2025-november-tz0-p1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation",
+        "Introduction to differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The 6-mark part differentiates a reciprocal model and uses its derivative to locate a minimum; the derivative calculation is a distinct introductory differentiation method within the primary calculus task."
+    },
+    {
+      "id": "2025-november-tz0-p2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation",
+        "Introduction to integration",
+        "Modelling with differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Modelling with exponential functions"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Rate modelling, finding the maximum and integrating the rate to height dominate the calculus marks; the second plant is an explicitly assessed exponential model."
+    },
+    {
+      "id": "2025-november-tz0-p2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Modelling with quadratic and cubic functions"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Applications of differentiation"
+          ]
+        },
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Correlation and regression"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The quadratic bridge model is the central 6-mark modelling component; derivative/steepest-gradient work and Pearson/regression interpretation are distinct secondary methods."
+    },
+    {
+      "id": "2025-november-tz0-p2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Logarithmic models",
+        "Modelling with exponential functions"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Laws of logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Both the daily-distance logarithmic model and points exponential model are materially used; the composition is simplified with an explicitly marked logarithm law."
+    },
+    {
+      "id": "2025-november-tz0-p2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Introduction to integration",
+        "Kinematics"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Position is obtained by integrating velocity and the remaining marks model projectile motion and optimize range; vector notation adds no separately assessed vector method."
+    },
+    {
+      "id": "2025-november-tz0-p3-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Graph theory",
+        "Minimum spanning trees",
+        "Travelling salesman problem"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Linear combinations of random variables",
+            "Normal distribution"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Hamiltonian/TSP bounds, nearest-neighbour routing and Prim's MST are the primary network methods; queue-time sums and total-time probability are distinct normal/linear-combination work."
+    },
+    {
+      "id": "2025-november-tz0-p3-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differential equations",
+        "Euler's method for differential equations",
+        "Modelling with differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Logistic models"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The Gompertz differential-equation solution, model comparison and marked Euler update dominate; logistic modelling is a distinct model family assessed in the opening section."
+    }
+  ]
+}
