@@ -1,0 +1,4069 @@
+{
+  "schemaVersion": "aa-sl-production-review-1.0",
+  "status": "complete",
+  "productionMigrationAuthorized": true,
+  "bank": "ib-sl",
+  "questionCount": 578,
+  "criticalReviewCount": 278,
+  "provenance": {
+    "sourceRepository": "Saksham106/ib-maths-aa-topic-finder",
+    "sourceCommit": "6677e8668008fc9e3b7e3751987612cc17dee260",
+    "textAuditSha256": "9bf8316642d8e2d484ee249d2b5dbfa47a7efc04a74f9b10ac14c377fd724874",
+    "multimodalAuditSha256": "d1492eafa8a68d96d38a2d41365e41d6c76d5d17723c3fff15acbebd55150e2c",
+    "lockedConsensusSha256": "3c95e4decd0e776a1002ba84961783d6ca5b696fccd372a22e4b088ab1175eb5",
+    "criticalQueueSha256": "2e753ad09ffefa1d8709dedc5fb1cfdf69a3d91ca78f88cbfccc4a3e2fb12faa",
+    "productionBaselineFileSha256": "572f3ca4af3604e6bb1ac67cdd02ff039dece81b00e93b86645e7365a4511ed1",
+    "productionBaselineClassificationSha256": "decd8b3d6f25402270d3ccfecb7589a8a557c7912a931307a61d61bb41047bc7",
+    "batchResults": [
+      {
+        "batch": 1,
+        "sha256": "64b4b8d2d9d2c96c92f626d2e0b5e84939ecc255b263f0784d9db2f3a7cf58c7",
+        "judgmentCount": 47
+      },
+      {
+        "batch": 2,
+        "sha256": "1b982a64baf34b15c80db640b1b76018201f7c829d2d2a9055087e8c4f91fcf8",
+        "judgmentCount": 47
+      },
+      {
+        "batch": 3,
+        "sha256": "b9983f0465a132fe5ced718790f2aa6662020a6354013d41afe266010bbc5734",
+        "judgmentCount": 46
+      },
+      {
+        "batch": 4,
+        "sha256": "85e9ea03ff1642cca7d4aa7c2d110b90f8d1dfdef63867c7a1127d3a8f235f06",
+        "judgmentCount": 46
+      },
+      {
+        "batch": 5,
+        "sha256": "64d794034993b8ca6087d27ee53b6749bf4c2dacf1468037eb433005d16fc0f7",
+        "judgmentCount": 46
+      },
+      {
+        "batch": 6,
+        "sha256": "c4c6022d7e80f4faa4096f7e04164787dfea749c0a8701f7dc5413a22c2b6c80",
+        "judgmentCount": 46
+      }
+    ]
+  },
+  "counts": {
+    "decisions": {
+      "accept_recommended": 272,
+      "modify": 6
+    },
+    "confidence": {
+      "high": 214,
+      "medium": 64
+    }
+  },
+  "judgments": [
+    {
+      "id": "2017-may-p1-tz1-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities",
+        "Radians and exact values"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Probability distributions"
+          ]
+        },
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Integration"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "6-mark trig identity/distribution equation, 3-mark tan, and 6-mark volume integral make trigonometry primary; distribution and integration are independently marked secondary methods."
+    },
+    {
+      "id": "2017-may-p1-tz1-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Function composition and inverses"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The 2 marks for the inverse and 3 marks for the composition directly assess Function composition and inverses only."
+    },
+    {
+      "id": "2017-may-p1-tz1-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The 6-mark triangle-length calculation is a geometry/measurement method; no separate trigonometric skill is materially marked."
+    },
+    {
+      "id": "2017-may-p1-tz1-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Correlation and regression"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The 6 marks concern correlation selection and a linear-regression prediction; independent-variable/temperature responses are contextual, not a separate statistics skill."
+    },
+    {
+      "id": "2017-may-p1-tz1-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Both parts are antiderivative work, including the initial condition to fix the constant; integration is the only materially assessed method."
+    },
+    {
+      "id": "2017-may-p1-tz1-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The derivative graph supplies the gradient/normal and concavity reasoning; graph reading is not a separate graph-transformation skill here."
+    },
+    {
+      "id": "2017-may-p1-tz1-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Roots and polynomial functions"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Quadratic root/axis structure is primary; the tangent part also permits and materially marks differentiation, while generic graph structure is not independently required."
+    },
+    {
+      "id": "2017-may-p1-tz2-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Geometry and measurement"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The 3-mark tangent, 7-mark area integral, and 2-mark triangle area support calculus as primary; triangle area is the material geometry secondary method."
+    },
+    {
+      "id": "2017-may-p1-tz2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Finding f from f′ with f(0)=1 is entirely integration plus an initial condition; algebraic manipulation is enabling work, not a separate topic."
+    },
+    {
+      "id": "2017-may-p1-tz2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The logarithm laws enable the equation, but the separately marked identity/interval solution work makes trigonometry primary; logarithms remain secondary."
+    },
+    {
+      "id": "2017-may-p2-tz1-q10",
+      "decision": "modify",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration",
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Graphs and transformations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 5-mark enclosed-area part uses integration and the 7-mark maximum-distance part uses differentiation; the 3-mark graph transformation is the only secondary method."
+    },
+    {
+      "id": "2017-may-p2-tz1-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Intercept/asymptote work dominates the function classification, while the 2-mark minimum condition materially invokes differentiation."
+    },
+    {
+      "id": "2017-may-p2-tz1-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The segment area is computed from chord/arc/sector geometry; the official marks do not independently assess a trig or radian skill."
+    },
+    {
+      "id": "2017-may-p2-tz1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Direction changes and total distance from velocity are kinematics, with integration used to accumulate distance; the given sine is not an independently assessed trig method."
+    },
+    {
+      "id": "2017-may-p2-tz2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "All three 2-mark parts determine and evaluate the sinusoidal water-depth model, assessing trigonometric functions; radians are not separately marked."
+    },
+    {
+      "id": "2017-may-p2-tz2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Function composition and inverses",
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Part (a) explicitly assesses composition, while the sketch and exactly-two-solutions condition assess graph behavior; both function skills are material."
+    },
+    {
+      "id": "2017-may-p2-tz2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The maximum-distance question uses motion relationships and the velocity graph; no separately marked integration method is required by the official scheme."
+    },
+    {
+      "id": "2017-may-p2-tz2-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Roots and polynomial functions"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The maximum/rates/inflexion parts assess differentiation and the volume assesses integration; finding the x-intercept materially assesses polynomial roots as a function secondary."
+    },
+    {
+      "id": "2017-may-p2-tz2-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities",
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Bearings, sine-rule distances, and closest-point/boat-speed geometry are all materially marked geometry/trigonometry work; kinematics is not separately assessed."
+    },
+    {
+      "id": "2017-november-p1-tzn-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Function composition and inverses"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Composition is explicit in part (a), while the exponential limit in part (b) materially uses exponential/logarithmic relationships; quadratic roots are unsupported."
+    },
+    {
+      "id": "2017-november-p1-tzn-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The rectangle-area maximum is an optimization problem whose marked method is differentiation; graph transformations are not independently assessed."
+    },
+    {
+      "id": "2017-november-p1-tzn-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Roots and polynomial functions"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The one-solution condition is established from the quadratic root/discriminant structure; logarithms are the enabling, separately marked secondary step."
+    },
+    {
+      "id": "2017-november-p1-tzn-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Vectors"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Every part uses vector components, line equations, or a perpendicular dot product; roots are merely algebraic solving, not a material function method."
+    },
+    {
+      "id": "2017-november-p2-tzn-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The sine-rule length and triangle-area calculations are geometric measurement; trigonometry is instrumental rather than a separate marked skill."
+    },
+    {
+      "id": "2017-november-p2-tzn-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Functions and modelling",
+            "Graphs and transformations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The sinusoidal/periodic model and maxima spacing are primary trigonometry; constructing/interpreting the line and tooth model supports the two function secondary skills."
+    },
+    {
+      "id": "2017-november-p2-tzn-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Roots and polynomial functions",
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The intercept, maximum point, and sketch are marked as polynomial/graph features; no differentiation or logarithm method is independently required."
+    },
+    {
+      "id": "2017-november-p2-tzn-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability distributions"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The distribution table, normalization for k, and conditional probability are all distribution methods; generic probability is redundant."
+    },
+    {
+      "id": "2017-november-p2-tzn-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 3-mark volume integral makes calculus primary, while solving the 2-mark point condition uses logarithm laws; geometry/radians are not separate methods."
+    },
+    {
+      "id": "2017-november-p2-tzn-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Acceleration/velocity relationships and the 6-mark recovery of velocity plus 4-mark distance work are kinematics and integration; polynomial roots are not independently assessed."
+    },
+    {
+      "id": "2018-may-p1-tz1-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Both the 3-mark antiderivative and 4-mark volume are direct integration applications; geometry/radian language is contextual."
+    },
+    {
+      "id": "2018-may-p1-tz1-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Recovering f from f′ is integration, and the inflexion/concavity parts use derivative behavior; the given x-intercept does not assess polynomial roots."
+    },
+    {
+      "id": "2018-may-p1-tz2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The antiderivative and area between the stated boundaries are entirely integration; roots are not a distinct marked method."
+    },
+    {
+      "id": "2018-may-p1-tz2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Descriptive statistics"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Finding n and transforming mean/variance under scaling are summary-statistics operations; no distribution method is assessed."
+    },
+    {
+      "id": "2018-may-p2-tz1-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "All three parts differentiate and compare first/second derivatives; logarithm notation in the given function is not a separately marked skill."
+    },
+    {
+      "id": "2018-may-p2-tz1-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Trigonometric functions and identities"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 7-mark sinusoidal model plus 8 marks on speed/acceleration make calculus (kinematics and differentiation) primary, with trigonometric identities secondary."
+    },
+    {
+      "id": "2018-may-p2-tz1-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Segment area and the equation for its angle are handled as circle geometry/measurement; no separate radian skill is awarded."
+    },
+    {
+      "id": "2018-may-p2-tz1-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Integration"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The vertex/sketch are graph methods and the enclosed area is an integral; roots are not an independently assessed method."
+    },
+    {
+      "id": "2018-may-p2-tz1-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Largest perimeter from two sides and area is a geometry/measurement optimization calculation; trig is instrumental, not separately retained."
+    },
+    {
+      "id": "2018-may-p2-tz1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Sequences and series"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Periodic maxima determine the spacing, while the sum of x_k is an arithmetic-series method; both are independently assessed."
+    },
+    {
+      "id": "2018-may-p2-tz1-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Exponents and logarithms"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Correlation and regression"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The transformed linear model and recovery of n,k use exponent/logarithm laws as the dominant method; the regression fit is materially secondary."
+    },
+    {
+      "id": "2018-may-p2-tz2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The 3-mark volume calculation is the dominant marked method and uses integration; the given sine/exponential form does not receive an independent taxonomy method label."
+    },
+    {
+      "id": "2018-may-p2-tz2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Determining the Ferris-wheel parameters and solving the repeated height condition are trigonometric-model equations; other labels are contextual."
+    },
+    {
+      "id": "2018-may-p2-tz2-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Integration",
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Initial value, maximum speed, acceleration, direction change, and total distance materially assess kinematics, differentiation, and integration; the cosine in v(t) is given."
+    },
+    {
+      "id": "2018-november-p1-tzn-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Vectors"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Parallel-vector conditions are solved entirely with vector components; quadratic-root language is not assessed."
+    },
+    {
+      "id": "2018-november-p1-tzn-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The single 8-mark area task is an integration application; algebraic and root manipulations are only enabling steps."
+    },
+    {
+      "id": "2018-november-p1-tzn-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The double-angle/identity calculation for cos 4x is the sole marked method; radians are only domain notation."
+    },
+    {
+      "id": "2018-november-p1-tzn-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Roots and polynomial functions",
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The marks explicitly cover quadratic roots/vertex form and reflection/translation, so both function skills are independently assessed; vectors are not."
+    },
+    {
+      "id": "2018-november-p2-tzn-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The 3-mark volume and water-accumulation/empty-space parts use integration; sign and extremum conditions use differentiation. Trigonometry and geometry are context, not separately assessed methods."
+    },
+    {
+      "id": "2018-november-p2-tzn-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The 5-mark intercept/asymptote work and 2-mark limit are graph-feature methods; no polynomial-root method is separately assessed."
+    },
+    {
+      "id": "2018-november-p2-tzn-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Integration",
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Rest, acceleration and total distance are kinematics; the marked work differentiates for acceleration and integrates for distance. The exponential form is supplied, not a separately rewarded logarithm method."
+    },
+    {
+      "id": "2018-november-p2-tzn-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities",
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The cosine-rule setup and road-length calculation use trigonometric relationships and geometric lengths. The quadratic is an intermediate solve, not a separately assessed roots skill."
+    },
+    {
+      "id": "2019-may-p1-tz1-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sequences and series"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Trigonometric functions and identities"
+          ]
+        },
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Integration"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 9 marks on intersections/terms/21st term assess sequences; solving intersections uses trigonometry and the 4-mark shaded-area response requires an integral."
+    },
+    {
+      "id": "2019-may-p1-tz1-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Recovering f from f′ and a point is an antiderivative-and-constant task; the exponential is part of the supplied derivative, not a separate differentiation or logarithm method."
+    },
+    {
+      "id": "2019-may-p1-tz2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "All 7 marks use intercept changes and translations/scaling of a graph; no roots or independent model-fitting method is assessed."
+    },
+    {
+      "id": "2019-may-p1-tz2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Exponents and logarithms"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The full 7-mark task is solving a logarithmic equation, so exponents and logarithms is the sole material skill."
+    },
+    {
+      "id": "2019-may-p1-tz2-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Trigonometric functions and identities"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The derivative and tangent-parallel parts dominate (9 marks), while finding tanθ and the line uses trigonometry (6 marks). No separate radians skill is required."
+    },
+    {
+      "id": "2019-may-p2-tz1-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Product differentiation and locating horizontal tangents account for all 6 marks; the exponential factor is not a separately assessed logarithm method."
+    },
+    {
+      "id": "2019-may-p2-tz1-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Sketching f″ and using its sign for inflection and concavity assess derivative behavior throughout; the supplied trigonometric expression is not an independently marked trig skill."
+    },
+    {
+      "id": "2019-may-p2-tz1-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Vectors",
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Function composition and inverses"
+          ]
+        },
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Vector-line and angle work makes geometry/trigonometry primary; the 7-mark composition/inverse part and tangent-slope work materially assess Functions and differentiation."
+    },
+    {
+      "id": "2019-may-p2-tz2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The 3-mark volume is an integration task; the 2-mark x-intercept requires logarithmic solving. Other geometric labels describe setup rather than marked methods."
+    },
+    {
+      "id": "2019-may-p2-tz2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Cosine-rule lengths and the triangle-area/angle calculation are geometric measurement methods; no separate trig-identity skill is required."
+    },
+    {
+      "id": "2019-may-p2-tz2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The rate and most-rapid-increase parts require differentiation; evaluating the supplied logistic model is contextual, not a separate exponent skill."
+    },
+    {
+      "id": "2019-may-p2-tz2-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Motion relationships and total distance/displacement require kinematics and integration; polynomial roots and differentiation are not separately rewarded methods here."
+    },
+    {
+      "id": "2019-november-p1-tzn-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        },
+        {
+          "topic": "Functions",
+          "skills": [
+            "Function composition and inverses"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Tangent/normal lines make differentiation dominant; the inverse/reflection relation and p^x/log calculations are material secondary Function and logarithm methods."
+    },
+    {
+      "id": "2019-november-p1-tzn-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Functions and modelling",
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The 3-mark parameter determination and 4-mark transformation description assess function modelling and graph transformations; vectors and polynomial-root labels are unsupported."
+    },
+    {
+      "id": "2019-november-p1-tzn-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability distributions"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Both parts standardize normal variables and calculate normal probabilities, so Probability distributions is the material skill; descriptive statistics is not assessed."
+    },
+    {
+      "id": "2019-november-p1-tzn-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "dV/dx, the critical point and its maximum justification account for the substantive marks and directly assess differentiation/optimization; cuboid geometry is setup."
+    },
+    {
+      "id": "2019-november-p2-tzn-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability distributions"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The discrete distribution constraints and extrema of E(X) use probability-distribution methods; algebra is an intermediate rearrangement."
+    },
+    {
+      "id": "2019-november-p2-tzn-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Stationary points, tangency, inflection/rate work and the rotated volume directly mark differentiation and integration; graph and geometry details are setup."
+    },
+    {
+      "id": "2019-november-p2-tzn-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The normal and binomial flight calculations are probability methods; no descriptive-statistics procedure is separately assessed."
+    },
+    {
+      "id": "2020-november-p1-tzn-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Venn counts and the exclusive-or probability all use event/set probability; the diagram is not a geometry method."
+    },
+    {
+      "id": "2020-november-p1-tzn-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Graphs and transformations"
+          ]
+        },
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Geometry and measurement"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Tangent equations and gradients make differentiation primary; the translated asymptote/graph work and triangle area are material Function and geometry secondary methods."
+    },
+    {
+      "id": "2020-november-p1-tzn-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The 5-mark rotated-region volume is integration; finding the intercept supplies a limit and setup, not a separately assessed graph-transformation method."
+    },
+    {
+      "id": "2020-november-p1-tzn-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The sketch is the central 3-mark graph task, while finding a from the point uses logarithms; the other algebra/root labels are unsupported."
+    },
+    {
+      "id": "2020-november-p1-tzn-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Finding f from f′ and the point is an antiderivative problem; ln 4 and the exponential integrand do not create a separately assessed logarithm skill."
+    },
+    {
+      "id": "2020-november-p1-tzn-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The marked work compares displacement, velocity and speeds of particles, so Kinematics is the material skill; no vector or integration method is assessed."
+    },
+    {
+      "id": "2020-november-p2-tzn-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The values, root solve and local minimum are function/graph technology tasks; no polynomial-root theorem or differentiation method is independently credited."
+    },
+    {
+      "id": "2020-november-p2-tzn-q10",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The f″/concavity parts and antiderivative/area reconstruction directly assess differentiation and integration; the logarithm is embedded in the supplied derivative."
+    },
+    {
+      "id": "2020-november-p2-tzn-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability distributions"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The probability table and maximizing E(X) are discrete-distribution methods throughout; differentiation, roots and generic probability labels add no separately assessed method."
+    },
+    {
+      "id": "2020-november-p2-tzn-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Function composition and inverses"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Composition is explicitly worth 2 marks and the inverse-function relationship drives the 5-mark continuation; numerical logarithmic solving is not a separate log-law method."
+    },
+    {
+      "id": "2020-november-p2-tzn-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities",
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The trigonometric wheel model/period and chord/central-angle work assess trig and geometric measurement; the final rate calculation materially assesses differentiation."
+    },
+    {
+      "id": "2021-may-p1-tz1-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Function composition and inverses",
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Reading f, evaluating f∘f and sketching g after a vertical transformation explicitly assess composition/inverses and graph transformations."
+    },
+    {
+      "id": "2021-may-p1-tz1-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The derivative and common-tangent conditions determine h and k in all three parts, so differentiation is the sole material skill."
+    },
+    {
+      "id": "2021-may-p1-tz1-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The identity proof and solution of the interval equation account for all 8 marks and use trigonometric identities/equations."
+    },
+    {
+      "id": "2021-may-p1-tz1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Roots and polynomial functions",
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The discriminant/one-intersection condition, factor form, vertex form and sign/increasing interval assess polynomial roots and graph behavior; differentiation is not required."
+    },
+    {
+      "id": "2021-may-p1-tz1-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Graphs and transformations"
+          ]
+        },
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Differentiation dominates the stationary/concavity work; the graph sketch and ln inequality materially assess graph features and logarithms."
+    },
+    {
+      "id": "2021-may-p1-tz2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Mathematical reasoning and proof",
+        "Algebraic manipulation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The requested general identity is proved by expanding and rearranging consecutive-integer squares, so reasoning/proof and algebraic manipulation are primary."
+    },
+    {
+      "id": "2021-may-p1-tz2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Equations and inequalities"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The identity conversion and interval solution are primarily trigonometric; converting to and solving the quadratic supplies the secondary equations skill."
+    },
+    {
+      "id": "2021-may-p1-tz2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 6-mark tangent-gradient calculation requires differentiation; the exact x-intercept calculation materially uses logarithms."
+    },
+    {
+      "id": "2021-may-p1-tz2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The side lengths, cosine information and area calculation are geometric measurement; trigonometry is embedded in that geometric method."
+    },
+    {
+      "id": "2021-may-p2-tz1-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Both 3-mark parts recover antiderivatives/functions, so Integration is the sole material skill; algebra only determines the constant."
+    },
+    {
+      "id": "2021-may-p2-tz1-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Correlation and regression"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Regression-line calculation, prediction and best-fit drawing account for 6 of 7 marks and are correlation/regression work; the reported means support that workflow rather than a separate descriptive classification."
+    },
+    {
+      "id": "2021-may-p2-tz1-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities",
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Wheel dimensions and the sinusoidal height model require geometric measurement and trigonometric periodicity; no calculus or kinematics method is independently assessed."
+    },
+    {
+      "id": "2021-may-p2-tz1-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Finding rest, total distance and acceleration explicitly marks kinematics together with integration and differentiation; no polynomial-root method is required."
+    },
+    {
+      "id": "2021-may-p2-tz1-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Function composition and inverses"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "[2] intersection work is minor; tangent differentiation and [5] enclosed-area integration dominate, with [2] inverse-function area as a genuine secondary method."
+    },
+    {
+      "id": "2021-may-p2-tz2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The [3] graph sketch is the dominant assessed method; the [2] stationary-point calculation separately assesses differentiation."
+    },
+    {
+      "id": "2021-may-p2-tz2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Functions and modelling",
+        "Function composition and inverses"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Equations and inequalities"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The [2] range and [4] composition condition are function methods; solving the resulting constraint on c earns the secondary equations/inequalities method."
+    },
+    {
+      "id": "2021-may-p2-tz2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Radians and exact values",
+        "Trigonometric functions and identities",
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The 13 marks assess radian/periodic trigonometry and geometric lengths/heights; rotation is not a kinematics question."
+    },
+    {
+      "id": "2021-november-p1-tzn-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Finding y from dy/dx and an initial value is antiderivative/integration work; the given trigonometric expression is not a separately assessed geometry method."
+    },
+    {
+      "id": "2021-november-p1-tzn-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Function composition and inverses"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The tangent and chain-rule work earns the calculus marks; evaluating h=f∘g is an independently used secondary composition method."
+    },
+    {
+      "id": "2021-november-p1-tzn-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Algebraic manipulation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 5-mark solution is a trigonometric equation; the separately marked 2-mark rational decomposition is algebraic manipulation."
+    },
+    {
+      "id": "2021-november-p1-tzn-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Integration",
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Differentiation finds maximum velocity, while integration finds displacement and total distance; all are framed as motion relationships."
+    },
+    {
+      "id": "2021-november-p1-tzn-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sequences and series",
+        "Exponents and logarithms"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Function composition and inverses"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 9-mark geometric-sequence work and logarithmic/exponential relationships dominate; forming and evaluating f⁻¹ earns the secondary function skill."
+    },
+    {
+      "id": "2021-november-p1-tzn-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Derivative sign/turning-point analysis and area under f′ are explicitly assessed, so differentiation and integration are the only material methods."
+    },
+    {
+      "id": "2021-november-p2-tzn-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The roots and 3-mark sketch are graph/intercept work, with calculator-supported root finding not a separately marked polynomial skill."
+    },
+    {
+      "id": "2021-november-p2-tzn-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The 5-mark minimum-perimeter task is assessed as triangle geometry/measurement; no separate trigonometric-function label is supported by the markscheme evidence."
+    },
+    {
+      "id": "2021-november-p2-tzn-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sequences and series"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "All 9 marks use geometric-sequence terms, sums, convergence and a threshold; exponent/log labels are not independently evidenced."
+    },
+    {
+      "id": "2021-november-p2-tzn-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Geometry and measurement"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The travel-time and cost minima require differentiation/optimization; the right-triangle distances supply the material geometry secondary."
+    },
+    {
+      "id": "2021-november-p2-tzn-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Functions and modelling"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 13 marks solve and interpret a sinusoidal tide model; parameter/domain interpretation is a material modelling secondary."
+    },
+    {
+      "id": "2021-november-p2-tzn-q9",
+      "decision": "modify",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability distributions",
+        "Probability"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Normal parameters/probabilities dominate, while conditional probabilities in [4] are material; both belong to the same statistics topic."
+    },
+    {
+      "id": "2022-may-p1-tz1-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Function composition and inverses"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 5-mark equation solution is trigonometric; the [2] composition calculation independently earns the secondary function skill."
+    },
+    {
+      "id": "2022-may-p1-tz1-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The tangent-parallel condition is solved by differentiation; exponential notation is part of the given curve, not a separate assessed method."
+    },
+    {
+      "id": "2022-may-p1-tz1-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Graphs and transformations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 5-mark bound/parameter calculation is trigonometric, while the separately marked transformation description earns graph-transformations."
+    },
+    {
+      "id": "2022-may-p1-tz1-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Trigonometric functions and identities"
+          ]
+        },
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Algebraic manipulation"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The [9] definite-integral work dominates; the expansion/substitution identity separately assesses algebraic manipulation and trigonometric identities."
+    },
+    {
+      "id": "2022-may-p1-tz2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Equations and inequalities"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Asymptotes and the sketch dominate the function classification; the final separately marked rational inequality earns equations/inequalities."
+    },
+    {
+      "id": "2022-may-p1-tz2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The least-positive-solution task is a trigonometric equation; radians are notation here rather than an independently evidenced skill."
+    },
+    {
+      "id": "2022-may-p1-tz2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Counting and binomial probability",
+        "Equations and inequalities"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Binomial coefficients are assessed in [2], and the mean-of-terms condition is solved for x in [5]; both listed number/algebra skills earn marks."
+    },
+    {
+      "id": "2022-may-p1-tz2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Roots and polynomial functions",
+            "Graphs and transformations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The derivative-based monotonicity/concavity work is dominant; quadratic vertex/roots and the graph information are material function methods."
+    },
+    {
+      "id": "2022-may-p1-tz2-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Graphs and transformations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The [10] area calculation requires piecewise integration; intersections and selecting graph bounds materially use graph interpretation."
+    },
+    {
+      "id": "2022-may-p2-tz1-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Descriptive statistics"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The median/frequency and standard-deviation calculations are summary-statistics work; no separate distribution method is assessed."
+    },
+    {
+      "id": "2022-may-p2-tz1-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Both marked parts calculate circular-segment areas from geometry; the purported exponent/log label has no support in the question."
+    },
+    {
+      "id": "2022-may-p2-tz1-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability distributions"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The probability table is used to determine k and E(X), so discrete-distribution methods are the sole material skill."
+    },
+    {
+      "id": "2022-may-p2-tz1-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Rest, acceleration and total distance are motion quantities; differentiation and integration are the marked calculus methods."
+    },
+    {
+      "id": "2022-may-p2-tz1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The pyramid/cuboid dimensions, volume and surface area are geometry/measurement; the 5-mark minimum requires differentiation."
+    },
+    {
+      "id": "2022-may-p2-tz1-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Function composition and inverses",
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Integration"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Inverse construction/intersection work and graph transformations dominate the function classification; the enclosed area is an integration secondary."
+    },
+    {
+      "id": "2022-may-p2-tz2-q2",
+      "decision": "modify",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "All five marks recover g from g′ using an antiderivative and the point (0,4); differentiation is not the operation assessed."
+    },
+    {
+      "id": "2022-may-p2-tz2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Financial mathematics"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Correlation and regression"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Gemma’s 2% annual growth is financial accumulation, while Kaia’s fitted linear salary comparison is regression."
+    },
+    {
+      "id": "2022-may-p2-tz2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The independent-event union equation is an elementary probability method, with no material function or root skill."
+    },
+    {
+      "id": "2022-may-p2-tz2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Direction/speed/acceleration are kinematics concepts, and acceleration is obtained by differentiating velocity; trig notation is only part of the given model."
+    },
+    {
+      "id": "2022-may-p2-tz2-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Functions and modelling"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The [6] rate-of-growth comparison is derivative-based calculus; the stated plant formulas are a material modelling secondary."
+    },
+    {
+      "id": "2022-november-p1-tzn-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The requested g′(-1) is a direct differentiation/chain-rule calculation; exponential notation is not separately assessed."
+    },
+    {
+      "id": "2022-november-p1-tzn-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Algebraic manipulation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Geometry and measurement"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 3-mark identity is algebraic manipulation; the 2-mark expression for triangle area is a material geometry secondary."
+    },
+    {
+      "id": "2022-november-p1-tzn-q5",
+      "decision": "modify",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Finding f from f′ requires integration plus the initial condition; the derivative is given, so differentiation is not assessed."
+    },
+    {
+      "id": "2022-november-p1-tzn-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Trigonometric functions and identities"
+          ]
+        },
+        {
+          "topic": "Functions",
+          "skills": [
+            "Graphs and transformations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Differentiation earns [7]; solving the trigonometric roots and sketching intercepts/turning points are separately marked trig and graph methods."
+    },
+    {
+      "id": "2022-november-p2-tzn-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Correlation and regression"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The regression equation, correlation coefficient and prediction all directly assess correlation/regression."
+    },
+    {
+      "id": "2022-november-p2-tzn-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Both angle and length parts are triangle geometry/measurement; the markscheme gives no separate trig-function skill."
+    },
+    {
+      "id": "2022-november-p2-tzn-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Graphs and transformations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The area part uses definite integration, while graph/root/local-maximum information is materially used to set the bounds and regions."
+    },
+    {
+      "id": "2022-november-p2-tzn-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Exponents and logarithms"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Functions and modelling"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The exponential population model is solved with exponent/logarithm relationships; interpreting the given model is a secondary function method."
+    },
+    {
+      "id": "2022-november-p2-tzn-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Velocity, acceleration, direction and total distance from a displacement model assess all three calculus/kinematics skills."
+    },
+    {
+      "id": "2022-november-p2-tzn-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Radians and exact values",
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Sector/circle areas and tangent geometry dominate; radian angle and circular-sector/arc relations are explicitly used."
+    },
+    {
+      "id": "2022-november-p2-tzn-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability distributions",
+        "Probability"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Parts (a), (c)(ii) and (d) use normal-distribution work, while (b) and (c)(ii) use binomial/conditional probability across most of the 16 marks; descriptive statistics is not assessed."
+    },
+    {
+      "id": "2023-may-p1-tz1-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "All 5 marks are coordinate geometry: midpoint (2), perpendicular gradient (2), and the line equation (1)."
+    },
+    {
+      "id": "2023-may-p1-tz1-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "All 6 marks require the trigonometric identity/equation and solving it over the stated interval; polynomial manipulation is supporting algebra, not a separate topic."
+    },
+    {
+      "id": "2023-may-p1-tz1-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Roots and polynomial functions"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The quadratic root/discriminant condition controls existence of x; exponential/logarithmic laws and recovery of k are a distinct secondary method."
+    },
+    {
+      "id": "2023-may-p1-tz1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The 13 marks are derivative work: first derivative, stationary minimum, second derivative, and concavity; exponentials/graph language is contextual."
+    },
+    {
+      "id": "2023-may-p1-tz2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability distributions"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Sequences and series"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The distribution normalization earns 4 marks and is primary; finding d in the arithmetic sequence earns 2 marks as a material sequence method."
+    },
+    {
+      "id": "2023-may-p1-tz2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Roots and polynomial functions",
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation"
+          ]
+        },
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Geometry and measurement"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The quadratic graph/intercepts and roots are central, with a marked normal-gradient step and the 8-mark coordinate distance calculation independently assessing differentiation and geometry."
+    },
+    {
+      "id": "2023-may-p1-tz2-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Geometry and measurement"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Differentiation, stationary-point testing, and maximum-area reasoning dominate (11 of 14 marks); circle/triangle area setup is a material geometry secondary."
+    },
+    {
+      "id": "2023-may-p2-tz1-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Function composition and inverses",
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Composition earns 2 marks and sketching/local extrema earns 3; trigonometric notation is used as input, not separately assessed."
+    },
+    {
+      "id": "2023-may-p2-tz1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Functions and modelling"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation"
+          ]
+        },
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The exponential cooling model organizes the question; H′ and its limit assess differentiation, while the 67°C threshold requires exponential solving."
+    },
+    {
+      "id": "2023-may-p2-tz2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Acceleration-zero and rest conditions use differentiation and kinematics; distance between the times is obtained by integrating velocity, so all three calculus skills are material."
+    },
+    {
+      "id": "2023-may-p2-tz2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Function composition and inverses"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Integration",
+            "Differentiation"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Inverse/domain/intersection work is primary; the enclosed area is integration and the equal-gradient condition is differentiation, each explicitly marked."
+    },
+    {
+      "id": "2023-may-p2-tz2-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The tree, conditional events, and expected score use elementary probability throughout; no separate distribution model is required."
+    },
+    {
+      "id": "2023-november-p1-tz1-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Functions and modelling",
+            "Graphs and transformations"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Trig amplitude/period/value work dominates, while reading the supplied graph to determine a and b is a material model/graph interpretation method."
+    },
+    {
+      "id": "2023-november-p1-tz1-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Function composition and inverses"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Equations and inequalities"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Composition earns 2 marks; finding both possible k values requires solving the resulting equation, a material Number and algebra secondary."
+    },
+    {
+      "id": "2023-november-p1-tz1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Descriptive statistics"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The frequency table, cumulative-frequency curve, sampling, and box plot are all descriptive-statistics/frequency-data methods; no separate function skill is marked."
+    },
+    {
+      "id": "2023-november-p1-tz1-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Roots and polynomial functions",
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The intersection/range and root separation rely on quadratic roots/discriminant and graph/asymptote interpretation; logarithm laws support the setup as a secondary method."
+    },
+    {
+      "id": "2023-november-p1-tz1-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Differentiation is directly assessed in (a) and integration in (b)/(c); the graph only supplies context and does not earn a separate function label."
+    },
+    {
+      "id": "2023-november-p1-tz2-q1",
+      "decision": "modify",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Functions and modelling",
+            "Graphs and transformations"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Amplitude, period, and exact evaluation are direct trigonometric methods; the supplied graph provides parameters rather than a separately marked transformation task."
+    },
+    {
+      "id": "2023-november-p1-tz2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Function composition and inverses"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Equations and inequalities"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Part (a) explicitly assesses composition (2 marks); part (b) assesses solving the resulting equation for real k (3 marks)."
+    },
+    {
+      "id": "2023-november-p1-tz2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Descriptive statistics"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The frequency table, cumulative-frequency curve, sampling, and box plot are descriptive-statistics/frequency-data methods; no separate function skill is marked."
+    },
+    {
+      "id": "2023-november-p1-tz2-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Roots and polynomial functions",
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 9-mark intersection/range and 5-mark root-separation work use roots/discriminant and graph features; exponential/logarithmic laws are supporting secondary work."
+    },
+    {
+      "id": "2023-november-p1-tz2-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The marked methods are differentiation, integration, and area/function recovery; graph description is contextual only."
+    },
+    {
+      "id": "2023-november-p2-tz1-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Roots and polynomial functions"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Tangent/normal gradients are differentiation (4 marks including the normal equation); the second intersection requires a separate quadratic-root calculation (3 marks)."
+    },
+    {
+      "id": "2023-november-p2-tz1-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Vectors",
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "BV and angle BVC are computed from 3D coordinate/vector differences and a dot-product/length relation, materially assessing vectors and coordinate geometry."
+    },
+    {
+      "id": "2023-november-p2-tz1-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The 3 sketch marks and 2 transformation marks are graph/transformation work; the given formula does not require an independent modelling label."
+    },
+    {
+      "id": "2023-november-p2-tz1-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Radians and exact values",
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Sector area/perimeter use radian sector and arc formulas plus geometric measurement; routine algebra is supporting work."
+    },
+    {
+      "id": "2023-november-p2-tz1-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Finding rest and total distance from s(t) requires velocity/direction reasoning and differentiating s; integration is not required by the official method."
+    },
+    {
+      "id": "2023-november-p2-tz1-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability distributions"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The only assessed method is applying a discrete probability distribution and its expectation to determine a; generic elementary probability adds no distinct method."
+    },
+    {
+      "id": "2023-november-p2-tz1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Geometry and measurement"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Differentiation/second-derivative optimization earns 11 marks; the 3-mark surface-area setup independently uses cylinder/hemisphere geometry."
+    },
+    {
+      "id": "2023-november-p2-tz2-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Roots and polynomial functions"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Tangent and normal gradients require differentiation, while the second intersection is found through the quadratic polynomial relation."
+    },
+    {
+      "id": "2023-november-p2-tz2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The sketch and horizontal/vertical transformation parameters are graph-transformation work; the supplied function is not a separately assessed model."
+    },
+    {
+      "id": "2023-november-p2-tz2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Radians and exact values",
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The annular-sector area and perimeter use radian sector/arc relations and geometric measurement; algebra is only supporting manipulation."
+    },
+    {
+      "id": "2023-november-p2-tz2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Rest and total distance are obtained from displacement/velocity relationships and differentiation; no velocity integration is required."
+    },
+    {
+      "id": "2023-november-p2-tz2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability distributions"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The distribution table and expectation equation are the sole assessed method; elementary Probability is not independently marked."
+    },
+    {
+      "id": "2023-november-p2-tz2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Geometry and measurement"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "First/second derivative and minimum justification dominate (11 marks), while forming the capsule surface area earns material geometry marks."
+    },
+    {
+      "id": "2024-may-p1-tz1-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Radians and exact values",
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The sector perimeter/area equations and solution require radian sector relations and geometric measurement; the quadratic is supporting algebra."
+    },
+    {
+      "id": "2024-may-p1-tz1-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Integration"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Intersection coordinates use trigonometric equations, while the enclosed region is explicitly found by integration, a distinct secondary method."
+    },
+    {
+      "id": "2024-may-p1-tz1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "All parts are derivative-based: first/second derivatives, local maximum, inflection point, and a normal equation."
+    },
+    {
+      "id": "2024-may-p1-tz1-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability",
+        "Probability distributions"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Tree/conditional probability earns the early and final marks; the explicit distribution table and expectation require a discrete probability-distribution method."
+    },
+    {
+      "id": "2024-may-p1-tz2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Equations and inequalities",
+        "Exponents and logarithms"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Both parts are equation solving: a quadratic equation followed by the 3^x substitution and exponential solution; these are Number and algebra methods, not a function-graph root classification."
+    },
+    {
+      "id": "2024-may-p1-tz2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Midpoint/line symmetry and the area calculation are coordinate/solid geometry; no trigonometric-function method is separately assessed."
+    },
+    {
+      "id": "2024-may-p1-tz2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Equations and inequalities"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Tree/event probabilities dominate, while deriving and restricting the quadratic in k is explicitly marked equation reasoning."
+    },
+    {
+      "id": "2024-may-p1-tz2-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Monotonicity, stationary points, the second derivative, and the normal are differentiation; recovering f from f′ is integration."
+    },
+    {
+      "id": "2024-may-p2-tz1-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Direction and increasing displacement are kinematics; displacement at t=10 is the integral of velocity, so integration is also material."
+    },
+    {
+      "id": "2024-may-p2-tz1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Function composition and inverses",
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        },
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Geometry and measurement"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Inverse/composition and reflection/translation are the main function methods; logarithmic solving and the requested distance PQ are independently assessed secondary methods."
+    },
+    {
+      "id": "2024-may-p2-tz1-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation"
+          ]
+        },
+        {
+          "topic": "Functions",
+          "skills": [
+            "Functions and modelling"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 3+2 marks for tide timing, the 2-mark instantaneous rate, and the 7-mark second tide model use trigonometric periodic work; determining the Rockall parameters is materially model-fitting work, while differentiation is a distinct assessed secondary method."
+    },
+    {
+      "id": "2024-may-p2-tz1-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities",
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The 8-mark two-triangle part and the 5-mark constraint use sine/cosine relationships together with lengths, angles and areas; these are both materially assessed geometry/trigonometry methods."
+    },
+    {
+      "id": "2024-may-p2-tz2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The 3-mark enclosed-area calculation is integration, while finding the two exponential intersections is a distinct exponential/logarithmic relationship component."
+    },
+    {
+      "id": "2024-may-p2-tz2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The velocity, maximum-velocity and change-of-direction work assesses motion relationships and differentiation; the exponential/trigonometric forms are given rather than separately assessed methods."
+    },
+    {
+      "id": "2024-may-p2-tz2-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Geometry and measurement"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 7-mark optimization stage differentiates and verifies a maximum; the 2+2+4 marks require geometric area, perimeter and window measurements as a distinct secondary method."
+    },
+    {
+      "id": "2024-may-p2-tz2-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities",
+        "Geometry and measurement",
+        "Radians and exact values"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The chord, sector/radian timing and sine-rule parts materially assess trigonometry, exact/radian measure and geometry; the turtle formula is given context, not a separate modelling skill."
+    },
+    {
+      "id": "2024-november-p1-tz1-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Mathematical reasoning and proof"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Expanding gives 40n, which is a multiple of 10; the sole requested and marked general method is proof/reasoning."
+    },
+    {
+      "id": "2024-november-p1-tz1-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities",
+        "Radians and exact values",
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The 6 marks require cosine-rule/half-angle trigonometry applied to the given triangle and an exact trigonometric value; lengths and the angle are materially geometric data."
+    },
+    {
+      "id": "2024-november-p1-tz1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Roots and polynomial functions",
+            "Graphs and transformations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 4-mark area requires integration and the 5-mark tangent-parallel condition requires differentiation; the 5-mark setup uses quadratic roots and graph/intercept structure as secondary function methods."
+    },
+    {
+      "id": "2024-november-p1-tz1-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Surface area and volume setup account for 9 marks and use geometric measurement; the final 8 marks independently differentiate and optimize volume."
+    },
+    {
+      "id": "2024-november-p1-tz2-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Mathematical reasoning and proof"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Expanding gives 24n, a multiple of 12; the requested general argument is mathematical proof/reasoning."
+    },
+    {
+      "id": "2024-november-p1-tz2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities",
+        "Radians and exact values",
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The exact cosine value follows from triangle side/angle data via cosine-rule and half-angle trigonometry; geometry and exact-value work are both materially marked."
+    },
+    {
+      "id": "2024-november-p1-tz2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration",
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Roots and polynomial functions",
+            "Graphs and transformations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 4-mark area and 5-mark tangent condition assess integration and differentiation, while determining the quadratic from roots and reading the graphs are distinct secondary function methods."
+    },
+    {
+      "id": "2024-november-p1-tz2-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 9-mark surface/volume construction is geometric modelling, exceeding the 8-mark differentiation/optimization component; differentiation remains a distinct secondary method."
+    },
+    {
+      "id": "2024-november-p2-tz1-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The 2 endpoint marks, 2 root marks and 3 sketch marks assess graph features, intercepts and the specified domain; the given square-root formula is not a separate modelling method."
+    },
+    {
+      "id": "2024-november-p2-tz1-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Both 3-mark parts are direct antiderivative work: integrate the given exponential expression and apply the initial value; no separate logarithm method is marked."
+    },
+    {
+      "id": "2024-november-p2-tz1-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Roots and polynomial functions"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The log domain requires the quadratic to be positive for every real x, and the discriminant/root condition is the dominant method; logarithmic-domain recognition is a distinct secondary component in the supplied markscheme evidence."
+    },
+    {
+      "id": "2024-november-p2-tz1-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Functions and modelling"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Correlation and regression"
+          ]
+        },
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The question compares and interprets exponential/logistic population models; linear regression is explicitly assessed in (a)-(b), and derivatives are explicitly assessed in (f)-(g), so those are distinct secondary methods."
+    },
+    {
+      "id": "2024-november-p2-tz1-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Trigonometric functions and identities"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The first 7 marks assess sinusoidal amplitude/period/phase, while the 9-mark car component assesses kinematics and differentiation; no integration or separate graph-transformation method is directly marked."
+    },
+    {
+      "id": "2024-november-p2-tz2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The integral and initial-value reconstruction each receive 3 marks and are direct integration; the exponential term is part of the given integrand, not a separate logarithm skill."
+    },
+    {
+      "id": "2024-november-p2-tz2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Roots and polynomial functions"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The logarithm domain condition is solved through positivity of the quadratic and its discriminant/root structure; the official method does not separately require logarithm laws."
+    },
+    {
+      "id": "2024-november-p2-tz2-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Functions and modelling"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Correlation and regression"
+          ]
+        },
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Although regression is assessed in the first 4 marks, most later marks interpret the exponential/logistic models and compare their derivatives; model interpretation is primary with regression and differentiation secondary."
+    },
+    {
+      "id": "2024-november-p2-tz2-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Kinematics",
+            "Differentiation",
+            "Integration"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The first 7 marks are sinusoidal amplitude/period/phase work; the car part separately marks motion, derivative acceleration and distance integration, with no Functions graph skill required."
+    },
+    {
+      "id": "2025-may-p1-tz1-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Finding the stationary point and identifying the local minimum require differentiating and using derivative behavior; no separately marked graph-transformation method is present."
+    },
+    {
+      "id": "2025-may-p1-tz1-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The enclosed area between the two exponential curves is obtained by setting up and evaluating an integral; the exponential curves are given context."
+    },
+    {
+      "id": "2025-may-p1-tz1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The velocity model is used for extrema, direction, distance and return-to-position; differentiation and integration are explicitly marked alongside the kinematics relationships."
+    },
+    {
+      "id": "2025-may-p1-tz1-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities",
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The 17 marks use right-triangle/cylinder-sphere lengths, surface area and volume together with explicitly marked trigonometric relations; both geometry and trigonometry are primary methods."
+    },
+    {
+      "id": "2025-may-p1-tz2-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Recovering g from g′ and the initial value is direct integration; the cosine and exponential terms are given rather than separately assessed topics."
+    },
+    {
+      "id": "2025-may-p1-tz2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Roots and polynomial functions"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Equations and inequalities"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The discriminant/root conditions dominate the 5-mark parameter part; the sign-of-roots constraints in (b) are a distinct equations/inequalities method."
+    },
+    {
+      "id": "2025-may-p1-tz2-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The distance is minimized by differentiating x² ln x+4; the square-root/log expression is supplied and no standalone graph or logarithm method is marked."
+    },
+    {
+      "id": "2025-may-p1-tz2-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities",
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Amplitude/period, the sinusoidal inequality and graph sketch are trigonometric modelling; diameter/height data supply geometric measurement and the final rate question assesses differentiation."
+    },
+    {
+      "id": "2025-may-p1-tz3-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Roots and polynomial functions"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Both parts reduce the intersection/tangency condition to a quadratic and use the repeated-root/discriminant condition; differentiation is not required by the stated markscheme route."
+    },
+    {
+      "id": "2025-may-p1-tz3-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Geometry and measurement"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 9-mark optimization section explicitly uses first and second derivatives; the 2+2-mark area/rope setup materially uses rectangle geometry."
+    },
+    {
+      "id": "2025-may-p1-tz3-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Roots and polynomial functions",
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Quadratic roots/sign analysis and graph asymptotes/intercepts are central; finding k from the maximum also uses logarithm/exponent relationships, while differentiation is only optional."
+    },
+    {
+      "id": "2025-may-p2-tz1-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The 2-mark algebraic decomposition supports a 3-mark antiderivative; the assessed topic is integration rather than generic manipulation."
+    },
+    {
+      "id": "2025-may-p2-tz1-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The period and the two parameter values are obtained from tangent values and trigonometric equations; the markscheme does not separately assess model interpretation."
+    },
+    {
+      "id": "2025-may-p2-tz1-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differential equations",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The rate equation is a differential-equation model solved by integration and an initial condition; differentiating P is not the requested method."
+    },
+    {
+      "id": "2025-may-p2-tz1-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Trigonometric functions and identities"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The tangent gradient and angle condition require differentiation; the cosine model and conversion of the tangent angle use a distinct trigonometric relation."
+    },
+    {
+      "id": "2025-may-p2-tz1-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sequences and series"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Geometry and measurement"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The card counts and the general formula use arithmetic/series structure; the stack dimensions and 60-degree geometry are a distinct marked geometric component."
+    },
+    {
+      "id": "2025-may-p2-tz1-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Function composition and inverses",
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Inverse/self-composition, asymptotes and the reciprocal graph are directly marked; the closest-point part accepts symmetry, so differentiation is not a required separate method."
+    },
+    {
+      "id": "2025-may-p2-tz2-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The decreasing and concave-up intervals are determined by derivative sign behavior from the supplied f′; differentiation is the only assessed method."
+    },
+    {
+      "id": "2025-may-p2-tz2-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Maximum speed, total distance and change of direction are motion questions; acceleration at the second direction change requires differentiation and distance requires integration."
+    },
+    {
+      "id": "2025-may-p2-tz2-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities",
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The bearing triangle, angle of depression, sine-rule distances and bearings all use trigonometric geometry; lengths/angles are independently marked geometric data."
+    },
+    {
+      "id": "2025-may-p2-tz3-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The radius is found from a three-dimensional distance formula and then used for hemisphere surface area; the entire 5 marks are geometric measurement."
+    },
+    {
+      "id": "2025-may-p2-tz3-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "The 3-mark side and 3-mark angle calculations use the triangle’s geometric lengths and angles under the supplied official classification; no separate trigonometry skill is emitted."
+    },
+    {
+      "id": "2025-may-p2-tz3-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Trigonometric functions and identities"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The quotient-rule derivative is the central 3-mark method and supports solving for a; the 70-degree tangent condition materially uses a trigonometric angle-gradient relation."
+    },
+    {
+      "id": "2025-may-p2-tz3-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation",
+            "Integration"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The sinusoidal amplitude, period and graph test are the defining method; tangent/normal work earns differentiation marks and the shaded-region calculation earns integration marks. Function and polynomial tags are unsupported."
+    },
+    {
+      "id": "2025-may-p2-tz3-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Velocity, acceleration and race-distance relationships are kinematics; acceleration requires differentiation and Lucy's distance requires integrating velocity. No polynomial/Functions method is materially assessed."
+    },
+    {
+      "id": "2025-november-p1-tz1-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "All four marks are awarded for identifying horizontal, vertical, reflection and horizontal-scaling transformations of a supplied graph."
+    },
+    {
+      "id": "2025-november-p1-tz1-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Roots and polynomial functions"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The 4-mark area part explicitly uses integration, while determining the parabola's coefficient from its intercept/root conditions is a material polynomial method."
+    },
+    {
+      "id": "2025-november-p1-tz1-q8",
+      "decision": "modify",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Stationary points, extrema and inflexion use differentiation, but part (e)'s 4 marks require integrating f′ and applying f(−2)=36 to recover f; the recommendation omitted that assessed integration."
+    },
+    {
+      "id": "2025-november-p1-tz1-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The identity, bounded-angle equation, double-angle result and exact tangent value form one integrated trigonometric-identity method; generic algebra is not separately tagged."
+    },
+    {
+      "id": "2025-november-p1-tz3-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differential equations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Recovering a curve from dy/dx together with a point condition is a first-order differential-equation task; the antiderivative is the embedded solving step, not a separate label."
+    },
+    {
+      "id": "2025-november-p1-tz3-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The 5-mark part explicitly asks for transformations from y=1/x; solving for A and B is supporting algebra, with no sequence/series or polynomial method assessed."
+    },
+    {
+      "id": "2025-november-p1-tz3-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The cosine-rule side calculation, generalized length relation, and triangle-area calculation all assess geometric lengths, angles and area."
+    },
+    {
+      "id": "2025-november-p1-tz3-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Roots and polynomial functions",
+            "Graphs and transformations"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The normal-line construction and shaded-area calculation materially assess differentiation and integration; discriminant/vertex and graph interpretation are secondary polynomial/graph methods."
+    },
+    {
+      "id": "2025-november-p1-tz3-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Graphs and transformations"
+          ]
+        },
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Derivative formation and local-maximum work dominate; intercept/range marks assess graph features, and solving for e^x followed by ln explicitly assesses exponent/log relationships."
+    },
+    {
+      "id": "2025-november-p2-tz1-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Radians and exact values",
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The arc/radian relation, regular-pentagon sector geometry and shaded-area calculation directly assess radian measure and geometric measurement."
+    },
+    {
+      "id": "2025-november-p2-tz1-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability distributions"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The standard-normal probability, diagram and inverse-normal calculation are all distribution-probability methods."
+    },
+    {
+      "id": "2025-november-p2-tz1-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Functions and modelling",
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Trigonometric functions and identities"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Amplitude, midline, period and phase/parameter extraction from the graph make function modelling and transformations primary; the sinusoidal identity remains a material trigonometric method."
+    },
+    {
+      "id": "2025-november-p2-tz1-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Graphs and transformations"
+          ]
+        },
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Geometry and measurement"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Derivative sign/optimization work is primary; asymptotes are graph features and the point-to-point distance/minimization setup is coordinate geometry."
+    },
+    {
+      "id": "2025-november-p2-tz1-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Functions and modelling"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Exponents and logarithms"
+          ]
+        },
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Comparing exponential and logistic population models is the organizing method; threshold/log conversion and growth-rate maximization are separately assessed secondary methods."
+    },
+    {
+      "id": "2025-november-p2-tz1-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Relative distance, meeting conditions and car travel are kinematics, while the distance function is obtained by integrating the given velocities; differentiation is not a marked method."
+    },
+    {
+      "id": "2025-november-p2-tz3-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Equations and inequalities"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The identity is trigonometric, while reducing to a quadratic in sin x, solving it and enforcing the bounded interval is a distinct equations/inequalities method."
+    },
+    {
+      "id": "2025-november-p2-tz3-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Radians and exact values",
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Sector perimeter/area relations and the acute radian angle directly assess radian measure, exact relations and geometric measurement."
+    },
+    {
+      "id": "2025-november-p2-tz3-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Hemisphere/cone volume and wafer curved-surface-area setup dominate the marks; the final minimum is explicitly a differentiation/optimization method."
+    },
+    {
+      "id": "2025-november-p2-tz3-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Sequences and series"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Displacement/velocity extrema and distance use kinematics with differentiation; the indefinitely continued geometric sequence and sum are a distinct secondary method."
+    },
+    {
+      "id": "m26-math-aasl-p1-c-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Integration",
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Part (a) explicitly differentiates and part (b) uses the derivative relationship for a substitution integral; both calculus skills are directly marked."
+    },
+    {
+      "id": "m26-math-aasl-p1-c-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Roots and polynomial functions",
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Intercepts, vertex form, graph intersections and horizontal-level root conditions all materially assess polynomial structure and graph interpretation."
+    },
+    {
+      "id": "m26-math-aasl-p1-c-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Graphs and transformations"
+          ]
+        },
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Integration"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The 6-mark trigonometric equation is the main identity method; graph sketching and the enclosed-area integral are materially assessed secondary methods. Generic equation-solving is not separately emitted."
+    },
+    {
+      "id": "m26-math-aasl-p1-c-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Quotient-rule differentiation, monotonicity, normal slope and concavity are all directly differentiation/derivative-behaviour work."
+    },
+    {
+      "id": "m26-math-aasl-p1-tza-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The derivative and tangent equation are the assessed methods; the graph is context for the tangent, not a transformation task."
+    },
+    {
+      "id": "m26-math-aasl-p1-tza-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Roots and polynomial functions",
+        "Graphs and transformations"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The roots determine the symmetry axis, then the vertex and range follow from quadratic graph structure; no separate algebra tag is needed."
+    },
+    {
+      "id": "m26-math-aasl-p1-tza-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The velocity antiderivative gives displacement, and the initial position supplies the constant; these are explicit integration and displacement/kinematics methods."
+    },
+    {
+      "id": "m26-math-aasl-p1-tza-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Equations and inequalities"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Event intersections and independence are primary probability work; converting independence to a quadratic and applying the stated domain materially assesses equations."
+    },
+    {
+      "id": "m26-math-aasl-p1-tza-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Graphs and transformations",
+        "Function composition and inverses"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Asymptotes/intercepts and the translation of the graph are graph methods, while g∘f and its range explicitly assess function composition."
+    },
+    {
+      "id": "m26-math-aasl-p1-tza-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Inflexion, horizontal tangents, stationary-point classification and tangent-through-intercept reasoning are all derivative-behaviour methods."
+    },
+    {
+      "id": "m26-math-aasl-p1-tza-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Trigonometric functions and identities"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The 9-mark derivative/optimization part dominates; exact trigonometric values and tan α=√3 are materially used to parameterize and evaluate the force model."
+    },
+    {
+      "id": "m26-math-aasl-p2-tza-q1",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Exponents and logarithms"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Functions and modelling"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Evaluating the exponential cooling law and its limiting value is the direct exponent/log method; interpreting the temperature model and room-temperature parameter is secondary modelling."
+    },
+    {
+      "id": "m26-math-aasl-p2-tza-q2",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Descriptive statistics"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The cumulative-frequency diagram, class frequencies, median and grouped-data mean are all descriptive-statistics methods."
+    },
+    {
+      "id": "m26-math-aasl-p2-tza-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Finding where f decreases requires analyzing the sign of the supplied first derivative, directly assessing differentiation and derivative behaviour."
+    },
+    {
+      "id": "m26-math-aasl-p2-tza-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Trigonometric functions and identities"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Functions and modelling"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The height model is determined from amplitude, midline, period and a phase identity; interpreting the Ferris-wheel height parameters is a material secondary modelling method."
+    },
+    {
+      "id": "m26-math-aasl-p2-tza-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Differentiation",
+        "Integration"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Extrema require differentiation of g, and the enclosed region is calculated by integrating between the curve and line; both are directly marked."
+    },
+    {
+      "id": "m26-math-aasl-p2-tza-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability",
+        "Probability distributions"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The conditional tail-probability relation is probability work, while the inverse-normal calculations use the normal probability distribution; descriptive statistics is not separately assessed."
+    },
+    {
+      "id": "m26-math-aasl-p2-tza-q8",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Financial mathematics"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Quarterly compound interest, depreciation and the first affordable year are all financial-accumulation calculations."
+    },
+    {
+      "id": "m26-math-aasl-p2-tza-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability",
+        "Probability distributions"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "With replacement, the question uses event/binomial probabilities, a discrete net-gain distribution with expectation, and repeated-trial winning probability."
+    },
+    {
+      "id": "m26-math-aasl-p2-tzc-q3",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Exponents and logarithms"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Functions and modelling"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Solving the exponential model for k and t is primary; interpreting the given balloon-volume model and its limiting/initial parameters is secondary modelling."
+    },
+    {
+      "id": "m26-math-aasl-p2-tzc-q4",
+      "decision": "accept_recommended",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Probability distributions"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The halving relation defines a discrete probability distribution, whose normalization and expectation are then calculated."
+    },
+    {
+      "id": "m26-math-aasl-p2-tzc-q5",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Radians and exact values",
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Sector area/perimeter equations and the acute radian-angle constraint directly assess radian measure and geometric measurement."
+    },
+    {
+      "id": "m26-math-aasl-p2-tzc-q6",
+      "decision": "accept_recommended",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Kinematics",
+        "Integration",
+        "Differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Maximum displacement requires integrating velocity and comparing motion values; acceleration is the derivative of velocity, so kinematics, integration and differentiation are all marked."
+    },
+    {
+      "id": "m26-math-aasl-p2-tzc-q7",
+      "decision": "accept_recommended",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Geometry and measurement"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Differentiation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Sphere coordinates/volume and cuboid surface-area modelling dominate the geometry marks; the final minimum and second-derivative test are differentiation/optimization."
+    },
+    {
+      "id": "m26-math-aasl-p2-tzc-q9",
+      "decision": "accept_recommended",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sequences and series",
+        "Exponents and logarithms"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The first two geometric sums and ratios, the arithmetic sequence of logarithms, and the logarithmic inequality in k directly assess both listed Number and algebra skills."
+    }
+  ]
+}
