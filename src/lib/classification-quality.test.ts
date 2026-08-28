@@ -6,8 +6,14 @@ import { loadBankQuestions } from "@/lib/questions";
 import { getControlledSubtopics } from "@/lib/taxonomy";
 
 type AuditManifest = {
+  manifestVersion: string;
   reviewedQuestionCount: number;
-  corrections: Record<string, { sourceTextSha256: string }>;
+  corrections: Record<string, {
+    primaryTopic: string;
+    subtopics: string[];
+    secondaryTopics: string[];
+    sourceTextSha256: string;
+  }>;
 };
 
 type ReconciliationDecision = {
@@ -20,6 +26,11 @@ type ReconciliationDecision = {
     skills: string[];
     secondaryTopics: string[];
   };
+  consensus: {
+    primaryTopic: string;
+    skills: string[];
+    secondaryTopics: string[];
+  };
   final: {
     primaryTopic: string;
     skills: string[];
@@ -28,6 +39,7 @@ type ReconciliationDecision = {
 };
 
 type ReconciliationReport = {
+  reportVersion: string;
   bank: string;
   questionCount: number;
   source: {
@@ -52,6 +64,22 @@ type ReconciliationReport = {
     highConfidence: number;
     mediumConfidence: number;
     lowConfidence: number;
+  };
+  finalTieBreak: {
+    reviewedDisagreements: number;
+    keepShipped: number;
+    useLate: number;
+    modify: number;
+    changedQuestionIds: string[];
+    resultSha256: string;
+  };
+  lateBatchTieBreak: {
+    reviewedDisagreements: number;
+    keepShipped: number;
+    useLate: number;
+    modify: number;
+    changedQuestionIds: string[];
+    resultSha256: string;
   };
   nonClassificationSha256: string;
   decisions: ReconciliationDecision[];
@@ -161,7 +189,8 @@ describe("new-bank classification quality", () => {
     expect(Object.keys(manifest.corrections)).toHaveLength(expectedCount);
     expect(new Set(Object.keys(manifest.corrections))).toEqual(new Set(questions.map((question) => question.id)));
     for (const question of questions) {
-      expect(manifest.corrections[question.id]?.sourceTextSha256, question.id).toBe(
+      const correction = manifest.corrections[question.id];
+      expect(correction?.sourceTextSha256, question.id).toBe(
         createHash("sha256").update(question.accessibleText).digest("hex"),
       );
     }
@@ -181,10 +210,39 @@ describe("new-bank classification quality", () => {
     const report = JSON.parse(
       readFileSync(join(process.cwd(), "docs", "audits", "ib-ai-sl-consensus-reconciliation-2026-08.json"), "utf8"),
     ) as ReconciliationReport;
+    const manifest = JSON.parse(
+      readFileSync(join(process.cwd(), "docs", "audits", "ib-ai-sl-classification-2026-08.json"), "utf8"),
+    ) as AuditManifest & { reconciliation: {
+      finalTieBreakResultSha256: string;
+      lateBatchTieBreakResultSha256: string;
+    } };
+    const finalTieBreakPath = join(
+      process.cwd(),
+      "docs",
+      "audits",
+      "ib-ai-sl-final-tiebreak-2026-08.json",
+    );
+    const finalTieBreak = JSON.parse(readFileSync(finalTieBreakPath, "utf8")) as {
+      input_count: number;
+      judgment_count: number;
+      judgments: Array<{ id: string }>;
+    };
+    const lateBatchTieBreakPath = join(
+      process.cwd(),
+      "docs",
+      "audits",
+      "ib-ai-sl-final-tiebreak-late-batch-2026-08.json",
+    );
+    const lateBatchTieBreak = JSON.parse(readFileSync(lateBatchTieBreakPath, "utf8")) as {
+      input_count: number;
+      judgment_count: number;
+      judgments: Array<{ id: string }>;
+    };
 
     expect(raw.questions).toHaveLength(334);
     expect(new Set(raw.questions.map((question) => question.id)).size).toBe(334);
     expect(report).toMatchObject({
+      reportVersion: "ib-ai-sl-consensus-reconciliation-2026.08.3",
       bank: "ib-ai-sl",
       questionCount: 334,
       source: {
@@ -194,14 +252,65 @@ describe("new-bank classification quality", () => {
         consensusLockSha256: "efc23b28edc1735c116fd295ec136c4cb5a1b0ecd66efde64555d1bd723ea661",
       },
       adjudication: {
-        accept: 96,
-        reject: 4,
-        modify: 15,
-        applied: 111,
-        retainedCurrent: 4,
-        highConfidence: 102,
-        mediumConfidence: 13,
+        accept: 87,
+        reject: 7,
+        modify: 21,
+        applied: 108,
+        retainedCurrent: 7,
+        highConfidence: 103,
+        mediumConfidence: 12,
         lowConfidence: 0,
+      },
+      finalTieBreak: {
+        reviewedDisagreements: 20,
+        keepShipped: 11,
+        useLate: 9,
+        modify: 0,
+        resultSha256: "4375d8a434339d35eea8a467eee8197cd24a151a33c1b14b6676a8da430aafcd",
+      },
+      lateBatchTieBreak: {
+        reviewedDisagreements: 4,
+        keepShipped: 0,
+        useLate: 2,
+        modify: 2,
+        resultSha256: "4be49639d39c7f6d7fc4ce9e8530c082972288689e50c8083b651f750bae4af3",
+      },
+    });
+    expect(report.finalTieBreak.changedQuestionIds).toEqual([
+      "2025-may-tz3-p2-q2",
+      "2025-may-tz2-p2-q2",
+      "2025-november-tz3-p1-q9",
+      "2023-may-tz1-p2-q4",
+      "2025-may-tz1-p1-q9",
+      "2025-november-tz1-p1-q2",
+      "2025-november-tz3-p2-q3",
+      "2023-november-tz2-p1-q3",
+      "2023-november-tz2-p2-q3",
+    ]);
+    expect(finalTieBreak).toMatchObject({ input_count: 20, judgment_count: 20 });
+    expect(new Set(finalTieBreak.judgments.map((judgment) => judgment.id)).size).toBe(20);
+    expect(createHash("sha256").update(readFileSync(finalTieBreakPath)).digest("hex")).toBe(
+      report.finalTieBreak.resultSha256,
+    );
+    expect(report.lateBatchTieBreak.changedQuestionIds).toEqual([
+      "2023-november-tz2-p1-q8",
+      "2021-november-tz0-p1-q11",
+    ]);
+    expect(lateBatchTieBreak).toMatchObject({ input_count: 4, judgment_count: 4 });
+    expect(new Set(lateBatchTieBreak.judgments.map((judgment) => judgment.id))).toEqual(new Set([
+      "2025-may-tz1-p1-q12",
+      "2023-november-tz2-p1-q8",
+      "2022-may-tz1-p2-q1",
+      "2021-november-tz0-p1-q11",
+    ]));
+    expect(createHash("sha256").update(readFileSync(lateBatchTieBreakPath)).digest("hex")).toBe(
+      report.lateBatchTieBreak.resultSha256,
+    );
+    expect(manifest).toMatchObject({
+      manifestVersion: "ib-ai-sl-classification-2026.08.6",
+      reconciliation: {
+        finalTieBreakResultSha256: report.finalTieBreak.resultSha256,
+        lateBatchTieBreakResultSha256: report.lateBatchTieBreak.resultSha256,
       },
     });
     expect(report.normalizedComparison).toEqual({
@@ -213,18 +322,42 @@ describe("new-bank classification quality", () => {
     });
     expect(report.decisions).toHaveLength(115);
     expect(new Set(report.decisions.map((decision) => decision.id)).size).toBe(115);
-    expect(report.decisions.filter((decision) => decision.decision === "accept")).toHaveLength(96);
-    expect(report.decisions.filter((decision) => decision.decision === "modify")).toHaveLength(15);
-    expect(report.decisions.filter((decision) => decision.decision === "reject")).toHaveLength(4);
-    expect(report.decisions.filter((decision) => decision.applied)).toHaveLength(111);
-    expect(report.decisions.filter((decision) => !decision.applied)).toHaveLength(4);
+    expect(report.decisions.filter((decision) => decision.decision === "accept")).toHaveLength(87);
+    expect(report.decisions.filter((decision) => decision.decision === "modify")).toHaveLength(21);
+    expect(report.decisions.filter((decision) => decision.decision === "reject")).toHaveLength(7);
+    expect(report.decisions.filter((decision) => decision.applied)).toHaveLength(108);
+    expect(report.decisions.filter((decision) => !decision.applied)).toHaveLength(7);
+    expect(report.decisions.filter((decision) => "finalTieBreak" in decision)).toHaveLength(20);
+    expect(report.decisions.filter((decision) => "lateBatchTieBreak" in decision)).toHaveLength(4);
     expect(report.decisions.filter((decision) => decision.category === "skill/subtopic change only")).toHaveLength(100);
     expect(report.decisions.filter((decision) => decision.category === "primary-topic change")).toHaveLength(12);
     expect(report.decisions.filter((decision) => decision.category === "cross-topic / secondary-topic change")).toHaveLength(3);
     expect(nonClassificationSha256(raw.questions)).toBe(report.nonClassificationSha256);
 
     const byId = new Map(raw.questions.map((question) => [question.id, question]));
+    for (const question of raw.questions) {
+      const correction = manifest.corrections[question.id];
+      expect(correction, question.id).toMatchObject({
+        primaryTopic: question.primaryTopic,
+        subtopics: question.subtopics,
+      });
+      expect(correction.secondaryTopics ?? [], question.id).toEqual(question.secondaryTopics);
+    }
     for (const decision of report.decisions) {
+      for (const [label, classification] of [
+        ["current", decision.current],
+        ["consensus", decision.consensus],
+        ["final", decision.final],
+      ] as const) {
+        expect(typeof classification.primaryTopic, `${decision.id} ${label} primaryTopic`).toBe("string");
+        expect(classification.primaryTopic.length, `${decision.id} ${label} primaryTopic`).toBeGreaterThan(0);
+        expect(classification.skills.every((skill) => typeof skill === "string"), `${decision.id} ${label} skills`).toBe(true);
+        expect(
+          classification.secondaryTopics.every((topic) => typeof topic === "string"),
+          `${decision.id} ${label} secondaryTopics`,
+        ).toBe(true);
+      }
+
       const question = byId.get(decision.id);
       expect(question, decision.id).toBeDefined();
       const expected = decision.applied ? decision.final : decision.current;
@@ -249,6 +382,17 @@ describe("new-bank classification quality", () => {
     });
     expect(stableSha256(reconstructedBaseline)).toBe(
       "1144181310850d3cf2ff6d0cc4bdc4b2eabab70087bdf09bc9feee884b713f05",
+    );
+
+    const finalClassifications = raw.questions.map((question) => ({
+      id: question.id,
+      primaryTopic: question.primaryTopic,
+      secondaryTopics: question.secondaryTopics,
+      skills: question.skills,
+      subtopics: question.subtopics,
+    }));
+    expect(stableSha256(finalClassifications)).toBe(
+      "19c287dfd421e2c5651721769316a79bd9e8b2923a05853f17606c6d790828d8",
     );
 
     const originalEvidence = raw.questions.map((question) => {

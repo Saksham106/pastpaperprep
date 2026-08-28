@@ -1,0 +1,302 @@
+{
+  "input_count": 20,
+  "judgment_count": 20,
+  "judgments": [
+    {
+      "id": "2025-may-tz3-p2-q2",
+      "verdict": "use_late",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Binomial distribution",
+        "Normal distribution",
+        "Probability and types of events"
+      ],
+      "finalSecondary": [],
+      "confidence": "medium",
+      "rationale": "Normal and binomial methods dominate, but part (f)'s markscheme explicitly awards multiplication for independent events, supporting the event-types skill rather than treating independence as mere framing."
+    },
+    {
+      "id": "2025-november-tz1-p2-q4",
+      "verdict": "keep_shipped",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Modelling with quadratic and cubic functions"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Calculus",
+          "skills": [
+            "Applications of differentiation"
+          ]
+        },
+        {
+          "topic": "Statistics and probability",
+          "skills": [
+            "Correlation and regression"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The quadratic bridge is the organizing model; the markscheme separately assesses derivative steepest gradient and Pearson/regression work, but does not support the extra redundant Modelling with differentiation label."
+    },
+    {
+      "id": "2024-november-tz1-p1-q13",
+      "verdict": "keep_shipped",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sequences and series"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The markscheme rewards recognizing a geometric sequence, its terms, and its sum; solving for n is embedded in that sequence calculation and no GDC-specific method is required."
+    },
+    {
+      "id": "2024-november-tz2-p1-q13",
+      "verdict": "keep_shipped",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Sequences and series"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "This TZ2 item has the same assessed geometric-sequence terms and summation as the packet's TZ1 version; the markscheme does not require a separate GDC-equation skill."
+    },
+    {
+      "id": "2023-november-tz1-p2-q3",
+      "verdict": "keep_shipped",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Chi-squared tests",
+        "Normal distribution",
+        "Outliers and data interpretation",
+        "Statistical measures and frequency tables"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The item assesses grouped descriptive statistics, IQR-based outlier interpretation, and a chi-squared goodness-of-fit test whose expected frequencies are explicitly computed from the stated normal distribution."
+    },
+    {
+      "id": "2025-may-tz1-p1-q8",
+      "verdict": "keep_shipped",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Introduction to differentiation",
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The markscheme directly requires the power rule and then uses the derivative value/sign to determine b and establish that the function is increasing."
+    },
+    {
+      "id": "2025-may-tz3-p1-q4",
+      "verdict": "keep_shipped",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Properties of functions and graphs",
+        "Linear functions and graphs"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The markscheme assesses cubic local extrema/decreasing interval and then the gradient and equation of the explicitly given straight tangent."
+    },
+    {
+      "id": "2025-may-tz2-p2-q2",
+      "verdict": "use_late",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of integration",
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The area parts use definite integration, while part (c) explicitly equates derivative functions to locate parallel tangents, which is an application rather than only introductory differentiation."
+    },
+    {
+      "id": "2025-november-tz3-p1-q9",
+      "verdict": "use_late",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Introduction to differentiation",
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Part (b) directly assesses differentiation, and part (c)'s separately marked tangent-line construction applies the derivative as a gradient to a curve."
+    },
+    {
+      "id": "2024-may-tz1-p2-q2",
+      "verdict": "keep_shipped",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Normal distribution",
+        "Binomial distribution"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Algebraic manipulation"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Normal and binomial calculations dominate; the pricing expression and its inverse are a distinct algebraic component, so the shipped cross-topic coverage is retained as a secondary classification."
+    },
+    {
+      "id": "2024-november-tz1-p1-q3",
+      "verdict": "keep_shipped",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Algebraic manipulation",
+        "Rounding, estimation and percentage error"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "Four marks concern writing and solving the simultaneous linear equations, and the markscheme gives no GDC requirement; the final mark is the rounding lower bound."
+    },
+    {
+      "id": "2024-november-tz2-p1-q3",
+      "verdict": "keep_shipped",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Algebraic manipulation",
+        "Rounding, estimation and percentage error"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The assessed methods are simultaneous linear equations plus a rounded-value lower bound; the official markscheme does not require or identify a GDC-solving technique."
+    },
+    {
+      "id": "2024-november-tz1-p2-q4",
+      "verdict": "keep_shipped",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation",
+        "Applications of integration",
+        "Trapezoidal rule"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Volume and surface area of 3D shapes"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Trapezoidal estimation, integration, and differentiation for minimum surface area are central, while the markscheme also materially assesses cylinder volume/surface-area modelling and label fit."
+    },
+    {
+      "id": "2023-may-tz1-p2-q4",
+      "verdict": "use_late",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Binomial distribution",
+        "Probability and types of events"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The tree supplies conditional branch data for joint and complement calculations, but no requested quantity is a conditional probability; binomial and event operations remain evidenced."
+    },
+    {
+      "id": "2021-may-tz1-p2-q2",
+      "verdict": "keep_shipped",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Arcs and sectors",
+        "Non right-angled trigonometry"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Properties of functions and graphs"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "Clock geometry, the cosine rule, arc/sector formulas, and non-right trigonometry dominate; the later height models also explicitly ask for amplitude and an intersection, supporting a secondary function-properties skill."
+    },
+    {
+      "id": "2025-may-tz1-p1-q9",
+      "verdict": "use_late",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of integration"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Functions",
+          "skills": [
+            "Properties of functions and graphs"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "rationale": "The area is explicitly found with an integral, while finding the third x-intercept is a separately marked graph/root property needed to set the integration interval."
+    },
+    {
+      "id": "2025-november-tz1-p1-q2",
+      "verdict": "use_late",
+      "finalPrimary": "Number and algebra",
+      "finalSkills": [
+        "Rounding, estimation and percentage error"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Volume and surface area of 3D shapes"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Bounds and percentage error are the primary measurement theme, but the markscheme separately awards radius substitution and the sphere-volume calculation as a distinct 3D-measurement method."
+    },
+    {
+      "id": "2025-november-tz3-p2-q3",
+      "verdict": "use_late",
+      "finalPrimary": "Geometry and trigonometry",
+      "finalSkills": [
+        "Coordinate geometry",
+        "Non right-angled trigonometry"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Financial mathematics"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "The farm area and barn-to-house distance evidence the two geometry skills, while the five-mark loan section explicitly requires annuity/financial-app calculations and a nominal rate."
+    },
+    {
+      "id": "2023-november-tz2-p1-q3",
+      "verdict": "use_late",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Introduction to differentiation",
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The derivative computation is introductory, while the separately marked increasing interval requires interpreting derivative sign information as an application."
+    },
+    {
+      "id": "2023-november-tz2-p2-q3",
+      "verdict": "use_late",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Chi-squared tests",
+        "Normal distribution",
+        "Outliers and data interpretation",
+        "Statistical measures and frequency tables"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "As shown by the official expected-frequency markscheme, the chi-squared test uses normal-distribution probabilities in addition to the grouped-data and IQR/outlier work."
+    }
+  ]
+}

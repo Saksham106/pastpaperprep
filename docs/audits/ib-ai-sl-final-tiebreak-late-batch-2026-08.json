@@ -1,0 +1,69 @@
+{
+  "input_count": 4,
+  "judgment_count": 4,
+  "judgments": [
+    {
+      "id": "2025-may-tz1-p1-q12",
+      "verdict": "modify",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation",
+        "Introduction to integration",
+        "Volume and surface area of 3D shapes"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Geometry and trigonometry",
+          "skills": [
+            "Volume and surface area of 3D shapes"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Parts (a) and (b) materially assess differentiation and integration, while part (c) awards marks for calculating a cuboid height from volume and dimensions; the geometry skill is material, but trigonometry is not."
+    },
+    {
+      "id": "2023-november-tz2-p1-q8",
+      "verdict": "use_late",
+      "finalPrimary": "Calculus",
+      "finalSkills": [
+        "Applications of differentiation"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The markscheme uses a GDC derivative value to form the normal and then assesses normal-line and distance geometry; it does not award marks for differentiation rules."
+    },
+    {
+      "id": "2022-may-tz1-p2-q1",
+      "verdict": "modify",
+      "finalPrimary": "Functions",
+      "finalSkills": [
+        "Sinusoidal models",
+        "Properties of functions and graphs",
+        "Rounding, estimation and percentage error"
+      ],
+      "finalSecondary": [
+        {
+          "topic": "Number and algebra",
+          "skills": [
+            "Rounding, estimation and percentage error"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "rationale": "Parts (b)-(d) directly assess sinusoidal graph properties, model construction, and intersections, while part (e) explicitly awards marks for percentage error; the late classification omits the assessed percentage-error skill."
+    },
+    {
+      "id": "2021-november-tz0-p1-q11",
+      "verdict": "use_late",
+      "finalPrimary": "Statistics and probability",
+      "finalSkills": [
+        "Conditional probability",
+        "Probability and types of events"
+      ],
+      "finalSecondary": [],
+      "confidence": "high",
+      "rationale": "The tree branches encode conditional probabilities, part (b) assesses a joint event, and part (c) uses the total-probability equation, so both listed probability skills are materially assessed."
+    }
+  ]
+}

@@ -1281,24 +1281,28 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Calculus",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Functions"
+      ],
       "skills": [
-        "Applications of integration"
+        "Applications of integration",
+        "Properties of functions and graphs"
       ],
       "subtopics": [
-        "Applications of integration"
+        "Applications of integration",
+        "Properties of functions and graphs"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
         "summary": "Adjudicated from full question and official markscheme text: keyword signals function, graph of, f (x) support Functions.",
         "reconciliation": {
-          "method": "blind text and multimodal consensus with independent evidence reconciliation",
-          "summary": "Part (b) explicitly assesses using a definite integral to obtain an enclosed area; the polynomial root in part (a) is setup for the interval, so applications of integration is the best primary classification."
+          "method": "blind text and multimodal consensus, independent evidence reconciliation, and final neutral tie-break",
+          "summary": "The area is explicitly found with an integral, while finding the third x-intercept is a separately marked graph/root property needed to set the integration interval."
         }
       },
       "classificationConfidence": "medium",
       "classificationReviewStatus": "independently-reviewed",
-      "classificationVersion": "ib-ai-sl-classification-2026.08.4",
+      "classificationVersion": "ib-ai-sl-classification-2026.08.5",
       "p3Applicability": null,
       "markschemeTranscript": "9.\n(a)\n( )\n0\nf x =\nseen OR sketch of the graph with all three x-intercepts marked OR\nevidence of using product of roots\n(M1)\n(\n) 3\na =\nA1\n[2 marks]\n(b)\nevidence of using an integral to find the area\n(M1)\n3\n1\n( ) ,\nf x\n\n, etc.\n(area =) 4\nA1\n[2 marks]\n[Total: 4 marks]",
       "officialMarkscheme": {
@@ -1527,12 +1531,12 @@
         "extraction_flags": [],
         "reconciliation": {
           "method": "blind text and multimodal consensus with independent evidence reconciliation",
-          "summary": "The derivative zero is used for the maximum and integration recovers volume, matching the proposed Calculus skills. Part (c) also materially applies the cuboid volume relation to obtain the height and M, so that distinct geometry skill is retained as secondary."
+          "summary": "Parts (a) and (b) materially assess differentiation and integration, while part (c) awards marks for calculating a cuboid height from volume and dimensions. The geometry skill is material, but trigonometry is not."
         }
       },
-      "classificationConfidence": "medium",
+      "classificationConfidence": "high",
       "classificationReviewStatus": "independently-reviewed",
-      "classificationVersion": "ib-ai-sl-classification-2026.08.4",
+      "classificationVersion": "ib-ai-sl-classification-2026.08.6",
       "p3Applicability": null,
       "markschemeTranscript": "12.\n(a)\nindication of setting the derivative to 0\n(M1)\nd\n0\nd\nV\nw =\nOR\n2\n690\n–36\n0\nw\nw =\nOR sketch of the graph of the derivative with the zero marked\n(\n) 1 9.2\nw =\n(cm) (19.1666\n(cm), 115\n6\n(cm))\nA1\n[2 marks]\n(b)\nevidence of the need to integrate\n(M1)\nintegral symbol seen OR\n2\n690 – 36\nd\nw\nw\nw\n\nOR one term integrated correctly\n2\n3\n(\n) 345\n–12\n(\n)\nV\nw\nw\nc\n=\n+\nA1\n0\nc =\nsince\n0\nV =\nwhen\n0\nw =\nR1\n2\n3\n345 (19.1666\n)\n12 (19.1666\n)\nV =\n\n\n−\n\n\n(\n) 42 246.5\nV =\n (cm3) OR (\n) 42247\nV =\n(cm3) seen\nA1\n42 200 cm3\nAG\nNote: It is possible to award (M1)A1R0A1. No marks are awarded for part (b) if\n42 200 is used to work backward.\n[4 marks]\n(c)\nMETHOD 1\nattempt to calculate height using volume, width, and length numerical values\n(M1)\n42 200\n19.1666\n(19.1666\n3)\nh =\n\n\n(may be seen in part (b))\n(\n) 38.3\nh =\n(cm) (38.2911\n(cm))\n(A1)\nNote: Accept a substitution of 42 246.5… for the volume ( 38.3333\n)\nh=\n.\n19.1666\n57.5\n38.2911\n+\n+\n…\n(\n) 1 15 (114.957\n)\nM =\n (cm)\nA1\nMETHOD 2\nattempt to calculate height using volume, width, and length expressions\n(M1)\n2\n3\n345\n12\n3\nw\nw\nh\nw\nw\n−\n=\n\n(\n) 1 15 4\nh\nw\n=\n−\n(A1)\n3\n(115 4 )\nw\nw\nw\n+\n+\n−\n(\n) 1 15\nM =\n(cm)\nA1\n[3 marks]\n[Total: 9 marks]",
       "officialMarkscheme": {
@@ -4199,24 +4203,24 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
-        "Applications of integration",
-        "Introduction to differentiation"
+        "Applications of differentiation",
+        "Applications of integration"
       ],
       "subtopics": [
-        "Applications of integration",
-        "Introduction to differentiation"
+        "Applications of differentiation",
+        "Applications of integration"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
         "summary": "Adjudicated from full question and official markscheme text: keyword signals function, graph of, f (x) support Functions.",
         "reconciliation": {
-          "method": "blind text and multimodal consensus with independent evidence reconciliation",
-          "summary": "Area calculations by definite integration account for the largest component, and the parallel-tangent part materially assesses derivative functions and gradients."
+          "method": "blind text and multimodal consensus, independent evidence reconciliation, and final neutral tie-break",
+          "summary": "The area parts use definite integration, while part (c) explicitly equates derivative functions to locate parallel tangents, which is an application rather than only introductory differentiation."
         }
       },
       "classificationConfidence": "high",
       "classificationReviewStatus": "independently-reviewed",
-      "classificationVersion": "ib-ai-sl-classification-2026.08.4",
+      "classificationVersion": "ib-ai-sl-classification-2026.08.5",
       "p3Applicability": null,
       "markschemeTranscript": "2.\n(a)\n(\n)\n0.638 0.637623... and\n(\n)\n4.10 4.09811...\nA2A1\nNote: Award A2 for one correct answer, accept 4.1. Award A2A0 if coordinate pair is given.\n[3 marks]\n(b)\n(i)\n4.1\n0.6381.5 d\nx x\n∫\nOR\n4.1\n0.638\n( )d\nf x\nx\n∫\nA1A1\nNote: A1 for function and dx , A1 for limits. Award A1 for\n4.1\n0.638 d\ny x\n∫\n.\nCondone the use of modulus within the integrand.\n(ii)\n(\n)\n9.81 9.80788... (from 3sf)\n(\n)\n9.80 9.79844... (from full)\nA2\nNote: Accept 9.8 for A2.\n(iii)\ncorrect expression for area\n(A1)\n( )\n( )\n4.1\n0.638\nd\ng x\nf x\nx\n−\n∫\nOR\n4.1\n0.638\n3\n6\n1.5 d\nx x\nx\n−\n−\n∫\n(\n)\n5.38 5.38290...\nA1\nNote: Accept 5.39\n[6 marks]\n(c)\n( )\n( )\nf\nx\ng x\n′\n′\n=\n(M1)\ncorrect graphs of\n( )\nf\nx\n′\nand\n( )\ng x\n′\n(M1)\nNote: Award M1 if\n2\n3\nx\nseen.\n(\n)\n(\n)\n1.86 1.86406...\nk =\nA1\n[3 marks]\nTotal [12 marks]",
       "officialMarkscheme": {
@@ -4679,12 +4683,14 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
+        "Normal distribution",
         "Binomial distribution",
-        "Normal distribution"
+        "Probability and types of events"
       ],
       "subtopics": [
+        "Normal distribution",
         "Binomial distribution",
-        "Normal distribution"
+        "Probability and types of events"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -4771,13 +4777,13 @@
         "diagram_heavy": true,
         "extraction_flags": [],
         "reconciliation": {
-          "method": "blind text and multimodal consensus with independent evidence reconciliation",
-          "summary": "Parts (a)-(c) use a normal model and parts (d)-(f) use binomial probabilities, including independence; probability/types of events is only generic framing."
+          "method": "blind text and multimodal consensus, independent evidence reconciliation, and final neutral tie-break",
+          "summary": "Normal and binomial methods dominate, but part (f)'s markscheme explicitly awards multiplication for independent events, supporting the event-types skill rather than treating independence as mere framing."
         }
       },
-      "classificationConfidence": "high",
+      "classificationConfidence": "medium",
       "classificationReviewStatus": "independently-reviewed",
-      "classificationVersion": "ib-ai-sl-classification-2026.08.4",
+      "classificationVersion": "ib-ai-sl-classification-2026.08.5",
       "p3Applicability": null,
       "markschemeTranscript": "Q2.\n(a)\nlet W be the “weights of components”\n(\n)\n2\nN 2.5,0.15\nW \n(\n)\nP\n2.8\nW >\n(M1)\n(\n)\n0.0228 0.0227500...\n=\nA1\nNote: Award M1 for correct calculator notation seen eg normcdf(2.8, 9E99, 2.5, 0.15).\n[2 marks]\n(b)\n(i)\nA1A1\nAward A1 for normal curve with reasonable shape\nNote: Reasonable shape = approximately symmetric, change of curvature (not parabolic), approximately\nasymptotic (no clear upward direction in extreme values).\nAward A1 for area shaded to the right of w, with left hand boundary to the left of centre of\nthe curve.\ncontinued…\n2225 – 7320M\nQuestion 2 continued.\n(ii)\n(\n)\nP\n0.8\nX\nw\n>\n=\nor (\n)\nP\n0.2\nX\nw\n<\n=\n(M1)\n(\n)\n2.37 2.37375\n=\n…\nA1\nNote: Award M1 for correct calculator notation that represents the intended shaded region\neg\nInvNorm(0.2, 2.5, 0.15)\nAward M1A0 for 2.63 (2.62624…) seen. If their diagram shows w located right of centre,\naward M1A1FT for\n2.63\nw =\n.\n[4 marks]\n(c)\n(i)\n(\n)\n(\n)\n(\n)\nP 2.3\n2.7\n0.818\n0.817577...\nW\n<\n<\n=\n=\nA1\n(ii)\n(\n)\n200\nP 2.3\n2.7\nW\n×\n<\n<\n(M1)\n164 (163.515…)\nA1\nNote: Accept 163 and correct non-integer values i.e. 163.515...\n[3 marks]\n(d)\nrecognition of binomial\n(M1)\nX is the random variable “number of components passing the test”\n(\n)\nB 200,0.95\nX \n0.128 (0.128357…)\nA1\n[2 marks]\n(e)\n(\n)\nP\n188\nX ≥\nOR\n(\n)\n1\nP\n187\nX\n−\n≤\n(M1)\n(\n)\n0.796 0.796484...\nA1\nNote: Award M1 for calculator notation communicating correct parameters and range.\neg binomcdf(200, 0.95, 188, 200) OR 1-binomcdf(200, 0.95, 187) OR\nbinomcdf(200, 0.05, 12)\n[2 marks]\ncontinued…\n(\n)\nm =\n2225 – 7320M\nQuestion 2 continued.\n(f)\nmultiplication of probabilities for independent events\n(M1)\nlet\nand (\n)\n2\nP T\nbe the probabilities of passing Test 1 and Test 2, respectively,\n(\n)\n1\n2\nP\n0.817577... 0.95\nT\nT\n∩\n=\n×\n0.776698...\n=\nA1\nrecognition of a binomial distribution with\n12,\n0.776698...\nn\np\n=\n=\n(M1)\nlet Y be the random variable “number of components which pass both tests,\n(\n)\nB 12,0.776698...\nY \n(\n)\n0.477 0.477419..\nA1\n[4 marks]\nTotal [17 marks]\n( )\n1\nP T\n(\n)\nP\n10\nY ≥",
       "officialMarkscheme": {
@@ -5174,24 +5180,28 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Number and algebra",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
       "skills": [
-        "Rounding, estimation and percentage error"
+        "Rounding, estimation and percentage error",
+        "Volume and surface area of 3D shapes"
       ],
       "subtopics": [
-        "Rounding, estimation and percentage error"
+        "Rounding, estimation and percentage error",
+        "Volume and surface area of 3D shapes"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
         "summary": "Adjudicated from full question and official markscheme text: keyword signals volume support Geometry and trigonometry.",
         "reconciliation": {
-          "method": "blind text and multimodal consensus with independent evidence reconciliation",
-          "summary": "The assessed focus is measurement bounds and percentage error from a rounded diameter. Sphere volume is a short application within that uncertainty context, not the dominant topic."
+          "method": "blind text and multimodal consensus, independent evidence reconciliation, and final neutral tie-break",
+          "summary": "Bounds and percentage error are the primary measurement theme, but the markscheme separately awards radius substitution and the sphere-volume calculation as a distinct 3D-measurement method."
         }
       },
       "classificationConfidence": "high",
       "classificationReviewStatus": "independently-reviewed",
-      "classificationVersion": "ib-ai-sl-classification-2026.08.4",
+      "classificationVersion": "ib-ai-sl-classification-2026.08.5",
       "p3Applicability": null,
       "markschemeTranscript": "2.\n(a)\n(i)\n8.35 (cm)\nA1\n(ii)\n4π(4.175)3\n3\n(A1)(M1)\nNote: Award A1 for their correct radius or a correct calculation of the radius (i.e.,\n8.35\n2 ) seen.\nAward M1 for an attempt to substitute into the volume of sphere formula.\n305 (cm3) (304.830.. . ,97.0304. . . π)\nA1\n[4 marks]\n(b)\nቚ\n8.4−8.38\n8.38 ቚ× 100\n(M1)\n0.239 (%)(0.238663. . . )\nA1\nNote: Award M1 for an attempt to substitute both 8.4 and 8.38 into the percentage error formula.\n[2 marks]\nT t l [6\nk ]",
       "officialMarkscheme": {
@@ -6741,22 +6751,24 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
-        "Introduction to differentiation"
+        "Introduction to differentiation",
+        "Applications of differentiation"
       ],
       "subtopics": [
-        "Introduction to differentiation"
+        "Introduction to differentiation",
+        "Applications of differentiation"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
         "summary": "Adjudicated from full question and official markscheme text: keyword signals function, f (x) support Functions.",
         "reconciliation": {
-          "method": "blind text and multimodal consensus with independent evidence reconciliation",
-          "summary": "The assessed calculus is direct power-rule differentiation, evaluation of a gradient, and formation of a tangent line; no optimization or rate model is required."
+          "method": "blind text and multimodal consensus, independent evidence reconciliation, and final neutral tie-break",
+          "summary": "Part (b) directly assesses differentiation, and part (c)'s separately marked tangent-line construction applies the derivative as a gradient to a curve."
         }
       },
       "classificationConfidence": "high",
       "classificationReviewStatus": "independently-reviewed",
-      "classificationVersion": "ib-ai-sl-classification-2026.08.4",
+      "classificationVersion": "ib-ai-sl-classification-2026.08.5",
       "p3Applicability": null,
       "markschemeTranscript": "9.\n(a)\n(𝑓𝑓(1) =) 13 −2(1)2 + 5(1) −7 OR 1 −2 + 5 −7\n(A1)\n−3\nA1\n[2 marks]\n(b)\n𝑓𝑓ʹ(𝑥𝑥) = 3𝑥𝑥2 −4𝑥𝑥+ 5\nM1A1\nNote: Award M1 for an attempt at power rule (e.g. one term correct),\nA1 for a completely correct answer.\n[2 marks]\n(c)\n𝑓𝑓ʹ(1) = 4\n(A1)\n𝑦𝑦+ 3 = 4(𝑥𝑥−1) OR 𝑦𝑦= 4𝑥𝑥−7 (or equivalent)\nA1\n[2 marks]\nTotal [6 marks]",
       "officialMarkscheme": {
@@ -7914,14 +7926,18 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Geometry and trigonometry",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
       "skills": [
         "Coordinate geometry",
-        "Non right-angled trigonometry"
+        "Non right-angled trigonometry",
+        "Financial mathematics"
       ],
       "subtopics": [
         "Coordinate geometry",
-        "Non right-angled trigonometry"
+        "Non right-angled trigonometry",
+        "Financial mathematics"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -7972,13 +7988,13 @@
         "diagram_heavy": false,
         "extraction_flags": [],
         "reconciliation": {
-          "method": "blind text and multimodal consensus with independent evidence reconciliation",
-          "summary": "The farm area requires cosine rule and the triangle-area formula, while the barn-to-farmhouse distance requires coordinate/Pythagorean distance; the later loan work is contextual finance rather than a proposed topic change."
+          "method": "blind text and multimodal consensus, independent evidence reconciliation, and final neutral tie-break",
+          "summary": "The farm area and barn-to-house distance evidence the two geometry skills, while the five-mark loan section explicitly requires annuity/financial-app calculations and a nominal rate."
         }
       },
-      "classificationConfidence": "medium",
+      "classificationConfidence": "high",
       "classificationReviewStatus": "independently-reviewed",
-      "classificationVersion": "ib-ai-sl-classification-2026.08.4",
+      "classificationVersion": "ib-ai-sl-classification-2026.08.5",
       "p3Applicability": null,
       "markschemeTranscript": "3.\n(a)\nCosine rule and area of triangle formula\nattempt to use cosine rule to find an angle\n(M1)\nEITHER\n(\n)\n2\n2\n2\n1\n( )\n1600\n1500\n1400\n(\n) cos\n53.5764\n2 1600 1500\nθ\n−\n°\n\n\n+\n−\n=\n=\n…\n\n\n×\n×\n\n\n(A1)\nattempt to use area of triangle formula for their angle/expression\n(M1)\n(\n)\n( )\n1\n(\n)\n1600 1500 sin 53.57642636\n2\nA\n°\n=\n×\n×\n…\n(A1)\nOR\n(\n)\n2\n2\n2\n1\n( )\n1400\n1500\n1600\n(\n) cos\n66.8676\n2 1400 1500\nθ\n−\n°\n\n\n+\n−\n=\n=\n…\n\n\n×\n×\n\n\n(A1)\nattempt to use area of triangle formula for their angle/expression\n(M1)\n( )\n(\n)\n1\n(\n)\n1400 1500 sin 66.8676036\n2\nA\n°\n=\n×\n×\n…\n(A1)\nOR\n( )\n(\n)\n2\n2\n2\n1 1600\n1400\n1500\n(\n) cos\n59.5559\n2 1600 1400\nθ\n°\n−\n\n+\n−\n=\n=\n…\n\n\n×\n×\n\n\n(A1)\nattempt to use area of triangle formula for their angle/expression\n(M1)\n( )\n(\n)\n1\n(\n)\n1400 1600 sin 59.5559\n2\nA\n°\n=\n×\n×\n…\n(A1)\nTHEN\n2\n966 000 (965 579\n)(m )\n…\n(A1)\n5\n9.66 10\n×\n5\n2\n(9.65579\n10 (m )\n)\n…×\nA1\nNote: Follow through within the question for correctly converting their intermediate\nvalue into standard form (but only if their pre-conversion value is seen).\n[6 marks]\n(b)\n2\n2\n300\n200\n+\nOR\n2\n2\n2\n300\n200\nd\n+\n=\n(A1)\n361 (360.555\n) (m)\n…\nA1\n[2 marks]\n(c)\n360.555\n2 ($)120\n…× ×\n(A1)\n($)86533.2…\n($)86533\nA1\nNote: Accept 86640, 86544, and 86534 ,\n(from use of 3 sf, 4sf and 5sf answer to part(b), respectively).\n[2 marks]\n8825 – 7320M\n(d)\n(i)\n1750 60\n86533\n×\n−\n(A1)\n($)18467\nA1\nNote: Accept 18360, 18456, and1 8466 , from 3sf, 4sf and 5sf answers to part (b).\n(ii)\n60\nN =\n( )86533\nPV = \n0\nFV =\n( )1750\nPMT = ±\n/\nP Y = 12\n/\nC Y = 12\n(M1)(A1)\nNote: Award M1 for an attempt to use a financial app (at least 3 entries, not\nnecessarily correct) or an attempt to use an annuity formula.\nAward A1 for all entries correct in financial app or correct substitution in\nan annuity formula.\nAward M0 for a substituted compound interest formula only.\n7.89(%) (7.88938….)\nA1\nNote: Accept 7.84(%) and 7.88(%), from 3sf and 4sf answers to part (b).\n[5 marks]\nTotal [15 marks]\n8825 – 7320M",
       "officialMarkscheme": {
@@ -16772,12 +16788,10 @@
       "secondaryTopics": [],
       "skills": [
         "Binomial distribution",
-        "Conditional probability",
         "Probability and types of events"
       ],
       "subtopics": [
         "Binomial distribution",
-        "Conditional probability",
         "Probability and types of events"
       ],
       "classificationEvidence": {
@@ -16839,13 +16853,13 @@
         "diagram_heavy": true,
         "extraction_flags": [],
         "reconciliation": {
-          "method": "blind text and multimodal consensus with independent evidence reconciliation",
-          "summary": "The tree uses conditional branch probabilities, joint-event multiplication, and incorrect-result complements, followed by binomial calculations for Team X."
+          "method": "blind text and multimodal consensus, independent evidence reconciliation, and final neutral tie-break",
+          "summary": "The tree supplies conditional branch data for joint and complement calculations, but no requested quantity is a conditional probability; binomial and event operations remain evidenced."
         }
       },
       "classificationConfidence": "high",
       "classificationReviewStatus": "independently-reviewed",
-      "classificationVersion": "ib-ai-sl-classification-2026.08.4",
+      "classificationVersion": "ib-ai-sl-classification-2026.08.5",
       "p3Applicability": null,
       "markschemeTranscript": "4.\n(a)\nA1A1\nNote: Award A1 for any one value correct, A1 for other three values correct. Accept\npercentage responses as equivalent forms on all branches.\n[2 marks]\n(b)\n(i)\nmultiplication of two probabilities along the tree diagram\n(M1)\n0.94 0.98\n\n(\n)\n0.921 0.9212, 92.1%, 92.12%\n=\nA1\nNote: Do not accept the 2sf value for the final A1.\n(ii)\n2\n0.9212)\n(\n(A1)\n(\n)\n0.849 0.848609\n, 84.9%, 84.8609...%\n=\n\nA1\nNote: Accept an answer of 0.848 (0.848241) from use of 3 sf answer from part (b)(i).\n[4 marks]\ncontinued…\n17\nM23/5/MATHY/SP2/ENG/TZ1/XX/M\nQuestion 4 continued\n(c)\n(i)\n0.94 0.02\n0.06 0.29\n\n+\n\n(A1)(M1)\nNote: Award A1 for two correct products from their tree diagram seen, M1 for the addition of\ntheir two products.\n0.0362 (3.62%)\nA1\n(ii)\nmultiplying their part(c)(i) by 1300\n0.0362 1300\n\n(M1)\n47.1 (47.06)\nA1\nNote: accept the 2 sf value of 47 for the final A1\n[5 marks]\n(d)\np = 0.02 OR p = 0.98\n(A1)\nrecognition of binomial probability with\n20\nn =\n(M1)\nP(\n0)\nX =\nOR P(\n20)\nX =\n(M1)\n0.668 (0.667607…)\nA1\nNote: Award (A1)(M1)(M1)A0 for an answer of 0.667.\n20\n0.98\n0.668 (0.667607\n)\n=\n is awarded full marks.\n[4 marks]\n(e)\nP(\n3)\nX \nOR P(\n17)\nX \n(M1)\n0.00707 (0.00706869…)\nA1\nNote: Award (M1)A0 for an answer of 0.00706.\nFT from their value of p in part (d)\n[2 marks]\n[Total: 17 marks]",
       "officialMarkscheme": {
@@ -18537,22 +18551,24 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
-        "Introduction to differentiation"
+        "Introduction to differentiation",
+        "Applications of differentiation"
       ],
       "subtopics": [
-        "Introduction to differentiation"
+        "Introduction to differentiation",
+        "Applications of differentiation"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
         "summary": "Adjudicated from full question and official markscheme text: keyword signals function, graph of, asymptote support Functions.",
         "reconciliation": {
-          "method": "blind text and multimodal consensus with independent evidence reconciliation",
-          "summary": "The markscheme directly rewards power-rule differentiation and using the derivative sign to identify the increasing interval. This is introductory differentiation, not a separate applications-of-differentiation task."
+          "method": "blind text and multimodal consensus, independent evidence reconciliation, and final neutral tie-break",
+          "summary": "The derivative computation is introductory, while the separately marked increasing interval requires interpreting derivative sign information as an application."
         }
       },
       "classificationConfidence": "high",
       "classificationReviewStatus": "independently-reviewed",
-      "classificationVersion": "ib-ai-sl-classification-2026.08.4",
+      "classificationVersion": "ib-ai-sl-classification-2026.08.5",
       "p3Applicability": null,
       "markschemeTranscript": "3.\n(a)\n0\nx =\nA1\nNote: Answer must be an equation; an answer of “0” or “the y-axis” is awarded A0.\n[1 mark]\n(b)\n(\n)\n2\n( )\n8\ng x\nx\nx\n−\n= −\n+\n′\nA1A1A1\nNote: Award A1 for 8\n− seen, A1 for\n2\nx−\n2\n1\nx\n\n\n\n\n\n\nor\nand A1 for second term being x .\nAward at most A1A1A0 if additional terms are seen.\n(c)\n2\nx >\nOR (2,\n)\n∞ OR 2\nx\n<\n<∞\nA1A1\nNote: Award A1 for 2 seen and award A1 for correct inequality.\n[2 marks]\n[Total 6 marks]",
       "officialMarkscheme": {
@@ -18918,24 +18934,22 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
-        "Applications of differentiation",
-        "Introduction to differentiation"
+        "Applications of differentiation"
       ],
       "subtopics": [
-        "Applications of differentiation",
-        "Introduction to differentiation"
+        "Applications of differentiation"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
         "summary": "Adjudicated from full question and official markscheme text: keyword signals function, model support Functions.",
         "reconciliation": {
           "method": "blind text and multimodal consensus with independent evidence reconciliation",
-          "summary": "The derivative at a point, normal line, and bridge length all depend on differentiating the road model and applying the result."
+          "summary": "The markscheme uses a GDC derivative value to form the normal and then assesses normal-line and distance geometry. It does not award marks for differentiation rules."
         }
       },
       "classificationConfidence": "high",
       "classificationReviewStatus": "independently-reviewed",
-      "classificationVersion": "ib-ai-sl-classification-2026.08.4",
+      "classificationVersion": "ib-ai-sl-classification-2026.08.6",
       "p3Applicability": null,
       "markschemeTranscript": "8.\n(a)\n(\n)\n( 1)\n8\nr′ −\n=\n−\nA2\n[2 marks]\n(b)\n1\n8\nseen\n(A1)\n1\n6\n(\n1)\n8\ny\nx\n−\n=\n+\nOR\n0.125\n6.13 (6.125)\ny\nx\n=\n+\nOR\n49\n8\n8\nx\ny =\n+\nOR\n8\n49\n0\nx\ny\n−\n+\n=\nA1\n[2 marks]\n(c)\nattempt to find coordinates of point B\n(M1)\ne.g. ( 5.02, 5.50)\n−\nOR (1.02, 6.25) seen\nattempt to substitute into distance formula\n(M1)\n(\n)\n(\n)\n2\n2\n1 5.02076\n6\n5.49740\nd\n\n\n=\n−+\n…\n+\n−\n…\n\n\n\n\n(\n) 4.05 (km) (4.05205\n)\nd =\n…\nA1\n[3 marks]\n[Total 7 marks]",
       "officialMarkscheme": {
@@ -20161,11 +20175,13 @@
       "secondaryTopics": [],
       "skills": [
         "Chi-squared tests",
+        "Normal distribution",
         "Outliers and data interpretation",
         "Statistical measures and frequency tables"
       ],
       "subtopics": [
         "Chi-squared tests",
+        "Normal distribution",
         "Outliers and data interpretation",
         "Statistical measures and frequency tables"
       ],
@@ -20264,13 +20280,13 @@
         "diagram_heavy": false,
         "extraction_flags": [],
         "reconciliation": {
-          "method": "blind text and multimodal consensus with independent evidence reconciliation",
-          "summary": "The question separately assesses grouped-data measures, IQR/outlier interpretation, and a chi-squared goodness-of-fit test. The proposed outlier skill captures the full interquartile-range judgment without displacing the primary chi-squared/statistical measures topics."
+          "method": "blind text and multimodal consensus, independent evidence reconciliation, and final neutral tie-break",
+          "summary": "As shown by the official expected-frequency markscheme, the chi-squared test uses normal-distribution probabilities in addition to the grouped-data and IQR/outlier work."
         }
       },
       "classificationConfidence": "high",
       "classificationReviewStatus": "independently-reviewed",
-      "classificationVersion": "ib-ai-sl-classification-2026.08.4",
+      "classificationVersion": "ib-ai-sl-classification-2026.08.5",
       "p3Applicability": null,
       "markschemeTranscript": "3.\n(a)\n(i)\n150 (cm)\nA1\n(ii)\nattempt to substitute values in the mean formula with at least one\nmid-interval value multiplied by a corresponding frequency\n(M1)\n(mean ) 176 (176.3) (cm)\n=\nA1\n[3 marks]\n(b)\n183 OR 168 seen\n(A1)\nNote: These values may be seen in the working for part (c).\n(IQR\n183 168 ) 15 (cm)\n=\n−\n=\nA1\n[2 marks]\n(c)\n(upper bound =) 183 1.5 15\n+\n×\nOR 205.5 seen\nA1\n205.5\n204\n>\nOR 204 183\n22.5\n−\n<\nOR 204\n22.5\n183\n−\n<\nR1\nLaszlo’s height is not an outlier\nA1\nNote: Do not award R0A1.\n[3 marks]\n(d)\n0\nH : The heights of the students can be modelled by\n2\nN(176, 13.5 )\n1\nH : The heights of the students cannot be modelled by\n2\nN(176, 13.5 )\nA1A1\nNote: Award A1 for each correct hypothesis that includes a reference to normal\ndistribution with a mean of 176 and a standard deviation of 13.5 (or variance of\n2\n13.5 ). “Correlation”, “independence”, “association”, and “relationship” are\nincorrect.\nAward at most A0A1 for correctly worded hypotheses that include a reference to a\nnormal distribution but omit the distribution’s parameters in one or both hypotheses.\nAward A0A1 for correct hypotheses that are reversed.\n[2 marks]\n8823 – 7215M\n(e)\n(i)\n2\nN(176, 13.5 )\nh \nattempt to find normal probability in either correct range\n(M1)\nP(170\n180)\nh\n≤\n<\nOR P(\n190)\nh ≥\nrecognition of multiplying either of their probabilities by 200\n(M1)\n0.288137... 200\n×\nOR 0.149859... 200\n×\na\n57.6 (57.6274...)\n=\n, b\n30.0 (29.9718...)\n=\nA1A1\n(ii)\ndf\n4\n=\n(A1)\n)\n(\n0.0166282\n) 0.0166 (\np =\n…\n=\nA1\ncomparing their p-value to 0.05\nR1\n5\n0.0166\n0.0\n<\nNote: Accept p value of 0.0165 ( 0.0164693...)\n=\nfrom using a and b to 3 sf.\n(Reject\n0\nH , There is sufficient evidence to say that) the data has not\nbeen drawn from the (\n2\nN(176, 13.5 ) ) distribution.\nA1\nNote: Do not award R0A1.\nThe conclusion to part (e)(ii) MUST follow through from their hypotheses seen\nin part (d); if hypotheses are incorrect/reversed etc., the answer to part (e)(ii)\nmust reflect this in order for the A1 to be credited.\n[8 marks]\n[Total 18 marks]",
       "officialMarkscheme": {
@@ -22569,12 +22585,12 @@
         "extraction_flags": [],
         "reconciliation": {
           "method": "blind text and multimodal consensus with independent evidence reconciliation",
-          "summary": "Sinusoidal modeling dominates, but part (a) explicitly assesses why a quadratic is unsuitable using graph/model properties, so that skill remains. Part (e) materially assesses percentage error as a distinct secondary number method."
+          "summary": "Parts (b)-(d) directly assess sinusoidal graph properties, model construction, and intersections, while part (e) explicitly awards marks for percentage error. The late classification omits the assessed percentage-error skill."
         }
       },
       "classificationConfidence": "high",
       "classificationReviewStatus": "independently-reviewed",
-      "classificationVersion": "ib-ai-sl-classification-2026.08.4",
+      "classificationVersion": "ib-ai-sl-classification-2026.08.6",
       "p3Applicability": null,
       "markschemeTranscript": "1.\n(a)\nEITHER\nannual cycle for daylight length\nR1\nOR\nthere is a minimum length for daylight (cannot be negative)\nR1\nOR\na quadratic could not have a maximum and a minimum or equivalent\nR1\nNote: Do not accept “Paula's model is better”.\n[1 mark]\n(b)\n(i)\n4\nA1\n(ii)\n12\nA1\n(iii)\n12\ny =\nA1A1\nNote: Award A1 “\n(\n)\ny = a constant ” and A1 for that constant being 12.\n[4 marks]\n(c)\n( )\n4cos(30 ) 12\nf t\nt\n= −\n+\nOR\n( )\n4cos( 30 ) 12\nf t\nt\n= −\n−\n+\nA1A1A1\nNote: Award A1 for\n30\nb =\n(or\n30\nb = −\n), A1 for\n4\na = −, and A1 for\n12\nd =\n. Award at most\nA1A1A0 if extra terms are seen or form is incorrect. Award at most A1A1A0 if x is\nused instead of t.\n[3 marks]\n(d)\n10.5\n4cos(30 ) 12\nt\n= −\n+\n(M1)\nEITHER\n1\n2\n2.26585\n,\n9.73414\nt\nt\n=\n…\n=\n…\n(A1)(A1)\nOR\n1\n1\n1\n3\ncos\n30\n8\nt\n−\n=\n(A1)\n2\n1\n12\nt\nt\n=\n−\n(A1)\nTHEN\n9.73414\n2.26585\n…−\n…\n7.47 (7.46828…) months (0.622356…years)\nA1\nNote: Award M1A1A1A0 for an unsupported answer of 7.46. If there is only one\nintersection point, award M1A1A0A0.\n[4 marks]\ncontinued…\nM22/5/MATHY/SP2/ENG/TZ1/XX/M\nQuestion 1 continued\n(e)\n14\n16\n16\n60\n100%\n14\n16\n60\n\n\n−\n+\n\n\n\n×\n+\n(M1)(M1)\nNote: Award M1 for correct values and absolute value signs, M1 for 100\n×\n.\n1.44% (1.43737...%)\n=\nA1\n[3 marks]\n[Total 15 marks]",
       "officialMarkscheme": {
@@ -28818,18 +28834,24 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
+        "Conditional probability",
         "Probability and types of events"
       ],
       "subtopics": [
+        "Conditional probability",
         "Probability and types of events"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
-        "summary": "Adjudicated from full question and official markscheme text: keyword signals probabilit support Statistics and probability."
+        "summary": "Adjudicated from full question and official markscheme text: keyword signals probabilit support Statistics and probability.",
+        "reconciliation": {
+          "method": "blind text and multimodal consensus with independent evidence reconciliation",
+          "summary": "The tree branches encode conditional probabilities, part (b) assesses a joint event, and part (c) uses the total-probability equation, so both probability skills are materially assessed."
+        }
       },
       "classificationConfidence": "high",
       "classificationReviewStatus": "independently-reviewed",
-      "classificationVersion": "ib-ai-sl-classification-2026.08.3",
+      "classificationVersion": "ib-ai-sl-classification-2026.08.6",
       "p3Applicability": null,
       "markschemeTranscript": "11.\n(a)\n0.42\na =\nA1\n[1 mark]\n(b)\n(P(\n) )\n0.68\nB\nF\nb\n′∩\n=\n×\nA1\n[1 mark]\n(c)\n(i)\n0.32 0.58\n0.68\n0.41\nb\n×\n+\n=\n(M1)\nNote: Award (M1) for setting up equation for fair-haired or equivalent.\n0.33\nb =\nA1\n(ii)\n0.67\nc =\nA1\n[3 marks]\nTotal: [5 marks]",
       "officialMarkscheme": {

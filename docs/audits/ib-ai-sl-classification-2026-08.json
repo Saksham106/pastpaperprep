@@ -1,5 +1,5 @@
 {
-  "manifestVersion": "ib-ai-sl-classification-2026.08.4",
+  "manifestVersion": "ib-ai-sl-classification-2026.08.6",
   "bank": "ib-ai-sl",
   "reviewedQuestionCount": 334,
   "corrections": {
@@ -83,12 +83,15 @@
     "2025-may-tz1-p1-q9": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Applications of integration"
+        "Applications of integration",
+        "Properties of functions and graphs"
       ],
       "confidence": "medium",
-      "reason": "Part (b) explicitly assesses using a definite integral to obtain an enclosed area; the polynomial root in part (a) is setup for the interval, so applications of integration is the best primary classification.",
+      "reason": "The area is explicitly found with an integral, while finding the third x-intercept is a separately marked graph/root property needed to set the integration interval.",
       "sourceTextSha256": "4926c830a6224418c0b3890d6e1f64afa28492f4e305983e411da7736c03836b",
-      "secondaryTopics": []
+      "secondaryTopics": [
+        "Functions"
+      ]
     },
     "2025-may-tz1-p1-q10": {
       "primaryTopic": "Functions",
@@ -116,8 +119,8 @@
         "Introduction to integration",
         "Volume and surface area of 3D shapes"
       ],
-      "confidence": "medium",
-      "reason": "The derivative zero is used for the maximum and integration recovers volume, matching the proposed Calculus skills. Part (c) also materially applies the cuboid volume relation to obtain the height and M, so that distinct geometry skill is retained as secondary.",
+      "confidence": "high",
+      "reason": "Parts (a) and (b) materially assess differentiation and integration, while part (c) awards marks for calculating a cuboid height from volume and dimensions. The geometry skill is material, but trigonometry is not.",
       "sourceTextSha256": "84fbc25c17c15982ee6b115bd666e0bf400e847f7a7bbac896a7d0d447bde6ad",
       "secondaryTopics": [
         "Geometry and trigonometry"
@@ -416,11 +419,11 @@
     "2025-may-tz2-p2-q2": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Applications of integration",
-        "Introduction to differentiation"
+        "Applications of differentiation",
+        "Applications of integration"
       ],
       "confidence": "high",
-      "reason": "Area calculations by definite integration account for the largest component, and the parallel-tangent part materially assesses derivative functions and gradients.",
+      "reason": "The area parts use definite integration, while part (c) explicitly equates derivative functions to locate parallel tangents, which is an application rather than only introductory differentiation.",
       "sourceTextSha256": "7a933a0a0be9d37b4bc8c0a70d93cc7ad8b167f3082a4100e81767a4ac02adc4",
       "secondaryTopics": []
     },
@@ -472,11 +475,12 @@
     "2025-may-tz3-p2-q2": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
+        "Normal distribution",
         "Binomial distribution",
-        "Normal distribution"
+        "Probability and types of events"
       ],
-      "confidence": "high",
-      "reason": "Parts (a)-(c) use a normal model and parts (d)-(f) use binomial probabilities, including independence; probability/types of events is only generic framing.",
+      "confidence": "medium",
+      "reason": "Normal and binomial methods dominate, but part (f)'s markscheme explicitly awards multiplication for independent events, supporting the event-types skill rather than treating independence as mere framing.",
       "sourceTextSha256": "8484854e39b80ae668dc15d22a3c33509ae5aed17f4490d7ffe148aabdfe735e",
       "secondaryTopics": []
     },
@@ -524,12 +528,15 @@
     "2025-november-tz1-p1-q2": {
       "primaryTopic": "Number and algebra",
       "subtopics": [
-        "Rounding, estimation and percentage error"
+        "Rounding, estimation and percentage error",
+        "Volume and surface area of 3D shapes"
       ],
       "confidence": "high",
-      "reason": "The assessed focus is measurement bounds and percentage error from a rounded diameter. Sphere volume is a short application within that uncertainty context, not the dominant topic.",
+      "reason": "Bounds and percentage error are the primary measurement theme, but the markscheme separately awards radius substitution and the sphere-volume calculation as a distinct 3D-measurement method.",
       "sourceTextSha256": "5d89fe202cfd4770b678ce62c2c064fed124ffb5960aec19fac2976b69b9e022",
-      "secondaryTopics": []
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ]
     },
     "2025-november-tz1-p1-q3": {
       "primaryTopic": "Functions",
@@ -705,10 +712,11 @@
     "2025-november-tz3-p1-q9": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Introduction to differentiation"
+        "Introduction to differentiation",
+        "Applications of differentiation"
       ],
       "confidence": "high",
-      "reason": "The assessed calculus is direct power-rule differentiation, evaluation of a gradient, and formation of a tangent line; no optimization or rate model is required.",
+      "reason": "Part (b) directly assesses differentiation, and part (c)'s separately marked tangent-line construction applies the derivative as a gradient to a curve.",
       "sourceTextSha256": "fe2dee1f684859949873812a4101861b9b3e93ac756bc0eb3fcd29ae9e10d30f",
       "secondaryTopics": []
     },
@@ -836,12 +844,15 @@
       "primaryTopic": "Geometry and trigonometry",
       "subtopics": [
         "Coordinate geometry",
-        "Non right-angled trigonometry"
+        "Non right-angled trigonometry",
+        "Financial mathematics"
       ],
-      "confidence": "medium",
-      "reason": "The farm area requires cosine rule and the triangle-area formula, while the barn-to-farmhouse distance requires coordinate/Pythagorean distance; the later loan work is contextual finance rather than a proposed topic change.",
+      "confidence": "high",
+      "reason": "The farm area and barn-to-house distance evidence the two geometry skills, while the five-mark loan section explicitly requires annuity/financial-app calculations and a nominal rate.",
       "sourceTextSha256": "a16404b429b9ca77f2d2e3c4e3c1da4d81e84e1aec021d30fa7f6bc3252aed3b",
-      "secondaryTopics": []
+      "secondaryTopics": [
+        "Number and algebra"
+      ]
     },
     "2025-november-tz3-p2-q4": {
       "primaryTopic": "Functions",
@@ -1866,11 +1877,10 @@
       "primaryTopic": "Statistics and probability",
       "subtopics": [
         "Binomial distribution",
-        "Conditional probability",
         "Probability and types of events"
       ],
       "confidence": "high",
-      "reason": "The tree uses conditional branch probabilities, joint-event multiplication, and incorrect-result complements, followed by binomial calculations for Team X.",
+      "reason": "The tree supplies conditional branch data for joint and complement calculations, but no requested quantity is a conditional probability; binomial and event operations remain evidenced.",
       "sourceTextSha256": "a71be75b33b1289fc904a08eccd440b1811b8d4b93ae8aa86973cfead4de2bac",
       "secondaryTopics": []
     },
@@ -2077,10 +2087,11 @@
     "2023-november-tz2-p1-q3": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Introduction to differentiation"
+        "Introduction to differentiation",
+        "Applications of differentiation"
       ],
       "confidence": "high",
-      "reason": "The markscheme directly rewards power-rule differentiation and using the derivative sign to identify the increasing interval. This is introductory differentiation, not a separate applications-of-differentiation task.",
+      "reason": "The derivative computation is introductory, while the separately marked increasing interval requires interpreting derivative sign information as an application.",
       "sourceTextSha256": "a18ede917fff00878f80aed62408f8cb351c98ee685bc22ec5d912d4c13cfdc1",
       "secondaryTopics": []
     },
@@ -2124,11 +2135,10 @@
     "2023-november-tz2-p1-q8": {
       "primaryTopic": "Calculus",
       "subtopics": [
-        "Applications of differentiation",
-        "Introduction to differentiation"
+        "Applications of differentiation"
       ],
       "confidence": "high",
-      "reason": "The derivative at a point, normal line, and bridge length all depend on differentiating the road model and applying the result.",
+      "reason": "The markscheme uses a GDC derivative value to form the normal and then assesses normal-line and distance geometry. It does not award marks for differentiation rules.",
       "sourceTextSha256": "ce959500541470762c308cce161d91ac648292599495ec70f55d8ee7c771db66",
       "secondaryTopics": []
     },
@@ -2251,11 +2261,12 @@
       "primaryTopic": "Statistics and probability",
       "subtopics": [
         "Chi-squared tests",
+        "Normal distribution",
         "Outliers and data interpretation",
         "Statistical measures and frequency tables"
       ],
       "confidence": "high",
-      "reason": "The question separately assesses grouped-data measures, IQR/outlier interpretation, and a chi-squared goodness-of-fit test. The proposed outlier skill captures the full interquartile-range judgment without displacing the primary chi-squared/statistical measures topics.",
+      "reason": "As shown by the official expected-frequency markscheme, the chi-squared test uses normal-distribution probabilities in addition to the grouped-data and IQR/outlier work.",
       "sourceTextSha256": "45687b61d1c0f1f12f3373bfc21db7914acc4ecad3a970788be25b71225b19ee",
       "secondaryTopics": []
     },
@@ -2541,7 +2552,7 @@
         "Rounding, estimation and percentage error"
       ],
       "confidence": "high",
-      "reason": "Sinusoidal modeling dominates, but part (a) explicitly assesses why a quadratic is unsuitable using graph/model properties, so that skill remains. Part (e) materially assesses percentage error as a distinct secondary number method.",
+      "reason": "Parts (b)-(d) directly assess sinusoidal graph properties, model construction, and intersections, while part (e) explicitly awards marks for percentage error. The late classification omits the assessed percentage-error skill.",
       "sourceTextSha256": "c2e20de9305b152dc06236ce40f4fda8a9edf714f83bdb812b1fedcd161b1434",
       "secondaryTopics": [
         "Number and algebra"
@@ -3273,11 +3284,13 @@
     "2021-november-tz0-p1-q11": {
       "primaryTopic": "Statistics and probability",
       "subtopics": [
+        "Conditional probability",
         "Probability and types of events"
       ],
       "confidence": "high",
-      "reason": "The exact text centers on probability, distributions, or statistical data analysis; relevant evidence includes Probability and types of events.",
-      "sourceTextSha256": "499190fc63caeda8c46646e7ac5cb9a4cee9d799a540c74db0c865b818d44d98"
+      "reason": "The tree branches encode conditional probabilities, part (b) assesses a joint event, and part (c) uses the total-probability equation, so both probability skills are materially assessed.",
+      "sourceTextSha256": "499190fc63caeda8c46646e7ac5cb9a4cee9d799a540c74db0c865b818d44d98",
+      "secondaryTopics": []
     },
     "2021-november-tz0-p1-q12": {
       "primaryTopic": "Calculus",
@@ -3359,6 +3372,8 @@
   "reconciliation": {
     "source": "Saksham106/ib-maths-ai-sl-topic-practice draft PR #1",
     "consensusLockSha256": "efc23b28edc1735c116fd295ec136c4cb5a1b0ecd66efde64555d1bd723ea661",
-    "report": "docs/audits/ib-ai-sl-consensus-reconciliation-2026-08.json"
+    "report": "docs/audits/ib-ai-sl-consensus-reconciliation-2026-08.json",
+    "finalTieBreakResultSha256": "4375d8a434339d35eea8a467eee8197cd24a151a33c1b14b6676a8da430aafcd",
+    "lateBatchTieBreakResultSha256": "4be49639d39c7f6d7fc4ce9e8530c082972288689e50c8083b651f750bae4af3"
   }
 }
