@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { PricingContent } from "@/components/PricingContent";
 import { hasBankAccess, type ProductId } from "@/lib/access";
 import { BANKS } from "@/lib/banks";
@@ -6,7 +7,17 @@ import { normalizeEntitlements } from "@/lib/entitlements";
 import { requireEntitlementRows } from "@/lib/entitlement-query";
 import { createClient } from "@/lib/supabase/server";
 
-export const metadata = { title: "Pricing" };
+export const metadata: Metadata = {
+  title: "Pricing",
+  description: "Compare PastPaperPrep plans for Cambridge IGCSE and IB Mathematics topical question banks, worked answers, and printable PDF revision sets.",
+  alternates: { canonical: "/pricing" },
+  openGraph: {
+    title: "PastPaperPrep Pricing",
+    description: "Choose one maths question bank, a subject pair, or all six IGCSE and IB Mathematics banks.",
+    url: "/pricing",
+    type: "website",
+  },
+};
 
 const PURCHASABLE_PRODUCTS: readonly ProductId[] = [
   "bank_igcse", "bank_igcse_additional", "bank_ib_hl", "bank_ib_sl", "bank_ib_ai_hl", "bank_ib_ai_sl",

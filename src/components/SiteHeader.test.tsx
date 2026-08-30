@@ -17,6 +17,7 @@ describe("SiteHeader", () => {
     render(<SiteHeader authenticated />);
 
     expect(screen.getByRole("link", { name: "Pricing" })).toHaveAttribute("href", "/pricing");
+    expect(screen.getByRole("link", { name: "Articles" })).toHaveAttribute("href", "/articles");
     expect(screen.getByRole("link", { name: "Pricing" })).toHaveClass("nav-pricing");
     expect(screen.getByRole("link", { name: "My account" })).toHaveAttribute("href", "/account");
     expect(screen.getByRole("link", { name: "Dashboard" })).toHaveAttribute("href", "/dashboard");
@@ -26,6 +27,7 @@ describe("SiteHeader", () => {
   it("keeps pricing available before sign-in", () => {
     render(<SiteHeader authenticated={false} />);
     expect(screen.getByRole("link", { name: "Pricing" })).toHaveAttribute("href", "/pricing");
+    expect(screen.getByRole("link", { name: "Articles" })).toHaveAttribute("href", "/articles");
     expect(screen.getByRole("link", { name: "Pricing" })).toHaveClass("nav-pricing");
     expect(screen.getByRole("link", { name: "Log in" })).toHaveAttribute("href", "/login?next=/pricing");
     expect(screen.getByRole("link", { name: "Log in" })).toHaveClass("nav-login");
@@ -64,6 +66,13 @@ describe("SiteHeader", () => {
     render(<SiteHeader authenticated={false} />);
 
     expect(screen.getByRole("link", { name: "Log in" })).toHaveAttribute("aria-current", "page");
+  });
+
+  it("marks articles as the current destination", () => {
+    usePathname.mockReturnValue("/articles/how-to-use-maths-past-papers-effectively");
+    render(<SiteHeader authenticated={false} />);
+
+    expect(screen.getByRole("link", { name: "Articles" })).toHaveAttribute("aria-current", "page");
   });
 
   it("keeps the compact workspace action at least 44 by 44 pixels", () => {
