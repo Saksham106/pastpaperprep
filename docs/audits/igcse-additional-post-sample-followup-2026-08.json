@@ -1,0 +1,392 @@
+{
+  "auditVersion": "post-sample-classification-followup-v1",
+  "bankFile": "igcse-additional.json",
+  "historicalRawSha256": "cc3c1bdbfcd953b4a55b158e551f86c090b9e922ff8a9a2b66b8d4aa18883af4",
+  "finalRawSha256": "100c5f7307f8492dcdf727623c1d5413d2dc88ea2473280e887b693a937f8093",
+  "historicalClassificationsSha256": "ba8edefd71a6b68873398c05ed0034cb1bd09d6f0331bd8fc1031950ee1a0dec",
+  "finalClassificationsSha256": "f3ffab303f31191a3c77d6bfbdd3642f62d8b064c98c73e889e9ebc580a4fc23",
+  "count": 15,
+  "orderedChangedIds": [
+    "0606-2026-june-21-q5",
+    "0606-2025-november-21-q12",
+    "0606-2023-november-12-q3",
+    "0606-2022-june-12-q3",
+    "0606-2021-march-12-q7",
+    "0606-2021-march-22-q7",
+    "0606-2021-june-23-q5",
+    "0606-2020-june-11-q6",
+    "0606-2020-november-21-q12",
+    "0606-2019-june-12-q1",
+    "0606-2017-march-12-q7",
+    "0606-2017-june-12-q11",
+    "0606-2017-november-22-q2",
+    "0606-2016-june-21-q6",
+    "0606-2016-november-11-q5"
+  ],
+  "decisions": [
+    {
+      "id": "0606-2020-november-21-q12",
+      "previous": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": null,
+        "subtopics": [
+          "Circular measure"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": null,
+        "subtopics": [
+          "Circular measure",
+          "Trigonometry"
+        ]
+      },
+      "evidence": "The question is a sector/arc-length and area problem. The markscheme separately awards the tan-angle step in part (a), then arc/sector and triangle calculations; Circular measure and Trigonometry are both mark-bearing."
+    },
+    {
+      "id": "0606-2021-march-22-q7",
+      "previous": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Coordinate geometry"
+        ],
+        "skills": null,
+        "subtopics": [
+          "Calculus",
+          "Straight-line graphs"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Coordinate geometry"
+        ],
+        "skills": null,
+        "subtopics": [
+          "Calculus",
+          "Straight-line graphs"
+        ]
+      },
+      "evidence": "The images show differentiation of a cubic, tangent/normal gradient work, and solving the intersection with a straight line; the markscheme awards both calculus and straight-line work."
+    },
+    {
+      "id": "0606-2017-june-12-q11",
+      "previous": {
+        "primaryTopic": "Algebra",
+        "secondaryTopics": [],
+        "skills": null,
+        "subtopics": [
+          "Logarithmic and exponential functions"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Algebra"
+        ],
+        "skills": null,
+        "subtopics": [
+          "Calculus",
+          "Logarithmic and exponential functions"
+        ]
+      },
+      "evidence": "The markscheme awards integration of an exponential derivative to obtain f, then a second-derivative equation solved with logarithms. Both Calculus and logarithmic/exponential work are independently marked."
+    },
+    {
+      "id": "0606-2022-june-12-q3",
+      "previous": {
+        "primaryTopic": "Algebra",
+        "secondaryTopics": [
+          "Coordinate geometry"
+        ],
+        "skills": null,
+        "subtopics": [
+          "Logarithmic and exponential functions",
+          "Straight-line graphs"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Algebra",
+        "secondaryTopics": [
+          "Coordinate geometry"
+        ],
+        "skills": null,
+        "subtopics": [
+          "Logarithmic and exponential functions",
+          "Straight-line graphs"
+        ]
+      },
+      "evidence": "The question linearises a logarithmic relation as a straight line and then rearranges back to an exponential form; the markscheme awards gradient/intercept and logarithmic/exponential steps."
+    },
+    {
+      "id": "0606-2017-march-12-q7",
+      "previous": {
+        "primaryTopic": "Vectors and matrices",
+        "secondaryTopics": [],
+        "skills": null,
+        "subtopics": [
+          "Vectors in two dimensions"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Vectors and matrices",
+        "secondaryTopics": [
+          "Algebra"
+        ],
+        "skills": null,
+        "subtopics": [
+          "Vectors in two dimensions",
+          "Simultaneous equations"
+        ]
+      },
+      "evidence": "The vector components/magnitude are marked, followed by explicitly marked elimination of the component equations to determine parameters. Vectors and the simultaneous-equation method are both material."
+    },
+    {
+      "id": "0606-2025-november-21-q12",
+      "previous": {
+        "primaryTopic": "Vectors and matrices",
+        "secondaryTopics": [],
+        "skills": null,
+        "subtopics": [
+          "Vectors in two dimensions"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Vectors and matrices",
+        "secondaryTopics": [
+          "Algebra"
+        ],
+        "skills": null,
+        "subtopics": [
+          "Vectors in two dimensions",
+          "Simultaneous equations"
+        ]
+      },
+      "evidence": "The markscheme awards vector velocity/position equations and the simultaneous conditions for collision. Vector modelling is primary; solving the marked system is an independently used method."
+    },
+    {
+      "id": "0606-2020-june-11-q6",
+      "previous": {
+        "primaryTopic": "Coordinate geometry",
+        "secondaryTopics": [
+          "Algebra"
+        ],
+        "skills": null,
+        "subtopics": [
+          "Straight-line graphs",
+          "Simultaneous equations"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Coordinate geometry",
+        "secondaryTopics": [
+          "Algebra"
+        ],
+        "skills": null,
+        "subtopics": [
+          "Straight-line graphs",
+          "Simultaneous equations"
+        ]
+      },
+      "evidence": "The question/markscheme require line/curve intersection and then midpoint, perpendicular-bisector, and line intersection calculations. Straight-line geometry and the marked simultaneous solution are both retained."
+    },
+    {
+      "id": "0606-2021-march-12-q7",
+      "previous": {
+        "primaryTopic": "Algebra",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": null,
+        "subtopics": [
+          "Indices and surds",
+          "Trigonometry"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Algebra",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": null,
+        "subtopics": [
+          "Indices and surds",
+          "Trigonometry"
+        ]
+      },
+      "evidence": "The question/markscheme award surd simplification in perimeter/area and tan/sec angle relations in the geometry; both controlled methods are mark-bearing."
+    },
+    {
+      "id": "0606-2026-june-21-q5",
+      "previous": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": null,
+        "subtopics": [
+          "Trigonometry",
+          "Calculus"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": null,
+        "subtopics": [
+          "Trigonometry",
+          "Calculus"
+        ]
+      },
+      "evidence": "The images assess a derivative/gradient condition and a trigonometric equation; the official marks independently support Calculus and Trigonometry."
+    },
+    {
+      "id": "0606-2016-november-11-q5",
+      "previous": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Coordinate geometry"
+        ],
+        "skills": null,
+        "subtopics": [
+          "Calculus",
+          "Straight-line graphs"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Coordinate geometry"
+        ],
+        "skills": null,
+        "subtopics": [
+          "Calculus",
+          "Straight-line graphs"
+        ]
+      },
+      "evidence": "The markscheme awards differentiation of the logarithmic curve, normal/line equation work, and intercept/triangle area calculations; Calculus and straight-line graphs are both material."
+    },
+    {
+      "id": "0606-2019-june-12-q1",
+      "previous": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Sets and functions"
+        ],
+        "skills": null,
+        "subtopics": [
+          "Trigonometry",
+          "Set language and notation"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Sets and functions"
+        ],
+        "skills": null,
+        "subtopics": [
+          "Trigonometry",
+          "Set language and notation"
+        ]
+      },
+      "evidence": "The Venn/set shading receives explicit marks and the trigonometric equation/solution set receives explicit marks; both Set language and notation and Trigonometry are material."
+    },
+    {
+      "id": "0606-2017-november-22-q2",
+      "previous": {
+        "primaryTopic": "Algebra",
+        "secondaryTopics": [],
+        "skills": null,
+        "subtopics": [
+          "Indices and surds"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Algebra",
+        "secondaryTopics": [],
+        "skills": null,
+        "subtopics": [
+          "Indices and surds"
+        ]
+      },
+      "evidence": "The paired images reduce fractional powers/surds to a quadratic-form equation; the markscheme marks the indices/surds manipulation, while quadratic solving is intermediate."
+    },
+    {
+      "id": "0606-2023-november-12-q3",
+      "previous": {
+        "primaryTopic": "Coordinate geometry",
+        "secondaryTopics": [
+          "Algebra"
+        ],
+        "skills": null,
+        "subtopics": [
+          "Straight-line graphs",
+          "Logarithmic and exponential functions"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Coordinate geometry",
+        "secondaryTopics": [
+          "Algebra"
+        ],
+        "skills": null,
+        "subtopics": [
+          "Straight-line graphs",
+          "Logarithmic and exponential functions"
+        ]
+      },
+      "evidence": "The question linearises an exponential relation and asks for gradient/intercept, then uses exponential rearrangement; both straight-line and log/exponential methods are marked."
+    },
+    {
+      "id": "0606-2021-june-23-q5",
+      "previous": {
+        "primaryTopic": "Algebra",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": null,
+        "subtopics": [
+          "Equations, inequalities and graphs",
+          "Calculus"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Algebra",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": null,
+        "subtopics": [
+          "Equations, inequalities and graphs",
+          "Calculus"
+        ]
+      },
+      "evidence": "The question/markscheme explicitly mark inequality roots/region and a definite integral for area; Equations, inequalities and graphs plus Calculus are both material."
+    },
+    {
+      "id": "0606-2016-june-21-q6",
+      "previous": {
+        "primaryTopic": "Algebra",
+        "secondaryTopics": [],
+        "skills": null,
+        "subtopics": [
+          "Quadratic functions"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Algebra",
+        "secondaryTopics": [],
+        "skills": null,
+        "subtopics": [
+          "Quadratic functions"
+        ]
+      },
+      "evidence": "The markscheme awards completing the square and absolute-value/quadratic graph intercept work; Quadratic functions is the controlled owner."
+    }
+  ]
+}

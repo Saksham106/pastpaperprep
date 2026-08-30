@@ -1,0 +1,1365 @@
+{
+  "auditVersion": "post-sample-classification-followup-v1",
+  "bankFile": "ib-hl.json",
+  "count": 19,
+  "orderedChangedIds": [
+    "2026-may-tza-p3-q2",
+    "2025-may-tz1-p1-q12",
+    "2025-may-tz1-p2-q9",
+    "2025-may-tz2-p3-q1",
+    "2025-november-tz3-p2-q2",
+    "2024-november-tz0-p2-q1",
+    "2022-may-tz1-p1-q7",
+    "2022-may-tz1-p2-q12",
+    "2021-may-tz1-p2-q9",
+    "2020-november-tz0-p3-discrete-mathematics-q3",
+    "2020-november-tz0-p3-statistics-and-probability-q4",
+    "2019-november-tz0-p1-q7",
+    "2018-may-tz1-p2-q6",
+    "2017-may-tz1-p1-q1",
+    "2017-may-tz1-p2-q8",
+    "2017-may-tz1-p2-q11",
+    "2017-may-tz0-p3-statistics-and-probability-q1",
+    "2017-november-tz0-p1-q11",
+    "2017-november-tz0-p3-calculus-q5"
+  ],
+  "decisions": [
+    {
+      "id": "2020-november-tz0-p3-discrete-mathematics-q3",
+      "previous": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Number theory and modular arithmetic"
+        ],
+        "subtopics": null
+      },
+      "final": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Number theory and modular arithmetic",
+          "Proof and induction"
+        ],
+        "subtopics": [
+          "Number theory and modular arithmetic",
+          "Proof and induction"
+        ]
+      },
+      "evidence": {
+        "questionTextSource": "site/data/questions.json::2020-november-tz0-p3-discrete-mathematics-q3",
+        "officialMarkschemeTranscriptSource": "site/data/questions.json::2020-november-tz0-p3-discrete-mathematics-q3",
+        "questionImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2020-november-tz0-p3-discrete-mathematics-q3-page-4.webp",
+            "sha256": "cd82766d32a4133ca0573f72f1e53fbbf82053cb6fc5a031b24a7482aa6b3a1d",
+            "bytes": 26042,
+            "relative": "questions/2020-november-tz0-p3-discrete-mathematics-q3-page-4.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2020-november-tz0-p3-discrete-mathematics-q3-page-10.webp",
+            "sha256": "f67bf72f66ba26472d7dced975160324d4494d5ea673a2ce9614ed99caa80edb",
+            "bytes": 49248,
+            "relative": "markschemes/2020-november-tz0-p3-discrete-mathematics-q3-page-10.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2020-november-tz0-p3-discrete-mathematics-q3-page-11.webp",
+            "sha256": "b5523627357a1bf90d7dcbf914dc1b48e80fa3ea6a2110de0965fdabb0476ce4",
+            "bytes": 42204,
+            "relative": "markschemes/2020-november-tz0-p3-discrete-mathematics-q3-page-11.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2020-november-tz0-p3-discrete-mathematics-q3-page-12.webp",
+            "sha256": "427c0a1efe8318bff06274dfa3f82043df9a418766bfd82d62f9c50adaccd596",
+            "bytes": 29240,
+            "relative": "markschemes/2020-november-tz0-p3-discrete-mathematics-q3-page-12.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeStatus": "official asset present",
+        "observation": "Question and official scheme separately mark Fermat/congruence remainder work and an iff proof for base-13 divisibility; proof is independently marked in part (b).",
+        "materialMarks": [
+          "(a)(ii) Fermat/remainder marks",
+          "(b)(i) proof method/reasoning marks",
+          "(b)(ii) modular application marks"
+        ],
+        "excludedOrContextOnly": []
+      }
+    },
+    {
+      "id": "2017-may-tz1-p1-q1",
+      "previous": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Exponents and logarithms"
+        ],
+        "subtopics": null
+      },
+      "final": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Exponents and logarithms",
+          "Equations and inequalities"
+        ],
+        "subtopics": [
+          "Exponents and logarithms",
+          "Equations and inequalities"
+        ]
+      },
+      "evidence": {
+        "questionTextSource": "site/data/questions.json::2017-may-tz1-p1-q1",
+        "officialMarkschemeTranscriptSource": "site/data/questions.json::2017-may-tz1-p1-q1",
+        "questionImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2017-may-tz1-p1-q1-page-2.webp",
+            "sha256": "e55fcf64ed376a61ef99f26e8d8c17a4c071f15b0a705bb17ea4c37a8a028a25",
+            "bytes": 54390,
+            "relative": "questions/2017-may-tz1-p1-q1-page-2.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2017-may-tz1-p1-q1-page-7.webp",
+            "sha256": "b2941eda84cb3a8f23a197222e857aa5b842ad6de29a27a6483afb84a3fc99f2",
+            "bytes": 15182,
+            "relative": "markschemes/2017-may-tz1-p1-q1-page-7.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeStatus": "official asset present",
+        "observation": "The official scheme marks collecting logarithms, removing logs to form an equation, and solving x=60; both logarithm manipulation and equation solving are mark-bearing.",
+        "materialMarks": [
+          "M1 collecting log terms",
+          "M1/A1 equation without logs and x=60"
+        ],
+        "excludedOrContextOnly": []
+      }
+    },
+    {
+      "id": "2024-november-tz0-p2-q1",
+      "previous": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [],
+        "skills": [
+          "Graphs and transformations"
+        ],
+        "subtopics": null
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Graphs and transformations",
+          "Equations and inequalities"
+        ],
+        "subtopics": [
+          "Graphs and transformations",
+          "Equations and inequalities"
+        ]
+      },
+      "evidence": {
+        "questionTextSource": "site/data/questions.json::2024-november-tz0-p2-q1",
+        "officialMarkschemeTranscriptSource": "site/data/questions.json::2024-november-tz0-p2-q1",
+        "questionImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2024-november-tz0-p2-q1-page-3.webp",
+            "sha256": "9af80c93dd02e2c08e13ea28b1802be8754b9f39f9bc9856593fb095df74fdfe",
+            "bytes": 63260,
+            "relative": "questions/2024-november-tz0-p2-q1-page-3.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2024-november-tz0-p2-q1-page-4.webp",
+            "sha256": "33854e0b446745b36de7cefd222abc916fe8ec0151a3a50322ed4e6e4ad9122e",
+            "bytes": 52330,
+            "relative": "questions/2024-november-tz0-p2-q1-page-4.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2024-november-tz0-p2-q1-page-7.webp",
+            "sha256": "ed1b217efe05655cae5386addb5b6a5901986bbd2cc6462472e5e0e9e598be7d",
+            "bytes": 18948,
+            "relative": "markschemes/2024-november-tz0-p2-q1-page-7.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2024-november-tz0-p2-q1-page-8.webp",
+            "sha256": "a6160e8a33912a11b35864d2aa4d531ca689bd24e51a592a45a12925ed3e350d",
+            "bytes": 58108,
+            "relative": "markschemes/2024-november-tz0-p2-q1-page-8.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeStatus": "official asset present",
+        "observation": "The scheme gives separate marks for the two roots and for graph endpoints, intercepts and maximum; root solving is a materially marked algebra method.",
+        "materialMarks": [
+          "(b) two roots: 2 marks",
+          "(c) graph features: 3 marks"
+        ],
+        "excludedOrContextOnly": [
+          "Functions and inverses as a generic function mention"
+        ]
+      }
+    },
+    {
+      "id": "2017-november-tz0-p1-q11",
+      "previous": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Differentiation",
+          "Proof and induction"
+        ],
+        "subtopics": null
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Geometry and trigonometry",
+          "Number and algebra"
+        ],
+        "skills": [
+          "Differentiation",
+          "Proof and induction",
+          "Trigonometric identities and equations"
+        ],
+        "subtopics": [
+          "Differentiation",
+          "Proof and induction",
+          "Trigonometric identities and equations"
+        ]
+      },
+      "evidence": {
+        "questionTextSource": "site/data/questions.json::2017-november-tz0-p1-q11",
+        "officialMarkschemeTranscriptSource": "site/data/questions.json::2017-november-tz0-p1-q11",
+        "questionImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2017-november-tz0-p1-q11-page-14.webp",
+            "sha256": "0e91a8d4a9e20cbf03290a8741899ff876bdbd00de9f6d666085c3a50708182d",
+            "bytes": 69934,
+            "relative": "questions/2017-november-tz0-p1-q11-page-14.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2017-november-tz0-p1-q11-page-15.webp",
+            "sha256": "e231d520fa0a992e3613a81f2a4063bf52404456da27129a5cc86b059e3521f1",
+            "bytes": 44758,
+            "relative": "questions/2017-november-tz0-p1-q11-page-15.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2017-november-tz0-p1-q11-page-16.webp",
+            "sha256": "d0b227754b951749cd7a735b8cabf942d35c50bf02cc1be6b124577e3c4e352e",
+            "bytes": 42240,
+            "relative": "questions/2017-november-tz0-p1-q11-page-16.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2017-november-tz0-p1-q11-page-19.webp",
+            "sha256": "0b61ff667fa29c41f928b68c228fdb2d811c2ca82730b10bc5c7174821c47678",
+            "bytes": 59166,
+            "relative": "markschemes/2017-november-tz0-p1-q11-page-19.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2017-november-tz0-p1-q11-page-20.webp",
+            "sha256": "2da4f75e9389a389ed15dd235aa31015d015f89a1e12e42c127a23e91db02270",
+            "bytes": 50560,
+            "relative": "markschemes/2017-november-tz0-p1-q11-page-20.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeStatus": "official asset present",
+        "observation": "The scheme marks an induction proof (8), quotient/product differentiation and a tangent (11 combined), with cosine/double-angle identity work explicitly used in the marked proof and derivative.",
+        "materialMarks": [
+          "(b) induction: 8 marks",
+          "(c)-(d) derivative/tangent: 11 marks"
+        ],
+        "excludedOrContextOnly": [
+          "Functions: no independently marked function operation"
+        ]
+      }
+    },
+    {
+      "id": "2026-may-tza-p3-q2",
+      "previous": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [
+          "Calculus",
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Complex numbers",
+          "Differentiation",
+          "Coordinate and analytic geometry"
+        ],
+        "subtopics": null
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Calculus",
+          "Number and algebra"
+        ],
+        "skills": [
+          "Complex numbers",
+          "Coordinate and analytic geometry",
+          "Differentiation"
+        ],
+        "subtopics": [
+          "Complex numbers",
+          "Coordinate and analytic geometry",
+          "Differentiation"
+        ]
+      },
+      "evidence": {
+        "questionTextSource": "site/data/questions.json::2026-may-tza-p3-q2",
+        "officialMarkschemeTranscriptSource": null,
+        "questionImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2026-may-tza-p3-q2-page-9.webp",
+            "sha256": "778394a2bd51b474807fedb9eeab7455ec6b2056fe066ff345624a9d978d6c67",
+            "bytes": 463952,
+            "relative": "questions/2026-may-tza-p3-q2-page-9.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeImages": [],
+        "officialMarkschemeStatus": "unavailable; source manifest records no official 2026 markscheme",
+        "observation": "The question reconstruction materially assesses Argand/polar complex loci, Cartesian conversion and intercepts, then implicit/parametric differentiation and horizontal tangents. The source manifest explicitly records that official 2026 markschemes were unavailable; the paired official-MS asset is absent.",
+        "materialMarks": [
+          "(a)-(d),(f) complex-plane/polar and Cartesian locus work",
+          "(e),(g)-(h) gradient/tangent differentiation"
+        ],
+        "excludedOrContextOnly": [
+          "No official markscheme evidence available; independent worked solution is not treated as official"
+        ]
+      }
+    },
+    {
+      "id": "2019-november-tz0-p1-q7",
+      "previous": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Integration"
+        ],
+        "subtopics": null
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Integration",
+          "Quadratics"
+        ],
+        "subtopics": [
+          "Integration",
+          "Quadratics"
+        ]
+      },
+      "evidence": {
+        "questionTextSource": "site/data/questions.json::2019-november-tz0-p1-q7",
+        "officialMarkschemeTranscriptSource": "site/data/questions.json::2019-november-tz0-p1-q7",
+        "questionImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2019-november-tz0-p1-q7-page-9.webp",
+            "sha256": "933eded7d507dca1debc78e863c72fbc4eefcd5542deae2f53b4fb99271dd318",
+            "bytes": 63292,
+            "relative": "questions/2019-november-tz0-p1-q7-page-9.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2019-november-tz0-p1-q7-page-11.webp",
+            "sha256": "70f9ce27095e4b8bd41c44fc1abc810d98673b58f065c74e5e3a7f2c0db1ed86",
+            "bytes": 33378,
+            "relative": "markschemes/2019-november-tz0-p1-q7-page-11.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2019-november-tz0-p1-q7-page-12.webp",
+            "sha256": "93ceadba7b1fe3ee1bba16873c0e1efa979a15197f7ac88f2585c54745d9498b",
+            "bytes": 3798,
+            "relative": "markschemes/2019-november-tz0-p1-q7-page-12.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeStatus": "official asset present",
+        "observation": "Part (a) is a separately marked completing-the-square task; part (b) then uses that identity for inverse-trigonometric definite integration.",
+        "materialMarks": [
+          "(a) completing square: 2 marks",
+          "(b) definite integral: 5 marks"
+        ],
+        "excludedOrContextOnly": [
+          "Radian measure: radians occur as output, not an independently assessed method"
+        ]
+      }
+    },
+    {
+      "id": "2018-may-tz1-p2-q6",
+      "previous": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Discrete random variables",
+          "Conditional probability"
+        ],
+        "subtopics": null
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Discrete random variables",
+          "Conditional probability",
+          "Poisson distribution"
+        ],
+        "subtopics": [
+          "Discrete random variables",
+          "Conditional probability",
+          "Poisson distribution"
+        ]
+      },
+      "evidence": {
+        "questionTextSource": "site/data/questions.json::2018-may-tz1-p2-q6",
+        "officialMarkschemeTranscriptSource": "site/data/questions.json::2018-may-tz1-p2-q6",
+        "questionImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2018-may-tz1-p2-q6-page-7.webp",
+            "sha256": "407db706e56fa0e8cf1c0874323ff1ac7013a30a1013296971643fd1c423efef",
+            "bytes": 83070,
+            "relative": "questions/2018-may-tz1-p2-q6-page-7.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2018-may-tz1-p2-q6-page-8.webp",
+            "sha256": "70f0dcd590bd4e935ee8f03c6bf079ee960fb157d37949eae17fd7798ad1a519",
+            "bytes": 22042,
+            "relative": "markschemes/2018-may-tz1-p2-q6-page-8.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeStatus": "official asset present",
+        "observation": "The question states a Poisson model; the scheme marks X~Po(179.2) and the conditional tail P(X>190 | X≥168). Poisson is the assessed distribution, not merely contextual wording.",
+        "materialMarks": [
+          "A1 Po(179.2) model",
+          "M1/A1 conditional probability calculation"
+        ],
+        "excludedOrContextOnly": []
+      }
+    },
+    {
+      "id": "2022-may-tz1-p2-q12",
+      "previous": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Differential equations"
+        ],
+        "subtopics": null
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Functions",
+          "Number and algebra"
+        ],
+        "skills": [
+          "Differential equations",
+          "Euler's method for differential equations",
+          "Graphs and transformations",
+          "Exponents and logarithms"
+        ],
+        "subtopics": [
+          "Differential equations",
+          "Euler's method for differential equations",
+          "Graphs and transformations",
+          "Exponents and logarithms"
+        ]
+      },
+      "evidence": {
+        "questionTextSource": "site/data/questions.json::2022-may-tz1-p2-q12",
+        "officialMarkschemeTranscriptSource": "site/data/questions.json::2022-may-tz1-p2-q12",
+        "questionImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2022-may-tz1-p2-q12-page-16.webp",
+            "sha256": "32c0964fef86b017de82ea2a2d51bf07b3c7fe74681eca006bca83ef303f9476",
+            "bytes": 71464,
+            "relative": "questions/2022-may-tz1-p2-q12-page-16.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2022-may-tz1-p2-q12-page-17.webp",
+            "sha256": "7a53816961b77fea8f503d1c0ff8e272c2e225ad07cdc5d8dd51bee70553a59e",
+            "bytes": 40690,
+            "relative": "questions/2022-may-tz1-p2-q12-page-17.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2022-may-tz1-p2-q12-page-29.webp",
+            "sha256": "8a44fdfa3445322404ce9c65fcb91100994ecc1589d8c34cca8215d5003021f1",
+            "bytes": 48270,
+            "relative": "markschemes/2022-may-tz1-p2-q12-page-29.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2022-may-tz1-p2-q12-page-30.webp",
+            "sha256": "f23741a706dcb1a9713373c320948374122bd6299caf64d2309e7caeeccb6172",
+            "bytes": 45478,
+            "relative": "markschemes/2022-may-tz1-p2-q12-page-30.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2022-may-tz1-p2-q12-page-31.webp",
+            "sha256": "5417ff3ba7b6370cf2ef0b26cf32e0e99b7b03d40c9cdb4174d89f571c2eaeba",
+            "bytes": 33348,
+            "relative": "markschemes/2022-may-tz1-p2-q12-page-31.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2022-may-tz1-p2-q12-page-32.webp",
+            "sha256": "7a919085ce60ea554343516e4110e53eb111f322d571d224fbb013b70557bf18",
+            "bytes": 23610,
+            "relative": "markschemes/2022-may-tz1-p2-q12-page-32.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeStatus": "official asset present",
+        "observation": "The scheme marks Euler iterations (4), substitution/separation and logarithmic solution of the differential equation (12), plus graph/asymptote interpretation (1). The function/graph component has its own marked interpretation.",
+        "materialMarks": [
+          "(a) Euler table/final estimate: 4 marks",
+          "(b)-(c)(i)-(ii) DE, separation, logs: 15 marks",
+          "(c)(iii) graph/asymptote reason: 1 mark"
+        ],
+        "excludedOrContextOnly": []
+      }
+    },
+    {
+      "id": "2017-may-tz1-p2-q8",
+      "previous": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Radian measure and sectors",
+          "Applications of differentiation"
+        ],
+        "subtopics": null
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Applications of differentiation",
+          "Radian measure and sectors"
+        ],
+        "subtopics": [
+          "Applications of differentiation",
+          "Radian measure and sectors"
+        ]
+      },
+      "evidence": {
+        "questionTextSource": "site/data/questions.json::2017-may-tz1-p2-q8",
+        "officialMarkschemeTranscriptSource": "site/data/questions.json::2017-may-tz1-p2-q8",
+        "questionImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2017-may-tz1-p2-q8-page-9.webp",
+            "sha256": "b5685b2895ee006d0295190772b5c5c9a75d8978ec6ec7a2f1fa284759659164",
+            "bytes": 99736,
+            "relative": "questions/2017-may-tz1-p2-q8-page-9.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2017-may-tz1-p2-q8-page-10.webp",
+            "sha256": "f1e5d09c01ce7bc72bd1bd0d266f860956a7e04a22f6f25bf1f3dcf48741e0b9",
+            "bytes": 18804,
+            "relative": "questions/2017-may-tz1-p2-q8-page-10.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2017-may-tz1-p2-q8-page-12.webp",
+            "sha256": "745177cc6b6479d647083d34c898d7b2b103bb65419c42cdb2ec855b58c2edb0",
+            "bytes": 33032,
+            "relative": "markschemes/2017-may-tz1-p2-q8-page-12.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2017-may-tz1-p2-q8-page-13.webp",
+            "sha256": "442613053d4d5de542b55a0800875dc996039ca98247ef0dbc15f8ae3ff3835d",
+            "bytes": 4660,
+            "relative": "markschemes/2017-may-tz1-p2-q8-page-13.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeStatus": "official asset present",
+        "observation": "The scheme marks circular-segment/radian geometry (3) and a related-rate derivative calculation for dθ/dt (4); calculus is the dominant marked method.",
+        "materialMarks": [
+          "(a) segment area/volume: 3 marks",
+          "(b) chain rule/related rate: 4 marks"
+        ],
+        "excludedOrContextOnly": [
+          "Trigonometric identities: sin θ/cos θ are used in the segment and chain-rule formula, not as a separate identity task"
+        ]
+      }
+    },
+    {
+      "id": "2020-november-tz0-p3-statistics-and-probability-q4",
+      "previous": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Discrete random variables"
+        ],
+        "subtopics": null
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [
+          "Functions"
+        ],
+        "skills": [
+          "Discrete random variables",
+          "Statistical inference",
+          "Probability models",
+          "Graphs and transformations"
+        ],
+        "subtopics": [
+          "Discrete random variables",
+          "Statistical inference",
+          "Probability models",
+          "Graphs and transformations"
+        ]
+      },
+      "evidence": {
+        "questionTextSource": "site/data/questions.json::2020-november-tz0-p3-statistics-and-probability-q4",
+        "officialMarkschemeTranscriptSource": "site/data/questions.json::2020-november-tz0-p3-statistics-and-probability-q4",
+        "questionImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2020-november-tz0-p3-statistics-and-probability-q4-page-5.webp",
+            "sha256": "12c185c9a7d19c044f1e9b0e2564c9ddb514d4f98165e842f033e5ea52c5ea4d",
+            "bytes": 69598,
+            "relative": "questions/2020-november-tz0-p3-statistics-and-probability-q4-page-5.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2020-november-tz0-p3-statistics-and-probability-q4-page-11.webp",
+            "sha256": "e8a3b9568f16a6a855cbd0cd26fb4547826e8d96190b3176b15f64e7852cd603",
+            "bytes": 37672,
+            "relative": "markschemes/2020-november-tz0-p3-statistics-and-probability-q4-page-11.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2020-november-tz0-p3-statistics-and-probability-q4-page-12.webp",
+            "sha256": "645206361727685b2bf4097e08e69c7865070dd5463a76f8e95f2df84a043147",
+            "bytes": 22810,
+            "relative": "markschemes/2020-november-tz0-p3-statistics-and-probability-q4-page-12.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2020-november-tz0-p3-statistics-and-probability-q4-page-13.webp",
+            "sha256": "8d39db93c8e0ebfc3e56cfe03ff63aae9e79eeece0abb5ed2070645ccbaad619",
+            "bytes": 53760,
+            "relative": "markschemes/2020-november-tz0-p3-statistics-and-probability-q4-page-13.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeStatus": "official asset present",
+        "observation": "The scheme separately marks moments/variance, unbiased estimators, a binomial zero-count model, and a ratio graph used to compare estimator efficiency.",
+        "materialMarks": [
+          "(a)-(b) distribution moments/variance",
+          "(c) estimator properties",
+          "(d) binomial model",
+          "(e) ratio graph/efficiency"
+        ],
+        "excludedOrContextOnly": [
+          "Descriptive statistics: no descriptive-data method is independently marked"
+        ]
+      }
+    },
+    {
+      "id": "2017-november-tz0-p3-calculus-q5",
+      "previous": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Limits and series",
+          "Differentiation"
+        ],
+        "subtopics": null
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Differentiation",
+          "Limits and series",
+          "Proof and induction"
+        ],
+        "subtopics": [
+          "Differentiation",
+          "Limits and series",
+          "Proof and induction"
+        ]
+      },
+      "evidence": {
+        "questionTextSource": "site/data/questions.json::2017-november-tz0-p3-calculus-q5",
+        "officialMarkschemeTranscriptSource": "site/data/questions.json::2017-november-tz0-p3-calculus-q5",
+        "questionImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2017-november-tz0-p3-calculus-q5-page-3.webp",
+            "sha256": "cb5bb2ca378fbdbefbc6fe6a52b035ab93a9ca816326e1e3d5ea819a4b8f7f02",
+            "bytes": 47656,
+            "relative": "questions/2017-november-tz0-p3-calculus-q5-page-3.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2017-november-tz0-p3-calculus-q5-page-12.webp",
+            "sha256": "5a4623bd44d8240a0ea8b8bbcfd8893208a061e8fa47c3f66014d6e202ee8ece",
+            "bytes": 62214,
+            "relative": "markschemes/2017-november-tz0-p3-calculus-q5-page-12.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2017-november-tz0-p3-calculus-q5-page-13.webp",
+            "sha256": "ceb76f1341ec7990690f1b3b9405ffa1bde5c0869490fe64eff6d98014b9757d",
+            "bytes": 54002,
+            "relative": "markschemes/2017-november-tz0-p3-calculus-q5-page-13.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeStatus": "official asset present",
+        "observation": "The scheme marks chain-rule differentiation, Maclaurin/limit work, and a four-mark proof that the series terminates as a polynomial.",
+        "materialMarks": [
+          "(a) derivative: 2 marks",
+          "(c)-(d) series/limit: 6 marks",
+          "(e) polynomial proof: 4 marks"
+        ],
+        "excludedOrContextOnly": [
+          "Trigonometric identities: no independently marked identity transformation"
+        ]
+      }
+    },
+    {
+      "id": "2025-may-tz1-p1-q12",
+      "previous": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Limits and series",
+          "Integration"
+        ],
+        "subtopics": null
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Integration",
+          "Applications of integration",
+          "Limits and series"
+        ],
+        "subtopics": [
+          "Integration",
+          "Applications of integration",
+          "Limits and series"
+        ]
+      },
+      "evidence": {
+        "questionTextSource": "site/data/questions.json::2025-may-tz1-p1-q12",
+        "officialMarkschemeTranscriptSource": "site/data/questions.json::2025-may-tz1-p1-q12",
+        "questionImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2025-may-tz1-p1-q12-page-15.webp",
+            "sha256": "9dfc79f917c65c2c8fbf679acaa3bed0d6d8ab1fc9faa66857bd9cfa1b7b8661",
+            "bytes": 92744,
+            "relative": "questions/2025-may-tz1-p1-q12-page-15.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2025-may-tz1-p1-q12-page-16.webp",
+            "sha256": "9e749f4468d63d16a952be1896e1463eb100f229aadd1bd006d727bca13de581",
+            "bytes": 43500,
+            "relative": "questions/2025-may-tz1-p1-q12-page-16.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2025-may-tz1-p1-q12-page-17.webp",
+            "sha256": "a97488aedb44684115f4a28cb400211378fd0095abc3b7c83964459987ae469f",
+            "bytes": 40760,
+            "relative": "questions/2025-may-tz1-p1-q12-page-17.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2025-may-tz1-p1-q12-page-23.webp",
+            "sha256": "499306415638dc20dd711698dcf3ecda98dd7cf8624d96751bbac2320ed5bf3d",
+            "bytes": 55332,
+            "relative": "markschemes/2025-may-tz1-p1-q12-page-23.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2025-may-tz1-p1-q12-page-24.webp",
+            "sha256": "6d684adf0aa070d376db86d0972d6c88fc29a0471c23c898c51a0865f209ed87",
+            "bytes": 81358,
+            "relative": "markschemes/2025-may-tz1-p1-q12-page-24.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2025-may-tz1-p1-q12-page-25.webp",
+            "sha256": "9a64004326cefadb64315a1fdc55be3bcd717b3a65d262cec0d1ea9c8bcdf026",
+            "bytes": 57558,
+            "relative": "markschemes/2025-may-tz1-p1-q12-page-25.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeStatus": "official asset present",
+        "observation": "The scheme marks reduction/integration, a volume-of-revolution integral, and a Maclaurin/limit calculation; the volume subpart independently requires the applications-of-integration method.",
+        "materialMarks": [
+          "(a)-(c) reduction/integration: 10 marks",
+          "(d) volume of revolution: 4 marks",
+          "(e) Maclaurin/limit: 5 marks"
+        ],
+        "excludedOrContextOnly": [
+          "Radian measure/trigonometric identities: cosine is the integrand, not a separately marked identity skill"
+        ]
+      }
+    },
+    {
+      "id": "2025-november-tz3-p2-q2",
+      "previous": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Descriptive statistics"
+        ],
+        "subtopics": null
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Descriptive statistics",
+          "Equations and inequalities"
+        ],
+        "subtopics": [
+          "Descriptive statistics",
+          "Equations and inequalities"
+        ]
+      },
+      "evidence": {
+        "questionTextSource": "site/data/questions.json::2025-november-tz3-p2-q2",
+        "officialMarkschemeTranscriptSource": "site/data/questions.json::2025-november-tz3-p2-q2",
+        "questionImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2025-november-tz3-p2-q2-page-5.webp",
+            "sha256": "506bab92ee9cce03dd2c8a9cde78616cf860955b26a71b311df7f389226ddd09",
+            "bytes": 93134,
+            "relative": "questions/2025-november-tz3-p2-q2-page-5.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2025-november-tz3-p2-q2-page-8.webp",
+            "sha256": "85fcfde1f4cece7a77d2d105d72b4e32bb2ba23ddd6f86ce596033cf957f0590",
+            "bytes": 57090,
+            "relative": "markschemes/2025-november-tz3-p2-q2-page-8.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeStatus": "official asset present",
+        "observation": "The scheme marks median reasoning and then the sum/difference relations for Aiden and Brett, followed by solving the two equations.",
+        "materialMarks": [
+          "(a) median reasoning: 1 mark",
+          "(b) simultaneous equations: 5 marks"
+        ],
+        "excludedOrContextOnly": []
+      }
+    },
+    {
+      "id": "2022-may-tz1-p1-q7",
+      "previous": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Continuous random variables"
+        ],
+        "subtopics": null
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Continuous random variables",
+          "Integration"
+        ],
+        "subtopics": [
+          "Continuous random variables",
+          "Integration"
+        ]
+      },
+      "evidence": {
+        "questionTextSource": "site/data/questions.json::2022-may-tz1-p1-q7",
+        "officialMarkschemeTranscriptSource": "site/data/questions.json::2022-may-tz1-p1-q7",
+        "questionImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2022-may-tz1-p1-q7-page-9.webp",
+            "sha256": "52059313f1993af81224f1d483aa9fce9c8e55fe7a372360fb14faac92903802",
+            "bytes": 63792,
+            "relative": "questions/2022-may-tz1-p1-q7-page-9.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2022-may-tz1-p1-q7-page-15.webp",
+            "sha256": "a040fa9a3ab03c56c312f4d51a8b0ed69d6abf2b28c6199879eb15085626a54f",
+            "bytes": 23822,
+            "relative": "markschemes/2022-may-tz1-p1-q7-page-15.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2022-may-tz1-p1-q7-page-16.webp",
+            "sha256": "1aaf350a34f0e7f493ead07e453f8dc45c6dedba2b243c350fdd4f1e3c62a093",
+            "bytes": 57240,
+            "relative": "markschemes/2022-may-tz1-p1-q7-page-16.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeStatus": "official asset present",
+        "observation": "Both normalization and expectation require definite integration; the scheme awards integration attempts and results in each 4-mark part.",
+        "materialMarks": [
+          "(a) normalize density by integration: 4 marks",
+          "(b) expectation integral: 4 marks"
+        ],
+        "excludedOrContextOnly": []
+      }
+    },
+    {
+      "id": "2017-may-tz0-p3-statistics-and-probability-q1",
+      "previous": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Statistical inference",
+          "Normal distribution"
+        ],
+        "subtopics": null
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Statistical inference"
+        ],
+        "subtopics": [
+          "Statistical inference"
+        ]
+      },
+      "evidence": {
+        "questionTextSource": "site/data/questions.json::2017-may-tz0-p3-statistics-and-probability-q1",
+        "officialMarkschemeTranscriptSource": "site/data/questions.json::2017-may-tz0-p3-statistics-and-probability-q1",
+        "questionImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2017-may-tz0-p3-statistics-and-probability-q1-page-2.webp",
+            "sha256": "948068ee542d86ab177e823ad8f9825356c8836ae537871177c6af70d6bbc0b9",
+            "bytes": 57018,
+            "relative": "questions/2017-may-tz0-p3-statistics-and-probability-q1-page-2.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2017-may-tz0-p3-statistics-and-probability-q1-page-7.webp",
+            "sha256": "b93afe4f85c6087e4ccc70a9e99af951c06d1457209d3431f465362a140ee0db",
+            "bytes": 37138,
+            "relative": "markschemes/2017-may-tz0-p3-statistics-and-probability-q1-page-7.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeStatus": "official asset present",
+        "observation": "The official scheme marks hypotheses, unbiased estimates, a t statistic, degrees of freedom, p-value and conclusion. Normality is an assumption, not a separately marked skill.",
+        "materialMarks": [
+          "(a) hypotheses",
+          "(b) estimates",
+          "(c) t-test/p-value/conclusion"
+        ],
+        "excludedOrContextOnly": [
+          "Normal distribution: model assumption only",
+          "Descriptive statistics: supporting arithmetic only"
+        ]
+      }
+    },
+    {
+      "id": "2021-may-tz1-p2-q9",
+      "previous": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Radian measure and sectors",
+          "Applications of differentiation"
+        ],
+        "subtopics": null
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Applications of differentiation"
+        ],
+        "subtopics": [
+          "Applications of differentiation"
+        ]
+      },
+      "evidence": {
+        "questionTextSource": "site/data/questions.json::2021-may-tz1-p2-q9",
+        "officialMarkschemeTranscriptSource": "site/data/questions.json::2021-may-tz1-p2-q9",
+        "questionImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2021-may-tz1-p2-q9-page-12.webp",
+            "sha256": "6daf32852db99e552e4047e937bf49eaea73367acb9f6fd9538e35ee424f8c68",
+            "bytes": 91936,
+            "relative": "questions/2021-may-tz1-p2-q9-page-12.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2021-may-tz1-p2-q9-page-13.webp",
+            "sha256": "1765a4d1baf6e542e81343f978960cb878f10b7c250999661e53b4fb0487f736",
+            "bytes": 16100,
+            "relative": "questions/2021-may-tz1-p2-q9-page-13.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2021-may-tz1-p2-q9-page-14.webp",
+            "sha256": "17ee939bf24ac4e4de85e6e3c109ccebfd30a70efe46b0dfe2b09c87e558b2df",
+            "bytes": 53504,
+            "relative": "markschemes/2021-may-tz1-p2-q9-page-14.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2021-may-tz1-p2-q9-page-15.webp",
+            "sha256": "2533aab0df8efb9b8adcf8637c982aa71c387419db1d988429413303ed7b0aa4",
+            "bytes": 4676,
+            "relative": "markschemes/2021-may-tz1-p2-q9-page-15.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeStatus": "official asset present",
+        "observation": "The scheme awards the boat relation, then the scored 6-mark calculation differentiates with respect to time, applies the speed ratio and solves the related-rate result. Radian/bearing language is setup, not a separate filter skill.",
+        "materialMarks": [
+          "(a) geometric relation: 1 mark",
+          "(b) differentiation/related rates: 6 marks"
+        ],
+        "excludedOrContextOnly": [
+          "Radian measure and sectors: context/setup",
+          "Trigonometric identities and equations: tan/cot substitution is setup"
+        ]
+      }
+    },
+    {
+      "id": "2025-may-tz1-p2-q9",
+      "previous": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Differential equations",
+          "Differentiation"
+        ],
+        "subtopics": null
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Differential equations",
+          "Euler's method for differential equations"
+        ],
+        "subtopics": [
+          "Differential equations",
+          "Euler's method for differential equations"
+        ]
+      },
+      "evidence": {
+        "questionTextSource": "site/data/questions.json::2025-may-tz1-p2-q9",
+        "officialMarkschemeTranscriptSource": "site/data/questions.json::2025-may-tz1-p2-q9",
+        "questionImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2025-may-tz1-p2-q9-page-12.webp",
+            "sha256": "96d212618790a6d53121312d08f4033805ded1db7eae41f63f6579c52a1bd902",
+            "bytes": 88608,
+            "relative": "questions/2025-may-tz1-p2-q9-page-12.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2025-may-tz1-p2-q9-page-13.webp",
+            "sha256": "05139a45ff96948b9dbf85fd773b3062a284866259dca401152b973cab8607a0",
+            "bytes": 16130,
+            "relative": "questions/2025-may-tz1-p2-q9-page-13.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2025-may-tz1-p2-q9-page-18.webp",
+            "sha256": "4ffddba0c51b05b701578cfbe37dbccd52b26e50377390c8fe2820e54b75b9db",
+            "bytes": 43478,
+            "relative": "markschemes/2025-may-tz1-p2-q9-page-18.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2025-may-tz1-p2-q9-page-19.webp",
+            "sha256": "4c27e5e0a3626170e79e804913aad6a3099c81e707791df44e763bca3f4debbc",
+            "bytes": 2844,
+            "relative": "markschemes/2025-may-tz1-p2-q9-page-19.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeStatus": "official asset present",
+        "observation": "The scheme awards the Euler recurrence and intermediate values/final estimate, then separately marks the overestimate/concavity and positive-gradient explanations. The latter are justification for Euler, not an independently computed differentiation task.",
+        "materialMarks": [
+          "(a) Euler method: 3 marks",
+          "(b) overestimate/concavity and gradient justification: 3 marks"
+        ],
+        "excludedOrContextOnly": [
+          "Differentiation: gradient/concavity language supports the Euler justification but no derivative computation is marked"
+        ]
+      }
+    },
+    {
+      "id": "2017-may-tz1-p2-q11",
+      "previous": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Applications of integration",
+          "Integration"
+        ],
+        "subtopics": null
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Integration",
+          "Equations and inequalities"
+        ],
+        "subtopics": [
+          "Integration",
+          "Equations and inequalities"
+        ]
+      },
+      "evidence": {
+        "questionTextSource": "site/data/questions.json::2017-may-tz1-p2-q11",
+        "officialMarkschemeTranscriptSource": "site/data/questions.json::2017-may-tz1-p2-q11",
+        "questionImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2017-may-tz1-p2-q11-page-11.webp",
+            "sha256": "ea095498e632bab15035f7fdcc07ed7e1baaa44361c8543f8674dc2c8491aeae",
+            "bytes": 65978,
+            "relative": "questions/2017-may-tz1-p2-q11-page-11.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2017-may-tz1-p2-q11-page-12.webp",
+            "sha256": "36aa3f6fab33e947ceb481a9066b0a8ad8475e4c449aea7f746c856085bbcc3b",
+            "bytes": 7028,
+            "relative": "questions/2017-may-tz1-p2-q11-page-12.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2017-may-tz1-p2-q11-page-15.webp",
+            "sha256": "773de6d3bf7f51acf34428ce4770c2c724b8eb76e29a864c00c81d5533e49c4c",
+            "bytes": 22608,
+            "relative": "markschemes/2017-may-tz1-p2-q11-page-15.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2017-may-tz1-p2-q11-page-16.webp",
+            "sha256": "e9897b2800550bf345f130df07af6e1650b30082dda8d3a6e79a0de6400b586b",
+            "bytes": 3528,
+            "relative": "markschemes/2017-may-tz1-p2-q11-page-16.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeStatus": "official asset present",
+        "observation": "The scheme marks velocity evaluation, integration for distance/height, and solving v(t)=2.8 for the ground time. Kinematics is context-only; equation solving is independently marked.",
+        "materialMarks": [
+          "(a) velocity evaluation: 2 marks",
+          "(b) distance integral: 2 marks",
+          "(c) solve time and integrate height: 5 marks"
+        ],
+        "excludedOrContextOnly": [
+          "Applications of integration: the mark-bearing method is integration in a kinematics context",
+          "Kinematics: context-only, no addition"
+        ]
+      }
+    },
+    {
+      "id": "2025-may-tz2-p3-q1",
+      "previous": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Functions"
+        ],
+        "skills": [
+          "Differential equations",
+          "Integration",
+          "Differentiation",
+          "Graphs and transformations"
+        ],
+        "subtopics": null
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Functions"
+        ],
+        "skills": [
+          "Differential equations",
+          "Integration",
+          "Differentiation",
+          "Applications of differentiation",
+          "Graphs and transformations"
+        ],
+        "subtopics": [
+          "Differential equations",
+          "Integration",
+          "Differentiation",
+          "Applications of differentiation",
+          "Graphs and transformations"
+        ]
+      },
+      "evidence": {
+        "questionTextSource": "site/data/questions.json::2025-may-tz2-p3-q1",
+        "officialMarkschemeTranscriptSource": "site/data/questions.json::2025-may-tz2-p3-q1",
+        "questionImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2025-may-tz2-p3-q1-page-3.webp",
+            "sha256": "29ab836fb3068fd60d86ac56378c745f5b7cb1f000de521b18832ba1ca0e52d5",
+            "bytes": 73150,
+            "relative": "questions/2025-may-tz2-p3-q1-page-3.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/questions/2025-may-tz2-p3-q1-page-4.webp",
+            "sha256": "54deceb796322aa319e489e883d4cdd37784c4f2b19b3609aff13e31b1428dd3",
+            "bytes": 44560,
+            "relative": "questions/2025-may-tz2-p3-q1-page-4.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeImages": [
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2025-may-tz2-p3-q1-page-7.webp",
+            "sha256": "e13b1392e357f1af0f4e42c661adc14f7a37edad6bbc3b2d809ebe17d7100b39",
+            "bytes": 26822,
+            "relative": "markschemes/2025-may-tz2-p3-q1-page-7.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2025-may-tz2-p3-q1-page-8.webp",
+            "sha256": "c5b7b003d36206fc23807cbb6ecc161e40d7f4e2ac73ebe1c137fff63eedf99c",
+            "bytes": 72116,
+            "relative": "markschemes/2025-may-tz2-p3-q1-page-8.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2025-may-tz2-p3-q1-page-9.webp",
+            "sha256": "92d607cf7f7351e326f6da3560802ae1ca825ce9f1be29ef4a12e0a51b8bac3f",
+            "bytes": 44814,
+            "relative": "markschemes/2025-may-tz2-p3-q1-page-9.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2025-may-tz2-p3-q1-page-10.webp",
+            "sha256": "0fd281d1b45b7e16617f1564ddd8dd173afff95d7aeab0f202370d49aeb2ea5f",
+            "bytes": 21296,
+            "relative": "markschemes/2025-may-tz2-p3-q1-page-10.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2025-may-tz2-p3-q1-page-11.webp",
+            "sha256": "cea7787d0fc34db710ffa79034241c2d5df9d4140bf3c755eb853337427ce45a",
+            "bytes": 48856,
+            "relative": "markschemes/2025-may-tz2-p3-q1-page-11.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2025-may-tz2-p3-q1-page-12.webp",
+            "sha256": "b7878c9d160ddf40ed626a9733217561c05ac887d59f1e64d319cf93f1df5456",
+            "bytes": 39584,
+            "relative": "markschemes/2025-may-tz2-p3-q1-page-12.webp",
+            "exists": true
+          },
+          {
+            "path": "/tmp/ppp-aa-hl-source/site/markschemes/2025-may-tz2-p3-q1-page-13.webp",
+            "sha256": "5a5468ec22677b3378e7de77d1474b5ab6f6c1dc62712b5039faadbd390a5683",
+            "bytes": 28076,
+            "relative": "markschemes/2025-may-tz2-p3-q1-page-13.webp",
+            "exists": true
+          }
+        ],
+        "officialMarkschemeStatus": "official asset present",
+        "observation": "Across seven official scheme pages, graph features, differentiation/tangent work, integration by partial fractions, and the homogeneous differential equation are all explicitly marked; the tangent/asymptote item is an application of differentiation.",
+        "materialMarks": [
+          "(a)-(b) graph/function features",
+          "(c)-(d) derivative/tangent/asymptote",
+          "(e)-(g) partial fractions/integration and DE"
+        ],
+        "excludedOrContextOnly": [
+          "Proof and induction: oddness justification is not induction",
+          "Exponents and logarithms: logarithms occur inside the integration solution but are not retained as a separate filter skill",
+          "Algebraic manipulation: long division is supporting derivation, not a standalone topic label"
+        ]
+      }
+    }
+  ]
+}

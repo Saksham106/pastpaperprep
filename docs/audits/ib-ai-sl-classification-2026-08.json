@@ -485,14 +485,18 @@
       "secondaryTopics": []
     },
     "2025-may-tz3-p2-q3": {
-      "primaryTopic": "Calculus",
+      "primaryTopic": "Geometry and trigonometry",
       "subtopics": [
+        "Volume and surface area of 3D shapes",
         "Applications of differentiation",
         "Modelling with differentiation"
       ],
-      "confidence": "medium",
-      "reason": "The exact text explicitly uses differentiation, integration, or numerical integration; relevant evidence includes Applications of differentiation, Modelling with differentiation.",
-      "sourceTextSha256": "e46ebdd89a950e402f35674866e0c9ec5d289d26065a2216798e36b9edcf04f6"
+      "confidence": "high",
+      "reason": "Fresh paired-question and official-markscheme review found 14 marks for cuboid/cylinder volume, surface area and material comparison, plus 6 independently mark-bearing differentiation/optimization marks.",
+      "sourceTextSha256": "e46ebdd89a950e402f35674866e0c9ec5d289d26065a2216798e36b9edcf04f6",
+      "secondaryTopics": [
+        "Calculus"
+      ]
     },
     "2025-may-tz3-p2-q4": {
       "primaryTopic": "Functions",

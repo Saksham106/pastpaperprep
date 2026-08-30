@@ -1,0 +1,93 @@
+{
+  "auditVersion": "post-sample-classification-followup-v1",
+  "bankFile": "ib-ai-hl.json",
+  "count": 2,
+  "orderedChangedIds": [
+    "2025-may-tz1-p1-q2",
+    "2023-may-tz1-p1-q7"
+  ],
+  "decisions": [
+    {
+      "id": "2025-may-tz1-p1-q2",
+      "previous": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [],
+        "skills": [
+          "Modelling with quadratic and cubic functions"
+        ],
+        "subtopics": [
+          "Modelling with quadratic and cubic functions"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [],
+        "skills": [
+          "Modelling with quadratic and cubic functions",
+          "Properties of functions and graphs"
+        ],
+        "subtopics": [
+          "Modelling with quadratic and cubic functions",
+          "Properties of functions and graphs"
+        ]
+      },
+      "evidence": {
+        "question": "The two question pages define a dolphin height model h(d)=-0.2d^2+bd and ask for the axis of symmetry, b, the re-entry distance, and the meaning of a negative height.",
+        "officialMarkscheme": "The single scheme page awards A1+A1 for d=5.75/axis equation, M1+A1 for b=2.3, M1+A1 for h(d)=0 and d=11.5, and R1 for the underwater/model-domain interpretation.",
+        "markBearingMapping": [
+          {
+            "skill": "Modelling with quadratic and cubic functions",
+            "marks": "7/7",
+            "basis": "The whole item uses a quadratic height model and its applied coefficients/root."
+          },
+          {
+            "skill": "Properties of functions and graphs",
+            "marks": "4/7 materially property-focused",
+            "basis": "Axis of symmetry and the non-zero root are separately requested and awarded; these are not only contextual words."
+          }
+        ]
+      }
+    },
+    {
+      "id": "2023-may-tz1-p1-q7",
+      "previous": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Vectors"
+        ],
+        "subtopics": [
+          "Vectors"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Vectors",
+          "Right-angled trigonometry"
+        ],
+        "subtopics": [
+          "Vectors",
+          "Right-angled trigonometry"
+        ]
+      },
+      "evidence": {
+        "question": "The question asks for AB×AC, the triangular-cover area, the perpendicular distance BX, and the angle the cover makes with the horizontal plane.",
+        "officialMarkscheme": "The schemes award vector-product components and area, AC length plus the area=1/2*base*height calculation for BX=5.60, then a separate M1 for setting a trig ratio and A1 for arcsin(1/BX)=10.3 degrees/radians.",
+        "markBearingMapping": [
+          {
+            "skill": "Vectors",
+            "marks": "parts (a)-(c), 7/9",
+            "basis": "Vector product, cross-product area, vector length, perpendicular-distance calculation."
+          },
+          {
+            "skill": "Right-angled trigonometry",
+            "marks": "part (d), 2/9",
+            "basis": "Independent M1+A1 for the trig ratio and arcsin angle."
+          }
+        ]
+      }
+    }
+  ]
+}
