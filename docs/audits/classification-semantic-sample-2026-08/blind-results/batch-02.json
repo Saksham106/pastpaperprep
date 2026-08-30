@@ -1,0 +1,849 @@
+{
+  "auditVersion": "pastpaperprep-semantic-sample-2026.08.1",
+  "batch": 2,
+  "inputSha256": "606a9c16abea67ef0e93312b3449713c02465f2e8c32b50a7f0e36effa80696a",
+  "count": 35,
+  "judgments": [
+    {
+      "bank": "ib-sl",
+      "id": "2025-may-p2-tz2-q7",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Geometry and measurement",
+        "Trigonometric functions and identities"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question assets show CJ=5.5 km, CL=8 km, bearing 062°, a 60 m lighthouse with 0.94° depression, bearing 121°, and two rescue speeds.",
+        "Official markscheme assets award cosine-rule work for JL and BC, trigonometric-ratio work for BL, bearing reversal to 301°, and time comparisons."
+      ],
+      "rationale": "Linked bearing and triangle-geometry calculations are dominant; cosine-rule and right-triangle methods are mark-bearing.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2025-may-p2-tz2-q7/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2025-may-p2-tz2-q7/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2025-may-p2-tz2-q7/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2025-may-p2-tz2-q7/markscheme-2.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2024-june-21-q12",
+      "primaryTopic": "Algebra and graphs",
+      "secondaryTopics": [],
+      "skills": [
+        "Equations and inequalities"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset gives 3x/2+5y=5 and 4x−3y=46 and asks for x,y with working.",
+        "Official markscheme awards coefficient matching, elimination of one variable, and x=10, y=−2."
+      ],
+      "rationale": "Linear simultaneous equations are the sole assessed method.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2024-june-21-q12/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2024-june-21-q12/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-sl",
+      "id": "2022-may-p2-tz1-q4",
+      "primaryTopic": "Statistics and probability",
+      "secondaryTopics": [],
+      "skills": [
+        "Probability distributions"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset shows a discrete distribution with probabilities 0.41, k−0.28, 0.46, and 0.29−2k²; it asks for k and E(X).",
+        "Official markscheme uses total probability 1, rejects k=0.2 because P(X=1)<0, and applies E(X)=ΣxP(X=x) to obtain 1.27."
+      ],
+      "rationale": "The assessed object is a discrete probability distribution, including parameter validity and expectation.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2022-may-p2-tz1-q4/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2022-may-p2-tz1-q4/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2016-june-42-q7",
+      "primaryTopic": "Trigonometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Area and perimeter",
+        "Sine/cosine rules and bearings"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset shows a 210° sector of radius 8 cm joined to triangle AC=8 cm with angle ACB=72°, then asks for AB, angle ABC, total logo area, and actual area under scale factor 4.",
+        "Official markscheme awards sector-area, cosine-rule, sine-rule, triangle-area, and division by 4² methods."
+      ],
+      "rationale": "Composite area and triangle trigonometry are assessed, including enlargement area scaling.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2016-june-42-q7/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2016-june-42-q7/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2023-november-tz1-p1-q1",
+      "primaryTopic": "Statistics and probability",
+      "secondaryTopics": [],
+      "skills": [
+        "Correlation and regression"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question assets give gradient/time data, ask for the regression line of T on G, r, a prediction at G=13, and why reversing the regression is inappropriate.",
+        "Official markscheme gives T=0.552G+6.36, r=0.994, substitution of 13, and the regression-direction/extrapolation caveat."
+      ],
+      "rationale": "Correlation and regression is the sole assessed statistical method.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2023-november-tz1-p1-q1/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2023-november-tz1-p1-q1/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2023-november-tz1-p1-q1/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2020-june-23-q16",
+      "primaryTopic": "Number",
+      "secondaryTopics": [],
+      "skills": [
+        "Ratio, proportion and rates"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset compares $2000 for 5 years at 1.25% simple interest with compound interest at r% and asks for r.",
+        "Official markscheme awards simple-interest setup, compound-growth equation/root extraction, and r≈1.22%."
+      ],
+      "rationale": "The supplied IGCSE taxonomy has no financial-mathematics topic; percentage-growth methods fit ratio/proportion/rates without inventing a topic.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-june-23-q16/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-june-23-q16/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2020-june-11-q3",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "skills": [
+        "Calculus"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset states dr/dt=5 for a circle and asks for dA/dt when r=3.",
+        "Official markscheme awards dr/dt=5, dA/dr=2πr, chain-rule multiplication, and dA/dt=30π."
+      ],
+      "rationale": "This is a direct related-rates application of differentiation.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-june-11-q3/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-june-11-q3/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2017-may-tz1-p1-q1",
+      "primaryTopic": "Number and algebra",
+      "secondaryTopics": [],
+      "skills": [
+        "Exponents and logarithms",
+        "Equations and inequalities"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset asks to solve log₂x−log₂5=2+log₂3.",
+        "Official markscheme awards collecting log terms, removing logs, and x=60."
+      ],
+      "rationale": "Logarithm laws followed by algebraic solving are the mark-bearing route.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p1-q1/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p1-q1/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2026-may-tza-p2-q8",
+      "primaryTopic": "Number and algebra",
+      "secondaryTopics": [],
+      "skills": [
+        "Complex numbers",
+        "Triangle geometry"
+      ],
+      "confidence": "medium",
+      "taxonomyGap": null,
+      "evidence": [
+        "Supplied question asset is explicitly an independent clean reconstruction and asks for c, the other cube roots, roots of (iz)³=c, and the Argand-triangle area.",
+        "No official markscheme asset is supplied; the independent solution gives c=64, the three rotated roots, and area 12√3."
+      ],
+      "rationale": "Complex-number roots and Argand geometry are assessed; confidence is medium because the official markscheme is unavailable.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2026-may-tza-p2-q8/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [],
+      "officialMarkschemeUnavailable": true
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2018-june-43-q5",
+      "primaryTopic": "Algebra and graphs",
+      "secondaryTopics": [],
+      "skills": [
+        "Algebraic manipulation",
+        "Equations and inequalities",
+        "Area and perimeter"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset contains ticket-price algebra, factorisation y²+5y−84, a rectangle with area 84, and a magazine-price quadratic.",
+        "Official markscheme awards the ticket equation, (y+12)(y−7), y=7 for the rectangle, and factorisation/quadratic work for the magazine part."
+      ],
+      "rationale": "Algebraic manipulation dominates, with rectangle perimeter as a separately marked application.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2018-june-43-q5/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2018-june-43-q5/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2022-november-tz0-p2-q7",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Vectors, lines and planes",
+        "Limits and series"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset defines u=i+j and v=(cos(1/n))i+(sin(1/n))j and asks for cosθ and the exact limit of θ.",
+        "Official markscheme awards the scalar-product formula, Argand-angle alternative, 1/n→0, and limit π/4."
+      ],
+      "rationale": "The angle-between-vectors formula is primary; the limit is independently marked.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2022-november-tz0-p2-q7/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2022-november-tz0-p2-q7/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2022-november-tz0-p2-q7/markscheme-2.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2024-november-tz0-p2-q1",
+      "primaryTopic": "Functions",
+      "secondaryTopics": [],
+      "skills": [
+        "Graphs and transformations",
+        "Equations and inequalities"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset defines f(x)=11√x−2x−11 on 0≤x≤20 and asks for endpoint values, two roots, and a graph sketch.",
+        "Official markscheme awards f(0), f(20), roots near 1.73 and 17.5, and endpoint/intercept/maximum features of the sketch."
+      ],
+      "rationale": "Graph properties and sketching are central, with root solving materially assessed.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2024-november-tz0-p2-q1/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2024-november-tz0-p2-q1/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2024-november-tz0-p2-q1/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2024-november-tz0-p2-q1/markscheme-2.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2023-november-12-q5",
+      "primaryTopic": "Algebra",
+      "secondaryTopics": [],
+      "skills": [
+        "Trigonometry"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset asks for solutions of 3sec²(2θ+π/6)=4 for −π/2<θ<π/2.",
+        "Official markscheme awards conversion to cos or tan, the three in-range solutions −π/6, 0, π/3, and correct operation order."
+      ],
+      "rationale": "The entire question is solving a trigonometric equation.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-november-12-q5/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-november-12-q5/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2018-june-43-q4",
+      "primaryTopic": "Probability",
+      "secondaryTopics": [],
+      "skills": [
+        "Combined and conditional probability"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset gives Set A={1,1,2,2,2}, Set B={0,1,1,1,2}, asks same-number probabilities with and without replacement, then asks who is most likely; Set C asks for a third-card 4.",
+        "Official markscheme awards products/tree or possibility-space methods, 8/20, 9/25, comparison, and 24/60 for Set C."
+      ],
+      "rationale": "Multi-stage finite sampling probability, including without replacement, is the assessed method.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2018-june-43-q4/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2018-june-43-q4/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2026-may-tza-p1-q10",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "skills": [
+        "Differentiation",
+        "Polynomials and theorems"
+      ],
+      "confidence": "medium",
+      "taxonomyGap": null,
+      "evidence": [
+        "Supplied question asset is an independent clean reconstruction and asks for cubic coefficients from an inflection point, horizontal tangents, the local extremum classification, and a tangent through the y-intercept.",
+        "No official markscheme asset is supplied; the independent solution uses f″(−2)=0, f′(−3)=0, f′ factorisation, f″ sign, and the horizontal tangent equation."
+      ],
+      "rationale": "Cubic differentiation and stationary-point analysis are assessed; confidence is medium because no official markscheme is available.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2026-may-tza-p1-q10/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [],
+      "officialMarkschemeUnavailable": true
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2023-june-23-q1",
+      "primaryTopic": "Transformations and vectors",
+      "secondaryTopics": [],
+      "skills": [
+        "Transformations"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset shows a 3×3 shaded-cell pattern and asks for its rotational-symmetry order and all lines of symmetry.",
+        "Official markscheme gives rotational order 2 and awards the two diagonal symmetry lines."
+      ],
+      "rationale": "Both requested methods are transformation-symmetry recognition.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2023-june-23-q1/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2023-june-23-q1/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2023-june-21-q6",
+      "primaryTopic": "Mensuration",
+      "secondaryTopics": [],
+      "skills": [
+        "Volume and surface area"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset gives sphere diameter 4.8 cm and V=4/3πr³.",
+        "Official markscheme awards substitution of r=4.8/2 and 57.9 cm³."
+      ],
+      "rationale": "This is a direct sphere-volume calculation.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2023-june-21-q6/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2023-june-21-q6/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-sl",
+      "id": "2024-november-p1-tz2-q8",
+      "primaryTopic": "Functions",
+      "secondaryTopics": [],
+      "skills": [
+        "Function composition and inverses",
+        "Exponents and logarithms",
+        "Graphs and transformations"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset defines f(x)=log₂(4x), asks for evaluations, f⁻¹(x), f⁻¹(0), and transformations for y=f(16x³).",
+        "Official markscheme awards substitution, swapping x/y and exponentiating for the inverse, logarithm laws, and vertical stretch/translation in the stated order."
+      ],
+      "rationale": "Inverse functions are primary; logarithmic manipulation and graph transformations are independently marked.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2024-november-p1-tz2-q8/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2024-november-p1-tz2-q8/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2024-november-p1-tz2-q8/markscheme-2.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-sl",
+      "id": "2023-november-p1-tz1-q5",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Geometry and measurement",
+        "Trigonometric functions and identities"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset gives AB=√15 cm, AC=16 cm, and cos(angle BAC)=1/4 and asks for triangle area.",
+        "Official markscheme awards sin²α+cos²α=1 (or a right triangle), sin A=√15/4, area=1/2 ab sin A, and 30 cm²."
+      ],
+      "rationale": "Triangle area is primary, with the trigonometric identity needed for the included-angle sine.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2023-november-p1-tz1-q5/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2023-november-p1-tz1-q5/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2023-november-p1-tz1-q5/markscheme-2.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2018-june-23-q12",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "skills": [
+        "Calculus",
+        "Trigonometry"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset describes a triangular-prism water container with 30° base angles, depth h, length 5, filling rate 0.5 m³/min, and asks dh/dt and dx/dt.",
+        "Official markscheme awards tan30°=h/(x/2), V=√3/2 h², chain-rule related rates, and final rates 0.1155 and 2/5."
+      ],
+      "rationale": "Related rates of a prism volume are primary; cross-section trigonometry is materially used.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2018-june-23-q12/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2018-june-23-q12/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2021-may-tz2-p1-q3",
+      "primaryTopic": "Statistics and probability",
+      "secondaryTopics": [],
+      "skills": [
+        "The t-test",
+        "Further hypothesis testing"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset gives two samples of rabbit weights, a 5% t-test, and asks for hypotheses, p-value, and conclusion.",
+        "Official markscheme specifies H₀: μc=μs, H₁: μc>μs, p=0.0408, rejection at 0.05, and the heavier-chinchilla conclusion."
+      ],
+      "rationale": "The entire question is a one-tailed two-sample t-test and its decision.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz2-p1-q3/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz2-p1-q3/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz2-p1-q3/markscheme-2.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2017-may-tz1-p2-q2",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "skills": [
+        "Differentiation",
+        "Coordinate and analytic geometry"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset gives xy−ln y=1, y>0 and asks for dy/dx and the tangent at (2/e,e).",
+        "Official markscheme awards implicit differentiation to dy/dx=y²/(1−xy), substitution for mT=−e², and the tangent equation."
+      ],
+      "rationale": "Implicit differentiation is primary; forming the tangent is a separately marked analytic-geometry application.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p2-q2/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p2-q2/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2025-june-23-q7",
+      "primaryTopic": "Combinatorics and series",
+      "secondaryTopics": [],
+      "skills": [
+        "Series"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset asks for the x-independent term of (x²−3/x⁴)^15 and determines a from the x³/x² coefficient ratio in (1+ax)^9.",
+        "Official markscheme awards the 15C5 general-term selection, the constant −729729, coefficient equations, and a=3."
+      ],
+      "rationale": "Both parts directly assess binomial expansion coefficients and general terms; the supplied Additional Mathematics taxonomy represents this under Series.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-june-23-q7/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-june-23-q7/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2018-june-21-q12",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "skills": [
+        "Calculus",
+        "Trigonometry"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset describes the same 30° triangular-prism water model, filling rate, and two related-rate questions.",
+        "Official markscheme awards the tangent relation, V=√3/2 h², chain-rule rate conversion, and final rates."
+      ],
+      "rationale": "Related rates of a prism volume are primary; cross-section trigonometry is materially used.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2018-june-21-q12/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2018-june-21-q12/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2020-november-tz0-p2-q2",
+      "primaryTopic": "Statistics and probability",
+      "secondaryTopics": [],
+      "skills": [
+        "Discrete random variables"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset models weekly books as Poisson with mean 2.6 and asks for expected weeks out of 52 with at least four books.",
+        "Official markscheme awards X~Po(2.6), P(X≥4)=0.264, multiplication by 52, and 13.7 weeks."
+      ],
+      "rationale": "The question directly assesses a Poisson model and expected frequency.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2020-november-tz0-p2-q2/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2020-november-tz0-p2-q2/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2020-november-tz0-p2-q2/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2021-june-22-q6",
+      "primaryTopic": "Vectors and matrices",
+      "secondaryTopics": [],
+      "skills": [
+        "Vectors in two dimensions",
+        "Straight-line graphs"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset gives A(5,−4), C(11,6) as a square diagonal, centre (8,y), asks for BD and vectors EB, ED.",
+        "Official markscheme awards the distance formula, midpoint y=1, perpendicular gradient −3/5 and line through (8,1), and vectors (−5,3),(5,−3)."
+      ],
+      "rationale": "Coordinate/vector geometry is primary, with the diagonal equation as a separately marked straight-line method.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2021-june-22-q6/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2021-june-22-q6/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2024-november-tz0-p1-q5",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Voronoi diagrams"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset shows eight integer-coordinate hospital sites, two missing Voronoi edges, cell areas for F and C at 4 km² per square unit, and a population interpretation.",
+        "Official markscheme awards bisectors through relevant midpoints, areas 24 and 16 km², and the equal-population explanation."
+      ],
+      "rationale": "All marks are for Voronoi construction, cell area, and interpretation.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2024-november-tz0-p1-q5/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2024-november-tz0-p1-q5/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2024-november-tz0-p1-q5/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2025-march-22-q15",
+      "primaryTopic": "Transformations and vectors",
+      "secondaryTopics": [],
+      "skills": [
+        "Vectors"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset gives A=(−4,1), BA=(−5,−12), C=(5,−2), EF=3BA and asks for B, CA, and |EF|.",
+        "Official markscheme awards B=(1,13), CA=(−9,3), and 3|BA|=39 using the magnitude formula."
+      ],
+      "rationale": "Elementary coordinate vectors and scalar/vector magnitude are assessed.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2025-march-22-q15/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2025-march-22-q15/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2019-november-21-q14",
+      "primaryTopic": "Number",
+      "secondaryTopics": [],
+      "skills": [
+        "Ratio, proportion and rates",
+        "Area and perimeter"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset gives map scale 1:10,000,000 and map area 4.9 cm², asking for actual area in km².",
+        "Official markscheme awards the squared linear scale, conversion 1 cm=100 km, and 49,000 km²."
+      ],
+      "rationale": "Area scale conversion is primary, supported by ratio and unit conversion.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2019-november-21-q14/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2019-november-21-q14/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2025-may-tz3-p2-q7",
+      "primaryTopic": "Number and algebra",
+      "secondaryTopics": [],
+      "skills": [
+        "Complex numbers",
+        "Sequences and series"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question assets show an Argand fractal with 5i rotated by ±π/12, 70% branch scaling, and ask for exponential/rectangular complex forms, total lengths, and the infinite-process limit.",
+        "Official markscheme awards modulus/argument, geometric-series ratio and sum, no-limit conclusion, and conversion of b to 3.68+10.2i."
+      ],
+      "rationale": "Complex-number representation is primary; geometric-series growth is independently marked.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-may-tz3-p2-q7/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-may-tz3-p2-q7/question-2.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-may-tz3-p2-q7/question-3.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-may-tz3-p2-q7/question-4.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-may-tz3-p2-q7/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-may-tz3-p2-q7/markscheme-2.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2017-june-12-q11",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "skills": [
+        "Calculus",
+        "Logarithmic and exponential functions"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset gives f′(x)=e^(2x−1), f(1/2)=7/2, asks for f(x) and the x satisfying f″(x)=4.",
+        "Official markscheme awards integration to 1/2 e^(2x−1)+3 and second differentiation followed by logarithmic solving to x=1/2+ln√2."
+      ],
+      "rationale": "Integration/differentiation of an exponential model and a point condition are assessed.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-june-12-q11/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-june-12-q11/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2023-march-12-q5",
+      "primaryTopic": "Coordinate geometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Straight-line graphs",
+        "Logarithmic and exponential functions"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset gives y=Ab^(x²), tabulates x,y, asks for a straight-line ln y against x² graph, A and b, and estimates at x=1.75 and y=20.",
+        "Official markscheme uses ln y=mx²+c, gradient ln b, intercept ln A, b=4, A=0.5, and graph-based estimates 35 and 1.63."
+      ],
+      "rationale": "Linearization and graph estimation are the mark-bearing methods.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-march-12-q5/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-march-12-q5/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2026-march-42-q15",
+      "primaryTopic": "Algebra and graphs",
+      "secondaryTopics": [],
+      "skills": [
+        "Functions and graphs",
+        "Algebraic manipulation",
+        "Indices and surds"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset defines f(x)=10−2x on domain {−2,0,3}, g(x)=2x²+3, and h(x)=10^(2/x), asking range, f⁻¹, gf, and h⁻¹(10000).",
+        "Official markscheme awards the three range values, inverse rearrangement, composition expansion 8x²−80x+203, and 0.5."
+      ],
+      "rationale": "Function properties and operations are primary; composition is materially assessed.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2026-march-42-q15/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2026-march-42-q15/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2025-june-41-q12",
+      "primaryTopic": "Trigonometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Pythagoras and right-angle trigonometry"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset gives triangle PQR with PQ=12.5 cm, angles P=42° and Q=115°, asking for shortest distance from Q to PR.",
+        "Official markscheme awards recognition of the perpendicular shortest distance and dist/12.5=sin42°, giving 8.364 cm."
+      ],
+      "rationale": "This is a direct shortest-distance/right-triangle trigonometry problem.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2025-june-41-q12/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2025-june-41-q12/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2016-june-41-q3",
+      "primaryTopic": "Statistics",
+      "secondaryTopics": [],
+      "skills": [
+        "Histograms and cumulative frequency",
+        "Averages and spread",
+        "Basic probability"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset asks median, lower quartile, IQR and count above 300 m³ from a cumulative-frequency graph, then grouped mean, histogram, and the probability two selected areas both exceed 100 m².",
+        "Official markscheme gives 400, 350, 70, 170; mid-values 40,80,125,200 and mean 106; histogram densities 0.8,1.6,1.6; and 104/200×103/199."
+      ],
+      "rationale": "Cumulative-frequency/histogram work is primary, with grouped statistics and sampling probability separately marked.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2016-june-41-q3/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2016-june-41-q3/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    }
+  ]
+}

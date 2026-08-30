@@ -1,0 +1,1360 @@
+{
+  "auditVersion": "pastpaperprep-semantic-canonical-ownership-repair-2026.08.1",
+  "batch": 5,
+  "count": 8,
+  "records": [
+    {
+      "bank": "ib-ai-hl",
+      "id": "2023-november-tz0-p1-q15",
+      "sourceAdjudicationBatch": 6,
+      "currentJudgment": {
+        "bank": "ib-ai-hl",
+        "id": "2023-november-tz0-p1-q15",
+        "verdict": "blind_correct",
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Transition matrices and Markov chains",
+          "Eigenvalues and eigenvectors"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The transition matrix [[0.8,0.1],[0.2,0.9]] is used to interpret 0.9, compute eigenvalues 1 and 0.7, and find the non-parallel eigenvector (1,2) with its long-run 1:2 interpretation. The official markscheme credits det(T-lambda I)=0 and eigenvector equations."
+        ],
+        "rationale": "The scheme credits transition-matrix interpretation, determinant/eigenvalue calculation and eigenvector computation with long-run interpretation; statistics/probability is not separately marked.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2023-november-tz0-p1-q15/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2023-november-tz0-p1-q15/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "medium",
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [
+          "Statistics and probability"
+        ],
+        "skills": [
+          "Eigenvalues and eigenvectors",
+          "Transition matrices and Markov chains"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": [
+          "The transition matrix [[0.8,0.1],[0.2,0.9]] is used to interpret 0.9, compute eigenvalues 1 and 0.7, and find the non-parallel eigenvector (1,2) with its long-run 1:2 interpretation. The official markscheme credits det(T-lambda I)=0 and eigenvector equations."
+        ],
+        "primaryTopic": "Number and algebra",
+        "rationale": "Both transition-matrix modeling and eigenvalue/eigenvector computation are materially credited.",
+        "secondaryTopics": [],
+        "skills": [
+          "Transition matrices and Markov chains",
+          "Eigenvalues and eigenvectors"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2023-november-tz0-p1-q15/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2023-november-tz0-p1-q15/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Transition matrices and Markov chains"
+      ],
+      "selectedTopics": [
+        "Number and algebra"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Algebraic manipulation",
+        "Complex numbers",
+        "Eigenvalues and eigenvectors",
+        "Exponents and logarithms",
+        "Financial mathematics",
+        "Laws of logarithms",
+        "Matrices and determinants",
+        "Partial fractions",
+        "Permutations and combinations",
+        "Proof by induction and contradiction",
+        "Rounding, estimation and percentage error",
+        "Sequences and series",
+        "Solving equations with a GDC",
+        "Sum to infinity"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2023-november-tz1-p2-q2",
+      "sourceAdjudicationBatch": 6,
+      "currentJudgment": {
+        "bank": "ib-hl",
+        "id": "2023-november-tz1-p2-q2",
+        "verdict": "blind_correct",
+        "primaryTopic": "Functions",
+        "secondaryTopics": [],
+        "skills": [
+          "Exponents and logarithms",
+          "Graphs and transformations"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": "The question sketches f=e^x-3x-4 and identifies g=e^(2x)-6x-7 as horizontal stretch plus vertical translation; the continuation asset is blank answer space.",
+        "rationale": "The scheme marks sketching the exponential graph and the horizontal-stretch/vertical-translation transformation; exponential graph behavior and graph transformations are both visible.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2023-november-tz1-p2-q2/question-1.webp",
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2023-november-tz1-p2-q2/question-2.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2023-november-tz1-p2-q2/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "medium",
+        "primaryTopic": "Functions",
+        "secondaryTopics": [],
+        "skills": [
+          "Graphs and transformations"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": "The question sketches f=e^x-3x-4 and identifies g=e^(2x)-6x-7 as horizontal stretch plus vertical translation; the continuation asset is blank answer space.",
+        "primaryTopic": "Functions",
+        "rationale": "Exponential graph behavior and graph transformations are explicit in the prompt.",
+        "secondaryTopics": [],
+        "skills": [
+          "Exponents and logarithms",
+          "Graphs and transformations"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2023-november-tz1-p2-q2/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2023-november-tz1-p2-q2/question-2.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2023-november-tz1-p2-q2/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Exponents and logarithms"
+      ],
+      "selectedTopics": [
+        "Functions"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Functions and inverses",
+        "Geometric transformations",
+        "Graphs and transformations"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2017-november-tz0-p1-q11",
+      "sourceAdjudicationBatch": 7,
+      "currentJudgment": {
+        "bank": "ib-hl",
+        "id": "2017-november-tz0-p1-q11",
+        "verdict": "blind_correct",
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Proof and induction",
+          "Differentiation",
+          "Trigonometric identities and equations"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "T",
+          "h",
+          "e",
+          " ",
+          "o",
+          "f",
+          "f",
+          "i",
+          "c",
+          "i",
+          "a",
+          "l",
+          " ",
+          "s",
+          "c",
+          "h",
+          "e",
+          "m",
+          "e",
+          " ",
+          "p",
+          "r",
+          "o",
+          "v",
+          "e",
+          "s",
+          " ",
+          "t",
+          "h",
+          "e",
+          " ",
+          "c",
+          "o",
+          "s",
+          "i",
+          "n",
+          "e",
+          " ",
+          "p",
+          "r",
+          "o",
+          "d",
+          "u",
+          "c",
+          "t",
+          " ",
+          "i",
+          "d",
+          "e",
+          "n",
+          "t",
+          "i",
+          "t",
+          "y",
+          " ",
+          "b",
+          "y",
+          " ",
+          "i",
+          "n",
+          "d",
+          "u",
+          "c",
+          "t",
+          "i",
+          "o",
+          "n",
+          ",",
+          " ",
+          "d",
+          "i",
+          "f",
+          "f",
+          "e",
+          "r",
+          "e",
+          "n",
+          "t",
+          "i",
+          "a",
+          "t",
+          "e",
+          "s",
+          " ",
+          "t",
+          "h",
+          "e",
+          " ",
+          "r",
+          "e",
+          "s",
+          "u",
+          "l",
+          "t",
+          "i",
+          "n",
+          "g",
+          " ",
+          "q",
+          "u",
+          "o",
+          "t",
+          "i",
+          "e",
+          "n",
+          "t",
+          " ",
+          "w",
+          "i",
+          "t",
+          "h",
+          " ",
+          "t",
+          "h",
+          "e",
+          " ",
+          "q",
+          "u",
+          "o",
+          "t",
+          "i",
+          "e",
+          "n",
+          "t",
+          " ",
+          "r",
+          "u",
+          "l",
+          "e",
+          ",",
+          " ",
+          "a",
+          "n",
+          "d",
+          " ",
+          "e",
+          "v",
+          "a",
+          "l",
+          "u",
+          "a",
+          "t",
+          "e",
+          "s",
+          " ",
+          "t",
+          "h",
+          "e",
+          " ",
+          "t",
+          "a",
+          "n",
+          "g",
+          "e",
+          "n",
+          "t",
+          " ",
+          "a",
+          "t",
+          " ",
+          "x",
+          "=",
+          "p",
+          "i",
+          "/",
+          "4",
+          "."
+        ],
+        "rationale": "Staged question/markscheme evidence supports the blind tuple: All pages were inspected, including blank continuation pages; the markscheme confirms induction, trigonometric identities, differentiation, and tangent-line work. Trigonometric identities are materially assessed alongside calculus.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p1-q11/question-1.webp",
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p1-q11/question-2.webp",
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p1-q11/question-3.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p1-q11/markscheme-1.webp",
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p1-q11/markscheme-2.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Differentiation",
+          "Proof and induction"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": "The official scheme proves the cosine product identity by induction, differentiates the resulting quotient with the quotient rule, and evaluates the tangent at x=pi/4.",
+        "primaryTopic": "Calculus",
+        "rationale": "All pages were inspected, including blank continuation pages; the markscheme confirms induction, trigonometric identities, differentiation, and tangent-line work. Trigonometric identities are materially assessed alongside calculus.",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Proof and induction",
+          "Differentiation",
+          "Trigonometric identities and equations"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p1-q11/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p1-q11/question-2.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p1-q11/question-3.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p1-q11/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p1-q11/markscheme-2.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Proof and induction"
+      ],
+      "selectedTopics": [
+        "Calculus",
+        "Geometry and trigonometry"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Applications of differentiation",
+        "Applications of integration",
+        "Differential equations",
+        "Differentiation",
+        "Integration",
+        "Limits and series",
+        "Coordinate and analytic geometry",
+        "Radian measure and sectors",
+        "Triangle geometry",
+        "Trigonometric identities and equations",
+        "Vectors, lines and planes"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2017-may-tz2-p1-q11",
+      "sourceAdjudicationBatch": 7,
+      "currentJudgment": {
+        "bank": "ib-hl",
+        "id": "2017-may-tz2-p1-q11",
+        "verdict": "blind_correct",
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Complex numbers",
+          "Trigonometric identities and equations"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "T",
+          "h",
+          "e",
+          " ",
+          "s",
+          "c",
+          "h",
+          "e",
+          "m",
+          "e",
+          " ",
+          "s",
+          "o",
+          "l",
+          "v",
+          "e",
+          "s",
+          " ",
+          "t",
+          "h",
+          "e",
+          " ",
+          "s",
+          "h",
+          "i",
+          "f",
+          "t",
+          "e",
+          "d",
+          " ",
+          "t",
+          "r",
+          "i",
+          "g",
+          "o",
+          "n",
+          "o",
+          "m",
+          "e",
+          "t",
+          "r",
+          "i",
+          "c",
+          " ",
+          "e",
+          "q",
+          "u",
+          "a",
+          "t",
+          "i",
+          "o",
+          "n",
+          ",",
+          " ",
+          "p",
+          "r",
+          "o",
+          "v",
+          "e",
+          "s",
+          " ",
+          "t",
+          "h",
+          "e",
+          " ",
+          "1",
+          "0",
+          "5",
+          "°",
+          " ",
+          "i",
+          "d",
+          "e",
+          "n",
+          "t",
+          "i",
+          "t",
+          "y",
+          ",",
+          " ",
+          "r",
+          "e",
+          "w",
+          "r",
+          "i",
+          "t",
+          "e",
+          "s",
+          " ",
+          "z",
+          " ",
+          "a",
+          "s",
+          " ",
+          "2",
+          "s",
+          "i",
+          "n",
+          "θ",
+          " ",
+          "c",
+          "i",
+          "s",
+          "(",
+          "θ",
+          "−",
+          "π",
+          "/",
+          "2",
+          ")",
+          ",",
+          " ",
+          "a",
+          "n",
+          "d",
+          " ",
+          "a",
+          "p",
+          "p",
+          "l",
+          "i",
+          "e",
+          "s",
+          " ",
+          "D",
+          "e",
+          " ",
+          "M",
+          "o",
+          "i",
+          "v",
+          "r",
+          "e",
+          " ",
+          "t",
+          "o",
+          " ",
+          "l",
+          "i",
+          "s",
+          "t",
+          " ",
+          "c",
+          "u",
+          "b",
+          "e",
+          " ",
+          "r",
+          "o",
+          "o",
+          "t",
+          "s",
+          "."
+        ],
+        "rationale": "Staged question/markscheme evidence supports the blind tuple: Complex polar form and roots are primary, with angle identities/equations materially assessed earlier.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz2-p1-q11/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz2-p1-q11/markscheme-1.webp",
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz2-p1-q11/markscheme-2.webp",
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz2-p1-q11/markscheme-3.webp"
+        ]
+      },
+      "production": {
+        "confidence": "medium",
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Trigonometric identities and equations",
+          "Complex numbers"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": "The scheme solves the shifted trigonometric equation, proves the 105° identity, rewrites z as 2sinθ cis(θ−π/2), and applies De Moivre to list cube roots.",
+        "primaryTopic": "Geometry and trigonometry",
+        "rationale": "Complex polar form and roots are primary, with angle identities/equations materially assessed earlier.",
+        "secondaryTopics": [],
+        "skills": [
+          "Complex numbers",
+          "Trigonometric identities and equations"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz2-p1-q11/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz2-p1-q11/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz2-p1-q11/markscheme-2.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz2-p1-q11/markscheme-3.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Complex numbers"
+      ],
+      "selectedTopics": [
+        "Geometry and trigonometry"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Coordinate and analytic geometry",
+        "Radian measure and sectors",
+        "Triangle geometry",
+        "Trigonometric identities and equations",
+        "Vectors, lines and planes"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2017-june-11-q4",
+      "sourceAdjudicationBatch": 7,
+      "currentJudgment": {
+        "bank": "igcse-additional",
+        "id": "0606-2017-june-11-q4",
+        "verdict": "blind_correct",
+        "primaryTopic": "Sets and functions",
+        "secondaryTopics": [],
+        "skills": [
+          "Functions",
+          "Logarithmic and exponential functions"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The markscheme finds an exponential function range and inverse/domain, then solves a composite equation involving x^2+5 and ln x."
+        ],
+        "rationale": "Staged question/markscheme evidence supports the blind tuple: Inverse/composite functions and logarithmic-exponential manipulation are both assessed.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-june-11-q4/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-june-11-q4/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Sets and functions",
+        "secondaryTopics": [
+          "Algebra"
+        ],
+        "skills": [
+          "Functions",
+          "Logarithmic and exponential functions"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": [
+          "The markscheme finds an exponential function range and inverse/domain, then solves a composite equation involving x^2+5 and ln x."
+        ],
+        "primaryTopic": "Sets and functions",
+        "rationale": "Inverse/composite functions and logarithmic-exponential manipulation are both assessed.",
+        "secondaryTopics": [],
+        "skills": [
+          "Functions",
+          "Logarithmic and exponential functions"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-june-11-q4/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-june-11-q4/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Logarithmic and exponential functions"
+      ],
+      "selectedTopics": [
+        "Sets and functions"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Set language and notation",
+        "Functions"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2019-june-12-q1",
+      "sourceAdjudicationBatch": 7,
+      "currentJudgment": {
+        "bank": "igcse-additional",
+        "id": "0606-2019-june-12-q1",
+        "verdict": "blind_correct",
+        "primaryTopic": "Sets and functions",
+        "secondaryTopics": [],
+        "skills": [
+          "Set language and notation",
+          "Trigonometry"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The markscheme awards Venn-region shading and the solution sets/intersection for cos 2x=0.5 and sin x=0.5."
+        ],
+        "rationale": "Staged question/markscheme evidence supports the blind tuple: Set operations and trigonometric solution sets are both mark-bearing.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2019-june-12-q1/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2019-june-12-q1/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "medium",
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Sets and functions"
+        ],
+        "skills": [
+          "Trigonometry",
+          "Set language and notation"
+        ]
+      },
+      "blind": {
+        "confidence": "medium",
+        "evidence": [
+          "The markscheme awards Venn-region shading and the solution sets/intersection for cos 2x=0.5 and sin x=0.5."
+        ],
+        "primaryTopic": "Sets and functions",
+        "rationale": "Set operations and trigonometric solution sets are both mark-bearing.",
+        "secondaryTopics": [],
+        "skills": [
+          "Set language and notation",
+          "Trigonometry"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2019-june-12-q1/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2019-june-12-q1/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Trigonometry"
+      ],
+      "selectedTopics": [
+        "Sets and functions"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Set language and notation",
+        "Functions"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2022-november-12-q10",
+      "sourceAdjudicationBatch": 7,
+      "currentJudgment": {
+        "bank": "igcse-additional",
+        "id": "0606-2022-november-12-q10",
+        "verdict": "blind_correct",
+        "primaryTopic": "Combinatorics and series",
+        "secondaryTopics": [],
+        "skills": [
+          "Series",
+          "Logarithmic and exponential functions"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "T",
+          "h",
+          "e",
+          " ",
+          "s",
+          "c",
+          "h",
+          "e",
+          "m",
+          "e",
+          " ",
+          "f",
+          "i",
+          "n",
+          "d",
+          "s",
+          " ",
+          "c",
+          "o",
+          "m",
+          "m",
+          "o",
+          "n",
+          " ",
+          "d",
+          "i",
+          "f",
+          "f",
+          "e",
+          "r",
+          "e",
+          "n",
+          "c",
+          "e",
+          " ",
+          "4",
+          " ",
+          "l",
+          "g",
+          " ",
+          "x",
+          ",",
+          " ",
+          "a",
+          "p",
+          "p",
+          "l",
+          "i",
+          "e",
+          "s",
+          " ",
+          "t",
+          "h",
+          "e",
+          " ",
+          "a",
+          "r",
+          "i",
+          "t",
+          "h",
+          "m",
+          "e",
+          "t",
+          "i",
+          "c",
+          "-",
+          "s",
+          "e",
+          "r",
+          "i",
+          "e",
+          "s",
+          " ",
+          "f",
+          "o",
+          "r",
+          "m",
+          "u",
+          "l",
+          "a",
+          ",",
+          " ",
+          "s",
+          "o",
+          "l",
+          "v",
+          "e",
+          "s",
+          " ",
+          "n",
+          "(",
+          "2",
+          "n",
+          "-",
+          "1",
+          ")",
+          "=",
+          "4",
+          "9",
+          "5",
+          "0",
+          ",",
+          " ",
+          "t",
+          "h",
+          "e",
+          "n",
+          " ",
+          "5",
+          "0",
+          "(",
+          "9",
+          "9",
+          ")",
+          "l",
+          "g",
+          " ",
+          "x",
+          "=",
+          "-",
+          "1",
+          "4",
+          "8",
+          "5",
+          "0",
+          " ",
+          "g",
+          "i",
+          "v",
+          "e",
+          "s",
+          " ",
+          "x",
+          "=",
+          "1",
+          "0",
+          "^",
+          "-",
+          "3",
+          "."
+        ],
+        "rationale": "Staged question/markscheme evidence supports the blind tuple: Arithmetic progression summation is primary; logarithmic manipulation is independently marked.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2022-november-12-q10/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2022-november-12-q10/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Combinatorics and series",
+        "secondaryTopics": [
+          "Algebra"
+        ],
+        "skills": [
+          "Series",
+          "Logarithmic and exponential functions"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": "The scheme finds common difference 4 lg x, applies the arithmetic-series formula, solves n(2n-1)=4950, then 50(99)lg x=-14850 gives x=10^-3.",
+        "primaryTopic": "Combinatorics and series",
+        "rationale": "Arithmetic progression summation is primary; logarithmic manipulation is independently marked.",
+        "secondaryTopics": [],
+        "skills": [
+          "Series",
+          "Logarithmic and exponential functions"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2022-november-12-q10/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2022-november-12-q10/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Logarithmic and exponential functions"
+      ],
+      "selectedTopics": [
+        "Combinatorics and series"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Permutations and combinations",
+        "Series"
+      ]
+    },
+    {
+      "bank": "ib-sl",
+      "id": "2018-may-p1-tz2-q6",
+      "sourceAdjudicationBatch": 7,
+      "currentJudgment": {
+        "bank": "ib-sl",
+        "id": "2018-may-p1-tz2-q6",
+        "verdict": "blind_correct",
+        "primaryTopic": "Functions",
+        "secondaryTopics": [],
+        "skills": [
+          "Equations and inequalities"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "T",
+          "h",
+          "e",
+          " ",
+          "s",
+          "c",
+          "h",
+          "e",
+          "m",
+          "e",
+          " ",
+          "u",
+          "s",
+          "e",
+          "s",
+          " ",
+          "d",
+          "i",
+          "s",
+          "c",
+          "r",
+          "i",
+          "m",
+          "i",
+          "n",
+          "a",
+          "n",
+          "t",
+          " ",
+          "q",
+          "^",
+          "2",
+          "-",
+          "4",
+          "p",
+          "(",
+          "-",
+          "4",
+          "p",
+          ")",
+          "=",
+          "q",
+          "^",
+          "2",
+          "+",
+          "1",
+          "6",
+          "p",
+          "^",
+          "2",
+          ">",
+          "0",
+          " ",
+          "f",
+          "r",
+          "o",
+          "m",
+          " ",
+          "p",
+          "!",
+          "=",
+          "0",
+          " ",
+          "a",
+          "n",
+          "d",
+          " ",
+          "c",
+          "o",
+          "n",
+          "c",
+          "l",
+          "u",
+          "d",
+          "e",
+          "s",
+          " ",
+          "e",
+          "x",
+          "a",
+          "c",
+          "t",
+          "l",
+          "y",
+          " ",
+          "t",
+          "w",
+          "o",
+          " ",
+          "r",
+          "e",
+          "a",
+          "l",
+          " ",
+          "r",
+          "o",
+          "o",
+          "t",
+          "s",
+          "."
+        ],
+        "rationale": "Staged question/markscheme evidence supports the blind tuple: Quadratic-root counting by discriminant is the assessed method.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2018-may-p1-tz2-q6/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2018-may-p1-tz2-q6/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Functions",
+        "secondaryTopics": [],
+        "skills": [
+          "Roots and polynomial functions"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": "The scheme uses discriminant q^2-4p(-4p)=q^2+16p^2>0 from p!=0 and concludes exactly two real roots.",
+        "primaryTopic": "Functions",
+        "rationale": "Quadratic-root counting by discriminant is the assessed method.",
+        "secondaryTopics": [],
+        "skills": [
+          "Equations and inequalities"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2018-may-p1-tz2-q6/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2018-may-p1-tz2-q6/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Equations and inequalities"
+      ],
+      "selectedTopics": [
+        "Functions"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Functions and modelling",
+        "Function composition and inverses",
+        "Roots and polynomial functions",
+        "Graphs and transformations"
+      ]
+    }
+  ],
+  "canonicalTaxonomyByBank": {
+    "ib-ai-hl": {
+      "Calculus": [
+        "Applications of differentiation",
+        "Applications of integration",
+        "Coupled differential equations",
+        "Differential equations",
+        "Differentiating special functions",
+        "Euler's method for differential equations",
+        "Integrating special functions",
+        "Introduction to differentiation",
+        "Introduction to integration",
+        "Kinematics",
+        "Modelling with differentiation",
+        "Related rates of change",
+        "Second order derivatives and concavity",
+        "Techniques of differentiation",
+        "Techniques of integration",
+        "Trapezoidal rule",
+        "Volumes of revolution"
+      ],
+      "Functions": [
+        "Composite and inverse functions",
+        "Direct and inverse variation",
+        "Linear functions and graphs",
+        "Logarithmic models",
+        "Logistic models",
+        "Modelling with exponential functions",
+        "Modelling with linear and piecewise functions",
+        "Modelling with quadratic and cubic functions",
+        "Non-linear piecewise models",
+        "Properties of functions and graphs",
+        "Sinusoidal models",
+        "Transformations of graphs"
+      ],
+      "Geometry and trigonometry": [
+        "Adjacency matrices and walks",
+        "Arcs and sectors",
+        "Chinese postman problem",
+        "Coordinate geometry",
+        "Further trigonometry and identities",
+        "Graph theory",
+        "Kinematics with vectors",
+        "Matrix transformations",
+        "Minimum spanning trees",
+        "Non right-angled trigonometry",
+        "Radian measure",
+        "Right-angled trigonometry",
+        "Travelling salesman problem",
+        "Vector equations of lines",
+        "Vectors",
+        "Volume and surface area of 3D shapes",
+        "Voronoi diagrams"
+      ],
+      "Number and algebra": [
+        "Algebraic manipulation",
+        "Complex numbers",
+        "Eigenvalues and eigenvectors",
+        "Exponents and logarithms",
+        "Financial mathematics",
+        "Laws of logarithms",
+        "Matrices and determinants",
+        "Partial fractions",
+        "Permutations and combinations",
+        "Proof by induction and contradiction",
+        "Rounding, estimation and percentage error",
+        "Sequences and series",
+        "Solving equations with a GDC",
+        "Sum to infinity"
+      ],
+      "Statistics and probability": [
+        "Binomial distribution",
+        "Chi-squared tests",
+        "Conditional probability",
+        "Confidence intervals for the mean",
+        "Correlation and regression",
+        "Discrete probability distributions",
+        "Further hypothesis testing",
+        "Linear combinations of random variables",
+        "Non-linear regression and linearizing",
+        "Normal distribution",
+        "Outliers and data interpretation",
+        "Poisson distribution",
+        "Probability and types of events",
+        "Sampling and data collection",
+        "Statistical measures and frequency tables",
+        "The t-test",
+        "Transition matrices and Markov chains",
+        "Type I and Type II errors",
+        "Unbiased estimates and sample mean distribution"
+      ]
+    },
+    "ib-hl": {
+      "Calculus": [
+        "Applications of differentiation",
+        "Applications of integration",
+        "Differential equations",
+        "Differentiation",
+        "Integration",
+        "Limits and series"
+      ],
+      "Functions": [
+        "Functions and inverses",
+        "Geometric transformations",
+        "Graphs and transformations"
+      ],
+      "Geometry and trigonometry": [
+        "Coordinate and analytic geometry",
+        "Radian measure and sectors",
+        "Triangle geometry",
+        "Trigonometric identities and equations",
+        "Vectors, lines and planes"
+      ],
+      "Number and algebra": [
+        "Algebraic manipulation",
+        "Binomial expansion",
+        "Complex numbers",
+        "Counting and combinatorics",
+        "Equations and inequalities",
+        "Exponents and logarithms",
+        "Graph theory and algorithms",
+        "Matrices and systems",
+        "Number theory and modular arithmetic",
+        "Polynomials and theorems",
+        "Proof and induction",
+        "Quadratics",
+        "Sequences and series",
+        "Sets, relations and groups"
+      ],
+      "Statistics and probability": [
+        "Conditional probability",
+        "Continuous random variables",
+        "Descriptive statistics",
+        "Discrete random variables",
+        "Normal distribution",
+        "Probability models",
+        "Statistical inference"
+      ]
+    },
+    "ib-sl": {
+      "Calculus": [
+        "Differentiation",
+        "Integration",
+        "Differential equations",
+        "Kinematics"
+      ],
+      "Functions": [
+        "Functions and modelling",
+        "Function composition and inverses",
+        "Roots and polynomial functions",
+        "Graphs and transformations"
+      ],
+      "Geometry and trigonometry": [
+        "Trigonometric functions and identities",
+        "Radians and exact values",
+        "Geometry and measurement",
+        "Vectors"
+      ],
+      "Number and algebra": [
+        "Number systems and notation",
+        "Algebraic manipulation",
+        "Equations and inequalities",
+        "Sequences and series",
+        "Exponents and logarithms",
+        "Financial mathematics",
+        "Counting and binomial probability",
+        "Mathematical reasoning and proof",
+        "Matrices"
+      ],
+      "Statistics and probability": [
+        "Descriptive statistics",
+        "Correlation and regression",
+        "Probability",
+        "Probability distributions"
+      ]
+    },
+    "igcse-additional": {
+      "Algebra": [
+        "Quadratic functions",
+        "Indices and surds",
+        "Factors of polynomials",
+        "Equations, inequalities and graphs",
+        "Simultaneous equations",
+        "Logarithmic and exponential functions"
+      ],
+      "Calculus": [
+        "Calculus"
+      ],
+      "Combinatorics and series": [
+        "Permutations and combinations",
+        "Series"
+      ],
+      "Coordinate geometry": [
+        "Straight-line graphs",
+        "Coordinate geometry of the circle"
+      ],
+      "Geometry and trigonometry": [
+        "Circular measure",
+        "Trigonometry"
+      ],
+      "Sets and functions": [
+        "Set language and notation",
+        "Functions"
+      ],
+      "Vectors and matrices": [
+        "Vectors in two dimensions",
+        "Matrices"
+      ]
+    }
+  },
+  "inputSha256": "0cc6ee7e03f7950567c7a21e63ffa95e3ce23d9dbab8d66827ac73e41333272a"
+}

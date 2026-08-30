@@ -1,0 +1,672 @@
+{
+  "bank": "igcse",
+  "contextTags": [
+    {
+      "filterable": false,
+      "id": "igcse-0580.context.geometry.3d-nets",
+      "label": "3D nets and opposite-face reasoning",
+      "ownerTopicId": "igcse-0580.topic.geometry",
+      "reason": "A single legacy spatial-reasoning phrase; context-only pending a broader evidence base."
+    },
+    {
+      "filterable": false,
+      "id": "igcse-0580.context.mensuration.metric-conversion",
+      "label": "Metric area and volume conversion",
+      "ownerTopicId": "igcse-0580.topic.mensuration",
+      "reason": "Context for conversions already covered by mensuration leaves."
+    },
+    {
+      "filterable": false,
+      "id": "igcse-0580.context.mensuration.spatial-angle",
+      "label": "3D spatial-angle reasoning",
+      "ownerTopicId": "igcse-0580.topic.mensuration",
+      "reason": "Context retained for cuboid-angle questions; the filterable method is 3D trigonometry."
+    },
+    {
+      "filterable": false,
+      "id": "igcse-0580.context.number.integer-arithmetic",
+      "label": "Integer arithmetic",
+      "ownerTopicId": "igcse-0580.topic.number",
+      "reason": "Not a distinct assessed 0580 filter leaf; retain as a context concept under Number properties."
+    },
+    {
+      "filterable": false,
+      "id": "igcse-0580.context.number.metric-unit-conversion",
+      "label": "Metric unit conversion and ordering",
+      "ownerTopicId": "igcse-0580.topic.number",
+      "reason": "Context for unit conversion/order questions; do not make a one-off filter leaf."
+    },
+    {
+      "filterable": false,
+      "id": "igcse-0580.context.number.place-value",
+      "label": "Place value transcription",
+      "ownerTopicId": "igcse-0580.topic.number",
+      "reason": "Not a distinct assessed 0580 filter leaf; retain as a searchable context concept under Number properties."
+    },
+    {
+      "filterable": false,
+      "id": "igcse-0580.context.number.work-rate-calendar",
+      "label": "Work-rate and calendar application",
+      "ownerTopicId": "igcse-0580.topic.number",
+      "reason": "Context for a daily work-rate/calendar question; the filterable method remains Ratio, proportion and rates."
+    },
+    {
+      "filterable": false,
+      "id": "igcse-0580.context.probability.probability-laws",
+      "label": "Probability laws",
+      "ownerTopicId": "igcse-0580.topic.probability",
+      "reason": "Rare legacy probability label; context-only."
+    },
+    {
+      "filterable": false,
+      "id": "igcse-0580.context.probability.sample-space-construction",
+      "label": "Sample-space construction",
+      "ownerTopicId": "igcse-0580.topic.probability",
+      "reason": "Diagram construction is context; the assessed calculation is Combined and conditional probability."
+    },
+    {
+      "filterable": false,
+      "id": "igcse-0580.context.statistics.sampling-data",
+      "label": "Sampling and data",
+      "ownerTopicId": "igcse-0580.topic.statistics",
+      "reason": "Rare legacy data-collection label; context-only."
+    },
+    {
+      "filterable": false,
+      "id": "igcse-0580.context.trigonometry.numerical-evaluation",
+      "label": "Numerical trigonometric evaluation",
+      "ownerTopicId": "igcse-0580.topic.trigonometry",
+      "reason": "Context-only for general calculator evaluation such as cos 48°; do not mislabel as exact values."
+    }
+  ],
+  "displayLabel": "Cambridge IGCSE Mathematics 0580",
+  "hierarchy": "topic > filterable subtopic; context tags are non-filterable annotations",
+  "policy": {
+    "contextTagsOnly": "Rare wording, contextual framing, diagram construction, unit conversion, or concepts without enough evidence for a stable filter leaf.",
+    "filterableSubtopicsOnly": "Methods/materially assessed concepts suitable for student retrieval filters.",
+    "legacyCoverage": "Historical 0580 labels remain searchable through migration aliases while canonical IDs remain stable.",
+    "multiLabel": "One primary topic plus only independently assessed secondary methods; no mechanical union of fallbacks.",
+    "oneOwnerPerSubtopic": true
+  },
+  "provenance": {
+    "adjudicationResults": "/tmp/ppp-classification-v2/igcse-comparison/adjudication-results/batch-01.json … batch-24.json",
+    "currentTaxonomy": "/tmp/ppp-classification-v2/igcse-taxonomy.json",
+    "gapBearingRowCount": 202,
+    "gapInventory": "/tmp/ppp-classification-v2/igcse-comparison/taxonomy-gap-inventory.json",
+    "legacySource": "/Users/sakshamgoel/Documents/ProjectsInternships/pastpaperprep/.worktrees/classification-semantic-audit/src/data/raw/igcse.json",
+    "sourceCorpusQuestionCount": 2684,
+    "taxonomyGapVerdictCount": 197
+  },
+  "qualification": "Cambridge IGCSE Mathematics 0580",
+  "status": "proposal",
+  "taxonomyVersion": "igcse-0580-taxonomy-v3.0-proposal",
+  "topLevelBasis": {
+    "count": 9,
+    "source": "Cambridge IGCSE Mathematics 0580 syllabus for 2025–2027",
+    "type": "official-syllabus-topics",
+    "url": "https://www.cambridgeinternational.org/Images/662466-2025-2027-syllabus.pdf"
+  },
+  "topics": [
+    {
+      "id": "igcse-0580.topic.number",
+      "label": "Number",
+      "subtopics": [
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.number.bounds-estimation",
+          "label": "Bounds and estimation",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.number"
+        },
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.number.fractions-decimals-percentages",
+          "label": "Fractions, decimals and percentages",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.number"
+        },
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.number.indices-surds",
+          "label": "Indices and surds",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.number"
+        },
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.number.number-properties",
+          "label": "Number properties",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.number"
+        },
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.number.ratio-proportion-rates",
+          "label": "Ratio, proportion and rates",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.number"
+        },
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.number.standard-form",
+          "label": "Standard form",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.number"
+        },
+        {
+          "aliases": [
+            "Elapsed time",
+            "Time arithmetic",
+            "Time-zone conversion"
+          ],
+          "filterable": true,
+          "id": "igcse-0580.number.time-calculations",
+          "label": "Time calculations",
+          "legacyExtension": true,
+          "ownerTopicId": "igcse-0580.topic.number"
+        },
+        {
+          "aliases": [
+            "HCF",
+            "Highest common factor (HCF)",
+            "LCM",
+            "Lowest common multiple (LCM)",
+            "Prime factorisation",
+            "Prime factors",
+            "Prime factors and HCF/LCM"
+          ],
+          "filterable": true,
+          "id": "igcse-0580.number.prime-factors-hcf-lcm",
+          "label": "Prime factors, HCF and LCM",
+          "legacyExtension": true,
+          "ownerTopicId": "igcse-0580.topic.number"
+        },
+        {
+          "aliases": [
+            "Recurring decimal to fraction conversion",
+            "Recurring-decimal conversion",
+            "Recurring-decimal to fraction conversion"
+          ],
+          "filterable": true,
+          "id": "igcse-0580.number.recurring-decimals",
+          "label": "Recurring decimals",
+          "legacyExtension": true,
+          "ownerTopicId": "igcse-0580.topic.number"
+        },
+        {
+          "aliases": [
+            "Direct and inverse proportion",
+            "Direct proportion",
+            "Inverse proportion"
+          ],
+          "filterable": true,
+          "id": "igcse-0580.number.direct-inverse-proportion",
+          "label": "Direct and inverse proportion",
+          "legacyExtension": true,
+          "ownerTopicId": "igcse-0580.topic.number"
+        },
+        {
+          "aliases": [
+            "Depreciation",
+            "Exponential decay",
+            "Exponential depreciation",
+            "Exponential growth",
+            "Repeated percentage change"
+          ],
+          "filterable": true,
+          "id": "igcse-0580.number.exponential-growth-decay",
+          "label": "Exponential growth and decay",
+          "legacyExtension": true,
+          "ownerTopicId": "igcse-0580.topic.number"
+        },
+        {
+          "aliases": [
+            "Compound interest",
+            "Compound interest growth",
+            "Simple interest"
+          ],
+          "filterable": true,
+          "id": "igcse-0580.number.financial-mathematics",
+          "label": "Financial mathematics",
+          "legacyExtension": true,
+          "ownerTopicId": "igcse-0580.topic.number"
+        },
+        {
+          "aliases": [
+            "Cardinality",
+            "Complements",
+            "Set language and notation",
+            "Set notation",
+            "Set operations",
+            "Set theory",
+            "Subsets"
+          ],
+          "filterable": true,
+          "id": "igcse-0580.number.set-language-notation",
+          "label": "Set language and notation",
+          "legacyExtension": true,
+          "ownerTopicId": "igcse-0580.topic.number"
+        },
+        {
+          "aliases": [
+            "BODMAS",
+            "Order of operations and brackets",
+            "Order-of-operations"
+          ],
+          "filterable": true,
+          "id": "igcse-0580.number.order-of-operations",
+          "label": "Order of operations",
+          "legacyExtension": true,
+          "ownerTopicId": "igcse-0580.topic.number"
+        }
+      ]
+    },
+    {
+      "id": "igcse-0580.topic.algebra-graphs",
+      "label": "Algebra and graphs",
+      "subtopics": [
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.algebra-graphs.algebraic-manipulation",
+          "label": "Algebraic manipulation",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.algebra-graphs"
+        },
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.algebra-graphs.calculus",
+          "label": "Calculus",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.algebra-graphs"
+        },
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.algebra-graphs.equations-inequalities",
+          "label": "Equations and inequalities",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.algebra-graphs"
+        },
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.algebra-graphs.functions-graphs",
+          "label": "Functions and graphs",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.algebra-graphs"
+        },
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.algebra-graphs.sequences",
+          "label": "Sequences",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.algebra-graphs"
+        },
+        {
+          "aliases": [
+            "Completing the square",
+            "Quadratic completed-square form",
+            "Quadratic equations",
+            "Quadratic functions",
+            "Quadratics",
+            "Vertex form"
+          ],
+          "filterable": true,
+          "id": "igcse-0580.algebra-graphs.quadratic-equations-functions",
+          "label": "Quadratic equations and functions",
+          "legacyExtension": true,
+          "ownerTopicId": "igcse-0580.topic.algebra-graphs"
+        },
+        {
+          "aliases": [
+            "Acceleration from graphs",
+            "Distance-time graphs",
+            "Kinematics",
+            "Motion graphs",
+            "Speed-time graphs"
+          ],
+          "filterable": true,
+          "id": "igcse-0580.algebra-graphs.motion-graphs-kinematics",
+          "label": "Motion graphs and kinematics",
+          "legacyExtension": true,
+          "ownerTopicId": "igcse-0580.topic.algebra-graphs"
+        }
+      ]
+    },
+    {
+      "id": "igcse-0580.topic.coordinate-geometry",
+      "label": "Coordinate geometry",
+      "subtopics": [
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.coordinate-geometry.coordinates-geometry",
+          "label": "Coordinates and geometry",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.coordinate-geometry"
+        },
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.coordinate-geometry.straight-line-graphs",
+          "label": "Straight-line graphs",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.coordinate-geometry"
+        },
+        {
+          "aliases": [
+            "Distance and midpoint",
+            "Distance formula",
+            "Midpoint formula"
+          ],
+          "filterable": true,
+          "id": "igcse-0580.coordinate-geometry.distance-midpoint",
+          "label": "Distance and midpoint",
+          "legacyExtension": true,
+          "ownerTopicId": "igcse-0580.topic.coordinate-geometry"
+        }
+      ]
+    },
+    {
+      "id": "igcse-0580.topic.geometry",
+      "label": "Geometry",
+      "subtopics": [
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.geometry.angles-polygons",
+          "label": "Angles and polygons",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.geometry"
+        },
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.geometry.circle-theorems",
+          "label": "Circle theorems",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.geometry"
+        },
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.geometry.constructions-loci",
+          "label": "Constructions and loci",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.geometry"
+        },
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.geometry.similarity-congruence",
+          "label": "Similarity and congruence",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.geometry"
+        },
+        {
+          "aliases": [
+            "Axis of rotational symmetry",
+            "Planes of symmetry",
+            "Rotational symmetry"
+          ],
+          "filterable": true,
+          "id": "igcse-0580.geometry.symmetry",
+          "label": "Symmetry",
+          "legacyExtension": true,
+          "ownerTopicId": "igcse-0580.topic.geometry"
+        }
+      ]
+    },
+    {
+      "id": "igcse-0580.topic.mensuration",
+      "label": "Mensuration",
+      "subtopics": [
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.mensuration.area-perimeter",
+          "label": "Area and perimeter",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.mensuration"
+        },
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.mensuration.volume-surface-area",
+          "label": "Volume and surface area",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.mensuration"
+        },
+        {
+          "aliases": [
+            "Arc length",
+            "Circular measure",
+            "Circular segments",
+            "Circular-segment area and perimeter",
+            "Sector area"
+          ],
+          "filterable": true,
+          "id": "igcse-0580.mensuration.circular-measure",
+          "label": "Circular measure: arcs, sectors and segments",
+          "legacyExtension": true,
+          "ownerTopicId": "igcse-0580.topic.mensuration"
+        },
+        {
+          "aliases": [
+            "Composite shapes",
+            "Compound circular shapes",
+            "Compound-shape perimeter"
+          ],
+          "filterable": true,
+          "id": "igcse-0580.mensuration.compound-shapes",
+          "label": "Compound shapes",
+          "legacyExtension": true,
+          "ownerTopicId": "igcse-0580.topic.mensuration"
+        },
+        {
+          "aliases": [
+            "Density",
+            "Mass, volume and density"
+          ],
+          "filterable": true,
+          "id": "igcse-0580.mensuration.density-mass-volume",
+          "label": "Density, mass and volume",
+          "legacyExtension": true,
+          "ownerTopicId": "igcse-0580.topic.mensuration"
+        }
+      ]
+    },
+    {
+      "id": "igcse-0580.topic.trigonometry",
+      "label": "Trigonometry",
+      "subtopics": [
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.trigonometry.pythagoras-right-angle",
+          "label": "Pythagoras and right-angle trigonometry",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.trigonometry"
+        },
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.trigonometry.sine-cosine-rules-bearings",
+          "label": "Sine/cosine rules and bearings",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.trigonometry"
+        },
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.trigonometry.3d-trigonometry",
+          "label": "3D trigonometry",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.trigonometry"
+        },
+        {
+          "aliases": [
+            "Exact trigonometric values",
+            "Exact trigonometric values at standard angles",
+            "Standard-angle trigonometric values"
+          ],
+          "filterable": true,
+          "id": "igcse-0580.trigonometry.exact-values",
+          "label": "Exact trigonometric values",
+          "legacyExtension": true,
+          "ownerTopicId": "igcse-0580.topic.trigonometry"
+        },
+        {
+          "aliases": [
+            "Solving trigonometric equations",
+            "Trigonometric equation solving"
+          ],
+          "filterable": true,
+          "id": "igcse-0580.trigonometry.equations",
+          "label": "Trigonometric equations",
+          "legacyExtension": true,
+          "ownerTopicId": "igcse-0580.topic.trigonometry"
+        },
+        {
+          "aliases": [
+            "Sine and cosine graphs",
+            "Sine graphs",
+            "Trigonometric graph solving"
+          ],
+          "filterable": true,
+          "id": "igcse-0580.trigonometry.graphs",
+          "label": "Trigonometric graphs",
+          "legacyExtension": true,
+          "ownerTopicId": "igcse-0580.topic.trigonometry"
+        }
+      ]
+    },
+    {
+      "id": "igcse-0580.topic.transformations-vectors",
+      "label": "Transformations and vectors",
+      "subtopics": [
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.transformations-vectors.transformations",
+          "label": "Transformations",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.transformations-vectors"
+        },
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.transformations-vectors.vectors",
+          "label": "Vectors",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.transformations-vectors"
+        },
+        {
+          "aliases": [
+            "Determinants",
+            "Matrices",
+            "Matrix algebra",
+            "Matrix arithmetic",
+            "Matrix inverses",
+            "Matrix inversion",
+            "Matrix multiplication"
+          ],
+          "filterable": true,
+          "id": "igcse-0580.transformations-vectors.matrix-operations-algebra",
+          "label": "Matrix operations and algebra",
+          "legacyExtension": true,
+          "ownerTopicId": "igcse-0580.topic.transformations-vectors"
+        },
+        {
+          "aliases": [
+            "Matrix representation of a transformation",
+            "Matrix transformation representation",
+            "Transformation matrices"
+          ],
+          "filterable": true,
+          "id": "igcse-0580.transformations-vectors.matrix-transformations",
+          "label": "Matrix transformations",
+          "legacyExtension": true,
+          "ownerTopicId": "igcse-0580.topic.transformations-vectors"
+        }
+      ]
+    },
+    {
+      "id": "igcse-0580.topic.probability",
+      "label": "Probability",
+      "subtopics": [
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.probability.basic",
+          "label": "Basic probability",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.probability"
+        },
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.probability.combined-conditional",
+          "label": "Combined and conditional probability",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.probability"
+        },
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.probability.venn-tree",
+          "label": "Venn and tree diagrams",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.probability"
+        }
+      ]
+    },
+    {
+      "id": "igcse-0580.topic.statistics",
+      "label": "Statistics",
+      "subtopics": [
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.statistics.averages-spread",
+          "label": "Averages and spread",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.statistics"
+        },
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.statistics.data-charts-diagrams",
+          "label": "Data charts and diagrams",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.statistics"
+        },
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.statistics.histograms-cumulative-frequency",
+          "label": "Histograms and cumulative frequency",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.statistics"
+        },
+        {
+          "aliases": [],
+          "filterable": true,
+          "id": "igcse-0580.statistics.scatter-graphs",
+          "label": "Scatter graphs",
+          "legacyExtension": false,
+          "ownerTopicId": "igcse-0580.topic.statistics"
+        }
+      ]
+    }
+  ]
+}

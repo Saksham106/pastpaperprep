@@ -1,0 +1,225 @@
+{
+  "auditVersion": "pastpaperprep-semantic-canonical-ownership-repair-2026.08.1",
+  "batch": 3,
+  "inputSha256": "b1527c48d9d886815da3e49fe99ed570e1f4a39e6f20a8c5083763f747ef9757",
+  "count": 9,
+  "repairs": [
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2022-november-13-q10",
+      "primaryTopic": "Algebra",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "skills": [
+        "Trigonometry"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The question and scheme are solely trigonometric equation manipulation and solution selection over the stated interval; Geometry and trigonometry is not the best parent."
+      ],
+      "rationale": "Trigonometric identity reduction and interval solution are the explicitly mark-bearing methods. Retain Trigonometry and add Geometry and trigonometry as its canonical parent while keeping Algebra as the lead topic.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2022-november-13-q10/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2022-november-13-q10/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2016-november-11-q5",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Algebra"
+      ],
+      "skills": [
+        "Calculus",
+        "Logarithmic and exponential functions"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The scheme differentiates the logarithmic curve, forms the normal, and computes the intercept-based triangle area. Straight-line graphs is not the marked method."
+      ],
+      "rationale": "Differentiation of the logarithmic curve is explicitly marked in part (i), so Logarithmic and exponential functions is materially credited. Retain it and add Algebra as its canonical parent; Calculus remains primary for the normal and area work.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2016-november-11-q5/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2016-november-11-q5/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2025-june-21-q4",
+      "primaryTopic": "Coordinate geometry",
+      "secondaryTopics": [
+        "Algebra"
+      ],
+      "skills": [
+        "Straight-line graphs",
+        "Simultaneous equations"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The paired pages mark line gradient/intercept, perpendicular-bisector construction, intersection, and area; Simultaneous equations is materially used in the intersection."
+      ],
+      "rationale": "The perpendicular-bisector construction and line intersection explicitly require solving the component equations, so Simultaneous equations is materially credited. Retain it and add Algebra as its canonical parent.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-june-21-q4/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-june-21-q4/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2019-march-22-q3",
+      "primaryTopic": "Sets and functions",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "skills": [
+        "Functions",
+        "Trigonometry"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The question and scheme mark sinusoidal shape, period/amplitude/intercept parameters, and the sine model; Sets and functions is the correct lead parent."
+      ],
+      "rationale": "The scheme explicitly credits the sine curve, its period and amplitude, and the sine-model parameters. Trigonometry is therefore materially credited; retain it and add Geometry and trigonometry as its canonical parent.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2019-march-22-q3/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2019-march-22-q3/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2020-june-23-q10",
+      "primaryTopic": "Algebra",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "skills": [
+        "Trigonometry"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Both paired subparts use trigonometric identities and solve trigonometric equations; Algebra is the controlled parent used for this Additional Mathematics item."
+      ],
+      "rationale": "Both subparts explicitly mark trigonometric identity reduction and trigonometric equation solution. Retain Trigonometry and add Geometry and trigonometry as its canonical parent while keeping Algebra as the lead topic.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-june-23-q10/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-june-23-q10/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2025-may-tz2-p3-q1",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Functions"
+      ],
+      "skills": [
+        "Applications of differentiation",
+        "Differential equations",
+        "Differentiation",
+        "Graphs and transformations",
+        "Integration"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Across the paired question and seven scheme pages, marks cover curve/extrema/asymptote/tangent analysis, differentiation and integration, and the homogeneous differential equation. These all sit under Calculus; the Functions secondary is unnecessary."
+      ],
+      "rationale": "Graph sketching, intercepts, extrema, asymptote and tangent/curve interpretation receive explicit marks across the assets, so Graphs and transformations is materially credited. Retain it and add Functions as its canonical parent; Calculus remains primary for the dominant methods.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/markscheme-2.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/markscheme-3.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/markscheme-4.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/markscheme-5.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/markscheme-6.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/markscheme-7.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2024-november-tz0-p2-q1",
+      "primaryTopic": "Functions",
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "skills": [
+        "Graphs and transformations",
+        "Equations and inequalities"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The scheme marks endpoint values, both roots, and the graph's endpoints, intercepts, and maximum; graph properties and root solving are materially assessed."
+      ],
+      "rationale": "The markscheme explicitly awards both roots of f(x)=0 in addition to graph features, so Equations and inequalities is materially credited. Retain it and add Number and algebra as its canonical parent.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2024-november-tz0-p2-q1/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2024-november-tz0-p2-q1/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2024-november-tz0-p2-q1/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2024-november-tz0-p2-q1/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2018-june-23-q12",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "skills": [
+        "Calculus",
+        "Trigonometry"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The scheme marks tan 30° for the triangular cross-section, the volume expression, chain-rule related rates, and the second rate relation; trigonometry is a material skill within the calculus-led item, not a redundant topic tag."
+      ],
+      "rationale": "The markscheme explicitly awards tan 30 degrees in deriving the cross-sectional volume, so Trigonometry is materially credited alongside the related-rates calculus. Retain it and add Geometry and trigonometry as its canonical parent.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2018-june-23-q12/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2018-june-23-q12/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2017-march-12-q7",
+      "primaryTopic": "Vectors and matrices",
+      "secondaryTopics": [
+        "Algebra"
+      ],
+      "skills": [
+        "Vectors in two dimensions",
+        "Simultaneous equations"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The scheme marks vector magnitude scaling and component equations, then elimination of q and quadratic solution for p; both vector and simultaneous-equation methods are materially assessed."
+      ],
+      "rationale": "The scheme explicitly awards component equations, elimination and the resulting quadratic in p, so Simultaneous equations is materially credited. Retain it and add Algebra as its canonical parent.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-march-12-q7/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-march-12-q7/markscheme-1.webp"
+      ]
+    }
+  ]
+}

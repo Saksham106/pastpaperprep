@@ -44,6 +44,7 @@ type RawQuestion = Record<string, unknown>;
 export type QuestionSort = "paper" | "topic" | "marks-desc" | "marks-asc";
 
 export type QuestionFilters = {
+  /** @deprecated Use `topics` so primary and secondary topics share one path. */
   topic?: string;
   year?: string;
   paper?: string;
@@ -109,6 +110,21 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion): UnifiedQuestion {
   const studentSubtopics = strings(raw.subtopics);
   const detailedSubtopics = strings(raw.detailedSubtopics);
   const subtopics = Array.from(new Set(studentSubtopics.length ? studentSubtopics : controlledSkills));
+  // `detailedSubtopics` is the richer classification vocabulary used by the
+  // reconciled 0580 source. Keep every vocabulary during the runtime
+  // migration: v2-native `skills`, legacy `subtopics`, and detailed labels may
+  // temporarily coexist with different coverage.
+  const skillSeed = controlledSkills.length
+    ? controlledSkills
+    : detailedSubtopics.length
+      ? detailedSubtopics
+      : subtopics;
+  const skills = Array.from(new Set([
+    ...skillSeed,
+    ...controlledSkills,
+    ...detailedSubtopics,
+    ...subtopics,
+  ]));
   const officialMarkscheme = record(raw.officialMarkscheme);
   const solution = nullableText(raw.solution) ?? nullableText(raw.independentSolution);
   const questionImages = strings(raw.questionImages).map((path) => assetUrl(slug, path));
@@ -118,7 +134,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion): UnifiedQuestion {
     primaryTopic,
     ...secondaryTopics,
     ...subtopics,
-    ...detailedSubtopics,
+    ...skills,
     summary,
     accessibleText,
     solution ?? "",
@@ -135,7 +151,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion): UnifiedQuestion {
     session: text(raw.session),
     primaryTopic,
     secondaryTopics,
-    skills: controlledSkills.length ? controlledSkills : subtopics,
+    skills,
     subtopics,
     subject: text(raw.subject) || text(raw.course),
     courseEra: text(raw.courseEra),

@@ -1,0 +1,742 @@
+{
+  "auditVersion": "pastpaperprep-semantic-sample-2026.08.1",
+  "batch": 6,
+  "inputSha256": "ce84fe7f540303bd8ae36e44197d054b023c67b182b1100017c364fabaa4e1e0",
+  "count": 31,
+  "judgments": [
+    {
+      "bank": "ib-hl",
+      "id": "2020-november-tz0-p3-discrete-mathematics-q3",
+      "verdict": "blind_correct",
+      "primaryTopic": "Number and algebra",
+      "secondaryTopics": [],
+      "skills": [
+        "Number theory and modular arithmetic",
+        "Proof and induction"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The markscheme uses Fermat’s little theorem and congruences, proves the base-13 digit-sum divisibility result, and applies it to find y=2,5,8,11."
+      ],
+      "rationale": "The scheme separately awards modular arithmetic/Fermat work and the proof of the base-13 digit-sum iff criterion; both controlled skills are materially mark-bearing.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2020-november-tz0-p3-discrete-mathematics-q3/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2020-november-tz0-p3-discrete-mathematics-q3/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2020-november-tz0-p3-discrete-mathematics-q3/markscheme-2.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2020-november-tz0-p3-discrete-mathematics-q3/markscheme-3.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2025-november-21-q7",
+      "verdict": "blind_correct",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "skills": [
+        "Calculus",
+        "Logarithmic and exponential functions"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The markscheme differentiates the logarithmic expression, sets the derivative to zero, obtains x^2=2, and rejects the negative root because the logarithm argument is impossible."
+      ],
+      "rationale": "The marks are for differentiating, solving the stationary-point equation, and rejecting the invalid logarithm root; no independently marked algebra secondary is needed.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-november-21-q7/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-november-21-q7/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2021-march-22-q7",
+      "verdict": "blind_correct",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Sets and functions"
+      ],
+      "skills": [
+        "Calculus",
+        "Functions"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The markscheme differentiates the cubic, evaluates the tangent gradient and line, uses the reciprocal gradient for the inverse tangent, and solves the two tangent lines."
+      ],
+      "rationale": "The marks cover differentiation, tangent construction, reciprocal gradient for the inverse tangent, and intersection of tangent lines; inverse-function work is the secondary function method.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2021-march-22-q7/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2021-march-22-q7/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2016-june-42-q7",
+      "verdict": "modified",
+      "primaryTopic": "Trigonometry",
+      "secondaryTopics": [
+        "Mensuration",
+        "Transformations and vectors"
+      ],
+      "skills": [
+        "Area and perimeter",
+        "Sine/cosine rules and bearings"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset shows a 210° sector of radius 8 cm joined to triangle AC=8 cm with angle ACB=72°, then asks for AB, angle ABC, total logo area, and actual area under scale factor 4.",
+        "Official markscheme awards sector-area, cosine-rule, sine-rule, triangle-area, and division by 4² methods."
+      ],
+      "rationale": "The assets show cosine/sine-rule triangle work, sector and triangle area, and enlargement area scaling. Pythagoras is not a mark-bearing method here, while mensuration and enlargement are independently represented.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2016-june-42-q7/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2016-june-42-q7/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2018-june-43-q4",
+      "verdict": "blind_correct",
+      "primaryTopic": "Probability",
+      "secondaryTopics": [],
+      "skills": [
+        "Combined and conditional probability"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset gives Set A={1,1,2,2,2}, Set B={0,1,1,1,2}, asks same-number probabilities with and without replacement, then asks who is most likely; Set C asks for a third-card 4.",
+        "Official markscheme awards products/tree or possibility-space methods, 8/20, 9/25, comparison, and 24/60 for Set C."
+      ],
+      "rationale": "The mark-bearing work is finite-sampling probability with and without replacement, using products, trees or a possibility space; the basic-probability label is not separately needed.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2018-june-43-q4/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2018-june-43-q4/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2018-june-21-q12",
+      "verdict": "production_correct",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "skills": [
+        "Calculus",
+        "Trigonometry"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset describes the same 30° triangular-prism water model, filling rate, and two related-rate questions.",
+        "Official markscheme awards the tangent relation, V=√3/2 h², chain-rule rate conversion, and final rates."
+      ],
+      "rationale": "The scheme credits the triangular-prism cross-section trigonometric relation and the related-rates volume calculation, so geometry/trigonometry is a material secondary topic.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2018-june-21-q12/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2018-june-21-q12/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2021-june-43-q4",
+      "verdict": "blind_correct",
+      "primaryTopic": "Transformations and vectors",
+      "secondaryTopics": [
+        "Coordinate geometry"
+      ],
+      "skills": [
+        "Vectors",
+        "Coordinates and geometry",
+        "Straight-line graphs"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Part (a) finds a midpoint and the equation of a perpendicular line through it; the markscheme uses midpoint (2,7), gradient 2 for AB, perpendicular gradient -1/2, and y=-x/2+8.",
+        "Part (b) subtracts position vectors and scales PQ; part (c) uses the diagram, UY=2YT, and parallel lines to obtain OY=2t/3+u/3 and OZ=2t/3."
+      ],
+      "rationale": "Vectors and vector geometry occupy the multi-part work, while midpoint, perpendicular-gradient and line-equation work is independently marked as coordinate geometry.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2021-june-43-q4/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2021-june-43-q4/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-sl",
+      "id": "2025-may-p2-tz2-q8",
+      "verdict": "blind_correct",
+      "primaryTopic": "Statistics and probability",
+      "secondaryTopics": [],
+      "skills": [
+        "Probability distributions"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Apple weights are normal with mean 175 and standard deviation 8; parts (a)-(c) use normal probabilities and the premium interval 170<W<185.",
+        "Parts (d)-(e) use binomial counts of 40 apples and then 10 boxes; part (f) uses two inverse-normal z-scores to solve for the neighbouring mean.",
+        "The official markscheme gives 0.266, 181.7, 62.8%, P(X>=30)=0.0739, P(Y=4)=0.00394, and mu=176."
+      ],
+      "rationale": "The scheme separately uses normal and binomial distributions, but the controlled Probability distributions skill covers both; a generic Probability skill is not independently required.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2025-may-p2-tz2-q8/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2025-may-p2-tz2-q8/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2025-may-p2-tz2-q8/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "ib-sl",
+      "id": "2025-november-p1-tz3-q5",
+      "verdict": "blind_correct",
+      "primaryTopic": "Functions",
+      "secondaryTopics": [],
+      "skills": [
+        "Graphs and transformations",
+        "Functions and modelling"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The rational graph y=(Ax+B)/(x-4) passes through (-10,1) and (3,-12); the markscheme forms -14=-10A+B and 12=3A+B, giving A=2,B=6.",
+        "It rewrites the function as 2+14/(x-4), then maps y=1/x by a horizontal shift 4 right, vertical stretch factor 14, and vertical shift 2 up."
+      ],
+      "rationale": "The marks cover determining rational-function parameters and the explicit transformation sequence from y=1/x; the visible work is graph transformation rather than modelling.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2025-november-p1-tz3-q5/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2025-november-p1-tz3-q5/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2026-june-23-q14",
+      "verdict": "blind_correct",
+      "primaryTopic": "Mensuration",
+      "secondaryTopics": [],
+      "skills": [
+        "Volume and surface area"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": "The sphere volume is 36π cm³ and the markscheme uses 4πr³/3=36π before giving r=3 cm.",
+      "rationale": "The only mark-bearing method is substituting the sphere-volume formula and solving for the radius, i.e. Volume and surface area.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2026-june-23-q14/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2026-june-23-q14/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2025-june-21-q11",
+      "verdict": "blind_correct",
+      "primaryTopic": "Coordinate geometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Straight-line graphs"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": "From the plotted parabola and P(−2,11), the tangent point is (1,2); the scheme then computes gradient −3 and tangent y=5−3x.",
+      "rationale": "The graph-reading tangent point, gradient and tangent equation are straight-line/coordinate-geometry work; no algebraic-function or inequality method is marked.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2025-june-21-q11/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2025-june-21-q11/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2017-march-12-q8",
+      "verdict": "production_correct",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Coordinate geometry"
+      ],
+      "skills": [
+        "Calculus",
+        "Straight-line graphs"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": "The markscheme integrates y″=4sin2x to y′=3−2cos2x using the gradient condition, integrates again to y=3x−sin2x−π/4 through P, then uses the perpendicular gradient for the normal.",
+      "rationale": "Repeated integration and the separately marked normal-line construction are both visible; the latter is a material straight-line-graph method.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-march-12-q8/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-march-12-q8/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2021-november-tz0-p2-q1",
+      "verdict": "blind_correct",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "skills": [
+        "Proof and induction",
+        "Differentiation",
+        "Trigonometric identities and equations"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": "The product f_n of cosines is proved even; induction uses sin(2u)=2sin(u)cos(u), then the quotient rule gives f_n prime and the tangent at pi/4.",
+      "rationale": "The scheme marks even-function reasoning, induction, the double-angle identity, quotient differentiation and tangent construction; calculus is primary and trigonometric identities are material.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2021-november-tz0-p2-q1/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2021-november-tz0-p2-q1/question-2.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2021-november-tz0-p2-q1/question-3.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2021-november-tz0-p2-q1/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2018-march-42-q8",
+      "verdict": "blind_correct",
+      "primaryTopic": "Trigonometry",
+      "secondaryTopics": [
+        "Number"
+      ],
+      "skills": [
+        "Sine/cosine rules and bearings",
+        "Pythagoras and right-angle trigonometry",
+        "Ratio, proportion and rates"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": "The official scheme uses angle LPM=74 and the sine rule for LM, a perpendicular-distance right triangle, then distance/speed to obtain the arrival time.",
+      "rationale": "The scheme uses sine-rule bearing geometry, a perpendicular-distance right triangle, and distance/speed/time conversion; ratio/proportion/rates is independently marked.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2018-march-42-q8/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2018-march-42-q8/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2017-march-42-q7",
+      "verdict": "blind_correct",
+      "primaryTopic": "Statistics",
+      "secondaryTopics": [],
+      "skills": [
+        "Histograms and cumulative frequency",
+        "Averages and spread"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": "The official scheme uses interval midpoints for an estimated mean, cumulative frequencies [23,87,209,345,371,400], plots the cumulative-frequency curve, and reads median, IQR, and 60th percentile.",
+      "rationale": "The scheme marks grouped-data midpoint mean and cumulative-frequency construction/read-off for median, IQR and percentile; general data-chart work is not an additional mark-bearing skill.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2017-march-42-q7/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2017-march-42-q7/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2022-november-42-q8",
+      "verdict": "modified",
+      "primaryTopic": "Coordinate geometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Coordinates and geometry",
+        "Straight-line graphs"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 8 AB is a line with midpoint M. A is the point (2, 3) and M is the point (12, 7). (a) Find the coordinates of B. ( ...................... , ...................... ) [2] (b) Show that the equation of the perpendicular bisector of AB is y x 2 5 74 + = . [4] (c) The perpendicular bisector of AB passes through the point N. The point N has coordinates (2, n). Find the value of n. n = ......................................",
+        "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+      ],
+      "rationale": "Midpoint coordinates and the perpendicular-bisector gradient/equation are marked. No area/perimeter method appears; straight-line graphs is material alongside coordinates and geometry.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2022-november-42-q8/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2022-november-42-q8/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2019-november-13-q3",
+      "verdict": "production_correct",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Coordinate geometry"
+      ],
+      "skills": [
+        "Calculus",
+        "Straight-line graphs"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 3 (i) Differentiate y x 3 1 2 3 1 = - - ` j with respect to x. [2] (ii) Find the approximate change in y as x increases from 3 to ,p 3 + where p is small. [1] (iii) Find the equation of the normal to the curve y x 3 1 2 3 1 = - - ` j at the point where . x 3 = [3]",
+        "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+      ],
+      "rationale": "The markscheme separately credits differentiation, differential approximation and the normal equation, making straight-line graphs a material secondary method.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2019-november-13-q3/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2019-november-13-q3/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2022-june-42-q4",
+      "verdict": "modified",
+      "primaryTopic": "Trigonometry",
+      "secondaryTopics": [
+        "Mensuration"
+      ],
+      "skills": [
+        "Area and perimeter",
+        "Sine/cosine rules and bearings"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 4 NOT TO SCALE 45° 38° 6.4 cm 10.9 cm C B A D ABCD is a trapezium with DC parallel to AB. DC = 6.4 cm, DB = 10.9 cm, angle CDB = 38° and angle DAB = 45°. (a) Find CB. CB = ........................................... cm [3] (b) (i) Find angle ADB. Angle ADB = ................................................ [1] (ii) Find AB. AB = ........................................... cm [3] (c) Calculate the area of the trapeziu",
+        "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+      ],
+      "rationale": "The scheme uses cosine/sine-rule triangle geometry and trapezium/triangle area. Pythagoras is not a credited method, while mensuration is materially marked.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2022-june-42-q4/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2022-june-42-q4/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2025-may-tz1-p1-q12",
+      "verdict": "blind_correct",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "skills": [
+        "Integration",
+        "Applications of integration",
+        "Limits and series"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 12. [Maximum mark: 19] Consider the family of functions fn (x) = cosn x , where x ∈  and n ∈  . (a) By writing cosn x as cosn-1 x cos x , show that ∫ cosn x dx = cosn−1 x sin x + (n − 1) ∫ cosn−2 x dx − (n − 1) ∫ cosn x dx for n > 1 . [4] (b) Hence, show that f x x n x x n n f x x n n n ( ) cos sin ( ) d d 1 1 1 2 for n > 1 . [2] (c) Hence, find an expression for ∫ cos4 x dx , giving your answer in the form p cos3x",
+        "Markscheme evidence: 12. (a) attempt to use integration by parts on 1 ( ) cos cos n nf x x x − = M1 1 d cos , cos d n v u x x x − = = 2 d ( 1)cos sin , sin d n u n x x v x x − = − − = 1 2 2 ( )d cos sin ( 1)cos sin d n n nf x x x x n x x x − − = + − ∫ ∫ A1A1 Note: A1 for each term with correct signs ( ) 1 2 2 cos sin ( 1) cos 1 cos d n n x x n x x x − − = + − − ∫ A1 1 2 cos sin ( 1) cos d ( 1) cos d n n n x x n x x n x x − − = + − − − ∫ "
+      ],
+      "rationale": "The visible marks cover integration by parts/reduction, integration of cos^4, volume of revolution, Maclaurin expansion and a limit; Applications of integration is material for the revolution volume.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz1-p1-q12/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz1-p1-q12/question-2.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz1-p1-q12/question-3.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz1-p1-q12/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz1-p1-q12/markscheme-2.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz1-p1-q12/markscheme-3.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2022-november-41-q7",
+      "verdict": "blind_correct",
+      "primaryTopic": "Algebra and graphs",
+      "secondaryTopics": [],
+      "skills": [
+        "Functions and graphs",
+        "Algebraic manipulation"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": "The scheme covers function evaluation/composition, inverse-function rearrangement, an exponential equation, rational simplification, and expansion of the composed quadratic.",
+      "rationale": "The scheme marks function evaluation/composition/inversion together with rational simplification and quadratic expansion; Algebraic manipulation is material, not inequalities.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2022-november-41-q7/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2022-november-41-q7/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2026-june-21-q22",
+      "verdict": "blind_correct",
+      "primaryTopic": "Statistics",
+      "secondaryTopics": [],
+      "skills": [
+        "Histograms and cumulative frequency"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": "The table has unequal class widths and the scheme fills missing histogram heights as 7, 6, and 10 from frequency density relative to height 4.",
+      "rationale": "The only credited method is frequency density for unequal-width histogram bars; the generic data-chart label adds no independently marked method.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2026-june-21-q22/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2026-june-21-q22/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2017-may-tz0-p3-statistics-and-probability-q1",
+      "verdict": "blind_correct",
+      "primaryTopic": "Statistics and probability",
+      "secondaryTopics": [],
+      "skills": [
+        "Statistical inference"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": "The scheme states H0:μ=7 versus H1:μ<7, computes unbiased estimates, forms t=−1.22 with 11 degrees of freedom, obtains p=0.123, and compares it with 10%.",
+      "rationale": "The scheme is a one-sample t inference procedure with hypotheses, estimates, test statistic, p-value and conclusion; normality is the model assumption, not a separately marked skill.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz0-p3-statistics-and-probability-q1/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz0-p3-statistics-and-probability-q1/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2025-march-22-q22",
+      "verdict": "blind_correct",
+      "primaryTopic": "Algebra and graphs",
+      "secondaryTopics": [],
+      "skills": [
+        "Calculus",
+        "Functions and graphs"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The markscheme differentiates the cubic for the other stationary point, classifies the point from a sketch, and bounds k using stationary values."
+      ],
+      "rationale": "The marks cover differentiating a cubic to find the other stationary point, sketch/classification, and using stationary values to bound k; calculus is independently marked.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2025-march-22-q22/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2025-march-22-q22/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2022-may-tz2-p1-q5",
+      "verdict": "modified",
+      "primaryTopic": "Functions",
+      "secondaryTopics": [],
+      "skills": [
+        "Modelling with quadratic and cubic functions",
+        "Properties of functions and graphs",
+        "Solving equations with a GDC"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The markscheme identifies cubic-graph features, fits a cubic through four points, and solves its roots to total the time in debt."
+      ],
+      "rationale": "The assets mark cubic-feature recognition, fitting the cubic, and solving its roots with a GDC. These are all function/model and graph/equation methods; Number and algebra is not a separate secondary topic.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2022-may-tz2-p1-q5/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2022-may-tz2-p1-q5/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2022-may-tz2-p1-q5/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2023-november-43-q5",
+      "verdict": "blind_correct",
+      "primaryTopic": "Statistics",
+      "secondaryTopics": [
+        "Probability"
+      ],
+      "skills": [
+        "Histograms and cumulative frequency",
+        "Averages and spread",
+        "Combined and conditional probability"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The markscheme completes the frequency table/histogram, estimates the mean from midpoints, notes grouped-data bounds, and calculates the without-replacement selection probability."
+      ],
+      "rationale": "The statistics marks cover histogram/frequency work and grouped mean/bounds, while the final without-replacement event has its own probability marks. Data charts is not an additional independently marked skill.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2023-november-43-q5/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2023-november-43-q5/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2025-june-41-q20",
+      "verdict": "modified",
+      "primaryTopic": "Mensuration",
+      "secondaryTopics": [
+        "Trigonometry"
+      ],
+      "skills": [
+        "3D trigonometry",
+        "Volume and surface area"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The pyramid diagram gives square side 10.5 cm and height 24 cm; Q(a) finds the angle OA makes with the base using the centre-to-vertex right triangle. Q(b) finds the frustum volume from height 16 cm and similar square cross-sections. The official markscheme credits 3D right-triangle work, similarity/scale, and pyramid-volume subtraction."
+      ],
+      "rationale": "The angle uses a 3D right-triangle trigonometric relation and the frustum uses similarity plus pyramid-volume subtraction. Area/perimeter is subsumed by the volume method and is not independently marked.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2025-june-41-q20/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2025-june-41-q20/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2020-june-21-q13",
+      "verdict": "blind_correct",
+      "primaryTopic": "Geometry",
+      "secondaryTopics": [
+        "Trigonometry"
+      ],
+      "skills": [
+        "Similarity and congruence",
+        "Pythagoras and right-angle trigonometry"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The diagram places B on AC and BE parallel to CD, with AB=21, BE=13.5, CD=18; the official markscheme credits the scale factor to find AC, then Pythagoras in the right triangle with diameter AD, yielding radius 16.6 cm."
+      ],
+      "rationale": "The scheme explicitly marks the parallel-line similarity scale factor and then Pythagoras in the diameter right triangle; these are similarity and right-angle-trigonometry skills.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-june-21-q13/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-june-21-q13/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2023-november-tz0-p1-q15",
+      "verdict": "blind_correct",
+      "primaryTopic": "Number and algebra",
+      "secondaryTopics": [],
+      "skills": [
+        "Transition matrices and Markov chains",
+        "Eigenvalues and eigenvectors"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The transition matrix [[0.8,0.1],[0.2,0.9]] is used to interpret 0.9, compute eigenvalues 1 and 0.7, and find the non-parallel eigenvector (1,2) with its long-run 1:2 interpretation. The official markscheme credits det(T-lambda I)=0 and eigenvector equations."
+      ],
+      "rationale": "The scheme credits transition-matrix interpretation, determinant/eigenvalue calculation and eigenvector computation with long-run interpretation; statistics/probability is not separately marked.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2023-november-tz0-p1-q15/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2023-november-tz0-p1-q15/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2024-may-tz2-p1-q10",
+      "verdict": "blind_correct",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "skills": [
+        "Applications of differentiation"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": "The scheme differentiates to 2ax+b, converts normal gradient -1/3 to tangent gradient 3, substitutes T(2,4), and solves a,b.",
+      "rationale": "The derivative is used to impose a normal/tangent condition and solve for parameters, so this is an application of differentiation rather than introductory differentiation alone.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2024-may-tz2-p1-q10/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2024-may-tz2-p1-q10/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2017-june-22-q19",
+      "verdict": "blind_correct",
+      "primaryTopic": "Trigonometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Area and perimeter"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": "With PQ=8, QR=7 and area 17, the scheme uses 1/2 ab sin(PQR)=17 and supplementary sine solutions 37.4,142.6 degrees.",
+      "rationale": "The mark-bearing equation is the triangle-area sine formula followed by solving the supplementary sine solutions; Area and perimeter is the appropriate controlled skill.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2017-june-22-q19/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2017-june-22-q19/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2023-november-tz1-p2-q2",
+      "verdict": "blind_correct",
+      "primaryTopic": "Functions",
+      "secondaryTopics": [],
+      "skills": [
+        "Exponents and logarithms",
+        "Graphs and transformations"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": "The question sketches f=e^x-3x-4 and identifies g=e^(2x)-6x-7 as horizontal stretch plus vertical translation; the continuation asset is blank answer space.",
+      "rationale": "The scheme marks sketching the exponential graph and the horizontal-stretch/vertical-translation transformation; exponential graph behavior and graph transformations are both visible.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2023-november-tz1-p2-q2/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2023-november-tz1-p2-q2/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2023-november-tz1-p2-q2/markscheme-1.webp"
+      ]
+    }
+  ]
+}

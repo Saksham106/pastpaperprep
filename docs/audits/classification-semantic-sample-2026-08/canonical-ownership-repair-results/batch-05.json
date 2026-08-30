@@ -1,0 +1,204 @@
+{
+  "auditVersion": "pastpaperprep-semantic-canonical-ownership-repair-2026.08.1",
+  "batch": 5,
+  "inputSha256": "0cc6ee7e03f7950567c7a21e63ffa95e3ce23d9dbab8d66827ac73e41333272a",
+  "count": 8,
+  "repairs": [
+    {
+      "bank": "ib-ai-hl",
+      "id": "2023-november-tz0-p1-q15",
+      "primaryTopic": "Number and algebra",
+      "secondaryTopics": [
+        "Statistics and probability"
+      ],
+      "skills": [
+        "Transition matrices and Markov chains",
+        "Eigenvalues and eigenvectors"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Part (a) asks for the meaning of the 0.9 entry in the transition matrix.",
+        "The markscheme awards the interpretation of 0.9 as the probability of a vegetarian remaining vegetarian, then marks the determinant equation/eigenvalues and the non-parallel eigenvector (1,2) with its long-run ratio."
+      ],
+      "rationale": "Transition matrices and Markov chains are independently mark-bearing in part (a), so retain the skill and add its canonical owner Statistics and probability; eigenvalues and eigenvectors remain owned by Number and algebra.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2023-november-tz0-p1-q15/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2023-november-tz0-p1-q15/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2023-november-tz1-p2-q2",
+      "primaryTopic": "Functions",
+      "secondaryTopics": [],
+      "skills": [
+        "Graphs and transformations"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Part (a) awards the sketch of f(x)=e^x−3x−4, including its roots, y-intercept/local minimum, and end behavior.",
+        "Part (b) awards k=1/2 and c=−3 for the horizontal stretch and downward translation; the continuation asset is answer space only."
+      ],
+      "rationale": "Only graphing and transformation work is independently marked. The exponential expression supplies the function but no standalone exponent/logarithm manipulation is credited, so remove Exponents and logarithms and keep Functions as the sole parent topic.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2023-november-tz1-p2-q2/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2023-november-tz1-p2-q2/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2023-november-tz1-p2-q2/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2017-november-tz0-p1-q11",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Geometry and trigonometry",
+        "Number and algebra"
+      ],
+      "skills": [
+        "Proof and induction",
+        "Differentiation",
+        "Trigonometric identities and equations"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Part (b) explicitly asks for a proof of the finite cosine-product identity by mathematical induction; the markscheme awards the base case, induction step, and conclusion across 8 marks.",
+        "Parts (c) and (d) separately mark quotient-rule differentiation and the tangent at x=π/4, while the cosine-product identity and double-angle work are also explicitly used."
+      ],
+      "rationale": "Proof and induction is independently assessed for 8 marks, so retain it and add its canonical owner Number and algebra; Differentiation remains under Calculus and Trigonometric identities and equations remains under Geometry and trigonometry.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p1-q11/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p1-q11/question-2.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p1-q11/question-3.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p1-q11/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p1-q11/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2017-may-tz2-p1-q11",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "skills": [
+        "Complex numbers",
+        "Trigonometric identities and equations"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Part (c)(i) asks for the modulus and argument of z=(1−cos2θ)−i sin2θ; the markscheme awards |z|=2sinθ and arg(z)=θ−π/2.",
+        "Part (c)(ii) awards the application of De Moivre's theorem, division of the argument by 3, and the three cube roots in modulus-argument form (14 marks)."
+      ],
+      "rationale": "Complex numbers are independently assessed across the 14-mark modulus/argument and cube-roots part, so retain the skill and add its canonical owner Number and algebra; the earlier shifted equation and 105° identity retain Trigonometric identities and equations under the primary topic.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz2-p1-q11/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz2-p1-q11/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz2-p1-q11/markscheme-2.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz2-p1-q11/markscheme-3.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2017-june-11-q4",
+      "primaryTopic": "Sets and functions",
+      "secondaryTopics": [
+        "Algebra"
+      ],
+      "skills": [
+        "Functions",
+        "Logarithmic and exponential functions"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Part (a) asks for the range of f(x)=3e^(−4x)+5, its inverse, and the inverse domain; the markscheme awards the logarithmic rearrangement.",
+        "Part (b) asks to solve ln(x^2+5)=2, and the markscheme awards exponentiating to x^2+5=e^2 and obtaining x=√(e^2−5)."
+      ],
+      "rationale": "Logarithmic and exponential manipulation is independently marked in both the inverse and composite-equation work, so retain it and add its canonical owner Algebra; Functions remains the lead topic.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-june-11-q4/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-june-11-q4/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2019-june-12-q1",
+      "primaryTopic": "Sets and functions",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "skills": [
+        "Set language and notation",
+        "Trigonometry"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Part (a) awards shading of A'∩B'∩C' and A∪(B∩C); part (b) defines P by cos 2x=0.5 and Q by sin x=0.5 and asks for P∩Q.",
+        "The markscheme awards the trigonometric solution sets P={30°,150°,210°,330°}, Q={30°,150°}, and P∩Q={30°,150°}."
+      ],
+      "rationale": "Trigonometry is independently mark-bearing in the 3-mark solution-set part, so retain it and add its canonical owner Geometry and trigonometry; Set language and notation remains under the primary Sets and functions topic.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2019-june-12-q1/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2019-june-12-q1/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2022-november-12-q10",
+      "primaryTopic": "Combinatorics and series",
+      "secondaryTopics": [
+        "Algebra"
+      ],
+      "skills": [
+        "Series",
+        "Logarithmic and exponential functions"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Part (a) marks the common difference 4 lg x and the arithmetic-series sum formula; part (b) marks the resulting n=50.",
+        "Part (c) marks 50(99)lg x=−14850 and x=10^−3, so logarithmic manipulation is independently assessed rather than merely appearing in the given terms."
+      ],
+      "rationale": "Logarithmic manipulation receives its own marked solution step in part (c), so retain the skill and add its canonical owner Algebra; Series remains the dominant skill under Combinatorics and series.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2022-november-12-q10/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2022-november-12-q10/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-sl",
+      "id": "2018-may-p1-tz2-q6",
+      "primaryTopic": "Functions",
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "skills": [
+        "Equations and inequalities"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The question asks for the number of roots of f(x)=px^2+qx−4p with p≠0 and requires a justification.",
+        "The markscheme awards discriminant setup/substitution, q^2+16p^2, positivity from p≠0 and q^2≥0, and the conclusion that f has two roots across 7 marks."
+      ],
+      "rationale": "The discriminant and positivity argument are explicitly marked equation/inequality work, so retain Equations and inequalities and add its canonical owner Number and algebra; Functions remains primary and no production skill is mechanically unioned in.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2018-may-p1-tz2-q6/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2018-may-p1-tz2-q6/markscheme-1.webp"
+      ]
+    }
+  ]
+}

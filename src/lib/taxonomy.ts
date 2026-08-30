@@ -20,6 +20,46 @@ const IGCSE_TOPIC_ORDER = [
   "Statistics",
 ] as const;
 
+// Stable student-facing ownership for the 2015–2027 0580 bank. This is a
+// historical union of syllabus outcomes, grouped under Cambridge's nine
+// official top-level topics. Ownership must not be inferred from whichever
+// question currently happens to use a label as its primary topic: cross-topic
+// questions would otherwise make valid subtopics appear under the wrong group.
+const IGCSE_SUBTOPICS: Record<string, readonly string[]> = {
+  Number: [
+    "Bounds and estimation",
+    "Fractions, decimals and percentages",
+    "Indices and surds",
+    "Number properties",
+    "Ratio, proportion and rates",
+    "Standard form",
+    "Time calculations",
+    "Prime factors, HCF and LCM",
+    "Recurring decimals",
+    "Direct and inverse proportion",
+    "Exponential growth and decay",
+    "Financial mathematics",
+    "Set language and notation",
+    "Order of operations",
+  ],
+  "Algebra and graphs": [
+    "Algebraic manipulation",
+    "Calculus",
+    "Equations and inequalities",
+    "Functions and graphs",
+    "Sequences",
+    "Quadratic equations and functions",
+    "Motion graphs and kinematics",
+  ],
+  "Coordinate geometry": ["Coordinates and geometry", "Straight-line graphs", "Distance and midpoint"],
+  Geometry: ["Angles and polygons", "Circle theorems", "Constructions and loci", "Similarity and congruence", "Symmetry"],
+  Mensuration: ["Area and perimeter", "Volume and surface area", "Circular measure: arcs, sectors and segments", "Compound shapes", "Density, mass and volume"],
+  Trigonometry: ["Pythagoras and right-angle trigonometry", "Sine/cosine rules and bearings", "3D trigonometry", "Exact trigonometric values", "Trigonometric equations", "Trigonometric graphs"],
+  "Transformations and vectors": ["Transformations", "Vectors", "Matrix operations and algebra", "Matrix transformations"],
+  Probability: ["Basic probability", "Combined and conditional probability", "Venn and tree diagrams"],
+  Statistics: ["Averages and spread", "Data charts and diagrams", "Histograms and cumulative frequency", "Scatter graphs"],
+};
+
 // Historical union for the 2016–2026 bank. Cambridge changed the 0606
 // syllabus during this range, so the current 2025–2027 list alone would hide
 // valid older questions on sets, indices/surds, and matrices.
@@ -270,6 +310,7 @@ function uniqueSorted(values: string[]): string[] {
 }
 
 export function getControlledSubtopics(bankSlug: string, topic: string): readonly string[] {
+  if (bankSlug === "igcse") return IGCSE_SUBTOPICS[topic] ?? [];
   if (bankSlug === "igcse-additional") return IGCSE_ADDITIONAL_SUBTOPICS[topic] ?? [];
   if (bankSlug === "ib-ai-hl") return IB_AI_HL_SUBTOPICS[topic] ?? [];
   if (bankSlug === "ib-ai-sl") return IB_AI_SL_SUBTOPICS[topic] ?? [];
@@ -279,7 +320,9 @@ export function getControlledSubtopics(bankSlug: string, topic: string): readonl
 }
 
 export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
-  const available = new Set(questions.map((question) => question.primaryTopic));
+  const available = new Set(
+    questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]),
+  );
   const bankSlug = questions[0]?.bankSlug;
   const order =
     bankSlug === "igcse"
@@ -302,18 +345,22 @@ export function getSubtopicGroups(
   other: string[];
   selectedOutsideContext: string[];
 } {
-  const all = uniqueSorted(questions.flatMap((question) => question.subtopics));
+  // Skills are the canonical filterable classification vocabulary. Include
+  // legacy subtopics during migration so old URLs and stored selections keep
+  // working while richer labels remain discoverable in the UI.
+  const all = uniqueSorted(
+    questions.flatMap((question) => [...question.subtopics, ...question.skills]),
+  );
   const available = new Set(all);
-  const selectedTopicSet = new Set(selectedTopics);
 
   let relevant: string[];
   if (!selectedTopics.length) {
     relevant = all;
   } else if (questions[0]?.bankSlug === "igcse") {
     relevant = uniqueSorted(
-      questions
-        .filter((question) => selectedTopicSet.has(question.primaryTopic))
-        .flatMap((question) => question.subtopics),
+      selectedTopics
+        .flatMap((topic) => IGCSE_SUBTOPICS[topic] ?? [])
+        .filter((subtopic) => available.has(subtopic)),
     );
   } else if (questions[0]?.bankSlug === "igcse-additional") {
     relevant = uniqueSorted(

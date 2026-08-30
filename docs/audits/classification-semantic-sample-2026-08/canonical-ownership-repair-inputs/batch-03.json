@@ -1,0 +1,734 @@
+{
+  "auditVersion": "pastpaperprep-semantic-canonical-ownership-repair-2026.08.1",
+  "batch": 3,
+  "count": 9,
+  "records": [
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2022-november-13-q10",
+      "sourceAdjudicationBatch": 3,
+      "currentJudgment": {
+        "bank": "igcse-additional",
+        "id": "0606-2022-november-13-q10",
+        "verdict": "blind_correct",
+        "primaryTopic": "Algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Trigonometry"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The question and scheme are solely trigonometric equation manipulation and solution selection over the stated interval; Geometry and trigonometry is not the best parent."
+        ],
+        "rationale": "The question and scheme are solely trigonometric equation manipulation and solution selection over the stated interval; Geometry and trigonometry is not the best parent.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2022-november-13-q10/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2022-november-13-q10/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Trigonometry"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": [
+          "Question asset: 10 Solve the equation ( . ) ( . ) cos sin x x 2 3 1 2 2 3 1 2 + = + , where x is in radians, for . . x 1 5 1 5 G G - . [5]",
+          "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+        ],
+        "primaryTopic": "Algebra",
+        "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+        "secondaryTopics": [],
+        "skills": [
+          "Trigonometry"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2022-november-13-q10/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2022-november-13-q10/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Trigonometry"
+      ],
+      "selectedTopics": [
+        "Algebra"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Quadratic functions",
+        "Indices and surds",
+        "Factors of polynomials",
+        "Equations, inequalities and graphs",
+        "Simultaneous equations",
+        "Logarithmic and exponential functions"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2016-november-11-q5",
+      "sourceAdjudicationBatch": 3,
+      "currentJudgment": {
+        "bank": "igcse-additional",
+        "id": "0606-2016-november-11-q5",
+        "verdict": "blind_correct",
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Calculus",
+          "Logarithmic and exponential functions"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The scheme differentiates the logarithmic curve, forms the normal, and computes the intercept-based triangle area. Straight-line graphs is not the marked method."
+        ],
+        "rationale": "The scheme differentiates the logarithmic curve, forms the normal, and computes the intercept-based triangle area. Straight-line graphs is not the marked method.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2016-november-11-q5/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2016-november-11-q5/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Coordinate geometry"
+        ],
+        "skills": [
+          "Calculus",
+          "Straight-line graphs"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": [
+          "The markscheme differentiates a logarithmic curve, forms its normal, and calculates the area of triangle PQR from the intercepts."
+        ],
+        "primaryTopic": "Calculus",
+        "rationale": "The normal and area are calculus applications; logarithmic differentiation is explicitly marked.",
+        "secondaryTopics": [],
+        "skills": [
+          "Calculus",
+          "Logarithmic and exponential functions"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2016-november-11-q5/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2016-november-11-q5/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Logarithmic and exponential functions"
+      ],
+      "selectedTopics": [
+        "Calculus"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Calculus"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2025-june-21-q4",
+      "sourceAdjudicationBatch": 3,
+      "currentJudgment": {
+        "bank": "igcse-additional",
+        "id": "0606-2025-june-21-q4",
+        "verdict": "blind_correct",
+        "primaryTopic": "Coordinate geometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Straight-line graphs",
+          "Simultaneous equations"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The paired pages mark line gradient/intercept, perpendicular-bisector construction, intersection, and area; Simultaneous equations is materially used in the intersection."
+        ],
+        "rationale": "The paired pages mark line gradient/intercept, perpendicular-bisector construction, intersection, and area; Simultaneous equations is materially used in the intersection.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-june-21-q4/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-june-21-q4/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Coordinate geometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Straight-line graphs"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": [
+          "The markscheme finds the gradient and midpoint of AB, forms the perpendicular bisector, intersects line L, and uses the resulting coordinates for triangle area."
+        ],
+        "primaryTopic": "Coordinate geometry",
+        "rationale": "Line geometry and solving the intersection system are the marked coordinate methods.",
+        "secondaryTopics": [],
+        "skills": [
+          "Straight-line graphs",
+          "Simultaneous equations"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-june-21-q4/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-june-21-q4/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Simultaneous equations"
+      ],
+      "selectedTopics": [
+        "Coordinate geometry"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Straight-line graphs",
+        "Coordinate geometry of the circle"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2019-march-22-q3",
+      "sourceAdjudicationBatch": 3,
+      "currentJudgment": {
+        "bank": "igcse-additional",
+        "id": "0606-2019-march-22-q3",
+        "verdict": "blind_correct",
+        "primaryTopic": "Sets and functions",
+        "secondaryTopics": [],
+        "skills": [
+          "Functions",
+          "Trigonometry"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The question and scheme mark sinusoidal shape, period/amplitude/intercept parameters, and the sine model; Sets and functions is the correct lead parent."
+        ],
+        "rationale": "The question and scheme mark sinusoidal shape, period/amplitude/intercept parameters, and the sine model; Sets and functions is the correct lead parent.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2019-march-22-q3/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2019-march-22-q3/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Trigonometry"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": [
+          "The markscheme awards a sinusoid with intercept -1, period 120 degrees, amplitude 5, and parameters a=-1,b=5,c=3."
+        ],
+        "primaryTopic": "Sets and functions",
+        "rationale": "Sinusoidal function features and parameter identification are the marked methods.",
+        "secondaryTopics": [],
+        "skills": [
+          "Functions",
+          "Trigonometry"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2019-march-22-q3/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2019-march-22-q3/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Trigonometry"
+      ],
+      "selectedTopics": [
+        "Sets and functions"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Set language and notation",
+        "Functions"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2020-june-23-q10",
+      "sourceAdjudicationBatch": 3,
+      "currentJudgment": {
+        "bank": "igcse-additional",
+        "id": "0606-2020-june-23-q10",
+        "verdict": "blind_correct",
+        "primaryTopic": "Algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Trigonometry"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "Both paired subparts use trigonometric identities and solve trigonometric equations; Algebra is the controlled parent used for this Additional Mathematics item."
+        ],
+        "rationale": "Both paired subparts use trigonometric identities and solve trigonometric equations; Algebra is the controlled parent used for this Additional Mathematics item.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-june-23-q10/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-june-23-q10/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Trigonometry"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": [
+          "The two subparts solve a sec/tan equation on 0 to 180 degrees and a shifted sine equation on -pi/4 to pi/4. The official markscheme credits the identity sec^2=1+tan^2, quadratic solving in tan A, and inverse-sine/general-solution work for B."
+        ],
+        "primaryTopic": "Algebra",
+        "rationale": "Trigonometric identities and equations are the only materially credited method family.",
+        "secondaryTopics": [],
+        "skills": [
+          "Trigonometry"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-june-23-q10/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-june-23-q10/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Trigonometry"
+      ],
+      "selectedTopics": [
+        "Algebra"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Quadratic functions",
+        "Indices and surds",
+        "Factors of polynomials",
+        "Equations, inequalities and graphs",
+        "Simultaneous equations",
+        "Logarithmic and exponential functions"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2025-may-tz2-p3-q1",
+      "sourceAdjudicationBatch": 3,
+      "currentJudgment": {
+        "bank": "ib-hl",
+        "id": "2025-may-tz2-p3-q1",
+        "verdict": "blind_correct",
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Applications of differentiation",
+          "Differential equations",
+          "Differentiation",
+          "Graphs and transformations",
+          "Integration"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "Across the paired question and seven scheme pages, marks cover curve/extrema/asymptote/tangent analysis, differentiation and integration, and the homogeneous differential equation. These all sit under Calculus; the Functions secondary is unnecessary."
+        ],
+        "rationale": "Across the paired question and seven scheme pages, marks cover curve/extrema/asymptote/tangent analysis, differentiation and integration, and the homogeneous differential equation. These all sit under Calculus; the Functions secondary is unnecessary.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/question-1.webp",
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/question-2.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/markscheme-1.webp",
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/markscheme-2.webp",
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/markscheme-3.webp",
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/markscheme-4.webp",
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/markscheme-5.webp",
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/markscheme-6.webp",
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/markscheme-7.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Functions"
+        ],
+        "skills": [
+          "Differential equations",
+          "Integration",
+          "Differentiation",
+          "Graphs and transformations"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": "Across two question pages and seven scheme pages, marks cover graph/intercept/extrema analysis, odd symmetry, quotient differentiation, oblique asymptote/tangent slope, partial fractions, separation of variables, logarithmic integration, and solving for y.",
+        "primaryTopic": "Calculus",
+        "rationale": "The set is selective to the family-curve and homogeneous-DE methods.",
+        "secondaryTopics": [],
+        "skills": [
+          "Applications of differentiation",
+          "Differential equations",
+          "Differentiation",
+          "Graphs and transformations",
+          "Integration"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/question-2.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/markscheme-2.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/markscheme-3.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/markscheme-4.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/markscheme-5.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/markscheme-6.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz2-p3-q1/markscheme-7.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Graphs and transformations"
+      ],
+      "selectedTopics": [
+        "Calculus"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Applications of differentiation",
+        "Applications of integration",
+        "Differential equations",
+        "Differentiation",
+        "Integration",
+        "Limits and series"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2024-november-tz0-p2-q1",
+      "sourceAdjudicationBatch": 4,
+      "currentJudgment": {
+        "bank": "ib-hl",
+        "id": "2024-november-tz0-p2-q1",
+        "verdict": "blind_correct",
+        "primaryTopic": "Functions",
+        "secondaryTopics": [],
+        "skills": [
+          "Graphs and transformations",
+          "Equations and inequalities"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The scheme marks endpoint values, both roots, and the graph's endpoints, intercepts, and maximum; graph properties and root solving are materially assessed."
+        ],
+        "rationale": "Endpoint values, both roots, and the endpoint/intercept/maximum features of the graph make graph properties and equation solving materially assessed, as reflected in the blind tuple.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2024-november-tz0-p2-q1/question-1.webp",
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2024-november-tz0-p2-q1/question-2.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2024-november-tz0-p2-q1/markscheme-1.webp",
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2024-november-tz0-p2-q1/markscheme-2.webp"
+        ]
+      },
+      "production": {
+        "confidence": "medium",
+        "primaryTopic": "Functions",
+        "secondaryTopics": [],
+        "skills": [
+          "Graphs and transformations"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": [
+          "Question asset defines f(x)=11√x−2x−11 on 0≤x≤20 and asks for endpoint values, two roots, and a graph sketch.",
+          "Official markscheme awards f(0), f(20), roots near 1.73 and 17.5, and endpoint/intercept/maximum features of the sketch."
+        ],
+        "primaryTopic": "Functions",
+        "rationale": "Graph properties and sketching are central, with root solving materially assessed.",
+        "secondaryTopics": [],
+        "skills": [
+          "Graphs and transformations",
+          "Equations and inequalities"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2024-november-tz0-p2-q1/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2024-november-tz0-p2-q1/question-2.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2024-november-tz0-p2-q1/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2024-november-tz0-p2-q1/markscheme-2.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Equations and inequalities"
+      ],
+      "selectedTopics": [
+        "Functions"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Functions and inverses",
+        "Geometric transformations",
+        "Graphs and transformations"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2018-june-23-q12",
+      "sourceAdjudicationBatch": 4,
+      "currentJudgment": {
+        "bank": "igcse-additional",
+        "id": "0606-2018-june-23-q12",
+        "verdict": "blind_correct",
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Calculus",
+          "Trigonometry"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The scheme marks tan 30° for the triangular cross-section, the volume expression, chain-rule related rates, and the second rate relation; trigonometry is a material skill within the calculus-led item, not a redundant topic tag."
+        ],
+        "rationale": "The related-rates work depends on the triangular cross-section tan 30° and the volume expression, so the blind tuple correctly retains Trigonometry alongside the calculus methods.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2018-june-23-q12/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2018-june-23-q12/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Calculus",
+          "Trigonometry"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": [
+          "Question asset describes a triangular-prism water container with 30° base angles, depth h, length 5, filling rate 0.5 m³/min, and asks dh/dt and dx/dt.",
+          "Official markscheme awards tan30°=h/(x/2), V=√3/2 h², chain-rule related rates, and final rates 0.1155 and 2/5."
+        ],
+        "primaryTopic": "Calculus",
+        "rationale": "Related rates of a prism volume are primary; cross-section trigonometry is materially used.",
+        "secondaryTopics": [],
+        "skills": [
+          "Calculus",
+          "Trigonometry"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2018-june-23-q12/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2018-june-23-q12/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Trigonometry"
+      ],
+      "selectedTopics": [
+        "Calculus"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Calculus"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2017-march-12-q7",
+      "sourceAdjudicationBatch": 4,
+      "currentJudgment": {
+        "bank": "igcse-additional",
+        "id": "0606-2017-march-12-q7",
+        "verdict": "blind_correct",
+        "primaryTopic": "Vectors and matrices",
+        "secondaryTopics": [],
+        "skills": [
+          "Vectors in two dimensions",
+          "Simultaneous equations"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The scheme marks vector magnitude scaling and component equations, then elimination of q and quadratic solution for p; both vector and simultaneous-equation methods are materially assessed."
+        ],
+        "rationale": "The markscheme first scales the vector by its magnitude and then uses component equations followed by elimination and a quadratic, so both vector and simultaneous-equation skills are material.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-march-12-q7/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-march-12-q7/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Vectors and matrices",
+        "secondaryTopics": [],
+        "skills": [
+          "Vectors in two dimensions"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": "The official scheme scales (8,-15) to magnitude 102 to get (48,-90), then equates vector components and eliminates q to solve the resulting quadratic for p and q.",
+        "primaryTopic": "Vectors and matrices",
+        "rationale": "The image and markscheme assess vector magnitude/scaling and component equations; solving the simultaneous parameter equations is also materially awarded.",
+        "secondaryTopics": [],
+        "skills": [
+          "Vectors in two dimensions",
+          "Simultaneous equations"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-march-12-q7/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-march-12-q7/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Simultaneous equations"
+      ],
+      "selectedTopics": [
+        "Vectors and matrices"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Vectors in two dimensions",
+        "Matrices"
+      ]
+    }
+  ],
+  "canonicalTaxonomyByBank": {
+    "ib-hl": {
+      "Calculus": [
+        "Applications of differentiation",
+        "Applications of integration",
+        "Differential equations",
+        "Differentiation",
+        "Integration",
+        "Limits and series"
+      ],
+      "Functions": [
+        "Functions and inverses",
+        "Geometric transformations",
+        "Graphs and transformations"
+      ],
+      "Geometry and trigonometry": [
+        "Coordinate and analytic geometry",
+        "Radian measure and sectors",
+        "Triangle geometry",
+        "Trigonometric identities and equations",
+        "Vectors, lines and planes"
+      ],
+      "Number and algebra": [
+        "Algebraic manipulation",
+        "Binomial expansion",
+        "Complex numbers",
+        "Counting and combinatorics",
+        "Equations and inequalities",
+        "Exponents and logarithms",
+        "Graph theory and algorithms",
+        "Matrices and systems",
+        "Number theory and modular arithmetic",
+        "Polynomials and theorems",
+        "Proof and induction",
+        "Quadratics",
+        "Sequences and series",
+        "Sets, relations and groups"
+      ],
+      "Statistics and probability": [
+        "Conditional probability",
+        "Continuous random variables",
+        "Descriptive statistics",
+        "Discrete random variables",
+        "Normal distribution",
+        "Probability models",
+        "Statistical inference"
+      ]
+    },
+    "igcse-additional": {
+      "Algebra": [
+        "Quadratic functions",
+        "Indices and surds",
+        "Factors of polynomials",
+        "Equations, inequalities and graphs",
+        "Simultaneous equations",
+        "Logarithmic and exponential functions"
+      ],
+      "Calculus": [
+        "Calculus"
+      ],
+      "Combinatorics and series": [
+        "Permutations and combinations",
+        "Series"
+      ],
+      "Coordinate geometry": [
+        "Straight-line graphs",
+        "Coordinate geometry of the circle"
+      ],
+      "Geometry and trigonometry": [
+        "Circular measure",
+        "Trigonometry"
+      ],
+      "Sets and functions": [
+        "Set language and notation",
+        "Functions"
+      ],
+      "Vectors and matrices": [
+        "Vectors in two dimensions",
+        "Matrices"
+      ]
+    }
+  },
+  "inputSha256": "b1527c48d9d886815da3e49fe99ed570e1f4a39e6f20a8c5083763f747ef9757"
+}

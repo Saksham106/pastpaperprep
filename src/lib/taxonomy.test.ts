@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { loadBankQuestions } from "@/lib/questions";
-import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy";
+import { getControlledSubtopics, getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy";
 
 describe("question taxonomy", () => {
   it("orders IB topics by the official syllabus sequence", () => {
@@ -62,14 +62,10 @@ describe("question taxonomy", () => {
     expect(groups.other).toContain("Sequences and series");
   });
 
-  it("uses only primary-topic IGCSE questions for contextual subtopics", () => {
+  it("uses stable controlled IGCSE ownership for contextual subtopics", () => {
     const questions = loadBankQuestions("igcse");
     const groups = getSubtopicGroups(questions, ["Probability"], []);
-    const expected = [...new Set(
-      questions
-        .filter((question) => question.primaryTopic === "Probability")
-        .flatMap((question) => question.subtopics),
-    )].sort();
+    const expected = [...getControlledSubtopics("igcse", "Probability")].sort();
 
     expect(groups.relevant).toEqual(expected);
     expect(groups.relevant.length).toBeLessThan(groups.all.length);

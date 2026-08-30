@@ -1,0 +1,232 @@
+{
+  "auditVersion": "pastpaperprep-semantic-canonical-ownership-repair-2026.08.1",
+  "batch": 4,
+  "inputSha256": "7a3e29e9bee4dba2706905d077a9ce4c47bb071db2e4db2961199ab19ba92f2a",
+  "count": 9,
+  "repairs": [
+    {
+      "bank": "ib-sl",
+      "id": "2017-may-p1-tz1-q9",
+      "primaryTopic": "Functions",
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "skills": [
+        "Roots and polynomial functions",
+        "Equations and inequalities",
+        "Algebraic manipulation"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The question marks finding the second root from the axis of symmetry, finding the coefficient from the y-intercept, and finding tangent slopes by forming the intersection quadratic.",
+        "The markscheme explicitly marks substitution/rearrangement and the discriminant condition for the tangent. Differentiation is shown only as an optional alternative route, not as a materially required method."
+      ],
+      "rationale": "Equations and inequalities and algebraic manipulation are materially mark-bearing in the required coefficient and tangent work, so retain them and add their canonical owner Number and algebra. The derivative route is optional rather than materially required, so remove Differentiation.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2017-may-p1-tz1-q9/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2017-may-p1-tz1-q9/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2017-may-p1-tz1-q9/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2021-march-12-q7",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [
+        "Algebra"
+      ],
+      "skills": [
+        "Trigonometry",
+        "Indices and surds"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Parts (a) and (b) require expansion and simplification of expressions involving sqrt(17), with the markscheme requiring a multi-term surd expansion.",
+        "Part (c) marks rationalisation to obtain tan AED, and part (d) marks use of sec^2(AED)=tan^2(AED)+1 and simplification."
+      ],
+      "rationale": "Indices and surds are materially assessed by the marked perimeter and area expansions and by the later exact simplification, so retain the skill and add its canonical owner Algebra. Trigonometry remains the primary topic and skill.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2021-march-12-q7/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2021-march-12-q7/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2023-march-22-q8",
+      "primaryTopic": "Sets and functions",
+      "secondaryTopics": [
+        "Algebra"
+      ],
+      "skills": [
+        "Functions",
+        "Logarithmic and exponential functions"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The question defines an exponential function, asks for the inverse domain, solves an inverse equation, sketches the exponential graph and its inverse, and simplifies a composite inverse expression.",
+        "The markscheme awards marks for logarithmic/exponential inverse manipulation, including the final simplified composition."
+      ],
+      "rationale": "Logarithmic and exponential manipulation is materially mark-bearing in solving and composing the inverse, so retain the skill and add its canonical owner Algebra; inverse functions remain primary.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-march-22-q8/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-march-22-q8/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2025-november-13-q3",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "skills": [
+        "Calculus",
+        "Trigonometry"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The question requires finding x=pi/15 from sin(5x)=sqrt(3)/2, differentiating y=sin(5x), evaluating cos(5x)=1/2, and applying dy/dx to the small change 0.01.",
+        "The markscheme separately marks the trigonometric value through the derivative value 5cos(5x)=5/2 before marking the small-change calculation."
+      ],
+      "rationale": "Trigonometric evaluation is explicitly required and mark-bearing in setting x and evaluating the derivative, so retain Trigonometry and add its canonical owner Geometry and trigonometry as a secondary topic; Calculus remains primary.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-november-13-q3/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-november-13-q3/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2026-march-42-q7",
+      "primaryTopic": "Number",
+      "secondaryTopics": [
+        "Algebra and graphs"
+      ],
+      "skills": [
+        "Algebraic manipulation"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Part (a) marks substitution of r=-15 and t=7 into p^2=r^2-8t and selection of the valid square-root value.",
+        "Part (b) explicitly asks for rearrangement to make t the subject, and the markscheme awards method credit for the algebraic rearrangement."
+      ],
+      "rationale": "Algebraic substitution and rearrangement are the only mark-bearing methods, so retain Algebraic manipulation and add its canonical owner Algebra and graphs; Number remains the selected primary topic.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2026-march-42-q7/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2026-march-42-q7/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2023-november-tz2-p2-q1",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "skills": [
+        "Applications of integration",
+        "Trapezoidal rule",
+        "Rounding, estimation and percentage error"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The question marks a four-interval trapezoidal estimate, an exact definite integral, and comparison of the estimate with the exact area through percentage error.",
+        "The markscheme awards a method mark and an accuracy mark for the percentage-error formula and result 10.8 percent."
+      ],
+      "rationale": "Rounding, estimation and percentage error is a separately mark-bearing part (d), so retain the skill and add its canonical owner Number and algebra; the integration methods remain primary.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2023-november-tz2-p2-q1/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2023-november-tz2-p2-q1/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2025-november-21-q7",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Algebra"
+      ],
+      "skills": [
+        "Calculus",
+        "Logarithmic and exponential functions"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The question asks for a stationary point of y=x-ln(x^2+2x) and its x-coordinate, requiring logarithmic differentiation and a domain-valid solution.",
+        "The markscheme marks the derivative of the logarithm, the stationary-point equation, x^2=2, and rejection of x=-sqrt(2) because the logarithm argument is impossible."
+      ],
+      "rationale": "Logarithmic differentiation and the logarithm-domain check are materially mark-bearing, so retain Logarithmic and exponential functions and add its canonical owner Algebra; Calculus remains primary.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-november-21-q7/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-november-21-q7/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2021-november-tz0-p2-q1",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Geometry and trigonometry",
+        "Number and algebra"
+      ],
+      "skills": [
+        "Proof and induction",
+        "Differentiation",
+        "Trigonometric identities and equations"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The listed question pages include the proof/induction setup and the calculus and trigonometric work; the continuation pages are source pages rather than additional assessed content.",
+        "The markscheme awards marks for the even-function argument and induction, the double-angle identity, quotient differentiation, and the tangent at pi/4."
+      ],
+      "rationale": "Proof and induction is explicitly mark-bearing in the proof, so retain it and add its canonical owner Number and algebra. Calculus remains primary and the existing Geometry and trigonometry secondary topic owns the trigonometric identity skill.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2021-november-tz0-p2-q1/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2021-november-tz0-p2-q1/question-2.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2021-november-tz0-p2-q1/question-3.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2021-november-tz0-p2-q1/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2022-may-tz2-p1-q5",
+      "primaryTopic": "Functions",
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "skills": [
+        "Modelling with quadratic and cubic functions",
+        "Properties of functions and graphs",
+        "Solving equations with a GDC"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The question marks identifying cubic-graph features, determining a cubic model from four points, and using the model to find the intervals where the savings are negative.",
+        "The markscheme awards marks for forming the simultaneous equations and coefficients, then equating the cubic to zero and obtaining its numerical roots for the debt interval."
+      ],
+      "rationale": "Solving the cubic equation numerically is materially required and mark-bearing in part (c), so retain Solving equations with a GDC and add its canonical owner Number and algebra; the function modelling and graph skills remain primary.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2022-may-tz2-p1-q5/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2022-may-tz2-p1-q5/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2022-may-tz2-p1-q5/markscheme-1.webp"
+      ]
+    }
+  ]
+}
