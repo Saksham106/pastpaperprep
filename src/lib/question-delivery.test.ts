@@ -47,6 +47,39 @@ describe("prepareQuestionsForDelivery", () => {
     if (locked.solution) expect(deliveredLocked.searchText).not.toContain(locked.solution.toLocaleLowerCase());
   });
 
+  it("keeps locked classification labels searchable without protected content", () => {
+    const [delivered] = prepareQuestionsForDelivery([locked], [], now);
+    const searchable = delivered.searchText;
+
+    expect(searchable).toContain(delivered.primaryTopic.toLocaleLowerCase());
+    for (const topic of delivered.secondaryTopics) expect(searchable).toContain(topic.toLocaleLowerCase());
+    for (const skill of delivered.skills) expect(searchable).toContain(skill.toLocaleLowerCase());
+    expect(delivered.accessibleText).toBe("");
+    expect(delivered.summary).toBe("");
+    expect(delivered.solution).toBeNull();
+    expect(searchable).not.toContain(locked.accessibleText.toLocaleLowerCase());
+  });
+
+  it("keeps normalized rich labels searchable for a locked 0580 question", () => {
+    const question = loadBankQuestions("igcse").find(
+      (candidate) => candidate.id === "0580-2026-march-22-q18",
+    )!;
+    const [delivered] = prepareQuestionsForDelivery([question], [], now);
+
+    expect(delivered.skills).toEqual([
+      "Algebraic manipulation",
+      "Area and perimeter",
+      "Equations and inequalities",
+      "Quadratic equations and functions",
+      "Volume and surface area",
+    ]);
+    expect(delivered.searchText).toContain("quadratic equations and functions");
+    expect(delivered.searchText).toContain("mensuration");
+    expect(delivered.accessibleText).toBe("");
+    expect(delivered.summary).toBe("");
+    expect(delivered.solution).toBeNull();
+  });
+
   it("keeps paid content for a current bank entitlement", () => {
     const [delivered] = prepareQuestionsForDelivery([locked], [entitlement("bank_ib_sl")], now);
 

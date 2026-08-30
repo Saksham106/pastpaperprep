@@ -4,6 +4,14 @@ function includesAny(selected: string[] | undefined, values: string[]): boolean 
   return !selected?.length || selected.some((value) => values.includes(value));
 }
 
+function filterableTopics(question: UnifiedQuestion): string[] {
+  return [question.primaryTopic, ...question.secondaryTopics];
+}
+
+function filterableSubtopics(question: UnifiedQuestion): string[] {
+  return [...new Set([...question.subtopics, ...question.skills])];
+}
+
 export function questionZoneValue(question: UnifiedQuestion): string {
   if (question.zone) return question.zone;
   if ((question.bankSlug === "igcse" || question.bankSlug === "igcse-additional") && /[123]$/.test(question.component)) {
@@ -14,12 +22,21 @@ export function questionZoneValue(question: UnifiedQuestion): string {
 
 export function filterQuestions(questions: UnifiedQuestion[], filters: QuestionFilters): UnifiedQuestion[] {
   const search = filters.search?.trim().toLocaleLowerCase();
+  // `topic` is the legacy singular spelling. Treat it as a one-value `topics`
+  // filter so old callers cannot silently lose secondary-topic matches.
+  const selectedTopics = filters.topics?.length
+    ? filters.topics
+    : filters.topic
+      ? [filters.topic]
+      : undefined;
   const filtered = questions.filter((question) => {
-    if (filters.topic && question.primaryTopic !== filters.topic) return false;
     if (filters.year && question.year !== Number(filters.year)) return false;
     if (filters.paper && question.paper !== Number(filters.paper)) return false;
-    if (!includesAny(filters.topics, [question.primaryTopic, ...question.secondaryTopics])) return false;
-    if (!includesAny(filters.subtopics, question.subtopics)) return false;
+    if (!includesAny(selectedTopics, filterableTopics(question))) return false;
+    // `skills` is the canonical filterable classification vocabulary. Keep
+    // accepting legacy `subtopics`, but never let a correctly classified
+    // secondary skill disappear because an older bank omitted it there.
+    if (!includesAny(filters.subtopics, filterableSubtopics(question))) return false;
     if (!includesAny(filters.years, [String(question.year)])) return false;
     if (!includesAny(filters.papers, [String(question.paper)])) return false;
     if (!includesAny(filters.sessions, [question.session])) return false;

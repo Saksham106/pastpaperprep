@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { filterQuestions } from "@/lib/question-filter";
 import { loadBankQuestions } from "@/lib/questions";
+import { getControlledSubtopics, getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy";
 
 describe("question normalization", () => {
   it("loads every source bank without dropping questions", () => {
@@ -48,11 +49,36 @@ describe("question normalization", () => {
     );
   });
 
-  it("keeps detailed IGCSE audit labels out of the student-facing subtopic filter", () => {
+  it("exposes the complete refined IGCSE vocabulary to the student-facing subtopic filter", () => {
     const questions = loadBankQuestions("igcse");
     const subtopics = new Set(questions.flatMap((question) => question.subtopics));
 
-    expect(subtopics.size).toBe(31);
+    expect(subtopics.size).toBe(51);
+  });
+
+  it("promotes reconciled detailed IGCSE labels into filterable skills", () => {
+    const question = loadBankQuestions("igcse").find(
+      (candidate) => candidate.id === "0580-2026-march-22-q18",
+    );
+
+    expect(question?.subtopics).toEqual([
+      "Algebraic manipulation",
+      "Area and perimeter",
+      "Equations and inequalities",
+      "Quadratic equations and functions",
+      "Volume and surface area",
+    ]);
+    expect(question?.skills).toEqual([
+      "Algebraic manipulation",
+      "Area and perimeter",
+      "Equations and inequalities",
+      "Quadratic equations and functions",
+      "Volume and surface area",
+    ]);
+    expect(
+      filterQuestions(loadBankQuestions("igcse"), { subtopics: ["Quadratic equations and functions"] })
+        .some((candidate) => candidate.id === question?.id),
+    ).toBe(true);
   });
 });
 
@@ -90,5 +116,63 @@ describe("question filtering", () => {
     expect(results.every((question) => question.calculator === false)).toBe(true);
     expect(results.every((question) => question.subtopics.includes("Fractions, decimals and percentages"))).toBe(true);
     expect(results[0].marks).toBeGreaterThanOrEqual(results.at(-1)?.marks ?? 0);
+  });
+
+  it("finds questions through material secondary topics and skills", () => {
+    const questions = loadBankQuestions("igcse");
+    const crossTopic = questions.find((question) => question.secondaryTopics.length > 0);
+    expect(crossTopic).toBeDefined();
+
+    const secondaryTopic = crossTopic!.secondaryTopics[0];
+    const topicResults = filterQuestions(questions, { topics: [secondaryTopic] });
+    expect(topicResults.some((question) => question.id === crossTopic!.id)).toBe(true);
+
+    const skill =
+      crossTopic!.skills.find((candidate) => !crossTopic!.subtopics.includes(candidate))
+      ?? crossTopic!.skills[0];
+    expect(skill).toBeDefined();
+    const skillResults = filterQuestions(questions, { subtopics: [skill!] });
+    expect(skillResults.some((question) => question.id === crossTopic!.id)).toBe(true);
+  });
+
+  it("treats the singular topic filter as the plural secondary-aware filter", () => {
+    const questions = loadBankQuestions("igcse");
+    const crossTopic = questions.find((question) => question.secondaryTopics.length > 0)!;
+    const secondaryTopic = crossTopic.secondaryTopics[0];
+
+    const singular = filterQuestions(questions, { topic: secondaryTopic });
+    const plural = filterQuestions(questions, { topics: [secondaryTopic] });
+
+    expect(singular.map((question) => question.id)).toEqual(plural.map((question) => question.id));
+    expect(singular.some((question) => question.id === crossTopic.id)).toBe(true);
+  });
+
+  it("uses stable 0580 subtopic ownership instead of observed topic leakage", () => {
+    const questions = loadBankQuestions("igcse");
+    const groups = getSubtopicGroups(questions, ["Mensuration"], []);
+
+    expect(groups.relevant).toEqual([
+      "Area and perimeter",
+      "Circular measure: arcs, sectors and segments",
+      "Compound shapes",
+      "Density, mass and volume",
+      "Volume and surface area",
+    ]);
+    expect(groups.relevant).not.toContain("Algebraic manipulation");
+    expect(getControlledSubtopics("igcse", "Mensuration")).toEqual([
+      "Area and perimeter",
+      "Volume and surface area",
+      "Circular measure: arcs, sectors and segments",
+      "Compound shapes",
+      "Density, mass and volume",
+    ]);
+  });
+
+  it("offers topics that appear only as secondary classifications", () => {
+    const questions = loadBankQuestions("igcse");
+    const synthetic = questions.map((question) => ({ ...question, primaryTopic: "Number" }));
+    synthetic[0] = { ...synthetic[0], secondaryTopics: ["Statistics"] };
+
+    expect(getTopicOptions(synthetic)).toContain("Statistics");
   });
 });

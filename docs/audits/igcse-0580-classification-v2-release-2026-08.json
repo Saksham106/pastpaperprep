@@ -1,0 +1,57 @@
+{
+  "releaseVersion": "igcse-0580-classification-v2-release-2026.08.1",
+  "bank": "igcse",
+  "questionCount": 2684,
+  "source": {
+    "repository": "Saksham106/igcse-0580-topic-practice",
+    "commit": "6f40d40f912bde306e9ab5019dd8b84dea028f91",
+    "questionsSha256": "0107282f8a73a0d1f8340a2e6f5e2d9b87a9874ba0e4e56f25c39021f45b64eb",
+    "nonClassificationSha256": "4d18e2595f47e41326f62c5efa29fbb5c26e2108fb972233f58dd7999e430cfd"
+  },
+  "blindReview": {
+    "reviewed": 2684,
+    "expected": 2684,
+    "complete": true
+  },
+  "adjudication": {
+    "reviewed": 1738,
+    "expected": 1738,
+    "complete": true
+  },
+  "productionReview": {
+    "reviewed": 1629,
+    "expected": 1629,
+    "complete": true,
+    "decisions": {
+      "accept_recommended": 1178,
+      "modify": 443,
+      "keep_current": 8
+    }
+  },
+  "taxonomy": {
+    "version": "igcse-0580-taxonomy-v3.0-proposal",
+    "topicCount": 9,
+    "filterableSubtopicCount": 51,
+    "contextTagCount": 11,
+    "unresolvedGaps": 0,
+    "sha256": "b0df4935df833cc2b95c7a4d5a6529d47d56f666d567b19273b2997110d76f09"
+  },
+  "overlay": {
+    "version": "classification-v2-0580-overlay-1.0",
+    "reviewedDecisions": 1629,
+    "changedQuestions": 1621,
+    "unchangedQuestions": 1063,
+    "questionsSha256": "f0bf7ca0cb2879ce17a172e24b48704b3f5820134484fc79a56699ed6bb14936",
+    "nonClassificationSha256": "4d18e2595f47e41326f62c5efa29fbb5c26e2108fb972233f58dd7999e430cfd",
+    "deterministicRebuilds": 2
+  },
+  "releaseGate": {
+    "status": "PASS",
+    "exactSourceOrder": true,
+    "nonClassificationPreserved": true,
+    "taxonomyOwnershipValid": true,
+    "searchAndFilterDiscoverabilityValid": true,
+    "lockedDeliveryPreservesLabels": true,
+    "unresolvedTaxonomyGaps": 0
+  }
+}
