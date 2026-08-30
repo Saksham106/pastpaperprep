@@ -309,11 +309,17 @@ export function getSubtopicGroups(
   let relevant: string[];
   if (!selectedTopics.length) {
     relevant = all;
-  } else if (questions[0]?.bankSlug === "igcse" || questions[0]?.bankSlug === "igcse-additional") {
+  } else if (questions[0]?.bankSlug === "igcse") {
     relevant = uniqueSorted(
       questions
         .filter((question) => selectedTopicSet.has(question.primaryTopic))
         .flatMap((question) => question.subtopics),
+    );
+  } else if (questions[0]?.bankSlug === "igcse-additional") {
+    relevant = uniqueSorted(
+      selectedTopics
+        .flatMap((topic) => IGCSE_ADDITIONAL_SUBTOPICS[topic] ?? [])
+        .filter((subtopic) => available.has(subtopic)),
     );
   } else if (questions[0]?.bankSlug === "ib-ai-hl") {
     const taxonomy = IB_AI_HL_SUBTOPICS;
