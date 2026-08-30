@@ -13,6 +13,8 @@ const IB_LINKS = [
   ["/banks/ib-ai-sl", "IB Mathematics AI SL"],
 ] as const;
 
+const RESOURCE_LINKS = [["/articles", "Revision guides"]] as const;
+
 function FooterGroup({ title, links }: { title: string; links: readonly (readonly [string, string])[] }) {
   return (
     <section className="footer-group">
@@ -32,6 +34,7 @@ export function SiteFooter() {
       <nav className="footer-links" aria-label="Footer navigation">
         <FooterGroup title="Cambridge" links={CAMBRIDGE_LINKS} />
         <FooterGroup title="IB Mathematics" links={IB_LINKS} />
+        <FooterGroup title="Resources" links={RESOURCE_LINKS} />
       </nav>
       <div className="footer-base">
         <small>Independent practice platform. Exam-board names identify the relevant qualifications.</small>

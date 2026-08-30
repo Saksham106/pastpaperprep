@@ -4,8 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
 
-function current(pathname: string, destination: "banks" | "pricing" | "account" | "dashboard" | "login", banksHashActive = false) {
+function current(pathname: string, destination: "banks" | "articles" | "pricing" | "account" | "dashboard" | "login", banksHashActive = false) {
   if (destination === "banks") return pathname.startsWith("/banks/") || (pathname === "/" && banksHashActive);
+  if (destination === "articles") return pathname === "/articles" || pathname.startsWith("/articles/");
   if (destination === "pricing") return pathname === "/pricing";
   if (destination === "account") return pathname === "/account" || pathname.startsWith("/account/");
   if (destination === "login") return pathname === "/login";
@@ -38,6 +39,7 @@ export function HeaderNavigation({ authenticated, workspaceIcon }: { authenticat
   return (
     <nav aria-label="Main navigation">
       <Link className={current(pathname, "banks", banksHashActive) ? "nav-active" : undefined} aria-current={current(pathname, "banks", banksHashActive) ? "page" : undefined} href={banksHref} onClick={openLandingBanks}>Question banks</Link>
+      <Link className={current(pathname, "articles") ? "nav-active" : undefined} aria-current={current(pathname, "articles") ? "page" : undefined} href="/articles">Articles</Link>
       <Link className={`nav-pricing${current(pathname, "pricing") ? " nav-active" : ""}`} aria-current={current(pathname, "pricing") ? "page" : undefined} href="/pricing">Pricing</Link>
       <Link className={`${authenticated ? "" : "nav-login "}${current(pathname, authenticated ? "account" : "login") ? "nav-active" : ""}`.trim() || undefined} aria-current={current(pathname, authenticated ? "account" : "login") ? "page" : undefined} href={authenticated ? "/account" : "/login?next=/pricing"}>{authenticated ? "My account" : "Log in"}</Link>
       <Link

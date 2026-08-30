@@ -1,8 +1,10 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { SignInMethods } from "@/components/SignInMethods";
 import { safeNextPath } from "@/lib/auth";
+import { PRIVATE_ROBOTS } from "@/lib/seo";
 
-export const metadata = { title: "Sign in" };
+export const metadata: Metadata = { title: "Sign in", robots: PRIVATE_ROBOTS };
 
 export default async function LoginPage({
   searchParams,
