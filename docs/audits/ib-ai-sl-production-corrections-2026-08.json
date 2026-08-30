@@ -1,0 +1,446 @@
+{
+  "artifactVersion": "ib-ai-sl-app-production-corrections-2026.08.1",
+  "schemaVersion": "ib-ai-sl-app-production-corrections-1.0",
+  "bank": "ib-ai-sl",
+  "course": "IB Mathematics: applications and interpretation SL",
+  "correctionCount": 9,
+  "correctionIds": [
+    "2021-may-tz2-p2-q5",
+    "2023-november-tz1-p1-q8",
+    "2023-november-tz1-p2-q1",
+    "2023-november-tz2-p2-q1",
+    "2024-may-tz2-p2-q1",
+    "2024-november-tz1-p2-q2",
+    "2024-november-tz2-p2-q1",
+    "2025-may-tz3-p2-q3",
+    "2025-november-tz3-p2-q3"
+  ],
+  "fields": [
+    "primaryTopic",
+    "secondaryTopics",
+    "skills",
+    "subtopics"
+  ],
+  "sourceBuiltBank": {
+    "worktree": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-maths-ai-sl-topic-practice-audit-fix-ai-sl",
+    "commit": "ea55087e17be219630a9b547ccb728bbba29fb84",
+    "path": "site/data/questions.json",
+    "sha256": "49c8f2df6df689311a81eda29146f4863af706bd4afdd882096c57ab230147d9"
+  },
+  "appBaseline": {
+    "worktree": "/Users/sakshamgoel/Documents/ProjectsInternships/pastpaperprep/.worktrees/ai-sl-production-aware-corrections",
+    "commit": "6a42424f970f092a2412c68c03cedcfcb22ffdf",
+    "path": "src/data/raw/ib-ai-sl.json",
+    "sha256": "e8c2af1a7b081fe503dfb15c38b77dd3c609b515ff6bf64a47ae54052a583f4b"
+  },
+  "appResult": {
+    "path": "src/data/raw/ib-ai-sl.json",
+    "sha256": "dfc26969378870c100327995d655b751b9adf42de0b1e59e1c20ae23c79e5796"
+  },
+  "provenance": {
+    "auditRoot": "/tmp/ppp-full-audits/ai-sl",
+    "finalCorrectionsSha256": "56e73f6adc31e7c31633be6f42b57e674af0eea47d665ff7920a82528e75a56c",
+    "productionReviewSha256": "8581f85976fbb005d20d63428359fbc601aa24944f636fb9597b06c200e3f278",
+    "taxonomyDecisionsSha256": "aefbe1c51b64d7c19fd6887a039b81396603c8ea544b62d17ca976806ca726f3",
+    "sourceOverlaySha256": "e0d092ea5bf12e7ad5a5636a49db48c87999eb76ca4cc773b7e443b8701dc4d6",
+    "taxonomySha256": "9dbb016678cb3d02eb9616ae89dc5246ec7d485f9923a388f50a6feae61fc39d",
+    "taxonomyVersion": "ai-sl-taxonomy-1.0",
+    "nonClassificationHashSerialization": "canonical JSON: UTF-8, ensure_ascii=false, sort_keys=true, indent=2, trailing newline"
+  },
+  "nonClassificationFieldsPreserved": true,
+  "lockedDeliveryFields": [
+    "accessibleText",
+    "independentSolution",
+    "markschemeTranscript",
+    "officialMarkscheme",
+    "questionImages",
+    "solution"
+  ],
+  "corrections": {
+    "2021-may-tz2-p2-q5": {
+      "currentTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Applications of differentiation",
+          "Volume and surface area of 3D shapes"
+        ]
+      },
+      "finalTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Applications of differentiation",
+          "Volume and surface area of 3D shapes"
+        ]
+      },
+      "changedFields": [],
+      "beforeRecordSha256": "c7fce222aa69ecb601b282498deeb2e91766d7154ee049ecff73cdab33094681",
+      "finalNonClassificationSha256": "3742b7f30f94c16a8fc2ecfd02be0e9af794836311b4e92142a19c8bc69b9d6c",
+      "deliverySha256": "1daed60ab05e836be1d7f10df519cc3250a5b7db0a273f2ef213b66e94889507",
+      "questionTextSha256": "55df03b26a270cd79e1f8b287f2374e059e1aa3d03d8b6c988356bc6ffcd060d",
+      "markschemeTextSha256": "58adf0f7de479a118825aa517371faf85186f55fa6c9639cb61d60c6fb1a248b",
+      "taxonomyOwnership": {
+        "finalPrimaryTopicOwner": "topic",
+        "finalSecondaryTopicOwners": {
+          "Geometry and trigonometry": "topic"
+        },
+        "finalSkillOwners": {
+          "Applications of differentiation": "Calculus",
+          "Volume and surface area of 3D shapes": "Geometry and trigonometry"
+        }
+      }
+    },
+    "2023-november-tz1-p1-q8": {
+      "currentTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Applications of differentiation",
+          "Introduction to differentiation",
+          "Coordinate geometry"
+        ]
+      },
+      "finalTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Applications of differentiation",
+          "Coordinate geometry",
+          "Introduction to differentiation"
+        ]
+      },
+      "changedFields": [
+        "skills"
+      ],
+      "beforeRecordSha256": "c638f613fc9f0a643056b2bb7e2a92a1618c5bd16ad1124b1db2cfcd1004952d",
+      "finalNonClassificationSha256": "d844c7669f83008792a965675b066028fe8f2a638ccf03c93ee8f39388297134",
+      "deliverySha256": "4b1e5487a5d039c3f53f857e44e097770ebd5ae3e1e5817b8ca6f211f489cefd",
+      "questionTextSha256": "2597b1bf253192f3eaf4dcf8abe9c4c50546be8a6cc70e67f588e95b6b46afd1",
+      "markschemeTextSha256": "977c2136b6de233f4abf55c08ff294a0b58c9ba2a292c9662987fdc925797f7f",
+      "taxonomyOwnership": {
+        "finalPrimaryTopicOwner": "topic",
+        "finalSecondaryTopicOwners": {
+          "Geometry and trigonometry": "topic"
+        },
+        "finalSkillOwners": {
+          "Applications of differentiation": "Calculus",
+          "Coordinate geometry": "Geometry and trigonometry",
+          "Introduction to differentiation": "Calculus"
+        }
+      }
+    },
+    "2023-november-tz1-p2-q1": {
+      "currentTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Applications of integration",
+          "Trapezoidal rule"
+        ]
+      },
+      "finalTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Applications of integration",
+          "Rounding, estimation and percentage error",
+          "Trapezoidal rule"
+        ]
+      },
+      "changedFields": [
+        "secondaryTopics",
+        "skills"
+      ],
+      "beforeRecordSha256": "676332797522a8bc81ae7015709df98f64890a74015300684b7677027c3e7afc",
+      "finalNonClassificationSha256": "db2690324ced2e5e4df8cba634265ae2763c371b270cea5320f0c322454647b0",
+      "deliverySha256": "2d8768760fd0d4383a9ab026b9556fa5cdb7a51a74a5fa86082121b702bb690d",
+      "questionTextSha256": "c317ecc6894beb5fd832a7b80d9ce5377f5f666bbecb43e70ac5bda2cd7e3620",
+      "markschemeTextSha256": "52c741de182b840d581866bdb5fc2ecd12df96683ef5704a758d172a100eb617",
+      "taxonomyOwnership": {
+        "finalPrimaryTopicOwner": "topic",
+        "finalSecondaryTopicOwners": {
+          "Number and algebra": "topic"
+        },
+        "finalSkillOwners": {
+          "Applications of integration": "Calculus",
+          "Rounding, estimation and percentage error": "Number and algebra",
+          "Trapezoidal rule": "Calculus"
+        }
+      }
+    },
+    "2023-november-tz2-p2-q1": {
+      "currentTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Applications of integration",
+          "Trapezoidal rule",
+          "Rounding, estimation and percentage error"
+        ]
+      },
+      "finalTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Applications of integration",
+          "Rounding, estimation and percentage error",
+          "Trapezoidal rule"
+        ]
+      },
+      "changedFields": [
+        "skills"
+      ],
+      "beforeRecordSha256": "b97d60c2916b3ec105f4199afa46581e7bd512b54f0bdb65951c3926cfa06e93",
+      "finalNonClassificationSha256": "abdcb18382c92add85981e7e8d0f8090cd275eb7e4d9723a24e6daa793063d6f",
+      "deliverySha256": "4f3cf3eabab62f2e3672ef9644b69c8d0635a98831a108445eed47808cb3ec87",
+      "questionTextSha256": "bd7fbe6269346c4d5041ed8a130e3584bda42a911ebc9cdff6f9540afde3627f",
+      "markschemeTextSha256": "59d73a91dfc6ef6a3aa5a07ecaab7bba5843ec816e0b21af9530d4337623db43",
+      "taxonomyOwnership": {
+        "finalPrimaryTopicOwner": "topic",
+        "finalSecondaryTopicOwners": {
+          "Number and algebra": "topic"
+        },
+        "finalSkillOwners": {
+          "Applications of integration": "Calculus",
+          "Rounding, estimation and percentage error": "Number and algebra",
+          "Trapezoidal rule": "Calculus"
+        }
+      }
+    },
+    "2024-may-tz2-p2-q1": {
+      "currentTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Conditional probability",
+          "Probability and types of events"
+        ]
+      },
+      "finalTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [
+          "Functions"
+        ],
+        "skills": [
+          "Conditional probability",
+          "Modelling with exponential functions",
+          "Probability and types of events"
+        ]
+      },
+      "changedFields": [
+        "secondaryTopics",
+        "skills"
+      ],
+      "beforeRecordSha256": "f4596a733d71022952a3ec4b82ea409c6f811dc82283994c365230b5c714a845",
+      "finalNonClassificationSha256": "9a8f410c6c9724d6d181875573af767fa1a3500717457dcb5e5b3ccf1b2b5e85",
+      "deliverySha256": "61fb4e31eb61ff51dba7d29dfb1216a487521eeb17c7178b97ad18249198aa74",
+      "questionTextSha256": "39fa102647817f04f430337c113545e7dc951eb9d1389eb0ccfabb2921a6ffef",
+      "markschemeTextSha256": "b2f349b51085fe1235620b8791720142c8c6cad15ba720271aa1cf9b41386f04",
+      "taxonomyOwnership": {
+        "finalPrimaryTopicOwner": "topic",
+        "finalSecondaryTopicOwners": {
+          "Functions": "topic"
+        },
+        "finalSkillOwners": {
+          "Conditional probability": "Statistics and probability",
+          "Modelling with exponential functions": "Functions",
+          "Probability and types of events": "Statistics and probability"
+        }
+      }
+    },
+    "2024-november-tz1-p2-q2": {
+      "currentTuple": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Sinusoidal models",
+          "Arcs and sectors"
+        ]
+      },
+      "finalTuple": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Arcs and sectors",
+          "Sinusoidal models"
+        ]
+      },
+      "changedFields": [
+        "skills"
+      ],
+      "beforeRecordSha256": "e50b99d6abf8ac80b41310bbb665829e7f2e5004602f0878f8ae99649dca6781",
+      "finalNonClassificationSha256": "b8b5880faf180af229b8e9a025f5b00ee8cae04a5fdf1905c4cf18a43ce71c0f",
+      "deliverySha256": "b1cbddaeceafd1b5b457e62607dca8d257f415c010bbb53b736fd7b08e6b3c81",
+      "questionTextSha256": "3e7abcf6b4c3740893a4c5295992308c238a88366491a1bc9ccc434bb0188441",
+      "markschemeTextSha256": "8112bcb202732a147de47bf857b66735170025d5a746e4fc2a9cabaa0d1af3dc",
+      "taxonomyOwnership": {
+        "finalPrimaryTopicOwner": "topic",
+        "finalSecondaryTopicOwners": {
+          "Geometry and trigonometry": "topic"
+        },
+        "finalSkillOwners": {
+          "Arcs and sectors": "Geometry and trigonometry",
+          "Sinusoidal models": "Functions"
+        }
+      }
+    },
+    "2024-november-tz2-p2-q1": {
+      "currentTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Coordinate geometry",
+          "Voronoi diagrams"
+        ]
+      },
+      "finalTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Statistics and probability"
+        ],
+        "skills": [
+          "Coordinate geometry",
+          "Sampling and data collection",
+          "The t-test",
+          "Voronoi diagrams"
+        ]
+      },
+      "changedFields": [
+        "secondaryTopics",
+        "skills"
+      ],
+      "beforeRecordSha256": "779c8af38e21337524559cee902715dbbb4e79e68c7a8ed8ed7b530f726d17f6",
+      "finalNonClassificationSha256": "f6f73bd70ecc0599452ed4b4159d43feac78c7e17270475c5124d3132d99fc78",
+      "deliverySha256": "c3ead3c910114459d3e3146a5282ffe520000ba9b0f66ccb15d8c99b35431a89",
+      "questionTextSha256": "edeac88c7b7feea384f56a9be2c290831c6bed88083e20c64f793937055d4237",
+      "markschemeTextSha256": "f257b88463b22f7978d98ae1eb8305d936c1455b37723c9dc2bc4221446e508f",
+      "taxonomyOwnership": {
+        "finalPrimaryTopicOwner": "topic",
+        "finalSecondaryTopicOwners": {
+          "Statistics and probability": "topic"
+        },
+        "finalSkillOwners": {
+          "Coordinate geometry": "Geometry and trigonometry",
+          "Sampling and data collection": "Statistics and probability",
+          "The t-test": "Statistics and probability",
+          "Voronoi diagrams": "Geometry and trigonometry"
+        }
+      }
+    },
+    "2025-may-tz3-p2-q3": {
+      "currentTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Volume and surface area of 3D shapes",
+          "Applications of differentiation",
+          "Modelling with differentiation"
+        ]
+      },
+      "finalTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Applications of differentiation",
+          "Modelling with differentiation",
+          "Volume and surface area of 3D shapes"
+        ]
+      },
+      "changedFields": [
+        "skills"
+      ],
+      "beforeRecordSha256": "1f7e6a8491625b0e5e0f1ff60e3b31eb14bbb6165817c8168de262d79f1bbe92",
+      "finalNonClassificationSha256": "3b61ad751ab99f253872e1d5c576dcbf6016e904181ec46e6019a1374c116622",
+      "deliverySha256": "2fdc5a2dc4883980fcb473c82a035aea309fd3a475c074aa5ac539ca3b894ec1",
+      "questionTextSha256": "e46ebdd89a950e402f35674866e0c9ec5d289d26065a2216798e36b9edcf04f6",
+      "markschemeTextSha256": "d81f822c79cd56d3bab7a72c38b02cab7832bb3194ccb652966512ddba789ea5",
+      "taxonomyOwnership": {
+        "finalPrimaryTopicOwner": "topic",
+        "finalSecondaryTopicOwners": {
+          "Calculus": "topic"
+        },
+        "finalSkillOwners": {
+          "Applications of differentiation": "Calculus",
+          "Modelling with differentiation": "Calculus",
+          "Volume and surface area of 3D shapes": "Geometry and trigonometry"
+        }
+      }
+    },
+    "2025-november-tz3-p2-q3": {
+      "currentTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Non right-angled trigonometry",
+          "Right-angled trigonometry",
+          "Financial mathematics"
+        ]
+      },
+      "finalTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Financial mathematics",
+          "Non right-angled trigonometry",
+          "Right-angled trigonometry"
+        ]
+      },
+      "changedFields": [
+        "skills"
+      ],
+      "beforeRecordSha256": "4b929d76099bd5ac6befbd1cdf42e4fbc29a1cd9dc5430f9eaf6f409a9865e72",
+      "finalNonClassificationSha256": "3182fb59e0b7bcf64e1a4fd9d2a32df9f696ca2b07b0ff2e24c6642ff913275b",
+      "deliverySha256": "1685eec9061c92adb800fc06614974cc78c1f3227c0d7befc637aff6847c2007",
+      "questionTextSha256": "a16404b429b9ca77f2d2e3c4e3c1da4d81e84e1aec021d30fa7f6bc3252aed3b",
+      "markschemeTextSha256": "6c71bf362a5f58de77a6ec1d9349fe6ad89220394cfa7bda635d523de75d82af",
+      "taxonomyOwnership": {
+        "finalPrimaryTopicOwner": "topic",
+        "finalSecondaryTopicOwners": {
+          "Number and algebra": "topic"
+        },
+        "finalSkillOwners": {
+          "Financial mathematics": "Number and algebra",
+          "Non right-angled trigonometry": "Geometry and trigonometry",
+          "Right-angled trigonometry": "Geometry and trigonometry"
+        }
+      }
+    }
+  },
+  "netChangedIds": [
+    "2023-november-tz1-p1-q8",
+    "2023-november-tz1-p2-q1",
+    "2023-november-tz2-p2-q1",
+    "2024-may-tz2-p2-q1",
+    "2024-november-tz1-p2-q2",
+    "2024-november-tz2-p2-q1",
+    "2025-may-tz3-p2-q3",
+    "2025-november-tz3-p2-q3"
+  ]
+}

@@ -4841,14 +4841,14 @@
         "Calculus"
       ],
       "skills": [
-        "Volume and surface area of 3D shapes",
         "Applications of differentiation",
-        "Modelling with differentiation"
+        "Modelling with differentiation",
+        "Volume and surface area of 3D shapes"
       ],
       "subtopics": [
-        "Volume and surface area of 3D shapes",
         "Applications of differentiation",
-        "Modelling with differentiation"
+        "Modelling with differentiation",
+        "Volume and surface area of 3D shapes"
       ],
       "classificationEvidence": {
         "method": "fresh paired-question and official-markscheme review",
@@ -7934,14 +7934,14 @@
         "Number and algebra"
       ],
       "skills": [
+        "Financial mathematics",
         "Non right-angled trigonometry",
-        "Right-angled trigonometry",
-        "Financial mathematics"
+        "Right-angled trigonometry"
       ],
       "subtopics": [
+        "Financial mathematics",
         "Non right-angled trigonometry",
-        "Right-angled trigonometry",
-        "Financial mathematics"
+        "Right-angled trigonometry"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -10696,13 +10696,17 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Statistics and probability",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Functions"
+      ],
       "skills": [
         "Conditional probability",
+        "Modelling with exponential functions",
         "Probability and types of events"
       ],
       "subtopics": [
         "Conditional probability",
+        "Modelling with exponential functions",
         "Probability and types of events"
       ],
       "classificationEvidence": {
@@ -13360,12 +13364,12 @@
         "Geometry and trigonometry"
       ],
       "skills": [
-        "Sinusoidal models",
-        "Arcs and sectors"
+        "Arcs and sectors",
+        "Sinusoidal models"
       ],
       "subtopics": [
-        "Sinusoidal models",
-        "Arcs and sectors"
+        "Arcs and sectors",
+        "Sinusoidal models"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -13783,13 +13787,19 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Geometry and trigonometry",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Statistics and probability"
+      ],
       "skills": [
         "Coordinate geometry",
+        "Sampling and data collection",
+        "The t-test",
         "Voronoi diagrams"
       ],
       "subtopics": [
         "Coordinate geometry",
+        "Sampling and data collection",
+        "The t-test",
         "Voronoi diagrams"
       ],
       "classificationEvidence": {
@@ -17998,13 +18008,13 @@
       ],
       "skills": [
         "Applications of differentiation",
-        "Introduction to differentiation",
-        "Coordinate geometry"
+        "Coordinate geometry",
+        "Introduction to differentiation"
       ],
       "subtopics": [
         "Applications of differentiation",
-        "Introduction to differentiation",
-        "Coordinate geometry"
+        "Coordinate geometry",
+        "Introduction to differentiation"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -19371,13 +19381,17 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Calculus",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
       "skills": [
         "Applications of integration",
+        "Rounding, estimation and percentage error",
         "Trapezoidal rule"
       ],
       "subtopics": [
         "Applications of integration",
+        "Rounding, estimation and percentage error",
         "Trapezoidal rule"
       ],
       "classificationEvidence": {
@@ -19938,13 +19952,13 @@
       ],
       "skills": [
         "Applications of integration",
-        "Trapezoidal rule",
-        "Rounding, estimation and percentage error"
+        "Rounding, estimation and percentage error",
+        "Trapezoidal rule"
       ],
       "subtopics": [
         "Applications of integration",
-        "Trapezoidal rule",
-        "Rounding, estimation and percentage error"
+        "Rounding, estimation and percentage error",
+        "Trapezoidal rule"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
