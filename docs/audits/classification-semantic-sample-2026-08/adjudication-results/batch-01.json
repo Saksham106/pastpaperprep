@@ -1,0 +1,806 @@
+{
+  "auditVersion": "pastpaperprep-semantic-sample-2026.08.1",
+  "batch": 1,
+  "inputSha256": "03645d57fedfedcd50d9b723f383fe613eadc1c9d8c37cc368df5c42da44de77",
+  "count": 32,
+  "judgments": [
+    {
+      "bank": "igcse",
+      "id": "0580-2020-march-42-q5",
+      "verdict": "blind_correct",
+      "primaryTopic": "Algebra and graphs",
+      "secondaryTopics": [
+        "Number"
+      ],
+      "skills": [
+        "Algebraic manipulation",
+        "Indices and surds"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The markscheme awards a common denominator and correct numerator for the rational expression, exponent manipulation for k, expansion, and rearrangement to make x the subject."
+      ],
+      "rationale": "Algebraic manipulation is the dominant mark-bearing method; the exponent equation is a secondary Number application.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-march-42-q5/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-march-42-q5/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2025-may-tz1-p1-q2",
+      "verdict": "blind_correct",
+      "primaryTopic": "Functions",
+      "secondaryTopics": [],
+      "skills": [
+        "Modelling with quadratic and cubic functions",
+        "Properties of functions and graphs"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The markscheme uses the quadratic axis of symmetry, substitutes a known point to find b, sets h(d)=0 for re-entry, and interprets negative height."
+      ],
+      "rationale": "Quadratic modelling and graph properties, especially symmetry and roots, drive the awarded work.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-may-tz1-p1-q2/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-may-tz1-p1-q2/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-may-tz1-p1-q2/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-sl",
+      "id": "2021-may-p2-tz2-q9",
+      "verdict": "blind_correct",
+      "primaryTopic": "Statistics and probability",
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "skills": [
+        "Probability distributions",
+        "Sequences and series"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The markscheme sums probabilities, computes expected value and fairness, models the grand prize as a geometric sequence, and finds the first profitable week."
+      ],
+      "rationale": "Expected value/discrete probability is primary; the doubling prize requires geometric-sequence reasoning.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2021-may-p2-tz2-q9/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2021-may-p2-tz2-q9/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2021-may-p2-tz2-q9/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2018-november-43-q1",
+      "verdict": "blind_correct",
+      "primaryTopic": "Transformations and vectors",
+      "secondaryTopics": [
+        "Coordinate geometry"
+      ],
+      "skills": [
+        "Transformations",
+        "Vectors",
+        "Coordinates and geometry",
+        "Straight-line graphs"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The markscheme gives reflection, translation, rotation and enlargement images, then vector, length, midpoint, line-equation and y-intercept results."
+      ],
+      "rationale": "The question is led by transformations and vectors, with coordinate geometry materially used for the second section.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2018-november-43-q1/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2018-november-43-q1/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2017-may-tz1-p1-q1",
+      "verdict": "blind_correct",
+      "primaryTopic": "Number and algebra",
+      "secondaryTopics": [],
+      "skills": [
+        "Exponents and logarithms",
+        "Equations and inequalities"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset asks to solve log₂x−log₂5=2+log₂3.",
+        "Official markscheme awards collecting log terms, removing logs, and x=60."
+      ],
+      "rationale": "Logarithm laws followed by algebraic solving are the mark-bearing route.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p1-q1/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p1-q1/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2023-june-23-q1",
+      "verdict": "blind_correct",
+      "primaryTopic": "Transformations and vectors",
+      "secondaryTopics": [],
+      "skills": [
+        "Transformations"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset shows a 3×3 shaded-cell pattern and asks for its rotational-symmetry order and all lines of symmetry.",
+        "Official markscheme gives rotational order 2 and awards the two diagonal symmetry lines."
+      ],
+      "rationale": "Both requested methods are transformation-symmetry recognition.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2023-june-23-q1/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2023-june-23-q1/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2019-november-21-q14",
+      "verdict": "blind_correct",
+      "primaryTopic": "Number",
+      "secondaryTopics": [],
+      "skills": [
+        "Ratio, proportion and rates",
+        "Area and perimeter"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset gives map scale 1:10,000,000 and map area 4.9 cm², asking for actual area in km².",
+        "Official markscheme awards the squared linear scale, conversion 1 cm=100 km, and 49,000 km²."
+      ],
+      "rationale": "Area scale conversion is primary, supported by ratio and unit conversion.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2019-november-21-q14/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2019-november-21-q14/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2016-june-21-q8",
+      "verdict": "taxonomy_gap",
+      "primaryTopic": "Combinatorics and series",
+      "secondaryTopics": [],
+      "skills": [
+        "Series"
+      ],
+      "confidence": "medium",
+      "taxonomyGap": "Binomial expansion is explicitly mark-bearing, but the supplied igcse-additional taxonomy has no controlled skill named Binomial expansion; Series is only the closest controlled fallback.",
+      "evidence": [
+        "The question explicitly requires the Binomial Theorem, the independent x^0 term, and a coefficient-of-x^3 equation for n.",
+        "The official scheme awards binomial expansion/coefficient selection, 24/25 for the independent term, and n=6."
+      ],
+      "rationale": "Binomial expansion is the primary assessed method and fits the broad Combinatorics and series parent better than a generic Algebra label, but its exact skill is absent; the controlled Series fallback is retained and the gap is explicit.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2016-june-21-q8/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2016-june-21-q8/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2020-november-21-q9",
+      "verdict": "blind_correct",
+      "primaryTopic": "Number",
+      "secondaryTopics": [
+        "Transformations and vectors"
+      ],
+      "skills": [
+        "Fractions, decimals and percentages",
+        "Vectors"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Part (a) asks for the correct calculation for increasing 40 by 300%; the official answer is 40x4.",
+        "Part (b) asks for the magnitude calculation for vector (2,-3); the official answer is sqrt(2^2+(-3)^2)."
+      ],
+      "rationale": "The two one-mark items materially assess percentage multiplier reasoning and vector magnitude, so Number is primary and Vectors is secondary.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-november-21-q9/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-november-21-q9/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2020-november-23-q6",
+      "verdict": "blind_correct",
+      "primaryTopic": "Geometry",
+      "secondaryTopics": [
+        "Transformations and vectors"
+      ],
+      "skills": [
+        "Angles and polygons",
+        "Transformations"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The diagram gives triangle angles 82 degrees at B and 58 degrees at A, reflected in line BC to form ABDC.",
+        "The original triangle angle at C is 180-82-58=40 degrees; reflection in BC makes the adjacent angle ACD twice this, and the official markscheme gives 80 degrees."
+      ],
+      "rationale": "Reflection supplies the equal-side/kite structure and doubles the original triangle angle at C; polygon angle reasoning and transformation are both materially assessed.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-november-23-q6/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-november-23-q6/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2019-november-41-q1",
+      "verdict": "blind_correct",
+      "primaryTopic": "Geometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Angles and polygons"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The asset contains angle-chasing in a triangle and straight lines, a quadrilateral angle sum, and the interior angle of a regular 72-gon; the markscheme gives 132, 77, and 175 degrees."
+      ],
+      "rationale": "All parts use angle facts and polygon angle sums, so Geometry/Angles and polygons is the single coherent primary classification.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2019-november-41-q1/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2019-november-41-q1/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2017-june-12-q9",
+      "verdict": "blind_correct",
+      "primaryTopic": "Vectors and matrices",
+      "secondaryTopics": [
+        "Algebra"
+      ],
+      "skills": [
+        "Matrices"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme identifies A as 3×2, multiplies A and B to form C, computes X⁻¹=1/13[−7 12;−4 5], and pre-multiplies the line-system vector to obtain (34,12)."
+      ],
+      "rationale": "The credited work is matrix multiplication/inversion and matrix solution of a simultaneous linear system.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-june-12-q9/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-june-12-q9/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2021-may-tz2-p2-q5",
+      "verdict": "modified",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "skills": [
+        "Applications of differentiation",
+        "Volume and surface area of 3D shapes"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The question derives a regular-hexagon base area and prism volume/surface-area relation, then sketches V, differentiates, maximizes, and evaluates the maximum.",
+        "The official scheme awards the hexagon area, surface-area equation, V=300√3x−9x^3/4, graph, derivative, x=8.77, Vmax=3040 cm^3, and packing-waste explanation."
+      ],
+      "rationale": "Calculus optimization is primary, but the independently marked prism volume/surface-area geometry is substantial and is represented by the controlled 3D-volume skill.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2021-may-tz2-p2-q5/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2021-may-tz2-p2-q5/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2021-may-tz2-p2-q5/markscheme-2.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2021-may-tz2-p2-q5/markscheme-3.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2021-november-13-q1",
+      "verdict": "blind_correct",
+      "primaryTopic": "Algebra",
+      "secondaryTopics": [],
+      "skills": [
+        "Equations, inequalities and graphs",
+        "Factors of polynomials"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The factored cubic has x-intercepts -4, -1/2, and 3 and y-intercept 3; the official sketch is a cubic with the corresponding end behavior."
+      ],
+      "rationale": "The question asks for a cubic sketch and intercepts; the markscheme independently confirms cubic shape and all intercepts. Factored-root reading is material to the x-intercepts.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2021-november-13-q1/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2021-november-13-q1/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2025-november-21-q12",
+      "verdict": "blind_correct",
+      "primaryTopic": "Vectors and matrices",
+      "secondaryTopics": [],
+      "skills": [
+        "Vectors in two dimensions",
+        "Simultaneous equations"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The official scheme resolves both bearing velocities into components and equates position vectors at a common time, obtaining t=200 and collision."
+      ],
+      "rationale": "The question image and official markscheme assess vector components, parametric motion, and simultaneous component equations; these are the two material controlled skills.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-november-21-q12/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-november-21-q12/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2019-november-tz0-p1-q7",
+      "verdict": "blind_correct",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "skills": [
+        "Integration",
+        "Quadratics"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The official scheme completes the square 2x-x^2=-(x-1)^2+1 and evaluates the definite integral as arcsin(1/2)-arcsin(-1/2)=pi/3."
+      ],
+      "rationale": "The question and official scheme pages materially award completing-square manipulation and inverse-trigonometric integration.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2019-november-tz0-p1-q7/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2019-november-tz0-p1-q7/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2019-november-tz0-p1-q7/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2020-november-tz0-p3-statistics-and-probability-q4",
+      "verdict": "blind_correct",
+      "primaryTopic": "Statistics and probability",
+      "secondaryTopics": [],
+      "skills": [
+        "Discrete random variables",
+        "Statistical inference",
+        "Probability models"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The discrete distribution is used for moments, unbiased estimators and variances; the zero count is modelled as Y~B(n,p), and the final comparison is estimator efficiency.",
+        "The official scheme awards the discrete-variable moments, estimator properties, binomial zero-count distribution, and the complement calculation 1−0.95^25 for the multiple-testing probability."
+      ],
+      "rationale": "Discrete random variables, probability models, and statistical inference cover the mark-bearing methods. The controlled ib-hl taxonomy has no separate Binomial distribution flat label, but the marked calculation is directly represented by Probability models, so no taxonomy gap is needed.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2020-november-tz0-p3-statistics-and-probability-q4/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2020-november-tz0-p3-statistics-and-probability-q4/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2020-november-tz0-p3-statistics-and-probability-q4/markscheme-2.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2020-november-tz0-p3-statistics-and-probability-q4/markscheme-3.webp"
+      ]
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2025-november-tz0-p2-q3",
+      "verdict": "production_correct",
+      "primaryTopic": "Functions",
+      "secondaryTopics": [
+        "Calculus",
+        "Statistics and probability"
+      ],
+      "skills": [
+        "Modelling with quadratic and cubic functions",
+        "Applications of differentiation",
+        "Correlation and regression"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The bridge model assesses quadratic modelling, axis symmetry, differentiation/steepest gradient and midpoint deflection.",
+        "The data section separately assesses correlation, regression interpretation and model comparison; the official scheme awards both the derivative results and r=0.994/regression comparison."
+      ],
+      "rationale": "Functions is primary; differentiation is a material Calculus component and correlation/regression a material Statistics and probability component. The production tuple captures both.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-november-tz0-p2-q3/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-november-tz0-p2-q3/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-november-tz0-p2-q3/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-november-tz0-p2-q3/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2022-may-tz2-p1-q9",
+      "verdict": "production_correct",
+      "primaryTopic": "Functions",
+      "secondaryTopics": [],
+      "skills": [
+        "Modelling with quadratic and cubic functions",
+        "Properties of functions and graphs"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The question marks a cubic-feature observation, prescribed-point equations, coefficient solving, and the interval where the model is negative.",
+        "The official scheme accepts extrema/roots/inflexion as the cubic indicator, awards a=2,b=−12,c=18, and uses all three roots for total debt time."
+      ],
+      "rationale": "Both cubic modelling and graph/function properties are explicit mark-bearing requirements; the production tuple is complete.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2022-may-tz2-p1-q9/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2022-may-tz2-p1-q9/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2022-may-tz2-p1-q9/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2022-november-12-q9",
+      "verdict": "blind_correct",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Algebra"
+      ],
+      "skills": [
+        "Calculus",
+        "Logarithmic and exponential functions"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The official scheme decomposes the rational integrand into simple fractions, then awards logarithmic antiderivatives and log-law endpoint evaluation."
+      ],
+      "rationale": "Definite integration is dominant; logarithmic integration is independently material.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2022-november-12-q9/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2022-november-12-q9/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2021-may-tz2-p1-q14",
+      "verdict": "blind_correct",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Matrix transformations",
+        "Matrices and determinants"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme applies the affine matrix and translation to a point, solves p=13 and q=6, and uses determinant −1 plus translation invariance to preserve area."
+      ],
+      "rationale": "Matrix transformation and determinant properties are explicitly assessed.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz2-p1-q14/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz2-p1-q14/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2021-may-tz1-p3-q2",
+      "verdict": "production_correct",
+      "primaryTopic": "Statistics and probability",
+      "secondaryTopics": [],
+      "skills": [
+        "Binomial distribution",
+        "Chi-squared tests",
+        "Correlation and regression",
+        "Further hypothesis testing",
+        "Sampling and data collection"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The question assesses chi-squared independence, proportional stratified sampling, Spearman rank correlation with ties, test–retest reliability, and at-least-one significance among 25 independent tests.",
+        "The official scheme awards the chi-squared test, 11-person stratum, ranks and rs, test–retest p-value, 25-test probability 1−0.95^25, and explicitly accepts a binomial method for that probability."
+      ],
+      "rationale": "The production tuple matches the controlled methods actually accepted for marks, including the explicit binomial alternative.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz1-p3-q2/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz1-p3-q2/question-2.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz1-p3-q2/question-3.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz1-p3-q2/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz1-p3-q2/markscheme-2.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz1-p3-q2/markscheme-3.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2026-march-22-q11",
+      "verdict": "blind_correct",
+      "primaryTopic": "Transformations and vectors",
+      "secondaryTopics": [],
+      "skills": [
+        "Transformations"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The grid question asks for a translation, reflection in y=x, and the single transformation from triangle A to B; the markscheme awards those images/descriptions."
+      ],
+      "rationale": "All assessed work is coordinate transformation.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2026-march-22-q11/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2026-march-22-q11/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2023-may-tz1-p1-q7",
+      "verdict": "blind_correct",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Vectors",
+        "Right-angled trigonometry"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The markscheme computes a vector product, obtains triangle area and perpendicular distance, and uses arcsin for the angle to the horizontal."
+      ],
+      "rationale": "Vector geometry is primary; the final angle is an independently marked right-trigonometric step.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2023-may-tz1-p1-q7/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2023-may-tz1-p1-q7/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2023-may-tz1-p1-q7/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2025-may-tz1-p2-q9",
+      "verdict": "taxonomy_gap",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "skills": [
+        "Differential equations"
+      ],
+      "confidence": "medium",
+      "taxonomyGap": "Euler’s method for differential equations is a mark-bearing method but is not a controlled skill in the supplied ib-hl taxonomy.",
+      "evidence": [
+        "The question explicitly requires Euler’s method with step 0.25 for dy/dx=2x/(x^2+y), followed by over/underestimate and branch explanations.",
+        "The official scheme awards the Euler recurrence/intermediate values and y≈1.26, plus the concavity/tangent and positive-gradient explanations."
+      ],
+      "rationale": "Differential equations is the controlled primary classification. Euler’s method is independently mark-bearing but absent from the supplied ib-hl flat taxonomy, so the specific taxonomy gap is recorded rather than using an invented label.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz1-p2-q9/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz1-p2-q9/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz1-p2-q9/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz1-p2-q9/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2016-november-41-q3",
+      "verdict": "blind_correct",
+      "primaryTopic": "Mensuration",
+      "secondaryTopics": [
+        "Geometry"
+      ],
+      "skills": [
+        "Volume and surface area",
+        "Similarity and congruence"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The markscheme calculates cylinder/hemisphere volume and mass, exposed surface area and painting cost, cone volume, and surface-area scaling for similar solids."
+      ],
+      "rationale": "Mensuration dominates; the final similarity relation is independently marked under Geometry.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2016-november-41-q3/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2016-november-41-q3/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2026-june-12-q9",
+      "verdict": "production_correct",
+      "primaryTopic": "Algebra",
+      "secondaryTopics": [],
+      "skills": [
+        "Logarithmic and exponential functions",
+        "Equations, inequalities and graphs"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Part (a) changes base/combines logarithms; part (b) solves a base-5 logarithmic equation by forming and solving a quadratic.",
+        "The official scheme awards the single-log expression, log-law conversion, quadratic 4x^2−45x+50=0, factorization, and valid solution."
+      ],
+      "rationale": "Logarithmic laws and logarithmic-equation solving are both independently mark-bearing controlled Algebra skills.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2026-june-12-q9/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2026-june-12-q9/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2025-may-tz1-p1-q7",
+      "verdict": "blind_correct",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "skills": [
+        "Kinematics",
+        "Applications of differentiation",
+        "Applications of integration"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The velocity is v(t)=2cos t+sin 2t-0.2 on 0<=t<=6. The official markscheme credits the velocity graph and its zero-acceleration turning points (0.524,2.40), (2.62,-2.80), (4.71,-0.2), then a modulus/ piecewise definite integral for distance 7.76 m."
+      ],
+      "rationale": "The graph/zero-acceleration work is differentiation applied to kinematics, while the distance is an independently credited integral of speed.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-may-tz1-p1-q7/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-may-tz1-p1-q7/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-may-tz1-p1-q7/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-may-tz1-p1-q7/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2021-june-23-q5",
+      "verdict": "blind_correct",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Algebra"
+      ],
+      "skills": [
+        "Calculus",
+        "Equations, inequalities and graphs"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The question first solves 2x^2-17x+21<=0, then finds the area between y=2x^2-17x+21 and the x-axis. The official markscheme credits roots 1.5 and 7, a definite integral between them, and area 1331/24."
+      ],
+      "rationale": "The area-under-curve calculation is the dominant calculus method; the preceding quadratic inequality is an independently credited algebra method.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2021-june-23-q5/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2021-june-23-q5/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2025-march-42-q6",
+      "verdict": "blind_correct",
+      "primaryTopic": "Number",
+      "secondaryTopics": [],
+      "skills": [
+        "Fractions, decimals and percentages",
+        "Ratio, proportion and rates"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme splits 45.5 hours into 40 ordinary and 5.5 overtime hours, applies a 30% uplift, and gives $565.80."
+      ],
+      "rationale": "Marked work combines percentage increase with an hourly rate and overtime quantity.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2025-march-42-q6/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2025-march-42-q6/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2021-june-11-q4",
+      "verdict": "taxonomy_gap",
+      "primaryTopic": "Combinatorics and series",
+      "secondaryTopics": [],
+      "skills": [
+        "Series"
+      ],
+      "confidence": "medium",
+      "taxonomyGap": "Binomial expansion is explicitly mark-bearing, but the supplied igcse-additional taxonomy has no controlled skill named Binomial expansion; Series is only the closest controlled fallback.",
+      "evidence": [
+        "The question asks for the first three terms of (a+x)^3(1−x/3)^5 and coefficients b and c.",
+        "The official scheme awards the two binomial expansions and the sums of relevant products for b=−18 and c=−6."
+      ],
+      "rationale": "The assessed method is binomial expansion/coefficient collection. The Combinatorics and series parent and controlled Series fallback are closest, but the exact skill is missing.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2021-june-11-q4/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2021-june-11-q4/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2020-november-13-q6",
+      "verdict": "production_correct",
+      "primaryTopic": "Algebra",
+      "secondaryTopics": [
+        "Coordinate geometry"
+      ],
+      "skills": [
+        "Logarithmic and exponential functions",
+        "Straight-line graphs"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The question linearizes y=A·10^(b x^2) by plotting lg y against x^2, then finds A,b and requested values.",
+        "The official scheme awards lg y=lg A+bx^2, gradient/intercept extraction, substitution for y, and solving the positive x value."
+      ],
+      "rationale": "Log/exponential modelling is primary; extracting gradient/intercept from the plotted straight line is an independently marked Coordinate geometry component.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-november-13-q6/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-november-13-q6/markscheme-1.webp"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,831 @@
+{
+  "auditVersion": "pastpaperprep-semantic-canonical-ownership-repair-2026.08.1",
+  "batch": 1,
+  "count": 9,
+  "records": [
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2025-november-21-q12",
+      "sourceAdjudicationBatch": 1,
+      "currentJudgment": {
+        "bank": "igcse-additional",
+        "id": "0606-2025-november-21-q12",
+        "verdict": "blind_correct",
+        "primaryTopic": "Vectors and matrices",
+        "secondaryTopics": [],
+        "skills": [
+          "Vectors in two dimensions",
+          "Simultaneous equations"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The official scheme resolves both bearing velocities into components and equates position vectors at a common time, obtaining t=200 and collision."
+        ],
+        "rationale": "The question image and official markscheme assess vector components, parametric motion, and simultaneous component equations; these are the two material controlled skills.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-november-21-q12/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-november-21-q12/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Vectors and matrices",
+        "secondaryTopics": [],
+        "skills": [
+          "Vectors in two dimensions"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": "The official scheme resolves both bearing velocities into components and equates position vectors at a common time, obtaining t=200 and collision.",
+        "primaryTopic": "Vectors and matrices",
+        "rationale": "The question image and official markscheme assess vector components, parametric motion, and simultaneous component equations; these are the two material controlled skills.",
+        "secondaryTopics": [],
+        "skills": [
+          "Vectors in two dimensions",
+          "Simultaneous equations"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-november-21-q12/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-november-21-q12/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Simultaneous equations"
+      ],
+      "selectedTopics": [
+        "Vectors and matrices"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Vectors in two dimensions",
+        "Matrices"
+      ]
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2021-may-tz2-p1-q14",
+      "sourceAdjudicationBatch": 1,
+      "currentJudgment": {
+        "bank": "ib-ai-hl",
+        "id": "2021-may-tz2-p1-q14",
+        "verdict": "blind_correct",
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Matrix transformations",
+          "Matrices and determinants"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The scheme applies the affine matrix and translation to a point, solves p=13 and q=6, and uses determinant −1 plus translation invariance to preserve area."
+        ],
+        "rationale": "Matrix transformation and determinant properties are explicitly assessed.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz2-p1-q14/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz2-p1-q14/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "medium",
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Matrix transformations",
+          "Matrices and determinants"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": "The scheme applies the affine matrix and translation to a point, solves p=13 and q=6, and uses determinant −1 plus translation invariance to preserve area.",
+        "primaryTopic": "Geometry and trigonometry",
+        "rationale": "Matrix transformation and determinant properties are explicitly assessed.",
+        "secondaryTopics": [],
+        "skills": [
+          "Matrix transformations",
+          "Matrices and determinants"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz2-p1-q14/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz2-p1-q14/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Matrices and determinants"
+      ],
+      "selectedTopics": [
+        "Geometry and trigonometry"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Adjacency matrices and walks",
+        "Arcs and sectors",
+        "Chinese postman problem",
+        "Coordinate geometry",
+        "Further trigonometry and identities",
+        "Graph theory",
+        "Kinematics with vectors",
+        "Matrix transformations",
+        "Minimum spanning trees",
+        "Non right-angled trigonometry",
+        "Radian measure",
+        "Right-angled trigonometry",
+        "Travelling salesman problem",
+        "Vector equations of lines",
+        "Vectors",
+        "Volume and surface area of 3D shapes",
+        "Voronoi diagrams"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2024-june-22-q10",
+      "sourceAdjudicationBatch": 2,
+      "currentJudgment": {
+        "bank": "igcse-additional",
+        "id": "0606-2024-june-22-q10",
+        "verdict": "blind_correct",
+        "primaryTopic": "Sets and functions",
+        "secondaryTopics": [],
+        "skills": [
+          "Functions",
+          "Logarithmic and exponential functions"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The scheme credits establishing the inverse, rearranging the restricted function, stating its domain and range, and composing the inverse with an exponential expression."
+        ],
+        "rationale": "Inverse-function work is primary; logarithmic/exponential rearrangement is a materially assessed supporting skill.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2024-june-22-q10/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2024-june-22-q10/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Sets and functions",
+        "secondaryTopics": [
+          "Algebra"
+        ],
+        "skills": [
+          "Functions",
+          "Logarithmic and exponential functions"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": [
+          "The markscheme inverts the restricted function by swapping variables and rearranging, states domain/range, and composes the inverse with e^(2x)."
+        ],
+        "primaryTopic": "Sets and functions",
+        "rationale": "Inverse functions are primary, with logarithmic/exponential rearrangement required for the inverse and composition.",
+        "secondaryTopics": [],
+        "skills": [
+          "Functions",
+          "Logarithmic and exponential functions"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2024-june-22-q10/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2024-june-22-q10/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Logarithmic and exponential functions"
+      ],
+      "selectedTopics": [
+        "Sets and functions"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Set language and notation",
+        "Functions"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2017-june-12-q11",
+      "sourceAdjudicationBatch": 2,
+      "currentJudgment": {
+        "bank": "igcse-additional",
+        "id": "0606-2017-june-12-q11",
+        "verdict": "blind_correct",
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Calculus",
+          "Logarithmic and exponential functions"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The scheme credits integrating f' to obtain f, applying the point condition, differentiating twice, and solving the exponential equation with logarithms."
+        ],
+        "rationale": "Integration and second differentiation are primary; logarithmic/exponential solving is also materially marked.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-june-12-q11/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-june-12-q11/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Logarithmic and exponential functions"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": [
+          "Question asset gives f′(x)=e^(2x−1), f(1/2)=7/2, asks for f(x) and the x satisfying f″(x)=4.",
+          "Official markscheme awards integration to 1/2 e^(2x−1)+3 and second differentiation followed by logarithmic solving to x=1/2+ln√2."
+        ],
+        "primaryTopic": "Calculus",
+        "rationale": "Integration/differentiation of an exponential model and a point condition are assessed.",
+        "secondaryTopics": [],
+        "skills": [
+          "Calculus",
+          "Logarithmic and exponential functions"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-june-12-q11/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-june-12-q11/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Logarithmic and exponential functions"
+      ],
+      "selectedTopics": [
+        "Calculus"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Calculus"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2023-november-13-q12",
+      "sourceAdjudicationBatch": 2,
+      "currentJudgment": {
+        "bank": "igcse-additional",
+        "id": "0606-2023-november-13-q12",
+        "verdict": "blind_correct",
+        "primaryTopic": "Algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Trigonometry"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The scheme reduces the cosecant equation to an equivalent sine or tangent equation and credits the four solutions in the specified interval."
+        ],
+        "rationale": "This is a trigonometric equation-solving task, filed under the controlled Algebra parent used for this equation skill.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-november-13-q12/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-november-13-q12/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Trigonometry"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": "The official scheme rewrites 3cosec²(2x/3−π/3)=4 as sin(angle)=±√3/2 or tan(angle)=±√3, then lists four solutions in 0<x≤3π.",
+        "primaryTopic": "Algebra",
+        "rationale": "Solving a trigonometric equation over a specified interval is explicitly covered by the supplied Algebra/Trigonometry skill.",
+        "secondaryTopics": [],
+        "skills": [
+          "Trigonometry"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-november-13-q12/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-november-13-q12/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Trigonometry"
+      ],
+      "selectedTopics": [
+        "Algebra"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Quadratic functions",
+        "Indices and surds",
+        "Factors of polynomials",
+        "Equations, inequalities and graphs",
+        "Simultaneous equations",
+        "Logarithmic and exponential functions"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2020-june-11-q6",
+      "sourceAdjudicationBatch": 2,
+      "currentJudgment": {
+        "bank": "igcse-additional",
+        "id": "0606-2020-june-11-q6",
+        "verdict": "blind_correct",
+        "primaryTopic": "Coordinate geometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Equations, inequalities and graphs",
+          "Straight-line graphs"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The scheme credits substituting the line into xy = 8 to obtain the two intersections, then midpoint/gradient-perpendicular work and solving the intersection with y = x."
+        ],
+        "rationale": "All credited work is coordinate/straight-line graph work; a separate Algebra parent is not needed.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-june-11-q6/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-june-11-q6/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Coordinate geometry",
+        "secondaryTopics": [
+          "Algebra"
+        ],
+        "skills": [
+          "Straight-line graphs",
+          "Simultaneous equations"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": [
+          "Question asset: 8 6 The line y x 5 6 = + meets the curve xy 8 = at the points A and B. (a) Find the coordinates of A and of B. [3] (b) Find the coordinates of the point where the perpendicular bisector of the line AB meets the line y x = . [5]",
+          "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+        ],
+        "primaryTopic": "Coordinate geometry",
+        "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+        "secondaryTopics": [],
+        "skills": [
+          "Equations, inequalities and graphs",
+          "Straight-line graphs"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-june-11-q6/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-june-11-q6/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Equations, inequalities and graphs"
+      ],
+      "selectedTopics": [
+        "Coordinate geometry"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Straight-line graphs",
+        "Coordinate geometry of the circle"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2017-november-tz0-p3-calculus-q5",
+      "sourceAdjudicationBatch": 2,
+      "currentJudgment": {
+        "bank": "ib-hl",
+        "id": "2017-november-tz0-p3-calculus-q5",
+        "verdict": "blind_correct",
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Differentiation",
+          "Limits and series",
+          "Proof and induction"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The scheme credits chain-rule differentiation, the derivative recurrence, Maclaurin coefficients through x^5, the limit, and the proof that the odd-integer series terminates as a polynomial."
+        ],
+        "rationale": "Differentiation, series/limits, and proof/induction are all materially marked within Calculus.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p3-calculus-q5/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p3-calculus-q5/markscheme-1.webp",
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p3-calculus-q5/markscheme-2.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Limits and series",
+          "Differentiation"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": [
+          "Question asset: 5. [Maximum mark: 13] Consider the function f (x) = sin(p arcsin x) , -1 < x < 1 and p ∈  . (a) Show that f '(0) = p . [2] The function f and its derivatives satisfy (1 - x2) f (n + 2)(x) - (2n + 1) xf (n + 1)(x) + (p2 - n2) f (n)(x) = 0 , n ∈  where f (n)(x) denotes the n th derivative of f (x) and f (0)(x) is f (x) . (b) Show that f (n + 2)(0) = (n2 - p2) f (n)(0) . [1] (c) For p ∈  \\ {±1 , ±3} , show that the M",
+          "Markscheme evidence: 5. (a) 2 cos( arcsin ) ( ) 1 p p x f x x    (M1)A1 Note: Award M1 for attempting to use the chain rule. (0) f p   AG [2 marks] (b) EITHER   ( 2) 2 2 ( ) (0) (0) 0 n n f p n f     A1 OR for eg,     2 ( 2) ( 1) 2 2 ( ) 1 ( ) (2 1) ( ) ( ) n n n x f x n xf x p n f x        A1 Note: Award A1 for eg,     2 ( 2) ( 1) 2 2 ( ) 1 ( ) (2 1) ( ) ( ) n n n x f x n xf x p n f x        . THEN   "
+        ],
+        "primaryTopic": "Calculus",
+        "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+        "secondaryTopics": [],
+        "skills": [
+          "Differentiation",
+          "Limits and series",
+          "Proof and induction"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p3-calculus-q5/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p3-calculus-q5/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p3-calculus-q5/markscheme-2.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Proof and induction"
+      ],
+      "selectedTopics": [
+        "Calculus"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Applications of differentiation",
+        "Applications of integration",
+        "Differential equations",
+        "Differentiation",
+        "Integration",
+        "Limits and series"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2026-june-21-q5",
+      "sourceAdjudicationBatch": 2,
+      "currentJudgment": {
+        "bank": "igcse-additional",
+        "id": "0606-2026-june-21-q5",
+        "verdict": "blind_correct",
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Calculus",
+          "Trigonometry"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The scheme credits differentiating tan^3(5x), rewriting the derivative in tan(5x), and solving the resulting trigonometric equation over the interval."
+        ],
+        "rationale": "Differentiation is primary and the trigonometric manipulation/solution is independently marked.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2026-june-21-q5/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2026-june-21-q5/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "medium",
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Trigonometry",
+          "Calculus"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": [
+          "The markscheme differentiates tan^3(5x), rewrites in tan(5x), and solves dy/dx=0 over an interval."
+        ],
+        "primaryTopic": "Calculus",
+        "rationale": "Differentiation is primary and trigonometric manipulation/equation solving is independently assessed.",
+        "secondaryTopics": [],
+        "skills": [
+          "Calculus",
+          "Trigonometry"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2026-june-21-q5/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2026-june-21-q5/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Trigonometry"
+      ],
+      "selectedTopics": [
+        "Calculus"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Calculus"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2019-may-tz2-p1-q10",
+      "sourceAdjudicationBatch": 2,
+      "currentJudgment": {
+        "bank": "ib-hl",
+        "id": "2019-may-tz2-p1-q10",
+        "verdict": "blind_correct",
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Continuous random variables",
+          "Integration",
+          "Differentiation"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The scheme credits the mode, integration by parts and normalization of the density, differentiation of the supplied expression, and integration for E(X)."
+        ],
+        "rationale": "Continuous-density work is primary; the integration and differentiation steps are substantial marked methods within this parent.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2019-may-tz2-p1-q10/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2019-may-tz2-p1-q10/markscheme-1.webp",
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2019-may-tz2-p1-q10/markscheme-2.webp"
+        ]
+      },
+      "production": {
+        "confidence": "medium",
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Continuous random variables",
+          "Integration",
+          "Differentiation"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": [
+          "The markscheme finds the mode of a continuous pdf, integrates arcsin x to normalize it, differentiates the supplied expression, and evaluates E(X)."
+        ],
+        "primaryTopic": "Statistics and probability",
+        "rationale": "Continuous-random-variable work is primary, with integration and differentiation receiving substantial marks.",
+        "secondaryTopics": [],
+        "skills": [
+          "Continuous random variables",
+          "Integration",
+          "Differentiation"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2019-may-tz2-p1-q10/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2019-may-tz2-p1-q10/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2019-may-tz2-p1-q10/markscheme-2.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Integration",
+        "Differentiation"
+      ],
+      "selectedTopics": [
+        "Statistics and probability"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Conditional probability",
+        "Continuous random variables",
+        "Descriptive statistics",
+        "Discrete random variables",
+        "Normal distribution",
+        "Probability models",
+        "Statistical inference"
+      ]
+    }
+  ],
+  "canonicalTaxonomyByBank": {
+    "ib-ai-hl": {
+      "Calculus": [
+        "Applications of differentiation",
+        "Applications of integration",
+        "Coupled differential equations",
+        "Differential equations",
+        "Differentiating special functions",
+        "Euler's method for differential equations",
+        "Integrating special functions",
+        "Introduction to differentiation",
+        "Introduction to integration",
+        "Kinematics",
+        "Modelling with differentiation",
+        "Related rates of change",
+        "Second order derivatives and concavity",
+        "Techniques of differentiation",
+        "Techniques of integration",
+        "Trapezoidal rule",
+        "Volumes of revolution"
+      ],
+      "Functions": [
+        "Composite and inverse functions",
+        "Direct and inverse variation",
+        "Linear functions and graphs",
+        "Logarithmic models",
+        "Logistic models",
+        "Modelling with exponential functions",
+        "Modelling with linear and piecewise functions",
+        "Modelling with quadratic and cubic functions",
+        "Non-linear piecewise models",
+        "Properties of functions and graphs",
+        "Sinusoidal models",
+        "Transformations of graphs"
+      ],
+      "Geometry and trigonometry": [
+        "Adjacency matrices and walks",
+        "Arcs and sectors",
+        "Chinese postman problem",
+        "Coordinate geometry",
+        "Further trigonometry and identities",
+        "Graph theory",
+        "Kinematics with vectors",
+        "Matrix transformations",
+        "Minimum spanning trees",
+        "Non right-angled trigonometry",
+        "Radian measure",
+        "Right-angled trigonometry",
+        "Travelling salesman problem",
+        "Vector equations of lines",
+        "Vectors",
+        "Volume and surface area of 3D shapes",
+        "Voronoi diagrams"
+      ],
+      "Number and algebra": [
+        "Algebraic manipulation",
+        "Complex numbers",
+        "Eigenvalues and eigenvectors",
+        "Exponents and logarithms",
+        "Financial mathematics",
+        "Laws of logarithms",
+        "Matrices and determinants",
+        "Partial fractions",
+        "Permutations and combinations",
+        "Proof by induction and contradiction",
+        "Rounding, estimation and percentage error",
+        "Sequences and series",
+        "Solving equations with a GDC",
+        "Sum to infinity"
+      ],
+      "Statistics and probability": [
+        "Binomial distribution",
+        "Chi-squared tests",
+        "Conditional probability",
+        "Confidence intervals for the mean",
+        "Correlation and regression",
+        "Discrete probability distributions",
+        "Further hypothesis testing",
+        "Linear combinations of random variables",
+        "Non-linear regression and linearizing",
+        "Normal distribution",
+        "Outliers and data interpretation",
+        "Poisson distribution",
+        "Probability and types of events",
+        "Sampling and data collection",
+        "Statistical measures and frequency tables",
+        "The t-test",
+        "Transition matrices and Markov chains",
+        "Type I and Type II errors",
+        "Unbiased estimates and sample mean distribution"
+      ]
+    },
+    "ib-hl": {
+      "Calculus": [
+        "Applications of differentiation",
+        "Applications of integration",
+        "Differential equations",
+        "Differentiation",
+        "Integration",
+        "Limits and series"
+      ],
+      "Functions": [
+        "Functions and inverses",
+        "Geometric transformations",
+        "Graphs and transformations"
+      ],
+      "Geometry and trigonometry": [
+        "Coordinate and analytic geometry",
+        "Radian measure and sectors",
+        "Triangle geometry",
+        "Trigonometric identities and equations",
+        "Vectors, lines and planes"
+      ],
+      "Number and algebra": [
+        "Algebraic manipulation",
+        "Binomial expansion",
+        "Complex numbers",
+        "Counting and combinatorics",
+        "Equations and inequalities",
+        "Exponents and logarithms",
+        "Graph theory and algorithms",
+        "Matrices and systems",
+        "Number theory and modular arithmetic",
+        "Polynomials and theorems",
+        "Proof and induction",
+        "Quadratics",
+        "Sequences and series",
+        "Sets, relations and groups"
+      ],
+      "Statistics and probability": [
+        "Conditional probability",
+        "Continuous random variables",
+        "Descriptive statistics",
+        "Discrete random variables",
+        "Normal distribution",
+        "Probability models",
+        "Statistical inference"
+      ]
+    },
+    "igcse-additional": {
+      "Algebra": [
+        "Quadratic functions",
+        "Indices and surds",
+        "Factors of polynomials",
+        "Equations, inequalities and graphs",
+        "Simultaneous equations",
+        "Logarithmic and exponential functions"
+      ],
+      "Calculus": [
+        "Calculus"
+      ],
+      "Combinatorics and series": [
+        "Permutations and combinations",
+        "Series"
+      ],
+      "Coordinate geometry": [
+        "Straight-line graphs",
+        "Coordinate geometry of the circle"
+      ],
+      "Geometry and trigonometry": [
+        "Circular measure",
+        "Trigonometry"
+      ],
+      "Sets and functions": [
+        "Set language and notation",
+        "Functions"
+      ],
+      "Vectors and matrices": [
+        "Vectors in two dimensions",
+        "Matrices"
+      ]
+    }
+  },
+  "inputSha256": "3c1af0c091e25d9e6b8606ce84ad8fbdd192376a1981c17d7123eba6c75c9dea"
+}

@@ -1,0 +1,962 @@
+{
+  "auditVersion": "pastpaperprep-semantic-canonical-ownership-repair-2026.08.1",
+  "batch": 2,
+  "count": 9,
+  "records": [
+    {
+      "bank": "ib-sl",
+      "id": "2017-may-p2-tz1-q6",
+      "sourceAdjudicationBatch": 2,
+      "currentJudgment": {
+        "bank": "ib-sl",
+        "id": "2017-may-p2-tz1-q6",
+        "verdict": "blind_correct",
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Differentiation",
+          "Sequences and series"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The scheme credits differentiating the power, selecting the x^4 term in the binomial expansion, and obtaining the x^5 term in the derivative."
+        ],
+        "rationale": "Differentiation and binomial/series term selection are both explicit mark-bearing methods.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2017-may-p2-tz1-q6/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2017-may-p2-tz1-q6/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Counting and binomial probability",
+          "Differentiation"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": [
+          "The markscheme differentiates (x^2+3)^7 and finds the x^4 term in the remaining expansion so the derivative contains 17010x^5."
+        ],
+        "primaryTopic": "Calculus",
+        "rationale": "Differentiation and binomial/series term selection are both explicit mark-bearing steps.",
+        "secondaryTopics": [],
+        "skills": [
+          "Differentiation",
+          "Sequences and series"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2017-may-p2-tz1-q6/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2017-may-p2-tz1-q6/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Sequences and series"
+      ],
+      "selectedTopics": [
+        "Calculus"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Differentiation",
+        "Integration",
+        "Differential equations",
+        "Kinematics"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2017-may-tz1-p2-q11",
+      "sourceAdjudicationBatch": 2,
+      "currentJudgment": {
+        "bank": "ib-hl",
+        "id": "2017-may-tz1-p2-q11",
+        "verdict": "taxonomy_gap",
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Integration",
+          "Equations and inequalities"
+        ],
+        "confidence": "high",
+        "taxonomyGap": "Kinematics is materially assessed in the piecewise velocity model, but the controlled IB HL taxonomy has no distinct Kinematics skill; Integration and Equations and inequalities are retained for the credited methods without forcing an unrelated label.",
+        "evidence": [
+          "The scheme credits evaluating the piecewise velocity, integrating velocity for distance and height, and solving the post-parachute velocity equation for the ground time."
+        ],
+        "rationale": "Kinematics is materially assessed but is not represented by a controlled ib-hl skill; the honest controlled fallback retains Integration and Equations and inequalities and records the taxonomy gap.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p2-q11/question-1.webp",
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p2-q11/question-2.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p2-q11/markscheme-1.webp",
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p2-q11/markscheme-2.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Applications of integration",
+          "Integration"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": [
+          "The piecewise velocity model credits substitution for v(15)=19.2, integral of 9.8t over 0 to 10 giving 490 m, solving the post-parachute velocity equation for t=44.985..., and integrating the second branch to obtain h=906 m."
+        ],
+        "primaryTopic": "Calculus",
+        "rationale": "Piecewise kinematics, equation solving, and definite integration are all materially credited within Calculus.",
+        "secondaryTopics": [],
+        "skills": [
+          "Integration",
+          "Equations and inequalities"
+        ],
+        "taxonomyGap": "Kinematics is materially assessed in the piecewise velocity model, but the controlled IB HL taxonomy has no distinct Kinematics skill; Integration and Equations and inequalities are retained for the credited methods without forcing an unrelated label."
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p2-q11/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p2-q11/question-2.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p2-q11/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p2-q11/markscheme-2.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Equations and inequalities"
+      ],
+      "selectedTopics": [
+        "Calculus"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Applications of differentiation",
+        "Applications of integration",
+        "Differential equations",
+        "Differentiation",
+        "Integration",
+        "Limits and series"
+      ]
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2021-may-tz1-p2-q2",
+      "sourceAdjudicationBatch": 3,
+      "currentJudgment": {
+        "bank": "ib-ai-sl",
+        "id": "2021-may-tz1-p2-q2",
+        "verdict": "blind_correct",
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Functions"
+        ],
+        "skills": [
+          "Arcs and sectors",
+          "Non right-angled trigonometry",
+          "Sinusoidal models",
+          "Solving equations with a GDC"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "Both question pages and both markscheme pages show circular geometry, non-right-angle trigonometry, arcs/sectors, two sinusoidal height models, and a GDC intersection solve; the production skill list omitted the last two materially marked methods."
+        ],
+        "rationale": "Both question pages and both markscheme pages show circular geometry, non-right-angle trigonometry, arcs/sectors, two sinusoidal height models, and a GDC intersection solve; the production skill list omitted the last two materially marked methods.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2021-may-tz1-p2-q2/question-1.webp",
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2021-may-tz1-p2-q2/question-2.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2021-may-tz1-p2-q2/markscheme-1.webp",
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2021-may-tz1-p2-q2/markscheme-2.webp"
+        ]
+      },
+      "production": {
+        "confidence": "medium",
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Functions"
+        ],
+        "skills": [
+          "Arcs and sectors",
+          "Non right-angled trigonometry",
+          "Properties of functions and graphs"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": [
+          "The markscheme awards the clock angle, cosine rule for AB, arc length, sector area, minute/hour sinusoidal models, and solving their intersection equation."
+        ],
+        "primaryTopic": "Geometry and trigonometry",
+        "rationale": "The question is led by circular geometry and non-right-angle trigonometry, with sinusoidal modelling and numerical equation solving as material later methods.",
+        "secondaryTopics": [
+          "Functions"
+        ],
+        "skills": [
+          "Arcs and sectors",
+          "Non right-angled trigonometry",
+          "Sinusoidal models",
+          "Solving equations with a GDC"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2021-may-tz1-p2-q2/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2021-may-tz1-p2-q2/question-2.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2021-may-tz1-p2-q2/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2021-may-tz1-p2-q2/markscheme-2.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Solving equations with a GDC"
+      ],
+      "selectedTopics": [
+        "Geometry and trigonometry",
+        "Functions"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Arcs and sectors",
+        "Coordinate geometry",
+        "Non right-angled trigonometry",
+        "Right-angled trigonometry",
+        "Volume and surface area of 3D shapes",
+        "Voronoi diagrams",
+        "Direct and inverse variation",
+        "Linear functions and graphs",
+        "Modelling with exponential functions",
+        "Modelling with linear and piecewise functions",
+        "Modelling with quadratic and cubic functions",
+        "Properties of functions and graphs",
+        "Sinusoidal models"
+      ]
+    },
+    {
+      "bank": "ib-sl",
+      "id": "2024-november-p1-tz2-q8",
+      "sourceAdjudicationBatch": 3,
+      "currentJudgment": {
+        "bank": "ib-sl",
+        "id": "2024-november-p1-tz2-q8",
+        "verdict": "blind_correct",
+        "primaryTopic": "Functions",
+        "secondaryTopics": [],
+        "skills": [
+          "Function composition and inverses",
+          "Exponents and logarithms",
+          "Graphs and transformations"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The question and scheme mark logarithmic evaluation, inverse-function construction, and the ordered graph transformations, all controlled within Functions."
+        ],
+        "rationale": "The question and scheme mark logarithmic evaluation, inverse-function construction, and the ordered graph transformations, all controlled within Functions.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2024-november-p1-tz2-q8/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2024-november-p1-tz2-q8/markscheme-1.webp",
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2024-november-p1-tz2-q8/markscheme-2.webp"
+        ]
+      },
+      "production": {
+        "confidence": "medium",
+        "primaryTopic": "Functions",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Exponents and logarithms",
+          "Function composition and inverses",
+          "Graphs and transformations"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": [
+          "Question asset defines f(x)=log₂(4x), asks for evaluations, f⁻¹(x), f⁻¹(0), and transformations for y=f(16x³).",
+          "Official markscheme awards substitution, swapping x/y and exponentiating for the inverse, logarithm laws, and vertical stretch/translation in the stated order."
+        ],
+        "primaryTopic": "Functions",
+        "rationale": "Inverse functions are primary; logarithmic manipulation and graph transformations are independently marked.",
+        "secondaryTopics": [],
+        "skills": [
+          "Function composition and inverses",
+          "Exponents and logarithms",
+          "Graphs and transformations"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2024-november-p1-tz2-q8/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2024-november-p1-tz2-q8/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2024-november-p1-tz2-q8/markscheme-2.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Exponents and logarithms"
+      ],
+      "selectedTopics": [
+        "Functions"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Functions and modelling",
+        "Function composition and inverses",
+        "Roots and polynomial functions",
+        "Graphs and transformations"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2023-march-12-q5",
+      "sourceAdjudicationBatch": 3,
+      "currentJudgment": {
+        "bank": "igcse-additional",
+        "id": "0606-2023-march-12-q5",
+        "verdict": "blind_correct",
+        "primaryTopic": "Coordinate geometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Straight-line graphs",
+          "Logarithmic and exponential functions"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The paired pages explicitly use ln-linearization, gradient/intercept, exponential parameters, and graph-based estimates; both skills belong under Coordinate geometry."
+        ],
+        "rationale": "The paired pages explicitly use ln-linearization, gradient/intercept, exponential parameters, and graph-based estimates; both skills belong under Coordinate geometry.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-march-12-q5/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-march-12-q5/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Coordinate geometry",
+        "secondaryTopics": [
+          "Algebra"
+        ],
+        "skills": [
+          "Straight-line graphs",
+          "Logarithmic and exponential functions"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": [
+          "Question asset gives y=Ab^(x²), tabulates x,y, asks for a straight-line ln y against x² graph, A and b, and estimates at x=1.75 and y=20.",
+          "Official markscheme uses ln y=mx²+c, gradient ln b, intercept ln A, b=4, A=0.5, and graph-based estimates 35 and 1.63."
+        ],
+        "primaryTopic": "Coordinate geometry",
+        "rationale": "Linearization and graph estimation are the mark-bearing methods.",
+        "secondaryTopics": [],
+        "skills": [
+          "Straight-line graphs",
+          "Logarithmic and exponential functions"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-march-12-q5/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-march-12-q5/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Logarithmic and exponential functions"
+      ],
+      "selectedTopics": [
+        "Coordinate geometry"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Straight-line graphs",
+        "Coordinate geometry of the circle"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2023-june-12-q6",
+      "sourceAdjudicationBatch": 3,
+      "currentJudgment": {
+        "bank": "igcse-additional",
+        "id": "0606-2023-june-12-q6",
+        "verdict": "blind_correct",
+        "primaryTopic": "Algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Trigonometry"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "Both subparts are trigonometric identity/relationship manipulation and solving a trigonometric equation; the Geometry and trigonometry parent is not needed for this algebraic task."
+        ],
+        "rationale": "Both subparts are trigonometric identity/relationship manipulation and solving a trigonometric equation; the Geometry and trigonometry parent is not needed for this algebraic task.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-june-12-q6/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-june-12-q6/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Trigonometry"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": "The question combines cot y=2/(1+2i) and sec x=4/(i−1) to express y in terms of x, then solves a cosecant equation for r−1<z<r.",
+        "primaryTopic": "Algebra",
+        "rationale": "The official task and markscheme are trigonometric identities/transformations and solution of a trigonometric equation.",
+        "secondaryTopics": [],
+        "skills": [
+          "Trigonometry"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-june-12-q6/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-june-12-q6/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Trigonometry"
+      ],
+      "selectedTopics": [
+        "Algebra"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Quadratic functions",
+        "Indices and surds",
+        "Factors of polynomials",
+        "Equations, inequalities and graphs",
+        "Simultaneous equations",
+        "Logarithmic and exponential functions"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2025-june-12-q9",
+      "sourceAdjudicationBatch": 3,
+      "currentJudgment": {
+        "bank": "igcse-additional",
+        "id": "0606-2025-june-12-q9",
+        "verdict": "blind_correct",
+        "primaryTopic": "Sets and functions",
+        "secondaryTopics": [],
+        "skills": [
+          "Functions",
+          "Logarithmic and exponential functions"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The paired pages mark the least domain, range, inverse, intercepts, and asymptotes of a logarithmic function; no separate Algebra secondary is materially required."
+        ],
+        "rationale": "The paired pages mark the least domain, range, inverse, intercepts, and asymptotes of a logarithmic function; no separate Algebra secondary is materially required.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-june-12-q9/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-june-12-q9/markscheme-1.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Sets and functions",
+        "secondaryTopics": [
+          "Algebra"
+        ],
+        "skills": [
+          "Functions",
+          "Logarithmic and exponential functions"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": "For f(x)=2 ln(3x-4), the official scheme finds least a=4/3, range R, inverse f^-1(x)=(4+e^(x/2))/3, then sketches f and its inverse with intercepts and asymptotes.",
+        "primaryTopic": "Sets and functions",
+        "rationale": "The task is dominated by domain/range, inverse functions, and logarithmic graph behavior; both function and logarithmic/exponential skills are materially assessed within the selected topic.",
+        "secondaryTopics": [],
+        "skills": [
+          "Functions",
+          "Logarithmic and exponential functions"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-june-12-q9/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-june-12-q9/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Logarithmic and exponential functions"
+      ],
+      "selectedTopics": [
+        "Sets and functions"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Set language and notation",
+        "Functions"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2026-may-tza-p3-q2",
+      "sourceAdjudicationBatch": 3,
+      "currentJudgment": {
+        "bank": "ib-hl",
+        "id": "2026-may-tza-p3-q2",
+        "verdict": "modified",
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Complex numbers",
+          "Coordinate and analytic geometry",
+          "Differentiation"
+        ],
+        "confidence": "medium",
+        "taxonomyGap": null,
+        "evidence": [
+          "The supplied question reconstruction visibly explores Argand/polar curves, intercepts and Cartesian conversion, then differentiates the limacon. Geometry and trigonometry leads, with Calculus secondary; the production Number and algebra parent is incorrect."
+        ],
+        "rationale": "The supplied question reconstruction visibly explores Argand/polar curves, intercepts and Cartesian conversion, then differentiates the limacon. Geometry and trigonometry leads, with Calculus secondary; the production Number and algebra parent is incorrect.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2026-may-tza-p3-q2/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": []
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [
+          "Calculus",
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Complex numbers",
+          "Differentiation",
+          "Coordinate and analytic geometry"
+        ]
+      },
+      "blind": {
+        "confidence": "medium",
+        "evidence": "The supplied independent solution classifies r=4 as an Argand circle, handles polar coordinates and intercepts, converts r=4sin(theta) to circles, differentiates implicitly, and derives the polar gradient for the limacon.",
+        "primaryTopic": "Geometry and trigonometry",
+        "rationale": "The question image is a complex-plane/polar-curve exploration; no official markscheme is available, so the supplied independent solution was used. Complex numbers and differentiation are both materially assessed.",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Complex numbers",
+          "Differentiation"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2026-may-tza-p3-q2/question-1.webp"
+      ],
+      "markschemeAssets": [],
+      "officialMarkschemeUnavailable": true,
+      "invalidSkills": [
+        "Complex numbers"
+      ],
+      "selectedTopics": [
+        "Geometry and trigonometry",
+        "Calculus"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Coordinate and analytic geometry",
+        "Radian measure and sectors",
+        "Triangle geometry",
+        "Trigonometric identities and equations",
+        "Vectors, lines and planes",
+        "Applications of differentiation",
+        "Applications of integration",
+        "Differential equations",
+        "Differentiation",
+        "Integration",
+        "Limits and series"
+      ]
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2021-may-tz1-p1-q6",
+      "sourceAdjudicationBatch": 3,
+      "currentJudgment": {
+        "bank": "ib-ai-hl",
+        "id": "2021-may-tz1-p1-q6",
+        "verdict": "blind_correct",
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Non right-angled trigonometry",
+          "Rounding, estimation and percentage error"
+        ],
+        "confidence": "high",
+        "taxonomyGap": null,
+        "evidence": [
+          "The question and scheme use maximum bounds for the two sides and minimum angle, then the triangle sine-area formula; both skills are controlled under Geometry and trigonometry."
+        ],
+        "rationale": "The question and scheme use maximum bounds for the two sides and minimum angle, then the triangle sine-area formula; both skills are controlled under Geometry and trigonometry.",
+        "inspectedQuestionAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz1-p1-q6/question-1.webp"
+        ],
+        "inspectedMarkschemeAssets": [
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz1-p1-q6/markscheme-1.webp",
+          "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz1-p1-q6/markscheme-2.webp"
+        ]
+      },
+      "production": {
+        "confidence": "high",
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Non right-angled trigonometry",
+          "Rounding, estimation and percentage error"
+        ]
+      },
+      "blind": {
+        "confidence": "high",
+        "evidence": [
+          "Question asset: 6. [Maximum mark: 5] A triangular field ABC is such that AB = 56 m and BC = 82 m , each measured correct to the nearest metre, and the angle at B is equal to 105, measured correct to the nearest 5. diagram not to scale C A B 82 56 105 Calculate the maximum possible area of the field.",
+          "Markscheme evidence: 6. attempt to find any relevant maximum value (M1) largest sides are 56.5 and 82.5 (A1) smallest possible angle is 102.5 (A1) attempt to substitute into area of a triangle formula (M1) 1 56.5 82.5 sin (102.5 ) 2 × × ×  2 2280 m (2275.37...) = A1 Total [5 marks] M21/5/MATHY/HP1/ENG/TZ1/XX/M"
+        ],
+        "primaryTopic": "Geometry and trigonometry",
+        "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+        "secondaryTopics": [],
+        "skills": [
+          "Non right-angled trigonometry",
+          "Rounding, estimation and percentage error"
+        ],
+        "taxonomyGap": null
+      },
+      "questionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz1-p1-q6/question-1.webp"
+      ],
+      "markschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz1-p1-q6/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz1-p1-q6/markscheme-2.webp"
+      ],
+      "officialMarkschemeUnavailable": false,
+      "invalidSkills": [
+        "Rounding, estimation and percentage error"
+      ],
+      "selectedTopics": [
+        "Geometry and trigonometry"
+      ],
+      "allowedSkillsForSelectedTopics": [
+        "Adjacency matrices and walks",
+        "Arcs and sectors",
+        "Chinese postman problem",
+        "Coordinate geometry",
+        "Further trigonometry and identities",
+        "Graph theory",
+        "Kinematics with vectors",
+        "Matrix transformations",
+        "Minimum spanning trees",
+        "Non right-angled trigonometry",
+        "Radian measure",
+        "Right-angled trigonometry",
+        "Travelling salesman problem",
+        "Vector equations of lines",
+        "Vectors",
+        "Volume and surface area of 3D shapes",
+        "Voronoi diagrams"
+      ]
+    }
+  ],
+  "canonicalTaxonomyByBank": {
+    "ib-ai-hl": {
+      "Calculus": [
+        "Applications of differentiation",
+        "Applications of integration",
+        "Coupled differential equations",
+        "Differential equations",
+        "Differentiating special functions",
+        "Euler's method for differential equations",
+        "Integrating special functions",
+        "Introduction to differentiation",
+        "Introduction to integration",
+        "Kinematics",
+        "Modelling with differentiation",
+        "Related rates of change",
+        "Second order derivatives and concavity",
+        "Techniques of differentiation",
+        "Techniques of integration",
+        "Trapezoidal rule",
+        "Volumes of revolution"
+      ],
+      "Functions": [
+        "Composite and inverse functions",
+        "Direct and inverse variation",
+        "Linear functions and graphs",
+        "Logarithmic models",
+        "Logistic models",
+        "Modelling with exponential functions",
+        "Modelling with linear and piecewise functions",
+        "Modelling with quadratic and cubic functions",
+        "Non-linear piecewise models",
+        "Properties of functions and graphs",
+        "Sinusoidal models",
+        "Transformations of graphs"
+      ],
+      "Geometry and trigonometry": [
+        "Adjacency matrices and walks",
+        "Arcs and sectors",
+        "Chinese postman problem",
+        "Coordinate geometry",
+        "Further trigonometry and identities",
+        "Graph theory",
+        "Kinematics with vectors",
+        "Matrix transformations",
+        "Minimum spanning trees",
+        "Non right-angled trigonometry",
+        "Radian measure",
+        "Right-angled trigonometry",
+        "Travelling salesman problem",
+        "Vector equations of lines",
+        "Vectors",
+        "Volume and surface area of 3D shapes",
+        "Voronoi diagrams"
+      ],
+      "Number and algebra": [
+        "Algebraic manipulation",
+        "Complex numbers",
+        "Eigenvalues and eigenvectors",
+        "Exponents and logarithms",
+        "Financial mathematics",
+        "Laws of logarithms",
+        "Matrices and determinants",
+        "Partial fractions",
+        "Permutations and combinations",
+        "Proof by induction and contradiction",
+        "Rounding, estimation and percentage error",
+        "Sequences and series",
+        "Solving equations with a GDC",
+        "Sum to infinity"
+      ],
+      "Statistics and probability": [
+        "Binomial distribution",
+        "Chi-squared tests",
+        "Conditional probability",
+        "Confidence intervals for the mean",
+        "Correlation and regression",
+        "Discrete probability distributions",
+        "Further hypothesis testing",
+        "Linear combinations of random variables",
+        "Non-linear regression and linearizing",
+        "Normal distribution",
+        "Outliers and data interpretation",
+        "Poisson distribution",
+        "Probability and types of events",
+        "Sampling and data collection",
+        "Statistical measures and frequency tables",
+        "The t-test",
+        "Transition matrices and Markov chains",
+        "Type I and Type II errors",
+        "Unbiased estimates and sample mean distribution"
+      ]
+    },
+    "ib-ai-sl": {
+      "Calculus": [
+        "Applications of differentiation",
+        "Applications of integration",
+        "Introduction to differentiation",
+        "Introduction to integration",
+        "Modelling with differentiation",
+        "Trapezoidal rule"
+      ],
+      "Functions": [
+        "Direct and inverse variation",
+        "Linear functions and graphs",
+        "Modelling with exponential functions",
+        "Modelling with linear and piecewise functions",
+        "Modelling with quadratic and cubic functions",
+        "Properties of functions and graphs",
+        "Sinusoidal models"
+      ],
+      "Geometry and trigonometry": [
+        "Arcs and sectors",
+        "Coordinate geometry",
+        "Non right-angled trigonometry",
+        "Right-angled trigonometry",
+        "Volume and surface area of 3D shapes",
+        "Voronoi diagrams"
+      ],
+      "Number and algebra": [
+        "Algebraic manipulation",
+        "Exponents and logarithms",
+        "Financial mathematics",
+        "Rounding, estimation and percentage error",
+        "Sequences and series",
+        "Solving equations with a GDC"
+      ],
+      "Statistics and probability": [
+        "Binomial distribution",
+        "Chi-squared tests",
+        "Conditional probability",
+        "Correlation and regression",
+        "Discrete probability distributions",
+        "Normal distribution",
+        "Outliers and data interpretation",
+        "Probability and types of events",
+        "Sampling and data collection",
+        "Statistical measures and frequency tables",
+        "The t-test"
+      ]
+    },
+    "ib-hl": {
+      "Calculus": [
+        "Applications of differentiation",
+        "Applications of integration",
+        "Differential equations",
+        "Differentiation",
+        "Integration",
+        "Limits and series"
+      ],
+      "Functions": [
+        "Functions and inverses",
+        "Geometric transformations",
+        "Graphs and transformations"
+      ],
+      "Geometry and trigonometry": [
+        "Coordinate and analytic geometry",
+        "Radian measure and sectors",
+        "Triangle geometry",
+        "Trigonometric identities and equations",
+        "Vectors, lines and planes"
+      ],
+      "Number and algebra": [
+        "Algebraic manipulation",
+        "Binomial expansion",
+        "Complex numbers",
+        "Counting and combinatorics",
+        "Equations and inequalities",
+        "Exponents and logarithms",
+        "Graph theory and algorithms",
+        "Matrices and systems",
+        "Number theory and modular arithmetic",
+        "Polynomials and theorems",
+        "Proof and induction",
+        "Quadratics",
+        "Sequences and series",
+        "Sets, relations and groups"
+      ],
+      "Statistics and probability": [
+        "Conditional probability",
+        "Continuous random variables",
+        "Descriptive statistics",
+        "Discrete random variables",
+        "Normal distribution",
+        "Probability models",
+        "Statistical inference"
+      ]
+    },
+    "ib-sl": {
+      "Calculus": [
+        "Differentiation",
+        "Integration",
+        "Differential equations",
+        "Kinematics"
+      ],
+      "Functions": [
+        "Functions and modelling",
+        "Function composition and inverses",
+        "Roots and polynomial functions",
+        "Graphs and transformations"
+      ],
+      "Geometry and trigonometry": [
+        "Trigonometric functions and identities",
+        "Radians and exact values",
+        "Geometry and measurement",
+        "Vectors"
+      ],
+      "Number and algebra": [
+        "Number systems and notation",
+        "Algebraic manipulation",
+        "Equations and inequalities",
+        "Sequences and series",
+        "Exponents and logarithms",
+        "Financial mathematics",
+        "Counting and binomial probability",
+        "Mathematical reasoning and proof",
+        "Matrices"
+      ],
+      "Statistics and probability": [
+        "Descriptive statistics",
+        "Correlation and regression",
+        "Probability",
+        "Probability distributions"
+      ]
+    },
+    "igcse-additional": {
+      "Algebra": [
+        "Quadratic functions",
+        "Indices and surds",
+        "Factors of polynomials",
+        "Equations, inequalities and graphs",
+        "Simultaneous equations",
+        "Logarithmic and exponential functions"
+      ],
+      "Calculus": [
+        "Calculus"
+      ],
+      "Combinatorics and series": [
+        "Permutations and combinations",
+        "Series"
+      ],
+      "Coordinate geometry": [
+        "Straight-line graphs",
+        "Coordinate geometry of the circle"
+      ],
+      "Geometry and trigonometry": [
+        "Circular measure",
+        "Trigonometry"
+      ],
+      "Sets and functions": [
+        "Set language and notation",
+        "Functions"
+      ],
+      "Vectors and matrices": [
+        "Vectors in two dimensions",
+        "Matrices"
+      ]
+    }
+  },
+  "inputSha256": "27468726f27fe3ee16f1f9ca0822316b89a2aadfa5060afaaa4210dc92f17a56"
+}

@@ -1,0 +1,224 @@
+{
+  "auditVersion": "pastpaperprep-semantic-canonical-ownership-repair-2026.08.1",
+  "batch": 2,
+  "inputSha256": "27468726f27fe3ee16f1f9ca0822316b89a2aadfa5060afaaa4210dc92f17a56",
+  "count": 9,
+  "repairs": [
+    {
+      "bank": "ib-sl",
+      "id": "2017-may-p2-tz1-q6",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "skills": [
+        "Differentiation",
+        "Sequences and series"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The scheme credits differentiating the power, selecting the x^4 term in the binomial expansion, and obtaining the x^5 term in the derivative."
+      ],
+      "rationale": "Differentiation is primary. The binomial-term selection is separately mark-bearing, so retain “Sequences and series” and add its canonical owner “Number and algebra” as a secondary topic; no contextual topic is added.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2017-may-p2-tz1-q6/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2017-may-p2-tz1-q6/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2017-may-tz1-p2-q11",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "skills": [
+        "Integration",
+        "Equations and inequalities"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The scheme credits evaluating the piecewise velocity, integrating velocity for distance and height, and solving the post-parachute velocity equation for the ground time."
+      ],
+      "rationale": "Calculus is primary. The velocity equation is explicitly set up and solved for t with its own method and answer marks, so retain “Equations and inequalities” and add canonical owner “Number and algebra” as a secondary topic.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p2-q11/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p2-q11/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p2-q11/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p2-q11/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2021-may-tz1-p2-q2",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [
+        "Functions",
+        "Number and algebra"
+      ],
+      "skills": [
+        "Arcs and sectors",
+        "Non right-angled trigonometry",
+        "Sinusoidal models",
+        "Solving equations with a GDC"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Both question pages and both markscheme pages show circular geometry, non-right-angle trigonometry, arcs/sectors, two sinusoidal height models, and a GDC intersection solve; the production skill list omitted the last two materially marked methods."
+      ],
+      "rationale": "Geometry and trigonometry is primary, with Functions already secondary. The intersection equation/GDC solution has its own method and answer marks, so retain “Solving equations with a GDC” and add canonical owner “Number and algebra” as a secondary topic.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2021-may-tz1-p2-q2/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2021-may-tz1-p2-q2/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2021-may-tz1-p2-q2/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2021-may-tz1-p2-q2/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "ib-sl",
+      "id": "2024-november-p1-tz2-q8",
+      "primaryTopic": "Functions",
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "skills": [
+        "Function composition and inverses",
+        "Exponents and logarithms",
+        "Graphs and transformations"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The question and scheme mark logarithmic evaluation, inverse-function construction, and the ordered graph transformations, all controlled within Functions."
+      ],
+      "rationale": "Functions is primary. Logarithmic evaluation and the exponential inverse manipulation are explicitly marked, so retain “Exponents and logarithms” and add canonical owner “Number and algebra” as a secondary topic.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2024-november-p1-tz2-q8/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2024-november-p1-tz2-q8/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2024-november-p1-tz2-q8/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2023-march-12-q5",
+      "primaryTopic": "Coordinate geometry",
+      "secondaryTopics": [
+        "Algebra"
+      ],
+      "skills": [
+        "Straight-line graphs",
+        "Logarithmic and exponential functions"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The paired pages explicitly use ln-linearization, gradient/intercept, exponential parameters, and graph-based estimates; both skills belong under Coordinate geometry."
+      ],
+      "rationale": "Coordinate geometry is primary. The logarithmic linearization and recovery of exponential parameters are independently marked, so retain “Logarithmic and exponential functions” and add canonical owner “Algebra” as a secondary topic.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-march-12-q5/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-march-12-q5/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2023-june-12-q6",
+      "primaryTopic": "Algebra",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "skills": [
+        "Trigonometry"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Both subparts are trigonometric identity/relationship manipulation and solving a trigonometric equation; the Geometry and trigonometry parent is not needed for this algebraic task."
+      ],
+      "rationale": "Algebra is primary. Trigonometric identity conversion and the trigonometric equation solution are independently mark-bearing, so retain “Trigonometry” and add canonical owner “Geometry and trigonometry” as a secondary topic.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-june-12-q6/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-june-12-q6/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2025-june-12-q9",
+      "primaryTopic": "Sets and functions",
+      "secondaryTopics": [
+        "Algebra"
+      ],
+      "skills": [
+        "Functions",
+        "Logarithmic and exponential functions"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The paired pages mark the least domain, range, inverse, intercepts, and asymptotes of a logarithmic function; no separate Algebra secondary is materially required."
+      ],
+      "rationale": "Sets and functions is primary. The logarithmic definition, exponential inverse, and logarithmic graph behavior are independently mark-bearing, so retain “Logarithmic and exponential functions” and add canonical owner “Algebra” as a secondary topic.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-june-12-q9/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-june-12-q9/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2026-may-tza-p3-q2",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [
+        "Calculus",
+        "Number and algebra"
+      ],
+      "skills": [
+        "Complex numbers",
+        "Coordinate and analytic geometry",
+        "Differentiation"
+      ],
+      "confidence": "medium",
+      "evidence": [
+        "The supplied question reconstruction visibly explores Argand/polar curves, intercepts and Cartesian conversion, then differentiates the limacon. Geometry and trigonometry leads, with Calculus secondary; the production Number and algebra parent is incorrect."
+      ],
+      "rationale": "Geometry and trigonometry is primary, with Calculus secondary. Complex-plane/Argand-number work is independently assessed in the supplied reconstruction, so retain “Complex numbers” and add canonical owner “Number and algebra” as a secondary topic.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2026-may-tza-p3-q2/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": []
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2021-may-tz1-p1-q6",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "skills": [
+        "Non right-angled trigonometry",
+        "Rounding, estimation and percentage error"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The question and scheme use maximum bounds for the two sides and minimum angle, then the triangle sine-area formula; both skills are controlled under Geometry and trigonometry."
+      ],
+      "rationale": "Geometry and trigonometry is primary. Choosing upper bounds for lengths and the lower bound for the angle is independently mark-bearing before applying the area formula, so retain “Rounding, estimation and percentage error” and add canonical owner “Number and algebra” as a secondary topic.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz1-p1-q6/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz1-p1-q6/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz1-p1-q6/markscheme-2.webp"
+      ]
+    }
+  ]
+}

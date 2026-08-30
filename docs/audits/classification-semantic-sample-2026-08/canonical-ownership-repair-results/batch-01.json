@@ -1,0 +1,225 @@
+{
+  "auditVersion": "pastpaperprep-semantic-canonical-ownership-repair-2026.08.1",
+  "batch": 1,
+  "inputSha256": "3c1af0c091e25d9e6b8606ce84ad8fbdd192376a1981c17d7123eba6c75c9dea",
+  "count": 9,
+  "repairs": [
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2025-november-21-q12",
+      "primaryTopic": "Vectors and matrices",
+      "secondaryTopics": [
+        "Algebra"
+      ],
+      "skills": [
+        "Vectors in two dimensions",
+        "Simultaneous equations"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Question (b) requires equating the two boats' position-vector components at a common time.",
+        "The markscheme awards M1 for one correct component equation and M1 for the second, followed by A1 for the common solution t=200 and collision conclusion."
+      ],
+      "rationale": "Simultaneous equations are materially assessed in part (b), so retain the skill and add its canonical owner Algebra as a secondary topic; vector components remain the dominant topic.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-november-21-q12/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2025-november-21-q12/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2021-may-tz2-p1-q14",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "skills": [
+        "Matrix transformations",
+        "Matrices and determinants"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Part (c) asks for the determinant of the transformation matrix and uses its absolute value as the area scale factor; translation is also identified as area-preserving.",
+        "The markscheme awards A1 for det=−1 (or absolute determinant 1) and A1 for concluding that the area is unchanged."
+      ],
+      "rationale": "Matrices and determinants are explicitly mark-bearing, so retain the skill and add its canonical owner Number and algebra; matrix transformation remains primary because it is used throughout parts (a)–(c).",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz2-p1-q14/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz2-p1-q14/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2024-june-22-q10",
+      "primaryTopic": "Sets and functions",
+      "secondaryTopics": [
+        "Algebra"
+      ],
+      "skills": [
+        "Functions",
+        "Logarithmic and exponential functions"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Part (b) requires rearranging the restricted function into its inverse and states the inverse domain and range; the inverse is expressed using a logarithm.",
+        "Part (c) composes the inverse with e^(2x), and the markscheme awards marks for the logarithmic/exponential rearrangement and composition."
+      ],
+      "rationale": "Logarithmic and exponential manipulation is materially assessed in finding and composing the inverse, so retain it and add the canonical owner Algebra; inverse functions remain primary.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2024-june-22-q10/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2024-june-22-q10/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2017-june-12-q11",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Algebra"
+      ],
+      "skills": [
+        "Calculus",
+        "Logarithmic and exponential functions"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Part (ii) differentiates the exponential expression to obtain f''(x), then solves 2e^(2x−1)=4 using logarithms.",
+        "The markscheme awards DM1 specifically for equating to 4 and using logarithms, followed by A1 for x=1/2+ln√2."
+      ],
+      "rationale": "The logarithmic/exponential solution method receives a dedicated mark in addition to the calculus work, so retain it and add its canonical owner Algebra; Calculus remains dominant.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-june-12-q11/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-june-12-q11/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2023-november-13-q12",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Trigonometry"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "The question is entirely a trigonometric equation in cosec, with a specified interval and answers required in terms of pi.",
+        "The markscheme awards B1 for reducing to a sine or tangent equation and A1 marks for the four valid solutions with no extras."
+      ],
+      "rationale": "Trigonometry is the sole and dominant materially assessed method, so move its canonical owner Geometry and trigonometry to primary and remove the non-owning Algebra parent.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-november-13-q12/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-november-13-q12/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2020-june-11-q6",
+      "primaryTopic": "Coordinate geometry",
+      "secondaryTopics": [
+        "Algebra"
+      ],
+      "skills": [
+        "Equations, inequalities and graphs",
+        "Straight-line graphs"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Part (a) substitutes the straight-line equation into xy=8 to form 5x^2+6x−8=0; this receives an M1 for obtaining a three-term quadratic.",
+        "Part (b) is coordinate geometry, but the quadratic equation step is independently mark-bearing before the midpoint, gradient, perpendicular-bisector, and intersection work."
+      ],
+      "rationale": "Equations, inequalities and graphs is materially assessed by the marked quadratic-formation step, so retain it and add canonical owner Algebra; coordinate geometry remains primary.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-june-11-q6/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-june-11-q6/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2017-november-tz0-p3-calculus-q5",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "skills": [
+        "Differentiation",
+        "Limits and series",
+        "Proof and induction"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Part (e) explicitly asks for a proof that the Maclaurin series is a polynomial of degree p.",
+        "The markscheme awards four marks for the proof: zero even-power coefficients, non-zero coefficient of x^p, recurrence-based termination at the next relevant derivative, and zero coefficients thereafter."
+      ],
+      "rationale": "Proof is a materially assessed method in part (e), so retain the supplied Proof and induction skill and add its canonical owner Number and algebra; the calculus series and differentiation work remain primary.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p3-calculus-q5/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p3-calculus-q5/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p3-calculus-q5/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2026-june-21-q5",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "skills": [
+        "Calculus",
+        "Trigonometry"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Part (a) differentiates tan^3(5x) and rewrites the result in terms of tan(5x).",
+        "Part (b) sets the derivative to zero, obtains tan^2(5x)=0, and the markscheme awards method and solution marks for the trigonometric equation over the interval."
+      ],
+      "rationale": "Trigonometric manipulation and equation solving receive independent marks in part (b), so retain the skill and add its canonical owner Geometry and trigonometry; differentiation remains primary.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2026-june-21-q5/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2026-june-21-q5/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2019-may-tz2-p1-q10",
+      "primaryTopic": "Statistics and probability",
+      "secondaryTopics": [
+        "Calculus"
+      ],
+      "skills": [
+        "Continuous random variables",
+        "Integration",
+        "Differentiation"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "Part (b) asks for the integral of arcsin x and uses integration by parts to normalize the density; the markscheme awards six marks for this work.",
+        "Part (c) differentiates the supplied expression and integrates x(pi−arcsin x) to find E(X), with the markscheme awarding nine marks overall."
+      ],
+      "rationale": "Integration and differentiation are substantial, independently mark-bearing methods rather than incidental arithmetic, so retain both and add canonical owner Calculus; continuous random variables remain primary.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2019-may-tz2-p1-q10/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2019-may-tz2-p1-q10/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2019-may-tz2-p1-q10/markscheme-2.webp"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,760 @@
+{
+  "auditVersion": "pastpaperprep-semantic-sample-2026.08.1",
+  "batch": 4,
+  "inputSha256": "587fca742b6f283dac2b21950e6e193f92ba0c4cd644a03e59f8be65f0e319bd",
+  "count": 31,
+  "judgments": [
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2020-november-21-q12",
+      "verdict": "blind_correct",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Circular measure",
+        "Trigonometry"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The official scheme awards tan(CAB)=4/3, then two circular arcs for perimeter and two sectors plus two right-triangle areas for area; trigonometry and circular measure are both materially marked."
+      ],
+      "rationale": "The arc-length and sector-area marks, together with the marked tan(CAB) right-triangle step, make Circular measure and Trigonometry independently material; the blind tuple is therefore complete.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-november-21-q12/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-november-21-q12/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2020-june-22-q23",
+      "verdict": "blind_correct",
+      "primaryTopic": "Algebra and graphs",
+      "secondaryTopics": [
+        "Coordinate geometry"
+      ],
+      "skills": [
+        "Equations and inequalities",
+        "Straight-line graphs"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme independently marks the three ruled boundary lines, the feasible region, and the maximum of x+y; straight-line graphing is a material secondary method alongside inequalities."
+      ],
+      "rationale": "The scheme awards all three boundary lines, the feasible region, and the maximum of x+y, so inequalities and straight-line graphing are both mark-bearing in the blind tuple.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-june-22-q23/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-june-22-q23/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2020-november-12-q12",
+      "verdict": "taxonomy_gap",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "skills": [
+        "Calculus"
+      ],
+      "confidence": "high",
+      "taxonomyGap": "Kinematics",
+      "evidence": [
+        "The scheme awards area under a velocity-time graph, gradient for acceleration, integration to velocity, and integration to displacement. Kinematics is the substantive application but is not a controlled skill in this bank."
+      ],
+      "rationale": "The velocity-time area, gradient, and integrations are calculus methods, while the application is kinematics; because Kinematics is not a controlled skill in this bank, the specific taxonomy gap is retained.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-november-12-q12/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-november-12-q12/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2023-november-tz0-p2-q7",
+      "verdict": "blind_correct",
+      "primaryTopic": "Statistics and probability",
+      "secondaryTopics": [],
+      "skills": [
+        "Normal distribution",
+        "Binomial distribution",
+        "Further hypothesis testing"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme uses individual and total normal models, inverse normal, a binomial count, and a one-sided binomial hypothesis test; these are the materially assessed methods."
+      ],
+      "rationale": "Normal modelling for individual and total weights, inverse normal, the binomial count, and the one-sided binomial test are all explicitly marked, supporting the blind skill tuple.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2023-november-tz0-p2-q7/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2023-november-tz0-p2-q7/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2023-november-tz0-p2-q7/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2024-november-tz0-p2-q1",
+      "verdict": "blind_correct",
+      "primaryTopic": "Functions",
+      "secondaryTopics": [],
+      "skills": [
+        "Graphs and transformations",
+        "Equations and inequalities"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme marks endpoint values, both roots, and the graph's endpoints, intercepts, and maximum; graph properties and root solving are materially assessed."
+      ],
+      "rationale": "Endpoint values, both roots, and the endpoint/intercept/maximum features of the graph make graph properties and equation solving materially assessed, as reflected in the blind tuple.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2024-november-tz0-p2-q1/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2024-november-tz0-p2-q1/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2024-november-tz0-p2-q1/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2024-november-tz0-p2-q1/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2018-june-23-q12",
+      "verdict": "blind_correct",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "skills": [
+        "Calculus",
+        "Trigonometry"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme marks tan 30° for the triangular cross-section, the volume expression, chain-rule related rates, and the second rate relation; trigonometry is a material skill within the calculus-led item, not a redundant topic tag."
+      ],
+      "rationale": "The related-rates work depends on the triangular cross-section tan 30° and the volume expression, so the blind tuple correctly retains Trigonometry alongside the calculus methods.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2018-june-23-q12/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2018-june-23-q12/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2026-march-42-q15",
+      "verdict": "modified",
+      "primaryTopic": "Algebra and graphs",
+      "secondaryTopics": [],
+      "skills": [
+        "Functions and graphs",
+        "Algebraic manipulation"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme marks finite-domain range values, inverse rearrangement, composition expansion, and the inverse exponential evaluation. Function operations and algebraic manipulation are material; the one-mark exponent evaluation does not justify an unowned Indices and surds skill."
+      ],
+      "rationale": "Finite-domain range, inverse rearrangement, composition expansion, and inverse-exponential evaluation support Functions and graphs plus Algebraic manipulation; the isolated one-mark exponent step does not warrant Indices and surds, so the tuple is modified.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2026-march-42-q15/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2026-march-42-q15/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2020-november-tz0-p1-q11",
+      "verdict": "production_correct",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "skills": [
+        "Differentiation",
+        "Trigonometric identities and equations"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme awards implicit differentiation and collection/factorisation, then trigonometric identity/equation reasoning to obtain y=±1 and the four stationary points; both calculus and trigonometric methods are independently mark-bearing."
+      ],
+      "rationale": "Implicit differentiation and the trigonometric identity/equation route to y=±1 and the four stationary points are separately mark-bearing, matching the production tuple across both topics.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2020-november-tz0-p1-q11/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2020-november-tz0-p1-q11/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2020-november-tz0-p1-q11/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2020-november-tz0-p1-q11/markscheme-2.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2020-november-tz0-p1-q11/markscheme-3.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2017-june-21-q5",
+      "verdict": "taxonomy_gap",
+      "primaryTopic": "Combinatorics and series",
+      "secondaryTopics": [],
+      "skills": [
+        "Series"
+      ],
+      "confidence": "high",
+      "taxonomyGap": "Binomial expansion is not a distinct controlled skill in this bank; the controlled Series skill is the closest broad fallback.",
+      "evidence": [
+        "The scheme marks the binomial expansion, coefficient comparison, substitution into the expansion, and rounding. Series is the controlled broad fallback, but the assessed binomial-expansion method has no distinct controlled skill in this bank."
+      ],
+      "rationale": "Binomial expansion, coefficient comparison, substitution, and rounding are marked, but Binomial expansion has no distinct controlled skill here; Series is retained as the closest fallback and the taxonomy gap is explicit.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-june-21-q5/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-june-21-q5/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-sl",
+      "id": "2022-november-p2-tzn-q2",
+      "verdict": "blind_correct",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Trigonometric functions and identities"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme marks sine-rule setup and solution for the angle, followed by a cosine-rule or sine-rule route for AB; these are non-right-angled trigonometric methods."
+      ],
+      "rationale": "The angle is found with the sine rule and AB with a sine- or cosine-rule route, making non-right-angled trigonometry the complete blind classification.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2022-november-p2-tzn-q2/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2022-november-p2-tzn-q2/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2022-november-p2-tzn-q2/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2024-november-tz1-p2-q2",
+      "verdict": "modified",
+      "primaryTopic": "Functions",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "skills": [
+        "Sinusoidal models",
+        "Properties of functions and graphs",
+        "Arcs and sectors"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme separately marks circumference/10° arc length, the sinusoidal parameters and model, solving h(t)=33, and revolution counting; Arcs and sectors must accompany the sinusoidal function skills."
+      ],
+      "rationale": "The scheme separately marks circumference/10-degree arc length, sinusoidal parameterisation and solving, and revolution counting; Arcs and sectors is therefore a material secondary method in the modified tuple.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2024-november-tz1-p2-q2/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2024-november-tz1-p2-q2/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2024-november-tz1-p2-q2/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2023-june-23-q22",
+      "verdict": "blind_correct",
+      "primaryTopic": "Algebra and graphs",
+      "secondaryTopics": [],
+      "skills": [
+        "Sequences",
+        "Algebraic manipulation"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme marks forming equations from the nth-term sequence values and eliminating a variable to obtain a and b; sequence fitting and algebraic elimination are both material."
+      ],
+      "rationale": "Fitting the nth-term expression and eliminating a variable to obtain a and b are both awarded methods, so Sequences and Algebraic manipulation are retained in the blind tuple.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2023-june-23-q22/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2023-june-23-q22/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2026-june-21-q4",
+      "verdict": "production_correct",
+      "primaryTopic": "Mensuration",
+      "secondaryTopics": [],
+      "skills": [
+        "Area and perimeter"
+      ],
+      "confidence": "medium",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme directly marks the rectangle-perimeter equation and the resulting length; this is a mensuration perimeter problem, not a general number-properties item."
+      ],
+      "rationale": "The marked equation is the rectangle perimeter relation and its resulting length, making Area and perimeter under Mensuration the exact production classification.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2026-june-21-q4/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2026-june-21-q4/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2017-march-12-q7",
+      "verdict": "blind_correct",
+      "primaryTopic": "Vectors and matrices",
+      "secondaryTopics": [],
+      "skills": [
+        "Vectors in two dimensions",
+        "Simultaneous equations"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme marks vector magnitude scaling and component equations, then elimination of q and quadratic solution for p; both vector and simultaneous-equation methods are materially assessed."
+      ],
+      "rationale": "The markscheme first scales the vector by its magnitude and then uses component equations followed by elimination and a quadratic, so both vector and simultaneous-equation skills are material.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-march-12-q7/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-march-12-q7/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2021-november-tz0-p2-q6",
+      "verdict": "production_correct",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "skills": [
+        "Coupled differential equations",
+        "Differential equations",
+        "Eigenvalues and eigenvectors",
+        "Matrices and determinants"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme marks conversion to the first-order coupled system, matrix construction, eigenvalues/eigenvectors, and the initial-condition solution; the coupled-system method is materially assessed and must not be dropped."
+      ],
+      "rationale": "Conversion to a coupled first-order system, matrix construction, eigenvalues/eigenvectors, and the initial-condition solution all receive marks, supporting the production tuple including the coupled-system skill.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-november-tz0-p2-q6/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-november-tz0-p2-q6/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-november-tz0-p2-q6/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2023-november-tz1-p1-q8",
+      "verdict": "blind_correct",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "skills": [
+        "Applications of differentiation",
+        "Coordinate geometry"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme marks the derivative at H, the perpendicular normal line, intersection coordinates for G, and the distance formula; differentiation and coordinate geometry are independent mark-bearing methods."
+      ],
+      "rationale": "The derivative at H, perpendicular normal, intersection coordinates, and distance formula are independent marked steps, so Applications of differentiation and Coordinate geometry both belong in the blind tuple.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2023-november-tz1-p1-q8/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2023-november-tz1-p1-q8/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2023-november-tz1-p1-q8/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-sl",
+      "id": "2017-may-p1-tz1-q9",
+      "verdict": "modified",
+      "primaryTopic": "Functions",
+      "secondaryTopics": [],
+      "skills": [
+        "Roots and polynomial functions",
+        "Differentiation",
+        "Equations and inequalities",
+        "Algebraic manipulation"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme marks identifying the second root from symmetry, substituting the intercept, and solving the tangent condition by discriminant; an optional derivative route is also accepted, while the core tuple is a function/quadratic problem without a separate calculus topic."
+      ],
+      "rationale": "Symmetry identifies the second root, the intercept fixes the coefficient, and the tangent discriminant gives both k values; the optional derivative route does not make calculus a core topic, yielding the modified function-focused tuple.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2017-may-p1-tz1-q9/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2017-may-p1-tz1-q9/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2017-may-p1-tz1-q9/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2022-march-42-q12",
+      "verdict": "modified",
+      "primaryTopic": "Algebra and graphs",
+      "secondaryTopics": [
+        "Trigonometry"
+      ],
+      "skills": [
+        "Calculus",
+        "Functions and graphs",
+        "Equations and inequalities"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme independently marks a tangent-equation solve, a cubic sketch, and differentiation/stationary-point equations. Calculus is missing from production and the trigonometric equation is missing from blind, so both are retained as separate assessed methods."
+      ],
+      "rationale": "The tangent equation, cubic sketch, and stationary-point differentiation are separately assessed; the modified tuple adds Calculus and keeps the trigonometric equation represented without treating it as a separate primary topic.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2022-march-42-q12/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2022-march-42-q12/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2021-march-12-q7",
+      "verdict": "blind_correct",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Trigonometry",
+        "Indices and surds"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme marks surd expansion/simplification for perimeter and area, rationalisation for tan AED, and sec²θ=tan²θ+1; trigonometry and indices/surds belong together under the geometry-and-trigonometry topic."
+      ],
+      "rationale": "Surd expansion for perimeter/area, rationalisation for tan AED, and sec-squared identity work are all marked, so Trigonometry and Indices and surds jointly match the blind tuple.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2021-march-12-q7/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2021-march-12-q7/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2025-november-tz3-p2-q2",
+      "verdict": "blind_correct",
+      "primaryTopic": "Statistics and probability",
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "skills": [
+        "Descriptive statistics",
+        "Equations and inequalities"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme marks interpreting the median/box plot, forming the sum and range equations from the means, solving the simultaneous relations, and obtaining 5 and 19; descriptive statistics and algebra are independently assessed."
+      ],
+      "rationale": "The box-plot median and the mean/range relations are marked, as is solving those relations for 5 and 19; descriptive statistics and algebra are therefore both material.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-november-tz3-p2-q2/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-november-tz3-p2-q2/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2023-november-43-q6",
+      "verdict": "blind_correct",
+      "primaryTopic": "Algebra and graphs",
+      "secondaryTopics": [],
+      "skills": [
+        "Functions and graphs",
+        "Algebraic manipulation"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme marks function evaluation/composition, inverse evaluation, an exponential equation, rational simplification, and expansion; function operations and algebraic manipulation are material."
+      ],
+      "rationale": "Function evaluation/composition and inverse evaluation are accompanied by an exponential equation, rational simplification, and expansion, supporting the blind function-and-algebra skill union.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2023-november-43-q6/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2023-november-43-q6/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2022-may-tz1-p1-q7",
+      "verdict": "blind_correct",
+      "primaryTopic": "Statistics and probability",
+      "secondaryTopics": [
+        "Calculus"
+      ],
+      "skills": [
+        "Continuous random variables",
+        "Integration"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme marks normalising the continuous pdf and evaluating E(X), with definite integration independently used in both parts; integration is a material calculus secondary method."
+      ],
+      "rationale": "Normalising the continuous density and evaluating E(X) both require definite integration, so the blind tuple correctly adds Integration as a calculus secondary skill.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2022-may-tz1-p1-q7/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2022-may-tz1-p1-q7/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2022-may-tz1-p1-q7/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2026-june-12-q6",
+      "verdict": "production_correct",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Circular measure"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme marks the two complementary arc-length expressions, the perimeter equation, and the sector-area equation; the item is wholly circular measure rather than calculus."
+      ],
+      "rationale": "Both complementary arc lengths, the perimeter equation, and the sector-area equation are circular-measure work throughout, exactly matching the production tuple.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2026-june-12-q6/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2026-june-12-q6/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2020-march-22-q1",
+      "verdict": "blind_correct",
+      "primaryTopic": "Number",
+      "secondaryTopics": [],
+      "skills": [
+        "Number properties"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme's four independent answers classify a multiple of 3, cube, prime, and irrational number; Number properties is the sole material skill."
+      ],
+      "rationale": "The four marked responses classify a multiple of 3, a cube, a prime, and an irrational number, making Number properties the sole material blind skill.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-march-22-q1/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-march-22-q1/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2017-may-tz1-p1-q3",
+      "verdict": "production_correct",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Trigonometric identities and equations"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme marks using sec²x=tan²x+1 or the equivalent double-angle identity, reducing to tan x=-1/sin 2x=-1, and selecting the two solutions in the interval."
+      ],
+      "rationale": "The marked identity reduction to sin 2x=-1/tan x=-1 and selection of the two interval solutions is entirely trigonometric, so the production tuple is exact.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p1-q3/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p1-q3/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2025-november-tz3-p2-q3",
+      "verdict": "blind_correct",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "skills": [
+        "Non right-angled trigonometry",
+        "Right-angled trigonometry",
+        "Financial mathematics"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme marks cosine rule plus triangle area, Pythagoras for the east/north displacement, path area/cost, and the annuity loan calculation; the blind tuple keeps each independently credited method without the unsupported coordinate-geometry tag."
+      ],
+      "rationale": "Cosine rule and triangle area, Pythagoras for the displacement, path area/cost, and annuity-loan work are independently credited; the blind tuple keeps those methods and correctly omits unsupported coordinate geometry.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2025-november-tz3-p2-q3/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2025-november-tz3-p2-q3/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2025-november-tz3-p2-q3/markscheme-2.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2025-november-tz3-p2-q3/markscheme-3.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2023-march-22-q8",
+      "verdict": "blind_correct",
+      "primaryTopic": "Sets and functions",
+      "secondaryTopics": [],
+      "skills": [
+        "Functions",
+        "Logarithmic and exponential functions"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme marks inverse-domain reasoning, solving the inverse composition equation, graph reflection/asymptote, and inverse composition; functions and logarithmic/exponential functions are the material skills."
+      ],
+      "rationale": "Inverse-domain reasoning, inverse composition, graph reflection/asymptote, and logarithmic/exponential manipulation are all marked, supporting the complete blind tuple.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-march-22-q8/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-march-22-q8/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2020-june-41-q2",
+      "verdict": "blind_correct",
+      "primaryTopic": "Statistics",
+      "secondaryTopics": [
+        "Probability"
+      ],
+      "skills": [
+        "Averages and spread",
+        "Histograms and cumulative frequency",
+        "Basic probability"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme marks grouped-data modal/mean work, without-replacement probabilities, cumulative-frequency totals/graph, median, and percentile; probability is an independently assessed secondary method."
+      ],
+      "rationale": "Grouped-data mode/mean and cumulative-frequency readings are marked alongside without-replacement probabilities, median, and percentile, so probability is a genuine secondary method in the blind tuple.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-june-41-q2/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-june-41-q2/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2024-november-43-q2",
+      "verdict": "blind_correct",
+      "primaryTopic": "Transformations and vectors",
+      "secondaryTopics": [
+        "Coordinate geometry"
+      ],
+      "skills": [
+        "Transformations",
+        "Vectors",
+        "Coordinates and geometry"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme marks midpoint and coordinate-vector work, rotation/reflection/enlargement, and the full transformation description; coordinate calculations are independently material alongside transformations and vectors."
+      ],
+      "rationale": "Midpoint and coordinate-vector calculations are marked independently of rotation, reflection, enlargement, and the full transformation description, supporting all three blind skills.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2024-november-43-q2/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2024-november-43-q2/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2021-may-tz2-p2-q5",
+      "verdict": "blind_correct",
+      "primaryTopic": "Statistics and probability",
+      "secondaryTopics": [],
+      "skills": [
+        "Poisson distribution",
+        "Binomial distribution",
+        "Discrete probability distributions"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme marks Poisson models for totals and zero visits, independent-event multiplication, a binomial model, and a cumulative Poisson threshold search; all three discrete-distribution skills are materially assessed."
+      ],
+      "rationale": "Poisson totals and threshold search, independent-event multiplication, and the binomial model are all marked, so Poisson, binomial, and discrete-distribution skills belong in the blind tuple.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz2-p2-q5/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz2-p2-q5/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2021-november-21-q5",
+      "verdict": "blind_correct",
+      "primaryTopic": "Statistics",
+      "secondaryTopics": [],
+      "skills": [
+        "Data charts and diagrams"
+      ],
+      "confidence": "medium",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme awards completion of the relative-frequency table using the total and the lost:drawn relation; this is a statistics table/data-interpretation task, not a probability calculation."
+      ],
+      "rationale": "Completing the relative-frequency table from the total and lost-to-drawn relation is a statistics table/data-interpretation task rather than a probability calculation, matching the blind tuple.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2021-november-21-q5/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2021-november-21-q5/markscheme-1.webp"
+      ]
+    }
+  ]
+}

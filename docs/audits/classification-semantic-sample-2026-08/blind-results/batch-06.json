@@ -1,0 +1,876 @@
+{
+  "auditVersion": "pastpaperprep-semantic-sample-2026.08.1",
+  "batch": 6,
+  "inputSha256": "1cd46f082e53f175eef6705f1b00ee5506776cb2a5897765303b18b0aa511aaf",
+  "count": 35,
+  "judgments": [
+    {
+      "bank": "ib-ai-sl",
+      "id": "2023-november-tz1-p1-q8",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "skills": [
+        "Applications of differentiation",
+        "Coordinate geometry"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 8. [Maximum mark: 7] The diagram shows a map containing a long, winding road passing a lake. The shape of the road can be modelled by the function r(x) = (x + 2)3 + 3x2 −2x . All distances in the map are in kilometres. The local hospital is located at point H, which has coordinates (−2, 16). To save time during emergencies, the local community is planning the construction of a bridge over the lake. The bridge will be",
+        "Markscheme evidence: 8. (a) ( ) ( 2) 14 r′ − = − A2 [2 marks] (b) 1 14 seen (A1) 1 16 ( 2) 14 y x − = + OR 0.0714 16.1 ( 0.0714285... 16.1428...) y x y x = + = + OR 113 14 7 x y = + OR 14 226 0 x y − + = A1 [2 marks] (c) attempt to find coordinates of point G (M1) e.g. ( ) 7.53997 ,1 5.6042 − … … OR ( ) 0.539978..., 13.1814… seen attempt to substitute into distance formula (M1) ( ) ( ) 2 2 2 7.53997 16 15.6042 d   = −+ … + − …     "
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2023-november-tz1-p1-q8/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2023-november-tz1-p1-q8/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2023-november-tz1-p1-q8/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2022-november-21-q14",
+      "primaryTopic": "Transformations and vectors",
+      "secondaryTopics": [],
+      "skills": [
+        "Transformations"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 14 0 1 2 3 4 5 6 1 2 3 4 5 6 x y B A Describe fully the single transformation that maps triangle A onto triangle B. .................................................................................................................................................................... ...........................................................................................................................................",
+        "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2022-november-21-q14/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2022-november-21-q14/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2021-june-41-q8",
+      "primaryTopic": "Statistics",
+      "secondaryTopics": [],
+      "skills": [
+        "Histograms and cumulative frequency",
+        "Averages and spread"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 8 (a) The table shows information about the mass, in kilograms, of each of 50 children. Mass (k kg) k 0 10 1 G k 10 25 1 G k 25 35 1 G k 0 35 4 1 G k 0 40 5 1 G Frequency 3 19 21 5 2 (i) Complete the cumulative frequency table. Mass (k kg) k 10 G k 25 G k 35 G k 0 4 G k 50 G Cumulative frequency [2] (ii) On the grid, draw a cumulative frequency diagram to show this information. 0 10 20 30 Mass (kg) Cumulative frequen",
+        "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2021-june-41-q8/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2021-june-41-q8/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2022-november-42-q8",
+      "primaryTopic": "Coordinate geometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Coordinates and geometry",
+        "Straight-line graphs",
+        "Area and perimeter"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 8 AB is a line with midpoint M. A is the point (2, 3) and M is the point (12, 7). (a) Find the coordinates of B. ( ...................... , ...................... ) [2] (b) Show that the equation of the perpendicular bisector of AB is y x 2 5 74 + = . [4] (c) The perpendicular bisector of AB passes through the point N. The point N has coordinates (2, n). Find the value of n. n = ......................................",
+        "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2022-november-42-q8/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2022-november-42-q8/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2017-may-tz1-p2-q8",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "skills": [
+        "Applications of differentiation",
+        "Radian measure and sectors"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 8. [Maximum mark: 7] A water trough which is 10 metres long has a uniform cross-section in the shape of a semicircle with radius 0.5 metres. It is partly filled with water as shown in the following diagram of the cross-section. The centre of the circle is O and the angle KOL is θ radians. O K L 0.5 θ (a) Find an expression for the volume of water V (m3) in the trough in terms of θ . [3] The volume of water is increas",
+        "Markscheme evidence: 8. (a) area of segment  2 1 0.5 ( sin ) 2      M1A1 V  area of segment 10  5 ( sin ) 4 V     A1 [3 marks] (b) METHOD 1 d 5 d (1 cos ) d 4 d V t t     M1A1 5 π d 0.0008 1 cos 4 3 dt          (M1) d 0.00128 dt  (rad s1) A1 METHOD 2 d d d d d d θ θ V t V t   (M1)   d 5 1 cos d 4 V θ θ   A1 d 4 0.0008 d 5 1 cos 3 θ π t          (M1) d 4 0.00128 d 3125 t         (rad s1)"
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p2-q8/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p2-q8/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p2-q8/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p2-q8/markscheme-2.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2020-november-tz0-p3-statistics-and-probability-q4",
+      "primaryTopic": "Statistics and probability",
+      "secondaryTopics": [],
+      "skills": [
+        "Discrete random variables",
+        "Statistical inference",
+        "Probability models"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 4. [Maximum mark: 19] A discrete random variable X has a probability distribution given by x 0 1 2 P ( X = x ) p 3p 1 − 4p where 1 0 4 p < < . (a) Find an expression for E ( X ) , in terms of p . [2] (b) Show that Var (X ) = p (7 - 25p) . [3] Christine and Sarah want to estimate the value of p . They take a random sample of n observations of X . (c) Christine calculates the sample mean, X , and proposes 2 5 X C − = a",
+        "Markscheme evidence: 4. (a) ( ) ( ) ( ) E 3 2 1 4 2 5 X p p p = + − = − (M1)A1 [2 marks] (b) ( ) 2 E X = ( ) 3 4 1 4 p p + − A1 ( ) ( ) ( ) 2 Var 3 4 1 4 2 5 X p p p = + − − − M1 2 3 4 16 4 20 25 p p p p = + − − + − A1 Note: Award A1 for any correct expansion which leads to the correct answer. 2 7 25 p p = − ( ) 7 25 p p = − AG [3 marks] (c) (i) ( ) ( ) 1 E E 2 5 C X = − (M1) Note: The E must be present. ( ) ( ) 1 2 2 5 5 p = − − A1 = p "
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2020-november-tz0-p3-statistics-and-probability-q4/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2020-november-tz0-p3-statistics-and-probability-q4/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2020-november-tz0-p3-statistics-and-probability-q4/markscheme-2.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2020-november-tz0-p3-statistics-and-probability-q4/markscheme-3.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2024-november-23-q26",
+      "primaryTopic": "Transformations and vectors",
+      "secondaryTopics": [],
+      "skills": [
+        "Vectors"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 26 B C NOT TO SCALE A O a b K In the diagram, a OA = and b OB = AK KB 2 1 | | = OK KC = Find AC in terms of a and b Give your answer in its simplest form AC = [4] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0002\u0003,",
+        "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2024-november-23-q26/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2024-november-23-q26/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2026-june-42-q20",
+      "primaryTopic": "Trigonometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Sine/cosine rules and bearings"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 20 NOT TO SCALE North C B A D 79° 112° 103° 38.2 m 50.3 m 86.8 m The diagram shows a field ABCD with a straight footpath from A to C. (a) Find the bearing of A from B. ............................................................. [1] (b) Calculate the distance CD. .......................................................... m [3] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0002\u0005, 15 (c) Calculate the shortest distance from B to AC. .....................",
+        "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2026-june-42-q20/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2026-june-42-q20/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2021-may-tz1-p1-q6",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Non right-angled trigonometry",
+        "Rounding, estimation and percentage error"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 6. [Maximum mark: 5] A triangular field ABC is such that AB = 56 m and BC = 82 m , each measured correct to the nearest metre, and the angle at B is equal to 105, measured correct to the nearest 5. diagram not to scale C A B 82 56 105 Calculate the maximum possible area of the field.",
+        "Markscheme evidence: 6. attempt to find any relevant maximum value (M1) largest sides are 56.5 and 82.5 (A1) smallest possible angle is 102.5 (A1) attempt to substitute into area of a triangle formula (M1) 1 56.5 82.5 sin (102.5 ) 2 × × ×  2 2280 m (2275.37...) = A1 Total [5 marks] M21/5/MATHY/HP1/ENG/TZ1/XX/M"
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz1-p1-q6/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz1-p1-q6/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2021-may-tz1-p1-q6/markscheme-2.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-sl",
+      "id": "2017-may-p1-tz1-q9",
+      "primaryTopic": "Functions",
+      "secondaryTopics": [],
+      "skills": [
+        "Functions and modelling",
+        "Equations and inequalities",
+        "Algebraic manipulation"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 9. [Maximum mark: 14] A quadratic function f can be written in the form f(x) = a(x − p)(x − 3). The graph of f has axis of symmetry x = 2.5 and y-intercept at (0, −6). (a) Find the value of p. [3] (b) Find the value of a. [3] (c) The line y = kx − 5 is a tangent to the curve of f. Find the values of k. [8]",
+        "Markscheme evidence: The roots are p and 3, whose midpoint is 2.5, so (p+3)/2=2.5 and p=2. Since f(0)=a(−2)(−3)=6a=−6, a=−1. Thus f(x)=−(x−2)(x−3)=−x²+5x−6. Intersections with y=kx−5 satisfy −x²+5x−6=kx−5, or x²+(k−5)x+1=0. Tangency requires discriminant zero: (k−5)²−4=0, so k−5=±2 and k=3 or 7."
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2017-may-p1-tz1-q9/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2017-may-p1-tz1-q9/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2017-may-p1-tz1-q9/markscheme-2.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2026-march-42-q7",
+      "primaryTopic": "Number",
+      "secondaryTopics": [],
+      "skills": [
+        "Algebraic manipulation"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 7 p r t8 2 2 = - (a) Find p when r 15 =- and t 7 = . p = ............................................................ [2] (b) Rearrange p r t8 2 2 = - to make t the subject. t = ............................................................ [2]",
+        "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2026-march-42-q7/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2026-march-42-q7/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2019-november-13-q3",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "skills": [
+        "Calculus"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 3 (i) Differentiate y x 3 1 2 3 1 = - - ` j with respect to x. [2] (ii) Find the approximate change in y as x increases from 3 to ,p 3 + where p is small. [1] (iii) Find the equation of the normal to the curve y x 3 1 2 3 1 = - - ` j at the point where . x 3 = [3]",
+        "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2019-november-13-q3/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2019-november-13-q3/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2019-june-23-q12",
+      "primaryTopic": "Algebra",
+      "secondaryTopics": [],
+      "skills": [
+        "Factors of polynomials",
+        "Straight-line graphs"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 16 12 Do not use a calculator in this question. The line y = 4x - 6 intersects the curve y = 10x3 - 19x2 - x at the points A, B, and C. Given that C is the point (2, 2), find the coordinates of the midpoint of AB. [10]",
+        "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2019-june-23-q12/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2019-june-23-q12/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-sl",
+      "id": "2024-november-p1-tz2-q2",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Radians and exact values",
+        "Geometry and measurement"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 2. [Maximum mark: 5] Points A and B lie on a circle with centre O and radius r cm, where AÔB = 1.5 radians. [Diagram not to scale: sector OAB, with radii OA and OB and central angle AÔB labelled 1.5.] The area of sector OAB is 48 cm². (a) Find r. [3] (b) Hence, find the perimeter of sector OAB. [2]",
+        "Markscheme evidence: (a) ½r²θ=48, so ½r²(1.5)=48; therefore r=8 cm. (b) Perimeter = 2r+rθ = 28 cm."
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2024-november-p1-tz2-q2/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2024-november-p1-tz2-q2/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2022-march-22-q10",
+      "primaryTopic": "Algebra and graphs",
+      "secondaryTopics": [],
+      "skills": [
+        "Sequences"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 10 (a) The nth term of a sequence is n 7 2 + . Find the first three terms of this sequence. .................. , .................. , .................. [2] (b) These are the first four terms of a different sequence. 15 7 − 1 -9 Find the nth term of this sequence. ................................................. [2]",
+        "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2022-march-22-q10/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2022-march-22-q10/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2020-june-41-q9",
+      "primaryTopic": "Mensuration",
+      "secondaryTopics": [],
+      "skills": [
+        "Area and perimeter",
+        "Volume and surface area"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 9 165° NOT TO SCALE O 8 cm A B The diagram shows a sector of a circle with centre O, radius 8 cm and sector angle 165°. (a) Calculate the total perimeter of the sector. ............................................ cm [3] (b) The surface area of a sphere is the same as the area of the sector. Calculate the radius of the sphere. [The surface area, A, of a sphere with radius r is A r 4 2 r = .] .........................",
+        "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-june-41-q9/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-june-41-q9/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2025-may-tz1-p2-q7",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "skills": [
+        "Applications of integration",
+        "Volumes of revolution"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 7. \u0007[Maximum mark: 12] Bobby is designing a table that will be 1 metre high. The table will have a flat circular top with a radius of 1 metre. To begin the design, he uses the curve of y x \u001b \u001a\u0019 \u0018 2 3 1 10 1 cos , for 0.1 ≤ x ≤ 1 , to shape the underside of the table, where x and y are measured in metres, as shown. 0 1 0.2 0.4 0.6 0.8 1 x y (a) \u0007Find the area of the shaded region. [4] (This question continues on the f",
+        "Markscheme evidence: 7. (a) METHOD 1 attempt to represent area under curve with integral (M1) 1 1 0.1 2 1 cos d 3 10 x x −      ∫ (A1) 0.780871… seen (A1) 1 0.780871 − … 0.219 (0.219128 ) … (m2) A1 METHOD 2 recognition to split area into three areas (M1) ( ) 1 (1 0.980419 ) 0.0195807 × − … = … seen AND (0.1 0.980419 ) 0.0980419 × …= … seen (A1) 1 1 0.1 2 1 0.980419 cos d 3 10 x x −     …−         ∫ (M1) 0.0195807 0.0980"
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-may-tz1-p2-q7/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-may-tz1-p2-q7/question-2.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-may-tz1-p2-q7/question-3.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-may-tz1-p2-q7/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-may-tz1-p2-q7/markscheme-2.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2023-june-23-q1",
+      "primaryTopic": "Algebra",
+      "secondaryTopics": [],
+      "skills": [
+        "Equations, inequalities and graphs"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 1 (a) Solve the equation x 7 4 5 1 - = . [2] (b) y x – 10 – 8 – 6 – 4 – 2 2 0 4 6 8 10 12 14 10 8 6 4 2 – 2 – 4 – 6 The diagram shows the graph of y x 3 9 = + . By drawing a suitable graph on the same diagram, solve the inequality x x 3 9 5 G + - . [3]",
+        "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-june-23-q1/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-june-23-q1/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2025-november-tz0-p2-q3",
+      "primaryTopic": "Functions",
+      "secondaryTopics": [
+        "Statistics and probability"
+      ],
+      "skills": [
+        "Modelling with quadratic and cubic functions",
+        "Applications of differentiation",
+        "Correlation and regression"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 3. [Maximum mark: 16] Jenny designs a flexible suspension bridge, spanning 10 metres over the Swinburne Creek. Jenny believes that when no people are on the bridge, the height, y , of the walkway on the bridge above the creek can be modelled by y = ax2 + bx + c for 0 ≤ x ≤ 10 . She uses a coordinate system where the origin is directly below one side of the bridge, as shown in the following diagram. All distances are ",
+        "Markscheme evidence: 3. (a) 4 A1 [1 mark] (b) (i) EITHER Award M1 for attempting to substitute in (5,3.9) or (10,4) or (8,3.936) in 2 y ax bx c = + + (M1) 2 3.9 5 5 4 a b = × + × + 0.1 25 5 a b − = + ( 0.02 5 ) a b − = + A1 Note: Award at most M1A0 for an equation that is not simplified (e.g. 3.9 = 25𝑎𝑎+ 5𝑏𝑏+ 4). OR M1 for attempt at axis of symmetry at 𝑥𝑥= 5 (M1) 5 2 b a − = OR 10 0 a b + = OR 10 b a = − A1 OR M1 for an attempt to find "
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-november-tz0-p2-q3/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-november-tz0-p2-q3/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-november-tz0-p2-q3/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-november-tz0-p2-q3/markscheme-2.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2020-june-11-q6",
+      "primaryTopic": "Coordinate geometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Equations, inequalities and graphs",
+        "Straight-line graphs"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 8 6 The line y x 5 6 = + meets the curve xy 8 = at the points A and B. (a) Find the coordinates of A and of B. [3] (b) Find the coordinates of the point where the perpendicular bisector of the line AB meets the line y x = . [5]",
+        "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-june-11-q6/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-june-11-q6/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2018-june-23-q3",
+      "primaryTopic": "Number",
+      "secondaryTopics": [],
+      "skills": [
+        "Ratio, proportion and rates"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 3 Liz takes 65 seconds to run 400 m. Calculate her average speed. .......................................... m/s [1]",
+        "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2018-june-23-q3/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2018-june-23-q3/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2017-june-22-q26",
+      "primaryTopic": "Geometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Circle theorems"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 26 95° C D E A B F 140° y° w° NOT TO SCALE x° A, B, C, D and E lie on the circle. AB is extended to F. Angle AED = 140° and angle CBF = 95°. Find the values of w, x and y. w = ................................................ x = ................................................ y = ................................................ [5] Question 27 is printed on the next page.",
+        "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2017-june-22-q26/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2017-june-22-q26/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2022-may-tz1-p2-q4",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [
+        "Calculus"
+      ],
+      "skills": [
+        "Arcs and sectors",
+        "Applications of differentiation"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 4. [Maximum mark: 15] A sector of a circle, centre O and radius 4.5 m, is shown in the following diagram. diagram not to scale 4.5 4 A B O (a) (i) \u0007Find the angle AÔB. (ii) Find the area of the shaded segment. [8] A square field with side 8 m has a goat tied to a post in the centre by a rope such that the goat can reach all parts of the field up to 4.5 m from the post. diagram not to scale 8 8 4.5 (b) (i) \u0007Find the ",
+        "Markscheme evidence: 4. (a) (i) 1 4 ˆ AOB arccos 27.266... 2 4.5     = =         (M1)(A1) ˆ AOB 54.532... 54.5 = ≈  (0.951764... 0.952 ≈ radians) A1 Note: Other methods may be seen; award (M1)(A1) for use of a correct trigonometric method to find an appropriate angle and then A1 for the correct answer. (ii) finding area of triangle EITHER area of triangle = 2 1 4.5 sin (54.532...) 2 × × (M1) Note: Award M1 for correct substi"
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2022-may-tz1-p2-q4/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2022-may-tz1-p2-q4/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2022-may-tz1-p2-q4/markscheme-2.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2022-march-42-q12",
+      "primaryTopic": "Algebra and graphs",
+      "secondaryTopics": [],
+      "skills": [
+        "Calculus",
+        "Functions and graphs",
+        "Equations and inequalities"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 12 (a) Solve the equation tan x = 11.43 for ° ° x 0 360 G G . x = ................... or x = .................. [2] (b) Sketch the curve y x x 4 3 = - . O y x [3] 19 (c) A curve has equation y x ax b 3 = + + . The stationary points of the curve have coordinates (2, k) and (-2, 10 - k). Work out the value of a, the value of b and the value of k. a = ................................ , b = ..............................",
+        "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2022-march-42-q12/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2022-march-42-q12/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2016-march-42-q11",
+      "primaryTopic": "Algebra and graphs",
+      "secondaryTopics": [],
+      "skills": [
+        "Algebraic manipulation",
+        "Functions and graphs",
+        "Equations and inequalities"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 11 f(x) = 2 − 3x g(x) = 7x + 3 (a) Find (i) f(−3), ........................................ [1] (ii) g(2x). ........................................ [1] (b) Find gf(x) in its simplest form. ........................................ [2] (c) Find x when 3f(x) = 7. x = ................................................. [3] (d) Solve the equation. f(x + 4) − g(x) = 0 x = ................................................. [3",
+        "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2016-march-42-q11/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2016-march-42-q11/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2022-june-42-q4",
+      "primaryTopic": "Trigonometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Sine/cosine rules and bearings",
+        "Area and perimeter"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 4 NOT TO SCALE 45° 38° 6.4 cm 10.9 cm C B A D ABCD is a trapezium with DC parallel to AB. DC = 6.4 cm, DB = 10.9 cm, angle CDB = 38° and angle DAB = 45°. (a) Find CB. CB = ........................................... cm [3] (b) (i) Find angle ADB. Angle ADB = ................................................ [1] (ii) Find AB. AB = ........................................... cm [3] (c) Calculate the area of the trapeziu",
+        "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2022-june-42-q4/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2022-june-42-q4/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2025-may-tz1-p1-q13",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Matrices and determinants",
+        "Matrix transformations"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 13. [Maximum mark: 7] The points R (−2 , 2) , S (3 , −5) , and T (5 , 1) are the vertices of a triangle. The triangle goes through a sequence of transformations in the following order: I. a transformation using the matrix A cos sin sin cos π π π π 3 3 3 3 II. a transformation using the matrix B \u001b \u001a \u0019\u0018 0 8 0 6 0 6 0 8 . . . . . (a) Describe the nature of the transformation represented by A . [2] Instead of using this ",
+        "Markscheme evidence: 13. (a) an anticlockwise/counter-clockwise rotation of π 3 (about the origin) A1A1 Note: Award A1 for rotation and A1 for correct angle/direction detail. [2 marks] (b) attempt to multiply A and B in correct order (M1) π π cos sin 0.8 0.6 0.8 0.6 0.5 0.866025 3 3 0.6 0.8 π π 0.6 0.8 0.866025 0.5 sin cos 3 3   −    − − −       =                      BA 0.119615 0.992820 0.992820 0."
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-may-tz1-p1-q13/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-may-tz1-p1-q13/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-hl/2025-may-tz1-p1-q13/markscheme-2.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2022-may-tz2-p1-q9",
+      "primaryTopic": "Functions",
+      "secondaryTopics": [],
+      "skills": [
+        "Modelling with quadratic and cubic functions"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 9. [Maximum mark: 8] The graph below shows the average savings, S thousand dollars, of a group of university graduates as a function of t , the number of years after graduating from university. S t (a) Write down one feature of this graph which suggests a cubic function might be appropriate to model this scenario. [1] The equation of the model can be expressed in the form ​S = a​t​ 3​ + b​t​ 2​ + ct + d​ , where a , ",
+        "Markscheme evidence: 9. (a) Accept any one of the following (or equivalent): one minimum and one maximum point three x-intercepts or three roots (or zeroes) one point of inflexion R1 Note: Do not accept “S shape” as a justification. [1 mark] (b) (i) ( ) 5 d = − A1 (ii) 8 a b c = + + 4 8 4 2 a b c = + + 0 27 9 3 a b c = + + A2 Note: Award A2 if all three equations are correct. Award A1 if at least one is correct. Award A1 for three correc"
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2022-may-tz2-p1-q9/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2022-may-tz2-p1-q9/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2022-may-tz2-p1-q9/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2017-november-tz0-p3-calculus-q5",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "skills": [
+        "Differentiation",
+        "Limits and series",
+        "Proof and induction"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 5. [Maximum mark: 13] Consider the function f (x) = sin(p arcsin x) , -1 < x < 1 and p ∈  . (a) Show that f '(0) = p . [2] The function f and its derivatives satisfy (1 - x2) f (n + 2)(x) - (2n + 1) xf (n + 1)(x) + (p2 - n2) f (n)(x) = 0 , n ∈  where f (n)(x) denotes the n th derivative of f (x) and f (0)(x) is f (x) . (b) Show that f (n + 2)(0) = (n2 - p2) f (n)(0) . [1] (c) For p ∈  \\ {±1 , ±3} , show that the M",
+        "Markscheme evidence: 5. (a) 2 cos( arcsin ) ( ) 1 p p x f x x    (M1)A1 Note: Award M1 for attempting to use the chain rule. (0) f p   AG [2 marks] (b) EITHER   ( 2) 2 2 ( ) (0) (0) 0 n n f p n f     A1 OR for eg,     2 ( 2) ( 1) 2 2 ( ) 1 ( ) (2 1) ( ) ( ) n n n x f x n xf x p n f x        A1 Note: Award A1 for eg,     2 ( 2) ( 1) 2 2 ( ) 1 ( ) (2 1) ( ) ( ) n n n x f x n xf x p n f x        . THEN   "
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p3-calculus-q5/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p3-calculus-q5/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p3-calculus-q5/markscheme-2.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2022-november-13-q10",
+      "primaryTopic": "Algebra",
+      "secondaryTopics": [],
+      "skills": [
+        "Trigonometry"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 10 Solve the equation ( . ) ( . ) cos sin x x 2 3 1 2 2 3 1 2 + = + , where x is in radians, for . . x 1 5 1 5 G G - . [5]",
+        "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2022-november-13-q10/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2022-november-13-q10/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2021-march-12-q7",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Trigonometry",
+        "Indices and surds"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 7 DO NOT USE A CALCULATOR IN THIS QUESTION In this question all lengths are in centimetres. 17 1 - 17 4 + 17 1 + B C A D E The diagram shows a trapezium ABCDE such that AB is parallel to EC and ABCD is a rectangle. It is given that BC 17 1 = + , ED 17 1 = - and . DC 17 4 = + (a) Find the perimeter of the trapezium, giving your answer in the form a b 17 + , where a and b are integers. [3] (b) Find the area of the trap",
+        "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2021-march-12-q7/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2021-march-12-q7/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2023-june-23-q5",
+      "primaryTopic": "Combinatorics and series",
+      "secondaryTopics": [],
+      "skills": [
+        "Permutations and combinations"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 5 (a) (i) A gardening group has 20 members. A committee of 6 members is to be selected. Anwar and Bo belong to the gardening group and at most one of them can be on the committee. How many different committees are possible? [2] (ii) The gate for the garden has a lock with a 6-character passcode. The passcode is to be made from Letters G A R D E N Numbers 0 1 2 3 4 5 6 7 8 9. No character may be used more than once in",
+        "Markscheme evidence: mark-bearing criteria were inspected directly in the staged markscheme WebP assets."
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-june-23-q5/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-june-23-q5/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2023-november-tz2-p2-q1",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "skills": [
+        "Applications of integration",
+        "Trapezoidal rule",
+        "Rounding, estimation and percentage error"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 1. [Maximum mark: 12] Gabriel is investigating the shape of model airplane wings. A cross-section of one of the wings is shown, graphed on the coordinate axes. 100 0 −10 −5 5 10 y x The shaded part of the cross-section is the area between the x-axis and the curve with equation y x x 2 5 1, for 0 ≤ x ≤ 100 where x is the distance, in cm, from the front of the wing and y is the height, in cm, above the horizontal axis ",
+        "Markscheme evidence: 1. (a) ( ) 6 a = A1 ( ) 5.14 (5.14213...) b = A1 ( ) 3.32 (3.32050 ) c = … A1 [3 marks] (b) attempt to use the trapezoidal rule (M1) (area =) ( ) 1 (25) (1 1) 2(6 5.14213... 3.32050 ) 2 + + + + … (A1) (area =) 2 387(cm ) (386.566 ) … A1 [3 marks] (c) (i) 100 0 2 1 d 5 x x x   − +     ∫ A1A1 Note: Award A1 for correct function seen within the integral and A1 for correct limits in the correct location and the inc"
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2023-november-tz2-p2-q1/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2023-november-tz2-p2-q1/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2025-may-tz1-p1-q12",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "skills": [
+        "Integration",
+        "Applications of integration",
+        "Limits and series"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 12. [Maximum mark: 19] Consider the family of functions fn (x) = cosn x , where x ∈  and n ∈  . (a) By writing cosn x as cosn-1 x cos x , show that ∫ cosn x dx = cosn−1 x sin x + (n − 1) ∫ cosn−2 x dx − (n − 1) ∫ cosn x dx for n > 1 . [4] (b) Hence, show that f x x n x x n n f x x n n n ( ) cos sin ( ) d d 1 1 1 2 for n > 1 . [2] (c) Hence, find an expression for ∫ cos4 x dx , giving your answer in the form p cos3x",
+        "Markscheme evidence: 12. (a) attempt to use integration by parts on 1 ( ) cos cos n nf x x x − = M1 1 d cos , cos d n v u x x x − = = 2 d ( 1)cos sin , sin d n u n x x v x x − = − − = 1 2 2 ( )d cos sin ( 1)cos sin d n n nf x x x x n x x x − − = + − ∫ ∫ A1A1 Note: A1 for each term with correct signs ( ) 1 2 2 cos sin ( 1) cos 1 cos d n n x x n x x x − − = + − − ∫ A1 1 2 cos sin ( 1) cos d ( 1) cos d n n n x x n x x n x x − − = + − − − ∫ "
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz1-p1-q12/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz1-p1-q12/question-2.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz1-p1-q12/question-3.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz1-p1-q12/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz1-p1-q12/markscheme-2.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2025-may-tz1-p1-q12/markscheme-3.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2021-november-tz0-p1-q13",
+      "primaryTopic": "Functions",
+      "secondaryTopics": [
+        "Calculus"
+      ],
+      "skills": [
+        "Modelling with quadratic and cubic functions",
+        "Applications of integration"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Question asset: 13. [Maximum mark: 8] Irina uses a set of coordinate axes to draw her design of a window. The base of the window is on the x-axis, the upper part of the window is in the form of a quadratic curve and the sides are vertical lines, as shown on the diagram. The curve has end points (0 , 10) and (8 , 10) and its vertex is (4 , 12). Distances are measured in centimetres. y x The quadratic curve can be expressed in the for",
+        "Markscheme evidence: 13. (a) (i) 10 c = A1 (ii) 64 8 10 10 a b + + = A1 16 4 10 12 a b + + = A1 Note: Award A1 for each equivalent expression or A1 for the use of the axis of symmetry formula to find 4 2 b a − = or from use of derivative. Award A0A1 for 64 8 10 a b c + + = and 16 4 12 a b c + + = . (iii) 2 1 10 8 y x x = − + + A1A1 Note: Award A1A0 if one term is incorrect, A0A0 if two or more terms are incorrect. Award at most A1A0 if c"
+      ],
+      "rationale": "Classified from the visible mark-bearing methods using only the supplied controlled topics and flat skills; no contextual union was introduced.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2021-november-tz0-p1-q13/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2021-november-tz0-p1-q13/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2021-november-tz0-p1-q13/markscheme-1.webp"
+      ],
+      "officialMarkschemeUnavailable": false
+    }
+  ]
+}

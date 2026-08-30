@@ -1,0 +1,749 @@
+{
+  "auditVersion": "pastpaperprep-semantic-sample-2026.08.1",
+  "batch": 2,
+  "inputSha256": "389a0488c79473c152b8c84ffd22d5ec02794e66a1b102e127d0440fe0801124",
+  "count": 31,
+  "judgments": [
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2026-june-22-q11",
+      "verdict": "blind_correct",
+      "primaryTopic": "Coordinate geometry",
+      "secondaryTopics": [
+        "Algebra"
+      ],
+      "skills": [
+        "Coordinate geometry of the circle",
+        "Simultaneous equations"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The official scheme credits circle-equation formation, substitution of the common chord, and solving the resulting intersection equations before obtaining the second radius. Simultaneous-equation work is a materially marked supporting method."
+      ],
+      "rationale": "Coordinate geometry is the dominant assessed method; simultaneous equations are independently required by the credited solution.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2026-june-22-q11/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2026-june-22-q11/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2024-june-22-q10",
+      "verdict": "blind_correct",
+      "primaryTopic": "Sets and functions",
+      "secondaryTopics": [],
+      "skills": [
+        "Functions",
+        "Logarithmic and exponential functions"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme credits establishing the inverse, rearranging the restricted function, stating its domain and range, and composing the inverse with an exponential expression."
+      ],
+      "rationale": "Inverse-function work is primary; logarithmic/exponential rearrangement is a materially assessed supporting skill.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2024-june-22-q10/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2024-june-22-q10/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2020-june-43-q3",
+      "verdict": "modified",
+      "primaryTopic": "Statistics",
+      "secondaryTopics": [],
+      "skills": [
+        "Data charts and diagrams",
+        "Averages and spread"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme awards the correctly constructed box-and-whisker plot at the supplied five-number summary and a frequency-weighted mean from the mark table."
+      ],
+      "rationale": "Both the box-and-whisker construction and the frequency-table mean are materially marked; the unsupported histogram/cumulative-frequency skill is excluded.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-june-43-q3/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-june-43-q3/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2017-november-43-q4",
+      "verdict": "blind_correct",
+      "primaryTopic": "Statistics",
+      "secondaryTopics": [
+        "Probability"
+      ],
+      "skills": [
+        "Averages and spread",
+        "Data charts and diagrams",
+        "Histograms and cumulative frequency",
+        "Basic probability",
+        "Combined and conditional probability"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme credits the median interval and grouped mean, the pie-chart sector, single-event and without-replacement probabilities, and histogram heights."
+      ],
+      "rationale": "Statistics is primary, with the separately marked probability methods retained under Probability.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2017-november-43-q4/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2017-november-43-q4/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2026-may-tza-p2-q8",
+      "verdict": "production_correct",
+      "primaryTopic": "Number and algebra",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "skills": [
+        "Complex numbers",
+        "Triangle geometry"
+      ],
+      "confidence": "medium",
+      "taxonomyGap": null,
+      "evidence": [
+        "The supplied reconstruction asks for the cube-root solutions, the solutions after multiplication by i, and the area of their Argand-diagram triangle; no official markscheme asset is available."
+      ],
+      "rationale": "Complex-number root work is primary, while the independently assessed Argand-triangle area belongs to the controlled Geometry and trigonometry parent.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2026-may-tza-p2-q8/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": []
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2023-june-21-q6",
+      "verdict": "blind_correct",
+      "primaryTopic": "Mensuration",
+      "secondaryTopics": [],
+      "skills": [
+        "Volume and surface area"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The official scheme credits using the radius as half the diameter in V = 4/3 pi r^3 and evaluating the sphere volume."
+      ],
+      "rationale": "This is a direct sphere-volume calculation with no independently assessed area/perimeter method.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2023-june-21-q6/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2023-june-21-q6/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2017-june-12-q11",
+      "verdict": "blind_correct",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "skills": [
+        "Calculus",
+        "Logarithmic and exponential functions"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme credits integrating f' to obtain f, applying the point condition, differentiating twice, and solving the exponential equation with logarithms."
+      ],
+      "rationale": "Integration and second differentiation are primary; logarithmic/exponential solving is also materially marked.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-june-12-q11/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-june-12-q11/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2024-june-22-q24",
+      "verdict": "blind_correct",
+      "primaryTopic": "Transformations and vectors",
+      "secondaryTopics": [],
+      "skills": [
+        "Vectors"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme credits the vector for MN and the vector/ratio calculation locating S from the intersections in the parallelogram."
+      ],
+      "rationale": "Both marked parts are vector construction and intersection work; coordinate geometry is not independently assessed.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2024-june-22-q24/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2024-june-22-q24/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2022-june-21-q11",
+      "verdict": "blind_correct",
+      "primaryTopic": "Geometry",
+      "secondaryTopics": [
+        "Mensuration"
+      ],
+      "skills": [
+        "Similarity and congruence",
+        "Volume and surface area"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme credits the linear similarity ratio for QR and the cube of that ratio for the similar-prism volume."
+      ],
+      "rationale": "Similarity is primary and volume scaling for similar prisms is a distinct marked mensuration method; no angles/polygons label is supported.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2022-june-21-q11/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2022-june-21-q11/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2025-june-43-q24",
+      "verdict": "blind_correct",
+      "primaryTopic": "Statistics",
+      "secondaryTopics": [],
+      "skills": [
+        "Histograms and cumulative frequency"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The official scheme credits histogram-area frequencies for the three intervals and the proportional estimate for distances greater than 35 km."
+      ],
+      "rationale": "The marked work is reading and estimating frequency from histogram areas.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2025-june-43-q24/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2025-june-43-q24/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2023-november-13-q12",
+      "verdict": "blind_correct",
+      "primaryTopic": "Algebra",
+      "secondaryTopics": [],
+      "skills": [
+        "Trigonometry"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme reduces the cosecant equation to an equivalent sine or tangent equation and credits the four solutions in the specified interval."
+      ],
+      "rationale": "This is a trigonometric equation-solving task, filed under the controlled Algebra parent used for this equation skill.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-november-13-q12/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2023-november-13-q12/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2017-june-41-q2",
+      "verdict": "modified",
+      "primaryTopic": "Statistics",
+      "secondaryTopics": [
+        "Number"
+      ],
+      "skills": [
+        "Averages and spread",
+        "Histograms and cumulative frequency",
+        "Bounds and estimation"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme credits the modal interval, grouped mean, cumulative-frequency values and curve, median/IQR, and the upper-bound speed calculation using rounded distance and time."
+      ],
+      "rationale": "The statistics labels cover the grouped measures and cumulative-frequency graph; upper-bound speed is an independently marked Bounds and estimation method under Number.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2017-june-41-q2/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2017-june-41-q2/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2023-june-41-q3",
+      "verdict": "modified",
+      "primaryTopic": "Statistics",
+      "secondaryTopics": [
+        "Probability",
+        "Number"
+      ],
+      "skills": [
+        "Averages and spread",
+        "Basic probability",
+        "Standard form",
+        "Bounds and estimation"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme credits the grouped mean, the probability from the mass table, rounding to two significant figures and standard form, and upper/lower-bound calculations for eggs and hens."
+      ],
+      "rationale": "Each separately marked method is retained: grouped average, simple probability, standard form, and bounds; unsupported histogram/chart labels are excluded.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2023-june-41-q3/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2023-june-41-q3/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2025-may-tz1-p1-q9",
+      "verdict": "production_correct",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Functions"
+      ],
+      "skills": [
+        "Applications of integration",
+        "Properties of functions and graphs"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme credits finding the third x-intercept a = 3 and using the integral from 1 to a to obtain the enclosed area."
+      ],
+      "rationale": "Integration application is primary; finding and using the graph roots is a separately marked function/graph method.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2025-may-tz1-p1-q9/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2025-may-tz1-p1-q9/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2022-november-tz0-p2-q1",
+      "verdict": "blind_correct",
+      "primaryTopic": "Statistics and probability",
+      "secondaryTopics": [],
+      "skills": [
+        "Statistical measures and frequency tables",
+        "Outliers and data interpretation",
+        "Probability and types of events"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "Across both question pages and the scheme, marks are awarded for grouped measures, probability, quartiles/IQR and outlier comparison, and distribution-shape interpretation."
+      ],
+      "rationale": "The probability part is materially marked in addition to the statistical measures and outlier interpretation.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2022-november-tz0-p2-q1/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2022-november-tz0-p2-q1/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2022-november-tz0-p2-q1/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-ai-sl/2022-november-tz0-p2-q1/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2018-may-tz1-p2-q6",
+      "verdict": "taxonomy_gap",
+      "primaryTopic": "Statistics and probability",
+      "secondaryTopics": [],
+      "skills": [
+        "Discrete random variables",
+        "Conditional probability"
+      ],
+      "confidence": "high",
+      "taxonomyGap": "No controlled Poisson-specific skill label is present in the ib-hl taxonomy; Discrete random variables is the honest broad fallback.",
+      "evidence": [
+        "The scheme explicitly models the count as Poisson(179.2), then credits the conditional tail probability P(X > 190 | X >= 168)."
+      ],
+      "rationale": "Poisson distribution is materially assessed but has no Poisson-specific controlled skill in this taxonomy; the broad discrete-random-variable fallback and conditional-probability skill are retained.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2018-may-tz1-p2-q6/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2018-may-tz1-p2-q6/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2026-june-42-q20",
+      "verdict": "modified",
+      "primaryTopic": "Trigonometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Sine/cosine rules and bearings",
+        "Pythagoras and right-angle trigonometry"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme credits the reciprocal bearing, cosine/sine-rule triangle work for CD, and the perpendicular shortest-distance calculation from B to AC using a right triangle."
+      ],
+      "rationale": "Bearing/non-right-triangle work and the separately marked right-angle shortest-distance method are both materially assessed.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2026-june-42-q20/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2026-june-42-q20/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2020-june-11-q6",
+      "verdict": "blind_correct",
+      "primaryTopic": "Coordinate geometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Equations, inequalities and graphs",
+        "Straight-line graphs"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme credits substituting the line into xy = 8 to obtain the two intersections, then midpoint/gradient-perpendicular work and solving the intersection with y = x."
+      ],
+      "rationale": "All credited work is coordinate/straight-line graph work; a separate Algebra parent is not needed.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-june-11-q6/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2020-june-11-q6/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2017-november-tz0-p3-calculus-q5",
+      "verdict": "blind_correct",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "skills": [
+        "Differentiation",
+        "Limits and series",
+        "Proof and induction"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme credits chain-rule differentiation, the derivative recurrence, Maclaurin coefficients through x^5, the limit, and the proof that the odd-integer series terminates as a polynomial."
+      ],
+      "rationale": "Differentiation, series/limits, and proof/induction are all materially marked within Calculus.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p3-calculus-q5/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p3-calculus-q5/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-november-tz0-p3-calculus-q5/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "ib-sl",
+      "id": "2024-november-p2-tz1-q1",
+      "verdict": "blind_correct",
+      "primaryTopic": "Functions",
+      "secondaryTopics": [],
+      "skills": [
+        "Functions and modelling",
+        "Graphs and transformations"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme credits endpoint evaluation, both numerical roots, and the correctly shaped graph with intercepts and maximum."
+      ],
+      "rationale": "Function evaluation, root finding, and graph features are materially assessed together.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2024-november-p2-tz1-q1/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2024-november-p2-tz1-q1/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2024-november-p2-tz1-q1/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2018-november-22-q2",
+      "verdict": "blind_correct",
+      "primaryTopic": "Geometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Circle theorems"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme gives the result from equal chords being equidistant from the centre, using the midpoint radii and the supplied OM length."
+      ],
+      "rationale": "The only credited method is the equal-chords circle theorem.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2018-november-22-q2/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2018-november-22-q2/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2017-november-21-q11",
+      "verdict": "production_correct",
+      "primaryTopic": "Coordinate geometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Coordinate geometry of the circle",
+        "Straight-line graphs"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme eliminates y using the line and circle, imposes discriminant zero for tangency, obtains P, and forms the normal line through P."
+      ],
+      "rationale": "No differentiation is credited: tangency is handled by coordinate equations and a zero discriminant, followed by straight-line geometry.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-november-21-q11/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2017-november-21-q11/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2026-june-21-q5",
+      "verdict": "blind_correct",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "skills": [
+        "Calculus",
+        "Trigonometry"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme credits differentiating tan^3(5x), rewriting the derivative in tan(5x), and solving the resulting trigonometric equation over the interval."
+      ],
+      "rationale": "Differentiation is primary and the trigonometric manipulation/solution is independently marked.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2026-june-21-q5/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse-additional/0606-2026-june-21-q5/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2019-may-tz2-p1-q10",
+      "verdict": "blind_correct",
+      "primaryTopic": "Statistics and probability",
+      "secondaryTopics": [],
+      "skills": [
+        "Continuous random variables",
+        "Integration",
+        "Differentiation"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme credits the mode, integration by parts and normalization of the density, differentiation of the supplied expression, and integration for E(X)."
+      ],
+      "rationale": "Continuous-density work is primary; the integration and differentiation steps are substantial marked methods within this parent.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2019-may-tz2-p1-q10/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2019-may-tz2-p1-q10/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2019-may-tz2-p1-q10/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2020-november-41-q8",
+      "verdict": "taxonomy_gap",
+      "primaryTopic": "Algebra and graphs",
+      "secondaryTopics": [],
+      "skills": [
+        "Algebraic manipulation",
+        "Equations and inequalities"
+      ],
+      "confidence": "medium",
+      "taxonomyGap": "Compound interest/financial mathematics is materially assessed in part (f) but is not represented in the supplied igcse taxonomy.",
+      "evidence": [
+        "The scheme credits factorisation, inequality solving, index laws, a rational equation, expansion, and the compound-interest quadratic and its solution."
+      ],
+      "rationale": "The algebraic manipulation and equation-solving skills are controlled; compound interest is an explicit taxonomy gap and is not forced into the unrelated Number parent.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-november-41-q8/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-november-41-q8/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-sl",
+      "id": "2017-may-p2-tz1-q6",
+      "verdict": "blind_correct",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "skills": [
+        "Differentiation",
+        "Sequences and series"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme credits differentiating the power, selecting the x^4 term in the binomial expansion, and obtaining the x^5 term in the derivative."
+      ],
+      "rationale": "Differentiation and binomial/series term selection are both explicit mark-bearing methods.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2017-may-p2-tz1-q6/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-sl/2017-may-p2-tz1-q6/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2024-may-tz2-p2-q8",
+      "verdict": "production_correct",
+      "primaryTopic": "Number and algebra",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "skills": [
+        "Complex numbers",
+        "Trigonometric identities and equations"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme credits argument and modulus of the complex number using double-angle identities, then uses arg(z^2) = |z^3| to form and solve the trigonometric equation."
+      ],
+      "rationale": "Complex-number argument/modulus work is primary; the double-angle identity and trigonometric-equation method are independently material.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2024-may-tz2-p2-q8/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2024-may-tz2-p2-q8/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2024-may-tz2-p2-q8/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2017-march-22-q2",
+      "verdict": "blind_correct",
+      "primaryTopic": "Geometry",
+      "secondaryTopics": [],
+      "skills": [
+        "Constructions and loci"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme credits the equal-radius arcs/60-degree construction and the completed equilateral triangle."
+      ],
+      "rationale": "This is a classical straight-edge-and-compass construction; the polygon is the constructed result, not a separate angle skill.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2017-march-22-q2/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2017-march-22-q2/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "ib-hl",
+      "id": "2017-may-tz1-p2-q11",
+      "verdict": "taxonomy_gap",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "skills": [
+        "Integration",
+        "Equations and inequalities"
+      ],
+      "confidence": "high",
+      "taxonomyGap": "Kinematics is materially assessed in the piecewise velocity model, but the controlled IB HL taxonomy has no distinct Kinematics skill; Integration and Equations and inequalities are retained for the credited methods without forcing an unrelated label.",
+      "evidence": [
+        "The scheme credits evaluating the piecewise velocity, integrating velocity for distance and height, and solving the post-parachute velocity equation for the ground time."
+      ],
+      "rationale": "Kinematics is materially assessed but is not represented by a controlled ib-hl skill; the honest controlled fallback retains Integration and Equations and inequalities and records the taxonomy gap.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p2-q11/question-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p2-q11/question-2.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p2-q11/markscheme-1.webp",
+        "/tmp/ppp-semantic-audit-2026-08/evidence/ib-hl/2017-may-tz1-p2-q11/markscheme-2.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2017-june-41-q8",
+      "verdict": "modified",
+      "primaryTopic": "Trigonometry",
+      "secondaryTopics": [
+        "Algebra and graphs"
+      ],
+      "skills": [
+        "Sine/cosine rules and bearings",
+        "Pythagoras and right-angle trigonometry",
+        "Equations and inequalities"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme credits reciprocal bearings and sine-rule triangle work, the right-triangle shortest-road calculation, and the separately marked quadratic equation for the park."
+      ],
+      "rationale": "Bearing/non-right-triangle work and the right-angle shortest-distance method are primary-topic skills; the park quadratic is a material Algebra and graphs secondary method.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2017-june-41-q8/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2017-june-41-q8/markscheme-1.webp"
+      ]
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2020-june-23-q20",
+      "verdict": "modified",
+      "primaryTopic": "Trigonometry",
+      "secondaryTopics": [],
+      "skills": [
+        "3D trigonometry"
+      ],
+      "confidence": "high",
+      "taxonomyGap": null,
+      "evidence": [
+        "The scheme credits the square-base diagonal/half-diagonal and the cosine ratio in the right triangle formed by AV and its projection onto the base."
+      ],
+      "rationale": "The question assesses a 3D line-plane angle by right-triangle trigonometry; no separate Geometry parent or Mensuration skill is required.",
+      "inspectedQuestionAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-june-23-q20/question-1.webp"
+      ],
+      "inspectedMarkschemeAssets": [
+        "/tmp/ppp-semantic-audit-2026-08/evidence/igcse/0580-2020-june-23-q20/markscheme-1.webp"
+      ]
+    }
+  ]
+}
