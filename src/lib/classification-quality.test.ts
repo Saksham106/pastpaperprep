@@ -160,7 +160,8 @@ describe("new-bank classification quality", () => {
 
     expect(byId.get("0606-2016-june-11-q3")).toMatchObject({
       primaryTopic: "Calculus",
-      subtopics: ["Calculus"],
+      secondaryTopics: ["Coordinate geometry"],
+      subtopics: ["Calculus", "Straight-line graphs"],
     });
     expect(byId.get("0606-2026-june-12-q2")).toMatchObject({
       primaryTopic: "Coordinate geometry",
@@ -171,8 +172,8 @@ describe("new-bank classification quality", () => {
       subtopics: ["Circular measure"],
     });
     expect(byId.get("0606-2026-june-11-q4")).toMatchObject({
-      primaryTopic: "Calculus",
-      subtopics: ["Calculus"],
+      primaryTopic: "Algebra",
+      subtopics: ["Logarithmic and exponential functions"],
     });
   });
 
