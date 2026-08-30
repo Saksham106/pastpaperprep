@@ -1,0 +1,42 @@
+{
+  "auditVersion": "ib-ai-sl-post-reconciliation-followup-2026.08.1",
+  "bank": "ib-ai-sl",
+  "questionCount": 1,
+  "reason": "Fresh stratified post-reconciliation sampling found one material discoverability defect.",
+  "questions": [
+    {
+      "id": "2025-may-tz3-p2-q3",
+      "previous": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Applications of differentiation",
+          "Modelling with differentiation"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Volume and surface area of 3D shapes",
+          "Applications of differentiation",
+          "Modelling with differentiation"
+        ]
+      },
+      "evidence": "Parts (a)-(e) and (h), worth 14 marks, assess cuboid/cylinder volume, external surface area, and material comparison. Parts (f)-(g), worth 6 marks, independently assess differentiation and optimization. Geometry and trigonometry therefore dominates; Calculus is independently mark-bearing.",
+      "sourceTextSha256": "e46ebdd89a950e402f35674866e0c9ec5d289d26065a2216798e36b9edcf04f6",
+      "questionAssetSha256": [
+        "52c82d888cc768f40c46dc93b5d6e7df921bce4784cf86edbc6feba60e9f224f",
+        "a8c1add02d2062a0f9b1e140004104697e4be88822ff82ffa8b9386d59a74fd5"
+      ],
+      "officialMarkschemeAssetSha256": [
+        "fafbfe4056e2436ffda6aa1579dfb951df093924b23a845bf7094367ca9fa6e4",
+        "413fe7a6b9a1b6e23ed94e458a817b1699e429865245a13534f637f684ef7438",
+        "21d49e39ca5806907ea5208a1edd90b63d5b19b029e633b33385d98e60902f09",
+        "ac88d8a8f8041af0cfe6098382869fab583d2b142406792da8ed3fe3963ffd4b"
+      ]
+    }
+  ]
+}

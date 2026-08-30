@@ -3749,15 +3749,15 @@
       ],
       "solution": "(a) (i) For r = 4, a purely real z has argument 0 or π, so z = 4e⁰ = 4 or z = 4eⁱπ = −4. Thus z = ±4.\n(ii) A purely imaginary point on |z| = 4 has argument π/2 or 3π/2, so z = 4i or z = −4i. Thus z = ±4i.\n(iii) If arg(z) = π/4, then z = 4(cos(π/4) + i sin(π/4)) = 4(√2/2 + i√2/2) = 2√2 + 2√2i.\n(b) The locus r = 4 is the circle |z| = 4, centred at the origin with radius 4. Its intercepts are (4, 0), (−4, 0), (0, 4) and (0, −4); sketch this circle on an Argand diagram.\n(c) (i) For r = 4 sin θ and 0 ≤ θ ≤ π, the greatest possible value of sin θ is 1, attained at θ = π/2. Hence r_max = 4.\n(ii) At θ = π/2, z = r(cos θ + i sin θ) = 4(0 + i) = 4i.\n(d) With x = r cos θ and y = r sin θ, r = 4 sin θ gives r² = 4r sin θ = 4y. Since r² = x² + y², x² + y² = 4y, so x² + (y − 2)² = 4. This is the circle centred at (0, 2) with radius 2.\n(e) (i) Differentiate x² + (y − 2)² = 4 implicitly: 2x + 2(y − 2) dy/dx = 0. Therefore dy/dx = −x/(y − 2).\n(ii) The gradient is undefined when y − 2 = 0, so y = 2. Substitution into x² + (y − 2)² = 4 gives x² = 4, hence x = ±2.\n(f) The locus r = 4 sin θ is the circle x² + (y − 2)² = 4, centred at (0, 2) with radius 2. Its real-axis intercept is (0, 0); its imaginary-axis intercepts are (0, 0) and (0, 4). Sketch this circle on the Argand diagram.\n(g) For r = 4 + 4 sin θ, x = r cos θ and y = r sin θ. Since dr/dθ = 4 cos θ, dx/dθ = (dr/dθ)cos θ − r sin θ = 4(1 − sin θ − 2 sin²θ), while dy/dθ = (dr/dθ)sin θ + r cos θ = 4 cos θ(1 + 2 sin θ). Therefore, wherever dx/dθ ≠ 0, dy/dx = (dy/dθ)/(dx/dθ) = cos θ(1 + 2 sin θ)/(1 − sin θ − 2 sin²θ).\n(h) At A the tangent is horizontal, so dy/dx = 0. From the expression in (g), cos θ(1 + 2 sin θ) = 0. Point A is in the third quadrant and is not the top point, so cos θ ≠ 0 and 1 + 2 sin θ = 0. Thus sin θ = −1/2; in the third quadrant, θ = 7π/6.",
       "independentSolution": "(a) (i) For r = 4, a purely real z has argument 0 or π, so z = 4e⁰ = 4 or z = 4eⁱπ = −4. Thus z = ±4.\n(ii) A purely imaginary point on |z| = 4 has argument π/2 or 3π/2, so z = 4i or z = −4i. Thus z = ±4i.\n(iii) If arg(z) = π/4, then z = 4(cos(π/4) + i sin(π/4)) = 4(√2/2 + i√2/2) = 2√2 + 2√2i.\n(b) The locus r = 4 is the circle |z| = 4, centred at the origin with radius 4. Its intercepts are (4, 0), (−4, 0), (0, 4) and (0, −4); sketch this circle on an Argand diagram.\n(c) (i) For r = 4 sin θ and 0 ≤ θ ≤ π, the greatest possible value of sin θ is 1, attained at θ = π/2. Hence r_max = 4.\n(ii) At θ = π/2, z = r(cos θ + i sin θ) = 4(0 + i) = 4i.\n(d) With x = r cos θ and y = r sin θ, r = 4 sin θ gives r² = 4r sin θ = 4y. Since r² = x² + y², x² + y² = 4y, so x² + (y − 2)² = 4. This is the circle centred at (0, 2) with radius 2.\n(e) (i) Differentiate x² + (y − 2)² = 4 implicitly: 2x + 2(y − 2) dy/dx = 0. Therefore dy/dx = −x/(y − 2).\n(ii) The gradient is undefined when y − 2 = 0, so y = 2. Substitution into x² + (y − 2)² = 4 gives x² = 4, hence x = ±2.\n(f) The locus r = 4 sin θ is the circle x² + (y − 2)² = 4, centred at (0, 2) with radius 2. Its real-axis intercept is (0, 0); its imaginary-axis intercepts are (0, 0) and (0, 4). Sketch this circle on the Argand diagram.\n(g) For r = 4 + 4 sin θ, x = r cos θ and y = r sin θ. Since dr/dθ = 4 cos θ, dx/dθ = (dr/dθ)cos θ − r sin θ = 4(1 − sin θ − 2 sin²θ), while dy/dθ = (dr/dθ)sin θ + r cos θ = 4 cos θ(1 + 2 sin θ). Therefore, wherever dx/dθ ≠ 0, dy/dx = (dy/dθ)/(dx/dθ) = cos θ(1 + 2 sin θ)/(1 − sin θ − 2 sin²θ).\n(h) At A the tangent is horizontal, so dy/dx = 0. From the expression in (g), cos θ(1 + 2 sin θ) = 0. Point A is in the third quadrant and is not the top point, so cos θ ≠ 0 and 1 + 2 sin θ = 0. Thus sin θ = −1/2; in the third quadrant, θ = 7π/6.",
-      "primaryTopic": "Number and algebra",
+      "primaryTopic": "Geometry and trigonometry",
       "secondaryTopics": [
         "Calculus",
-        "Geometry and trigonometry"
+        "Number and algebra"
       ],
       "skills": [
         "Complex numbers",
-        "Differentiation",
-        "Coordinate and analytic geometry"
+        "Coordinate and analytic geometry",
+        "Differentiation"
       ],
       "classificationEvidence": {
         "method": "question_text+independent_solution",
@@ -3814,8 +3814,8 @@
         }
       },
       "classificationConfidence": "high",
-      "classificationReviewStatus": "blind-consensus-reviewed",
-      "classificationVersion": "ib-aa-hl-classification-2026.08.2",
+      "classificationReviewStatus": "post-sample-independently-reviewed",
+      "classificationVersion": "ib-aa-hl-post-sample-followup-2026.08.1",
       "p3Applicability": "Compulsory",
       "markschemeTranscript": "",
       "officialMarkscheme": null,
@@ -3823,7 +3823,12 @@
       "sourceUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2026%20Examination%20Session/More%20Papers%20M26/Math%20AAHL%20Paper%203%20TZA.pdf",
       "pdfUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2026%20Examination%20Session/More%20Papers%20M26/Math%20AAHL%20Paper%203%20TZA.pdf",
       "viewerAvailable": true,
-      "solutionStatus": "Independent worked solution — no official 2026 markscheme located"
+      "solutionStatus": "Independent worked solution — no official 2026 markscheme located",
+      "subtopics": [
+        "Complex numbers",
+        "Coordinate and analytic geometry",
+        "Differentiation"
+      ]
     },
     {
       "id": "2025-may-tz1-p1-q1",
@@ -4935,8 +4940,9 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
-        "Limits and series",
-        "Integration"
+        "Integration",
+        "Applications of integration",
+        "Limits and series"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -5053,8 +5059,8 @@
         }
       },
       "classificationConfidence": "high",
-      "classificationReviewStatus": "blind-consensus-reviewed",
-      "classificationVersion": "ib-aa-hl-classification-2026.08.2",
+      "classificationReviewStatus": "post-sample-independently-reviewed",
+      "classificationVersion": "ib-aa-hl-post-sample-followup-2026.08.1",
       "p3Applicability": null,
       "markschemeTranscript": "12.\n(a)\nattempt to use integration by parts on\n1\n( )\ncos\ncos\nn\nnf\nx\nx\nx\n−\n=\nM1\n1\nd\ncos\n,\ncos\nd\nn\nv\nu\nx\nx\nx\n−\n=\n=\n2\nd\n(\n1)cos\nsin ,\nsin\nd\nn\nu\nn\nx\nx v\nx\nx\n−\n= −\n−\n=\n1\n2\n2\n( )d\ncos\nsin\n(\n1)cos\nsin\nd\nn\nn\nnf\nx\nx\nx\nx\nn\nx\nx x\n−\n−\n=\n+\n−\n∫\n∫\nA1A1\nNote: A1 for each term with correct signs\n(\n)\n1\n2\n2\ncos\nsin\n(\n1) cos\n1 cos\nd\nn\nn\nx\nx\nn\nx\nx\nx\n−\n−\n=\n+\n−\n−\n∫\nA1\n1\n2\ncos\nsin\n(\n1) cos\nd\n(\n1) cos\nd\nn\nn\nn\nx\nx\nn\nx x\nn\nx x\n−\n−\n=\n+\n−\n−\n−\n∫\n∫\nAG\n[4 marks]\n(b)\nattempt to rearrange the equation given in part (a) to collect terms in\n( )d\nnf\nx\nx\n∫\nor cos\nd\nn x x\n∫\nM1\n1\n2\n( )d\n(\n1)\n( )d\ncos\nsin\n(\n1)\n( )d\nn\nn\nn\nn\nf\nx\nx\nn\nf\nx x\nx\nx\nn\nf\nx x\n−\n−\n+\n−\n=\n+\n−\n∫\n∫\n∫\nOR\n1\n2\ncos\nd\n(\n1) cos\nd\ncos\nsin\n(\n1) cos\nd\nn\nn\nn\nn\nx x\nn\nx x\nx\nx\nn\nx x\n−\n−\n+\n−\n=\n+\n−\n∫\n∫\n∫\n1\n2\n( )d\ncos\nsin\n(\n1)\n( )d\nn\nn\nn\nn\nf\nx\nx\nx\nx\nn\nf\nx x\n−\n−\n=\n+\n−\n∫\n∫\nOR\n1\n2\ncos\nd\ncos\nsin\n(\n1) cos\nd\nn\nn\nn\nn\nx x\nx\nx\nn\nx x\n−\n−\n=\n+\n−\n∫\n∫\nA1\n1\n2\n1\n1\n( )d\ncos\nsin\n( )d\nn\nn\nn\nn\nf\nx\nx\nx\nx\nf\nx\nx\nn\nn\n−\n−\n−\n=\n+\n∫\n∫\nAG\n[2 marks]\ncontinued…\n2225 – 7106M\nQuestion 12 continued.\n(c)\nattempt to use equation from part (a) to reduce the power of cos x\n(M1)\n4\n3\n2\n1\n3\ncos\nd\ncos\nsin\ncos\nd\n4\n4\nx x\nx\nx\nx x\n=\n+\n∫\n∫\nEITHER\nattempt to use equation from part (a) again to reduce the power of cos x\n(M1)\n4\n3\n1\n3 1\n1\ncos\nd\ncos\nsin\ncos sin\n1d\n4\n4 2\n2\nx x\nx\nx\nx\nx\nx\n\n\n=\n+\n+\n\n\n\n\n∫\n∫\n(A1)\nOR\nattempt to use double angle formula to rewrite\n2\ncos x in terms of cos2x\n(M1)\n4\n3\n1\n3\ncos2\n1\ncos\nd\ncos\nsin\nd\n4\n4\n2\nx\nx x\nx\nx\nx\n+\n\n\n=\n+\n\n\n\n\n∫\n∫\n(A1)\nTHEN\n3\n1\n3\n3\ncos\nsin\ncos sin\n4\n8\n8\nx\nx\nx\nx\nx\nc\n=\n+\n+\n+\nA1\n[4 marks]\n(d)\nattempt to use the formula for volume of revolution using π and (\n)\n2\n2\ncos x\n(M1)\nvolume\n(\n)\n2\n2\nπ cos\nd\nx\nx\n= ∫\nvolume\n(\n)\nπ\n2\n2\n2\nπ\n2\nπ cos\nd\nx\nx\n−\n= ∫\nOR\n(\n)\nπ\n2\n2\n2\n0\n2 π cos\nd\nx\nx\n∫\n(A1)\nNote: Condone omission dx for the A1.\nattempt to substitute correct limits into their (c) and subtract\n(M1)\n3\n3\n1\nπ\nπ\n3\nπ\nπ\n3 π\n1\nπ\nπ\n3\nπ\nπ\n3\nπ\nπ\ncos\nsin\ncos\nsin\nπ\ncos\nsin\ncos\nsin\n4\n2\n2\n8\n2\n2\n8 2\n4\n2\n2\n8\n2\n2\n8\n2\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n+\n+\n−\n−\n−\n+\n−\n−\n+\n−\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n2\n3π\n8\n=\nA1\nNote: FT marks may be awarded for a final answer of\n2\nπ\nr\nbased on non-zero values\nof ,p q and r .\n[4 marks]\ncontinued…\n2225 – 7106M\nQuestion 12 continued.\n(e)\n(i)\nMETHOD 1\nattempt to raise Maclaurin expansion for cos x to the power of n\n(M1)\n(\n)\n2\n( )\ncos\n1\n...\n2\nn\nn\nn\nx\nf\nx\nx\n\n\n=\n=\n−\n+\n\n\n\n\n2\n1\n...\n2\nnx\n= −\n+\nA2\nMETHOD 2\nattempt to differentiate\n( )\nnf\nx twice\n(M1)\n1\n2\n2\n'( )\ncos\nsin ,\n''( )\ncos\n(\n1)cos\nsin\nn\nn\nn\nn\nn\nf\nx\nn\nx\nx\nf\nx\nn\nx\nn n\nx\nx\n−\n−\n= −\n= −\n+\n−\nA1\n(0)\n1,\n'(0)\n0,\n''(0)\nn\nn\nn\nf\nf\nf\nn\n=\n=\n= −\n2\n( )\n1\n...\n2\nn\nnx\nf\nx = −\n+\nA1\n(ii)\nMETHOD 1\nattempt to use Maclaurin expansion for\n( )\nnf\nx\n(M1)\n2\n2\n2\n0\n0\n0\n...\n( ) 1\n2\nlim\nlim\nlim\npowers of\n2\nn\nx\nx\nx\nnx\nf\nx\nn\nx\nx\nx\n→\n→\n→\n−\n+\n−\n\n\n\n\n=\n=\n−\n+\n\n\n\n\n\n\n\n\n2\nn\n= −\nA1\nMETHOD 2\nattempt to use l’Hôpital’s rule twice on\n2\ncos ( ) 1\nn x\nx\n−\n(M1)\n1\n2\n2\n2\n0\n0\n0\ncos ( ) 1\ncos\nsin\n(\n1)cos\nsin\ncos\nlim\nlim\nlim\n2\n2\nn\nn\nn\nn\nx\nx\nx\nx\nn\nx\nx\nn n\nx\nx\nn\nx\nx\nx\n−\n−\n→\n→\n→\n−\n−\n−\n−\n=\n=\n2\nn\n= −\nA1\nNote: Do not award FT marks for an expression that does not involve n .\n[5 marks]\nTotal [19 marks]",
       "officialMarkscheme": {
@@ -5073,7 +5079,12 @@
       "sourceUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2025%20Examination%20Session/May%202025%20Examination%20Session/Mathematics/Mathematics_analysis_and_approaches_paper_1_TZ1_HL.pdf",
       "pdfUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2025%20Examination%20Session/May%202025%20Examination%20Session/Mathematics/Mathematics_analysis_and_approaches_paper_1_TZ1_HL.pdf",
       "viewerAvailable": true,
-      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript"
+      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript",
+      "subtopics": [
+        "Integration",
+        "Applications of integration",
+        "Limits and series"
+      ]
     },
     {
       "id": "2025-may-tz2-p1-q1",
@@ -8233,7 +8244,7 @@
       "secondaryTopics": [],
       "skills": [
         "Differential equations",
-        "Differentiation"
+        "Euler's method for differential equations"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -8264,9 +8275,9 @@
         "diagram_heavy": true,
         "extraction_flags": []
       },
-      "classificationConfidence": "medium",
-      "classificationReviewStatus": "rule-audited",
-      "classificationVersion": "ib-aa-hl-classification-2026.08.1",
+      "classificationConfidence": "high",
+      "classificationReviewStatus": "post-sample-independently-reviewed",
+      "classificationVersion": "ib-aa-hl-post-sample-followup-2026.08.1",
       "p3Applicability": null,
       "markschemeTranscript": "9.\n(a)\nattempt to use Euler’s method with a step of 0.25\n(M1)\n(\n)\n1\n1\n2\n2\n0.25 ,\n0.25\nn\nn\nn\nn\nn\nn\nn\nx\nx\nx\ny\ny\nx\ny\n+\n+\n\n\n=\n+\n=\n+\n\n\n+\n\n\n(\n)\n0\n1\n2\n3\n0\n0.5\n0.803030...\n1.04868...\ny\ny\ny\ny\n=\n=\n=\n=\n(A1)\nNote: Award (A1) for at least two correct intermediate values given to 3sf.\nIf\n2,\n1.26152...\nx\ny\n=\n=\n1.26\ny =\nA1\n[3 marks]\n(b)\n(i)\nThe estimate will be an overestimate\nA1\nbecause the tangents to the curve lie above the curve (the curve is concave\ndown).\nR1\n(ii)\nThe gradient of the curve (at (1,0) ) is positive (so the method works in the\ndirection of the upper part of the curve).\nR1\n[3 marks]\nTotal [6 marks]\n2225 – 7107M",
       "officialMarkscheme": {
@@ -8283,7 +8294,11 @@
       "sourceUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2025%20Examination%20Session/May%202025%20Examination%20Session/Mathematics/Mathematics_analysis_and_approaches_paper_2_TZ1_HL.pdf",
       "pdfUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2025%20Examination%20Session/May%202025%20Examination%20Session/Mathematics/Mathematics_analysis_and_approaches_paper_2_TZ1_HL.pdf",
       "viewerAvailable": true,
-      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript"
+      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript",
+      "subtopics": [
+        "Differential equations",
+        "Euler's method for differential equations"
+      ]
     },
     {
       "id": "2025-may-tz1-p2-q10",
@@ -11348,6 +11363,7 @@
         "Differential equations",
         "Integration",
         "Differentiation",
+        "Applications of differentiation",
         "Graphs and transformations"
       ],
       "classificationEvidence": {
@@ -11437,8 +11453,8 @@
         }
       },
       "classificationConfidence": "high",
-      "classificationReviewStatus": "blind-consensus-reviewed",
-      "classificationVersion": "ib-aa-hl-classification-2026.08.2",
+      "classificationReviewStatus": "post-sample-independently-reviewed",
+      "classificationVersion": "ib-aa-hl-post-sample-followup-2026.08.1",
       "p3Applicability": "Compulsory",
       "markschemeTranscript": "1.\n(a)\n(i)\ngeneral shape of curve passing through (\n)\n0,0\nA1\n[1 mark]\n(ii)\n(\n) (\n) (\n)\n4,0 , 0,0 , 4,0\n−\nA1\nNote: Award A0 if additional points are given.\n[1 mark]\n(iii)\nMax (\n)(\n)\n1.94,1.20\n1.94347...,1.20113...\n−\n−\nA1\nMin (\n)\n1.94, 1.20\n−\n(\n)\n1.94347..., 1.20113...\n−\nA1\n[2 marks]\ncontinued\n2225 – 7113M\nQuestion 1 continued.\n(b)\nEITHER\nodd\nA1\nsince\n(\n)\n(\n) (\n)\n(\n)\n(\n)\n(\n)\n( )\n2\n2\n2\n2\n16\n16\n16\n16\nx\nx\nx x\nf\nx\nf x\nx\nx\n−\n−\n−\n−\n−\n−\n=\n=\n= −\n+\n−\n+\n(or equivalent)\nR1\nOR\nodd\nA1\nsince graph of f has rotational symmetry order 2 (of 180 degrees) about (\n)\n0,0\nR1\nOR\nodd\nA1\nsince graph has reflection symmetry over the x-axis followed by reflection\nsymmetry over the y-axis (or vice versa)\nR1\nNote: Do not award A1R0.\n[2 marks]\n(c)\nattempt to use quotient rule or product rule\n(M1)\n(\n)(\n)\n(\n)\n(\n)\n2\n2\n3\n2\n2\n3\n2\n( )\nx\nA\nx\nA\nx x\nAx\nf\nx\nx\nA\n+\n−\n−\n−\n′\n=\n+\n(\n)\n(\n)\n(\n)\n2\n2\n2\n2\n2\n2\n2\n2\n2\n( )\nx\nx\nA\nx\nx\nA\nf\nx\nx\nA\nx\nA\n\n\n+\n−\n−\n\n\n′\n=\n−\n\n\n+\n+\n\n\n(or equivalent)\nA1A1\nNote: Award A1 for numerator, A1 for denominator.\nNote: If product rule used, award A1 for each correct term.\nNote: Award (M1) for an attempt to use quotient rule or product rule with\n16\nA =\nor\nany other constant. Award no further marks.\n(\n)\n(\n)(\n)\n(\n)\n2\n2\n2\n0\n1\n2\nA\nA\nf\nA\nA\n\n\n−\n′\n=\n=\n\n\n\n\n\n\nA1\nhence independent of A\nAG\n[4 marks]\ncontinued\n2225 – 7113M\nQuestion 1 continued.\n(d)\n(i)\nMETHOD 1\n(\n)\n2\n2\n2\n2\n2\nx x\nA\nAx\nAx\nx\nx\nA\nx\nA\n+\n−\n−\n≡\n+\n+\n3\n2\n2\nx\nAx\nAx\nx\nA\n\n\n+\n−\n≡\n\n\n+\n\n\nM1\n3\n2\nx\nAx\nx\nA\n−\n≡\n+\n(\n)\n2\n2\n2\nx x\nA\nA\nx\nA\n\n\n+\n−\n\n\n≡\n\n\n+\n\n\nA1\n(\n)\n2\n2\n2\n2\nx x\nA\nAx\nx\nx\nA\nx\nA\n−\n−\n≡\n+\n+\nAG\nNote: Award no marks for numerical approaches.\nMETHOD 2\nEITHER\nattempt to do long division on (\n)\n2\n2\nx x\nA\nx\nA\n−\n+\nor\n3\n2\nx\nAx\nx\nA\n−\n+\nM1\nquotient of x and remainder of 2Ax\n−\nA1\n(\n)\n2\n2\n2\n2\nx x\nA\nAx\nx\nx\nA\nx\nA\n−\n−\n≡\n+\n+\nAG\nOR\n3\n3\n2\n2\n2\n2\nx\nAx\nx\nAx\nAx\nAx\nx\nA\nx\nA\nx\nA\nx\nA\n+\n+\n−\n≡\n−\n+\n+\n+\n+\nM1\n(\n)\n(\n)\n(\n)\n2\n2\n2\n2\nx x\nA\nAx\nx\nA\nx\nA\n+\n≡\n−\n+\n+\nA1\n(\n)\n2\n2\n2\n2\nx x\nA\nAx\nx\nx\nA\nx\nA\n−\n≡\n−\n≡\n+\n+\nAG\nNote: Award no marks for numerical approaches.\n[2 marks]\ncontinued\n2225 – 7113M\nQuestion 1 continued.\n(ii) hence oblique asymptote is y\nx\n=\n(since\n2\n2\n0\nAx\nx\nA →\n+\nas x →±∞)\nA1\nNote: Award A0 if not given as an equation.\n[1 mark]\n(iii)\n(\n)\n,0\nA\nOR (\n)\n,0\nA\n−\nA1\n[1 mark]\ncontinued\n2225 – 7113M\nQuestion 1 continued.\n(e)\nNote: Award no marks for attempts at integration that do not involve partial fractions.\nattempt to write\n2\n1\n1 v\n−\nin the form 1\n1\nB\nC\nv\nv\n+\n+\n−\n(M1)\n1\n2\nB =\nand\n1\n2\nC =\nA1\n2\n1\n1\n1\n2\n2\nd\nd\n1\n1\n1\nv\nv\nv\nv\nv\n=\n+\n−\n+\n−\n∫\n∫\nattempt to integrate their partial fractions\n(M1)\nEITHER\n1\n1\n1\nln 1\nln 1\nln\n2\n2\n2\nv\nv\nA\n+\n−\n−\n+\nA1A1\nNote: Award A1 for first two terms. The moduli must be present for this mark. Award A1 for\n1 ln\n2\nA.\nOR\n(\n)\n1\n1\nln 1\nln 1\n2\n2\nv\nv\nc\n+\n−\n−\n+\nA1\n(\n)\n2e\n1\n1 ln\n2\n1\nc\nv\nv\n+\n=\n−\nwhere\n2e c\nA\n=\nA1\nNote: The moduli must be present for each of these marks.\nTHEN\n(\n)\n1\n1 ln\n2\n1\nA\nv\nv\n+\n=\n−\nAG\n[5 marks]\ncontinued\n2225 – 7113M\nQuestion 1 continued.\n(f)\nattempt to separate variables and integrate\n(M1)\n2\nd\nd\n1\nx\nv\nx\nv\n=\n−\n∫\n∫\n(\n)\n1\n1\nln\nln\n2\n1\nA\nv\nx\nv\n+\n=\n−\nA1\nattempt to use power rule of logs\n(M1)\n(\n)\n1\n2\n1\nln\nln\n1\nA\nv\nx\nv\n+\n=\n−\nOR\n(\n)\n2\n1\nln\nln\n1\nA\nv\nx\nv\n+\n=\n−\n(\n)\n1\n2\n1\n1\nA\nv\nx\nv\n+\n=\n−\nOR\n(\n)\n2\n1\n1\nA\nv\nx\nv\n+\n=\n−\nA1\n2\n1\n1\ny\nA\nx\nx\ny\nx\n\n\n+\n\n\n\n\n=\n−\nA1\n(\n)\n2\nA x\ny\nx\nx\ny\n+\n=\n−\nAG\nNote: Award at most (M1)A1(M1)A1A0 for incorrect use or omission of moduli.\nNote: The substitution of y\nx\nmay be seen earlier.\n[5 marks]\ncontinued\n2225 – 7113M\nQuestion 1 continued.\n(g)\n(\n)\n2\nA x\ny\nx\nx\ny\n+\n=\n−\n(A1)\nattempt to clear denominator\nM1\n(\n)\n(\n)\n2x\nx\ny\nA x\ny\n−\n=\n+\n3\n2\nx\nx y\nAx\nAy\n−\n=\n+\nattempt to isolate y\nM1\n3\n2\nx\nAx\nx y\nAy\n−\n=\n+\n(\n)\n(\n)\n2\n2\nx x\nA\ny x\nA\n−\n=\n+\n(\n)\n(\n)\n3\n2\nx\nAx\ny x\nA\n−\n=\n+\nA1\n(\n)\n2\n2\nx x\nA\ny\nx\nA\n−\n=\n+\nAG\nNote: The y must be factored out for the final A1.\n[4 marks]\nTotal [ 28 marks]",
       "officialMarkscheme": {
@@ -11465,7 +11481,14 @@
       "sourceUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2025%20Examination%20Session/May%202025%20Examination%20Session/Mathematics/Mathematics_analysis_and_approaches_paper_3_TZ2_HL.pdf",
       "pdfUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2025%20Examination%20Session/May%202025%20Examination%20Session/Mathematics/Mathematics_analysis_and_approaches_paper_3_TZ2_HL.pdf",
       "viewerAvailable": true,
-      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript"
+      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript",
+      "subtopics": [
+        "Differential equations",
+        "Integration",
+        "Differentiation",
+        "Applications of differentiation",
+        "Graphs and transformations"
+      ]
     },
     {
       "id": "2025-may-tz2-p3-q2",
@@ -15317,9 +15340,12 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Statistics and probability",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
       "skills": [
-        "Descriptive statistics"
+        "Descriptive statistics",
+        "Equations and inequalities"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -15364,8 +15390,8 @@
         }
       },
       "classificationConfidence": "high",
-      "classificationReviewStatus": "blind-consensus-reviewed",
-      "classificationVersion": "ib-aa-hl-classification-2026.08.2",
+      "classificationReviewStatus": "post-sample-independently-reviewed",
+      "classificationVersion": "ib-aa-hl-post-sample-followup-2026.08.1",
       "p3Applicability": null,
       "markschemeTranscript": "2.\n(a)\nthe median is the middle value and as Aiden’s score is below 10.5 and Brett’s score is above\n10.5, hence the middle value stays in the same place\nR1\nNote: Award the R1 for any valid reasoning referring to the scores being on either\nside of the median.\n[1 mark]\n(b)\nattempt to use that the sum of scores is\nmean\nn×\n(M1)\n10.5 28\n×\nOR 10.6 30\n×\nsum of Aiden and Brett’s scores = 24 (24\nB\nA\n=\n+\n) (seen anywhere)\n(A1)\ndifference between Aiden and Brett’s scores = 14 (14\nB\nA\n=\n−\n) (seen anywhere)\n(A1)\nattempt to solve their two simultaneous equations or by trial and improvement\n(M1)\n(Aiden’s score =) 5, (Brett’s score =) 19\nA1\nNote: The first two A marks are independent of each other.\n[5 marks]\nTotal [6 marks]",
       "officialMarkscheme": {
@@ -15380,7 +15406,11 @@
       "sourceUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2025%20Examination%20Session/November%202025%20Examination%20Session/Mathematics/Mathematics_analysis_and_approaches_paper_2_TZ3_HL.pdf",
       "pdfUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2025%20Examination%20Session/November%202025%20Examination%20Session/Mathematics/Mathematics_analysis_and_approaches_paper_2_TZ3_HL.pdf",
       "viewerAvailable": true,
-      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript"
+      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript",
+      "subtopics": [
+        "Descriptive statistics",
+        "Equations and inequalities"
+      ]
     },
     {
       "id": "2025-november-tz3-p2-q3",
@@ -22995,9 +23025,12 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Functions",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
       "skills": [
-        "Graphs and transformations"
+        "Graphs and transformations",
+        "Equations and inequalities"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -23035,9 +23068,9 @@
           "rationale": "The endpoint/root/extremum sketch is graph-function work; inverse functions are not required."
         }
       },
-      "classificationConfidence": "medium",
-      "classificationReviewStatus": "blind-consensus-reviewed",
-      "classificationVersion": "ib-aa-hl-classification-2026.08.2",
+      "classificationConfidence": "high",
+      "classificationReviewStatus": "post-sample-independently-reviewed",
+      "classificationVersion": "ib-aa-hl-post-sample-followup-2026.08.1",
       "p3Applicability": null,
       "markschemeTranscript": "1.\n(a)\n(i)\n(0)\n11\nf\n= −\nA1\n(ii)\n1.80650...\n−\n(\n)\n(20)\n1.81\n11 20\n51\n22 5\n51\nf\n= −\n=\n−\n=\n−\nA1\n[2 marks]\n(b)\nattempt to find at least one root\n(M1)\n1.72622...\nx =\nand\n17.5237...\nx =\n1.73\nx =\nand\n17.5\nx =\nA1\n[2 marks]\ncontinued…\n8824 – 9701M\nQuestion 1 continued.\n(c)\nA1A1A1\nNote: Follow through from their part (a).\nAward A1 for endpoints at approximately (\n)\n0, 11\n−\nand (\n)\n20, 1.8\n−\n. Allow for y-intercept\n12\n10\ny\n−\n<\n< −\nand for the right endpoint in the interval\n20, 2\n1\nx\ny\n=\n−\n<\n< −.\nThe following two A marks may only be awarded if the approximate shape is correct.\nAward A1 for x-intercepts at approximately\n1.7\nx =\nand\n17.5\nx =\nand award A1 for maximum\nat approximately (\n)\n7.6,4.1 . Allow for x-intercepts in the intervals 1\n2, 17\n18\nx\nx\n<\n<\n<\n<\n, and\nmaximum in the intervals 6.5\n8.5\nx\n<\n<\n, 3.5\n5\ny\n<\n<\n.\n[3 marks]\nTotal [7 marks]",
       "officialMarkscheme": {
@@ -23054,7 +23087,11 @@
       "sourceUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2024%20Examination%20Session/November%202024%20Examination%20Session/Mathematics/Mathematics_analysis_and_approaches_paper_2__HL.pdf",
       "pdfUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2024%20Examination%20Session/November%202024%20Examination%20Session/Mathematics/Mathematics_analysis_and_approaches_paper_2__HL.pdf",
       "viewerAvailable": true,
-      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript"
+      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript",
+      "subtopics": [
+        "Graphs and transformations",
+        "Equations and inequalities"
+      ]
     },
     {
       "id": "2024-november-tz0-p2-q2",
@@ -34711,9 +34748,12 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Statistics and probability",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Calculus"
+      ],
       "skills": [
-        "Continuous random variables"
+        "Continuous random variables",
+        "Integration"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -34788,8 +34828,8 @@
         }
       },
       "classificationConfidence": "high",
-      "classificationReviewStatus": "blind-consensus-reviewed",
-      "classificationVersion": "ib-aa-hl-classification-2026.08.2",
+      "classificationReviewStatus": "post-sample-independently-reviewed",
+      "classificationVersion": "ib-aa-hl-post-sample-followup-2026.08.1",
       "p3Applicability": null,
       "markschemeTranscript": "7.\n(a)\nattempt to integrate\n2\n4 3\nk\nx\n−\n(M1)\n1\n3\narcsin\n2\n3\nk\nx\n\n\n\n\n=\n\n\n\n\n\n\n\n\n\n\nA1\nNote: Award (M1)A0 for\n3\narcsin\n2 x\n\n\n\n\n\n\n.\nCondone absence of k up to this stage.\nequating their integrand to 1\nM1\n1\n0\n1\n3\narcsin\n1\n2\n3\nk\nx\n\n\n\n\n=\n\n\n\n\n\n\n\n\n\n\n3 3\nπ\nk =\nA1\n[4 marks]\ncontinued…\nM22/5/MATHX/HP1/ENG/TZ1/XX/M\nQuestion 7 continued\n(b)\n1\n2\n0\n3 3\nE(\n)\nd\nπ\n4\n3\nx\nX\nx\nx\n=\n−\n\nA1\nNote: Condone absence of limits if seen at a later stage.\nEITHER\nattempt to integrate by inspection\n(M1)\n(\n)\n1\n2\n2\n3 3\n1\n6\n4 3\nd\nπ\n6\nx\nx\nx\n−\n=\n−\n−\n−\n\n1\n2\n0\n3 3\n1\n4\n3\nπ\n3\nx\n\n\n=\n−\n−\n\n\n\n\nA1\nNote: Condone the use of k up to this stage.\nOR\nfor example,\n2\nd\n4\n3\n6\nd\nu\nu\nx\nx\nx\n=\n−\n\n= −\nNote: Other substitutions may be used. For example,\n2\n3\nu\nx\n= −\n.\n1\n1\n2\n4\n3\nd\n2π\nu\nu\n−\n= −\n\nM1\nNote: Condone absence of limits up to this stage.\n1\n4\n3 2\n2π\nu\n\n\n= −\n\n\nA1\nNote: Condone the use of k up to this stage.\nTHEN\n3\nπ\n=\nA1\nNote: Award A0M1A1A0 for their\n2\n1\n4\n3\n3\nk\nx\n\n\n−\n−\n\n\n\n\nor\n2\nk\nu\n\n\n−\n\n for working with\nincorrect or no limits.\n[4 marks]\nTotal [8 marks]",
       "officialMarkscheme": {
@@ -34806,7 +34846,11 @@
       "sourceUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2022%20Examination%20Session/May%202022%20Examination%20Session/Mathematics/Mathematics_analysis_and_approaches_paper_1__TZ1_HL.pdf",
       "pdfUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2022%20Examination%20Session/May%202022%20Examination%20Session/Mathematics/Mathematics_analysis_and_approaches_paper_1__TZ1_HL.pdf",
       "viewerAvailable": true,
-      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript"
+      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript",
+      "subtopics": [
+        "Continuous random variables",
+        "Integration"
+      ]
     },
     {
       "id": "2022-may-tz1-p1-q8",
@@ -37424,9 +37468,15 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Calculus",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Functions",
+        "Number and algebra"
+      ],
       "skills": [
-        "Differential equations"
+        "Differential equations",
+        "Euler's method for differential equations",
+        "Graphs and transformations",
+        "Exponents and logarithms"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -37440,8 +37490,8 @@
         }
       },
       "classificationConfidence": "high",
-      "classificationReviewStatus": "blind-consensus-reviewed",
-      "classificationVersion": "ib-aa-hl-classification-2026.08.2",
+      "classificationReviewStatus": "post-sample-independently-reviewed",
+      "classificationVersion": "ib-aa-hl-post-sample-followup-2026.08.1",
       "p3Applicability": null,
       "markschemeTranscript": "12.\n(a)\nattempt to use Euler’s method\n(M1)\n1\n1\nd\n0.1;\n0.1 d\nn\nn\nn\nn\ny\nx\nx\ny\ny\nx\n+\n+\n=\n+\n=\n+\n\n, where\n2\n2\n2\nd\n2\nd\ny\ny\nx\nx\nx\n−\n=\ncorrect intermediate y -values\n(A1)(A1)\n3.7,4.63140...,5.92098...,7.79542...\nNote: A1 for any two correct y -values seen\n10.6958...\ny =\n10.7\ny =\nA1\nNote: For the final A1, the value 10.7 must be the last value in a table or a list, or\nbe given as a final answer, not just embedded in a table which has further\nlines.\n[4 marks]\n(b)\nd\nd\nd\nd\ny\nv\ny\nvx\nv\nx\nx\nx\n=\n\n=\n+\n(A1)\nreplacing y with vx and d\nd\ny\nx\nwith\nd\nd\nv\nv\nx x\n+\nM1\n2\n2\n2\n2\n2\n2\n2\nd\nd\n2\n2\nd\nd\ny\nv\nx\ny\nx\nx\nv\nx\nv x\nx\nx\nx\n\n\n=\n−\n\n+\n=\n−\n\n\n\n\nA1\n2\nd\n2\nd\nv\nv\nx\nv\nx\n+\n=\n−\n(since\n0\nx \n)\n2\nd\n2\nd\nv\nx\nv\nv\nx =\n−−\nAG\n[3 marks]\ncontinued…\nM22/5/MATHX/HP2/ENG/TZ1/XX/M\nQuestion 12 continued\n(c)\n(i)\nattempt to separate variables v and x\n(M1)\n2\nd\nd\n2\nv\nx\nv\nv\nx\n=\n−−\n\n\nd\nd\n(\n2)(\n1)\nv\nx\nv\nv\nx\n=\n−\n+\n\n\n(A1)\nattempt to express in partial fraction form\nM1\n1\n(\n2)(\n1)\n2\n1\nA\nB\nv\nv\nv\nv\n\n+\n−\n+\n−\n+\n1\n1\n1\n1\n(\n2)(\n1)\n3\n2\n1\nv\nv\nv\nv\n\n\n=\n−\n\n\n−\n+\n−\n+\n\n\nA1\n1\n1\n1\nd\nd\n3\n2\n1\nx\nv\nv\nv\nx\n\n\n−\n=\n\n\n−\n+\n\n\n\n\n(\n)\n(\n)\n1 ln\n2\nln\n1\nln\n3\nv\nv\nx\nc\n−\n−\n+\n=\n+\nA1\nNote: Condone absence of modulus signs throughout.\nEITHER\nattempt to find c using\n1,\n3,\n3\nx\ny\nv\n=\n=\n=\nM1\n1\n1\nln\n3\n4\nc =\n(\n)\n1\n1\n1\nln\n2\nln\n1\nln\nln\n3\n3\n4\nv\nv\nx\n−\n−\n+\n=\n+\nexpressing both sides as a single logarithm\n(M1)\n3\n2\nln\nln\n1\n4\nx\nv\nv\n\n\n−\n=\n\n\n\n\n+\n\n\ncontinued…\nM22/5/MATHX/HP2/ENG/TZ1/XX/M\nQuestion 12 continued\nOR\nexpressing both sides as a single logarithm\n(M1)\n(\n)\n3\n2\nln\nln\n1\nv\nA x\nv\n−\n=\n+\nattempt to find A using\n1,\n3,\n3\nx\ny\nv\n=\n=\n=\nM1\n1\n4\nA =\nTHEN\n3\n2\n1\n1\n4\nv\nx\nv\n−\n=\n+\n(since\n0\nx \n)\nsubstitute\ny\nv\nx\n=\n(seen anywhere)\nM1\n3\n2\n1\n4\n1\ny\nx\nx\ny\nx\n−\n=\n+\n(since\n2\ny\nx\n\n)\n3\n2\n1\n4\ny\nx\nx\ny\nx\n\n\n−\n\n=\n\n\n+\n\n\nattempt to make y the subject\nM1\n3\n4\n2\n4\n4\nx y\nx\ny\nx\n−\n=\n+\nA1\n4\n3\n8\n4\nx\nx\ny\nx\n+\n=\n−\nAG\ncontinued…\nM22/5/MATHX/HP2/ENG/TZ1/XX/M\nQuestion 12 continued\n(ii)\nactual value at (1.5)\n27.3\ny\n=\nA1\n(iii)\ngradient changes rapidly (during the interval considered) OR\nthe curve has a vertical asymptote at\n(\n)\n3 4\n1.5874...\nx =\n=\nR1\n[12 marks]\nTotal [19 marks]",
       "officialMarkscheme": {
@@ -37462,7 +37512,13 @@
       "sourceUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2022%20Examination%20Session/May%202022%20Examination%20Session/Mathematics/Mathematics_analysis_and_approaches_paper_2__TZ1_HL.pdf",
       "pdfUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2022%20Examination%20Session/May%202022%20Examination%20Session/Mathematics/Mathematics_analysis_and_approaches_paper_2__TZ1_HL.pdf",
       "viewerAvailable": true,
-      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript"
+      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript",
+      "subtopics": [
+        "Differential equations",
+        "Euler's method for differential equations",
+        "Graphs and transformations",
+        "Exponents and logarithms"
+      ]
     },
     {
       "id": "2022-may-tz2-p2-q1",
@@ -44131,12 +44187,9 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Geometry and trigonometry",
-      "secondaryTopics": [
-        "Calculus"
-      ],
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
       "skills": [
-        "Radian measure and sectors",
         "Applications of differentiation"
       ],
       "classificationEvidence": {
@@ -44196,8 +44249,8 @@
         }
       },
       "classificationConfidence": "high",
-      "classificationReviewStatus": "blind-consensus-reviewed",
-      "classificationVersion": "ib-aa-hl-classification-2026.08.2",
+      "classificationReviewStatus": "post-sample-independently-reviewed",
+      "classificationVersion": "ib-aa-hl-post-sample-followup-2026.08.1",
       "p3Applicability": null,
       "markschemeTranscript": "9.\n(a)\nOR\nA1\nAG\nNote: 𝑦−𝑥 may be identified as a length on a diagram, and not written explicitly.\n[1 mark]\n(b)\nattempt to differentiate with respect to t\n(M1)\nA1\nattempt to set speed of B equal to double the speed of A\n(M1)\nA1\nOR\n(A1)\nNote: This A1 can be awarded independently of previous marks.\nSo the speed of boat A is 5.2 (ms-1)\nA1\nNote: Accept 5.20 from the use of inexact values.\n[6 marks]\nTotal [7 marks]\n50\ntan\ny\nx\nq =\n-\ncot\n50\ny\nx\nq\n-\n=\n50cot\ny\nx\nq\n=\n+\n(\n)\n2\nd\nd\nd\n50 cosec\nd\nd\nd\ny\nx\nt\nt\nt\nq\nq\n=\n-\n(\n)\n2\nd\nd\nd\n2\n50 cosec\nd\nd\nd\nx\nx\nt\nt\nt\nq\nq\n=\n-\n(\n)\n2\nd\nd\n50 cosec\nd\nd\nx\nt\nt\nq\nq\n= -\n(\n)\narctan5\n1.373\n78.69\nq =\n=\n…=\n…°\n2\n2\n2\n1\n26\n1\n5\ncose\nt\n5\n1\n2\nc\nco\nq\nq\næ\nö\n= +\n=\nçè\n=\n÷ø\n+\n26\n0.1\n25\nd\n50\nd\nx\nt\næ\nö\nç\n÷ø\n´-\n= -\nè\nM21/5/MATHX/HP2/ENG/TZ1/XX/M\nSection B.",
       "officialMarkscheme": {
@@ -44214,7 +44267,10 @@
       "sourceUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2021%20Examination%20Session/May%202021%20Examination%20Session/Mathematics/Mathematics_analysis_and_approaches_paper_2__TZ1_HL.pdf",
       "pdfUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2021%20Examination%20Session/May%202021%20Examination%20Session/Mathematics/Mathematics_analysis_and_approaches_paper_2__TZ1_HL.pdf",
       "viewerAvailable": true,
-      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript"
+      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript",
+      "subtopics": [
+        "Applications of differentiation"
+      ]
     },
     {
       "id": "2021-may-tz1-p2-q10",
@@ -51564,7 +51620,8 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Number theory and modular arithmetic"
+        "Number theory and modular arithmetic",
+        "Proof and induction"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -51598,9 +51655,9 @@
           "rationale": "The markscheme assesses Fermat's little theorem, modular arithmetic, base-13 divisibility, and digit cases. Number theory and modular arithmetic are absent from the controlled taxonomy, so Polynomials and theorems or Proof and induction would misclassify the assessed content."
         }
       },
-      "classificationConfidence": "medium",
-      "classificationReviewStatus": "blind-consensus-reviewed",
-      "classificationVersion": "ib-aa-hl-classification-2026.08.2",
+      "classificationConfidence": "high",
+      "classificationReviewStatus": "post-sample-independently-reviewed",
+      "classificationVersion": "ib-aa-hl-post-sample-followup-2026.08.1",
       "p3Applicability": "Discrete mathematics",
       "markschemeTranscript": "3.\n(a)\n(i)\nthe remainder is 0\nA1\n(ii)\n(\n)\n16\n14\n1 mod17\n\n(from Fermat’s little theorem)\n(A1)\n2022\n16 126 6\n14\n14\n\n+\n=\n(M1)\nNote: Award M1 for a RHS exponent consistent with the correct use of Fermat’s little\ntheorem.\n(\n)\n(\n)\n(\n)\n2022\n6\n14\n14\nmod17\n15 mod17\n\n\nA1\nthe remainder is 15\nA1\n[5 marks]\n(b)\n(i)\nMETHOD 1\nlet\n1\n1\n1\n0\n13\n13\n...\n13\nn\nn\nn\nn\nN\na\na\na\na\n−\n−\n=\n+\n+\n+\n+\nM1\nNote: The above M1 is independent of the A marks below.\n(\n)\n13\n1 mod6\n\nA1\nEITHER\n(\n)\n13\n1 mod6\nx \n(for all x\n)\nA1\nOR\n(\n)\n(\n)\n(\n)\n1\n1\n1\n0\n1\n1\n0\n1\n1\n...\n1\nmod6\n...\nmod6\nn\nn\nn\nn\nn\nn\nN\na\na\na\na\nN\na\na\na\na\n−\n−\n−\n\n+\n+\n+\n+\n\n+\n+\n+\n+\nA1\nTHEN\nso\n(\n)\n0 mod6\nN \nif and only if\n(\n)\n1\n1\n0\n...\n0 mod6\nn\nn\na\na\na\na\n−\n+\n+\n+\n+\n\nR1\nso 6 | N if and only if\n(\n)\n1\n1\n0\n6|\n...\nn\nn\na\na\na\na\n−\n+\n+\n+\n+\nAG\nN20/5/MATHL/HP3/ENG/TZ0/DM/M\nMETHOD 2\nlet\n1\n1\n1\n0\n13\n13\n...\n13\nn\nn\nn\nn\nN\na\na\na\na\n−\n−\n=\n+\n+\n+\n+\n(M1)\n(\n)\n(\n)\n(\n)\n(\n)\n(\n)\n1\n1\n0\n1\n0\n2\n0\n0\n1\n1\n...\n13 1\n13\n... 13\n13\n... 13\n...\n13\nn\nn\nn\nn\nn\nn\nN\na\na\na\na\na\na\na\n−\n−\n−\n−\n=\n+\n+\n+\n+\n+\n−\n+\n+\n+\n+\n+\n+\n+\nM1A1\nNote: Award M1 for attempting to express N in the form\n(\n) (\n)\n1\n1\n0\n...\n13 1\nn\nn\nN\na\na\na\na\nM\n−\n=\n+\n+\n+\n+\n+\n−\n.\nas\n(\n)\n6| 13 1 M\n−\nR1\nso 6 | N if and only if\n(\n)\n1\n1\n0\n6|\n...\nn\nn\na\na\na\na\n−\n+\n+\n+\n+\nAG\n(ii)\nMETHOD 1\nthe sum of the digits is 2\n20\ny +\n(A1)\nuses 2\n20\n6\ny\nk\n+\n=\n(or equivalent) to attempt to find a valid value of y\n(M1)\n( )\n2,5,8,11\ny\nB\n=\nA1A1\nNote: Award A1 for\n2,5,8\ny =\nand A1 for\n( )\n11\ny\nB\n=\n.\nN20/5/MATHL/HP3/ENG/TZ0/DM/M\nMETHOD 2\n(\n)\n6\n5\n4\n3\n2\n1\n0\n13\n1 93 25\n1 13\n13\n9 13\n3 13\n13\n2 13\n5 13\ny\ny\ny\ny\n= \n+\n\n+ \n+ \n+\n\n+ \n+ \n(A1)\n371462\n5090480\ny\n=\n+\nattempts to find a valid value of y such that\n(\n)\n371462\n5090480\n0 mod6\ny +\n\n(M1)\n( )\n2,5,8,11\ny\nB\n=\nA1A1\nNote: Award A1 for\n2,5,8\ny =\nand A1 for\n( )\n11\ny\nB\n=\n.\n[8 marks]\nTotal [13 marks]",
       "officialMarkscheme": {
@@ -51619,7 +51676,11 @@
       "sourceUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2020%20Examination%20Session/November%202020%20Examination%20Session/Mathematics/Mathematics_paper_3_Discrete_mathematics__HL.pdf",
       "pdfUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2020%20Examination%20Session/November%202020%20Examination%20Session/Mathematics/Mathematics_paper_3_Discrete_mathematics__HL.pdf",
       "viewerAvailable": true,
-      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript"
+      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript",
+      "subtopics": [
+        "Number theory and modular arithmetic",
+        "Proof and induction"
+      ]
     },
     {
       "id": "2020-november-tz0-p3-sets-relations-and-groups-q3",
@@ -52200,9 +52261,14 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Statistics and probability",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Functions"
+      ],
       "skills": [
-        "Discrete random variables"
+        "Discrete random variables",
+        "Statistical inference",
+        "Probability models",
+        "Graphs and transformations"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -52273,8 +52339,8 @@
         }
       },
       "classificationConfidence": "high",
-      "classificationReviewStatus": "blind-consensus-reviewed",
-      "classificationVersion": "ib-aa-hl-classification-2026.08.2",
+      "classificationReviewStatus": "post-sample-independently-reviewed",
+      "classificationVersion": "ib-aa-hl-post-sample-followup-2026.08.1",
       "p3Applicability": "Statistics and probability",
       "markschemeTranscript": "4.\n(a)\n(\n)\n(\n)\n(\n)\nE\n3\n2 1\n4\n2\n5\nX\np\np\np\n=\n+\n−\n=\n−\n(M1)A1\n[2 marks]\n(b)\n(\n)\n2\nE X\n=\n(\n)\n3\n4 1 4\np\np\n+\n−\nA1\n(\n)\n(\n)\n(\n)\n2\nVar\n3\n4 1\n4\n2\n5\nX\np\np\np\n=\n+\n−\n−\n−\nM1\n2\n3\n4\n16\n4\n20\n25\np\np\np\np\n=\n+\n−\n−\n+\n−\nA1\nNote: Award A1 for any correct expansion which leads to the correct answer.\n2\n7\n25\np\np\n=\n−\n(\n)\n7\n25\np\np\n=\n−\nAG\n[3 marks]\n(c)\n(i)\n( )\n(\n)\n1\nE\nE 2\n5\nC\nX\n=\n−\n(M1)\nNote: The E must be present.\n(\n)\n(\n)\n1 2\n2\n5\n5\np\n=\n−\n−\nA1\n= p\nAG\n(ii)\n( )\n(\n)\n1\nVar\nVar 2\n25\nC\nX\n=\n−\n(M1)\n( )\n1 Var\n25\nX\n=\n(A1)\n(\n)\n7\n25\n25\np\np\nn\n−\n=\nA1\n[5 marks]\nN20/5/MATHL/HP3/ENG/TZ0/SP/M\n(d)\n(i)\n(\n)\n~ B\n,\nY\nn p\nA1\nNote: Condone missing parameters if used correctly subsequently.\n(ii)\n( )\n( )\n1\nE\nE\nS\nY\nn\n=\nM1\nnp\nn\n=\nA1\n= p\nAG\n(iii)\n( )\n( )\n2\n1\nVar\nVar\nS\nY\nn\n=\nM1\n(\n)\n2\n1\n1\nnp\np\nn\n=\n−\nA1\n(\n)\n1\np\np\nn\n−\n=\nAG\n[5 marks]\nN20/5/MATHL/HP3/ENG/TZ0/SP/M\n(e)\n(i)\n( )\n( )\n(\n)\n(\n)\nVar\n7\n25\nVar\n25\n1\nC\np\np\nn\nS\nn\np\np\n−\n=\n\n−\n(\n)\n7\n25\n25 1\np\np\n−\n=\n−\n(A1)\nNote: Do not FT if the ratio includes n.\ndecreasing curve over correct domain with at least 0.25 marked on the\np axis and some number marked on the y axis showing that the\ny intercept is significantly less than 1\nA1\nNote: Condone an extension to the graph as far as p = 0.28.\n(ii)\n(from the sketch we can see that)\nVar C\n( )\nVar S( )\n<1\nR1\nNote: Only award the R1 if the result does follow from the sketch.\nso C is a more efficient estimator (as it has lower variance)\nA1\nNote: Do not award R0A1.\n[4 marks]\nTotal [19 marks]",
       "officialMarkscheme": {
@@ -52293,7 +52359,13 @@
       "sourceUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2020%20Examination%20Session/November%202020%20Examination%20Session/Mathematics/Mathematics_paper_3_Statistics_and_probability__HL.pdf",
       "pdfUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2020%20Examination%20Session/November%202020%20Examination%20Session/Mathematics/Mathematics_paper_3_Statistics_and_probability__HL.pdf",
       "viewerAvailable": true,
-      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript"
+      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript",
+      "subtopics": [
+        "Discrete random variables",
+        "Statistical inference",
+        "Probability models",
+        "Graphs and transformations"
+      ]
     },
     {
       "id": "2020-november-tz0-p3-discrete-mathematics-q5",
@@ -58872,9 +58944,12 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Calculus",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
       "skills": [
-        "Integration"
+        "Integration",
+        "Quadratics"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -58887,9 +58962,9 @@
           "rationale": "The two independent blind passes agree exactly after runtime normalization."
         }
       },
-      "classificationConfidence": "medium",
-      "classificationReviewStatus": "blind-consensus-reviewed",
-      "classificationVersion": "ib-aa-hl-classification-2026.08.2",
+      "classificationConfidence": "high",
+      "classificationReviewStatus": "post-sample-independently-reviewed",
+      "classificationVersion": "ib-aa-hl-post-sample-followup-2026.08.1",
       "p3Applicability": null,
       "markschemeTranscript": "7.\n(a)\nattempt to complete the square or multiplication and equating coefficients\n(M1)\n(\n)\n2\n2\n2\n1\n1\nx\nx\nx\n−\n= −\n−\n+\nA1\n1,\n1,\n1\na\nh\nk\n= −\n=\n=\n[2 marks]\n(b)\nuse of their identity from part (a)\n(\n)\n3\n2\n1\n2\n2\n1\nd\n1\n1\nx\nx\n\n\n\n\n\n\n−\n−\n\n\n∫\n(M1)\n(\n)\n3\n2\n1\n2\narcsin\n1\nx\n=\n−\n\n\n\n or\n( )\n1\n2\n1\n2\narcsin u\n−\n\n\n\n\nA1\nNote: Condone lack of, or incorrect limits up to this point.\n1\n1\narcsin\narcsin\n2\n2\n\n\n\n\n=\n−\n−\n\n\n\n\n\n\n\n\n(M1)\nπ\nπ\n6\n6\n\n\n=\n−−\n\n\n\n\n(A1)\nπ\n3\n=\nA1\n[5 marks]\nTotal [7 marks]\nN19/5/MATHL/HP1/ENG/TZ0/XX/M\n1\n",
       "officialMarkscheme": {
@@ -58906,7 +58981,11 @@
       "sourceUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2019%20Examination%20Session/November%202019%20Examination%20Session/Mathematics/Mathematics_paper_1__HL.pdf",
       "pdfUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2019%20Examination%20Session/November%202019%20Examination%20Session/Mathematics/Mathematics_paper_1__HL.pdf",
       "viewerAvailable": true,
-      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript"
+      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript",
+      "subtopics": [
+        "Integration",
+        "Quadratics"
+      ]
     },
     {
       "id": "2019-november-tz0-p1-q8",
@@ -64344,8 +64423,8 @@
         }
       },
       "classificationConfidence": "high",
-      "classificationReviewStatus": "blind-consensus-reviewed",
-      "classificationVersion": "ib-aa-hl-classification-2026.08.2",
+      "classificationReviewStatus": "post-sample-independently-reviewed",
+      "classificationVersion": "ib-aa-hl-post-sample-followup-2026.08.1",
       "p3Applicability": null,
       "markschemeTranscript": "6.\nX is number of squirrels in reserve\nPo(179.2)\nX \nA1\nNote: Award A1 if 179.2 or 563.2 seen or implicit in future calculations.\nrecognising conditional probability\nM1\n\n\nP\n190 |\n168\nX\nX\n\n\nP(\n190)\n0.19827\nP(\n168)\n0.80817\nX\nX\n\n\n\n\n\n\n\n\n\n\n\n\n(A1)(A1)\n0.245\n\nA1\n[5 marks]",
       "officialMarkscheme": {
@@ -64360,7 +64439,11 @@
       "sourceUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2018%20Examination%20Session/May%202018%20Examination%20Session/Mathematics/Mathematics_paper_2__TZ1_HL.pdf",
       "pdfUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2018%20Examination%20Session/May%202018%20Examination%20Session/Mathematics/Mathematics_paper_2__TZ1_HL.pdf",
       "viewerAvailable": true,
-      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript"
+      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript",
+      "subtopics": [
+        "Discrete random variables",
+        "Conditional probability"
+      ]
     },
     {
       "id": "2018-may-tz1-p2-q7",
@@ -71616,15 +71699,16 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Exponents and logarithms"
+        "Exponents and logarithms",
+        "Equations and inequalities"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
         "summary": "Question text (official paper): 1. [Maximum mark: 4] Find the solution of log2 x - log2 5 = 2 + log2 3 . | Official markscheme (official IB markscheme transcript): 1. 2 2 2 log log 5 2 log 3 x   collecting at least two log terms (M1) eg 2 2 log 2 log 3 5 x   or 2 log 2 15 x  obtaining a correct equation without logs (M1) eg 12 5 x  OR 2 2 15 x  (A1) 60 x  A1 [4 marks]    "
       },
       "classificationConfidence": "high",
-      "classificationReviewStatus": "manually-reviewed",
-      "classificationVersion": "ib-aa-hl-classification-2026.08.1",
+      "classificationReviewStatus": "post-sample-independently-reviewed",
+      "classificationVersion": "ib-aa-hl-post-sample-followup-2026.08.1",
       "p3Applicability": null,
       "markschemeTranscript": "1.\n2\n2\n2\nlog\nlog 5\n2\nlog 3\nx\n\n\ncollecting at least two log terms\n(M1)\neg\n2\n2\nlog\n2\nlog 3\n5\nx \n\nor\n2\nlog\n2\n15\nx \nobtaining a correct equation without logs\n(M1)\neg\n12\n5\nx \nOR\n2\n2\n15\nx \n(A1)\n60\nx \nA1\n[4 marks]\n\n\n\n",
       "officialMarkscheme": {
@@ -71639,7 +71723,11 @@
       "sourceUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2017%20Examination%20Session/May%202017%20Examination%20Session/Mathematics/Mathematics_paper_1__TZ1_HL.pdf",
       "pdfUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2017%20Examination%20Session/May%202017%20Examination%20Session/Mathematics/Mathematics_paper_1__TZ1_HL.pdf",
       "viewerAvailable": true,
-      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript"
+      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript",
+      "subtopics": [
+        "Exponents and logarithms",
+        "Equations and inequalities"
+      ]
     },
     {
       "id": "2017-may-tz1-p1-q2",
@@ -74040,13 +74128,13 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Geometry and trigonometry",
+      "primaryTopic": "Calculus",
       "secondaryTopics": [
-        "Calculus"
+        "Geometry and trigonometry"
       ],
       "skills": [
-        "Radian measure and sectors",
-        "Applications of differentiation"
+        "Applications of differentiation",
+        "Radian measure and sectors"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -74084,9 +74172,9 @@
           "rationale": "Segment area in radians is the geometric core, followed by a marked related-rate derivative; the latter belongs in Calculus."
         }
       },
-      "classificationConfidence": "medium",
-      "classificationReviewStatus": "blind-consensus-reviewed",
-      "classificationVersion": "ib-aa-hl-classification-2026.08.2",
+      "classificationConfidence": "high",
+      "classificationReviewStatus": "post-sample-independently-reviewed",
+      "classificationVersion": "ib-aa-hl-post-sample-followup-2026.08.1",
       "p3Applicability": null,
       "markschemeTranscript": "8.\n(a)\narea of segment \n2\n1\n0.5\n(\nsin )\n2\n\n\n\n\n\nM1A1\nV  area of segment 10\n\n5 (\nsin )\n4\nV\n\n\n\n\nA1\n[3 marks]\n(b)\nMETHOD 1\nd\n5\nd\n(1\ncos )\nd\n4\nd\nV\nt\nt\n\n\n\n\nM1A1\n5\nπ\nd\n0.0008\n1\ncos\n4\n3\ndt\n\n\n\n\n\n\n\n\n\n(M1)\nd\n0.00128\ndt\n\n(rad s1)\nA1\nMETHOD 2\nd\nd\nd\nd\nd\nd\nθ\nθ\nV\nt\nV\nt\n\n\n(M1)\n\n\nd\n5 1 cos\nd\n4\nV\nθ\nθ \n\nA1\nd\n4 0.0008\nd\n5 1 cos 3\nθ\nπ\nt\n\n\n\n\n\n\n\n\n\n(M1)\nd\n4\n0.00128\nd\n3125\nt\n\n\n\n\n\n\n\n\n(rad s1)\nA1\n[4 marks]\nTotal [7 marks]\nM17/5/MATHL/HP2/ENG/TZ1/XX/M",
       "officialMarkscheme": {
@@ -74103,7 +74191,11 @@
       "sourceUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2017%20Examination%20Session/May%202017%20Examination%20Session/Mathematics/Mathematics_paper_2__TZ1_HL.pdf",
       "pdfUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2017%20Examination%20Session/May%202017%20Examination%20Session/Mathematics/Mathematics_paper_2__TZ1_HL.pdf",
       "viewerAvailable": true,
-      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript"
+      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript",
+      "subtopics": [
+        "Applications of differentiation",
+        "Radian measure and sectors"
+      ]
     },
     {
       "id": "2017-may-tz1-p2-q9",
@@ -74356,10 +74448,12 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Calculus",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
       "skills": [
-        "Applications of integration",
-        "Integration"
+        "Integration",
+        "Equations and inequalities"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -74373,8 +74467,8 @@
         }
       },
       "classificationConfidence": "high",
-      "classificationReviewStatus": "blind-consensus-reviewed",
-      "classificationVersion": "ib-aa-hl-classification-2026.08.2",
+      "classificationReviewStatus": "post-sample-independently-reviewed",
+      "classificationVersion": "ib-aa-hl-post-sample-followup-2026.08.1",
       "p3Applicability": null,
       "markschemeTranscript": "11.\n(a)\n2\n98\n(15)\n1\n(15\n10)\nv\n\n\n\n(M1)\n(15)\n19.2\nv\n\n(ms-1)\nA1\n[2 marks]\n(b)\n10\n0\n9.8 d\nt t\n\n(M1)\n 490 (m)\nA1\n[2 marks]\n(c)\n2\n98\n2.8\n1\n(\n10)\nt\n\n\n\n(M1)\n44.985\n(s)\nt \n\nA1\n44.9\n2\n10\n98\n490\nd\n1\n(\n10)\nh\nt\nt\n\n\n\n\n\n\n(M1)(A1)\n906(m)\nh \nA1\n[5 marks]\nTotal [9 marks]\nM17/5/MATHL/HP2/ENG/TZ1/XX/M",
       "officialMarkscheme": {
@@ -74391,7 +74485,11 @@
       "sourceUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2017%20Examination%20Session/May%202017%20Examination%20Session/Mathematics/Mathematics_paper_2__TZ1_HL.pdf",
       "pdfUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2017%20Examination%20Session/May%202017%20Examination%20Session/Mathematics/Mathematics_paper_2__TZ1_HL.pdf",
       "viewerAvailable": true,
-      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript"
+      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript",
+      "subtopics": [
+        "Integration",
+        "Equations and inequalities"
+      ]
     },
     {
       "id": "2017-may-tz1-p2-q12",
@@ -75793,8 +75891,7 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
-        "Statistical inference",
-        "Normal distribution"
+        "Statistical inference"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -75869,8 +75966,8 @@
         }
       },
       "classificationConfidence": "high",
-      "classificationReviewStatus": "blind-consensus-reviewed",
-      "classificationVersion": "ib-aa-hl-classification-2026.08.2",
+      "classificationReviewStatus": "post-sample-independently-reviewed",
+      "classificationVersion": "ib-aa-hl-post-sample-followup-2026.08.1",
       "p3Applicability": "Statistics and probability",
       "markschemeTranscript": "1.\n(a)\n0\n1\n:\n7,\n:\n7\nH\nH\n\n\n\n\nA1\n[1 mark]\n(b)\n83.64\n6.97\n12\nx \n\nA1\n2\n2\n1\n583.05\n83.64\n0.0072\n11\n132\nns \n\n\n(M1)A1\n[3 marks]\n(c)\n(i)\n6.97\n7\n1.22(474\n)\n0.0072\n12\nt\n\n\n\n\n(M1)(A1)\ndegrees of freedom  11\n(A1)\np-value  0.123\nA1\nNote: Accept any answer that rounds correctly to 0.12.\n(ii)\nbecause p  0.1\nR1\nthe inspector’s claim is not supported (at the 10 % level)\n(or equivalent in context)\nA1\nNote: Only award the A1 if the R1 has been awarded\n[6 marks]\nTotal [10 marks]",
       "officialMarkscheme": {
@@ -75885,7 +75982,10 @@
       "sourceUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2017%20Examination%20Session/May%202017%20Examination%20Session/Mathematics/Mathematics_paper_3_Statistics_and_probability__HL.pdf",
       "pdfUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2017%20Examination%20Session/May%202017%20Examination%20Session/Mathematics/Mathematics_paper_3_Statistics_and_probability__HL.pdf",
       "viewerAvailable": true,
-      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript"
+      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript",
+      "subtopics": [
+        "Statistical inference"
+      ]
     },
     {
       "id": "2017-may-tz0-p3-calculus-q2",
@@ -78167,11 +78267,13 @@
       "independentSolution": "",
       "primaryTopic": "Calculus",
       "secondaryTopics": [
+        "Geometry and trigonometry",
         "Number and algebra"
       ],
       "skills": [
         "Differentiation",
-        "Proof and induction"
+        "Proof and induction",
+        "Trigonometric identities and equations"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -78185,8 +78287,8 @@
         }
       },
       "classificationConfidence": "high",
-      "classificationReviewStatus": "blind-consensus-reviewed",
-      "classificationVersion": "ib-aa-hl-classification-2026.08.2",
+      "classificationReviewStatus": "post-sample-independently-reviewed",
+      "classificationVersion": "ib-aa-hl-post-sample-followup-2026.08.1",
       "p3Applicability": null,
       "markschemeTranscript": "11.\n(a)\neven function\nA1\nsince cos\ncos(\n)\nkx\nkx\n\n\nand\n( )\nnf\nx is a product of even functions\nR1\nOR\neven function\nA1\nsince \n\n\n\n\n\n\n\n\n\n\ncos2\ncos4\ncos\n2\ncos\n4\nx\nx\nx\nx\n\n\n\n\n\nR1\nNote: Do not award A0R1.\n[2 marks]\n(b)\nconsider the case\n1\nn \nsin 4\n2sin 2 cos2\ncos 2\n2sin 2\n2sin 2\nx\nx\nx\nx\nx\nx\n\n\nM1\nhence true for\n1\nn \nR1\nassume true for n\nk\n\n, ie,\n\n\n1\nsin 2\n(cos2 )(cos4 )\ncos2\n2 sin 2\nk\nk\nk\nx\nx\nx\nx\nx\n\n\n\nM1\nNote: Do not award M1 for “let n  k” or “assume n  k” or equivalent.\nconsider\n1\nn\nk\n\n\n:\n\n\n1\n1( )\n( ) cos2k\nk\nk\nf\nx\nf\nx\nx\n\n\n\n(M1)\n1\n1\nsin 2\ncos2\n2 sin 2\nk\nk\nk\nx\nx\nx\n\n\n\nA1\n1\n1\n1\n2sin 2\ncos2\n2\nsin 2\nk\nk\nk\nx\nx\nx\n\n\n\n\nA1\n2\n1\nsin 2\n2\nsin 2\nk\nk\nx\nx\n\n\n\nA1\nso\n1\nn \ntrue and n\nk\n\ntrue\n1\nn\nk\n\n\n\ntrue. Hence true for all n\n\n\nR1\nNote: To obtain the final R1, all the previous M marks must have been awarded.\n[8 marks]\ncontinued…\nN17/5/MATHL/HP1/ENG/TZ0/XX/M\nQuestion 11 continued\n(c)\nattempt to use\n2\nvu\nuv\nf\nv\n\n\n\n\n(or correct product rule)\nM1\n\n\n\n\n\n\n\n\n1\n1\n1\n1\n2\n2 sin 2\n2\ncos2\nsin 2\n2\ncos2\n( )\n2 sin 2\nn\nn\nn\nn\nn\nn\nn\nx\nx\nx\nx\nf\nx\nx\n\n\n\n\n\n\n\nA1A1\nNote: Award A1 for correct numerator and A1 for correct denominator.\n[3 marks]\n(d)\n1\n1\n1\n1\n2\nπ\nπ\nπ\nπ\n2 sin\n2\ncos2\nsin 2\n2\ncos\nπ\n2\n4\n4\n2\n4\nπ\n2 sin 2\nn\nn\nn\nn\nn\nn\nn\nf\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n(M1)(A1)\n\n\n\n\n1\n1\n2\nπ\n2\n2\ncos2\nπ\n4\n4\n2\nn\nn\nn\nn\nn\nf\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n(A1)\n\n\n1\n1\nπ\n2cos2\n2cos2\nπ\n4\nn\nn\n\n\n\n\nA1\nπ\n2\n4\nnf \n\n\n\n\n\n\n\nA1\nπ\n0\n4\nnf \n\n\n\n\n\nA1\nNote: This A mark is independent from the previous marks.\nπ\n2\n4\ny\nx\n\n\n\n\n\n\n\n\nM1A1\n4\n2\nπ\n0\nx\ny\n\n\n\nAG\n[8 marks]\nTotal [21 marks]",
       "officialMarkscheme": {
@@ -78203,7 +78305,12 @@
       "sourceUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2017%20Examination%20Session/November%202017%20Examination%20Session/Mathematics/Mathematics_paper_1__HL.pdf",
       "pdfUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2017%20Examination%20Session/November%202017%20Examination%20Session/Mathematics/Mathematics_paper_1__HL.pdf",
       "viewerAvailable": true,
-      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript"
+      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript",
+      "subtopics": [
+        "Differentiation",
+        "Proof and induction",
+        "Trigonometric identities and equations"
+      ]
     },
     {
       "id": "2017-november-tz0-p2-q1",
@@ -80976,10 +81083,13 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Calculus",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
       "skills": [
+        "Differentiation",
         "Limits and series",
-        "Differentiation"
+        "Proof and induction"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -80993,8 +81103,8 @@
         }
       },
       "classificationConfidence": "high",
-      "classificationReviewStatus": "blind-consensus-reviewed",
-      "classificationVersion": "ib-aa-hl-classification-2026.08.2",
+      "classificationReviewStatus": "post-sample-independently-reviewed",
+      "classificationVersion": "ib-aa-hl-post-sample-followup-2026.08.1",
       "p3Applicability": "Calculus",
       "markschemeTranscript": "5.\n(a)\n2\ncos(\narcsin )\n( )\n1\np\np\nx\nf\nx\nx\n\n\n\n(M1)A1\nNote: Award M1 for attempting to use the chain rule.\n(0)\nf\np\n\n\nAG\n[2 marks]\n(b)\nEITHER\n\n\n(\n2)\n2\n2\n( )\n(0)\n(0)\n0\nn\nn\nf\np\nn\nf\n\n\n\n\nA1\nOR\nfor eg, \n\n\n\n2\n(\n2)\n(\n1)\n2\n2\n( )\n1\n( )\n(2\n1)\n( )\n( )\nn\nn\nn\nx\nf\nx\nn\nxf\nx\np\nn\nf\nx\n\n\n\n\n\n\n\nA1\nNote: Award A1 for eg, \n\n\n\n2\n(\n2)\n(\n1)\n2\n2\n( )\n1\n( )\n(2\n1)\n( )\n( )\nn\nn\nn\nx\nf\nx\nn\nxf\nx\np\nn\nf\nx\n\n\n\n\n\n\n\n.\nTHEN\n\n\n(\n2)\n2\n2\n( )\n(0)\n(0)\nn\nn\nf\nn\np\nf\n\n\n\nAG\n[1 mark]\n(c)\nconsidering f and its derivatives at\n0\nx \n(M1)\n(0)\n0\nf\n\nand\n(0)\nf\np\n\n\nfrom (a)\nA1\n(0)\n0\nf \n\n,\n(4)(0)\n0\nf\n\nA1\n\n\n\n\n(3)\n2\n(1)\n2\n(0)\n1\n(0)\n1\nf\np\nf\np\np\n\n\n\n\n,\n\n\n\n\n\n(5)\n2\n(3)\n2\n2\n(0)\n9\n(0)\n9\n1\nf\np\nf\np\np\np\n\n\n\n\n\nA1\nNote: Only award the last A1 if either\n\n\n(3)\n2\n(1)\n(0)\n1\n(0)\nf\np\nf\n\n\nand\n\n\n(5)\n2\n(3)\n(0)\n9\n(0)\nf\np\nf\n\n\nhave been stated or the general Maclaurin\nseries has been stated and used.\n\n\n\n\n\n2\n2\n2\n3\n5\n1\n9\n1\n3!\n5!\np\np\np\np\np\npx\nx\nx\n\n\n\n\n\nAG\n[4 marks]\ncontinued…\n(or equivalent)\nN17/5/MATHL/HP3/ENG/TZ0/SE/M\nQuestion 5 continued\n(d)\nMETHOD 1\n\n\n2\n3\n0\n0\n1\nsin( arcsin )\n3!\nlim\nlim\nx\nx\np\np\npx\nx\np\nx\nx\nx\n\n\n\n\n\n\nM1\np\n\nA1\nMETHOD 2\nby l’Hôpital’s rule\n2\n0\n0\nsin(\narcsin )\ncos(\narcsin )\nlim\nlim\n1\nx\nx\np\nx\np\np\nx\nx\nx\n\n\n\n\nM1\np\n\nA1\n[2 marks]\n(e)\nthe coefficients of all even powers of x are zero\nA1\nthe coefficient of\np\nx for ( p odd) is non-zero (or equivalent eg,\nthe coefficients of all odd powers of x up to p are non-zero)\nA1\n\n\n(\n2)\n2\n2\n( )\n(0)\n(0)\n0\np\np\nf\np\np\nf\n\n\n\n\nand so the coefficient of\n2\np\nx\n is zero\nA1\nthe coefficients of all odd powers of x greater than\n2\np\nare\nzero (or equivalent)\nA1\nso the Maclaurin series for\n( )\nf x is a polynomial of degree p\nAG\n[4 marks]\nTotal [13 marks]",
       "officialMarkscheme": {
@@ -81011,7 +81121,12 @@
       "sourceUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2017%20Examination%20Session/November%202017%20Examination%20Session/Mathematics/Mathematics_paper_3_Calculus__HL.pdf",
       "pdfUrl": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2017%20Examination%20Session/November%202017%20Examination%20Session/Mathematics/Mathematics_paper_3_Calculus__HL.pdf",
       "viewerAvailable": true,
-      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript"
+      "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript",
+      "subtopics": [
+        "Differentiation",
+        "Limits and series",
+        "Proof and induction"
+      ]
     },
     {
       "id": "2017-november-tz0-p3-discrete-mathematics-q5",

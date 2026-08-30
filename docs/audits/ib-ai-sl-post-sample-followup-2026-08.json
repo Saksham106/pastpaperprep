@@ -1,0 +1,266 @@
+{
+  "auditVersion": "post-sample-classification-followup-v1",
+  "bankFile": "ib-ai-sl.json",
+  "count": 7,
+  "orderedChangedIds": [
+    "2025-may-tz3-p2-q3",
+    "2025-november-tz3-p2-q3",
+    "2024-november-tz1-p2-q2",
+    "2023-november-tz1-p1-q8",
+    "2023-november-tz2-p2-q1",
+    "2022-november-tz0-p2-q1",
+    "2021-may-tz2-p2-q5"
+  ],
+  "decisions": [
+    {
+      "id": "2024-november-tz1-p2-q2",
+      "previous": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [],
+        "skills": [
+          "Sinusoidal models"
+        ],
+        "subtopics": [
+          "Sinusoidal models"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Sinusoidal models",
+          "Arcs and sectors"
+        ],
+        "subtopics": [
+          "Sinusoidal models",
+          "Arcs and sectors"
+        ]
+      },
+      "evidence": {
+        "questionAssetReview": "The Ferris-wheel pages visibly separate radius/circumference, 10° arc travel, a sinusoidal height model, a height equation, and revolution counting.",
+        "officialMarkschemeAssetReview": "The scheme marks circumference, arc-length substitution/answer for 10°, sinusoidal parameters/equation, solving h(t)=33, and total revolutions. The arc-length part independently earns three marks.",
+        "conclusion": "The current tuple is incomplete: Arcs and sectors is materially assessed and must be owned by Geometry and trigonometry; no extra graph-property skill is needed beyond the sinusoidal model."
+      }
+    },
+    {
+      "id": "2021-may-tz2-p2-q5",
+      "previous": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Applications of differentiation",
+          "Modelling with differentiation"
+        ],
+        "subtopics": [
+          "Applications of differentiation",
+          "Modelling with differentiation"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Applications of differentiation",
+          "Volume and surface area of 3D shapes"
+        ],
+        "subtopics": [
+          "Applications of differentiation",
+          "Volume and surface area of 3D shapes"
+        ]
+      },
+      "evidence": {
+        "questionAssetReview": "The question asset is a regular-hexagonal prism with side x and height h, followed by a volume function, graph, derivative, and maximum.",
+        "officialMarkschemeAssetReview": "The scheme gives two marks for hexagon base area, five for surface-area/volume modelling, then marks graph shape/roots, derivative, stationary x, and maximum volume. The 3D volume/surface-area method is independently substantial.",
+        "conclusion": "The current calculus-only tuple omits a material 3D volume/surface-area method; add the canonical Geometry and trigonometry secondary skill."
+      }
+    },
+    {
+      "id": "2022-november-tz0-p2-q1",
+      "previous": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Statistical measures and frequency tables",
+          "Outliers and data interpretation"
+        ],
+        "subtopics": [
+          "Statistical measures and frequency tables",
+          "Outliers and data interpretation"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Statistical measures and frequency tables",
+          "Outliers and data interpretation",
+          "Probability and types of events"
+        ],
+        "subtopics": [
+          "Statistical measures and frequency tables",
+          "Outliers and data interpretation",
+          "Probability and types of events"
+        ]
+      },
+      "evidence": {
+        "questionAssetReview": "The paired pages show a grouped-frequency table, a box-and-whisker plot, quartile/outlier questions, and a probability question.",
+        "officialMarkschemeAssetReview": "The scheme marks grouped measures/table work, quartiles and IQR/outlier comparison, and part (f) probability 22/160 with separate numerator and denominator marks.",
+        "conclusion": "Probability and types of events is an independently mark-bearing skill omitted by the current tuple."
+      }
+    },
+    {
+      "id": "2023-november-tz1-p1-q8",
+      "previous": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Applications of differentiation",
+          "Introduction to differentiation"
+        ],
+        "subtopics": [
+          "Applications of differentiation",
+          "Introduction to differentiation"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Applications of differentiation",
+          "Introduction to differentiation",
+          "Coordinate geometry"
+        ],
+        "subtopics": [
+          "Applications of differentiation",
+          "Introduction to differentiation",
+          "Coordinate geometry"
+        ]
+      },
+      "evidence": {
+        "questionAssetReview": "The asset shows a map with a cubic road function, hospital point H, and a bridge normal to the road ending at G.",
+        "officialMarkschemeAssetReview": "The scheme marks r′(-2), reciprocal-slope normal-line construction, then finding G coordinates and applying the distance formula for bridge length.",
+        "conclusion": "Coordinate geometry is independently assessed by the normal-line/point/distance work and is missing from the current tuple; it belongs under Geometry and trigonometry."
+      }
+    },
+    {
+      "id": "2023-november-tz2-p2-q1",
+      "previous": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Applications of integration",
+          "Trapezoidal rule"
+        ],
+        "subtopics": [
+          "Applications of integration",
+          "Trapezoidal rule"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Applications of integration",
+          "Trapezoidal rule",
+          "Rounding, estimation and percentage error"
+        ],
+        "subtopics": [
+          "Applications of integration",
+          "Trapezoidal rule",
+          "Rounding, estimation and percentage error"
+        ]
+      },
+      "evidence": {
+        "questionAssetReview": "The question asset shows a wing cross-section graph, tabulated ordinates, a four-interval trapezoidal estimate, an exact integral, and a percentage-error request.",
+        "officialMarkschemeAssetReview": "The scheme marks the trapezoidal estimate (3), definite integral and exact area (4), and percentage error with its own method and answer marks (2).",
+        "conclusion": "Rounding, estimation and percentage error is a separate mark-bearing part and is omitted by the current tuple."
+      }
+    },
+    {
+      "id": "2025-november-tz3-p2-q3",
+      "previous": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Coordinate geometry",
+          "Non right-angled trigonometry",
+          "Financial mathematics"
+        ],
+        "subtopics": [
+          "Coordinate geometry",
+          "Non right-angled trigonometry",
+          "Financial mathematics"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Non right-angled trigonometry",
+          "Right-angled trigonometry",
+          "Financial mathematics"
+        ],
+        "subtopics": [
+          "Non right-angled trigonometry",
+          "Right-angled trigonometry",
+          "Financial mathematics"
+        ]
+      },
+      "evidence": {
+        "questionAssetReview": "The paired asset shows a triangle farm, a 300 m east/200 m north displacement, path cost, and a five-year monthly loan.",
+        "officialMarkschemeAssetReview": "The scheme marks cosine-rule/triangle-area work, sqrt(300²+200²) for the east/north distance, and a financial-app/annuity calculation with interest and nominal rate.",
+        "conclusion": "The current coordinate-geometry label is not the exact controlled owner of the marked 300-by-200 right-triangle distance. Replace it with Right-angled trigonometry; retain Non right-angled trigonometry and the Number and algebra financial secondary."
+      }
+    },
+    {
+      "id": "2025-may-tz3-p2-q3",
+      "previous": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Volume and surface area of 3D shapes",
+          "Applications of differentiation",
+          "Modelling with differentiation"
+        ],
+        "subtopics": [
+          "Volume and surface area of 3D shapes",
+          "Applications of differentiation",
+          "Modelling with differentiation"
+        ]
+      },
+      "final": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Volume and surface area of 3D shapes",
+          "Applications of differentiation",
+          "Modelling with differentiation"
+        ],
+        "subtopics": [
+          "Volume and surface area of 3D shapes",
+          "Applications of differentiation",
+          "Modelling with differentiation"
+        ]
+      },
+      "evidence": {
+        "conclusion": "Cuboid/cylinder mensuration earns 14 marks and dominates; differentiation-based optimization earns 6 independent marks."
+      }
+    }
+  ]
+}

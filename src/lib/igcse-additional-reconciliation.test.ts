@@ -77,6 +77,23 @@ describe("IGCSE Additional Mathematics reconciliation", () => {
       reconciliation: { reportVersion: string; reportSha256: string; sourceMergeCommit: string; applied: number; retainedCurrent: number };
       corrections: Record<string, { broadTopic: string; syllabusSection: string; secondaryTopics: string[]; subtopics: string[]; confidence: string; sourceTextSha256: string }>;
     };
+    const followup = JSON.parse(readFileSync(
+      join(process.cwd(), "docs", "audits", "igcse-additional-post-sample-followup-2026-08.json"),
+      "utf8",
+    )) as {
+      count: number;
+      historicalRawSha256: string;
+      finalRawSha256: string;
+      historicalClassificationsSha256: string;
+      finalClassificationsSha256: string;
+      orderedChangedIds: string[];
+      decisions: Array<{
+        id: string;
+        previous: { primaryTopic: string; secondaryTopics: string[]; subtopics: string[] };
+        final: { primaryTopic: string; secondaryTopics: string[]; subtopics: string[] };
+      }>;
+    };
+    const followupById = new Map(followup.decisions.map((decision) => [decision.id, decision]));
 
     expect(report).toMatchObject({
       reportVersion: "igcse-0606-consensus-reconciliation-2026.08.1",
@@ -128,28 +145,41 @@ describe("IGCSE Additional Mathematics reconciliation", () => {
     expect(report.retainedIds).toHaveLength(1);
     expect(new Set([...report.appliedIds, ...report.retainedIds]).size).toBe(804);
     expect(report.duplicateGroups).toHaveLength(31);
-    expect(fileSha256(rawPath)).toBe(report.artifacts.productionRaw.sha256);
+    expect(followup).toMatchObject({
+      count: 15,
+      historicalRawSha256: report.artifacts.productionRaw.sha256,
+      finalRawSha256: fileSha256(rawPath),
+    });
+    expect(followup.orderedChangedIds).toHaveLength(followup.count);
+    expect(new Set(followup.orderedChangedIds)).toEqual(new Set(followup.decisions.map((decision) => decision.id)));
     expect(fileSha256(baselinePath)).toBe(report.artifacts.baselineNonClassification.sha256);
 
     const byId = new Map(raw.questions.map((question) => [question.id, question]));
     for (const source of report.sourceClassifications) {
       const question = byId.get(source.id)!;
-      const expectedPrimary = report.normalization.sourceTopicToProductionTopic[source.primaryTopic];
-      const expectedSecondary = Array.from(new Set(source.secondaryTopics
+      const historicalPrimary = report.normalization.sourceTopicToProductionTopic[source.primaryTopic];
+      const historicalSecondary = Array.from(new Set(source.secondaryTopics
         .map((topic) => report.normalization.sourceTopicToProductionTopic[topic])
-        .filter((topic) => topic !== expectedPrimary)));
+        .filter((topic) => topic !== historicalPrimary)));
+      const followupDecision = followupById.get(source.id);
+      const expectedPrimary = followupDecision?.final.primaryTopic ?? historicalPrimary;
+      const expectedSecondary = followupDecision?.final.secondaryTopics ?? historicalSecondary;
+      const expectedSubtopics = followupDecision?.final.subtopics ?? source.subtopics;
       expect(question.primaryTopic, source.id).toBe(expectedPrimary);
       expect(question.secondaryTopics, source.id).toEqual(expectedSecondary);
-      expect(question.subtopics, source.id).toEqual(source.subtopics);
+      expect(question.subtopics, source.id).toEqual(expectedSubtopics);
+      // The follow-up appends runtime subtopics without rewriting the sealed legacy detail field.
       expect(question.detailedSubtopics, source.id).toEqual(source.subtopics);
       expect(question.classificationEvidence.confidence, source.id).toBe(source.confidence);
       expect(question.classificationEvidence.version, source.id).toBe(source.version);
-      expect(question.classificationVersion, source.id).toBe(source.version);
+      expect(question.classificationVersion, source.id).toBe(
+        followupDecision ? "0606-post-sample-followup-2026.08.1" : source.version,
+      );
       expect(createHash("sha256").update(question.accessibleText).digest("hex"), source.id).toBe(source.sourceTextSha256);
       expect(manifest.corrections[source.id], source.id).toMatchObject({
-        broadTopic: expectedPrimary,
+        broadTopic: historicalPrimary,
         syllabusSection: source.primaryTopic,
-        secondaryTopics: expectedSecondary,
+        secondaryTopics: historicalSecondary,
         subtopics: source.subtopics,
         confidence: source.confidence,
         sourceTextSha256: source.sourceTextSha256,
@@ -164,7 +194,8 @@ describe("IGCSE Additional Mathematics reconciliation", () => {
       confidence: question.classificationEvidence.confidence,
       version: question.classificationVersion,
     }));
-    expect(stableSha256(finalClassifications)).toBe(report.hashes.finalClassificationsSha256);
+    expect(followup.historicalClassificationsSha256).toBe(report.hashes.finalClassificationsSha256);
+    expect(stableSha256(finalClassifications)).toBe(followup.finalClassificationsSha256);
     const finalNonClassification = raw.questions.map((question) => Object.fromEntries(
       Object.entries(question).filter(([key]) => !CLASSIFICATION_FIELDS.has(key)),
     ));
