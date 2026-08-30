@@ -1319,4 +1319,229 @@ describe("new-bank classification quality", () => {
       }
     }
   });
+
+  it("keeps the IGCSE 0580 reconciliation complete, production-reviewed, and non-destructive", () => {
+    const rawPath = join(process.cwd(), "src", "data", "raw", "igcse.json");
+    const reportPath = join(
+      process.cwd(),
+      "docs",
+      "audits",
+      "igcse-0580-consensus-reconciliation-2026-08.json",
+    );
+    const baselinePath = join(
+      process.cwd(),
+      "docs",
+      "audits",
+      "igcse-0580-production-baseline-nonclassification-2026-08.json",
+    );
+    const raw = JSON.parse(readFileSync(rawPath, "utf8")) as {
+      questions: Array<Record<string, unknown> & {
+        id: string;
+        accessibleText: string;
+        primaryTopic: string;
+        secondaryTopics: string[];
+        detailedSubtopics: string[];
+        classificationEvidence: { confidence: string; version: string };
+      }>;
+    };
+    const report = JSON.parse(readFileSync(reportPath, "utf8")) as {
+      reportVersion: string;
+      bank: string;
+      questionCount: number;
+      source: {
+        repository: string;
+        draftPullRequest: number;
+        auditCommit: string;
+        sourceCommit: string;
+      };
+      productionReview: {
+        questionCount: number;
+        decisions: Record<string, number>;
+        confidence: Record<string, number>;
+        applied: number;
+        retainedCurrent: number;
+      };
+      finalComparison: {
+        noChange: number;
+        applied: number;
+        primaryTopic: number;
+        secondaryTopic: number;
+        subtopicOnly: number;
+      };
+      noChangeIds: string[];
+      noChangeClassifications: Array<{
+        id: string;
+        classification: { primaryTopic: string; secondaryTopics: string[]; subtopics: string[] };
+      }>;
+      duplicateGroups: string[][];
+      artifacts: {
+        sourceRuntime: { path: string; sha256: string };
+        productionRaw: { path: string; sha256: string };
+        sourceClassificationManifest: { path: string; sha256: string };
+        baselineNonClassification: { path: string; sha256: string };
+      };
+      hashes: {
+        rawFileSha256: string;
+        finalClassificationsSha256: string;
+        baselineNonClassificationSha256: string;
+        finalNonClassificationSha256: string;
+      };
+      decisions: Array<{
+        id: string;
+        decision: "accept_recommended" | "keep_current" | "modify";
+        applied: boolean;
+        category: string;
+        current: { primaryTopic: string; secondaryTopics: string[]; subtopics: string[] };
+        final: { primaryTopic: string; secondaryTopics: string[]; subtopics: string[] };
+        sourceTextSha256: string;
+      }>;
+    };
+    const baseline = JSON.parse(readFileSync(baselinePath, "utf8")) as {
+      schemaVersion: string;
+      sourceCommit: string;
+      sourceRawPath: string;
+      sourceRawSha256: string;
+      questionCount: number;
+      nonClassificationSha256: string;
+      questions: Array<Record<string, unknown> & { id: string }>;
+    };
+
+    expect(report).toMatchObject({
+      reportVersion: "igcse-0580-consensus-reconciliation-2026.08.1",
+      bank: "igcse",
+      questionCount: 2684,
+      source: {
+        repository: "Saksham106/igcse-0580-topic-practice",
+        draftPullRequest: 3,
+        auditCommit: "c9be3388cce0db48ceb9467c8dab252eee1ae525",
+        sourceCommit: "6f40d40f912bde306e9ab5019dd8b84dea028f91",
+      },
+      productionReview: {
+        questionCount: 1737,
+        decisions: { accept_recommended: 863, keep_current: 647, modify: 227 },
+        confidence: { high: 1483, medium: 254 },
+        applied: 1090,
+        retainedCurrent: 647,
+      },
+      finalComparison: {
+        noChange: 1594,
+        applied: 1090,
+        primaryTopic: 432,
+        secondaryTopic: 177,
+        subtopicOnly: 481,
+      },
+    });
+    expect(raw.questions).toHaveLength(2684);
+    expect(new Set(raw.questions.map((question) => question.id)).size).toBe(2684);
+    expect(report.decisions).toHaveLength(1737);
+    expect(report.noChangeIds).toHaveLength(947);
+    expect(createHash("sha256").update(readFileSync(rawPath)).digest("hex")).toBe(
+      report.hashes.rawFileSha256,
+    );
+    expect(report.artifacts).toMatchObject({
+      sourceRuntime: { path: "site/data/questions.json", sha256: report.hashes.rawFileSha256 },
+      productionRaw: { path: "src/data/raw/igcse.json", sha256: report.hashes.rawFileSha256 },
+      sourceClassificationManifest: {
+        path: "data/classification-manifest.json",
+        sha256: "e2870905e882d04c26dc4aa19d2e483fae1bea1f16c3f32d72fac7d911b3e670",
+      },
+      baselineNonClassification: {
+        path: "docs/audits/igcse-0580-production-baseline-nonclassification-2026-08.json",
+      },
+    });
+    expect(createHash("sha256").update(readFileSync(baselinePath)).digest("hex")).toBe(
+      report.artifacts.baselineNonClassification.sha256,
+    );
+
+    const byId = new Map(raw.questions.map((question) => [question.id, question]));
+    const decisionIds = new Set(report.decisions.map((decision) => decision.id));
+    const noChangeIds = new Set(report.noChangeIds);
+    expect([...decisionIds].filter((id) => noChangeIds.has(id))).toEqual([]);
+    expect(new Set([...noChangeIds, ...decisionIds])).toEqual(new Set(byId.keys()));
+    expect(new Set(report.noChangeClassifications.map((record) => record.id))).toEqual(noChangeIds);
+    for (const record of report.noChangeClassifications) {
+      const question = byId.get(record.id)!;
+      expect({
+        primaryTopic: question.primaryTopic,
+        secondaryTopics: [...question.secondaryTopics].sort(),
+        subtopics: [...question.detailedSubtopics].sort(),
+      }, record.id).toEqual(record.classification);
+    }
+
+    const computedDecisions = report.decisions.reduce<Record<string, number>>((counts, decision) => {
+      counts[decision.decision] = (counts[decision.decision] ?? 0) + 1;
+      return counts;
+    }, {});
+    expect(computedDecisions).toEqual(report.productionReview.decisions);
+    expect(report.decisions.filter((decision) => decision.applied)).toHaveLength(1090);
+    expect(report.decisions.filter((decision) => !decision.applied)).toHaveLength(647);
+    expect(report.decisions.filter((decision) => decision.category === "primary-topic")).toHaveLength(432);
+    expect(report.decisions.filter((decision) => decision.category === "secondary-topic")).toHaveLength(177);
+    expect(report.decisions.filter((decision) => decision.category === "subtopic-only")).toHaveLength(481);
+    for (const decision of report.decisions) {
+      const question = byId.get(decision.id)!;
+      expect(createHash("sha256").update(question.accessibleText).digest("hex"), decision.id).toBe(
+        decision.sourceTextSha256,
+      );
+      expect({
+        primaryTopic: question.primaryTopic,
+        secondaryTopics: [...question.secondaryTopics].sort(),
+        subtopics: [...question.detailedSubtopics].sort(),
+      }, decision.id).toEqual(decision.final);
+      expect(decision.applied, decision.id).toBe(decision.decision !== "keep_current");
+      if (!decision.applied) expect(decision.final, decision.id).toEqual(decision.current);
+    }
+
+    const finalClassifications = raw.questions
+      .map((question) => ({
+        id: question.id,
+        primaryTopic: question.primaryTopic,
+        secondaryTopics: [...question.secondaryTopics].sort(),
+        subtopics: [...question.detailedSubtopics].sort(),
+        confidence: question.classificationEvidence.confidence,
+        version: question.classificationEvidence.version,
+      }))
+      .sort((left, right) => left.id.localeCompare(right.id));
+    expect(stableSha256(finalClassifications)).toBe(report.hashes.finalClassificationsSha256);
+    const igcseClassificationFields = new Set([
+      ...CLASSIFICATION_FIELDS,
+      "detailedSubtopics",
+    ]);
+    const finalNonClassification = raw.questions.map((question) => Object.fromEntries(
+      Object.entries(question).filter(([key]) => !igcseClassificationFields.has(key)),
+    ));
+    expect(baseline).toMatchObject({
+      schemaVersion: "igcse-0580-production-baseline-nonclassification-2026.08.1",
+      sourceCommit: "ee372aef201213cd068431b8f770ee3bffeffb0f",
+      sourceRawPath: "src/data/raw/igcse.json",
+      sourceRawSha256: "0107282f8a73a0d1f8340a2e6f5e2d9b87a9874ba0e4e56f25c39021f45b64eb",
+      questionCount: 2684,
+    });
+    expect(stableSha256(baseline.questions)).toBe(baseline.nonClassificationSha256);
+    expect(stableSha256(baseline.questions)).toBe(report.hashes.baselineNonClassificationSha256);
+    expect(stableSha256(finalNonClassification)).toBe(report.hashes.finalNonClassificationSha256);
+    expect(report.hashes.finalNonClassificationSha256).toBe(
+      report.hashes.baselineNonClassificationSha256,
+    );
+    expect(new Set(raw.questions.map((question) => question.classificationEvidence.version))).toEqual(
+      new Set(["0580-taxonomy-2015-2027-reconciled-v3"]),
+    );
+
+    expect(report.duplicateGroups).toEqual([
+      ["0580-2018-november-22-q16", "0580-2020-march-22-q20"],
+    ]);
+    for (const duplicateIds of report.duplicateGroups) {
+      const duplicateClassifications = duplicateIds.map((id) => {
+        const question = byId.get(id)!;
+        return {
+          primaryTopic: question.primaryTopic,
+          secondaryTopics: question.secondaryTopics,
+          subtopics: question.detailedSubtopics,
+        };
+      });
+      for (const duplicate of duplicateClassifications.slice(1)) {
+        expect(duplicate).toEqual(duplicateClassifications[0]);
+      }
+    }
+  });
 });
