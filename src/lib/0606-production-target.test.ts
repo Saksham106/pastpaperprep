@@ -108,7 +108,7 @@ describe("0606 finalized full-bank production target", () => {
         skills: flattened(expected),
       });
       expect(new Set(question.subtopics), record.id).toEqual(new Set(flattened(expected)));
-      expect(question.detailedSubtopics, record.id).toEqual(question.subtopics);
+      expect(question.detailedSubtopics, record.id).toEqual(expected.skills);
       for (const topic of [expected.primaryTopic, ...expectedSecondary]) {
         expect(getControlledSubtopics("igcse-additional", topic), `${record.id}/${topic}`).toBeTruthy();
       }

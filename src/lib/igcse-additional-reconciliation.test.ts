@@ -180,8 +180,9 @@ describe("IGCSE Additional Mathematics reconciliation", () => {
     expect(followup).toMatchObject({
       count: 15,
       historicalRawSha256: report.artifacts.productionRaw.sha256,
-      finalRawSha256: fileSha256(rawPath),
     });
+    // `finalRawSha256` is the historical post-sample output. The full-bank
+    // reviewed target supersedes it and is asserted row-by-row below.
     expect(followup.orderedChangedIds).toHaveLength(followup.count);
     expect(new Set(followup.orderedChangedIds)).toEqual(new Set(followup.decisions.map((decision) => decision.id)));
     expect(fileSha256(baselinePath)).toBe(report.artifacts.baselineNonClassification.sha256);
@@ -207,7 +208,7 @@ describe("IGCSE Additional Mathematics reconciliation", () => {
       expect(question.primaryTopic, source.id).toBe(expectedPrimary);
       expect(new Set(question.secondaryTopics), source.id).toEqual(new Set(expectedSecondary));
       expect(new Set(question.subtopics), source.id).toEqual(new Set(expectedSubtopics));
-      expect(new Set(question.detailedSubtopics), source.id).toEqual(new Set(expectedSubtopics));
+      expect(question.detailedSubtopics, source.id).toEqual(targetTuple.skills);
       if (fullAuditDecision) {
         expect(question.classificationEvidence.version, source.id).toBe("0606-reviewed-production-target-v1");
         expect(question.classificationVersion, source.id).toBe("0606-reviewed-production-target-v1");
