@@ -2625,9 +2625,14 @@
       "solution": "Separate variables: dN/[−3+4N−N^2]=k dt. Since −3+4N−N^2=(N−1)(3−N), partial fractions give 1/[(N−1)(3−N)]=1/2(N−1)+1/2(3−N). Integrating, (1/2)ln((N−1)/(3−N))=kt+C. Initially N=1.5, so the ratio is 1/3; hence ln((N−1)/(3−N))=2kt−ln3, or (N−1)/(3−N)=e^{2kt}/3. Solving gives N=3(1+e^{2kt})/(3+e^{2kt})=(3+3e^{−2kt})/(1+3e^{−2kt}), which has the requested integer-coefficient form. As t→∞ (k>0), e^{−2kt}→0, so N→3. Since N is measured in thousands, the limiting number is L=3000 rabbits.",
       "independentSolution": "Separate variables: dN/[−3+4N−N^2]=k dt. Since −3+4N−N^2=(N−1)(3−N), partial fractions give 1/[(N−1)(3−N)]=1/2(N−1)+1/2(3−N). Integrating, (1/2)ln((N−1)/(3−N))=kt+C. Initially N=1.5, so the ratio is 1/3; hence ln((N−1)/(3−N))=2kt−ln3, or (N−1)/(3−N)=e^{2kt}/3. Solving gives N=3(1+e^{2kt})/(3+e^{2kt})=(3+3e^{−2kt})/(1+3e^{−2kt}), which has the requested integer-coefficient form. As t→∞ (k>0), e^{−2kt}→0, so N→3. Since N is measured in thousands, the limiting number is L=3000 rabbits.",
       "primaryTopic": "Calculus",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
       "skills": [
-        "Differential equations"
+        "Differential equations",
+        "Exponents and logarithms",
+        "Integration",
+        "Limits and series"
       ],
       "classificationEvidence": {
         "method": "question_text+independent_solution",
@@ -2806,9 +2811,13 @@
       "solution": "f'(x) = x^2 - x - 1. The function is decreasing where f'(x) < 0. The roots of x^2 - x - 1 = 0 are x = (1 ± √5)/2, and the quadratic has positive leading coefficient, so it is negative between the roots. Therefore f is decreasing for (1 - √5)/2 < x < (1 + √5)/2.",
       "independentSolution": "f'(x) = x^2 - x - 1. The function is decreasing where f'(x) < 0. The roots of x^2 - x - 1 = 0 are x = (1 ± √5)/2, and the quadratic has positive leading coefficient, so it is negative between the roots. Therefore f is decreasing for (1 - √5)/2 < x < (1 + √5)/2.",
       "primaryTopic": "Calculus",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
       "skills": [
-        "Differentiation"
+        "Applications of differentiation",
+        "Equations and inequalities",
+        "Quadratics"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -2922,9 +2931,10 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
-        "Differentiation",
         "Applications of differentiation",
-        "Applications of integration"
+        "Applications of integration",
+        "Differentiation",
+        "Integration"
       ],
       "classificationEvidence": {
         "method": "question_text+independent_solution",
@@ -3328,7 +3338,8 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
-        "Applications of integration"
+        "Applications of integration",
+        "Integration"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -3386,7 +3397,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Sequences and series",
+        "Equations and inequalities",
         "Exponents and logarithms"
       ],
       "classificationEvidence": {
@@ -3523,9 +3534,9 @@
         "Number and algebra"
       ],
       "skills": [
+        "Equations and inequalities",
         "Graphs and transformations",
-        "Applications of differentiation",
-        "Equations and inequalities"
+        "Limits and series"
       ],
       "classificationEvidence": {
         "method": "question_text+independent_solution",
@@ -3621,9 +3632,10 @@
         "Calculus"
       ],
       "skills": [
-        "Sequences and series",
+        "Applications of integration",
+        "Integration",
         "Proof and induction",
-        "Applications of integration"
+        "Sequences and series"
       ],
       "classificationEvidence": {
         "method": "question_text+independent_solution",
@@ -3863,7 +3875,8 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
-        "Applications of differentiation"
+        "Applications of differentiation",
+        "Differentiation"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -4028,6 +4041,7 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
+        "Applications of integration",
         "Integration"
       ],
       "classificationEvidence": {
@@ -4129,6 +4143,7 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
+        "Conditional probability",
         "Probability models"
       ],
       "classificationEvidence": {
@@ -4384,7 +4399,8 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Complex numbers"
+        "Complex numbers",
+        "Exponents and logarithms"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -4556,8 +4572,7 @@
       "secondaryTopics": [],
       "skills": [
         "Differential equations",
-        "Integration",
-        "Differentiation"
+        "Integration"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -4667,9 +4682,11 @@
         "Number and algebra"
       ],
       "skills": [
+        "Equations and inequalities",
+        "Exponents and logarithms",
         "Functions and inverses",
-        "Quadratics",
-        "Equations and inequalities"
+        "Graphs and transformations",
+        "Quadratics"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -4823,9 +4840,9 @@
       "primaryTopic": "Geometry and trigonometry",
       "secondaryTopics": [],
       "skills": [
-        "Vectors, lines and planes",
+        "Coordinate and analytic geometry",
         "Trigonometric identities and equations",
-        "Triangle geometry"
+        "Vectors, lines and planes"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -5122,7 +5139,6 @@
       "primaryTopic": "Functions",
       "secondaryTopics": [],
       "skills": [
-        "Functions and inverses",
         "Graphs and transformations"
       ],
       "classificationEvidence": {
@@ -5284,7 +5300,8 @@
       "primaryTopic": "Geometry and trigonometry",
       "secondaryTopics": [],
       "skills": [
-        "Triangle geometry"
+        "Triangle geometry",
+        "Trigonometric identities and equations"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -5669,9 +5686,13 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Functions",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
       "skills": [
-        "Graphs and transformations"
+        "Functions and inverses",
+        "Graphs and transformations",
+        "Trigonometric identities and equations"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -5905,14 +5926,15 @@
       "independentSolution": "",
       "primaryTopic": "Functions",
       "secondaryTopics": [
-        "Number and algebra",
-        "Calculus"
+        "Calculus",
+        "Number and algebra"
       ],
       "skills": [
+        "Algebraic manipulation",
+        "Applications of integration",
+        "Exponents and logarithms",
         "Functions and inverses",
         "Graphs and transformations",
-        "Exponents and logarithms",
-        "Algebraic manipulation",
         "Integration"
       ],
       "classificationEvidence": {
@@ -6127,9 +6149,13 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Number and algebra",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
       "skills": [
-        "Complex numbers"
+        "Complex numbers",
+        "Polynomials and theorems",
+        "Triangle geometry"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -7210,6 +7236,7 @@
       "primaryTopic": "Geometry and trigonometry",
       "secondaryTopics": [],
       "skills": [
+        "Coordinate and analytic geometry",
         "Vectors, lines and planes"
       ],
       "classificationEvidence": {
@@ -7317,9 +7344,13 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Number and algebra",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
       "skills": [
-        "Complex numbers"
+        "Complex numbers",
+        "Coordinate and analytic geometry",
+        "Polynomials and theorems"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -7608,6 +7639,7 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
+        "Applications of integration",
         "Integration"
       ],
       "classificationEvidence": {
@@ -8449,12 +8481,15 @@
       "independentSolution": "",
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [
-        "Calculus"
+        "Calculus",
+        "Number and algebra"
       ],
       "skills": [
+        "Conditional probability",
         "Continuous random variables",
         "Descriptive statistics",
-        "Integration"
+        "Integration",
+        "Probability models"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -8601,13 +8636,15 @@
       "independentSolution": "",
       "primaryTopic": "Functions",
       "secondaryTopics": [
-        "Number and algebra",
-        "Calculus"
+        "Calculus",
+        "Number and algebra"
       ],
       "skills": [
+        "Applications of integration",
         "Functions and inverses",
-        "Sequences and series",
-        "Integration"
+        "Integration",
+        "Limits and series",
+        "Sequences and series"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -9029,6 +9066,8 @@
       "secondaryTopics": [],
       "skills": [
         "Applications of differentiation",
+        "Applications of integration",
+        "Differentiation",
         "Integration"
       ],
       "classificationEvidence": {
@@ -9803,11 +9842,13 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Calculus",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
       "skills": [
+        "Applications of differentiation",
         "Differentiation",
-        "Applications of integration",
-        "Integration"
+        "Quadratics"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -11204,8 +11245,9 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
+        "Applications of differentiation",
         "Differentiation",
-        "Applications of differentiation"
+        "Limits and series"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -11684,8 +11726,10 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Number and algebra",
-      "secondaryTopics": [],
+      "primaryTopic": "Functions",
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
       "skills": [
         "Algebraic manipulation",
         "Proof and induction",
@@ -11924,6 +11968,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
+        "Algebraic manipulation",
         "Exponents and logarithms"
       ],
       "classificationEvidence": {
@@ -13924,10 +13969,14 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Number and algebra",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
       "skills": [
+        "Binomial expansion",
         "Complex numbers",
-        "Polynomials and theorems"
+        "Polynomials and theorems",
+        "Trigonometric identities and equations"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -14540,8 +14589,9 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
-        "Probability models",
-        "Conditional probability"
+        "Conditional probability",
+        "Discrete random variables",
+        "Probability models"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -14768,9 +14818,12 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Geometry and trigonometry",
-      "secondaryTopics": [],
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
       "skills": [
+        "Applications of differentiation",
         "Triangle geometry"
       ],
       "classificationEvidence": {
@@ -16144,9 +16197,13 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Statistics and probability",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Calculus"
+      ],
       "skills": [
-        "Continuous random variables"
+        "Conditional probability",
+        "Continuous random variables",
+        "Integration"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -16313,10 +16370,14 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Calculus",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
       "skills": [
         "Differential equations",
-        "Differentiation"
+        "Differentiation",
+        "Exponents and logarithms",
+        "Integration"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -16438,8 +16499,9 @@
         "Number and algebra"
       ],
       "skills": [
-        "Differentiation",
         "Applications of differentiation",
+        "Differentiation",
+        "Proof and induction",
         "Quadratics"
       ],
       "classificationEvidence": {
@@ -16575,10 +16637,13 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Calculus",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
       "skills": [
         "Differential equations",
-        "Differentiation"
+        "Differentiation",
+        "Exponents and logarithms"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -16698,12 +16763,15 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Calculus",
+      "primaryTopic": "Functions",
       "secondaryTopics": [
+        "Calculus",
         "Number and algebra"
       ],
       "skills": [
         "Differentiation",
+        "Functions and inverses",
+        "Graphs and transformations",
         "Limits and series",
         "Proof and induction"
       ],
@@ -17434,6 +17502,7 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
+        "Applications of integration",
         "Integration"
       ],
       "classificationEvidence": {
@@ -18229,6 +18298,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
+        "Exponents and logarithms",
         "Quadratics"
       ],
       "classificationEvidence": {
@@ -18879,6 +18949,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
+        "Exponents and logarithms",
         "Sequences and series"
       ],
       "classificationEvidence": {
@@ -20943,10 +21014,16 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Calculus",
-      "secondaryTopics": [],
+      "primaryTopic": "Functions",
+      "secondaryTopics": [
+        "Calculus",
+        "Number and algebra"
+      ],
       "skills": [
-        "Applications of differentiation"
+        "Algebraic manipulation",
+        "Applications of differentiation",
+        "Differentiation",
+        "Graphs and transformations"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -21296,6 +21373,7 @@
       ],
       "skills": [
         "Differential equations",
+        "Differentiation",
         "Integration",
         "Trigonometric identities and equations"
       ],
@@ -22195,7 +22273,8 @@
       "primaryTopic": "Geometry and trigonometry",
       "secondaryTopics": [],
       "skills": [
-        "Triangle geometry"
+        "Triangle geometry",
+        "Trigonometric identities and equations"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -22411,7 +22490,8 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
-        "Applications of integration"
+        "Applications of integration",
+        "Integration"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -23904,9 +23984,14 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Statistics and probability",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Calculus",
+        "Number and algebra"
+      ],
       "skills": [
-        "Descriptive statistics"
+        "Differentiation",
+        "Exponents and logarithms",
+        "Statistical inference"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -24543,6 +24628,7 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
+        "Discrete random variables",
         "Probability models"
       ],
       "classificationEvidence": {
@@ -24738,6 +24824,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
+        "Equations and inequalities",
         "Exponents and logarithms",
         "Quadratics"
       ],
@@ -25017,7 +25104,8 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Complex numbers"
+        "Complex numbers",
+        "Polynomials and theorems"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -25182,6 +25270,7 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
+        "Applications of integration",
         "Integration"
       ],
       "classificationEvidence": {
@@ -25395,8 +25484,7 @@
       ],
       "skills": [
         "Applications of differentiation",
-        "Differentiation",
-        "Trigonometric identities and equations"
+        "Differentiation"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -25873,6 +25961,7 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
+        "Applications of integration",
         "Integration"
       ],
       "classificationEvidence": {
@@ -26486,7 +26575,8 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Complex numbers"
+        "Complex numbers",
+        "Polynomials and theorems"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -26596,6 +26686,7 @@
         "Number and algebra"
       ],
       "skills": [
+        "Applications of integration",
         "Integration",
         "Sequences and series"
       ],
@@ -26925,7 +27016,6 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
-        "Descriptive statistics",
         "Statistical inference"
       ],
       "classificationEvidence": {
@@ -27183,9 +27273,12 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Number and algebra",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Functions"
+      ],
       "skills": [
-        "Complex numbers"
+        "Complex numbers",
+        "Geometric transformations"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -27567,9 +27660,8 @@
         "Calculus"
       ],
       "skills": [
-        "Radian measure and sectors",
-        "Triangle geometry",
-        "Applications of integration"
+        "Applications of integration",
+        "Radian measure and sectors"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -27963,7 +28055,7 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
-        "Descriptive statistics"
+        "Statistical inference"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -28366,7 +28458,9 @@
       "secondaryTopics": [],
       "skills": [
         "Applications of differentiation",
-        "Applications of integration"
+        "Applications of integration",
+        "Differentiation",
+        "Integration"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -28592,10 +28686,14 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Number and algebra",
-      "secondaryTopics": [],
+      "primaryTopic": "Functions",
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
       "skills": [
-        "Equations and inequalities"
+        "Equations and inequalities",
+        "Graphs and transformations",
+        "Quadratics"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -28697,7 +28795,8 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Counting and combinatorics"
+        "Counting and combinatorics",
+        "Number theory and modular arithmetic"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -28892,9 +28991,13 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Statistics and probability",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
       "skills": [
-        "Probability models"
+        "Equations and inequalities",
+        "Probability models",
+        "Quadratics"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -28965,7 +29068,9 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
-        "Differential equations"
+        "Applications of differentiation",
+        "Differential equations",
+        "Differentiation"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -29447,8 +29552,10 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Sequences and series",
-        "Quadratics"
+        "Equations and inequalities",
+        "Polynomials and theorems",
+        "Quadratics",
+        "Sequences and series"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -30284,10 +30391,13 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Number and algebra",
-      "secondaryTopics": [],
+      "primaryTopic": "Functions",
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
       "skills": [
         "Exponents and logarithms",
+        "Graphs and transformations",
         "Quadratics"
       ],
       "classificationEvidence": {
@@ -30405,10 +30515,11 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
-        "Limits and series",
-        "Differentiation",
         "Applications of differentiation",
-        "Applications of integration"
+        "Applications of integration",
+        "Differentiation",
+        "Integration",
+        "Limits and series"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -30549,10 +30660,13 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Number and algebra",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
       "skills": [
+        "Binomial expansion",
         "Complex numbers",
-        "Binomial expansion"
+        "Trigonometric identities and equations"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -31358,10 +31472,13 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Number and algebra",
-      "secondaryTopics": [],
+      "primaryTopic": "Functions",
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
       "skills": [
         "Exponents and logarithms",
+        "Graphs and transformations",
         "Quadratics"
       ],
       "classificationEvidence": {
@@ -31479,10 +31596,11 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
-        "Limits and series",
-        "Differentiation",
         "Applications of differentiation",
-        "Applications of integration"
+        "Applications of integration",
+        "Differentiation",
+        "Integration",
+        "Limits and series"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -31623,10 +31741,13 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Number and algebra",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
       "skills": [
+        "Binomial expansion",
         "Complex numbers",
-        "Binomial expansion"
+        "Trigonometric identities and equations"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -33647,8 +33768,9 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
-        "Normal distribution",
         "Conditional probability",
+        "Discrete random variables",
+        "Normal distribution",
         "Probability models"
       ],
       "classificationEvidence": {
@@ -34000,10 +34122,14 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Calculus",
-      "secondaryTopics": [],
+      "primaryTopic": "Number and algebra",
+      "secondaryTopics": [
+        "Calculus"
+      ],
       "skills": [
-        "Applications of differentiation"
+        "Applications of differentiation",
+        "Differentiation",
+        "Polynomials and theorems"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -34452,9 +34578,12 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Geometry and trigonometry",
-      "secondaryTopics": [],
+      "primaryTopic": "Functions",
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
       "skills": [
+        "Functions and inverses",
         "Trigonometric identities and equations"
       ],
       "classificationEvidence": {
@@ -35025,12 +35154,10 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Number and algebra",
-      "secondaryTopics": [
-        "Calculus"
-      ],
+      "secondaryTopics": [],
       "skills": [
-        "Sequences and series",
-        "Limits and series"
+        "Exponents and logarithms",
+        "Sequences and series"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -35423,6 +35550,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
+        "Number theory and modular arithmetic",
         "Proof and induction"
       ],
       "classificationEvidence": {
@@ -35683,8 +35811,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Binomial expansion",
-        "Quadratics"
+        "Binomial expansion"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -35746,12 +35873,12 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Calculus",
+      "primaryTopic": "Functions",
       "secondaryTopics": [
-        "Functions"
+        "Number and algebra"
       ],
       "skills": [
-        "Differentiation",
+        "Equations and inequalities",
         "Graphs and transformations"
       ],
       "classificationEvidence": {
@@ -36075,6 +36202,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
+        "Number theory and modular arithmetic",
         "Proof and induction"
       ],
       "classificationEvidence": {
@@ -36821,10 +36949,13 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Number and algebra",
-      "secondaryTopics": [],
+      "primaryTopic": "Functions",
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
       "skills": [
-        "Equations and inequalities"
+        "Equations and inequalities",
+        "Graphs and transformations"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -37300,9 +37431,10 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
-        "Normal distribution",
         "Conditional probability",
-        "Discrete random variables"
+        "Discrete random variables",
+        "Normal distribution",
+        "Probability models"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -37656,7 +37788,7 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
-        "Differentiation"
+        "Integration"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -38103,8 +38235,9 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
+        "Discrete random variables",
         "Normal distribution",
-        "Discrete random variables"
+        "Probability models"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -38284,12 +38417,9 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Functions",
-      "secondaryTopics": [
-        "Calculus"
-      ],
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
       "skills": [
-        "Graphs and transformations",
         "Applications of differentiation"
       ],
       "classificationEvidence": {
@@ -38468,8 +38598,7 @@
       "skills": [
         "Differential equations",
         "Differentiation",
-        "Integration",
-        "Applications of differentiation"
+        "Integration"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -38594,9 +38723,9 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
+        "Matrices and systems",
         "Proof and induction",
-        "Sequences and series",
-        "Quadratics"
+        "Sequences and series"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -38685,17 +38814,14 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Calculus",
+      "primaryTopic": "Number and algebra",
       "secondaryTopics": [
-        "Number and algebra",
-        "Functions"
+        "Calculus"
       ],
       "skills": [
-        "Differentiation",
-        "Applications of differentiation",
-        "Polynomials and theorems",
         "Complex numbers",
-        "Graphs and transformations"
+        "Differentiation",
+        "Polynomials and theorems"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -38779,14 +38905,11 @@
       "independentSolution": "",
       "primaryTopic": "Calculus",
       "secondaryTopics": [
-        "Functions",
-        "Geometry and trigonometry"
+        "Functions"
       ],
       "skills": [
         "Differentiation",
-        "Applications of differentiation",
-        "Graphs and transformations",
-        "Coordinate and analytic geometry"
+        "Graphs and transformations"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -39104,7 +39227,8 @@
       "primaryTopic": "Geometry and trigonometry",
       "secondaryTopics": [],
       "skills": [
-        "Coordinate and analytic geometry"
+        "Coordinate and analytic geometry",
+        "Triangle geometry"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -39346,6 +39470,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
+        "Complex numbers",
         "Polynomials and theorems"
       ],
       "classificationEvidence": {
@@ -39648,8 +39773,7 @@
       "secondaryTopics": [],
       "skills": [
         "Differential equations",
-        "Integration",
-        "Applications of differentiation"
+        "Integration"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -39751,17 +39875,17 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Calculus",
+      "primaryTopic": "Geometry and trigonometry",
       "secondaryTopics": [
-        "Geometry and trigonometry",
-        "Number and algebra",
-        "Functions"
+        "Calculus",
+        "Functions",
+        "Number and algebra"
       ],
       "skills": [
         "Differentiation",
-        "Trigonometric identities and equations",
         "Equations and inequalities",
-        "Graphs and transformations"
+        "Graphs and transformations",
+        "Trigonometric identities and equations"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -39903,13 +40027,10 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Number and algebra",
-      "secondaryTopics": [
-        "Functions"
-      ],
+      "secondaryTopics": [],
       "skills": [
         "Counting and combinatorics",
-        "Polynomials and theorems",
-        "Graphs and transformations"
+        "Polynomials and theorems"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -40094,7 +40215,7 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
-        "Descriptive statistics"
+        "Statistical inference"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -40162,8 +40283,9 @@
         "Calculus"
       ],
       "skills": [
-        "Graphs and transformations",
-        "Applications of integration"
+        "Applications of differentiation",
+        "Applications of integration",
+        "Graphs and transformations"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -40825,7 +40947,8 @@
       "primaryTopic": "Geometry and trigonometry",
       "secondaryTopics": [],
       "skills": [
-        "Triangle geometry"
+        "Triangle geometry",
+        "Trigonometric identities and equations"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -40922,9 +41045,10 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
-        "Normal distribution",
         "Conditional probability",
-        "Discrete random variables"
+        "Discrete random variables",
+        "Normal distribution",
+        "Probability models"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -41044,11 +41168,13 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Calculus",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Functions"
+      ],
       "skills": [
-        "Differentiation",
         "Applications of differentiation",
-        "Applications of integration"
+        "Applications of integration",
+        "Differentiation"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -41180,6 +41306,7 @@
       "primaryTopic": "Geometry and trigonometry",
       "secondaryTopics": [],
       "skills": [
+        "Coordinate and analytic geometry",
         "Vectors, lines and planes"
       ],
       "classificationEvidence": {
@@ -41301,14 +41428,10 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Number and algebra",
-      "secondaryTopics": [
-        "Calculus"
-      ],
+      "secondaryTopics": [],
       "skills": [
-        "Sequences and series",
         "Proof and induction",
-        "Differentiation",
-        "Limits and series"
+        "Sequences and series"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -41391,13 +41514,10 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Calculus",
-      "secondaryTopics": [
-        "Functions"
-      ],
+      "secondaryTopics": [],
       "skills": [
         "Applications of integration",
-        "Differentiation",
-        "Geometric transformations"
+        "Integration"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -41802,6 +41922,7 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
+        "Applications of differentiation",
         "Differentiation"
       ],
       "classificationEvidence": {
@@ -41955,8 +42076,7 @@
       "primaryTopic": "Geometry and trigonometry",
       "secondaryTopics": [],
       "skills": [
-        "Trigonometric identities and equations",
-        "Triangle geometry"
+        "Trigonometric identities and equations"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -43302,7 +43422,7 @@
       "secondaryTopics": [],
       "skills": [
         "Differential equations",
-        "Applications of differentiation"
+        "Integration"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -43420,15 +43540,14 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Number and algebra",
+      "primaryTopic": "Functions",
       "secondaryTopics": [
-        "Functions",
-        "Geometry and trigonometry"
+        "Number and algebra"
       ],
       "skills": [
-        "Proof and induction",
+        "Functions and inverses",
         "Graphs and transformations",
-        "Trigonometric identities and equations"
+        "Proof and induction"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -43686,10 +43805,10 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Geometry and trigonometry",
+      "primaryTopic": "Functions",
       "secondaryTopics": [],
       "skills": [
-        "Trigonometric identities and equations"
+        "Graphs and transformations"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -43756,7 +43875,6 @@
       "secondaryTopics": [],
       "skills": [
         "Applications of differentiation",
-        "Differentiation",
         "Applications of integration"
       ],
       "classificationEvidence": {
@@ -44187,10 +44305,14 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Calculus",
-      "secondaryTopics": [],
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [
+        "Calculus"
+      ],
       "skills": [
-        "Applications of differentiation"
+        "Applications of differentiation",
+        "Radian measure and sectors",
+        "Triangle geometry"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -44269,7 +44391,9 @@
       "viewerAvailable": true,
       "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript",
       "subtopics": [
-        "Applications of differentiation"
+        "Applications of differentiation",
+        "Radian measure and sectors",
+        "Triangle geometry"
       ]
     },
     {
@@ -44444,13 +44568,12 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Calculus",
+      "primaryTopic": "Functions",
       "secondaryTopics": [
-        "Functions"
+        "Calculus"
       ],
       "skills": [
-        "Differentiation",
-        "Applications of differentiation",
+        "Functions and inverses",
         "Graphs and transformations"
       ],
       "classificationEvidence": {
@@ -44566,9 +44689,7 @@
       "secondaryTopics": [],
       "skills": [
         "Differential equations",
-        "Integration",
-        "Differentiation",
-        "Applications of differentiation"
+        "Integration"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -44873,6 +44994,7 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
+        "Conditional probability",
         "Probability models"
       ],
       "classificationEvidence": {
@@ -44937,9 +45059,12 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Functions",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
       "skills": [
-        "Functions and inverses"
+        "Equations and inequalities",
+        "Quadratics"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -45485,9 +45610,10 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
+        "Conditional probability",
+        "Discrete random variables",
         "Normal distribution",
-        "Probability models",
-        "Conditional probability"
+        "Probability models"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -45642,8 +45768,8 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
-        "Applications of integration",
-        "Differentiation"
+        "Applications of differentiation",
+        "Applications of integration"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -45801,11 +45927,13 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Calculus",
-      "secondaryTopics": [],
+      "primaryTopic": "Functions",
+      "secondaryTopics": [
+        "Calculus"
+      ],
       "skills": [
         "Differentiation",
-        "Applications of differentiation"
+        "Graphs and transformations"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -45936,8 +46064,9 @@
         "Calculus"
       ],
       "skills": [
+        "Limits and series",
         "Triangle geometry",
-        "Limits and series"
+        "Trigonometric identities and equations"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -46071,11 +46200,13 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Calculus",
-      "secondaryTopics": [],
+      "primaryTopic": "Functions",
+      "secondaryTopics": [
+        "Calculus"
+      ],
       "skills": [
         "Differentiation",
-        "Applications of differentiation"
+        "Graphs and transformations"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -46164,9 +46295,7 @@
         "Geometry and trigonometry"
       ],
       "skills": [
-        "Complex numbers",
-        "Polynomials and theorems",
-        "Coordinate and analytic geometry"
+        "Complex numbers"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -46445,8 +46574,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Exponents and logarithms",
-        "Equations and inequalities"
+        "Exponents and logarithms"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -46512,6 +46640,7 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
+        "Conditional probability",
         "Probability models"
       ],
       "classificationEvidence": {
@@ -46576,11 +46705,12 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Calculus",
-      "secondaryTopics": [],
+      "primaryTopic": "Functions",
+      "secondaryTopics": [
+        "Calculus"
+      ],
       "skills": [
-        "Differentiation",
-        "Applications of differentiation"
+        "Differentiation"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -46969,7 +47099,7 @@
       "secondaryTopics": [],
       "skills": [
         "Applications of differentiation",
-        "Integration"
+        "Applications of integration"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -47452,8 +47582,9 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
-        "Probability models",
-        "Conditional probability"
+        "Conditional probability",
+        "Discrete random variables",
+        "Probability models"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -47558,7 +47689,8 @@
       "primaryTopic": "Geometry and trigonometry",
       "secondaryTopics": [],
       "skills": [
-        "Triangle geometry"
+        "Triangle geometry",
+        "Trigonometric identities and equations"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -47617,8 +47749,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Sequences and series",
-        "Exponents and logarithms"
+        "Sequences and series"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -48049,12 +48180,9 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Functions",
-      "secondaryTopics": [
-        "Geometry and trigonometry"
-      ],
+      "secondaryTopics": [],
       "skills": [
-        "Graphs and transformations",
-        "Trigonometric identities and equations"
+        "Graphs and transformations"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -48358,16 +48486,12 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Number and algebra",
+      "primaryTopic": "Functions",
       "secondaryTopics": [
-        "Geometry and trigonometry",
-        "Calculus",
-        "Functions"
+        "Number and algebra"
       ],
       "skills": [
         "Complex numbers",
-        "Trigonometric identities and equations",
-        "Differential equations",
         "Graphs and transformations"
       ],
       "classificationEvidence": {
@@ -48500,10 +48624,12 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Calculus",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Statistics and probability"
+      ],
       "skills": [
         "Differential equations",
-        "Differentiation"
+        "Statistical inference"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -48966,6 +49092,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
+        "Exponents and logarithms",
         "Sequences and series"
       ],
       "classificationEvidence": {
@@ -49593,10 +49720,14 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Functions",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Calculus"
+      ],
       "skills": [
+        "Applications of integration",
+        "Functions and inverses",
         "Graphs and transformations",
-        "Functions and inverses"
+        "Integration"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -49800,7 +49931,8 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
-        "Discrete random variables"
+        "Discrete random variables",
+        "Probability models"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -49914,6 +50046,7 @@
         "Calculus"
       ],
       "skills": [
+        "Applications of integration",
         "Graphs and transformations",
         "Integration"
       ],
@@ -50053,12 +50186,10 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Statistics and probability",
-      "secondaryTopics": [
-        "Number and algebra"
-      ],
+      "secondaryTopics": [],
       "skills": [
-        "Probability models",
-        "Equations and inequalities"
+        "Discrete random variables",
+        "Probability models"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -50327,6 +50458,7 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
+        "Applications of differentiation",
         "Differentiation"
       ],
       "classificationEvidence": {
@@ -50399,6 +50531,7 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
+        "Discrete random variables",
         "Normal distribution",
         "Probability models"
       ],
@@ -50633,12 +50766,16 @@
       "independentSolution": "",
       "primaryTopic": "Calculus",
       "secondaryTopics": [
+        "Geometry and trigonometry",
         "Number and algebra"
       ],
       "skills": [
-        "Integration",
         "Applications of differentiation",
-        "Sequences and series"
+        "Applications of integration",
+        "Differentiation",
+        "Integration",
+        "Sequences and series",
+        "Trigonometric identities and equations"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -50810,8 +50947,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Sequences and series",
-        "Quadratics"
+        "Sequences and series"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -50992,6 +51128,7 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
+        "Discrete random variables",
         "Probability models"
       ],
       "classificationEvidence": {
@@ -51277,9 +51414,12 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Number and algebra",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
       "skills": [
-        "Proof and induction"
+        "Coordinate and analytic geometry",
+        "Sets, relations and groups"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -51493,9 +51633,7 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
-        "Differential equations",
-        "Applications of differentiation",
-        "Differentiation"
+        "Differential equations"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -52083,7 +52221,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Equations and inequalities"
+        "Number theory and modular arithmetic"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -52168,7 +52306,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Algebraic manipulation"
+        "Sets, relations and groups"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -52466,10 +52604,13 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Functions",
-      "secondaryTopics": [],
+      "primaryTopic": "Number and algebra",
+      "secondaryTopics": [
+        "Functions"
+      ],
       "skills": [
-        "Geometric transformations"
+        "Geometric transformations",
+        "Sets, relations and groups"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -52560,8 +52701,8 @@
         "Number and algebra"
       ],
       "skills": [
-        "Vectors, lines and planes",
-        "Equations and inequalities"
+        "Quadratics",
+        "Vectors, lines and planes"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -52849,10 +52990,12 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Calculus",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
       "skills": [
-        "Differentiation",
-        "Applications of differentiation"
+        "Applications of differentiation",
+        "Triangle geometry"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -54165,6 +54308,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
+        "Equations and inequalities",
         "Exponents and logarithms"
       ],
       "classificationEvidence": {
@@ -54314,8 +54458,8 @@
         "Geometry and trigonometry"
       ],
       "skills": [
+        "Applications of integration",
         "Differentiation",
-        "Applications of differentiation",
         "Integration",
         "Trigonometric identities and equations"
       ],
@@ -55310,8 +55454,9 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
-        "Probability models",
-        "Conditional probability"
+        "Conditional probability",
+        "Discrete random variables",
+        "Probability models"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -55405,6 +55550,7 @@
         "Calculus"
       ],
       "skills": [
+        "Applications of integration",
         "Graphs and transformations",
         "Integration"
       ],
@@ -55474,6 +55620,8 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
+        "Exponents and logarithms",
+        "Polynomials and theorems",
         "Sequences and series"
       ],
       "classificationEvidence": {
@@ -55659,6 +55807,7 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
+        "Discrete random variables",
         "Normal distribution",
         "Probability models"
       ],
@@ -55874,9 +56023,8 @@
         "Number and algebra"
       ],
       "skills": [
-        "Graphs and transformations",
-        "Exponents and logarithms",
-        "Equations and inequalities"
+        "Equations and inequalities",
+        "Graphs and transformations"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -56049,6 +56197,7 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
+        "Applications of integration",
         "Integration"
       ],
       "classificationEvidence": {
@@ -56213,8 +56362,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Complex numbers",
-        "Polynomials and theorems"
+        "Complex numbers"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -56280,13 +56428,14 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Number and algebra",
+      "primaryTopic": "Functions",
       "secondaryTopics": [
-        "Calculus"
+        "Number and algebra"
       ],
       "skills": [
-        "Polynomials and theorems",
-        "Applications of differentiation"
+        "Equations and inequalities",
+        "Graphs and transformations",
+        "Polynomials and theorems"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -56828,7 +56977,8 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Proof and induction"
+        "Proof and induction",
+        "Sets, relations and groups"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -57057,6 +57207,7 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
+        "Integration",
         "Limits and series"
       ],
       "classificationEvidence": {
@@ -57228,8 +57379,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Sets, relations and groups",
-        "Complex numbers"
+        "Sets, relations and groups"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -57323,7 +57473,8 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
-        "Normal distribution"
+        "Normal distribution",
+        "Probability models"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -57637,8 +57788,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Sets, relations and groups",
-        "Proof and induction"
+        "Sets, relations and groups"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -58053,8 +58203,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Sets, relations and groups",
-        "Proof and induction"
+        "Sets, relations and groups"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -58229,6 +58378,7 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
+        "Applications of differentiation",
         "Differential equations"
       ],
       "classificationEvidence": {
@@ -58585,10 +58735,10 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Geometry and trigonometry",
+      "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Vectors, lines and planes"
+        "Matrices and systems"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -59535,7 +59685,8 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
-        "Discrete random variables"
+        "Discrete random variables",
+        "Probability models"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -60082,6 +60233,8 @@
       "secondaryTopics": [],
       "skills": [
         "Applications of differentiation",
+        "Applications of integration",
+        "Differentiation",
         "Integration"
       ],
       "classificationEvidence": {
@@ -60156,7 +60309,8 @@
       ],
       "skills": [
         "Continuous random variables",
-        "Integration"
+        "Integration",
+        "Probability models"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -61457,13 +61611,13 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Geometry and trigonometry",
+      "primaryTopic": "Number and algebra",
       "secondaryTopics": [
-        "Number and algebra"
+        "Geometry and trigonometry"
       ],
       "skills": [
-        "Vectors, lines and planes",
-        "Sets, relations and groups"
+        "Sets, relations and groups",
+        "Vectors, lines and planes"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -61710,6 +61864,7 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
+        "Applications of differentiation",
         "Differential equations"
       ],
       "classificationEvidence": {
@@ -62527,7 +62682,8 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Proof and induction"
+        "Proof and induction",
+        "Sequences and series"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -62760,10 +62916,13 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Calculus",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Functions"
+      ],
       "skills": [
+        "Applications of differentiation",
         "Differentiation",
-        "Applications of differentiation"
+        "Graphs and transformations"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -64195,8 +64354,9 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
+        "Discrete random variables",
         "Normal distribution",
-        "Discrete random variables"
+        "Probability models"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -64479,6 +64639,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
+        "Algebraic manipulation",
         "Sequences and series"
       ],
       "classificationEvidence": {
@@ -64547,7 +64708,8 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
-        "Descriptive statistics"
+        "Descriptive statistics",
+        "Probability models"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -64767,7 +64929,8 @@
       ],
       "skills": [
         "Continuous random variables",
-        "Integration"
+        "Integration",
+        "Probability models"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -64874,12 +65037,9 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Geometry and trigonometry",
-      "secondaryTopics": [
-        "Calculus"
-      ],
+      "secondaryTopics": [],
       "skills": [
-        "Vectors, lines and planes",
-        "Applications of differentiation"
+        "Vectors, lines and planes"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -65369,9 +65529,8 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Counting and combinatorics",
-        "Algebraic manipulation",
-        "Equations and inequalities"
+        "Binomial expansion",
+        "Polynomials and theorems"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -65698,8 +65857,9 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
+        "Conditional probability",
         "Discrete random variables",
-        "Conditional probability"
+        "Probability models"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -65830,13 +65990,14 @@
       "independentSolution": "",
       "primaryTopic": "Functions",
       "secondaryTopics": [
+        "Geometry and trigonometry",
         "Number and algebra"
       ],
       "skills": [
-        "Graphs and transformations",
         "Functions and inverses",
+        "Graphs and transformations",
         "Quadratics",
-        "Equations and inequalities"
+        "Trigonometric identities and equations"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -66572,8 +66733,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Number theory and modular arithmetic",
-        "Algebraic manipulation"
+        "Number theory and modular arithmetic"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -66654,7 +66814,8 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Proof and induction"
+        "Proof and induction",
+        "Sets, relations and groups"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -67063,7 +67224,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Proof and induction"
+        "Sets, relations and groups"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -68365,12 +68526,9 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Geometry and trigonometry",
-      "secondaryTopics": [
-        "Number and algebra"
-      ],
+      "secondaryTopics": [],
       "skills": [
-        "Vectors, lines and planes",
-        "Equations and inequalities"
+        "Vectors, lines and planes"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -69654,12 +69812,14 @@
       "independentSolution": "",
       "primaryTopic": "Functions",
       "secondaryTopics": [
-        "Calculus"
+        "Calculus",
+        "Number and algebra"
       ],
       "skills": [
+        "Differentiation",
+        "Equations and inequalities",
         "Functions and inverses",
-        "Graphs and transformations",
-        "Differentiation"
+        "Graphs and transformations"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -70087,8 +70247,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Number theory and modular arithmetic",
-        "Equations and inequalities"
+        "Number theory and modular arithmetic"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -70179,8 +70338,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Sets, relations and groups",
-        "Proof and induction"
+        "Sets, relations and groups"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -70350,7 +70508,7 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
-        "Integration",
+        "Differentiation",
         "Limits and series"
       ],
       "classificationEvidence": {
@@ -70451,8 +70609,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Number theory and modular arithmetic",
-        "Proof and induction"
+        "Number theory and modular arithmetic"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -70533,8 +70690,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Sets, relations and groups",
-        "Proof and induction"
+        "Sets, relations and groups"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -70941,9 +71097,8 @@
         "Geometry and trigonometry"
       ],
       "skills": [
-        "Sets, relations and groups",
-        "Proof and induction",
-        "Coordinate and analytic geometry"
+        "Coordinate and analytic geometry",
+        "Sets, relations and groups"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -71611,8 +71766,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Sets, relations and groups",
-        "Proof and induction"
+        "Sets, relations and groups"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -71896,12 +72050,9 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Statistics and probability",
-      "secondaryTopics": [
-        "Number and algebra"
-      ],
+      "primaryTopic": "Number and algebra",
+      "secondaryTopics": [],
       "skills": [
-        "Probability models",
         "Counting and combinatorics"
       ],
       "classificationEvidence": {
@@ -72499,12 +72650,14 @@
       "independentSolution": "",
       "primaryTopic": "Functions",
       "secondaryTopics": [
-        "Calculus"
+        "Calculus",
+        "Number and algebra"
       ],
       "skills": [
+        "Algebraic manipulation",
+        "Applications of integration",
         "Graphs and transformations",
-        "Integration",
-        "Applications of integration"
+        "Integration"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -73173,7 +73326,8 @@
       ],
       "skills": [
         "Discrete random variables",
-        "Exponents and logarithms"
+        "Exponents and logarithms",
+        "Probability models"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -73277,6 +73431,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
+        "Counting and combinatorics",
         "Proof and induction"
       ],
       "classificationEvidence": {
@@ -73350,9 +73505,10 @@
         "Functions"
       ],
       "skills": [
-        "Integration",
         "Applications of differentiation",
-        "Graphs and transformations"
+        "Differentiation",
+        "Graphs and transformations",
+        "Integration"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -74341,8 +74497,11 @@
       "solution": "",
       "independentSolution": "",
       "primaryTopic": "Geometry and trigonometry",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
       "skills": [
+        "Quadratics",
         "Triangle geometry"
       ],
       "classificationEvidence": {
@@ -75512,11 +75671,13 @@
       "independentSolution": "",
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [
+        "Calculus",
         "Functions"
       ],
       "skills": [
-        "Polynomials and theorems",
-        "Graphs and transformations"
+        "Applications of differentiation",
+        "Graphs and transformations",
+        "Polynomials and theorems"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -75720,8 +75881,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Algebraic manipulation",
-        "Equations and inequalities"
+        "Number theory and modular arithmetic"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -75893,6 +76053,8 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
+        "Descriptive statistics",
+        "Normal distribution",
         "Statistical inference"
       ],
       "classificationEvidence": {
@@ -75986,6 +76148,8 @@
       "viewerAvailable": true,
       "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript",
       "subtopics": [
+        "Descriptive statistics",
+        "Normal distribution",
         "Statistical inference"
       ]
     },
@@ -76232,7 +76396,8 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Proof and induction"
+        "Number theory and modular arithmetic",
+        "Sets, relations and groups"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -77079,7 +77244,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Proof and induction"
+        "Sets, relations and groups"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -77824,9 +77989,9 @@
       ],
       "solution": "",
       "independentSolution": "",
-      "primaryTopic": "Number and algebra",
+      "primaryTopic": "Functions",
       "secondaryTopics": [
-        "Functions"
+        "Number and algebra"
       ],
       "skills": [
         "Equations and inequalities",
@@ -78273,6 +78438,7 @@
         "Number and algebra"
       ],
       "skills": [
+        "Applications of differentiation",
         "Differentiation",
         "Proof and induction",
         "Trigonometric identities and equations"
@@ -78309,6 +78475,7 @@
       "viewerAvailable": true,
       "solutionStatus": "Official IB markscheme image with automatically extracted accessible transcript",
       "subtopics": [
+        "Applications of differentiation",
         "Differentiation",
         "Proof and induction",
         "Trigonometric identities and equations"
@@ -78748,7 +78915,8 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
-        "Discrete random variables"
+        "Discrete random variables",
+        "Probability models"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -79222,9 +79390,10 @@
         "Number and algebra"
       ],
       "skills": [
+        "Applications of differentiation",
         "Differentiation",
-        "Trigonometric identities and equations",
-        "Polynomials and theorems"
+        "Polynomials and theorems",
+        "Trigonometric identities and equations"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -79356,8 +79525,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Sequences and series",
-        "Exponents and logarithms"
+        "Sequences and series"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -79643,6 +79811,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
+        "Number theory and modular arithmetic",
         "Sets, relations and groups"
       ],
       "classificationEvidence": {
@@ -79983,8 +80152,8 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Sequences and series",
-        "Proof and induction"
+        "Number theory and modular arithmetic",
+        "Sequences and series"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -80145,6 +80314,7 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
+        "Descriptive statistics",
         "Statistical inference"
       ],
       "classificationEvidence": {
@@ -80367,9 +80537,8 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Graph theory and algorithms",
-        "Proof and induction",
-        "Counting and combinatorics"
+        "Counting and combinatorics",
+        "Graph theory and algorithms"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -80477,9 +80646,8 @@
         "Geometry and trigonometry"
       ],
       "skills": [
-        "Sets, relations and groups",
-        "Proof and induction",
-        "Coordinate and analytic geometry"
+        "Coordinate and analytic geometry",
+        "Sets, relations and groups"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -80703,6 +80871,7 @@
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "skills": [
+        "Applications of differentiation",
         "Differentiation"
       ],
       "classificationEvidence": {
@@ -80833,8 +81002,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Number theory and modular arithmetic",
-        "Algebraic manipulation"
+        "Number theory and modular arithmetic"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
@@ -80899,9 +81067,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Sets, relations and groups",
-        "Algebraic manipulation",
-        "Proof and induction"
+        "Sets, relations and groups"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -81248,9 +81414,7 @@
       "primaryTopic": "Number and algebra",
       "secondaryTopics": [],
       "skills": [
-        "Sets, relations and groups",
-        "Algebraic manipulation",
-        "Proof and induction"
+        "Sets, relations and groups"
       ],
       "classificationEvidence": {
         "method": "question_text+official_markscheme_transcript",
@@ -81337,8 +81501,9 @@
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [],
       "skills": [
+        "Conditional probability",
         "Discrete random variables",
-        "Conditional probability"
+        "Probability models"
       ],
       "classificationEvidence": {
         "method": "manual adjudication using question and answer evidence",
