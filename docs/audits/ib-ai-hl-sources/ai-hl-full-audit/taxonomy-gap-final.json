@@ -1,0 +1,140 @@
+{
+  "schema_version": "ai-hl-full-audit-taxonomy-gap-final-v2",
+  "audit_root": "/Users/sakshamgoel/.hermes/cache/classification-audit-work/ai-hl-full-audit",
+  "selection": {
+    "comparison_path": "comparison.json",
+    "comparison_sha256": "d958be339a0a034b1548df8b641ee2085e3099e27d7639dc331ed2ab8d5dd5ec",
+    "taxonomy_gap_count": 1,
+    "gap_row_path": "mismatch-results/part-01.json",
+    "gap_row_sha256": "422dd70bc90eadb5579d561da26e1b8f3220c8b99b5317efa994f560b98312d2"
+  },
+  "candidate": {
+    "id": "2025-may-tz3-p3-q1",
+    "position": 72,
+    "source_part": "part-01",
+    "row_sha256": "422dd70bc90eadb5579d561da26e1b8f3220c8b99b5317efa994f560b98312d2",
+    "current_tuple": {
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [
+        "Statistics and probability"
+      ],
+      "skills": [
+        "Coordinate geometry",
+        "Further hypothesis testing",
+        "Normal distribution",
+        "The t-test",
+        "Voronoi diagrams"
+      ]
+    },
+    "action": "map_existing",
+    "mapped_existing": {
+      "concept": "Natural-neighbour interpolation",
+      "canonical_label": "Voronoi diagrams",
+      "topic_owner": "Geometry and trigonometry",
+      "reason": "The question explicitly introduces the natural-neighbour algorithm by inserting the school into a new Voronoi diagram and weighting the resulting regions; the existing Voronoi diagrams label is the controlled production label that covers this method without expanding the taxonomy."
+    },
+    "new_label": null,
+    "topic_ownership": {
+      "primary_topic": "Geometry and trigonometry",
+      "secondary_topics": [
+        "Statistics and probability"
+      ],
+      "canonical_label_wording": "Voronoi diagrams"
+    },
+    "final_tuple": {
+      "primaryTopic": "Geometry and trigonometry",
+      "primarySkills": [
+        "Coordinate geometry",
+        "Voronoi diagrams",
+        "Further hypothesis testing",
+        "Normal distribution",
+        "The t-test"
+      ],
+      "secondaryTopics": [
+        "Statistics and probability"
+      ]
+    },
+    "decision_basis": [
+      "comparison.json mechanically identifies exactly one non-null blindEvidence.taxonomyGap: Natural-neighbour interpolation (including its specific interpolation algorithm) is not an explicit controlled subtopic; its row is 2025-may-tz3-p3-q1 at position 72.",
+      "The listed question evidence is pages 3-6 (28 marks): perpendicular bisectors and Voronoi cells, nearest-neighbour interpolation, the natural-neighbour area-weighting algorithm, and a later one-sample AQI t-test under a normal model.",
+      "The listed official markscheme evidence is pages 7-9: it awards marks for the perpendicular-bisector/Voronoi geometry and natural-neighbour calculation, then for the t-test and normal-distribution model; it confirms the natural-neighbour method is assessed rather than incidental wording.",
+      "The public and actual runtime taxonomies contain Voronoi diagrams under Geometry and trigonometry but no natural-neighbour-specific label, so map_existing is production-safe and the exact runtime tuple remains unchanged."
+    ],
+    "question_assets": [
+      {
+        "path": "assets/questions/2025-may-tz3-p3-q1-page-3.webp",
+        "bytes": 54868,
+        "sha256": "7c0a63eef55475766341457c01d12fd3d4f2317f1afbac88ec5130985e437842"
+      },
+      {
+        "path": "assets/questions/2025-may-tz3-p3-q1-page-4.webp",
+        "bytes": 69452,
+        "sha256": "c89496fd0bb93cf4692e4d15df7ae3154514d341af3c749afd8a6304aac4a93c"
+      },
+      {
+        "path": "assets/questions/2025-may-tz3-p3-q1-page-5.webp",
+        "bytes": 89188,
+        "sha256": "34662223fb1c737b1378d2e20bbbe9aa7256a6d4809bb2b74c7f72b3d8ae3a8f"
+      },
+      {
+        "path": "assets/questions/2025-may-tz3-p3-q1-page-6.webp",
+        "bytes": 86502,
+        "sha256": "e76363f8f84869c95bd1b514d91cf0690d394ef891d524b3d4ed741e1fc62c89"
+      }
+    ],
+    "official_markscheme_assets": [
+      {
+        "path": "assets/markschemes/2025-may-tz3-p3-q1-page-7.webp",
+        "bytes": 48236,
+        "sha256": "591873b10be3f959a3a19b73f0f284e678cf4af2b515b509929ffc3de406bd17"
+      },
+      {
+        "path": "assets/markschemes/2025-may-tz3-p3-q1-page-8.webp",
+        "bytes": 86616,
+        "sha256": "c8632e46270ad675238ae952d7902040ece85e459f69e3ab822d7f4b75608460"
+      },
+      {
+        "path": "assets/markschemes/2025-may-tz3-p3-q1-page-9.webp",
+        "bytes": 80490,
+        "sha256": "0575ab3992af5d7b0305e859340564406c2410b282f6b9f11d310ca931f02841"
+      }
+    ]
+  },
+  "production_runtime": {
+    "repository": "/Users/sakshamgoel/Documents/ProjectsInternships/pastpaperprep",
+    "taxonomy_path": "/Users/sakshamgoel/Documents/ProjectsInternships/pastpaperprep/src/lib/taxonomy.ts",
+    "pinned_taxonomy_path": "hidden/runtime-taxonomy.ts",
+    "taxonomy_sha256": "572967d0f51980ebbf5a12962b46cf9fa08a22cbd22806655ffc9d4b5e6f54a3",
+    "ai_hl_topic_owners": {
+      "Coordinate geometry": "Geometry and trigonometry",
+      "Voronoi diagrams": "Geometry and trigonometry",
+      "Further hypothesis testing": "Statistics and probability",
+      "Normal distribution": "Statistics and probability",
+      "The t-test": "Statistics and probability"
+    },
+    "candidate_runtime_tuple": {
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [
+        "Statistics and probability"
+      ],
+      "skills": [
+        "Coordinate geometry",
+        "Voronoi diagrams",
+        "Further hypothesis testing",
+        "Normal distribution",
+        "The t-test"
+      ],
+      "subtopics": [
+        "Coordinate geometry",
+        "Voronoi diagrams",
+        "Further hypothesis testing",
+        "Normal distribution",
+        "The t-test"
+      ]
+    }
+  },
+  "verification": {
+    "validator": "validate_taxonomy_gap_final.py",
+    "repository_mutation": false
+  }
+}
