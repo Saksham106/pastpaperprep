@@ -1084,6 +1084,11 @@ describe("new-bank classification quality", () => {
     }
 
     const byId = new Map(raw.questions.map((question) => [question.id, question]));
+    const productionTarget = JSON.parse(readFileSync(
+      join(process.cwd(), "docs", "audits", "ib-hl-sources", "aa-hl-production-target", "reviewed-production-target-841.json"),
+      "utf8",
+    )) as { records: Array<{ id: string; targetTuple: { primaryTopic: string; secondaryTopics: string[]; skills: string[] } }> };
+    const productionTargetById = new Map(productionTarget.records.map((record) => [record.id, record.targetTuple]));
     const followup = loadFollowup("ib-hl-post-sample-followup-2026-08.json");
     const decisionsById = new Map(report.decisions.map((decision) => [decision.id, decision]));
     for (const judgment of review.judgments) {
@@ -1106,7 +1111,7 @@ describe("new-bank classification quality", () => {
     }
     for (const decision of report.decisions) {
       const followupDecision = followup.get(decision.id);
-      const expected = followupDecision?.final ?? decision.final;
+      const expected = productionTargetById.get(decision.id) ?? followupDecision?.final ?? decision.final;
       expect(byId.get(decision.id), decision.id).toMatchObject({
         primaryTopic: expected.primaryTopic,
         secondaryTopics: expected.secondaryTopics,

@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "aa-hl-runtime-taxonomy-snapshot-v1",
+  "bank": "ib-hl",
+  "sourcePath": "src/lib/taxonomy.ts",
+  "sourceSha256": "572967d0f51980ebbf5a12962b46cf9fa08a22cbd22806655ffc9d4b5e6f54a3",
+  "topics": {
+    "Number and algebra": [
+      "Algebraic manipulation",
+      "Binomial expansion",
+      "Complex numbers",
+      "Counting and combinatorics",
+      "Equations and inequalities",
+      "Exponents and logarithms",
+      "Graph theory and algorithms",
+      "Matrices and systems",
+      "Number theory and modular arithmetic",
+      "Polynomials and theorems",
+      "Proof and induction",
+      "Quadratics",
+      "Sequences and series",
+      "Sets, relations and groups"
+    ],
+    "Functions": [
+      "Functions and inverses",
+      "Geometric transformations",
+      "Graphs and transformations"
+    ],
+    "Geometry and trigonometry": [
+      "Coordinate and analytic geometry",
+      "Radian measure and sectors",
+      "Triangle geometry",
+      "Trigonometric identities and equations",
+      "Vectors, lines and planes"
+    ],
+    "Statistics and probability": [
+      "Conditional probability",
+      "Continuous random variables",
+      "Descriptive statistics",
+      "Discrete random variables",
+      "Normal distribution",
+      "Poisson distribution",
+      "Probability models",
+      "Statistical inference"
+    ],
+    "Calculus": [
+      "Applications of differentiation",
+      "Applications of integration",
+      "Differential equations",
+      "Differentiation",
+      "Euler's method for differential equations",
+      "Integration",
+      "Limits and series"
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "aa-hl-full-audit-correction-overlay-v1",
+  "status": "PASS",
+  "bank": "ib-hl",
+  "questionCount": 841,
+  "reviewedCount": 221,
+  "netChangedCount": 214,
+  "baselineOverlay": "production-baseline-overlay.json",
+  "baselineSha256": "c3bdd89fafa53641b3ab790384e9c0619b0e6155027d33b7426fff8105814e83",
+  "targetArtifact": "reviewed-production-target-841.json",
+  "targetSha256": "a949ef162921455b8150778e8c4861f4e96b496e78d56d88b3171da9a9760731",
+  "correctionArtifact": "latest-final-corrections.json",
+  "correctionSha256": "4a0c3918cd3cefc97812f792fe8447c3f9cd6872d3942c3ceaf283b48b2de92b",
+  "runtimeTaxonomySha256": "572967d0f51980ebbf5a12962b46cf9fa08a22cbd22806655ffc9d4b5e6f54a3",
+  "changedIdSha256": "2c139bc76248dc9866e62d9338d2a953794b4c5d1cd8703d5d1b237d9e3a8651"
+}
