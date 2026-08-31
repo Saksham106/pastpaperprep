@@ -1,0 +1,503 @@
+{
+  "acceptanceBlocked": true,
+  "assetRoot": "/Users/sakshamgoel/.hermes/cache/classification-audit-work/ai-hl-holdout/build-a/visible",
+  "inputs": {
+    "aggregateFinalReportSha256": "42bb8b88e495d47e4cbe82199c022175429b4ea9d9fcac94712b2e70e6316baf",
+    "finalProductionTargetSha256": "f5f2339ce376dd2321e9acb2797dcdb4969ebd913511cd033e796efe0e51aa3a",
+    "holdoutPart01Sha256": "cbec3b8bf84800db6303d77ddc0f77f0c025c349de135e3e5a8f82e8f7c8e5dc",
+    "holdoutPart02Sha256": "aa5a7eb5a6ffa5fb1ce50f750ceec56575636157bfa7bf0017b06199980372b8",
+    "taxonomySha256": "5ce925baf2c3cb258489858532a30eefaf2ad72ea6a8ee3da2b6b5872c5fd0d1"
+  },
+  "recordCount": 6,
+  "records": [
+    {
+      "assetFiles": [
+        {
+          "byteLength": 90642,
+          "path": "assets/questions/2025-may-tz3-p2-q4/question-1.webp",
+          "sha256": "8a90368dde700e2abdeb59806c6aebbdd4c4f8ffd69a9957fdef6051ea616fe4"
+        },
+        {
+          "byteLength": 49674,
+          "path": "assets/markschemes/2025-may-tz3-p2-q4/markscheme-1.webp",
+          "sha256": "db1e0e2644f1767d454bb6e98d7c516c92e855985505bdb5b63d6faf1999a77f"
+        },
+        {
+          "byteLength": 56646,
+          "path": "assets/markschemes/2025-may-tz3-p2-q4/markscheme-2.webp",
+          "sha256": "92ab61b62a835bcc164f6f5fea7d44f4634d767205dab7016e39b89f5875bf2b"
+        },
+        {
+          "byteLength": 34646,
+          "path": "assets/markschemes/2025-may-tz3-p2-q4/markscheme-3.webp",
+          "sha256": "cc6ba6a47493675eb1105f6b60fd7dfc434b14909dbf51874538995b3f7cdc35"
+        }
+      ],
+      "currentTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Adjacency matrices and walks",
+          "Graph theory",
+          "Minimum spanning trees",
+          "Travelling salesman problem"
+        ]
+      },
+      "fullAuditResolution": "second_review_accept_recommended",
+      "fullAuditSourceRowSha256": "107a34708ee5dee0666129a3c5d6f4ca30db5775678988ae5fe97307ce883923",
+      "fullAuditTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Adjacency matrices and walks",
+          "Graph theory",
+          "Travelling salesman problem"
+        ],
+        "taxonomyGap": null
+      },
+      "holdoutEvidence": "Question (a) uses the directed adjacency matrix; (b) requires M^3 and combined powers for reachability; (c) compares all length-2 routes; (d) explicitly requires the nearest-neighbour tour; and (e) explicitly requires the deleted-vertex lower-bound method, whose markscheme uses a spanning tree and reconnects the deleted vertex with two edges.",
+      "holdoutRationale": "All four current skills are materially evidenced: adjacency matrices/walks in (a)-(c), graph theory in the directed-route and route structure, travelling salesman in (d), and minimum spanning trees in the deleted-vertex lower bound (e). Retain the normalized current tuple unchanged.",
+      "holdoutTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Adjacency matrices and walks",
+          "Graph theory",
+          "Minimum spanning trees",
+          "Travelling salesman problem"
+        ]
+      },
+      "holdoutVerdict": "current_correct",
+      "id": "2025-may-tz3-p2-q4",
+      "officialMarkschemeAssets": [
+        "assets/markschemes/2025-may-tz3-p2-q4/markscheme-1.webp",
+        "assets/markschemes/2025-may-tz3-p2-q4/markscheme-2.webp",
+        "assets/markschemes/2025-may-tz3-p2-q4/markscheme-3.webp"
+      ],
+      "ordinal": 65,
+      "position": 64,
+      "questionAssets": [
+        "assets/questions/2025-may-tz3-p2-q4/question-1.webp"
+      ],
+      "decision": "holdout",
+      "finalTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Adjacency matrices and walks",
+          "Graph theory",
+          "Minimum spanning trees",
+          "Travelling salesman problem"
+        ]
+      },
+      "evidence": "Fresh review of question-1.webp shows (a) a directed adjacency-matrix question; (b) explicit M^3 and M+M^2+M^3/M^2+M^3 reachability tests; (c) comparison of all length-2 routes; (d) nearest-neighbour tour ABCEDA; and (e) deleted-vertex lower bound. Fresh review of markscheme-1.webp through markscheme-3.webp explicitly marks M^3/M^2 reachability, nearest-neighbour cost 28, and the spanning-tree length 4+6+3=13 followed by reconnecting A with 3+5 to obtain 21.",
+      "rationale": "The full-audit candidate omits Minimum spanning trees even though part (e) and its official marks explicitly require a spanning tree and reconnection. The holdout candidate covers every materially marked method without unsupported additions.",
+      "confidence": 0.99
+    },
+    {
+      "assetFiles": [
+        {
+          "byteLength": 116232,
+          "path": "assets/questions/2025-may-tz3-p3-q2/question-1.webp",
+          "sha256": "a1bde72a395d8b393ddb9cac50f020a3e7bcd34c455781c5e6b66896af013e62"
+        },
+        {
+          "byteLength": 106142,
+          "path": "assets/questions/2025-may-tz3-p3-q2/question-2.webp",
+          "sha256": "20481c55a846456ad0f49611cbf285f9b616886af84d7581163e0356b3578866"
+        },
+        {
+          "byteLength": 49772,
+          "path": "assets/markschemes/2025-may-tz3-p3-q2/markscheme-1.webp",
+          "sha256": "fbc5e492f14a0530d59d72a47e12141cea6b096c8582159658e574d71a67e328"
+        },
+        {
+          "byteLength": 75002,
+          "path": "assets/markschemes/2025-may-tz3-p3-q2/markscheme-2.webp",
+          "sha256": "07a7c28740179d59accdf74ec8e9c462bda064f3ce46a75fb3b9240a5e153bea"
+        },
+        {
+          "byteLength": 76084,
+          "path": "assets/markschemes/2025-may-tz3-p3-q2/markscheme-3.webp",
+          "sha256": "bacf889fc4e6b633dbd2bb11dc2550652ecb851e4ea39336dbd82b42cca95d00"
+        },
+        {
+          "byteLength": 50814,
+          "path": "assets/markschemes/2025-may-tz3-p3-q2/markscheme-4.webp",
+          "sha256": "69984932b8fadb46ed489900e9fbbfabc9eec8297e9a998bf731551017c52fd4"
+        }
+      ],
+      "currentTuple": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [],
+        "skills": [
+          "Logistic models"
+        ]
+      },
+      "fullAuditResolution": "comparison_current",
+      "fullAuditSourceRowSha256": "0b72110262fc32345dc67fca4bf9a81c547994c0de6ec3a7466bfcce374db40e",
+      "fullAuditTuple": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [],
+        "skills": [
+          "Logistic models"
+        ],
+        "taxonomyGap": null
+      },
+      "holdoutEvidence": "Question parts (a)-(c) define and solve N=310/(1+Ce^{-kt}); (d)-(g) calculate model predictions, SS_res=0.07, E=sqrt(0.07/5)=0.118<0.25, and the 2035 prediction; (h)-(j) use the model for charging-point demand and solve against a linear increase. The official markscheme therefore materially assesses nonlinear-model fit through predicted values, squared residuals, and the error-function threshold.",
+      "holdoutRationale": "Logistic modelling is the primary assessed method. Parts (d)-(f) also materially assess the fit of a nonlinear model through predictions, residual sum of squares, and E, warranting the controlled Non-linear regression and linearizing skill under Statistics and probability. This is a real change from the current tuple because it adds the secondary topic and its owned skill.",
+      "holdoutTuple": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [
+          "Statistics and probability"
+        ],
+        "skills": [
+          "Logistic models",
+          "Non-linear regression and linearizing"
+        ]
+      },
+      "holdoutVerdict": "current_defect",
+      "id": "2025-may-tz3-p3-q2",
+      "officialMarkschemeAssets": [
+        "assets/markschemes/2025-may-tz3-p3-q2/markscheme-1.webp",
+        "assets/markschemes/2025-may-tz3-p3-q2/markscheme-2.webp",
+        "assets/markschemes/2025-may-tz3-p3-q2/markscheme-3.webp",
+        "assets/markschemes/2025-may-tz3-p3-q2/markscheme-4.webp"
+      ],
+      "ordinal": 74,
+      "position": 73,
+      "questionAssets": [
+        "assets/questions/2025-may-tz3-p3-q2/question-1.webp",
+        "assets/questions/2025-may-tz3-p3-q2/question-2.webp"
+      ],
+      "decision": "holdout",
+      "finalTuple": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [
+          "Statistics and probability"
+        ],
+        "skills": [
+          "Logistic models",
+          "Non-linear regression and linearizing"
+        ]
+      },
+      "evidence": "Fresh review of question-1.webp and question-2.webp shows a supplied logistic model, algebraic parameter determination, model predictions, SS_res from the five predictions, E=sqrt(0.07/5)=0.118<0.25, a 2035 prediction, a model-derived charging-point expression, and comparison with a linear increase. Fresh review of markscheme-1.webp through markscheme-4.webp marks the model-fit calculations, residual sum of squares, error threshold, and the final linear-versus-logistic inequality.",
+      "rationale": "Logistic models is primary, while the marked residual/error-function fit test is a material nonlinear-model-fit assessment. The controlled Non-linear regression and linearizing skill is therefore supported and is correctly added under Statistics and probability.",
+      "confidence": 0.96
+    },
+    {
+      "assetFiles": [
+        {
+          "byteLength": 93534,
+          "path": "assets/questions/2022-may-tz2-p1-q3/question-1.webp",
+          "sha256": "2b17d3d8342b46f21b7f7e535649c71045ade34682c30ba0e9a1c17f3ffc39ef"
+        },
+        {
+          "byteLength": 22038,
+          "path": "assets/markschemes/2022-may-tz2-p1-q3/markscheme-1.webp",
+          "sha256": "f59f467e825dfa100cecd5cfd7d6137e1e87c53ceb8ec647dacedeb7a461ea5d"
+        }
+      ],
+      "currentTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Binomial distribution",
+          "Discrete probability distributions"
+        ]
+      },
+      "fullAuditResolution": "comparison_current",
+      "fullAuditSourceRowSha256": "e8b77d20347bdd824581fa59669ddadce0a1c974148b07013b85f30340316636",
+      "fullAuditTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Binomial distribution",
+          "Discrete probability distributions"
+        ],
+        "taxonomyGap": null
+      },
+      "holdoutEvidence": "Part (a) uses E(X)=10(0.8); part (b) asks for exactly four failures and the official markscheme explicitly awards recognition of binomial probability; part (c) asks for fewer than seven passes and again requires a binomial probability calculation.",
+      "holdoutRationale": "The controlled binomial-distribution skill covers every materially marked method. Discrete probability distributions is not independently assessed beyond the specific binomial model, so it is removed as an unsupported broader/redundant skill.",
+      "holdoutTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Binomial distribution"
+        ]
+      },
+      "holdoutVerdict": "current_defect",
+      "id": "2022-may-tz2-p1-q3",
+      "officialMarkschemeAssets": [
+        "assets/markschemes/2022-may-tz2-p1-q3/markscheme-1.webp"
+      ],
+      "ordinal": 274,
+      "position": 273,
+      "questionAssets": [
+        "assets/questions/2022-may-tz2-p1-q3/question-1.webp"
+      ],
+      "decision": "holdout",
+      "finalTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Binomial distribution"
+        ]
+      },
+      "evidence": "Fresh review of question-1.webp shows E(X)=10(0.8), exactly four failures, and fewer than seven passes. Fresh review of markscheme-1.webp explicitly awards recognition of binomial probability for (b) and binomial calculations for (b) and (c).",
+      "rationale": "Every materially marked probability method is the binomial model. Discrete probability distributions is a broader redundant label here and is not independently assessed, so the holdout candidate is the controlled tuple.",
+      "confidence": 0.98
+    },
+    {
+      "assetFiles": [
+        {
+          "byteLength": 139636,
+          "path": "assets/questions/2022-may-tz1-p3-q2/question-1.webp",
+          "sha256": "2961e45cb2f58acbd5f7babb0c0772cb60211933ab551a2e3f0b63ae07a72bfd"
+        },
+        {
+          "byteLength": 100968,
+          "path": "assets/questions/2022-may-tz1-p3-q2/question-2.webp",
+          "sha256": "f5eeb5df8c3312fbeb704012b65052a018a708047f9caa0900837f30c9890c83"
+        },
+        {
+          "byteLength": 81372,
+          "path": "assets/markschemes/2022-may-tz1-p3-q2/markscheme-1.webp",
+          "sha256": "c3bf9bc0372b9a119f3d6ebdee61221f5e33490ca001030fe754561be9396556"
+        },
+        {
+          "byteLength": 74824,
+          "path": "assets/markschemes/2022-may-tz1-p3-q2/markscheme-2.webp",
+          "sha256": "3531bd8630238ac34b1777b752ef585d0cab6d7c4f4cf410692d350ba66c4752"
+        },
+        {
+          "byteLength": 105550,
+          "path": "assets/markschemes/2022-may-tz1-p3-q2/markscheme-3.webp",
+          "sha256": "83bcbd3574aacfe938e7a35c6c7484cef4f74c41828e5f712efef8f5261617b2"
+        },
+        {
+          "byteLength": 59202,
+          "path": "assets/markschemes/2022-may-tz1-p3-q2/markscheme-4.webp",
+          "sha256": "1fd7da69ffda2c7b5f9278abe74bc42ce5a17405c3659a9dc363e265f2757b56"
+        },
+        {
+          "byteLength": 52888,
+          "path": "assets/markschemes/2022-may-tz1-p3-q2/markscheme-5.webp",
+          "sha256": "de5fd2f04870822c5f40d6c8b462a9dd66e58a44791a53d7cd968c6eddaa3078"
+        }
+      ],
+      "currentTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Coordinate geometry",
+          "Voronoi diagrams"
+        ]
+      },
+      "fullAuditResolution": "second_review_modify",
+      "fullAuditSourceRowSha256": "91859b482d35683326bb6fc2677cd2e7a8a9e945a3bfeb4f89ee847879a9f57a",
+      "fullAuditTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Adjacency matrices and walks",
+          "Graph theory",
+          "Voronoi diagrams"
+        ],
+        "taxonomyGap": null
+      },
+      "holdoutEvidence": "Question page 1 (b)-(d) visibly assesses Voronoi regions, perpendicular-bisector equations, midpoint/vertex coordinates, and district crossings; page 2 (e)(i) assesses distances from a Voronoi vertex. Page 2 (f)(i)-(iii) supplies adjacency matrix M and the markscheme explicitly requires M^3/M^4 (or graph propagation), pollution reach, and odd-degree start/end points.",
+      "holdoutRationale": "The current tuple correctly includes Coordinate geometry and Voronoi diagrams, but it omits the materially assessed adjacency-matrix/walk work in part (f). Add the controlled skill without changing the primary topic.",
+      "holdoutTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Adjacency matrices and walks",
+          "Coordinate geometry",
+          "Voronoi diagrams"
+        ]
+      },
+      "holdoutVerdict": "current_defect",
+      "id": "2022-may-tz1-p3-q2",
+      "officialMarkschemeAssets": [
+        "assets/markschemes/2022-may-tz1-p3-q2/markscheme-1.webp",
+        "assets/markschemes/2022-may-tz1-p3-q2/markscheme-2.webp",
+        "assets/markschemes/2022-may-tz1-p3-q2/markscheme-3.webp",
+        "assets/markschemes/2022-may-tz1-p3-q2/markscheme-4.webp",
+        "assets/markschemes/2022-may-tz1-p3-q2/markscheme-5.webp"
+      ],
+      "ordinal": 304,
+      "position": 303,
+      "questionAssets": [
+        "assets/questions/2022-may-tz1-p3-q2/question-1.webp",
+        "assets/questions/2022-may-tz1-p3-q2/question-2.webp"
+      ],
+      "decision": "full_audit",
+      "finalTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Adjacency matrices and walks",
+          "Graph theory",
+          "Voronoi diagrams"
+        ],
+        "taxonomyGap": null
+      },
+      "evidence": "Fresh review of question-1.webp and question-2.webp shows Voronoi regions, perpendicular-bisector equations, midpoint/vertex coordinates, distances, and then a supplied adjacency matrix with M^3/M^4 pollution reachability and an odd-degree start/end route task. Fresh review of markscheme-1.webp through markscheme-5.webp explicitly marks the coordinate/Voronoi work, M^3 and M^4, vertex orders, and start F/end I for the connection route.",
+      "rationale": "The full-audit candidate is required: the final matrix/route section materially assesses both Adjacency matrices and walks and Graph theory, while the holdout candidate omits Graph theory. Coordinate geometry and Voronoi diagrams remain directly evidenced.",
+      "confidence": 0.99
+    },
+    {
+      "assetFiles": [
+        {
+          "byteLength": 121236,
+          "path": "assets/questions/2021-may-tz2-p1-q13/question-1.webp",
+          "sha256": "13247933cded7d54e738d080de9675faf3c6fabe2ca6e69552c5747be31a6111"
+        },
+        {
+          "byteLength": 52334,
+          "path": "assets/questions/2021-may-tz2-p1-q13/question-2.webp",
+          "sha256": "05ca62cd2afbbfb2eb364c6ec62a665f411790923a56bb52bf3abae5a8aedeec"
+        },
+        {
+          "byteLength": 77244,
+          "path": "assets/markschemes/2021-may-tz2-p1-q13/markscheme-1.webp",
+          "sha256": "894898fea2c5f7aa95380cf640e85f32e64151412117ef7c5a7f943e6075f336"
+        },
+        {
+          "byteLength": 3662,
+          "path": "assets/markschemes/2021-may-tz2-p1-q13/markscheme-2.webp",
+          "sha256": "1c624eb6595d608a98ce53e7c43a6a6ad6060859308cda6f2ae53bdf27919ba5"
+        }
+      ],
+      "currentTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Transition matrices and Markov chains"
+        ]
+      },
+      "fullAuditResolution": "comparison_current",
+      "fullAuditSourceRowSha256": "2bf50d79a00e3f9d8138c6de3a9df9977741560346198bf6272cefe157e5b2d0",
+      "fullAuditTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Transition matrices and Markov chains"
+        ],
+        "taxonomyGap": null
+      },
+      "holdoutEvidence": "Question (a) requires construction of a 6x6 transition matrix, and (b) requires raising it to a large power to obtain the steady-state vector; the official markscheme awards matrix construction/power work before the 17.3% long-run result. These are material matrix operations in addition to the Markov-chain classification.",
+      "holdoutRationale": "Transition matrices and Markov chains is correctly primary, but the question materially assesses matrix construction and powers. Add Matrices and determinants as a Number and algebra secondary skill.",
+      "holdoutTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Matrices and determinants",
+          "Transition matrices and Markov chains"
+        ]
+      },
+      "holdoutVerdict": "current_defect",
+      "id": "2021-may-tz2-p1-q13",
+      "officialMarkschemeAssets": [
+        "assets/markschemes/2021-may-tz2-p1-q13/markscheme-1.webp",
+        "assets/markschemes/2021-may-tz2-p1-q13/markscheme-2.webp"
+      ],
+      "ordinal": 362,
+      "position": 361,
+      "questionAssets": [
+        "assets/questions/2021-may-tz2-p1-q13/question-1.webp",
+        "assets/questions/2021-may-tz2-p1-q13/question-2.webp"
+      ],
+      "decision": "full_audit",
+      "finalTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Transition matrices and Markov chains"
+        ],
+        "taxonomyGap": null
+      },
+      "evidence": "Fresh review of question-1.webp and question-2.webp shows construction of a 6x6 transition matrix and use of a large matrix power to obtain the steady-state vector. Fresh review of markscheme-1.webp explicitly marks the transition-matrix entries, row/column sums, large-power calculation, and the 17.3% steady-state result; markscheme-2.webp contains no additional mathematical content beyond its page header.",
+      "rationale": "Transition matrices and Markov chains fully covers the assessed method. No determinant or eigenvalue method is requested or marked, so adding Matrices and determinants would be unsupported; the full-audit candidate is retained.",
+      "confidence": 0.98
+    },
+    {
+      "assetFiles": [
+        {
+          "byteLength": 126692,
+          "path": "assets/questions/2021-november-tz0-p1-q7/question-1.webp",
+          "sha256": "2deacbc209c0f4c7e3928b4d8bbbf4272650f9d442666033c883fb275c05389b"
+        },
+        {
+          "byteLength": 65196,
+          "path": "assets/questions/2021-november-tz0-p1-q7/question-2.webp",
+          "sha256": "6922ec21796e816fd7c3824213f87a6af78464468057feaba3080665ded91765"
+        },
+        {
+          "byteLength": 42570,
+          "path": "assets/markschemes/2021-november-tz0-p1-q7/markscheme-1.webp",
+          "sha256": "548e2c19d06a7e80c2fce8c116898faa424bbf0bc3f2eb984a12c06c7af1db0b"
+        }
+      ],
+      "currentTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Statistical measures and frequency tables"
+        ]
+      },
+      "fullAuditResolution": "comparison_current",
+      "fullAuditSourceRowSha256": "7946892f7a81529050bf5661a5d963a3ece852984238d970c39ef2f30f01efdb",
+      "fullAuditTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Statistical measures and frequency tables"
+        ],
+        "taxonomyGap": null
+      },
+      "holdoutEvidence": "Question (a) reads the median from the cumulative-frequency graph; (b) uses the total of 120; (c)(i) solves the weighted mean from the grade-frequency table and (c)(ii) reads cumulative frequency 92 to obtain the minimum grade-5 score 84. The markscheme explicitly awards graph interpretation in (a) and (c)(ii).",
+      "holdoutRationale": "Statistical measures and frequency tables is correctly retained, but cumulative-frequency reading and threshold interpretation are materially assessed and fit Outliers and data interpretation in the controlled taxonomy. Add that skill under the same primary topic.",
+      "holdoutTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Outliers and data interpretation",
+          "Statistical measures and frequency tables"
+        ]
+      },
+      "holdoutVerdict": "current_defect",
+      "id": "2021-november-tz0-p1-q7",
+      "officialMarkschemeAssets": [
+        "assets/markschemes/2021-november-tz0-p1-q7/markscheme-1.webp"
+      ],
+      "ordinal": 390,
+      "position": 389,
+      "questionAssets": [
+        "assets/questions/2021-november-tz0-p1-q7/question-1.webp",
+        "assets/questions/2021-november-tz0-p1-q7/question-2.webp"
+      ],
+      "decision": "full_audit",
+      "finalTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Statistical measures and frequency tables"
+        ],
+        "taxonomyGap": null
+      },
+      "evidence": "Fresh review of question-1.webp and question-2.webp shows reading the median from a cumulative-frequency graph, using the total 120, solving a weighted mean from a grade-frequency table, and reading cumulative frequency 92 to obtain the minimum grade-5 score. Fresh review of markscheme-1.webp explicitly marks the median, total-frequency relation, weighted-mean equation, and 120-92=28 followed by score 84 from the graph.",
+      "rationale": "Statistical measures and frequency tables directly covers all marked methods. No outlier identification, outlier calculation, or outlier effect is assessed, so Outliers and data interpretation is unsupported here; the full-audit candidate is retained.",
+      "confidence": 0.98
+    }
+  ],
+  "schemaVersion": "ai-hl-conflict-packet-v1",
+  "seal": {
+    "algorithm": "sha256",
+    "payloadSha256": "d78710ff29df4bd0061e303054f655fe7803b0c8f21333ffe82f0824777a668f"
+  },
+  "status": "PENDING_INDEPENDENT_REVIEW"
+}

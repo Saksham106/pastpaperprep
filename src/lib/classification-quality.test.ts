@@ -279,7 +279,7 @@ describe("new-bank classification quality", () => {
 
   it("keeps the AI HL critical reconciliation complete, reviewed, and non-destructive", () => {
     const raw = JSON.parse(
-      readFileSync(join(process.cwd(), "src", "data", "raw", "ib-ai-hl.json"), "utf8"),
+      readFileSync(join(process.cwd(), "docs", "audits", "ib-ai-hl-sources", "ai-hl-full-audit", "app-raw-bank-baseline.json"), "utf8"),
     ) as { questions: Array<Record<string, unknown> & {
       id: string;
       accessibleText: string;
