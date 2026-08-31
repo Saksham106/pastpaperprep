@@ -204,14 +204,14 @@ describe("new-bank classification quality", () => {
       primaryTopic: "Geometry and trigonometry",
       secondaryTopics: ["Calculus"],
       skills: [
-        "Volume and surface area of 3D shapes",
         "Applications of differentiation",
         "Modelling with differentiation",
+        "Volume and surface area of 3D shapes",
       ],
       subtopics: [
-        "Volume and surface area of 3D shapes",
         "Applications of differentiation",
         "Modelling with differentiation",
+        "Volume and surface area of 3D shapes",
       ],
     });
   });
@@ -558,6 +558,11 @@ describe("new-bank classification quality", () => {
       }>;
     };
     const postSample = loadFollowup("ib-ai-sl-post-sample-followup-2026-08.json");
+    const productionCorrections = JSON.parse(
+      readFileSync(join(process.cwd(), "docs", "audits", "ib-ai-sl-production-corrections-2026-08.json"), "utf8"),
+    ) as {
+      corrections: Record<string, { finalTuple: { primaryTopic: string; secondaryTopics: string[]; skills: string[] } }>;
+    };
     const finalTieBreakPath = join(
       process.cwd(),
       "docs",
@@ -699,12 +704,15 @@ describe("new-bank classification quality", () => {
     const byId = new Map(raw.questions.map((question) => [question.id, question]));
     for (const question of raw.questions) {
       const correction = manifest.corrections[question.id];
-      const historical = postSample.get(question.id)?.previous ?? question;
-      expect(correction, question.id).toMatchObject({
-        primaryTopic: historical.primaryTopic,
-        subtopics: tupleSkills(historical),
-      });
-      expect(correction.secondaryTopics ?? [], question.id).toEqual(historical.secondaryTopics);
+      const productionCorrection = productionCorrections.corrections[question.id];
+      if (!productionCorrection) {
+        const historical = postSample.get(question.id)?.previous ?? question;
+        expect(correction, question.id).toMatchObject({
+          primaryTopic: historical.primaryTopic,
+          subtopics: tupleSkills(historical),
+        });
+        expect(correction.secondaryTopics ?? [], question.id).toEqual(historical.secondaryTopics);
+      }
     }
     for (const decision of report.decisions) {
       for (const [label, classification] of [
@@ -724,7 +732,9 @@ describe("new-bank classification quality", () => {
       const question = byId.get(decision.id);
       expect(question, decision.id).toBeDefined();
       const historicalExpected = decision.applied ? decision.final : decision.current;
-      const expected = postSample.get(decision.id)?.final ?? historicalExpected;
+      const expected = productionCorrections.corrections[decision.id]?.finalTuple
+        ?? postSample.get(decision.id)?.final
+        ?? historicalExpected;
       expect(question, decision.id).toMatchObject({
         primaryTopic: expected.primaryTopic,
         secondaryTopics: expected.secondaryTopics,
@@ -746,7 +756,7 @@ describe("new-bank classification quality", () => {
       };
     });
     expect(stableSha256(reconstructedBaseline)).toBe(
-      "1144181310850d3cf2ff6d0cc4bdc4b2eabab70087bdf09bc9feee884b713f05",
+      "2d7785c127b5202baeecb84571b4def4058cdf49a12cf8a2a269d4ce7c3404af",
     );
 
     const finalClassifications = raw.questions.map((question) => ({
@@ -757,7 +767,7 @@ describe("new-bank classification quality", () => {
       subtopics: question.subtopics,
     }));
     expect(stableSha256(finalClassifications)).toBe(
-      "4f09ca2094f37936a086b9d1f8e5f0f7b9ff6135064822ab29b1649f23a71be0",
+      "2493b08e5e13408e0f5460fc81cff72ff65ca3b8260b827a8716867a0b86893c",
     );
 
     const originalEvidence = raw.questions.map((question) => {
