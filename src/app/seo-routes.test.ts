@@ -5,7 +5,7 @@ import { ARTICLES } from "@/lib/articles";
 import { BANKS } from "@/lib/banks";
 
 describe("search crawler routes", () => {
-  it("publishes the sitemap and keeps private application surfaces out of crawl", () => {
+  it("publishes the sitemap, blocks API crawling, and lets crawlers see private-page noindex metadata", () => {
     const result = robots();
 
     expect(result.sitemap).toBe("https://pastpaperprep.com/sitemap.xml");
@@ -13,7 +13,7 @@ describe("search crawler routes", () => {
     expect(result.rules).toEqual({
       userAgent: "*",
       allow: "/",
-      disallow: ["/api/", "/auth/", "/account/", "/dashboard"],
+      disallow: "/api/",
     });
   });
 
