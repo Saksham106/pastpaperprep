@@ -1,0 +1,48 @@
+{
+  "correction_count": 408,
+  "coverage": "full_audit",
+  "decision_encodings": [
+    "flattened_decision_array",
+    "flattened_packet_records",
+    "nested_full_packet"
+  ],
+  "errors": [],
+  "holdout_required": false,
+  "missing_parts": [],
+  "outputs": {
+    "final-corrections.json": {
+      "bytes": 626900,
+      "sha256": "5c5eff06c0881927164203ae71a9e2da6481052b0731afab72e6fc3f667c9629"
+    },
+    "final-production-target.json": {
+      "bytes": 334513,
+      "sha256": "8ddecd7634bede343defd82a4de097fe428e41c833b7957925c8e1e11bb7315c"
+    },
+    "final-provenance.json": {
+      "bytes": 5797,
+      "sha256": "6227cedba076a4cb6fbd148bda359e83d64d7cc8f6c21174beb6c8b5ae7ae72c"
+    }
+  },
+  "part_count": 11,
+  "present_parts": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "reviewed_count": 408,
+  "schema": "aa-sl-final-audit-report-1.0",
+  "status": "PASS",
+  "target_count": 578,
+  "taxonomy": {
+    "file": "hidden/taxonomy_source.json",
+    "sha256": "9cb5e8bde549b750087d9328e07a7b6728ccb921267c91643118b2a6fc44120f"
+  }
+}

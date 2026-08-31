@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "aa-sl-runtime-taxonomy-snapshot-v1",
+  "bank": "ib-sl",
+  "sourcePath": "src/lib/taxonomy.ts",
+  "sourceSha256": "572967d0f51980ebbf5a12962b46cf9fa08a22cbd22806655ffc9d4b5e6f54a3",
+  "topics": {
+    "Number and algebra": [
+      "Number systems and notation",
+      "Algebraic manipulation",
+      "Equations and inequalities",
+      "Sequences and series",
+      "Exponents and logarithms",
+      "Financial mathematics",
+      "Counting and binomial probability",
+      "Mathematical reasoning and proof",
+      "Matrices"
+    ],
+    "Functions": [
+      "Functions and modelling",
+      "Function composition and inverses",
+      "Roots and polynomial functions",
+      "Graphs and transformations"
+    ],
+    "Geometry and trigonometry": [
+      "Trigonometric functions and identities",
+      "Radians and exact values",
+      "Geometry and measurement",
+      "Vectors"
+    ],
+    "Statistics and probability": [
+      "Descriptive statistics",
+      "Correlation and regression",
+      "Probability",
+      "Probability distributions"
+    ],
+    "Calculus": [
+      "Differentiation",
+      "Integration",
+      "Differential equations",
+      "Kinematics"
+    ]
+  }
+}
