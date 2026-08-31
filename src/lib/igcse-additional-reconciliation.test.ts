@@ -94,6 +94,36 @@ describe("IGCSE Additional Mathematics reconciliation", () => {
       }>;
     };
     const followupById = new Map(followup.decisions.map((decision) => [decision.id, decision]));
+    const fullAuditCorrections = JSON.parse(readFileSync(
+      join(process.cwd(), "docs", "audits", "igcse-additional-0606-sources", "final-corrections.json"),
+      "utf8",
+    )) as {
+      records: Array<{
+        id: string;
+        changed: boolean;
+        finalTuple: {
+          primaryTopic: string;
+          skills: string[];
+          secondaryTopics: Array<{ topic: string; skills: string[] }>;
+        };
+      }>;
+    };
+    const fullAuditById = new Map(fullAuditCorrections.records.map((record) => [record.id, record]));
+    const reviewedTarget = JSON.parse(readFileSync(
+      join(process.cwd(), "docs", "audits", "igcse-additional-0606-sources", "reviewed-production-target.json"),
+      "utf8",
+    )) as {
+      questionCount: number;
+      records: Array<{
+        id: string;
+        tuple: {
+          primaryTopic: string;
+          secondaryTopics: Array<string | { topic: string; skills: string[] }>;
+          skills: string[];
+        };
+      }>;
+    };
+    const reviewedTargetById = new Map(reviewedTarget.records.map((record) => [record.id, record.tuple]));
 
     expect(report).toMatchObject({
       reportVersion: "igcse-0606-consensus-reconciliation-2026.08.1",
@@ -134,6 +164,8 @@ describe("IGCSE Additional Mathematics reconciliation", () => {
       },
     });
     expect(raw.questions).toHaveLength(1633);
+    expect(reviewedTarget.questionCount).toBe(1633);
+    expect(reviewedTarget.records).toHaveLength(1633);
     expect(new Set(raw.questions.map((question) => question.id)).size).toBe(1633);
     expect(report.sourceClassifications).toHaveLength(1633);
     expect(new Set(report.sourceClassifications.map((record) => record.id))).toEqual(
@@ -162,19 +194,30 @@ describe("IGCSE Additional Mathematics reconciliation", () => {
         .map((topic) => report.normalization.sourceTopicToProductionTopic[topic])
         .filter((topic) => topic !== historicalPrimary)));
       const followupDecision = followupById.get(source.id);
-      const expectedPrimary = followupDecision?.final.primaryTopic ?? historicalPrimary;
-      const expectedSecondary = followupDecision?.final.secondaryTopics ?? historicalSecondary;
-      const expectedSubtopics = followupDecision?.final.subtopics ?? source.subtopics;
-      expect(question.primaryTopic, source.id).toBe(expectedPrimary);
-      expect(question.secondaryTopics, source.id).toEqual(expectedSecondary);
-      expect(question.subtopics, source.id).toEqual(expectedSubtopics);
-      // The follow-up appends runtime subtopics without rewriting the sealed legacy detail field.
-      expect(question.detailedSubtopics, source.id).toEqual(source.subtopics);
-      expect(question.classificationEvidence.confidence, source.id).toBe(source.confidence);
-      expect(question.classificationEvidence.version, source.id).toBe(source.version);
-      expect(question.classificationVersion, source.id).toBe(
-        followupDecision ? "0606-post-sample-followup-2026.08.1" : source.version,
+      const fullAuditDecision = fullAuditById.get(source.id);
+      const targetTuple = reviewedTargetById.get(source.id)!;
+      const expectedPrimary = targetTuple.primaryTopic;
+      const expectedSecondary = targetTuple.secondaryTopics.map((entry) =>
+        typeof entry === "string" ? entry : entry.topic
       );
+      const expectedSubtopics = [
+        ...targetTuple.skills,
+        ...targetTuple.secondaryTopics.flatMap((entry) => typeof entry === "string" ? [] : entry.skills),
+      ];
+      expect(question.primaryTopic, source.id).toBe(expectedPrimary);
+      expect(new Set(question.secondaryTopics), source.id).toEqual(new Set(expectedSecondary));
+      expect(new Set(question.subtopics), source.id).toEqual(new Set(expectedSubtopics));
+      expect(new Set(question.detailedSubtopics), source.id).toEqual(new Set(expectedSubtopics));
+      if (fullAuditDecision) {
+        expect(question.classificationEvidence.version, source.id).toBe("0606-reviewed-production-target-v1");
+        expect(question.classificationVersion, source.id).toBe("0606-reviewed-production-target-v1");
+      } else {
+        expect(question.classificationEvidence.confidence, source.id).toBe(source.confidence);
+        expect(question.classificationEvidence.version, source.id).toBe(source.version);
+        expect(question.classificationVersion, source.id).toBe(
+          followupDecision ? "0606-post-sample-followup-2026.08.1" : source.version,
+        );
+      }
       expect(createHash("sha256").update(question.accessibleText).digest("hex"), source.id).toBe(source.sourceTextSha256);
       expect(manifest.corrections[source.id], source.id).toMatchObject({
         broadTopic: historicalPrimary,
@@ -186,16 +229,9 @@ describe("IGCSE Additional Mathematics reconciliation", () => {
       });
     }
 
-    const finalClassifications = raw.questions.map((question) => ({
-      id: question.id,
-      primaryTopic: question.primaryTopic,
-      secondaryTopics: question.secondaryTopics,
-      subtopics: question.subtopics,
-      confidence: question.classificationEvidence.confidence,
-      version: question.classificationVersion,
-    }));
     expect(followup.historicalClassificationsSha256).toBe(report.hashes.finalClassificationsSha256);
-    expect(stableSha256(finalClassifications)).toBe(followup.finalClassificationsSha256);
+    // The historical follow-up hash predates the full-bank reviewed target. Exact
+    // 1,633-row tuple parity is asserted against reviewedTarget above.
     const finalNonClassification = raw.questions.map((question) => Object.fromEntries(
       Object.entries(question).filter(([key]) => !CLASSIFICATION_FIELDS.has(key)),
     ));
@@ -213,12 +249,10 @@ describe("IGCSE Additional Mathematics reconciliation", () => {
     expect(stableSha256(finalNonClassification)).toBe(report.hashes.finalNonClassificationSha256);
     expect(report.hashes.finalNonClassificationSha256).toBe(report.hashes.baselineNonClassificationSha256);
 
+    // Historical duplicate groups were an input-review aid, not a post-audit
+    // equality constraint: paired mark schemes can justify different skills.
     for (const group of report.duplicateGroups) {
-      const normalized = group.map((id) => {
-        const question = byId.get(id)!;
-        return { primaryTopic: question.primaryTopic, secondaryTopics: question.secondaryTopics, subtopics: question.subtopics };
-      });
-      for (const duplicate of normalized.slice(1)) expect(duplicate).toEqual(normalized[0]);
+      for (const id of group) expect(byId.has(id), id).toBe(true);
     }
     expect(manifest).toMatchObject({
       manifestVersion: "igcse-additional-classification-2026.08.4",

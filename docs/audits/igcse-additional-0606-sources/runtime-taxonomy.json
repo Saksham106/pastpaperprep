@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "0606-runtime-taxonomy-snapshot-v1",
+  "bank": "igcse-additional",
+  "sourcePath": "src/lib/taxonomy.ts",
+  "sourceSha256": "572967d0f51980ebbf5a12962b46cf9fa08a22cbd22806655ffc9d4b5e6f54a3",
+  "targetTaxonomySha256": "ebed9b454a7bf016d1d134a87a0417870d772766f555e63ed41490b788957a0c",
+  "topics": {
+    "Sets and functions": [
+      "Set language and notation",
+      "Functions"
+    ],
+    "Algebra": [
+      "Quadratic functions",
+      "Indices and surds",
+      "Factors of polynomials",
+      "Equations, inequalities and graphs",
+      "Simultaneous equations",
+      "Logarithmic and exponential functions"
+    ],
+    "Coordinate geometry": [
+      "Straight-line graphs",
+      "Coordinate geometry of the circle"
+    ],
+    "Geometry and trigonometry": [
+      "Circular measure",
+      "Trigonometry"
+    ],
+    "Combinatorics and series": [
+      "Permutations and combinations",
+      "Series"
+    ],
+    "Vectors and matrices": [
+      "Vectors in two dimensions",
+      "Matrices"
+    ],
+    "Calculus": [
+      "Calculus"
+    ]
+  }
+}
