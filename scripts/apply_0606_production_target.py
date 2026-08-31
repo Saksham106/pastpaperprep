@@ -59,14 +59,20 @@ def target_tuple(record: dict[str, Any]) -> dict[str, Any]:
     require(isinstance(primary, str) and primary, f"{record.get('id')}: invalid target primary")
     require(isinstance(secondary, list) and isinstance(skills, list), f"{record.get('id')}: invalid target tuple")
     topics: list[str] = []
-    flattened = list(skills)
+    primary_skills = list(skills)
+    flattened = list(primary_skills)
     for item in secondary:
         require(isinstance(item, dict) and isinstance(item.get("topic"), str) and isinstance(item.get("skills"), list), f"{record.get('id')}: malformed secondary")
         require(item["topic"] not in topics and item["topic"] != primary, f"{record.get('id')}: duplicate/primary secondary")
         topics.append(item["topic"])
         flattened.extend(item["skills"])
     require(all(isinstance(x, str) and x for x in flattened), f"{record.get('id')}: invalid fine label")
-    return {"primaryTopic": primary, "secondaryTopics": topics, "skills": list(dict.fromkeys(flattened))}
+    return {
+        "primaryTopic": primary,
+        "secondaryTopics": topics,
+        "skills": primary_skills,
+        "flattenedSkills": list(dict.fromkeys(flattened)),
+    }
 
 
 def nonclassification(question: dict[str, Any]) -> dict[str, Any]:
@@ -119,17 +125,20 @@ def apply(bank_path: Path) -> dict[str, int]:
         require(nonclassification_hash(question) == baseline_by_id[qid]["nonClassificationSha256"], f"{qid}: nonclassification drift from pinned baseline")
         final = target_by_id[qid]
         current = {"primaryTopic": question.get("primaryTopic"), "secondaryTopics": question.get("secondaryTopics", []), "skills": set(question.get("subtopics", []))}
-        target_semantics = {"primaryTopic": final["primaryTopic"], "secondaryTopics": final["secondaryTopics"], "skills": set(final["skills"])}
+        target_semantics = {"primaryTopic": final["primaryTopic"], "secondaryTopics": final["secondaryTopics"], "skills": set(final["flattenedSkills"])}
         changed += current != target_semantics
         baseline_labels = question.get("subtopics", []) if isinstance(question.get("subtopics", []), list) else []
-        target_labels = final["skills"]
+        target_labels = final["flattenedSkills"]
         target_set = set(target_labels)
         ordered_labels = [label for label in baseline_labels if label in target_set]
         ordered_labels.extend(label for label in target_labels if label not in ordered_labels)
         question["primaryTopic"] = final["primaryTopic"]
         question["secondaryTopics"] = final["secondaryTopics"]
+        # App `subtopics` is the flattened cross-topic filter list, while
+        # `detailedSubtopics` mirrors the source bank's primary-topic skills.
+        # Keeping these distinct is required for exact source/app parity.
         question["subtopics"] = ordered_labels
-        question["detailedSubtopics"] = ordered_labels
+        question["detailedSubtopics"] = list(final["skills"])
         correction = correction_by_id.get(qid)
         if correction:
             confidence = "high" if float(correction.get("confidence", 0)) >= 0.95 else "medium"
@@ -146,7 +155,7 @@ def apply(bank_path: Path) -> dict[str, int]:
         selected = [final["primaryTopic"], *final["secondaryTopics"]]
         require(all(topic in taxonomy_topics for topic in selected), f"{qid}: target owner outside runtime taxonomy")
         owned = {skill for topic in selected for skill in taxonomy_topics[topic]}
-        require(set(final["skills"]).issubset(owned), f"{qid}: target fine label outside selected owner")
+        require(set(final["flattenedSkills"]).issubset(owned), f"{qid}: target fine label outside selected owner")
     for old, new in zip(before["questions"], questions):
         require(nonclassification(old) == nonclassification(new), f"{old['id']}: nonclassification field drift")
     bank_path.write_bytes((json.dumps(payload, ensure_ascii=False, indent=2) + "\n").encode("utf-8"))
