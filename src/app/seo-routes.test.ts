@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import robots from "@/app/robots";
 import sitemap from "@/app/sitemap";
-import { ARTICLES } from "@/lib/articles";
+import { ALL_ARTICLES, ARTICLES, isPublicArticle } from "@/lib/articles";
 import { BANKS } from "@/lib/banks";
 
 describe("search crawler routes", () => {
@@ -31,6 +31,9 @@ describe("search crawler routes", () => {
       const entry = entries.find(({ url }) => url === `https://pastpaperprep.com/articles/${article.slug}`);
       expect(entry).toBeDefined();
       expect(entry?.lastModified).toBe(article.updatedAt);
+    }
+    for (const draft of ALL_ARTICLES.filter((article) => !isPublicArticle(article))) {
+      expect(urls).not.toContain(`https://pastpaperprep.com/articles/${draft.slug}`);
     }
     expect(new Set(urls).size).toBe(urls.length);
     expect(entries.filter(({ url }) => !url.includes("/articles/")).every((entry) => entry.lastModified === undefined)).toBe(true);

@@ -12,7 +12,7 @@ Google's own guidance is boring but correct: make pages crawlable, use descripti
 - Canonical URLs, unique metadata, Open Graph, and Twitter metadata.
 - `noindex` protection for login, account, auth, and dashboard routes.
 - Six indexable course-bank pages with visible explanatory copy and internal links.
-- An `/articles` hub, three substantial first-party guides, and three source-checked competitor comparisons.
+- An `/articles` hub, four public first-party guides, three source-checked competitor comparisons, and two finished guides held as scheduled drafts.
 - Visible FAQ answers and matching Article, FAQ, Breadcrumb, Organization, Website, and CollectionPage JSON-LD. Structured data must describe visible page content and should be validated after deployment. [4]
 - Vercel Web Analytics and Speed Insights instrumentation.
 - Optional `GOOGLE_SITE_VERIFICATION` metadata support.
@@ -48,20 +48,26 @@ Do **not** index every filter combination or query-string state. That creates du
 Seeded now:
 
 - How to use maths past papers effectively
+- How to mark a maths past paper and build a mistake log
 - IGCSE Maths 0580 past papers by topic
 - IB Math past papers by topic
 - PastPaperPrep vs Revision Village
 - PastPaperPrep vs Save My Exams
 - PastPaperPrep vs Exam-Mate
 
+Scheduled after the mistake-log guide:
+
+- Topic questions vs full past papers: 2 September 2026
+- Best free IB Maths AA HL practice resources: 3 September 2026
+
+These additions came from anonymous ChatGPT web searches run in Ego Browser with natural student prompts about repeated IGCSE mistakes and affordable IB Maths AA HL practice. The anonymous response stream exposed the searched sources and answer, but not the literal hidden `queries` array shown in the X demo; the research audit records that limitation instead of inventing query data.
+
 Next articles, in order:
 
 1. IGCSE Maths 0580 Core vs Extended: which papers should you practise?
 2. IB Math AA vs AI: how the courses and exam questions differ
-3. How to mark a maths past paper and build an error log
-4. When to move from topic practice to timed full papers
-5. Calculator vs non-calculator maths practice
-6. A guide tied to each newly launched high-value topic page
+3. Calculator vs non-calculator maths practice
+4. A guide tied to each newly launched high-value topic page
 
 Every article needs a direct answer near the top, original examples or product-backed evidence, a named accountable author/team, updated dates, useful internal links, and citations to official curriculum material when factual course claims are made. Publishing frequency is not a goal; usefulness is. [2]
 
