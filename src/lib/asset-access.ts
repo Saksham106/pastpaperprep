@@ -4,23 +4,23 @@ import {
   type AccessEntitlement,
 } from "@/lib/access";
 import type { BankSlug } from "@/lib/banks";
-import { loadBankQuestions } from "@/lib/questions";
+import { loadBankQuestions } from "@/lib/question-loader";
 
 export type AssetKind = "question" | "answer";
 export type AssetRequest = { questionId: string; kind: AssetKind };
 export type AuthorizedAssetRequest = AssetRequest & { paths: string[] };
 
-export function authorizeAssetRequests(
+export async function authorizeAssetRequests(
   bankSlug: BankSlug,
   requests: readonly AssetRequest[],
   entitlements: readonly AccessEntitlement[],
   now = new Date(),
-): AuthorizedAssetRequest[] {
+): Promise<AuthorizedAssetRequest[]> {
   if (requests.length < 1 || requests.length > 20) {
     throw new Error("Asset request batch must contain between 1 and 20 items");
   }
 
-  const questions = new Map(loadBankQuestions(bankSlug).map((question) => [question.id, question]));
+  const questions = new Map((await loadBankQuestions(bankSlug)).map((question) => [question.id, question]));
   const seen = new Set<string>();
 
   return requests.map((request) => {

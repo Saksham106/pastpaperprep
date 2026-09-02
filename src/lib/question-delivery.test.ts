@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { PREVIEW_QUESTION_IDS, type AccessEntitlement } from "@/lib/access";
 import { prepareQuestionsForDelivery } from "@/lib/question-delivery";
-import { loadBankQuestions } from "@/lib/questions";
+import { loadBankQuestions } from "@/lib/question-fixtures";
 
 function entitlement(productId: AccessEntitlement["productId"]): AccessEntitlement {
   return {

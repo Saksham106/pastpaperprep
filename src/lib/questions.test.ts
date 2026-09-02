@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { filterQuestions } from "@/lib/question-filter";
-import { loadBankQuestions } from "@/lib/questions";
+import { loadBankQuestions } from "@/lib/question-fixtures";
 import { getControlledSubtopics, getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy";
 
 describe("question normalization", () => {

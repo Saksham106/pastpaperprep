@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { loadBankQuestions } from "@/lib/questions";
+import { loadBankQuestions } from "@/lib/question-fixtures";
 import { getControlledSubtopics, getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy";
 
 describe("question taxonomy", () => {

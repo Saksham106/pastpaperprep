@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { redirect } from "next/navigation";
 import { MarketingHome } from "@/components/MarketingHome";
 import { JsonLd } from "@/components/JsonLd";
-import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: { absolute: "IGCSE & IB Maths Past Papers by Topic | PastPaperPrep" },
@@ -16,10 +14,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Home() {
-  const supabase = await createClient();
-  const { data: claimsData } = await supabase.auth.getClaims();
-  if (typeof claimsData?.claims?.sub === "string") redirect("/dashboard");
+export default function Home() {
   return (
     <>
       <JsonLd data={{

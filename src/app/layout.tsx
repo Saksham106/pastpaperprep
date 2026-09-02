@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import { Geist, IBM_Plex_Mono } from "next/font/google";
 import Script from "next/script";
 import { SiteFooter } from "@/components/SiteFooter";
-import { SiteHeader } from "@/components/SiteHeader";
+import { SessionAwareSiteHeader } from "@/components/SessionAwareSiteHeader";
 import { SiteTelemetry } from "@/components/SiteTelemetry";
-import { createThemeInitScript } from "@/components/ThemeInitScript";
-import { createClient } from "@/lib/supabase/server";
+import { THEME_INIT_SCRIPT } from "@/components/ThemeInitScript";
 import "./globals.css";
 
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
@@ -50,16 +49,12 @@ export const metadata: Metadata = {
     : undefined,
 };
 
-export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const supabase = await createClient();
-  const { data: claimsData } = await supabase.auth.getClaims();
-  const authenticated = typeof claimsData?.claims?.sub === "string";
-
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geist.variable} ${mono.variable}`} suppressHydrationWarning>
       <body>
-        <Script id="pastpaperprep-theme" strategy="beforeInteractive">{createThemeInitScript(authenticated)}</Script>
-        <SiteHeader authenticated={authenticated} />
+        <Script id="pastpaperprep-theme" strategy="beforeInteractive">{THEME_INIT_SCRIPT}</Script>
+        <SessionAwareSiteHeader />
         <main>{children}</main>
         <SiteFooter />
         <SiteTelemetry />

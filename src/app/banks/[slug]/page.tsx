@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { QuestionExplorer } from "@/components/QuestionExplorer";
 import { BankSeoContent } from "@/components/BankSeoContent";
@@ -10,7 +11,8 @@ import { BANKS, getBank, type BankSlug } from "@/lib/banks";
 import { normalizeEntitlements } from "@/lib/entitlements";
 import { parseExplorerState, type ExplorerSearchParams } from "@/lib/explorer-state";
 import { prepareQuestionsForDelivery } from "@/lib/question-delivery";
-import { loadBankQuestions } from "@/lib/questions";
+import { loadBankQuestions } from "@/lib/question-loader";
+import { hasSupabaseAuthCookie } from "@/lib/supabase/proxy";
 import { createClient } from "@/lib/supabase/server";
 
 export function generateStaticParams() { return BANKS.map(({ slug }) => ({ slug })); }
@@ -40,13 +42,14 @@ export default async function BankPage({ params, searchParams }: { params: Promi
   const rawSearchParams = await searchParams;
   const bank = getBank(slug);
   if (!bank) notFound();
-  const supabase = await createClient();
-  const { data: claimsData } = await supabase.auth.getClaims();
+  const hasAuthCookie = hasSupabaseAuthCookie((await cookies()).getAll());
+  const supabase = hasAuthCookie ? await createClient() : null;
+  const claimsData = supabase ? (await supabase.auth.getClaims()).data : null;
   const userId = claimsData?.claims?.sub;
   const exportMarker = typeof userId === "string"
     ? createHash("sha256").update(userId).digest("hex").slice(0, 10).toUpperCase()
     : undefined;
-  const [{ data: entitlementRows }, { data: savedRows }, { data: attemptRows }] = userId
+  const [{ data: entitlementRows }, { data: savedRows }, { data: attemptRows }] = userId && supabase
     ? await Promise.all([
       supabase.from("entitlements").select("product_id, status, starts_at, expires_at").eq("user_id", userId),
       supabase.from("saved_questions").select("question_id").eq("user_id", userId).eq("bank_slug", slug),
@@ -54,7 +57,7 @@ export default async function BankPage({ params, searchParams }: { params: Promi
     ])
     : [{ data: [] }, { data: [] }, { data: [] }];
   const entitlements = normalizeEntitlements(entitlementRows ?? []);
-  const questions = prepareQuestionsForDelivery(loadBankQuestions(slug), entitlements);
+  const questions = prepareQuestionsForDelivery(await loadBankQuestions(slug), entitlements);
   const bankAccess = hasBankAccess(slug, entitlements);
   const initialState = parseExplorerState(rawSearchParams, { defaultFreeOnly: !bankAccess });
 

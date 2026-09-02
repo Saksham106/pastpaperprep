@@ -49,7 +49,7 @@ export async function POST(request: Request) {
 
   let authorized;
   try {
-    authorized = authorizeAssetRequests(
+    authorized = await authorizeAssetRequests(
       body.bank as BankSlug,
       body.requests as AssetRequest[],
       entitlements,

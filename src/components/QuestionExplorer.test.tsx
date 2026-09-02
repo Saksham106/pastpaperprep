@@ -5,7 +5,7 @@ import { join } from "node:path";
 import { QuestionExplorer } from "@/components/QuestionExplorer";
 import { PREVIEW_QUESTION_IDS } from "@/lib/access";
 import { prepareQuestionsForDelivery } from "@/lib/question-delivery";
-import { loadBankQuestions } from "@/lib/questions";
+import { loadBankQuestions } from "@/lib/question-fixtures";
 
 describe("QuestionExplorer", () => {
   beforeEach(() => {
