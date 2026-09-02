@@ -1,9 +1,3 @@
-import igcseData from "@/data/raw/igcse.json";
-import igcseAdditionalData from "@/data/raw/igcse-additional.json";
-import ibHlData from "@/data/raw/ib-hl.json";
-import ibSlData from "@/data/raw/ib-sl.json";
-import ibAiHlData from "@/data/raw/ib-ai-hl.json";
-import ibAiSlData from "@/data/raw/ib-ai-sl.json";
 import { storageObjectPath } from "@/lib/assets";
 import { getBank, type BankSlug } from "@/lib/banks";
 
@@ -63,16 +57,6 @@ export type QuestionFilters = {
   sort?: QuestionSort;
 };
 
-const rawBanks: Record<BankSlug, { questions: RawQuestion[] }> = {
-  igcse: igcseData as { questions: RawQuestion[] },
-  "igcse-additional": igcseAdditionalData as { questions: RawQuestion[] },
-  "ib-hl": ibHlData as { questions: RawQuestion[] },
-  "ib-sl": ibSlData as { questions: RawQuestion[] },
-  "ib-ai-hl": ibAiHlData as { questions: RawQuestion[] },
-  "ib-ai-sl": ibAiSlData as { questions: RawQuestion[] },
-};
-
-const cache = new Map<BankSlug, UnifiedQuestion[]>();
 
 function strings(value: unknown): string[] {
   return Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : [];
@@ -175,14 +159,8 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion): UnifiedQuestion {
   };
 }
 
-export function loadBankQuestions(slug: BankSlug): UnifiedQuestion[] {
-  const cached = cache.get(slug);
-  if (cached) return cached;
-
-  const questions = rawBanks[slug].questions
+export function normalizeBankQuestions(slug: BankSlug, rawQuestions: RawQuestion[]): UnifiedQuestion[] {
+  return rawQuestions
     .map((question) => normalizeQuestion(slug, question))
     .sort((a, b) => b.year - a.year || a.paper - b.paper || a.number - b.number);
-
-  cache.set(slug, questions);
-  return questions;
 }

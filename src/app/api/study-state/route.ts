@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getBank, type BankSlug } from "@/lib/banks";
-import { loadBankQuestions } from "@/lib/questions";
+import { loadBankQuestions } from "@/lib/question-loader";
 import { createClient } from "@/lib/supabase/server";
 
 type StudyAction = "save" | "unsave" | "attempt";
@@ -30,7 +30,7 @@ export async function POST(request: Request) {
 
   const bank = body.bank as BankSlug;
   const questionId = body.questionId;
-  if (!loadBankQuestions(bank).some((question) => question.id === questionId)) {
+  if (!(await loadBankQuestions(bank)).some((question) => question.id === questionId)) {
     return NextResponse.json({ error: "Unknown question" }, { status: 400 });
   }
 

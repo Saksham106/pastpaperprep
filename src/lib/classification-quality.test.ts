@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { filterQuestions } from "@/lib/question-filter";
-import { loadBankQuestions } from "@/lib/questions";
+import { loadBankQuestions } from "@/lib/question-fixtures";
 import { getControlledSubtopics } from "@/lib/taxonomy";
 
 type AuditManifest = {

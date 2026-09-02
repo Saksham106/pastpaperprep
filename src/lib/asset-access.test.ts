@@ -11,9 +11,9 @@ const paid: AccessEntitlement[] = [{
 }];
 
 describe("asset request authorization", () => {
-  it("authorizes a public preview question and answer", () => {
+  it("authorizes a public preview question and answer", async () => {
     const questionId = PREVIEW_QUESTION_IDS["ib-sl"][0];
-    const result = authorizeAssetRequests(
+    const result = await authorizeAssetRequests(
       "ib-sl",
       [{ questionId, kind: "question" }, { questionId, kind: "answer" }],
       [],
@@ -25,41 +25,41 @@ describe("asset request authorization", () => {
     expect(result[1].paths.every((path) => path.startsWith("ib-sl/"))).toBe(true);
   });
 
-  it("denies a non-preview question without access", () => {
-    expect(() => authorizeAssetRequests(
+  it("denies a non-preview question without access", async () => {
+    await expect(authorizeAssetRequests(
       "ib-sl",
       [{ questionId: "m26-math-aasl-p1-tza-q4", kind: "question" }],
       [],
       now,
-    )).toThrow("not authorized");
+    )).rejects.toThrow("not authorized");
   });
 
-  it("authorizes paid bank assets but not another bank", () => {
-    expect(authorizeAssetRequests(
+  it("authorizes paid bank assets but not another bank", async () => {
+    await expect(authorizeAssetRequests(
       "ib-sl",
       [{ questionId: "m26-math-aasl-p1-tza-q4", kind: "question" }],
       paid,
       now,
-    )).toHaveLength(1);
-    expect(() => authorizeAssetRequests(
+    )).resolves.toHaveLength(1);
+    await expect(authorizeAssetRequests(
       "ib-hl",
       [{ questionId: "2026-may-tza-p1-q4", kind: "question" }],
       paid,
       now,
-    )).toThrow("not authorized");
+    )).rejects.toThrow("not authorized");
   });
 
-  it("rejects unknown questions, duplicate requests, and oversized batches", () => {
-    expect(() => authorizeAssetRequests("ib-sl", [{ questionId: "missing", kind: "question" }], paid, now)).toThrow("Unknown question");
-    expect(() => authorizeAssetRequests("ib-sl", [
+  it("rejects unknown questions, duplicate requests, and oversized batches", async () => {
+    await expect(authorizeAssetRequests("ib-sl", [{ questionId: "missing", kind: "question" }], paid, now)).rejects.toThrow("Unknown question");
+    await expect(authorizeAssetRequests("ib-sl", [
       { questionId: "m26-math-aasl-p1-tza-q4", kind: "question" },
       { questionId: "m26-math-aasl-p1-tza-q4", kind: "question" },
-    ], paid, now)).toThrow("Duplicate");
-    expect(() => authorizeAssetRequests(
+    ], paid, now)).rejects.toThrow("Duplicate");
+    await expect(authorizeAssetRequests(
       "ib-sl",
       Array.from({ length: 21 }, (_, index) => ({ questionId: `q${index}`, kind: "question" as const })),
       paid,
       now,
-    )).toThrow("between 1 and 20");
+    )).rejects.toThrow("between 1 and 20");
   });
 });

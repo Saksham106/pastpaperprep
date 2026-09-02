@@ -7,7 +7,7 @@ import {
   pdfPageLabel,
   questionsForPdf,
 } from "@/lib/pdf-export";
-import { loadBankQuestions } from "@/lib/questions";
+import { loadBankQuestions } from "@/lib/question-fixtures";
 
 describe("questionsForPdf", () => {
   const questions = loadBankQuestions("ib-sl").slice(0, 4);

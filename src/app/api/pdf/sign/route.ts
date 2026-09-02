@@ -5,7 +5,7 @@ import { QUESTION_ASSET_BUCKET } from "@/lib/assets";
 import { getBank, type BankSlug } from "@/lib/banks";
 import { normalizeEntitlements } from "@/lib/entitlements";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
-import { loadBankQuestions } from "@/lib/questions";
+import { loadBankQuestions } from "@/lib/question-loader";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
@@ -41,7 +41,7 @@ export async function POST(request: Request) {
   ) return NextResponse.json({ error: "Invalid PDF export request" }, { status: 400 });
 
   const bank = body.bank as BankSlug;
-  const canonicalById = new Map(loadBankQuestions(bank).map((question) => [question.id, question]));
+  const canonicalById = new Map((await loadBankQuestions(bank)).map((question) => [question.id, question]));
   const questions = body.questionIds.map((id) => canonicalById.get(id));
   if (questions.some((question) => !question)) {
     return NextResponse.json({ error: "Invalid PDF export request" }, { status: 400 });
@@ -75,7 +75,7 @@ export async function POST(request: Request) {
   const authorized: AuthorizedAssetRequest[] = [];
   try {
     for (let index = 0; index < assetRequests.length; index += AUTHORIZATION_BATCH_SIZE) {
-      authorized.push(...authorizeAssetRequests(
+      authorized.push(...await authorizeAssetRequests(
         bank,
         assetRequests.slice(index, index + AUTHORIZATION_BATCH_SIZE),
         entitlements,
