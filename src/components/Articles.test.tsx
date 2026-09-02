@@ -8,14 +8,14 @@ describe("article library", () => {
     expect(isPublicArticle({ draft: false })).toBe(true);
     expect(isPublicArticle({ draft: true })).toBe(false);
     expect(ALL_ARTICLES).toHaveLength(9);
-    expect(ARTICLES).toHaveLength(7);
+    expect(ARTICLES).toHaveLength(8);
     expect(getArticle("how-to-mark-maths-past-paper-mistake-log")?.draft).toBe(false);
-    expect(getArticle("topic-questions-vs-full-past-papers")).toBeUndefined();
+    expect(getArticle("topic-questions-vs-full-past-papers")?.draft).toBe(false);
     expect(getArticle("best-free-ib-maths-aa-hl-resources")).toBeUndefined();
 
     const topicDraft = ALL_ARTICLES.find(({ slug }) => slug === "topic-questions-vs-full-past-papers");
     const ibDraft = ALL_ARTICLES.find(({ slug }) => slug === "best-free-ib-maths-aa-hl-resources");
-    expect(topicDraft).toMatchObject({ draft: true, publishedAt: "2026-09-02", updatedAt: "2026-09-02" });
+    expect(topicDraft).toMatchObject({ draft: false, publishedAt: "2026-09-02", updatedAt: "2026-09-02" });
     expect(ibDraft).toMatchObject({ draft: true, publishedAt: "2026-09-03", updatedAt: "2026-09-03" });
     expect(topicDraft?.sources).toEqual(expect.arrayContaining([
       expect.objectContaining({ href: "https://www.cambridgeinternational.org/Images/662466-2025-2027-syllabus.pdf" }),
@@ -29,9 +29,10 @@ describe("article library", () => {
   });
 
   it("ships a small, intentional public cluster with unique search-friendly URLs", () => {
-    expect(ARTICLES).toHaveLength(7);
+    expect(ARTICLES).toHaveLength(8);
     expect(new Set(ALL_ARTICLES.map(({ slug }) => slug)).size).toBe(ALL_ARTICLES.length);
     expect(ARTICLES.map(({ slug }) => slug)).toEqual([
+      "topic-questions-vs-full-past-papers",
       "how-to-mark-maths-past-paper-mistake-log",
       "how-to-use-maths-past-papers-effectively",
       "igcse-maths-0580-past-papers-by-topic",

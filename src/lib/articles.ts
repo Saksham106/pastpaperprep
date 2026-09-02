@@ -594,7 +594,7 @@ export const ALL_ARTICLES: readonly Article[] = [
   },
   {
     slug: "topic-questions-vs-full-past-papers",
-    draft: true,
+    draft: false,
     title: "Topic Questions vs Full Past Papers: When to Use Each",
     description: "Know when to leave topic practice, move into mixed questions, or sit a full paper—using visible readiness signals and calm fallback rules.",
     eyebrow: "Revision decision guide",
