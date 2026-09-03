@@ -707,7 +707,7 @@ export const ALL_ARTICLES: readonly Article[] = [
   },
   {
     slug: "best-free-ib-maths-aa-hl-resources",
-    draft: true,
+    draft: false,
     title: "Best Free IB Maths AA HL Practice Resources",
     description: "A careful comparison of official IB materials, Christos Nikolaidis, Revision Village, and PastPaperPrep for affordable Maths AA HL practice.",
     eyebrow: "IB Mathematics AA HL",
