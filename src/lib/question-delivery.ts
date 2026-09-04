@@ -3,7 +3,7 @@ import {
   canViewQuestionAsset,
   type AccessEntitlement,
 } from "@/lib/access";
-import type { UnifiedQuestion } from "@/lib/questions";
+import type { UnifiedQuestion, QuestionRichDetails } from "@/lib/questions";
 
 function publicSearchText(question: UnifiedQuestion): string {
   return [
@@ -61,4 +61,19 @@ export function prepareQuestionsForDelivery(
         : publicSearchText(question),
     };
   });
+}
+
+export function getQuestionRichDetails(
+  question: UnifiedQuestion,
+  entitlements: readonly AccessEntitlement[],
+  now = new Date(),
+): QuestionRichDetails {
+  const delivered = prepareQuestionsForDelivery([question], entitlements, now)[0];
+  return {
+    summary: delivered.summary,
+    accessibleText: delivered.accessibleText,
+    solution: delivered.solution,
+    sourceQuestionUrl: delivered.sourceQuestionUrl,
+    sourceMarkSchemeUrl: delivered.sourceMarkSchemeUrl,
+  };
 }

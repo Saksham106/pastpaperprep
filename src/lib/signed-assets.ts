@@ -1,4 +1,5 @@
 import type { AssetKind, AssetRequest } from "@/lib/asset-access";
+import type { QuestionRichDetails } from "@/lib/questions";
 import type { BankSlug } from "@/lib/banks";
 
 const SIGN_BATCH_SIZE = 20;
@@ -8,6 +9,7 @@ type Fetcher = (input: RequestInfo | URL, init?: RequestInit) => Promise<Respons
 export type SignedAsset = AssetRequest & {
   urls: string[];
   expiresAt: number;
+  details?: QuestionRichDetails;
 };
 
 export function signedAssetKey(questionId: string, kind: AssetKind): string {
@@ -18,14 +20,25 @@ export function isSignedAssetFresh(asset: SignedAsset | undefined, now = Date.no
   return Boolean(asset && asset.expiresAt > now);
 }
 
-function validAsset(value: unknown): value is AssetRequest & { urls: string[] } {
+function validDetails(value: unknown): value is QuestionRichDetails {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return false;
+  const details = value as Record<string, unknown>;
+  return typeof details.summary === "string" &&
+    typeof details.accessibleText === "string" &&
+    (details.solution === null || typeof details.solution === "string") &&
+    (details.sourceQuestionUrl === null || typeof details.sourceQuestionUrl === "string") &&
+    (details.sourceMarkSchemeUrl === null || typeof details.sourceMarkSchemeUrl === "string");
+}
+
+function validAsset(value: unknown): value is AssetRequest & { urls: string[]; details?: QuestionRichDetails } {
   if (!value || typeof value !== "object" || Array.isArray(value)) return false;
   const asset = value as Record<string, unknown>;
   return (
     typeof asset.questionId === "string" &&
     (asset.kind === "question" || asset.kind === "answer") &&
     Array.isArray(asset.urls) &&
-    asset.urls.every((url) => typeof url === "string" && /^https:\/\//.test(url))
+    asset.urls.every((url) => typeof url === "string" && /^https:\/\//.test(url)) &&
+    (asset.details === undefined || validDetails(asset.details))
   );
 }
 

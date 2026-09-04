@@ -5,10 +5,11 @@ import {
 } from "@/lib/access";
 import type { BankSlug } from "@/lib/banks";
 import { loadBankQuestions } from "@/lib/question-loader";
+import type { UnifiedQuestion } from "@/lib/questions";
 
 export type AssetKind = "question" | "answer";
 export type AssetRequest = { questionId: string; kind: AssetKind };
-export type AuthorizedAssetRequest = AssetRequest & { paths: string[] };
+export type AuthorizedAssetRequest = AssetRequest & { paths: string[]; question: UnifiedQuestion };
 
 export async function authorizeAssetRequests(
   bankSlug: BankSlug,
@@ -46,6 +47,7 @@ export async function authorizeAssetRequests(
 
     return {
       ...request,
+      question,
       paths: request.kind === "question"
         ? question.questionAssetPaths
         : question.markschemeAssetPaths,

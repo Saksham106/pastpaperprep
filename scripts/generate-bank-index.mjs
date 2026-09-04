@@ -1,0 +1,122 @@
+#!/usr/bin/env node
+import { createHash } from "node:crypto";
+import { gzipSync } from "node:zlib";
+import { mkdir, readdir, readFile, unlink, writeFile } from "node:fs/promises";
+import { join } from "node:path";
+
+const root = join(import.meta.dirname, "..");
+const outputDirectory = join(root, "public", "bank-index");
+const version = 1;
+const banks = ["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl"];
+const forbiddenKeys = [
+  "summary", "accessibleText", "searchText", "solution", "sourceQuestionUrl",
+  "sourceMarkSchemeUrl", "questionImages", "markschemeImages", "questionAssetPaths",
+  "markschemeAssetPaths",
+];
+
+function strings(value) {
+  return Array.isArray(value) ? value.filter((item) => typeof item === "string") : [];
+}
+
+function integer(value) {
+  return typeof value === "number" ? value : Number.parseInt(String(value), 10) || 0;
+}
+
+function metadataFromRaw(raw) {
+  const officialMarkscheme = raw.officialMarkscheme && typeof raw.officialMarkscheme === "object"
+    ? raw.officialMarkscheme
+    : {};
+  const controlledSkills = strings(raw.skills);
+  const studentSubtopics = strings(raw.subtopics);
+  const detailedSubtopics = strings(raw.detailedSubtopics);
+  const subtopics = [...new Set(studentSubtopics.length ? studentSubtopics : controlledSkills)];
+  const skillSeed = controlledSkills.length
+    ? controlledSkills
+    : detailedSubtopics.length
+      ? detailedSubtopics
+      : subtopics;
+  const skills = [...new Set([
+    ...skillSeed,
+    ...controlledSkills,
+    ...detailedSubtopics,
+    ...subtopics,
+  ])];
+
+  return {
+    id: typeof raw.id === "string" ? raw.id : "",
+    number: integer(raw.number),
+    paper: integer(raw.paper),
+    year: integer(raw.year),
+    session: typeof raw.session === "string" ? raw.session : "",
+    primaryTopic: typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other",
+    secondaryTopics: strings(raw.secondaryTopics),
+    skills,
+    subtopics,
+    subject: (typeof raw.subject === "string" && raw.subject) || (typeof raw.course === "string" ? raw.course : ""),
+    courseEra: typeof raw.courseEra === "string" ? raw.courseEra : "",
+    option: typeof raw.p3Option === "string" ? raw.p3Option : "",
+    zone: (typeof raw.timezone === "string" && raw.timezone) || (typeof raw.zone === "string" ? raw.zone : ""),
+    component: typeof raw.component === "string" ? raw.component : "",
+    calculator: typeof raw.calculator === "boolean" ? raw.calculator : null,
+    marks: typeof raw.marks === "number" ? raw.marks : null,
+    questionImageCount: strings(raw.questionImages).length,
+    markschemeImageCount: strings(raw.markschemeImages).length + strings(officialMarkscheme.images).length,
+  };
+}
+
+function sortQuestions(a, b) {
+  return b.year - a.year || a.paper - b.paper || a.number - b.number;
+}
+
+function assertSafe(serialized, rawQuestions) {
+  for (const key of forbiddenKeys) {
+    if (serialized.includes(`"${key}"`)) throw new Error(`Public index contains protected key: ${key}`);
+  }
+  for (const raw of rawQuestions) {
+    const protectedValues = [
+      raw.summary,
+      raw.accessibleText,
+      raw.solution,
+      raw.independentSolution,
+      raw.sourceQuestionUrl,
+      raw.sourceUrl,
+      raw.pdfUrl,
+      raw.sourceMarkSchemeUrl,
+      raw.markschemeUrl,
+      ...strings(raw.questionImages),
+      ...strings(raw.markschemeImages),
+    ];
+    for (const value of protectedValues) {
+      if (typeof value === "string" && value.trim().length >= 12 && serialized.includes(value)) {
+        throw new Error(`Public index contains protected value from ${raw.id}`);
+      }
+    }
+  }
+}
+
+await mkdir(outputDirectory, { recursive: true });
+const existingFiles = await readdir(outputDirectory);
+await Promise.all(existingFiles
+  .filter((file) => banks.some((bank) => file.startsWith(`${bank}.v${version}-`) && file.endsWith(".json")))
+  .map((file) => unlink(join(outputDirectory, file))));
+
+const manifest = {};
+for (const bank of banks) {
+  const rawBank = JSON.parse(await readFile(join(root, "src", "data", "raw", `${bank}.json`), "utf8"));
+  const rawQuestions = rawBank.questions;
+  const questions = rawQuestions.map(metadataFromRaw).sort(sortQuestions);
+  const payload = { version, bank, questions };
+  const serialized = `${JSON.stringify(payload)}\n`;
+  assertSafe(serialized, rawQuestions);
+  const digest = createHash("sha256").update(serialized).digest("hex").slice(0, 12);
+  const filename = `${bank}.v${version}-${digest}.json`;
+  const outputPath = join(outputDirectory, filename);
+  await writeFile(outputPath, serialized, "utf8");
+  manifest[bank] = filename;
+  const rawBytes = Buffer.byteLength(serialized);
+  const gzipBytes = gzipSync(serialized, { level: 9 }).byteLength;
+  console.log(`${bank}: ${rawBytes} bytes raw, ${gzipBytes} bytes gzip, sha256=${digest}`);
+}
+
+const manifestSource = `// Generated by scripts/generate-bank-index.mjs; do not edit.\nexport const PUBLIC_BANK_INDEX_FILES = ${JSON.stringify(manifest, null, 2)} as const;\n`;
+await writeFile(join(root, "src", "lib", "bank-index-manifest.ts"), manifestSource, "utf8");

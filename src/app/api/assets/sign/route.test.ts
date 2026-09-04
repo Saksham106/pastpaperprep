@@ -76,8 +76,14 @@ describe("POST /api/assets/sign", () => {
     }));
 
     expect(response.status).toBe(200);
+    expect(response.headers.get("cache-control")).toBe("private, no-store, max-age=0");
     expect(rpc).toHaveBeenCalledWith("consume_download_allowance", { p_asset_count: 2, p_pdf_question_count: 0 });
     expect(createSignedUrls).toHaveBeenCalledOnce();
+    const payload = await response.json();
+    expect(payload.assets[0].details).toEqual(expect.objectContaining({
+      accessibleText: expect.any(String),
+    }));
+    expect(payload.assets[0].details).not.toHaveProperty("searchText");
   });
 
   it("does not charge the premium allowance for preview assets", async () => {

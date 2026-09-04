@@ -5,6 +5,7 @@ import { join } from "node:path";
 import { QuestionExplorer } from "@/components/QuestionExplorer";
 import { PREVIEW_QUESTION_IDS } from "@/lib/access";
 import { prepareQuestionsForDelivery } from "@/lib/question-delivery";
+import { toPublicQuestionMetadata } from "@/lib/question-index";
 import { loadBankQuestions } from "@/lib/question-fixtures";
 
 describe("QuestionExplorer", () => {
@@ -246,5 +247,114 @@ describe("QuestionExplorer", () => {
     expect(document.body.style.overflow).toBe("");
     expect(screen.getByRole("button", { name: /download pdf/i })).toHaveFocus();
     await waitFor(() => expect(fetch).toHaveBeenCalled());
+  });
+
+  it("renders the server page immediately, then expands to the deferred metadata index", async () => {
+    const all = loadBankQuestions("ib-sl");
+    const initial = prepareQuestionsForDelivery(all.slice(0, 1), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const index = { version: 1, bank: "ib-sl", questions: all.slice(0, 2).map(toPublicQuestionMetadata) };
+    vi.stubGlobal("fetch", vi.fn(async (input, init) => {
+      if (!init?.body) return new Response(JSON.stringify(index), { status: 200 });
+      const body = JSON.parse(String(init.body));
+      return new Response(JSON.stringify({ expiresIn: 600, assets: body.requests.map((request: { questionId: string; kind: string }) => ({ ...request, urls: [`https://assets.example/${request.questionId}.webp`] })) }), { status: 200 });
+    }));
+
+    render(<QuestionExplorer questions={initial} bankSlug="ib-sl" indexUrl="/bank-index/ib-sl.v1-test.json" access={fullAccess} />);
+    expect(screen.getByText("1 question")).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText("2 questions")).toBeInTheDocument());
+    fireEvent.click(screen.getByRole("button", { name: /more filters/i }));
+    expect(screen.getByRole("checkbox", { name: /years:/i })).toBeInTheDocument();
+  });
+
+  it("keeps the first page usable and offers retry when the metadata index fails", async () => {
+    let indexAttempts = 0;
+    const initial = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 1), []);
+    const index = { version: 1, bank: "ib-sl", questions: loadBankQuestions("ib-sl").slice(0, 2).map(toPublicQuestionMetadata) };
+    vi.stubGlobal("fetch", vi.fn(async (input, init) => {
+      if (!init?.body) {
+        indexAttempts += 1;
+        return indexAttempts === 1 ? new Response("unavailable", { status: 503 }) : new Response(JSON.stringify(index), { status: 200 });
+      }
+      const body = JSON.parse(String(init.body));
+      return new Response(JSON.stringify({ expiresIn: 600, assets: body.requests.map((request: { questionId: string; kind: string }) => ({ ...request, urls: [`https://assets.example/${request.questionId}.webp`] })) }), { status: 200 });
+    }));
+
+    render(<QuestionExplorer questions={initial} bankSlug="ib-sl" indexUrl="/bank-index/ib-sl.v1-test.json" access={fullAccess} />);
+    expect(await screen.findByRole("alert")).toHaveTextContent(/full question index could not load/i);
+    fireEvent.click(screen.getByRole("button", { name: /retry question index/i }));
+    await waitFor(() => expect(screen.getByText("2 questions")).toBeInTheDocument());
+  });
+
+  it("applies matching IDs from the authorization-aware search endpoint", async () => {
+    const all = loadBankQuestions("ib-sl");
+    const initial = prepareQuestionsForDelivery([{ ...all[0], searchText: "calculus" }], [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const searchResultId = all[1].id;
+    const indexQuestions = all.slice(0, 2).map(toPublicQuestionMetadata).map((question, index) => index === 0 ? { ...question, primaryTopic: "Calculus" } : { ...question, primaryTopic: "Algebra" });
+    vi.stubGlobal("fetch", vi.fn(async (input, init) => {
+      const url = String(input);
+      if (url.startsWith("/bank-index/")) {
+        return new Response(JSON.stringify({ version: 1, bank: "ib-sl", questions: indexQuestions }), { status: 200 });
+      }
+      if (url.startsWith("/api/questions/search")) {
+        return new Response(JSON.stringify({ ids: [searchResultId] }), { status: 200 });
+      }
+      const body = JSON.parse(String(init?.body));
+      return new Response(JSON.stringify({ expiresIn: 600, assets: body.requests.map((request: { questionId: string; kind: string }) => ({ ...request, urls: [`https://assets.example/${request.questionId}.webp`] })) }), { status: 200 });
+    }));
+
+    render(<QuestionExplorer questions={initial} bankSlug="ib-sl" indexUrl="/bank-index/ib-sl.v1.json" access={fullAccess} initialState={{ search: "calculus", sort: "paper", filters: {}, freeOnly: false, savedOnly: false, visible: 24 }} />);
+    expect(screen.getByText("1 question")).toBeInTheDocument();
+    await waitFor(() => expect(fetch).toHaveBeenCalledWith(expect.stringContaining("/api/questions/search?bank=ib-sl&q=calculus"), expect.objectContaining({ cache: "no-store" })));
+    expect(screen.getByRole("button", { name: new RegExp(`Save question ${searchResultId}`) })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: new RegExp(`Save question ${all[0].id}`) })).not.toBeInTheDocument();
+  });
+
+  it("falls back to local metadata results when remote search fails", async () => {
+    const all = loadBankQuestions("ib-sl");
+    const initial = prepareQuestionsForDelivery([{ ...all[0], searchText: "calculus" }], [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const indexQuestions = all.slice(0, 1).map(toPublicQuestionMetadata).map((question) => ({ ...question, primaryTopic: "Calculus" }));
+    vi.stubGlobal("fetch", vi.fn(async (input, init) => {
+      const url = String(input);
+      if (url.startsWith("/bank-index/")) return new Response(JSON.stringify({ version: 1, bank: "ib-sl", questions: indexQuestions }), { status: 200 });
+      if (url.startsWith("/api/questions/search")) return new Response("unavailable", { status: 503 });
+      const body = JSON.parse(String(init?.body));
+      return new Response(JSON.stringify({ expiresIn: 600, assets: body.requests.map((request: { questionId: string; kind: string }) => ({ ...request, urls: [`https://assets.example/${request.questionId}.webp`] })) }), { status: 200 });
+    }));
+
+    render(<QuestionExplorer questions={initial} bankSlug="ib-sl" indexUrl="/bank-index/ib-sl.v1.json" access={fullAccess} initialState={{ search: "calculus", sort: "paper", filters: {}, freeOnly: false, savedOnly: false, visible: 24 }} />);
+    await waitFor(() => expect(fetch).toHaveBeenCalledWith(expect.stringContaining("/api/questions/search?bank=ib-sl&q=calculus"), expect.objectContaining({ cache: "no-store" })));
+    expect(screen.getByRole("button", { name: new RegExp(`Save question ${all[0].id}`) })).toBeInTheDocument();
+  });
+
+  it("debounces search and aborts a stale query", async () => {
+    vi.useFakeTimers();
+    const requests: Array<{ input: string; signal: AbortSignal }> = [];
+    vi.stubGlobal("fetch", vi.fn((input, init) => {
+      const url = String(input);
+      if (!init?.body && url.startsWith("/bank-index/")) {
+        return Promise.resolve(new Response(JSON.stringify({ version: 1, bank: "ib-sl", questions: [] }), { status: 200 }));
+      }
+      if (url.startsWith("/api/questions/search")) {
+        requests.push({ input: url, signal: init?.signal as AbortSignal });
+        return new Promise<Response>((_, reject) => {
+          init?.signal?.addEventListener("abort", () => reject(new DOMException("Aborted", "AbortError")));
+        });
+      }
+      return Promise.resolve(new Response(JSON.stringify({ expiresIn: 600, assets: [] }), { status: 200 }));
+    }));
+
+    render(<QuestionExplorer questions={[]} bankSlug="ib-sl" indexUrl="/bank-index/ib-sl.v1.json" access={fullAccess} />);
+    const search = screen.getByLabelText(/search questions/i);
+    fireEvent.change(search, { target: { value: "first" } });
+    await vi.advanceTimersByTimeAsync(250);
+    expect(requests).toHaveLength(1);
+    fireEvent.change(search, { target: { value: "second" } });
+    await vi.advanceTimersByTimeAsync(250);
+
+    expect(requests).toHaveLength(2);
+    expect(requests[0].signal.aborted).toBe(true);
+    expect(requests[0].input).toContain("q=first");
+    expect(requests[1].input).toContain("q=second");
+    vi.useRealTimers();
   });
 });
