@@ -76,18 +76,24 @@ describe("QuestionExplorer", () => {
     expect(await screen.findByText(/the tangent through/i)).toBeInTheDocument();
   });
 
-  it("keeps the transcript secondary and exposes subtopics and PDF controls", async () => {
-    const questions = prepareQuestionsForDelivery(loadBankQuestions("igcse").slice(0, 40), [{ productId: "bank_igcse", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+  it("hides source paper, mark scheme, and transcript controls without removing their data", async () => {
+    const sourceQuestion = loadBankQuestions("igcse").find((question) =>
+      question.sourceQuestionUrl && question.sourceMarkSchemeUrl && question.accessibleText,
+    );
+    expect(sourceQuestion).toBeDefined();
+    const questions = prepareQuestionsForDelivery([sourceQuestion!], [{ productId: "bank_igcse", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    expect(questions[0].sourceQuestionUrl).toBeTruthy();
+    expect(questions[0].sourceMarkSchemeUrl).toBeTruthy();
+    expect(questions[0].accessibleText).toBeTruthy();
+
     render(<QuestionExplorer questions={questions} access={fullAccess} />);
 
+    expect(screen.queryByRole("link", { name: /source paper/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /mark scheme/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /transcript/i })).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: /download pdf/i })).toBeInTheDocument();
-    expect(screen.getAllByRole("button", { name: /show transcript/i })[0]).toHaveAttribute("aria-expanded", "false");
-    expect(screen.queryByText(/searchable transcript may contain extraction errors/i)).not.toBeInTheDocument();
     expect(screen.getByRole("group", { name: /subtopics/i })).toBeInTheDocument();
-    expect((await screen.findAllByRole("img", { name: /original question/i })).length).toBeGreaterThan(0);
-    const transcriptButton = screen.getAllByRole("button", { name: /show transcript/i })[0];
-    expect(transcriptButton).toHaveClass("transcript-icon-button");
-    expect(transcriptButton.closest(".source-links")).not.toBeNull();
+    expect(await screen.findByRole("img", { name: /original question/i })).toBeInTheDocument();
   });
 
   it("exposes Cambridge component, variant, and calculator filters for Additional Mathematics", () => {
