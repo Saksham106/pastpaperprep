@@ -42,6 +42,9 @@ yarn-error.log*
 # supabase cli
 supabase/.temp/
 
+# generated bank metadata
+/public/bank-index/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

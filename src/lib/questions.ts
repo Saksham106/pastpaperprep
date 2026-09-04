@@ -33,6 +33,8 @@ export type UnifiedQuestion = {
   sourceMarkSchemeUrl: string | null;
 };
 
+export type QuestionRichDetails = Pick<UnifiedQuestion, "summary" | "accessibleText" | "solution" | "sourceQuestionUrl" | "sourceMarkSchemeUrl">;
+
 type RawQuestion = Record<string, unknown>;
 
 export type QuestionSort = "paper" | "topic" | "marks-desc" | "marks-asc";

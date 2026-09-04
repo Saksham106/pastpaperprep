@@ -32,4 +32,12 @@ describe("serverless performance boundaries", () => {
     expect(questions).not.toContain("@/data/raw/");
     expect(questions).not.toContain("const rawBanks");
   });
+
+  it("keeps bank route delivery bounded to the first matching page", () => {
+    const page = source("src/app/banks/[slug]/page.tsx");
+    expect(page).not.toContain("prepareQuestionsForDelivery");
+    expect(page).toContain("const filterableQuestions = allQuestions.map");
+    expect(page).toContain("mergeQuestionRichDetails");
+    expect(page).toMatch(/const initialQuestions = initialMatches\.slice\(0, EXPLORER_PAGE_SIZE\)/);
+  });
 });

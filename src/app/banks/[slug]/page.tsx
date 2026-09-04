@@ -6,12 +6,15 @@ import { QuestionExplorer } from "@/components/QuestionExplorer";
 import { BankSeoContent } from "@/components/BankSeoContent";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
-import { canExportPdf, hasBankAccess } from "@/lib/access";
+import { canExportPdf, hasBankAccess, isPreviewQuestion } from "@/lib/access";
 import { BANKS, getBank, type BankSlug } from "@/lib/banks";
+import { EXPLORER_PAGE_SIZE, parseExplorerState, type ExplorerSearchParams } from "@/lib/explorer-state";
+import { filterQuestions } from "@/lib/question-filter";
 import { normalizeEntitlements } from "@/lib/entitlements";
-import { parseExplorerState, type ExplorerSearchParams } from "@/lib/explorer-state";
-import { prepareQuestionsForDelivery } from "@/lib/question-delivery";
+import { getQuestionRichDetails } from "@/lib/question-delivery";
+import { mergeQuestionRichDetails, publicBankIndexUrl, publicMetadataToQuestion, toPublicQuestionMetadata } from "@/lib/question-index";
 import { loadBankQuestions } from "@/lib/question-loader";
+import { searchQuestionIds } from "@/lib/question-search";
 import { hasSupabaseAuthCookie } from "@/lib/supabase/proxy";
 import { createClient } from "@/lib/supabase/server";
 
@@ -57,9 +60,29 @@ export default async function BankPage({ params, searchParams }: { params: Promi
     ])
     : [{ data: [] }, { data: [] }, { data: [] }];
   const entitlements = normalizeEntitlements(entitlementRows ?? []);
-  const questions = prepareQuestionsForDelivery(await loadBankQuestions(slug), entitlements);
   const bankAccess = hasBankAccess(slug, entitlements);
+  const allQuestions = await loadBankQuestions(slug);
+  const filterableQuestions = allQuestions.map((question) => publicMetadataToQuestion(toPublicQuestionMetadata(question), slug));
   const initialState = parseExplorerState(rawSearchParams, { defaultFreeOnly: !bankAccess });
+  const savedIdSet = new Set((savedRows ?? []).map((row) => row.question_id));
+  const initialSearchIds = initialState.search
+    ? new Set(searchQuestionIds(allQuestions, initialState.search, entitlements))
+    : null;
+  const initialMatches = filterQuestions(filterableQuestions, {
+    ...initialState.filters,
+    search: undefined,
+    sort: initialState.sort,
+  })
+    .filter((question) => !initialSearchIds || initialSearchIds.has(question.id))
+    .filter((question) => !initialState.freeOnly || isPreviewQuestion(slug, question.id))
+    .filter((question) => !initialState.savedOnly || savedIdSet.has(question.id));
+  const sourceById = new Map(allQuestions.map((question) => [question.id, question]));
+  const initialQuestions = initialMatches.slice(0, EXPLORER_PAGE_SIZE).map((question) => {
+    const sourceQuestion = sourceById.get(question.id);
+    return sourceQuestion
+      ? mergeQuestionRichDetails(question, getQuestionRichDetails(sourceQuestion, entitlements))
+      : question;
+  });
 
   return (
     <>
@@ -98,7 +121,7 @@ export default async function BankPage({ params, searchParams }: { params: Promi
         </div>
       </section>
       <div className="shell">
-        <QuestionExplorer questions={questions} access={{ authenticated: Boolean(userId), bankAccess, canExportPdf: canExportPdf(slug, entitlements) }} exportMarker={exportMarker} initialState={initialState} studyState={{ savedIds: (savedRows ?? []).map((row) => row.question_id), attemptedIds: (attemptRows ?? []).map((row) => row.question_id) }} />
+        <QuestionExplorer questions={initialQuestions} bankSlug={slug} indexUrl={publicBankIndexUrl(slug)} access={{ authenticated: Boolean(userId), bankAccess, canExportPdf: canExportPdf(slug, entitlements) }} exportMarker={exportMarker} initialState={initialState} studyState={{ savedIds: (savedRows ?? []).map((row) => row.question_id), attemptedIds: (attemptRows ?? []).map((row) => row.question_id) }} />
         <BankSeoContent bank={bank} />
       </div>
     </>

@@ -4,10 +4,15 @@ import { authorizeAssetRequests, type AssetRequest } from "@/lib/asset-access";
 import { QUESTION_ASSET_BUCKET } from "@/lib/assets";
 import { getBank, type BankSlug } from "@/lib/banks";
 import { normalizeEntitlements } from "@/lib/entitlements";
+import { getQuestionRichDetails } from "@/lib/question-delivery";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
+
+const PRIVATE_RESPONSE_INIT = {
+  headers: { "Cache-Control": "private, no-store, max-age=0" },
+} as const;
 
 type SignRequestBody = {
   bank?: unknown;
@@ -66,7 +71,15 @@ export async function POST(request: Request) {
     .flatMap((item) => item.paths))];
 
   if (!paths.length) {
-    return NextResponse.json({ assets: authorized.map((item) => ({ ...item, urls: [] })) });
+    return NextResponse.json({
+      expiresIn: 600,
+      assets: authorized.map((item) => ({
+        questionId: item.questionId,
+        kind: item.kind,
+        details: getQuestionRichDetails(item.question, entitlements),
+        urls: [],
+      })),
+    }, PRIVATE_RESPONSE_INIT);
   }
 
   try {
@@ -95,9 +108,10 @@ export async function POST(request: Request) {
       assets: authorized.map((item) => ({
         questionId: item.questionId,
         kind: item.kind,
+        details: getQuestionRichDetails(item.question, entitlements),
         urls: item.paths.map((path) => urlByPath.get(path)),
       })),
-    });
+    }, PRIVATE_RESPONSE_INIT);
   } catch {
     return NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503 });
   }

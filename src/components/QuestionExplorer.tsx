@@ -10,7 +10,9 @@ import { isPreviewQuestion } from "@/lib/access";
 import { filterQuestions, questionZoneValue } from "@/lib/question-filter";
 import { EXPLORER_PAGE_SIZE, serializeExplorerState, type ExplorerFilterKey, type ExplorerState } from "@/lib/explorer-state";
 import type { QuestionFilters, QuestionSort, UnifiedQuestion } from "@/lib/questions";
+import type { BankSlug } from "@/lib/banks";
 import { fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
+import { mergeQuestionRichDetails, publicMetadataToQuestion, type PublicBankIndex } from "@/lib/question-index";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy";
 
 type MultiKey = ExplorerFilterKey;
@@ -135,18 +137,27 @@ const EMPTY_STUDY_STATE: ExplorerStudyState = { savedIds: [], attemptedIds: [] }
 
 export function QuestionExplorer({
   questions,
+  bankSlug,
+  indexUrl,
   access,
   exportMarker,
   initialState = DEFAULT_EXPLORER_STATE,
   studyState = EMPTY_STUDY_STATE,
 }: {
-  questions: UnifiedQuestion[];
-  access: ExplorerAccess;
+questions: UnifiedQuestion[];
+bankSlug?: BankSlug;
+indexUrl?: string;
+access: ExplorerAccess;
   exportMarker?: string;
   initialState?: ExplorerState;
   studyState?: ExplorerStudyState;
 }) {
   const [search, setSearch] = useState(initialState.search);
+  const [catalogQuestions, setCatalogQuestions] = useState(questions);
+  const [indexError, setIndexError] = useState("");
+  const [indexAttempt, setIndexAttempt] = useState(0);
+  const [indexLoaded, setIndexLoaded] = useState(!indexUrl);
+  const [searchResult, setSearchResult] = useState<{ query: string; ids: Set<string> } | null>(null);
   const [sort, setSort] = useState<QuestionSort>(initialState.sort);
   const [filters, setFilters] = useState<Pick<QuestionFilters, MultiKey>>(initialState.filters);
   const [visible, setVisible] = useState(initialState.visible);
@@ -177,11 +188,11 @@ export function QuestionExplorer({
   const pdfDialogRef = useRef<HTMLElement>(null);
   const pdfUpgradeDialogRef = useRef<HTMLElement>(null);
 
-  const bank = questions[0]?.bankSlug;
+  const bank = bankSlug ?? questions[0]?.bankSlug;
   const isCambridge = bank === "igcse" || bank === "igcse-additional";
   const subtopicGroups = useMemo(
-    () => getSubtopicGroups(questions, filters.topics ?? [], filters.subtopics ?? []),
-    [questions, filters.topics, filters.subtopics],
+    () => getSubtopicGroups(catalogQuestions, filters.topics ?? [], filters.subtopics ?? []),
+    [catalogQuestions, filters.topics, filters.subtopics],
   );
   const visibleSubtopics = filters.topics?.length
     ? showAllSubtopics
@@ -189,22 +200,29 @@ export function QuestionExplorer({
       : [...subtopicGroups.relevant, ...subtopicGroups.selectedOutsideContext]
     : subtopicGroups.all;
   const options = useMemo(() => ({
-    topics: getTopicOptions(questions),
-    years: unique(questions, (q) => String(q.year)).reverse(),
-    papers: unique(questions, (q) => String(q.paper)),
-    sessions: unique(questions, (q) => q.session),
-    subjects: unique(questions, (q) => q.subject),
-    zones: unique(questions, questionZoneValue),
-    courseEras: unique(questions, (q) => q.courseEra),
-    options: unique(questions, (q) => q.option),
-    components: unique(questions, (q) => q.component),
-  }), [questions]);
+    topics: getTopicOptions(catalogQuestions),
+    years: unique(catalogQuestions, (q) => String(q.year)).reverse(),
+    papers: unique(catalogQuestions, (q) => String(q.paper)),
+    sessions: unique(catalogQuestions, (q) => q.session),
+    subjects: unique(catalogQuestions, (q) => q.subject),
+    zones: unique(catalogQuestions, questionZoneValue),
+    courseEras: unique(catalogQuestions, (q) => q.courseEra),
+    options: unique(catalogQuestions, (q) => q.option),
+    components: unique(catalogQuestions, (q) => q.component),
+  }), [catalogQuestions]);
 
   const filtered = useMemo(() => {
-    const matching = filterQuestions(questions, { ...filters, search, sort });
+    const normalizedSearch = search.trim().toLocaleLowerCase();
+    const remoteSearch = Boolean(
+      bankSlug && normalizedSearch && indexLoaded && searchResult?.query === normalizedSearch,
+    );
+    const matching = remoteSearch
+      ? filterQuestions(catalogQuestions, { ...filters, search: undefined, sort })
+        .filter((question) => searchResult!.ids.has(question.id))
+      : filterQuestions(catalogQuestions, { ...filters, search, sort });
     const accessible = freeOnly ? matching.filter((question) => isPreviewQuestion(question.bankSlug, question.id)) : matching;
     return savedOnly ? accessible.filter((question) => savedIds.has(question.id)) : accessible;
-  }, [questions, filters, freeOnly, savedIds, savedOnly, search, sort]);
+  }, [bankSlug, catalogQuestions, filters, freeOnly, indexLoaded, savedIds, savedOnly, search, searchResult, sort]);
   const shownQuestions = useMemo(() => filtered.slice(0, visible), [filtered, visible]);
   const activeCount = Object.values(filters).reduce((count, values) => count + (values?.length ?? 0), (freeOnly ? 1 : 0) + (savedOnly ? 1 : 0));
   const questionAssetRequests = useMemo(() => shownQuestions
@@ -218,6 +236,77 @@ export function QuestionExplorer({
     const timer = window.setInterval(() => setAssetEpoch(Date.now()), 30_000);
     return () => window.clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    if (!bank || !indexUrl) return;
+    let cancelled = false;
+    fetch(indexUrl, { cache: "force-cache" })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Question index unavailable");
+        const payload = await response.json() as Partial<PublicBankIndex>;
+        if (payload.version !== 1 || payload.bank !== bank || !Array.isArray(payload.questions)) {
+          throw new Error("Invalid question index");
+        }
+        return payload.questions.map((metadata) => publicMetadataToQuestion(metadata, bank));
+      })
+      .then((metadataQuestions) => {
+        if (cancelled) return;
+        const richInitial = new Map(questions.map((question) => [question.id, question]));
+        setCatalogQuestions(metadataQuestions.map((metadataQuestion) => {
+          const initialQuestion = richInitial.get(metadataQuestion.id);
+          return initialQuestion ? mergeQuestionRichDetails(metadataQuestion, {
+            summary: initialQuestion.summary,
+            accessibleText: initialQuestion.accessibleText,
+            solution: initialQuestion.solution,
+            sourceQuestionUrl: initialQuestion.sourceQuestionUrl,
+            sourceMarkSchemeUrl: initialQuestion.sourceMarkSchemeUrl,
+          }) : metadataQuestion;
+        }));
+        setIndexLoaded(true);
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setIndexError("The full question index could not load.");
+          setIndexLoaded(true);
+        }
+      });
+    return () => { cancelled = true; };
+  }, [bank, indexAttempt, indexUrl, questions]);
+
+  useEffect(() => {
+    const normalizedSearch = search.trim().toLocaleLowerCase();
+    if (!bankSlug || !bank || !normalizedSearch) {
+      return;
+    }
+
+    const controller = new AbortController();
+    const timer = window.setTimeout(() => {
+      fetch(`/api/questions/search?bank=${encodeURIComponent(bank)}&q=${encodeURIComponent(search.trim())}`, {
+        signal: controller.signal,
+        cache: "no-store",
+      })
+        .then(async (response) => {
+          if (!response.ok) throw new Error("Question search unavailable");
+          const payload = await response.json() as { ids?: unknown };
+          if (!Array.isArray(payload.ids) || payload.ids.some((id) => typeof id !== "string")) {
+            throw new Error("Invalid question search response");
+          }
+          return payload.ids as string[];
+        })
+        .then((ids) => {
+          if (!controller.signal.aborted) setSearchResult({ query: normalizedSearch, ids: new Set(ids) });
+        })
+        .catch((error: unknown) => {
+          if (error instanceof DOMException && error.name === "AbortError") return;
+          if (!controller.signal.aborted) setSearchResult(null);
+        });
+    }, 250);
+
+    return () => {
+      window.clearTimeout(timer);
+      controller.abort();
+    };
+  }, [bank, bankSlug, search]);
 
   useEffect(() => {
     if (!filtersOpen) return;
@@ -333,6 +422,13 @@ export function QuestionExplorer({
       .then((assets) => {
         if (cancelled) return;
         setSignedAssets((current) => new Map([...current, ...assets]));
+        const detailsById = new Map([...assets.values()].flatMap((asset) => asset.details ? [[asset.questionId, asset.details] as const] : []));
+        if (detailsById.size) {
+          setCatalogQuestions((current) => current.map((question) => {
+            const details = detailsById.get(question.id);
+            return details ? mergeQuestionRichDetails(question, details) : question;
+          }));
+        }
         setAssetError("");
       })
       .catch(() => {
@@ -433,7 +529,7 @@ export function QuestionExplorer({
     });
   };
 
-  const exportQuestions = questionsForPdf(filtered, selectedIds, selectionIsExplicit, questions);
+  const exportQuestions = questionsForPdf(filtered, selectedIds, selectionIsExplicit, catalogQuestions);
   const handleDownload = async () => {
     if (!access.canExportPdf || !bank) return;
     setPdfStatus(`Preparing ${exportQuestions.length} questions...`);
@@ -491,6 +587,7 @@ export function QuestionExplorer({
       </div>
       {shareStatus && <p className="toolbar-status" role="status">{shareStatus}</p>}
 
+      {indexError && <div className="access-notice" role="alert"><span>{indexError}</span><button className="text-button" type="button" onClick={() => { setIndexError(""); setIndexAttempt((attempt) => attempt + 1); }}>Retry question index</button></div>}
       {assetError && <div className="access-notice" role="alert"><span>{assetError}</span><button className="text-button" type="button" onClick={retryQuestionAssets}>Retry images</button></div>}
       {studyError && <div className="access-notice" role="alert">{studyError}</div>}
       {!access.bankAccess && <div className="free-value-strip"><div><strong>{freeOnly ? "Free exam years are open." : "You’re browsing the full bank."}</strong><span>{freeOnly ? "Practise now or preview every question in this bank." : "Locked questions show what a paid bank plan unlocks."}</span></div><div>{freeOnly && <button className="text-button" type="button" onClick={() => { setFreeOnly(false); setVisible(EXPLORER_PAGE_SIZE); }}>Preview full bank</button>}<Link href="/pricing">View plans</Link></div></div>}
@@ -536,7 +633,10 @@ export function QuestionExplorer({
               const unlocked = access.bankAccess || isPreviewQuestion(question.bankSlug, question.id);
               const questionAsset = signedAssets.get(signedAssetKey(question.id, "question"));
               const answerAsset = signedAssets.get(signedAssetKey(question.id, "answer"));
-              return <QuestionCard key={question.id} question={question} unlocked={unlocked} authenticated={access.authenticated} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAsset={(asset) => setSignedAssets((current) => new Map(current).set(signedAssetKey(question.id, "answer"), asset))} selected={selectedIds.has(question.id)} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => toggleSaved(question.id)} onAttempt={() => recordAttempt(question.id)} />;
+              return <QuestionCard key={question.id} question={question} unlocked={unlocked} authenticated={access.authenticated} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAsset={(asset) => {
+                setSignedAssets((current) => new Map(current).set(signedAssetKey(question.id, "answer"), asset));
+                if (asset.details) setCatalogQuestions((current) => current.map((item) => item.id === question.id ? mergeQuestionRichDetails(item, asset.details!) : item));
+              }} selected={selectedIds.has(question.id)} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => toggleSaved(question.id)} onAttempt={() => recordAttempt(question.id)} />;
             })}
           </div>
           {filtered.length === 0 && <div className="empty-state"><strong>No questions match that combination.</strong><span>Clear a filter and try again.</span></div>}

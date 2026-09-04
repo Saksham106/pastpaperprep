@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
+    "predev": "npm run generate:bank-index",
     "build": "next build",
+    "prebuild": "npm run generate:bank-index",
+    "generate:bank-index": "node scripts/generate-bank-index.mjs",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
