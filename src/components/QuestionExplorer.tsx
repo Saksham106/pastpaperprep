@@ -3,7 +3,7 @@
 import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowSquareOut, BookmarkSimple, CaretDown, Check, CheckCircle, DownloadSimple, Funnel, MagnifyingGlass, ShareNetwork, TextAlignLeft, X } from "@phosphor-icons/react";
+import { BookmarkSimple, CaretDown, Check, CheckCircle, DownloadSimple, Funnel, MagnifyingGlass, ShareNetwork, X } from "@phosphor-icons/react";
 import { downloadQuestionPdf, MAX_PDF_QUESTIONS, questionsForPdf, type PdfContent } from "@/lib/pdf-export";
 import { isPreviewQuestion } from "@/lib/access";
 
@@ -672,7 +672,6 @@ function QuestionCard({ question, unlocked, authenticated, questionAsset, answer
   onAttempt: () => void;
 }) {
   const [answerOpen, setAnswerOpen] = useState(false);
-  const [transcriptOpen, setTranscriptOpen] = useState(false);
   const [solutionOpen, setSolutionOpen] = useState(false);
   const [answerLoading, setAnswerLoading] = useState(false);
   const [answerError, setAnswerError] = useState("");
@@ -705,10 +704,9 @@ function QuestionCard({ question, unlocked, authenticated, questionAsset, answer
       {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} onError={onQuestionAssetError} />) : <div className="asset-placeholder" role="status">Loading original question</div>}</div> : <div className="question-locked"><strong>Paid plan required</strong><span>Unlock this bank’s full question set, answers, and PDF export.</span><Link href={authenticated ? "/pricing" : "/login?next=/pricing"}>{authenticated ? "View pricing" : "Sign in and choose a plan"}</Link></div>}
       <div className="question-actions">
         <div className="question-action-buttons">{unlocked ? ((question.solution || question.markschemeImageCount > 0) ? <button className="answer-toggle" disabled={answerLoading} aria-expanded={answerOpen} onClick={toggleAnswer}>{answerLoading ? "Loading answer..." : answerOpen ? "Hide answer" : "Show answer"}</button> : <span className="muted">Answer coming soon</span>) : null}{answerError && <span className="muted" role="alert">{answerError}</span>}</div>
-        <div className="source-links">{attempted && <span className="study-state"><CheckCircle weight="fill" /> Practised</span>}{authenticated && unlocked && <button className={`study-icon-button ${saved ? "is-saved" : ""}`} title={saved ? "Remove from saved" : "Save question"} aria-label={saved ? `Remove question from saved ${question.id}` : `Save question ${question.id}`} onClick={onToggleSaved}><BookmarkSimple weight={saved ? "fill" : "regular"} aria-hidden="true" /></button>}{question.sourceQuestionUrl && <a href={question.sourceQuestionUrl} target="_blank" rel="noreferrer">Source paper <ArrowSquareOut /></a>}{question.sourceMarkSchemeUrl && <a href={question.sourceMarkSchemeUrl} target="_blank" rel="noreferrer">Mark scheme <ArrowSquareOut /></a>}{question.accessibleText && <button className="transcript-icon-button" title={transcriptOpen ? "Hide transcript" : "Show transcript"} aria-label={transcriptOpen ? "Hide transcript" : "Show transcript"} aria-expanded={transcriptOpen} onClick={() => setTranscriptOpen((open) => !open)}><TextAlignLeft aria-hidden="true" /></button>}</div>
+        <div className="source-links">{attempted && <span className="study-state"><CheckCircle weight="fill" /> Practised</span>}{authenticated && unlocked && <button className={`study-icon-button ${saved ? "is-saved" : ""}`} title={saved ? "Remove from saved" : "Save question"} aria-label={saved ? `Remove question from saved ${question.id}` : `Save question ${question.id}`} onClick={onToggleSaved}><BookmarkSimple weight={saved ? "fill" : "regular"} aria-hidden="true" /></button>}</div>
       </div>
       {answerOpen && <div className="answer-panel">{answerAsset?.urls.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Official mark scheme page ${index + 1}`} />)}{question.solution && (answerAsset?.urls.length ? <div className="solution-wrap"><button className="text-button" aria-expanded={solutionOpen} onClick={() => setSolutionOpen((open) => !open)}>{solutionOpen ? "Hide worked text" : "Show worked text"}</button>{solutionOpen && <p>{question.solution}</p>}</div> : <p>{question.solution}</p>)}</div>}
-      {transcriptOpen && <div className="transcript-panel"><strong>Searchable transcript may contain extraction errors.</strong><p>{question.accessibleText}</p></div>}
     </article>
   );
 }
