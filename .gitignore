@@ -39,6 +39,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local git worktrees
+.worktrees/
+
 # supabase cli
 supabase/.temp/
 
