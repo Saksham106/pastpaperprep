@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
 import { hasBankAccess, isPreviewQuestion, type AccessEntitlement } from "@/lib/access";
 import { authorizeAssetRequests, type AssetRequest } from "@/lib/asset-access";
-import { QUESTION_ASSET_BUCKET } from "@/lib/assets";
 import { getBank, type BankSlug } from "@/lib/banks";
 import { normalizeEntitlements } from "@/lib/entitlements";
+import { signPrivateAssetUrls } from "@/lib/private-assets";
 import { getQuestionRichDetails } from "@/lib/question-delivery";
-import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
@@ -66,9 +65,11 @@ export async function POST(request: Request) {
   }
 
   const paths = [...new Set(authorized.flatMap((item) => item.paths))];
-  const premiumPaths = [...new Set(authorized
-    .filter((item) => !isPreviewQuestion(body.bank as BankSlug, item.questionId))
+  const previewPaths = [...new Set(authorized
+    .filter((item) => isPreviewQuestion(body.bank as BankSlug, item.questionId))
     .flatMap((item) => item.paths))];
+  const previewPathSet = new Set(previewPaths);
+  const premiumPaths = paths.filter((path) => !previewPathSet.has(path));
 
   if (!paths.length) {
     return NextResponse.json({
@@ -83,16 +84,11 @@ export async function POST(request: Request) {
   }
 
   try {
-    const admin = createAdminClient();
-    const { data, error } = await admin.storage
-      .from(QUESTION_ASSET_BUCKET)
-      .createSignedUrls(paths, 600);
-    if (error) throw error;
-
-    const urlByPath = new Map((data ?? []).flatMap((item) =>
-      item.signedUrl ? [[item.path, item.signedUrl] as const] : []
-    ));
-    if (paths.some((path) => !urlByPath.has(path))) throw new Error("A signed URL was not created");
+    const [previewUrls, premiumUrls] = await Promise.all([
+      signPrivateAssetUrls(previewPaths, 600, { provider: "supabase" }),
+      signPrivateAssetUrls(premiumPaths, 600),
+    ]);
+    const urlByPath = new Map([...previewUrls, ...premiumUrls]);
 
     if (userId && premiumPaths.length && hasBankAccess(body.bank as BankSlug, entitlements)) {
       const { data: allowed, error: quotaError } = await supabase.rpc("consume_download_allowance", {

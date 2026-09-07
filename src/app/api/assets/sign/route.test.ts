@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const { createClient, createAdminClient, getClaims, from, rpc, createSignedUrls } = vi.hoisted(() => ({
   createClient: vi.fn(),
@@ -18,6 +18,7 @@ import { POST } from "@/app/api/assets/sign/route";
 describe("POST /api/assets/sign", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.unstubAllEnvs();
     getClaims.mockResolvedValue({ data: { claims: { sub: "user-id" } } });
     const entitlementQuery = {
       select: vi.fn(() => entitlementQuery),
@@ -29,6 +30,8 @@ describe("POST /api/assets/sign", () => {
     createSignedUrls.mockImplementation(async (paths: string[]) => ({ data: paths.map((path) => ({ path, signedUrl: `https://assets.example/${path}` })), error: null }));
     createAdminClient.mockReturnValue({ storage: { from: vi.fn(() => ({ createSignedUrls })) } });
   });
+
+  afterEach(() => vi.unstubAllEnvs());
 
   it("rejects invalid JSON before touching authentication", async () => {
     const response = await POST(new Request("https://pastpaperprep.com/api/assets/sign", {
@@ -68,7 +71,7 @@ describe("POST /api/assets/sign", () => {
     expect(malformedBatch.status).toBe(400);
   });
 
-  it("consumes the daily allowance before signing paid assets", async () => {
+  it("signs paid assets and then atomically consumes the daily allowance", async () => {
     const response = await POST(new Request("https://pastpaperprep.com/api/assets/sign", {
       method: "POST",
       body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "m26-math-aasl-p2-tza-q2", kind: "question" }] }),
@@ -87,6 +90,7 @@ describe("POST /api/assets/sign", () => {
   });
 
   it("does not charge the premium allowance for preview assets", async () => {
+    vi.stubEnv("ASSET_STORAGE_PROVIDER", "r2");
     const response = await POST(new Request("https://pastpaperprep.com/api/assets/sign", {
       method: "POST",
       body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "2017-may-p1-tz1-q1", kind: "question" }] }),
@@ -108,5 +112,37 @@ describe("POST /api/assets/sign", () => {
 
     expect(response.status).toBe(429);
     expect(createSignedUrls).toHaveBeenCalledOnce();
+  });
+
+  it("uses local R2 presigning for paid assets without Supabase or R2 API operations", async () => {
+    vi.stubEnv("ASSET_STORAGE_PROVIDER", "r2");
+    vi.stubEnv("R2_ACCOUNT_ID", "92278648535014b5231edfe207b9391d");
+    vi.stubEnv("R2_ACCESS_KEY_ID", "a".repeat(32));
+    vi.stubEnv("R2_SECRET_ACCESS_KEY", "b".repeat(64));
+    vi.stubEnv("R2_BUCKET_NAME", "pastpaperprep-assets");
+
+    const response = await POST(new Request("https://pastpaperprep.com/api/assets/sign", {
+      method: "POST",
+      body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "m26-math-aasl-p2-tza-q2", kind: "question" }] }),
+      headers: { "content-type": "application/json" },
+    }));
+
+    expect(response.status).toBe(200);
+    expect(createSignedUrls).not.toHaveBeenCalled();
+    const payload = await response.json();
+    expect(new URL(payload.assets[0].urls[0]).hostname)
+      .toBe("92278648535014b5231edfe207b9391d.r2.cloudflarestorage.com");
+  });
+
+  it("does not consume allowance when private signing fails", async () => {
+    createSignedUrls.mockRejectedValueOnce(new Error("NotFound"));
+    const response = await POST(new Request("https://pastpaperprep.com/api/assets/sign", {
+      method: "POST",
+      body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "m26-math-aasl-p2-tza-q2", kind: "question" }] }),
+      headers: { "content-type": "application/json" },
+    }));
+
+    expect(response.status).toBe(503);
+    expect(rpc).not.toHaveBeenCalled();
   });
 });

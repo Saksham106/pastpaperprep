@@ -1,17 +1,19 @@
 import { NextResponse } from "next/server";
 import { canExportPdf, isPreviewQuestion } from "@/lib/access";
 import { authorizeAssetRequests, type AssetRequest, type AuthorizedAssetRequest } from "@/lib/asset-access";
-import { QUESTION_ASSET_BUCKET } from "@/lib/assets";
 import { getBank, type BankSlug } from "@/lib/banks";
 import { normalizeEntitlements } from "@/lib/entitlements";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
+import { signPrivateAssetUrls } from "@/lib/private-assets";
 import { loadBankQuestions } from "@/lib/question-loader";
-import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
 
 const AUTHORIZATION_BATCH_SIZE = 20;
+const PRIVATE_RESPONSE_INIT = {
+  headers: { "Cache-Control": "private, no-store, max-age=0" },
+} as const;
 type PdfContent = "questions" | "answers" | "both";
 type RequestBody = { bank?: unknown; questionIds?: unknown; content?: unknown };
 
@@ -86,22 +88,21 @@ export async function POST(request: Request) {
   }
 
   const paths = [...new Set(authorized.flatMap((item) => item.paths))];
-  const premiumPathCount = new Set(authorized
-    .filter((item) => !isPreviewQuestion(bank, item.questionId))
-    .flatMap((item) => item.paths)).size;
+  const previewPaths = [...new Set(authorized
+    .filter((item) => isPreviewQuestion(bank, item.questionId))
+    .flatMap((item) => item.paths))];
+  const previewPathSet = new Set(previewPaths);
+  const premiumPaths = paths.filter((path) => !previewPathSet.has(path));
+  const premiumPathCount = premiumPaths.length;
 
   try {
     let assets: Array<{ questionId: string; kind: "question" | "answer"; urls: Array<string | undefined> }> = [];
     if (paths.length) {
-      const admin = createAdminClient();
-      const { data: signedData, error: signingError } = await admin.storage
-        .from(QUESTION_ASSET_BUCKET)
-        .createSignedUrls(paths, 600);
-      if (signingError) throw signingError;
-      const urlByPath = new Map((signedData ?? []).flatMap((item) =>
-        item.signedUrl ? [[item.path, item.signedUrl] as const] : []
-      ));
-      if (paths.some((path) => !urlByPath.has(path))) throw new Error("A signed URL was not created");
+      const [previewUrls, premiumUrls] = await Promise.all([
+        signPrivateAssetUrls(previewPaths, 600, { provider: "supabase" }),
+        signPrivateAssetUrls(premiumPaths, 600),
+      ]);
+      const urlByPath = new Map([...previewUrls, ...premiumUrls]);
       assets = authorized.map((item) => ({
         questionId: item.questionId,
         kind: item.kind,
@@ -116,7 +117,7 @@ export async function POST(request: Request) {
     if (quotaError) return NextResponse.json({ error: "Could not verify export allowance" }, { status: 503 });
     if (!allowed) return NextResponse.json({ error: "Daily worksheet limit reached. Try again tomorrow." }, { status: 429 });
 
-    return NextResponse.json({ expiresIn: 600, assets });
+    return NextResponse.json({ expiresIn: 600, assets }, PRIVATE_RESPONSE_INIT);
   } catch {
     return NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503 });
   }
