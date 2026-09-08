@@ -4,12 +4,12 @@ import { MarketingHome } from "@/components/MarketingHome";
 import { BANKS } from "@/lib/banks";
 
 describe("home page corpus summary", () => {
-  it("derives the eight-bank corpus totals from the bank catalog", () => {
+  it("derives the ten-bank corpus totals from the bank catalog", () => {
     const markup = renderToStaticMarkup(<MarketingHome />);
 
-    expect(BANKS.reduce((total, bank) => total + bank.questionCount, 0)).toBe(8372);
-    expect(markup).toContain("8,372");
-    expect(markup).toContain("646");
+    expect(BANKS.reduce((total, bank) => total + bank.questionCount, 0)).toBe(10257);
+    expect(markup).toContain("10,257");
+    expect(markup).toContain("748");
     expect(markup).toContain("Practise the questions that move your grade.");
     expect(markup).toContain("Choose your course");
     expect(markup).toContain("Start practising");
@@ -17,7 +17,8 @@ describe("home page corpus summary", () => {
     expect(markup).toContain("Cambridge IGCSE");
     expect(markup).toContain("IB Mathematics");
     expect(markup).toContain("IB Chemistry");
-    expect(markup).toContain("IGCSE + IB Maths + Chemistry");
+    expect(markup).toContain("IB Physics");
+    expect(markup).toContain("IGCSE + IB Maths + Chemistry + Physics");
     expect(markup).toContain("Spend your revision time practising.");
     expect(markup).not.toContain("pastpaperprep-workspace.webp");
     expect(markup).toContain("class=\"exam-index-visual");

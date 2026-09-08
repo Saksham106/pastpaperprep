@@ -14,8 +14,8 @@ const BUCKET = "question-assets";
 const APPLY = process.argv.includes("--apply");
 const PLAN_ONLY = process.argv.includes("--plan-only");
 const SYNC_MISSING_PREVIEWS = process.argv.includes("--sync-missing-previews");
-const EXPECTED_PREVIEW_COUNT = 3_635;
-const EXPECTED_PREMIUM_COUNT = 17_316;
+const EXPECTED_PREVIEW_COUNT = 4_020;
+const EXPECTED_PREMIUM_COUNT = 22_127;
 const CONFIRMATION = String(EXPECTED_PREMIUM_COUNT);
 
 const SOURCE_ROOTS: Record<BankSlug, string> = {
@@ -27,6 +27,8 @@ const SOURCE_ROOTS: Record<BankSlug, string> = {
   "ib-ai-sl": resolve(WORKSPACE_ROOT, "ib-maths-ai-sl-topic-practice-audit-fix-ai-sl/site"),
   "ib-chemistry-hl": resolve(WORKSPACE_ROOT, "ib-chemistry-topic-practice/site"),
   "ib-chemistry-sl": resolve(WORKSPACE_ROOT, "ib-chemistry-topic-practice/site"),
+  "ib-physics-hl": resolve(WORKSPACE_ROOT, "ib-physics-topic-practice/site"),
+  "ib-physics-sl": resolve(WORKSPACE_ROOT, "ib-physics-topic-practice/site"),
 };
 
 function formatBytes(bytes: number) {

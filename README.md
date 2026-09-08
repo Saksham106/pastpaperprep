@@ -1,12 +1,12 @@
 # PastPaperPrep
 
-PastPaperPrep is an image-first practice platform for Cambridge IGCSE Mathematics and IB Mathematics and Chemistry. The production application serves normalized question metadata from this private repository. Premium question and mark-scheme WebPs use short-lived Cloudflare R2 signed URLs; free preview assets use short-lived Supabase Storage signed URLs.
+PastPaperPrep is an image-first practice platform for Cambridge IGCSE Mathematics and IB Mathematics, Chemistry, and Physics. The production application serves normalized question metadata from this private repository. Premium question and mark-scheme WebPs use short-lived Cloudflare R2 signed URLs; free preview assets use short-lived Supabase Storage signed URLs.
 
 ## Current corpus
 
-- 8,372 questions
-- 646 papers
-- 20,951 private WebP assets
+- 10,257 questions
+- 748 papers
+- 26,147 private WebP assets
 - Reviewed free-year coverage per bank; PDF exports remain part of paid access
 
 ## Operator documentation

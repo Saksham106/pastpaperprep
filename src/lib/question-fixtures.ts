@@ -6,6 +6,8 @@ import ibAiHlData from "@/data/raw/ib-ai-hl.json";
 import ibAiSlData from "@/data/raw/ib-ai-sl.json";
 import ibChemistryHlData from "@/data/raw/ib-chemistry-hl.json";
 import ibChemistrySlData from "@/data/raw/ib-chemistry-sl.json";
+import ibPhysicsHlData from "@/data/raw/ib-physics-hl.json";
+import ibPhysicsSlData from "@/data/raw/ib-physics-sl.json";
 import type { BankSlug } from "@/lib/banks";
 import { normalizeBankQuestions, type UnifiedQuestion } from "@/lib/questions";
 
@@ -19,6 +21,8 @@ const rawBanks: Record<BankSlug, RawBank> = {
   "ib-ai-sl": ibAiSlData as RawBank,
   "ib-chemistry-hl": ibChemistryHlData as RawBank,
   "ib-chemistry-sl": ibChemistrySlData as RawBank,
+  "ib-physics-hl": ibPhysicsHlData as RawBank,
+  "ib-physics-sl": ibPhysicsSlData as RawBank,
 };
 const cache = new Map<BankSlug, UnifiedQuestion[]>();
 

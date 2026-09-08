@@ -18,6 +18,11 @@ const CHEMISTRY_LINKS = [
   ["/banks/ib-chemistry-sl", "IB Chemistry SL"],
 ] as const;
 
+const PHYSICS_LINKS = [
+  ["/banks/ib-physics-hl", "IB Physics HL"],
+  ["/banks/ib-physics-sl", "IB Physics SL"],
+] as const;
+
 const RESOURCE_LINKS = [["/articles", "Revision guides"]] as const;
 
 function FooterGroup({ title, links }: { title: string; links: readonly (readonly [string, string])[] }) {
@@ -34,12 +39,13 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="footer-brand">
         <Link href="/" aria-label="PastPaperPrep home"><BookOpenText weight="bold" /><strong>PastPaperPrep</strong></Link>
-        <p>Real questions, focused practice, and printable revision sets for IGCSE, IB Mathematics, and IB Chemistry.</p>
+        <p>Real questions, focused practice, and printable revision sets for IGCSE, IB Mathematics, IB Chemistry, and IB Physics.</p>
       </div>
       <nav className="footer-links" aria-label="Footer navigation">
         <FooterGroup title="Cambridge" links={CAMBRIDGE_LINKS} />
         <FooterGroup title="IB Mathematics" links={IB_LINKS} />
         <FooterGroup title="IB Chemistry" links={CHEMISTRY_LINKS} />
+        <FooterGroup title="IB Physics" links={PHYSICS_LINKS} />
         <FooterGroup title="Resources" links={RESOURCE_LINKS} />
       </nav>
       <div className="footer-base">

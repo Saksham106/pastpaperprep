@@ -15,6 +15,8 @@ const BANK_OPTIONS = [
   { productId: "bank_ib_ai_sl", label: "IB Mathematics AI SL" },
   { productId: "bank_ib_chemistry_hl", label: "IB Chemistry HL" },
   { productId: "bank_ib_chemistry_sl", label: "IB Chemistry SL" },
+  { productId: "bank_ib_physics_hl", label: "IB Physics HL" },
+  { productId: "bank_ib_physics_sl", label: "IB Physics SL" },
 ] as const;
 
 const PAIR_OPTIONS = [
@@ -22,12 +24,13 @@ const PAIR_OPTIONS = [
   { productId: "bundle_ib_aa", label: "IB Mathematics AA (SL + HL)" },
   { productId: "bundle_ib_ai", label: "IB Mathematics AI (SL + HL)" },
   { productId: "bundle_ib_chemistry", label: "IB Chemistry (SL + HL)" },
+  { productId: "bundle_ib_physics", label: "IB Physics (SL + HL)" },
 ] as const;
 
 const PLANS = [
   { name: "One bank", label: "Single bank", monthly: "$5", annualMonthly: "$4", annual: "$48", annualSaving: "20%", description: "Choose any one question bank.", options: BANK_OPTIONS, popular: false },
-  { name: "Subject pair", label: "Two banks", monthly: "$8", annualMonthly: "$6", annual: "$72", annualSaving: "25%", description: "Get both banks in IGCSE, IB AA, IB AI, or IB Chemistry.", options: PAIR_OPTIONS, popular: true },
-  { name: "All banks", label: "Eight banks", monthly: "$12", annualMonthly: "$8", annual: "$96", annualSaving: "33%", description: "Unlock all eight question banks.", options: [{ productId: "bundle_all", label: "All banks" }] as const, popular: false },
+  { name: "Subject pair", label: "Two banks", monthly: "$8", annualMonthly: "$6", annual: "$72", annualSaving: "25%", description: "Get both banks in IGCSE, IB AA, IB AI, IB Chemistry, or IB Physics.", options: PAIR_OPTIONS, popular: true },
+  { name: "All banks", label: "Ten banks", monthly: "$12", annualMonthly: "$8", annual: "$96", annualSaving: "33%", description: "Unlock all ten question banks.", options: [{ productId: "bundle_all", label: "All banks" }] as const, popular: false },
 ] as const;
 
 type BillingInterval = "monthly" | "annual";

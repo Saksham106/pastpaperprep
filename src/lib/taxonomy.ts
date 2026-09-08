@@ -1,4 +1,5 @@
 import chemistryTaxonomy from "@/data/ib-chemistry-taxonomy.json";
+import physicsTaxonomy from "@/data/ib-physics-taxonomy.json";
 import type { UnifiedQuestion } from "@/lib/questions";
 
 const IB_TOPIC_ORDER = [
@@ -312,6 +313,10 @@ const CHEMISTRY_TOPIC_ORDER = chemistryTaxonomy.normalized_topics.map((topic) =>
 const CHEMISTRY_SUBTOPICS: Record<string, readonly string[]> = Object.fromEntries(
   chemistryTaxonomy.normalized_topics.map((topic) => [topic.name, topic.subtopics.map((subtopic) => subtopic.name)]),
 );
+const PHYSICS_TOPIC_ORDER = physicsTaxonomy.normalized_topics.map((topic) => topic.name);
+const PHYSICS_SUBTOPICS: Record<string, readonly string[]> = Object.fromEntries(
+  physicsTaxonomy.normalized_topics.map((topic) => [topic.name, topic.subtopics.map((subtopic) => subtopic.name)]),
+);
 
 function uniqueSorted(values: string[]): string[] {
   return [...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b));
@@ -325,6 +330,7 @@ export function getControlledSubtopics(bankSlug: string, topic: string): readonl
   if (bankSlug === "ib-hl") return IB_HL_SUBTOPICS[topic] ?? [];
   if (bankSlug === "ib-sl") return IB_SL_SUBTOPICS[topic] ?? [];
   if (bankSlug === "ib-chemistry-hl" || bankSlug === "ib-chemistry-sl") return CHEMISTRY_SUBTOPICS[topic] ?? [];
+  if (bankSlug === "ib-physics-hl" || bankSlug === "ib-physics-sl") return PHYSICS_SUBTOPICS[topic] ?? [];
   return [];
 }
 
@@ -340,6 +346,8 @@ export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
         ? IGCSE_ADDITIONAL_TOPIC_ORDER
         : bankSlug === "ib-chemistry-hl" || bankSlug === "ib-chemistry-sl"
           ? CHEMISTRY_TOPIC_ORDER
+          : bankSlug === "ib-physics-hl" || bankSlug === "ib-physics-sl"
+            ? PHYSICS_TOPIC_ORDER
           : IB_TOPIC_ORDER;
   const ordered = order.filter((topic) => available.has(topic));
   const remaining = [...available].filter((topic) => !ordered.includes(topic as never)).sort();
@@ -382,6 +390,10 @@ export function getSubtopicGroups(
   } else if (questions[0]?.bankSlug === "ib-chemistry-hl" || questions[0]?.bankSlug === "ib-chemistry-sl") {
     relevant = selectedTopics
       .flatMap((topic) => CHEMISTRY_SUBTOPICS[topic] ?? [])
+      .filter((subtopic, index, values) => available.has(subtopic) && values.indexOf(subtopic) === index);
+  } else if (questions[0]?.bankSlug === "ib-physics-hl" || questions[0]?.bankSlug === "ib-physics-sl") {
+    relevant = selectedTopics
+      .flatMap((topic) => PHYSICS_SUBTOPICS[topic] ?? [])
       .filter((subtopic, index, values) => available.has(subtopic) && values.indexOf(subtopic) === index);
   } else if (questions[0]?.bankSlug === "ib-ai-hl") {
     const taxonomy = IB_AI_HL_SUBTOPICS;

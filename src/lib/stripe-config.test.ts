@@ -20,7 +20,9 @@ describe("Stripe billing configuration", () => {
     const config = validateStripeConfig(env);
 
     expect(getBillingPlan("bank_ib_hl", "monthly", config)).toEqual({ interval: "monthly", productId: "bank_ib_hl", priceId: "price_single_monthly" });
+    expect(getBillingPlan("bank_ib_physics_hl", "annual", config)).toEqual({ interval: "annual", productId: "bank_ib_physics_hl", priceId: "price_single_annual" });
     expect(getBillingPlan("bundle_ib_aa", "annual", config)).toEqual({ interval: "annual", productId: "bundle_ib_aa", priceId: "price_pair_annual" });
+    expect(getBillingPlan("bundle_ib_physics", "monthly", config)).toEqual({ interval: "monthly", productId: "bundle_ib_physics", priceId: "price_pair_monthly" });
     expect(getBillingPlan("bundle_all", "annual", config)).toEqual({ interval: "annual", productId: "bundle_all", priceId: "price_all_annual" });
     expect(() => getBillingPlan("admin", "monthly", config)).toThrow("Unknown billing product");
     expect(() => getBillingPlan("bank_ib_hl", "price_monthly", config)).toThrow("Unknown billing interval");

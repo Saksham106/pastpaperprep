@@ -9,6 +9,8 @@ const PUBLIC_ASSET_ROOTS: Record<BankSlug, string> = {
   "ib-ai-sl": "https://saksham106.github.io/ib-maths-ai-sl-topic-practice/",
   "ib-chemistry-hl": "https://saksham106.github.io/ib-chemistry-topic-practice/",
   "ib-chemistry-sl": "https://saksham106.github.io/ib-chemistry-topic-practice/",
+  "ib-physics-hl": "https://saksham106.github.io/ib-physics-topic-practice/",
+  "ib-physics-sl": "https://saksham106.github.io/ib-physics-topic-practice/",
 };
 
 export const QUESTION_ASSET_BUCKET = "question-assets";

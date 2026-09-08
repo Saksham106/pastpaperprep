@@ -17,6 +17,8 @@ const CARD_NAMES: Record<BankSlug, string> = {
   "ib-ai-sl": "Maths AI SL",
   "ib-chemistry-hl": "Chemistry HL",
   "ib-chemistry-sl": "Chemistry SL",
+  "ib-physics-hl": "Physics HL",
+  "ib-physics-sl": "Physics SL",
 };
 
 export function DashboardContent({ authenticated, accessibleBanks }: { authenticated: boolean; accessibleBanks: BankSlug[] }) {
@@ -42,6 +44,11 @@ export function DashboardContent({ authenticated, accessibleBanks }: { authentic
       name: "IB Chemistry",
       className: "ib-chemistry",
       banks: BANKS.filter((bank) => bank.slug === "ib-chemistry-hl" || bank.slug === "ib-chemistry-sl"),
+    },
+    {
+      name: "IB Physics",
+      className: "ib-physics",
+      banks: BANKS.filter((bank) => bank.slug === "ib-physics-hl" || bank.slug === "ib-physics-sl"),
     },
   ].sort((a, b) => Number(b.banks.some((bank) => accessible.has(bank.slug))) - Number(a.banks.some((bank) => accessible.has(bank.slug))));
 

@@ -1,4 +1,4 @@
-export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl";
+export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl" | "ib-physics-hl" | "ib-physics-sl";
 
 export type Bank = {
   slug: BankSlug;
@@ -118,6 +118,32 @@ export const BANKS: readonly Bank[] = [
     years: "2020-2025",
     accent: "lime",
     sourceBaseUrl: "https://saksham106.github.io/ib-chemistry-topic-practice",
+  },
+  {
+    slug: "ib-physics-hl",
+    shortName: "IB Physics HL",
+    title: "IB Physics Higher Level",
+    description: "Practise real IB Physics HL questions by topic, paper, session, and skill with official markschemes.",
+    qualification: "International Baccalaureate",
+    subject: "Physics HL",
+    questionCount: 1111,
+    paperCount: 51,
+    years: "2020-2025",
+    accent: "coral",
+    sourceBaseUrl: "https://saksham106.github.io/ib-physics-topic-practice",
+  },
+  {
+    slug: "ib-physics-sl",
+    shortName: "IB Physics SL",
+    title: "IB Physics Standard Level",
+    description: "Target IB Physics SL topics with real questions, official markschemes, and focused revision filters.",
+    qualification: "International Baccalaureate",
+    subject: "Physics SL",
+    questionCount: 774,
+    paperCount: 51,
+    years: "2020-2025",
+    accent: "lime",
+    sourceBaseUrl: "https://saksham106.github.io/ib-physics-topic-practice",
   },
 ] as const;
 

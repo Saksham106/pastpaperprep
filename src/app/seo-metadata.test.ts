@@ -33,11 +33,11 @@ describe("canonical search metadata", () => {
   });
 
   it("gives the homepage and pricing page distinct canonical metadata", () => {
-    expect(homeMetadata.title).toEqual({ absolute: "IGCSE, IB Maths & Chemistry Past Papers by Topic | PastPaperPrep" });
+    expect(homeMetadata.title).toEqual({ absolute: "IGCSE, IB Maths, Chemistry & Physics Past Papers by Topic | PastPaperPrep" });
     expect(homeMetadata.alternates?.canonical).toBe("/");
     expect(homeMetadata.openGraph).toMatchObject({ url: "/", type: "website" });
     expect(pricingMetadata.alternates?.canonical).toBe("/pricing");
-    expect(pricingMetadata.description).toMatch(/IGCSE and IB Mathematics/i);
+    expect(pricingMetadata.description).toMatch(/IGCSE, IB Mathematics/i);
     expect(pricingMetadata.description).toMatch(/IB Chemistry/i);
   });
 

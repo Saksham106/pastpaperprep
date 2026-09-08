@@ -2,7 +2,7 @@
 
 Updated: 26 August 2026
 
-This is the operational source of truth for adding or rebuilding PastPaperPrep question banks. It was reconstructed from the eight private source-bank inputs, their tests and build scripts, the initial ingestion history on Swati's agent, and the current production application. The checked-in code and manifests win if this document ever drifts.
+This is the operational source of truth for adding or rebuilding PastPaperPrep question banks. It was reconstructed from the ten private source-bank inputs, their tests and build scripts, the initial ingestion history on Swati's agent, and the current production application. The checked-in code and manifests win if this document ever drifts.
 
 ## Current verified baseline
 
@@ -16,7 +16,9 @@ This is the operational source of truth for adding or rebuilding PastPaperPrep q
 | Cambridge IGCSE Additional Mathematics 0606 | `Saksham106/igcse-additional-mathematics-0606-topic-practice` | 145 | 1,633 | 3,266 |
 | IB Chemistry HL | `Saksham106/ib-chemistry-topic-practice` | 51 | 1,083 | 3,234 |
 | IB Chemistry SL | `Saksham106/ib-chemistry-topic-practice` | 51 | 810 | 2,243 |
-| **Total** |  | **646** | **8,372** | **20,951** |
+| IB Physics HL | `Saksham106/ib-physics-topic-practice` | 51 | 1,111 | 3,109 |
+| IB Physics SL | `Saksham106/ib-physics-topic-practice` | 51 | 774 | 2,087 |
+| **Total** |  | **748** | **10,257** | **26,147** |
 
 The application copies each source bank's generated `site/data/questions.json` to:
 
@@ -28,6 +30,8 @@ The application copies each source bank's generated `site/data/questions.json` t
 - `src/data/raw/igcse-additional.json`
 - `src/data/raw/ib-chemistry-hl.json`
 - `src/data/raw/ib-chemistry-sl.json`
+- `src/data/raw/ib-physics-hl.json`
+- `src/data/raw/ib-physics-sl.json`
 
 Premium WebPs live in private Cloudflare R2 under bank-specific prefixes. Free preview WebPs remain in the private Supabase Storage bucket `question-assets`. The runtime retention plan is authoritative for that split.
 
@@ -72,6 +76,7 @@ The existing upload script expects this exact temporary layout:
   ib-ai-hl/
   ib-ai-sl/
   ib-chemistry/
+  ib-physics/
 ```
 
 Clone the private repositories:
@@ -86,6 +91,7 @@ gh repo clone Saksham106/ib-maths-aa-topic-finder /tmp/pastpaperprep-sources/ib-
 gh repo clone Saksham106/ib-maths-ai-hl-topic-practice /tmp/pastpaperprep-sources/ib-ai-hl
 gh repo clone Saksham106/ib-maths-ai-sl-topic-practice /tmp/pastpaperprep-sources/ib-ai-sl
 gh repo clone Saksham106/ib-chemistry-topic-practice /tmp/pastpaperprep-sources/ib-chemistry
+gh repo clone Saksham106/ib-physics-topic-practice /tmp/pastpaperprep-sources/ib-physics
 ```
 
 Use Python 3.11+, [`uv`](https://github.com/astral-sh/uv), Node.js, PyMuPDF, Pillow, and, for the SL crop pipeline, NumPy. The source repositories' commands install transient Python dependencies through `uv`; do not add packages to the Next.js application unless its runtime actually needs them.
@@ -285,6 +291,8 @@ cp /tmp/pastpaperprep-sources/ib-ai-hl/site/data/questions.json src/data/raw/ib-
 cp /tmp/pastpaperprep-sources/ib-ai-sl/site/data/questions.json src/data/raw/ib-ai-sl.json
 cp /tmp/pastpaperprep-sources/ib-chemistry/site/data/questions-hl.json src/data/raw/ib-chemistry-hl.json
 cp /tmp/pastpaperprep-sources/ib-chemistry/site/data/questions-sl.json src/data/raw/ib-chemistry-sl.json
+cp /tmp/pastpaperprep-sources/ib-physics/site/data/questions-hl.json src/data/raw/ib-physics-hl.json
+cp /tmp/pastpaperprep-sources/ib-physics/site/data/questions-sl.json src/data/raw/ib-physics-sl.json
 ```
 
 Then verify the canonical totals before touching Storage:
@@ -292,7 +300,7 @@ Then verify the canonical totals before touching Storage:
 ```bash
 node - <<'NODE'
 const fs = require('node:fs');
-const banks = ['igcse', 'igcse-additional', 'ib-hl', 'ib-sl', 'ib-ai-hl', 'ib-ai-sl', 'ib-chemistry-hl', 'ib-chemistry-sl'];
+const banks = ['igcse', 'igcse-additional', 'ib-hl', 'ib-sl', 'ib-ai-hl', 'ib-ai-sl', 'ib-chemistry-hl', 'ib-chemistry-sl', 'ib-physics-hl', 'ib-physics-sl'];
 let questions = 0;
 let papers = 0;
 let assets = 0;
@@ -314,7 +322,7 @@ console.log({ papers, questions, assets });
 NODE
 ```
 
-For the current corpus, this must report 646 papers, 8,372 questions, and 20,951 unique bank-prefixed referenced assets. A changed corpus should have an explicitly reviewed new baseline rather than forcing these numbers.
+For the current corpus, this must report 748 papers, 10,257 questions, and 26,147 unique bank-prefixed referenced assets. The hybrid retention split is 4,020 Supabase preview objects (including the 2020 Physics preview year) and 22,127 premium objects eligible for R2 after production verification. A changed corpus should have an explicitly reviewed new baseline rather than forcing these numbers.
 
 ### 8. Upload private assets
 
@@ -337,7 +345,7 @@ npm run r2:sync
 npm run r2:verify
 ```
 
-The sync derives object keys from runtime JSON references, uploads only referenced WebPs, and verifies the resulting inventory. Shared source roots such as IB Chemistry are therefore not uploaded twice. Delete the temporary write token immediately after verification; production uses a separate read-only runtime token.
+The sync derives object keys from runtime JSON references, uploads only referenced WebPs, and verifies the resulting inventory. Shared source roots such as IB Chemistry and the Physics HL/SL source repository are therefore not uploaded twice; every key is bank-prefixed to prevent collisions. Delete the temporary write token immediately after verification; production uses a separate read-only runtime token.
 
 Then add only missing free-preview assets to Supabase:
 

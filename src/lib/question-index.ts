@@ -15,7 +15,6 @@ export type PublicQuestionMetadata = {
   skills: string[];
   subtopics: string[];
   subject: string;
-  courseEra?: string;
   option: string;
   zone: string;
   component: string;
@@ -32,7 +31,7 @@ export type PublicBankIndex = {
 };
 
 export function toPublicQuestionMetadata(question: UnifiedQuestion): PublicQuestionMetadata {
-  const metadata = {
+  return {
     id: question.id,
     number: question.number,
     paper: question.paper,
@@ -50,10 +49,7 @@ export function toPublicQuestionMetadata(question: UnifiedQuestion): PublicQuest
     marks: question.marks,
     questionImageCount: question.questionImageCount,
     markschemeImageCount: question.markschemeImageCount,
-  } satisfies Omit<PublicQuestionMetadata, "courseEra">;
-  return question.bankSlug === "ib-chemistry-hl" || question.bankSlug === "ib-chemistry-sl"
-    ? metadata
-    : { ...metadata, courseEra: question.courseEra };
+  } satisfies PublicQuestionMetadata;
 }
 
 export function createPublicBankIndex(
@@ -74,7 +70,6 @@ export function publicQuestionSearchText(question: PublicQuestionMetadata): stri
     ...question.skills,
     ...question.subtopics,
     question.subject,
-    question.courseEra ?? "",
     question.option,
     question.zone,
     question.component,
@@ -91,7 +86,7 @@ export function publicQuestionSearchText(question: PublicQuestionMetadata): stri
 export function publicMetadataToQuestion(question: PublicQuestionMetadata, bank: BankSlug): UnifiedQuestion {
   return {
     ...question,
-    courseEra: question.courseEra ?? "",
+    courseEra: "",
     bankSlug: bank,
     summary: "",
     accessibleText: "",

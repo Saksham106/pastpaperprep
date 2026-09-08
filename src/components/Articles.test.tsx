@@ -61,6 +61,10 @@ describe("article library", () => {
       "/banks/ib-sl",
       "/banks/ib-ai-hl",
       "/banks/ib-ai-sl",
+      "/banks/ib-chemistry-hl",
+      "/banks/ib-chemistry-sl",
+      "/banks/ib-physics-hl",
+      "/banks/ib-physics-sl",
     ]);
     const articleRoutes = new Set(ALL_ARTICLES.map(({ slug }) => `/articles/${slug}`));
 

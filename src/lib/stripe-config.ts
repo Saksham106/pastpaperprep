@@ -80,8 +80,8 @@ export function getStripeConfig(): StripeConfig {
   return validateStripeConfig(process.env);
 }
 
-const SINGLE_PRODUCTS = new Set(["bank_igcse", "bank_igcse_additional", "bank_ib_hl", "bank_ib_sl", "bank_ib_ai_hl", "bank_ib_ai_sl", "bank_ib_chemistry_hl", "bank_ib_chemistry_sl"]);
-const PAIR_PRODUCTS = new Set(["bundle_igcse", "bundle_ib_aa", "bundle_ib_ai", "bundle_ib_chemistry"]);
+const SINGLE_PRODUCTS = new Set(["bank_igcse", "bank_igcse_additional", "bank_ib_hl", "bank_ib_sl", "bank_ib_ai_hl", "bank_ib_ai_sl", "bank_ib_chemistry_hl", "bank_ib_chemistry_sl", "bank_ib_physics_hl", "bank_ib_physics_sl"]);
+const PAIR_PRODUCTS = new Set(["bundle_igcse", "bundle_ib_aa", "bundle_ib_ai", "bundle_ib_chemistry", "bundle_ib_physics"]);
 
 export function getBillingPlan(productId: unknown, interval: unknown, config: StripeConfig) {
   if (interval !== "monthly" && interval !== "annual") throw new Error("Unknown billing interval");

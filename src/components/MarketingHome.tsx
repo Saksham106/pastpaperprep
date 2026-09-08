@@ -23,6 +23,11 @@ const COURSE_GROUPS = [
     detail: "Higher and Standard Level",
     banks: BANKS.filter((bank) => bank.subject.includes("Chemistry")),
   },
+  {
+    name: "IB Physics",
+    detail: "Higher and Standard Level",
+    banks: BANKS.filter((bank) => bank.subject.includes("Physics")),
+  },
 ] as const;
 
 export function MarketingHome() {
@@ -33,7 +38,7 @@ export function MarketingHome() {
     <>
       <section className="exam-hero shell">
         <div className="exam-hero-copy">
-          <p className="hero-context">IGCSE + IB Maths + Chemistry</p>
+          <p className="hero-context">IGCSE + IB Maths + Chemistry + Physics</p>
           <h1>Practise the questions that move your grade.</h1>
           <p className="exam-hero-lede">Filter exact past-paper questions, practise free, and build printable sets. No account needed.</p>
           <div className="hero-actions">
@@ -50,6 +55,7 @@ export function MarketingHome() {
             <span><strong>AA</strong><small>Analysis</small></span>
             <span><strong>AI</strong><small>Applications</small></span>
             <span><strong>CHEM</strong><small>Chemistry</small></span>
+            <span><strong>PHYS</strong><small>Physics</small></span>
           </div>
           <footer><span>{totalQuestions.toLocaleString()} questions</span><span>{totalPapers.toLocaleString()} papers</span></footer>
         </aside>
@@ -83,7 +89,7 @@ export function MarketingHome() {
       <section className="corpus-ledger shell" aria-label="Question bank coverage">
         <div><strong>{totalQuestions.toLocaleString()}</strong><span>curated questions</span></div>
         <div><strong>{totalPapers.toLocaleString()}</strong><span>exam papers indexed</span></div>
-        <div><strong>8</strong><span>focused question banks</span></div>
+        <div><strong>{BANKS.length}</strong><span>focused question banks</span></div>
         <p><Check weight="bold" /> Answers, worked solutions, and official markschemes where available</p>
       </section>
 
@@ -102,7 +108,7 @@ export function MarketingHome() {
       <section className="pricing-invite shell">
         <div>
           <h2>Start free. Unlock more when you need it.</h2>
-          <p>Choose one bank, a subject pair, or the complete eight-bank library.</p>
+          <p>Choose one bank, a subject pair, or the complete ten-bank library.</p>
         </div>
         <Link className="button primary" href="/pricing">Compare plans <ArrowRight weight="bold" /></Link>
       </section>

@@ -77,6 +77,8 @@ describe("preview and premium actions", () => {
       "ib-ai-sl": [2021],
       "ib-chemistry-hl": [2020],
       "ib-chemistry-sl": [2020],
+      "ib-physics-hl": [2020],
+      "ib-physics-sl": [2020],
     });
     expect(isPreviewQuestion("igcse", "0580-2018-june-22-q1")).toBe(true);
     expect(isPreviewQuestion("igcse", "0580-2019-june-22-q1")).toBe(false);
