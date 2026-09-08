@@ -104,8 +104,9 @@ Complimentary access uses a manually issued `bundle_all` entitlement. Checkout a
 ## Remaining commercial launch gates
 
 1. Apply and verify the download-allowance migration.
-2. Apply and read back `supabase/migrations/20260826194645_add_bank_based_pricing.sql` and then `supabase/migrations/20260910000000_custom_bank_bundles.sql` before deploying bank-based Checkout.
-3. Deploy and test password sign-in, password reset, one-link authentication email, free-only filtering, iPad layouts, PDF limits, and watermarks in production.
-4. Confirm the live Stripe product names, prices, webhook, Billing Portal, and production environment use only live-mode values. Keep Portal subscription switching disabled until a server-owned plan-change flow updates subscription metadata and entitlements atomically; Portal may manage payment methods and cancellation.
-5. Run a controlled live purchase, entitlement grant, Portal access, cancellation/refund, webhook revocation, and post-revocation denial.
-6. Keep public billing gated until every production lifecycle check passes.
+2. Apply and read back, in order, `supabase/migrations/20260826194645_add_bank_based_pricing.sql`, `supabase/migrations/20260910000000_custom_bank_bundles.sql`, and `supabase/migrations/20260911000000_stripe_price_catalog.sql` before deploying bank-based Checkout.
+3. With the protected production Stripe price variables loaded locally, run `node scripts/render-stripe-price-catalog.mjs > /tmp/pastpaperprep-stripe-price-catalog.sql`. Inspect the generated SQL, apply it to Supabase, then read back `public.stripe_price_catalog` and verify every configured product/price/interval tuple. The generated file contains identifiers, not secrets; still delete the temporary file after verification. Never commit generated catalog SQL or hardcode live price IDs in a migration.
+4. Deploy and test password sign-in, password reset, one-link authentication email, free-only filtering, iPad layouts, PDF limits, and watermarks in production.
+5. Confirm the live Stripe product names, prices, webhook, Billing Portal, and production environment use only live-mode values. Keep Portal subscription switching disabled until a server-owned plan-change flow updates subscription metadata and entitlements atomically; Portal may manage payment methods and cancellation.
+6. Run a controlled live purchase, entitlement grant, Portal access, cancellation/refund, webhook revocation, and post-revocation denial.
+7. Keep public billing gated until every production lifecycle check passes.
