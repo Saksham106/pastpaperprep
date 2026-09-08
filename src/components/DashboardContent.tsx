@@ -114,7 +114,7 @@ export function DashboardContent({ authenticated, accessibleBanks }: { authentic
                       aria-label={`${included ? "Open" : "Start free"} ${bank.shortName}`}
                       key={bank.slug}
                     >
-                      <div className="dashboard-bank-meta"><CourseIcon tone={courseToneForBank(bank)} /><strong>{included ? "Included" : "Free exam years"}</strong></div>
+                      <div className="dashboard-bank-meta"><strong>{included ? "Included" : "Free exam years"}</strong></div>
                       <h3>{CARD_NAMES[bank.slug]}</h3>
                       <div className="dashboard-bank-stats"><span>{bank.questionCount.toLocaleString()} questions</span><span>{bank.paperCount} papers</span></div>
                       <span className="dashboard-bank-link">{included ? "Open bank" : "Start free"} <ArrowRight weight="bold" /></span>

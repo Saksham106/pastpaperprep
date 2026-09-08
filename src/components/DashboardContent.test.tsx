@@ -52,9 +52,10 @@ describe("DashboardContent", () => {
     expect(screen.getByRole("heading", { name: "Maths AA SL" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Maths AI HL" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Maths AI SL" })).toBeInTheDocument();
-    expect(container.querySelectorAll("[data-course-icon]")).toHaveLength(18);
-    expect(container.querySelector(".dashboard-bank-family-ib-chemistry [data-course-icon=chemistry]")).not.toBeNull();
-    expect(container.querySelector(".dashboard-bank-family-ib-physics [data-course-icon=physics]")).not.toBeNull();
-    expect(container.querySelector(".dashboard-bank-family-ib-biology [data-course-icon=biology]")).not.toBeNull();
+    expect(container.querySelectorAll("[data-course-icon]")).toHaveLength(6);
+    expect(container.querySelectorAll(".dashboard-bank-card [data-course-icon]")).toHaveLength(0);
+    expect(container.querySelector(".dashboard-bank-family-ib-chemistry > header [data-course-icon=chemistry]")).not.toBeNull();
+    expect(container.querySelector(".dashboard-bank-family-ib-physics > header [data-course-icon=physics]")).not.toBeNull();
+    expect(container.querySelector(".dashboard-bank-family-ib-biology > header [data-course-icon=biology]")).not.toBeNull();
   });
 });
