@@ -28,6 +28,58 @@ describe("approved custom-bank pricing", () => {
     expect(within(builder!).getByText("$10 / month")).toBeInTheDocument();
   });
 
+  it("reflects the selected bank count in the builder headline price", () => {
+    render(<PricingContent authenticated={true} hasPaidAccess={false} />);
+    const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article") as HTMLElement;
+    const headlinePrice = () => builder.querySelector(".plan-price strong")?.textContent;
+    const checkboxes = within(builder).getAllByRole("checkbox");
+
+    expect(headlinePrice()).toBe("$6");
+    fireEvent.click(checkboxes[1]);
+    expect(headlinePrice()).toBe("$10");
+    fireEvent.click(checkboxes[2]);
+    expect(headlinePrice()).toBe("$14");
+    fireEvent.click(checkboxes[3]);
+    expect(headlinePrice()).toBe("$18");
+    fireEvent.click(checkboxes[4]);
+    expect(headlinePrice()).toBe("$22");
+  });
+
+  it("shows exact annual effective monthly headline prices for the selected bundle", () => {
+    render(<PricingContent authenticated={true} hasPaidAccess={false} initialInterval="annual" />);
+    const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article") as HTMLElement;
+    const headlinePrice = () => builder.querySelector(".plan-price strong")?.textContent;
+    const checkboxes = within(builder).getAllByRole("checkbox");
+
+    expect(headlinePrice()).toBe("$4");
+    fireEvent.click(checkboxes[1]);
+    fireEvent.click(checkboxes[2]);
+    fireEvent.click(checkboxes[3]);
+    fireEvent.click(checkboxes[4]);
+    expect(headlinePrice()).toBe("$16");
+  });
+
+  it("keeps a zero-selection builder headline truthful", () => {
+    render(<PricingContent authenticated={true} hasPaidAccess={false} initialBankIds={[]} />);
+    const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article") as HTMLElement;
+
+    expect(builder.querySelector(".plan-price strong")).toHaveTextContent("$0");
+    expect(within(builder).getByText("Select banks to see your price.")).toBeInTheDocument();
+  });
+
+  it("organizes every bank choice into compact, discoverable subject groups", () => {
+    const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} />);
+    const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article") as HTMLElement;
+    const groups = builder.querySelectorAll(".custom-bank-group");
+
+    expect(groups).toHaveLength(3);
+    expect(within(builder).getByText("Cambridge")).toBeInTheDocument();
+    expect(within(builder).getByText("IB Mathematics")).toBeInTheDocument();
+    expect(within(builder).getByText("IB Sciences")).toBeInTheDocument();
+    expect(builder.querySelectorAll("[data-bank-id]")).toHaveLength(12);
+    expect(container.querySelectorAll("[data-pricing-bank]")).toHaveLength(12);
+  });
+
   it("shows annual effective monthly prices, exact yearly totals, and annual builder math", () => {
     render(<PricingContent authenticated={false} hasPaidAccess={false} initialInterval="annual" />);
 

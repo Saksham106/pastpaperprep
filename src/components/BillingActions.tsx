@@ -4,7 +4,7 @@ import Link from "next/link";
 import { CaretDown, Check } from "@phosphor-icons/react";
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import type { ProductId } from "@/lib/access";
-import type { BankSlug } from "@/lib/banks";
+import type { Bank, BankSlug } from "@/lib/banks";
 import { BANKS } from "@/lib/banks";
 import { getGraduatedBundlePrice } from "@/lib/custom-bundles";
 
@@ -29,6 +29,17 @@ async function responsePayload(response: Response): Promise<Record<string, unkno
 }
 
 type BillingInterval = "monthly" | "annual";
+
+type BankGroup = {
+  label: string;
+  banks: readonly Bank[];
+};
+
+const BANK_GROUPS: readonly BankGroup[] = [
+  { label: "Cambridge", banks: BANKS.filter((bank) => bank.qualification === "Cambridge IGCSE") },
+  { label: "IB Mathematics", banks: BANKS.filter((bank) => bank.qualification === "International Baccalaureate" && bank.subject.startsWith("Mathematics")) },
+  { label: "IB Sciences", banks: BANKS.filter((bank) => !bank.subject.startsWith("Mathematics") && bank.qualification !== "Cambridge IGCSE") },
+];
 
 function PlanSelector({ options, value, onChange }: {
   options: readonly { productId: ProductId; label: string }[];
@@ -247,17 +258,22 @@ export function CustomBundleCheckout({
   authenticated,
   hasPaidAccess,
   initialBankIds = [BANKS[0].slug],
+  onSelectionChange,
 }: {
   mode: "single" | "builder";
   interval: BillingInterval;
   authenticated: boolean;
   hasPaidAccess: boolean;
   initialBankIds?: readonly BankSlug[];
+  onSelectionChange?: (selectedBankIds: readonly BankSlug[]) => void;
 }) {
   const [selectedBankIds, setSelectedBankIds] = useState<BankSlug[]>(() => {
     const initial = [...initialBankIds];
     return mode === "single" ? [initial[0] ?? BANKS[0].slug] : initial;
   });
+  useEffect(() => {
+    onSelectionChange?.(selectedBankIds);
+  }, [onSelectionChange, selectedBankIds]);
   if (hasPaidAccess) return null;
   const quantity = selectedBankIds.length;
   const hasSelection = quantity > 0;
@@ -281,17 +297,26 @@ export function CustomBundleCheckout({
     <div className="plan-checkout custom-bundle-checkout">
       <fieldset className="custom-bank-picker">
         <legend>{mode === "single" ? "Choose one question bank" : "Choose the banks you need"}</legend>
-        {BANKS.map((bank) => (
-          <label key={bank.slug}>
-            <input
-              type={mode === "single" ? "radio" : "checkbox"}
-              name={mode === "single" ? "one-bank" : `custom-bank-${bank.slug}`}
-              checked={selectedBankIds.includes(bank.slug)}
-              onChange={() => toggleBank(bank.slug)}
-            />
-            <span>{bank.shortName}</span>
-          </label>
-        ))}
+        <div className="custom-bank-groups">
+          {BANK_GROUPS.map((group) => (
+            <section className="custom-bank-group" key={group.label} aria-labelledby={`bank-group-${group.label.toLowerCase().replaceAll(" ", "-")}`}>
+              <h3 id={`bank-group-${group.label.toLowerCase().replaceAll(" ", "-")}`}>{group.label}</h3>
+              <div className="custom-bank-group-options">
+                {group.banks.map((bank) => (
+                  <label data-bank-id={bank.slug} key={bank.slug}>
+                    <input
+                      type={mode === "single" ? "radio" : "checkbox"}
+                      name={mode === "single" ? "one-bank" : `custom-bank-${bank.slug}`}
+                      checked={selectedBankIds.includes(bank.slug)}
+                      onChange={() => toggleBank(bank.slug)}
+                    />
+                    <span>{bank.shortName}</span>
+                  </label>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
       </fieldset>
       <p className="custom-bundle-selection-note">
         {allAccess ? "Six or more banks automatically use All Access." : quantity === 0 ? "Select at least one bank to continue." : `${quantity} ${quantity === 1 ? "bank" : "banks"} selected.`}
