@@ -70,6 +70,16 @@ describe("bank-based pricing", () => {
     expect(screen.getByText("Save up to 33%", { selector: ".billing-savings" })).toBeInTheDocument();
   });
 
+  it("shows the concrete size and coverage of every bank below the plans", () => {
+    const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} />);
+
+    expect(screen.getByRole("heading", { name: "Compare every question bank" })).toBeInTheDocument();
+    expect(container.querySelectorAll("[data-pricing-bank]")).toHaveLength(12);
+    expect(screen.getByRole("heading", { name: "IB Biology HL" })).toBeInTheDocument();
+    expect(screen.getByText("1,139")).toBeInTheDocument();
+    expect(screen.getAllByText("2020–2025").length).toBeGreaterThan(0);
+  });
+
   it("restores a visitor's plan choice after sign-in", () => {
     render(<PricingContent authenticated hasPaidAccess={false} initialInterval="annual" initialProductId="bank_ib_ai_hl" />);
 

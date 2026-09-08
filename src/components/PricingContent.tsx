@@ -4,7 +4,9 @@ import Link from "next/link";
 import { Check } from "@phosphor-icons/react";
 import { useState } from "react";
 import { PlanCheckout, PortalButton } from "@/components/BillingActions";
+import { CourseIcon, courseToneForBank } from "@/components/CourseIcon";
 import type { ProductId } from "@/lib/access";
+import { BANKS } from "@/lib/banks";
 
 const BANK_OPTIONS = [
   { productId: "bank_igcse", label: "Cambridge IGCSE Mathematics 0580" },
@@ -93,6 +95,35 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         <span><Check /> Smart filters</span>
         <span><Check /> PDF export</span>
       </div>
+
+      <section className="pricing-bank-catalog" aria-labelledby="pricing-bank-catalog-heading">
+        <div className="pricing-bank-catalog-heading">
+          <div>
+            <p className="eyebrow">What you get</p>
+            <h2 id="pricing-bank-catalog-heading">Compare every question bank</h2>
+          </div>
+          <p>See the real coverage behind each choice before you pay.</p>
+        </div>
+        <div className="pricing-bank-grid">
+          {BANKS.map((bank) => {
+            const tone = courseToneForBank(bank);
+            return (
+              <article className={`pricing-bank-card course-tone-${tone}`} data-pricing-bank={bank.slug} key={bank.slug}>
+                <div className="pricing-bank-card-heading">
+                  <CourseIcon tone={tone} />
+                  <div><span>{bank.qualification}</span><h3>{bank.shortName}</h3></div>
+                </div>
+                <dl>
+                  <div><dt>Questions</dt><dd>{bank.questionCount.toLocaleString()}</dd></div>
+                  <div><dt>Papers</dt><dd>{bank.paperCount}</dd></div>
+                  <div><dt>Coverage</dt><dd>{bank.years.replace("-", "–")}</dd></div>
+                </dl>
+                <Link href={`/banks/${bank.slug}?free=1`}>Preview this bank</Link>
+              </article>
+            );
+          })}
+        </div>
+      </section>
 
       <p className="checkout-note">Secure Stripe checkout. Cancel any time. Existing All-Access subscribers keep their current price.</p>
     </section>

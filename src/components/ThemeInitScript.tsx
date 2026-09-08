@@ -2,7 +2,6 @@ export function createThemeInitScript(allowPreference: boolean) {
   return `
 (function () {
   var allowPreference = ${allowPreference ? "true" : "false"};
-  var media = window.matchMedia("(prefers-color-scheme: dark)");
   function storedTheme() {
     if (!allowPreference) return null;
     try {
@@ -13,10 +12,9 @@ export function createThemeInitScript(allowPreference: boolean) {
     }
   }
   function applyTheme() {
-    document.documentElement.dataset.theme = storedTheme() || (media.matches ? "dark" : "light");
+    document.documentElement.dataset.theme = storedTheme() || "light";
   }
   applyTheme();
-  if (media.addEventListener) media.addEventListener("change", applyTheme);
 })();
 `;
 }
