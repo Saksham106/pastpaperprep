@@ -104,24 +104,31 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           </div>
           <p>See the real coverage behind each choice before you pay.</p>
         </div>
-        <div className="pricing-bank-grid">
-          {BANKS.map((bank) => {
-            const tone = courseToneForBank(bank);
-            return (
-              <article className={`pricing-bank-card course-tone-${tone}`} data-pricing-bank={bank.slug} key={bank.slug}>
-                <div className="pricing-bank-card-heading">
-                  <CourseIcon tone={tone} />
-                  <div><span>{bank.qualification}</span><h3>{bank.shortName}</h3></div>
-                </div>
-                <dl>
-                  <div><dt>Questions</dt><dd>{bank.questionCount.toLocaleString()}</dd></div>
-                  <div><dt>Papers</dt><dd>{bank.paperCount}</dd></div>
-                  <div><dt>Coverage</dt><dd>{bank.years.replace("-", "–")}</dd></div>
-                </dl>
-                <Link href={`/banks/${bank.slug}?free=1`}>Preview this bank</Link>
-              </article>
-            );
-          })}
+        <div className="pricing-bank-table-wrap">
+          <table className="pricing-bank-table" aria-label="Question bank coverage">
+            <thead>
+              <tr><th scope="col">Question bank</th><th scope="col">Questions</th><th scope="col">Papers</th><th scope="col">Coverage</th><th scope="col"><span className="sr-only">Preview</span></th></tr>
+            </thead>
+            <tbody>
+              {BANKS.map((bank) => {
+                const tone = courseToneForBank(bank);
+                return (
+                  <tr className={`course-tone-${tone}`} data-pricing-bank={bank.slug} key={bank.slug}>
+                    <th scope="row">
+                      <div className="pricing-bank-name">
+                        <CourseIcon tone={tone} />
+                        <div><span>{bank.qualification}</span><strong>{bank.shortName}</strong></div>
+                      </div>
+                    </th>
+                    <td data-label="Questions">{bank.questionCount.toLocaleString()}</td>
+                    <td data-label="Papers">{bank.paperCount}</td>
+                    <td data-label="Coverage">{bank.years.replace("-", "–")}</td>
+                    <td className="pricing-bank-preview"><Link href={`/banks/${bank.slug}?free=1`} aria-label={`Preview ${bank.shortName}`}>Preview</Link></td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </section>
 

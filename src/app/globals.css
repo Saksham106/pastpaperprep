@@ -128,8 +128,8 @@ main { min-height: 72vh; }
 .course-tone-chemistry { --course-accent: #a45d2d; }
 .course-tone-physics { --course-accent: #6d55a4; }
 .course-tone-biology { --course-accent: var(--success); }
-.course-icon { width: 38px; height: 38px; flex: 0 0 auto; display: grid; place-items: center; color: var(--course-accent, var(--cobalt)); background: color-mix(in srgb, var(--course-accent, var(--cobalt)) 10%, var(--surface)); border: 1px solid color-mix(in srgb, var(--course-accent, var(--cobalt)) 25%, var(--line)); border-radius: 9px; }
-.course-icon svg { width: 20px; height: 20px; }
+.course-icon { width: 38px; height: 38px; flex: 0 0 auto; display: grid; align-items: center; justify-items: center; line-height: 0; color: var(--course-accent, var(--cobalt)); background: color-mix(in srgb, var(--course-accent, var(--cobalt)) 10%, var(--surface)); border: 1px solid color-mix(in srgb, var(--course-accent, var(--cobalt)) 25%, var(--line)); border-radius: 9px; }
+.course-icon svg { width: 20px; height: 20px; display: block; }
 .curriculum-heading { align-self: center; display: grid; grid-template-columns: 38px minmax(0, 1fr); align-items: center; gap: 14px; }
 .curriculum-heading > div { display: grid; gap: 7px; }
 .curriculum-heading h3 { max-width: 330px; margin: 0; font: 670 clamp(1.35rem, 2.4vw, 2rem)/1.06 var(--font-display); letter-spacing: -.045em; }
@@ -369,20 +369,26 @@ main { min-height: 72vh; }
 .pricing-bank-catalog-heading { display: flex; align-items: end; justify-content: space-between; gap: 32px; }
 .pricing-bank-catalog-heading h2 { max-width: 680px; margin: 7px 0 0; font: 850 clamp(2.25rem, 4vw, 3.5rem)/1 var(--font-display); letter-spacing: -.055em; }
 .pricing-bank-catalog-heading > p { max-width: 390px; margin: 0; color: var(--muted); line-height: 1.55; }
-.pricing-bank-grid { margin-top: 24px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-.pricing-bank-card { min-width: 0; padding: 18px; display: flex; flex-direction: column; gap: 16px; background: color-mix(in srgb, var(--course-accent, var(--cobalt)) 3%, var(--surface)); border: 1px solid var(--line); border-top: 3px solid color-mix(in srgb, var(--course-accent, var(--cobalt)) 62%, var(--line)); border-radius: 11px; }
-.pricing-bank-card-heading { min-width: 0; display: flex; align-items: center; gap: 12px; }
-.pricing-bank-card-heading .course-icon { width: 34px; height: 34px; border-radius: 8px; }
-.pricing-bank-card-heading .course-icon svg { width: 18px; height: 18px; }
-.pricing-bank-card-heading > div { min-width: 0; }
-.pricing-bank-card-heading span { display: block; overflow: hidden; color: var(--muted); font-size: .66rem; font-weight: 780; text-overflow: ellipsis; text-transform: uppercase; letter-spacing: .045em; white-space: nowrap; }
-.pricing-bank-card h3 { margin: 4px 0 0; font: 820 1.08rem/1.18 var(--font-display); letter-spacing: -.025em; }
-.pricing-bank-card dl { margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-.pricing-bank-card dl > div { min-width: 0; padding: 9px; background: color-mix(in srgb, var(--course-accent, var(--cobalt)) 6%, var(--surface)); border-radius: 8px; }
-.pricing-bank-card dt { color: var(--muted); font-size: .63rem; font-weight: 720; text-transform: uppercase; letter-spacing: .04em; }
-.pricing-bank-card dd { margin: 4px 0 0; overflow: hidden; font: 800 .86rem var(--font-display); text-overflow: ellipsis; white-space: nowrap; }
-.pricing-bank-card > a { width: fit-content; margin-top: auto; color: var(--course-accent, var(--cobalt-strong)); font-size: .78rem; font-weight: 800; }
-.pricing-bank-card > a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.pricing-bank-table-wrap { margin-top: 24px; overflow: hidden; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.pricing-bank-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.pricing-bank-table thead { background: var(--surface-raised); }
+.pricing-bank-table th, .pricing-bank-table td { padding: 13px 16px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
+.pricing-bank-table thead th { color: var(--muted); font-size: .68rem; font-weight: 780; text-transform: uppercase; letter-spacing: .055em; }
+.pricing-bank-table thead th:first-child { width: 43%; }
+.pricing-bank-table thead th:last-child { width: 10%; }
+.pricing-bank-table tbody tr { box-shadow: inset 3px 0 color-mix(in srgb, var(--course-accent, var(--cobalt)) 70%, var(--line)); transition: background-color 150ms ease; }
+.pricing-bank-table tbody tr:hover { background: color-mix(in srgb, var(--course-accent, var(--cobalt)) 4%, var(--surface)); }
+.pricing-bank-table tbody tr:last-child > * { border-bottom: 0; }
+.pricing-bank-table tbody td { color: var(--ink); font: 760 .84rem/1.3 var(--font-display); }
+.pricing-bank-name { min-width: 0; display: flex; align-items: center; gap: 12px; }
+.pricing-bank-name .course-icon { width: 34px; height: 34px; border-radius: 8px; }
+.pricing-bank-name .course-icon svg { width: 18px; height: 18px; }
+.pricing-bank-name > div { min-width: 0; display: grid; gap: 2px; }
+.pricing-bank-name span { overflow: hidden; color: var(--muted); font-size: .64rem; font-weight: 760; text-overflow: ellipsis; text-transform: uppercase; letter-spacing: .045em; white-space: nowrap; }
+.pricing-bank-name strong { overflow: hidden; font: 790 .94rem/1.25 var(--font-display); text-overflow: ellipsis; white-space: nowrap; }
+.pricing-bank-preview { text-align: right !important; }
+.pricing-bank-preview a { color: var(--course-accent, var(--cobalt-strong)); font-size: .76rem; font-weight: 820; }
+.pricing-bank-preview a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .plan-status { padding: 11px 13px; color: var(--success); background: var(--success-soft); border-radius: 10px; font-weight: 800; }
 
 /* Auth, account, legal */
@@ -572,7 +578,6 @@ main { min-height: 72vh; }
 }
 
 @media (max-width: 850px) {
-  .pricing-bank-grid { grid-template-columns: 1fr 1fr; }
   .bank-seo-content { grid-template-columns: 1fr; }
   .bank-seo-links { grid-column: auto; }
   .article-grid { grid-template-columns: 1fr; }
@@ -600,7 +605,14 @@ main { min-height: 72vh; }
 
 @media (max-width: 640px) {
   .pricing-bank-catalog-heading { align-items: flex-start; flex-direction: column; gap: 12px; }
-  .pricing-bank-grid { grid-template-columns: 1fr; }
+  .pricing-bank-table-wrap { overflow: visible; border-radius: 10px; }
+  .pricing-bank-table, .pricing-bank-table tbody { display: block; }
+  .pricing-bank-table thead { display: none; }
+  .pricing-bank-table tbody tr { padding: 14px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; box-shadow: inset 3px 0 color-mix(in srgb, var(--course-accent, var(--cobalt)) 70%, var(--line)); }
+  .pricing-bank-table th, .pricing-bank-table td { padding: 0; border: 0; }
+  .pricing-bank-table tbody th { grid-column: 1 / -1; }
+  .pricing-bank-table tbody td[data-label]::before { content: attr(data-label); margin-bottom: 3px; display: block; color: var(--muted); font: 730 .61rem/1.2 var(--font-sans); text-transform: uppercase; letter-spacing: .045em; }
+  .pricing-bank-preview { grid-column: 1 / -1; text-align: left !important; }
   .bank-seo-content { margin-block: 52px 72px; padding: 22px; }
   .articles-page, .article-page { padding-block: 44px 78px; }
   .articles-hero h1, .article-header h1 { font-size: 2.8rem; }

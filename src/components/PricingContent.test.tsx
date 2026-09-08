@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { PricingContent } from "@/components/PricingContent";
 
@@ -74,8 +74,18 @@ describe("bank-based pricing", () => {
     const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} />);
 
     expect(screen.getByRole("heading", { name: "Compare every question bank" })).toBeInTheDocument();
+    const table = screen.getByRole("table", { name: "Question bank coverage" });
+    expect(within(table).getAllByRole("row")).toHaveLength(13);
+    expect(within(table).getAllByRole("columnheader").map((header) => header.textContent)).toEqual([
+      "Question bank",
+      "Questions",
+      "Papers",
+      "Coverage",
+      "Preview",
+    ]);
     expect(container.querySelectorAll("[data-pricing-bank]")).toHaveLength(12);
-    expect(screen.getByRole("heading", { name: "IB Biology HL" })).toBeInTheDocument();
+    expect(container.querySelector(".pricing-bank-grid")).toBeNull();
+    expect(within(table).getByText("IB Biology HL")).toBeInTheDocument();
     expect(screen.getByText("1,139")).toBeInTheDocument();
     expect(screen.getAllByText("2020–2025").length).toBeGreaterThan(0);
   });
