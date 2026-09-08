@@ -1,4 +1,4 @@
-export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl";
+export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl";
 
 export type Bank = {
   slug: BankSlug;
@@ -92,6 +92,32 @@ export const BANKS: readonly Bank[] = [
     years: "2021-2025",
     accent: "lime",
     sourceBaseUrl: "https://saksham106.github.io/ib-maths-ai-sl-topic-practice",
+  },
+  {
+    slug: "ib-chemistry-hl",
+    shortName: "IB Chemistry HL",
+    title: "IB Chemistry Higher Level",
+    description: "Practise real IB Chemistry HL questions by topic, paper, session, and skill with official markschemes.",
+    qualification: "International Baccalaureate",
+    subject: "Chemistry HL",
+    questionCount: 1083,
+    paperCount: 51,
+    years: "2020-2025",
+    accent: "coral",
+    sourceBaseUrl: "https://saksham106.github.io/ib-chemistry-topic-practice",
+  },
+  {
+    slug: "ib-chemistry-sl",
+    shortName: "IB Chemistry SL",
+    title: "IB Chemistry Standard Level",
+    description: "Target IB Chemistry SL topics with real questions, official markschemes, and focused revision filters.",
+    qualification: "International Baccalaureate",
+    subject: "Chemistry SL",
+    questionCount: 810,
+    paperCount: 51,
+    years: "2020-2025",
+    accent: "lime",
+    sourceBaseUrl: "https://saksham106.github.io/ib-chemistry-topic-practice",
   },
 ] as const;
 

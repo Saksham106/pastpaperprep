@@ -11,6 +11,7 @@
     "r2:sync": "node scripts/sync-r2-assets.mjs",
     "r2:verify": "node scripts/sync-r2-assets.mjs --verify-only",
     "storage:plan": "tsx scripts/reconcile-supabase-assets.ts --plan-only",
+    "storage:sync-previews": "tsx scripts/reconcile-supabase-assets.ts --sync-missing-previews",
     "storage:reconcile": "tsx scripts/reconcile-supabase-assets.ts",
     "start": "next start",
     "lint": "eslint",

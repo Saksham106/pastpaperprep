@@ -7,7 +7,7 @@ import { join } from "node:path";
 const root = join(import.meta.dirname, "..");
 const outputDirectory = join(root, "public", "bank-index");
 const version = 1;
-const banks = ["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl"];
+const banks = ["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "ib-chemistry-hl", "ib-chemistry-sl"];
 const forbiddenKeys = [
   "summary", "accessibleText", "searchText", "solution", "sourceQuestionUrl",
   "sourceMarkSchemeUrl", "questionImages", "markschemeImages", "questionAssetPaths",
@@ -22,7 +22,7 @@ function integer(value) {
   return typeof value === "number" ? value : Number.parseInt(String(value), 10) || 0;
 }
 
-function metadataFromRaw(raw) {
+function metadataFromRaw(raw, bank) {
   const officialMarkscheme = raw.officialMarkscheme && typeof raw.officialMarkscheme === "object"
     ? raw.officialMarkscheme
     : {};
@@ -42,7 +42,7 @@ function metadataFromRaw(raw) {
     ...subtopics,
   ])];
 
-  return {
+  const metadata = {
     id: typeof raw.id === "string" ? raw.id : "",
     number: integer(raw.number),
     paper: integer(raw.paper),
@@ -53,7 +53,9 @@ function metadataFromRaw(raw) {
     skills,
     subtopics,
     subject: (typeof raw.subject === "string" && raw.subject) || (typeof raw.course === "string" ? raw.course : ""),
-    courseEra: typeof raw.courseEra === "string" ? raw.courseEra : "",
+    ...(bank === "ib-chemistry-hl" || bank === "ib-chemistry-sl"
+      ? {}
+      : { courseEra: typeof raw.courseEra === "string" ? raw.courseEra : "" }),
     option: typeof raw.p3Option === "string" ? raw.p3Option : "",
     zone: (typeof raw.timezone === "string" && raw.timezone) || (typeof raw.zone === "string" ? raw.zone : ""),
     component: typeof raw.component === "string" ? raw.component : "",
@@ -62,10 +64,14 @@ function metadataFromRaw(raw) {
     questionImageCount: strings(raw.questionImages).length,
     markschemeImageCount: strings(raw.markschemeImages).length + strings(officialMarkscheme.images).length,
   };
+  return metadata;
 }
 
 function sortQuestions(a, b) {
-  return b.year - a.year || a.paper - b.paper || a.number - b.number;
+  return b.year - a.year
+    || a.paper - b.paper
+    || a.number - b.number
+    || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
 }
 
 function assertSafe(serialized, rawQuestions) {
@@ -104,7 +110,7 @@ const manifest = {};
 for (const bank of banks) {
   const rawBank = JSON.parse(await readFile(join(root, "src", "data", "raw", `${bank}.json`), "utf8"));
   const rawQuestions = rawBank.questions;
-  const questions = rawQuestions.map(metadataFromRaw).sort(sortQuestions);
+  const questions = rawQuestions.map((raw) => metadataFromRaw(raw, bank)).sort(sortQuestions);
   const payload = { version, bank, questions };
   const serialized = `${JSON.stringify(payload)}\n`;
   assertSafe(serialized, rawQuestions);

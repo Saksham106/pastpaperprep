@@ -6,7 +6,7 @@ describe("PricingPage", () => {
   it("shows three concise paid plans with monthly pricing first", () => {
     const { container } = render(<PricingContent authenticated hasPaidAccess={false} />);
 
-    expect(screen.getByRole("heading", { name: /pay for the maths you actually study/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /pay only for the subjects you actually study/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Monthly" })).toHaveAttribute("aria-pressed", "true");
     expect(screen.getByText("$5")).toBeInTheDocument();
     expect(screen.getByText("$8")).toBeInTheDocument();

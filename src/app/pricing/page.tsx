@@ -9,11 +9,11 @@ import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: "Pricing",
-  description: "Compare PastPaperPrep plans for Cambridge IGCSE and IB Mathematics topical question banks, worked answers, and printable PDF revision sets.",
+  description: "Compare PastPaperPrep plans for Cambridge IGCSE and IB Mathematics, plus IB Chemistry topical question banks, worked answers, and printable PDF revision sets.",
   alternates: { canonical: "/pricing" },
   openGraph: {
     title: "PastPaperPrep Pricing",
-    description: "Choose one maths question bank, a subject pair, or all six IGCSE and IB Mathematics banks.",
+    description: "Choose one question bank, a subject pair, or all eight IGCSE, IB Mathematics, and IB Chemistry banks.",
     url: "/pricing",
     type: "website",
   },
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 const PURCHASABLE_PRODUCTS: readonly ProductId[] = [
   "bank_igcse", "bank_igcse_additional", "bank_ib_hl", "bank_ib_sl", "bank_ib_ai_hl", "bank_ib_ai_sl",
-  "bundle_igcse", "bundle_ib_aa", "bundle_ib_ai", "bundle_all",
+  "bank_ib_chemistry_hl", "bank_ib_chemistry_sl", "bundle_igcse", "bundle_ib_aa", "bundle_ib_ai", "bundle_ib_chemistry", "bundle_all",
 ];
 
 function purchaseProduct(value: string | undefined): ProductId | undefined {

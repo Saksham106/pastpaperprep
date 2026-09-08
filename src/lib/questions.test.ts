@@ -2,8 +2,25 @@ import { describe, expect, it } from "vitest";
 import { filterQuestions } from "@/lib/question-filter";
 import { loadBankQuestions } from "@/lib/question-fixtures";
 import { getControlledSubtopics, getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy";
+import { normalizeBankQuestions } from "@/lib/questions";
 
 describe("question normalization", () => {
+  it("produces canonical ordering from shuffled input, including duplicate sort keys", () => {
+    const raw = [
+      { id: "same-key-b", number: 1, paper: 1, year: 2025 },
+      { id: "older", number: 9, paper: 2, year: 2024 },
+      { id: "later-number", number: 2, paper: 1, year: 2025 },
+      { id: "same-key-a", number: 1, paper: 1, year: 2025 },
+      { id: "later-paper", number: 1, paper: 2, year: 2025 },
+      { id: "newer", number: 1, paper: 1, year: 2026 },
+    ] as Parameters<typeof normalizeBankQuestions>[1];
+    const expected = ["newer", "same-key-a", "same-key-b", "later-number", "later-paper", "older"];
+    const shuffled = [raw[4], raw[0], raw[5], raw[2], raw[1], raw[3]];
+
+    expect(normalizeBankQuestions("ib-chemistry-hl", raw).map(({ id }) => id)).toEqual(expected);
+    expect(normalizeBankQuestions("ib-chemistry-hl", shuffled).map(({ id }) => id)).toEqual(expected);
+  });
+
   it("loads every source bank without dropping questions", () => {
     expect(loadBankQuestions("igcse")).toHaveLength(2684);
     expect(loadBankQuestions("igcse-additional")).toHaveLength(1633);
@@ -29,7 +46,9 @@ describe("question normalization", () => {
   });
 
   it("preserves bank-specific metadata and official markscheme images", () => {
-    const igcse = loadBankQuestions("igcse")[0];
+    const igcse = loadBankQuestions("igcse").find(
+      (question) => question.id === "0580-2026-march-22-q1",
+    )!;
     const ibHl = loadBankQuestions("ib-hl");
     const markedQuestion = ibHl.find((question) => question.markschemeImages.length > 0);
 

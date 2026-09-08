@@ -1,6 +1,6 @@
 #!/usr/bin/env tsx
 
-import { stat } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import { resolve } from "node:path";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { isPreviewQuestion } from "@/lib/access";
@@ -13,8 +13,9 @@ const WORKSPACE_ROOT = resolve(REPO_ROOT, "..");
 const BUCKET = "question-assets";
 const APPLY = process.argv.includes("--apply");
 const PLAN_ONLY = process.argv.includes("--plan-only");
-const EXPECTED_PREVIEW_COUNT = 3_244;
-const EXPECTED_PREMIUM_COUNT = 12_230;
+const SYNC_MISSING_PREVIEWS = process.argv.includes("--sync-missing-previews");
+const EXPECTED_PREVIEW_COUNT = 3_635;
+const EXPECTED_PREMIUM_COUNT = 17_316;
 const CONFIRMATION = String(EXPECTED_PREMIUM_COUNT);
 
 const SOURCE_ROOTS: Record<BankSlug, string> = {
@@ -24,6 +25,8 @@ const SOURCE_ROOTS: Record<BankSlug, string> = {
   "ib-sl": resolve(WORKSPACE_ROOT, "ib-maths-aa-topic-finder-audit/site"),
   "ib-ai-hl": resolve(WORKSPACE_ROOT, "ib-maths-ai-hl-topic-practice-full-audit-final/site"),
   "ib-ai-sl": resolve(WORKSPACE_ROOT, "ib-maths-ai-sl-topic-practice-audit-fix-ai-sl/site"),
+  "ib-chemistry-hl": resolve(WORKSPACE_ROOT, "ib-chemistry-topic-practice/site"),
+  "ib-chemistry-sl": resolve(WORKSPACE_ROOT, "ib-chemistry-topic-practice/site"),
 };
 
 function formatBytes(bytes: number) {
@@ -43,6 +46,32 @@ async function byteTotal(paths: Set<string>) {
   let total = 0;
   for (const path of paths) total += (await stat(canonicalPath(path))).size;
   return total;
+}
+
+async function localSizes(paths: Iterable<string>) {
+  const sizes = new Map<string, number>();
+  for (const path of paths) sizes.set(path, (await stat(canonicalPath(path))).size);
+  return sizes;
+}
+
+async function uploadMissingPreviews(supabase: SupabaseClient, paths: string[]) {
+  const storage = supabase.storage.from(BUCKET);
+  for (let index = 0; index < paths.length; index += 1) {
+    const path = paths[index];
+    const body = await readFile(canonicalPath(path));
+    const { data: signedUpload, error: signError } = await storage.createSignedUploadUrl(path);
+    if (signError || !signedUpload?.token) {
+      throw signError ?? new Error(`Supabase did not return an upload token for ${path}.`);
+    }
+    const { error: uploadError } = await storage.uploadToSignedUrl(path, signedUpload.token, body, {
+      contentType: "image/webp",
+      upsert: false,
+    });
+    if (uploadError) throw uploadError;
+    if ((index + 1) % 25 === 0 || index + 1 === paths.length) {
+      console.log(`Uploaded ${index + 1}/${paths.length} missing preview objects.`);
+    }
+  }
 }
 
 async function listStorageObjects(supabase: SupabaseClient) {
@@ -86,6 +115,12 @@ function assertPlan(previewPaths: Set<string>, premiumPaths: Set<string>, allPat
 }
 
 async function main() {
+  if (PLAN_ONLY && SYNC_MISSING_PREVIEWS) {
+    throw new Error("Choose either --plan-only or --sync-missing-previews, not both.");
+  }
+  if (APPLY && SYNC_MISSING_PREVIEWS) {
+    throw new Error("Preview sync and premium deletion are separate operations and cannot run together.");
+  }
   const plan = buildAssetRetentionPlan(
     BANKS.map(({ slug }) => ({ slug, questions: loadBankQuestions(slug) })),
   );
@@ -108,9 +143,31 @@ async function main() {
   const supabase = createClient(url, secret, { auth: { persistSession: false, autoRefreshToken: false } });
 
   const before = await listStorageObjects(supabase);
+  const previewSizes = await localSizes(plan.previewPaths);
   const missingPreview = [...plan.previewPaths].filter((path) => !before.has(path));
+  const mismatchedPreview = [...plan.previewPaths].filter((path) => {
+    const remoteSize = before.get(path);
+    return remoteSize !== undefined && remoteSize !== previewSizes.get(path);
+  });
   const presentPremium = [...plan.premiumPaths].filter((path) => before.has(path));
-  console.log(`Supabase before: ${before.size.toLocaleString()} objects; ${missingPreview.length} required previews missing; ${presentPremium.length.toLocaleString()} premium objects present.`);
+  console.log(`Supabase before: ${before.size.toLocaleString()} objects; ${missingPreview.length} required previews missing; ${mismatchedPreview.length} required previews have the wrong byte size; ${presentPremium.length.toLocaleString()} premium objects present.`);
+  if (mismatchedPreview.length) {
+    throw new Error(`Refusing to continue: ${mismatchedPreview.length} existing preview assets do not match local byte sizes.`);
+  }
+
+  if (SYNC_MISSING_PREVIEWS) {
+    await uploadMissingPreviews(supabase, missingPreview);
+    const afterSync = await listStorageObjects(supabase);
+    const missingPreviewAfterSync = [...plan.previewPaths].filter((path) => !afterSync.has(path));
+    const mismatchedPreviewAfterSync = [...plan.previewPaths].filter(
+      (path) => afterSync.has(path) && afterSync.get(path) !== previewSizes.get(path),
+    );
+    if (missingPreviewAfterSync.length || mismatchedPreviewAfterSync.length) {
+      throw new Error(`Preview sync verification failed: ${missingPreviewAfterSync.length} missing and ${mismatchedPreviewAfterSync.length} byte-size mismatches remain.`);
+    }
+    console.log(`Verified Supabase preview corpus: all ${plan.previewPaths.size.toLocaleString()} required objects are present with exact byte sizes. No objects were deleted or overwritten.`);
+    return;
+  }
   if (missingPreview.length) throw new Error("Refusing to delete: Supabase is already missing required preview assets.");
 
   if (!APPLY) {

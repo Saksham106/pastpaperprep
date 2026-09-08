@@ -21,6 +21,7 @@ describe("public bank question index", () => {
       primaryTopic: expect.any(String),
       skills: expect.any(Array),
       subtopics: expect.any(Array),
+      courseEra: expect.any(String),
     });
     expect(serialized).not.toContain("accessibleText");
     expect(serialized).not.toContain("summary");

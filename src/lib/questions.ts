@@ -164,5 +164,8 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion): UnifiedQuestion {
 export function normalizeBankQuestions(slug: BankSlug, rawQuestions: RawQuestion[]): UnifiedQuestion[] {
   return rawQuestions
     .map((question) => normalizeQuestion(slug, question))
-    .sort((a, b) => b.year - a.year || a.paper - b.paper || a.number - b.number);
+    .sort((a, b) => b.year - a.year
+      || a.paper - b.paper
+      || a.number - b.number
+      || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
 }

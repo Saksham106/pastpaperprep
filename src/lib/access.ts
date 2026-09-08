@@ -1,6 +1,6 @@
 import type { BankSlug } from "@/lib/banks";
 
-export type ProductId = "bank_igcse" | "bank_igcse_additional" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bundle_igcse" | "bundle_ib_aa" | "bundle_ib_ai" | "bundle_all";
+export type ProductId = "bank_igcse" | "bank_igcse_additional" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bank_ib_chemistry_hl" | "bank_ib_chemistry_sl" | "bundle_igcse" | "bundle_ib_aa" | "bundle_ib_ai" | "bundle_ib_chemistry" | "bundle_all";
 export type EntitlementStatus = "active" | "trialing" | "expired" | "revoked";
 
 export type AccessEntitlement = {
@@ -17,6 +17,8 @@ const BANK_PRODUCTS: Record<BankSlug, ProductId> = {
   "ib-sl": "bank_ib_sl",
   "ib-ai-hl": "bank_ib_ai_hl",
   "ib-ai-sl": "bank_ib_ai_sl",
+  "ib-chemistry-hl": "bank_ib_chemistry_hl",
+  "ib-chemistry-sl": "bank_ib_chemistry_sl",
 };
 
 const BANK_BUNDLES: Record<BankSlug, readonly ProductId[]> = {
@@ -26,6 +28,8 @@ const BANK_BUNDLES: Record<BankSlug, readonly ProductId[]> = {
   "ib-sl": ["bundle_ib_aa"],
   "ib-ai-hl": ["bundle_ib_ai"],
   "ib-ai-sl": ["bundle_ib_ai"],
+  "ib-chemistry-hl": ["bundle_ib_chemistry"],
+  "ib-chemistry-sl": ["bundle_ib_chemistry"],
 };
 
 export const PREVIEW_QUESTION_IDS: Record<BankSlug, readonly string[]> = {
@@ -59,6 +63,16 @@ export const PREVIEW_QUESTION_IDS: Record<BankSlug, readonly string[]> = {
     "2021-may-tz1-p1-q2",
     "2021-may-tz1-p1-q3",
   ],
+  "ib-chemistry-hl": [
+    "2020-november-tz0-hl-p1-q1",
+    "2020-november-tz0-hl-p1-q2",
+    "2020-november-tz0-hl-p1-q3",
+  ],
+  "ib-chemistry-sl": [
+    "2020-november-tz0-sl-p1-q1",
+    "2020-november-tz0-sl-p1-q2",
+    "2020-november-tz0-sl-p1-q3",
+  ],
 };
 
 export const FREE_QUESTION_YEARS: Record<BankSlug, readonly number[]> = {
@@ -68,6 +82,8 @@ export const FREE_QUESTION_YEARS: Record<BankSlug, readonly number[]> = {
   "ib-sl": [2017],
   "ib-ai-hl": [2021],
   "ib-ai-sl": [2021],
+  "ib-chemistry-hl": [2020],
+  "ib-chemistry-sl": [2020],
 };
 
 function isCurrent(entitlement: AccessEntitlement, now: Date): boolean {

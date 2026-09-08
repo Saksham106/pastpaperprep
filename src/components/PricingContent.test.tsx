@@ -50,8 +50,10 @@ describe("bank-based pricing", () => {
     expect(selectors).toHaveLength(2);
     fireEvent.click(selectors[0]);
     expect(screen.getByRole("option", { name: "IB Mathematics AA HL" })).toBeInTheDocument();
+    expect(screen.getByRole("option", { name: "IB Chemistry HL" })).toBeInTheDocument();
     fireEvent.click(selectors[1]);
     expect(screen.getByRole("option", { name: "IB Mathematics AA (SL + HL)" })).toBeInTheDocument();
+    expect(screen.getByRole("option", { name: "IB Chemistry (SL + HL)" })).toBeInTheDocument();
   });
 
   it("shows course selectors and checkout continuations before sign-in", () => {

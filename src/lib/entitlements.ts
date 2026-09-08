@@ -7,9 +7,12 @@ const PRODUCT_IDS = new Set<ProductId>([
   "bank_ib_sl",
   "bank_ib_ai_hl",
   "bank_ib_ai_sl",
+  "bank_ib_chemistry_hl",
+  "bank_ib_chemistry_sl",
   "bundle_igcse",
   "bundle_ib_aa",
   "bundle_ib_ai",
+  "bundle_ib_chemistry",
   "bundle_all",
 ]);
 const STATUSES = new Set<EntitlementStatus>(["active", "trialing", "expired", "revoked"]);

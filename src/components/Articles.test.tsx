@@ -116,7 +116,7 @@ describe("article library", () => {
     render(<ArticleContent article={article} />);
 
     expect(screen.getByRole("table", { name: /pastpaperprep vs revision village/i })).toBeInTheDocument();
-    expect(screen.getByText(/Pricing checked 30 August 2026/i)).toBeInTheDocument();
+    expect(screen.getByText(/Pricing checked 7 September 2026/i)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Revision Village Gold pricing/i })).toHaveAttribute(
       "href",
       "https://www.revisionvillage.com/revision-village-gold/",

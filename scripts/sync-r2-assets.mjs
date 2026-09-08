@@ -2,7 +2,7 @@
 
 import { createHash } from "node:crypto";
 import { createReadStream } from "node:fs";
-import { readdir, stat } from "node:fs/promises";
+import { readdir, readFile, stat } from "node:fs/promises";
 import { dirname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { ListObjectsV2Command, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
@@ -23,6 +23,8 @@ const SOURCES = [
   { bank: "ib-ai-hl", root: join(WORKSPACE_ROOT, "ib-maths-ai-hl-topic-practice-full-audit-final/site") },
   { bank: "ib-sl", root: join(WORKSPACE_ROOT, "ib-maths-aa-topic-finder-audit/site") },
   { bank: "ib-ai-sl", root: join(WORKSPACE_ROOT, "ib-maths-ai-sl-topic-practice-audit-fix-ai-sl/site") },
+  { bank: "ib-chemistry-hl", root: join(WORKSPACE_ROOT, "ib-chemistry-topic-practice/site"), raw: join(REPO_ROOT, "src/data/raw/ib-chemistry-hl.json") },
+  { bank: "ib-chemistry-sl", root: join(WORKSPACE_ROOT, "ib-chemistry-topic-practice/site"), raw: join(REPO_ROOT, "src/data/raw/ib-chemistry-sl.json") },
 ];
 
 if (!ACCOUNT_ID || !ACCESS_KEY_ID || !SECRET_ACCESS_KEY) {
@@ -56,6 +58,29 @@ async function walk(directory) {
   return files;
 }
 
+async function referencedWebpFiles(source) {
+  if (!source.raw) return (await walk(source.root)).map((path) => ({ path, relative: relative(source.root, path) }));
+  const raw = JSON.parse(await readFile(source.raw, "utf8"));
+  const relativePaths = new Set();
+  for (const question of raw.questions ?? []) {
+    for (const path of [
+      ...(Array.isArray(question.questionImages) ? question.questionImages : []),
+      ...(Array.isArray(question.markschemeImages) ? question.markschemeImages : []),
+      ...((question.officialMarkscheme && Array.isArray(question.officialMarkscheme.images)) ? question.officialMarkscheme.images : []),
+    ]) {
+      if (typeof path !== "string" || path.startsWith("/") || !path.endsWith(".webp")) {
+        throw new Error(`Invalid referenced Chemistry asset: ${String(path)}`);
+      }
+      const absolute = resolve(source.root, path);
+      if (absolute !== source.root && !absolute.startsWith(`${source.root}${sep}`)) {
+        throw new Error(`Referenced Chemistry asset escapes source root: ${path}`);
+      }
+      relativePaths.add(path);
+    }
+  }
+  return [...relativePaths].sort().map((relativePath) => ({ path: join(source.root, relativePath), relative: relativePath }));
+}
+
 async function md5(path) {
   const hash = createHash("md5");
   for await (const chunk of createReadStream(path)) hash.update(chunk);
@@ -64,10 +89,10 @@ async function md5(path) {
 
 async function localManifest() {
   const groups = await Promise.all(SOURCES.map(async (source) => {
-    const files = await walk(source.root);
-    return files.map((path) => ({
-      key: `${source.bank}/${relative(source.root, path).split(sep).join("/")}`,
-      path,
+    const files = await referencedWebpFiles(source);
+    return files.map((file) => ({
+      key: `${source.bank}/${file.relative.split(sep).join("/")}`,
+      path: file.path,
       size: 0,
       etag: "",
     }));
