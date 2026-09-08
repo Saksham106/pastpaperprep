@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getBillingPlan, isStripeBillingEnabled, validateStripeConfig } from "@/lib/stripe-config";
+import { getBillingPlan, isStripeBillingEnabled, isStripePriceAllowedForProduct, validateStripeConfig } from "@/lib/stripe-config";
 
 describe("Stripe billing configuration", () => {
   const env = {
@@ -30,6 +30,24 @@ describe("Stripe billing configuration", () => {
     expect(getBillingPlan("bundle_all", "annual", config)).toEqual({ interval: "annual", productId: "bundle_all", priceId: "price_all_annual" });
     expect(() => getBillingPlan("admin", "monthly", config)).toThrow("Unknown billing product");
     expect(() => getBillingPlan("bank_ib_hl", "price_monthly", config)).toThrow("Unknown billing interval");
+  });
+
+  it("requires the Stripe price interval to agree with every approved product price", () => {
+    const config = validateStripeConfig(env);
+    const approved = [
+      ["bank_ib_hl", "price_single_monthly", "monthly"],
+      ["bundle_ib_aa", "price_pair_annual", "annual"],
+      ["bundle_all", "price_monthly", "monthly"],
+      ["bundle_all", "price_annual", "annual"],
+      ["bundle_all", "price_all_monthly", "monthly"],
+      ["bundle_custom", "price_custom_annual", "annual"],
+    ] as const;
+    for (const [productId, priceId, interval] of approved) {
+      expect(isStripePriceAllowedForProduct(productId, priceId, config, interval)).toBe(true);
+    }
+    expect(isStripePriceAllowedForProduct("bank_ib_hl", "price_single_monthly", config, "annual")).toBe(false);
+    expect(isStripePriceAllowedForProduct("bundle_all", "price_annual", config, "monthly")).toBe(false);
+    expect(isStripePriceAllowedForProduct("bundle_custom", "price_custom_annual", config)).toBe(false);
   });
 
   it("fails closed when required secrets or price IDs are missing", () => {

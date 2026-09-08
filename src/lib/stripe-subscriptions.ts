@@ -29,8 +29,9 @@ export type SubscriptionSync = {
   userId: string;
   productId: ProductId;
   selectedBankIds?: ReturnType<typeof validateCustomBankIds>;
-  quantity?: number;
-  priceId?: string;
+  quantity: number;
+  priceId: string;
+  interval: BillingInterval;
   status: "active" | "trialing" | "revoked";
   startsAt: string;
   expiresAt: string | null;
@@ -84,9 +85,19 @@ export function buildSubscriptionSync(
   const item = record(items.data[0], "Invalid subscription item");
   const price = record(item.price, "Invalid subscription price");
   if (typeof price.id !== "string") throw new Error("Invalid Stripe price");
+  const recurring = record(price.recurring, "Invalid Stripe recurring price");
+  const stripeInterval = recurring.interval === "month"
+    ? "monthly"
+    : recurring.interval === "year"
+      ? "annual"
+      : null;
+  if (!stripeInterval) throw new Error("Invalid Stripe price interval");
+  if (typeof item.quantity !== "number" || !Number.isSafeInteger(item.quantity) || item.quantity < 1) {
+    throw new Error("Invalid Stripe subscription quantity");
+  }
+  const quantity = item.quantity;
 
   let selectedBankIds: ReturnType<typeof validateCustomBankIds> | undefined;
-  let customInterval: BillingInterval | undefined;
   if (metadata.product_id === "bundle_custom") {
     if (typeof metadata.selected_bank_ids !== "string" || typeof metadata.billing_interval !== "string" || typeof metadata.price_id !== "string") {
       throw new Error("Invalid custom bundle metadata");
@@ -102,16 +113,17 @@ export function buildSubscriptionSync(
     } catch {
       throw new Error("Invalid custom bundle metadata");
     }
-    if (metadata.billing_interval !== "monthly" && metadata.billing_interval !== "annual") {
-      throw new Error("Invalid custom bundle metadata");
+    if (metadata.billing_interval !== stripeInterval) {
+      throw new Error("Stripe price interval does not match subscription metadata");
     }
-    customInterval = metadata.billing_interval;
     if (metadata.price_id !== price.id) throw new Error("Stripe price metadata does not match subscription");
-    if (typeof item.quantity !== "number" || !Number.isSafeInteger(item.quantity) || item.quantity !== selectedBankIds.length) {
+    if (quantity !== selectedBankIds.length) {
       throw new Error("Custom bundle quantity does not match selection");
     }
+  } else if (quantity !== 1) {
+    throw new Error("Stripe subscription quantity must be exactly one");
   }
-  if (!isPriceAllowed(metadata.product_id as ProductId, price.id, customInterval)) {
+  if (!isPriceAllowed(metadata.product_id as ProductId, price.id, stripeInterval)) {
     throw new Error("Stripe price does not match product");
   }
 
@@ -126,7 +138,10 @@ export function buildSubscriptionSync(
     customerId: subscription.customer,
     userId: metadata.user_id,
     productId: metadata.product_id as ProductId,
-    ...(selectedBankIds ? { selectedBankIds, quantity: item.quantity as number, priceId: price.id } : {}),
+    ...(selectedBankIds ? { selectedBankIds } : {}),
+    quantity,
+    priceId: price.id,
+    interval: stripeInterval,
     status: entitled ? subscription.status as "active" | "trialing" : "revoked",
     startsAt,
     expiresAt: entitled ? unixDate(item.current_period_end) : null,

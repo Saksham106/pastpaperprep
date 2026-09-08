@@ -120,24 +120,26 @@ export function getKnownStripePriceIds(config: StripeConfig): ReadonlySet<string
 }
 
 export function isStripePriceAllowedForProduct(productId: string, priceId: string, config: StripeConfig, interval?: BillingInterval): boolean {
+  if (!interval) return false;
   if (SINGLE_PRODUCTS.has(productId)) {
-    return priceId === config.singleMonthlyPriceId || priceId === config.singleAnnualPriceId;
+    return interval === "monthly"
+      ? priceId === config.singleMonthlyPriceId
+      : priceId === config.singleAnnualPriceId;
   }
   if (PAIR_PRODUCTS.has(productId)) {
-    return priceId === config.pairMonthlyPriceId || priceId === config.pairAnnualPriceId;
+    return interval === "monthly"
+      ? priceId === config.pairMonthlyPriceId
+      : priceId === config.pairAnnualPriceId;
   }
   if (productId === "bundle_all") {
-    return priceId === config.monthlyPriceId
-      || priceId === config.annualPriceId
-      || priceId === config.allMonthlyPriceId
-      || priceId === config.allAnnualPriceId;
+    return interval === "monthly"
+      ? priceId === config.monthlyPriceId || priceId === config.allMonthlyPriceId
+      : priceId === config.annualPriceId || priceId === config.allAnnualPriceId;
   }
   if (productId === CUSTOM_BUNDLE_PRODUCT_ID) {
     return interval === "monthly"
       ? priceId === config.customMonthlyPriceId
-      : interval === "annual"
-        ? priceId === config.customAnnualPriceId
-        : priceId === config.customMonthlyPriceId || priceId === config.customAnnualPriceId;
+      : priceId === config.customAnnualPriceId;
   }
   return false;
 }

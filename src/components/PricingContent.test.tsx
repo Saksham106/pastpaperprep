@@ -37,6 +37,19 @@ describe("approved custom-bank pricing", () => {
     expect(screen.getAllByText(/Billed/).map((node) => node.textContent).some((text) => text?.includes("$216 once a year"))).toBe(true);
   });
 
+  it("disables Build Your Plan checkout and pricing when no banks are selected", () => {
+    render(<PricingContent authenticated={true} hasPaidAccess={false} />);
+    const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article") as HTMLElement;
+    const checkbox = within(builder).getAllByRole("checkbox")[0];
+
+    fireEvent.click(checkbox);
+
+    expect(within(builder).getByText("Select at least one bank to continue.")).toBeInTheDocument();
+    expect(within(builder).queryByRole("button", { name: /choose monthly/i })).not.toBeInTheDocument();
+    expect(builder.querySelector(".custom-bundle-effective-price")).toBeNull();
+    expect(builder.querySelector(".custom-bundle-total")).toBeNull();
+  });
+
   it("keeps the popular plan first on mobile and all three cards in one grid", () => {
     const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} />);
     expect(container.querySelector(".pricing-decision-grid")).not.toBeNull();

@@ -260,10 +260,13 @@ export function CustomBundleCheckout({
   });
   if (hasPaidAccess) return null;
   const quantity = selectedBankIds.length;
+  const hasSelection = quantity > 0;
   const annual = interval === "annual";
   const allAccess = quantity >= 6;
-  const monthlyEquivalentCents = allAccess ? (annual ? 1_800 : 2_500) : getGraduatedBundlePrice(interval, Math.max(quantity, 1)) / (annual ? 12 : 1);
-  const annualCents = allAccess ? 21_600 : getGraduatedBundlePrice("annual", Math.max(quantity, 1));
+  const monthlyEquivalentCents = hasSelection
+    ? allAccess ? (annual ? 1_800 : 2_500) : getGraduatedBundlePrice(interval, quantity) / (annual ? 12 : 1)
+    : null;
+  const annualCents = hasSelection ? (allAccess ? 21_600 : getGraduatedBundlePrice("annual", quantity)) : null;
   const bankSelection = [...selectedBankIds].sort();
   const pricingReturn = `/pricing?interval=${interval}&banks=${encodeURIComponent(bankSelection.join(","))}`;
 
@@ -291,13 +294,15 @@ export function CustomBundleCheckout({
         ))}
       </fieldset>
       <p className="custom-bundle-selection-note">
-        {allAccess ? "Six or more banks automatically use All Access." : `${quantity} ${quantity === 1 ? "bank" : "banks"} selected.`}
+        {allAccess ? "Six or more banks automatically use All Access." : quantity === 0 ? "Select at least one bank to continue." : `${quantity} ${quantity === 1 ? "bank" : "banks"} selected.`}
       </p>
-      <p className="custom-bundle-total">{`Billed ${annual ? `$${annualCents / 100} once a year` : "monthly"}.`}</p>
-      {authenticated
-        ? <CheckoutButton interval={interval} productId="bundle_custom" selectedBankIds={bankSelection} />
-        : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`}>Continue to checkout</Link>}
-      <span className="custom-bundle-effective-price">${monthlyEquivalentCents / 100} / month</span>
+      {hasSelection ? <>
+        <p className="custom-bundle-total">{`Billed ${annual ? `$${annualCents! / 100} once a year` : "monthly"}.`}</p>
+        {authenticated
+          ? <CheckoutButton interval={interval} productId="bundle_custom" selectedBankIds={bankSelection} />
+          : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`}>Continue to checkout</Link>}
+        <span className="custom-bundle-effective-price">${monthlyEquivalentCents! / 100} / month</span>
+      </> : null}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { CheckoutButton, CheckoutButtons, PlanCheckout, PortalButton } from "@/components/BillingActions";
+import { CheckoutButton, CheckoutButtons, CustomBundleCheckout, PlanCheckout, PortalButton } from "@/components/BillingActions";
 
 const fetchMock = vi.fn();
 
@@ -102,6 +102,15 @@ describe("CheckoutButtons", () => {
     render(<CheckoutButtons productId="bundle_all" />);
     fireEvent.click(screen.getByRole("button", { name: /choose annual/i }));
     expect(await screen.findByRole("alert")).toHaveTextContent("Billing is not available yet");
+  });
+});
+
+describe("CustomBundleCheckout", () => {
+  it("does not offer checkout or a fake one-bank total with an empty selection", () => {
+    render(<CustomBundleCheckout mode="builder" interval="monthly" authenticated={true} hasPaidAccess={false} initialBankIds={[]} />);
+    expect(screen.getByText("Select at least one bank to continue.")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /choose monthly/i })).not.toBeInTheDocument();
+    expect(screen.queryByText(/\/ month/)).not.toBeInTheDocument();
   });
 });
 
