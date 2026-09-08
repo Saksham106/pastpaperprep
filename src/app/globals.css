@@ -341,16 +341,23 @@ main { min-height: 72vh; }
 .plan-description { margin: 14px 0 18px; line-height: 1.5; }
 .plan-checkout { margin-top: auto; display: grid; gap: 11px; }
 .custom-bundle-checkout { gap: 10px; }
-.custom-bank-picker { margin: 0; padding: 10px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--surface-raised); }
-.custom-bank-picker legend { padding: 0 3px 8px; color: var(--muted); font-size: .78rem; font-weight: 780; }
-.custom-bank-groups { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
+.custom-bank-disclosure { overflow: hidden; background: var(--surface-raised); border: 1px solid var(--line-strong); border-radius: 10px; }
+.custom-bank-disclosure summary { min-height: 46px; padding: 10px 12px; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 8px; list-style: none; color: var(--ink); font-size: .78rem; font-weight: 800; cursor: pointer; }
+.custom-bank-disclosure summary::-webkit-details-marker { display: none; }
+.custom-bank-disclosure summary:hover { background: color-mix(in srgb, var(--cobalt-faint) 58%, transparent); }
+.custom-bank-disclosure summary:focus-visible { outline: 2px solid var(--cobalt); outline-offset: -3px; }
+.custom-bank-disclosure summary svg { width: 15px; height: 15px; transition: transform .16s ease; }
+.custom-bank-disclosure[open] summary svg { transform: rotate(180deg); }
+.custom-bank-disclosure-value { max-width: 130px; overflow: hidden; color: var(--muted); font-size: .72rem; font-weight: 720; text-overflow: ellipsis; white-space: nowrap; }
+.custom-bank-picker { margin: 0; padding: 10px; border: 0; border-top: 1px solid var(--line); background: var(--surface-raised); }
+.custom-bank-groups { display: grid; grid-template-columns: 1fr; gap: 7px; }
 .custom-bank-group { min-width: 0; padding: 7px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
 .custom-bank-group h3 { margin: 0 0 5px; color: var(--muted); font: 800 .66rem/1.2 var(--font-mono); letter-spacing: .035em; text-transform: uppercase; }
 .custom-bank-group-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3px; }
-.custom-bank-group label { min-width: 0; min-height: 44px; padding: 5px 4px; display: flex; align-items: center; gap: 5px; color: var(--ink); border: 1px solid transparent; border-radius: 6px; font-size: .68rem; line-height: 1.15; cursor: pointer; }
+.custom-bank-group label { min-width: 0; min-height: 40px; padding: 5px 6px; display: flex; align-items: center; gap: 6px; color: var(--ink); border: 1px solid transparent; border-radius: 6px; font-size: .72rem; line-height: 1.2; cursor: pointer; }
 .custom-bank-group label:hover, .custom-bank-group label:has(input:checked) { background: var(--cobalt-faint); border-color: color-mix(in srgb, var(--cobalt) 24%, transparent); }
 .custom-bank-group label:focus-within { outline: 2px solid var(--cobalt); outline-offset: 1px; }
-.custom-bank-group label span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.custom-bank-group label span { min-width: 0; }
 .custom-bank-group input { width: 15px; height: 15px; margin: 0; flex: 0 0 auto; accent-color: var(--cobalt); }
 .custom-bundle-selection-note, .custom-bundle-total, .custom-bundle-effective-price { margin: 0; color: var(--muted); font-size: .78rem; }
 .custom-bundle-total { font-weight: 780; }

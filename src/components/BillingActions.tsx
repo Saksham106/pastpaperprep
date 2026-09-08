@@ -285,6 +285,10 @@ export function CustomBundleCheckout({
   const annualCents = hasSelection ? (allAccess ? 21_600 : getGraduatedBundlePrice("annual", quantity)) : null;
   const bankSelection = [...selectedBankIds].sort();
   const pricingReturn = `/pricing?interval=${interval}&banks=${encodeURIComponent(bankSelection.join(","))}`;
+  const selectedBankName = BANKS.find((bank) => bank.slug === selectedBankIds[0])?.shortName;
+  const selectionSummary = mode === "single"
+    ? selectedBankName ?? "Choose a bank"
+    : quantity === 0 ? "None selected" : `${quantity} selected`;
 
   function toggleBank(bankId: BankSlug) {
     setSelectedBankIds((current) => {
@@ -295,32 +299,41 @@ export function CustomBundleCheckout({
 
   return (
     <div className="plan-checkout custom-bundle-checkout">
-      <fieldset className="custom-bank-picker">
-        <legend>{mode === "single" ? "Choose one question bank" : "Choose the banks you need"}</legend>
-        <div className="custom-bank-groups">
-          {BANK_GROUPS.map((group) => (
-            <section className="custom-bank-group" key={group.label} aria-labelledby={`bank-group-${group.label.toLowerCase().replaceAll(" ", "-")}`}>
-              <h3 id={`bank-group-${group.label.toLowerCase().replaceAll(" ", "-")}`}>{group.label}</h3>
-              <div className="custom-bank-group-options">
-                {group.banks.map((bank) => (
-                  <label data-bank-id={bank.slug} key={bank.slug}>
-                    <input
-                      type={mode === "single" ? "radio" : "checkbox"}
-                      name={mode === "single" ? "one-bank" : `custom-bank-${bank.slug}`}
-                      checked={selectedBankIds.includes(bank.slug)}
-                      onChange={() => toggleBank(bank.slug)}
-                    />
-                    <span>{bank.shortName}</span>
-                  </label>
-                ))}
-              </div>
-            </section>
-          ))}
-        </div>
-      </fieldset>
-      <p className="custom-bundle-selection-note">
-        {allAccess ? "Six or more banks automatically use All Access." : quantity === 0 ? "Select at least one bank to continue." : `${quantity} ${quantity === 1 ? "bank" : "banks"} selected.`}
-      </p>
+      <details className="custom-bank-disclosure">
+        <summary>
+          <span>{mode === "single" ? "Choose question bank" : "Choose your banks"}</span>
+          <span className="custom-bank-disclosure-value">{selectionSummary}</span>
+          <CaretDown aria-hidden="true" weight="bold" />
+        </summary>
+        <fieldset className="custom-bank-picker">
+          <legend className="sr-only">{mode === "single" ? "Choose one question bank" : "Choose the banks you need"}</legend>
+          <div className="custom-bank-groups">
+            {BANK_GROUPS.map((group) => (
+              <section className="custom-bank-group" key={group.label} aria-labelledby={`bank-group-${mode}-${group.label.toLowerCase().replaceAll(" ", "-")}`}>
+                <h3 id={`bank-group-${mode}-${group.label.toLowerCase().replaceAll(" ", "-")}`}>{group.label}</h3>
+                <div className="custom-bank-group-options">
+                  {group.banks.map((bank) => (
+                    <label data-bank-id={bank.slug} key={bank.slug}>
+                      <input
+                        type={mode === "single" ? "radio" : "checkbox"}
+                        name={mode === "single" ? "one-bank" : `custom-bank-${bank.slug}`}
+                        checked={selectedBankIds.includes(bank.slug)}
+                        onChange={() => toggleBank(bank.slug)}
+                      />
+                      <span>{bank.shortName}</span>
+                    </label>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+        </fieldset>
+      </details>
+      {allAccess || quantity === 0 ? (
+        <p className="custom-bundle-selection-note">
+          {allAccess ? "Six or more banks automatically use All Access." : "Select at least one bank to continue."}
+        </p>
+      ) : null}
       {hasSelection ? <>
         <p className="custom-bundle-total">{`Billed ${annual ? `$${annualCents! / 100} once a year` : "monthly"}.`}</p>
         {authenticated

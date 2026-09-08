@@ -20,11 +20,11 @@ describe("approved custom-bank pricing", () => {
     const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article");
     expect(builder).not.toBeNull();
     const checkboxes = within(builder!).getAllByRole("checkbox");
-    expect(within(builder!).getByText("1 bank selected.")).toBeInTheDocument();
+    expect(within(builder!).getByText("1 selected")).toBeInTheDocument();
 
     fireEvent.click(checkboxes[1]);
 
-    expect(within(builder!).getByText("2 banks selected.")).toBeInTheDocument();
+    expect(within(builder!).getByText("2 selected")).toBeInTheDocument();
     expect(within(builder!).getByText("$10 / month")).toBeInTheDocument();
   });
 
@@ -78,6 +78,16 @@ describe("approved custom-bank pricing", () => {
     expect(within(builder).getByText("IB Sciences")).toBeInTheDocument();
     expect(builder.querySelectorAll("[data-bank-id]")).toHaveLength(12);
     expect(container.querySelectorAll("[data-pricing-bank]")).toHaveLength(12);
+  });
+
+  it("keeps the grouped picker collapsed until the student chooses to edit it", () => {
+    render(<PricingContent authenticated={false} hasPaidAccess={false} />);
+    const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article") as HTMLElement;
+    const disclosure = builder.querySelector(".custom-bank-disclosure") as HTMLDetailsElement;
+
+    expect(disclosure).not.toHaveAttribute("open");
+    expect(within(disclosure).getByText("Choose your banks")).toBeInTheDocument();
+    expect(within(disclosure).getByText("1 selected")).toBeInTheDocument();
   });
 
   it("shows annual effective monthly prices, exact yearly totals, and annual builder math", () => {
