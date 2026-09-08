@@ -19,8 +19,8 @@ describe("theme initialization", () => {
     expect(runThemeScript({ stored: "dark", prefersDark: false }).documentElement.dataset.theme).toBe("dark");
   });
 
-  it("uses the system theme when no valid choice is stored", () => {
-    expect(runThemeScript({ stored: null, prefersDark: true }).documentElement.dataset.theme).toBe("dark");
+  it("defaults to light when no valid choice is stored", () => {
+    expect(runThemeScript({ stored: null, prefersDark: true }).documentElement.dataset.theme).toBe("light");
     expect(runThemeScript({ stored: "invalid", prefersDark: false }).documentElement.dataset.theme).toBe("light");
   });
 
@@ -28,10 +28,10 @@ describe("theme initialization", () => {
     expect(runThemeScript({ stored: "dark", prefersDark: false, allowPreference: false }).documentElement.dataset.theme).toBe("light");
   });
 
-  it("tracks live system theme changes when no account preference applies", () => {
+  it("stays light when the system theme changes without a stored choice", () => {
     const { documentElement, media } = runThemeScript({ stored: null, prefersDark: false, allowPreference: false });
     media.matches = true;
     media.listener?.();
-    expect(documentElement.dataset.theme).toBe("dark");
+    expect(documentElement.dataset.theme).toBe("light");
   });
 });

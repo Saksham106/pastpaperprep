@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { CheckoutButton, CheckoutButtons, PlanCheckout, PortalButton } from "@/components/BillingActions";
+import { CheckoutButton, CheckoutButtons, CustomBundleCheckout, PlanCheckout, PortalButton } from "@/components/BillingActions";
 
 const fetchMock = vi.fn();
 
@@ -27,6 +27,27 @@ describe("CheckoutButtons", () => {
       body: JSON.stringify({ interval: "monthly", productId: "bank_ib_hl" }),
     }));
     expect(navigate).toHaveBeenCalledWith("https://checkout.stripe.com/c/pay/monthly");
+  });
+
+  it("sends selected canonical bank IDs for a custom bundle", async () => {
+    fetchMock.mockResolvedValue({ ok: true, json: async () => ({ url: "https://checkout.stripe.com/c/pay/custom" }) });
+    const navigate = vi.fn();
+    render(<CheckoutButton interval="annual" productId="bundle_custom" selectedBankIds={["igcse", "ib-sl"]} navigate={navigate} />);
+    fireEvent.click(screen.getByRole("button", { name: /choose annual/i }));
+
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/billing/checkout", expect.objectContaining({
+      body: JSON.stringify({ interval: "annual", productId: "bundle_custom", selectedBankIds: ["igcse", "ib-sl"] }),
+    })));
+  });
+
+  it("preserves the exact custom bank selection when sign-in is required", async () => {
+    fetchMock.mockResolvedValue({ ok: false, status: 401, json: async () => ({ error: "Authentication required" }) });
+    render(<CheckoutButton interval="annual" productId="bundle_custom" selectedBankIds={["ib-sl", "igcse"]} />);
+    fireEvent.click(screen.getByRole("button", { name: /choose annual/i }));
+    expect(await screen.findByRole("link", { name: /sign in to continue/i })).toHaveAttribute(
+      "href",
+      "/login?next=%2Fpricing%3Finterval%3Dannual%26product%3Dbundle_custom%26banks%3Dib-sl%252Cigcse",
+    );
   });
 
   it("starts the selected allowlisted billing interval and follows Stripe's URL", async () => {
@@ -81,6 +102,15 @@ describe("CheckoutButtons", () => {
     render(<CheckoutButtons productId="bundle_all" />);
     fireEvent.click(screen.getByRole("button", { name: /choose annual/i }));
     expect(await screen.findByRole("alert")).toHaveTextContent("Billing is not available yet");
+  });
+});
+
+describe("CustomBundleCheckout", () => {
+  it("does not offer checkout or a fake one-bank total with an empty selection", () => {
+    render(<CustomBundleCheckout mode="builder" interval="monthly" authenticated={true} hasPaidAccess={false} initialBankIds={[]} />);
+    expect(screen.getByText("Select at least one bank to continue.")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /choose monthly/i })).not.toBeInTheDocument();
+    expect(screen.queryByText(/\/ month/)).not.toBeInTheDocument();
   });
 });
 

@@ -1,79 +1,87 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { PricingContent } from "@/components/PricingContent";
 
-describe("bank-based pricing", () => {
-  it("shows monthly prices first and keeps annual savings one click away", () => {
-    render(<PricingContent authenticated={false} hasPaidAccess={false} />);
+describe("approved custom-bank pricing", () => {
+  it("shows One Bank, Build Your Plan, and All Access with approved monthly prices", () => {
+    const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} />);
 
-    expect(screen.getByRole("button", { name: "Monthly" })).toHaveAttribute("aria-pressed", "true");
-    expect(screen.getByRole("heading", { name: "One bank" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Subject pair" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "All banks" })).toBeInTheDocument();
-    expect(screen.getByText("$5")).toBeInTheDocument();
-    expect(screen.getByText("$8")).toBeInTheDocument();
-    expect(screen.getByText("$12")).toBeInTheDocument();
-    expect(screen.queryByText(/billed .* once a year/i)).not.toBeInTheDocument();
-
-    fireEvent.click(screen.getByRole("button", { name: /annual.*save up to 33%/i }));
-    expect(screen.getByText("$4")).toBeInTheDocument();
-    expect(screen.getByText("$6")).toBeInTheDocument();
-    expect(screen.getByText("$8")).toBeInTheDocument();
-    expect(screen.getByText("Billed $48 once a year. Save 20%")).toBeInTheDocument();
-    expect(screen.getByText("Billed $72 once a year. Save 25%")).toBeInTheDocument();
-    expect(screen.getByText("Billed $96 once a year. Save 33%")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "One Bank" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Build Your Plan" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "All Access" })).toBeInTheDocument();
+    expect(within(container.querySelectorAll(".pricing-option")[0] as HTMLElement).getByText("$6")).toBeInTheDocument();
+    expect(within(container.querySelectorAll(".pricing-option")[2] as HTMLElement).getByText("$25")).toBeInTheDocument();
+    expect(screen.getByText("Most popular")).toBeInTheDocument();
+    expect(screen.getAllByRole("checkbox")).toHaveLength(12);
   });
 
-  it("marks the popular plan for responsive first-position styling", () => {
+  it("updates the builder total from the exact selected bank count", () => {
+    render(<PricingContent authenticated={true} hasPaidAccess={false} />);
+    const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article");
+    expect(builder).not.toBeNull();
+    const checkboxes = within(builder!).getAllByRole("checkbox");
+    expect(within(builder!).getByText("1 bank selected.")).toBeInTheDocument();
+
+    fireEvent.click(checkboxes[1]);
+
+    expect(within(builder!).getByText("2 banks selected.")).toBeInTheDocument();
+    expect(within(builder!).getByText("$10 / month")).toBeInTheDocument();
+  });
+
+  it("shows annual effective monthly prices and exact yearly totals", () => {
+    render(<PricingContent authenticated={false} hasPaidAccess={false} initialInterval="annual" />);
+
+    expect(screen.getAllByText("$4").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Billed $48 once a year.")).toHaveLength(2);
+    expect(screen.getByText("$18")).toBeInTheDocument();
+    expect(screen.getAllByText(/Billed/).map((node) => node.textContent).some((text) => text?.includes("$216 once a year"))).toBe(true);
+  });
+
+  it("disables Build Your Plan checkout and pricing when no banks are selected", () => {
+    render(<PricingContent authenticated={true} hasPaidAccess={false} />);
+    const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article") as HTMLElement;
+    const checkbox = within(builder).getAllByRole("checkbox")[0];
+
+    fireEvent.click(checkbox);
+
+    expect(within(builder).getByText("Select at least one bank to continue.")).toBeInTheDocument();
+    expect(within(builder).queryByRole("button", { name: /choose monthly/i })).not.toBeInTheDocument();
+    expect(builder.querySelector(".custom-bundle-effective-price")).toBeNull();
+    expect(builder.querySelector(".custom-bundle-total")).toBeNull();
+  });
+
+  it("keeps the popular plan first on mobile and all three cards in one grid", () => {
     const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} />);
+    expect(container.querySelector(".pricing-decision-grid")).not.toBeNull();
+    expect(container.querySelectorAll(".pricing-decision-grid > .pricing-option")).toHaveLength(3);
     expect(container.querySelector(".pricing-option-popular")).toHaveAttribute("data-mobile-order", "first");
   });
 
-  it("keeps all three choices visible in one comparison grid", () => {
-    const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} />);
-
-    expect(container.querySelector(".pricing-decision-grid")).not.toBeNull();
-    expect(container.querySelectorAll(".pricing-decision-grid > .pricing-option")).toHaveLength(3);
-    expect(container.querySelector(".pricing-decision-grid > .pricing-option-popular")).not.toBeNull();
-    expect(screen.getByText("Every paid plan has the same study tools. Choose how many banks you need.")).toBeInTheDocument();
+  it("offers exact bank choices and checkout continuations before sign-in", () => {
+    render(<PricingContent authenticated={false} hasPaidAccess={false} />);
+    expect(screen.getAllByRole("link", { name: /continue to checkout/i })).toHaveLength(3);
+    expect(screen.getByRole("radio", { name: "IB Math AI HL" })).toBeInTheDocument();
+    expect(screen.getByRole("checkbox", { name: "IB Math AA HL" })).toBeInTheDocument();
   });
 
-  it("keeps free access compact instead of rendering a fourth full plan card", () => {
+  it("restores a visitor's selected bank after sign-in", () => {
+    render(<PricingContent authenticated={false} hasPaidAccess={false} initialInterval="annual" initialProductId="bank_ib_ai_hl" />);
+    expect(screen.getByRole("radio", { name: "IB Math AI HL" })).toBeChecked();
+    expect(screen.getByRole("button", { name: /annual.*save up to 33%/i })).toHaveAttribute("aria-pressed", "true");
+  });
+
+  it("keeps One Bank to exactly one selected canonical bank", () => {
+    render(<PricingContent authenticated={false} hasPaidAccess={false} initialBankIds={["ib-sl", "igcse"]} />);
+    const oneBank = screen.getByRole("heading", { name: "One Bank" }).closest("article");
+    expect(within(oneBank!).getAllByRole("radio", { checked: true })).toHaveLength(1);
+    expect(within(oneBank!).getByRole("radio", { name: "IB Math AA SL" })).toBeChecked();
+  });
+
+  it("keeps free access compact and preserves the coverage comparison", () => {
     const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} />);
     expect(container.querySelector(".pricing-free-strip")).not.toBeNull();
-    expect(container.querySelector(".pricing-option-free")).toBeNull();
-  });
-
-  it("offers only controlled bank and subject-pair choices", () => {
-    render(<PricingContent authenticated={true} hasPaidAccess={false} />);
-    const selectors = screen.getAllByRole("button", { name: /choose access/i });
-    expect(selectors).toHaveLength(2);
-    fireEvent.click(selectors[0]);
-    expect(screen.getByRole("option", { name: "IB Mathematics AA HL" })).toBeInTheDocument();
-    expect(screen.getByRole("option", { name: "IB Chemistry HL" })).toBeInTheDocument();
-    fireEvent.click(selectors[1]);
-    expect(screen.getByRole("option", { name: "IB Mathematics AA (SL + HL)" })).toBeInTheDocument();
-    expect(screen.getByRole("option", { name: "IB Chemistry (SL + HL)" })).toBeInTheDocument();
-  });
-
-  it("shows course selectors and checkout continuations before sign-in", () => {
-    render(<PricingContent authenticated={false} hasPaidAccess={false} />);
-
-    expect(screen.getAllByRole("button", { name: /choose access/i })).toHaveLength(2);
-    expect(screen.getAllByRole("link", { name: /continue to checkout/i })).toHaveLength(3);
-    expect(screen.queryByRole("link", { name: /sign in to choose/i })).not.toBeInTheDocument();
-  });
-
-  it("gives the unselected annual option a truthful savings highlight", () => {
-    render(<PricingContent authenticated={false} hasPaidAccess={false} />);
-    expect(screen.getByRole("button", { name: /annual.*save up to 33%/i })).toHaveClass("billing-toggle-annual");
-    expect(screen.getByText("Save up to 33%", { selector: ".billing-savings" })).toBeInTheDocument();
-  });
-
-  it("restores a visitor's plan choice after sign-in", () => {
-    render(<PricingContent authenticated hasPaidAccess={false} initialInterval="annual" initialProductId="bank_ib_ai_hl" />);
-
-    expect(screen.getByRole("button", { name: /annual.*save up to 33%/i })).toHaveAttribute("aria-pressed", "true");
-    expect(screen.getByRole("button", { name: /choose access.*IB Mathematics AI HL/i })).toBeInTheDocument();
+    const table = screen.getByRole("table", { name: "Question bank coverage" });
+    expect(within(table).getAllByRole("row")).toHaveLength(13);
+    expect(container.querySelectorAll("[data-pricing-bank]")).toHaveLength(12);
   });
 });

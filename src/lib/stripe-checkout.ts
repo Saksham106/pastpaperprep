@@ -1,5 +1,6 @@
 import { getBillingPlan, type StripeConfig } from "@/lib/stripe-config";
 import type { ProductId } from "@/lib/access";
+import type { BankSlug } from "@/lib/banks";
 
 type CheckoutUser = { id: string; email: string };
 
@@ -13,16 +14,18 @@ type CheckoutDependencies = {
     userId: string;
     interval: "monthly" | "annual";
     productId: ProductId;
+    quantity?: number;
+    selectedBankIds?: readonly BankSlug[];
     successUrl: string;
     cancelUrl: string;
   }): Promise<string>;
 };
 
 export async function startCheckout(
-  input: { interval: unknown; productId: unknown; user: CheckoutUser; config: StripeConfig },
+  input: { interval: unknown; productId: unknown; selectedBankIds?: unknown; user: CheckoutUser; config: StripeConfig },
   dependencies: CheckoutDependencies,
 ): Promise<string> {
-  const plan = getBillingPlan(input.productId, input.interval, input.config);
+  const plan = getBillingPlan(input.productId, input.interval, input.config, input.selectedBankIds);
   let customerId = await dependencies.findCustomerId(input.user.id);
 
   if (!customerId) {
@@ -36,6 +39,8 @@ export async function startCheckout(
     userId: input.user.id,
     interval: plan.interval,
     productId: plan.productId as ProductId,
+    ...( "quantity" in plan ? { quantity: plan.quantity } : {}),
+    ...( "selectedBankIds" in plan && plan.selectedBankIds ? { selectedBankIds: plan.selectedBankIds } : {}),
     successUrl: `${input.config.siteUrl}/account?checkout=success`,
     cancelUrl: `${input.config.siteUrl}/pricing?checkout=cancelled`,
   });

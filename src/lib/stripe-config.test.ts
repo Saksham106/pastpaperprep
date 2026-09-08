@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getBillingPlan, isStripeBillingEnabled, validateStripeConfig } from "@/lib/stripe-config";
+import { getBillingPlan, isStripeBillingEnabled, isStripePriceAllowedForProduct, validateStripeConfig } from "@/lib/stripe-config";
 
 describe("Stripe billing configuration", () => {
   const env = {
@@ -7,6 +7,8 @@ describe("Stripe billing configuration", () => {
     STRIPE_WEBHOOK_SECRET: "whsec_example",
     STRIPE_FOUNDING_MONTHLY_PRICE_ID: "price_monthly",
     STRIPE_FOUNDING_ANNUAL_PRICE_ID: "price_annual",
+    STRIPE_CUSTOM_MONTHLY_PRICE_ID: "price_custom_monthly",
+    STRIPE_CUSTOM_ANNUAL_PRICE_ID: "price_custom_annual",
     STRIPE_SINGLE_MONTHLY_PRICE_ID: "price_single_monthly",
     STRIPE_SINGLE_ANNUAL_PRICE_ID: "price_single_annual",
     STRIPE_PAIR_MONTHLY_PRICE_ID: "price_pair_monthly",
@@ -30,10 +32,28 @@ describe("Stripe billing configuration", () => {
     expect(() => getBillingPlan("bank_ib_hl", "price_monthly", config)).toThrow("Unknown billing interval");
   });
 
+  it("requires the Stripe price interval to agree with every approved product price", () => {
+    const config = validateStripeConfig(env);
+    const approved = [
+      ["bank_ib_hl", "price_single_monthly", "monthly"],
+      ["bundle_ib_aa", "price_pair_annual", "annual"],
+      ["bundle_all", "price_monthly", "monthly"],
+      ["bundle_all", "price_annual", "annual"],
+      ["bundle_all", "price_all_monthly", "monthly"],
+      ["bundle_custom", "price_custom_annual", "annual"],
+    ] as const;
+    for (const [productId, priceId, interval] of approved) {
+      expect(isStripePriceAllowedForProduct(productId, priceId, config, interval)).toBe(true);
+    }
+    expect(isStripePriceAllowedForProduct("bank_ib_hl", "price_single_monthly", config, "annual")).toBe(false);
+    expect(isStripePriceAllowedForProduct("bundle_all", "price_annual", config, "monthly")).toBe(false);
+    expect(isStripePriceAllowedForProduct("bundle_custom", "price_custom_annual", config)).toBe(false);
+  });
+
   it("fails closed when required secrets or price IDs are missing", () => {
     expect(() => validateStripeConfig({ ...env, STRIPE_SECRET_KEY: "" })).toThrow("Stripe is not configured");
     expect(() => validateStripeConfig({ ...env, STRIPE_FOUNDING_ANNUAL_PRICE_ID: "" })).toThrow("Stripe is not configured");
-    expect(() => validateStripeConfig({ ...env, STRIPE_SINGLE_ANNUAL_PRICE_ID: "" })).toThrow("Stripe is not configured");
+    expect(() => validateStripeConfig({ ...env, STRIPE_CUSTOM_MONTHLY_PRICE_ID: "" })).toThrow("Stripe is not configured");
   });
 
   it("requires the canonical HTTPS site URL", () => {

@@ -1,5 +1,7 @@
 import type { AccessEntitlement, EntitlementStatus, ProductId } from "@/lib/access";
 
+import { validateCustomBankIds } from "@/lib/custom-bundles";
+
 const PRODUCT_IDS = new Set<ProductId>([
   "bank_igcse",
   "bank_igcse_additional",
@@ -20,6 +22,7 @@ const PRODUCT_IDS = new Set<ProductId>([
   "bundle_ib_physics",
   "bundle_ib_biology",
   "bundle_all",
+  "bundle_custom",
 ]);
 const STATUSES = new Set<EntitlementStatus>(["active", "trialing", "expired", "revoked"]);
 
@@ -28,6 +31,7 @@ type EntitlementRow = {
   status?: unknown;
   starts_at?: unknown;
   expires_at?: unknown;
+  selected_bank_ids?: unknown;
 };
 
 function validDate(value: unknown): value is string {
@@ -49,8 +53,20 @@ export function normalizeEntitlements(rows: unknown[]): AccessEntitlement[] {
       return [];
     }
 
+    let selectedBankIds: ReturnType<typeof validateCustomBankIds> | undefined;
+    if (row.product_id === "bundle_custom") {
+      try {
+        selectedBankIds = validateCustomBankIds(row.selected_bank_ids);
+      } catch {
+        return [];
+      }
+    } else if (row.selected_bank_ids !== undefined && row.selected_bank_ids !== null) {
+      return [];
+    }
+
     return [{
       productId: row.product_id as ProductId,
+      ...(selectedBankIds ? { selectedBankIds } : {}),
       status: row.status as EntitlementStatus,
       startsAt: row.starts_at,
       expiresAt: row.expires_at,

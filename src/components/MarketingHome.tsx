@@ -1,36 +1,43 @@
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Check, DownloadSimple, FunnelSimple, PencilSimpleLine } from "@phosphor-icons/react/dist/ssr";
+import { CourseIcon, courseToneForBank, type CourseTone } from "@/components/CourseIcon";
 import { BANKS } from "@/lib/banks";
 
 const COURSE_GROUPS = [
   {
     name: "Cambridge IGCSE",
     detail: "0580 and 0606",
+    tone: "math" as CourseTone,
     banks: BANKS.filter((bank) => bank.qualification === "Cambridge IGCSE"),
   },
   {
     name: "IB Mathematics · Analysis and Approaches",
     detail: "Higher and Standard Level",
+    tone: "math" as CourseTone,
     banks: BANKS.filter((bank) => bank.subject.includes("AA")),
   },
   {
     name: "IB Mathematics · Applications and Interpretation",
     detail: "Higher and Standard Level",
+    tone: "math" as CourseTone,
     banks: BANKS.filter((bank) => bank.subject.includes("AI")),
   },
   {
     name: "IB Chemistry",
     detail: "Higher and Standard Level",
+    tone: "chemistry" as CourseTone,
     banks: BANKS.filter((bank) => bank.subject.includes("Chemistry")),
   },
   {
     name: "IB Physics",
     detail: "Higher and Standard Level",
+    tone: "physics" as CourseTone,
     banks: BANKS.filter((bank) => bank.subject.includes("Physics")),
   },
   {
     name: "IB Biology",
     detail: "Higher and Standard Level",
+    tone: "biology" as CourseTone,
     banks: BANKS.filter((bank) => bank.subject.includes("Biology")),
   },
 ] as const;
@@ -53,7 +60,9 @@ export function MarketingHome() {
 
         <aside className="exam-index-visual" aria-label="PastPaperPrep question bank coverage">
           <header><span>Question bank</span><strong>IGCSE + IB</strong></header>
-          <div className="exam-index-mark" aria-hidden="true">x² · H₂O</div>
+          <div className="exam-index-formula" aria-hidden="true">
+            <span>x<sup>2</sup></span><i>·</i><span>H<sub>2</sub>O</span>
+          </div>
           <div className="exam-index-codes" aria-label="Available courses">
             <span><strong>0580</strong><small>Mathematics</small></span>
             <span><strong>0606</strong><small>Additional</small></span>
@@ -74,14 +83,18 @@ export function MarketingHome() {
         </header>
         <div className="curriculum-index">
           {COURSE_GROUPS.map((group) => (
-            <section className="curriculum-row" key={group.name} aria-labelledby={`course-${group.name.replaceAll(" ", "-").toLowerCase()}`}>
+            <section className={`curriculum-row course-tone-${group.tone}`} key={group.name} aria-labelledby={`course-${group.name.replaceAll(" ", "-").toLowerCase()}`}>
               <div className="curriculum-heading">
-                <h3 id={`course-${group.name.replaceAll(" ", "-").toLowerCase()}`}>{group.name}</h3>
-                <span>{group.detail}</span>
+                <CourseIcon tone={group.tone} />
+                <div>
+                  <h3 id={`course-${group.name.replaceAll(" ", "-").toLowerCase()}`}>{group.name}</h3>
+                  <span>{group.detail}</span>
+                </div>
               </div>
               <div className="curriculum-bank-links">
                 {group.banks.map((bank) => (
-                  <Link href={`/banks/${bank.slug}?free=1`} key={bank.slug}>
+                  <Link className={`course-tone-${courseToneForBank(bank)}`} href={`/banks/${bank.slug}?free=1`} key={bank.slug}>
+                    <CourseIcon tone={courseToneForBank(bank)} />
                     <span><strong>{bank.shortName}</strong><small>{bank.questionCount.toLocaleString()} questions</small></span>
                     <ArrowUpRight aria-hidden="true" weight="bold" />
                   </Link>

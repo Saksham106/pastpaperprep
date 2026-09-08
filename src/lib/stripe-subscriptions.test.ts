@@ -16,7 +16,8 @@ function event(overrides: Record<string, unknown> = {}) {
         metadata: { user_id: userId, product_id: "bundle_all" },
         items: {
           data: [{
-            price: { id: "price_monthly" },
+            price: { id: "price_monthly", recurring: { interval: "month" } },
+            quantity: 1,
             current_period_start: 1_799_000_000,
             current_period_end: 1_801_000_000,
           }],
@@ -44,6 +45,9 @@ describe("Stripe subscription event normalization", () => {
       customerId: "cus_1",
       userId,
       productId: "bundle_all",
+      quantity: 1,
+      priceId: "price_monthly",
+      interval: "monthly",
       status: "active",
       startsAt: new Date(1_799_000_000 * 1000).toISOString(),
       expiresAt: new Date(1_801_000_000 * 1000).toISOString(),
@@ -55,6 +59,47 @@ describe("Stripe subscription event normalization", () => {
     pair.data.object.metadata.product_id = "bundle_ib_aa";
     expect(buildSubscriptionSync(pair, (productId, priceId) => productId === "bundle_ib_aa" && priceId === "price_monthly"))
       .toEqual(expect.objectContaining({ productId: "bundle_ib_aa" }));
+  });
+
+  it("validates custom-bundle metadata, quantity, and selected canonical banks", () => {
+    const custom = event() as unknown as {
+      data: { object: { metadata: Record<string, string>; items: { data: Array<{ price: { id: string; recurring?: { interval: string } }; quantity?: number }> } } };
+    };
+    custom.data.object.metadata = {
+      user_id: userId,
+      product_id: "bundle_custom",
+      selected_bank_ids: JSON.stringify(["ib-hl", "ib-sl"]),
+      billing_interval: "annual",
+      price_id: "price_custom_annual",
+    };
+    custom.data.object.items.data[0].price.id = "price_custom_annual";
+    custom.data.object.items.data[0].price.recurring = { interval: "year" };
+    custom.data.object.items.data[0].quantity = 2;
+
+    expect(buildSubscriptionSync(custom, (productId, priceId) => productId === "bundle_custom" && priceId === "price_custom_annual"))
+      .toEqual(expect.objectContaining({
+        productId: "bundle_custom",
+        selectedBankIds: ["ib-hl", "ib-sl"],
+      }));
+
+    custom.data.object.items.data[0].quantity = 1;
+    expect(() => buildSubscriptionSync(custom, () => true)).toThrow("Custom bundle quantity does not match selection");
+  });
+
+  it("rejects custom bundles with malformed or tampered selected-bank metadata", () => {
+    const custom = event() as unknown as {
+      data: { object: { metadata: Record<string, string>; items: { data: Array<{ price: { id: string; recurring?: { interval: string } }; quantity?: number }> } } };
+    };
+    custom.data.object.metadata = {
+      user_id: userId,
+      product_id: "bundle_custom",
+      selected_bank_ids: JSON.stringify(["ib-hl", "unknown"]),
+      billing_interval: "monthly",
+      price_id: "price_custom_monthly",
+    };
+    custom.data.object.items.data[0].price.id = "price_custom_monthly";
+    custom.data.object.items.data[0].quantity = 2;
+    expect(() => buildSubscriptionSync(custom, () => true)).toThrow("Invalid custom bundle metadata");
   });
 
   it("fails closed for unknown prices, malformed users, and unrelated events", () => {
@@ -82,5 +127,39 @@ describe("Stripe subscription event normalization", () => {
     const unpaid = event();
     unpaid.data.object.status = "unpaid";
     expect(buildSubscriptionSync(unpaid, allowedPrice)).toEqual(expect.objectContaining({ status: "revoked", expiresAt: null }));
+  });
+
+  it.each([
+    "bank_igcse",
+    "bundle_igcse",
+    "bundle_all",
+  ])("fails closed when %s has a quantity other than one", (productId) => {
+    const invalid = event();
+    invalid.data.object.metadata.product_id = productId;
+    invalid.data.object.items.data[0].quantity = 2;
+    expect(() => buildSubscriptionSync(invalid, () => true)).toThrow("Stripe subscription quantity must be exactly one");
+  });
+
+  it("requires Stripe recurring interval and forwards the real subscription item fields", () => {
+    const monthly = event();
+    monthly.data.object.items.data[0].quantity = 1;
+    (monthly.data.object.items.data[0].price as Record<string, unknown>).recurring = { interval: "month" };
+    const seen: unknown[] = [];
+    const sync = buildSubscriptionSync(monthly, (...args) => {
+      seen.push(args);
+      return true;
+    });
+    expect(seen).toEqual([["bundle_all", "price_monthly", "monthly"]]);
+    expect(sync).toEqual(expect.objectContaining({
+      quantity: 1,
+      priceId: "price_monthly",
+      interval: "monthly",
+    }));
+
+    const annualWithMonthlyPrice = event();
+    annualWithMonthlyPrice.data.object.items.data[0].quantity = 1;
+    (annualWithMonthlyPrice.data.object.items.data[0].price as Record<string, unknown>).recurring = { interval: "year" };
+    expect(() => buildSubscriptionSync(annualWithMonthlyPrice, (productId, priceId, interval) => allowedPrice(productId, priceId) && interval === "monthly"))
+      .toThrow("Stripe price does not match product");
   });
 });

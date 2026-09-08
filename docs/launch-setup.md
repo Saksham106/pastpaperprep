@@ -36,6 +36,15 @@ Required now:
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
 - `NEXT_PUBLIC_SITE_URL=https://pastpaperprep.com`
+- `STRIPE_BILLING_ENABLED=true` (explicit feature flag)
+- `STRIPE_LIVE_MODE_ENABLED=true` only when using live Stripe keys
+- `STRIPE_SECRET_KEY`
+- `STRIPE_WEBHOOK_SECRET`
+- `STRIPE_FOUNDING_MONTHLY_PRICE_ID` and `STRIPE_FOUNDING_ANNUAL_PRICE_ID` (grandfathered founding prices)
+- `STRIPE_SINGLE_MONTHLY_PRICE_ID` and `STRIPE_SINGLE_ANNUAL_PRICE_ID` (grandfathered fixed single-bank prices)
+- `STRIPE_PAIR_MONTHLY_PRICE_ID` and `STRIPE_PAIR_ANNUAL_PRICE_ID` (grandfathered fixed subject-pair prices)
+- `STRIPE_CUSTOM_MONTHLY_PRICE_ID` and `STRIPE_CUSTOM_ANNUAL_PRICE_ID` (new graduated custom-bundle prices)
+- `STRIPE_ALL_MONTHLY_PRICE_ID` and `STRIPE_ALL_ANNUAL_PRICE_ID` (new All Access prices)
 
 Required when private signed asset delivery is enabled:
 
@@ -86,6 +95,7 @@ Stripe Checkout, Billing Portal, verified webhook handling, and entitlement sync
 - `bundle_ib_physics`
 - `bundle_ib_biology`
 - `bundle_all`
+- `bundle_custom` (new exact one-to-five bank bundle; six or more selections resolve to `bundle_all`)
 
 These identifiers are stable internal entitlement keys. Stripe price IDs can change without changing the access model.
 
@@ -94,8 +104,9 @@ Complimentary access uses a manually issued `bundle_all` entitlement. Checkout a
 ## Remaining commercial launch gates
 
 1. Apply and verify the download-allowance migration.
-2. Apply and read back `supabase/migrations/20260826194645_add_bank_based_pricing.sql` before deploying bank-based Checkout.
-3. Deploy and test password sign-in, password reset, one-link authentication email, free-only filtering, iPad layouts, PDF limits, and watermarks in production.
-4. Confirm the live Stripe product names, prices, webhook, Billing Portal, and production environment use only live-mode values. Keep Portal subscription switching disabled until a server-owned plan-change flow updates subscription metadata and entitlements atomically; Portal may manage payment methods and cancellation.
-5. Run a controlled live purchase, entitlement grant, Portal access, cancellation/refund, webhook revocation, and post-revocation denial.
-6. Keep public billing gated until every production lifecycle check passes.
+2. Apply and read back, in order, `supabase/migrations/20260826194645_add_bank_based_pricing.sql`, `supabase/migrations/20260910000000_custom_bank_bundles.sql`, and `supabase/migrations/20260911000000_stripe_price_catalog.sql` before deploying bank-based Checkout.
+3. With the protected production Stripe price variables loaded locally, run `node scripts/render-stripe-price-catalog.mjs > /tmp/pastpaperprep-stripe-price-catalog.sql`. Inspect the generated SQL, apply it to Supabase, then read back `public.stripe_price_catalog` and verify every configured product/price/interval tuple. The generated file contains identifiers, not secrets; still delete the temporary file after verification. Never commit generated catalog SQL or hardcode live price IDs in a migration.
+4. Deploy and test password sign-in, password reset, one-link authentication email, free-only filtering, iPad layouts, PDF limits, and watermarks in production.
+5. Confirm the live Stripe product names, prices, webhook, Billing Portal, and production environment use only live-mode values. Keep Portal subscription switching disabled until a server-owned plan-change flow updates subscription metadata and entitlements atomically; Portal may manage payment methods and cancellation.
+6. Run a controlled live purchase, entitlement grant, Portal access, cancellation/refund, webhook revocation, and post-revocation denial.
+7. Keep public billing gated until every production lifecycle check passes.

@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { ArrowRight, CaretDown, Gear, Key } from "@phosphor-icons/react/dist/ssr";
+import { CourseIcon, courseToneForBank, type CourseTone } from "@/components/CourseIcon";
 import { BANKS, type Bank, type BankSlug } from "@/lib/banks";
 
 type BankGroup = {
   name: string;
   className: string;
+  tone: CourseTone;
   banks: Bank[];
 };
 
@@ -30,31 +32,37 @@ export function DashboardContent({ authenticated, accessibleBanks }: { authentic
     {
       name: "Cambridge IGCSE",
       className: "cambridge",
+      tone: "math" as const,
       banks: BANKS.filter((bank) => bank.qualification === "Cambridge IGCSE"),
     },
     {
       name: "IB Analysis and Approaches",
       className: "ib-aa",
+      tone: "math" as const,
       banks: BANKS.filter((bank) => bank.slug === "ib-hl" || bank.slug === "ib-sl"),
     },
     {
       name: "IB Applications and Interpretation",
       className: "ib-ai",
+      tone: "math" as const,
       banks: BANKS.filter((bank) => bank.slug === "ib-ai-hl" || bank.slug === "ib-ai-sl"),
     },
     {
       name: "IB Chemistry",
       className: "ib-chemistry",
+      tone: "chemistry" as const,
       banks: BANKS.filter((bank) => bank.slug === "ib-chemistry-hl" || bank.slug === "ib-chemistry-sl"),
     },
     {
       name: "IB Physics",
       className: "ib-physics",
+      tone: "physics" as const,
       banks: BANKS.filter((bank) => bank.slug === "ib-physics-hl" || bank.slug === "ib-physics-sl"),
     },
     {
       name: "IB Biology",
       className: "ib-biology",
+      tone: "biology" as const,
       banks: BANKS.filter((bank) => bank.slug === "ib-biology-hl" || bank.slug === "ib-biology-sl"),
     },
   ].sort((a, b) => Number(b.banks.some((bank) => accessible.has(bank.slug))) - Number(a.banks.some((bank) => accessible.has(bank.slug))));
@@ -88,9 +96,9 @@ export function DashboardContent({ authenticated, accessibleBanks }: { authentic
 
       <div className="dashboard-bank-groups">
         {groups.map((group) => (
-          <section className={`dashboard-bank-family dashboard-bank-family-${group.className}`} key={group.name} aria-labelledby={`dashboard-${group.className}`}>
+          <section className={`dashboard-bank-family dashboard-bank-family-${group.className} course-tone-${group.tone}`} key={group.name} aria-labelledby={`dashboard-${group.className}`}>
             <header>
-              <h2 id={`dashboard-${group.className}`}>{group.name}</h2>
+              <div className="dashboard-bank-family-title"><CourseIcon tone={group.tone} /><h2 id={`dashboard-${group.className}`}>{group.name}</h2></div>
               <span>{group.banks.length} banks</span>
             </header>
             <div className="dashboard-bank-grid">
@@ -101,7 +109,7 @@ export function DashboardContent({ authenticated, accessibleBanks }: { authentic
                   const href = included ? `/banks/${bank.slug}` : `/banks/${bank.slug}?free=1`;
                   return (
                     <Link
-                      className={`dashboard-bank-card ${bank.accent}${included ? " is-included" : ""}`}
+                      className={`dashboard-bank-card course-tone-${courseToneForBank(bank)} ${bank.accent}${included ? " is-included" : ""}`}
                       href={href}
                       aria-label={`${included ? "Open" : "Start free"} ${bank.shortName}`}
                       key={bank.slug}

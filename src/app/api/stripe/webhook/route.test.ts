@@ -18,6 +18,8 @@ vi.mock("@/lib/stripe-config", async (importOriginal) => {
     webhookSecret: "whsec_example",
     monthlyPriceId: "price_monthly",
     annualPriceId: "price_annual",
+    customMonthlyPriceId: "price_custom_monthly",
+    customAnnualPriceId: "price_custom_annual",
     singleMonthlyPriceId: "price_single_monthly",
     singleAnnualPriceId: "price_single_annual",
     pairMonthlyPriceId: "price_pair_monthly",
@@ -44,7 +46,8 @@ const subscriptionEvent = {
       status: "active",
       metadata: { user_id: userId, product_id: "bundle_all" },
       items: { data: [{
-        price: { id: "price_monthly" },
+        price: { id: "price_monthly", recurring: { interval: "month" } },
+        quantity: 1,
         current_period_start: 1_799_000_000,
         current_period_end: 1_801_000_000,
       }] },
@@ -90,7 +93,40 @@ describe("POST /api/stripe/webhook", () => {
       p_status: "active",
       p_starts_at: new Date(1_799_000_000 * 1000).toISOString(),
       p_expires_at: new Date(1_801_000_000 * 1000).toISOString(),
+      p_quantity: 1,
+      p_price_id: "price_monthly",
+      p_interval: "monthly",
     });
+  });
+
+  it("persists custom selected banks, quantity, and verified price through the RPC", async () => {
+    const customEvent = structuredClone(subscriptionEvent) as unknown as {
+      data: { object: { metadata: Record<string, string>; items: { data: Array<{ price: { id: string; recurring?: { interval: string } }; quantity?: number }> } } };
+    };
+    customEvent.data.object.metadata = {
+      user_id: userId,
+      product_id: "bundle_custom",
+      selected_bank_ids: JSON.stringify(["ib-hl", "ib-sl"]),
+      billing_interval: "annual",
+      price_id: "price_custom_annual",
+    };
+    customEvent.data.object.items.data[0].price.id = "price_custom_annual";
+    customEvent.data.object.items.data[0].price.recurring = { interval: "year" };
+    customEvent.data.object.items.data[0].quantity = 2;
+    constructEvent.mockReturnValue(customEvent);
+    retrieveSubscription.mockResolvedValue(customEvent.data.object);
+    rpc.mockResolvedValue({ data: "applied", error: null });
+
+    const response = await POST(request());
+
+    expect(response.status).toBe(200);
+    expect(rpc).toHaveBeenCalledWith("apply_stripe_subscription_event", expect.objectContaining({
+      p_product_id: "bundle_custom",
+      p_selected_bank_ids: ["ib-hl", "ib-sl"],
+      p_quantity: 2,
+      p_price_id: "price_custom_annual",
+      p_interval: "annual",
+    }));
   });
 
   it("uses Stripe's current subscription instead of a stale webhook snapshot", async () => {

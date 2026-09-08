@@ -37,7 +37,7 @@ describe("ThemeToggle", () => {
     expect(screen.getByRole("button", { name: "Switch to dark theme" })).toBeInTheDocument();
   });
 
-  it("falls back to the system preference when no initialized theme exists", () => {
+  it("defaults to light when no initialized theme exists", () => {
     Object.defineProperty(window, "matchMedia", {
       configurable: true,
       value: vi.fn().mockReturnValue({ matches: true }),
@@ -45,6 +45,6 @@ describe("ThemeToggle", () => {
 
     render(<ThemeToggle />);
 
-    expect(screen.getByRole("button", { name: "Switch to light theme" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Switch to dark theme" })).toBeInTheDocument();
   });
 });

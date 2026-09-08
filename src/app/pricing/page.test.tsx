@@ -8,14 +8,12 @@ describe("PricingPage", () => {
 
     expect(screen.getByRole("heading", { name: /pay only for the subjects you actually study/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Monthly" })).toHaveAttribute("aria-pressed", "true");
-    expect(screen.getByText("$5")).toBeInTheDocument();
-    expect(screen.getByText("$8")).toBeInTheDocument();
-    expect(screen.getByText("$12")).toBeInTheDocument();
-    expect(screen.getByText(/IB Chemistry, IB Physics, or IB Biology/i)).toBeInTheDocument();
-    expect(screen.getByText(/unlock all twelve question banks/i)).toBeInTheDocument();
+    expect(screen.getAllByText("$6").length).toBeGreaterThan(0);
+    expect(screen.getByText("$25")).toBeInTheDocument();
+    expect(screen.getByText(/unlock every current bank/i)).toBeInTheDocument();
     expect(screen.getByText(/most popular/i)).toBeInTheDocument();
     expect(screen.getByText(/every paid plan has the same study tools/i)).toBeInTheDocument();
-    expect(screen.getByText(/existing all-access subscribers keep their current price/i)).toBeInTheDocument();
+    expect(screen.getByText(/existing fixed and all-access subscribers remain grandfathered/i)).toBeInTheDocument();
 
     const options = container.querySelectorAll(".pricing-option");
     expect(options).toHaveLength(3);

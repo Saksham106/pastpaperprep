@@ -4,6 +4,9 @@ import Link from "next/link";
 import { CaretDown, Check } from "@phosphor-icons/react";
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import type { ProductId } from "@/lib/access";
+import type { BankSlug } from "@/lib/banks";
+import { BANKS } from "@/lib/banks";
+import { getGraduatedBundlePrice } from "@/lib/custom-bundles";
 
 type Navigate = (url: string) => void;
 type BillingError = { error?: unknown };
@@ -130,12 +133,14 @@ function PlanSelector({ options, value, onChange }: {
 export function CheckoutButton({
   interval,
   productId,
+  selectedBankIds,
   navigate = defaultNavigate,
   pending: sharedPending,
   onPendingChange,
 }: {
   interval: BillingInterval;
   productId: ProductId;
+  selectedBankIds?: readonly BankSlug[];
   navigate?: Navigate;
   pending?: boolean;
   onPendingChange?: (pending: boolean) => void;
@@ -144,6 +149,10 @@ export function CheckoutButton({
   const pending = sharedPending ?? localPending;
   const [error, setError] = useState("");
   const [needsLogin, setNeedsLogin] = useState(false);
+
+  const customBankQuery = selectedBankIds?.length
+    ? `&banks=${encodeURIComponent([...selectedBankIds].sort().join(","))}`
+    : "";
 
   function setPending(value: boolean) {
     setLocalPending(value);
@@ -159,7 +168,7 @@ export function CheckoutButton({
       const response = await fetch("/api/billing/checkout", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ interval, productId }),
+        body: JSON.stringify({ interval, productId, ...(selectedBankIds ? { selectedBankIds } : {}) }),
       });
       const payload = await responsePayload(response);
       if (response.status === 401) {
@@ -184,7 +193,7 @@ export function CheckoutButton({
         {pending ? "Opening checkout…" : `Choose ${interval}`}
       </button>
       {needsLogin ? (
-        <Link href={`/login?next=${encodeURIComponent(`/pricing?interval=${interval}&product=${productId}`)}`}>
+        <Link href={`/login?next=${encodeURIComponent(`/pricing?interval=${interval}&product=${productId}${customBankQuery}`)}`}>
           Sign in to continue
         </Link>
       ) : null}
@@ -228,6 +237,72 @@ export function PlanCheckout({
       {authenticated
         ? <CheckoutButton interval={interval} productId={productId} />
         : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`}>Continue to checkout</Link>}
+    </div>
+  );
+}
+
+export function CustomBundleCheckout({
+  mode,
+  interval,
+  authenticated,
+  hasPaidAccess,
+  initialBankIds = [BANKS[0].slug],
+}: {
+  mode: "single" | "builder";
+  interval: BillingInterval;
+  authenticated: boolean;
+  hasPaidAccess: boolean;
+  initialBankIds?: readonly BankSlug[];
+}) {
+  const [selectedBankIds, setSelectedBankIds] = useState<BankSlug[]>(() => {
+    const initial = [...initialBankIds];
+    return mode === "single" ? [initial[0] ?? BANKS[0].slug] : initial;
+  });
+  if (hasPaidAccess) return null;
+  const quantity = selectedBankIds.length;
+  const hasSelection = quantity > 0;
+  const annual = interval === "annual";
+  const allAccess = quantity >= 6;
+  const monthlyEquivalentCents = hasSelection
+    ? allAccess ? (annual ? 1_800 : 2_500) : getGraduatedBundlePrice(interval, quantity) / (annual ? 12 : 1)
+    : null;
+  const annualCents = hasSelection ? (allAccess ? 21_600 : getGraduatedBundlePrice("annual", quantity)) : null;
+  const bankSelection = [...selectedBankIds].sort();
+  const pricingReturn = `/pricing?interval=${interval}&banks=${encodeURIComponent(bankSelection.join(","))}`;
+
+  function toggleBank(bankId: BankSlug) {
+    setSelectedBankIds((current) => {
+      if (mode === "single") return [bankId];
+      return current.includes(bankId) ? current.filter((id) => id !== bankId) : [...current, bankId];
+    });
+  }
+
+  return (
+    <div className="plan-checkout custom-bundle-checkout">
+      <fieldset className="custom-bank-picker">
+        <legend>{mode === "single" ? "Choose one question bank" : "Choose the banks you need"}</legend>
+        {BANKS.map((bank) => (
+          <label key={bank.slug}>
+            <input
+              type={mode === "single" ? "radio" : "checkbox"}
+              name={mode === "single" ? "one-bank" : `custom-bank-${bank.slug}`}
+              checked={selectedBankIds.includes(bank.slug)}
+              onChange={() => toggleBank(bank.slug)}
+            />
+            <span>{bank.shortName}</span>
+          </label>
+        ))}
+      </fieldset>
+      <p className="custom-bundle-selection-note">
+        {allAccess ? "Six or more banks automatically use All Access." : quantity === 0 ? "Select at least one bank to continue." : `${quantity} ${quantity === 1 ? "bank" : "banks"} selected.`}
+      </p>
+      {hasSelection ? <>
+        <p className="custom-bundle-total">{`Billed ${annual ? `$${annualCents! / 100} once a year` : "monthly"}.`}</p>
+        {authenticated
+          ? <CheckoutButton interval={interval} productId="bundle_custom" selectedBankIds={bankSelection} />
+          : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`}>Continue to checkout</Link>}
+        <span className="custom-bundle-effective-price">${monthlyEquivalentCents! / 100} / month</span>
+      </> : null}
     </div>
   );
 }
