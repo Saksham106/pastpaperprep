@@ -54,6 +54,35 @@ describe("article library", () => {
     }
   });
 
+  it("keeps public article bank-count claims current and complete", () => {
+    const publicArticleMarketingContent = ARTICLES.flatMap((article) => [
+      article.title,
+      article.description,
+      article.eyebrow,
+      article.answer,
+      ...article.sections.flatMap(({ heading, paragraphs, bullets = [] }) => [heading, ...paragraphs, ...bullets]),
+      ...article.faqs.flatMap(({ question, answer }) => [question, answer]),
+      ...article.relatedBanks.map(({ label }) => label),
+      ...(article.comparison
+        ? [
+            article.comparison.caption,
+            ...article.comparison.headings,
+            ...article.comparison.rows.flatMap(({ label, pastPaperPrep, competitor }) => [label, pastPaperPrep, competitor]),
+          ]
+        : []),
+    ]).join("\n");
+
+    expect(publicArticleMarketingContent).not.toMatch(/\b(?:10|ten)\b[^.!?\n]*\bbanks?\b/i);
+
+    const allSubjectBankClaims = publicArticleMarketingContent.match(
+      /\b(?:12|twelve)\b[^.!?\n]*\bMathematics\b[^.!?\n]*\bChemistry\b[^.!?\n]*\bPhysics\b[^.!?\n]*\bbanks?\b/gi,
+    ) ?? [];
+    expect(allSubjectBankClaims.length).toBeGreaterThan(0);
+    for (const claim of allSubjectBankClaims) {
+      expect(claim).toMatch(/\bBiology\b/i);
+    }
+  });
+
   it("keeps every internal article and bank link on a registered route", () => {
     const bankRoutes = new Set([
       "/banks/igcse",
