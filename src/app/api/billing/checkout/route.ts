@@ -11,7 +11,13 @@ import { createClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
 
-type CheckoutBody = { interval?: unknown; productId?: unknown };
+type CheckoutBody = { interval?: unknown; productId?: unknown; selectedBankIds?: unknown };
+
+function customIntegrationIdentifier(): string {
+  const letters = randomUUID().replace(/[^a-f0-9]/gi, "").slice(0, 8).split("")
+    .map((character) => String.fromCharCode(65 + (Number.parseInt(character, 16) % 26))).join("");
+  return `pastpaperprep-custom-bundle-${letters}`;
+}
 
 class BillingStateConflictError extends Error {}
 
@@ -52,10 +58,10 @@ export async function POST(request: Request) {
   let sessionCreationAttempted = false;
   try {
     const config = getStripeConfig();
-    getBillingPlan(body.productId, body.interval, config);
+    getBillingPlan(body.productId, body.interval, config, body.selectedBankIds);
     const { data: entitlementRows, error: entitlementError } = await supabase
       .from("entitlements")
-      .select("product_id, status, starts_at, expires_at")
+      .select("product_id, selected_bank_ids, status, starts_at, expires_at")
       .eq("user_id", user.id);
     if (entitlementError) throw entitlementError;
     const entitlements = normalizeEntitlements(entitlementRows ?? []);
@@ -92,6 +98,7 @@ export async function POST(request: Request) {
     const url = await startCheckout({
       interval: body.interval,
       productId: body.productId,
+      selectedBankIds: body.selectedBankIds,
       user: { id: user.id, email: user.email },
       config,
     }, {
@@ -155,6 +162,7 @@ export async function POST(request: Request) {
           && metadata.product_id === input.productId
           && metadata.billing_interval === input.interval
           && metadata.price_id === input.priceId
+          && metadata.selected_bank_ids === (input.selectedBankIds ? JSON.stringify(input.selectedBankIds) : undefined)
         ));
         const openSessionUrl = matchingOpenSession?.url;
         if (typeof openSessionUrl === "string" && openSessionUrl) return openSessionUrl;
@@ -168,24 +176,35 @@ export async function POST(request: Request) {
           throw new BillingStateConflictError("Access or billing state changed; manage it from your account");
         }
         sessionCreationAttempted = true;
+        const selectedBankMetadata = input.selectedBankIds ? JSON.stringify(input.selectedBankIds) : undefined;
         const session = await stripe.checkout.sessions.create({
           mode: "subscription",
           customer: input.customerId,
           client_reference_id: input.userId,
-          line_items: [{ price: input.priceId, quantity: 1 }],
+          line_items: [{ price: input.priceId, quantity: input.quantity ?? 1 }],
           success_url: input.successUrl,
           cancel_url: input.cancelUrl,
           allow_promotion_codes: true,
           subscription_data: {
-            metadata: { user_id: input.userId, product_id: input.productId },
+            metadata: input.productId === "bundle_custom"
+              ? {
+                user_id: input.userId,
+                product_id: input.productId,
+                selected_bank_ids: selectedBankMetadata!,
+                billing_interval: input.interval,
+                price_id: input.priceId,
+              }
+              : { user_id: input.userId, product_id: input.productId },
           },
           metadata: {
             user_id: input.userId,
             product_id: input.productId,
+            ...(selectedBankMetadata ? { selected_bank_ids: selectedBankMetadata } : {}),
             billing_interval: input.interval,
             price_id: input.priceId,
           },
-        }, {
+          integration_identifier: `${input.productId === "bundle_custom" ? "pastpaperprep-custom-bundle" : "pastpaperprep-fixed-plan"}-${customIntegrationIdentifier().split("-").at(-1)}`,
+        } as Parameters<typeof stripe.checkout.sessions.create>[0], {
           idempotencyKey: `pastpaperprep-checkout-${intentId}`,
           timeout: 30_000,
         });
@@ -213,7 +232,15 @@ export async function POST(request: Request) {
     if (error instanceof BillingStateConflictError) {
       return NextResponse.json({ error: error.message }, { status: 409 });
     }
-    if (error instanceof Error && (error.message === "Unknown billing interval" || error.message === "Unknown billing product")) {
+    if (error instanceof Error && (
+      error.message === "Unknown billing interval"
+      || error.message === "Unknown billing product"
+      || error.message === "Bank selection must be an array"
+      || error.message === "Unknown bank"
+      || error.message === "Duplicate bank"
+      || error.message === "Select at least one bank"
+      || error.message === "Select no more than five banks"
+    )) {
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
     console.error("Stripe checkout creation failed", safeBillingError(error));

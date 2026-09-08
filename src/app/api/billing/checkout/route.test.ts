@@ -62,6 +62,8 @@ vi.mock("@/lib/stripe-config", async (importOriginal) => {
       webhookSecret: "whsec_example",
       monthlyPriceId: "price_monthly",
       annualPriceId: "price_annual",
+      customMonthlyPriceId: "price_custom_monthly",
+      customAnnualPriceId: "price_custom_annual",
       singleMonthlyPriceId: "price_single_monthly",
       singleAnnualPriceId: "price_single_annual",
       pairMonthlyPriceId: "price_pair_monthly",
@@ -185,6 +187,72 @@ describe("POST /api/billing/checkout", () => {
       p_user_id: user.id,
       p_intent_id: intentId,
     });
+  });
+
+  it("creates a custom annual bundle with exact selected-bank metadata and graduated quantity", async () => {
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    mockAdminRpc("cus_existing");
+    sessionsCreate.mockResolvedValue({ url: "https://checkout.stripe.com/session" });
+
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", {
+      method: "POST",
+      body: JSON.stringify({ interval: "annual", productId: "bundle_custom", selectedBankIds: ["ib-sl", "igcse"] }),
+    }));
+
+    expect(response.status).toBe(200);
+    expect(sessionsCreate).toHaveBeenCalledWith(
+      expect.objectContaining({
+        line_items: [{ price: "price_custom_annual", quantity: 2 }],
+        subscription_data: { metadata: {
+          user_id: user.id,
+          product_id: "bundle_custom",
+          selected_bank_ids: JSON.stringify(["ib-sl", "igcse"]),
+          billing_interval: "annual",
+          price_id: "price_custom_annual",
+        } },
+        metadata: expect.objectContaining({
+          user_id: user.id,
+          product_id: "bundle_custom",
+          selected_bank_ids: JSON.stringify(["ib-sl", "igcse"]),
+          billing_interval: "annual",
+          price_id: "price_custom_annual",
+        }),
+        integration_identifier: expect.stringMatching(/^pastpaperprep-custom-bundle-[A-Za-z]{8}$/),
+      }),
+      expect.any(Object),
+    );
+  });
+
+  it("rejects duplicate custom bank selections before Stripe", async () => {
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", {
+      method: "POST",
+      body: JSON.stringify({ interval: "monthly", productId: "bundle_custom", selectedBankIds: ["igcse", "igcse"] }),
+    }));
+
+    expect(response.status).toBe(400);
+    expect(sessionsCreate).not.toHaveBeenCalled();
+  });
+
+  it("promotes six selected canonical banks to all access", async () => {
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    mockAdminRpc("cus_existing");
+    sessionsCreate.mockResolvedValue({ url: "https://checkout.stripe.com/session" });
+
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", {
+      method: "POST",
+      body: JSON.stringify({ interval: "monthly", productId: "bundle_custom", selectedBankIds: ["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl"] }),
+    }));
+
+    expect(response.status).toBe(200);
+    expect(sessionsCreate).toHaveBeenCalledWith(expect.objectContaining({
+      line_items: [{ price: "price_all_monthly", quantity: 1 }],
+      metadata: expect.objectContaining({ product_id: "bundle_all" }),
+    }), expect.any(Object));
   });
 
   it("returns a created Checkout Session even when reservation cleanup fails", async () => {

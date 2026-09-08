@@ -45,7 +45,7 @@ export async function POST(request: Request) {
   try {
     sync = buildSubscriptionSync(
       { ...event, data: { object: currentSubscription } },
-      (productId, priceId) => isStripePriceAllowedForProduct(productId, priceId, config),
+      (productId, priceId, interval) => isStripePriceAllowedForProduct(productId, priceId, config, interval),
     );
   } catch {
     const admin = createAdminClient();
@@ -70,6 +70,11 @@ export async function POST(request: Request) {
     p_status: sync.status,
     p_starts_at: sync.startsAt,
     p_expires_at: sync.expiresAt,
+    ...(sync.selectedBankIds ? {
+      p_selected_bank_ids: sync.selectedBankIds,
+      p_quantity: sync.quantity,
+      p_price_id: sync.priceId,
+    } : {}),
   });
   if (error) {
     return NextResponse.json({ error: "Webhook processing failed" }, { status: 500 });

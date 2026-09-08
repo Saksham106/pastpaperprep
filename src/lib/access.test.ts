@@ -42,6 +42,14 @@ describe("bank access", () => {
     expect(hasBankAccess("igcse", entitlements, now)).toBe(true);
   });
 
+  it("grants only the canonical banks stored on a custom bundle", () => {
+    const custom = entitlement("bundle_custom", { selectedBankIds: ["ib-sl", "igcse"] });
+
+    expect(hasBankAccess("ib-sl", [custom], now)).toBe(true);
+    expect(hasBankAccess("igcse", [custom], now)).toBe(true);
+    expect(hasBankAccess("ib-hl", [custom], now)).toBe(false);
+  });
+
   it("grants only the related banks for subject-pair bundles", () => {
     expect(hasBankAccess("igcse", [entitlement("bundle_igcse")], now)).toBe(true);
     expect(hasBankAccess("igcse-additional", [entitlement("bundle_igcse")], now)).toBe(true);

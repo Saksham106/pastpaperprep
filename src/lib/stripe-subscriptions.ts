@@ -1,4 +1,6 @@
 import type { ProductId } from "@/lib/access";
+import { validateCustomBankIds } from "@/lib/custom-bundles";
+import type { BillingInterval } from "@/lib/stripe-config";
 
 const SUBSCRIPTION_EVENT_TYPES = new Set([
   "customer.subscription.created",
@@ -15,7 +17,8 @@ export type SubscriptionEventReference = {
 
 const STRIPE_PRODUCT_IDS = new Set<ProductId>([
   "bank_igcse", "bank_igcse_additional", "bank_ib_hl", "bank_ib_sl", "bank_ib_ai_hl", "bank_ib_ai_sl",
-  "bank_ib_chemistry_hl", "bank_ib_chemistry_sl", "bank_ib_physics_hl", "bank_ib_physics_sl", "bank_ib_biology_hl", "bank_ib_biology_sl", "bundle_igcse", "bundle_ib_aa", "bundle_ib_ai", "bundle_ib_chemistry", "bundle_ib_physics", "bundle_ib_biology", "bundle_all",
+  "bank_ib_chemistry_hl", "bank_ib_chemistry_sl", "bank_ib_physics_hl", "bank_ib_physics_sl", "bank_ib_biology_hl", "bank_ib_biology_sl",
+  "bundle_igcse", "bundle_ib_aa", "bundle_ib_ai", "bundle_ib_chemistry", "bundle_ib_physics", "bundle_ib_biology", "bundle_all", "bundle_custom",
 ]);
 
 export type SubscriptionSync = {
@@ -25,6 +28,9 @@ export type SubscriptionSync = {
   customerId: string;
   userId: string;
   productId: ProductId;
+  selectedBankIds?: ReturnType<typeof validateCustomBankIds>;
+  quantity?: number;
+  priceId?: string;
   status: "active" | "trialing" | "revoked";
   startsAt: string;
   expiresAt: string | null;
@@ -53,7 +59,7 @@ export function getSubscriptionEventReference(eventValue: unknown): Subscription
 
 export function buildSubscriptionSync(
   eventValue: unknown,
-  isPriceAllowed: (productId: ProductId, priceId: string) => boolean,
+  isPriceAllowed: (productId: ProductId, priceId: string, interval?: BillingInterval) => boolean,
 ): SubscriptionSync | null {
   const event = record(eventValue, "Invalid Stripe event");
   if (typeof event.type !== "string" || !SUBSCRIPTION_EVENT_TYPES.has(event.type)) return null;
@@ -77,7 +83,35 @@ export function buildSubscriptionSync(
   if (!Array.isArray(items.data) || items.data.length !== 1) throw new Error("Invalid subscription items");
   const item = record(items.data[0], "Invalid subscription item");
   const price = record(item.price, "Invalid subscription price");
-  if (typeof price.id !== "string" || !isPriceAllowed(metadata.product_id as ProductId, price.id)) {
+  if (typeof price.id !== "string") throw new Error("Invalid Stripe price");
+
+  let selectedBankIds: ReturnType<typeof validateCustomBankIds> | undefined;
+  let customInterval: BillingInterval | undefined;
+  if (metadata.product_id === "bundle_custom") {
+    if (typeof metadata.selected_bank_ids !== "string" || typeof metadata.billing_interval !== "string" || typeof metadata.price_id !== "string") {
+      throw new Error("Invalid custom bundle metadata");
+    }
+    let parsedSelection: unknown;
+    try {
+      parsedSelection = JSON.parse(metadata.selected_bank_ids);
+    } catch {
+      throw new Error("Invalid custom bundle metadata");
+    }
+    try {
+      selectedBankIds = validateCustomBankIds(parsedSelection);
+    } catch {
+      throw new Error("Invalid custom bundle metadata");
+    }
+    if (metadata.billing_interval !== "monthly" && metadata.billing_interval !== "annual") {
+      throw new Error("Invalid custom bundle metadata");
+    }
+    customInterval = metadata.billing_interval;
+    if (metadata.price_id !== price.id) throw new Error("Stripe price metadata does not match subscription");
+    if (typeof item.quantity !== "number" || !Number.isSafeInteger(item.quantity) || item.quantity !== selectedBankIds.length) {
+      throw new Error("Custom bundle quantity does not match selection");
+    }
+  }
+  if (!isPriceAllowed(metadata.product_id as ProductId, price.id, customInterval)) {
     throw new Error("Stripe price does not match product");
   }
 
@@ -92,6 +126,7 @@ export function buildSubscriptionSync(
     customerId: subscription.customer,
     userId: metadata.user_id,
     productId: metadata.product_id as ProductId,
+    ...(selectedBankIds ? { selectedBankIds, quantity: item.quantity as number, priceId: price.id } : {}),
     status: entitled ? subscription.status as "active" | "trialing" : "revoked",
     startsAt,
     expiresAt: entitled ? unixDate(item.current_period_end) : null,

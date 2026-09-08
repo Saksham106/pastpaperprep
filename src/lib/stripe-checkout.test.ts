@@ -7,6 +7,8 @@ const config: StripeConfig = {
   webhookSecret: "whsec_example",
   monthlyPriceId: "price_monthly",
   annualPriceId: "price_annual",
+  customMonthlyPriceId: "price_custom_monthly",
+  customAnnualPriceId: "price_custom_annual",
   singleMonthlyPriceId: "price_single_monthly",
   singleAnnualPriceId: "price_single_annual",
   pairMonthlyPriceId: "price_pair_monthly",
@@ -72,5 +74,35 @@ describe("Stripe checkout orchestration", () => {
     expect(dependencies.createSession).toHaveBeenCalledWith(expect.objectContaining({ priceId: "price_single_monthly", productId: "bank_ib_sl" }));
 
     await expect(startCheckout({ interval: "price_annual", productId: "bank_ib_sl", user, config }, dependencies)).rejects.toThrow("Unknown billing interval");
+  });
+
+  it("passes exact custom bank selection and server-derived quantity to Stripe", async () => {
+    const dependencies = {
+      findCustomerId: vi.fn().mockResolvedValue("cus_existing"),
+      createCustomer: vi.fn(),
+      saveCustomer: vi.fn(),
+      createSession: vi.fn().mockResolvedValue("https://checkout.stripe.com/session"),
+    };
+
+    await startCheckout({ interval: "annual", productId: "bundle_custom", selectedBankIds: ["ib-sl", "igcse"], user, config }, dependencies);
+
+    expect(dependencies.createSession).toHaveBeenCalledWith(expect.objectContaining({
+      productId: "bundle_custom",
+      priceId: "price_custom_annual",
+      quantity: 2,
+      selectedBankIds: ["ib-sl", "igcse"],
+    }));
+  });
+
+  it("promotes six valid selected banks to all access", async () => {
+    const dependencies = {
+      findCustomerId: vi.fn().mockResolvedValue("cus_existing"),
+      createCustomer: vi.fn(),
+      saveCustomer: vi.fn(),
+      createSession: vi.fn().mockResolvedValue("https://checkout.stripe.com/session"),
+    };
+
+    await startCheckout({ interval: "monthly", productId: "bundle_custom", selectedBankIds: ["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl"], user, config }, dependencies);
+    expect(dependencies.createSession).toHaveBeenCalledWith(expect.objectContaining({ productId: "bundle_all", priceId: "price_all_monthly", quantity: 1 }));
   });
 });

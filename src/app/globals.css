@@ -340,6 +340,15 @@ main { min-height: 72vh; }
 .plan-billing-note { min-height: 19px; margin: 7px 0 0; font-size: .78rem; }
 .plan-description { margin: 14px 0 18px; line-height: 1.5; }
 .plan-checkout { margin-top: auto; display: grid; gap: 11px; }
+.custom-bundle-checkout { gap: 10px; }
+.custom-bank-picker { max-height: 230px; margin: 0; padding: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 8px; overflow-y: auto; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--surface-raised); }
+.custom-bank-picker legend { grid-column: 1 / -1; padding: 0 3px; color: var(--muted); font-size: .78rem; font-weight: 780; }
+.custom-bank-picker label { display: flex; align-items: center; gap: 7px; min-width: 0; padding: 6px 3px; color: var(--ink); font-size: .75rem; line-height: 1.2; cursor: pointer; }
+.custom-bank-picker label span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.custom-bank-picker input { accent-color: var(--cobalt); }
+.custom-bundle-selection-note, .custom-bundle-total, .custom-bundle-effective-price { margin: 0; color: var(--muted); font-size: .78rem; }
+.custom-bundle-total { font-weight: 780; }
+.custom-bundle-effective-price { color: var(--ink); font-weight: 850; }
 .plan-selector { position: relative; display: grid; gap: 6px; color: var(--muted); font-size: .82rem; }
 .plan-selector:has(.plan-select-menu) { z-index: 20; }
 .plan-selector-label { font-weight: 780; }

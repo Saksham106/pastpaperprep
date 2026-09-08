@@ -3,45 +3,37 @@
 import Link from "next/link";
 import { Check } from "@phosphor-icons/react";
 import { useState } from "react";
-import { PlanCheckout, PortalButton } from "@/components/BillingActions";
+import { CustomBundleCheckout, PlanCheckout, PortalButton } from "@/components/BillingActions";
 import { CourseIcon, courseToneForBank } from "@/components/CourseIcon";
 import type { ProductId } from "@/lib/access";
-import { BANKS } from "@/lib/banks";
+import { BANKS, type BankSlug } from "@/lib/banks";
 
-const BANK_OPTIONS = [
-  { productId: "bank_igcse", label: "Cambridge IGCSE Mathematics 0580" },
-  { productId: "bank_igcse_additional", label: "Cambridge IGCSE Additional Mathematics 0606" },
-  { productId: "bank_ib_hl", label: "IB Mathematics AA HL" },
-  { productId: "bank_ib_sl", label: "IB Mathematics AA SL" },
-  { productId: "bank_ib_ai_hl", label: "IB Mathematics AI HL" },
-  { productId: "bank_ib_ai_sl", label: "IB Mathematics AI SL" },
-  { productId: "bank_ib_chemistry_hl", label: "IB Chemistry HL" },
-  { productId: "bank_ib_chemistry_sl", label: "IB Chemistry SL" },
-  { productId: "bank_ib_physics_hl", label: "IB Physics HL" },
-  { productId: "bank_ib_physics_sl", label: "IB Physics SL" },
-  { productId: "bank_ib_biology_hl", label: "IB Biology HL" },
-  { productId: "bank_ib_biology_sl", label: "IB Biology SL" },
-] as const;
-
-const PAIR_OPTIONS = [
-  { productId: "bundle_igcse", label: "Cambridge IGCSE Maths (0580 + 0606)" },
-  { productId: "bundle_ib_aa", label: "IB Mathematics AA (SL + HL)" },
-  { productId: "bundle_ib_ai", label: "IB Mathematics AI (SL + HL)" },
-  { productId: "bundle_ib_chemistry", label: "IB Chemistry (SL + HL)" },
-  { productId: "bundle_ib_physics", label: "IB Physics (SL + HL)" },
-  { productId: "bundle_ib_biology", label: "IB Biology (SL + HL)" },
-] as const;
+const BANK_PRODUCT_TO_SLUG: Record<string, BankSlug> = {
+  bank_igcse: "igcse",
+  bank_igcse_additional: "igcse-additional",
+  bank_ib_hl: "ib-hl",
+  bank_ib_sl: "ib-sl",
+  bank_ib_ai_hl: "ib-ai-hl",
+  bank_ib_ai_sl: "ib-ai-sl",
+  bank_ib_chemistry_hl: "ib-chemistry-hl",
+  bank_ib_chemistry_sl: "ib-chemistry-sl",
+  bank_ib_physics_hl: "ib-physics-hl",
+  bank_ib_physics_sl: "ib-physics-sl",
+  bank_ib_biology_hl: "ib-biology-hl",
+  bank_ib_biology_sl: "ib-biology-sl",
+};
 
 const PLANS = [
-  { name: "One bank", label: "Single bank", monthly: "$5", annualMonthly: "$4", annual: "$48", annualSaving: "20%", description: "Choose any one question bank.", options: BANK_OPTIONS, popular: false },
-  { name: "Subject pair", label: "Two banks", monthly: "$8", annualMonthly: "$6", annual: "$72", annualSaving: "25%", description: "Get both banks in IGCSE, IB AA, IB AI, IB Chemistry, IB Physics, or IB Biology.", options: PAIR_OPTIONS, popular: true },
-  { name: "All banks", label: "Twelve banks", monthly: "$12", annualMonthly: "$8", annual: "$96", annualSaving: "33%", description: "Unlock all twelve question banks.", options: [{ productId: "bundle_all", label: "All banks" }] as const, popular: false },
+  { name: "One Bank", label: "One question bank", monthly: "$6", annualMonthly: "$4", annual: "$48", annualSaving: "33%", description: "Choose exactly one question bank and pay only for it.", mode: "single" as const, popular: false },
+  { name: "Build Your Plan", label: "One to five banks", monthly: "$6", annualMonthly: "$4", annual: "$48+", annualSaving: "33%", description: "Select the exact banks you need. The first bank is $6/month, then $4 for each additional bank.", mode: "builder" as const, popular: true },
+  { name: "All Access", label: "Every question bank", monthly: "$25", annualMonthly: "$18", annual: "$216", annualSaving: "28%", description: "Unlock every current bank and every bank added during your subscription.", mode: "all" as const, popular: false },
 ] as const;
 
 type BillingInterval = "monthly" | "annual";
 
-export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], initialInterval = "monthly", initialProductId }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; initialInterval?: BillingInterval; initialProductId?: ProductId }) {
+export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], initialInterval = "monthly", initialProductId, initialBankIds }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; initialInterval?: BillingInterval; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[] }) {
   const [interval, setInterval] = useState<BillingInterval>(initialInterval);
+  const initialBankId = initialProductId ? BANK_PRODUCT_TO_SLUG[initialProductId] : undefined;
 
   const renderPlan = (plan: (typeof PLANS)[number]) => (
     <article className={`pricing-option${plan.popular ? " pricing-option-popular" : ""}`} data-mobile-order={plan.popular ? "first" : undefined} key={plan.name}>
@@ -52,7 +44,22 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
       <div className="plan-price"><strong>{interval === "annual" ? plan.annualMonthly : plan.monthly}</strong><span>/ month</span></div>
       {interval === "annual" ? <p className="plan-billing-note">Billed {plan.annual} once a year. Save {plan.annualSaving}</p> : <p className="plan-billing-note">Billed monthly</p>}
       <p className="plan-description">{plan.description}</p>
-      <PlanCheckout options={plan.options} interval={interval} authenticated={authenticated} hasPaidAccess={hasPaidAccess} initialProductId={initialProductId} />
+      {plan.mode === "all" ? (
+        <PlanCheckout
+          options={[{ productId: "bundle_all", label: "All Access" }]}
+          interval={interval}
+          authenticated={authenticated}
+          hasPaidAccess={hasPaidAccess}
+        />
+      ) : (
+        <CustomBundleCheckout
+          mode={plan.mode}
+          interval={interval}
+          authenticated={authenticated}
+          hasPaidAccess={hasPaidAccess}
+          initialBankIds={initialBankIds ?? (initialBankId ? [initialBankId] : undefined)}
+        />
+      )}
     </article>
   );
 
@@ -61,7 +68,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
       <div className="pricing-intro">
         <p className="eyebrow">Pricing</p>
         <h1>Pay only for the subjects you actually study.</h1>
-        <p className="page-lede">Every paid plan has the same study tools. Choose how many banks you need.</p>
+        <p className="page-lede">Every paid plan has the same study tools. Choose one bank, build an exact bundle, or unlock everything.</p>
       </div>
 
       {authenticated ? (
@@ -132,7 +139,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         </div>
       </section>
 
-      <p className="checkout-note">Secure Stripe checkout. Cancel any time. Existing All-Access subscribers keep their current price.</p>
+      <p className="checkout-note">Secure Stripe checkout. Cancel any time. Existing fixed and All-Access subscribers remain grandfathered at their current price.</p>
     </section>
   );
 }

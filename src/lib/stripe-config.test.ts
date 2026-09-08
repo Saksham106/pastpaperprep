@@ -7,6 +7,8 @@ describe("Stripe billing configuration", () => {
     STRIPE_WEBHOOK_SECRET: "whsec_example",
     STRIPE_FOUNDING_MONTHLY_PRICE_ID: "price_monthly",
     STRIPE_FOUNDING_ANNUAL_PRICE_ID: "price_annual",
+    STRIPE_CUSTOM_MONTHLY_PRICE_ID: "price_custom_monthly",
+    STRIPE_CUSTOM_ANNUAL_PRICE_ID: "price_custom_annual",
     STRIPE_SINGLE_MONTHLY_PRICE_ID: "price_single_monthly",
     STRIPE_SINGLE_ANNUAL_PRICE_ID: "price_single_annual",
     STRIPE_PAIR_MONTHLY_PRICE_ID: "price_pair_monthly",
@@ -33,7 +35,7 @@ describe("Stripe billing configuration", () => {
   it("fails closed when required secrets or price IDs are missing", () => {
     expect(() => validateStripeConfig({ ...env, STRIPE_SECRET_KEY: "" })).toThrow("Stripe is not configured");
     expect(() => validateStripeConfig({ ...env, STRIPE_FOUNDING_ANNUAL_PRICE_ID: "" })).toThrow("Stripe is not configured");
-    expect(() => validateStripeConfig({ ...env, STRIPE_SINGLE_ANNUAL_PRICE_ID: "" })).toThrow("Stripe is not configured");
+    expect(() => validateStripeConfig({ ...env, STRIPE_CUSTOM_MONTHLY_PRICE_ID: "" })).toThrow("Stripe is not configured");
   });
 
   it("requires the canonical HTTPS site URL", () => {

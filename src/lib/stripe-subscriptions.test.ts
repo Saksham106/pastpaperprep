@@ -57,6 +57,46 @@ describe("Stripe subscription event normalization", () => {
       .toEqual(expect.objectContaining({ productId: "bundle_ib_aa" }));
   });
 
+  it("validates custom-bundle metadata, quantity, and selected canonical banks", () => {
+    const custom = event() as unknown as {
+      data: { object: { metadata: Record<string, string>; items: { data: Array<{ price: { id: string }; quantity?: number }> } } };
+    };
+    custom.data.object.metadata = {
+      user_id: userId,
+      product_id: "bundle_custom",
+      selected_bank_ids: JSON.stringify(["ib-hl", "ib-sl"]),
+      billing_interval: "annual",
+      price_id: "price_custom_annual",
+    };
+    custom.data.object.items.data[0].price.id = "price_custom_annual";
+    custom.data.object.items.data[0].quantity = 2;
+
+    expect(buildSubscriptionSync(custom, (productId, priceId) => productId === "bundle_custom" && priceId === "price_custom_annual"))
+      .toEqual(expect.objectContaining({
+        productId: "bundle_custom",
+        selectedBankIds: ["ib-hl", "ib-sl"],
+      }));
+
+    custom.data.object.items.data[0].quantity = 1;
+    expect(() => buildSubscriptionSync(custom, () => true)).toThrow("Custom bundle quantity does not match selection");
+  });
+
+  it("rejects custom bundles with malformed or tampered selected-bank metadata", () => {
+    const custom = event() as unknown as {
+      data: { object: { metadata: Record<string, string>; items: { data: Array<{ price: { id: string }; quantity?: number }> } } };
+    };
+    custom.data.object.metadata = {
+      user_id: userId,
+      product_id: "bundle_custom",
+      selected_bank_ids: JSON.stringify(["ib-hl", "unknown"]),
+      billing_interval: "monthly",
+      price_id: "price_custom_monthly",
+    };
+    custom.data.object.items.data[0].price.id = "price_custom_monthly";
+    custom.data.object.items.data[0].quantity = 2;
+    expect(() => buildSubscriptionSync(custom, () => true)).toThrow("Invalid custom bundle metadata");
+  });
+
   it("fails closed for unknown prices, malformed users, and unrelated events", () => {
     const unknownPrice = event();
     (unknownPrice.data.object.items.data[0].price as { id: string }).id = "price_attacker";

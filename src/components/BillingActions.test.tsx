@@ -29,6 +29,27 @@ describe("CheckoutButtons", () => {
     expect(navigate).toHaveBeenCalledWith("https://checkout.stripe.com/c/pay/monthly");
   });
 
+  it("sends selected canonical bank IDs for a custom bundle", async () => {
+    fetchMock.mockResolvedValue({ ok: true, json: async () => ({ url: "https://checkout.stripe.com/c/pay/custom" }) });
+    const navigate = vi.fn();
+    render(<CheckoutButton interval="annual" productId="bundle_custom" selectedBankIds={["igcse", "ib-sl"]} navigate={navigate} />);
+    fireEvent.click(screen.getByRole("button", { name: /choose annual/i }));
+
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/billing/checkout", expect.objectContaining({
+      body: JSON.stringify({ interval: "annual", productId: "bundle_custom", selectedBankIds: ["igcse", "ib-sl"] }),
+    })));
+  });
+
+  it("preserves the exact custom bank selection when sign-in is required", async () => {
+    fetchMock.mockResolvedValue({ ok: false, status: 401, json: async () => ({ error: "Authentication required" }) });
+    render(<CheckoutButton interval="annual" productId="bundle_custom" selectedBankIds={["ib-sl", "igcse"]} />);
+    fireEvent.click(screen.getByRole("button", { name: /choose annual/i }));
+    expect(await screen.findByRole("link", { name: /sign in to continue/i })).toHaveAttribute(
+      "href",
+      "/login?next=%2Fpricing%3Finterval%3Dannual%26product%3Dbundle_custom%26banks%3Dib-sl%252Cigcse",
+    );
+  });
+
   it("starts the selected allowlisted billing interval and follows Stripe's URL", async () => {
     const navigate = vi.fn();
     fetchMock.mockResolvedValue({

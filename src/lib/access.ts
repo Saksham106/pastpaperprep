@@ -1,10 +1,11 @@
 import type { BankSlug } from "@/lib/banks";
 
-export type ProductId = "bank_igcse" | "bank_igcse_additional" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bank_ib_chemistry_hl" | "bank_ib_chemistry_sl" | "bank_ib_physics_hl" | "bank_ib_physics_sl" | "bank_ib_biology_hl" | "bank_ib_biology_sl" | "bundle_igcse" | "bundle_ib_aa" | "bundle_ib_ai" | "bundle_ib_chemistry" | "bundle_ib_physics" | "bundle_ib_biology" | "bundle_all";
+export type ProductId = "bank_igcse" | "bank_igcse_additional" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bank_ib_chemistry_hl" | "bank_ib_chemistry_sl" | "bank_ib_physics_hl" | "bank_ib_physics_sl" | "bank_ib_biology_hl" | "bank_ib_biology_sl" | "bundle_igcse" | "bundle_ib_aa" | "bundle_ib_ai" | "bundle_ib_chemistry" | "bundle_ib_physics" | "bundle_ib_biology" | "bundle_all" | "bundle_custom";
 export type EntitlementStatus = "active" | "trialing" | "expired" | "revoked";
 
 export type AccessEntitlement = {
   productId: ProductId;
+  selectedBankIds?: readonly BankSlug[];
   status: EntitlementStatus;
   startsAt: string | null;
   expiresAt: string | null;
@@ -137,7 +138,8 @@ export function hasBankAccess(
   return entitlements.some(
     (entitlement) =>
       isCurrent(entitlement, now) &&
-      (entitlement.productId === bankProduct || BANK_BUNDLES[bankSlug].includes(entitlement.productId) || entitlement.productId === "bundle_all"),
+      (entitlement.productId === bankProduct || BANK_BUNDLES[bankSlug].includes(entitlement.productId) || entitlement.productId === "bundle_all" ||
+        (entitlement.productId === "bundle_custom" && entitlement.selectedBankIds?.includes(bankSlug))),
   );
 }
 
