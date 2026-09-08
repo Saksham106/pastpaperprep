@@ -28,12 +28,14 @@ describe("approved custom-bank pricing", () => {
     expect(within(builder!).getByText("$10 / month")).toBeInTheDocument();
   });
 
-  it("shows annual effective monthly prices and exact yearly totals", () => {
+  it("shows annual effective monthly prices, exact yearly totals, and annual builder math", () => {
     render(<PricingContent authenticated={false} hasPaidAccess={false} initialInterval="annual" />);
 
     expect(screen.getAllByText("$4").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Billed $48 once a year.")).toHaveLength(2);
     expect(screen.getByText("$18")).toBeInTheDocument();
+    expect(screen.getByText("Select the exact banks you need. The first bank is $4/month billed annually, then $3/month for each additional bank.")).toBeInTheDocument();
+    expect(screen.queryByText("Select the exact banks you need. The first bank is $6/month, then $4 for each additional bank.")).not.toBeInTheDocument();
     expect(screen.getAllByText(/Billed/).map((node) => node.textContent).some((text) => text?.includes("$216 once a year"))).toBe(true);
   });
 
