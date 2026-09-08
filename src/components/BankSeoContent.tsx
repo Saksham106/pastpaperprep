@@ -30,6 +30,13 @@ function guideFor(bank: Bank) {
     };
   }
 
+  if (bank.slug === "ib-biology-hl" || bank.slug === "ib-biology-sl") {
+    return {
+      href: "/articles/ib-biology-past-papers-by-topic",
+      label: "IB Biology revision guide",
+    };
+  }
+
   return {
     href: "/articles/ib-math-past-papers-by-topic",
     label: "IB Maths past papers by topic guide",
@@ -38,7 +45,7 @@ function guideFor(bank: Bank) {
 
 export function BankSeoContent({ bank }: { bank: Bank }) {
   const guide = guideFor(bank);
-  const isScience = bank.slug === "ib-chemistry-hl" || bank.slug === "ib-chemistry-sl" || bank.slug === "ib-physics-hl" || bank.slug === "ib-physics-sl";
+  const isScience = bank.slug === "ib-chemistry-hl" || bank.slug === "ib-chemistry-sl" || bank.slug === "ib-physics-hl" || bank.slug === "ib-physics-sl" || bank.slug === "ib-biology-hl" || bank.slug === "ib-biology-sl";
   const coverage = `This bank contains ${bank.questionCount.toLocaleString()} questions drawn from ${bank.paperCount} real past papers, covering ${bank.years}. Use it to isolate weak topics before switching to timed whole-paper practice.`;
 
   return (

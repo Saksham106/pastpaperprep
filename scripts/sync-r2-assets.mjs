@@ -27,6 +27,8 @@ const SOURCES = [
   { bank: "ib-chemistry-sl", root: join(WORKSPACE_ROOT, "ib-chemistry-topic-practice/site"), raw: join(REPO_ROOT, "src/data/raw/ib-chemistry-sl.json"), imageFields: ["questionImages"], officialMarkschemeImages: true },
   { bank: "ib-physics-hl", root: join(WORKSPACE_ROOT, "ib-physics-topic-practice/site"), raw: join(REPO_ROOT, "src/data/raw/ib-physics-hl.json"), imageFields: ["questionImages"], officialMarkschemeImages: true },
   { bank: "ib-physics-sl", root: join(WORKSPACE_ROOT, "ib-physics-topic-practice/site"), raw: join(REPO_ROOT, "src/data/raw/ib-physics-sl.json"), imageFields: ["questionImages"], officialMarkschemeImages: true },
+  { bank: "ib-biology-hl", root: join(WORKSPACE_ROOT, "ib-biology-topic-practice/site"), raw: join(REPO_ROOT, "src/data/raw/ib-biology-hl.json"), imageFields: ["questionImages"], officialMarkschemeImages: true },
+  { bank: "ib-biology-sl", root: join(WORKSPACE_ROOT, "ib-biology-topic-practice/site"), raw: join(REPO_ROOT, "src/data/raw/ib-biology-sl.json"), imageFields: ["questionImages"], officialMarkschemeImages: true },
 ];
 
 export { SOURCES };

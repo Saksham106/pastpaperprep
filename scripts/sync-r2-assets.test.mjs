@@ -8,14 +8,14 @@ describe("R2 asset source configuration", () => {
   it("requires runtime JSON references for every bank and has no source-root fallback", () => {
     const banks = [
       "igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl",
-      "ib-chemistry-hl", "ib-chemistry-sl", "ib-physics-hl", "ib-physics-sl",
+      "ib-chemistry-hl", "ib-chemistry-sl", "ib-physics-hl", "ib-physics-sl", "ib-biology-hl", "ib-biology-sl",
     ];
-    expect(SOURCES).toHaveLength(10);
+    expect(SOURCES).toHaveLength(12);
     expect(SOURCES.map((source) => source.bank)).toEqual(banks);
     expect(SOURCES.map((source) => source.raw)).toEqual(banks.map((bank) => `${process.cwd()}/src/data/raw/${bank}.json`));
     expect(SOURCES.every((source) => source.raw && source.imageFields?.length)).toBe(true);
     expect(SOURCES.filter((source) => source.imageFields.includes("markschemeImages"))).toHaveLength(2);
-    expect(SOURCES.filter((source) => source.officialMarkschemeImages)).toHaveLength(8);
+    expect(SOURCES.filter((source) => source.officialMarkschemeImages)).toHaveLength(10);
   });
 
   it("selects only referenced WebPs across direct and official markscheme schemas", async () => {

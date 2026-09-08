@@ -69,6 +69,7 @@ describe("IB Physics HL/SL integration", () => {
     expect(BANKS.map((bank) => bank.slug)).toEqual([
       "igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl",
       "ib-chemistry-hl", "ib-chemistry-sl", "ib-physics-hl", "ib-physics-sl",
+      "ib-biology-hl", "ib-biology-sl",
     ]);
     expect(getBank("ib-physics-hl")?.questionCount).toBe(1111);
     expect(getBank("ib-physics-sl")?.questionCount).toBe(774);

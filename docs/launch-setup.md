@@ -55,7 +55,7 @@ Cloudflare R2 has no hard spending cap. Keep the account budget alert at the min
 
 - The private `Saksham106/pastpaperprep` repository contains the Next.js application and normalized question metadata in `src/data/raw/*.json`.
 - Vercel builds and serves the application. The bundled metadata tells the browser which questions match each filter.
-- The preview corpus (currently 4,020 objects, including official mark-scheme images and Physics 2020 previews) remains in the private Supabase Storage bucket `question-assets`, so anonymous preview traffic cannot generate billable R2 operations. Both providers use short-lived signed URLs. R2 presigning is local and performs no per-request `HeadObject`; exact object existence is instead a mandatory deployment gate through `npm run r2:verify`, and the production token is read-only so runtime code cannot create drift. After production verification and premium Supabase cleanup, this R2-aware release is the rollback floor: never roll back to an older Supabase-only deployment because those premium Supabase copies no longer exist.
+- The preview corpus (currently 4,386 objects, including official mark-scheme images and the 2020 Biology, Chemistry, and Physics previews) remains in the private Supabase Storage bucket `question-assets`, so anonymous preview traffic cannot generate billable R2 operations. Both providers use short-lived signed URLs. R2 presigning is local and performs no per-request `HeadObject`; exact object existence is instead a mandatory deployment gate through `npm run r2:verify`, and the production token is read-only so runtime code cannot create drift. After production verification and premium Supabase cleanup, this R2-aware release is the rollback floor: never roll back to an older Supabase-only deployment because those premium Supabase copies no longer exist.
 - Supabase currently handles accounts and commercial records: profiles, entitlements, saved questions, attempts, and Stripe customer mappings.
 - The access policy, strict logical-question-to-private-object mapping, and bounded `/api/assets/sign` endpoint are live. Locked browser payloads do not contain premium content or private Storage paths.
 - PDF worksheets are capped at 50 questions and require a paid entitlement. The server atomically enforces daily worksheet, exported-question, and signed-asset allowances. Generated PDFs carry a privacy-safe account marker.
@@ -77,11 +77,14 @@ Stripe Checkout, Billing Portal, verified webhook handling, and entitlement sync
 - `bank_ib_chemistry_sl`
 - `bank_ib_physics_hl`
 - `bank_ib_physics_sl`
+- `bank_ib_biology_hl`
+- `bank_ib_biology_sl`
 - `bundle_igcse`
 - `bundle_ib_aa`
 - `bundle_ib_ai`
 - `bundle_ib_chemistry`
 - `bundle_ib_physics`
+- `bundle_ib_biology`
 - `bundle_all`
 
 These identifiers are stable internal entitlement keys. Stripe price IDs can change without changing the access model.

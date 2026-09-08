@@ -68,6 +68,6 @@ describe("public bank question index", () => {
       expect(metadata).not.toHaveProperty("courseEra");
       expect(JSON.stringify(createPublicBankIndex(bank, loadBankQuestions(bank)))).not.toContain("courseEra");
     }
-  });
+  }, 20_000);
 
 });

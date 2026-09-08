@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 const root = join(import.meta.dirname, "..");
 const outputDirectory = join(root, "public", "bank-index");
 const version = 1;
-const banks = ["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "ib-chemistry-hl", "ib-chemistry-sl", "ib-physics-hl", "ib-physics-sl"];
+const banks = ["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "ib-chemistry-hl", "ib-chemistry-sl", "ib-physics-hl", "ib-physics-sl", "ib-biology-hl", "ib-biology-sl"];
 const forbiddenKeys = [
   "summary", "accessibleText", "searchText", "solution", "sourceQuestionUrl",
   "sourceMarkSchemeUrl", "questionImages", "markschemeImages", "questionAssetPaths",

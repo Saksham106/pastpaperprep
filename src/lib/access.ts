@@ -1,6 +1,6 @@
 import type { BankSlug } from "@/lib/banks";
 
-export type ProductId = "bank_igcse" | "bank_igcse_additional" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bank_ib_chemistry_hl" | "bank_ib_chemistry_sl" | "bank_ib_physics_hl" | "bank_ib_physics_sl" | "bundle_igcse" | "bundle_ib_aa" | "bundle_ib_ai" | "bundle_ib_chemistry" | "bundle_ib_physics" | "bundle_all";
+export type ProductId = "bank_igcse" | "bank_igcse_additional" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bank_ib_chemistry_hl" | "bank_ib_chemistry_sl" | "bank_ib_physics_hl" | "bank_ib_physics_sl" | "bank_ib_biology_hl" | "bank_ib_biology_sl" | "bundle_igcse" | "bundle_ib_aa" | "bundle_ib_ai" | "bundle_ib_chemistry" | "bundle_ib_physics" | "bundle_ib_biology" | "bundle_all";
 export type EntitlementStatus = "active" | "trialing" | "expired" | "revoked";
 
 export type AccessEntitlement = {
@@ -21,6 +21,8 @@ const BANK_PRODUCTS: Record<BankSlug, ProductId> = {
   "ib-chemistry-sl": "bank_ib_chemistry_sl",
   "ib-physics-hl": "bank_ib_physics_hl",
   "ib-physics-sl": "bank_ib_physics_sl",
+  "ib-biology-hl": "bank_ib_biology_hl",
+  "ib-biology-sl": "bank_ib_biology_sl",
 };
 
 const BANK_BUNDLES: Record<BankSlug, readonly ProductId[]> = {
@@ -34,6 +36,8 @@ const BANK_BUNDLES: Record<BankSlug, readonly ProductId[]> = {
   "ib-chemistry-sl": ["bundle_ib_chemistry"],
   "ib-physics-hl": ["bundle_ib_physics"],
   "ib-physics-sl": ["bundle_ib_physics"],
+  "ib-biology-hl": ["bundle_ib_biology"],
+  "ib-biology-sl": ["bundle_ib_biology"],
 };
 
 export const PREVIEW_QUESTION_IDS: Record<BankSlug, readonly string[]> = {
@@ -87,6 +91,16 @@ export const PREVIEW_QUESTION_IDS: Record<BankSlug, readonly string[]> = {
     "2020-november-tz0-sl-p1-q2",
     "2020-november-tz0-sl-p1-q3",
   ],
+  "ib-biology-hl": [
+    "2020-november-tz0-hl-p1-q1",
+    "2020-november-tz0-hl-p1-q2",
+    "2020-november-tz0-hl-p1-q3",
+  ],
+  "ib-biology-sl": [
+    "2020-november-tz0-sl-p1-q1",
+    "2020-november-tz0-sl-p1-q2",
+    "2020-november-tz0-sl-p1-q3",
+  ],
 };
 
 export const FREE_QUESTION_YEARS: Record<BankSlug, readonly number[]> = {
@@ -100,6 +114,8 @@ export const FREE_QUESTION_YEARS: Record<BankSlug, readonly number[]> = {
   "ib-chemistry-sl": [2020],
   "ib-physics-hl": [2020],
   "ib-physics-sl": [2020],
+  "ib-biology-hl": [2020],
+  "ib-biology-sl": [2020],
 };
 
 function isCurrent(entitlement: AccessEntitlement, now: Date): boolean {

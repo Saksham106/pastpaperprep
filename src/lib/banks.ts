@@ -1,4 +1,4 @@
-export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl" | "ib-physics-hl" | "ib-physics-sl";
+export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl" | "ib-physics-hl" | "ib-physics-sl" | "ib-biology-hl" | "ib-biology-sl";
 
 export type Bank = {
   slug: BankSlug;
@@ -144,6 +144,32 @@ export const BANKS: readonly Bank[] = [
     years: "2020-2025",
     accent: "lime",
     sourceBaseUrl: "https://saksham106.github.io/ib-physics-topic-practice",
+  },
+  {
+    slug: "ib-biology-hl",
+    shortName: "IB Biology HL",
+    title: "IB Biology Higher Level",
+    description: "Practise real IB Biology HL questions by topic, paper, session, and skill with official markschemes.",
+    qualification: "International Baccalaureate",
+    subject: "Biology HL",
+    questionCount: 1139,
+    paperCount: 51,
+    years: "2020-2025",
+    accent: "coral",
+    sourceBaseUrl: "https://saksham106.github.io/ib-biology-topic-practice",
+  },
+  {
+    slug: "ib-biology-sl",
+    shortName: "IB Biology SL",
+    title: "IB Biology Standard Level",
+    description: "Target IB Biology SL topics with real questions, official markschemes, and focused revision filters.",
+    qualification: "International Baccalaureate",
+    subject: "Biology SL",
+    questionCount: 936,
+    paperCount: 54,
+    years: "2020-2025",
+    accent: "lime",
+    sourceBaseUrl: "https://saksham106.github.io/ib-biology-topic-practice",
   },
 ] as const;
 

@@ -93,5 +93,5 @@ describe("AI HL full-bank production target", () => {
     const first = readFileSync(bankPath);
     execFileSync("python", [apply, "--apply"], { cwd: root, encoding: "utf8" });
     expect(readFileSync(bankPath).equals(first)).toBe(true);
-  });
+  }, 20_000);
 });

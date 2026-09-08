@@ -7,8 +7,8 @@ describe("article library", () => {
   it("keeps scheduled drafts out of public article collections", () => {
     expect(isPublicArticle({ draft: false })).toBe(true);
     expect(isPublicArticle({ draft: true })).toBe(false);
-    expect(ALL_ARTICLES).toHaveLength(9);
-    expect(ARTICLES).toHaveLength(9);
+    expect(ALL_ARTICLES).toHaveLength(10);
+    expect(ARTICLES).toHaveLength(10);
     expect(getArticle("how-to-mark-maths-past-paper-mistake-log")?.draft).toBe(false);
     expect(getArticle("topic-questions-vs-full-past-papers")?.draft).toBe(false);
     expect(getArticle("best-free-ib-maths-aa-hl-resources")?.draft).toBe(false);
@@ -29,9 +29,10 @@ describe("article library", () => {
   });
 
   it("ships a small, intentional public cluster with unique search-friendly URLs", () => {
-    expect(ARTICLES).toHaveLength(9);
+    expect(ARTICLES).toHaveLength(10);
     expect(new Set(ALL_ARTICLES.map(({ slug }) => slug)).size).toBe(ALL_ARTICLES.length);
     expect(ARTICLES.map(({ slug }) => slug)).toEqual([
+      "ib-biology-past-papers-by-topic",
       "best-free-ib-maths-aa-hl-resources",
       "topic-questions-vs-full-past-papers",
       "how-to-mark-maths-past-paper-mistake-log",
@@ -65,6 +66,8 @@ describe("article library", () => {
       "/banks/ib-chemistry-sl",
       "/banks/ib-physics-hl",
       "/banks/ib-physics-sl",
+      "/banks/ib-biology-hl",
+      "/banks/ib-biology-sl",
     ]);
     const articleRoutes = new Set(ALL_ARTICLES.map(({ slug }) => `/articles/${slug}`));
 

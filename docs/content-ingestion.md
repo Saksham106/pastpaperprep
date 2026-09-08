@@ -2,7 +2,7 @@
 
 Updated: 26 August 2026
 
-This is the operational source of truth for adding or rebuilding PastPaperPrep question banks. It was reconstructed from the ten private source-bank inputs, their tests and build scripts, the initial ingestion history on Swati's agent, and the current production application. The checked-in code and manifests win if this document ever drifts.
+This is the operational source of truth for adding or rebuilding PastPaperPrep question banks. It was reconstructed from the twelve private source-bank inputs, their tests and build scripts, the initial ingestion history on Swati's agent, and the current production application. The checked-in code and manifests win if this document ever drifts.
 
 ## Current verified baseline
 
@@ -18,7 +18,9 @@ This is the operational source of truth for adding or rebuilding PastPaperPrep q
 | IB Chemistry SL | `Saksham106/ib-chemistry-topic-practice` | 51 | 810 | 2,243 |
 | IB Physics HL | `Saksham106/ib-physics-topic-practice` | 51 | 1,111 | 3,109 |
 | IB Physics SL | `Saksham106/ib-physics-topic-practice` | 51 | 774 | 2,087 |
-| **Total** |  | **748** | **10,257** | **26,147** |
+| IB Biology HL | `Saksham106/ib-biology-topic-practice` | 51 | 1,139 | 3,107 |
+| IB Biology SL | `Saksham106/ib-biology-topic-practice` | 54 | 936 | 2,443 |
+| **Total** |  | **853** | **12,332** | **31,697** |
 
 The application copies each source bank's generated `site/data/questions.json` to:
 
@@ -32,6 +34,8 @@ The application copies each source bank's generated `site/data/questions.json` t
 - `src/data/raw/ib-chemistry-sl.json`
 - `src/data/raw/ib-physics-hl.json`
 - `src/data/raw/ib-physics-sl.json`
+- `src/data/raw/ib-biology-hl.json`
+- `src/data/raw/ib-biology-sl.json`
 
 Premium WebPs live in private Cloudflare R2 under bank-specific prefixes. Free preview WebPs remain in the private Supabase Storage bucket `question-assets`. The runtime retention plan is authoritative for that split.
 
@@ -77,6 +81,7 @@ The existing upload script expects this exact temporary layout:
   ib-ai-sl/
   ib-chemistry/
   ib-physics/
+  ib-biology/
 ```
 
 Clone the private repositories:
@@ -293,6 +298,8 @@ cp /tmp/pastpaperprep-sources/ib-chemistry/site/data/questions-hl.json src/data/
 cp /tmp/pastpaperprep-sources/ib-chemistry/site/data/questions-sl.json src/data/raw/ib-chemistry-sl.json
 cp /tmp/pastpaperprep-sources/ib-physics/site/data/questions-hl.json src/data/raw/ib-physics-hl.json
 cp /tmp/pastpaperprep-sources/ib-physics/site/data/questions-sl.json src/data/raw/ib-physics-sl.json
+cp /tmp/pastpaperprep-sources/ib-biology/site/data/questions-hl.json src/data/raw/ib-biology-hl.json
+cp /tmp/pastpaperprep-sources/ib-biology/site/data/questions-sl.json src/data/raw/ib-biology-sl.json
 ```
 
 Then verify the canonical totals before touching Storage:
@@ -300,7 +307,7 @@ Then verify the canonical totals before touching Storage:
 ```bash
 node - <<'NODE'
 const fs = require('node:fs');
-const banks = ['igcse', 'igcse-additional', 'ib-hl', 'ib-sl', 'ib-ai-hl', 'ib-ai-sl', 'ib-chemistry-hl', 'ib-chemistry-sl', 'ib-physics-hl', 'ib-physics-sl'];
+const banks = ['igcse', 'igcse-additional', 'ib-hl', 'ib-sl', 'ib-ai-hl', 'ib-ai-sl', 'ib-chemistry-hl', 'ib-chemistry-sl', 'ib-physics-hl', 'ib-physics-sl', 'ib-biology-hl', 'ib-biology-sl'];
 let questions = 0;
 let papers = 0;
 let assets = 0;
@@ -322,7 +329,7 @@ console.log({ papers, questions, assets });
 NODE
 ```
 
-For the current corpus, this must report 748 papers, 10,257 questions, and 26,147 unique bank-prefixed referenced assets. The hybrid retention split is 4,020 Supabase preview objects (including the 2020 Physics preview year) and 22,127 premium objects eligible for R2 after production verification. A changed corpus should have an explicitly reviewed new baseline rather than forcing these numbers.
+For the current corpus, this must report 853 papers, 12,332 questions, and 31,697 unique bank-prefixed referenced assets. The hybrid retention split is 4,386 Supabase preview objects (including the 2020 Biology, Chemistry, and Physics preview years) and 27,311 premium objects eligible for R2 after production verification.
 
 ### 8. Upload private assets
 

@@ -3,12 +3,12 @@ import { MarketingHome } from "@/components/MarketingHome";
 import { JsonLd } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
-  title: { absolute: "IGCSE, IB Maths, Chemistry & Physics Past Papers by Topic | PastPaperPrep" },
-  description: "Practise Cambridge IGCSE, IB Mathematics, IB Chemistry, and IB Physics past-paper questions by topic. Filter exact questions, check answers, and build printable sets.",
+  title: { absolute: "IGCSE, IB Maths, Chemistry, Physics & Biology Past Papers by Topic | PastPaperPrep" },
+  description: "Practise Cambridge IGCSE, IB Mathematics, IB Chemistry, IB Physics, and IB Biology past-paper questions by topic. Filter exact questions, check answers, and build printable sets.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "IGCSE, IB Maths, Chemistry & Physics Past Papers by Topic | PastPaperPrep",
-    description: "Practise Cambridge IGCSE, IB Mathematics, IB Chemistry, and IB Physics past-paper questions by topic and build focused revision sets.",
+    title: "IGCSE, IB Maths, Chemistry, Physics & Biology Past Papers by Topic | PastPaperPrep",
+    description: "Practise Cambridge IGCSE, IB Mathematics, IB Chemistry, IB Physics, and IB Biology past-paper questions by topic and build focused revision sets.",
     url: "/",
     type: "website",
   },
