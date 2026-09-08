@@ -13,18 +13,27 @@ const BANK_OPTIONS = [
   { productId: "bank_ib_sl", label: "IB Mathematics AA SL" },
   { productId: "bank_ib_ai_hl", label: "IB Mathematics AI HL" },
   { productId: "bank_ib_ai_sl", label: "IB Mathematics AI SL" },
+  { productId: "bank_ib_chemistry_hl", label: "IB Chemistry HL" },
+  { productId: "bank_ib_chemistry_sl", label: "IB Chemistry SL" },
+  { productId: "bank_ib_physics_hl", label: "IB Physics HL" },
+  { productId: "bank_ib_physics_sl", label: "IB Physics SL" },
+  { productId: "bank_ib_biology_hl", label: "IB Biology HL" },
+  { productId: "bank_ib_biology_sl", label: "IB Biology SL" },
 ] as const;
 
 const PAIR_OPTIONS = [
   { productId: "bundle_igcse", label: "Cambridge IGCSE Maths (0580 + 0606)" },
   { productId: "bundle_ib_aa", label: "IB Mathematics AA (SL + HL)" },
   { productId: "bundle_ib_ai", label: "IB Mathematics AI (SL + HL)" },
+  { productId: "bundle_ib_chemistry", label: "IB Chemistry (SL + HL)" },
+  { productId: "bundle_ib_physics", label: "IB Physics (SL + HL)" },
+  { productId: "bundle_ib_biology", label: "IB Biology (SL + HL)" },
 ] as const;
 
 const PLANS = [
   { name: "One bank", label: "Single bank", monthly: "$5", annualMonthly: "$4", annual: "$48", annualSaving: "20%", description: "Choose any one question bank.", options: BANK_OPTIONS, popular: false },
-  { name: "Subject pair", label: "Two banks", monthly: "$8", annualMonthly: "$6", annual: "$72", annualSaving: "25%", description: "Get both banks in IGCSE, IB AA, or IB AI.", options: PAIR_OPTIONS, popular: true },
-  { name: "All banks", label: "Six banks", monthly: "$12", annualMonthly: "$8", annual: "$96", annualSaving: "33%", description: "Unlock all six question banks.", options: [{ productId: "bundle_all", label: "All banks" }] as const, popular: false },
+  { name: "Subject pair", label: "Two banks", monthly: "$8", annualMonthly: "$6", annual: "$72", annualSaving: "25%", description: "Get both banks in IGCSE, IB AA, IB AI, IB Chemistry, IB Physics, or IB Biology.", options: PAIR_OPTIONS, popular: true },
+  { name: "All banks", label: "Twelve banks", monthly: "$12", annualMonthly: "$8", annual: "$96", annualSaving: "33%", description: "Unlock all twelve question banks.", options: [{ productId: "bundle_all", label: "All banks" }] as const, popular: false },
 ] as const;
 
 type BillingInterval = "monthly" | "annual";
@@ -49,7 +58,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
     <section className="simple-page pricing-page shell">
       <div className="pricing-intro">
         <p className="eyebrow">Pricing</p>
-        <h1>Pay for the maths you actually study.</h1>
+        <h1>Pay only for the subjects you actually study.</h1>
         <p className="page-lede">Every paid plan has the same study tools. Choose how many banks you need.</p>
       </div>
 

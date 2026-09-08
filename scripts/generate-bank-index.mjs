@@ -2,16 +2,17 @@
 import { createHash } from "node:crypto";
 import { gzipSync } from "node:zlib";
 import { mkdir, readdir, readFile, unlink, writeFile } from "node:fs/promises";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const root = join(import.meta.dirname, "..");
 const outputDirectory = join(root, "public", "bank-index");
 const version = 1;
-const banks = ["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl"];
+const banks = ["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "ib-chemistry-hl", "ib-chemistry-sl", "ib-physics-hl", "ib-physics-sl", "ib-biology-hl", "ib-biology-sl"];
 const forbiddenKeys = [
   "summary", "accessibleText", "searchText", "solution", "sourceQuestionUrl",
   "sourceMarkSchemeUrl", "questionImages", "markschemeImages", "questionAssetPaths",
-  "markschemeAssetPaths",
+  "markschemeAssetPaths", "courseEra",
 ];
 
 function strings(value) {
@@ -22,7 +23,7 @@ function integer(value) {
   return typeof value === "number" ? value : Number.parseInt(String(value), 10) || 0;
 }
 
-function metadataFromRaw(raw) {
+export function metadataFromRaw(raw) {
   const officialMarkscheme = raw.officialMarkscheme && typeof raw.officialMarkscheme === "object"
     ? raw.officialMarkscheme
     : {};
@@ -42,7 +43,7 @@ function metadataFromRaw(raw) {
     ...subtopics,
   ])];
 
-  return {
+  const metadata = {
     id: typeof raw.id === "string" ? raw.id : "",
     number: integer(raw.number),
     paper: integer(raw.paper),
@@ -53,7 +54,6 @@ function metadataFromRaw(raw) {
     skills,
     subtopics,
     subject: (typeof raw.subject === "string" && raw.subject) || (typeof raw.course === "string" ? raw.course : ""),
-    courseEra: typeof raw.courseEra === "string" ? raw.courseEra : "",
     option: typeof raw.p3Option === "string" ? raw.p3Option : "",
     zone: (typeof raw.timezone === "string" && raw.timezone) || (typeof raw.zone === "string" ? raw.zone : ""),
     component: typeof raw.component === "string" ? raw.component : "",
@@ -62,10 +62,14 @@ function metadataFromRaw(raw) {
     questionImageCount: strings(raw.questionImages).length,
     markschemeImageCount: strings(raw.markschemeImages).length + strings(officialMarkscheme.images).length,
   };
+  return metadata;
 }
 
 function sortQuestions(a, b) {
-  return b.year - a.year || a.paper - b.paper || a.number - b.number;
+  return b.year - a.year
+    || a.paper - b.paper
+    || a.number - b.number
+    || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
 }
 
 function assertSafe(serialized, rawQuestions) {
@@ -94,29 +98,35 @@ function assertSafe(serialized, rawQuestions) {
   }
 }
 
-await mkdir(outputDirectory, { recursive: true });
-const existingFiles = await readdir(outputDirectory);
-await Promise.all(existingFiles
-  .filter((file) => banks.some((bank) => file.startsWith(`${bank}.v${version}-`) && file.endsWith(".json")))
-  .map((file) => unlink(join(outputDirectory, file))));
+export async function generateBankIndexes() {
+  await mkdir(outputDirectory, { recursive: true });
+  const existingFiles = await readdir(outputDirectory);
+  await Promise.all(existingFiles
+    .filter((file) => banks.some((bank) => file.startsWith(`${bank}.v${version}-`) && file.endsWith(".json")))
+    .map((file) => unlink(join(outputDirectory, file))));
 
-const manifest = {};
-for (const bank of banks) {
-  const rawBank = JSON.parse(await readFile(join(root, "src", "data", "raw", `${bank}.json`), "utf8"));
-  const rawQuestions = rawBank.questions;
-  const questions = rawQuestions.map(metadataFromRaw).sort(sortQuestions);
-  const payload = { version, bank, questions };
-  const serialized = `${JSON.stringify(payload)}\n`;
-  assertSafe(serialized, rawQuestions);
-  const digest = createHash("sha256").update(serialized).digest("hex").slice(0, 12);
-  const filename = `${bank}.v${version}-${digest}.json`;
-  const outputPath = join(outputDirectory, filename);
-  await writeFile(outputPath, serialized, "utf8");
-  manifest[bank] = filename;
-  const rawBytes = Buffer.byteLength(serialized);
-  const gzipBytes = gzipSync(serialized, { level: 9 }).byteLength;
-  console.log(`${bank}: ${rawBytes} bytes raw, ${gzipBytes} bytes gzip, sha256=${digest}`);
+  const manifest = {};
+  for (const bank of banks) {
+    const rawBank = JSON.parse(await readFile(join(root, "src", "data", "raw", `${bank}.json`), "utf8"));
+    const rawQuestions = rawBank.questions;
+    const questions = rawQuestions.map(metadataFromRaw).sort(sortQuestions);
+    const payload = { version, bank, questions };
+    const serialized = `${JSON.stringify(payload)}\n`;
+    assertSafe(serialized, rawQuestions);
+    const digest = createHash("sha256").update(serialized).digest("hex").slice(0, 12);
+    const filename = `${bank}.v${version}-${digest}.json`;
+    const outputPath = join(outputDirectory, filename);
+    await writeFile(outputPath, serialized, "utf8");
+    manifest[bank] = filename;
+    const rawBytes = Buffer.byteLength(serialized);
+    const gzipBytes = gzipSync(serialized, { level: 9 }).byteLength;
+    console.log(`${bank}: ${rawBytes} bytes raw, ${gzipBytes} bytes gzip, sha256=${digest}`);
+  }
+
+  const manifestSource = `// Generated by scripts/generate-bank-index.mjs; do not edit.\nexport const PUBLIC_BANK_INDEX_FILES = ${JSON.stringify(manifest, null, 2)} as const;\n`;
+  await writeFile(join(root, "src", "lib", "bank-index-manifest.ts"), manifestSource, "utf8");
 }
 
-const manifestSource = `// Generated by scripts/generate-bank-index.mjs; do not edit.\nexport const PUBLIC_BANK_INDEX_FILES = ${JSON.stringify(manifest, null, 2)} as const;\n`;
-await writeFile(join(root, "src", "lib", "bank-index-manifest.ts"), manifestSource, "utf8");
+if (process.argv[1] && resolve(process.argv[1]) === resolve(fileURLToPath(import.meta.url))) {
+  await generateBankIndexes();
+}

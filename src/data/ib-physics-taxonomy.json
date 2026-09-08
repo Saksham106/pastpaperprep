@@ -1,0 +1,359 @@
+{
+  "schema_version": 1,
+  "subject": "IB Physics",
+  "scope": {
+    "levels": ["HL", "SL"],
+    "assessment_years": [2020, 2021, 2022, 2023, 2024, 2025],
+    "source_type": "actual_past_paper",
+    "excluded_source_types": ["specimen", "sample", "teacher_created", "unofficial_reconstruction"],
+    "student_facing_legacy_label": false
+  },
+  "era_rules": [
+    {
+      "from_year": 2020,
+      "to_year": 2024,
+      "era": "phys_2016",
+      "guide": "first_assessment_2016_last_assessment_2024"
+    },
+    {
+      "from_year": 2025,
+      "to_year": 2025,
+      "era": "phys_2025",
+      "guide": "first_assessment_2025"
+    }
+  ],
+  "normalized_topics": [
+    {
+      "id": "F",
+      "name": "Foundations, measurement and data",
+      "subtopics": [
+        {"id": "F1", "name": "Measurements, units and dimensions"},
+        {"id": "F2", "name": "Uncertainty, error and significant figures"},
+        {"id": "F3", "name": "Vectors, scalars and representation"},
+        {"id": "F4", "name": "Graphs, data processing and modelling"},
+        {"id": "F5", "name": "Experimental design, investigation and evaluation"}
+      ]
+    },
+    {
+      "id": "M",
+      "name": "Mechanics and motion",
+      "subtopics": [
+        {"id": "M1", "name": "Kinematics and motion"},
+        {"id": "M2", "name": "Forces and dynamics"},
+        {"id": "M3", "name": "Work, energy and power"},
+        {"id": "M4", "name": "Momentum, impulse and collisions"},
+        {"id": "M5", "name": "Circular motion and gravitation"},
+        {"id": "M6", "name": "Rigid body and rotational mechanics"}
+      ]
+    },
+    {
+      "id": "T",
+      "name": "Thermal and energy systems",
+      "subtopics": [
+        {"id": "T1", "name": "Thermal concepts and energy transfer"},
+        {"id": "T2", "name": "Kinetic model and gas laws"},
+        {"id": "T3", "name": "Thermodynamics, entropy and cycles"},
+        {"id": "T4", "name": "Energy sources, production and transmission"},
+        {"id": "T5", "name": "Greenhouse effect and climate-energy systems"}
+      ]
+    },
+    {
+      "id": "W",
+      "name": "Waves, optics and imaging",
+      "subtopics": [
+        {"id": "W1", "name": "Oscillations and simple harmonic motion"},
+        {"id": "W2", "name": "Wave model and characteristics"},
+        {"id": "W3", "name": "Interference, diffraction, polarization and resolution"},
+        {"id": "W4", "name": "Optics and imaging systems"},
+        {"id": "W5", "name": "Standing waves, resonance and Doppler effect"}
+      ]
+    },
+    {
+      "id": "E",
+      "name": "Electricity, circuits and electromagnetism",
+      "subtopics": [
+        {"id": "E1", "name": "Electric charge, fields, potential and energy"},
+        {"id": "E2", "name": "Current, resistance, circuits and heating"},
+        {"id": "E3", "name": "Magnetic fields, forces and motion"},
+        {"id": "E4", "name": "Electromagnetic induction and power systems"},
+        {"id": "E5", "name": "Capacitance and RC circuits"}
+      ]
+    },
+    {
+      "id": "N",
+      "name": "Atomic, quantum, nuclear and particle physics",
+      "subtopics": [
+        {"id": "N1", "name": "Atomic structure and discrete energy levels"},
+        {"id": "N2", "name": "Quantum physics and matter-radiation interaction"},
+        {"id": "N3", "name": "Radioactivity and nuclear reactions"},
+        {"id": "N4", "name": "Particles, fields and the standard model"},
+        {"id": "N5", "name": "Nuclear energy, fission and fusion"}
+      ]
+    },
+    {
+      "id": "R",
+      "name": "Relativity, astrophysics and cosmology",
+      "subtopics": [
+        {"id": "R1", "name": "Special relativity and spacetime"},
+        {"id": "R2", "name": "General relativity and gravitation"},
+        {"id": "R3", "name": "Stellar quantities and observations"},
+        {"id": "R4", "name": "Stellar evolution and processes"},
+        {"id": "R5", "name": "Cosmology and the large-scale universe"}
+      ]
+    }
+  ],
+  "official_structures": {
+    "phys_2016": {
+      "guide": "IB Physics guide, first assessment 2016; last assessment 2024 in this corpus",
+      "core": [
+        ["1.1", "Measurements in physics", "F"],
+        ["1.2", "Uncertainties and errors", "F"],
+        ["1.3", "Vectors and scalars", "F"],
+        ["2.1", "Motion", "M"],
+        ["2.2", "Forces", "M"],
+        ["2.3", "Work, energy and power", "M"],
+        ["2.4", "Momentum and impulse", "M"],
+        ["3.1", "Thermal concepts", "T"],
+        ["3.2", "Modelling a gas", "T"],
+        ["4.1", "Oscillations", "W"],
+        ["4.2", "Travelling waves", "W"],
+        ["4.3", "Wave characteristics", "W"],
+        ["4.4", "Wave behaviour", "W"],
+        ["4.5", "Standing waves", "W"],
+        ["5.1", "Electric fields", "E"],
+        ["5.2", "Heating effect of electric currents", "E"],
+        ["5.3", "Electric cells", "E"],
+        ["5.4", "Magnetic effects of electric currents", "E"],
+        ["6.1", "Circular motion", "M"],
+        ["6.2", "Newton's law of gravitation", "M"],
+        ["7.1", "Discrete energy and radioactivity", "N"],
+        ["7.2", "Nuclear reactions", "N"],
+        ["7.3", "The structure of matter", "N"],
+        ["8.1", "Energy sources", "T"],
+        ["8.2", "Thermal energy transfer", "T"]
+      ],
+      "ahl": [
+        ["9.1", "Simple harmonic motion", "W"],
+        ["9.2", "Single-slit diffraction", "W"],
+        ["9.3", "Interference", "W"],
+        ["9.4", "Resolution", "W"],
+        ["9.5", "Doppler effect", "W"],
+        ["10.1", "Describing fields", "E"],
+        ["10.2", "Fields at work", "E"],
+        ["11.1", "Electromagnetic induction", "E"],
+        ["11.2", "Power generation and transmission", "E"],
+        ["11.3", "Capacitance", "E"],
+        ["12.1", "The interaction of matter with radiation", "N"],
+        ["12.2", "Nuclear physics", "N"]
+      ],
+      "options": [
+        ["A.1", "The beginnings of relativity", "R"],
+        ["A.2", "Lorentz transformations", "R"],
+        ["A.3", "Spacetime diagrams", "R"],
+        ["A.4", "Relativistic mechanics", "R"],
+        ["A.5", "General relativity", "R"],
+        ["B.1", "Rigid bodies and rotational dynamics", "M"],
+        ["B.2", "Thermodynamics", "T"],
+        ["B.3", "Fluids and fluid dynamics", "T"],
+        ["B.4", "Forced vibrations and resonance", "W"],
+        ["C.1", "Introduction to imaging", "W"],
+        ["C.2", "Imaging instrumentation", "W"],
+        ["C.3", "Fibre optics", "W"],
+        ["C.4", "Medical imaging", "W"],
+        ["D.1", "Stellar quantities", "R"],
+        ["D.2", "Stellar characteristics and stellar evolution", "R"],
+        ["D.3", "Cosmology", "R"],
+        ["D.4", "Stellar processes", "R"],
+        ["D.5", "Further cosmology", "R"]
+      ]
+    },
+    "phys_2025": {
+      "guide": "IB Physics guide, first assessment 2025",
+      "areas": [
+        ["A.1", "Kinematics", "M"],
+        ["A.2", "Forces and momentum", "M"],
+        ["A.3", "Work, energy and power", "M"],
+        ["A.4", "Rigid body mechanics", "M"],
+        ["A.5", "Galilean and special relativity", "R"],
+        ["B.1", "Thermal energy transfers", "T"],
+        ["B.2", "Greenhouse effect", "T"],
+        ["B.3", "Gas laws", "T"],
+        ["B.4", "Thermodynamics", "T"],
+        ["B.5", "Current and circuits", "E"],
+        ["C.1", "Simple harmonic motion", "W"],
+        ["C.2", "Wave model", "W"],
+        ["C.3", "Wave phenomena", "W"],
+        ["C.4", "Standing waves and resonance", "W"],
+        ["C.5", "Doppler effect", "W"],
+        ["D.1", "Gravitational fields", "M"],
+        ["D.2", "Electric and magnetic fields", "E"],
+        ["D.3", "Motion in electromagnetic fields", "E"],
+        ["D.4", "Induction", "E"],
+        ["E.1", "Structure of the atom", "N"],
+        ["E.2", "Quantum physics", "N"],
+        ["E.3", "Radioactive decay", "N"],
+        ["E.4", "Fission", "N"],
+        ["E.5", "Fusion and stars", "R"]
+      ]
+    }
+  },
+  "cross_era_mapping_rules": [
+    {
+      "from_era": "phys_2016",
+      "to_era": "phys_2025",
+      "from_codes": ["1.1", "1.2", "1.3"],
+      "to_codes": [],
+      "normalized_topics": ["F"],
+      "rule": "Measurements, uncertainties and vectors remain controlled normalized foundations; in the 2025 guide mathematics, tools and inquiry are cross-cutting skills rather than replacement official content codes."
+    },
+    {
+      "from_era": "phys_2016",
+      "to_era": "phys_2025",
+      "from_codes": ["2.1", "2.2", "2.3", "2.4", "6.1", "6.2"],
+      "to_codes": ["A.1", "A.2", "A.3", "D.1"],
+      "normalized_topics": ["M"],
+      "rule": "Map motion, forces, energy, momentum, circular motion and Newtonian gravitation by assessed concept; do not treat the new code as a legacy alias."
+    },
+    {
+      "from_era": "phys_2016",
+      "to_era": "phys_2025",
+      "from_codes": ["3.1", "3.2", "8.1", "8.2"],
+      "to_codes": ["B.1", "B.2", "B.3", "B.4", "E.4", "E.5"],
+      "normalized_topics": ["T"],
+      "rule": "Thermal physics and energy production split across the new particulate-matter, thermodynamics and nuclear themes; preserve the old code whenever classifying an old-era question."
+    },
+    {
+      "from_era": "phys_2016",
+      "to_era": "phys_2025",
+      "from_codes": ["4.1", "4.2", "4.3", "4.4", "4.5", "9.1", "9.2", "9.3", "9.4", "9.5"],
+      "to_codes": ["C.1", "C.2", "C.3", "C.4", "C.5"],
+      "normalized_topics": ["W"],
+      "rule": "Wave and AHL wave-phenomena content maps conceptually to the five new wave topics; the old and new code strings are never interchangeable."
+    },
+    {
+      "from_era": "phys_2016",
+      "to_era": "phys_2025",
+      "from_codes": ["5.1", "5.2", "5.3", "5.4", "10.1", "10.2", "11.1", "11.2", "11.3"],
+      "to_codes": ["B.5", "D.1", "D.2", "D.3", "D.4"],
+      "normalized_topics": ["E", "M"],
+      "rule": "Electric, magnetic, induction, field and capacitance content is split across current and circuits and the new field topics; choose the new code only when the question is from the new era."
+    },
+    {
+      "from_era": "phys_2016",
+      "to_era": "phys_2025",
+      "from_codes": ["7.1", "7.2", "7.3", "12.1", "12.2"],
+      "to_codes": ["E.1", "E.2", "E.3", "E.4"],
+      "normalized_topics": ["N"],
+      "rule": "Atomic, quantum, nuclear and particle content is distributed across E.1-E.4; removed or renamed particle detail has no forced one-to-one current code."
+    },
+    {
+      "from_era": "phys_2016",
+      "to_era": "phys_2025",
+      "from_codes": ["A.1", "A.2", "A.3", "A.4", "A.5", "D.1", "D.2", "D.3", "D.4", "D.5"],
+      "to_codes": ["A.5", "E.5"],
+      "normalized_topics": ["R"],
+      "rule": "Old relativity and astrophysics options map conceptually to new relativity and fusion/stars content only where the assessed concept is present; there is no old-code-to-new-code alias."
+    },
+    {
+      "from_era": "phys_2016",
+      "to_era": "phys_2025",
+      "from_codes": ["B.1", "B.2", "B.3", "B.4", "C.1", "C.2", "C.3", "C.4"],
+      "to_codes": [],
+      "normalized_topics": ["M", "T", "W"],
+      "rule": "Old option content has no universal current official-code replacement. Preserve the option code and use normalized topics; never force removed engineering, imaging or medical-imaging content into an unrelated 2025 code."
+    }
+  ],
+  "skills": [
+    "knowledge_recall",
+    "concept_application",
+    "quantitative_calculation",
+    "algebraic_equation_manipulation",
+    "vector_resolution",
+    "diagram_model_representation",
+    "graphing",
+    "data_interpretation",
+    "uncertainty_error_analysis",
+    "experimental_design",
+    "practical_measurement",
+    "evaluation_conclusion",
+    "simulation_technology_use",
+    "safety_ethics",
+    "scientific_communication"
+  ],
+  "assessment_objectives": ["AO1", "AO2", "AO3", "AO4"],
+  "classification_rules": [
+    "Preserve the exact official code and curriculum era separately from normalized labels.",
+    "Use only codes in the official structure for the question's era; never use a cross-era code as a student-facing legacy label.",
+    "Classify by the physics knowledge or reasoning required to earn marks, not merely by the stem context.",
+    "Assign exactly one primary normalized topic and one primary normalized subtopic.",
+    "Use secondary subtopics only when independently assessed concepts are genuinely inseparable.",
+    "Split at subquestion or independent mark-cluster level when different concepts earn separate marks.",
+    "Treat Tools, Inquiry, mathematics, practical work and data-based format as skills or assessment context, not automatic official topic codes.",
+    "Keep environmental, medical, industrial, engineering and astronomical settings as context unless their physics is what earns the marks.",
+    "Return needs_review rather than guessing when source evidence does not support a controlled label."
+  ],
+  "ambiguity_rules": [
+    {
+      "case": "measurement_or_data_handling",
+      "rule": "Use F only when measurement, uncertainty, graphing or data evaluation earns the marks; otherwise keep the assessed physics concept primary."
+    },
+    {
+      "case": "gravity_and_fields",
+      "rule": "Use M for Newtonian motion, circular motion or orbital mechanics; use R for relativity, stellar or cosmological reasoning; use E for electric or magnetic field reasoning."
+    },
+    {
+      "case": "energy_context",
+      "rule": "Use M for mechanical work and power, T for thermal transfer or energy systems, E for electrical power or circuits, and N/R for nuclear or stellar energy mechanisms."
+    },
+    {
+      "case": "wave_or_imaging_context",
+      "rule": "Use W for wave, optics, imaging, diffraction, interference or resonance physics; use N only when atomic spectra or matter-radiation interaction is the assessed mechanism."
+    },
+    {
+      "case": "electromagnetic_fields",
+      "rule": "Use E for electric or magnetic fields, forces, induction and circuits; use M only when the mark is specifically about the resulting mechanical motion."
+    },
+    {
+      "case": "relativity",
+      "rule": "Use R for Galilean or special relativity, spacetime, relativistic mechanics and general relativity; do not relabel old Option A codes as new A.5 codes."
+    },
+    {
+      "case": "astrophysics_and_stars",
+      "rule": "Use R for stellar quantities, stellar evolution, cosmology or stellar fusion; use N for nuclear reaction physics when the astronomical setting is incidental."
+    },
+    {
+      "case": "removed_old_option_content",
+      "rule": "Keep the old official option code internally and map only to a normalized topic. Do not force removed engineering, imaging, medical-imaging or further-cosmology material into current official codes."
+    },
+    {
+      "case": "tools_and_inquiry",
+      "rule": "Tools and Inquiry are controlled skills or assessment-process labels, never official topic codes and never substitutes for A.1-E.5."
+    }
+  ],
+  "sources": [
+    {
+      "id": "ib_physics_subject_page",
+      "url": "https://ibo.org/programmes/diploma-programme/curriculum/sciences/physics"
+    },
+    {
+      "id": "ib_physics_updates",
+      "url": "https://ibo.org/university-admission/latest-curriculum-updates/physics-updates/"
+    },
+    {
+      "id": "ib_physics_subject_brief_2025",
+      "url": "https://www.ibo.org/globalassets/new-structure/recognition/pdfs/dp_sciences_physics_subject-brief_jan_2022_e.pdf"
+    },
+    {
+      "id": "ib_physics_guide_2016",
+      "url": "https://ibphysics.org/wp-content/uploads/2016/01/ib-physics-syllabus.pdf"
+    },
+    {
+      "id": "ib_physics_guide_2025",
+      "url": "https://helloblen.com/images/files/physics-subject-guide-en-2025.pdf"
+    },
+    {
+      "id": "ib_physics_specimen_papers_2025",
+      "url": "https://ibo.org/globalassets/new-structure/programmes/dp/pdfs/physics-hl-sl-specimen-papers-1a-2b-2-en.pdf"
+    }
+  ]
+}

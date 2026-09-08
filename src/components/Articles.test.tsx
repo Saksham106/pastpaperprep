@@ -7,8 +7,8 @@ describe("article library", () => {
   it("keeps scheduled drafts out of public article collections", () => {
     expect(isPublicArticle({ draft: false })).toBe(true);
     expect(isPublicArticle({ draft: true })).toBe(false);
-    expect(ALL_ARTICLES).toHaveLength(9);
-    expect(ARTICLES).toHaveLength(9);
+    expect(ALL_ARTICLES).toHaveLength(10);
+    expect(ARTICLES).toHaveLength(10);
     expect(getArticle("how-to-mark-maths-past-paper-mistake-log")?.draft).toBe(false);
     expect(getArticle("topic-questions-vs-full-past-papers")?.draft).toBe(false);
     expect(getArticle("best-free-ib-maths-aa-hl-resources")?.draft).toBe(false);
@@ -29,9 +29,10 @@ describe("article library", () => {
   });
 
   it("ships a small, intentional public cluster with unique search-friendly URLs", () => {
-    expect(ARTICLES).toHaveLength(9);
+    expect(ARTICLES).toHaveLength(10);
     expect(new Set(ALL_ARTICLES.map(({ slug }) => slug)).size).toBe(ALL_ARTICLES.length);
     expect(ARTICLES.map(({ slug }) => slug)).toEqual([
+      "ib-biology-past-papers-by-topic",
       "best-free-ib-maths-aa-hl-resources",
       "topic-questions-vs-full-past-papers",
       "how-to-mark-maths-past-paper-mistake-log",
@@ -53,6 +54,35 @@ describe("article library", () => {
     }
   });
 
+  it("keeps public article bank-count claims current and complete", () => {
+    const publicArticleMarketingContent = ARTICLES.flatMap((article) => [
+      article.title,
+      article.description,
+      article.eyebrow,
+      article.answer,
+      ...article.sections.flatMap(({ heading, paragraphs, bullets = [] }) => [heading, ...paragraphs, ...bullets]),
+      ...article.faqs.flatMap(({ question, answer }) => [question, answer]),
+      ...article.relatedBanks.map(({ label }) => label),
+      ...(article.comparison
+        ? [
+            article.comparison.caption,
+            ...article.comparison.headings,
+            ...article.comparison.rows.flatMap(({ label, pastPaperPrep, competitor }) => [label, pastPaperPrep, competitor]),
+          ]
+        : []),
+    ]).join("\n");
+
+    expect(publicArticleMarketingContent).not.toMatch(/\b(?:10|ten)\b[^.!?\n]*\bbanks?\b/i);
+
+    const allSubjectBankClaims = publicArticleMarketingContent.match(
+      /\b(?:12|twelve)\b[^.!?\n]*\bMathematics\b[^.!?\n]*\bChemistry\b[^.!?\n]*\bPhysics\b[^.!?\n]*\bbanks?\b/gi,
+    ) ?? [];
+    expect(allSubjectBankClaims.length).toBeGreaterThan(0);
+    for (const claim of allSubjectBankClaims) {
+      expect(claim).toMatch(/\bBiology\b/i);
+    }
+  });
+
   it("keeps every internal article and bank link on a registered route", () => {
     const bankRoutes = new Set([
       "/banks/igcse",
@@ -61,6 +91,12 @@ describe("article library", () => {
       "/banks/ib-sl",
       "/banks/ib-ai-hl",
       "/banks/ib-ai-sl",
+      "/banks/ib-chemistry-hl",
+      "/banks/ib-chemistry-sl",
+      "/banks/ib-physics-hl",
+      "/banks/ib-physics-sl",
+      "/banks/ib-biology-hl",
+      "/banks/ib-biology-sl",
     ]);
     const articleRoutes = new Set(ALL_ARTICLES.map(({ slug }) => `/articles/${slug}`));
 
@@ -116,7 +152,7 @@ describe("article library", () => {
     render(<ArticleContent article={article} />);
 
     expect(screen.getByRole("table", { name: /pastpaperprep vs revision village/i })).toBeInTheDocument();
-    expect(screen.getByText(/Pricing checked 30 August 2026/i)).toBeInTheDocument();
+    expect(screen.getByText(/Pricing checked 7 September 2026/i)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Revision Village Gold pricing/i })).toHaveAttribute(
       "href",
       "https://www.revisionvillage.com/revision-village-gold/",

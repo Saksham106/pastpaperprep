@@ -9,14 +9,29 @@ const COURSE_GROUPS = [
     banks: BANKS.filter((bank) => bank.qualification === "Cambridge IGCSE"),
   },
   {
-    name: "IB Analysis and Approaches",
+    name: "IB Mathematics · Analysis and Approaches",
     detail: "Higher and Standard Level",
     banks: BANKS.filter((bank) => bank.subject.includes("AA")),
   },
   {
-    name: "IB Applications and Interpretation",
+    name: "IB Mathematics · Applications and Interpretation",
     detail: "Higher and Standard Level",
     banks: BANKS.filter((bank) => bank.subject.includes("AI")),
+  },
+  {
+    name: "IB Chemistry",
+    detail: "Higher and Standard Level",
+    banks: BANKS.filter((bank) => bank.subject.includes("Chemistry")),
+  },
+  {
+    name: "IB Physics",
+    detail: "Higher and Standard Level",
+    banks: BANKS.filter((bank) => bank.subject.includes("Physics")),
+  },
+  {
+    name: "IB Biology",
+    detail: "Higher and Standard Level",
+    banks: BANKS.filter((bank) => bank.subject.includes("Biology")),
   },
 ] as const;
 
@@ -28,7 +43,7 @@ export function MarketingHome() {
     <>
       <section className="exam-hero shell">
         <div className="exam-hero-copy">
-          <p className="hero-context">IGCSE + IB Mathematics</p>
+          <p className="hero-context">IGCSE + IB Maths + Chemistry + Physics + Biology</p>
           <h1>Practise the questions that move your grade.</h1>
           <p className="exam-hero-lede">Filter exact past-paper questions, practise free, and build printable sets. No account needed.</p>
           <div className="hero-actions">
@@ -38,12 +53,15 @@ export function MarketingHome() {
 
         <aside className="exam-index-visual" aria-label="PastPaperPrep question bank coverage">
           <header><span>Question bank</span><strong>IGCSE + IB</strong></header>
-          <div className="exam-index-mark" aria-hidden="true">x²</div>
-          <div className="exam-index-codes" aria-label="Available mathematics courses">
+          <div className="exam-index-mark" aria-hidden="true">x² · H₂O</div>
+          <div className="exam-index-codes" aria-label="Available courses">
             <span><strong>0580</strong><small>Mathematics</small></span>
             <span><strong>0606</strong><small>Additional</small></span>
             <span><strong>AA</strong><small>Analysis</small></span>
             <span><strong>AI</strong><small>Applications</small></span>
+            <span><strong>CHEM</strong><small>Chemistry</small></span>
+            <span><strong>PHYS</strong><small>Physics</small></span>
+            <span><strong>BIO</strong><small>Biology</small></span>
           </div>
           <footer><span>{totalQuestions.toLocaleString()} questions</span><span>{totalPapers.toLocaleString()} papers</span></footer>
         </aside>
@@ -77,16 +95,16 @@ export function MarketingHome() {
       <section className="corpus-ledger shell" aria-label="Question bank coverage">
         <div><strong>{totalQuestions.toLocaleString()}</strong><span>curated questions</span></div>
         <div><strong>{totalPapers.toLocaleString()}</strong><span>exam papers indexed</span></div>
-        <div><strong>6</strong><span>focused question banks</span></div>
+        <div><strong>{BANKS.length}</strong><span>focused question banks</span></div>
         <p><Check weight="bold" /> Answers, worked solutions, and official markschemes where available</p>
       </section>
 
       <section className="study-method shell" aria-labelledby="study-method-heading">
         <div className="study-method-copy">
-          <h2 id="study-method-heading">Spend your revision time doing maths.</h2>
+          <h2 id="study-method-heading">Spend your revision time practising.</h2>
           <p>PastPaperPrep removes the file hunting and keeps every step of practice in one focused workspace.</p>
           <ol>
-            <li><FunnelSimple aria-hidden="true" /><div><strong>Target the gap</strong><span>Filter by topic, year, paper, marks, and calculator rules.</span></div></li>
+            <li><FunnelSimple aria-hidden="true" /><div><strong>Target the gap</strong><span>Filter by topic, year, paper, marks, and question format.</span></div></li>
             <li><PencilSimpleLine aria-hidden="true" /><div><strong>Attempt the original</strong><span>Work from the real exam question with its source context intact.</span></div></li>
             <li><DownloadSimple aria-hidden="true" /><div><strong>Build the next set</strong><span>Select useful questions and export a clean printable PDF.</span></div></li>
           </ol>
@@ -96,7 +114,7 @@ export function MarketingHome() {
       <section className="pricing-invite shell">
         <div>
           <h2>Start free. Unlock more when you need it.</h2>
-          <p>Choose one bank, a subject pair, or the complete six-bank library.</p>
+          <p>Choose one bank, a subject pair, or the complete twelve-bank library.</p>
         </div>
         <Link className="button primary" href="/pricing">Compare plans <ArrowRight weight="bold" /></Link>
       </section>

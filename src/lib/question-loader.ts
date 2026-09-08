@@ -10,6 +10,12 @@ const loaders: Record<BankSlug, () => Promise<RawBank>> = {
   "ib-sl": async () => (await import("@/data/raw/ib-sl.json")).default as RawBank,
   "ib-ai-hl": async () => (await import("@/data/raw/ib-ai-hl.json")).default as RawBank,
   "ib-ai-sl": async () => (await import("@/data/raw/ib-ai-sl.json")).default as RawBank,
+  "ib-chemistry-hl": async () => (await import("@/data/raw/ib-chemistry-hl.json")).default as RawBank,
+  "ib-chemistry-sl": async () => (await import("@/data/raw/ib-chemistry-sl.json")).default as RawBank,
+  "ib-physics-hl": async () => (await import("@/data/raw/ib-physics-hl.json")).default as RawBank,
+  "ib-physics-sl": async () => (await import("@/data/raw/ib-physics-sl.json")).default as RawBank,
+  "ib-biology-hl": async () => (await import("@/data/raw/ib-biology-hl.json")).default as RawBank,
+  "ib-biology-sl": async () => (await import("@/data/raw/ib-biology-sl.json")).default as RawBank,
 };
 
 const cache = new Map<BankSlug, Promise<UnifiedQuestion[]>>();

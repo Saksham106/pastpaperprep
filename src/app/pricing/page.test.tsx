@@ -6,11 +6,13 @@ describe("PricingPage", () => {
   it("shows three concise paid plans with monthly pricing first", () => {
     const { container } = render(<PricingContent authenticated hasPaidAccess={false} />);
 
-    expect(screen.getByRole("heading", { name: /pay for the maths you actually study/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /pay only for the subjects you actually study/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Monthly" })).toHaveAttribute("aria-pressed", "true");
     expect(screen.getByText("$5")).toBeInTheDocument();
     expect(screen.getByText("$8")).toBeInTheDocument();
     expect(screen.getByText("$12")).toBeInTheDocument();
+    expect(screen.getByText(/IB Chemistry, IB Physics, or IB Biology/i)).toBeInTheDocument();
+    expect(screen.getByText(/unlock all twelve question banks/i)).toBeInTheDocument();
     expect(screen.getByText(/most popular/i)).toBeInTheDocument();
     expect(screen.getByText(/every paid plan has the same study tools/i)).toBeInTheDocument();
     expect(screen.getByText(/existing all-access subscribers keep their current price/i)).toBeInTheDocument();

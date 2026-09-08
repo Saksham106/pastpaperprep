@@ -2,7 +2,7 @@
 
 Updated: 26 August 2026
 
-This is the operational source of truth for adding or rebuilding PastPaperPrep question banks. It was reconstructed from the six private source repositories, their tests and build scripts, the initial ingestion history on Swati's agent, and the current production application. The checked-in code and manifests win if this document ever drifts.
+This is the operational source of truth for adding or rebuilding PastPaperPrep question banks. It was reconstructed from the twelve private source-bank inputs, their tests and build scripts, the initial ingestion history on Swati's agent, and the current production application. The checked-in code and manifests win if this document ever drifts.
 
 ## Current verified baseline
 
@@ -14,7 +14,13 @@ This is the operational source of truth for adding or rebuilding PastPaperPrep q
 | IB Mathematics AI HL | `Saksham106/ib-maths-ai-hl-topic-practice` | 48 | 409 | 1,353 |
 | IB Mathematics AI SL | `Saksham106/ib-maths-ai-sl-topic-practice` | 38 | 334 | 1,002 |
 | Cambridge IGCSE Additional Mathematics 0606 | `Saksham106/igcse-additional-mathematics-0606-topic-practice` | 145 | 1,633 | 3,266 |
-| **Total** |  | **544** | **6,479** | **15,474** |
+| IB Chemistry HL | `Saksham106/ib-chemistry-topic-practice` | 51 | 1,083 | 3,234 |
+| IB Chemistry SL | `Saksham106/ib-chemistry-topic-practice` | 51 | 810 | 2,243 |
+| IB Physics HL | `Saksham106/ib-physics-topic-practice` | 51 | 1,111 | 3,109 |
+| IB Physics SL | `Saksham106/ib-physics-topic-practice` | 51 | 774 | 2,087 |
+| IB Biology HL | `Saksham106/ib-biology-topic-practice` | 51 | 1,139 | 3,107 |
+| IB Biology SL | `Saksham106/ib-biology-topic-practice` | 54 | 936 | 2,443 |
+| **Total** |  | **853** | **12,332** | **31,697** |
 
 The application copies each source bank's generated `site/data/questions.json` to:
 
@@ -24,8 +30,14 @@ The application copies each source bank's generated `site/data/questions.json` t
 - `src/data/raw/ib-ai-hl.json`
 - `src/data/raw/ib-ai-sl.json`
 - `src/data/raw/igcse-additional.json`
+- `src/data/raw/ib-chemistry-hl.json`
+- `src/data/raw/ib-chemistry-sl.json`
+- `src/data/raw/ib-physics-hl.json`
+- `src/data/raw/ib-physics-sl.json`
+- `src/data/raw/ib-biology-hl.json`
+- `src/data/raw/ib-biology-sl.json`
 
-The WebPs live in the private Supabase Storage bucket `question-assets`, under the bank prefixes `igcse/`, `igcse-additional/`, `ib-hl/`, `ib-sl/`, `ib-ai-hl/`, and `ib-ai-sl/`.
+Premium WebPs live in private Cloudflare R2 under bank-specific prefixes. Free preview WebPs remain in the private Supabase Storage bucket `question-assets`. The runtime retention plan is authoritative for that split.
 
 ## Non-negotiable rules
 
@@ -42,7 +54,7 @@ The WebPs live in the private Supabase Storage bucket `question-assets`, under t
 
 ## Repository roles
 
-The six source repositories are the ingestion workspaces. They contain:
+The source repositories are the ingestion workspaces. They contain:
 
 - reviewed source manifests;
 - acquisition, crop, transcript, classification, build, and validation scripts;
@@ -67,6 +79,9 @@ The existing upload script expects this exact temporary layout:
   ib-sl/
   ib-ai-hl/
   ib-ai-sl/
+  ib-chemistry/
+  ib-physics/
+  ib-biology/
 ```
 
 Clone the private repositories:
@@ -80,6 +95,8 @@ gh repo clone Saksham106/ib-maths-aa-hl-topic-practice /tmp/pastpaperprep-source
 gh repo clone Saksham106/ib-maths-aa-topic-finder /tmp/pastpaperprep-sources/ib-sl
 gh repo clone Saksham106/ib-maths-ai-hl-topic-practice /tmp/pastpaperprep-sources/ib-ai-hl
 gh repo clone Saksham106/ib-maths-ai-sl-topic-practice /tmp/pastpaperprep-sources/ib-ai-sl
+gh repo clone Saksham106/ib-chemistry-topic-practice /tmp/pastpaperprep-sources/ib-chemistry
+gh repo clone Saksham106/ib-physics-topic-practice /tmp/pastpaperprep-sources/ib-physics
 ```
 
 Use Python 3.11+, [`uv`](https://github.com/astral-sh/uv), Node.js, PyMuPDF, Pillow, and, for the SL crop pipeline, NumPy. The source repositories' commands install transient Python dependencies through `uv`; do not add packages to the Next.js application unless its runtime actually needs them.
@@ -277,6 +294,12 @@ cp /tmp/pastpaperprep-sources/ib-hl/site/data/questions.json src/data/raw/ib-hl.
 cp /tmp/pastpaperprep-sources/ib-sl/site/data/questions.json src/data/raw/ib-sl.json
 cp /tmp/pastpaperprep-sources/ib-ai-hl/site/data/questions.json src/data/raw/ib-ai-hl.json
 cp /tmp/pastpaperprep-sources/ib-ai-sl/site/data/questions.json src/data/raw/ib-ai-sl.json
+cp /tmp/pastpaperprep-sources/ib-chemistry/site/data/questions-hl.json src/data/raw/ib-chemistry-hl.json
+cp /tmp/pastpaperprep-sources/ib-chemistry/site/data/questions-sl.json src/data/raw/ib-chemistry-sl.json
+cp /tmp/pastpaperprep-sources/ib-physics/site/data/questions-hl.json src/data/raw/ib-physics-hl.json
+cp /tmp/pastpaperprep-sources/ib-physics/site/data/questions-sl.json src/data/raw/ib-physics-sl.json
+cp /tmp/pastpaperprep-sources/ib-biology/site/data/questions-hl.json src/data/raw/ib-biology-hl.json
+cp /tmp/pastpaperprep-sources/ib-biology/site/data/questions-sl.json src/data/raw/ib-biology-sl.json
 ```
 
 Then verify the canonical totals before touching Storage:
@@ -284,7 +307,7 @@ Then verify the canonical totals before touching Storage:
 ```bash
 node - <<'NODE'
 const fs = require('node:fs');
-const banks = ['igcse', 'igcse-additional', 'ib-hl', 'ib-sl', 'ib-ai-hl', 'ib-ai-sl'];
+const banks = ['igcse', 'igcse-additional', 'ib-hl', 'ib-sl', 'ib-ai-hl', 'ib-ai-sl', 'ib-chemistry-hl', 'ib-chemistry-sl', 'ib-physics-hl', 'ib-physics-sl', 'ib-biology-hl', 'ib-biology-sl'];
 let questions = 0;
 let papers = 0;
 let assets = 0;
@@ -306,37 +329,46 @@ console.log({ papers, questions, assets });
 NODE
 ```
 
-For the current corpus, this must report 544 papers, 6,479 questions, and 15,474 unique referenced assets. A changed corpus should have an explicitly reviewed new baseline rather than forcing these numbers.
+For the current corpus, this must report 853 papers, 12,332 questions, and 31,697 unique bank-prefixed referenced assets. The hybrid retention split is 4,386 Supabase preview objects (including the 2020 Biology, Chemistry, and Physics preview years) and 27,311 premium objects eligible for R2 after production verification.
 
 ### 8. Upload private assets
 
-The uploader reads only `.webp` files under the configured source roots and maps them to `<bank>/<relative-path>` in the private bucket.
-
-Set the server-only values in the shell without printing them, then run:
+The current storage model is hybrid: premium assets live in the private Cloudflare R2 bucket, while free-preview assets remain in the private Supabase bucket. Start by confirming the reviewed local baseline:
 
 ```bash
-SUPABASE_URL='https://PROJECT.supabase.co' \
-SUPABASE_SECRET_KEY='sb_secret_REDACTED' \
-SUPABASE_STORAGE_BUCKET='question-assets' \
-UPLOAD_BANKS='igcse-additional' \
-UPLOAD_CONCURRENCY=16 \
-node scripts/upload-question-assets.mjs
+npm run storage:plan
 ```
 
-Omit `UPLOAD_BANKS` to process every configured source root, or provide a comma-separated subset for a bounded bank release.
+Sync the referenced corpus to R2 with a temporary bucket-scoped write token:
 
-Operational behavior:
+```bash
+R2_ACCOUNT_ID='REDACTED' \
+R2_BUCKET_NAME='pastpaperprep-assets' \
+R2_SYNC_ACCESS_KEY_ID='REDACTED' \
+R2_SYNC_SECRET_ACCESS_KEY='REDACTED' \
+UPLOAD_CONCURRENCY=16 \
+npm run r2:sync
 
-- host and secret-key shape are validated before upload;
-- object keys are derived from owned local roots;
-- only WebPs are uploaded;
-- uploads are bounded by `UPLOAD_CONCURRENCY`;
-- existing objects are skipped;
-- any non-duplicate failure exits non-zero.
+npm run r2:verify
+```
 
-Never paste real credentials into documentation, command history shared with others, Git, or chat. Production secrets belong in the provider dashboard or an ignored local environment.
+The sync derives object keys from runtime JSON references, uploads only referenced WebPs, and verifies the resulting inventory. Shared source roots such as IB Chemistry and the Physics HL/SL source repository are therefore not uploaded twice; every key is bank-prefixed to prevent collisions. Delete the temporary write token immediately after verification; production uses a separate read-only runtime token.
 
-For a corrected asset that keeps the same key, the standard uploader will skip it. Use a separate, reviewed replacement operation, verify the remote object hash/content, then exercise the exact question and answer through the signed-URL API before release.
+Then add only missing free-preview assets to Supabase:
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL='https://PROJECT.supabase.co' \
+SUPABASE_SECRET_KEY='sb_secret_REDACTED' \
+npm run storage:sync-previews
+```
+
+The preview sync is deliberately fail-closed: it uses `upsert: false`, refuses existing size mismatches, uploads no premium objects, never deletes or overwrites objects, and verifies exact byte sizes after the run.
+
+Do not use the legacy `scripts/upload-question-assets.mjs` uploader for current releases. It predates the hybrid R2/Supabase architecture and does not cover every current bank. Likewise, `storage:reconcile --apply` is a destructive migration-only operation requiring its exact confirmation count; it is not part of a normal new-bank release and must be separately reviewed.
+
+Never paste real credentials into documentation, shared command history, Git, or chat. Keep production secrets in the provider dashboard or an ignored local environment.
+
+For a corrected asset that keeps the same key, use a separate reviewed replacement operation, verify the remote object hash/content, then exercise the exact question and answer through the signed-URL API before release.
 
 ### 9. Verify the commercial application
 

@@ -16,6 +16,27 @@ function guideFor(bank: Bank) {
     };
   }
 
+  if (bank.slug === "ib-chemistry-hl" || bank.slug === "ib-chemistry-sl") {
+    return {
+      href: "/articles",
+      label: "Revision guides",
+    };
+  }
+
+  if (bank.slug === "ib-physics-hl" || bank.slug === "ib-physics-sl") {
+    return {
+      href: "/articles",
+      label: "IB Physics revision guides",
+    };
+  }
+
+  if (bank.slug === "ib-biology-hl" || bank.slug === "ib-biology-sl") {
+    return {
+      href: "/articles/ib-biology-past-papers-by-topic",
+      label: "IB Biology revision guide",
+    };
+  }
+
   return {
     href: "/articles/ib-math-past-papers-by-topic",
     label: "IB Maths past papers by topic guide",
@@ -24,6 +45,7 @@ function guideFor(bank: Bank) {
 
 export function BankSeoContent({ bank }: { bank: Bank }) {
   const guide = guideFor(bank);
+  const isScience = bank.slug === "ib-chemistry-hl" || bank.slug === "ib-chemistry-sl" || bank.slug === "ib-physics-hl" || bank.slug === "ib-physics-sl" || bank.slug === "ib-biology-hl" || bank.slug === "ib-biology-sl";
   const coverage = `This bank contains ${bank.questionCount.toLocaleString()} questions drawn from ${bank.paperCount} real past papers, covering ${bank.years}. Use it to isolate weak topics before switching to timed whole-paper practice.`;
 
   return (
@@ -40,7 +62,9 @@ export function BankSeoContent({ bank }: { bank: Bank }) {
       </ol>
       <div className="bank-seo-links">
         <Link href={guide.href}>{guide.label}</Link>
-        <Link href="/articles/how-to-use-maths-past-papers-effectively">How to use past papers effectively</Link>
+        {!isScience ? (
+          <Link href="/articles/how-to-use-maths-past-papers-effectively">How to use past papers effectively</Link>
+        ) : null}
       </div>
     </section>
   );

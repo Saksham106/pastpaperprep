@@ -1,5 +1,6 @@
 import type { UnifiedQuestion } from "@/lib/questions";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
+import { formatPublicLabel } from "@/lib/presentation";
 
 export { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
 
@@ -97,7 +98,7 @@ export async function downloadQuestionPdf(
   for (const [index, question] of questions.entries()) {
     const label = `${question.year} ${question.session} Paper ${question.paper}, Question ${question.number}`;
     if (content !== "answers") {
-      for (const source of question.questionImages) await addImagePage(source, label, [question.primaryTopic, ...question.subtopics.slice(0, 2)].join("  |  "));
+      for (const source of question.questionImages) await addImagePage(source, label, [question.primaryTopic, ...question.subtopics.slice(0, 2)].map(formatPublicLabel).join("  |  "));
     }
     if (content !== "questions") {
       if (question.markschemeImages.length) {

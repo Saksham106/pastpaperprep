@@ -332,6 +332,34 @@ describe("QuestionExplorer", () => {
     expect(screen.getByRole("button", { name: new RegExp(`Save question ${all[0].id}`) })).toBeInTheDocument();
   });
 
+  it.each([
+    ["ib-physics-hl", "knowledge_recall", "Knowledge recall"],
+    ["ib-chemistry-hl", "quantitative_calculation", "Quantitative calculation"],
+  ] as const)("keeps %s taxonomy IDs internal while presenting human-readable labels", (bank, internalSkill, publicSkill) => {
+    const sourceQuestion = loadBankQuestions(bank).find((question) => question.skills.includes(internalSkill));
+    expect(sourceQuestion).toBeDefined();
+    expect(sourceQuestion!.skills).toContain(internalSkill);
+
+    const questions = prepareQuestionsForDelivery([sourceQuestion!], [{
+      productId: bank === "ib-physics-hl" ? "bank_ib_physics_hl" : "bank_ib_chemistry_hl",
+      status: "active",
+      startsAt: "2026-01-01T00:00:00Z",
+      expiresAt: null,
+    }]);
+    render(<QuestionExplorer questions={questions} access={fullAccess} />);
+
+    const subtopics = screen.getByRole("group", { name: /subtopics/i });
+    expect(within(subtopics).getByRole("checkbox", { name: `Subtopics: ${publicSkill}` })).toBeInTheDocument();
+    expect(within(subtopics).queryByRole("checkbox", { name: `Subtopics: ${internalSkill}` })).not.toBeInTheDocument();
+    expect(subtopics).not.toHaveTextContent(internalSkill);
+    expect(within(screen.getByRole("group", { name: "Topics" })).getByText(sourceQuestion!.primaryTopic)).toBeInTheDocument();
+    expect(within(screen.getByRole("article")).getByText(sourceQuestion!.primaryTopic)).toBeInTheDocument();
+
+    fireEvent.click(within(subtopics).getByRole("checkbox", { name: `Subtopics: ${publicSkill}` }));
+    expect(screen.getByRole("button", { name: publicSkill })).toBeInTheDocument();
+    expect(screen.queryByText(internalSkill)).not.toBeInTheDocument();
+  });
+
   it("debounces search and aborts a stale query", async () => {
     vi.useFakeTimers();
     const requests: Array<{ input: string; signal: AbortSignal }> = [];

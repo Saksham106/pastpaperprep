@@ -2,7 +2,7 @@
 
 ## The call
 
-PastPaperPrep should win on **high-intent course and topic pages**, not a high-volume generic blog. The product already has the defensible asset: thousands of accurately classified IGCSE and IB Mathematics questions. Search pages should expose that utility clearly, then articles should answer the revision questions that lead students into those banks.
+PastPaperPrep should win on **high-intent course and topic pages**, not a high-volume generic blog. The product already has the defensible asset: thousands of accurately classified IGCSE, IB Mathematics, IB Chemistry, IB Physics, and IB Biology questions. Search pages should expose that utility clearly, then articles should answer the revision questions that lead students into those banks.
 
 Google's own guidance is boring but correct: make pages crawlable, use descriptive titles and URLs, link related pages, and publish genuinely useful original content rather than content made mainly to attract search traffic. [1][2] The same fundamentals apply to Google's AI features; there is no separate AEO trick or special markup that guarantees inclusion. [5]
 
@@ -11,8 +11,8 @@ Google's own guidance is boring but correct: make pages crawlable, use descripti
 - Crawlable `robots.txt` and a root `sitemap.xml` containing canonical public pages only.
 - Canonical URLs, unique metadata, Open Graph, and Twitter metadata.
 - `noindex` protection for login, account, auth, and dashboard routes.
-- Six indexable course-bank pages with visible explanatory copy and internal links.
-- An `/articles` hub, four public first-party guides, three source-checked competitor comparisons, and two finished guides held as scheduled drafts.
+- Twelve indexable course-bank pages with visible explanatory copy and internal links.
+- An `/articles` hub, seven public first-party guides, and three source-checked competitor comparisons.
 - Visible FAQ answers and matching Article, FAQ, Breadcrumb, Organization, Website, and CollectionPage JSON-LD. Structured data must describe visible page content and should be validated after deployment. [4]
 - Vercel Web Analytics and Speed Insights instrumentation.
 - Optional `GOOGLE_SITE_VERIFICATION` metadata support.
@@ -29,6 +29,12 @@ These are the priority pages because they satisfy the user's task directly:
 4. `/banks/ib-sl` — IB Math AA SL past papers by topic
 5. `/banks/ib-ai-hl` — IB Math AI HL past papers by topic
 6. `/banks/ib-ai-sl` — IB Math AI SL past papers by topic
+7. `/banks/ib-chemistry-hl` — IB Chemistry HL past papers by topic
+8. `/banks/ib-chemistry-sl` — IB Chemistry SL past papers by topic
+9. `/banks/ib-physics-hl` — IB Physics HL past papers by topic
+10. `/banks/ib-physics-sl` — IB Physics SL past papers by topic
+11. `/banks/ib-biology-hl` — IB Biology HL past papers by topic
+12. `/banks/ib-biology-sl` — IB Biology SL past papers by topic
 
 ### Tier 2 — durable topic landing pages
 
@@ -54,9 +60,7 @@ Seeded now:
 - PastPaperPrep vs Revision Village
 - PastPaperPrep vs Save My Exams
 - PastPaperPrep vs Exam-Mate
-
-Scheduled after the mistake-log guide:
-
+- IB Biology past papers by topic
 - Topic questions vs full past papers: 2 September 2026
 - Best free IB Maths AA HL practice resources: 3 September 2026
 
@@ -97,7 +101,7 @@ Track brand and non-brand queries separately.
 2. Add a **Domain property** for `pastpaperprep.com` in the correct Google account.
 3. Complete DNS TXT ownership verification. Keep the record permanently.
 4. Submit `https://pastpaperprep.com/sitemap.xml` in the Sitemaps report. Google recommends putting the sitemap at the site root, using absolute canonical URLs, and including only URLs intended for search. [3][7]
-5. Inspect the homepage, all six bank pages, the article index, and each article with URL Inspection. Confirm Google's selected canonical and request indexing for the key launch pages. [8]
+5. Inspect the homepage, all twelve bank pages, the article index, and each article with URL Inspection. Confirm Google's selected canonical and request indexing for the key launch pages. [8]
 6. Check Pages/Indexing weekly for accidental `noindex`, redirect, duplicate-canonical, 404, and crawled-not-indexed patterns.
 7. Check Performance monthly by query, page, country, and device. Search Console reports clicks, impressions, click-through rate, and average position. [6]
 

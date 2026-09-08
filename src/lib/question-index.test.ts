@@ -1,8 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { PREVIEW_QUESTION_IDS } from "@/lib/access";
+import { BANKS } from "@/lib/banks";
 import { getQuestionRichDetails } from "@/lib/question-delivery";
 import { createPublicBankIndex, mergeQuestionRichDetails, publicMetadataToQuestion, toPublicQuestionMetadata } from "@/lib/question-index";
 import { loadBankQuestions } from "@/lib/question-fixtures";
+
+const BANK_SLUGS = BANKS.map((bank) => bank.slug);
 
 describe("public bank question index", () => {
   it("contains deterministic metadata only and preserves filterable classification", () => {
@@ -22,6 +25,7 @@ describe("public bank question index", () => {
       skills: expect.any(Array),
       subtopics: expect.any(Array),
     });
+    expect(preview).not.toHaveProperty("courseEra");
     expect(serialized).not.toContain("accessibleText");
     expect(serialized).not.toContain("summary");
     expect(serialized).not.toContain("solution");
@@ -57,4 +61,13 @@ describe("public bank question index", () => {
     expect(metadata).not.toHaveProperty("sourceQuestionUrl");
     expect(metadata).not.toHaveProperty("sourceMarkSchemeUrl");
   });
+
+  it("omits courseEra from runtime metadata for every bank", () => {
+    for (const bank of BANK_SLUGS) {
+      const metadata = toPublicQuestionMetadata(loadBankQuestions(bank)[0]);
+      expect(metadata).not.toHaveProperty("courseEra");
+      expect(JSON.stringify(createPublicBankIndex(bank, loadBankQuestions(bank)))).not.toContain("courseEra");
+    }
+  }, 20_000);
+
 });

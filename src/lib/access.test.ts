@@ -50,6 +50,11 @@ describe("bank access", () => {
     expect(hasBankAccess("ib-ai-hl", [entitlement("bundle_ib_ai")], now)).toBe(true);
     expect(hasBankAccess("ib-ai-sl", [entitlement("bundle_ib_ai")], now)).toBe(true);
     expect(hasBankAccess("ib-ai-hl", [entitlement("bundle_ib_aa")], now)).toBe(false);
+    expect(hasBankAccess("ib-chemistry-hl", [entitlement("bundle_ib_chemistry")], now)).toBe(true);
+    expect(hasBankAccess("ib-chemistry-sl", [entitlement("bundle_ib_chemistry")], now)).toBe(true);
+    expect(hasBankAccess("ib-biology-hl", [entitlement("bundle_ib_biology")], now)).toBe(true);
+    expect(hasBankAccess("ib-biology-sl", [entitlement("bundle_ib_biology")], now)).toBe(true);
+    expect(hasBankAccess("ib-biology-hl", [entitlement("bundle_ib_ai")], now)).toBe(false);
   });
 
   it("rejects expired, revoked, and unrelated entitlements", () => {
@@ -72,6 +77,12 @@ describe("preview and premium actions", () => {
       "ib-sl": [2017],
       "ib-ai-hl": [2021],
       "ib-ai-sl": [2021],
+      "ib-chemistry-hl": [2020],
+      "ib-chemistry-sl": [2020],
+      "ib-physics-hl": [2020],
+      "ib-physics-sl": [2020],
+      "ib-biology-hl": [2020],
+      "ib-biology-sl": [2020],
     });
     expect(isPreviewQuestion("igcse", "0580-2018-june-22-q1")).toBe(true);
     expect(isPreviewQuestion("igcse", "0580-2019-june-22-q1")).toBe(false);
@@ -82,6 +93,9 @@ describe("preview and premium actions", () => {
     expect(isPreviewQuestion("ib-sl", "2017-may-p1-tz1-q1")).toBe(true);
     expect(isPreviewQuestion("ib-ai-hl", "2021-may-tz1-p1-q1")).toBe(true);
     expect(isPreviewQuestion("ib-ai-sl", "2022-may-tz1-p1-q1")).toBe(false);
+    expect(isPreviewQuestion("ib-chemistry-hl", "2020-november-tz0-hl-p1-q1")).toBe(true);
+    expect(isPreviewQuestion("ib-biology-hl", "2020-november-tz0-hl-p1-q1")).toBe(true);
+    expect(isPreviewQuestion("ib-biology-sl", "2021-may-tz1-sl-p1-q1")).toBe(false);
   });
 
   it("allows the explicit public sample questions and answers", () => {

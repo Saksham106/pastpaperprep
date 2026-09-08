@@ -13,11 +13,12 @@ const mono = IBM_Plex_Mono({ variable: "--font-mono", subsets: ["latin"], weight
 export const metadata: Metadata = {
   metadataBase: new URL("https://pastpaperprep.com"),
   applicationName: "PastPaperPrep",
-  title: { default: "PastPaperPrep | IGCSE & IB Maths Past Papers", template: "%s | PastPaperPrep" },
-  description: "Practise IGCSE and IB Mathematics past-paper questions by topic, build focused sets, check answers, and export printable revision PDFs.",
+  title: { default: "PastPaperPrep | IGCSE, IB Maths & Chemistry Past Papers", template: "%s | PastPaperPrep" },
+  description: "Practise IGCSE, IB Mathematics, and IB Chemistry past-paper questions by topic, build focused sets, check answers, and export printable revision PDFs.",
   keywords: [
     "IGCSE maths past papers",
     "IB math past papers",
+    "IB Chemistry past papers",
     "past papers by topic",
     "topical maths questions",
   ],
@@ -27,21 +28,21 @@ export const metadata: Metadata = {
   category: "education",
   openGraph: {
     siteName: "PastPaperPrep",
-    title: "PastPaperPrep | IGCSE & IB Maths Past Papers",
-    description: "Topic-by-topic past-paper practice for Cambridge IGCSE and IB Mathematics.",
+    title: "PastPaperPrep | IGCSE, IB Maths & Chemistry Past Papers",
+    description: "Topic-by-topic past-paper practice for Cambridge IGCSE, IB Mathematics, and IB Chemistry.",
     type: "website",
     locale: "en_US",
     images: [{
       url: "/pastpaperprep-workspace.webp",
       width: 1280,
       height: 650,
-      alt: "PastPaperPrep topic-filtered mathematics question workspace",
+      alt: "PastPaperPrep topic-filtered maths and chemistry question workspace",
     }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "PastPaperPrep | IGCSE & IB Maths Past Papers",
-    description: "Topic-by-topic past-paper practice for Cambridge IGCSE and IB Mathematics.",
+    title: "PastPaperPrep | IGCSE, IB Maths & Chemistry Past Papers",
+    description: "Topic-by-topic past-paper practice for Cambridge IGCSE, IB Mathematics, and IB Chemistry.",
     images: ["/pastpaperprep-workspace.webp"],
   },
   verification: process.env.GOOGLE_SITE_VERIFICATION

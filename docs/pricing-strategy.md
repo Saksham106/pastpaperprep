@@ -8,8 +8,8 @@ PastPaperPrep sells access by breadth, not by artificial feature restrictions:
 
 | Plan | Monthly | Annual | Annual savings | Access |
 | --- | ---: | ---: | ---: | --- |
-| One bank | $5 | $48 ($4/month effective) | $12 (20%) | Any one of six banks |
-| Subject pair | $8 | $72 ($6/month effective) | $24 (25%) | IGCSE Maths, IB AA, or IB AI pair |
+| One bank | $5 | $48 ($4/month effective) | $12 (20%) | Any one current bank |
+| Subject pair | $8 | $72 ($6/month effective) | $24 (25%) | IGCSE Maths, IB AA, IB AI, IB Chemistry, or IB Physics pair |
 | All banks | $12 | $96 ($8/month effective) | $48 (33.3%) | All current banks and additions during the subscription |
 
 Free access remains a meaningful set of complete older exam years. Existing All-Access subscriptions remain on their current Stripe price unless the subscriber changes plans.
@@ -17,7 +17,7 @@ Free access remains a meaningful set of complete older exam years. Existing All-
 ## Why this structure
 
 - A student normally needs one course, so the entry plan stays near the familiar $5 monthly price while tying the purchase to the bank they actually need.
-- Related pairs serve the real middle case without forcing six-bank access: IGCSE 0580 + 0606, IB AA SL + HL, or IB AI SL + HL.
+- Related pairs serve the real middle case without forcing all-bank access: IGCSE 0580 + 0606, IB AA SL + HL, IB AI SL + HL, IB Chemistry SL + HL, or IB Physics SL + HL.
 - All-bank access is materially more valuable to tutors and broad-coverage users, so it should not be priced like a single student course.
 - The paid ladder has three choices. Every paid plan includes the same tools; only access breadth changes. This avoids fake feature gating.
 - Annual discounts increase with commitment breadth: 20% for one bank, 25% for a subject pair, and 33.3% for all banks. The pricing page displays clean whole-dollar monthly equivalents first and the annual charge directly below it, so the savings are clear without hiding the actual bill.
