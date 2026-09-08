@@ -22,6 +22,11 @@ describe("home page corpus summary", () => {
     expect(markup).toContain("Spend your revision time practising.");
     expect(markup).not.toContain("pastpaperprep-workspace.webp");
     expect(markup).toContain("class=\"exam-index-visual");
+    expect(markup).toContain("class=\"exam-index-formula");
+    expect(markup).toContain("<sup>2</sup>");
+    expect(markup).toContain("<sub>2</sub>");
+    expect(markup).not.toContain("x² · H₂O");
+    expect(markup.match(/data-course-icon=/g)).toHaveLength(18);
     expect(markup).toContain("class=\"course-launcher");
     expect(markup).toContain("class=\"corpus-ledger");
     expect(markup).toContain("class=\"study-method");

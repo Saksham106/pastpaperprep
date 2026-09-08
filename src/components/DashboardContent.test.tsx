@@ -46,11 +46,15 @@ describe("DashboardContent", () => {
   });
 
   it("keeps every IB card independently identifiable", () => {
-    render(<DashboardContent authenticated={false} accessibleBanks={[]} />);
+    const { container } = render(<DashboardContent authenticated={false} accessibleBanks={[]} />);
 
     expect(screen.getByRole("heading", { name: "Maths AA HL" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Maths AA SL" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Maths AI HL" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Maths AI SL" })).toBeInTheDocument();
+    expect(container.querySelectorAll("[data-course-icon]")).toHaveLength(18);
+    expect(container.querySelector(".dashboard-bank-family-ib-chemistry [data-course-icon=chemistry]")).not.toBeNull();
+    expect(container.querySelector(".dashboard-bank-family-ib-physics [data-course-icon=physics]")).not.toBeNull();
+    expect(container.querySelector(".dashboard-bank-family-ib-biology [data-course-icon=biology]")).not.toBeNull();
   });
 });

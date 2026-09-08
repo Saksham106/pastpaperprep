@@ -133,7 +133,12 @@ main { min-height: 72vh; }
 .exam-index-visual header, .exam-index-visual footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; font: 500 .73rem/1.4 var(--font-mono); }
 .exam-index-visual header span, .exam-index-visual footer { color: color-mix(in srgb, var(--index-foreground) 65%, transparent); }
 .exam-index-visual header strong { font: 650 .82rem/1.2 var(--font-display); }
-.exam-index-mark { align-self: center; color: var(--cobalt); font: 690 clamp(7rem, 13vw, 11rem)/.78 var(--font-display); letter-spacing: -.1em; }
+.exam-index-formula { align-self: center; display: flex; align-items: baseline; gap: .22em; color: var(--cobalt); font: 690 clamp(5.8rem, 11vw, 9rem)/1 var(--font-display); letter-spacing: -.045em; white-space: nowrap; }
+.exam-index-formula span { display: inline-flex; align-items: baseline; line-height: 1; }
+.exam-index-formula i { font-size: .46em; font-style: normal; line-height: 1; opacity: .56; transform: translateY(-.16em); }
+.exam-index-formula sup, .exam-index-formula sub { position: relative; margin-inline: .1em .06em; font-size: .27em; line-height: 0; letter-spacing: 0; vertical-align: baseline; }
+.exam-index-formula sup { top: -1.85em; }
+.exam-index-formula sub { top: .48em; }
 .exam-index-codes { padding: 19px 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; border-top: 1px solid color-mix(in srgb, var(--index-foreground) 18%, transparent); }
 .exam-index-codes span { display: grid; gap: 5px; color: color-mix(in srgb, var(--index-foreground) 88%, transparent); }
 .exam-index-codes strong { font: 550 clamp(1rem, 1.7vw, 1.35rem)/1 var(--font-mono); }
@@ -146,16 +151,23 @@ main { min-height: 72vh; }
 .course-launcher > header p, .study-method-copy > p, .pricing-invite p { max-width: 620px; margin: 15px 0 0; color: var(--muted); line-height: 1.6; }
 .curriculum-index { border-top: 1px solid var(--line-strong); }
 .curriculum-row { min-height: 148px; padding: 22px 0; display: grid; grid-template-columns: minmax(260px, .72fr) minmax(0, 1.28fr); align-items: stretch; gap: clamp(28px, 6vw, 84px); border-bottom: 1px solid var(--line-strong); }
-.curriculum-heading { align-self: center; display: grid; gap: 7px; }
+.course-tone-math { --course-accent: var(--cobalt); }
+.course-tone-chemistry { --course-accent: #a45d2d; }
+.course-tone-physics { --course-accent: #6d55a4; }
+.course-tone-biology { --course-accent: var(--success); }
+.course-icon { width: 38px; height: 38px; flex: 0 0 auto; display: grid; place-items: center; color: var(--course-accent, var(--cobalt)); background: color-mix(in srgb, var(--course-accent, var(--cobalt)) 10%, var(--surface)); border: 1px solid color-mix(in srgb, var(--course-accent, var(--cobalt)) 25%, var(--line)); border-radius: 9px; }
+.course-icon svg { width: 20px; height: 20px; }
+.curriculum-heading { align-self: center; display: grid; grid-template-columns: 38px minmax(0, 1fr); align-items: center; gap: 14px; }
+.curriculum-heading > div { display: grid; gap: 7px; }
 .curriculum-heading h3 { max-width: 330px; margin: 0; font: 670 clamp(1.35rem, 2.4vw, 2rem)/1.06 var(--font-display); letter-spacing: -.045em; }
-.curriculum-heading span { color: var(--muted); font: 500 .73rem/1.4 var(--font-mono); }
+.curriculum-heading > div > span { color: var(--muted); font: 500 .73rem/1.4 var(--font-mono); }
 .curriculum-bank-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-.curriculum-bank-links a { min-height: 102px; padding: 17px 18px; display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; transition: color 160ms ease, transform 160ms ease, border-color 160ms ease, background-color 160ms ease; }
-.curriculum-bank-links a:hover { color: var(--cobalt-strong); background: var(--cobalt-faint); border-color: var(--cobalt); transform: translateY(-2px); }
-.curriculum-bank-links a > span { display: grid; gap: 5px; }
+.curriculum-bank-links a { min-height: 102px; padding: 17px 18px 17px 15px; display: flex; align-items: center; gap: 14px; background: color-mix(in srgb, var(--course-accent, var(--cobalt)) 3%, var(--surface)); border: 1px solid var(--line); border-left: 3px solid color-mix(in srgb, var(--course-accent, var(--cobalt)) 58%, var(--line)); border-radius: 10px; transition: color 160ms ease, transform 160ms ease, border-color 160ms ease, background-color 160ms ease; }
+.curriculum-bank-links a:hover { color: var(--ink); background: color-mix(in srgb, var(--course-accent, var(--cobalt)) 8%, var(--surface)); border-color: var(--course-accent, var(--cobalt)); transform: translateY(-2px); }
+.curriculum-bank-links a > span:not(.course-icon) { min-width: 0; display: grid; gap: 5px; }
 .curriculum-bank-links strong { font: 670 1rem/1.25 var(--font-display); }
 .curriculum-bank-links small { color: var(--muted); font: 500 .68rem/1.4 var(--font-mono); }
-.curriculum-bank-links svg { flex: 0 0 auto; color: var(--cobalt); }
+.curriculum-bank-links a > svg { margin-left: auto; flex: 0 0 auto; color: var(--course-accent, var(--cobalt)); }
 
 .corpus-ledger { padding: 28px 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-block: 1px solid var(--line-strong); }
 .corpus-ledger > div { padding: 4px 24px; display: grid; gap: 5px; border-right: 1px solid var(--line); }
@@ -206,22 +218,26 @@ main { min-height: 72vh; }
 .dashboard-upgrade-strip > div { display: grid; gap: 4px; }
 .dashboard-upgrade-strip span { color: var(--muted); }
 .dashboard-bank-groups { margin-top: 24px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; align-items: stretch; }
-.dashboard-bank-family { min-width: 0; padding: 14px; display: grid; grid-template-rows: auto 1fr; background: var(--surface-raised); border: 1px solid var(--line); border-top: 4px solid var(--cobalt); border-radius: 12px; }
+.dashboard-bank-family { min-width: 0; padding: 14px; display: grid; grid-template-rows: auto 1fr; background: var(--surface-raised); border: 1px solid var(--line); border-top: 4px solid var(--course-accent, var(--cobalt)); border-radius: 12px; }
 .dashboard-bank-family > header { min-height: 46px; margin-bottom: 10px; display: flex; align-items: start; justify-content: space-between; gap: 12px; }
+.dashboard-bank-family-title { min-width: 0; display: flex; align-items: center; gap: 10px; }
+.dashboard-bank-family-title .course-icon { width: 32px; height: 32px; border-radius: 8px; }
+.dashboard-bank-family-title .course-icon svg { width: 18px; height: 18px; }
 .dashboard-bank-family > header h2 { margin: 0; font: 840 1.35rem/1.1 var(--font-display); letter-spacing: -.035em; }
 .dashboard-bank-family > header > span { margin: 0; color: var(--muted); font-size: .78rem; }
 .dashboard-bank-family > header > span { white-space: nowrap; }
 .dashboard-bank-grid { display: grid; grid-template-columns: 1fr; grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 10px; }
-.dashboard-bank-card { position: relative; min-height: 158px; padding: 16px; display: flex; flex-direction: column; overflow: hidden; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
-.dashboard-bank-card:hover { transform: translateY(-2px); border-color: var(--cobalt); box-shadow: var(--shadow-sm); }
+.dashboard-bank-card { position: relative; min-height: 158px; padding: 16px; display: flex; flex-direction: column; overflow: hidden; background: color-mix(in srgb, var(--course-accent, var(--cobalt)) 3%, var(--surface)); border: 1px solid var(--line); border-top: 2px solid color-mix(in srgb, var(--course-accent, var(--cobalt)) 45%, var(--line)); border-radius: 10px; transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
+.dashboard-bank-card:hover { transform: translateY(-2px); border-color: var(--course-accent, var(--cobalt)); box-shadow: var(--shadow-sm); }
 
-.dashboard-bank-card.is-included { background: var(--cobalt-faint); border-color: color-mix(in srgb, var(--cobalt) 42%, var(--line)); }
+.dashboard-bank-card.is-included { background: color-mix(in srgb, var(--course-accent, var(--cobalt)) 9%, var(--surface)); border-color: color-mix(in srgb, var(--course-accent, var(--cobalt)) 46%, var(--line)); }
 .dashboard-bank-meta, .dashboard-bank-stats { display: flex; align-items: center; justify-content: space-between; gap: 14px; color: var(--muted); font-size: .75rem; }
-.dashboard-bank-meta { justify-content: flex-end; }
-.dashboard-bank-meta strong { padding: 5px 8px; color: var(--cobalt-strong); background: var(--cobalt-soft); border-radius: 7px; font-size: .68rem; }
+.dashboard-bank-meta .course-icon { width: 34px; height: 34px; border-radius: 8px; }
+.dashboard-bank-meta .course-icon svg { width: 18px; height: 18px; }
+.dashboard-bank-meta strong { padding: 5px 8px; color: var(--course-accent, var(--cobalt-strong)); background: color-mix(in srgb, var(--course-accent, var(--cobalt)) 10%, var(--surface)); border-radius: 7px; font-size: .68rem; }
 .dashboard-bank-card h3 { margin: 10px 0 6px; font: 850 clamp(1.4rem, 2.4vw, 1.8rem)/1.03 var(--font-display); letter-spacing: -.05em; }
 .dashboard-bank-stats { margin-top: auto; padding-top: 14px; justify-content: flex-start; }
-.dashboard-bank-link { margin-top: 9px; display: inline-flex; align-items: center; gap: 7px; color: var(--cobalt); font-weight: 850; }
+.dashboard-bank-link { margin-top: 9px; display: inline-flex; align-items: center; gap: 7px; color: var(--course-accent, var(--cobalt)); font-weight: 850; }
 
 /* Question bank workspace */
 .bank-hero { padding: 24px 0 19px; background: var(--surface); border-bottom: 1px solid var(--line); }
@@ -616,7 +632,7 @@ main { min-height: 72vh; }
   .hero-actions { align-items: stretch; flex-direction: column; }
   .hero-actions .button { width: 100%; }
   .exam-index-visual { min-height: 350px; padding: 22px; }
-  .exam-index-mark { font-size: clamp(6rem, 32vw, 8.5rem); }
+  .exam-index-formula { font-size: clamp(4.7rem, 23vw, 7rem); }
   .exam-index-codes { grid-template-columns: repeat(2, 1fr); gap: 13px; }
   .exam-index-visual footer { align-items: flex-start; flex-direction: column; gap: 4px; }
   .course-launcher { padding-block: 72px; }
