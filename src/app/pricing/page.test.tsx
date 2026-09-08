@@ -10,7 +10,8 @@ describe("PricingPage", () => {
     expect(screen.getByRole("button", { name: "Monthly" })).toHaveAttribute("aria-pressed", "true");
     expect(screen.getAllByText("$6").length).toBeGreaterThan(0);
     expect(screen.getByText("$25")).toBeInTheDocument();
-    expect(screen.getByText(/unlock every current bank/i)).toBeInTheDocument();
+    expect(screen.getByText("Every bank. One subscription.")).toBeInTheDocument();
+    expect(screen.queryByText(/unlock every current bank/i)).not.toBeInTheDocument();
     expect(screen.getByText(/most popular/i)).toBeInTheDocument();
     expect(screen.getByText(/every paid plan has the same study tools/i)).toBeInTheDocument();
     expect(screen.getByText(/existing fixed and all-access subscribers remain grandfathered/i)).toBeInTheDocument();

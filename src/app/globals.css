@@ -324,9 +324,16 @@ main { min-height: 72vh; }
 .billing-toggle button span { margin-left: 4px; font-size: .68rem; }
 .billing-toggle-annual[aria-pressed="false"] { color: var(--cobalt-strong); background: transparent; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--cobalt) 32%, transparent); }
 .billing-savings { font-weight: 900; }
-.pricing-decision-grid { margin-top: 18px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; align-items: stretch; }
-.pricing-option { min-width: 0; padding: 24px; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
-.pricing-option-popular { background: var(--cobalt-faint); border: 2px solid var(--cobalt); box-shadow: var(--shadow-sm); }
+.pricing-decision-grid { margin-top: 18px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; align-items: start; }
+.pricing-option { position: relative; min-width: 0; padding: 22px; display: flex; flex-direction: column; isolation: isolate; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 12px 30px color-mix(in srgb, var(--ink) 5%, transparent); }
+.pricing-option[data-plan-tone="starter"] { background: linear-gradient(145deg, var(--surface), color-mix(in srgb, var(--cobalt-faint) 48%, var(--surface))); }
+.pricing-option-popular { background: linear-gradient(145deg, color-mix(in srgb, var(--cobalt-faint) 78%, var(--surface)), var(--surface)); border: 2px solid var(--cobalt); box-shadow: 0 16px 38px color-mix(in srgb, var(--cobalt) 13%, transparent); }
+.pricing-option[data-plan-tone="premium"] { overflow: hidden; color: var(--surface); background: linear-gradient(145deg, color-mix(in srgb, var(--ink) 88%, var(--cobalt)), var(--cobalt-strong)); border-color: color-mix(in srgb, var(--cobalt) 55%, var(--ink)); box-shadow: 0 18px 42px color-mix(in srgb, var(--ink) 20%, transparent); }
+.pricing-option[data-plan-tone="premium"]::before, .pricing-option[data-plan-tone="premium"]::after { content: ""; position: absolute; z-index: -1; border: 1px solid color-mix(in srgb, var(--surface) 18%, transparent); border-radius: 50%; pointer-events: none; }
+.pricing-option[data-plan-tone="premium"]::before { width: 190px; height: 190px; top: -105px; right: -55px; }
+.pricing-option[data-plan-tone="premium"]::after { width: 105px; height: 105px; right: 24px; bottom: -70px; }
+.pricing-option[data-plan-tone="premium"] .plan-label, .pricing-option[data-plan-tone="premium"] .plan-price span, .pricing-option[data-plan-tone="premium"] .plan-billing-note, .pricing-option[data-plan-tone="premium"] .plan-description { color: color-mix(in srgb, var(--surface) 76%, transparent); }
+.pricing-option[data-plan-tone="premium"] .billing-actions .button, .pricing-option[data-plan-tone="premium"] .plan-checkout > .button { color: var(--ink); background: var(--surface); border-color: var(--surface); }
 .pricing-option-popular .billing-actions .button { color: var(--surface); background: var(--cobalt); border-color: var(--cobalt); }
 .pricing-option-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
 .plan-label { margin: 0 0 5px; color: var(--muted); font-size: .72rem; font-weight: 840; letter-spacing: .08em; text-transform: uppercase; }
@@ -337,9 +344,9 @@ main { min-height: 72vh; }
 .plan-price strong { font: 900 clamp(2.8rem, 5vw, 4.25rem)/.95 var(--font-display); letter-spacing: -.065em; }
 
 .plan-price span, .plan-billing-note, .plan-description { color: var(--muted); }
-.plan-billing-note { min-height: 19px; margin: 7px 0 0; font-size: .78rem; }
-.plan-description { margin: 14px 0 18px; line-height: 1.5; }
-.plan-checkout { margin-top: auto; display: grid; gap: 11px; }
+.plan-billing-note { margin: 7px 0 0; font-size: .78rem; }
+.plan-description { margin: 11px 0 15px; font-size: .88rem; line-height: 1.4; }
+.plan-checkout { display: grid; gap: 9px; }
 .custom-bundle-checkout { gap: 10px; }
 .custom-bank-disclosure { overflow: hidden; background: var(--surface-raised); border: 1px solid var(--line-strong); border-radius: 10px; }
 .custom-bank-disclosure summary { min-height: 46px; padding: 10px 12px; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 8px; list-style: none; color: var(--ink); font-size: .78rem; font-weight: 800; cursor: pointer; }
@@ -349,7 +356,7 @@ main { min-height: 72vh; }
 .custom-bank-disclosure summary svg { width: 15px; height: 15px; transition: transform .16s ease; }
 .custom-bank-disclosure[open] summary svg { transform: rotate(180deg); }
 .custom-bank-disclosure-value { max-width: 130px; overflow: hidden; color: var(--muted); font-size: .72rem; font-weight: 720; text-overflow: ellipsis; white-space: nowrap; }
-.custom-bank-picker { margin: 0; padding: 10px; border: 0; border-top: 1px solid var(--line); background: var(--surface-raised); }
+.custom-bank-picker { max-height: min(310px, 52dvh); margin: 0; padding: 10px; overflow-y: auto; overscroll-behavior: contain; border: 0; border-top: 1px solid var(--line); background: var(--surface-raised); }
 .custom-bank-groups { display: grid; grid-template-columns: 1fr; gap: 7px; }
 .custom-bank-group { min-width: 0; padding: 7px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
 .custom-bank-group h3 { margin: 0 0 5px; color: var(--muted); font: 800 .66rem/1.2 var(--font-mono); letter-spacing: .035em; text-transform: uppercase; }
@@ -359,9 +366,7 @@ main { min-height: 72vh; }
 .custom-bank-group label:focus-within { outline: 2px solid var(--cobalt); outline-offset: 1px; }
 .custom-bank-group label span { min-width: 0; }
 .custom-bank-group input { width: 15px; height: 15px; margin: 0; flex: 0 0 auto; accent-color: var(--cobalt); }
-.custom-bundle-selection-note, .custom-bundle-total, .custom-bundle-effective-price { margin: 0; color: var(--muted); font-size: .78rem; }
-.custom-bundle-total { font-weight: 780; }
-.custom-bundle-effective-price { color: var(--ink); font-weight: 850; }
+.custom-bundle-selection-note { margin: 0; color: var(--muted); font-size: .78rem; }
 .plan-selector { position: relative; display: grid; gap: 6px; color: var(--muted); font-size: .82rem; }
 .plan-selector:has(.plan-select-menu) { z-index: 20; }
 .plan-selector-label { font-weight: 780; }

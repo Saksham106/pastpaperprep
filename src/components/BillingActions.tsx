@@ -6,7 +6,6 @@ import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import type { ProductId } from "@/lib/access";
 import type { Bank, BankSlug } from "@/lib/banks";
 import { BANKS } from "@/lib/banks";
-import { getGraduatedBundlePrice } from "@/lib/custom-bundles";
 
 type Navigate = (url: string) => void;
 type BillingError = { error?: unknown };
@@ -277,12 +276,8 @@ export function CustomBundleCheckout({
   if (hasPaidAccess) return null;
   const quantity = selectedBankIds.length;
   const hasSelection = quantity > 0;
-  const annual = interval === "annual";
   const allAccess = quantity >= 6;
-  const monthlyEquivalentCents = hasSelection
-    ? allAccess ? (annual ? 1_800 : 2_500) : getGraduatedBundlePrice(interval, quantity) / (annual ? 12 : 1)
-    : null;
-  const annualCents = hasSelection ? (allAccess ? 21_600 : getGraduatedBundlePrice("annual", quantity)) : null;
+
   const bankSelection = [...selectedBankIds].sort();
   const pricingReturn = `/pricing?interval=${interval}&banks=${encodeURIComponent(bankSelection.join(","))}`;
   const selectedBankName = BANKS.find((bank) => bank.slug === selectedBankIds[0])?.shortName;
@@ -335,11 +330,9 @@ export function CustomBundleCheckout({
         </p>
       ) : null}
       {hasSelection ? <>
-        <p className="custom-bundle-total">{`Billed ${annual ? `$${annualCents! / 100} once a year` : "monthly"}.`}</p>
         {authenticated
           ? <CheckoutButton interval={interval} productId="bundle_custom" selectedBankIds={bankSelection} />
           : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`}>Continue to checkout</Link>}
-        <span className="custom-bundle-effective-price">${monthlyEquivalentCents! / 100} / month</span>
       </> : null}
     </div>
   );

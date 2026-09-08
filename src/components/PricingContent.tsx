@@ -25,9 +25,9 @@ const BANK_PRODUCT_TO_SLUG: Record<string, BankSlug> = {
 };
 
 const PLANS = [
-  { name: "One Bank", label: "One question bank", monthly: "$6", annualMonthly: "$4", annual: "$48", annualSaving: "33%", monthlyDescription: "Choose exactly one question bank and pay only for it.", annualDescription: "Choose exactly one question bank and pay only for it.", mode: "single" as const, popular: false },
-  { name: "Build Your Plan", label: "One to five banks", monthly: "$6", annualMonthly: "$4", annual: "$48+", annualSaving: "33%", monthlyDescription: "Select the exact banks you need. The first bank is $6/month, then $4 for each additional bank.", annualDescription: "Select the exact banks you need. The first bank is $4/month billed annually, then $3/month for each additional bank.", mode: "builder" as const, popular: true },
-  { name: "All Access", label: "Every question bank", monthly: "$25", annualMonthly: "$18", annual: "$216", annualSaving: "28%", monthlyDescription: "Unlock every current bank and every bank added during your subscription.", annualDescription: "Unlock every current bank and every bank added during your subscription.", mode: "all" as const, popular: false },
+  { name: "One Bank", label: "One question bank", monthly: "$6", annualMonthly: "$4", annual: "$48", annualSaving: "33%", description: "One subject. Full access.", mode: "single" as const, tone: "starter", popular: false },
+  { name: "Build Your Plan", label: "One to five banks", monthly: "$6", annualMonthly: "$4", annual: "$48+", annualSaving: "33%", description: "Add only the banks you need.", mode: "builder" as const, tone: "builder", popular: true },
+  { name: "All Access", label: "Every question bank", monthly: "$25", annualMonthly: "$18", annual: "$216", annualSaving: "28%", description: "Every bank. One subscription.", mode: "all" as const, tone: "premium", popular: false },
 ] as const;
 
 type BillingInterval = "monthly" | "annual";
@@ -84,14 +84,14 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         : "Billed monthly";
 
     return (
-      <article className={`pricing-option${plan.popular ? " pricing-option-popular" : ""}`} data-mobile-order={plan.popular ? "first" : undefined} key={plan.name}>
+      <article className={`pricing-option${plan.popular ? " pricing-option-popular" : ""}`} data-plan-tone={plan.tone} data-mobile-order={plan.popular ? "first" : undefined} key={plan.name}>
         <div className="pricing-option-heading">
           <div><p className="plan-label">{plan.label}</p><h2>{plan.name}</h2></div>
           {plan.popular ? <span className="pricing-badge">Most popular</span> : null}
         </div>
         <div className="plan-price"><strong aria-live={isBuilder ? "polite" : undefined}>{headlinePrice}</strong><span>/ month</span></div>
         <p className="plan-billing-note">{billingNote}</p>
-        <p className="plan-description">{interval === "annual" ? plan.annualDescription : plan.monthlyDescription}</p>
+        <p className="plan-description">{plan.description}</p>
         {plan.mode === "all" ? (
           <PlanCheckout
             options={[{ productId: "bundle_all", label: "All Access" }]}
