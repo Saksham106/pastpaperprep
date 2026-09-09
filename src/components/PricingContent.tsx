@@ -60,6 +60,39 @@ function formatCents(cents: number | null): string {
   return cents === null ? "$0" : `$${cents / 100}`;
 }
 
+function PlanArtwork({ tone }: { tone: (typeof PLANS)[number]["tone"] }) {
+  if (tone === "starter") {
+    return (
+      <div className="plan-art plan-art-focus" aria-hidden="true">
+        <span className="plan-art-orbit" />
+        <span className="plan-art-focus-card"><strong>01</strong><small>BANK</small></span>
+        <span className="plan-art-focus-dot" />
+      </div>
+    );
+  }
+
+  if (tone === "builder") {
+    return (
+      <div className="plan-art plan-art-build" aria-hidden="true">
+        <span className="plan-art-rail" />
+        <span className="plan-art-subject plan-art-subject-math">MATH</span>
+        <span className="plan-art-subject plan-art-subject-chem">CHEM</span>
+        <span className="plan-art-subject plan-art-subject-phys">PHYS</span>
+        <span className="plan-art-subject plan-art-subject-bio">BIO</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="plan-art plan-art-universe" aria-hidden="true">
+      <span className="plan-art-premium-orbit plan-art-premium-orbit-outer" />
+      <span className="plan-art-premium-orbit plan-art-premium-orbit-inner" />
+      <span className="plan-art-all"><strong>12</strong><small>BANKS</small></span>
+      {Array.from({ length: 8 }, (_, index) => <span className="plan-art-star" key={index} />)}
+    </div>
+  );
+}
+
 export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], initialInterval = "monthly", initialProductId, initialBankIds }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; initialInterval?: BillingInterval; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[] }) {
   const [interval, setInterval] = useState<BillingInterval>(initialInterval);
   const initialBankId = initialProductId ? BANK_PRODUCT_TO_SLUG[initialProductId] : undefined;
@@ -92,6 +125,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         <div className="plan-price"><strong aria-live={isBuilder ? "polite" : undefined}>{headlinePrice}</strong><span>/ month</span></div>
         <p className="plan-billing-note">{billingNote}</p>
         <p className="plan-description">{plan.description}</p>
+        <PlanArtwork tone={plan.tone} />
         {plan.mode === "all" ? (
           <PlanCheckout
             options={[{ productId: "bundle_all", label: "All Access" }]}

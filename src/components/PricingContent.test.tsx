@@ -15,6 +15,11 @@ describe("approved custom-bank pricing", () => {
     expect(cards[0]).toHaveAttribute("data-plan-tone", "starter");
     expect(cards[1]).toHaveAttribute("data-plan-tone", "builder");
     expect(cards[2]).toHaveAttribute("data-plan-tone", "premium");
+    expect(container.querySelectorAll(".plan-art")).toHaveLength(3);
+    expect(container.querySelectorAll(".plan-art[aria-hidden=\"true\"]")).toHaveLength(3);
+    expect(cards[0].querySelector(".plan-art-focus")).not.toBeNull();
+    expect(cards[1].querySelector(".plan-art-build")).not.toBeNull();
+    expect(cards[2].querySelector(".plan-art-universe")).not.toBeNull();
     expect(within(cards[0] as HTMLElement).getByText("One subject. Full access.")).toBeInTheDocument();
     expect(within(cards[1] as HTMLElement).getByText("Add only the banks you need.")).toBeInTheDocument();
     expect(within(cards[2] as HTMLElement).getByText("Every bank. One subscription.")).toBeInTheDocument();
