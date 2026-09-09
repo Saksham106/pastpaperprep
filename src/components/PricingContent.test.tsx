@@ -15,14 +15,18 @@ describe("approved custom-bank pricing", () => {
     expect(cards[0]).toHaveAttribute("data-plan-tone", "starter");
     expect(cards[1]).toHaveAttribute("data-plan-tone", "builder");
     expect(cards[2]).toHaveAttribute("data-plan-tone", "premium");
-    expect(container.querySelectorAll(".plan-art")).toHaveLength(3);
-    expect(container.querySelectorAll(".plan-art[aria-hidden=\"true\"]")).toHaveLength(3);
-    expect(cards[0].querySelector(".plan-art-focus")).not.toBeNull();
-    expect(cards[1].querySelector(".plan-art-build")).not.toBeNull();
-    expect(cards[2].querySelector(".plan-art-universe")).not.toBeNull();
-    expect(within(cards[0] as HTMLElement).getByText("One subject. Full access.")).toBeInTheDocument();
-    expect(within(cards[1] as HTMLElement).getByText("Add only the banks you need.")).toBeInTheDocument();
-    expect(within(cards[2] as HTMLElement).getByText("Every bank. One subscription.")).toBeInTheDocument();
+    expect(container.querySelector(".plan-art")).toBeNull();
+    expect(container.querySelectorAll(".plan-icon[aria-hidden=\"true\"]")).toHaveLength(3);
+    expect(container.querySelectorAll(".plan-feature-list")).toHaveLength(3);
+    expect(within(cards[0] as HTMLElement).getByText("Focus on one syllabus.")).toBeInTheDocument();
+    expect(within(cards[1] as HTMLElement).getByText("Mix the banks you actually take.")).toBeInTheDocument();
+    expect(within(cards[2] as HTMLElement).getByText("Everything, including future banks.")).toBeInTheDocument();
+    expect(within(cards[0] as HTMLElement).getByText("Every question in one bank")).toBeInTheDocument();
+    expect(within(cards[1] as HTMLElement).getByText("Choose 1–5 exact banks")).toBeInTheDocument();
+    expect(within(cards[2] as HTMLElement).getByText("All 12 current banks")).toBeInTheDocument();
+    expect(within(cards[0] as HTMLElement).getByRole("link", { name: "Choose One Bank" })).toBeInTheDocument();
+    expect(within(cards[1] as HTMLElement).getByRole("link", { name: "Build Your Plan" })).toBeInTheDocument();
+    expect(within(cards[2] as HTMLElement).getByRole("link", { name: "Get All Access" })).toBeInTheDocument();
     expect(screen.queryByText(/Choose exactly one question bank/)).not.toBeInTheDocument();
     expect(screen.queryByText(/The first bank is \$6\/month/)).not.toBeInTheDocument();
     expect(container.querySelector(".custom-bundle-effective-price")).toBeNull();
@@ -112,7 +116,7 @@ describe("approved custom-bank pricing", () => {
     expect(screen.getAllByText("$4").length).toBeGreaterThan(0);
     expect(screen.getAllByText(/Billed \$48 once a year/)).toHaveLength(2);
     expect(screen.getByText("$18")).toBeInTheDocument();
-    expect(screen.getByText("Add only the banks you need.")).toBeInTheDocument();
+    expect(screen.getByText("Mix the banks you actually take.")).toBeInTheDocument();
     expect(screen.queryByText(/The first bank is/)).not.toBeInTheDocument();
     expect(screen.getAllByText(/Billed/).map((node) => node.textContent).some((text) => text?.includes("$216 once a year"))).toBe(true);
   });
@@ -139,7 +143,9 @@ describe("approved custom-bank pricing", () => {
 
   it("offers exact bank choices and checkout continuations before sign-in", () => {
     render(<PricingContent authenticated={false} hasPaidAccess={false} />);
-    expect(screen.getAllByRole("link", { name: /continue to checkout/i })).toHaveLength(3);
+    expect(screen.getByRole("link", { name: "Choose One Bank" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Build Your Plan" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Get All Access" })).toBeInTheDocument();
     expect(screen.getByRole("radio", { name: "IB Math AI HL" })).toBeInTheDocument();
     expect(screen.getByRole("checkbox", { name: "IB Math AA HL" })).toBeInTheDocument();
   });

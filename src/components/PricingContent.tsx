@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Check } from "@phosphor-icons/react";
+import { BookOpen, Check, CrownSimple, SlidersHorizontal } from "@phosphor-icons/react";
 import { useCallback, useState } from "react";
 import { CustomBundleCheckout, PlanCheckout, PortalButton } from "@/components/BillingActions";
 import { CourseIcon, courseToneForBank } from "@/components/CourseIcon";
@@ -25,9 +25,21 @@ const BANK_PRODUCT_TO_SLUG: Record<string, BankSlug> = {
 };
 
 const PLANS = [
-  { name: "One Bank", label: "One question bank", monthly: "$6", annualMonthly: "$4", annual: "$48", annualSaving: "33%", description: "One subject. Full access.", mode: "single" as const, tone: "starter", popular: false },
-  { name: "Build Your Plan", label: "One to five banks", monthly: "$6", annualMonthly: "$4", annual: "$48+", annualSaving: "33%", description: "Add only the banks you need.", mode: "builder" as const, tone: "builder", popular: true },
-  { name: "All Access", label: "Every question bank", monthly: "$25", annualMonthly: "$18", annual: "$216", annualSaving: "28%", description: "Every bank. One subscription.", mode: "all" as const, tone: "premium", popular: false },
+  {
+    name: "One Bank", label: "One question bank", monthly: "$6", annualMonthly: "$4", annual: "$48", annualSaving: "33%",
+    description: "Focus on one syllabus.", mode: "single" as const, tone: "starter", popular: false, icon: BookOpen, cta: "Choose One Bank",
+    features: ["Every question in one bank", "Smart topic filters", "Mark schemes where available"],
+  },
+  {
+    name: "Build Your Plan", label: "One to five banks", monthly: "$6", annualMonthly: "$4", annual: "$48+", annualSaving: "33%",
+    description: "Mix the banks you actually take.", mode: "builder" as const, tone: "builder", popular: true, icon: SlidersHorizontal, cta: "Build Your Plan",
+    features: ["Choose 1–5 exact banks", "Mix Cambridge and IB", "Price updates as you build"],
+  },
+  {
+    name: "All Access", label: "Every question bank", monthly: "$25", annualMonthly: "$18", annual: "$216", annualSaving: "28%",
+    description: "Everything, including future banks.", mode: "all" as const, tone: "premium", popular: false, icon: CrownSimple, cta: "Get All Access",
+    features: ["All 12 current banks", "Future banks included", "Best for multi-subject revision"],
+  },
 ] as const;
 
 type BillingInterval = "monthly" | "annual";
@@ -60,39 +72,6 @@ function formatCents(cents: number | null): string {
   return cents === null ? "$0" : `$${cents / 100}`;
 }
 
-function PlanArtwork({ tone }: { tone: (typeof PLANS)[number]["tone"] }) {
-  if (tone === "starter") {
-    return (
-      <div className="plan-art plan-art-focus" aria-hidden="true">
-        <span className="plan-art-orbit" />
-        <span className="plan-art-focus-card"><strong>01</strong><small>BANK</small></span>
-        <span className="plan-art-focus-dot" />
-      </div>
-    );
-  }
-
-  if (tone === "builder") {
-    return (
-      <div className="plan-art plan-art-build" aria-hidden="true">
-        <span className="plan-art-rail" />
-        <span className="plan-art-subject plan-art-subject-math">MATH</span>
-        <span className="plan-art-subject plan-art-subject-chem">CHEM</span>
-        <span className="plan-art-subject plan-art-subject-phys">PHYS</span>
-        <span className="plan-art-subject plan-art-subject-bio">BIO</span>
-      </div>
-    );
-  }
-
-  return (
-    <div className="plan-art plan-art-universe" aria-hidden="true">
-      <span className="plan-art-premium-orbit plan-art-premium-orbit-outer" />
-      <span className="plan-art-premium-orbit plan-art-premium-orbit-inner" />
-      <span className="plan-art-all"><strong>12</strong><small>BANKS</small></span>
-      {Array.from({ length: 8 }, (_, index) => <span className="plan-art-star" key={index} />)}
-    </div>
-  );
-}
-
 export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], initialInterval = "monthly", initialProductId, initialBankIds }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; initialInterval?: BillingInterval; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[] }) {
   const [interval, setInterval] = useState<BillingInterval>(initialInterval);
   const initialBankId = initialProductId ? BANK_PRODUCT_TO_SLUG[initialProductId] : undefined;
@@ -103,6 +82,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
   }, []);
 
   const renderPlan = (plan: (typeof PLANS)[number]) => {
+    const PlanIcon = plan.icon;
     const isBuilder = plan.mode === "builder";
     const builderQuantity = builderBankIds.length;
     const builderHeadlineCents = isBuilder ? getBuilderMonthlyEquivalentCents(interval, builderQuantity) : null;
@@ -119,19 +99,25 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
     return (
       <article className={`pricing-option${plan.popular ? " pricing-option-popular" : ""}`} data-plan-tone={plan.tone} data-mobile-order={plan.popular ? "first" : undefined} key={plan.name}>
         <div className="pricing-option-heading">
-          <div><p className="plan-label">{plan.label}</p><h2>{plan.name}</h2></div>
+          <div className="plan-title-block">
+            <span className="plan-icon" aria-hidden="true"><PlanIcon weight="duotone" /></span>
+            <div><p className="plan-label">{plan.label}</p><h2>{plan.name}</h2></div>
+          </div>
           {plan.popular ? <span className="pricing-badge">Most popular</span> : null}
         </div>
         <div className="plan-price"><strong aria-live={isBuilder ? "polite" : undefined}>{headlinePrice}</strong><span>/ month</span></div>
         <p className="plan-billing-note">{billingNote}</p>
         <p className="plan-description">{plan.description}</p>
-        <PlanArtwork tone={plan.tone} />
+        <ul className="plan-feature-list">
+          {plan.features.map((feature) => <li key={feature}><Check aria-hidden="true" weight="bold" /><span>{feature}</span></li>)}
+        </ul>
         {plan.mode === "all" ? (
           <PlanCheckout
             options={[{ productId: "bundle_all", label: "All Access" }]}
             interval={interval}
             authenticated={authenticated}
             hasPaidAccess={hasPaidAccess}
+            ctaLabel={plan.cta}
           />
         ) : (
           <CustomBundleCheckout
@@ -141,6 +127,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
             hasPaidAccess={hasPaidAccess}
             initialBankIds={initialCustomBankIds}
             onSelectionChange={isBuilder ? handleBuilderSelectionChange : undefined}
+            ctaLabel={plan.cta}
           />
         )}
       </article>
@@ -150,9 +137,9 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
   return (
     <section className="simple-page pricing-page shell">
       <div className="pricing-intro">
-        <p className="eyebrow">Pricing</p>
-        <h1>Pay only for the subjects you actually study.</h1>
-        <p className="page-lede">Every paid plan has the same study tools. Choose one bank, build an exact bundle, or unlock everything.</p>
+        <p className="eyebrow">PastPaperPrep pricing</p>
+        <h1>Practice smarter. <span>Score higher.</span></h1>
+        <p className="page-lede">Choose the question banks you need. Every plan includes the same study tools.</p>
       </div>
 
       {authenticated ? (

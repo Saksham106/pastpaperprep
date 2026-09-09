@@ -228,12 +228,14 @@ export function PlanCheckout({
   authenticated,
   hasPaidAccess,
   initialProductId,
+  ctaLabel = "Continue to checkout",
 }: {
   options: readonly { productId: ProductId; label: string }[];
   interval: BillingInterval;
   authenticated: boolean;
   hasPaidAccess: boolean;
   initialProductId?: ProductId;
+  ctaLabel?: string;
 }) {
   const availableInitial = initialProductId && options.some((option) => option.productId === initialProductId) ? initialProductId : options[0].productId;
   const [productId, setProductId] = useState<ProductId>(availableInitial);
@@ -246,7 +248,7 @@ export function PlanCheckout({
       ) : null}
       {authenticated
         ? <CheckoutButton interval={interval} productId={productId} />
-        : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`}>Continue to checkout</Link>}
+        : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`}>{ctaLabel}</Link>}
     </div>
   );
 }
@@ -258,6 +260,7 @@ export function CustomBundleCheckout({
   hasPaidAccess,
   initialBankIds = [BANKS[0].slug],
   onSelectionChange,
+  ctaLabel = "Continue to checkout",
 }: {
   mode: "single" | "builder";
   interval: BillingInterval;
@@ -265,6 +268,7 @@ export function CustomBundleCheckout({
   hasPaidAccess: boolean;
   initialBankIds?: readonly BankSlug[];
   onSelectionChange?: (selectedBankIds: readonly BankSlug[]) => void;
+  ctaLabel?: string;
 }) {
   const [selectedBankIds, setSelectedBankIds] = useState<BankSlug[]>(() => {
     const initial = [...initialBankIds];
@@ -332,7 +336,7 @@ export function CustomBundleCheckout({
       {hasSelection ? <>
         {authenticated
           ? <CheckoutButton interval={interval} productId="bundle_custom" selectedBankIds={bankSelection} />
-          : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`}>Continue to checkout</Link>}
+          : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`}>{ctaLabel}</Link>}
       </> : null}
     </div>
   );
