@@ -4,9 +4,8 @@ import Link from "next/link";
 import { CaretDown, Check } from "@phosphor-icons/react";
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import type { ProductId } from "@/lib/access";
-import type { BankSlug } from "@/lib/banks";
+import type { Bank, BankSlug } from "@/lib/banks";
 import { BANKS } from "@/lib/banks";
-import { getGraduatedBundlePrice } from "@/lib/custom-bundles";
 
 type Navigate = (url: string) => void;
 type BillingError = { error?: unknown };
@@ -29,6 +28,17 @@ async function responsePayload(response: Response): Promise<Record<string, unkno
 }
 
 type BillingInterval = "monthly" | "annual";
+
+type BankGroup = {
+  label: string;
+  banks: readonly Bank[];
+};
+
+const BANK_GROUPS: readonly BankGroup[] = [
+  { label: "Cambridge", banks: BANKS.filter((bank) => bank.qualification === "Cambridge IGCSE") },
+  { label: "IB Mathematics", banks: BANKS.filter((bank) => bank.qualification === "International Baccalaureate" && bank.subject.startsWith("Mathematics")) },
+  { label: "IB Sciences", banks: BANKS.filter((bank) => !bank.subject.startsWith("Mathematics") && bank.qualification !== "Cambridge IGCSE") },
+];
 
 function PlanSelector({ options, value, onChange }: {
   options: readonly { productId: ProductId; label: string }[];
@@ -137,6 +147,7 @@ export function CheckoutButton({
   navigate = defaultNavigate,
   pending: sharedPending,
   onPendingChange,
+  label,
 }: {
   interval: BillingInterval;
   productId: ProductId;
@@ -144,6 +155,7 @@ export function CheckoutButton({
   navigate?: Navigate;
   pending?: boolean;
   onPendingChange?: (pending: boolean) => void;
+  label?: string;
 }) {
   const [localPending, setLocalPending] = useState(false);
   const pending = sharedPending ?? localPending;
@@ -190,7 +202,7 @@ export function CheckoutButton({
   return (
     <div className="billing-actions">
       <button className={`button ${interval === "annual" ? "primary" : "secondary"}`} type="button" disabled={pending} onClick={start}>
-        {pending ? "Opening checkout…" : `Choose ${interval}`}
+        {pending ? "Opening checkout…" : label ?? `Choose ${interval}`}
       </button>
       {needsLogin ? (
         <Link href={`/login?next=${encodeURIComponent(`/pricing?interval=${interval}&product=${productId}${customBankQuery}`)}`}>
@@ -218,12 +230,14 @@ export function PlanCheckout({
   authenticated,
   hasPaidAccess,
   initialProductId,
+  ctaLabel = "Continue to checkout",
 }: {
   options: readonly { productId: ProductId; label: string }[];
   interval: BillingInterval;
   authenticated: boolean;
   hasPaidAccess: boolean;
   initialProductId?: ProductId;
+  ctaLabel?: string;
 }) {
   const availableInitial = initialProductId && options.some((option) => option.productId === initialProductId) ? initialProductId : options[0].productId;
   const [productId, setProductId] = useState<ProductId>(availableInitial);
@@ -236,7 +250,7 @@ export function PlanCheckout({
       ) : null}
       {authenticated
         ? <CheckoutButton interval={interval} productId={productId} />
-        : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`}>Continue to checkout</Link>}
+        : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`}>{ctaLabel}</Link>}
     </div>
   );
 }
@@ -247,28 +261,35 @@ export function CustomBundleCheckout({
   authenticated,
   hasPaidAccess,
   initialBankIds = [BANKS[0].slug],
+  onSelectionChange,
+  ctaLabel = "Continue to checkout",
 }: {
   mode: "single" | "builder";
   interval: BillingInterval;
   authenticated: boolean;
   hasPaidAccess: boolean;
   initialBankIds?: readonly BankSlug[];
+  onSelectionChange?: (selectedBankIds: readonly BankSlug[]) => void;
+  ctaLabel?: string;
 }) {
   const [selectedBankIds, setSelectedBankIds] = useState<BankSlug[]>(() => {
     const initial = [...initialBankIds];
     return mode === "single" ? [initial[0] ?? BANKS[0].slug] : initial;
   });
+  useEffect(() => {
+    onSelectionChange?.(selectedBankIds);
+  }, [onSelectionChange, selectedBankIds]);
   if (hasPaidAccess) return null;
   const quantity = selectedBankIds.length;
   const hasSelection = quantity > 0;
-  const annual = interval === "annual";
   const allAccess = quantity >= 6;
-  const monthlyEquivalentCents = hasSelection
-    ? allAccess ? (annual ? 1_800 : 2_500) : getGraduatedBundlePrice(interval, quantity) / (annual ? 12 : 1)
-    : null;
-  const annualCents = hasSelection ? (allAccess ? 21_600 : getGraduatedBundlePrice("annual", quantity)) : null;
+
   const bankSelection = [...selectedBankIds].sort();
   const pricingReturn = `/pricing?interval=${interval}&banks=${encodeURIComponent(bankSelection.join(","))}`;
+  const selectedBankName = BANKS.find((bank) => bank.slug === selectedBankIds[0])?.shortName;
+  const selectionSummary = mode === "single"
+    ? selectedBankName ?? "Choose a bank"
+    : quantity === 0 ? "None selected" : `${quantity} selected`;
 
   function toggleBank(bankId: BankSlug) {
     setSelectedBankIds((current) => {
@@ -279,29 +300,45 @@ export function CustomBundleCheckout({
 
   return (
     <div className="plan-checkout custom-bundle-checkout">
-      <fieldset className="custom-bank-picker">
-        <legend>{mode === "single" ? "Choose one question bank" : "Choose the banks you need"}</legend>
-        {BANKS.map((bank) => (
-          <label key={bank.slug}>
-            <input
-              type={mode === "single" ? "radio" : "checkbox"}
-              name={mode === "single" ? "one-bank" : `custom-bank-${bank.slug}`}
-              checked={selectedBankIds.includes(bank.slug)}
-              onChange={() => toggleBank(bank.slug)}
-            />
-            <span>{bank.shortName}</span>
-          </label>
-        ))}
-      </fieldset>
-      <p className="custom-bundle-selection-note">
-        {allAccess ? "Six or more banks automatically use All Access." : quantity === 0 ? "Select at least one bank to continue." : `${quantity} ${quantity === 1 ? "bank" : "banks"} selected.`}
-      </p>
+      <details className="custom-bank-disclosure">
+        <summary>
+          <span>{mode === "single" ? "Choose question bank" : "Choose your banks"}</span>
+          <span className="custom-bank-disclosure-value">{selectionSummary}</span>
+          <CaretDown aria-hidden="true" weight="bold" />
+        </summary>
+        <fieldset className="custom-bank-picker">
+          <legend className="sr-only">{mode === "single" ? "Choose one question bank" : "Choose the banks you need"}</legend>
+          <div className="custom-bank-groups">
+            {BANK_GROUPS.map((group) => (
+              <section className="custom-bank-group" key={group.label} aria-labelledby={`bank-group-${mode}-${group.label.toLowerCase().replaceAll(" ", "-")}`}>
+                <h3 id={`bank-group-${mode}-${group.label.toLowerCase().replaceAll(" ", "-")}`}>{group.label}</h3>
+                <div className="custom-bank-group-options">
+                  {group.banks.map((bank) => (
+                    <label data-bank-id={bank.slug} key={bank.slug}>
+                      <input
+                        type={mode === "single" ? "radio" : "checkbox"}
+                        name={mode === "single" ? "one-bank" : `custom-bank-${bank.slug}`}
+                        checked={selectedBankIds.includes(bank.slug)}
+                        onChange={() => toggleBank(bank.slug)}
+                      />
+                      <span>{bank.shortName}</span>
+                    </label>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+        </fieldset>
+      </details>
+      {allAccess || quantity === 0 ? (
+        <p className="custom-bundle-selection-note">
+          {allAccess ? "Six or more banks automatically use All Access." : "Select at least one bank to continue."}
+        </p>
+      ) : null}
       {hasSelection ? <>
-        <p className="custom-bundle-total">{`Billed ${annual ? `$${annualCents! / 100} once a year` : "monthly"}.`}</p>
         {authenticated
-          ? <CheckoutButton interval={interval} productId="bundle_custom" selectedBankIds={bankSelection} />
-          : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`}>Continue to checkout</Link>}
-        <span className="custom-bundle-effective-price">${monthlyEquivalentCents! / 100} / month</span>
+          ? <CheckoutButton interval={interval} productId="bundle_custom" selectedBankIds={bankSelection} label={mode === "builder" ? ctaLabel : undefined} />
+          : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`}>{ctaLabel}</Link>}
       </> : null}
     </div>
   );

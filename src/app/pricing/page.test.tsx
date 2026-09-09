@@ -6,13 +6,14 @@ describe("PricingPage", () => {
   it("shows three concise paid plans with monthly pricing first", () => {
     const { container } = render(<PricingContent authenticated hasPaidAccess={false} />);
 
-    expect(screen.getByRole("heading", { name: /pay only for the subjects you actually study/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /practice smarter\. score higher\./i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Monthly" })).toHaveAttribute("aria-pressed", "true");
     expect(screen.getAllByText("$6").length).toBeGreaterThan(0);
     expect(screen.getByText("$25")).toBeInTheDocument();
-    expect(screen.getByText(/unlock every current bank/i)).toBeInTheDocument();
+    expect(screen.getByText("Everything, including future banks.")).toBeInTheDocument();
+    expect(screen.queryByText(/unlock every current bank/i)).not.toBeInTheDocument();
     expect(screen.getByText(/most popular/i)).toBeInTheDocument();
-    expect(screen.getByText(/every paid plan has the same study tools/i)).toBeInTheDocument();
+    expect(screen.getByText(/every plan includes the same study tools/i)).toBeInTheDocument();
     expect(screen.getByText(/existing fixed and all-access subscribers remain grandfathered/i)).toBeInTheDocument();
 
     const options = container.querySelectorAll(".pricing-option");
