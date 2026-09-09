@@ -28,17 +28,14 @@ const PLANS = [
   {
     name: "One Bank", label: "One question bank", monthly: "$6", annualMonthly: "$4", annual: "$48", annualSaving: "33%",
     description: "Focus on one syllabus.", mode: "single" as const, tone: "starter", popular: false, icon: BookOpen, cta: "Choose One Bank",
-    features: ["Every question in one bank", "Smart topic filters", "Mark schemes where available"],
   },
   {
     name: "Build Your Plan", label: "One to five banks", monthly: "$6", annualMonthly: "$4", annual: "$48+", annualSaving: "33%",
     description: "Mix the banks you actually take.", mode: "builder" as const, tone: "builder", popular: true, icon: SlidersHorizontal, cta: "Build Your Plan",
-    features: ["Choose 1–5 exact banks", "Mix Cambridge and IB", "Price updates as you build"],
   },
   {
     name: "All Access", label: "Every question bank", monthly: "$25", annualMonthly: "$18", annual: "$216", annualSaving: "28%",
     description: "Everything, including future banks.", mode: "all" as const, tone: "premium", popular: false, icon: CrownSimple, cta: "Get All Access",
-    features: ["All 12 current banks", "Future banks included", "Best for multi-subject revision"],
   },
 ] as const;
 
@@ -88,6 +85,9 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
     const builderHeadlineCents = isBuilder ? getBuilderMonthlyEquivalentCents(interval, builderQuantity) : null;
     const headlinePrice = isBuilder ? formatCents(builderHeadlineCents) : interval === "annual" ? plan.annualMonthly : plan.monthly;
     const builderAnnualTotalCents = isBuilder ? getBuilderAnnualTotalCents(builderQuantity) : null;
+    const checkoutCta = isBuilder
+      ? `Continue with ${builderQuantity} ${builderQuantity === 1 ? "bank" : "banks"}`
+      : plan.cta;
     const billingNote = isBuilder && builderQuantity === 0
       ? "Select banks to see your price."
       : interval === "annual"
@@ -108,16 +108,13 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         <div className="plan-price"><strong aria-live={isBuilder ? "polite" : undefined}>{headlinePrice}</strong><span>/ month</span></div>
         <p className="plan-billing-note">{billingNote}</p>
         <p className="plan-description">{plan.description}</p>
-        <ul className="plan-feature-list">
-          {plan.features.map((feature) => <li key={feature}><Check aria-hidden="true" weight="bold" /><span>{feature}</span></li>)}
-        </ul>
         {plan.mode === "all" ? (
           <PlanCheckout
             options={[{ productId: "bundle_all", label: "All Access" }]}
             interval={interval}
             authenticated={authenticated}
             hasPaidAccess={hasPaidAccess}
-            ctaLabel={plan.cta}
+            ctaLabel={checkoutCta}
           />
         ) : (
           <CustomBundleCheckout
@@ -127,7 +124,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
             hasPaidAccess={hasPaidAccess}
             initialBankIds={initialCustomBankIds}
             onSelectionChange={isBuilder ? handleBuilderSelectionChange : undefined}
-            ctaLabel={plan.cta}
+            ctaLabel={checkoutCta}
           />
         )}
       </article>

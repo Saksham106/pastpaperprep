@@ -147,6 +147,7 @@ export function CheckoutButton({
   navigate = defaultNavigate,
   pending: sharedPending,
   onPendingChange,
+  label,
 }: {
   interval: BillingInterval;
   productId: ProductId;
@@ -154,6 +155,7 @@ export function CheckoutButton({
   navigate?: Navigate;
   pending?: boolean;
   onPendingChange?: (pending: boolean) => void;
+  label?: string;
 }) {
   const [localPending, setLocalPending] = useState(false);
   const pending = sharedPending ?? localPending;
@@ -200,7 +202,7 @@ export function CheckoutButton({
   return (
     <div className="billing-actions">
       <button className={`button ${interval === "annual" ? "primary" : "secondary"}`} type="button" disabled={pending} onClick={start}>
-        {pending ? "Opening checkout…" : `Choose ${interval}`}
+        {pending ? "Opening checkout…" : label ?? `Choose ${interval}`}
       </button>
       {needsLogin ? (
         <Link href={`/login?next=${encodeURIComponent(`/pricing?interval=${interval}&product=${productId}${customBankQuery}`)}`}>
@@ -335,7 +337,7 @@ export function CustomBundleCheckout({
       ) : null}
       {hasSelection ? <>
         {authenticated
-          ? <CheckoutButton interval={interval} productId="bundle_custom" selectedBankIds={bankSelection} />
+          ? <CheckoutButton interval={interval} productId="bundle_custom" selectedBankIds={bankSelection} label={mode === "builder" ? ctaLabel : undefined} />
           : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`}>{ctaLabel}</Link>}
       </> : null}
     </div>

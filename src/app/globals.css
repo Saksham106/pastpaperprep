@@ -343,17 +343,18 @@ main { min-height: 72vh; }
 .pricing-option h2 { margin: 0; font: 850 clamp(1.7rem, 3.5vw, 2.5rem)/1 var(--font-display); letter-spacing: -.05em; }
 
 .pricing-badge { padding: 6px 9px; flex: 0 0 auto; color: var(--surface); background: var(--cobalt); border-radius: 999px; font-size: .68rem; font-weight: 850; }
+@media (min-width: 1025px) {
+  .pricing-option-heading { min-height: 112px; }
+  .pricing-option h2 { font-size: clamp(1.7rem, 2.25vw, 2.2rem); white-space: nowrap; }
+  .pricing-option-popular .pricing-badge { position: absolute; top: 0; right: 0; }
+}
 .plan-price { position: relative; z-index: 1; margin-top: 19px; display: flex; align-items: baseline; gap: 7px; }
 .plan-price strong { font: 900 clamp(2.8rem, 5vw, 4.25rem)/.95 var(--font-display); letter-spacing: -.065em; }
 
 .plan-price span, .plan-billing-note, .plan-description { color: var(--muted); }
 .plan-billing-note { position: relative; z-index: 1; margin: 7px 0 0; font-size: .78rem; }
 .plan-description { position: relative; z-index: 1; margin: 11px 0 0; font-size: .9rem; line-height: 1.45; }
-.plan-feature-list { position: relative; z-index: 1; margin: auto 0 22px; padding: 30px 0 0; display: grid; gap: 13px; list-style: none; }
-.plan-feature-list li { display: grid; grid-template-columns: 20px minmax(0, 1fr); align-items: center; gap: 9px; color: var(--ink); font-size: .84rem; font-weight: 700; }
-.plan-feature-list svg { width: 19px; height: 19px; padding: 3px; color: #fff; background: var(--plan-accent); border-radius: 50%; }
-.pricing-option:has(.custom-bank-disclosure[open]) .plan-feature-list { display: none; }
-.plan-checkout { position: relative; z-index: 2; display: grid; gap: 9px; }
+.plan-checkout { position: relative; z-index: 2; margin-top: auto; display: grid; gap: 9px; }
 .custom-bundle-checkout { gap: 10px; }
 .custom-bank-disclosure { overflow: hidden; background: var(--surface-raised); border: 1px solid var(--line-strong); border-radius: 10px; }
 .custom-bank-disclosure summary { min-height: 46px; padding: 10px 12px; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 8px; list-style: none; color: var(--ink); font-size: .78rem; font-weight: 800; cursor: pointer; }
