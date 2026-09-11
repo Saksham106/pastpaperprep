@@ -4,7 +4,7 @@ import { readFile, stat } from "node:fs/promises";
 import { resolve } from "node:path";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { isPreviewQuestion } from "@/lib/access";
-import { BANKS, type BankSlug } from "@/lib/banks";
+import { BANKS, type ProductionBankSlug } from "@/lib/banks";
 import { loadBankQuestions } from "@/lib/question-fixtures";
 import { buildAssetRetentionPlan } from "@/lib/asset-retention";
 
@@ -18,7 +18,7 @@ const EXPECTED_PREVIEW_COUNT = 4_386;
 const EXPECTED_PREMIUM_COUNT = 27_311;
 const CONFIRMATION = String(EXPECTED_PREMIUM_COUNT);
 
-const SOURCE_ROOTS: Record<BankSlug, string> = {
+const SOURCE_ROOTS: Record<ProductionBankSlug, string> = {
   igcse: resolve(WORKSPACE_ROOT, "igcse-0580-topic-practice/site"),
   "igcse-additional": resolve(WORKSPACE_ROOT, "igcse-additional-mathematics-0606-topic-practice-full-audit-final/site"),
   "ib-hl": resolve(WORKSPACE_ROOT, "ib-maths-aa-hl-topic-practice/site"),
@@ -40,7 +40,7 @@ function formatBytes(bytes: number) {
 function canonicalPath(key: string) {
   const slash = key.indexOf("/");
   if (slash < 1) throw new Error(`Invalid asset key: ${key}`);
-  const bank = key.slice(0, slash) as BankSlug;
+  const bank = key.slice(0, slash) as ProductionBankSlug;
   const root = SOURCE_ROOTS[bank];
   if (!root) throw new Error(`Unknown bank prefix: ${bank}`);
   return resolve(root, key.slice(slash + 1));

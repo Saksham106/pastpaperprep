@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "ib-economics-representative-get-v1",
+  "status": "verified",
+  "method": "explicit-node-wrangler-oauth-readonly",
+  "runtime": "Node v22.22.0 arm64; Wrangler 4.129.0",
+  "bucket": "pastpaperprep-assets",
+  "receiptSha256": "31987a5410ea7325b6bb59e26ee451fbbc7131ece6270040bbd5ab8d27cc1467",
+  "manifestSha256": "03530b3e2e964821189575d3c6ad287b2145d89b6922e354f08147e1b845aae5",
+  "samplesPerBank": 3,
+  "verifiedSampleCount": 6,
+  "banks": {
+    "ib-economics-hl": {
+      "manifestFileSha256": "360647fe38d9e46e7276b07c648e94c7514889c6b24d406cfd3fabaafd606492",
+      "samples": [
+        {"objectKey":"ib-economics-hl/markschemes/2021-may-none-hl-p2-q01/markscheme-01.webp","bytes":42226,"sha256":"342c319533b583ba00d950cc443edfbb2a7d213f8bb3312a1b7adb1296526689","manifestMatch":true,"receiptMatch":true},
+        {"objectKey":"ib-economics-hl/markschemes/2025-may-tz2-hlsl-p2-q02/markscheme-03.webp","bytes":61160,"sha256":"fede3302122aa53115c6a2b058fcfa4cf65d8ceedb714cf1703c115a73b04566","manifestMatch":true,"receiptMatch":true},
+        {"objectKey":"ib-economics-hl/questions/2025-november-tz3-hlsl-p2-q02/question-07.webp","bytes":85728,"sha256":"6f00b96caf6d4e75edccd0c8da4965040e686c89b415a0bbbce4026cdfae7877","manifestMatch":true,"receiptMatch":true}
+      ]
+    },
+    "ib-economics-sl": {
+      "manifestFileSha256": "d60b5b6a6d12102bc867598cee187b9715fee5de7d71d2098ee73191cdad8ce3",
+      "samples": [
+        {"objectKey":"ib-economics-sl/markschemes/2021-may-none-sl-p2-q01/markscheme-01.webp","bytes":62820,"sha256":"e3afb90b430b4d8050c10ec667009a0e3b93c4de7dd8c78c744ec08bae256ede","manifestMatch":true,"receiptMatch":true},
+        {"objectKey":"ib-economics-sl/markschemes/2025-may-tz1-sl-p1-q03/markscheme-03.webp","bytes":44902,"sha256":"86e04eb07d766581f1758bbcecfbf7e170f65af26d23f9e61556e17b30858ffc","manifestMatch":true,"receiptMatch":true},
+        {"objectKey":"ib-economics-sl/questions/2025-november-tz3-sl-p1-q03/question-01.webp","bytes":9758,"sha256":"d0c5882be377c62e65a1bd76b8cca502fabf76f3ffb22e46613b59de027c6ec4","manifestMatch":true,"receiptMatch":true}
+      ]
+    }
+  }
+}

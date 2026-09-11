@@ -1,4 +1,12 @@
-export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl" | "ib-physics-hl" | "ib-physics-sl" | "ib-biology-hl" | "ib-biology-sl";
+export type EconomicsBankSlug = "ib-economics-hl" | "ib-economics-sl";
+export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl" | "ib-physics-hl" | "ib-physics-sl" | "ib-biology-hl" | "ib-biology-sl" | EconomicsBankSlug;
+export type ProductionBankSlug = Exclude<BankSlug, EconomicsBankSlug>;
+
+export const ECONOMICS_PRODUCT_IDS = [
+  "bank_ib_economics_hl",
+  "bank_ib_economics_sl",
+  "bundle_ib_economics",
+] as const;
 
 export type Bank = {
   slug: BankSlug;
@@ -12,7 +20,91 @@ export type Bank = {
   years: string;
   accent: "cobalt" | "coral" | "lime";
   sourceBaseUrl: string;
+  localPreview?: boolean;
+  productionEnabled?: boolean;
+  releaseStatus?: string;
+  rightsStatus?: string;
+  entitlementProductId?: string | null;
 };
+
+export const LOCAL_PREVIEW_BANKS: readonly Bank[] = [
+  {
+    slug: "ib-economics-hl",
+    shortName: "IB Economics HL",
+    title: "IB Economics Higher Level",
+    description: "Local preview of verified IB Economics HL past-paper questions, official mark schemes, and granular topic filters.",
+    qualification: "International Baccalaureate",
+    subject: "Economics HL",
+    questionCount: 111,
+    paperCount: 42,
+    years: "2021-2025",
+    accent: "coral",
+    sourceBaseUrl: "/api/local-preview-assets/ib-economics-hl",
+    localPreview: true,
+    productionEnabled: false,
+    releaseStatus: "local_preview_candidate",
+    rightsStatus: "unknown_publication_blocking",
+    entitlementProductId: null,
+  },
+  {
+    slug: "ib-economics-sl",
+    shortName: "IB Economics SL",
+    title: "IB Economics Standard Level",
+    description: "Local preview of verified IB Economics SL past-paper questions, official mark schemes, and granular topic filters.",
+    qualification: "International Baccalaureate",
+    subject: "Economics SL",
+    questionCount: 89,
+    paperCount: 32,
+    years: "2021-2025",
+    accent: "lime",
+    sourceBaseUrl: "/api/local-preview-assets/ib-economics-sl",
+    localPreview: true,
+    productionEnabled: false,
+    releaseStatus: "local_preview_candidate",
+    rightsStatus: "unknown_publication_blocking",
+    entitlementProductId: null,
+  },
+] as const;
+
+/** Candidate catalog entries. They stay out of the production catalog until both gates are explicit. */
+export const ECONOMICS_BANK_CATALOG: readonly Bank[] = [
+  {
+    slug: "ib-economics-hl",
+    shortName: "IB Economics HL",
+    title: "IB Economics Higher Level",
+    description: "IB Economics HL questions organized by topic, paper, session, and skill.",
+    qualification: "International Baccalaureate",
+    subject: "Economics HL",
+    questionCount: 111,
+    paperCount: 42,
+    years: "2021-2025",
+    accent: "coral",
+    sourceBaseUrl: "",
+    localPreview: false,
+    productionEnabled: true,
+    releaseStatus: "published",
+    rightsStatus: "user_attested_non_blocking_for_named_corpus",
+    entitlementProductId: "bank_ib_economics_hl",
+  },
+  {
+    slug: "ib-economics-sl",
+    shortName: "IB Economics SL",
+    title: "IB Economics Standard Level",
+    description: "IB Economics SL questions organized by topic, paper, session, and skill.",
+    qualification: "International Baccalaureate",
+    subject: "Economics SL",
+    questionCount: 89,
+    paperCount: 32,
+    years: "2021-2025",
+    accent: "lime",
+    sourceBaseUrl: "",
+    localPreview: false,
+    productionEnabled: true,
+    releaseStatus: "published",
+    rightsStatus: "user_attested_non_blocking_for_named_corpus",
+    entitlementProductId: "bank_ib_economics_sl",
+  },
+] as const;
 
 export const BANKS: readonly Bank[] = [
   {
@@ -173,6 +265,34 @@ export const BANKS: readonly Bank[] = [
   },
 ] as const;
 
-export function getBank(slug: string): Bank | undefined {
-  return BANKS.find((bank) => bank.slug === slug);
+export function isLocalEconomicsBank(slug: string): slug is EconomicsBankSlug {
+  return slug === "ib-economics-hl" || slug === "ib-economics-sl";
+}
+
+export function isEconomicsProductionEnabled(environment: Record<string, string | undefined> = process.env): boolean {
+  return environment.PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION === "true"
+    && environment.PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED === "true";
+}
+
+export function isLocalEconomicsPreviewEnabled(environment: Record<string, string | undefined> = process.env): boolean {
+  return environment.NODE_ENV === "development" && environment.PASTPAPERPREP_ENABLE_LOCAL_IB_ECONOMICS_PREVIEW === "true";
+}
+
+/** All known production-shaped bank IDs, including gated Economics, for entitlement reads. */
+export function getEntitlementBanks(): readonly Bank[] {
+  return [...BANKS, ...ECONOMICS_BANK_CATALOG];
+}
+
+/** Banks that may be sent to billing. Local preview banks are never billable. */
+export function getBillingBanks(environment: Record<string, string | undefined> = process.env): readonly Bank[] {
+  return isEconomicsProductionEnabled(environment) ? [...BANKS, ...ECONOMICS_BANK_CATALOG] : BANKS;
+}
+
+export function getAvailableBanks(environment: Record<string, string | undefined> = process.env): readonly Bank[] {
+  if (isEconomicsProductionEnabled(environment)) return getBillingBanks(environment);
+  return isLocalEconomicsPreviewEnabled(environment) ? [...BANKS, ...LOCAL_PREVIEW_BANKS] : BANKS;
+}
+
+export function getBank(slug: string, environment: Record<string, string | undefined> = process.env): Bank | undefined {
+  return getAvailableBanks(environment).find((bank) => bank.slug === slug);
 }

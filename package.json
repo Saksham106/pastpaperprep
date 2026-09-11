@@ -8,6 +8,7 @@
     "build": "next build",
     "prebuild": "npm run generate:bank-index",
     "generate:bank-index": "node scripts/generate-bank-index.mjs",
+    "generate:economics-production": "node scripts/generate-ib-economics-production.mjs",
     "r2:sync": "node scripts/sync-r2-assets.mjs",
     "r2:verify": "node scripts/sync-r2-assets.mjs --verify-only",
     "storage:plan": "tsx scripts/reconcile-supabase-assets.ts --plan-only",

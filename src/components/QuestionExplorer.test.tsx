@@ -7,6 +7,7 @@ import { PREVIEW_QUESTION_IDS } from "@/lib/access";
 import { prepareQuestionsForDelivery } from "@/lib/question-delivery";
 import { toPublicQuestionMetadata } from "@/lib/question-index";
 import { loadBankQuestions } from "@/lib/question-fixtures";
+import { loadBankQuestions as loadEconomicsBankQuestions } from "@/lib/question-loader";
 
 describe("QuestionExplorer", () => {
   beforeEach(() => {
@@ -74,6 +75,37 @@ describe("QuestionExplorer", () => {
 
     fireEvent.click(screen.getAllByText(/show answer/i)[0]);
     expect(await screen.findByText(/the tangent through/i)).toBeInTheDocument();
+  });
+
+  it("routes local-preview answer hydration to the dev-only signer and renders all answer pages", async () => {
+    const source = (await loadEconomicsBankQuestions("ib-economics-hl")).find((question) => question.id === "2021-may-tz1-hl-p1-q01");
+    expect(source?.markschemeImageCount).toBe(3);
+    const questions = prepareQuestionsForDelivery([source!], [], new Date(), true);
+    const fetchMock = vi.fn(async (input, init) => {
+      const url = String(input);
+      if (url === "/api/assets/sign") return new Response(JSON.stringify({ error: "paid signer must not be used" }), { status: 403 });
+      if (url !== "/api/local-preview-assets/sign") return new Response("unexpected request", { status: 500 });
+      const body = JSON.parse(String(init?.body)) as { requests: Array<{ questionId: string; kind: "question" | "answer" }> };
+      return new Response(JSON.stringify({
+        expiresIn: 600,
+        assets: body.requests.map((request) => ({
+          ...request,
+          urls: request.kind === "answer"
+            ? [1, 2, 3].map((page) => `/api/local-preview-assets/ib-economics-hl/markschemes/${request.questionId}/page-${page}.webp`)
+            : [`/api/local-preview-assets/ib-economics-hl/questions/${request.questionId}/question-01.webp`],
+        })),
+      }), { status: 200, headers: { "content-type": "application/json" } });
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(<QuestionExplorer questions={questions} bankSlug="ib-economics-hl" localPreview access={{ authenticated: false, bankAccess: true, canExportPdf: true }} />);
+    expect(await screen.findByRole("img", { name: /original question/i })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: /show answer/i }));
+
+    expect(await screen.findByRole("img", { name: "Official mark scheme page 3" })).toBeInTheDocument();
+    expect(screen.getAllByRole("img", { name: /official mark scheme page/i })).toHaveLength(3);
+    expect(fetchMock.mock.calls.map(([input]) => String(input))).not.toContain("/api/assets/sign");
+    expect(fetchMock.mock.calls.filter(([input]) => String(input) === "/api/local-preview-assets/sign").length).toBeGreaterThanOrEqual(2);
   });
 
   it("hides source paper, mark scheme, and transcript controls without removing their data", async () => {

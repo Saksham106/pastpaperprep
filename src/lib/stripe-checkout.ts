@@ -22,10 +22,10 @@ type CheckoutDependencies = {
 };
 
 export async function startCheckout(
-  input: { interval: unknown; productId: unknown; selectedBankIds?: unknown; user: CheckoutUser; config: StripeConfig },
+  input: { interval: unknown; productId: unknown; selectedBankIds?: unknown; user: CheckoutUser; config: StripeConfig; environment?: Record<string, string | undefined> },
   dependencies: CheckoutDependencies,
 ): Promise<string> {
-  const plan = getBillingPlan(input.productId, input.interval, input.config, input.selectedBankIds);
+  const plan = getBillingPlan(input.productId, input.interval, input.config, input.selectedBankIds, input.environment);
   let customerId = await dependencies.findCustomerId(input.user.id);
 
   if (!customerId) {

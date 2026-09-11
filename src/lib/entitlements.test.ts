@@ -11,6 +11,7 @@ describe("entitlement row normalization", () => {
       { product_id: "bank_ib_physics_hl", status: "active", starts_at: "2026-08-01T00:00:00Z", expires_at: null },
       { product_id: "bundle_ib_physics", status: "active", starts_at: "2026-08-01T00:00:00Z", expires_at: null },
       { product_id: "bundle_custom", selected_bank_ids: ["ib-sl", "igcse"], status: "active", starts_at: "2026-08-01T00:00:00Z", expires_at: null },
+      { product_id: "bundle_custom", selected_bank_ids: ["ib-economics-hl", "ib-hl"], status: "active", starts_at: "2026-08-01T00:00:00Z", expires_at: null },
       { product_id: "bank_ib_hl", status: "active", starts_at: "not-a-date", expires_at: null },
       { product_id: "admin", status: "active", expires_at: null },
       { product_id: "bank_ib_hl", status: "pending", expires_at: null },
@@ -22,6 +23,7 @@ describe("entitlement row normalization", () => {
       { productId: "bank_ib_physics_hl", status: "active", startsAt: "2026-08-01T00:00:00Z", expiresAt: null },
       { productId: "bundle_ib_physics", status: "active", startsAt: "2026-08-01T00:00:00Z", expiresAt: null },
       { productId: "bundle_custom", selectedBankIds: ["ib-sl", "igcse"], status: "active", startsAt: "2026-08-01T00:00:00Z", expiresAt: null },
+      { productId: "bundle_custom", selectedBankIds: ["ib-economics-hl", "ib-hl"], status: "active", startsAt: "2026-08-01T00:00:00Z", expiresAt: null },
     ]);
   });
 

@@ -1,4 +1,4 @@
-import type { BankSlug } from "@/lib/banks";
+import { isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
 import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
 import type { QuestionRichDetails, UnifiedQuestion } from "@/lib/questions";
 
@@ -87,6 +87,7 @@ export function publicMetadataToQuestion(question: PublicQuestionMetadata, bank:
   return {
     ...question,
     courseEra: "",
+    secondarySubtopics: [],
     bankSlug: bank,
     summary: "",
     accessibleText: "",
@@ -116,5 +117,16 @@ export function mergeQuestionRichDetails(
 }
 
 export function publicBankIndexUrl(bank: BankSlug): string {
+  if (isLocalEconomicsBank(bank)) throw new Error("Local preview banks do not have public index files");
   return `/bank-index/${PUBLIC_BANK_INDEX_FILES[bank]}`;
+}
+
+export function localPreviewBankIndexUrl(bank: BankSlug): string {
+  if (!isLocalEconomicsBank(bank)) throw new Error("Only Economics banks have local preview index files");
+  return `/api/local-preview-index/${bank}`;
+}
+
+export function privateEconomicsBankIndexUrl(bank: BankSlug): string {
+  if (!isLocalEconomicsBank(bank)) throw new Error("Only Economics banks have private candidate index files");
+  return `/api/private-bank-index/${bank}`;
 }

@@ -4,8 +4,7 @@ import Link from "next/link";
 import { CaretDown, Check } from "@phosphor-icons/react";
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import type { ProductId } from "@/lib/access";
-import type { Bank, BankSlug } from "@/lib/banks";
-import { BANKS } from "@/lib/banks";
+import { BANKS, type Bank, type BankSlug } from "@/lib/banks";
 
 type Navigate = (url: string) => void;
 type BillingError = { error?: unknown };
@@ -34,11 +33,13 @@ type BankGroup = {
   banks: readonly Bank[];
 };
 
-const BANK_GROUPS: readonly BankGroup[] = [
-  { label: "Cambridge", banks: BANKS.filter((bank) => bank.qualification === "Cambridge IGCSE") },
-  { label: "IB Mathematics", banks: BANKS.filter((bank) => bank.qualification === "International Baccalaureate" && bank.subject.startsWith("Mathematics")) },
-  { label: "IB Sciences", banks: BANKS.filter((bank) => !bank.subject.startsWith("Mathematics") && bank.qualification !== "Cambridge IGCSE") },
-];
+function getBankGroups(banks: readonly Bank[]): readonly BankGroup[] {
+  return [
+    { label: "Cambridge", banks: banks.filter((bank) => bank.qualification === "Cambridge IGCSE") },
+    { label: "IB Mathematics", banks: banks.filter((bank) => bank.qualification === "International Baccalaureate" && bank.subject.startsWith("Mathematics")) },
+    { label: "IB Sciences", banks: banks.filter((bank) => !bank.subject.startsWith("Mathematics") && bank.qualification !== "Cambridge IGCSE") },
+  ];
+}
 
 function PlanSelector({ options, value, onChange }: {
   options: readonly { productId: ProductId; label: string }[];
@@ -261,6 +262,7 @@ export function CustomBundleCheckout({
   authenticated,
   hasPaidAccess,
   initialBankIds = [BANKS[0].slug],
+  availableBanks = BANKS,
   onSelectionChange,
   ctaLabel = "Continue to checkout",
 }: {
@@ -269,12 +271,13 @@ export function CustomBundleCheckout({
   authenticated: boolean;
   hasPaidAccess: boolean;
   initialBankIds?: readonly BankSlug[];
+  availableBanks?: readonly Bank[];
   onSelectionChange?: (selectedBankIds: readonly BankSlug[]) => void;
   ctaLabel?: string;
 }) {
   const [selectedBankIds, setSelectedBankIds] = useState<BankSlug[]>(() => {
     const initial = [...initialBankIds];
-    return mode === "single" ? [initial[0] ?? BANKS[0].slug] : initial;
+    return mode === "single" ? [initial[0] ?? availableBanks[0]?.slug ?? BANKS[0].slug] : initial;
   });
   useEffect(() => {
     onSelectionChange?.(selectedBankIds);
@@ -286,7 +289,8 @@ export function CustomBundleCheckout({
 
   const bankSelection = [...selectedBankIds].sort();
   const pricingReturn = `/pricing?interval=${interval}&banks=${encodeURIComponent(bankSelection.join(","))}`;
-  const selectedBankName = BANKS.find((bank) => bank.slug === selectedBankIds[0])?.shortName;
+  const selectedBankName = availableBanks.find((bank) => bank.slug === selectedBankIds[0])?.shortName;
+  const bankGroups = getBankGroups(availableBanks);
   const selectionSummary = mode === "single"
     ? selectedBankName ?? "Choose a bank"
     : quantity === 0 ? "None selected" : `${quantity} selected`;
@@ -309,7 +313,7 @@ export function CustomBundleCheckout({
         <fieldset className="custom-bank-picker">
           <legend className="sr-only">{mode === "single" ? "Choose one question bank" : "Choose the banks you need"}</legend>
           <div className="custom-bank-groups">
-            {BANK_GROUPS.map((group) => (
+            {bankGroups.map((group) => (
               <section className="custom-bank-group" key={group.label} aria-labelledby={`bank-group-${mode}-${group.label.toLowerCase().replaceAll(" ", "-")}`}>
                 <h3 id={`bank-group-${mode}-${group.label.toLowerCase().replaceAll(" ", "-")}`}>{group.label}</h3>
                 <div className="custom-bank-group-options">

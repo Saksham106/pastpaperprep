@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { AccessEntitlement } from "@/lib/access";
-import { getBank, type BankSlug } from "@/lib/banks";
+import { getBank, isLocalEconomicsBank, isLocalEconomicsPreviewEnabled, type BankSlug } from "@/lib/banks";
 import { normalizeEntitlements } from "@/lib/entitlements";
 import { loadBankQuestions } from "@/lib/question-loader";
 import { searchQuestionIds } from "@/lib/question-search";
@@ -26,6 +26,11 @@ export async function GET(request: Request) {
     return response({ error: "Invalid question search" }, 400);
   }
 
+  if (isLocalEconomicsPreviewEnabled() && isLocalEconomicsBank(bankParam)) {
+    const ids = searchQuestionIds(await loadBankQuestions(bankParam), query, [], new Date(), true);
+    return response({ ids });
+  }
+
   const supabase = await createClient();
   const { data: claimsData } = await supabase.auth.getClaims();
   const userId = typeof claimsData?.claims?.sub === "string" ? claimsData.claims.sub : null;
@@ -34,7 +39,7 @@ export async function GET(request: Request) {
   if (userId) {
     const { data, error } = await supabase
       .from("entitlements")
-      .select("product_id, status, starts_at, expires_at")
+      .select("product_id, selected_bank_ids, status, starts_at, expires_at")
       .eq("user_id", userId);
     if (error) return response({ error: "Could not verify access" }, 503);
     entitlements = normalizeEntitlements(data ?? []);

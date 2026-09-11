@@ -1,6 +1,6 @@
-import type { BankSlug } from "@/lib/banks";
+import { isLocalEconomicsBank, type BankSlug, type ProductionBankSlug } from "@/lib/banks";
 
-export type ProductId = "bank_igcse" | "bank_igcse_additional" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bank_ib_chemistry_hl" | "bank_ib_chemistry_sl" | "bank_ib_physics_hl" | "bank_ib_physics_sl" | "bank_ib_biology_hl" | "bank_ib_biology_sl" | "bundle_igcse" | "bundle_ib_aa" | "bundle_ib_ai" | "bundle_ib_chemistry" | "bundle_ib_physics" | "bundle_ib_biology" | "bundle_all" | "bundle_custom";
+export type ProductId = "bank_igcse" | "bank_igcse_additional" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bank_ib_chemistry_hl" | "bank_ib_chemistry_sl" | "bank_ib_physics_hl" | "bank_ib_physics_sl" | "bank_ib_biology_hl" | "bank_ib_biology_sl" | "bank_ib_economics_hl" | "bank_ib_economics_sl" | "bundle_igcse" | "bundle_ib_aa" | "bundle_ib_ai" | "bundle_ib_chemistry" | "bundle_ib_physics" | "bundle_ib_biology" | "bundle_ib_economics" | "bundle_all" | "bundle_custom";
 export type EntitlementStatus = "active" | "trialing" | "expired" | "revoked";
 
 export type AccessEntitlement = {
@@ -11,7 +11,7 @@ export type AccessEntitlement = {
   expiresAt: string | null;
 };
 
-const BANK_PRODUCTS: Record<BankSlug, ProductId> = {
+const BANK_PRODUCTS: Partial<Record<BankSlug, ProductId>> = {
   igcse: "bank_igcse",
   "igcse-additional": "bank_igcse_additional",
   "ib-hl": "bank_ib_hl",
@@ -24,9 +24,11 @@ const BANK_PRODUCTS: Record<BankSlug, ProductId> = {
   "ib-physics-sl": "bank_ib_physics_sl",
   "ib-biology-hl": "bank_ib_biology_hl",
   "ib-biology-sl": "bank_ib_biology_sl",
+  "ib-economics-hl": "bank_ib_economics_hl",
+  "ib-economics-sl": "bank_ib_economics_sl",
 };
 
-const BANK_BUNDLES: Record<BankSlug, readonly ProductId[]> = {
+const BANK_BUNDLES: Partial<Record<BankSlug, readonly ProductId[]>> = {
   igcse: ["bundle_igcse"],
   "igcse-additional": ["bundle_igcse"],
   "ib-hl": ["bundle_ib_aa"],
@@ -39,9 +41,11 @@ const BANK_BUNDLES: Record<BankSlug, readonly ProductId[]> = {
   "ib-physics-sl": ["bundle_ib_physics"],
   "ib-biology-hl": ["bundle_ib_biology"],
   "ib-biology-sl": ["bundle_ib_biology"],
+  "ib-economics-hl": ["bundle_ib_economics"],
+  "ib-economics-sl": ["bundle_ib_economics"],
 };
 
-export const PREVIEW_QUESTION_IDS: Record<BankSlug, readonly string[]> = {
+export const PREVIEW_QUESTION_IDS: Record<ProductionBankSlug, readonly string[]> = {
   igcse: [
     "0580-2016-march-22-q1",
     "0580-2016-march-22-q2",
@@ -104,7 +108,7 @@ export const PREVIEW_QUESTION_IDS: Record<BankSlug, readonly string[]> = {
   ],
 };
 
-export const FREE_QUESTION_YEARS: Record<BankSlug, readonly number[]> = {
+export const FREE_QUESTION_YEARS: Record<ProductionBankSlug, readonly number[]> = {
   igcse: [2016, 2017, 2018],
   "igcse-additional": [2016, 2017, 2018],
   "ib-hl": [2017],
@@ -138,12 +142,13 @@ export function hasBankAccess(
   return entitlements.some(
     (entitlement) =>
       isCurrent(entitlement, now) &&
-      (entitlement.productId === bankProduct || BANK_BUNDLES[bankSlug].includes(entitlement.productId) || entitlement.productId === "bundle_all" ||
+      (Boolean(bankProduct) && entitlement.productId === bankProduct || BANK_BUNDLES[bankSlug]?.includes(entitlement.productId) || entitlement.productId === "bundle_all" ||
         (entitlement.productId === "bundle_custom" && entitlement.selectedBankIds?.includes(bankSlug))),
   );
 }
 
 export function isPreviewQuestion(bankSlug: BankSlug, questionId: string): boolean {
+  if (isLocalEconomicsBank(bankSlug)) return false;
   const match = bankSlug === "igcse"
     ? /^0580-(\d{4})-/.exec(questionId)
     : bankSlug === "igcse-additional"

@@ -7,18 +7,18 @@ import { BankSeoContent } from "@/components/BankSeoContent";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { canExportPdf, hasBankAccess, isPreviewQuestion } from "@/lib/access";
-import { BANKS, getBank, type BankSlug } from "@/lib/banks";
+import { getAvailableBanks, getBank, isEconomicsProductionEnabled, isLocalEconomicsBank, isLocalEconomicsPreviewEnabled, type BankSlug } from "@/lib/banks";
 import { EXPLORER_PAGE_SIZE, parseExplorerState, type ExplorerSearchParams } from "@/lib/explorer-state";
 import { filterQuestions } from "@/lib/question-filter";
 import { normalizeEntitlements } from "@/lib/entitlements";
 import { getQuestionRichDetails } from "@/lib/question-delivery";
-import { mergeQuestionRichDetails, publicBankIndexUrl, publicMetadataToQuestion, toPublicQuestionMetadata } from "@/lib/question-index";
+import { localPreviewBankIndexUrl, mergeQuestionRichDetails, privateEconomicsBankIndexUrl, publicBankIndexUrl, publicMetadataToQuestion, toPublicQuestionMetadata } from "@/lib/question-index";
 import { loadBankQuestions } from "@/lib/question-loader";
 import { searchQuestionIds } from "@/lib/question-search";
 import { hasSupabaseAuthCookie } from "@/lib/supabase/proxy";
 import { createClient } from "@/lib/supabase/server";
 
-export function generateStaticParams() { return BANKS.map(({ slug }) => ({ slug })); }
+export function generateStaticParams() { return getAvailableBanks().map(({ slug }) => ({ slug })); }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const bank = getBank((await params).slug);
@@ -45,8 +45,10 @@ export default async function BankPage({ params, searchParams }: { params: Promi
   const rawSearchParams = await searchParams;
   const bank = getBank(slug);
   if (!bank) notFound();
+  const localPreview = isLocalEconomicsPreviewEnabled() && isLocalEconomicsBank(slug);
+  const productionEconomics = isEconomicsProductionEnabled() && isLocalEconomicsBank(slug);
   const hasAuthCookie = hasSupabaseAuthCookie((await cookies()).getAll());
-  const supabase = hasAuthCookie ? await createClient() : null;
+  const supabase = !localPreview && hasAuthCookie ? await createClient() : null;
   const claimsData = supabase ? (await supabase.auth.getClaims()).data : null;
   const userId = claimsData?.claims?.sub;
   const exportMarker = typeof userId === "string"
@@ -54,13 +56,13 @@ export default async function BankPage({ params, searchParams }: { params: Promi
     : undefined;
   const [{ data: entitlementRows }, { data: savedRows }, { data: attemptRows }] = userId && supabase
     ? await Promise.all([
-      supabase.from("entitlements").select("product_id, status, starts_at, expires_at").eq("user_id", userId),
+      supabase.from("entitlements").select("product_id, selected_bank_ids, status, starts_at, expires_at").eq("user_id", userId),
       supabase.from("saved_questions").select("question_id").eq("user_id", userId).eq("bank_slug", slug),
       supabase.from("attempts").select("question_id").eq("user_id", userId).eq("bank_slug", slug),
     ])
     : [{ data: [] }, { data: [] }, { data: [] }];
   const entitlements = normalizeEntitlements(entitlementRows ?? []);
-  const bankAccess = hasBankAccess(slug, entitlements);
+  const bankAccess = localPreview || hasBankAccess(slug, entitlements);
   const allQuestions = await loadBankQuestions(slug);
   const filterableQuestions = allQuestions.map((question) => publicMetadataToQuestion(toPublicQuestionMetadata(question), slug));
   const initialState = parseExplorerState(rawSearchParams, { defaultFreeOnly: !bankAccess });
@@ -80,7 +82,7 @@ export default async function BankPage({ params, searchParams }: { params: Promi
   const initialQuestions = initialMatches.slice(0, EXPLORER_PAGE_SIZE).map((question) => {
     const sourceQuestion = sourceById.get(question.id);
     return sourceQuestion
-      ? mergeQuestionRichDetails(question, getQuestionRichDetails(sourceQuestion, entitlements))
+      ? mergeQuestionRichDetails(question, getQuestionRichDetails(sourceQuestion, entitlements, new Date(), localPreview))
       : question;
   });
 
@@ -121,7 +123,7 @@ export default async function BankPage({ params, searchParams }: { params: Promi
         </div>
       </section>
       <div className="shell">
-        <QuestionExplorer questions={initialQuestions} bankSlug={slug} indexUrl={publicBankIndexUrl(slug)} access={{ authenticated: Boolean(userId), bankAccess, canExportPdf: canExportPdf(slug, entitlements) }} exportMarker={exportMarker} initialState={initialState} studyState={{ savedIds: (savedRows ?? []).map((row) => row.question_id), attemptedIds: (attemptRows ?? []).map((row) => row.question_id) }} />
+        <QuestionExplorer questions={initialQuestions} bankSlug={slug} localPreview={localPreview} indexUrl={localPreview ? localPreviewBankIndexUrl(slug) : productionEconomics ? privateEconomicsBankIndexUrl(slug) : publicBankIndexUrl(slug)} access={{ authenticated: Boolean(userId), bankAccess, canExportPdf: localPreview || canExportPdf(slug, entitlements) }} exportMarker={exportMarker} initialState={initialState} studyState={{ savedIds: (savedRows ?? []).map((row) => row.question_id), attemptedIds: (attemptRows ?? []).map((row) => row.question_id) }} />
         <BankSeoContent bank={bank} />
       </div>
     </>

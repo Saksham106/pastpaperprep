@@ -10,7 +10,7 @@ type BankGroup = {
   banks: Bank[];
 };
 
-const CARD_NAMES: Record<BankSlug, string> = {
+const CARD_NAMES: Partial<Record<BankSlug, string>> = {
   igcse: "Mathematics 0580",
   "igcse-additional": "Additional Mathematics 0606",
   "ib-hl": "Maths AA HL",

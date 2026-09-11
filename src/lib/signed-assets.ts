@@ -30,14 +30,14 @@ function validDetails(value: unknown): value is QuestionRichDetails {
     (details.sourceMarkSchemeUrl === null || typeof details.sourceMarkSchemeUrl === "string");
 }
 
-function validAsset(value: unknown): value is AssetRequest & { urls: string[]; details?: QuestionRichDetails } {
+function validAsset(value: unknown, localPreview = false): value is AssetRequest & { urls: string[]; details?: QuestionRichDetails } {
   if (!value || typeof value !== "object" || Array.isArray(value)) return false;
   const asset = value as Record<string, unknown>;
   return (
     typeof asset.questionId === "string" &&
     (asset.kind === "question" || asset.kind === "answer") &&
     Array.isArray(asset.urls) &&
-    asset.urls.every((url) => typeof url === "string" && /^https:\/\//.test(url)) &&
+    asset.urls.every((url) => typeof url === "string" && (/^https:\/\//.test(url) || (localPreview && /^\/api\/local-preview-assets\//.test(url)))) &&
     (asset.details === undefined || validDetails(asset.details))
   );
 }
@@ -46,13 +46,14 @@ export async function fetchSignedAssets(
   bank: BankSlug,
   requests: readonly AssetRequest[],
   fetcher: Fetcher = fetch,
+  localPreview = false,
 ): Promise<Map<string, SignedAsset>> {
   const signed = new Map<string, SignedAsset>();
 
   for (let index = 0; index < requests.length; index += SIGN_BATCH_SIZE) {
     const batch = requests.slice(index, index + SIGN_BATCH_SIZE);
     const expected = new Set(batch.map((request) => signedAssetKey(request.questionId, request.kind)));
-    const response = await fetcher("/api/assets/sign", {
+    const response = await fetcher(localPreview ? "/api/local-preview-assets/sign" : "/api/assets/sign", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ bank, requests: batch }),
@@ -70,7 +71,7 @@ export async function fetchSignedAssets(
       payload.expiresIn <= 0 ||
       !Array.isArray(payload.assets) ||
       payload.assets.length !== batch.length ||
-      !payload.assets.every(validAsset)
+      !payload.assets.every((asset) => validAsset(asset, localPreview))
     ) {
       throw new Error("Invalid signed asset response");
     }
@@ -92,9 +93,10 @@ export async function fetchPdfAssets(
   questionIds: readonly string[],
   content: "questions" | "answers" | "both",
   fetcher: Fetcher = fetch,
+  localPreview = false,
 ): Promise<Map<string, SignedAsset>> {
   const expectedQuestions = new Set(questionIds);
-  const response = await fetcher("/api/pdf/sign", {
+  const response = await fetcher(localPreview ? "/api/local-preview-assets/pdf" : "/api/pdf/sign", {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ bank, questionIds, content }),
@@ -109,7 +111,7 @@ export async function fetchPdfAssets(
     typeof payload.expiresIn !== "number" ||
     payload.expiresIn <= 0 ||
     !Array.isArray(payload.assets) ||
-    !payload.assets.every(validAsset)
+    !payload.assets.every((asset) => validAsset(asset, localPreview))
   ) throw new Error("Invalid signed asset response");
 
   const signed = new Map<string, SignedAsset>();
