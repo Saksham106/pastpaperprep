@@ -36,4 +36,11 @@ The actual activated catalog is 14 entries when both existing Economics release 
 - `npm run build` — **passed**; generated only the intentional 12 public index files and compiled the app successfully.
 - `npm test` — **85 files/418 tests passed; 4 pre-existing unrelated failures**: taxonomy seal drift in AI HL/0606 deterministic-apply tests and missing sibling Biology/Physics source asset trees. All Economics tests passed.
 
-Deployment has not been performed by this receipt. The app fix is ready for the authorized scoped merge/deploy, followed by a fresh entitled dashboard readback confirming both Economics cards without changing user entitlements.
+## Live post-merge verification
+
+- PR `#27` merged to `main` as `361110b4d05611091fe4d5c69b5bc34762be00f5`.
+- Production deployment `dpl_GZnniUgnn2uR6XAvbjFzXGT1nJJx` reached `Ready` and aliases `pastpaperprep.com`.
+- Fresh entitled production browser readback showed `IB Economics` with `Open IB Economics HL` (`/banks/ib-economics-hl`) and `Open IB Economics SL` (`/banks/ib-economics-sl`) on the dashboard. Existing All Access access remained active; no entitlement mutation or purchase was performed.
+- Fresh anonymous production pricing readback returned 14 checkbox controls, including both Economics controls. With `banks=ib-economics-hl,ib-economics-sl`, both were checked and the sign-in continuation preserved the selected pair; no checkout was submitted.
+
+The discrepancy is resolved at the real purchase/discovery surfaces. The public question-index surface remains intentionally 12 entries.
