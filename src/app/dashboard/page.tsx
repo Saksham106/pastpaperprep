@@ -22,5 +22,5 @@ export default async function DashboardPage() {
     accessibleBanks = getAvailableBanks().filter(({ slug }) => hasBankAccess(slug, entitlements)).map(({ slug }) => slug);
   }
 
-  return <DashboardContent authenticated={typeof userId === "string"} accessibleBanks={accessibleBanks} />;
+  return <DashboardContent authenticated={typeof userId === "string"} accessibleBanks={accessibleBanks} availableBanks={getAvailableBanks()} />;
 }
