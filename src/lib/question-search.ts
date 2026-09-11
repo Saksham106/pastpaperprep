@@ -8,11 +8,12 @@ export function searchQuestionIds(
   query: string,
   entitlements: readonly AccessEntitlement[],
   now = new Date(),
+  allowLocalPreview = false,
 ): string[] {
   const normalizedQuery = query.trim();
   if (!normalizedQuery) return [];
 
-  return prepareQuestionsForDelivery(questions, entitlements, now)
+  return prepareQuestionsForDelivery(questions, entitlements, now, allowLocalPreview)
     .filter((question) => question.searchText.includes(normalizedQuery.toLocaleLowerCase()))
     .map((question) => question.id);
 }

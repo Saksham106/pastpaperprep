@@ -45,7 +45,7 @@ export async function POST(request: Request) {
   if (userId) {
     const { data, error } = await supabase
       .from("entitlements")
-      .select("product_id, status, starts_at, expires_at")
+      .select("product_id, selected_bank_ids, status, starts_at, expires_at")
       .eq("user_id", userId);
     if (error) return NextResponse.json({ error: "Could not verify access" }, { status: 503 });
     entitlements = normalizeEntitlements(data ?? []);

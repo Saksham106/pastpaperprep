@@ -3,6 +3,7 @@ import {
   canViewQuestionAsset,
   type AccessEntitlement,
 } from "@/lib/access";
+import { isLocalEconomicsBank } from "@/lib/banks";
 import type { UnifiedQuestion, QuestionRichDetails } from "@/lib/questions";
 
 function publicSearchText(question: UnifiedQuestion): string {
@@ -30,15 +31,17 @@ export function prepareQuestionsForDelivery(
   questions: readonly UnifiedQuestion[],
   entitlements: readonly AccessEntitlement[],
   now = new Date(),
+  allowLocalPreview = false,
 ): UnifiedQuestion[] {
   return questions.map((question) => {
-    const canViewQuestion = canViewQuestionAsset(
+    const localPreview = allowLocalPreview && isLocalEconomicsBank(question.bankSlug);
+    const canViewQuestion = localPreview || canViewQuestionAsset(
       question.bankSlug,
       question.id,
       entitlements,
       now,
     );
-    const canViewQuestionAnswer = canViewAnswer(
+    const canViewQuestionAnswer = localPreview || canViewAnswer(
       question.bankSlug,
       question.id,
       entitlements,
@@ -67,8 +70,9 @@ export function getQuestionRichDetails(
   question: UnifiedQuestion,
   entitlements: readonly AccessEntitlement[],
   now = new Date(),
+  allowLocalPreview = false,
 ): QuestionRichDetails {
-  const delivered = prepareQuestionsForDelivery([question], entitlements, now)[0];
+  const delivered = prepareQuestionsForDelivery([question], entitlements, now, allowLocalPreview)[0];
   return {
     summary: delivered.summary,
     accessibleText: delivered.accessibleText,

@@ -51,6 +51,28 @@ describe("fetchSignedAssets", () => {
     }));
   });
 
+  it("keeps local preview asset signing explicit and isolated", async () => {
+    const fetcher = vi.fn(async (_input: RequestInfo | URL, init?: RequestInit) => {
+      const body = JSON.parse(String(init?.body)) as { requests: typeof requests };
+      return new Response(JSON.stringify({
+        expiresIn: 600,
+        assets: body.requests.map((request) => ({ ...request, urls: ["/api/local-preview-assets/question.webp"] })),
+      }), { status: 200, headers: { "content-type": "application/json" } });
+    });
+
+    await fetchSignedAssets("ib-economics-hl", requests.slice(0, 1), fetcher, true);
+    expect(fetcher).toHaveBeenCalledWith("/api/local-preview-assets/sign", expect.anything());
+  });
+
+  it("rejects preview-only URLs from the paid signer", async () => {
+    const fetcher = vi.fn(async () => new Response(JSON.stringify({
+      expiresIn: 600,
+      assets: [{ ...requests[0], urls: ["/api/local-preview-assets/question.webp"] }],
+    }), { status: 200, headers: { "content-type": "application/json" } }));
+
+    await expect(fetchSignedAssets("ib-sl", requests.slice(0, 1), fetcher)).rejects.toThrow("Invalid signed asset response");
+  });
+
   it("rejects malformed signed asset responses", async () => {
     const fetcher = vi.fn(async () => new Response(JSON.stringify({ assets: [{ questionId: "question-1" }] }), {
       status: 200,

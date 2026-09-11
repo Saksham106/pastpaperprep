@@ -139,6 +139,7 @@ const EMPTY_STUDY_STATE: ExplorerStudyState = { savedIds: [], attemptedIds: [] }
 export function QuestionExplorer({
   questions,
   bankSlug,
+  localPreview = false,
   indexUrl,
   access,
   exportMarker,
@@ -147,6 +148,7 @@ export function QuestionExplorer({
 }: {
 questions: UnifiedQuestion[];
 bankSlug?: BankSlug;
+localPreview?: boolean;
 indexUrl?: string;
 access: ExplorerAccess;
   exportMarker?: string;
@@ -419,7 +421,7 @@ access: ExplorerAccess;
     if (!bank) return;
     if (!questionAssetRequests.length) return;
     let cancelled = false;
-    fetchSignedAssets(bank, questionAssetRequests)
+    fetchSignedAssets(bank, questionAssetRequests, fetch, localPreview)
       .then((assets) => {
         if (cancelled) return;
         setSignedAssets((current) => new Map([...current, ...assets]));
@@ -438,7 +440,7 @@ access: ExplorerAccess;
         setAssetError("Some question images could not load.");
       });
     return () => { cancelled = true; };
-  }, [bank, questionAssetRequests]);
+  }, [bank, localPreview, questionAssetRequests]);
 
   const toggle = (key: MultiKey, value: string) => {
     if (key === "topics") setShowAllSubtopics(false);
@@ -535,7 +537,7 @@ access: ExplorerAccess;
     if (!access.canExportPdf || !bank) return;
     setPdfStatus(`Preparing ${exportQuestions.length} questions...`);
     try {
-      const assets = await fetchPdfAssets(bank, exportQuestions.map((question) => question.id), pdfContent);
+      const assets = await fetchPdfAssets(bank, exportQuestions.map((question) => question.id), pdfContent, fetch, localPreview);
       const securedQuestions = exportQuestions.map((question) => ({
         ...question,
         questionImages: assets.get(signedAssetKey(question.id, "question"))?.urls ?? [],
@@ -634,7 +636,7 @@ access: ExplorerAccess;
               const unlocked = access.bankAccess || isPreviewQuestion(question.bankSlug, question.id);
               const questionAsset = signedAssets.get(signedAssetKey(question.id, "question"));
               const answerAsset = signedAssets.get(signedAssetKey(question.id, "answer"));
-              return <QuestionCard key={question.id} question={question} unlocked={unlocked} authenticated={access.authenticated} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAsset={(asset) => {
+              return <QuestionCard key={question.id} question={question} unlocked={unlocked} authenticated={access.authenticated} localPreview={localPreview} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAsset={(asset) => {
                 setSignedAssets((current) => new Map(current).set(signedAssetKey(question.id, "answer"), asset));
                 if (asset.details) setCatalogQuestions((current) => current.map((item) => item.id === question.id ? mergeQuestionRichDetails(item, asset.details!) : item));
               }} selected={selectedIds.has(question.id)} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => toggleSaved(question.id)} onAttempt={() => recordAttempt(question.id)} />;
@@ -657,10 +659,11 @@ function FilterGroup({ label, filterKey, values, selected, onToggle }: { label: 
   return <div className="filter-group" role="group" aria-labelledby={headingId}><h3 id={headingId}>{label}</h3><div className="filter-options">{values.map((value) => { const publicLabel = formatPublicLabel(value); return <label key={value}><input aria-label={`${label}: ${publicLabel}`} type="checkbox" checked={selected.includes(value)} onChange={() => onToggle(filterKey, value)} /><span>{publicLabel}</span></label>; })}</div></div>;
 }
 
-function QuestionCard({ question, unlocked, authenticated, questionAsset, answerAsset, onQuestionAssetError, onAnswerAsset, selected, onSelect, saved, attempted, onToggleSaved, onAttempt }: {
+function QuestionCard({ question, unlocked, authenticated, localPreview, questionAsset, answerAsset, onQuestionAssetError, onAnswerAsset, selected, onSelect, saved, attempted, onToggleSaved, onAttempt }: {
   question: UnifiedQuestion;
   unlocked: boolean;
   authenticated: boolean;
+  localPreview: boolean;
   questionAsset?: SignedAsset;
   answerAsset?: SignedAsset;
   onQuestionAssetError: () => void;
@@ -683,7 +686,7 @@ function QuestionCard({ question, unlocked, authenticated, questionAsset, answer
       setAnswerLoading(true);
       setAnswerError("");
       try {
-        const assets = await fetchSignedAssets(question.bankSlug, [{ questionId: question.id, kind: "answer" }]);
+        const assets = await fetchSignedAssets(question.bankSlug, [{ questionId: question.id, kind: "answer" }], fetch, localPreview);
         const asset = assets.get(signedAssetKey(question.id, "answer"));
         if (!asset) throw new Error("Missing answer asset");
         onAnswerAsset(asset);

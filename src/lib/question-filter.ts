@@ -1,4 +1,5 @@
 import type { QuestionFilters, UnifiedQuestion } from "@/lib/questions";
+import { isLocalEconomicsBank } from "@/lib/banks";
 
 function includesAny(selected: string[] | undefined, values: string[]): boolean {
   return !selected?.length || selected.some((value) => values.includes(value));
@@ -9,7 +10,9 @@ function filterableTopics(question: UnifiedQuestion): string[] {
 }
 
 function filterableSubtopics(question: UnifiedQuestion): string[] {
-  return [...new Set([...question.subtopics, ...question.skills])];
+  return isLocalEconomicsBank(question.bankSlug)
+    ? [...new Set(question.subtopics)]
+    : [...new Set([...question.subtopics, ...question.skills])];
 }
 
 export function questionZoneValue(question: UnifiedQuestion): string {

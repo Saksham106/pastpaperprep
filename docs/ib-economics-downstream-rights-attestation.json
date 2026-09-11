@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "ib-economics-downstream-rights-attestation-v1",
+  "attestationId": "allpublicationrights2026-09-09",
+  "scope": {
+    "sourceRepository": "ib-economics-topic-practice",
+    "sourceCommit": "03c3fb0c1032fb0584547b8a03f3b25b8a3f8755",
+    "bankSlugs": ["ib-economics-hl", "ib-economics-sl"],
+    "corpus": "IB Economics actual English HL/SL papers and official mark schemes represented by the sealed source/runtime tuple",
+    "assetClass": "derived WebP assets only; raw PDFs remain excluded"
+  },
+  "userAttestation": {
+    "status": "attested",
+    "attestedOn": "2026-09-09",
+    "statement": "The user explicitly attested all publication rights for the named IB Economics corpus on 2026-09-09.",
+    "independentLegalVerification": false
+  },
+  "downstreamDecision": {
+    "status": "user_attested_non_blocking_for_named_corpus",
+    "unknownRightsBlocker": false,
+    "appliesTo": "IB Economics storage release preparation and its derived-asset upload gate only",
+    "doesNotAuthorize": [
+      "raw PDF upload",
+      "infrastructure or bucket creation",
+      "billing, Stripe, database, migration, deployment, or publication changes outside this scoped release"
+    ]
+  },
+  "historicalSourceMetadata": [
+    {
+      "path": "data/source-manifest.json",
+      "sealedSha256": "8cfef110c1adbfd43f9442973ff2327275322d655da06711af6e8d70be28a856",
+      "field": "rights.status",
+      "historicalValue": "unknown_publication_blocking",
+      "preserved": true
+    },
+    {
+      "path": "data/source-metadata.json",
+      "sealedSha256": "c20275b6bbac2344dd6e678b9f11f003ef2377c890f7dba300bee13910202cef",
+      "field": "rights_status",
+      "historicalValue": "unknown_publication_blocking",
+      "preserved": true
+    },
+    {
+      "path": "data/acquisition-manifest.json",
+      "sealedSha256": "4a0db1097232d72149ca202ccefdfdb8e758258b7d5febed6fdd508ba2c0366f",
+      "field": "rights_status",
+      "historicalValue": "unknown_publication_blocking",
+      "preserved": true
+    }
+  ],
+  "releaseGate": {
+    "requiresThisAttestation": true,
+    "rightsBlockerForThisScope": false,
+    "contentSecurityAndStorageVerificationRemainIndependent": true,
+    "sourceMetadataMustNotBeRewritten": true
+  }
+}

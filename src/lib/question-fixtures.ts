@@ -10,11 +10,12 @@ import ibPhysicsHlData from "@/data/raw/ib-physics-hl.json";
 import ibPhysicsSlData from "@/data/raw/ib-physics-sl.json";
 import ibBiologyHlData from "@/data/raw/ib-biology-hl.json";
 import ibBiologySlData from "@/data/raw/ib-biology-sl.json";
-import type { BankSlug } from "@/lib/banks";
+import { isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
 import { normalizeBankQuestions, type UnifiedQuestion } from "@/lib/questions";
 
 type RawBank = { questions: Array<Record<string, unknown>> };
-const rawBanks: Record<BankSlug, RawBank> = {
+type ProductionBankSlug = Exclude<BankSlug, "ib-economics-hl" | "ib-economics-sl">;
+const rawBanks: Record<ProductionBankSlug, RawBank> = {
   igcse: igcseData as RawBank,
   "igcse-additional": igcseAdditionalData as RawBank,
   "ib-hl": ibHlData as RawBank,
@@ -32,6 +33,7 @@ const cache = new Map<BankSlug, UnifiedQuestion[]>();
 
 /** Synchronous corpus loader for tests and offline data checks only. */
 export function loadBankQuestions(slug: BankSlug): UnifiedQuestion[] {
+  if (isLocalEconomicsBank(slug)) throw new Error("Local Economics preview uses the async runtime loader");
   const cached = cache.get(slug);
   if (cached) return cached;
   const questions = normalizeBankQuestions(slug, rawBanks[slug].questions);

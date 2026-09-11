@@ -86,6 +86,28 @@ describe("Stripe subscription event normalization", () => {
     expect(() => buildSubscriptionSync(custom, () => true)).toThrow("Custom bundle quantity does not match selection");
   });
 
+  it("accepts Economics through the existing custom-bundle price path", () => {
+    const custom = event() as unknown as {
+      data: { object: { metadata: Record<string, string>; items: { data: Array<{ price: { id: string; recurring?: { interval: string } }; quantity?: number }> } } };
+    };
+    custom.data.object.metadata = {
+      user_id: userId,
+      product_id: "bundle_custom",
+      selected_bank_ids: JSON.stringify(["ib-economics-hl", "ib-hl"]),
+      billing_interval: "monthly",
+      price_id: "price_custom_monthly",
+    };
+    custom.data.object.items.data[0].price.id = "price_custom_monthly";
+    custom.data.object.items.data[0].quantity = 2;
+    expect(buildSubscriptionSync(custom, (productId, priceId, interval) =>
+      productId === "bundle_custom" && priceId === "price_custom_monthly" && interval === "monthly",
+    )).toEqual(expect.objectContaining({
+      productId: "bundle_custom",
+      selectedBankIds: ["ib-economics-hl", "ib-hl"],
+      priceId: "price_custom_monthly",
+    }));
+  });
+
   it("rejects custom bundles with malformed or tampered selected-bank metadata", () => {
     const custom = event() as unknown as {
       data: { object: { metadata: Record<string, string>; items: { data: Array<{ price: { id: string; recurring?: { interval: string } }; quantity?: number }> } } };

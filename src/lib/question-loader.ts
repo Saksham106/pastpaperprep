@@ -1,4 +1,5 @@
-import type { BankSlug } from "@/lib/banks";
+import { isEconomicsProductionEnabled, isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
+import { getEconomicsRuntimeArtifact } from "@/lib/economics-runtime";
 import { normalizeBankQuestions, type UnifiedQuestion } from "@/lib/questions";
 
 type RawBank = { questions: Array<Record<string, unknown>> };
@@ -16,15 +17,24 @@ const loaders: Record<BankSlug, () => Promise<RawBank>> = {
   "ib-physics-sl": async () => (await import("@/data/raw/ib-physics-sl.json")).default as RawBank,
   "ib-biology-hl": async () => (await import("@/data/raw/ib-biology-hl.json")).default as RawBank,
   "ib-biology-sl": async () => (await import("@/data/raw/ib-biology-sl.json")).default as RawBank,
+  "ib-economics-hl": async () => (await import("@/data/local-preview/ib-economics-hl.json")).default as RawBank,
+  "ib-economics-sl": async () => (await import("@/data/local-preview/ib-economics-sl.json")).default as RawBank,
 };
 
-const cache = new Map<BankSlug, Promise<UnifiedQuestion[]>>();
+const cache = new Map<string, Promise<UnifiedQuestion[]>>();
 
 export function loadBankQuestions(slug: BankSlug): Promise<UnifiedQuestion[]> {
-  const cached = cache.get(slug);
+  const productionEconomics = isLocalEconomicsBank(slug) && isEconomicsProductionEnabled();
+  const cacheKey = `${slug}:${productionEconomics ? "production" : "preview"}`;
+  const cached = cache.get(cacheKey);
   if (cached) return cached;
 
-  const questions = loaders[slug]().then((raw) => normalizeBankQuestions(slug, raw.questions));
-  cache.set(slug, questions);
+  const questions = (productionEconomics
+    ? Promise.resolve(getEconomicsRuntimeArtifact(slug) as unknown as RawBank)
+    : loaders[slug]())
+    .then((raw) => normalizeBankQuestions(slug, raw.questions, {
+      economicsAssetMode: productionEconomics ? "private" : "local",
+    }));
+  cache.set(cacheKey, questions);
   return questions;
 }

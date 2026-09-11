@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("server-only", () => ({}));
 
@@ -78,6 +78,8 @@ vi.mock("@/lib/stripe-config", async (importOriginal) => {
 import { POST } from "@/app/api/billing/checkout/route";
 
 describe("POST /api/billing/checkout", () => {
+  afterEach(() => vi.unstubAllEnvs());
+
   beforeEach(() => {
     vi.clearAllMocks();
     billingEnabled = true;
@@ -222,6 +224,89 @@ describe("POST /api/billing/checkout", () => {
       }),
       expect.any(Object),
     );
+  });
+
+  it("creates an enabled Economics custom bundle through the existing custom price", async () => {
+    vi.stubEnv("PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION", "true");
+    vi.stubEnv("PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED", "true");
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    mockAdminRpc("cus_existing");
+    sessionsCreate.mockResolvedValue({ url: "https://checkout.stripe.com/session" });
+
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", {
+      method: "POST",
+      body: JSON.stringify({ interval: "monthly", productId: "bundle_custom", selectedBankIds: ["ib-economics-hl", "ib-hl"] }),
+    }));
+
+    expect(response.status).toBe(200);
+    expect(sessionsCreate).toHaveBeenCalledWith(
+      expect.objectContaining({
+        line_items: [{ price: "price_custom_monthly", quantity: 2 }],
+        metadata: expect.objectContaining({
+          product_id: "bundle_custom",
+          selected_bank_ids: JSON.stringify(["ib-economics-hl", "ib-hl"]),
+        }),
+      }),
+      expect.any(Object),
+    );
+  });
+
+  it("rejects Economics custom checkout while either release gate is off", async () => {
+    vi.stubEnv("PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION", "true");
+    vi.stubEnv("PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED", "false");
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", {
+      method: "POST",
+      body: JSON.stringify({ interval: "monthly", productId: "bundle_custom", selectedBankIds: ["ib-economics-hl"] }),
+    }));
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({ error: "Bank is not available for checkout" });
+    expect(sessionsCreate).not.toHaveBeenCalled();
+    expect(adminRpc).not.toHaveBeenCalled();
+  });
+
+  it("preserves existing Economics custom access when the release gate is later paused", async () => {
+    vi.stubEnv("PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION", "false");
+    vi.stubEnv("PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED", "false");
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    userFrom.mockReturnValue(entitlementQuery([{
+      product_id: "bundle_custom",
+      selected_bank_ids: ["ib-economics-hl"],
+      status: "active",
+      starts_at: "2026-01-01T00:00:00.000Z",
+      expires_at: null,
+    }]));
+
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", {
+      method: "POST",
+      body: JSON.stringify({ interval: "monthly", productId: "bundle_all" }),
+    }));
+
+    expect(response.status).toBe(409);
+    expect(sessionsCreate).not.toHaveBeenCalled();
+    expect(adminRpc).not.toHaveBeenCalled();
+  });
+
+  it("rejects direct Economics products even when the release gates are on", async () => {
+    vi.stubEnv("PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION", "true");
+    vi.stubEnv("PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED", "true");
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", {
+      method: "POST",
+      body: JSON.stringify({ interval: "monthly", productId: "bank_ib_economics_hl" }),
+    }));
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({ error: "Unknown billing product" });
+    expect(sessionsCreate).not.toHaveBeenCalled();
+    expect(adminRpc).not.toHaveBeenCalled();
   });
 
   it("rejects duplicate custom bank selections before Stripe", async () => {

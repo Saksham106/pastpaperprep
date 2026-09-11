@@ -1,5 +1,5 @@
-import { storageObjectPath } from "@/lib/assets";
-import { getBank, type BankSlug } from "@/lib/banks";
+import { economicsStorageObjectPath, storageObjectPath } from "@/lib/assets";
+import { getBank, isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
 
 export type UnifiedQuestion = {
   id: string;
@@ -12,6 +12,7 @@ export type UnifiedQuestion = {
   secondaryTopics: string[];
   skills: string[];
   subtopics: string[];
+  secondarySubtopics: string[];
   subject: string;
   courseEra: string;
   option: string;
@@ -81,21 +82,38 @@ function integer(value: unknown): number {
   return typeof value === "number" ? value : Number.parseInt(String(value), 10) || 0;
 }
 
-function assetUrl(slug: BankSlug, path: string): string {
+function assetUrl(slug: BankSlug, path: string, economicsAssetMode: "local" | "private" = "local"): string {
   if (/^https?:\/\//.test(path)) return path;
+  if (isLocalEconomicsBank(slug)) {
+    const relative = path.replace(/^\/+/, "");
+    const segments = relative.split("/");
+    if (!relative || segments.some((segment) => !segment || segment === "." || segment === "..")) {
+      throw new Error("Local preview asset path is invalid");
+    }
+    return economicsAssetMode === "private"
+      ? economicsStorageObjectPath(slug, relative)
+      : `/api/local-preview-assets/${slug}/${relative}`;
+  }
   const base = getBank(slug)?.sourceBaseUrl;
   return `${base}/${path.replace(/^\//, "")}`;
 }
 
-function normalizeQuestion(slug: BankSlug, raw: RawQuestion): UnifiedQuestion {
+function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode: "local" | "private"): UnifiedQuestion {
   const accessibleText = text(raw.accessibleText);
   const summary = text(raw.summary) || accessibleText.slice(0, 220);
   const primaryTopic = text(raw.primaryTopic) || "Other";
   const secondaryTopics = strings(raw.secondaryTopics);
   const controlledSkills = strings(raw.skills);
   const studentSubtopics = strings(raw.subtopics);
+  const secondarySubtopics = strings(raw.secondarySubtopics);
   const detailedSubtopics = strings(raw.detailedSubtopics);
-  const subtopics = Array.from(new Set(studentSubtopics.length ? studentSubtopics : controlledSkills));
+  const subtopics = Array.from(new Set(
+    studentSubtopics.length
+      ? studentSubtopics
+      : isLocalEconomicsBank(slug)
+        ? detailedSubtopics
+        : controlledSkills,
+  ));
   // `detailedSubtopics` is the richer classification vocabulary used by the
   // reconciled 0580 source. Keep every vocabulary during the runtime
   // migration: v2-native `skills`, legacy `subtopics`, and detailed labels may
@@ -105,17 +123,21 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion): UnifiedQuestion {
     : detailedSubtopics.length
       ? detailedSubtopics
       : subtopics;
-  const skills = Array.from(new Set([
-    ...skillSeed,
-    ...controlledSkills,
-    ...detailedSubtopics,
-    ...subtopics,
-  ]));
+  const skills = isLocalEconomicsBank(slug)
+    ? Array.from(new Set(controlledSkills))
+    : Array.from(new Set([
+      ...skillSeed,
+      ...controlledSkills,
+      ...detailedSubtopics,
+      ...subtopics,
+    ]));
   const officialMarkscheme = record(raw.officialMarkscheme);
   const solution = nullableText(raw.solution) ?? nullableText(raw.independentSolution);
-  const questionImages = strings(raw.questionImages).map((path) => assetUrl(slug, path));
-  const markschemeImages = [...strings(raw.markschemeImages), ...strings(officialMarkscheme.images)]
-    .map((path) => assetUrl(slug, path));
+  const questionImages = strings(raw.questionImages).map((path) => assetUrl(slug, path, economicsAssetMode));
+  const markschemeImagePaths = isLocalEconomicsBank(slug)
+    ? Array.from(new Set([...strings(raw.markschemeImages), ...strings(officialMarkscheme.images)]))
+    : [...strings(raw.markschemeImages), ...strings(officialMarkscheme.images)];
+  const markschemeImages = markschemeImagePaths.map((path) => assetUrl(slug, path, economicsAssetMode));
   const searchable = [
     primaryTopic,
     ...secondaryTopics,
@@ -139,6 +161,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion): UnifiedQuestion {
     secondaryTopics,
     skills,
     subtopics,
+    secondarySubtopics,
     subject: text(raw.subject) || text(raw.course),
     courseEra: text(raw.courseEra),
     option: text(raw.p3Option),
@@ -153,17 +176,25 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion): UnifiedQuestion {
     markschemeImages,
     questionImageCount: questionImages.length,
     markschemeImageCount: markschemeImages.length,
-    questionAssetPaths: questionImages.map((path) => storageObjectPath(slug, path)),
-    markschemeAssetPaths: markschemeImages.map((path) => storageObjectPath(slug, path)),
+    questionAssetPaths: isLocalEconomicsBank(slug)
+      ? questionImages
+      : questionImages.map((path) => storageObjectPath(slug, path)),
+    markschemeAssetPaths: isLocalEconomicsBank(slug)
+      ? markschemeImages
+      : markschemeImages.map((path) => storageObjectPath(slug, path)),
     solution,
     sourceQuestionUrl: nullableText(raw.sourceQuestionUrl) ?? nullableText(raw.sourceUrl) ?? nullableText(raw.pdfUrl),
     sourceMarkSchemeUrl: nullableText(raw.sourceMarkSchemeUrl) ?? nullableText(raw.markschemeUrl),
   };
 }
 
-export function normalizeBankQuestions(slug: BankSlug, rawQuestions: RawQuestion[]): UnifiedQuestion[] {
+export function normalizeBankQuestions(
+  slug: BankSlug,
+  rawQuestions: RawQuestion[],
+  options: { economicsAssetMode?: "local" | "private" } = {},
+): UnifiedQuestion[] {
   return rawQuestions
-    .map((question) => normalizeQuestion(slug, question))
+    .map((question) => normalizeQuestion(slug, question, options.economicsAssetMode ?? "local"))
     .sort((a, b) => b.year - a.year
       || a.paper - b.paper
       || a.number - b.number

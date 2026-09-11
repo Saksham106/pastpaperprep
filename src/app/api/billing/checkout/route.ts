@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 import { hasBankAccess } from "@/lib/access";
-import { BANKS } from "@/lib/banks";
+import { getEntitlementBanks } from "@/lib/banks";
 import { normalizeEntitlements } from "@/lib/entitlements";
 import { startCheckout } from "@/lib/stripe-checkout";
 import { getBillingPlan, getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
@@ -58,14 +58,14 @@ export async function POST(request: Request) {
   let sessionCreationAttempted = false;
   try {
     const config = getStripeConfig();
-    getBillingPlan(body.productId, body.interval, config, body.selectedBankIds);
+    getBillingPlan(body.productId, body.interval, config, body.selectedBankIds, process.env);
     const { data: entitlementRows, error: entitlementError } = await supabase
       .from("entitlements")
       .select("product_id, selected_bank_ids, status, starts_at, expires_at")
       .eq("user_id", user.id);
     if (entitlementError) throw entitlementError;
     const entitlements = normalizeEntitlements(entitlementRows ?? []);
-    if (BANKS.some(({ slug }) => hasBankAccess(slug, entitlements))) {
+    if (getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, entitlements))) {
       return NextResponse.json({ error: "Existing access must be managed from your account" }, { status: 409 });
     }
     const admin = createAdminClient();
@@ -101,6 +101,7 @@ export async function POST(request: Request) {
       selectedBankIds: body.selectedBankIds,
       user: { id: user.id, email: user.email },
       config,
+      environment: process.env,
     }, {
       async findCustomerId(userId) {
         if (typeof mappedCustomerId === "string" && mappedCustomerId) return mappedCustomerId;
@@ -240,6 +241,7 @@ export async function POST(request: Request) {
       || error.message === "Duplicate bank"
       || error.message === "Select at least one bank"
       || error.message === "Select no more than five banks"
+      || error.message === "Bank is not available for checkout"
     )) {
       return NextResponse.json({ error: error.message }, { status: 400 });
     }

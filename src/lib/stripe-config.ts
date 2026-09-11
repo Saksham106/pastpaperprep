@@ -91,10 +91,16 @@ export function getStripeConfig(): StripeConfig {
 const SINGLE_PRODUCTS = new Set(["bank_igcse", "bank_igcse_additional", "bank_ib_hl", "bank_ib_sl", "bank_ib_ai_hl", "bank_ib_ai_sl", "bank_ib_chemistry_hl", "bank_ib_chemistry_sl", "bank_ib_physics_hl", "bank_ib_physics_sl", "bank_ib_biology_hl", "bank_ib_biology_sl"]);
 const PAIR_PRODUCTS = new Set(["bundle_igcse", "bundle_ib_aa", "bundle_ib_ai", "bundle_ib_chemistry", "bundle_ib_physics", "bundle_ib_biology"]);
 
-export function getBillingPlan(productId: unknown, interval: unknown, config: StripeConfig, selectedBankIds?: unknown) {
+export function getBillingPlan(
+  productId: unknown,
+  interval: unknown,
+  config: StripeConfig,
+  selectedBankIds?: unknown,
+  environment: StripeEnvironment = process.env,
+) {
   if (interval !== "monthly" && interval !== "annual") throw new Error("Unknown billing interval");
   if (productId === CUSTOM_BUNDLE_PRODUCT_ID) {
-    return getCustomBundlePlan(interval, selectedBankIds, config);
+    return getCustomBundlePlan(interval, selectedBankIds, config, environment);
   }
   let priceId: string;
   if (typeof productId === "string" && SINGLE_PRODUCTS.has(productId)) {

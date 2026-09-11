@@ -6,7 +6,7 @@ import { useCallback, useState } from "react";
 import { CustomBundleCheckout, PlanCheckout, PortalButton } from "@/components/BillingActions";
 import { CourseIcon, courseToneForBank } from "@/components/CourseIcon";
 import type { ProductId } from "@/lib/access";
-import { BANKS, type BankSlug } from "@/lib/banks";
+import { BANKS, type Bank, type BankSlug } from "@/lib/banks";
 import { getGraduatedBundlePrice, MAX_CUSTOM_BANKS } from "@/lib/custom-bundles";
 
 const BANK_PRODUCT_TO_SLUG: Record<string, BankSlug> = {
@@ -69,11 +69,11 @@ function formatCents(cents: number | null): string {
   return cents === null ? "$0" : `$${cents / 100}`;
 }
 
-export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], initialInterval = "monthly", initialProductId, initialBankIds }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; initialInterval?: BillingInterval; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[] }) {
+export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], initialInterval = "monthly", initialProductId, initialBankIds, availableBanks = BANKS }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; initialInterval?: BillingInterval; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[] }) {
   const [interval, setInterval] = useState<BillingInterval>(initialInterval);
   const initialBankId = initialProductId ? BANK_PRODUCT_TO_SLUG[initialProductId] : undefined;
   const initialCustomBankIds = initialBankIds ?? (initialBankId ? [initialBankId] : undefined);
-  const [builderBankIds, setBuilderBankIds] = useState<BankSlug[]>(() => [...(initialCustomBankIds ?? [BANKS[0].slug])]);
+  const [builderBankIds, setBuilderBankIds] = useState<BankSlug[]>(() => [...(initialCustomBankIds ?? [availableBanks[0]?.slug ?? BANKS[0].slug])]);
   const handleBuilderSelectionChange = useCallback((selectedBankIds: readonly BankSlug[]) => {
     setBuilderBankIds([...selectedBankIds]);
   }, []);
@@ -123,6 +123,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
             authenticated={authenticated}
             hasPaidAccess={hasPaidAccess}
             initialBankIds={initialCustomBankIds}
+            availableBanks={availableBanks}
             onSelectionChange={isBuilder ? handleBuilderSelectionChange : undefined}
             ctaLabel={checkoutCta}
           />
@@ -185,7 +186,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
               <tr><th scope="col">Question bank</th><th scope="col">Questions</th><th scope="col">Papers</th><th scope="col">Coverage</th><th scope="col"><span className="sr-only">Preview</span></th></tr>
             </thead>
             <tbody>
-              {BANKS.map((bank) => {
+              {availableBanks.map((bank) => {
                 const tone = courseToneForBank(bank);
                 return (
                   <tr className={`course-tone-${tone}`} data-pricing-bank={bank.slug} key={bank.slug}>
