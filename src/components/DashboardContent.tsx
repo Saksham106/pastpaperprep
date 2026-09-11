@@ -23,9 +23,11 @@ const CARD_NAMES: Partial<Record<BankSlug, string>> = {
   "ib-physics-sl": "Physics SL",
   "ib-biology-hl": "Biology HL",
   "ib-biology-sl": "Biology SL",
+  "ib-economics-hl": "Economics HL",
+  "ib-economics-sl": "Economics SL",
 };
 
-export function DashboardContent({ authenticated, accessibleBanks }: { authenticated: boolean; accessibleBanks: BankSlug[] }) {
+export function DashboardContent({ authenticated, accessibleBanks, availableBanks = BANKS }: { authenticated: boolean; accessibleBanks: BankSlug[]; availableBanks?: readonly Bank[] }) {
   const accessible = new Set(accessibleBanks);
   const hasPaidAccess = accessibleBanks.length > 0;
   const groups: BankGroup[] = [
@@ -33,39 +35,46 @@ export function DashboardContent({ authenticated, accessibleBanks }: { authentic
       name: "Cambridge IGCSE",
       className: "cambridge",
       tone: "math" as const,
-      banks: BANKS.filter((bank) => bank.qualification === "Cambridge IGCSE"),
+      banks: availableBanks.filter((bank) => bank.qualification === "Cambridge IGCSE"),
     },
     {
       name: "IB Analysis and Approaches",
       className: "ib-aa",
       tone: "math" as const,
-      banks: BANKS.filter((bank) => bank.slug === "ib-hl" || bank.slug === "ib-sl"),
+      banks: availableBanks.filter((bank) => bank.slug === "ib-hl" || bank.slug === "ib-sl"),
     },
     {
       name: "IB Applications and Interpretation",
       className: "ib-ai",
       tone: "math" as const,
-      banks: BANKS.filter((bank) => bank.slug === "ib-ai-hl" || bank.slug === "ib-ai-sl"),
+      banks: availableBanks.filter((bank) => bank.slug === "ib-ai-hl" || bank.slug === "ib-ai-sl"),
     },
     {
       name: "IB Chemistry",
       className: "ib-chemistry",
       tone: "chemistry" as const,
-      banks: BANKS.filter((bank) => bank.slug === "ib-chemistry-hl" || bank.slug === "ib-chemistry-sl"),
+      banks: availableBanks.filter((bank) => bank.slug === "ib-chemistry-hl" || bank.slug === "ib-chemistry-sl"),
     },
     {
       name: "IB Physics",
       className: "ib-physics",
       tone: "physics" as const,
-      banks: BANKS.filter((bank) => bank.slug === "ib-physics-hl" || bank.slug === "ib-physics-sl"),
+      banks: availableBanks.filter((bank) => bank.slug === "ib-physics-hl" || bank.slug === "ib-physics-sl"),
     },
     {
       name: "IB Biology",
       className: "ib-biology",
       tone: "biology" as const,
-      banks: BANKS.filter((bank) => bank.slug === "ib-biology-hl" || bank.slug === "ib-biology-sl"),
+      banks: availableBanks.filter((bank) => bank.slug === "ib-biology-hl" || bank.slug === "ib-biology-sl"),
     },
-  ].sort((a, b) => Number(b.banks.some((bank) => accessible.has(bank.slug))) - Number(a.banks.some((bank) => accessible.has(bank.slug))));
+    {
+      name: "IB Economics",
+      className: "ib-economics",
+      tone: "math" as const,
+      banks: availableBanks.filter((bank) => bank.slug === "ib-economics-hl" || bank.slug === "ib-economics-sl"),
+    },
+  ].filter(({ banks }) => banks.length > 0)
+    .sort((a, b) => Number(b.banks.some((bank) => accessible.has(bank.slug))) - Number(a.banks.some((bank) => accessible.has(bank.slug))));
 
   return (
     <section className="dashboard-page dashboard-study-desk shell">

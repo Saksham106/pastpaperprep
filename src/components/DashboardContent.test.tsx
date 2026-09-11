@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { DashboardContent } from "@/components/DashboardContent";
+import { ECONOMICS_BANK_CATALOG, BANKS } from "@/lib/banks";
 
 describe("DashboardContent", () => {
   it("puts included banks first and keeps account tools in one disclosure", () => {
@@ -57,5 +58,19 @@ describe("DashboardContent", () => {
     expect(container.querySelector(".dashboard-bank-family-ib-chemistry > header [data-course-icon=chemistry]")).not.toBeNull();
     expect(container.querySelector(".dashboard-bank-family-ib-physics > header [data-course-icon=physics]")).not.toBeNull();
     expect(container.querySelector(".dashboard-bank-family-ib-biology > header [data-course-icon=biology]")).not.toBeNull();
+  });
+
+  it("shows activated Economics banks to an entitled All Access user", () => {
+    render(
+      <DashboardContent
+        authenticated
+        availableBanks={[...BANKS, ...ECONOMICS_BANK_CATALOG]}
+        accessibleBanks={[...BANKS, ...ECONOMICS_BANK_CATALOG].map(({ slug }) => slug)}
+      />,
+    );
+
+    expect(screen.getByRole("heading", { name: "IB Economics" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Open IB Economics HL" })).toHaveAttribute("href", "/banks/ib-economics-hl");
+    expect(screen.getByRole("link", { name: "Open IB Economics SL" })).toHaveAttribute("href", "/banks/ib-economics-sl");
   });
 });
