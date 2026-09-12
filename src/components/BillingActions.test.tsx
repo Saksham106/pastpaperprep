@@ -106,11 +106,40 @@ describe("CheckoutButtons", () => {
 });
 
 describe("CustomBundleCheckout", () => {
-  it("does not offer checkout or a fake one-bank total with an empty selection", () => {
-    render(<CustomBundleCheckout mode="builder" interval="monthly" authenticated={true} hasPaidAccess={false} initialBankIds={[]} />);
-    expect(screen.getByText("Select at least one bank to continue.")).toBeInTheDocument();
+  it("does not preselect a single bank or offer checkout before the user chooses", () => {
+    render(<CustomBundleCheckout mode="single" interval="monthly" authenticated={true} hasPaidAccess={false} />);
+
+    expect(screen.queryAllByRole("radio", { checked: true })).toHaveLength(0);
+    expect(screen.getByText("Choose a bank")).toBeInTheDocument();
+    expect(screen.getByText("Select one bank to continue.")).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /choose monthly/i })).not.toBeInTheDocument();
-    expect(screen.queryByText(/\/ month/)).not.toBeInTheDocument();
+  });
+
+  it("does not preselect builder banks and requires two choices before checkout", () => {
+    render(<CustomBundleCheckout mode="builder" interval="monthly" authenticated={true} hasPaidAccess={false} />);
+    const checkboxes = screen.getAllByRole("checkbox");
+
+    expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(0);
+    expect(screen.getByText("Select at least two banks to continue.")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /continue with/i })).not.toBeInTheDocument();
+
+    fireEvent.click(checkboxes[0]);
+    expect(screen.getByText("Select one more bank to continue.")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /continue with/i })).not.toBeInTheDocument();
+
+    fireEvent.click(checkboxes[1]);
+    expect(screen.getByRole("button", { name: "Continue to checkout" })).toBeInTheDocument();
+  });
+
+  it("uses the fixed single-bank product instead of the custom-bundle path", async () => {
+    fetchMock.mockResolvedValue({ ok: false, status: 503, json: async () => ({ error: "stop after request" }) });
+    render(<CustomBundleCheckout mode="single" interval="annual" authenticated={true} hasPaidAccess={false} initialBankIds={["ib-sl"]} />);
+
+    fireEvent.click(screen.getByRole("button", { name: /choose annual/i }));
+
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/billing/checkout", expect.objectContaining({
+      body: JSON.stringify({ interval: "annual", productId: "bank_ib_sl" }),
+    })));
   });
 });
 

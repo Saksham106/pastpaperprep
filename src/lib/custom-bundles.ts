@@ -71,7 +71,7 @@ export function getCustomBundlePlan(
   if (selected.some((bankId) => !billingBankIds.includes(bankId))) {
     throw new Error("Bank is not available for checkout");
   }
-  if (selected.length === 0) throw new Error("Select at least one bank");
+  if (selected.length < 2) throw new Error("Select at least two banks");
   if (selected.length > MAX_CUSTOM_BANKS) {
     return {
       interval,

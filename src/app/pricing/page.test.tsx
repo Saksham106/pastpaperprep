@@ -14,7 +14,7 @@ describe("PricingPage", () => {
     expect(screen.queryByText(/unlock every current bank/i)).not.toBeInTheDocument();
     expect(screen.getByText(/most popular/i)).toBeInTheDocument();
     expect(screen.getByText(/every plan includes the same study tools/i)).toBeInTheDocument();
-    expect(screen.getByText(/existing fixed and all-access subscribers remain grandfathered/i)).toBeInTheDocument();
+    expect(screen.getByText(/existing subscribers remain grandfathered at their current price and access/i)).toBeInTheDocument();
 
     const options = container.querySelectorAll(".pricing-option");
     expect(options).toHaveLength(3);

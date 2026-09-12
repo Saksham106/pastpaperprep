@@ -240,6 +240,7 @@ export async function POST(request: Request) {
       || error.message === "Unknown bank"
       || error.message === "Duplicate bank"
       || error.message === "Select at least one bank"
+      || error.message === "Select at least two banks"
       || error.message === "Select no more than five banks"
       || error.message === "Bank is not available for checkout"
     )) {
