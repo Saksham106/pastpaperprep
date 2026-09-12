@@ -44,6 +44,11 @@ describe("custom bank bundle pricing", () => {
     });
   });
 
+  it("requires two banks for new checkout while preserving valid stored one-bank selections", () => {
+    expect(validateCustomBankIds(["igcse"])).toEqual(["igcse"]);
+    expect(() => getCustomBundlePlan("annual", ["igcse"], config)).toThrow("Select at least two banks");
+  });
+
   it("rejects duplicate, unknown, empty, and oversized custom selections", () => {
     expect(() => validateCustomBankIds(["igcse", "igcse"])).toThrow("Duplicate bank");
     expect(() => validateCustomBankIds(["not-a-bank"])).toThrow("Unknown bank");

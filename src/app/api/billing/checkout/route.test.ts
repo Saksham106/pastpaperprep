@@ -191,6 +191,22 @@ describe("POST /api/billing/checkout", () => {
     });
   });
 
+  it("rejects a one-bank Build Your Plan checkout before any billing side effect", async () => {
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", {
+      method: "POST",
+      body: JSON.stringify({ interval: "annual", productId: "bundle_custom", selectedBankIds: ["igcse"] }),
+    }));
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({ error: "Select at least two banks" });
+    expect(userFrom).not.toHaveBeenCalled();
+    expect(adminRpc).not.toHaveBeenCalled();
+    expect(sessionsCreate).not.toHaveBeenCalled();
+  });
+
   it("creates a custom annual bundle with exact selected-bank metadata and graduated quantity", async () => {
     const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
     getUser.mockResolvedValue({ data: { user } });

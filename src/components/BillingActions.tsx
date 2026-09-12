@@ -41,6 +41,21 @@ function getBankGroups(banks: readonly Bank[]): readonly BankGroup[] {
   ];
 }
 
+const BANK_PRODUCT_BY_SLUG: Partial<Record<BankSlug, ProductId>> = {
+  igcse: "bank_igcse",
+  "igcse-additional": "bank_igcse_additional",
+  "ib-hl": "bank_ib_hl",
+  "ib-sl": "bank_ib_sl",
+  "ib-ai-hl": "bank_ib_ai_hl",
+  "ib-ai-sl": "bank_ib_ai_sl",
+  "ib-chemistry-hl": "bank_ib_chemistry_hl",
+  "ib-chemistry-sl": "bank_ib_chemistry_sl",
+  "ib-physics-hl": "bank_ib_physics_hl",
+  "ib-physics-sl": "bank_ib_physics_sl",
+  "ib-biology-hl": "bank_ib_biology_hl",
+  "ib-biology-sl": "bank_ib_biology_sl",
+};
+
 function PlanSelector({ options, value, onChange }: {
   options: readonly { productId: ProductId; label: string }[];
   value: ProductId;
@@ -261,7 +276,7 @@ export function CustomBundleCheckout({
   interval,
   authenticated,
   hasPaidAccess,
-  initialBankIds = [BANKS[0].slug],
+  initialBankIds = [],
   availableBanks = BANKS,
   onSelectionChange,
   ctaLabel = "Continue to checkout",
@@ -275,22 +290,29 @@ export function CustomBundleCheckout({
   onSelectionChange?: (selectedBankIds: readonly BankSlug[]) => void;
   ctaLabel?: string;
 }) {
+  const selectableBanks = mode === "single"
+    ? availableBanks.filter((bank) => Boolean(BANK_PRODUCT_BY_SLUG[bank.slug]))
+    : availableBanks;
   const [selectedBankIds, setSelectedBankIds] = useState<BankSlug[]>(() => {
     const initial = [...initialBankIds];
-    return mode === "single" ? [initial[0] ?? availableBanks[0]?.slug ?? BANKS[0].slug] : initial;
+    const initialSingleBank = initial[0];
+    return mode === "single" && initialSingleBank && BANK_PRODUCT_BY_SLUG[initialSingleBank]
+      ? [initialSingleBank]
+      : mode === "builder" ? initial : [];
   });
   useEffect(() => {
     onSelectionChange?.(selectedBankIds);
   }, [onSelectionChange, selectedBankIds]);
   if (hasPaidAccess) return null;
   const quantity = selectedBankIds.length;
-  const hasSelection = quantity > 0;
   const allAccess = quantity >= 6;
 
   const bankSelection = [...selectedBankIds].sort();
   const pricingReturn = `/pricing?interval=${interval}&banks=${encodeURIComponent(bankSelection.join(","))}`;
   const selectedBankName = availableBanks.find((bank) => bank.slug === selectedBankIds[0])?.shortName;
-  const bankGroups = getBankGroups(availableBanks);
+  const singleProductId = selectedBankIds[0] ? BANK_PRODUCT_BY_SLUG[selectedBankIds[0]] : undefined;
+  const canCheckout = mode === "single" ? quantity === 1 && Boolean(singleProductId) : quantity >= 2;
+  const bankGroups = getBankGroups(selectableBanks);
   const selectionSummary = mode === "single"
     ? selectedBankName ?? "Choose a bank"
     : quantity === 0 ? "None selected" : `${quantity} selected`;
@@ -301,6 +323,16 @@ export function CustomBundleCheckout({
       return current.includes(bankId) ? current.filter((id) => id !== bankId) : [...current, bankId];
     });
   }
+
+  const selectionNote = allAccess
+    ? "Six or more banks automatically use All Access."
+    : mode === "single" && quantity === 0
+      ? "Select one bank to continue."
+      : mode === "builder" && quantity === 0
+        ? "Select at least two banks to continue."
+        : mode === "builder" && quantity === 1
+          ? "Select one more bank to continue."
+          : null;
 
   return (
     <div className="plan-checkout custom-bundle-checkout">
@@ -334,14 +366,12 @@ export function CustomBundleCheckout({
           </div>
         </fieldset>
       </details>
-      {allAccess || quantity === 0 ? (
-        <p className="custom-bundle-selection-note">
-          {allAccess ? "Six or more banks automatically use All Access." : "Select at least one bank to continue."}
-        </p>
-      ) : null}
-      {hasSelection ? <>
+      {selectionNote ? <p className="custom-bundle-selection-note">{selectionNote}</p> : null}
+      {canCheckout ? <>
         {authenticated
-          ? <CheckoutButton interval={interval} productId="bundle_custom" selectedBankIds={bankSelection} label={mode === "builder" ? ctaLabel : undefined} />
+          ? mode === "single"
+            ? singleProductId ? <CheckoutButton interval={interval} productId={singleProductId} /> : null
+            : <CheckoutButton interval={interval} productId="bundle_custom" selectedBankIds={bankSelection} label={ctaLabel} />
           : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`}>{ctaLabel}</Link>}
       </> : null}
     </div>

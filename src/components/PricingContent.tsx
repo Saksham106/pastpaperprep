@@ -30,7 +30,7 @@ const PLANS = [
     description: "Focus on one syllabus.", mode: "single" as const, tone: "starter", popular: false, icon: BookOpen, cta: "Choose One Bank",
   },
   {
-    name: "Build Your Plan", label: "One to five banks", monthly: "$6", annualMonthly: "$4", annual: "$48+", annualSaving: "33%",
+    name: "Build Your Plan", label: "Two to five banks", monthly: "$10", annualMonthly: "$7", annual: "$84+", annualSaving: "30%",
     description: "Mix the banks you actually take.", mode: "builder" as const, tone: "builder", popular: true, icon: SlidersHorizontal, cta: "Build Your Plan",
   },
   {
@@ -46,7 +46,7 @@ const ALL_ACCESS_ANNUAL_EQUIVALENT_CENTS = 1_800;
 const ALL_ACCESS_ANNUAL_TOTAL_CENTS = 21_600;
 
 function getBuilderMonthlyEquivalentCents(interval: BillingInterval, quantity: number): number | null {
-  if (quantity === 0) return null;
+  if (quantity < 2) return null;
   if (quantity > MAX_CUSTOM_BANKS) {
     return interval === "annual" ? ALL_ACCESS_ANNUAL_EQUIVALENT_CENTS : ALL_ACCESS_MONTHLY_EQUIVALENT_CENTS;
   }
@@ -54,7 +54,7 @@ function getBuilderMonthlyEquivalentCents(interval: BillingInterval, quantity: n
 }
 
 function getBuilderAnnualTotalCents(quantity: number): number | null {
-  if (quantity === 0) return null;
+  if (quantity < 2) return null;
   return quantity > MAX_CUSTOM_BANKS ? ALL_ACCESS_ANNUAL_TOTAL_CENTS : getGraduatedBundlePrice("annual", quantity);
 }
 
@@ -73,7 +73,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
   const [interval, setInterval] = useState<BillingInterval>(initialInterval);
   const initialBankId = initialProductId ? BANK_PRODUCT_TO_SLUG[initialProductId] : undefined;
   const initialCustomBankIds = initialBankIds ?? (initialBankId ? [initialBankId] : undefined);
-  const [builderBankIds, setBuilderBankIds] = useState<BankSlug[]>(() => [...(initialCustomBankIds ?? [availableBanks[0]?.slug ?? BANKS[0].slug])]);
+  const [builderBankIds, setBuilderBankIds] = useState<BankSlug[]>(() => [...(initialCustomBankIds ?? [])]);
   const handleBuilderSelectionChange = useCallback((selectedBankIds: readonly BankSlug[]) => {
     setBuilderBankIds([...selectedBankIds]);
   }, []);
@@ -83,13 +83,17 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
     const isBuilder = plan.mode === "builder";
     const builderQuantity = builderBankIds.length;
     const builderHeadlineCents = isBuilder ? getBuilderMonthlyEquivalentCents(interval, builderQuantity) : null;
-    const headlinePrice = isBuilder ? formatCents(builderHeadlineCents) : interval === "annual" ? plan.annualMonthly : plan.monthly;
+    const headlinePrice = isBuilder
+      ? builderHeadlineCents === null
+        ? interval === "annual" ? plan.annualMonthly : plan.monthly
+        : formatCents(builderHeadlineCents)
+      : interval === "annual" ? plan.annualMonthly : plan.monthly;
     const builderAnnualTotalCents = isBuilder ? getBuilderAnnualTotalCents(builderQuantity) : null;
     const checkoutCta = isBuilder
       ? `Continue with ${builderQuantity} ${builderQuantity === 1 ? "bank" : "banks"}`
       : plan.cta;
-    const billingNote = isBuilder && builderQuantity === 0
-      ? "Select banks to see your price."
+    const billingNote = isBuilder && builderQuantity < 2
+      ? "Two-bank minimum. Select banks to see your exact price."
       : interval === "annual"
         ? isBuilder
           ? `Billed ${formatCents(builderAnnualTotalCents)} once a year. Save ${getBuilderAnnualSaving(builderQuantity)}`
@@ -208,7 +212,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         </div>
       </section>
 
-      <p className="checkout-note">Secure Stripe checkout. Cancel any time. Existing fixed and All-Access subscribers remain grandfathered at their current price.</p>
+      <p className="checkout-note">Secure Stripe checkout. Cancel any time. Existing subscribers remain grandfathered at their current price and access.</p>
     </section>
   );
 }

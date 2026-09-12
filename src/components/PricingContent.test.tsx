@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { PricingContent } from "@/components/PricingContent";
 
 describe("approved custom-bank pricing", () => {
-  it("shows concise, visually distinct plans without duplicate price counters", () => {
+  it("shows three distinct plans without silently choosing any bank", () => {
     const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} />);
     const cards = container.querySelectorAll(".pricing-option");
 
@@ -11,6 +11,7 @@ describe("approved custom-bank pricing", () => {
     expect(screen.getByRole("heading", { name: "Build Your Plan" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "All Access" })).toBeInTheDocument();
     expect(within(cards[0] as HTMLElement).getByText("$6")).toBeInTheDocument();
+    expect(within(cards[1] as HTMLElement).getByText("$10")).toBeInTheDocument();
     expect(within(cards[2] as HTMLElement).getByText("$25")).toBeInTheDocument();
     expect(cards[0]).toHaveAttribute("data-plan-tone", "starter");
     expect(cards[1]).toHaveAttribute("data-plan-tone", "builder");
@@ -20,50 +21,62 @@ describe("approved custom-bank pricing", () => {
     expect(container.querySelectorAll(".plan-feature-list")).toHaveLength(0);
     expect(within(cards[0] as HTMLElement).getByText("Focus on one syllabus.")).toBeInTheDocument();
     expect(within(cards[1] as HTMLElement).getByText("Mix the banks you actually take.")).toBeInTheDocument();
+    expect(within(cards[1] as HTMLElement).getByText("Two to five banks")).toBeInTheDocument();
     expect(within(cards[2] as HTMLElement).getByText("Everything, including future banks.")).toBeInTheDocument();
-    expect(within(cards[0] as HTMLElement).getByRole("link", { name: "Choose One Bank" })).toBeInTheDocument();
-    expect(within(cards[1] as HTMLElement).getByRole("link", { name: "Continue with 1 bank" })).toBeInTheDocument();
+    expect(within(cards[0] as HTMLElement).queryByRole("link", { name: "Choose One Bank" })).not.toBeInTheDocument();
+    expect(within(cards[1] as HTMLElement).queryByRole("link", { name: /Continue with/ })).not.toBeInTheDocument();
     expect(within(cards[2] as HTMLElement).getByRole("link", { name: "Get All Access" })).toBeInTheDocument();
-    expect(screen.queryByText(/Choose exactly one question bank/)).not.toBeInTheDocument();
-    expect(screen.queryByText(/The first bank is \$6\/month/)).not.toBeInTheDocument();
-    expect(container.querySelector(".custom-bundle-effective-price")).toBeNull();
+    expect(within(cards[0] as HTMLElement).getByText("Select one bank to continue.")).toBeInTheDocument();
+    expect(within(cards[1] as HTMLElement).getByText("Select at least two banks to continue.")).toBeInTheDocument();
     expect(screen.getByText("Most popular")).toBeInTheDocument();
+    expect(screen.queryAllByRole("radio", { checked: true })).toHaveLength(0);
+    expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(0);
     expect(screen.getAllByRole("checkbox")).toHaveLength(12);
+    expect(screen.getByText(/Existing subscribers remain grandfathered at their current price and access\./)).toBeInTheDocument();
   });
 
-  it("updates the builder total from the exact selected bank count", () => {
+  it("updates the builder total only after the two-bank minimum is met", () => {
     render(<PricingContent authenticated={true} hasPaidAccess={false} />);
     const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article");
     expect(builder).not.toBeNull();
     const checkboxes = within(builder!).getAllByRole("checkbox");
+    expect(within(builder!).getByText("None selected")).toBeInTheDocument();
+    expect(within(builder!).queryByRole("button", { name: /Continue with/ })).not.toBeInTheDocument();
+
+    fireEvent.click(checkboxes[0]);
+
     expect(within(builder!).getByText("1 selected")).toBeInTheDocument();
-    expect(within(builder!).getByRole("button", { name: "Continue with 1 bank" })).toBeInTheDocument();
+    expect(within(builder!).getByText("Select one more bank to continue.")).toBeInTheDocument();
+    expect(within(builder!).queryByRole("button", { name: /Continue with/ })).not.toBeInTheDocument();
 
     fireEvent.click(checkboxes[1]);
 
     expect(within(builder!).getByText("2 selected")).toBeInTheDocument();
     expect(within(builder!).getByRole("button", { name: "Continue with 2 banks" })).toBeInTheDocument();
     expect(builder!.querySelector(".plan-price strong")).toHaveTextContent("$10");
-    expect(builder!.querySelector(".custom-bundle-effective-price")).toBeNull();
   });
 
-  it("updates the builder checkout CTA to reflect the current selection", () => {
+  it("updates the builder checkout CTA after two explicit selections", () => {
     render(<PricingContent authenticated={false} hasPaidAccess={false} />);
     const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article") as HTMLElement;
     const checkboxes = within(builder).getAllByRole("checkbox");
 
-    expect(within(builder).getByRole("link", { name: "Continue with 1 bank" })).toBeInTheDocument();
+    expect(within(builder).queryByRole("link", { name: /Continue with/ })).not.toBeInTheDocument();
+    fireEvent.click(checkboxes[0]);
+    expect(within(builder).queryByRole("link", { name: /Continue with/ })).not.toBeInTheDocument();
     fireEvent.click(checkboxes[1]);
     expect(within(builder).getByRole("link", { name: "Continue with 2 banks" })).toBeInTheDocument();
   });
 
-  it("reflects the selected bank count in the builder headline price", () => {
+  it("keeps the builder headline at its true minimum until two banks are selected", () => {
     render(<PricingContent authenticated={true} hasPaidAccess={false} />);
     const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article") as HTMLElement;
     const headlinePrice = () => builder.querySelector(".plan-price strong")?.textContent;
     const checkboxes = within(builder).getAllByRole("checkbox");
 
-    expect(headlinePrice()).toBe("$6");
+    expect(headlinePrice()).toBe("$10");
+    fireEvent.click(checkboxes[0]);
+    expect(headlinePrice()).toBe("$10");
     fireEvent.click(checkboxes[1]);
     expect(headlinePrice()).toBe("$10");
     fireEvent.click(checkboxes[2]);
@@ -80,20 +93,17 @@ describe("approved custom-bank pricing", () => {
     const headlinePrice = () => builder.querySelector(".plan-price strong")?.textContent;
     const checkboxes = within(builder).getAllByRole("checkbox");
 
-    expect(headlinePrice()).toBe("$4");
-    fireEvent.click(checkboxes[1]);
-    fireEvent.click(checkboxes[2]);
-    fireEvent.click(checkboxes[3]);
-    fireEvent.click(checkboxes[4]);
+    expect(headlinePrice()).toBe("$7");
+    checkboxes.slice(0, 5).forEach((checkbox) => fireEvent.click(checkbox));
     expect(headlinePrice()).toBe("$16");
   });
 
-  it("keeps a zero-selection builder headline truthful", () => {
+  it("shows the two-bank starting price while the builder selection is empty", () => {
     render(<PricingContent authenticated={true} hasPaidAccess={false} initialBankIds={[]} />);
     const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article") as HTMLElement;
 
-    expect(builder.querySelector(".plan-price strong")).toHaveTextContent("$0");
-    expect(within(builder).getByText("Select banks to see your price.")).toBeInTheDocument();
+    expect(builder.querySelector(".plan-price strong")).toHaveTextContent("$10");
+    expect(within(builder).getByText("Two-bank minimum. Select banks to see your exact price.")).toBeInTheDocument();
   });
 
   it("organizes every bank choice into compact, discoverable subject groups", () => {
@@ -116,31 +126,35 @@ describe("approved custom-bank pricing", () => {
 
     expect(disclosure).not.toHaveAttribute("open");
     expect(within(disclosure).getByText("Choose your banks")).toBeInTheDocument();
-    expect(within(disclosure).getByText("1 selected")).toBeInTheDocument();
+    expect(within(disclosure).getByText("None selected")).toBeInTheDocument();
   });
 
-  it("shows annual effective monthly prices, exact yearly totals, and annual builder math", () => {
+  it("shows annual starting prices and exact yearly totals after selection", () => {
     render(<PricingContent authenticated={false} hasPaidAccess={false} initialInterval="annual" />);
+    const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article") as HTMLElement;
+    const checkboxes = within(builder).getAllByRole("checkbox");
 
-    expect(screen.getAllByText("$4").length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/Billed \$48 once a year/)).toHaveLength(2);
+    expect(screen.getAllByText("$4")).toHaveLength(1);
+    expect(within(builder).getByText("$7")).toBeInTheDocument();
     expect(screen.getByText("$18")).toBeInTheDocument();
-    expect(screen.getByText("Mix the banks you actually take.")).toBeInTheDocument();
-    expect(screen.queryByText(/The first bank is/)).not.toBeInTheDocument();
+    fireEvent.click(checkboxes[0]);
+    fireEvent.click(checkboxes[1]);
+    expect(within(builder).getByText(/Billed \$84 once a year\. Save 30%/)).toBeInTheDocument();
     expect(screen.getAllByText(/Billed/).map((node) => node.textContent).some((text) => text?.includes("$216 once a year"))).toBe(true);
   });
 
-  it("disables Build Your Plan checkout and pricing when no banks are selected", () => {
+  it("keeps Build Your Plan checkout closed below two banks", () => {
     render(<PricingContent authenticated={true} hasPaidAccess={false} />);
     const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article") as HTMLElement;
     const checkbox = within(builder).getAllByRole("checkbox")[0];
 
+    expect(within(builder).getByText("Select at least two banks to continue.")).toBeInTheDocument();
+    expect(within(builder).queryByRole("button", { name: /continue with/i })).not.toBeInTheDocument();
+
     fireEvent.click(checkbox);
 
-    expect(within(builder).getByText("Select at least one bank to continue.")).toBeInTheDocument();
-    expect(within(builder).queryByRole("button", { name: /choose monthly/i })).not.toBeInTheDocument();
-    expect(builder.querySelector(".custom-bundle-effective-price")).toBeNull();
-    expect(builder.querySelector(".custom-bundle-total")).toBeNull();
+    expect(within(builder).getByText("Select one more bank to continue.")).toBeInTheDocument();
+    expect(within(builder).queryByRole("button", { name: /continue with/i })).not.toBeInTheDocument();
   });
 
   it("keeps the popular plan first on mobile and all three cards in one grid", () => {
@@ -150,13 +164,22 @@ describe("approved custom-bank pricing", () => {
     expect(container.querySelector(".pricing-option-popular")).toHaveAttribute("data-mobile-order", "first");
   });
 
-  it("offers exact bank choices and checkout continuations before sign-in", () => {
+  it("offers checkout continuations only after explicit valid bank choices", () => {
     render(<PricingContent authenticated={false} hasPaidAccess={false} />);
-    expect(screen.getByRole("link", { name: "Choose One Bank" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Continue with 1 bank" })).toBeInTheDocument();
+    const oneBank = screen.getByRole("heading", { name: "One Bank" }).closest("article") as HTMLElement;
+    const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article") as HTMLElement;
+
+    expect(within(oneBank).queryByRole("link", { name: "Choose One Bank" })).not.toBeInTheDocument();
+    expect(within(builder).queryByRole("link", { name: /Continue with/ })).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Get All Access" })).toBeInTheDocument();
-    expect(screen.getByRole("radio", { name: "IB Math AI HL" })).toBeInTheDocument();
-    expect(screen.getByRole("checkbox", { name: "IB Math AA HL" })).toBeInTheDocument();
+
+    fireEvent.click(within(oneBank).getByRole("radio", { name: "IB Math AI HL" }));
+    expect(within(oneBank).getByRole("link", { name: "Choose One Bank" })).toBeInTheDocument();
+
+    const checkboxes = within(builder).getAllByRole("checkbox");
+    fireEvent.click(checkboxes[0]);
+    fireEvent.click(checkboxes[1]);
+    expect(within(builder).getByRole("link", { name: "Continue with 2 banks" })).toBeInTheDocument();
   });
 
   it("restores a visitor's selected bank after sign-in", () => {

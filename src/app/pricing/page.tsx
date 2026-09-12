@@ -9,7 +9,7 @@ import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: "Pricing",
-  description: "Choose one PastPaperPrep question bank across IGCSE, IB Mathematics, IB Chemistry, IB Physics, and IB Biology; build an exact bundle of up to five, or unlock every current bank.",
+  description: "Choose one PastPaperPrep question bank across IGCSE, IB Mathematics, IB Chemistry, IB Physics, and IB Biology; build an exact bundle of two to five, or unlock every current bank.",
   alternates: { canonical: "/pricing" },
   openGraph: {
     title: "PastPaperPrep Pricing",

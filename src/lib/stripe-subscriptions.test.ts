@@ -86,6 +86,30 @@ describe("Stripe subscription event normalization", () => {
     expect(() => buildSubscriptionSync(custom, () => true)).toThrow("Custom bundle quantity does not match selection");
   });
 
+  it("keeps grandfathered one-bank custom subscriptions valid during webhook renewal", () => {
+    const custom = event() as unknown as {
+      data: { object: { metadata: Record<string, string>; items: { data: Array<{ price: { id: string; recurring?: { interval: string } }; quantity?: number }> } } };
+    };
+    custom.data.object.metadata = {
+      user_id: userId,
+      product_id: "bundle_custom",
+      selected_bank_ids: JSON.stringify(["igcse"]),
+      billing_interval: "annual",
+      price_id: "price_custom_annual",
+    };
+    custom.data.object.items.data[0].price.id = "price_custom_annual";
+    custom.data.object.items.data[0].price.recurring = { interval: "year" };
+    custom.data.object.items.data[0].quantity = 1;
+
+    expect(buildSubscriptionSync(custom, (productId, priceId, interval) =>
+      productId === "bundle_custom" && priceId === "price_custom_annual" && interval === "annual",
+    )).toEqual(expect.objectContaining({
+      productId: "bundle_custom",
+      quantity: 1,
+      selectedBankIds: ["igcse"],
+    }));
+  });
+
   it("accepts Economics through the existing custom-bundle price path", () => {
     const custom = event() as unknown as {
       data: { object: { metadata: Record<string, string>; items: { data: Array<{ price: { id: string; recurring?: { interval: string } }; quantity?: number }> } } };
