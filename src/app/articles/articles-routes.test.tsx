@@ -6,14 +6,15 @@ import { ARTICLES } from "@/lib/articles";
 
 describe("article routes", () => {
   it("publishes a canonical article index", () => {
-    expect(articlesMetadata.title).toBe("Past Paper Revision Guides");
+    expect(articlesMetadata.title).toBe("Past Paper Practice Guides and Question Bank Comparisons");
+    expect(articlesMetadata.description).toContain("Mathematics, Chemistry, Physics, and Biology");
     expect(articlesMetadata.alternates?.canonical).toBe("/articles");
     expect(articlesMetadata.openGraph).toMatchObject({
-      title: "Past Paper Revision Guides | PastPaperPrep",
+      title: "Past Paper Practice Guides and Question Bank Comparisons | PastPaperPrep",
       url: "/articles",
       type: "website",
     });
-    expect(renderToStaticMarkup(<ArticlesPage />)).toContain("Past paper revision guides");
+    expect(renderToStaticMarkup(<ArticlesPage />)).toContain("Past paper practice guides");
   });
 
   it("prebuilds every article and emits canonical article metadata", async () => {

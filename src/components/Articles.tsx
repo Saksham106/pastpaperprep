@@ -23,8 +23,8 @@ export function ArticlesIndex() {
     <div className="articles-page shell">
       <header className="articles-hero">
         <p className="eyebrow">PastPaperPrep articles</p>
-        <h1>Past paper revision guides</h1>
-        <p>Clear methods for turning real exam questions into focused IGCSE and IB Mathematics practice.</p>
+        <h1>Past paper practice guides</h1>
+        <p>Clear methods and honest resource comparisons for Cambridge IGCSE Maths and IB Maths, Chemistry, Physics, and Biology.</p>
       </header>
 
       <section className="article-grid" aria-label="Revision guides">
@@ -35,11 +35,11 @@ export function ArticlesIndex() {
         <div>
           <p className="eyebrow">Put it into practice</p>
           <h2 id="article-bank-heading">Build a focused question set</h2>
-          <p>Filter real questions by course, topic, year, paper, marks, and calculator rules.</p>
+          <p>Filter real questions by course, topic, year, paper, marks, and other available exam details.</p>
         </div>
         <div>
-          <Link href="/banks/igcse">IGCSE Mathematics 0580 question bank</Link>
-          <Link href="/#question-banks">IB Mathematics question banks</Link>
+          <Link href="/#question-banks">Cambridge IGCSE Maths question banks</Link>
+          <Link href="/#question-banks">IB Maths and science question banks</Link>
         </div>
       </aside>
     </div>
