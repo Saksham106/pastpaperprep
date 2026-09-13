@@ -22,6 +22,8 @@ const BANK_PRODUCT_TO_SLUG: Record<string, BankSlug> = {
   bank_ib_physics_sl: "ib-physics-sl",
   bank_ib_biology_hl: "ib-biology-hl",
   bank_ib_biology_sl: "ib-biology-sl",
+  bank_igcse_biology_0610: "igcse-biology-0610",
+  bank_igcse_economics_0455: "igcse-economics-0455",
 };
 
 const PLANS = [

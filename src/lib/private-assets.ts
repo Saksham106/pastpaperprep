@@ -4,6 +4,12 @@ import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { QUESTION_ASSET_BUCKET } from "@/lib/assets";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { getPrivateBankObjectPrefix as getMappedPrivateBankObjectPrefix } from "@/lib/private-runtime-mapping";
+import type { BankSlug } from "@/lib/banks";
+
+export function getPrivateBankObjectPrefix(bank: BankSlug): string {
+  return getMappedPrivateBankObjectPrefix(bank);
+}
 
 type AssetStorageProvider = "supabase" | "r2";
 

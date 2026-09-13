@@ -1,56 +1,77 @@
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Check, DownloadSimple, FunnelSimple, PencilSimpleLine } from "@phosphor-icons/react/dist/ssr";
 import { CourseIcon, courseToneForBank, type CourseTone } from "@/components/CourseIcon";
-import { BANKS } from "@/lib/banks";
+import { getAvailableBanks, type Bank } from "@/lib/banks";
 
-const COURSE_GROUPS = [
-  {
-    name: "Cambridge IGCSE",
-    detail: "0580 and 0606",
-    tone: "math" as CourseTone,
-    banks: BANKS.filter((bank) => bank.qualification === "Cambridge IGCSE"),
-  },
-  {
-    name: "IB Mathematics · Analysis and Approaches",
-    detail: "Higher and Standard Level",
-    tone: "math" as CourseTone,
-    banks: BANKS.filter((bank) => bank.subject.includes("AA")),
-  },
-  {
-    name: "IB Mathematics · Applications and Interpretation",
-    detail: "Higher and Standard Level",
-    tone: "math" as CourseTone,
-    banks: BANKS.filter((bank) => bank.subject.includes("AI")),
-  },
-  {
-    name: "IB Chemistry",
-    detail: "Higher and Standard Level",
-    tone: "chemistry" as CourseTone,
-    banks: BANKS.filter((bank) => bank.subject.includes("Chemistry")),
-  },
-  {
-    name: "IB Physics",
-    detail: "Higher and Standard Level",
-    tone: "physics" as CourseTone,
-    banks: BANKS.filter((bank) => bank.subject.includes("Physics")),
-  },
-  {
-    name: "IB Biology",
-    detail: "Higher and Standard Level",
-    tone: "biology" as CourseTone,
-    banks: BANKS.filter((bank) => bank.subject.includes("Biology")),
-  },
-] as const;
+const IGCSE_CODE_BY_SLUG: Record<string, string> = {
+  igcse: "0580",
+  "igcse-additional": "0606",
+  "igcse-biology-0610": "0610",
+  "igcse-economics-0455": "0455",
+};
 
-export function MarketingHome() {
-  const totalQuestions = BANKS.reduce((total, bank) => total + bank.questionCount, 0);
-  const totalPapers = BANKS.reduce((total, bank) => total + bank.paperCount, 0);
+function getCourseGroups(banks: readonly Bank[]) {
+  return [
+    {
+      name: "Cambridge IGCSE",
+      detail: banks
+        .filter((bank) => bank.qualification === "Cambridge IGCSE")
+        .map((bank) => IGCSE_CODE_BY_SLUG[bank.slug] ?? bank.shortName)
+        .join(", "),
+      tone: "math" as CourseTone,
+      banks: banks.filter((bank) => bank.qualification === "Cambridge IGCSE"),
+    },
+    {
+      name: "IB Mathematics · Analysis and Approaches",
+      detail: "Higher and Standard Level",
+      tone: "math" as CourseTone,
+      banks: banks.filter((bank) => bank.subject.includes("AA")),
+    },
+    {
+      name: "IB Mathematics · Applications and Interpretation",
+      detail: "Higher and Standard Level",
+      tone: "math" as CourseTone,
+      banks: banks.filter((bank) => bank.subject.includes("AI")),
+    },
+    {
+      name: "IB Chemistry",
+      detail: "Higher and Standard Level",
+      tone: "chemistry" as CourseTone,
+      banks: banks.filter((bank) => bank.subject.includes("Chemistry")),
+    },
+    {
+      name: "IB Physics",
+      detail: "Higher and Standard Level",
+      tone: "physics" as CourseTone,
+      banks: banks.filter((bank) => bank.subject.includes("Physics")),
+    },
+    {
+      name: "IB Biology",
+      detail: "Higher and Standard Level",
+      tone: "biology" as CourseTone,
+      banks: banks.filter((bank) => bank.subject.includes("Biology") && bank.qualification === "International Baccalaureate"),
+    },
+    {
+      name: "IB Economics",
+      detail: "Higher and Standard Level",
+      tone: "math" as CourseTone,
+      banks: banks.filter((bank) => bank.subject.includes("Economics") && bank.qualification === "International Baccalaureate"),
+    },
+  ].filter((group) => group.banks.length > 0);
+}
+
+export function MarketingHome({ environment = process.env }: { environment?: Record<string, string | undefined> }) {
+  const banks = getAvailableBanks(environment);
+  const courseGroups = getCourseGroups(banks);
+  const totalQuestions = banks.reduce((total, bank) => total + bank.questionCount, 0);
+  const totalPapers = banks.reduce((total, bank) => total + bank.paperCount, 0);
+  const includesEconomics = banks.some((bank) => bank.subject.includes("Economics"));
 
   return (
     <>
       <section className="exam-hero shell">
         <div className="exam-hero-copy">
-          <p className="hero-context">IGCSE + IB Maths + Chemistry + Physics + Biology</p>
+          <p className="hero-context">IGCSE + IB Maths + Chemistry + Physics + Biology{includesEconomics ? " + Economics" : ""}</p>
           <h1>Practise the questions that move your grade.</h1>
           <p className="exam-hero-lede">Filter exact past-paper questions, practise free, and build printable sets. No account needed.</p>
           <div className="hero-actions">
@@ -82,7 +103,7 @@ export function MarketingHome() {
           <p>Every course includes full exam years you can practise for free.</p>
         </header>
         <div className="curriculum-index">
-          {COURSE_GROUPS.map((group) => (
+          {courseGroups.map((group) => (
             <section className={`curriculum-row course-tone-${group.tone}`} key={group.name} aria-labelledby={`course-${group.name.replaceAll(" ", "-").toLowerCase()}`}>
               <div className="curriculum-heading">
                 <CourseIcon tone={group.tone} />
@@ -108,7 +129,7 @@ export function MarketingHome() {
       <section className="corpus-ledger shell" aria-label="Question bank coverage">
         <div><strong>{totalQuestions.toLocaleString()}</strong><span>curated questions</span></div>
         <div><strong>{totalPapers.toLocaleString()}</strong><span>exam papers indexed</span></div>
-        <div><strong>{BANKS.length}</strong><span>focused question banks</span></div>
+        <div><strong>{banks.length}</strong><span>focused question banks</span></div>
         <p><Check weight="bold" /> Answers, worked solutions, and official markschemes where available</p>
       </section>
 
@@ -127,7 +148,7 @@ export function MarketingHome() {
       <section className="pricing-invite shell">
         <div>
           <h2>Start free. Unlock more when you need it.</h2>
-          <p>Choose one bank, a subject pair, or the complete twelve-bank library.</p>
+          <p>Choose one bank, a subject pair, or the complete {banks.length}-bank library.</p>
         </div>
         <Link className="button primary" href="/pricing">Compare plans <ArrowRight weight="bold" /></Link>
       </section>

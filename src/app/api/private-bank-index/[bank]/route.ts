@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { hasBankAccess } from "@/lib/access";
-import { isEconomicsProductionEnabled, isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
+import { isEconomicsProductionEnabled, isIGCSEReleaseBank, isIGCSEReleaseEnabled, isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
 import { normalizeEntitlements } from "@/lib/entitlements";
 import { createPublicBankIndex } from "@/lib/question-index";
 import { loadBankQuestions } from "@/lib/question-loader";
@@ -12,9 +12,9 @@ const PRIVATE_RESPONSE_INIT = { headers: { "Cache-Control": "private, no-store, 
 export const runtime = "nodejs";
 
 export async function GET(_request: Request, context: RouteContext) {
-  if (!isEconomicsProductionEnabled()) return NextResponse.json({ error: "Not found" }, { status: 404 });
   const bank = (await context.params).bank;
-  if (!isLocalEconomicsBank(bank)) return NextResponse.json({ error: "Not found" }, { status: 404 });
+  const enabled = isLocalEconomicsBank(bank) ? isEconomicsProductionEnabled() : isIGCSEReleaseBank(bank) ? isIGCSEReleaseEnabled() : false;
+  if (!enabled) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
   const supabase = await createClient();
   const { data: claimsData } = await supabase.auth.getClaims();
@@ -30,7 +30,7 @@ export async function GET(_request: Request, context: RouteContext) {
   }
 
   return NextResponse.json(
-    createPublicBankIndex(bank as BankSlug, await loadBankQuestions(bank)),
+    createPublicBankIndex(bank as BankSlug, await loadBankQuestions(bank as BankSlug)),
     PRIVATE_RESPONSE_INIT,
   );
 }

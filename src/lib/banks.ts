@@ -1,6 +1,8 @@
 export type EconomicsBankSlug = "ib-economics-hl" | "ib-economics-sl";
-export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl" | "ib-physics-hl" | "ib-physics-sl" | "ib-biology-hl" | "ib-biology-sl" | EconomicsBankSlug;
-export type ProductionBankSlug = Exclude<BankSlug, EconomicsBankSlug>;
+export type IGCSEReleaseBankSlug = "igcse-biology-0610" | "igcse-economics-0455";
+export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl" | "ib-physics-hl" | "ib-physics-sl" | "ib-biology-hl" | "ib-biology-sl" | EconomicsBankSlug | IGCSEReleaseBankSlug;
+export type ProductionBankSlug = Exclude<BankSlug, EconomicsBankSlug | IGCSEReleaseBankSlug>;
+export type LegacyProductionBankSlug = ProductionBankSlug;
 
 export const ECONOMICS_PRODUCT_IDS = [
   "bank_ib_economics_hl",
@@ -104,6 +106,11 @@ export const ECONOMICS_BANK_CATALOG: readonly Bank[] = [
     rightsStatus: "user_attested_non_blocking_for_named_corpus",
     entitlementProductId: "bank_ib_economics_sl",
   },
+] as const;
+
+export const IGCSE_RELEASE_BANK_CATALOG: readonly Bank[] = [
+  { slug: "igcse-biology-0610", shortName: "IGCSE Biology 0610", title: "Cambridge IGCSE Biology 0610", description: "Cambridge IGCSE Biology questions organized by syllabus topic, paper, and session.", qualification: "Cambridge IGCSE", subject: "Biology 0610", questionCount: 3441, paperCount: 209, years: "2021-2025", accent: "lime", sourceBaseUrl: "", localPreview: false, productionEnabled: true, releaseStatus: "authorized_production_candidate", rightsStatus: "user_attested_non_blocking_for_named_corpus", entitlementProductId: "bank_igcse_biology_0610" },
+  { slug: "igcse-economics-0455", shortName: "IGCSE Economics 0455", title: "Cambridge IGCSE Economics 0455", description: "Cambridge IGCSE Economics questions organized by syllabus topic, paper, and session.", qualification: "Cambridge IGCSE", subject: "Economics 0455", questionCount: 1189, paperCount: 70, years: "2021-2025", accent: "coral", sourceBaseUrl: "", localPreview: false, productionEnabled: true, releaseStatus: "authorized_production_candidate", rightsStatus: "user_attested_non_blocking_for_named_corpus", entitlementProductId: "bank_igcse_economics_0455" },
 ] as const;
 
 export const BANKS: readonly Bank[] = [
@@ -265,6 +272,14 @@ export const BANKS: readonly Bank[] = [
   },
 ] as const;
 
+export function isIGCSEReleaseBank(slug: string): slug is IGCSEReleaseBankSlug {
+  return slug === "igcse-biology-0610" || slug === "igcse-economics-0455";
+}
+
+export function isIGCSEReleaseEnabled(environment: Record<string, string | undefined> = process.env): boolean {
+  return environment.PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS === "true" && environment.PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED === "true";
+}
+
 export function isLocalEconomicsBank(slug: string): slug is EconomicsBankSlug {
   return slug === "ib-economics-hl" || slug === "ib-economics-sl";
 }
@@ -280,16 +295,16 @@ export function isLocalEconomicsPreviewEnabled(environment: Record<string, strin
 
 /** All known production-shaped bank IDs, including gated Economics, for entitlement reads. */
 export function getEntitlementBanks(): readonly Bank[] {
-  return [...BANKS, ...ECONOMICS_BANK_CATALOG];
+  return [...BANKS, ...ECONOMICS_BANK_CATALOG, ...IGCSE_RELEASE_BANK_CATALOG];
 }
 
 /** Banks that may be sent to billing. Local preview banks are never billable. */
 export function getBillingBanks(environment: Record<string, string | undefined> = process.env): readonly Bank[] {
-  return isEconomicsProductionEnabled(environment) ? [...BANKS, ...ECONOMICS_BANK_CATALOG] : BANKS;
+  return [...BANKS, ...(isEconomicsProductionEnabled(environment) ? ECONOMICS_BANK_CATALOG : []), ...(isIGCSEReleaseEnabled(environment) ? IGCSE_RELEASE_BANK_CATALOG : [])];
 }
 
 export function getAvailableBanks(environment: Record<string, string | undefined> = process.env): readonly Bank[] {
-  if (isEconomicsProductionEnabled(environment)) return getBillingBanks(environment);
+  if (isEconomicsProductionEnabled(environment) || isIGCSEReleaseEnabled(environment)) return getBillingBanks(environment);
   return isLocalEconomicsPreviewEnabled(environment) ? [...BANKS, ...LOCAL_PREVIEW_BANKS] : BANKS;
 }
 

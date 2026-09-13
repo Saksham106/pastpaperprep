@@ -9,6 +9,8 @@ const ALL_CANONICAL_BANK_IDS: readonly BankSlug[] = [
   ...CANONICAL_BANK_IDS,
   "ib-economics-hl",
   "ib-economics-sl",
+  "igcse-biology-0610",
+  "igcse-economics-0455",
 ];
 const CANONICAL_BANK_SET = new Set<string>(ALL_CANONICAL_BANK_IDS);
 

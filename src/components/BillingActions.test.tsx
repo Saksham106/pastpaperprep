@@ -6,6 +6,7 @@ const fetchMock = vi.fn();
 
 beforeEach(() => {
   vi.clearAllMocks();
+  vi.unstubAllEnvs();
   vi.stubGlobal("fetch", fetchMock);
 });
 
@@ -129,6 +130,26 @@ describe("CustomBundleCheckout", () => {
 
     fireEvent.click(checkboxes[1]);
     expect(screen.getByRole("button", { name: "Continue to checkout" })).toBeInTheDocument();
+  });
+
+  it("maps each gated IGCSE release bank to its single-bank product", async () => {
+    vi.stubEnv("PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS", "true");
+    vi.stubEnv("PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED", "true");
+    fetchMock.mockResolvedValue({ ok: false, status: 503, json: async () => ({ error: "stop after request" }) });
+
+    const { unmount } = render(<CustomBundleCheckout mode="single" interval="monthly" authenticated={true} hasPaidAccess={false} initialBankIds={["igcse-biology-0610"]} />);
+    fireEvent.click(screen.getByRole("button", { name: /choose monthly/i }));
+    await waitFor(() => expect(fetchMock).toHaveBeenLastCalledWith("/api/billing/checkout", expect.objectContaining({
+      body: JSON.stringify({ interval: "monthly", productId: "bank_igcse_biology_0610" }),
+    })));
+    unmount();
+
+    fetchMock.mockClear();
+    render(<CustomBundleCheckout mode="single" interval="annual" authenticated={true} hasPaidAccess={false} initialBankIds={["igcse-economics-0455"]} />);
+    fireEvent.click(screen.getByRole("button", { name: /choose annual/i }));
+    await waitFor(() => expect(fetchMock).toHaveBeenLastCalledWith("/api/billing/checkout", expect.objectContaining({
+      body: JSON.stringify({ interval: "annual", productId: "bank_igcse_economics_0455" }),
+    })));
   });
 
   it("uses the fixed single-bank product instead of the custom-bundle path", async () => {

@@ -1,0 +1,695 @@
+{
+ "artifact": "economics0455_student_taxonomy_projection",
+ "version": "economics0455_source_backed_taxonomy@2-exchange-rates",
+ "boardcode": "0455",
+ "sourceTaxonomyPath": "data/classification/reconciliation/final-v2/taxonomy-overlay-v2.json",
+ "sourceTaxonomySHA256": "df318a9cb73b0a02f43003dc0a47189cd603ad33e8cc29d0f6c462c3e0299c2e",
+ "student_topics": [
+  {
+   "id": "topic-1",
+   "label": "The basic economic problem",
+   "detailed_subtopics": [
+    {
+     "code": "1.1.1",
+     "era": "2020_2022",
+     "label": "finite resources and unlimited wants"
+    },
+    {
+     "code": "1.1.2",
+     "era": "2020_2022",
+     "label": "economic and free goods"
+    },
+    {
+     "code": "1.2.1",
+     "era": "2020_2022",
+     "label": "definitions of the factors of production and their rewards"
+    },
+    {
+     "code": "1.2.2",
+     "era": "2020_2022",
+     "label": "mobility of the factors of production"
+    },
+    {
+     "code": "1.2.3",
+     "era": "2020_2022",
+     "label": "quantity and quality of the factors of production"
+    },
+    {
+     "code": "1.3.1",
+     "era": "2020_2022",
+     "label": "definition of opportunity cost"
+    },
+    {
+     "code": "1.3.2",
+     "era": "2020_2022",
+     "label": "the influence of opportunity cost on decision making"
+    },
+    {
+     "code": "1.4.1",
+     "era": "2020_2022",
+     "label": "definition of PPC"
+    },
+    {
+     "code": "1.4.2",
+     "era": "2020_2022",
+     "label": "points under, on and beyond a PPC"
+    },
+    {
+     "code": "1.4.3",
+     "era": "2020_2022",
+     "label": "movements along a PPC"
+    },
+    {
+     "code": "1.4.4",
+     "era": "2020_2022",
+     "label": "shifts in a PPC"
+    }
+   ]
+  },
+  {
+   "id": "topic-2",
+   "label": "The allocation of resources",
+   "detailed_subtopics": [
+    {
+     "code": "2.1.1",
+     "era": "2020_2022",
+     "label": "microeconomics"
+    },
+    {
+     "code": "2.1.2",
+     "era": "2020_2022",
+     "label": "macroeconomics"
+    },
+    {
+     "code": "2.10.1",
+     "era": "2020_2022",
+     "label": "definition of market failure"
+    },
+    {
+     "code": "2.10.2",
+     "era": "2020_2022",
+     "label": "causes of market failure"
+    },
+    {
+     "code": "2.10.3",
+     "era": "2020_2022",
+     "label": "consequences of market failure"
+    },
+    {
+     "code": "2.11.1",
+     "era": "2020_2022",
+     "label": "definition of the mixed economic system"
+    },
+    {
+     "code": "2.11.2",
+     "era": "2020_2022",
+     "label": "government intervention to address market failure"
+    },
+    {
+     "code": "2.2.1",
+     "era": "2020_2022",
+     "label": "the market system"
+    },
+    {
+     "code": "2.2.2",
+     "era": "2020_2022",
+     "label": "key resources allocation decisions"
+    },
+    {
+     "code": "2.2.3",
+     "era": "2020_2022",
+     "label": "introduction to the price mechanism"
+    },
+    {
+     "code": "2.3.2",
+     "era": "2023_2025",
+     "label": "price, demand and quantity"
+    },
+    {
+     "code": "2.3.3",
+     "era": "2020_2022",
+     "label": "individual and market demand"
+    },
+    {
+     "code": "2.3.4",
+     "era": "2020_2022",
+     "label": "conditions of demand"
+    },
+    {
+     "code": "2.4.1",
+     "era": "2020_2022",
+     "label": "definition of supply"
+    },
+    {
+     "code": "2.4.2",
+     "era": "2023_2025",
+     "label": "price, supply and quantity"
+    },
+    {
+     "code": "2.4.3",
+     "era": "2020_2022",
+     "label": "individual and market supply"
+    },
+    {
+     "code": "2.4.4",
+     "era": "2020_2022",
+     "label": "conditions of supply"
+    },
+    {
+     "code": "2.5.1",
+     "era": "2020_2022",
+     "label": "market equilibrium"
+    },
+    {
+     "code": "2.5.2",
+     "era": "2020_2022",
+     "label": "market disequilibrium"
+    },
+    {
+     "code": "2.6.1",
+     "era": "2020_2022",
+     "label": "causes of price changes"
+    },
+    {
+     "code": "2.6.2",
+     "era": "2020_2022",
+     "label": "consequences of price changes"
+    },
+    {
+     "code": "2.7.1",
+     "era": "2020_2022",
+     "label": "definition of PED"
+    },
+    {
+     "code": "2.7.2",
+     "era": "2020_2022",
+     "label": "calculation of PED"
+    },
+    {
+     "code": "2.7.3",
+     "era": "2020_2022",
+     "label": "determinants of PED"
+    },
+    {
+     "code": "2.7.4",
+     "era": "2020_2022",
+     "label": "PED and total spending on a product/revenue"
+    },
+    {
+     "code": "2.7.5",
+     "era": "2020_2022",
+     "label": "significance of PED"
+    },
+    {
+     "code": "2.8.1",
+     "era": "2023_2025",
+     "label": "definition of PES"
+    },
+    {
+     "code": "2.8.2",
+     "era": "2020_2022",
+     "label": "calculation of PES"
+    },
+    {
+     "code": "2.8.3",
+     "era": "2020_2022",
+     "label": "determinants of PES"
+    },
+    {
+     "code": "2.8.4",
+     "era": "2020_2022",
+     "label": "significance of PES"
+    },
+    {
+     "code": "2.9.1",
+     "era": "2023_2025",
+     "label": "definition of market economic system"
+    },
+    {
+     "code": "2.9.2",
+     "era": "2020_2022",
+     "label": "advantages and disadvantages of the market economic system"
+    }
+   ]
+  },
+  {
+   "id": "topic-3",
+   "label": "Microeconomic decision makers",
+   "detailed_subtopics": [
+    {
+     "code": "3.1.1",
+     "era": "2020_2022",
+     "label": "money"
+    },
+    {
+     "code": "3.1.2",
+     "era": "2020_2022",
+     "label": "banking"
+    },
+    {
+     "code": "3.2.1",
+     "era": "2020_2022",
+     "label": "the influences on spending, saving and borrowing"
+    },
+    {
+     "code": "3.3.1",
+     "era": "2020_2022",
+     "label": "factors affecting an individual’s choice of occupation"
+    },
+    {
+     "code": "3.3.2",
+     "era": "2020_2022",
+     "label": "wage determination"
+    },
+    {
+     "code": "3.3.3",
+     "era": "2020_2022",
+     "label": "reasons for differences in earnings"
+    },
+    {
+     "code": "3.3.4",
+     "era": "2020_2022",
+     "label": "division of labour/specialisation"
+    },
+    {
+     "code": "3.4.1",
+     "era": "2023_2025",
+     "label": "definition of a trade union"
+    },
+    {
+     "code": "3.4.2",
+     "era": "2020_2022",
+     "label": "the role of trade unions in the economy"
+    },
+    {
+     "code": "3.4.3",
+     "era": "2020_2022",
+     "label": "the advantages and disadvantages of trade union activity"
+    },
+    {
+     "code": "3.5.1",
+     "era": "2020_2022",
+     "label": "classification of firms"
+    },
+    {
+     "code": "3.5.2",
+     "era": "2020_2022",
+     "label": "small firms"
+    },
+    {
+     "code": "3.5.3",
+     "era": "2020_2022",
+     "label": "causes and forms of the growth of firms"
+    },
+    {
+     "code": "3.5.4",
+     "era": "2020_2022",
+     "label": "mergers"
+    },
+    {
+     "code": "3.5.5",
+     "era": "2020_2022",
+     "label": "economies and diseconomies of scale"
+    },
+    {
+     "code": "3.6.1",
+     "era": "2020_2022",
+     "label": "demand for factors of production"
+    },
+    {
+     "code": "3.6.2",
+     "era": "2020_2022",
+     "label": "labour-intensive and capital-intensive production"
+    },
+    {
+     "code": "3.6.3",
+     "era": "2020_2022",
+     "label": "production and productivity"
+    },
+    {
+     "code": "3.7.1",
+     "era": "2020_2022",
+     "label": "definition of costs of production"
+    },
+    {
+     "code": "3.7.2",
+     "era": "2020_2022",
+     "label": "calculation of costs of production"
+    },
+    {
+     "code": "3.7.3",
+     "era": "2020_2022",
+     "label": "definition of revenue"
+    },
+    {
+     "code": "3.7.4",
+     "era": "2020_2022",
+     "label": "calculation of revenue"
+    },
+    {
+     "code": "3.7.5",
+     "era": "2020_2022",
+     "label": "objectives of firms"
+    },
+    {
+     "code": "3.8.1",
+     "era": "2020_2022",
+     "label": "competitive markets"
+    },
+    {
+     "code": "3.8.2",
+     "era": "2020_2022",
+     "label": "monopoly markets"
+    }
+   ]
+  },
+  {
+   "id": "topic-4",
+   "label": "Government and the macroeconomy",
+   "detailed_subtopics": [
+    {
+     "code": "4.1.1",
+     "era": "2020_2022",
+     "label": "the role of government"
+    },
+    {
+     "code": "4.2.1",
+     "era": "2020_2022",
+     "label": "the macroeconomic aims of government"
+    },
+    {
+     "code": "4.2.2",
+     "era": "2020_2022",
+     "label": "possible conflicts between macroeconomic aims"
+    },
+    {
+     "code": "4.3.1",
+     "era": "2020_2022",
+     "label": "definition of the budget"
+    },
+    {
+     "code": "4.3.1",
+     "era": "2023_2025",
+     "label": "definition of the government budget"
+    },
+    {
+     "code": "4.3.2",
+     "era": "2020_2022",
+     "label": "reasons for government spending"
+    },
+    {
+     "code": "4.3.3",
+     "era": "2020_2022",
+     "label": "reasons for taxation"
+    },
+    {
+     "code": "4.3.4",
+     "era": "2020_2022",
+     "label": "classification of taxes"
+    },
+    {
+     "code": "4.3.5",
+     "era": "2020_2022",
+     "label": "principles of taxation"
+    },
+    {
+     "code": "4.3.6",
+     "era": "2020_2022",
+     "label": "impact of taxation"
+    },
+    {
+     "code": "4.3.7",
+     "era": "2020_2022",
+     "label": "definition of fiscal policy"
+    },
+    {
+     "code": "4.3.8",
+     "era": "2020_2022",
+     "label": "fiscal policy measures"
+    },
+    {
+     "code": "4.3.9",
+     "era": "2020_2022",
+     "label": "effects of fiscal policy on government macroeconomic aims"
+    },
+    {
+     "code": "4.4.1",
+     "era": "2020_2022",
+     "label": "definition of money supply and monetary policy"
+    },
+    {
+     "code": "4.4.2",
+     "era": "2020_2022",
+     "label": "monetary policy measures"
+    },
+    {
+     "code": "4.4.3",
+     "era": "2020_2022",
+     "label": "effects of monetary policy on government macroeconomic aims"
+    },
+    {
+     "code": "4.5.1",
+     "era": "2020_2022",
+     "label": "definition of supply-side policy"
+    },
+    {
+     "code": "4.5.2",
+     "era": "2020_2022",
+     "label": "supply-side policy measures"
+    },
+    {
+     "code": "4.5.3",
+     "era": "2020_2022",
+     "label": "effects of supply-side policy measures on government macroeconomic aims"
+    },
+    {
+     "code": "4.6.1",
+     "era": "2020_2022",
+     "label": "definition of economic growth"
+    },
+    {
+     "code": "4.6.2",
+     "era": "2020_2022",
+     "label": "measurement of economic growth"
+    },
+    {
+     "code": "4.6.3",
+     "era": "2020_2022",
+     "label": "causes and consequences of recession"
+    },
+    {
+     "code": "4.6.4",
+     "era": "2020_2022",
+     "label": "causes of economic growth"
+    },
+    {
+     "code": "4.6.5",
+     "era": "2020_2022",
+     "label": "consequences of economic growth"
+    },
+    {
+     "code": "4.6.6",
+     "era": "2020_2022",
+     "label": "policies to promote economic growth"
+    },
+    {
+     "code": "4.7.1",
+     "era": "2020_2022",
+     "label": "definition of employment, unemployment and full employment"
+    },
+    {
+     "code": "4.7.2",
+     "era": "2020_2022",
+     "label": "changing patterns and level of employment"
+    },
+    {
+     "code": "4.7.3",
+     "era": "2020_2022",
+     "label": "measurement of unemployment"
+    },
+    {
+     "code": "4.7.4",
+     "era": "2020_2022",
+     "label": "causes/types of unemployment"
+    },
+    {
+     "code": "4.7.5",
+     "era": "2020_2022",
+     "label": "consequences of unemployment"
+    },
+    {
+     "code": "4.7.6",
+     "era": "2020_2022",
+     "label": "policies to reduce unemployment"
+    },
+    {
+     "code": "4.8.1",
+     "era": "2020_2022",
+     "label": "definition of inflation and deflation"
+    },
+    {
+     "code": "4.8.2",
+     "era": "2020_2022",
+     "label": "measurement of inflation and deflation"
+    },
+    {
+     "code": "4.8.3",
+     "era": "2020_2022",
+     "label": "causes of inflation and deflation"
+    },
+    {
+     "code": "4.8.4",
+     "era": "2020_2022",
+     "label": "consequences of inflation and deflation"
+    },
+    {
+     "code": "4.8.5",
+     "era": "2020_2022",
+     "label": "policies to control inflation and deflation"
+    }
+   ]
+  },
+  {
+   "id": "topic-5",
+   "label": "Economic development",
+   "detailed_subtopics": [
+    {
+     "code": "5.1.1",
+     "era": "2020_2022",
+     "label": "indicators of living standards"
+    },
+    {
+     "code": "5.1.2",
+     "era": "2020_2022",
+     "label": "comparing living standards and income distribution"
+    },
+    {
+     "code": "5.2.1",
+     "era": "2020_2022",
+     "label": "definition of absolute and relative poverty"
+    },
+    {
+     "code": "5.2.2",
+     "era": "2020_2022",
+     "label": "the causes of poverty"
+    },
+    {
+     "code": "5.2.3",
+     "era": "2020_2022",
+     "label": "policies to alleviate poverty and redistribute income"
+    },
+    {
+     "code": "5.3.1",
+     "era": "2020_2022",
+     "label": "the factors that affect population growth"
+    },
+    {
+     "code": "5.3.2",
+     "era": "2020_2022",
+     "label": "reasons for different rates of population growth in different countries"
+    },
+    {
+     "code": "5.3.3",
+     "era": "2020_2022",
+     "label": "the effects of changes in the size and structure of population on different countries"
+    },
+    {
+     "code": "5.4.1",
+     "era": "2020_2022",
+     "label": "differences in economic development between countries"
+    }
+   ]
+  },
+  {
+   "id": "topic-6",
+   "label": "International trade and globalisation",
+   "detailed_subtopics": [
+    {
+     "code": "6.1.1",
+     "era": "2020_2022",
+     "label": "specialisation at a national level"
+    },
+    {
+     "code": "6.1.2",
+     "era": "2020_2022",
+     "label": "advantages and disadvantages of specialisation at a national level"
+    },
+    {
+     "code": "6.2.1",
+     "era": "2020_2022",
+     "label": "definition of globalisation"
+    },
+    {
+     "code": "6.2.2",
+     "era": "2020_2022",
+     "label": "role of multinational companies (MNCs)"
+    },
+    {
+     "code": "6.2.3",
+     "era": "2020_2022",
+     "label": "the benefits of free trade"
+    },
+    {
+     "code": "6.2.4",
+     "era": "2020_2022",
+     "label": "methods of protection"
+    },
+    {
+     "code": "6.2.5",
+     "era": "2020_2022",
+     "label": "reasons for protection"
+    },
+    {
+     "code": "6.2.6",
+     "era": "2020_2022",
+     "label": "consequences of protection"
+    },
+    {
+     "code": "6.3.1",
+     "era": "2020_2022",
+     "label": "definition of foreign exchange rate"
+    },
+    {
+     "code": "6.3.2",
+     "era": "2020_2022",
+     "label": "determination of foreign exchange rate in foreign exchange market"
+    },
+    {
+     "code": "6.3.3",
+     "era": "2020_2022",
+     "label": "causes of foreign exchange rate fluctuations"
+    },
+    {
+     "code": "6.3.4",
+     "era": "2020_2022",
+     "label": "consequences of foreign exchange rate fluctuations"
+    },
+    {
+     "code": "6.3.5",
+     "era": "2020_2022",
+     "label": "floating and fixed foreign exchange rates"
+    },
+    {
+     "code": "6.4.1",
+     "era": "2020_2022",
+     "label": "structure"
+    },
+    {
+     "code": "6.4.2",
+     "era": "2020_2022",
+     "label": "causes of current account deficit and surplus"
+    },
+    {
+     "code": "6.4.3",
+     "era": "2020_2022",
+     "label": "consequences of current account deficit and surplus"
+    },
+    {
+     "code": "6.4.4",
+     "era": "2020_2022",
+     "label": "policies to achieve balance of payments stability"
+    }
+   ]
+  }
+ ]
+}
