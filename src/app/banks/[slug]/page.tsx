@@ -15,6 +15,7 @@ import { getQuestionRichDetails } from "@/lib/question-delivery";
 import { localPreviewBankIndexUrl, mergeQuestionRichDetails, privateEconomicsBankIndexUrl, publicBankIndexUrl, publicMetadataToQuestion, toPublicQuestionMetadata } from "@/lib/question-index";
 import { loadBankQuestions } from "@/lib/question-loader";
 import { searchQuestionIds } from "@/lib/question-search";
+import { SOCIAL_IMAGE, SOCIAL_IMAGE_URL } from "@/lib/seo";
 import { hasSupabaseAuthCookie } from "@/lib/supabase/proxy";
 import { createClient } from "@/lib/supabase/server";
 
@@ -35,8 +36,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description,
       url: path,
       type: "website",
+      images: [SOCIAL_IMAGE],
     },
-    twitter: { card: "summary_large_image", title, description },
+    twitter: { card: "summary_large_image", title, description, images: [SOCIAL_IMAGE_URL] },
   };
 }
 

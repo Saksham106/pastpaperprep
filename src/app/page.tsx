@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { MarketingHome } from "@/components/MarketingHome";
 import { JsonLd } from "@/components/JsonLd";
+import { SOCIAL_IMAGE } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: { absolute: "IGCSE, IB Maths, Chemistry, Physics & Biology Past Papers by Topic | PastPaperPrep" },
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
     description: "Practise Cambridge IGCSE, IB Mathematics, IB Chemistry, IB Physics, and IB Biology past-paper questions by topic and build focused revision sets.",
     url: "/",
     type: "website",
+    images: [SOCIAL_IMAGE],
   },
 };
 

@@ -13,6 +13,7 @@ describe("article routes", () => {
       title: "Past Paper Practice Guides and Question Bank Comparisons | PastPaperPrep",
       url: "/articles",
       type: "website",
+      images: [{ url: "/pastpaperprep-share.png" }],
     });
     expect(renderToStaticMarkup(<ArticlesPage />)).toContain("Past paper practice guides");
   });
@@ -31,7 +32,9 @@ describe("article routes", () => {
       publishedTime: article.publishedAt,
       modifiedTime: article.updatedAt,
       authors: ["PastPaperPrep Team"],
+      images: [{ url: "/pastpaperprep-share.png" }],
     });
+    expect(metadata.twitter).toMatchObject({ images: ["/pastpaperprep-share.png"] });
   });
 
   it("renders accurate Article, FAQ, and breadcrumb JSON-LD from visible content", async () => {
