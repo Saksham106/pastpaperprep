@@ -5,6 +5,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SessionAwareSiteHeader } from "@/components/SessionAwareSiteHeader";
 import { SiteTelemetry } from "@/components/SiteTelemetry";
 import { THEME_INIT_SCRIPT } from "@/components/ThemeInitScript";
+import { SOCIAL_IMAGE, SOCIAL_IMAGE_URL } from "@/lib/seo";
 import "./globals.css";
 
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
@@ -34,18 +35,13 @@ export const metadata: Metadata = {
     description: "Topic-by-topic practice for Cambridge IGCSE Maths and IB Mathematics, Chemistry, Physics, and Biology.",
     type: "website",
     locale: "en_US",
-    images: [{
-      url: "/pastpaperprep-workspace.webp",
-      width: 1280,
-      height: 650,
-      alt: "PastPaperPrep topic-filtered IGCSE Maths and IB science question workspace",
-    }],
+    images: [SOCIAL_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "PastPaperPrep | IGCSE Maths & IB Maths and Science Past Papers",
     description: "Topic-by-topic practice for Cambridge IGCSE Maths and IB Mathematics, Chemistry, Physics, and Biology.",
-    images: ["/pastpaperprep-workspace.webp"],
+    images: [SOCIAL_IMAGE_URL],
   },
   verification: process.env.GOOGLE_SITE_VERIFICATION
     ? { google: process.env.GOOGLE_SITE_VERIFICATION }

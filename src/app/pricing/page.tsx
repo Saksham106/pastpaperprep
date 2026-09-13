@@ -5,6 +5,7 @@ import { getBillingBanks, getEntitlementBanks, type BankSlug } from "@/lib/banks
 import { CURRENT_ENTITLEMENT_FILTERS } from "@/lib/current-entitlements";
 import { normalizeEntitlements } from "@/lib/entitlements";
 import { requireEntitlementRows } from "@/lib/entitlement-query";
+import { SOCIAL_IMAGE } from "@/lib/seo";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
     description: "Choose one bank, build your exact bundle, or get All Access across every PastPaperPrep question bank.",
     url: "/pricing",
     type: "website",
+    images: [SOCIAL_IMAGE],
   },
 };
 

@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it, vi } from "vitest";
 
 vi.mock("next/font/google", () => ({
@@ -29,14 +31,38 @@ describe("canonical search metadata", () => {
       type: "website",
       locale: "en_US",
     });
-    expect(rootMetadata.twitter).toMatchObject({ card: "summary_large_image" });
+    expect(rootMetadata.openGraph).toMatchObject({
+      images: [{
+        url: "/pastpaperprep-share.png",
+        width: 1200,
+        height: 630,
+        alt: expect.stringMatching(/PastPaperPrep/i),
+      }],
+    });
+    expect(rootMetadata.twitter).toMatchObject({
+      card: "summary_large_image",
+      images: ["/pastpaperprep-share.png"],
+    });
+  });
+
+  it("ships the dedicated social card at the declared dimensions", () => {
+    const image = readFileSync(join(process.cwd(), "public/pastpaperprep-share.png"));
+    expect(image.subarray(1, 4).toString("ascii")).toBe("PNG");
+    expect(image.readUInt32BE(16)).toBe(1200);
+    expect(image.readUInt32BE(20)).toBe(630);
+    expect(image.byteLength).toBeLessThan(5_000_000);
   });
 
   it("gives the homepage and pricing page distinct canonical metadata", () => {
     expect(homeMetadata.title).toEqual({ absolute: "IGCSE, IB Maths, Chemistry, Physics & Biology Past Papers by Topic | PastPaperPrep" });
     expect(homeMetadata.alternates?.canonical).toBe("/");
-    expect(homeMetadata.openGraph).toMatchObject({ url: "/", type: "website" });
+    expect(homeMetadata.openGraph).toMatchObject({
+      url: "/",
+      type: "website",
+      images: [{ url: "/pastpaperprep-share.png", width: 1200, height: 630 }],
+    });
     expect(pricingMetadata.alternates?.canonical).toBe("/pricing");
+    expect(pricingMetadata.openGraph).toMatchObject({ images: [{ url: "/pastpaperprep-share.png" }] });
     expect(pricingMetadata.description).toMatch(/IGCSE, IB Mathematics/i);
     expect(pricingMetadata.description).toMatch(/IB Chemistry/i);
   });
@@ -49,7 +75,9 @@ describe("canonical search metadata", () => {
       expect(metadata.openGraph).toMatchObject({
         url: `/banks/${bank.slug}`,
         type: "website",
+        images: [{ url: "/pastpaperprep-share.png" }],
       });
+      expect(metadata.twitter).toMatchObject({ images: ["/pastpaperprep-share.png"] });
     }
   });
 

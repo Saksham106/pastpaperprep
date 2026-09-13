@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ArticlesIndex } from "@/components/Articles";
+import { SOCIAL_IMAGE } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Past Paper Practice Guides and Question Bank Comparisons",
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
     description: "Compare question banks and learn how to use topical IGCSE and IB past-paper practice effectively.",
     url: "/articles",
     type: "website",
+    images: [SOCIAL_IMAGE],
   },
 };
 

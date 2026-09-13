@@ -12,7 +12,12 @@ type Entitlement = {
   status: string;
 };
 
-export default async function AccountPage() {
+export default async function AccountPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ checkout?: string | string[] }>;
+}) {
+  const checkout = (await searchParams).checkout;
   const supabase = await createClient();
   const { data: claimsData } = await supabase.auth.getClaims();
 
@@ -47,6 +52,12 @@ export default async function AccountPage() {
         </form>
       </div>
 
+      {checkout === "success" && (
+        <div className="account-checkout-status" role="status">
+          <strong>Finishing your plan setup.</strong>
+          <span>If you just completed checkout, your access should appear shortly. Refresh this page in a few seconds if it is not visible yet.</span>
+        </div>
+      )}
       <article className="account-card"><AccountPlanOverview hasPaidAccess={entitlements.length > 0} /></article>
       <div className="account-security-row">
         <div><strong>Security</strong><span>Add or change your password.</span></div>
