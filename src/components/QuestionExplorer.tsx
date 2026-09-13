@@ -13,7 +13,7 @@ import type { QuestionFilters, QuestionSort, UnifiedQuestion } from "@/lib/quest
 import type { BankSlug } from "@/lib/banks";
 import { fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
 import { mergeQuestionRichDetails, publicMetadataToQuestion, type PublicBankIndex } from "@/lib/question-index";
-import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy";
+import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 import { formatPublicLabel } from "@/lib/presentation";
 
 type MultiKey = ExplorerFilterKey;

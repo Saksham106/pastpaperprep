@@ -7,12 +7,12 @@ import { BankSeoContent } from "@/components/BankSeoContent";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { canExportPdf, hasBankAccess, isPreviewQuestion } from "@/lib/access";
-import { getAvailableBanks, getBank, isEconomicsProductionEnabled, isLocalEconomicsBank, isLocalEconomicsPreviewEnabled, type BankSlug } from "@/lib/banks";
+import { getAvailableBanks, getBank, isEconomicsProductionEnabled, isIGCSEReleaseBank, isIGCSEReleaseEnabled, isLocalEconomicsBank, isLocalEconomicsPreviewEnabled, type BankSlug } from "@/lib/banks";
 import { EXPLORER_PAGE_SIZE, parseExplorerState, type ExplorerSearchParams } from "@/lib/explorer-state";
 import { filterQuestions } from "@/lib/question-filter";
 import { normalizeEntitlements } from "@/lib/entitlements";
 import { getQuestionRichDetails } from "@/lib/question-delivery";
-import { localPreviewBankIndexUrl, mergeQuestionRichDetails, privateEconomicsBankIndexUrl, publicBankIndexUrl, publicMetadataToQuestion, toPublicQuestionMetadata } from "@/lib/question-index";
+import { localPreviewBankIndexUrl, mergeQuestionRichDetails, publicBankIndexUrl, publicMetadataToQuestion, toPublicQuestionMetadata } from "@/lib/question-index";
 import { loadBankQuestions } from "@/lib/question-loader";
 import { searchQuestionIds } from "@/lib/question-search";
 import { SOCIAL_IMAGE, SOCIAL_IMAGE_URL } from "@/lib/seo";
@@ -49,6 +49,7 @@ export default async function BankPage({ params, searchParams }: { params: Promi
   if (!bank) notFound();
   const localPreview = isLocalEconomicsPreviewEnabled() && isLocalEconomicsBank(slug);
   const productionEconomics = isEconomicsProductionEnabled() && isLocalEconomicsBank(slug);
+  const productionIGCSE = isIGCSEReleaseEnabled() && isIGCSEReleaseBank(slug);
   const hasAuthCookie = hasSupabaseAuthCookie((await cookies()).getAll());
   const supabase = !localPreview && hasAuthCookie ? await createClient() : null;
   const claimsData = supabase ? (await supabase.auth.getClaims()).data : null;
@@ -125,7 +126,7 @@ export default async function BankPage({ params, searchParams }: { params: Promi
         </div>
       </section>
       <div className="shell">
-        <QuestionExplorer questions={initialQuestions} bankSlug={slug} localPreview={localPreview} indexUrl={localPreview ? localPreviewBankIndexUrl(slug) : productionEconomics ? privateEconomicsBankIndexUrl(slug) : publicBankIndexUrl(slug)} access={{ authenticated: Boolean(userId), bankAccess, canExportPdf: localPreview || canExportPdf(slug, entitlements) }} exportMarker={exportMarker} initialState={initialState} studyState={{ savedIds: (savedRows ?? []).map((row) => row.question_id), attemptedIds: (attemptRows ?? []).map((row) => row.question_id) }} />
+        <QuestionExplorer questions={initialQuestions} bankSlug={slug} localPreview={localPreview} indexUrl={localPreview ? localPreviewBankIndexUrl(slug) : productionEconomics || productionIGCSE ? `/api/private-bank-index/${slug}` : publicBankIndexUrl(slug)} access={{ authenticated: Boolean(userId), bankAccess, canExportPdf: localPreview || canExportPdf(slug, entitlements) }} exportMarker={exportMarker} initialState={initialState} studyState={{ savedIds: (savedRows ?? []).map((row) => row.question_id), attemptedIds: (attemptRows ?? []).map((row) => row.question_id) }} />
         <BankSeoContent bank={bank} />
       </div>
     </>

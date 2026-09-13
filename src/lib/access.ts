@@ -1,6 +1,6 @@
-import { isLocalEconomicsBank, type BankSlug, type ProductionBankSlug } from "@/lib/banks";
+import { isIGCSEReleaseBank, isLocalEconomicsBank, type BankSlug, type ProductionBankSlug } from "@/lib/banks";
 
-export type ProductId = "bank_igcse" | "bank_igcse_additional" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bank_ib_chemistry_hl" | "bank_ib_chemistry_sl" | "bank_ib_physics_hl" | "bank_ib_physics_sl" | "bank_ib_biology_hl" | "bank_ib_biology_sl" | "bank_ib_economics_hl" | "bank_ib_economics_sl" | "bundle_igcse" | "bundle_ib_aa" | "bundle_ib_ai" | "bundle_ib_chemistry" | "bundle_ib_physics" | "bundle_ib_biology" | "bundle_ib_economics" | "bundle_all" | "bundle_custom";
+export type ProductId = "bank_igcse" | "bank_igcse_additional" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bank_ib_chemistry_hl" | "bank_ib_chemistry_sl" | "bank_ib_physics_hl" | "bank_ib_physics_sl" | "bank_ib_biology_hl" | "bank_ib_biology_sl" | "bank_ib_economics_hl" | "bank_ib_economics_sl" | "bank_igcse_biology_0610" | "bank_igcse_economics_0455" | "bundle_igcse" | "bundle_ib_aa" | "bundle_ib_ai" | "bundle_ib_chemistry" | "bundle_ib_physics" | "bundle_ib_biology" | "bundle_ib_economics" | "bundle_all" | "bundle_custom";
 export type EntitlementStatus = "active" | "trialing" | "expired" | "revoked";
 
 export type AccessEntitlement = {
@@ -11,7 +11,7 @@ export type AccessEntitlement = {
   expiresAt: string | null;
 };
 
-const BANK_PRODUCTS: Partial<Record<BankSlug, ProductId>> = {
+export const BANK_PRODUCTS: Partial<Record<BankSlug, ProductId>> = {
   igcse: "bank_igcse",
   "igcse-additional": "bank_igcse_additional",
   "ib-hl": "bank_ib_hl",
@@ -26,6 +26,8 @@ const BANK_PRODUCTS: Partial<Record<BankSlug, ProductId>> = {
   "ib-biology-sl": "bank_ib_biology_sl",
   "ib-economics-hl": "bank_ib_economics_hl",
   "ib-economics-sl": "bank_ib_economics_sl",
+  "igcse-biology-0610": "bank_igcse_biology_0610",
+  "igcse-economics-0455": "bank_igcse_economics_0455",
 };
 
 const BANK_BUNDLES: Partial<Record<BankSlug, readonly ProductId[]>> = {
@@ -148,7 +150,7 @@ export function hasBankAccess(
 }
 
 export function isPreviewQuestion(bankSlug: BankSlug, questionId: string): boolean {
-  if (isLocalEconomicsBank(bankSlug)) return false;
+  if (isLocalEconomicsBank(bankSlug) || isIGCSEReleaseBank(bankSlug)) return false;
   const match = bankSlug === "igcse"
     ? /^0580-(\d{4})-/.exec(questionId)
     : bankSlug === "igcse-additional"

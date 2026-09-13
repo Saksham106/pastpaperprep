@@ -14,7 +14,7 @@ import { isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
 import { normalizeBankQuestions, type UnifiedQuestion } from "@/lib/questions";
 
 type RawBank = { questions: Array<Record<string, unknown>> };
-type ProductionBankSlug = Exclude<BankSlug, "ib-economics-hl" | "ib-economics-sl">;
+type ProductionBankSlug = Exclude<BankSlug, "ib-economics-hl" | "ib-economics-sl" | "igcse-biology-0610" | "igcse-economics-0455">;
 const rawBanks: Record<ProductionBankSlug, RawBank> = {
   igcse: igcseData as RawBank,
   "igcse-additional": igcseAdditionalData as RawBank,
@@ -33,7 +33,7 @@ const cache = new Map<BankSlug, UnifiedQuestion[]>();
 
 /** Synchronous corpus loader for tests and offline data checks only. */
 export function loadBankQuestions(slug: BankSlug): UnifiedQuestion[] {
-  if (isLocalEconomicsBank(slug)) throw new Error("Local Economics preview uses the async runtime loader");
+  if (isLocalEconomicsBank(slug) || slug === "igcse-biology-0610" || slug === "igcse-economics-0455") throw new Error("Private release banks use the async runtime loader");
   const cached = cache.get(slug);
   if (cached) return cached;
   const questions = normalizeBankQuestions(slug, rawBanks[slug].questions);

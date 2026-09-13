@@ -1,5 +1,6 @@
 import { economicsStorageObjectPath, storageObjectPath } from "@/lib/assets";
 import { getBank, isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
+import { isPrivateRuntimeBank, privateStorageObjectPath } from "@/lib/private-runtime-mapping";
 
 export type UnifiedQuestion = {
   id: string;
@@ -84,6 +85,7 @@ function integer(value: unknown): number {
 
 function assetUrl(slug: BankSlug, path: string, economicsAssetMode: "local" | "private" = "local"): string {
   if (/^https?:\/\//.test(path)) return path;
+  if (isPrivateRuntimeBank(slug) && economicsAssetMode === "private") return privateStorageObjectPath(slug, path);
   if (isLocalEconomicsBank(slug)) {
     const relative = path.replace(/^\/+/, "");
     const segments = relative.split("/");
@@ -134,7 +136,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
   const officialMarkscheme = record(raw.officialMarkscheme);
   const solution = nullableText(raw.solution) ?? nullableText(raw.independentSolution);
   const questionImages = strings(raw.questionImages).map((path) => assetUrl(slug, path, economicsAssetMode));
-  const markschemeImagePaths = isLocalEconomicsBank(slug)
+  const markschemeImagePaths = isPrivateRuntimeBank(slug)
     ? Array.from(new Set([...strings(raw.markschemeImages), ...strings(officialMarkscheme.images)]))
     : [...strings(raw.markschemeImages), ...strings(officialMarkscheme.images)];
   const markschemeImages = markschemeImagePaths.map((path) => assetUrl(slug, path, economicsAssetMode));
@@ -176,10 +178,10 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     markschemeImages,
     questionImageCount: questionImages.length,
     markschemeImageCount: markschemeImages.length,
-    questionAssetPaths: isLocalEconomicsBank(slug)
+    questionAssetPaths: isPrivateRuntimeBank(slug)
       ? questionImages
       : questionImages.map((path) => storageObjectPath(slug, path)),
-    markschemeAssetPaths: isLocalEconomicsBank(slug)
+    markschemeAssetPaths: isPrivateRuntimeBank(slug)
       ? markschemeImages
       : markschemeImages.map((path) => storageObjectPath(slug, path)),
     solution,

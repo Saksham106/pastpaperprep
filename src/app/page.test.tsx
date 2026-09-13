@@ -1,7 +1,15 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import { MarketingHome } from "@/components/MarketingHome";
-import { BANKS } from "@/lib/banks";
+import { metadata } from "@/app/page";
+import { BANKS, getAvailableBanks } from "@/lib/banks";
+
+const liveBankEnvironment = {
+  PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION: "true",
+  PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED: "true",
+  PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true",
+  PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true",
+};
 
 describe("home page corpus summary", () => {
   it("derives the twelve-bank corpus totals from the bank catalog", () => {
@@ -34,5 +42,34 @@ describe("home page corpus summary", () => {
     expect(markup).not.toContain("class=\"value-sequence");
     expect(markup).not.toContain("—");
     expect(markup).not.toContain("–");
+  });
+
+  it("shows every production-enabled Economics and IGCSE release bank", () => {
+    const enabledBanks = getAvailableBanks(liveBankEnvironment);
+    const markup = renderToStaticMarkup(<MarketingHome environment={liveBankEnvironment} />);
+
+    expect(enabledBanks).toHaveLength(16);
+    expect(markup).toContain("IB Economics HL");
+    expect(markup).toContain("IB Economics SL");
+    expect(markup).toContain("IGCSE Biology 0610");
+    expect(markup).toContain("IGCSE Economics 0455");
+    expect(markup).toContain("href=\"/banks/ib-economics-hl?free=1\"");
+    expect(markup).toContain("href=\"/banks/igcse-biology-0610?free=1\"");
+    expect(markup).toContain("href=\"/banks/igcse-economics-0455?free=1\"");
+    expect(markup).toContain("16</strong><span>focused question banks");
+  });
+
+  it("describes Economics in homepage search metadata", () => {
+    expect(JSON.stringify(metadata)).toContain("Economics");
+  });
+
+  it("does not advertise gated banks before their release flags are enabled", () => {
+    const markup = renderToStaticMarkup(<MarketingHome environment={{}} />);
+
+    expect(markup).not.toContain("IB Economics HL");
+    expect(markup).not.toContain("IGCSE Biology 0610");
+    expect(markup).not.toContain("IGCSE Economics 0455");
+    expect(markup).not.toContain("0610");
+    expect(markup).not.toContain("0455");
   });
 });

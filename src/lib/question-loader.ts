@@ -1,4 +1,4 @@
-import { isEconomicsProductionEnabled, isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
+import { isEconomicsProductionEnabled, isIGCSEReleaseBank, isIGCSEReleaseEnabled, isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
 import { getEconomicsRuntimeArtifact } from "@/lib/economics-runtime";
 import { normalizeBankQuestions, type UnifiedQuestion } from "@/lib/questions";
 
@@ -19,21 +19,27 @@ const loaders: Record<BankSlug, () => Promise<RawBank>> = {
   "ib-biology-sl": async () => (await import("@/data/raw/ib-biology-sl.json")).default as RawBank,
   "ib-economics-hl": async () => (await import("@/data/local-preview/ib-economics-hl.json")).default as RawBank,
   "ib-economics-sl": async () => (await import("@/data/local-preview/ib-economics-sl.json")).default as RawBank,
+  "igcse-biology-0610": async () => (await import("@/data/production/igcse-biology-0610.json")).default as RawBank,
+  "igcse-economics-0455": async () => (await import("@/data/production/igcse-economics-0455.json")).default as RawBank,
 };
 
 const cache = new Map<string, Promise<UnifiedQuestion[]>>();
 
 export function loadBankQuestions(slug: BankSlug): Promise<UnifiedQuestion[]> {
   const productionEconomics = isLocalEconomicsBank(slug) && isEconomicsProductionEnabled();
-  const cacheKey = `${slug}:${productionEconomics ? "production" : "preview"}`;
+  const productionIGCSE = isIGCSEReleaseBank(slug) && isIGCSEReleaseEnabled();
+  const production = productionEconomics || productionIGCSE;
+  const cacheKey = `${slug}:${production ? "production" : "preview"}`;
   const cached = cache.get(cacheKey);
   if (cached) return cached;
 
   const questions = (productionEconomics
     ? Promise.resolve(getEconomicsRuntimeArtifact(slug) as unknown as RawBank)
+    : productionIGCSE
+      ? import("@/lib/igcse-runtime").then(({ getIGCSERuntimeArtifact }) => getIGCSERuntimeArtifact(slug) as unknown as RawBank)
     : loaders[slug]())
     .then((raw) => normalizeBankQuestions(slug, raw.questions, {
-      economicsAssetMode: productionEconomics ? "private" : "local",
+      economicsAssetMode: production ? "private" : "local",
     }));
   cache.set(cacheKey, questions);
   return questions;

@@ -17,6 +17,8 @@ const PRODUCT_IDS = new Set<ProductId>([
   "bank_ib_biology_sl",
   "bank_ib_economics_hl",
   "bank_ib_economics_sl",
+  "bank_igcse_biology_0610",
+  "bank_igcse_economics_0455",
   "bundle_igcse",
   "bundle_ib_aa",
   "bundle_ib_ai",

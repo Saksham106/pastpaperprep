@@ -1,0 +1,1448 @@
+{
+  "schema_version": "biology0610.classification-taxonomy.v2",
+  "qualification": "Cambridge IGCSE Biology",
+  "boardcode": "0610",
+  "eras": [
+    {
+      "era": "2020_2021",
+      "topics": [
+        {
+          "id": "1",
+          "title": "Characteristics and classification of living organisms",
+          "normalized_topic_id": "topic_01_characteristics_and_classification",
+          "subtopics": [
+            {
+              "id": "1.1",
+              "title": "Characteristics of living organisms",
+              "normalized_subtopic_id": "topic_01_characteristics_and_classification.1.1"
+            },
+            {
+              "id": "1.2",
+              "title": "Concept and use of a classification system",
+              "normalized_subtopic_id": "topic_01_characteristics_and_classification.1.2"
+            },
+            {
+              "id": "1.3",
+              "title": "Features of organisms",
+              "normalized_subtopic_id": "topic_01_characteristics_and_classification.1.3"
+            },
+            {
+              "id": "1.4",
+              "title": "Dichotomous keys",
+              "normalized_subtopic_id": "topic_01_characteristics_and_classification.1.4"
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "title": "Organisation of the organism",
+          "normalized_topic_id": "topic_02_organisation",
+          "subtopics": [
+            {
+              "id": "2.1",
+              "title": "Cell structure and organisation",
+              "normalized_subtopic_id": "topic_02_organisation.2.1"
+            },
+            {
+              "id": "2.2",
+              "title": "Levels of organisation",
+              "normalized_subtopic_id": "topic_02_organisation.2.2"
+            },
+            {
+              "id": "2.3",
+              "title": "Size of specimens",
+              "normalized_subtopic_id": "topic_02_organisation.2.3"
+            }
+          ]
+        },
+        {
+          "id": "3",
+          "title": "Movement in and out of cells",
+          "normalized_topic_id": "topic_03_movement_into_and_out_of_cells",
+          "subtopics": [
+            {
+              "id": "3.1",
+              "title": "Diffusion",
+              "normalized_subtopic_id": "topic_03_movement_into_and_out_of_cells.3.1"
+            },
+            {
+              "id": "3.2",
+              "title": "Osmosis",
+              "normalized_subtopic_id": "topic_03_movement_into_and_out_of_cells.3.2"
+            },
+            {
+              "id": "3.3",
+              "title": "Active transport",
+              "normalized_subtopic_id": "topic_03_movement_into_and_out_of_cells.3.3"
+            }
+          ]
+        },
+        {
+          "id": "4",
+          "title": "Biological molecules",
+          "normalized_topic_id": "topic_04_biological_molecules",
+          "subtopics": [
+            {
+              "id": "4.1",
+              "title": "Biological molecules",
+              "normalized_subtopic_id": "topic_04_biological_molecules.4.1"
+            }
+          ]
+        },
+        {
+          "id": "5",
+          "title": "Enzymes",
+          "normalized_topic_id": "topic_05_enzymes",
+          "subtopics": [
+            {
+              "id": "5.1",
+              "title": "Enzymes",
+              "normalized_subtopic_id": "topic_05_enzymes.5.1"
+            }
+          ]
+        },
+        {
+          "id": "6",
+          "title": "Plant nutrition",
+          "normalized_topic_id": "topic_06_plant_nutrition",
+          "subtopics": [
+            {
+              "id": "6.1",
+              "title": "Photosynthesis",
+              "normalized_subtopic_id": "topic_06_plant_nutrition.6.1"
+            },
+            {
+              "id": "6.2",
+              "title": "Leaf structure",
+              "normalized_subtopic_id": "topic_06_plant_nutrition.6.2"
+            },
+            {
+              "id": "6.3",
+              "title": "Mineral requirements",
+              "normalized_subtopic_id": "topic_06_plant_nutrition.6.3"
+            }
+          ]
+        },
+        {
+          "id": "7",
+          "title": "Human nutrition",
+          "normalized_topic_id": "topic_07_human_nutrition",
+          "subtopics": [
+            {
+              "id": "7.1",
+              "title": "Diet",
+              "normalized_subtopic_id": "topic_07_human_nutrition.7.1"
+            },
+            {
+              "id": "7.2",
+              "title": "Alimentary canal",
+              "normalized_subtopic_id": "topic_07_human_nutrition.7.2"
+            },
+            {
+              "id": "7.3",
+              "title": "Mechanical digestion",
+              "normalized_subtopic_id": "topic_07_human_nutrition.7.3"
+            },
+            {
+              "id": "7.4",
+              "title": "Chemical digestion",
+              "normalized_subtopic_id": "topic_07_human_nutrition.7.4"
+            },
+            {
+              "id": "7.5",
+              "title": "Absorption",
+              "normalized_subtopic_id": "topic_07_human_nutrition.7.5"
+            }
+          ]
+        },
+        {
+          "id": "8",
+          "title": "Transport in plants",
+          "normalized_topic_id": "topic_08_transport_in_plants",
+          "subtopics": [
+            {
+              "id": "8.1",
+              "title": "Transport in plants",
+              "normalized_subtopic_id": "topic_08_transport_in_plants.8.1"
+            },
+            {
+              "id": "8.2",
+              "title": "Water uptake",
+              "normalized_subtopic_id": "topic_08_transport_in_plants.8.2"
+            },
+            {
+              "id": "8.3",
+              "title": "Transpiration",
+              "normalized_subtopic_id": "topic_08_transport_in_plants.8.3"
+            },
+            {
+              "id": "8.4",
+              "title": "Translocation",
+              "normalized_subtopic_id": "topic_08_transport_in_plants.8.4"
+            }
+          ]
+        },
+        {
+          "id": "9",
+          "title": "Transport in animals",
+          "normalized_topic_id": "topic_09_transport_in_animals",
+          "subtopics": [
+            {
+              "id": "9.1",
+              "title": "Transport in animals",
+              "normalized_subtopic_id": "topic_09_transport_in_animals.9.1"
+            },
+            {
+              "id": "9.2",
+              "title": "Heart",
+              "normalized_subtopic_id": "topic_09_transport_in_animals.9.2"
+            },
+            {
+              "id": "9.3",
+              "title": "Blood and lymphatic vessels",
+              "normalized_subtopic_id": "topic_09_transport_in_animals.9.3"
+            },
+            {
+              "id": "9.4",
+              "title": "Blood",
+              "normalized_subtopic_id": "topic_09_transport_in_animals.9.4"
+            }
+          ]
+        },
+        {
+          "id": "10",
+          "title": "Diseases and immunity",
+          "normalized_topic_id": "topic_10_diseases_and_immunity",
+          "subtopics": [
+            {
+              "id": "10.1",
+              "title": "Diseases and immunity",
+              "normalized_subtopic_id": "topic_10_diseases_and_immunity.10.1"
+            }
+          ]
+        },
+        {
+          "id": "11",
+          "title": "Gas exchange in humans",
+          "normalized_topic_id": "topic_11_gas_exchange_in_humans",
+          "subtopics": [
+            {
+              "id": "11.1",
+              "title": "Gas exchange in humans",
+              "normalized_subtopic_id": "topic_11_gas_exchange_in_humans.11.1"
+            }
+          ]
+        },
+        {
+          "id": "12",
+          "title": "Respiration",
+          "normalized_topic_id": "topic_12_respiration",
+          "subtopics": [
+            {
+              "id": "12.1",
+              "title": "Respiration",
+              "normalized_subtopic_id": "topic_12_respiration.12.1"
+            },
+            {
+              "id": "12.2",
+              "title": "Aerobic respiration",
+              "normalized_subtopic_id": "topic_12_respiration.12.2"
+            },
+            {
+              "id": "12.3",
+              "title": "Anaerobic respiration",
+              "normalized_subtopic_id": "topic_12_respiration.12.3"
+            }
+          ]
+        },
+        {
+          "id": "13",
+          "title": "Excretion in humans",
+          "normalized_topic_id": "topic_13_excretion_in_humans",
+          "subtopics": [
+            {
+              "id": "13.1",
+              "title": "Excretion in humans",
+              "normalized_subtopic_id": "topic_13_excretion_in_humans.13.1"
+            }
+          ]
+        },
+        {
+          "id": "14",
+          "title": "Coordination and response",
+          "normalized_topic_id": "topic_14_coordination_and_response",
+          "subtopics": [
+            {
+              "id": "14.1",
+              "title": "Nervous control in humans",
+              "normalized_subtopic_id": "topic_14_coordination_and_response.14.1"
+            },
+            {
+              "id": "14.2",
+              "title": "Sense organs",
+              "normalized_subtopic_id": "topic_14_coordination_and_response.14.2"
+            },
+            {
+              "id": "14.3",
+              "title": "Hormones in humans",
+              "normalized_subtopic_id": "topic_14_coordination_and_response.14.3"
+            },
+            {
+              "id": "14.4",
+              "title": "Homeostasis",
+              "normalized_subtopic_id": "topic_14_coordination_and_response.14.4"
+            },
+            {
+              "id": "14.5",
+              "title": "Tropic responses",
+              "normalized_subtopic_id": "topic_14_coordination_and_response.14.5"
+            }
+          ]
+        },
+        {
+          "id": "15",
+          "title": "Drugs",
+          "normalized_topic_id": "topic_15_drugs",
+          "subtopics": [
+            {
+              "id": "15.1",
+              "title": "Drugs",
+              "normalized_subtopic_id": "topic_15_drugs.15.1"
+            },
+            {
+              "id": "15.2",
+              "title": "Medicinal drugs",
+              "normalized_subtopic_id": "topic_15_drugs.15.2"
+            },
+            {
+              "id": "15.3",
+              "title": "Misused drugs",
+              "normalized_subtopic_id": "topic_15_drugs.15.3"
+            }
+          ]
+        },
+        {
+          "id": "16",
+          "title": "Reproduction",
+          "normalized_topic_id": "topic_16_reproduction",
+          "subtopics": [
+            {
+              "id": "16.1",
+              "title": "Asexual reproduction",
+              "normalized_subtopic_id": "topic_16_reproduction.16.1"
+            },
+            {
+              "id": "16.2",
+              "title": "Sexual reproduction",
+              "normalized_subtopic_id": "topic_16_reproduction.16.2"
+            },
+            {
+              "id": "16.3",
+              "title": "Sexual reproduction in plants",
+              "normalized_subtopic_id": "topic_16_reproduction.16.3"
+            },
+            {
+              "id": "16.4",
+              "title": "Sexual reproduction in humans",
+              "normalized_subtopic_id": "topic_16_reproduction.16.4"
+            },
+            {
+              "id": "16.5",
+              "title": "Sex hormones in humans",
+              "normalized_subtopic_id": "topic_16_reproduction.16.5"
+            },
+            {
+              "id": "16.6",
+              "title": "Methods of birth control in humans",
+              "normalized_subtopic_id": "topic_16_reproduction.16.6"
+            },
+            {
+              "id": "16.7",
+              "title": "Sexually transmitted infections (STIs)",
+              "normalized_subtopic_id": "topic_16_reproduction.16.7"
+            }
+          ]
+        },
+        {
+          "id": "17",
+          "title": "Inheritance",
+          "normalized_topic_id": "topic_17_inheritance",
+          "subtopics": [
+            {
+              "id": "17.1",
+              "title": "Inheritance",
+              "normalized_subtopic_id": "topic_17_inheritance.17.1"
+            },
+            {
+              "id": "17.2",
+              "title": "Chromosomes, genes and proteins",
+              "normalized_subtopic_id": "topic_17_inheritance.17.2"
+            },
+            {
+              "id": "17.3",
+              "title": "Mitosis",
+              "normalized_subtopic_id": "topic_17_inheritance.17.3"
+            },
+            {
+              "id": "17.4",
+              "title": "Meiosis",
+              "normalized_subtopic_id": "topic_17_inheritance.17.4"
+            },
+            {
+              "id": "17.5",
+              "title": "Monohybrid inheritance",
+              "normalized_subtopic_id": "topic_17_inheritance.17.5"
+            }
+          ]
+        },
+        {
+          "id": "18",
+          "title": "Variation and selection",
+          "normalized_topic_id": "topic_18_variation_and_selection",
+          "subtopics": [
+            {
+              "id": "18.1",
+              "title": "Variation",
+              "normalized_subtopic_id": "topic_18_variation_and_selection.18.1"
+            },
+            {
+              "id": "18.2",
+              "title": "Adaptive features",
+              "normalized_subtopic_id": "topic_18_variation_and_selection.18.2"
+            },
+            {
+              "id": "18.3",
+              "title": "Selection",
+              "normalized_subtopic_id": "topic_18_variation_and_selection.18.3"
+            }
+          ]
+        },
+        {
+          "id": "19",
+          "title": "Organisms and their environment",
+          "normalized_topic_id": "topic_19_organisms_and_environment",
+          "subtopics": [
+            {
+              "id": "19.1",
+              "title": "Energy flow",
+              "normalized_subtopic_id": "topic_19_organisms_and_environment.19.1"
+            },
+            {
+              "id": "19.2",
+              "title": "Food chains and food webs",
+              "normalized_subtopic_id": "topic_19_organisms_and_environment.19.2"
+            },
+            {
+              "id": "19.3",
+              "title": "Nutrient cycles",
+              "normalized_subtopic_id": "topic_19_organisms_and_environment.19.3"
+            },
+            {
+              "id": "19.4",
+              "title": "Population size",
+              "normalized_subtopic_id": "topic_19_organisms_and_environment.19.4"
+            }
+          ]
+        },
+        {
+          "id": "20",
+          "title": "Biotechnology and genetic engineering",
+          "normalized_topic_id": "topic_21_biotechnology_and_genetic_modification",
+          "subtopics": [
+            {
+              "id": "20.1",
+              "title": "Biotechnology and genetic engineering",
+              "normalized_subtopic_id": "topic_21_biotechnology_and_genetic_modification.20.1"
+            },
+            {
+              "id": "20.2",
+              "title": "Biotechnology",
+              "normalized_subtopic_id": "topic_21_biotechnology_and_genetic_modification.20.2"
+            },
+            {
+              "id": "20.3",
+              "title": "Genetic engineering",
+              "normalized_subtopic_id": "topic_21_biotechnology_and_genetic_modification.20.3"
+            }
+          ]
+        },
+        {
+          "id": "21",
+          "title": "Human influences on ecosystems",
+          "normalized_topic_id": "topic_20_human_influences_on_ecosystems",
+          "subtopics": [
+            {
+              "id": "21.1",
+              "title": "Food supply",
+              "normalized_subtopic_id": "topic_20_human_influences_on_ecosystems.21.1"
+            },
+            {
+              "id": "21.2",
+              "title": "Habitat destruction",
+              "normalized_subtopic_id": "topic_20_human_influences_on_ecosystems.21.2"
+            },
+            {
+              "id": "21.3",
+              "title": "Pollution",
+              "normalized_subtopic_id": "topic_20_human_influences_on_ecosystems.21.3"
+            },
+            {
+              "id": "21.4",
+              "title": "Conservation",
+              "normalized_subtopic_id": "topic_20_human_influences_on_ecosystems.21.4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "era": "2022",
+      "topics": [
+        {
+          "id": "1",
+          "title": "Characteristics and classification of living organisms",
+          "normalized_topic_id": "topic_01_characteristics_and_classification",
+          "subtopics": [
+            {
+              "id": "1.1",
+              "title": "Characteristics of living organisms",
+              "normalized_subtopic_id": "topic_01_characteristics_and_classification.1.1"
+            },
+            {
+              "id": "1.2",
+              "title": "Concept and use of a classification system",
+              "normalized_subtopic_id": "topic_01_characteristics_and_classification.1.2"
+            },
+            {
+              "id": "1.3",
+              "title": "Features of organisms",
+              "normalized_subtopic_id": "topic_01_characteristics_and_classification.1.3"
+            },
+            {
+              "id": "1.4",
+              "title": "Dichotomous keys",
+              "normalized_subtopic_id": "topic_01_characteristics_and_classification.1.4"
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "title": "Organisation of the organism",
+          "normalized_topic_id": "topic_02_organisation",
+          "subtopics": [
+            {
+              "id": "2.1",
+              "title": "Cell structure and organisation",
+              "normalized_subtopic_id": "topic_02_organisation.2.1"
+            },
+            {
+              "id": "2.2",
+              "title": "Levels of organisation",
+              "normalized_subtopic_id": "topic_02_organisation.2.2"
+            },
+            {
+              "id": "2.3",
+              "title": "Size of specimens",
+              "normalized_subtopic_id": "topic_02_organisation.2.3"
+            }
+          ]
+        },
+        {
+          "id": "3",
+          "title": "Movement in and out of cells",
+          "normalized_topic_id": "topic_03_movement_into_and_out_of_cells",
+          "subtopics": [
+            {
+              "id": "3.1",
+              "title": "Diffusion",
+              "normalized_subtopic_id": "topic_03_movement_into_and_out_of_cells.3.1"
+            },
+            {
+              "id": "3.2",
+              "title": "Osmosis",
+              "normalized_subtopic_id": "topic_03_movement_into_and_out_of_cells.3.2"
+            },
+            {
+              "id": "3.3",
+              "title": "Active transport",
+              "normalized_subtopic_id": "topic_03_movement_into_and_out_of_cells.3.3"
+            }
+          ]
+        },
+        {
+          "id": "4",
+          "title": "Biological molecules",
+          "normalized_topic_id": "topic_04_biological_molecules",
+          "subtopics": [
+            {
+              "id": "4.1",
+              "title": "Biological molecules",
+              "normalized_subtopic_id": "topic_04_biological_molecules.4.1"
+            }
+          ]
+        },
+        {
+          "id": "5",
+          "title": "Enzymes",
+          "normalized_topic_id": "topic_05_enzymes",
+          "subtopics": [
+            {
+              "id": "5.1",
+              "title": "Enzymes",
+              "normalized_subtopic_id": "topic_05_enzymes.5.1"
+            }
+          ]
+        },
+        {
+          "id": "6",
+          "title": "Plant nutrition",
+          "normalized_topic_id": "topic_06_plant_nutrition",
+          "subtopics": [
+            {
+              "id": "6.1",
+              "title": "Photosynthesis",
+              "normalized_subtopic_id": "topic_06_plant_nutrition.6.1"
+            },
+            {
+              "id": "6.2",
+              "title": "Leaf structure",
+              "normalized_subtopic_id": "topic_06_plant_nutrition.6.2"
+            },
+            {
+              "id": "6.3",
+              "title": "Mineral requirements",
+              "normalized_subtopic_id": "topic_06_plant_nutrition.6.3"
+            }
+          ]
+        },
+        {
+          "id": "7",
+          "title": "Human nutrition",
+          "normalized_topic_id": "topic_07_human_nutrition",
+          "subtopics": [
+            {
+              "id": "7.1",
+              "title": "Diet",
+              "normalized_subtopic_id": "topic_07_human_nutrition.7.1"
+            },
+            {
+              "id": "7.2",
+              "title": "Alimentary canal",
+              "normalized_subtopic_id": "topic_07_human_nutrition.7.2"
+            },
+            {
+              "id": "7.3",
+              "title": "Mechanical digestion",
+              "normalized_subtopic_id": "topic_07_human_nutrition.7.3"
+            },
+            {
+              "id": "7.4",
+              "title": "Chemical digestion",
+              "normalized_subtopic_id": "topic_07_human_nutrition.7.4"
+            },
+            {
+              "id": "7.5",
+              "title": "Absorption",
+              "normalized_subtopic_id": "topic_07_human_nutrition.7.5"
+            }
+          ]
+        },
+        {
+          "id": "8",
+          "title": "Transport in plants",
+          "normalized_topic_id": "topic_08_transport_in_plants",
+          "subtopics": [
+            {
+              "id": "8.1",
+              "title": "Transport in plants",
+              "normalized_subtopic_id": "topic_08_transport_in_plants.8.1"
+            },
+            {
+              "id": "8.2",
+              "title": "Water uptake",
+              "normalized_subtopic_id": "topic_08_transport_in_plants.8.2"
+            },
+            {
+              "id": "8.3",
+              "title": "Transpiration",
+              "normalized_subtopic_id": "topic_08_transport_in_plants.8.3"
+            },
+            {
+              "id": "8.4",
+              "title": "Translocation",
+              "normalized_subtopic_id": "topic_08_transport_in_plants.8.4"
+            }
+          ]
+        },
+        {
+          "id": "9",
+          "title": "Transport in animals",
+          "normalized_topic_id": "topic_09_transport_in_animals",
+          "subtopics": [
+            {
+              "id": "9.1",
+              "title": "Transport in animals",
+              "normalized_subtopic_id": "topic_09_transport_in_animals.9.1"
+            },
+            {
+              "id": "9.2",
+              "title": "Heart",
+              "normalized_subtopic_id": "topic_09_transport_in_animals.9.2"
+            },
+            {
+              "id": "9.3",
+              "title": "Blood and lymphatic vessels",
+              "normalized_subtopic_id": "topic_09_transport_in_animals.9.3"
+            },
+            {
+              "id": "9.4",
+              "title": "Blood",
+              "normalized_subtopic_id": "topic_09_transport_in_animals.9.4"
+            }
+          ]
+        },
+        {
+          "id": "10",
+          "title": "Diseases and immunity",
+          "normalized_topic_id": "topic_10_diseases_and_immunity",
+          "subtopics": [
+            {
+              "id": "10.1",
+              "title": "Diseases and immunity",
+              "normalized_subtopic_id": "topic_10_diseases_and_immunity.10.1"
+            }
+          ]
+        },
+        {
+          "id": "11",
+          "title": "Gas exchange in humans",
+          "normalized_topic_id": "topic_11_gas_exchange_in_humans",
+          "subtopics": [
+            {
+              "id": "11.1",
+              "title": "Gas exchange in humans",
+              "normalized_subtopic_id": "topic_11_gas_exchange_in_humans.11.1"
+            }
+          ]
+        },
+        {
+          "id": "12",
+          "title": "Respiration",
+          "normalized_topic_id": "topic_12_respiration",
+          "subtopics": [
+            {
+              "id": "12.1",
+              "title": "Respiration",
+              "normalized_subtopic_id": "topic_12_respiration.12.1"
+            },
+            {
+              "id": "12.2",
+              "title": "Aerobic respiration",
+              "normalized_subtopic_id": "topic_12_respiration.12.2"
+            },
+            {
+              "id": "12.3",
+              "title": "Anaerobic respiration",
+              "normalized_subtopic_id": "topic_12_respiration.12.3"
+            }
+          ]
+        },
+        {
+          "id": "13",
+          "title": "Excretion in humans",
+          "normalized_topic_id": "topic_13_excretion_in_humans",
+          "subtopics": [
+            {
+              "id": "13.1",
+              "title": "Excretion in humans",
+              "normalized_subtopic_id": "topic_13_excretion_in_humans.13.1"
+            }
+          ]
+        },
+        {
+          "id": "14",
+          "title": "Coordination and response",
+          "normalized_topic_id": "topic_14_coordination_and_response",
+          "subtopics": [
+            {
+              "id": "14.1",
+              "title": "Nervous control in humans",
+              "normalized_subtopic_id": "topic_14_coordination_and_response.14.1"
+            },
+            {
+              "id": "14.2",
+              "title": "Sense organs",
+              "normalized_subtopic_id": "topic_14_coordination_and_response.14.2"
+            },
+            {
+              "id": "14.3",
+              "title": "Hormones in humans",
+              "normalized_subtopic_id": "topic_14_coordination_and_response.14.3"
+            },
+            {
+              "id": "14.4",
+              "title": "Homeostasis",
+              "normalized_subtopic_id": "topic_14_coordination_and_response.14.4"
+            },
+            {
+              "id": "14.5",
+              "title": "Tropic responses",
+              "normalized_subtopic_id": "topic_14_coordination_and_response.14.5"
+            }
+          ]
+        },
+        {
+          "id": "15",
+          "title": "Drugs",
+          "normalized_topic_id": "topic_15_drugs",
+          "subtopics": [
+            {
+              "id": "15.1",
+              "title": "Drugs",
+              "normalized_subtopic_id": "topic_15_drugs.15.1"
+            },
+            {
+              "id": "15.2",
+              "title": "Medicinal drugs",
+              "normalized_subtopic_id": "topic_15_drugs.15.2"
+            },
+            {
+              "id": "15.3",
+              "title": "Misused drugs",
+              "normalized_subtopic_id": "topic_15_drugs.15.3"
+            }
+          ]
+        },
+        {
+          "id": "16",
+          "title": "Reproduction",
+          "normalized_topic_id": "topic_16_reproduction",
+          "subtopics": [
+            {
+              "id": "16.1",
+              "title": "Asexual reproduction",
+              "normalized_subtopic_id": "topic_16_reproduction.16.1"
+            },
+            {
+              "id": "16.2",
+              "title": "Sexual reproduction",
+              "normalized_subtopic_id": "topic_16_reproduction.16.2"
+            },
+            {
+              "id": "16.3",
+              "title": "Sexual reproduction in plants",
+              "normalized_subtopic_id": "topic_16_reproduction.16.3"
+            },
+            {
+              "id": "16.4",
+              "title": "Sexual reproduction in humans",
+              "normalized_subtopic_id": "topic_16_reproduction.16.4"
+            },
+            {
+              "id": "16.5",
+              "title": "Sex hormones in humans",
+              "normalized_subtopic_id": "topic_16_reproduction.16.5"
+            },
+            {
+              "id": "16.6",
+              "title": "Methods of birth control in humans",
+              "normalized_subtopic_id": "topic_16_reproduction.16.6"
+            },
+            {
+              "id": "16.7",
+              "title": "Sexually transmitted infections (STIs)",
+              "normalized_subtopic_id": "topic_16_reproduction.16.7"
+            }
+          ]
+        },
+        {
+          "id": "17",
+          "title": "Inheritance",
+          "normalized_topic_id": "topic_17_inheritance",
+          "subtopics": [
+            {
+              "id": "17.1",
+              "title": "Inheritance",
+              "normalized_subtopic_id": "topic_17_inheritance.17.1"
+            },
+            {
+              "id": "17.2",
+              "title": "Chromosomes, genes and proteins",
+              "normalized_subtopic_id": "topic_17_inheritance.17.2"
+            },
+            {
+              "id": "17.3",
+              "title": "Mitosis",
+              "normalized_subtopic_id": "topic_17_inheritance.17.3"
+            },
+            {
+              "id": "17.4",
+              "title": "Meiosis",
+              "normalized_subtopic_id": "topic_17_inheritance.17.4"
+            },
+            {
+              "id": "17.5",
+              "title": "Monohybrid inheritance",
+              "normalized_subtopic_id": "topic_17_inheritance.17.5"
+            }
+          ]
+        },
+        {
+          "id": "18",
+          "title": "Variation and selection",
+          "normalized_topic_id": "topic_18_variation_and_selection",
+          "subtopics": [
+            {
+              "id": "18.1",
+              "title": "Variation",
+              "normalized_subtopic_id": "topic_18_variation_and_selection.18.1"
+            },
+            {
+              "id": "18.2",
+              "title": "Adaptive features",
+              "normalized_subtopic_id": "topic_18_variation_and_selection.18.2"
+            },
+            {
+              "id": "18.3",
+              "title": "Selection",
+              "normalized_subtopic_id": "topic_18_variation_and_selection.18.3"
+            }
+          ]
+        },
+        {
+          "id": "19",
+          "title": "Organisms and their environment",
+          "normalized_topic_id": "topic_19_organisms_and_environment",
+          "subtopics": [
+            {
+              "id": "19.1",
+              "title": "Energy flow",
+              "normalized_subtopic_id": "topic_19_organisms_and_environment.19.1"
+            },
+            {
+              "id": "19.2",
+              "title": "Food chains and food webs",
+              "normalized_subtopic_id": "topic_19_organisms_and_environment.19.2"
+            },
+            {
+              "id": "19.3",
+              "title": "Nutrient cycles",
+              "normalized_subtopic_id": "topic_19_organisms_and_environment.19.3"
+            },
+            {
+              "id": "19.4",
+              "title": "Population size",
+              "normalized_subtopic_id": "topic_19_organisms_and_environment.19.4"
+            }
+          ]
+        },
+        {
+          "id": "20",
+          "title": "Biotechnology and genetic engineering",
+          "normalized_topic_id": "topic_21_biotechnology_and_genetic_modification",
+          "subtopics": [
+            {
+              "id": "20.1",
+              "title": "Biotechnology and genetic engineering",
+              "normalized_subtopic_id": "topic_21_biotechnology_and_genetic_modification.20.1"
+            },
+            {
+              "id": "20.2",
+              "title": "Biotechnology",
+              "normalized_subtopic_id": "topic_21_biotechnology_and_genetic_modification.20.2"
+            },
+            {
+              "id": "20.3",
+              "title": "Genetic engineering",
+              "normalized_subtopic_id": "topic_21_biotechnology_and_genetic_modification.20.3"
+            }
+          ]
+        },
+        {
+          "id": "21",
+          "title": "Human influences on ecosystems",
+          "normalized_topic_id": "topic_20_human_influences_on_ecosystems",
+          "subtopics": [
+            {
+              "id": "21.1",
+              "title": "Food supply",
+              "normalized_subtopic_id": "topic_20_human_influences_on_ecosystems.21.1"
+            },
+            {
+              "id": "21.2",
+              "title": "Habitat destruction",
+              "normalized_subtopic_id": "topic_20_human_influences_on_ecosystems.21.2"
+            },
+            {
+              "id": "21.3",
+              "title": "Pollution",
+              "normalized_subtopic_id": "topic_20_human_influences_on_ecosystems.21.3"
+            },
+            {
+              "id": "21.4",
+              "title": "Conservation",
+              "normalized_subtopic_id": "topic_20_human_influences_on_ecosystems.21.4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "era": "2023_2025",
+      "topics": [
+        {
+          "id": "1",
+          "title": "Characteristics and classification of living organisms",
+          "normalized_topic_id": "topic_01_characteristics_and_classification",
+          "subtopics": [
+            {
+              "id": "1.1",
+              "title": "Characteristics of living organisms",
+              "normalized_subtopic_id": "topic_01_characteristics_and_classification.1.1"
+            },
+            {
+              "id": "1.2",
+              "title": "Concept and uses of classification systems",
+              "normalized_subtopic_id": "topic_01_characteristics_and_classification.1.2"
+            },
+            {
+              "id": "1.3",
+              "title": "Features of organisms",
+              "normalized_subtopic_id": "topic_01_characteristics_and_classification.1.3"
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "title": "Organisation of the organism",
+          "normalized_topic_id": "topic_02_organisation",
+          "subtopics": [
+            {
+              "id": "2.1",
+              "title": "Cell structure",
+              "normalized_subtopic_id": "topic_02_organisation.2.1"
+            },
+            {
+              "id": "2.2",
+              "title": "Size of specimens",
+              "normalized_subtopic_id": "topic_02_organisation.2.2"
+            }
+          ]
+        },
+        {
+          "id": "3",
+          "title": "Movement into and out of cells",
+          "normalized_topic_id": "topic_03_movement_into_and_out_of_cells",
+          "subtopics": [
+            {
+              "id": "3.1",
+              "title": "Diffusion",
+              "normalized_subtopic_id": "topic_03_movement_into_and_out_of_cells.3.1"
+            },
+            {
+              "id": "3.2",
+              "title": "Osmosis",
+              "normalized_subtopic_id": "topic_03_movement_into_and_out_of_cells.3.2"
+            },
+            {
+              "id": "3.3",
+              "title": "Active transport",
+              "normalized_subtopic_id": "topic_03_movement_into_and_out_of_cells.3.3"
+            }
+          ]
+        },
+        {
+          "id": "4",
+          "title": "Biological molecules",
+          "normalized_topic_id": "topic_04_biological_molecules",
+          "subtopics": [
+            {
+              "id": "4.1",
+              "title": "Biological molecules",
+              "normalized_subtopic_id": "topic_04_biological_molecules.4.1"
+            }
+          ]
+        },
+        {
+          "id": "5",
+          "title": "Enzymes",
+          "normalized_topic_id": "topic_05_enzymes",
+          "subtopics": [
+            {
+              "id": "5.1",
+              "title": "Enzymes",
+              "normalized_subtopic_id": "topic_05_enzymes.5.1"
+            }
+          ]
+        },
+        {
+          "id": "6",
+          "title": "Plant nutrition",
+          "normalized_topic_id": "topic_06_plant_nutrition",
+          "subtopics": [
+            {
+              "id": "6.1",
+              "title": "Photosynthesis",
+              "normalized_subtopic_id": "topic_06_plant_nutrition.6.1"
+            },
+            {
+              "id": "6.2",
+              "title": "Leaf structure",
+              "normalized_subtopic_id": "topic_06_plant_nutrition.6.2"
+            }
+          ]
+        },
+        {
+          "id": "7",
+          "title": "Human nutrition",
+          "normalized_topic_id": "topic_07_human_nutrition",
+          "subtopics": [
+            {
+              "id": "7.1",
+              "title": "Diet",
+              "normalized_subtopic_id": "topic_07_human_nutrition.7.1"
+            },
+            {
+              "id": "7.2",
+              "title": "Digestive system",
+              "normalized_subtopic_id": "topic_07_human_nutrition.7.2"
+            },
+            {
+              "id": "7.3",
+              "title": "Physical digestion",
+              "normalized_subtopic_id": "topic_07_human_nutrition.7.3"
+            },
+            {
+              "id": "7.4",
+              "title": "Chemical digestion",
+              "normalized_subtopic_id": "topic_07_human_nutrition.7.4"
+            },
+            {
+              "id": "7.5",
+              "title": "Absorption",
+              "normalized_subtopic_id": "topic_07_human_nutrition.7.5"
+            }
+          ]
+        },
+        {
+          "id": "8",
+          "title": "Transport in plants",
+          "normalized_topic_id": "topic_08_transport_in_plants",
+          "subtopics": [
+            {
+              "id": "8.1",
+              "title": "Xylem and phloem",
+              "normalized_subtopic_id": "topic_08_transport_in_plants.8.1"
+            },
+            {
+              "id": "8.2",
+              "title": "Water uptake",
+              "normalized_subtopic_id": "topic_08_transport_in_plants.8.2"
+            },
+            {
+              "id": "8.3",
+              "title": "Transpiration",
+              "normalized_subtopic_id": "topic_08_transport_in_plants.8.3"
+            },
+            {
+              "id": "8.4",
+              "title": "Translocation",
+              "normalized_subtopic_id": "topic_08_transport_in_plants.8.4"
+            }
+          ]
+        },
+        {
+          "id": "9",
+          "title": "Transport in animals",
+          "normalized_topic_id": "topic_09_transport_in_animals",
+          "subtopics": [
+            {
+              "id": "9.1",
+              "title": "Circulatory systems",
+              "normalized_subtopic_id": "topic_09_transport_in_animals.9.1"
+            },
+            {
+              "id": "9.2",
+              "title": "Heart",
+              "normalized_subtopic_id": "topic_09_transport_in_animals.9.2"
+            },
+            {
+              "id": "9.3",
+              "title": "Blood vessels",
+              "normalized_subtopic_id": "topic_09_transport_in_animals.9.3"
+            },
+            {
+              "id": "9.4",
+              "title": "Blood",
+              "normalized_subtopic_id": "topic_09_transport_in_animals.9.4"
+            }
+          ]
+        },
+        {
+          "id": "10",
+          "title": "Diseases and immunity",
+          "normalized_topic_id": "topic_10_diseases_and_immunity",
+          "subtopics": [
+            {
+              "id": "10.1",
+              "title": "Diseases and immunity",
+              "normalized_subtopic_id": "topic_10_diseases_and_immunity.10.1"
+            }
+          ]
+        },
+        {
+          "id": "11",
+          "title": "Gas exchange in humans",
+          "normalized_topic_id": "topic_11_gas_exchange_in_humans",
+          "subtopics": [
+            {
+              "id": "11.1",
+              "title": "Gas exchange in humans",
+              "normalized_subtopic_id": "topic_11_gas_exchange_in_humans.11.1"
+            }
+          ]
+        },
+        {
+          "id": "12",
+          "title": "Respiration",
+          "normalized_topic_id": "topic_12_respiration",
+          "subtopics": [
+            {
+              "id": "12.1",
+              "title": "Respiration",
+              "normalized_subtopic_id": "topic_12_respiration.12.1"
+            },
+            {
+              "id": "12.2",
+              "title": "Aerobic respiration",
+              "normalized_subtopic_id": "topic_12_respiration.12.2"
+            },
+            {
+              "id": "12.3",
+              "title": "Anaerobic respiration",
+              "normalized_subtopic_id": "topic_12_respiration.12.3"
+            }
+          ]
+        },
+        {
+          "id": "13",
+          "title": "Excretion in humans",
+          "normalized_topic_id": "topic_13_excretion_in_humans",
+          "subtopics": [
+            {
+              "id": "13.1",
+              "title": "Excretion in humans",
+              "normalized_subtopic_id": "topic_13_excretion_in_humans.13.1"
+            }
+          ]
+        },
+        {
+          "id": "14",
+          "title": "Coordination and response",
+          "normalized_topic_id": "topic_14_coordination_and_response",
+          "subtopics": [
+            {
+              "id": "14.1",
+              "title": "Coordination and response",
+              "normalized_subtopic_id": "topic_14_coordination_and_response.14.1"
+            },
+            {
+              "id": "14.2",
+              "title": "Sense organs",
+              "normalized_subtopic_id": "topic_14_coordination_and_response.14.2"
+            },
+            {
+              "id": "14.3",
+              "title": "Hormones",
+              "normalized_subtopic_id": "topic_14_coordination_and_response.14.3"
+            },
+            {
+              "id": "14.4",
+              "title": "Homeostasis",
+              "normalized_subtopic_id": "topic_14_coordination_and_response.14.4"
+            },
+            {
+              "id": "14.5",
+              "title": "Tropic responses",
+              "normalized_subtopic_id": "topic_14_coordination_and_response.14.5"
+            }
+          ]
+        },
+        {
+          "id": "15",
+          "title": "Drugs",
+          "normalized_topic_id": "topic_15_drugs",
+          "subtopics": [
+            {
+              "id": "15.1",
+              "title": "Drugs",
+              "normalized_subtopic_id": "topic_15_drugs.15.1"
+            }
+          ]
+        },
+        {
+          "id": "16",
+          "title": "Reproduction",
+          "normalized_topic_id": "topic_16_reproduction",
+          "subtopics": [
+            {
+              "id": "16.1",
+              "title": "Asexual reproduction",
+              "normalized_subtopic_id": "topic_16_reproduction.16.1"
+            },
+            {
+              "id": "16.2",
+              "title": "Sexual reproduction",
+              "normalized_subtopic_id": "topic_16_reproduction.16.2"
+            },
+            {
+              "id": "16.3",
+              "title": "Sexual reproduction in plants",
+              "normalized_subtopic_id": "topic_16_reproduction.16.3"
+            },
+            {
+              "id": "16.4",
+              "title": "Sexual reproduction in humans",
+              "normalized_subtopic_id": "topic_16_reproduction.16.4"
+            },
+            {
+              "id": "16.5",
+              "title": "Sexual hormones in humans",
+              "normalized_subtopic_id": "topic_16_reproduction.16.5"
+            },
+            {
+              "id": "16.6",
+              "title": "Sexually transmitted infections",
+              "normalized_subtopic_id": "topic_16_reproduction.16.6"
+            }
+          ]
+        },
+        {
+          "id": "17",
+          "title": "Inheritance",
+          "normalized_topic_id": "topic_17_inheritance",
+          "subtopics": [
+            {
+              "id": "17.1",
+              "title": "Chromosomes, genes and proteins",
+              "normalized_subtopic_id": "topic_17_inheritance.17.1"
+            },
+            {
+              "id": "17.2",
+              "title": "Mitosis",
+              "normalized_subtopic_id": "topic_17_inheritance.17.2"
+            },
+            {
+              "id": "17.3",
+              "title": "Meiosis",
+              "normalized_subtopic_id": "topic_17_inheritance.17.3"
+            },
+            {
+              "id": "17.4",
+              "title": "Monohybrid inheritance",
+              "normalized_subtopic_id": "topic_17_inheritance.17.4"
+            }
+          ]
+        },
+        {
+          "id": "18",
+          "title": "Variation and selection",
+          "normalized_topic_id": "topic_18_variation_and_selection",
+          "subtopics": [
+            {
+              "id": "18.1",
+              "title": "Variation",
+              "normalized_subtopic_id": "topic_18_variation_and_selection.18.1"
+            },
+            {
+              "id": "18.2",
+              "title": "Adaptive features",
+              "normalized_subtopic_id": "topic_18_variation_and_selection.18.2"
+            },
+            {
+              "id": "18.3",
+              "title": "Selection",
+              "normalized_subtopic_id": "topic_18_variation_and_selection.18.3"
+            }
+          ]
+        },
+        {
+          "id": "19",
+          "title": "Organisms and their environment",
+          "normalized_topic_id": "topic_19_organisms_and_environment",
+          "subtopics": [
+            {
+              "id": "19.1",
+              "title": "Energy flow",
+              "normalized_subtopic_id": "topic_19_organisms_and_environment.19.1"
+            },
+            {
+              "id": "19.2",
+              "title": "Food chains and food webs",
+              "normalized_subtopic_id": "topic_19_organisms_and_environment.19.2"
+            },
+            {
+              "id": "19.3",
+              "title": "Nutrient cycles",
+              "normalized_subtopic_id": "topic_19_organisms_and_environment.19.3"
+            },
+            {
+              "id": "19.4",
+              "title": "Populations",
+              "normalized_subtopic_id": "topic_19_organisms_and_environment.19.4"
+            }
+          ]
+        },
+        {
+          "id": "20",
+          "title": "Human influences on ecosystems",
+          "normalized_topic_id": "topic_20_human_influences_on_ecosystems",
+          "subtopics": [
+            {
+              "id": "20.1",
+              "title": "Food supply",
+              "normalized_subtopic_id": "topic_20_human_influences_on_ecosystems.20.1"
+            },
+            {
+              "id": "20.2",
+              "title": "Habitat destruction",
+              "normalized_subtopic_id": "topic_20_human_influences_on_ecosystems.20.2"
+            },
+            {
+              "id": "20.3",
+              "title": "Pollution",
+              "normalized_subtopic_id": "topic_20_human_influences_on_ecosystems.20.3"
+            },
+            {
+              "id": "20.4",
+              "title": "Conservation",
+              "normalized_subtopic_id": "topic_20_human_influences_on_ecosystems.20.4"
+            }
+          ]
+        },
+        {
+          "id": "21",
+          "title": "Biotechnology and genetic modification",
+          "normalized_topic_id": "topic_21_biotechnology_and_genetic_modification",
+          "subtopics": [
+            {
+              "id": "21.1",
+              "title": "Biotechnology and genetic modification",
+              "normalized_subtopic_id": "topic_21_biotechnology_and_genetic_modification.21.1"
+            },
+            {
+              "id": "21.2",
+              "title": "Biotechnology",
+              "normalized_subtopic_id": "topic_21_biotechnology_and_genetic_modification.21.2"
+            },
+            {
+              "id": "21.3",
+              "title": "Genetic modification",
+              "normalized_subtopic_id": "topic_21_biotechnology_and_genetic_modification.21.3"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

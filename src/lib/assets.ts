@@ -1,6 +1,7 @@
-import { isLocalEconomicsBank, type EconomicsBankSlug, type ProductionBankSlug } from "@/lib/banks";
+import { isIGCSEReleaseBank, isLocalEconomicsBank, type BankSlug, type EconomicsBankSlug, type LegacyProductionBankSlug } from "@/lib/banks";
+import { privateStorageObjectPath } from "@/lib/private-runtime-mapping";
 
-const PUBLIC_ASSET_ROOTS: Record<ProductionBankSlug, string> = {
+const PUBLIC_ASSET_ROOTS: Record<LegacyProductionBankSlug, string> = {
   igcse: "https://saksham106.github.io/igcse-0580-topic-practice/",
   "igcse-additional": "https://saksham106.github.io/igcse-additional-mathematics-0606-topic-practice/",
   "ib-hl": "https://saksham106.github.io/ib-maths-aa-hl-topic-practice/",
@@ -17,8 +18,11 @@ const PUBLIC_ASSET_ROOTS: Record<ProductionBankSlug, string> = {
 
 export const QUESTION_ASSET_BUCKET = "question-assets";
 
-export function storageObjectPath(bankSlug: ProductionBankSlug, publicAssetUrl: string): string {
-  const expectedRoot = new URL(PUBLIC_ASSET_ROOTS[bankSlug]);
+export function storageObjectPath(bankSlug: BankSlug, publicAssetUrl: string): string {
+  if (isIGCSEReleaseBank(bankSlug)) {
+    return privateStorageObjectPath(bankSlug, publicAssetUrl);
+  }
+  const expectedRoot = new URL(PUBLIC_ASSET_ROOTS[bankSlug as LegacyProductionBankSlug]);
   let assetUrl: URL;
 
   try {
@@ -49,14 +53,6 @@ export function storageObjectPath(bankSlug: ProductionBankSlug, publicAssetUrl: 
 }
 
 export function economicsStorageObjectPath(bankSlug: EconomicsBankSlug, relativeAssetPath: string): string {
-  const normalized = relativeAssetPath.replace(/^\/+/, "");
-  const segments = normalized.split("/");
-  if (
-    !isLocalEconomicsBank(bankSlug) ||
-    !normalized ||
-    segments.some((segment) => !segment || segment === "." || segment === "..") ||
-    (segments[0] !== "questions" && segments[0] !== "markschemes") ||
-    !normalized.endsWith(".webp")
-  ) throw new Error("Invalid Economics asset path");
-  return `${bankSlug}/${normalized}`;
+  if (!isLocalEconomicsBank(bankSlug)) throw new Error("Invalid Economics asset path");
+  return privateStorageObjectPath(bankSlug, relativeAssetPath);
 }

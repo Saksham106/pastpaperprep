@@ -54,6 +54,8 @@ const BANK_PRODUCT_BY_SLUG: Partial<Record<BankSlug, ProductId>> = {
   "ib-physics-sl": "bank_ib_physics_sl",
   "ib-biology-hl": "bank_ib_biology_hl",
   "ib-biology-sl": "bank_ib_biology_sl",
+  "igcse-biology-0610": "bank_igcse_biology_0610",
+  "igcse-economics-0455": "bank_igcse_economics_0455",
 };
 
 function PlanSelector({ options, value, onChange }: {
