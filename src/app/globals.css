@@ -86,6 +86,14 @@ main { min-height: 72vh; }
 .site-header nav > a.nav-active:not(.nav-cta) { color: var(--ink); background: var(--surface); box-shadow: inset 0 -2px var(--cobalt); }
 .nav-cta { margin-left: 5px; display: inline-flex; align-items: center; justify-content: center; color: var(--surface-raised) !important; background: var(--cobalt) !important; }
 .nav-cta svg { width: 18px; height: 18px; }
+
+@media (max-width: 620px) {
+  .shell { width: min(1240px, calc(100% - 32px)); }
+  .site-header { width: calc(100% - 32px); }
+  .site-header nav { gap: 1px; }
+  .site-header nav > a { padding-inline: 6px; font-size: .72rem; }
+  .nav-cta { margin-left: 2px; }
+}
 .nav-cta.nav-active { box-shadow: 0 0 0 3px var(--cobalt-soft); }
 
 /* Shared buttons */
