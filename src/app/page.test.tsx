@@ -12,39 +12,28 @@ const liveBankEnvironment = {
 };
 
 describe("home page corpus summary", () => {
-  it("derives the twelve-bank corpus totals from the bank catalog", () => {
-    const markup = renderToStaticMarkup(<MarketingHome />);
+  it("presents the base catalog without the old subject-list hero or duplicate bank icons", () => {
+    const markup = renderToStaticMarkup(<MarketingHome environment={{}} />);
 
     expect(BANKS.reduce((total, bank) => total + bank.questionCount, 0)).toBe(12332);
-    expect(markup).toContain("12,332");
-    expect(markup).toContain("853");
-    expect(markup).toContain("Practise the questions that move your grade.");
-    expect(markup).toContain("Choose your course");
-    expect(markup).toContain("Start practising");
-    expect(markup).toContain("IGCSE Additional Math 0606");
+    expect(markup).toContain("12,332 questions");
+    expect(markup).toContain("853 papers");
+    expect(markup).toContain("Past papers, sorted by topic.");
+    expect(markup).toContain("Question banks");
     expect(markup).toContain("Cambridge IGCSE");
-    expect(markup).toContain("IB Mathematics");
-    expect(markup).toContain("IB Chemistry");
-    expect(markup).toContain("IB Physics");
-    expect(markup).toContain("IGCSE + IB Maths + Chemistry + Physics + Biology");
-    expect(markup).toContain("Spend your revision time practising.");
-    expect(markup).not.toContain("pastpaperprep-workspace.webp");
-    expect(markup).toContain("class=\"exam-index-visual");
-    expect(markup).toContain("class=\"exam-index-formula");
-    expect(markup).toContain("<sup>2</sup>");
-    expect(markup).toContain("<sub>2</sub>");
-    expect(markup).not.toContain("x² · H₂O");
-    expect(markup.match(/data-course-icon=/g)).toHaveLength(18);
-    expect(markup).toContain("class=\"course-launcher");
-    expect(markup).toContain("class=\"corpus-ledger");
-    expect(markup).toContain("class=\"study-method");
-    expect(markup).not.toContain("class=\"proof-strip");
-    expect(markup).not.toContain("class=\"value-sequence");
-    expect(markup).not.toContain("—");
-    expect(markup).not.toContain("–");
+    expect(markup).toContain("IB Diploma");
+    expect(markup).toContain("Simple on purpose.");
+    expect(markup).toContain("Topic-first exam practice");
+    expect(markup).not.toMatch(/^<main/);
+    expect(markup).toContain("data-qualification-icon=\"igcse\"");
+    expect(markup).toContain("data-qualification-icon=\"ib\"");
+    expect(markup).not.toContain("IGCSE + IB Maths + Chemistry + Physics + Biology");
+    expect(markup).not.toContain("exam-index-visual");
+    expect(markup).not.toContain("More subjects are on the way.");
+    expect(markup.match(/data-course-icon=/g)).toHaveLength(5);
   });
 
-  it("shows every production-enabled Economics and IGCSE release bank", () => {
+  it("shows every enabled release bank, grouped by subject with a real economics icon", () => {
     const enabledBanks = getAvailableBanks(liveBankEnvironment);
     const markup = renderToStaticMarkup(<MarketingHome environment={liveBankEnvironment} />);
 
@@ -56,7 +45,11 @@ describe("home page corpus summary", () => {
     expect(markup).toContain("href=\"/banks/ib-economics-hl?free=1\"");
     expect(markup).toContain("href=\"/banks/igcse-biology-0610?free=1\"");
     expect(markup).toContain("href=\"/banks/igcse-economics-0455?free=1\"");
-    expect(markup).toContain("16</strong><span>focused question banks");
+    expect(markup).toContain("data-course-icon=\"economics\"");
+    expect(markup).toContain("16 banks");
+    expect(markup).toContain("Cambridge IGCSE Mathematics 0580");
+    expect(markup).not.toContain("ArrowUpRight");
+    expect(markup.match(/data-course-icon=/g)).toHaveLength(8);
   });
 
   it("describes Economics in homepage search metadata", () => {
