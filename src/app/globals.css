@@ -128,6 +128,7 @@ main { min-height: 72vh; }
 .course-tone-chemistry { --course-accent: #a45d2d; }
 .course-tone-physics { --course-accent: #6d55a4; }
 .course-tone-biology { --course-accent: var(--success); }
+.course-tone-economics { --course-accent: #9a6a24; }
 .course-icon { width: 38px; height: 38px; flex: 0 0 auto; display: grid; align-items: center; justify-items: center; line-height: 0; color: var(--course-accent, var(--cobalt)); background: color-mix(in srgb, var(--course-accent, var(--cobalt)) 10%, var(--surface)); border: 1px solid color-mix(in srgb, var(--course-accent, var(--cobalt)) 25%, var(--line)); border-radius: 9px; }
 .course-icon svg { width: 20px; height: 20px; display: block; }
 .curriculum-heading { align-self: center; display: grid; grid-template-columns: 38px minmax(0, 1fr); align-items: center; gap: 14px; }

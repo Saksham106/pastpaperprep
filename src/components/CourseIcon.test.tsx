@@ -9,4 +9,11 @@ describe("CourseIcon", () => {
     expect(container.querySelector('[data-course-icon="math"] svg')).not.toBeNull();
     expect(container.querySelector('[data-course-icon="math"] svg [opacity]')).toBeNull();
   });
+
+  it("uses a distinct chart glyph for economics", () => {
+    const { container } = render(<CourseIcon tone="economics" />);
+
+    expect(container.querySelector('[data-course-icon="economics"] svg')).not.toBeNull();
+    expect(container.querySelector('[data-course-icon="math"]')).toBeNull();
+  });
 });
