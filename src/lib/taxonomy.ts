@@ -2,6 +2,8 @@ import chemistryTaxonomy from "@/data/ib-chemistry-taxonomy.json";
 import physicsTaxonomy from "@/data/ib-physics-taxonomy.json";
 import biologyTaxonomy from "@/data/ib-biology-taxonomy.json";
 import economicsTaxonomy from "@/data/ib-economics-taxonomy.json";
+import igcseChemistryTaxonomy from "@/data/igcse-chemistry-0620-taxonomy.json";
+import igcsePhysicsTaxonomy from "@/data/igcse-physics-0625-taxonomy.json";
 import type { UnifiedQuestion } from "@/lib/questions";
 
 const IB_TOPIC_ORDER = [
@@ -327,6 +329,14 @@ const ECONOMICS_TOPIC_ORDER = economicsTaxonomy.student_topics.map((topic) => to
 const ECONOMICS_SUBTOPICS: Record<string, readonly string[]> = Object.fromEntries(
   economicsTaxonomy.student_topics.map((topic) => [topic.label, topic.detailed_subtopics.map((subtopic) => subtopic.label)]),
 );
+const IGCSE_CHEMISTRY_TOPIC_ORDER = igcseChemistryTaxonomy.student_topics.map((topic) => topic.label);
+const IGCSE_CHEMISTRY_SUBTOPICS: Record<string, readonly string[]> = Object.fromEntries(
+  igcseChemistryTaxonomy.student_topics.map((topic) => [topic.label, topic.detailed_subtopics.map((subtopic) => subtopic.label)]),
+);
+const IGCSE_PHYSICS_TOPIC_ORDER = igcsePhysicsTaxonomy.student_topics.map((topic) => topic.label);
+const IGCSE_PHYSICS_SUBTOPICS: Record<string, readonly string[]> = Object.fromEntries(
+  igcsePhysicsTaxonomy.student_topics.map((topic) => [topic.label, topic.detailed_subtopics.map((subtopic) => subtopic.label)]),
+);
 
 function uniqueSorted(values: string[]): string[] {
   return [...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b));
@@ -343,6 +353,8 @@ export function getControlledSubtopics(bankSlug: string, topic: string): readonl
   if (bankSlug === "ib-physics-hl" || bankSlug === "ib-physics-sl") return PHYSICS_SUBTOPICS[topic] ?? [];
   if (bankSlug === "ib-biology-hl" || bankSlug === "ib-biology-sl") return BIOLOGY_SUBTOPICS[topic] ?? [];
   if (bankSlug === "ib-economics-hl" || bankSlug === "ib-economics-sl") return ECONOMICS_SUBTOPICS[topic] ?? [];
+  if (bankSlug === "igcse-chemistry-0620") return IGCSE_CHEMISTRY_SUBTOPICS[topic] ?? [];
+  if (bankSlug === "igcse-physics-0625") return IGCSE_PHYSICS_SUBTOPICS[topic] ?? [];
   return [];
 }
 
@@ -364,7 +376,11 @@ export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
               ? BIOLOGY_TOPIC_ORDER
               : bankSlug === "ib-economics-hl" || bankSlug === "ib-economics-sl"
                 ? ECONOMICS_TOPIC_ORDER
-          : IB_TOPIC_ORDER;
+                : bankSlug === "igcse-chemistry-0620"
+                  ? IGCSE_CHEMISTRY_TOPIC_ORDER
+                  : bankSlug === "igcse-physics-0625"
+                    ? IGCSE_PHYSICS_TOPIC_ORDER
+                    : IB_TOPIC_ORDER;
   const ordered = order.filter((topic) => available.has(topic));
   const remaining = [...available].filter((topic) => !ordered.includes(topic as never)).sort();
   return [...ordered, ...remaining];
@@ -422,6 +438,14 @@ export function getSubtopicGroups(
   } else if (questions[0]?.bankSlug === "ib-economics-hl" || questions[0]?.bankSlug === "ib-economics-sl") {
     relevant = selectedTopics
       .flatMap((topic) => ECONOMICS_SUBTOPICS[topic] ?? [])
+      .filter((subtopic, index, values) => available.has(subtopic) && values.indexOf(subtopic) === index);
+  } else if (questions[0]?.bankSlug === "igcse-chemistry-0620") {
+    relevant = selectedTopics
+      .flatMap((topic) => IGCSE_CHEMISTRY_SUBTOPICS[topic] ?? [])
+      .filter((subtopic, index, values) => available.has(subtopic) && values.indexOf(subtopic) === index);
+  } else if (questions[0]?.bankSlug === "igcse-physics-0625") {
+    relevant = selectedTopics
+      .flatMap((topic) => IGCSE_PHYSICS_SUBTOPICS[topic] ?? [])
       .filter((subtopic, index, values) => available.has(subtopic) && values.indexOf(subtopic) === index);
   } else if (questions[0]?.bankSlug === "ib-ai-hl") {
     const taxonomy = IB_AI_HL_SUBTOPICS;

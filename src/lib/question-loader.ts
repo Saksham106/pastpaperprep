@@ -21,6 +21,8 @@ const loaders: Record<BankSlug, () => Promise<RawBank>> = {
   "ib-economics-sl": async () => (await import("@/data/local-preview/ib-economics-sl.json")).default as RawBank,
   "igcse-biology-0610": async () => (await import("@/data/production/igcse-biology-0610.json")).default as RawBank,
   "igcse-economics-0455": async () => (await import("@/data/production/igcse-economics-0455.json")).default as RawBank,
+  "igcse-chemistry-0620": async () => (await import("@/data/production/igcse-chemistry-0620.json")).default as RawBank,
+  "igcse-physics-0625": async () => (await import("@/data/production/igcse-physics-0625.json")).default as RawBank,
 };
 
 const cache = new Map<string, Promise<UnifiedQuestion[]>>();
