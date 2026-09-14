@@ -1,5 +1,5 @@
 export type EconomicsBankSlug = "ib-economics-hl" | "ib-economics-sl";
-export type IGCSEReleaseBankSlug = "igcse-biology-0610" | "igcse-economics-0455";
+export type IGCSEReleaseBankSlug = "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625";
 export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl" | "ib-physics-hl" | "ib-physics-sl" | "ib-biology-hl" | "ib-biology-sl" | EconomicsBankSlug | IGCSEReleaseBankSlug;
 export type ProductionBankSlug = Exclude<BankSlug, EconomicsBankSlug | IGCSEReleaseBankSlug>;
 export type LegacyProductionBankSlug = ProductionBankSlug;
@@ -111,6 +111,8 @@ export const ECONOMICS_BANK_CATALOG: readonly Bank[] = [
 export const IGCSE_RELEASE_BANK_CATALOG: readonly Bank[] = [
   { slug: "igcse-biology-0610", shortName: "IGCSE Biology 0610", title: "Cambridge IGCSE Biology 0610", description: "Cambridge IGCSE Biology questions organized by syllabus topic, paper, and session.", qualification: "Cambridge IGCSE", subject: "Biology 0610", questionCount: 3441, paperCount: 209, years: "2021-2025", accent: "lime", sourceBaseUrl: "", localPreview: false, productionEnabled: true, releaseStatus: "authorized_production_candidate", rightsStatus: "user_attested_non_blocking_for_named_corpus", entitlementProductId: "bank_igcse_biology_0610" },
   { slug: "igcse-economics-0455", shortName: "IGCSE Economics 0455", title: "Cambridge IGCSE Economics 0455", description: "Cambridge IGCSE Economics questions organized by syllabus topic, paper, and session.", qualification: "Cambridge IGCSE", subject: "Economics 0455", questionCount: 1189, paperCount: 70, years: "2021-2025", accent: "coral", sourceBaseUrl: "", localPreview: false, productionEnabled: true, releaseStatus: "authorized_production_candidate", rightsStatus: "user_attested_non_blocking_for_named_corpus", entitlementProductId: "bank_igcse_economics_0455" },
+  { slug: "igcse-chemistry-0620", shortName: "IGCSE Chemistry 0620", title: "Cambridge IGCSE Chemistry 0620", description: "Cambridge IGCSE Chemistry questions organized by syllabus topic, paper, and session.", qualification: "Cambridge IGCSE", subject: "Chemistry 0620", questionCount: 3529, paperCount: 207, years: "2021-2025", accent: "lime", sourceBaseUrl: "", localPreview: false, productionEnabled: true, releaseStatus: "authorized_production_candidate", rightsStatus: "user_attested_non_blocking_for_named_corpus", entitlementProductId: "bank_igcse_chemistry_0620" },
+  { slug: "igcse-physics-0625", shortName: "IGCSE Physics 0625", title: "Cambridge IGCSE Physics 0625", description: "Cambridge IGCSE Physics questions organized by syllabus topic, paper, and session.", qualification: "Cambridge IGCSE", subject: "Physics 0625", questionCount: 3820, paperCount: 210, years: "2021-2025", accent: "cobalt", sourceBaseUrl: "", localPreview: false, productionEnabled: true, releaseStatus: "authorized_production_candidate", rightsStatus: "user_attested_non_blocking_for_named_corpus", entitlementProductId: "bank_igcse_physics_0625" },
 ] as const;
 
 export const BANKS: readonly Bank[] = [
@@ -273,7 +275,7 @@ export const BANKS: readonly Bank[] = [
 ] as const;
 
 export function isIGCSEReleaseBank(slug: string): slug is IGCSEReleaseBankSlug {
-  return slug === "igcse-biology-0610" || slug === "igcse-economics-0455";
+  return slug === "igcse-biology-0610" || slug === "igcse-economics-0455" || slug === "igcse-chemistry-0620" || slug === "igcse-physics-0625";
 }
 
 export function isIGCSEReleaseEnabled(environment: Record<string, string | undefined> = process.env): boolean {

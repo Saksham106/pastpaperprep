@@ -134,7 +134,7 @@ describe("IGCSE storage release tooling", () => {
     const repo = await mkdtemp(join(tmpdir(), "igcse-finalize-"));
     temporary.push(repo);
     const bank = "igcse-biology-0610";
-    const runtime = sealedRuntime(bank, { questionImages: [], markschemeImages: [] });
+    const runtime = sealedRuntime(bank, { questionImages: [], markschemeImages: [], publicationStatus: "local_preview_candidate", classificationReviewStatus: "candidate_not_approved" });
     const manifest = { schemaVersion: "igcse-private-assets-v1", bank, storageState: "pending_upload", assets: [] };
     const receipt = { schemaVersion: "igcse-upload-receipt-v1", bank, storageState: "verified_readback", assetManifestSha256: manifestSha256(manifest), completed: [], failed: [] };
     await mkdir(join(repo, "src/data/production"), { recursive: true });
@@ -145,6 +145,8 @@ describe("IGCSE storage release tooling", () => {
     await finalizeRelease(bank, repo);
     const finalized = JSON.parse(await readFile(join(repo, `src/data/production/${bank}.json`), "utf8"));
     expect(finalized.releaseStatus).toBe("production");
+    expect(finalized.questions[0].publicationStatus).toBe("production");
+    expect(finalized.questions[0].classificationReviewStatus).toBe("classified");
     expect(finalized.runtimeArtifact.assetVerification).toBe("verified_readback");
     expect(finalized.runtimeArtifact.runtimeSha256).toBe(runtimeSha256(finalized));
   });

@@ -1,0 +1,4271 @@
+{
+  "taxonomyId": "cambridge-igcse-chemistry-0620",
+  "version": "0.1.0-candidate-syllabus-order",
+  "qualification": "Cambridge IGCSE Chemistry",
+  "orderSource": {
+    "topics": "Cambridge IGCSE Chemistry 0620 syllabus 2023-2025 v2, Content overview (12 topics)",
+    "subtopics": "same syllabus, numbered section headings (1.1 ... 12.5)",
+    "syllabus_sha256": "245d008b444a575f637d378f6657ba4efcaf9b1136f6c09e00bdd21094d71d87",
+    "topic1_era_alias": "particulate-nature was named 'Particulate nature of matter' in the 2020-2022 syllabus"
+  },
+  "eras": [
+    "2020_2022",
+    "2023_2025"
+  ],
+  "topics": [
+    {
+      "id": "particulate-nature",
+      "order": 1,
+      "title": "States of matter"
+    },
+    {
+      "id": "atoms-elements-compounds",
+      "order": 2,
+      "title": "Atoms, elements and compounds"
+    },
+    {
+      "id": "stoichiometry",
+      "order": 3,
+      "title": "Stoichiometry"
+    },
+    {
+      "id": "electrochemistry",
+      "order": 4,
+      "title": "Electrochemistry"
+    },
+    {
+      "id": "chemical-energetics",
+      "order": 5,
+      "title": "Chemical energetics"
+    },
+    {
+      "id": "chemical-reactions",
+      "order": 6,
+      "title": "Chemical reactions"
+    },
+    {
+      "id": "acids-bases-salts",
+      "order": 7,
+      "title": "Acids, bases and salts"
+    },
+    {
+      "id": "periodic-table",
+      "order": 8,
+      "title": "The Periodic Table"
+    },
+    {
+      "id": "metals",
+      "order": 9,
+      "title": "Metals"
+    },
+    {
+      "id": "chemistry-environment",
+      "order": 10,
+      "title": "Chemistry of the environment"
+    },
+    {
+      "id": "organic-chemistry",
+      "order": 11,
+      "title": "Organic chemistry"
+    },
+    {
+      "id": "experimental-techniques",
+      "order": 12,
+      "title": "Experimental techniques and chemical analysis"
+    },
+    {
+      "id": "practical-skills",
+      "order": 13,
+      "title": "Practical skills and investigations"
+    }
+  ],
+  "subtopics": [
+    {
+      "id": "1.1",
+      "title": "Solids, liquids and gases",
+      "ownerTopicId": "particulate-nature",
+      "topicTitle": "States of matter"
+    },
+    {
+      "id": "1.2",
+      "title": "Diffusion",
+      "ownerTopicId": "particulate-nature",
+      "topicTitle": "States of matter"
+    },
+    {
+      "id": "2.1",
+      "title": "Elements, compounds and mixtures",
+      "ownerTopicId": "atoms-elements-compounds",
+      "topicTitle": "Atoms, elements and compounds"
+    },
+    {
+      "id": "2.2",
+      "title": "Atomic structure and the Periodic Table",
+      "ownerTopicId": "atoms-elements-compounds",
+      "topicTitle": "Atoms, elements and compounds"
+    },
+    {
+      "id": "2.3",
+      "title": "Isotopes",
+      "ownerTopicId": "atoms-elements-compounds",
+      "topicTitle": "Atoms, elements and compounds"
+    },
+    {
+      "id": "2.4",
+      "title": "Ions and ionic bonds",
+      "ownerTopicId": "atoms-elements-compounds",
+      "topicTitle": "Atoms, elements and compounds"
+    },
+    {
+      "id": "2.5",
+      "title": "Simple molecules and covalent bonds",
+      "ownerTopicId": "atoms-elements-compounds",
+      "topicTitle": "Atoms, elements and compounds"
+    },
+    {
+      "id": "2.6",
+      "title": "Giant covalent structures",
+      "ownerTopicId": "atoms-elements-compounds",
+      "topicTitle": "Atoms, elements and compounds"
+    },
+    {
+      "id": "2.7",
+      "title": "Metallic bonding",
+      "ownerTopicId": "atoms-elements-compounds",
+      "topicTitle": "Atoms, elements and compounds"
+    },
+    {
+      "id": "3.1",
+      "title": "Formulae",
+      "ownerTopicId": "stoichiometry",
+      "topicTitle": "Stoichiometry"
+    },
+    {
+      "id": "3.2",
+      "title": "Relative masses of atoms and molecules",
+      "ownerTopicId": "stoichiometry",
+      "topicTitle": "Stoichiometry"
+    },
+    {
+      "id": "3.3",
+      "title": "The mole and the Avogadro constant",
+      "ownerTopicId": "stoichiometry",
+      "topicTitle": "Stoichiometry"
+    },
+    {
+      "id": "4.1",
+      "title": "Electrolysis",
+      "ownerTopicId": "electrochemistry",
+      "topicTitle": "Electrochemistry"
+    },
+    {
+      "id": "4.2",
+      "title": "Hydrogen\u2013oxygen fuel cells",
+      "ownerTopicId": "electrochemistry",
+      "topicTitle": "Electrochemistry"
+    },
+    {
+      "id": "5.1",
+      "title": "Exothermic and endothermic reactions",
+      "ownerTopicId": "chemical-energetics",
+      "topicTitle": "Chemical energetics"
+    },
+    {
+      "id": "6.1",
+      "title": "Physical and chemical changes",
+      "ownerTopicId": "chemical-reactions",
+      "topicTitle": "Chemical reactions"
+    },
+    {
+      "id": "6.2",
+      "title": "Rate of reaction",
+      "ownerTopicId": "chemical-reactions",
+      "topicTitle": "Chemical reactions"
+    },
+    {
+      "id": "6.3",
+      "title": "Reversible reactions and equilibrium",
+      "ownerTopicId": "chemical-reactions",
+      "topicTitle": "Chemical reactions"
+    },
+    {
+      "id": "6.4",
+      "title": "Redox",
+      "ownerTopicId": "chemical-reactions",
+      "topicTitle": "Chemical reactions"
+    },
+    {
+      "id": "7.1",
+      "title": "The characteristic properties of acids and bases",
+      "ownerTopicId": "acids-bases-salts",
+      "topicTitle": "Acids, bases and salts"
+    },
+    {
+      "id": "7.2",
+      "title": "Oxides",
+      "ownerTopicId": "acids-bases-salts",
+      "topicTitle": "Acids, bases and salts"
+    },
+    {
+      "id": "7.3",
+      "title": "Preparation of salts",
+      "ownerTopicId": "acids-bases-salts",
+      "topicTitle": "Acids, bases and salts"
+    },
+    {
+      "id": "8.1",
+      "title": "Arrangement of elements",
+      "ownerTopicId": "periodic-table",
+      "topicTitle": "The Periodic Table"
+    },
+    {
+      "id": "8.2",
+      "title": "Group I properties",
+      "ownerTopicId": "periodic-table",
+      "topicTitle": "The Periodic Table"
+    },
+    {
+      "id": "8.3",
+      "title": "Group VII properties",
+      "ownerTopicId": "periodic-table",
+      "topicTitle": "The Periodic Table"
+    },
+    {
+      "id": "8.4",
+      "title": "Transition elements",
+      "ownerTopicId": "periodic-table",
+      "topicTitle": "The Periodic Table"
+    },
+    {
+      "id": "8.5",
+      "title": "Noble gases",
+      "ownerTopicId": "periodic-table",
+      "topicTitle": "The Periodic Table"
+    },
+    {
+      "id": "9.1",
+      "title": "Properties of metals",
+      "ownerTopicId": "metals",
+      "topicTitle": "Metals"
+    },
+    {
+      "id": "9.2",
+      "title": "Uses of metals",
+      "ownerTopicId": "metals",
+      "topicTitle": "Metals"
+    },
+    {
+      "id": "9.3",
+      "title": "Alloys and their properties",
+      "ownerTopicId": "metals",
+      "topicTitle": "Metals"
+    },
+    {
+      "id": "9.4",
+      "title": "Reactivity series",
+      "ownerTopicId": "metals",
+      "topicTitle": "Metals"
+    },
+    {
+      "id": "9.5",
+      "title": "Corrosion of metals",
+      "ownerTopicId": "metals",
+      "topicTitle": "Metals"
+    },
+    {
+      "id": "9.6",
+      "title": "Extraction of metals",
+      "ownerTopicId": "metals",
+      "topicTitle": "Metals"
+    },
+    {
+      "id": "10.1",
+      "title": "Water",
+      "ownerTopicId": "chemistry-environment",
+      "topicTitle": "Chemistry of the environment"
+    },
+    {
+      "id": "10.2",
+      "title": "Fertilisers",
+      "ownerTopicId": "chemistry-environment",
+      "topicTitle": "Chemistry of the environment"
+    },
+    {
+      "id": "10.3",
+      "title": "Air quality and climate",
+      "ownerTopicId": "chemistry-environment",
+      "topicTitle": "Chemistry of the environment"
+    },
+    {
+      "id": "11.1",
+      "title": "Formulae, functional groups and terminology",
+      "ownerTopicId": "organic-chemistry",
+      "topicTitle": "Organic chemistry"
+    },
+    {
+      "id": "11.2",
+      "title": "Naming organic compounds",
+      "ownerTopicId": "organic-chemistry",
+      "topicTitle": "Organic chemistry"
+    },
+    {
+      "id": "11.3",
+      "title": "Fuels",
+      "ownerTopicId": "organic-chemistry",
+      "topicTitle": "Organic chemistry"
+    },
+    {
+      "id": "11.4",
+      "title": "Alkanes",
+      "ownerTopicId": "organic-chemistry",
+      "topicTitle": "Organic chemistry"
+    },
+    {
+      "id": "11.5",
+      "title": "Alkenes",
+      "ownerTopicId": "organic-chemistry",
+      "topicTitle": "Organic chemistry"
+    },
+    {
+      "id": "11.6",
+      "title": "Alcohols",
+      "ownerTopicId": "organic-chemistry",
+      "topicTitle": "Organic chemistry"
+    },
+    {
+      "id": "11.7",
+      "title": "Carboxylic acids",
+      "ownerTopicId": "organic-chemistry",
+      "topicTitle": "Organic chemistry"
+    },
+    {
+      "id": "11.8",
+      "title": "Polymers",
+      "ownerTopicId": "organic-chemistry",
+      "topicTitle": "Organic chemistry"
+    },
+    {
+      "id": "12.1",
+      "title": "Experimental design",
+      "ownerTopicId": "experimental-techniques",
+      "topicTitle": "Experimental techniques and chemical analysis"
+    },
+    {
+      "id": "12.2",
+      "title": "Acid\u2013base titrations",
+      "ownerTopicId": "experimental-techniques",
+      "topicTitle": "Experimental techniques and chemical analysis"
+    },
+    {
+      "id": "12.3",
+      "title": "Chromatography",
+      "ownerTopicId": "experimental-techniques",
+      "topicTitle": "Experimental techniques and chemical analysis"
+    },
+    {
+      "id": "12.4",
+      "title": "Separation and purification",
+      "ownerTopicId": "experimental-techniques",
+      "topicTitle": "Experimental techniques and chemical analysis"
+    },
+    {
+      "id": "12.5",
+      "title": "Identification of ions and gases",
+      "ownerTopicId": "experimental-techniques",
+      "topicTitle": "Experimental techniques and chemical analysis"
+    },
+    {
+      "id": "apparatus-measurement",
+      "title": "Apparatus and measurement",
+      "description": "Selecting and using apparatus to measure time, temperature, mass, volume, gas volume, length and rate",
+      "ownerTopicId": "practical-skills",
+      "topicTitle": "Practical skills and investigations"
+    },
+    {
+      "id": "quantitative-experiments",
+      "title": "Quantitative experiments",
+      "description": "Simple quantitative experiments involving gases, solutions, liquids, masses, temperatures, times and lengths",
+      "ownerTopicId": "practical-skills",
+      "topicTitle": "Practical skills and investigations"
+    },
+    {
+      "id": "rates-of-reaction",
+      "title": "Rates of reaction",
+      "description": "Investigating rates of reaction",
+      "ownerTopicId": "practical-skills",
+      "topicTitle": "Practical skills and investigations"
+    },
+    {
+      "id": "salt-preparation",
+      "title": "Preparing salts",
+      "description": "Preparing salts",
+      "ownerTopicId": "practical-skills",
+      "topicTitle": "Practical skills and investigations"
+    },
+    {
+      "id": "separation-purification",
+      "title": "Separation and purification",
+      "description": "Filtration, crystallisation, simple distillation, fractional distillation and chromatography",
+      "ownerTopicId": "practical-skills",
+      "topicTitle": "Practical skills and investigations"
+    },
+    {
+      "id": "electrolysis",
+      "title": "Electrolysis",
+      "description": "Electrolysis",
+      "ownerTopicId": "practical-skills",
+      "topicTitle": "Practical skills and investigations"
+    },
+    {
+      "id": "qualitative-analysis",
+      "title": "Ion and gas tests",
+      "description": "Identifying metal ions, non-metal ions and gases",
+      "ownerTopicId": "practical-skills",
+      "topicTitle": "Practical skills and investigations"
+    },
+    {
+      "id": "water-tests",
+      "title": "Tests for water",
+      "description": "Chemical tests for water",
+      "ownerTopicId": "practical-skills",
+      "topicTitle": "Practical skills and investigations"
+    },
+    {
+      "id": "acid-test-tube-reactions",
+      "title": "Acid reactions (test-tube)",
+      "description": "Test-tube reactions of dilute acids, including ethanoic acid",
+      "ownerTopicId": "practical-skills",
+      "topicTitle": "Practical skills and investigations"
+    },
+    {
+      "id": "oxidising-reducing-tests",
+      "title": "Oxidising and reducing agents",
+      "description": "Tests for oxidising and reducing agents",
+      "ownerTopicId": "practical-skills",
+      "topicTitle": "Practical skills and investigations"
+    },
+    {
+      "id": "heating-cooling-curves",
+      "title": "Heating and cooling curves",
+      "description": "Heating and cooling curves",
+      "ownerTopicId": "practical-skills",
+      "topicTitle": "Practical skills and investigations"
+    },
+    {
+      "id": "titration",
+      "title": "Titrations",
+      "description": "Titrations",
+      "ownerTopicId": "practical-skills",
+      "topicTitle": "Practical skills and investigations"
+    },
+    {
+      "id": "method-evaluation",
+      "title": "Planning and evaluating methods",
+      "description": "Controlling variables, identifying error and suggesting improvements",
+      "ownerTopicId": "practical-skills",
+      "topicTitle": "Practical skills and investigations"
+    }
+  ],
+  "details": [
+    {
+      "id": "particulate-nature.state-the-distinguishing-properties-of-solids-li-4d97c6533b",
+      "ownerTopicId": "particulate-nature",
+      "ownerSubtopicCode": "1.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "particulate-nature.describe-the-structure-of-solids-liquids-and-gas-2f81ad454b",
+      "ownerTopicId": "particulate-nature",
+      "ownerSubtopicCode": "1.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "particulate-nature.describe-changes-of-state-in-terms-of-melting-bo-96577b46ce",
+      "ownerTopicId": "particulate-nature",
+      "ownerSubtopicCode": "1.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "particulate-nature.describe-qualitatively-the-pressure-and-temperat-bdeb5a62aa",
+      "ownerTopicId": "particulate-nature",
+      "ownerSubtopicCode": "1.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "particulate-nature.show-an-understanding-of-the-random-motion-of-pa-7bdc291718",
+      "ownerTopicId": "particulate-nature",
+      "ownerSubtopicCode": "1.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "particulate-nature.describe-and-explain-diffusion-6f1b38a01e",
+      "ownerTopicId": "particulate-nature",
+      "ownerSubtopicCode": "1.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "particulate-nature.explain-changes-of-state-in-terms-of-the-kinetic-a84aa36ba8",
+      "ownerTopicId": "particulate-nature",
+      "ownerSubtopicCode": "1.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "particulate-nature.describe-and-explain-brownian-motion-in-terms-of-dfef4482a0",
+      "ownerTopicId": "particulate-nature",
+      "ownerSubtopicCode": "1.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "particulate-nature.state-evidence-for-brownian-motion-2e627e9c40",
+      "ownerTopicId": "particulate-nature",
+      "ownerSubtopicCode": "1.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "particulate-nature.describe-and-explain-dependence-of-rate-of-diffu-8006852d8a",
+      "ownerTopicId": "particulate-nature",
+      "ownerSubtopicCode": "1.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "experimental-techniques.name-appropriate-apparatus-for-the-measurement-o-ba714c1ef4",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "experimental-techniques.demonstrate-knowledge-and-understanding-of-paper-08c2d8f85c",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "experimental-techniques.interpret-simple-chromatograms-3380fc7c1f",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "experimental-techniques.identify-substances-and-assess-their-purity-from-4cd049f003",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "experimental-techniques.understand-the-importance-of-purity-in-substance-bf5958ee00",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "experimental-techniques.interpret-simple-chromatograms-including-the-use-d2cdd8e2e5",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "experimental-techniques.outline-how-chromatography-techniques-can-be-app-af0f394ae7",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "experimental-techniques.describe-and-explain-methods-of-purification-by-0670b7497f",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "experimental-techniques.suggest-suitable-purification-techniques-given-i-0bb484eac3",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.state-the-relative-charges-and-approximate-relat-fc7f04bb31",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.define-proton-number-atomic-number-as-the-number-4a7d685590",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.define-nucleon-number-mass-number-as-the-total-n-351b3736ff",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.use-proton-number-and-the-simple-structure-of-at-eff3f2ff4b",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.define-isotopes-as-atoms-of-the-same-element-whi-d05560b334",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.state-the-two-types-of-isotopes-as-being-radioac-dbd877d397",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.understand-that-isotopes-have-the-same-propertie-3165660527",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.state-one-medical-and-one-industrial-use-of-radi-8de1eae807",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-build-up-of-electrons-in-shells-and-bacc5a250b",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-differences-between-elements-mixtur-691f155275",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-an-alloy-such-as-brass-as-a-mixture-of-2af091f400",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-formation-of-ions-by-electron-loss-65e0ac3656",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-formation-of-ionic-bonds-between-el-c3112e2a6d",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-formation-of-ionic-bonds-between-me-09e6723a1b",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-lattice-structure-of-ionic-compound-031095f3e2",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-formation-of-single-covalent-bonds-c4959cca7f",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.5",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-differences-in-volatility-solubilit-dd572764d0",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.5",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-electron-arrangement-in-more-comple-be359c76b4",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.5",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.explain-the-differences-in-melting-point-and-boi-912d8ce6ec",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.5",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-giant-covalent-structures-of-graphi-1fc460e14e",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.6",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.relate-their-structures-to-their-uses-e-g-graphi-2c903a4bf2",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.6",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-macromolecular-structure-of-silicon-acc9f6b5eb",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.6",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-similarity-in-properties-between-di-94ad9ceb7e",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.6",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-metallic-bonding-as-a-lattice-of-positi-79db6c8f0f",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.7",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "stoichiometry.use-the-symbols-of-the-elements-and-write-the-fo-80f7f5eb32",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "stoichiometry.deduce-the-formula-of-a-simple-compound-from-the-7cad62a4a3",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "stoichiometry.deduce-the-formula-of-a-simple-compound-from-a-m-61d7071150",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "stoichiometry.construct-word-equations-and-simple-balanced-che-9bc5f294f4",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "stoichiometry.define-relative-atomic-mass-ar-as-the-average-ma-20c471f5b1",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "stoichiometry.define-relative-molecular-mass-mr-as-the-sum-of-f55dfa1dc0",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "stoichiometry.determine-the-formula-of-an-ionic-compound-from-1c2e9c3353",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "stoichiometry.construct-equations-with-state-symbols-including-b87576aa32",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "stoichiometry.deduce-the-balanced-equation-for-a-chemical-reac-71971bfe47",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "stoichiometry.define-the-mole-and-the-avogadro-constant-1bd70cb424",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "stoichiometry.use-the-molar-gas-volume-taken-as-24-dm3-at-room-f6147a83cd",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "stoichiometry.calculate-stoichiometric-reacting-masses-volumes-739533bf74",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "stoichiometry.calculate-empirical-formulae-and-molecular-formu-49f89ba536",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "stoichiometry.calculate-percentage-yield-and-percentage-purity-a7672fc6a2",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "electrochemistry.define-electrolysis-as-the-breakdown-of-an-ionic-83a829ad6f",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "electrochemistry.describe-the-electrode-products-and-the-observat-eb9e18ff90",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "electrochemistry.state-the-general-principle-that-metals-or-hydro-101218f1f5",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "electrochemistry.predict-the-products-of-the-electrolysis-of-a-sp-ae2b4de3ce",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "electrochemistry.describe-the-electroplating-of-metals-bda32d4827",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "electrochemistry.outline-the-uses-of-electroplating-351d45c2cf",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "electrochemistry.relate-the-products-of-electrolysis-to-the-elect-63230ce1e9",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "electrochemistry.describe-electrolysis-in-terms-of-the-ions-prese-734c0a4299",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "electrochemistry.predict-the-products-of-electrolysis-of-a-specif-71c9a0f72b",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "electrochemistry.construct-ionic-half-equations-for-reactions-at-a9f4a2965a",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "electrochemistry.describe-the-reasons-for-the-use-of-copper-and-s-488344da3c",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "electrochemistry.describe-the-transfer-of-charge-during-electroly-3fa1bb5fc7",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "electrochemistry.describe-the-production-of-electrical-energy-fro-147cf3b928",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "electrochemistry.describe-in-outline-the-manufacture-of-aluminium-f63fe2ff1b",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-energetics.describe-the-meaning-of-exothermic-and-endotherm-573337b3fc",
+      "ownerTopicId": "chemical-energetics",
+      "ownerSubtopicCode": "5.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-energetics.interpret-energy-level-diagrams-showing-exotherm-5caf0a69e5",
+      "ownerTopicId": "chemical-energetics",
+      "ownerSubtopicCode": "5.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-energetics.describe-bond-breaking-as-an-endothermic-process-fd87e397e1",
+      "ownerTopicId": "chemical-energetics",
+      "ownerSubtopicCode": "5.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-energetics.draw-and-label-energy-level-diagrams-for-exother-8221ea8967",
+      "ownerTopicId": "chemical-energetics",
+      "ownerSubtopicCode": "5.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-energetics.calculate-the-energy-of-a-reaction-using-bond-en-cd14d906e7",
+      "ownerTopicId": "chemical-energetics",
+      "ownerSubtopicCode": "5.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-energetics.describe-the-release-of-heat-energy-by-burning-f-045cc7c0e1",
+      "ownerTopicId": "chemical-energetics",
+      "ownerSubtopicCode": "5.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-energetics.state-the-use-of-hydrogen-as-a-fuel-daeed3fb14",
+      "ownerTopicId": "chemical-energetics",
+      "ownerSubtopicCode": "5.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-energetics.describe-radioactive-isotopes-such-as-235u-as-a-132fff87ee",
+      "ownerTopicId": "chemical-energetics",
+      "ownerSubtopicCode": "5.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-energetics.describe-the-use-of-hydrogen-as-a-fuel-reacting-749037f69b",
+      "ownerTopicId": "chemical-energetics",
+      "ownerSubtopicCode": "5.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.identify-physical-and-chemical-changes-and-under-d6f3865f24",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-reactions.describe-and-explain-the-effect-of-concentration-0e5a68f421",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-reactions.describe-the-application-of-the-above-factors-to-64c836af79",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-reactions.demonstrate-knowledge-and-understanding-of-a-pra-24cc5d1314",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-reactions.interpret-data-obtained-from-experiments-concern-0d2dfabdf6",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-reactions.devise-and-evaluate-a-suitable-method-for-invest-2c8f912ce4",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.describe-and-explain-the-effects-of-temperature-3bc5f7e12d",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.describe-and-explain-the-role-of-light-in-photoc-a2ea8e9b60",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.describe-the-use-of-silver-salts-in-photography-fea2166b17",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.understand-that-some-chemical-reactions-can-be-r-b2c9466bb1",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-reactions.predict-the-effect-of-changing-the-conditions-co-9c0d9cb4ca",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.demonstrate-knowledge-and-understanding-of-the-c-9e88ce4bb6",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.define-oxidation-and-reduction-in-terms-of-oxyge-a15600f360",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-reactions.define-redox-in-terms-of-electron-transfer-45a7514c19",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.identify-redox-reactions-by-changes-in-oxidation-e486771bf9",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.define-oxidising-agent-as-a-substance-which-oxid-3e5dc73996",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.identify-oxidising-agents-and-reducing-agents-fr-14c0d1baf5",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.describe-the-characteristic-properties-of-acids-88004eabbd",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.describe-the-characteristic-properties-of-bases-ff1bf2fea4",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.describe-neutrality-and-relative-acidity-and-alk-c8eba28168",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.describe-and-explain-the-importance-of-controlli-dd0c53b63a",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.define-acids-and-bases-in-terms-of-proton-transf-a62a9586b8",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.describe-the-meaning-of-weak-and-strong-acids-an-3b52c3a25c",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.classify-oxides-as-either-acidic-or-basic-relate-1012051f7b",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.further-classify-other-oxides-as-neutral-or-amph-d78f7afe9d",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.demonstrate-knowledge-and-understanding-of-prepa-387591d091",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.demonstrate-knowledge-and-understanding-of-the-p-884c0b76e9",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.suggest-a-method-of-making-a-given-salt-from-a-s-9938179fa0",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.describe-the-following-tests-to-identify-aqueous-e35bfd0e45",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.5",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "periodic-table.describe-the-periodic-table-as-a-method-of-class-561d188a10",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "periodic-table.describe-the-change-from-metallic-to-non-metalli-98036c749f",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "periodic-table.describe-and-explain-the-relationship-between-gr-5cae43e25c",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "periodic-table.describe-lithium-sodium-and-potassium-in-group-i-6ccdc7e74b",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "periodic-table.predict-the-properties-of-other-elements-in-grou-89715582bf",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "periodic-table.describe-the-halogens-chlorine-bromine-and-iodin-3580871ee7",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "periodic-table.predict-the-properties-of-other-elements-in-grou-bd12fe54cc",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "periodic-table.identify-trends-in-groups-given-information-abou-bbdb81a1e0",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "periodic-table.describe-the-transition-elements-as-a-collection-52925ba99c",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "periodic-table.know-that-transition-elements-have-variable-oxid-828daddc43",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "periodic-table.describe-the-noble-gases-in-group-viii-or-0-as-b-459b3100ee",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.5",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "periodic-table.state-the-uses-of-the-noble-gases-in-providing-a-31b4301dc1",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.5",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.list-the-general-physical-properties-of-metals-17b1521a6f",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.describe-the-general-chemical-properties-of-meta-9882d5b317",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.explain-in-terms-of-their-properties-why-alloys-ded8d52bcd",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.identify-representations-of-alloys-from-diagrams-36d661ccad",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.place-in-order-of-reactivity-potassium-sodium-ca-a42f552233",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.deduce-an-order-of-reactivity-from-a-given-set-o-6efbbcd7cd",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.describe-the-reactivity-series-as-related-to-the-f77144f2d3",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "metals.describe-and-explain-the-action-of-heat-on-the-h-095fc0fed0",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "metals.account-for-the-apparent-unreactivity-of-alumini-218fac97e7",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "metals.describe-the-ease-in-obtaining-metals-from-their-57e4db78f6",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.describe-and-state-the-essential-reactions-in-th-10a9c918bf",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.describe-the-conversion-of-iron-into-steel-using-0b9c455d23",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.know-that-aluminium-is-extracted-from-the-ore-ba-4ee79aa9cd",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.discuss-the-advantages-and-disadvantages-of-recy-b281bde8c9",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.describe-in-outline-the-extraction-of-zinc-from-d4e0e077bc",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "metals.describe-in-outline-the-extraction-of-aluminium-97a268853a",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "metals.name-the-uses-of-aluminium-in-the-manufacture-of-ee322023aa",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.name-the-uses-of-copper-related-to-its-propertie-a427382517",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.name-the-uses-of-mild-steel-car-bodies-and-machi-34560fe8e7",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.explain-the-uses-of-zinc-for-galvanising-and-for-79c107d08e",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "metals.describe-the-idea-of-changing-the-properties-of-8c7f7cc86e",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemistry-environment.describe-chemical-tests-for-water-using-cobalt-i-ce6f657d4e",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.describe-in-outline-the-treatment-of-the-water-s-d6e92e967f",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.name-some-of-the-uses-of-water-in-industry-and-i-3addfa8a9f",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.discuss-the-implications-of-an-inadequate-supply-9bc1d727e4",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemistry-environment.state-the-composition-of-clean-dry-air-as-being-ff8a1053d2",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.name-the-common-pollutants-in-the-air-as-being-c-91520dfc4f",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.state-the-source-of-each-of-these-pollutants-car-167f9a690a",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.state-the-adverse-effect-of-these-common-polluta-b481174e99",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.state-the-conditions-required-for-the-rusting-of-4d3b1c4773",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.describe-and-explain-methods-of-rust-prevention-931a263591",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.describe-the-separation-of-oxygen-and-nitrogen-f-17004aad24",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemistry-environment.describe-and-explain-the-presence-of-oxides-of-n-435b9fdddf",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemistry-environment.describe-and-explain-sacrificial-protection-in-t-7e543d34a3",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemistry-environment.describe-the-need-for-nitrogen-phosphorus-and-po-6edaafbfe3",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.describe-the-displacement-of-ammonia-from-its-sa-cd8b8f16c4",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.describe-and-explain-the-essential-conditions-fo-0542975959",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemistry-environment.state-that-carbon-dioxide-and-methane-are-greenh-cb407f4af2",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.state-the-formation-of-carbon-dioxide-as-a-produ-0739e08785",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.state-the-sources-of-methane-including-decomposi-2ee23b4e0d",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.describe-the-carbon-cycle-in-simple-terms-to-inc-3ced6df0ca",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemistry-environment.name-some-sources-of-sulfur-665793e15e",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.name-the-use-of-sulfur-in-the-manufacture-of-sul-7d12a06f1d",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.state-the-uses-of-sulfur-dioxide-as-a-bleach-in-6c02312de9",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.describe-the-manufacture-of-sulfuric-acid-by-the-bfe009e405",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemistry-environment.describe-the-properties-and-uses-of-dilute-and-c-9053061d3e",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemistry-environment.describe-the-manufacture-of-lime-calcium-oxide-f-f7d1f86f40",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.name-some-uses-of-lime-and-slaked-lime-such-as-i-1eb3f48c4b",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.name-the-uses-of-calcium-carbonate-in-the-manufa-74c01ff002",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.name-and-draw-the-structures-of-methane-ethane-e-189e7e2ee0",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.state-the-type-of-compound-present-given-a-chemi-c0706f3ee9",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.name-and-draw-the-structures-of-the-unbranched-a-14c159a7e1",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.name-and-draw-the-structural-formulae-of-the-est-54a614085b",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.name-the-fuels-coal-natural-gas-and-petroleum-0d4f753f1c",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.name-methane-as-the-main-constituent-of-natural-1e3cbdc7d6",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-petroleum-as-a-mixture-of-hydrocarbons-dcf59aa01b",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-properties-of-molecules-within-a-fr-da9ffa903e",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.name-the-uses-of-the-fractions-as-refinery-gas-f-65b726b7d7",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-concept-of-homologous-series-as-a-f-6c4645b78d",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-general-characteristics-of-a-homolo-2a56c09190",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.recall-that-the-compounds-in-a-homologous-series-02d472f82e",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-and-identify-structural-isomerism-4acceb6e76",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-properties-of-alkanes-exemplified-b-095f0241ec",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-bonding-in-alkanes-19cf5803ee",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-substitution-reactions-of-alkanes-with-0261bc77c8",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-manufacture-of-alkenes-and-of-hydro-095ce4b894",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.5",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.distinguish-between-saturated-and-unsaturated-hy-9075dd8328",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.5",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-formation-of-poly-ethene-as-an-exam-dd60b640ae",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.5",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-properties-of-alkenes-in-terms-of-a-418b62e6da",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.5",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-manufacture-of-ethanol-by-fermentat-66914b70c0",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.6",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-properties-of-ethanol-in-terms-of-b-485eed4720",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.6",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.name-the-uses-of-ethanol-as-a-solvent-and-as-a-f-e8fdaf18f8",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.6",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.outline-the-advantages-and-disadvantages-of-thes-a481199f34",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.6",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-properties-of-aqueous-ethanoic-acid-bd24f7b738",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.7",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-formation-of-ethanoic-acid-by-the-o-c72cb749a2",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.7",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-ethanoic-acid-as-a-typical-weak-acid-57dce9078e",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.7",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-reaction-of-a-carboxylic-acid-with-c0e758108c",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.7",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.define-polymers-as-large-molecules-built-up-from-a503198fab",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.8",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.understand-that-different-polymers-have-differen-41f7eb8ee0",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.8",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.name-some-typical-uses-of-plastics-and-of-man-ma-3d9ce6a3b1",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.8",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-pollution-problems-caused-by-non-bi-6a0e8f04c1",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.8",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.explain-the-differences-between-condensation-and-41a1fdcd1a",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.8",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.deduce-the-structure-of-the-polymer-product-from-e35ab159de",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.8",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-formation-of-nylon-a-polyamide-and-446343f31b",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.8",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-build-up-of-electrons-in-shells-and-2b3a3a6266",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "periodic-table.describe-and-explain-the-relationship-between-gr-723509e6c3",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "periodic-table.identify-trends-in-groups-given-information-abou-0d2d8f7fb5",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-differences-between-elements-compou-d0c9d70de6",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-structure-of-the-atom-as-a-central-1fb4abf635",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.state-the-relative-charges-and-relative-masses-o-c352e65eeb",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.define-proton-number-atomic-number-as-the-number-e3ea153725",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.define-mass-number-nucleon-number-as-the-total-n-dc630efd74",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.determine-the-electronic-configuration-of-elemen-4292118f72",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.state-that-a-group-viii-noble-gases-have-a-full-a1e214460e",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.define-isotopes-as-different-atoms-of-the-same-e-56f463cf2b",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.interpret-and-use-symbols-for-atoms-e-g-12-6c-an-0177eacf44",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.state-that-isotopes-of-the-same-element-have-the-0796973605",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.calculate-the-relative-atomic-mass-of-an-element-5058e363d8",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-formation-of-positive-ions-known-as-7eeed0459c",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.state-that-an-ionic-bond-is-a-strong-electrostat-1b1b7e418e",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-formation-of-ionic-bonds-between-el-bc2ff42548",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-properties-of-ionic-compounds-a-hig-2c222f27f0",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-giant-lattice-structure-of-ionic-co-fa7881a966",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-formation-of-ionic-bonds-between-io-c9de5a193e",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.explain-in-terms-of-structure-and-bonding-the-pr-b7baac5d5c",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.state-that-a-covalent-bond-is-formed-when-a-pair-e6a82c8400",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.5",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-formation-of-covalent-bonds-in-simp-713178bab5",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.5",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-in-terms-of-structure-and-bonding-the-p-61cb30687d",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.5",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-formation-of-covalent-bonds-in-simp-9e64e35b14",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.5",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.explain-in-terms-of-structure-and-bonding-the-pr-e61d8c501c",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.5",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-giant-covalent-structures-of-graphi-00b154b3e1",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.6",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.relate-the-structures-and-bonding-of-graphite-an-6876204432",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.6",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-giant-covalent-structure-of-silicon-8651cf0b91",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.6",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-the-similarity-in-properties-between-di-f85ae075d6",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.6",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.describe-metallic-bonding-as-the-electrostatic-a-3c1ed4761b",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.7",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.explain-in-terms-of-structure-and-bonding-the-pr-045363b5fd",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.7",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "atoms-elements-compounds.stoichiometry-3d021f035f",
+      "ownerTopicId": "atoms-elements-compounds",
+      "ownerSubtopicCode": "2.7",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "stoichiometry.state-the-formulae-of-the-elements-and-compounds-47462c04b6",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "stoichiometry.define-the-molecular-formula-of-a-compound-as-th-de4108e72e",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "stoichiometry.deduce-the-formula-of-a-simple-compound-from-the-054045f458",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "stoichiometry.construct-word-equations-and-symbol-equations-to-c0f2a8f384",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "stoichiometry.define-the-empirical-formula-of-a-compound-as-th-ae94f18165",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "stoichiometry.deduce-the-formula-of-an-ionic-compound-from-the-54737d1aca",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "stoichiometry.construct-symbol-equations-with-state-symbols-in-3129b0ee88",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "stoichiometry.deduce-the-symbol-equation-with-state-symbols-fo-c1c4834d18",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "stoichiometry.describe-relative-atomic-mass-ar-as-the-average-9ea7da3a5c",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "stoichiometry.define-relative-molecular-mass-mr-as-the-sum-of-d3b2fedad3",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "stoichiometry.calculate-reacting-masses-in-simple-proportions-9af767c675",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "stoichiometry.state-that-concentration-can-be-measured-in-g-dm-080bf1c0f3",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "stoichiometry.state-that-the-mole-mol-is-the-unit-of-amount-of-34b51448a8",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "stoichiometry.use-the-relationship-amount-of-substance-mol-mas-31bf4579ba",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "stoichiometry.use-the-molar-gas-volume-taken-as-24-dm3-at-room-7fdce61b1f",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "stoichiometry.calculate-stoichiometric-reacting-masses-limitin-6646f43dd6",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "stoichiometry.use-experimental-data-from-a-titration-to-calcul-b81a4e5e8a",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "stoichiometry.calculate-empirical-formulae-and-molecular-formu-c19096428b",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "stoichiometry.calculate-percentage-yield-percentage-compositio-83bb1a4201",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "stoichiometry.electrochemistry-d5406bcf26",
+      "ownerTopicId": "stoichiometry",
+      "ownerSubtopicCode": "3.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "electrochemistry.define-electrolysis-as-the-decomposition-of-an-i-8738fa8281",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "electrochemistry.identify-in-simple-electrolytic-cells-a-the-anod-174009cc44",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "electrochemistry.describe-the-transfer-of-charge-during-electroly-57ff450666",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "electrochemistry.identify-the-products-formed-at-the-electrodes-a-50b5fb6b8e",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "electrochemistry.state-that-metals-or-hydrogen-are-formed-at-the-4928ef954d",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "electrochemistry.predict-the-identity-of-the-products-at-each-ele-033c606803",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "electrochemistry.state-that-metal-objects-are-electroplated-to-im-1835d1831d",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "electrochemistry.describe-how-metals-are-electroplated-fd7fab3268",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "electrochemistry.identify-the-products-formed-at-the-electrodes-a-4d61e4f40b",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "electrochemistry.predict-the-identity-of-the-products-at-each-ele-25575e10ba",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "electrochemistry.construct-ionic-half-equations-for-reactions-at-8388da4567",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "electrochemistry.state-that-a-hydrogen-oxygen-fuel-cell-uses-hydr-37795a0fe9",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "electrochemistry.describe-the-advantages-and-disadvantages-of-usi-24514dffa3",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "electrochemistry.chemical-energetics-8fedb23a6f",
+      "ownerTopicId": "electrochemistry",
+      "ownerSubtopicCode": "4.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-energetics.state-that-an-exothermic-reaction-transfers-ther-6192eb3977",
+      "ownerTopicId": "chemical-energetics",
+      "ownerSubtopicCode": "5.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-energetics.state-that-an-endothermic-reaction-takes-in-ther-104fc1c3c1",
+      "ownerTopicId": "chemical-energetics",
+      "ownerSubtopicCode": "5.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-energetics.interpret-reaction-pathway-diagrams-showing-exot-383b784b9d",
+      "ownerTopicId": "chemical-energetics",
+      "ownerSubtopicCode": "5.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-energetics.state-that-the-transfer-of-thermal-energy-during-afc8690d46",
+      "ownerTopicId": "chemical-energetics",
+      "ownerSubtopicCode": "5.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-energetics.define-activation-energy-ea-as-the-minimum-energ-6e1df45ea0",
+      "ownerTopicId": "chemical-energetics",
+      "ownerSubtopicCode": "5.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-energetics.draw-and-label-reaction-pathway-diagrams-for-exo-8ea5553476",
+      "ownerTopicId": "chemical-energetics",
+      "ownerSubtopicCode": "5.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-energetics.state-that-bond-breaking-is-an-endothermic-proce-4f1cee5ea7",
+      "ownerTopicId": "chemical-energetics",
+      "ownerSubtopicCode": "5.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-energetics.calculate-the-enthalpy-change-of-a-reaction-usin-abc3965a73",
+      "ownerTopicId": "chemical-energetics",
+      "ownerSubtopicCode": "5.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-energetics.chemical-reactions-77389a91e3",
+      "ownerTopicId": "chemical-energetics",
+      "ownerSubtopicCode": "5.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.identify-physical-and-chemical-changes-and-descr-0666b937f4",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-reactions.describe-the-effect-on-the-rate-of-reaction-of-a-05ee5ae8a2",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-reactions.state-that-a-catalyst-increases-the-rate-of-a-re-b8ae41cdd0",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-reactions.describe-practical-methods-for-investigating-the-49e14ca560",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-reactions.interpret-data-including-graphs-from-rate-of-rea-edf9ed930a",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-reactions.describe-collision-theory-in-terms-of-a-number-o-559e947133",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.describe-and-explain-the-effect-on-the-rate-of-r-5de58c4b1d",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.state-that-a-catalyst-decreases-the-activation-e-babc2fc3fb",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.evaluate-practical-methods-for-investigating-the-b6dc67cd4c",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.state-that-some-chemical-reactions-are-reversibl-7edefb04e7",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-reactions.describe-how-changing-the-conditions-can-change-cd0fe6abb4",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-reactions.state-that-a-reversible-reaction-in-a-closed-sys-02bc64cc9a",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.predict-and-explain-for-a-reversible-reaction-ho-e58c386b74",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.state-the-symbol-equation-for-the-production-of-705900bcbc",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.state-the-sources-of-the-hydrogen-methane-and-ni-4ead1ebf0e",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.state-the-typical-conditions-in-the-haber-proces-440ac1dcd8",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.state-the-symbol-equation-for-the-conversion-of-a69248b99a",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.state-the-sources-of-the-sulfur-dioxide-burning-0b48d7e618",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.state-the-typical-conditions-for-the-conversion-52bd303261",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.explain-in-terms-of-rate-of-reaction-and-positio-2c2725fcab",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.use-a-roman-numeral-to-indicate-the-oxidation-nu-aa15a138b8",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-reactions.define-redox-reactions-as-involving-simultaneous-accacbc7f2",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-reactions.define-oxidation-as-gain-of-oxygen-and-reduction-14c867fecb",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-reactions.identify-redox-reactions-as-reactions-involving-d1637e4097",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-reactions.identify-oxidation-and-reduction-in-redox-reacti-36d030f1f7",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemical-reactions.define-oxidation-in-terms-of-a-loss-of-electrons-79c7a2cd4e",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.define-reduction-in-terms-of-a-gain-of-electrons-5185762d0a",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.identify-redox-reactions-as-reactions-involving-6e30652711",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.identify-redox-reactions-by-changes-in-oxidation-d8313fc39d",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.identify-redox-reactions-by-the-colour-changes-i-13fdb61f34",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.define-an-oxidising-agent-as-a-substance-that-ox-be30231912",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.define-a-reducing-agent-as-a-substance-that-redu-5783b2da1d",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.identify-oxidising-agents-and-reducing-agents-in-3423f786e4",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemical-reactions.acids-bases-and-salts-426382fdf5",
+      "ownerTopicId": "chemical-reactions",
+      "ownerSubtopicCode": "6.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.describe-the-characteristic-properties-of-acids-35e1451aba",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.describe-acids-in-terms-of-their-effect-on-a-lit-e5f37b9a27",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.state-that-bases-are-oxides-or-hydroxides-of-met-63f19c4134",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.describe-the-characteristic-properties-of-bases-02e5b6766b",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.describe-alkalis-in-terms-of-their-effect-on-a-l-fc734a21c5",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.state-that-aqueous-solutions-of-acids-contain-h-243d0ea333",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.describe-how-to-compare-hydrogen-ion-concentrati-8e19aa89b9",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.describe-the-neutralisation-reaction-between-an-d704d78a0d",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.define-acids-as-proton-donors-and-bases-as-proto-f1e75f034b",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.define-a-strong-acid-as-an-acid-that-is-complete-53ca27b6e1",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.state-that-hydrochloric-acid-is-a-strong-acid-as-ce3b8a4fbc",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.state-that-ethanoic-acid-is-a-weak-acid-as-shown-63150d4012",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.classify-oxides-as-acidic-including-so2-and-co2-84af60c6e4",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.describe-amphoteric-oxides-as-oxides-that-react-27ce351506",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.classify-al-2o3-and-zno-as-amphoteric-oxides-6c6b91f072",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.describe-the-preparation-separation-and-purifica-c105d33c12",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.describe-the-general-solubility-rules-for-salts-e8f72a3b18",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.define-a-hydrated-substance-as-a-substance-that-aba21a9998",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.describe-the-preparation-of-insoluble-salts-by-p-e48d224675",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.define-the-term-water-of-crystallisation-as-the-56f37b7b65",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "acids-bases-salts.the-periodic-table-43455546cd",
+      "ownerTopicId": "acids-bases-salts",
+      "ownerSubtopicCode": "7.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "periodic-table.describe-the-periodic-table-as-an-arrangement-of-b65e02a75b",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "periodic-table.describe-the-change-from-metallic-to-non-metalli-0298eaff21",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "periodic-table.describe-the-relationship-between-group-number-a-d1e2cb8505",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "periodic-table.explain-similarities-in-the-chemical-properties-2c029fc447",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "periodic-table.explain-how-the-position-of-an-element-in-the-pe-b369e7653e",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "periodic-table.identify-trends-in-groups-given-information-abou-e8db160d2b",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "periodic-table.describe-the-group-i-alkali-metals-lithium-sodiu-4d0d66bc73",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "periodic-table.predict-the-properties-of-other-elements-in-grou-63ac0b3aa6",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "periodic-table.describe-the-group-vii-halogens-chlorine-bromine-106c6bd20c",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "periodic-table.state-the-appearance-of-the-halogens-at-r-t-p-as-ba1b32503d",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "periodic-table.describe-and-explain-the-displacement-reactions-5e42af62f5",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "periodic-table.predict-the-properties-of-other-elements-in-grou-8cf59d2176",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "periodic-table.describe-the-transition-elements-as-metals-that-4104d51f2c",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "periodic-table.describe-transition-elements-as-having-ions-with-990022582c",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "periodic-table.describe-the-group-viii-noble-gases-as-unreactiv-7dec6f6694",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.5",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "periodic-table.metals-19978c3e5b",
+      "ownerTopicId": "periodic-table",
+      "ownerSubtopicCode": "8.5",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "metals.compare-the-general-physical-properties-of-metal-ee5e61ff55",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.describe-the-general-chemical-properties-of-meta-55211d2169",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.describe-the-uses-of-metals-in-terms-of-their-ph-6338833710",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.describe-an-alloy-as-a-mixture-of-a-metal-with-o-08bfac6902",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.state-that-alloys-can-be-harder-and-stronger-tha-10ad36e5f2",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.describe-the-uses-of-alloys-in-terms-of-their-ph-eb7c4b26b2",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.identify-representations-of-alloys-from-diagrams-59cb7318de",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.explain-in-terms-of-structure-how-alloys-can-be-9c8de15158",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "metals.state-the-order-of-the-reactivity-series-as-pota-07d5279b8a",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.describe-the-reactions-if-any-of-a-potassium-sod-2d97fc788b",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.deduce-an-order-of-reactivity-from-a-given-set-o-b3ad414497",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.describe-the-relative-reactivities-of-metals-in-c10b891d6d",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "metals.explain-the-apparent-unreactivity-of-aluminium-i-03845a9107",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "metals.state-the-conditions-required-for-the-rusting-of-b93330d6a7",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.5",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.state-some-common-barrier-methods-including-pain-83866bd360",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.5",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.describe-how-barrier-methods-prevent-rusting-by-bf154aa9a6",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.5",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.describe-the-use-of-zinc-in-galvanising-as-an-ex-1c21ec456d",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.5",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "metals.explain-sacrificial-protection-in-terms-of-the-r-7d353a5ba3",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.5",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "metals.describe-the-ease-in-obtaining-metals-from-their-0c911655fa",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.6",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.describe-the-extraction-of-iron-from-hematite-in-8b1a60aa4a",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.6",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.state-that-the-main-ore-of-aluminium-is-bauxite-67b2df4bf6",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.6",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "metals.state-the-symbol-equations-for-the-extraction-of-adacded433",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.6",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "metals.describe-the-extraction-of-aluminium-from-purifi-b676a9e11f",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.6",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "metals.chemistry-of-the-environment-4fd6c1b2fc",
+      "ownerTopicId": "metals",
+      "ownerSubtopicCode": "9.6",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemistry-environment.describe-chemical-tests-for-the-presence-of-wate-bb4a5d7ea4",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.describe-how-to-test-for-the-purity-of-water-usi-6a8067838b",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.explain-that-distilled-water-is-used-in-practica-8271fe9b6b",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.state-that-water-from-natural-sources-may-contai-def0759f39",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.state-that-some-of-these-substances-are-benefici-69f8fb22c6",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.state-that-some-of-these-substances-are-potentia-148e05b21c",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.describe-the-treatment-of-the-domestic-water-sup-218a542a85",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.state-that-ammonium-salts-and-nitrates-are-used-52a549dc91",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.describe-the-use-of-npk-fertilisers-to-provide-t-86c84a3ff6",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.state-the-composition-of-clean-dry-air-as-approx-85b685a0bf",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.state-the-source-of-each-of-these-air-pollutants-c6c8a68892",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.state-the-adverse-effect-of-these-air-pollutants-017e7c4314",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.describe-how-the-greenhouse-gases-carbon-dioxide-9cb1bfc943",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemistry-environment.state-and-explain-strategies-to-reduce-the-effec-c9d899a106",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.describe-photosynthesis-as-the-reaction-between-36b7db2250",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.state-the-word-equation-for-photosynthesis-carbo-c3f106ab87",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "chemistry-environment.explain-how-oxides-of-nitrogen-form-in-car-engin-a41643fc6a",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemistry-environment.state-the-symbol-equation-for-photosynthesis-6co-104e005b49",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "chemistry-environment.organic-chemistry-3738c55adb",
+      "ownerTopicId": "chemistry-environment",
+      "ownerSubtopicCode": "10.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.draw-and-interpret-the-displayed-formula-of-a-mo-2db0bb8ca7",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.write-and-interpret-general-formulae-of-compound-7e5ecb048f",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.identify-a-functional-group-as-an-atom-or-group-a57bd59316",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.state-that-a-structural-formula-is-an-unambiguou-f7d4d8611d",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.define-structural-isomers-as-compounds-with-the-6a2e749a07",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.state-that-a-homologous-series-is-a-family-of-si-715a8a7632",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.state-that-a-saturated-compound-has-molecules-in-3860e92ca8",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.state-that-an-unsaturated-compound-has-molecules-6235d62179",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-general-characteristics-of-a-homolo-ec055bfa71",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.1",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.name-and-draw-the-displayed-formulae-of-a-methan-fd8d6ecfad",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.state-the-type-of-compound-present-given-a-chemi-3abf0efe6f",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.name-and-draw-the-structural-and-displayed-formu-c91a63595b",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.name-and-draw-the-displayed-formulae-of-the-unbr-76b143239d",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.2",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.name-the-fossil-fuels-coal-natural-gas-and-petro-aa2b1db4ad",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.name-methane-as-the-main-constituent-of-natural-ca474bc476",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.state-that-hydrocarbons-are-compounds-that-conta-fbad76a600",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.state-that-petroleum-is-a-mixture-of-hydrocarbon-67cecd6474",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-separation-of-petroleum-into-useful-e29fb14d2f",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-how-the-properties-of-fractions-obtaine-c5042971dd",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.name-the-uses-of-the-fractions-as-a-refinery-gas-841afc31d1",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.state-that-the-bonding-in-alkanes-is-single-cova-d8d3171307",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-properties-of-alkanes-as-being-gene-b16f909454",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.state-that-in-a-substitution-reaction-one-atom-o-66b297200d",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-substitution-reaction-of-alkanes-wi-3ef1df92a3",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.4",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.state-that-the-bonding-in-alkenes-includes-a-dou-9f6d3fb053",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.5",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-manufacture-of-alkenes-and-hydrogen-6b4e0a4504",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.5",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-reasons-for-the-cracking-of-larger-d54cb594ce",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.5",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-test-to-distinguish-between-saturat-6e53cda76b",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.5",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.state-that-in-an-addition-reaction-only-one-prod-367082fbe1",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.5",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-properties-of-alkenes-in-terms-of-a-bc019765ff",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.5",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-manufacture-of-ethanol-by-a-ferment-ae93421756",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.6",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-combustion-of-ethanol-70d1a8f1d5",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.6",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.state-the-uses-of-ethanol-as-a-a-solvent-b-a-fue-19e1295e32",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.6",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-advantages-and-disadvantages-of-the-50cbb00e1e",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.6",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-reaction-of-ethanoic-acid-with-a-me-3724b2094c",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.7",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-formation-of-ethanoic-acid-by-the-o-568c21e7c5",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.7",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-reaction-of-a-carboxylic-acid-with-d82ab2f8db",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.7",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.define-polymers-as-large-molecules-built-up-from-edab964604",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.8",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-formation-of-poly-ethene-as-an-exam-11b211acb9",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.8",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.state-that-plastics-are-made-from-polymers-425329d5c8",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.8",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-how-the-properties-of-plastics-have-imp-ecb6ee29b7",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.8",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-environmental-challenges-caused-by-4e063bc987",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.8",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "organic-chemistry.identify-the-repeat-units-and-or-linkages-in-add-2eb0b931f0",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.8",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.deduce-the-structure-or-repeat-unit-of-an-additi-ed4f1cafe3",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.8",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.deduce-the-structure-or-repeat-unit-of-a-condens-5ebcc91e5b",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.8",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-the-differences-between-addition-and-co-ad2236a792",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.8",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-and-draw-the-structure-of-a-nylon-a-pol-4eb63a706f",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.8",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.state-that-pet-can-be-converted-back-into-monome-8bbcdfc89c",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.8",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-proteins-as-natural-polyamides-and-that-5abdf423f8",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.8",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.describe-and-draw-the-structure-of-proteins-as-n-1e36db03ab",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.8",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "organic-chemistry.experimental-techniques-and-chemical-analysis-2d982bb20a",
+      "ownerTopicId": "organic-chemistry",
+      "ownerSubtopicCode": "11.8",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "experimental-techniques.name-appropriate-apparatus-for-the-measurement-o-0479f9e2b9",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "experimental-techniques.suggest-advantages-and-disadvantages-of-experime-ef92059115",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "experimental-techniques.describe-a-a-solvent-as-a-substance-that-dissolv-20edb5868b",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.1",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "experimental-techniques.describe-an-acid-base-titration-to-include-the-u-9f13a9c370",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "experimental-techniques.describe-how-to-identify-the-end-point-of-a-titr-69f6b77f71",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.2",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "experimental-techniques.describe-how-paper-chromatography-is-used-to-sep-01e121dd01",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "experimental-techniques.interpret-simple-chromatograms-to-identify-a-unk-8fea4a57a4",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.3",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "experimental-techniques.describe-how-paper-chromatography-is-used-to-sep-266964bd29",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "experimental-techniques.state-and-use-the-equation-for-rf-rf-distance-tr-d58cfcf4b5",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.3",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "experimental-techniques.describe-and-explain-methods-of-separation-and-p-3d232f04d6",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "experimental-techniques.suggest-suitable-separation-and-purification-tec-ce41fcff6d",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "experimental-techniques.identify-substances-and-assess-their-purity-usin-853594ef4a",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.4",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "experimental-techniques.describe-tests-to-identify-the-anions-a-carbonat-465ae556d1",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.5",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "experimental-techniques.describe-tests-using-aqueous-sodium-hydroxide-an-d67772fb99",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.5",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "experimental-techniques.describe-tests-to-identify-the-gases-a-ammonia-n-e6a354e226",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.5",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "experimental-techniques.describe-the-use-of-a-flame-test-to-identify-the-db8f6e958d",
+      "ownerTopicId": "experimental-techniques",
+      "ownerSubtopicCode": "12.5",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "apparatus-measurement",
+      "ownerTopicId": "practical-skills",
+      "ownerSubtopicCode": "apparatus-measurement",
+      "applicability": [
+        "all_candidates"
+      ]
+    },
+    {
+      "id": "quantitative-experiments",
+      "ownerTopicId": "practical-skills",
+      "ownerSubtopicCode": "quantitative-experiments",
+      "applicability": [
+        "all_candidates"
+      ]
+    },
+    {
+      "id": "rates-of-reaction",
+      "ownerTopicId": "practical-skills",
+      "ownerSubtopicCode": "rates-of-reaction",
+      "applicability": [
+        "all_candidates"
+      ]
+    },
+    {
+      "id": "salt-preparation",
+      "ownerTopicId": "practical-skills",
+      "ownerSubtopicCode": "salt-preparation",
+      "applicability": [
+        "all_candidates"
+      ]
+    },
+    {
+      "id": "separation-purification",
+      "ownerTopicId": "practical-skills",
+      "ownerSubtopicCode": "separation-purification",
+      "applicability": [
+        "all_candidates"
+      ]
+    },
+    {
+      "id": "electrolysis",
+      "ownerTopicId": "practical-skills",
+      "ownerSubtopicCode": "electrolysis",
+      "applicability": [
+        "all_candidates"
+      ]
+    },
+    {
+      "id": "qualitative-analysis",
+      "ownerTopicId": "practical-skills",
+      "ownerSubtopicCode": "qualitative-analysis",
+      "applicability": [
+        "all_candidates"
+      ]
+    },
+    {
+      "id": "water-tests",
+      "ownerTopicId": "practical-skills",
+      "ownerSubtopicCode": "water-tests",
+      "applicability": [
+        "all_candidates"
+      ]
+    },
+    {
+      "id": "acid-test-tube-reactions",
+      "ownerTopicId": "practical-skills",
+      "ownerSubtopicCode": "acid-test-tube-reactions",
+      "applicability": [
+        "all_candidates"
+      ]
+    },
+    {
+      "id": "oxidising-reducing-tests",
+      "ownerTopicId": "practical-skills",
+      "ownerSubtopicCode": "oxidising-reducing-tests",
+      "applicability": [
+        "all_candidates"
+      ]
+    },
+    {
+      "id": "heating-cooling-curves",
+      "ownerTopicId": "practical-skills",
+      "ownerSubtopicCode": "heating-cooling-curves",
+      "applicability": [
+        "all_candidates"
+      ]
+    },
+    {
+      "id": "titration",
+      "ownerTopicId": "practical-skills",
+      "ownerSubtopicCode": "titration",
+      "applicability": [
+        "all_candidates"
+      ]
+    },
+    {
+      "id": "method-evaluation",
+      "ownerTopicId": "practical-skills",
+      "ownerSubtopicCode": "method-evaluation",
+      "applicability": [
+        "all_candidates"
+      ]
+    }
+  ]
+}

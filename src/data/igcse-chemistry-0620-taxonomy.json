@@ -1,0 +1,262 @@
+{
+  "version": "0.1.0-candidate-syllabus-order",
+  "orderSource": {
+    "topics": "Cambridge IGCSE Chemistry 0620 syllabus 2023-2025 v2, Content overview (12 topics)",
+    "subtopics": "same syllabus, numbered section headings (1.1 ... 12.5)",
+    "syllabus_sha256": "245d008b444a575f637d378f6657ba4efcaf9b1136f6c09e00bdd21094d71d87",
+    "topic1_era_alias": "particulate-nature was named 'Particulate nature of matter' in the 2020-2022 syllabus"
+  },
+  "student_topics": [
+    {
+      "label": "States of matter",
+      "detailed_subtopics": [
+        {
+          "label": "Solids, liquids and gases"
+        },
+        {
+          "label": "Diffusion"
+        }
+      ]
+    },
+    {
+      "label": "Atoms, elements and compounds",
+      "detailed_subtopics": [
+        {
+          "label": "Elements, compounds and mixtures"
+        },
+        {
+          "label": "Atomic structure and the Periodic Table"
+        },
+        {
+          "label": "Isotopes"
+        },
+        {
+          "label": "Ions and ionic bonds"
+        },
+        {
+          "label": "Simple molecules and covalent bonds"
+        },
+        {
+          "label": "Giant covalent structures"
+        },
+        {
+          "label": "Metallic bonding"
+        }
+      ]
+    },
+    {
+      "label": "Stoichiometry",
+      "detailed_subtopics": [
+        {
+          "label": "Formulae"
+        },
+        {
+          "label": "Relative masses of atoms and molecules"
+        },
+        {
+          "label": "The mole and the Avogadro constant"
+        }
+      ]
+    },
+    {
+      "label": "Electrochemistry",
+      "detailed_subtopics": [
+        {
+          "label": "Electrolysis"
+        },
+        {
+          "label": "Hydrogen\u2013oxygen fuel cells"
+        }
+      ]
+    },
+    {
+      "label": "Chemical energetics",
+      "detailed_subtopics": [
+        {
+          "label": "Exothermic and endothermic reactions"
+        }
+      ]
+    },
+    {
+      "label": "Chemical reactions",
+      "detailed_subtopics": [
+        {
+          "label": "Physical and chemical changes"
+        },
+        {
+          "label": "Rate of reaction"
+        },
+        {
+          "label": "Reversible reactions and equilibrium"
+        },
+        {
+          "label": "Redox"
+        }
+      ]
+    },
+    {
+      "label": "Acids, bases and salts",
+      "detailed_subtopics": [
+        {
+          "label": "The characteristic properties of acids and bases"
+        },
+        {
+          "label": "Oxides"
+        },
+        {
+          "label": "Preparation of salts"
+        }
+      ]
+    },
+    {
+      "label": "The Periodic Table",
+      "detailed_subtopics": [
+        {
+          "label": "Arrangement of elements"
+        },
+        {
+          "label": "Group I properties"
+        },
+        {
+          "label": "Group VII properties"
+        },
+        {
+          "label": "Transition elements"
+        },
+        {
+          "label": "Noble gases"
+        }
+      ]
+    },
+    {
+      "label": "Metals",
+      "detailed_subtopics": [
+        {
+          "label": "Properties of metals"
+        },
+        {
+          "label": "Uses of metals"
+        },
+        {
+          "label": "Alloys and their properties"
+        },
+        {
+          "label": "Reactivity series"
+        },
+        {
+          "label": "Corrosion of metals"
+        },
+        {
+          "label": "Extraction of metals"
+        }
+      ]
+    },
+    {
+      "label": "Chemistry of the environment",
+      "detailed_subtopics": [
+        {
+          "label": "Water"
+        },
+        {
+          "label": "Fertilisers"
+        },
+        {
+          "label": "Air quality and climate"
+        }
+      ]
+    },
+    {
+      "label": "Organic chemistry",
+      "detailed_subtopics": [
+        {
+          "label": "Formulae, functional groups and terminology"
+        },
+        {
+          "label": "Naming organic compounds"
+        },
+        {
+          "label": "Fuels"
+        },
+        {
+          "label": "Alkanes"
+        },
+        {
+          "label": "Alkenes"
+        },
+        {
+          "label": "Alcohols"
+        },
+        {
+          "label": "Carboxylic acids"
+        },
+        {
+          "label": "Polymers"
+        }
+      ]
+    },
+    {
+      "label": "Experimental techniques and chemical analysis",
+      "detailed_subtopics": [
+        {
+          "label": "Experimental design"
+        },
+        {
+          "label": "Acid\u2013base titrations"
+        },
+        {
+          "label": "Chromatography"
+        },
+        {
+          "label": "Separation and purification"
+        },
+        {
+          "label": "Identification of ions and gases"
+        }
+      ]
+    },
+    {
+      "label": "Practical skills and investigations",
+      "detailed_subtopics": [
+        {
+          "label": "Apparatus and measurement"
+        },
+        {
+          "label": "Quantitative experiments"
+        },
+        {
+          "label": "Rates of reaction"
+        },
+        {
+          "label": "Preparing salts"
+        },
+        {
+          "label": "Separation and purification"
+        },
+        {
+          "label": "Electrolysis"
+        },
+        {
+          "label": "Ion and gas tests"
+        },
+        {
+          "label": "Tests for water"
+        },
+        {
+          "label": "Acid reactions (test-tube)"
+        },
+        {
+          "label": "Oxidising and reducing agents"
+        },
+        {
+          "label": "Heating and cooling curves"
+        },
+        {
+          "label": "Titrations"
+        },
+        {
+          "label": "Planning and evaluating methods"
+        }
+      ]
+    }
+  ]
+}

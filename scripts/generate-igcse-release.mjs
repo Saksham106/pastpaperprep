@@ -37,6 +37,13 @@ export async function generateRelease(bank, repo = resolve(import.meta.dirname, 
   return { manifest, out };
 }
 
+function finalizeQuestionStates(runtime) {
+  for (const question of runtime.questions ?? []) {
+    if (question.publicationStatus === 'local_preview_candidate') question.publicationStatus = 'production';
+    if (question.classificationReviewStatus === 'candidate_not_approved') question.classificationReviewStatus = 'classified';
+  }
+}
+
 export async function finalizeRelease(bank, repo = resolve(import.meta.dirname, '..')) {
   if (!RELEASE_BANKS[bank]) throw new Error(`Unknown release bank: ${bank}`);
   const runtimePath = resolve(repo, 'src/data/production', `${bank}.json`);
@@ -59,6 +66,7 @@ export async function finalizeRelease(bank, repo = resolve(import.meta.dirname, 
   const expectedManifestSha = manifestSha256(manifest);
   if (receipt.assetManifestSha256 !== expectedManifestSha) throw new Error(`${bank} storage manifest seal mismatch`);
 
+  finalizeQuestionStates(runtime);
   runtime.releaseStatus = 'production';
   runtime.publicationStatus = 'production';
   runtime.assetVerification = 'verified_readback';

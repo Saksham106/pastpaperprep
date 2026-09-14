@@ -1,0 +1,1634 @@
+{
+  "taxonomyId": "cambridge-igcse-physics-0625",
+  "version": "0.2.0-calibration-overlay",
+  "qualification": "Cambridge IGCSE Physics",
+  "sourceOverlay": {
+    "path": "data/classification/calibration/final-v3/taxonomy-overlay.json",
+    "sha256": "4294ff1acfb2928519dc0b4443cc56d546f7a4cd0cbff8bdd39189f77f6f3358"
+  },
+  "studentDisplayPolicy": {
+    "no_actual_question_labels_assigned": true,
+    "official_era_codes_internal_only": true,
+    "one_normalized_hierarchy": true,
+    "paper_tier_does_not_define_concept_scope": true,
+    "practical_skills_separate_content": true
+  },
+  "eras": [
+    "2020_2022",
+    "2023_2025"
+  ],
+  "topics": [
+    {
+      "id": "motion-forces-energy",
+      "title": "Motion, forces and energy"
+    },
+    {
+      "id": "thermal-physics",
+      "title": "Thermal physics"
+    },
+    {
+      "id": "waves",
+      "title": "Waves"
+    },
+    {
+      "id": "electricity-magnetism",
+      "title": "Electricity and magnetism"
+    },
+    {
+      "id": "nuclear-physics",
+      "title": "Nuclear physics"
+    },
+    {
+      "id": "space-physics",
+      "title": "Space physics"
+    },
+    {
+      "id": "practical-skills",
+      "title": "Experimental skills and investigations"
+    }
+  ],
+  "subtopics": [
+    {
+      "id": "physical-quantities",
+      "title": "Physical quantities and measurement techniques",
+      "ownerTopicId": "motion-forces-energy",
+      "eraApplicability": [
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "measurement",
+      "title": "Length, time and measurement",
+      "ownerTopicId": "motion-forces-energy",
+      "eraApplicability": [
+        "2020_2022"
+      ]
+    },
+    {
+      "id": "motion",
+      "title": "Motion and graphs",
+      "ownerTopicId": "motion-forces-energy",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "mass-weight",
+      "title": "Mass, weight and gravitational field strength",
+      "ownerTopicId": "motion-forces-energy",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "density",
+      "title": "Density and floating",
+      "ownerTopicId": "motion-forces-energy",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "forces",
+      "title": "Effects of forces",
+      "ownerTopicId": "motion-forces-energy",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "turning-equilibrium",
+      "title": "Turning effect and equilibrium",
+      "ownerTopicId": "motion-forces-energy",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "centre-gravity",
+      "title": "Centre of mass or gravity and stability",
+      "ownerTopicId": "motion-forces-energy",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "scalars-vectors",
+      "title": "Scalars and vectors",
+      "ownerTopicId": "motion-forces-energy",
+      "eraApplicability": [
+        "2020_2022"
+      ]
+    },
+    {
+      "id": "momentum",
+      "title": "Momentum and impulse",
+      "ownerTopicId": "motion-forces-energy",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "energy",
+      "title": "Energy stores and conservation",
+      "ownerTopicId": "motion-forces-energy",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "energy-resources",
+      "title": "Energy resources and efficiency",
+      "ownerTopicId": "motion-forces-energy",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "work",
+      "title": "Work done",
+      "ownerTopicId": "motion-forces-energy",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "power",
+      "title": "Power",
+      "ownerTopicId": "motion-forces-energy",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "pressure",
+      "title": "Pressure",
+      "ownerTopicId": "motion-forces-energy",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "states-matter",
+      "title": "States of matter",
+      "ownerTopicId": "thermal-physics",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "particle-model",
+      "title": "Particle model",
+      "ownerTopicId": "thermal-physics",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "gases-temperature",
+      "title": "Gases and temperature",
+      "ownerTopicId": "thermal-physics",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "thermal-expansion",
+      "title": "Thermal expansion",
+      "ownerTopicId": "thermal-physics",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "temperature-measurement",
+      "title": "Temperature measurement",
+      "ownerTopicId": "thermal-physics",
+      "eraApplicability": [
+        "2020_2022"
+      ]
+    },
+    {
+      "id": "specific-heat",
+      "title": "Specific heat capacity and thermal capacity",
+      "ownerTopicId": "thermal-physics",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "phase-change",
+      "title": "Melting, boiling and evaporation",
+      "ownerTopicId": "thermal-physics",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "conduction",
+      "title": "Conduction",
+      "ownerTopicId": "thermal-physics",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "convection",
+      "title": "Convection",
+      "ownerTopicId": "thermal-physics",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "radiation-thermal",
+      "title": "Thermal radiation",
+      "ownerTopicId": "thermal-physics",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "thermal-consequences",
+      "title": "Consequences of thermal energy transfer",
+      "ownerTopicId": "thermal-physics",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "wave-properties",
+      "title": "General properties of waves",
+      "ownerTopicId": "waves",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "reflection",
+      "title": "Reflection of light",
+      "ownerTopicId": "waves",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "refraction",
+      "title": "Refraction of light",
+      "ownerTopicId": "waves",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "lenses",
+      "title": "Thin lenses",
+      "ownerTopicId": "waves",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "dispersion",
+      "title": "Dispersion of light",
+      "ownerTopicId": "waves",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "electromagnetic-spectrum",
+      "title": "Electromagnetic spectrum",
+      "ownerTopicId": "waves",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "sound",
+      "title": "Sound",
+      "ownerTopicId": "waves",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "magnetism",
+      "title": "Simple phenomena of magnetism",
+      "ownerTopicId": "electricity-magnetism",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "charge",
+      "title": "Electric charge and electric fields",
+      "ownerTopicId": "electricity-magnetism",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "current",
+      "title": "Electric current",
+      "ownerTopicId": "electricity-magnetism",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "emf",
+      "title": "Electromotive force",
+      "ownerTopicId": "electricity-magnetism",
+      "eraApplicability": [
+        "2020_2022"
+      ]
+    },
+    {
+      "id": "potential-difference",
+      "title": "Potential difference",
+      "ownerTopicId": "electricity-magnetism",
+      "eraApplicability": [
+        "2020_2022"
+      ]
+    },
+    {
+      "id": "emf-potential-difference",
+      "title": "Electromotive force and potential difference",
+      "ownerTopicId": "electricity-magnetism",
+      "eraApplicability": [
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "resistance",
+      "title": "Resistance",
+      "ownerTopicId": "electricity-magnetism",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "electrical-work-power",
+      "title": "Electrical work, energy and power",
+      "ownerTopicId": "electricity-magnetism",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "circuit-diagrams",
+      "title": "Circuit diagrams and components",
+      "ownerTopicId": "electricity-magnetism",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "series-parallel",
+      "title": "Series and parallel circuits",
+      "ownerTopicId": "electricity-magnetism",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "circuit-components",
+      "title": "Action and use of circuit components",
+      "ownerTopicId": "electricity-magnetism",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "digital-electronics",
+      "title": "Digital electronics",
+      "ownerTopicId": "electricity-magnetism",
+      "eraApplicability": [
+        "2020_2022"
+      ]
+    },
+    {
+      "id": "electrical-safety",
+      "title": "Electrical safety",
+      "ownerTopicId": "electricity-magnetism",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "induction",
+      "title": "Electromagnetic induction",
+      "ownerTopicId": "electricity-magnetism",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "ac-generator",
+      "title": "Alternating-current generator",
+      "ownerTopicId": "electricity-magnetism",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "magnetic-effect-current",
+      "title": "Magnetic effect of a current",
+      "ownerTopicId": "electricity-magnetism",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "force-conductor",
+      "title": "Force on a current-carrying conductor",
+      "ownerTopicId": "electricity-magnetism",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "dc-motor",
+      "title": "Direct-current motor",
+      "ownerTopicId": "electricity-magnetism",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "transformer",
+      "title": "Transformer",
+      "ownerTopicId": "electricity-magnetism",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "atomic-model",
+      "title": "The atomic model",
+      "ownerTopicId": "nuclear-physics",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "nucleus",
+      "title": "The nucleus and nuclides",
+      "ownerTopicId": "nuclear-physics",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "radioactivity-detection",
+      "title": "Detection of radioactivity",
+      "ownerTopicId": "nuclear-physics",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "nuclear-emissions",
+      "title": "Types and characteristics of nuclear emission",
+      "ownerTopicId": "nuclear-physics",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "radioactive-decay",
+      "title": "Radioactive decay",
+      "ownerTopicId": "nuclear-physics",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "half-life",
+      "title": "Half-life",
+      "ownerTopicId": "nuclear-physics",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "nuclear-safety",
+      "title": "Ionising-radiation safety",
+      "ownerTopicId": "nuclear-physics",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "space-earth",
+      "title": "Earth and its cycles",
+      "ownerTopicId": "space-physics",
+      "eraApplicability": [
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "space-solar-system",
+      "title": "The Solar System",
+      "ownerTopicId": "space-physics",
+      "eraApplicability": [
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "space-sun",
+      "title": "The Sun as a star",
+      "ownerTopicId": "space-physics",
+      "eraApplicability": [
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "space-stars",
+      "title": "Stars and stellar life cycles",
+      "ownerTopicId": "space-physics",
+      "eraApplicability": [
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "space-universe",
+      "title": "The Universe and cosmological evidence",
+      "ownerTopicId": "space-physics",
+      "eraApplicability": [
+        "2023_2025",
+        "2026_2028"
+      ]
+    },
+    {
+      "id": "practical-skills",
+      "title": "Experimental skills and investigations",
+      "ownerTopicId": "practical-skills",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025"
+      ]
+    },
+    {
+      "id": "practical.measurement",
+      "title": "measurement and estimates",
+      "ownerTopicId": "practical-skills",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025"
+      ]
+    },
+    {
+      "id": "practical.data-recording",
+      "title": "recording and presenting data",
+      "ownerTopicId": "practical-skills",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025"
+      ]
+    },
+    {
+      "id": "practical.graphing",
+      "title": "graphs, interpolation and gradients",
+      "ownerTopicId": "practical-skills",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025"
+      ]
+    },
+    {
+      "id": "practical.variables",
+      "title": "variables and planning investigations",
+      "ownerTopicId": "practical-skills",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025"
+      ]
+    },
+    {
+      "id": "practical.evaluation",
+      "title": "evaluation and improvements",
+      "ownerTopicId": "practical-skills",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025"
+      ]
+    },
+    {
+      "id": "practical.safety",
+      "title": "safe use of apparatus and materials",
+      "ownerTopicId": "practical-skills",
+      "eraApplicability": [
+        "2020_2022",
+        "2023_2025"
+      ]
+    }
+  ],
+  "details": [
+    {
+      "id": "measurement.scalar-vector-quantities",
+      "ownerSubtopicId": "physical-quantities",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "measurement.length-time",
+      "ownerSubtopicId": "measurement",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "measurement.micrometer",
+      "ownerSubtopicId": "measurement",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "motion.speed",
+      "ownerSubtopicId": "motion",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "motion.acceleration",
+      "ownerSubtopicId": "motion",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "mass-weight.mass-and-weight",
+      "ownerSubtopicId": "mass-weight",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "mass-weight.gravitational-field",
+      "ownerSubtopicId": "mass-weight",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "density.liquid-solid-floating",
+      "ownerSubtopicId": "density",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "density.liquid-layering",
+      "ownerSubtopicId": "density",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "forces.resultant-friction",
+      "ownerSubtopicId": "forces",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "forces.spring-constant-circular-motion",
+      "ownerSubtopicId": "forces",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "turning-equilibrium.moments-and-equilibrium",
+      "ownerSubtopicId": "turning-equilibrium",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "turning-equilibrium.multiple-forces-experiment",
+      "ownerSubtopicId": "turning-equilibrium",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "centre-gravity.position-and-stability",
+      "ownerSubtopicId": "centre-gravity",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "scalars-vectors.resultant-vectors",
+      "ownerSubtopicId": "scalars-vectors",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "momentum.impulse-conservation",
+      "ownerSubtopicId": "momentum",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "energy.stores-and-conservation",
+      "ownerSubtopicId": "energy",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "energy.quantitative-stores",
+      "ownerSubtopicId": "energy",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "energy-resources.sources-and-tradeoffs",
+      "ownerSubtopicId": "energy-resources",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "energy-resources.efficiency-fusion",
+      "ownerSubtopicId": "energy-resources",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "work.energy-transfer",
+      "ownerSubtopicId": "work",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "work.mechanical-equation",
+      "ownerSubtopicId": "work",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "power.rate-of-transfer",
+      "ownerSubtopicId": "power",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "power.equation",
+      "ownerSubtopicId": "power",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "pressure.force-area-depth",
+      "ownerSubtopicId": "pressure",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "pressure.liquid-equation",
+      "ownerSubtopicId": "pressure",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "states-matter.properties-and-changes",
+      "ownerSubtopicId": "states-matter",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "particle-model.arrangement-motion",
+      "ownerSubtopicId": "particle-model",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "particle-model.forces-and-collisions",
+      "ownerSubtopicId": "particle-model",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "gases-temperature.qualitative-pressure",
+      "ownerSubtopicId": "gases-temperature",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "gases-temperature.pv-equation",
+      "ownerSubtopicId": "gases-temperature",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "thermal-expansion.applications",
+      "ownerSubtopicId": "thermal-expansion",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "thermal-expansion.particle-account",
+      "ownerSubtopicId": "thermal-expansion",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "temperature-measurement.fixed-points-and-thermometers",
+      "ownerSubtopicId": "temperature-measurement",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "temperature-measurement.sensitivity-range-linearity",
+      "ownerSubtopicId": "temperature-measurement",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "specific-heat.internal-energy",
+      "ownerSubtopicId": "specific-heat",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "specific-heat.capacity-equation-and-experiment",
+      "ownerSubtopicId": "specific-heat",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "phase-change.changes-of-state",
+      "ownerSubtopicId": "phase-change",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "phase-change.latent-heat-and-evaporation",
+      "ownerSubtopicId": "phase-change",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "conduction.experiments",
+      "ownerSubtopicId": "conduction",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "conduction.particles-and-electrons",
+      "ownerSubtopicId": "conduction",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "convection.density-and-experiment",
+      "ownerSubtopicId": "convection",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "radiation-thermal.emission-absorption",
+      "ownerSubtopicId": "radiation-thermal",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "radiation-thermal.temperature-area",
+      "ownerSubtopicId": "radiation-thermal",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "thermal-consequences.applications",
+      "ownerSubtopicId": "thermal-consequences",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "thermal-consequences.complex-systems",
+      "ownerSubtopicId": "thermal-consequences",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "wave-properties.energy-and-features",
+      "ownerSubtopicId": "wave-properties",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "wave-properties.wave-speed-and-diffraction",
+      "ownerSubtopicId": "wave-properties",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "reflection.plane-mirror",
+      "ownerSubtopicId": "reflection",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "reflection.construction-and-calculation",
+      "ownerSubtopicId": "reflection",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "refraction.experiment-and-total-internal-reflection",
+      "ownerSubtopicId": "refraction",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "refraction.refractive-index-and-fibres",
+      "ownerSubtopicId": "refraction",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "lenses.ray-diagrams-and-images",
+      "ownerSubtopicId": "lenses",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "lenses.virtual-images-and-correction",
+      "ownerSubtopicId": "lenses",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "dispersion.prism-spectrum",
+      "ownerSubtopicId": "dispersion",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "dispersion.monochromatic-light",
+      "ownerSubtopicId": "dispersion",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "electromagnetic-spectrum.regions-and-uses",
+      "ownerSubtopicId": "electromagnetic-spectrum",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "electromagnetic-spectrum.communication-and-speed",
+      "ownerSubtopicId": "electromagnetic-spectrum",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "sound.production-and-propagation",
+      "ownerSubtopicId": "sound",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "sound.compression-and-applications",
+      "ownerSubtopicId": "sound",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "magnetism.fields-materials-and-applications",
+      "ownerSubtopicId": "magnetism",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "magnetism.field-interactions-and-strength",
+      "ownerSubtopicId": "magnetism",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "charge.electrostatics-and-conductors",
+      "ownerSubtopicId": "charge",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "charge.electric-fields",
+      "ownerSubtopicId": "charge",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "current.flow-and-ammeters",
+      "ownerSubtopicId": "current",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "current.charge-rate-and-direction",
+      "ownerSubtopicId": "current",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "emf.definition-and-volts",
+      "ownerSubtopicId": "emf",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "emf.energy-per-charge",
+      "ownerSubtopicId": "emf",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "potential-difference.voltage-and-voltmeter",
+      "ownerSubtopicId": "potential-difference",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "potential-difference.joules-per-coulomb",
+      "ownerSubtopicId": "potential-difference",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "emf-potential-difference.definitions-and-measurement",
+      "ownerSubtopicId": "emf-potential-difference",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "emf-potential-difference.energy-per-charge",
+      "ownerSubtopicId": "emf-potential-difference",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "resistance.equation-and-experiment",
+      "ownerSubtopicId": "resistance",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "resistance.characteristics-and-proportionality",
+      "ownerSubtopicId": "resistance",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "electrical-work-power.energy-transfer",
+      "ownerSubtopicId": "electrical-work-power",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "electrical-work-power.power-energy-equations",
+      "ownerSubtopicId": "electrical-work-power",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "circuit-diagrams.standard-symbols",
+      "ownerSubtopicId": "circuit-diagrams",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "circuit-diagrams.diode",
+      "ownerSubtopicId": "circuit-diagrams",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "series-parallel.rules-and-lamps",
+      "ownerSubtopicId": "series-parallel",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "series-parallel.combined-values",
+      "ownerSubtopicId": "series-parallel",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "circuit-components.transducers-and-relays",
+      "ownerSubtopicId": "circuit-components",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "circuit-components.diodes-and-switches",
+      "ownerSubtopicId": "circuit-components",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "digital-electronics.logic-gates-and-truth-tables",
+      "ownerSubtopicId": "digital-electronics",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "electrical-safety.hazards-protection-earthing",
+      "ownerSubtopicId": "electrical-safety",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "induction.induced-emf-and-factors",
+      "ownerSubtopicId": "induction",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "induction.direction-and-force-field-current",
+      "ownerSubtopicId": "induction",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "ac-generator.ac-dc-and-rotating-coil",
+      "ownerSubtopicId": "ac-generator",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "ac-generator.output-and-slip-rings",
+      "ownerSubtopicId": "ac-generator",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "magnetic-effect-current.fields-and-relays",
+      "ownerSubtopicId": "magnetic-effect-current",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "magnetic-effect-current.field-strength-and-direction",
+      "ownerSubtopicId": "magnetic-effect-current",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "force-conductor.experiment-and-reversal",
+      "ownerSubtopicId": "force-conductor",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "force-conductor.relative-directions",
+      "ownerSubtopicId": "force-conductor",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "dc-motor.turning-effect",
+      "ownerSubtopicId": "dc-motor",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "dc-motor.commutator",
+      "ownerSubtopicId": "dc-motor",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "transformer.construction-and-transmission",
+      "ownerSubtopicId": "transformer",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "transformer.operation-and-power-loss",
+      "ownerSubtopicId": "transformer",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "atomic-model.nucleus-and-electrons",
+      "ownerSubtopicId": "atomic-model",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "atomic-model.scattering-evidence",
+      "ownerSubtopicId": "atomic-model",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "nucleus.protons-neutrons-and-nuclides",
+      "ownerSubtopicId": "nucleus",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "nucleus.fission-fusion-and-equations",
+      "ownerSubtopicId": "nucleus",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "radioactivity-detection.background-and-detectors",
+      "ownerSubtopicId": "radioactivity-detection",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "nuclear-emissions.nature-ionisation-penetration",
+      "ownerSubtopicId": "nuclear-emissions",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "nuclear-emissions.fields-and-applications",
+      "ownerSubtopicId": "nuclear-emissions",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "radioactive-decay.meaning-and-nuclide-equations",
+      "ownerSubtopicId": "radioactive-decay",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "radioactive-decay.composition-equations",
+      "ownerSubtopicId": "radioactive-decay",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "half-life.tables-and-curves",
+      "ownerSubtopicId": "half-life",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "half-life.background-not-subtracted",
+      "ownerSubtopicId": "half-life",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "nuclear-safety.effects-and-handling",
+      "ownerSubtopicId": "nuclear-safety",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "nuclear-safety.time-distance-shielding",
+      "ownerSubtopicId": "nuclear-safety",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "space-earth.rotation-orbit-and-phases",
+      "ownerSubtopicId": "space-earth",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "space-earth.orbital-speed",
+      "ownerSubtopicId": "space-earth",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "space-solar-system.objects-and-formation",
+      "ownerSubtopicId": "space-solar-system",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "space-solar-system.orbits-and-gravity",
+      "ownerSubtopicId": "space-solar-system",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "space-sun.composition-and-radiation",
+      "ownerSubtopicId": "space-sun",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "space-sun.fusion",
+      "ownerSubtopicId": "space-sun",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "space-stars.galaxies-and-distances",
+      "ownerSubtopicId": "space-stars",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "space-stars.life-cycle",
+      "ownerSubtopicId": "space-stars",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "space-universe.milky-way-redshift-big-bang",
+      "ownerSubtopicId": "space-universe",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "space-universe.cmb-hubble-and-age",
+      "ownerSubtopicId": "space-universe",
+      "applicability": [
+        "supplement"
+      ]
+    },
+    {
+      "id": "motion.acceleration-qualitative",
+      "ownerSubtopicId": "motion",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "physical-quantities.measurement-techniques",
+      "ownerSubtopicId": "physical-quantities",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "particle-model.absolute-zero-and-temperature",
+      "ownerSubtopicId": "particle-model",
+      "applicability": [
+        "core"
+      ]
+    },
+    {
+      "id": "practical.measurement",
+      "ownerSubtopicId": "practical-skills",
+      "applicability": [
+        "all_candidates"
+      ]
+    },
+    {
+      "id": "practical.data-recording",
+      "ownerSubtopicId": "practical-skills",
+      "applicability": [
+        "all_candidates"
+      ]
+    },
+    {
+      "id": "practical.graphing",
+      "ownerSubtopicId": "practical-skills",
+      "applicability": [
+        "all_candidates"
+      ]
+    },
+    {
+      "id": "practical.variables",
+      "ownerSubtopicId": "practical-skills",
+      "applicability": [
+        "all_candidates"
+      ]
+    },
+    {
+      "id": "practical.evaluation",
+      "ownerSubtopicId": "practical-skills",
+      "applicability": [
+        "all_candidates"
+      ]
+    },
+    {
+      "id": "practical.safety",
+      "ownerSubtopicId": "practical-skills",
+      "applicability": [
+        "all_candidates"
+      ]
+    }
+  ]
+}
