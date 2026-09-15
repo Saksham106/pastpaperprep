@@ -71,8 +71,9 @@ main { min-height: 72vh; }
 .eyebrow, .kicker { margin: 0; color: var(--cobalt-strong); font: 600 .73rem/1.2 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
 
 /* Header */
-.site-header { position: sticky; z-index: 30; top: 0; width: min(1320px, calc(100% - 24px)); min-height: 68px; margin: 0 auto; padding-inline: 4px; display: flex; align-items: center; justify-content: space-between; background: color-mix(in srgb, var(--paper) 90%, transparent); border-bottom: 1px solid var(--line); backdrop-filter: blur(18px); }
-.brand { min-height: 48px; display: inline-flex; align-items: center; gap: 10px; color: var(--ink); font: 700 1.04rem/1 var(--font-display); letter-spacing: -.04em; }
+.site-header { position: sticky; z-index: 30; top: 0; width: 100%; min-height: 68px; margin: 0; padding-inline: max(4px, calc((100% - 1320px) / 2 + 4px)); display: flex; align-items: center; justify-content: space-between; background: #eee9df; border-bottom: 0; }
+body:has(.landing-editorial) .site-header { background: rgb(238 233 223 / .38); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); }
+.brand { min-height: 48px; flex: 0 0 auto; display: inline-flex; align-items: center; gap: 10px; color: var(--ink); font: 700 1.04rem/1 var(--font-display); letter-spacing: -.04em; }
 .brand-mark { width: 32px; height: 32px; display: grid; place-items: center; color: var(--surface-raised); background: var(--cobalt); border-radius: 9px; font-size: 1.1rem; }
 .header-actions { display: flex; align-items: center; gap: 8px; }
 .theme-toggle { min-height: 42px; padding: 0 13px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; color: var(--ink); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 9px; font-weight: 720; transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, transform 160ms ease; }
@@ -80,7 +81,7 @@ main { min-height: 72vh; }
 .theme-toggle:active { transform: translateY(1px); }
 .theme-toggle svg { width: 18px; height: 18px; }
 .site-header nav { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
-.site-header nav > a { min-height: 42px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 0 12px; border-radius: 9px; color: var(--muted); font-size: .84rem; font-weight: 680; transition: color 160ms ease, background-color 160ms ease, transform 160ms ease; }
+.site-header nav > a { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 0 12px; border-radius: 9px; color: var(--muted); font-size: .84rem; font-weight: 680; transition: color 160ms ease, background-color 160ms ease, transform 160ms ease; }
 .site-header nav > a:hover { color: var(--ink); background: var(--surface); }
 .site-header nav > a:active, .button:active { transform: translateY(1px); }
 .site-header nav > a.nav-active:not(.nav-cta) { color: var(--ink); background: var(--surface); box-shadow: inset 0 -2px var(--cobalt); }
@@ -89,10 +90,17 @@ main { min-height: 72vh; }
 
 @media (max-width: 620px) {
   .shell { width: min(1240px, calc(100% - 32px)); }
-  .site-header { width: calc(100% - 32px); }
+  .site-header { padding-inline: 20px; }
   .site-header nav { gap: 1px; }
-  .site-header nav > a { padding-inline: 6px; font-size: .72rem; }
+  .site-header nav > a { min-height: 44px; padding-inline: 5px; font-size: .7rem; }
   .nav-cta { margin-left: 2px; }
+}
+@media (max-width: 360px) {
+  .site-header { padding-inline: 8px; }
+  .brand { gap: 6px; font-size: .9rem; }
+  .brand > span:last-child { display: inline; }
+  .site-header nav { gap: 2px; }
+  .site-header nav > a:nth-child(1), .site-header nav > a:nth-child(2), .site-header .nav-cta { display: none; }
 }
 .nav-cta.nav-active { box-shadow: 0 0 0 3px var(--cobalt-soft); }
 
@@ -569,7 +577,8 @@ main { min-height: 72vh; }
 .article-sources a { text-decoration: underline; text-underline-offset: 3px; }
 
 /* Footer */
-.site-footer { min-height: 290px; padding: 56px max(24px, calc((100% - 1240px) / 2)) 28px; display: grid; grid-template-columns: minmax(250px, .75fr) minmax(500px, 1.25fr); align-items: start; gap: 56px; background: var(--surface); border-top: 1px solid var(--line-strong); }
+.site-footer { position: relative; isolation: isolate; min-height: 290px; padding: 56px max(24px, calc((100% - 1240px) / 2)) 28px; display: grid; grid-template-columns: minmax(250px, .75fr) minmax(500px, 1.25fr); align-items: start; gap: 56px; overflow: hidden; background: #e8e1d4; border-top: 1px solid #bdb4a4; }
+.site-footer::after { content: ""; position: absolute; z-index: -1; right: 2%; bottom: -96px; width: 390px; height: 250px; background: url('/artwork/atkins-algae.jpg') center / contain no-repeat; opacity: .14; mix-blend-mode: multiply; mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent); pointer-events: none; }
 .footer-brand > a { width: fit-content; display: flex; align-items: center; gap: 10px; }
 .footer-brand svg { width: 26px; height: 26px; color: var(--cobalt); }
 .footer-brand strong { font: 700 1.1rem var(--font-display); letter-spacing: -.04em; }
@@ -582,6 +591,7 @@ main { min-height: 72vh; }
 .footer-group a:hover, .footer-policy-links a:hover { color: var(--cobalt-strong); }
 .footer-base { grid-column: 1 / -1; padding-top: 24px; display: flex; align-items: center; justify-content: space-between; gap: 30px; border-top: 1px solid var(--line); }
 .footer-policy-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px 22px; color: var(--muted); font-size: .8rem; }
+@media (max-width: 640px) { .site-footer { padding-top: 42px; gap: 38px; }.site-footer::after { right: -52px; bottom: -76px; width: 300px; height: 190px; opacity: .1; } }
 
 /* Loading */
 .page-skeleton { padding: 78px 0 110px; }
@@ -673,7 +683,7 @@ main { min-height: 72vh; }
   .article-answer { margin-block: 28px 40px; padding: 20px; }
   .article-section h2, .article-faq > h2, .article-related h2 { font-size: 1.7rem; }
   .shell { width: min(100% - 24px, 1200px); }
-  .site-header { width: calc(100% - 24px); }
+  .site-header { width: 100%; padding-inline: 20px; }
   .brand { font-size: 1rem; }
   .brand-mark { width: 30px; height: 30px; }
   .header-actions { gap: 2px; }
@@ -770,4 +780,7 @@ main { min-height: 72vh; }
 
 @media (max-width: 380px) {
   .brand > span:last-child { display: none; }
+}
+@media (max-width: 360px) {
+  .brand > span:last-child { display: inline; }
 }
