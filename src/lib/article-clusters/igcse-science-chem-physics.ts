@@ -7,15 +7,15 @@ export const IGCSE_SCIENCE_CHEM_PHYSICS: readonly Article[] = [
     "title": "Best IGCSE Science Question Banks for Biology, Chemistry and Physics",
     "description": "Compare the best current IGCSE Biology, Chemistry and Physics question banks, from Cambridge papers and PMT to topical practice sites.",
     "eyebrow": "IGCSE Biology, Chemistry & Physics",
-    "answer": "The best IGCSE science question bank depends on what you need next. Use Cambridge International first for the syllabus, specimen materials and the official selection of past papers. Use Physics & Maths Tutor (PMT) when you want free past papers, mark schemes and topic-organised practice in one place. Use Save My Exams when you want teacher-written exam questions, revision notes and a more guided paid practice experience. Use exam-mate when you want to filter topical past-paper questions or build a custom test.",
-    "publishedAt": "2026-10-08",
-    "updatedAt": "2026-09-12",
+    "answer": "For real Cambridge questions you can narrow by topic and turn into a printable set, PastPaperPrep is the strongest fit across its live 0610, 0620 and 0625 banks. PMT is the best free starting point for papers and mark schemes. Save My Exams is better when you still need notes and guided explanations. Exam-Mate is useful for broad topical filtering across more curricula. The right choice depends on whether your bottleneck is finding authentic practice, understanding the content, or organising it.",
+    "publishedAt": "2026-09-15",
+    "updatedAt": "2026-09-15",
     "readingMinutes": 4,
     "sections": [
       {
         "heading": "The short answer",
         "paragraphs": [
-          "The best IGCSE science question bank depends on what you need next. Use Cambridge International first for the syllabus, specimen materials and the official selection of past papers. Use Physics & Maths Tutor (PMT) when you want free past papers, mark schemes and topic-organised practice in one place. Use Save My Exams when you want teacher-written exam questions, revision notes and a more guided paid practice experience. Use exam-mate when you want to filter topical past-paper questions or build a custom test.",
+          "Start with the job you need the resource to do. If you already understand the lesson and want ten more authentic questions on one weak area, use a topical past-paper bank. If you are still learning the idea, choose notes or guided explanations first. If you only need a full paper and mark scheme, do not pay before checking Cambridge and PMT.",
           "There is no single winner across Biology, Chemistry and Physics. Biology practice rewards precise definitions, processes and data interpretation. Chemistry needs repeated work with equations, calculations, qualitative analysis and practical contexts. Physics needs formula selection, units, graphs, diagrams and multi-step reasoning. Choose the bank that matches that subject-specific work, not just the one with the longest list."
         ]
       },
@@ -53,7 +53,7 @@ export const IGCSE_SCIENCE_CHEM_PHYSICS: readonly Article[] = [
           "For Biology, begin with the 0610 syllabus, then use PMT or exam-mate for topic retrieval and Save My Exams for structured-answer technique. Practise graph and unfamiliar-data questions, not only definition flashcards.",
           "For Chemistry, prioritise a bank that lets you mix theory with practical and calculation questions. Confirm that your practice covers the 0620 areas Cambridge lists, including states of matter, stoichiometry, electrochemistry, acids, metals, organic chemistry and experimental techniques. Keep a separate error log for formulae, observations, tests and explanations.",
           "For Physics, choose questions that make you write units, rearrange equations, interpret graphs and explain practical choices. The 0625 syllabus is not just a formula list. Mix short recall with calculations, diagrams, data handling and Paper 5 or Paper 6-style practical work.",
-          "PastPaperPrep’s IGCSE science banks are upcoming and are being prepared, not live. There are no PastPaperPrep Biology, Chemistry or Physics bank routes to link yet. These article drafts stay launch-gated and must be fact-refreshed when the banks go live."
+          "PastPaperPrep now has live IGCSE Biology 0610, Chemistry 0620 and Physics 0625 banks. Together they contain 10,790 real past-paper questions, with filters for topics, papers, years, sessions, marks and other available exam details. It is the strongest fit here when you want authentic questions and custom printable sets; choose Save My Exams instead when lessons and guided explanations matter more than building your own practice."
         ]
       }
     ],
@@ -75,7 +75,11 @@ export const IGCSE_SCIENCE_CHEM_PHYSICS: readonly Article[] = [
         "answer": "Only for general science fluency, and not for syllabus-specific revision. The code and paper structure must match your exam."
       }
     ],
-    "relatedBanks": [],
+    "relatedBanks": [
+      { "href": "/banks/igcse-biology-0610", "label": "IGCSE Biology 0610 question bank" },
+      { "href": "/banks/igcse-chemistry-0620", "label": "IGCSE Chemistry 0620 question bank" },
+      { "href": "/banks/igcse-physics-0625", "label": "IGCSE Physics 0625 question bank" }
+    ],
     "sources": [
       {
         "href": "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-biology-0610/",
@@ -116,20 +120,19 @@ export const IGCSE_SCIENCE_CHEM_PHYSICS: readonly Article[] = [
     ]
   },
   {
-    "draft": true,
+    "draft": false,
     "slug": "best-igcse-chemistry-0620-question-banks",
-    "title": "Best IGCSE Chemistry 0620 Question Banks and Past-Paper Websites",
+    "title": "IGCSE Chemistry 0620 Question Banks & Past Papers by Topic",
     "description": "Find the best current Chemistry 0620 question banks and past-paper sites, with clear advice on practical, calculation and theory practice.",
     "eyebrow": "Cambridge IGCSE Chemistry 0620",
     "answer": "For Cambridge IGCSE Chemistry 0620, start with Cambridge International’s syllabus and public past-paper page. Use PMT for free paper-and-mark-scheme practice, Save My Exams for guided topic questions and explanations, and exam-mate for topical filtering and custom tests. A good 0620 routine uses all three types of resource because Chemistry marks come from different habits: recalling definitions, writing balanced equations, calculating accurately, identifying substances and explaining practical results.",
-    "publishedAt": "2026-10-10",
-    "updatedAt": "2026-09-12",
+    "publishedAt": "2026-09-15",
+    "updatedAt": "2026-09-15",
     "readingMinutes": 4,
     "sections": [
       {
         "heading": "The short answer",
         "paragraphs": [
-          "For Cambridge IGCSE Chemistry 0620, start with Cambridge International’s syllabus and public past-paper page. Use PMT for free paper-and-mark-scheme practice, Save My Exams for guided topic questions and explanations, and exam-mate for topical filtering and custom tests. A good 0620 routine uses all three types of resource because Chemistry marks come from different habits: recalling definitions, writing balanced equations, calculating accurately, identifying substances and explaining practical results.",
           "Do not choose by raw file count. First confirm the syllabus year and whether you are taking Core or Extended. Then check that a site labels Paper 1 or 2, Paper 3 or 4, and Paper 5 or 6 correctly. A question bank that mixes codes or papers without a clear label can create false confidence."
         ]
       },
@@ -168,7 +171,7 @@ export const IGCSE_SCIENCE_CHEM_PHYSICS: readonly Article[] = [
           "Start by making a syllabus checklist from the current Cambridge document. For each topic, do a short recall pass, then eight to fifteen topical questions. Record the exact reason for every lost mark: knowledge, equation, calculation, observation, explanation, graph or command word.",
           "Next, rotate components. Paper 1 or 2 builds quick recognition but can hide weak written explanations. Paper 3 or 4 exposes definitions, equations, calculations and unfamiliar contexts. Paper 5 or 6 tests practical planning, measurement, analysis and evaluation. Do not replace one component with another.",
           "Finish with timed full papers and official mark schemes. Reattempt missed questions several days later without looking at your first answer. Grade thresholds are not a substitute for marking accuracy, and a high score on a familiar topical set is not proof that you can handle a mixed paper.",
-          "PastPaperPrep’s IGCSE Chemistry bank is upcoming and planned, not live. Do not expect or link to a PastPaperPrep Chemistry 0620 bank route yet. This article remains launch-gated and will need a fresh fact check when that future bank is released."
+          "PastPaperPrep’s live IGCSE Chemistry 0620 bank contains 3,529 real past-paper questions from 207 papers covering 2021–2025. Use it when you want to filter by topic, paper, year, session, marks and other available exam details, then turn a weak area into a printable set. It does not replace notes or teaching; it removes the manual work of finding and assembling authentic questions."
         ]
       }
     ],
@@ -190,7 +193,9 @@ export const IGCSE_SCIENCE_CHEM_PHYSICS: readonly Article[] = [
         "answer": "Check the matching question paper, component and variant first. If the issue remains, ask a teacher or consult the examiner report rather than silently changing the marking rule."
       }
     ],
-    "relatedBanks": [],
+    "relatedBanks": [
+      { "href": "/banks/igcse-chemistry-0620", "label": "Practise IGCSE Chemistry 0620 by topic" }
+    ],
     "sources": [
       {
         "href": "https://www.cambridgeinternational.org/programmes-and-qualifications/view/cambridge-igcse-chemistry-0620",
@@ -231,20 +236,19 @@ export const IGCSE_SCIENCE_CHEM_PHYSICS: readonly Article[] = [
     ]
   },
   {
-    "draft": true,
+    "draft": false,
     "slug": "best-igcse-physics-0625-question-banks",
-    "title": "Best IGCSE Physics 0625 Question Banks and Past-Paper Websites",
+    "title": "IGCSE Physics 0625 Question Banks & Past Papers by Topic",
     "description": "Compare the best Physics 0625 question banks and past-paper sites for calculations, graphs, practical skills and timed exam practice.",
     "eyebrow": "Cambridge IGCSE Physics 0625",
     "answer": "The best IGCSE Physics 0625 setup is a combination, not one website. Use Cambridge International for the syllabus, assessment structure and official sample of past papers. Use PMT for free past papers and mark schemes. Use Save My Exams for guided topic questions and explanations. Use exam-mate when topical filtering or custom paper building will make your practice more targeted.",
-    "publishedAt": "2026-10-12",
-    "updatedAt": "2026-09-12",
+    "publishedAt": "2026-09-15",
+    "updatedAt": "2026-09-15",
     "readingMinutes": 4,
     "sections": [
       {
         "heading": "The short answer",
         "paragraphs": [
-          "The best IGCSE Physics 0625 setup is a combination, not one website. Use Cambridge International for the syllabus, assessment structure and official sample of past papers. Use PMT for free past papers and mark schemes. Use Save My Exams for guided topic questions and explanations. Use exam-mate when topical filtering or custom paper building will make your practice more targeted.",
           "Physics revision must include more than formula recall. You need to choose a model, write a useful equation, substitute consistently, give a unit, read graphs, interpret diagrams and explain practical decisions. A bank is valuable when it makes you practise those moves repeatedly and then compare your response with the official marking points."
         ]
       },
@@ -282,7 +286,7 @@ export const IGCSE_SCIENCE_CHEM_PHYSICS: readonly Article[] = [
           "Build a three-stage cycle. First, practise by topic while learning: recall the quantities, relationships, units and common graph shapes, then answer short and structured questions. Second, practise by skill: calculations, significant figures, graph gradients, proportional reasoning, ray diagrams, circuit diagrams and experimental evaluation. Third, sit complete papers under time pressure.",
           "Keep an error log with the failed decision, not just the topic name. “Electricity wrong” is too broad; “used current formula when the question asked for resistance from potential difference and current” is actionable. Reattempt the same question later, then find a new version of the skill.",
           "Use Paper 5 or Paper 6 practice deliberately. Read the apparatus, variables, measurements, tables and evaluation prompts. Practical questions test how you reason from evidence, not whether you can memorise a lab script. Before marking, annotate where the independent variable, dependent variable, control variables and sources of uncertainty appear. That turns a lost practical mark into a repeatable method rather than a one-off correction.",
-          "PastPaperPrep’s IGCSE Physics bank is upcoming and being prepared, not live. There is no PastPaperPrep Physics 0625 bank route to link at this stage. This draft stays launch-gated and must be fact-refreshed before any future launch or availability claim."
+          "PastPaperPrep’s live IGCSE Physics 0625 bank contains 3,820 real past-paper questions from 210 papers covering 2021–2025. It is built for focused practice: filter the exact topic or practical skill, keep the original diagram and context, then export a printable set. Use another resource alongside it when you need a lesson or a worked explanation before attempting the question."
         ]
       }
     ],
@@ -304,7 +308,9 @@ export const IGCSE_SCIENCE_CHEM_PHYSICS: readonly Article[] = [
         "answer": "Only for broad extra practice. Use Cambridge 0625 questions for syllabus-specific content, paper style and mark-scheme language."
       }
     ],
-    "relatedBanks": [],
+    "relatedBanks": [
+      { "href": "/banks/igcse-physics-0625", "label": "Practise IGCSE Physics 0625 by topic" }
+    ],
     "sources": [
       {
         "href": "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-physics-0625/",
