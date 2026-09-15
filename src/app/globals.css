@@ -151,6 +151,7 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .course-tone-physics { --course-accent: #6d55a4; }
 .course-tone-biology { --course-accent: var(--success); }
 .course-tone-economics { --course-accent: #9a6a24; }
+.course-tone-coordinated { --course-accent: #1f6f74; }
 .course-icon { width: 38px; height: 38px; flex: 0 0 auto; display: grid; align-items: center; justify-items: center; line-height: 0; color: var(--course-accent, var(--cobalt)); background: color-mix(in srgb, var(--course-accent, var(--cobalt)) 10%, var(--surface)); border: 1px solid color-mix(in srgb, var(--course-accent, var(--cobalt)) 25%, var(--line)); border-radius: 9px; }
 .course-icon svg { width: 20px; height: 20px; display: block; }
 .curriculum-heading { align-self: center; display: grid; grid-template-columns: 38px minmax(0, 1fr); align-items: center; gap: 14px; }
@@ -1019,4 +1020,126 @@ body:has(.bank-hero) .site-footer::after { display: none; }
   .auth-page { width: min(100% - 24px, 500px); padding-block: 34px 54px; }
   .auth-page .auth-card { padding: 26px 20px; }
   .auth-page .auth-card h1 { font-size: clamp(2.1rem, 11vw, 2.8rem); }
+}
+
+/* Release-candidate UX pass: boxed qualification control, subject-tone study panels,
+   quiet plan artwork that keeps the represented figures visible, two-row mobile explorer. */
+
+/* 1. Shared Cambridge IGCSE / IB Diploma control: unmistakably button-like. */
+.qualification-tabs-prominent [role="tablist"] {
+  width: auto;
+  max-width: 100%;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 auto 30px;
+  padding: 6px;
+  background: var(--surface-raised);
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+}
+.qualification-tabs-prominent [role="tab"] {
+  flex: 0 1 auto;
+  min-height: 50px;
+  padding: 12px 20px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  font: 820 .98rem/1 var(--font-display);
+  letter-spacing: .01em;
+  cursor: pointer;
+  transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease, transform 140ms ease;
+}
+.qualification-tabs-prominent [role="tab"]:hover { color: var(--cobalt-strong); background: var(--cobalt-faint); border-color: var(--cobalt); }
+.qualification-tabs-prominent [role="tab"]:active { transform: translateY(1px); }
+.qualification-tabs-prominent [role="tab"][aria-selected="true"] {
+  color: var(--accent-contrast);
+  background: var(--cobalt-strong);
+  border-color: var(--cobalt-strong);
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--cobalt) 30%, transparent);
+}
+.qualification-tabs-prominent [role="tab"]:focus-visible { outline: 3px solid color-mix(in srgb, var(--cobalt) 60%, transparent); outline-offset: 2px; }
+
+/* 2. Dashboard study panels carry the landing page's subject tone + watermark. */
+.dashboard-bank-family[data-subject-tone] {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--course-accent) 7%, var(--surface-raised)), var(--surface-raised) 62%);
+}
+.dashboard-bank-family[data-subject-tone] > header,
+.dashboard-bank-family[data-subject-tone] .dashboard-bank-grid { position: relative; z-index: 1; }
+.dashboard-bank-family-watermark {
+  position: absolute;
+  z-index: 0;
+  right: -22px;
+  bottom: -30px;
+  display: block;
+  color: var(--course-accent);
+  opacity: .13;
+  pointer-events: none;
+  transform: rotate(-11deg);
+}
+.dashboard-bank-family-watermark .course-icon { width: 158px; height: 158px; display: grid; place-items: center; background: transparent; border: 0; border-radius: 0; }
+.dashboard-bank-family-watermark .course-icon svg { width: 136px; height: 136px; }
+
+/* 3. Plan artwork: keep the represented figures' heads inside the visible, unmasked band. */
+.plan-art {
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 10%, #000 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 10%, #000 100%);
+}
+.pricing-option[data-plan-tone="starter"] .plan-art { object-position: center 34%; }
+.pricing-option[data-plan-tone="builder"] .plan-art { object-position: center 2%; }
+.pricing-option[data-plan-tone="premium"] .plan-art { object-position: center 50%; }
+.pricing-bank-no-preview { color: var(--muted); }
+
+/* 4. Free/paid upsell: one action, full-width on small screens. */
+.free-value-strip > .button { flex: 0 0 auto; min-height: 40px; padding-inline: 16px; white-space: nowrap; }
+.question-locked-action { margin-top: 4px; align-self: flex-start; color: var(--cobalt); font-weight: 830; text-decoration: underline; text-underline-offset: 2px; }
+
+/* 5. Mobile question explorer: exactly two rows (search, then filters/sort/share/download). */
+@media (max-width: 640px) {
+  .explorer-toolbar {
+    grid-template-columns: auto minmax(0, 1fr) 44px 44px;
+    padding: 6px;
+    gap: 6px;
+  }
+  .explorer-toolbar .search-field { grid-column: 1 / -1; grid-row: 1; min-height: 44px; }
+  .explorer-toolbar .mobile-filter-button {
+    grid-column: 1;
+    grid-row: 2;
+    display: inline-flex;
+    min-height: 44px;
+    padding-inline: 12px;
+    font-size: .82rem;
+    font-weight: 850;
+  }
+  .explorer-toolbar .mobile-filter-button.is-active {
+    color: var(--accent-contrast);
+    background: var(--cobalt-strong);
+    border-color: var(--cobalt-strong);
+    box-shadow: 0 6px 14px color-mix(in srgb, var(--cobalt) 30%, transparent);
+  }
+  .explorer-toolbar .sort-field { grid-column: 2; grid-row: 2; min-width: 0; }
+  .explorer-toolbar .sort-select-trigger { min-height: 44px; padding-inline: 10px; font-size: .76rem; }
+  .explorer-toolbar .sort-select-trigger small { display: none; }
+  .explorer-toolbar .sort-select-menu { left: 0; right: 0; min-width: 0; }
+  .explorer-toolbar .share-view-button { grid-column: 3; grid-row: 2; }
+  .explorer-toolbar .download-button { grid-column: 4; grid-row: 2; }
+  .explorer-toolbar .toolbar-icon-button { width: 44px; min-height: 44px; }
+  .free-value-strip { align-items: center; }
+  .free-value-strip > div:first-child { display: grid; }
+  .free-value-strip > .button { width: 100%; justify-content: center; }
+}
+
+/* Articles index: structured difficulty/exam/read-time facts and real practice deep links. */
+.article-index-facts { margin: 12px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; list-style: none; }
+.article-index-facts li { padding: 4px 9px; color: var(--muted); background: var(--paper); border: 1px solid var(--line); border-radius: 999px; font: 650 .72rem/1.2 var(--font-mono); letter-spacing: .03em; text-transform: uppercase; }
+.article-index-practice { margin-top: 12px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; }
+.article-index-practice > span { color: var(--muted); font: 700 .74rem/1.3 var(--font-mono); letter-spacing: .05em; text-transform: uppercase; }
+.article-index-practice a { color: var(--cobalt); font-weight: 700; font-size: .86rem; text-decoration: underline; text-underline-offset: 2px; }
+.article-index-practice a:hover { color: var(--cobalt-strong); }
+@media (max-width: 640px) {
+  .article-index-facts { margin-top: 10px; }
+  .article-index-practice { margin-top: 10px; }
 }

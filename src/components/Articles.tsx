@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
-import { ARTICLES, type Article } from "@/lib/articles";
+import { ARTICLES, getArticleIndexDetail, type Article } from "@/lib/articles";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 function FeaturedArticle({ article }: { article: Article }) {
@@ -8,7 +8,24 @@ function FeaturedArticle({ article }: { article: Article }) {
 }
 
 function ArticleIndexRow({ article }: { article: Article }) {
-  return <article className="article-index-row"><div><p className="eyebrow">{article.eyebrow}</p><h3><Link href={`/articles/${article.slug}`}>{article.title}</Link></h3><p>{article.description}</p></div><div className="article-card-meta"><time dateTime={article.updatedAt}>{article.updatedAt}</time><span>{article.readingMinutes} min</span></div></article>;
+  const detail = getArticleIndexDetail(article.slug);
+  return <article className="article-index-row">
+    <div>
+      <p className="eyebrow">{article.eyebrow}</p>
+      <h3><Link href={`/articles/${article.slug}`}>{article.title}</Link></h3>
+      <p>{article.description}</p>
+      <ul className="article-index-facts" aria-label="Guide details">
+        {detail ? <li>{detail.exam}</li> : null}
+        {detail ? <li>{detail.difficulty}</li> : null}
+        <li>{article.readingMinutes} min read</li>
+      </ul>
+      {detail?.practiceLinks.length ? <div className="article-index-practice">
+        <span>Practice this topic</span>
+        {detail.practiceLinks.map((link) => <Link href={link.href} key={link.href}>{link.label}</Link>)}
+      </div> : null}
+    </div>
+    <div className="article-card-meta"><time dateTime={article.updatedAt}>{article.updatedAt}</time><span>{article.readingMinutes} min</span></div>
+  </article>;
 }
 
 export function ArticlesIndex() {

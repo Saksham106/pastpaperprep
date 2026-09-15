@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, CaretDown, Gear, Key } from "@phosphor-icons/react/dist/ssr";
 import { QualificationTabs } from "@/components/QualificationTabs";
 import { CourseIcon, courseToneForBank, type CourseTone } from "@/components/CourseIcon";
+import { bankEntryHref, hasFreeTier } from "@/lib/access";
 import { BANKS, type Bank, type BankSlug } from "@/lib/banks";
 
 type BankGroup = { name: string; className: string; tone: CourseTone; banks: Bank[] };
@@ -39,9 +40,10 @@ export function DashboardContent({ authenticated, accessibleBanks, availableBank
   const qualificationPanels = qualificationGroups.map((qualification) => ({
     id: qualification.id,
     label: qualification.label,
-    panel: <div className={`dashboard-bank-groups${qualification.id === "cambridge-igcse" ? " dashboard-cambridge-subject-grid" : ""}`}>{qualification.groups.map((group) => <section className={`dashboard-bank-family dashboard-bank-family-${group.className} course-tone-${group.tone}`} key={group.name} aria-labelledby={`dashboard-${group.className}`}>
+    panel: <div className={`dashboard-bank-groups${qualification.id === "cambridge-igcse" ? " dashboard-cambridge-subject-grid" : ""}`}>{qualification.groups.map((group) => <section className={`dashboard-bank-family dashboard-bank-family-${group.className} course-tone-${group.tone}`} data-subject-tone={group.tone} key={group.name} aria-labelledby={`dashboard-${group.className}`}>
       <header><div className="dashboard-bank-family-title"><CourseIcon tone={group.tone} /><h2 id={`dashboard-${group.className}`}>{group.name}</h2></div><span>{group.banks.length} banks</span></header>
-      <div className="dashboard-bank-grid">{[...group.banks].sort((a, b) => Number(accessible.has(b.slug)) - Number(accessible.has(a.slug))).map((bank) => { const included = accessible.has(bank.slug); return <Link className={`dashboard-bank-card course-tone-${courseToneForBank(bank)} ${bank.accent}${included ? " is-included" : ""}`} href={included ? `/banks/${bank.slug}` : `/banks/${bank.slug}?free=1`} aria-label={`${included ? "Open" : "Start free"} ${bank.shortName}`} key={bank.slug}><div className="dashboard-bank-meta"><strong>{included ? "Included" : "Free exam years"}</strong></div><h3>{displayBankName(bank)}</h3><div className="dashboard-bank-stats"><span>{bank.questionCount.toLocaleString()} questions</span><span>{bank.paperCount} papers</span></div><span className="dashboard-bank-link">{included ? "Open bank" : "Start free"} <ArrowRight weight="bold" /></span></Link>; })}</div>
+      <div className="dashboard-bank-grid">{[...group.banks].sort((a, b) => Number(accessible.has(b.slug)) - Number(accessible.has(a.slug))).map((bank) => { const included = accessible.has(bank.slug); const free = hasFreeTier(bank.slug); return <Link className={`dashboard-bank-card course-tone-${courseToneForBank(bank)} ${bank.accent}${included ? " is-included" : ""}`} href={included || !free ? `/banks/${bank.slug}` : bankEntryHref(bank.slug)} data-has-free-tier={free ? "true" : undefined} aria-label={`${included || !free ? "Open" : "Start free"} ${bank.shortName}`} key={bank.slug}><div className="dashboard-bank-meta"><strong>{included ? "Included" : free ? "Free exam years" : "Paid bank"}</strong></div><h3>{displayBankName(bank)}</h3><div className="dashboard-bank-stats"><span>{bank.questionCount.toLocaleString()} questions</span><span>{bank.paperCount} papers</span></div><span className="dashboard-bank-link">{included || !free ? "Open bank" : "Start free"} <ArrowRight weight="bold" /></span></Link>; })}</div>
+      <span className="dashboard-bank-family-watermark" data-subject-watermark="true" aria-hidden="true"><CourseIcon tone={group.tone} marker={false} /></span>
     </section>)}</div>,
   }));
   return (

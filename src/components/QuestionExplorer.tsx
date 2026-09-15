@@ -136,6 +136,15 @@ export type ExplorerStudyState = { savedIds: string[]; attemptedIds: string[] };
 const DEFAULT_EXPLORER_STATE: ExplorerState = { search: "", sort: "paper", filters: {}, freeOnly: false, savedOnly: false, visible: EXPLORER_PAGE_SIZE };
 const EMPTY_STUDY_STATE: ExplorerStudyState = { savedIds: [], attemptedIds: [] };
 
+/**
+ * Every free/paid upsell in the explorer resolves to exactly one next action with one
+ * label. Three competing calls to action (preview the full bank, view plans, sign in and
+ * choose a plan) made the free funnel ambiguous; the free-only toggle it replaced still
+ * lives in the Filters panel as "Free questions only".
+ */
+const PLANS_LABEL = "View plans";
+const plansHrefFor = (authenticated: boolean) => (authenticated ? "/pricing" : "/login?next=/pricing");
+
 export function QuestionExplorer({
   questions,
   bankSlug,
@@ -194,6 +203,7 @@ access: ExplorerAccess;
 
   const bank = bankSlug ?? questions[0]?.bankSlug;
   const isCambridge = bank === "igcse" || bank === "igcse-additional";
+  const plansHref = plansHrefFor(access.authenticated);
   const subtopicGroups = useMemo(
     () => getSubtopicGroups(catalogQuestions, filters.topics ?? [], filters.subtopics ?? []),
     [catalogQuestions, filters.topics, filters.subtopics],
@@ -602,7 +612,7 @@ access: ExplorerAccess;
           <MagnifyingGlass aria-hidden="true" />
           <input value={search} onChange={(event) => { setSearch(event.target.value); setVisible(EXPLORER_PAGE_SIZE); }} placeholder="Search questions, topics, or methods" />
         </label>
-        <button ref={filterTriggerRef} className="mobile-filter-button" type="button" aria-haspopup="dialog" aria-expanded={filtersOpen} onClick={() => setFiltersOpen(true)}><Funnel /> Filters {activeCount ? `(${activeCount})` : ""}</button>
+        <button ref={filterTriggerRef} className={`mobile-filter-button${activeCount ? " is-active" : ""}`} type="button" aria-haspopup="dialog" aria-expanded={filtersOpen} onClick={() => setFiltersOpen(true)}><Funnel weight="bold" aria-hidden="true" /> Filters{activeCount ? ` (${activeCount})` : ""}</button>
         <SortSelector value={sort} onChange={setSort} />
         <button className="share-view-button toolbar-icon-button" type="button" title="Share this view" aria-label="Copy link to this view" onClick={shareWorkspace}><ShareNetwork aria-hidden="true" /></button>
         <button ref={pdfTriggerRef} className="download-button toolbar-icon-button" type="button" title="Download PDF" aria-label="Download PDF" onClick={() => access.canExportPdf ? setPdfOpen(true) : showPdfUpgrade()}><DownloadSimple aria-hidden="true" /></button>
@@ -612,7 +622,7 @@ access: ExplorerAccess;
       {indexError && <div className="access-notice" role="alert"><span>{indexError}</span><button className="text-button" type="button" onClick={() => { setIndexError(""); setIndexAttempt((attempt) => attempt + 1); }}>Retry question index</button></div>}
       {assetError && <div className="access-notice" role="alert"><span>{assetError}</span><button className="text-button" type="button" onClick={retryQuestionAssets}>Retry images</button></div>}
       {studyError && <div className="access-notice" role="alert">{studyError}</div>}
-      {!access.bankAccess && <div className="free-value-strip"><div><strong>{freeOnly ? "Free exam years are open." : "You’re browsing the full bank."}</strong><span>{freeOnly ? "Practise now or preview every question in this bank." : "Locked questions show what a paid bank plan unlocks."}</span></div><div>{freeOnly && <button className="text-button" type="button" onClick={() => { setFreeOnly(false); setVisible(EXPLORER_PAGE_SIZE); }}>Preview full bank</button>}<Link href="/pricing">View plans</Link></div></div>}
+      {!access.bankAccess && <div className="free-value-strip"><div><strong>{freeOnly ? "Free exam years are open." : "You’re browsing the full bank."}</strong><span>{freeOnly ? "Practise now, or clear the Free questions only filter to preview the rest." : "Locked questions show what a paid bank plan unlocks."}</span></div><Link className="button secondary" href={plansHref}>{PLANS_LABEL}</Link></div>}
 
       <div className="explorer-layout">
         {filtersOpen && <button className="filter-backdrop" type="button" tabIndex={-1} aria-hidden="true" onClick={() => setFiltersOpen(false)} />}
@@ -667,7 +677,7 @@ access: ExplorerAccess;
       </div>
 
       {pdfOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfDialogRef} className="pdf-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-title"><button className="pdf-close" aria-label="Close PDF options" onClick={() => setPdfOpen(false)}><X /></button><p className="eyebrow">Worksheet builder</p><h2 id="pdf-title">Download {exportQuestions.length.toLocaleString()} questions</h2><p>{selectionIsExplicit ? "Using your selected questions, including selections outside the current filters." : filtered.length > MAX_PDF_QUESTIONS ? `Worksheets are limited to ${MAX_PDF_QUESTIONS} questions. Narrow your filters or make a selection for a different set.` : "No manual selection yet, so this uses every current result."}</p><div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div><button className="download-button pdf-download" disabled={!exportQuestions.length} onClick={handleDownload}><DownloadSimple /> Build PDF</button>{pdfStatus && <small>{pdfStatus}</small>}</section></div>}
-      {pdfUpgradeOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfUpgradeDialogRef} className="pdf-dialog access-upgrade-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-upgrade-title"><button className="pdf-close" aria-label="Close PDF access message" onClick={() => setPdfUpgradeOpen(false)}><X /></button><span className="access-upgrade-icon"><DownloadSimple aria-hidden="true" weight="bold" /></span><h2 id="pdf-upgrade-title">PDF export needs paid access</h2><p>Build and download worksheets with paid access to this question bank.</p><Link className="button primary" href={access.authenticated ? "/pricing" : "/login?next=/pricing"}>{access.authenticated ? "View pricing" : "Sign in and choose a plan"}</Link></section></div>}
+      {pdfUpgradeOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfUpgradeDialogRef} className="pdf-dialog access-upgrade-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-upgrade-title"><button className="pdf-close" aria-label="Close PDF access message" onClick={() => setPdfUpgradeOpen(false)}><X /></button><span className="access-upgrade-icon"><DownloadSimple aria-hidden="true" weight="bold" /></span><h2 id="pdf-upgrade-title">PDF export needs paid access</h2><p>Build and download worksheets with paid access to this question bank.</p><Link className="button primary" href={plansHref}>{PLANS_LABEL}</Link></section></div>}
     </section>
   );
 }
@@ -724,7 +734,7 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, questio
     <article className="question-card question-paper">
       <header className="question-card-header"><div className="question-meta"><span>{question.year} {question.session}</span><span>Paper {question.paper}</span><span>Question {question.number}</span>{question.component && <span>Component {question.component}</span>}{question.zone && <span>{question.zone}</span>}{question.marks !== null && <span>{question.marks} {question.marks === 1 ? "mark" : "marks"}</span>}</div>{unlocked && <label className="pdf-select"><input aria-label={`Add question ${question.number} to PDF`} type="checkbox" checked={selected} onChange={onSelect} /> Add to PDF</label>}</header>
       <div className="question-topic"><strong>{formatPublicLabel(question.primaryTopic)}</strong>{question.subtopics.slice(0, 4).map((topic) => <span key={topic}>{formatPublicLabel(topic)}</span>)}</div>
-      {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} onError={onQuestionAssetError} />) : <div className="asset-placeholder" role="status">Loading original question</div>}</div> : <div className="question-locked"><strong>Paid plan required</strong><span>Unlock this bank’s full question set, answers, and PDF export.</span><Link href={authenticated ? "/pricing" : "/login?next=/pricing"}>{authenticated ? "View pricing" : "Sign in and choose a plan"}</Link></div>}
+      {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} onError={onQuestionAssetError} />) : <div className="asset-placeholder" role="status">Loading original question</div>}</div> : <div className="question-locked"><strong>Paid plan required</strong><span>Unlock this bank’s full question set, answers, and PDF export.</span><Link className="question-locked-action" href={plansHrefFor(authenticated)}>{PLANS_LABEL}</Link></div>}
       <div className="question-actions">
         <div className="question-action-buttons">{unlocked ? ((question.solution || question.markschemeImageCount > 0) ? <button className="answer-toggle" disabled={answerLoading} aria-expanded={answerOpen} onClick={toggleAnswer}>{answerLoading ? "Loading answer..." : answerOpen ? "Hide answer" : "Show answer"}</button> : <span className="muted">Answer coming soon</span>) : null}{answerError && <span className="muted" role="alert">{answerError}</span>}</div>
         <div className="source-links">{attempted && <span className="study-state"><CheckCircle weight="fill" /> Practised</span>}{authenticated && unlocked && <button className={`study-icon-button ${saved ? "is-saved" : ""}`} title={saved ? "Remove from saved" : "Save question"} aria-label={saved ? `Remove question from saved ${question.id}` : `Save question ${question.id}`} onClick={onToggleSaved}><BookmarkSimple weight={saved ? "fill" : "regular"} aria-hidden="true" /></button>}</div>

@@ -4,7 +4,7 @@ import { authorizeAssetRequests, type AssetRequest, type AuthorizedAssetRequest 
 import { getBank, type BankSlug } from "@/lib/banks";
 import { normalizeEntitlements } from "@/lib/entitlements";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
-import { signPrivateAssetUrls } from "@/lib/private-assets";
+import { premiumAssetSignOptions, previewAssetSignOptions, signPrivateAssetUrls } from "@/lib/private-assets";
 import { loadBankQuestions } from "@/lib/question-loader";
 import { createClient } from "@/lib/supabase/server";
 
@@ -99,8 +99,8 @@ export async function POST(request: Request) {
     let assets: Array<{ questionId: string; kind: "question" | "answer"; urls: Array<string | undefined> }> = [];
     if (paths.length) {
       const [previewUrls, premiumUrls] = await Promise.all([
-        signPrivateAssetUrls(previewPaths, 600, { provider: "supabase" }),
-        signPrivateAssetUrls(premiumPaths, 600),
+        signPrivateAssetUrls(previewPaths, 600, previewAssetSignOptions(bank)),
+        signPrivateAssetUrls(premiumPaths, 600, premiumAssetSignOptions(bank)),
       ]);
       const urlByPath = new Map([...previewUrls, ...premiumUrls]);
       assets = authorized.map((item) => ({

@@ -62,7 +62,9 @@ describe("article library", () => {
     expect(ALL_ARTICLES.filter(({ draft }) => draft)).toHaveLength(plannedDrafts.length);
     for (const [slug, title, publishedAt] of plannedDrafts) {
       const article = ALL_ARTICLES.find((candidate) => candidate.slug === slug);
-      expect(article, slug).toMatchObject({ slug, title, publishedAt, updatedAt: "2026-09-12", draft: true });
+      // The Co-ordinated Sciences 0654 draft carries the release-gate wording update.
+      const expectedUpdatedAt = slug === "best-igcse-coordinated-sciences-0654-question-banks" ? "2026-09-15" : "2026-09-12";
+      expect(article, slug).toMatchObject({ slug, title, publishedAt, updatedAt: expectedUpdatedAt, draft: true });
       expect(getArticle(slug), slug).toBeUndefined();
     }
   });

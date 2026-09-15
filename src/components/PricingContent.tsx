@@ -7,6 +7,7 @@ import { useCallback, useState } from "react";
 import { CustomBundleCheckout, PlanCheckout, PortalButton } from "@/components/BillingActions";
 import { CourseIcon, courseToneForBank } from "@/components/CourseIcon";
 import type { ProductId } from "@/lib/access";
+import { bankEntryHref, hasFreeTier } from "@/lib/access";
 import { type Bank, type BankSlug } from "@/lib/banks";
 import { getGraduatedBundlePrice } from "@/lib/custom-bundles";
 import { getCatalogBanksForDisplay, getCatalogRuntimeBanks } from "@/lib/catalog";
@@ -29,7 +30,7 @@ const PLANS = [
   },
   {
     name: "All Access", label: PRICING_MODEL.allAccess.label, monthly: formatPrice(PRICING_MODEL.allAccess.monthlyCents), annualMonthly: formatPrice(PRICING_MODEL.allAccess.annualCents / 12), annual: formatPrice(PRICING_MODEL.allAccess.annualCents), annualSaving: `${annualSavingPercent(PRICING_MODEL.allAccess.monthlyCents, PRICING_MODEL.allAccess.annualCents)}%`,
-    description: "Everything, including future banks.", mode: "all" as const, tone: "premium", artwork: "/artwork/flegel-study.jpg", popular: false, icon: CrownSimple, cta: "Get All Access",
+    description: "Everything, including future banks.", mode: "all" as const, tone: "premium", artwork: "/artwork/plato-academy-mosaic.jpg", popular: false, icon: CrownSimple, cta: "Get All Access",
   },
 ] as const;
 
@@ -56,7 +57,7 @@ function formatCents(cents: number | null): string {
 }
 
 function BankTable({ banks }: { banks: readonly Bank[] }) {
-  return <div className="pricing-bank-table-wrap"><table className="pricing-bank-table" aria-label="Question bank coverage"><thead><tr><th scope="col">Question bank</th><th scope="col">Questions</th><th scope="col">Papers</th><th scope="col">Coverage</th><th scope="col"><span className="sr-only">Preview</span></th></tr></thead><tbody>{banks.map((bank) => { const tone = courseToneForBank(bank); return <tr className={`course-tone-${tone}`} data-pricing-bank={bank.slug} key={bank.slug}><th scope="row"><div className="pricing-bank-name"><CourseIcon tone={tone} /><div><span>{bank.qualification}</span><strong>{bank.shortName}</strong></div></div></th><td data-label="Questions">{bank.questionCount.toLocaleString()}</td><td data-label="Papers">{bank.paperCount}</td><td data-label="Coverage">{bank.years}</td><td className="pricing-bank-preview"><Link href={`/banks/${bank.slug}?free=1`} aria-label={`Preview ${bank.shortName}`}>Preview</Link></td></tr>; })}</tbody></table></div>;
+  return <div className="pricing-bank-table-wrap"><table className="pricing-bank-table" aria-label="Question bank coverage"><thead><tr><th scope="col">Question bank</th><th scope="col">Questions</th><th scope="col">Papers</th><th scope="col">Coverage</th><th scope="col"><span className="sr-only">Preview</span></th></tr></thead><tbody>{banks.map((bank) => { const tone = courseToneForBank(bank); const free = hasFreeTier(bank.slug); return <tr className={`course-tone-${tone}`} data-pricing-bank={bank.slug} data-has-free-tier={free ? "true" : undefined} key={bank.slug}><th scope="row"><div className="pricing-bank-name"><CourseIcon tone={tone} /><div><span>{bank.qualification}</span><strong>{bank.shortName}</strong></div></div></th><td data-label="Questions">{bank.questionCount.toLocaleString()}</td><td data-label="Papers">{bank.paperCount}</td><td data-label="Coverage">{bank.years}</td><td className="pricing-bank-preview">{free ? <Link href={bankEntryHref(bank.slug)} aria-label={`Preview ${bank.shortName}`}>Preview</Link> : <span className="pricing-bank-no-preview" aria-hidden="true">-</span>}</td></tr>; })}</tbody></table></div>;
 }
 
 export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], initialInterval = "monthly", initialProductId, initialBankIds, availableBanks = getCatalogRuntimeBanks() }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; initialInterval?: BillingInterval; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[] }) {
@@ -157,7 +158,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
 
       <div className="pricing-free-strip">
         <div><strong>Not ready to pay?</strong><span>Practise complete older exam years for free.</span></div>
-        {hasPaidAccess ? <span className="plan-status">Paid access is active</span> : <Link className="button secondary" href="/banks/igcse?free=1">Browse free questions</Link>}
+        {hasPaidAccess ? <span className="plan-status">Paid access is active</span> : <Link className="button secondary" href={bankEntryHref("igcse")}>Browse free questions</Link>}
       </div>
 
       <div className="pricing-includes-compact" aria-label="Included with every paid plan">

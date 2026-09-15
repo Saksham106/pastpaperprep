@@ -269,8 +269,12 @@ describe("QuestionExplorer", () => {
     expect(await screen.findByRole("img", { name: /original question/i })).toBeInTheDocument();
     expect(screen.queryByText(/all-access question/i)).not.toBeInTheDocument();
     expect(screen.getByText(/free exam years are open/i)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /preview full bank/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /view plans/i })).toHaveAttribute("href", "/pricing");
+    // One clear next action, one label: the competing "preview the full bank" and
+    // "sign in and choose a plan" calls to action were collapsed into this single CTA.
+    expect(screen.getAllByRole("link", { name: /^view plans$/i })).toHaveLength(1);
+    expect(screen.getByRole("link", { name: /^view plans$/i })).toHaveAttribute("href", "/login?next=/pricing");
+    expect(screen.queryByRole("button", { name: /preview full bank/i })).not.toBeInTheDocument();
+    expect(screen.queryByText(/sign in and choose a plan/i)).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("checkbox", { name: /free questions only/i }));
     expect(screen.getByText(/paid plan required/i)).toBeInTheDocument();
     expect(screen.queryByText(/all-access question/i)).not.toBeInTheDocument();
@@ -279,7 +283,7 @@ describe("QuestionExplorer", () => {
     expect(upgradeDialog).toBeInTheDocument();
     expect(document.body.style.overflow).toBe("hidden");
     expect(screen.getByRole("button", { name: /close pdf access message/i })).toHaveFocus();
-    expect(within(upgradeDialog).getByRole("link", { name: /sign in and choose a plan/i })).toHaveAttribute("href", "/login?next=/pricing");
+    expect(within(upgradeDialog).getByRole("link", { name: /^view plans$/i })).toHaveAttribute("href", "/login?next=/pricing");
     fireEvent.keyDown(document, { key: "Escape" });
     expect(screen.queryByRole("dialog", { name: /pdf export needs paid access/i })).not.toBeInTheDocument();
     expect(document.body.style.overflow).toBe("");

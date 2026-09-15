@@ -3,7 +3,7 @@ import { hasBankAccess, isPreviewQuestion, type AccessEntitlement } from "@/lib/
 import { authorizeAssetRequests, type AssetRequest } from "@/lib/asset-access";
 import { getBank, type BankSlug } from "@/lib/banks";
 import { normalizeEntitlements } from "@/lib/entitlements";
-import { signPrivateAssetUrls } from "@/lib/private-assets";
+import { premiumAssetSignOptions, previewAssetSignOptions, signPrivateAssetUrls } from "@/lib/private-assets";
 import { getQuestionRichDetails } from "@/lib/question-delivery";
 import { createClient } from "@/lib/supabase/server";
 
@@ -85,8 +85,8 @@ export async function POST(request: Request) {
 
   try {
     const [previewUrls, premiumUrls] = await Promise.all([
-      signPrivateAssetUrls(previewPaths, 600, { provider: "supabase" }),
-      signPrivateAssetUrls(premiumPaths, 600),
+      signPrivateAssetUrls(previewPaths, 600, previewAssetSignOptions(body.bank as BankSlug)),
+      signPrivateAssetUrls(premiumPaths, 600, premiumAssetSignOptions(body.bank as BankSlug)),
     ]);
     const urlByPath = new Map([...previewUrls, ...premiumUrls]);
 

@@ -27,6 +27,11 @@ export const RELEASE_BANKS = {
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_PHYSICS_SOURCE_ROOT',
     originalCandidateRuntimeSha256: '204e21dd3c7d21c4186dc29e242f79129210f6b90c03d1af2335c8517e512c77',
   },
+  'igcse-coordinated-sciences-0654': {
+    prefix: 'igcse-coordinated-sciences-0654',
+    sourceRootEnv: 'PASTPAPERPREP_IGCSE_COORDINATED_SOURCE_ROOT',
+    originalCandidateRuntimeSha256: '5843c2c07c5d2357f18b3dd0de3910dede8443c36b3feff11827ee5441dd3c95',
+  },
 };
 
 export function sha256(value) {
