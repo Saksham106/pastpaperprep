@@ -243,6 +243,7 @@ describe("POST /api/billing/checkout", () => {
   });
 
   it("creates an enabled Economics custom bundle through the existing custom price", async () => {
+    vi.stubEnv("NODE_ENV", "production");
     vi.stubEnv("PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION", "true");
     vi.stubEnv("PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED", "true");
     const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };

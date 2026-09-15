@@ -1,4 +1,5 @@
 import { isIGCSEReleaseBank, isLocalEconomicsBank, type BankSlug, type ProductionBankSlug } from "@/lib/banks";
+import { BANK_CATALOG } from "@/lib/catalog";
 
 export type ProductId = "bank_igcse" | "bank_igcse_additional" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bank_ib_chemistry_hl" | "bank_ib_chemistry_sl" | "bank_ib_physics_hl" | "bank_ib_physics_sl" | "bank_ib_biology_hl" | "bank_ib_biology_sl" | "bank_ib_economics_hl" | "bank_ib_economics_sl" | "bank_igcse_biology_0610" | "bank_igcse_economics_0455" | "bank_igcse_chemistry_0620" | "bank_igcse_physics_0625" | "bundle_igcse" | "bundle_ib_aa" | "bundle_ib_ai" | "bundle_ib_chemistry" | "bundle_ib_physics" | "bundle_ib_biology" | "bundle_ib_economics" | "bundle_all" | "bundle_custom";
 export type EntitlementStatus = "active" | "trialing" | "expired" | "revoked";
@@ -11,43 +12,13 @@ export type AccessEntitlement = {
   expiresAt: string | null;
 };
 
-export const BANK_PRODUCTS: Partial<Record<BankSlug, ProductId>> = {
-  igcse: "bank_igcse",
-  "igcse-additional": "bank_igcse_additional",
-  "ib-hl": "bank_ib_hl",
-  "ib-sl": "bank_ib_sl",
-  "ib-ai-hl": "bank_ib_ai_hl",
-  "ib-ai-sl": "bank_ib_ai_sl",
-  "ib-chemistry-hl": "bank_ib_chemistry_hl",
-  "ib-chemistry-sl": "bank_ib_chemistry_sl",
-  "ib-physics-hl": "bank_ib_physics_hl",
-  "ib-physics-sl": "bank_ib_physics_sl",
-  "ib-biology-hl": "bank_ib_biology_hl",
-  "ib-biology-sl": "bank_ib_biology_sl",
-  "ib-economics-hl": "bank_ib_economics_hl",
-  "ib-economics-sl": "bank_ib_economics_sl",
-  "igcse-biology-0610": "bank_igcse_biology_0610",
-  "igcse-economics-0455": "bank_igcse_economics_0455",
-  "igcse-chemistry-0620": "bank_igcse_chemistry_0620",
-  "igcse-physics-0625": "bank_igcse_physics_0625",
-};
+export const BANK_PRODUCTS: Partial<Record<BankSlug, ProductId>> = Object.fromEntries(
+  BANK_CATALOG.filter((bank) => bank.productId).map((bank) => [bank.slug, bank.productId]),
+) as Partial<Record<BankSlug, ProductId>>;
 
-const BANK_BUNDLES: Partial<Record<BankSlug, readonly ProductId[]>> = {
-  igcse: ["bundle_igcse"],
-  "igcse-additional": ["bundle_igcse"],
-  "ib-hl": ["bundle_ib_aa"],
-  "ib-sl": ["bundle_ib_aa"],
-  "ib-ai-hl": ["bundle_ib_ai"],
-  "ib-ai-sl": ["bundle_ib_ai"],
-  "ib-chemistry-hl": ["bundle_ib_chemistry"],
-  "ib-chemistry-sl": ["bundle_ib_chemistry"],
-  "ib-physics-hl": ["bundle_ib_physics"],
-  "ib-physics-sl": ["bundle_ib_physics"],
-  "ib-biology-hl": ["bundle_ib_biology"],
-  "ib-biology-sl": ["bundle_ib_biology"],
-  "ib-economics-hl": ["bundle_ib_economics"],
-  "ib-economics-sl": ["bundle_ib_economics"],
-};
+const BANK_BUNDLES: Partial<Record<BankSlug, readonly ProductId[]>> = Object.fromEntries(
+  BANK_CATALOG.filter((bank) => bank.bundleProductId).map((bank) => [bank.slug, [bank.bundleProductId as ProductId]]),
+) as Partial<Record<BankSlug, readonly ProductId[]>>;
 
 export const PREVIEW_QUESTION_IDS: Record<ProductionBankSlug, readonly string[]> = {
   igcse: [

@@ -190,6 +190,7 @@ access: ExplorerAccess;
   const pdfTriggerRef = useRef<HTMLButtonElement>(null);
   const pdfDialogRef = useRef<HTMLElement>(null);
   const pdfUpgradeDialogRef = useRef<HTMLElement>(null);
+  const explorerRootRef = useRef<HTMLElement>(null);
 
   const bank = bankSlug ?? questions[0]?.bankSlug;
   const isCambridge = bank === "igcse" || bank === "igcse-additional";
@@ -345,9 +346,26 @@ access: ExplorerAccess;
   }, [filtersOpen]);
 
   useEffect(() => {
+    if (!filtersOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = previousOverflow; };
+  }, [filtersOpen]);
+
+  useEffect(() => {
+    const root = explorerRootRef.current;
+    if (!root) return;
+    const underlying = [...root.querySelectorAll<HTMLElement>(".explorer-toolbar, .access-notice, .free-value-strip, .explorer-results")];
+    underlying.forEach((element) => { element.inert = filtersOpen; });
+    return () => underlying.forEach((element) => { element.inert = false; });
+  }, [filtersOpen]);
+
+  useEffect(() => {
     if (!pdfOpen) return;
     const dialog = pdfDialogRef.current;
     const trigger = pdfTriggerRef.current;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     const focusable = () => [...(dialog?.querySelectorAll<HTMLElement>("button:not([disabled]), input:not([disabled]), select:not([disabled]), a[href]") ?? [])];
     focusable()[0]?.focus();
     const onKeyDown = (event: KeyboardEvent) => {
@@ -372,6 +390,7 @@ access: ExplorerAccess;
     document.addEventListener("keydown", onKeyDown);
     return () => {
       document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = previousOverflow;
       trigger?.focus();
     };
   }, [pdfOpen]);
@@ -576,7 +595,7 @@ access: ExplorerAccess;
   };
 
   return (
-    <section className="explorer" aria-label="Question explorer">
+    <section ref={explorerRootRef} className="explorer" aria-label="Question explorer">
       <div className="explorer-toolbar">
         <label className="search-field">
           <span className="sr-only">Search questions</span>
@@ -621,7 +640,7 @@ access: ExplorerAccess;
           </div>
         </aside>
 
-        <div className="explorer-results">
+        <div className="explorer-results" inert={filtersOpen || undefined}>
           <div className="results-heading">
             <div><strong>{filtered.length.toLocaleString()} {freeOnly ? "free " : ""}{filtered.length === 1 ? "question" : "questions"}</strong>{selectionIsExplicit && <span>{selectedIds.size} selected for PDF</span>}</div>
             <div>{selectionIsExplicit && <button className="text-button" onClick={() => { setSelectionIsExplicit(false); setSelectedIds(new Set()); }}>Use all results for PDF</button>}{(search || activeCount > 0) && <button className="text-button" onClick={clearFilters}>Clear filters</button>}</div>

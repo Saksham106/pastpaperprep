@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { PricingContent } from "@/components/PricingContent";
 import { getBillingBanks } from "@/lib/banks";
@@ -18,6 +18,7 @@ describe("IB Economics pricing discovery gate", () => {
     expect(within(oneBank).queryByRole("radio", { name: "IB Economics SL" })).not.toBeInTheDocument();
     expect(within(builder).getByRole("checkbox", { name: "IB Economics HL" })).toBeInTheDocument();
     expect(within(builder).getByRole("checkbox", { name: "IB Economics SL" })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("tab", { name: "IB Diploma" }));
     expect(screen.getByRole("row", { name: /IB Economics HL/ })).toBeInTheDocument();
     expect(screen.getByRole("row", { name: /IB Economics SL/ })).toBeInTheDocument();
   });

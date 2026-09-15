@@ -19,7 +19,7 @@ import { buildEconomicsAssetUploadManifest } from "@/lib/economics-asset-manifes
 const ROOT = process.cwd();
 const SOURCE_ROOT = process.env.PASTPAPERPREP_IB_ECONOMICS_SOURCE_ROOT ?? join(ROOT, "..", "ib-economics-topic-practice");
 const productionEnv = {
-  NODE_ENV: "development",
+  NODE_ENV: "production",
   PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION: "true",
   PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED: "true",
 };

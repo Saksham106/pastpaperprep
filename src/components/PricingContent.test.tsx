@@ -16,12 +16,13 @@ describe("approved custom-bank pricing", () => {
     expect(cards[0]).toHaveAttribute("data-plan-tone", "starter");
     expect(cards[1]).toHaveAttribute("data-plan-tone", "builder");
     expect(cards[2]).toHaveAttribute("data-plan-tone", "premium");
-    expect(container.querySelector(".plan-art")).toBeNull();
+    expect(container.querySelectorAll(".plan-art")).toHaveLength(3);
+    expect(new Set([...container.querySelectorAll<HTMLImageElement>(".plan-art")].map((image) => image.getAttribute("src"))).size).toBe(3);
     expect(container.querySelectorAll(".plan-icon[aria-hidden=\"true\"]")).toHaveLength(3);
     expect(container.querySelectorAll(".plan-feature-list")).toHaveLength(0);
     expect(within(cards[0] as HTMLElement).getByText("Focus on one syllabus.")).toBeInTheDocument();
     expect(within(cards[1] as HTMLElement).getByText("Mix the banks you actually take.")).toBeInTheDocument();
-    expect(within(cards[1] as HTMLElement).getByText("Two to five banks")).toBeInTheDocument();
+    expect(within(cards[1] as HTMLElement).getByText("2 to 5 banks")).toBeInTheDocument();
     expect(within(cards[2] as HTMLElement).getByText("Everything, including future banks.")).toBeInTheDocument();
     expect(within(cards[0] as HTMLElement).queryByRole("link", { name: "Choose One Bank" })).not.toBeInTheDocument();
     expect(within(cards[1] as HTMLElement).queryByRole("link", { name: /Continue with/ })).not.toBeInTheDocument();
@@ -195,11 +196,20 @@ describe("approved custom-bank pricing", () => {
     expect(within(oneBank!).getByRole("radio", { name: "IB Math AA SL" })).toBeChecked();
   });
 
-  it("keeps free access compact and preserves the coverage comparison", () => {
+  it("keeps free access compact and switches the coverage comparison by qualification", () => {
     const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} />);
     expect(container.querySelector(".pricing-free-strip")).not.toBeNull();
-    const table = screen.getByRole("table", { name: "Question bank coverage" });
-    expect(within(table).getAllByRole("row")).toHaveLength(13);
+
+    const cambridgeTab = screen.getByRole("tab", { name: "Cambridge IGCSE" });
+    const ibTab = screen.getByRole("tab", { name: "IB Diploma" });
+    expect(cambridgeTab).toHaveAttribute("aria-selected", "true");
+    expect(screen.getByRole("table", { name: "Question bank coverage" })).toBeVisible();
+    expect(within(screen.getByRole("table", { name: "Question bank coverage" })).getAllByRole("row")).toHaveLength(3);
+
+    fireEvent.click(ibTab);
+    expect(ibTab).toHaveAttribute("aria-selected", "true");
+    expect(cambridgeTab).toHaveAttribute("aria-selected", "false");
+    expect(within(screen.getByRole("table", { name: "Question bank coverage" })).getAllByRole("row")).toHaveLength(11);
     expect(container.querySelectorAll("[data-pricing-bank]")).toHaveLength(12);
   });
 });

@@ -6,6 +6,7 @@ import { metadata } from "@/app/page";
 import { BANKS, getAvailableBanks } from "@/lib/banks";
 
 const liveBankEnvironment = {
+  NODE_ENV: "production",
   PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION: "true",
   PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED: "true",
   PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true",
@@ -35,15 +36,17 @@ describe("home page corpus summary", () => {
     expect(markup).not.toContain("Export the outcome");
     expect(markup).not.toContain("gives your next session a shape");
     expect(markup).not.toContain(">+</span>");
-    expect(markup).toContain("Cambridge IGCSE Additional Mathematics 0606");
-    expect(markup).toContain("Cambridge IGCSE Mathematics 0580");
+    expect(markup).toContain("Additional Mathematics 0606");
+    expect(markup).toContain("Mathematics 0580");
+    expect(markup).not.toContain("Cambridge IGCSE Mathematics 0580");
     expect(markup).not.toMatch(/^<main/);
-    expect(markup).toContain("data-qualification-icon=\"igcse\"");
-    expect(markup).toContain("data-qualification-icon=\"ib\"");
+    expect(markup).toContain("role=\"tablist\"");
+    expect(markup).toContain("Cambridge IGCSE");
+    expect(markup).toContain("IB Diploma");
     expect(markup).not.toContain("IGCSE + IB Maths + Chemistry + Physics + Biology");
     expect(markup).not.toContain("exam-index-visual");
     expect(markup).not.toContain("More subjects are on the way.");
-    expect(markup.match(/data-course-icon=/g)).toHaveLength(5);
+    expect(markup.match(/data-course-icon=/g)).toHaveLength(10);
   });
 
   it("shows every enabled release bank, grouped by subject with a real economics icon", () => {
@@ -53,10 +56,10 @@ describe("home page corpus summary", () => {
     expect(enabledBanks).toHaveLength(18);
     expect(markup).toContain("IB Economics HL");
     expect(markup).toContain("IB Economics SL");
-    expect(markup).toContain("IGCSE Biology 0610");
-    expect(markup).toContain("IGCSE Economics 0455");
-    expect(markup).toContain("IGCSE Chemistry 0620");
-    expect(markup).toContain("IGCSE Physics 0625");
+    expect(markup).toContain("Biology 0610");
+    expect(markup).toContain("Economics 0455");
+    expect(markup).toContain("Chemistry 0620");
+    expect(markup).toContain("Physics 0625");
     expect(markup).toContain("href=\"/banks/ib-economics-hl?free=1\"");
     expect(markup).toContain("href=\"/banks/igcse-biology-0610?free=1\"");
     expect(markup).toContain("href=\"/banks/igcse-economics-0455?free=1\"");
@@ -64,9 +67,23 @@ describe("home page corpus summary", () => {
     expect(markup).toContain("href=\"/banks/igcse-physics-0625?free=1\"");
     expect(markup).toContain("data-course-icon=\"economics\"");
     expect(markup).toContain("18 banks");
-    expect(markup).toContain("Cambridge IGCSE Mathematics 0580");
+    expect(markup).toContain("Mathematics 0580");
+    expect(markup).not.toContain("Cambridge IGCSE Mathematics 0580");
     expect(markup).not.toContain("ArrowUpRight");
-    expect(markup.match(/data-course-icon=/g)).toHaveLength(10);
+    expect(markup.match(/data-course-icon=/g)).toHaveLength(20);
+  });
+
+  it("gives each subject panel a visual hook and centers singleton banks", () => {
+    const markup = renderToStaticMarkup(<MarketingHome environment={liveBankEnvironment} />);
+
+    expect(markup).toContain('data-subject-tone="chemistry"');
+    expect(markup).toContain('data-subject-tone="biology"');
+    expect(markup).toContain('data-subject-tone="physics"');
+    expect(markup).toContain('data-subject-tone="economics"');
+    expect(markup).toContain('data-bank-count="1"');
+    expect(markup).toContain('data-subject-watermark="true"');
+    expect(markup).toMatch(/bankCardsSingle/);
+    expect(markup).not.toContain('ArrowUpRight');
   });
 
   it("switches qualification panels with the tablist keyboard contract", () => {

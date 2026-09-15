@@ -5,6 +5,7 @@ import { CaretDown, Check } from "@phosphor-icons/react";
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import type { ProductId } from "@/lib/access";
 import { BANKS, type Bank, type BankSlug } from "@/lib/banks";
+import { getCatalogBank } from "@/lib/catalog";
 
 type Navigate = (url: string) => void;
 type BillingError = { error?: unknown };
@@ -41,24 +42,9 @@ function getBankGroups(banks: readonly Bank[]): readonly BankGroup[] {
   ];
 }
 
-const BANK_PRODUCT_BY_SLUG: Partial<Record<BankSlug, ProductId>> = {
-  igcse: "bank_igcse",
-  "igcse-additional": "bank_igcse_additional",
-  "ib-hl": "bank_ib_hl",
-  "ib-sl": "bank_ib_sl",
-  "ib-ai-hl": "bank_ib_ai_hl",
-  "ib-ai-sl": "bank_ib_ai_sl",
-  "ib-chemistry-hl": "bank_ib_chemistry_hl",
-  "ib-chemistry-sl": "bank_ib_chemistry_sl",
-  "ib-physics-hl": "bank_ib_physics_hl",
-  "ib-physics-sl": "bank_ib_physics_sl",
-  "ib-biology-hl": "bank_ib_biology_hl",
-  "ib-biology-sl": "bank_ib_biology_sl",
-  "igcse-biology-0610": "bank_igcse_biology_0610",
-  "igcse-economics-0455": "bank_igcse_economics_0455",
-  "igcse-chemistry-0620": "bank_igcse_chemistry_0620",
-  "igcse-physics-0625": "bank_igcse_physics_0625",
-};
+function bankProductForSlug(slug: BankSlug): ProductId | undefined {
+  return getCatalogBank(slug)?.productId as ProductId | undefined;
+}
 
 function PlanSelector({ options, value, onChange }: {
   options: readonly { productId: ProductId; label: string }[];
@@ -295,12 +281,12 @@ export function CustomBundleCheckout({
   ctaLabel?: string;
 }) {
   const selectableBanks = mode === "single"
-    ? availableBanks.filter((bank) => Boolean(BANK_PRODUCT_BY_SLUG[bank.slug]))
+    ? availableBanks.filter((bank) => Boolean(bankProductForSlug(bank.slug)) && getCatalogBank(bank.slug)?.bundleProductId !== "bundle_ib_economics")
     : availableBanks;
   const [selectedBankIds, setSelectedBankIds] = useState<BankSlug[]>(() => {
     const initial = [...initialBankIds];
     const initialSingleBank = initial[0];
-    return mode === "single" && initialSingleBank && BANK_PRODUCT_BY_SLUG[initialSingleBank]
+    return mode === "single" && initialSingleBank && bankProductForSlug(initialSingleBank)
       ? [initialSingleBank]
       : mode === "builder" ? initial : [];
   });
@@ -314,7 +300,7 @@ export function CustomBundleCheckout({
   const bankSelection = [...selectedBankIds].sort();
   const pricingReturn = `/pricing?interval=${interval}&banks=${encodeURIComponent(bankSelection.join(","))}`;
   const selectedBankName = availableBanks.find((bank) => bank.slug === selectedBankIds[0])?.shortName;
-  const singleProductId = selectedBankIds[0] ? BANK_PRODUCT_BY_SLUG[selectedBankIds[0]] : undefined;
+  const singleProductId = selectedBankIds[0] ? bankProductForSlug(selectedBankIds[0]) : undefined;
   const canCheckout = mode === "single" ? quantity === 1 && Boolean(singleProductId) : quantity >= 2;
   const bankGroups = getBankGroups(selectableBanks);
   const selectionSummary = mode === "single"

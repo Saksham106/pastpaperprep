@@ -51,7 +51,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geist.variable} ${mono.variable}`} suppressHydrationWarning>
-      <body>
+      <body data-build-revision={process.env.NEXT_PUBLIC_BUILD_REVISION ?? "local"}>
         <Script id="pastpaperprep-theme" strategy="beforeInteractive">{THEME_INIT_SCRIPT}</Script>
         <SessionAwareSiteHeader />
         <main>{children}</main>
