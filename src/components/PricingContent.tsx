@@ -129,60 +129,62 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
   };
 
   return (
-    <section className="simple-page pricing-page shell">
-      <div className="pricing-intro">
-        <p className="eyebrow">PastPaperPrep pricing</p>
-        <h1 aria-label="Pay only for what you study.">Pay only for what you study.</h1>
-        <p className="page-lede">Choose the question banks you need. Every plan includes the same study tools.</p>
-      </div>
-
-      {authenticated ? (
-        <section className="pricing-current-plan" aria-labelledby="current-plan-heading">
-          <div><span className="eyebrow">Account</span><h2 id="current-plan-heading">Your current plan</h2></div>
-          <div className="pricing-current-plan-details">
-            <strong>{hasPaidAccess ? currentPlanNames.join(", ") || "Paid access" : "Free"}</strong>
-            <span>{hasPaidAccess ? "Your access is active. Use billing to cancel or update payment details." : "Choose a plan below to unlock every available question."}</span>
-          </div>
-          {hasPaidAccess ? <PortalButton /> : null}
-        </section>
-      ) : null}
-
-      <div className="billing-toggle" role="group" aria-label="Billing period">
-        <button type="button" aria-pressed={interval === "monthly"} onClick={() => setInterval("monthly")}>Monthly</button>
-        <button className="billing-toggle-annual" type="button" aria-pressed={interval === "annual"} onClick={() => setInterval("annual")}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
-      </div>
-
-      <div className="pricing-decision-grid" aria-label="PastPaperPrep plans">
-        {PLANS.map(renderPlan)}
-      </div>
-
-      <div className="pricing-free-strip">
-        <div><strong>Not ready to pay?</strong><span>Practise complete older exam years for free.</span></div>
-        {hasPaidAccess ? <span className="plan-status">Paid access is active</span> : <Link className="button secondary" href={bankEntryHref("igcse")}>Browse free questions</Link>}
-      </div>
-
-      <div className="pricing-includes-compact" aria-label="Included with every paid plan">
-        <span><Check /> All available questions</span>
-        <span><Check /> Answers and mark schemes where available</span>
-        <span><Check /> Smart filters</span>
-        <span><Check /> PDF export</span>
-      </div>
-
-      <section className="pricing-bank-catalog" aria-labelledby="pricing-bank-catalog-heading">
-        <div className="pricing-bank-catalog-heading">
-          <div>
-            <p className="eyebrow">What you get</p>
-            <h2 id="pricing-bank-catalog-heading">Compare every question bank</h2>
-          </div>
-          <p>See the real coverage behind each choice before you pay.</p>
+    <div className="public-surface">
+      <section className="simple-page pricing-page shell">
+        <div className="pricing-intro">
+          <p className="eyebrow">PastPaperPrep pricing</p>
+          <h1 aria-label="Pay only for what you study.">Pay only for what you study.</h1>
+          <p className="page-lede">Choose the question banks you need. Every plan includes the same study tools.</p>
         </div>
-        <QualificationTabs className="pricing-qualification-tabs" items={[
-          { id: "pricing-cambridge", label: "Cambridge IGCSE", panel: <BankTable banks={availableBanks.filter((bank) => bank.qualification === "Cambridge IGCSE")} /> },
-          { id: "pricing-ib", label: "IB Diploma", panel: <BankTable banks={availableBanks.filter((bank) => bank.qualification === "International Baccalaureate")} /> },
-        ].filter((item) => item.panel.props.banks.length > 0)} />
-      </section>
 
-      <p className="checkout-note">Secure Stripe checkout. Cancel any time. Existing subscribers remain grandfathered at their current price and access.</p>
-    </section>
+        {authenticated ? (
+          <section className="pricing-current-plan" aria-labelledby="current-plan-heading">
+            <div><span className="eyebrow">Account</span><h2 id="current-plan-heading">Your current plan</h2></div>
+            <div className="pricing-current-plan-details">
+              <strong>{hasPaidAccess ? currentPlanNames.join(", ") || "Paid access" : "Free"}</strong>
+              <span>{hasPaidAccess ? "Your access is active. Use billing to cancel or update payment details." : "Choose a plan below to unlock every available question."}</span>
+            </div>
+            {hasPaidAccess ? <PortalButton /> : null}
+          </section>
+        ) : null}
+
+        <div className="billing-toggle" role="group" aria-label="Billing period">
+          <button type="button" aria-pressed={interval === "monthly"} onClick={() => setInterval("monthly")}>Monthly</button>
+          <button className="billing-toggle-annual" type="button" aria-pressed={interval === "annual"} onClick={() => setInterval("annual")}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
+        </div>
+
+        <div className="pricing-decision-grid" aria-label="PastPaperPrep plans">
+          {PLANS.map(renderPlan)}
+        </div>
+
+        <div className="pricing-free-strip">
+          <div><strong>Not ready to pay?</strong><span>Practise complete older exam years for free.</span></div>
+          {hasPaidAccess ? <span className="plan-status">Paid access is active</span> : <Link className="button secondary" href={bankEntryHref("igcse")}>Browse free questions</Link>}
+        </div>
+
+        <div className="pricing-includes-compact" aria-label="Included with every paid plan">
+          <span><Check /> All available questions</span>
+          <span><Check /> Answers and mark schemes where available</span>
+          <span><Check /> Smart filters</span>
+          <span><Check /> PDF export</span>
+        </div>
+
+        <section className="pricing-bank-catalog" aria-labelledby="pricing-bank-catalog-heading">
+          <div className="pricing-bank-catalog-heading">
+            <div>
+              <p className="eyebrow">What you get</p>
+              <h2 id="pricing-bank-catalog-heading">Compare every question bank</h2>
+            </div>
+            <p>See the real coverage behind each choice before you pay.</p>
+          </div>
+          <QualificationTabs className="pricing-qualification-tabs" items={[
+            { id: "pricing-cambridge", label: "Cambridge IGCSE", panel: <BankTable banks={availableBanks.filter((bank) => bank.qualification === "Cambridge IGCSE")} /> },
+            { id: "pricing-ib", label: "IB Diploma", panel: <BankTable banks={availableBanks.filter((bank) => bank.qualification === "International Baccalaureate")} /> },
+          ].filter((item) => item.panel.props.banks.length > 0)} />
+        </section>
+
+        <p className="checkout-note">Secure Stripe checkout. Cancel any time. Existing subscribers remain grandfathered at their current price and access.</p>
+      </section>
+    </div>
   );
 }

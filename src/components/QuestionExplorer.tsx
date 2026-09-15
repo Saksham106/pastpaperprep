@@ -29,6 +29,14 @@ const SORT_OPTIONS: readonly { value: QuestionSort; label: string }[] = [
   { value: "marks-asc", label: "Marks: low to high" },
 ];
 
+/**
+ * The default sort is also the one the URL omits, so it is the only state the reader has not
+ * chosen. Its trigger stays the compact "Sort" label instead of spelling out "Newest papers";
+ * once any option is chosen the trigger names that choice. `aria-label` always announces the
+ * real sort, so the accessible name stays more precise than the visible label.
+ */
+const DEFAULT_SORT: QuestionSort = "paper";
+
 function SortSelector({ value, onChange }: { value: QuestionSort; onChange: (value: QuestionSort) => void }) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -37,6 +45,7 @@ function SortSelector({ value, onChange }: { value: QuestionSort; onChange: (val
   const listboxId = useId();
   const labelId = useId();
   const selected = SORT_OPTIONS.find((option) => option.value === value) ?? SORT_OPTIONS[0];
+  const isDefaultSort = value === DEFAULT_SORT;
 
   useEffect(() => {
     if (!open) return;
@@ -100,7 +109,7 @@ function SortSelector({ value, onChange }: { value: QuestionSort; onChange: (val
           }
         }}
       >
-        <span><small>Sort</small>{selected.label}</span>
+        <span>{isDefaultSort ? "Sort" : <><small>Sort</small>{selected.label}</>}</span>
         <CaretDown aria-hidden="true" weight="bold" />
       </button>
       {open && (
@@ -133,7 +142,7 @@ function unique(questions: UnifiedQuestion[], value: (question: UnifiedQuestion)
 export type ExplorerAccess = { authenticated: boolean; bankAccess: boolean; canExportPdf: boolean };
 export type ExplorerStudyState = { savedIds: string[]; attemptedIds: string[] };
 
-const DEFAULT_EXPLORER_STATE: ExplorerState = { search: "", sort: "paper", filters: {}, freeOnly: false, savedOnly: false, visible: EXPLORER_PAGE_SIZE };
+const DEFAULT_EXPLORER_STATE: ExplorerState = { search: "", sort: DEFAULT_SORT, filters: {}, freeOnly: false, savedOnly: false, visible: EXPLORER_PAGE_SIZE };
 const EMPTY_STUDY_STATE: ExplorerStudyState = { savedIds: [], attemptedIds: [] };
 
 /**

@@ -58,6 +58,32 @@ describe("QuestionExplorer", () => {
     expect(screen.getByRole("button", { name: /sort questions: marks: high to low/i })).toHaveAttribute("aria-expanded", "false");
   });
 
+  it("shows the compact Sort label until a sort option is chosen, then the chosen option", async () => {
+    window.history.replaceState({}, "", "/banks/ib-sl");
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 8), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    render(<QuestionExplorer questions={questions} access={fullAccess} initialState={{ search: "", sort: "paper", filters: {}, freeOnly: false, savedOnly: false, visible: 24 }} />);
+
+    // Default (newest) state: the trigger stays compact, and the default sort is not in the URL.
+    const trigger = screen.getByRole("button", { name: "Sort questions: Newest papers" });
+    expect(trigger.textContent?.trim()).toBe("Sort");
+    expect(trigger.textContent).not.toContain("Newest papers");
+    expect(trigger).toHaveAttribute("aria-haspopup", "listbox");
+    await waitFor(() => expect(window.location.search).not.toContain("sort="));
+
+    // An explicit choice is announced and becomes the trigger label.
+    fireEvent.click(trigger);
+    fireEvent.click(screen.getByRole("option", { name: "Topic" }));
+    const updated = screen.getByRole("button", { name: "Sort questions: Topic" });
+    expect(updated.textContent).toContain("Topic");
+    expect(updated.textContent).not.toContain("Newest papers");
+    await waitFor(() => expect(window.location.search).toContain("sort=topic"));
+
+    // Selection state inside the listbox still points at exactly one option.
+    fireEvent.click(updated);
+    expect(screen.getByRole("option", { name: "Topic" })).toHaveAttribute("aria-selected", "true");
+    expect(screen.getByRole("option", { name: "Newest papers" })).toHaveAttribute("aria-selected", "false");
+  });
+
   it("keeps the PDF download icon visible on hover in both themes", () => {
     const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
     expect(css).toMatch(/\.download-button:hover\s*\{[^}]*color:\s*var\(--accent-contrast\)/);
@@ -214,6 +240,26 @@ describe("QuestionExplorer", () => {
 
     fireEvent.click(screen.getByRole("button", { name: /more filters/i }));
     expect(screen.queryByRole("group", { name: /^course$/i })).not.toBeInTheDocument();
+  });
+
+  it("keeps the mobile Filters control wider and more prominent with its active count", () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-hl").slice(0, 120), [{ productId: "bank_ib_hl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const year = String(questions[0].year);
+    const { container } = render(<QuestionExplorer questions={questions} access={fullAccess} initialState={{ search: "", sort: "paper", filters: { years: [year] }, freeOnly: false, savedOnly: false, visible: 24 }} />);
+
+    const toolbar = container.querySelector(".explorer-toolbar");
+    expect(toolbar).not.toBeNull();
+    const filterButton = container.querySelector<HTMLButtonElement>(".explorer-toolbar .mobile-filter-button");
+    expect(filterButton).not.toBeNull();
+    expect(filterButton).toHaveClass("is-active");
+    expect(filterButton!.textContent?.trim()).toBe("Filters (1)");
+    expect(filterButton).toHaveAttribute("aria-expanded", "false");
+    expect(filterButton!.querySelector("svg")).not.toBeNull();
+
+    // Row one keeps search plus the two view actions; row two is filters and sort only.
+    const rowOrder = [...toolbar!.children].map((child) => child.className);
+    expect(rowOrder.filter((name) => /mobile-filter-button|sort-field/.test(name))).toHaveLength(2);
+    expect(container.querySelectorAll(".explorer-toolbar > *")).toHaveLength(5);
   });
 
   it("opens additional filters when a shared workspace already uses one", () => {

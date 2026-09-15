@@ -89,6 +89,48 @@ describe("home page corpus summary", () => {
     expect(markup).not.toContain('ArrowUpRight');
   });
 
+  it("splits Mathematics 0580 and 0606 into two separate full-tile bank links", () => {
+    const { container } = render(<MarketingHome environment={liveBankEnvironment} />);
+    const cambridgePanel = container.querySelector("#cambridge-catalog-panel");
+    expect(cambridgePanel).not.toBeNull();
+
+    const groups = [...cambridgePanel!.querySelectorAll<HTMLElement>('[class*="subjectGroup"]')];
+    const mathematics = groups.find((group) => group.querySelector("h4")?.textContent === "Mathematics");
+    expect(mathematics, "expected one Mathematics subject group").toBeTruthy();
+    // Mathematics is the panel's first child, so a positional `:first-child` rule can shift it.
+    expect(groups[0]).toBe(mathematics);
+
+    const tiles = [...mathematics!.querySelectorAll<HTMLAnchorElement>("a[data-bank-slug]")];
+    expect(tiles.map((tile) => tile.dataset.bankSlug)).toEqual(["igcse", "igcse-additional"]);
+    expect(tiles.map((tile) => tile.getAttribute("href")))
+      .toEqual(["/banks/igcse?free=1", "/banks/igcse-additional?free=1"]);
+    expect(tiles[0].textContent).toContain("Mathematics 0580");
+    expect(tiles[1].textContent).toContain("Additional Mathematics 0606");
+    expect(tiles[0].textContent).toMatch(/questions/);
+
+    // The subject group itself is a container, never a link, and each bank is the whole cell.
+    expect(mathematics!.closest("a")).toBeNull();
+    const tilesContainer = mathematics!.querySelector<HTMLElement>('[class*="bankCards"]');
+    expect(tilesContainer).not.toBeNull();
+    expect([...tilesContainer!.children].map((child) => child.tagName)).toEqual(["A", "A"]);
+    // The pair keeps its own two-tile layout class inside the centered subject column.
+    expect(tilesContainer!.className).toContain("bankCardsTwo");
+    const content = tilesContainer!.parentElement;
+    expect(content!.className).toContain("subjectContent");
+  });
+
+  it("makes every rendered bank tile its own full-tile link with a readable name", () => {
+    const { container } = render(<MarketingHome environment={liveBankEnvironment} />);
+
+    expect(container.querySelectorAll("a a")).toHaveLength(0);
+    const tiles = [...container.querySelectorAll<HTMLAnchorElement>("a[data-bank-slug]")];
+    expect(tiles).toHaveLength(19);
+    for (const tile of tiles) {
+      expect(tile.textContent?.trim()).not.toBe("");
+      expect(tile.textContent).toMatch(/\d+\squestions/);
+    }
+  });
+
   it("switches qualification panels with the tablist keyboard contract", () => {
     const { getAllByRole } = render(<MarketingHome environment={liveBankEnvironment} />);
     const tabs = getAllByRole("tab");

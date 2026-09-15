@@ -20,9 +20,9 @@
 .sectionHeader { max-width: 650px; margin-bottom: 28px; }
 .sectionHeader h2, .workflowIntro h2, .cta h2 { margin: 12px 0; color: var(--ink); font: 540 clamp(2.6rem, 5vw, 4.6rem)/.94 Georgia, "Times New Roman", serif; letter-spacing: -.065em; }
 .sectionHeader > p:last-child, .workflowIntro > p:last-child { max-width: 530px; margin: 0; color: var(--muted); line-height: 1.55; }
-.qualificationTabs { display: flex; gap: 8px; margin-bottom: 18px; border-bottom: 1px solid var(--line-strong); }
-.qualificationTab { min-height: 48px; padding: 11px 4px 12px; margin-right: 18px; color: var(--muted); background: transparent; border: 0; border-bottom: 2px solid transparent; font: 700 .75rem/1 var(--font-mono); }
-.qualificationTab[aria-selected="true"], .qualificationTab:hover { color: #7f293a; border-color: #7f293a; }
+.qualificationTabs { display: flex; gap: 8px; margin-bottom: 18px; }
+/* Button look lives in globals so landing, dashboard, and pricing stay identical. */
+.qualificationTab { min-height: 48px; margin-right: 0; font: 700 .75rem/1 var(--font-mono); }
 .qualificationSwitcher, .tabPanel { min-width: 0; }
 .catalog { border: 1px solid var(--line-strong); background: var(--surface); }
 .catalogHeader { min-height: 84px; padding: 16px 20px; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 14px; }
@@ -33,7 +33,6 @@
 .catalogCount { color: var(--muted); font: 550 .73rem/1 var(--font-mono); white-space: nowrap; }
 .subjectGrid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; padding: 0 20px 20px; }
 .subjectGroup { min-width: 0; padding: 19px 13px 0; border-top: 1px solid var(--line); }
-.subjectGroup:first-child { padding-left: 0; }.subjectGroup:last-child { padding-right: 0; }
 .subjectGroup header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
 .subjectGroup h4 { margin: 0; font: 600 1.16rem/1.1 Georgia, serif; }
 .subjectGroup .course-icon { width: 25px; height: 25px; border-radius: 50%; }.subjectGroup .course-icon svg { width: 14px; height: 14px; }
@@ -49,9 +48,6 @@
 
 /* The catalogue is an index, not a dashboard: let paper and typography carry it. */
 .banks { background: #f1eee6; }
-.qualificationTabs { gap: 26px; margin-bottom: 24px; border-bottom-color: #bdb4a4; }
-.qualificationTab { min-height: 56px; padding: 11px 0 14px; margin-right: 0; color: #526073; font-size: .82rem; letter-spacing: .01em; }
-.qualificationTab[aria-selected="true"] { color: #7f293a; border-bottom-width: 3px; }
 .catalog { border: 0; background: transparent; }
 .catalogHeader { min-height: 0; padding: 0 0 18px; grid-template-columns: auto minmax(0, 1fr) auto; border-bottom: 1px solid #d0c8ba; }
 .catalogMark { width: 34px; height: 34px; background: transparent; border: 0; }
@@ -61,8 +57,9 @@
 .subjectGroup:nth-last-child(2):nth-child(4) { grid-column: 2 / span 2; }
 .subjectGroup:nth-last-child(1):nth-child(5) { grid-column: 4 / span 2; }
 .subjectGroup header { padding-bottom: 11px; border-bottom: 1px solid #d0c8ba; }
-.bankCards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 28px; }
-.bankCard { min-height: 76px; padding: 13px 0; background: transparent; border: 0; border-bottom: 1px solid #ddd6ca; }
+.bankCards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+/* Every bank is its own boxed, full-tile link; two-bank subjects stack so both names stay legible. */
+.bankCard { min-height: 76px; padding: 12px 14px; background: color-mix(in srgb, var(--course-accent, #2f5bea) 5%, var(--surface)); border: 1px solid color-mix(in srgb, var(--course-accent, #b9b09f) 34%, #c8bfae); border-radius: 9px; transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
 .catalogHeading { min-width: 0; }
 .catalogTitleLine { display: flex; align-items: baseline; flex-wrap: wrap; gap: 12px 18px; }
 .catalogTitleLine h3 { margin-bottom: 0; }
@@ -72,13 +69,12 @@
   .catalogHeader { padding-bottom: 14px; }
 }
 
-.bankCard:hover { background: rgb(255 255 255 / .24); border-color: #b9948f; transform: none; }
+.bankCard:hover { background: color-mix(in srgb, var(--course-accent, #2f5bea) 11%, var(--surface)); border-color: var(--course-accent, #b9948f); box-shadow: 0 10px 22px rgb(76 45 34 / .1); transform: translateY(-2px); }
 /* Editorial catalog density follows the actual number of banks. */
 .subjectGroup header { padding-bottom: 0; border-bottom: 0; }
 .bankCards.bankCardsSingle { grid-template-columns: minmax(0, 1fr); }
-.bankCards.bankCardsTwo { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.bankCards.bankCardsTwo { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); grid-auto-rows: 1fr; }
 .bankCards.bankCardsMany { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
-.bankCards .bankCard { border-bottom: 0; }
 .bankChips span { padding: 0; background: transparent; border: 0; }
 .bankChips span + span::before { content: "/"; margin: 0 5px; color: #bdb4a4; }
 @media (max-width: 620px) {
@@ -87,13 +83,12 @@
   .catalogHeader { padding-bottom: 15px; }
   .catalogHeader h3 { font-size: 1.35rem; }
   .subjectGrid { gap: 0; }
-  .bankCards { grid-template-columns: 1fr; gap: 0; }
-  .subjectGroup, .subjectGroup:first-child, .subjectGroup:last-child { padding: 19px 0 0; }
+  .bankCards { grid-template-columns: 1fr; gap: 10px; }
   .bankCard { min-height: 72px; }
 }
 @media (prefers-reduced-motion: no-preference) { .heroCopy { animation: rise-in 680ms cubic-bezier(.16,1,.3,1) both; } @keyframes rise-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } } }
 @media (max-width: 900px) { .subjectGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }.subjectGroup, .subjectGroup:nth-last-child(2):nth-child(4), .subjectGroup:nth-last-child(1):nth-child(5) { grid-column: auto; }.subjectGroup:last-child:nth-child(odd) { grid-column: 1 / -1; width: 50%; justify-self: center; }.subjectGroup:nth-child(n+3) { border-top: 1px solid var(--line); }.workflowGrid { grid-template-columns: 1fr; gap: 42px; } }
-@media (max-width: 620px) { .hero { min-height: auto; padding: 90px 0 32px; }.heroStage { min-height: 560px; }.heroCopy { width: 100%; padding: 32px 14px 142px; }.hero h1 { font-size: clamp(3rem, 15vw, 4.2rem); }.hero h1 em { white-space: nowrap; }.heroActions { align-items: stretch; flex-direction: column; }.heroActions .button { width: 100%; }.heroBuilding { inset: 0; width: 100%; height: 100%; opacity: .29; object-position: 44% 58%; }.heroBotanical { display: none; }.heroIndex { right: 4%; bottom: 18px; padding: 8px 10px; background: rgb(238 233 223 / .86); font-size: .76rem; line-height: 1.45; text-shadow: none; }.banks { padding: 64px 0 76px; }.sectionHeader { width: 100%; }.sectionHeader h2, .workflowIntro h2, .cta h2 { font-size: clamp(2.2rem, 10vw, 2.9rem); line-height: 1.18; max-width: 100%; text-wrap: balance; }.qualificationTabs { margin-bottom: 12px; }.catalogHeader { padding: 14px; align-items: start; }.catalogHeader h3 { font-size: 1.25rem; }.catalogHeader p { line-height: 1.35; }.catalogCount { padding-top: 5px; }.subjectGrid { grid-template-columns: 1fr; padding: 0 14px 14px; }.subjectGroup, .subjectGroup:first-child, .subjectGroup:last-child, .subjectGroup:last-child:nth-child(odd) { grid-column: auto; width: 100%; padding: 20px 0; }.bankCard { min-height: 88px; }.workflow { padding: 76px 0 84px; }.cta { align-items: stretch; flex-direction: column; margin-block: 70px 80px; padding: 32px 24px 36px; }.ctaActions, .ctaActions .button { width: 100%; }.ctaActions { justify-items: stretch; }.ctaArtwork { right: 8px; bottom: 8px; width: 280px; height: 165px; opacity: .2; } }
+@media (max-width: 620px) { .hero { min-height: auto; padding: 90px 0 32px; }.heroStage { min-height: 560px; }.heroCopy { width: 100%; padding: 32px 14px 142px; }.hero h1 { font-size: clamp(3rem, 15vw, 4.2rem); }.hero h1 em { white-space: nowrap; }.heroActions { align-items: stretch; flex-direction: column; }.heroActions .button { width: 100%; }.heroBuilding { inset: 0; width: 100%; height: 100%; opacity: .29; object-position: 44% 58%; }.heroBotanical { display: none; }.heroIndex { right: 4%; bottom: 18px; padding: 8px 10px; background: rgb(238 233 223 / .86); font-size: .76rem; line-height: 1.45; text-shadow: none; }.banks { padding: 64px 0 76px; }.sectionHeader { width: 100%; }.sectionHeader h2, .workflowIntro h2, .cta h2 { font-size: clamp(2.2rem, 10vw, 2.9rem); line-height: 1.18; max-width: 100%; text-wrap: balance; }.qualificationTabs { margin-bottom: 12px; }.catalogHeader { padding: 14px; align-items: start; }.catalogHeader h3 { font-size: 1.25rem; }.catalogHeader p { line-height: 1.35; }.catalogCount { padding-top: 5px; }.subjectGrid { grid-template-columns: 1fr; padding: 0 14px 14px; }.subjectGroup, .subjectGroup:first-child, .subjectGroup:last-child, .subjectGroup:last-child:nth-child(odd) { grid-column: auto; width: 100%; }.bankCard { min-height: 88px; }.workflow { padding: 76px 0 84px; }.cta { align-items: stretch; flex-direction: column; margin-block: 70px 80px; padding: 32px 24px 36px; }.ctaActions, .ctaActions .button { width: 100%; }.ctaActions { justify-items: stretch; }.ctaArtwork { right: 8px; bottom: 8px; width: 280px; height: 165px; opacity: .2; } }
 @media (max-width: 390px) { .hero h1 { font-size: 3.1rem; }.heroStage { min-height: 540px; }.catalogCount { font-size: .67rem; } }
 .subjectGroup header { justify-content: center; text-align: center; }
 .subjectGroup h4 { text-align: center; }
@@ -129,9 +124,9 @@
 .subjectGroup[data-subject-tone="economics"] { --subject-tint: #efe7d3; }
 .bankCards { position: relative; z-index: 1; }
 .bankCard { color: #26334b; }
-.bankCardsSingle { width: min(100%, 260px); margin-inline: auto; }
+.bankCardsSingle, .bankCardsTwo { width: min(100%, 260px); margin-inline: auto; }
 .bankCardsSingle .bankCard { justify-content: center; }
-.bankCardsTwo, .bankCardsMany { width: 100%; }
+.bankCardsMany { width: 100%; }
 @media (max-width: 900px) {
   .subjectGroup { min-height: 206px; padding-inline: 18px; }
   .subjectWatermark .course-icon { width: 150px; height: 150px; }
@@ -143,7 +138,7 @@
   .subjectWatermark { right: -22px; bottom: -32px; }
   .subjectWatermark .course-icon { width: 138px; height: 138px; }
   .subjectWatermark .course-icon svg { width: 118px; height: 118px; }
-  .bankCardsSingle { width: min(100%, 300px); }
+  .bankCardsSingle, .bankCardsTwo { width: min(100%, 300px); }
 }
 @media (max-width: 360px) {
   .subjectGroup { min-height: 182px; padding-inline: 10px; }

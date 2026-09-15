@@ -152,6 +152,14 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .course-tone-biology { --course-accent: var(--success); }
 .course-tone-economics { --course-accent: #9a6a24; }
 .course-tone-coordinated { --course-accent: #1f6f74; }
+/* One subject-tone palette shared by every surface (landing panels and dashboard study panels). */
+[data-subject-tone="math"] { --subject-panel-tint: #e5eaf3; }
+[data-subject-tone="chemistry"] { --subject-panel-tint: #f0e2d8; }
+[data-subject-tone="physics"] { --subject-panel-tint: #e7e2f0; }
+[data-subject-tone="biology"] { --subject-panel-tint: #dfebe1; }
+[data-subject-tone="economics"] { --subject-panel-tint: #efe7d3; }
+[data-subject-tone="coordinated"] { --subject-panel-tint: #dceced; }
+:root[data-theme="dark"] [data-subject-tone] { --subject-panel-tint: color-mix(in srgb, var(--course-accent, var(--cobalt)) 14%, var(--surface-raised)); }
 .course-icon { width: 38px; height: 38px; flex: 0 0 auto; display: grid; align-items: center; justify-items: center; line-height: 0; color: var(--course-accent, var(--cobalt)); background: color-mix(in srgb, var(--course-accent, var(--cobalt)) 10%, var(--surface)); border: 1px solid color-mix(in srgb, var(--course-accent, var(--cobalt)) 25%, var(--line)); border-radius: 9px; }
 .course-icon svg { width: 20px; height: 20px; display: block; }
 .curriculum-heading { align-self: center; display: grid; grid-template-columns: 38px minmax(0, 1fr); align-items: center; gap: 14px; }
@@ -219,7 +227,7 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .dashboard-upgrade-strip > div { display: grid; gap: 4px; }
 .dashboard-upgrade-strip span { color: var(--muted); }
 .dashboard-bank-groups { margin-top: 24px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; align-items: stretch; }
-.dashboard-bank-family { min-width: 0; padding: 14px; display: grid; grid-template-rows: auto 1fr; background: var(--surface-raised); border: 1px solid var(--line); border-top: 4px solid var(--course-accent, var(--cobalt)); border-radius: 12px; }
+.dashboard-bank-family { min-width: 0; padding: 14px; display: grid; grid-template-rows: auto 1fr; background: var(--subject-panel-tint, var(--surface-raised)); border: 1px solid color-mix(in srgb, var(--course-accent, var(--cobalt)) 30%, var(--line-strong)); border-radius: 12px; }
 .dashboard-bank-family > header { min-height: 46px; margin-bottom: 10px; display: flex; align-items: start; justify-content: space-between; gap: 12px; }
 .dashboard-bank-family-title { min-width: 0; display: flex; align-items: center; gap: 10px; }
 .dashboard-bank-family-title .course-icon { width: 32px; height: 32px; border-radius: 8px; }
@@ -227,18 +235,22 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .dashboard-bank-family > header h2 { margin: 0; font: 840 1.35rem/1.1 var(--font-display); letter-spacing: -.035em; }
 .dashboard-bank-family > header > span { margin: 0; color: var(--muted); font-size: .78rem; }
 .dashboard-bank-family > header > span { white-space: nowrap; }
-.dashboard-bank-grid { display: grid; grid-template-columns: 1fr; grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 10px; }
-.dashboard-bank-card { position: relative; min-height: 158px; padding: 16px; display: flex; flex-direction: column; overflow: hidden; background: color-mix(in srgb, var(--course-accent, var(--cobalt)) 3%, var(--surface)); border: 1px solid var(--line); border-top: 2px solid color-mix(in srgb, var(--course-accent, var(--cobalt)) 45%, var(--line)); border-radius: 10px; transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
-.dashboard-bank-card:hover { transform: translateY(-2px); border-color: var(--course-accent, var(--cobalt)); box-shadow: var(--shadow-sm); }
+.dashboard-bank-grid { display: grid; grid-template-columns: 1fr; grid-template-rows: none; gap: 0; align-content: start; }
+/* Banks are rows inside one tinted study panel, never a card stacked on a card. */
+.dashboard-bank-card { position: relative; padding: 14px 12px; margin-inline: -12px; display: flex; flex-direction: column; background: transparent; border: 0; border-radius: 8px; transition: background-color 160ms ease, box-shadow 160ms ease, color 160ms ease; }
+.dashboard-bank-card + .dashboard-bank-card { box-shadow: inset 0 1px color-mix(in srgb, var(--course-accent, var(--cobalt)) 24%, transparent); }
+.dashboard-bank-card:hover { background: color-mix(in srgb, var(--surface-raised) 72%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--course-accent, var(--cobalt)) 34%, var(--line-strong)); }
+.dashboard-bank-card:focus-visible { outline: 3px solid color-mix(in srgb, var(--cobalt) 60%, transparent); outline-offset: -1px; }
 
-.dashboard-bank-card.is-included { background: color-mix(in srgb, var(--course-accent, var(--cobalt)) 9%, var(--surface)); border-color: color-mix(in srgb, var(--course-accent, var(--cobalt)) 46%, var(--line)); }
+.dashboard-bank-card.is-included { background: transparent; }
 .dashboard-bank-meta, .dashboard-bank-stats { display: flex; align-items: center; justify-content: space-between; gap: 14px; color: var(--muted); font-size: .75rem; }
 .dashboard-bank-meta .course-icon { width: 34px; height: 34px; border-radius: 8px; }
 .dashboard-bank-meta .course-icon svg { width: 18px; height: 18px; }
 .dashboard-bank-meta strong { padding: 5px 8px; color: var(--course-accent, var(--cobalt-strong)); background: color-mix(in srgb, var(--course-accent, var(--cobalt)) 10%, var(--surface)); border-radius: 7px; font-size: .68rem; }
 .dashboard-bank-card h3 { margin: 10px 0 6px; font: 850 clamp(1.4rem, 2.4vw, 1.8rem)/1.03 var(--font-display); letter-spacing: -.05em; }
 .dashboard-bank-stats { margin-top: auto; padding-top: 14px; justify-content: flex-start; }
-.dashboard-bank-link { margin-top: 9px; display: inline-flex; align-items: center; gap: 7px; color: var(--course-accent, var(--cobalt)); font-weight: 850; }
+.dashboard-bank-link { margin-top: 7px; display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; color: var(--course-accent, var(--cobalt)); font-weight: 850; }
+.dashboard-bank-link small { color: var(--muted); font-size: .72rem; font-weight: 620; }
 
 /* Question bank workspace */
 .bank-hero { padding: 24px 0 19px; background: var(--surface); border-bottom: 1px solid var(--line); }
@@ -253,7 +265,7 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .bank-hero-stats { margin-top: 9px; display: flex; gap: 8px 20px; flex-wrap: wrap; color: var(--muted); font-size: .82rem; }
 .bank-hero-stats strong { color: var(--ink); }
 .explorer { padding: 20px 0 100px; }
-.explorer-toolbar { position: sticky; z-index: 6; top: 8px; padding: 8px; display: grid; grid-template-columns: minmax(260px, 1fr) auto 48px 48px; gap: 8px; color: var(--ink); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 10px; box-shadow: var(--shadow-sm); }
+.explorer-toolbar { position: sticky; z-index: 6; top: 8px; padding: 0; display: grid; grid-template-columns: minmax(260px, 1fr) auto 48px 48px; gap: 8px; color: var(--ink); background: transparent; border: 0; border-radius: 0; box-shadow: none; }
 .search-field { min-height: 48px; display: flex; align-items: center; gap: 9px; padding: 0 12px; color: var(--muted); background: var(--paper); border: 1px solid var(--line-strong); border-radius: 7px; }
 .search-field input { min-width: 0; color: var(--ink); background: transparent; border: 0; outline: 0; }
 .search-field input::placeholder { color: var(--muted); }
@@ -340,7 +352,9 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .simple-page, .articles-page, .article-page, .auth-page, .legal-page { --public-ink: #27221f; --public-muted: #6d625b; --public-burgundy: #7f293a; }
 .simple-page h1, .articles-page h1, .article-page h1, .auth-card h1, .legal-page h1 { color: var(--public-ink); font-family: Georgia, "Times New Roman", serif; font-weight: 600; }
 .simple-page .eyebrow, .articles-page .eyebrow, .article-page .eyebrow, .auth-page .eyebrow, .legal-page .eyebrow { color: var(--public-burgundy); }
-.pricing-page, .articles-page, .article-page, .auth-page, .legal-page { background: color-mix(in srgb, var(--paper-warm) 44%, var(--paper)); }
+.article-page, .legal-page { background: color-mix(in srgb, var(--paper-warm) 44%, var(--paper)); }
+/* Public surfaces paint the warm off-white edge to edge, so no page band stops at the shell width. */
+.public-surface { background: color-mix(in srgb, var(--paper-warm) 44%, var(--paper)); }
 .pricing-intro, .articles-hero, .article-header, .auth-card, .legal-page { border-color: color-mix(in srgb, var(--public-burgundy) 18%, var(--line)); }
 .pricing-intro h1 span, .article-header h1 em { color: var(--public-burgundy); }
 .pricing-page .button.primary, .auth-card .button.primary { background: var(--public-burgundy); }
@@ -762,23 +776,17 @@ body:has(.bank-hero) .site-footer::after { display: none; }
   .pricing-free-strip .button { width: 100%; }
   .dashboard-bank-groups { margin-top: 17px; gap: 22px; }
   .dashboard-bank-family { padding-top: 16px; }
-  .dashboard-bank-card { min-height: 158px; padding: 17px; }
-  .dashboard-bank-card h3 { margin-top: 10px; }
+  .dashboard-bank-card { padding: 13px 11px; }
+  .dashboard-bank-card h3 { margin-top: 7px; }
   .bank-hero { padding-block: 18px 15px; }
   .bank-hero h1 { margin-block: 4px 6px; font-size: 1.8rem; }
   .bank-hero .shell > p:not(.eyebrow) { display: none; }
   .bank-hero-stats { margin-top: 9px; display: flex; gap: 6px 14px; font-size: .75rem; }
   .explorer { padding-top: 9px; }
-  .explorer-toolbar { padding: 6px; gap: 6px; grid-template-columns: minmax(0, 1fr) 42px 42px; }
-  .explorer-toolbar .search-field { grid-column: 1 / -1; }
-  .explorer-toolbar .sort-field { grid-column: 1 / -1; grid-row: 2; min-width: 0; }
-  .explorer-toolbar .sort-select-trigger { min-height: 44px; }
-  .explorer-toolbar .sort-select-menu { left: 0; right: 0; min-width: 0; }
-  .explorer-toolbar .mobile-filter-button { grid-column: 1; grid-row: 3; }
-  .explorer-toolbar .share-view-button { grid-column: 2; grid-row: 3; }
-  .explorer-toolbar .download-button { grid-column: 3; grid-row: 3; }
-  .explorer-toolbar .search-field, .explorer-toolbar .sort-field, .explorer-toolbar .toolbar-icon-button, .explorer-toolbar .mobile-filter-button { min-height: 44px; }
-  .explorer-toolbar .toolbar-icon-button { width: 44px; }
+  .explorer-toolbar .search-field,
+  .explorer-toolbar .sort-field,
+  .explorer-toolbar .toolbar-icon-button,
+  .explorer-toolbar .mobile-filter-button { min-height: 44px; }
   .access-notice { padding: 9px 10px; align-items: flex-start; }
   .free-value-strip { align-items: flex-start; flex-wrap: wrap; }
   .free-value-strip > div:first-child { display: none; }
@@ -850,8 +858,6 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .article-index .article-card { min-height: 100%; }
 
 /* Shared qualification control and quiet editorial plan artwork. */
-.qualification-tabs-prominent [role="tablist"] { justify-content: center; gap: 34px; margin: 0 auto 26px; border-bottom: 1px solid var(--line-strong); }
-.qualification-tabs-prominent [role="tab"] { min-height: 62px; padding: 14px 8px 16px; font-size: .9rem; letter-spacing: .02em; }
 .pricing-option { background: var(--surface); }
 .pricing-option::before, .pricing-option::after { display: none; }
 .pricing-option[data-plan-tone="premium"] { --plan-accent: #7f293a; --plan-soft: #f3e5df; }
@@ -861,14 +867,10 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .auth-page { grid-template-columns: 1fr; justify-items: center; }
 .auth-page .auth-card { width: min(460px, 100%); padding: 34px; border-left: 1px solid var(--line-strong); box-shadow: var(--shadow-sm); }
 .dashboard-cambridge-subject-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.dashboard-cambridge-subject-grid .dashboard-bank-family { border-top-width: 1px; border-top-color: var(--line); }
 @media (max-width: 900px) {
   .dashboard-cambridge-subject-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .qualification-tabs-prominent [role="tablist"] { gap: 22px; }
 }
 @media (max-width: 620px) {
-  .qualification-tabs-prominent [role="tablist"] { gap: 16px; }
-  .qualification-tabs-prominent [role="tab"] { min-height: 55px; padding-inline: 3px; font-size: .78rem; }
   .dashboard-cambridge-subject-grid { grid-template-columns: 1fr; }
   .auth-page .auth-card { padding: 28px 22px; }
 }
@@ -880,31 +882,12 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 @media (max-width: 620px) { .article-featured { padding: 20px; } }
 
 /* Final review refinements: prominent tabs, compact directories, archival plans. */
-.qualification-tabs-prominent [role="tablist"] {
-  width: min(580px, 100%);
-  justify-content: center;
-  gap: 42px;
-  margin: 0 auto 34px;
-  border-bottom: 1px solid var(--line-strong);
-}
-.qualification-tabs-prominent [role="tab"] {
-  min-height: 68px;
-  flex: 1 1 0;
-  padding: 16px 10px 18px;
-  font-size: 1.05rem;
-  letter-spacing: .01em;
-}
-
 .dashboard-bank-groups { align-items: start; }
 .dashboard-bank-family {
   align-self: start;
   grid-template-rows: auto auto;
 }
-.dashboard-bank-grid {
-  grid-template-rows: none;
-  align-content: start;
-}
-.dashboard-bank-card { min-height: 146px; }
+.dashboard-bank-card { padding: 14px 12px; }
 
 .pricing-option {
   background: color-mix(in srgb, var(--surface) 94%, var(--paper-warm));
@@ -976,14 +959,6 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .auth-fine-print { text-wrap: pretty; }
 
 /* Final review polish: decisive tabs, visible art, compact study cards. */
-.qualification-tabs-prominent [role="tablist"] {
-  width: min(640px, 100%);
-  margin-inline: auto;
-}
-.qualification-tabs-prominent [role="tab"] {
-  min-height: 72px;
-  font-size: 1.15rem;
-}
 .plan-art {
   height: 270px;
   opacity: .48;
@@ -1006,16 +981,14 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .auth-page { background: transparent; }
 .dashboard-bank-family { padding: 14px; }
 .dashboard-bank-family > header { min-height: 0; margin-bottom: 8px; }
-.dashboard-bank-card { min-height: 0; padding: 13px 15px; }
+.dashboard-bank-card { padding: 13px 12px; }
 .dashboard-bank-card h3 { margin: 7px 0 2px; font-size: 1.38rem; }
 .dashboard-bank-stats { padding-top: 7px; }
 .dashboard-bank-link { margin-top: 7px; }
 
 @media (max-width: 620px) {
-  .qualification-tabs-prominent [role="tablist"] { gap: 18px; margin-bottom: 26px; }
-  .qualification-tabs-prominent [role="tab"] { min-height: 62px; padding-inline: 4px; font-size: 1rem; }
   .dashboard-bank-family { padding: 12px; }
-  .dashboard-bank-card { min-height: 0; padding: 12px 14px; }
+  .dashboard-bank-card { padding: 12px 11px; }
   .dashboard-bank-card h3 { font-size: 1.3rem; }
   .auth-page { width: min(100% - 24px, 500px); padding-block: 34px 54px; }
   .auth-page .auth-card { padding: 26px 20px; }
@@ -1025,30 +998,32 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 /* Release-candidate UX pass: boxed qualification control, subject-tone study panels,
    quiet plan artwork that keeps the represented figures visible, two-row mobile explorer. */
 
-/* 1. Shared Cambridge IGCSE / IB Diploma control: unmistakably button-like. */
+/* 1. Shared Cambridge IGCSE / IB Diploma control: two clearly boxed buttons and no tray. */
 .qualification-tabs-prominent [role="tablist"] {
-  width: auto;
+  width: fit-content;
   max-width: 100%;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 8px;
   margin: 0 auto 30px;
-  padding: 6px;
-  background: var(--surface-raised);
-  border: 1px solid var(--line-strong);
-  border-radius: 12px;
-  box-shadow: var(--shadow-sm);
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 .qualification-tabs-prominent [role="tab"] {
   flex: 0 1 auto;
   min-height: 50px;
   padding: 12px 20px;
   color: var(--ink);
-  background: var(--paper);
+  background: var(--surface);
   border: 1px solid var(--line-strong);
-  border-radius: 8px;
+  border-radius: 9px;
   font: 820 .98rem/1 var(--font-display);
   letter-spacing: .01em;
   cursor: pointer;
+  box-shadow: 0 1px 2px rgb(46 40 34 / .05);
   transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease, transform 140ms ease;
 }
 .qualification-tabs-prominent [role="tab"]:hover { color: var(--cobalt-strong); background: var(--cobalt-faint); border-color: var(--cobalt); }
@@ -1060,12 +1035,16 @@ body:has(.bank-hero) .site-footer::after { display: none; }
   box-shadow: 0 8px 18px color-mix(in srgb, var(--cobalt) 30%, transparent);
 }
 .qualification-tabs-prominent [role="tab"]:focus-visible { outline: 3px solid color-mix(in srgb, var(--cobalt) 60%, transparent); outline-offset: 2px; }
+@media (max-width: 620px) {
+  .qualification-tabs-prominent [role="tablist"] { gap: 6px; margin-bottom: 22px; }
+  .qualification-tabs-prominent [role="tab"] { min-height: 48px; padding: 12px 14px; font-size: .9rem; }
+}
 
 /* 2. Dashboard study panels carry the landing page's subject tone + watermark. */
 .dashboard-bank-family[data-subject-tone] {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--course-accent) 7%, var(--surface-raised)), var(--surface-raised) 62%);
+  background: var(--subject-panel-tint, var(--surface-raised));
 }
 .dashboard-bank-family[data-subject-tone] > header,
 .dashboard-bank-family[data-subject-tone] .dashboard-bank-grid { position: relative; z-index: 1; }
@@ -1097,21 +1076,30 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .free-value-strip > .button { flex: 0 0 auto; min-height: 40px; padding-inline: 16px; white-space: nowrap; }
 .question-locked-action { margin-top: 4px; align-self: flex-start; color: var(--cobalt); font-weight: 830; text-decoration: underline; text-underline-offset: 2px; }
 
-/* 5. Mobile question explorer: exactly two rows (search, then filters/sort/share/download). */
+/* 5. Mobile question explorer: exactly two rows. Row one is the search query plus the two
+   view actions; row two is Filters (the wide, primary refine control) and Sort (compact). */
 @media (max-width: 640px) {
   .explorer-toolbar {
-    grid-template-columns: auto minmax(0, 1fr) 44px 44px;
-    padding: 6px;
+    grid-template-columns: minmax(0, 1fr) 44px 44px;
+    grid-template-rows: auto auto;
+    padding: 0;
     gap: 6px;
   }
-  .explorer-toolbar .search-field { grid-column: 1 / -1; grid-row: 1; min-height: 44px; }
+  .explorer-toolbar .search-field { grid-column: 1; grid-row: 1; min-width: 0; min-height: 44px; padding-inline: 10px; }
+  .explorer-toolbar .share-view-button { grid-column: 2; grid-row: 1; }
+  .explorer-toolbar .download-button { grid-column: 3; grid-row: 1; }
   .explorer-toolbar .mobile-filter-button {
     grid-column: 1;
     grid-row: 2;
     display: inline-flex;
+    justify-content: center;
     min-height: 44px;
     padding-inline: 12px;
-    font-size: .82rem;
+    gap: 8px;
+    color: var(--cobalt-strong);
+    background: var(--cobalt-faint);
+    border-color: color-mix(in srgb, var(--cobalt) 36%, var(--line-strong));
+    font-size: .86rem;
     font-weight: 850;
   }
   .explorer-toolbar .mobile-filter-button.is-active {
@@ -1120,12 +1108,10 @@ body:has(.bank-hero) .site-footer::after { display: none; }
     border-color: var(--cobalt-strong);
     box-shadow: 0 6px 14px color-mix(in srgb, var(--cobalt) 30%, transparent);
   }
-  .explorer-toolbar .sort-field { grid-column: 2; grid-row: 2; min-width: 0; }
-  .explorer-toolbar .sort-select-trigger { min-height: 44px; padding-inline: 10px; font-size: .76rem; }
+  .explorer-toolbar .sort-field { grid-column: 2 / -1; grid-row: 2; min-width: 0; }
+  .explorer-toolbar .sort-select-trigger { min-height: 44px; padding-inline: 9px; gap: 6px; font-size: .76rem; }
   .explorer-toolbar .sort-select-trigger small { display: none; }
   .explorer-toolbar .sort-select-menu { left: 0; right: 0; min-width: 0; }
-  .explorer-toolbar .share-view-button { grid-column: 3; grid-row: 2; }
-  .explorer-toolbar .download-button { grid-column: 4; grid-row: 2; }
   .explorer-toolbar .toolbar-icon-button { width: 44px; min-height: 44px; }
   .free-value-strip { align-items: center; }
   .free-value-strip > div:first-child { display: grid; }

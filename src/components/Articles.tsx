@@ -33,29 +33,31 @@ export function ArticlesIndex() {
   const latestArticles = ARTICLES.filter((article) => article.slug !== featuredArticle?.slug);
 
   return (
-    <div className="articles-page shell">
-      <header className="articles-hero">
-        <p className="eyebrow">PastPaperPrep articles</p>
-        <h1>Past paper practice guides</h1>
-        <p>Clear methods and honest resource comparisons for Cambridge IGCSE Maths and IB Maths, Chemistry, Physics, and Biology.</p>
-      </header>
+    <div className="public-surface">
+      <div className="articles-page shell">
+        <header className="articles-hero">
+          <p className="eyebrow">PastPaperPrep articles</p>
+          <h1>Past paper practice guides</h1>
+          <p>Clear methods and honest resource comparisons for Cambridge IGCSE Maths and IB Maths, Chemistry, Physics, and Biology.</p>
+        </header>
 
-      <section className="article-library" aria-label="Revision guides">
-        {featuredArticle ? <div className="article-featured"><FeaturedArticle article={featuredArticle} /></div> : null}
-        <div className="article-latest"><header><p className="eyebrow">Latest guides</p><h2>Practical answers for your next session</h2></header><div className="article-index">{latestArticles.map((article) => <ArticleIndexRow article={article} key={article.slug} />)}</div></div>
-      </section>
+        <section className="article-library" aria-label="Revision guides">
+          {featuredArticle ? <div className="article-featured"><FeaturedArticle article={featuredArticle} /></div> : null}
+          <div className="article-latest"><header><p className="eyebrow">Latest guides</p><h2>Practical answers for your next session</h2></header><div className="article-index">{latestArticles.map((article) => <ArticleIndexRow article={article} key={article.slug} />)}</div></div>
+        </section>
 
-      <aside className="article-bank-cta" aria-labelledby="article-bank-heading">
-        <div>
-          <p className="eyebrow">Put it into practice</p>
-          <h2 id="article-bank-heading">Build a focused question set</h2>
-          <p>Filter real questions by course, topic, year, paper, marks, and other available exam details.</p>
-        </div>
-        <div>
-          <Link href="/#question-banks">Cambridge IGCSE Maths question banks</Link>
-          <Link href="/#question-banks">IB Maths and science question banks</Link>
-        </div>
-      </aside>
+        <aside className="article-bank-cta" aria-labelledby="article-bank-heading">
+          <div>
+            <p className="eyebrow">Put it into practice</p>
+            <h2 id="article-bank-heading">Build a focused question set</h2>
+            <p>Filter real questions by course, topic, year, paper, marks, and other available exam details.</p>
+          </div>
+          <div>
+            <Link href="/#question-banks">Cambridge IGCSE Maths question banks</Link>
+            <Link href="/#question-banks">IB Maths and science question banks</Link>
+          </div>
+        </aside>
+      </div>
     </div>
   );
 }
