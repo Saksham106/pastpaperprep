@@ -1,4 +1,5 @@
 import { renderToStaticMarkup } from "react-dom/server";
+import { render, fireEvent } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { MarketingHome } from "@/components/MarketingHome";
 import { metadata } from "@/app/page";
@@ -18,12 +19,24 @@ describe("home page corpus summary", () => {
     expect(BANKS.reduce((total, bank) => total + bank.questionCount, 0)).toBe(12332);
     expect(markup).toContain("12,332 questions");
     expect(markup).toContain("853 papers");
-    expect(markup).toContain("Past papers, sorted by topic.");
-    expect(markup).toContain("Question banks");
+    expect(markup).toContain("Practice the");
+    expect(markup).toContain("topics you need.");
+    expect(markup).not.toContain("Find a syllabus point, practise the questions that match, and keep the mark scheme close.");
+    expect(markup).toContain("Choose where to begin.");
     expect(markup).toContain("Cambridge IGCSE");
     expect(markup).toContain("IB Diploma");
-    expect(markup).toContain("Simple on purpose.");
-    expect(markup).toContain("Topic-first exam practice");
+    expect(markup).toContain("Choose your course");
+    expect(markup).toContain("From topic to finished practice set.");
+    expect(markup).toContain("PastPaperPrep");
+    expect(markup).toContain("Stay close to the syllabus and the source paper.");
+    expect(markup).toContain("mark scheme");
+    expect(markup).toContain("Download the questions and mark scheme together as a clean PDF.");
+    expect(markup).not.toContain("markscheme");
+    expect(markup).not.toContain("Export the outcome");
+    expect(markup).not.toContain("gives your next session a shape");
+    expect(markup).not.toContain(">+</span>");
+    expect(markup).toContain("Cambridge IGCSE Additional Mathematics 0606");
+    expect(markup).toContain("Cambridge IGCSE Mathematics 0580");
     expect(markup).not.toMatch(/^<main/);
     expect(markup).toContain("data-qualification-icon=\"igcse\"");
     expect(markup).toContain("data-qualification-icon=\"ib\"");
@@ -54,6 +67,18 @@ describe("home page corpus summary", () => {
     expect(markup).toContain("Cambridge IGCSE Mathematics 0580");
     expect(markup).not.toContain("ArrowUpRight");
     expect(markup.match(/data-course-icon=/g)).toHaveLength(10);
+  });
+
+  it("switches qualification panels with the tablist keyboard contract", () => {
+    const { getAllByRole } = render(<MarketingHome environment={liveBankEnvironment} />);
+    const tabs = getAllByRole("tab");
+    expect(tabs[0]).toHaveAttribute("aria-selected", "true");
+    expect(tabs[1]).toHaveAttribute("tabindex", "-1");
+    fireEvent.keyDown(tabs[0], { key: "ArrowRight" });
+    expect(tabs[1]).toHaveAttribute("aria-selected", "true");
+    expect(tabs[0]).toHaveAttribute("tabindex", "-1");
+    fireEvent.keyDown(tabs[1], { key: "Home" });
+    expect(tabs[0]).toHaveAttribute("aria-selected", "true");
   });
 
   it("describes Economics in homepage search metadata", () => {

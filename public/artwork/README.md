@@ -1,0 +1,12 @@
+# PastPaperPrep editorial artwork
+
+- Anna Atkins, “Spiraea aruncus (Tyrol)” (Met object 285421): https://www.metmuseum.org/art/collection/search/285421
+- Anna Atkins, “Photographs of British Algae: Cyanotype Impressions” (Met object 286656): https://www.metmuseum.org/art/collection/search/286656
+- Georg Flegel, “Studies of Fruits, Insects and Shells” (Met object 334930): https://www.metmuseum.org/art/collection/search/334930
+- Selected hero / CTA / footer engraving: “Georgetown 1829”, S. Pinistri (artist), W. Harrison (engraver), 1829, Georgetown University prospectus. Wikimedia Commons file page: https://commons.wikimedia.org/wiki/File:Georgetown_1829.jpg. Institutional context: https://www.library.georgetown.edu/exhibition/quad-history-fifty-images. Public domain: published in 1829 and marked public domain on Wikimedia Commons; US publication copyright has expired. Local JPEG is a resized derivative.
+
+## Selection note
+
+For the academic-building treatment, I compared the Georgetown 1829 prospectus engraving above with the Wikimedia Commons University of Oxford in art category (https://commons.wikimedia.org/wiki/Category:University_of_Oxford_in_art) and John Le Keux's *Memorials of Cambridge* (1841, Internet Archive: https://archive.org/details/universitieslek01keuxgoog). Georgetown was selected because its prospectus provenance is explicit, its public-domain status is clear, and the broad campus silhouette stays legible behind the centered headline without reading as a cropped rectangular screenshot.
+
+All three works are marked public domain in The Met Open Access API and may be freely used, modified, and distributed, including commercially. Local JPEGs are resized/progressive optimized derivatives for this landing page.
