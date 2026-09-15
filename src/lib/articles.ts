@@ -1,4 +1,5 @@
 import { ALTERNATIVES_COMPARISONS } from "@/lib/article-clusters/alternatives-comparisons";
+import { COMPETITOR_VS_COMPETITOR_PAGES } from "@/lib/article-clusters/competitor-vs-competitor";
 import { IB_HUB_MATHS_IMPROVEMENT } from "@/lib/article-clusters/ib-hub-maths-improvement";
 import { IB_SCIENCE_BUYER_GUIDES } from "@/lib/article-clusters/ib-sciences";
 import { IGCSE_BIO_COORDINATED_ECON } from "@/lib/article-clusters/igcse-bio-coordinated-econ";
@@ -146,6 +147,38 @@ export const ARTICLE_INDEX_DETAILS: Readonly<Record<string, ArticleIndexDetail>>
   "best-igcse-maths-past-paper-websites": { difficulty: "Foundational", exam: "Cambridge IGCSE", practiceLinks: [
     { href: "/banks/igcse?topic=Geometry", label: "IGCSE Maths 0580: Geometry" },
     { href: "/banks/igcse?topic=Statistics", label: "IGCSE Maths 0580: Statistics" },
+  ] },
+  "best-igcse-science-question-banks": { difficulty: "Intermediate", exam: "Cambridge IGCSE", practiceLinks: [
+    { href: "/banks/igcse-biology-0610", label: "IGCSE Biology 0610 question bank" },
+    { href: "/banks/igcse-chemistry-0620", label: "IGCSE Chemistry 0620 question bank" },
+    { href: "/banks/igcse-physics-0625", label: "IGCSE Physics 0625 question bank" },
+  ] },
+  "best-igcse-chemistry-0620-question-banks": { difficulty: "Intermediate", exam: "Cambridge IGCSE", practiceLinks: [
+    { href: "/banks/igcse-chemistry-0620", label: "IGCSE Chemistry 0620 question bank" },
+  ] },
+  "best-igcse-physics-0625-question-banks": { difficulty: "Intermediate", exam: "Cambridge IGCSE", practiceLinks: [
+    { href: "/banks/igcse-physics-0625", label: "IGCSE Physics 0625 question bank" },
+  ] },
+  "best-igcse-biology-0610-question-banks": { difficulty: "Intermediate", exam: "Cambridge IGCSE", practiceLinks: [
+    { href: "/banks/igcse-biology-0610", label: "IGCSE Biology 0610 question bank" },
+  ] },
+  "best-igcse-coordinated-sciences-0654-question-banks": { difficulty: "Intermediate", exam: "Cambridge IGCSE", practiceLinks: [
+    { href: "/banks/igcse-coordinated-sciences-0654", label: "IGCSE Co-ordinated Sciences 0654 question bank" },
+  ] },
+  "best-igcse-economics-0455-question-banks": { difficulty: "Intermediate", exam: "Cambridge IGCSE", practiceLinks: [
+    { href: "/banks/igcse-economics-0455", label: "IGCSE Economics 0455 question bank" },
+  ] },
+  "physics-and-maths-tutor-vs-save-my-exams": { difficulty: "Foundational", exam: "Cambridge IGCSE", practiceLinks: [
+    { href: "/banks/igcse?topic=Number", label: "IGCSE Maths 0580: Number" },
+    { href: "/banks/igcse-additional?topic=Algebra", label: "Additional Maths 0606: Algebra" },
+  ] },
+  "revision-village-vs-save-my-exams": { difficulty: "Advanced", exam: "IB Diploma", practiceLinks: [
+    { href: "/banks/ib-hl?topic=Calculus", label: "IB Maths AA HL: Calculus" },
+    { href: "/banks/ib-sl?topic=Functions", label: "IB Maths AA SL: Functions" },
+  ] },
+  "exam-mate-vs-save-my-exams": { difficulty: "Foundational", exam: "Cambridge IGCSE", practiceLinks: [
+    { href: "/banks/igcse?topic=Algebra%20and%20graphs", label: "IGCSE Maths 0580: Algebra and graphs" },
+    { href: "/banks/igcse-additional?topic=Calculus", label: "Additional Maths 0606: Calculus" },
   ] },
 };
 
@@ -465,9 +498,9 @@ export const ALL_ARTICLES: readonly Article[] = [
     title: "PastPaperPrep vs Save My Exams: Price and Features",
     description: "Compare PastPaperPrep and Save My Exams on pricing, real past-paper practice, notes, videos, subject coverage, and the best use for each.",
     eyebrow: "Revision platform comparison",
-    answer: "PastPaperPrep is the focused choice for building precise Cambridge IGCSE Maths and IB Mathematics, Chemistry, Physics, and Biology practice from real past-paper questions. Save My Exams is the broader revision membership: it costs more per month, but includes syllabus-aligned study guides, step-by-step exam practice, videos, visuals, downloads, and many subjects. Pick PastPaperPrep for targeted question drilling and printable sets; pick Save My Exams when you also need teaching and revision content across a wider catalogue.",
+    answer: "PastPaperPrep is the focused choice for building precise Cambridge IGCSE and IB practice from real past-paper questions across 19 live banks. Save My Exams is the broader revision membership: it costs more per month, but includes syllabus-aligned study guides, step-by-step exam practice, videos, visuals, downloads, and many subjects. Pick PastPaperPrep for targeted question drilling and printable sets; pick Save My Exams when you also need teaching and a wider curriculum library.",
     publishedAt: "2026-08-30",
-    updatedAt: "2026-09-12",
+    updatedAt: "2026-09-15",
     readingMinutes: 6,
     comparison: {
       caption: "PastPaperPrep vs Save My Exams at a glance",
@@ -507,13 +540,13 @@ export const ALL_ARTICLES: readonly Article[] = [
         heading: "Where Save My Exams wins",
         paragraphs: [
           "Save My Exams covers more subjects and more stages of learning. A student who still needs concepts explained may benefit from its study guides, worked steps, videos, and visuals before attempting exam questions.",
-          "Its one membership model is also simpler for households or students revising several subjects. PastPaperPrep currently concentrates on 12 Mathematics, Chemistry, Physics, and Biology banks, so it is not a substitute for a broad science, humanities, or English revision library.",
+          "Its one membership model is also simpler for households or students revising several subjects. PastPaperPrep currently concentrates on 19 Cambridge IGCSE and IB Mathematics, Chemistry, Physics, Biology, Co-ordinated Sciences and Economics banks, so it is still not a substitute for a broad humanities, English or full-course revision library.",
         ],
       },
     ],
     faqs: [
       { question: "Is PastPaperPrep cheaper than Save My Exams?", answer: "At the prices checked on 12 September 2026, PastPaperPrep starts at $6 monthly or $48 annually for one bank, while Save My Exams lists $40 for one month and $96 for twelve months. The plans include different products, so the cheaper fit depends on whether you need focused question practice or a broader teaching library." },
-      { question: "Which is better for IGCSE Maths and IB science past papers?", answer: "PastPaperPrep is stronger when the goal is granular, real-question filtering and custom practice sets across its supported IGCSE Maths and IB Mathematics, Chemistry, Physics, and Biology banks. Save My Exams is stronger when the student also needs notes, videos, worked explanations, and a wider subject catalogue." },
+      { question: "Which is better for IGCSE and IB past-paper practice?", answer: "PastPaperPrep is stronger when the goal is granular, real-question filtering and custom practice sets across its 19 supported Cambridge IGCSE and IB banks. Save My Exams is stronger when the student also needs notes, videos, worked explanations, and a wider subject catalogue." },
       { question: "Can I use both?", answer: "Yes. A sensible division is to learn or review a concept in Save My Exams, then use PastPaperPrep to find and retest real questions that expose whether the skill transfers to exam conditions." },
     ],
     relatedBanks: [
@@ -531,9 +564,9 @@ export const ALL_ARTICLES: readonly Article[] = [
     title: "PastPaperPrep vs Exam-Mate: Price and Features",
     description: "Compare PastPaperPrep and Exam-Mate for topical IGCSE Maths and IB Mathematics, Chemistry, Physics, and Biology past papers, pricing, filters, PDFs, and school use.",
     eyebrow: "Topical past-paper comparison",
-    answer: "PastPaperPrep and Exam-Mate are the closest match in this comparison because both help students practise past papers topically. PastPaperPrep is simpler and cheaper for its 12 supported Mathematics, Chemistry, Physics, and Biology banks, with granular filters and PDF set building in the core product. Exam-Mate supports a much wider curriculum catalogue and sells discounted school accounts, while some quiz and exam-building tools sit in separate services or plans.",
+    answer: "PastPaperPrep and Exam-Mate are the closest match in this comparison because both help students practise past papers topically. PastPaperPrep is simpler and cheaper for its 19 supported Cambridge IGCSE and IB banks, with granular filters and PDF set building in the core product. Exam-Mate supports a much wider curriculum catalogue and sells discounted school accounts, while some quiz and exam-building tools sit in separate services or plans.",
     publishedAt: "2026-08-30",
-    updatedAt: "2026-09-12",
+    updatedAt: "2026-09-15",
     readingMinutes: 6,
     comparison: {
       caption: "PastPaperPrep vs Exam-Mate at a glance",
@@ -543,7 +576,7 @@ export const ALL_ARTICLES: readonly Article[] = [
         { label: "Annual price", pastPaperPrep: "$48 one bank; $84 two banks; $216 All Access", competitor: "$120 individual subscription" },
         { label: "Free access", pastPaperPrep: "Complete older exam years", competitor: "Topical and online MCQ access through 2019" },
         { label: "PDF building", pastPaperPrep: "Included with relevant paid access", competitor: "Free tier lists one PDF with five questions; Individual topical plan says Build Exam not included" },
-        { label: "Core strength", pastPaperPrep: "Deep filtering across 12 Mathematics, Chemistry, Physics, and Biology banks", competitor: "Wide curriculum and subject catalogue" },
+        { label: "Core strength", pastPaperPrep: "Deep filtering across 19 Cambridge IGCSE and IB banks", competitor: "Wide curriculum and subject catalogue" },
         { label: "Schools", pastPaperPrep: "No public school-volume table", competitor: "Public annual per-account tiers for 20–500 accounts" },
       ],
     },
@@ -551,8 +584,8 @@ export const ALL_ARTICLES: readonly Article[] = [
       {
         heading: "The short verdict",
         paragraphs: [
-          "Choose PastPaperPrep if you study one of its Cambridge IGCSE Maths or IB Mathematics, Chemistry, Physics, or Biology banks and care most about fast, precise filtering, clear source details, answers, and building printable practice. Its narrower catalogue lets the product stay centred on that workflow.",
-          "Choose Exam-Mate if you need subjects or curricula outside PastPaperPrep's current twelve banks, or if a school needs published volume pricing. Its site offers topical and yearly papers alongside separate MCQ, Build Exam, notes, solved-paper, and AI products.",
+          "Choose PastPaperPrep if you study one of its 19 live Cambridge IGCSE or IB banks and care most about fast, precise filtering, clear source details, answers, and building printable practice. Its narrower catalogue lets the product stay centred on that workflow.",
+          "Choose Exam-Mate if you need subjects or curricula outside PastPaperPrep's current 19 banks, or if a school needs published volume pricing. Its site offers topical and yearly papers alongside separate MCQ, Build Exam, notes, solved-paper, and AI products.",
         ],
       },
       {
@@ -580,7 +613,7 @@ export const ALL_ARTICLES: readonly Article[] = [
     faqs: [
       { question: "Is PastPaperPrep cheaper than Exam-Mate?", answer: "At the prices checked on 12 September 2026, PastPaperPrep's one-bank plan costs $6 monthly or $48 annually, while Exam-Mate lists $12 monthly or $120 for twelve months for its individual topical plan. PastPaperPrep's broader multi-bank plans cost more than one Exam-Mate individual subscription, so compare the exact course access you need." },
       { question: "Does Exam-Mate include Build Exam with Topical Past Papers?", answer: "Its official Topical Past Papers pricing page says Build Exam is not included in the Individual plan and says users with a Build Exam subscription already receive the topical service. Check the current package details before buying." },
-      { question: "Which has more subjects?", answer: "Exam-Mate has the broader catalogue. PastPaperPrep currently focuses on Cambridge IGCSE Mathematics 0580 and 0606, IB Mathematics AA and AI at HL and SL, and IB Chemistry, Physics, and Biology at HL and SL." },
+      { question: "Which has more subjects?", answer: "PastPaperPrep has 19 live banks across Cambridge IGCSE Mathematics, Biology, Chemistry, Physics, Co-ordinated Sciences and Economics, plus IB Mathematics, Chemistry, Physics, Biology and Economics at HL and SL. Exam-Mate still has the broader catalogue across curricula and subjects." },
     ],
     relatedBanks: [
       { href: "/banks/igcse", label: "Cambridge IGCSE Mathematics 0580 question bank" },
@@ -837,7 +870,7 @@ export const ALL_ARTICLES: readonly Article[] = [
     eyebrow: "IB Mathematics AA HL",
     answer: "The best free IB Mathematics: Analysis and Approaches HL stack combines official IB sample materials, Christos Nikolaidis, and PastPaperPrep. Use the official curriculum and samples to confirm the course and exam format, Christos for free topic notes and exercises, and PastPaperPrep for real questions organised by topic and paper. Revision Village is useful, but its free tier is a sample rather than a free copy of the full Questionbank: the live AA HL index labels a small set of Functions subtopics “RV Free” and most other listed subtopics “RV Gold.” If you can spend a little, start with the free layer and add one targeted paid resource only when you know what is missing. Do not use random “IB past paper PDF” repositories. Many are unauthorised, their files can be incomplete or altered, and downloading them is not a sound study or copyright practice. Ask your teacher or IB coordinator for school-licensed materials, or use the official IB/Follett channels.",
     publishedAt: "2026-09-03",
-    updatedAt: "2026-09-12",
+    updatedAt: "2026-09-15",
     readingMinutes: 9,
     sections: [
       {
@@ -869,7 +902,7 @@ export const ALL_ARTICLES: readonly Article[] = [
       {
         heading: "PastPaperPrep: honest value for topical real-question practice",
         paragraphs: [
-          "PastPaperPrep is an independent practice platform, not the IB and not a replacement for official assessment documents. Counts and pricing checked 12 September 2026. Its home page lists twelve question banks, 12,332 curated questions, 853 indexed papers, and 841 questions in IB Math AA HL. It describes real exam questions with source context, filters for course, topic, year, paper, marks, and calculator rules, and printable PDF set building.",
+          "PastPaperPrep is an independent practice platform, not the IB and not a replacement for official assessment documents. Counts and pricing checked 15 September 2026. Its home page lists 19 question banks, 28,541 curated questions and 1,827 indexed papers, including 841 questions in IB Math AA HL. It describes real exam questions with source context, filters for course, topic, year, paper, marks, and calculator rules, and printable PDF set building.",
           "That is where PastPaperPrep wins: it turns the “I need AA HL past papers by topic” problem into a bounded practice workflow. Choose AA HL first, filter to a weak topic or paper type, attempt the original question, review the answer or markscheme where available, and then build a mixed set so you have to choose the method yourself. The existing AA and AI topical-practice guide makes the same distinction: focused sets repair a known gap, while mixed and timed sets test transfer, pacing, and method selection.",
           "PastPaperPrep’s free boundary should also be read literally. Its pricing page says students can practise complete older exam years for free. It does not promise that every question in the AA HL inventory is free. The current paid options are $6/month or $48/year for one bank; Build Your Plan starts at $10/month or $84/year for two banks; All Access is $25/month or $216/year. The sensible low-cost choice, if you need newer AA HL inventory, is one bank rather than an all-library plan.",
           "PastPaperPrep wins on course-specific filtering, topical diagnosis, and printable sets. It loses to Christos on free explanatory notes and to Revision Village Gold on video-heavy guided support. It should never claim to be official IB material; its value is organisation and practice convenience.",
@@ -1070,6 +1103,7 @@ export const ALL_ARTICLES: readonly Article[] = [
   ...IB_HUB_MATHS_IMPROVEMENT,
   ...IB_SCIENCE_BUYER_GUIDES,
   ...ALTERNATIVES_COMPARISONS,
+  ...COMPETITOR_VS_COMPETITOR_PAGES,
   ...TUTORS_PRICING_IGCSE_MATHS,
   ...IGCSE_SCIENCE_CHEM_PHYSICS,
   ...IGCSE_BIO_COORDINATED_ECON,

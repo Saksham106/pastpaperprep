@@ -8,8 +8,8 @@ export const IB_HUB_MATHS_IMPROVEMENT = [
     description: "Compare IB Maths, Chemistry, Physics, and Biology question banks for 2026, with real past-paper practice, filters, answers, and pricing.",
     eyebrow: "IB revision resources",
     answer: "The best IB question bank depends on the course, level, and kind of help you need. For real past-paper practice across Maths, Chemistry, Physics, and Biology, PastPaperPrep is a focused option with separate HL and SL banks, granular filters, answers or mark schemes where available, and printable custom sets. Revision Village is stronger when you want video solutions and broader teaching resources; Save My Exams is stronger when you want notes, worked explanations, and many subjects in one membership. Compare source fidelity, course coverage, feedback, and price before choosing.",
-    publishedAt: "2026-09-14",
-    updatedAt: "2026-09-12",
+    publishedAt: "2026-09-15",
+    updatedAt: "2026-09-15",
     readingMinutes: 8,
     sections: [
       {
@@ -84,14 +84,14 @@ export const IB_HUB_MATHS_IMPROVEMENT = [
     ],
   },
   {
-    draft: true,
+    draft: false,
     slug: "best-ib-maths-question-banks-aa-ai",
     title: "Best IB Maths Question Banks for AA and AI (2026)",
     description: "Compare IB Maths AA and AI HL and SL question banks by authenticity, filters, solutions, course fit, and 2026 pricing.",
     eyebrow: "IB Mathematics AA and AI",
     answer: "The best IB Maths question bank depends on whether you need authentic past-paper questions or a wider teaching platform. PastPaperPrep is a strong fit for students who want separate AA HL, AA SL, AI HL, and AI SL banks, granular filters, answers where available, and printable custom sets. Revision Village is stronger for exam-style questions organised by difficulty with video solutions and key concepts. Choose the resource that matches your course, level, and feedback needs.",
-    publishedAt: "2026-09-16",
-    updatedAt: "2026-09-12",
+    publishedAt: "2026-09-15",
+    updatedAt: "2026-09-15",
     readingMinutes: 8,
     sections: [
       {
@@ -165,14 +165,14 @@ export const IB_HUB_MATHS_IMPROVEMENT = [
     ],
   },
   {
-    draft: true,
+    draft: false,
     slug: "improve-ib-grades-past-paper-practice",
     title: "How to Improve Your IB Grades With Past-Paper Practice",
     description: "Use IB past papers as retrieval practice: diagnose gaps, mark precisely, space retests, and turn mistakes into a realistic revision plan.",
     eyebrow: "Study method",
     answer: "Past-paper practice can support better IB performance when it is used as a learning loop, not a score-collecting ritual: attempt questions from memory, mark against a reliable answer, diagnose the first error, practise that skill, and retest it after a delay. Research supports practice testing and spaced practice, but no method or question bank can promise a grade increase. Your results depend on course understanding, feedback, and consistent correction.",
-    publishedAt: "2026-09-24",
-    updatedAt: "2026-09-12",
+    publishedAt: "2026-09-15",
+    updatedAt: "2026-09-15",
     readingMinutes: 8,
     sections: [
       {

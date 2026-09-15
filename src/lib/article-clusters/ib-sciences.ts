@@ -2,14 +2,14 @@ import type { Article } from "@/lib/articles";
 
 export const IB_SCIENCE_BUYER_GUIDES: readonly Article[] = [
   {
-    draft: true,
+    draft: false,
     slug: "best-ib-chemistry-question-banks",
     title: "Best IB Chemistry Question Banks for HL and SL (2026)",
     description: "Compare the best IB Chemistry HL and SL question banks for 2026, including official IB resources, Revision Village, Save My Exams, Exam-Mate, and PastPaperPrep.",
     eyebrow: "IB Chemistry HL and SL",
     answer: "The best IB Chemistry question bank depends on the job you need done. Use official IB specimen papers, sample papers, and mark schemes to learn the assessment standard. Choose Revision Village if you want a broad digital bank with difficulty levels and video solutions, Save My Exams if structured notes and downloadable topic PDFs matter most, Exam-Mate if you prefer topical filtering and saved online lists, and PastPaperPrep if you want real past-paper questions organized into focused, printable practice sets. PastPaperPrep is not the best choice when your main need is a full teaching course, extensive video lessons, or a replacement for your teacher's explanation of the new syllabus.",
-    publishedAt: "2026-09-18",
-    updatedAt: "2026-09-12",
+    publishedAt: "2026-09-15",
+    updatedAt: "2026-09-15",
     readingMinutes: 8,
     sections: [
       {
@@ -113,14 +113,14 @@ export const IB_SCIENCE_BUYER_GUIDES: readonly Article[] = [
     ]
   },
   {
-    draft: true,
+    draft: false,
     slug: "best-ib-physics-question-banks",
     title: "Best IB Physics Question Banks for HL and SL (2026)",
     description: "Compare the best IB Physics HL and SL question banks for 2026, from official IB papers to Revision Village, Save My Exams, Exam-Mate, and PastPaperPrep.",
     eyebrow: "IB Physics HL and SL",
     answer: "For IB Physics, the best question bank is the one that forces you to model situations, handle data, show units, and explain choices rather than only recall formulas. Use official IB material for the assessment target. Choose Revision Village for digital questions with difficulty levels and videos, Save My Exams for notes plus topic questions, Exam-Mate for online topical filters, and PastPaperPrep for real past-paper questions that can be filtered into printable HL or SL sets. PastPaperPrep is not the best replacement for teaching mechanics, fields, uncertainty, or mathematical methods from the beginning.",
-    publishedAt: "2026-09-20",
-    updatedAt: "2026-09-12",
+    publishedAt: "2026-09-15",
+    updatedAt: "2026-09-15",
     readingMinutes: 8,
     sections: [
       {
@@ -220,14 +220,14 @@ export const IB_SCIENCE_BUYER_GUIDES: readonly Article[] = [
     ]
   },
   {
-    draft: true,
+    draft: false,
     slug: "best-ib-biology-question-banks",
     title: "Best IB Biology Question Banks for HL and SL (2026)",
     description: "Compare the best IB Biology HL and SL question banks for 2026, including official IB materials, Revision Village, Save My Exams, Exam-Mate, and PastPaperPrep.",
     eyebrow: "IB Biology HL and SL",
     answer: "The best IB Biology question bank depends on whether you need recall, data interpretation, or mark-aware written practice. Use official IB guides and sample material to calibrate the current assessment. Choose Revision Village for a large digital bank with topic, difficulty, and video support; Save My Exams for notes and downloadable topic questions; Exam-Mate for online topical filtering; and PastPaperPrep for real past-paper questions organized into focused HL or SL printable sets. PastPaperPrep is not the best choice if you need a full biology lesson library, extensive concept videos, or help learning every process before attempting questions.",
-    publishedAt: "2026-09-22",
-    updatedAt: "2026-09-12",
+    publishedAt: "2026-09-15",
+    updatedAt: "2026-09-15",
     readingMinutes: 8,
     sections: [
       {

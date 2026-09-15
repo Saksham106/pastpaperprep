@@ -2,14 +2,14 @@ import type { Article } from "@/lib/articles";
 
 export const TUTORS_PRICING_IGCSE_MATHS: readonly Article[] = [
   {
-    draft: true,
+    draft: false,
     slug: "pastpaperprep-for-tutors-printable-practice-sets",
     title: "PastPaperPrep for Tutors: Build Printable Practice Sets",
     description: "Build printable past-paper practice sets for tutoring sessions by syllabus, topic, paper, year, and marks, then download questions and answers.",
     eyebrow: "Tutor workflow",
     answer: "PastPaperPrep helps tutors turn a live past-paper bank into a focused printable set. Choose the bank, filter for the syllabus and skill you are teaching, select questions, download the set, and keep the available answers or mark schemes ready for review. It is a question-selection and printable-practice workflow, not an LMS or automatic marking system.",
-    publishedAt: "2026-10-02",
-    updatedAt: "2026-09-12",
+    publishedAt: "2026-09-15",
+    updatedAt: "2026-09-15",
     readingMinutes: 6,
     sections: [
       {
@@ -78,14 +78,14 @@ export const TUTORS_PRICING_IGCSE_MATHS: readonly Article[] = [
     ],
   },
   {
-    draft: true,
+    draft: false,
     slug: "pastpaperprep-pricing-which-plan",
     title: "PastPaperPrep Pricing: Which Plan Is Right for You?",
     description: "Compare PastPaperPrep one-bank, Build Your Plan, and All Access pricing by the number of subjects you actually need.",
     eyebrow: "Pricing guide",
     answer: "Choose the cheapest PastPaperPrep plan that covers the banks you will use. One bank costs $6 per month or $48 per year, Build Your Plan covers two to five banks at $10 per month for two plus $4 per extra bank, and All Access covers six or more banks at $25 per month or $216 per year. There is no cart or preselection step, and old subscriptions remain grandfathered.",
-    publishedAt: "2026-10-04",
-    updatedAt: "2026-09-12",
+    publishedAt: "2026-09-15",
+    updatedAt: "2026-09-15",
     readingMinutes: 6,
     sections: [
       {
@@ -147,14 +147,14 @@ export const TUTORS_PRICING_IGCSE_MATHS: readonly Article[] = [
     ],
   },
   {
-    draft: true,
+    draft: false,
     slug: "best-igcse-maths-past-paper-websites",
     title: "Best IGCSE Maths Past-Paper Websites for 0580 and 0606",
     description: "Compare official Cambridge PDFs, PMT, MathsGenie, and PastPaperPrep for Cambridge IGCSE Maths 0580 and Additional Maths 0606.",
     eyebrow: "Buyer guide",
     answer: "For Cambridge IGCSE Maths 0580 and Additional Maths 0606, start with Cambridge International for official PDFs and syllabus context. Use Physics & Maths Tutor for a broad free archive of papers and mark schemes, and MathsGenie for free practice where its coverage matches your course. Choose PastPaperPrep when you want live-bank filtering by topic, paper, year, marks, and other available metadata instead of manually opening many PDFs.",
-    publishedAt: "2026-10-06",
-    updatedAt: "2026-09-12",
+    publishedAt: "2026-09-15",
+    updatedAt: "2026-09-15",
     readingMinutes: 7,
     sections: [
       {
