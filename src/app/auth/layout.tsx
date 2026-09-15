@@ -4,5 +4,5 @@ import { PRIVATE_ROBOTS } from "@/lib/seo";
 export const metadata: Metadata = { robots: PRIVATE_ROBOTS };
 
 export default function AuthLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return children;
+  return <div className="auth-layout"><div className="auth-layout-content">{children}</div></div>;
 }

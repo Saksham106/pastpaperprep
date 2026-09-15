@@ -17,7 +17,7 @@ afterEach(() => vi.unstubAllEnvs());
 
 describe("private Economics bank index", () => {
   beforeEach(() => {
-    vi.stubEnv("NODE_ENV", "development");
+    vi.stubEnv("NODE_ENV", "production");
     vi.stubEnv("PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION", "true");
     vi.stubEnv("PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED", "true");
     vi.clearAllMocks();

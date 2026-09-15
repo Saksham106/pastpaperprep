@@ -2,7 +2,6 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { signOut } from "@/app/auth/actions";
 import { AccountPlanOverview } from "@/components/AccountPlanOverview";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { CURRENT_ENTITLEMENT_FILTERS } from "@/lib/current-entitlements";
 import { createClient } from "@/lib/supabase/server";
 
@@ -47,9 +46,9 @@ export default async function AccountPage({
           <h1>Your access and security.</h1>
           <p>{userData.user?.email}</p>
         </div>
-        <form action={signOut}>
+        <div className="account-heading-actions"><form action={signOut}>
           <button className="button secondary" type="submit">Sign out</button>
-        </form>
+        </form></div>
       </div>
 
       {checkout === "success" && (
@@ -62,10 +61,6 @@ export default async function AccountPage({
       <div className="account-security-row">
         <div><strong>Security</strong><span>Add or change your password.</span></div>
         <Link className="button secondary" href="/account/password">Password settings</Link>
-      </div>
-      <div className="account-preference-row">
-        <div><strong>Appearance</strong><span>Choose light or dark mode on this device.</span></div>
-        <ThemeToggle />
       </div>
     </section>
   );

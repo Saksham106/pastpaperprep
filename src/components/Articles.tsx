@@ -3,22 +3,18 @@ import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { ARTICLES, type Article } from "@/lib/articles";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 
-function ArticleCard({ article }: { article: Article }) {
-  return (
-    <article className="article-card">
-      <p className="eyebrow">{article.eyebrow}</p>
-      <h2><Link href={`/articles/${article.slug}`}>{article.title}</Link></h2>
-      <p>{article.description}</p>
-      <div className="article-card-meta">
-        <time dateTime={article.updatedAt}>Updated {article.updatedAt}</time>
-        <span>{article.readingMinutes} min read</span>
-      </div>
-      <Link className="text-link" href={`/articles/${article.slug}`}>Read guide <ArrowRight aria-hidden="true" weight="bold" /></Link>
-    </article>
-  );
+function FeaturedArticle({ article }: { article: Article }) {
+  return <article className="article-featured-card"><div><p className="eyebrow">Featured guide</p><h2><Link href={`/articles/${article.slug}`}>{article.title}</Link></h2><p className="article-featured-description">{article.description}</p></div><footer><div className="article-card-meta"><time dateTime={article.updatedAt}>Updated {article.updatedAt}</time><span>{article.readingMinutes} min read</span></div><Link className="button primary" href={`/articles/${article.slug}`}>Read the guide <ArrowRight aria-hidden="true" weight="bold" /></Link></footer></article>;
+}
+
+function ArticleIndexRow({ article }: { article: Article }) {
+  return <article className="article-index-row"><div><p className="eyebrow">{article.eyebrow}</p><h3><Link href={`/articles/${article.slug}`}>{article.title}</Link></h3><p>{article.description}</p></div><div className="article-card-meta"><time dateTime={article.updatedAt}>{article.updatedAt}</time><span>{article.readingMinutes} min</span></div></article>;
 }
 
 export function ArticlesIndex() {
+  const featuredArticle = ARTICLES.find((article) => article.slug === "topic-questions-vs-full-past-papers");
+  const latestArticles = ARTICLES.filter((article) => article.slug !== featuredArticle?.slug);
+
   return (
     <div className="articles-page shell">
       <header className="articles-hero">
@@ -27,8 +23,9 @@ export function ArticlesIndex() {
         <p>Clear methods and honest resource comparisons for Cambridge IGCSE Maths and IB Maths, Chemistry, Physics, and Biology.</p>
       </header>
 
-      <section className="article-grid" aria-label="Revision guides">
-        {ARTICLES.map((article) => <ArticleCard article={article} key={article.slug} />)}
+      <section className="article-library" aria-label="Revision guides">
+        {featuredArticle ? <div className="article-featured"><FeaturedArticle article={featuredArticle} /></div> : null}
+        <div className="article-latest"><header><p className="eyebrow">Latest guides</p><h2>Practical answers for your next session</h2></header><div className="article-index">{latestArticles.map((article) => <ArticleIndexRow article={article} key={article.slug} />)}</div></div>
       </section>
 
       <aside className="article-bank-cta" aria-labelledby="article-bank-heading">

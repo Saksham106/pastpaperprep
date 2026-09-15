@@ -4,6 +4,15 @@ import { ArticleContent, ArticlesIndex } from "@/components/Articles";
 import { ALL_ARTICLES, ARTICLES, getArticle, isPublicArticle } from "@/lib/articles";
 
 describe("article library", () => {
+  it("keeps Topic questions vs full past papers as the only featured guide", () => {
+    render(<ArticlesIndex />);
+
+    const featured = document.querySelector(".article-featured-card");
+    expect(featured).toHaveTextContent(/Topic Questions vs Full Past Papers/i);
+    expect(document.querySelectorAll(".article-featured-card")).toHaveLength(1);
+    expect(document.querySelector(".article-latest"))
+      .not.toHaveTextContent(/Topic Questions vs Full Past Papers/i);
+  });
   it("keeps scheduled drafts out of public article collections", () => {
     expect(isPublicArticle({ draft: false })).toBe(true);
     expect(isPublicArticle({ draft: true })).toBe(false);

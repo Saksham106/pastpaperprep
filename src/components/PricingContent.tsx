@@ -1,81 +1,67 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { BookOpen, Check, CrownSimple, SlidersHorizontal } from "@phosphor-icons/react";
 import { useCallback, useState } from "react";
 import { CustomBundleCheckout, PlanCheckout, PortalButton } from "@/components/BillingActions";
 import { CourseIcon, courseToneForBank } from "@/components/CourseIcon";
 import type { ProductId } from "@/lib/access";
-import { BANKS, type Bank, type BankSlug } from "@/lib/banks";
-import { getGraduatedBundlePrice, MAX_CUSTOM_BANKS } from "@/lib/custom-bundles";
+import { type Bank, type BankSlug } from "@/lib/banks";
+import { getGraduatedBundlePrice } from "@/lib/custom-bundles";
+import { getCatalogBanksForDisplay, getCatalogRuntimeBanks } from "@/lib/catalog";
+import { PRICING_MODEL } from "@/lib/pricing-model";
+import { annualSavingPercent, formatPrice, maximumAnnualSavingPercent, priceForBankCount } from "@/lib/pricing-model";
+import { QualificationTabs } from "@/components/QualificationTabs";
 
-const BANK_PRODUCT_TO_SLUG: Record<string, BankSlug> = {
-  bank_igcse: "igcse",
-  bank_igcse_additional: "igcse-additional",
-  bank_ib_hl: "ib-hl",
-  bank_ib_sl: "ib-sl",
-  bank_ib_ai_hl: "ib-ai-hl",
-  bank_ib_ai_sl: "ib-ai-sl",
-  bank_ib_chemistry_hl: "ib-chemistry-hl",
-  bank_ib_chemistry_sl: "ib-chemistry-sl",
-  bank_ib_physics_hl: "ib-physics-hl",
-  bank_ib_physics_sl: "ib-physics-sl",
-  bank_ib_biology_hl: "ib-biology-hl",
-  bank_ib_biology_sl: "ib-biology-sl",
-  bank_igcse_biology_0610: "igcse-biology-0610",
-  bank_igcse_economics_0455: "igcse-economics-0455",
-  bank_igcse_chemistry_0620: "igcse-chemistry-0620",
-  bank_igcse_physics_0625: "igcse-physics-0625",
-};
+function bankSlugForProduct(productId: string): BankSlug | undefined {
+  return getCatalogBanksForDisplay().find((bank) => bank.productId === productId)?.slug;
+}
 
 const PLANS = [
   {
-    name: "One Bank", label: "One question bank", monthly: "$6", annualMonthly: "$4", annual: "$48", annualSaving: "33%",
-    description: "Focus on one syllabus.", mode: "single" as const, tone: "starter", popular: false, icon: BookOpen, cta: "Choose One Bank",
+    name: "One Bank", label: PRICING_MODEL.oneBank.label, monthly: formatPrice(PRICING_MODEL.oneBank.monthlyCents), annualMonthly: formatPrice(PRICING_MODEL.oneBank.annualCents / 12), annual: formatPrice(PRICING_MODEL.oneBank.annualCents), annualSaving: `${annualSavingPercent(PRICING_MODEL.oneBank.monthlyCents, PRICING_MODEL.oneBank.annualCents)}%`,
+    description: "Focus on one syllabus.", mode: "single" as const, tone: "starter", artwork: "/artwork/aristotle-tutoring-alexander.jpg", popular: false, icon: BookOpen, cta: "Choose One Bank",
   },
   {
-    name: "Build Your Plan", label: "Two to five banks", monthly: "$10", annualMonthly: "$7", annual: "$84+", annualSaving: "30%",
-    description: "Mix the banks you actually take.", mode: "builder" as const, tone: "builder", popular: true, icon: SlidersHorizontal, cta: "Build Your Plan",
+    name: "Build Your Plan", label: `${PRICING_MODEL.builder.minBanks} to ${PRICING_MODEL.builder.maxBanks} banks`, monthly: formatPrice(PRICING_MODEL.builder.baseMonthlyCents), annualMonthly: formatPrice(PRICING_MODEL.builder.baseAnnualCents / 12), annual: `${formatPrice(PRICING_MODEL.builder.baseAnnualCents)}+`, annualSaving: `${annualSavingPercent(PRICING_MODEL.builder.baseMonthlyCents, PRICING_MODEL.builder.baseAnnualCents)}%`,
+    description: "Mix the banks you actually take.", mode: "builder" as const, tone: "builder", artwork: "/artwork/school-of-athens-plato-aristotle.jpg", popular: true, icon: SlidersHorizontal, cta: "Build Your Plan",
   },
   {
-    name: "All Access", label: "Every question bank", monthly: "$25", annualMonthly: "$18", annual: "$216", annualSaving: "28%",
-    description: "Everything, including future banks.", mode: "all" as const, tone: "premium", popular: false, icon: CrownSimple, cta: "Get All Access",
+    name: "All Access", label: PRICING_MODEL.allAccess.label, monthly: formatPrice(PRICING_MODEL.allAccess.monthlyCents), annualMonthly: formatPrice(PRICING_MODEL.allAccess.annualCents / 12), annual: formatPrice(PRICING_MODEL.allAccess.annualCents), annualSaving: `${annualSavingPercent(PRICING_MODEL.allAccess.monthlyCents, PRICING_MODEL.allAccess.annualCents)}%`,
+    description: "Everything, including future banks.", mode: "all" as const, tone: "premium", artwork: "/artwork/flegel-study.jpg", popular: false, icon: CrownSimple, cta: "Get All Access",
   },
 ] as const;
 
 type BillingInterval = "monthly" | "annual";
 
-const ALL_ACCESS_MONTHLY_EQUIVALENT_CENTS = 2_500;
-const ALL_ACCESS_ANNUAL_EQUIVALENT_CENTS = 1_800;
-const ALL_ACCESS_ANNUAL_TOTAL_CENTS = 21_600;
-
 function getBuilderMonthlyEquivalentCents(interval: BillingInterval, quantity: number): number | null {
   if (quantity < 2) return null;
-  if (quantity > MAX_CUSTOM_BANKS) {
-    return interval === "annual" ? ALL_ACCESS_ANNUAL_EQUIVALENT_CENTS : ALL_ACCESS_MONTHLY_EQUIVALENT_CENTS;
-  }
+  if (quantity >= PRICING_MODEL.allAccess.minBanks) return interval === "annual" ? PRICING_MODEL.allAccess.annualCents / 12 : PRICING_MODEL.allAccess.monthlyCents;
   return getGraduatedBundlePrice(interval, quantity) / (interval === "annual" ? 12 : 1);
 }
 
 function getBuilderAnnualTotalCents(quantity: number): number | null {
   if (quantity < 2) return null;
-  return quantity > MAX_CUSTOM_BANKS ? ALL_ACCESS_ANNUAL_TOTAL_CENTS : getGraduatedBundlePrice("annual", quantity);
+  return quantity >= PRICING_MODEL.allAccess.minBanks ? PRICING_MODEL.allAccess.annualCents : getGraduatedBundlePrice("annual", quantity);
 }
 
 function getBuilderAnnualSaving(quantity: number): string {
-  if (quantity > MAX_CUSTOM_BANKS) return "28%";
-  const monthlyTotalCents = getGraduatedBundlePrice("monthly", quantity) * 12;
-  const annualTotalCents = getGraduatedBundlePrice("annual", quantity);
-  return `${Math.round(((monthlyTotalCents - annualTotalCents) / monthlyTotalCents) * 100)}%`;
+  const effectiveQuantity = Math.max(PRICING_MODEL.builder.minBanks, quantity);
+  return `${annualSavingPercent(priceForBankCount("monthly", effectiveQuantity), priceForBankCount("annual", effectiveQuantity))}%`;
 }
 
 function formatCents(cents: number | null): string {
-  return cents === null ? "$0" : `$${cents / 100}`;
+  return cents === null ? formatPrice(0) : formatPrice(cents);
 }
 
-export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], initialInterval = "monthly", initialProductId, initialBankIds, availableBanks = BANKS }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; initialInterval?: BillingInterval; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[] }) {
+function BankTable({ banks }: { banks: readonly Bank[] }) {
+  return <div className="pricing-bank-table-wrap"><table className="pricing-bank-table" aria-label="Question bank coverage"><thead><tr><th scope="col">Question bank</th><th scope="col">Questions</th><th scope="col">Papers</th><th scope="col">Coverage</th><th scope="col"><span className="sr-only">Preview</span></th></tr></thead><tbody>{banks.map((bank) => { const tone = courseToneForBank(bank); return <tr className={`course-tone-${tone}`} data-pricing-bank={bank.slug} key={bank.slug}><th scope="row"><div className="pricing-bank-name"><CourseIcon tone={tone} /><div><span>{bank.qualification}</span><strong>{bank.shortName}</strong></div></div></th><td data-label="Questions">{bank.questionCount.toLocaleString()}</td><td data-label="Papers">{bank.paperCount}</td><td data-label="Coverage">{bank.years}</td><td className="pricing-bank-preview"><Link href={`/banks/${bank.slug}?free=1`} aria-label={`Preview ${bank.shortName}`}>Preview</Link></td></tr>; })}</tbody></table></div>;
+}
+
+export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], initialInterval = "monthly", initialProductId, initialBankIds, availableBanks = getCatalogRuntimeBanks() }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; initialInterval?: BillingInterval; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[] }) {
   const [interval, setInterval] = useState<BillingInterval>(initialInterval);
-  const initialBankId = initialProductId ? BANK_PRODUCT_TO_SLUG[initialProductId] : undefined;
+  const initialBankId = initialProductId ? bankSlugForProduct(initialProductId) : undefined;
   const initialCustomBankIds = initialBankIds ?? (initialBankId ? [initialBankId] : undefined);
   const [builderBankIds, setBuilderBankIds] = useState<BankSlug[]>(() => [...(initialCustomBankIds ?? [])]);
   const handleBuilderSelectionChange = useCallback((selectedBankIds: readonly BankSlug[]) => {
@@ -106,6 +92,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
 
     return (
       <article className={`pricing-option${plan.popular ? " pricing-option-popular" : ""}`} data-plan-tone={plan.tone} data-mobile-order={plan.popular ? "first" : undefined} key={plan.name}>
+        <Image className="plan-art" src={plan.artwork} alt="" width={420} height={260} aria-hidden="true" />
         <div className="pricing-option-heading">
           <div className="plan-title-block">
             <span className="plan-icon" aria-hidden="true"><PlanIcon weight="duotone" /></span>
@@ -144,7 +131,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
     <section className="simple-page pricing-page shell">
       <div className="pricing-intro">
         <p className="eyebrow">PastPaperPrep pricing</p>
-        <h1>Practice smarter. <span>Score higher.</span></h1>
+        <h1 aria-label="Pay only for what you study.">Pay only for what you study.</h1>
         <p className="page-lede">Choose the question banks you need. Every plan includes the same study tools.</p>
       </div>
 
@@ -161,7 +148,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
 
       <div className="billing-toggle" role="group" aria-label="Billing period">
         <button type="button" aria-pressed={interval === "monthly"} onClick={() => setInterval("monthly")}>Monthly</button>
-        <button className="billing-toggle-annual" type="button" aria-pressed={interval === "annual"} onClick={() => setInterval("annual")}>Annual <span className="billing-savings">Save up to 33%</span></button>
+        <button className="billing-toggle-annual" type="button" aria-pressed={interval === "annual"} onClick={() => setInterval("annual")}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
       </div>
 
       <div className="pricing-decision-grid" aria-label="PastPaperPrep plans">
@@ -188,32 +175,10 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           </div>
           <p>See the real coverage behind each choice before you pay.</p>
         </div>
-        <div className="pricing-bank-table-wrap">
-          <table className="pricing-bank-table" aria-label="Question bank coverage">
-            <thead>
-              <tr><th scope="col">Question bank</th><th scope="col">Questions</th><th scope="col">Papers</th><th scope="col">Coverage</th><th scope="col"><span className="sr-only">Preview</span></th></tr>
-            </thead>
-            <tbody>
-              {availableBanks.map((bank) => {
-                const tone = courseToneForBank(bank);
-                return (
-                  <tr className={`course-tone-${tone}`} data-pricing-bank={bank.slug} key={bank.slug}>
-                    <th scope="row">
-                      <div className="pricing-bank-name">
-                        <CourseIcon tone={tone} />
-                        <div><span>{bank.qualification}</span><strong>{bank.shortName}</strong></div>
-                      </div>
-                    </th>
-                    <td data-label="Questions">{bank.questionCount.toLocaleString()}</td>
-                    <td data-label="Papers">{bank.paperCount}</td>
-                    <td data-label="Coverage">{bank.years.replace("-", "–")}</td>
-                    <td className="pricing-bank-preview"><Link href={`/banks/${bank.slug}?free=1`} aria-label={`Preview ${bank.shortName}`}>Preview</Link></td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+        <QualificationTabs className="pricing-qualification-tabs" items={[
+          { id: "pricing-cambridge", label: "Cambridge IGCSE", panel: <BankTable banks={availableBanks.filter((bank) => bank.qualification === "Cambridge IGCSE")} /> },
+          { id: "pricing-ib", label: "IB Diploma", panel: <BankTable banks={availableBanks.filter((bank) => bank.qualification === "International Baccalaureate")} /> },
+        ].filter((item) => item.panel.props.banks.length > 0)} />
       </section>
 
       <p className="checkout-note">Secure Stripe checkout. Cancel any time. Existing subscribers remain grandfathered at their current price and access.</p>

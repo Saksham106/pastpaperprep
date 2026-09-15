@@ -17,7 +17,7 @@ describe("IB Economics HL/SL local preview", () => {
     expect(BANKS.some((bank) => bank.slug === "ib-economics-sl")).toBe(false);
     expect(getBank("ib-economics-hl", { NODE_ENV: "development" })).toBeUndefined();
     expect(getAvailableBanks({ NODE_ENV: "development", PASTPAPERPREP_ENABLE_LOCAL_IB_ECONOMICS_PREVIEW: "true" })).toHaveLength(14);
-    expect(getAvailableBanks({ NODE_ENV: "development", PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION: "true", PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED: "true" }).map((bank) => bank.slug)).toContain("ib-economics-hl");
+    expect(getAvailableBanks({ NODE_ENV: "development", PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION: "true", PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED: "true" }).map((bank) => bank.slug)).not.toContain("ib-economics-hl");
     expect(LOCAL_PREVIEW_BANKS.map((bank) => bank.questionCount)).toEqual([111, 89]);
   });
 

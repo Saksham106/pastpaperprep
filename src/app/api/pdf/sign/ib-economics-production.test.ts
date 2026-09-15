@@ -25,7 +25,8 @@ function request(body: unknown) {
 describe("IB Economics production PDF entitlement and quota gates", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.stubEnv("NODE_ENV", "development");
+    vi.stubEnv("ASSET_STORAGE_PROVIDER", "supabase");
+    vi.stubEnv("NODE_ENV", "production");
     vi.stubEnv("PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION", "true");
     vi.stubEnv("PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED", "true");
     getClaims.mockResolvedValue({ data: { claims: { sub: "user-id" } } });

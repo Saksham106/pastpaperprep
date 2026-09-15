@@ -20,7 +20,7 @@ describe("DashboardContent", () => {
   it("sends free visitors straight to free questions and keeps upgrade discovery visible", () => {
     render(<DashboardContent authenticated={false} accessibleBanks={[]} />);
 
-    expect(screen.getByRole("link", { name: /start free.*igcse 0580/i })).toHaveAttribute("href", "/banks/igcse?free=1");
+    expect(screen.getByRole("link", { name: /start free.*mathematics 0580/i })).toHaveAttribute("href", "/banks/igcse?free=1");
     expect(screen.getByRole("link", { name: /view plans/i })).toHaveAttribute("href", "/pricing");
     expect(screen.queryByRole("link", { name: /sign in/i })).not.toBeInTheDocument();
   });
@@ -28,25 +28,34 @@ describe("DashboardContent", () => {
   it("groups banks by the courses students recognise and makes each complete card the link", () => {
     const { container } = render(<DashboardContent authenticated={false} accessibleBanks={[]} />);
 
-    expect(screen.getByRole("heading", { name: "Cambridge IGCSE" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Mathematics" })).toBeInTheDocument();
     fireEvent.click(screen.getByRole("tab", { name: "IB Diploma" }));
-    expect(screen.getByRole("heading", { name: "IB Analysis and Approaches" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "IB Applications and Interpretation" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Analysis and Approaches" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Applications and Interpretation" })).toBeInTheDocument();
     expect(container.querySelector(".dashboard-study-desk")).not.toBeNull();
     fireEvent.click(screen.getByRole("tab", { name: "Cambridge IGCSE" }));
-    const cardLink = screen.getByRole("link", { name: /start free.*igcse 0580/i });
+    const cardLink = screen.getByRole("link", { name: /start free.*mathematics 0580/i });
     expect(cardLink).toHaveClass("dashboard-bank-card");
-    expect(cardLink).toContainElement(screen.getByRole("heading", { name: "Mathematics 0580" }));
+    expect(cardLink).toContainElement(screen.getByRole("heading", { name: "0580" }));
     expect(container.querySelector(".dashboard-upgrade-strip")?.compareDocumentPosition(container.querySelector(".dashboard-bank-groups")!)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
   });
 
   it("keeps each bank card concise without repeating its course identity", () => {
     render(<DashboardContent authenticated={false} accessibleBanks={[]} />);
 
-    const card = screen.getByRole("link", { name: /start free.*igcse 0580/i });
+    const card = screen.getByRole("link", { name: /start free.*mathematics 0580/i });
     expect(card.textContent?.match(/0580/g)).toHaveLength(1);
     expect(card).not.toHaveTextContent(/build confidence across core and extended/i);
     expect(card).not.toHaveTextContent(/mathematics 0580.*igcse 0580/i);
+  });
+
+  it("uses subject groups inside the Cambridge tab without repeating the qualification", () => {
+    const { container } = render(<DashboardContent authenticated={false} accessibleBanks={[]} />);
+
+    expect(container.querySelector("#cambridge-igcse-panel")).not.toHaveTextContent("Cambridge IGCSE");
+    expect(container.querySelectorAll("#cambridge-igcse-panel .dashboard-bank-family")).toHaveLength(2);
+    expect(container.querySelector("#cambridge-igcse-panel .dashboard-bank-groups"))
+      .toHaveClass("dashboard-cambridge-subject-grid");
   });
 
   it("keeps every IB card independently identifiable", () => {
@@ -74,7 +83,7 @@ describe("DashboardContent", () => {
     );
 
     fireEvent.click(screen.getByRole("tab", { name: "IB Diploma" }));
-    expect(screen.getByRole("heading", { name: "IB Economics" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Economics" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Open IB Economics HL" })).toHaveAttribute("href", "/banks/ib-economics-hl");
     expect(screen.getByRole("link", { name: "Open IB Economics SL" })).toHaveAttribute("href", "/banks/ib-economics-sl");
   });
@@ -85,13 +94,13 @@ describe("DashboardContent", () => {
     const tabs = screen.getAllByRole("tab");
     expect(tabs.map((tab) => tab.textContent)).toEqual(["Cambridge IGCSE", "IB Diploma"]);
     expect(tabs[0]).toHaveAttribute("aria-selected", "true");
-    expect(screen.getByRole("heading", { name: "Biology 0610" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "0610" })).toBeInTheDocument();
     expect(screen.queryByRole("heading", { name: "Maths AA HL" })).not.toBeInTheDocument();
 
     fireEvent.keyDown(tabs[0], { key: "ArrowRight" });
     expect(tabs[1]).toHaveAttribute("aria-selected", "true");
     expect(screen.getByRole("heading", { name: "Maths AA HL" })).toBeInTheDocument();
-    expect(screen.queryByRole("heading", { name: "Biology 0610" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "0610" })).not.toBeInTheDocument();
     expect(document.querySelector("#cambridge-igcse-panel")).toHaveAttribute("hidden");
     fireEvent.keyDown(tabs[1], { key: "ArrowLeft" });
     expect(tabs[0]).toHaveAttribute("aria-selected", "true");
@@ -104,7 +113,7 @@ describe("DashboardContent", () => {
   it("renders a non-empty title for every available bank", () => {
     const { container } = render(<DashboardContent authenticated={false} accessibleBanks={[]} availableBanks={[...BANKS, ...IGCSE_RELEASE_BANK_CATALOG]} />);
     expect([...container.querySelectorAll(".dashboard-bank-card h3")].every((heading) => heading.textContent?.trim())).toBe(true);
-    expect(screen.getByRole("heading", { name: "Economics 0455" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "0455" })).toBeInTheDocument();
   });
 
   it("only exposes qualifications that have available banks", () => {

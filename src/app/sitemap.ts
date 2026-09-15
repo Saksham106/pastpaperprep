@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { ARTICLES } from "@/lib/articles";
-import { BANKS } from "@/lib/banks";
+import { getCatalogBanksForDisplay } from "@/lib/catalog";
 
 const SITE_URL = "https://pastpaperprep.com";
 
@@ -13,6 +13,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${SITE_URL}/articles/${slug}`,
       lastModified: updatedAt,
     })),
-    ...BANKS.map(({ slug }) => ({ url: `${SITE_URL}/banks/${slug}` })),
+    ...getCatalogBanksForDisplay().map(({ slug }) => ({ url: `${SITE_URL}/banks/${slug}` })),
   ];
 }
