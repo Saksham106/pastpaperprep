@@ -153,7 +153,11 @@ describe("IGCSE Co-ordinated Sciences 0654 production candidate", () => {
     (copy.runtimeArtifact as Record<string, unknown>).runtimeSha256 = null;
     expect(artifact.runtimeSha256).toBe(createHash("sha256").update(JSON.stringify(copy)).digest("hex"));
     expect(artifact.originalCandidateRuntimeSha256).toBe("5843c2c07c5d2357f18b3dd0de3910dede8443c36b3feff11827ee5441dd3c95");
-    expect(artifact.assetVerification).toBe("pending_upload");
+    expect((candidate as unknown as Record<string, unknown>).releaseStatus).toBe("production");
+    expect((candidate as unknown as Record<string, unknown>).publicationStatus).toBe("production");
+    expect(artifact.assetVerification).toBe("verified_readback");
+    expect(artifact.assetManifestSha256).toBe("518ee08d21a8456592976f7ad8d53300edf1fe9d07029f3aa3cba602ea573935");
+    expect(artifact.storageReceiptSha256).toBe(createHash("sha256").update(readFileSync(join(ROOT, "data/storage/igcse-coordinated-sciences-0654.receipt.json"))).digest("hex"));
     expect(candidate.rightsStatus).toBe("user_attested_rights_authorized");
   });
 
