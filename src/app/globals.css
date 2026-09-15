@@ -602,7 +602,7 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 
 /* Footer */
 .site-footer { position: relative; isolation: isolate; min-height: 290px; padding: 56px max(24px, calc((100% - 1240px) / 2)) 28px; display: grid; grid-template-columns: minmax(250px, .75fr) minmax(500px, 1.25fr); align-items: start; gap: 56px; overflow: hidden; background: var(--paper-warm); border-top: 1px solid #bdb4a4; }
-.site-footer::after { content: ""; position: absolute; z-index: -1; right: 2%; bottom: -96px; width: 390px; height: 250px; background: url('/artwork/atkins-algae.jpg') center / contain no-repeat; opacity: .14; mix-blend-mode: multiply; mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent); pointer-events: none; }
+.site-footer::after { content: ""; position: absolute; z-index: -1; top: 0; right: 4%; width: 280px; height: 44px; background: url('/artwork/atkins-algae.jpg') center 38% / cover no-repeat; opacity: .12; mix-blend-mode: multiply; mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent); pointer-events: none; }
 body:has(.dashboard-page) .site-footer::after,
 body:has(.bank-hero) .site-footer::after { display: none; }
 .footer-brand > a { width: fit-content; display: flex; align-items: center; gap: 10px; }
