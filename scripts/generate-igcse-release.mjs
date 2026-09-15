@@ -37,10 +37,21 @@ export async function generateRelease(bank, repo = resolve(import.meta.dirname, 
   return { manifest, out };
 }
 
-function finalizeQuestionStates(runtime) {
-  for (const question of runtime.questions ?? []) {
-    if (question.publicationStatus === 'local_preview_candidate') question.publicationStatus = 'production';
-    if (question.classificationReviewStatus === 'candidate_not_approved') question.classificationReviewStatus = 'classified';
+const AUTHORIZED_PRODUCTION_CANDIDATE_STATES = {
+  'igcse-biology-0610': { publicationStatus: 'authorized_production_candidate', classificationReviewStatus: 'candidate_not_approved' },
+  'igcse-economics-0455': { publicationStatus: 'authorized_production_candidate', classificationReviewStatus: 'source_paired_review_completed_pending_release' },
+};
+
+export function finalizeQuestionStates(runtime, bank) {
+  const expected = AUTHORIZED_PRODUCTION_CANDIDATE_STATES[bank];
+  if (!expected) throw new Error(`No authorized production candidate state mapping for ${bank}`);
+  if (!Array.isArray(runtime?.questions) || runtime.questions.length === 0) {
+    throw new Error(`${bank} must contain a non-empty question array before production finalization`);
+  }
+  for (const question of runtime.questions) {
+    if (question.publicationStatus !== expected.publicationStatus || question.classificationReviewStatus !== expected.classificationReviewStatus) throw new Error(`${bank} contains an unknown or unauthorized candidate question state`);
+    question.publicationStatus = 'production';
+    question.classificationReviewStatus = 'classified';
   }
 }
 
@@ -66,7 +77,7 @@ export async function finalizeRelease(bank, repo = resolve(import.meta.dirname, 
   const expectedManifestSha = manifestSha256(manifest);
   if (receipt.assetManifestSha256 !== expectedManifestSha) throw new Error(`${bank} storage manifest seal mismatch`);
 
-  finalizeQuestionStates(runtime);
+  finalizeQuestionStates(runtime, bank);
   runtime.releaseStatus = 'production';
   runtime.publicationStatus = 'production';
   runtime.assetVerification = 'verified_readback';
