@@ -216,6 +216,26 @@ describe("QuestionExplorer", () => {
     expect(screen.queryByRole("group", { name: /^course$/i })).not.toBeInTheDocument();
   });
 
+  it("keeps the mobile Filters control wider and more prominent with its active count", () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-hl").slice(0, 120), [{ productId: "bank_ib_hl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const year = String(questions[0].year);
+    const { container } = render(<QuestionExplorer questions={questions} access={fullAccess} initialState={{ search: "", sort: "paper", filters: { years: [year] }, freeOnly: false, savedOnly: false, visible: 24 }} />);
+
+    const toolbar = container.querySelector(".explorer-toolbar");
+    expect(toolbar).not.toBeNull();
+    const filterButton = container.querySelector<HTMLButtonElement>(".explorer-toolbar .mobile-filter-button");
+    expect(filterButton).not.toBeNull();
+    expect(filterButton).toHaveClass("is-active");
+    expect(filterButton!.textContent?.trim()).toBe("Filters (1)");
+    expect(filterButton).toHaveAttribute("aria-expanded", "false");
+    expect(filterButton!.querySelector("svg")).not.toBeNull();
+
+    // Row one keeps search plus the two view actions; row two is filters and sort only.
+    const rowOrder = [...toolbar!.children].map((child) => child.className);
+    expect(rowOrder.filter((name) => /mobile-filter-button|sort-field/.test(name))).toHaveLength(2);
+    expect(container.querySelectorAll(".explorer-toolbar > *")).toHaveLength(5);
+  });
+
   it("opens additional filters when a shared workspace already uses one", () => {
     const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-hl").slice(0, 120), [{ productId: "bank_ib_hl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
     const year = String(questions[0].year);

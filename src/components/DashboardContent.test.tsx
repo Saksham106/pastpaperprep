@@ -110,6 +110,29 @@ describe("DashboardContent", () => {
     expect(tabs[0]).toHaveAttribute("aria-selected", "true");
   });
 
+  it("keeps a descriptive open-bank link on every flattened study panel", () => {
+    render(<DashboardContent authenticated accessibleBanks={["ib-ai-hl"]} />);
+    fireEvent.click(screen.getByRole("tab", { name: "IB Diploma" }));
+
+    const included = screen.getByRole("link", { name: /open ib math ai hl/i });
+    expect(included).toHaveTextContent(/open the full bank/i);
+    expect(included.querySelector(".dashboard-bank-link small")?.textContent)
+      .toMatch(/mark schemes/i);
+    expect(included.closest("[class*='dashboard-bank-grid']")).not.toBeNull();
+
+    const untouched = screen.getByRole("link", { name: /start free ib math aa hl/i });
+    expect(untouched).toHaveTextContent(/start free/i);
+    expect(untouched.querySelector(".dashboard-bank-link small")?.textContent).toMatch(/older exam years/i);
+  });
+
+  it("promises only free practice on an unlocked bank", () => {
+    render(<DashboardContent authenticated={false} accessibleBanks={[]} />);
+
+    const free = screen.getByRole("link", { name: /start free.*mathematics 0580/i });
+    expect(free).toHaveTextContent(/start free/i);
+    expect(free.querySelector(".dashboard-bank-link small")?.textContent).toMatch(/older exam years/i);
+  });
+
   it("renders a non-empty title for every available bank", () => {
     const { container } = render(<DashboardContent authenticated={false} accessibleBanks={[]} availableBanks={[...BANKS, ...IGCSE_RELEASE_BANK_CATALOG]} />);
     expect([...container.querySelectorAll(".dashboard-bank-card h3")].every((heading) => heading.textContent?.trim())).toBe(true);
