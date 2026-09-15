@@ -11,7 +11,7 @@ import { hasBankAccess, isPreviewQuestion } from "@/lib/access";
 import { normalizeEntitlements } from "@/lib/entitlements";
 import { getBillingPlan, getStripeConfig, isStripePriceAllowedForProduct, validateStripeConfig } from "@/lib/stripe-config";
 import { getPrivateBankObjectPrefix } from "@/lib/private-runtime-mapping";
-import { getControlledSubtopics, getTopicOptions } from "@/lib/taxonomy-router";
+import { getControlledSubtopics, getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 
 const ROOT = process.cwd();
 const BANK = "igcse-coordinated-sciences-0654";
@@ -218,7 +218,11 @@ describe("IGCSE Co-ordinated Sciences 0654 production candidate", () => {
     const labels = getControlledSubtopics(BANK, "Motion, forces and energy");
     expect(labels.length).toBeGreaterThan(0);
     expect(labels.every((label) => !/^\d+(\.\d+)*$/.test(label))).toBe(true);
-    const ordered = getTopicOptions(candidate.questions.map((question) => ({ ...question, bankSlug: BANK })) as never);
+    const questions = candidate.questions.map((question) => ({ ...question, bankSlug: BANK })) as never;
+    const groups = getSubtopicGroups(questions, ["Motion, forces and energy"], []);
+    expect(groups.relevant).toEqual(expect.arrayContaining([...labels]));
+    expect(groups.relevant.length).toBeGreaterThan(0);
+    const ordered = getTopicOptions(questions);
     const expectedOrder = [...taxonomyDocument.topics].sort((left, right) => left.order - right.order).map((topic) => topic.title);
     const available = new Set(candidate.questions.flatMap((question) => [question.primaryTopic, ...(question as unknown as { secondaryTopics: string[] }).secondaryTopics].filter(Boolean)));
     expect(ordered.filter((topic) => available.has(topic))).toEqual(expectedOrder.filter((topic) => available.has(topic)));

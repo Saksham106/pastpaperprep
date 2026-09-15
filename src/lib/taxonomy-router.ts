@@ -48,8 +48,8 @@ const COORDINATED_GROUPS: Record<string, readonly string[]> = Object.fromEntries
     ]),
 );
 
-function isReleaseBank(bank: string | undefined): bank is "igcse-biology-0610" | "igcse-economics-0455" {
-  return bank === "igcse-biology-0610" || bank === "igcse-economics-0455";
+function isReleaseBank(bank: string | undefined): bank is "igcse-biology-0610" | "igcse-economics-0455" | "igcse-coordinated-sciences-0654" {
+  return bank === "igcse-biology-0610" || bank === "igcse-economics-0455" || bank === "igcse-coordinated-sciences-0654";
 }
 
 function isCoordinatedBank(bank: string | undefined): boolean {
