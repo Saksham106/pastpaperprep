@@ -4,9 +4,11 @@ import economics from "@/data/production/igcse-economics-0455.json";
 import biologyTaxonomy from "@/data/igcse-biology-0610-official-taxonomy.json";
 import chemistry from "@/data/production/igcse-chemistry-0620.json";
 import physics from "@/data/production/igcse-physics-0625.json";
+import coordinated from "@/data/production/igcse-coordinated-sciences-0654.json";
 import economicsTaxonomy from "@/data/igcse-economics-0455-taxonomy.json";
 import chemistryTaxonomy from "@/data/igcse-chemistry-0620-official-taxonomy.json";
 import physicsTaxonomy from "@/data/igcse-physics-0625-official-taxonomy.json";
+import coordinatedTaxonomy from "@/data/igcse-coordinated-sciences-0654-taxonomy.json";
 import { isIGCSEReleaseEnabled, type IGCSEReleaseBankSlug } from "@/lib/banks";
 
 type IGCSEArtifact = {
@@ -29,18 +31,21 @@ export const IGCSE_RUNTIME_COUNTS = {
   "igcse-economics-0455": [1189, 70],
   "igcse-chemistry-0620": [3529, 207],
   "igcse-physics-0625": [3820, 210],
+  "igcse-coordinated-sciences-0654": [4030, 204],
 } as const;
 const ARTIFACTS: Record<IGCSEReleaseBankSlug, IGCSEArtifact> = {
   "igcse-biology-0610": biology as IGCSEArtifact,
   "igcse-economics-0455": economics as IGCSEArtifact,
   "igcse-chemistry-0620": chemistry as IGCSEArtifact,
   "igcse-physics-0625": physics as IGCSEArtifact,
+  "igcse-coordinated-sciences-0654": coordinated as IGCSEArtifact,
 };
 const RUNTIME_TAXONOMIES: Record<IGCSEReleaseBankSlug, unknown> = {
   "igcse-biology-0610": biologyTaxonomy,
   "igcse-economics-0455": economicsTaxonomy,
   "igcse-chemistry-0620": chemistryTaxonomy,
   "igcse-physics-0625": physicsTaxonomy,
+  "igcse-coordinated-sciences-0654": coordinatedTaxonomy,
 };
 
 const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
@@ -48,6 +53,7 @@ const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "igcse-economics-0455": "14f30ed022c55bea7f3ccf8699f95ca400edd9b2eca0ef44044d825d6b4f144c",
   "igcse-chemistry-0620": "81c706903aa94c6865336cf40027c26b33e0ba514082f4d8da2c576b9bb2cf87",
   "igcse-physics-0625": "204e21dd3c7d21c4186dc29e242f79129210f6b90c03d1af2335c8517e512c77",
+  "igcse-coordinated-sciences-0654": "5843c2c07c5d2357f18b3dd0de3910dede8443c36b3feff11827ee5441dd3c95",
 };
 
 const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
@@ -55,6 +61,7 @@ const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "igcse-economics-0455": "f5fa8e810d49db354be3d10f04ef028ac74c515f8d6850bb522fcae650e06373",
   "igcse-chemistry-0620": "81c706903aa94c6865336cf40027c26b33e0ba514082f4d8da2c576b9bb2cf87",
   "igcse-physics-0625": "204e21dd3c7d21c4186dc29e242f79129210f6b90c03d1af2335c8517e512c77",
+  "igcse-coordinated-sciences-0654": "5843c2c07c5d2357f18b3dd0de3910dede8443c36b3feff11827ee5441dd3c95",
 };
 
 function canonicalSha256(value: unknown) {

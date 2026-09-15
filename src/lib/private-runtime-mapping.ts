@@ -8,6 +8,7 @@ export const PRIVATE_RUNTIME_OBJECT_PREFIXES: Partial<Record<BankSlug, string>> 
   "igcse-economics-0455": "igcse-economics-0455/",
   "igcse-chemistry-0620": "igcse-chemistry-0620/",
   "igcse-physics-0625": "igcse-physics-0625/",
+  "igcse-coordinated-sciences-0654": "igcse-coordinated-sciences-0654/",
 };
 
 export function getPrivateBankObjectPrefix(bank: BankSlug): string {

@@ -12,7 +12,7 @@ import {
 } from "@/lib/catalog";
 
 export type EconomicsBankSlug = "ib-economics-hl" | "ib-economics-sl";
-export type IGCSEReleaseBankSlug = "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625";
+export type IGCSEReleaseBankSlug = "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654";
 export type { BankSlug };
 export type ProductionBankSlug = Exclude<BankSlug, EconomicsBankSlug | IGCSEReleaseBankSlug>;
 export type LegacyProductionBankSlug = ProductionBankSlug;
@@ -52,6 +52,7 @@ const IGCSE_RELEASE_SLUGS = new Set<BankSlug>([
   "igcse-economics-0455",
   "igcse-chemistry-0620",
   "igcse-physics-0625",
+  "igcse-coordinated-sciences-0654",
 ]);
 
 export function isIGCSEReleaseBank(slug: string): slug is IGCSEReleaseBankSlug {
@@ -70,6 +71,16 @@ export function isEconomicsProductionEnabled(environment: Record<string, string 
 export function isLocalEconomicsPreviewEnabled(environment: Record<string, string | undefined> = process.env) {
   const economics = getCatalogBank("ib-economics-hl");
   return Boolean(economics && isCatalogLocalPreviewEnabled(economics, environment));
+}
+/**
+ * One choke point for "this private bank's metadata index may be served". The index is
+ * metadata-only (see createPublicBankIndex), so it is served to anonymous visitors too;
+ * assets, answers, and PDFs remain entitlement-protected elsewhere.
+ */
+export function isPrivateBankIndexEnabled(bank: string, environment: Record<string, string | undefined> = process.env): bank is BankSlug {
+  if (isLocalEconomicsBank(bank)) return isEconomicsProductionEnabled(environment);
+  if (isIGCSEReleaseBank(bank)) return isIGCSEReleaseEnabled(environment);
+  return false;
 }
 export function getEntitlementBanks(): readonly Bank[] { return runtimeBanks(BANK_CATALOG); }
 export function getBillingBanks(environment: Record<string, string | undefined> = process.env): readonly Bank[] { return runtimeBanks(getCatalogBillingBanks(environment)); }

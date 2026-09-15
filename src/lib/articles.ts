@@ -26,6 +26,10 @@ export type Article = {
   publishedAt: string;
   updatedAt: string;
   readingMinutes: number;
+  /** Structured index metadata; see ARTICLE_INDEX_DETAILS for the single authority. */
+  difficulty?: ArticleDifficulty;
+  exam?: ArticleIndexDetail["exam"];
+  practiceLinks?: readonly ArticlePracticeLink[];
   sections: readonly ArticleSection[];
   faqs: readonly ArticleFaq[];
   relatedBanks: readonly { href: string; label: string }[];
@@ -36,6 +40,118 @@ export type Article = {
   };
   sources?: readonly { href: string; label: string }[];
 };
+
+export type ArticleDifficulty = "Foundational" | "Intermediate" | "Advanced";
+
+export type ArticlePracticeLink = { href: string; label: string };
+
+/** Structured index metadata for one article: difficulty, exam, and real practice deep links. */
+export type ArticleIndexDetail = {
+  difficulty: ArticleDifficulty;
+  exam: "Cambridge IGCSE" | "IB Diploma";
+  practiceLinks: readonly ArticlePracticeLink[];
+};
+
+/**
+ * One explicit, reviewable authority for the Articles index entries. Difficulty and exam
+ * are editorial judgements; every practice link points at a bank that is in the canonical
+ * catalog and at a topic label that the bank's own runtime actually exposes, so the index
+ * never invents a route, an article count, or a topic.
+ */
+export const ARTICLE_INDEX_DETAILS: Readonly<Record<string, ArticleIndexDetail>> = {
+  "how-to-use-maths-past-papers-effectively": { difficulty: "Foundational", exam: "Cambridge IGCSE", practiceLinks: [
+    { href: "/banks/igcse?topic=Algebra%20and%20graphs", label: "IGCSE Maths 0580: Algebra and graphs" },
+    { href: "/banks/igcse?topic=Number", label: "IGCSE Maths 0580: Number" },
+  ] },
+  "igcse-maths-0580-past-papers-by-topic": { difficulty: "Intermediate", exam: "Cambridge IGCSE", practiceLinks: [
+    { href: "/banks/igcse?topic=Algebra%20and%20graphs", label: "IGCSE Maths 0580: Algebra and graphs" },
+    { href: "/banks/igcse-additional?topic=Calculus", label: "Additional Maths 0606: Calculus" },
+  ] },
+  "ib-math-past-papers-by-topic": { difficulty: "Advanced", exam: "IB Diploma", practiceLinks: [
+    { href: "/banks/ib-hl?topic=Calculus", label: "IB Maths AA HL: Calculus" },
+    { href: "/banks/ib-sl?topic=Functions", label: "IB Maths AA SL: Functions" },
+  ] },
+  "pastpaperprep-vs-revision-village": { difficulty: "Intermediate", exam: "IB Diploma", practiceLinks: [
+    { href: "/banks/ib-hl?topic=Statistics%20and%20probability", label: "IB Maths AA HL: Statistics and probability" },
+    { href: "/banks/ib-sl?topic=Number%20and%20algebra", label: "IB Maths AA SL: Number and algebra" },
+  ] },
+  "pastpaperprep-vs-save-my-exams": { difficulty: "Foundational", exam: "Cambridge IGCSE", practiceLinks: [
+    { href: "/banks/igcse?topic=Geometry", label: "IGCSE Maths 0580: Geometry" },
+    { href: "/banks/igcse?topic=Probability", label: "IGCSE Maths 0580: Probability" },
+  ] },
+  "pastpaperprep-vs-exam-mate": { difficulty: "Foundational", exam: "Cambridge IGCSE", practiceLinks: [
+    { href: "/banks/igcse?topic=Number", label: "IGCSE Maths 0580: Number" },
+    { href: "/banks/igcse-additional?topic=Algebra", label: "Additional Maths 0606: Algebra" },
+  ] },
+  "how-to-mark-maths-past-paper-mistake-log": { difficulty: "Foundational", exam: "Cambridge IGCSE", practiceLinks: [
+    { href: "/banks/igcse?topic=Algebra%20and%20graphs", label: "IGCSE Maths 0580: Algebra and graphs" },
+    { href: "/banks/igcse-additional?topic=Calculus", label: "Additional Maths 0606: Calculus" },
+  ] },
+  "topic-questions-vs-full-past-papers": { difficulty: "Intermediate", exam: "Cambridge IGCSE", practiceLinks: [
+    { href: "/banks/igcse?topic=Trigonometry", label: "IGCSE Maths 0580: Trigonometry" },
+    { href: "/banks/igcse?topic=Mensuration", label: "IGCSE Maths 0580: Mensuration" },
+  ] },
+  "best-free-ib-maths-aa-hl-resources": { difficulty: "Advanced", exam: "IB Diploma", practiceLinks: [
+    { href: "/banks/ib-hl?topic=Geometry%20and%20trigonometry", label: "IB Maths AA HL: Geometry and trigonometry" },
+    { href: "/banks/ib-hl?topic=Number%20and%20algebra", label: "IB Maths AA HL: Number and algebra" },
+  ] },
+  "ib-biology-past-papers-by-topic": { difficulty: "Intermediate", exam: "IB Diploma", practiceLinks: [
+    { href: "/banks/ib-biology-hl?topic=Molecules%20and%20cells", label: "IB Biology HL: Molecules and cells" },
+    { href: "/banks/ib-biology-sl?topic=Organisms%20and%20body%20systems", label: "IB Biology SL: Organisms and body systems" },
+  ] },
+  "best-save-my-exams-alternatives-topical-past-papers": { difficulty: "Foundational", exam: "Cambridge IGCSE", practiceLinks: [
+    { href: "/banks/igcse?topic=Number", label: "IGCSE Maths 0580: Number" },
+    { href: "/banks/igcse-additional?topic=Algebra", label: "Additional Maths 0606: Algebra" },
+  ] },
+  "pastpaperprep-vs-physics-and-maths-tutor": { difficulty: "Intermediate", exam: "IB Diploma", practiceLinks: [
+    { href: "/banks/ib-physics-hl?topic=Mechanics%20and%20motion", label: "IB Physics HL: Mechanics and motion" },
+    { href: "/banks/ib-hl?topic=Calculus", label: "IB Maths AA HL: Calculus" },
+  ] },
+  "real-past-papers-vs-exam-style-questions": { difficulty: "Intermediate", exam: "Cambridge IGCSE", practiceLinks: [
+    { href: "/banks/igcse?topic=Algebra%20and%20graphs", label: "IGCSE Maths 0580: Algebra and graphs" },
+    { href: "/banks/igcse?topic=Statistics", label: "IGCSE Maths 0580: Statistics" },
+  ] },
+  "best-ib-question-banks-maths-sciences": { difficulty: "Advanced", exam: "IB Diploma", practiceLinks: [
+    { href: "/banks/ib-hl?topic=Calculus", label: "IB Maths AA HL: Calculus" },
+    { href: "/banks/ib-chemistry-hl?topic=Acids%20and%20bases", label: "IB Chemistry HL: Acids and bases" },
+  ] },
+  "best-ib-maths-question-banks-aa-ai": { difficulty: "Advanced", exam: "IB Diploma", practiceLinks: [
+    { href: "/banks/ib-hl?topic=Functions", label: "IB Maths AA HL: Functions" },
+    { href: "/banks/ib-ai-hl?topic=Statistics%20and%20probability", label: "IB Maths AI HL: Statistics and probability" },
+  ] },
+  "improve-ib-grades-past-paper-practice": { difficulty: "Advanced", exam: "IB Diploma", practiceLinks: [
+    { href: "/banks/ib-sl?topic=Calculus", label: "IB Maths AA SL: Calculus" },
+    { href: "/banks/ib-physics-sl?topic=Waves%2C%20optics%20and%20imaging", label: "IB Physics SL: Waves, optics and imaging" },
+  ] },
+  "best-ib-chemistry-question-banks": { difficulty: "Advanced", exam: "IB Diploma", practiceLinks: [
+    { href: "/banks/ib-chemistry-hl?topic=Acids%20and%20bases", label: "IB Chemistry HL: Acids and bases" },
+    { href: "/banks/ib-chemistry-sl?topic=Kinetics", label: "IB Chemistry SL: Kinetics" },
+  ] },
+  "best-ib-physics-question-banks": { difficulty: "Advanced", exam: "IB Diploma", practiceLinks: [
+    { href: "/banks/ib-physics-hl?topic=Mechanics%20and%20motion", label: "IB Physics HL: Mechanics and motion" },
+    { href: "/banks/ib-physics-sl?topic=Waves%2C%20optics%20and%20imaging", label: "IB Physics SL: Waves, optics and imaging" },
+  ] },
+  "best-ib-biology-question-banks": { difficulty: "Advanced", exam: "IB Diploma", practiceLinks: [
+    { href: "/banks/ib-biology-hl?topic=Molecules%20and%20cells", label: "IB Biology HL: Molecules and cells" },
+    { href: "/banks/ib-biology-sl?topic=Information%2C%20inheritance%20and%20evolution", label: "IB Biology SL: Information, inheritance and evolution" },
+  ] },
+  "pastpaperprep-for-tutors-printable-practice-sets": { difficulty: "Intermediate", exam: "Cambridge IGCSE", practiceLinks: [
+    { href: "/banks/igcse?topic=Number", label: "IGCSE Maths 0580: Number" },
+    { href: "/banks/igcse-additional?topic=Vectors%20and%20matrices", label: "Additional Maths 0606: Vectors and matrices" },
+  ] },
+  "pastpaperprep-pricing-which-plan": { difficulty: "Foundational", exam: "Cambridge IGCSE", practiceLinks: [
+    { href: "/banks/igcse?topic=Algebra%20and%20graphs", label: "IGCSE Maths 0580: Algebra and graphs" },
+    { href: "/banks/igcse?topic=Probability", label: "IGCSE Maths 0580: Probability" },
+  ] },
+  "best-igcse-maths-past-paper-websites": { difficulty: "Foundational", exam: "Cambridge IGCSE", practiceLinks: [
+    { href: "/banks/igcse?topic=Geometry", label: "IGCSE Maths 0580: Geometry" },
+    { href: "/banks/igcse?topic=Statistics", label: "IGCSE Maths 0580: Statistics" },
+  ] },
+};
+
+export function getArticleIndexDetail(slug: string): ArticleIndexDetail | undefined {
+  return ARTICLE_INDEX_DETAILS[slug];
+}
 
 export function isPublicArticle(article: Pick<Article, "draft">): boolean {
   return article.draft !== true;

@@ -53,16 +53,25 @@ describe("IB Economics production PDF entitlement and quota gates", () => {
   });
 
   it("signs an entitled Economics export and consumes exact quota counts", async () => {
-    const response = await POST(request({ bank: "ib-economics-hl", questionIds: ["2021-may-none-hl-p2-q01"], content: "questions" }));
+    // 2025 is a paid year for IB Economics; 2021 is the explicit free year, so a paid
+    // export must be asserted on a non-preview question.
+    const response = await POST(request({ bank: "ib-economics-hl", questionIds: ["2025-may-none-hl-p3-q01"], content: "questions" }));
     expect(response.status).toBe(200);
     expect(response.headers.get("cache-control")).toBe("private, no-store, max-age=0");
     expect(createSignedUrls).toHaveBeenCalledOnce();
-    expect(rpc).toHaveBeenCalledWith("consume_download_allowance", { p_asset_count: 2, p_pdf_question_count: 1 });
+    expect(rpc).toHaveBeenCalledWith("consume_download_allowance", { p_asset_count: 7, p_pdf_question_count: 1 });
+  });
+
+  it("does not charge the paid allowance for the explicit free exam year", async () => {
+    const response = await POST(request({ bank: "ib-economics-hl", questionIds: ["2021-may-none-hl-p2-q01"], content: "questions" }));
+    expect(response.status).toBe(200);
+    expect(createSignedUrls).toHaveBeenCalledOnce();
+    expect(rpc).toHaveBeenCalledWith("consume_download_allowance", { p_asset_count: 0, p_pdf_question_count: 1 });
   });
 
   it("fails closed on exhausted Economics PDF quota without returning assets", async () => {
     rpc.mockResolvedValueOnce({ data: false, error: null });
-    const response = await POST(request({ bank: "ib-economics-hl", questionIds: ["2021-may-none-hl-p2-q01"], content: "questions" }));
+    const response = await POST(request({ bank: "ib-economics-hl", questionIds: ["2025-may-none-hl-p3-q01"], content: "questions" }));
     expect(response.status).toBe(429);
     expect(await response.json()).toEqual({ error: "Daily worksheet limit reached. Try again tomorrow." });
   });

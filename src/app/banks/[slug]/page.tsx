@@ -7,7 +7,7 @@ import { BankSeoContent } from "@/components/BankSeoContent";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { canExportPdf, hasBankAccess, isPreviewQuestion } from "@/lib/access";
-import { getAvailableBanks, getBank, isEconomicsProductionEnabled, isIGCSEReleaseBank, isIGCSEReleaseEnabled, isLocalEconomicsBank, isLocalEconomicsPreviewEnabled, type BankSlug } from "@/lib/banks";
+import { getAvailableBanks, getBank, isLocalEconomicsBank, isLocalEconomicsPreviewEnabled, isPrivateBankIndexEnabled, type BankSlug } from "@/lib/banks";
 import { EXPLORER_PAGE_SIZE, parseExplorerState, type ExplorerSearchParams } from "@/lib/explorer-state";
 import { filterQuestions } from "@/lib/question-filter";
 import { normalizeEntitlements } from "@/lib/entitlements";
@@ -48,8 +48,9 @@ export default async function BankPage({ params, searchParams }: { params: Promi
   const bank = getBank(slug);
   if (!bank) notFound();
   const localPreview = isLocalEconomicsPreviewEnabled() && isLocalEconomicsBank(slug);
-  const productionEconomics = isEconomicsProductionEnabled() && isLocalEconomicsBank(slug);
-  const productionIGCSE = isIGCSEReleaseEnabled() && isIGCSEReleaseBank(slug);
+  // One choke point decides whether this bank's metadata index is private; it is served
+  // anonymously, so an advertised ?free=1 link always has a question list to browse.
+  const privateIndex = isPrivateBankIndexEnabled(slug);
   const hasAuthCookie = hasSupabaseAuthCookie((await cookies()).getAll());
   const supabase = !localPreview && hasAuthCookie ? await createClient() : null;
   const claimsData = supabase ? (await supabase.auth.getClaims()).data : null;
@@ -66,7 +67,11 @@ export default async function BankPage({ params, searchParams }: { params: Promi
     : [{ data: [] }, { data: [] }, { data: [] }];
   const entitlements = normalizeEntitlements(entitlementRows ?? []);
   const bankAccess = localPreview || hasBankAccess(slug, entitlements);
-  const allQuestions = await loadBankQuestions(slug);
+  // A catalog entry is not proof that a bank is runnable. A gated bank whose sealed
+  // runtime is not promoted yet (or a corrupt artifact) fails closed as a 404 instead of
+  // advertising a route that renders an error boundary, which would return HTTP 200.
+  const allQuestions = await loadBankQuestions(slug).catch(() => null);
+  if (!allQuestions) notFound();
   const filterableQuestions = allQuestions.map((question) => publicMetadataToQuestion(toPublicQuestionMetadata(question), slug));
   const initialState = parseExplorerState(rawSearchParams, { defaultFreeOnly: !bankAccess });
   const savedIdSet = new Set((savedRows ?? []).map((row) => row.question_id));
@@ -126,7 +131,7 @@ export default async function BankPage({ params, searchParams }: { params: Promi
         </div>
       </section>
       <div className="shell">
-        <QuestionExplorer questions={initialQuestions} bankSlug={slug} localPreview={localPreview} indexUrl={localPreview ? localPreviewBankIndexUrl(slug) : productionEconomics || productionIGCSE ? `/api/private-bank-index/${slug}` : publicBankIndexUrl(slug)} access={{ authenticated: Boolean(userId), bankAccess, canExportPdf: localPreview || canExportPdf(slug, entitlements) }} exportMarker={exportMarker} initialState={initialState} studyState={{ savedIds: (savedRows ?? []).map((row) => row.question_id), attemptedIds: (attemptRows ?? []).map((row) => row.question_id) }} />
+        <QuestionExplorer questions={initialQuestions} bankSlug={slug} localPreview={localPreview} indexUrl={localPreview ? localPreviewBankIndexUrl(slug) : privateIndex ? `/api/private-bank-index/${slug}` : publicBankIndexUrl(slug)} access={{ authenticated: Boolean(userId), bankAccess, canExportPdf: localPreview || canExportPdf(slug, entitlements) }} exportMarker={exportMarker} initialState={initialState} studyState={{ savedIds: (savedRows ?? []).map((row) => row.question_id), attemptedIds: (attemptRows ?? []).map((row) => row.question_id) }} />
         <BankSeoContent bank={bank} />
       </div>
     </>

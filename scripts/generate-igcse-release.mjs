@@ -37,9 +37,18 @@ export async function generateRelease(bank, repo = resolve(import.meta.dirname, 
   return { manifest, out };
 }
 
+const UNRESOLVED_TAXONOMY_STATUS = 'unresolved_taxonomy_gap';
+
+/**
+ * Each entry authorizes the exact pre-finalization candidate states for one bank and the
+ * exact number of unresolved taxonomy rows that must survive finalization. An unresolved
+ * row is preserved fail-closed (never silently promoted to 'classified'), and any other
+ * count or unknown state fails the finalization.
+ */
 const AUTHORIZED_PRODUCTION_CANDIDATE_STATES = {
-  'igcse-biology-0610': { publicationStatus: 'authorized_production_candidate', classificationReviewStatus: 'candidate_not_approved' },
-  'igcse-economics-0455': { publicationStatus: 'authorized_production_candidate', classificationReviewStatus: 'source_paired_review_completed_pending_release' },
+  'igcse-biology-0610': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved'], unresolvedCount: 0 },
+  'igcse-economics-0455': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['source_paired_review_completed_pending_release'], unresolvedCount: 0 },
+  'igcse-coordinated-sciences-0654': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved', UNRESOLVED_TAXONOMY_STATUS], unresolvedCount: 4 },
 };
 
 export function finalizeQuestionStates(runtime, bank) {
@@ -49,9 +58,17 @@ export function finalizeQuestionStates(runtime, bank) {
     throw new Error(`${bank} must contain a non-empty question array before production finalization`);
   }
   for (const question of runtime.questions) {
-    if (question.publicationStatus !== expected.publicationStatus || question.classificationReviewStatus !== expected.classificationReviewStatus) throw new Error(`${bank} contains an unknown or unauthorized candidate question state`);
+    if (question.publicationStatus !== expected.publicationStatus || !expected.classificationReviewStatuses.includes(question.classificationReviewStatus)) throw new Error(`${bank} contains an unknown or unauthorized candidate question state`);
+  }
+  const unresolved = runtime.questions.filter((question) => question.classificationReviewStatus === UNRESOLVED_TAXONOMY_STATUS);
+  if (unresolved.length !== expected.unresolvedCount) {
+    throw new Error(`${bank} unresolved taxonomy row count ${unresolved.length} does not match the authorized ${expected.unresolvedCount}`);
+  }
+  for (const question of runtime.questions) {
     question.publicationStatus = 'production';
-    question.classificationReviewStatus = 'classified';
+    question.classificationReviewStatus = question.classificationReviewStatus === UNRESOLVED_TAXONOMY_STATUS
+      ? UNRESOLVED_TAXONOMY_STATUS
+      : 'classified';
   }
 }
 

@@ -1,9 +1,10 @@
-import { Atom, ChartLineUp, Dna, Flask, Function as FunctionIcon } from "@phosphor-icons/react/dist/ssr";
+import { Atom, ChartLineUp, Dna, Flask, MathOperations, Microscope } from "@phosphor-icons/react/dist/ssr";
 import type { Bank } from "@/lib/banks";
 
-export type CourseTone = "math" | "chemistry" | "physics" | "biology" | "economics";
+export type CourseTone = "math" | "chemistry" | "physics" | "biology" | "economics" | "coordinated";
 
 export function courseToneForBank(bank: Bank): CourseTone {
+  if (bank.subject.includes("Co-ordinated")) return "coordinated";
   if (bank.subject.includes("Chemistry")) return "chemistry";
   if (bank.subject.includes("Physics")) return "physics";
   if (bank.subject.includes("Biology")) return "biology";
@@ -11,7 +12,12 @@ export function courseToneForBank(bank: Bank): CourseTone {
   return "math";
 }
 
-export function CourseIcon({ tone }: { tone: CourseTone }) {
+/**
+ * `marker` marks the identity-bearing icon (the one that labels a subject). Decorative
+ * repeats — a panel watermark, say — render with `marker={false}` so a subject is never
+ * counted or announced twice.
+ */
+export function CourseIcon({ tone, marker = true }: { tone: CourseTone; marker?: boolean }) {
   const Icon = tone === "chemistry"
     ? Flask
     : tone === "physics"
@@ -20,10 +26,12 @@ export function CourseIcon({ tone }: { tone: CourseTone }) {
         ? Dna
         : tone === "economics"
           ? ChartLineUp
-          : FunctionIcon;
+          : tone === "coordinated"
+            ? Microscope
+            : MathOperations;
 
   return (
-    <span className="course-icon" data-course-icon={tone} aria-hidden="true">
+    <span className="course-icon" data-course-icon={marker ? tone : undefined} aria-hidden="true">
       <Icon weight={tone === "math" ? "bold" : "duotone"} />
     </span>
   );

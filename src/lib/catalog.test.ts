@@ -3,8 +3,8 @@ import { BANK_CATALOG, getCatalogBank, getCatalogBanksForDisplay, isCatalogBankB
 
 describe("canonical bank catalog", () => {
   it("contains every known bank once with stable identity and routes", () => {
-    expect(BANK_CATALOG).toHaveLength(18);
-    expect(new Set(BANK_CATALOG.map((bank) => bank.slug)).size).toBe(18);
+    expect(BANK_CATALOG).toHaveLength(19);
+    expect(new Set(BANK_CATALOG.map((bank) => bank.slug)).size).toBe(19);
     for (const bank of BANK_CATALOG) {
       expect(bank.subject).toBeTruthy();
       expect(bank.title).not.toMatch(/^Cambridge IGCSE |^International Baccalaureate /);

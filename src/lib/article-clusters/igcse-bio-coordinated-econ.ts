@@ -131,9 +131,9 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
     "title": "Best IGCSE Co-ordinated Sciences 0654 Question Banks",
     "description": "Find the best IGCSE Co-ordinated Sciences 0654 past-paper resources and learn how to match combined science papers to your component and tier.",
     "eyebrow": "IGCSE Co-ordinated Sciences 0654",
-    "answer": "For IGCSE Co-ordinated Sciences (Double Award) 0654, the best practice source is Cambridge's official syllabus and past-paper collection, supported by a clearly labelled archive such as PastPapers.Co. Choose resources by the full 0654 code, paper number, variant, tier and component. This is a combined qualification covering Biology, Chemistry and Physics, not three separate IGCSE banks. PastPaperPrep is preparing a 0654 question bank, but it is launch-gated and not live. No PastPaperPrep 0654 route, count or availability should be assumed today.",
+    "answer": "For IGCSE Co-ordinated Sciences (Double Award) 0654, the best practice source is Cambridge's official syllabus and past-paper collection, supported by a clearly labelled archive such as PastPapers.Co. Choose resources by the full 0654 code, paper number, variant, tier and component. This is a combined qualification covering Biology, Chemistry and Physics, not three separate IGCSE banks. PastPaperPrep has a prepared 0654 question bank, but it is released under the same production release gate as our other gated IGCSE banks: it is only reachable when that gate is enabled, and it is not live by default. No PastPaperPrep 0654 route, count or availability should be assumed from this article.",
     "publishedAt": "2026-10-16",
-    "updatedAt": "2026-09-12",
+    "updatedAt": "2026-09-15",
     "readingMinutes": 6,
     "sections": [
       {
@@ -170,10 +170,10 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
         ]
       },
       {
-        "heading": "What a future PastPaperPrep bank should do",
+        "heading": "What the PastPaperPrep 0654 bank does",
         "paragraphs": [
-          "PastPaperPrep's planned 0654 bank is intended to make combined-science practice easier to search by syllabus topic while preserving the qualification's real structure. That means keeping Biology, Chemistry and Physics topics distinct, retaining paper and component identity, and making tier fit visible rather than treating every question as universally suitable. It is also intended to support image-first work for diagrams, tables and practical contexts.",
-          "This is future direction only. The 0654 bank is not live, there is no public inventory to report and there is no promised launch date. Until an explicit launch, Cambridge and current third-party archives are the practical choices."
+          "PastPaperPrep's 0654 bank keeps the combined qualification as ONE bank and makes it searchable by syllabus topic while preserving its real structure: Biology, Chemistry and Physics topics stay distinct, paper and component identity is retained, each question's own printed session applies, practical skills are labelled as practical skills, and questions that materially assess two sciences carry their primary science first. It also supports image-first work for diagrams, tables and practical contexts.",
+          "It is released behind the same production release gate as our other gated IGCSE banks, which means it is only reachable once that gate is enabled and its assets are verified. This article does not claim a public route, inventory or question count, and it does not bypass the gate. Until you see the bank in the product, Cambridge's official collection and current 0654 archives are the practical choices."
         ]
       }
     ],
@@ -196,7 +196,7 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
       },
       {
         "question": "Is the PastPaperPrep 0654 bank available?",
-        "answer": "No. It is launch-gated and not live. This article does not claim a route, inventory or question count. Use Cambridge's official collection and current 0654 archives today."
+        "answer": "Only under the same production release gate as our other gated IGCSE banks. When that gate is enabled the bank is reachable through the normal bank route; when it is not, it is hidden. This article does not claim a public route, inventory or question count, and it does not bypass the gate."
       }
     ],
     "relatedBanks": [

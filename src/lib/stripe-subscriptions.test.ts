@@ -61,6 +61,17 @@ describe("Stripe subscription event normalization", () => {
       .toEqual(expect.objectContaining({ productId: "bundle_ib_aa" }));
   });
 
+  it("maps a Co-ordinated Sciences purchase to its exact entitlement", () => {
+    const subscription = event();
+    subscription.data.object.metadata.product_id = "bank_igcse_coordinated_sciences_0654";
+    expect(buildSubscriptionSync(subscription, (productId, priceId, interval) =>
+      productId === "bank_igcse_coordinated_sciences_0654" && priceId === "price_monthly" && interval === "monthly",
+    )).toEqual(expect.objectContaining({
+      productId: "bank_igcse_coordinated_sciences_0654",
+      quantity: 1,
+    }));
+  });
+
   it("validates custom-bundle metadata, quantity, and selected canonical banks", () => {
     const custom = event() as unknown as {
       data: { object: { metadata: Record<string, string>; items: { data: Array<{ price: { id: string; recurring?: { interval: string } }; quantity?: number }> } } };
