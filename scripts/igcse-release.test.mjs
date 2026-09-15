@@ -15,7 +15,7 @@ import {
   validateObjectKey,
   verifyRelease,
 } from "./igcse-release.mjs";
-import { finalizeRelease } from "./generate-igcse-release.mjs";
+import { finalizeQuestionStates, finalizeRelease } from "./generate-igcse-release.mjs";
 
 const temporary = [];
 afterEach(async () => Promise.all(temporary.splice(0).map((path) => rm(path, { recursive: true, force: true }))));
@@ -134,7 +134,7 @@ describe("IGCSE storage release tooling", () => {
     const repo = await mkdtemp(join(tmpdir(), "igcse-finalize-"));
     temporary.push(repo);
     const bank = "igcse-biology-0610";
-    const runtime = sealedRuntime(bank, { questionImages: [], markschemeImages: [], publicationStatus: "local_preview_candidate", classificationReviewStatus: "candidate_not_approved" });
+    const runtime = sealedRuntime(bank, { questionImages: [], markschemeImages: [], publicationStatus: "authorized_production_candidate", classificationReviewStatus: bank === "igcse-economics-0455" ? "source_paired_review_completed_pending_release" : "candidate_not_approved" });
     const manifest = { schemaVersion: "igcse-private-assets-v1", bank, storageState: "pending_upload", assets: [] };
     const receipt = { schemaVersion: "igcse-upload-receipt-v1", bank, storageState: "verified_readback", assetManifestSha256: manifestSha256(manifest), completed: [], failed: [] };
     await mkdir(join(repo, "src/data/production"), { recursive: true });
@@ -149,5 +149,27 @@ describe("IGCSE storage release tooling", () => {
     expect(finalized.questions[0].classificationReviewStatus).toBe("classified");
     expect(finalized.runtimeArtifact.assetVerification).toBe("verified_readback");
     expect(finalized.runtimeArtifact.runtimeSha256).toBe(runtimeSha256(finalized));
+  });
+
+  it("normalizes only the authorized Biology and Economics candidate states", () => {
+    const biology = { publicationStatus: "authorized_production_candidate", classificationReviewStatus: "candidate_not_approved" };
+    const economics = { publicationStatus: "authorized_production_candidate", classificationReviewStatus: "source_paired_review_completed_pending_release" };
+    finalizeQuestionStates({ questions: [biology] }, "igcse-biology-0610");
+    finalizeQuestionStates({ questions: [economics] }, "igcse-economics-0455");
+    expect(biology).toEqual({ publicationStatus: "production", classificationReviewStatus: "classified" });
+    expect(economics).toEqual({ publicationStatus: "production", classificationReviewStatus: "classified" });
+  });
+
+  it("fails closed for unknown candidate states", () => {
+    expect(() => finalizeQuestionStates({ questions: [{ publicationStatus: "mystery", classificationReviewStatus: "candidate_not_approved" }] }, "igcse-biology-0610")).toThrow(/unknown|unauthorized/i);
+  });
+
+  it.each([
+    {},
+    { questions: null },
+    { questions: [] },
+    { questions: "not-an-array" },
+  ])("fails closed when the runtime has no non-empty question array", (runtime) => {
+    expect(() => finalizeQuestionStates(runtime, "igcse-biology-0610")).toThrow(/non-empty question array/i);
   });
 });
