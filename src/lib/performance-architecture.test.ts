@@ -19,12 +19,20 @@ describe("serverless performance boundaries", () => {
     expect(config.matcher).toEqual([
       "/account/:path*",
       "/dashboard/:path*",
-      "/banks/:path*",
       "/pricing",
       "/login",
       "/auth/:path*",
       "/api/:path*",
     ]);
+  });
+
+  it("pre-renders bank pages instead of doing corpus and auth work per request", () => {
+    const page = source("src/app/banks/[slug]/page.tsx");
+    expect(page).not.toContain('from "next/headers"');
+    expect(page).not.toContain('from "@/lib/supabase/server"');
+    expect(page).not.toContain("searchParams:");
+    expect(page).toContain("export const dynamicParams = false");
+    expect(page).toContain("bootstrapUrl=");
   });
 
   it("does not eagerly import every question bank into the shared question module", () => {

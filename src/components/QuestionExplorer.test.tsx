@@ -29,6 +29,46 @@ describe("QuestionExplorer", () => {
 
   const fullAccess = { authenticated: true, bankAccess: true, canExportPdf: true };
 
+  it("hydrates shared filters and member access without making the bank page dynamic", async () => {
+    const all = loadBankQuestions("ib-sl");
+    const initial = prepareQuestionsForDelivery(all.slice(0, 40), []);
+    const savedQuestion = initial[0];
+    const sharedQuery = savedQuestion.primaryTopic.toLocaleLowerCase();
+    window.history.replaceState({}, "", `/banks/ib-sl?q=${encodeURIComponent(sharedQuery)}&sort=topic`);
+    vi.stubGlobal("fetch", vi.fn(async (input, init) => {
+      const url = String(input);
+      if (url === "/api/banks/bootstrap?bank=ib-sl") {
+        return new Response(JSON.stringify({
+          access: fullAccess,
+          exportMarker: "MEMBER1234",
+          studyState: { savedIds: [savedQuestion.id], attemptedIds: [] },
+          studyStateUnavailable: true,
+        }), { status: 200, headers: { "content-type": "application/json" } });
+      }
+      if (url.startsWith("/api/questions/search")) {
+        return new Response(JSON.stringify({ ids: all.filter((question) => question.searchText.includes(sharedQuery)).map((question) => question.id) }), { status: 200 });
+      }
+      const body = JSON.parse(String(init?.body));
+      return new Response(JSON.stringify({ expiresIn: 600, assets: body.requests.map((request: { questionId: string; kind: string }) => ({ ...request, urls: [`https://assets.example/${request.questionId}.webp`] })) }), { status: 200 });
+    }));
+
+    render(<QuestionExplorer
+      questions={initial}
+      bankSlug="ib-sl"
+      access={{ authenticated: false, bankAccess: false, canExportPdf: false }}
+      bootstrapUrl="/api/banks/bootstrap?bank=ib-sl"
+      hydrateFromLocation
+    />);
+
+    await waitFor(() => expect(screen.getByLabelText(/search questions/i)).toHaveValue(sharedQuery));
+    await waitFor(() => expect(fetch).toHaveBeenCalledWith("/api/banks/bootstrap?bank=ib-sl", expect.objectContaining({ cache: "no-store" })));
+    expect(screen.getByRole("button", { name: /sort questions: topic/i })).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByRole("group", { name: /study/i })).toBeInTheDocument());
+    expect(screen.getByRole("checkbox", { name: /saved questions only/i })).toBeInTheDocument();
+    expect(screen.getByRole("alert")).toHaveTextContent(/saved and attempted question state could not load/i);
+    expect(new URLSearchParams(window.location.search).get("q")).toBe(sharedQuery);
+  });
+
   it("restores a shareable workspace and keeps changes in the URL", async () => {
     const writeText = vi.fn().mockResolvedValue(undefined);
     Object.defineProperty(navigator, "clipboard", { configurable: true, value: { writeText } });

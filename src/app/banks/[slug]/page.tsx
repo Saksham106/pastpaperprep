@@ -1,24 +1,19 @@
-import { createHash } from "node:crypto";
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { QuestionExplorer } from "@/components/QuestionExplorer";
 import { BankSeoContent } from "@/components/BankSeoContent";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
-import { canExportPdf, hasBankAccess, isPreviewQuestion } from "@/lib/access";
+import { isPreviewQuestion } from "@/lib/access";
 import { getAvailableBanks, getBank, isLocalEconomicsBank, isLocalEconomicsPreviewEnabled, isPrivateBankIndexEnabled, type BankSlug } from "@/lib/banks";
-import { EXPLORER_PAGE_SIZE, parseExplorerState, type ExplorerSearchParams } from "@/lib/explorer-state";
+import { EXPLORER_PAGE_SIZE, parseExplorerState } from "@/lib/explorer-state";
 import { filterQuestions } from "@/lib/question-filter";
-import { normalizeEntitlements } from "@/lib/entitlements";
 import { getQuestionRichDetails } from "@/lib/question-delivery";
 import { localPreviewBankIndexUrl, mergeQuestionRichDetails, publicBankIndexUrl, publicMetadataToQuestion, toPublicQuestionMetadata } from "@/lib/question-index";
 import { loadBankQuestions } from "@/lib/question-loader";
-import { searchQuestionIds } from "@/lib/question-search";
 import { SOCIAL_IMAGE, SOCIAL_IMAGE_URL } from "@/lib/seo";
-import { hasSupabaseAuthCookie } from "@/lib/supabase/proxy";
-import { createClient } from "@/lib/supabase/server";
 
+export const dynamicParams = false;
 export function generateStaticParams() { return getAvailableBanks().map(({ slug }) => ({ slug })); }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -42,55 +37,36 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default async function BankPage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<ExplorerSearchParams> }) {
+export default async function BankPage({ params }: { params: Promise<{ slug: string }> }) {
   const slug = (await params).slug as BankSlug;
-  const rawSearchParams = await searchParams;
   const bank = getBank(slug);
   if (!bank) notFound();
   const localPreview = isLocalEconomicsPreviewEnabled() && isLocalEconomicsBank(slug);
   // One choke point decides whether this bank's metadata index is private; it is served
   // anonymously, so an advertised ?free=1 link always has a question list to browse.
   const privateIndex = isPrivateBankIndexEnabled(slug);
-  const hasAuthCookie = hasSupabaseAuthCookie((await cookies()).getAll());
-  const supabase = !localPreview && hasAuthCookie ? await createClient() : null;
-  const claimsData = supabase ? (await supabase.auth.getClaims()).data : null;
-  const userId = claimsData?.claims?.sub;
-  const exportMarker = typeof userId === "string"
-    ? createHash("sha256").update(userId).digest("hex").slice(0, 10).toUpperCase()
-    : undefined;
-  const [{ data: entitlementRows }, { data: savedRows }, { data: attemptRows }] = userId && supabase
-    ? await Promise.all([
-      supabase.from("entitlements").select("product_id, selected_bank_ids, status, starts_at, expires_at").eq("user_id", userId),
-      supabase.from("saved_questions").select("question_id").eq("user_id", userId).eq("bank_slug", slug),
-      supabase.from("attempts").select("question_id").eq("user_id", userId).eq("bank_slug", slug),
-    ])
-    : [{ data: [] }, { data: [] }, { data: [] }];
-  const entitlements = normalizeEntitlements(entitlementRows ?? []);
-  const bankAccess = localPreview || hasBankAccess(slug, entitlements);
   // A catalog entry is not proof that a bank is runnable. A gated bank whose sealed
   // runtime is not promoted yet (or a corrupt artifact) fails closed as a 404 instead of
   // advertising a route that renders an error boundary, which would return HTTP 200.
   const allQuestions = await loadBankQuestions(slug).catch(() => null);
   if (!allQuestions) notFound();
   const filterableQuestions = allQuestions.map((question) => publicMetadataToQuestion(toPublicQuestionMetadata(question), slug));
-  const initialState = parseExplorerState(rawSearchParams, { defaultFreeOnly: !bankAccess });
-  const savedIdSet = new Set((savedRows ?? []).map((row) => row.question_id));
-  const initialSearchIds = initialState.search
-    ? new Set(searchQuestionIds(allQuestions, initialState.search, entitlements))
-    : null;
+  // Request-specific URL and member state hydrate in the client. Keeping them out of this
+  // route lets Next pre-render every bank once at build time instead of parsing a full corpus
+  // for every crawler and visitor request.
+  const initialState = parseExplorerState({}, { defaultFreeOnly: !localPreview });
   const initialMatches = filterQuestions(filterableQuestions, {
     ...initialState.filters,
     search: undefined,
     sort: initialState.sort,
   })
-    .filter((question) => !initialSearchIds || initialSearchIds.has(question.id))
     .filter((question) => !initialState.freeOnly || isPreviewQuestion(slug, question.id))
-    .filter((question) => !initialState.savedOnly || savedIdSet.has(question.id));
+    .filter(() => !initialState.savedOnly);
   const sourceById = new Map(allQuestions.map((question) => [question.id, question]));
   const initialQuestions = initialMatches.slice(0, EXPLORER_PAGE_SIZE).map((question) => {
     const sourceQuestion = sourceById.get(question.id);
     return sourceQuestion
-      ? mergeQuestionRichDetails(question, getQuestionRichDetails(sourceQuestion, entitlements, new Date(), localPreview))
+      ? mergeQuestionRichDetails(question, getQuestionRichDetails(sourceQuestion, [], new Date(), localPreview))
       : question;
   });
 
@@ -131,7 +107,7 @@ export default async function BankPage({ params, searchParams }: { params: Promi
         </div>
       </section>
       <div className="shell">
-        <QuestionExplorer questions={initialQuestions} bankSlug={slug} localPreview={localPreview} indexUrl={localPreview ? localPreviewBankIndexUrl(slug) : privateIndex ? `/api/private-bank-index/${slug}` : publicBankIndexUrl(slug)} access={{ authenticated: Boolean(userId), bankAccess, canExportPdf: localPreview || canExportPdf(slug, entitlements) }} exportMarker={exportMarker} initialState={initialState} studyState={{ savedIds: (savedRows ?? []).map((row) => row.question_id), attemptedIds: (attemptRows ?? []).map((row) => row.question_id) }} />
+        <QuestionExplorer questions={initialQuestions} bankSlug={slug} localPreview={localPreview} indexUrl={localPreview ? localPreviewBankIndexUrl(slug) : privateIndex ? `/api/private-bank-index/${slug}` : publicBankIndexUrl(slug)} access={{ authenticated: false, bankAccess: localPreview, canExportPdf: localPreview }} initialState={initialState} bootstrapUrl={localPreview ? undefined : `/api/banks/bootstrap?bank=${encodeURIComponent(slug)}`} hydrateFromLocation />
         <BankSeoContent bank={bank} />
       </div>
     </>

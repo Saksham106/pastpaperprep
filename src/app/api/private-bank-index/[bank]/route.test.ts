@@ -22,7 +22,7 @@ describe("private bank metadata index", () => {
   it("serves the metadata-only index to an anonymous visitor", async () => {
     const response = await GET(new Request("https://pastpaperprep.com/api/private-bank-index/ib-economics-hl"), context);
     expect(response.status).toBe(200);
-    expect(response.headers.get("cache-control")).toBe("private, no-store, max-age=0");
+    expect(response.headers.get("cache-control")).toBe("public, s-maxage=31536000, stale-while-revalidate=86400");
     const payload = await response.json() as { version: number; bank: string; questions: unknown[] };
     expect(payload.version).toBe(1);
     expect(payload.bank).toBe("ib-economics-hl");
