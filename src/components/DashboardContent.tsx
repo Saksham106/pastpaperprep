@@ -8,8 +8,14 @@ import { bankEntryHref, hasFreeTier } from "@/lib/access";
 import { BANKS, type Bank, type BankSlug } from "@/lib/banks";
 
 type BankGroup = { name: string; className: string; tone: CourseTone; banks: Bank[] };
+/**
+ * Cambridge rows carry ONE coherent full bank label ("Mathematics 0580"), never a syllabus code
+ * split away from its subject. The runtime subject already reads "subject + code" for Cambridge,
+ * so the row title and the closed family heading can no longer disagree.
+ * IB keeps its subject-plus-level presentation ("Maths AA HL"), which the user asked not to change.
+ */
 function displayBankName(bank: Bank): string {
-  if (bank.qualification === "Cambridge IGCSE") return bank.subject.match(/\d{4}$/)?.[0] ?? bank.subject;
+  if (bank.qualification === "Cambridge IGCSE") return bank.subject;
   if (bank.subject.startsWith("Mathematics ")) return `Maths ${bank.subject.replace("Mathematics ", "")}`;
   return bank.subject;
 }

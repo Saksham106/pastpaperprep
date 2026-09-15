@@ -105,6 +105,94 @@ function drawsNoEdge(style: Declaration): boolean {
   return edges.every((value) => paintsNothing(value) || /^(0|none|hidden)/.test(normalize(value)));
 }
 
+/**
+ * Specificity of a compound selector as [ids, classes/attributes/pseudo-classes, elements].
+ * Enough for the simple compound selectors in these sheets.
+ */
+function specificity(compound: string): [number, number, number] {
+  const clean = compound.replace(/::[\w-]+/g, "");
+  const ids = clean.match(/#[\w-]+/g)?.length ?? 0;
+  const classes = (clean.match(/\.[\w-]+/g)?.length ?? 0)
+    + (clean.match(/\[[^\]]*\]/g)?.length ?? 0)
+    + (clean.match(/:(?!:)[\w-]+/g)?.length ?? 0);
+  const elements = /^[a-zA-Z]/.test(clean) ? 1 : 0;
+  return [ids, classes, elements];
+}
+
+function compareSpecificity(left: [number, number, number], right: [number, number, number]): number {
+  for (let index = 0; index < 3; index += 1) {
+    if (left[index] !== right[index]) return left[index] - right[index];
+  }
+  return 0;
+}
+
+/**
+ * Cascade winner for ONE element that matches every compound in `compounds`.
+ *
+ * `styleFor` merges by literal selector text, which hides the real bug class these layout
+ * rules are prone to: a lower-specificity rule that is declared later still loses. This
+ * resolves the cascade the way a browser does — highest specificity first, then source order.
+ */
+function cascadeFor(
+  blocks: StyleBlock[],
+  compounds: string[],
+  applies: (media: string | null) => boolean = (media) => media === null,
+): Declaration {
+  const candidates = blocks.flatMap((block) => {
+    if (!applies(block.media)) return [];
+    return block.selector
+      .split(",")
+      .map((part) => part.trim())
+      .map((selector) => ({ selector, compound: selector.split(/[\s>+~]+/).filter(Boolean).pop() ?? "" }))
+      .filter(({ compound }) => compounds.includes(compound))
+      .map(({ compound }) => ({ block, weight: specificity(compound) }));
+  });
+  candidates.sort((left, right) => compareSpecificity(left.weight, right.weight) || left.block.order - right.block.order);
+  const merged: Declaration = {};
+  for (const candidate of candidates) Object.assign(merged, candidate.block.declarations);
+  return merged;
+}
+
+/** Effective horizontal padding after resolving shorthand -> logical -> longhand. */
+function horizontalPadding(style: Declaration): { left: number; right: number } | null {
+  const parse = (value?: string) => (value === undefined ? null : Number.parseFloat(value));
+  let left: number | null = null;
+  let right: number | null = null;
+
+  const padding = style.padding;
+  if (padding !== undefined) {
+    const parts = padding.split(/\s+/);
+    const horizontal = parts[1] !== undefined ? parse(parts[1]) : parse(parts[0]);
+    left = horizontal;
+    right = horizontal;
+  }
+  const inline = style["padding-inline"];
+  if (inline !== undefined) {
+    const parts = inline.split(/\s+/).filter(Boolean);
+    left = parse(parts[0]);
+    right = parts[1] !== undefined ? parse(parts[1]) : parse(parts[0]);
+  }
+  const leftLonghand = parse(style["padding-left"]);
+  if (leftLonghand !== null) left = leftLonghand;
+  const rightLonghand = parse(style["padding-right"]);
+  if (rightLonghand !== null) right = rightLonghand;
+
+  return left === null || right === null ? null : { left, right };
+}
+
+/** Media contexts a browser would apply at a given viewport width, in source order. */
+const VIEWPORTS: Array<[string, number]> = [["desktop 1440", 1440], ["tablet 900", 900], ["mobile 620", 620], ["small mobile 360", 360]];
+
+function mediaAppliesAt(width: number, media: string | null): boolean {
+  if (media === null) return true;
+  const max = media.match(/max-width:\s*(\d+)px/);
+  const min = media.match(/min-width:\s*(\d+)px/);
+  if (max && !min) return width <= Number(max[1]);
+  if (min && !max) return width >= Number(min[1]);
+  if (min && max) return width >= Number(min[1]) && width <= Number(max[1]);
+  return false;
+}
+
 describe("qualification tabs carry no wide tray", () => {
   const tablist = styleFor(globalBlocks, '.qualification-tabs-prominent [role="tablist"]', "all");
   const tab = styleFor(globalBlocks, '.qualification-tabs-prominent [role="tab"]', "all");
@@ -252,5 +340,70 @@ describe("off-white public background is painted by a full-width surface", () =>
       expect(paintsNothing(page.background)).toBe(true);
       expect(paintsNothing(page["background-color"])).toBe(true);
     }
+  });
+});
+
+describe("landing subject panels keep a centered, symmetric frame", () => {
+  /**
+   * The two-bank Mathematics group is the grid's first child and used to hug the panel's left
+   * border: a legacy `.subjectGroup:first-child { padding-left: 0 }` out-specified the panel
+   * padding (0,2,0 beats 0,1,0), so the shared content column — heading and both tiles — sat
+   * 22px off-centre. The last group lost its right padding the same way.
+   */
+  const POSITIONS: Array<[string, string[]]> = [
+    ["first group (Mathematics)", [".subjectGroup", ".subjectGroup:first-child"]],
+    ["middle group (Chemistry)", [".subjectGroup"]],
+    ["last group (Co-ordinated Sciences)", [".subjectGroup", ".subjectGroup:last-child"]],
+    ["last group when it is also odd (5-group IB panel)", [".subjectGroup", ".subjectGroup:last-child", ".subjectGroup:last-child:nth-child(odd)"]],
+  ];
+
+  for (const [viewport, width] of VIEWPORTS) {
+    for (const [position, compounds] of POSITIONS) {
+      it(`centers the ${position} at ${viewport}`, () => {
+        const padding = horizontalPadding(cascadeFor(homeBlocks, compounds, (media) => mediaAppliesAt(width, media)));
+        expect(padding, `${position} @ ${viewport} should resolve a horizontal padding`).not.toBeNull();
+        expect(padding!.left, `${position} @ ${viewport} left padding`).toBeGreaterThan(0);
+        expect(padding!.right, `${position} @ ${viewport} right padding`).toBeGreaterThan(0);
+        expect(padding!.left, `${position} @ ${viewport} must be symmetric (hint: a ":" position rule that zeroes one side out-specifies the panel padding)`)
+          .toBeCloseTo(padding!.right, 2);
+      });
+    }
+  }
+
+  it("never zeroes one side of the panel frame for a positional variant", () => {
+    for (const block of homeBlocks) {
+      if (!/\.subjectGroup/.test(block.selector)) continue;
+      const positional = block.selector.split(",").map((part) => part.trim())
+        .filter((selector) => /:first-child|:last-child|:nth-child/.test(selector) && /^\.subjectGroup(\s*$|:|\.)/.test(selector));
+      if (positional.length === 0) continue;
+      const padding = horizontalPadding(block.declarations);
+      if (!padding) continue;
+      expect(padding.left, `${block.selector} zeroes the left edge of a positional subject panel`).toBeGreaterThan(0);
+      expect(padding.right, `${block.selector} zeroes the right edge of a positional subject panel`).toBeGreaterThan(0);
+    }
+  });
+
+  it("centers and caps the two-tile Mathematics stack at the subject column measure", () => {
+    const two = cascadeFor(
+      homeBlocks,
+      [".bankCards", ".bankCardsTwo", ".bankCards.bankCardsTwo"],
+      (media) => mediaAppliesAt(1440, media),
+    );
+    expect(normalize(two.width), "the two-tile grid keeps an explicit centred measure").toMatch(/^min\(100%/);
+    expect(normalize(two["margin-inline"])).toBe("auto");
+
+    const wide = cascadeFor(homeBlocks, [".bankCards", ".bankCardsTwo"], (media) => mediaAppliesAt(620, media));
+    expect(normalize(wide.width)).toMatch(/^min\(100%/);
+    expect(normalize(wide["margin-inline"])).toBe("auto");
+  });
+
+  it("keeps both tiles distinct, equal, and full-column inside that measure", () => {
+    const two = styleFor(homeBlocks, ".bankCards.bankCardsTwo", "all");
+    expect(normalize(two["grid-template-columns"])).toMatch(/auto-fit|minmax/);
+    // A long label ("Additional Mathematics 0606") wraps at the shared column measure; equalizing
+    // the rows keeps the pair reading as two balanced links instead of one tall and one short tile.
+    expect(normalize(two["grid-auto-rows"])).toBe("1fr");
+    expect(normalize(styleFor(homeBlocks, ".bankCard", "all").width)).toBe("100%");
+    expect(paintsSomething(styleFor(homeBlocks, ".bankCard", "all").background)).toBe(true);
   });
 });

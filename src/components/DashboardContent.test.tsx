@@ -36,7 +36,7 @@ describe("DashboardContent", () => {
     fireEvent.click(screen.getByRole("tab", { name: "Cambridge IGCSE" }));
     const cardLink = screen.getByRole("link", { name: /start free.*mathematics 0580/i });
     expect(cardLink).toHaveClass("dashboard-bank-card");
-    expect(cardLink).toContainElement(screen.getByRole("heading", { name: "0580" }));
+    expect(cardLink).toContainElement(screen.getByRole("heading", { name: "Mathematics 0580" }));
     expect(container.querySelector(".dashboard-upgrade-strip")?.compareDocumentPosition(container.querySelector(".dashboard-bank-groups")!)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
   });
 
@@ -56,6 +56,43 @@ describe("DashboardContent", () => {
     expect(container.querySelectorAll("#cambridge-igcse-panel .dashboard-bank-family")).toHaveLength(2);
     expect(container.querySelector("#cambridge-igcse-panel .dashboard-bank-groups"))
       .toHaveClass("dashboard-cambridge-subject-grid");
+  });
+
+  it("gives every Cambridge row one coherent full bank label instead of a split title and code", () => {
+    const { container } = render(<DashboardContent authenticated={false} accessibleBanks={[]} availableBanks={[...BANKS, ...IGCSE_RELEASE_BANK_CATALOG]} />);
+
+    const rows = [...container.querySelectorAll<HTMLAnchorElement>("#cambridge-igcse-panel .dashboard-bank-card")];
+    expect(rows.map((row) => row.querySelector("h3")?.textContent)).toEqual([
+      "Mathematics 0580",
+      "Additional Mathematics 0606",
+      "Biology 0610",
+      "Economics 0455",
+      "Chemistry 0620",
+      "Physics 0625",
+      "Co-ordinated Sciences 0654",
+    ]);
+
+    for (const row of rows) {
+      const label = row.querySelector("h3")!.textContent!;
+      // The row title is the whole bank, never a bare syllabus code split from its subject.
+      expect(label, `${label} must not be a bare syllabus code`).not.toMatch(/^\d{4}$/);
+      expect(label).toMatch(/\d{4}$/);
+      // The label rides inside the single link that owns the whole row.
+      expect(row.tagName).toBe("A");
+      expect(row.querySelectorAll("h3")).toHaveLength(1);
+      expect(row.getAttribute("aria-label")).toContain(label);
+      expect(row.textContent).toMatch(/\d+\squestions/);
+      expect(row.textContent).toMatch(/papers/);
+    }
+  });
+
+  it("keeps the IB rows on their subject-plus-level presentation", () => {
+    render(<DashboardContent authenticated={false} accessibleBanks={[]} availableBanks={[...BANKS, ...ECONOMICS_BANK_CATALOG]} />);
+    fireEvent.click(screen.getByRole("tab", { name: "IB Diploma" }));
+
+    for (const name of ["Maths AA HL", "Maths AA SL", "Maths AI HL", "Maths AI SL", "Chemistry HL", "Chemistry SL", "Physics HL", "Physics SL", "Biology HL", "Biology SL", "Economics HL", "Economics SL"]) {
+      expect(screen.getByRole("heading", { name })).toBeInTheDocument();
+    }
   });
 
   it("keeps every IB card independently identifiable", () => {
@@ -94,13 +131,13 @@ describe("DashboardContent", () => {
     const tabs = screen.getAllByRole("tab");
     expect(tabs.map((tab) => tab.textContent)).toEqual(["Cambridge IGCSE", "IB Diploma"]);
     expect(tabs[0]).toHaveAttribute("aria-selected", "true");
-    expect(screen.getByRole("heading", { name: "0610" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Biology 0610" })).toBeInTheDocument();
     expect(screen.queryByRole("heading", { name: "Maths AA HL" })).not.toBeInTheDocument();
 
     fireEvent.keyDown(tabs[0], { key: "ArrowRight" });
     expect(tabs[1]).toHaveAttribute("aria-selected", "true");
     expect(screen.getByRole("heading", { name: "Maths AA HL" })).toBeInTheDocument();
-    expect(screen.queryByRole("heading", { name: "0610" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "Biology 0610" })).not.toBeInTheDocument();
     expect(document.querySelector("#cambridge-igcse-panel")).toHaveAttribute("hidden");
     fireEvent.keyDown(tabs[1], { key: "ArrowLeft" });
     expect(tabs[0]).toHaveAttribute("aria-selected", "true");
@@ -136,7 +173,7 @@ describe("DashboardContent", () => {
   it("renders a non-empty title for every available bank", () => {
     const { container } = render(<DashboardContent authenticated={false} accessibleBanks={[]} availableBanks={[...BANKS, ...IGCSE_RELEASE_BANK_CATALOG]} />);
     expect([...container.querySelectorAll(".dashboard-bank-card h3")].every((heading) => heading.textContent?.trim())).toBe(true);
-    expect(screen.getByRole("heading", { name: "0455" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Economics 0455" })).toBeInTheDocument();
   });
 
   it("only exposes qualifications that have available banks", () => {

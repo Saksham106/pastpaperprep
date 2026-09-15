@@ -33,7 +33,6 @@
 .catalogCount { color: var(--muted); font: 550 .73rem/1 var(--font-mono); white-space: nowrap; }
 .subjectGrid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; padding: 0 20px 20px; }
 .subjectGroup { min-width: 0; padding: 19px 13px 0; border-top: 1px solid var(--line); }
-.subjectGroup:first-child { padding-left: 0; }.subjectGroup:last-child { padding-right: 0; }
 .subjectGroup header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
 .subjectGroup h4 { margin: 0; font: 600 1.16rem/1.1 Georgia, serif; }
 .subjectGroup .course-icon { width: 25px; height: 25px; border-radius: 50%; }.subjectGroup .course-icon svg { width: 14px; height: 14px; }
@@ -74,7 +73,7 @@
 /* Editorial catalog density follows the actual number of banks. */
 .subjectGroup header { padding-bottom: 0; border-bottom: 0; }
 .bankCards.bankCardsSingle { grid-template-columns: minmax(0, 1fr); }
-.bankCards.bankCardsTwo { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+.bankCards.bankCardsTwo { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); grid-auto-rows: 1fr; }
 .bankCards.bankCardsMany { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
 .bankChips span { padding: 0; background: transparent; border: 0; }
 .bankChips span + span::before { content: "/"; margin: 0 5px; color: #bdb4a4; }
@@ -85,12 +84,11 @@
   .catalogHeader h3 { font-size: 1.35rem; }
   .subjectGrid { gap: 0; }
   .bankCards { grid-template-columns: 1fr; gap: 10px; }
-  .subjectGroup, .subjectGroup:first-child, .subjectGroup:last-child { padding: 19px 0 0; }
   .bankCard { min-height: 72px; }
 }
 @media (prefers-reduced-motion: no-preference) { .heroCopy { animation: rise-in 680ms cubic-bezier(.16,1,.3,1) both; } @keyframes rise-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } } }
 @media (max-width: 900px) { .subjectGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }.subjectGroup, .subjectGroup:nth-last-child(2):nth-child(4), .subjectGroup:nth-last-child(1):nth-child(5) { grid-column: auto; }.subjectGroup:last-child:nth-child(odd) { grid-column: 1 / -1; width: 50%; justify-self: center; }.subjectGroup:nth-child(n+3) { border-top: 1px solid var(--line); }.workflowGrid { grid-template-columns: 1fr; gap: 42px; } }
-@media (max-width: 620px) { .hero { min-height: auto; padding: 90px 0 32px; }.heroStage { min-height: 560px; }.heroCopy { width: 100%; padding: 32px 14px 142px; }.hero h1 { font-size: clamp(3rem, 15vw, 4.2rem); }.hero h1 em { white-space: nowrap; }.heroActions { align-items: stretch; flex-direction: column; }.heroActions .button { width: 100%; }.heroBuilding { inset: 0; width: 100%; height: 100%; opacity: .29; object-position: 44% 58%; }.heroBotanical { display: none; }.heroIndex { right: 4%; bottom: 18px; padding: 8px 10px; background: rgb(238 233 223 / .86); font-size: .76rem; line-height: 1.45; text-shadow: none; }.banks { padding: 64px 0 76px; }.sectionHeader { width: 100%; }.sectionHeader h2, .workflowIntro h2, .cta h2 { font-size: clamp(2.2rem, 10vw, 2.9rem); line-height: 1.18; max-width: 100%; text-wrap: balance; }.qualificationTabs { margin-bottom: 12px; }.catalogHeader { padding: 14px; align-items: start; }.catalogHeader h3 { font-size: 1.25rem; }.catalogHeader p { line-height: 1.35; }.catalogCount { padding-top: 5px; }.subjectGrid { grid-template-columns: 1fr; padding: 0 14px 14px; }.subjectGroup, .subjectGroup:first-child, .subjectGroup:last-child, .subjectGroup:last-child:nth-child(odd) { grid-column: auto; width: 100%; padding: 20px 0; }.bankCard { min-height: 88px; }.workflow { padding: 76px 0 84px; }.cta { align-items: stretch; flex-direction: column; margin-block: 70px 80px; padding: 32px 24px 36px; }.ctaActions, .ctaActions .button { width: 100%; }.ctaActions { justify-items: stretch; }.ctaArtwork { right: 8px; bottom: 8px; width: 280px; height: 165px; opacity: .2; } }
+@media (max-width: 620px) { .hero { min-height: auto; padding: 90px 0 32px; }.heroStage { min-height: 560px; }.heroCopy { width: 100%; padding: 32px 14px 142px; }.hero h1 { font-size: clamp(3rem, 15vw, 4.2rem); }.hero h1 em { white-space: nowrap; }.heroActions { align-items: stretch; flex-direction: column; }.heroActions .button { width: 100%; }.heroBuilding { inset: 0; width: 100%; height: 100%; opacity: .29; object-position: 44% 58%; }.heroBotanical { display: none; }.heroIndex { right: 4%; bottom: 18px; padding: 8px 10px; background: rgb(238 233 223 / .86); font-size: .76rem; line-height: 1.45; text-shadow: none; }.banks { padding: 64px 0 76px; }.sectionHeader { width: 100%; }.sectionHeader h2, .workflowIntro h2, .cta h2 { font-size: clamp(2.2rem, 10vw, 2.9rem); line-height: 1.18; max-width: 100%; text-wrap: balance; }.qualificationTabs { margin-bottom: 12px; }.catalogHeader { padding: 14px; align-items: start; }.catalogHeader h3 { font-size: 1.25rem; }.catalogHeader p { line-height: 1.35; }.catalogCount { padding-top: 5px; }.subjectGrid { grid-template-columns: 1fr; padding: 0 14px 14px; }.subjectGroup, .subjectGroup:first-child, .subjectGroup:last-child, .subjectGroup:last-child:nth-child(odd) { grid-column: auto; width: 100%; }.bankCard { min-height: 88px; }.workflow { padding: 76px 0 84px; }.cta { align-items: stretch; flex-direction: column; margin-block: 70px 80px; padding: 32px 24px 36px; }.ctaActions, .ctaActions .button { width: 100%; }.ctaActions { justify-items: stretch; }.ctaArtwork { right: 8px; bottom: 8px; width: 280px; height: 165px; opacity: .2; } }
 @media (max-width: 390px) { .hero h1 { font-size: 3.1rem; }.heroStage { min-height: 540px; }.catalogCount { font-size: .67rem; } }
 .subjectGroup header { justify-content: center; text-align: center; }
 .subjectGroup h4 { text-align: center; }
@@ -126,9 +124,9 @@
 .subjectGroup[data-subject-tone="economics"] { --subject-tint: #efe7d3; }
 .bankCards { position: relative; z-index: 1; }
 .bankCard { color: #26334b; }
-.bankCardsSingle { width: min(100%, 260px); margin-inline: auto; }
+.bankCardsSingle, .bankCardsTwo { width: min(100%, 260px); margin-inline: auto; }
 .bankCardsSingle .bankCard { justify-content: center; }
-.bankCardsTwo, .bankCardsMany { width: 100%; }
+.bankCardsMany { width: 100%; }
 @media (max-width: 900px) {
   .subjectGroup { min-height: 206px; padding-inline: 18px; }
   .subjectWatermark .course-icon { width: 150px; height: 150px; }
@@ -140,7 +138,7 @@
   .subjectWatermark { right: -22px; bottom: -32px; }
   .subjectWatermark .course-icon { width: 138px; height: 138px; }
   .subjectWatermark .course-icon svg { width: 118px; height: 118px; }
-  .bankCardsSingle { width: min(100%, 300px); }
+  .bankCardsSingle, .bankCardsTwo { width: min(100%, 300px); }
 }
 @media (max-width: 360px) {
   .subjectGroup { min-height: 182px; padding-inline: 10px; }

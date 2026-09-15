@@ -97,6 +97,8 @@ describe("home page corpus summary", () => {
     const groups = [...cambridgePanel!.querySelectorAll<HTMLElement>('[class*="subjectGroup"]')];
     const mathematics = groups.find((group) => group.querySelector("h4")?.textContent === "Mathematics");
     expect(mathematics, "expected one Mathematics subject group").toBeTruthy();
+    // Mathematics is the panel's first child, so a positional `:first-child` rule can shift it.
+    expect(groups[0]).toBe(mathematics);
 
     const tiles = [...mathematics!.querySelectorAll<HTMLAnchorElement>("a[data-bank-slug]")];
     expect(tiles.map((tile) => tile.dataset.bankSlug)).toEqual(["igcse", "igcse-additional"]);
@@ -111,6 +113,10 @@ describe("home page corpus summary", () => {
     const tilesContainer = mathematics!.querySelector<HTMLElement>('[class*="bankCards"]');
     expect(tilesContainer).not.toBeNull();
     expect([...tilesContainer!.children].map((child) => child.tagName)).toEqual(["A", "A"]);
+    // The pair keeps its own two-tile layout class inside the centered subject column.
+    expect(tilesContainer!.className).toContain("bankCardsTwo");
+    const content = tilesContainer!.parentElement;
+    expect(content!.className).toContain("subjectContent");
   });
 
   it("makes every rendered bank tile its own full-tile link with a readable name", () => {
