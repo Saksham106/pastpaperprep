@@ -34,7 +34,6 @@ describe("bank route fail-closed behaviour", () => {
 
     await expect(BankPage({
       params: Promise.resolve({ slug: "igcse-coordinated-sciences-0654" }),
-      searchParams: Promise.resolve({}),
     })).rejects.toThrow("NEXT_NOT_FOUND");
 
     expect(loadBankQuestions).toHaveBeenCalledWith("igcse-coordinated-sciences-0654");
@@ -44,7 +43,6 @@ describe("bank route fail-closed behaviour", () => {
   it("404s an unknown slug before loading any corpus", async () => {
     await expect(BankPage({
       params: Promise.resolve({ slug: "not-a-bank" }),
-      searchParams: Promise.resolve({}),
     })).rejects.toThrow("NEXT_NOT_FOUND");
 
     expect(loadBankQuestions).not.toHaveBeenCalled();

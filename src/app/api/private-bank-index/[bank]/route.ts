@@ -4,7 +4,9 @@ import { createPublicBankIndex } from "@/lib/question-index";
 import { loadBankQuestions } from "@/lib/question-loader";
 
 type RouteContext = { params: Promise<{ bank: string }> };
-const PRIVATE_RESPONSE_INIT = { headers: { "Cache-Control": "private, no-store, max-age=0" } } as const;
+const CACHEABLE_RESPONSE_INIT = {
+  headers: { "Cache-Control": "public, s-maxage=31536000, stale-while-revalidate=86400" },
+} as const;
 
 export const runtime = "nodejs";
 
@@ -26,7 +28,7 @@ export async function GET(_request: Request, context: RouteContext) {
   try {
     return NextResponse.json(
       createPublicBankIndex(bank, await loadBankQuestions(bank)),
-      PRIVATE_RESPONSE_INIT,
+      CACHEABLE_RESPONSE_INIT,
     );
   } catch {
     return NextResponse.json({ error: "Question index unavailable" }, { status: 503 });

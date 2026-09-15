@@ -8,7 +8,7 @@ import { downloadQuestionPdf, MAX_PDF_QUESTIONS, questionsForPdf, type PdfConten
 import { isPreviewQuestion } from "@/lib/access";
 
 import { filterQuestions, questionZoneValue } from "@/lib/question-filter";
-import { EXPLORER_PAGE_SIZE, serializeExplorerState, type ExplorerFilterKey, type ExplorerState } from "@/lib/explorer-state";
+import { EXPLORER_PAGE_SIZE, parseExplorerState, serializeExplorerState, type ExplorerFilterKey, type ExplorerSearchParams, type ExplorerState } from "@/lib/explorer-state";
 import type { QuestionFilters, QuestionSort, UnifiedQuestion } from "@/lib/questions";
 import type { BankSlug } from "@/lib/banks";
 import { fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
@@ -163,6 +163,8 @@ export function QuestionExplorer({
   exportMarker,
   initialState = DEFAULT_EXPLORER_STATE,
   studyState = EMPTY_STUDY_STATE,
+  bootstrapUrl,
+  hydrateFromLocation = false,
 }: {
 questions: UnifiedQuestion[];
 bankSlug?: BankSlug;
@@ -172,6 +174,8 @@ access: ExplorerAccess;
   exportMarker?: string;
   initialState?: ExplorerState;
   studyState?: ExplorerStudyState;
+  bootstrapUrl?: string;
+  hydrateFromLocation?: boolean;
 }) {
   const [search, setSearch] = useState(initialState.search);
   const [catalogQuestions, setCatalogQuestions] = useState(questions);
@@ -203,6 +207,9 @@ access: ExplorerAccess;
   const [attemptedIds, setAttemptedIds] = useState(new Set(studyState.attemptedIds));
   const [studyError, setStudyError] = useState("");
   const [shareStatus, setShareStatus] = useState("");
+  const [resolvedAccess, setResolvedAccess] = useState(access);
+  const [resolvedExportMarker, setResolvedExportMarker] = useState(exportMarker);
+  const [locationHydrated, setLocationHydrated] = useState(!hydrateFromLocation);
   const filterTriggerRef = useRef<HTMLButtonElement>(null);
   const filterDialogRef = useRef<HTMLElement>(null);
   const pdfTriggerRef = useRef<HTMLButtonElement>(null);
@@ -212,7 +219,7 @@ access: ExplorerAccess;
 
   const bank = bankSlug ?? questions[0]?.bankSlug;
   const isCambridge = bank === "igcse" || bank === "igcse-additional";
-  const plansHref = plansHrefFor(access.authenticated);
+  const plansHref = plansHrefFor(resolvedAccess.authenticated);
   const subtopicGroups = useMemo(
     () => getSubtopicGroups(catalogQuestions, filters.topics ?? [], filters.subtopics ?? []),
     [catalogQuestions, filters.topics, filters.subtopics],
@@ -249,11 +256,60 @@ access: ExplorerAccess;
   const shownQuestions = useMemo(() => filtered.slice(0, visible), [filtered, visible]);
   const activeCount = Object.values(filters).reduce((count, values) => count + (values?.length ?? 0), (freeOnly ? 1 : 0) + (savedOnly ? 1 : 0));
   const questionAssetRequests = useMemo(() => shownQuestions
-    .filter((question) => access.bankAccess || isPreviewQuestion(question.bankSlug, question.id))
+    .filter((question) => resolvedAccess.bankAccess || isPreviewQuestion(question.bankSlug, question.id))
     .filter((question) => !failedAssetKeys.has(signedAssetKey(question.id, "question")))
     .filter((question) => !isSignedAssetFresh(signedAssets.get(signedAssetKey(question.id, "question")), assetEpoch))
     .map((question) => ({ questionId: question.id, kind: "question" as const })),
-  [access.bankAccess, assetEpoch, failedAssetKeys, shownQuestions, signedAssets]);
+  [resolvedAccess.bankAccess, assetEpoch, failedAssetKeys, shownQuestions, signedAssets]);
+
+  useEffect(() => {
+    if (!hydrateFromLocation) return;
+    let cancelled = false;
+    queueMicrotask(() => {
+      if (cancelled) return;
+      const raw: ExplorerSearchParams = {};
+      for (const [key, value] of new URLSearchParams(window.location.search)) {
+        const current = raw[key];
+        raw[key] = current === undefined ? value : Array.isArray(current) ? [...current, value] : [current, value];
+      }
+      const next = parseExplorerState(raw, { defaultFreeOnly: !access.bankAccess });
+      setSearch(next.search);
+      setSort(next.sort);
+      setFilters(next.filters);
+      setVisible(next.visible);
+      setFreeOnly(next.freeOnly);
+      setSavedOnly(next.savedOnly);
+      setShowMoreFilters(SECONDARY_FILTER_KEYS.some((key) => Boolean(next.filters[key]?.length)));
+      setLocationHydrated(true);
+    });
+    return () => { cancelled = true; };
+  }, [access.bankAccess, hydrateFromLocation]);
+
+  useEffect(() => {
+    if (!bootstrapUrl) return;
+    let cancelled = false;
+    fetch(bootstrapUrl, { cache: "no-store", credentials: "same-origin" })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Member state unavailable");
+        return response.json() as Promise<{ access: ExplorerAccess; exportMarker?: string; studyState: ExplorerStudyState; studyStateUnavailable?: boolean }>;
+      })
+      .then((payload) => {
+        if (cancelled) return;
+        if (!payload?.access || !payload?.studyState || !Array.isArray(payload.studyState.savedIds) || !Array.isArray(payload.studyState.attemptedIds)) {
+          throw new Error("Invalid member state");
+        }
+        setResolvedAccess(payload.access);
+        setResolvedExportMarker(payload.exportMarker);
+        setSavedIds(new Set(payload.studyState.savedIds));
+        setAttemptedIds(new Set(payload.studyState.attemptedIds));
+        if (payload.studyStateUnavailable) {
+          setStudyError("Saved and attempted question state could not load. Your bank access is unaffected.");
+        }
+        if (payload.access.bankAccess && !new URLSearchParams(window.location.search).has("free")) setFreeOnly(false);
+      })
+      .catch(() => undefined);
+    return () => { cancelled = true; };
+  }, [bootstrapUrl]);
 
   useEffect(() => {
     const timer = window.setInterval(() => setAssetEpoch(Date.now()), 30_000);
@@ -450,10 +506,11 @@ access: ExplorerAccess;
   }, [pdfUpgradeOpen]);
 
   useEffect(() => {
-    const query = serializeExplorerState({ search, sort, filters, freeOnly, savedOnly, visible }, { persistFreeChoice: !access.bankAccess });
+    if (!locationHydrated) return;
+    const query = serializeExplorerState({ search, sort, filters, freeOnly, savedOnly, visible }, { persistFreeChoice: !resolvedAccess.bankAccess });
     const nextUrl = `${window.location.pathname}${query.size ? `?${query}` : ""}${window.location.hash}`;
     window.history.replaceState(window.history.state, "", nextUrl);
-  }, [access.bankAccess, filters, freeOnly, savedOnly, search, sort, visible]);
+  }, [filters, freeOnly, locationHydrated, resolvedAccess.bankAccess, savedOnly, search, sort, visible]);
 
   useEffect(() => {
     if (!bank) return;
@@ -527,7 +584,7 @@ access: ExplorerAccess;
   };
 
   const updateStudyState = async (questionId: string, action: "save" | "unsave" | "attempt") => {
-    if (!bank || !access.authenticated) return;
+    if (!bank || !resolvedAccess.authenticated) return;
     const response = await fetch("/api/study-state", {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -572,7 +629,7 @@ access: ExplorerAccess;
 
   const exportQuestions = questionsForPdf(filtered, selectedIds, selectionIsExplicit, catalogQuestions);
   const handleDownload = async () => {
-    if (!access.canExportPdf || !bank) return;
+    if (!resolvedAccess.canExportPdf || !bank) return;
     setPdfStatus(`Preparing ${exportQuestions.length} questions...`);
     try {
       const assets = await fetchPdfAssets(bank, exportQuestions.map((question) => question.id), pdfContent, fetch, localPreview);
@@ -585,7 +642,7 @@ access: ExplorerAccess;
         securedQuestions,
         pdfContent,
         (complete, total) => setPdfStatus(`Preparing ${complete} of ${total}...`),
-        exportMarker,
+        resolvedExportMarker,
       );
       setPdfStatus("Downloaded");
       setPdfOpen(false);
@@ -624,21 +681,21 @@ access: ExplorerAccess;
         <button ref={filterTriggerRef} className={`mobile-filter-button${activeCount ? " is-active" : ""}`} type="button" aria-haspopup="dialog" aria-expanded={filtersOpen} onClick={() => setFiltersOpen(true)}><Funnel weight="bold" aria-hidden="true" /> Filters{activeCount ? ` (${activeCount})` : ""}</button>
         <SortSelector value={sort} onChange={setSort} />
         <button className="share-view-button toolbar-icon-button" type="button" title="Share this view" aria-label="Copy link to this view" onClick={shareWorkspace}><ShareNetwork aria-hidden="true" /></button>
-        <button ref={pdfTriggerRef} className="download-button toolbar-icon-button" type="button" title="Download PDF" aria-label="Download PDF" onClick={() => access.canExportPdf ? setPdfOpen(true) : showPdfUpgrade()}><DownloadSimple aria-hidden="true" /></button>
+        <button ref={pdfTriggerRef} className="download-button toolbar-icon-button" type="button" title="Download PDF" aria-label="Download PDF" onClick={() => resolvedAccess.canExportPdf ? setPdfOpen(true) : showPdfUpgrade()}><DownloadSimple aria-hidden="true" /></button>
       </div>
       {shareStatus && <p className="toolbar-status" role="status">{shareStatus}</p>}
 
       {indexError && <div className="access-notice" role="alert"><span>{indexError}</span><button className="text-button" type="button" onClick={() => { setIndexError(""); setIndexAttempt((attempt) => attempt + 1); }}>Retry question index</button></div>}
       {assetError && <div className="access-notice" role="alert"><span>{assetError}</span><button className="text-button" type="button" onClick={retryQuestionAssets}>Retry images</button></div>}
       {studyError && <div className="access-notice" role="alert">{studyError}</div>}
-      {!access.bankAccess && <div className="free-value-strip"><div><strong>{freeOnly ? "Free exam years are open." : "You’re browsing the full bank."}</strong><span>{freeOnly ? "Practise now, or clear the Free questions only filter to preview the rest." : "Locked questions show what a paid bank plan unlocks."}</span></div><Link className="button secondary" href={plansHref}>{PLANS_LABEL}</Link></div>}
+      {!resolvedAccess.bankAccess && <div className="free-value-strip"><div><strong>{freeOnly ? "Free exam years are open." : "You’re browsing the full bank."}</strong><span>{freeOnly ? "Practise now, or clear the Free questions only filter to preview the rest." : "Locked questions show what a paid bank plan unlocks."}</span></div><Link className="button secondary" href={plansHref}>{PLANS_LABEL}</Link></div>}
 
       <div className="explorer-layout">
         {filtersOpen && <button className="filter-backdrop" type="button" tabIndex={-1} aria-hidden="true" onClick={() => setFiltersOpen(false)} />}
         <aside ref={filterDialogRef} className={`filter-sidebar ${filtersOpen ? "is-open" : ""}`} role={filtersOpen ? "dialog" : undefined} aria-modal={filtersOpen ? true : undefined} aria-labelledby={filtersOpen ? "filter-sidebar-title" : undefined} aria-label={filtersOpen ? undefined : "Question filters"}>
           <div className="filter-sidebar-heading"><strong id="filter-sidebar-title">Filters</strong><button className="filter-close" type="button" aria-label="Close filters" onClick={() => setFiltersOpen(false)}><X /></button></div>
-          {!access.bankAccess && <div className="filter-group" role="group" aria-labelledby="filter-access"><h3 id="filter-access">Access</h3><div className="filter-options"><label><input aria-label="Free questions only" type="checkbox" checked={freeOnly} onChange={() => { setFreeOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Free questions only</span></label></div></div>}
-          {access.authenticated && <div className="filter-group" role="group" aria-labelledby="filter-study"><h3 id="filter-study">Study</h3><div className="filter-options"><label><input aria-label="Saved questions only" type="checkbox" checked={savedOnly} onChange={() => { setSavedOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Saved questions only</span></label></div></div>}
+          {!resolvedAccess.bankAccess && <div className="filter-group" role="group" aria-labelledby="filter-access"><h3 id="filter-access">Access</h3><div className="filter-options"><label><input aria-label="Free questions only" type="checkbox" checked={freeOnly} onChange={() => { setFreeOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Free questions only</span></label></div></div>}
+          {resolvedAccess.authenticated && <div className="filter-group" role="group" aria-labelledby="filter-study"><h3 id="filter-study">Study</h3><div className="filter-options"><label><input aria-label="Saved questions only" type="checkbox" checked={savedOnly} onChange={() => { setSavedOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Saved questions only</span></label></div></div>}
           <FilterGroup label="Topics" filterKey="topics" values={options.topics} selected={filters.topics ?? []} onToggle={toggle} />
           <FilterGroup label="Subtopics" filterKey="subtopics" values={visibleSubtopics} selected={filters.subtopics ?? []} onToggle={toggle} />
           {!!filters.topics?.length && !!subtopicGroups.other.length && <button className="text-button subtopic-more" aria-expanded={showAllSubtopics} onClick={() => setShowAllSubtopics((show) => !show)}>{showAllSubtopics ? "Hide other subtopics" : "Show other subtopics"}</button>}
@@ -671,10 +728,10 @@ access: ExplorerAccess;
           </div>}
           <div className="question-list">
             {shownQuestions.map((question) => {
-              const unlocked = access.bankAccess || isPreviewQuestion(question.bankSlug, question.id);
+              const unlocked = resolvedAccess.bankAccess || isPreviewQuestion(question.bankSlug, question.id);
               const questionAsset = signedAssets.get(signedAssetKey(question.id, "question"));
               const answerAsset = signedAssets.get(signedAssetKey(question.id, "answer"));
-              return <QuestionCard key={question.id} question={question} unlocked={unlocked} authenticated={access.authenticated} localPreview={localPreview} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAsset={(asset) => {
+              return <QuestionCard key={question.id} question={question} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAsset={(asset) => {
                 setSignedAssets((current) => new Map(current).set(signedAssetKey(question.id, "answer"), asset));
                 if (asset.details) setCatalogQuestions((current) => current.map((item) => item.id === question.id ? mergeQuestionRichDetails(item, asset.details!) : item));
               }} selected={selectedIds.has(question.id)} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => toggleSaved(question.id)} onAttempt={() => recordAttempt(question.id)} />;
