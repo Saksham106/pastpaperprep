@@ -19,8 +19,8 @@ export default async function LoginPage({
       <section className="auth-page shell">
         <div className="auth-card">
           <p className="eyebrow">Your study space</p>
-          <h1>Pick up where you left off.</h1>
-          <p>Use your password or request a secure email link.</p>
+          <h1>Sign in to PastPaperPrep.</h1>
+          <p>Your saved questions, filters, and progress are waiting.</p>
           {params.error && (
             <p className="form-message error auth-link-error" role="alert">
               That sign-in link is invalid or expired. Request a fresh one below.

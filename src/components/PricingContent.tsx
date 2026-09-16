@@ -150,7 +150,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
 
         <div className="billing-toggle" role="group" aria-label="Billing period">
           <button type="button" aria-pressed={interval === "monthly"} onClick={() => setInterval("monthly")}>Monthly</button>
-          <button className="billing-toggle-annual" type="button" aria-pressed={interval === "annual"} onClick={() => setInterval("annual")}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
+          <button className="billing-toggle-annual" type="button" aria-pressed={interval === "annual"} onClick={() => setInterval("annual")}>Annual — save {maximumAnnualSavingPercent()}%<span className="billing-savings">2 months free</span></button>
         </div>
 
         <div className="pricing-decision-grid" aria-label="PastPaperPrep plans">
