@@ -326,8 +326,41 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .question-topic span { padding: 3px 7px; color: var(--muted); border: 1px solid var(--line); border-radius: 6px; font-size: .67rem; }
 .question-images { padding: 24px clamp(16px, 4vw, 42px) 30px; display: grid; gap: 12px; }
 .question-images img, .answer-panel img { width: 100%; max-width: 900px; height: auto; margin: 0 auto; background: #fefefe; border: 1px solid var(--line); border-radius: 6px; }
-.asset-placeholder { position: relative; min-height: 200px; display: grid; place-items: center; overflow: hidden; color: var(--muted); background: linear-gradient(90deg, var(--paper), var(--surface), var(--paper)); background-size: 220% 100%; border-radius: 10px; }
-.question-locked { margin: 16px 18px 18px; padding: 26px; display: grid; gap: 6px; color: var(--muted); background: var(--cobalt-faint); border: 1px solid var(--line); border-radius: 12px; }
+.asset-placeholder { position: relative; min-height: 200px; display: grid; align-content: center; justify-items: center; gap: 12px; overflow: hidden; color: var(--muted); background: var(--paper); border-radius: 10px; }
+.asset-placeholder .placeholder-shimmer { position: absolute; inset: 0; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--surface-raised) 70%, transparent), transparent); background-size: 220% 100%; }
+.asset-placeholder .placeholder-bars { position: relative; width: min(72%, 340px); display: grid; gap: 9px; }
+.asset-placeholder .placeholder-bars i { display: block; height: 12px; border-radius: 6px; background: color-mix(in srgb, var(--line) 72%, transparent); }
+.asset-placeholder .placeholder-bars i:first-child { width: 38%; height: 15px; margin-inline: auto; background: color-mix(in srgb, var(--line-strong) 60%, transparent); }
+.asset-placeholder .placeholder-bars i:last-child { width: 22%; margin-inline: auto; }
+.question-locked {
+  position: relative;
+  margin: 16px 18px 18px;
+  padding: 26px;
+  display: grid;
+  gap: 6px;
+  overflow: hidden;
+  color: var(--muted);
+  background: var(--cobalt-faint);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+/* Faint ruled paper says "a real question lives here" without giving the answer away. */
+.question-locked::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 27px,
+    color-mix(in srgb, var(--line) 55%, transparent) 27px,
+    color-mix(in srgb, var(--line) 55%, transparent) 28px
+  );
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 92%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 92%);
+  pointer-events: none;
+}
+.question-locked > * { position: relative; }
 .question-locked strong { color: var(--ink); }
 .question-locked a { width: fit-content; margin-top: 4px; color: var(--cobalt); font-weight: 850; }
 .question-actions { min-height: 54px; padding: 9px 16px; display: flex; align-items: center; justify-content: space-between; gap: 14px; border-top: 1px solid var(--line); }
@@ -518,6 +551,9 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .account-plan-overview, .account-security-row { display: flex; align-items: center; justify-content: space-between; gap: 22px; }
 .account-plan-overview > div, .account-security-row > div { display: grid; gap: 3px; }
 .account-plan-overview span, .account-security-row span { color: var(--muted); font-size: .85rem; }
+.account-plan-actions { display: flex; align-items: center; gap: 10px; }
+.account-plan-actions .billing-actions { width: auto; margin: 0; }
+.account-plan-actions .billing-actions .button { width: auto; white-space: nowrap; }
 .account-security-row, .account-preference-row { max-width: 820px; margin-top: 12px; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 22px; border: 1px solid var(--line); border-radius: 10px; }
 .account-preference-row > div { display: grid; gap: 3px; }
 .not-found-page { min-height: 62vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
@@ -617,7 +653,7 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 
 /* Footer */
 .site-footer { position: relative; isolation: isolate; min-height: 290px; padding: 56px max(24px, calc((100% - 1240px) / 2)) 28px; display: grid; grid-template-columns: minmax(250px, .75fr) minmax(500px, 1.25fr); align-items: start; gap: 56px; overflow: hidden; background: var(--paper-warm); border-top: 1px solid #bdb4a4; }
-.site-footer::after { content: ""; position: absolute; z-index: -1; top: 0; right: 4%; width: 280px; height: 44px; background: url('/artwork/atkins-algae.jpg') center 38% / cover no-repeat; opacity: .12; mix-blend-mode: multiply; mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent); pointer-events: none; }
+.site-footer::after { content: ""; position: absolute; z-index: -1; top: 0; right: 4%; width: 280px; height: 44px; background: url('/artwork/atkins-algae.webp') center 38% / cover no-repeat; opacity: .12; mix-blend-mode: multiply; mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent); pointer-events: none; }
 body:has(.dashboard-page) .site-footer::after,
 body:has(.bank-hero) .site-footer::after { display: none; }
 .footer-brand > a { width: fit-content; display: flex; align-items: center; gap: 10px; }
@@ -645,7 +681,7 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 
 @media (prefers-reduced-motion: no-preference) {
   .skeleton-line::after, .skeleton-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 25%, color-mix(in srgb, var(--surface-raised) 70%, transparent) 50%, transparent 75%); transform: translateX(-100%); animation: skeleton-shimmer 1.5s infinite; }
-  .asset-placeholder { animation: asset-shimmer 1.5s ease-in-out infinite; }
+  .asset-placeholder .placeholder-shimmer { animation: asset-shimmer 1.5s ease-in-out infinite; }
   @keyframes skeleton-shimmer { to { transform: translateX(100%); } }
   @keyframes asset-shimmer { to { background-position: -220% 0; } }
 }
@@ -788,9 +824,6 @@ body:has(.bank-hero) .site-footer::after { display: none; }
   .explorer-toolbar .toolbar-icon-button,
   .explorer-toolbar .mobile-filter-button { min-height: 44px; }
   .access-notice { padding: 9px 10px; align-items: flex-start; }
-  .free-value-strip { align-items: flex-start; flex-wrap: wrap; }
-  .free-value-strip > div:first-child { display: none; }
-  .free-value-strip > div:last-child { width: 100%; justify-content: space-between; }
   .explorer-layout { margin-top: 12px; }
   .question-card-header { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; }
   .question-topic { padding-inline: 13px; }
@@ -1077,7 +1110,8 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .question-locked-action { margin-top: 4px; align-self: flex-start; color: var(--cobalt); font-weight: 830; text-decoration: underline; text-underline-offset: 2px; }
 
 /* 5. Mobile question explorer: exactly two rows. Row one is the search query plus the two
-   view actions; row two is Filters (the wide, primary refine control) and Sort (compact). */
+   view actions; row two is Filters (the wide, primary refine control) and Sort (compact).
+   The free-tier strip collapses to one quiet row so the first question stays near the fold. */
 @media (max-width: 640px) {
   .explorer-toolbar {
     grid-template-columns: minmax(0, 1fr) 44px 44px;
@@ -1113,9 +1147,14 @@ body:has(.bank-hero) .site-footer::after { display: none; }
   .explorer-toolbar .sort-select-trigger small { display: none; }
   .explorer-toolbar .sort-select-menu { left: 0; right: 0; min-width: 0; }
   .explorer-toolbar .toolbar-icon-button { width: 44px; min-height: 44px; }
-  .free-value-strip { align-items: center; }
+  .free-value-strip { min-height: 44px; margin-top: 6px; padding: 5px 6px 5px 12px; gap: 8px; font-size: .78rem; }
+  .free-value-strip strong { font-size: .78rem; }
+  .free-value-strip > div { gap: 8px; min-width: 0; }
   .free-value-strip > div:first-child { display: grid; }
-  .free-value-strip > .button { width: 100%; justify-content: center; }
+  .free-value-strip > div:first-child span { display: none; }
+  .free-value-strip > .button { min-height: 34px; padding-inline: 11px; font-size: .76rem; }
+  .question-list { gap: 12px; }
+  .question-actions { min-height: 46px; padding-block: 6px; }
 }
 
 /* Articles index: structured difficulty/exam/read-time facts and real practice deep links. */

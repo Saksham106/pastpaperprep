@@ -136,13 +136,18 @@ function SortSelector({ value, onChange }: { value: QuestionSort; onChange: (val
 }
 
 function unique(questions: UnifiedQuestion[], value: (question: UnifiedQuestion) => string | string[]): string[] {
-  return [...new Set(questions.flatMap((question) => value(question)).filter(Boolean))].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  // One collator instance is reused across every sort pass; a fresh Intl.Collator per
+  // comparison (what localeCompare builds internally) dominated the filter-option work.
+  const collator = new Intl.Collator(undefined, { numeric: true });
+  return [...new Set(questions.flatMap((question) => value(question)).filter(Boolean))].sort((a, b) => collator.compare(a, b));
 }
 
 export type ExplorerAccess = { authenticated: boolean; bankAccess: boolean; canExportPdf: boolean };
 export type ExplorerStudyState = { savedIds: string[]; attemptedIds: string[] };
 
 const DEFAULT_EXPLORER_STATE: ExplorerState = { search: "", sort: DEFAULT_SORT, filters: {}, freeOnly: false, savedOnly: false, visible: EXPLORER_PAGE_SIZE };
+/** Re-sign assets whose URLs die within this window; the server grants 600s TTL. */
+const SIGN_REFRESH_MARGIN_MS = 90_000;
 const EMPTY_STUDY_STATE: ExplorerStudyState = { savedIds: [], attemptedIds: [] };
 
 /**
@@ -261,6 +266,18 @@ access: ExplorerAccess;
     .filter((question) => !isSignedAssetFresh(signedAssets.get(signedAssetKey(question.id, "question")), assetEpoch))
     .map((question) => ({ questionId: question.id, kind: "question" as const })),
   [resolvedAccess.bankAccess, assetEpoch, failedAssetKeys, shownQuestions, signedAssets]);
+  // The 30s epoch only matters when a displayed signature is near expiry; without this
+  // guard the tick re-renders every card and re-runs the signing effect twice a minute
+  // even when every URL is still valid for minutes.
+  const expiringSoon = useMemo(() => shownQuestions.some((question) => {
+    const asset = signedAssets.get(signedAssetKey(question.id, "question"));
+    return Boolean(asset && asset.expiresAt - assetEpoch <= SIGN_REFRESH_MARGIN_MS);
+  }), [assetEpoch, shownQuestions, signedAssets]);
+  useEffect(() => {
+    if (!expiringSoon) return;
+    const timer = window.setInterval(() => setAssetEpoch(Date.now()), 30_000);
+    return () => window.clearInterval(timer);
+  }, [expiringSoon]);
 
   useEffect(() => {
     if (!hydrateFromLocation) return;
@@ -310,11 +327,6 @@ access: ExplorerAccess;
       .catch(() => undefined);
     return () => { cancelled = true; };
   }, [bootstrapUrl]);
-
-  useEffect(() => {
-    const timer = window.setInterval(() => setAssetEpoch(Date.now()), 30_000);
-    return () => window.clearInterval(timer);
-  }, []);
 
   useEffect(() => {
     if (!bank || !indexUrl) return;
@@ -800,7 +812,7 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, questio
     <article className="question-card question-paper">
       <header className="question-card-header"><div className="question-meta"><span>{question.year} {question.session}</span><span>Paper {question.paper}</span><span>Question {question.number}</span>{question.component && <span>Component {question.component}</span>}{question.zone && <span>{question.zone}</span>}{question.marks !== null && <span>{question.marks} {question.marks === 1 ? "mark" : "marks"}</span>}</div>{unlocked && <label className="pdf-select"><input aria-label={`Add question ${question.number} to PDF`} type="checkbox" checked={selected} onChange={onSelect} /> Add to PDF</label>}</header>
       <div className="question-topic"><strong>{formatPublicLabel(question.primaryTopic)}</strong>{question.subtopics.slice(0, 4).map((topic) => <span key={topic}>{formatPublicLabel(topic)}</span>)}</div>
-      {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} onError={onQuestionAssetError} />) : <div className="asset-placeholder" role="status">Loading original question</div>}</div> : <div className="question-locked"><strong>Paid plan required</strong><span>Unlock this bank’s full question set, answers, and PDF export.</span><Link className="question-locked-action" href={plansHrefFor(authenticated)}>{PLANS_LABEL}</Link></div>}
+      {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} onError={onQuestionAssetError} />) : <div className="asset-placeholder" role="status"><span className="placeholder-shimmer" aria-hidden="true" /><span className="placeholder-bars" aria-hidden="true"><i /><i /><i /><i /></span><span className="sr-only">Loading original question</span></div>}</div> : <div className="question-locked"><strong>Paid plan required</strong><span>Unlock this bank’s full question set, answers, and PDF export.</span><Link className="question-locked-action" href={plansHrefFor(authenticated)}>{PLANS_LABEL}</Link></div>}
       <div className="question-actions">
         <div className="question-action-buttons">{unlocked ? ((question.solution || question.markschemeImageCount > 0) ? <button className="answer-toggle" disabled={answerLoading} aria-expanded={answerOpen} onClick={toggleAnswer}>{answerLoading ? "Loading answer..." : answerOpen ? "Hide answer" : "Show answer"}</button> : <span className="muted">Answer coming soon</span>) : null}{answerError && <span className="muted" role="alert">{answerError}</span>}</div>
         <div className="source-links">{attempted && <span className="study-state"><CheckCircle weight="fill" /> Practised</span>}{authenticated && unlocked && <button className={`study-icon-button ${saved ? "is-saved" : ""}`} title={saved ? "Remove from saved" : "Save question"} aria-label={saved ? `Remove question from saved ${question.id}` : `Save question ${question.id}`} onClick={onToggleSaved}><BookmarkSimple weight={saved ? "fill" : "regular"} aria-hidden="true" /></button>}</div>

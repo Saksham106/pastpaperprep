@@ -1,6 +1,9 @@
 import type { QuestionFilters, UnifiedQuestion } from "@/lib/questions";
 import { isLocalEconomicsBank } from "@/lib/banks";
 
+/** Reused across sorts so topic sorting does not build a fresh collator per comparison. */
+const topicCollator = new Intl.Collator(undefined, { numeric: true });
+
 function includesAny(selected: string[] | undefined, values: string[]): boolean {
   return !selected?.length || selected.some((value) => values.includes(value));
 }
@@ -59,7 +62,7 @@ export function filterQuestions(questions: UnifiedQuestion[], filters: QuestionF
   return filtered.sort((a, b) => {
     if (filters.sort === "marks-desc") return (b.marks ?? -1) - (a.marks ?? -1);
     if (filters.sort === "marks-asc") return (a.marks ?? Number.MAX_SAFE_INTEGER) - (b.marks ?? Number.MAX_SAFE_INTEGER);
-    if (filters.sort === "topic") return a.primaryTopic.localeCompare(b.primaryTopic) || b.year - a.year;
+    if (filters.sort === "topic") return topicCollator.compare(a.primaryTopic, b.primaryTopic) || b.year - a.year;
     return b.year - a.year || a.paper - b.paper || a.number - b.number;
   });
 }
