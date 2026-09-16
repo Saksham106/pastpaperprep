@@ -22,15 +22,15 @@ function bankSlugForProduct(productId: string): BankSlug | undefined {
 const PLANS = [
   {
     name: "One Bank", label: PRICING_MODEL.oneBank.label, monthly: formatPrice(PRICING_MODEL.oneBank.monthlyCents), annualMonthly: formatPrice(PRICING_MODEL.oneBank.annualCents / 12), annual: formatPrice(PRICING_MODEL.oneBank.annualCents), annualSaving: `${annualSavingPercent(PRICING_MODEL.oneBank.monthlyCents, PRICING_MODEL.oneBank.annualCents)}%`,
-    description: "Focus on one syllabus.", mode: "single" as const, tone: "starter", artwork: "/artwork/aristotle-tutoring-alexander.jpg", popular: false, icon: BookOpen, cta: "Choose One Bank",
+    description: "Focus on one syllabus.", mode: "single" as const, tone: "starter", artwork: "/artwork/aristotle-tutoring-alexander.webp", popular: false, icon: BookOpen, cta: "Choose One Bank",
   },
   {
     name: "Build Your Plan", label: `${PRICING_MODEL.builder.minBanks} to ${PRICING_MODEL.builder.maxBanks} banks`, monthly: formatPrice(PRICING_MODEL.builder.baseMonthlyCents), annualMonthly: formatPrice(PRICING_MODEL.builder.baseAnnualCents / 12), annual: `${formatPrice(PRICING_MODEL.builder.baseAnnualCents)}+`, annualSaving: `${annualSavingPercent(PRICING_MODEL.builder.baseMonthlyCents, PRICING_MODEL.builder.baseAnnualCents)}%`,
-    description: "Mix the banks you actually take.", mode: "builder" as const, tone: "builder", artwork: "/artwork/school-of-athens-plato-aristotle.jpg", popular: true, icon: SlidersHorizontal, cta: "Build Your Plan",
+    description: "Mix the banks you actually take.", mode: "builder" as const, tone: "builder", artwork: "/artwork/school-of-athens-plato-aristotle.webp", popular: true, icon: SlidersHorizontal, cta: "Build Your Plan",
   },
   {
     name: "All Access", label: PRICING_MODEL.allAccess.label, monthly: formatPrice(PRICING_MODEL.allAccess.monthlyCents), annualMonthly: formatPrice(PRICING_MODEL.allAccess.annualCents / 12), annual: formatPrice(PRICING_MODEL.allAccess.annualCents), annualSaving: `${annualSavingPercent(PRICING_MODEL.allAccess.monthlyCents, PRICING_MODEL.allAccess.annualCents)}%`,
-    description: "Everything, including future banks.", mode: "all" as const, tone: "premium", artwork: "/artwork/plato-academy-mosaic.jpg", popular: false, icon: CrownSimple, cta: "Get All Access",
+    description: "Everything, including future banks.", mode: "all" as const, tone: "premium", artwork: "/artwork/plato-academy-mosaic.webp", popular: false, icon: CrownSimple, cta: "Get All Access",
   },
 ] as const;
 
@@ -93,7 +93,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
 
     return (
       <article className={`pricing-option${plan.popular ? " pricing-option-popular" : ""}`} data-plan-tone={plan.tone} data-mobile-order={plan.popular ? "first" : undefined} key={plan.name}>
-        <Image className="plan-art" src={plan.artwork} alt="" width={420} height={260} aria-hidden="true" />
+        <Image className="plan-art" src={plan.artwork} alt="" width={420} height={260} aria-hidden="true" sizes="(max-width: 1024px) 68vw, 300px" />
         <div className="pricing-option-heading">
           <div className="plan-title-block">
             <span className="plan-icon" aria-hidden="true"><PlanIcon weight="duotone" /></span>

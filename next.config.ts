@@ -14,6 +14,9 @@ const nextConfig: NextConfig = {
     root: process.cwd(),
   },
   images: {
+    // Artwork ships as pre-compressed WebP, so the optimizer must pass quality 90 through
+    // instead of clamping to the default 75 and re-encoding the hero on every request.
+    qualities: [75, 90],
     remotePatterns: [
       {
         protocol: "https",
