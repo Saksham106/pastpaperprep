@@ -551,6 +551,9 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .account-plan-overview, .account-security-row { display: flex; align-items: center; justify-content: space-between; gap: 22px; }
 .account-plan-overview > div, .account-security-row > div { display: grid; gap: 3px; }
 .account-plan-overview span, .account-security-row span { color: var(--muted); font-size: .85rem; }
+.account-plan-actions { display: flex; align-items: center; gap: 10px; }
+.account-plan-actions .billing-actions { width: auto; margin: 0; }
+.account-plan-actions .billing-actions .button { width: auto; white-space: nowrap; }
 .account-security-row, .account-preference-row { max-width: 820px; margin-top: 12px; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 22px; border: 1px solid var(--line); border-radius: 10px; }
 .account-preference-row > div { display: grid; gap: 3px; }
 .not-found-page { min-height: 62vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
