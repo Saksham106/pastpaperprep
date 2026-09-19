@@ -34,7 +34,7 @@ describe("IGCSE Biology and Economics release candidate", () => {
     expect(getPrivateBankObjectPrefix("igcse-biology-0610")).toBe("igcse-biology-0610/");
     expect(getPrivateBankObjectPrefix("igcse-economics-0455")).toBe("igcse-economics-0455/releases/repaired-v6-9fae73bcd2a9/");
     expect(getPrivateBankObjectPrefix("igcse-chemistry-0620")).toBe("igcse-chemistry-0620/");
-    expect(getPrivateBankObjectPrefix("igcse-physics-0625")).toBe("igcse-physics-0625/");
+    expect(getPrivateBankObjectPrefix("igcse-physics-0625")).toBe("igcse-physics-0625/releases/repaired-v2-d95657a79bfc/");
   });
 
   it("keeps the existing released chemistry rows and keeps Physics fail-closed as a candidate", () => {

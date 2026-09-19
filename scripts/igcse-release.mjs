@@ -22,7 +22,7 @@ export const RELEASE_BANKS = {
     originalCandidateRuntimeSha256: '81c706903aa94c6865336cf40027c26b33e0ba514082f4d8da2c576b9bb2cf87',
   },
   'igcse-physics-0625': {
-    prefix: 'igcse-physics-0625',
+    prefix: 'igcse-physics-0625/releases/repaired-v2-d95657a79bfc',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_PHYSICS_SOURCE_ROOT',
     originalCandidateRuntimeSha256: 'd95657a79bfcf5d80b9c7e9660c1d7795ea2026435610bb3e96ba2203e3d8cf7',
   },
@@ -96,6 +96,7 @@ export function createRuntimeReferenceManifest(bank, runtime, files) {
   return {
     schemaVersion: 'igcse-private-assets-v1',
     bank,
+    objectPrefix: `${config.prefix}/`,
     storageState: 'pending_upload',
     originalCandidateRuntimeSha256: runtime.runtimeArtifact?.originalCandidateRuntimeSha256 ?? null,
     contentSha256: runtime.runtimeArtifact?.contentSha256 ?? null,

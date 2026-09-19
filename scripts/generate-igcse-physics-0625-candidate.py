@@ -14,6 +14,7 @@ SOURCE = Path(os.environ.get("PHYSICS0625_SOURCE_ROOT", "/Users/sakshamgoel/Docu
 ASSEMBLY = Path(os.environ.get("PHYSICS0625_ASSEMBLY", SOURCE / "data/classification/full-bank-assembly-combined/working-assembly.json"))
 TAXONOMY = ROOT / "src/data/igcse-physics-0625-official-taxonomy.json"
 BANK = "igcse-physics-0625"
+RELEASE_PREFIX = f"{BANK}/releases/repaired-v2-"
 
 def sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -62,17 +63,20 @@ def main():
         for ref in qrefs+mrefs:
             kind,paper,file=ref.split("/"); lane="data/segmentation-repaired" if 2021 <= int(r["year"]) <= 2025 else "data/segmentation/full-extension-repaired"; src=(SOURCE/lane/f"assets/{paper}/{('question' if kind=='questions' else 'markscheme')}/{file}")
             if not src.is_file(): raise SystemExit(f"missing PDF-derived asset: {src}")
-            assets.append({"objectKey":f"{BANK}/{ref}","sourcePath":str(src),"sha256":sha(src),"size":src.stat().st_size,"contentType":"image/webp"})
+            assets.append({"objectKey":ref,"sourcePath":str(src),"sha256":sha(src),"size":src.stat().st_size,"contentType":"image/webp"})
     if len(assets)!=13349 or len({a["objectKey"] for a in assets})!=13349: raise SystemExit("asset manifest count mismatch")
     runtime={"version":"igcse-physics-0625-full5789-v2","releaseStatus":"authorized_production_candidate","rightsStatus":"user_attested_rights_authorized","sourceType":"actual_past_paper","specimenQuestionsIncluded":False,"years":"2019-2026","paperCount":len({r["paper_id"] for r in rows}),"questionCount":len(questions),"marks_ready":all(q["marks_ready"] for q in questions),"sourceCandidate":{"path":str(ASSEMBLY),"sha256":assembly_sha,"questionCount":len(questions),"baseQuestionCount":3820,"extensionQuestionCount":1969},"taxonomy":{"path":"src/data/igcse-physics-0625-official-taxonomy.json","version":json.loads(TAXONOMY.read_text())["version"],"sha256":taxonomy_sha},"questions":questions,"publicationStatus":"authorized_production_candidate","assetVerification":"pending_upload","runtimeArtifact":{"schemaVersion":"igcse-runtime-artifact-v1","bank":BANK,"candidate":True,"releaseTaxonomySha256":taxonomy_sha,"runtimeTaxonomySha256":taxonomy_runtime_sha,"sourceCandidateSha256":assembly_sha,"originalCandidateRuntimeSha256":None,"runtimeSha256":None,"contentSha256":assembly_sha,"assetManifestSha256":None,"storageReceiptSha256":None,"marksRepairUnresolvedCount":0}}
     # Self-seal: candidate identity is the runtime hash with its self-hash field null.
     runtime["runtimeArtifact"]["originalCandidateRuntimeSha256"] = hashlib.sha256(json.dumps(runtime,separators=(",",":"),ensure_ascii=False).encode()).hexdigest()
+    object_prefix = RELEASE_PREFIX + runtime["runtimeArtifact"]["originalCandidateRuntimeSha256"][:12]
+    for asset in assets:
+        asset["objectKey"] = f"{object_prefix}/{asset['objectKey']}"
     runtime_sha=hashlib.sha256(json.dumps(runtime,separators=(",",":"),ensure_ascii=False).encode()).hexdigest(); runtime["runtimeArtifact"]["runtimeSha256"]=runtime_sha
     runtime_path=ROOT/f"src/data/production/{BANK}.json"; dump(runtime_path,runtime)
     private={"version":"igcse-physics-0625-private-index-v2","bank":BANK,"releaseStatus":"authorized_production_candidate","assetVerification":"pending_upload","questions":[{"id":q["id"],"number":q["number"],"paper":q["paper"],"year":q["year"],"session":q["session"],"primaryTopic":q["primaryTopic"],"secondaryTopics":q["secondaryTopics"],"skills":q["skills"],"subtopics":q["subtopics"],"subject":q["subject"],"zone":q["zone"],"component":q["component"],"marks":q["marks"]} for q in questions]}
     dump(ROOT/f"src/data/private-index/{BANK}.json",private)
     assets.sort(key=lambda item: item["objectKey"])
-    manifest={"schemaVersion":"igcse-private-assets-v1","bank":BANK,"storageState":"pending_upload","releaseStatus":"authorized_production_candidate","originalCandidateRuntimeSha256":runtime["runtimeArtifact"]["originalCandidateRuntimeSha256"],"contentSha256":assembly_sha,"runtimeSha256":runtime_sha,"referenceCounts":{"base":base_refs,"extension":ext_refs,"total":len(assets)},"assets":assets}
+    manifest={"schemaVersion":"igcse-private-assets-v1","bank":BANK,"objectPrefix":object_prefix,"storageState":"pending_upload","releaseStatus":"authorized_production_candidate","originalCandidateRuntimeSha256":runtime["runtimeArtifact"]["originalCandidateRuntimeSha256"],"contentSha256":assembly_sha,"runtimeSha256":runtime_sha,"referenceCounts":{"base":base_refs,"extension":ext_refs,"total":len(assets)},"assets":assets}
     dump(ROOT/f"data/storage/{BANK}.manifest.json",manifest)
     print(json.dumps({"baseRows":3820,"combinedRows":len(rows),"assetRefs":len(assets),"baseRefs":base_refs,"extensionRefs":ext_refs,"papers":runtime["paperCount"],"runtimeSha256":runtime_sha,"assemblySha256":assembly_sha,"storageState":"pending_upload"},indent=2))
 if __name__ == "__main__": main()
