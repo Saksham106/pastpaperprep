@@ -48,7 +48,11 @@ class MemoryR2 {
         throw error;
       }
       const chunks = [];
-      for await (const chunk of command.input.Body) chunks.push(Buffer.from(chunk));
+      if (Buffer.isBuffer(command.input.Body)) {
+        chunks.push(command.input.Body);
+      } else {
+        for await (const chunk of command.input.Body) chunks.push(Buffer.from(chunk));
+      }
       this.objects.set(key, Buffer.concat(chunks));
       return {};
     }
@@ -74,9 +78,35 @@ describe("IGCSE storage release tooling", () => {
       ["markschemes/p/m.webp", { sourcePath: "/m", sha256: "b", size: 2 }],
     ]));
     expect(manifest.assets.map((asset) => asset.objectKey)).toEqual([
-      "igcse-biology-0610/markschemes/p/m.webp",
-      "igcse-biology-0610/questions/p/q.webp",
+      "igcse-biology-0610/releases/full3441-v2-ms-repair-49ebf7ad184c/markschemes/p/m.webp",
+      "igcse-biology-0610/releases/full3441-v2-ms-repair-49ebf7ad184c/questions/p/q.webp",
     ]);
+  });
+
+  it("isolates repaired Economics assets in a release-versioned namespace", () => {
+    const manifest = createRuntimeReferenceManifest("igcse-economics-0455", {
+      runtimeArtifact: { originalCandidateRuntimeSha256: "candidate", contentSha256: "content" },
+      questions: [{ questionImages: ["questions/p/q.webp"], markschemeImages: [], officialMarkscheme: { images: [] } }],
+    }, new Map([["questions/p/q.webp", { sourcePath: "/q", sha256: "a", size: 1 }]]));
+    expect(manifest.assets[0].objectKey).toBe("igcse-economics-0455/releases/repaired-v6-9fae73bcd2a9/questions/p/q.webp");
+  });
+
+  it("uses the sealed Chemistry candidate namespace", () => {
+    const manifest = createRuntimeReferenceManifest("igcse-chemistry-0620", {
+      runtimeArtifact: { originalCandidateRuntimeSha256: "candidate", contentSha256: "content" },
+      questions: [{ questionImages: ["questions/p/q.webp"], markschemeImages: [], officialMarkscheme: { images: [] } }],
+    }, new Map([["questions/p/q.webp", { sourcePath: "/q", sha256: "a", size: 1 }]]));
+    expect(manifest.assets[0].objectKey).toBe("igcse-chemistry-0620/releases/candidate-v2-6eeb3fccddb4/questions/p/q.webp");
+  });
+
+  it("isolates Co-ordinated Sciences assets in a release-versioned namespace", () => {
+    const manifest = createRuntimeReferenceManifest("igcse-coordinated-sciences-0654", {
+      runtimeArtifact: { originalCandidateRuntimeSha256: "candidate", contentSha256: "content" },
+      questions: [{ questionImages: ["questions/p/q.webp"], markschemeImages: [], officialMarkscheme: { images: [] } }],
+    }, new Map([
+      ["questions/p/q.webp", { sourcePath: "/q", sha256: "a", size: 1 }],
+    ]));
+    expect(manifest.assets[0].objectKey).toBe("igcse-coordinated-sciences-0654/releases/full4721-v1-6b161eb9e580/questions/p/q.webp");
   });
 
   it.each([
@@ -113,6 +143,7 @@ describe("IGCSE storage release tooling", () => {
     const first = await uploadRelease({ client, bucket: "bucket", manifest });
     expect(first.storageState).toBe("verified_readback");
     expect(client.puts[0]?.IfNoneMatch).toBe("*");
+    expect(Buffer.isBuffer(client.puts[0]?.Body)).toBe(true);
     const resumed = await uploadRelease({ client, bucket: "bucket", manifest, receipt: {} });
     expect(resumed.storageState).toBe("verified_readback");
     const readback = await verifyRelease({ client, bucket: "bucket", manifest });

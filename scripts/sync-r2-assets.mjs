@@ -209,7 +209,7 @@ async function main() {
           await client.send(new PutObjectCommand({
             Bucket: BUCKET,
             Key: item.key,
-            Body: createReadStream(item.path),
+            Body: await readFile(item.path),
             ContentLength: item.size,
             ContentType: "image/webp",
             CacheControl: "private, max-age=31536000, immutable",
