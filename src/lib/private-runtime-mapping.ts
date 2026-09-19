@@ -4,7 +4,7 @@ import type { BankSlug } from "@/lib/banks";
 export const PRIVATE_RUNTIME_OBJECT_PREFIXES: Partial<Record<BankSlug, string>> = {
   "ib-economics-hl": "ib-economics-hl/",
   "ib-economics-sl": "ib-economics-sl/",
-  "igcse-biology-0610": "igcse-biology-0610/releases/full3441-v2-ms-repair-49ebf7ad184c/",
+  "igcse-biology-0610": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/",
   "igcse-economics-0455": "igcse-economics-0455/releases/repaired-v6-9fae73bcd2a9/",
   "igcse-chemistry-0620": "igcse-chemistry-0620/releases/candidate-v2-6eeb3fccddb4/",
   "igcse-physics-0625": "igcse-physics-0625/releases/repaired-v2-d95657a79bfc/",

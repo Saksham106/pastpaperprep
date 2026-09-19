@@ -78,8 +78,8 @@ describe("IGCSE storage release tooling", () => {
       ["markschemes/p/m.webp", { sourcePath: "/m", sha256: "b", size: 2 }],
     ]));
     expect(manifest.assets.map((asset) => asset.objectKey)).toEqual([
-      "igcse-biology-0610/releases/full3441-v2-ms-repair-49ebf7ad184c/markschemes/p/m.webp",
-      "igcse-biology-0610/releases/full3441-v2-ms-repair-49ebf7ad184c/questions/p/q.webp",
+      "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/p/m.webp",
+      "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/questions/p/q.webp",
     ]);
   });
 

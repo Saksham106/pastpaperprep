@@ -111,7 +111,7 @@ export const FREE_QUESTION_YEARS: Record<ProductionBankSlug, readonly number[]> 
  * usable year semantics. Both are authoritative, never inferred from the corpus.
  */
 export const PRIVATE_FREE_QUESTION_YEARS: Partial<Record<BankSlug, readonly number[]>> = {
-  "igcse-biology-0610": [2021],
+  "igcse-biology-0610": [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026],
   "igcse-economics-0455": [2021],
   "igcse-chemistry-0620": [2021],
   "igcse-physics-0625": [2021],

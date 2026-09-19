@@ -7,9 +7,9 @@ import { GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3
 
 export const RELEASE_BANKS = {
   'igcse-biology-0610': {
-    prefix: 'igcse-biology-0610/releases/full3441-v2-ms-repair-49ebf7ad184c',
+    prefix: 'igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_BIOLOGY_SOURCE_ROOT',
-    originalCandidateRuntimeSha256: 'd6ffc51bf6f31dce48c518e7404fd3599d26798243d509d889c12a0110c88ca3',
+    originalCandidateRuntimeSha256: '9e97cd0c0455ae865b1d14dc462f74ce22d1c66fb734e7d4a8baaf414e0ff961',
   },
   'igcse-economics-0455': {
     prefix: 'igcse-economics-0455/releases/repaired-v6-9fae73bcd2a9',
@@ -126,7 +126,11 @@ function sourceRelativePath(bank, reference, coordinatedLane) {
       return `${lane}/assets/${paper}/question/${file}`;
     }
     if (bank === 'igcse-economics-0455') return `data/segmentation/full-repaired/assets/${paper}/question/${file}`;
-    if (bank === 'igcse-biology-0610') return `data/segmentation/full-ms-repair/assets/${paper}/question/${file}`;
+    if (bank === 'igcse-biology-0610') {
+      const year = Number(paper.split('-')[1]);
+      const lane = (year >= 2019 && year <= 2020) || year === 2026 ? 'data/segmentation/full-extension' : 'data/segmentation/full-ms-repair';
+      return `${lane}/assets/${paper}/question/${file}`;
+    }
     return `data/segmentation/full/assets/${paper}/question/${file}`;
   }
   if (kind === 'markschemes') {
@@ -137,7 +141,11 @@ function sourceRelativePath(bank, reference, coordinatedLane) {
       return `${lane}/assets/${paper}/markscheme/${file}`;
     }
     if (bank === 'igcse-economics-0455') return `data/segmentation/full-repaired/assets/${paper}/markscheme/${file}`;
-    if (bank === 'igcse-biology-0610') return `data/segmentation/full-ms-repair/assets/${paper}/markscheme/${file}`;
+    if (bank === 'igcse-biology-0610') {
+      const year = Number(paper.split('-')[1]);
+      const lane = (year >= 2019 && year <= 2020) || year === 2026 ? 'data/segmentation/full-extension' : 'data/segmentation/full-ms-repair';
+      return `${lane}/assets/${paper}/markscheme/${file}`;
+    }
     return `data/segmentation/full/assets/${paper}/markscheme/${file}`;
   }
   throw new Error(`Unsupported referenced asset layout: ${reference}`);
