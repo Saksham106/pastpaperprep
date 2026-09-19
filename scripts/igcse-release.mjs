@@ -15,7 +15,7 @@ export const RELEASE_BANKS = {
   'igcse-economics-0455': {
     prefix: 'igcse-economics-0455',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_ECONOMICS_SOURCE_ROOT',
-    originalCandidateRuntimeSha256: '14f30ed022c55bea7f3ccf8699f95ca400edd9b2eca0ef44044d825d6b4f144c',
+    originalCandidateRuntimeSha256: '69bfa6b0519e30c0975ef7b549e338c3e2e2c0e2da458090aa9f6464195f89e5',
   },
   'igcse-chemistry-0620': {
     prefix: 'igcse-chemistry-0620',
@@ -109,17 +109,16 @@ function sourceRelativePath(bank, reference) {
   if (bank === 'igcse-biology-0610' && reference === 'markschemes/0610-2025-w-23/q2-row1-1.webp') {
     return 'data/classification/full-coverage-batch-repairs/batch94-ms/assets/0610-2025-w-23/markscheme/q2-row1-1.v2.webp';
   }
-  if (bank === 'igcse-economics-0455' && reference === 'markschemes/0455-2025-s-22/q5-3-29.webp') {
-    return 'data/classification/packet-028-source-repair-candidate/assets/0455-2025-s-22/markscheme/q5-3-29.webp';
-  }
   if (kind === 'questions') {
     if (bank === 'igcse-chemistry-0620') return `full/assets/${paper}/question/${file}`;
     if (bank === 'igcse-physics-0625') return `data/segmentation/assets/${paper}/question/${file}`;
+    if (bank === 'igcse-economics-0455') return `data/segmentation/full-repaired/assets/${paper}/question/${file}`;
     return `data/segmentation/full/assets/${paper}/question/${file}`;
   }
   if (kind === 'markschemes') {
     if (bank === 'igcse-chemistry-0620') return `full/assets/${paper}/markscheme/${file}`;
     if (bank === 'igcse-physics-0625') return `data/segmentation/assets/${paper}/markscheme/${file}`;
+    if (bank === 'igcse-economics-0455') return `data/segmentation/full-repaired/assets/${paper}/markscheme/${file}`;
     return `data/segmentation/full/assets/${paper}/markscheme/${file}`;
   }
   throw new Error(`Unsupported referenced asset layout: ${reference}`);

@@ -81,7 +81,6 @@ describe("IGCSE storage release tooling", () => {
 
   it.each([
     ["igcse-biology-0610", "markschemes/0610-2025-w-23/q2-row1-1.webp", "data/classification/full-coverage-batch-repairs/batch94-ms/assets/0610-2025-w-23/markscheme/q2-row1-1.v2.webp"],
-    ["igcse-economics-0455", "markschemes/0455-2025-s-22/q5-3-29.webp", "data/classification/packet-028-source-repair-candidate/assets/0455-2025-s-22/markscheme/q5-3-29.webp"],
   ])("uses the exact %s repair overlay", async (bank, reference, relativeSource) => {
     const root = await mkdtemp(join(tmpdir(), "igcse-release-"));
     temporary.push(root);
