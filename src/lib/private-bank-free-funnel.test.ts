@@ -21,6 +21,7 @@ import { getAvailableBanks, isPrivateBankIndexEnabled } from "@/lib/banks";
 import { createPublicBankIndex, publicBankIndexUrl } from "@/lib/question-index";
 import { loadBankQuestions } from "@/lib/question-loader";
 import coordinatedRuntime from "@/data/production/igcse-coordinated-sciences-0654.json";
+import economicsRuntime from "@/data/production/igcse-economics-0455.json";
 
 type RawRuntime = { questions: Array<{ id: string; year: number; firstQuestion?: string }> };
 
@@ -35,7 +36,7 @@ const RELEASE_ENVIRONMENT: Record<string, string> = {
 /** Frozen free-tier census for the private release banks: one documented older exam year each. */
 const PRIVATE_FREE = {
   "igcse-biology-0610": { total: 3441, free: 685 },
-  "igcse-economics-0455": { total: 1189, free: 229 },
+  "igcse-economics-0455": { total: 1219, free: 241, unfinalized: true },
   "igcse-chemistry-0620": { total: 3529, free: 709 },
   "igcse-physics-0625": { total: 3820, free: 766 },
   "ib-economics-hl": { total: 111, free: 26 },
@@ -98,9 +99,17 @@ describe("private-bank free funnel", () => {
   });
 
   it.each(Object.entries(PRIVATE_FREE))("gives %s a non-empty free subset and no more", async (slug, expected) => {
-    const questions = await loadBankQuestions(slug as never);
+    let questions: Array<{ id: string; year: number }>;
+    if ("unfinalized" in expected && expected.unfinalized) {
+      // The repaired 0455 candidate is pending the storage release; read its
+      // runtime directly instead of through the finalize-gated loader, like
+      // the Co-ordinated Sciences candidate below.
+      questions = (economicsRuntime as unknown as RawRuntime).questions;
+    } else {
+      questions = await loadBankQuestions(slug as never);
+    }
     expect(questions).toHaveLength(expected.total);
-    expect(countFreeQuestions(slug as never, questions)).toBe(expected.free);
+    expect(countFreeQuestions(slug as never, questions as never)).toBe(expected.free);
     const free = questions.filter((question) => isPreviewQuestion(slug as never, question.id));
     expect(free.every((question) => question.year === 2021)).toBe(true);
     expect(free.length).toBe(questions.filter((question) => question.year === 2021).length);
@@ -118,7 +127,10 @@ describe("private-bank free funnel", () => {
       params: Promise.resolve({ bank: "igcse-physics-0625" }),
     });
     expect(response.status).toBe(200);
-    expect(response.headers.get("cache-control")).toBe("private, no-store, max-age=0");
+    // The index is metadata-only and identical for all visitors, so the route
+    // serves it with a public CDN cache policy (see the route's choke-point
+    // contract); assets, answers, and PDFs stay entitlement-protected.
+    expect(response.headers.get("cache-control")).toBe("public, s-maxage=31536000, stale-while-revalidate=86400");
     const payload = await response.json() as { version: number; bank: string; questions: Array<Record<string, unknown>> };
     expect(payload.version).toBe(1);
     expect(payload.bank).toBe("igcse-physics-0625");
