@@ -31,7 +31,7 @@ describe("IGCSE Biology and Economics release candidate", () => {
 
   it("maps all private runtimes to immutable bank-prefixed R2 namespaces", () => {
     expect(getPrivateBankObjectPrefix("ib-economics-hl")).toBe("ib-economics-hl/");
-    expect(getPrivateBankObjectPrefix("igcse-biology-0610")).toBe("igcse-biology-0610/");
+    expect(getPrivateBankObjectPrefix("igcse-biology-0610")).toBe("igcse-biology-0610/releases/full3441-v2-ms-repair-49ebf7ad184c/");
     expect(getPrivateBankObjectPrefix("igcse-economics-0455")).toBe("igcse-economics-0455/releases/repaired-v6-9fae73bcd2a9/");
     expect(getPrivateBankObjectPrefix("igcse-chemistry-0620")).toBe("igcse-chemistry-0620/");
     expect(getPrivateBankObjectPrefix("igcse-physics-0625")).toBe("igcse-physics-0625/releases/repaired-v2-d95657a79bfc/");
@@ -69,8 +69,8 @@ describe("IGCSE Biology and Economics release candidate", () => {
     expect(chemistrySeal.runtimeTaxonomySha256).toBe(sha(chemistryTaxonomy));
     expect(physicsSeal.releaseTaxonomySha256).toMatch(/^[a-f0-9]{64}$/);
     expect(physicsSeal.runtimeTaxonomySha256).toBe(sha(physicsTaxonomy));
-    expect(chemistryCandidate.questions).toHaveLength(3529);
-    expect(chemistryCandidate.paperCount).toBe(207);
+    expect(chemistryCandidate.questions).toHaveLength(5129);
+    expect(chemistryCandidate.paperCount).toBe(314);
     expect(physicsCandidate.questions).toHaveLength(5789);
     expect(physicsCandidate.paperCount).toBe(317);
     expect(chemistryCandidate.marks_ready).toBe(true);
