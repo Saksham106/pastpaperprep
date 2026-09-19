@@ -7,7 +7,7 @@ import { GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3
 
 export const RELEASE_BANKS = {
   'igcse-biology-0610': {
-    prefix: 'igcse-biology-0610',
+    prefix: 'igcse-biology-0610/releases/full3441-v2-ms-repair-49ebf7ad184c',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_BIOLOGY_SOURCE_ROOT',
     originalCandidateRuntimeSha256: 'd6ffc51bf6f31dce48c518e7404fd3599d26798243d509d889c12a0110c88ca3',
   },
@@ -109,6 +109,9 @@ function sourceRelativePath(bank, reference) {
   const [kind, paper, file] = parts;
   if (bank === 'igcse-biology-0610' && reference === 'markschemes/0610-2025-w-23/q2-row1-1.webp') {
     return 'data/classification/full-coverage-batch-repairs/batch94-ms/assets/0610-2025-w-23/markscheme/q2-row1-1.v2.webp';
+  }
+  if (bank === 'igcse-economics-0455' && reference === 'markschemes/0455-2025-s-22/q5-3-29.webp') {
+    return 'data/classification/packet-028-source-repair-candidate/assets/0455-2025-s-22/markscheme/q5-3-29.webp';
   }
   if (kind === 'questions') {
     if (bank === 'igcse-chemistry-0620') return `full/assets/${paper}/question/${file}`;
