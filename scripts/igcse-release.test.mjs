@@ -87,20 +87,16 @@ describe("IGCSE storage release tooling", () => {
     const manifest = createRuntimeReferenceManifest("igcse-economics-0455", {
       runtimeArtifact: { originalCandidateRuntimeSha256: "candidate", contentSha256: "content" },
       questions: [{ questionImages: ["questions/p/q.webp"], markschemeImages: [], officialMarkscheme: { images: [] } }],
-    }, new Map([
-      ["questions/p/q.webp", { sourcePath: "/q", sha256: "a", size: 1 }],
-    ]));
+    }, new Map([["questions/p/q.webp", { sourcePath: "/q", sha256: "a", size: 1 }]]));
     expect(manifest.assets[0].objectKey).toBe("igcse-economics-0455/releases/repaired-v6-9fae73bcd2a9/questions/p/q.webp");
   });
 
-  it("uses the release-versioned Biology namespace", () => {
-    const manifest = createRuntimeReferenceManifest("igcse-biology-0610", {
+  it("uses the sealed Chemistry candidate namespace", () => {
+    const manifest = createRuntimeReferenceManifest("igcse-chemistry-0620", {
       runtimeArtifact: { originalCandidateRuntimeSha256: "candidate", contentSha256: "content" },
       questions: [{ questionImages: ["questions/p/q.webp"], markschemeImages: [], officialMarkscheme: { images: [] } }],
-    }, new Map([
-      ["questions/p/q.webp", { sourcePath: "/q", sha256: "a", size: 1 }],
-    ]));
-    expect(manifest.assets[0].objectKey).toBe("igcse-biology-0610/releases/full3441-v2-ms-repair-49ebf7ad184c/questions/p/q.webp");
+    }, new Map([["questions/p/q.webp", { sourcePath: "/q", sha256: "a", size: 1 }]]));
+    expect(manifest.assets[0].objectKey).toBe("igcse-chemistry-0620/releases/candidate-v2-6eeb3fccddb4/questions/p/q.webp");
   });
 
   it.each([

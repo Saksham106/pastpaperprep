@@ -33,7 +33,15 @@ def dump_runtime(obj, path: Path):
     path.write_text(json.dumps(obj, separators=(",", ":"), ensure_ascii=False) + "\n")
 
 def canonical_sha256(obj) -> str:
-    return hashlib.sha256(json.dumps(obj, separators=(",", ":"), ensure_ascii=False).encode()).hexdigest()
+    def javascript_numbers(value):
+        if isinstance(value, float) and value.is_integer():
+            return int(value)
+        if isinstance(value, list):
+            return [javascript_numbers(item) for item in value]
+        if isinstance(value, dict):
+            return {key: javascript_numbers(item) for key, item in value.items()}
+        return value
+    return hashlib.sha256(json.dumps(javascript_numbers(obj), separators=(",", ":"), ensure_ascii=False).encode()).hexdigest()
 
 def flatten_result_files():
     rows = {}

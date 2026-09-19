@@ -17,7 +17,7 @@ export const RELEASE_BANKS = {
     originalCandidateRuntimeSha256: '69bfa6b0519e30c0975ef7b549e338c3e2e2c0e2da458090aa9f6464195f89e5',
   },
   'igcse-chemistry-0620': {
-    prefix: 'igcse-chemistry-0620',
+    prefix: 'igcse-chemistry-0620/releases/candidate-v2-6eeb3fccddb4',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_CHEMISTRY_SOURCE_ROOT',
     originalCandidateRuntimeSha256: '81c706903aa94c6865336cf40027c26b33e0ba514082f4d8da2c576b9bb2cf87',
   },
@@ -115,7 +115,7 @@ function sourceRelativePath(bank, reference) {
     return 'data/classification/packet-028-source-repair-candidate/assets/0455-2025-s-22/markscheme/q5-3-29.webp';
   }
   if (kind === 'questions') {
-    if (bank === 'igcse-chemistry-0620') return `full/assets/${paper}/question/${file}`;
+    if (bank === 'igcse-chemistry-0620') return `full-extension/assets/${paper}/question/${file}`;
     if (bank === 'igcse-physics-0625') {
       const year = Number(paper.split('-')[1]);
       const lane = year >= 2021 && year <= 2025 ? 'data/segmentation-repaired' : 'data/segmentation/full-extension-repaired';
@@ -126,7 +126,7 @@ function sourceRelativePath(bank, reference) {
     return `data/segmentation/full/assets/${paper}/question/${file}`;
   }
   if (kind === 'markschemes') {
-    if (bank === 'igcse-chemistry-0620') return `full/assets/${paper}/markscheme/${file}`;
+    if (bank === 'igcse-chemistry-0620') return `full-extension/assets/${paper}/markscheme/${file}`;
     if (bank === 'igcse-physics-0625') {
       const year = Number(paper.split('-')[1]);
       const lane = year >= 2021 && year <= 2025 ? 'data/segmentation-repaired' : 'data/segmentation/full-extension-repaired';
@@ -157,9 +157,22 @@ export async function buildReleaseManifest({ bank, runtimePath, sourceRoot }) {
     for (const reference of references(question)) {
       validateObjectKey(`${bank}/${reference}`);
       if (files.has(reference)) continue;
-      const candidate = resolve(canonicalRoot, sourceRelativePath(bank, reference));
-      if (!candidate.startsWith(`${canonicalRoot}${sep}`)) throw new Error(`Asset escapes source root: ${reference}`);
-      const resolved = await realpath(candidate);
+      const relativeSource = sourceRelativePath(bank, reference);
+      const candidates = bank === 'igcse-chemistry-0620'
+        ? [relativeSource, relativeSource.replace('full-extension/', 'full/')]
+        : [relativeSource];
+      let candidate;
+      let resolved;
+      for (const relative of candidates) {
+        const possible = resolve(canonicalRoot, relative);
+        if (!possible.startsWith(`${canonicalRoot}${sep}`)) throw new Error(`Asset escapes source root: ${reference}`);
+        try {
+          resolved = await realpath(possible);
+          candidate = possible;
+          break;
+        } catch {}
+      }
+      if (!candidate || !resolved) throw new Error(`Missing referenced asset: ${reference}`);
       if (resolved !== candidate) throw new Error(`Symlinked asset rejected: ${reference}`);
       const metadata = await stat(resolved);
       if (!metadata.isFile()) throw new Error(`Referenced asset is not a file: ${reference}`);
