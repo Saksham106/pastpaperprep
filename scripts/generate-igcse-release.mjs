@@ -52,7 +52,26 @@ const AUTHORIZED_PRODUCTION_CANDIDATE_STATES = {
   'igcse-physics-0625': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved', UNRESOLVED_TAXONOMY_STATUS], unresolvedCount: 336 },
 };
 
+const CHEMISTRY_EXTENSION_UNRESOLVED_COUNT = 28;
+
+function finalizeChemistryQuestionStates(runtime, bank) {
+  if (bank !== 'igcse-chemistry-0620') return false;
+  if (!Array.isArray(runtime?.questions) || runtime.questions.length === 0) {
+    throw new Error(`${bank} must contain a non-empty question array before production finalization`);
+  }
+  for (const question of runtime.questions) {
+    if (question.publicationStatus !== 'production' || !['classified', UNRESOLVED_TAXONOMY_STATUS].includes(question.classificationReviewStatus)) {
+      throw new Error(`${bank} contains an unknown or unauthorized candidate question state`);
+    }
+  }
+  if (runtime.runtimeArtifact?.validatedExtensionUnlabeledGapCount !== CHEMISTRY_EXTENSION_UNRESOLVED_COUNT) {
+    throw new Error(`${bank} unresolved extension label count does not match the authorized ${CHEMISTRY_EXTENSION_UNRESOLVED_COUNT}`);
+  }
+  return true;
+}
+
 export function finalizeQuestionStates(runtime, bank) {
+  if (finalizeChemistryQuestionStates(runtime, bank)) return;
   const expected = AUTHORIZED_PRODUCTION_CANDIDATE_STATES[bank];
   if (!expected) throw new Error(`No authorized production candidate state mapping for ${bank}`);
   if (!Array.isArray(runtime?.questions) || runtime.questions.length === 0) {
