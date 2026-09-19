@@ -169,7 +169,7 @@ def main():
             "officialMarkscheme": {"images": [x["path"].replace("assets/", "markschemes/", 1).replace("/markscheme/", "/") for x in q.get("mark_scheme_images", [])]},
             "sourceQuestionUrl": paper.get("question_paper", {}).get("final_url"),
             "sourceMarkSchemeUrl": paper.get("mark_scheme", {}).get("final_url"), "sourceType": "actual_past_paper",
-            "sourceId": qid, "publicationStatus": "production", 
+            "sourceId": qid, "publicationStatus": "production",
             "classificationReviewStatus": "unresolved_taxonomy_gap" if verdict == "unlabeled-confirmed" else "classified",
             "classificationProvenance": {"selectedSource": "validated-extension", "sourceRowId": qid,
                 "labelSource": result.get("reviewer_pass"), "primaryDetailId": detail_id,
