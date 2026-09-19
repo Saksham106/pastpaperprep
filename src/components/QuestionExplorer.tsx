@@ -219,6 +219,7 @@ access: ExplorerAccess;
   const [resolvedExportMarker, setResolvedExportMarker] = useState(exportMarker);
   const [locationHydrated, setLocationHydrated] = useState(!hydrateFromLocation);
   const filterTriggerRef = useRef<HTMLButtonElement>(null);
+  const initialLocationHadFreeChoiceRef = useRef<boolean | null>(null);
   const filterDialogRef = useRef<HTMLElement>(null);
   const pdfTriggerRef = useRef<HTMLButtonElement>(null);
   const pdfBuildButtonRef = useRef<HTMLButtonElement>(null);
@@ -287,10 +288,12 @@ access: ExplorerAccess;
   useEffect(() => {
     if (!hydrateFromLocation) return;
     let cancelled = false;
+    const locationParams = new URLSearchParams(window.location.search);
+    initialLocationHadFreeChoiceRef.current = locationParams.has("free");
     queueMicrotask(() => {
       if (cancelled) return;
       const raw: ExplorerSearchParams = {};
-      for (const [key, value] of new URLSearchParams(window.location.search)) {
+      for (const [key, value] of locationParams) {
         const current = raw[key];
         raw[key] = current === undefined ? value : Array.isArray(current) ? [...current, value] : [current, value];
       }
@@ -327,7 +330,9 @@ access: ExplorerAccess;
         if (payload.studyStateUnavailable) {
           setStudyError("Saved and attempted question state could not load. Your bank access is unaffected.");
         }
-        if (payload.access.bankAccess && !new URLSearchParams(window.location.search).has("free")) setFreeOnly(false);
+        const hadExplicitFreeChoice = initialLocationHadFreeChoiceRef.current
+          ?? new URLSearchParams(window.location.search).has("free");
+        if (payload.access.bankAccess && !hadExplicitFreeChoice) setFreeOnly(false);
       })
       .catch(() => undefined);
     return () => { cancelled = true; };
