@@ -38,6 +38,7 @@ type Runtime = {
   rightsStatus: string;
   publicationStatus: string;
   releaseStatus: string;
+  assetVerification: string;
   sourceCandidate: { path: string; sha256: string; questionCount: number };
   questions: RuntimeQuestion[];
   runtimeArtifact: Record<string, unknown>;
@@ -121,8 +122,8 @@ describe("IGCSE Economics 0455 production candidate (v6 repaired lane)", () => {
     for (const id of ["0455-2021-m-22-q1", "0455-2021-s-11-q11", "0455-2025-w-13-q29", "0455-2024-w-13-q29"]) {
       expect(candidate.questions.some((question) => question.id === id)).toBe(true);
     }
-    expect(candidate.questions.every((question) => question.publicationStatus === "authorized_production_candidate")).toBe(true);
-    expect(candidate.questions.every((question) => question.classificationReviewStatus === "source_paired_review_completed_pending_release")).toBe(true);
+    expect(candidate.questions.every((question) => question.publicationStatus === "production")).toBe(true);
+    expect(candidate.questions.every((question) => question.classificationReviewStatus === "classified")).toBe(true);
   });
 
   it("routes every labelled row through the pinned taxonomy without leaking internal ids", () => {
@@ -148,10 +149,12 @@ describe("IGCSE Economics 0455 production candidate (v6 repaired lane)", () => {
     expect(artifact.originalCandidateRuntimeSha256).toBe("69bfa6b0519e30c0975ef7b549e338c3e2e2c0e2da458090aa9f6464195f89e5");
     expect(candidate.sourceCandidate.sha256).toBe("9fae73bcd2a9ef9f249387dba2c8c3dedfc0808e134dcc171e741f641e587cc6");
     expect(candidate.sourceCandidate.questionCount).toBe(1220);
-    expect(candidate.publicationStatus).toBe("authorized_production_candidate");
-    expect(candidate.releaseStatus).toBe("authorized_production_candidate");
-    expect(artifact.assetVerification).toBe("pending_storage_release");
-    expect(artifact.storageReceiptSha256).toBeNull();
+    expect(candidate.publicationStatus).toBe("production");
+    expect(candidate.releaseStatus).toBe("production");
+    expect(candidate.assetVerification).toBe("verified_readback");
+    expect(artifact.assetVerification).toBe("verified_readback");
+    expect(artifact.assetManifestSha256).toMatch(/^[a-f0-9]{64}$/);
+    expect(artifact.storageReceiptSha256).toMatch(/^[a-f0-9]{64}$/);
     expect(candidate.rightsStatus).toBe("user_attested_non_blocking_for_named_corpus");
   });
 
