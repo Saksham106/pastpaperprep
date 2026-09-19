@@ -12,6 +12,7 @@ import { EXPLORER_PAGE_SIZE, parseExplorerState, serializeExplorerState, type Ex
 import type { QuestionFilters, QuestionSort, UnifiedQuestion } from "@/lib/questions";
 import type { BankSlug } from "@/lib/banks";
 import { fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
+import { pulseSuccess, shakeElement } from "@/lib/button-feedback";
 import { mergeQuestionRichDetails, publicMetadataToQuestion, type PublicBankIndex } from "@/lib/question-index";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 import { formatPublicLabel } from "@/lib/presentation";
@@ -204,6 +205,8 @@ access: ExplorerAccess;
   const [pdfUpgradeOpen, setPdfUpgradeOpen] = useState(false);
   const [pdfContent, setPdfContent] = useState<PdfContent>("both");
   const [pdfStatus, setPdfStatus] = useState("");
+  const [pdfStatusKind, setPdfStatusKind] = useState<"progress" | "success" | "error">("progress");
+  const shareButtonRef = useRef<HTMLButtonElement>(null);
   const [signedAssets, setSignedAssets] = useState(new Map<string, SignedAsset>());
   const [failedAssetKeys, setFailedAssetKeys] = useState(new Set<string>());
   const [assetError, setAssetError] = useState("");
@@ -216,8 +219,11 @@ access: ExplorerAccess;
   const [resolvedExportMarker, setResolvedExportMarker] = useState(exportMarker);
   const [locationHydrated, setLocationHydrated] = useState(!hydrateFromLocation);
   const filterTriggerRef = useRef<HTMLButtonElement>(null);
+  const initialLocationHadFreeChoiceRef = useRef<boolean | null>(null);
   const filterDialogRef = useRef<HTMLElement>(null);
   const pdfTriggerRef = useRef<HTMLButtonElement>(null);
+  const pdfBuildButtonRef = useRef<HTMLButtonElement>(null);
+  const pdfStatusRef = useRef<HTMLElement>(null);
   const pdfDialogRef = useRef<HTMLElement>(null);
   const pdfUpgradeDialogRef = useRef<HTMLElement>(null);
   const explorerRootRef = useRef<HTMLElement>(null);
@@ -282,10 +288,12 @@ access: ExplorerAccess;
   useEffect(() => {
     if (!hydrateFromLocation) return;
     let cancelled = false;
+    const locationParams = new URLSearchParams(window.location.search);
+    initialLocationHadFreeChoiceRef.current = locationParams.has("free");
     queueMicrotask(() => {
       if (cancelled) return;
       const raw: ExplorerSearchParams = {};
-      for (const [key, value] of new URLSearchParams(window.location.search)) {
+      for (const [key, value] of locationParams) {
         const current = raw[key];
         raw[key] = current === undefined ? value : Array.isArray(current) ? [...current, value] : [current, value];
       }
@@ -322,7 +330,9 @@ access: ExplorerAccess;
         if (payload.studyStateUnavailable) {
           setStudyError("Saved and attempted question state could not load. Your bank access is unaffected.");
         }
-        if (payload.access.bankAccess && !new URLSearchParams(window.location.search).has("free")) setFreeOnly(false);
+        const hadExplicitFreeChoice = initialLocationHadFreeChoiceRef.current
+          ?? new URLSearchParams(window.location.search).has("free");
+        if (payload.access.bankAccess && !hadExplicitFreeChoice) setFreeOnly(false);
       })
       .catch(() => undefined);
     return () => { cancelled = true; };
@@ -570,11 +580,24 @@ access: ExplorerAccess;
 
   const shareWorkspace = async () => {
     setShareStatus("");
+    const shareUrl = window.location.href;
+    if (typeof navigator.share === "function" && navigator.canShare?.({ url: shareUrl })) {
+      try {
+        await navigator.share({ url: shareUrl, title: document.title });
+        setShareStatus("Link copied");
+        pulseSuccess(shareButtonRef.current);
+      } catch {
+        /* the visitor dismissed the share sheet — nothing to announce */
+      }
+      return;
+    }
     try {
-      await navigator.clipboard.writeText(window.location.href);
+      await navigator.clipboard.writeText(shareUrl);
       setShareStatus("Link copied");
+      pulseSuccess(shareButtonRef.current);
     } catch {
-      setShareStatus("Could not copy link");
+      setShareStatus("Couldn't copy — copy the link from your address bar, or try again.");
+      shakeElement(shareButtonRef.current);
     }
   };
 
@@ -642,6 +665,7 @@ access: ExplorerAccess;
   const exportQuestions = questionsForPdf(filtered, selectedIds, selectionIsExplicit, catalogQuestions);
   const handleDownload = async () => {
     if (!resolvedAccess.canExportPdf || !bank) return;
+    setPdfStatusKind("progress");
     setPdfStatus(`Preparing ${exportQuestions.length} questions...`);
     try {
       const assets = await fetchPdfAssets(bank, exportQuestions.map((question) => question.id), pdfContent, fetch, localPreview);
@@ -656,29 +680,23 @@ access: ExplorerAccess;
         (complete, total) => setPdfStatus(`Preparing ${complete} of ${total}...`),
         resolvedExportMarker,
       );
-      setPdfStatus("Downloaded");
-      setPdfOpen(false);
+      setPdfStatusKind("success");
+      setPdfStatus(`Worksheet ready — ${exportQuestions.length} question${exportQuestions.length === 1 ? "" : "s"} downloaded.`);
+      pulseSuccess(pdfBuildButtonRef.current);
+      window.setTimeout(() => {
+        setPdfOpen(false);
+        setPdfStatus("");
+      }, 1400);
     } catch (error) {
-      setPdfStatus(error instanceof Error ? error.message : "PDF export failed. Check your connection and try again.");
+      setPdfStatusKind("error");
+      setPdfStatus(error instanceof Error ? error.message : "The worksheet could not be built. Check your connection and try again.");
+      shakeElement(pdfBuildButtonRef.current);
+      shakeElement(pdfStatusRef.current);
     }
   };
 
   const showPdfUpgrade = () => {
-    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
-    const trigger = pdfTriggerRef.current;
-    if (!reduceMotion && typeof trigger?.animate === "function") {
-      trigger.animate(
-        [
-          { transform: "translateX(0)" },
-          { transform: "translateX(-7px)" },
-          { transform: "translateX(7px)" },
-          { transform: "translateX(-4px)" },
-          { transform: "translateX(4px)" },
-          { transform: "translateX(0)" },
-        ],
-        { duration: 420, easing: "cubic-bezier(0.16, 1, 0.3, 1)" },
-      );
-    }
+    shakeElement(pdfTriggerRef.current);
     setPdfUpgradeOpen(true);
   };
 
@@ -692,10 +710,10 @@ access: ExplorerAccess;
         </label>
         <button ref={filterTriggerRef} className={`mobile-filter-button${activeCount ? " is-active" : ""}`} type="button" aria-haspopup="dialog" aria-expanded={filtersOpen} onClick={() => setFiltersOpen(true)}><Funnel weight="bold" aria-hidden="true" /> Filters{activeCount ? ` (${activeCount})` : ""}</button>
         <SortSelector value={sort} onChange={setSort} />
-        <button className="share-view-button toolbar-icon-button" type="button" title="Share this view" aria-label="Copy link to this view" onClick={shareWorkspace}><ShareNetwork aria-hidden="true" /></button>
+        <button ref={shareButtonRef} className="share-view-button toolbar-icon-button" type="button" title="Share this view" aria-label="Copy link to this view" onClick={shareWorkspace}><ShareNetwork aria-hidden="true" /></button>
         <button ref={pdfTriggerRef} className="download-button toolbar-icon-button" type="button" title="Download PDF" aria-label="Download PDF" onClick={() => resolvedAccess.canExportPdf ? setPdfOpen(true) : showPdfUpgrade()}><DownloadSimple aria-hidden="true" /></button>
       </div>
-      {shareStatus && <p className="toolbar-status" role="status">{shareStatus}</p>}
+      {shareStatus && <p className={`toolbar-status${shareStatus.startsWith("Couldn't") ? " is-error" : " is-success"}`} role="status">{shareStatus}</p>}
 
       {indexError && <div className="access-notice" role="alert"><span>{indexError}</span><button className="text-button" type="button" onClick={() => { setIndexError(""); setIndexAttempt((attempt) => attempt + 1); }}>Retry question index</button></div>}
       {assetError && <div className="access-notice" role="alert"><span>{assetError}</span><button className="text-button" type="button" onClick={retryQuestionAssets}>Retry images</button></div>}
@@ -754,7 +772,7 @@ access: ExplorerAccess;
         </div>
       </div>
 
-      {pdfOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfDialogRef} className="pdf-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-title"><button className="pdf-close" aria-label="Close PDF options" onClick={() => setPdfOpen(false)}><X /></button><p className="eyebrow">Worksheet builder</p><h2 id="pdf-title">Download {exportQuestions.length.toLocaleString()} questions</h2><p>{selectionIsExplicit ? "Using your selected questions, including selections outside the current filters." : filtered.length > MAX_PDF_QUESTIONS ? `Worksheets are limited to ${MAX_PDF_QUESTIONS} questions. Narrow your filters or make a selection for a different set.` : "No manual selection yet, so this uses every current result."}</p><div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div><button className="download-button pdf-download" disabled={!exportQuestions.length} onClick={handleDownload}><DownloadSimple /> Build PDF</button>{pdfStatus && <small>{pdfStatus}</small>}</section></div>}
+      {pdfOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfDialogRef} className="pdf-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-title"><button className="pdf-close" aria-label="Close PDF options" onClick={() => setPdfOpen(false)}><X /></button><p className="eyebrow">Worksheet builder</p><h2 id="pdf-title">Download {exportQuestions.length.toLocaleString()} questions</h2><p>{selectionIsExplicit ? "Using your selected questions, including selections outside the current filters." : filtered.length > MAX_PDF_QUESTIONS ? `Worksheets are limited to ${MAX_PDF_QUESTIONS} questions. Narrow your filters or make a selection for a different set.` : "No manual selection yet, so this uses every current result."}</p><div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div><button ref={pdfBuildButtonRef} className="download-button pdf-download" disabled={!exportQuestions.length} onClick={handleDownload}><DownloadSimple /> {pdfStatusKind === "success" ? "Downloaded" : "Build PDF"}</button>{pdfStatus && <small ref={pdfStatusRef} role="status" aria-live="polite" className={pdfStatusKind === "progress" ? "" : pdfStatusKind === "error" ? "is-error" : "is-success"}>{pdfStatus}</small>}</section></div>}
       {pdfUpgradeOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfUpgradeDialogRef} className="pdf-dialog access-upgrade-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-upgrade-title"><button className="pdf-close" aria-label="Close PDF access message" onClick={() => setPdfUpgradeOpen(false)}><X /></button><span className="access-upgrade-icon"><DownloadSimple aria-hidden="true" weight="bold" /></span><h2 id="pdf-upgrade-title">PDF export needs paid access</h2><p>Build and download worksheets with paid access to this question bank.</p><Link className="button primary" href={plansHref}>{PLANS_LABEL}</Link></section></div>}
     </section>
   );
