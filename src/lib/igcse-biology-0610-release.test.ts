@@ -47,11 +47,11 @@ describe("IGCSE Biology 0610 finalized production release", () => {
     expect(getCatalogBank("igcse-biology-0610")?.bundleProductId).toBe("bundle_igcse");
   });
 
-  it("fails closed until a matching verified remote readback receipt exists", () => {
-    expect(() => getIGCSERuntimeArtifact("igcse-biology-0610", {
+  it("loads through the production guard after verified remote readback", () => {
+    expect(getIGCSERuntimeArtifact("igcse-biology-0610", {
       PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true",
       PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true",
-    })).toThrow(/verified storage/);
+    })).toBe(runtime);
   });
 
   it("self-seals the deterministic candidate runtime and source inputs", () => {
