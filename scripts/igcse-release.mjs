@@ -13,7 +13,7 @@ export const RELEASE_BANKS = {
     originalCandidateRuntimeSha256: 'd6ffc51bf6f31dce48c518e7404fd3599d26798243d509d889c12a0110c88ca3',
   },
   'igcse-economics-0455': {
-    prefix: 'igcse-economics-0455',
+    prefix: 'igcse-economics-0455/releases/repaired-v6-9fae73bcd2a9',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_ECONOMICS_SOURCE_ROOT',
     originalCandidateRuntimeSha256: '69bfa6b0519e30c0975ef7b549e338c3e2e2c0e2da458090aa9f6464195f89e5',
   },
@@ -77,6 +77,8 @@ function references(question) {
 }
 
 export function createRuntimeReferenceManifest(bank, runtime, files) {
+  const config = RELEASE_BANKS[bank];
+  if (!config) throw new Error(`Unknown release bank: ${bank}`);
   const assets = new Map();
   for (const question of runtime.questions ?? []) {
     for (const reference of references(question)) {
@@ -84,7 +86,7 @@ export function createRuntimeReferenceManifest(bank, runtime, files) {
       if (!files.has(reference)) throw new Error(`Missing referenced asset: ${reference}`);
       const metadata = files.get(reference);
       assets.set(reference, {
-        objectKey: `${bank}/${reference}`,
+        objectKey: `${config.prefix}/${reference}`,
         sourcePath: metadata.sourcePath,
         sha256: metadata.sha256,
         size: metadata.size,

@@ -155,8 +155,8 @@ describe("IGCSE Economics 0455 production candidate (v6 repaired lane)", () => {
     expect(candidate.rightsStatus).toBe("user_attested_non_blocking_for_named_corpus");
   });
 
-  it("maps to an immutable bank-prefixed private object namespace and a hosted product", () => {
-    expect(getPrivateBankObjectPrefix(BANK)).toBe(`${BANK}/`);
+  it("maps to a release-versioned immutable private object namespace and a hosted product", () => {
+    expect(getPrivateBankObjectPrefix(BANK)).toBe(`${BANK}/releases/repaired-v6-9fae73bcd2a9/`);
     expect(normalizeEntitlements([{ product_id: "bank_igcse_economics_0455", status: "active", starts_at: "2026-01-01T00:00:00Z", expires_at: null }])).toHaveLength(1);
     expect(hasBankAccess(BANK, normalizeEntitlements([{ product_id: "bank_igcse_economics_0455", status: "active", starts_at: "2026-01-01T00:00:00Z", expires_at: null }]))).toBe(true);
     expect(hasBankAccess(BANK, normalizeEntitlements([{ product_id: "bundle_igcse", status: "active", starts_at: "2026-01-01T00:00:00Z", expires_at: null }]))).toBe(true);

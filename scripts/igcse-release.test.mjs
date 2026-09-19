@@ -79,6 +79,16 @@ describe("IGCSE storage release tooling", () => {
     ]);
   });
 
+  it("isolates repaired Economics assets in a release-versioned namespace", () => {
+    const manifest = createRuntimeReferenceManifest("igcse-economics-0455", {
+      runtimeArtifact: { originalCandidateRuntimeSha256: "candidate", contentSha256: "content" },
+      questions: [{ questionImages: ["questions/p/q.webp"], markschemeImages: [], officialMarkscheme: { images: [] } }],
+    }, new Map([
+      ["questions/p/q.webp", { sourcePath: "/q", sha256: "a", size: 1 }],
+    ]));
+    expect(manifest.assets[0].objectKey).toBe("igcse-economics-0455/releases/repaired-v6-9fae73bcd2a9/questions/p/q.webp");
+  });
+
   it.each([
     ["igcse-biology-0610", "markschemes/0610-2025-w-23/q2-row1-1.webp", "data/classification/full-coverage-batch-repairs/batch94-ms/assets/0610-2025-w-23/markscheme/q2-row1-1.v2.webp"],
   ])("uses the exact %s repair overlay", async (bank, reference, relativeSource) => {

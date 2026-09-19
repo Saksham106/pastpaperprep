@@ -32,7 +32,7 @@ describe("IGCSE Biology and Economics release candidate", () => {
   it("maps all private runtimes to immutable bank-prefixed R2 namespaces", () => {
     expect(getPrivateBankObjectPrefix("ib-economics-hl")).toBe("ib-economics-hl/");
     expect(getPrivateBankObjectPrefix("igcse-biology-0610")).toBe("igcse-biology-0610/");
-    expect(getPrivateBankObjectPrefix("igcse-economics-0455")).toBe("igcse-economics-0455/");
+    expect(getPrivateBankObjectPrefix("igcse-economics-0455")).toBe("igcse-economics-0455/releases/repaired-v6-9fae73bcd2a9/");
     expect(getPrivateBankObjectPrefix("igcse-chemistry-0620")).toBe("igcse-chemistry-0620/");
     expect(getPrivateBankObjectPrefix("igcse-physics-0625")).toBe("igcse-physics-0625/");
   });

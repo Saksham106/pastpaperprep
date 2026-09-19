@@ -5,7 +5,7 @@ export const PRIVATE_RUNTIME_OBJECT_PREFIXES: Partial<Record<BankSlug, string>> 
   "ib-economics-hl": "ib-economics-hl/",
   "ib-economics-sl": "ib-economics-sl/",
   "igcse-biology-0610": "igcse-biology-0610/",
-  "igcse-economics-0455": "igcse-economics-0455/",
+  "igcse-economics-0455": "igcse-economics-0455/releases/repaired-v6-9fae73bcd2a9/",
   "igcse-chemistry-0620": "igcse-chemistry-0620/",
   "igcse-physics-0625": "igcse-physics-0625/",
   "igcse-coordinated-sciences-0654": "igcse-coordinated-sciences-0654/",
