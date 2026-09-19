@@ -16,6 +16,9 @@ LANES = SOURCE / "repair-lanes"
 EXT_BATCHES = SOURCE / "full-extension" / "batches"
 EXT_RESULTS = SOURCE / "data/classification-extension/results"
 EXT_REVIEW = SOURCE / "data/classification-extension/review"
+BASE_SOURCE_COMMIT = "ee92867"
+BASE_SOURCE_PATH = "src/data/production/igcse-chemistry-0620.json"
+BASE_SOURCE_SHA256 = "86f0c410935ca7aa3adf3c6158c2e7632e98f3b9303ded5214331d4b5ba35e47"
 
 def sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -23,6 +26,14 @@ def sha(path: Path) -> str:
 def dump(obj, path: Path):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(obj, indent=2, ensure_ascii=False) + "\n")
+
+def dump_runtime(obj, path: Path):
+    # Keep the committed runtime's canonical JSON representation stable.
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(obj, separators=(",", ":"), ensure_ascii=False) + "\n")
+
+def canonical_sha256(obj) -> str:
+    return hashlib.sha256(json.dumps(obj, separators=(",", ":"), ensure_ascii=False).encode()).hexdigest()
 
 def flatten_result_files():
     rows = {}
@@ -51,7 +62,12 @@ def flatten_decisions():
 
 def main():
     base_runtime_path = TARGET / "src/data/production/igcse-chemistry-0620.json"
-    base = json.loads(subprocess.check_output(["git", "show", "HEAD:src/data/production/igcse-chemistry-0620.json"], cwd=TARGET))
+    # Never use the output being regenerated as an input. The pre-release bank is
+    # pinned to the last authoritative 3,529-row runtime snapshot instead.
+    base_bytes = subprocess.check_output(["git", "show", f"{BASE_SOURCE_COMMIT}:{BASE_SOURCE_PATH}"], cwd=TARGET)
+    if hashlib.sha256(base_bytes).hexdigest() != BASE_SOURCE_SHA256:
+        raise ValueError("pinned Chemistry 0620 base source changed")
+    base = json.loads(base_bytes)
     base_ids = [q["id"] for q in base["questions"]]
     if len(base_ids) != len(set(base_ids)): raise ValueError("base runtime has duplicate ids")
     if len(base_ids) != 3529: raise ValueError(f"unexpected base count {len(base_ids)}")
@@ -161,15 +177,35 @@ def main():
         extension.append(ext)
 
     all_questions = base["questions"] + extension
+    base_artifact = base["runtimeArtifact"]
     runtime = copy.deepcopy(base)
     runtime.update({"version": "igcse-chemistry-0620-release-candidate-v2", "releaseStatus": "production_candidate",
         "years": "2019-2026", "paperCount": 314, "questionCount": len(all_questions), "questions": all_questions,
         "publicationStatus": "production_candidate", "assetVerification": "pending_verified_readback"})
-    runtime["runtimeArtifact"].update({"publicationStatus": "production_candidate", "assetVerification": "pending_verified_readback",
-        "assetManifestSha256": None, "storageReceiptSha256": None, "runtimeSha256": None,
-        "originalCandidateRuntimeSha256": runtime["runtimeArtifact"]["originalCandidateRuntimeSha256"],
-        "validatedExtensionQuestionCount": len(extension), "validatedExtensionUnlabeledGapCount": len(unlabeled)})
-    dump(runtime, TARGET / "src/data/production/igcse-chemistry-0620.json")
+    runtime["runtimeArtifact"] = {
+        "schemaVersion": base_artifact["schemaVersion"],
+        "sourceRepository": base_artifact["sourceRepository"],
+        "sourceCandidateSha256": base_artifact["sourceCandidateSha256"],
+        "releaseTaxonomySha256": base_artifact["releaseTaxonomySha256"],
+        "runtimeTaxonomySha256": base_artifact["runtimeTaxonomySha256"],
+        "publicationStatus": "production_candidate",
+        "rightsStatus": base_artifact["rightsStatus"],
+        "assetVerification": "pending_verified_readback",
+        "assetManifestSha256": None,
+        "storageReceiptSha256": None,
+        "contentSha256": base_artifact["contentSha256"],
+        "originalCandidateRuntimeSha256": base_artifact["originalCandidateRuntimeSha256"],
+        "marksReady": base_artifact["marksReady"],
+        "marksRepairOverlaySha256": base_artifact["marksRepairOverlaySha256"],
+        "runtimeSha256": None,
+        "marksRepairReceiptSha256": base_artifact["marksRepairReceiptSha256"],
+        "marksRepairStatus": base_artifact["marksRepairStatus"],
+        "marksRepairUnresolvedCount": base_artifact["marksRepairUnresolvedCount"],
+        "validatedExtensionQuestionCount": len(extension),
+        "validatedExtensionUnlabeledGapCount": len(unlabeled),
+    }
+    runtime["runtimeArtifact"]["runtimeSha256"] = canonical_sha256(runtime)
+    dump_runtime(runtime, base_runtime_path)
 
     private = []
     for q in all_questions:
@@ -186,7 +222,7 @@ def main():
         "classificationRows": {"resultRows": len(result_rows), "decisionRows": len(decision_rows), "decisionVerdicts": dict(Counter(decision_rows[q].get("verdict") for q in decision_rows)), "servedClassified": len(extension)-len(unlabeled), "servedUnlabeledGaps": len(unlabeled), "unlabeledIds": unlabeled},
         "exclusions": {"segmentedNotClassified": sorted(set(source)-set(result_rows)), "classifiedNotServed": sorted(set(result_rows)-set(selected)), "reason": "Only closed validated extension result rows are served; unselected segmented rows are retained in receipt."},
         "servedRows": {"base": base_ids, "extension": selected, "total": len(all_questions)},
-        "officialBlankPerPartCells": {"base": base_lane["null_mark_part_count"], "extension": ext_lane["null_mark_part_count"], "preservedInExtensionParts": sum(1 for q in extension for p in q.get("parts", []) if p.get("marks") is None), "excludedFromServedRows": [{"questionId": f"{paper['paper_id']}-q{q['number']}", "part": part.get("label"), "reason": "segmented but not in validated classified extension result set"} for paper in (ext_lane["papers"].values() if isinstance(ext_lane["papers"], dict) else ext_lane["papers"]) for q in paper["questions"] if f"{paper['paper_id']}-q{q['number']}" not in set(selected) for part in q.get("parts", []) if part.get("marks") is None]},
+        "officialBlankPerPartCells": {"base": base_lane["null_mark_part_count"], "extension": ext_lane["null_mark_part_count"], "preservedInServedExtension": sum(1 for q in extension for p in q.get("parts", []) if p.get("marks") is None), "excludedFromServedRows": [{"questionId": f"{paper['paper_id']}-q{q['number']}", "part": part.get("label"), "reason": "segmented but not in validated classified extension result set"} for paper in (ext_lane["papers"].values() if isinstance(ext_lane["papers"], dict) else ext_lane["papers"]) for q in paper["questions"] if f"{paper['paper_id']}-q{q['number']}" not in set(selected) for part in q.get("parts", []) if part.get("marks") is None]},
         "honestUnlabeledGapCount": len(unlabeled), "expectedHonestUnlabeledGapCount": 28,
         "generated": {"runtime": "src/data/production/igcse-chemistry-0620.json", "privateIndex": "src/data/private-index/igcse-chemistry-0620.json", "catalogCount": len(all_questions)}
     }

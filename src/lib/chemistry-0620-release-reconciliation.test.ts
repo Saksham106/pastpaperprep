@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
@@ -18,5 +19,21 @@ describe("Chemistry 0620 release candidate reconciliation", () => {
     expect(receipt.officialBlankPerPartCells.excludedFromServedRows).toHaveLength(1);
     expect(storage.storageState).toBe("pending_verified_remote_readback");
     expect(storage.completed).toHaveLength(0);
+  });
+
+  it("regenerates byte-identical release artifacts from the pinned base", () => {
+    const paths = [
+      "src/data/production/igcse-chemistry-0620.json",
+      "src/data/private-index/igcse-chemistry-0620.json",
+      "data/release/chemistry-0620-reconciliation-receipt.json",
+    ];
+    const committed = paths.map((path) => readFileSync(join(process.cwd(), path)));
+    const script = join(process.cwd(), "scripts/build-chemistry-release-candidate.py");
+    execFileSync("python3", [script], { cwd: process.cwd(), stdio: "pipe" });
+    const firstRun = paths.map((path) => readFileSync(join(process.cwd(), path)));
+    execFileSync("python3", [script], { cwd: process.cwd(), stdio: "pipe" });
+    const secondRun = paths.map((path) => readFileSync(join(process.cwd(), path)));
+    expect(Buffer.compare(firstRun[0], committed[0])).toBe(0);
+    expect(firstRun.map((value, index) => Buffer.compare(value, secondRun[index]))).toEqual([0, 0, 0]);
   });
 });
