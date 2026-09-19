@@ -67,8 +67,8 @@ describe("IGCSE Biology and Economics release candidate", () => {
     expect(chemistrySeal.runtimeTaxonomySha256).toBe(sha(chemistryTaxonomy));
     expect(physicsSeal.releaseTaxonomySha256).toMatch(/^[a-f0-9]{64}$/);
     expect(physicsSeal.runtimeTaxonomySha256).toBe(sha(physicsTaxonomy));
-    expect(chemistryCandidate.questions).toHaveLength(3529);
-    expect(chemistryCandidate.paperCount).toBe(207);
+    expect(chemistryCandidate.questions).toHaveLength(5129);
+    expect(chemistryCandidate.paperCount).toBe(314);
     expect(physicsCandidate.questions).toHaveLength(3820);
     expect(physicsCandidate.paperCount).toBe(210);
     expect(chemistryCandidate.marks_ready).toBe(true);
