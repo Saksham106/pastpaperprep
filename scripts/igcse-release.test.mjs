@@ -99,6 +99,16 @@ describe("IGCSE storage release tooling", () => {
     expect(manifest.assets[0].objectKey).toBe("igcse-chemistry-0620/releases/candidate-v2-6eeb3fccddb4/questions/p/q.webp");
   });
 
+  it("isolates Co-ordinated Sciences assets in a release-versioned namespace", () => {
+    const manifest = createRuntimeReferenceManifest("igcse-coordinated-sciences-0654", {
+      runtimeArtifact: { originalCandidateRuntimeSha256: "candidate", contentSha256: "content" },
+      questions: [{ questionImages: ["questions/p/q.webp"], markschemeImages: [], officialMarkscheme: { images: [] } }],
+    }, new Map([
+      ["questions/p/q.webp", { sourcePath: "/q", sha256: "a", size: 1 }],
+    ]));
+    expect(manifest.assets[0].objectKey).toBe("igcse-coordinated-sciences-0654/releases/full4721-v1-6b161eb9e580/questions/p/q.webp");
+  });
+
   it.each([
     ["igcse-biology-0610", "markschemes/0610-2025-w-23/q2-row1-1.webp", "data/classification/full-coverage-batch-repairs/batch94-ms/assets/0610-2025-w-23/markscheme/q2-row1-1.v2.webp"],
     ["igcse-economics-0455", "markschemes/0455-2025-s-22/q5-3-29.webp", "data/classification/packet-028-source-repair-candidate/assets/0455-2025-s-22/markscheme/q5-3-29.webp"],

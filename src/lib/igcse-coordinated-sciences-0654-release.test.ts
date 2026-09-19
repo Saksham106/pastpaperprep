@@ -166,8 +166,8 @@ expect(bank.paperCount).toBe(238);    expect(bank.route).toBe(`/banks/${BANK}`);
     expect(candidate.rightsStatus).toBe("user_attested_rights_authorized");
   });
 
-  it("maps to an immutable bank-prefixed private object namespace and a hosted product", () => {
-    expect(getPrivateBankObjectPrefix(BANK)).toBe(`${BANK}/`);
+  it("maps to a release-versioned immutable private object namespace and a hosted product", () => {
+    expect(getPrivateBankObjectPrefix(BANK)).toBe(`${BANK}/releases/full4721-v1-6b161eb9e580/`);
     expect(normalizeEntitlements([{ product_id: "bank_igcse_coordinated_sciences_0654", status: "active", starts_at: "2026-01-01T00:00:00Z", expires_at: null }])).toHaveLength(1);
     expect(hasBankAccess(BANK, normalizeEntitlements([{ product_id: "bank_igcse_coordinated_sciences_0654", status: "active", starts_at: "2026-01-01T00:00:00Z", expires_at: null }]))).toBe(true);
     expect(hasBankAccess(BANK, normalizeEntitlements([{ product_id: "bundle_igcse", status: "active", starts_at: "2026-01-01T00:00:00Z", expires_at: null }]))).toBe(true);

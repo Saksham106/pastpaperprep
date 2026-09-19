@@ -27,9 +27,9 @@ export const RELEASE_BANKS = {
     originalCandidateRuntimeSha256: 'd95657a79bfcf5d80b9c7e9660c1d7795ea2026435610bb3e96ba2203e3d8cf7',
   },
   'igcse-coordinated-sciences-0654': {
-    prefix: 'igcse-coordinated-sciences-0654',
+    prefix: 'igcse-coordinated-sciences-0654/releases/full4721-v1-6b161eb9e580',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_COORDINATED_SOURCE_ROOT',
-    originalCandidateRuntimeSha256: '5843c2c07c5d2357f18b3dd0de3910dede8443c36b3feff11827ee5441dd3c95',
+    originalCandidateRuntimeSha256: '8b0f2a37110a7a56a647cfbf17ecd156eaca1c507fdc3e82711d4c356cacd82a',
   },
 };
 
@@ -104,7 +104,7 @@ export function createRuntimeReferenceManifest(bank, runtime, files) {
   };
 }
 
-function sourceRelativePath(bank, reference) {
+function sourceRelativePath(bank, reference, coordinatedLane) {
   const parts = reference.split('/');
   if (parts.length !== 3) throw new Error(`Unsupported referenced asset layout: ${reference}`);
   const [kind, paper, file] = parts;
@@ -113,6 +113,10 @@ function sourceRelativePath(bank, reference) {
   }
   if (bank === 'igcse-economics-0455' && reference === 'markschemes/0455-2025-s-22/q5-3-29.webp') {
     return 'data/classification/packet-028-source-repair-candidate/assets/0455-2025-s-22/markscheme/q5-3-29.webp';
+  }
+  if (bank === 'igcse-coordinated-sciences-0654') {
+    if (!coordinatedLane) throw new Error(`Missing authoritative Co-ordinated Sciences source lane: ${paper}`);
+    return `data/segmentation/repair-ms-closure-v1/build-a/${coordinatedLane}/assets/${paper}/${kind === 'questions' ? 'question' : 'markscheme'}/${file}`;
   }
   if (kind === 'questions') {
     if (bank === 'igcse-chemistry-0620') return `full-extension/assets/${paper}/question/${file}`;
@@ -139,6 +143,12 @@ function sourceRelativePath(bank, reference) {
   throw new Error(`Unsupported referenced asset layout: ${reference}`);
 }
 
+function paperFromReference(reference) {
+  const parts = reference.split('/');
+  if (parts.length !== 3) throw new Error(`Unsupported referenced asset layout: ${reference}`);
+  return parts[1];
+}
+
 export async function buildReleaseManifest({ bank, runtimePath, sourceRoot }) {
   const config = RELEASE_BANKS[bank];
   if (!config) throw new Error(`Unknown release bank: ${bank}`);
@@ -152,12 +162,20 @@ export async function buildReleaseManifest({ bank, runtimePath, sourceRoot }) {
   }
 
   const canonicalRoot = await realpath(sourceRoot);
+  let coordinatedLanes = null;
+  if (bank === 'igcse-coordinated-sciences-0654') {
+    coordinatedLanes = new Map();
+    for (const lane of ['base', 'extension-2020']) {
+      const laneManifest = JSON.parse(await readFile(resolve(canonicalRoot, `data/segmentation/repair-ms-closure-v1/build-a/${lane}/full-manifest.json`), 'utf8'));
+      for (const paperId of Object.keys(laneManifest.papers ?? {})) coordinatedLanes.set(paperId, lane);
+    }
+  }
   const files = new Map();
   for (const question of runtime.questions ?? []) {
     for (const reference of references(question)) {
       validateObjectKey(`${bank}/${reference}`);
       if (files.has(reference)) continue;
-      const relativeSource = sourceRelativePath(bank, reference);
+      const relativeSource = sourceRelativePath(bank, reference, coordinatedLanes?.get(paperFromReference(reference)));
       const candidates = bank === 'igcse-chemistry-0620'
         ? [relativeSource, relativeSource.replace('full-extension/', 'full/')]
         : [relativeSource];
