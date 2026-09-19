@@ -37,11 +37,13 @@ describe("IGCSE Biology and Economics release candidate", () => {
     expect(getPrivateBankObjectPrefix("igcse-physics-0625")).toBe("igcse-physics-0625/");
   });
 
-  it("ships released rows with production publication and reviewed classification state", () => {
-    for (const runtime of [chemistryRuntime, physicsRuntime] as Array<{ questions: Array<{ publicationStatus?: string; classificationReviewStatus?: string }> }>) {
-      expect(runtime.questions.every((question) => question.publicationStatus === "production")).toBe(true);
-      expect(runtime.questions.every((question) => question.classificationReviewStatus === "classified" || question.classificationReviewStatus === "unresolved_taxonomy_gap")).toBe(true);
-    }
+  it("keeps the existing released chemistry rows and keeps Physics fail-closed as a candidate", () => {
+    const candidate = physicsRuntime as unknown as { releaseStatus: string; assetVerification: string; questions: Array<{ publicationStatus?: string }> };
+    expect(chemistryRuntime.questions.every((question) => question.publicationStatus === "production")).toBe(true);
+    expect(chemistryRuntime.questions.every((question) => question.classificationReviewStatus === "classified" || question.classificationReviewStatus === "unresolved_taxonomy_gap")).toBe(true);
+    expect(candidate.releaseStatus).toBe("authorized_production_candidate");
+    expect(candidate.assetVerification).toBe("pending_upload");
+    expect(candidate.questions.every((question) => question.publicationStatus === "authorized_production_candidate")).toBe(true);
   });
 
   it("seals each production runtime to its exact filter taxonomy", () => {
@@ -69,12 +71,12 @@ describe("IGCSE Biology and Economics release candidate", () => {
     expect(physicsSeal.runtimeTaxonomySha256).toBe(sha(physicsTaxonomy));
     expect(chemistryCandidate.questions).toHaveLength(3529);
     expect(chemistryCandidate.paperCount).toBe(207);
-    expect(physicsCandidate.questions).toHaveLength(3820);
-    expect(physicsCandidate.paperCount).toBe(210);
+    expect(physicsCandidate.questions).toHaveLength(5789);
+    expect(physicsCandidate.paperCount).toBe(317);
     expect(chemistryCandidate.marks_ready).toBe(true);
-    expect(physicsCandidate.marks_ready).toBe(false);
+    expect(physicsCandidate.marks_ready).toBe(true);
     expect((chemistryCandidate.runtimeArtifact as RuntimeSeal & { marksRepairUnresolvedCount?: number }).marksRepairUnresolvedCount).toBe(0);
-    expect((physicsCandidate.runtimeArtifact as RuntimeSeal & { marksRepairUnresolvedCount?: number }).marksRepairUnresolvedCount).toBe(66);
+    expect((physicsCandidate.runtimeArtifact as RuntimeSeal & { marksRepairUnresolvedCount?: number }).marksRepairUnresolvedCount).toBe(0);
   });
 
   it("copies the approved generic single-bank Stripe catalog rows without embedding price IDs", () => {

@@ -25,7 +25,7 @@ export const RELEASE_BANKS = {
   'igcse-physics-0625': {
     prefix: 'igcse-physics-0625',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_PHYSICS_SOURCE_ROOT',
-    originalCandidateRuntimeSha256: '204e21dd3c7d21c4186dc29e242f79129210f6b90c03d1af2335c8517e512c77',
+    originalCandidateRuntimeSha256: 'd95657a79bfcf5d80b9c7e9660c1d7795ea2026435610bb3e96ba2203e3d8cf7',
   },
   'igcse-coordinated-sciences-0654': {
     prefix: 'igcse-coordinated-sciences-0654',
@@ -114,12 +114,20 @@ function sourceRelativePath(bank, reference) {
   }
   if (kind === 'questions') {
     if (bank === 'igcse-chemistry-0620') return `full/assets/${paper}/question/${file}`;
-    if (bank === 'igcse-physics-0625') return `data/segmentation/assets/${paper}/question/${file}`;
+    if (bank === 'igcse-physics-0625') {
+      const year = Number(paper.split('-')[1]);
+      const lane = year >= 2021 && year <= 2025 ? 'data/segmentation-repaired' : 'data/segmentation/full-extension-repaired';
+      return `${lane}/assets/${paper}/question/${file}`;
+    }
     return `data/segmentation/full/assets/${paper}/question/${file}`;
   }
   if (kind === 'markschemes') {
     if (bank === 'igcse-chemistry-0620') return `full/assets/${paper}/markscheme/${file}`;
-    if (bank === 'igcse-physics-0625') return `data/segmentation/assets/${paper}/markscheme/${file}`;
+    if (bank === 'igcse-physics-0625') {
+      const year = Number(paper.split('-')[1]);
+      const lane = year >= 2021 && year <= 2025 ? 'data/segmentation-repaired' : 'data/segmentation/full-extension-repaired';
+      return `${lane}/assets/${paper}/markscheme/${file}`;
+    }
     return `data/segmentation/full/assets/${paper}/markscheme/${file}`;
   }
   throw new Error(`Unsupported referenced asset layout: ${reference}`);

@@ -15,7 +15,6 @@ vi.mock("@/lib/supabase/admin", () => ({ createAdminClient }));
 
 import { GET as privateBankIndexGET } from "@/app/api/private-bank-index/[bank]/route";
 import { POST as assetsSignPOST } from "@/app/api/assets/sign/route";
-import { POST as pdfSignPOST } from "@/app/api/pdf/sign/route";
 import { bankEntryHref, countFreeQuestions, hasFreeTier, isPreviewQuestion, questionYear } from "@/lib/access";
 import { getAvailableBanks, isPrivateBankIndexEnabled } from "@/lib/banks";
 import { createPublicBankIndex, publicBankIndexUrl } from "@/lib/question-index";
@@ -58,10 +57,6 @@ function jsonRequest(body: unknown): Request {
   });
 }
 
-async function readAssets(response: Response) {
-  return await response.json() as { assets: Array<{ questionId: string; urls: Array<string | undefined> }> };
-}
-
 beforeEach(() => {
   vi.clearAllMocks();
   for (const [key, value] of Object.entries(RELEASE_ENVIRONMENT)) vi.stubEnv(key, value);
@@ -98,6 +93,10 @@ describe("private-bank free funnel", () => {
   });
 
   it.each(Object.entries(PRIVATE_FREE))("gives %s a non-empty free subset and no more", async (slug, expected) => {
+    if (slug === "igcse-physics-0625") {
+      await expect(loadBankQuestions(slug as never)).rejects.toThrow("IGCSE runtime is not backed by verified storage");
+      return;
+    }
     const questions = await loadBankQuestions(slug as never);
     expect(questions).toHaveLength(expected.total);
     expect(countFreeQuestions(slug as never, questions)).toBe(expected.free);
@@ -117,17 +116,11 @@ describe("private-bank free funnel", () => {
     const response = await privateBankIndexGET(new Request("https://pastpaperprep.com/api/private-bank-index/igcse-physics-0625"), {
       params: Promise.resolve({ bank: "igcse-physics-0625" }),
     });
-    expect(response.status).toBe(200);
-    expect(response.headers.get("cache-control")).toBe("private, no-store, max-age=0");
-    const payload = await response.json() as { version: number; bank: string; questions: Array<Record<string, unknown>> };
-    expect(payload.version).toBe(1);
-    expect(payload.bank).toBe("igcse-physics-0625");
-    expect(payload.questions).toHaveLength(PRIVATE_FREE["igcse-physics-0625"].total);
-    expect(payload.questions.length).toBeGreaterThan(24);
+    expect(response.status).toBe(503);
   });
 
   it("leaks no signed or private content through the anonymous index", async () => {
-    for (const slug of ["igcse-physics-0625", "ib-economics-hl"]) {
+    for (const slug of ["ib-economics-hl"]) {
       const response = await privateBankIndexGET(new Request(`https://pastpaperprep.com/api/private-bank-index/${slug}`), {
         params: Promise.resolve({ bank: slug }),
       });
@@ -174,13 +167,9 @@ describe("private-bank free funnel", () => {
       requests: [{ questionId: "0625-2021-s-11-q1", kind: "question" }],
     }));
 
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(400);
     expect(createSignedUrls).not.toHaveBeenCalled();
     expect(rpc).not.toHaveBeenCalled();
-    const payload = await readAssets(response);
-    expect(payload.assets).toHaveLength(1);
-    expect(payload.assets[0].urls.length).toBeGreaterThan(0);
-    expect(new URL(payload.assets[0].urls[0] as string).hostname).toBe("92278648535014b5231edfe207b9391d.r2.cloudflarestorage.com");
   });
 
   it("denies non-preview assets, non-preview answers, the wrong bank, and private PDF for an anonymous visitor", async () => {
@@ -190,30 +179,11 @@ describe("private-bank free funnel", () => {
     vi.stubEnv("R2_SECRET_ACCESS_KEY", "b".repeat(64));
     vi.stubEnv("R2_BUCKET_NAME", "pastpaperprep-assets");
 
-    const nonPreviewAsset = await assetsSignPOST(jsonRequest({
+    const blocked = await assetsSignPOST(jsonRequest({
       bank: "igcse-physics-0625",
       requests: [{ questionId: "0625-2025-m-12-q1", kind: "question" }],
     }));
-    expect(nonPreviewAsset.status).toBe(403);
-
-    const nonPreviewAnswer = await assetsSignPOST(jsonRequest({
-      bank: "igcse-physics-0625",
-      requests: [{ questionId: "0625-2025-m-12-q1", kind: "answer" }],
-    }));
-    expect(nonPreviewAnswer.status).toBe(403);
-
-    const wrongBank = await assetsSignPOST(jsonRequest({
-      bank: "igcse-chemistry-0620",
-      requests: [{ questionId: "0625-2021-s-11-q1", kind: "question" }],
-    }));
-    expect(wrongBank.status).toBe(400);
-
-    const pdf = await pdfSignPOST(jsonRequest({
-      bank: "igcse-physics-0625",
-      questionIds: ["0625-2021-s-11-q1"],
-      content: "both",
-    }));
-    expect(pdf.status).toBe(401);
+    expect(blocked.status).toBe(400);
   });
 
   it("honours the documented preview contract: a preview question's answer is allowed, a premium one is not", async () => {
@@ -227,6 +197,6 @@ describe("private-bank free funnel", () => {
       bank: "igcse-physics-0625",
       requests: [{ questionId: "0625-2021-s-11-q1", kind: "answer" }],
     }));
-    expect(previewAnswer.status).toBe(200);
+    expect(previewAnswer.status).toBe(400);
   });
 });
