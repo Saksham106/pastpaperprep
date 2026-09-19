@@ -48,7 +48,11 @@ class MemoryR2 {
         throw error;
       }
       const chunks = [];
-      for await (const chunk of command.input.Body) chunks.push(Buffer.from(chunk));
+      if (Buffer.isBuffer(command.input.Body)) {
+        chunks.push(command.input.Body);
+      } else {
+        for await (const chunk of command.input.Body) chunks.push(Buffer.from(chunk));
+      }
       this.objects.set(key, Buffer.concat(chunks));
       return {};
     }
@@ -122,6 +126,7 @@ describe("IGCSE storage release tooling", () => {
     const first = await uploadRelease({ client, bucket: "bucket", manifest });
     expect(first.storageState).toBe("verified_readback");
     expect(client.puts[0]?.IfNoneMatch).toBe("*");
+    expect(Buffer.isBuffer(client.puts[0]?.Body)).toBe(true);
     const resumed = await uploadRelease({ client, bucket: "bucket", manifest, receipt: {} });
     expect(resumed.storageState).toBe("verified_readback");
     const readback = await verifyRelease({ client, bucket: "bucket", manifest });

@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import { createHash } from 'node:crypto';
-import { createReadStream } from 'node:fs';
 import { mkdir, readFile, realpath, stat, writeFile } from 'node:fs/promises';
 import { resolve, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -227,7 +226,7 @@ export async function uploadRelease({ client, bucket, manifest, receipt = {}, on
       await client.send(new PutObjectCommand({
         Bucket: bucket,
         Key: asset.objectKey,
-        Body: createReadStream(asset.sourcePath),
+        Body: await readFile(asset.sourcePath),
         ContentLength: asset.size,
         ContentType: asset.contentType,
         CacheControl: 'private, max-age=31536000, immutable',
