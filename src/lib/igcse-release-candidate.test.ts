@@ -6,11 +6,14 @@ import biologyRuntime from "@/data/production/igcse-biology-0610.json";
 import economicsRuntime from "@/data/production/igcse-economics-0455.json";
 import chemistryRuntime from "@/data/production/igcse-chemistry-0620.json";
 import physicsRuntime from "@/data/production/igcse-physics-0625.json";
+import coordinatedRuntime from "@/data/production/igcse-coordinated-sciences-0654.json";
 import biologyTaxonomy from "@/data/igcse-biology-0610-official-taxonomy.json";
 import economicsTaxonomy from "@/data/igcse-economics-0455-taxonomy.json";
 import chemistryTaxonomy from "@/data/igcse-chemistry-0620-official-taxonomy.json";
 import physicsTaxonomy from "@/data/igcse-physics-0625-official-taxonomy.json";
-import { getBank, getAvailableBanks } from "@/lib/banks";
+import { getBank, getAvailableBanks, type IGCSEReleaseBankSlug } from "@/lib/banks";
+import { getCatalogBank } from "@/lib/catalog";
+import { getIGCSERuntimeArtifact } from "@/lib/igcse-runtime";
 import { getPrivateBankObjectPrefix } from "@/lib/private-runtime-mapping";
 import { getControlledSubtopics } from "@/lib/taxonomy-router";
 
@@ -27,6 +30,27 @@ describe("IGCSE Biology and Economics release candidate", () => {
     expect(banks.map((bank) => bank.slug)).toEqual(expect.arrayContaining([
       "igcse-biology-0610", "igcse-economics-0455", "igcse-chemistry-0620", "igcse-physics-0625",
     ]));
+  });
+
+  it("loads every finalized bank through the production guard with catalog parity", () => {
+    const environment = {
+      PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true",
+      PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true",
+    };
+    const runtimes = {
+      "igcse-biology-0610": biologyRuntime,
+      "igcse-economics-0455": economicsRuntime,
+      "igcse-chemistry-0620": chemistryRuntime,
+      "igcse-physics-0625": physicsRuntime,
+      "igcse-coordinated-sciences-0654": coordinatedRuntime,
+    } as const;
+
+    type RuntimeSummary = { questions: unknown[]; paperCount: number };
+    for (const [slug, runtime] of Object.entries(runtimes) as [IGCSEReleaseBankSlug, RuntimeSummary][]) {
+      expect(getIGCSERuntimeArtifact(slug, environment)).toBe(runtime);
+      expect(getCatalogBank(slug)?.questionCount).toBe(runtime.questions.length);
+      expect(getCatalogBank(slug)?.paperCount).toBe(runtime.paperCount);
+    }
   });
 
   it("maps all private runtimes to immutable bank-prefixed R2 namespaces", () => {
