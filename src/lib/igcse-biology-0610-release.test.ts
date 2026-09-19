@@ -9,16 +9,21 @@ import { getPrivateBankObjectPrefix } from "@/lib/private-runtime-mapping";
 
 const sha256 = (value: string | Buffer) => createHash("sha256").update(value).digest("hex");
 
-describe("IGCSE Biology 0610 BASE release candidate", () => {
+describe("IGCSE Biology 0610 finalized production release", () => {
   it("contains only the repaired BASE lane with complete official marks", () => {
+    expect(runtime.releaseStatus).toBe("production");
+    expect(runtime.publicationStatus).toBe("production");
+    expect(runtime.assetVerification).toBe("verified_readback");
+    expect(runtime.runtimeArtifact.assetVerification).toBe("verified_readback");
+    expect(runtime.runtimeArtifact.publicationStatus).toBe("production");
     expect(runtime.questionCount).toBe(3441);
     expect(runtime.paperCount).toBe(209);
     expect(runtime.years).toBe("2021-2025");
     expect(runtime.marks_ready).toBe(true);
     expect(runtime.questions).toHaveLength(3441);
     expect(runtime.questions.every((question) => question.marks !== null && question.maxMarks === question.marks)).toBe(true);
-    expect(runtime.questions.every((question) => question.publicationStatus === "authorized_production_candidate")).toBe(true);
-    expect(runtime.questions.every((question) => question.classificationReviewStatus === "candidate_not_approved")).toBe(true);
+    expect(runtime.questions.every((question) => question.publicationStatus === "production")).toBe(true);
+    expect(runtime.questions.every((question) => question.classificationReviewStatus === "classified")).toBe(true);
     expect(runtime.questions.every((question) => question.year >= 2021 && question.year <= 2025)).toBe(true);
     expect(runtime.questions.some((question) => question.id.includes("2026"))).toBe(false);
   });
