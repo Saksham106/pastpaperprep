@@ -37,13 +37,13 @@ describe("IGCSE Biology and Economics release candidate", () => {
     expect(getPrivateBankObjectPrefix("igcse-physics-0625")).toBe("igcse-physics-0625/releases/repaired-v2-d95657a79bfc/");
   });
 
-  it("keeps the existing released chemistry rows and keeps Physics fail-closed as a candidate", () => {
-    const candidate = physicsRuntime as unknown as { releaseStatus: string; assetVerification: string; questions: Array<{ publicationStatus?: string }> };
+  it("keeps the existing released chemistry rows and Physics finalized in production", () => {
+    const finalized = physicsRuntime as unknown as { releaseStatus: string; assetVerification: string; questions: Array<{ publicationStatus?: string }> };
     expect(chemistryRuntime.questions.every((question) => question.publicationStatus === "production")).toBe(true);
     expect(chemistryRuntime.questions.every((question) => question.classificationReviewStatus === "classified" || question.classificationReviewStatus === "unresolved_taxonomy_gap")).toBe(true);
-    expect(candidate.releaseStatus).toBe("authorized_production_candidate");
-    expect(candidate.assetVerification).toBe("pending_upload");
-    expect(candidate.questions.every((question) => question.publicationStatus === "authorized_production_candidate")).toBe(true);
+    expect(finalized.releaseStatus).toBe("production");
+    expect(finalized.assetVerification).toBe("verified_readback");
+    expect(finalized.questions.every((question) => question.publicationStatus === "production")).toBe(true);
   });
 
   it("seals each production runtime to its exact filter taxonomy", () => {

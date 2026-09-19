@@ -49,6 +49,7 @@ const AUTHORIZED_PRODUCTION_CANDIDATE_STATES = {
   'igcse-biology-0610': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved'], unresolvedCount: 0 },
   'igcse-economics-0455': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['source_paired_review_completed_pending_release'], unresolvedCount: 0 },
   'igcse-coordinated-sciences-0654': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved', UNRESOLVED_TAXONOMY_STATUS], unresolvedCount: 4 },
+  'igcse-physics-0625': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved', UNRESOLVED_TAXONOMY_STATUS], unresolvedCount: 336 },
 };
 
 export function finalizeQuestionStates(runtime, bank) {
