@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --webpack",
     "predev": "npm run generate:bank-index",
-    "build": "next build --webpack",
+    "build": "next build",
     "prebuild": "npm run generate:bank-index",
     "generate:bank-index": "node scripts/generate-bank-index.mjs",
     "generate:physics-0625-candidate": "python3 scripts/generate-igcse-physics-0625-candidate.py",
