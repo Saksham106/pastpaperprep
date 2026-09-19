@@ -25,6 +25,7 @@ type RuntimeQuestion = {
   primaryTopicId: string | null;
   subtopics: string[];
   skills: string[];
+  crossSubject: boolean;
   marks: number | null;
   classificationReviewStatus: string;
   questionImages: string[];
@@ -71,9 +72,8 @@ describe("IGCSE Co-ordinated Sciences 0654 production candidate", () => {
     expect(bank.release).toBe("gated");
     expect(bank.delivery).toBe("hosted");
     expect(bank.access).toBe("paid-bank");
-    expect(bank.questionCount).toBe(4030);
-    expect(bank.paperCount).toBe(204);
-    expect(bank.route).toBe(`/banks/${BANK}`);
+    expect(bank.questionCount).toBe(4721);
+expect(bank.paperCount).toBe(238);    expect(bank.route).toBe(`/banks/${BANK}`);
     expect(isIGCSEReleaseBank(BANK)).toBe(true);
   });
 
@@ -87,10 +87,10 @@ describe("IGCSE Co-ordinated Sciences 0654 production candidate", () => {
   });
 
   it("ships 4,030 rows across 204 papers with the one board-discounted exclusion and no missing marks", () => {
-    expect(candidate.questions).toHaveLength(4030);
-    expect(candidate.questionCount).toBe(4030);
-    expect(candidate.paperCount).toBe(204);
-    expect(candidate.years).toBe("2021-2025");
+    expect(candidate.questions).toHaveLength(4721);
+    expect(candidate.questionCount).toBe(4721);
+    expect(candidate.paperCount).toBe(238);
+    expect(candidate.years).toBe("2020-2025");
     expect(candidate.marks_ready).toBe(true);
     expect(candidate.questions.every((question) => typeof question.marks === "number" && question.marks > 0)).toBe(true);
     expect(candidate.questions.some((question) => question.id === "0654-2023-summer-22-q17")).toBe(false);
@@ -109,12 +109,12 @@ describe("IGCSE Co-ordinated Sciences 0654 production candidate", () => {
       expect(question.primaryTopicId).toBeNull();
       expect(question.subtopics).toEqual([]);
     }
-    expect(candidate.questions.filter((question) => question.classificationReviewStatus !== "unresolved_taxonomy_gap")).toHaveLength(4026);
+    expect(candidate.questions.filter((question) => question.classificationReviewStatus !== "unresolved_taxonomy_gap")).toHaveLength(4717);
   });
 
   it("routes every labelled row through the pinned taxonomy and leads multi-subject rows with the primary subject", () => {
-    const multiSubject = candidate.questions.filter((question) => question.subjects.length > 1);
-    expect(multiSubject).toHaveLength(20);
+    const multiSubject = candidate.questions.filter((question) => question.crossSubject);
+    expect(multiSubject).toHaveLength(26);
     for (const question of candidate.questions) {
       expect(question.subject).toBe(`${question.subjects[0][0].toUpperCase()}${question.subjects[0].slice(1)} 0654`);
       if (question.primaryTopicId) {
@@ -136,28 +136,33 @@ describe("IGCSE Co-ordinated Sciences 0654 production candidate", () => {
 
   it("references 13,322 of the 13,325 audited source assets, dropping only the excluded question's three", () => {
     const references = candidate.questions.flatMap((question) => [...question.questionImages, ...question.markschemeImages]);
-    expect(references).toHaveLength(13322);
-    expect(new Set(references).size).toBe(13322);
+    expect(references).toHaveLength(15620);
+    expect(new Set(references).size).toBe(15620);
     expect(references.every((reference) => reference.endsWith(".webp"))).toBe(true);
     expect(references.every((reference) => reference.startsWith("questions/") || reference.startsWith("markschemes/"))).toBe(true);
     expect(candidate.questions.every((question) => question.questionImages.length > 0 && question.markschemeImages.length > 0)).toBe(true);
+    const storageManifest = JSON.parse(readFileSync(join(ROOT, "data/storage/igcse-coordinated-sciences-0654.manifest.json"), "utf8"));
+    expect(storageManifest.storageState).toBe("pending_upload");
+    expect(storageManifest.assets).toHaveLength(15620);
+    expect(new Set(storageManifest.assets.map((asset: { objectKey: string }) => asset.objectKey)).size).toBe(15620);
+    expect(storageManifest.assets.every((asset: { objectKey: string; sha256: string; size: number }) => asset.objectKey.startsWith(`${BANK}/`) && /^[a-f0-9]{64}$/.test(asset.sha256) && asset.size > 0)).toBe(true);
   });
 
   it("seals the runtime to the exact frozen assembly, taxonomy, and candidate", () => {
     const artifact = candidate.runtimeArtifact as Record<string, string | null>;
-    expect(candidate.version).toBe("igcse-coordinated-sciences-0654-full4030-v1");
+    expect(candidate.version).toBe("igcse-coordinated-sciences-0654-full4721-v1");
     expect(artifact.releaseTaxonomySha256).toBe(createHash("sha256").update(readFileSync(join(ROOT, "src/data/igcse-coordinated-sciences-0654-taxonomy.json"))).digest("hex"));
     expect(artifact.releaseTaxonomySha256).toBe("0f4790a44465163b5d8f6b1e09120df11e256f473f9e4b929fc6bf467aafdc6e");
     expect(artifact.runtimeTaxonomySha256).toBe(sha(taxonomy));
     const copy = JSON.parse(JSON.stringify(candidate)) as Runtime;
     (copy.runtimeArtifact as Record<string, unknown>).runtimeSha256 = null;
     expect(artifact.runtimeSha256).toBe(createHash("sha256").update(JSON.stringify(copy)).digest("hex"));
-    expect(artifact.originalCandidateRuntimeSha256).toBe("5843c2c07c5d2357f18b3dd0de3910dede8443c36b3feff11827ee5441dd3c95");
-    expect((candidate as unknown as Record<string, unknown>).releaseStatus).toBe("production");
-    expect((candidate as unknown as Record<string, unknown>).publicationStatus).toBe("production");
-    expect(artifact.assetVerification).toBe("verified_readback");
-    expect(artifact.assetManifestSha256).toBe("518ee08d21a8456592976f7ad8d53300edf1fe9d07029f3aa3cba602ea573935");
-    expect(artifact.storageReceiptSha256).toBe(createHash("sha256").update(readFileSync(join(ROOT, "data/storage/igcse-coordinated-sciences-0654.receipt.json"))).digest("hex"));
+    expect(artifact.originalCandidateRuntimeSha256).toBe("8b0f2a37110a7a56a647cfbf17ecd156eaca1c507fdc3e82711d4c356cacd82a");
+    expect((candidate as unknown as Record<string, unknown>).releaseStatus).toBe("authorized_production_candidate");
+    expect((candidate as unknown as Record<string, unknown>).publicationStatus).toBe("authorized_production_candidate");
+    expect(artifact.assetVerification).toBe("pending_upload");
+    expect(artifact.assetManifestSha256).toBeNull();
+    expect(artifact.storageReceiptSha256).toBeNull();
     expect(candidate.rightsStatus).toBe("user_attested_rights_authorized");
   });
 
@@ -211,7 +216,7 @@ describe("IGCSE Co-ordinated Sciences 0654 production candidate", () => {
 
   it("exposes a metadata-only private index with no answers, text, or asset paths", () => {
     expect(privateIndex.bank).toBe(BANK);
-    expect(privateIndex.questions).toHaveLength(4030);
+    expect(privateIndex.questions).toHaveLength(4721);
     const serialized = JSON.stringify(privateIndex);
     for (const key of ["summary", "accessibleText", "solution", "answer", "questionImages", "markschemeImages", "questionAssetPaths", "markschemeAssetPaths", "sourceQuestionUrl", "classificationProvenance"]) {
       expect(serialized).not.toContain(`"${key}"`);

@@ -7,12 +7,11 @@
  * Frozen input tuple (all sha256-pinned, fail-closed):
  *   assembly      <SOURCE_ROOT>/data/classification/full-bank-assembly/working-assembly.json
  *                 6b161eb9e580bb5f63baa30f1ac2f1d322c9cfd79245ad305cb2a53a7d9a936d
- *   source manifest <SOURCE_ROOT>/data/segmentation/full/full-manifest.json
- *                 8b1091e9836e95be1a8dd70d0fb5cab746777903b5ab1a152c9652bf41fd7e68
+ *   source manifests <SOURCE_ROOT>/data/segmentation/repair-ms-closure-v1/build-a/{base,extension-2020}/full-manifest.json
  *   emitted taxonomy src/data/igcse-coordinated-sciences-0654-taxonomy.json
  *                 0f4790a44465163b5d8f6b1e09120df11e256f473f9e4b929fc6bf467aafdc6e
  *
- * Expected shape (asserted, not assumed): 4,030 runtime rows / 204 papers,
+ * Expected shape (asserted, not assumed): 4,721 runtime rows / 238 papers,
  * exactly one board-discounted exclusion (0654-2023-summer-22-q17), 4 unresolved
  * taxonomy rows preserved fail-closed, 0 missing marks, 40 topics.
  *
@@ -21,7 +20,7 @@
  * receipt-gated step.
  */
 import { createHash } from "node:crypto";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { TAXONOMY_SHA256, taxonomyOutputPath, syncTaxonomy } from "./sync-coordinated-sciences-0654-taxonomy.mjs";
 
@@ -31,25 +30,46 @@ export const COURSE = "Cambridge IGCSE Co-ordinated Sciences 0654 (Double Award)
 export const RIGHTS_STATUS = "user_attested_rights_authorized";
 export const CANDIDATE_PUBLICATION_STATUS = "authorized_production_candidate";
 export const UNRESOLVED_TAXONOMY_STATUS = "unresolved_taxonomy_gap";
+export const LEGACY_TOPIC_ALIASES = {
+  "Air and water": "Chemistry of the environment", "Animal nutrition": "Human nutrition", "Atomic physics": "Nuclear physics",
+  "Electric circuits": "Electricity and magnetism", "Electricity and chemistry": "Electrochemistry", "Electromagnetic effects": "Electricity and magnetism",
+  "Energy changes in chemical reactions": "Chemical energetics", "Experimental techniques": "Experimental techniques and chemical analysis",
+  "Motion": "Motion, forces and energy", "Properties of waves, including light and sound": "Waves", "The particulate nature of matter": "States of matter",
+  "Work, energy and power": "Motion, forces and energy",
+};
+export const PRINTED_QP_TOTAL_MARKS = {
+  "0654-2020-winter-32-q2": 10,
+  "0654-2020-winter-61-q1": 13,
+};
+export const EXTENSION_SUBJECT_LIST_WITHOUT_CROSS_SUBJECT_IDS = [
+  "0654-2020-summer-11-q24", "0654-2020-winter-31-q9", "0654-2020-winter-33-q9", "0654-2020-winter-41-q5",
+];
+
+function canonicalExtensionTopic(title, subtopic) {
+  if (title === "Gas exchange and respiration") return subtopic === "Respiration" ? "Respiration" : "Gas exchange in humans";
+  if (title === "Transport") return subtopic === "Transport in plants" ? "Transport in plants" : "Transport in animals";
+  return LEGACY_TOPIC_ALIASES[title] ?? title;
+}
 
 export const ASSEMBLY_SHA256 = "6b161eb9e580bb5f63baa30f1ac2f1d322c9cfd79245ad305cb2a53a7d9a936d";
-export const SOURCE_MANIFEST_SHA256 = "8b1091e9836e95be1a8dd70d0fb5cab746777903b5ab1a152c9652bf41fd7e68";
+export const SOURCE_MANIFEST_SHA256 = "eecc4d5f6b6ebc88ea25f81d2b401d1942f50e4b1759e5e681b930e8554be578";
+export const EXTENSION_MANIFEST_SHA256 = "a9443ec2543a8cbb1213a3c861446526c01826bad98ecbac3e5c46073daf54c2";
 export const EXCLUDED_BOARD_DISCOUNTED = ["0654-2023-summer-22-q17"];
 export const DEFAULT_SOURCE_ROOT = "/Users/sakshamgoel/Documents/ProjectsInternships/igcse-coordinated-sciences-0654-topic-practice";
 export const EXPECTED = {
-  rows: 4030,
+  rows: 4721,
   sourceQuestions: 4031,
-  papers: 204,
+  papers: 238,
   excluded: EXCLUDED_BOARD_DISCOUNTED.length,
   unresolved: 4,
   // The emitted taxonomy exposes 40 topics; 39 of them carry at least one row.
   taxonomyTopics: 40,
   topics: 39,
   rowsWithoutMarks: 0,
-  sourceAssetRefs: 13325,
-  runtimeAssetRefs: 13322,
-  multiSubjectRows: 20,
-  subjects: { biology: 1306, chemistry: 1407, physics: 1317 },
+  sourceAssetRefs: 15623,
+  runtimeAssetRefs: 15620,
+  multiSubjectRows: 26,
+  subjects: { biology: 1531, chemistry: 1650, physics: 1540 },
 };
 
 const SESSION_LABELS = { march: "March", summer: "June", winter: "November" };
@@ -83,6 +103,17 @@ function buildTaxonomyIndex(taxonomy) {
   // a real syllabus section title, because the label is the filter vocabulary.
   const subtopicTitles = new Set(taxonomy.subtopics.map((subtopic) => subtopic.title));
   return { topicById, subtopicById, skillTitleById, subtopicCodePrefixes, subtopicTitles };
+}
+
+/** Boundary contract: extension result files are arrays; labels remain authoritative. */
+export function validateExtensionResultFile(parsed, name = "<fixture>") {
+  if (!Array.isArray(parsed)) throw new Error(`0654 extension result is not an array: ${name}`);
+  for (const result of parsed) {
+    if (typeof result?.question_id !== "string" || !result.classification || !Array.isArray(result.classification.subjects)) {
+      throw new Error(`0654 extension result shape mismatch: ${name}`);
+    }
+  }
+  return parsed;
 }
 
 function rowToQuestion(row, taxonomy, index) {
@@ -157,7 +188,7 @@ function rowToQuestion(row, taxonomy, index) {
   const text = typeof row.source?.text === "string" ? row.source.text.trim() : "";
   if (!text) throw new Error(`Missing question text: ${id}`);
   const marks = typeof row.marks === "number" && Number.isInteger(row.marks) && row.marks > 0 ? row.marks : null;
-  if (marks === null) throw new Error(`0654 row has no usable printed mark: ${id}`);
+  if (marks === null && !row.allowMissingMarks) throw new Error(`0654 row has no usable printed mark: ${id}`);
 
   return {
     id,
@@ -174,6 +205,7 @@ function rowToQuestion(row, taxonomy, index) {
     subject,
     course: COURSE,
     subjects,
+    crossSubject: row.cross_subject ?? subjects.length > 1,
     primaryTopic: primary?.topic_label ?? null,
     primaryTopicId: primary?.topic_id ?? null,
     secondaryTopics,
@@ -184,6 +216,7 @@ function rowToQuestion(row, taxonomy, index) {
     assessmentObjectives: [],
     marks,
     maxMarks: marks,
+    marksSource: row.marks_source ?? (row.allowMissingMarks ? "unresolved" : "authoritative_source"),
     summary: text.slice(0, 220),
     accessibleText: text,
     questionImages: questionAssets,
@@ -239,16 +272,19 @@ export function seal(artifact) {
 
 export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
   const assemblyPath = path.join(sourceRoot, "data/classification/full-bank-assembly/working-assembly.json");
-  const manifestPath = path.join(sourceRoot, "data/segmentation/full/full-manifest.json");
+  const manifestPath = path.join(sourceRoot, "data/segmentation/repair-ms-closure-v1/build-a/base/full-manifest.json");
+  const extensionManifestPath = path.join(sourceRoot, "data/segmentation/repair-ms-closure-v1/build-a/extension-2020/full-manifest.json");
   const marksOverlayPath = path.join(sourceRoot, "data/classification/marks-repair/overlay.json");
 
   const assemblyBytes = await readFile(assemblyPath);
   const manifestBytes = await readFile(manifestPath);
+  const extensionManifestBytes = await readFile(extensionManifestPath);
   const marksOverlayBytes = await readFile(marksOverlayPath);
   const assemblySha = sha256(assemblyBytes);
   const manifestSha = sha256(manifestBytes);
   if (assemblySha !== ASSEMBLY_SHA256) throw new Error(`0654 assembly sha256 mismatch: ${assemblySha}`);
   if (manifestSha !== SOURCE_MANIFEST_SHA256) throw new Error(`0654 source manifest sha256 mismatch: ${manifestSha}`);
+  if (sha256(extensionManifestBytes) !== EXTENSION_MANIFEST_SHA256) throw new Error(`0654 extension manifest sha256 mismatch: ${sha256(extensionManifestBytes)}`);
 
   const taxonomyPath = taxonomyOutputPath();
   const taxonomyBytes = await readFile(taxonomyPath);
@@ -258,15 +294,56 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
   const index = buildTaxonomyIndex(taxonomy);
 
   const assembly = JSON.parse(assemblyBytes.toString("utf8"));
-  const rows = assembly.rows;
+  const extensionManifest = JSON.parse(extensionManifestBytes.toString("utf8"));
+  const extensionResultFiles = (await readdir(path.join(sourceRoot, "data/classification/extension-2020/results")))
+    .filter((name) => name.endsWith(".json"));
+  const extensionResults = (await Promise.all(extensionResultFiles.map(async (name) => {
+    const parsed = JSON.parse((await readFile(path.join(sourceRoot, "data/classification/extension-2020/results", name))).toString("utf8"));
+    return validateExtensionResultFile(parsed, name);
+  }))).flat();
+  const extensionById = new Map(extensionResults.map((result) => [result.question_id, result]));
+  const extensionRows = Object.values(extensionManifest.papers).flatMap((paper) => paper.questions.map((question) => {
+    const result = extensionById.get(question.id);
+    if (!result) throw new Error(`0654 extension row missing authoritative label: ${question.id}`);
+    if (result.question_id !== question.id || !result.classification || !Array.isArray(result.classification.subjects)) {
+      throw new Error(`0654 extension row shape mismatch at generator boundary: ${question.id}`);
+    }
+    const classification = result.classification;
+    const primary = classification.primary ? {
+      detail_id: classification.primary.node_id,
+      topic_id: taxonomy.topics.find((topic) => topic.title === canonicalExtensionTopic(classification.primary.topic_title, classification.primary.subtopic_title))?.id,
+      topic_label: canonicalExtensionTopic(classification.primary.topic_title, classification.primary.subtopic_title),
+      source_topic_label: classification.primary.topic_title,
+      subtopic_label: classification.primary.subtopic_title,
+      official_code: classification.primary.subtopic_code,
+      era: classification.primary.era,
+      level: classification.primary.level,
+    } : null;
+    return {
+      question_id: question.id, paper_id: paper.id, number: question.number, year: Number(paper.id.slice(5, 9)),
+      session: paper.id.split("-")[2], component: paper.component, era: paper.era, tier: classification.primary?.level ?? "core",
+      paper_type: paper.paper_type, classification_status: result.disposition === "unresolved" ? "unresolved" : "candidate",
+      subjects: classification.subjects, cross_subject: classification.cross_subject, primary, secondary: (classification.secondary ?? []).map((item) => ({ topic_label: canonicalExtensionTopic(item.topic_title, item.subtopic_title), subtopic_label: item.subtopic_title })),
+      practical_skills: classification.skills ?? [], printed_parts: result.printed_parts ?? [], gaps: result.gaps ?? [], rationale: result.rationale,
+      marks: question.marks ?? PRINTED_QP_TOTAL_MARKS[question.id], allowMissingMarks: false,
+      marks_source: question.marks == null ? "printed_question_paper_total" : "authoritative_source",
+      answer: question.answer, answer_status: question.answer_status,
+      source: { images: question.images, mark_scheme_images: question.mark_scheme_images, text: question.text,
+        qp_pdf: paper.question_paper, ms_pdf: paper.mark_scheme },
+    };
+  }));
+  const rows = [...assembly.rows, ...extensionRows];
   if (!Array.isArray(rows)) throw new Error("0654 assembly has no rows array");
 
   // The source manifest is the source universe: it still contains the board-discounted
   // question, so its counts are asserted against the frozen source audit figures.
   const sourceManifest = JSON.parse(manifestBytes.toString("utf8"));
   if (sourceManifest.question_count !== EXPECTED.sourceQuestions) throw new Error(`0654 source question count ${sourceManifest.question_count} != ${EXPECTED.sourceQuestions}`);
-  if (sourceManifest.paper_count !== EXPECTED.papers) throw new Error(`0654 source paper count ${sourceManifest.paper_count} != ${EXPECTED.papers}`);
-  if (sourceManifest.asset_count !== EXPECTED.sourceAssetRefs) throw new Error(`0654 source asset refs ${sourceManifest.asset_count} != ${EXPECTED.sourceAssetRefs}`);
+  if (sourceManifest.paper_count !== 204) throw new Error(`0654 base source paper count ${sourceManifest.paper_count} != 204`);
+  if (sourceManifest.asset_count !== 13325) throw new Error(`0654 base source asset refs ${sourceManifest.asset_count} != 13325`);
+  if (extensionManifest.question_count !== 691 || extensionManifest.paper_count !== 34 || extensionManifest.asset_count !== 2298) {
+    throw new Error(`0654 extension source accounting mismatch: questions=${extensionManifest.question_count} papers=${extensionManifest.paper_count} assets=${extensionManifest.asset_count}`);
+  }
 
   const questions = rows.map((row) => rowToQuestion(row, taxonomy, index))
     .sort((a, b) => b.year - a.year || a.paper - b.paper || a.number - b.number || a.id.localeCompare(b.id));
@@ -288,7 +365,7 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
   for (const topic of topics) {
     if (!taxonomyTopicTitles.has(topic)) throw new Error(`0654 row topic is not a taxonomy topic title: ${topic}`);
   }
-  const multiSubject = questions.filter((question) => question.subjects.length > 1);
+  const multiSubject = questions.filter((question) => question.crossSubject);
   if (multiSubject.length !== EXPECTED.multiSubjectRows) throw new Error(`0654 multi-subject rows ${multiSubject.length} != ${EXPECTED.multiSubjectRows}`);
   const subjects = questions.reduce((counts, question) => {
     const key = question.subjects[0];
