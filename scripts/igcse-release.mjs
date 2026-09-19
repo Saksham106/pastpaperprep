@@ -115,12 +115,12 @@ function sourceRelativePath(bank, reference) {
   if (kind === 'questions') {
     if (bank === 'igcse-chemistry-0620') return `full/assets/${paper}/question/${file}`;
     if (bank === 'igcse-physics-0625') return `data/segmentation/assets/${paper}/question/${file}`;
-    return `data/segmentation/full/assets/${paper}/question/${file}`;
+    return `data/segmentation/${bank === 'igcse-biology-0610' ? 'full-ms-repair' : 'full'}/assets/${paper}/question/${file}`;
   }
   if (kind === 'markschemes') {
     if (bank === 'igcse-chemistry-0620') return `full/assets/${paper}/markscheme/${file}`;
     if (bank === 'igcse-physics-0625') return `data/segmentation/assets/${paper}/markscheme/${file}`;
-    return `data/segmentation/full/assets/${paper}/markscheme/${file}`;
+    return `data/segmentation/${bank === 'igcse-biology-0610' ? 'full-ms-repair' : 'full'}/assets/${paper}/markscheme/${file}`;
   }
   throw new Error(`Unsupported referenced asset layout: ${reference}`);
 }
