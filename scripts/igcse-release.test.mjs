@@ -78,8 +78,8 @@ describe("IGCSE storage release tooling", () => {
       ["markschemes/p/m.webp", { sourcePath: "/m", sha256: "b", size: 2 }],
     ]));
     expect(manifest.assets.map((asset) => asset.objectKey)).toEqual([
-      "igcse-biology-0610/releases/full3441-v2-ms-repair-49ebf7ad184c/markschemes/p/m.webp",
-      "igcse-biology-0610/releases/full3441-v2-ms-repair-49ebf7ad184c/questions/p/q.webp",
+      "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/p/m.webp",
+      "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/questions/p/q.webp",
     ]);
   });
 
@@ -164,8 +164,8 @@ describe("IGCSE storage release tooling", () => {
   it("finalizes only a complete verified receipt", async () => {
     const repo = await mkdtemp(join(tmpdir(), "igcse-finalize-"));
     temporary.push(repo);
-    const bank = "igcse-biology-0610";
-    const runtime = sealedRuntime(bank, { questionImages: [], markschemeImages: [], publicationStatus: "authorized_production_candidate", classificationReviewStatus: bank === "igcse-economics-0455" ? "source_paired_review_completed_pending_release" : "candidate_not_approved" });
+    const bank = "igcse-economics-0455";
+    const runtime = sealedRuntime(bank, { questionImages: [], markschemeImages: [], publicationStatus: "authorized_production_candidate", classificationReviewStatus: "source_paired_review_completed_pending_release" });
     const manifest = { schemaVersion: "igcse-private-assets-v1", bank, storageState: "pending_upload", assets: [] };
     const receipt = { schemaVersion: "igcse-upload-receipt-v1", bank, storageState: "verified_readback", assetManifestSha256: manifestSha256(manifest), completed: [], failed: [] };
     await mkdir(join(repo, "src/data/production"), { recursive: true });
@@ -182,17 +182,51 @@ describe("IGCSE storage release tooling", () => {
     expect(finalized.runtimeArtifact.runtimeSha256).toBe(runtimeSha256(finalized));
   });
 
-  it("normalizes only the authorized Biology and Economics candidate states", () => {
-    const biology = { publicationStatus: "authorized_production_candidate", classificationReviewStatus: "candidate_not_approved" };
+  it("normalizes only the authorized Economics candidate state", () => {
     const economics = { publicationStatus: "authorized_production_candidate", classificationReviewStatus: "source_paired_review_completed_pending_release" };
-    finalizeQuestionStates({ questions: [biology] }, "igcse-biology-0610");
     finalizeQuestionStates({ questions: [economics] }, "igcse-economics-0455");
-    expect(biology).toEqual({ publicationStatus: "production", classificationReviewStatus: "classified" });
     expect(economics).toEqual({ publicationStatus: "production", classificationReviewStatus: "classified" });
   });
 
+  it("accepts only the exact preserved Biology base ID set in a mixed candidate", async () => {
+    const runtime = JSON.parse(await readFile(join(import.meta.dirname, "../src/data/production/igcse-biology-0610.json"), "utf8"));
+    for (const question of runtime.questions) {
+      if ([2019, 2020, 2026].includes(question.year)) {
+        question.publicationStatus = "authorized_production_candidate";
+        question.classificationReviewStatus = "candidate_not_approved";
+      }
+    }
+    finalizeQuestionStates(runtime, "igcse-biology-0610");
+    expect(runtime.questions.every((question) => question.publicationStatus === "production")).toBe(true);
+
+    const tampered = JSON.parse(await readFile(join(import.meta.dirname, "../src/data/production/igcse-biology-0610.json"), "utf8"));
+    const baseIndex = tampered.questions.findIndex((question) => question.year >= 2021 && question.year <= 2025);
+    tampered.questions[baseIndex] = {
+      ...tampered.questions[baseIndex],
+      id: "0610-unauthorized-production-row",
+    };
+    for (const question of tampered.questions) {
+      if ([2019, 2020, 2026].includes(question.year)) {
+        question.publicationStatus = "authorized_production_candidate";
+        question.classificationReviewStatus = "candidate_not_approved";
+      }
+    }
+    expect(() => finalizeQuestionStates(tampered, "igcse-biology-0610")).toThrow(/preserved Biology base/i);
+
+    const tamperedExtension = JSON.parse(await readFile(join(import.meta.dirname, "../src/data/production/igcse-biology-0610.json"), "utf8"));
+    const extensionIndex = tamperedExtension.questions.findIndex((question) => [2019, 2020, 2026].includes(question.year));
+    for (const question of tamperedExtension.questions) {
+      if ([2019, 2020, 2026].includes(question.year)) {
+        question.publicationStatus = "authorized_production_candidate";
+        question.classificationReviewStatus = "candidate_not_approved";
+      }
+    }
+    tamperedExtension.questions[extensionIndex].id = "0610-unauthorized-extension-row";
+    expect(() => finalizeQuestionStates(tamperedExtension, "igcse-biology-0610")).toThrow(/Biology extension/i);
+  });
+
   it("fails closed for unknown candidate states", () => {
-    expect(() => finalizeQuestionStates({ questions: [{ publicationStatus: "mystery", classificationReviewStatus: "candidate_not_approved" }] }, "igcse-biology-0610")).toThrow(/unknown|unauthorized/i);
+    expect(() => finalizeQuestionStates({ questions: [{ publicationStatus: "mystery", classificationReviewStatus: "source_paired_review_completed_pending_release" }] }, "igcse-economics-0455")).toThrow(/unknown|unauthorized/i);
   });
 
   it.each([
