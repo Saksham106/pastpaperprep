@@ -53,6 +53,35 @@ const AUTHORIZED_PRODUCTION_CANDIDATE_STATES = {
 };
 
 const CHEMISTRY_EXTENSION_UNRESOLVED_COUNT = 28;
+const BIOLOGY_PRESERVED_BASE = {
+  count: 3441,
+  idsSha256: 'ac7402d11f008ca2e76d44eaa67aba85a79039d07f88214b1bbe020f2377543f',
+};
+const BIOLOGY_AUTHORIZED_EXTENSION = {
+  count: 1472,
+  idsSha256: '310bf7a7f3f0d36b82acacc709e511eda0d52864c57420cc0027c924384f74dc',
+};
+
+function questionIdSetSha256(questions) {
+  if (questions.some((question) => typeof question.id !== 'string' || !question.id)) return null;
+  return sha256(questions.map((question) => question.id).sort().join('\n'));
+}
+
+function assertExactBiologyMixedState(runtime, bank) {
+  if (bank !== 'igcse-biology-0610') return;
+  const base = runtime.questions.filter((question) => question.publicationStatus === 'production'
+    && question.classificationReviewStatus === 'classified');
+  const extension = runtime.questions.filter((question) => question.publicationStatus === 'authorized_production_candidate'
+    && question.classificationReviewStatus === 'candidate_not_approved');
+  if (base.length !== BIOLOGY_PRESERVED_BASE.count
+    || questionIdSetSha256(base) !== BIOLOGY_PRESERVED_BASE.idsSha256) {
+    throw new Error(`${bank} preserved Biology base does not match the exact authorized question ID set`);
+  }
+  if (extension.length !== BIOLOGY_AUTHORIZED_EXTENSION.count
+    || questionIdSetSha256(extension) !== BIOLOGY_AUTHORIZED_EXTENSION.idsSha256) {
+    throw new Error(`${bank} Biology extension does not match the exact authorized question ID set`);
+  }
+}
 
 function finalizeChemistryQuestionStates(runtime, bank) {
   if (bank !== 'igcse-chemistry-0620') return false;
@@ -77,6 +106,7 @@ export function finalizeQuestionStates(runtime, bank) {
   if (!Array.isArray(runtime?.questions) || runtime.questions.length === 0) {
     throw new Error(`${bank} must contain a non-empty question array before production finalization`);
   }
+  assertExactBiologyMixedState(runtime, bank);
   for (const question of runtime.questions) {
     const isAuthorizedCandidate = question.publicationStatus === expected.publicationStatus
       && expected.classificationReviewStatuses.includes(question.classificationReviewStatus);
