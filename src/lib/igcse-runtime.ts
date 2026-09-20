@@ -27,11 +27,11 @@ type IGCSEArtifact = {
 };
 
 export const IGCSE_RUNTIME_COUNTS = {
-  "igcse-biology-0610": [4913, 298],
-  "igcse-economics-0455": [1219, 70],
-  "igcse-chemistry-0620": [5129, 314],
-  "igcse-physics-0625": [5789, 317],
-  "igcse-coordinated-sciences-0654": [4721, 238],
+  "igcse-biology-0610": [3441, 209],
+  "igcse-economics-0455": [1723, 98],
+  "igcse-chemistry-0620": [3529, 207],
+  "igcse-physics-0625": [3820, 210],
+  "igcse-coordinated-sciences-0654": [4030, 204],
 } as const;
 const ARTIFACTS: Record<IGCSEReleaseBankSlug, IGCSEArtifact> = {
   "igcse-biology-0610": biology as IGCSEArtifact,
@@ -49,19 +49,19 @@ const RUNTIME_TAXONOMIES: Record<IGCSEReleaseBankSlug, unknown> = {
 };
 
 const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
-  "igcse-biology-0610": "9e97cd0c0455ae865b1d14dc462f74ce22d1c66fb734e7d4a8baaf414e0ff961",
-  "igcse-economics-0455": "69bfa6b0519e30c0975ef7b549e338c3e2e2c0e2da458090aa9f6464195f89e5",
+  "igcse-biology-0610": "d6ffc51bf6f31dce48c518e7404fd3599d26798243d509d889c12a0110c88ca3",
+  "igcse-economics-0455": "5508262c3c8e38d0795dc352d3fc89b003991343b221c2839415debcd548412b",
   "igcse-chemistry-0620": "81c706903aa94c6865336cf40027c26b33e0ba514082f4d8da2c576b9bb2cf87",
-  "igcse-physics-0625": "d95657a79bfcf5d80b9c7e9660c1d7795ea2026435610bb3e96ba2203e3d8cf7",
-  "igcse-coordinated-sciences-0654": "8b0f2a37110a7a56a647cfbf17ecd156eaca1c507fdc3e82711d4c356cacd82a",
+  "igcse-physics-0625": "204e21dd3c7d21c4186dc29e242f79129210f6b90c03d1af2335c8517e512c77",
+  "igcse-coordinated-sciences-0654": "5843c2c07c5d2357f18b3dd0de3910dede8443c36b3feff11827ee5441dd3c95",
 };
 
 const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
-  "igcse-biology-0610": "ae8d6aef098c380bcb3d221e152474d2ef10d666d61c472ee42b6d4077cd4e25",
-  "igcse-economics-0455": "69bfa6b0519e30c0975ef7b549e338c3e2e2c0e2da458090aa9f6464195f89e5",
+  "igcse-biology-0610": "ac66b3355c8858334223ec50b974a1544ed26a874b1504ea4c35b3b55b01007d",
+  "igcse-economics-0455": "5508262c3c8e38d0795dc352d3fc89b003991343b221c2839415debcd548412b",
   "igcse-chemistry-0620": "81c706903aa94c6865336cf40027c26b33e0ba514082f4d8da2c576b9bb2cf87",
-  "igcse-physics-0625": "14b6756ed65b6f264f601519a4dba5b5a43ef0f0480bc849924cc037644c79e8",
-  "igcse-coordinated-sciences-0654": "8b0f2a37110a7a56a647cfbf17ecd156eaca1c507fdc3e82711d4c356cacd82a",
+  "igcse-physics-0625": "204e21dd3c7d21c4186dc29e242f79129210f6b90c03d1af2335c8517e512c77",
+  "igcse-coordinated-sciences-0654": "5843c2c07c5d2357f18b3dd0de3910dede8443c36b3feff11827ee5441dd3c95",
 };
 
 function canonicalSha256(value: unknown) {

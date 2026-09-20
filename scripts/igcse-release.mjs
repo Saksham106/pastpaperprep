@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { createHash } from 'node:crypto';
+import { createReadStream } from 'node:fs';
 import { mkdir, readFile, realpath, stat, writeFile } from 'node:fs/promises';
 import { resolve, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -7,29 +8,29 @@ import { GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3
 
 export const RELEASE_BANKS = {
   'igcse-biology-0610': {
-    prefix: 'igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455',
+    prefix: 'igcse-biology-0610',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_BIOLOGY_SOURCE_ROOT',
-    originalCandidateRuntimeSha256: '9e97cd0c0455ae865b1d14dc462f74ce22d1c66fb734e7d4a8baaf414e0ff961',
+    originalCandidateRuntimeSha256: 'd6ffc51bf6f31dce48c518e7404fd3599d26798243d509d889c12a0110c88ca3',
   },
   'igcse-economics-0455': {
-    prefix: 'igcse-economics-0455/releases/repaired-v6-9fae73bcd2a9',
+    prefix: 'igcse-economics-0455/releases/combined-2019-2025-5508262c3c8e',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_ECONOMICS_SOURCE_ROOT',
-    originalCandidateRuntimeSha256: '69bfa6b0519e30c0975ef7b549e338c3e2e2c0e2da458090aa9f6464195f89e5',
+    originalCandidateRuntimeSha256: '5508262c3c8e38d0795dc352d3fc89b003991343b221c2839415debcd548412b',
   },
   'igcse-chemistry-0620': {
-    prefix: 'igcse-chemistry-0620/releases/candidate-v2-6eeb3fccddb4',
+    prefix: 'igcse-chemistry-0620',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_CHEMISTRY_SOURCE_ROOT',
     originalCandidateRuntimeSha256: '81c706903aa94c6865336cf40027c26b33e0ba514082f4d8da2c576b9bb2cf87',
   },
   'igcse-physics-0625': {
-    prefix: 'igcse-physics-0625/releases/repaired-v2-d95657a79bfc',
+    prefix: 'igcse-physics-0625',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_PHYSICS_SOURCE_ROOT',
-    originalCandidateRuntimeSha256: 'd95657a79bfcf5d80b9c7e9660c1d7795ea2026435610bb3e96ba2203e3d8cf7',
+    originalCandidateRuntimeSha256: '204e21dd3c7d21c4186dc29e242f79129210f6b90c03d1af2335c8517e512c77',
   },
   'igcse-coordinated-sciences-0654': {
-    prefix: 'igcse-coordinated-sciences-0654/releases/full4721-v1-6b161eb9e580',
+    prefix: 'igcse-coordinated-sciences-0654',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_COORDINATED_SOURCE_ROOT',
-    originalCandidateRuntimeSha256: '8b0f2a37110a7a56a647cfbf17ecd156eaca1c507fdc3e82711d4c356cacd82a',
+    originalCandidateRuntimeSha256: '5843c2c07c5d2357f18b3dd0de3910dede8443c36b3feff11827ee5441dd3c95',
   },
 };
 
@@ -104,59 +105,39 @@ export function createRuntimeReferenceManifest(bank, runtime, files) {
   };
 }
 
-function sourceRelativePath(bank, reference, coordinatedLane) {
+function sourceRelativePath(bank, reference) {
   const parts = reference.split('/');
   if (parts.length !== 3) throw new Error(`Unsupported referenced asset layout: ${reference}`);
   const [kind, paper, file] = parts;
   if (bank === 'igcse-biology-0610' && reference === 'markschemes/0610-2025-w-23/q2-row1-1.webp') {
     return 'data/classification/full-coverage-batch-repairs/batch94-ms/assets/0610-2025-w-23/markscheme/q2-row1-1.v2.webp';
   }
-  if (bank === 'igcse-economics-0455' && reference === 'markschemes/0455-2025-s-22/q5-3-29.webp') {
-    return 'data/classification/packet-028-source-repair-candidate/assets/0455-2025-s-22/markscheme/q5-3-29.webp';
-  }
-  if (bank === 'igcse-coordinated-sciences-0654') {
-    if (!coordinatedLane) throw new Error(`Missing authoritative Co-ordinated Sciences source lane: ${paper}`);
-    return `data/segmentation/repair-ms-closure-v1/build-a/${coordinatedLane}/assets/${paper}/${kind === 'questions' ? 'question' : 'markscheme'}/${file}`;
-  }
   if (kind === 'questions') {
-    if (bank === 'igcse-chemistry-0620') return `full-extension/assets/${paper}/question/${file}`;
-    if (bank === 'igcse-physics-0625') {
-      const year = Number(paper.split('-')[1]);
-      const lane = year >= 2021 && year <= 2025 ? 'data/segmentation-repaired' : 'data/segmentation/full-extension-repaired';
-      return `${lane}/assets/${paper}/question/${file}`;
-    }
-    if (bank === 'igcse-economics-0455') return `data/segmentation/full-repaired/assets/${paper}/question/${file}`;
-    if (bank === 'igcse-biology-0610') {
-      const year = Number(paper.split('-')[1]);
-      const lane = (year >= 2019 && year <= 2020) || year === 2026 ? 'data/segmentation/full-extension' : 'data/segmentation/full-ms-repair';
-      return `${lane}/assets/${paper}/question/${file}`;
-    }
+    if (bank === 'igcse-chemistry-0620') return `full/assets/${paper}/question/${file}`;
+    if (bank === 'igcse-physics-0625') return `data/segmentation/assets/${paper}/question/${file}`;
+    if (bank === 'igcse-economics-0455') { const year = Number(paper.split('-')[1]); return `${year <= 2020 ? 'data/segmentation/full-extension' : 'data/segmentation/full-repaired'}/assets/${paper}/question/${file}`; }
     return `data/segmentation/full/assets/${paper}/question/${file}`;
   }
   if (kind === 'markschemes') {
-    if (bank === 'igcse-chemistry-0620') return `full-extension/assets/${paper}/markscheme/${file}`;
-    if (bank === 'igcse-physics-0625') {
-      const year = Number(paper.split('-')[1]);
-      const lane = year >= 2021 && year <= 2025 ? 'data/segmentation-repaired' : 'data/segmentation/full-extension-repaired';
-      return `${lane}/assets/${paper}/markscheme/${file}`;
-    }
-    if (bank === 'igcse-economics-0455') return `data/segmentation/full-repaired/assets/${paper}/markscheme/${file}`;
-    if (bank === 'igcse-biology-0610') {
-      const year = Number(paper.split('-')[1]);
-      const lane = (year >= 2019 && year <= 2020) || year === 2026 ? 'data/segmentation/full-extension' : 'data/segmentation/full-ms-repair';
-      return `${lane}/assets/${paper}/markscheme/${file}`;
-    }
+    if (bank === 'igcse-chemistry-0620') return `full/assets/${paper}/markscheme/${file}`;
+    if (bank === 'igcse-physics-0625') return `data/segmentation/assets/${paper}/markscheme/${file}`;
+    if (bank === 'igcse-economics-0455') { const year = Number(paper.split('-')[1]); return `${year <= 2020 ? 'data/segmentation/full-extension' : 'data/segmentation/full-repaired'}/assets/${paper}/markscheme/${file}`; }
     return `data/segmentation/full/assets/${paper}/markscheme/${file}`;
   }
   throw new Error(`Unsupported referenced asset layout: ${reference}`);
 }
 
-function paperFromReference(reference) {
-  const parts = reference.split('/');
-  if (parts.length !== 3) throw new Error(`Unsupported referenced asset layout: ${reference}`);
-  return parts[1];
+export function assertExactCohortSeals(runtime) {
+  const meta = runtime.runtimeArtifact ?? {};
+  const base = runtime.questions.filter(q => q.year >= 2021).map(q => q.id);
+  const extension = runtime.questions.filter(q => q.year <= 2020).map(q => q.id);
+  const exact = (ids, seal, count, label) => {
+    if (ids.length !== count || new Set(ids).size !== count || sha256(JSON.stringify([...ids].sort())) !== seal) throw new Error(`${label} cohort seal mismatch`);
+  };
+  exact(base, meta.baseIdSeal, 1219, 'base');
+  exact(extension, meta.extensionIdSeal, 504, 'extension');
+  exact([...base, ...extension], meta.combinedIdSeal, 1723, 'combined');
 }
-
 export async function buildReleaseManifest({ bank, runtimePath, sourceRoot }) {
   const config = RELEASE_BANKS[bank];
   if (!config) throw new Error(`Unknown release bank: ${bank}`);
@@ -164,41 +145,21 @@ export async function buildReleaseManifest({ bank, runtimePath, sourceRoot }) {
   if (runtime.runtimeArtifact?.originalCandidateRuntimeSha256 !== config.originalCandidateRuntimeSha256) {
     throw new Error(`${bank} original candidate runtime seal mismatch`);
   }
+  if (bank === 'igcse-economics-0455') assertExactCohortSeals(runtime);
   const actualRuntimeSha = runtimeSha256(runtime);
   if (runtime.runtimeArtifact?.runtimeSha256 !== actualRuntimeSha) {
     throw new Error(`${bank} production runtime SHA256 mismatch: expected ${runtime.runtimeArtifact?.runtimeSha256}, got ${actualRuntimeSha}`);
   }
 
   const canonicalRoot = await realpath(sourceRoot);
-  let coordinatedLanes = null;
-  if (bank === 'igcse-coordinated-sciences-0654') {
-    coordinatedLanes = new Map();
-    for (const lane of ['base', 'extension-2020']) {
-      const laneManifest = JSON.parse(await readFile(resolve(canonicalRoot, `data/segmentation/repair-ms-closure-v1/build-a/${lane}/full-manifest.json`), 'utf8'));
-      for (const paperId of Object.keys(laneManifest.papers ?? {})) coordinatedLanes.set(paperId, lane);
-    }
-  }
   const files = new Map();
   for (const question of runtime.questions ?? []) {
     for (const reference of references(question)) {
       validateObjectKey(`${bank}/${reference}`);
       if (files.has(reference)) continue;
-      const relativeSource = sourceRelativePath(bank, reference, coordinatedLanes?.get(paperFromReference(reference)));
-      const candidates = bank === 'igcse-chemistry-0620'
-        ? [relativeSource, relativeSource.replace('full-extension/', 'full/')]
-        : [relativeSource];
-      let candidate;
-      let resolved;
-      for (const relative of candidates) {
-        const possible = resolve(canonicalRoot, relative);
-        if (!possible.startsWith(`${canonicalRoot}${sep}`)) throw new Error(`Asset escapes source root: ${reference}`);
-        try {
-          resolved = await realpath(possible);
-          candidate = possible;
-          break;
-        } catch {}
-      }
-      if (!candidate || !resolved) throw new Error(`Missing referenced asset: ${reference}`);
+      const candidate = resolve(canonicalRoot, sourceRelativePath(bank, reference));
+      if (!candidate.startsWith(`${canonicalRoot}${sep}`)) throw new Error(`Asset escapes source root: ${reference}`);
+      const resolved = await realpath(candidate);
       if (resolved !== candidate) throw new Error(`Symlinked asset rejected: ${reference}`);
       const metadata = await stat(resolved);
       if (!metadata.isFile()) throw new Error(`Referenced asset is not a file: ${reference}`);
@@ -279,7 +240,7 @@ export async function uploadRelease({ client, bucket, manifest, receipt = {}, on
       await client.send(new PutObjectCommand({
         Bucket: bucket,
         Key: asset.objectKey,
-        Body: await readFile(asset.sourcePath),
+        Body: createReadStream(asset.sourcePath),
         ContentLength: asset.size,
         ContentType: asset.contentType,
         CacheControl: 'private, max-age=31536000, immutable',
