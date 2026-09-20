@@ -78,7 +78,14 @@ export function finalizeQuestionStates(runtime, bank) {
     throw new Error(`${bank} must contain a non-empty question array before production finalization`);
   }
   for (const question of runtime.questions) {
-    if (question.publicationStatus !== expected.publicationStatus || !expected.classificationReviewStatuses.includes(question.classificationReviewStatus)) throw new Error(`${bank} contains an unknown or unauthorized candidate question state`);
+    const isAuthorizedCandidate = question.publicationStatus === expected.publicationStatus
+      && expected.classificationReviewStatuses.includes(question.classificationReviewStatus);
+    const isPreservedBiologyBase = bank === 'igcse-biology-0610'
+      && question.publicationStatus === 'production'
+      && question.classificationReviewStatus === 'classified';
+    if (!isAuthorizedCandidate && !isPreservedBiologyBase) {
+      throw new Error(`${bank} contains an unknown or unauthorized candidate question state`);
+    }
   }
   const unresolved = runtime.questions.filter((question) => question.classificationReviewStatus === UNRESOLVED_TAXONOMY_STATUS);
   if (unresolved.length !== expected.unresolvedCount) {

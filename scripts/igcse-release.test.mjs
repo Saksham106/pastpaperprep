@@ -183,11 +183,13 @@ describe("IGCSE storage release tooling", () => {
   });
 
   it("normalizes only the authorized Biology and Economics candidate states", () => {
-    const biology = { publicationStatus: "authorized_production_candidate", classificationReviewStatus: "candidate_not_approved" };
+    const biologyBase = { publicationStatus: "production", classificationReviewStatus: "classified" };
+    const biologyExtension = { publicationStatus: "authorized_production_candidate", classificationReviewStatus: "candidate_not_approved" };
     const economics = { publicationStatus: "authorized_production_candidate", classificationReviewStatus: "source_paired_review_completed_pending_release" };
-    finalizeQuestionStates({ questions: [biology] }, "igcse-biology-0610");
+    finalizeQuestionStates({ questions: [biologyBase, biologyExtension] }, "igcse-biology-0610");
     finalizeQuestionStates({ questions: [economics] }, "igcse-economics-0455");
-    expect(biology).toEqual({ publicationStatus: "production", classificationReviewStatus: "classified" });
+    expect(biologyBase).toEqual({ publicationStatus: "production", classificationReviewStatus: "classified" });
+    expect(biologyExtension).toEqual({ publicationStatus: "production", classificationReviewStatus: "classified" });
     expect(economics).toEqual({ publicationStatus: "production", classificationReviewStatus: "classified" });
   });
 

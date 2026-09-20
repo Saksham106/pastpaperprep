@@ -3,8 +3,9 @@ import { describe, expect, it } from "vitest";
 import runtime from "@/data/production/igcse-biology-0610.json";
 import privateIndex from "@/data/private-index/igcse-biology-0610.json";
 import manifest from "../../data/storage/igcse-biology-0610.manifest.json";
+import receipt from "../../data/storage/igcse-biology-0610.receipt.json";
 import { getCatalogBank } from "@/lib/catalog";
-import { getIGCSERuntimeArtifact, getIGCSECandidateRuntime } from "@/lib/igcse-runtime";
+import { getIGCSERuntimeArtifact } from "@/lib/igcse-runtime";
 import { getPrivateBankObjectPrefix } from "@/lib/private-runtime-mapping";
 
 const sha256 = (value: string) => createHash("sha256").update(value).digest("hex");
@@ -14,11 +15,13 @@ const runtimeSeal = () => {
   return sha256(JSON.stringify(copy));
 };
 
-describe("IGCSE Biology 0610 combined production candidate", () => {
-  it("contains the exact base-plus-extension union and remains fail-closed", () => {
-    expect(runtime.releaseStatus).toBe("production_candidate");
-    expect(runtime.publicationStatus).toBe("authorized_production_candidate");
-    expect(runtime.assetVerification).toBe("pending_upload");
+describe("IGCSE Biology 0610 combined finalized production release", () => {
+  it("contains the exact base-plus-extension union after verified finalization", () => {
+    expect(runtime.releaseStatus).toBe("production");
+    expect(runtime.publicationStatus).toBe("production");
+    expect(runtime.assetVerification).toBe("verified_readback");
+    expect(runtime.runtimeArtifact.assetVerification).toBe("verified_readback");
+    expect(runtime.runtimeArtifact.publicationStatus).toBe("production");
     expect(runtime.questionCount).toBe(4913);
     expect(runtime.paperCount).toBe(298);
     expect(runtime.years).toBe("2019-2026");
@@ -27,18 +30,22 @@ describe("IGCSE Biology 0610 combined production candidate", () => {
     expect(runtime.questions.every((q) => Number.isInteger(q.marks) && q.marks > 0 && q.maxMarks === q.marks)).toBe(true);
     expect(runtime.questions.filter((q) => q.year <= 2020 || q.year === 2026)).toHaveLength(1472);
     expect(runtime.questions.filter((q) => q.year >= 2021 && q.year <= 2025)).toHaveLength(3441);
-    expect(runtime.questions.filter((q) => q.year <= 2020 || q.year === 2026).every((q) => q.publicationStatus === "authorized_production_candidate" && q.classificationReviewStatus === "candidate_not_approved")).toBe(true);
-    expect(() => getIGCSERuntimeArtifact("igcse-biology-0610", { PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true" })).toThrow(/verified storage/i);
-    expect(getIGCSECandidateRuntime("igcse-biology-0610")).toBe(runtime);
+    expect(runtime.questions.every((q) => q.publicationStatus === "production" && q.classificationReviewStatus === "classified")).toBe(true);
+    expect(getIGCSERuntimeArtifact("igcse-biology-0610", { PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true" })).toBe(runtime);
   });
 
-  it("has exact referenced-only closure, immutable prefix, and no receipt", () => {
+  it("has exact referenced-only closure, immutable prefix, and verified receipt", () => {
     expect(manifest.storageState).toBe("pending_upload");
     expect(manifest.assets).toHaveLength(13953);
     expect(new Set(manifest.assets.map((a) => a.objectKey)).size).toBe(13953);
     expect(manifest.objectPrefix).toBe("igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/");
     expect(manifest.assets.every((a) => a.objectKey.startsWith(manifest.objectPrefix) && a.objectKey.endsWith(".webp"))).toBe(true);
     expect(runtime.questions.flatMap((q) => [...q.questionImages, ...q.markschemeImages])).toHaveLength(13953);
+    expect(receipt.storageState).toBe("verified_readback");
+    expect(receipt.completed).toHaveLength(13953);
+    expect(new Set(receipt.completed).size).toBe(13953);
+    expect(receipt.failed).toEqual([]);
+    expect(receipt.assetManifestSha256).toBe(runtime.runtimeArtifact.assetManifestSha256);
   });
 
   it("seals candidate/runtime/index/catalog and preserves the 0610-2019-s-31 QP exception", () => {
