@@ -34,6 +34,24 @@ function sealedRuntime(bank, question) {
   return runtime;
 }
 
+function economicsCandidateFixture(runtime) {
+  const copy = structuredClone(runtime);
+  for (const question of copy.questions) {
+    if (question.year <= 2020) {
+      question.publicationStatus = "authorized_production_candidate";
+      question.classificationReviewStatus = "source_paired_review_completed_pending_release";
+    }
+  }
+  copy.releaseStatus = "authorized_production_candidate";
+  copy.publicationStatus = "authorized_production_candidate";
+  copy.runtimeArtifact.assetVerification = "pending_storage_release";
+  copy.runtimeArtifact.storageReceiptSha256 = null;
+  copy.runtimeArtifact.assetManifestSha256 = null;
+  copy.runtimeArtifact.runtimeSha256 = null;
+  copy.runtimeArtifact.runtimeSha256 = runtimeSha256(copy);
+  return copy;
+}
+
 class MemoryR2 {
   objects = new Map();
   puts = [];
@@ -165,7 +183,7 @@ describe("IGCSE storage release tooling", () => {
     const repo = await mkdtemp(join(tmpdir(), "igcse-finalize-"));
     temporary.push(repo);
     const bank = "igcse-economics-0455";
-    const runtime = JSON.parse(await readFile(join(import.meta.dirname, "../src/data/production/igcse-economics-0455.json"), "utf8"));
+    const runtime = economicsCandidateFixture(JSON.parse(await readFile(join(import.meta.dirname, "../src/data/production/igcse-economics-0455.json"), "utf8")));
     const manifest = { schemaVersion: "igcse-private-assets-v1", bank, storageState: "pending_upload", assets: [] };
     const receipt = { schemaVersion: "igcse-upload-receipt-v1", bank, storageState: "verified_readback", assetManifestSha256: manifestSha256(manifest), completed: [], failed: [] };
     await mkdir(join(repo, "src/data/production"), { recursive: true });
@@ -183,7 +201,7 @@ describe("IGCSE storage release tooling", () => {
   });
 
   it("normalizes only the authorized Economics candidate state", async () => {
-    const runtime = JSON.parse(await readFile(join(import.meta.dirname, "../src/data/production/igcse-economics-0455.json"), "utf8"));
+    const runtime = economicsCandidateFixture(JSON.parse(await readFile(join(import.meta.dirname, "../src/data/production/igcse-economics-0455.json"), "utf8")));
     finalizeQuestionStates(runtime, "igcse-economics-0455");
     expect(runtime.questions).toHaveLength(1723);
     expect(runtime.questions.every((question) => question.publicationStatus === "production" && question.classificationReviewStatus === "classified")).toBe(true);
@@ -227,7 +245,7 @@ describe("IGCSE storage release tooling", () => {
   });
 
   it("fails closed for unknown candidate states", async () => {
-    const runtime = JSON.parse(await readFile(join(import.meta.dirname, "../src/data/production/igcse-economics-0455.json"), "utf8"));
+    const runtime = economicsCandidateFixture(JSON.parse(await readFile(join(import.meta.dirname, "../src/data/production/igcse-economics-0455.json"), "utf8")));
     runtime.questions[0].publicationStatus = "mystery";
     expect(() => finalizeQuestionStates(runtime, "igcse-economics-0455")).toThrow(/unknown|unauthorized|state|rewritten/i);
   });
