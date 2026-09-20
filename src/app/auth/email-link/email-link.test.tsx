@@ -25,6 +25,22 @@ describe("scanner-safe magic-link handoff", () => {
     expect(markup).toContain("Continue to PastPaperPrep");
   });
 
+  it("renders the same explicit confirmation step for first-time signups", async () => {
+    const node = await EmailLinkPage({
+      searchParams: Promise.resolve({
+        token_hash: tokenHash,
+        type: "signup",
+        next: "/pricing?interval=monthly&product=single",
+      }),
+    });
+    const markup = renderToStaticMarkup(node);
+
+    expect(markup).toContain('action="/auth/confirm"');
+    expect(markup).toContain(`name="token_hash" value="${tokenHash}"`);
+    expect(markup).toContain('name="type" value="signup"');
+    expect(markup).toContain('name="next" value="/pricing?interval=monthly&amp;product=single"');
+  });
+
   it("rejects malformed hashes, wrong OTP types, and unsafe next paths", async () => {
     const malformed = await EmailLinkPage({
       searchParams: Promise.resolve({ token_hash: "short", type: "email", next: "//evil.example" }),
@@ -42,9 +58,13 @@ describe("scanner-safe magic-link handoff", () => {
     expect(renderToStaticMarkup(safeFallback)).toContain('name="next" value="/pricing"');
   });
 
-  it("uses the token hash handoff instead of a directly consumable ConfirmationURL", () => {
-    const template = readFileSync(resolve(process.cwd(), "supabase/templates/magic-link.html"), "utf8");
-    expect(template).toContain("{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email");
-    expect(template).not.toContain(".ConfirmationURL");
+  it("uses scanner-safe token hash handoffs for both login and signup emails", () => {
+    const magicLinkTemplate = readFileSync(resolve(process.cwd(), "supabase/templates/magic-link.html"), "utf8");
+    expect(magicLinkTemplate).toContain("{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email");
+    expect(magicLinkTemplate).not.toContain(".ConfirmationURL");
+
+    const signupTemplate = readFileSync(resolve(process.cwd(), "supabase/templates/confirm-sign-up.html"), "utf8");
+    expect(signupTemplate).toContain("{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=signup");
+    expect(signupTemplate).not.toContain(".ConfirmationURL");
   });
 });

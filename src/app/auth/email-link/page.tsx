@@ -19,7 +19,8 @@ export default async function EmailLinkPage({ searchParams }: { searchParams: Pr
   const tokenHash = first(params.token_hash);
   const type = first(params.type);
   const next = safeNextPath(first(params.next));
-  const valid = validTokenHash(tokenHash) && type === "email";
+  const validType = type === "email" || type === "signup";
+  const valid = validTokenHash(tokenHash) && validType;
 
   return (
     <section className="auth-page shell">
@@ -31,7 +32,7 @@ export default async function EmailLinkPage({ searchParams }: { searchParams: Pr
             <p>Press continue to finish signing in. This extra step keeps email security scanners from using your one-time link first.</p>
             <form action="/auth/confirm" method="get" className="auth-form">
               <input type="hidden" name="token_hash" value={tokenHash} />
-              <input type="hidden" name="type" value="email" />
+              <input type="hidden" name="type" value={type} />
               <input type="hidden" name="next" value={next} />
               <button className="button primary" type="submit">
                 <EnvelopeSimpleOpen weight="bold" /> Continue to PastPaperPrep <ArrowRight weight="bold" />

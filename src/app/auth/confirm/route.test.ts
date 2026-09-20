@@ -31,6 +31,14 @@ describe("GET /auth/confirm", () => {
     expect(response.headers.get("location")).toBe("https://pastpaperprep.com/pricing?interval=annual&product=bundle_all");
   });
 
+  it("verifies first-time signup tokens and preserves a safe pricing path", async () => {
+    const next = encodeURIComponent("/pricing?interval=monthly&product=single");
+    const response = await GET(request(`token_hash=${tokenHash}&type=signup&next=${next}`));
+
+    expect(verifyOtp).toHaveBeenCalledWith({ type: "signup", token_hash: tokenHash });
+    expect(response.headers.get("location")).toBe("https://pastpaperprep.com/pricing?interval=monthly&product=single");
+  });
+
   it("pins recovery tokens to the password page", async () => {
     const response = await GET(request(`token_hash=${tokenHash}&type=recovery&next=%2Fpricing`));
 
@@ -38,7 +46,7 @@ describe("GET /auth/confirm", () => {
     expect(response.headers.get("location")).toBe("https://pastpaperprep.com/account/password");
   });
 
-  it.each(["magiclink", "signup", "invite", "email_change", "unknown"])(
+  it.each(["magiclink", "invite", "email_change", "unknown"])(
     "rejects the %s OTP flow before verification",
     async (type) => {
       const response = await GET(request(`token_hash=${tokenHash}&type=${type}&next=%2Fpricing`));
