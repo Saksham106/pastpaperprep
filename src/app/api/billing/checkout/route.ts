@@ -158,8 +158,11 @@ export async function POST(request: Request) {
         if (hasNonTerminalSubscription) {
           throw new BillingStateConflictError("Existing Stripe billing state must be managed from your account");
         }
-        const matchingOpenSession = openSessionData.find(({ metadata }) => (
-          metadata?.user_id === input.userId
+        const minimumUsableExpiry = Math.floor(Date.now() / 1000) + 60;
+        const matchingOpenSession = openSessionData.find(({ expires_at, metadata }) => (
+          typeof expires_at === "number"
+          && expires_at > minimumUsableExpiry
+          && metadata?.user_id === input.userId
           && metadata.product_id === input.productId
           && metadata.billing_interval === input.interval
           && metadata.price_id === input.priceId
