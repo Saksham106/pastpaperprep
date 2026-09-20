@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { safeNextPath } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 
-const ALLOWED_CONFIRMATION_TYPES = new Set<EmailOtpType>(["email", "recovery"]);
+const ALLOWED_CONFIRMATION_TYPES = new Set<EmailOtpType>(["email", "signup", "recovery"]);
 
 function validTokenHash(value: string | null): value is string {
   return typeof value === "string" && /^[A-Za-z0-9_-]{32,256}$/.test(value);
@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(new URL("/login?error=confirmation", url.origin));
   }
 
-  const type = rawType as "email" | "recovery";
+  const type = rawType as "email" | "signup" | "recovery";
   const next = type === "recovery"
     ? "/account/password"
     : safeNextPath(url.searchParams.get("next"));
