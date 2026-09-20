@@ -38,7 +38,6 @@ describe("IGCSE Biology and Economics release candidate", () => {
       PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true",
     };
     const runtimes = {
-      "igcse-economics-0455": economicsRuntime,
       "igcse-chemistry-0620": chemistryRuntime,
       "igcse-physics-0625": physicsRuntime,
       "igcse-coordinated-sciences-0654": coordinatedRuntime,
@@ -55,7 +54,7 @@ describe("IGCSE Biology and Economics release candidate", () => {
   it("maps all private runtimes to immutable bank-prefixed R2 namespaces", () => {
     expect(getPrivateBankObjectPrefix("ib-economics-hl")).toBe("ib-economics-hl/");
     expect(getPrivateBankObjectPrefix("igcse-biology-0610")).toBe("igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/");
-    expect(getPrivateBankObjectPrefix("igcse-economics-0455")).toBe("igcse-economics-0455/releases/repaired-v6-9fae73bcd2a9/");
+    expect(getPrivateBankObjectPrefix("igcse-economics-0455")).toBe("igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/");
     expect(getPrivateBankObjectPrefix("igcse-chemistry-0620")).toBe("igcse-chemistry-0620/releases/candidate-v2-6eeb3fccddb4/");
     expect(getPrivateBankObjectPrefix("igcse-physics-0625")).toBe("igcse-physics-0625/releases/repaired-v2-d95657a79bfc/");
   });

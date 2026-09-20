@@ -61,6 +61,14 @@ const BIOLOGY_AUTHORIZED_EXTENSION = {
   count: 1472,
   idsSha256: '310bf7a7f3f0d36b82acacc709e511eda0d52864c57420cc0027c924384f74dc',
 };
+const ECONOMICS_BASE = {
+  count: 1219,
+  idsSha256: '73bd9bb1a8fc4e3d865e144ff27024adcccce8117a4bcd9bcc063127411c71a3',
+};
+const ECONOMICS_EXTENSION = {
+  count: 504,
+  idsSha256: 'cc6c5e1ed8df1a638fd8b34b99c5c6b995f9448d6bef864dce3203f421c310d0',
+};
 
 function questionIdSetSha256(questions) {
   if (questions.some((question) => typeof question.id !== 'string' || !question.id)) return null;
@@ -80,6 +88,29 @@ function assertExactBiologyMixedState(runtime, bank) {
   if (extension.length !== BIOLOGY_AUTHORIZED_EXTENSION.count
     || questionIdSetSha256(extension) !== BIOLOGY_AUTHORIZED_EXTENSION.idsSha256) {
     throw new Error(`${bank} Biology extension does not match the exact authorized question ID set`);
+  }
+}
+
+function assertExactEconomicsMixedState(runtime, bank) {
+  if (bank !== 'igcse-economics-0455') return;
+  const base = runtime.questions.filter((question) => question.year >= 2021);
+  const extension = runtime.questions.filter((question) => question.year <= 2020);
+  if (base.length !== ECONOMICS_BASE.count || questionIdSetSha256(base) !== ECONOMICS_BASE.idsSha256) {
+    throw new Error(`${bank} preserved Economics base does not match the exact authorized question ID set`);
+  }
+  if (extension.length !== ECONOMICS_EXTENSION.count || questionIdSetSha256(extension) !== ECONOMICS_EXTENSION.idsSha256) {
+    throw new Error(`${bank} Economics extension does not match the exact authorized question ID set`);
+  }
+  for (const question of base) {
+    if (question.publicationStatus !== 'production' || question.classificationReviewStatus !== 'classified') {
+      throw new Error(`${bank} preserved Economics base has been rewritten`);
+    }
+  }
+  for (const question of extension) {
+    if (question.publicationStatus !== 'authorized_production_candidate'
+      || question.classificationReviewStatus !== 'source_paired_review_completed_pending_release') {
+      throw new Error(`${bank} Economics extension contains an unknown or unauthorized candidate state`);
+    }
   }
 }
 
@@ -107,13 +138,17 @@ export function finalizeQuestionStates(runtime, bank) {
     throw new Error(`${bank} must contain a non-empty question array before production finalization`);
   }
   assertExactBiologyMixedState(runtime, bank);
+  assertExactEconomicsMixedState(runtime, bank);
   for (const question of runtime.questions) {
     const isAuthorizedCandidate = question.publicationStatus === expected.publicationStatus
       && expected.classificationReviewStatuses.includes(question.classificationReviewStatus);
     const isPreservedBiologyBase = bank === 'igcse-biology-0610'
       && question.publicationStatus === 'production'
       && question.classificationReviewStatus === 'classified';
-    if (!isAuthorizedCandidate && !isPreservedBiologyBase) {
+    const isPreservedEconomicsBase = bank === 'igcse-economics-0455'
+      && question.publicationStatus === 'production'
+      && question.classificationReviewStatus === 'classified';
+    if (!isAuthorizedCandidate && !isPreservedBiologyBase && !isPreservedEconomicsBase) {
       throw new Error(`${bank} contains an unknown or unauthorized candidate question state`);
     }
   }
@@ -156,9 +191,11 @@ export async function finalizeRelease(bank, repo = resolve(import.meta.dirname, 
   runtime.publicationStatus = 'production';
   runtime.assetVerification = 'verified_readback';
   runtime.runtimeArtifact.assetVerification = 'verified_readback';
+  runtime.runtimeArtifact.storageState = 'verified_readback';
   runtime.runtimeArtifact.publicationStatus = 'production';
   runtime.runtimeArtifact.assetManifestSha256 = expectedManifestSha;
   runtime.runtimeArtifact.storageReceiptSha256 = sha256(receiptText);
+  runtime.runtimeArtifact.finalizedContentSha256 = sha256(JSON.stringify(runtime.questions));
   runtime.runtimeArtifact.runtimeSha256 = null;
   runtime.runtimeArtifact.runtimeSha256 = runtimeSha256(runtime);
   await writeFile(runtimePath, `${JSON.stringify(runtime)}\n`);

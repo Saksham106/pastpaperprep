@@ -12,9 +12,9 @@ export const RELEASE_BANKS = {
     originalCandidateRuntimeSha256: '9e97cd0c0455ae865b1d14dc462f74ce22d1c66fb734e7d4a8baaf414e0ff961',
   },
   'igcse-economics-0455': {
-    prefix: 'igcse-economics-0455/releases/repaired-v6-9fae73bcd2a9',
+    prefix: 'igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_ECONOMICS_SOURCE_ROOT',
-    originalCandidateRuntimeSha256: '69bfa6b0519e30c0975ef7b549e338c3e2e2c0e2da458090aa9f6464195f89e5',
+    originalCandidateRuntimeSha256: '629eb2cd4ae77ad6fd7cade9b89380b0a8b41a45f42548dab822ce3f0aabcf81',
   },
   'igcse-chemistry-0620': {
     prefix: 'igcse-chemistry-0620/releases/candidate-v2-6eeb3fccddb4',
@@ -111,9 +111,6 @@ function sourceRelativePath(bank, reference, coordinatedLane) {
   if (bank === 'igcse-biology-0610' && reference === 'markschemes/0610-2025-w-23/q2-row1-1.webp') {
     return 'data/classification/full-coverage-batch-repairs/batch94-ms/assets/0610-2025-w-23/markscheme/q2-row1-1.v2.webp';
   }
-  if (bank === 'igcse-economics-0455' && reference === 'markschemes/0455-2025-s-22/q5-3-29.webp') {
-    return 'data/classification/packet-028-source-repair-candidate/assets/0455-2025-s-22/markscheme/q5-3-29.webp';
-  }
   if (bank === 'igcse-coordinated-sciences-0654') {
     if (!coordinatedLane) throw new Error(`Missing authoritative Co-ordinated Sciences source lane: ${paper}`);
     return `data/segmentation/repair-ms-closure-v1/build-a/${coordinatedLane}/assets/${paper}/${kind === 'questions' ? 'question' : 'markscheme'}/${file}`;
@@ -125,7 +122,7 @@ function sourceRelativePath(bank, reference, coordinatedLane) {
       const lane = year >= 2021 && year <= 2025 ? 'data/segmentation-repaired' : 'data/segmentation/full-extension-repaired';
       return `${lane}/assets/${paper}/question/${file}`;
     }
-    if (bank === 'igcse-economics-0455') return `data/segmentation/full-repaired/assets/${paper}/question/${file}`;
+    if (bank === 'igcse-economics-0455') { const year = Number(paper.split('-')[1]); return `${year <= 2020 ? 'data/segmentation/full-extension' : 'data/segmentation/full-repaired'}/assets/${paper}/question/${file}`; }
     if (bank === 'igcse-biology-0610') {
       const year = Number(paper.split('-')[1]);
       const lane = (year >= 2019 && year <= 2020) || year === 2026 ? 'data/segmentation/full-extension' : 'data/segmentation/full-ms-repair';
@@ -140,7 +137,7 @@ function sourceRelativePath(bank, reference, coordinatedLane) {
       const lane = year >= 2021 && year <= 2025 ? 'data/segmentation-repaired' : 'data/segmentation/full-extension-repaired';
       return `${lane}/assets/${paper}/markscheme/${file}`;
     }
-    if (bank === 'igcse-economics-0455') return `data/segmentation/full-repaired/assets/${paper}/markscheme/${file}`;
+    if (bank === 'igcse-economics-0455') { const year = Number(paper.split('-')[1]); return `${year <= 2020 ? 'data/segmentation/full-extension' : 'data/segmentation/full-repaired'}/assets/${paper}/markscheme/${file}`; }
     if (bank === 'igcse-biology-0610') {
       const year = Number(paper.split('-')[1]);
       const lane = (year >= 2019 && year <= 2020) || year === 2026 ? 'data/segmentation/full-extension' : 'data/segmentation/full-ms-repair';
@@ -157,6 +154,23 @@ function paperFromReference(reference) {
   return parts[1];
 }
 
+const ECONOMICS_BASE_ID_SEAL = '8a7dd6c1985e4fd2f083b6ec882a75aeccbf31944d24bf9bbf002f7f335ac461';
+const ECONOMICS_EXTENSION_ID_SEAL = 'b3c844c1255ec9d1eff2f6fc2664f3c758d40ca6061fe1a5425cc298bc662d6c';
+const ECONOMICS_COMBINED_ID_SEAL = '06fcf13e34fd181089a910bb15c789cc7de4b73f4e9a53147e078856a3c90b30';
+
+export function assertExactCohortSeals(runtime) {
+  const base = runtime.questions.filter(q => q.year >= 2021);
+  const extension = runtime.questions.filter(q => q.year <= 2020);
+  const exact = (ids, seal, count, label) => {
+    if (ids.length !== count || new Set(ids).size !== count || sha256(JSON.stringify([...ids].sort())) !== seal) throw new Error(`${label} cohort seal mismatch`);
+  };
+  exact(base.map(q => q.id), ECONOMICS_BASE_ID_SEAL, 1219, 'base');
+  exact(extension.map(q => q.id), ECONOMICS_EXTENSION_ID_SEAL, 504, 'extension');
+  exact([...base, ...extension].map(q => q.id), ECONOMICS_COMBINED_ID_SEAL, 1723, 'combined');
+  if (base.some(q => q.publicationStatus !== 'production' || q.classificationReviewStatus !== 'classified')) throw new Error('base cohort state mismatch');
+  if (extension.some(q => q.publicationStatus !== 'authorized_production_candidate' || q.classificationReviewStatus !== 'source_paired_review_completed_pending_release')) throw new Error('extension cohort state mismatch');
+}
+
 export async function buildReleaseManifest({ bank, runtimePath, sourceRoot }) {
   const config = RELEASE_BANKS[bank];
   if (!config) throw new Error(`Unknown release bank: ${bank}`);
@@ -164,6 +178,7 @@ export async function buildReleaseManifest({ bank, runtimePath, sourceRoot }) {
   if (runtime.runtimeArtifact?.originalCandidateRuntimeSha256 !== config.originalCandidateRuntimeSha256) {
     throw new Error(`${bank} original candidate runtime seal mismatch`);
   }
+  if (bank === 'igcse-economics-0455' && (runtime.questions?.length ?? 0) === 1723) assertExactCohortSeals(runtime);
   const actualRuntimeSha = runtimeSha256(runtime);
   if (runtime.runtimeArtifact?.runtimeSha256 !== actualRuntimeSha) {
     throw new Error(`${bank} production runtime SHA256 mismatch: expected ${runtime.runtimeArtifact?.runtimeSha256}, got ${actualRuntimeSha}`);

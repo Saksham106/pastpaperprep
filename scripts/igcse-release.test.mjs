@@ -11,6 +11,7 @@ import {
   manifestSha256,
   RELEASE_BANKS,
   runtimeSha256,
+  sha256,
   uploadRelease,
   validateObjectKey,
   verifyRelease,
@@ -32,6 +33,24 @@ function sealedRuntime(bank, question) {
   };
   runtime.runtimeArtifact.runtimeSha256 = runtimeSha256(runtime);
   return runtime;
+}
+
+function economicsCandidateFixture(runtime) {
+  const copy = structuredClone(runtime);
+  for (const question of copy.questions) {
+    if (question.year <= 2020) {
+      question.publicationStatus = "authorized_production_candidate";
+      question.classificationReviewStatus = "source_paired_review_completed_pending_release";
+    }
+  }
+  copy.releaseStatus = "authorized_production_candidate";
+  copy.publicationStatus = "authorized_production_candidate";
+  copy.runtimeArtifact.assetVerification = "pending_storage_release";
+  copy.runtimeArtifact.storageReceiptSha256 = null;
+  copy.runtimeArtifact.assetManifestSha256 = null;
+  copy.runtimeArtifact.runtimeSha256 = null;
+  copy.runtimeArtifact.runtimeSha256 = runtimeSha256(copy);
+  return copy;
 }
 
 class MemoryR2 {
@@ -88,7 +107,7 @@ describe("IGCSE storage release tooling", () => {
       runtimeArtifact: { originalCandidateRuntimeSha256: "candidate", contentSha256: "content" },
       questions: [{ questionImages: ["questions/p/q.webp"], markschemeImages: [], officialMarkscheme: { images: [] } }],
     }, new Map([["questions/p/q.webp", { sourcePath: "/q", sha256: "a", size: 1 }]]));
-    expect(manifest.assets[0].objectKey).toBe("igcse-economics-0455/releases/repaired-v6-9fae73bcd2a9/questions/p/q.webp");
+    expect(manifest.assets[0].objectKey).toBe("igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/questions/p/q.webp");
   });
 
   it("uses the sealed Chemistry candidate namespace", () => {
@@ -111,7 +130,7 @@ describe("IGCSE storage release tooling", () => {
 
   it.each([
     ["igcse-biology-0610", "markschemes/0610-2025-w-23/q2-row1-1.webp", "data/classification/full-coverage-batch-repairs/batch94-ms/assets/0610-2025-w-23/markscheme/q2-row1-1.v2.webp"],
-    ["igcse-economics-0455", "markschemes/0455-2025-s-22/q5-3-29.webp", "data/classification/packet-028-source-repair-candidate/assets/0455-2025-s-22/markscheme/q5-3-29.webp"],
+    ["igcse-economics-0455", "markschemes/0455-2025-s-22/q5-3-29.webp", "data/segmentation/full-repaired/assets/0455-2025-s-22/markscheme/q5-3-29.webp"],
   ])("uses the exact %s repair overlay", async (bank, reference, relativeSource) => {
     const root = await mkdtemp(join(tmpdir(), "igcse-release-"));
     temporary.push(root);
@@ -165,7 +184,7 @@ describe("IGCSE storage release tooling", () => {
     const repo = await mkdtemp(join(tmpdir(), "igcse-finalize-"));
     temporary.push(repo);
     const bank = "igcse-economics-0455";
-    const runtime = sealedRuntime(bank, { questionImages: [], markschemeImages: [], publicationStatus: "authorized_production_candidate", classificationReviewStatus: "source_paired_review_completed_pending_release" });
+    const runtime = economicsCandidateFixture(JSON.parse(await readFile(join(import.meta.dirname, "../src/data/production/igcse-economics-0455.json"), "utf8")));
     const manifest = { schemaVersion: "igcse-private-assets-v1", bank, storageState: "pending_upload", assets: [] };
     const receipt = { schemaVersion: "igcse-upload-receipt-v1", bank, storageState: "verified_readback", assetManifestSha256: manifestSha256(manifest), completed: [], failed: [] };
     await mkdir(join(repo, "src/data/production"), { recursive: true });
@@ -179,13 +198,16 @@ describe("IGCSE storage release tooling", () => {
     expect(finalized.questions[0].publicationStatus).toBe("production");
     expect(finalized.questions[0].classificationReviewStatus).toBe("classified");
     expect(finalized.runtimeArtifact.assetVerification).toBe("verified_readback");
+    expect(finalized.runtimeArtifact.storageState).toBe("verified_readback");
+    expect(finalized.runtimeArtifact.finalizedContentSha256).toBe(sha256(JSON.stringify(finalized.questions)));
     expect(finalized.runtimeArtifact.runtimeSha256).toBe(runtimeSha256(finalized));
   });
 
-  it("normalizes only the authorized Economics candidate state", () => {
-    const economics = { publicationStatus: "authorized_production_candidate", classificationReviewStatus: "source_paired_review_completed_pending_release" };
-    finalizeQuestionStates({ questions: [economics] }, "igcse-economics-0455");
-    expect(economics).toEqual({ publicationStatus: "production", classificationReviewStatus: "classified" });
+  it("normalizes only the authorized Economics candidate state", async () => {
+    const runtime = economicsCandidateFixture(JSON.parse(await readFile(join(import.meta.dirname, "../src/data/production/igcse-economics-0455.json"), "utf8")));
+    finalizeQuestionStates(runtime, "igcse-economics-0455");
+    expect(runtime.questions).toHaveLength(1723);
+    expect(runtime.questions.every((question) => question.publicationStatus === "production" && question.classificationReviewStatus === "classified")).toBe(true);
   });
 
   it("accepts only the exact preserved Biology base ID set in a mixed candidate", async () => {
@@ -225,8 +247,10 @@ describe("IGCSE storage release tooling", () => {
     expect(() => finalizeQuestionStates(tamperedExtension, "igcse-biology-0610")).toThrow(/Biology extension/i);
   });
 
-  it("fails closed for unknown candidate states", () => {
-    expect(() => finalizeQuestionStates({ questions: [{ publicationStatus: "mystery", classificationReviewStatus: "source_paired_review_completed_pending_release" }] }, "igcse-economics-0455")).toThrow(/unknown|unauthorized/i);
+  it("fails closed for unknown candidate states", async () => {
+    const runtime = economicsCandidateFixture(JSON.parse(await readFile(join(import.meta.dirname, "../src/data/production/igcse-economics-0455.json"), "utf8")));
+    runtime.questions[0].publicationStatus = "mystery";
+    expect(() => finalizeQuestionStates(runtime, "igcse-economics-0455")).toThrow(/unknown|unauthorized|state|rewritten/i);
   });
 
   it.each([
