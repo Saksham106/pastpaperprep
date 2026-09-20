@@ -17,13 +17,13 @@ export async function requestMagicLink(
 
   const supabase = await createClient();
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-  const callbackUrl = new URL("/auth/callback", siteUrl);
-  callbackUrl.searchParams.set("next", next);
+  const handoffUrl = new URL("/auth/email-link", siteUrl);
+  handoffUrl.searchParams.set("next", next);
 
   const { error } = await supabase.auth.signInWithOtp({
     email,
     options: {
-      emailRedirectTo: callbackUrl.toString(),
+      emailRedirectTo: handoffUrl.toString(),
       shouldCreateUser: true,
     },
   });

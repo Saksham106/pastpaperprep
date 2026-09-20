@@ -10,7 +10,7 @@ const { redirect, createClient } = vi.hoisted(() => ({
 vi.mock("next/navigation", () => ({ redirect }));
 vi.mock("@/lib/supabase/server", () => ({ createClient }));
 
-import { requestPasswordReset, signInWithPassword, updatePassword } from "./actions";
+import { requestMagicLink, requestPasswordReset, signInWithPassword, updatePassword } from "./actions";
 import { initialMagicLinkState } from "@/lib/auth";
 
 function form(values: Record<string, string>) {
@@ -36,6 +36,25 @@ describe("password authentication actions", () => {
 
     expect(signInWithPasswordMock).toHaveBeenCalledWith({ email: "student@example.com", password: "three calm otters" });
     expect(redirect).toHaveBeenCalledWith("/pricing");
+  });
+
+  it("routes magic links through the scanner-safe token-hash handoff", async () => {
+    const signInWithOtp = vi.fn().mockResolvedValue({ error: null });
+    createClient.mockResolvedValue({ auth: { signInWithOtp } });
+
+    const result = await requestMagicLink(initialMagicLinkState, form({
+      email: " DEVON@example.com ",
+      next: "/pricing?interval=annual&product=bundle_all",
+    }));
+
+    expect(result.status).toBe("success");
+    expect(signInWithOtp).toHaveBeenCalledWith({
+      email: "devon@example.com",
+      options: {
+        emailRedirectTo: "https://pastpaperprep.com/auth/email-link?next=%2Fpricing%3Finterval%3Dannual%26product%3Dbundle_all",
+        shouldCreateUser: true,
+      },
+    });
   });
 
   it("keeps reset requests account-enumeration safe", async () => {

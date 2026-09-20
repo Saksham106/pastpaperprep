@@ -541,6 +541,7 @@ describe("POST /api/billing/checkout", () => {
     sessionsList.mockResolvedValue({ data: [{
       id: "cs_open",
       status: "open",
+      expires_at: 4_102_444_800,
       url: "https://checkout.stripe.com/c/pay/cs_open",
       metadata: {
         user_id: user.id,
@@ -581,6 +582,7 @@ describe("POST /api/billing/checkout", () => {
         data: [{
           id: "cs_matching",
           status: "open",
+          expires_at: 4_102_444_800,
           url: "https://checkout.stripe.com/c/pay/cs_matching",
           metadata: { user_id: user.id, product_id: "bundle_all", billing_interval: "annual", price_id: "price_all_annual" },
         }],
@@ -602,6 +604,35 @@ describe("POST /api/billing/checkout", () => {
       starting_after: "cs_stale",
     });
     expect(sessionsCreate).not.toHaveBeenCalled();
+  });
+
+  it("never returns a matching Checkout Session whose Stripe expiry is already past", async () => {
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    mockAdminRpc("cus_existing");
+    sessionsList.mockResolvedValue({ data: [{
+      id: "cs_expired_but_open",
+      status: "open",
+      expires_at: 1,
+      url: "https://checkout.stripe.com/c/pay/cs_expired_but_open",
+      metadata: {
+        user_id: user.id,
+        product_id: "bundle_all",
+        billing_interval: "annual",
+        price_id: "price_all_annual",
+      },
+    }] });
+    sessionsCreate.mockResolvedValue({ url: "https://checkout.stripe.com/c/pay/cs_fresh" });
+
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", {
+      method: "POST",
+      body: JSON.stringify({ interval: "annual", productId: "bundle_all" }),
+    }));
+
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toEqual({ url: "https://checkout.stripe.com/c/pay/cs_fresh" });
+    expect(sessionsExpire).toHaveBeenCalledWith("cs_expired_but_open");
+    expect(sessionsCreate).toHaveBeenCalled();
   });
 
   it("expires a stale open Checkout Session with the wrong price before creating the selected plan", async () => {
