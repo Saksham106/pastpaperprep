@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import { createHash } from 'node:crypto';
-import { createReadStream } from 'node:fs';
 import { mkdir, readFile, realpath, stat, writeFile } from 'node:fs/promises';
 import { resolve, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -8,27 +7,27 @@ import { GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3
 
 export const RELEASE_BANKS = {
   'igcse-biology-0610': {
-    prefix: 'igcse-biology-0610',
+    prefix: 'igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_BIOLOGY_SOURCE_ROOT',
     originalCandidateRuntimeSha256: 'd6ffc51bf6f31dce48c518e7404fd3599d26798243d509d889c12a0110c88ca3',
   },
   'igcse-economics-0455': {
     prefix: 'igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_ECONOMICS_SOURCE_ROOT',
-    originalCandidateRuntimeSha256: 'e82f835aa7d71293caaa2249887561dfa0d8e88bf8edbe7ab9d213f50b920808',
+    originalCandidateRuntimeSha256: '629eb2cd4ae77ad6fd7cade9b89380b0a8b41a45f42548dab822ce3f0aabcf81',
   },
   'igcse-chemistry-0620': {
-    prefix: 'igcse-chemistry-0620',
+    prefix: 'igcse-chemistry-0620/releases/candidate-v2-6eeb3fccddb4',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_CHEMISTRY_SOURCE_ROOT',
     originalCandidateRuntimeSha256: '81c706903aa94c6865336cf40027c26b33e0ba514082f4d8da2c576b9bb2cf87',
   },
   'igcse-physics-0625': {
-    prefix: 'igcse-physics-0625',
+    prefix: 'igcse-physics-0625/releases/repaired-v2-d95657a79bfc',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_PHYSICS_SOURCE_ROOT',
     originalCandidateRuntimeSha256: '204e21dd3c7d21c4186dc29e242f79129210f6b90c03d1af2335c8517e512c77',
   },
   'igcse-coordinated-sciences-0654': {
-    prefix: 'igcse-coordinated-sciences-0654',
+    prefix: 'igcse-coordinated-sciences-0654/releases/full4721-v1-6b161eb9e580',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_COORDINATED_SOURCE_ROOT',
     originalCandidateRuntimeSha256: '5843c2c07c5d2357f18b3dd0de3910dede8443c36b3feff11827ee5441dd3c95',
   },
@@ -127,16 +126,21 @@ function sourceRelativePath(bank, reference) {
   throw new Error(`Unsupported referenced asset layout: ${reference}`);
 }
 
+const ECONOMICS_BASE_ID_SEAL = '8a7dd6c1985e4fd2f083b6ec882a75aeccbf31944d24bf9bbf002f7f335ac461';
+const ECONOMICS_EXTENSION_ID_SEAL = 'b3c844c1255ec9d1eff2f6fc2664f3c758d40ca6061fe1a5425cc298bc662d6c';
+const ECONOMICS_COMBINED_ID_SEAL = '06fcf13e34fd181089a910bb15c789cc7de4b73f4e9a53147e078856a3c90b30';
+
 export function assertExactCohortSeals(runtime) {
-  const meta = runtime.runtimeArtifact ?? {};
-  const base = runtime.questions.filter(q => q.year >= 2021).map(q => q.id);
-  const extension = runtime.questions.filter(q => q.year <= 2020).map(q => q.id);
+  const base = runtime.questions.filter(q => q.year >= 2021);
+  const extension = runtime.questions.filter(q => q.year <= 2020);
   const exact = (ids, seal, count, label) => {
     if (ids.length !== count || new Set(ids).size !== count || sha256(JSON.stringify([...ids].sort())) !== seal) throw new Error(`${label} cohort seal mismatch`);
   };
-  exact(base, meta.baseIdSeal, 1219, 'base');
-  exact(extension, meta.extensionIdSeal, 504, 'extension');
-  exact([...base, ...extension], meta.combinedIdSeal, 1723, 'combined');
+  exact(base.map(q => q.id), ECONOMICS_BASE_ID_SEAL, 1219, 'base');
+  exact(extension.map(q => q.id), ECONOMICS_EXTENSION_ID_SEAL, 504, 'extension');
+  exact([...base, ...extension].map(q => q.id), ECONOMICS_COMBINED_ID_SEAL, 1723, 'combined');
+  if (base.some(q => q.publicationStatus !== 'production' || q.classificationReviewStatus !== 'classified')) throw new Error('base cohort state mismatch');
+  if (extension.some(q => q.publicationStatus !== 'authorized_production_candidate' || q.classificationReviewStatus !== 'source_paired_review_completed_pending_release')) throw new Error('extension cohort state mismatch');
 }
 export async function buildReleaseManifest({ bank, runtimePath, sourceRoot }) {
   const config = RELEASE_BANKS[bank];
@@ -240,7 +244,7 @@ export async function uploadRelease({ client, bucket, manifest, receipt = {}, on
       await client.send(new PutObjectCommand({
         Bucket: bucket,
         Key: asset.objectKey,
-        Body: createReadStream(asset.sourcePath),
+        Body: await readFile(asset.sourcePath),
         ContentLength: asset.size,
         ContentType: asset.contentType,
         CacheControl: 'private, max-age=31536000, immutable',

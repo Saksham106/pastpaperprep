@@ -165,7 +165,7 @@ describe("IGCSE storage release tooling", () => {
     const repo = await mkdtemp(join(tmpdir(), "igcse-finalize-"));
     temporary.push(repo);
     const bank = "igcse-economics-0455";
-    const runtime = sealedRuntime(bank, { questionImages: [], markschemeImages: [], publicationStatus: "authorized_production_candidate", classificationReviewStatus: "source_paired_review_completed_pending_release" });
+    const runtime = JSON.parse(await readFile(join(import.meta.dirname, "../src/data/production/igcse-economics-0455.json"), "utf8"));
     const manifest = { schemaVersion: "igcse-private-assets-v1", bank, storageState: "pending_upload", assets: [] };
     const receipt = { schemaVersion: "igcse-upload-receipt-v1", bank, storageState: "verified_readback", assetManifestSha256: manifestSha256(manifest), completed: [], failed: [] };
     await mkdir(join(repo, "src/data/production"), { recursive: true });
@@ -182,10 +182,11 @@ describe("IGCSE storage release tooling", () => {
     expect(finalized.runtimeArtifact.runtimeSha256).toBe(runtimeSha256(finalized));
   });
 
-  it("normalizes only the authorized Economics candidate state", () => {
-    const economics = { publicationStatus: "authorized_production_candidate", classificationReviewStatus: "source_paired_review_completed_pending_release" };
-    finalizeQuestionStates({ questions: [economics] }, "igcse-economics-0455");
-    expect(economics).toEqual({ publicationStatus: "production", classificationReviewStatus: "classified" });
+  it("normalizes only the authorized Economics candidate state", async () => {
+    const runtime = JSON.parse(await readFile(join(import.meta.dirname, "../src/data/production/igcse-economics-0455.json"), "utf8"));
+    finalizeQuestionStates(runtime, "igcse-economics-0455");
+    expect(runtime.questions).toHaveLength(1723);
+    expect(runtime.questions.every((question) => question.publicationStatus === "production" && question.classificationReviewStatus === "classified")).toBe(true);
   });
 
   it("accepts only the exact preserved Biology base ID set in a mixed candidate", async () => {
@@ -225,8 +226,10 @@ describe("IGCSE storage release tooling", () => {
     expect(() => finalizeQuestionStates(tamperedExtension, "igcse-biology-0610")).toThrow(/Biology extension/i);
   });
 
-  it("fails closed for unknown candidate states", () => {
-    expect(() => finalizeQuestionStates({ questions: [{ publicationStatus: "mystery", classificationReviewStatus: "source_paired_review_completed_pending_release" }] }, "igcse-economics-0455")).toThrow(/unknown|unauthorized/i);
+  it("fails closed for unknown candidate states", async () => {
+    const runtime = JSON.parse(await readFile(join(import.meta.dirname, "../src/data/production/igcse-economics-0455.json"), "utf8"));
+    runtime.questions[0].publicationStatus = "mystery";
+    expect(() => finalizeQuestionStates(runtime, "igcse-economics-0455")).toThrow(/unknown|unauthorized|state|rewritten/i);
   });
 
   it.each([
