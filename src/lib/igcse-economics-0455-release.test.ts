@@ -4,13 +4,16 @@ import runtime from "@/data/production/igcse-economics-0455.json";
 import { BANK_CATALOG } from "@/lib/catalog";
 import { assertExactCohortSeals } from "../../scripts/igcse-release.mjs";
 
-type CandidateRuntime = { questions: Array<{id:string;year:number}>; paperCount:number; years:string; releaseStatus:string; runtimeArtifact: {baseQuestionCount:number; extensionQuestionCount:number; baseIdSeal:string; extensionIdSeal:string; combinedIdSeal:string; assetVerification:string; storageReceiptSha256:null; assetManifestSha256:null} };
+type CandidateRuntime = { questions: Array<{id:string;year:number;questionImages:string[];markschemeImages:string[]}>; paperCount:number; years:string; releaseStatus:string; runtimeArtifact: {baseQuestionCount:number; extensionQuestionCount:number; baseIdSeal:string; extensionIdSeal:string; combinedIdSeal:string; assetVerification:string; storageState:string; storageReceiptSha256:null; assetManifestSha256:null; sourceReconciliationReceiptSha256:string} };
 const r = runtime as unknown as CandidateRuntime;
 const seal = (ids: string[]) => createHash("sha256").update(JSON.stringify([...ids].sort())).digest("hex");
 describe("Economics 0455 combined candidate", () => {
   it("has exactly the sealed base and extension cohorts", () => {
     expect(r.questions).toHaveLength(1723); expect(r.paperCount).toBe(98); expect(r.years).toBe("2019-2025");
     expect(r.runtimeArtifact.baseQuestionCount).toBe(1219); expect(r.runtimeArtifact.extensionQuestionCount).toBe(504);
+    expect(new Set(r.questions.filter(q=>q.year<=2020).flatMap(q=>q.questionImages)).size).toBe(528);
+    expect(new Set(r.questions.filter(q=>q.year<=2020).flatMap(q=>q.markschemeImages)).size).toBe(654);
+    expect(r.runtimeArtifact.sourceReconciliationReceiptSha256).toBe("2647220c5e1571aaf2b62a69dd2c6741df904f38bc1104d66cb62807284bf020");
     expect(r.runtimeArtifact.baseIdSeal).toBe(seal(r.questions.filter((q: {id:string;year:number})=>q.year>=2021).map((q: {id:string;year:number})=>q.id)));
     expect(r.runtimeArtifact.extensionIdSeal).toBe(seal(r.questions.filter((q: {id:string;year:number})=>q.year<=2020).map((q: {id:string;year:number})=>q.id)));
     expect(() => assertExactCohortSeals(r)).not.toThrow();

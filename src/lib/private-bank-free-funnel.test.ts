@@ -36,7 +36,7 @@ const RELEASE_ENVIRONMENT: Record<string, string> = {
 /** Frozen free-tier census for the private release banks: one documented older exam year each. */
 const PRIVATE_FREE = {
   "igcse-biology-0610": { total: 3441, free: 685 },
-  "igcse-economics-0455": { total: 1723, free: 259, unfinalized: true },
+  "igcse-economics-0455": { total: 1723, free: 241, unfinalized: true },
   "igcse-chemistry-0620": { total: 3529, free: 709 },
   "igcse-physics-0625": { total: 3820, free: 766 },
   "ib-economics-hl": { total: 111, free: 26 },

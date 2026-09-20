@@ -88,7 +88,7 @@ describe("IGCSE storage release tooling", () => {
       runtimeArtifact: { originalCandidateRuntimeSha256: "candidate", contentSha256: "content" },
       questions: [{ questionImages: ["questions/p/q.webp"], markschemeImages: [], officialMarkscheme: { images: [] } }],
     }, new Map([["questions/p/q.webp", { sourcePath: "/q", sha256: "a", size: 1 }]]));
-    expect(manifest.assets[0].objectKey).toBe("igcse-economics-0455/releases/repaired-v6-9fae73bcd2a9/questions/p/q.webp");
+    expect(manifest.assets[0].objectKey).toBe("igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/questions/p/q.webp");
   });
 
   it("uses the sealed Chemistry candidate namespace", () => {
@@ -111,7 +111,7 @@ describe("IGCSE storage release tooling", () => {
 
   it.each([
     ["igcse-biology-0610", "markschemes/0610-2025-w-23/q2-row1-1.webp", "data/classification/full-coverage-batch-repairs/batch94-ms/assets/0610-2025-w-23/markscheme/q2-row1-1.v2.webp"],
-    ["igcse-economics-0455", "markschemes/0455-2025-s-22/q5-3-29.webp", "data/classification/packet-028-source-repair-candidate/assets/0455-2025-s-22/markscheme/q5-3-29.webp"],
+    ["igcse-economics-0455", "markschemes/0455-2025-s-22/q5-3-29.webp", "data/segmentation/full-repaired/assets/0455-2025-s-22/markscheme/q5-3-29.webp"],
   ])("uses the exact %s repair overlay", async (bank, reference, relativeSource) => {
     const root = await mkdtemp(join(tmpdir(), "igcse-release-"));
     temporary.push(root);

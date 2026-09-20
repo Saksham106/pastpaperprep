@@ -5,15 +5,17 @@ import path from "node:path";
 
 export const BANK = "igcse-economics-0455";
 export const DEFAULT_SOURCE_ROOT = "/Users/sakshamgoel/Documents/ProjectsInternships/igcse-economics-0455-topic-practice";
-export const EXPECTED = { baseRows: 1219, extensionRows: 504, rows: 1723, basePapers: 70, extensionPapers: 28, papers: 98, years: "2019-2025" };
+export const EXPECTED = { baseRows: 1219, extensionRows: 504, rows: 1723, basePapers: 70, extensionPapers: 28, papers: 98, years: "2019-2025", extensionQuestionAssets: 528, extensionMarkschemeAssets: 654 };
+export const SOURCE_RECONCILIATION_RECEIPT = "data/segmentation/full-extension/reconciliation-receipt.json";
+export const SOURCE_RECONCILIATION_RECEIPT_SHA256 = "2647220c5e1571aaf2b62a69dd2c6741df904f38bc1104d66cb62807284bf020";
 const sha = b => createHash("sha256").update(b).digest("hex");
 const jsonSha = v => sha(JSON.stringify(v));
 const root = () => process.env.ECON0455_SOURCE_ROOT?.trim() || DEFAULT_SOURCE_ROOT;
 const readJson = async p => JSON.parse(await readFile(p, "utf8"));
 const idSeal = ids => sha(JSON.stringify([...ids].sort()));
 
-export const BASE_ID_SEAL = "";
-export const EXTENSION_ID_SEAL = "";
+export const BASE_ID_SEAL = "8a7dd6c1985e4fd2f083b6ec882a75aeccbf31944d24bf9bbf002f7f335ac461";
+export const EXTENSION_ID_SEAL = "b3c844c1255ec9d1eff2f6fc2664f3c758d40ca6061fe1a5425cc298bc662d6c";
 
 function labels(sourceRoot) { return Promise.all([
   readJson(path.join(sourceRoot, "research/extension-2019-2026/registry-2017-2019.json")),
@@ -60,7 +62,13 @@ export async function buildRuntime({ sourceRoot = root() } = {}) {
   const base = await readJson(path.resolve("src/data/production/igcse-economics-0455-base-2021-2025.json"));
   if (base.questions.length !== EXPECTED.baseRows || base.paperCount !== EXPECTED.basePapers || base.years !== "2021-2025") throw new Error("base production artifact drifted");
   const before = JSON.stringify(base.questions);
+  const beforeQuestions = JSON.parse(before);
   const manifest = await readJson(path.join(sourceRoot,"data/segmentation/full-extension/full-manifest.json"));
+  const reconciliationPath = path.join(sourceRoot, SOURCE_RECONCILIATION_RECEIPT);
+  const reconciliationBytes = await readFile(reconciliationPath);
+  if (sha(reconciliationBytes) !== SOURCE_RECONCILIATION_RECEIPT_SHA256) throw new Error("source reconciliation receipt SHA256 mismatch");
+  const reconciliation = JSON.parse(reconciliationBytes);
+  if (reconciliation.assertions?.qp_ms_reference_mismatches_0 !== true || reconciliation.counts?.qp_refs_new !== EXPECTED.extensionQuestionAssets || reconciliation.counts?.ms_refs_new !== EXPECTED.extensionMarkschemeAssets) throw new Error("source reconciliation receipt assertions drifted");
   if (manifest.question_count !== EXPECTED.extensionRows || manifest.paper_count !== EXPECTED.extensionPapers) throw new Error("extension manifest count mismatch");
   const [r19,r20,map] = await labels(sourceRoot);
   const resultFiles = await readdir(path.join(sourceRoot,"data/classification/extension-2019-2026/results"));
@@ -70,11 +78,17 @@ export async function buildRuntime({ sourceRoot = root() } = {}) {
   const paperMap = new Map(papers.map(p=>[p.id,p]));
   const ext = rows.map(row => { const pid=row.question_id.replace(/-q\d+$/,""); const paper=paperMap.get(pid); const q=paper?.questions.find(x=>x.id===row.question_id); if(!paper||!q||row.disposition!=="candidate") throw new Error(`invalid extension row ${row.question_id}`); return extQuestion(q,row,paper,r19,r20,map); });
   if (ext.length !== EXPECTED.extensionRows || new Set(ext.map(q=>q.id)).size !== ext.length) throw new Error("extension rows are not exact and unique");
-  if (new Set(base.questions.map(q=>q.id)).size !== EXPECTED.baseRows || base.questions.some((q,i)=>JSON.stringify(q)!==JSON.parse(before)[i] && false)) throw new Error("base rows changed");
+  if (JSON.stringify(base.questions) !== JSON.stringify(beforeQuestions)) throw new Error("base rows changed");
+  const removedRefs = new Set(reconciliation.mappings.filter(x => x.status === "removed").map(x => x.old_path?.replace(/^assets\//, "")).filter(Boolean));
+  const extensionQuestionRefs = new Set(ext.flatMap(q => q.questionImages));
+  const extensionMarkschemeRefs = new Set(ext.flatMap(q => q.markschemeImages));
+  if (extensionQuestionRefs.size !== EXPECTED.extensionQuestionAssets || extensionMarkschemeRefs.size !== EXPECTED.extensionMarkschemeAssets) throw new Error("extension asset counts are not exact");
+  if ([...extensionQuestionRefs, ...extensionMarkschemeRefs].some(ref => removedRefs.has(ref.split('/').slice(1).join('/')))) throw new Error("removed blank/furniture-only asset referenced");
+  if (new Set(base.questions.map(q=>q.id)).size !== EXPECTED.baseRows) throw new Error("base IDs are not exact");
   const questions=[...base.questions,...ext];
   const baseIds=base.questions.map(q=>q.id), extIds=ext.map(q=>q.id);
   const artifact={...base, version:"igcse-economics-0455-combined-2019-2025", years:EXPECTED.years, paperCount:EXPECTED.papers, questionCount:EXPECTED.rows, releaseStatus:"authorized_production_candidate", publicationStatus:"authorized_production_candidate", sourceCandidate:{...base.sourceCandidate, questionCount:EXPECTED.rows}, knownCoverageGaps:"2 honest extension taxonomy gaps preserved; pending storage release", questions,
-    runtimeArtifact:{...base.runtimeArtifact, publicationStatus:"authorized_production_candidate", assetVerification:"pending_storage_release", storageReceiptSha256:null, assetManifestSha256:null, contentSha256:jsonSha(questions), baseQuestionCount:EXPECTED.baseRows, extensionQuestionCount:EXPECTED.extensionRows, basePaperCount:EXPECTED.basePapers, extensionPaperCount:EXPECTED.extensionPapers, baseIdSeal:idSeal(baseIds), extensionIdSeal:idSeal(extIds), combinedIdSeal:idSeal(questions.map(q=>q.id)), originalCandidateRuntimeSha256:null, sourceCandidateSha256:null, runtimeSha256:null}};
+    runtimeArtifact:{...base.runtimeArtifact, publicationStatus:"authorized_production_candidate", assetVerification:"pending_storage_release", storageState:"pending_upload", storageReceiptSha256:null, assetManifestSha256:null, contentSha256:jsonSha(questions), sourceReconciliationReceiptSha256:SOURCE_RECONCILIATION_RECEIPT_SHA256, baseQuestionCount:EXPECTED.baseRows, extensionQuestionCount:EXPECTED.extensionRows, basePaperCount:EXPECTED.basePapers, extensionPaperCount:EXPECTED.extensionPapers, baseIdSeal:idSeal(baseIds), extensionIdSeal:idSeal(extIds), combinedIdSeal:idSeal(questions.map(q=>q.id)), originalCandidateRuntimeSha256:null, sourceCandidateSha256:null, runtimeSha256:null}};
   const blank = JSON.parse(JSON.stringify(artifact)); blank.runtimeArtifact.originalCandidateRuntimeSha256=null; blank.runtimeArtifact.sourceCandidateSha256=null; blank.runtimeArtifact.runtimeSha256=null;
   const candidate=jsonSha(blank); artifact.runtimeArtifact.originalCandidateRuntimeSha256=candidate; artifact.runtimeArtifact.sourceCandidateSha256=candidate;
   const noRuntime=JSON.parse(JSON.stringify(artifact)); noRuntime.runtimeArtifact.runtimeSha256=null; artifact.runtimeArtifact.runtimeSha256=jsonSha(noRuntime);
