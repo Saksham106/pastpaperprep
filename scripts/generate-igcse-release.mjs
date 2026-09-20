@@ -142,13 +142,13 @@ export function finalizeQuestionStates(runtime, bank) {
   for (const question of runtime.questions) {
     const isAuthorizedCandidate = question.publicationStatus === expected.publicationStatus
       && expected.classificationReviewStatuses.includes(question.classificationReviewStatus);
-    const isPreservedExistingBase = bank === 'igcse-biology-0610'
+    const isPreservedBiologyBase = bank === 'igcse-biology-0610'
       && question.publicationStatus === 'production'
       && question.classificationReviewStatus === 'classified';
     const isPreservedEconomicsBase = bank === 'igcse-economics-0455'
       && question.publicationStatus === 'production'
       && question.classificationReviewStatus === 'classified';
-    if (!isAuthorizedCandidate && !isPreservedExistingBase && !isPreservedEconomicsBase) {
+    if (!isAuthorizedCandidate && !isPreservedBiologyBase && !isPreservedEconomicsBase) {
       throw new Error(`${bank} contains an unknown or unauthorized candidate question state`);
     }
   }

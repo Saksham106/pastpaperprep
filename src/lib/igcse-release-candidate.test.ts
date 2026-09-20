@@ -38,7 +38,6 @@ describe("IGCSE Biology and Economics release candidate", () => {
       PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true",
     };
     const runtimes = {
-      "igcse-economics-0455": economicsRuntime,
       "igcse-chemistry-0620": chemistryRuntime,
       "igcse-physics-0625": physicsRuntime,
       "igcse-coordinated-sciences-0654": coordinatedRuntime,

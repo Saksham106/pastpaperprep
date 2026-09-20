@@ -9,7 +9,7 @@ export const RELEASE_BANKS = {
   'igcse-biology-0610': {
     prefix: 'igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_BIOLOGY_SOURCE_ROOT',
-    originalCandidateRuntimeSha256: 'd6ffc51bf6f31dce48c518e7404fd3599d26798243d509d889c12a0110c88ca3',
+    originalCandidateRuntimeSha256: '9e97cd0c0455ae865b1d14dc462f74ce22d1c66fb734e7d4a8baaf414e0ff961',
   },
   'igcse-economics-0455': {
     prefix: 'igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d',
@@ -24,12 +24,12 @@ export const RELEASE_BANKS = {
   'igcse-physics-0625': {
     prefix: 'igcse-physics-0625/releases/repaired-v2-d95657a79bfc',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_PHYSICS_SOURCE_ROOT',
-    originalCandidateRuntimeSha256: '204e21dd3c7d21c4186dc29e242f79129210f6b90c03d1af2335c8517e512c77',
+    originalCandidateRuntimeSha256: 'd95657a79bfcf5d80b9c7e9660c1d7795ea2026435610bb3e96ba2203e3d8cf7',
   },
   'igcse-coordinated-sciences-0654': {
     prefix: 'igcse-coordinated-sciences-0654/releases/full4721-v1-6b161eb9e580',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_COORDINATED_SOURCE_ROOT',
-    originalCandidateRuntimeSha256: '5843c2c07c5d2357f18b3dd0de3910dede8443c36b3feff11827ee5441dd3c95',
+    originalCandidateRuntimeSha256: '8b0f2a37110a7a56a647cfbf17ecd156eaca1c507fdc3e82711d4c356cacd82a',
   },
 };
 
@@ -104,26 +104,54 @@ export function createRuntimeReferenceManifest(bank, runtime, files) {
   };
 }
 
-function sourceRelativePath(bank, reference) {
+function sourceRelativePath(bank, reference, coordinatedLane) {
   const parts = reference.split('/');
   if (parts.length !== 3) throw new Error(`Unsupported referenced asset layout: ${reference}`);
   const [kind, paper, file] = parts;
   if (bank === 'igcse-biology-0610' && reference === 'markschemes/0610-2025-w-23/q2-row1-1.webp') {
     return 'data/classification/full-coverage-batch-repairs/batch94-ms/assets/0610-2025-w-23/markscheme/q2-row1-1.v2.webp';
   }
+  if (bank === 'igcse-coordinated-sciences-0654') {
+    if (!coordinatedLane) throw new Error(`Missing authoritative Co-ordinated Sciences source lane: ${paper}`);
+    return `data/segmentation/repair-ms-closure-v1/build-a/${coordinatedLane}/assets/${paper}/${kind === 'questions' ? 'question' : 'markscheme'}/${file}`;
+  }
   if (kind === 'questions') {
-    if (bank === 'igcse-chemistry-0620') return `full/assets/${paper}/question/${file}`;
-    if (bank === 'igcse-physics-0625') return `data/segmentation/assets/${paper}/question/${file}`;
+    if (bank === 'igcse-chemistry-0620') return `full-extension/assets/${paper}/question/${file}`;
+    if (bank === 'igcse-physics-0625') {
+      const year = Number(paper.split('-')[1]);
+      const lane = year >= 2021 && year <= 2025 ? 'data/segmentation-repaired' : 'data/segmentation/full-extension-repaired';
+      return `${lane}/assets/${paper}/question/${file}`;
+    }
     if (bank === 'igcse-economics-0455') { const year = Number(paper.split('-')[1]); return `${year <= 2020 ? 'data/segmentation/full-extension' : 'data/segmentation/full-repaired'}/assets/${paper}/question/${file}`; }
+    if (bank === 'igcse-biology-0610') {
+      const year = Number(paper.split('-')[1]);
+      const lane = (year >= 2019 && year <= 2020) || year === 2026 ? 'data/segmentation/full-extension' : 'data/segmentation/full-ms-repair';
+      return `${lane}/assets/${paper}/question/${file}`;
+    }
     return `data/segmentation/full/assets/${paper}/question/${file}`;
   }
   if (kind === 'markschemes') {
-    if (bank === 'igcse-chemistry-0620') return `full/assets/${paper}/markscheme/${file}`;
-    if (bank === 'igcse-physics-0625') return `data/segmentation/assets/${paper}/markscheme/${file}`;
+    if (bank === 'igcse-chemistry-0620') return `full-extension/assets/${paper}/markscheme/${file}`;
+    if (bank === 'igcse-physics-0625') {
+      const year = Number(paper.split('-')[1]);
+      const lane = year >= 2021 && year <= 2025 ? 'data/segmentation-repaired' : 'data/segmentation/full-extension-repaired';
+      return `${lane}/assets/${paper}/markscheme/${file}`;
+    }
     if (bank === 'igcse-economics-0455') { const year = Number(paper.split('-')[1]); return `${year <= 2020 ? 'data/segmentation/full-extension' : 'data/segmentation/full-repaired'}/assets/${paper}/markscheme/${file}`; }
+    if (bank === 'igcse-biology-0610') {
+      const year = Number(paper.split('-')[1]);
+      const lane = (year >= 2019 && year <= 2020) || year === 2026 ? 'data/segmentation/full-extension' : 'data/segmentation/full-ms-repair';
+      return `${lane}/assets/${paper}/markscheme/${file}`;
+    }
     return `data/segmentation/full/assets/${paper}/markscheme/${file}`;
   }
   throw new Error(`Unsupported referenced asset layout: ${reference}`);
+}
+
+function paperFromReference(reference) {
+  const parts = reference.split('/');
+  if (parts.length !== 3) throw new Error(`Unsupported referenced asset layout: ${reference}`);
+  return parts[1];
 }
 
 const ECONOMICS_BASE_ID_SEAL = '8a7dd6c1985e4fd2f083b6ec882a75aeccbf31944d24bf9bbf002f7f335ac461';
@@ -142,6 +170,7 @@ export function assertExactCohortSeals(runtime) {
   if (base.some(q => q.publicationStatus !== 'production' || q.classificationReviewStatus !== 'classified')) throw new Error('base cohort state mismatch');
   if (extension.some(q => q.publicationStatus !== 'authorized_production_candidate' || q.classificationReviewStatus !== 'source_paired_review_completed_pending_release')) throw new Error('extension cohort state mismatch');
 }
+
 export async function buildReleaseManifest({ bank, runtimePath, sourceRoot }) {
   const config = RELEASE_BANKS[bank];
   if (!config) throw new Error(`Unknown release bank: ${bank}`);
@@ -156,14 +185,35 @@ export async function buildReleaseManifest({ bank, runtimePath, sourceRoot }) {
   }
 
   const canonicalRoot = await realpath(sourceRoot);
+  let coordinatedLanes = null;
+  if (bank === 'igcse-coordinated-sciences-0654') {
+    coordinatedLanes = new Map();
+    for (const lane of ['base', 'extension-2020']) {
+      const laneManifest = JSON.parse(await readFile(resolve(canonicalRoot, `data/segmentation/repair-ms-closure-v1/build-a/${lane}/full-manifest.json`), 'utf8'));
+      for (const paperId of Object.keys(laneManifest.papers ?? {})) coordinatedLanes.set(paperId, lane);
+    }
+  }
   const files = new Map();
   for (const question of runtime.questions ?? []) {
     for (const reference of references(question)) {
       validateObjectKey(`${bank}/${reference}`);
       if (files.has(reference)) continue;
-      const candidate = resolve(canonicalRoot, sourceRelativePath(bank, reference));
-      if (!candidate.startsWith(`${canonicalRoot}${sep}`)) throw new Error(`Asset escapes source root: ${reference}`);
-      const resolved = await realpath(candidate);
+      const relativeSource = sourceRelativePath(bank, reference, coordinatedLanes?.get(paperFromReference(reference)));
+      const candidates = bank === 'igcse-chemistry-0620'
+        ? [relativeSource, relativeSource.replace('full-extension/', 'full/')]
+        : [relativeSource];
+      let candidate;
+      let resolved;
+      for (const relative of candidates) {
+        const possible = resolve(canonicalRoot, relative);
+        if (!possible.startsWith(`${canonicalRoot}${sep}`)) throw new Error(`Asset escapes source root: ${reference}`);
+        try {
+          resolved = await realpath(possible);
+          candidate = possible;
+          break;
+        } catch {}
+      }
+      if (!candidate || !resolved) throw new Error(`Missing referenced asset: ${reference}`);
       if (resolved !== candidate) throw new Error(`Symlinked asset rejected: ${reference}`);
       const metadata = await stat(resolved);
       if (!metadata.isFile()) throw new Error(`Referenced asset is not a file: ${reference}`);
