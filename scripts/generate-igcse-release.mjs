@@ -191,9 +191,11 @@ export async function finalizeRelease(bank, repo = resolve(import.meta.dirname, 
   runtime.publicationStatus = 'production';
   runtime.assetVerification = 'verified_readback';
   runtime.runtimeArtifact.assetVerification = 'verified_readback';
+  runtime.runtimeArtifact.storageState = 'verified_readback';
   runtime.runtimeArtifact.publicationStatus = 'production';
   runtime.runtimeArtifact.assetManifestSha256 = expectedManifestSha;
   runtime.runtimeArtifact.storageReceiptSha256 = sha256(receiptText);
+  runtime.runtimeArtifact.finalizedContentSha256 = sha256(JSON.stringify(runtime.questions));
   runtime.runtimeArtifact.runtimeSha256 = null;
   runtime.runtimeArtifact.runtimeSha256 = runtimeSha256(runtime);
   await writeFile(runtimePath, `${JSON.stringify(runtime)}\n`);

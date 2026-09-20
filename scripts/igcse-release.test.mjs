@@ -11,6 +11,7 @@ import {
   manifestSha256,
   RELEASE_BANKS,
   runtimeSha256,
+  sha256,
   uploadRelease,
   validateObjectKey,
   verifyRelease,
@@ -197,6 +198,8 @@ describe("IGCSE storage release tooling", () => {
     expect(finalized.questions[0].publicationStatus).toBe("production");
     expect(finalized.questions[0].classificationReviewStatus).toBe("classified");
     expect(finalized.runtimeArtifact.assetVerification).toBe("verified_readback");
+    expect(finalized.runtimeArtifact.storageState).toBe("verified_readback");
+    expect(finalized.runtimeArtifact.finalizedContentSha256).toBe(sha256(JSON.stringify(finalized.questions)));
     expect(finalized.runtimeArtifact.runtimeSha256).toBe(runtimeSha256(finalized));
   });
 
