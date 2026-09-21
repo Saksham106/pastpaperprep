@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
-import { assertPinnedReceipt } from "../../scripts/ib-science-receipt-contract.mjs";
+import { assertPinnedReceipt, candidateContentSha256 } from "../../scripts/ib-science-receipt-contract.mjs";
 import { BANK_CATALOG } from "@/lib/catalog";
 
 const root = process.cwd();
@@ -55,9 +55,16 @@ describe("IB 2016–2019 science extension candidate", () => {
     }
   });
 
-  it("pins source commits, sealed receipts, and create-only manifests", () => {
+  it("seals immutable candidate content without commit self-reference", () => {
     const pins = JSON.parse(fs.readFileSync(path.join(root, "docs/ib-science-extension/candidate-seal.json"), "utf8"));
-    expect(pins.status).toBe("pending_upload");
+    expect(pins.schemaVersion).toBe("ib-science-candidate-seal.v2");
+    expect(pins.sealSemantics).toBe("immutable_candidate_content");
+    expect(pins).not.toHaveProperty("origin");
+    expect(pins.contentSha256).toBe(candidateContentSha256(root));
+    expect(pins.contentFiles).toHaveLength(21);
+  });
+
+  it("pins source commits and keeps create-only manifests", () => {
     for (const bank of Object.keys(expected)) {
       const manifest = JSON.parse(fs.readFileSync(path.join(root, "docs/ib-science-storage", `${bank}.pending-upload-manifest.json`), "utf8"));
       expect(manifest.upload).toBe(false);

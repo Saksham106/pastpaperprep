@@ -13,6 +13,7 @@
     "generate:igcse-release": "node scripts/generate-igcse-release.mjs",
     "generate:igcse-biology-extension-candidate": "node scripts/generate-igcse-biology-0610-extension-candidate.mjs",
     "generate:ib-science-extension-candidate": "node scripts/generate-ib-science-extension-candidate.mjs",
+    "validate:ib-science-extension-candidate": "node scripts/validate-ib-science-candidate.mjs",
     "r2:sync": "node scripts/sync-r2-assets.mjs",
     "r2:verify": "node scripts/sync-r2-assets.mjs --verify-only",
     "storage:plan": "tsx scripts/reconcile-supabase-assets.ts --plan-only",

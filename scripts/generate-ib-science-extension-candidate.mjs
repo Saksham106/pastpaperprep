@@ -4,7 +4,7 @@ import { execFileSync } from "node:child_process";
 import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import { join, resolve, relative } from "node:path";
 import sharp from "sharp";
-import { assertPinnedReceipt } from "./ib-science-receipt-contract.mjs";
+import { assertPinnedReceipt, candidateContentManifest, candidateContentSha256 } from "./ib-science-receipt-contract.mjs";
 
 const root = resolve(import.meta.dirname, "..");
 const home = resolve(root, "..", "..", "..", "..");
@@ -93,7 +93,8 @@ for (const [key, s] of Object.entries(sources)) {
   }
   await writeJson(join(root, "docs/ib-science-extension", `${key}-source-receipt.json`), { schemaVersion: "ib-science-source-pin.v1", subject: s.subject, sourceCommit: s.commit, receiptPath: s.receipt, receiptSha256, receipt, canonicalRows: extension.length, assets: { question: allAssetList.filter(a=>a.kind === "question").length, markscheme: allAssetList.filter(a=>a.kind === "markscheme").length }, runtimeSeal });
 }
-await writeJson(join(root, "docs/ib-science-extension/candidate-seal.json"), { schemaVersion: "ib-science-candidate-seal.v1", status: "pending_upload", origin: execFileSync("git", ["-C", root, "rev-parse", "HEAD"], { encoding: "utf8" }).trim(), banks: runtimeSealSummary() });
+const contentFiles = candidateContentManifest(root);
+await writeJson(join(root, "docs/ib-science-extension/candidate-seal.json"), { schemaVersion: "ib-science-candidate-seal.v2", status: "pending_upload", sealSemantics: "immutable_candidate_content", contentSha256: candidateContentSha256(root), contentFiles, banks: runtimeSealSummary() });
 console.log(JSON.stringify(runtimeSealSummary(), null, 2));
 
 function receiptRows(r, key) { return key === "chemistry" ? r.eligible_questions : key === "biology" ? r.scope?.rows : r.exact_counts?.questions; }
