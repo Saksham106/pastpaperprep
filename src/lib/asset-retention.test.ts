@@ -9,9 +9,9 @@ describe("buildAssetRetentionPlan", () => {
       BANKS.map((bank) => ({ slug: bank.slug, questions: loadBankQuestions(bank.slug) })),
     );
 
-    expect(plan.allPaths.size).toBe(31_697);
+    expect(plan.allPaths.size).toBe(44_536);
     expect(plan.previewPaths.size).toBe(4_386);
-    expect(plan.premiumPaths.size).toBe(27_311);
+    expect(plan.premiumPaths.size).toBe(40_150);
     expect(plan.previewPaths.has("ib-hl/markschemes/2017-may-tz1-p1-q1-page-7.webp")).toBe(true);
     expect(plan.previewPaths.has("ib-physics-hl/markschemes/2020-november-tz0-hl-p1-q1-page-3.webp")).toBe(true);
     expect([...plan.previewPaths].every((path) => plan.allPaths.has(path))).toBe(true);
