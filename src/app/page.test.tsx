@@ -19,7 +19,7 @@ describe("home page corpus summary", () => {
 
     expect(BANKS.reduce((total, bank) => total + bank.questionCount, 0)).toBe(16411);
     expect(markup).toContain("16,411 questions");
-    expect(markup).toContain("1,048 papers");
+    expect(markup).toContain("1,051 papers");
     expect(markup).toContain("Practice the");
     expect(markup).toContain("topics you need.");
     expect(markup).not.toContain("Find a syllabus point, practise the questions that match, and keep the mark scheme close.");

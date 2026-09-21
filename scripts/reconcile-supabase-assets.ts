@@ -1,21 +1,22 @@
 #!/usr/bin/env tsx
 
 import { readFile, stat } from "node:fs/promises";
+import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { isPreviewQuestion } from "@/lib/access";
 import { BANKS, type LegacyProductionBankSlug } from "@/lib/banks";
 import { loadBankQuestions } from "@/lib/question-fixtures";
-import { buildAssetRetentionPlan } from "@/lib/asset-retention";
+import { buildAssetRetentionPlan, EXPECTED_ASSET_TOTALS } from "@/lib/asset-retention";
 
 const REPO_ROOT = resolve(import.meta.dirname, "..");
-const WORKSPACE_ROOT = resolve(REPO_ROOT, "..");
+const WORKSPACE_ROOT = resolve(REPO_ROOT, "..", "..");
 const BUCKET = "question-assets";
 const APPLY = process.argv.includes("--apply");
 const PLAN_ONLY = process.argv.includes("--plan-only");
 const SYNC_MISSING_PREVIEWS = process.argv.includes("--sync-missing-previews");
-const EXPECTED_PREVIEW_COUNT = 4_386;
-const EXPECTED_PREMIUM_COUNT = 27_311;
+const EXPECTED_PREVIEW_COUNT = EXPECTED_ASSET_TOTALS.preview;
+const EXPECTED_PREMIUM_COUNT = EXPECTED_ASSET_TOTALS.premium;
 const CONFIRMATION = String(EXPECTED_PREMIUM_COUNT);
 
 const SOURCE_ROOTS: Record<LegacyProductionBankSlug, string> = {
@@ -43,7 +44,11 @@ function canonicalPath(key: string) {
   const bank = key.slice(0, slash) as LegacyProductionBankSlug;
   const root = SOURCE_ROOTS[bank];
   if (!root) throw new Error(`Unknown bank prefix: ${bank}`);
-  return resolve(root, key.slice(slash + 1));
+  const relative = key.slice(slash + 1);
+  const candidateRoots = [root, ...Object.values(SOURCE_ROOTS)].filter((value, index, roots) => roots.indexOf(value) === index);
+  const match = candidateRoots.map((candidate) => resolve(candidate, relative)).find((candidate) => existsSync(candidate));
+  if (!match) throw new Error(`Retained asset source is missing: ${key}`);
+  return match;
 }
 
 async function byteTotal(paths: Set<string>) {
@@ -130,6 +135,13 @@ async function main() {
   );
   assertPlan(plan.previewPaths, plan.premiumPaths, plan.allPaths);
 
+  if (PLAN_ONLY) {
+    console.log(`Runtime corpus: ${plan.allPaths.size.toLocaleString()} objects.`);
+    console.log(`Retain in Supabase: ${plan.previewPaths.size.toLocaleString()} preview objects.`);
+    console.log(`Eligible for deletion after R2 production verification: ${plan.premiumPaths.size.toLocaleString()} premium objects.`);
+    return;
+  }
+
   const [allBytes, previewBytes, premiumBytes] = await Promise.all([
     byteTotal(plan.allPaths),
     byteTotal(plan.previewPaths),
@@ -138,8 +150,6 @@ async function main() {
   console.log(`Runtime corpus: ${plan.allPaths.size.toLocaleString()} objects, ${formatBytes(allBytes)}.`);
   console.log(`Retain in Supabase: ${plan.previewPaths.size.toLocaleString()} preview objects, ${formatBytes(previewBytes)}.`);
   console.log(`Eligible for deletion after R2 production verification: ${plan.premiumPaths.size.toLocaleString()} premium objects, ${formatBytes(premiumBytes)}.`);
-
-  if (PLAN_ONLY) return;
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();
   const secret = process.env.SUPABASE_SECRET_KEY?.trim();
