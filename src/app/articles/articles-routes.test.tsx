@@ -7,7 +7,7 @@ import { ARTICLES } from "@/lib/articles";
 describe("article routes", () => {
   it("publishes a canonical article index", () => {
     expect(articlesMetadata.title).toBe("Past Paper Practice Guides and Question Bank Comparisons");
-    expect(articlesMetadata.description).toContain("Mathematics, Chemistry, Physics, and Biology");
+    expect(articlesMetadata.description).toContain("Mathematics, Biology, Chemistry, Physics and Economics");
     expect(articlesMetadata.alternates?.canonical).toBe("/articles");
     expect(articlesMetadata.openGraph).toMatchObject({
       title: "Past Paper Practice Guides and Question Bank Comparisons | PastPaperPrep",

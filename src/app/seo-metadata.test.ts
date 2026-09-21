@@ -63,8 +63,9 @@ describe("canonical search metadata", () => {
     });
     expect(pricingMetadata.alternates?.canonical).toBe("/pricing");
     expect(pricingMetadata.openGraph).toMatchObject({ images: [{ url: "/pastpaperprep-share.png" }] });
-    expect(pricingMetadata.description).toMatch(/IGCSE, IB Mathematics/i);
-    expect(pricingMetadata.description).toMatch(/IB Chemistry/i);
+    expect(pricingMetadata.description).toMatch(/IGCSE and IB Maths/i);
+    expect(pricingMetadata.description).toMatch(/Chemistry/i);
+    expect(pricingMetadata.description).toMatch(/Economics/i);
   });
 
   it("canonicalizes every filterable bank to its clean landing URL", async () => {

@@ -235,9 +235,9 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
     "title": "IGCSE Economics 0455 Question Banks & Past Papers by Topic",
     "description": "Compare IGCSE Economics 0455 question banks and past-paper websites, with a practical method for data response, diagrams, calculations, and evaluation.",
     "eyebrow": "IGCSE Economics 0455",
-    "answer": "The best IGCSE Economics 0455 revision setup uses Cambridge's official syllabus and papers for exam truth, then adds a topical bank for repeated practice by concept and response skill. PastPaperPrep's live Economics 0455 bank contains 1,189 real past-paper questions from 70 papers covering 2021–2025. It is the strongest fit when you want to filter authentic questions while preserving data-response context, diagrams, calculations and command words; use a teaching resource when you first need the economics explained.",
+    "answer": "The best IGCSE Economics 0455 revision setup uses Cambridge's official syllabus and papers for exam truth, then adds a topical bank for repeated practice by concept and response skill. PastPaperPrep's live Economics 0455 bank contains 1,723 real past-paper questions from 98 papers covering 2019–2025. It is the strongest fit when you want to filter authentic questions while preserving data-response context, diagrams, calculations and command words; use a teaching resource when you first need the economics explained.",
     "publishedAt": "2026-09-15",
-    "updatedAt": "2026-09-15",
+    "updatedAt": "2026-09-21",
     "readingMinutes": 6,
     "sections": [
       {
@@ -285,7 +285,7 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
       {
         "heading": "Where PastPaperPrep fits for 0455",
         "paragraphs": [
-          "PastPaperPrep's live Economics 0455 bank contains 1,189 real past-paper questions from 70 papers covering 2021–2025. It keeps the original data, charts and question context while letting you filter by topic, paper, year, session, marks and other available exam details. That is useful when your error log says something precise, such as weak elasticity calculations or unsupported evaluation, rather than simply 'Economics'.",
+          "PastPaperPrep's live Economics 0455 bank contains 1,723 real past-paper questions from 98 papers covering 2019–2025. It keeps the original data, charts and question context while letting you filter by topic, paper, year, session, marks and other available exam details. That is useful when your error log says something precise, such as weak elasticity calculations or unsupported evaluation, rather than simply 'Economics'.",
           "PastPaperPrep does not replace revision notes, model essays or a teacher. Use it after learning the idea, when the bottleneck is finding enough authentic questions and assembling a focused printable set."
         ]
       }
@@ -309,7 +309,7 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
       },
       {
         "question": "Is the PastPaperPrep Economics 0455 bank available now?",
-        "answer": "Yes. The live Economics 0455 bank contains 1,189 questions from 70 papers covering 2021–2025, with filters that preserve data-response and diagram context."
+        "answer": "Yes. The live Economics 0455 bank contains 1,723 questions from 98 papers covering 2019–2025, with filters that preserve data-response and diagram context."
       }
     ],
     "relatedBanks": [

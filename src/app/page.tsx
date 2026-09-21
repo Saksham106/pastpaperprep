@@ -5,7 +5,7 @@ import { SOCIAL_IMAGE } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: { absolute: "IGCSE & IB Maths, Sciences and Economics Past Papers by Topic | PastPaperPrep" },
-  description: "Practise Cambridge IGCSE, IB Mathematics, IB Chemistry, IB Physics, IB Biology, and IB Economics past-paper questions by topic. Filter exact questions, check answers, and build printable sets.",
+  description: "Practise Cambridge IGCSE Maths, Biology, Chemistry, Physics, Co-ordinated Sciences and Economics, plus IB Mathematics, Biology, Chemistry, Physics and Economics past-paper questions by topic. Filter exact questions, check answers, and build printable sets.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "IGCSE & IB Maths, Sciences and Economics Past Papers by Topic | PastPaperPrep",

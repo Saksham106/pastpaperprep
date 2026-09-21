@@ -208,6 +208,7 @@ access: ExplorerAccess;
   const [pdfStatusKind, setPdfStatusKind] = useState<"progress" | "success" | "error">("progress");
   const shareButtonRef = useRef<HTMLButtonElement>(null);
   const [signedAssets, setSignedAssets] = useState(new Map<string, SignedAsset>());
+  const signingAssetKeysRef = useRef(new Set<string>());
   const [failedAssetKeys, setFailedAssetKeys] = useState(new Set<string>());
   const [assetError, setAssetError] = useState("");
   const [assetEpoch, setAssetEpoch] = useState(() => Date.now());
@@ -341,37 +342,51 @@ access: ExplorerAccess;
   useEffect(() => {
     if (!bank || !indexUrl) return;
     let cancelled = false;
-    fetch(indexUrl, { cache: "force-cache" })
-      .then(async (response) => {
-        if (!response.ok) throw new Error("Question index unavailable");
-        const payload = await response.json() as Partial<PublicBankIndex>;
-        if (payload.version !== 1 || payload.bank !== bank || !Array.isArray(payload.questions)) {
-          throw new Error("Invalid question index");
-        }
-        return payload.questions.map((metadata) => publicMetadataToQuestion(metadata, bank));
-      })
-      .then((metadataQuestions) => {
-        if (cancelled) return;
-        const richInitial = new Map(questions.map((question) => [question.id, question]));
-        setCatalogQuestions(metadataQuestions.map((metadataQuestion) => {
-          const initialQuestion = richInitial.get(metadataQuestion.id);
-          return initialQuestion ? mergeQuestionRichDetails(metadataQuestion, {
-            summary: initialQuestion.summary,
-            accessibleText: initialQuestion.accessibleText,
-            solution: initialQuestion.solution,
-            sourceQuestionUrl: initialQuestion.sourceQuestionUrl,
-            sourceMarkSchemeUrl: initialQuestion.sourceMarkSchemeUrl,
-          }) : metadataQuestion;
-        }));
-        setIndexLoaded(true);
-      })
-      .catch(() => {
-        if (!cancelled) {
-          setIndexError("The full question index could not load.");
+    let fallbackTimer: number | undefined;
+    const loadIndex = () => {
+      if (cancelled) return;
+      fetch(indexUrl, { cache: "force-cache" })
+        .then(async (response) => {
+          if (!response.ok) throw new Error("Question index unavailable");
+          const payload = await response.json() as Partial<PublicBankIndex>;
+          if (payload.version !== 1 || payload.bank !== bank || !Array.isArray(payload.questions)) {
+            throw new Error("Invalid question index");
+          }
+          return payload.questions.map((metadata) => publicMetadataToQuestion(metadata, bank));
+        })
+        .then((metadataQuestions) => {
+          if (cancelled) return;
+          const richInitial = new Map(questions.map((question) => [question.id, question]));
+          setCatalogQuestions(metadataQuestions.map((metadataQuestion) => {
+            const initialQuestion = richInitial.get(metadataQuestion.id);
+            return initialQuestion ? mergeQuestionRichDetails(metadataQuestion, {
+              summary: initialQuestion.summary,
+              accessibleText: initialQuestion.accessibleText,
+              solution: initialQuestion.solution,
+              sourceQuestionUrl: initialQuestion.sourceQuestionUrl,
+              sourceMarkSchemeUrl: initialQuestion.sourceMarkSchemeUrl,
+            }) : metadataQuestion;
+          }));
           setIndexLoaded(true);
-        }
-      });
-    return () => { cancelled = true; };
+        })
+        .catch(() => {
+          if (!cancelled) {
+            setIndexError("The full question index could not load.");
+            setIndexLoaded(true);
+          }
+        });
+    };
+
+    const idleId = typeof window.requestIdleCallback === "function"
+      ? window.requestIdleCallback(loadIndex, { timeout: 800 })
+      : undefined;
+    if (idleId === undefined) fallbackTimer = window.setTimeout(loadIndex, 200);
+
+    return () => {
+      cancelled = true;
+      if (idleId !== undefined && typeof window.cancelIdleCallback === "function") window.cancelIdleCallback(idleId);
+      if (fallbackTimer !== undefined) window.clearTimeout(fallbackTimer);
+    };
   }, [bank, indexAttempt, indexUrl, questions]);
 
   useEffect(() => {
@@ -536,11 +551,14 @@ access: ExplorerAccess;
 
   useEffect(() => {
     if (!bank) return;
-    if (!questionAssetRequests.length) return;
-    let cancelled = false;
-    fetchSignedAssets(bank, questionAssetRequests, fetch, localPreview)
+    const pendingRequests = questionAssetRequests.filter((request) => (
+      !signingAssetKeysRef.current.has(signedAssetKey(request.questionId, request.kind))
+    ));
+    if (!pendingRequests.length) return;
+    const pendingKeys = pendingRequests.map((request) => signedAssetKey(request.questionId, request.kind));
+    for (const key of pendingKeys) signingAssetKeysRef.current.add(key);
+    fetchSignedAssets(bank, pendingRequests, fetch, localPreview)
       .then((assets) => {
-        if (cancelled) return;
         setSignedAssets((current) => new Map([...current, ...assets]));
         const detailsById = new Map([...assets.values()].flatMap((asset) => asset.details ? [[asset.questionId, asset.details] as const] : []));
         if (detailsById.size) {
@@ -552,11 +570,12 @@ access: ExplorerAccess;
         setAssetError("");
       })
       .catch(() => {
-        if (cancelled) return;
-        setFailedAssetKeys((current) => new Set([...current, ...questionAssetRequests.map((request) => signedAssetKey(request.questionId, request.kind))]));
+        setFailedAssetKeys((current) => new Set([...current, ...pendingKeys]));
         setAssetError("Some question images could not load.");
+      })
+      .finally(() => {
+        for (const key of pendingKeys) signingAssetKeysRef.current.delete(key);
       });
-    return () => { cancelled = true; };
   }, [bank, localPreview, questionAssetRequests]);
 
   const toggle = (key: MultiKey, value: string) => {

@@ -4,7 +4,7 @@ import { SOCIAL_IMAGE } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Past Paper Practice Guides and Question Bank Comparisons",
-  description: "Practical IGCSE and IB Mathematics, Chemistry, Physics, and Biology guides for topical practice, past papers, mark schemes, and question banks.",
+  description: "Practical IGCSE and IB Mathematics, Biology, Chemistry, Physics and Economics guides for topical practice, past papers, mark schemes and question banks.",
   alternates: { canonical: "/articles" },
   openGraph: {
     title: "Past Paper Practice Guides and Question Bank Comparisons | PastPaperPrep",
