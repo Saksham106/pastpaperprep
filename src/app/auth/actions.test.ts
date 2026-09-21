@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const { redirect, createClient } = vi.hoisted(() => ({
   redirect: vi.fn(() => {
@@ -22,6 +22,11 @@ function form(values: Record<string, string>) {
 describe("password authentication actions", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://pastpaperprep.com");
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
   });
 
   it("signs in with a server-trusted internal redirect", async () => {
