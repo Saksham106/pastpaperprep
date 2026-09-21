@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { assertPinnedReceipt, candidateContentSha256 } from "../../scripts/ib-science-receipt-contract.mjs";
 import { BANK_CATALOG } from "@/lib/catalog";
 
@@ -70,6 +71,24 @@ describe("IB 2016–2019 science extension candidate", () => {
       expect(manifest.upload).toBe(false);
       expect(manifest.prefix).toBe(`${bank}/`);
       expect(manifest.assets.every((a: { sha256: string; byteSize: number; sourcePath: string }) => /^[a-f0-9]{64}$/.test(a.sha256) && a.byteSize > 0 && !a.sourcePath.includes(".."))).toBe(true);
+    }
+  });
+
+  it("records complete create-only R2 upload and full remote hash readback", () => {
+    const receipt = JSON.parse(fs.readFileSync(path.join(root, "docs/ib-science-storage/ib-science-r2-upload-receipt.json"), "utf8"));
+    expect(receipt.schemaVersion).toBe("ib-science-r2-upload-receipt.v1");
+    expect(receipt.status).toBe("verified-readback");
+    expect(receipt.mode).toBe("create-only");
+    expect(receipt.candidateContentSha256).toBe(candidateContentSha256(root));
+    expect(receipt.objects).toBe(12839);
+    expect(receipt.uploaded).toBe(12839);
+    expect(receipt.verified).toBe(12839);
+    expect(receipt.failures).toBe(0);
+    expect(Object.values(receipt.counts).reduce((sum: number, count) => sum + Number(count), 0)).toBe(12839);
+    for (const bank of Object.keys(expected)) {
+      const manifestPath = path.join(root, "docs/ib-science-storage", `${bank}.pending-upload-manifest.json`);
+      const manifestSha256 = createHash("sha256").update(fs.readFileSync(manifestPath)).digest("hex");
+      expect(receipt.manifestSha256[bank]).toBe(manifestSha256);
     }
   });
 

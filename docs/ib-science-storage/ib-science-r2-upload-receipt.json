@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "ib-science-r2-upload-receipt.v1",
+  "status": "verified-readback",
+  "provider": "cloudflare-r2",
+  "accountId": "92278648535014b5231edfe207b9391d",
+  "bucket": "pastpaperprep-assets",
+  "mode": "create-only",
+  "candidateContentSha256": "408ea52d90f74f82f59d2ca6a300684f3e5b3067e6afa1617671241720e26771",
+  "objects": 12839,
+  "preexisting": 0,
+  "uploaded": 12839,
+  "verified": 12839,
+  "failures": 0,
+  "counts": {
+    "ib-chemistry-hl": 2394,
+    "ib-chemistry-sl": 1793,
+    "ib-physics-hl": 2512,
+    "ib-physics-sl": 1708,
+    "ib-biology-hl": 2504,
+    "ib-biology-sl": 1928
+  },
+  "manifestSha256": {
+    "ib-chemistry-hl": "e270799d895d1c0df0ee82695a779cf809b37b7f60b47a88364ee31cd4b8e7ca",
+    "ib-chemistry-sl": "ccaf75558a3cf1bd0f9f0fc2bda2c4f97bacae5c3e37e1257580b93e713be924",
+    "ib-physics-hl": "dbc0689c381c75c9ee5f66b4aaa520554df35d8f5308734e03092a280acb0655",
+    "ib-physics-sl": "77b8962e81e2085ed34f39812faaa8fa4f3e00b78a8174d513d54b08d4ea3870",
+    "ib-biology-hl": "32514723b4a9dcd57b65c04b2d01ab11293bf30f5b2c6cf6099c0dde8d460345",
+    "ib-biology-sl": "633db3d993e705c1548dac9d09d78b2ff4e86d9042d11c0eb611337626241f6a"
+  },
+  "verification": {
+    "method": "full-remote-get-size-and-sha256",
+    "conditionalCreate": true,
+    "conflicts": 0
+  },
+  "verifiedAt": "2026-09-21T19:36:38.737Z"
+}
