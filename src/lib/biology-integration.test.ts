@@ -18,8 +18,8 @@ const EXPECTED = {
   "ib-biology-sl": { questions: 1548, papers: 87 },
 } as const;
 const RUNTIME_HASHES = {
-  "ib-biology-hl": "d6df286eac27e6a4211625b87a97148da8feef394b817af92f3ed1055160905d",
-  "ib-biology-sl": "3d8bfaed0f2f4db271ae47c7e0f60f3fa4d0b764a3d4191e10c282663b24591d",
+  "ib-biology-hl": "78a25f6ca1986da2c85c28d04751cae8b6bdd271af591477ee21837f8f313b6e",
+  "ib-biology-sl": "d13808b05ce9a2d7beb2b0a55768a8568e7eaeb28b6d256f468a62d457bbd8e3",
 } as const;
 const TAXONOMY_SHA256 = "f78676ee39598b5f5357ca610a928e2a12cedd3c6b1f6342fa893be8b26e03eb";
 
