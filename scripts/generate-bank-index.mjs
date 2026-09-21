@@ -8,7 +8,13 @@ import { fileURLToPath } from "node:url";
 const root = join(import.meta.dirname, "..");
 const outputDirectory = join(root, "public", "bank-index");
 const version = 1;
-const banks = ["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "ib-chemistry-hl", "ib-chemistry-sl", "ib-physics-hl", "ib-physics-sl", "ib-biology-hl", "ib-biology-sl"];
+const bankSources = [
+  ...["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "ib-chemistry-hl", "ib-chemistry-sl", "ib-physics-hl", "ib-physics-sl", "ib-biology-hl", "ib-biology-sl"]
+    .map((bank) => ({ bank, directory: "raw" })),
+  ...["ib-economics-hl", "ib-economics-sl", "igcse-biology-0610", "igcse-economics-0455", "igcse-chemistry-0620", "igcse-physics-0625", "igcse-coordinated-sciences-0654"]
+    .map((bank) => ({ bank, directory: "production" })),
+];
+const banks = bankSources.map(({ bank }) => bank);
 const forbiddenKeys = [
   "summary", "accessibleText", "searchText", "solution", "sourceQuestionUrl",
   "sourceMarkSchemeUrl", "questionImages", "markschemeImages", "questionAssetPaths",
@@ -23,25 +29,33 @@ function integer(value) {
   return typeof value === "number" ? value : Number.parseInt(String(value), 10) || 0;
 }
 
-export function metadataFromRaw(raw) {
+export function metadataFromRaw(raw, { normalizedProduction = false, localEconomics = false } = {}) {
   const officialMarkscheme = raw.officialMarkscheme && typeof raw.officialMarkscheme === "object"
     ? raw.officialMarkscheme
     : {};
   const controlledSkills = strings(raw.skills);
   const studentSubtopics = strings(raw.subtopics);
   const detailedSubtopics = strings(raw.detailedSubtopics);
-  const subtopics = [...new Set(studentSubtopics.length ? studentSubtopics : controlledSkills)];
+  const subtopics = [...new Set(
+    studentSubtopics.length
+      ? studentSubtopics
+      : localEconomics
+        ? detailedSubtopics
+        : controlledSkills,
+  )];
   const skillSeed = controlledSkills.length
     ? controlledSkills
     : detailedSubtopics.length
       ? detailedSubtopics
       : subtopics;
-  const skills = [...new Set([
-    ...skillSeed,
-    ...controlledSkills,
-    ...detailedSubtopics,
-    ...subtopics,
-  ])];
+  const skills = localEconomics
+    ? [...new Set(controlledSkills)]
+    : [...new Set([
+      ...skillSeed,
+      ...controlledSkills,
+      ...detailedSubtopics,
+      ...subtopics,
+    ])];
 
   const metadata = {
     id: typeof raw.id === "string" ? raw.id : "",
@@ -60,7 +74,9 @@ export function metadataFromRaw(raw) {
     calculator: typeof raw.calculator === "boolean" ? raw.calculator : null,
     marks: typeof raw.marks === "number" ? raw.marks : null,
     questionImageCount: strings(raw.questionImages).length,
-    markschemeImageCount: strings(raw.markschemeImages).length + strings(officialMarkscheme.images).length,
+    markschemeImageCount: normalizedProduction
+      ? (strings(officialMarkscheme.images).length || strings(raw.markschemeImages).length)
+      : strings(raw.markschemeImages).length + strings(officialMarkscheme.images).length,
   };
   return metadata;
 }
@@ -106,10 +122,13 @@ export async function generateBankIndexes() {
     .map((file) => unlink(join(outputDirectory, file))));
 
   const manifest = {};
-  for (const bank of banks) {
-    const rawBank = JSON.parse(await readFile(join(root, "src", "data", "raw", `${bank}.json`), "utf8"));
+  for (const { bank, directory } of bankSources) {
+    const rawBank = JSON.parse(await readFile(join(root, "src", "data", directory, `${bank}.json`), "utf8"));
     const rawQuestions = rawBank.questions;
-    const questions = rawQuestions.map(metadataFromRaw).sort(sortQuestions);
+    const questions = rawQuestions.map((raw) => metadataFromRaw(raw, {
+      normalizedProduction: directory === "production",
+      localEconomics: bank === "ib-economics-hl" || bank === "ib-economics-sl",
+    })).sort(sortQuestions);
     const payload = { version, bank, questions };
     const serialized = `${JSON.stringify(payload)}\n`;
     assertSafe(serialized, rawQuestions);

@@ -117,8 +117,9 @@ export function mergeQuestionRichDetails(
 }
 
 export function publicBankIndexUrl(bank: BankSlug): string {
-  if (isLocalEconomicsBank(bank) || isIGCSEReleaseBank(bank)) throw new Error("Private banks do not have public index files");
-  return `/bank-index/${PUBLIC_BANK_INDEX_FILES[bank]}`;
+  const filename = (PUBLIC_BANK_INDEX_FILES as Partial<Record<BankSlug, string>>)[bank];
+  if (!filename) throw new Error(`No public index file exists for ${bank}`);
+  return `/bank-index/${filename}`;
 }
 
 export function localPreviewBankIndexUrl(bank: BankSlug): string {

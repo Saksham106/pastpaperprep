@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { QuestionExplorer } from "@/components/QuestionExplorer";
@@ -26,6 +26,8 @@ describe("QuestionExplorer", () => {
       }), { status: 200, headers: { "content-type": "application/json" } });
     }));
   });
+
+  afterEach(() => vi.unstubAllGlobals());
 
   const fullAccess = { authenticated: true, bankAccess: true, canExportPdf: true };
 
@@ -416,10 +418,16 @@ describe("QuestionExplorer", () => {
     await waitFor(() => expect(fetch).toHaveBeenCalled());
   });
 
-  it("renders the server page immediately, then expands to the deferred metadata index", async () => {
+  it("renders the server page immediately and waits for browser idle time before loading the full metadata index", async () => {
     const all = loadBankQuestions("ib-sl");
     const initial = prepareQuestionsForDelivery(all.slice(0, 1), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
     const index = { version: 1, bank: "ib-sl", questions: all.slice(0, 2).map(toPublicQuestionMetadata) };
+    let idleCallback: IdleRequestCallback | undefined;
+    vi.stubGlobal("requestIdleCallback", vi.fn((callback: IdleRequestCallback) => {
+      idleCallback = callback;
+      return 1;
+    }));
+    vi.stubGlobal("cancelIdleCallback", vi.fn());
     vi.stubGlobal("fetch", vi.fn(async (input, init) => {
       if (!init?.body) return new Response(JSON.stringify(index), { status: 200 });
       const body = JSON.parse(String(init.body));
@@ -428,9 +436,48 @@ describe("QuestionExplorer", () => {
 
     render(<QuestionExplorer questions={initial} bankSlug="ib-sl" indexUrl="/bank-index/ib-sl.v1-test.json" access={fullAccess} />);
     expect(screen.getByText("1 question")).toBeInTheDocument();
+    expect(fetch).not.toHaveBeenCalledWith("/bank-index/ib-sl.v1-test.json", expect.anything());
+    expect(idleCallback).toBeTypeOf("function");
+
+    idleCallback!({ didTimeout: false, timeRemaining: () => 20 });
     await waitFor(() => expect(screen.getByText("2 questions")).toBeInTheDocument());
     fireEvent.click(screen.getByRole("button", { name: /more filters/i }));
     expect(screen.getByRole("checkbox", { name: /years:/i })).toBeInTheDocument();
+  });
+
+  it("does not request the same question signature twice while the first request is still in flight", async () => {
+    const all = loadBankQuestions("ib-sl");
+    const initial = prepareQuestionsForDelivery(all.slice(0, 1), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const index = { version: 1, bank: "ib-sl", questions: all.slice(0, 2).map(toPublicQuestionMetadata) };
+    let idleCallback: IdleRequestCallback | undefined;
+    const pendingSignatures: Array<{ body: { requests: Array<{ questionId: string; kind: string }> }; resolve: (response: Response) => void }> = [];
+    vi.stubGlobal("requestIdleCallback", vi.fn((callback: IdleRequestCallback) => {
+      idleCallback = callback;
+      return 1;
+    }));
+    vi.stubGlobal("cancelIdleCallback", vi.fn());
+    vi.stubGlobal("fetch", vi.fn((input, init) => {
+      if (!init?.body) return Promise.resolve(new Response(JSON.stringify(index), { status: 200 }));
+      const body = JSON.parse(String(init.body));
+      return new Promise<Response>((resolve) => pendingSignatures.push({ body, resolve }));
+    }));
+
+    render(<QuestionExplorer questions={initial} bankSlug="ib-sl" indexUrl="/bank-index/ib-sl.v1-test.json" access={fullAccess} />);
+    await waitFor(() => expect(pendingSignatures).toHaveLength(1));
+    idleCallback!({ didTimeout: false, timeRemaining: () => 20 });
+    await waitFor(() => expect(screen.getByText("2 questions")).toBeInTheDocument());
+
+    const firstQuestionId = initial[0].id;
+    const duplicateRequests = pendingSignatures.flatMap(({ body }) => body.requests)
+      .filter((request) => request.questionId === firstQuestionId && request.kind === "question");
+    expect(duplicateRequests).toHaveLength(1);
+
+    for (const pending of pendingSignatures) {
+      pending.resolve(new Response(JSON.stringify({
+        expiresIn: 600,
+        assets: pending.body.requests.map((request) => ({ ...request, urls: [`https://assets.example/${request.questionId}.webp`] })),
+      }), { status: 200 }));
+    }
   });
 
   it("keeps the first page usable and offers retry when the metadata index fails", async () => {

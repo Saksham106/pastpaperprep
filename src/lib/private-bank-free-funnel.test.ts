@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const { createClient, getClaims, from, rpc, createAdminClient, createSignedUrls } = vi.hoisted(() => ({
@@ -17,6 +19,7 @@ import { GET as privateBankIndexGET } from "@/app/api/private-bank-index/[bank]/
 import { POST as assetsSignPOST } from "@/app/api/assets/sign/route";
 import { bankEntryHref, countFreeQuestions, hasFreeTier, isPreviewQuestion, questionYear } from "@/lib/access";
 import { getAvailableBanks, isPrivateBankIndexEnabled } from "@/lib/banks";
+import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
 import { createPublicBankIndex, publicBankIndexUrl } from "@/lib/question-index";
 import { loadBankQuestions } from "@/lib/question-loader";
 import coordinatedRuntime from "@/data/production/igcse-coordinated-sciences-0654.json";
@@ -156,6 +159,21 @@ describe("private-bank free funnel", () => {
     expect(serialized).not.toContain(".webp");
   });
 
+  it("emits immutable static indexes that exactly match all production runtime projections", async () => {
+    const slugs = [
+      "ib-economics-hl", "ib-economics-sl", "igcse-biology-0610", "igcse-economics-0455",
+      "igcse-chemistry-0620", "igcse-physics-0625", "igcse-coordinated-sciences-0654",
+    ] as const;
+
+    for (const slug of slugs) {
+      const filename = PUBLIC_BANK_INDEX_FILES[slug];
+      const payload = JSON.parse(readFileSync(join(process.cwd(), "public", "bank-index", filename), "utf8"));
+      expect(payload).toEqual(createPublicBankIndex(slug, await loadBankQuestions(slug)));
+      const serialized = JSON.stringify(payload);
+      for (const key of PROTECTED_INDEX_KEYS) expect(serialized).not.toContain(`"${key}"`);
+    }
+  });
+
   it("404s the private index for a bank whose release gate is off and only serves private banks", async () => {
     vi.stubEnv("PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS", "false");
     const gated = await privateBankIndexGET(new Request("https://pastpaperprep.com/api/private-bank-index/igcse-physics-0625"), {
@@ -170,6 +188,8 @@ describe("private-bank free funnel", () => {
     expect(isPrivateBankIndexEnabled("igcse")).toBe(false);
     expect(isPrivateBankIndexEnabled("igcse-physics-0625")).toBe(true);
     expect(publicBankIndexUrl("igcse")).toMatch(/^\/bank-index\//);
+    expect(publicBankIndexUrl("igcse-physics-0625")).toMatch(/^\/bank-index\/igcse-physics-0625\.v1-/);
+    expect(publicBankIndexUrl("ib-economics-hl")).toMatch(/^\/bank-index\/ib-economics-hl\.v1-/);
   });
 
   it("signs a preview question's asset from the private bank's R2 provider, not Supabase", async () => {

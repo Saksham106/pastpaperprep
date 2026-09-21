@@ -7,9 +7,9 @@ export const ALTERNATIVES_COMPARISONS = [
     title: "Best Save My Exams Alternatives for Topical Past Papers",
     description: "Compare legitimate Save My Exams alternatives for topical past papers, including PMT, MathsGenie, Cognito, and PastPaperPrep.",
     eyebrow: "Topical past-paper resources",
-    answer: "The best Save My Exams alternative depends on what you mean by topical practice. PMT is the strongest free starting point for downloadable papers, mark schemes, notes, and topic questions across UK exam boards. MathsGenie is a practical free choice for GCSE and A-level maths, while Cognito is useful for free GCSE science and maths lessons alongside exam questions. PastPaperPrep is the paid, focused option when you want granular filtering and custom printable sets from real questions across 19 live Cambridge IGCSE and IB Maths and science banks. Save My Exams remains the broader paid revision membership, especially if you want notes, model answers, videos, and many subjects in one account.",
+    answer: "The best Save My Exams alternative depends on what you mean by topical practice. PMT is the strongest free starting point for downloadable papers, mark schemes, notes, and topic questions across UK exam boards. MathsGenie is a practical free choice for GCSE and A-level maths, while Cognito is useful for free GCSE science and maths lessons alongside exam questions. PastPaperPrep is the paid, focused option when you want granular filtering and custom printable sets from real questions across 19 live Cambridge IGCSE and IB banks spanning Maths, Biology, Chemistry, Physics, Co-ordinated Sciences and Economics. Save My Exams remains the broader paid revision membership, especially if you want notes, model answers, videos, and many subjects in one account.",
     publishedAt: "2026-09-15",
-    updatedAt: "2026-09-15",
+    updatedAt: "2026-09-21",
     readingMinutes: 8,
     comparison: {
       caption: "Save My Exams alternatives at a glance",
@@ -18,7 +18,7 @@ export const ALTERNATIVES_COMPARISONS = [
         { label: "Free downloadable papers and mark schemes", pastPaperPrep: "PMT", competitor: "Large board and subject index; you organise the files yourself" },
         { label: "Free maths topic practice", pastPaperPrep: "MathsGenie", competitor: "Strong GCSE and A-level maths workflow; narrower subject scope" },
         { label: "Free GCSE science explanations", pastPaperPrep: "Cognito", competitor: "Videos, quizzes, and exam questions; not a full replacement for every course" },
-        { label: "Granular real-question filtering and printable sets", pastPaperPrep: "PastPaperPrep", competitor: "Paid access; currently 19 live Cambridge IGCSE and IB banks" },
+        { label: "Granular real-question filtering and printable sets", pastPaperPrep: "PastPaperPrep", competitor: "Paid access; currently 19 live Cambridge IGCSE and IB banks spanning Maths, Biology, Chemistry, Physics, Co-ordinated Sciences and Economics" },
         { label: "Broad notes, model answers, and revision tools", pastPaperPrep: "Save My Exams", competitor: "Premium unlocks the broadest in-site feature set; not the cheapest topical-only route" },
       ],
     },
@@ -98,7 +98,7 @@ export const ALTERNATIVES_COMPARISONS = [
     eyebrow: "Practice platform comparison",
     answer: "PMT is the better choice if you want excellent free downloadable papers, mark schemes, notes, worksheets, and topic resources and do not mind assembling the practice yourself. PastPaperPrep is the better choice if you want to filter supported IGCSE and IB banks by topic and paper details, select real questions quickly, and produce custom printable sets. PMT wins on free breadth. PastPaperPrep charges for the organisation and time saved. They are complementary rather than interchangeable.",
     publishedAt: "2026-09-15",
-    updatedAt: "2026-09-15",
+    updatedAt: "2026-09-21",
     readingMinutes: 7,
     comparison: {
       caption: "PastPaperPrep and PMT at a glance",
@@ -106,7 +106,7 @@ export const ALTERNATIVES_COMPARISONS = [
       rows: [
         { label: "Price model", pastPaperPrep: "Paid plans for bank access; older complete years free", competitor: "Free website and downloadable resources" },
         { label: "Core workflow", pastPaperPrep: "Filter curated real questions and build printable sets", competitor: "Browse organised pages and download PDFs" },
-        { label: "Best supported scope", pastPaperPrep: "19 live Cambridge IGCSE and IB Maths and science banks", competitor: "Broad UK and international board/resource index" },
+        { label: "Best supported scope", pastPaperPrep: "19 live Cambridge IGCSE and IB banks spanning Maths, Biology, Chemistry, Physics, Co-ordinated Sciences and Economics", competitor: "Broad UK and international board/resource index" },
         { label: "Best for", pastPaperPrep: "A precise weak-topic set without manual PDF assembly", competitor: "A full paper, mark scheme, worksheet, or free topic resource" },
         { label: "Main limitation", pastPaperPrep: "Paid and limited to listed banks", competitor: "You do more of the searching, choosing, and printing" },
       ],
@@ -130,7 +130,7 @@ export const ALTERNATIVES_COMPARISONS = [
       {
         heading: "Where PastPaperPrep earns its price",
         paragraphs: [
-          "PastPaperPrep currently covers 19 live banks: Cambridge IGCSE Mathematics, Additional Mathematics, Biology, Chemistry, Physics, Co-ordinated Sciences and Economics, plus IB Mathematics, Chemistry, Physics and Biology at HL and SL. Its proposition is narrower than PMT’s overall resource catalogue, but deeper for the supported banks: questions can be narrowed by course, topic, year, paper, marks, and other available metadata, then selected into a printable set.",
+          "PastPaperPrep currently covers 19 live banks: Cambridge IGCSE Mathematics, Additional Mathematics, Biology, Chemistry, Physics, Co-ordinated Sciences and Economics, plus IB Mathematics, Chemistry, Physics, Biology and Economics at HL and SL. Its proposition is narrower than PMT’s overall resource catalogue, but deeper for the supported banks: questions can be narrowed by course, topic, year, paper, marks, and other available metadata, then selected into a printable set.",
           "That matters when a full paper gives you a diagnosis but not enough repetition. You can practise the same weak skill across several real questions, review the mark scheme or answer, and later remove the topic label in a mixed set. The value is speed and consistency. A learner who only needs two papers a month may not recover the subscription cost in saved time; a tutor or busy student assembling repeated targeted sets may.",
           "PastPaperPrep does not turn practice into teaching automatically. It cannot replace learning the method, reading examiner feedback, or checking whether a source matches your course. It simply makes the selection stage more deliberate.",
         ],

@@ -46,8 +46,8 @@ describe("article library", () => {
       ["best-ib-physics-question-banks", "2026-09-15", "2026-09-15", false],
       ["best-ib-biology-question-banks", "2026-09-15", "2026-09-15", false],
       ["improve-ib-grades-past-paper-practice", "2026-09-15", "2026-09-15", false],
-      ["best-save-my-exams-alternatives-topical-past-papers", "2026-09-15", "2026-09-15", false],
-      ["pastpaperprep-vs-physics-and-maths-tutor", "2026-09-15", "2026-09-15", false],
+      ["best-save-my-exams-alternatives-topical-past-papers", "2026-09-15", "2026-09-21", false],
+      ["pastpaperprep-vs-physics-and-maths-tutor", "2026-09-15", "2026-09-21", false],
       ["real-past-papers-vs-exam-style-questions", "2026-09-30", "2026-09-12", true],
       ["physics-and-maths-tutor-vs-save-my-exams", "2026-09-15", "2026-09-15", false],
       ["revision-village-vs-save-my-exams", "2026-09-15", "2026-09-15", false],
@@ -60,7 +60,7 @@ describe("article library", () => {
       ["best-igcse-physics-0625-question-banks", "2026-09-15", "2026-09-15", false],
       ["best-igcse-biology-0610-question-banks", "2026-09-15", "2026-09-15", false],
       ["best-igcse-coordinated-sciences-0654-question-banks", "2026-09-15", "2026-09-15", false],
-      ["best-igcse-economics-0455-question-banks", "2026-09-15", "2026-09-15", false],
+      ["best-igcse-economics-0455-question-banks", "2026-09-15", "2026-09-21", false],
     ] as const;
 
     expect(ALL_ARTICLES).toHaveLength(31);
@@ -120,7 +120,7 @@ describe("article library", () => {
       ["best-igcse-physics-0625-question-banks", "/banks/igcse-physics-0625", "3,820"],
       ["best-igcse-biology-0610-question-banks", "/banks/igcse-biology-0610", "3,441"],
       ["best-igcse-coordinated-sciences-0654-question-banks", "/banks/igcse-coordinated-sciences-0654", "4,030"],
-      ["best-igcse-economics-0455-question-banks", "/banks/igcse-economics-0455", "1,189"],
+      ["best-igcse-economics-0455-question-banks", "/banks/igcse-economics-0455", "1,723"],
     ] as const;
 
     for (const [slug, route, questionCount] of liveBankGuides) {
