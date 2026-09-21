@@ -21,17 +21,17 @@ describe("IB Chemistry HL/SL integration", () => {
       expect(raw.specimenQuestionsIncluded).toBe(false);
       expect(raw.questions.every((question) => question.sourceUrl === question.pdfUrl)).toBe(true);
       expect(raw.questions.every((question) => question.sourceUrl.startsWith("https://ibdocs.re/"))).toBe(true);
-      expect(raw.questions.every((question) => question.classificationVersion === "ib-chemistry-reviewed-2026.09.1")).toBe(true);
+      expect(raw.questions.every((question) => question.classificationVersion === "ib-chemistry-reviewed-2026.09.1" || question.classificationVersion === "ib-chemistry-extension-2016-2019")).toBe(true);
       expect(raw.questions.every((question) => question.classificationReviewStatus === "classified")).toBe(true);
-      expect(raw.questions.every((question) => question.classificationEvidence.finalManifestSha256 === REVIEW_MANIFEST_SHA256)).toBe(true);
-      expect(raw.questions.every((question) => ["neutral_reconciliation", "semantic_qa", "independent_exact_agreement"].includes(question.classificationEvidence.method))).toBe(true);
+      expect(raw.questions.every((question) => question.classificationEvidence.finalManifestSha256 === REVIEW_MANIFEST_SHA256 || question.classificationEvidence.sourceCommit === "85cae43c22852460af47699c94cca16d86380755")).toBe(true);
+      expect(raw.questions.every((question) => ["neutral_reconciliation", "semantic_qa", "independent_exact_agreement", "sealed_source_reconciliation"].includes(question.classificationEvidence.method))).toBe(true);
       expect(raw.questions.every((question) => question.classificationEvidence.summary.length > 0)).toBe(true);
     }
-    expect(loadBankQuestions("ib-chemistry-hl")).toHaveLength(1083);
-    expect(loadBankQuestions("ib-chemistry-sl")).toHaveLength(810);
+    expect(loadBankQuestions("ib-chemistry-hl")).toHaveLength(1872);
+    expect(loadBankQuestions("ib-chemistry-sl")).toHaveLength(1412);
     for (const bank of CHEMISTRY_BANKS) {
       const questions = loadBankQuestions(bank);
-      expect(new Set(questions.map((question) => question.year))).toEqual(new Set([2020, 2021, 2022, 2023, 2024, 2025]));
+      expect(new Set(questions.map((question) => question.year))).toEqual(new Set([2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]));
       expect(questions.every((question) => question.courseEra === "")).toBe(true);
       expect(questions.every((question) => question.subject === "Chemistry")).toBe(true);
     }

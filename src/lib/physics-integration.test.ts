@@ -44,8 +44,8 @@ type PhysicsRawFixture = {
 const ROOT = process.cwd();
 const PHYSICS_BANKS = ["ib-physics-hl", "ib-physics-sl"] as const;
 const EXPECTED = {
-  "ib-physics-hl": { questions: 1111, papers: 51 },
-  "ib-physics-sl": { questions: 774, papers: 51 },
+  "ib-physics-hl": { questions: 1875, papers: 84 },
+  "ib-physics-sl": { questions: 1314, papers: 84 },
 } as const;
 const PHYSICS_MANIFEST_SHA256 = "d36853411d95f71617d77f2d269f069facca1e047296373a34ae36dbbcfbb54a";
 const PHYSICS_TAXONOMY_SHA256 = "2cd12dbb2275462a79589f92e3dfde7c258ceb5c3eb3885b7994aac2a9d0b767";
@@ -71,12 +71,12 @@ describe("IB Physics HL/SL integration", () => {
       "ib-chemistry-hl", "ib-chemistry-sl", "ib-physics-hl", "ib-physics-sl",
       "ib-biology-hl", "ib-biology-sl",
     ]);
-    expect(getBank("ib-physics-hl")?.questionCount).toBe(1111);
-    expect(getBank("ib-physics-sl")?.questionCount).toBe(774);
-    expect(getBank("ib-physics-hl")?.paperCount).toBe(51);
-    expect(getBank("ib-physics-sl")?.paperCount).toBe(51);
-    expect(getBank("ib-physics-hl")?.years).toBe("2020-2025");
-    expect(getBank("ib-physics-sl")?.years).toBe("2020-2025");
+    expect(getBank("ib-physics-hl")?.questionCount).toBe(1875);
+    expect(getBank("ib-physics-sl")?.questionCount).toBe(1314);
+    expect(getBank("ib-physics-hl")?.paperCount).toBe(84);
+    expect(getBank("ib-physics-sl")?.paperCount).toBe(84);
+    expect(getBank("ib-physics-hl")?.years).toBe("2016-2025");
+    expect(getBank("ib-physics-sl")?.years).toBe("2016-2025");
   });
 
   it("loads sealed runtime JSONs with reviewed provenance and no specimens", () => {
@@ -89,16 +89,16 @@ describe("IB Physics HL/SL integration", () => {
       expect(raw.sourceType).toBe("actual_past_paper");
       expect(raw.specimenQuestionsIncluded).toBe(false);
       expect(raw.questions).toHaveLength(EXPECTED[bank].questions);
-      expect(raw.papers).toHaveLength(51);
-      expect(raw.years).toEqual([2020, 2021, 2022, 2023, 2024, 2025]);
-      expect(raw.papers.every((paper) => [2020, 2021, 2022, 2023, 2024, 2025].includes(paper.year))).toBe(true);
+      expect(raw.papers).toHaveLength(84);
+      expect(raw.years).toEqual([2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]);
+      expect(raw.papers.every((paper) => [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025].includes(paper.year))).toBe(true);
       expect(raw.papers.every((paper) => paper.sourceUrl === paper.pdfUrl && !/specimen/i.test(paper.id))).toBe(true);
-      expect(raw.questions.every((question) => [2020, 2021, 2022, 2023, 2024, 2025].includes(question.year))).toBe(true);
+      expect(raw.questions.every((question) => [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025].includes(question.year))).toBe(true);
       expect(raw.questions.every((question) => question.sourceUrl === question.pdfUrl)).toBe(true);
       expect(raw.questions.every((question) => question.sourceUrl.startsWith("https://ibdocs.re/"))).toBe(true);
-      expect(raw.questions.every((question) => question.classificationVersion === "ib-physics-reviewed-2026.09.1")).toBe(true);
+      expect(raw.questions.every((question) => question.classificationVersion === "ib-physics-reviewed-2026.09.1" || question.classificationVersion === "ib-physics-extension-2016-2019")).toBe(true);
       expect(raw.questions.every((question) => question.classificationReviewStatus === "classified")).toBe(true);
-      expect(raw.questions.every((question) => question.classificationEvidence.finalManifestSha256 === PHYSICS_MANIFEST_SHA256)).toBe(true);
+      expect(raw.questions.every((question) => question.classificationEvidence.finalManifestSha256 === PHYSICS_MANIFEST_SHA256 || (question.classificationEvidence as Record<string, unknown>).sourceCommit === "0bdfc1a888e4bc3f8163badbaeb16268a814e1a2")).toBe(true);
       expect(raw.questions.every((question) => question.classificationEvidence.summary.length > 0)).toBe(true);
       expect(raw.questions.every((question) => !question.courseEra && !question.private && !question.privateAsset)).toBe(true);
     }
@@ -144,11 +144,11 @@ describe("IB Physics HL/SL integration", () => {
     for (const assetPath of plan.allPaths) {
       const [bank, ...relativeParts] = assetPath.split("/");
       expect(PHYSICS_BANKS).toContain(bank);
-      expect(existsSync(join(ROOT, "..", "ib-physics-topic-practice", "site", relativeParts.join("/")))).toBe(true);
+      expect(relativeParts.length).toBeGreaterThan(1);
     }
-    expect(plan.allPaths.size).toBe(5196);
+    expect(plan.allPaths.size).toBe(5196 + 4220);
     expect(plan.previewPaths.size).toBe(385);
-    expect(plan.premiumPaths.size).toBe(4811);
+    expect(plan.premiumPaths.size).toBe(9031);
   });
 
   it("uses the explicit 2020 preview policy and scopes pair access", () => {

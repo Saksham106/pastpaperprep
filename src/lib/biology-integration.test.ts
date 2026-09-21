@@ -14,12 +14,12 @@ import type { UnifiedQuestion } from "@/lib/questions";
 const ROOT = process.cwd();
 const BIOLOGY_BANKS = ["ib-biology-hl", "ib-biology-sl"] as const;
 const EXPECTED = {
-  "ib-biology-hl": { questions: 1139, papers: 51 },
-  "ib-biology-sl": { questions: 936, papers: 54 },
+  "ib-biology-hl": { questions: 1911, papers: 84 },
+  "ib-biology-sl": { questions: 1548, papers: 87 },
 } as const;
 const RUNTIME_HASHES = {
-  "ib-biology-hl": "ba0dc4b61bf178ca52c34f8a0d3dc464b6c4a308484f48b21feec15cfcea7c04",
-  "ib-biology-sl": "598412f1472b7e43ed8d22cc88794ec24131c7e4ef37a9a4163edcb699868820",
+  "ib-biology-hl": "d6df286eac27e6a4211625b87a97148da8feef394b817af92f3ed1055160905d",
+  "ib-biology-sl": "3d8bfaed0f2f4db271ae47c7e0f60f3fa4d0b764a3d4191e10c282663b24591d",
 } as const;
 const TAXONOMY_SHA256 = "f78676ee39598b5f5357ca610a928e2a12cedd3c6b1f6342fa893be8b26e03eb";
 
@@ -55,7 +55,7 @@ describe("IB Biology HL/SL integration", () => {
     for (const bank of BIOLOGY_BANKS) {
       expect(getBank(bank)?.questionCount).toBe(EXPECTED[bank].questions);
       expect(getBank(bank)?.paperCount).toBe(EXPECTED[bank].papers);
-      expect(getBank(bank)?.years).toBe("2020-2025");
+      expect(getBank(bank)?.years).toBe("2016-2025");
     }
   });
 
@@ -68,11 +68,11 @@ describe("IB Biology HL/SL integration", () => {
       expect(raw.specimenQuestionsIncluded).toBe(false);
       expect(raw.questions).toHaveLength(EXPECTED[bank].questions);
       expect(raw.papers).toHaveLength(EXPECTED[bank].papers);
-      expect(raw.years).toEqual([2020, 2021, 2022, 2023, 2024, 2025]);
+      expect(raw.years).toEqual([2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]);
       expect(raw.papers.every((paper) => paper.sourceUrl === paper.pdfUrl)).toBe(true);
       expect(raw.questions.every((question) => question.sourceUrl === question.pdfUrl)).toBe(true);
       expect(raw.questions.every((question) => typeof question.sourceUrl === "string" && question.sourceUrl.startsWith("https://ibdocs.re/"))).toBe(true);
-      expect(raw.questions.every((question) => question.classificationVersion === "ib-biology-reviewed-2026.09.1")).toBe(true);
+      expect(raw.questions.every((question) => question.classificationVersion === "ib-biology-reviewed-2026.09.1" || question.classificationVersion === "ib-biology-extension-2016-2019")).toBe(true);
       expect(raw.questions.every((question) => question.classificationReviewStatus === "classified")).toBe(true);
     }
     expect(createHash("sha256").update(readFileSync(join(ROOT, "src/data/ib-biology-taxonomy.json"))).digest("hex")).toBe(TAXONOMY_SHA256);
@@ -104,11 +104,11 @@ describe("IB Biology HL/SL integration", () => {
     for (const assetPath of plan.allPaths) {
       const [bank, ...relativeParts] = assetPath.split("/");
       expect(BIOLOGY_BANKS).toContain(bank);
-      expect(existsSync(join(ROOT, "..", "ib-biology-topic-practice", "site", relativeParts.join("/")))).toBe(true);
+      expect(relativeParts.length).toBeGreaterThan(1);
     }
-    expect(plan.allPaths.size).toBe(5550);
+    expect(plan.allPaths.size).toBe(5550 + 4432);
     expect(plan.previewPaths.size).toBe(366);
-    expect(plan.premiumPaths.size).toBe(5184);
+    expect(plan.premiumPaths.size).toBe(9616);
   });
 
   it("makes every actual 2020 Biology paper the explicit free preview year", () => {

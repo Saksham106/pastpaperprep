@@ -6,10 +6,10 @@ export const PUBLIC_BANK_INDEX_FILES = {
   "ib-sl": "ib-sl.v1-5d2101fe71df.json",
   "ib-ai-hl": "ib-ai-hl.v1-7ea13753a09e.json",
   "ib-ai-sl": "ib-ai-sl.v1-89a5f3b6b9e3.json",
-  "ib-chemistry-hl": "ib-chemistry-hl.v1-1cd89edee27a.json",
-  "ib-chemistry-sl": "ib-chemistry-sl.v1-6992cb3473d1.json",
-  "ib-physics-hl": "ib-physics-hl.v1-05471c124342.json",
-  "ib-physics-sl": "ib-physics-sl.v1-caae3530bde8.json",
-  "ib-biology-hl": "ib-biology-hl.v1-76156ab798c7.json",
-  "ib-biology-sl": "ib-biology-sl.v1-131aa4117f94.json"
+  "ib-chemistry-hl": "ib-chemistry-hl.v1-a3c08554c284.json",
+  "ib-chemistry-sl": "ib-chemistry-sl.v1-9f8b5a058f87.json",
+  "ib-physics-hl": "ib-physics-hl.v1-34c83084e944.json",
+  "ib-physics-sl": "ib-physics-sl.v1-d60cf4ec39d7.json",
+  "ib-biology-hl": "ib-biology-hl.v1-c6a0f3ffd2aa.json",
+  "ib-biology-sl": "ib-biology-sl.v1-3e7eaae60ad2.json"
 } as const;
