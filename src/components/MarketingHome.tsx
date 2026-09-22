@@ -1,11 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Check, DownloadSimple, FunnelSimple, PencilSimpleLine } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, CaretDown, Check, DownloadSimple, FunnelSimple, PencilSimpleLine } from "@phosphor-icons/react/dist/ssr";
 import type { Bank } from "@/lib/banks";
 import { getCatalogRuntimeBanks } from "@/lib/catalog";
 import { CourseIcon, type CourseTone } from "@/components/CourseIcon";
 import { QualificationTabs } from "@/components/QualificationTabs";
 import { bankEntryHref, hasFreeTier } from "@/lib/access";
+import { FAQS } from "@/components/FaqContent";
 import styles from "./MarketingHome.module.css";
 
 type SubjectGroup = { name: string; tone: CourseTone; banks: Bank[] };
@@ -17,6 +18,7 @@ const SUBJECTS: readonly { name: string; tone: CourseTone; matches: (bank: Bank)
   { name: "Economics", tone: "economics", matches: (bank) => bank.subject.includes("Economics") },
   { name: "Co-ordinated Sciences", tone: "coordinated", matches: (bank) => bank.subject.includes("Co-ordinated") },
 ];
+const HOME_FAQS = [FAQS[1], FAQS[2], FAQS[3], FAQS[5]];
 function groupSubjects(banks: readonly Bank[]): SubjectGroup[] { return SUBJECTS.map((s) => ({ name: s.name, tone: s.tone, banks: banks.filter(s.matches) })).filter((s) => s.banks.length > 0); }
 function CatalogPanel({ banks }: { banks: readonly Bank[] }) {
   const groups = groupSubjects(banks);
@@ -48,6 +50,21 @@ export function MarketingHome({ environment = process.env }: { environment?: Rec
     <section className={`shell ${styles.banks}`} id="question-banks" aria-labelledby="question-banks-heading"><header className={styles.sectionHeader}><p className={styles.sectionKicker}>The collection</p><h2 id="question-banks-heading">Choose where to begin.</h2><p>Qualification first. Subject second. Then a bank of real questions, ready to work through.</p></header><QualificationTabs items={[...(cambridgeBanks.length > 0 ? [{ id: "cambridge-catalog", label: "Cambridge IGCSE", panel: <CatalogPanel banks={cambridgeBanks} /> }] : []), ...(ibBanks.length > 0 ? [{ id: "ib-catalog", label: "IB Diploma", panel: <CatalogPanel banks={ibBanks} /> }] : [])]} /></section>
 
     <section className={styles.workflow} id="workflow" aria-labelledby="workflow-heading"><div className={`shell ${styles.workflowGrid}`}><div className={styles.workflowIntro}><p className={styles.sectionKicker}>A better revision loop</p><h2 id="workflow-heading">From topic to finished practice set.</h2><p>Stay close to the syllabus and the source paper. Nothing invented, nothing extra.</p></div><ol className={styles.workflowList}><li><FunnelSimple aria-hidden="true" /><div><strong>Select a topic</strong><span>Start with the syllabus point you need to strengthen.</span></div></li><li><PencilSimpleLine aria-hidden="true" /><div><strong>Solve real questions</strong><span>Work through exam questions chosen for that exact topic.</span></div></li><li><DownloadSimple aria-hidden="true" /><div><strong>Keep the mark scheme close</strong><span>Download the questions and mark scheme together as a clean PDF.</span></div></li></ol></div></section>
+    <section className={`shell ${styles.faqPreview}`} aria-labelledby="home-faq-heading">
+      <header className={styles.faqIntro}>
+        <p className={styles.sectionKicker}>Good to know</p>
+        <h2 id="home-faq-heading">Questions before you start?</h2>
+        <p>Quick answers about access, courses, PDFs, and billing.</p>
+        <Link className={styles.faqAllLink} href="/faq">View all FAQs <ArrowRight weight="bold" /></Link>
+      </header>
+      <div className={styles.faqQuestions}>
+        {HOME_FAQS.map((faq) => <details data-home-faq key={faq.question}>
+          <summary>{faq.question}<CaretDown aria-hidden="true" weight="bold" /></summary>
+          <p>{faq.answer}</p>
+        </details>)}
+        <p className={styles.faqContact}>Still need help? <a href="mailto:hello@pastpaperprep.com">hello@pastpaperprep.com</a></p>
+      </div>
+    </section>
     <section className={`shell ${styles.cta}`} aria-labelledby="cta-heading"><div><p className={styles.sectionKicker}>Begin with one topic</p><h2 id="cta-heading">Make revision specific.</h2></div><div className={styles.ctaActions}><Link className="button primary" href="#question-banks">Choose your course <ArrowRight weight="bold" /></Link><span className={styles.ctaNote}><Check weight="bold" /> Free years on every bank</span></div><Image className={styles.ctaArtwork} src="/artwork/flegel-study.webp" alt="Botanical study from the Flegel collection" width={1280} height={771} sizes="(max-width: 620px) 280px, (max-width: 900px) 38vw, 540px" /></section>
   </div>;
 }
