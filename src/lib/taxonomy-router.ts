@@ -141,6 +141,20 @@ export function getSubtopicGroups(
   selectedSubtopics: string[],
 ): { all: string[]; relevant: string[]; other: string[]; selectedOutsideContext: string[] } {
   const bank = questions[0]?.bankSlug;
+  if (isOfficialBiologyBank(bank)) {
+    const all = [...new Set(questions.flatMap((question) => question.subtopics))];
+    const available = new Set(all);
+    const relevant = selectedTopics.length
+      ? [...new Set(selectedTopics.flatMap((topic) => BIOLOGY_OFFICIAL_GROUPS[topic] ?? []).filter((label) => available.has(label)))]
+      : all;
+    const relevantSet = new Set(relevant);
+    return {
+      all,
+      relevant,
+      other: all.filter((subtopic) => !relevantSet.has(subtopic)),
+      selectedOutsideContext: selectedSubtopics.filter((subtopic) => available.has(subtopic) && !relevantSet.has(subtopic)),
+    };
+  }
   if (isOfficial0610Bank(bank)) {
     const all = [...new Set(BIOLOGY_0610_TOPIC_ORDER.flatMap((topic) => Object.values(BIOLOGY_0610_GROUPS_BY_ERA).flatMap((groups) => groups[topic] ?? [])))].filter((label) => questions.some((question) => question.subtopics.includes(label)));
     const available = new Set(all);
