@@ -8,6 +8,7 @@
     "build": "next build",
     "prebuild": "npm run generate:bank-index",
     "generate:bank-index": "node scripts/generate-bank-index.mjs",
+    "generate:aa-official-subtopics": "python3 scripts/generate_aa_official_subtopics.py --research-root /Users/sakshamgoel/Documents/ProjectsInternships/research/aa-official-subtopics",
     "generate:physics-0625-candidate": "python3 scripts/generate-igcse-physics-0625-candidate.py",
     "generate:economics-production": "node scripts/generate-igcse-economics-0455-runtime.mjs",
     "generate:igcse-release": "node scripts/generate-igcse-release.mjs",

@@ -9,6 +9,8 @@ const root = join(import.meta.dirname, "..");
 const outputDirectory = join(root, "public", "bank-index");
 const version = 1;
 const granularOverlay = JSON.parse(await readFile(join(root, "src", "data", "math-granular-label-overlay.json"), "utf8"));
+const aaTaxonomy = JSON.parse(await readFile(join(root, "src", "data", "aa-official-subtopics", "taxonomy.json"), "utf8"));
+const aaOverlay = JSON.parse(await readFile(join(root, "src", "data", "aa-official-subtopics", "overlay.json"), "utf8"));
 const overlayBankForSlug = (slug) => ({
   "igcse-additional": "0606",
   "ib-hl": "ib-aa-hl",
@@ -18,6 +20,16 @@ const granularByKey = new Map();
 for (const row of granularOverlay.labels) {
   const key = `${row.bank}:${row.id}`;
   granularByKey.set(key, [...(granularByKey.get(key) ?? []), row.label]);
+}
+const aaGroupNames = new Map(aaTaxonomy.groups.map((group) => [group.id, group.studentFacingName]));
+const aaRecords = new Map(aaOverlay.records.map((record) => [`${record.level}:${record.id}`, record]));
+function currentAaRecord(bank, raw) {
+  const level = bank === "ib-sl" && raw.subject?.toLocaleLowerCase() === "mathematics: analysis and approaches sl"
+    ? "SL"
+    : bank === "ib-hl" && raw.courseEra === "aa-hl" && raw.course?.toLocaleLowerCase() === "mathematics: analysis and approaches hl"
+      ? "HL"
+      : null;
+  return level ? aaRecords.get(`${level}:${raw.id}`) ?? (() => { throw new Error(`Missing official AA classification for ${raw.id}`); })() : null;
 }
 const bankSources = [
   ...["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "ib-chemistry-hl", "ib-chemistry-sl", "ib-physics-hl", "ib-physics-sl", "ib-biology-hl", "ib-biology-sl"]
@@ -44,8 +56,11 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
   const officialMarkscheme = raw.officialMarkscheme && typeof raw.officialMarkscheme === "object"
     ? raw.officialMarkscheme
     : {};
-  const controlledSkills = strings(raw.skills);
-  const studentSubtopics = strings(raw.subtopics);
+  const aa = currentAaRecord(bank, raw);
+  const controlledSkills = aa ? [] : strings(raw.skills);
+  const studentSubtopics = aa
+    ? (aa.status === "accepted" ? aa.subtopics.map((id) => aaGroupNames.get(id) ?? (() => { throw new Error(`Unknown official AA group ${id}`); })()) : [])
+    : strings(raw.subtopics);
   const detailedSubtopics = strings(raw.detailedSubtopics);
   const subtopics = [...new Set(
     studentSubtopics.length
@@ -59,7 +74,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     : detailedSubtopics.length
       ? detailedSubtopics
       : subtopics;
-  const skills = localEconomics
+  const skills = aa ? [] : localEconomics
     ? [...new Set(controlledSkills)]
     : [...new Set([
       ...skillSeed,
@@ -75,11 +90,11 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     paper: integer(raw.paper),
     year: integer(raw.year),
     session: typeof raw.session === "string" ? raw.session : "",
-    primaryTopic: typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other",
-    secondaryTopics: strings(raw.secondaryTopics),
+    primaryTopic: aa ? aa.primaryTopic : (typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other"),
+    secondaryTopics: aa ? aa.secondaryTopics : strings(raw.secondaryTopics),
     skills,
     subtopics,
-    granularLabels: granularByKey.get(`${overlayBank}:${raw.id}`) ?? [],
+    granularLabels: aa ? [] : granularByKey.get(`${overlayBank}:${raw.id}`) ?? [],
     subject: (typeof raw.subject === "string" && raw.subject) || (typeof raw.course === "string" ? raw.course : ""),
     option: typeof raw.p3Option === "string" ? raw.p3Option : "",
     zone: (typeof raw.timezone === "string" && raw.timezone) || (typeof raw.zone === "string" ? raw.zone : ""),

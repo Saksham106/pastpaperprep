@@ -15,7 +15,7 @@ const baseline = JSON.parse(readFileSync(resolve(auditRoot, "production-baseline
 const runtime = JSON.parse(readFileSync(resolve(auditRoot, "runtime-taxonomy.json"), "utf8"));
 const TARGET_SHA256 = "8ddecd7634bede343defd82a4de097fe428e41c833b7957925c8e1e11bb7315c";
 const CORRECTIONS_SHA256 = "5c5eff06c0881927164203ae71a9e2da6481052b0731afab72e6fc3f667c9629";
-const RUNTIME_SOURCE_SHA256 = "4f4eaa5d4b6818ad099389caa6b326e99b262238ce74d3715835fed0ec11e08f";
+const RUNTIME_SOURCE_SHA256 = "5d2c4cf5dbc8cb23b8ba85df2b59f170d68bce65979836db52b16f3d682ddd36";
 const classificationFields = new Set([
   "classification", "primaryTopic", "secondaryTopics", "skills", "subtopics", "detailedSubtopics",
   "classificationEvidence", "classificationConfidence", "classificationReviewStatus",

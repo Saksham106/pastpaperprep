@@ -2,6 +2,8 @@ import { economicsStorageObjectPath, storageObjectPath } from "@/lib/assets";
 import { getBank, isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
 import { isPrivateRuntimeBank, privateStorageObjectPath } from "@/lib/private-runtime-mapping";
 import granularOverlay from "@/data/math-granular-label-overlay.json";
+import aaTaxonomy from "@/data/aa-official-subtopics/taxonomy.json";
+import aaOverlay from "@/data/aa-official-subtopics/overlay.json";
 
 const GRANULAR_LABELS = new Map<string, string[]>();
 const overlayBankForSlug = (slug: string) => ({
@@ -12,6 +14,52 @@ const overlayBankForSlug = (slug: string) => ({
 for (const row of granularOverlay.labels) {
   const key = `${row.bank}:${row.id}`;
   GRANULAR_LABELS.set(key, [...(GRANULAR_LABELS.get(key) ?? []), row.label]);
+}
+
+const AA_GROUP_NAMES = new Map(aaTaxonomy.groups.map((group) => [group.id, group.studentFacingName]));
+const AA_RECORDS = new Map(aaOverlay.records.map((record) => [`${record.level}:${record.id}`, record]));
+
+type ClassificationProvenance = {
+  oldPrimaryTopic: string;
+  oldSecondaryTopics: string[];
+  oldSkills: string[];
+  oldSubtopics: string[];
+  legacyGranularLabels: string[];
+  status: "accepted" | "blocked";
+  blockedReason: string | null;
+};
+
+type AaRecord = (typeof aaOverlay.records)[number];
+
+function isCurrentAa(slug: BankSlug, raw: RawQuestion): "SL" | "HL" | null {
+  if (slug === "ib-sl" && text(raw.subject).toLocaleLowerCase() === "mathematics: analysis and approaches sl") return "SL";
+  if (slug === "ib-hl" && text(raw.courseEra) === "aa-hl" && text(raw.course).toLocaleLowerCase() === "mathematics: analysis and approaches hl") return "HL";
+  return null;
+}
+
+function aaClassification(slug: BankSlug, raw: RawQuestion): { record: AaRecord; provenance: ClassificationProvenance; primaryTopic: string; secondaryTopics: string[]; subtopics: string[]; skills: string[] } | null {
+  const level = isCurrentAa(slug, raw);
+  if (!level) return null;
+  const record = AA_RECORDS.get(`${level}:${text(raw.id)}`);
+  if (!record) throw new Error(`Missing official AA classification for ${raw.id}`);
+  const oldLabels = GRANULAR_LABELS.get(`${overlayBankForSlug(slug)}:${text(raw.id)}`) ?? [];
+  const provenance = {
+    oldPrimaryTopic: record.provenance.oldPrimaryTopic,
+    oldSecondaryTopics: record.provenance.oldSecondaryTopics,
+    oldSkills: record.provenance.oldSkills,
+    oldSubtopics: record.provenance.oldSubtopics,
+    legacyGranularLabels: oldLabels,
+    status: record.status as "accepted" | "blocked",
+    blockedReason: record.blockedReason,
+  } satisfies ClassificationProvenance;
+  return {
+    record,
+    provenance,
+    primaryTopic: record.primaryTopic,
+    secondaryTopics: record.secondaryTopics,
+    subtopics: record.status === "accepted" ? record.subtopics.map((id) => AA_GROUP_NAMES.get(id) ?? (() => { throw new Error(`Unknown official AA group ${id}`); })()) : [],
+    skills: [],
+  };
 }
 
 export type UnifiedQuestion = {
@@ -27,6 +75,7 @@ export type UnifiedQuestion = {
   subtopics: string[];
   secondarySubtopics: string[];
   granularLabels?: string[];
+  classificationProvenance?: ClassificationProvenance;
   subject: string;
   courseEra: string;
   option: string;
@@ -117,10 +166,11 @@ function assetUrl(slug: BankSlug, path: string, economicsAssetMode: "local" | "p
 function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode: "local" | "private"): UnifiedQuestion {
   const accessibleText = text(raw.accessibleText);
   const summary = text(raw.summary) || accessibleText.slice(0, 220);
-  const primaryTopic = text(raw.primaryTopic) || "Other";
-  const secondaryTopics = strings(raw.secondaryTopics);
-  const controlledSkills = strings(raw.skills);
-  const studentSubtopics = strings(raw.subtopics);
+  const aa = aaClassification(slug, raw);
+  const primaryTopic = aa?.primaryTopic ?? (text(raw.primaryTopic) || "Other");
+  const secondaryTopics = aa?.secondaryTopics ?? strings(raw.secondaryTopics);
+  const controlledSkills = aa?.skills ?? strings(raw.skills);
+  const studentSubtopics = aa?.subtopics ?? strings(raw.subtopics);
   const secondarySubtopics = strings(raw.secondarySubtopics);
   const detailedSubtopics = strings(raw.detailedSubtopics);
   const subtopics = Array.from(new Set(
@@ -139,7 +189,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     : detailedSubtopics.length
       ? detailedSubtopics
       : subtopics;
-  const skills = isLocalEconomicsBank(slug)
+  const skills = aa ? [] : isLocalEconomicsBank(slug)
     ? Array.from(new Set(controlledSkills))
     : Array.from(new Set([
       ...skillSeed,
@@ -178,7 +228,8 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     skills,
     subtopics,
     secondarySubtopics,
-    granularLabels: GRANULAR_LABELS.get(`${overlayBankForSlug(slug)}:${text(raw.id)}`) ?? [],
+    granularLabels: aa ? [] : GRANULAR_LABELS.get(`${overlayBankForSlug(slug)}:${text(raw.id)}`) ?? [],
+    classificationProvenance: aa?.provenance,
     subject: text(raw.subject) || text(raw.course),
     courseEra: text(raw.courseEra),
     option: text(raw.p3Option),

@@ -1,6 +1,7 @@
 import biologyTaxonomy from "@/data/igcse-biology-0610-official-taxonomy.json";
 import economicsTaxonomy from "@/data/igcse-economics-0455-taxonomy.json";
 import coordinatedTaxonomy from "@/data/igcse-coordinated-sciences-0654-taxonomy.json";
+import aaTaxonomy from "@/data/aa-official-subtopics/taxonomy.json";
 import {
   getControlledSubtopics as getLegacyControlledSubtopics,
   getSubtopicGroups as getLegacySubtopicGroups,
@@ -24,6 +25,40 @@ const ECONOMICS_GROUPS: Record<string, readonly string[]> = Object.fromEntries(
     topic.detailed_subtopics.map((subtopic) => subtopic.label),
   ]),
 );
+
+const AA_TOPIC_ORDER = [...new Set(aaTaxonomy.groups
+  .sort((left, right) => left.teachingOrder - right.teachingOrder)
+  .map((group) => group.parentTopic))];
+const AA_GROUPS: Record<string, readonly string[]> = Object.fromEntries(
+  ["SL", "HL"].flatMap((level) => aaTaxonomy.groups
+    .filter((group) => group.applicability.includes(level as "SL" | "HL"))
+    .map((group) => [group.parentTopic, aaTaxonomy.groups
+      .filter((candidate) => candidate.parentTopic === group.parentTopic && candidate.applicability.includes(level as "SL" | "HL"))
+      .sort((left, right) => left.teachingOrder - right.teachingOrder)
+      .map((candidate) => candidate.studentFacingName)])),
+);
+
+function isAaBank(bank: string | undefined): boolean {
+  return bank === "ib-sl" || bank === "ib-hl";
+}
+
+function isCurrentAaQuestion(question: UnifiedQuestion): boolean {
+  return isAaBank(question.bankSlug)
+    && (Boolean(question.classificationProvenance)
+      || (question.bankSlug === "ib-sl" && question.subject.toLocaleLowerCase() === "mathematics: analysis and approaches sl")
+      || (question.bankSlug === "ib-hl" && question.courseEra === "aa-hl"));
+}
+
+function hasCurrentAa(questions: UnifiedQuestion[]): boolean {
+  return questions.some(isCurrentAaQuestion);
+}
+
+function splitAaQuestions(questions: UnifiedQuestion[]): { current: UnifiedQuestion[]; legacy: UnifiedQuestion[] } {
+  return {
+    current: questions.filter(isCurrentAaQuestion),
+    legacy: questions.filter((question) => !isCurrentAaQuestion(question)),
+  };
+}
 
 function uniqueSorted(values: string[]): string[] {
   return [...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b));
@@ -57,6 +92,7 @@ function isCoordinatedBank(bank: string | undefined): boolean {
 }
 
 export function getControlledSubtopics(bankSlug: string, topic: string): readonly string[] {
+  if (isAaBank(bankSlug)) return AA_GROUPS[topic] ?? [];
   if (bankSlug === "igcse-biology-0610") {
     return BIOLOGY_GROUPS[topic] ?? (BIOLOGY_TOPIC_ORDER.includes(topic) ? [topic] : []);
   }
@@ -67,6 +103,10 @@ export function getControlledSubtopics(bankSlug: string, topic: string): readonl
 
 export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
   const bank = questions[0]?.bankSlug;
+  if (isAaBank(bank) && hasCurrentAa(questions)) {
+    const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));
+    return [...AA_TOPIC_ORDER.filter((topic) => available.has(topic)), ...[...available].filter((topic) => !AA_TOPIC_ORDER.includes(topic)).sort()];
+  }
   if (isCoordinatedBank(bank)) {
     const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));
     const ordered = COORDINATED_TOPIC_ORDER.filter((topic) => available.has(topic));
@@ -87,6 +127,25 @@ export function getSubtopicGroups(
   selectedSubtopics: string[],
 ): { all: string[]; relevant: string[]; other: string[]; selectedOutsideContext: string[] } {
   const bank = questions[0]?.bankSlug;
+  if (isAaBank(bank) && hasCurrentAa(questions)) {
+    const { current, legacy } = splitAaQuestions(questions);
+    const all = [...new Set(questions.flatMap((question) => question.subtopics))];
+    const available = new Set(all);
+    const currentRelevant = selectedTopics.length
+      ? [...new Set(selectedTopics.flatMap((topic) => AA_GROUPS[topic] ?? []).filter((label) => available.has(label)))]
+      : current.flatMap((question) => question.subtopics);
+    const legacyRelevant = legacy.length
+      ? getLegacySubtopicGroups(legacy, selectedTopics, selectedSubtopics).relevant
+      : [];
+    const relevant = [...new Set([...currentRelevant, ...legacyRelevant].filter((label) => available.has(label)))];
+    const relevantSet = new Set(relevant);
+    return {
+      all,
+      relevant,
+      other: all.filter((subtopic) => !relevantSet.has(subtopic)),
+      selectedOutsideContext: selectedSubtopics.filter((subtopic) => available.has(subtopic) && !relevantSet.has(subtopic)),
+    };
+  }
   if (!isReleaseBank(bank)) return getLegacySubtopicGroups(questions, selectedTopics, selectedSubtopics);
   const all = uniqueSorted(questions.flatMap((question) => [...question.subtopics, ...question.skills]));
   const available = new Set(all);
