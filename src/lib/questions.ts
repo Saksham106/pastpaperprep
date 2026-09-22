@@ -4,7 +4,11 @@ import { isPrivateRuntimeBank, privateStorageObjectPath } from "@/lib/private-ru
 import granularOverlay from "@/data/math-granular-label-overlay.json";
 
 const GRANULAR_LABELS = new Map<string, string[]>();
-const overlayBankForSlug = (slug: string) => slug === "igcse-additional" ? "0606" : slug;
+const overlayBankForSlug = (slug: string) => ({
+  "igcse-additional": "0606",
+  "ib-hl": "ib-aa-hl",
+  "ib-sl": "ib-aa-sl",
+} as Record<string, string>)[slug] ?? slug;
 for (const row of granularOverlay.labels) {
   const key = `${row.bank}:${row.id}`;
   GRANULAR_LABELS.set(key, [...(GRANULAR_LABELS.get(key) ?? []), row.label]);
