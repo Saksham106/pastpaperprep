@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { filterQuestions } from "@/lib/question-filter";
 import { parseExplorerState, serializeExplorerState } from "@/lib/explorer-state";
+import { formatPublicLabel } from "@/lib/presentation";
 import type { UnifiedQuestion } from "@/lib/questions";
 
 const question = (id: string, granularLabels: string[], primaryTopic = "Functions"): UnifiedQuestion => ({
@@ -43,6 +44,11 @@ describe("math granular labels", () => {
     expect(filterQuestions(questions, { granularLabels: ["math.aa.functions.domain-range-restrictions"] }).map(({ id }) => id)).toEqual(["a"]);
     expect(filterQuestions(questions, { topics: ["Functions"], granularLabels: ["math.aa.functions.domain-range-restrictions"] }).map(({ id }) => id)).toEqual(["a"]);
     expect(filterQuestions(questions, { topics: ["Calculus"], granularLabels: ["math.aa.functions.domain-range-restrictions"] })).toEqual([]);
+  });
+
+  it("shows student-facing names while keeping stable IDs in filter state", () => {
+    expect(formatPublicLabel("math.aa.functions.domain-range-restrictions")).toBe("Domain, range and restrictions");
+    expect(formatPublicLabel("math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency")).toBe("Quartiles, box plots and cumulative frequency");
   });
 
   it("round-trips granular-label filter state in the share URL", () => {
