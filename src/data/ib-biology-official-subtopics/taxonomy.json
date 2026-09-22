@@ -1,0 +1,2310 @@
+{
+  "schemaVersion": "ib-biology-official-syllabus-taxonomy-v1",
+  "status": "implementation-ready-source-faithful-registry",
+  "subject": "Biology",
+  "levels": [
+    "SL",
+    "HL"
+  ],
+  "eras": [
+    {
+      "id": "bio_2016",
+      "label": "Legacy biology; first assessment 2016, last assessment 2024",
+      "years": "2016-2024",
+      "guideSourceId": "official-biology-guide-2016"
+    },
+    {
+      "id": "bio_2025",
+      "label": "Current biology; first assessment 2025",
+      "years": "2025+",
+      "guideSourceId": "official-biology-guide-2025"
+    }
+  ],
+  "designRules": [
+    "Official codes and guide names are atomic registry facts; they are never replaced by normalized labels.",
+    "Legacy and current eras remain separate even when content is conceptually similar.",
+    "SL/HL applicability is explicit per atomic entry; HL-only current nodes remain HL-only.",
+    "Curated groups are a separate student-facing dimension with explicit membership and editorial provenance.",
+    "Ambiguous or absent source ownership remains needs_review; this artifact does not force a nearest code."
+  ],
+  "sources": [
+    {
+      "id": "official-biology-guide-2025",
+      "kind": "official-guide-mirror",
+      "title": "IB Biology guide, first assessment 2025",
+      "url": "https://practical-science.com/wp-content/uploads/2023/02/biology-guide-en_2025.pdf",
+      "authorityNote": "Guide content is IB-authored; URL is a public mirror because the IB university guide portal is access-controlled.",
+      "sha256": "910414afec33a9a3b1cdac92ff0e40b7a7a6e0083291db95a0376c5aee4e5af0"
+    },
+    {
+      "id": "official-biology-guide-2016",
+      "kind": "official-guide-mirror",
+      "title": "IB Biology guide/content standards, first assessment 2016",
+      "url": "https://naberbiology.com/documents/IB%20Biology%20Content%20Standards%202016.pdf",
+      "authorityNote": "Guide content is IB-authored; URL is a public mirror.",
+      "sha256": "8a2d4a8df82172d7b39fdc7ed1d92378c597dfe220db23dd2d422c651c45d515"
+    },
+    {
+      "id": "official-ib-biology-updates",
+      "kind": "official-ib-page",
+      "title": "Biology updates",
+      "url": "https://ibo.org/university-admission/latest-curriculum-updates/biology-updates",
+      "supports": "2025 course launch and first-assessment timing."
+    },
+    {
+      "id": "repo-taxonomy-context",
+      "kind": "repo-pinned-context",
+      "path": "/Users/sakshamgoel/Documents/ProjectsInternships/research/official-subtopics-ib-biology/source-snapshots/current-repo-taxonomy.json",
+      "supports": "Existing code-to-name extraction and normalized labels; never overrides official guide entries."
+    }
+  ],
+  "atomicEntries": [
+    {
+      "id": "ib-biology.bio_2016.1.1",
+      "era": "bio_2016",
+      "officialCode": "1.1",
+      "officialName": "Introduction to cells",
+      "officialTopic": "M",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.1.2",
+      "era": "bio_2016",
+      "officialCode": "1.2",
+      "officialName": "Ultrastructure of cells",
+      "officialTopic": "M",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.1.3",
+      "era": "bio_2016",
+      "officialCode": "1.3",
+      "officialName": "Membrane structure",
+      "officialTopic": "M",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.1.4",
+      "era": "bio_2016",
+      "officialCode": "1.4",
+      "officialName": "Membrane transport",
+      "officialTopic": "M",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.1.5",
+      "era": "bio_2016",
+      "officialCode": "1.5",
+      "officialName": "The origin of cells",
+      "officialTopic": "M",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.1.6",
+      "era": "bio_2016",
+      "officialCode": "1.6",
+      "officialName": "Cell division",
+      "officialTopic": "I",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.2.1",
+      "era": "bio_2016",
+      "officialCode": "2.1",
+      "officialName": "Molecules to metabolism",
+      "officialTopic": "M",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.2.2",
+      "era": "bio_2016",
+      "officialCode": "2.2",
+      "officialName": "Water",
+      "officialTopic": "M",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.2.3",
+      "era": "bio_2016",
+      "officialCode": "2.3",
+      "officialName": "Carbohydrates and lipids",
+      "officialTopic": "M",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.2.4",
+      "era": "bio_2016",
+      "officialCode": "2.4",
+      "officialName": "Proteins",
+      "officialTopic": "M",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.2.5",
+      "era": "bio_2016",
+      "officialCode": "2.5",
+      "officialName": "Enzymes",
+      "officialTopic": "M",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.2.6",
+      "era": "bio_2016",
+      "officialCode": "2.6",
+      "officialName": "Structure of DNA and RNA",
+      "officialTopic": "I",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.2.7",
+      "era": "bio_2016",
+      "officialCode": "2.7",
+      "officialName": "DNA replication, transcription and translation",
+      "officialTopic": "I",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.2.8",
+      "era": "bio_2016",
+      "officialCode": "2.8",
+      "officialName": "Cell respiration",
+      "officialTopic": "M",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.2.9",
+      "era": "bio_2016",
+      "officialCode": "2.9",
+      "officialName": "Photosynthesis",
+      "officialTopic": "M",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.3.1",
+      "era": "bio_2016",
+      "officialCode": "3.1",
+      "officialName": "Genes",
+      "officialTopic": "I",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.3.2",
+      "era": "bio_2016",
+      "officialCode": "3.2",
+      "officialName": "Chromosomes",
+      "officialTopic": "I",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.3.3",
+      "era": "bio_2016",
+      "officialCode": "3.3",
+      "officialName": "Meiosis",
+      "officialTopic": "I",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.3.4",
+      "era": "bio_2016",
+      "officialCode": "3.4",
+      "officialName": "Inheritance",
+      "officialTopic": "I",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.3.5",
+      "era": "bio_2016",
+      "officialCode": "3.5",
+      "officialName": "Genetic modification and biotechnology",
+      "officialTopic": "I",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.4.1",
+      "era": "bio_2016",
+      "officialCode": "4.1",
+      "officialName": "Species, communities and ecosystems",
+      "officialTopic": "P",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.4.2",
+      "era": "bio_2016",
+      "officialCode": "4.2",
+      "officialName": "Energy flow",
+      "officialTopic": "P",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.4.3",
+      "era": "bio_2016",
+      "officialCode": "4.3",
+      "officialName": "Carbon cycling",
+      "officialTopic": "P",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.4.4",
+      "era": "bio_2016",
+      "officialCode": "4.4",
+      "officialName": "Climate change",
+      "officialTopic": "P",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.5.1",
+      "era": "bio_2016",
+      "officialCode": "5.1",
+      "officialName": "Evidence for evolution",
+      "officialTopic": "I",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.5.2",
+      "era": "bio_2016",
+      "officialCode": "5.2",
+      "officialName": "Natural selection",
+      "officialTopic": "I",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.5.3",
+      "era": "bio_2016",
+      "officialCode": "5.3",
+      "officialName": "Classification of biodiversity",
+      "officialTopic": "I",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.5.4",
+      "era": "bio_2016",
+      "officialCode": "5.4",
+      "officialName": "Cladistics",
+      "officialTopic": "I",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.6.1",
+      "era": "bio_2016",
+      "officialCode": "6.1",
+      "officialName": "Digestion and absorption",
+      "officialTopic": "O",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.6.2",
+      "era": "bio_2016",
+      "officialCode": "6.2",
+      "officialName": "The blood system",
+      "officialTopic": "O",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.6.3",
+      "era": "bio_2016",
+      "officialCode": "6.3",
+      "officialName": "Defence against infectious disease",
+      "officialTopic": "O",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.6.4",
+      "era": "bio_2016",
+      "officialCode": "6.4",
+      "officialName": "Gas exchange",
+      "officialTopic": "O",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.6.5",
+      "era": "bio_2016",
+      "officialCode": "6.5",
+      "officialName": "Neurons and synapses",
+      "officialTopic": "O",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.6.6",
+      "era": "bio_2016",
+      "officialCode": "6.6",
+      "officialName": "Hormones, homeostasis and reproduction",
+      "officialTopic": "O",
+      "sourceSection": "core",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.7.1",
+      "era": "bio_2016",
+      "officialCode": "7.1",
+      "officialName": "DNA structure and replication",
+      "officialTopic": "I",
+      "sourceSection": "ahl",
+      "applicability": [
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.7.2",
+      "era": "bio_2016",
+      "officialCode": "7.2",
+      "officialName": "Transcription and gene expression",
+      "officialTopic": "I",
+      "sourceSection": "ahl",
+      "applicability": [
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.7.3",
+      "era": "bio_2016",
+      "officialCode": "7.3",
+      "officialName": "Translation",
+      "officialTopic": "I",
+      "sourceSection": "ahl",
+      "applicability": [
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.8.1",
+      "era": "bio_2016",
+      "officialCode": "8.1",
+      "officialName": "Metabolism",
+      "officialTopic": "M",
+      "sourceSection": "ahl",
+      "applicability": [
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.8.2",
+      "era": "bio_2016",
+      "officialCode": "8.2",
+      "officialName": "Cell respiration",
+      "officialTopic": "M",
+      "sourceSection": "ahl",
+      "applicability": [
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.8.3",
+      "era": "bio_2016",
+      "officialCode": "8.3",
+      "officialName": "Photosynthesis",
+      "officialTopic": "M",
+      "sourceSection": "ahl",
+      "applicability": [
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.9.1",
+      "era": "bio_2016",
+      "officialCode": "9.1",
+      "officialName": "Transport in the xylem of plants",
+      "officialTopic": "O",
+      "sourceSection": "ahl",
+      "applicability": [
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.9.2",
+      "era": "bio_2016",
+      "officialCode": "9.2",
+      "officialName": "Transport in the phloem of plants",
+      "officialTopic": "O",
+      "sourceSection": "ahl",
+      "applicability": [
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.9.3",
+      "era": "bio_2016",
+      "officialCode": "9.3",
+      "officialName": "Growth in plants",
+      "officialTopic": "O",
+      "sourceSection": "ahl",
+      "applicability": [
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.9.4",
+      "era": "bio_2016",
+      "officialCode": "9.4",
+      "officialName": "Reproduction in plants",
+      "officialTopic": "O",
+      "sourceSection": "ahl",
+      "applicability": [
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.10.1",
+      "era": "bio_2016",
+      "officialCode": "10.1",
+      "officialName": "Meiosis",
+      "officialTopic": "I",
+      "sourceSection": "ahl",
+      "applicability": [
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.10.2",
+      "era": "bio_2016",
+      "officialCode": "10.2",
+      "officialName": "Inheritance",
+      "officialTopic": "I",
+      "sourceSection": "ahl",
+      "applicability": [
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.10.3",
+      "era": "bio_2016",
+      "officialCode": "10.3",
+      "officialName": "Gene pools and speciation",
+      "officialTopic": "I",
+      "sourceSection": "ahl",
+      "applicability": [
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.11.1",
+      "era": "bio_2016",
+      "officialCode": "11.1",
+      "officialName": "Antibody production and vaccination",
+      "officialTopic": "O",
+      "sourceSection": "ahl",
+      "applicability": [
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.11.2",
+      "era": "bio_2016",
+      "officialCode": "11.2",
+      "officialName": "Movement",
+      "officialTopic": "O",
+      "sourceSection": "ahl",
+      "applicability": [
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.11.3",
+      "era": "bio_2016",
+      "officialCode": "11.3",
+      "officialName": "The kidney and osmoregulation",
+      "officialTopic": "O",
+      "sourceSection": "ahl",
+      "applicability": [
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.11.4",
+      "era": "bio_2016",
+      "officialCode": "11.4",
+      "officialName": "Sexual reproduction",
+      "officialTopic": "O",
+      "sourceSection": "ahl",
+      "applicability": [
+        "HL"
+      ],
+      "nameStatus": "official guide item"
+    },
+    {
+      "id": "ib-biology.bio_2016.A.1",
+      "era": "bio_2016",
+      "officialCode": "A.1",
+      "officialName": "Neural development",
+      "officialTopic": "O",
+      "sourceSection": "option",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item; option scope retained"
+    },
+    {
+      "id": "ib-biology.bio_2016.A.2",
+      "era": "bio_2016",
+      "officialCode": "A.2",
+      "officialName": "The human brain",
+      "officialTopic": "O",
+      "sourceSection": "option",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item; option scope retained"
+    },
+    {
+      "id": "ib-biology.bio_2016.A.3",
+      "era": "bio_2016",
+      "officialCode": "A.3",
+      "officialName": "Perception of stimuli",
+      "officialTopic": "O",
+      "sourceSection": "option",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item; option scope retained"
+    },
+    {
+      "id": "ib-biology.bio_2016.A.4",
+      "era": "bio_2016",
+      "officialCode": "A.4",
+      "officialName": "Innate and learned behaviour",
+      "officialTopic": "O",
+      "sourceSection": "option",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item; option scope retained"
+    },
+    {
+      "id": "ib-biology.bio_2016.A.5",
+      "era": "bio_2016",
+      "officialCode": "A.5",
+      "officialName": "Neuropharmacology",
+      "officialTopic": "O",
+      "sourceSection": "option",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item; option scope retained"
+    },
+    {
+      "id": "ib-biology.bio_2016.A.6",
+      "era": "bio_2016",
+      "officialCode": "A.6",
+      "officialName": "Ethology",
+      "officialTopic": "O",
+      "sourceSection": "option",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item; option scope retained"
+    },
+    {
+      "id": "ib-biology.bio_2016.B.1",
+      "era": "bio_2016",
+      "officialCode": "B.1",
+      "officialName": "Microbiology: organisms in industry",
+      "officialTopic": "I",
+      "sourceSection": "option",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item; option scope retained"
+    },
+    {
+      "id": "ib-biology.bio_2016.B.2",
+      "era": "bio_2016",
+      "officialCode": "B.2",
+      "officialName": "Biotechnology in agriculture",
+      "officialTopic": "I",
+      "sourceSection": "option",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item; option scope retained"
+    },
+    {
+      "id": "ib-biology.bio_2016.B.3",
+      "era": "bio_2016",
+      "officialCode": "B.3",
+      "officialName": "Environmental protection",
+      "officialTopic": "P",
+      "sourceSection": "option",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item; option scope retained"
+    },
+    {
+      "id": "ib-biology.bio_2016.B.4",
+      "era": "bio_2016",
+      "officialCode": "B.4",
+      "officialName": "Medicine",
+      "officialTopic": "O",
+      "sourceSection": "option",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item; option scope retained"
+    },
+    {
+      "id": "ib-biology.bio_2016.B.5",
+      "era": "bio_2016",
+      "officialCode": "B.5",
+      "officialName": "Bioinformatics",
+      "officialTopic": "I",
+      "sourceSection": "option",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item; option scope retained"
+    },
+    {
+      "id": "ib-biology.bio_2016.C.1",
+      "era": "bio_2016",
+      "officialCode": "C.1",
+      "officialName": "Species and communities",
+      "officialTopic": "P",
+      "sourceSection": "option",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item; option scope retained"
+    },
+    {
+      "id": "ib-biology.bio_2016.C.2",
+      "era": "bio_2016",
+      "officialCode": "C.2",
+      "officialName": "Communities and ecosystems",
+      "officialTopic": "P",
+      "sourceSection": "option",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item; option scope retained"
+    },
+    {
+      "id": "ib-biology.bio_2016.C.3",
+      "era": "bio_2016",
+      "officialCode": "C.3",
+      "officialName": "Impacts of humans on ecosystems",
+      "officialTopic": "P",
+      "sourceSection": "option",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item; option scope retained"
+    },
+    {
+      "id": "ib-biology.bio_2016.C.4",
+      "era": "bio_2016",
+      "officialCode": "C.4",
+      "officialName": "Conservation of biodiversity",
+      "officialTopic": "P",
+      "sourceSection": "option",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item; option scope retained"
+    },
+    {
+      "id": "ib-biology.bio_2016.C.5",
+      "era": "bio_2016",
+      "officialCode": "C.5",
+      "officialName": "Population ecology",
+      "officialTopic": "P",
+      "sourceSection": "option",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item; option scope retained"
+    },
+    {
+      "id": "ib-biology.bio_2016.C.6",
+      "era": "bio_2016",
+      "officialCode": "C.6",
+      "officialName": "Nitrogen and phosphorus cycles",
+      "officialTopic": "P",
+      "sourceSection": "option",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item; option scope retained"
+    },
+    {
+      "id": "ib-biology.bio_2016.D.1",
+      "era": "bio_2016",
+      "officialCode": "D.1",
+      "officialName": "Human nutrition",
+      "officialTopic": "O",
+      "sourceSection": "option",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item; option scope retained"
+    },
+    {
+      "id": "ib-biology.bio_2016.D.2",
+      "era": "bio_2016",
+      "officialCode": "D.2",
+      "officialName": "Digestion",
+      "officialTopic": "O",
+      "sourceSection": "option",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item; option scope retained"
+    },
+    {
+      "id": "ib-biology.bio_2016.D.3",
+      "era": "bio_2016",
+      "officialCode": "D.3",
+      "officialName": "Functions of the liver",
+      "officialTopic": "O",
+      "sourceSection": "option",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item; option scope retained"
+    },
+    {
+      "id": "ib-biology.bio_2016.D.4",
+      "era": "bio_2016",
+      "officialCode": "D.4",
+      "officialName": "The heart",
+      "officialTopic": "O",
+      "sourceSection": "option",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item; option scope retained"
+    },
+    {
+      "id": "ib-biology.bio_2016.D.5",
+      "era": "bio_2016",
+      "officialCode": "D.5",
+      "officialName": "Hormones and metabolism",
+      "officialTopic": "O",
+      "sourceSection": "option",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item; option scope retained"
+    },
+    {
+      "id": "ib-biology.bio_2016.D.6",
+      "era": "bio_2016",
+      "officialCode": "D.6",
+      "officialName": "Transport of respiratory gases",
+      "officialTopic": "O",
+      "sourceSection": "option",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide item; option scope retained"
+    },
+    {
+      "id": "ib-biology.bio_2025.A1.1",
+      "era": "bio_2025",
+      "officialCode": "A1.1",
+      "officialName": "Water",
+      "officialTopic": "M",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.A1.2",
+      "era": "bio_2025",
+      "officialCode": "A1.2",
+      "officialName": "Nucleic acids",
+      "officialTopic": "M",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.A2.1",
+      "era": "bio_2025",
+      "officialCode": "A2.1",
+      "officialName": "Origins of cells",
+      "officialTopic": "M",
+      "sourceSection": "topic",
+      "applicability": [
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.A2.2",
+      "era": "bio_2025",
+      "officialCode": "A2.2",
+      "officialName": "Cell structure",
+      "officialTopic": "M",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.A2.3",
+      "era": "bio_2025",
+      "officialCode": "A2.3",
+      "officialName": "Viruses",
+      "officialTopic": "M",
+      "sourceSection": "topic",
+      "applicability": [
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.A3.1",
+      "era": "bio_2025",
+      "officialCode": "A3.1",
+      "officialName": "Diversity of organisms",
+      "officialTopic": "I",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.A3.2",
+      "era": "bio_2025",
+      "officialCode": "A3.2",
+      "officialName": "Classification and cladistics",
+      "officialTopic": "I",
+      "sourceSection": "topic",
+      "applicability": [
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.A4.1",
+      "era": "bio_2025",
+      "officialCode": "A4.1",
+      "officialName": "Evolution and speciation",
+      "officialTopic": "I",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.A4.2",
+      "era": "bio_2025",
+      "officialCode": "A4.2",
+      "officialName": "Conservation of biodiversity",
+      "officialTopic": "P",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.B1.1",
+      "era": "bio_2025",
+      "officialCode": "B1.1",
+      "officialName": "Carbohydrates and lipids",
+      "officialTopic": "M",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.B1.2",
+      "era": "bio_2025",
+      "officialCode": "B1.2",
+      "officialName": "Proteins",
+      "officialTopic": "M",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.B2.1",
+      "era": "bio_2025",
+      "officialCode": "B2.1",
+      "officialName": "Membranes and membrane transport",
+      "officialTopic": "M",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.B2.2",
+      "era": "bio_2025",
+      "officialCode": "B2.2",
+      "officialName": "Organelles and compartmentalization",
+      "officialTopic": "M",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.B2.3",
+      "era": "bio_2025",
+      "officialCode": "B2.3",
+      "officialName": "Cell specialization",
+      "officialTopic": "M",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.B3.1",
+      "era": "bio_2025",
+      "officialCode": "B3.1",
+      "officialName": "Gas exchange",
+      "officialTopic": "O",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.B3.2",
+      "era": "bio_2025",
+      "officialCode": "B3.2",
+      "officialName": "Transport",
+      "officialTopic": "O",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.B3.3",
+      "era": "bio_2025",
+      "officialCode": "B3.3",
+      "officialName": "Muscle and motility",
+      "officialTopic": "O",
+      "sourceSection": "topic",
+      "applicability": [
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.B4.1",
+      "era": "bio_2025",
+      "officialCode": "B4.1",
+      "officialName": "Adaptation to environment",
+      "officialTopic": "P",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.B4.2",
+      "era": "bio_2025",
+      "officialCode": "B4.2",
+      "officialName": "Ecological niches",
+      "officialTopic": "P",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.C1.1",
+      "era": "bio_2025",
+      "officialCode": "C1.1",
+      "officialName": "Enzymes and metabolism",
+      "officialTopic": "M",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.C1.2",
+      "era": "bio_2025",
+      "officialCode": "C1.2",
+      "officialName": "Cell respiration",
+      "officialTopic": "M",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.C1.3",
+      "era": "bio_2025",
+      "officialCode": "C1.3",
+      "officialName": "Photosynthesis",
+      "officialTopic": "M",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.C2.1",
+      "era": "bio_2025",
+      "officialCode": "C2.1",
+      "officialName": "Chemical signalling",
+      "officialTopic": "O",
+      "sourceSection": "topic",
+      "applicability": [
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.C2.2",
+      "era": "bio_2025",
+      "officialCode": "C2.2",
+      "officialName": "Neural signalling",
+      "officialTopic": "O",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.C3.1",
+      "era": "bio_2025",
+      "officialCode": "C3.1",
+      "officialName": "Integration of body systems",
+      "officialTopic": "O",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.C3.2",
+      "era": "bio_2025",
+      "officialCode": "C3.2",
+      "officialName": "Defence against disease",
+      "officialTopic": "O",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.C4.1",
+      "era": "bio_2025",
+      "officialCode": "C4.1",
+      "officialName": "Populations and communities",
+      "officialTopic": "P",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.C4.2",
+      "era": "bio_2025",
+      "officialCode": "C4.2",
+      "officialName": "Transfers of energy and matter",
+      "officialTopic": "P",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.D1.1",
+      "era": "bio_2025",
+      "officialCode": "D1.1",
+      "officialName": "DNA replication",
+      "officialTopic": "I",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.D1.2",
+      "era": "bio_2025",
+      "officialCode": "D1.2",
+      "officialName": "Protein synthesis",
+      "officialTopic": "I",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.D1.3",
+      "era": "bio_2025",
+      "officialCode": "D1.3",
+      "officialName": "Mutation and gene editing",
+      "officialTopic": "I",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.D2.1",
+      "era": "bio_2025",
+      "officialCode": "D2.1",
+      "officialName": "Cell and nuclear division",
+      "officialTopic": "I",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.D2.2",
+      "era": "bio_2025",
+      "officialCode": "D2.2",
+      "officialName": "Gene expression",
+      "officialTopic": "I",
+      "sourceSection": "topic",
+      "applicability": [
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.D2.3",
+      "era": "bio_2025",
+      "officialCode": "D2.3",
+      "officialName": "Water potential",
+      "officialTopic": "M",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.D3.1",
+      "era": "bio_2025",
+      "officialCode": "D3.1",
+      "officialName": "Reproduction",
+      "officialTopic": "O",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.D3.2",
+      "era": "bio_2025",
+      "officialCode": "D3.2",
+      "officialName": "Inheritance",
+      "officialTopic": "I",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.D3.3",
+      "era": "bio_2025",
+      "officialCode": "D3.3",
+      "officialName": "Homeostasis",
+      "officialTopic": "O",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.D4.1",
+      "era": "bio_2025",
+      "officialCode": "D4.1",
+      "officialName": "Natural selection",
+      "officialTopic": "I",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.D4.2",
+      "era": "bio_2025",
+      "officialCode": "D4.2",
+      "officialName": "Stability and change",
+      "officialTopic": "P",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    },
+    {
+      "id": "ib-biology.bio_2025.D4.3",
+      "era": "bio_2025",
+      "officialCode": "D4.3",
+      "officialName": "Climate change",
+      "officialTopic": "P",
+      "sourceSection": "topic",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "nameStatus": "official guide topic"
+    }
+  ],
+  "curatedGroups": [
+    {
+      "id": "ib-biology.group.M1",
+      "studentFacingName": "Biological molecules and water",
+      "parentTopic": "Molecules and cells",
+      "memberAtomicIds": [
+        "ib-biology.bio_2016.1.3",
+        "ib-biology.bio_2016.1.4",
+        "ib-biology.bio_2016.10.1",
+        "ib-biology.bio_2016.11.3",
+        "ib-biology.bio_2016.2.1",
+        "ib-biology.bio_2016.2.2",
+        "ib-biology.bio_2016.2.3",
+        "ib-biology.bio_2016.2.4",
+        "ib-biology.bio_2016.2.5",
+        "ib-biology.bio_2016.2.6",
+        "ib-biology.bio_2016.2.7",
+        "ib-biology.bio_2016.2.8",
+        "ib-biology.bio_2016.2.9",
+        "ib-biology.bio_2016.4.2",
+        "ib-biology.bio_2016.4.3",
+        "ib-biology.bio_2016.4.4",
+        "ib-biology.bio_2016.5.3",
+        "ib-biology.bio_2016.6.1",
+        "ib-biology.bio_2016.6.3",
+        "ib-biology.bio_2016.6.4",
+        "ib-biology.bio_2016.6.5",
+        "ib-biology.bio_2016.6.6",
+        "ib-biology.bio_2016.7.3",
+        "ib-biology.bio_2016.9.1",
+        "ib-biology.bio_2016.9.3",
+        "ib-biology.bio_2016.D.1",
+        "ib-biology.bio_2025.A1.1",
+        "ib-biology.bio_2025.A1.2",
+        "ib-biology.bio_2025.B1.1",
+        "ib-biology.bio_2025.B1.2",
+        "ib-biology.bio_2025.B2.1",
+        "ib-biology.bio_2025.B3.2",
+        "ib-biology.bio_2025.B4.1",
+        "ib-biology.bio_2025.C1.1",
+        "ib-biology.bio_2025.C1.2",
+        "ib-biology.bio_2025.C1.3",
+        "ib-biology.bio_2025.C4.2",
+        "ib-biology.bio_2025.D3.3",
+        "ib-biology.bio_2025.D4.3"
+      ],
+      "provenance": {
+        "kind": "editorial-curated",
+        "source": "current-repo-taxonomy.normalized_topics",
+        "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
+      },
+      "reviewStatus": "reviewed-for-filtering",
+      "emptyMembershipAllowed": true
+    },
+    {
+      "id": "ib-biology.group.M2",
+      "studentFacingName": "Cells and ultrastructure",
+      "parentTopic": "Molecules and cells",
+      "memberAtomicIds": [
+        "ib-biology.bio_2016.1.1",
+        "ib-biology.bio_2016.1.2",
+        "ib-biology.bio_2016.1.4",
+        "ib-biology.bio_2016.1.5",
+        "ib-biology.bio_2016.1.6",
+        "ib-biology.bio_2016.2.8",
+        "ib-biology.bio_2016.3.2",
+        "ib-biology.bio_2016.3.3",
+        "ib-biology.bio_2016.3.5",
+        "ib-biology.bio_2016.4.1",
+        "ib-biology.bio_2016.4.2",
+        "ib-biology.bio_2016.4.3",
+        "ib-biology.bio_2016.5.3",
+        "ib-biology.bio_2016.6.1",
+        "ib-biology.bio_2016.6.3",
+        "ib-biology.bio_2016.6.6",
+        "ib-biology.bio_2025.A1.1",
+        "ib-biology.bio_2025.A2.1",
+        "ib-biology.bio_2025.A2.2",
+        "ib-biology.bio_2025.A2.3",
+        "ib-biology.bio_2025.B2.2",
+        "ib-biology.bio_2025.B2.3",
+        "ib-biology.bio_2025.B4.1",
+        "ib-biology.bio_2025.D2.1"
+      ],
+      "provenance": {
+        "kind": "editorial-curated",
+        "source": "current-repo-taxonomy.normalized_topics",
+        "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
+      },
+      "reviewStatus": "reviewed-for-filtering",
+      "emptyMembershipAllowed": true
+    },
+    {
+      "id": "ib-biology.group.M3",
+      "studentFacingName": "Membranes and transport",
+      "parentTopic": "Molecules and cells",
+      "memberAtomicIds": [
+        "ib-biology.bio_2016.1.2",
+        "ib-biology.bio_2016.1.3",
+        "ib-biology.bio_2016.1.4",
+        "ib-biology.bio_2016.1.5",
+        "ib-biology.bio_2016.1.6",
+        "ib-biology.bio_2016.2.2",
+        "ib-biology.bio_2016.2.5",
+        "ib-biology.bio_2016.2.9",
+        "ib-biology.bio_2016.4.1",
+        "ib-biology.bio_2016.6.1",
+        "ib-biology.bio_2016.6.5",
+        "ib-biology.bio_2016.9.2",
+        "ib-biology.bio_2025.A1.1",
+        "ib-biology.bio_2025.B1.1",
+        "ib-biology.bio_2025.B2.1",
+        "ib-biology.bio_2025.B2.2",
+        "ib-biology.bio_2025.B3.2",
+        "ib-biology.bio_2025.C2.1",
+        "ib-biology.bio_2025.C2.2",
+        "ib-biology.bio_2025.D2.3",
+        "ib-biology.bio_2025.D3.3"
+      ],
+      "provenance": {
+        "kind": "editorial-curated",
+        "source": "current-repo-taxonomy.normalized_topics",
+        "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
+      },
+      "reviewStatus": "reviewed-for-filtering",
+      "emptyMembershipAllowed": true
+    },
+    {
+      "id": "ib-biology.group.M4",
+      "studentFacingName": "Metabolism and energy",
+      "parentTopic": "Molecules and cells",
+      "memberAtomicIds": [
+        "ib-biology.bio_2016.1.2",
+        "ib-biology.bio_2016.1.3",
+        "ib-biology.bio_2016.1.6",
+        "ib-biology.bio_2016.11.3",
+        "ib-biology.bio_2016.2.1",
+        "ib-biology.bio_2016.2.3",
+        "ib-biology.bio_2016.2.4",
+        "ib-biology.bio_2016.2.5",
+        "ib-biology.bio_2016.2.8",
+        "ib-biology.bio_2016.2.9",
+        "ib-biology.bio_2016.3.5",
+        "ib-biology.bio_2016.4.2",
+        "ib-biology.bio_2016.4.3",
+        "ib-biology.bio_2016.4.4",
+        "ib-biology.bio_2016.6.1",
+        "ib-biology.bio_2016.6.4",
+        "ib-biology.bio_2016.6.6",
+        "ib-biology.bio_2016.8.1",
+        "ib-biology.bio_2016.8.2",
+        "ib-biology.bio_2016.8.3",
+        "ib-biology.bio_2016.9.2",
+        "ib-biology.bio_2016.B.1",
+        "ib-biology.bio_2025.B1.1",
+        "ib-biology.bio_2025.B1.2",
+        "ib-biology.bio_2025.B3.2",
+        "ib-biology.bio_2025.C1.1",
+        "ib-biology.bio_2025.C1.2",
+        "ib-biology.bio_2025.C1.3",
+        "ib-biology.bio_2025.C2.1",
+        "ib-biology.bio_2025.C4.2",
+        "ib-biology.bio_2025.D3.1"
+      ],
+      "provenance": {
+        "kind": "editorial-curated",
+        "source": "current-repo-taxonomy.normalized_topics",
+        "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
+      },
+      "reviewStatus": "reviewed-for-filtering",
+      "emptyMembershipAllowed": true
+    },
+    {
+      "id": "ib-biology.group.M5",
+      "studentFacingName": "Nucleic acids and gene expression",
+      "parentTopic": "Molecules and cells",
+      "memberAtomicIds": [
+        "ib-biology.bio_2016.1.2",
+        "ib-biology.bio_2016.2.4",
+        "ib-biology.bio_2016.2.6",
+        "ib-biology.bio_2016.2.7",
+        "ib-biology.bio_2016.6.1",
+        "ib-biology.bio_2016.7.3",
+        "ib-biology.bio_2025.A1.2",
+        "ib-biology.bio_2025.A3.2",
+        "ib-biology.bio_2025.B1.1",
+        "ib-biology.bio_2025.B1.2",
+        "ib-biology.bio_2025.D1.1",
+        "ib-biology.bio_2025.D1.2"
+      ],
+      "provenance": {
+        "kind": "editorial-curated",
+        "source": "current-repo-taxonomy.normalized_topics",
+        "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
+      },
+      "reviewStatus": "reviewed-for-filtering",
+      "emptyMembershipAllowed": true
+    },
+    {
+      "id": "ib-biology.group.O1",
+      "studentFacingName": "Digestion and nutrition",
+      "parentTopic": "Organisms and body systems",
+      "memberAtomicIds": [
+        "ib-biology.bio_2016.1.2",
+        "ib-biology.bio_2016.1.4",
+        "ib-biology.bio_2016.2.3",
+        "ib-biology.bio_2016.2.4",
+        "ib-biology.bio_2016.3.1",
+        "ib-biology.bio_2016.5.4",
+        "ib-biology.bio_2016.6.1",
+        "ib-biology.bio_2016.6.2",
+        "ib-biology.bio_2016.6.3",
+        "ib-biology.bio_2016.6.6",
+        "ib-biology.bio_2016.D.1",
+        "ib-biology.bio_2016.D.2",
+        "ib-biology.bio_2016.D.3",
+        "ib-biology.bio_2016.D.5",
+        "ib-biology.bio_2025.C4.2"
+      ],
+      "provenance": {
+        "kind": "editorial-curated",
+        "source": "current-repo-taxonomy.normalized_topics",
+        "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
+      },
+      "reviewStatus": "reviewed-for-filtering",
+      "emptyMembershipAllowed": true
+    },
+    {
+      "id": "ib-biology.group.O2",
+      "studentFacingName": "Gas exchange and transport",
+      "parentTopic": "Organisms and body systems",
+      "memberAtomicIds": [
+        "ib-biology.bio_2016.1.2",
+        "ib-biology.bio_2016.1.4",
+        "ib-biology.bio_2016.11.3",
+        "ib-biology.bio_2016.2.2",
+        "ib-biology.bio_2016.2.3",
+        "ib-biology.bio_2016.2.4",
+        "ib-biology.bio_2016.2.8",
+        "ib-biology.bio_2016.2.9",
+        "ib-biology.bio_2016.4.1",
+        "ib-biology.bio_2016.4.2",
+        "ib-biology.bio_2016.4.3",
+        "ib-biology.bio_2016.4.4",
+        "ib-biology.bio_2016.5.2",
+        "ib-biology.bio_2016.6.1",
+        "ib-biology.bio_2016.6.2",
+        "ib-biology.bio_2016.6.3",
+        "ib-biology.bio_2016.6.4",
+        "ib-biology.bio_2016.6.6",
+        "ib-biology.bio_2016.8.2",
+        "ib-biology.bio_2016.9.1",
+        "ib-biology.bio_2016.9.2",
+        "ib-biology.bio_2016.9.3",
+        "ib-biology.bio_2016.9.4",
+        "ib-biology.bio_2016.D.3",
+        "ib-biology.bio_2016.D.4",
+        "ib-biology.bio_2016.D.6",
+        "ib-biology.bio_2025.B3.1",
+        "ib-biology.bio_2025.B3.2",
+        "ib-biology.bio_2025.C1.3",
+        "ib-biology.bio_2025.D1.2",
+        "ib-biology.bio_2025.D2.1"
+      ],
+      "provenance": {
+        "kind": "editorial-curated",
+        "source": "current-repo-taxonomy.normalized_topics",
+        "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
+      },
+      "reviewStatus": "reviewed-for-filtering",
+      "emptyMembershipAllowed": true
+    },
+    {
+      "id": "ib-biology.group.O3",
+      "studentFacingName": "Neural and chemical signalling",
+      "parentTopic": "Organisms and body systems",
+      "memberAtomicIds": [
+        "ib-biology.bio_2016.1.2",
+        "ib-biology.bio_2016.1.3",
+        "ib-biology.bio_2016.1.4",
+        "ib-biology.bio_2016.2.3",
+        "ib-biology.bio_2016.3.5",
+        "ib-biology.bio_2016.5.2",
+        "ib-biology.bio_2016.6.2",
+        "ib-biology.bio_2016.6.4",
+        "ib-biology.bio_2016.6.5",
+        "ib-biology.bio_2016.6.6",
+        "ib-biology.bio_2016.9.3",
+        "ib-biology.bio_2016.A.1",
+        "ib-biology.bio_2016.A.2",
+        "ib-biology.bio_2016.A.3",
+        "ib-biology.bio_2016.A.4",
+        "ib-biology.bio_2016.A.5",
+        "ib-biology.bio_2016.A.6",
+        "ib-biology.bio_2016.D.4",
+        "ib-biology.bio_2016.D.5",
+        "ib-biology.bio_2025.B2.1",
+        "ib-biology.bio_2025.B3.3",
+        "ib-biology.bio_2025.C1.1",
+        "ib-biology.bio_2025.C2.1",
+        "ib-biology.bio_2025.C2.2",
+        "ib-biology.bio_2025.C3.1",
+        "ib-biology.bio_2025.C3.2"
+      ],
+      "provenance": {
+        "kind": "editorial-curated",
+        "source": "current-repo-taxonomy.normalized_topics",
+        "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
+      },
+      "reviewStatus": "reviewed-for-filtering",
+      "emptyMembershipAllowed": true
+    },
+    {
+      "id": "ib-biology.group.O4",
+      "studentFacingName": "Defence against disease",
+      "parentTopic": "Organisms and body systems",
+      "memberAtomicIds": [
+        "ib-biology.bio_2016.1.1",
+        "ib-biology.bio_2016.1.2",
+        "ib-biology.bio_2016.1.6",
+        "ib-biology.bio_2016.11.1",
+        "ib-biology.bio_2016.2.1",
+        "ib-biology.bio_2016.2.4",
+        "ib-biology.bio_2016.2.9",
+        "ib-biology.bio_2016.3.3",
+        "ib-biology.bio_2016.3.4",
+        "ib-biology.bio_2016.3.5",
+        "ib-biology.bio_2016.4.1",
+        "ib-biology.bio_2016.4.3",
+        "ib-biology.bio_2016.5.1",
+        "ib-biology.bio_2016.5.2",
+        "ib-biology.bio_2016.5.3",
+        "ib-biology.bio_2016.6.3",
+        "ib-biology.bio_2016.6.4",
+        "ib-biology.bio_2016.6.5",
+        "ib-biology.bio_2016.7.2",
+        "ib-biology.bio_2016.B.4",
+        "ib-biology.bio_2025.A4.1",
+        "ib-biology.bio_2025.B2.2",
+        "ib-biology.bio_2025.B3.2",
+        "ib-biology.bio_2025.C3.2"
+      ],
+      "provenance": {
+        "kind": "editorial-curated",
+        "source": "current-repo-taxonomy.normalized_topics",
+        "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
+      },
+      "reviewStatus": "reviewed-for-filtering",
+      "emptyMembershipAllowed": true
+    },
+    {
+      "id": "ib-biology.group.O5",
+      "studentFacingName": "Homeostasis and reproduction",
+      "parentTopic": "Organisms and body systems",
+      "memberAtomicIds": [
+        "ib-biology.bio_2016.1.1",
+        "ib-biology.bio_2016.1.2",
+        "ib-biology.bio_2016.1.3",
+        "ib-biology.bio_2016.1.4",
+        "ib-biology.bio_2016.1.5",
+        "ib-biology.bio_2016.10.1",
+        "ib-biology.bio_2016.11.2",
+        "ib-biology.bio_2016.11.3",
+        "ib-biology.bio_2016.11.4",
+        "ib-biology.bio_2016.2.2",
+        "ib-biology.bio_2016.2.4",
+        "ib-biology.bio_2016.2.7",
+        "ib-biology.bio_2016.2.9",
+        "ib-biology.bio_2016.3.3",
+        "ib-biology.bio_2016.3.4",
+        "ib-biology.bio_2016.4.1",
+        "ib-biology.bio_2016.5.2",
+        "ib-biology.bio_2016.6.2",
+        "ib-biology.bio_2016.6.6",
+        "ib-biology.bio_2016.7.2",
+        "ib-biology.bio_2016.8.1",
+        "ib-biology.bio_2016.9.1",
+        "ib-biology.bio_2016.9.3",
+        "ib-biology.bio_2016.9.4",
+        "ib-biology.bio_2016.A.6",
+        "ib-biology.bio_2016.D.1",
+        "ib-biology.bio_2016.D.2",
+        "ib-biology.bio_2016.D.3",
+        "ib-biology.bio_2016.D.5",
+        "ib-biology.bio_2025.C3.1",
+        "ib-biology.bio_2025.C4.2",
+        "ib-biology.bio_2025.D1.1",
+        "ib-biology.bio_2025.D2.3",
+        "ib-biology.bio_2025.D3.1",
+        "ib-biology.bio_2025.D3.3",
+        "ib-biology.bio_2025.D4.3"
+      ],
+      "provenance": {
+        "kind": "editorial-curated",
+        "source": "current-repo-taxonomy.normalized_topics",
+        "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
+      },
+      "reviewStatus": "reviewed-for-filtering",
+      "emptyMembershipAllowed": true
+    },
+    {
+      "id": "ib-biology.group.O6",
+      "studentFacingName": "Muscle and movement",
+      "parentTopic": "Organisms and body systems",
+      "memberAtomicIds": [
+        "ib-biology.bio_2016.10.3",
+        "ib-biology.bio_2016.11.1",
+        "ib-biology.bio_2016.11.2",
+        "ib-biology.bio_2016.11.4",
+        "ib-biology.bio_2016.3.3",
+        "ib-biology.bio_2016.5.1",
+        "ib-biology.bio_2016.6.3",
+        "ib-biology.bio_2016.6.4",
+        "ib-biology.bio_2016.6.5",
+        "ib-biology.bio_2016.7.3",
+        "ib-biology.bio_2025.B3.2",
+        "ib-biology.bio_2025.B3.3",
+        "ib-biology.bio_2025.C1.2"
+      ],
+      "provenance": {
+        "kind": "editorial-curated",
+        "source": "current-repo-taxonomy.normalized_topics",
+        "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
+      },
+      "reviewStatus": "reviewed-for-filtering",
+      "emptyMembershipAllowed": true
+    },
+    {
+      "id": "ib-biology.group.I1",
+      "studentFacingName": "DNA, genes and chromosomes",
+      "parentTopic": "Information, inheritance and evolution",
+      "memberAtomicIds": [
+        "ib-biology.bio_2016.1.1",
+        "ib-biology.bio_2016.1.2",
+        "ib-biology.bio_2016.1.3",
+        "ib-biology.bio_2016.1.6",
+        "ib-biology.bio_2016.10.1",
+        "ib-biology.bio_2016.10.3",
+        "ib-biology.bio_2016.2.4",
+        "ib-biology.bio_2016.2.5",
+        "ib-biology.bio_2016.2.6",
+        "ib-biology.bio_2016.2.7",
+        "ib-biology.bio_2016.2.8",
+        "ib-biology.bio_2016.3.1",
+        "ib-biology.bio_2016.3.2",
+        "ib-biology.bio_2016.3.4",
+        "ib-biology.bio_2016.3.5",
+        "ib-biology.bio_2016.5.3",
+        "ib-biology.bio_2016.6.3",
+        "ib-biology.bio_2016.6.6",
+        "ib-biology.bio_2016.7.1",
+        "ib-biology.bio_2016.7.2",
+        "ib-biology.bio_2016.7.3",
+        "ib-biology.bio_2016.B.4",
+        "ib-biology.bio_2016.B.5",
+        "ib-biology.bio_2025.A1.2",
+        "ib-biology.bio_2025.A4.2",
+        "ib-biology.bio_2025.D1.1",
+        "ib-biology.bio_2025.D1.2",
+        "ib-biology.bio_2025.D1.3",
+        "ib-biology.bio_2025.D2.1",
+        "ib-biology.bio_2025.D2.2",
+        "ib-biology.bio_2025.D3.2",
+        "ib-biology.bio_2025.D4.1"
+      ],
+      "provenance": {
+        "kind": "editorial-curated",
+        "source": "current-repo-taxonomy.normalized_topics",
+        "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
+      },
+      "reviewStatus": "reviewed-for-filtering",
+      "emptyMembershipAllowed": true
+    },
+    {
+      "id": "ib-biology.group.I2",
+      "studentFacingName": "Cell division and inheritance",
+      "parentTopic": "Information, inheritance and evolution",
+      "memberAtomicIds": [
+        "ib-biology.bio_2016.1.1",
+        "ib-biology.bio_2016.1.2",
+        "ib-biology.bio_2016.1.6",
+        "ib-biology.bio_2016.10.1",
+        "ib-biology.bio_2016.10.2",
+        "ib-biology.bio_2016.10.3",
+        "ib-biology.bio_2016.2.5",
+        "ib-biology.bio_2016.2.6",
+        "ib-biology.bio_2016.2.7",
+        "ib-biology.bio_2016.3.1",
+        "ib-biology.bio_2016.3.2",
+        "ib-biology.bio_2016.3.3",
+        "ib-biology.bio_2016.3.4",
+        "ib-biology.bio_2016.3.5",
+        "ib-biology.bio_2016.4.1",
+        "ib-biology.bio_2016.4.3",
+        "ib-biology.bio_2016.5.1",
+        "ib-biology.bio_2016.5.2",
+        "ib-biology.bio_2016.5.3",
+        "ib-biology.bio_2016.6.2",
+        "ib-biology.bio_2016.6.3",
+        "ib-biology.bio_2016.6.6",
+        "ib-biology.bio_2025.A4.1",
+        "ib-biology.bio_2025.D1.1",
+        "ib-biology.bio_2025.D2.1",
+        "ib-biology.bio_2025.D3.1",
+        "ib-biology.bio_2025.D3.2"
+      ],
+      "provenance": {
+        "kind": "editorial-curated",
+        "source": "current-repo-taxonomy.normalized_topics",
+        "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
+      },
+      "reviewStatus": "reviewed-for-filtering",
+      "emptyMembershipAllowed": true
+    },
+    {
+      "id": "ib-biology.group.I3",
+      "studentFacingName": "Evolution and speciation",
+      "parentTopic": "Information, inheritance and evolution",
+      "memberAtomicIds": [
+        "ib-biology.bio_2016.1.1",
+        "ib-biology.bio_2016.1.2",
+        "ib-biology.bio_2016.1.4",
+        "ib-biology.bio_2016.1.6",
+        "ib-biology.bio_2016.10.1",
+        "ib-biology.bio_2016.10.2",
+        "ib-biology.bio_2016.10.3",
+        "ib-biology.bio_2016.2.5",
+        "ib-biology.bio_2016.2.6",
+        "ib-biology.bio_2016.2.7",
+        "ib-biology.bio_2016.3.1",
+        "ib-biology.bio_2016.3.3",
+        "ib-biology.bio_2016.3.4",
+        "ib-biology.bio_2016.3.5",
+        "ib-biology.bio_2016.4.1",
+        "ib-biology.bio_2016.4.2",
+        "ib-biology.bio_2016.5.1",
+        "ib-biology.bio_2016.5.2",
+        "ib-biology.bio_2016.5.3",
+        "ib-biology.bio_2016.5.4",
+        "ib-biology.bio_2016.6.3",
+        "ib-biology.bio_2016.7.1",
+        "ib-biology.bio_2016.7.2",
+        "ib-biology.bio_2016.A.4",
+        "ib-biology.bio_2016.A.6",
+        "ib-biology.bio_2016.B.5",
+        "ib-biology.bio_2016.D.1",
+        "ib-biology.bio_2025.A3.1",
+        "ib-biology.bio_2025.A4.1",
+        "ib-biology.bio_2025.A4.2",
+        "ib-biology.bio_2025.B1.1",
+        "ib-biology.bio_2025.C4.1",
+        "ib-biology.bio_2025.D1.3",
+        "ib-biology.bio_2025.D3.2",
+        "ib-biology.bio_2025.D4.1"
+      ],
+      "provenance": {
+        "kind": "editorial-curated",
+        "source": "current-repo-taxonomy.normalized_topics",
+        "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
+      },
+      "reviewStatus": "reviewed-for-filtering",
+      "emptyMembershipAllowed": true
+    },
+    {
+      "id": "ib-biology.group.I4",
+      "studentFacingName": "Diversity and classification",
+      "parentTopic": "Information, inheritance and evolution",
+      "memberAtomicIds": [
+        "ib-biology.bio_2016.1.1",
+        "ib-biology.bio_2016.1.5",
+        "ib-biology.bio_2016.2.9",
+        "ib-biology.bio_2016.3.1",
+        "ib-biology.bio_2016.3.2",
+        "ib-biology.bio_2016.4.2",
+        "ib-biology.bio_2016.4.3",
+        "ib-biology.bio_2016.4.4",
+        "ib-biology.bio_2016.5.1",
+        "ib-biology.bio_2016.5.2",
+        "ib-biology.bio_2016.5.3",
+        "ib-biology.bio_2016.5.4",
+        "ib-biology.bio_2025.A1.2",
+        "ib-biology.bio_2025.A2.3",
+        "ib-biology.bio_2025.A3.1",
+        "ib-biology.bio_2025.A3.2",
+        "ib-biology.bio_2025.A4.1",
+        "ib-biology.bio_2025.D1.1",
+        "ib-biology.bio_2025.D2.1",
+        "ib-biology.bio_2025.D3.2"
+      ],
+      "provenance": {
+        "kind": "editorial-curated",
+        "source": "current-repo-taxonomy.normalized_topics",
+        "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
+      },
+      "reviewStatus": "reviewed-for-filtering",
+      "emptyMembershipAllowed": true
+    },
+    {
+      "id": "ib-biology.group.I5",
+      "studentFacingName": "Biotechnology and gene editing",
+      "parentTopic": "Information, inheritance and evolution",
+      "memberAtomicIds": [
+        "ib-biology.bio_2016.1.1",
+        "ib-biology.bio_2016.1.6",
+        "ib-biology.bio_2016.11.1",
+        "ib-biology.bio_2016.2.7",
+        "ib-biology.bio_2016.3.1",
+        "ib-biology.bio_2016.3.5",
+        "ib-biology.bio_2016.4.3",
+        "ib-biology.bio_2016.5.1",
+        "ib-biology.bio_2016.6.3",
+        "ib-biology.bio_2016.7.2",
+        "ib-biology.bio_2016.8.2",
+        "ib-biology.bio_2016.B.1",
+        "ib-biology.bio_2016.B.2",
+        "ib-biology.bio_2016.B.4",
+        "ib-biology.bio_2016.B.5",
+        "ib-biology.bio_2025.D1.3",
+        "ib-biology.bio_2025.D3.2"
+      ],
+      "provenance": {
+        "kind": "editorial-curated",
+        "source": "current-repo-taxonomy.normalized_topics",
+        "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
+      },
+      "reviewStatus": "reviewed-for-filtering",
+      "emptyMembershipAllowed": true
+    },
+    {
+      "id": "ib-biology.group.P1",
+      "studentFacingName": "Populations and communities",
+      "parentTopic": "Populations, ecosystems and environmental change",
+      "memberAtomicIds": [
+        "ib-biology.bio_2016.2.9",
+        "ib-biology.bio_2016.4.1",
+        "ib-biology.bio_2016.4.2",
+        "ib-biology.bio_2016.4.4",
+        "ib-biology.bio_2016.5.1",
+        "ib-biology.bio_2016.5.2",
+        "ib-biology.bio_2016.5.3",
+        "ib-biology.bio_2016.5.4",
+        "ib-biology.bio_2016.6.1",
+        "ib-biology.bio_2016.A.6",
+        "ib-biology.bio_2016.C.1",
+        "ib-biology.bio_2016.C.2",
+        "ib-biology.bio_2016.C.3",
+        "ib-biology.bio_2016.C.4",
+        "ib-biology.bio_2016.C.5",
+        "ib-biology.bio_2016.C.6",
+        "ib-biology.bio_2025.A3.2",
+        "ib-biology.bio_2025.C3.2",
+        "ib-biology.bio_2025.C4.1",
+        "ib-biology.bio_2025.C4.2",
+        "ib-biology.bio_2025.D1.3"
+      ],
+      "provenance": {
+        "kind": "editorial-curated",
+        "source": "current-repo-taxonomy.normalized_topics",
+        "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
+      },
+      "reviewStatus": "reviewed-for-filtering",
+      "emptyMembershipAllowed": true
+    },
+    {
+      "id": "ib-biology.group.P2",
+      "studentFacingName": "Energy and matter cycles",
+      "parentTopic": "Populations, ecosystems and environmental change",
+      "memberAtomicIds": [
+        "ib-biology.bio_2016.1.1",
+        "ib-biology.bio_2016.1.3",
+        "ib-biology.bio_2016.1.5",
+        "ib-biology.bio_2016.10.1",
+        "ib-biology.bio_2016.2.3",
+        "ib-biology.bio_2016.2.9",
+        "ib-biology.bio_2016.3.5",
+        "ib-biology.bio_2016.4.1",
+        "ib-biology.bio_2016.4.2",
+        "ib-biology.bio_2016.4.3",
+        "ib-biology.bio_2016.4.4",
+        "ib-biology.bio_2016.5.2",
+        "ib-biology.bio_2016.5.3",
+        "ib-biology.bio_2016.5.4",
+        "ib-biology.bio_2016.6.4",
+        "ib-biology.bio_2016.9.3",
+        "ib-biology.bio_2016.9.4",
+        "ib-biology.bio_2016.B.2",
+        "ib-biology.bio_2016.C.1",
+        "ib-biology.bio_2016.C.2",
+        "ib-biology.bio_2016.C.3",
+        "ib-biology.bio_2016.C.6",
+        "ib-biology.bio_2025.B1.1",
+        "ib-biology.bio_2025.C1.2",
+        "ib-biology.bio_2025.C4.2",
+        "ib-biology.bio_2025.D4.3"
+      ],
+      "provenance": {
+        "kind": "editorial-curated",
+        "source": "current-repo-taxonomy.normalized_topics",
+        "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
+      },
+      "reviewStatus": "reviewed-for-filtering",
+      "emptyMembershipAllowed": true
+    },
+    {
+      "id": "ib-biology.group.P3",
+      "studentFacingName": "Adaptation and ecological niches",
+      "parentTopic": "Populations, ecosystems and environmental change",
+      "memberAtomicIds": [
+        "ib-biology.bio_2016.4.1",
+        "ib-biology.bio_2016.4.3",
+        "ib-biology.bio_2016.4.4",
+        "ib-biology.bio_2016.C.1",
+        "ib-biology.bio_2016.C.5",
+        "ib-biology.bio_2025.A4.1",
+        "ib-biology.bio_2025.B4.1",
+        "ib-biology.bio_2025.B4.2",
+        "ib-biology.bio_2025.C4.1"
+      ],
+      "provenance": {
+        "kind": "editorial-curated",
+        "source": "current-repo-taxonomy.normalized_topics",
+        "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
+      },
+      "reviewStatus": "reviewed-for-filtering",
+      "emptyMembershipAllowed": true
+    },
+    {
+      "id": "ib-biology.group.P4",
+      "studentFacingName": "Conservation and biodiversity",
+      "parentTopic": "Populations, ecosystems and environmental change",
+      "memberAtomicIds": [
+        "ib-biology.bio_2016.4.1",
+        "ib-biology.bio_2016.4.2",
+        "ib-biology.bio_2016.8.2",
+        "ib-biology.bio_2016.9.1",
+        "ib-biology.bio_2016.B.3",
+        "ib-biology.bio_2016.C.1",
+        "ib-biology.bio_2016.C.2",
+        "ib-biology.bio_2016.C.3",
+        "ib-biology.bio_2016.C.4",
+        "ib-biology.bio_2016.C.5",
+        "ib-biology.bio_2025.A4.2",
+        "ib-biology.bio_2025.D4.2"
+      ],
+      "provenance": {
+        "kind": "editorial-curated",
+        "source": "current-repo-taxonomy.normalized_topics",
+        "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
+      },
+      "reviewStatus": "reviewed-for-filtering",
+      "emptyMembershipAllowed": true
+    },
+    {
+      "id": "ib-biology.group.P5",
+      "studentFacingName": "Climate change and ecosystem stability",
+      "parentTopic": "Populations, ecosystems and environmental change",
+      "memberAtomicIds": [
+        "ib-biology.bio_2016.2.2",
+        "ib-biology.bio_2016.2.9",
+        "ib-biology.bio_2016.4.1",
+        "ib-biology.bio_2016.4.2",
+        "ib-biology.bio_2016.4.3",
+        "ib-biology.bio_2016.4.4",
+        "ib-biology.bio_2016.5.2",
+        "ib-biology.bio_2016.6.4",
+        "ib-biology.bio_2016.9.1",
+        "ib-biology.bio_2016.9.2",
+        "ib-biology.bio_2016.C.1",
+        "ib-biology.bio_2025.A4.2",
+        "ib-biology.bio_2025.D4.1",
+        "ib-biology.bio_2025.D4.2",
+        "ib-biology.bio_2025.D4.3"
+      ],
+      "provenance": {
+        "kind": "editorial-curated",
+        "source": "current-repo-taxonomy.normalized_topics",
+        "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
+      },
+      "reviewStatus": "reviewed-for-filtering",
+      "emptyMembershipAllowed": true
+    }
+  ],
+  "counts": {
+    "atomicEntries": 114,
+    "bio_2016": 74,
+    "bio_2025": 40,
+    "curatedGroups": 21
+  }
+}

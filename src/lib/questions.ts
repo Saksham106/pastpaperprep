@@ -4,6 +4,8 @@ import { isPrivateRuntimeBank, privateStorageObjectPath } from "@/lib/private-ru
 import granularOverlay from "@/data/math-granular-label-overlay.json";
 import aaTaxonomy from "@/data/aa-official-subtopics/taxonomy.json";
 import aaOverlay from "@/data/aa-official-subtopics/overlay.json";
+import biologyOfficialTaxonomy from "@/data/ib-biology-official-subtopics/taxonomy.json";
+import biologyOfficialOverlay from "@/data/ib-biology-official-subtopics/overlay.json";
 
 const GRANULAR_LABELS = new Map<string, string[]>();
 const overlayBankForSlug = (slug: string) => ({
@@ -18,6 +20,8 @@ for (const row of granularOverlay.labels) {
 
 const AA_GROUP_NAMES = new Map(aaTaxonomy.groups.map((group) => [group.id, group.studentFacingName]));
 const AA_RECORDS = new Map(aaOverlay.records.map((record) => [`${record.level}:${record.id}`, record]));
+const BIOLOGY_GROUP_NAMES = new Map(biologyOfficialTaxonomy.curatedGroups.map((group) => [group.id, group.studentFacingName]));
+const BIOLOGY_RECORDS = new Map(biologyOfficialOverlay.rows.map((record) => [`${record.bank}:${record.id}`, record]));
 
 type ClassificationProvenance = {
   oldPrimaryTopic: string;
@@ -30,6 +34,7 @@ type ClassificationProvenance = {
 };
 
 type AaRecord = (typeof aaOverlay.records)[number];
+type BiologyRecord = (typeof biologyOfficialOverlay.rows)[number];
 
 function isCurrentAa(slug: BankSlug, raw: RawQuestion): "SL" | "HL" | null {
   if (slug === "ib-sl" && text(raw.subject).toLocaleLowerCase() === "mathematics: analysis and approaches sl") return "SL";
@@ -58,6 +63,34 @@ function aaClassification(slug: BankSlug, raw: RawQuestion): { record: AaRecord;
     primaryTopic: record.primaryTopic,
     secondaryTopics: record.secondaryTopics,
     subtopics: record.status === "accepted" ? record.subtopics.map((id) => AA_GROUP_NAMES.get(id) ?? (() => { throw new Error(`Unknown official AA group ${id}`); })()) : [],
+    skills: [],
+  };
+}
+
+function isBiologyBank(slug: BankSlug): boolean {
+  return slug === "ib-biology-hl" || slug === "ib-biology-sl";
+}
+
+function biologyClassification(slug: BankSlug, raw: RawQuestion): { record: BiologyRecord; provenance: ClassificationProvenance; primaryTopic: string; secondaryTopics: string[]; subtopics: string[]; skills: string[] } | null {
+  if (!isBiologyBank(slug)) return null;
+  const record = BIOLOGY_RECORDS.get(`${slug}:${text(raw.id)}`);
+  if (!record) throw new Error(`Missing official Biology classification for ${raw.id}`);
+  const groups = [record.primary, ...record.secondary].filter(Boolean) as Array<NonNullable<typeof record.primary>>;
+  const provenance = {
+    oldPrimaryTopic: record.provenance.oldPrimaryTopic,
+    oldSecondaryTopics: record.provenance.oldSecondaryTopics,
+    oldSkills: record.provenance.oldSkills,
+    oldSubtopics: record.provenance.oldSubtopics,
+    legacyGranularLabels: record.provenance.oldGranularLabels,
+    status: record.blocked ? "blocked" : "accepted",
+    blockedReason: record.blockedReasons.join("; ") || null,
+  } satisfies ClassificationProvenance;
+  return {
+    record,
+    provenance,
+    primaryTopic: record.primary?.parentTopic ?? (text(raw.primaryTopic) || "Other"),
+    secondaryTopics: [...new Set(groups.slice(1).map((group) => group.parentTopic))],
+    subtopics: groups.map((group) => BIOLOGY_GROUP_NAMES.get(group.id) ?? (() => { throw new Error(`Unknown official Biology group ${group.id}`); })()),
     skills: [],
   };
 }
@@ -172,11 +205,12 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
   const accessibleText = text(raw.accessibleText);
   const summary = text(raw.summary) || accessibleText.slice(0, 220);
   const aa = aaClassification(slug, raw);
-  const primaryTopic = aa?.primaryTopic ?? (text(raw.primaryTopic) || "Other");
-  const secondaryTopics = aa?.secondaryTopics ?? strings(raw.secondaryTopics);
-  const controlledSkills = aa?.skills ?? strings(raw.skills);
-  const studentSubtopics = aa?.subtopics ?? strings(raw.subtopics);
-  const secondarySubtopics = strings(raw.secondarySubtopics);
+  const biology = biologyClassification(slug, raw);
+  const primaryTopic = aa?.primaryTopic ?? biology?.primaryTopic ?? (text(raw.primaryTopic) || "Other");
+  const secondaryTopics = aa?.secondaryTopics ?? biology?.secondaryTopics ?? strings(raw.secondaryTopics);
+  const controlledSkills = aa?.skills ?? biology?.skills ?? strings(raw.skills);
+  const studentSubtopics = aa?.subtopics ?? biology?.subtopics ?? strings(raw.subtopics);
+  const secondarySubtopics = biology ? biology.subtopics.slice(1) : strings(raw.secondarySubtopics);
   const detailedSubtopics = strings(raw.detailedSubtopics);
   const subtopics = Array.from(new Set(
     studentSubtopics.length
@@ -194,7 +228,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     : detailedSubtopics.length
       ? detailedSubtopics
       : subtopics;
-  const skills = aa ? [] : isLocalEconomicsBank(slug)
+  const skills = aa || biology ? [] : isLocalEconomicsBank(slug)
     ? Array.from(new Set(controlledSkills))
     : Array.from(new Set([
       ...skillSeed,
@@ -233,12 +267,12 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     skills,
     subtopics,
     secondarySubtopics,
-    granularLabels: aa ? [] : GRANULAR_LABELS.get(`${overlayBankForSlug(slug)}:${text(raw.id)}`) ?? [],
-    officialCodeRefs: strings(raw.officialCodeRefs),
+    granularLabels: aa || biology ? [] : GRANULAR_LABELS.get(`${overlayBankForSlug(slug)}:${text(raw.id)}`) ?? [],
+    officialCodeRefs: biology ? biology.record.officialCodes : strings(raw.officialCodeRefs),
     retrievalFacets: strings(raw.retrievalFacets),
-    classificationProvenance: aa?.provenance,
+    classificationProvenance: aa?.provenance ?? biology?.provenance,
     subject: text(raw.subject) || text(raw.course),
-    courseEra: text(raw.courseEra),
+    courseEra: biology?.record.era ?? text(raw.courseEra),
     option: text(raw.p3Option),
     zone: text(raw.timezone) || text(raw.zone),
     component: text(raw.component),

@@ -2,6 +2,7 @@ import biologyTaxonomy from "@/data/igcse-biology-0610-official-taxonomy.json";
 import economicsTaxonomy from "@/data/igcse-economics-0455-taxonomy.json";
 import coordinatedTaxonomy from "@/data/igcse-coordinated-sciences-0654-taxonomy.json";
 import aaTaxonomy from "@/data/aa-official-subtopics/taxonomy.json";
+import biologyOfficialTaxonomy from "@/data/ib-biology-official-subtopics/taxonomy.json";
 import {
   getControlledSubtopics as getLegacyControlledSubtopics,
   getSubtopicGroups as getLegacySubtopicGroups,
@@ -18,6 +19,15 @@ const BIOLOGY_GROUPS: Record<string, readonly string[]> = Object.fromEntries(
     topic.subtopics.map((subtopic) => subtopic.title),
   ])),
 );
+const BIOLOGY_OFFICIAL_TOPIC_ORDER = [...new Set(biologyOfficialTaxonomy.curatedGroups.map((group) => group.parentTopic))];
+const BIOLOGY_OFFICIAL_GROUPS: Record<string, readonly string[]> = Object.fromEntries(
+  BIOLOGY_OFFICIAL_TOPIC_ORDER.map((topic) => [topic, biologyOfficialTaxonomy.curatedGroups.filter((group) => group.parentTopic === topic).map((group) => group.studentFacingName)]),
+);
+
+function isOfficialBiologyBank(bank: string | undefined): boolean {
+  return bank === "ib-biology-hl" || bank === "ib-biology-sl";
+}
+
 const ECONOMICS_TOPIC_ORDER = economicsTaxonomy.student_topics.map((topic) => topic.label);
 const ECONOMICS_GROUPS: Record<string, readonly string[]> = Object.fromEntries(
   economicsTaxonomy.student_topics.map((topic) => [
@@ -93,6 +103,7 @@ function isCoordinatedBank(bank: string | undefined): boolean {
 
 export function getControlledSubtopics(bankSlug: string, topic: string): readonly string[] {
   if (isAaBank(bankSlug)) return AA_GROUPS[topic] ?? [];
+  if (isOfficialBiologyBank(bankSlug)) return BIOLOGY_OFFICIAL_GROUPS[topic] ?? [];
   if (bankSlug === "igcse-biology-0610") {
     return BIOLOGY_GROUPS[topic] ?? (BIOLOGY_TOPIC_ORDER.includes(topic) ? [topic] : []);
   }
@@ -106,6 +117,10 @@ export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
   if (isAaBank(bank) && hasCurrentAa(questions)) {
     const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));
     return [...AA_TOPIC_ORDER.filter((topic) => available.has(topic)), ...[...available].filter((topic) => !AA_TOPIC_ORDER.includes(topic)).sort()];
+  }
+  if (isOfficialBiologyBank(bank)) {
+    const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));
+    return [...BIOLOGY_OFFICIAL_TOPIC_ORDER.filter((topic) => available.has(topic)), ...[...available].filter((topic) => !BIOLOGY_OFFICIAL_TOPIC_ORDER.includes(topic)).sort()];
   }
   if (isCoordinatedBank(bank)) {
     const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));
@@ -127,6 +142,20 @@ export function getSubtopicGroups(
   selectedSubtopics: string[],
 ): { all: string[]; relevant: string[]; other: string[]; selectedOutsideContext: string[] } {
   const bank = questions[0]?.bankSlug;
+  if (isOfficialBiologyBank(bank)) {
+    const all = [...new Set(questions.flatMap((question) => question.subtopics))];
+    const available = new Set(all);
+    const relevant = selectedTopics.length
+      ? [...new Set(selectedTopics.flatMap((topic) => BIOLOGY_OFFICIAL_GROUPS[topic] ?? []).filter((label) => available.has(label)))]
+      : all;
+    const relevantSet = new Set(relevant);
+    return {
+      all,
+      relevant,
+      other: all.filter((subtopic) => !relevantSet.has(subtopic)),
+      selectedOutsideContext: selectedSubtopics.filter((subtopic) => available.has(subtopic) && !relevantSet.has(subtopic)),
+    };
+  }
   if (isAaBank(bank) && hasCurrentAa(questions)) {
     const { current, legacy } = splitAaQuestions(questions);
     const all = [...new Set(questions.flatMap((question) => question.subtopics))];

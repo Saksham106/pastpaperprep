@@ -11,6 +11,8 @@ const version = 1;
 const granularOverlay = JSON.parse(await readFile(join(root, "src", "data", "math-granular-label-overlay.json"), "utf8"));
 const aaTaxonomy = JSON.parse(await readFile(join(root, "src", "data", "aa-official-subtopics", "taxonomy.json"), "utf8"));
 const aaOverlay = JSON.parse(await readFile(join(root, "src", "data", "aa-official-subtopics", "overlay.json"), "utf8"));
+const biologyOfficialTaxonomy = JSON.parse(await readFile(join(root, "src", "data", "ib-biology-official-subtopics", "taxonomy.json"), "utf8"));
+const biologyOfficialOverlay = JSON.parse(await readFile(join(root, "src", "data", "ib-biology-official-subtopics", "overlay.json"), "utf8"));
 const overlayBankForSlug = (slug) => ({
   "igcse-additional": "0606",
   "ib-hl": "ib-aa-hl",
@@ -23,6 +25,8 @@ for (const row of granularOverlay.labels) {
 }
 const aaGroupNames = new Map(aaTaxonomy.groups.map((group) => [group.id, group.studentFacingName]));
 const aaRecords = new Map(aaOverlay.records.map((record) => [`${record.level}:${record.id}`, record]));
+const biologyGroupNames = new Map(biologyOfficialTaxonomy.curatedGroups.map((group) => [group.id, group.studentFacingName]));
+const biologyRecords = new Map(biologyOfficialOverlay.rows.map((record) => [`${record.bank}:${record.id}`, record]));
 function currentAaRecord(bank, raw) {
   const level = bank === "ib-sl" && raw.subject?.toLocaleLowerCase() === "mathematics: analysis and approaches sl"
     ? "SL"
@@ -31,6 +35,14 @@ function currentAaRecord(bank, raw) {
       : null;
   return level ? aaRecords.get(`${level}:${raw.id}`) ?? (() => { throw new Error(`Missing official AA classification for ${raw.id}`); })() : null;
 }
+function currentBiologyRecord(bank, raw) {
+  if (bank !== "ib-biology-hl" && bank !== "ib-biology-sl") return null;
+  return biologyRecords.get(`${bank}:${raw.id}`) ?? (() => { throw new Error(`Missing official Biology classification for ${raw.id}`); })();
+}
+const biologyGroupLabels = (record) => [record.primary, ...record.secondary]
+  .filter(Boolean)
+  .map((group) => biologyGroupNames.get(group.id) ?? (() => { throw new Error(`Unknown official Biology group ${group.id}`); })());
+const biologyPrimaryTopic = (record, raw) => record.primary?.parentTopic ?? raw.primaryTopic ?? "Other";
 const bankSources = [
   ...["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "ib-chemistry-hl", "ib-chemistry-sl", "ib-physics-hl", "ib-physics-sl", "ib-biology-hl", "ib-biology-sl"]
     .map((bank) => ({ bank, directory: "raw" })),
@@ -57,10 +69,13 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     ? raw.officialMarkscheme
     : {};
   const aa = currentAaRecord(bank, raw);
-  const controlledSkills = aa ? [] : strings(raw.skills);
+  const biology = currentBiologyRecord(bank, raw);
+  const controlledSkills = aa || biology ? [] : strings(raw.skills);
   const studentSubtopics = aa
     ? (aa.status === "accepted" ? aa.subtopics.map((id) => aaGroupNames.get(id) ?? (() => { throw new Error(`Unknown official AA group ${id}`); })()) : [])
-    : strings(raw.subtopics);
+    : biology
+      ? biologyGroupLabels(biology)
+      : strings(raw.subtopics);
   const detailedSubtopics = strings(raw.detailedSubtopics);
   const subtopics = [...new Set(
     studentSubtopics.length
@@ -74,7 +89,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     : detailedSubtopics.length
       ? detailedSubtopics
       : subtopics;
-  const skills = aa ? [] : localEconomics
+  const skills = aa || biology ? [] : localEconomics
     ? [...new Set(controlledSkills)]
     : [...new Set([
       ...skillSeed,
@@ -90,12 +105,12 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     paper: integer(raw.paper),
     year: integer(raw.year),
     session: typeof raw.session === "string" ? raw.session : "",
-    primaryTopic: aa ? aa.primaryTopic : (typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other"),
-    secondaryTopics: aa ? aa.secondaryTopics : strings(raw.secondaryTopics),
+    primaryTopic: biology ? biologyPrimaryTopic(biology, raw) : aa ? aa.primaryTopic : (typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other"),
+    secondaryTopics: biology ? [...new Set(biology.secondary.map((group) => group.parentTopic))] : aa ? aa.secondaryTopics : strings(raw.secondaryTopics),
     skills,
     subtopics,
-    granularLabels: aa ? [] : granularByKey.get(`${overlayBank}:${raw.id}`) ?? [],
-    ...(strings(raw.officialCodeRefs).length ? { officialCodeRefs: strings(raw.officialCodeRefs) } : {}),
+    granularLabels: aa || biology ? [] : granularByKey.get(`${overlayBank}:${raw.id}`) ?? [],
+    ...(biology ? { officialCodeRefs: [...biology.officialCodes] } : strings(raw.officialCodeRefs).length ? { officialCodeRefs: strings(raw.officialCodeRefs) } : {}),
     ...(strings(raw.retrievalFacets).length ? { retrievalFacets: strings(raw.retrievalFacets) } : {}),
     subject: (typeof raw.subject === "string" && raw.subject) || (typeof raw.course === "string" ? raw.course : ""),
     option: typeof raw.p3Option === "string" ? raw.p3Option : "",
