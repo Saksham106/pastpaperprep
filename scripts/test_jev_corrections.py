@@ -9,19 +9,28 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class JevCorrectionOverlayTests(unittest.TestCase):
-    def test_overlay_is_exactly_63_unique_safe_rows(self):
+    def test_overlay_is_exactly_62_corrected_and_17_held_rows(self):
         overlay = load_overlay(ROOT / "data/classification/jev-2026-09-21/corrections.json")
         report = validate_overlay(ROOT, overlay)
-        self.assertEqual(report["targetCount"], 63)
-        self.assertEqual(report["changedCount"], 63)
-        self.assertEqual(report["decisionCounts"], {"accept": 47, "modify": 16})
+        self.assertEqual(report["targetCount"], 62)
+        self.assertEqual(report["changedCount"], 62)
+        self.assertEqual(report["decisionCounts"], {"accept": 46, "modify": 16})
         self.assertEqual(report["bankCounts"], {
             "igcse-biology-0610": 19,
             "igcse-chemistry-0620": 37,
             "igcse-economics-0455": 6,
-            "igcse": 1,
         })
-        self.assertEqual(report["heldCount"], 16)
+        self.assertEqual(report["heldCount"], 17)
+        self.assertEqual(report["bankCounts"].get("igcse", 0), 0)
+
+    def test_0580_is_held_with_evidence_and_without_provenance(self):
+        overlay = load_overlay(ROOT / "data/classification/jev-2026-09-21/corrections.json")
+        held = next(row for row in overlay["heldRows"] if row["id"] == "0580-2026-june-23-q25")
+        self.assertEqual(held["decision"], "reject-current-correct")
+        self.assertTrue(held["evidence"]["source"] == "origin/main")
+        question = json.loads((ROOT / BANK_PATHS["igcse"] ).read_text())["questions"]
+        question = next(row for row in question if row["id"] == held["id"])
+        self.assertNotIn("jevCorrection", question.get("classificationProvenance", {}))
 
     def test_apply_preserves_unrelated_and_held_rows_without_loss(self):
         overlay = load_overlay(ROOT / "data/classification/jev-2026-09-21/corrections.json")

@@ -8,8 +8,8 @@
     "reconciled-econ-maths.json": "785f0c85f0d29c3ed1edb3d2afd12befd6cb8ff549a3ca8f46695996baff8323"
   },
   "scope": {
-    "targetCount": 63,
-    "heldCount": 16,
+    "targetCount": 62,
+    "heldCount": 17,
     "heldDecisions": [
       "reject-current-correct",
       "blocked"
@@ -170,31 +170,6 @@
         ],
         "courseEra": "2017_2019",
         "era": "2017_2019"
-      }
-    },
-    {
-      "id": "0580-2026-june-23-q25",
-      "bank": "igcse",
-      "decision": "accept",
-      "rationale": "The original row asks to complete a three-set Venn diagram and find n(A union B union C), with integer/square/factor definitions supplying the set predicates. The repository raw record is source-structured and independently classifies it as Probability, with high-confidence evidence for Venn/set operations.",
-      "final": {
-        "primary": "Probability",
-        "label": "Probability",
-        "secondaries": [],
-        "detail": "Combined and conditional probability"
-      },
-      "expected": {
-        "primaryTopic": "Probability",
-        "primaryTopicId": null,
-        "secondaryTopics": [],
-        "subtopics": [
-          "Combined and conditional probability"
-        ],
-        "detailedSubtopics": [
-          "Combined and conditional probability"
-        ],
-        "courseEra": null,
-        "era": null
       }
     },
     {
@@ -2027,6 +2002,29 @@
           "Metallic bonding"
         ],
         "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2026-june-23-q25",
+      "decision": "reject-current-correct",
+      "evidence": {
+        "source": "origin/main",
+        "basis": "The source row is already classified as Probability with Combined and conditional probability; no correction is material.",
+        "verifiedAt": "c15a43b review"
+      },
+      "expected": {
+        "primaryTopic": "Probability",
+        "primaryTopicId": null,
+        "secondaryTopics": [],
+        "subtopics": [
+          "Combined and conditional probability"
+        ],
+        "detailedSubtopics": [
+          "Combined and conditional probability"
+        ],
+        "courseEra": null,
         "era": null
       }
     }

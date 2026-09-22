@@ -141,9 +141,15 @@ def _validate_targets(root, overlay):
         elif _current_signature(q) != row["expected"]:
             raise ValueError(f"current-value mismatch: {row['id']}")
     if len(seen) != overlay["scope"]["targetCount"]: raise ValueError("target count mismatch")
+    held_seen = set()
     for row in overlay.get("heldRows", []):
+        if row["id"] in held_seen or row["id"] in seen: raise ValueError(f"duplicate/overlapping held row: {row['id']}")
+        held_seen.add(row["id"])
+        if row.get("decision") not in overlay["scope"].get("heldDecisions", []): raise ValueError(f"invalid held decision: {row['id']}")
         q = qmaps[row["bank"]].get(row["id"])
         if q is None or _current_signature(q) != row["expected"]: raise ValueError(f"held-row mismatch: {row['id']}")
+        if row["id"] == "0580-2026-june-23-q25":
+            if "evidence" not in row or q.get("classificationProvenance", {}).get("jevCorrection") is not None: raise ValueError("0580 held evidence/provenance mismatch")
     if len(overlay.get("heldRows", [])) != overlay["scope"]["heldCount"]: raise ValueError("held count mismatch")
     return qmaps
 
