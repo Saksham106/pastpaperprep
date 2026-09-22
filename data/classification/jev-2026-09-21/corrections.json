@@ -1,0 +1,2032 @@
+{
+  "schemaVersion": "pastpaperprep-jev-correction-overlay.v1",
+  "audit": "jev-audit-2026-09-21",
+  "sourceArtifacts": {
+    "reconciled-biology.json": "ad0c941e04f612c117680a889e3b60e61faaaa1127f9263389ca78c3804c29da",
+    "reconciled-chemistry-part1.json": "40fc4d35b2a668df1fca8f62722e57c437cc305c3d38fc803eed32d57f2ab922",
+    "reconciled-chemistry-part2.json": "9fbd367739df54f38d8caa5f7022de7426ebf372c8ac7b4983376cd13aaf5224",
+    "reconciled-econ-maths.json": "785f0c85f0d29c3ed1edb3d2afd12befd6cb8ff549a3ca8f46695996baff8323"
+  },
+  "scope": {
+    "targetCount": 62,
+    "heldCount": 17,
+    "heldDecisions": [
+      "reject-current-correct",
+      "blocked"
+    ]
+  },
+  "rows": [
+    {
+      "id": "0455-2019-m-12-q21",
+      "bank": "igcse-economics-0455",
+      "decision": "accept",
+      "rationale": "Original row asks which item is included in HDI; answer B is life expectancy at birth. The production record currently uses topic-4, while the student taxonomy maps HDI/living-standard indicators to topic-5 detail 5.1.1 in the 2020_2022 era.",
+      "final": {
+        "primary": "topic-5",
+        "label": "Economic development",
+        "secondaries": [],
+        "detail": "5.1.1 indicators of living standards",
+        "era": "2020_2022"
+      },
+      "expected": {
+        "primaryTopic": "Government and the macroeconomy",
+        "primaryTopicId": "topic-4",
+        "secondaryTopics": [],
+        "subtopics": [
+          "describe and evaluate measures and indicators of comparative living standards, such as GDP per head, Human Development Index (HDI)."
+        ],
+        "detailedSubtopics": [
+          "describe and evaluate measures and indicators of comparative living standards, such as GDP per head, Human Development Index (HDI)."
+        ],
+        "courseEra": "2017_2019",
+        "era": "2017_2019"
+      }
+    },
+    {
+      "id": "0455-2019-s-11-q21",
+      "bank": "igcse-economics-0455",
+      "decision": "accept",
+      "rationale": "Original row asks what would not increase HDI; answer A is car ownership, contrasted with life expectancy, GDP per head, and schooling. This is an HDI/living-standard indicator operation, not government macroeconomy.",
+      "final": {
+        "primary": "topic-5",
+        "label": "Economic development",
+        "secondaries": [],
+        "detail": "5.1.1 indicators of living standards",
+        "era": "2020_2022"
+      },
+      "expected": {
+        "primaryTopic": "Government and the macroeconomy",
+        "primaryTopicId": "topic-4",
+        "secondaryTopics": [],
+        "subtopics": [
+          "describe and evaluate measures and indicators of comparative living standards, such as GDP per head, Human Development Index (HDI)."
+        ],
+        "detailedSubtopics": [
+          "describe and evaluate measures and indicators of comparative living standards, such as GDP per head, Human Development Index (HDI)."
+        ],
+        "courseEra": "2017_2019",
+        "era": "2017_2019"
+      }
+    },
+    {
+      "id": "0455-2019-s-12-q21",
+      "bank": "igcse-economics-0455",
+      "decision": "accept",
+      "rationale": "Original row asks why HDI is better than GDP per head; answer C explicitly credits health and education data. The assessed operation is comparing living-standard indicators within the topic-5 HDI/living-standards family.",
+      "final": {
+        "primary": "topic-5",
+        "label": "Economic development",
+        "secondaries": [],
+        "detail": "5.1.1 indicators of living standards",
+        "era": "2020_2022"
+      },
+      "expected": {
+        "primaryTopic": "Government and the macroeconomy",
+        "primaryTopicId": "topic-4",
+        "secondaryTopics": [],
+        "subtopics": [
+          "describe and evaluate measures and indicators of comparative living standards, such as GDP per head, Human Development Index (HDI)."
+        ],
+        "detailedSubtopics": [
+          "describe and evaluate measures and indicators of comparative living standards, such as GDP per head, Human Development Index (HDI)."
+        ],
+        "courseEra": "2017_2019",
+        "era": "2017_2019"
+      }
+    },
+    {
+      "id": "0455-2019-w-11-q21",
+      "bank": "igcse-economics-0455",
+      "decision": "accept",
+      "rationale": "Original row asks for HDI components; answer B gives life expectancy, expected years of schooling, and GDP per head. These are living-standard indicators, not macroeconomic policy.",
+      "final": {
+        "primary": "topic-5",
+        "label": "Economic development",
+        "secondaries": [],
+        "detail": "5.1.1 indicators of living standards",
+        "era": "2020_2022"
+      },
+      "expected": {
+        "primaryTopic": "Government and the macroeconomy",
+        "primaryTopicId": "topic-4",
+        "secondaryTopics": [],
+        "subtopics": [
+          "describe and evaluate measures and indicators of comparative living standards, such as GDP per head, Human Development Index (HDI)."
+        ],
+        "detailedSubtopics": [
+          "describe and evaluate measures and indicators of comparative living standards, such as GDP per head, Human Development Index (HDI)."
+        ],
+        "courseEra": "2017_2019",
+        "era": "2017_2019"
+      }
+    },
+    {
+      "id": "0455-2019-w-12-q21",
+      "bank": "igcse-economics-0455",
+      "decision": "accept",
+      "rationale": "Original row asks why HDI was introduced; answer A states that education and healthcare contribute to living standards. This is the topic-5 HDI/living-standard indicator operation.",
+      "final": {
+        "primary": "topic-5",
+        "label": "Economic development",
+        "secondaries": [],
+        "detail": "5.1.1 indicators of living standards",
+        "era": "2020_2022"
+      },
+      "expected": {
+        "primaryTopic": "Government and the macroeconomy",
+        "primaryTopicId": "topic-4",
+        "secondaryTopics": [],
+        "subtopics": [
+          "describe and evaluate measures and indicators of comparative living standards, such as GDP per head, Human Development Index (HDI)."
+        ],
+        "detailedSubtopics": [
+          "describe and evaluate measures and indicators of comparative living standards, such as GDP per head, Human Development Index (HDI)."
+        ],
+        "courseEra": "2017_2019",
+        "era": "2017_2019"
+      }
+    },
+    {
+      "id": "0455-2019-w-13-q21",
+      "bank": "igcse-economics-0455",
+      "decision": "accept",
+      "rationale": "Original row asks which indicator is included in HDI; answer D is years spent in education. Education is an HDI/living-standard indicator, so topic-5 is the correct primary.",
+      "final": {
+        "primary": "topic-5",
+        "label": "Economic development",
+        "secondaries": [],
+        "detail": "5.1.1 indicators of living standards",
+        "era": "2020_2022"
+      },
+      "expected": {
+        "primaryTopic": "Government and the macroeconomy",
+        "primaryTopicId": "topic-4",
+        "secondaryTopics": [],
+        "subtopics": [
+          "describe and evaluate measures and indicators of comparative living standards, such as GDP per head, Human Development Index (HDI)."
+        ],
+        "detailedSubtopics": [
+          "describe and evaluate measures and indicators of comparative living standards, such as GDP per head, Human Development Index (HDI)."
+        ],
+        "courseEra": "2017_2019",
+        "era": "2017_2019"
+      }
+    },
+    {
+      "id": "0610-2019-s-21-q23",
+      "bank": "igcse-biology-0610",
+      "decision": "accept",
+      "rationale": "The MCQ asks for the property shared by aerobic and anaerobic respiration (breakdown of glucose), which is the broad Respiration owner; it does not ask for an anaerobic-only feature.",
+      "final": {
+        "primary": "topic_12_respiration.12.1",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Respiration",
+        "primaryTopicId": "topic_12_respiration.12.3",
+        "secondaryTopics": [],
+        "subtopics": [
+          "12.3"
+        ],
+        "detailedSubtopics": [
+          "12.3"
+        ],
+        "courseEra": "2020_2021",
+        "era": null
+      }
+    },
+    {
+      "id": "0610-2022-m-22-q33",
+      "bank": "igcse-biology-0610",
+      "decision": "modify",
+      "rationale": "The question is monohybrid inheritance. The 2022 era registry explicitly assigns Monohybrid inheritance to 17.5; 17.4 is Meiosis.",
+      "final": {
+        "primary": "topic_17_inheritance.17.5",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Monohybrid inheritance",
+        "primaryTopicId": "topic_17_inheritance.17.5",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Monohybrid inheritance"
+        ],
+        "detailedSubtopics": [
+          "Monohybrid inheritance"
+        ],
+        "courseEra": "2022",
+        "era": null
+      }
+    },
+    {
+      "id": "0610-2022-s-12-q33",
+      "bank": "igcse-biology-0610",
+      "decision": "modify",
+      "rationale": "The question is monohybrid inheritance. The 2022 era registry explicitly assigns Monohybrid inheritance to 17.5; 17.4 is Meiosis.",
+      "final": {
+        "primary": "topic_17_inheritance.17.5",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Chromosomes, genes and proteins",
+        "primaryTopicId": "topic_17_inheritance.17.1",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Chromosomes, genes and proteins"
+        ],
+        "detailedSubtopics": [
+          "Chromosomes, genes and proteins"
+        ],
+        "courseEra": "2022",
+        "era": null
+      }
+    },
+    {
+      "id": "0610-2022-s-23-q30",
+      "bank": "igcse-biology-0610",
+      "decision": "modify",
+      "rationale": "The question is monohybrid inheritance. The 2022 era registry explicitly assigns Monohybrid inheritance to 17.5; 17.4 is Meiosis.",
+      "final": {
+        "primary": "topic_17_inheritance.17.5",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Monohybrid inheritance",
+        "primaryTopicId": "topic_17_inheritance.17.5",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Monohybrid inheritance"
+        ],
+        "detailedSubtopics": [
+          "Monohybrid inheritance"
+        ],
+        "courseEra": "2022",
+        "era": null
+      }
+    },
+    {
+      "id": "0610-2022-s-31-q3",
+      "bank": "igcse-biology-0610",
+      "decision": "modify",
+      "rationale": "The dominant operation is monohybrid inheritance. The proposal’s 17.4 is the 2022-era Meiosis label. Part (a) directly defines a gene, which is 17.2 (Chromosomes, genes and proteins) in 2022; retain it as a secondary rather than the proposal’s invalid 17.1.",
+      "final": {
+        "primary": "topic_17_inheritance.17.5",
+        "secondaries": [
+          "topic_17_inheritance.17.2"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Monohybrid inheritance",
+        "primaryTopicId": "topic_17_inheritance.17.5",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Monohybrid inheritance"
+        ],
+        "detailedSubtopics": [
+          "Monohybrid inheritance"
+        ],
+        "courseEra": "2022",
+        "era": null
+      }
+    },
+    {
+      "id": "0610-2023-m-12-q33",
+      "bank": "igcse-biology-0610",
+      "decision": "accept",
+      "rationale": "The cross asks for the recessive phenotype proportion, a monohybrid inheritance calculation; in 2023–2025, Monohybrid inheritance is 17.4.",
+      "final": {
+        "primary": "topic_17_inheritance.17.4",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Meiosis",
+        "primaryTopicId": "topic_17_inheritance.17.3",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Meiosis"
+        ],
+        "detailedSubtopics": [
+          "Meiosis"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0610-2023-m-32-q3",
+      "bank": "igcse-biology-0610",
+      "decision": "accept",
+      "rationale": "The question combines monohybrid/pedigree analysis with direct gene, chromosome-location and sex-chromosome content. In 2023–2025 the owners are 17.4 and 17.1 respectively.",
+      "final": {
+        "primary": "topic_17_inheritance.17.4",
+        "secondaries": [
+          "topic_17_inheritance.17.1"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Meiosis",
+        "primaryTopicId": "topic_17_inheritance.17.3",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Meiosis"
+        ],
+        "detailedSubtopics": [
+          "Meiosis"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0610-2023-m-52-q1",
+      "bank": "igcse-biology-0610",
+      "decision": "accept",
+      "rationale": "The assessed process is diffusion of dye/ink down a concentration gradient; no water-potential or membrane-osmosis operation is asked.",
+      "final": {
+        "primary": "topic_03_movement_into_and_out_of_cells.3.1",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Osmosis",
+        "primaryTopicId": "topic_03_movement_into_and_out_of_cells.3.2",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Osmosis"
+        ],
+        "detailedSubtopics": [
+          "Osmosis"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0610-2023-m-62-q1",
+      "bank": "igcse-biology-0610",
+      "decision": "accept",
+      "rationale": "The assessed process is diffusion of dye/ink down a concentration gradient; no water-potential or membrane-osmosis operation is asked.",
+      "final": {
+        "primary": "topic_03_movement_into_and_out_of_cells.3.1",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Osmosis",
+        "primaryTopicId": "topic_03_movement_into_and_out_of_cells.3.2",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Osmosis"
+        ],
+        "detailedSubtopics": [
+          "Osmosis"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0610-2023-s-11-q6",
+      "bank": "igcse-biology-0610",
+      "decision": "accept",
+      "rationale": "The assessed process is diffusion of dye/ink down a concentration gradient; no water-potential or membrane-osmosis operation is asked.",
+      "final": {
+        "primary": "topic_03_movement_into_and_out_of_cells.3.1",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Transpiration",
+        "primaryTopicId": "topic_08_transport_in_plants.8.3",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Transpiration"
+        ],
+        "detailedSubtopics": [
+          "Transpiration"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0610-2023-s-23-q10",
+      "bank": "igcse-biology-0610",
+      "decision": "accept",
+      "rationale": "The stem asks why enzyme-catalysed reaction rate changes with temperature; this is the Enzymes detail, not Biological molecules generally.",
+      "final": {
+        "primary": "topic_05_enzymes.5.1",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Biological molecules",
+        "primaryTopicId": "topic_04_biological_molecules.4.1",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Biological molecules"
+        ],
+        "detailedSubtopics": [
+          "Biological molecules"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0610-2024-s-12-q7",
+      "bank": "igcse-biology-0610",
+      "decision": "accept",
+      "rationale": "The correct option is oxygen molecules moving into a red blood cell; this is diffusion.",
+      "final": {
+        "primary": "topic_03_movement_into_and_out_of_cells.3.1",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Diseases and immunity",
+        "primaryTopicId": "topic_10_diseases_and_immunity.10.1",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Diseases and immunity"
+        ],
+        "detailedSubtopics": [
+          "Diseases and immunity"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0610-2024-s-13-q15",
+      "bank": "igcse-biology-0610",
+      "decision": "accept",
+      "rationale": "The MCQ asks which organs belong to the digestive system; 2023–2025 names this detail Alimentary/digestive system 7.2. The current excretion primary is unrelated.",
+      "final": {
+        "primary": "topic_07_human_nutrition.7.2",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Excretion in humans",
+        "primaryTopicId": "topic_13_excretion_in_humans.13.1",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Excretion in humans"
+        ],
+        "detailedSubtopics": [
+          "Excretion in humans"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0610-2024-s-23-q30",
+      "bank": "igcse-biology-0610",
+      "decision": "accept",
+      "rationale": "Identifying heterozygotes from a dominant/recessive pedigree is monohybrid inheritance in the 2023–2025 numbering; variation is not the assessed operation.",
+      "final": {
+        "primary": "topic_17_inheritance.17.4",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Variation",
+        "primaryTopicId": "topic_18_variation_and_selection.18.1",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Variation"
+        ],
+        "detailedSubtopics": [
+          "Variation"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0610-2025-m-12-q23",
+      "bank": "igcse-biology-0610",
+      "decision": "accept",
+      "rationale": "The question asks where urea is excreted; kidneys/excretion in humans is the direct owner.",
+      "final": {
+        "primary": "topic_13_excretion_in_humans.13.1",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Gas exchange in humans",
+        "primaryTopicId": "topic_11_gas_exchange_in_humans.11.1",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Gas exchange in humans"
+        ],
+        "detailedSubtopics": [
+          "Gas exchange in humans"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0610-2025-s-11-q1",
+      "bank": "igcse-biology-0610",
+      "decision": "accept",
+      "rationale": "The sequence demonstrates growth and sensitivity, both characteristics of living organisms; it does not assess cell structure.",
+      "final": {
+        "primary": "topic_01_characteristics_and_classification.1.1",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Cell structure",
+        "primaryTopicId": "topic_02_organisation.2.1",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Cell structure"
+        ],
+        "detailedSubtopics": [
+          "Cell structure"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0610-2025-w-13-q32",
+      "bank": "igcse-biology-0610",
+      "decision": "accept",
+      "rationale": "The 93:28 phenotype result and requested parental genotypes are a monohybrid cross; the current xylem/phloem owner is unrelated.",
+      "final": {
+        "primary": "topic_17_inheritance.17.4",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Xylem and phloem",
+        "primaryTopicId": "topic_08_transport_in_plants.8.1",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Xylem and phloem"
+        ],
+        "detailedSubtopics": [
+          "Xylem and phloem"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0610-2025-w-33-q8",
+      "bank": "igcse-biology-0610",
+      "decision": "accept",
+      "rationale": "The question first assesses eye structure/function, then directly assesses discontinuous variation and a monohybrid cross; all three labels are substantive in the 2023–2025 taxonomy.",
+      "final": {
+        "primary": "topic_14_coordination_and_response.14.2",
+        "secondaries": [
+          "topic_18_variation_and_selection.18.1",
+          "topic_17_inheritance.17.4"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Sense organs",
+        "primaryTopicId": "topic_14_coordination_and_response.14.2",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Sense organs"
+        ],
+        "detailedSubtopics": [
+          "Sense organs"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0610-2025-w-42-q3",
+      "bank": "igcse-biology-0610",
+      "decision": "accept",
+      "rationale": "Catalyst definition and temperature effects on enzyme activity dominate. Chemical digestion is directly involved through amylase/protease and their substrates, so it is retained as a secondary rather than primary.",
+      "final": {
+        "primary": "topic_05_enzymes.5.1",
+        "secondaries": [
+          "topic_07_human_nutrition.7.4"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Chemical digestion",
+        "primaryTopicId": "topic_07_human_nutrition.7.4",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Chemical digestion"
+        ],
+        "detailedSubtopics": [
+          "Chemical digestion"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2019-m-62-q1",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "Molten/aqueous zinc chloride product prediction and electrolysis operation dominate; Bunsen adjustment and chlorine test are incidental practical technique, not a practical-primary investigation.",
+      "final": {
+        "primary": "electrochemistry.predict-the-identity-of-the-products-at-each-ele-033c606803",
+        "secondaries": [
+          "electrochemistry.define-electrolysis-as-the-breakdown-of-an-ionic-83a829ad6f",
+          "electrochemistry.construct-ionic-half-equations-for-reactions-at-a9f4a2965a"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Practical skills and investigations",
+        "primaryTopicId": "practical-skills",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Electrolysis"
+        ],
+        "detailedSubtopics": [
+          "Electrolysis"
+        ],
+        "courseEra": "2020_2022",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2019-s-21-q19",
+      "bank": "igcse-chemistry-0620",
+      "decision": "modify",
+      "rationale": "Primary correction is supported, but the proton-transfer detail is not credited by the correct statements (1 and 2); statement 4 is a distractor, not a substantive secondary.",
+      "final": {
+        "primary": "acids-bases-salts.describe-the-meaning-of-weak-and-strong-acids-an-3b52c3a25c",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Organic chemistry",
+        "primaryTopicId": "organic-chemistry",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Organic chemistry"
+        ],
+        "detailedSubtopics": [
+          "Organic chemistry"
+        ],
+        "courseEra": "2020_2022",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2020-s-23-q36",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "The production row is a homologous-series definition MCQ (official answer A); current metadata points to metals physical properties, while the proposed core homologous-series detail is the exact owner.",
+      "final": {
+        "primary": "organic-chemistry.describe-the-concept-of-homologous-series-as-a-f-6c4645b78d",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Metals",
+        "primaryTopicId": "metals",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Metals"
+        ],
+        "detailedSubtopics": [
+          "Metals"
+        ],
+        "courseEra": "2020_2022",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2021-m-12-q11",
+      "bank": "igcse-chemistry-0620",
+      "decision": "modify",
+      "rationale": "Cable suitability is a metals-properties/use operation, but the proposed metallic-bonding secondary is Supplement-only on this Core paper and is not needed.",
+      "final": {
+        "primary": "metals.describe-the-uses-of-metals-in-terms-of-their-ph-6338833710",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Electrochemistry",
+        "primaryTopicId": "electrochemistry",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Electrolysis"
+        ],
+        "detailedSubtopics": [
+          "Electrolysis"
+        ],
+        "courseEra": "2020_2022",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2021-m-22-q11",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "The correct option directly uses aluminium low density and conductivity for cable use; no extra operation is needed.",
+      "final": {
+        "primary": "metals.describe-the-uses-of-metals-in-terms-of-their-ph-6338833710",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Electrochemistry",
+        "primaryTopicId": "electrochemistry",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Electrolysis"
+        ],
+        "detailedSubtopics": [
+          "Electrolysis"
+        ],
+        "courseEra": "2020_2022",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2021-s-11-q11",
+      "bank": "igcse-chemistry-0620",
+      "decision": "modify",
+      "rationale": "Primary is supported, but the proposed alloy-structure detail is Supplement-only on this Core paper; the item does not require that Supplement operation.",
+      "final": {
+        "primary": "metals.describe-the-uses-of-metals-in-terms-of-their-ph-6338833710",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Electrochemistry",
+        "primaryTopicId": "electrochemistry",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Electrolysis"
+        ],
+        "detailedSubtopics": [
+          "Electrolysis"
+        ],
+        "courseEra": "2020_2022",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2021-s-22-q10",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "All statements are resolved by aqueous/molten electrolysis product rules; the paper is Supplement and both selected details are era-valid.",
+      "final": {
+        "primary": "electrochemistry.predict-the-identity-of-the-products-at-each-ele-033c606803",
+        "secondaries": [
+          "electrochemistry.describe-electrolysis-in-terms-of-the-ions-prese-734c0a4299"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Metals",
+        "primaryTopicId": "metals",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Uses of metals"
+        ],
+        "detailedSubtopics": [
+          "Uses of metals"
+        ],
+        "courseEra": "2020_2022",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2021-s-22-q28",
+      "bank": "igcse-chemistry-0620",
+      "decision": "modify",
+      "rationale": "The brass answer supports an alloys detail, but galvanising appears only in distractor/context wording and is not a credited operation; drop the unsupported secondary.",
+      "final": {
+        "primary": "metals.describe-the-uses-of-alloys-in-terms-of-their-ph-eb7c4b26b2",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "The Periodic Table",
+        "primaryTopicId": "periodic-table",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Group VII properties"
+        ],
+        "detailedSubtopics": [
+          "Group VII properties"
+        ],
+        "courseEra": "2020_2022",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2021-s-23-q6",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "The correct option requires the structure/property explanation of metallic bonding; both proposed Supplement details are directly relevant.",
+      "final": {
+        "primary": "atoms-elements-compounds.explain-in-terms-of-structure-and-bonding-the-pr-045363b5fd",
+        "secondaries": [
+          "atoms-elements-compounds.describe-metallic-bonding-as-a-lattice-of-positi-79db6c8f0f"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Atoms, elements and compounds",
+        "primaryTopicId": "atoms-elements-compounds",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Metallic bonding"
+        ],
+        "detailedSubtopics": [
+          "Metallic bonding"
+        ],
+        "courseEra": "2020_2022",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2021-s-41-q7",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "The 15-mark row directly assesses formulae, homologous series, bromine test and cracking/organic operations; proposed labels are substantive and era-valid.",
+      "final": {
+        "primary": "organic-chemistry.write-and-interpret-general-formulae-of-compound-7e5ecb048f",
+        "secondaries": [
+          "stoichiometry.calculate-empirical-formulae-and-molecular-formu-c19096428b",
+          "organic-chemistry.state-that-a-homologous-series-is-a-family-of-si-715a8a7632",
+          "organic-chemistry.describe-the-test-to-distinguish-between-saturat-6e53cda76b"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Stoichiometry",
+        "primaryTopicId": "stoichiometry",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Relative masses of atoms and molecules"
+        ],
+        "detailedSubtopics": [
+          "Relative masses of atoms and molecules"
+        ],
+        "courseEra": "2020_2022",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2021-w-21-q10",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "The MCQ is solely electrolysis product prediction; both proposed details fit the Supplement paper.",
+      "final": {
+        "primary": "electrochemistry.predict-the-identity-of-the-products-at-each-ele-033c606803",
+        "secondaries": [
+          "electrochemistry.describe-electrolysis-in-terms-of-the-ions-prese-734c0a4299"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Chemical energetics",
+        "primaryTopicId": "chemical-energetics",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Exothermic and endothermic reactions"
+        ],
+        "detailedSubtopics": [
+          "Exothermic and endothermic reactions"
+        ],
+        "courseEra": "2020_2022",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2021-w-21-q27",
+      "bank": "igcse-chemistry-0620",
+      "decision": "modify",
+      "rationale": "Protective oxide passivation is the exact primary; rust-prevention is contextual and not separately credited in this one-mark MCQ.",
+      "final": {
+        "primary": "metals.explain-the-apparent-unreactivity-of-aluminium-i-03845a9107",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Chemistry of the environment",
+        "primaryTopicId": "chemistry-environment",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Fertilisers"
+        ],
+        "detailedSubtopics": [
+          "Fertilisers"
+        ],
+        "courseEra": "2020_2022",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2022-m-22-q6",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "Electrical conduction is explained by delocalised electrons in metallic bonding; proposed Supplement labels are directly relevant.",
+      "final": {
+        "primary": "atoms-elements-compounds.describe-metallic-bonding-as-the-electrostatic-a-3c1ed4761b",
+        "secondaries": [
+          "atoms-elements-compounds.explain-in-terms-of-structure-and-bonding-the-pr-045363b5fd"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Atoms, elements and compounds",
+        "primaryTopicId": "atoms-elements-compounds",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Metallic bonding"
+        ],
+        "detailedSubtopics": [
+          "Metallic bonding"
+        ],
+        "courseEra": "2020_2022",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2022-s-11-q11",
+      "bank": "igcse-chemistry-0620",
+      "decision": "modify",
+      "rationale": "Primary is supported; the alloy-structure secondary is Supplement-only on this Core paper and is not required by the cable-use MCQ.",
+      "final": {
+        "primary": "metals.describe-the-uses-of-metals-in-terms-of-their-ph-6338833710",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Electrochemistry",
+        "primaryTopicId": "electrochemistry",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Electrolysis"
+        ],
+        "detailedSubtopics": [
+          "Electrolysis"
+        ],
+        "courseEra": "2020_2022",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2022-s-22-q38",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "The alternatives assess structural isomerism and homologous-series formula recognition; the Extended paper permits the proposed Supplement primary.",
+      "final": {
+        "primary": "organic-chemistry.describe-and-identify-structural-isomerism-4acceb6e76",
+        "secondaries": [
+          "organic-chemistry.describe-the-concept-of-homologous-series-as-a-f-6c4645b78d"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Stoichiometry",
+        "primaryTopicId": "stoichiometry",
+        "secondaryTopics": [
+          "Organic chemistry"
+        ],
+        "subtopics": [
+          "Relative masses of atoms and molecules",
+          "Fuels"
+        ],
+        "detailedSubtopics": [
+          "Relative masses of atoms and molecules",
+          "Fuels"
+        ],
+        "courseEra": "2020_2022",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2022-s-23-q6",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "All options test metallic structure/property explanations; both selected Supplement details are applicable.",
+      "final": {
+        "primary": "atoms-elements-compounds.explain-in-terms-of-structure-and-bonding-the-pr-045363b5fd",
+        "secondaries": [
+          "atoms-elements-compounds.describe-metallic-bonding-as-a-lattice-of-positi-79db6c8f0f"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Atoms, elements and compounds",
+        "primaryTopicId": "atoms-elements-compounds",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Metallic bonding"
+        ],
+        "detailedSubtopics": [
+          "Metallic bonding"
+        ],
+        "courseEra": "2020_2022",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2022-w-22-q25",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "The comparison of bare, painted and stainless steel directly tests rusting conditions and prevention.",
+      "final": {
+        "primary": "chemistry-environment.state-the-conditions-required-for-the-rusting-of-4d3b1c4773",
+        "secondaries": [
+          "chemistry-environment.describe-and-explain-methods-of-rust-prevention-931a263591"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Chemistry of the environment",
+        "primaryTopicId": "chemistry-environment",
+        "secondaryTopics": [
+          "Chemistry of the environment"
+        ],
+        "subtopics": [
+          "Fertilisers"
+        ],
+        "detailedSubtopics": [
+          "Fertilisers"
+        ],
+        "courseEra": "2020_2022",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2023-m-32-q4",
+      "bank": "igcse-chemistry-0620",
+      "decision": "modify",
+      "rationale": "The proposed reactivity primary overweights a two-mark subpart. Current transition-elements primary is retained for the largest assessed block; retain the three supported operation labels and add the direct two-mark relative-molecular-mass calculation.",
+      "final": {
+        "primary": "periodic-table.describe-the-transition-elements-as-metals-that-4104d51f2c",
+        "secondaries": [
+          "metals.deduce-an-order-of-reactivity-from-a-given-set-o-b3ad414497",
+          "acids-bases-salts.describe-the-general-solubility-rules-for-salts-e8f72a3b18",
+          "chemical-energetics.interpret-reaction-pathway-diagrams-showing-exot-383b784b9d",
+          "stoichiometry.define-relative-molecular-mass-mr-as-the-sum-of-f55dfa1dc0"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "The Periodic Table",
+        "primaryTopicId": "periodic-table",
+        "secondaryTopics": [
+          "Acids, bases and salts",
+          "Chemical energetics",
+          "Metals",
+          "Stoichiometry"
+        ],
+        "subtopics": [
+          "Transition elements",
+          "Preparation of salts",
+          "Exothermic and endothermic reactions",
+          "Reactivity series",
+          "Relative masses of atoms and molecules"
+        ],
+        "detailedSubtopics": [
+          "Transition elements",
+          "Preparation of salts",
+          "Exothermic and endothermic reactions",
+          "Reactivity series",
+          "Relative masses of atoms and molecules"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2023-m-32-q6",
+      "bank": "igcse-chemistry-0620",
+      "decision": "modify",
+      "rationale": "Fermentation and fractional distillation are directly assessed. The proposed petroleum-fractionation detail is not the operation in this question and is rejected.",
+      "final": {
+        "primary": "organic-chemistry.draw-and-interpret-the-displayed-formula-of-a-mo-2db0bb8ca7",
+        "secondaries": [
+          "organic-chemistry.describe-the-manufacture-of-ethanol-by-a-ferment-ae93421756",
+          "experimental-techniques.describe-and-explain-methods-of-separation-and-p-3d232f04d6"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Experimental techniques and chemical analysis",
+        "primaryTopicId": "experimental-techniques",
+        "secondaryTopics": [
+          "Organic chemistry",
+          "Stoichiometry"
+        ],
+        "subtopics": [
+          "Separation and purification",
+          "Formulae, functional groups and terminology",
+          "Formulae",
+          "Alcohols",
+          "Alkanes",
+          "Naming organic compounds"
+        ],
+        "detailedSubtopics": [
+          "Separation and purification",
+          "Formulae, functional groups and terminology",
+          "Formulae",
+          "Alcohols",
+          "Alkanes",
+          "Naming organic compounds"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2023-s-23-q8",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "The correct option requires both the positive-ion/sea-of-electrons structure and the property explained by it.",
+      "final": {
+        "primary": "atoms-elements-compounds.explain-in-terms-of-structure-and-bonding-the-pr-045363b5fd",
+        "secondaries": [
+          "atoms-elements-compounds.describe-metallic-bonding-as-a-lattice-of-positi-79db6c8f0f"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Atoms, elements and compounds",
+        "primaryTopicId": "atoms-elements-compounds",
+        "secondaryTopics": [
+          "Atoms, elements and compounds"
+        ],
+        "subtopics": [
+          "Metallic bonding"
+        ],
+        "detailedSubtopics": [
+          "Metallic bonding"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2023-s-31-q5",
+      "bank": "igcse-chemistry-0620",
+      "decision": "modify",
+      "rationale": "The proposed metals reactivity primary is defensible as the tie-breaker, but the packet proposal omitted directly marked physical-property and alloy-use operations. Extraction and alloy labels are retained; add the missing physical-properties detail.",
+      "final": {
+        "primary": "metals.deduce-an-order-of-reactivity-from-a-given-set-o-b3ad414497",
+        "secondaries": [
+          "metals.list-the-general-physical-properties-of-metals-17b1521a6f",
+          "metals.describe-the-ease-in-obtaining-metals-from-their-0c911655fa",
+          "metals.describe-the-uses-of-alloys-in-terms-of-their-ph-eb7c4b26b2"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "The Periodic Table",
+        "primaryTopicId": "periodic-table",
+        "secondaryTopics": [
+          "Metals"
+        ],
+        "subtopics": [
+          "Transition elements",
+          "Extraction of metals",
+          "Alloys and their properties",
+          "Reactivity series"
+        ],
+        "detailedSubtopics": [
+          "Transition elements",
+          "Extraction of metals",
+          "Alloys and their properties",
+          "Reactivity series"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2023-s-33-q5",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "All four credited operations are present in the printed 6-mark question; component 33 is Extended, so the Supplement alloy-detail secondary is era/tier-valid.",
+      "final": {
+        "primary": "metals.compare-the-general-physical-properties-of-metal-ee5e61ff55",
+        "secondaries": [
+          "metals.explain-in-terms-of-structure-how-alloys-can-be-9c8de15158",
+          "metals.deduce-an-order-of-reactivity-from-a-given-set-o-b3ad414497",
+          "atoms-elements-compounds.determine-the-electronic-configuration-of-elemen-4292118f72"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "The Periodic Table",
+        "primaryTopicId": "periodic-table",
+        "secondaryTopics": [
+          "Metals",
+          "Atoms, elements and compounds"
+        ],
+        "subtopics": [
+          "Transition elements",
+          "Alloys and their properties",
+          "Reactivity series",
+          "Atomic structure and the Periodic Table"
+        ],
+        "detailedSubtopics": [
+          "Transition elements",
+          "Alloys and their properties",
+          "Reactivity series",
+          "Atomic structure and the Periodic Table"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2023-w-13-q33",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "The MCQ explicitly credits landfill persistence, pollution and toxic gases from plastics; the plastics/environment detail is narrower and directly supported.",
+      "final": {
+        "primary": "organic-chemistry.describe-the-environmental-challenges-caused-by-4e063bc987",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Organic chemistry",
+        "primaryTopicId": "organic-chemistry",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Polymers"
+        ],
+        "detailedSubtopics": [
+          "Polymers"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2023-w-21-q17",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "The keyed statement is the weak-acid partial-dissociation definition.",
+      "final": {
+        "primary": "acids-bases-salts.describe-the-meaning-of-weak-and-strong-acids-an-3b52c3a25c",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Chemical reactions",
+        "primaryTopicId": "chemical-reactions",
+        "secondaryTopics": [
+          "Chemical reactions"
+        ],
+        "subtopics": [
+          "Redox"
+        ],
+        "detailedSubtopics": [
+          "Redox"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2023-w-31-q5",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "The printed parts separately assess Group I trend prediction, blast-furnace extraction, an alloy diagram and reactivity ordering; component 31 is Extended.",
+      "final": {
+        "primary": "periodic-table.predict-the-properties-of-other-elements-in-grou-63ac0b3aa6",
+        "secondaries": [
+          "metals.describe-the-extraction-of-iron-from-hematite-in-8b1a60aa4a",
+          "metals.identify-representations-of-alloys-from-diagrams-59cb7318de",
+          "metals.deduce-an-order-of-reactivity-from-a-given-set-o-b3ad414497"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "The Periodic Table",
+        "primaryTopicId": "periodic-table",
+        "secondaryTopics": [
+          "The Periodic Table",
+          "Chemical reactions",
+          "Metals"
+        ],
+        "subtopics": [
+          "Group I properties",
+          "Redox",
+          "Extraction of metals",
+          "Alloys and their properties",
+          "Reactivity series"
+        ],
+        "detailedSubtopics": [
+          "Group I properties",
+          "Redox",
+          "Extraction of metals",
+          "Alloys and their properties",
+          "Reactivity series"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2023-w-31-q7",
+      "bank": "igcse-chemistry-0620",
+      "decision": "modify",
+      "rationale": "The printed question asks for a molecular formula, not an empirical-formula calculation. Replace that proposed secondary with the exact molecular-formula definition/operation; retain only separately credited saturation, polymer and neutralisation operations.",
+      "final": {
+        "primary": "organic-chemistry.draw-and-interpret-the-displayed-formula-of-a-mo-2db0bb8ca7",
+        "secondaries": [
+          "stoichiometry.define-the-molecular-formula-of-a-compound-as-th-de4108e72e",
+          "organic-chemistry.describe-the-test-to-distinguish-between-saturat-6e53cda76b",
+          "organic-chemistry.define-polymers-as-large-molecules-built-up-from-edab964604",
+          "organic-chemistry.describe-the-reaction-of-ethanoic-acid-with-a-me-3724b2094c"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Stoichiometry",
+        "primaryTopicId": "stoichiometry",
+        "secondaryTopics": [
+          "Organic chemistry",
+          "Stoichiometry",
+          "Acids, bases and salts"
+        ],
+        "subtopics": [
+          "Relative masses of atoms and molecules",
+          "Formulae, functional groups and terminology",
+          "Formulae",
+          "Alkenes",
+          "Polymers",
+          "Carboxylic acids",
+          "The characteristic properties of acids and bases",
+          "Alcohols"
+        ],
+        "detailedSubtopics": [
+          "Relative masses of atoms and molecules",
+          "Formulae, functional groups and terminology",
+          "Formulae",
+          "Alkenes",
+          "Polymers",
+          "Carboxylic acids",
+          "The characteristic properties of acids and bases",
+          "Alcohols"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2023-w-43-q5",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "The extended-paper question directly credits metallic bonding/conduction, blast-furnace extraction, redox conversion and alloy structure; extraction is the largest coherent operation.",
+      "final": {
+        "primary": "metals.describe-the-extraction-of-iron-from-hematite-in-8b1a60aa4a",
+        "secondaries": [
+          "atoms-elements-compounds.describe-metallic-bonding-as-the-electrostatic-a-3c1ed4761b",
+          "chemical-reactions.define-redox-in-terms-of-electron-transfer-45a7514c19",
+          "metals.describe-an-alloy-as-a-mixture-of-a-metal-with-o-08bfac6902"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Atoms, elements and compounds",
+        "primaryTopicId": "atoms-elements-compounds",
+        "secondaryTopics": [
+          "Atoms, elements and compounds",
+          "Metals"
+        ],
+        "subtopics": [
+          "Metallic bonding",
+          "Extraction of metals",
+          "Alloys and their properties",
+          "Corrosion of metals"
+        ],
+        "detailedSubtopics": [
+          "Metallic bonding",
+          "Extraction of metals",
+          "Alloys and their properties",
+          "Corrosion of metals"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2024-s-13-q9",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "The MCQ directly asks for the definition of molecular formula; component 13 is Core and this detail is Core-applicable.",
+      "final": {
+        "primary": "stoichiometry.define-the-molecular-formula-of-a-compound-as-th-de4108e72e",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Stoichiometry",
+        "primaryTopicId": "stoichiometry",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Formulae"
+        ],
+        "detailedSubtopics": [
+          "Formulae"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2024-s-41-q7",
+      "bank": "igcse-chemistry-0620",
+      "decision": "modify",
+      "rationale": "The empirical/molecular-formula calculation, polymer monomer deduction and ester formation are printed. The proposed petroleum-separation secondary is unsupported: this row has a cracking equation, not petroleum separation; no replacement was promoted without an exact owner.",
+      "final": {
+        "primary": "stoichiometry.calculate-empirical-formulae-and-molecular-formu-c19096428b",
+        "secondaries": [
+          "organic-chemistry.deduce-the-structure-or-repeat-unit-of-an-additi-ed4f1cafe3",
+          "organic-chemistry.describe-the-reaction-of-a-carboxylic-acid-with-d82ab2f8db"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Stoichiometry",
+        "primaryTopicId": "stoichiometry",
+        "secondaryTopics": [
+          "Organic chemistry",
+          "Stoichiometry"
+        ],
+        "subtopics": [
+          "The mole and the Avogadro constant",
+          "Polymers",
+          "Formulae",
+          "Formulae, functional groups and terminology",
+          "Carboxylic acids",
+          "Naming organic compounds"
+        ],
+        "detailedSubtopics": [
+          "The mole and the Avogadro constant",
+          "Polymers",
+          "Formulae",
+          "Formulae, functional groups and terminology",
+          "Carboxylic acids",
+          "Naming organic compounds"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2024-s-43-q7",
+      "bank": "igcse-chemistry-0620",
+      "decision": "modify",
+      "rationale": "The printed question credits empirical/molecular calculation, polymer monomer, cracking equation and alcohol general formula. Retain only the exact supported polymer and general-formula secondaries; the proposed reasons-for-cracking detail does not exactly match the credited equation operation, so it is removed fail-closed.",
+      "final": {
+        "primary": "stoichiometry.calculate-empirical-formulae-and-molecular-formu-c19096428b",
+        "secondaries": [
+          "organic-chemistry.deduce-the-structure-or-repeat-unit-of-an-additi-ed4f1cafe3",
+          "organic-chemistry.write-and-interpret-general-formulae-of-compound-7e5ecb048f"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Stoichiometry",
+        "primaryTopicId": "stoichiometry",
+        "secondaryTopics": [
+          "Organic chemistry"
+        ],
+        "subtopics": [
+          "The mole and the Avogadro constant",
+          "Formulae, functional groups and terminology",
+          "Polymers",
+          "Alkenes",
+          "Naming organic compounds"
+        ],
+        "detailedSubtopics": [
+          "The mole and the Avogadro constant",
+          "Formulae, functional groups and terminology",
+          "Polymers",
+          "Alkenes",
+          "Naming organic compounds"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2024-w-41-q5",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "The 4-mark molecule-count calculation is primary; fuel-cell substance, fractional distillation and cracking are all explicitly printed operations on Extended component 41.",
+      "final": {
+        "primary": "stoichiometry.use-the-relationship-amount-of-substance-mol-mas-31bf4579ba",
+        "secondaries": [
+          "electrochemistry.state-that-a-hydrogen-oxygen-fuel-cell-uses-hydr-37795a0fe9",
+          "organic-chemistry.describe-the-separation-of-petroleum-into-useful-e29fb14d2f",
+          "organic-chemistry.describe-the-reasons-for-the-cracking-of-larger-d54cb594ce"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Stoichiometry",
+        "primaryTopicId": "stoichiometry",
+        "secondaryTopics": [
+          "Electrochemistry",
+          "Organic chemistry"
+        ],
+        "subtopics": [
+          "The mole and the Avogadro constant",
+          "Hydrogen–oxygen fuel cells",
+          "Fuels",
+          "Alkenes",
+          "Formulae, functional groups and terminology"
+        ],
+        "detailedSubtopics": [
+          "The mole and the Avogadro constant",
+          "Hydrogen–oxygen fuel cells",
+          "Fuels",
+          "Alkenes",
+          "Formulae, functional groups and terminology"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2025-m-12-q9",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "The keyed MCQ tests identification of a correct chemical formula; the proposed formula-detail is exact and Core-applicable.",
+      "final": {
+        "primary": "stoichiometry.state-the-formulae-of-the-elements-and-compounds-47462c04b6",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Stoichiometry",
+        "primaryTopicId": "stoichiometry",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Formulae"
+        ],
+        "detailedSubtopics": [
+          "Formulae"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2025-s-32-q6",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "The printed parts directly assess reactivity ordering, rate reduction, potassium flame test and alloy; component 32 is Extended.",
+      "final": {
+        "primary": "metals.deduce-an-order-of-reactivity-from-a-given-set-o-b3ad414497",
+        "secondaries": [
+          "chemical-reactions.describe-the-effect-on-the-rate-of-reaction-of-a-05ee5ae8a2",
+          "experimental-techniques.describe-the-use-of-a-flame-test-to-identify-the-db8f6e958d",
+          "metals.describe-an-alloy-as-a-mixture-of-a-metal-with-o-08bfac6902"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Chemical reactions",
+        "primaryTopicId": "chemical-reactions",
+        "secondaryTopics": [
+          "Metals",
+          "Experimental techniques and chemical analysis"
+        ],
+        "subtopics": [
+          "Rate of reaction",
+          "Reactivity series",
+          "Identification of ions and gases",
+          "Alloys and their properties"
+        ],
+        "detailedSubtopics": [
+          "Rate of reaction",
+          "Reactivity series",
+          "Identification of ions and gases",
+          "Alloys and their properties"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2025-w-13-q10",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "The MCQ is the direct molecular-formula definition.",
+      "final": {
+        "primary": "stoichiometry.define-the-molecular-formula-of-a-compound-as-th-de4108e72e",
+        "secondaries": []
+      },
+      "expected": {
+        "primaryTopic": "Stoichiometry",
+        "primaryTopicId": "stoichiometry",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Formulae"
+        ],
+        "detailedSubtopics": [
+          "Formulae"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2025-w-31-q4",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "The printed Extended-paper row separately assesses molecular formula, petroleum fractions, cracking and plastics/environment; the petroleum operation is the largest coherent section.",
+      "final": {
+        "primary": "organic-chemistry.describe-the-separation-of-petroleum-into-useful-e29fb14d2f",
+        "secondaries": [
+          "stoichiometry.define-the-molecular-formula-of-a-compound-as-th-de4108e72e",
+          "organic-chemistry.describe-the-reasons-for-the-cracking-of-larger-d54cb594ce",
+          "organic-chemistry.describe-the-environmental-challenges-caused-by-4e063bc987"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Stoichiometry",
+        "primaryTopicId": "stoichiometry",
+        "secondaryTopics": [
+          "Stoichiometry",
+          "Organic chemistry"
+        ],
+        "subtopics": [
+          "Relative masses of atoms and molecules",
+          "Formulae",
+          "Formulae, functional groups and terminology",
+          "Fuels",
+          "Alkenes",
+          "Naming organic compounds",
+          "Polymers"
+        ],
+        "detailedSubtopics": [
+          "Relative masses of atoms and molecules",
+          "Formulae",
+          "Formulae, functional groups and terminology",
+          "Fuels",
+          "Alkenes",
+          "Naming organic compounds",
+          "Polymers"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2025-w-43-q6",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "The printed Extended-paper question credits empirical/molecular formula, esterification, addition-polymer repeat unit and protein/polyamide structure.",
+      "final": {
+        "primary": "organic-chemistry.deduce-the-structure-or-repeat-unit-of-an-additi-ed4f1cafe3",
+        "secondaries": [
+          "stoichiometry.calculate-empirical-formulae-and-molecular-formu-c19096428b",
+          "organic-chemistry.describe-the-reaction-of-a-carboxylic-acid-with-d82ab2f8db",
+          "organic-chemistry.describe-and-draw-the-structure-of-proteins-as-n-1e36db03ab"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Stoichiometry",
+        "primaryTopicId": "stoichiometry",
+        "secondaryTopics": [
+          "Organic chemistry"
+        ],
+        "subtopics": [
+          "The mole and the Avogadro constant",
+          "Carboxylic acids",
+          "Polymers",
+          "Formulae, functional groups and terminology"
+        ],
+        "detailedSubtopics": [
+          "The mole and the Avogadro constant",
+          "Carboxylic acids",
+          "Polymers",
+          "Formulae, functional groups and terminology"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "id": "0620-2026-m-62-q1",
+      "bank": "igcse-chemistry-0620",
+      "decision": "accept",
+      "rationale": "This is component 62 practical work. Keep the practical-skill primary; the printed tasks directly assess electroplating, ionic electrolysis and apparatus identification. Supplement electrolysis content is admissible on all_candidates practical work.",
+      "final": {
+        "primary": "electrolysis",
+        "secondaries": [
+          "electrochemistry.describe-how-metals-are-electroplated-fd7fab3268",
+          "electrochemistry.describe-electrolysis-in-terms-of-the-ions-prese-734c0a4299",
+          "experimental-techniques.name-appropriate-apparatus-for-the-measurement-o-0479f9e2b9"
+        ]
+      },
+      "expected": {
+        "primaryTopic": "Practical skills and investigations",
+        "primaryTopicId": "practical-skills",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Electrolysis"
+        ],
+        "detailedSubtopics": [
+          "Electrolysis"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    }
+  ],
+  "heldRows": [
+    {
+      "bank": "igcse-additional",
+      "id": "0606-2026-june-21-q2",
+      "decision": "reject-current-correct",
+      "expected": {
+        "primaryTopic": "Geometry and trigonometry",
+        "primaryTopicId": null,
+        "secondaryTopics": [],
+        "subtopics": [
+          "Trigonometry"
+        ],
+        "detailedSubtopics": [
+          "Trigonometry"
+        ],
+        "courseEra": null,
+        "era": null
+      }
+    },
+    {
+      "bank": "igcse-biology-0610",
+      "id": "0610-2022-w-11-q35",
+      "decision": "reject-current-correct",
+      "expected": {
+        "primaryTopic": "Monohybrid inheritance",
+        "primaryTopicId": "topic_17_inheritance.17.5",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Monohybrid inheritance"
+        ],
+        "detailedSubtopics": [
+          "Monohybrid inheritance"
+        ],
+        "courseEra": "2022",
+        "era": null
+      }
+    },
+    {
+      "bank": "igcse-biology-0610",
+      "id": "0610-2022-w-12-q33",
+      "decision": "reject-current-correct",
+      "expected": {
+        "primaryTopic": "Monohybrid inheritance",
+        "primaryTopicId": "topic_17_inheritance.17.5",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Monohybrid inheritance"
+        ],
+        "detailedSubtopics": [
+          "Monohybrid inheritance"
+        ],
+        "courseEra": "2022",
+        "era": null
+      }
+    },
+    {
+      "bank": "igcse-biology-0610",
+      "id": "0610-2022-w-21-q34",
+      "decision": "reject-current-correct",
+      "expected": {
+        "primaryTopic": "Monohybrid inheritance",
+        "primaryTopicId": "topic_17_inheritance.17.5",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Monohybrid inheritance"
+        ],
+        "detailedSubtopics": [
+          "Monohybrid inheritance"
+        ],
+        "courseEra": "2022",
+        "era": null
+      }
+    },
+    {
+      "bank": "igcse-biology-0610",
+      "id": "0610-2024-m-12-q2",
+      "decision": "reject-current-correct",
+      "expected": {
+        "primaryTopic": "Concept and uses of classification systems",
+        "primaryTopicId": "topic_01_characteristics_and_classification.1.2",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Concept and uses of classification systems"
+        ],
+        "detailedSubtopics": [
+          "Concept and uses of classification systems"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "bank": "igcse-biology-0610",
+      "id": "0610-2024-s-12-q2",
+      "decision": "reject-current-correct",
+      "expected": {
+        "primaryTopic": "Concept and uses of classification systems",
+        "primaryTopicId": "topic_01_characteristics_and_classification.1.2",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Concept and uses of classification systems"
+        ],
+        "detailedSubtopics": [
+          "Concept and uses of classification systems"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "bank": "igcse-biology-0610",
+      "id": "0610-2024-s-13-q32",
+      "decision": "reject-current-correct",
+      "expected": {
+        "primaryTopic": "Concept and uses of classification systems",
+        "primaryTopicId": "topic_01_characteristics_and_classification.1.2",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Concept and uses of classification systems"
+        ],
+        "detailedSubtopics": [
+          "Concept and uses of classification systems"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "bank": "igcse-biology-0610",
+      "id": "0610-2024-w-21-q2",
+      "decision": "reject-current-correct",
+      "expected": {
+        "primaryTopic": "Concept and uses of classification systems",
+        "primaryTopicId": "topic_01_characteristics_and_classification.1.2",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Concept and uses of classification systems"
+        ],
+        "detailedSubtopics": [
+          "Concept and uses of classification systems"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "bank": "igcse-biology-0610",
+      "id": "0610-2024-w-22-q3",
+      "decision": "reject-current-correct",
+      "expected": {
+        "primaryTopic": "Features of organisms",
+        "primaryTopicId": "topic_01_characteristics_and_classification.1.3",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Features of organisms"
+        ],
+        "detailedSubtopics": [
+          "Features of organisms"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "bank": "igcse-biology-0610",
+      "id": "0610-2025-w-13-q3",
+      "decision": "reject-current-correct",
+      "expected": {
+        "primaryTopic": "Concept and uses of classification systems",
+        "primaryTopicId": "topic_01_characteristics_and_classification.1.2",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Concept and uses of classification systems"
+        ],
+        "detailedSubtopics": [
+          "Concept and uses of classification systems"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "bank": "igcse-chemistry-0620",
+      "id": "0620-2020-s-21-q6",
+      "decision": "reject-current-correct",
+      "expected": {
+        "primaryTopic": "Atoms, elements and compounds",
+        "primaryTopicId": "atoms-elements-compounds",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Atoms, elements and compounds"
+        ],
+        "detailedSubtopics": [
+          "Atoms, elements and compounds"
+        ],
+        "courseEra": "2020_2022",
+        "era": null
+      }
+    },
+    {
+      "bank": "igcse-chemistry-0620",
+      "id": "0620-2024-m-22-q8",
+      "decision": "blocked",
+      "expected": {
+        "primaryTopic": "Atoms, elements and compounds",
+        "primaryTopicId": "atoms-elements-compounds",
+        "secondaryTopics": [
+          "Atoms, elements and compounds"
+        ],
+        "subtopics": [
+          "Metallic bonding"
+        ],
+        "detailedSubtopics": [
+          "Metallic bonding"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "bank": "igcse-chemistry-0620",
+      "id": "0620-2024-w-21-q39",
+      "decision": "blocked",
+      "expected": {
+        "primaryTopic": "Experimental techniques and chemical analysis",
+        "primaryTopicId": "experimental-techniques",
+        "secondaryTopics": [
+          "Chemistry of the environment"
+        ],
+        "subtopics": [
+          "Separation and purification",
+          "Water"
+        ],
+        "detailedSubtopics": [
+          "Separation and purification",
+          "Water"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "bank": "igcse-chemistry-0620",
+      "id": "0620-2024-w-21-q8",
+      "decision": "blocked",
+      "expected": {
+        "primaryTopic": "Atoms, elements and compounds",
+        "primaryTopicId": "atoms-elements-compounds",
+        "secondaryTopics": [
+          "Atoms, elements and compounds"
+        ],
+        "subtopics": [
+          "Metallic bonding"
+        ],
+        "detailedSubtopics": [
+          "Metallic bonding"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "bank": "igcse-chemistry-0620",
+      "id": "0620-2024-w-22-q9",
+      "decision": "blocked",
+      "expected": {
+        "primaryTopic": "Atoms, elements and compounds",
+        "primaryTopicId": "atoms-elements-compounds",
+        "secondaryTopics": [
+          "Atoms, elements and compounds"
+        ],
+        "subtopics": [
+          "Metallic bonding"
+        ],
+        "detailedSubtopics": [
+          "Metallic bonding"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "bank": "igcse-chemistry-0620",
+      "id": "0620-2025-w-21-q7",
+      "decision": "blocked",
+      "expected": {
+        "primaryTopic": "Atoms, elements and compounds",
+        "primaryTopicId": "atoms-elements-compounds",
+        "secondaryTopics": [],
+        "subtopics": [
+          "Metallic bonding"
+        ],
+        "detailedSubtopics": [
+          "Metallic bonding"
+        ],
+        "courseEra": "2023_2025",
+        "era": null
+      }
+    },
+    {
+      "bank": "igcse",
+      "id": "0580-2026-june-23-q25",
+      "decision": "reject-current-correct",
+      "evidence": {
+        "source": "origin/main",
+        "basis": "The source row is already classified as Probability with Combined and conditional probability; no correction is material.",
+        "verifiedAt": "c15a43b review"
+      },
+      "expected": {
+        "primaryTopic": "Probability",
+        "primaryTopicId": null,
+        "secondaryTopics": [],
+        "subtopics": [
+          "Combined and conditional probability"
+        ],
+        "detailedSubtopics": [
+          "Combined and conditional probability"
+        ],
+        "courseEra": null,
+        "era": null
+      }
+    }
+  ]
+}
