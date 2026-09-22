@@ -498,7 +498,7 @@ export const ALL_ARTICLES: readonly Article[] = [
     title: "PastPaperPrep vs Save My Exams: Price and Features",
     description: "Compare PastPaperPrep and Save My Exams on pricing, real past-paper practice, notes, videos, subject coverage, and the best use for each.",
     eyebrow: "Revision platform comparison",
-    answer: "PastPaperPrep is the focused choice for building precise Cambridge IGCSE and IB practice from real past-paper questions across 19 live banks. Save My Exams is the broader revision membership: it costs more per month, but includes syllabus-aligned study guides, step-by-step exam practice, videos, visuals, downloads, and many subjects. Pick PastPaperPrep for targeted question drilling and printable sets; pick Save My Exams when you also need teaching and a wider curriculum library.",
+    answer: "PastPaperPrep is the focused choice for building precise Cambridge IGCSE and IB practice from real past-paper questions across live banks. Save My Exams is the broader revision membership: it costs more per month, but includes syllabus-aligned study guides, step-by-step exam practice, videos, visuals, downloads, and many subjects. Pick PastPaperPrep for targeted question drilling and printable sets; pick Save My Exams when you also need teaching and a wider curriculum library.",
     publishedAt: "2026-08-30",
     updatedAt: "2026-09-15",
     readingMinutes: 6,
@@ -584,8 +584,8 @@ export const ALL_ARTICLES: readonly Article[] = [
       {
         heading: "The short verdict",
         paragraphs: [
-          "Choose PastPaperPrep if you study one of its 19 live Cambridge IGCSE or IB banks and care most about fast, precise filtering, clear source details, answers, and building printable practice. Its narrower catalogue lets the product stay centred on that workflow.",
-          "Choose Exam-Mate if you need subjects or curricula outside PastPaperPrep's current 19 banks, or if a school needs published volume pricing. Its site offers topical and yearly papers alongside separate MCQ, Build Exam, notes, solved-paper, and AI products.",
+          "Choose PastPaperPrep if you study one of its live Cambridge IGCSE or IB banks and care most about fast, precise filtering, clear source details, answers, and building printable practice. Its narrower catalogue lets the product stay centred on that workflow.",
+          "Choose Exam-Mate if you need subjects or curricula outside PastPaperPrep's current supported banks, or if a school needs published volume pricing. Its site offers topical and yearly papers alongside separate MCQ, Build Exam, notes, solved-paper, and AI products.",
         ],
       },
       {
@@ -613,7 +613,7 @@ export const ALL_ARTICLES: readonly Article[] = [
     faqs: [
       { question: "Is PastPaperPrep cheaper than Exam-Mate?", answer: "At the prices checked on 12 September 2026, PastPaperPrep's one-bank plan costs $6 monthly or $48 annually, while Exam-Mate lists $12 monthly or $120 for twelve months for its individual topical plan. PastPaperPrep's broader multi-bank plans cost more than one Exam-Mate individual subscription, so compare the exact course access you need." },
       { question: "Does Exam-Mate include Build Exam with Topical Past Papers?", answer: "Its official Topical Past Papers pricing page says Build Exam is not included in the Individual plan and says users with a Build Exam subscription already receive the topical service. Check the current package details before buying." },
-      { question: "Which has more subjects?", answer: "PastPaperPrep has 19 live banks across Cambridge IGCSE Mathematics, Biology, Chemistry, Physics, Co-ordinated Sciences and Economics, plus IB Mathematics, Chemistry, Physics, Biology and Economics at HL and SL. Exam-Mate still has the broader catalogue across curricula and subjects." },
+      { question: "Which has more subjects?", answer: "PastPaperPrep has live banks across Cambridge IGCSE Mathematics, Biology, Chemistry, Physics, Co-ordinated Sciences and Economics, plus IB Mathematics, Chemistry, Physics, Biology and Economics at HL and SL. Exam-Mate still has the broader catalogue across curricula and subjects." },
     ],
     relatedBanks: [
       { href: "/banks/igcse", label: "Cambridge IGCSE Mathematics 0580 question bank" },
@@ -902,7 +902,7 @@ export const ALL_ARTICLES: readonly Article[] = [
       {
         heading: "PastPaperPrep: honest value for topical real-question practice",
         paragraphs: [
-          "PastPaperPrep is an independent practice platform, not the IB and not a replacement for official assessment documents. Counts and pricing checked 15 September 2026. Its home page lists 19 question banks, 28,541 curated questions and 1,827 indexed papers, including 841 questions in IB Math AA HL. It describes real exam questions with source context, filters for course, topic, year, paper, marks, and calculator rules, and printable PDF set building.",
+          "PastPaperPrep is an independent practice platform, not the IB and not a replacement for official assessment documents. Its IB Maths AA HL bank organises real exam questions with source context and filters for topic, year, paper, marks, and calculator rules, with printable PDF set building. Check the live bank and pricing pages for current coverage and prices.",
           "That is where PastPaperPrep wins: it turns the “I need AA HL past papers by topic” problem into a bounded practice workflow. Choose AA HL first, filter to a weak topic or paper type, attempt the original question, review the answer or markscheme where available, and then build a mixed set so you have to choose the method yourself. The existing AA and AI topical-practice guide makes the same distinction: focused sets repair a known gap, while mixed and timed sets test transfer, pacing, and method selection.",
           "PastPaperPrep’s free boundary should also be read literally. Its pricing page says students can practise complete older exam years for free. It does not promise that every question in the AA HL inventory is free. The current paid options are $6/month or $48/year for one bank; Build Your Plan starts at $10/month or $84/year for two banks; All Access is $25/month or $216/year. The sensible low-cost choice, if you need newer AA HL inventory, is one bank rather than an all-library plan.",
           "PastPaperPrep wins on course-specific filtering, topical diagnosis, and printable sets. It loses to Christos on free explanatory notes and to Revision Village Gold on video-heavy guided support. It should never claim to be official IB material; its value is organisation and practice convenience.",

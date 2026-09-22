@@ -116,21 +116,21 @@ describe("article library", () => {
 
   it("keeps the new IGCSE guides aligned with the live bank catalog", () => {
     const liveBankGuides = [
-      ["best-igcse-chemistry-0620-question-banks", "/banks/igcse-chemistry-0620", "3,529"],
-      ["best-igcse-physics-0625-question-banks", "/banks/igcse-physics-0625", "3,820"],
-      ["best-igcse-biology-0610-question-banks", "/banks/igcse-biology-0610", "3,441"],
-      ["best-igcse-coordinated-sciences-0654-question-banks", "/banks/igcse-coordinated-sciences-0654", "4,030"],
-      ["best-igcse-economics-0455-question-banks", "/banks/igcse-economics-0455", "1,723"],
+      ["best-igcse-chemistry-0620-question-banks", "/banks/igcse-chemistry-0620"],
+      ["best-igcse-physics-0625-question-banks", "/banks/igcse-physics-0625"],
+      ["best-igcse-biology-0610-question-banks", "/banks/igcse-biology-0610"],
+      ["best-igcse-coordinated-sciences-0654-question-banks", "/banks/igcse-coordinated-sciences-0654"],
+      ["best-igcse-economics-0455-question-banks", "/banks/igcse-economics-0455"],
     ] as const;
 
-    for (const [slug, route, questionCount] of liveBankGuides) {
+    for (const [slug, route] of liveBankGuides) {
       const article = ALL_ARTICLES.find((candidate) => candidate.slug === slug);
       expect(article, slug).toBeDefined();
       if (!article) continue;
 
       const content = JSON.stringify(article);
       expect(content, slug).toContain(route);
-      expect(content, slug).toContain(questionCount);
+
       expect(content, slug).not.toMatch(/not (?:yet )?live|not currently (?:live|available)|launch-gated|no (?:available |live )?.*bank route/i);
     }
 
@@ -297,12 +297,19 @@ describe("article library", () => {
 
   it("keeps every internal article and bank link on a registered route", () => {
     const bankRoutes = new Set(BANK_CATALOG.map(({ slug }) => `/banks/${slug}`));
+    const syllabusRoutes = new Set(BANK_CATALOG.map(({ slug }) => `/syllabus/${slug}`));
+    const searchHubRoutes = new Set(["/cambridge-igcse", "/ib"]);
     const articleRoutes = new Set(ALL_ARTICLES.map(({ slug }) => `/articles/${slug}`));
 
     for (const article of ALL_ARTICLES) {
       for (const { href } of article.relatedBanks) {
         expect(
-          href === "/#question-banks" || href === "/pricing" || bankRoutes.has(href) || articleRoutes.has(href),
+          href === "/#question-banks"
+            || href === "/pricing"
+            || bankRoutes.has(href)
+            || syllabusRoutes.has(href)
+            || searchHubRoutes.has(href)
+            || articleRoutes.has(href),
           `${article.slug}: ${href}`,
         ).toBe(true);
       }
