@@ -143,6 +143,18 @@ describe("home page corpus summary", () => {
     expect(tabs[0]).toHaveAttribute("aria-selected", "true");
   });
 
+  it("offers a compact FAQ preview without adding header clutter", () => {
+    const { container, getByRole } = render(<MarketingHome environment={liveBankEnvironment} />);
+
+    expect(getByRole("heading", { name: "Questions before you start?" })).toBeInTheDocument();
+    expect(container.querySelectorAll("details[data-home-faq]")).toHaveLength(4);
+    expect(getByRole("link", { name: /view all faqs/i })).toHaveAttribute("href", "/faq");
+    expect(getByRole("link", { name: "hello@pastpaperprep.com" })).toHaveAttribute(
+      "href",
+      "mailto:hello@pastpaperprep.com",
+    );
+  });
+
   it("describes Economics in homepage search metadata", () => {
     expect(JSON.stringify(metadata)).toContain("Economics");
   });
