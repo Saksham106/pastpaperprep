@@ -260,6 +260,28 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .breadcrumbs li:not(:last-child)::after { content: "/"; color: var(--line-strong); }
 .breadcrumbs a { color: var(--cobalt-strong); text-decoration: none; }
 .breadcrumbs a:hover { text-decoration: underline; }
+.search-hub, .search-landing, .about-page { padding-block: 64px 100px; }
+.search-hub h1, .search-landing h1, .about-page h1 { max-width: 780px; margin: 0 0 18px; font: 760 clamp(2.4rem, 6vw, 5rem)/.98 var(--font-display); letter-spacing: -.055em; }
+.lead { max-width: 720px; color: var(--muted); font-size: 1.15rem; line-height: 1.65; }
+.search-bank-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 44px; }
+.search-bank-card { padding: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.search-bank-card h2 { margin: 10px 0; font-size: 1.25rem; }
+.search-bank-card p { color: var(--muted); line-height: 1.55; }
+.search-bank-card .text-button { display: inline-block; margin-top: 10px; }
+.landing-copy { max-width: 820px; margin-top: 42px; }
+.landing-copy h2, .about-grid h2 { margin: 34px 0 10px; font-size: 1.45rem; letter-spacing: -.025em; }
+.landing-copy p, .about-grid p { color: var(--muted); line-height: 1.7; }
+.topic-map { margin-top: 30px; padding: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.topic-map h2 { margin-top: 0; }
+.topic-map-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.topic-map-list a { display: flex; flex-direction: column; gap: 4px; padding: 14px; color: var(--ink); border: 1px solid var(--line); border-radius: 10px; }
+.topic-map-list a:hover { border-color: var(--cobalt); }
+.topic-map-list span { color: var(--muted); font-size: .86rem; }
+.landing-actions, .about-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+.about-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 42px 72px; max-width: 1000px; margin-top: 36px; }
+.about-grid h2:first-child { margin-top: 0; }
+.about-grid a { color: var(--cobalt-strong); text-decoration: underline; }
+@media (max-width: 760px) { .search-bank-grid, .about-grid { grid-template-columns: 1fr; } .topic-map-list { grid-template-columns: 1fr; } .search-hub, .search-landing, .about-page { padding-block: 42px 72px; } }
 .bank-hero h1 { max-width: 1040px; margin: 4px 0 6px; font: 850 clamp(2.2rem, 3.8vw, 3.35rem)/.97 var(--font-display); letter-spacing: -.06em; }
 .bank-hero .shell > p:not(.eyebrow) { max-width: 720px; margin: 0; color: var(--muted); line-height: 1.52; }
 .bank-hero-stats { margin-top: 9px; display: flex; gap: 8px 20px; flex-wrap: wrap; color: var(--muted); font-size: .82rem; }

@@ -30,7 +30,8 @@ describe("site-wide discovery metadata", () => {
   it("keeps high-traffic comparison articles aligned with the live catalog", () => {
     const source = read("src/lib/article-clusters/alternatives-comparisons.ts");
 
-    expect(source).toMatch(/19 live Cambridge IGCSE and IB banks spanning Maths, Biology, Chemistry, Physics, Co-ordinated Sciences and Economics/i);
-    expect(source).toMatch(/IB Mathematics, Chemistry, Physics, Biology and Economics at HL and SL/i);
+    expect(source).toMatch(/live Cambridge IGCSE and IB banks spanning Maths, Biology, Chemistry, Physics, Co-ordinated Sciences and Economics/i);
+    expect(source).toMatch(/IB Maths, Chemistry, Physics, Biology and Economics at HL and SL/i);
+    expect(source).not.toMatch(/\b19 live banks\b|28,541|1,827/i);
   });
 });

@@ -7,7 +7,7 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
     "title": "IGCSE Biology 0610 Question Banks & Past Papers by Topic",
     "description": "Compare the best IGCSE Biology 0610 past-paper websites and question banks, with practical advice on mark schemes, diagrams, and revision.",
     "eyebrow": "IGCSE Biology 0610",
-    "answer": "The best IGCSE Biology 0610 practice setup combines official Cambridge papers and mark schemes with a genuinely topical question bank. Cambridge's own Biology page is the authority for the syllabus, specimen material and selected past papers. PastPaperPrep is the strongest fit when you want to find authentic 0610 questions by topic and build a printable set without sorting through whole PDFs; its live bank contains 3,441 questions from 209 papers covering 2021–2025. Use a teaching resource alongside it when you need notes, worked explanations or a lesson before practice.",
+    "answer": "The best IGCSE Biology 0610 practice setup combines official Cambridge papers and mark schemes with a genuinely topical question bank. Cambridge's own Biology page is the authority for the syllabus, specimen material and selected past papers. PastPaperPrep is the strongest fit when you want to find authentic 0610 questions by topic and build a printable set without sorting through whole PDFs; its live bank contains real past-paper questions from papers covering recent exam years. Use a teaching resource alongside it when you need notes, worked explanations or a lesson before practice.",
     "publishedAt": "2026-09-15",
     "updatedAt": "2026-09-15",
     "readingMinutes": 7,
@@ -58,7 +58,7 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
       {
         "heading": "Where PastPaperPrep fits for 0610",
         "paragraphs": [
-          "PastPaperPrep's live IGCSE Biology 0610 bank contains 3,441 real past-paper questions from 209 papers covering 2021–2025. It keeps diagrams, tables and experimental context attached while letting you filter by syllabus topic, paper, year, session, marks and other available exam details. That makes it useful after a paper exposes a narrow weakness and you need several fresh versions of the same skill.",
+          "PastPaperPrep's live IGCSE Biology 0610 bank contains real past-paper questions from papers covering recent exam years. It keeps diagrams, tables and experimental context attached while letting you filter by syllabus topic, paper, year, session, marks and other available exam details. That makes it useful after a paper exposes a narrow weakness and you need several fresh versions of the same skill.",
           "It is not a full Biology course. Use Cambridge for the syllabus and official assessment truth, and use notes, a teacher or a guided platform when you need the content explained. PastPaperPrep's job is narrower: turn the exact gap you found into a focused, printable practice set."
         ]
       }
@@ -82,7 +82,7 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
       },
       {
         "question": "Is the PastPaperPrep 0610 bank available now?",
-        "answer": "Yes. The live Biology 0610 bank has 3,441 questions from 209 papers covering 2021–2025, with topical filters, source details and printable-set export."
+        "answer": "Yes. The live Biology 0610 bank has real past-paper questions from papers covering recent exam years, with topical filters, source details and printable-set export."
       }
     ],
     "relatedBanks": [
@@ -132,7 +132,7 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
     "title": "IGCSE Co-ordinated Sciences 0654 Past Papers & Question Banks",
     "description": "Find the best IGCSE Co-ordinated Sciences 0654 past-paper resources and learn how to match combined science papers to your component and tier.",
     "eyebrow": "IGCSE Co-ordinated Sciences 0654",
-    "answer": "For IGCSE Co-ordinated Sciences (Double Award) 0654, use Cambridge's official syllabus and papers to confirm your component route, then use a topical bank to practise weak Biology, Chemistry and Physics areas without splitting the qualification into three unrelated courses. PastPaperPrep's live 0654 bank contains 4,030 questions from 204 papers covering 2021–2025. It is the strongest fit when you want authentic questions, syllabus-aware topic filters and printable mixed sets; a notes-led platform is better when you still need the science explained.",
+    "answer": "For IGCSE Co-ordinated Sciences (Double Award) 0654, use Cambridge's official syllabus and papers to confirm your component route, then use a topical bank to practise weak Biology, Chemistry and Physics areas without splitting the qualification into three unrelated courses. PastPaperPrep's live 0654 bank contains real past-paper questions from papers covering recent exam years. It is the strongest fit when you want authentic questions, syllabus-aware topic filters and printable mixed sets; a notes-led platform is better when you still need the science explained.",
     "publishedAt": "2026-09-15",
     "updatedAt": "2026-09-15",
     "readingMinutes": 6,
@@ -169,7 +169,7 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
       {
         "heading": "What the PastPaperPrep 0654 bank does",
         "paragraphs": [
-          "PastPaperPrep's live 0654 bank keeps the combined qualification as one bank and makes 4,030 real past-paper questions from 204 papers searchable by syllabus topic. Biology, Chemistry and Physics topics stay distinct, paper and component identity is retained, each question's printed session applies, and practical skills remain practical skills rather than being flattened into generic science.",
+          "PastPaperPrep's live 0654 bank keeps the combined qualification as one bank and makes real past-paper questions from recent exam years searchable by syllabus topic. Biology, Chemistry and Physics topics stay distinct, paper and component identity is retained, each question's printed session applies, and practical skills remain practical skills rather than being flattened into generic science.",
           "Use it to isolate a weak science or build a mixed printable set while keeping the original question context. Use Cambridge as the authority for the syllabus, entry route and assessment structure. That split is deliberate: PastPaperPrep organises the practice; Cambridge defines the qualification."
         ]
       }
@@ -193,7 +193,7 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
       },
       {
         "question": "Is the PastPaperPrep 0654 bank available?",
-        "answer": "Yes. The live Co-ordinated Sciences 0654 bank contains 4,030 questions from 204 papers covering 2021–2025, with Biology, Chemistry, Physics and practical-skill filters in one bank."
+        "answer": "Yes. The live Co-ordinated Sciences 0654 bank contains real past-paper questions from papers covering recent exam years, with Biology, Chemistry, Physics and practical-skill filters in one bank."
       }
     ],
     "relatedBanks": [
@@ -235,7 +235,7 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
     "title": "IGCSE Economics 0455 Question Banks & Past Papers by Topic",
     "description": "Compare IGCSE Economics 0455 question banks and past-paper websites, with a practical method for data response, diagrams, calculations, and evaluation.",
     "eyebrow": "IGCSE Economics 0455",
-    "answer": "The best IGCSE Economics 0455 revision setup uses Cambridge's official syllabus and papers for exam truth, then adds a topical bank for repeated practice by concept and response skill. PastPaperPrep's live Economics 0455 bank contains 1,723 real past-paper questions from 98 papers covering 2019–2025. It is the strongest fit when you want to filter authentic questions while preserving data-response context, diagrams, calculations and command words; use a teaching resource when you first need the economics explained.",
+    "answer": "The best IGCSE Economics 0455 revision setup uses Cambridge's official syllabus and papers for exam truth, then adds a topical bank for repeated practice by concept and response skill. PastPaperPrep's live Economics 0455 bank contains real past-paper questions from papers covering recent exam years. It is the strongest fit when you want to filter authentic questions while preserving data-response context, diagrams, calculations and command words; use a teaching resource when you first need the economics explained.",
     "publishedAt": "2026-09-15",
     "updatedAt": "2026-09-21",
     "readingMinutes": 6,
@@ -285,7 +285,7 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
       {
         "heading": "Where PastPaperPrep fits for 0455",
         "paragraphs": [
-          "PastPaperPrep's live Economics 0455 bank contains 1,723 real past-paper questions from 98 papers covering 2019–2025. It keeps the original data, charts and question context while letting you filter by topic, paper, year, session, marks and other available exam details. That is useful when your error log says something precise, such as weak elasticity calculations or unsupported evaluation, rather than simply 'Economics'.",
+          "PastPaperPrep's live Economics 0455 bank contains real past-paper questions from papers covering recent exam years. It keeps the original data, charts and question context while letting you filter by topic, paper, year, session, marks and other available exam details. That is useful when your error log says something precise, such as weak elasticity calculations or unsupported evaluation, rather than simply 'Economics'.",
           "PastPaperPrep does not replace revision notes, model essays or a teacher. Use it after learning the idea, when the bottleneck is finding enough authentic questions and assembling a focused printable set."
         ]
       }
@@ -309,7 +309,7 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
       },
       {
         "question": "Is the PastPaperPrep Economics 0455 bank available now?",
-        "answer": "Yes. The live Economics 0455 bank contains 1,723 questions from 98 papers covering 2019–2025, with filters that preserve data-response and diagram context."
+        "answer": "Yes. The live Economics 0455 bank contains real past-paper questions from papers covering recent exam years, with filters that preserve data-response and diagram context."
       }
     ],
     "relatedBanks": [
