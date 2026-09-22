@@ -14,6 +14,7 @@ export type PublicQuestionMetadata = {
   secondaryTopics: string[];
   skills: string[];
   subtopics: string[];
+  granularLabels: string[];
   subject: string;
   option: string;
   zone: string;
@@ -41,6 +42,7 @@ export function toPublicQuestionMetadata(question: UnifiedQuestion): PublicQuest
     secondaryTopics: [...question.secondaryTopics],
     skills: [...question.skills],
     subtopics: [...question.subtopics],
+    granularLabels: [...(question.granularLabels ?? [])],
     subject: question.subject,
     option: question.option,
     zone: question.zone,
@@ -69,6 +71,7 @@ export function publicQuestionSearchText(question: PublicQuestionMetadata): stri
     ...question.secondaryTopics,
     ...question.skills,
     ...question.subtopics,
+    ...(question.granularLabels ?? []),
     question.subject,
     question.option,
     question.zone,

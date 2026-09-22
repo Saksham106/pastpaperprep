@@ -4,7 +4,7 @@ export const EXPLORER_PAGE_SIZE = 24;
 const MAX_SHARED_PAGES = 10;
 const SORTS = new Set<QuestionSort>(["paper", "topic", "marks-desc", "marks-asc"]);
 
-export type ExplorerFilterKey = "topics" | "subtopics" | "years" | "papers" | "sessions" | "subjects" | "zones" | "courseEras" | "options" | "components" | "calculator";
+export type ExplorerFilterKey = "topics" | "subtopics" | "granularLabels" | "years" | "papers" | "sessions" | "subjects" | "zones" | "courseEras" | "options" | "components" | "calculator";
 export type ExplorerFilters = Pick<QuestionFilters, ExplorerFilterKey>;
 export type ExplorerSearchParams = Record<string, string | string[] | undefined>;
 
@@ -20,6 +20,7 @@ export type ExplorerState = {
 const PARAMS: Array<[string, ExplorerFilterKey]> = [
   ["topic", "topics"],
   ["subtopic", "subtopics"],
+  ["granularLabel", "granularLabels"],
   ["year", "years"],
   ["paper", "papers"],
   ["session", "sessions"],

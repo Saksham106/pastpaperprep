@@ -8,6 +8,12 @@ import { fileURLToPath } from "node:url";
 const root = join(import.meta.dirname, "..");
 const outputDirectory = join(root, "public", "bank-index");
 const version = 1;
+const granularOverlay = JSON.parse(await readFile(join(root, "src", "data", "math-granular-label-overlay.json"), "utf8"));
+const granularByKey = new Map();
+for (const row of granularOverlay.labels) {
+  const key = `${row.bank}:${row.id}`;
+  granularByKey.set(key, [...(granularByKey.get(key) ?? []), row.label]);
+}
 const bankSources = [
   ...["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "ib-chemistry-hl", "ib-chemistry-sl", "ib-physics-hl", "ib-physics-sl", "ib-biology-hl", "ib-biology-sl"]
     .map((bank) => ({ bank, directory: "raw" })),
@@ -29,7 +35,7 @@ function integer(value) {
   return typeof value === "number" ? value : Number.parseInt(String(value), 10) || 0;
 }
 
-export function metadataFromRaw(raw, { normalizedProduction = false, localEconomics = false } = {}) {
+export function metadataFromRaw(raw, { bank, normalizedProduction = false, localEconomics = false } = {}) {
   const officialMarkscheme = raw.officialMarkscheme && typeof raw.officialMarkscheme === "object"
     ? raw.officialMarkscheme
     : {};
@@ -57,6 +63,7 @@ export function metadataFromRaw(raw, { normalizedProduction = false, localEconom
       ...subtopics,
     ])];
 
+  const overlayBank = bank === "igcse-additional" ? "0606" : bank;
   const metadata = {
     id: typeof raw.id === "string" ? raw.id : "",
     number: integer(raw.number),
@@ -67,6 +74,7 @@ export function metadataFromRaw(raw, { normalizedProduction = false, localEconom
     secondaryTopics: strings(raw.secondaryTopics),
     skills,
     subtopics,
+    granularLabels: granularByKey.get(`${overlayBank}:${raw.id}`) ?? [],
     subject: (typeof raw.subject === "string" && raw.subject) || (typeof raw.course === "string" ? raw.course : ""),
     option: typeof raw.p3Option === "string" ? raw.p3Option : "",
     zone: (typeof raw.timezone === "string" && raw.timezone) || (typeof raw.zone === "string" ? raw.zone : ""),
@@ -126,6 +134,7 @@ export async function generateBankIndexes() {
     const rawBank = JSON.parse(await readFile(join(root, "src", "data", directory, `${bank}.json`), "utf8"));
     const rawQuestions = rawBank.questions;
     const questions = rawQuestions.map((raw) => metadataFromRaw(raw, {
+      bank,
       normalizedProduction: directory === "production",
       localEconomics: bank === "ib-economics-hl" || bank === "ib-economics-sl",
     })).sort(sortQuestions);
