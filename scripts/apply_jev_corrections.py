@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Apply the sealed, fail-closed Jev 2026-09-21 classification overlay."""
 from __future__ import annotations
-import copy, hashlib, json
+import copy, hashlib, json, subprocess
 from collections import Counter
 from pathlib import Path
 
@@ -13,6 +13,20 @@ BANK_PATHS = {
     "igcse-additional": "src/data/raw/igcse-additional.json",
 }
 OVERLAY = "data/classification/jev-2026-09-21/corrections.json"
+IMMUTABLE_RELEASE_IDENTITIES = {
+    "igcse-biology-0610": {
+        "sourceCandidateSha256": "ae8d6aef098c380bcb3d221e152474d2ef10d666d61c472ee42b6d4077cd4e25",
+        "originalCandidateRuntimeSha256": "9e97cd0c0455ae865b1d14dc462f74ce22d1c66fb734e7d4a8baaf414e0ff961",
+    },
+    "igcse-economics-0455": {
+        "sourceCandidateSha256": "629eb2cd4ae77ad6fd7cade9b89380b0a8b41a45f42548dab822ce3f0aabcf81",
+        "originalCandidateRuntimeSha256": "629eb2cd4ae77ad6fd7cade9b89380b0a8b41a45f42548dab822ce3f0aabcf81",
+    },
+    "igcse-chemistry-0620": {
+        "sourceCandidateSha256": "81c706903aa94c6865336cf40027c26b33e0ba514082f4d8da2c576b9bb2cf87",
+        "originalCandidateRuntimeSha256": "81c706903aa94c6865336cf40027c26b33e0ba514082f4d8da2c576b9bb2cf87",
+    },
+}
 
 
 def read(path: Path):
@@ -22,6 +36,26 @@ def read(path: Path):
 def write_json(path: Path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(value, ensure_ascii=False, separators=(",", ":")) + "\n")
+
+
+def _js_json(value):
+    """The JSON.stringify form used by the release generators."""
+    return json.dumps(value, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
+
+
+def _refresh_runtime_seals(artifact, bank):
+    """Refresh mutable seals without ever changing release/source identity."""
+    runtime = artifact.get("runtimeArtifact")
+    if not runtime:
+        return
+    runtime["sourceCandidateSha256"] = IMMUTABLE_RELEASE_IDENTITIES[bank]["sourceCandidateSha256"]
+    runtime["originalCandidateRuntimeSha256"] = IMMUTABLE_RELEASE_IDENTITIES[bank]["originalCandidateRuntimeSha256"]
+    runtime["contentSha256"] = hashlib.sha256(_js_json(artifact["questions"]).encode()).hexdigest()
+    if bank == "igcse-economics-0455":
+        runtime["finalizedContentSha256"] = runtime["contentSha256"]
+    runtime_copy = copy.deepcopy(artifact)
+    runtime_copy["runtimeArtifact"]["runtimeSha256"] = None
+    runtime["runtimeSha256"] = hashlib.sha256(_js_json(runtime_copy).encode()).hexdigest()
 
 
 def load_overlay(path: Path):
@@ -75,6 +109,19 @@ def _current_signature(q):
     return {k: q.get(k) for k in ["primaryTopic", "primaryTopicId", "secondaryTopics", "subtopics", "detailedSubtopics", "courseEra", "era"]}
 
 
+def _row_already_applied(q, row, labels):
+    provenance = q.get("classificationProvenance", {}).get("jevCorrection")
+    if not isinstance(provenance, dict):
+        return False
+    if provenance.get("audit") != "jev-audit-2026-09-21" or provenance.get("decision") != row["decision"]:
+        raise ValueError(f"invalid Jev provenance: {row['id']}")
+    if provenance.get("original") != row["expected"]:
+        raise ValueError(f"Jev original provenance mismatch: {row['id']}")
+    probe = copy.deepcopy(q)
+    _apply_row(probe, row, labels, record_provenance=False)
+    return _current_signature(q) == _current_signature(probe)
+
+
 def _validate_targets(root, overlay):
     seen = set()
     qmaps = {}
@@ -87,7 +134,11 @@ def _validate_targets(root, overlay):
         seen.add(row["id"])
         q = qmaps[row["bank"]].get(row["id"])
         if q is None: raise ValueError(f"missing overlay ID: {row['id']}")
-        if _current_signature(q) != row["expected"] and "jevCorrection" not in q.get("classificationProvenance", {}):
+        labels = _label_data(root)
+        if "jevCorrection" in q.get("classificationProvenance", {}):
+            if not _row_already_applied(q, row, labels):
+                raise ValueError(f"applied-value mismatch: {row['id']}")
+        elif _current_signature(q) != row["expected"]:
             raise ValueError(f"current-value mismatch: {row['id']}")
     if len(seen) != overlay["scope"]["targetCount"]: raise ValueError("target count mismatch")
     for row in overlay.get("heldRows", []):
@@ -104,7 +155,13 @@ def validate_overlay(root: Path, overlay):
     return {"targetCount": len(overlay["rows"]), "changedCount": len(overlay["rows"]), "decisionCounts": dict(sorted(decisions.items())), "bankCounts": dict(sorted(banks.items())), "heldCount": overlay["scope"]["heldCount"]}
 
 
-def _apply_row(q, row, labels):
+def _apply_row(q, row, labels, record_provenance=True):
+    if record_provenance and _row_already_applied(q, row, labels):
+        return
+    # A source row that already equals the reviewed expected state is a no-op;
+    # adding provenance would change the non-classification release seal.
+    if record_provenance and _current_signature(q) == row["expected"] and "jevCorrection" not in q.get("classificationProvenance", {}):
+        return
     original = _current_signature(q)
     final = row["final"]
     bank = row["bank"]
@@ -126,7 +183,8 @@ def _apply_row(q, row, labels):
     elif bank == "igcse":
         q.update(primaryTopic=final["label"], subtopics=[final["detail"]], detailedSubtopics=[final["detail"]])
     else: raise ValueError(f"unsupported bank: {bank}")
-    q.setdefault("classificationProvenance", {})["jevCorrection"] = {"audit": "jev-audit-2026-09-21", "decision": row["decision"], "original": original, "rationale": row.get("rationale")}
+    if record_provenance:
+        q.setdefault("classificationProvenance", {})["jevCorrection"] = {"audit": "jev-audit-2026-09-21", "decision": row["decision"], "original": original, "rationale": row.get("rationale")}
 
 
 def _private_index(runtime, bank):
@@ -153,6 +211,8 @@ def apply_corrections(root: Path, overlay, write=True):
         for q in artifact["questions"]:
             row = targets.get((bank, q["id"]))
             if row: _apply_row(q, row, labels)
+        if bank in IMMUTABLE_RELEASE_IDENTITIES and any(r["bank"] == bank for r in overlay["rows"]):
+            _refresh_runtime_seals(artifact, bank)
     duplicate = []
     for artifact in after.values():
         ids = [q["id"] for q in artifact["questions"]]; duplicate += [x for x, n in Counter(ids).items() if n > 1]
@@ -171,8 +231,11 @@ def apply_corrections(root: Path, overlay, write=True):
         target_banks = {row["bank"] for row in overlay["rows"]}
         for bank in target_banks:
             artifact = after[bank]
-            write_json(root / BANK_PATHS[bank], artifact)
-            if bank != "igcse": _write_private(root / "src/data/private-index" / f"{bank}.json", _private_index(artifact, bank), bank)
+            if artifact != before[bank]:
+                write_json(root / BANK_PATHS[bank], artifact)
+                if bank != "igcse": _write_private(root / "src/data/private-index" / f"{bank}.json", _private_index(artifact, bank), bank)
+        if "igcse" in target_banks and after["igcse"] != before["igcse"]:
+            subprocess.run(["node", "scripts/generate-bank-index.mjs"], cwd=root, check=True)
     return result
 
 
