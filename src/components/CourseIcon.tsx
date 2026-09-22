@@ -1,9 +1,7 @@
 import { Atom, ChartLineUp, Dna, Flask, MathOperations, Microscope } from "@phosphor-icons/react/dist/ssr";
-import type { Bank } from "@/lib/banks";
-
 export type CourseTone = "math" | "chemistry" | "physics" | "biology" | "economics" | "coordinated";
 
-export function courseToneForBank(bank: Bank): CourseTone {
+export function courseToneForBank(bank: { subject: string }): CourseTone {
   if (bank.subject.includes("Co-ordinated")) return "coordinated";
   if (bank.subject.includes("Chemistry")) return "chemistry";
   if (bank.subject.includes("Physics")) return "physics";
