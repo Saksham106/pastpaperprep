@@ -70,12 +70,15 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     : {};
   const aa = currentAaRecord(bank, raw);
   const biology = currentBiologyRecord(bank, raw);
-  const controlledSkills = aa || biology ? [] : strings(raw.skills);
-  const studentSubtopics = aa
-    ? (aa.status === "accepted" ? aa.subtopics.map((id) => aaGroupNames.get(id) ?? (() => { throw new Error(`Unknown official AA group ${id}`); })()) : [])
-    : biology
-      ? biologyGroupLabels(biology)
-      : strings(raw.subtopics);
+  const official0610 = bank === "igcse-biology-0610" && normalizedProduction;
+  const controlledSkills = official0610 || aa || biology ? [] : strings(raw.skills);
+  const studentSubtopics = official0610
+    ? strings(raw.subtopics)
+    : aa
+      ? (aa.status === "accepted" ? aa.subtopics.map((id) => aaGroupNames.get(id) ?? (() => { throw new Error(`Unknown official AA group ${id}`); })()) : [])
+      : biology
+        ? biologyGroupLabels(biology)
+        : strings(raw.subtopics);
   const detailedSubtopics = strings(raw.detailedSubtopics);
   const subtopics = [...new Set(
     studentSubtopics.length
@@ -105,8 +108,8 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     paper: integer(raw.paper),
     year: integer(raw.year),
     session: typeof raw.session === "string" ? raw.session : "",
-    primaryTopic: biology ? biologyPrimaryTopic(biology, raw) : aa ? aa.primaryTopic : (typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other"),
-    secondaryTopics: biology ? [...new Set(biology.secondary.map((group) => group.parentTopic))] : aa ? aa.secondaryTopics : strings(raw.secondaryTopics),
+    primaryTopic: official0610 ? (typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other") : biology ? biologyPrimaryTopic(biology, raw) : aa ? aa.primaryTopic : (typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other"),
+    secondaryTopics: official0610 ? strings(raw.secondaryTopics) : biology ? [...new Set(biology.secondary.map((group) => group.parentTopic))] : aa ? aa.secondaryTopics : strings(raw.secondaryTopics),
     skills,
     subtopics,
     granularLabels: aa || biology ? [] : granularByKey.get(`${overlayBank}:${raw.id}`) ?? [],

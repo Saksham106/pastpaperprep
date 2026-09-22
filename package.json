@@ -13,6 +13,7 @@
     "generate:economics-production": "node scripts/generate-igcse-economics-0455-runtime.mjs",
     "generate:igcse-release": "node scripts/generate-igcse-release.mjs",
     "generate:igcse-biology-extension-candidate": "node scripts/generate-igcse-biology-0610-extension-candidate.mjs",
+    "generate:igcse-biology-0610-production": "node scripts/generate-igcse-biology-0610-production.mjs",
     "generate:ib-science-extension-candidate": "node scripts/generate-ib-science-extension-candidate.mjs",
     "validate:ib-science-extension-candidate": "node scripts/validate-ib-science-candidate.mjs",
     "r2:sync": "node scripts/sync-r2-assets.mjs",
