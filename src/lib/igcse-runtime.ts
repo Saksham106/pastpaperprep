@@ -49,17 +49,17 @@ const RUNTIME_TAXONOMIES: Record<IGCSEReleaseBankSlug, unknown> = {
 };
 
 const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
-  "igcse-biology-0610": "9e97cd0c0455ae865b1d14dc462f74ce22d1c66fb734e7d4a8baaf414e0ff961",
-  "igcse-economics-0455": "629eb2cd4ae77ad6fd7cade9b89380b0a8b41a45f42548dab822ce3f0aabcf81",
-  "igcse-chemistry-0620": "81c706903aa94c6865336cf40027c26b33e0ba514082f4d8da2c576b9bb2cf87",
+  "igcse-biology-0610": "7cfff5967d7e6730054fa00402935201d9656a0558c5eda2f3dd5c97de491382",
+  "igcse-economics-0455": "d50029268d61dfe37f8c437382d2e60da8d42d376f2fa5d3851d982677c0ab7d",
+  "igcse-chemistry-0620": "4fe4c598f3e96b51ddc29616f677a1a9428d80b9382288dacf99317d4649fa2d",
   "igcse-physics-0625": "d95657a79bfcf5d80b9c7e9660c1d7795ea2026435610bb3e96ba2203e3d8cf7",
   "igcse-coordinated-sciences-0654": "8b0f2a37110a7a56a647cfbf17ecd156eaca1c507fdc3e82711d4c356cacd82a",
 };
 
 const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
-  "igcse-biology-0610": "ae8d6aef098c380bcb3d221e152474d2ef10d666d61c472ee42b6d4077cd4e25",
-  "igcse-economics-0455": "629eb2cd4ae77ad6fd7cade9b89380b0a8b41a45f42548dab822ce3f0aabcf81",
-  "igcse-chemistry-0620": "81c706903aa94c6865336cf40027c26b33e0ba514082f4d8da2c576b9bb2cf87",
+  "igcse-biology-0610": "7cfff5967d7e6730054fa00402935201d9656a0558c5eda2f3dd5c97de491382",
+  "igcse-economics-0455": "d50029268d61dfe37f8c437382d2e60da8d42d376f2fa5d3851d982677c0ab7d",
+  "igcse-chemistry-0620": "4fe4c598f3e96b51ddc29616f677a1a9428d80b9382288dacf99317d4649fa2d",
   "igcse-physics-0625": "14b6756ed65b6f264f601519a4dba5b5a43ef0f0480bc849924cc037644c79e8",
   "igcse-coordinated-sciences-0654": "8b0f2a37110a7a56a647cfbf17ecd156eaca1c507fdc3e82711d4c356cacd82a",
 };
