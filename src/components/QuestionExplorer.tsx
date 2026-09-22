@@ -20,7 +20,7 @@ import { formatPublicLabel } from "@/lib/presentation";
 type MultiKey = ExplorerFilterKey;
 
 const SECONDARY_FILTER_KEYS: MultiKey[] = [
-  "years", "sessions", "papers", "components", "calculator", "subjects", "courseEras", "options", "zones",
+  "years", "sessions", "papers", "components", "calculator", "subjects", "courseEras", "options", "zones", "granularLabels",
 ];
 
 const SORT_OPTIONS: readonly { value: QuestionSort; label: string }[] = [
@@ -251,6 +251,7 @@ access: ExplorerAccess;
     courseEras: unique(catalogQuestions, (q) => q.courseEra),
     options: unique(catalogQuestions, (q) => q.option),
     components: unique(catalogQuestions, (q) => q.component),
+    granularLabels: unique(catalogQuestions, (q) => q.granularLabels ?? []),
   }), [catalogQuestions]);
 
   const filtered = useMemo(() => {
@@ -757,6 +758,7 @@ access: ExplorerAccess;
               {isCambridge && <FilterGroup label="Components" filterKey="components" values={options.components} selected={filters.components ?? []} onToggle={toggle} />}
               {isCambridge && <FilterGroup label="Time zone / variant" filterKey="zones" values={options.zones} selected={filters.zones ?? []} onToggle={toggle} />}
               {isCambridge && <FilterGroup label="Calculator" filterKey="calculator" values={["calculator", "non-calculator"]} selected={filters.calculator ?? []} onToggle={toggle} />}
+              {options.granularLabels.length > 0 && <FilterGroup label="Granular labels" filterKey="granularLabels" values={options.granularLabels} selected={filters.granularLabels ?? []} onToggle={toggle} />}
               {!isCambridge && options.subjects.length > 1 && <FilterGroup label="Course" filterKey="subjects" values={options.subjects} selected={filters.subjects ?? []} onToggle={toggle} />}
               {bank === "ib-hl" && <FilterGroup label="Course era" filterKey="courseEras" values={options.courseEras} selected={filters.courseEras ?? []} onToggle={toggle} />}
               {bank === "ib-hl" && <FilterGroup label="Paper 3 option" filterKey="options" values={options.options} selected={filters.options ?? []} onToggle={toggle} />}

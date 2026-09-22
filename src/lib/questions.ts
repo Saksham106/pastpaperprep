@@ -1,6 +1,14 @@
 import { economicsStorageObjectPath, storageObjectPath } from "@/lib/assets";
 import { getBank, isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
 import { isPrivateRuntimeBank, privateStorageObjectPath } from "@/lib/private-runtime-mapping";
+import granularOverlay from "@/data/math-granular-label-overlay.json";
+
+const GRANULAR_LABELS = new Map<string, string[]>();
+const overlayBankForSlug = (slug: string) => slug === "igcse-additional" ? "0606" : slug;
+for (const row of granularOverlay.labels) {
+  const key = `${row.bank}:${row.id}`;
+  GRANULAR_LABELS.set(key, [...(GRANULAR_LABELS.get(key) ?? []), row.label]);
+}
 
 export type UnifiedQuestion = {
   id: string;
@@ -14,6 +22,7 @@ export type UnifiedQuestion = {
   skills: string[];
   subtopics: string[];
   secondarySubtopics: string[];
+  granularLabels?: string[];
   subject: string;
   courseEra: string;
   option: string;
@@ -49,6 +58,7 @@ export type QuestionFilters = {
   search?: string;
   topics?: string[];
   subtopics?: string[];
+  granularLabels?: string[];
   years?: string[];
   papers?: string[];
   sessions?: string[];
@@ -164,6 +174,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     skills,
     subtopics,
     secondarySubtopics,
+    granularLabels: GRANULAR_LABELS.get(`${overlayBankForSlug(slug)}:${text(raw.id)}`) ?? [],
     subject: text(raw.subject) || text(raw.course),
     courseEra: text(raw.courseEra),
     option: text(raw.p3Option),

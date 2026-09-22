@@ -43,6 +43,7 @@ export function filterQuestions(questions: UnifiedQuestion[], filters: QuestionF
     // accepting legacy `subtopics`, but never let a correctly classified
     // secondary skill disappear because an older bank omitted it there.
     if (!includesAny(filters.subtopics, filterableSubtopics(question))) return false;
+    if (!includesAny(filters.granularLabels, question.granularLabels ?? [])) return false;
     if (!includesAny(filters.years, [String(question.year)])) return false;
     if (!includesAny(filters.papers, [String(question.paper)])) return false;
     if (!includesAny(filters.sessions, [question.session])) return false;

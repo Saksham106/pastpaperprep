@@ -1,0 +1,4112 @@
+{
+  "countsByBank": {
+    "0606": 638,
+    "ib-aa-hl": 82,
+    "ib-aa-sl": 37,
+    "ib-ai-hl": 21,
+    "ib-ai-sl": 35
+  },
+  "countsByLabel": {
+    "0606": {
+      "math.0606.algebra.binomial-expansion": 69,
+      "math.0606.calculus.differentiation": 349,
+      "math.0606.calculus.integration": 165,
+      "math.0606.combinatorics-series.arithmetic-geometric-progressions": 55
+    },
+    "ib-aa-hl": {
+      "math.aa.calculus.related-rates": 10,
+      "math.aa.functions.domain-range-restrictions": 26,
+      "math.aa.statistics-probability.expected-value-variance": 46
+    },
+    "ib-aa-sl": {
+      "math.aa.functions.domain-range-restrictions": 16,
+      "math.aa.statistics-probability.expected-value-variance": 21
+    },
+    "ib-ai-hl": {
+      "math.ai.statistics-probability.expected-value-variance": 12,
+      "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency": 9
+    },
+    "ib-ai-sl": {
+      "math.ai.statistics-probability.expected-value-variance": 17,
+      "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency": 18
+    }
+  },
+  "labels": [
+    {
+      "bank": "0606",
+      "id": "0606-2016-june-11-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-june-11-q3",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-june-11-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-june-11-q5",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-june-12-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-june-12-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-june-12-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-june-12-q2",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-june-12-q7",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-june-12-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-june-12-q9",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-june-13-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-june-13-q3",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-june-13-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-june-13-q5",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-june-21-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-june-21-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-june-21-q8",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-june-22-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-june-22-q9",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-june-23-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-june-23-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-june-23-q8",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-march-12-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-march-12-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-march-22-q1",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-march-22-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-march-22-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-march-22-q12",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-march-22-q3",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-march-22-q5",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-11-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-11-q4",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-11-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-11-q7",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-12-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-12-q4",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-12-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-12-q7",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-13-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-13-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-13-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-13-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-13-q4",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-13-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-13-q6",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-21-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-21-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-21-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-21-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-21-q8",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-22-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-22-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-22-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-22-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-22-q8",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-23-q3",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-23-q3",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-23-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2016-november-23-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-11-q1",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-11-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-11-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-11-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-11-q9",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-12-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-12-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-12-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-12-q4",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-12-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-13-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-13-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-13-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-13-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-13-q12",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-13-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-21-q1",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-21-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-21-q3",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-21-q5",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-22-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-22-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-22-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-23-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-23-q6",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-june-23-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-march-12-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-march-12-q3",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-march-12-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-march-12-q8",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-march-22-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-march-22-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-11-q5",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-11-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-12-q3",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-12-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-12-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-12-q9",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-13-q2",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-13-q5",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-13-q7",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-13-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-21-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-21-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-21-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-21-q5",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-21-q9",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-22-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-22-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-22-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-22-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-22-q7",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-22-q9",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-23-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-23-q7",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2017-november-23-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-11-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-11-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-11-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-11-q12",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-11-q9",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-12-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-12-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-12-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-12-q5",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-12-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-13-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-13-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-13-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-13-q12",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-13-q9",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-21-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-21-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-21-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-21-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-22-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-22-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-22-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-22-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-22-q9",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-23-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-23-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-23-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-june-23-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-march-12-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-march-12-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-march-12-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-march-12-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-march-12-q5",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-march-12-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-march-12-q8",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-march-22-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-march-22-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-11-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-11-q8",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-11-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-12-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-12-q2",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-12-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-12-q5",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-12-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-12-q6",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-13-q1",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-13-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-13-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-13-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-13-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-13-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-21-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-21-q8",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-21-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-22-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-22-q3",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-22-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-22-q9",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-23-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2018-november-23-q4",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-11-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-11-q4",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-11-q6",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-11-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-12-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-12-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-12-q3",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-12-q9",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-13-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-13-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-13-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-21-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-21-q12",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-21-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-21-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-22-q1",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-22-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-22-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-22-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-22-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-22-q7",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-22-q8",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-23-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-23-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-23-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-23-q8",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-june-23-q9",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-march-12-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-march-12-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-march-12-q3",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-march-12-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-march-12-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-march-22-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-march-22-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-march-22-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-march-22-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-11-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-11-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-11-q12",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-11-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-11-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-12-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-12-q3",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-12-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-12-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-13-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-13-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-13-q3",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-13-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-13-q5",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-13-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-21-q10",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-21-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-21-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-21-q8",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-22-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-22-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-22-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-23-q3",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-23-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-23-q7",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2019-november-23-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-11-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-11-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-11-q3",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-11-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-11-q8",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-11-q9",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-12-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-12-q3",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-12-q6",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-12-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-12-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-13-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-13-q3",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-13-q8",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-13-q9",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-21-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-21-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-21-q8",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-22-q1",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-22-q10",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-22-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-23-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-23-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-23-q12",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-23-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-june-23-q9",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-march-12-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-march-12-q3",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-march-12-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-march-22-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-march-22-q12",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-march-22-q13",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-march-22-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-11-q10",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-11-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-11-q9",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-12-q12",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-12-q4",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-12-q5",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-12-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-12-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-13-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-13-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-13-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-13-q5",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-21-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-21-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-21-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-21-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-21-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-21-q5",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-21-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-22-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-22-q6",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-22-q7",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-23-q10",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-23-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-23-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-23-q7",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2020-november-23-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-11-q2",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-11-q4",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-11-q7",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-11-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-12-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-12-q4",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-12-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-12-q9",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-13-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-13-q2",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-13-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-21-q11",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-21-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-21-q12",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-21-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-21-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-21-q9",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-22-q1",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-22-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-22-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-22-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-22-q12",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-22-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-23-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-23-q11",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-23-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-23-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-23-q5",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-23-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-june-23-q8",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-march-12-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-march-12-q6",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-march-12-q9",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-march-22-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-march-22-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-march-22-q12",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-march-22-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-march-22-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-march-22-q9",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-11-q10",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-11-q6",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-11-q7",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-11-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-12-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-12-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-12-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-12-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-13-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-13-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-13-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-13-q5",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-21-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-21-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-21-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-21-q3",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-21-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-22-q2",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-22-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-22-q7",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-22-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-23-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-23-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-23-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-23-q8",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2021-november-23-q9",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-11-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-11-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-11-q7",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-11-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-12-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-12-q5",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-12-q7",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-12-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-13-q1",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-13-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-13-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-13-q5",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-13-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-21-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-21-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-21-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-21-q5",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-21-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-21-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-22-q10",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-22-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-22-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-22-q12",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-22-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-22-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-22-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-23-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-23-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-23-q11",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-23-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-23-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-june-23-q8",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-march-12-q10",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-march-12-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-march-12-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-march-12-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-march-12-q7",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-march-22-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-march-22-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-march-22-q6",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-11-q5",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-11-q6",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-11-q8",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-12-q10",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-12-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-12-q12",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-12-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-12-q9",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-13-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-13-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-13-q5",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-13-q7",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-21-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-21-q3",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-21-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-21-q7",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-21-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-22-q10",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-22-q3",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-22-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-23-q10",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-23-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-23-q6",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-23-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2022-november-23-q9",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-june-11-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-june-11-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-june-11-q9",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-june-12-q10",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-june-12-q9",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-june-13-q5",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-june-13-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-june-13-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-june-21-q10",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-june-21-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-june-21-q7",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-june-22-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-june-22-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-june-22-q6",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-june-22-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-june-22-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-june-22-q9",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-june-23-q10",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-june-23-q3",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-june-23-q3",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-june-23-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-june-23-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-june-23-q9",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-march-12-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-march-12-q3",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-march-12-q8",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-march-22-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-march-22-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-march-22-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-march-22-q6",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-march-22-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-11-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-11-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-11-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-11-q9",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-12-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-12-q4",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-13-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-13-q8",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-13-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-21-q3",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-21-q3",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-21-q4",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-21-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-21-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-21-q7",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-22-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-22-q6",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-22-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-22-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-22-q9",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-23-q10",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-23-q4",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-23-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-23-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2023-november-23-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-11-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-11-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-11-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-11-q12",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-11-q4",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-11-q6",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-12-q10",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-12-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-12-q3",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-12-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-13-q10",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-13-q3",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-13-q4",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-13-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-13-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-13-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-21-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-21-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-21-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-21-q8",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-22-q10",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-22-q2",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-22-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-22-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-22-q9",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-23-q4",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-23-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-23-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-23-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-23-q8",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-june-23-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-march-12-q3",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-march-12-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-march-12-q7",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-march-12-q9",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-march-22-q10",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-march-22-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-march-22-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-march-22-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-march-22-q6",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-march-22-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-11-q10",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-11-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-11-q5",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-11-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-12-q10",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-12-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-12-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-12-q6",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-12-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-12-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-12-q9",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-13-q1",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-13-q11",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-13-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-21-q12",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-21-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-21-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-21-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-22-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-22-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-22-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-23-q10",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-23-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-23-q12",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-23-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-23-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-23-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-23-q6",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-23-q7",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2024-november-23-q8",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-11-q11",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-11-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-11-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-11-q9",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-12-q12",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-12-q7",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-12-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-13-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-13-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-13-q8",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-21-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-21-q11",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-21-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-21-q6",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-21-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-22-q10",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-22-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-22-q4",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-22-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-22-q7",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-22-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-22-q8",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-23-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-23-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-23-q7",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-23-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-23-q8",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-june-23-q9",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-march-12-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-march-12-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-march-12-q7",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-march-12-q8",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-march-22-q10",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-march-22-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-march-22-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-march-22-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-11-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-11-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-11-q5",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-11-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-12-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-12-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-12-q3",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-12-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-13-q10",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-13-q12",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-13-q2",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-13-q3",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-13-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-13-q8",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-21-q10",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-21-q11",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-21-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-21-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-21-q8",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-22-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-22-q3",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-22-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-22-q8",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-23-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2025-november-23-q4",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2026-june-11-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2026-june-11-q10",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2026-june-11-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2026-june-11-q7",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2026-june-12-q10",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2026-june-12-q12",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2026-june-12-q4",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2026-june-12-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2026-june-13-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2026-june-13-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2026-june-13-q2",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2026-june-13-q6",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2026-june-21-q10",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2026-june-21-q11",
+      "label": "math.0606.calculus.integration"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2026-june-21-q3",
+      "label": "math.0606.combinatorics-series.arithmetic-geometric-progressions"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2026-june-21-q5",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2026-june-21-q7",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2026-june-22-q12",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2026-june-22-q6",
+      "label": "math.0606.algebra.binomial-expansion"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2026-june-22-q8",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "0606",
+      "id": "0606-2026-june-22-q9",
+      "label": "math.0606.calculus.differentiation"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2017-may-tz0-p3-statistics-and-probability-q1",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2017-may-tz0-p3-statistics-and-probability-q2",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2017-may-tz0-p3-statistics-and-probability-q4",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2017-may-tz1-p2-q12",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2017-may-tz1-p2-q8",
+      "label": "math.aa.calculus.related-rates"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2017-may-tz2-p1-q2",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2017-may-tz2-p2-q10",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2017-november-tz0-p1-q10",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2017-november-tz0-p2-q6",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2017-november-tz0-p3-statistics-and-probability-q2",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2017-november-tz0-p3-statistics-and-probability-q3",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2017-november-tz0-p3-statistics-and-probability-q5",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2018-may-tz0-p3-statistics-and-probability-q2",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2018-may-tz0-p3-statistics-and-probability-q4",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2018-may-tz0-p3-statistics-and-probability-q5",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2018-may-tz1-p1-q3",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2018-may-tz1-p2-q8",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2018-may-tz2-p1-q10",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2018-may-tz2-p2-q10",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2018-november-tz0-p1-q3",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2018-november-tz0-p2-q10",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2018-november-tz0-p3-statistics-and-probability-q1",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2018-november-tz0-p3-statistics-and-probability-q2",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2019-may-tz0-p3-statistics-and-probability-q3",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2019-may-tz1-p1-q5",
+      "label": "math.aa.calculus.related-rates"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2019-may-tz1-p2-q4",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2019-may-tz2-p1-q10",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2019-may-tz2-p1-q11",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2019-may-tz2-p1-q5",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2019-may-tz2-p2-q10",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2019-november-tz0-p1-q1",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2019-november-tz0-p2-q3",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2019-november-tz0-p3-statistics-and-probability-q2",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2020-november-tz0-p1-q1",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2020-november-tz0-p2-q2",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2020-november-tz0-p2-q8",
+      "label": "math.aa.calculus.related-rates"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2020-november-tz0-p3-statistics-and-probability-q1",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2020-november-tz0-p3-statistics-and-probability-q2",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2020-november-tz0-p3-statistics-and-probability-q4",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2021-may-tz1-p1-q10",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2021-may-tz1-p2-q9",
+      "label": "math.aa.calculus.related-rates"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2021-may-tz2-p2-q12",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2021-may-tz2-p2-q4",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2021-may-tz2-p2-q6",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2022-may-tz1-p1-q7",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2022-may-tz1-p2-q10",
+      "label": "math.aa.calculus.related-rates"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2022-may-tz1-p2-q10",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2022-may-tz1-p2-q3",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2022-may-tz2-p1-q11",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2022-may-tz2-p1-q6",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2022-november-tz0-p1-q8",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2022-november-tz0-p2-q8",
+      "label": "math.aa.calculus.related-rates"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2023-may-tz1-p1-q6",
+      "label": "math.aa.calculus.related-rates"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2023-may-tz2-p1-q6",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2023-may-tz2-p2-q8",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2023-november-tz1-p2-q11",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2023-november-tz1-p2-q5",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2023-november-tz1-p2-q6",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2023-november-tz2-p2-q11",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2023-november-tz2-p2-q5",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2023-november-tz2-p2-q6",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2024-may-tz1-p1-q10",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2024-may-tz1-p3-q1",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2024-may-tz2-p2-q10",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2024-may-tz2-p2-q6",
+      "label": "math.aa.calculus.related-rates"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2024-november-tz0-p1-q6",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2024-november-tz0-p1-q7",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2024-november-tz0-p2-q3",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2025-may-tz1-p1-q10",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2025-may-tz1-p2-q11",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2025-may-tz1-p2-q12",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2025-may-tz1-p3-q1",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2025-may-tz2-p1-q1",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2025-may-tz2-p2-q12",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2025-may-tz2-p2-q8",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2025-may-tz3-p1-q2",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2025-may-tz3-p2-q3",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2025-may-tz3-p2-q9",
+      "label": "math.aa.calculus.related-rates"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2025-november-tz1-p2-q11",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2025-november-tz1-p2-q5",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2025-november-tz1-p2-q9",
+      "label": "math.aa.calculus.related-rates"
+    },
+    {
+      "bank": "ib-aa-hl",
+      "id": "2025-november-tz3-p1-q7",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2017-may-p2-tz1-q1",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2017-may-p2-tz2-q3",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2018-may-p1-tz1-q3",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2018-may-p1-tz2-q3",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2018-may-p2-tz2-q10",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2019-may-p1-tz2-q1",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2019-may-p1-tz2-q8",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2019-may-p2-tz1-q8",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2019-november-p2-tzn-q7",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2020-november-p2-tzn-q3",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2021-may-p1-tz1-q9",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2021-may-p2-tz2-q5",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2021-may-p2-tz2-q9",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2021-november-p2-tzn-q9",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2022-may-p2-tz1-q4",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2022-november-p1-tzn-q7",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2023-may-p2-tz2-q7",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2023-may-p2-tz2-q9",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2023-november-p2-tz1-q6",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2023-november-p2-tz2-q6",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2024-may-p1-tz1-q8",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2024-may-p1-tz1-q9",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2024-may-p2-tz1-q7",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2024-november-p2-tz1-q4",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2024-november-p2-tz1-q6",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2024-november-p2-tz1-q7",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2024-november-p2-tz2-q4",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2024-november-p2-tz2-q6",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2024-november-p2-tz2-q7",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2025-may-p1-tz2-q3",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2025-may-p1-tz2-q7",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2025-may-p1-tz3-q3",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2025-may-p1-tz3-q9",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "2025-november-p1-tz3-q9",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "m26-math-aasl-p1-tza-q2",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "m26-math-aasl-p1-tza-q7",
+      "label": "math.aa.functions.domain-range-restrictions"
+    },
+    {
+      "bank": "ib-aa-sl",
+      "id": "m26-math-aasl-p2-tzc-q4",
+      "label": "math.aa.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2021-may-tz2-p1-q10",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2021-may-tz2-p2-q2",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2021-november-tz0-p1-q14",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2021-november-tz0-p1-q7",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2021-november-tz0-p2-q3",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2022-may-tz1-p2-q1",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2022-may-tz1-p2-q5",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2022-may-tz2-p1-q9",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2022-november-tz0-p2-q6",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2023-may-tz1-p2-q5",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2023-november-tz0-p2-q2",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2024-may-tz1-p2-q6",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2024-may-tz2-p1-q2",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2024-may-tz2-p1-q4",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2024-may-tz2-p3-q1",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2024-november-tz0-p2-q1",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2025-may-tz1-p2-q1",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2025-may-tz2-p1-q6",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2025-may-tz3-p1-q4",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2025-may-tz3-p2-q6",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-hl",
+      "id": "2025-november-tz0-p2-q1",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2021-may-tz1-p1-q10",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2021-may-tz1-p2-q1",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2021-may-tz2-p1-q5",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2021-may-tz2-p2-q4",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2021-november-tz0-p1-q9",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2022-may-tz1-p2-q3",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2022-may-tz1-p2-q5",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2022-may-tz2-p1-q5",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2022-may-tz2-p1-q7",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2022-may-tz2-p2-q1",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2022-november-tz0-p2-q1",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2023-may-tz2-p1-q3",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2023-may-tz2-p2-q4",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2023-november-tz1-p1-q9",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2023-november-tz1-p2-q3",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2023-november-tz2-p1-q9",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2023-november-tz2-p2-q3",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2024-may-tz1-p1-q12",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2024-may-tz1-p2-q4",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2024-may-tz2-p1-q6",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2024-may-tz2-p1-q8",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2024-november-tz1-p1-q11",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2024-november-tz1-p1-q9",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2024-november-tz1-p2-q3",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2024-november-tz2-p1-q11",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2024-november-tz2-p1-q9",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2024-november-tz2-p2-q3",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2025-may-tz1-p2-q1",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2025-may-tz2-p1-q2",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2025-may-tz2-p1-q8",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2025-may-tz2-p2-q3",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2025-may-tz3-p1-q10",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2025-november-tz1-p1-q9",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2025-november-tz1-p2-q1",
+      "label": "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency"
+    },
+    {
+      "bank": "ib-ai-sl",
+      "id": "2025-november-tz3-p1-q10",
+      "label": "math.ai.statistics-probability.expected-value-variance"
+    }
+  ],
+  "preservesExistingLabels": true,
+  "schemaVersion": "math-granular-additive-overlay-v1",
+  "sourceHashes": {
+    "proposedOverlay": "6015baf660f7ebfe95d428c70a298af0cd712bd60c2a447df01264c5ab354d07",
+    "review-0606": "789ed390ff0f0310220aee7b6b95e51e65f2bfbacd122f357e04854fda5657a2",
+    "review-aa-hl": "cf7c51038064c551c4a0459b9a1665660b5508e3e2a3c033e574a0968e18b085",
+    "review-aa-hl-domain-range-complete": "4d2deb7b7502fc178db6e06599797ded2894a271bcf25f051e0b0cd5624979da",
+    "review-aa-sl": "4177744a0e8ff4b3e7a74faf6ccbaa00b2b527bb1afe2bebc1077b93e9079a10",
+    "review-ai": "2ff1b244a8f936c3d050440972c48203696382783d25ed9b4878904a014110dd",
+    "taxonomy": "4d51250370d7e59d7c2f2485ad835856350716dd53e35810520296abcff48cf4"
+  }
+}
