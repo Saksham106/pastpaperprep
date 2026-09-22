@@ -9,6 +9,11 @@ const root = join(import.meta.dirname, "..");
 const outputDirectory = join(root, "public", "bank-index");
 const version = 1;
 const granularOverlay = JSON.parse(await readFile(join(root, "src", "data", "math-granular-label-overlay.json"), "utf8"));
+const overlayBankForSlug = (slug) => ({
+  "igcse-additional": "0606",
+  "ib-hl": "ib-aa-hl",
+  "ib-sl": "ib-aa-sl",
+}[slug] ?? slug);
 const granularByKey = new Map();
 for (const row of granularOverlay.labels) {
   const key = `${row.bank}:${row.id}`;
@@ -63,7 +68,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
       ...subtopics,
     ])];
 
-  const overlayBank = bank === "igcse-additional" ? "0606" : bank;
+  const overlayBank = overlayBankForSlug(bank);
   const metadata = {
     id: typeof raw.id === "string" ? raw.id : "",
     number: integer(raw.number),

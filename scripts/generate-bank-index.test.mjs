@@ -19,4 +19,13 @@ describe("public bank index generator", () => {
       expect(metadata).not.toHaveProperty(key);
     }
   });
+
+  it("maps production AA slugs to the canonical overlay bank IDs", () => {
+    const metadata = metadataFromRaw(
+      { id: "2017-may-p2-tz1-q1" },
+      { bank: "ib-sl" },
+    );
+
+    expect(metadata.granularLabels).toContain("math.aa.statistics-probability.expected-value-variance");
+  });
 });
