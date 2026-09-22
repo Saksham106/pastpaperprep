@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { filterQuestions } from "@/lib/question-filter";
-import { getSubtopicGroups } from "@/lib/taxonomy-router";
+import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 import { normalizeBankQuestions } from "@/lib/questions";
 import type { UnifiedQuestion } from "@/lib/questions";
 import rawSl from "@/data/raw/ib-sl.json";
@@ -81,6 +81,35 @@ describe("official AA normal subtopics", () => {
     expect(filterQuestions([question], { topics: ["Number and algebra"], subtopics: ["Differentiation and tangents"] })).toHaveLength(1);
     const groups = getSubtopicGroups([question], ["Calculus"], []);
     expect(groups.relevant).toEqual(["Differentiation and tangents"]);
+  });
+
+  it("keeps legacy AA rows filterable while current rows use official taxonomy", () => {
+    const sl = normalizeBankQuestions("ib-sl", (rawSl as { questions: unknown[] }).questions as never[]);
+    const hl = normalizeBankQuestions("ib-hl", (rawHl as { questions: unknown[] }).questions as never[]);
+    for (const bank of [sl, hl]) {
+      const legacy = bank.filter((question) => !question.classificationProvenance);
+      const current = bank.filter((question) => Boolean(question.classificationProvenance));
+      const groups = getSubtopicGroups(bank, [], []);
+      expect(legacy).not.toHaveLength(0);
+      expect(current).not.toHaveLength(0);
+      for (const question of legacy) {
+        for (const subtopic of question.subtopics) {
+          expect(filterQuestions(bank, { subtopics: [subtopic] })).toContainEqual(question);
+        }
+        for (const label of question.granularLabels ?? []) {
+          expect(filterQuestions(bank, { granularLabels: [label] })).toContainEqual(question);
+        }
+      }
+      expect(groups.all).toEqual(expect.arrayContaining(legacy.flatMap((question) => question.subtopics)));
+      expect(groups.all).toEqual(expect.arrayContaining(current.flatMap((question) => question.subtopics)));
+      expect(getTopicOptions(bank).slice(0, 5)).toEqual([
+        "Number and algebra",
+        "Functions",
+        "Geometry and trigonometry",
+        "Statistics and probability",
+        "Calculus",
+      ]);
+    }
   });
 
   it("covers exactly the current AA universe and keeps legacy granular assignments", () => {

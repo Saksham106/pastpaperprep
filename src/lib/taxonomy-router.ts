@@ -42,10 +42,22 @@ function isAaBank(bank: string | undefined): boolean {
   return bank === "ib-sl" || bank === "ib-hl";
 }
 
+function isCurrentAaQuestion(question: UnifiedQuestion): boolean {
+  return isAaBank(question.bankSlug)
+    && (Boolean(question.classificationProvenance)
+      || (question.bankSlug === "ib-sl" && question.subject.toLocaleLowerCase() === "mathematics: analysis and approaches sl")
+      || (question.bankSlug === "ib-hl" && question.courseEra === "aa-hl"));
+}
+
 function hasCurrentAa(questions: UnifiedQuestion[]): boolean {
-  return questions.some((question) => isAaBank(question.bankSlug)
-    && ((question.bankSlug === "ib-sl" && question.subject.toLocaleLowerCase() === "mathematics: analysis and approaches sl")
-      || (question.bankSlug === "ib-hl" && question.courseEra === "aa-hl")));
+  return questions.some(isCurrentAaQuestion);
+}
+
+function splitAaQuestions(questions: UnifiedQuestion[]): { current: UnifiedQuestion[]; legacy: UnifiedQuestion[] } {
+  return {
+    current: questions.filter(isCurrentAaQuestion),
+    legacy: questions.filter((question) => !isCurrentAaQuestion(question)),
+  };
 }
 
 function uniqueSorted(values: string[]): string[] {
@@ -116,11 +128,16 @@ export function getSubtopicGroups(
 ): { all: string[]; relevant: string[]; other: string[]; selectedOutsideContext: string[] } {
   const bank = questions[0]?.bankSlug;
   if (isAaBank(bank) && hasCurrentAa(questions)) {
+    const { current, legacy } = splitAaQuestions(questions);
     const all = [...new Set(questions.flatMap((question) => question.subtopics))];
     const available = new Set(all);
-    const relevant = selectedTopics.length
+    const currentRelevant = selectedTopics.length
       ? [...new Set(selectedTopics.flatMap((topic) => AA_GROUPS[topic] ?? []).filter((label) => available.has(label)))]
-      : all;
+      : current.flatMap((question) => question.subtopics);
+    const legacyRelevant = legacy.length
+      ? getLegacySubtopicGroups(legacy, selectedTopics, selectedSubtopics).relevant
+      : [];
+    const relevant = [...new Set([...currentRelevant, ...legacyRelevant].filter((label) => available.has(label)))];
     const relevantSet = new Set(relevant);
     return {
       all,
