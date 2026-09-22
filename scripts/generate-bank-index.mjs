@@ -95,6 +95,8 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     skills,
     subtopics,
     granularLabels: aa ? [] : granularByKey.get(`${overlayBank}:${raw.id}`) ?? [],
+    ...(strings(raw.officialCodeRefs).length ? { officialCodeRefs: strings(raw.officialCodeRefs) } : {}),
+    ...(strings(raw.retrievalFacets).length ? { retrievalFacets: strings(raw.retrievalFacets) } : {}),
     subject: (typeof raw.subject === "string" && raw.subject) || (typeof raw.course === "string" ? raw.course : ""),
     option: typeof raw.p3Option === "string" ? raw.p3Option : "",
     zone: (typeof raw.timezone === "string" && raw.timezone) || (typeof raw.zone === "string" ? raw.zone : ""),
