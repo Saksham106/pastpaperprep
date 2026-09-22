@@ -28,4 +28,19 @@ describe("public bank index generator", () => {
 
     expect(metadata.granularLabels).toContain("math.aa.statistics-probability.expected-value-variance");
   });
+
+  it("omits empty retrieval metadata while preserving populated Economics fields", () => {
+    expect(metadataFromRaw({ id: "empty", officialCodeRefs: [], retrievalFacets: [] })).not.toEqual(expect.objectContaining({
+      officialCodeRefs: expect.anything(),
+      retrievalFacets: expect.anything(),
+    }));
+    expect(metadataFromRaw({
+      id: "economics",
+      officialCodeRefs: ["new_first_assessment_2022/2.1"],
+      retrievalFacets: ["facet.trade-and-advantage"],
+    })).toMatchObject({
+      officialCodeRefs: ["new_first_assessment_2022/2.1"],
+      retrievalFacets: ["facet.trade-and-advantage"],
+    });
+  });
 });

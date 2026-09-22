@@ -14,6 +14,8 @@ type RuntimeQuestion = {
   sourceMarkSchemeUrl?: string;
   classificationEvidence?: { finalArtifactSha256?: string };
   classificationReviewStatus?: string;
+  officialCodeRefs?: string[];
+  retrievalFacets?: string[];
 };
 
 type RuntimeArtifact = {

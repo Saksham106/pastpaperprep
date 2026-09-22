@@ -53,6 +53,8 @@ describe("IB Economics production integration", () => {
       expect(question.sourceMarkSchemeUrl).toMatch(/^https:\/\//);
       expect(question.classificationEvidence?.finalArtifactSha256).toBe(ECONOMICS_RUNTIME_SEALS.finalClassificationsSha256);
       expect(question.classificationReviewStatus).toBe("semantic_qa_approved");
+      expect(question.officialCodeRefs?.every((value: string) => value.includes("/"))).toBe(true);
+      expect(question.retrievalFacets?.every((value: string) => value.startsWith("facet."))).toBe(true);
       expect((question.questionImages ?? []).every((path: string) => path.endsWith(".webp") && !path.includes(".."))).toBe(true);
       expect((question.markschemeImages ?? []).every((path: string) => path.endsWith(".webp") && !path.includes(".."))).toBe(true);
     }
@@ -97,6 +99,8 @@ describe("IB Economics production integration", () => {
     for (const key of ["accessibleText", "summary", "solution", "sourceQuestionUrl", "sourceMarkSchemeUrl", "questionImages", "markschemeImages", "questionAssetPaths", "markschemeAssetPaths", "classificationEvidence", "classificationProvenance", "markschemeTranscript"]) {
       expect(serialized).not.toContain(`"${key}"`);
     }
+    expect(serialized).toContain("officialCodeRefs");
+    expect(serialized).toContain("retrievalFacets");
     expect(existsSync(join(ROOT, "src/data/private-index/ib-economics-hl.json"))).toBe(true);
     expect(existsSync(join(ROOT, "public/bank-index/ib-economics-hl.v1.json"))).toBe(false);
   });

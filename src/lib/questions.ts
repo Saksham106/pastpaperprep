@@ -75,6 +75,9 @@ export type UnifiedQuestion = {
   subtopics: string[];
   secondarySubtopics: string[];
   granularLabels?: string[];
+  /** Era-qualified official syllabus units and additive retrieval facets. */
+  officialCodeRefs?: string[];
+  retrievalFacets?: string[];
   classificationProvenance?: ClassificationProvenance;
   subject: string;
   courseEra: string;
@@ -112,6 +115,8 @@ export type QuestionFilters = {
   topics?: string[];
   subtopics?: string[];
   granularLabels?: string[];
+  officialCodeRefs?: string[];
+  retrievalFacets?: string[];
   years?: string[];
   papers?: string[];
   sessions?: string[];
@@ -229,6 +234,8 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     subtopics,
     secondarySubtopics,
     granularLabels: aa ? [] : GRANULAR_LABELS.get(`${overlayBankForSlug(slug)}:${text(raw.id)}`) ?? [],
+    officialCodeRefs: strings(raw.officialCodeRefs),
+    retrievalFacets: strings(raw.retrievalFacets),
     classificationProvenance: aa?.provenance,
     subject: text(raw.subject) || text(raw.course),
     courseEra: text(raw.courseEra),
