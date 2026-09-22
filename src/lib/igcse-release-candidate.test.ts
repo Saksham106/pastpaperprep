@@ -7,7 +7,7 @@ import economicsRuntime from "@/data/production/igcse-economics-0455.json";
 import chemistryRuntime from "@/data/production/igcse-chemistry-0620.json";
 import physicsRuntime from "@/data/production/igcse-physics-0625.json";
 import coordinatedRuntime from "@/data/production/igcse-coordinated-sciences-0654.json";
-import biologyTaxonomy from "@/data/igcse-biology-0610-official-taxonomy.json";
+import biologyTaxonomy from "@/data/classification/igcse-biology-0610-official-taxonomy-v2.json";
 import economicsTaxonomy from "@/data/igcse-economics-0455-taxonomy.json";
 import chemistryTaxonomy from "@/data/igcse-chemistry-0620-official-taxonomy.json";
 import physicsTaxonomy from "@/data/igcse-physics-0625-official-taxonomy.json";

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import ibBiologyHlData from "@/data/raw/ib-biology-hl.json";
 import ibBiologySlData from "@/data/raw/ib-biology-sl.json";
+import biology0610Candidate from "@/data/local-preview/igcse-biology-0610.json";
 import { normalizeBankQuestions } from "@/lib/questions";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 
@@ -22,6 +23,16 @@ describe("IB Biology official syllabus subtopics", () => {
     expect(sl.filter((q) => q.courseEra === "bio_2016")).toHaveLength(1341);
     expect(sl.filter((q) => q.courseEra === "bio_2025")).toHaveLength(207);
     expect([...hl, ...sl].filter((q) => q.classificationProvenance?.status === "blocked")).toHaveLength(30);
+  });
+
+  it("keeps IB Biology and 0610 on separate official taxonomy branches", () => {
+    const ib = normalizeBankQuestions("ib-biology-sl", ibBiologySlData.questions);
+    const biology0610 = normalizeBankQuestions("igcse-biology-0610", (biology0610Candidate as unknown as { questions: never[] }).questions);
+
+    expect(getTopicOptions(ib)).toEqual(expectedTopics);
+    expect(getTopicOptions(biology0610)[0]).toBe("Characteristics and classification of living organisms");
+    expect(getSubtopicGroups(ib, ["Molecules and cells"], []).relevant).toContain("Biological molecules and water");
+    expect(getSubtopicGroups(biology0610, ["Characteristics and classification of living organisms"], []).relevant).toContain("Characteristics of living organisms");
   });
 
   it("uses grouped student-facing labels in teaching order and keeps blocked rows empty", () => {

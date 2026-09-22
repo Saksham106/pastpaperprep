@@ -1,4 +1,4 @@
-import biologyTaxonomy from "@/data/igcse-biology-0610-official-taxonomy.json";
+import biology0610OfficialTaxonomy from "@/data/classification/igcse-biology-0610-official-taxonomy-v2.json";
 import economicsTaxonomy from "@/data/igcse-economics-0455-taxonomy.json";
 import coordinatedTaxonomy from "@/data/igcse-coordinated-sciences-0654-taxonomy.json";
 import aaTaxonomy from "@/data/aa-official-subtopics/taxonomy.json";
@@ -10,14 +10,9 @@ import {
 } from "@/lib/taxonomy";
 import type { UnifiedQuestion } from "@/lib/questions";
 
-const BIOLOGY_TOPIC_ORDER = Array.from(new Set(
-  biologyTaxonomy.eras.flatMap((era) => era.topics.flatMap((topic) => topic.subtopics.map((subtopic) => subtopic.title))),
-));
-const BIOLOGY_GROUPS: Record<string, readonly string[]> = Object.fromEntries(
-  biologyTaxonomy.eras.flatMap((era) => era.topics.map((topic) => [
-    topic.title,
-    topic.subtopics.map((subtopic) => subtopic.title),
-  ])),
+const BIOLOGY_0610_TOPIC_ORDER = [...new Set(biology0610OfficialTaxonomy.eras.flatMap((era) => era.topics.map((topic) => topic.title)))];
+const BIOLOGY_0610_GROUPS_BY_ERA: Record<string, Record<string, readonly string[]>> = Object.fromEntries(
+  biology0610OfficialTaxonomy.eras.map((era) => [era.era, Object.fromEntries(era.topics.map((topic) => [topic.title, topic.subtopics.map((subtopic) => subtopic.title)]))]),
 );
 const BIOLOGY_OFFICIAL_TOPIC_ORDER = [...new Set(biologyOfficialTaxonomy.curatedGroups.map((group) => group.parentTopic))];
 const BIOLOGY_OFFICIAL_GROUPS: Record<string, readonly string[]> = Object.fromEntries(
@@ -47,6 +42,10 @@ const AA_GROUPS: Record<string, readonly string[]> = Object.fromEntries(
       .sort((left, right) => left.teachingOrder - right.teachingOrder)
       .map((candidate) => candidate.studentFacingName)])),
 );
+
+function isOfficial0610Bank(bank: string | undefined): bank is "igcse-biology-0610" {
+  return bank === "igcse-biology-0610";
+}
 
 function isAaBank(bank: string | undefined): boolean {
   return bank === "ib-sl" || bank === "ib-hl";
@@ -105,7 +104,7 @@ export function getControlledSubtopics(bankSlug: string, topic: string): readonl
   if (isAaBank(bankSlug)) return AA_GROUPS[topic] ?? [];
   if (isOfficialBiologyBank(bankSlug)) return BIOLOGY_OFFICIAL_GROUPS[topic] ?? [];
   if (bankSlug === "igcse-biology-0610") {
-    return BIOLOGY_GROUPS[topic] ?? (BIOLOGY_TOPIC_ORDER.includes(topic) ? [topic] : []);
+    return [...new Set(Object.values(BIOLOGY_0610_GROUPS_BY_ERA).flatMap((groups) => groups[topic] ?? []))];
   }
   if (bankSlug === "igcse-economics-0455") return ECONOMICS_GROUPS[topic] ?? [];
   if (isCoordinatedBank(bankSlug)) return COORDINATED_GROUPS[topic] ?? (COORDINATED_TOPIC_ORDER.includes(topic) ? [topic] : []);
@@ -130,7 +129,7 @@ export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
   }
   if (!isReleaseBank(bank)) return getLegacyTopicOptions(questions);
   const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]));
-  const order = bank === "igcse-biology-0610" ? BIOLOGY_TOPIC_ORDER : ECONOMICS_TOPIC_ORDER;
+  const order = bank === "igcse-biology-0610" ? BIOLOGY_0610_TOPIC_ORDER : ECONOMICS_TOPIC_ORDER;
   const ordered = order.filter((topic) => available.has(topic));
   const remaining = [...available].filter((topic) => !ordered.includes(topic)).sort();
   return [...ordered, ...remaining];
@@ -147,6 +146,23 @@ export function getSubtopicGroups(
     const available = new Set(all);
     const relevant = selectedTopics.length
       ? [...new Set(selectedTopics.flatMap((topic) => BIOLOGY_OFFICIAL_GROUPS[topic] ?? []).filter((label) => available.has(label)))]
+      : all;
+    const relevantSet = new Set(relevant);
+    return {
+      all,
+      relevant,
+      other: all.filter((subtopic) => !relevantSet.has(subtopic)),
+      selectedOutsideContext: selectedSubtopics.filter((subtopic) => available.has(subtopic) && !relevantSet.has(subtopic)),
+    };
+  }
+  if (isOfficial0610Bank(bank)) {
+    const all = [...new Set(BIOLOGY_0610_TOPIC_ORDER.flatMap((topic) => Object.values(BIOLOGY_0610_GROUPS_BY_ERA).flatMap((groups) => groups[topic] ?? [])))].filter((label) => questions.some((question) => question.subtopics.includes(label)));
+    const available = new Set(all);
+    const relevant = selectedTopics.length
+      ? [...new Set(questions
+        .filter((question) => selectedTopics.includes(question.primaryTopic) || question.secondaryTopics.some((topic) => selectedTopics.includes(topic)))
+        .flatMap((question) => question.subtopics)
+        .filter((label) => available.has(label)))]
       : all;
     const relevantSet = new Set(relevant);
     return {
