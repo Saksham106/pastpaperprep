@@ -15,8 +15,8 @@ export type PublicQuestionMetadata = {
   skills: string[];
   subtopics: string[];
   granularLabels: string[];
-  officialCodeRefs: string[];
-  retrievalFacets: string[];
+  officialCodeRefs?: string[];
+  retrievalFacets?: string[];
   subject: string;
   option: string;
   zone: string;
@@ -45,8 +45,8 @@ export function toPublicQuestionMetadata(question: UnifiedQuestion): PublicQuest
     skills: [...question.skills],
     subtopics: [...question.subtopics],
     granularLabels: [...(question.granularLabels ?? [])],
-    officialCodeRefs: [...(question.officialCodeRefs ?? [])],
-    retrievalFacets: [...(question.retrievalFacets ?? [])],
+    ...(question.officialCodeRefs?.length ? { officialCodeRefs: [...question.officialCodeRefs] } : {}),
+    ...(question.retrievalFacets?.length ? { retrievalFacets: [...question.retrievalFacets] } : {}),
     subject: question.subject,
     option: question.option,
     zone: question.zone,
@@ -76,8 +76,8 @@ export function publicQuestionSearchText(question: PublicQuestionMetadata): stri
     ...question.skills,
     ...question.subtopics,
     ...(question.granularLabels ?? []),
-    ...question.officialCodeRefs,
-    ...question.retrievalFacets,
+    ...(question.officialCodeRefs ?? []),
+    ...(question.retrievalFacets ?? []),
     question.subject,
     question.option,
     question.zone,

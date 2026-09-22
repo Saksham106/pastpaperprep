@@ -96,6 +96,7 @@ const CLASSIFICATION_FIELDS = new Set([
   "classificationConfidence",
   "classificationReviewStatus",
   "classificationVersion",
+  "contextTags",
 ]);
 
 function nonClassificationSha256(questions: Record<string, unknown>[]): string {
