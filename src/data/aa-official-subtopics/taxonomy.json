@@ -1,0 +1,884 @@
+{
+  "schemaVersion": "ib-aa-student-filter-groups-v2",
+  "status": "editorial-student-facing-grouped-taxonomy",
+  "sourceRegistry": "official-aa-taxonomy.json",
+  "provenanceRule": "Groups are editorial retrieval labels, not IB syllabus headings. Every group names its complete official item membership explicitly; membership is one-to-one across this file.",
+  "groupingPrinciples": [
+    "Group adjacent official items only when students would reasonably study and search for them together.",
+    "Keep operation boundaries explicit so neighboring groups are mutually exclusive for primary classification.",
+    "Preserve official teaching order within each parent topic; group order follows the course topic order.",
+    "Applicability is the union of member item applicability: SL content is available to SL and HL; HL-only content is HL."
+  ],
+  "groups": [
+    {
+      "id": "ib-aa.filter.number-standard-form",
+      "studentFacingName": "Standard form and orders of magnitude",
+      "parentTopic": "Number and algebra",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "1.1"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Writing and interpreting numbers as a × 10^k with 1 ≤ a < 10.",
+        "exclusive": "Calculator notation, significant figures, or ordinary place value when standard form is not the assessed object."
+      },
+      "teachingOrder": 1
+    },
+    {
+      "id": "ib-aa.filter.sequences-and-financial-models",
+      "studentFacingName": "Arithmetic, geometric and financial sequences",
+      "parentTopic": "Number and algebra",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "1.2",
+        "1.3",
+        "1.4"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Arithmetic/geometric nth terms and sums, compound growth, depreciation, inflation and related financial models.",
+        "exclusive": "Infinite-series convergence (1.8), or finance word problems that do not use a sequence/series model."
+      },
+      "teachingOrder": 2
+    },
+    {
+      "id": "ib-aa.filter.exponents-and-logarithms",
+      "studentFacingName": "Exponents and logarithm laws",
+      "parentTopic": "Number and algebra",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "1.5",
+        "1.7"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Integer/rational exponent laws, introductory logarithms, logarithm laws, change of base and solving exponential equations with logarithms.",
+        "exclusive": "Graphing exponential/logarithmic functions (2.9), or a merely numerical logarithm evaluation with no exponent/log law focus."
+      },
+      "teachingOrder": 3
+    },
+    {
+      "id": "ib-aa.filter.elementary-and-advanced-proof",
+      "studentFacingName": "Deductive proof and proof methods",
+      "parentTopic": "Number and algebra",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "1.6",
+        "1.15"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Elementary deduction plus HL induction, contradiction and counterexamples.",
+        "exclusive": "A proof incidental to another mathematical task, or verification by examples without a proof-method objective."
+      },
+      "teachingOrder": 4
+    },
+    {
+      "id": "ib-aa.filter.infinite-series-and-binomial",
+      "studentFacingName": "Infinite series and the binomial theorem",
+      "parentTopic": "Number and algebra",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "1.8",
+        "1.9"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Convergence and sums of infinite geometric series, natural-index binomial expansion and binomial coefficients.",
+        "exclusive": "Finite geometric sums (1.3), counting/fractional-index extensions (1.10), or unrelated polynomial expansion."
+      },
+      "teachingOrder": 5
+    },
+    {
+      "id": "ib-aa.filter.counting-and-general-binomial",
+      "studentFacingName": "Counting and generalized binomial expansion",
+      "parentTopic": "Number and algebra",
+      "applicability": [
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "1.10"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Permutations, combinations, and binomial expansion for fractional or negative indices.",
+        "exclusive": "Natural-index binomial expansion (1.9), or circular/identical-object counting outside the stated scope."
+      },
+      "teachingOrder": 6
+    },
+    {
+      "id": "ib-aa.filter.partial-fractions",
+      "studentFacingName": "Partial fractions",
+      "parentTopic": "Number and algebra",
+      "applicability": [
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "1.11"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Decomposing rational expressions into the guide-specified partial fractions.",
+        "exclusive": "Routine factorization or simplification that does not require partial-fraction decomposition."
+      },
+      "teachingOrder": 7
+    },
+    {
+      "id": "ib-aa.filter.complex-numbers",
+      "studentFacingName": "Complex numbers and polar form",
+      "parentTopic": "Number and algebra",
+      "applicability": [
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "1.12",
+        "1.13",
+        "1.14"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Cartesian and polar/Argand representations, modulus/argument, roots, De Moivre and complex-number operations.",
+        "exclusive": "Real-number algebra, or a complex expression where complex representation is incidental and not assessed."
+      },
+      "teachingOrder": 8
+    },
+    {
+      "id": "ib-aa.filter.linear-systems",
+      "studentFacingName": "Systems of linear equations",
+      "parentTopic": "Number and algebra",
+      "applicability": [
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "1.16"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Solving and interpreting systems up to three linear equations in three unknowns.",
+        "exclusive": "A single linear equation or a nonlinear system."
+      },
+      "teachingOrder": 9
+    },
+    {
+      "id": "ib-aa.filter.lines-and-function-language",
+      "studentFacingName": "Straight lines, functions, domain and range",
+      "parentTopic": "Functions",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "2.1",
+        "2.2"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Line equations/gradients and the function concept, notation, domain, range and informal inverse idea.",
+        "exclusive": "Reading graph features as the main task (2.3–2.4), or composite/inverse manipulation (2.5)."
+      },
+      "teachingOrder": 10
+    },
+    {
+      "id": "ib-aa.filter.function-graphs-and-features",
+      "studentFacingName": "Function graphs and key features",
+      "parentTopic": "Functions",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "2.3",
+        "2.4"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Reading/drawing y=f(x) and identifying intercepts, extrema, symmetry, asymptotes and other key features.",
+        "exclusive": "A deliberate graph transformation (2.11/2.16), or solving an equation as the primary objective (2.10)."
+      },
+      "teachingOrder": 11
+    },
+    {
+      "id": "ib-aa.filter.composite-inverse-functions",
+      "studentFacingName": "Composite and inverse functions",
+      "parentTopic": "Functions",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "2.5"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Composition, identity and inverse functions, including one-to-one conditions and composition identities.",
+        "exclusive": "HL inverse-function properties with restrictions/self-inverse functions (2.14), or graph transformations."
+      },
+      "teachingOrder": 12
+    },
+    {
+      "id": "ib-aa.filter.quadratic-functions",
+      "studentFacingName": "Quadratic functions, equations and inequalities",
+      "parentTopic": "Functions",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "2.6",
+        "2.7"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Quadratic forms and graphs, roots, formula, parameters, equations and inequalities.",
+        "exclusive": "Higher-degree polynomial work (2.12), or a quadratic appearing only as an incidental algebraic step."
+      },
+      "teachingOrder": 13
+    },
+    {
+      "id": "ib-aa.filter.rational-functions",
+      "studentFacingName": "Reciprocal and rational functions",
+      "parentTopic": "Functions",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "2.8",
+        "2.13"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Reciprocal/linear-over-linear graphs and HL rational functions, including asymptotes, intercepts and related features.",
+        "exclusive": "A polynomial function (2.12), or a reciprocal expression used only as an algebraic fraction."
+      },
+      "teachingOrder": 14
+    },
+    {
+      "id": "ib-aa.filter.exponential-log-functions",
+      "studentFacingName": "Exponential and logarithmic functions and equations",
+      "parentTopic": "Functions",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "2.9",
+        "2.10"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Graphs and inverse relationship of exponential/logarithmic functions, plus graphical or analytic equation solving.",
+        "exclusive": "Exponent/log laws without function graphs/equations (1.5/1.7)."
+      },
+      "teachingOrder": 15
+    },
+    {
+      "id": "ib-aa.filter.graph-transformations",
+      "studentFacingName": "Transformations of functions and modulus graphs",
+      "parentTopic": "Functions",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "2.11",
+        "2.16"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Translations, stretches, reflections, modulus constructions and the specified f(ax+b), 1/f(x) and [f(x)]² transformations.",
+        "exclusive": "Simple graph reading (2.3–2.4) or solving a standalone modulus equation without graph transformation as the main idea."
+      },
+      "teachingOrder": 16
+    },
+    {
+      "id": "ib-aa.filter.polynomial-functions",
+      "studentFacingName": "Polynomial functions",
+      "parentTopic": "Functions",
+      "applicability": [
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "2.12"
+      ],
+      "classificationBoundary": {
+        "inclusive": "HL polynomial graphs, roots, factors and equations beyond the dedicated quadratic treatment.",
+        "exclusive": "Quadratics handled entirely within 2.6–2.7."
+      },
+      "teachingOrder": 17
+    },
+    {
+      "id": "ib-aa.filter.function-symmetry",
+      "studentFacingName": "Function symmetry, periodicity and restricted inverses",
+      "parentTopic": "Functions",
+      "applicability": [
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "2.14"
+      ],
+      "classificationBoundary": {
+        "inclusive": "HL odd/even and periodic functions, domain-restricted inverses and self-inverse functions.",
+        "exclusive": "Basic inverse/composite procedures (2.5) or trigonometric symmetry (3.11)."
+      },
+      "teachingOrder": 18
+    },
+    {
+      "id": "ib-aa.filter.function-inequalities",
+      "studentFacingName": "Function inequalities",
+      "parentTopic": "Functions",
+      "applicability": [
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "2.15"
+      ],
+      "classificationBoundary": {
+        "inclusive": "HL solving and interpreting g(x) ≥ f(x) graphically or analytically.",
+        "exclusive": "Single-function quadratic inequalities (2.7) or modulus inequalities when no function comparison is involved."
+      },
+      "teachingOrder": 19
+    },
+    {
+      "id": "ib-aa.filter.three-dimensional-measurement",
+      "studentFacingName": "Three-dimensional measurement and angles",
+      "parentTopic": "Geometry and trigonometry",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "3.1"
+      ],
+      "classificationBoundary": {
+        "inclusive": "SL/HL distance, midpoint, volume, surface area and restricted angles between lines/planes in 3D.",
+        "exclusive": "Vector line/plane algebra (3.12 onward)."
+      },
+      "teachingOrder": 20
+    },
+    {
+      "id": "ib-aa.filter.triangle-trigonometry",
+      "studentFacingName": "Triangle trigonometry",
+      "parentTopic": "Geometry and trigonometry",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "3.2",
+        "3.3"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Right-triangle ratios, sine/cosine rules, area formula, Pythagoras, bearings, elevation/depression and triangle applications.",
+        "exclusive": "Unit-circle identities/equations or circular-function graphs as the main operation."
+      },
+      "teachingOrder": 21
+    },
+    {
+      "id": "ib-aa.filter.radians-and-sectors",
+      "studentFacingName": "Radians, arc length and sector area",
+      "parentTopic": "Geometry and trigonometry",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "3.4"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Radian measure and calculations of arc length or sector area.",
+        "exclusive": "Circular-function graphing or equation solving where radians are merely the unit."
+      },
+      "teachingOrder": 22
+    },
+    {
+      "id": "ib-aa.filter.unit-circle-exact-trig",
+      "studentFacingName": "Unit-circle definitions and exact trigonometric values",
+      "parentTopic": "Geometry and trigonometry",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "3.5"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Unit-circle definitions/relationships, exact sine/cosine/tangent values and the ambiguous sine-rule case.",
+        "exclusive": "Identity proof/manipulation (3.6), or solving a trigonometric equation (3.8)."
+      },
+      "teachingOrder": 23
+    },
+    {
+      "id": "ib-aa.filter.trig-identities",
+      "studentFacingName": "Pythagorean and double-angle identities",
+      "parentTopic": "Geometry and trigonometry",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "3.6"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Pythagorean, double-angle and related sine/cosine identity simplification or proof.",
+        "exclusive": "Compound-angle identities and tan double-angle at HL (3.10), or equation solving (3.8)."
+      },
+      "teachingOrder": 24
+    },
+    {
+      "id": "ib-aa.filter.circular-function-graphs",
+      "studentFacingName": "Circular-function graphs and models",
+      "parentTopic": "Geometry and trigonometry",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "3.7"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Graphs, amplitude, period, transformations and real-life models using sin, cos and tan.",
+        "exclusive": "Solving trig equations (3.8), reciprocal/inverse functions (3.9), or pure identity manipulation (3.6)."
+      },
+      "teachingOrder": 25
+    },
+    {
+      "id": "ib-aa.filter.trig-equations",
+      "studentFacingName": "Trigonometric equations",
+      "parentTopic": "Geometry and trigonometry",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "3.8"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Graphical and analytic solutions of trigonometric equations over a stated finite interval.",
+        "exclusive": "Proving/simplifying identities or drawing a graph without solving an equation."
+      },
+      "teachingOrder": 26
+    },
+    {
+      "id": "ib-aa.filter.reciprocal-inverse-trig",
+      "studentFacingName": "Reciprocal and inverse trigonometric functions",
+      "parentTopic": "Geometry and trigonometry",
+      "applicability": [
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "3.9"
+      ],
+      "classificationBoundary": {
+        "inclusive": "HL sec, cosec, cot and inverse trigonometric functions, including domains, ranges, identities and graphs.",
+        "exclusive": "Basic sin/cos/tan graphing (3.7) or compound-angle identities (3.10)."
+      },
+      "teachingOrder": 27
+    },
+    {
+      "id": "ib-aa.filter.compound-angle-trig",
+      "studentFacingName": "Compound-angle identities",
+      "parentTopic": "Geometry and trigonometry",
+      "applicability": [
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "3.10"
+      ],
+      "classificationBoundary": {
+        "inclusive": "HL compound-angle identities and the double-angle identity for tan.",
+        "exclusive": "The SL identity set (3.6) when no compound-angle operation is assessed."
+      },
+      "teachingOrder": 28
+    },
+    {
+      "id": "ib-aa.filter.trig-relationships-symmetry",
+      "studentFacingName": "Trigonometric relationships and symmetry",
+      "parentTopic": "Geometry and trigonometry",
+      "applicability": [
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "3.11"
+      ],
+      "classificationBoundary": {
+        "inclusive": "HL relationships among trigonometric functions and symmetry properties of their graphs.",
+        "exclusive": "Basic circular graphs (3.7) or general function symmetry unrelated to trigonometry (2.14)."
+      },
+      "teachingOrder": 29
+    },
+    {
+      "id": "ib-aa.filter.vectors-and-scalar-product",
+      "studentFacingName": "Vectors and scalar products",
+      "parentTopic": "Geometry and trigonometry",
+      "applicability": [
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "3.12",
+        "3.13"
+      ],
+      "classificationBoundary": {
+        "inclusive": "HL 2D/3D vectors, position/displacement, scalar product and angles between vectors.",
+        "exclusive": "Vector product (3.16) or equations of lines/planes (3.14/3.17)."
+      },
+      "teachingOrder": 30
+    },
+    {
+      "id": "ib-aa.filter.vector-lines-and-planes",
+      "studentFacingName": "Vector lines, planes and intersections",
+      "parentTopic": "Geometry and trigonometry",
+      "applicability": [
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "3.14",
+        "3.15",
+        "3.16",
+        "3.17",
+        "3.18"
+      ],
+      "classificationBoundary": {
+        "inclusive": "HL vector equations, relationships among lines, vector product, planes, intersections and angles of lines/planes.",
+        "exclusive": "Non-vector 3D measurement (3.1) or scalar-product-only work (3.13)."
+      },
+      "teachingOrder": 31
+    },
+    {
+      "id": "ib-aa.filter.sampling-and-data-presentation",
+      "studentFacingName": "Sampling and data presentation",
+      "parentTopic": "Statistics and probability",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "4.1",
+        "4.2"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Population/sample ideas, data quality, bias, outliers, sampling methods, frequency tables and appropriate displays.",
+        "exclusive": "Calculating summary statistics (4.3) or modelling probability distributions."
+      },
+      "teachingOrder": 32
+    },
+    {
+      "id": "ib-aa.filter.descriptive-statistics",
+      "studentFacingName": "Central tendency and dispersion",
+      "parentTopic": "Statistics and probability",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "4.3"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Mean, median, mode, grouped estimates, quartiles, IQR, variance, standard deviation and effects of linear changes.",
+        "exclusive": "Correlation/regression (4.4/4.10) or distribution probabilities."
+      },
+      "teachingOrder": 33
+    },
+    {
+      "id": "ib-aa.filter.correlation-regression",
+      "studentFacingName": "Correlation and regression",
+      "parentTopic": "Statistics and probability",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "4.4",
+        "4.10"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Scatter plots, Pearson correlation, lines of best fit, both stated regression directions and prediction.",
+        "exclusive": "Causal claims, non-linear regression, or descriptive statistics without a bivariate relationship."
+      },
+      "teachingOrder": 34
+    },
+    {
+      "id": "ib-aa.filter.probability-foundations",
+      "studentFacingName": "Probability foundations and diagrams",
+      "parentTopic": "Statistics and probability",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "4.5",
+        "4.6"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Sample spaces, events, complements, expected occurrences, Venn/tree diagrams, combined/conditional/independent probabilities and replacement.",
+        "exclusive": "Bayes reversal as the named method (4.13), or random-variable distribution calculations (4.7 onward)."
+      },
+      "teachingOrder": 35
+    },
+    {
+      "id": "ib-aa.filter.discrete-distributions",
+      "studentFacingName": "Discrete random variables and binomial distribution",
+      "parentTopic": "Statistics and probability",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "4.7",
+        "4.8"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Discrete probability distributions, expected value and the binomial model including mean and variance.",
+        "exclusive": "Continuous variables/densities (4.14) or normal modelling (4.9/4.12)."
+      },
+      "teachingOrder": 36
+    },
+    {
+      "id": "ib-aa.filter.normal-distribution",
+      "studentFacingName": "Normal distribution and standardization",
+      "parentTopic": "Statistics and probability",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "4.9",
+        "4.12"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Normal curves, properties, z-standardization and probabilities/values from the standard normal variable.",
+        "exclusive": "Non-normal discrete models or regression."
+      },
+      "teachingOrder": 37
+    },
+    {
+      "id": "ib-aa.filter.conditional-probability-bayes",
+      "studentFacingName": "Conditional probability and Bayes’ theorem",
+      "parentTopic": "Statistics and probability",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "4.11",
+        "4.13"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Formal conditional probability and HL Bayes’ theorem, including reversal across the stated event scope.",
+        "exclusive": "Simple conditional probability with no Bayes reversal may still be 4.11; do not use this group for independence alone."
+      },
+      "teachingOrder": 38
+    },
+    {
+      "id": "ib-aa.filter.continuous-random-variables",
+      "studentFacingName": "Continuous random variables",
+      "parentTopic": "Statistics and probability",
+      "applicability": [
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "4.14"
+      ],
+      "classificationBoundary": {
+        "inclusive": "HL continuous variables, density functions, mode/median/mean, variance, standard deviation, transformations and fair games; includes discrete moments where assessed in this HL item.",
+        "exclusive": "Normal distribution specifically (4.9/4.12) or basic discrete distributions (4.7/4.8)."
+      },
+      "teachingOrder": 39
+    },
+    {
+      "id": "ib-aa.filter.limits-and-derivative-foundations",
+      "studentFacingName": "Limits and derivative foundations",
+      "parentTopic": "Calculus",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "5.1",
+        "5.2"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Informal limits, derivative as gradient/rate of change, and using derivative sign to identify increasing/decreasing intervals.",
+        "exclusive": "Formal HL limit evaluation (5.12/5.13) or routine differentiation rules (5.3/5.6)."
+      },
+      "teachingOrder": 40
+    },
+    {
+      "id": "ib-aa.filter.differentiation-and-tangents",
+      "studentFacingName": "Differentiation and tangents",
+      "parentTopic": "Calculus",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "5.3",
+        "5.4",
+        "5.6"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Power and standard-function derivatives, chain/product/quotient rules, and tangent or normal equations.",
+        "exclusive": "Derivative-sign analysis (5.2) or optimization/concavity as the primary objective (5.7–5.8)."
+      },
+      "teachingOrder": 41
+    },
+    {
+      "id": "ib-aa.filter.derivative-applications",
+      "studentFacingName": "Second derivatives, optimization and kinematics",
+      "parentTopic": "Calculus",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "5.7",
+        "5.8",
+        "5.9"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Second derivative and concavity, extrema, inflection, optimization, displacement/velocity/acceleration and total distance.",
+        "exclusive": "A derivative calculation with no application, or integration-based area/kinematics."
+      },
+      "teachingOrder": 42
+    },
+    {
+      "id": "ib-aa.filter.integration-and-area",
+      "studentFacingName": "Antidifferentiation, definite integrals and area",
+      "parentTopic": "Calculus",
+      "applicability": [
+        "SL",
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "5.5",
+        "5.10",
+        "5.11"
+      ],
+      "classificationBoundary": {
+        "inclusive": "Antidifferentiation, standard integrals, substitution in the stated form, definite integrals and areas between curves.",
+        "exclusive": "HL integration by parts/advanced methods (5.16), volumes of revolution (5.17), or differential equations."
+      },
+      "teachingOrder": 43
+    },
+    {
+      "id": "ib-aa.filter.higher-limits-and-derivatives",
+      "studentFacingName": "Continuity, higher derivatives and evaluated limits",
+      "parentTopic": "Calculus",
+      "applicability": [
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "5.12",
+        "5.13"
+      ],
+      "classificationBoundary": {
+        "inclusive": "HL continuity/differentiability, first-principles and higher derivatives, convergence/divergence and evaluated limits using l’Hôpital or Maclaurin.",
+        "exclusive": "Informal SL limits (5.1) or ordinary derivative rules without HL limit reasoning."
+      },
+      "teachingOrder": 44
+    },
+    {
+      "id": "ib-aa.filter.implicit-related-rates",
+      "studentFacingName": "Implicit differentiation, related rates and advanced optimization",
+      "parentTopic": "Calculus",
+      "applicability": [
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "5.14"
+      ],
+      "classificationBoundary": {
+        "inclusive": "HL implicit differentiation, related rates and optimization including endpoint optima.",
+        "exclusive": "Explicit-function optimization already covered by 5.8, or routine related-rate arithmetic with no implicit/HL method."
+      },
+      "teachingOrder": 45
+    },
+    {
+      "id": "ib-aa.filter.extended-calculus-functions",
+      "studentFacingName": "Extended differentiation and integration functions",
+      "parentTopic": "Calculus",
+      "applicability": [
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "5.15"
+      ],
+      "classificationBoundary": {
+        "inclusive": "HL derivatives and antiderivatives involving tan, sec, cosec, cot, exponential/logarithmic and inverse-trigonometric functions, including partial fractions.",
+        "exclusive": "Basic standard-function differentiation/integration (5.6/5.10) when no extended function or method is central."
+      },
+      "teachingOrder": 46
+    },
+    {
+      "id": "ib-aa.filter.integration-methods",
+      "studentFacingName": "Integration by substitution and parts",
+      "parentTopic": "Calculus",
+      "applicability": [
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "5.16"
+      ],
+      "classificationBoundary": {
+        "inclusive": "HL integration by substitution and integration by parts, including repeated parts.",
+        "exclusive": "The elementary substitution form in 5.10 or an antiderivative requiring no named method."
+      },
+      "teachingOrder": 47
+    },
+    {
+      "id": "ib-aa.filter.revolution-volumes",
+      "studentFacingName": "Areas and volumes of revolution",
+      "parentTopic": "Calculus",
+      "applicability": [
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "5.17"
+      ],
+      "classificationBoundary": {
+        "inclusive": "HL area bounded by a curve and the y-axis and volumes generated by rotation about the x- or y-axis.",
+        "exclusive": "Plane area between curves without revolution (5.11)."
+      },
+      "teachingOrder": 48
+    },
+    {
+      "id": "ib-aa.filter.differential-equations",
+      "studentFacingName": "First-order differential equations",
+      "parentTopic": "Calculus",
+      "applicability": [
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "5.18"
+      ],
+      "classificationBoundary": {
+        "inclusive": "HL Euler’s method and separable, homogeneous or linear first-order differential equations with integrating factor.",
+        "exclusive": "A generic sequence/recurrence or a higher-order differential equation outside the stated scope."
+      },
+      "teachingOrder": 49
+    },
+    {
+      "id": "ib-aa.filter.maclaurin-series",
+      "studentFacingName": "Maclaurin series and approximations",
+      "parentTopic": "Calculus",
+      "applicability": [
+        "HL"
+      ],
+      "memberOfficialItems": [
+        "5.19"
+      ],
+      "classificationBoundary": {
+        "inclusive": "HL Maclaurin expansions and deriving further series by substitution, products, differentiation/integration, with approximations.",
+        "exclusive": "Infinite geometric series (1.8) or a limit using a series where no Maclaurin expansion is the assessed method."
+      },
+      "teachingOrder": 50
+    }
+  ],
+  "counts": {
+    "groups": 50,
+    "officialItemsCovered": 83,
+    "atomicOfficialItems": 83,
+    "slAndHlGroups": 30,
+    "hlOnlyGroups": 20
+  }
+}

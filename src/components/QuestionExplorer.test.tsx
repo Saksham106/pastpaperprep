@@ -119,7 +119,7 @@ describe("QuestionExplorer", () => {
 
     expect(screen.getByLabelText(/search questions/i)).toHaveValue("tangent");
     expect(screen.getByRole("button", { name: /sort questions: topic/i })).toBeInTheDocument();
-    expect(screen.getByText(/3 questions/i)).toBeInTheDocument();
+    expect(screen.getByText(/10 questions/i)).toBeInTheDocument();
     await waitFor(() => expect(window.location.search).toContain("q=tangent"));
     fireEvent.click(screen.getByRole("button", { name: /copy link to this view/i }));
     await waitFor(() => expect(writeText).toHaveBeenCalledWith(expect.stringContaining("q=tangent")));
@@ -178,7 +178,7 @@ describe("QuestionExplorer", () => {
     expect(screen.getByText(/40 questions/i)).toBeInTheDocument();
     expect(container.querySelector(".question-paper")).not.toBeNull();
     fireEvent.change(screen.getByLabelText(/search questions/i), { target: { value: "tangent" } });
-    expect(screen.getByText(/3 questions/i)).toBeInTheDocument();
+    expect(screen.getByText(/10 questions/i)).toBeInTheDocument();
 
     fireEvent.click(screen.getAllByText(/show answer/i)[0]);
     expect(await screen.findByText(/the tangent through/i)).toBeInTheDocument();

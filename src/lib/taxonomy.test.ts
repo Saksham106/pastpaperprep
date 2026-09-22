@@ -53,13 +53,12 @@ describe("question taxonomy", () => {
     const groups = getSubtopicGroups(questions, ["Calculus"], []);
 
     expect(groups.relevant).toEqual([
-      "Differentiation",
-      "Integration",
-      "Differential equations",
-      "Kinematics",
+      "Differentiation and tangents",
+      "Second derivatives, optimization and kinematics",
+      "Antidifferentiation, definite integrals and area",
     ]);
-    expect(groups.other).not.toContain("Differentiation");
-    expect(groups.other).toContain("Sequences and series");
+    expect(groups.other).not.toContain("Differentiation and tangents");
+    expect(groups.other).toContain("Arithmetic, geometric and financial sequences");
   });
 
   it("uses stable controlled IGCSE ownership for contextual subtopics", () => {

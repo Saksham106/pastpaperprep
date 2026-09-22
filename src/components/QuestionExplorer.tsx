@@ -251,8 +251,8 @@ access: ExplorerAccess;
     courseEras: unique(catalogQuestions, (q) => q.courseEra),
     options: unique(catalogQuestions, (q) => q.option),
     components: unique(catalogQuestions, (q) => q.component),
-    granularLabels: unique(catalogQuestions, (q) => q.granularLabels ?? []),
-  }), [catalogQuestions]);
+    granularLabels: bank === "ib-sl" || bank === "ib-hl" ? [] : unique(catalogQuestions, (q) => q.granularLabels ?? []),
+  }), [catalogQuestions, bank]);
 
   const filtered = useMemo(() => {
     const normalizedSearch = search.trim().toLocaleLowerCase();

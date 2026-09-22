@@ -4,6 +4,7 @@ import biologyTaxonomy from "@/data/ib-biology-taxonomy.json";
 import economicsTaxonomy from "@/data/ib-economics-taxonomy.json";
 import igcseChemistryTaxonomy from "@/data/igcse-chemistry-0620-taxonomy.json";
 import igcsePhysicsTaxonomy from "@/data/igcse-physics-0625-taxonomy.json";
+import aaTaxonomy from "@/data/aa-official-subtopics/taxonomy.json";
 import type { UnifiedQuestion } from "@/lib/questions";
 
 const IB_TOPIC_ORDER = [
@@ -338,6 +339,18 @@ const IGCSE_PHYSICS_SUBTOPICS: Record<string, readonly string[]> = Object.fromEn
   igcsePhysicsTaxonomy.student_topics.map((topic) => [topic.label, topic.detailed_subtopics.map((subtopic) => subtopic.label)]),
 );
 
+const AA_SUBTOPICS_BY_TOPIC: Record<string, readonly string[]> = Object.fromEntries(
+  aaTaxonomy.groups.reduce((entries, group) => {
+    const existing = entries.get(group.parentTopic) ?? [];
+    entries.set(group.parentTopic, [...existing, group.studentFacingName]);
+    return entries;
+  }, new Map<string, string[]>()).entries(),
+);
+
+function isCurrentAaQuestions(questions: UnifiedQuestion[]): boolean {
+  return questions.some((question) => Boolean(question.classificationProvenance));
+}
+
 function uniqueSorted(values: string[]): string[] {
   return [...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b));
 }
@@ -396,6 +409,22 @@ export function getSubtopicGroups(
   other: string[];
   selectedOutsideContext: string[];
 } {
+  // Current AA rows use the pinned official grouped taxonomy; legacy Math rows
+  // retain the historical taxonomy below.
+  if (isCurrentAaQuestions(questions)) {
+    const all = [...new Set(questions.flatMap((question) => question.subtopics))];
+    const available = new Set(all);
+    const relevant = selectedTopics.length
+      ? [...new Set(selectedTopics.flatMap((topic) => AA_SUBTOPICS_BY_TOPIC[topic] ?? []).filter((label) => available.has(label)))]
+      : all;
+    const relevantSet = new Set(relevant);
+    return {
+      all,
+      relevant,
+      other: all.filter((subtopic) => !relevantSet.has(subtopic)),
+      selectedOutsideContext: selectedSubtopics.filter((subtopic) => available.has(subtopic) && !relevantSet.has(subtopic)),
+    };
+  }
   // Skills are the canonical filterable classification vocabulary. Include
   // legacy subtopics during migration so old URLs and stored selections keep
   // working while richer labels remain discoverable in the UI.

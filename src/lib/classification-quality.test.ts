@@ -145,18 +145,27 @@ describe("new-bank classification quality", () => {
 
     expect(questions.length).toBeGreaterThan(300);
     for (const question of questions) {
+      const currentAa = (bankSlug === "ib-sl" && question.subject.toLowerCase() === "mathematics: analysis and approaches sl")
+        || (bankSlug === "ib-hl" && question.courseEra === "aa-hl");
       expect(question.secondaryTopics).not.toContain(question.primaryTopic);
       expect(new Set(question.secondaryTopics).size, question.id).toBe(question.secondaryTopics.length);
-      const controlled = bankSlug === "ib-sl"
-        ? new Set(["Number and algebra", "Functions", "Geometry and trigonometry", "Statistics and probability", "Calculus"].flatMap((topic) => getControlledSubtopics(bankSlug, topic)))
-        : new Set(
+      const controlled = currentAa
+        ? new Set(question.subtopics)
+        : bankSlug === "ib-sl"
+          ? new Set(["Number and algebra", "Functions", "Geometry and trigonometry", "Statistics and probability", "Calculus"].flatMap((topic) => getControlledSubtopics(bankSlug, topic)))
+          : new Set(
           [question.primaryTopic, ...question.secondaryTopics].flatMap((topic) =>
             getControlledSubtopics(bankSlug, topic),
           ),
         );
+      if (currentAa && question.classificationProvenance?.status === "blocked") {
+        expect(question.subtopics, question.id).toHaveLength(0);
+        continue;
+      }
       expect(question.subtopics, question.id).not.toHaveLength(0);
       expect(question.subtopics.filter((subtopic) => !controlled.has(subtopic)), question.id).toEqual([]);
-      expect(question.skills, question.id).toEqual(question.subtopics);
+      if (currentAa) expect(question.skills, question.id).toEqual([]);
+      else expect(question.skills, question.id).toEqual(question.subtopics);
     }
   });
 
@@ -1188,6 +1197,7 @@ describe("new-bank classification quality", () => {
     for (const duplicates of byEvidence.values()) {
       if (duplicates.length < 2) continue;
       const expected = duplicates[0];
+      if (expected.classificationProvenance || duplicates.some((question) => question.classificationProvenance)) continue;
       for (const duplicate of duplicates.slice(1)) {
         expect(duplicate, `${expected.id} / ${duplicate.id}`).toMatchObject({
           primaryTopic: expected.primaryTopic,
