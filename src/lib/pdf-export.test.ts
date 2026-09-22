@@ -2,9 +2,11 @@ import { describe, expect, it } from "vitest";
 import {
   MAX_PDF_QUESTIONS,
   PDF_BOOK_LOGO_PATH,
+  darkenPdfPixel,
   paginatePdfText,
   pdfFooterText,
   pdfPageLabel,
+  planPdfImageSlices,
   questionsForPdf,
 } from "@/lib/pdf-export";
 import { loadBankQuestions } from "@/lib/question-fixtures";
@@ -37,6 +39,30 @@ describe("questionsForPdf", () => {
   it("uses the same open-book mark as the website instead of a placeholder letter", () => {
     expect(PDF_BOOK_LOGO_PATH).toContain("M232,48H160");
     expect(PDF_BOOK_LOGO_PATH).not.toContain("PastPaperPrep");
+  });
+
+  it("keeps tall multi-page crops readable by slicing them at full printable width", () => {
+    const slices = planPdfImageSlices(1070, 3082);
+
+    expect(slices).toHaveLength(3);
+    expect(slices.every((slice) => slice.renderedWidth >= 190)).toBe(true);
+    expect(slices.every((slice) => slice.renderedHeight <= 248)).toBe(true);
+    expect(slices.reduce((height, slice) => height + slice.sourceHeight, 0)).toBe(3082);
+  });
+
+  it("keeps a normal exam page together when it fits the printable area", () => {
+    const slices = planPdfImageSlices(1191, 1524);
+
+    expect(slices).toHaveLength(1);
+    expect(slices[0].renderedWidth).toBeGreaterThan(190);
+    expect(slices[0].renderedHeight).toBeLessThanOrEqual(248);
+  });
+
+  it("darkens faint print without changing white paper or pure black ink", () => {
+    expect(darkenPdfPixel(255)).toBe(255);
+    expect(darkenPdfPixel(0)).toBe(0);
+    expect(darkenPdfPixel(220)).toBeLessThan(210);
+    expect(darkenPdfPixel(128)).toBeLessThan(115);
   });
 
   it("paginates long text answers before they can collide with the footer", () => {
