@@ -589,6 +589,23 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .legal-page > p:not(.eyebrow) { max-width: 70ch; line-height: 1.72; }
 .legal-updated { font-size: .84rem; }
 
+/* FAQ */
+.faq-page { padding-block: clamp(64px, 8vw, 104px) 110px; }
+.faq-hero { max-width: 780px; }
+.faq-hero h1 { margin: 10px 0 18px; color: #27221f; font: 600 clamp(3rem, 7vw, 5.5rem)/.94 Georgia, "Times New Roman", serif; letter-spacing: -.055em; }
+.faq-hero > p:last-child { max-width: 660px; margin: 0; color: var(--muted); font-size: 1.08rem; line-height: 1.65; }
+.faq-list { margin-top: 64px; border-top: 1px solid var(--line); }
+.faq-list article { padding: 28px 0; display: grid; grid-template-columns: minmax(240px, .72fr) minmax(320px, 1.28fr); gap: clamp(28px, 6vw, 92px); border-bottom: 1px solid var(--line); }
+.faq-list h2 { margin: 0; color: var(--ink); font: 780 clamp(1.15rem, 2vw, 1.45rem)/1.2 var(--font-display); letter-spacing: -.025em; }
+.faq-list p { max-width: 70ch; margin: 0; color: var(--muted); line-height: 1.72; }
+.faq-contact { margin-top: 64px; padding: clamp(28px, 5vw, 48px); display: flex; align-items: center; justify-content: space-between; gap: 32px; color: var(--surface-raised); background: var(--ink); border-radius: 16px; }
+.faq-contact h2 { margin: 8px 0 10px; font: 760 clamp(1.8rem, 4vw, 2.7rem)/1 var(--font-display); letter-spacing: -.045em; }
+.faq-contact p { max-width: 600px; margin: 0; color: color-mix(in srgb, var(--surface-raised) 76%, transparent); line-height: 1.6; }
+.faq-contact .eyebrow { color: #9eb7f4; }
+.faq-contact .button { flex: none; background: var(--cobalt); }
+.faq-back { margin: 28px 0 0; color: var(--muted); font-size: .9rem; }
+.faq-back a { text-decoration: underline; text-underline-offset: 3px; }
+
 /* Dialog */
 .pdf-backdrop { position: fixed; z-index: 50; inset: 0; padding: 20px; display: grid; place-items: center; background: rgb(10 15 25 / .7); }
 .pdf-dialog { position: relative; width: min(520px, 100%); padding: 28px; background: var(--surface-raised); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow-lg); }
@@ -769,6 +786,11 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 }
 
 @media (max-width: 640px) {
+  .faq-page { padding-block: 52px 78px; }
+  .faq-list { margin-top: 42px; }
+  .faq-list article { grid-template-columns: 1fr; gap: 12px; }
+  .faq-contact { align-items: flex-start; flex-direction: column; }
+  .faq-contact .button { width: 100%; }
   .pricing-bank-catalog-heading { align-items: flex-start; flex-direction: column; gap: 12px; }
   .pricing-bank-table-wrap { overflow: visible; border-radius: 10px; }
   .pricing-bank-table, .pricing-bank-table tbody { display: block; }

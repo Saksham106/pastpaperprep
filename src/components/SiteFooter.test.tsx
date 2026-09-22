@@ -16,5 +16,7 @@ describe("SiteFooter", () => {
     expect(screen.getByRole("heading", { name: "IB Mathematics" })).toBeInTheDocument();
     expect(screen.queryByRole("link", { name: /IB IB/i })).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Revision guides" })).toHaveAttribute("href", "/articles");
+    expect(screen.getByRole("link", { name: "Frequently asked questions" })).toHaveAttribute("href", "/faq");
+    expect(screen.getByRole("link", { name: "hello@pastpaperprep.com" })).toHaveAttribute("href", "mailto:hello@pastpaperprep.com");
   });
 });

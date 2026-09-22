@@ -24,6 +24,7 @@ describe("search crawler routes", () => {
     expect(urls).toContain("https://pastpaperprep.com");
     expect(urls).toContain("https://pastpaperprep.com/pricing");
     expect(urls).toContain("https://pastpaperprep.com/articles");
+    expect(urls).toContain("https://pastpaperprep.com/faq");
     for (const bank of BANKS) {
       expect(urls).toContain(`https://pastpaperprep.com/banks/${bank.slug}`);
     }

@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: SITE_URL },
     { url: `${SITE_URL}/pricing` },
     { url: `${SITE_URL}/articles` },
+    { url: `${SITE_URL}/faq` },
     ...ARTICLES.map(({ slug, updatedAt }) => ({
       url: `${SITE_URL}/articles/${slug}`,
       lastModified: updatedAt,
