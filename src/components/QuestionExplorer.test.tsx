@@ -151,6 +151,31 @@ describe("QuestionExplorer", () => {
     expect(new URLSearchParams(window.location.search).has("free")).toBe(false);
   });
 
+  it("fails closed to free-only access when member bootstrap fails", async () => {
+    const all = loadBankQuestions("ib-sl");
+    const initial = prepareQuestionsForDelivery(all.slice(0, 40), []);
+    window.history.replaceState({}, "", "/banks/ib-sl");
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL) => {
+      if (String(input) === "/api/banks/bootstrap?bank=ib-sl") {
+        return new Response(null, { status: 503 });
+      }
+      return new Response(null, { status: 500 });
+    }));
+
+    render(<QuestionExplorer
+      questions={initial}
+      bankSlug="ib-sl"
+      access={fullAccess}
+      initialState={{ search: "", sort: "paper", filters: {}, freeOnly: false, savedOnly: false, visible: 24 }}
+      bootstrapUrl="/api/banks/bootstrap?bank=ib-sl"
+      hydrateFromLocation
+    />);
+
+    await waitFor(() => expect(screen.getByText(/free exam years are open/i)).toBeInTheDocument());
+    expect(screen.getByRole("button", { name: /remove free questions only filter/i })).toBeInTheDocument();
+    await waitFor(() => expect(new URLSearchParams(window.location.search).get("free")).toBe("1"));
+  });
+
   it("restores a shareable workspace and keeps changes in the URL", async () => {
     const writeText = vi.fn().mockResolvedValue(undefined);
     Object.defineProperty(navigator, "clipboard", { configurable: true, value: { writeText } });

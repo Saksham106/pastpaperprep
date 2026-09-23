@@ -340,7 +340,12 @@ access: ExplorerAccess;
         }
         if (payload.access.bankAccess) setFreeOnly(false);
       })
-      .catch(() => undefined)
+      .catch(() => {
+        if (cancelled) return;
+        setResolvedAccess({ authenticated: false, bankAccess: false, canExportPdf: false });
+        setResolvedExportMarker(undefined);
+        setFreeOnly(true);
+      })
       .finally(() => {
         if (!cancelled) setBootstrapPending(false);
       });
