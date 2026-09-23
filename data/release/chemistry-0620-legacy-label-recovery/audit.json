@@ -1,0 +1,29 @@
+{
+  "audit": "chemistry0620_legacy_label_recovery_overlay",
+  "status": "PASS",
+  "checks": {
+    "target_null_primary_rows": 725,
+    "overlay_target_rows": 725,
+    "legacy_labels_restored": 723,
+    "preserved_unresolved": 2,
+    "question_id_join_and_order_exact": true,
+    "duplicate_overlay_ids": 0,
+    "classified_rows_targeted": 0,
+    "prior_runtime_rows_matched": 725,
+    "restored_display_topic_other_count": 0,
+    "source_hashes_match": true,
+    "byte_deterministic_rebuild": true,
+    "no_mutation_to_overlay_final_builder_or_prior_runtime": true,
+    "overlay_ids_form_exact_target_set": true,
+    "each_overlay_bucket_preserves_final_order": true,
+    "previous_display_exactly_preserved": true
+  },
+  "source_hashes": {
+    "overlay_sha256": "26282d4c973ffd7b245f5e44c515a0ee12edf8d9961022f7bfc1e26e701905bc",
+    "builder_sha256": "aa8a185195ee594465a7d10e498d0ccf80201994ccc6065d4d72a26b1d73d467",
+    "final_sha256": "c56b92729cdfbccd7ec0d835c924c708f9992b5b75b70e079ff1035e1dc62a1c",
+    "previous_runtime_sha256": "eb2199305060fa0d19bacd30fbdb84e59a0cadc5058d2bde9bda9b6a3bc10930"
+  },
+  "source_old_runtime_commit": "0fb4b8c",
+  "issues": []
+}

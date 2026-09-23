@@ -62,7 +62,11 @@ describe("IGCSE Biology and Economics release candidate", () => {
   it("keeps the existing released chemistry rows and Physics finalized in production", () => {
     const finalized = physicsRuntime as unknown as { releaseStatus: string; assetVerification: string; questions: Array<{ publicationStatus?: string }> };
     expect(chemistryRuntime.questions.every((question) => question.publicationStatus === "production")).toBe(true);
-    expect(chemistryRuntime.questions.every((question) => question.classificationReviewStatus === "classified" || question.classificationReviewStatus === "unresolved_taxonomy_gap")).toBe(true);
+    expect(chemistryRuntime.questions.every((question) =>
+      question.classificationReviewStatus === "classified"
+      || question.classificationReviewStatus === "unresolved_taxonomy_gap"
+      || question.classificationReviewStatus === "legacy_unverified"
+    )).toBe(true);
     expect(finalized.releaseStatus).toBe("production");
     expect(finalized.assetVerification).toBe("verified_readback");
     expect(finalized.questions.every((question) => question.publicationStatus === "production")).toBe(true);

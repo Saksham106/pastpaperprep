@@ -4,9 +4,10 @@
   "status": "PASS",
   "productionRuntime": {
     "path": "src/data/production/igcse-chemistry-0620.json",
-    "previousSha256": "eb2199305060fa0d19bacd30fbdb84e59a0cadc5058d2bde9bda9b6a3bc10930",
-    "sha256": "89d67f190a33373ac8dfb41cadfe04876c4d1123e5e787b12af16d63bbf63b79",
-    "runtimeSha256": "c0276fbe78d5f0cd50d3622cbe0abf8a8ae3bfe40220a99823104a6b948ac4a2",
+    "previousSha256": "89d67f190a33373ac8dfb41cadfe04876c4d1123e5e787b12af16d63bbf63b79",
+    "legacyLabelSourceRuntimeSha256": "eb2199305060fa0d19bacd30fbdb84e59a0cadc5058d2bde9bda9b6a3bc10930",
+    "sha256": "e079a2905a7f007a03d1a80fbb4f10f51155706fbed39229d6ea44bda3bcb7ed",
+    "runtimeSha256": "f1cc2e047260d6457ccb6bc642373c4e63b3c6dba87fa9e3819aebf2f5a3cf9f",
     "questionCount": 5129,
     "releaseStatus": "production",
     "publicationStatus": "production",
@@ -20,7 +21,12 @@
     "auditVerdict": "PASS",
     "rowsApplied": 3529,
     "classified": 2804,
-    "unresolved": 725,
+    "unresolved": 2,
+    "legacyUnverified": 723,
+    "remainingOther": 2,
+    "legacyOverlayPath": "data/release/chemistry-0620-legacy-label-recovery/legacy-label-overlay.json",
+    "legacyOverlaySha256": "26282d4c973ffd7b245f5e44c515a0ee12edf8d9961022f7bfc1e26e701905bc",
+    "legacyOverlayAuditSha256": "1063a6c6a9a0c144decfaa6b127fee08d8295da80e43d080747119511379c8c5",
     "nonClassificationFieldsPreserved": 3529
   },
   "extension": {
@@ -45,6 +51,8 @@
     "duplicateQuestionIds": 0,
     "unresolvedRowsHaveNoFallbackPrimary": true,
     "unresolvedRowsHaveExplicitGaps": true,
+    "legacyRowsExplicitlyUnverified": true,
+    "exactLegacyOverlayTargetsAndOrder": true,
     "sourceAssetsMarksAnswersPreserved": true,
     "extensionRowsUnchanged": true,
     "storageObjectsUnchanged": true

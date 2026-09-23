@@ -20,13 +20,18 @@ PRIVATE_INDEX_PATH = ROOT / "src/data/private-index/igcse-chemistry-0620.json"
 TAXONOMY_PATH = ROOT / "src/data/igcse-chemistry-0620-official-taxonomy.json"
 ARTIFACT_PATH = ROOT / "data/release/chemistry-0620-audited-base/chemistry0620-final.json"
 AUDIT_PATH = ROOT / "data/release/chemistry-0620-audited-base/final-assembled-artifact-audit.json"
+OVERLAY_PATH = ROOT / "data/release/chemistry-0620-legacy-label-recovery/legacy-label-overlay.json"
+OVERLAY_AUDIT_PATH = ROOT / "data/release/chemistry-0620-legacy-label-recovery/audit.json"
 RECEIPT_PATH = ROOT / "data/release/chemistry-0620-audited-base-classification-receipt.json"
 
 EXPECTED_ARTIFACT_SHA256 = "c56b92729cdfbccd7ec0d835c924c708f9992b5b75b70e079ff1035e1dc62a1c"
 EXPECTED_AUDIT_SHA256 = "fcf644c900f97b19498af43d61c508f0603d78e02dff2e0853d82acd7846e741"
 EXPECTED_TAXONOMY_SHA256 = "269bc6f0c3d61c9f4bade7f453a6776d58f869b3e51aed7d6c8e71bb4663d9b0"
 EXPECTED_PREVIOUS_RUNTIME_SHA256 = "eb2199305060fa0d19bacd30fbdb84e59a0cadc5058d2bde9bda9b6a3bc10930"
-EXPECTED_GENERATED_RUNTIME_SHA256 = "89d67f190a33373ac8dfb41cadfe04876c4d1123e5e787b12af16d63bbf63b79"
+EXPECTED_PRE_OVERLAY_RUNTIME_SHA256 = "89d67f190a33373ac8dfb41cadfe04876c4d1123e5e787b12af16d63bbf63b79"
+EXPECTED_GENERATED_RUNTIME_SHA256 = "e079a2905a7f007a03d1a80fbb4f10f51155706fbed39229d6ea44bda3bcb7ed"
+EXPECTED_OVERLAY_SHA256 = "26282d4c973ffd7b245f5e44c515a0ee12edf8d9961022f7bfc1e26e701905bc"
+EXPECTED_OVERLAY_AUDIT_SHA256 = "1063a6c6a9a0c144decfaa6b127fee08d8295da80e43d080747119511379c8c5"
 
 BASE_COUNT = 3529
 EXTENSION_COUNT = 1600
@@ -82,6 +87,7 @@ def validate_runtime_source_hash(runtime_sha256: str) -> None:
     """
     allowed = {
         EXPECTED_PREVIOUS_RUNTIME_SHA256,
+        EXPECTED_PRE_OVERLAY_RUNTIME_SHA256,
         EXPECTED_GENERATED_RUNTIME_SHA256,
     }
     if runtime_sha256 not in allowed:
@@ -210,16 +216,24 @@ def apply_classification(
 def main() -> None:
     artifact_bytes = ARTIFACT_PATH.read_bytes()
     audit_bytes = AUDIT_PATH.read_bytes()
+    overlay_bytes = OVERLAY_PATH.read_bytes()
+    overlay_audit_bytes = OVERLAY_AUDIT_PATH.read_bytes()
     taxonomy_bytes = TAXONOMY_PATH.read_bytes()
     if sha256_bytes(artifact_bytes) != EXPECTED_ARTIFACT_SHA256:
         raise ValueError("audited Chemistry classification artifact drift")
     if sha256_bytes(audit_bytes) != EXPECTED_AUDIT_SHA256:
         raise ValueError("Chemistry classification audit drift")
+    if sha256_bytes(overlay_bytes) != EXPECTED_OVERLAY_SHA256:
+        raise ValueError("Chemistry legacy-label overlay drift")
+    if sha256_bytes(overlay_audit_bytes) != EXPECTED_OVERLAY_AUDIT_SHA256:
+        raise ValueError("Chemistry legacy-label overlay audit drift")
     if sha256_bytes(taxonomy_bytes) != EXPECTED_TAXONOMY_SHA256:
         raise ValueError("Chemistry app taxonomy drift")
 
     artifact = json.loads(artifact_bytes)
     audit = json.loads(audit_bytes)
+    overlay = json.loads(overlay_bytes)
+    overlay_audit = json.loads(overlay_audit_bytes)
     taxonomy = json.loads(taxonomy_bytes)
     runtime_bytes_before = RUNTIME_PATH.read_bytes()
     validate_runtime_source_hash(sha256_bytes(runtime_bytes_before))
@@ -229,12 +243,34 @@ def main() -> None:
         raise ValueError("Chemistry final artifact audit is not PASS")
     if audit.get("artifact", {}).get("sha256") != EXPECTED_ARTIFACT_SHA256:
         raise ValueError("audit does not bind the imported artifact hash")
+    required_overlay_checks = {"question_id_join_and_order_exact": True, "duplicate_overlay_ids": 0, "classified_rows_targeted": 0, "overlay_ids_form_exact_target_set": True, "each_overlay_bucket_preserves_final_order": True, "previous_display_exactly_preserved": True}
+    if overlay_audit.get("status") != "PASS" or overlay_audit.get("source_hashes", {}).get("overlay_sha256") != EXPECTED_OVERLAY_SHA256:
+        raise ValueError("Chemistry legacy-label overlay audit is not bound/PASS")
+    if any(overlay_audit.get("checks", {}).get(k) != v for k, v in required_overlay_checks.items()):
+        raise ValueError("Chemistry legacy-label overlay audit checks failed")
     if artifact.get("row_count") != BASE_COUNT or len(artifact.get("rows", [])) != BASE_COUNT:
         raise ValueError("audited Chemistry artifact must contain 3,529 rows")
     if runtime.get("questionCount") != TOTAL_COUNT or len(runtime.get("questions", [])) != TOTAL_COUNT:
         raise ValueError("production Chemistry runtime must contain 5,129 rows")
 
     final_ids = [row["question_id"] for row in artifact["rows"]]
+    null_rows = [row for row in artifact["rows"] if row.get("primary") is None]
+    expected_null_order = [row["question_id"] for row in null_rows]
+    overlay_rows = overlay.get("changes", []) + overlay.get("unresolved", [])
+    overlay_ids = [row["question_id"] for row in overlay_rows]
+    overlay_by_id = {row["question_id"]: row for row in overlay_rows}
+    if overlay.get("target_null_primary_rows") != 725 or overlay.get("legacy_labels_restored") != 723 or overlay.get("preserved_unresolved") != 2:
+        raise ValueError("legacy overlay expected counts drift")
+    if set(overlay_ids) != set(expected_null_order) or len(set(overlay_ids)) != 725:
+        raise ValueError("legacy overlay target set does not exactly match audited null rows")
+    for bucket in (overlay.get("changes", []), overlay.get("unresolved", [])):
+        bucket_ids = [row["question_id"] for row in bucket]
+        if bucket_ids != [qid for qid in expected_null_order if qid in set(bucket_ids)]:
+            raise ValueError("legacy overlay bucket order differs from audited final order")
+    expected_overlay_ids = {row["question_id"] for row in overlay.get("changes", [])}
+    unresolved_overlay_ids = {row["question_id"] for row in overlay.get("unresolved", [])}
+    if len(expected_overlay_ids) != 723 or len(unresolved_overlay_ids) != 2 or expected_overlay_ids & unresolved_overlay_ids:
+        raise ValueError("legacy overlay restored/unresolved target shape drift")
     if len(set(final_ids)) != BASE_COUNT:
         raise ValueError("audited Chemistry artifact contains duplicate IDs")
     current_by_id = {row["id"]: row for row in runtime["questions"]}
@@ -262,6 +298,29 @@ def main() -> None:
             questions.append(copy.deepcopy(row))
             continue
         updated = apply_classification(row, final_row, details, topics, subtopics)
+        if final_row.get("primary") is None:
+            entry = overlay_by_id[row["id"]]
+            expected_final = entry.get("expected_final", {})
+            for field in ("status", "source_status", "primary", "secondary", "practical_skills"):
+                actual = final_row.get(field, [] if field in ("secondary", "practical_skills") else None)
+                expected = expected_final.get(field, [] if field in ("secondary", "practical_skills") else None)
+                if actual != expected:
+                    raise ValueError(f"legacy overlay expected_final drift for {row['id']}:{field}")
+            display = entry.get("legacy_display")
+            if not isinstance(display, dict) or set(display) != {"primaryTopic", "primaryTopicId", "secondaryTopics", "subtopics", "detailedSubtopics", "secondarySubtopics", "skills"}:
+                raise ValueError(f"legacy overlay display row shape drift for {row['id']}")
+            disposition = entry.get("disposition")
+            if disposition == "restore_legacy_unverified":
+                if entry.get("confidence") != "legacy_unverified" or display.get("primaryTopic") == "Other":
+                    raise ValueError(f"legacy overlay provenance invalid for {row['id']}")
+                updated.update(copy.deepcopy(display))
+                updated["classificationReviewStatus"] = "legacy_unverified"
+                updated["classificationProvenance"] = {"selectedSource": "legacy_unverified", "sourceRowId": row["id"], "legacyLabelSource": entry.get("legacy_label_source"), "legacyPrimaryDetailId": entry.get("legacy_primary_detail_id"), "legacyOverlayPath": "data/release/chemistry-0620-legacy-label-recovery/legacy-label-overlay.json", "legacyOverlaySha256": EXPECTED_OVERLAY_SHA256, "auditedFinalStatus": final_row.get("status"), "auditedPrimaryDetailId": None, "primaryDetailId": None, "secondaryDetailIds": [], "practicalDetailIds": [], "gaps": []}
+            elif disposition == "preserve_unresolved_no_legacy_owner":
+                if display.get("primaryTopic") != "Other":
+                    raise ValueError(f"unresolved legacy target is not Other: {row['id']}")
+            else:
+                raise ValueError(f"unknown legacy overlay disposition for {row['id']}")
         questions.append(updated)
         base_rows.append(updated)
 
@@ -272,11 +331,13 @@ def main() -> None:
         raise ValueError("not all audited base rows were applied")
 
     expected_null_ids = {row["question_id"] for row in artifact["rows"] if not row.get("primary")}
-    actual_unresolved_ids = {
-        row["id"] for row in base_rows if row["classificationReviewStatus"] == "unresolved_taxonomy_gap"
+    actual_recovered_ids = {
+        row["id"] for row in base_rows
+        if row["classificationReviewStatus"] in {"unresolved_taxonomy_gap", "legacy_unverified"}
     }
-    if expected_null_ids != actual_unresolved_ids:
-        raise ValueError("audited null-primary rows were not preserved exactly")
+    actual_other_ids = {row["id"] for row in base_rows if row["primaryTopic"] == "Other"}
+    if expected_null_ids != actual_recovered_ids or actual_other_ids != unresolved_overlay_ids:
+        raise ValueError("audited null-primary legacy recovery shape mismatch")
     if any(
         row["classificationReviewStatus"] == "unresolved_taxonomy_gap"
         and not row["classificationProvenance"]["gaps"]
@@ -287,7 +348,7 @@ def main() -> None:
     status_counts = Counter(row["classificationReviewStatus"] for row in base_rows)
     final_status_counts = Counter(row["status"] for row in artifact["rows"])
     source_status_counts = Counter(row["source_status"] for row in artifact["rows"])
-    if status_counts != Counter({"classified": 2804, "unresolved_taxonomy_gap": 725}):
+    if status_counts != Counter({"classified": 2804, "unresolved_taxonomy_gap": 2, "legacy_unverified": 723}):
         raise ValueError(f"unexpected base classification counts: {status_counts}")
 
     runtime["questions"] = questions
@@ -305,10 +366,12 @@ def main() -> None:
         "rowCount": BASE_COUNT,
         "classifiedCount": status_counts["classified"],
         "unresolvedCount": status_counts["unresolved_taxonomy_gap"],
+        "legacyUnverifiedCount": status_counts["legacy_unverified"],
         "sourceStatusCounts": dict(sorted(source_status_counts.items())),
         "finalStatusCounts": dict(sorted(final_status_counts.items())),
         "extensionRowsPreserved": EXTENSION_COUNT,
         "assetMutation": False,
+        "legacyLabelRecovery": {"overlayPath": "data/release/chemistry-0620-legacy-label-recovery/legacy-label-overlay.json", "overlaySha256": EXPECTED_OVERLAY_SHA256, "auditPath": "data/release/chemistry-0620-legacy-label-recovery/audit.json", "auditSha256": EXPECTED_OVERLAY_AUDIT_SHA256, "restoredLegacyUnverified": 723, "remainingOther": 2},
     }
     runtime_artifact = runtime.setdefault("runtimeArtifact", {})
     runtime_artifact.update(
@@ -357,7 +420,8 @@ def main() -> None:
         "status": "PASS",
         "productionRuntime": {
             "path": "src/data/production/igcse-chemistry-0620.json",
-            "previousSha256": EXPECTED_PREVIOUS_RUNTIME_SHA256,
+            "previousSha256": EXPECTED_PRE_OVERLAY_RUNTIME_SHA256,
+            "legacyLabelSourceRuntimeSha256": EXPECTED_PREVIOUS_RUNTIME_SHA256,
             "sha256": runtime_output_sha256,
             "runtimeSha256": runtime_artifact["runtimeSha256"],
             "questionCount": TOTAL_COUNT,
@@ -374,6 +438,11 @@ def main() -> None:
             "rowsApplied": BASE_COUNT,
             "classified": status_counts["classified"],
             "unresolved": status_counts["unresolved_taxonomy_gap"],
+            "legacyUnverified": status_counts["legacy_unverified"],
+            "remainingOther": len(unresolved_overlay_ids),
+            "legacyOverlayPath": "data/release/chemistry-0620-legacy-label-recovery/legacy-label-overlay.json",
+            "legacyOverlaySha256": EXPECTED_OVERLAY_SHA256,
+            "legacyOverlayAuditSha256": EXPECTED_OVERLAY_AUDIT_SHA256,
             "nonClassificationFieldsPreserved": BASE_COUNT,
         },
         "extension": {
@@ -398,6 +467,8 @@ def main() -> None:
             "duplicateQuestionIds": 0,
             "unresolvedRowsHaveNoFallbackPrimary": True,
             "unresolvedRowsHaveExplicitGaps": True,
+            "legacyRowsExplicitlyUnverified": True,
+            "exactLegacyOverlayTargetsAndOrder": True,
             "sourceAssetsMarksAnswersPreserved": True,
             "extensionRowsUnchanged": True,
             "storageObjectsUnchanged": True,
