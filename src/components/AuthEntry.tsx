@@ -26,10 +26,10 @@ export function AuthEntry({ next, hasLinkError = false }: { next: string; hasLin
 
       {signingIn ? <SignInMethods next={next} /> : <PasswordSignUpForm next={next} />}
 
-      <div className="auth-mode-switch">
-        <span>{signingIn ? "New to PastPaperPrep?" : "Already have an account?"}</span>
+      <div className="auth-mode-switch" role="group" aria-label="Account options">
+        <span>{signingIn ? "New here?" : "Already have an account?"}</span>
         <button type="button" onClick={() => setMode(signingIn ? "sign-up" : "sign-in")}>
-          {signingIn ? "Create account" : "Sign in instead"}
+          {signingIn ? "Create a free account" : "Sign in instead"}
         </button>
       </div>
     </>

@@ -12,8 +12,9 @@ describe("AuthEntry", () => {
     expect(screen.getByRole("heading", { name: /sign in to pastpaperprep/i })).toBeInTheDocument();
     expect(screen.getByText("Existing sign-in methods")).toBeInTheDocument();
     expect(screen.queryByText("New account form")).not.toBeInTheDocument();
+    expect(screen.getByRole("group", { name: /account options/i })).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole("button", { name: /create account/i }));
+    fireEvent.click(screen.getByRole("button", { name: /create a free account/i }));
 
     expect(screen.getByRole("heading", { name: /create your account/i })).toBeInTheDocument();
     expect(screen.getByText("New account form")).toBeInTheDocument();

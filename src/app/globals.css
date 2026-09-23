@@ -722,10 +722,15 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .auth-form small, .auth-fine-print { color: var(--muted); font-size: .78rem; line-height: 1.45; }
 .auth-fine-print { margin-top: 18px; }
 .auth-fine-print a { text-decoration: underline; text-underline-offset: 2px; }
-.auth-mode-switch { margin-top: 20px; padding-top: 17px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 5px 8px; color: var(--muted); border-top: 1px solid var(--line); font-size: .9rem; }
-.auth-mode-switch button { min-height: 36px; padding: 4px 2px; color: var(--cobalt); background: transparent; border: 0; font: inherit; font-weight: 850; text-decoration: underline; text-underline-offset: 3px; }
-.auth-mode-switch button:hover { color: var(--ink); }
-.auth-mode-switch button:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; border-radius: 2px; }
+.auth-mode-switch { margin-top: 22px; padding: 13px 14px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px; color: var(--ink); background: color-mix(in srgb, var(--cobalt) 5%, var(--paper)); border: 1px solid color-mix(in srgb, var(--cobalt) 20%, var(--line)); border-radius: 10px; font-size: .92rem; }
+.auth-mode-switch span { font-weight: 760; }
+.auth-mode-switch button { min-height: 42px; padding: 0 15px; color: var(--cobalt-strong); background: var(--surface); border: 1px solid color-mix(in srgb, var(--cobalt) 55%, var(--line)); border-radius: 8px; font: inherit; font-weight: 850; }
+.auth-mode-switch button:hover { color: var(--surface); background: var(--cobalt-strong); border-color: var(--cobalt-strong); }
+.auth-mode-switch button:focus-visible { outline: 3px solid color-mix(in srgb, var(--cobalt) 35%, transparent); outline-offset: 2px; }
+@media (max-width: 540px) {
+  .auth-mode-switch { grid-template-columns: 1fr; text-align: center; }
+  .auth-mode-switch button { width: 100%; }
+}
 .password-reset { margin-top: 16px; color: var(--muted); }
 .password-reset:not([open]) > :not(summary) { display: none; }
 .password-reset summary { width: fit-content; color: var(--cobalt); font-weight: 800; }
