@@ -93,9 +93,9 @@ describe("Chemistry 0620 audited base classification production overlay", () => 
     expect(runtime.releaseStatus).toBe("production");
     expect(runtime.publicationStatus).toBe("production");
     expect(runtime.assetVerification).toBe("verified_readback");
-    expect(runtime.version).toBe("igcse-chemistry-0620-release-candidate-v3-audited-base");
+    expect(runtime.version).toBe("igcse-chemistry-0620-release-candidate-v4-taxonomy-projected");
     expect(PUBLIC_BANK_INDEX_FILES["igcse-chemistry-0620"]).toBe(
-      "igcse-chemistry-0620.v1-a42bed699873.json",
+      "igcse-chemistry-0620.v1-ec9a875c4808.json",
     );
     expect(runtime.auditedBaseClassification).toMatchObject({
       auditVerdict: "PASS",
@@ -175,18 +175,41 @@ describe("Chemistry 0620 audited base classification production overlay", () => 
     expect(unresolved).toBe(725);
   });
 
-  it("keeps all 1,600 extension rows content-identical and the verified storage lane untouched", () => {
+  it("projects all classified extension IDs through the official taxonomy and keeps only genuine unresolved rows as Other", () => {
     const runtime = read(runtimePath);
     const artifact = read(artifactPath);
     const receipt = read(receiptPath);
+    const taxonomy = read(taxonomyPath);
     const storageReceipt = read("data/storage/igcse-chemistry-0620.receipt.json");
     const storageManifest = read("data/storage/igcse-chemistry-0620.manifest.json");
     const baseIds = new Set(artifact.rows.map((row: { question_id: string }) => row.question_id));
-    const extension = runtime.questions.filter((row: { id: string }) => !baseIds.has(row.id));
+    const extension = runtime.questions.filter((row: { id: string }) => !baseIds.has(row.id)) as RuntimeRow[];
+    const topics = new Map<string, TaxonomyTopic>(taxonomy.topics.map((row: TaxonomyTopic) => [row.id, row]));
+    const subtopics = new Map<string, TaxonomySubtopic>(taxonomy.subtopics.map((row: TaxonomySubtopic) => [`${row.ownerTopicId}:${row.id}`, row]));
+    const details = new Map<string, TaxonomyDetail>(taxonomy.details.map((row: TaxonomyDetail) => [row.id, row]));
 
     expect(extension).toHaveLength(1600);
-    expect(sha256(JSON.stringify(extension))).toBe(receipt.extension.canonicalSha256);
-    expect(receipt.extension.byteEquivalentInContent).toBe(true);
+    const unresolved = extension.filter((row) => row.classificationReviewStatus === "unresolved_taxonomy_gap");
+    const classified = extension.filter((row) => row.classificationReviewStatus === "classified");
+    expect(classified).toHaveLength(1572);
+    expect(unresolved).toHaveLength(28);
+    for (const row of classified) {
+      const detailId = row.classificationProvenance.primaryDetailId;
+      expect(detailId, row.id).toBeTruthy();
+      const detail = details.get(detailId!);
+      expect(detail, row.id).toBeDefined();
+      if (!detail) throw new Error(`Missing extension taxonomy detail: ${row.id}`);
+      const topic = topics.get(detail.ownerTopicId);
+      const subtopic = subtopics.get(`${detail.ownerTopicId}:${detail.ownerSubtopicCode}`);
+      expect(row.primaryTopicId, row.id).toBe(topic?.id);
+      expect(row.primaryTopic, row.id).toBe(topic?.title);
+      if (topic?.id !== "practical-skills") expect(row.subtopics, row.id).toContain(subtopic?.title);
+    }
+    expect(unresolved.every((row) => row.primaryTopic === "Other" && row.primaryTopicId === null && row.classificationProvenance.gaps.length > 0)).toBe(true);
+    expect(runtime.questions.filter((row: RuntimeRow) => row.primaryTopic === "Other")).toHaveLength(30);
+    expect(receipt.extension.rowsProjected).toBe(1572);
+    expect(receipt.extension.unresolved).toBe(28);
+    expect(receipt.extension.classificationProjectionOnly).toBe(true);
     expect(receipt.assets.mutation).toBe(false);
     expect(storageReceipt.storageState).toBe("verified_readback");
     expect(storageReceipt.completed).toHaveLength(16819);

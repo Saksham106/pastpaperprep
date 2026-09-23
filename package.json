@@ -23,6 +23,7 @@
     "storage:reconcile": "tsx scripts/reconcile-supabase-assets.ts",
     "start": "next start",
     "lint": "eslint",
+    "pretest": "npm run generate:bank-index",
     "test": "vitest run",
     "test:watch": "vitest"
   },

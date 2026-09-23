@@ -1,7 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
-import { join } from "node:path";
 import { BANKS, LOCAL_PREVIEW_BANKS, getAvailableBanks, getBank } from "@/lib/banks";
 import { hasBankAccess } from "@/lib/access";
 import { filterQuestions } from "@/lib/question-filter";
@@ -9,6 +7,7 @@ import { loadBankQuestions } from "@/lib/question-loader";
 import { createPublicBankIndex } from "@/lib/question-index";
 import { getControlledSubtopics, getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy";
 import { isLocalEconomicsPreviewEnabled } from "@/lib/local-preview";
+import { ECONOMICS_RUNTIME_SEALS } from "@/lib/economics-runtime";
 
 describe("IB Economics HL/SL local preview", () => {
   it("keeps the production catalog and index surface at the existing twelve banks", () => {
@@ -80,7 +79,7 @@ describe("IB Economics HL/SL local preview", () => {
   });
 
   it("preserves the final artifact provenance hash on every copied question", async () => {
-    const finalSha = createHash("sha256").update(readFileSync(join(process.env.PASTPAPERPREP_IB_ECONOMICS_SOURCE_ROOT ?? join(process.cwd(), "..", "ib-economics-topic-practice"), "data/classification/final-classifications.json"))).digest("hex");
+    const finalSha = ECONOMICS_RUNTIME_SEALS.finalClassificationsSha256;
     const questions = [...await loadBankQuestions("ib-economics-hl"), ...await loadBankQuestions("ib-economics-sl")];
     expect(finalSha).toBe("28088b8f6a4bfd7c1c18ed9b992e1556876cba7a5df16f33353d29d475a011fb");
     expect(questions.every((question) => question.sourceQuestionUrl?.startsWith("https://") && question.sourceMarkSchemeUrl?.startsWith("https://"))).toBe(true);

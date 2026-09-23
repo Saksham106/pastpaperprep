@@ -6,8 +6,8 @@
     "path": "src/data/production/igcse-chemistry-0620.json",
     "previousSha256": "89d67f190a33373ac8dfb41cadfe04876c4d1123e5e787b12af16d63bbf63b79",
     "legacyLabelSourceRuntimeSha256": "eb2199305060fa0d19bacd30fbdb84e59a0cadc5058d2bde9bda9b6a3bc10930",
-    "sha256": "e079a2905a7f007a03d1a80fbb4f10f51155706fbed39229d6ea44bda3bcb7ed",
-    "runtimeSha256": "f1cc2e047260d6457ccb6bc642373c4e63b3c6dba87fa9e3819aebf2f5a3cf9f",
+    "sha256": "7463f81285762250141a9f24925b7584f59741f5cb1f1b8b772be191547d93cb",
+    "runtimeSha256": "9cf537ce5d68db06762521bb1cd1e57fa1b25fafc79ba2c558a3b993da2d8eba",
     "questionCount": 5129,
     "releaseStatus": "production",
     "publicationStatus": "production",
@@ -31,8 +31,11 @@
   },
   "extension": {
     "rowsPreserved": 1600,
-    "canonicalSha256": "381d30f2851021f76119f65be291d90514469fbfee11102ca2793d97f7784fb9",
-    "byteEquivalentInContent": true
+    "sourceCanonicalSha256": "a2df5dca2adcc4b92691266af92c2c1cbdfbdaf282ac089bdcbd8c9baa473473",
+    "projectedCanonicalSha256": "a2df5dca2adcc4b92691266af92c2c1cbdfbdaf282ac089bdcbd8c9baa473473",
+    "rowsProjected": 1572,
+    "unresolved": 28,
+    "classificationProjectionOnly": true
   },
   "assets": {
     "mutation": false,
@@ -54,7 +57,8 @@
     "legacyRowsExplicitlyUnverified": true,
     "exactLegacyOverlayTargetsAndOrder": true,
     "sourceAssetsMarksAnswersPreserved": true,
-    "extensionRowsUnchanged": true,
+    "extensionNonClassificationFieldsUnchanged": true,
+    "extensionLabelsProjectedFromValidatedOfficialDetailIds": true,
     "storageObjectsUnchanged": true
   }
 }

@@ -2,9 +2,11 @@
 """Apply the independently audited Chemistry 0620 base classifications.
 
 The 3,529-row 2021–2025 classification artifact replaces classification fields
-only. Existing question text, marks, answers, source URLs, asset paths, and all
-1,600 extension rows remain unchanged. The script is deterministic and
-fail-closed on artifact, audit, taxonomy, identity, or provenance drift.
+only. The 1,600 extension rows keep their validated decisions but project their
+stored detail IDs through the official app taxonomy. Existing question text,
+marks, answers, source URLs, and asset paths remain unchanged. The script is
+deterministic and fail-closed on artifact, audit, taxonomy, identity, or
+provenance drift.
 """
 from __future__ import annotations
 
@@ -29,7 +31,7 @@ EXPECTED_AUDIT_SHA256 = "fcf644c900f97b19498af43d61c508f0603d78e02dff2e0853d82ac
 EXPECTED_TAXONOMY_SHA256 = "269bc6f0c3d61c9f4bade7f453a6776d58f869b3e51aed7d6c8e71bb4663d9b0"
 EXPECTED_PREVIOUS_RUNTIME_SHA256 = "eb2199305060fa0d19bacd30fbdb84e59a0cadc5058d2bde9bda9b6a3bc10930"
 EXPECTED_PRE_OVERLAY_RUNTIME_SHA256 = "89d67f190a33373ac8dfb41cadfe04876c4d1123e5e787b12af16d63bbf63b79"
-EXPECTED_GENERATED_RUNTIME_SHA256 = "e079a2905a7f007a03d1a80fbb4f10f51155706fbed39229d6ea44bda3bcb7ed"
+EXPECTED_GENERATED_RUNTIME_SHA256 = "7463f81285762250141a9f24925b7584f59741f5cb1f1b8b772be191547d93cb"
 EXPECTED_OVERLAY_SHA256 = "26282d4c973ffd7b245f5e44c515a0ee12edf8d9961022f7bfc1e26e701905bc"
 EXPECTED_OVERLAY_AUDIT_SHA256 = "1063a6c6a9a0c144decfaa6b127fee08d8295da80e43d080747119511379c8c5"
 
@@ -213,6 +215,97 @@ def apply_classification(
     return updated
 
 
+def apply_extension_projection(
+    current: dict,
+    details: dict[str, dict],
+    topics: dict[str, dict],
+    subtopics: dict[tuple[str, str], dict],
+) -> dict:
+    """Project validated extension IDs into official student-facing labels."""
+    question_id = current["id"]
+    provenance = copy.deepcopy(current.get("classificationProvenance") or {})
+    validated = current.get("validatedExtension") or {}
+    primary_id = provenance.get("primaryDetailId") or validated.get("primaryDetailId")
+    unresolved = current.get("classificationReviewStatus") == "unresolved_taxonomy_gap"
+
+    if unresolved:
+        if primary_id:
+            raise ValueError(f"unresolved extension row unexpectedly has a primary ID: {question_id}")
+        gaps = unique(provenance.get("gaps") or [])
+        if not gaps:
+            gaps = ["No validated syllabus taxonomy owner was identified for this extension question."]
+        updated = copy.deepcopy(current)
+        updated.update(
+            {
+                "primaryTopic": "Other",
+                "primaryTopicId": None,
+                "secondaryTopics": [],
+                "subtopics": [],
+                "detailedSubtopics": [],
+                "secondarySubtopics": [],
+                "skills": [],
+                "assessmentObjectives": [],
+                "classificationReviewStatus": "unresolved_taxonomy_gap",
+                "classificationProvenance": {**provenance, "primaryDetailId": None, "gaps": gaps},
+            }
+        )
+    else:
+        if current.get("classificationReviewStatus") != "classified" or not primary_id:
+            raise ValueError(f"classified extension row lacks a validated primary ID: {question_id}")
+        primary = resolve_detail(primary_id, question_id, details, topics, subtopics)
+        if primary is None:
+            raise ValueError(f"extension primary taxonomy projection failed for {question_id}")
+        secondary: list[dict] = []
+        omitted_secondary_ids: list[str] = []
+        for item in validated.get("secondary") or []:
+            detail_id = item if isinstance(item, str) else item.get("detail_id")
+            if detail_id not in details:
+                omitted_secondary_ids.append(detail_id)
+                continue
+            resolved = resolve_detail(item, question_id, details, topics, subtopics)
+            if resolved is None:
+                raise ValueError(f"extension secondary taxonomy projection failed for {question_id}")
+            secondary.append(resolved)
+        primary_is_practical = primary["topic_id"] == "practical-skills"
+        skills = unique(
+            ([primary["subtopic_title"]] if primary_is_practical else [])
+            + [item["subtopic_title"] for item in secondary if item["topic_id"] == "practical-skills"]
+        )
+        content_secondary = [item for item in secondary if item["topic_id"] != "practical-skills"]
+        subtopic_labels = unique(
+            ([] if primary_is_practical else [primary["subtopic_title"]])
+            + [item["subtopic_title"] for item in content_secondary]
+        )
+        updated = copy.deepcopy(current)
+        updated.update(
+            {
+                "primaryTopic": primary["topic_title"],
+                "primaryTopicId": primary["topic_id"],
+                "secondaryTopics": unique([item["topic_title"] for item in content_secondary]),
+                "subtopics": subtopic_labels,
+                "detailedSubtopics": unique(subtopic_labels + skills),
+                "secondarySubtopics": unique([item["subtopic_title"] for item in content_secondary]),
+                "skills": skills,
+                "assessmentObjectives": [],
+                "classificationReviewStatus": "classified",
+                "classificationProvenance": {
+                    **provenance,
+                    "selectedSource": "validated-extension",
+                    "primaryDetailId": primary["id"],
+                    "secondaryDetailIds": [item["id"] for item in secondary],
+                    "omittedStaleSecondaryDetailIds": omitted_secondary_ids,
+                    "gaps": [],
+                    "taxonomyPath": "src/data/igcse-chemistry-0620-official-taxonomy.json",
+                    "taxonomySha256": EXPECTED_TAXONOMY_SHA256,
+                },
+            }
+        )
+
+    if strip_classification(current) != strip_classification(updated):
+        raise ValueError(f"non-classification extension fields changed for {question_id}")
+    return updated
+
+
 def main() -> None:
     artifact_bytes = ARTIFACT_PATH.read_bytes()
     audit_bytes = AUDIT_PATH.read_bytes()
@@ -295,7 +388,7 @@ def main() -> None:
     for row in runtime["questions"]:
         final_row = final_by_id.get(row["id"])
         if final_row is None:
-            questions.append(copy.deepcopy(row))
+            questions.append(apply_extension_projection(row, details, topics, subtopics))
             continue
         updated = apply_classification(row, final_row, details, topics, subtopics)
         if final_row.get("primary") is None:
@@ -325,8 +418,18 @@ def main() -> None:
         base_rows.append(updated)
 
     extension_after = [row for row in questions if row["id"] not in final_by_id]
-    if extension_after != extension_before or canonical_sha256(extension_after) != extension_sha256:
-        raise ValueError("extension rows changed while applying base classification")
+    if len(extension_after) != EXTENSION_COUNT:
+        raise ValueError("extension row count changed")
+    for before, after in zip(extension_before, extension_after):
+        if before["id"] != after["id"] or strip_classification(before) != strip_classification(after):
+            raise ValueError(f"extension non-classification fields changed for {before['id']}")
+    extension_status_counts = Counter(row["classificationReviewStatus"] for row in extension_after)
+    if extension_status_counts != Counter({"classified": 1572, "unresolved_taxonomy_gap": 28}):
+        raise ValueError(f"unexpected extension classification counts: {extension_status_counts}")
+    if any(row["primaryTopic"] == "Other" for row in extension_after if row["classificationReviewStatus"] == "classified"):
+        raise ValueError("classified extension row still projects to Other")
+    if any(row["primaryTopic"] != "Other" or not row["classificationProvenance"]["gaps"] for row in extension_after if row["classificationReviewStatus"] == "unresolved_taxonomy_gap"):
+        raise ValueError("unresolved extension row is not explicitly represented")
     if len(base_rows) != BASE_COUNT:
         raise ValueError("not all audited base rows were applied")
 
@@ -352,7 +455,7 @@ def main() -> None:
         raise ValueError(f"unexpected base classification counts: {status_counts}")
 
     runtime["questions"] = questions
-    runtime["version"] = "igcse-chemistry-0620-release-candidate-v3-audited-base"
+    runtime["version"] = "igcse-chemistry-0620-release-candidate-v4-taxonomy-projected"
     runtime["questionCount"] = TOTAL_COUNT
     runtime["releaseStatus"] = "production"
     runtime["publicationStatus"] = "production"
@@ -370,6 +473,8 @@ def main() -> None:
         "sourceStatusCounts": dict(sorted(source_status_counts.items())),
         "finalStatusCounts": dict(sorted(final_status_counts.items())),
         "extensionRowsPreserved": EXTENSION_COUNT,
+        "extensionRowsProjected": extension_status_counts["classified"],
+        "extensionUnresolvedCount": extension_status_counts["unresolved_taxonomy_gap"],
         "assetMutation": False,
         "legacyLabelRecovery": {"overlayPath": "data/release/chemistry-0620-legacy-label-recovery/legacy-label-overlay.json", "overlaySha256": EXPECTED_OVERLAY_SHA256, "auditPath": "data/release/chemistry-0620-legacy-label-recovery/audit.json", "auditSha256": EXPECTED_OVERLAY_AUDIT_SHA256, "restoredLegacyUnverified": 723, "remainingOther": 2},
     }
@@ -447,8 +552,11 @@ def main() -> None:
         },
         "extension": {
             "rowsPreserved": EXTENSION_COUNT,
-            "canonicalSha256": extension_sha256,
-            "byteEquivalentInContent": True,
+            "sourceCanonicalSha256": extension_sha256,
+            "projectedCanonicalSha256": canonical_sha256(extension_after),
+            "rowsProjected": extension_status_counts["classified"],
+            "unresolved": extension_status_counts["unresolved_taxonomy_gap"],
+            "classificationProjectionOnly": True,
         },
         "assets": {
             "mutation": False,
@@ -470,7 +578,8 @@ def main() -> None:
             "legacyRowsExplicitlyUnverified": True,
             "exactLegacyOverlayTargetsAndOrder": True,
             "sourceAssetsMarksAnswersPreserved": True,
-            "extensionRowsUnchanged": True,
+            "extensionNonClassificationFieldsUnchanged": True,
+            "extensionLabelsProjectedFromValidatedOfficialDetailIds": True,
             "storageObjectsUnchanged": True,
         },
     }
@@ -484,7 +593,8 @@ def main() -> None:
                 "rows": TOTAL_COUNT,
                 "base_classified": status_counts["classified"],
                 "base_unresolved": status_counts["unresolved_taxonomy_gap"],
-                "extension_preserved": EXTENSION_COUNT,
+                "extension_projected": extension_status_counts["classified"],
+                "extension_unresolved": extension_status_counts["unresolved_taxonomy_gap"],
             },
             indent=2,
         )
