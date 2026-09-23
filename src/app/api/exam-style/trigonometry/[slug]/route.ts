@@ -5,15 +5,14 @@ import { signExamStyleTrigonometryPdf } from "@/lib/exam-style-trigonometry-serv
 export const runtime = "nodejs";
 
 export async function GET(
-  request: Request,
+  _request: Request,
   { params }: { params: Promise<{ slug: string }> },
 ) {
   const { slug } = await params;
   if (!getExamStyleTrigonometrySet(slug)) {
     return NextResponse.json({ error: "Practice set not found" }, { status: 404 });
   }
-  const download = new URL(request.url).searchParams.get("download") === "1";
-  const signedUrl = await signExamStyleTrigonometryPdf(slug, download).catch(() => null);
+  const signedUrl = await signExamStyleTrigonometryPdf(slug).catch(() => null);
   if (!signedUrl) return NextResponse.json({ error: "Practice set temporarily unavailable" }, { status: 503 });
   return NextResponse.redirect(signedUrl, {
     status: 307,

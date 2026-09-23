@@ -24,12 +24,12 @@ function getR2Client() {
   };
 }
 
-export async function signExamStyleTrigonometryPdf(slug: string, download: boolean) {
+export async function signExamStyleTrigonometryPdf(slug: string) {
   const set = getExamStyleTrigonometrySet(slug);
   if (!set) return undefined;
   const { bucket, client } = getR2Client();
   const safeFilename = `${set.slug}.pdf`;
-  const disposition = `${download ? "attachment" : "inline"}; filename="${safeFilename}"`;
+  const disposition = `inline; filename="${safeFilename}"`;
   return getSignedUrl(client, new GetObjectCommand({
     Bucket: bucket,
     Key: set.objectKey,
