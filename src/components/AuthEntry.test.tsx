@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { AuthEntry } from "@/components/AuthEntry";
 
@@ -22,5 +23,32 @@ describe("AuthEntry", () => {
 
     fireEvent.click(screen.getByRole("button", { name: /sign in instead/i }));
     expect(screen.getByText("Existing sign-in methods")).toBeInTheDocument();
+  });
+
+  it("moves keyboard focus to the new mode heading", async () => {
+    const user = userEvent.setup();
+    render(<AuthEntry next="/dashboard" />);
+
+    const createAccount = screen.getByRole("button", { name: /create a free account/i });
+    createAccount.focus();
+    await user.keyboard("{Enter}");
+
+    expect(screen.getByRole("heading", { name: /create your account/i })).toHaveFocus();
+
+    const signIn = screen.getByRole("button", { name: /sign in instead/i });
+    signIn.focus();
+    await user.keyboard(" ");
+
+    expect(screen.getByRole("heading", { name: /sign in to pastpaperprep/i })).toHaveFocus();
+  });
+
+  it("preserves the invalid-link message in the sign-in flow", () => {
+    render(<AuthEntry next="/dashboard" hasLinkError />);
+
+    expect(screen.getByRole("alert")).toHaveTextContent(/invalid or expired/i);
+    fireEvent.click(screen.getByRole("button", { name: /create a free account/i }));
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: /sign in instead/i }));
+    expect(screen.getByRole("alert")).toHaveTextContent(/invalid or expired/i);
   });
 });
