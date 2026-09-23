@@ -56,6 +56,43 @@ export async function signInWithPassword(
   redirect(next);
 }
 
+export async function createAccountWithPassword(
+  _previousState: MagicLinkState,
+  formData: FormData,
+): Promise<MagicLinkState> {
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  const password = String(formData.get("password") ?? "");
+  const confirmation = String(formData.get("passwordConfirmation") ?? "");
+  const next = safeNextPath(String(formData.get("next") ?? "/account"));
+
+  if (!isValidEmail(email)) {
+    return { status: "error", message: "Enter a valid email address." };
+  }
+  if (!isValidPassword(password)) {
+    return { status: "error", message: "Use 12-72 characters for your password." };
+  }
+  if (password !== confirmation) {
+    return { status: "error", message: "Those passwords do not match." };
+  }
+
+  const supabase = await createClient();
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const handoffUrl = new URL("/auth/email-link", siteUrl);
+  handoffUrl.searchParams.set("next", next);
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: { emailRedirectTo: handoffUrl.toString() },
+  });
+
+  if (error) {
+    return { status: "error", message: "We couldn’t create your account. Try again in a minute." };
+  }
+  if (data.session) redirect(next);
+
+  return { status: "success", message: "Check your email to confirm your account." };
+}
+
 export async function requestPasswordReset(
   _previousState: MagicLinkState,
   formData: FormData,

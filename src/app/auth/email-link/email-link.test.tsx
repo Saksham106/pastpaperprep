@@ -48,7 +48,7 @@ describe("scanner-safe magic-link handoff", () => {
     expect(renderToStaticMarkup(malformed)).toContain("Request a new sign-in link");
 
     const wrongType = await EmailLinkPage({
-      searchParams: Promise.resolve({ token_hash: tokenHash, type: "recovery" }),
+      searchParams: Promise.resolve({ token_hash: tokenHash, type: "invite" }),
     });
     expect(renderToStaticMarkup(wrongType)).not.toContain('action="/auth/confirm"');
 

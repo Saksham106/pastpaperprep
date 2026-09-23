@@ -46,7 +46,7 @@ describe("GET /auth/confirm", () => {
     expect(response.headers.get("location")).toBe("https://pastpaperprep.com/account/password");
   });
 
-  it.each(["magiclink", "invite", "email_change", "unknown"])(
+  it.each(["invite", "magiclink", "email_change", "unknown"])(
     "rejects the %s OTP flow before verification",
     async (type) => {
       const response = await GET(request(`token_hash=${tokenHash}&type=${type}&next=%2Fpricing`));

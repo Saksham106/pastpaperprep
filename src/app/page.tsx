@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { MarketingHome } from "@/components/MarketingHome";
+import { InviteHandoff } from "@/components/InviteHandoff";
 import { JsonLd } from "@/components/JsonLd";
 import { SOCIAL_IMAGE } from "@/lib/seo";
 
@@ -19,6 +20,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
+      <InviteHandoff />
       <JsonLd data={{
         "@context": "https://schema.org",
         "@graph": [

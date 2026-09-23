@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { SignInMethods } from "@/components/SignInMethods";
+import { AuthEntry } from "@/components/AuthEntry";
 import { safeNextPath } from "@/lib/auth";
 import { PRIVATE_ROBOTS } from "@/lib/seo";
 
@@ -18,15 +18,7 @@ export default async function LoginPage({
     <div className="public-surface">
       <section className="auth-page shell">
         <div className="auth-card">
-          <p className="eyebrow">Your study space</p>
-          <h1>Sign in to PastPaperPrep.</h1>
-          <p>Your saved questions, filters, and progress are waiting.</p>
-          {params.error && (
-            <p className="form-message error auth-link-error" role="alert">
-              That sign-in link is invalid or expired. Request a fresh one below.
-            </p>
-          )}
-          <SignInMethods next={next} />
+          <AuthEntry next={next} hasLinkError={Boolean(params.error)} />
           <p className="auth-fine-print">By continuing, you agree to our <Link href="/terms">Terms</Link> and <Link href="/privacy">Privacy Policy</Link>.</p>
         </div>
       </section>
