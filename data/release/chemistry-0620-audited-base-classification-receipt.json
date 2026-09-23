@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "chemistry-0620-audited-base-classification-v1",
+  "bank": "igcse-chemistry-0620",
+  "status": "PASS",
+  "productionRuntime": {
+    "path": "src/data/production/igcse-chemistry-0620.json",
+    "previousSha256": "eb2199305060fa0d19bacd30fbdb84e59a0cadc5058d2bde9bda9b6a3bc10930",
+    "sha256": "89d67f190a33373ac8dfb41cadfe04876c4d1123e5e787b12af16d63bbf63b79",
+    "runtimeSha256": "c0276fbe78d5f0cd50d3622cbe0abf8a8ae3bfe40220a99823104a6b948ac4a2",
+    "questionCount": 5129,
+    "releaseStatus": "production",
+    "publicationStatus": "production",
+    "assetVerification": "verified_readback"
+  },
+  "auditedBase": {
+    "artifactPath": "data/release/chemistry-0620-audited-base/chemistry0620-final.json",
+    "artifactSha256": "c56b92729cdfbccd7ec0d835c924c708f9992b5b75b70e079ff1035e1dc62a1c",
+    "auditPath": "data/release/chemistry-0620-audited-base/final-assembled-artifact-audit.json",
+    "auditSha256": "fcf644c900f97b19498af43d61c508f0603d78e02dff2e0853d82acd7846e741",
+    "auditVerdict": "PASS",
+    "rowsApplied": 3529,
+    "classified": 2804,
+    "unresolved": 725,
+    "nonClassificationFieldsPreserved": 3529
+  },
+  "extension": {
+    "rowsPreserved": 1600,
+    "canonicalSha256": "381d30f2851021f76119f65be291d90514469fbfee11102ca2793d97f7784fb9",
+    "byteEquivalentInContent": true
+  },
+  "assets": {
+    "mutation": false,
+    "manifestPath": "data/storage/igcse-chemistry-0620.manifest.json",
+    "manifestSha256": "b47b5829ef6e5b95738f19f4f318af96b6517ef3089be89b1183d97dfda2db5b",
+    "receiptPath": "data/storage/igcse-chemistry-0620.receipt.json",
+    "receiptSha256": "935f8c574bd1ef4e7fd1760a13fdec3ce31503144185070df0c76603a225b357",
+    "storageState": "verified_readback"
+  },
+  "taxonomy": {
+    "path": "src/data/igcse-chemistry-0620-official-taxonomy.json",
+    "sha256": "269bc6f0c3d61c9f4bade7f453a6776d58f869b3e51aed7d6c8e71bb4663d9b0"
+  },
+  "invariants": {
+    "exactAuditedIdCoverage": true,
+    "duplicateQuestionIds": 0,
+    "unresolvedRowsHaveNoFallbackPrimary": true,
+    "unresolvedRowsHaveExplicitGaps": true,
+    "sourceAssetsMarksAnswersPreserved": true,
+    "extensionRowsUnchanged": true,
+    "storageObjectsUnchanged": true
+  }
+}
