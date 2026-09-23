@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --webpack",
     "predev": "npm run generate:bank-index",
-    "build": "next build",
+    "build": "NODE_OPTIONS=--max-old-space-size=6144 next build",
     "prebuild": "npm run generate:bank-index",
     "generate:bank-index": "node scripts/generate-bank-index.mjs",
     "generate:aa-official-subtopics": "python3 scripts/generate_aa_official_subtopics.py --research-root /Users/sakshamgoel/Documents/ProjectsInternships/research/aa-official-subtopics",
