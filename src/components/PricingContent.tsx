@@ -12,6 +12,7 @@ import { type Bank, type BankSlug } from "@/lib/banks";
 import { getGraduatedBundlePrice } from "@/lib/custom-bundles";
 import { getCatalogBanksForDisplay, getCatalogRuntimeBanks } from "@/lib/catalog";
 import { PRICING_MODEL } from "@/lib/pricing-model";
+import { trackProductEvent } from "@/lib/product-analytics";
 import { annualSavingPercent, formatPrice, maximumAnnualSavingPercent, priceForBankCount } from "@/lib/pricing-model";
 import { QualificationTabs } from "@/components/QualificationTabs";
 
@@ -30,7 +31,7 @@ const PLANS = [
   },
   {
     name: "All Access", label: PRICING_MODEL.allAccess.label, monthly: formatPrice(PRICING_MODEL.allAccess.monthlyCents), annualMonthly: formatPrice(PRICING_MODEL.allAccess.annualCents / 12), annual: formatPrice(PRICING_MODEL.allAccess.annualCents), annualSaving: `${annualSavingPercent(PRICING_MODEL.allAccess.monthlyCents, PRICING_MODEL.allAccess.annualCents)}%`,
-    description: "Everything, including future banks.", mode: "all" as const, tone: "premium", artwork: "/artwork/plato-academy-mosaic.webp", popular: false, icon: CrownSimple, cta: "Get All Access",
+    description: "Everything, including future banks.", mode: "all" as const, tone: "premium", artwork: "/artwork/plato-academy-mosaic.webp", popular: false, icon: CrownSimple, cta: "Unlock all banks",
   },
 ] as const;
 
@@ -68,6 +69,12 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
   const handleBuilderSelectionChange = useCallback((selectedBankIds: readonly BankSlug[]) => {
     setBuilderBankIds([...selectedBankIds]);
   }, []);
+  const chooseInterval = (nextInterval: BillingInterval) => {
+    setInterval(nextInterval);
+    trackProductEvent("billing_interval_change", { interval: nextInterval });
+  };
+  const totalQuestions = availableBanks.reduce((total, bank) => total + bank.questionCount, 0);
+  const totalPapers = availableBanks.reduce((total, bank) => total + bank.paperCount, 0);
 
   const renderPlan = (plan: (typeof PLANS)[number]) => {
     const PlanIcon = plan.icon;
@@ -124,6 +131,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
             ctaLabel={checkoutCta}
           />
         )}
+        <p className="plan-assurance">Secure Stripe checkout · Cancel any time</p>
       </article>
     );
   };
@@ -149,12 +157,18 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         ) : null}
 
         <div className="billing-toggle" role="group" aria-label="Billing period">
-          <button type="button" aria-pressed={interval === "monthly"} onClick={() => setInterval("monthly")}>Monthly</button>
-          <button className="billing-toggle-annual" type="button" aria-pressed={interval === "annual"} onClick={() => setInterval("annual")}>Annual — save {maximumAnnualSavingPercent()}%<span className="billing-savings">2 months free</span></button>
+          <button type="button" aria-pressed={interval === "monthly"} onClick={() => chooseInterval("monthly")}>Monthly</button>
+          <button className="billing-toggle-annual" type="button" aria-pressed={interval === "annual"} onClick={() => chooseInterval("annual")}>Annual — save {maximumAnnualSavingPercent()}%<span className="billing-savings">2 months free</span></button>
         </div>
 
         <div className="pricing-decision-grid" aria-label="PastPaperPrep plans">
           {PLANS.map(renderPlan)}
+        </div>
+
+        <div className="pricing-product-proof" aria-label="Current PastPaperPrep coverage">
+          <span><strong>{totalQuestions.toLocaleString()}</strong> questions</span>
+          <span><strong>{totalPapers.toLocaleString()}</strong> papers</span>
+          <span><strong>{availableBanks.length}</strong> available banks</span>
         </div>
 
         <div className="pricing-free-strip">
@@ -183,7 +197,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           ].filter((item) => item.panel.props.banks.length > 0)} />
         </section>
 
-        <p className="checkout-note">Secure Stripe checkout. Cancel any time. Existing subscribers remain grandfathered at their current price and access.</p>
+        <p className="checkout-note">Secure Stripe checkout. Cancel any time. Existing subscribers remain grandfathered at their current price and access. <Link href="/refund-policy">Read the refund policy.</Link></p>
       </section>
     </div>
   );

@@ -1,5 +1,9 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+
+const analytics = vi.hoisted(() => ({ trackProductEvent: vi.fn() }));
+vi.mock("@/lib/product-analytics", () => analytics);
+
 import { CheckoutButton, CheckoutButtons, CustomBundleCheckout, PlanCheckout, PortalButton } from "@/components/BillingActions";
 
 const fetchMock = vi.fn();
@@ -27,6 +31,11 @@ describe("CheckoutButtons", () => {
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ interval: "monthly", productId: "bank_ib_hl" }),
     }));
+    expect(analytics.trackProductEvent).toHaveBeenCalledWith("checkout_start", {
+      interval: "monthly",
+      productId: "bank_ib_hl",
+      bankCount: 0,
+    });
     expect(navigate).toHaveBeenCalledWith("https://checkout.stripe.com/c/pay/monthly");
   });
 
@@ -116,6 +125,14 @@ describe("CustomBundleCheckout", () => {
     expect(screen.queryByRole("button", { name: /choose monthly/i })).not.toBeInTheDocument();
   });
 
+  it("uses the selected bank name in a single-bank checkout action", () => {
+    render(<CustomBundleCheckout mode="single" interval="monthly" authenticated={false} hasPaidAccess={false} />);
+
+    fireEvent.click(screen.getByRole("radio", { name: "IB Math AA SL" }));
+
+    expect(screen.getByRole("link", { name: "Unlock IB Math AA SL" })).toBeInTheDocument();
+  });
+
   it("does not preselect builder banks and requires two choices before checkout", () => {
     render(<CustomBundleCheckout mode="builder" interval="monthly" authenticated={true} hasPaidAccess={false} />);
     const checkboxes = screen.getAllByRole("checkbox");
@@ -138,7 +155,7 @@ describe("CustomBundleCheckout", () => {
     fetchMock.mockResolvedValue({ ok: false, status: 503, json: async () => ({ error: "stop after request" }) });
 
     const { unmount } = render(<CustomBundleCheckout mode="single" interval="monthly" authenticated={true} hasPaidAccess={false} initialBankIds={["igcse-biology-0610"]} />);
-    fireEvent.click(screen.getByRole("button", { name: /choose monthly/i }));
+    fireEvent.click(screen.getByRole("button", { name: "Continue to checkout" }));
     await waitFor(() => expect(fetchMock).toHaveBeenLastCalledWith("/api/billing/checkout", expect.objectContaining({
       body: JSON.stringify({ interval: "monthly", productId: "bank_igcse_biology_0610" }),
     })));
@@ -146,7 +163,7 @@ describe("CustomBundleCheckout", () => {
 
     fetchMock.mockClear();
     render(<CustomBundleCheckout mode="single" interval="annual" authenticated={true} hasPaidAccess={false} initialBankIds={["igcse-economics-0455"]} />);
-    fireEvent.click(screen.getByRole("button", { name: /choose annual/i }));
+    fireEvent.click(screen.getByRole("button", { name: "Continue to checkout" }));
     await waitFor(() => expect(fetchMock).toHaveBeenLastCalledWith("/api/billing/checkout", expect.objectContaining({
       body: JSON.stringify({ interval: "annual", productId: "bank_igcse_economics_0455" }),
     })));
@@ -156,7 +173,7 @@ describe("CustomBundleCheckout", () => {
     fetchMock.mockResolvedValue({ ok: false, status: 503, json: async () => ({ error: "stop after request" }) });
     render(<CustomBundleCheckout mode="single" interval="annual" authenticated={true} hasPaidAccess={false} initialBankIds={["ib-sl"]} />);
 
-    fireEvent.click(screen.getByRole("button", { name: /choose annual/i }));
+    fireEvent.click(screen.getByRole("button", { name: "Unlock IB Math AA SL" }));
 
     await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/billing/checkout", expect.objectContaining({
       body: JSON.stringify({ interval: "annual", productId: "bank_ib_sl" }),

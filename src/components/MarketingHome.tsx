@@ -42,14 +42,41 @@ export function MarketingHome({ environment = process.env }: { environment?: Rec
     <section className={styles.hero}>
       <div className={styles.heroArtwork} aria-hidden="true"><Image className={styles.heroBuilding} src="/artwork/georgetown-1829.webp" alt="" width={1280} height={771} priority sizes="100vw" quality={90} /><Image className={styles.heroBotanical} src="/artwork/atkins-spiraea.webp" alt="" width={444} height={624} sizes="(min-width: 621px) 0px" /></div>
       <div className={`shell ${styles.heroStage}`}>
-        <div className={styles.heroCopy}><p className={styles.eyebrow}>PastPaperPrep</p><h1>Practice the<br /><em>topics you need.</em></h1><div className={styles.heroActions}><Link className="button primary" href="#question-banks">Choose your course <ArrowRight weight="bold" /></Link><Link className="button secondary" href="#workflow">See how it works <ArrowRight weight="bold" /></Link></div></div>
+        <div className={styles.heroCopy}><p className={styles.eyebrow}>PastPaperPrep</p><h1>Practice the<br /><em>topics you need.</em></h1><div className={styles.heroActions}><Link className="button primary" href="/banks/igcse?free=1">Try free questions <ArrowRight weight="bold" /></Link><Link className="button secondary" href="#question-banks">Choose your course <ArrowRight weight="bold" /></Link></div></div>
         <div className={styles.heroIndex}><span>Question archive</span><strong>{totalQuestions.toLocaleString()}</strong><small>questions across {totalPapers.toLocaleString()} papers</small><span className={styles.visuallyHidden}>{totalQuestions.toLocaleString()} questions across {totalPapers.toLocaleString()} papers in {banks.length} banks.</span></div>
       </div>
     </section>
 
+
     <section className={`shell ${styles.banks}`} id="question-banks" aria-labelledby="question-banks-heading"><header className={styles.sectionHeader}><p className={styles.sectionKicker}>The collection</p><h2 id="question-banks-heading">Choose where to begin.</h2><p>Qualification first. Subject second. Then a bank of real questions, ready to work through.</p></header><QualificationTabs items={[...(cambridgeBanks.length > 0 ? [{ id: "cambridge-catalog", label: "Cambridge IGCSE", panel: <CatalogPanel banks={cambridgeBanks} /> }] : []), ...(ibBanks.length > 0 ? [{ id: "ib-catalog", label: "IB Diploma", panel: <CatalogPanel banks={ibBanks} /> }] : [])]} /></section>
 
-    <section className={styles.workflow} id="workflow" aria-labelledby="workflow-heading"><div className={`shell ${styles.workflowGrid}`}><div className={styles.workflowIntro}><p className={styles.sectionKicker}>A better revision loop</p><h2 id="workflow-heading">From topic to finished practice set.</h2><p>Stay close to the syllabus and the source paper. Nothing invented, nothing extra.</p></div><ol className={styles.workflowList}><li><FunnelSimple aria-hidden="true" /><div><strong>Select a topic</strong><span>Start with the syllabus point you need to strengthen.</span></div></li><li><PencilSimpleLine aria-hidden="true" /><div><strong>Solve real questions</strong><span>Work through exam questions chosen for that exact topic.</span></div></li><li><DownloadSimple aria-hidden="true" /><div><strong>Keep the mark scheme close</strong><span>Download the questions and mark scheme together as a clean PDF.</span></div></li></ol></div></section>
+    <section className={styles.workflow} id="workflow" aria-labelledby="workflow-heading"><div className={`shell ${styles.workflowGrid}`}><div className={styles.workflowIntro}><p className={styles.sectionKicker}>A better revision loop</p><h2 id="workflow-heading">From topic to finished practice set.</h2><p>Stay close to the syllabus and the source paper. Nothing invented, nothing extra.</p><Link className={styles.workflowLink} href="/banks/igcse?free=1">Open real free questions <ArrowRight weight="bold" /></Link></div><ol className={styles.workflowList}><li><FunnelSimple aria-hidden="true" /><div><strong>Select a topic</strong><span>Start with the syllabus point you need to strengthen.</span></div></li><li><PencilSimpleLine aria-hidden="true" /><div><strong>Solve real questions</strong><span>Work through exam questions chosen for that exact topic.</span></div></li><li><DownloadSimple aria-hidden="true" /><div><strong>Keep the mark scheme close</strong><span>Download the questions and mark scheme together as a clean PDF.</span></div></li></ol></div></section>
+
+    <section className={styles.research} aria-label="Backed by learning science">
+      <div className={`shell ${styles.researchShell}`}>
+        <p className={styles.sectionKicker}>Backed by learning science</p>
+        <div className={styles.researchPanel}>
+          <article className={styles.researchStudy} data-research-study>
+            <strong><span>Up to</span> 25%</strong>
+            <span>higher unit-exam scores</span>
+            <p>Low-stakes quizzes with feedback raised scores by 13–25% on real unit exams in 8th-grade science classes.</p>
+            <a href="https://doi.org/10.1037/a0021782" target="_blank" rel="noreferrer"><small>Journal of Educational Psychology · 2011</small>Read study <ArrowRight weight="bold" /></a>
+          </article>
+          <article className={styles.researchStudy} data-research-study>
+            <strong>37%</strong>
+            <span>higher score after one week</span>
+            <p>Students scored 67% after retrieval practice versus 49% after repeated study—a 37% lift.</p>
+            <a href="https://doi.org/10.1126/science.1199327" target="_blank" rel="noreferrer"><small>Science · 2011</small>Read study <ArrowRight weight="bold" /></a>
+          </article>
+          <article className={styles.researchStudy} data-research-study>
+            <strong>53%</strong>
+            <span>more remembered after one week</span>
+            <p>Students remembered 61% after self-testing versus 40% after rereading—53% more.</p>
+            <a href="https://doi.org/10.1111/j.1467-9280.2006.01693.x" target="_blank" rel="noreferrer"><small>Psychological Science · 2006</small>Read study <ArrowRight weight="bold" /></a>
+          </article>
+        </div>
+      </div>
+    </section>
     <section className={`shell ${styles.faqPreview}`} aria-labelledby="home-faq-heading">
       <header className={styles.faqIntro}>
         <p className={styles.sectionKicker}>Good to know</p>

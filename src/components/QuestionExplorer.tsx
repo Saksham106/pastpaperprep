@@ -16,6 +16,7 @@ import { pulseSuccess, shakeElement } from "@/lib/button-feedback";
 import { mergeQuestionRichDetails, publicMetadataToQuestion, type PublicBankIndex } from "@/lib/question-index";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 import { formatPublicLabel } from "@/lib/presentation";
+import { trackProductEvent } from "@/lib/product-analytics";
 
 type MultiKey = ExplorerFilterKey;
 
@@ -589,6 +590,7 @@ access: ExplorerAccess;
       return { ...current, [key]: next };
     });
     setVisible(EXPLORER_PAGE_SIZE);
+    trackProductEvent("question_filter_change", { bank: bank ?? "unknown", filter: key });
   };
 
   const clearFilters = () => {
@@ -687,6 +689,7 @@ access: ExplorerAccess;
   const exportQuestions = questionsForPdf(filtered, selectedIds, selectionIsExplicit, catalogQuestions);
   const handleDownload = async () => {
     if (!resolvedAccess.canExportPdf || !bank) return;
+    trackProductEvent("pdf_export_attempt", { bank, questionCount: exportQuestions.length, content: pdfContent });
     setPdfStatusKind("progress");
     setPdfStatus(`Preparing ${exportQuestions.length} questions...`);
     try {
@@ -703,6 +706,7 @@ access: ExplorerAccess;
         resolvedExportMarker,
       );
       setPdfStatusKind("success");
+      trackProductEvent("pdf_export_success", { bank, questionCount: exportQuestions.length, content: pdfContent });
       setPdfStatus(`Worksheet ready — ${exportQuestions.length} question${exportQuestions.length === 1 ? "" : "s"} downloaded.`);
       pulseSuccess(pdfBuildButtonRef.current);
       window.setTimeout(() => {
@@ -710,6 +714,7 @@ access: ExplorerAccess;
         setPdfStatus("");
       }, 1400);
     } catch (error) {
+      trackProductEvent("pdf_export_error", { bank, questionCount: exportQuestions.length, content: pdfContent });
       setPdfStatusKind("error");
       setPdfStatus(error instanceof Error ? error.message : "The worksheet could not be built. Check your connection and try again.");
       shakeElement(pdfBuildButtonRef.current);
@@ -718,6 +723,7 @@ access: ExplorerAccess;
   };
 
   const showPdfUpgrade = () => {
+    trackProductEvent("pdf_upgrade_view", { bank: bank ?? "unknown" });
     shakeElement(pdfTriggerRef.current);
     setPdfUpgradeOpen(true);
   };
@@ -733,7 +739,7 @@ access: ExplorerAccess;
         <button ref={filterTriggerRef} className={`mobile-filter-button${activeCount ? " is-active" : ""}`} type="button" aria-haspopup="dialog" aria-expanded={filtersOpen} onClick={() => setFiltersOpen(true)}><Funnel weight="bold" aria-hidden="true" /> Filters{activeCount ? ` (${activeCount})` : ""}</button>
         <SortSelector value={sort} onChange={setSort} />
         <button ref={shareButtonRef} className="share-view-button toolbar-icon-button" type="button" title="Share this view" aria-label="Copy link to this view" onClick={shareWorkspace}><ShareNetwork aria-hidden="true" /></button>
-        <button ref={pdfTriggerRef} className="download-button toolbar-icon-button" type="button" title="Download PDF" aria-label="Download PDF" onClick={() => resolvedAccess.canExportPdf ? setPdfOpen(true) : showPdfUpgrade()}><DownloadSimple aria-hidden="true" /></button>
+        <button ref={pdfTriggerRef} className="download-button toolbar-icon-button" type="button" title="Download PDF" aria-label="Download PDF" onClick={() => { if (resolvedAccess.canExportPdf) { trackProductEvent("pdf_builder_open", { bank: bank ?? "unknown", questionCount: exportQuestions.length }); setPdfOpen(true); } else showPdfUpgrade(); }}><DownloadSimple aria-hidden="true" /></button>
       </div>
       {shareStatus && <p className={`toolbar-status${shareStatus.startsWith("Couldn't") ? " is-error" : " is-success"}`} role="status">{shareStatus}</p>}
 
@@ -833,6 +839,7 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, questio
 
   const toggleAnswer = async () => {
     if (answerOpen) { setAnswerOpen(false); return; }
+    trackProductEvent("answer_reveal", { bank: question.bankSlug, freePreview: isPreviewQuestion(question.bankSlug, question.id) });
     if (question.markschemeImageCount > 0 && !answerAsset) {
       setAnswerLoading(true);
       setAnswerError("");

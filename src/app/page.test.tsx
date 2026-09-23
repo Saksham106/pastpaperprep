@@ -26,7 +26,11 @@ describe("home page corpus summary", () => {
     expect(markup).toContain("Choose where to begin.");
     expect(markup).toContain("Cambridge IGCSE");
     expect(markup).toContain("IB Diploma");
+    expect(markup).toContain("Try free questions");
     expect(markup).toContain("Choose your course");
+    expect(markup).not.toContain("Focused practice with real exam questions builds familiarity");
+    expect(markup).not.toContain("Complete older exam years");
+    expect(markup).toContain("Open real free questions");
     expect(markup).toContain("From topic to finished practice set.");
     expect(markup).toContain("PastPaperPrep");
     expect(markup).toContain("Stay close to the syllabus and the source paper.");
@@ -153,6 +157,31 @@ describe("home page corpus summary", () => {
       "href",
       "mailto:hello@pastpaperprep.com",
     );
+  });
+
+  it("translates three studies into outcomes students can understand", () => {
+    const { container, getByRole, getByText, getAllByRole, queryByRole, queryByText } = render(<MarketingHome environment={liveBankEnvironment} />);
+
+    expect(getByRole("link", { name: /try free questions/i })).toHaveAttribute("href", "/banks/igcse?free=1");
+    expect(getByText("Backed by learning science")).toBeInTheDocument();
+    expect(queryByRole("heading", { name: /practice works better when you retrieve/i })).not.toBeInTheDocument();
+    expect(queryByText(/three large research reviews/i)).not.toBeInTheDocument();
+    expect(container.querySelectorAll("article[data-research-study]")).toHaveLength(3);
+    expect(container.querySelector("article[data-research-study] strong")?.textContent?.replace(/\s+/g, " ").trim()).toBe("Up to 25%");
+    expect(container.querySelector("article[data-research-study] strong > span")?.textContent).toBe("Up to");
+    expect(getByText("37%")).toBeInTheDocument();
+    expect(getByText("53%")).toBeInTheDocument();
+    expect(getByText(/real unit exams/i)).toBeInTheDocument();
+    expect(getByText(/67% after retrieval practice versus 49% after repeated study/i)).toBeInTheDocument();
+    expect(getByText(/61% after self-testing versus 40% after rereading/i)).toBeInTheDocument();
+    const studyLinks = getAllByRole("link", { name: /read study/i });
+    expect(studyLinks).toHaveLength(3);
+    expect(studyLinks.map((link) => link.getAttribute("href"))).toEqual([
+      "https://doi.org/10.1037/a0021782",
+      "https://doi.org/10.1126/science.1199327",
+      "https://doi.org/10.1111/j.1467-9280.2006.01693.x",
+    ]);
+    expect(container.querySelector("blockquote")).toBeNull();
   });
 
   it("describes Economics in homepage search metadata", () => {

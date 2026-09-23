@@ -6,6 +6,7 @@ import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import type { ProductId } from "@/lib/access";
 import { BANKS, type Bank, type BankSlug } from "@/lib/banks";
 import { getCatalogBank } from "@/lib/catalog";
+import { trackProductEvent } from "@/lib/product-analytics";
 
 type Navigate = (url: string) => void;
 type BillingError = { error?: unknown };
@@ -179,6 +180,7 @@ export function CheckoutButton({
 
   async function start() {
     if (pending) return;
+    trackProductEvent("checkout_start", { interval, productId, bankCount: selectedBankIds?.length ?? 0 });
     setPending(true);
     setError("");
     setNeedsLogin(false);
@@ -190,6 +192,7 @@ export function CheckoutButton({
       });
       const payload = await responsePayload(response);
       if (response.status === 401) {
+        trackProductEvent("checkout_auth_required", { interval, productId });
         setNeedsLogin(true);
         return;
       }
@@ -197,8 +200,11 @@ export function CheckoutButton({
         const message = (payload as BillingError).error;
         throw new Error(typeof message === "string" ? message : "Checkout is temporarily unavailable");
       }
-      navigate(trustedStripeUrl(payload.url, "checkout.stripe.com"));
+      const checkoutUrl = trustedStripeUrl(payload.url, "checkout.stripe.com");
+      trackProductEvent("checkout_redirect", { interval, productId });
+      navigate(checkoutUrl);
     } catch (caught) {
+      trackProductEvent("checkout_error", { interval, productId });
       setError(caught instanceof Error ? caught.message : "Checkout is temporarily unavailable");
     } finally {
       setPending(false);
@@ -256,7 +262,7 @@ export function PlanCheckout({
       ) : null}
       {authenticated
         ? <CheckoutButton interval={interval} productId={productId} />
-        : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`}>{ctaLabel}</Link>}
+        : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`} onClick={() => trackProductEvent("checkout_auth_required", { interval, productId })}>{ctaLabel}</Link>}
     </div>
   );
 }
@@ -306,11 +312,17 @@ export function CustomBundleCheckout({
   const selectionSummary = mode === "single"
     ? selectedBankName ?? "Choose a bank"
     : quantity === 0 ? "None selected" : `${quantity} selected`;
+  const resolvedCtaLabel = mode === "single" && selectedBankName
+    ? `Unlock ${selectedBankName}`
+    : ctaLabel;
 
   function toggleBank(bankId: BankSlug) {
     setSelectedBankIds((current) => {
-      if (mode === "single") return [bankId];
-      return current.includes(bankId) ? current.filter((id) => id !== bankId) : [...current, bankId];
+      const next = mode === "single"
+        ? [bankId]
+        : current.includes(bankId) ? current.filter((id) => id !== bankId) : [...current, bankId];
+      trackProductEvent("bank_selection_change", { mode, bankCount: next.length, bank: mode === "single" ? bankId : undefined });
+      return next;
     });
   }
 
@@ -360,9 +372,9 @@ export function CustomBundleCheckout({
       {canCheckout ? <>
         {authenticated
           ? mode === "single"
-            ? singleProductId ? <CheckoutButton interval={interval} productId={singleProductId} /> : null
-            : <CheckoutButton interval={interval} productId="bundle_custom" selectedBankIds={bankSelection} label={ctaLabel} />
-          : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`}>{ctaLabel}</Link>}
+            ? singleProductId ? <CheckoutButton interval={interval} productId={singleProductId} label={resolvedCtaLabel} /> : null
+            : <CheckoutButton interval={interval} productId="bundle_custom" selectedBankIds={bankSelection} label={resolvedCtaLabel} />
+          : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`} onClick={() => trackProductEvent("checkout_auth_required", { interval, productId: mode === "single" ? singleProductId ?? "single_bank" : "bundle_custom", bankCount: bankSelection.length })}>{resolvedCtaLabel}</Link>}
       </> : null}
     </div>
   );
