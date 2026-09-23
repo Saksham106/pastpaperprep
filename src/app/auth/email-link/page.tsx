@@ -19,7 +19,7 @@ export default async function EmailLinkPage({ searchParams }: { searchParams: Pr
   const tokenHash = first(params.token_hash);
   const type = first(params.type);
   const next = safeNextPath(first(params.next));
-  const validType = type === "email" || type === "signup";
+  const validType = type === "email" || type === "signup" || type === "invite";
   const valid = validTokenHash(tokenHash) && validType;
 
   return (
