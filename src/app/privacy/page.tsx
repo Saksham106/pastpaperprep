@@ -5,13 +5,15 @@ export default function PrivacyPage() {
     <article className="legal-page shell">
       <p className="eyebrow">Legal</p>
       <h1>Privacy policy</h1>
-      <p className="legal-updated">Effective 25 August 2026</p>
+      <p className="legal-updated">Effective 22 September 2026</p>
       <h2>What we collect</h2>
-      <p>We collect account details such as your email address, product access, saved questions, study activity, and basic technical logs needed to operate and secure the service.</p>
+      <p>We collect account details such as your email address, product access, saved questions, study activity, and basic technical logs needed to operate and secure the service. We also collect cookieless usage events through PostHog to understand how people use the product.</p>
       <h2>How we use it</h2>
       <p>We use this information to authenticate you, provide purchased access, save progress, support the service, prevent abuse, and improve the product.</p>
+      <h2>Analytics</h2>
+      <p>PostHog provides anonymous, cookieless product analytics so we can understand which product features are useful. Session replay and automatic click capture are disabled, and we do not send account identifiers, submitted answers, or payment details to PostHog.</p>
       <h2>Service providers</h2>
-      <p>We use infrastructure and payment providers, including Supabase, Vercel, and Stripe. They process only the information required to provide their services under their own privacy terms.</p>
+      <p>We use infrastructure, analytics, and payment providers, including Supabase, Vercel, PostHog, and Stripe. They process only the information required to provide their services under their own privacy terms.</p>
       <h2>Payments</h2>
       <p>Card details are handled by Stripe and are not stored by PastPaperPrep.</p>
       <h2>Your choices</h2>
