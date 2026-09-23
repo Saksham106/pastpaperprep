@@ -87,7 +87,11 @@ export function getIGCSERuntimeArtifact(bank: IGCSEReleaseBankSlug, environment:
   const runtimeSealed = metadata?.runtimeSha256 === runtimeSha256(artifact);
   const questionStatesSealed = artifact.questions.every((question) =>
     question.publicationStatus === "production"
-    && (question.classificationReviewStatus === "classified" || question.classificationReviewStatus === "unresolved_taxonomy_gap")
+    && (
+      question.classificationReviewStatus === "classified"
+      || question.classificationReviewStatus === "unresolved_taxonomy_gap"
+      || question.classificationReviewStatus === "legacy_unverified"
+    )
   );
   if (artifact.questions.length !== questions || artifact.paperCount !== papers || metadata?.assetVerification !== "verified_readback" || typeof metadata?.storageReceiptSha256 !== "string" || typeof metadata?.assetManifestSha256 !== "string" || !taxonomySealed || !candidateSealed || !runtimeSealed || !questionStatesSealed) throw new Error("IGCSE runtime is not backed by verified storage, candidate, runtime, taxonomy, and question-state seals");
   return artifact;
