@@ -220,8 +220,8 @@ access: ExplorerAccess;
   const [resolvedAccess, setResolvedAccess] = useState(access);
   const [resolvedExportMarker, setResolvedExportMarker] = useState(exportMarker);
   const [locationHydrated, setLocationHydrated] = useState(!hydrateFromLocation);
+  const [bootstrapPending, setBootstrapPending] = useState(Boolean(bootstrapUrl));
   const filterTriggerRef = useRef<HTMLButtonElement>(null);
-  const initialLocationHadFreeChoiceRef = useRef<boolean | null>(null);
   const filterDialogRef = useRef<HTMLElement>(null);
   const pdfTriggerRef = useRef<HTMLButtonElement>(null);
   const pdfBuildButtonRef = useRef<HTMLButtonElement>(null);
@@ -233,6 +233,10 @@ access: ExplorerAccess;
   const bank = bankSlug ?? questions[0]?.bankSlug;
   const isCambridge = bank === "igcse" || bank === "igcse-additional";
   const plansHref = plansHrefFor(resolvedAccess.authenticated);
+  // Static bank pages start with anonymous-safe data. Keep that provisional free filter
+  // out of the visible workspace until the member bootstrap resolves, and never apply it
+  // to an entitled account (including manual/complimentary entitlements).
+  const effectiveFreeOnly = freeOnly && !bootstrapPending && !resolvedAccess.bankAccess;
   const subtopicGroups = useMemo(
     () => getSubtopicGroups(catalogQuestions, filters.topics ?? [], filters.subtopics ?? []),
     [catalogQuestions, filters.topics, filters.subtopics],
@@ -266,11 +270,11 @@ access: ExplorerAccess;
       ? filterQuestions(catalogQuestions, { ...filters, search: undefined, sort })
         .filter((question) => searchResult!.ids.has(question.id))
       : filterQuestions(catalogQuestions, { ...filters, search, sort });
-    const accessible = freeOnly ? matching.filter((question) => isPreviewQuestion(question.bankSlug, question.id)) : matching;
+    const accessible = effectiveFreeOnly ? matching.filter((question) => isPreviewQuestion(question.bankSlug, question.id)) : matching;
     return savedOnly ? accessible.filter((question) => savedIds.has(question.id)) : accessible;
-  }, [bankSlug, catalogQuestions, filters, freeOnly, indexLoaded, savedIds, savedOnly, search, searchResult, sort]);
+  }, [bankSlug, catalogQuestions, effectiveFreeOnly, filters, indexLoaded, savedIds, savedOnly, search, searchResult, sort]);
   const shownQuestions = useMemo(() => filtered.slice(0, visible), [filtered, visible]);
-  const activeCount = Object.values(filters).reduce((count, values) => count + (values?.length ?? 0), (freeOnly ? 1 : 0) + (savedOnly ? 1 : 0));
+  const activeCount = Object.values(filters).reduce((count, values) => count + (values?.length ?? 0), (effectiveFreeOnly ? 1 : 0) + (savedOnly ? 1 : 0));
   const questionAssetRequests = useMemo(() => shownQuestions
     .filter((question) => resolvedAccess.bankAccess || isPreviewQuestion(question.bankSlug, question.id))
     .filter((question) => !failedAssetKeys.has(signedAssetKey(question.id, "question")))
@@ -294,7 +298,6 @@ access: ExplorerAccess;
     if (!hydrateFromLocation) return;
     let cancelled = false;
     const locationParams = new URLSearchParams(window.location.search);
-    initialLocationHadFreeChoiceRef.current = locationParams.has("free");
     queueMicrotask(() => {
       if (cancelled) return;
       const raw: ExplorerSearchParams = {};
@@ -335,11 +338,12 @@ access: ExplorerAccess;
         if (payload.studyStateUnavailable) {
           setStudyError("Saved and attempted question state could not load. Your bank access is unaffected.");
         }
-        const hadExplicitFreeChoice = initialLocationHadFreeChoiceRef.current
-          ?? new URLSearchParams(window.location.search).has("free");
-        if (payload.access.bankAccess && !hadExplicitFreeChoice) setFreeOnly(false);
+        if (payload.access.bankAccess) setFreeOnly(false);
       })
-      .catch(() => undefined);
+      .catch(() => undefined)
+      .finally(() => {
+        if (!cancelled) setBootstrapPending(false);
+      });
     return () => { cancelled = true; };
   }, [bootstrapUrl]);
 
@@ -547,11 +551,11 @@ access: ExplorerAccess;
   }, [pdfUpgradeOpen]);
 
   useEffect(() => {
-    if (!locationHydrated) return;
-    const query = serializeExplorerState({ search, sort, filters, freeOnly, savedOnly, visible }, { persistFreeChoice: !resolvedAccess.bankAccess });
+    if (!locationHydrated || bootstrapPending) return;
+    const query = serializeExplorerState({ search, sort, filters, freeOnly: effectiveFreeOnly, savedOnly, visible }, { persistFreeChoice: !resolvedAccess.bankAccess });
     const nextUrl = `${window.location.pathname}${query.size ? `?${query}` : ""}${window.location.hash}`;
     window.history.replaceState(window.history.state, "", nextUrl);
-  }, [filters, freeOnly, locationHydrated, resolvedAccess.bankAccess, savedOnly, search, sort, visible]);
+  }, [bootstrapPending, effectiveFreeOnly, filters, locationHydrated, resolvedAccess.bankAccess, savedOnly, search, sort, visible]);
 
   useEffect(() => {
     if (!bank) return;
@@ -746,13 +750,13 @@ access: ExplorerAccess;
       {indexError && <div className="access-notice" role="alert"><span>{indexError}</span><button className="text-button" type="button" onClick={() => { setIndexError(""); setIndexAttempt((attempt) => attempt + 1); }}>Retry question index</button></div>}
       {assetError && <div className="access-notice" role="alert"><span>{assetError}</span><button className="text-button" type="button" onClick={retryQuestionAssets}>Retry images</button></div>}
       {studyError && <div className="access-notice" role="alert">{studyError}</div>}
-      {!resolvedAccess.bankAccess && <div className="free-value-strip"><div><strong>{freeOnly ? "Free exam years are open." : "You’re browsing the full bank."}</strong><span>{freeOnly ? "Practise now, or clear the Free questions only filter to preview the rest." : "Locked questions show what a paid bank plan unlocks."}</span></div><Link className="button secondary" href={plansHref}>{PLANS_LABEL}</Link></div>}
+      {!bootstrapPending && !resolvedAccess.bankAccess && <div className="free-value-strip"><div><strong>{effectiveFreeOnly ? "Free exam years are open." : "You’re browsing the full bank."}</strong><span>{effectiveFreeOnly ? "Practise now, or clear the Free questions only filter to preview the rest." : "Locked questions show what a paid bank plan unlocks."}</span></div><Link className="button secondary" href={plansHref}>{PLANS_LABEL}</Link></div>}
 
       <div className="explorer-layout">
         {filtersOpen && <button className="filter-backdrop" type="button" tabIndex={-1} aria-hidden="true" onClick={() => setFiltersOpen(false)} />}
         <aside ref={filterDialogRef} className={`filter-sidebar ${filtersOpen ? "is-open" : ""}`} role={filtersOpen ? "dialog" : undefined} aria-modal={filtersOpen ? true : undefined} aria-labelledby={filtersOpen ? "filter-sidebar-title" : undefined} aria-label={filtersOpen ? undefined : "Question filters"}>
           <div className="filter-sidebar-heading"><strong id="filter-sidebar-title">Filters</strong><button className="filter-close" type="button" aria-label="Close filters" onClick={() => setFiltersOpen(false)}><X /></button></div>
-          {!resolvedAccess.bankAccess && <div className="filter-group" role="group" aria-labelledby="filter-access"><h3 id="filter-access">Access</h3><div className="filter-options"><label><input aria-label="Free questions only" type="checkbox" checked={freeOnly} onChange={() => { setFreeOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Free questions only</span></label></div></div>}
+          {!bootstrapPending && !resolvedAccess.bankAccess && <div className="filter-group" role="group" aria-labelledby="filter-access"><h3 id="filter-access">Access</h3><div className="filter-options"><label><input aria-label="Free questions only" type="checkbox" checked={effectiveFreeOnly} onChange={() => { setFreeOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Free questions only</span></label></div></div>}
           {resolvedAccess.authenticated && <div className="filter-group" role="group" aria-labelledby="filter-study"><h3 id="filter-study">Study</h3><div className="filter-options"><label><input aria-label="Saved questions only" type="checkbox" checked={savedOnly} onChange={() => { setSavedOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Saved questions only</span></label></div></div>}
           <FilterGroup label="Topics" filterKey="topics" values={options.topics} selected={filters.topics ?? []} onToggle={toggle} />
           <FilterGroup label="Subtopics" filterKey="subtopics" values={visibleSubtopics} selected={filters.subtopics ?? []} onToggle={toggle} />
@@ -780,11 +784,11 @@ access: ExplorerAccess;
 
         <div className="explorer-results" inert={filtersOpen || undefined}>
           <div className="results-heading">
-            <div><strong>{filtered.length.toLocaleString()} {freeOnly ? "free " : ""}{filtered.length === 1 ? "question" : "questions"}</strong>{selectionIsExplicit && <span>{selectedIds.size} selected for PDF</span>}</div>
+            <div><strong>{filtered.length.toLocaleString()} {effectiveFreeOnly ? "free " : ""}{filtered.length === 1 ? "question" : "questions"}</strong>{selectionIsExplicit && <span>{selectedIds.size} selected for PDF</span>}</div>
             <div>{selectionIsExplicit && <button className="text-button" onClick={() => { setSelectionIsExplicit(false); setSelectedIds(new Set()); }}>Use all results for PDF</button>}{(search || activeCount > 0) && <button className="text-button" onClick={clearFilters}>Clear filters</button>}</div>
           </div>
           {activeCount > 0 && <div className="active-filters">
-            {freeOnly && <button aria-label="Remove free questions only filter" onClick={() => setFreeOnly(false)}>Free only <X /></button>}
+            {effectiveFreeOnly && <button aria-label="Remove free questions only filter" onClick={() => setFreeOnly(false)}>Free only <X /></button>}
             {savedOnly && <button aria-label="Remove saved questions only filter" onClick={() => setSavedOnly(false)}>Saved only <X /></button>}
             {Object.entries(filters).flatMap(([key, values]) => (values ?? []).map((value) => <button key={`${key}-${value}`} onClick={() => toggle(key as MultiKey, value)}>{formatPublicLabel(value)} <X /></button>))}
           </div>}

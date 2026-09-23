@@ -73,13 +73,54 @@ describe("QuestionExplorer", () => {
     expect(new URLSearchParams(window.location.search).has("free")).toBe(false);
   });
 
+  it("never exposes a stale free-only state when entitled access is still resolving", async () => {
+    const all = loadBankQuestions("ib-sl");
+    const initial = prepareQuestionsForDelivery(all.slice(0, 40), []);
+    let resolveBootstrap!: (response: Response) => void;
+    const bootstrapResponse = new Promise<Response>((resolve) => { resolveBootstrap = resolve; });
+    window.history.replaceState({}, "", "/banks/ib-sl?free=1");
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      if (String(input) === "/api/banks/bootstrap?bank=ib-sl") return bootstrapResponse;
+      const body = JSON.parse(String(init?.body));
+      return new Response(JSON.stringify({
+        expiresIn: 600,
+        assets: body.requests.map((request: { questionId: string; kind: string }) => ({
+          ...request,
+          urls: [`https://assets.example/${request.questionId}.webp`],
+        })),
+      }), { status: 200, headers: { "content-type": "application/json" } });
+    }));
+
+    render(<QuestionExplorer
+      questions={initial}
+      bankSlug="ib-sl"
+      access={{ authenticated: false, bankAccess: false, canExportPdf: false }}
+      initialState={{ search: "", sort: "paper", filters: {}, freeOnly: true, savedOnly: false, visible: 24 }}
+      bootstrapUrl="/api/banks/bootstrap?bank=ib-sl"
+      hydrateFromLocation
+    />);
+
+    expect(screen.queryByText(/free exam years are open/i)).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /remove free questions only filter/i })).not.toBeInTheDocument();
+
+    resolveBootstrap(new Response(JSON.stringify({
+      access: fullAccess,
+      studyState: { savedIds: [], attemptedIds: [] },
+    }), { status: 200, headers: { "content-type": "application/json" } }));
+
+    await waitFor(() => expect(screen.getByRole("group", { name: /study/i })).toBeInTheDocument());
+    expect(screen.queryByText(/free exam years are open/i)).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /remove free questions only filter/i })).not.toBeInTheDocument();
+    await waitFor(() => expect(new URLSearchParams(window.location.search).has("free")).toBe(false));
+  });
+
   it("removes the anonymous free-only default when paid access resolves after URL hydration", async () => {
     const all = loadBankQuestions("ib-sl");
     const initial = prepareQuestionsForDelivery(all.slice(0, 40), []);
     let resolveBootstrap!: (response: Response) => void;
     const bootstrapResponse = new Promise<Response>((resolve) => { resolveBootstrap = resolve; });
     window.history.replaceState({}, "", "/banks/ib-sl");
-    vi.stubGlobal("fetch", vi.fn(async (input, init) => {
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
       if (String(input) === "/api/banks/bootstrap?bank=ib-sl") return bootstrapResponse;
       const body = JSON.parse(String(init?.body));
       return new Response(JSON.stringify({
@@ -99,7 +140,7 @@ describe("QuestionExplorer", () => {
       hydrateFromLocation
     />);
 
-    await waitFor(() => expect(new URLSearchParams(window.location.search).get("free")).toBe("1"));
+    expect(new URLSearchParams(window.location.search).has("free")).toBe(false);
     resolveBootstrap(new Response(JSON.stringify({
       access: fullAccess,
       studyState: { savedIds: [], attemptedIds: [] },
