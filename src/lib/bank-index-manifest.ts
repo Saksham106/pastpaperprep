@@ -16,7 +16,7 @@ export const PUBLIC_BANK_INDEX_FILES = {
   "ib-economics-sl": "ib-economics-sl.v1-27d48eda5bb7.json",
   "igcse-biology-0610": "igcse-biology-0610.v1-6c48100af4f3.json",
   "igcse-economics-0455": "igcse-economics-0455.v1-6fa5bec104bc.json",
-  "igcse-chemistry-0620": "igcse-chemistry-0620.v1-3aff21deefdd.json",
+  "igcse-chemistry-0620": "igcse-chemistry-0620.v1-dc85d37718ec.json",
   "igcse-physics-0625": "igcse-physics-0625.v1-30a054c9fad7.json",
   "igcse-coordinated-sciences-0654": "igcse-coordinated-sciences-0654.v1-82084893c10e.json"
 } as const;

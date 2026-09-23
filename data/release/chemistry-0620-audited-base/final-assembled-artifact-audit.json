@@ -1,0 +1,88 @@
+{
+  "schema_version": "chemistry0620.final-assembled-artifact-audit.v1",
+  "verdict": "PASS",
+  "read_only": true,
+  "artifact": {
+    "path": "classification/blind-pass/final-assembly/chemistry0620-final.json",
+    "sha256": "c56b92729cdfbccd7ec0d835c924c708f9992b5b75b70e079ff1035e1dc62a1c",
+    "row_count": 3529
+  },
+  "checks": {
+    "canonical_ids_order": {
+      "status": "PASS",
+      "expected_count": 3529,
+      "observed_count": 3529,
+      "order_exact": true,
+      "missing_ids": [],
+      "unexpected_ids": []
+    },
+    "unique_ids": {
+      "status": "PASS",
+      "duplicate_ids": []
+    },
+    "selected_result_hash_provenance": {
+      "status": "PASS",
+      "shard_count": 59,
+      "selected_rows": 3529,
+      "hash_mismatch_shards": [],
+      "size_mismatch_shards": [],
+      "packet_hash_mismatch_shards": [],
+      "result_order_mismatch_shards": [],
+      "result_duplicate_id_shards": []
+    },
+    "correction_overlay": {
+      "status": "PASS",
+      "declared_changes": 7,
+      "expected_changes": 7,
+      "final_replacement_mismatches": []
+    },
+    "source_recovery_overlay": {
+      "status": "PASS",
+      "declared_changes": 33,
+      "expected_changes": 33,
+      "declared_preserved_unresolved": 3,
+      "expected_preserved_unresolved": 3,
+      "final_replacement_mismatches": [],
+      "invalid_preserved_rows": [],
+      "comparison": "Compared primary/secondary/practical detail-id sequences and replacement source_status/status; compact overlay labels are enriched by canonical packet metadata during assembly."
+    },
+    "taxonomy_closure": {
+      "status": "PASS",
+      "issue_count": 0,
+      "sample_issues": []
+    },
+    "zero_duplicate_detail_ids": {
+      "status": "PASS",
+      "row_count": 0,
+      "rows": []
+    },
+    "valid_explicit_unresolved_rows": {
+      "status": "PASS",
+      "invalid_rows": []
+    },
+    "no_source_insufficient_label_leakage": {
+      "status": "PASS",
+      "leaking_rows": []
+    },
+    "deterministic_reassembly": {
+      "status": "PASS",
+      "run1_exit": 0,
+      "run2_exit": 0,
+      "scratch_byte_equal": true,
+      "matches_final_bytes": true,
+      "run1_output": "ASSEMBLED: 3529 rows",
+      "run2_output": "ASSEMBLED: 3529 rows"
+    },
+    "assembler_tests": {
+      "status": "PASS",
+      "output": "...............                                                          [100%]\n15 passed in 0.04s"
+    }
+  },
+  "inputs": {
+    "accepted_manifest_sha256": "e40b4132534812d43b66868d585656a80c9c1eca86812188967c81e47750ff29",
+    "correction_overlay_sha256": "f12310070437b3645606d51abddf08c896a8d4bc37c5b11f61e6b6492646c664",
+    "source_recovery_overlay_sha256": "d20dd7f7ba596dfad8b574e1fa087fd3de762a997c588dd5b4645b2d0a984b54",
+    "taxonomy_sha256": "cbdd5c4fb429156abd183a1d138207a765bcaf4accc38d6fc9272e5021ec2d52"
+  },
+  "notes": "Independent read-only audit; scratch reassemblies only, final artifact and inputs not modified."
+}
