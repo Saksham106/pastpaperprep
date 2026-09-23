@@ -356,15 +356,36 @@ describe("article library", () => {
     ]));
   });
 
-  it("renders factual comparison tables, verification dates, and official sources", () => {
-    const article = getArticle("pastpaperprep-vs-revision-village")!;
-    render(<ArticleContent article={article} />);
+  it("targets the live pricing queries already earning Search Console impressions", () => {
+    expect(getArticle("pastpaperprep-vs-revision-village")).toMatchObject({
+      title: "Revision Village Pricing: Cost, Plans, and PastPaperPrep Comparison",
+      description: "Revision Village lists Gold at $249 for one course and $499 for the complete suite. Compare those one-time prices with PastPaperPrep plans and features.",
+      updatedAt: "2026-09-23",
+    });
+    expect(getArticle("pastpaperprep-vs-exam-mate")).toMatchObject({
+      title: "Exam-Mate Subscription Price: Plans vs PastPaperPrep",
+      description: "Exam-Mate lists topical plans from $12 monthly to $120 yearly. Compare its subscription pricing, subject breadth, and features with PastPaperPrep.",
+      updatedAt: "2026-09-23",
+    });
+  });
+
+  it("renders factual comparison tables, fresh verification dates, and official sources", () => {
+    const revisionVillage = getArticle("pastpaperprep-vs-revision-village")!;
+    const examMate = getArticle("pastpaperprep-vs-exam-mate")!;
+    const { rerender } = render(<ArticleContent article={revisionVillage} />);
 
     expect(screen.getByRole("table", { name: /pastpaperprep vs revision village/i })).toBeInTheDocument();
-    expect(screen.getByText(/Pricing checked 12 September 2026/i)).toBeInTheDocument();
+    expect(screen.getByText(/Pricing checked 23 September 2026/i)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Revision Village Gold pricing/i })).toHaveAttribute(
       "href",
       "https://www.revisionvillage.com/revision-village-gold/",
+    );
+
+    rerender(<ArticleContent article={examMate} />);
+    expect(screen.getByText(/Pricing checked 23 September 2026/i)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Exam-Mate Topical Past Papers pricing/i })).toHaveAttribute(
+      "href",
+      "https://www.exam-mate.com/topicalpastpapers/pricing",
     );
   });
 });
