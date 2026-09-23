@@ -540,6 +540,8 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .pricing-page .pricing-intro h1 { max-width: 800px; font-size: clamp(2.8rem, 4.6vw, 4rem); }
 .pricing-page .pricing-intro h1 span { color: var(--cobalt); }
 .pricing-page .pricing-intro .page-lede { margin-inline: auto; }
+.pricing-product-proof { width: fit-content; max-width: 100%; margin: 22px auto 0; padding: 10px 14px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px 18px; color: var(--muted); background: color-mix(in srgb, var(--surface) 78%, transparent); border-top: 1px solid var(--line-strong); border-bottom: 1px solid var(--line-strong); font: 600 .72rem/1.35 var(--font-mono); }
+.pricing-product-proof strong { color: var(--ink); }
 .simple-page h1, .auth-card h1, .account-heading h1, .legal-page h1 { margin: 10px 0 14px; font: 850 clamp(2.8rem, 5vw, 4.35rem)/.97 var(--font-display); letter-spacing: -.06em; }
 .page-lede, .auth-card > p, .account-heading p, .legal-page p { max-width: 680px; margin: 0; color: var(--muted); font-size: 1.03rem; line-height: 1.62; }
 .pricing-current-plan { margin-top: 26px; padding: 16px 18px; display: grid; grid-template-columns: minmax(150px, .6fr) minmax(260px, 1.5fr) auto; align-items: center; gap: 20px; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--cobalt); border-radius: 12px; }
@@ -580,6 +582,7 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .plan-price span, .plan-billing-note, .plan-description { color: var(--muted); }
 .plan-billing-note { position: relative; z-index: 1; margin: 7px 0 0; font-size: .78rem; }
 .plan-description { position: relative; z-index: 1; margin: 11px 0 0; font-size: .9rem; line-height: 1.45; }
+.plan-assurance { position: relative; z-index: 1; margin: 14px 0 0; color: var(--muted); font: 600 .67rem/1.4 var(--font-mono); }
 .plan-checkout { position: relative; z-index: 2; margin-top: auto; display: grid; gap: 9px; }
 .custom-bundle-checkout { gap: 10px; }
 .custom-bank-disclosure { overflow: hidden; background: var(--surface-raised); border: 1px solid var(--line-strong); border-radius: 10px; }
@@ -627,6 +630,7 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .pricing-includes-compact span { display: inline-flex; align-items: center; gap: 5px; }
 .pricing-includes-compact svg { color: var(--success); }
 .checkout-note { margin-top: 16px; color: var(--muted); font-size: .78rem; line-height: 1.5; }
+.checkout-note a { color: var(--cobalt-strong); text-decoration: underline; text-underline-offset: 2px; }
 .pricing-bank-catalog { margin-top: clamp(54px, 7vw, 86px); padding-top: clamp(32px, 5vw, 54px); border-top: 1px solid var(--line-strong); scroll-margin-top: 92px; }
 .pricing-bank-catalog-heading { display: flex; align-items: end; justify-content: space-between; gap: 32px; }
 .pricing-bank-catalog-heading h2 { max-width: 680px; margin: 7px 0 0; font: 850 clamp(2.25rem, 4vw, 3.5rem)/1 var(--font-display); letter-spacing: -.055em; }

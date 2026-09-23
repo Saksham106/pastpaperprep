@@ -1,6 +1,11 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { PricingContent } from "@/components/PricingContent";
+import { getCatalogRuntimeBanks } from "@/lib/catalog";
+
+const availableBanks = getCatalogRuntimeBanks();
+const cambridgeBankCount = availableBanks.filter((bank) => bank.qualification === "Cambridge IGCSE").length;
+const ibBankCount = availableBanks.filter((bank) => bank.qualification === "International Baccalaureate").length;
 
 describe("approved custom-bank pricing", () => {
   it("shows three distinct plans without silently choosing any bank", () => {
@@ -26,13 +31,14 @@ describe("approved custom-bank pricing", () => {
     expect(within(cards[2] as HTMLElement).getByText("Everything, including future banks.")).toBeInTheDocument();
     expect(within(cards[0] as HTMLElement).queryByRole("link", { name: "Choose One Bank" })).not.toBeInTheDocument();
     expect(within(cards[1] as HTMLElement).queryByRole("link", { name: /Continue with/ })).not.toBeInTheDocument();
-    expect(within(cards[2] as HTMLElement).getByRole("link", { name: "Get All Access" })).toBeInTheDocument();
+    expect(within(cards[2] as HTMLElement).getByRole("link", { name: "Unlock all banks" })).toBeInTheDocument();
     expect(within(cards[0] as HTMLElement).getByText("Select one bank to continue.")).toBeInTheDocument();
     expect(within(cards[1] as HTMLElement).getByText("Select at least two banks to continue.")).toBeInTheDocument();
     expect(screen.getByText("Most popular")).toBeInTheDocument();
     expect(screen.queryAllByRole("radio", { checked: true })).toHaveLength(0);
     expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(0);
-    expect(screen.getAllByRole("checkbox")).toHaveLength(12);
+    expect(screen.getAllByRole("checkbox")).toHaveLength(availableBanks.length);
+    expect(screen.getAllByText(/Secure Stripe checkout · Cancel any time/)).toHaveLength(3);
     expect(screen.getByText(/Existing subscribers remain grandfathered at their current price and access\./)).toBeInTheDocument();
   });
 
@@ -116,8 +122,8 @@ describe("approved custom-bank pricing", () => {
     expect(within(builder).getByText("Cambridge")).toBeInTheDocument();
     expect(within(builder).getByText("IB Mathematics")).toBeInTheDocument();
     expect(within(builder).getByText("IB Sciences")).toBeInTheDocument();
-    expect(builder.querySelectorAll("[data-bank-id]")).toHaveLength(12);
-    expect(container.querySelectorAll("[data-pricing-bank]")).toHaveLength(12);
+    expect(builder.querySelectorAll("[data-bank-id]")).toHaveLength(availableBanks.length);
+    expect(container.querySelectorAll("[data-pricing-bank]")).toHaveLength(availableBanks.length);
   });
 
   it("keeps the grouped picker collapsed until the student chooses to edit it", () => {
@@ -165,6 +171,19 @@ describe("approved custom-bank pricing", () => {
     expect(container.querySelector(".pricing-option-popular")).toHaveAttribute("data-mobile-order", "first");
   });
 
+  it("places concise product coverage below the pricing cards without repeating the free-years message", () => {
+    const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} />);
+    const plans = container.querySelector(".pricing-decision-grid") as HTMLElement;
+    const proof = container.querySelector(".pricing-product-proof") as HTMLElement;
+
+    expect(proof).not.toBeNull();
+    expect(plans.compareDocumentPosition(proof) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(within(proof).getByText(/questions/)).toBeInTheDocument();
+    expect(within(proof).getByText(/papers/)).toBeInTheDocument();
+    expect(within(proof).getByText(/available banks/)).toBeInTheDocument();
+    expect(within(proof).queryByText(/older exam years/i)).not.toBeInTheDocument();
+  });
+
   it("offers checkout continuations only after explicit valid bank choices", () => {
     render(<PricingContent authenticated={false} hasPaidAccess={false} />);
     const oneBank = screen.getByRole("heading", { name: "One Bank" }).closest("article") as HTMLElement;
@@ -172,10 +191,10 @@ describe("approved custom-bank pricing", () => {
 
     expect(within(oneBank).queryByRole("link", { name: "Choose One Bank" })).not.toBeInTheDocument();
     expect(within(builder).queryByRole("link", { name: /Continue with/ })).not.toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Get All Access" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Unlock all banks" })).toBeInTheDocument();
 
     fireEvent.click(within(oneBank).getByRole("radio", { name: "IB Math AI HL" }));
-    expect(within(oneBank).getByRole("link", { name: "Choose One Bank" })).toBeInTheDocument();
+    expect(within(oneBank).getByRole("link", { name: "Unlock IB Math AI HL" })).toBeInTheDocument();
 
     const checkboxes = within(builder).getAllByRole("checkbox");
     fireEvent.click(checkboxes[0]);
@@ -186,7 +205,7 @@ describe("approved custom-bank pricing", () => {
   it("restores a visitor's selected bank after sign-in", () => {
     render(<PricingContent authenticated={false} hasPaidAccess={false} initialInterval="annual" initialProductId="bank_ib_ai_hl" />);
     expect(screen.getByRole("radio", { name: "IB Math AI HL" })).toBeChecked();
-    expect(screen.getByRole("button", { name: /annual.*save up to 33%/i })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByRole("button", { name: /annual.*save 33%/i })).toHaveAttribute("aria-pressed", "true");
   });
 
   it("keeps One Bank to exactly one selected canonical bank", () => {
@@ -204,12 +223,12 @@ describe("approved custom-bank pricing", () => {
     const ibTab = screen.getByRole("tab", { name: "IB Diploma" });
     expect(cambridgeTab).toHaveAttribute("aria-selected", "true");
     expect(screen.getByRole("table", { name: "Question bank coverage" })).toBeVisible();
-    expect(within(screen.getByRole("table", { name: "Question bank coverage" })).getAllByRole("row")).toHaveLength(3);
+    expect(within(screen.getByRole("table", { name: "Question bank coverage" })).getAllByRole("row")).toHaveLength(cambridgeBankCount + 1);
 
     fireEvent.click(ibTab);
     expect(ibTab).toHaveAttribute("aria-selected", "true");
     expect(cambridgeTab).toHaveAttribute("aria-selected", "false");
-    expect(within(screen.getByRole("table", { name: "Question bank coverage" })).getAllByRole("row")).toHaveLength(11);
-    expect(container.querySelectorAll("[data-pricing-bank]")).toHaveLength(12);
+    expect(within(screen.getByRole("table", { name: "Question bank coverage" })).getAllByRole("row")).toHaveLength(ibBankCount + 1);
+    expect(container.querySelectorAll("[data-pricing-bank]")).toHaveLength(availableBanks.length);
   });
 });
