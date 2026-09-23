@@ -41,16 +41,6 @@ describe("scanner-safe magic-link handoff", () => {
     expect(markup).toContain('name="next" value="/pricing?interval=monthly&amp;product=single"');
   });
 
-  it("renders the same explicit confirmation step for invited users", async () => {
-    const node = await EmailLinkPage({
-      searchParams: Promise.resolve({ token_hash: tokenHash, type: "invite" }),
-    });
-    const markup = renderToStaticMarkup(node);
-
-    expect(markup).toContain('action="/auth/confirm"');
-    expect(markup).toContain('name="type" value="invite"');
-  });
-
   it("rejects malformed hashes, wrong OTP types, and unsafe next paths", async () => {
     const malformed = await EmailLinkPage({
       searchParams: Promise.resolve({ token_hash: "short", type: "email", next: "//evil.example" }),
@@ -58,7 +48,7 @@ describe("scanner-safe magic-link handoff", () => {
     expect(renderToStaticMarkup(malformed)).toContain("Request a new sign-in link");
 
     const wrongType = await EmailLinkPage({
-      searchParams: Promise.resolve({ token_hash: tokenHash, type: "recovery" }),
+      searchParams: Promise.resolve({ token_hash: tokenHash, type: "invite" }),
     });
     expect(renderToStaticMarkup(wrongType)).not.toContain('action="/auth/confirm"');
 

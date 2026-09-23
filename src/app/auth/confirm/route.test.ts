@@ -46,14 +46,7 @@ describe("GET /auth/confirm", () => {
     expect(response.headers.get("location")).toBe("https://pastpaperprep.com/account/password");
   });
 
-  it("pins invite tokens to password setup", async () => {
-    const response = await GET(request(`token_hash=${tokenHash}&type=invite&next=%2Fpricing`));
-
-    expect(verifyOtp).toHaveBeenCalledWith({ type: "invite", token_hash: tokenHash });
-    expect(response.headers.get("location")).toBe("https://pastpaperprep.com/account/password?invited=1");
-  });
-
-  it.each(["magiclink", "email_change", "unknown"])(
+  it.each(["invite", "magiclink", "email_change", "unknown"])(
     "rejects the %s OTP flow before verification",
     async (type) => {
       const response = await GET(request(`token_hash=${tokenHash}&type=${type}&next=%2Fpricing`));
