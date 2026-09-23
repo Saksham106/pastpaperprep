@@ -722,6 +722,10 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .auth-form small, .auth-fine-print { color: var(--muted); font-size: .78rem; line-height: 1.45; }
 .auth-fine-print { margin-top: 18px; }
 .auth-fine-print a { text-decoration: underline; text-underline-offset: 2px; }
+.auth-mode-switch { margin-top: 20px; padding-top: 17px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 5px 8px; color: var(--muted); border-top: 1px solid var(--line); font-size: .9rem; }
+.auth-mode-switch button { min-height: 36px; padding: 4px 2px; color: var(--cobalt); background: transparent; border: 0; font: inherit; font-weight: 850; text-decoration: underline; text-underline-offset: 3px; }
+.auth-mode-switch button:hover { color: var(--ink); }
+.auth-mode-switch button:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; border-radius: 2px; }
 .password-reset { margin-top: 16px; color: var(--muted); }
 .password-reset:not([open]) > :not(summary) { display: none; }
 .password-reset summary { width: fit-content; color: var(--cobalt); font-weight: 800; }

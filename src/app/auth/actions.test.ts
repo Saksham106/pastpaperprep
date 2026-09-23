@@ -10,7 +10,7 @@ const { redirect, createClient } = vi.hoisted(() => ({
 vi.mock("next/navigation", () => ({ redirect }));
 vi.mock("@/lib/supabase/server", () => ({ createClient }));
 
-import { requestMagicLink, requestPasswordReset, signInWithPassword, updatePassword } from "./actions";
+import { createAccountWithPassword, requestMagicLink, requestPasswordReset, signInWithPassword, updatePassword } from "./actions";
 import { initialMagicLinkState } from "@/lib/auth";
 
 function form(values: Record<string, string>) {
@@ -41,6 +41,39 @@ describe("password authentication actions", () => {
 
     expect(signInWithPasswordMock).toHaveBeenCalledWith({ email: "student@example.com", password: "three calm otters" });
     expect(redirect).toHaveBeenCalledWith("/pricing");
+  });
+
+  it("creates a password account through the existing confirmation handoff", async () => {
+    const signUp = vi.fn().mockResolvedValue({ data: { session: null }, error: null });
+    createClient.mockResolvedValue({ auth: { signUp } });
+
+    const result = await createAccountWithPassword(initialMagicLinkState, form({
+      email: " NEW.STUDENT@example.com ",
+      password: "three calm otters",
+      passwordConfirmation: "three calm otters",
+      next: "/dashboard",
+    }));
+
+    expect(result).toEqual({ status: "success", message: "Check your email to confirm your account." });
+    expect(signUp).toHaveBeenCalledWith({
+      email: "new.student@example.com",
+      password: "three calm otters",
+      options: {
+        emailRedirectTo: "https://pastpaperprep.com/auth/email-link?next=%2Fdashboard",
+      },
+    });
+  });
+
+  it("rejects mismatched signup passwords before calling Supabase", async () => {
+    const result = await createAccountWithPassword(initialMagicLinkState, form({
+      email: "new.student@example.com",
+      password: "three calm otters",
+      passwordConfirmation: "three calm badgers",
+      next: "//evil.example",
+    }));
+
+    expect(result).toEqual({ status: "error", message: "Those passwords do not match." });
+    expect(createClient).not.toHaveBeenCalled();
   });
 
   it("routes magic links through the scanner-safe token-hash handoff", async () => {
