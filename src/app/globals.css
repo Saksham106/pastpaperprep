@@ -470,7 +470,17 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 }
 @media (max-width: 420px) { .exam-style-set-list { grid-template-columns: 1fr; } }
 
-.explorer-toolbar { position: sticky; z-index: 6; top: 8px; padding: 0; display: grid; grid-template-columns: minmax(260px, 1fr) auto 48px 48px; gap: 8px; color: var(--ink); background: transparent; border: 0; border-radius: 0; box-shadow: none; }
+.explorer-toolbar { position: sticky; z-index: 6; top: 8px; padding: 0; display: grid; grid-template-columns: minmax(220px, 1fr) minmax(300px, auto) auto 48px 48px; gap: 8px; color: var(--ink); background: transparent; border: 0; border-radius: 0; box-shadow: none; }
+.course-route-picker { min-width: 300px; margin: 0; padding: 0; border: 0; }
+.course-route-options { height: 100%; display: inline-grid; grid-template-columns: repeat(3, minmax(82px, 1fr)); gap: 3px; padding: 3px; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 8px; }
+.course-route-options label { cursor: pointer; position: relative; }
+.course-route-options input { position: absolute; opacity: 0; pointer-events: none; }
+.course-route-options span { min-height: 40px; height: 100%; display: grid; align-content: center; gap: 0; padding: 4px 9px; border: 1px solid transparent; border-radius: 6px; color: var(--muted); transition: color 140ms ease, background 140ms ease, border-color 140ms ease; }
+.course-route-options strong { color: inherit; font-size: .78rem; }
+.course-route-options small { font-size: .59rem; white-space: nowrap; }
+.course-route-options label:hover span { color: var(--cobalt-strong); }
+.course-route-options input:checked + span { color: var(--cobalt-strong); background: var(--cobalt-faint); border-color: color-mix(in srgb, var(--cobalt) 46%, var(--line)); box-shadow: 0 1px 4px color-mix(in srgb, var(--cobalt) 16%, transparent); }
+.course-route-options input:focus-visible + span { outline: 2px solid var(--cobalt); outline-offset: 2px; }
 .search-field { min-height: 48px; display: flex; align-items: center; gap: 9px; padding: 0 12px; color: var(--muted); background: var(--paper); border: 1px solid var(--line-strong); border-radius: 7px; }
 .search-field input { min-width: 0; color: var(--ink); background: transparent; border: 0; outline: 0; }
 .search-field input::placeholder { color: var(--muted); }
@@ -987,7 +997,11 @@ body:has(.bank-hero) .site-footer::after { display: none; }
   .dashboard-bank-groups { grid-template-columns: 1fr; }
   .dashboard-bank-family-cambridge { grid-column: auto; }
   .dashboard-bank-family-cambridge .dashboard-bank-grid { grid-template-columns: 1fr; }
-  .explorer-toolbar { position: static; grid-template-columns: 1fr 1fr 48px 48px; }
+  .explorer-toolbar { position: static; grid-template-columns: minmax(220px, 1fr) auto minmax(150px, 190px) 48px 48px; }
+  .course-route-picker { min-width: 220px; }
+  .course-route-options { width: 100%; grid-template-columns: repeat(3, 1fr); }
+  .course-route-options span { padding-inline: 7px; }
+  .course-route-options small { display: block; font-size: .56rem; }
   .explorer-toolbar .search-field { grid-column: 1 / -1; }
   .mobile-filter-button { display: inline-flex; }
   .explorer-layout { grid-template-columns: 1fr; }
@@ -1373,22 +1387,25 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .free-value-strip > .button { flex: 0 0 auto; min-height: 40px; padding-inline: 16px; white-space: nowrap; }
 .question-locked-action { margin-top: 4px; align-self: flex-start; color: var(--cobalt); font-weight: 830; text-decoration: underline; text-underline-offset: 2px; }
 
-/* 5. Mobile question explorer: exactly two rows. Row one is the search query plus the two
-   view actions; row two is Filters (the wide, primary refine control) and Sort (compact).
+/* 5. Mobile question explorer. Row one is the search query plus the two view actions;
+   route-aware banks use a compact route row before Filters and Sort.
    The free-tier strip collapses to one quiet row so the first question stays near the fold. */
 @media (max-width: 640px) {
   .explorer-toolbar {
     grid-template-columns: minmax(0, 1fr) 44px 44px;
-    grid-template-rows: auto auto;
+    grid-template-rows: auto auto auto;
     padding: 0;
     gap: 6px;
   }
   .explorer-toolbar .search-field { grid-column: 1; grid-row: 1; min-width: 0; min-height: 44px; padding-inline: 10px; }
   .explorer-toolbar .share-view-button { grid-column: 2; grid-row: 1; }
   .explorer-toolbar .download-button { grid-column: 3; grid-row: 1; }
+  .explorer-toolbar .course-route-picker { grid-column: 1 / -1; grid-row: 2; min-width: 0; }
+  .explorer-toolbar .course-route-options { min-height: 42px; }
+  .explorer-toolbar .course-route-options span { min-height: 36px; padding: 3px 7px; }
   .explorer-toolbar .mobile-filter-button {
     grid-column: 1;
-    grid-row: 2;
+    grid-row: 3;
     display: inline-flex;
     justify-content: center;
     min-height: 44px;
@@ -1406,7 +1423,7 @@ body:has(.bank-hero) .site-footer::after { display: none; }
     border-color: var(--cobalt-strong);
     box-shadow: 0 6px 14px color-mix(in srgb, var(--cobalt) 30%, transparent);
   }
-  .explorer-toolbar .sort-field { grid-column: 2 / -1; grid-row: 2; min-width: 0; }
+  .explorer-toolbar .sort-field { grid-column: 2 / -1; grid-row: 3; min-width: 0; }
   .explorer-toolbar .sort-select-trigger { min-height: 44px; padding-inline: 9px; gap: 6px; font-size: .76rem; }
   .explorer-toolbar .sort-select-trigger small { display: none; }
   .explorer-toolbar .sort-select-menu { left: 0; right: 0; min-width: 0; }
