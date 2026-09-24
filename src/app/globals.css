@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+.saved-worksheets { margin: 1.5rem 0 2.5rem; padding: 1.25rem; border: 1px solid var(--border, #dedbd5); border-radius: 1rem; background: var(--surface, #fff); }
+.saved-worksheets-heading { display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; }
+.saved-worksheets-heading h2 { margin:0; }
+.saved-worksheets-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr)); gap:.75rem; padding:0; list-style:none; }
+.saved-worksheet-card { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem; padding:1rem; border:1px solid var(--border,#dedbd5); border-radius:.75rem; }
+.saved-worksheet-info h3,.saved-worksheet-info p { margin:0 0 .35rem; }
+.saved-worksheet-info time { color:var(--muted-foreground,#646464); font-size:.875rem; }
+.saved-worksheet-actions { display:flex; flex-wrap:wrap; gap:.5rem; }
+.saved-worksheet-actions button,.saved-worksheet-info form button,.saved-worksheet-info input { min-height:2.75rem; }
+.saved-worksheet-info form { display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; }
+.saved-worksheet-info form label { flex-basis:100%; }
+.saved-worksheet-info input { max-width:100%; padding:.5rem; }
+.saved-worksheets-error { color:#a52525; }
+.saved-worksheets-empty { color:var(--muted-foreground,#646464); }
+@media(max-width:600px) { .saved-worksheets { padding:.9rem; } .saved-worksheet-card { align-items:flex-start; } .saved-worksheet-actions { width:100%; } .saved-worksheet-actions > * { flex:1 1 auto; text-align:center; } }
+
 /* Exam Studio: cool paper, graphite, and one cobalt action color. */
 :root,
 :root[data-theme="light"] {
