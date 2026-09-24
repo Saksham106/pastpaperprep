@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    // Vercel exposes two build cores. Using both keeps static-generation workers
+    // below the per-worker heap ceiling as the question corpus grows.
+    cpus: 2,
+  },
   async headers() {
     return [{
       source: "/bank-index/:slug.v1-:hash.json",
