@@ -391,6 +391,10 @@ describe("QuestionExplorer", () => {
     const boxes = screen.getAllByRole("checkbox", { name: /add question/i });
     fireEvent.click(boxes[1]); fireEvent.click(boxes[0]);
     fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
+    const dialog = screen.getByRole("dialog", { name: /download 2 questions/i });
+    const nameField = within(dialog).getByRole("textbox", { name: "Worksheet name" });
+    expect(nameField.closest(".worksheet-name-field")).not.toBeNull();
+    expect(within(dialog).getByRole("button", { name: "Save worksheet" }).closest(".worksheet-actions")).toBe(within(dialog).getByRole("button", { name: "Download PDF" }).closest(".worksheet-actions"));
     fireEvent.click(screen.getByRole("radio", { name: "Answers" }));
     fireEvent.change(screen.getByLabelText(/worksheet name/i), { target: { value: "My set" } });
     fireEvent.click(screen.getByRole("button", { name: /save worksheet/i }));
