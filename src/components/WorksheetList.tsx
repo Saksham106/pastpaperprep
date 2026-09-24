@@ -8,8 +8,6 @@ export function WorksheetList() {
   const [worksheets, setWorksheets] = useState<Worksheet[]>([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-  const [editing, setEditing] = useState<string | null>(null);
-  const [name, setName] = useState("");
   const [busy, setBusy] = useState<string | null>(null);
   useEffect(() => {
     let active = true;
@@ -22,19 +20,6 @@ export function WorksheetList() {
     return () => { active = false; };
   }, []);
 
-  async function rename(item: Worksheet) {
-    const title = name.trim();
-    if (!title) { setError("Enter a worksheet name."); return; }
-    setBusy(item.id); setError("");
-    try {
-      const response = await fetch(`/api/worksheets/${encodeURIComponent(item.id)}`, { method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify({ name: title, revision: item.revision }) });
-      if (!response.ok) throw new Error();
-      const data = await response.json();
-      setWorksheets((current) => current.map((row) => row.id === item.id ? (data.worksheet ?? { ...row, title, revision: row.revision + 1 }) : row));
-      setEditing(null);
-    } catch { setError("Could not rename this worksheet. Reload and try again."); }
-    finally { setBusy(null); }
-  }
   async function remove(item: Worksheet) {
     if (!window.confirm(`Delete “${item.title}”? This cannot be undone.`)) return;
     setBusy(item.id); setError("");
@@ -50,8 +35,8 @@ export function WorksheetList() {
     <div className="saved-worksheets-heading"><div><p className="eyebrow">Your work</p><h2 id="saved-worksheets-heading">My worksheets</h2></div></div>
     {error && <p role="alert" className="saved-worksheets-error">{error}</p>}
     {loading ? <p role="status">Loading worksheets…</p> : worksheets.length === 0 ? <p className="saved-worksheets-empty">No saved worksheets yet. Save a question set from any bank to find it here.</p> : <ul className="saved-worksheets-list">{worksheets.map((item) => <li className="saved-worksheet-card" key={item.id}>
-      <div className="saved-worksheet-info">{editing === item.id ? <form onSubmit={(event) => { event.preventDefault(); void rename(item); }}><label htmlFor={`worksheet-name-${item.id}`}>Worksheet name</label><input id={`worksheet-name-${item.id}`} value={name} maxLength={80} onChange={(event) => setName(event.target.value)} autoFocus /><button type="submit" disabled={busy === item.id}>Save name</button><button type="button" onClick={() => setEditing(null)}>Cancel</button></form> : <><h3>{item.title}</h3><p>{item.bank_slug.replaceAll("-", " ")} · {item.question_ids.length} {item.question_ids.length === 1 ? "question" : "questions"}</p><time dateTime={item.updated_at}>Edited {new Date(item.updated_at).toLocaleDateString()}</time></>}</div>
-      {editing !== item.id && <div className="saved-worksheet-actions"><a className="button secondary" aria-label={`Open ${item.title}`} href={`/banks/${encodeURIComponent(item.bank_slug)}?worksheet=${encodeURIComponent(item.id)}`}>Open</a><button type="button" disabled={busy === item.id} onClick={() => { setName(item.title); setEditing(item.id); }}>Rename {item.title}</button><button type="button" disabled={busy === item.id} onClick={() => void remove(item)}>Delete {item.title}</button></div>}
+      <div className="saved-worksheet-info"><h3>{item.title}</h3><p>{item.bank_slug.replaceAll("-", " ")} · {item.question_ids.length} {item.question_ids.length === 1 ? "question" : "questions"}</p><time dateTime={item.updated_at}>Edited {new Date(item.updated_at).toLocaleDateString()}</time></div>
+      <div className="saved-worksheet-actions"><a className="saved-worksheet-action saved-worksheet-action-open" aria-label={`Open ${item.title}`} href={`/banks/${encodeURIComponent(item.bank_slug)}?worksheet=${encodeURIComponent(item.id)}`}>Open</a><a className="saved-worksheet-action saved-worksheet-action-edit" aria-label={`Edit ${item.title}`} href={`/banks/${encodeURIComponent(item.bank_slug)}?worksheet=${encodeURIComponent(item.id)}&mode=edit`}>Edit</a><button className="saved-worksheet-action saved-worksheet-action-delete" type="button" aria-label={`Delete ${item.title}`} disabled={busy === item.id} onClick={() => void remove(item)}>Delete</button></div>
     </li>)}</ul>}
   </section>;
 }

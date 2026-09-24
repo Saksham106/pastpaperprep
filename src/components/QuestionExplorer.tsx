@@ -20,6 +20,8 @@ import { formatPublicLabel } from "@/lib/presentation";
 import { trackProductEvent } from "@/lib/product-analytics";
 import { getFreeQuestionGate } from "@/lib/free-question-gate";
 import { FreeQuestionSignupGate } from "@/components/FreeQuestionSignupGate";
+import { WorksheetEditCard } from "@/components/WorksheetEditCard";
+import "./worksheet-workspace.css";
 
 type MultiKey = ExplorerFilterKey;
 
@@ -206,10 +208,15 @@ access: ExplorerAccess;
   ));
   const [selectedIds, setSelectedIds] = useState(new Set<string>());
   const [selectionIsExplicit, setSelectionIsExplicit] = useState(false);
-  const [worksheetId, setWorksheetId] = useState(() => typeof window === "undefined" ? "" : new URLSearchParams(window.location.search).get("worksheet") ?? "");
+  const [worksheetId] = useState(() => typeof window === "undefined" ? "" : new URLSearchParams(window.location.search).get("worksheet") ?? "");
   const [worksheetRevision, setWorksheetRevision] = useState(0);
+  const [worksheetMode, setWorksheetMode] = useState<"view" | "edit">(() => typeof window !== "undefined" && new URLSearchParams(window.location.search).get("mode") === "edit" ? "edit" : "view");
+  const [addingQuestions, setAddingQuestions] = useState(false);
   const [worksheetName, setWorksheetName] = useState("");
   const [worksheetStatus, setWorksheetStatus] = useState("");
+  const [worksheetSaving, setWorksheetSaving] = useState(false);
+  const [savedWorksheetLink, setSavedWorksheetLink] = useState("");
+  const worksheetSavingRef = useRef(false);
   const [worksheetLoadFailed, setWorksheetLoadFailed] = useState(false);
   const [worksheetLoading, setWorksheetLoading] = useState(false);
   const [worksheetBaseline, setWorksheetBaseline] = useState("");
@@ -292,12 +299,20 @@ access: ExplorerAccess;
     const accessible = effectiveFreeOnly ? matching.filter((question) => isPreviewQuestion(question.bankSlug, question.id)) : matching;
     return savedOnly ? accessible.filter((question) => savedIds.has(question.id)) : accessible;
   }, [bankSlug, catalogQuestions, effectiveCourseRoute, effectiveFreeOnly, filters, indexLoaded, savedIds, savedOnly, search, searchResult, sort]);
+  const savedWorksheetView = Boolean(worksheetId) && !addingQuestions;
+  const savedSetQuestions = useMemo(() => {
+    if (!worksheetReady || worksheetLoadFailed || bootstrapPending || !resolvedAccess.bankAccess) return [];
+    const byId = new Map(catalogQuestions.map((question) => [question.id, question]));
+    return [...selectedIds].flatMap((id) => { const question = byId.get(id); return question ? [question] : []; });
+  }, [worksheetReady, worksheetLoadFailed, bootstrapPending, resolvedAccess.bankAccess, catalogQuestions, selectedIds]);
+  const resultQuestions = savedWorksheetView ? savedSetQuestions : filtered;
   const anonymous = !resolvedAccess.authenticated && !resolvedAccess.bankAccess;
   const matchingFreeCount = filtered.filter((question) => isPreviewQuestion(question.bankSlug, question.id)).length;
   const accessResolved = locationHydrated && !bootstrapPending;
   const freeGate = getFreeQuestionGate({ resolved: accessResolved, authenticated: resolvedAccess.authenticated, bankAccess: resolvedAccess.bankAccess, freeOnly, freeQuestionCount: matchingFreeCount });
   const shownQuestions = useMemo(() => {
-    if (!anonymous) return filtered.slice(0, visible);
+    if (!anonymous) return savedWorksheetView ? resultQuestions : resultQuestions.slice(0, visible);
+    if (savedWorksheetView) return [];
     const freeLimit = freeGate.visibleCount;
     let freeShown = 0;
     const safeSample = filtered.filter((question) => {
@@ -307,7 +322,7 @@ access: ExplorerAccess;
       return true;
     });
     return safeSample.slice(0, visible);
-  }, [accessResolved, anonymous, filtered, freeGate.visibleCount, visible]);
+  }, [accessResolved, anonymous, filtered, freeGate.visibleCount, visible, resultQuestions, savedWorksheetView]);
   const returnPath = typeof window === "undefined" ? "/" : `${window.location.pathname}${window.location.search}`;
   const signupHref = `/login?mode=sign-up&next=${encodeURIComponent(returnPath)}`;
   const signinHref = `/login?next=${encodeURIComponent(returnPath)}`;
@@ -597,10 +612,10 @@ access: ExplorerAccess;
     if (!locationHydrated || bootstrapPending) return;
     const query = serializeExplorerState({ search, sort, filters, freeOnly: effectiveFreeOnly, savedOnly, courseRoute: effectiveCourseRoute, visible }, { persistFreeChoice: !resolvedAccess.bankAccess });
     const params = new URLSearchParams(query);
-    if (worksheetId) params.set("worksheet", worksheetId);
+    if (worksheetId) { params.set("worksheet", worksheetId); if (worksheetMode === "edit") params.set("mode", "edit"); }
     const nextUrl = `${window.location.pathname}${params.size ? `?${params}` : ""}${window.location.hash}`;
     window.history.replaceState(window.history.state, "", nextUrl);
-  }, [bootstrapPending, effectiveCourseRoute, effectiveFreeOnly, filters, locationHydrated, resolvedAccess.bankAccess, savedOnly, search, sort, visible, worksheetId]);
+  }, [bootstrapPending, effectiveCourseRoute, effectiveFreeOnly, filters, locationHydrated, resolvedAccess.bankAccess, savedOnly, search, sort, visible, worksheetId, worksheetMode]);
 
   useEffect(() => {
     if (!bank) return;
@@ -632,7 +647,7 @@ access: ExplorerAccess;
   }, [bank, localPreview, questionAssetRequests]);
 
   const worksheetDefinition = () => JSON.stringify({ name: worksheetName.trim(), ids: [...selectedIds], content: pdfContent });
-  const worksheetDirty = worksheetBaseline ? worksheetBaseline !== worksheetDefinition() : Boolean(worksheetName.trim() && (selectionIsExplicit ? selectedIds.size : filtered.length));
+  const worksheetDirty = worksheetId ? Boolean(worksheetMode === "edit" && worksheetBaseline && worksheetBaseline !== worksheetDefinition()) : Boolean(selectionIsExplicit && worksheetName.trim() && (worksheetBaseline ? worksheetBaseline !== worksheetDefinition() : selectedIds.size));
   useEffect(() => {
     if (!worksheetId || !indexLoaded || indexError || bootstrapPending || worksheetReady) return;
     let cancelled = false;
@@ -668,7 +683,10 @@ access: ExplorerAccess;
   }, [worksheetDirty]);
 
   const saveWorksheet = async () => {
-    if (!bank || !resolvedAccess.bankAccess || !exportQuestions.length || !worksheetName.trim() || !worksheetReady || worksheetLoadFailed) return;
+    if (!bank || !resolvedAccess.bankAccess || !exportQuestions.length || !worksheetName.trim() || !worksheetReady || worksheetLoadFailed || worksheetSavingRef.current) return;
+    worksheetSavingRef.current = true;
+    setWorksheetSaving(true);
+    const editingExisting = Boolean(worksheetId);
     const orderedIds = exportQuestions.map((question) => question.id);
     setWorksheetStatus("Saving worksheet…");
     try {
@@ -679,13 +697,19 @@ access: ExplorerAccess;
       const payload = await response.json();
       if (!response.ok) throw new Error(payload.error || "Worksheet could not be saved. Try again.");
       const saved = payload.worksheet;
-      setWorksheetId(saved.id); setWorksheetRevision(saved.revision);
+      setWorksheetName(saved.title);
+      setWorksheetRevision(saved.revision);
       setSelectedIds(new Set(saved.question_ids)); setSelectionIsExplicit(true);
-      const query = new URLSearchParams(window.location.search); query.set("worksheet", saved.id);
-      window.history.replaceState(window.history.state, "", `${window.location.pathname}?${query}${window.location.hash}`);
       setWorksheetBaseline(JSON.stringify({ name: saved.title, ids: saved.question_ids, content: saved.content_mode }));
-      setWorksheetStatus("Worksheet saved.");
+      if (editingExisting) {
+        setWorksheetStatus("Changes saved.");
+      } else {
+        setSavedWorksheetLink(`/banks/${encodeURIComponent(bank)}?worksheet=${encodeURIComponent(saved.id)}`);
+        setWorksheetStatus("");
+        setPdfOpen(false);
+      }
     } catch (error) { setWorksheetStatus(error instanceof Error ? error.message : "Worksheet could not be saved. Try again."); }
+    finally { worksheetSavingRef.current = false; setWorksheetSaving(false); }
   };
 
   const toggle = (key: MultiKey, value: string) => {
@@ -715,14 +739,14 @@ access: ExplorerAccess;
     // refinements, so discard stale refinements rather than mirroring hidden checkbox state.
     setFilters((current) => ({ ...current, papers: [], components: [] }));
     setVisible(EXPLORER_PAGE_SIZE);
-    setSelectionIsExplicit(false);
-    setSelectedIds(new Set());
+    if (!worksheetId) { setSelectionIsExplicit(false); setSelectedIds(new Set()); }
   };
 
   const shareWorkspace = async () => {
     setShareStatus("");
     const shareLink = new URL(window.location.href);
     shareLink.searchParams.delete("worksheet");
+    shareLink.searchParams.delete("mode");
     const shareUrl = shareLink.href;
     if (typeof navigator.share === "function" && navigator.canShare?.({ url: shareUrl })) {
       try {
@@ -805,9 +829,20 @@ access: ExplorerAccess;
     });
   };
 
-  const exportQuestions = questionsForPdf(filtered, selectedIds, selectionIsExplicit, catalogQuestions);
+  const exportQuestions = worksheetId ? savedSetQuestions : questionsForPdf(filtered, selectedIds, selectionIsExplicit, catalogQuestions);
+  const openPdfBuilder = () => {
+    if (worksheetId && (!worksheetReady || worksheetLoadFailed || !exportQuestions.length)) return;
+    if (!resolvedAccess.canExportPdf) { showPdfUpgrade(); return; }
+    if (!worksheetId && !worksheetName.trim()) {
+      const bankLabel = (bank ?? "Worksheet").replaceAll("-", " ").toUpperCase();
+      const topics = [...new Set(exportQuestions.map((question) => formatPublicLabel(question.primaryTopic)))];
+      setWorksheetName(`${bankLabel} ${topics.length === 1 && topics[0].length <= 28 ? topics[0] : "Worksheet 1"}`.slice(0, 80));
+    }
+    trackProductEvent("pdf_builder_open", { bank: bank ?? "unknown", questionCount: exportQuestions.length });
+    setPdfOpen(true);
+  };
   const handleDownload = async () => {
-    if (!resolvedAccess.canExportPdf || !bank) return;
+    if (!resolvedAccess.canExportPdf || !bank || !exportQuestions.length || Boolean(worksheetId && (worksheetLoadFailed || !worksheetReady))) return;
     trackProductEvent("pdf_export_attempt", { bank, questionCount: exportQuestions.length, content: pdfContent });
     setPdfStatusKind("progress");
     setPdfStatus(`Preparing ${exportQuestions.length} questions...`);
@@ -846,9 +881,24 @@ access: ExplorerAccess;
     shakeElement(pdfTriggerRef.current);
     setPdfUpgradeOpen(true);
   };
+  const closeWorksheetEditor = () => {
+    if (worksheetDirty) {
+      if (!window.confirm("Discard unsaved worksheet changes?")) return;
+      const baseline = JSON.parse(worksheetBaseline) as { name: string; ids: string[]; content: PdfContent };
+      setWorksheetName(baseline.name);
+      setSelectedIds(new Set(baseline.ids));
+      setPdfContent(baseline.content);
+      setWorksheetStatus("");
+    }
+    setAddingQuestions(false);
+    setWorksheetMode("view");
+  };
 
   return (
-    <section ref={explorerRootRef} className="explorer" aria-label="Question explorer">
+    <section ref={explorerRootRef} className={`explorer${savedWorksheetView ? " is-worksheet-view" : ""}`} aria-label="Question explorer">
+      {worksheetId && <div className="worksheet-workspace"><Link href="/worksheets">← My worksheets</Link>{worksheetReady && !worksheetLoadFailed && <><div className="worksheet-workspace-heading"><div><p className="eyebrow">Saved worksheet</p><h2>{worksheetName}</h2><span>{selectedIds.size} {selectedIds.size === 1 ? "question" : "questions"}</span></div>{worksheetMode === "view" ? <button className="button secondary" type="button" onClick={() => setWorksheetMode("edit")}>Edit worksheet</button> : <button className="button secondary" type="button" onClick={closeWorksheetEditor}>View worksheet</button>}</div></>}</div>}
+      {worksheetId && worksheetMode === "edit" && worksheetReady && !worksheetLoadFailed && <WorksheetEditCard title={worksheetName} ids={[...selectedIds]} content={pdfContent} adding={addingQuestions} busy={worksheetSaving} dirty={worksheetDirty} status={worksheetStatus} onTitle={setWorksheetName} onContent={setPdfContent} onMove={(id, direction) => setSelectedIds((current) => { const ids = [...current]; const index = ids.indexOf(id); const next = index + direction; if (index < 0 || next < 0 || next >= ids.length) return current; [ids[index], ids[next]] = [ids[next], ids[index]]; return new Set(ids); })} onRemove={(id) => setSelectedIds((current) => { const next = new Set(current); next.delete(id); return next; })} onAdd={() => { clearFilters(); setAddingQuestions(true); }} onDoneAdding={() => setAddingQuestions(false)} onSave={() => void saveWorksheet()} />}
+      {worksheetId && worksheetLoadFailed && <div className="access-notice" role="alert" aria-label="Worksheet unavailable"><span>{worksheetStatus}</span><button className="button secondary" type="button" onClick={() => { setWorksheetStatus(""); setWorksheetLoadFailed(false); setWorksheetReady(false); }}>Retry loading worksheet</button></div>}
       <div className="explorer-toolbar">
         <label className="search-field">
           <span className="sr-only">Search questions</span>
@@ -871,8 +921,9 @@ access: ExplorerAccess;
         <button ref={filterTriggerRef} className={`mobile-filter-button${activeCount ? " is-active" : ""}`} type="button" aria-haspopup="dialog" aria-expanded={filtersOpen} onClick={() => setFiltersOpen(true)}><Funnel weight="bold" aria-hidden="true" /> Filters{activeCount ? ` (${activeCount})` : ""}</button>
         <SortSelector value={sort} onChange={setSort} />
         <button ref={shareButtonRef} className="share-view-button toolbar-icon-button" type="button" title="Share this view" aria-label="Copy link to this view" onClick={shareWorkspace}><ShareNetwork aria-hidden="true" /></button>
-        <button ref={pdfTriggerRef} className="download-button toolbar-icon-button" type="button" title="Download PDF" aria-label="Download PDF" onClick={() => { if (resolvedAccess.canExportPdf) { trackProductEvent("pdf_builder_open", { bank: bank ?? "unknown", questionCount: exportQuestions.length }); setPdfOpen(true); } else showPdfUpgrade(); }}><DownloadSimple aria-hidden="true" /></button>
+        <button ref={pdfTriggerRef} className="download-button toolbar-icon-button" type="button" title="Download PDF" aria-label="Download PDF" onClick={openPdfBuilder}><DownloadSimple aria-hidden="true" /></button>
       </div>
+      {savedWorksheetLink && <div className="worksheet-saved-notice" role="status"><Check aria-hidden="true" weight="bold" /><strong>Worksheet saved</strong><a href={savedWorksheetLink}>View worksheet</a><Link href="/worksheets">My worksheets</Link><button type="button" aria-label="Dismiss saved confirmation" onClick={() => setSavedWorksheetLink("")}><X aria-hidden="true" /></button></div>}
       {shareStatus && <p className={`toolbar-status${shareStatus.startsWith("Couldn't") ? " is-error" : " is-success"}`} role="status">{shareStatus}</p>}
 
 
@@ -913,10 +964,10 @@ access: ExplorerAccess;
 
         <div className="explorer-results" inert={filtersOpen || undefined}>
           <div className="results-heading">
-            <div><strong>{filtered.length.toLocaleString()} {effectiveFreeOnly ? "free " : ""}{filtered.length === 1 ? "question" : "questions"}</strong>{selectionIsExplicit && <span>{selectedIds.size} selected for PDF</span>}</div>
-            <div>{selectionIsExplicit && <button className="text-button" onClick={() => { setSelectionIsExplicit(false); setSelectedIds(new Set()); }}>Use all results for PDF</button>}{(search || activeCount > 0 || courseRoute !== "all") && <button className="text-button" onClick={clearFilters}>Clear filters</button>}</div>
+            <div><strong>{resultQuestions.length.toLocaleString()} {savedWorksheetView ? "saved " : effectiveFreeOnly ? "free " : ""}{resultQuestions.length === 1 ? "question" : "questions"}</strong>{selectionIsExplicit && !savedWorksheetView && <span>{selectedIds.size} selected for PDF</span>}</div>
+            <div>{selectionIsExplicit && !worksheetId && <button className="text-button" onClick={() => { setSelectionIsExplicit(false); setSelectedIds(new Set()); }}>Use all results for PDF</button>}{!savedWorksheetView && (search || activeCount > 0 || courseRoute !== "all") && <button className="text-button" onClick={clearFilters}>Clear filters</button>}</div>
           </div>
-          {activeCount > 0 && <div className="active-filters">
+          {!savedWorksheetView && activeCount > 0 && <div className="active-filters">
             {effectiveFreeOnly && <button aria-label="Remove free questions only filter" onClick={() => setFreeOnly(false)}>Free only <X /></button>}
             {savedOnly && <button aria-label="Remove saved questions only filter" onClick={() => setSavedOnly(false)}>Saved only <X /></button>}
             {Object.entries(filters).flatMap(([key, values]) => (values ?? []).map((value) => <button key={`${key}-${value}`} onClick={() => toggle(key as MultiKey, value)}>{formatPublicLabel(value)} <X /></button>))}
@@ -929,16 +980,16 @@ access: ExplorerAccess;
               return <QuestionCard key={question.id} question={question} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAsset={(asset) => {
                 setSignedAssets((current) => new Map(current).set(signedAssetKey(question.id, "answer"), asset));
                 if (asset.details) setCatalogQuestions((current) => current.map((item) => item.id === question.id ? mergeQuestionRichDetails(item, asset.details!) : item));
-              }} selected={selectedIds.has(question.id)} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => toggleSaved(question.id)} onAttempt={() => recordAttempt(question.id)} />;
+              }} selected={selectedIds.has(question.id)} selectable={!savedWorksheetView} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => toggleSaved(question.id)} onAttempt={() => recordAttempt(question.id)} />;
             })}
           </div>
-          {filtered.length === 0 && <div className="empty-state"><strong>No questions match that combination.</strong><span>Clear a filter and try again.</span></div>}
-          {freeGate.active && bankSlug && <FreeQuestionSignupGate bankSlug={bankSlug} remainingCount={freeGate.remainingCount} signupHref={signupHref} signinHref={signinHref} />}
-          {!freeGate.active && visible < filtered.length && <button className="load-more" onClick={() => setVisible((count) => count + EXPLORER_PAGE_SIZE)}>Show 24 more questions</button>}
+          {!savedWorksheetView && filtered.length === 0 && <div className="empty-state"><strong>No questions match that combination.</strong><span>Clear a filter and try again.</span></div>}
+          {!savedWorksheetView && freeGate.active && bankSlug && <FreeQuestionSignupGate bankSlug={bankSlug} remainingCount={freeGate.remainingCount} signupHref={signupHref} signinHref={signinHref} />}
+          {!savedWorksheetView && !freeGate.active && visible < filtered.length && <button className="load-more" onClick={() => setVisible((count) => count + EXPLORER_PAGE_SIZE)}>Show 24 more questions</button>}
         </div>
       </div>
 
-      {pdfOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfDialogRef} className="pdf-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-title"><button className="pdf-close" aria-label="Close PDF options" onClick={() => setPdfOpen(false)}><X /></button><p className="eyebrow">Worksheet builder</p><h2 id="pdf-title">Download {exportQuestions.length.toLocaleString()} questions</h2><p>{selectionIsExplicit ? "Using your selected questions, including selections outside the current filters." : filtered.length > MAX_PDF_QUESTIONS ? `Worksheets are limited to ${MAX_PDF_QUESTIONS} questions. Narrow your filters or make a selection for a different set.` : "No manual selection yet, so this uses every current result."}</p><div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div>{worksheetId && selectionIsExplicit && <div className="worksheet-selected-list"><strong>Selected questions</strong><ol>{[...selectedIds].map((id, position) => <li key={id}><span>{id}</span><div><button type="button" aria-label={`Move question ${id} up`} disabled={position === 0} onClick={() => setSelectedIds((current) => { const ids = [...current]; [ids[position - 1], ids[position]] = [ids[position], ids[position - 1]]; return new Set(ids); })}>↑</button><button type="button" aria-label={`Move question ${id} down`} disabled={position === selectedIds.size - 1} onClick={() => setSelectedIds((current) => { const ids = [...current]; [ids[position], ids[position + 1]] = [ids[position + 1], ids[position]]; return new Set(ids); })}>↓</button><button type="button" aria-label={`Remove question ${id}`} onClick={() => setSelectedIds((current) => { const next = new Set(current); next.delete(id); return next; })}>Remove</button></div></li>)}</ol></div>}<label className="worksheet-name-field">Worksheet name<input aria-label="Worksheet name" maxLength={80} value={worksheetName} onChange={(event) => setWorksheetName(event.target.value)} placeholder="e.g. Algebra revision" /></label><div className="worksheet-actions"><button type="button" className="button secondary" disabled={!resolvedAccess.bankAccess || !worksheetReady || worksheetLoading || !exportQuestions.length || !worksheetName.trim()} onClick={saveWorksheet}>{worksheetId ? "Save changes" : "Save worksheet"}</button><button ref={pdfBuildButtonRef} className="download-button pdf-download" disabled={!exportQuestions.length} onClick={handleDownload}><DownloadSimple /> {pdfStatusKind === "success" ? "PDF downloaded" : "Download PDF"}</button></div>{worksheetStatus && <p role={worksheetLoadFailed || worksheetStatus.includes("could not") || worksheetStatus.includes("required") || worksheetStatus.includes("unavailable") ? "alert" : "status"}>{worksheetStatus}</p>}{worksheetLoadFailed && <button type="button" onClick={() => { setWorksheetStatus(""); setWorksheetLoadFailed(false); setWorksheetReady(false); }}>Retry loading worksheet</button>}{worksheetDirty && <small>Unsaved worksheet changes</small>}{pdfStatus && <small ref={pdfStatusRef} role="status" aria-live="polite" className={pdfStatusKind === "progress" ? "" : pdfStatusKind === "error" ? "is-error" : "is-success"}>{pdfStatus}</small>}</section></div>}
+      {pdfOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfDialogRef} className="pdf-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-title"><button className="pdf-close" aria-label="Close PDF options" onClick={() => setPdfOpen(false)}><X /></button><p className="eyebrow">Worksheet builder</p><h2 id="pdf-title">Download {exportQuestions.length.toLocaleString()} questions</h2><p>{worksheetId ? "Only the questions in this worksheet are included." : selectionIsExplicit ? "Using your selected questions, including selections outside the current filters." : filtered.length > MAX_PDF_QUESTIONS ? `Worksheets are limited to ${MAX_PDF_QUESTIONS} questions. Narrow your filters or make a selection for a different set.` : "No manual selection yet, so this uses every current result."}</p><div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div>{!worksheetId && <label className="worksheet-name-field">Worksheet name<input aria-label="Worksheet name" maxLength={80} value={worksheetName} onChange={(event) => setWorksheetName(event.target.value)} placeholder="e.g. Algebra revision" /></label>}<div className={`worksheet-actions${worksheetId ? " only-download" : ""}`}>{!worksheetId && <button type="button" className="button primary" disabled={!resolvedAccess.bankAccess || !worksheetReady || worksheetLoading || worksheetSaving || !exportQuestions.length || !worksheetName.trim()} onClick={saveWorksheet}>Save worksheet</button>}<button ref={pdfBuildButtonRef} className="button secondary pdf-download" disabled={!exportQuestions.length} onClick={handleDownload}><DownloadSimple /> {pdfStatusKind === "success" ? "PDF downloaded" : "Download PDF"}</button></div>{worksheetStatus && <p role={worksheetLoadFailed || worksheetStatus.includes("could not") || worksheetStatus.includes("required") || worksheetStatus.includes("unavailable") ? "alert" : "status"}>{worksheetStatus}</p>}{worksheetLoadFailed && <button type="button" onClick={() => { setWorksheetStatus(""); setWorksheetLoadFailed(false); setWorksheetReady(false); }}>Retry loading worksheet</button>}{worksheetDirty && <small>Unsaved worksheet changes</small>}{pdfStatus && <small ref={pdfStatusRef} role="status" aria-live="polite" className={pdfStatusKind === "progress" ? "" : pdfStatusKind === "error" ? "is-error" : "is-success"}>{pdfStatus}</small>}</section></div>}
       {pdfUpgradeOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfUpgradeDialogRef} className="pdf-dialog access-upgrade-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-upgrade-title"><button className="pdf-close" aria-label="Close PDF access message" onClick={() => setPdfUpgradeOpen(false)}><X /></button><span className="access-upgrade-icon"><DownloadSimple aria-hidden="true" weight="bold" /></span><h2 id="pdf-upgrade-title">PDF export needs paid access</h2><p>Build and download worksheets with paid access to this question bank.</p><Link className="button primary" href={plansHref}>{PLANS_LABEL}</Link></section></div>}
     </section>
   );
@@ -950,7 +1001,7 @@ function FilterGroup({ label, filterKey, values, selected, onToggle }: { label: 
   return <div className="filter-group" role="group" aria-labelledby={headingId}><h3 id={headingId}>{label}</h3><div className="filter-options">{values.map((value) => { const publicLabel = formatPublicLabel(value); return <label key={value}><input aria-label={`${label}: ${publicLabel}`} type="checkbox" checked={selected.includes(value)} onChange={() => onToggle(filterKey, value)} /><span>{publicLabel}</span></label>; })}</div></div>;
 }
 
-function QuestionCard({ question, unlocked, authenticated, localPreview, questionAsset, answerAsset, onQuestionAssetError, onAnswerAsset, selected, onSelect, saved, attempted, onToggleSaved, onAttempt }: {
+function QuestionCard({ question, unlocked, authenticated, localPreview, questionAsset, answerAsset, onQuestionAssetError, onAnswerAsset, selected, selectable, onSelect, saved, attempted, onToggleSaved, onAttempt }: {
   question: UnifiedQuestion;
   unlocked: boolean;
   authenticated: boolean;
@@ -960,6 +1011,7 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, questio
   onQuestionAssetError: () => void;
   onAnswerAsset: (asset: SignedAsset) => void;
   selected: boolean;
+  selectable: boolean;
   onSelect: () => void;
   saved: boolean;
   attempted: boolean;
@@ -995,7 +1047,7 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, questio
 
   return (
     <article className="question-card question-paper">
-      <header className="question-card-header"><div className="question-meta"><span>{question.year} {question.session}</span><span>Paper {question.paper}</span><span>Question {question.number}</span>{question.component && <span>Component {question.component}</span>}{question.zone && <span>{question.zone}</span>}{question.marks !== null && <span>{question.marks} {question.marks === 1 ? "mark" : "marks"}</span>}</div>{unlocked && <label className="pdf-select"><input aria-label={`Add question ${question.number} to PDF`} type="checkbox" checked={selected} onChange={onSelect} /> Add to PDF</label>}</header>
+      <header className="question-card-header"><div className="question-meta"><span>{question.year} {question.session}</span><span>Paper {question.paper}</span><span>Question {question.number}</span>{question.component && <span>Component {question.component}</span>}{question.zone && <span>{question.zone}</span>}{question.marks !== null && <span>{question.marks} {question.marks === 1 ? "mark" : "marks"}</span>}</div>{unlocked && selectable && <label className="pdf-select"><input aria-label={`Add question ${question.number} to PDF`} type="checkbox" checked={selected} onChange={onSelect} /> Add to PDF</label>}</header>
       <div className="question-topic"><strong>{formatPublicLabel(question.primaryTopic)}</strong>{question.subtopics.slice(0, 4).map((topic) => <span key={topic}>{formatPublicLabel(topic)}</span>)}</div>
       {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} onError={onQuestionAssetError} />) : <div className="asset-placeholder" role="status"><span className="placeholder-shimmer" aria-hidden="true" /><span className="placeholder-bars" aria-hidden="true"><i /><i /><i /><i /></span><span className="sr-only">Loading original question</span></div>}</div> : <div className="question-locked"><strong>Paid plan required</strong><span>Unlock this bank’s full question set, answers, and PDF export.</span><Link className="question-locked-action" href={plansHrefFor(authenticated)}>{PLANS_LABEL}</Link></div>}
       <div className="question-actions">

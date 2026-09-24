@@ -393,7 +393,10 @@ describe("QuestionExplorer", () => {
     fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
     const dialog = screen.getByRole("dialog", { name: /download 2 questions/i });
     const nameField = within(dialog).getByRole("textbox", { name: "Worksheet name" });
+    expect((nameField as HTMLInputElement).value).toMatch(/^IB SL /);
     expect(nameField.closest(".worksheet-name-field")).not.toBeNull();
+    expect(within(dialog).getByRole("button", { name: "Save worksheet" })).toHaveClass("primary");
+    expect(within(dialog).getByRole("button", { name: "Download PDF" })).toHaveClass("secondary");
     expect(within(dialog).getByRole("button", { name: "Save worksheet" }).closest(".worksheet-actions")).toBe(within(dialog).getByRole("button", { name: "Download PDF" }).closest(".worksheet-actions"));
     fireEvent.click(screen.getByRole("radio", { name: "Answers" }));
     fireEvent.change(screen.getByLabelText(/worksheet name/i), { target: { value: "My set" } });
@@ -402,6 +405,9 @@ describe("QuestionExplorer", () => {
     const save = calls.find(({ url }) => url === "/api/worksheets")!;
     expect(JSON.parse(String(save.init?.body))).toEqual({ bank: "ib-sl", name: "My set", questionIds: [questions[1].id, questions[0].id], contentMode: "answers" });
     expect(await screen.findByText(/worksheet saved/i)).toBeInTheDocument();
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(window.location.search).not.toContain("worksheet=");
+    expect(screen.getByRole("link", { name: /view worksheet/i })).toHaveAttribute("href", "/banks/ib-sl?worksheet=worksheet-1");
   });
 
   it("reopens a worksheet by opaque ID and restores saved content and selected membership", async () => {
@@ -414,20 +420,51 @@ describe("QuestionExplorer", () => {
     window.history.replaceState({}, "", "/banks/ib-sl?worksheet=wk-42");
     render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} />);
     await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/worksheets/wk-42", expect.objectContaining({ cache: "no-store" })));
+    await waitFor(() => expect(document.querySelectorAll(".question-list > .question-card")).toHaveLength(2));
+    expect(screen.getByText("Revision set")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Edit worksheet" })).toBeInTheDocument();
+    expect(screen.queryByRole("checkbox", { name: /add question/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: `Remove question ${ids[0]}` })).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
-    expect(screen.getByLabelText(/worksheet name/i)).toHaveValue("Revision set");
     expect(screen.getByRole("radio", { name: "Answers" })).toBeChecked();
-    expect(screen.getByText(/2 selected for PDF/i)).toBeInTheDocument();
-    const selected = screen.getAllByRole("checkbox", { name: /add question/i }).filter((checkbox) => (checkbox as HTMLInputElement).checked);
-    expect(selected).toHaveLength(2);
-    expect(screen.getByRole("button", { name: `Remove question ${ids[0]}` })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: `Remove question ${ids[0]}` }));
-    expect(screen.getByText(/1 selected for PDF/i)).toBeInTheDocument();
+    expect(screen.getByRole("dialog", { name: /download 2 questions/i })).toHaveTextContent("Only the questions in this worksheet");
     const writeText = vi.fn().mockResolvedValue(undefined);
     Object.defineProperty(navigator, "clipboard", { configurable: true, value: { writeText } });
     fireEvent.click(screen.getByRole("button", { name: /copy link to this view/i }));
     await waitFor(() => expect(writeText).toHaveBeenCalled());
     expect(String(writeText.mock.calls[0][0])).not.toContain("worksheet=");
+  });
+
+  it("edits the saved set with a plus button that opens the full bank without losing selections", async () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 4), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const ids = [questions[1].id, questions[0].id];
+    const writes: Array<Record<string, unknown>> = [];
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      if (String(input) === "/api/worksheets/wk-edit") {
+        if (init?.method === "PATCH") { const body = JSON.parse(String(init.body)); writes.push(body); return new Response(JSON.stringify({ worksheet: { id: "wk-edit", bank_slug: "ib-sl", title: body.name.trim(), question_ids: body.questionIds, content_mode: body.contentMode, revision: 4 } }), { status: 200 }); }
+        return new Response(JSON.stringify({ worksheet: { id: "wk-edit", bank_slug: "ib-sl", title: "Revision set", question_ids: ids, content_mode: "both", revision: 3 } }), { status: 200 });
+      }
+      return new Response(JSON.stringify({ expiresIn: 600, assets: [] }), { status: 200 });
+    }));
+    window.history.replaceState({}, "", "/banks/ib-sl?worksheet=wk-edit&mode=edit&topic=ignored");
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} />);
+    await waitFor(() => expect(screen.getByRole("textbox", { name: "Worksheet name" })).toHaveValue("Revision set"));
+    expect(document.querySelectorAll(".question-list > .question-card")).toHaveLength(2);
+    fireEvent.click(screen.getByRole("button", { name: "+ Add questions" }));
+    expect(document.querySelectorAll(".question-list > .question-card")).toHaveLength(4);
+    fireEvent.click(screen.getAllByRole("checkbox", { name: /add question/i })[2]);
+    fireEvent.change(screen.getByPlaceholderText("Search questions, topics, or methods"), { target: { value: "no question matches this" } });
+    expect(document.querySelectorAll(".question-list > .question-card")).toHaveLength(0);
+    fireEvent.click(screen.getByRole("button", { name: "Done adding" }));
+    expect(document.querySelectorAll(".question-list > .question-card")).toHaveLength(3);
+    fireEvent.click(screen.getByRole("button", { name: `Move question ${ids[1]} up` }));
+    expect(screen.getByRole("status", { name: /question order/i })).toHaveTextContent("position 1 of 3");
+    fireEvent.change(screen.getByRole("textbox", { name: "Worksheet name" }), { target: { value: "Better set  " } });
+    fireEvent.click(screen.getByRole("button", { name: "Save changes" }));
+    await waitFor(() => expect(writes).toHaveLength(1));
+    expect(writes[0]).toEqual(expect.objectContaining({ name: "Better set  ", questionIds: [ids[1], ids[0], questions[2].id], revision: 3 }));
+    await waitFor(() => expect(screen.getByRole("button", { name: "Save changes" })).toBeDisabled());
+    expect(screen.getByRole("textbox", { name: "Worksheet name" })).toHaveValue("Better set");
   });
 
   it("stops retrying automatically when a saved worksheet cannot be loaded", async () => {
@@ -439,8 +476,9 @@ describe("QuestionExplorer", () => {
     window.history.replaceState({}, "", "/banks/ib-sl?worksheet=missing");
     render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} />);
     await waitFor(() => expect(fetchMock.mock.calls.filter(([url]) => String(url) === "/api/worksheets/missing")).toHaveLength(1));
+    expect(await screen.findByRole("alert", { name: "Worksheet unavailable" })).toHaveTextContent("Worksheet not found");
     fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
-    expect(await screen.findByText("Worksheet not found")).toBeInTheDocument();
+    expect(screen.queryByRole("dialog", { name: /download/i })).not.toBeInTheDocument();
     expect(fetchMock.mock.calls.filter(([url]) => String(url) === "/api/worksheets/missing")).toHaveLength(1);
   });
 
