@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
 type Worksheet = { id: string; bank_slug: string; title: string; question_ids: string[]; content_mode: "questions" | "answers" | "both"; revision: number; updated_at: string };
@@ -52,7 +51,7 @@ export function WorksheetList() {
     {error && <p role="alert" className="saved-worksheets-error">{error}</p>}
     {loading ? <p role="status">Loading worksheets…</p> : worksheets.length === 0 ? <p className="saved-worksheets-empty">No saved worksheets yet. Save a question set from any bank to find it here.</p> : <ul className="saved-worksheets-list">{worksheets.map((item) => <li className="saved-worksheet-card" key={item.id}>
       <div className="saved-worksheet-info">{editing === item.id ? <form onSubmit={(event) => { event.preventDefault(); void rename(item); }}><label htmlFor={`worksheet-name-${item.id}`}>Worksheet name</label><input id={`worksheet-name-${item.id}`} value={name} maxLength={80} onChange={(event) => setName(event.target.value)} autoFocus /><button type="submit" disabled={busy === item.id}>Save name</button><button type="button" onClick={() => setEditing(null)}>Cancel</button></form> : <><h3>{item.title}</h3><p>{item.bank_slug.replaceAll("-", " ")} · {item.question_ids.length} {item.question_ids.length === 1 ? "question" : "questions"}</p><time dateTime={item.updated_at}>Edited {new Date(item.updated_at).toLocaleDateString()}</time></>}</div>
-      {editing !== item.id && <div className="saved-worksheet-actions"><Link className="button secondary" aria-label={`Open ${item.title}`} href={`/banks/${encodeURIComponent(item.bank_slug)}?worksheet=${encodeURIComponent(item.id)}`}>Open</Link><button type="button" disabled={busy === item.id} onClick={() => { setName(item.title); setEditing(item.id); }}>Rename {item.title}</button><button type="button" disabled={busy === item.id} onClick={() => void remove(item)}>Delete {item.title}</button></div>}
+      {editing !== item.id && <div className="saved-worksheet-actions"><a className="button secondary" aria-label={`Open ${item.title}`} href={`/banks/${encodeURIComponent(item.bank_slug)}?worksheet=${encodeURIComponent(item.id)}`}>Open</a><button type="button" disabled={busy === item.id} onClick={() => { setName(item.title); setEditing(item.id); }}>Rename {item.title}</button><button type="button" disabled={busy === item.id} onClick={() => void remove(item)}>Delete {item.title}</button></div>}
     </li>)}</ul>}
   </section>;
 }
