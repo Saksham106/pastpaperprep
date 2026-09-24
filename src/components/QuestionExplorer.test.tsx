@@ -153,9 +153,9 @@ describe("QuestionExplorer", () => {
       hydrateFromLocation
     />);
 
-    await waitFor(() => expect(screen.getByRole("heading", { name: /keep practising for free/i })).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByRole("heading", { name: /unlock all free questions/i })).toBeInTheDocument());
     expect(container.querySelectorAll(".question-card")).toHaveLength(20);
-    expect(screen.getByText(/remaining 10 free questions/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/remaining 10 free questions/i)).toHaveLength(2);
     expect(screen.queryByRole("button", { name: /show 24 more questions/i })).not.toBeInTheDocument();
 
     await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/assets/sign", expect.any(Object)));
@@ -171,7 +171,7 @@ describe("QuestionExplorer", () => {
 
     const expectedReturnPath = `${window.location.pathname}${window.location.search}`;
     const signup = screen.getByRole("link", { name: "Create free account" });
-    const signin = screen.getByRole("link", { name: /already have an account/i });
+    const signin = screen.getByRole("link", { name: "Sign in" });
     expect(new URL(signup.getAttribute("href")!, "https://pastpaperprep.com").searchParams.get("next")).toBe(expectedReturnPath);
     expect(new URL(signin.getAttribute("href")!, "https://pastpaperprep.com").searchParams.get("next")).toBe(expectedReturnPath);
   });
