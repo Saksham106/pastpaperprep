@@ -448,6 +448,12 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .exam-style-fallbacks { display: flex; flex-wrap: wrap; gap: 7px 17px; font-size: .78rem; }
 .exam-style-pdf { width: 100%; height: min(78vh, 920px); display: block; border: 0; background: #fff; }
 .exam-style-fallback-note { margin: 0; padding: 10px 20px 12px; color: var(--muted); border-top: 1px solid var(--line); font-size: .72rem; }
+.exam-style-auth-gate { max-width: 680px; margin: 34px auto 0; padding: clamp(30px, 5vw, 46px); display: flex; align-items: center; flex-direction: column; text-align: center; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 12px; box-shadow: 0 16px 42px rgba(28, 43, 68, .08); }
+.exam-style-auth-icon { width: 44px; height: 44px; margin-bottom: 18px; display: grid; place-items: center; color: var(--cobalt-strong); background: var(--cobalt-soft); border-radius: 50%; font-size: 21px; }
+.exam-style-auth-gate .eyebrow { margin: 0 0 9px; }
+.exam-style-auth-gate h2 { margin: 0; font: 800 clamp(1.75rem, 4vw, 2.35rem)/1.05 var(--font-display); letter-spacing: -.045em; }
+.exam-style-auth-gate > p:not(.eyebrow) { max-width: 500px; margin: 14px 0 22px; color: var(--muted); line-height: 1.55; }
+.exam-style-auth-gate .button { min-width: 220px; justify-content: center; }
 @media (max-width: 760px) {
   .bank-hero-beta-link { margin-top: 10px; font-size: .72rem; }
   .exam-style-page { padding-top: 22px; }
@@ -459,6 +465,8 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
   .exam-style-set-option strong { font-size: .76rem; line-height: 1.2; }
   .exam-style-viewer > header { align-items: flex-start; flex-direction: column; }
   .exam-style-pdf { height: 72vh; }
+  .exam-style-auth-gate { margin-top: 24px; padding: 28px 20px; }
+  .exam-style-auth-gate .button { width: 100%; }
 }
 @media (max-width: 420px) { .exam-style-set-list { grid-template-columns: 1fr; } }
 
