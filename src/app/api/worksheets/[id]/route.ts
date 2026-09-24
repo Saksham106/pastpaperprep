@@ -25,8 +25,13 @@ export async function PATCH(request: Request, context: { params: Promise<{ id: s
   let body: Record<string, unknown>;
   try { body = await request.json() as Record<string, unknown>; } catch { return NextResponse.json({ error: "Invalid JSON" }, { status: 400 }); }
   if (!Number.isInteger(body.revision) || Number(body.revision) < 1) return NextResponse.json({ error: "Invalid revision" }, { status: 400 });
+  const renameOnly = Object.keys(body).every((key) => key === "name" || key === "revision");
+  const title = typeof body.name === "string" ? body.name.trim() : "";
+  if (renameOnly && (!title || title.length > 80)) return NextResponse.json({ error: "Name must be 1–80 characters" }, { status: 400 });
   let definition;
-  try { definition = validateWorksheet({ bank: body.bank, name: body.name, questionIds: body.questionIds, contentMode: body.contentMode }); } catch (error) { return NextResponse.json({ error: error instanceof Error ? error.message : "Invalid worksheet" }, { status: 400 }); }
+  if (!renameOnly) {
+    try { definition = validateWorksheet({ bank: body.bank, name: body.name, questionIds: body.questionIds, contentMode: body.contentMode }); } catch (error) { return NextResponse.json({ error: error instanceof Error ? error.message : "Invalid worksheet" }, { status: 400 }); }
+  }
   const client = await createClient();
   const { data: claims } = await client.auth.getClaims();
   const userId = typeof claims?.claims?.sub === "string" ? claims.claims.sub : null;
@@ -34,13 +39,16 @@ export async function PATCH(request: Request, context: { params: Promise<{ id: s
   const current = await client.from("saved_worksheets").select("id,bank_slug").eq("id", id).eq("user_id", userId).maybeSingle();
   if (current.error) return NextResponse.json({ error: "Worksheet unavailable" }, { status: 503 });
   if (!current.data) return NextResponse.json({ error: "Worksheet not found" }, { status: 404 });
-  if (current.data.bank_slug !== definition.bank) return NextResponse.json({ error: "A worksheet cannot change banks" }, { status: 400 });
-  const access = await client.from("entitlements").select("product_id, selected_bank_ids, status, starts_at, expires_at").eq("user_id", userId);
-  if (access.error) return NextResponse.json({ error: "Access could not be verified" }, { status: 503 });
-  if (!hasBankAccess(definition.bank, normalizeEntitlements(access.data ?? []))) return NextResponse.json({ error: "A current bank subscription is required" }, { status: 403 });
-  const canonical = new Set((await loadBankQuestions(definition.bank)).map((question) => question.id));
-  if (definition.questionIds.some((questionId) => !canonical.has(questionId))) return NextResponse.json({ error: "One or more questions are no longer available" }, { status: 400 });
-  const { data, error } = await client.from("saved_worksheets").update({ title: definition.name, question_ids: definition.questionIds, content_mode: definition.contentMode, revision: Number(body.revision) + 1, updated_at: new Date().toISOString() }).eq("id", id).eq("user_id", userId).eq("revision", Number(body.revision)).select("id,bank_slug,title,question_ids,content_mode,revision,created_at,updated_at").maybeSingle();
+  if (definition) {
+    if (current.data.bank_slug !== definition.bank) return NextResponse.json({ error: "A worksheet cannot change banks" }, { status: 400 });
+    const access = await client.from("entitlements").select("product_id, selected_bank_ids, status, starts_at, expires_at").eq("user_id", userId);
+    if (access.error) return NextResponse.json({ error: "Access could not be verified" }, { status: 503 });
+    if (!hasBankAccess(definition.bank, normalizeEntitlements(access.data ?? []))) return NextResponse.json({ error: "A current bank subscription is required" }, { status: 403 });
+    const canonical = new Set((await loadBankQuestions(definition.bank)).map((question) => question.id));
+    if (definition.questionIds.some((questionId) => !canonical.has(questionId))) return NextResponse.json({ error: "One or more questions are no longer available" }, { status: 400 });
+  }
+  const updates = { title: definition?.name ?? title, ...(definition ? { question_ids: definition.questionIds, content_mode: definition.contentMode } : {}), revision: Number(body.revision) + 1, updated_at: new Date().toISOString() };
+  const { data, error } = await client.from("saved_worksheets").update(updates).eq("id", id).eq("user_id", userId).eq("revision", Number(body.revision)).select("id,bank_slug,title,question_ids,content_mode,revision,created_at,updated_at").maybeSingle();
   if (error) return NextResponse.json({ error: "Worksheet could not be updated" }, { status: 503 });
   if (!data) return NextResponse.json({ error: "Worksheet changed elsewhere; reload before saving" }, { status: 409 });
   return NextResponse.json({ worksheet: data });

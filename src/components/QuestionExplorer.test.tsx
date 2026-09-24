@@ -416,6 +416,28 @@ describe("QuestionExplorer", () => {
     expect(screen.getByText(/2 selected for PDF/i)).toBeInTheDocument();
     const selected = screen.getAllByRole("checkbox", { name: /add question/i }).filter((checkbox) => (checkbox as HTMLInputElement).checked);
     expect(selected).toHaveLength(2);
+    expect(screen.getByRole("button", { name: `Remove question ${ids[0]}` })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: `Remove question ${ids[0]}` }));
+    expect(screen.getByText(/1 selected for PDF/i)).toBeInTheDocument();
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, "clipboard", { configurable: true, value: { writeText } });
+    fireEvent.click(screen.getByRole("button", { name: /copy link to this view/i }));
+    await waitFor(() => expect(writeText).toHaveBeenCalled());
+    expect(String(writeText.mock.calls[0][0])).not.toContain("worksheet=");
+  });
+
+  it("stops retrying automatically when a saved worksheet cannot be loaded", async () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 2), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => String(input).startsWith("/api/worksheets/")
+      ? new Response(JSON.stringify({ error: "Worksheet not found" }), { status: 404 })
+      : new Response(JSON.stringify({ expiresIn: 600, assets: [] }), { status: 200 }));
+    vi.stubGlobal("fetch", fetchMock);
+    window.history.replaceState({}, "", "/banks/ib-sl?worksheet=missing");
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} />);
+    await waitFor(() => expect(fetchMock.mock.calls.filter(([url]) => String(url) === "/api/worksheets/missing")).toHaveLength(1));
+    fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
+    expect(await screen.findByText("Worksheet not found")).toBeInTheDocument();
+    expect(fetchMock.mock.calls.filter(([url]) => String(url) === "/api/worksheets/missing")).toHaveLength(1);
   });
 
   it("reports a save failure without marking the worksheet clean", async () => {

@@ -210,6 +210,7 @@ access: ExplorerAccess;
   const [worksheetRevision, setWorksheetRevision] = useState(0);
   const [worksheetName, setWorksheetName] = useState("");
   const [worksheetStatus, setWorksheetStatus] = useState("");
+  const [worksheetLoadFailed, setWorksheetLoadFailed] = useState(false);
   const [worksheetLoading, setWorksheetLoading] = useState(false);
   const [worksheetBaseline, setWorksheetBaseline] = useState("");
   const [worksheetReady, setWorksheetReady] = useState(() => typeof window === "undefined" || !new URLSearchParams(window.location.search).has("worksheet"));
@@ -633,7 +634,7 @@ access: ExplorerAccess;
   const worksheetDefinition = () => JSON.stringify({ name: worksheetName.trim(), ids: [...selectedIds], content: pdfContent });
   const worksheetDirty = worksheetBaseline ? worksheetBaseline !== worksheetDefinition() : Boolean(worksheetName.trim() && (selectionIsExplicit ? selectedIds.size : filtered.length));
   useEffect(() => {
-    if (!worksheetId || !indexLoaded || indexError || bootstrapPending || worksheetBaseline) return;
+    if (!worksheetId || !indexLoaded || indexError || bootstrapPending || worksheetReady) return;
     let cancelled = false;
     queueMicrotask(() => { if (!cancelled) setWorksheetLoading(true); });
     fetch(`/api/worksheets/${encodeURIComponent(worksheetId)}`, { cache: "no-store" }).then(async (response) => {
@@ -648,8 +649,9 @@ access: ExplorerAccess;
       setSelectedIds(new Set(worksheet.question_ids)); setSelectionIsExplicit(true);
       setWorksheetName(worksheet.title); setWorksheetRevision(worksheet.revision); setPdfContent(worksheet.content_mode);
       setWorksheetBaseline(JSON.stringify({ name: worksheet.title, ids: worksheet.question_ids, content: worksheet.content_mode }));
+      setWorksheetLoadFailed(false);
       setWorksheetReady(true);
-    }).catch((error: unknown) => { if (!cancelled) { setWorksheetStatus(error instanceof Error ? error.message : "Saved worksheet unavailable"); setWorksheetReady(true); } })
+    }).catch((error: unknown) => { if (!cancelled) { setWorksheetStatus(error instanceof Error ? error.message : "Saved worksheet unavailable"); setWorksheetLoadFailed(true); setWorksheetReady(true); } })
       .finally(() => { if (!cancelled) setWorksheetLoading(false); });
     return () => { cancelled = true; };
   }, [worksheetId, indexLoaded, indexError, bootstrapPending, worksheetReady, worksheetBaseline, bank, catalogQuestions]);
@@ -666,8 +668,8 @@ access: ExplorerAccess;
   }, [worksheetDirty]);
 
   const saveWorksheet = async () => {
-    if (!bank || !resolvedAccess.bankAccess || !exportQuestions.length || !worksheetName.trim() || !worksheetReady) return;
-    const orderedIds = selectionIsExplicit ? [...selectedIds] : exportQuestions.map((question) => question.id);
+    if (!bank || !resolvedAccess.bankAccess || !exportQuestions.length || !worksheetName.trim() || !worksheetReady || worksheetLoadFailed) return;
+    const orderedIds = exportQuestions.map((question) => question.id);
     setWorksheetStatus("Saving worksheet…");
     try {
       const response = await fetch(worksheetId ? `/api/worksheets/${encodeURIComponent(worksheetId)}` : "/api/worksheets", {
@@ -719,7 +721,9 @@ access: ExplorerAccess;
 
   const shareWorkspace = async () => {
     setShareStatus("");
-    const shareUrl = window.location.href;
+    const shareLink = new URL(window.location.href);
+    shareLink.searchParams.delete("worksheet");
+    const shareUrl = shareLink.href;
     if (typeof navigator.share === "function" && navigator.canShare?.({ url: shareUrl })) {
       try {
         await navigator.share({ url: shareUrl, title: document.title });
@@ -934,7 +938,7 @@ access: ExplorerAccess;
         </div>
       </div>
 
-      {pdfOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfDialogRef} className="pdf-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-title"><button className="pdf-close" aria-label="Close PDF options" onClick={() => setPdfOpen(false)}><X /></button><p className="eyebrow">Worksheet builder</p><h2 id="pdf-title">Download {exportQuestions.length.toLocaleString()} questions</h2><p>{selectionIsExplicit ? "Using your selected questions, including selections outside the current filters." : filtered.length > MAX_PDF_QUESTIONS ? `Worksheets are limited to ${MAX_PDF_QUESTIONS} questions. Narrow your filters or make a selection for a different set.` : "No manual selection yet, so this uses every current result."}</p><div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div><label>Worksheet name<input aria-label="Worksheet name" maxLength={80} value={worksheetName} onChange={(event) => setWorksheetName(event.target.value)} placeholder="Name this worksheet" /></label><button type="button" className="button secondary" disabled={!resolvedAccess.bankAccess || !worksheetReady || worksheetLoading || !exportQuestions.length || !worksheetName.trim()} onClick={saveWorksheet}>{worksheetId ? "Save changes" : "Save worksheet"}</button>{worksheetStatus && <p role={worksheetStatus.includes("could not") || worksheetStatus.includes("required") || worksheetStatus.includes("unavailable") ? "alert" : "status"}>{worksheetStatus}</p>}{worksheetDirty && <small>Unsaved worksheet changes</small>}<button ref={pdfBuildButtonRef} className="download-button pdf-download" disabled={!exportQuestions.length} onClick={handleDownload}><DownloadSimple /> {pdfStatusKind === "success" ? "Downloaded" : "Build PDF"}</button>{pdfStatus && <small ref={pdfStatusRef} role="status" aria-live="polite" className={pdfStatusKind === "progress" ? "" : pdfStatusKind === "error" ? "is-error" : "is-success"}>{pdfStatus}</small>}</section></div>}
+      {pdfOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfDialogRef} className="pdf-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-title"><button className="pdf-close" aria-label="Close PDF options" onClick={() => setPdfOpen(false)}><X /></button><p className="eyebrow">Worksheet builder</p><h2 id="pdf-title">Download {exportQuestions.length.toLocaleString()} questions</h2><p>{selectionIsExplicit ? "Using your selected questions, including selections outside the current filters." : filtered.length > MAX_PDF_QUESTIONS ? `Worksheets are limited to ${MAX_PDF_QUESTIONS} questions. Narrow your filters or make a selection for a different set.` : "No manual selection yet, so this uses every current result."}</p><div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div>{worksheetId && selectionIsExplicit && <div className="worksheet-selected-list"><strong>Selected questions</strong><ol>{[...selectedIds].map((id, position) => <li key={id}><span>{id}</span><div><button type="button" aria-label={`Move question ${id} up`} disabled={position === 0} onClick={() => setSelectedIds((current) => { const ids = [...current]; [ids[position - 1], ids[position]] = [ids[position], ids[position - 1]]; return new Set(ids); })}>↑</button><button type="button" aria-label={`Move question ${id} down`} disabled={position === selectedIds.size - 1} onClick={() => setSelectedIds((current) => { const ids = [...current]; [ids[position], ids[position + 1]] = [ids[position + 1], ids[position]]; return new Set(ids); })}>↓</button><button type="button" aria-label={`Remove question ${id}`} onClick={() => setSelectedIds((current) => { const next = new Set(current); next.delete(id); return next; })}>Remove</button></div></li>)}</ol></div>}<label>Worksheet name<input aria-label="Worksheet name" maxLength={80} value={worksheetName} onChange={(event) => setWorksheetName(event.target.value)} placeholder="Name this worksheet" /></label><button type="button" className="button secondary" disabled={!resolvedAccess.bankAccess || !worksheetReady || worksheetLoading || !exportQuestions.length || !worksheetName.trim()} onClick={saveWorksheet}>{worksheetId ? "Save changes" : "Save worksheet"}</button>{worksheetStatus && <p role={worksheetLoadFailed || worksheetStatus.includes("could not") || worksheetStatus.includes("required") || worksheetStatus.includes("unavailable") ? "alert" : "status"}>{worksheetStatus}</p>}{worksheetLoadFailed && <button type="button" onClick={() => { setWorksheetStatus(""); setWorksheetLoadFailed(false); setWorksheetReady(false); }}>Retry loading worksheet</button>}{worksheetDirty && <small>Unsaved worksheet changes</small>}<button ref={pdfBuildButtonRef} className="download-button pdf-download" disabled={!exportQuestions.length} onClick={handleDownload}><DownloadSimple /> {pdfStatusKind === "success" ? "Downloaded" : "Build PDF"}</button>{pdfStatus && <small ref={pdfStatusRef} role="status" aria-live="polite" className={pdfStatusKind === "progress" ? "" : pdfStatusKind === "error" ? "is-error" : "is-success"}>{pdfStatus}</small>}</section></div>}
       {pdfUpgradeOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfUpgradeDialogRef} className="pdf-dialog access-upgrade-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-upgrade-title"><button className="pdf-close" aria-label="Close PDF access message" onClick={() => setPdfUpgradeOpen(false)}><X /></button><span className="access-upgrade-icon"><DownloadSimple aria-hidden="true" weight="bold" /></span><h2 id="pdf-upgrade-title">PDF export needs paid access</h2><p>Build and download worksheets with paid access to this question bank.</p><Link className="button primary" href={plansHref}>{PLANS_LABEL}</Link></section></div>}
     </section>
   );

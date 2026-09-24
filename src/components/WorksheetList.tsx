@@ -28,7 +28,7 @@ export function WorksheetList() {
     if (!title) { setError("Enter a worksheet name."); return; }
     setBusy(item.id); setError("");
     try {
-      const response = await fetch(`/api/worksheets/${encodeURIComponent(item.id)}`, { method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify({ bank: item.bank_slug, name: title, questionIds: item.question_ids, contentMode: item.content_mode, revision: item.revision }) });
+      const response = await fetch(`/api/worksheets/${encodeURIComponent(item.id)}`, { method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify({ name: title, revision: item.revision }) });
       if (!response.ok) throw new Error();
       const data = await response.json();
       setWorksheets((current) => current.map((row) => row.id === item.id ? (data.worksheet ?? { ...row, title, revision: row.revision + 1 }) : row));

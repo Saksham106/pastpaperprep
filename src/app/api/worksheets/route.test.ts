@@ -10,7 +10,7 @@ const question = { id: questionIds[0] };
 function req(body?: unknown) { return new Request("https://example.test/api/worksheets", { method: body === undefined ? "GET" : "POST", headers: { "content-type": "application/json" }, ...(body === undefined ? {} : { body: typeof body === "string" ? body : JSON.stringify(body) }) }); }
 function setup({ userId = "user-id", entitlements = [{ product_id: "bundle_all", status: "active", starts_at: "2026-01-01T00:00:00Z", expires_at: null }], saved = null as unknown } = {}) {
   getClaims.mockResolvedValue({ data: { claims: userId ? { sub: userId } : {} } });
-  const chain: any = { select: vi.fn(() => chain), eq: vi.fn(() => chain), order: vi.fn(() => Promise.resolve({ data: [], error: null })), insert: vi.fn(() => chain), single: vi.fn(() => Promise.resolve({ data: saved, error: null })) };
+  const chain: Record<string, ReturnType<typeof vi.fn>> = { select: vi.fn(() => chain), eq: vi.fn(() => chain), order: vi.fn(() => Promise.resolve({ data: [], error: null })), insert: vi.fn(() => chain), single: vi.fn(() => Promise.resolve({ data: saved, error: null })) };
   from.mockImplementation((table: string) => table === "entitlements" ? { select: () => ({ eq: () => Promise.resolve({ data: entitlements, error: null }) }) } : chain);
   createClient.mockResolvedValue({ auth: { getClaims }, from });
   loadBankQuestions.mockResolvedValue([question]);

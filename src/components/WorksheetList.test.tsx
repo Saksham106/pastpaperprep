@@ -20,7 +20,7 @@ describe("WorksheetList", () => {
     expect(screen.getByText(/2\s+questions/)).toBeInTheDocument();
   });
 
-  it("renames by PATCHing the complete definition and revision", async () => {
+  it("renames by PATCHing only the name and revision, including after access lapses", async () => {
     const fetchMock = vi.fn()
       .mockResolvedValueOnce(Response.json({ worksheets: items }))
       .mockResolvedValueOnce(Response.json({ worksheet: { ...items[0], title: "Geometry", revision: 4 } }));
@@ -30,7 +30,7 @@ describe("WorksheetList", () => {
     fireEvent.change(screen.getByLabelText("Worksheet name"), { target: { value: "Geometry" } });
     fireEvent.click(screen.getByRole("button", { name: "Save name" }));
     await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(2));
-    expect(fetchMock.mock.calls[1][1]).toMatchObject({ method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify({ bank: items[0].bank_slug, name: "Geometry", questionIds: items[0].question_ids, contentMode: "both", revision: 3 }) });
+    expect(fetchMock.mock.calls[1][1]).toMatchObject({ method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify({ name: "Geometry", revision: 3 }) });
     expect(await screen.findByText("Geometry")).toBeInTheDocument();
   });
 
