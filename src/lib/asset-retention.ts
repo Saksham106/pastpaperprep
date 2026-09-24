@@ -15,7 +15,7 @@ export type AssetRetentionPlan = {
 
 /** Canonical retained-asset census for the current runtime bank corpus. */
 export const EXPECTED_ASSET_COUNTS = {
-  igcse: { preview: 1436, premium: 3932, all: 5368 },
+  igcse: { preview: 1436, premium: 6498, all: 7934 },
   "igcse-additional": { preview: 956, premium: 2310, all: 3266 },
   "ib-hl": { preview: 314, premium: 2708, all: 3022 },
   "ib-sl": { preview: 147, premium: 1316, all: 1463 },

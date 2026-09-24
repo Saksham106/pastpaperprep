@@ -15,9 +15,12 @@ const ACCESS_KEY_ID = process.env.R2_SYNC_ACCESS_KEY_ID;
 const SECRET_ACCESS_KEY = process.env.R2_SYNC_SECRET_ACCESS_KEY;
 const CONCURRENCY = Number(process.env.UPLOAD_CONCURRENCY ?? 16);
 const VERIFY_ONLY = process.argv.includes("--verify-only");
+const IGCSE_SOURCE_ROOT = process.env.PASTPAPERPREP_IGCSE_0580_SOURCE_ROOT
+  ? resolve(process.env.PASTPAPERPREP_IGCSE_0580_SOURCE_ROOT)
+  : join(WORKSPACE_ROOT, "igcse-0580-topic-practice/site");
 
 const SOURCES = [
-  { bank: "igcse", root: join(WORKSPACE_ROOT, "igcse-0580-topic-practice/site"), raw: join(REPO_ROOT, "src/data/raw/igcse.json"), imageFields: ["questionImages", "markschemeImages"] },
+  { bank: "igcse", root: IGCSE_SOURCE_ROOT, raw: join(REPO_ROOT, "src/data/raw/igcse.json"), imageFields: ["questionImages", "markschemeImages"] },
   { bank: "igcse-additional", root: join(WORKSPACE_ROOT, "igcse-additional-mathematics-0606-topic-practice-full-audit-final/site"), raw: join(REPO_ROOT, "src/data/raw/igcse-additional.json"), imageFields: ["questionImages", "markschemeImages"] },
   { bank: "ib-hl", root: join(WORKSPACE_ROOT, "ib-maths-aa-hl-topic-practice/site"), raw: join(REPO_ROOT, "src/data/raw/ib-hl.json"), imageFields: ["questionImages"], officialMarkschemeImages: true },
   { bank: "ib-sl", root: join(WORKSPACE_ROOT, "ib-maths-aa-topic-finder-audit/site"), raw: join(REPO_ROOT, "src/data/raw/ib-sl.json"), imageFields: ["questionImages"], officialMarkschemeImages: true },
@@ -32,6 +35,16 @@ const SOURCES = [
 ];
 
 export { SOURCES };
+
+export function selectSources(value = process.env.R2_SYNC_BANKS) {
+  if (!value) return SOURCES;
+  const requested = [...new Set(value.split(",").map((bank) => bank.trim()).filter(Boolean))];
+  if (!requested.length) throw new Error("R2_SYNC_BANKS must name at least one bank.");
+  const byBank = new Map(SOURCES.map((source) => [source.bank, source]));
+  const unknown = requested.filter((bank) => !byBank.has(bank));
+  if (unknown.length) throw new Error(`Unknown R2_SYNC_BANKS: ${unknown.join(", ")}`);
+  return requested.map((bank) => byBank.get(bank));
+}
 
 function createClient() {
   if (!ACCOUNT_ID || !ACCESS_KEY_ID || !SECRET_ACCESS_KEY) {
@@ -147,7 +160,8 @@ export async function localManifest(sources = SOURCES, concurrency = CONCURRENCY
   return entries;
 }
 
-async function remoteManifest(client) {
+async function remoteManifest(client, sources) {
+  const prefixes = sources.map((source) => `${source.bank}/`);
   const objects = [];
   let continuationToken;
   do {
@@ -158,6 +172,7 @@ async function remoteManifest(client) {
     }));
     for (const object of page.Contents ?? []) {
       if (!object.Key) continue;
+      if (!prefixes.some((prefix) => object.Key.startsWith(prefix))) continue;
       objects.push({
         key: object.Key,
         size: object.Size ?? -1,
@@ -185,9 +200,10 @@ function reconcile(local, remote) {
 
 async function main() {
   const client = createClient();
-  const local = await localManifest();
+  const sources = selectSources();
+  const local = await localManifest(sources);
   const localBytes = local.reduce((sum, item) => sum + item.size, 0);
-  let remote = await remoteManifest(client);
+  let remote = await remoteManifest(client, sources);
   let result = reconcile(local, remote);
 
   console.log(`Local: ${local.length.toLocaleString()} objects, ${localBytes.toLocaleString()} bytes.`);
@@ -232,7 +248,7 @@ async function main() {
       process.exit(1);
     }
 
-    remote = await remoteManifest(client);
+    remote = await remoteManifest(client, sources);
     result = reconcile(local, remote);
   }
 

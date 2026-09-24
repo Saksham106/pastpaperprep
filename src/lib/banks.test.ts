@@ -17,7 +17,7 @@ describe("bank catalog", () => {
       "ib-biology-hl",
       "ib-biology-sl",
     ]);
-    expect(BANKS.map((bank) => bank.questionCount)).toEqual([2684, 1633, 841, 578, 409, 334, 1872, 1412, 1875, 1314, 1911, 1548]);
+    expect(BANKS.map((bank) => bank.questionCount)).toEqual([3967, 1633, 841, 578, 409, 334, 1872, 1412, 1875, 1314, 1911, 1548]);
   });
 
   it("returns a bank by slug", () => {
