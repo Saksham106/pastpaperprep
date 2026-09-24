@@ -31,6 +31,106 @@ describe("QuestionExplorer", () => {
 
   const fullAccess = { authenticated: true, bankAccess: true, canExportPdf: true };
 
+  it("keeps Core, Extended, and All on the question page and filters both-route banks", async () => {
+    window.history.replaceState({}, "", "/banks/igcse");
+    const bank = loadBankQuestions("igcse");
+    const representatives = [1, 2, 3, 4].map((paper) => bank.find((question) => question.paper === paper)!);
+    expect(representatives.every(Boolean)).toBe(true);
+    const questions = prepareQuestionsForDelivery(representatives, [{ productId: "bank_igcse", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+
+    render(<QuestionExplorer questions={questions} bankSlug="igcse" access={fullAccess} />);
+
+    const routePicker = screen.getByRole("radiogroup", { name: /course route/i });
+    expect(routePicker.closest(".explorer-toolbar")).not.toBeNull();
+    expect(within(routePicker).getByRole("radio", { name: /^all/i })).toBeChecked();
+    expect(screen.getByText("4 questions")).toBeInTheDocument();
+
+    fireEvent.click(within(routePicker).getByRole("radio", { name: /^core/i }));
+    expect(screen.getByText("2 questions")).toBeInTheDocument();
+    expect(screen.getAllByText(/paper [13]/i)).toHaveLength(2);
+    await waitFor(() => expect(new URLSearchParams(window.location.search).get("route")).toBe("core"));
+
+    fireEvent.click(within(routePicker).getByRole("radio", { name: /^extended/i }));
+    expect(screen.getByText("2 questions")).toBeInTheDocument();
+    expect(screen.getAllByText(/paper [24]/i)).toHaveLength(2);
+    await waitFor(() => expect(new URLSearchParams(window.location.search).get("route")).toBe("extended"));
+
+    fireEvent.click(within(routePicker).getByRole("radio", { name: /^all/i }));
+    expect(screen.getByText("4 questions")).toBeInTheDocument();
+    await waitFor(() => expect(new URLSearchParams(window.location.search).has("route")).toBe(false));
+  });
+
+  it("clears incompatible paper refinements and limits paper choices to the selected route", () => {
+    const bank = loadBankQuestions("igcse");
+    const representatives = [1, 2, 3, 4].map((paper) => bank.find((question) => question.paper === paper)!);
+    const questions = prepareQuestionsForDelivery(representatives, [{ productId: "bank_igcse", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+
+    render(<QuestionExplorer
+      questions={questions}
+      bankSlug="igcse"
+      access={fullAccess}
+      initialState={{ search: "", sort: "paper", filters: { papers: ["2"] }, freeOnly: false, savedOnly: false, courseRoute: "all", visible: 24 }}
+    />);
+
+    expect(screen.getByText("1 question")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("radio", { name: /^core/i }));
+    expect(screen.getByText("2 questions")).toBeInTheDocument();
+    const filtersToggle = screen.getByRole("button", { name: /(?:more|fewer) filters/i });
+    if (filtersToggle.getAttribute("aria-expanded") !== "true") fireEvent.click(filtersToggle);
+    expect(screen.getByRole("checkbox", { name: "Papers: 1" })).toBeInTheDocument();
+    expect(screen.getByRole("checkbox", { name: "Papers: 3" })).toBeInTheDocument();
+    expect(screen.queryByRole("checkbox", { name: "Papers: 2" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("checkbox", { name: "Papers: 4" })).not.toBeInTheDocument();
+  });
+
+  it("keeps unsupported banks unfiltered and removes an inapplicable route URL parameter", async () => {
+    window.history.replaceState({}, "", "/banks/ib-sl?route=core");
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 8), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} hydrateFromLocation />);
+
+    expect(screen.queryByRole("radiogroup", { name: /course route/i })).not.toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText("8 questions")).toBeInTheDocument());
+    await waitFor(() => expect(new URLSearchParams(window.location.search).has("route")).toBe(false));
+  });
+
+  it("filters hydrated public-index metadata and shares practical Papers 5 and 6 across both routes", async () => {
+    window.history.replaceState({}, "", "/banks/igcse-chemistry-0620");
+    const bank = await loadEconomicsBankQuestions("igcse-chemistry-0620");
+    const representatives = [1, 2, 3, 4, 5, 6].map((paper) => bank.find((question) => question.paper === paper)!);
+    expect(representatives.every(Boolean)).toBe(true);
+    const questions = prepareQuestionsForDelivery(representatives, [{ productId: "bank_igcse_chemistry_0620", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const index = {
+      version: 1 as const,
+      bank: "igcse-chemistry-0620" as const,
+      questions: representatives.map(toPublicQuestionMetadata),
+    };
+    vi.stubGlobal("fetch", vi.fn(async (input, init) => {
+      if (String(input) === "/test-chemistry-index.json") {
+        return new Response(JSON.stringify(index), { status: 200, headers: { "content-type": "application/json" } });
+      }
+      const body = JSON.parse(String(init?.body));
+      return new Response(JSON.stringify({
+        expiresIn: 600,
+        assets: body.requests.map((request: { questionId: string; kind: string }) => ({ ...request, urls: [`https://assets.example/${request.questionId}.webp`] })),
+      }), { status: 200, headers: { "content-type": "application/json" } });
+    }));
+
+    render(<QuestionExplorer questions={questions} bankSlug="igcse-chemistry-0620" indexUrl="/test-chemistry-index.json" access={fullAccess} />);
+
+    const routePicker = screen.getByRole("radiogroup", { name: /course route/i });
+    await waitFor(() => expect(fetch).toHaveBeenCalledWith("/test-chemistry-index.json", expect.objectContaining({ cache: "force-cache" })));
+    fireEvent.click(within(routePicker).getByRole("radio", { name: /^core/i }));
+    await waitFor(() => expect(screen.getByText("4 questions")).toBeInTheDocument());
+    expect(screen.getByText(/paper 5/i)).toBeInTheDocument();
+    expect(screen.getByText(/paper 6/i)).toBeInTheDocument();
+
+    fireEvent.click(within(routePicker).getByRole("radio", { name: /^extended/i }));
+    await waitFor(() => expect(screen.getByText("4 questions")).toBeInTheDocument());
+    expect(screen.getByText(/paper 5/i)).toBeInTheDocument();
+    expect(screen.getByText(/paper 6/i)).toBeInTheDocument();
+  });
+
   it("hydrates shared filters and member access without making the bank page dynamic", async () => {
     const all = loadBankQuestions("ib-sl");
     const initial = prepareQuestionsForDelivery(all.slice(0, 40), []);
@@ -95,7 +195,7 @@ describe("QuestionExplorer", () => {
       questions={initial}
       bankSlug="ib-sl"
       access={{ authenticated: false, bankAccess: false, canExportPdf: false }}
-      initialState={{ search: "", sort: "paper", filters: {}, freeOnly: true, savedOnly: false, visible: 24 }}
+      initialState={{ search: "", sort: "paper", filters: {}, freeOnly: true, savedOnly: false, courseRoute: "all", visible: 24 }}
       bootstrapUrl="/api/banks/bootstrap?bank=ib-sl"
       hydrateFromLocation
     />);
@@ -166,7 +266,7 @@ describe("QuestionExplorer", () => {
       questions={initial}
       bankSlug="ib-sl"
       access={fullAccess}
-      initialState={{ search: "", sort: "paper", filters: {}, freeOnly: false, savedOnly: false, visible: 24 }}
+      initialState={{ search: "", sort: "paper", filters: {}, freeOnly: false, savedOnly: false, courseRoute: "all", visible: 24 }}
       bootstrapUrl="/api/banks/bootstrap?bank=ib-sl"
       hydrateFromLocation
     />);
@@ -181,7 +281,7 @@ describe("QuestionExplorer", () => {
     Object.defineProperty(navigator, "clipboard", { configurable: true, value: { writeText } });
     window.history.replaceState({}, "", "/banks/ib-sl");
     const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 40), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
-    render(<QuestionExplorer questions={questions} access={fullAccess} initialState={{ search: "tangent", sort: "topic", filters: {}, freeOnly: false, savedOnly: false, visible: 24 }} />);
+    render(<QuestionExplorer questions={questions} access={fullAccess} initialState={{ search: "tangent", sort: "topic", filters: {}, freeOnly: false, savedOnly: false, courseRoute: "all", visible: 24 }} />);
 
     expect(screen.getByLabelText(/search questions/i)).toHaveValue("tangent");
     expect(screen.getByRole("button", { name: /sort questions: topic/i })).toBeInTheDocument();
@@ -194,7 +294,7 @@ describe("QuestionExplorer", () => {
 
   it("uses the designed keyboard-accessible sort listbox instead of a native select", () => {
     const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 8), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
-    const { container } = render(<QuestionExplorer questions={questions} access={fullAccess} initialState={{ search: "", sort: "paper", filters: {}, freeOnly: false, savedOnly: false, visible: 24 }} />);
+    const { container } = render(<QuestionExplorer questions={questions} access={fullAccess} initialState={{ search: "", sort: "paper", filters: {}, freeOnly: false, savedOnly: false, courseRoute: "all", visible: 24 }} />);
 
     expect(container.querySelector(".sort-field select")).toBeNull();
     const trigger = screen.getByRole("button", { name: /sort questions: newest papers/i });
@@ -208,7 +308,7 @@ describe("QuestionExplorer", () => {
   it("shows the compact Sort label until a sort option is chosen, then the chosen option", async () => {
     window.history.replaceState({}, "", "/banks/ib-sl");
     const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 8), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
-    render(<QuestionExplorer questions={questions} access={fullAccess} initialState={{ search: "", sort: "paper", filters: {}, freeOnly: false, savedOnly: false, visible: 24 }} />);
+    render(<QuestionExplorer questions={questions} access={fullAccess} initialState={{ search: "", sort: "paper", filters: {}, freeOnly: false, savedOnly: false, courseRoute: "all", visible: 24 }} />);
 
     // Default (newest) state: the trigger stays compact, and the default sort is not in the URL.
     const trigger = screen.getByRole("button", { name: "Sort questions: Newest papers" });
@@ -392,7 +492,7 @@ describe("QuestionExplorer", () => {
   it("keeps the mobile Filters control wider and more prominent with its active count", () => {
     const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-hl").slice(0, 120), [{ productId: "bank_ib_hl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
     const year = String(questions[0].year);
-    const { container } = render(<QuestionExplorer questions={questions} access={fullAccess} initialState={{ search: "", sort: "paper", filters: { years: [year] }, freeOnly: false, savedOnly: false, visible: 24 }} />);
+    const { container } = render(<QuestionExplorer questions={questions} access={fullAccess} initialState={{ search: "", sort: "paper", filters: { years: [year] }, freeOnly: false, savedOnly: false, courseRoute: "all", visible: 24 }} />);
 
     const toolbar = container.querySelector(".explorer-toolbar");
     expect(toolbar).not.toBeNull();
@@ -412,7 +512,7 @@ describe("QuestionExplorer", () => {
   it("opens additional filters when a shared workspace already uses one", () => {
     const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-hl").slice(0, 120), [{ productId: "bank_ib_hl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
     const year = String(questions[0].year);
-    render(<QuestionExplorer questions={questions} access={fullAccess} initialState={{ search: "", sort: "paper", filters: { years: [year] }, freeOnly: false, savedOnly: false, visible: 24 }} />);
+    render(<QuestionExplorer questions={questions} access={fullAccess} initialState={{ search: "", sort: "paper", filters: { years: [year] }, freeOnly: false, savedOnly: false, courseRoute: "all", visible: 24 }} />);
 
     expect(screen.getByRole("button", { name: /fewer filters/i })).toHaveAttribute("aria-expanded", "true");
     expect(screen.getByRole("group", { name: /years/i })).toBeInTheDocument();
@@ -457,7 +557,7 @@ describe("QuestionExplorer", () => {
     const preview = all.find((question) => question.id === PREVIEW_QUESTION_IDS["ib-sl"][0])!;
     const locked = all.find((question) => !PREVIEW_QUESTION_IDS["ib-sl"].includes(question.id))!;
     const questions = prepareQuestionsForDelivery([preview, locked], []);
-    render(<QuestionExplorer questions={questions} access={{ authenticated: false, bankAccess: false, canExportPdf: false }} initialState={{ search: "", sort: "paper", filters: {}, freeOnly: true, savedOnly: false, visible: 24 }} />);
+    render(<QuestionExplorer questions={questions} access={{ authenticated: false, bankAccess: false, canExportPdf: false }} initialState={{ search: "", sort: "paper", filters: {}, freeOnly: true, savedOnly: false, courseRoute: "all", visible: 24 }} />);
 
     expect(await screen.findByRole("img", { name: /original question/i })).toBeInTheDocument();
     expect(screen.queryByText(/all-access question/i)).not.toBeInTheDocument();
@@ -582,7 +682,7 @@ describe("QuestionExplorer", () => {
       return new Response(JSON.stringify({ expiresIn: 600, assets: body.requests.map((request: { questionId: string; kind: string }) => ({ ...request, urls: [`https://assets.example/${request.questionId}.webp`] })) }), { status: 200 });
     }));
 
-    render(<QuestionExplorer questions={initial} bankSlug="ib-sl" indexUrl="/bank-index/ib-sl.v1.json" access={fullAccess} initialState={{ search: "calculus", sort: "paper", filters: {}, freeOnly: false, savedOnly: false, visible: 24 }} />);
+    render(<QuestionExplorer questions={initial} bankSlug="ib-sl" indexUrl="/bank-index/ib-sl.v1.json" access={fullAccess} initialState={{ search: "calculus", sort: "paper", filters: {}, freeOnly: false, savedOnly: false, courseRoute: "all", visible: 24 }} />);
     expect(screen.getByText("1 question")).toBeInTheDocument();
     await waitFor(() => expect(fetch).toHaveBeenCalledWith(expect.stringContaining("/api/questions/search?bank=ib-sl&q=calculus"), expect.objectContaining({ cache: "no-store" })));
     expect(screen.getByRole("button", { name: new RegExp(`Save question ${searchResultId}`) })).toBeInTheDocument();
@@ -601,7 +701,7 @@ describe("QuestionExplorer", () => {
       return new Response(JSON.stringify({ expiresIn: 600, assets: body.requests.map((request: { questionId: string; kind: string }) => ({ ...request, urls: [`https://assets.example/${request.questionId}.webp`] })) }), { status: 200 });
     }));
 
-    render(<QuestionExplorer questions={initial} bankSlug="ib-sl" indexUrl="/bank-index/ib-sl.v1.json" access={fullAccess} initialState={{ search: "calculus", sort: "paper", filters: {}, freeOnly: false, savedOnly: false, visible: 24 }} />);
+    render(<QuestionExplorer questions={initial} bankSlug="ib-sl" indexUrl="/bank-index/ib-sl.v1.json" access={fullAccess} initialState={{ search: "calculus", sort: "paper", filters: {}, freeOnly: false, savedOnly: false, courseRoute: "all", visible: 24 }} />);
     await waitFor(() => expect(fetch).toHaveBeenCalledWith(expect.stringContaining("/api/questions/search?bank=ib-sl&q=calculus"), expect.objectContaining({ cache: "no-store" })));
     expect(screen.getByRole("button", { name: new RegExp(`Save question ${all[0].id}`) })).toBeInTheDocument();
   });

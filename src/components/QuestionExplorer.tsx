@@ -14,6 +14,7 @@ import type { BankSlug } from "@/lib/banks";
 import { fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
 import { pulseSuccess, shakeElement } from "@/lib/button-feedback";
 import { mergeQuestionRichDetails, publicMetadataToQuestion, type PublicBankIndex } from "@/lib/question-index";
+import { matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 import { formatPublicLabel } from "@/lib/presentation";
 import { trackProductEvent } from "@/lib/product-analytics";
@@ -147,7 +148,7 @@ function unique(questions: UnifiedQuestion[], value: (question: UnifiedQuestion)
 export type ExplorerAccess = { authenticated: boolean; bankAccess: boolean; canExportPdf: boolean };
 export type ExplorerStudyState = { savedIds: string[]; attemptedIds: string[] };
 
-const DEFAULT_EXPLORER_STATE: ExplorerState = { search: "", sort: DEFAULT_SORT, filters: {}, freeOnly: false, savedOnly: false, visible: EXPLORER_PAGE_SIZE };
+const DEFAULT_EXPLORER_STATE: ExplorerState = { search: "", sort: DEFAULT_SORT, filters: {}, freeOnly: false, savedOnly: false, courseRoute: "all", visible: EXPLORER_PAGE_SIZE };
 /** Re-sign assets whose URLs die within this window; the server grants 600s TTL. */
 const SIGN_REFRESH_MARGIN_MS = 90_000;
 const EMPTY_STUDY_STATE: ExplorerStudyState = { savedIds: [], attemptedIds: [] };
@@ -196,6 +197,7 @@ access: ExplorerAccess;
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [freeOnly, setFreeOnly] = useState(initialState.freeOnly);
   const [savedOnly, setSavedOnly] = useState(initialState.savedOnly);
+  const [courseRoute, setCourseRoute] = useState<CourseRouteSelection>(initialState.courseRoute);
   const [showAllSubtopics, setShowAllSubtopics] = useState(false);
   const [showMoreFilters, setShowMoreFilters] = useState(() => (
     SECONDARY_FILTER_KEYS.some((key) => Boolean(initialState.filters[key]?.length))
@@ -231,6 +233,8 @@ access: ExplorerAccess;
   const explorerRootRef = useRef<HTMLElement>(null);
 
   const bank = bankSlug ?? questions[0]?.bankSlug;
+  const routeSupported = supportsCourseRoute(bank);
+  const effectiveCourseRoute: CourseRouteSelection = routeSupported ? courseRoute : "all";
   const isCambridge = bank === "igcse" || bank === "igcse-additional";
   const plansHref = plansHrefFor(resolvedAccess.authenticated);
   // Static bank pages start with anonymous-safe data. Keep that provisional free filter
@@ -246,33 +250,38 @@ access: ExplorerAccess;
       ? subtopicGroups.all
       : [...subtopicGroups.relevant, ...subtopicGroups.selectedOutsideContext]
     : subtopicGroups.all;
+  const routeScopedQuestions = useMemo(
+    () => catalogQuestions.filter((question) => matchesCourseRoute(question.syllabusRoute, effectiveCourseRoute)),
+    [catalogQuestions, effectiveCourseRoute],
+  );
   const options = useMemo(() => ({
     topics: getTopicOptions(catalogQuestions),
     years: unique(catalogQuestions, (q) => String(q.year)).reverse(),
-    papers: unique(catalogQuestions, (q) => String(q.paper)),
+    papers: unique(routeScopedQuestions, (q) => String(q.paper)),
     sessions: unique(catalogQuestions, (q) => q.session),
     subjects: unique(catalogQuestions, (q) => q.subject),
     zones: unique(catalogQuestions, questionZoneValue),
     courseEras: unique(catalogQuestions, (q) => q.courseEra),
     options: unique(catalogQuestions, (q) => q.option),
-    components: unique(catalogQuestions, (q) => q.component),
+    components: unique(routeScopedQuestions, (q) => q.component),
     granularLabels: unique(catalogQuestions, (q) => q.granularLabels ?? []),
     officialCodeRefs: unique(catalogQuestions, (q) => q.officialCodeRefs ?? []),
     retrievalFacets: unique(catalogQuestions, (q) => q.retrievalFacets ?? []),
-  }), [catalogQuestions]);
+  }), [catalogQuestions, routeScopedQuestions]);
 
   const filtered = useMemo(() => {
     const normalizedSearch = search.trim().toLocaleLowerCase();
     const remoteSearch = Boolean(
       bankSlug && normalizedSearch && indexLoaded && searchResult?.query === normalizedSearch,
     );
+    const routeQuestions = catalogQuestions.filter((question) => matchesCourseRoute(question.syllabusRoute, effectiveCourseRoute));
     const matching = remoteSearch
-      ? filterQuestions(catalogQuestions, { ...filters, search: undefined, sort })
+      ? filterQuestions(routeQuestions, { ...filters, search: undefined, sort })
         .filter((question) => searchResult!.ids.has(question.id))
-      : filterQuestions(catalogQuestions, { ...filters, search, sort });
+      : filterQuestions(routeQuestions, { ...filters, search, sort });
     const accessible = effectiveFreeOnly ? matching.filter((question) => isPreviewQuestion(question.bankSlug, question.id)) : matching;
     return savedOnly ? accessible.filter((question) => savedIds.has(question.id)) : accessible;
-  }, [bankSlug, catalogQuestions, effectiveFreeOnly, filters, indexLoaded, savedIds, savedOnly, search, searchResult, sort]);
+  }, [bankSlug, catalogQuestions, effectiveCourseRoute, effectiveFreeOnly, filters, indexLoaded, savedIds, savedOnly, search, searchResult, sort]);
   const shownQuestions = useMemo(() => filtered.slice(0, visible), [filtered, visible]);
   const activeCount = Object.values(filters).reduce((count, values) => count + (values?.length ?? 0), (effectiveFreeOnly ? 1 : 0) + (savedOnly ? 1 : 0));
   const questionAssetRequests = useMemo(() => shownQuestions
@@ -312,11 +321,12 @@ access: ExplorerAccess;
       setVisible(next.visible);
       setFreeOnly(next.freeOnly);
       setSavedOnly(next.savedOnly);
+      setCourseRoute(supportsCourseRoute(bank) ? next.courseRoute : "all");
       setShowMoreFilters(SECONDARY_FILTER_KEYS.some((key) => Boolean(next.filters[key]?.length)));
       setLocationHydrated(true);
     });
     return () => { cancelled = true; };
-  }, [access.bankAccess, hydrateFromLocation]);
+  }, [access.bankAccess, bank, hydrateFromLocation]);
 
   useEffect(() => {
     if (!bootstrapUrl) return;
@@ -557,10 +567,10 @@ access: ExplorerAccess;
 
   useEffect(() => {
     if (!locationHydrated || bootstrapPending) return;
-    const query = serializeExplorerState({ search, sort, filters, freeOnly: effectiveFreeOnly, savedOnly, visible }, { persistFreeChoice: !resolvedAccess.bankAccess });
+    const query = serializeExplorerState({ search, sort, filters, freeOnly: effectiveFreeOnly, savedOnly, courseRoute: effectiveCourseRoute, visible }, { persistFreeChoice: !resolvedAccess.bankAccess });
     const nextUrl = `${window.location.pathname}${query.size ? `?${query}` : ""}${window.location.hash}`;
     window.history.replaceState(window.history.state, "", nextUrl);
-  }, [bootstrapPending, effectiveFreeOnly, filters, locationHydrated, resolvedAccess.bankAccess, savedOnly, search, sort, visible]);
+  }, [bootstrapPending, effectiveCourseRoute, effectiveFreeOnly, filters, locationHydrated, resolvedAccess.bankAccess, savedOnly, search, sort, visible]);
 
   useEffect(() => {
     if (!bank) return;
@@ -607,8 +617,19 @@ access: ExplorerAccess;
     setFilters({});
     setFreeOnly(false);
     setSavedOnly(false);
+    setCourseRoute("all");
     setShowAllSubtopics(false);
     setVisible(EXPLORER_PAGE_SIZE);
+  };
+
+  const changeCourseRoute = (value: CourseRouteSelection) => {
+    setCourseRoute(value);
+    // Route is the broad course-level scope. Paper/component filters stay optional
+    // refinements, so discard stale refinements rather than mirroring hidden checkbox state.
+    setFilters((current) => ({ ...current, papers: [], components: [] }));
+    setVisible(EXPLORER_PAGE_SIZE);
+    setSelectionIsExplicit(false);
+    setSelectedIds(new Set());
   };
 
   const shareWorkspace = async () => {
@@ -745,12 +766,26 @@ access: ExplorerAccess;
           <MagnifyingGlass aria-hidden="true" />
           <input value={search} onChange={(event) => { setSearch(event.target.value); setVisible(EXPLORER_PAGE_SIZE); }} placeholder="Search questions, topics, or methods" />
         </label>
+        {routeSupported && <fieldset className="course-route-picker" role="radiogroup" aria-label="Course route">
+          <legend className="sr-only">Course route</legend>
+          <div className="course-route-options">
+            {([
+              ["all", "All", "Core + Extended"],
+              ["core", "Core", "Papers 1 & 3"],
+              ["extended", "Extended", "Papers 2 & 4"],
+            ] as Array<[CourseRouteSelection, string, string]>).map(([value, label, detail]) => <label key={value}>
+              <input type="radio" name="course-route" value={value} checked={courseRoute === value} onChange={() => changeCourseRoute(value)} />
+              <span title={detail}><strong>{label}</strong><small>{detail}</small></span>
+            </label>)}
+          </div>
+        </fieldset>}
         <button ref={filterTriggerRef} className={`mobile-filter-button${activeCount ? " is-active" : ""}`} type="button" aria-haspopup="dialog" aria-expanded={filtersOpen} onClick={() => setFiltersOpen(true)}><Funnel weight="bold" aria-hidden="true" /> Filters{activeCount ? ` (${activeCount})` : ""}</button>
         <SortSelector value={sort} onChange={setSort} />
         <button ref={shareButtonRef} className="share-view-button toolbar-icon-button" type="button" title="Share this view" aria-label="Copy link to this view" onClick={shareWorkspace}><ShareNetwork aria-hidden="true" /></button>
         <button ref={pdfTriggerRef} className="download-button toolbar-icon-button" type="button" title="Download PDF" aria-label="Download PDF" onClick={() => { if (resolvedAccess.canExportPdf) { trackProductEvent("pdf_builder_open", { bank: bank ?? "unknown", questionCount: exportQuestions.length }); setPdfOpen(true); } else showPdfUpgrade(); }}><DownloadSimple aria-hidden="true" /></button>
       </div>
       {shareStatus && <p className={`toolbar-status${shareStatus.startsWith("Couldn't") ? " is-error" : " is-success"}`} role="status">{shareStatus}</p>}
+
 
       {indexError && <div className="access-notice" role="alert"><span>{indexError}</span><button className="text-button" type="button" onClick={() => { setIndexError(""); setIndexAttempt((attempt) => attempt + 1); }}>Retry question index</button></div>}
       {assetError && <div className="access-notice" role="alert"><span>{assetError}</span><button className="text-button" type="button" onClick={retryQuestionAssets}>Retry images</button></div>}
@@ -790,7 +825,7 @@ access: ExplorerAccess;
         <div className="explorer-results" inert={filtersOpen || undefined}>
           <div className="results-heading">
             <div><strong>{filtered.length.toLocaleString()} {effectiveFreeOnly ? "free " : ""}{filtered.length === 1 ? "question" : "questions"}</strong>{selectionIsExplicit && <span>{selectedIds.size} selected for PDF</span>}</div>
-            <div>{selectionIsExplicit && <button className="text-button" onClick={() => { setSelectionIsExplicit(false); setSelectedIds(new Set()); }}>Use all results for PDF</button>}{(search || activeCount > 0) && <button className="text-button" onClick={clearFilters}>Clear filters</button>}</div>
+            <div>{selectionIsExplicit && <button className="text-button" onClick={() => { setSelectionIsExplicit(false); setSelectedIds(new Set()); }}>Use all results for PDF</button>}{(search || activeCount > 0 || courseRoute !== "all") && <button className="text-button" onClick={clearFilters}>Clear filters</button>}</div>
           </div>
           {activeCount > 0 && <div className="active-filters">
             {effectiveFreeOnly && <button aria-label="Remove free questions only filter" onClick={() => setFreeOnly(false)}>Free only <X /></button>}

@@ -6,6 +6,7 @@ import aaTaxonomy from "@/data/aa-official-subtopics/taxonomy.json";
 import aaOverlay from "@/data/aa-official-subtopics/overlay.json";
 import biologyOfficialTaxonomy from "@/data/ib-biology-official-subtopics/taxonomy.json";
 import biologyOfficialOverlay from "@/data/ib-biology-official-subtopics/overlay.json";
+import { deriveCourseRoute, type CourseRoute } from "@/lib/course-route";
 
 const GRANULAR_LABELS = new Map<string, string[]>();
 const overlayBankForSlug = (slug: string) => ({
@@ -100,6 +101,7 @@ export type UnifiedQuestion = {
   bankSlug: BankSlug;
   number: number;
   paper: number;
+  syllabusRoute?: CourseRoute;
   year: number;
   session: string;
   primaryTopic: string;
@@ -255,11 +257,14 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     .join(" ")
     .toLocaleLowerCase();
 
+  const paper = integer(raw.paper);
+
   return {
     id: text(raw.id),
     bankSlug: slug,
     number: integer(raw.number),
-    paper: integer(raw.paper),
+    paper,
+    syllabusRoute: deriveCourseRoute(slug, paper),
     year: integer(raw.year),
     session: text(raw.session),
     primaryTopic,

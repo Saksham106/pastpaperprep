@@ -14,6 +14,7 @@ describe("question explorer URL state", () => {
     })).toEqual({
       search: "vectors",
       sort: "marks-desc",
+      courseRoute: "all",
       filters: {
         topics: ["Algebra", "Geometry"],
         subtopics: ["Vectors"],
@@ -29,16 +30,18 @@ describe("question explorer URL state", () => {
     const query = serializeExplorerState({
       search: "  calculus  ",
       sort: "topic",
+      courseRoute: "core",
       filters: { topics: ["Calculus", "Calculus"], calculator: ["non-calculator"] },
       freeOnly: true,
       savedOnly: false,
       visible: 9_999,
     });
 
-    expect(query.toString()).toBe("q=calculus&sort=topic&topic=Calculus&calculator=non-calculator&free=1&page=10");
+    expect(query.toString()).toBe("q=calculus&sort=topic&route=core&topic=Calculus&calculator=non-calculator&free=1&page=10");
     expect(parseExplorerState(Object.fromEntries(query))).toMatchObject({
       search: "calculus",
       sort: "topic",
+      courseRoute: "core",
       freeOnly: true,
       visible: 240,
     });
@@ -48,6 +51,7 @@ describe("question explorer URL state", () => {
     expect(parseExplorerState({ sort: "random", page: "-4", topic: "x".repeat(101) })).toEqual({
       search: "",
       sort: "paper",
+      courseRoute: "all",
       filters: {},
       freeOnly: false,
       savedOnly: false,
@@ -61,10 +65,17 @@ describe("question explorer URL state", () => {
     expect(serializeExplorerState({
       search: "",
       sort: "paper",
+      courseRoute: "all",
       filters: {},
       freeOnly: false,
       savedOnly: false,
       visible: 24,
     }, { persistFreeChoice: true }).toString()).toBe("free=0");
+  });
+
+  it("accepts only the supported same-page course routes", () => {
+    expect(parseExplorerState({ route: "extended" }).courseRoute).toBe("extended");
+    expect(parseExplorerState({ route: "both" }).courseRoute).toBe("all");
+    expect(parseExplorerState({ route: "nonsense" }).courseRoute).toBe("all");
   });
 });

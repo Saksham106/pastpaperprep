@@ -1,6 +1,7 @@
 import { isIGCSEReleaseBank, isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
 import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
 import type { QuestionRichDetails, UnifiedQuestion } from "@/lib/questions";
+import { deriveCourseRoute } from "@/lib/course-route";
 
 export const PUBLIC_BANK_INDEX_VERSION = 1 as const;
 
@@ -97,6 +98,7 @@ export function publicMetadataToQuestion(question: PublicQuestionMetadata, bank:
     ...question,
     courseEra: "",
     secondarySubtopics: [],
+    syllabusRoute: deriveCourseRoute(bank, question.paper),
     bankSlug: bank,
     officialCodeRefs: [...(question.officialCodeRefs ?? [])],
     retrievalFacets: [...(question.retrievalFacets ?? [])],

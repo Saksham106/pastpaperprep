@@ -1,4 +1,5 @@
 import type { QuestionFilters, QuestionSort } from "@/lib/questions";
+import type { CourseRouteSelection } from "@/lib/course-route";
 
 export const EXPLORER_PAGE_SIZE = 24;
 const MAX_SHARED_PAGES = 10;
@@ -14,6 +15,7 @@ export type ExplorerState = {
   filters: ExplorerFilters;
   freeOnly: boolean;
   savedOnly: boolean;
+  courseRoute: CourseRouteSelection;
   visible: number;
 };
 
@@ -64,6 +66,7 @@ export function parseExplorerState(params: ExplorerSearchParams, options: { defa
     filters,
     freeOnly: params.free === undefined ? Boolean(options.defaultFreeOnly) : first(params.free) === "1",
     savedOnly: first(params.saved) === "1",
+    courseRoute: first(params.route) === "core" || first(params.route) === "extended" ? first(params.route) as CourseRouteSelection : "all",
     visible: boundedPage(params.page) * EXPLORER_PAGE_SIZE,
   };
 }
@@ -73,6 +76,7 @@ export function serializeExplorerState(state: ExplorerState, options: { persistF
   const search = state.search.trim();
   if (search) params.set("q", search.slice(0, 200));
   if (state.sort !== "paper") params.set("sort", state.sort);
+  if (state.courseRoute !== "all") params.set("route", state.courseRoute);
 
   for (const [param, key] of PARAMS) {
     const selected = [...new Set((state.filters[key] ?? []).filter((item) => item && item.length <= 100))].slice(0, 20);
