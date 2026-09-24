@@ -441,7 +441,7 @@ describe("QuestionExplorer", () => {
     const writes: Array<Record<string, unknown>> = [];
     vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
       if (String(input) === "/api/worksheets/wk-edit") {
-        if (init?.method === "PATCH") { const body = JSON.parse(String(init.body)); writes.push(body); return new Response(JSON.stringify({ worksheet: { id: "wk-edit", bank_slug: "ib-sl", title: body.name, question_ids: body.questionIds, content_mode: body.contentMode, revision: 4 } }), { status: 200 }); }
+        if (init?.method === "PATCH") { const body = JSON.parse(String(init.body)); writes.push(body); return new Response(JSON.stringify({ worksheet: { id: "wk-edit", bank_slug: "ib-sl", title: body.name.trim(), question_ids: body.questionIds, content_mode: body.contentMode, revision: 4 } }), { status: 200 }); }
         return new Response(JSON.stringify({ worksheet: { id: "wk-edit", bank_slug: "ib-sl", title: "Revision set", question_ids: ids, content_mode: "both", revision: 3 } }), { status: 200 });
       }
       return new Response(JSON.stringify({ expiresIn: 600, assets: [] }), { status: 200 });
@@ -459,10 +459,12 @@ describe("QuestionExplorer", () => {
     expect(document.querySelectorAll(".question-list > .question-card")).toHaveLength(3);
     fireEvent.click(screen.getByRole("button", { name: `Move question ${ids[1]} up` }));
     expect(screen.getByRole("status", { name: /question order/i })).toHaveTextContent("position 1 of 3");
-    fireEvent.change(screen.getByRole("textbox", { name: "Worksheet name" }), { target: { value: "Better set" } });
+    fireEvent.change(screen.getByRole("textbox", { name: "Worksheet name" }), { target: { value: "Better set  " } });
     fireEvent.click(screen.getByRole("button", { name: "Save changes" }));
     await waitFor(() => expect(writes).toHaveLength(1));
-    expect(writes[0]).toEqual(expect.objectContaining({ name: "Better set", questionIds: [ids[1], ids[0], questions[2].id], revision: 3 }));
+    expect(writes[0]).toEqual(expect.objectContaining({ name: "Better set  ", questionIds: [ids[1], ids[0], questions[2].id], revision: 3 }));
+    await waitFor(() => expect(screen.getByRole("button", { name: "Save changes" })).toBeDisabled());
+    expect(screen.getByRole("textbox", { name: "Worksheet name" })).toHaveValue("Better set");
   });
 
   it("stops retrying automatically when a saved worksheet cannot be loaded", async () => {

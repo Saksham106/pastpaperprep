@@ -697,6 +697,7 @@ access: ExplorerAccess;
       const payload = await response.json();
       if (!response.ok) throw new Error(payload.error || "Worksheet could not be saved. Try again.");
       const saved = payload.worksheet;
+      setWorksheetName(saved.title);
       setWorksheetRevision(saved.revision);
       setSelectedIds(new Set(saved.question_ids)); setSelectionIsExplicit(true);
       setWorksheetBaseline(JSON.stringify({ name: saved.title, ids: saved.question_ids, content: saved.content_mode }));
