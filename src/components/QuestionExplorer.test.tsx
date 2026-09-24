@@ -566,6 +566,12 @@ describe("QuestionExplorer", () => {
     expect(await within(dialog).findByRole("alert")).toHaveTextContent("Conflict. Reload worksheet.");
     expect(screen.getByRole("textbox", { name: "Worksheet name" })).toHaveValue("Edited");
     expect(screen.queryByRole("dialog", { name: /download 2 questions/i })).not.toBeInTheDocument();
+    fireEvent.click(within(dialog).getByRole("button", { name: "Discard changes" }));
+    expect(screen.getByRole("textbox", { name: "Worksheet name" })).toHaveValue("Edited");
+    expect(within(dialog).getByText(/discard unsaved changes/i)).toBeInTheDocument();
+    fireEvent.click(within(dialog).getByRole("button", { name: "Confirm discard" }));
+    expect(screen.getByRole("textbox", { name: "Worksheet name" })).toHaveValue("Original");
+    expect(screen.queryByRole("dialog", { name: /unsaved worksheet changes/i })).not.toBeInTheDocument();
   });
 
   it("keeps the PDF download icon visible on hover in both themes", () => {

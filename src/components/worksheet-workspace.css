@@ -12,7 +12,7 @@
 .worksheet-unsaved-dialog { width: min(100%, 460px); padding: 25px; color: var(--ink); background: var(--surface-raised); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 24px 70px rgb(0 0 0 / .2); }
 .worksheet-unsaved-dialog h2 { margin: 6px 0 8px; font: 800 1.45rem/1.15 var(--font-display); }
 .worksheet-unsaved-dialog > p:not(.eyebrow) { color: var(--muted); line-height: 1.5; }
-.worksheet-unsaved-dialog [role="alert"] { color: var(--danger, #a12533) !important; }
+.worksheet-unsaved-dialog [role="alert"], .worksheet-unsaved-dialog .worksheet-discard-warning { color: var(--danger, #a12533) !important; }
 .worksheet-unsaved-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
 .worksheet-unsaved-actions .text-button { padding-inline: 8px; }
 .worksheet-unsaved-actions .button { min-height: 44px; }

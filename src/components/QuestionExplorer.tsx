@@ -216,6 +216,8 @@ access: ExplorerAccess;
   const [worksheetStatus, setWorksheetStatus] = useState("");
   const [worksheetSaving, setWorksheetSaving] = useState(false);
   const [pendingWorksheetAction, setPendingWorksheetAction] = useState<{ kind: "view" | "link" | "back" | "pdf"; href?: string } | null>(null);
+  const [failedLeaveSave, setFailedLeaveSave] = useState(false);
+  const [confirmDiscard, setConfirmDiscard] = useState(false);
   const allowWorksheetExitRef = useRef(false);
   const worksheetGuardUrlRef = useRef("");
   const worksheetGuardActiveRef = useRef(false);
@@ -659,7 +661,7 @@ access: ExplorerAccess;
     const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     dialog?.querySelector<HTMLButtonElement>("button")?.focus();
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && !worksheetSavingRef.current) { event.preventDefault(); setPendingWorksheetAction(null); return; }
+      if (event.key === "Escape" && !worksheetSavingRef.current) { event.preventDefault(); setPendingWorksheetAction(null); setFailedLeaveSave(false); setConfirmDiscard(false); return; }
       if (event.key !== "Tab" || !dialog) return;
       const buttons = [...dialog.querySelectorAll<HTMLButtonElement>("button:not(:disabled)")];
       if (event.shiftKey && document.activeElement === buttons[0]) { event.preventDefault(); buttons.at(-1)?.focus(); }
@@ -718,14 +720,16 @@ access: ExplorerAccess;
     return () => { window.removeEventListener("beforeunload", warn); window.removeEventListener("popstate", onBack); document.removeEventListener("click", guard, true); };
   }, [worksheetDirty, worksheetId]);
   useEffect(() => {
-    if (worksheetDirty || !worksheetGuardActiveRef.current || allowWorksheetExitRef.current) return;
-    worksheetGuardActiveRef.current = false;
-    // Remove the same-URL history entry used to catch browser Back while editing.
-    if (window.history.state?.worksheetGuard) window.history.back();
+    if (worksheetDirty || !worksheetGuardActiveRef.current) return;
+    const skipGuardEntry = () => { worksheetGuardActiveRef.current = false; window.history.back(); };
+    window.addEventListener("popstate", skipGuardEntry);
+    return () => window.removeEventListener("popstate", skipGuardEntry);
   }, [worksheetDirty]);
 
   const finishWorksheetAction = (action: NonNullable<typeof pendingWorksheetAction>) => {
     setPendingWorksheetAction(null);
+    setFailedLeaveSave(false);
+    setConfirmDiscard(false);
     if (action.kind === "view") { setAddingQuestions(false); setWorksheetMode("view"); }
     if (action.kind === "pdf") setPdfOpen(true);
     if (action.kind === "link" && action.href) { allowWorksheetExitRef.current = true; window.location.assign(action.href); }
@@ -733,6 +737,7 @@ access: ExplorerAccess;
   };
   const discardWorksheetChanges = () => {
     if (!pendingWorksheetAction) return;
+    if (failedLeaveSave && !confirmDiscard) { setConfirmDiscard(true); return; }
     if (worksheetId && worksheetBaseline) {
       const baseline = JSON.parse(worksheetBaseline) as { name: string; ids: string[]; content: PdfContent };
       setWorksheetName(baseline.name); setSelectedIds(new Set(baseline.ids)); setPdfContent(baseline.content);
@@ -951,7 +956,7 @@ access: ExplorerAccess;
   return (
     <section ref={explorerRootRef} className={`explorer${savedWorksheetView ? " is-worksheet-view" : ""}`} aria-label="Question explorer">
       {worksheetId && <div className="worksheet-workspace"><Link href="/worksheets">← My worksheets</Link>{worksheetReady && !worksheetLoadFailed && <div className="worksheet-workspace-heading"><div><h2>{worksheetName}</h2><span>{selectedIds.size} {selectedIds.size === 1 ? "question" : "questions"}</span></div><div className="worksheet-workspace-actions">{worksheetMode === "view" ? <button className="button secondary" type="button" onClick={() => setWorksheetMode("edit")}>Edit worksheet</button> : <button className="button secondary" type="button" onClick={closeWorksheetEditor}>View worksheet</button>}<button ref={shareButtonRef} className="share-view-button toolbar-icon-button" type="button" title="Share this view" aria-label="Copy link to this view" onClick={shareWorkspace}><ShareNetwork aria-hidden="true" /></button><button ref={pdfTriggerRef} className="download-button toolbar-icon-button" type="button" title="Download PDF" aria-label="Download PDF" onClick={openPdfBuilder}><DownloadSimple aria-hidden="true" /></button></div></div>}</div>}
-      {pendingWorksheetAction && <div className="worksheet-unsaved-backdrop" role="presentation"><section ref={worksheetUnsavedDialogRef} className="worksheet-unsaved-dialog" role="dialog" aria-modal="true" aria-labelledby="worksheet-unsaved-title"><p className="eyebrow">Before you go</p><h2 id="worksheet-unsaved-title">Unsaved worksheet changes</h2><p>Save your changes before continuing, or discard them.</p>{worksheetStatus && !worksheetSaving && worksheetStatus !== "Changes saved." && <p role="alert">{worksheetStatus}</p>}<div className="worksheet-unsaved-actions"><button type="button" className="button primary" disabled={worksheetSaving || !worksheetName.trim() || !selectedIds.size} onClick={async () => { const action = pendingWorksheetAction; if (action && await saveWorksheet()) finishWorksheetAction(action); }}>{worksheetSaving ? "Saving…" : "Save changes"}</button><button type="button" className="button secondary" disabled={worksheetSaving} onClick={discardWorksheetChanges}>Discard changes</button><button type="button" className="text-button" disabled={worksheetSaving} onClick={() => setPendingWorksheetAction(null)}>Keep editing</button></div></section></div>}
+      {pendingWorksheetAction && <div className="worksheet-unsaved-backdrop" role="presentation"><section ref={worksheetUnsavedDialogRef} className="worksheet-unsaved-dialog" role="dialog" aria-modal="true" aria-labelledby="worksheet-unsaved-title"><p className="eyebrow">Before you go</p><h2 id="worksheet-unsaved-title">Unsaved worksheet changes</h2><p>Save your changes before continuing, or discard them.</p>{worksheetStatus && !worksheetSaving && worksheetStatus !== "Changes saved." && <p role="alert">{worksheetStatus}</p>}{confirmDiscard && <p className="worksheet-discard-warning">Discard unsaved changes? This cannot be undone.</p>}<div className="worksheet-unsaved-actions"><button type="button" className="button primary" disabled={worksheetSaving || !worksheetName.trim() || !selectedIds.size} onClick={async () => { const action = pendingWorksheetAction; if (action) { setConfirmDiscard(false); if (await saveWorksheet()) finishWorksheetAction(action); else setFailedLeaveSave(true); } }}>{worksheetSaving ? "Saving…" : "Save changes"}</button><button type="button" className="button secondary" disabled={worksheetSaving} onClick={discardWorksheetChanges}>{confirmDiscard ? "Confirm discard" : "Discard changes"}</button><button type="button" className="text-button" disabled={worksheetSaving} onClick={() => { setPendingWorksheetAction(null); setFailedLeaveSave(false); setConfirmDiscard(false); }}>Keep editing</button></div></section></div>}
       {worksheetId && worksheetMode === "edit" && worksheetReady && !worksheetLoadFailed && <WorksheetEditCard title={worksheetName} ids={[...selectedIds]} content={pdfContent} adding={addingQuestions} busy={worksheetSaving} dirty={worksheetDirty} status={worksheetStatus} onTitle={setWorksheetName} onContent={setPdfContent} onMove={(id, direction) => setSelectedIds((current) => { const ids = [...current]; const index = ids.indexOf(id); const next = index + direction; if (index < 0 || next < 0 || next >= ids.length) return current; [ids[index], ids[next]] = [ids[next], ids[index]]; return new Set(ids); })} onRemove={(id) => setSelectedIds((current) => { const next = new Set(current); next.delete(id); return next; })} onAdd={() => { clearFilters(); setAddingQuestions(true); }} onDoneAdding={() => setAddingQuestions(false)} onSave={() => void saveWorksheet()} />}
       {worksheetId && worksheetLoadFailed && <div className="access-notice" role="alert" aria-label="Worksheet unavailable"><span>{worksheetStatus}</span><button className="button secondary" type="button" onClick={() => { setWorksheetStatus(""); setWorksheetLoadFailed(false); setWorksheetReady(false); }}>Retry loading worksheet</button></div>}
       {(!savedWorksheetView || worksheetLoadFailed) && <div className="explorer-toolbar">
