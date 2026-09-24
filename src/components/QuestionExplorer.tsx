@@ -18,6 +18,8 @@ import { matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } fr
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 import { formatPublicLabel } from "@/lib/presentation";
 import { trackProductEvent } from "@/lib/product-analytics";
+import { getFreeQuestionGate } from "@/lib/free-question-gate";
+import { FreeQuestionSignupGate } from "@/components/FreeQuestionSignupGate";
 
 type MultiKey = ExplorerFilterKey;
 
@@ -282,14 +284,32 @@ access: ExplorerAccess;
     const accessible = effectiveFreeOnly ? matching.filter((question) => isPreviewQuestion(question.bankSlug, question.id)) : matching;
     return savedOnly ? accessible.filter((question) => savedIds.has(question.id)) : accessible;
   }, [bankSlug, catalogQuestions, effectiveCourseRoute, effectiveFreeOnly, filters, indexLoaded, savedIds, savedOnly, search, searchResult, sort]);
-  const shownQuestions = useMemo(() => filtered.slice(0, visible), [filtered, visible]);
+  const anonymous = !resolvedAccess.authenticated && !resolvedAccess.bankAccess;
+  const matchingFreeCount = filtered.filter((question) => isPreviewQuestion(question.bankSlug, question.id)).length;
+  const accessResolved = locationHydrated && !bootstrapPending;
+  const freeGate = getFreeQuestionGate({ resolved: accessResolved, authenticated: resolvedAccess.authenticated, bankAccess: resolvedAccess.bankAccess, freeOnly, freeQuestionCount: matchingFreeCount });
+  const shownQuestions = useMemo(() => {
+    if (!anonymous) return filtered.slice(0, visible);
+    const freeLimit = freeGate.visibleCount;
+    let freeShown = 0;
+    const safeSample = filtered.filter((question) => {
+      if (!isPreviewQuestion(question.bankSlug, question.id)) return accessResolved;
+      if (freeShown >= freeLimit) return false;
+      freeShown += 1;
+      return true;
+    });
+    return safeSample.slice(0, visible);
+  }, [accessResolved, anonymous, filtered, freeGate.visibleCount, visible]);
+  const returnPath = typeof window === "undefined" ? "/" : `${window.location.pathname}${window.location.search}`;
+  const signupHref = `/login?mode=sign-up&next=${encodeURIComponent(returnPath)}`;
+  const signinHref = `/login?next=${encodeURIComponent(returnPath)}`;
   const activeCount = Object.values(filters).reduce((count, values) => count + (values?.length ?? 0), (effectiveFreeOnly ? 1 : 0) + (savedOnly ? 1 : 0));
-  const questionAssetRequests = useMemo(() => shownQuestions
+  const questionAssetRequests = useMemo(() => bootstrapPending || !locationHydrated ? [] : shownQuestions
     .filter((question) => resolvedAccess.bankAccess || isPreviewQuestion(question.bankSlug, question.id))
     .filter((question) => !failedAssetKeys.has(signedAssetKey(question.id, "question")))
     .filter((question) => !isSignedAssetFresh(signedAssets.get(signedAssetKey(question.id, "question")), assetEpoch))
     .map((question) => ({ questionId: question.id, kind: "question" as const })),
-  [resolvedAccess.bankAccess, assetEpoch, failedAssetKeys, shownQuestions, signedAssets]);
+  [bootstrapPending, locationHydrated, resolvedAccess.bankAccess, assetEpoch, failedAssetKeys, shownQuestions, signedAssets]);
   // The 30s epoch only matters when a displayed signature is near expiry; without this
   // guard the tick re-renders every card and re-runs the signing effect twice a minute
   // even when every URL is still valid for minutes.
@@ -844,7 +864,8 @@ access: ExplorerAccess;
             })}
           </div>
           {filtered.length === 0 && <div className="empty-state"><strong>No questions match that combination.</strong><span>Clear a filter and try again.</span></div>}
-          {visible < filtered.length && <button className="load-more" onClick={() => setVisible((count) => count + EXPLORER_PAGE_SIZE)}>Show 24 more questions</button>}
+          {freeGate.active && bankSlug && <FreeQuestionSignupGate bankSlug={bankSlug} remainingCount={freeGate.remainingCount} signupHref={signupHref} signinHref={signinHref} />}
+          {!freeGate.active && visible < filtered.length && <button className="load-more" onClick={() => setVisible((count) => count + EXPLORER_PAGE_SIZE)}>Show 24 more questions</button>}
         </div>
       </div>
 

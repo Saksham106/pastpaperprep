@@ -25,6 +25,12 @@ describe("AuthEntry", () => {
     expect(screen.getByText("Existing sign-in methods")).toBeInTheDocument();
   });
 
+  it("opens directly in signup mode when requested", () => {
+    render(<AuthEntry next="/banks/ib-hl?free=1" initialMode="sign-up" />);
+    expect(screen.getByRole("heading", { name: /create your account/i })).toBeInTheDocument();
+    expect(screen.getByText("New account form")).toBeInTheDocument();
+  });
+
   it("moves keyboard focus to the new mode heading", async () => {
     const user = userEvent.setup();
     render(<AuthEntry next="/dashboard" />);

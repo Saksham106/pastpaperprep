@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { QuestionExplorer } from "@/components/QuestionExplorer";
-import { PREVIEW_QUESTION_IDS } from "@/lib/access";
+import { PREVIEW_QUESTION_IDS, isPreviewQuestion } from "@/lib/access";
 import { prepareQuestionsForDelivery } from "@/lib/question-delivery";
 import { toPublicQuestionMetadata } from "@/lib/question-index";
 import { loadBankQuestions } from "@/lib/question-fixtures";
@@ -129,6 +129,51 @@ describe("QuestionExplorer", () => {
     await waitFor(() => expect(screen.getByText("4 questions")).toBeInTheDocument());
     expect(screen.getByText(/paper 5/i)).toBeInTheDocument();
     expect(screen.getByText(/paper 6/i)).toBeInTheDocument();
+  });
+
+  it("shows 20 anonymous free questions, signs only those assets, and preserves the return path", async () => {
+    const freeQuestions = loadBankQuestions("ib-sl").filter((question) => isPreviewQuestion(question.bankSlug, question.id)).slice(0, 30);
+    expect(freeQuestions).toHaveLength(30);
+    const questions = prepareQuestionsForDelivery(freeQuestions, []);
+    window.history.replaceState({}, "", "/banks/ib-sl?free=1&sort=topic");
+    const fetchMock = vi.fn(async (_input: RequestInfo | URL, init?: RequestInit) => {
+      const body = JSON.parse(String(init?.body)) as { requests: Array<{ questionId: string; kind: string }> };
+      return new Response(JSON.stringify({
+        expiresIn: 600,
+        assets: body.requests.map((request) => ({ ...request, urls: [`https://assets.example/${request.questionId}.webp`] })),
+      }), { status: 200, headers: { "content-type": "application/json" } });
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const { container } = render(<QuestionExplorer
+      questions={questions}
+      bankSlug="ib-sl"
+      access={{ authenticated: false, bankAccess: false, canExportPdf: false }}
+      initialState={{ search: "", sort: "paper", filters: {}, freeOnly: true, savedOnly: false, courseRoute: "all", visible: 24 }}
+      hydrateFromLocation
+    />);
+
+    await waitFor(() => expect(screen.getByRole("heading", { name: /keep practising for free/i })).toBeInTheDocument());
+    expect(container.querySelectorAll(".question-card")).toHaveLength(20);
+    expect(screen.getByText(/remaining 10 free questions/i)).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /show 24 more questions/i })).not.toBeInTheDocument();
+
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/assets/sign", expect.any(Object)));
+    const signerCall = fetchMock.mock.calls.find(([input]) => String(input) === "/api/assets/sign");
+    const signerBody = JSON.parse(String(signerCall?.[1]?.body)) as { requests: Array<{ questionId: string }> };
+    expect(signerBody.requests).toHaveLength(20);
+    await waitFor(() => expect(screen.getAllByRole("img", { name: /original question/i })).toHaveLength(20));
+    const renderedAssetIds = screen.getAllByRole("img", { name: /original question/i }).map((image) => {
+      const match = image.getAttribute("src")?.match(/\/([^/]+)\.webp$/);
+      return match?.[1];
+    });
+    expect(new Set(signerBody.requests.map((request) => request.questionId))).toEqual(new Set(renderedAssetIds));
+
+    const expectedReturnPath = `${window.location.pathname}${window.location.search}`;
+    const signup = screen.getByRole("link", { name: "Create free account" });
+    const signin = screen.getByRole("link", { name: /already have an account/i });
+    expect(new URL(signup.getAttribute("href")!, "https://pastpaperprep.com").searchParams.get("next")).toBe(expectedReturnPath);
+    expect(new URL(signin.getAttribute("href")!, "https://pastpaperprep.com").searchParams.get("next")).toBe(expectedReturnPath);
   });
 
   it("hydrates shared filters and member access without making the bank page dynamic", async () => {
