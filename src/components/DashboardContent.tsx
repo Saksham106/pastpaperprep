@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, CaretDown, Gear, Key } from "@phosphor-icons/react/dist/ssr";
 import { QualificationTabs } from "@/components/QualificationTabs";
 import { CourseIcon, courseToneForBank, type CourseTone } from "@/components/CourseIcon";
+import { WorksheetList } from "@/components/WorksheetList";
 import { bankEntryHref, hasFreeTier } from "@/lib/access";
 import { BANKS, type Bank, type BankSlug } from "@/lib/banks";
 
@@ -56,6 +57,7 @@ export function DashboardContent({ authenticated, accessibleBanks, availableBank
     <section className="dashboard-page dashboard-study-desk shell">
       <header className="dashboard-heading"><div><p className="eyebrow">Question banks</p><h1>{hasPaidAccess ? "Your study desk" : "Start practising"}</h1><p>{hasPaidAccess ? "Open an included bank or sample another course with free questions." : "Pick your course and start with complete older exam years for free."}</p></div>{authenticated ? <details className="dashboard-settings"><summary><Gear /> Account & settings <CaretDown /></summary><div className="dashboard-actions"><Link href="/pricing"><Gear /> Manage plan</Link><Link href="/account"><Gear /> My account</Link><Link href="/account/password"><Key /> Password settings</Link></div></details> : null}</header>
       {!hasPaidAccess && <aside className="dashboard-upgrade-strip"><div><strong>Ready for the complete bank?</strong><span>Unlock one course from $6/month, or build a two-bank plan from $10/month.</span></div><Link className="button secondary" href="/pricing">View plans <ArrowRight weight="bold" /></Link></aside>}
+      {authenticated && <WorksheetList />}
       {qualificationGroups.length > 0 ? <QualificationTabs items={qualificationPanels} className="dashboard-qualification-tabs" /> : <p className="dashboard-empty-state">No question banks are available right now.</p>}
     </section>
   );

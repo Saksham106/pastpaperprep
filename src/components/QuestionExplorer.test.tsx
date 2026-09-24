@@ -376,6 +376,103 @@ describe("QuestionExplorer", () => {
     expect(screen.getByRole("option", { name: "Newest papers" })).toHaveAttribute("aria-selected", "false");
   });
 
+  it("saves the exact ordered selection and content mode as a worksheet", async () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 8), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const calls: Array<{ url: string; init?: RequestInit }> = [];
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      const url = String(input); calls.push({ url, init });
+      if (url === "/api/worksheets") return new Response(JSON.stringify({ worksheet: { id: "worksheet-1", bank_slug: "ib-sl", title: "My set", question_ids: questions.slice(0, 2).map((question) => question.id), content_mode: "answers", revision: 1 } }), { status: 201 });
+      if (url === "/api/study-state") return new Response("{}", { status: 200 });
+      const body = JSON.parse(String(init?.body));
+      return new Response(JSON.stringify({ expiresIn: 600, assets: body.requests.map((request: { questionId: string; kind: string }) => ({ ...request, urls: [`https://assets.example/${request.questionId}.webp`] })) }), { status: 200 });
+    }));
+    window.history.replaceState({}, "", "/banks/ib-sl");
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} />);
+    const boxes = screen.getAllByRole("checkbox", { name: /add question/i });
+    fireEvent.click(boxes[1]); fireEvent.click(boxes[0]);
+    fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
+    fireEvent.click(screen.getByRole("radio", { name: "Answers" }));
+    fireEvent.change(screen.getByLabelText(/worksheet name/i), { target: { value: "My set" } });
+    fireEvent.click(screen.getByRole("button", { name: /save worksheet/i }));
+    await waitFor(() => expect(calls.some(({ url }) => url === "/api/worksheets")).toBe(true));
+    const save = calls.find(({ url }) => url === "/api/worksheets")!;
+    expect(JSON.parse(String(save.init?.body))).toEqual({ bank: "ib-sl", name: "My set", questionIds: [questions[1].id, questions[0].id], contentMode: "answers" });
+    expect(await screen.findByText(/worksheet saved/i)).toBeInTheDocument();
+  });
+
+  it("reopens a worksheet by opaque ID and restores saved content and selected membership", async () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 4), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const ids = [questions[2].id, questions[0].id];
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => String(input) === "/api/worksheets/wk-42"
+      ? new Response(JSON.stringify({ worksheet: { id: "wk-42", bank_slug: "ib-sl", title: "Revision set", question_ids: ids, content_mode: "answers", revision: 3 } }), { status: 200 })
+      : new Response(JSON.stringify({ expiresIn: 600, assets: [] }), { status: 200 }));
+    vi.stubGlobal("fetch", fetchMock);
+    window.history.replaceState({}, "", "/banks/ib-sl?worksheet=wk-42");
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} />);
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/worksheets/wk-42", expect.objectContaining({ cache: "no-store" })));
+    fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
+    expect(screen.getByLabelText(/worksheet name/i)).toHaveValue("Revision set");
+    expect(screen.getByRole("radio", { name: "Answers" })).toBeChecked();
+    expect(screen.getByText(/2 selected for PDF/i)).toBeInTheDocument();
+    const selected = screen.getAllByRole("checkbox", { name: /add question/i }).filter((checkbox) => (checkbox as HTMLInputElement).checked);
+    expect(selected).toHaveLength(2);
+    expect(screen.getByRole("button", { name: `Remove question ${ids[0]}` })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: `Remove question ${ids[0]}` }));
+    expect(screen.getByText(/1 selected for PDF/i)).toBeInTheDocument();
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, "clipboard", { configurable: true, value: { writeText } });
+    fireEvent.click(screen.getByRole("button", { name: /copy link to this view/i }));
+    await waitFor(() => expect(writeText).toHaveBeenCalled());
+    expect(String(writeText.mock.calls[0][0])).not.toContain("worksheet=");
+  });
+
+  it("stops retrying automatically when a saved worksheet cannot be loaded", async () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 2), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => String(input).startsWith("/api/worksheets/")
+      ? new Response(JSON.stringify({ error: "Worksheet not found" }), { status: 404 })
+      : new Response(JSON.stringify({ expiresIn: 600, assets: [] }), { status: 200 }));
+    vi.stubGlobal("fetch", fetchMock);
+    window.history.replaceState({}, "", "/banks/ib-sl?worksheet=missing");
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} />);
+    await waitFor(() => expect(fetchMock.mock.calls.filter(([url]) => String(url) === "/api/worksheets/missing")).toHaveLength(1));
+    fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
+    expect(await screen.findByText("Worksheet not found")).toBeInTheDocument();
+    expect(fetchMock.mock.calls.filter(([url]) => String(url) === "/api/worksheets/missing")).toHaveLength(1);
+  });
+
+  it("reports a save failure without marking the worksheet clean", async () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 2), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      if (String(input) === "/api/worksheets") return new Response(JSON.stringify({ error: "Service unavailable" }), { status: 503 });
+      if (String(input) === "/api/assets/sign") { const body = JSON.parse(String(init?.body)); return new Response(JSON.stringify({ expiresIn: 600, assets: body.requests.map((request: { questionId: string; kind: string }) => ({ ...request, urls: [`https://assets.example/${request.questionId}.webp`] })) }), { status: 200 }); }
+      return new Response("{}", { status: 200 });
+    }));
+    window.history.replaceState({}, "", "/banks/ib-sl");
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} />);
+    fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
+    fireEvent.click(screen.getAllByRole("checkbox", { name: /add question/i })[0]);
+    fireEvent.change(screen.getByLabelText(/worksheet name/i), { target: { value: "My set" } });
+    fireEvent.click(screen.getByRole("button", { name: /save (?:worksheet|changes)/i }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("Service unavailable");
+    expect(screen.getByText(/unsaved worksheet changes/i)).toBeInTheDocument();
+  });
+
+  it("warns before navigating away from an unsaved named selection", () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 2), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    window.history.replaceState({}, "", "/banks/ib-sl");
+    const confirm = vi.spyOn(window, "confirm").mockReturnValue(false);
+    const { container } = render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} />);
+    fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
+    fireEvent.click(screen.getAllByRole("checkbox", { name: /add question/i })[0]);
+    fireEvent.change(screen.getByLabelText(/worksheet name/i), { target: { value: "Draft" } });
+    const link = document.createElement("a"); link.href = "/dashboard"; link.textContent = "Dashboard"; container.appendChild(link);
+    const event = new MouseEvent("click", { bubbles: true, cancelable: true });
+    link.dispatchEvent(event);
+    expect(confirm).toHaveBeenCalledWith("You have unsaved worksheet changes. Leave this page?");
+    expect(event.defaultPrevented).toBe(true);
+    confirm.mockRestore();
+  });
+
   it("keeps the PDF download icon visible on hover in both themes", () => {
     const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
     expect(css).toMatch(/\.download-button:hover\s*\{[^}]*color:\s*var\(--accent-contrast\)/);
