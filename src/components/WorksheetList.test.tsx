@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { WorksheetList } from "@/components/WorksheetList";
 import { DashboardContent } from "@/components/DashboardContent";
@@ -9,9 +9,15 @@ afterEach(() => vi.restoreAllMocks());
 const items = [{ id: "w-1", bank_slug: "igcse-0580", title: "Algebra", question_ids: ["q1", "q2"], content_mode: "both" as const, revision: 3, updated_at: "2026-09-23T12:00:00Z" }];
 
 describe("WorksheetList", () => {
-  it("does not show private worksheets on the public dashboard", () => {
-    render(<DashboardContent authenticated={false} accessibleBanks={[]} availableBanks={[]} />);
+  it("links signed-in users to the separate worksheet library without embedding the list", () => {
+    render(<DashboardContent authenticated accessibleBanks={[]} availableBanks={[]} />);
+    expect(screen.getByRole("link", { name: /my worksheets/i })).toHaveAttribute("href", "/worksheets");
     expect(screen.queryByRole("heading", { name: "My worksheets" })).not.toBeInTheDocument();
+  });
+
+  it("keeps the worksheet library link private on the public dashboard", () => {
+    render(<DashboardContent authenticated={false} accessibleBanks={[]} availableBanks={[]} />);
+    expect(screen.queryByRole("link", { name: /my worksheets/i })).not.toBeInTheDocument();
   });
 
   it("loads owned worksheets and opens the matching bank and worksheet", async () => {
@@ -22,23 +28,26 @@ describe("WorksheetList", () => {
     expect(screen.getByText(/2\s+questions/)).toBeInTheDocument();
   });
 
-  it("uses full navigation for saved-set links so Next cannot drop the worksheet query", () => {
-    const source = readFileSync(join(process.cwd(), "src/components/WorksheetList.tsx"), "utf8");
-    expect(source).toContain('<a className="button secondary" aria-label={`Open ${item.title}`}');
+  it("protects the library route with a server-side claims check", () => {
+    const source = readFileSync(join(process.cwd(), "src/app/worksheets/page.tsx"), "utf8");
+    expect(source).toContain("await supabase.auth.getClaims()");
+    expect(source).toContain('redirect("/login?next=%2Fworksheets")');
   });
 
-  it("renames by PATCHing only the name and revision, including after access lapses", async () => {
-    const fetchMock = vi.fn()
-      .mockResolvedValueOnce(Response.json({ worksheets: items }))
-      .mockResolvedValueOnce(Response.json({ worksheet: { ...items[0], title: "Geometry", revision: 4 } }));
-    vi.stubGlobal("fetch", fetchMock);
+  it("uses full navigation for saved-set links so Next cannot drop the worksheet query", () => {
+    const source = readFileSync(join(process.cwd(), "src/components/WorksheetList.tsx"), "utf8");
+    expect(source).toContain('<a className="saved-worksheet-action saved-worksheet-action-open" aria-label={`Open ${item.title}`}');
+    expect(source).toContain('&mode=edit');
+  });
+
+  it("offers accessible Open, Edit and Delete actions without Rename", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(Response.json({ worksheets: items })));
     render(<WorksheetList />);
-    fireEvent.click(await screen.findByRole("button", { name: "Rename Algebra" }));
-    fireEvent.change(screen.getByLabelText("Worksheet name"), { target: { value: "Geometry" } });
-    fireEvent.click(screen.getByRole("button", { name: "Save name" }));
-    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(2));
-    expect(fetchMock.mock.calls[1][1]).toMatchObject({ method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify({ name: "Geometry", revision: 3 }) });
-    expect(await screen.findByText("Geometry")).toBeInTheDocument();
+    await screen.findByRole("heading", { name: "Algebra" });
+    expect(screen.getByRole("link", { name: "Open Algebra" })).toHaveAttribute("href", "/banks/igcse-0580?worksheet=w-1");
+    expect(screen.getByRole("link", { name: "Edit Algebra" })).toHaveAttribute("href", "/banks/igcse-0580?worksheet=w-1&mode=edit");
+    expect(screen.getByRole("button", { name: "Delete Algebra" })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /rename/i })).not.toBeInTheDocument();
   });
 
   it("deletes only after confirmation and presents load failures accessibly", async () => {
