@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { WorksheetList } from "@/components/WorksheetList";
 import { createClient } from "@/lib/supabase/server";
 
-export const metadata: Metadata = { title: "My worksheets | PastPaperPrep", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "My worksheets", robots: { index: false, follow: false } };
 
 export default async function WorksheetsPage() {
   const supabase = await createClient();

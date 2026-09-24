@@ -20,6 +20,17 @@ describe("WorksheetList", () => {
     expect(screen.queryByRole("link", { name: /my worksheets/i })).not.toBeInTheDocument();
   });
 
+  it("has one prominent page title rather than repeating My worksheets inside the list", () => {
+    const page = readFileSync(join(process.cwd(), "src/app/worksheets/page.tsx"), "utf8");
+    const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+    expect(page).toContain('<h1>My worksheets</h1>');
+    expect(page).toContain('title: "My worksheets"');
+    expect(css).toMatch(/\.worksheet-library-header h1\s*\{[^}]*font:\s*800 clamp\(/);
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(Response.json({ worksheets: [] })));
+    render(<WorksheetList />);
+    expect(screen.queryByRole("heading", { name: "My worksheets" })).not.toBeInTheDocument();
+  });
+
   it("loads owned worksheets and opens the matching bank and worksheet", async () => {
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(Response.json({ worksheets: items })));
     render(<WorksheetList />);
