@@ -2,7 +2,7 @@ import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { referencedWebpFiles, SOURCES } from "./sync-r2-assets.mjs";
+import { referencedWebpFiles, selectSources, SOURCES } from "./sync-r2-assets.mjs";
 
 describe("R2 asset source configuration", () => {
   it("requires runtime JSON references for every bank and has no source-root fallback", () => {
@@ -16,6 +16,13 @@ describe("R2 asset source configuration", () => {
     expect(SOURCES.every((source) => source.raw && source.imageFields?.length)).toBe(true);
     expect(SOURCES.filter((source) => source.imageFields.includes("markschemeImages"))).toHaveLength(2);
     expect(SOURCES.filter((source) => source.officialMarkschemeImages)).toHaveLength(10);
+  });
+
+  it("supports an explicit bank-only sync without accepting unknown banks", () => {
+    expect(selectSources("igcse").map((source) => source.bank)).toEqual(["igcse"]);
+    expect(selectSources("igcse,ib-hl").map((source) => source.bank)).toEqual(["igcse", "ib-hl"]);
+    expect(() => selectSources("unknown-bank")).toThrow(/Unknown R2_SYNC_BANKS/);
+    expect(() => selectSources(",")).toThrow(/at least one bank/);
   });
 
   it("selects only referenced WebPs across direct and official markscheme schemas", async () => {

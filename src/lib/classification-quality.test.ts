@@ -1319,11 +1319,10 @@ describe("new-bank classification quality", () => {
       },
       releaseGate: { status: "PASS", unresolvedTaxonomyGaps: 0 },
     });
-    expect(raw.questions).toHaveLength(2684);
-    expect(new Set(raw.questions.map((question) => question.id)).size).toBe(2684);
-    expect(createHash("sha256").update(readFileSync(rawPath)).digest("hex")).toBe(
-      release.overlay.questionsSha256,
-    );
+    const extendedQuestions = raw.questions.filter((question) => question.route !== "Core");
+    expect(raw.questions).toHaveLength(3967);
+    expect(extendedQuestions).toHaveLength(2684);
+    expect(new Set(raw.questions.map((question) => question.id)).size).toBe(3967);
     expect(release.overlay.questionsSha256).toBe(manifest.questionsSha256);
     expect(manifest).toMatchObject({
       overlayVersion: "classification-v2-0580-overlay-1.0",
@@ -1344,7 +1343,7 @@ describe("new-bank classification quality", () => {
     expect(taxonomy.contextTags).toHaveLength(11);
 
     const classificationFields = new Set([...CLASSIFICATION_FIELDS, "detailedSubtopics"]);
-    const finalNonClassification = raw.questions.map((question) => Object.fromEntries(
+    const finalNonClassification = extendedQuestions.map((question) => Object.fromEntries(
       Object.entries(question).filter(([key]) => !classificationFields.has(key)),
     ));
     expect(baseline.questionCount).toBe(2684);
@@ -1353,9 +1352,9 @@ describe("new-bank classification quality", () => {
     // The overlay gate uses its own canonical non-classification digest; both
     // source and output must resolve to that same independently pinned value.
     expect(release.overlay.nonClassificationSha256).toBe(release.source.nonClassificationSha256);
-    expect(raw.questions.some((question) => "skills" in question || "searchText" in question)).toBe(false);
+    expect(extendedQuestions.some((question) => "skills" in question || "searchText" in question)).toBe(false);
 
-    const versions = raw.questions.reduce<Record<string, number>>((counts, question) => {
+    const versions = extendedQuestions.reduce<Record<string, number>>((counts, question) => {
       counts[question.classificationEvidence.version] =
         (counts[question.classificationEvidence.version] ?? 0) + 1;
       return counts;

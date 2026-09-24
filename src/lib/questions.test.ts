@@ -22,7 +22,7 @@ describe("question normalization", () => {
   });
 
   it("loads every source bank without dropping questions", () => {
-    expect(loadBankQuestions("igcse")).toHaveLength(2684);
+    expect(loadBankQuestions("igcse")).toHaveLength(3967);
     expect(loadBankQuestions("igcse-additional")).toHaveLength(1633);
     expect(loadBankQuestions("ib-hl")).toHaveLength(841);
     expect(loadBankQuestions("ib-sl")).toHaveLength(578);

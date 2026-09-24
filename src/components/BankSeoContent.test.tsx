@@ -8,7 +8,7 @@ describe("BankSeoContent", () => {
     render(<BankSeoContent bank={BANKS[0]} />);
 
     expect(screen.getByRole("heading", { name: /how to use the mathematics 0580 question bank/i })).toBeInTheDocument();
-    expect(screen.getByText(/2,684 questions/i)).toBeInTheDocument();
+    expect(screen.getByText(/3,967 questions/i)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /igcse 0580 revision guide/i })).toHaveAttribute(
       "href",
       "/articles/igcse-maths-0580-past-papers-by-topic",

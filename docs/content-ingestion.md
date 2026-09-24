@@ -8,7 +8,7 @@ This is the operational source of truth for adding or rebuilding PastPaperPrep q
 
 | Bank | Source repository | Papers | Questions | Referenced WebP assets |
 | --- | --- | ---: | ---: | ---: |
-| Cambridge IGCSE Mathematics 0580 | `Saksham106/igcse-0580-topic-practice` | 147 | 2,684 | 5,368 |
+| Cambridge IGCSE Mathematics 0580 | `Saksham106/igcse-0580-topic-practice` | 217 | 3,967 | 7,934 |
 | IB Mathematics HL / AA HL | `Saksham106/ib-maths-aa-hl-topic-practice` | 104 | 841 | 3,022 |
 | IB Mathematics SL / AA SL | `Saksham106/ib-maths-aa-topic-finder` | 62 | 578 | 1,463 |
 | IB Mathematics AI HL | `Saksham106/ib-maths-ai-hl-topic-practice` | 48 | 409 | 1,353 |
@@ -20,7 +20,7 @@ This is the operational source of truth for adding or rebuilding PastPaperPrep q
 | IB Physics SL | `Saksham106/ib-physics-topic-practice` | 51 | 774 | 2,087 |
 | IB Biology HL | `Saksham106/ib-biology-topic-practice` | 51 | 1,139 | 3,107 |
 | IB Biology SL | `Saksham106/ib-biology-topic-practice` | 54 | 936 | 2,443 |
-| **Total** |  | **853** | **12,332** | **31,697** |
+| **Total** |  | **923** | **13,615** | **34,263** |
 
 The application copies each source bank's generated `site/data/questions.json` to:
 
