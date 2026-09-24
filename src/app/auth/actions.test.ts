@@ -1,13 +1,17 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-const { redirect, createClient } = vi.hoisted(() => ({
+const { redirect, createClient, bindReferral, cookies } = vi.hoisted(() => ({
   redirect: vi.fn(() => {
     throw new Error("NEXT_REDIRECT");
   }),
   createClient: vi.fn(),
+  bindReferral: vi.fn().mockResolvedValue(false),
+  cookies: vi.fn(async () => ({ get: () => ({ value: "signed-referral" }) })),
 }));
 
 vi.mock("next/navigation", () => ({ redirect }));
+vi.mock("next/headers", () => ({ cookies }));
+vi.mock("@/lib/referral-account", () => ({ bindReferralToAuthenticatedUser: bindReferral }));
 vi.mock("@/lib/supabase/server", () => ({ createClient }));
 
 import { createAccountWithPassword, requestMagicLink, requestPasswordReset, signInWithPassword, updatePassword } from "./actions";
@@ -62,6 +66,21 @@ describe("password authentication actions", () => {
         emailRedirectTo: "https://pastpaperprep.com/auth/email-link?next=%2Fdashboard",
       },
     });
+  });
+
+  it("binds a referral before redirect when password signup immediately creates a session", async () => {
+    const user = { id: "user-new", created_at: "2026-09-24T20:00:00Z" };
+    createClient.mockResolvedValue({ auth: { signUp: vi.fn().mockResolvedValue({ data: { session: { access_token: "test" }, user }, error: null }) } });
+
+    await expect(createAccountWithPassword(initialMagicLinkState, form({
+      email: "new.student@example.com",
+      password: "three calm otters",
+      passwordConfirmation: "three calm otters",
+      next: "/dashboard",
+    }))).rejects.toThrow("NEXT_REDIRECT");
+
+    expect(bindReferral).toHaveBeenCalledWith(user.id, user.created_at, "signed-referral");
+    expect(redirect).toHaveBeenCalledWith("/dashboard");
   });
 
   it("rejects mismatched signup passwords before calling Supabase", async () => {

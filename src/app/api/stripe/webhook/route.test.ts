@@ -4,6 +4,8 @@ vi.mock("server-only", () => ({}));
 const constructEvent = vi.fn();
 const retrieveSubscription = vi.fn();
 const rpc = vi.fn();
+const { processReferralInvoicePaid, processReferralChargeRefunded, processReferralDisputeChanged } = vi.hoisted(() => ({ processReferralInvoicePaid: vi.fn(), processReferralChargeRefunded: vi.fn(), processReferralDisputeChanged: vi.fn() }));
+vi.mock("@/lib/referral-events", () => ({ processReferralInvoicePaid, processReferralChargeRefunded, processReferralDisputeChanged }));
 
 vi.mock("@/lib/stripe", () => ({
   createStripeClient: vi.fn(() => ({
@@ -170,6 +172,47 @@ describe("POST /api/stripe/webhook", () => {
     const response = await POST(request());
     expect(response.status).toBe(200);
     expect(rpc).not.toHaveBeenCalled();
+  });
+
+  it("records a signed first paid invoice without confusing it with entitlement sync", async () => {
+    const event = { id: "evt_invoice", type: "invoice.paid", data: { object: { id: "in_first", billing_reason: "subscription_create" } } };
+    constructEvent.mockReturnValue(event);
+    processReferralInvoicePaid.mockResolvedValue(undefined);
+    const response = await POST(request());
+    expect(response.status).toBe(200);
+    expect(processReferralInvoicePaid).toHaveBeenCalledTimes(1);
+    expect(rpc).not.toHaveBeenCalled();
+  });
+
+  it("reconciles charge refunds through the signed Stripe event", async () => {
+    constructEvent.mockReturnValue({ id: "evt_refund", type: "charge.refunded", data: { object: { id: "ch_first" } } });
+    processReferralChargeRefunded.mockResolvedValue(undefined);
+    const response = await POST(request());
+    expect(response.status).toBe(200);
+    expect(processReferralChargeRefunded).toHaveBeenCalledTimes(1);
+  });
+
+  it("reconciles an asynchronously succeeded refund from refund.updated", async () => {
+    constructEvent.mockReturnValue({ id: "evt_refund_update", type: "refund.updated", data: { object: { id: "re_first", charge: "ch_first", status: "succeeded" } } });
+    processReferralChargeRefunded.mockResolvedValue(undefined);
+    const response = await POST(request());
+    expect(response.status).toBe(200);
+    expect(processReferralChargeRefunded).toHaveBeenCalledTimes(1);
+  });
+
+  it("reconciles a dispute update against current Stripe state", async () => {
+    constructEvent.mockReturnValue({ id: "evt_dispute", type: "charge.dispute.closed", data: { object: { id: "dp_first" } } });
+    processReferralDisputeChanged.mockResolvedValue(undefined);
+    const response = await POST(request());
+    expect(response.status).toBe(200);
+    expect(processReferralDisputeChanged).toHaveBeenCalledTimes(1);
+  });
+
+  it("asks Stripe to retry a failed commission write", async () => {
+    constructEvent.mockReturnValue({ id: "evt_invoice", type: "invoice.paid", data: { object: { id: "in_first" } } });
+    processReferralInvoicePaid.mockRejectedValue(new Error("DB unavailable"));
+    const response = await POST(request());
+    expect(response.status).toBe(500);
   });
 
   it("returns a retryable error when synchronization fails", async () => {

@@ -2,6 +2,8 @@ import type { EmailOtpType } from "@supabase/supabase-js";
 import { NextResponse, type NextRequest } from "next/server";
 import { safeNextPath } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
+import { bindReferralToAuthenticatedUser } from "@/lib/referral-account";
+import { REFERRAL_COOKIE } from "@/lib/referral";
 
 const ALLOWED_CONFIRMATION_TYPES = new Set<EmailOtpType>(["email", "signup", "recovery"]);
 
@@ -24,7 +26,13 @@ export async function GET(request: NextRequest) {
     : safeNextPath(url.searchParams.get("next"));
   const supabase = await createClient();
   const { error } = await supabase.auth.verifyOtp({ type, token_hash: tokenHash });
-  if (!error) return NextResponse.redirect(new URL(next, url.origin));
+  if (!error) {
+    if (type !== "recovery") {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user?.id && user.created_at) await bindReferralToAuthenticatedUser(user.id, user.created_at, request.cookies.get(REFERRAL_COOKIE)?.value);
+    }
+    return NextResponse.redirect(new URL(next, url.origin));
+  }
 
   return NextResponse.redirect(new URL("/login?error=confirmation", url.origin));
 }

@@ -1,6 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("server-only", () => ({}));
+const { getCheckoutReferral } = vi.hoisted(() => ({ getCheckoutReferral: vi.fn().mockResolvedValue(null) }));
+vi.mock("@/lib/referral-account", () => ({ getCheckoutReferral }));
+vi.mock("next/headers", () => ({ cookies: vi.fn(async () => ({ get: () => ({ value: "tampered.cookie" }) })) }));
 
 const getUser = vi.fn();
 const userFrom = vi.fn();
@@ -85,6 +88,7 @@ describe("POST /api/billing/checkout", () => {
     billingEnabled = true;
     userFrom.mockReturnValue(entitlementQuery());
     mockAdminRpc();
+    getCheckoutReferral.mockResolvedValue(null);
     sessionsList.mockResolvedValue({ data: [] });
     sessionsExpire.mockResolvedValue({ status: "expired" });
     subscriptionsList.mockResolvedValue({ data: [] });
@@ -189,6 +193,24 @@ describe("POST /api/billing/checkout", () => {
       p_user_id: user.id,
       p_intent_id: intentId,
     });
+  });
+
+  it("uses account-bound referral instead of a browser cookie for checkout and subscription metadata", async () => {
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    getCheckoutReferral.mockResolvedValue("pietro");
+    mockAdminRpc("cus_existing");
+    sessionsCreate.mockResolvedValue({ url: "https://checkout.stripe.com/session" });
+
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", {
+      method: "POST", body: JSON.stringify({ interval: "monthly", productId: "bundle_ib_aa" }),
+    }));
+    expect(response.status).toBe(200);
+    expect(getCheckoutReferral).toHaveBeenCalledWith(user.id);
+    expect(sessionsCreate).toHaveBeenCalledWith(expect.objectContaining({
+      metadata: expect.objectContaining({ referral_code: "pietro" }),
+      subscription_data: { metadata: expect.objectContaining({ referral_code: "pietro" }) },
+    }), expect.any(Object));
   });
 
   it("rejects a one-bank Build Your Plan checkout before any billing side effect", async () => {

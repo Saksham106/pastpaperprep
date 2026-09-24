@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import type Stripe from "stripe";
+import { processReferralInvoicePaid, processReferralChargeRefunded, processReferralDisputeChanged } from "@/lib/referral-events";
 import { createStripeClient } from "@/lib/stripe";
 import { getStripeConfig, isStripePriceAllowedForProduct } from "@/lib/stripe-config";
 import { buildSubscriptionSync, getSubscriptionEventReference } from "@/lib/stripe-subscriptions";
@@ -24,6 +26,46 @@ export async function POST(request: Request) {
     event = stripe.webhooks.constructEvent(rawBody, signature, config.webhookSecret);
   } catch {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
+  }
+
+  if (event.type === "invoice.paid") {
+    try {
+      await processReferralInvoicePaid(stripe, createAdminClient(), event.data.object as Stripe.Invoice);
+      return NextResponse.json({ received: true });
+    } catch {
+      return NextResponse.json({ error: "Referral invoice processing failed" }, { status: 500 });
+    }
+  }
+
+  if (event.type === "charge.refunded") {
+    try {
+      await processReferralChargeRefunded(stripe, createAdminClient(), event.data.object as Stripe.Charge);
+      return NextResponse.json({ received: true });
+    } catch {
+      return NextResponse.json({ error: "Referral refund processing failed" }, { status: 500 });
+    }
+  }
+
+  if (event.type === "refund.created" || event.type === "refund.updated") {
+    const refund = event.data.object as Stripe.Refund;
+    const chargeId = typeof refund.charge === "string" ? refund.charge : refund.charge?.id;
+    if (chargeId) {
+      try {
+        await processReferralChargeRefunded(stripe, createAdminClient(), { id: chargeId } as Stripe.Charge);
+      } catch {
+        return NextResponse.json({ error: "Referral refund processing failed" }, { status: 500 });
+      }
+    }
+    return NextResponse.json({ received: true });
+  }
+
+  if (event.type === "charge.dispute.created" || event.type === "charge.dispute.updated" || event.type === "charge.dispute.closed") {
+    try {
+      await processReferralDisputeChanged(stripe, createAdminClient(), event.data.object as Stripe.Dispute);
+      return NextResponse.json({ received: true });
+    } catch {
+      return NextResponse.json({ error: "Referral dispute processing failed" }, { status: 500 });
+    }
   }
 
   let reference;
