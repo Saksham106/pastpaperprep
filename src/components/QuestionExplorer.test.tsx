@@ -391,7 +391,7 @@ describe("QuestionExplorer", () => {
     const boxes = screen.getAllByRole("checkbox", { name: /add question/i });
     fireEvent.click(boxes[1]); fireEvent.click(boxes[0]);
     fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
-    const dialog = screen.getByRole("dialog", { name: /download 2 questions/i });
+    const dialog = screen.getByRole("dialog", { name: /build worksheet from 2 questions/i });
     const nameField = within(dialog).getByRole("textbox", { name: "Worksheet name" });
     expect((nameField as HTMLInputElement).value).toMatch(/^IB SL /);
     expect(nameField.closest(".worksheet-name-field")).not.toBeNull();
@@ -710,7 +710,7 @@ describe("QuestionExplorer", () => {
     fireEvent.click(screen.getAllByRole("checkbox", { name: /add question/i })[0]);
     expect(screen.getByText(/1 selected for PDF/i)).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
-    expect(screen.getByRole("dialog", { name: /download 1 questions/i })).toBeInTheDocument();
+    expect(screen.getByRole("dialog", { name: /build worksheet from 1 question/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /close pdf options/i })).toHaveFocus();
     fireEvent.keyDown(document, { key: "Escape" });
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();

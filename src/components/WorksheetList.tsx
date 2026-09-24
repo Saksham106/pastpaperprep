@@ -31,8 +31,7 @@ export function WorksheetList() {
     finally { setBusy(null); }
   }
 
-  return <section className="saved-worksheets" aria-labelledby="saved-worksheets-heading">
-    <div className="saved-worksheets-heading"><div><p className="eyebrow">Your work</p><h2 id="saved-worksheets-heading">My worksheets</h2></div></div>
+  return <section className="saved-worksheets" aria-label="Saved worksheets">
     {error && <p role="alert" className="saved-worksheets-error">{error}</p>}
     {loading ? <p role="status">Loading worksheets…</p> : worksheets.length === 0 ? <p className="saved-worksheets-empty">No saved worksheets yet. Save a question set from any bank to find it here.</p> : <ul className="saved-worksheets-list">{worksheets.map((item) => <li className="saved-worksheet-card" key={item.id}>
       <div className="saved-worksheet-info"><h3>{item.title}</h3><p>{item.bank_slug.replaceAll("-", " ")} · {item.question_ids.length} {item.question_ids.length === 1 ? "question" : "questions"}</p><time dateTime={item.updated_at}>Edited {new Date(item.updated_at).toLocaleDateString()}</time></div>
