@@ -1513,6 +1513,15 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .worksheet-library-header { margin-bottom: 2rem; }
 .worksheet-library-header h1 { margin: .25rem 0; font: 800 clamp(2rem, 4vw, 3rem)/1.08 var(--font-display); letter-spacing: -.045em; color: var(--ink); }
 .worksheet-library-header > p:last-child { color: var(--muted-foreground, #5c6673); }
+.dashboard-qualification-row { position: relative; margin-top: 24px; }
+.dashboard-qualification-row .dashboard-qualification-tabs { width: 100%; margin-top: 0; }
+.dashboard-qualification-row .dashboard-worksheets-link { position: absolute; z-index: 1; top: 0; left: 0; margin: 0; padding: .55rem .8rem; border-color: var(--line); color: var(--muted); font-size: .9rem; }
+.dashboard-qualification-row .dashboard-worksheets-link:hover, .dashboard-qualification-row .dashboard-worksheets-link:focus-visible { border-color: var(--foreground, #18212b); color: var(--background, white); }
+.worksheet-library-back { display: inline-flex; align-items: center; gap: .45rem; min-height: 2.75rem; margin-bottom: 1.1rem; color: var(--cobalt); font-weight: 750; text-decoration: none; }
+.worksheet-library-back:hover, .worksheet-library-back:focus-visible { text-decoration: underline; text-underline-offset: .2em; }
+@media (max-width: 850px) {
+  .dashboard-qualification-row .dashboard-worksheets-link { position: static; margin: 0 0 14px; }
+}
 .dashboard-worksheets-link { display: inline-flex; align-items: center; gap: .65rem; margin: 0 0 1.25rem; padding: .75rem 1rem; border: 1px solid currentColor; border-radius: .65rem; color: var(--foreground, #18212b); font-weight: 700; text-decoration: none; }
 .dashboard-worksheets-link:hover, .dashboard-worksheets-link:focus-visible { background: var(--foreground, #18212b); color: var(--background, white); }
 .saved-worksheet-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; }

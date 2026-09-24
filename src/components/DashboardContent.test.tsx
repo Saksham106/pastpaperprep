@@ -10,6 +10,11 @@ describe("DashboardContent", () => {
 
     expect(screen.getByRole("heading", { name: /your study desk/i })).toBeInTheDocument();
     expect(screen.getByText(/account & settings/i)).toBeInTheDocument();
+    const worksheetsLink = screen.getByRole("link", { name: /my worksheets/i });
+    expect(worksheetsLink).toHaveAttribute("href", "/worksheets");
+    expect(worksheetsLink.parentElement).toHaveClass("dashboard-qualification-row");
+    expect(worksheetsLink.closest('[role="tablist"]')).toBeNull();
+    expect(worksheetsLink.compareDocumentPosition(screen.getByRole("tab", { name: "Cambridge IGCSE" }))).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(screen.getByRole("link", { name: /my account/i })).toHaveAttribute("href", "/account");
     expect(screen.getByRole("link", { name: /password settings/i })).toHaveAttribute("href", "/account/password");
     expect(screen.getByRole("link", { name: /manage plan/i })).toHaveAttribute("href", "/pricing");

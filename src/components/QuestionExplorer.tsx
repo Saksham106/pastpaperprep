@@ -215,6 +215,12 @@ access: ExplorerAccess;
   const [worksheetName, setWorksheetName] = useState("");
   const [worksheetStatus, setWorksheetStatus] = useState("");
   const [worksheetSaving, setWorksheetSaving] = useState(false);
+  const [pendingWorksheetAction, setPendingWorksheetAction] = useState<{ kind: "view" | "link" | "back" | "pdf"; href?: string } | null>(null);
+  const [failedLeaveSave, setFailedLeaveSave] = useState(false);
+  const [confirmDiscard, setConfirmDiscard] = useState(false);
+  const allowWorksheetExitRef = useRef(false);
+  const worksheetGuardUrlRef = useRef("");
+  const worksheetGuardActiveRef = useRef(false);
   const [savedWorksheetLink, setSavedWorksheetLink] = useState("");
   const worksheetSavingRef = useRef(false);
   const [worksheetLoadFailed, setWorksheetLoadFailed] = useState(false);
@@ -247,6 +253,7 @@ access: ExplorerAccess;
   const pdfStatusRef = useRef<HTMLElement>(null);
   const pdfDialogRef = useRef<HTMLElement>(null);
   const pdfUpgradeDialogRef = useRef<HTMLElement>(null);
+  const worksheetUnsavedDialogRef = useRef<HTMLElement>(null);
   const explorerRootRef = useRef<HTMLElement>(null);
 
   const bank = bankSlug ?? questions[0]?.bankSlug;
@@ -649,6 +656,21 @@ access: ExplorerAccess;
   const worksheetDefinition = () => JSON.stringify({ name: worksheetName.trim(), ids: [...selectedIds], content: pdfContent });
   const worksheetDirty = worksheetId ? Boolean(worksheetMode === "edit" && worksheetBaseline && worksheetBaseline !== worksheetDefinition()) : Boolean(selectionIsExplicit && worksheetName.trim() && (worksheetBaseline ? worksheetBaseline !== worksheetDefinition() : selectedIds.size));
   useEffect(() => {
+    if (!pendingWorksheetAction) return;
+    const dialog = worksheetUnsavedDialogRef.current;
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    dialog?.querySelector<HTMLButtonElement>("button")?.focus();
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && !worksheetSavingRef.current) { event.preventDefault(); setPendingWorksheetAction(null); setFailedLeaveSave(false); setConfirmDiscard(false); return; }
+      if (event.key !== "Tab" || !dialog) return;
+      const buttons = [...dialog.querySelectorAll<HTMLButtonElement>("button:not(:disabled)")];
+      if (event.shiftKey && document.activeElement === buttons[0]) { event.preventDefault(); buttons.at(-1)?.focus(); }
+      else if (!event.shiftKey && document.activeElement === buttons.at(-1)) { event.preventDefault(); buttons[0]?.focus(); }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => { document.removeEventListener("keydown", onKeyDown); previousFocus?.focus(); };
+  }, [pendingWorksheetAction]);
+  useEffect(() => {
     if (!worksheetId || !indexLoaded || indexError || bootstrapPending || worksheetReady) return;
     let cancelled = false;
     queueMicrotask(() => { if (!cancelled) setWorksheetLoading(true); });
@@ -672,18 +694,60 @@ access: ExplorerAccess;
   }, [worksheetId, indexLoaded, indexError, bootstrapPending, worksheetReady, worksheetBaseline, bank, catalogQuestions]);
   useEffect(() => {
     if (!worksheetDirty) return;
-    const warn = (event: BeforeUnloadEvent) => { event.preventDefault(); event.returnValue = ""; };
+    const warn = (event: BeforeUnloadEvent) => { if (allowWorksheetExitRef.current) return; event.preventDefault(); event.returnValue = ""; };
     window.addEventListener("beforeunload", warn);
-    const guard = (event: MouseEvent) => {
-      const link = (event.target as HTMLElement).closest("a[href]") as HTMLAnchorElement | null;
-      if (link && !window.confirm("You have unsaved worksheet changes. Leave this page?")) event.preventDefault();
+    if (worksheetId && !worksheetGuardActiveRef.current) {
+      worksheetGuardUrlRef.current = window.location.href;
+      window.history.pushState({ ...window.history.state, worksheetGuard: true }, "", worksheetGuardUrlRef.current);
+      worksheetGuardActiveRef.current = true;
+    }
+    const onBack = () => {
+      if (!worksheetId || allowWorksheetExitRef.current || !worksheetGuardActiveRef.current) return;
+      window.history.pushState({ ...window.history.state, worksheetGuard: true }, "", worksheetGuardUrlRef.current);
+      setPendingWorksheetAction({ kind: "back" });
     };
+    const guard = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const link = event.target instanceof Element ? event.target.closest("a[href]") as HTMLAnchorElement | null : null;
+      if (!link || link.target && link.target !== "_self" || link.hasAttribute("download") || link.href === window.location.href) return;
+      if (!worksheetId) { if (!window.confirm("You have unsaved worksheet changes. Leave this page?")) event.preventDefault(); return; }
+      event.preventDefault();
+      event.stopPropagation();
+      setPendingWorksheetAction({ kind: "link", href: link.href });
+    };
+    window.addEventListener("popstate", onBack);
     document.addEventListener("click", guard, true);
-    return () => { window.removeEventListener("beforeunload", warn); document.removeEventListener("click", guard, true); };
+    return () => { window.removeEventListener("beforeunload", warn); window.removeEventListener("popstate", onBack); document.removeEventListener("click", guard, true); };
+  }, [worksheetDirty, worksheetId]);
+  useEffect(() => {
+    if (worksheetDirty || !worksheetGuardActiveRef.current) return;
+    const skipGuardEntry = () => { worksheetGuardActiveRef.current = false; window.history.back(); };
+    window.addEventListener("popstate", skipGuardEntry);
+    return () => window.removeEventListener("popstate", skipGuardEntry);
   }, [worksheetDirty]);
 
-  const saveWorksheet = async () => {
-    if (!bank || !resolvedAccess.bankAccess || !exportQuestions.length || !worksheetName.trim() || !worksheetReady || worksheetLoadFailed || worksheetSavingRef.current) return;
+  const finishWorksheetAction = (action: NonNullable<typeof pendingWorksheetAction>) => {
+    setPendingWorksheetAction(null);
+    setFailedLeaveSave(false);
+    setConfirmDiscard(false);
+    if (action.kind === "view") { setAddingQuestions(false); setWorksheetMode("view"); }
+    if (action.kind === "pdf") setPdfOpen(true);
+    if (action.kind === "link" && action.href) { allowWorksheetExitRef.current = true; window.location.assign(action.href); }
+    if (action.kind === "back") { allowWorksheetExitRef.current = true; window.history.go(-2); }
+  };
+  const discardWorksheetChanges = () => {
+    if (!pendingWorksheetAction) return;
+    if (failedLeaveSave && !confirmDiscard) { setConfirmDiscard(true); return; }
+    if (worksheetId && worksheetBaseline) {
+      const baseline = JSON.parse(worksheetBaseline) as { name: string; ids: string[]; content: PdfContent };
+      setWorksheetName(baseline.name); setSelectedIds(new Set(baseline.ids)); setPdfContent(baseline.content);
+      setWorksheetStatus("");
+    }
+    finishWorksheetAction(pendingWorksheetAction);
+  };
+
+  const saveWorksheet = async (): Promise<boolean> => {
+    if (!bank || !resolvedAccess.bankAccess || !exportQuestions.length || !worksheetName.trim() || !worksheetReady || worksheetLoadFailed || worksheetSavingRef.current) return false;
     worksheetSavingRef.current = true;
     setWorksheetSaving(true);
     const editingExisting = Boolean(worksheetId);
@@ -708,7 +772,8 @@ access: ExplorerAccess;
         setWorksheetStatus("");
         setPdfOpen(false);
       }
-    } catch (error) { setWorksheetStatus(error instanceof Error ? error.message : "Worksheet could not be saved. Try again."); }
+      return true;
+    } catch (error) { setWorksheetStatus(error instanceof Error ? error.message : "Worksheet could not be saved. Try again."); return false; }
     finally { worksheetSavingRef.current = false; setWorksheetSaving(false); }
   };
 
@@ -832,6 +897,7 @@ access: ExplorerAccess;
   const exportQuestions = worksheetId ? savedSetQuestions : questionsForPdf(filtered, selectedIds, selectionIsExplicit, catalogQuestions);
   const openPdfBuilder = () => {
     if (worksheetId && (!worksheetReady || worksheetLoadFailed || !exportQuestions.length)) return;
+    if (worksheetId && worksheetDirty) { setPendingWorksheetAction({ kind: "pdf" }); return; }
     if (!resolvedAccess.canExportPdf) { showPdfUpgrade(); return; }
     if (!worksheetId && !worksheetName.trim()) {
       const bankLabel = (bank ?? "Worksheet").replaceAll("-", " ").toUpperCase();
@@ -882,24 +948,18 @@ access: ExplorerAccess;
     setPdfUpgradeOpen(true);
   };
   const closeWorksheetEditor = () => {
-    if (worksheetDirty) {
-      if (!window.confirm("Discard unsaved worksheet changes?")) return;
-      const baseline = JSON.parse(worksheetBaseline) as { name: string; ids: string[]; content: PdfContent };
-      setWorksheetName(baseline.name);
-      setSelectedIds(new Set(baseline.ids));
-      setPdfContent(baseline.content);
-      setWorksheetStatus("");
-    }
+    if (worksheetDirty) { setPendingWorksheetAction({ kind: "view" }); return; }
     setAddingQuestions(false);
     setWorksheetMode("view");
   };
 
   return (
     <section ref={explorerRootRef} className={`explorer${savedWorksheetView ? " is-worksheet-view" : ""}`} aria-label="Question explorer">
-      {worksheetId && <div className="worksheet-workspace"><Link href="/worksheets">← My worksheets</Link>{worksheetReady && !worksheetLoadFailed && <><div className="worksheet-workspace-heading"><div><p className="eyebrow">Saved worksheet</p><h2>{worksheetName}</h2><span>{selectedIds.size} {selectedIds.size === 1 ? "question" : "questions"}</span></div>{worksheetMode === "view" ? <button className="button secondary" type="button" onClick={() => setWorksheetMode("edit")}>Edit worksheet</button> : <button className="button secondary" type="button" onClick={closeWorksheetEditor}>View worksheet</button>}</div></>}</div>}
+      {worksheetId && <div className="worksheet-workspace"><Link href="/worksheets">← My worksheets</Link>{worksheetReady && !worksheetLoadFailed && <div className="worksheet-workspace-heading"><div><h2>{worksheetName}</h2><span>{selectedIds.size} {selectedIds.size === 1 ? "question" : "questions"}</span></div><div className="worksheet-workspace-actions">{worksheetMode === "view" ? <button className="button secondary" type="button" onClick={() => setWorksheetMode("edit")}>Edit worksheet</button> : <button className="button secondary" type="button" onClick={closeWorksheetEditor}>View worksheet</button>}<button ref={shareButtonRef} className="share-view-button toolbar-icon-button" type="button" title="Share this view" aria-label="Copy link to this view" onClick={shareWorkspace}><ShareNetwork aria-hidden="true" /></button><button ref={pdfTriggerRef} className="download-button toolbar-icon-button" type="button" title="Download PDF" aria-label="Download PDF" onClick={openPdfBuilder}><DownloadSimple aria-hidden="true" /></button></div></div>}</div>}
+      {pendingWorksheetAction && <div className="worksheet-unsaved-backdrop" role="presentation"><section ref={worksheetUnsavedDialogRef} className="worksheet-unsaved-dialog" role="dialog" aria-modal="true" aria-labelledby="worksheet-unsaved-title"><p className="eyebrow">Before you go</p><h2 id="worksheet-unsaved-title">Unsaved worksheet changes</h2><p>Save your changes before continuing, or discard them.</p>{worksheetStatus && !worksheetSaving && worksheetStatus !== "Changes saved." && <p role="alert">{worksheetStatus}</p>}{confirmDiscard && <p className="worksheet-discard-warning">Discard unsaved changes? This cannot be undone.</p>}<div className="worksheet-unsaved-actions"><button type="button" className="button primary" disabled={worksheetSaving || !worksheetName.trim() || !selectedIds.size} onClick={async () => { const action = pendingWorksheetAction; if (action) { setConfirmDiscard(false); if (await saveWorksheet()) finishWorksheetAction(action); else setFailedLeaveSave(true); } }}>{worksheetSaving ? "Saving…" : "Save changes"}</button><button type="button" className="button secondary" disabled={worksheetSaving} onClick={discardWorksheetChanges}>{confirmDiscard ? "Confirm discard" : "Discard changes"}</button><button type="button" className="text-button" disabled={worksheetSaving} onClick={() => { setPendingWorksheetAction(null); setFailedLeaveSave(false); setConfirmDiscard(false); }}>Keep editing</button></div></section></div>}
       {worksheetId && worksheetMode === "edit" && worksheetReady && !worksheetLoadFailed && <WorksheetEditCard title={worksheetName} ids={[...selectedIds]} content={pdfContent} adding={addingQuestions} busy={worksheetSaving} dirty={worksheetDirty} status={worksheetStatus} onTitle={setWorksheetName} onContent={setPdfContent} onMove={(id, direction) => setSelectedIds((current) => { const ids = [...current]; const index = ids.indexOf(id); const next = index + direction; if (index < 0 || next < 0 || next >= ids.length) return current; [ids[index], ids[next]] = [ids[next], ids[index]]; return new Set(ids); })} onRemove={(id) => setSelectedIds((current) => { const next = new Set(current); next.delete(id); return next; })} onAdd={() => { clearFilters(); setAddingQuestions(true); }} onDoneAdding={() => setAddingQuestions(false)} onSave={() => void saveWorksheet()} />}
       {worksheetId && worksheetLoadFailed && <div className="access-notice" role="alert" aria-label="Worksheet unavailable"><span>{worksheetStatus}</span><button className="button secondary" type="button" onClick={() => { setWorksheetStatus(""); setWorksheetLoadFailed(false); setWorksheetReady(false); }}>Retry loading worksheet</button></div>}
-      <div className="explorer-toolbar">
+      {(!savedWorksheetView || worksheetLoadFailed) && <div className="explorer-toolbar">
         <label className="search-field">
           <span className="sr-only">Search questions</span>
           <MagnifyingGlass aria-hidden="true" />
@@ -920,9 +980,9 @@ access: ExplorerAccess;
         </fieldset>}
         <button ref={filterTriggerRef} className={`mobile-filter-button${activeCount ? " is-active" : ""}`} type="button" aria-haspopup="dialog" aria-expanded={filtersOpen} onClick={() => setFiltersOpen(true)}><Funnel weight="bold" aria-hidden="true" /> Filters{activeCount ? ` (${activeCount})` : ""}</button>
         <SortSelector value={sort} onChange={setSort} />
-        <button ref={shareButtonRef} className="share-view-button toolbar-icon-button" type="button" title="Share this view" aria-label="Copy link to this view" onClick={shareWorkspace}><ShareNetwork aria-hidden="true" /></button>
-        <button ref={pdfTriggerRef} className="download-button toolbar-icon-button" type="button" title="Download PDF" aria-label="Download PDF" onClick={openPdfBuilder}><DownloadSimple aria-hidden="true" /></button>
-      </div>
+        {!worksheetId && <button ref={shareButtonRef} className="share-view-button toolbar-icon-button" type="button" title="Share this view" aria-label="Copy link to this view" onClick={shareWorkspace}><ShareNetwork aria-hidden="true" /></button>}
+        {(!worksheetId || worksheetLoadFailed) && <button ref={pdfTriggerRef} className="download-button toolbar-icon-button" type="button" title="Download PDF" aria-label="Download PDF" onClick={openPdfBuilder}><DownloadSimple aria-hidden="true" /></button>}
+      </div>}
       {savedWorksheetLink && <div className="worksheet-saved-notice" role="status"><Check aria-hidden="true" weight="bold" /><strong>Worksheet saved</strong><a href={savedWorksheetLink}>View worksheet</a><Link href="/worksheets">My worksheets</Link><button type="button" aria-label="Dismiss saved confirmation" onClick={() => setSavedWorksheetLink("")}><X aria-hidden="true" /></button></div>}
       {shareStatus && <p className={`toolbar-status${shareStatus.startsWith("Couldn't") ? " is-error" : " is-success"}`} role="status">{shareStatus}</p>}
 

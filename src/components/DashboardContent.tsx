@@ -56,8 +56,7 @@ export function DashboardContent({ authenticated, accessibleBanks, availableBank
     <section className="dashboard-page dashboard-study-desk shell">
       <header className="dashboard-heading"><div><p className="eyebrow">Question banks</p><h1>{hasPaidAccess ? "Your study desk" : "Start practising"}</h1><p>{hasPaidAccess ? "Open an included bank or sample another course with free questions." : "Pick your course and start with complete older exam years for free."}</p></div>{authenticated ? <details className="dashboard-settings"><summary><Gear /> Account & settings <CaretDown /></summary><div className="dashboard-actions"><Link href="/pricing"><Gear /> Manage plan</Link><Link href="/account"><Gear /> My account</Link><Link href="/account/password"><Key /> Password settings</Link></div></details> : null}</header>
       {!hasPaidAccess && <aside className="dashboard-upgrade-strip"><div><strong>Ready for the complete bank?</strong><span>Unlock one course from $6/month, or build a two-bank plan from $10/month.</span></div><Link className="button secondary" href="/pricing">View plans <ArrowRight weight="bold" /></Link></aside>}
-      {authenticated && <Link className="dashboard-worksheets-link" href="/worksheets">My worksheets <ArrowRight weight="bold" /></Link>}
-      {qualificationGroups.length > 0 ? <QualificationTabs items={qualificationPanels} className="dashboard-qualification-tabs" /> : <p className="dashboard-empty-state">No question banks are available right now.</p>}
+      <div className="dashboard-qualification-row">{authenticated && <Link className="dashboard-worksheets-link" href="/worksheets">My worksheets <ArrowRight weight="bold" /></Link>}{qualificationGroups.length > 0 ? <QualificationTabs items={qualificationPanels} className="dashboard-qualification-tabs" /> : <p className="dashboard-empty-state">No question banks are available right now.</p>}</div>
     </section>
   );
 }

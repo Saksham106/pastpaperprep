@@ -27,7 +27,7 @@ describe("QuestionExplorer", () => {
     }));
   });
 
-  afterEach(() => vi.unstubAllGlobals());
+  afterEach(() => { vi.unstubAllGlobals(); window.history.replaceState({}, "", "/banks/ib-sl"); });
 
   const fullAccess = { authenticated: true, bankAccess: true, canExportPdf: true };
 
@@ -423,6 +423,9 @@ describe("QuestionExplorer", () => {
     await waitFor(() => expect(document.querySelectorAll(".question-list > .question-card")).toHaveLength(2));
     expect(screen.getByText("Revision set")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Edit worksheet" })).toBeInTheDocument();
+    const heading = screen.getByText("Revision set").closest(".worksheet-workspace");
+    expect(heading).toContainElement(screen.getByRole("button", { name: "Download PDF" }));
+    expect(document.querySelector(".explorer-toolbar .download-button")).toBeNull();
     expect(screen.queryByRole("checkbox", { name: /add question/i })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: `Remove question ${ids[0]}` })).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
@@ -450,6 +453,8 @@ describe("QuestionExplorer", () => {
     render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} />);
     await waitFor(() => expect(screen.getByRole("textbox", { name: "Worksheet name" })).toHaveValue("Revision set"));
     expect(document.querySelectorAll(".question-list > .question-card")).toHaveLength(2);
+    const editActions = screen.getByRole("button", { name: "+ Add questions" }).closest(".worksheet-edit-actions");
+    expect(editActions).toContainElement(screen.getByRole("button", { name: "Save changes" }));
     fireEvent.click(screen.getByRole("button", { name: "+ Add questions" }));
     expect(document.querySelectorAll(".question-list > .question-card")).toHaveLength(4);
     fireEvent.click(screen.getAllByRole("checkbox", { name: /add question/i })[2]);
@@ -499,20 +504,74 @@ describe("QuestionExplorer", () => {
     expect(screen.getByText(/unsaved worksheet changes/i)).toBeInTheDocument();
   });
 
-  it("warns before navigating away from an unsaved named selection", () => {
+  it("offers save, discard and keep editing before leaving a changed worksheet", async () => {
     const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 2), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
-    window.history.replaceState({}, "", "/banks/ib-sl");
-    const confirm = vi.spyOn(window, "confirm").mockReturnValue(false);
-    const { container } = render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} />);
-    fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
-    fireEvent.click(screen.getAllByRole("checkbox", { name: /add question/i })[0]);
-    fireEvent.change(screen.getByLabelText(/worksheet name/i), { target: { value: "Draft" } });
-    const link = document.createElement("a"); link.href = "/dashboard"; link.textContent = "Dashboard"; container.appendChild(link);
+    const writes: Record<string, unknown>[] = [];
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      if (String(input) === "/api/worksheets/wk-guard") {
+        if (init?.method === "PATCH") { const body = JSON.parse(String(init.body)); writes.push(body); return new Response(JSON.stringify({ worksheet: { id: "wk-guard", bank_slug: "ib-sl", title: body.name, question_ids: body.questionIds, content_mode: body.contentMode, revision: 4 } }), { status: 200 }); }
+        return new Response(JSON.stringify({ worksheet: { id: "wk-guard", bank_slug: "ib-sl", title: "Revision set", question_ids: questions.map((q) => q.id), content_mode: "both", revision: 3 } }), { status: 200 });
+      }
+      return new Response(JSON.stringify({ expiresIn: 600, assets: [] }), { status: 200 });
+    }));
+    window.history.replaceState({}, "", "/banks/ib-sl?worksheet=wk-guard&mode=edit");
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} />);
+    await screen.findByRole("textbox", { name: "Worksheet name" });
+    fireEvent.change(screen.getByRole("textbox", { name: "Worksheet name" }), { target: { value: "Updated set" } });
+    fireEvent.click(screen.getByRole("button", { name: "View worksheet" }));
+    const dialog = screen.getByRole("dialog", { name: /unsaved worksheet changes/i });
+    expect(within(dialog).getByRole("button", { name: "Save changes" })).toBeInTheDocument();
+    fireEvent.click(within(dialog).getByRole("button", { name: "Keep editing" }));
+    expect(screen.getByRole("textbox", { name: "Worksheet name" })).toHaveValue("Updated set");
+    fireEvent.click(screen.getByRole("button", { name: "View worksheet" }));
+    fireEvent.click(within(screen.getByRole("dialog", { name: /unsaved worksheet changes/i })).getByRole("button", { name: "Save changes" }));
+    await waitFor(() => expect(writes).toHaveLength(1));
+    await waitFor(() => expect(screen.queryByRole("textbox", { name: "Worksheet name" })).not.toBeInTheDocument());
+    fireEvent.click(screen.getByRole("button", { name: "Edit worksheet" }));
+    fireEvent.change(screen.getByRole("textbox", { name: "Worksheet name" }), { target: { value: "Discard me" } });
+    fireEvent.click(screen.getByRole("button", { name: "View worksheet" }));
+    fireEvent.click(within(screen.getByRole("dialog", { name: /unsaved worksheet changes/i })).getByRole("button", { name: "Discard changes" }));
+    expect(screen.queryByRole("textbox", { name: "Worksheet name" })).not.toBeInTheDocument();
+    expect(writes).toHaveLength(1);
+  });
+
+  it("intercepts an in-app back link when worksheet edits are unsaved", async () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 2), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL) => String(input) === "/api/worksheets/wk-back"
+      ? new Response(JSON.stringify({ worksheet: { id: "wk-back", bank_slug: "ib-sl", title: "Revision set", question_ids: questions.map((q) => q.id), content_mode: "both", revision: 1 } }), { status: 200 })
+      : new Response(JSON.stringify({ expiresIn: 600, assets: [] }), { status: 200 })));
+    window.history.replaceState({}, "", "/banks/ib-sl?worksheet=wk-back&mode=edit");
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} />);
+    await screen.findByRole("textbox", { name: "Worksheet name" });
+    fireEvent.change(screen.getByRole("textbox", { name: "Worksheet name" }), { target: { value: "Changed" } });
+    const link = screen.getByRole("link", { name: /my worksheets/i });
     const event = new MouseEvent("click", { bubbles: true, cancelable: true });
     link.dispatchEvent(event);
-    expect(confirm).toHaveBeenCalledWith("You have unsaved worksheet changes. Leave this page?");
     expect(event.defaultPrevented).toBe(true);
-    confirm.mockRestore();
+    expect(await screen.findByRole("dialog", { name: /unsaved worksheet changes/i })).toBeInTheDocument();
+  });
+
+  it("keeps edits and the prompt open if saving before view fails", async () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 2), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => String(input) === "/api/worksheets/wk-fail"
+      ? init?.method === "PATCH" ? new Response(JSON.stringify({ error: "Conflict. Reload worksheet." }), { status: 409 })
+        : new Response(JSON.stringify({ worksheet: { id: "wk-fail", bank_slug: "ib-sl", title: "Original", question_ids: questions.map((q) => q.id), content_mode: "both", revision: 1 } }), { status: 200 })
+      : new Response(JSON.stringify({ expiresIn: 600, assets: [] }), { status: 200 })));
+    window.history.replaceState({}, "", "/banks/ib-sl?worksheet=wk-fail&mode=edit");
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} />);
+    fireEvent.change(await screen.findByRole("textbox", { name: "Worksheet name" }), { target: { value: "Edited" } });
+    fireEvent.click(screen.getByRole("button", { name: "Download PDF" }));
+    const dialog = screen.getByRole("dialog", { name: /unsaved worksheet changes/i });
+    fireEvent.click(within(dialog).getByRole("button", { name: "Save changes" }));
+    expect(await within(dialog).findByRole("alert")).toHaveTextContent("Conflict. Reload worksheet.");
+    expect(screen.getByRole("textbox", { name: "Worksheet name" })).toHaveValue("Edited");
+    expect(screen.queryByRole("dialog", { name: /download 2 questions/i })).not.toBeInTheDocument();
+    fireEvent.click(within(dialog).getByRole("button", { name: "Discard changes" }));
+    expect(screen.getByRole("textbox", { name: "Worksheet name" })).toHaveValue("Edited");
+    expect(within(dialog).getByText(/discard unsaved changes/i)).toBeInTheDocument();
+    fireEvent.click(within(dialog).getByRole("button", { name: "Confirm discard" }));
+    expect(screen.getByRole("textbox", { name: "Worksheet name" })).toHaveValue("Original");
+    expect(screen.queryByRole("dialog", { name: /unsaved worksheet changes/i })).not.toBeInTheDocument();
   });
 
   it("keeps the PDF download icon visible on hover in both themes", () => {

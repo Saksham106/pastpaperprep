@@ -24,6 +24,8 @@ describe("WorksheetList", () => {
     const page = readFileSync(join(process.cwd(), "src/app/worksheets/page.tsx"), "utf8");
     const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
     expect(page).toContain('<h1>My worksheets</h1>');
+    expect(page).toContain('href="/dashboard" aria-label="Back to dashboard"');
+    expect(page.indexOf('Back to dashboard')).toBeLessThan(page.indexOf('<h1>My worksheets</h1>'));
     expect(page).toContain('title: "My worksheets"');
     expect(css).toMatch(/\.worksheet-library-header h1\s*\{[^}]*font:\s*800 clamp\(/);
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(Response.json({ worksheets: [] })));
