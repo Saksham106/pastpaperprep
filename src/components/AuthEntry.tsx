@@ -6,8 +6,8 @@ import { SignInMethods } from "@/components/SignInMethods";
 
 type AuthMode = "sign-in" | "sign-up";
 
-export function AuthEntry({ next, hasLinkError = false }: { next: string; hasLinkError?: boolean }) {
-  const [mode, setMode] = useState<AuthMode>("sign-in");
+export function AuthEntry({ next, hasLinkError = false, initialMode = "sign-in" }: { next: string; hasLinkError?: boolean; initialMode?: AuthMode }) {
+  const [mode, setMode] = useState<AuthMode>(initialMode);
   const signingIn = mode === "sign-in";
   const headingRef = useRef<HTMLHeadingElement>(null);
   const previousModeRef = useRef(mode);
