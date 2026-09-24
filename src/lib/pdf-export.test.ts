@@ -26,6 +26,11 @@ describe("questionsForPdf", () => {
     ]);
   });
 
+  it("preserves saved selection order instead of catalogue order", () => {
+    const selected = new Set([questions[3].id, questions[0].id]);
+    expect(questionsForPdf(questions, selected, true, questions)).toEqual([questions[3], questions[0]]);
+  });
+
   it("caps a single worksheet before signing or downloading assets", () => {
     const manyQuestions = loadBankQuestions("ib-sl").slice(0, MAX_PDF_QUESTIONS + 5);
     expect(questionsForPdf(manyQuestions, new Set(), false)).toHaveLength(MAX_PDF_QUESTIONS);

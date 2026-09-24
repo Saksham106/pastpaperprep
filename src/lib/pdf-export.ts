@@ -18,7 +18,8 @@ export function questionsForPdf(
   allQuestions: UnifiedQuestion[] = matching,
 ): UnifiedQuestion[] {
   if (!selectionIsExplicit) return matching.slice(0, MAX_PDF_QUESTIONS);
-  return allQuestions.filter((question) => selectedIds.has(question.id)).slice(0, MAX_PDF_QUESTIONS);
+  const byId = new Map(allQuestions.map((question) => [question.id, question]));
+  return [...selectedIds].map((id) => byId.get(id)).filter((question): question is UnifiedQuestion => Boolean(question)).slice(0, MAX_PDF_QUESTIONS);
 }
 
 export function pdfFooterText(accountMarker: string) {

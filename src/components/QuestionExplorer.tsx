@@ -206,6 +206,13 @@ access: ExplorerAccess;
   ));
   const [selectedIds, setSelectedIds] = useState(new Set<string>());
   const [selectionIsExplicit, setSelectionIsExplicit] = useState(false);
+  const [worksheetId, setWorksheetId] = useState(() => typeof window === "undefined" ? "" : new URLSearchParams(window.location.search).get("worksheet") ?? "");
+  const [worksheetRevision, setWorksheetRevision] = useState(0);
+  const [worksheetName, setWorksheetName] = useState("");
+  const [worksheetStatus, setWorksheetStatus] = useState("");
+  const [worksheetLoading, setWorksheetLoading] = useState(false);
+  const [worksheetBaseline, setWorksheetBaseline] = useState("");
+  const [worksheetReady, setWorksheetReady] = useState(() => typeof window === "undefined" || !new URLSearchParams(window.location.search).has("worksheet"));
   const [pdfOpen, setPdfOpen] = useState(false);
   const [pdfUpgradeOpen, setPdfUpgradeOpen] = useState(false);
   const [pdfContent, setPdfContent] = useState<PdfContent>("both");
@@ -588,9 +595,11 @@ access: ExplorerAccess;
   useEffect(() => {
     if (!locationHydrated || bootstrapPending) return;
     const query = serializeExplorerState({ search, sort, filters, freeOnly: effectiveFreeOnly, savedOnly, courseRoute: effectiveCourseRoute, visible }, { persistFreeChoice: !resolvedAccess.bankAccess });
-    const nextUrl = `${window.location.pathname}${query.size ? `?${query}` : ""}${window.location.hash}`;
+    const params = new URLSearchParams(query);
+    if (worksheetId) params.set("worksheet", worksheetId);
+    const nextUrl = `${window.location.pathname}${params.size ? `?${params}` : ""}${window.location.hash}`;
     window.history.replaceState(window.history.state, "", nextUrl);
-  }, [bootstrapPending, effectiveCourseRoute, effectiveFreeOnly, filters, locationHydrated, resolvedAccess.bankAccess, savedOnly, search, sort, visible]);
+  }, [bootstrapPending, effectiveCourseRoute, effectiveFreeOnly, filters, locationHydrated, resolvedAccess.bankAccess, savedOnly, search, sort, visible, worksheetId]);
 
   useEffect(() => {
     if (!bank) return;
@@ -620,6 +629,62 @@ access: ExplorerAccess;
         for (const key of pendingKeys) signingAssetKeysRef.current.delete(key);
       });
   }, [bank, localPreview, questionAssetRequests]);
+
+  const worksheetDefinition = () => JSON.stringify({ name: worksheetName.trim(), ids: [...selectedIds], content: pdfContent });
+  const worksheetDirty = worksheetBaseline ? worksheetBaseline !== worksheetDefinition() : Boolean(worksheetName.trim() && (selectionIsExplicit ? selectedIds.size : filtered.length));
+  useEffect(() => {
+    if (!worksheetId || !indexLoaded || indexError || bootstrapPending || worksheetBaseline) return;
+    let cancelled = false;
+    queueMicrotask(() => { if (!cancelled) setWorksheetLoading(true); });
+    fetch(`/api/worksheets/${encodeURIComponent(worksheetId)}`, { cache: "no-store" }).then(async (response) => {
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.error || "Saved worksheet unavailable");
+      return payload.worksheet as { bank_slug: string; title: string; question_ids: string[]; content_mode: PdfContent; revision: number };
+    }).then((worksheet) => {
+      if (cancelled) return;
+      if (worksheet.bank_slug !== bank) throw new Error("This worksheet belongs to another bank.");
+      const missing = worksheet.question_ids.filter((id) => !catalogQuestions.some((question) => question.id === id));
+      if (missing.length) throw new Error(`Some saved questions are no longer available (${missing.join(", ")}).`);
+      setSelectedIds(new Set(worksheet.question_ids)); setSelectionIsExplicit(true);
+      setWorksheetName(worksheet.title); setWorksheetRevision(worksheet.revision); setPdfContent(worksheet.content_mode);
+      setWorksheetBaseline(JSON.stringify({ name: worksheet.title, ids: worksheet.question_ids, content: worksheet.content_mode }));
+      setWorksheetReady(true);
+    }).catch((error: unknown) => { if (!cancelled) { setWorksheetStatus(error instanceof Error ? error.message : "Saved worksheet unavailable"); setWorksheetReady(true); } })
+      .finally(() => { if (!cancelled) setWorksheetLoading(false); });
+    return () => { cancelled = true; };
+  }, [worksheetId, indexLoaded, indexError, bootstrapPending, worksheetReady, worksheetBaseline, bank, catalogQuestions]);
+  useEffect(() => {
+    if (!worksheetDirty) return;
+    const warn = (event: BeforeUnloadEvent) => { event.preventDefault(); event.returnValue = ""; };
+    window.addEventListener("beforeunload", warn);
+    const guard = (event: MouseEvent) => {
+      const link = (event.target as HTMLElement).closest("a[href]") as HTMLAnchorElement | null;
+      if (link && !window.confirm("You have unsaved worksheet changes. Leave this page?")) event.preventDefault();
+    };
+    document.addEventListener("click", guard, true);
+    return () => { window.removeEventListener("beforeunload", warn); document.removeEventListener("click", guard, true); };
+  }, [worksheetDirty]);
+
+  const saveWorksheet = async () => {
+    if (!bank || !resolvedAccess.bankAccess || !exportQuestions.length || !worksheetName.trim() || !worksheetReady) return;
+    const orderedIds = selectionIsExplicit ? [...selectedIds] : exportQuestions.map((question) => question.id);
+    setWorksheetStatus("Saving worksheet…");
+    try {
+      const response = await fetch(worksheetId ? `/api/worksheets/${encodeURIComponent(worksheetId)}` : "/api/worksheets", {
+        method: worksheetId ? "PATCH" : "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({ bank, name: worksheetName, questionIds: orderedIds, contentMode: pdfContent, ...(worksheetId ? { revision: worksheetRevision } : {}) }),
+      });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.error || "Worksheet could not be saved. Try again.");
+      const saved = payload.worksheet;
+      setWorksheetId(saved.id); setWorksheetRevision(saved.revision);
+      setSelectedIds(new Set(saved.question_ids)); setSelectionIsExplicit(true);
+      const query = new URLSearchParams(window.location.search); query.set("worksheet", saved.id);
+      window.history.replaceState(window.history.state, "", `${window.location.pathname}?${query}${window.location.hash}`);
+      setWorksheetBaseline(JSON.stringify({ name: saved.title, ids: saved.question_ids, content: saved.content_mode }));
+      setWorksheetStatus("Worksheet saved.");
+    } catch (error) { setWorksheetStatus(error instanceof Error ? error.message : "Worksheet could not be saved. Try again."); }
+  };
 
   const toggle = (key: MultiKey, value: string) => {
     if (key === "topics") setShowAllSubtopics(false);
@@ -869,7 +934,7 @@ access: ExplorerAccess;
         </div>
       </div>
 
-      {pdfOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfDialogRef} className="pdf-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-title"><button className="pdf-close" aria-label="Close PDF options" onClick={() => setPdfOpen(false)}><X /></button><p className="eyebrow">Worksheet builder</p><h2 id="pdf-title">Download {exportQuestions.length.toLocaleString()} questions</h2><p>{selectionIsExplicit ? "Using your selected questions, including selections outside the current filters." : filtered.length > MAX_PDF_QUESTIONS ? `Worksheets are limited to ${MAX_PDF_QUESTIONS} questions. Narrow your filters or make a selection for a different set.` : "No manual selection yet, so this uses every current result."}</p><div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div><button ref={pdfBuildButtonRef} className="download-button pdf-download" disabled={!exportQuestions.length} onClick={handleDownload}><DownloadSimple /> {pdfStatusKind === "success" ? "Downloaded" : "Build PDF"}</button>{pdfStatus && <small ref={pdfStatusRef} role="status" aria-live="polite" className={pdfStatusKind === "progress" ? "" : pdfStatusKind === "error" ? "is-error" : "is-success"}>{pdfStatus}</small>}</section></div>}
+      {pdfOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfDialogRef} className="pdf-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-title"><button className="pdf-close" aria-label="Close PDF options" onClick={() => setPdfOpen(false)}><X /></button><p className="eyebrow">Worksheet builder</p><h2 id="pdf-title">Download {exportQuestions.length.toLocaleString()} questions</h2><p>{selectionIsExplicit ? "Using your selected questions, including selections outside the current filters." : filtered.length > MAX_PDF_QUESTIONS ? `Worksheets are limited to ${MAX_PDF_QUESTIONS} questions. Narrow your filters or make a selection for a different set.` : "No manual selection yet, so this uses every current result."}</p><div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div><label>Worksheet name<input aria-label="Worksheet name" maxLength={80} value={worksheetName} onChange={(event) => setWorksheetName(event.target.value)} placeholder="Name this worksheet" /></label><button type="button" className="button secondary" disabled={!resolvedAccess.bankAccess || !worksheetReady || worksheetLoading || !exportQuestions.length || !worksheetName.trim()} onClick={saveWorksheet}>{worksheetId ? "Save changes" : "Save worksheet"}</button>{worksheetStatus && <p role={worksheetStatus.includes("could not") || worksheetStatus.includes("required") || worksheetStatus.includes("unavailable") ? "alert" : "status"}>{worksheetStatus}</p>}{worksheetDirty && <small>Unsaved worksheet changes</small>}<button ref={pdfBuildButtonRef} className="download-button pdf-download" disabled={!exportQuestions.length} onClick={handleDownload}><DownloadSimple /> {pdfStatusKind === "success" ? "Downloaded" : "Build PDF"}</button>{pdfStatus && <small ref={pdfStatusRef} role="status" aria-live="polite" className={pdfStatusKind === "progress" ? "" : pdfStatusKind === "error" ? "is-error" : "is-success"}>{pdfStatus}</small>}</section></div>}
       {pdfUpgradeOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfUpgradeDialogRef} className="pdf-dialog access-upgrade-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-upgrade-title"><button className="pdf-close" aria-label="Close PDF access message" onClick={() => setPdfUpgradeOpen(false)}><X /></button><span className="access-upgrade-icon"><DownloadSimple aria-hidden="true" weight="bold" /></span><h2 id="pdf-upgrade-title">PDF export needs paid access</h2><p>Build and download worksheets with paid access to this question bank.</p><Link className="button primary" href={plansHref}>{PLANS_LABEL}</Link></section></div>}
     </section>
   );
