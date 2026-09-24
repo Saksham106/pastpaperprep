@@ -1,6 +1,8 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
+import { REFERRAL_COOKIE } from "@/lib/referral";
 import { isValidEmail, isValidPassword, safeNextPath, type MagicLinkState } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 
@@ -88,7 +90,13 @@ export async function createAccountWithPassword(
   if (error) {
     return { status: "error", message: "We couldn’t create your account. Try again in a minute." };
   }
-  if (data.session) redirect(next);
+  if (data.session) {
+    if (data.user?.id && data.user.created_at) {
+      const { bindReferralToAuthenticatedUser } = await import("@/lib/referral-account");
+      await bindReferralToAuthenticatedUser(data.user.id, data.user.created_at, (await cookies()).get(REFERRAL_COOKIE)?.value);
+    }
+    redirect(next);
+  }
 
   return { status: "success", message: "Check your email to confirm your account." };
 }

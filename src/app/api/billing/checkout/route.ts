@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { getCheckoutReferral } from "@/lib/referral-account";
 import { NextResponse } from "next/server";
 import { hasBankAccess } from "@/lib/access";
 import { getEntitlementBanks } from "@/lib/banks";
@@ -68,6 +69,7 @@ export async function POST(request: Request) {
     if (getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, entitlements))) {
       return NextResponse.json({ error: "Existing access must be managed from your account" }, { status: 409 });
     }
+    const referralCode = await getCheckoutReferral(user.id);
     const admin = createAdminClient();
     const intentId = randomUUID();
     const { data: reservationGranted, error: reservationError } = await admin.rpc("reserve_billing_checkout", {
@@ -166,6 +168,7 @@ export async function POST(request: Request) {
           && metadata.product_id === input.productId
           && metadata.billing_interval === input.interval
           && metadata.price_id === input.priceId
+          && metadata.referral_code === (referralCode ?? undefined)
           && metadata.selected_bank_ids === (input.selectedBankIds ? JSON.stringify(input.selectedBankIds) : undefined)
         ));
         const openSessionUrl = matchingOpenSession?.url;
@@ -197,8 +200,9 @@ export async function POST(request: Request) {
                 selected_bank_ids: selectedBankMetadata!,
                 billing_interval: input.interval,
                 price_id: input.priceId,
+                ...(referralCode ? { referral_code: referralCode } : {}),
               }
-              : { user_id: input.userId, product_id: input.productId },
+              : { user_id: input.userId, product_id: input.productId, ...(referralCode ? { referral_code: referralCode } : {}) },
           },
           metadata: {
             user_id: input.userId,
@@ -206,6 +210,7 @@ export async function POST(request: Request) {
             ...(selectedBankMetadata ? { selected_bank_ids: selectedBankMetadata } : {}),
             billing_interval: input.interval,
             price_id: input.priceId,
+            ...(referralCode ? { referral_code: referralCode } : {}),
           },
           integration_identifier: `${input.productId === "bundle_custom" ? "pastpaperprep-custom-bundle" : "pastpaperprep-fixed-plan"}-${customIntegrationIdentifier().split("-").at(-1)}`,
         } as Parameters<typeof stripe.checkout.sessions.create>[0], {

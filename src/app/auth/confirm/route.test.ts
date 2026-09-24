@@ -1,12 +1,14 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { NextRequest } from "next/server";
 
-const { createClient, verifyOtp } = vi.hoisted(() => ({
+const { createClient, verifyOtp, getUser } = vi.hoisted(() => ({
   createClient: vi.fn(),
   verifyOtp: vi.fn(),
+  getUser: vi.fn(),
 }));
 
 vi.mock("@/lib/supabase/server", () => ({ createClient }));
+vi.mock("@/lib/referral-account", () => ({ bindReferralToAuthenticatedUser: vi.fn() }));
 
 import { GET } from "./route";
 
@@ -19,7 +21,8 @@ function request(query: string) {
 describe("GET /auth/confirm", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    createClient.mockResolvedValue({ auth: { verifyOtp } });
+    getUser.mockResolvedValue({ data: { user: null } });
+    createClient.mockResolvedValue({ auth: { verifyOtp, getUser } });
     verifyOtp.mockResolvedValue({ error: null });
   });
 
