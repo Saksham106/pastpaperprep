@@ -2,6 +2,8 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { WorksheetList } from "@/components/WorksheetList";
 import { DashboardContent } from "@/components/DashboardContent";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 
 afterEach(() => vi.restoreAllMocks());
 const items = [{ id: "w-1", bank_slug: "igcse-0580", title: "Algebra", question_ids: ["q1", "q2"], content_mode: "both" as const, revision: 3, updated_at: "2026-09-23T12:00:00Z" }];
@@ -18,6 +20,11 @@ describe("WorksheetList", () => {
     const link = await screen.findByRole("link", { name: /Open Algebra/ });
     expect(link).toHaveAttribute("href", "/banks/igcse-0580?worksheet=w-1");
     expect(screen.getByText(/2\s+questions/)).toBeInTheDocument();
+  });
+
+  it("uses full navigation for saved-set links so Next cannot drop the worksheet query", () => {
+    const source = readFileSync(join(process.cwd(), "src/components/WorksheetList.tsx"), "utf8");
+    expect(source).toContain('<a className="button secondary" aria-label={`Open ${item.title}`}');
   });
 
   it("renames by PATCHing only the name and revision, including after access lapses", async () => {

@@ -904,6 +904,12 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
   80% { transform: translateX(3px); }
 }
 .pdf-options { margin: 20px 0; display: grid; gap: 8px; }
+.worksheet-name-field { display: grid; gap: 8px; margin: 20px 0 16px; color: var(--ink); font-size: .875rem; font-weight: 750; }
+.worksheet-name-field input { display: block; width: 100%; min-width: 0; min-height: 48px; padding: 11px 14px; color: var(--ink); background: var(--surface-raised); border: 1px solid var(--line); border-radius: 9px; font: inherit; font-weight: 500; }
+.worksheet-name-field input::placeholder { color: var(--muted); opacity: 1; }
+.worksheet-name-field input:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; border-color: var(--cobalt); }
+.worksheet-actions { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; gap: 10px; }
+.worksheet-actions > button { min-width: 0; min-height: 48px; margin: 0; padding: 10px 8px; justify-content: center; text-align: center; white-space: normal; }
 .pdf-download { width: 100%; min-height: 48px; color: var(--surface); background: var(--cobalt); border: 0; border-radius: 10px; font-weight: 830; }
 .pdf-dialog small { display: block; margin-top: 9px; color: var(--muted); }
 .pdf-dialog small.is-error { color: var(--danger); font-weight: 750; }
