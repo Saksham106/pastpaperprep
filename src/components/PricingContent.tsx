@@ -65,7 +65,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
   const [interval, setInterval] = useState<BillingInterval>(initialInterval);
   const initialBankId = initialProductId ? bankSlugForProduct(initialProductId) : undefined;
   const initialCustomBankIds = initialBankIds ?? (initialBankId ? [initialBankId] : undefined);
-  const [builderBankIds, setBuilderBankIds] = useState<BankSlug[]>(() => [...(initialCustomBankIds ?? [])]);
+  const [builderBankIds, setBuilderBankIds] = useState<BankSlug[]>(() => hasPaidAccess ? [] : [...(initialCustomBankIds ?? [])]);
   const handleBuilderSelectionChange = useCallback((selectedBankIds: readonly BankSlug[]) => {
     setBuilderBankIds([...selectedBankIds]);
   }, []);
@@ -77,7 +77,8 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
   const totalPapers = availableBanks.reduce((total, bank) => total + bank.paperCount, 0);
   const addOnBanks = availableBanks.filter((bank) => !ownedBankIds.includes(bank.slug) && Boolean(getCatalogBank(bank.slug)?.productId));
   const individualBankSubscriptions = currentPlanProductIds.filter((id) => id.startsWith("bank_")).length;
-  const currentPlanMode = currentPlanProductIds.includes("bundle_all") ? "all"
+  const ownsAllAccess = currentPlanProductIds.includes("bundle_all");
+  const currentPlanMode = ownsAllAccess ? "all"
     : currentPlanProductIds.some((id) => id === "bundle_custom" || (id.startsWith("bundle_") && id !== "bundle_all")) ? "builder"
       : currentPlanProductIds.some((id) => id.startsWith("bank_")) ? "single" : null;
 
@@ -92,6 +93,9 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         : formatCents(builderHeadlineCents)
       : interval === "annual" ? plan.annualMonthly : plan.monthly;
     const builderAnnualTotalCents = isBuilder ? getBuilderAnnualTotalCents(builderQuantity) : null;
+    const newSubscriptionNote = isBuilder && hasPaidAccess && builderQuantity >= 2 && builderQuantity <= 5
+      ? interval === "annual" ? `New plan: billed ${formatCents(builderAnnualTotalCents)} once a year.` : `New plan: billed ${headlinePrice} monthly.`
+      : null;
     const checkoutCta = isBuilder
       ? `Continue with ${builderQuantity} ${builderQuantity === 1 ? "bank" : "banks"}`
       : plan.cta;
@@ -104,6 +108,9 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         : "Billed monthly";
 
     const current = hasPaidAccess && currentPlanMode === plan.mode;
+    const currentAllAccess = ownsAllAccess || !addOnBanks.length;
+    const canAdd = hasPaidAccess && !currentAllAccess;
+    const cardBanks = canAdd ? addOnBanks : availableBanks;
     return (
       <article className={`pricing-option${plan.popular ? " pricing-option-popular" : ""}${current ? " pricing-option-current" : ""}`} data-plan-tone={plan.tone} data-current-plan={current ? "true" : undefined} data-mobile-order={plan.popular ? "first" : undefined} key={plan.name}>
         <Image className="plan-art" src={plan.artwork} alt="" width={420} height={260} aria-hidden="true" sizes="(max-width: 1024px) 68vw, 300px" />
@@ -115,15 +122,17 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           {current ? <span className="pricing-badge pricing-badge-current">{plan.mode === "single" && individualBankSubscriptions > 1 ? "Your subscriptions" : "Your access"}</span> : plan.popular ? <span className="pricing-badge">Most popular</span> : null}
         </div>
         <div className="plan-price"><strong aria-live={isBuilder ? "polite" : undefined}>{headlinePrice}</strong><span>/ month</span></div>
-        <p className="plan-billing-note">{hasPaidAccess ? "Standard price shown, not your current charge." : billingNote}</p>
+        <p className="plan-billing-note">{hasPaidAccess ? newSubscriptionNote ?? (canAdd || current ? "Standard price for a new subscription, not your current charge." : "Standard price shown, not your current charge.") : billingNote}</p>
         <p className="plan-description">{plan.description}</p>
-        {hasPaidAccess ? <p className="pricing-plan-access-note">{current ? complimentaryAccess ? "Included with your complimentary access." : plan.mode === "single" && individualBankSubscriptions > 1 ? `${individualBankSubscriptions} separate bank subscriptions. Your existing rates stay unchanged.` : "Your existing rate stays unchanged." : !addOnBanks.length ? "All available banks are already included." : "Compare plans; add an uncovered bank above."}</p> : plan.mode === "all" ? (
+        {hasPaidAccess && !canAdd && plan.mode === "all" ? <p className="pricing-plan-access-note">{complimentaryAccess ? "Included with your complimentary access." : "Your existing rate stays unchanged."}</p> : plan.mode === "all" ? (
           <PlanCheckout
             options={[{ productId: "bundle_all", label: "All Access" }]}
             interval={interval}
             authenticated={authenticated}
             hasPaidAccess={hasPaidAccess}
-            ctaLabel={checkoutCta}
+            allowPaidPurchase={canAdd}
+            previewOnly={previewOnly}
+            ctaLabel={hasPaidAccess ? "Add All Access subscription" : checkoutCta}
           />
         ) : (
           <CustomBundleCheckout
@@ -131,12 +140,15 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
             interval={interval}
             authenticated={authenticated}
             hasPaidAccess={hasPaidAccess}
-            initialBankIds={initialCustomBankIds}
-            availableBanks={availableBanks}
+            allowPaidPurchase={canAdd}
+            previewOnly={previewOnly}
+            initialBankIds={hasPaidAccess ? [] : initialCustomBankIds}
+            availableBanks={cardBanks}
             onSelectionChange={isBuilder ? handleBuilderSelectionChange : undefined}
-            ctaLabel={checkoutCta}
+            ctaLabel={hasPaidAccess && isBuilder ? `Add ${builderQuantity} banks` : checkoutCta}
           />
         )}
+        {hasPaidAccess && !canAdd && plan.mode !== "all" ? <p className="pricing-plan-access-note">{current ? complimentaryAccess ? "Included with your complimentary access." : plan.mode === "single" && individualBankSubscriptions > 1 ? `${individualBankSubscriptions} separate bank subscriptions. Your existing rates stay unchanged.` : "Your existing rate stays unchanged." : "All available banks are already included."}</p> : null}
         {!hasPaidAccess ? <p className="plan-assurance">Secure Stripe checkout · Cancel any time</p> : null}
       </article>
     );
@@ -168,12 +180,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           <button className="billing-toggle-annual" type="button" aria-pressed={interval === "annual"} onClick={() => chooseInterval("annual")}>Annual — save {maximumAnnualSavingPercent()}%<span className="billing-savings">2 months free</span></button>
         </div>
 
-        {hasPaidAccess ? (
-          addOnBanks.length ? <section className="pricing-addon" aria-labelledby="pricing-addon-heading">
-            <div><p className="eyebrow">Expand your access</p><h2 id="pricing-addon-heading">Add another bank</h2><p>Choose a bank you don’t already have. This starts a separate subscription at {interval === "annual" ? "$48/year" : "$6/month"}; your existing plan, price and renewal stay unchanged. Banks added later don’t receive the bundle discount and may renew on different dates.</p></div>
-            <CustomBundleCheckout mode="single" interval={interval} authenticated={authenticated} hasPaidAccess={false} previewOnly={previewOnly} availableBanks={addOnBanks} />
-          </section> : <p className="pricing-all-included">All available banks are included in your access.</p>
-        ) : null}
+        {hasPaidAccess && !addOnBanks.length ? <p className="pricing-all-included">All available banks are included in your access.</p> : null}
         <div className="pricing-decision-grid" aria-label="PastPaperPrep plans" data-paid={hasPaidAccess ? "true" : undefined}>
           {PLANS.map(renderPlan)}
         </div>

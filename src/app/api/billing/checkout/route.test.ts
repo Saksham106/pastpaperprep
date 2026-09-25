@@ -24,7 +24,7 @@ function mockAdminRpc(
 ) {
   adminRpc.mockImplementation(async (functionName: string, args?: Record<string, unknown>) => {
     if (functionName === "reserve_billing_checkout") return { data: reservationGranted, error: null };
-    if (functionName === "confirm_billing_checkout" || functionName === "confirm_addon_billing_checkout") return { data: confirmationGranted, error: null };
+    if (functionName === "confirm_billing_checkout" || functionName === "confirm_addon_billing_checkout" || functionName === "confirm_paid_bundle_billing_checkout") return { data: confirmationGranted, error: null };
     if (functionName === "release_billing_checkout") return { data: true, error: null };
     if (functionName === "claim_stripe_customer") {
       return { data: claimedCustomerId ?? args?.p_customer_id, error: null };
@@ -177,7 +177,7 @@ describe("POST /api/billing/checkout", () => {
     expect(sessionsCreate).not.toHaveBeenCalled();
   });
 
-  it("refuses to create a second subscription for an account with current access", async () => {
+  it("requires consent before a paid member can add All Access alongside an existing bank", async () => {
     const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
     getUser.mockResolvedValue({ data: { user } });
     userFrom.mockReturnValue(entitlementQuery([{
@@ -192,8 +192,8 @@ describe("POST /api/billing/checkout", () => {
       body: JSON.stringify({ interval: "annual", productId: "bundle_all" }),
     }));
 
-    expect(response.status).toBe(409);
-    await expect(response.json()).resolves.toEqual({ error: "Choose a bank you do not already have; existing plans cannot be repurchased" });
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({ error: "Acknowledge that this is a separate subscription and existing plans will continue unchanged" });
     expect(customersSearch).not.toHaveBeenCalled();
     expect(sessionsCreate).not.toHaveBeenCalled();
   });
@@ -308,6 +308,34 @@ describe("POST /api/billing/checkout", () => {
     );
   });
 
+  it("allows a paid user to buy an uncovered custom bundle and confirms acknowledged intent", async () => {
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    userFrom.mockReturnValue(entitlementQuery([{ product_id: "bank_ib_sl", status: "active", starts_at: "2026-01-01T00:00:00.000Z", expires_at: "2099-01-01T00:00:00.000Z" }]));
+    mockAdminRpc("cus_existing");
+    sessionsCreate.mockResolvedValue({ url: "https://checkout.stripe.com/session" });
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", { method: "POST", body: JSON.stringify({ interval: "monthly", productId: "bundle_custom", selectedBankIds: ["ib-hl", "ib-ai-hl"], acknowledgeSeparateSubscription: true }) }));
+    expect(response.status).toBe(200);
+    const intentId = adminRpc.mock.calls.find(([name]) => name === "reserve_billing_checkout")?.[1]?.p_intent_id;
+    expect(adminRpc).toHaveBeenCalledWith("confirm_paid_bundle_billing_checkout", { p_user_id: user.id, p_intent_id: intentId, p_product_id: "bundle_custom", p_selected_bank_ids: ["ib-hl", "ib-ai-hl"], p_acknowledged: true });
+    expect(sessionsCreate).toHaveBeenCalledWith(expect.objectContaining({ line_items: [{ price: "price_custom_monthly", quantity: 2 }], metadata: expect.objectContaining({ billing_intent_id: intentId, acknowledge_separate_subscription: "true" }), subscription_data: { metadata: expect.objectContaining({ billing_intent_id: intentId, acknowledge_separate_subscription: "true" }) } }), expect.any(Object));
+  });
+
+  it("requires explicit acknowledgement for paid All Access and reserves its separate subscription", async () => {
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    userFrom.mockReturnValue(entitlementQuery([{ product_id: "bank_ib_sl", status: "active", starts_at: "2026-01-01T00:00:00.000Z", expires_at: "2099-01-01T00:00:00.000Z" }]));
+    mockAdminRpc("cus_existing");
+    sessionsCreate.mockResolvedValue({ url: "https://checkout.stripe.com/session" });
+    const denied = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", { method: "POST", body: JSON.stringify({ interval: "monthly", productId: "bundle_all" }) }));
+    expect(denied.status).toBe(400);
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", { method: "POST", body: JSON.stringify({ interval: "monthly", productId: "bundle_all", acknowledgeSeparateSubscription: true }) }));
+    expect(response.status).toBe(200);
+    const intentId = adminRpc.mock.calls.find(([name]) => name === "reserve_billing_checkout")?.[1]?.p_intent_id;
+    expect(adminRpc).toHaveBeenCalledWith("confirm_paid_bundle_billing_checkout", { p_user_id: user.id, p_intent_id: intentId, p_product_id: "bundle_all", p_selected_bank_ids: [], p_acknowledged: true });
+    expect(sessionsCreate).toHaveBeenCalledWith(expect.objectContaining({ metadata: expect.objectContaining({ billing_intent_id: intentId, acknowledge_separate_subscription: "true" }), subscription_data: { metadata: expect.objectContaining({ billing_intent_id: intentId, acknowledge_separate_subscription: "true" }) } }), expect.any(Object));
+  });
+
   it("creates an enabled Economics custom bundle through the existing custom price", async () => {
     vi.stubEnv("NODE_ENV", "production");
     vi.stubEnv("PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION", "true");
@@ -370,7 +398,7 @@ describe("POST /api/billing/checkout", () => {
       body: JSON.stringify({ interval: "monthly", productId: "bundle_all" }),
     }));
 
-    expect(response.status).toBe(409);
+    expect(response.status).toBe(400);
     expect(sessionsCreate).not.toHaveBeenCalled();
     expect(adminRpc).not.toHaveBeenCalled();
   });
@@ -598,6 +626,23 @@ describe("POST /api/billing/checkout", () => {
       starting_after: "sub_canceled_2",
     });
     expect(sessionsCreate).not.toHaveBeenCalled();
+  });
+
+  it("expires an older paid All Access session instead of binding fresh consent to it", async () => {
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    userFrom.mockReturnValue(entitlementQuery([{ product_id: "bank_ib_sl", status: "active", starts_at: "2026-01-01T00:00:00.000Z", expires_at: "2099-01-01T00:00:00.000Z" }]));
+    mockAdminRpc("cus_existing");
+    subscriptionsList.mockResolvedValue({ data: [{ status: "active", metadata: { product_id: "bank_ib_sl" } }] });
+    sessionsList.mockResolvedValue({ data: [{ id: "cs_prior", status: "open", expires_at: 4_102_444_800, url: "https://checkout.stripe.com/c/pay/cs_prior", metadata: { user_id: user.id, product_id: "bundle_all", billing_interval: "monthly", price_id: "price_all_monthly", acknowledge_separate_subscription: "true", billing_intent_id: "00000000-0000-0000-0000-000000000099" } }] });
+    sessionsCreate.mockResolvedValue({ url: "https://checkout.stripe.com/c/pay/cs_fresh" });
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", { method: "POST", body: JSON.stringify({ interval: "monthly", productId: "bundle_all", acknowledgeSeparateSubscription: true }) }));
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toEqual({ url: "https://checkout.stripe.com/c/pay/cs_fresh" });
+    expect(sessionsExpire).toHaveBeenCalledWith("cs_prior");
+    expect(sessionsCreate).toHaveBeenCalledTimes(1);
+    const intentId = adminRpc.mock.calls.find(([name]) => name === "reserve_billing_checkout")?.[1]?.p_intent_id;
+    expect(sessionsCreate).toHaveBeenCalledWith(expect.objectContaining({ metadata: expect.objectContaining({ billing_intent_id: intentId }) }), expect.any(Object));
   });
 
   it("resumes an open Checkout Session instead of trapping the user", async () => {

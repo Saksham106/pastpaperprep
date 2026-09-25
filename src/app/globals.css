@@ -1545,6 +1545,8 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .pricing-decision-grid[data-paid="true"] .pricing-option { min-height: 370px; }
 .pricing-decision-grid[data-paid="true"] .plan-art { opacity: .075; }
 .pricing-decision-grid[data-paid="true"] .pricing-plan-access-note { background: color-mix(in srgb, var(--surface) 88%, transparent); }
+.pricing-decision-grid[data-paid="true"] .pricing-option[data-plan-tone="builder"] { --plan-accent: #315ba6; --plan-soft: #e8eef9; }
+.pricing-decision-grid[data-paid="true"] .pricing-option-current[data-plan-tone="builder"] { border-color: #315ba6; background: #f1f5fc; box-shadow: 0 15px 32px rgb(49 91 166 / .17); }
 .pricing-option-current { outline: 3px solid var(--plan-accent); outline-offset: -3px; background: color-mix(in srgb, var(--plan-soft) 48%, var(--surface)); }
 @media (max-width: 760px) { .pricing-decision-grid[data-paid="true"] .pricing-option-current { order: -2; } }
 .pricing-option-current .pricing-badge-current { color: #fffaf2; background: var(--plan-accent); border-color: var(--plan-accent); }

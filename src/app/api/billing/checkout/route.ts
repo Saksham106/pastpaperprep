@@ -12,7 +12,7 @@ import { createClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
 
-type CheckoutBody = { interval?: unknown; productId?: unknown; selectedBankIds?: unknown };
+type CheckoutBody = { interval?: unknown; productId?: unknown; selectedBankIds?: unknown; acknowledgeSeparateSubscription?: unknown };
 
 function customIntegrationIdentifier(): string {
   const letters = randomUUID().replace(/[^a-f0-9]/gi, "").slice(0, 8).split("")
@@ -67,8 +67,28 @@ export async function POST(request: Request) {
     if (entitlementError) throw entitlementError;
     const entitlements = normalizeEntitlements(entitlementRows ?? []);
     const alreadyPaid = getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, entitlements));
-    const addOnBank = alreadyPaid ? getBillingBanks().find(({ slug }) => BANK_PRODUCTS[slug] === plan.productId)?.slug : undefined;
-    if (alreadyPaid && (!addOnBank || hasBankAccess(addOnBank, entitlements))) {
+    const paidBundle = alreadyPaid && (plan.productId === "bundle_custom" || plan.productId === "bundle_all");
+    const alreadyAllAccess = entitlements.some((entitlement) => entitlement.productId === "bundle_all" && getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, [entitlement])));
+    if (paidBundle && plan.productId === "bundle_all" && alreadyAllAccess) {
+      return NextResponse.json({ error: "All Access is already covered" }, { status: 409 });
+    }
+    if (paidBundle && body.acknowledgeSeparateSubscription !== true) {
+      return NextResponse.json({ error: "Acknowledge that this is a separate subscription and existing plans will continue unchanged" }, { status: 400 });
+    }
+    const requestedSlugs = plan.productId === "bundle_custom" && Array.isArray(body.selectedBankIds)
+      ? body.selectedBankIds.filter((id): id is string => typeof id === "string")
+      : [];
+    const uncoveredSlugs = requestedSlugs.filter((slug) => !hasBankAccess(slug as Parameters<typeof hasBankAccess>[0], entitlements));
+    const addOnBank = alreadyPaid && body.productId?.toString().startsWith("bank_")
+      ? getBillingBanks().find(({ slug }) => BANK_PRODUCTS[slug] === plan.productId)?.slug
+      : undefined;
+    if (alreadyPaid && addOnBank && hasBankAccess(addOnBank, entitlements)) {
+      return NextResponse.json({ error: "Choose a bank you do not already have; existing plans cannot be repurchased" }, { status: 409 });
+    }
+    if (paidBundle && plan.productId === "bundle_custom" && (requestedSlugs.length < 2 || requestedSlugs.length > 5 || uncoveredSlugs.length !== requestedSlugs.length)) {
+      return NextResponse.json({ error: "Paid bundle selections must contain 2–5 uncovered banks" }, { status: 409 });
+    }
+    if (alreadyPaid && !paidBundle && !addOnBank) {
       return NextResponse.json({ error: "Choose a bank you do not already have; existing plans cannot be repurchased" }, { status: 409 });
     }
     const referralCode = await getCheckoutReferral(user.id);
@@ -140,21 +160,22 @@ export async function POST(request: Request) {
           });
           billingConflict = subscriptions.data.some((subscription) => {
             if (subscription.status === "canceled" || subscription.status === "incomplete_expired") return false;
-            if (!addOnBank) return true;
-            // Existing, unrelated subscriptions are valid. Unknown or unsettled billing
-            // state is not: failing closed prevents duplicate or overlapping charges.
+            if (!addOnBank && !paidBundle) return true;
+            // Existing, unrelated subscriptions are valid only when their coverage is known and disjoint.
             if (subscription.status !== "active" && subscription.status !== "trialing") return true;
             const product = subscription.metadata?.product_id;
             if (!product || product === input.productId || product === "bundle_all") return true;
+            const targets = paidBundle ? plan.productId === "bundle_all" ? [] : uncoveredSlugs : [addOnBank!];
             if (product === "bundle_custom") {
               try {
                 const selected = JSON.parse(subscription.metadata.selected_bank_ids ?? "") as unknown;
-                return !Array.isArray(selected) || selected.some((id) => id === addOnBank);
+                if (!Array.isArray(selected) || selected.some((id) => typeof id !== "string")) return true;
+                return selected.some((id) => targets.includes(id));
               } catch { return true; }
             }
             const recorded = { productId: product as ProductId, status: "active" as const, startsAt: "2020-01-01T00:00:00Z", expiresAt: null };
-            // A missing/unknown product cannot be proven disjoint from the add-on.
-            return hasBankAccess(addOnBank, [recorded]) || !getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, [recorded]));
+            // A missing/unknown product cannot be proven disjoint.
+            return targets.some((target) => hasBankAccess(target as Parameters<typeof hasBankAccess>[0], [recorded])) || !getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, [recorded]));
           });
           if (billingConflict || !subscriptions.has_more) break;
           startingAfter = subscriptions.data.at(-1)?.id;
@@ -179,28 +200,34 @@ export async function POST(request: Request) {
         }
         const minimumUsableExpiry = Math.floor(Date.now() / 1000) + 60;
         const matchingOpenSession = openSessionData.find(({ expires_at, metadata }) => (
-          typeof expires_at === "number"
+          // A paid bundle's consent belongs to this newly reserved intent, not an earlier Checkout Session.
+          (!paidBundle || metadata?.billing_intent_id === intentId)
+          && typeof expires_at === "number"
           && expires_at > minimumUsableExpiry
           && metadata?.user_id === input.userId
           && metadata.product_id === input.productId
           && metadata.billing_interval === input.interval
           && metadata.price_id === input.priceId
           && metadata.referral_code === (referralCode ?? undefined)
+          && metadata.acknowledge_separate_subscription === (paidBundle ? "true" : undefined)
           && metadata.selected_bank_ids === (input.selectedBankIds ? JSON.stringify(input.selectedBankIds) : undefined)
         ));
         const openSessionUrl = matchingOpenSession?.url;
         if (typeof openSessionUrl === "string" && openSessionUrl) {
-          if (addOnBank) {
-            const { data: stillEligible, error: eligibilityError } = await admin.rpc("confirm_addon_billing_checkout", { p_user_id: user.id, p_intent_id: intentId, p_product_id: input.productId });
+          if (addOnBank || paidBundle) {
+            const { data: stillEligible, error: eligibilityError } = await admin.rpc(addOnBank ? "confirm_addon_billing_checkout" : "confirm_paid_bundle_billing_checkout", addOnBank
+              ? { p_user_id: user.id, p_intent_id: intentId, p_product_id: input.productId }
+              : { p_user_id: user.id, p_intent_id: intentId, p_product_id: input.productId, p_selected_bank_ids: plan.productId === "bundle_all" ? [] : uncoveredSlugs, p_acknowledged: true });
             if (eligibilityError) throw eligibilityError;
             if (stillEligible !== true) throw new BillingStateConflictError("Bank access changed; reload pricing before checkout");
           }
           return openSessionUrl;
         }
         await Promise.all(openSessionData.map(({ id }) => stripe.checkout.sessions.expire(id)));
-        const { data: checkoutConfirmed, error: confirmationError } = await admin.rpc(addOnBank ? "confirm_addon_billing_checkout" : "confirm_billing_checkout", {
+        const { data: checkoutConfirmed, error: confirmationError } = await admin.rpc(paidBundle ? "confirm_paid_bundle_billing_checkout" : addOnBank ? "confirm_addon_billing_checkout" : "confirm_billing_checkout", {
           p_user_id: user.id,
           p_intent_id: intentId,
+          ...(paidBundle ? { p_product_id: input.productId, p_selected_bank_ids: plan.productId === "bundle_all" ? [] : uncoveredSlugs, p_acknowledged: true } : {}),
           ...(addOnBank ? { p_product_id: input.productId } : {}),
         });
         if (confirmationError) throw confirmationError;
@@ -225,14 +252,16 @@ export async function POST(request: Request) {
                 selected_bank_ids: selectedBankMetadata!,
                 billing_interval: input.interval,
                 price_id: input.priceId,
+                ...(paidBundle ? { billing_intent_id: intentId, acknowledge_separate_subscription: "true" } : {}),
                 ...(referralCode ? { referral_code: referralCode } : {}),
               }
-              : { user_id: input.userId, product_id: input.productId, ...(referralCode ? { referral_code: referralCode } : {}) },
+              : { user_id: input.userId, product_id: input.productId, ...(paidBundle ? { billing_intent_id: intentId, acknowledge_separate_subscription: "true" } : {}), ...(referralCode ? { referral_code: referralCode } : {}) },
           },
           metadata: {
             user_id: input.userId,
             product_id: input.productId,
             ...(selectedBankMetadata ? { selected_bank_ids: selectedBankMetadata } : {}),
+            ...(paidBundle ? { billing_intent_id: intentId, acknowledge_separate_subscription: "true" } : {}),
             billing_interval: input.interval,
             price_id: input.priceId,
             ...(referralCode ? { referral_code: referralCode } : {}),
