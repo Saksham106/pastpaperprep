@@ -156,6 +156,31 @@ describe("POST /api/billing/checkout", () => {
     expect(adminRpc).toHaveBeenCalledWith("confirm_addon_billing_checkout", expect.objectContaining({ p_user_id: user.id, p_product_id: "bank_ib_hl" }));
   });
 
+  it("routes paid members away from a new independent Checkout subscription when the editor is enabled", async () => {
+    vi.stubEnv("STRIPE_PLAN_EDITOR_ENABLED", "true");
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    userFrom.mockReturnValue(entitlementQuery([{ product_id: "bank_ib_sl", status: "active", starts_at: "2026-01-01T00:00:00.000Z", expires_at: "2099-01-01T00:00:00.000Z" }]));
+    mockAdminRpc("cus_existing");
+    subscriptionsList.mockResolvedValue({ data: [{ status: "active", metadata: { product_id: "bank_ib_sl" } }], has_more: false });
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", { method: "POST", body: JSON.stringify({ interval: "monthly", productId: "bank_ib_hl" }) }));
+    expect(response.status).toBe(409);
+    expect((await response.json()).error).toMatch(/account\/subscription/i);
+    expect(sessionsCreate).not.toHaveBeenCalled();
+    expect(adminRpc).toHaveBeenCalledWith("reserve_billing_checkout", expect.anything());
+  });
+  it("allows a complimentary-only account to buy a different bank without pretending its grant is a paid subscription", async () => {
+    vi.stubEnv("STRIPE_PLAN_EDITOR_ENABLED", "true");
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    userFrom.mockReturnValue(entitlementQuery([{ product_id: "bank_ib_sl", status: "active", starts_at: "2026-01-01T00:00:00.000Z", expires_at: "2099-01-01T00:00:00.000Z" }]));
+    mockAdminRpc("cus_existing");
+    subscriptionsList.mockResolvedValue({ data: [], has_more: false });
+    sessionsCreate.mockResolvedValue({ url: "https://checkout.stripe.com/new" });
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", { method: "POST", body: JSON.stringify({ interval: "monthly", productId: "bank_ib_hl" }) }));
+    expect(response.status).toBe(200);
+    expect(sessionsCreate).toHaveBeenCalledOnce();
+  });
   it("blocks an add-on when Stripe already has that bank even before webhook sync", async () => {
     const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
     getUser.mockResolvedValue({ data: { user } });

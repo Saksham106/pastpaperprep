@@ -332,7 +332,8 @@ describe("approved custom-bank pricing", () => {
   it("restores a visitor's selected bank after sign-in", () => {
     render(<PricingContent authenticated={false} hasPaidAccess={false} initialInterval="annual" initialProductId="bank_ib_ai_hl" />);
     expect(screen.getByRole("radio", { name: "IB Math AI HL" })).toBeChecked();
-    expect(screen.getByRole("button", { name: /annual.*save 33%/i })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByRole("button", { name: /annual.*save up to 33%/i })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.queryByText(/2 months free/i)).not.toBeInTheDocument();
   });
 
   it("keeps One Bank to exactly one selected canonical bank", () => {

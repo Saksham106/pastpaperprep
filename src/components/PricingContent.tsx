@@ -177,7 +177,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
 
         <div className="billing-toggle" role="group" aria-label="Billing period">
           <button type="button" aria-pressed={interval === "monthly"} onClick={() => chooseInterval("monthly")}>Monthly</button>
-          <button className="billing-toggle-annual" type="button" aria-pressed={interval === "annual"} onClick={() => chooseInterval("annual")}>Annual — save {maximumAnnualSavingPercent()}%<span className="billing-savings">2 months free</span></button>
+          <button className="billing-toggle-annual" type="button" aria-pressed={interval === "annual"} onClick={() => chooseInterval("annual")}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
         </div>
 
         {hasPaidAccess && !addOnBanks.length ? <p className="pricing-all-included">All available banks are included in your access.</p> : null}

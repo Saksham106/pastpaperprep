@@ -65,6 +65,7 @@ export async function POST(request: Request) {
     if (accessResult.error) throw accessResult.error;
     const entitlements = accessResult.rows as import("@/lib/access").AccessEntitlement[];
     const alreadyPaid = getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, entitlements));
+
     const paidBundle = alreadyPaid && (plan.productId === "bundle_custom" || plan.productId === "bundle_all");
     const alreadyAllAccess = entitlements.some((entitlement) => entitlement.productId === "bundle_all" && getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, [entitlement])));
     if (paidBundle && plan.productId === "bundle_all" && alreadyAllAccess) {
@@ -159,6 +160,9 @@ export async function POST(request: Request) {
           billingConflict = false;
           for (const subscription of subscriptions.data) {
             if (subscription.status === "canceled" || subscription.status === "incomplete_expired") continue;
+            // Entitlements can be complimentary. Block a new independent bill
+            // only when Stripe confirms a non-terminal subscription exists.
+            if (process.env.STRIPE_PLAN_EDITOR_ENABLED === "true") { billingConflict = true; break; }
             if (!addOnBank && !paidBundle) { billingConflict = true; break; }
             if (subscription.status !== "active" && subscription.status !== "trialing") { billingConflict = true; break; }
             const product = subscription.metadata?.product_id;
@@ -204,7 +208,9 @@ export async function POST(request: Request) {
           if (!openSessionStartingAfter) throw new Error("Stripe Checkout Session pagination did not advance");
         } while (true);
         if (billingConflict) {
-          throw new BillingStateConflictError("Existing Stripe billing state conflicts with this bank purchase");
+          throw new BillingStateConflictError(process.env.STRIPE_PLAN_EDITOR_ENABLED === "true"
+            ? "An existing Stripe subscription is connected to this account. Manage it at /account/subscription instead of starting a separate bill."
+            : "Existing Stripe billing state conflicts with this bank purchase");
         }
         const minimumUsableExpiry = Math.floor(Date.now() / 1000) + 60;
         const matchingOpenSession = openSessionData.find(({ expires_at, metadata }) => (
