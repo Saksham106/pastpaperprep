@@ -39,7 +39,36 @@ export async function GET() {
     const method = typeof paymentMethod === "object" && paymentMethod !== null ? paymentMethod : null;
     const methodRecord = method as (typeof method & { type?: string; us_bank_account?: { bank_name?: string | null; last4?: string | null }; card?: { brand?: string; last4?: string; exp_month?: number; exp_year?: number } }) | null;
     const priceCache = new Map<string, ReturnType<typeof stripe.prices.retrieve>>();
-    const detailedSubscriptions = await Promise.all(subscriptions.data.map(async (subscription) => ({
+    const editorEnabled = process.env.STRIPE_PLAN_EDITOR_ENABLED === "true";
+    const detailedSubscriptions = await Promise.all(subscriptions.data.map(async (subscription) => {
+      let scheduledPlan: { id: string; effectiveAt: string; interval: string; bankSelection: ReturnType<typeof describeSubscriptionBanks> } | null = null;
+      const scheduleId = typeof subscription.schedule === "string" ? subscription.schedule : subscription.schedule?.id;
+      if (editorEnabled && scheduleId && subscription.status === "active" && subscription.items.data.length === 1) {
+        try {
+          const schedule = await stripe.subscriptionSchedules.retrieve(scheduleId);
+          const [first, next] = schedule.phases;
+          const item = subscription.items.data[0];
+          const currentPrice = item.price.id;
+          const firstPrice = first?.items.length === 1 ? first.items[0].price : null;
+          const nextPrice = next?.items.length === 1 ? next.items[0].price : null;
+          const firstPriceId = typeof firstPrice === "string" ? firstPrice : firstPrice?.id;
+          const nextPriceId = typeof nextPrice === "string" ? nextPrice : nextPrice?.id;
+          const interval = next?.metadata?.billing_interval;
+          const selection = next ? describeSubscriptionBanks(next.metadata?.product_id ?? null, next.metadata?.selected_bank_ids ?? null) : { kind: "unknown" as const };
+          if (schedule.id === scheduleId && schedule.status === "active" && schedule.subscription === subscription.id && schedule.customer === customerId &&
+            schedule.metadata?.owner === "pastpaperprep" && schedule.metadata.user_id === user.id && schedule.metadata.subscription_id === subscription.id &&
+            /^[0-9a-f-]{36}$/i.test(schedule.metadata.ownership_id ?? "") && schedule.phases.length === 2 &&
+            schedule.current_phase?.start_date === first?.start_date && schedule.current_phase.end_date === first?.end_date &&
+            first?.start_date === item.current_period_start && first.end_date === item.current_period_end &&
+            firstPriceId === currentPrice && first.items[0]?.quantity === item.quantity &&
+            Object.entries(subscription.metadata).every(([key, value]) => first.metadata?.[key] === value) &&
+            next?.start_date === first.end_date && nextPriceId === next?.metadata?.price_id && (next?.items[0]?.quantity ?? 0) > 0 &&
+            next?.metadata?.user_id === user.id && (interval === "monthly" || interval === "annual") && selection.kind !== "unknown") {
+            scheduledPlan = { id: scheduleId, effectiveAt: new Date(first.end_date * 1000).toISOString(), interval, bankSelection: selection };
+          }
+        } catch { /* An unverified provider schedule can only be displayed as a generic warning. */ }
+      }
+      return ({
       id: subscription.id, status: subscription.status, cancelAtPeriodEnd: subscription.cancel_at_period_end,
       pendingUpdate: Boolean(subscription.pending_update), scheduledChange: Boolean(subscription.schedule),
       cancelAt: subscription.cancel_at ? new Date(subscription.cancel_at * 1000).toISOString() : null,
@@ -63,9 +92,10 @@ export async function GET() {
           currentPeriodEnd: item.current_period_end ? new Date(item.current_period_end * 1000).toISOString() : null,
         };
       })),
+      scheduledPlan,
       metadata: { productId: subscription.metadata.product_id ?? null, selectedBankIds: subscription.metadata.selected_bank_ids ?? null },
-    })));
-    const editorEnabled = process.env.STRIPE_PLAN_EDITOR_ENABLED === "true";
+      });
+    }));
     const active = subscriptions.data.filter((subscription) => subscription.status === "active");
     let editable = false;
     if (editorEnabled && active.length === 1 && subscriptions.data.every((subscription) =>

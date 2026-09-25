@@ -7,6 +7,7 @@ import { validateCustomBankIds } from "@/lib/custom-bundles";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { startCheckout } from "@/lib/stripe-checkout";
 import { getBillingPlan, getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
+import { readEditableCurrentPlan } from "@/lib/account-plan-target";
 import { createStripeClient } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
@@ -150,6 +151,8 @@ export async function POST(request: Request) {
       async createSession(input) {
         let startingAfter: string | undefined;
         let billingConflict = false;
+        let activeSubscriptionCount = 0;
+        let editorCandidate: Awaited<ReturnType<typeof stripe.subscriptions.list>>["data"][number] | null = null;
         do {
           const subscriptions = await stripe.subscriptions.list({
             customer: input.customerId,
@@ -160,9 +163,13 @@ export async function POST(request: Request) {
           billingConflict = false;
           for (const subscription of subscriptions.data) {
             if (subscription.status === "canceled" || subscription.status === "incomplete_expired") continue;
-            // Entitlements can be complimentary. Block a new independent bill
-            // only when Stripe confirms a non-terminal subscription exists.
-            if (process.env.STRIPE_PLAN_EDITOR_ENABLED === "true") { billingConflict = true; break; }
+            // Complimentary entitlements are not Stripe subscriptions. Preserve
+            // legacy independent bills; only a single standard editable plan
+            // belongs in the existing-subscription editor.
+            activeSubscriptionCount += 1;
+            editorCandidate = activeSubscriptionCount === 1 ? subscription : null;
+            if (subscription.metadata?.user_id && subscription.metadata.user_id !== user.id) { billingConflict = true; break; }
+            if (process.env.STRIPE_PLAN_EDITOR_ENABLED === "true" && (subscription.schedule != null || subscription.pending_update != null)) { billingConflict = true; break; }
             if (!addOnBank && !paidBundle) { billingConflict = true; break; }
             if (subscription.status !== "active" && subscription.status !== "trialing") { billingConflict = true; break; }
             const product = subscription.metadata?.product_id;
@@ -193,6 +200,10 @@ export async function POST(request: Request) {
           startingAfter = subscriptions.data.at(-1)?.id;
           if (!startingAfter) throw new Error("Stripe subscription pagination did not advance");
         } while (true);
+        if (!billingConflict && process.env.STRIPE_PLAN_EDITOR_ENABLED === "true" && activeSubscriptionCount === 1 && editorCandidate?.metadata?.user_id === user.id) {
+          try { readEditableCurrentPlan(editorCandidate, config); billingConflict = true; }
+          catch { /* A legacy/unsupported plan keeps its explicit separate-add-on path. */ }
+        }
         const openSessionData = [];
         let openSessionStartingAfter: string | undefined;
         do {

@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { AccountBillingDetails } from "@/components/AccountBillingDetails";
 
@@ -29,6 +29,44 @@ describe("AccountBillingDetails", () => {
     render(<AccountBillingDetails mode="subscription" />);
     expect(await screen.findByRole("button", { name: "Change plan" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Cancel subscription" })).toBeInTheDocument();
+  });
+  it("shows a verified scheduled bank reduction and lets its owner undo before renewal", async () => {
+    const response = { subscriptions: [{ ...subscription("sub_one", ["IB Math AA HL", "IGCSE Mathematics"], 1000), scheduledChange: true, scheduledPlan: { id: "sub_sched_1", effectiveAt: "2026-10-25T00:00:00.000Z", interval: "monthly", bankSelection: { kind: "selected", banks: [{ slug: "igcse", name: "IGCSE Mathematics" }] } } }], invoices: [], paymentMethod: null, management: { editable: false }, bankOptions: [{ slug: "igcse", name: "IGCSE Mathematics" }] };
+    const fetch = vi.fn().mockResolvedValueOnce({ ok: true, status: 200, json: async () => response })
+      .mockResolvedValueOnce({ ok: true, status: 200, json: async () => ({ status: "released" }) })
+      .mockResolvedValueOnce({ ok: true, status: 200, json: async () => ({ ...response, subscriptions: [subscription("sub_one", ["IB Math AA HL", "IGCSE Mathematics"], 1000)] }) });
+    vi.stubGlobal("fetch", fetch);
+    render(<AccountBillingDetails mode="subscription" />);
+    expect(await screen.findByText(/igcse mathematics from oct 25, 2026/i)).toBeInTheDocument();
+    expect(screen.getByText(/ib math aa hl/i)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Undo scheduled change" }));
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(3));
+    expect(JSON.parse(fetch.mock.calls[1][1].body)).toEqual({ intent: "undo", scheduleId: "sub_sched_1" });
+    expect(await screen.findByText(/scheduled change undone/i)).toBeInTheDocument();
+  });
+  it("does not show undo for an unverified or foreign schedule", async () => {
+    mockFetch({ subscriptions: [{ ...subscription("sub_one", ["Mathematics 0580"], 600), scheduledChange: true, scheduledPlan: null }], invoices: [], paymentMethod: null, management: { editable: false } });
+    render(<AccountBillingDetails mode="subscription" />);
+    await screen.findByText(/future subscription change is scheduled/i);
+    expect(screen.queryByRole("button", { name: "Undo scheduled change" })).not.toBeInTheDocument();
+  });
+  it("does not preselect unpaid banks after an expansion is still processing", async () => {
+    const one = subscription("sub_one", ["Mathematics 0580"], 600);
+    const bankOptions = [{ slug: "mathematics-0580", name: "Mathematics 0580" }, { slug: "ib-math-aa-hl", name: "IB Math AA HL" }];
+    const quoteSnapshot = { prorationDate: Math.floor(Date.now() / 1000), selectedBankIds: ["ib-math-aa-hl", "mathematics-0580"], allAccess: false, interval: "monthly" };
+    const fetch = vi.fn().mockResolvedValueOnce({ ok: true, status: 200, json: async () => ({ subscriptions: [one], invoices: [], paymentMethod: null, bankOptions, management: { editable: true } }) })
+      .mockResolvedValueOnce({ ok: true, status: 200, json: async () => ({ estimate: { amountDueTodayCents: 400, estimatedCreditCents: 200, estimatedTaxesCents: 0, recurringSubtotalCents: 1000, currency: "usd", isEstimate: true }, target: { productId: "bundle_custom", selectedBankIds: quoteSnapshot.selectedBankIds, interval: "monthly", renewalAt: one.items[0].currentPeriodEnd }, snapshot: quoteSnapshot }) })
+      .mockResolvedValueOnce({ ok: true, status: 200, json: async () => ({ status: "processing" }) })
+      .mockResolvedValueOnce({ ok: true, status: 200, json: async () => ({ subscriptions: [one], invoices: [], paymentMethod: null, bankOptions, management: { editable: true } }) });
+    vi.stubGlobal("fetch", fetch);
+    render(<AccountBillingDetails mode="subscription" />);
+    fireEvent.click(await screen.findByRole("button", { name: "Change plan" }));
+    fireEvent.click(screen.getByRole("checkbox", { name: "IB Math AA HL" }));
+    fireEvent.click(screen.getByRole("button", { name: "Review change" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Confirm change" }));
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(4));
+    fireEvent.click(await screen.findByRole("button", { name: "Change plan" }));
+    expect(screen.getByRole("checkbox", { name: "IB Math AA HL" })).not.toBeChecked();
   });
   it("shows no editor actions when management is not editable", async () => {
     mockFetch({ subscriptions: [subscription("sub_one", ["Mathematics 0580"], 600)], invoices: [], paymentMethod: null, bankOptions: [{ slug: "math", name: "Math" }], management: { editable: false } });

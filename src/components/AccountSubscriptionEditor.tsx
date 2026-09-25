@@ -7,14 +7,15 @@ type Plan = {
   id: string;
   cancelAtPeriodEnd: boolean;
   bankSelection: { kind: "all" } | { kind: "selected"; banks: Bank[] } | { kind: "unknown" };
-  item: { currentPeriodEnd: string | null; price: { interval: string | null } };
+  item: { quantity: number | null; currentPeriodEnd: string | null; price: { interval: string | null } };
 };
 type Estimate = {
   estimate: { amountDueTodayCents: number; estimatedCreditCents: number; estimatedTaxesCents: number; recurringSubtotalCents: number; currency: string; isEstimate: boolean };
   target: { productId: string; selectedBankIds: string[]; interval: string; renewalAt: string | null };
   snapshot: { prorationDate: number; selectedBankIds: string[]; allAccess: boolean; interval: string; [key: string]: unknown };
 };
-type View = "closed" | "select" | "review" | "cancel-review";
+type RenewalQuote = { status: "preview"; snapshot: { subscriptionId: string; currentPeriodStart: number; currentPeriodEnd: number; currentPriceId: string; currentQuantity: number; currentProductId: string; currentSelectedBankIds: string[]; currentInterval: string; targetPriceId: string; quantity: number; recurringSubtotalCents: number; selectedBankIds: string[]; allAccess: boolean; interval: string; quotedAt: number }; effectiveAt: string; currency: string };
+type View = "closed" | "select" | "review" | "renewal-review" | "cancel-review";
 
 const money = (cents: number, currency: string) => currency === "usd" && Number.isSafeInteger(cents) && cents >= 0
   ? new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100) : null;
@@ -27,27 +28,33 @@ async function post(path: string, body: unknown): Promise<Record<string, unknown
   return result;
 }
 
-/** This editor only submits immediate, same-cadence strict expansions. Other changes require a verified renewal schedule. */
+/** Immediate additions use a Stripe invoice preview; removals, swaps, and cadence changes use a reviewed native renewal schedule. */
 export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated }: { subscription: Plan; bankOptions: Bank[]; onUpdated: (message?: string) => void }) {
   const currentIds = subscription.bankSelection.kind === "selected" ? subscription.bankSelection.banks.map(({ slug }) => slug) : [];
-  const interval = subscription.item.price.interval === "year" ? "annual" : "monthly";
+  const currentInterval = subscription.item.price.interval === "year" ? "annual" : "monthly";
+  const [interval, setInterval] = useState<"monthly" | "annual">(currentInterval);
   const [view, setView] = useState<View>("closed");
   const [selected, setSelected] = useState<string[]>(currentIds);
   const [allAccess, setAllAccess] = useState(subscription.bankSelection.kind === "all");
   const [quote, setQuote] = useState<Estimate | null>(null);
+  const [renewalQuote, setRenewalQuote] = useState<RenewalQuote | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
 
 
   const selectedIds = [...selected].sort();
-  const expansion = subscription.bankSelection.kind === "selected" && (allAccess ||
+  const validSelection = allAccess || selectedIds.length >= 1 && selectedIds.length <= 5;
+  const sameBanks = subscription.bankSelection.kind === "all" ? allAccess :
+    subscription.bankSelection.kind === "selected" && !allAccess && selectedIds.length === currentIds.length && currentIds.every((id) => selectedIds.includes(id));
+  const unchanged = sameBanks && interval === currentInterval;
+  const expansion = interval === currentInterval && subscription.bankSelection.kind === "selected" && (allAccess ||
     selectedIds.length > currentIds.length && selectedIds.length <= 5 && currentIds.every((id) => selectedIds.includes(id)));
-  const unchanged = !allAccess && selectedIds.length === currentIds.length && currentIds.every((id) => selectedIds.includes(id));
+  const renewalChange = validSelection && !unchanged && !expansion;
   const input = { selectedBankIds: allAccess ? [] : selectedIds, allAccess, interval };
-  function reset() { setView("closed"); setQuote(null); setError(""); }
+  function reset() { setView("closed"); setQuote(null); setRenewalQuote(null); setError(""); }
   function toggle(slug: string) {
-    setQuote(null); setError("");
+    setQuote(null); setRenewalQuote(null); setError("");
     setSelected((current) => current.includes(slug) ? current.filter((id) => id !== slug) : [...current, slug]);
   }
   async function preview() {
@@ -73,11 +80,44 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
       const message = result.status === "pending"
         ? "Payment is pending. Your existing banks remain available; check Billing to complete any required payment. New banks are not available yet."
         : "Stripe is processing the change. Your bank access updates after payment is verified.";
-      setNotice(message); setView("closed"); setQuote(null); onUpdated(message);
+      setNotice(message); setView("closed"); setQuote(null);
+      // A processing response is not paid access. Reset the picker to the last verified plan until readback changes.
+      setSelected(currentIds); setAllAccess(subscription.bankSelection.kind === "all"); setInterval(currentInterval);
+      onUpdated(message);
     } catch (cause) {
       const message = cause instanceof Error ? cause.message : "Could not verify the change. Check Billing before trying again.";
       setError(message);
       setQuote(null); setView("select");
+    } finally { setBusy(false); }
+  }
+  async function previewRenewal() {
+    if (!renewalChange || busy) return;
+    setBusy(true); setError(""); setRenewalQuote(null);
+    try {
+      const result = await post("/api/billing/subscription/schedule", { intent: "preview", ...input }) as RenewalQuote;
+      const snapshot = result.snapshot;
+      if (result.status !== "preview" || snapshot?.subscriptionId !== subscription.id || snapshot.interval !== interval ||
+        snapshot.allAccess !== allAccess || JSON.stringify(snapshot.selectedBankIds) !== JSON.stringify(input.selectedBankIds) ||
+        !Number.isSafeInteger(snapshot.currentPeriodStart) || !Number.isSafeInteger(snapshot.currentPeriodEnd) ||
+        typeof snapshot.currentPriceId !== "string" || !snapshot.currentPriceId || snapshot.currentQuantity !== subscription.item.quantity ||
+        JSON.stringify(snapshot.currentSelectedBankIds) !== JSON.stringify(currentIds) || snapshot.currentInterval !== currentInterval ||
+        !Number.isSafeInteger(snapshot.quotedAt) ||
+        money(snapshot.recurringSubtotalCents, result.currency) === null || !date(result.effectiveAt)) throw new Error("Renewal quote could not be verified. Try again.");
+      setRenewalQuote(result); setView("renewal-review");
+    } catch (cause) { setError(cause instanceof Error ? cause.message : "Could not preview the renewal change."); }
+    finally { setBusy(false); }
+  }
+  async function confirmRenewal() {
+    if (!renewalQuote || busy) return;
+    setBusy(true); setError("");
+    try {
+      const result = await post("/api/billing/subscription/schedule", { intent: "create", ...input, snapshot: renewalQuote.snapshot });
+      if (result.status !== "scheduled" || typeof result.scheduleId !== "string" || result.effectiveAt !== renewalQuote.effectiveAt) throw new Error("Could not verify the schedule. Check Billing before trying again.");
+      const message = `Plan change scheduled for ${date(renewalQuote.effectiveAt)}. Your current banks remain available until then; new access starts only after renewal payment is verified.`;
+      setNotice(message); setView("closed"); setRenewalQuote(null); onUpdated(message);
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Could not verify the schedule. Check Billing before trying again.");
+      setRenewalQuote(null); setView("select");
     } finally { setBusy(false); }
   }
   async function changeCancellation(intent: "cancel" | "undo") {
@@ -97,21 +137,21 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
     {notice ? <p role="status" className="account-editor-note">{notice}</p> : null}
     {error ? <p role="alert" className="account-billing-warning">{error}</p> : null}
     {view === "closed" ? <div className="account-editor-actions">
-      {!subscription.cancelAtPeriodEnd && subscription.bankSelection.kind !== "all" ? <button type="button" onClick={() => { setNotice(""); setView("select"); }}>Change plan</button> : null}
+      {!subscription.cancelAtPeriodEnd ? <button type="button" onClick={() => { setNotice(""); setView("select"); }}>Change plan</button> : null}
       {subscription.cancelAtPeriodEnd ? <button type="button" onClick={() => void changeCancellation("undo")} disabled={busy}>Undo cancellation</button>
         : <button type="button" onClick={() => { setNotice(""); setView("cancel-review"); }}>Cancel subscription</button>}
     </div> : null}
     {view === "select" ? <div className="account-editor-form">
       <h3>Choose your final bank access</h3>
-      <p>Adding banks can take effect after payment. Removing or replacing banks needs a renewal-date change.</p>
+      <p>Adding banks with the same billing cadence can take effect after payment. Removals, swaps, and cadence changes begin at renewal.</p>
       <fieldset disabled={busy}><legend>Banks</legend>
         {bankOptions.map((bank) => <label key={bank.slug}><input type="checkbox" checked={!allAccess && selected.includes(bank.slug)} onChange={() => toggle(bank.slug)} disabled={allAccess} />{bank.name}</label>)}
       </fieldset>
-      <label className="account-editor-all"><input type="checkbox" checked={allAccess} onChange={(event) => { setAllAccess(event.target.checked); setQuote(null); setError(""); }} />All Access</label>
-      <p>Billing cadence: {interval === "monthly" ? "Monthly" : "Annual"}. Cadence changes are not available here yet.</p>
+      <label className="account-editor-all"><input type="checkbox" checked={allAccess} onChange={(event) => { setAllAccess(event.target.checked); setQuote(null); setRenewalQuote(null); setError(""); }} />All Access</label>
+      <label className="account-editor-all">Billing cadence <select aria-label="Billing cadence" value={interval} disabled={busy} onChange={(event) => { setInterval(event.target.value as "monthly" | "annual"); setQuote(null); setRenewalQuote(null); setError(""); }}><option value="monthly">Monthly</option><option value="annual">Annual</option></select></label>
+      {!allAccess && selected.length === 0 ? <p role="status">Choose at least one bank or All Access.</p> : null}
       {selected.length > 5 && !allAccess ? <p role="status">Choose All Access instead of more than five individual banks.</p> : null}
-      {!expansion && !unchanged ? <p role="status">Renewal-date changes are not available yet. Your current plan will not change.</p> : null}
-      <div className="account-editor-actions">{expansion ? <button type="button" onClick={() => void preview()} disabled={busy}>{busy ? "Getting quote…" : "Review change"}</button> : null}<button type="button" onClick={reset} disabled={busy}>Back</button></div>
+      <div className="account-editor-actions">{expansion ? <button type="button" onClick={() => void preview()} disabled={busy}>{busy ? "Getting quote…" : "Review change"}</button> : null}{renewalChange ? <button type="button" onClick={() => void previewRenewal()} disabled={busy}>{busy ? "Getting rate…" : "Review renewal change"}</button> : null}<button type="button" onClick={reset} disabled={busy}>Back</button></div>
     </div> : null}
     {view === "review" && quote ? <div className="account-editor-review">
       <h3>Review your change</h3>
@@ -121,6 +161,13 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
       <p>New base rate: <strong>{money(quote.estimate.recurringSubtotalCents, quote.estimate.currency)} / {interval === "monthly" ? "month" : "year"}</strong> before discounts and taxes.</p>
       <p>Stripe will calculate the final charge. Added banks unlock only after payment is verified. Your renewal date remains {date(quote.target.renewalAt) ?? "the current date"}.</p>
       <div className="account-editor-actions"><button type="button" onClick={() => void confirm()} disabled={busy}>{busy ? "Confirming…" : "Confirm change"}</button><button type="button" onClick={() => { setQuote(null); setView("select"); }} disabled={busy}>Edit banks</button></div>
+    </div> : null}
+    {view === "renewal-review" && renewalQuote ? <div className="account-editor-review">
+      <h3>Review your renewal change</h3>
+      <p>Current banks stay available through {date(renewalQuote.effectiveAt)}. No charge today for this change.</p>
+      <p>From {date(renewalQuote.effectiveAt)}: {allAccess ? "All Access" : selectedIds.map((slug) => bankOptions.find((bank) => bank.slug === slug)?.name ?? slug).join(", ")}.</p>
+      <p>New base rate: <strong>{money(renewalQuote.snapshot.recurringSubtotalCents, renewalQuote.currency)} / {interval === "monthly" ? "month" : "year"}</strong> before discounts or taxes. Stripe will charge at renewal; bank access changes after that payment is verified.</p>
+      <div className="account-editor-actions"><button type="button" onClick={() => void confirmRenewal()} disabled={busy}>{busy ? "Scheduling…" : "Schedule change"}</button><button type="button" onClick={() => { setRenewalQuote(null); setView("select"); }} disabled={busy}>Edit plan</button></div>
     </div> : null}
     {view === "cancel-review" ? <div className="account-editor-review">
       <h3>Cancel at the end of your paid period?</h3>

@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 vi.mock("server-only", () => ({}));
 const getUser = vi.fn(); const adminRpc = vi.fn();
-const subscriptionsList = vi.fn(); const invoicesList = vi.fn(); const customersRetrieve = vi.fn(); const pricesRetrieve = vi.fn();
+const subscriptionsList = vi.fn(); const invoicesList = vi.fn(); const customersRetrieve = vi.fn(); const pricesRetrieve = vi.fn(); const schedulesRetrieve = vi.fn();
 let billingEnabled = true;
 vi.mock("@/lib/supabase/server", () => ({ createClient: vi.fn(async () => ({ auth: { getUser } })) }));
 vi.mock("@/lib/supabase/admin", () => ({ createAdminClient: vi.fn(() => ({ rpc: adminRpc })) }));
-vi.mock("@/lib/stripe", () => ({ createStripeClient: vi.fn(() => ({ subscriptions: { list: subscriptionsList }, invoices: { list: invoicesList }, customers: { retrieve: customersRetrieve }, prices: { retrieve: pricesRetrieve } })) }));
+vi.mock("@/lib/stripe", () => ({ createStripeClient: vi.fn(() => ({ subscriptions: { list: subscriptionsList }, subscriptionSchedules: { retrieve: schedulesRetrieve }, invoices: { list: invoicesList }, customers: { retrieve: customersRetrieve }, prices: { retrieve: pricesRetrieve } })) }));
 vi.mock("@/lib/stripe-config", () => ({ isStripeBillingEnabled: () => billingEnabled, getStripeConfig: () => ({ secretKey: "«redacted:sk_test_…»", singleMonthlyPriceId: "price_single", singleAnnualPriceId: "price_single_annual" }) }));
 import { GET } from "@/app/api/billing/subscription/route";
 import { getBillingBanks } from "@/lib/banks";
@@ -78,6 +78,26 @@ describe("GET /api/billing/subscription", () => {
  it("does not substitute guessed totals or expose billing data when customer mapping is absent", async () => {
   getUser.mockResolvedValue({ data: { user: { id: "user-a", email: "a@example.com" } } }); adminRpc.mockResolvedValue({ data: null, error: null });
   const response = await GET(); expect(response.status).toBe(404); expect(subscriptionsList).not.toHaveBeenCalled();
+ });
+ it("shows verified future selection and undo only for an app-owned phase-zero schedule", async () => {
+  const [first, second] = getBillingBanks();
+  getUser.mockResolvedValue({ data: { user: { id: "user-a" } } }); adminRpc.mockResolvedValue({ data: "cus_a", error: null });
+  const currentMetadata = { user_id: "user-a", product_id: "bundle_custom", selected_bank_ids: JSON.stringify([first.slug, second.slug].sort()) };
+  const currentItem = { id: "si_a", quantity: 2, current_period_start: 1_800_000_000, current_period_end: 1_900_000_000, price: { id: "price_current", billing_scheme: "per_unit", unit_amount: 500, currency: "usd", recurring: { interval: "month", interval_count: 1 } } };
+  subscriptionsList.mockResolvedValue({ has_more: false, data: [{ id: "sub_a", customer: "cus_a", schedule: "sc1", status: "active", metadata: currentMetadata, items: { data: [currentItem] } }] });
+  invoicesList.mockResolvedValue({ has_more: false, data: [] }); customersRetrieve.mockResolvedValue({ id: "cus_a", invoice_settings: { default_payment_method: null } });
+  schedulesRetrieve.mockResolvedValue({ id: "sc1", customer: "cus_a", subscription: "sub_a", status: "active", current_phase: { start_date: 1_800_000_000, end_date: 1_900_000_000 },
+   metadata: { owner: "pastpaperprep", user_id: "user-a", subscription_id: "sub_a", ownership_id: "63c06037-9807-4a50-9506-004d828c5341" }, phases: [
+    { start_date: 1_800_000_000, end_date: 1_900_000_000, items: [{ price: "price_current", quantity: 2 }], metadata: currentMetadata },
+    { start_date: 1_900_000_000, end_date: 1_910_000_000, items: [{ price: "price_single", quantity: 1 }], metadata: { user_id: "user-a", product_id: BANK_PRODUCTS[first.slug], selected_bank_ids: "", price_id: "price_single", billing_interval: "monthly" } },
+   ] });
+  process.env.STRIPE_PLAN_EDITOR_ENABLED = "true";
+  const response = await GET(); expect(response.status).toBe(200);
+  const result = await response.json();
+  expect(result.management.editable).toBe(false);
+  expect(result.subscriptions[0].scheduledPlan).toMatchObject({ id: "sc1", bankSelection: { kind: "selected", banks: [{ slug: first.slug }] }, effectiveAt: new Date(1_900_000_000_000).toISOString(), interval: "monthly" });
+  schedulesRetrieve.mockResolvedValueOnce({ id: "sc1", metadata: { owner: "other" }, phases: [] });
+  expect((await (await GET()).json()).subscriptions[0].scheduledPlan).toBe(null);
  });
  it("offers editing only behind the flag for a single structurally standard subscription, including undo of period-end cancellation", async () => {
   const bank = getBillingBanks()[0];

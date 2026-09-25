@@ -10,6 +10,7 @@ type Item = {
 };
 type Subscription = {
   id: string; status: string; cancelAtPeriodEnd: boolean; cancelAt: string | null; pendingUpdate?: boolean; scheduledChange?: boolean;
+  scheduledPlan?: { id: string; effectiveAt: string; interval: string; bankSelection: { kind: "all" } | { kind: "selected"; banks: { slug: string; name: string }[] } | { kind: "unknown" } } | null;
   bankSelection: { kind: "all" } | { kind: "selected"; banks: { slug: string; name: string }[] } | { kind: "unknown" };
   items: Item[];
 };
@@ -43,6 +44,29 @@ function cadence(item: Item) {
   if (item.price.interval !== "month" && item.price.interval !== "year") return null;
   const unit = item.price.interval === "month" ? "month" : "year";
   return item.price.intervalCount && item.price.intervalCount > 1 ? `${item.price.intervalCount} ${unit}s` : unit;
+}
+
+function ScheduledChange({ plan, onUpdated, canUndo }: { plan: NonNullable<Subscription["scheduledPlan"]>; onUpdated: (message: string) => void; canUndo: boolean }) {
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  const target = plan.bankSelection.kind === "all" ? "All Access" : plan.bankSelection.kind === "selected" ? plan.bankSelection.banks.map((bank) => bank.name).join(", ") : "a different plan";
+  async function undo() {
+    if (busy) return;
+    setBusy(true); setError("");
+    try {
+      const response = await fetch("/api/billing/subscription/schedule", { method: "POST", credentials: "same-origin", cache: "no-store", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ intent: "undo", scheduleId: plan.id }) });
+      const result = await response.json();
+      if (!response.ok) throw new Error(typeof result.error === "string" ? result.error : "Could not verify the undo. Check Billing before trying again.");
+      if (result.status !== "released") throw new Error("Could not verify the undo. Check Billing before trying again.");
+      onUpdated("Scheduled change undone. Your current subscription remains active.");
+    } catch (cause) { setError(cause instanceof Error ? cause.message : "Could not verify the undo. Check Billing before trying again."); }
+    finally { setBusy(false); }
+  }
+  return <div className="account-editor-review">
+    <p className="account-billing-warning">Scheduled: {target} from {date(plan.effectiveAt) ?? "your next renewal"} ({plan.interval === "annual" ? "annual" : "monthly"}). Your current banks remain available until renewal; the change takes effect only after the renewal payment is verified.</p>
+    {error ? <p role="alert" className="account-billing-warning">{error}</p> : null}
+    {canUndo ? <button type="button" onClick={() => void undo()} disabled={busy}>{busy ? "Undoing…" : "Undo scheduled change"}</button> : null}
+  </div>;
 }
 
 export function AccountBillingDetails({ mode }: { mode: "subscription" | "billing" }) {
@@ -115,9 +139,10 @@ export function AccountBillingDetails({ mode }: { mode: "subscription" | "billin
           <p className="account-billing-amount">{amount && interval ? `${amount} / ${interval}` : "Plan price unavailable; see your Stripe invoice."}<span> Base rate before discounts, credits, or taxes.</span></p>
           {periodEnd ? <p className="account-billing-date">{sub.cancelAtPeriodEnd ? `Access through ${periodEnd}` : `Current period ends ${periodEnd}`}</p> : null}
           {sub.pendingUpdate ? <p className="account-billing-warning">A subscription change is awaiting payment. Current bank access remains in place until Stripe confirms the payment. Check Billing for the invoice or payment method.</p> : null}
-          {sub.scheduledChange ? <p className="account-billing-warning">A future subscription change is scheduled in Stripe. This editor cannot safely change it here.</p> : null}
+          {sub.scheduledChange && sub.scheduledPlan ? <ScheduledChange plan={sub.scheduledPlan} canUndo={current.length === 1 && sub.status === "active"} onUpdated={(message) => { setOperationNotice(message); void refresh(); }} /> : null}
+          {sub.scheduledChange && !sub.scheduledPlan ? <p className="account-billing-warning">A future subscription change is scheduled in Stripe. This editor cannot safely change it here.</p> : null}
           {state.data.management.editable && current.length === 1 && sub.status === "active" && item && state.data.bankOptions?.length ? <AccountSubscriptionEditor
-            key={`${sub.id}:${sub.cancelAtPeriodEnd}:${item.id}`}
+            key={`${sub.id}:${sub.cancelAtPeriodEnd}:${item.id}:${item.price.interval}:${item.recurringSubtotalCents}:${sub.bankSelection.kind === "selected" ? sub.bankSelection.banks.map((bank) => bank.slug).sort().join(",") : sub.bankSelection.kind}`}
             subscription={{ id: sub.id, cancelAtPeriodEnd: sub.cancelAtPeriodEnd, bankSelection: sub.bankSelection, item }}
             bankOptions={state.data.bankOptions}
             onUpdated={(message) => { setOperationNotice(message ?? "Billing state updated."); void refresh(); }}
@@ -125,7 +150,9 @@ export function AccountBillingDetails({ mode }: { mode: "subscription" | "billin
           {sub.status === "past_due" || sub.status === "unpaid" ? <p className="account-billing-warning">Payment needs attention. Review your payment method in the secure billing portal.</p> : null}
         </section>;
       })}
-      {!state.data.management.editable ? <p className="account-page-help">Plan changes are not available here yet. You can review payment methods and invoices in Billing.</p> : null}
+      {!state.data.management.editable ? <p className="account-page-help">{current.length === 1 && current[0].scheduledPlan
+        ? "A renewal change is already scheduled. Undo it before choosing a different plan."
+        : "Plan changes are not available for this billing arrangement. You can review payment methods and invoices in Billing."}</p> : null}
     </div>
   );
 }
