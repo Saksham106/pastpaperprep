@@ -154,7 +154,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
 
         {authenticated ? (
           <section className="pricing-current-plan" aria-labelledby="current-plan-heading">
-            <div><span className="eyebrow">Account</span><h2 id="current-plan-heading">{complimentaryAccess ? "Your current access" : "Your current plan"}</h2></div>
+            <div><span className="eyebrow">Account</span><h2 id="current-plan-heading">Your current access</h2></div>
             <div className="pricing-current-plan-details">
               <strong>{hasPaidAccess ? currentPlanNames.join(", ") || "Paid access" : "Free"}</strong>
               <span>{hasPaidAccess ? complimentaryAccess ? "Complimentary access" : previewOnly ? "Example paid account. No billing is connected in this preview." : "Your access is active. Manage billing to cancel or update payment details." : "Choose a plan below to unlock every available question."}</span>

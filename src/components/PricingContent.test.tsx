@@ -22,6 +22,7 @@ describe("approved custom-bank pricing", () => {
   it("shows One Bank as current for a one-bank customer without allowing repurchase", () => {
     const { container } = render(<PricingContent authenticated hasPaidAccess currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
     const one = screen.getByRole("heading", { name: "One Bank" }).closest("article")!;
+    expect(screen.getByRole("heading", { name: "Your current access" })).toBeInTheDocument();
     expect(one).toHaveAttribute("data-current-plan", "true");
     expect(container.querySelectorAll(".pricing-decision-grid > .pricing-option")).toHaveLength(3);
     expect(within(one).queryByRole("radio")).not.toBeInTheDocument();
