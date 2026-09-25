@@ -15,8 +15,9 @@ describe("local-only subscriber pricing preview", () => {
     vi.stubEnv("NODE_ENV", "development");
     render(await PricingPreviewPage({ searchParams: Promise.resolve({ view: "one-bank" }) }));
     expect(screen.getByRole("link", { name: "Two separate banks" })).toHaveAttribute("href", "/pricing/preview?view=two-banks");
-    expect(screen.getByRole("heading", { name: "Add another bank" })).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "Add another bank" })).not.toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "One Bank" }).closest("article")).toHaveAttribute("data-current-plan", "true");
-    expect(screen.queryByRole("button", { name: /Unlock/ })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Add All Access subscription" })).toBeDisabled();
+    expect(screen.getByText("Preview only — checkout is disabled.")).toBeInTheDocument();
   });
 });
