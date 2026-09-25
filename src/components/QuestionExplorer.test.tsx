@@ -487,6 +487,7 @@ describe("QuestionExplorer", () => {
     window.history.replaceState({}, "", `/banks/ib-sl?set=${encodeURIComponent(questions.map((q) => q.id).join(","))}`);
     render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} hydrateFromLocation />);
     await waitFor(() => expect(screen.getByText("Shared question set")).toBeInTheDocument());
+    expect(screen.getByRole("link", { name: "Browse full bank" })).toHaveClass("button", "secondary");
     expect(screen.getAllByRole("button", { name: "Show answer" })).toHaveLength(3);
     expect(screen.queryByText("Paid plan required")).not.toBeInTheDocument();
   });
@@ -529,13 +530,14 @@ describe("QuestionExplorer", () => {
     await waitFor(() => expect(screen.getByText("Shared question set")).toBeInTheDocument());
     expect(screen.getByText("2 questions")).toBeInTheDocument();
     expect(document.querySelectorAll(".question-list > .question-card")).toHaveLength(2);
+    expect(within(document.querySelectorAll(".question-list > .question-card")[0] as HTMLElement).getByRole("button", { name: "Show answer" })).toBeInTheDocument();
     expect(screen.getByText("Paid plan required")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Show answer" })).toBeInTheDocument();
     await waitFor(() => expect(fetch).toHaveBeenCalled());
     const signedRequests = vi.mocked(fetch).mock.calls.filter(([url]) => String(url) === "/api/assets/sign")
       .flatMap(([, init]) => (JSON.parse(String(init?.body)).requests as Array<{ questionId: string }>));
     expect(signedRequests.some((request) => request.questionId === locked.id)).toBe(false);
-    expect(document.querySelectorAll(".question-list > .question-card:first-child img")).toHaveLength(0);
+    expect(document.querySelectorAll(".question-list > .question-card:nth-child(2) img")).toHaveLength(0);
     expect(new URLSearchParams(window.location.search).get("set")).toBe(`${locked.id},${free.id}`);
   });
 
