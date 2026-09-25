@@ -9,6 +9,7 @@ import { isPreviewQuestion } from "@/lib/access";
 
 import { filterQuestions, questionZoneValue } from "@/lib/question-filter";
 import { EXPLORER_PAGE_SIZE, parseExplorerState, serializeExplorerState, type ExplorerFilterKey, type ExplorerSearchParams, type ExplorerState } from "@/lib/explorer-state";
+import { encodeSharedSet, parseSharedSet } from "@/lib/shared-question-set";
 import type { QuestionFilters, QuestionSort, UnifiedQuestion } from "@/lib/questions";
 import type { BankSlug } from "@/lib/banks";
 import { fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
@@ -242,6 +243,8 @@ access: ExplorerAccess;
   const [attemptedIds, setAttemptedIds] = useState(new Set(studyState.attemptedIds));
   const [studyError, setStudyError] = useState("");
   const [shareStatus, setShareStatus] = useState("");
+  const [sharedIds, setSharedIds] = useState<string[] | null>(null);
+  const [sharedError, setSharedError] = useState("");
   const [resolvedAccess, setResolvedAccess] = useState(access);
   const [resolvedExportMarker, setResolvedExportMarker] = useState(exportMarker);
   const [locationHydrated, setLocationHydrated] = useState(!hydrateFromLocation);
@@ -307,29 +310,40 @@ access: ExplorerAccess;
     return savedOnly ? accessible.filter((question) => savedIds.has(question.id)) : accessible;
   }, [bankSlug, catalogQuestions, effectiveCourseRoute, effectiveFreeOnly, filters, indexLoaded, savedIds, savedOnly, search, searchResult, sort]);
   const savedWorksheetView = Boolean(worksheetId) && !addingQuestions;
+  const sharedSetView = !worksheetId && (sharedIds !== null || Boolean(sharedError));
+  const sharedSetQuestions = useMemo(() => {
+    if (!sharedIds || (indexUrl && !indexLoaded) || indexError || bootstrapPending) return [];
+    const byId = new Map(catalogQuestions.map((question) => [question.id, question]));
+    return sharedIds.flatMap((id) => { const question = byId.get(id); return question ? [question] : []; });
+  }, [sharedIds, indexUrl, indexLoaded, indexError, bootstrapPending, catalogQuestions]);
+  const missingSharedCount = sharedIds && (!indexUrl || indexLoaded) && !indexError ? sharedIds.length - sharedSetQuestions.length : 0;
   const savedSetQuestions = useMemo(() => {
     if (!worksheetReady || worksheetLoadFailed || bootstrapPending || !resolvedAccess.bankAccess) return [];
     const byId = new Map(catalogQuestions.map((question) => [question.id, question]));
     return [...selectedIds].flatMap((id) => { const question = byId.get(id); return question ? [question] : []; });
   }, [worksheetReady, worksheetLoadFailed, bootstrapPending, resolvedAccess.bankAccess, catalogQuestions, selectedIds]);
-  const resultQuestions = savedWorksheetView ? savedSetQuestions : filtered;
+  const resultQuestions = useMemo(() => sharedSetView
+    ? sharedError || missingSharedCount ? [] : sharedSetQuestions
+    : savedWorksheetView ? savedSetQuestions : filtered,
+  [sharedSetView, sharedError, missingSharedCount, sharedSetQuestions, savedWorksheetView, savedSetQuestions, filtered]);
   const anonymous = !resolvedAccess.authenticated && !resolvedAccess.bankAccess;
-  const matchingFreeCount = filtered.filter((question) => isPreviewQuestion(question.bankSlug, question.id)).length;
+  const matchingFreeCount = resultQuestions.filter((question) => isPreviewQuestion(question.bankSlug, question.id)).length;
   const accessResolved = locationHydrated && !bootstrapPending;
   const freeGate = getFreeQuestionGate({ resolved: accessResolved, authenticated: resolvedAccess.authenticated, bankAccess: resolvedAccess.bankAccess, freeOnly, freeQuestionCount: matchingFreeCount });
   const shownQuestions = useMemo(() => {
-    if (!anonymous) return savedWorksheetView ? resultQuestions : resultQuestions.slice(0, visible);
+    if (!locationHydrated || (sharedSetView && (sharedError || Boolean(missingSharedCount)))) return [];
+    if (!anonymous) return savedWorksheetView || sharedSetView ? resultQuestions : resultQuestions.slice(0, visible);
     if (savedWorksheetView) return [];
     const freeLimit = freeGate.visibleCount;
     let freeShown = 0;
-    const safeSample = filtered.filter((question) => {
+    const safeSample = resultQuestions.filter((question) => {
       if (!isPreviewQuestion(question.bankSlug, question.id)) return accessResolved;
       if (freeShown >= freeLimit) return false;
       freeShown += 1;
       return true;
     });
     return safeSample.slice(0, visible);
-  }, [accessResolved, anonymous, filtered, freeGate.visibleCount, visible, resultQuestions, savedWorksheetView]);
+  }, [accessResolved, anonymous, freeGate.visibleCount, locationHydrated, missingSharedCount, visible, resultQuestions, savedWorksheetView, sharedError, sharedSetView]);
   const returnPath = typeof window === "undefined" ? "/" : `${window.location.pathname}${window.location.search}`;
   const signupHref = `/login?mode=sign-up&next=${encodeURIComponent(returnPath)}`;
   const signinHref = `/login?next=${encodeURIComponent(returnPath)}`;
@@ -365,6 +379,10 @@ access: ExplorerAccess;
         raw[key] = current === undefined ? value : Array.isArray(current) ? [...current, value] : [current, value];
       }
       const next = parseExplorerState(raw, { defaultFreeOnly: !access.bankAccess });
+      if (locationParams.has("set") && !locationParams.has("worksheet")) {
+        try { setSharedIds(parseSharedSet(locationParams.get("set") ?? "")); setSharedError(""); }
+        catch { setSharedIds(null); setSharedError("This shared question link is invalid."); }
+      }
       setSearch(next.search);
       setSort(next.sort);
       setFilters(next.filters);
@@ -617,12 +635,12 @@ access: ExplorerAccess;
 
   useEffect(() => {
     if (!locationHydrated || bootstrapPending) return;
-    const query = serializeExplorerState({ search, sort, filters, freeOnly: effectiveFreeOnly, savedOnly, courseRoute: effectiveCourseRoute, visible }, { persistFreeChoice: !resolvedAccess.bankAccess });
+    const query = sharedSetView ? new URLSearchParams(window.location.search) : serializeExplorerState({ search, sort, filters, freeOnly: effectiveFreeOnly, savedOnly, courseRoute: effectiveCourseRoute, visible }, { persistFreeChoice: !resolvedAccess.bankAccess });
     const params = new URLSearchParams(query);
     if (worksheetId) { params.set("worksheet", worksheetId); if (worksheetMode === "edit") params.set("mode", "edit"); }
     const nextUrl = `${window.location.pathname}${params.size ? `?${params}` : ""}${window.location.hash}`;
     window.history.replaceState(window.history.state, "", nextUrl);
-  }, [bootstrapPending, effectiveCourseRoute, effectiveFreeOnly, filters, locationHydrated, resolvedAccess.bankAccess, savedOnly, search, sort, visible, worksheetId, worksheetMode]);
+  }, [bootstrapPending, effectiveCourseRoute, effectiveFreeOnly, filters, locationHydrated, resolvedAccess.bankAccess, savedOnly, search, sharedSetView, sort, visible, worksheetId, worksheetMode]);
 
   useEffect(() => {
     if (!bank) return;
@@ -809,14 +827,29 @@ access: ExplorerAccess;
 
   const shareWorkspace = async () => {
     setShareStatus("");
-    const shareLink = new URL(window.location.href);
-    shareLink.searchParams.delete("worksheet");
-    shareLink.searchParams.delete("mode");
-    const shareUrl = shareLink.href;
+    if (!locationHydrated || bootstrapPending || (indexUrl && (!indexLoaded || indexError)) || (worksheetId && (!worksheetReady || worksheetLoadFailed))) {
+      setShareStatus("Couldn't share yet — wait for the questions to load and try again.");
+      return;
+    }
+    if (!worksheetId && !selectionIsExplicit && search.trim() && bankSlug && searchResult?.query !== search.trim().toLocaleLowerCase()) {
+      setShareStatus("Couldn't share yet — wait for search results and try again.");
+      return;
+    }
+    const ids = worksheetId || selectionIsExplicit ? [...selectedIds] : filtered.map((question) => question.id);
+    let shareUrl: string;
+    try {
+      const shareLink = new URL(window.location.pathname, window.location.origin);
+      shareLink.searchParams.set("set", encodeSharedSet(ids));
+      if (shareLink.href.length > 8000) throw new Error("Link too long");
+      shareUrl = shareLink.href;
+    } catch {
+      setShareStatus("Couldn't share this set — narrow the filters or select fewer questions first.");
+      return;
+    }
     if (typeof navigator.share === "function" && navigator.canShare?.({ url: shareUrl })) {
       try {
         await navigator.share({ url: shareUrl, title: document.title });
-        setShareStatus("Link copied");
+        setShareStatus("Question link shared");
         pulseSuccess(shareButtonRef.current);
       } catch {
         /* the visitor dismissed the share sheet — nothing to announce */
@@ -825,10 +858,10 @@ access: ExplorerAccess;
     }
     try {
       await navigator.clipboard.writeText(shareUrl);
-      setShareStatus("Link copied");
+      setShareStatus("Question link copied");
       pulseSuccess(shareButtonRef.current);
     } catch {
-      setShareStatus("Couldn't copy — copy the link from your address bar, or try again.");
+      setShareStatus("Couldn't copy — try again.");
       shakeElement(shareButtonRef.current);
     }
   };
@@ -894,7 +927,7 @@ access: ExplorerAccess;
     });
   };
 
-  const exportQuestions = worksheetId ? savedSetQuestions : questionsForPdf(filtered, selectedIds, selectionIsExplicit, catalogQuestions);
+  const exportQuestions = sharedSetView ? [] : worksheetId ? savedSetQuestions : questionsForPdf(filtered, selectedIds, selectionIsExplicit, catalogQuestions);
   const openPdfBuilder = () => {
     if (worksheetId && (!worksheetReady || worksheetLoadFailed || !exportQuestions.length)) return;
     if (worksheetId && worksheetDirty) { setPendingWorksheetAction({ kind: "pdf" }); return; }
@@ -954,12 +987,14 @@ access: ExplorerAccess;
   };
 
   return (
-    <section ref={explorerRootRef} className={`explorer${savedWorksheetView ? " is-worksheet-view" : ""}`} aria-label="Question explorer">
+    <section ref={explorerRootRef} className={`explorer${savedWorksheetView || sharedSetView ? " is-worksheet-view" : ""}`} aria-label="Question explorer">
       {worksheetId && <div className="worksheet-workspace"><Link href="/worksheets">← My worksheets</Link>{worksheetReady && !worksheetLoadFailed && <div className="worksheet-workspace-heading"><div><h2>{worksheetName}</h2><span>{selectedIds.size} {selectedIds.size === 1 ? "question" : "questions"}</span></div><div className="worksheet-workspace-actions">{worksheetMode === "view" ? <button className="button secondary" type="button" onClick={() => setWorksheetMode("edit")}>Edit worksheet</button> : <button className="button secondary" type="button" onClick={closeWorksheetEditor}>View worksheet</button>}<button ref={shareButtonRef} className="share-view-button toolbar-icon-button" type="button" title="Share this view" aria-label="Copy link to this view" onClick={shareWorkspace}><ShareNetwork aria-hidden="true" /></button><button ref={pdfTriggerRef} className="download-button toolbar-icon-button" type="button" title="Download PDF" aria-label="Download PDF" onClick={openPdfBuilder}><DownloadSimple aria-hidden="true" /></button></div></div>}</div>}
       {pendingWorksheetAction && <div className="worksheet-unsaved-backdrop" role="presentation"><section ref={worksheetUnsavedDialogRef} className="worksheet-unsaved-dialog" role="dialog" aria-modal="true" aria-labelledby="worksheet-unsaved-title"><p className="eyebrow">Before you go</p><h2 id="worksheet-unsaved-title">Unsaved worksheet changes</h2><p>Save your changes before continuing, or discard them.</p>{worksheetStatus && !worksheetSaving && worksheetStatus !== "Changes saved." && <p role="alert">{worksheetStatus}</p>}{confirmDiscard && <p className="worksheet-discard-warning">Discard unsaved changes? This cannot be undone.</p>}<div className="worksheet-unsaved-actions"><button type="button" className="button primary" disabled={worksheetSaving || !worksheetName.trim() || !selectedIds.size} onClick={async () => { const action = pendingWorksheetAction; if (action) { setConfirmDiscard(false); if (await saveWorksheet()) finishWorksheetAction(action); else setFailedLeaveSave(true); } }}>{worksheetSaving ? "Saving…" : "Save changes"}</button><button type="button" className="button secondary" disabled={worksheetSaving} onClick={discardWorksheetChanges}>{confirmDiscard ? "Confirm discard" : "Discard changes"}</button><button type="button" className="text-button" disabled={worksheetSaving} onClick={() => { setPendingWorksheetAction(null); setFailedLeaveSave(false); setConfirmDiscard(false); }}>Keep editing</button></div></section></div>}
       {worksheetId && worksheetMode === "edit" && worksheetReady && !worksheetLoadFailed && <WorksheetEditCard title={worksheetName} ids={[...selectedIds]} content={pdfContent} adding={addingQuestions} busy={worksheetSaving} dirty={worksheetDirty} status={worksheetStatus} onTitle={setWorksheetName} onContent={setPdfContent} onMove={(id, direction) => setSelectedIds((current) => { const ids = [...current]; const index = ids.indexOf(id); const next = index + direction; if (index < 0 || next < 0 || next >= ids.length) return current; [ids[index], ids[next]] = [ids[next], ids[index]]; return new Set(ids); })} onRemove={(id) => setSelectedIds((current) => { const next = new Set(current); next.delete(id); return next; })} onAdd={() => { clearFilters(); setAddingQuestions(true); }} onDoneAdding={() => setAddingQuestions(false)} onSave={() => void saveWorksheet()} />}
       {worksheetId && worksheetLoadFailed && <div className="access-notice" role="alert" aria-label="Worksheet unavailable"><span>{worksheetStatus}</span><button className="button secondary" type="button" onClick={() => { setWorksheetStatus(""); setWorksheetLoadFailed(false); setWorksheetReady(false); }}>Retry loading worksheet</button></div>}
-      {(!savedWorksheetView || worksheetLoadFailed) && <div className="explorer-toolbar">
+      {sharedSetView && <div className="worksheet-workspace"><div className="worksheet-workspace-heading"><div><h2>Shared question set</h2><span>Access depends on your bank plan. Free questions stay free.</span></div><Link href={`/banks/${bank}`}>Browse full bank</Link></div></div>}
+      {sharedSetView && (sharedError || missingSharedCount > 0) && <div className="access-notice" role="alert">{sharedError || `${missingSharedCount} shared question${missingSharedCount === 1 ? " is" : "s are"} no longer available. The set cannot be shown in full.`}</div>}
+      {(!savedWorksheetView || worksheetLoadFailed) && !sharedSetView && <div className="explorer-toolbar">
         <label className="search-field">
           <span className="sr-only">Search questions</span>
           <MagnifyingGlass aria-hidden="true" />
@@ -990,7 +1025,7 @@ access: ExplorerAccess;
       {indexError && <div className="access-notice" role="alert"><span>{indexError}</span><button className="text-button" type="button" onClick={() => { setIndexError(""); setIndexAttempt((attempt) => attempt + 1); }}>Retry question index</button></div>}
       {assetError && <div className="access-notice" role="alert"><span>{assetError}</span><button className="text-button" type="button" onClick={retryQuestionAssets}>Retry images</button></div>}
       {studyError && <div className="access-notice" role="alert">{studyError}</div>}
-      {!bootstrapPending && !resolvedAccess.bankAccess && <div className="free-value-strip"><div><strong>{effectiveFreeOnly ? "Free exam years are open." : "You’re browsing the full bank."}</strong><span>{effectiveFreeOnly ? "Practise now, or clear the Free questions only filter to preview the rest." : "Locked questions show what a paid bank plan unlocks."}</span></div><Link className="button secondary" href={plansHref}>{PLANS_LABEL}</Link></div>}
+      {!bootstrapPending && !resolvedAccess.bankAccess && <div className="free-value-strip"><div><strong>{sharedSetView ? "Free questions in this set are open." : effectiveFreeOnly ? "Free exam years are open." : "You’re browsing the full bank."}</strong><span>{sharedSetView ? "Questions outside your plan stay locked; signing in unlocks every free question in the set." : effectiveFreeOnly ? "Practise now, or clear the Free questions only filter to preview the rest." : "Locked questions show what a paid bank plan unlocks."}</span></div><Link className="button secondary" href={plansHref}>{PLANS_LABEL}</Link></div>}
 
       <div className="explorer-layout">
         {filtersOpen && <button className="filter-backdrop" type="button" tabIndex={-1} aria-hidden="true" onClick={() => setFiltersOpen(false)} />}
@@ -1024,10 +1059,10 @@ access: ExplorerAccess;
 
         <div className="explorer-results" inert={filtersOpen || undefined}>
           <div className="results-heading">
-            <div><strong>{resultQuestions.length.toLocaleString()} {savedWorksheetView ? "saved " : effectiveFreeOnly ? "free " : ""}{resultQuestions.length === 1 ? "question" : "questions"}</strong>{selectionIsExplicit && !savedWorksheetView && <span>{selectedIds.size} selected for PDF</span>}</div>
-            <div>{selectionIsExplicit && !worksheetId && <button className="text-button" onClick={() => { setSelectionIsExplicit(false); setSelectedIds(new Set()); }}>Use all results for PDF</button>}{!savedWorksheetView && (search || activeCount > 0 || courseRoute !== "all") && <button className="text-button" onClick={clearFilters}>Clear filters</button>}</div>
+            <div><strong>{resultQuestions.length.toLocaleString()} {savedWorksheetView ? "saved " : !sharedSetView && effectiveFreeOnly ? "free " : ""}{resultQuestions.length === 1 ? "question" : "questions"}</strong>{selectionIsExplicit && !savedWorksheetView && !sharedSetView && <span>{selectedIds.size} selected for PDF</span>}</div>
+            <div>{selectionIsExplicit && !worksheetId && !sharedSetView && <button className="text-button" onClick={() => { setSelectionIsExplicit(false); setSelectedIds(new Set()); }}>Use all results for PDF</button>}{!savedWorksheetView && !sharedSetView && (search || activeCount > 0 || courseRoute !== "all") && <button className="text-button" onClick={clearFilters}>Clear filters</button>}</div>
           </div>
-          {!savedWorksheetView && activeCount > 0 && <div className="active-filters">
+          {!savedWorksheetView && !sharedSetView && activeCount > 0 && <div className="active-filters">
             {effectiveFreeOnly && <button aria-label="Remove free questions only filter" onClick={() => setFreeOnly(false)}>Free only <X /></button>}
             {savedOnly && <button aria-label="Remove saved questions only filter" onClick={() => setSavedOnly(false)}>Saved only <X /></button>}
             {Object.entries(filters).flatMap(([key, values]) => (values ?? []).map((value) => <button key={`${key}-${value}`} onClick={() => toggle(key as MultiKey, value)}>{formatPublicLabel(value)} <X /></button>))}
@@ -1040,12 +1075,12 @@ access: ExplorerAccess;
               return <QuestionCard key={question.id} question={question} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAsset={(asset) => {
                 setSignedAssets((current) => new Map(current).set(signedAssetKey(question.id, "answer"), asset));
                 if (asset.details) setCatalogQuestions((current) => current.map((item) => item.id === question.id ? mergeQuestionRichDetails(item, asset.details!) : item));
-              }} selected={selectedIds.has(question.id)} selectable={!savedWorksheetView} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => toggleSaved(question.id)} onAttempt={() => recordAttempt(question.id)} />;
+              }} selected={selectedIds.has(question.id)} selectable={!savedWorksheetView && !sharedSetView} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => toggleSaved(question.id)} onAttempt={() => recordAttempt(question.id)} />;
             })}
           </div>
-          {!savedWorksheetView && filtered.length === 0 && <div className="empty-state"><strong>No questions match that combination.</strong><span>Clear a filter and try again.</span></div>}
-          {!savedWorksheetView && freeGate.active && bankSlug && <FreeQuestionSignupGate bankSlug={bankSlug} remainingCount={freeGate.remainingCount} signupHref={signupHref} signinHref={signinHref} />}
-          {!savedWorksheetView && !freeGate.active && visible < filtered.length && <button className="load-more" onClick={() => setVisible((count) => count + EXPLORER_PAGE_SIZE)}>Show 24 more questions</button>}
+          {!savedWorksheetView && !sharedSetView && filtered.length === 0 && <div className="empty-state"><strong>No questions match that combination.</strong><span>Clear a filter and try again.</span></div>}
+          {!savedWorksheetView && !sharedError && !missingSharedCount && freeGate.active && bankSlug && <FreeQuestionSignupGate bankSlug={bankSlug} remainingCount={freeGate.remainingCount} signupHref={signupHref} signinHref={signinHref} />}
+          {!savedWorksheetView && !sharedSetView && !freeGate.active && visible < filtered.length && <button className="load-more" onClick={() => setVisible((count) => count + EXPLORER_PAGE_SIZE)}>Show 24 more questions</button>}
         </div>
       </div>
 
