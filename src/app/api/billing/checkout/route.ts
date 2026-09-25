@@ -164,7 +164,9 @@ export async function POST(request: Request) {
             // Existing, unrelated subscriptions are valid only when their coverage is known and disjoint.
             if (subscription.status !== "active" && subscription.status !== "trialing") return true;
             const product = subscription.metadata?.product_id;
-            if (!product || product === input.productId || product === "bundle_all") return true;
+            if (!product || product === "bundle_all") return true;
+            // Custom subscriptions can coexist when their selected banks do not overlap.
+            if (product === input.productId && product !== "bundle_custom") return true;
             const targets = paidBundle ? plan.productId === "bundle_all" ? [] : uncoveredSlugs : [addOnBank!];
             if (product === "bundle_custom") {
               try {

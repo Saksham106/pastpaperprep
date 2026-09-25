@@ -308,6 +308,22 @@ describe("POST /api/billing/checkout", () => {
     );
   });
 
+  it("permits a second disjoint custom bundle but rejects overlap with Stripe before webhook sync", async () => {
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    userFrom.mockReturnValue(entitlementQuery([{ product_id: "bundle_custom", selected_bank_ids: ["ib-sl", "igcse"], status: "active", starts_at: "2026-01-01T00:00:00.000Z", expires_at: "2099-01-01T00:00:00.000Z" }]));
+    mockAdminRpc("cus_existing");
+    subscriptionsList.mockResolvedValue({ data: [{ status: "active", metadata: { product_id: "bundle_custom", selected_bank_ids: JSON.stringify(["ib-sl", "igcse"]) } }] });
+    sessionsCreate.mockResolvedValue({ url: "https://checkout.stripe.com/session" });
+    const request = (selectedBankIds: string[]) => POST(new Request("https://pastpaperprep.com/api/billing/checkout", { method: "POST", body: JSON.stringify({ interval: "monthly", productId: "bundle_custom", selectedBankIds, acknowledgeSeparateSubscription: true }) }));
+    expect((await request(["ib-hl", "ib-ai-hl"])).status).toBe(200);
+    expect(sessionsCreate).toHaveBeenCalledTimes(1);
+    // Simulate an active bundle that has reached Stripe but not our entitlement table.
+    subscriptionsList.mockResolvedValue({ data: [{ status: "active", metadata: { product_id: "bundle_custom", selected_bank_ids: JSON.stringify(["ib-hl", "ib-ai-hl"]) } }] });
+    expect((await request(["ib-hl", "ib-chemistry-hl"])).status).toBe(409);
+    expect(sessionsCreate).toHaveBeenCalledTimes(1);
+  });
+
   it("allows a paid user to buy an uncovered custom bundle and confirms acknowledged intent", async () => {
     const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
     getUser.mockResolvedValue({ data: { user } });

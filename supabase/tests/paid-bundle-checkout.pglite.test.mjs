@@ -23,5 +23,20 @@ test('paid bundle checkout SQL preserves consent and rejects invalid/active All 
   await db.exec(`insert into public.entitlements values ('00000000-0000-0000-0000-000000000001','bundle_all',null,'active',now()-interval '1 day',null); insert into public.billing_checkout_reservations values ('00000000-0000-0000-0000-000000000001','00000000-0000-0000-0000-000000000003',now()+interval '5 min',now());`);
   const denied=await db.query(`select public.confirm_paid_bundle_billing_checkout($1,$2,'bundle_all','{}',true) value`,['00000000-0000-0000-0000-000000000001','00000000-0000-0000-0000-000000000003']);
   assert.equal(denied.rows[0].value,false);
+  await db.exec(`delete from public.entitlements where product_id='bundle_all'; insert into public.stripe_subscriptions values ('00000000-0000-0000-0000-000000000001','bank_ib_ai_hl',null,'active',now()-interval '1 day',null);`);
+  const overlapping=await db.query(`select public.confirm_paid_bundle_billing_checkout($1,$2,'bundle_custom',$3,true) value`,['00000000-0000-0000-0000-000000000001','00000000-0000-0000-0000-000000000003',['ib-ai-hl','ib-hl']]);
+  assert.equal(overlapping.rows[0].value,false);
+  const disjoint=await db.query(`select public.confirm_paid_bundle_billing_checkout($1,$2,'bundle_custom',$3,true) value`,['00000000-0000-0000-0000-000000000001','00000000-0000-0000-0000-000000000003',['ib-sl','ib-hl']]);
+  assert.equal(disjoint.rows[0].value,true);
+  assert.equal((await db.query('select count(*)::int n from public.paid_bundle_checkout_consents')).rows[0].n,2);
+  await db.exec(`insert into public.entitlements values ('00000000-0000-0000-0000-000000000001','bundle_custom',array['igcse','ib-sl'],'active',now()-interval '1 day',null); insert into public.billing_checkout_reservations values ('00000000-0000-0000-0000-000000000001','00000000-0000-0000-0000-000000000004',now()+interval '5 min',now());`);
+  const entitlementOverlap=await db.query(`select public.confirm_paid_bundle_billing_checkout($1,$2,'bundle_custom',$3,true) value`,['00000000-0000-0000-0000-000000000001','00000000-0000-0000-0000-000000000004',['ib-sl','ib-hl']]);
+  assert.equal(entitlementOverlap.rows[0].value,false);
+  const entitlementDisjoint=await db.query(`select public.confirm_paid_bundle_billing_checkout($1,$2,'bundle_custom',$3,true) value`,['00000000-0000-0000-0000-000000000001','00000000-0000-0000-0000-000000000004',['ib-hl','ib-chemistry-hl']]);
+  assert.equal(entitlementDisjoint.rows[0].value,true);
+  const missingReservation=await db.query(`select public.confirm_paid_bundle_billing_checkout($1,$2,'bundle_custom',$3,true) value`,['00000000-0000-0000-0000-000000000001','00000000-0000-0000-0000-000000000005',['ib-hl','ib-chemistry-hl']]);
+  assert.equal(missingReservation.rows[0].value,false);
+  await db.exec(`set request.jwt.claim.role='authenticated'`);
+  await assert.rejects(db.query(`select public.confirm_paid_bundle_billing_checkout($1,$2,'bundle_all','{}',true)`,['00000000-0000-0000-0000-000000000001','00000000-0000-0000-0000-000000000003']));
  } finally { await db.close(); }
 });
