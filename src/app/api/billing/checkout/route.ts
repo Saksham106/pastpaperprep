@@ -172,7 +172,7 @@ export async function POST(request: Request) {
             const { data: catalogRows, error: catalogError } = await admin.rpc("get_checkout_price_catalog", { p_price_id: priceId });
             if (catalogError || !Array.isArray(catalogRows)) throw catalogError ?? new Error("Checkout price catalog lookup failed");
             const catalog = catalogRows.find((row: { product_id?: unknown; billing_interval?: unknown }) => row.product_id === product && row.billing_interval === interval);
-            if (!catalog || catalogRows.length !== 1) { billingConflict = true; break; }
+            if (!catalog) { billingConflict = true; break; }
             const targets = paidBundle ? plan.productId === "bundle_all" ? [] : uncoveredSlugs : [addOnBank!];
             if (product === "bundle_custom") {
               let selected: ReturnType<typeof validateCustomBankIds>;
