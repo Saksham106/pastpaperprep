@@ -5,33 +5,32 @@ const { getClaims } = vi.hoisted(() => ({ getClaims: vi.fn() }));
 vi.mock("@/lib/supabase/server", () => ({ createClient: async () => ({ auth: { getClaims } }) }));
 import { GET } from "./route";
 
-const request = new Request("https://pastpaperprep.com/api/exam-style/proof-by-induction/divisibility");
+const request = new Request("https://pastpaperprep.com/api/exam-style/binomial-counting/binomial");
 const context = (slug: string) => ({ params: Promise.resolve({ slug }) });
 
-describe("proof by induction PDF access", () => {
+describe("binomial theorem and counting PDF access", () => {
   beforeEach(() => getClaims.mockReset());
   it("returns 404 for unknown slugs without checking auth or reading files", async () => {
     const response = await GET(request, context("../secrets"));
     expect(response.status).toBe(404);
     expect(getClaims).not.toHaveBeenCalled();
   });
-  it("requires authenticated claims for every PDF", async () => {
+  it("requires authenticated claims for every allowlisted PDF", async () => {
     getClaims.mockResolvedValue({ data: { claims: null } });
-    for (const slug of ["divisibility", "sequences", "inequalities"]) {
+    for (const slug of ["binomial", "counting"]) {
       const response = await GET(request, context(slug));
       expect(response.status).toBe(401);
       expect(response.headers.get("Cache-Control")).toContain("no-store");
     }
   });
-  it("serves original PDFs inline to an authenticated user without public caching", async () => {
+  it("serves original PDFs inline to authenticated users without public caching", async () => {
     getClaims.mockResolvedValue({ data: { claims: { sub: "test-user" } } });
-    for (const slug of ["divisibility", "sequences", "inequalities"]) {
+    for (const [slug, fileName] of [["binomial", "binomial.pdf"], ["counting", "counting.pdf"]]) {
       const response = await GET(request, context(slug));
       expect(response.status).toBe(200);
-      expect(response.headers.get("Content-Disposition")).toBe(`inline; filename="${slug}.pdf"`);
+      expect(response.headers.get("Content-Disposition")).toBe(`inline; filename="${fileName}"`);
       expect(response.headers.get("Cache-Control")).toContain("no-store");
-      const bytes = new Uint8Array(await response.arrayBuffer());
-      expect(new TextDecoder().decode(bytes.subarray(0, 5))).toBe("%PDF-");
+      expect(new TextDecoder().decode(new Uint8Array(await response.arrayBuffer()).subarray(0, 5))).toBe("%PDF-");
     }
   });
 });

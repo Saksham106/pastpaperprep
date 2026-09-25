@@ -18,7 +18,8 @@ describe("SiteFooter", () => {
     expect(screen.getByRole("link", { name: "Revision guides" })).toHaveAttribute("href", "/articles");
     expect(screen.getByRole("heading", { name: "Exam-style practice" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "IB Mathematics AA SL · Trigonometry" })).toHaveAttribute("href", "/banks/ib-sl/exam-style/trigonometry");
-    expect(screen.getByRole("link", { name: "IB Mathematics AA HL · Proof by induction" })).toHaveAttribute("href", "/banks/ib-hl/exam-style/proof-by-induction");
+    expect(screen.getByRole("link", { name: "IB Mathematics AA HL · Exam-style practice" })).toHaveAttribute("href", "/banks/ib-hl/exam-style");
+    expect(screen.queryByRole("link", { name: /IB Mathematics AA HL · Proof by induction/i })).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Frequently asked questions" })).toHaveAttribute("href", "/faq");
     expect(screen.getByRole("link", { name: "hello@pastpaperprep.com" })).toHaveAttribute("href", "mailto:hello@pastpaperprep.com");
   });
