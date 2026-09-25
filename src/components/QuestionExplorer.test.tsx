@@ -333,7 +333,10 @@ describe("QuestionExplorer", () => {
     expect(screen.getByText(/10 questions/i)).toBeInTheDocument();
     await waitFor(() => expect(window.location.search).toContain("q=tangent"));
     fireEvent.click(screen.getByRole("button", { name: /copy link to this view/i }));
-    await waitFor(() => expect(writeText).toHaveBeenCalledWith(expect.stringContaining("q=tangent")));
+    await waitFor(() => expect(writeText).toHaveBeenCalled());
+    const shared = new URL(String(writeText.mock.calls[0][0]));
+    expect(new Set(shared.searchParams.get("set")?.split(","))).toEqual(new Set(questions.filter((q) => q.searchText.includes("tangent")).map((q) => q.id)));
+    expect(shared.searchParams.has("q")).toBe(false);
     expect(await screen.findByText(/link copied/i)).toBeInTheDocument();
   });
 
@@ -435,7 +438,105 @@ describe("QuestionExplorer", () => {
     Object.defineProperty(navigator, "clipboard", { configurable: true, value: { writeText } });
     fireEvent.click(screen.getByRole("button", { name: /copy link to this view/i }));
     await waitFor(() => expect(writeText).toHaveBeenCalled());
-    expect(String(writeText.mock.calls[0][0])).not.toContain("worksheet=");
+    const link = new URL(String(writeText.mock.calls[0][0]));
+    expect(link.searchParams.has("worksheet")).toBe(false);
+    expect(link.searchParams.get("set")).toBe(ids.join(","));
+  });
+
+  it("shares the selected questions rather than just the bank or current filters", async () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 4), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, "clipboard", { configurable: true, value: { writeText } });
+    window.history.replaceState({}, "", "/banks/ib-sl?topic=Calculus");
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} />);
+    fireEvent.click(screen.getAllByRole("checkbox", { name: /add question/i })[1]);
+    fireEvent.click(screen.getAllByRole("checkbox", { name: /add question/i })[0]);
+    fireEvent.click(screen.getByRole("button", { name: /copy link to this view/i }));
+    await waitFor(() => expect(writeText).toHaveBeenCalled());
+    const link = new URL(String(writeText.mock.calls[0][0]));
+    expect(link.searchParams.get("set")).toBe(`${questions[1].id},${questions[0].id}`);
+    expect(link.searchParams.has("topic")).toBe(false);
+  });
+
+  it("shares every filtered question, not just the visible page", async () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 30), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, "clipboard", { configurable: true, value: { writeText } });
+    window.history.replaceState({}, "", "/banks/ib-sl");
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} />);
+    fireEvent.click(screen.getByRole("button", { name: /copy link to this view/i }));
+    await waitFor(() => expect(writeText).toHaveBeenCalled());
+    expect(new URL(String(writeText.mock.calls[0][0])).searchParams.get("set")?.split(",")).toEqual(questions.map((q) => q.id));
+  });
+
+  it("shows every free question in a shared set to a signed-in free member but not locked content", async () => {
+    const bank = loadBankQuestions("ib-sl");
+    const free = bank.filter((q) => isPreviewQuestion("ib-sl", q.id)).slice(0, 22);
+    const locked = bank.find((q) => !isPreviewQuestion("ib-sl", q.id))!;
+    const questions = prepareQuestionsForDelivery([locked, ...free], []);
+    window.history.replaceState({}, "", `/banks/ib-sl?set=${encodeURIComponent(questions.map((q) => q.id).join(","))}`);
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={{ authenticated: true, bankAccess: false, canExportPdf: false }} hydrateFromLocation />);
+    await waitFor(() => expect(screen.getByText("Shared question set")).toBeInTheDocument());
+    expect(document.querySelectorAll(".question-list > .question-card")).toHaveLength(questions.length);
+    expect(screen.getAllByRole("button", { name: "Show answer" })).toHaveLength(free.length);
+    expect(screen.getByText("Paid plan required")).toBeInTheDocument();
+  });
+
+  it("shows every question in a shared set to a paid member", async () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 3), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    window.history.replaceState({}, "", `/banks/ib-sl?set=${encodeURIComponent(questions.map((q) => q.id).join(","))}`);
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} hydrateFromLocation />);
+    await waitFor(() => expect(screen.getByText("Shared question set")).toBeInTheDocument());
+    expect(screen.getAllByRole("button", { name: "Show answer" })).toHaveLength(3);
+    expect(screen.queryByText("Paid plan required")).not.toBeInTheDocument();
+  });
+
+  it("fails closed when a shared question is absent instead of substituting bank results", async () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 2), []);
+    window.history.replaceState({}, "", `/banks/ib-sl?set=${encodeURIComponent(`${questions[0].id},missing-id`)}`);
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} hydrateFromLocation />);
+    expect(await screen.findByRole("alert")).toHaveTextContent("no longer available");
+    expect(document.querySelectorAll(".question-list > .question-card")).toHaveLength(0);
+  });
+
+  it("caps only anonymous free questions inside a shared set and keeps the signup return URL", async () => {
+    const bank = loadBankQuestions("ib-sl");
+    const free = bank.filter((q) => isPreviewQuestion("ib-sl", q.id)).slice(0, 22);
+    expect(free).toHaveLength(22);
+    const questions = prepareQuestionsForDelivery(free, []);
+    window.history.replaceState({}, "", `/banks/ib-sl?set=${encodeURIComponent(free.map((q) => q.id).join(","))}`);
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={{ authenticated: false, bankAccess: false, canExportPdf: false }} hydrateFromLocation />);
+    await waitFor(() => expect(screen.getByText("Shared question set")).toBeInTheDocument());
+    expect(document.querySelectorAll(".question-list > .question-card")).toHaveLength(20);
+    expect(screen.getByRole("link", { name: /create free account/i }).getAttribute("href")).toContain("set%3D");
+  });
+
+  it("rejects an invalid shared set without showing unrelated bank questions", async () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 2), []);
+    window.history.replaceState({}, "", "/banks/ib-sl?set=bad,,ids");
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} hydrateFromLocation />);
+    expect(await screen.findByRole("alert")).toHaveTextContent("invalid");
+    expect(document.querySelectorAll(".question-list > .question-card")).toHaveLength(0);
+  });
+
+  it("opens a shared set in order with only its questions, including free-only access for anonymous readers", async () => {
+    const bank = loadBankQuestions("ib-sl");
+    const free = bank.find((question) => isPreviewQuestion("ib-sl", question.id))!;
+    const locked = bank.find((question) => !isPreviewQuestion("ib-sl", question.id))!;
+    const questions = prepareQuestionsForDelivery([free, locked], []);
+    window.history.replaceState({}, "", `/banks/ib-sl?set=${encodeURIComponent(`${locked.id},${free.id}`)}`);
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={{ authenticated: false, bankAccess: false, canExportPdf: false }} hydrateFromLocation />);
+    await waitFor(() => expect(screen.getByText("Shared question set")).toBeInTheDocument());
+    expect(screen.getByText("2 questions")).toBeInTheDocument();
+    expect(document.querySelectorAll(".question-list > .question-card")).toHaveLength(2);
+    expect(screen.getByText("Paid plan required")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Show answer" })).toBeInTheDocument();
+    await waitFor(() => expect(fetch).toHaveBeenCalled());
+    const signedRequests = vi.mocked(fetch).mock.calls.filter(([url]) => String(url) === "/api/assets/sign")
+      .flatMap(([, init]) => (JSON.parse(String(init?.body)).requests as Array<{ questionId: string }>));
+    expect(signedRequests.some((request) => request.questionId === locked.id)).toBe(false);
+    expect(document.querySelectorAll(".question-list > .question-card:first-child img")).toHaveLength(0);
+    expect(new URLSearchParams(window.location.search).get("set")).toBe(`${locked.id},${free.id}`);
   });
 
   it("edits the saved set with a plus button that opens the full bank without losing selections", async () => {
