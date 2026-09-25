@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { processReferralInvoicePaid, processReferralChargeRefunded, processReferralDisputeChanged } from "@/lib/referral-events";
 import { createStripeClient } from "@/lib/stripe";
-import { getStripeConfig, isStripePriceAllowedForProduct } from "@/lib/stripe-config";
+import { getStripeConfig } from "@/lib/stripe-config";
 import { buildSubscriptionSync, getSubscriptionEventReference } from "@/lib/stripe-subscriptions";
 import { createAdminClient } from "@/lib/supabase/admin";
 
@@ -102,9 +102,27 @@ export async function POST(request: Request) {
 
       let sync;
       try {
+        const subscription = currentSubscription as Stripe.Subscription;
+        const metadataProductId = subscription.metadata?.product_id;
+        const items = subscription.items.data;
+        const item = items.length === 1 ? items[0] : null;
+        const priceId = item?.price?.id;
+        const interval = item?.price?.recurring?.interval === "month" ? "monthly"
+          : item?.price?.recurring?.interval === "year" ? "annual" : null;
+        if (typeof metadataProductId !== "string" || typeof priceId !== "string" || !interval) {
+          throw new Error("Stripe price identity is ambiguous");
+        }
+        const { data: catalogRows, error: catalogError } = await admin.rpc("get_checkout_price_catalog", { p_price_id: priceId });
+        if (catalogError) return NextResponse.json({ error: "Webhook processing failed" }, { status: 500 });
+        const matchingCatalogRows = Array.isArray(catalogRows)
+          ? catalogRows.filter((row) => row.price_id === priceId && row.product_id === metadataProductId && row.billing_interval === interval && (row.active === true || row.grandfathered === true))
+          : [];
+        if (matchingCatalogRows.length !== 1) {
+          throw new Error("Stripe price does not match the catalog");
+        }
         sync = buildSubscriptionSync(
           { ...event, data: { object: currentSubscription } },
-          (productId, priceId, interval) => isStripePriceAllowedForProduct(productId, priceId, config, interval),
+          (productId, catalogPriceId, catalogInterval) => productId === metadataProductId && catalogPriceId === priceId && catalogInterval === interval,
         );
       } catch {
         const { error } = await admin.rpc("invalidate_stripe_subscription_event", {

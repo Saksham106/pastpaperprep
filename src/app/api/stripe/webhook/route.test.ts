@@ -69,7 +69,7 @@ describe("POST /api/stripe/webhook", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     retrieveSubscription.mockResolvedValue(subscriptionEvent.data.object);
-    rpc.mockImplementation(async (name: string) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease", error: null }));
+    rpc.mockImplementation(async (name: string, args?: { p_price_id?: string }) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : name === "get_checkout_price_catalog" ? [{ price_id: args?.p_price_id, product_id: args?.p_price_id?.includes("custom") ? "bundle_custom" : "bundle_all", billing_interval: args?.p_price_id?.includes("annual") ? "annual" : "monthly", active: true, grandfathered: false }] : "applied", error: null }));
   });
 
   it("rejects invalid signatures without mutating entitlement state", async () => {
@@ -79,9 +79,31 @@ describe("POST /api/stripe/webhook", () => {
     expect(rpc).not.toHaveBeenCalled();
   });
 
+  it("looks up the actual price in the service catalog before applying", async () => {
+    constructEvent.mockReturnValue(subscriptionEvent);
+    rpc.mockImplementation(async (name: string, args?: { p_price_id?: string }) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : name === "get_checkout_price_catalog" ? [{ price_id: args?.p_price_id, product_id: "bundle_all", billing_interval: "monthly", active: false, grandfathered: true }, { price_id: args?.p_price_id, product_id: "bank_ib_hl", billing_interval: "monthly", active: true, grandfathered: false }] : "applied", error: null }));
+    const response = await POST(request());
+    expect(response.status).toBe(200);
+    expect(rpc).toHaveBeenCalledWith("get_checkout_price_catalog", { p_price_id: "price_monthly" });
+  });
+
+  it("invalidates under the lease when the catalog tuple does not match", async () => {
+    constructEvent.mockReturnValue(subscriptionEvent);
+    rpc.mockImplementation(async (name: string, args?: { p_price_id?: string }) => ({
+      data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true
+        : name === "get_checkout_price_catalog" ? [{ price_id: args?.p_price_id, product_id: "bundle_custom", billing_interval: "monthly", active: false, grandfathered: true }]
+          : "revoked",
+      error: null,
+    }));
+    const response = await POST(request());
+    expect(response.status).toBe(200);
+    expect(rpc).toHaveBeenCalledWith("invalidate_stripe_subscription_event", expect.objectContaining({ p_lease_token: expect.any(String) }));
+    expect(rpc).not.toHaveBeenCalledWith("apply_stripe_subscription_event", expect.anything());
+  });
+
   it("applies a verified subscription through the order-safe database RPC", async () => {
     constructEvent.mockReturnValue(subscriptionEvent);
-    rpc.mockImplementation(async (name: string) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : "applied", error: null }));
+    rpc.mockImplementation(async (name: string, args?: { p_price_id?: string }) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : name === "get_checkout_price_catalog" ? [{ price_id: args?.p_price_id, product_id: args?.p_price_id?.includes("custom") ? "bundle_custom" : "bundle_all", billing_interval: args?.p_price_id?.includes("annual") ? "annual" : "monthly", active: true, grandfathered: false }] : "applied", error: null }));
 
     const response = await POST(request());
     expect(response.status).toBe(200);
@@ -108,7 +130,7 @@ describe("POST /api/stripe/webhook", () => {
     customEvent.data.object.items.data[0].quantity = 2;
     constructEvent.mockReturnValue(customEvent);
     retrieveSubscription.mockResolvedValue(customEvent.data.object);
-    rpc.mockImplementation(async (name: string) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : "applied", error: null }));
+    rpc.mockImplementation(async (name: string, args?: { p_price_id?: string }) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : name === "get_checkout_price_catalog" ? [{ price_id: args?.p_price_id, product_id: args?.p_price_id?.includes("custom") ? "bundle_custom" : "bundle_all", billing_interval: args?.p_price_id?.includes("annual") ? "annual" : "monthly", active: true, grandfathered: false }] : "applied", error: null }));
 
     const response = await POST(request());
 
@@ -130,7 +152,7 @@ describe("POST /api/stripe/webhook", () => {
       ...subscriptionEvent.data.object,
       status: "canceled",
     });
-    rpc.mockImplementation(async (name: string) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : "applied", error: null }));
+    rpc.mockImplementation(async (name: string, args?: { p_price_id?: string }) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : name === "get_checkout_price_catalog" ? [{ price_id: args?.p_price_id, product_id: args?.p_price_id?.includes("custom") ? "bundle_custom" : "bundle_all", billing_interval: args?.p_price_id?.includes("annual") ? "annual" : "monthly", active: true, grandfathered: false }] : "applied", error: null }));
 
     const response = await POST(request());
     expect(response.status).toBe(200);

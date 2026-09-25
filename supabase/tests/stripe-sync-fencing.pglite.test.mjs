@@ -41,7 +41,9 @@ test('Stripe sync fencing applies verified snapshots and invalidations only unde
         grandfathered boolean not null default false, active boolean not null default true,
         primary key(price_id, product_id, billing_interval)
       );
-      insert into public.stripe_price_catalog(price_id, product_id, billing_interval) values ('price_annual','bundle_all','annual');
+      insert into public.stripe_price_catalog(price_id, product_id, billing_interval, active, grandfathered) values ('price_annual','bundle_all','annual',false,true);
+      create function public.get_checkout_price_catalog(text) returns table(price_id text, product_id text, billing_interval text, grandfathered boolean, active boolean)
+      language sql stable as $$ select c.price_id,c.product_id,c.billing_interval,c.grandfathered,c.active from public.stripe_price_catalog c where c.price_id=$1 and (c.active or c.grandfathered) $$;
       insert into public.stripe_customers values ('${userId}', 'cus_1');
       create function public.is_valid_custom_bank_ids(text[]) returns boolean language sql immutable as $$ select false $$;
       create function public.claim_stripe_customer(uuid,text) returns text language sql as $$ select $2 $$;

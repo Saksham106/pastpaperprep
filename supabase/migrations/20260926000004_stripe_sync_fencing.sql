@@ -138,13 +138,11 @@ begin
   end if;
 
   if not exists (
-    select 1 from public.stripe_price_catalog c
-    where c.product_id = p_product_id and c.price_id = p_price_id
+    select 1 from public.get_checkout_price_catalog(p_price_id) c
+    where c.price_id = p_price_id and c.product_id = p_product_id
+      and c.billing_interval = p_interval and (c.active or c.grandfathered)
   ) then
-    raise exception 'price identity does not match product';
-  end if;
-  if not public.is_approved_stripe_price(p_product_id, p_price_id, p_interval) then
-    raise exception 'price interval does not match product';
+    raise exception 'price identity or interval does not match product';
   end if;
 
   mapped_customer_id := public.claim_stripe_customer(p_user_id, p_customer_id);
