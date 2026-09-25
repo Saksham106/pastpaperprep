@@ -17,7 +17,7 @@ describe("proof by induction PDF access", () => {
   });
   it("requires authenticated claims for every PDF", async () => {
     getClaims.mockResolvedValue({ data: { claims: null } });
-    for (const slug of ["divisibility", "sequences", "inequalities"]) {
+    for (const slug of ["divisibility", "sequences", "inequalities", "binomial", "counting"]) {
       const response = await GET(request, context(slug));
       expect(response.status).toBe(401);
       expect(response.headers.get("Cache-Control")).toContain("no-store");
@@ -25,7 +25,7 @@ describe("proof by induction PDF access", () => {
   });
   it("serves original PDFs inline to an authenticated user without public caching", async () => {
     getClaims.mockResolvedValue({ data: { claims: { sub: "test-user" } } });
-    for (const slug of ["divisibility", "sequences", "inequalities"]) {
+    for (const slug of ["divisibility", "sequences", "inequalities", "binomial", "counting"]) {
       const response = await GET(request, context(slug));
       expect(response.status).toBe(200);
       expect(response.headers.get("Content-Disposition")).toBe(`inline; filename="${slug}.pdf"`);
