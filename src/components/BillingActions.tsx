@@ -198,6 +198,10 @@ export function CheckoutButton({
         setNeedsLogin(true);
         return;
       }
+      if (response.status === 409 && payload.code === "MANAGE_EXISTING_PLAN" && payload.manageUrl === "/account/subscription") {
+        navigate("/account/subscription");
+        return;
+      }
       if (!response.ok) {
         const message = (payload as BillingError).error;
         throw new Error(typeof message === "string" ? message : "Checkout is temporarily unavailable");

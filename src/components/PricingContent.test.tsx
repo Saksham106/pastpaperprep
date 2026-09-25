@@ -19,6 +19,11 @@ describe("approved custom-bank pricing", () => {
     expect(screen.queryByRole("button", { name: /Unlock/ })).not.toBeInTheDocument();
   });
 
+  it("gives paid subscribers a direct My Account path before offering a separate purchase", () => {
+    render(<PricingContent authenticated hasPaidAccess currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
+    expect(within(screen.getByRole("region", { name: "Your current access" })).getByRole("link", { name: "View or change your subscription" })).toHaveAttribute("href", "/account/subscription");
+  });
+
   it("shows One Bank as current for a one-bank customer without allowing repurchase", () => {
     const { container } = render(<PricingContent authenticated hasPaidAccess currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
     const one = screen.getByRole("heading", { name: "One Bank" }).closest("article")!;

@@ -23,6 +23,7 @@ function customIntegrationIdentifier(): string {
 }
 
 class BillingStateConflictError extends Error {}
+class ManageExistingPlanError extends BillingStateConflictError {}
 
 function safeBillingError(error: unknown) {
   if (error instanceof Error) return { name: error.name, message: error.message };
@@ -201,8 +202,10 @@ export async function POST(request: Request) {
           if (!startingAfter) throw new Error("Stripe subscription pagination did not advance");
         } while (true);
         if (!billingConflict && process.env.STRIPE_PLAN_EDITOR_ENABLED === "true" && activeSubscriptionCount === 1 && editorCandidate?.metadata?.user_id === user.id) {
-          try { readEditableCurrentPlan(editorCandidate, config); billingConflict = true; }
-          catch { /* A legacy/unsupported plan keeps its explicit separate-add-on path. */ }
+          let eligibleForEditor = false;
+          try { readEditableCurrentPlan(editorCandidate, config); eligibleForEditor = true; }
+          catch { /* Legacy/unsupported plans retain separate add-ons. */ }
+          if (eligibleForEditor) throw new ManageExistingPlanError("Manage your existing subscription in My Account instead of starting a separate bill.");
         }
         const openSessionData = [];
         let openSessionStartingAfter: string | undefined;
@@ -313,6 +316,7 @@ export async function POST(request: Request) {
       if (releaseError) console.error("Stripe checkout reservation release failed", safeBillingError(releaseError));
     }
     if (error instanceof BillingStateConflictError) {
+      if (error instanceof ManageExistingPlanError) return NextResponse.json({ error: error.message, code: "MANAGE_EXISTING_PLAN", manageUrl: "/account/subscription" }, { status: 409 });
       return NextResponse.json({ error: error.message }, { status: 409 });
     }
     if (error instanceof Error && (

@@ -170,7 +170,7 @@ describe("POST /api/billing/checkout", () => {
       items: { data: [{ id: "si_existing", price: { id: "price_single_monthly", recurring: { interval: "month" } }, quantity: 1 }] } }], has_more: false });
     const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", { method: "POST", body: JSON.stringify({ interval: "monthly", productId: "bank_ib_hl" }) }));
     expect(response.status).toBe(409);
-    expect((await response.json()).error).toMatch(/account\/subscription/i);
+    expect(await response.json()).toMatchObject({ code: "MANAGE_EXISTING_PLAN", manageUrl: "/account/subscription" });
     expect(sessionsCreate).not.toHaveBeenCalled();
     expect(adminRpc).toHaveBeenCalledWith("reserve_billing_checkout", expect.anything());
   });
