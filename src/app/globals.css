@@ -686,6 +686,12 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .pricing-current-plan h2 { margin: 3px 0 0; font: 840 1.3rem var(--font-display); }
 .pricing-current-plan-details { display: grid; gap: 4px; }
 .pricing-current-plan-details span { color: var(--muted); font-size: .84rem; }
+.pricing-addon { margin-top: 22px; padding: clamp(20px, 3vw, 32px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, 360px); gap: 28px; align-items: start; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.pricing-addon h2 { margin: 4px 0 10px; font: 800 clamp(1.5rem, 2.5vw, 2rem) var(--font-display); }
+.pricing-addon p:last-child { color: var(--muted); line-height: 1.55; }
+.pricing-addon .plan-checkout { margin: 0; }
+.pricing-all-included { margin: 24px 0; color: var(--muted); }
+@media (max-width: 720px) { .pricing-addon { grid-template-columns: 1fr; } }
 .billing-toggle { width: fit-content; margin: 30px auto 0; padding: 4px; display: grid; grid-template-columns: 1fr 1.45fr; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
 .billing-toggle button { min-height: 44px; padding: 0 16px; color: var(--muted); background: transparent; border: 0; border-radius: 9px; font-weight: 820; }
 .billing-toggle button[aria-pressed="true"] { color: var(--surface); background: var(--ink); }

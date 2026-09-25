@@ -24,7 +24,7 @@ function mockAdminRpc(
 ) {
   adminRpc.mockImplementation(async (functionName: string, args?: Record<string, unknown>) => {
     if (functionName === "reserve_billing_checkout") return { data: reservationGranted, error: null };
-    if (functionName === "confirm_billing_checkout") return { data: confirmationGranted, error: null };
+    if (functionName === "confirm_billing_checkout" || functionName === "confirm_addon_billing_checkout") return { data: confirmationGranted, error: null };
     if (functionName === "release_billing_checkout") return { data: true, error: null };
     if (functionName === "claim_stripe_customer") {
       return { data: claimedCustomerId ?? args?.p_customer_id, error: null };
@@ -133,6 +133,50 @@ describe("POST /api/billing/checkout", () => {
     expect(sessionsCreate).not.toHaveBeenCalled();
   });
 
+  it("allows a paid member to add a different single bank under the same Stripe customer", async () => {
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    userFrom.mockReturnValue(entitlementQuery([{ product_id: "bank_ib_sl", status: "active", starts_at: "2026-01-01T00:00:00.000Z", expires_at: "2099-01-01T00:00:00.000Z" }]));
+    mockAdminRpc("cus_existing");
+    subscriptionsList.mockResolvedValue({ data: [{ status: "active", metadata: { product_id: "bank_ib_sl" } }] });
+    sessionsCreate.mockResolvedValue({ url: "https://checkout.stripe.com/add-on" });
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", { method: "POST", body: JSON.stringify({ interval: "monthly", productId: "bank_ib_hl" }) }));
+    expect(response.status).toBe(200);
+    expect(sessionsCreate).toHaveBeenCalledWith(expect.objectContaining({ customer: "cus_existing", line_items: [{ price: "price_single_monthly", quantity: 1 }], subscription_data: { metadata: { user_id: user.id, product_id: "bank_ib_hl" } } }), expect.any(Object));
+    expect(adminRpc).toHaveBeenCalledWith("confirm_addon_billing_checkout", expect.objectContaining({ p_user_id: user.id, p_product_id: "bank_ib_hl" }));
+  });
+
+  it("blocks an add-on when Stripe already has that bank even before webhook sync", async () => {
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    userFrom.mockReturnValue(entitlementQuery([{ product_id: "bank_ib_sl", status: "active", starts_at: "2026-01-01T00:00:00.000Z", expires_at: "2099-01-01T00:00:00.000Z" }]));
+    mockAdminRpc("cus_existing");
+    subscriptionsList.mockResolvedValue({ data: [{ status: "active", metadata: { product_id: "bank_ib_hl" } }] });
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", { method: "POST", body: JSON.stringify({ interval: "monthly", productId: "bank_ib_hl" }) }));
+    expect(response.status).toBe(409);
+    expect(sessionsCreate).not.toHaveBeenCalled();
+  });
+
+  it("blocks an add-on covered by a different active bundle at Stripe", async () => {
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    userFrom.mockReturnValue(entitlementQuery([{ product_id: "bank_ib_sl", status: "active", starts_at: "2026-01-01T00:00:00.000Z", expires_at: "2099-01-01T00:00:00.000Z" }]));
+    mockAdminRpc("cus_existing");
+    subscriptionsList.mockResolvedValue({ data: [{ status: "active", metadata: { product_id: "bundle_ib_ai" } }] });
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", { method: "POST", body: JSON.stringify({ interval: "monthly", productId: "bank_ib_ai_hl" }) }));
+    expect(response.status).toBe(409);
+    expect(sessionsCreate).not.toHaveBeenCalled();
+  });
+
+  it("rejects buying a bank already covered by an active subscription", async () => {
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    userFrom.mockReturnValue(entitlementQuery([{ product_id: "bank_ib_sl", status: "active", starts_at: "2026-01-01T00:00:00.000Z", expires_at: "2099-01-01T00:00:00.000Z" }]));
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", { method: "POST", body: JSON.stringify({ interval: "monthly", productId: "bank_ib_sl" }) }));
+    expect(response.status).toBe(409);
+    expect(sessionsCreate).not.toHaveBeenCalled();
+  });
+
   it("refuses to create a second subscription for an account with current access", async () => {
     const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
     getUser.mockResolvedValue({ data: { user } });
@@ -149,7 +193,7 @@ describe("POST /api/billing/checkout", () => {
     }));
 
     expect(response.status).toBe(409);
-    await expect(response.json()).resolves.toEqual({ error: "Existing access must be managed from your account" });
+    await expect(response.json()).resolves.toEqual({ error: "Choose a bank you do not already have; existing plans cannot be repurchased" });
     expect(customersSearch).not.toHaveBeenCalled();
     expect(sessionsCreate).not.toHaveBeenCalled();
   });

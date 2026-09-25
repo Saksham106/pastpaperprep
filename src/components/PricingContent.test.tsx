@@ -1,13 +1,41 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { PricingContent } from "@/components/PricingContent";
-import { getCatalogRuntimeBanks } from "@/lib/catalog";
+import { getCatalogBillingBanks, getCatalogRuntimeBanks, catalogBankToRuntimeBank } from "@/lib/catalog";
 
 const availableBanks = getCatalogRuntimeBanks();
 const cambridgeBankCount = availableBanks.filter((bank) => bank.qualification === "Cambridge IGCSE").length;
 const ibBankCount = availableBanks.filter((bank) => bank.qualification === "International Baccalaureate").length;
 
 describe("approved custom-bank pricing", () => {
+  it("lets paid members buy only unowned banks as separately priced subscriptions", () => {
+    render(<PricingContent authenticated hasPaidAccess currentPlanNames={["One Bank"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
+    expect(screen.getByRole("heading", { name: "Add another bank" })).toBeInTheDocument();
+    expect(screen.getByText(/separate subscription/i)).toBeInTheDocument();
+    const picker = screen.getByRole("heading", { name: "Add another bank" }).closest("section")!;
+    expect(within(picker).queryByLabelText(/Mathematics AA SL/i)).not.toBeInTheDocument();
+    const choice = within(picker).getAllByRole("radio")[0];
+    fireEvent.click(choice);
+    expect(within(picker).getByRole("button", { name: /Unlock/ })).toBeInTheDocument();
+    expect(within(picker).queryByRole("button", { name: /all banks/i })).not.toBeInTheDocument();
+  });
+
+  it("offers IB Economics only once its production asset and sale gates are enabled", () => {
+    const enabled = { NODE_ENV: "production", PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION: "true", PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED: "true" };
+    const banks = getCatalogBillingBanks(enabled).map(catalogBankToRuntimeBank);
+    expect(banks.some((bank) => bank.slug === "ib-economics-hl")).toBe(true);
+    render(<PricingContent authenticated hasPaidAccess ownedBankIds={["ib-sl"]} availableBanks={banks} />);
+    const picker = screen.getByRole("heading", { name: "Add another bank" }).closest("section")!;
+    expect(within(picker).getByLabelText(/Economics HL/i)).toBeInTheDocument();
+    expect(within(picker).getByLabelText(/Economics SL/i)).toBeInTheDocument();
+  });
+
+  it("does not offer an add-on when every billable bank is already included", () => {
+    render(<PricingContent authenticated hasPaidAccess ownedBankIds={availableBanks.map((bank) => bank.slug)} availableBanks={availableBanks} />);
+    expect(screen.getByText(/all available banks are included/i)).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Unlock/ })).not.toBeInTheDocument();
+  });
+
   it("shows three distinct plans without silently choosing any bank", () => {
     const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} />);
     const cards = container.querySelectorAll(".pricing-option");

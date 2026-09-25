@@ -45,6 +45,7 @@ export default async function PricingPage({ searchParams }: { searchParams: Prom
   const { data: claimsData } = await supabase.auth.getClaims();
   const userId = claimsData?.claims?.sub;
   let hasPaidAccess = false;
+  let ownedBankIds: BankSlug[] = [];
   let currentPlanNames: string[] = [];
 
   if (userId) {
@@ -56,6 +57,7 @@ export default async function PricingPage({ searchParams }: { searchParams: Prom
       .lte("starts_at", CURRENT_ENTITLEMENT_FILTERS.startsAt)
       .or(CURRENT_ENTITLEMENT_FILTERS.expiresAt);
     const entitlements = normalizeEntitlements(requireEntitlementRows(result));
+    ownedBankIds = billingBanks.filter(({ slug }) => hasBankAccess(slug, entitlements)).map(({ slug }) => slug);
     hasPaidAccess = getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, entitlements));
     currentPlanNames = Array.from(new Set((result.data ?? []).flatMap((row) => {
       const product = Array.isArray(row.products) ? row.products[0] : row.products;
@@ -66,6 +68,7 @@ export default async function PricingPage({ searchParams }: { searchParams: Prom
   return <PricingContent
     authenticated={Boolean(userId)}
     hasPaidAccess={hasPaidAccess}
+    ownedBankIds={ownedBankIds}
     currentPlanNames={currentPlanNames}
     initialInterval={params.interval === "annual" ? "annual" : "monthly"}
     initialProductId={purchaseProduct(params.product)}
