@@ -1,8 +1,8 @@
 import { randomUUID } from "node:crypto";
 import { getCheckoutReferral } from "@/lib/referral-account";
 import { NextResponse } from "next/server";
-import { hasBankAccess } from "@/lib/access";
-import { getEntitlementBanks } from "@/lib/banks";
+import { BANK_PRODUCTS, hasBankAccess, type ProductId } from "@/lib/access";
+import { getBillingBanks, getEntitlementBanks } from "@/lib/banks";
 import { normalizeEntitlements } from "@/lib/entitlements";
 import { startCheckout } from "@/lib/stripe-checkout";
 import { getBillingPlan, getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
@@ -59,15 +59,17 @@ export async function POST(request: Request) {
   let sessionCreationAttempted = false;
   try {
     const config = getStripeConfig();
-    getBillingPlan(body.productId, body.interval, config, body.selectedBankIds, process.env);
+    const plan = getBillingPlan(body.productId, body.interval, config, body.selectedBankIds, process.env);
     const { data: entitlementRows, error: entitlementError } = await supabase
       .from("entitlements")
       .select("product_id, selected_bank_ids, status, starts_at, expires_at")
       .eq("user_id", user.id);
     if (entitlementError) throw entitlementError;
     const entitlements = normalizeEntitlements(entitlementRows ?? []);
-    if (getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, entitlements))) {
-      return NextResponse.json({ error: "Existing access must be managed from your account" }, { status: 409 });
+    const alreadyPaid = getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, entitlements));
+    const addOnBank = alreadyPaid ? getBillingBanks().find(({ slug }) => BANK_PRODUCTS[slug] === plan.productId)?.slug : undefined;
+    if (alreadyPaid && (!addOnBank || hasBankAccess(addOnBank, entitlements))) {
+      return NextResponse.json({ error: "Choose a bank you do not already have; existing plans cannot be repurchased" }, { status: 409 });
     }
     const referralCode = await getCheckoutReferral(user.id);
     const admin = createAdminClient();
@@ -128,7 +130,7 @@ export async function POST(request: Request) {
       },
       async createSession(input) {
         let startingAfter: string | undefined;
-        let hasNonTerminalSubscription = false;
+        let billingConflict = false;
         do {
           const subscriptions = await stripe.subscriptions.list({
             customer: input.customerId,
@@ -136,10 +138,25 @@ export async function POST(request: Request) {
             limit: 100,
             ...(startingAfter ? { starting_after: startingAfter } : {}),
           });
-          hasNonTerminalSubscription = subscriptions.data.some(({ status }) => (
-            status !== "canceled" && status !== "incomplete_expired"
-          ));
-          if (hasNonTerminalSubscription || !subscriptions.has_more) break;
+          billingConflict = subscriptions.data.some((subscription) => {
+            if (subscription.status === "canceled" || subscription.status === "incomplete_expired") return false;
+            if (!addOnBank) return true;
+            // Existing, unrelated subscriptions are valid. Unknown or unsettled billing
+            // state is not: failing closed prevents duplicate or overlapping charges.
+            if (subscription.status !== "active" && subscription.status !== "trialing") return true;
+            const product = subscription.metadata?.product_id;
+            if (!product || product === input.productId || product === "bundle_all") return true;
+            if (product === "bundle_custom") {
+              try {
+                const selected = JSON.parse(subscription.metadata.selected_bank_ids ?? "") as unknown;
+                return !Array.isArray(selected) || selected.some((id) => id === addOnBank);
+              } catch { return true; }
+            }
+            const recorded = { productId: product as ProductId, status: "active" as const, startsAt: "2020-01-01T00:00:00Z", expiresAt: null };
+            // A missing/unknown product cannot be proven disjoint from the add-on.
+            return hasBankAccess(addOnBank, [recorded]) || !getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, [recorded]));
+          });
+          if (billingConflict || !subscriptions.has_more) break;
           startingAfter = subscriptions.data.at(-1)?.id;
           if (!startingAfter) throw new Error("Stripe subscription pagination did not advance");
         } while (true);
@@ -157,8 +174,8 @@ export async function POST(request: Request) {
           openSessionStartingAfter = openSessions.data.at(-1)?.id;
           if (!openSessionStartingAfter) throw new Error("Stripe Checkout Session pagination did not advance");
         } while (true);
-        if (hasNonTerminalSubscription) {
-          throw new BillingStateConflictError("Existing Stripe billing state must be managed from your account");
+        if (billingConflict) {
+          throw new BillingStateConflictError("Existing Stripe billing state conflicts with this bank purchase");
         }
         const minimumUsableExpiry = Math.floor(Date.now() / 1000) + 60;
         const matchingOpenSession = openSessionData.find(({ expires_at, metadata }) => (
@@ -172,11 +189,19 @@ export async function POST(request: Request) {
           && metadata.selected_bank_ids === (input.selectedBankIds ? JSON.stringify(input.selectedBankIds) : undefined)
         ));
         const openSessionUrl = matchingOpenSession?.url;
-        if (typeof openSessionUrl === "string" && openSessionUrl) return openSessionUrl;
+        if (typeof openSessionUrl === "string" && openSessionUrl) {
+          if (addOnBank) {
+            const { data: stillEligible, error: eligibilityError } = await admin.rpc("confirm_addon_billing_checkout", { p_user_id: user.id, p_intent_id: intentId, p_product_id: input.productId });
+            if (eligibilityError) throw eligibilityError;
+            if (stillEligible !== true) throw new BillingStateConflictError("Bank access changed; reload pricing before checkout");
+          }
+          return openSessionUrl;
+        }
         await Promise.all(openSessionData.map(({ id }) => stripe.checkout.sessions.expire(id)));
-        const { data: checkoutConfirmed, error: confirmationError } = await admin.rpc("confirm_billing_checkout", {
+        const { data: checkoutConfirmed, error: confirmationError } = await admin.rpc(addOnBank ? "confirm_addon_billing_checkout" : "confirm_billing_checkout", {
           p_user_id: user.id,
           p_intent_id: intentId,
+          ...(addOnBank ? { p_product_id: input.productId } : {}),
         });
         if (confirmationError) throw confirmationError;
         if (checkoutConfirmed !== true) {

@@ -287,7 +287,7 @@ export function CustomBundleCheckout({
   ctaLabel?: string;
 }) {
   const selectableBanks = mode === "single"
-    ? availableBanks.filter((bank) => Boolean(bankProductForSlug(bank.slug)) && getCatalogBank(bank.slug)?.bundleProductId !== "bundle_ib_economics")
+    ? availableBanks.filter((bank) => Boolean(bankProductForSlug(bank.slug)))
     : availableBanks;
   const [selectedBankIds, setSelectedBankIds] = useState<BankSlug[]>(() => {
     const initial = [...initialBankIds];

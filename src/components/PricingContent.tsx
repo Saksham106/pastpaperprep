@@ -10,7 +10,7 @@ import type { ProductId } from "@/lib/access";
 import { bankEntryHref, hasFreeTier } from "@/lib/access";
 import { type Bank, type BankSlug } from "@/lib/banks";
 import { getGraduatedBundlePrice } from "@/lib/custom-bundles";
-import { getCatalogBanksForDisplay, getCatalogRuntimeBanks } from "@/lib/catalog";
+import { getCatalogBank, getCatalogBanksForDisplay, getCatalogRuntimeBanks } from "@/lib/catalog";
 import { PRICING_MODEL } from "@/lib/pricing-model";
 import { trackProductEvent } from "@/lib/product-analytics";
 import { annualSavingPercent, formatPrice, maximumAnnualSavingPercent, priceForBankCount } from "@/lib/pricing-model";
@@ -61,7 +61,7 @@ function BankTable({ banks }: { banks: readonly Bank[] }) {
   return <div className="pricing-bank-table-wrap"><table className="pricing-bank-table" aria-label="Question bank coverage"><thead><tr><th scope="col">Question bank</th><th scope="col">Questions</th><th scope="col">Papers</th><th scope="col">Coverage</th><th scope="col"><span className="sr-only">Preview</span></th></tr></thead><tbody>{banks.map((bank) => { const tone = courseToneForBank(bank); const free = hasFreeTier(bank.slug); return <tr className={`course-tone-${tone}`} data-pricing-bank={bank.slug} data-has-free-tier={free ? "true" : undefined} key={bank.slug}><th scope="row"><div className="pricing-bank-name"><CourseIcon tone={tone} /><div><span>{bank.qualification}</span><strong>{bank.shortName}</strong></div></div></th><td data-label="Questions">{bank.questionCount.toLocaleString()}</td><td data-label="Papers">{bank.paperCount}</td><td data-label="Coverage">{bank.years}</td><td className="pricing-bank-preview">{free ? <Link href={bankEntryHref(bank.slug)} aria-label={`Preview ${bank.shortName}`}>Preview</Link> : <span className="pricing-bank-no-preview" aria-hidden="true">-</span>}</td></tr>; })}</tbody></table></div>;
 }
 
-export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], initialInterval = "monthly", initialProductId, initialBankIds, availableBanks = getCatalogRuntimeBanks() }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; initialInterval?: BillingInterval; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[] }) {
+export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], ownedBankIds = [], initialInterval = "monthly", initialProductId, initialBankIds, availableBanks = getCatalogRuntimeBanks() }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; ownedBankIds?: readonly BankSlug[]; initialInterval?: BillingInterval; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[] }) {
   const [interval, setInterval] = useState<BillingInterval>(initialInterval);
   const initialBankId = initialProductId ? bankSlugForProduct(initialProductId) : undefined;
   const initialCustomBankIds = initialBankIds ?? (initialBankId ? [initialBankId] : undefined);
@@ -75,6 +75,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
   };
   const totalQuestions = availableBanks.reduce((total, bank) => total + bank.questionCount, 0);
   const totalPapers = availableBanks.reduce((total, bank) => total + bank.paperCount, 0);
+  const addOnBanks = availableBanks.filter((bank) => !ownedBankIds.includes(bank.slug) && Boolean(getCatalogBank(bank.slug)?.productId));
 
   const renderPlan = (plan: (typeof PLANS)[number]) => {
     const PlanIcon = plan.icon;
@@ -161,9 +162,14 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           <button className="billing-toggle-annual" type="button" aria-pressed={interval === "annual"} onClick={() => chooseInterval("annual")}>Annual — save {maximumAnnualSavingPercent()}%<span className="billing-savings">2 months free</span></button>
         </div>
 
-        <div className="pricing-decision-grid" aria-label="PastPaperPrep plans">
+        {hasPaidAccess ? (
+          addOnBanks.length ? <section className="pricing-addon" aria-labelledby="pricing-addon-heading">
+            <div><p className="eyebrow">Expand your access</p><h2 id="pricing-addon-heading">Add another bank</h2><p>Choose a bank you don’t already have. This starts a separate subscription at {interval === "annual" ? "$48/year" : "$6/month"}; your existing plan, price and renewal stay unchanged. Banks added later don’t receive the bundle discount and may renew on different dates.</p></div>
+            <CustomBundleCheckout mode="single" interval={interval} authenticated={authenticated} hasPaidAccess={false} availableBanks={addOnBanks} />
+          </section> : <p className="pricing-all-included">All available banks are included in your access.</p>
+        ) : <div className="pricing-decision-grid" aria-label="PastPaperPrep plans">
           {PLANS.map(renderPlan)}
-        </div>
+        </div>}
 
         <div className="pricing-product-proof" aria-label="Current PastPaperPrep coverage">
           <span><strong>{totalQuestions.toLocaleString()}</strong> questions</span>
