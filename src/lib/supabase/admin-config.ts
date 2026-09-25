@@ -11,7 +11,12 @@ export function validateAdminConfig(config: AdminConfig): AdminConfig {
     throw new Error("SUPABASE_URL is invalid");
   }
 
-  if (url.protocol !== "https:" || !url.hostname.endsWith(".supabase.co")) {
+  const hosted = url.protocol === "https:" && url.hostname.endsWith(".supabase.co");
+  // The isolated billing lifecycle harness uses local Supabase. Never permit a
+  // non-HTTPS admin connection to any non-loopback host or production process.
+  const isolatedLocal = process.env.NODE_ENV !== "production" && process.env.LOCAL_SUPABASE_TEST_MODE === "true" &&
+    url.protocol === "http:" && url.hostname === "127.0.0.1" && url.port === "54321" && url.pathname === "/" && !url.username && !url.password;
+  if (!hosted && !isolatedLocal) {
     throw new Error("SUPABASE_URL must be a Supabase HTTPS URL");
   }
   if (!config.secretKey.startsWith("sb_secret_")) {

@@ -7,6 +7,7 @@ import { validateCustomBankIds } from "@/lib/custom-bundles";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { startCheckout } from "@/lib/stripe-checkout";
 import { getBillingPlan, getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
+import { readEditableCurrentPlan } from "@/lib/account-plan-target";
 import { createStripeClient } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
@@ -65,6 +66,7 @@ export async function POST(request: Request) {
     if (accessResult.error) throw accessResult.error;
     const entitlements = accessResult.rows as import("@/lib/access").AccessEntitlement[];
     const alreadyPaid = getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, entitlements));
+
     const paidBundle = alreadyPaid && (plan.productId === "bundle_custom" || plan.productId === "bundle_all");
     const alreadyAllAccess = entitlements.some((entitlement) => entitlement.productId === "bundle_all" && getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, [entitlement])));
     if (paidBundle && plan.productId === "bundle_all" && alreadyAllAccess) {
@@ -149,6 +151,8 @@ export async function POST(request: Request) {
       async createSession(input) {
         let startingAfter: string | undefined;
         let billingConflict = false;
+        let activeSubscriptionCount = 0;
+        let editorCandidate: Awaited<ReturnType<typeof stripe.subscriptions.list>>["data"][number] | null = null;
         do {
           const subscriptions = await stripe.subscriptions.list({
             customer: input.customerId,
@@ -159,6 +163,13 @@ export async function POST(request: Request) {
           billingConflict = false;
           for (const subscription of subscriptions.data) {
             if (subscription.status === "canceled" || subscription.status === "incomplete_expired") continue;
+            // Complimentary entitlements are not Stripe subscriptions. Preserve
+            // legacy independent bills; only a single standard editable plan
+            // belongs in the existing-subscription editor.
+            activeSubscriptionCount += 1;
+            editorCandidate = activeSubscriptionCount === 1 ? subscription : null;
+            if (subscription.metadata?.user_id && subscription.metadata.user_id !== user.id) { billingConflict = true; break; }
+            if (process.env.STRIPE_PLAN_EDITOR_ENABLED === "true" && (subscription.schedule != null || subscription.pending_update != null)) { billingConflict = true; break; }
             if (!addOnBank && !paidBundle) { billingConflict = true; break; }
             if (subscription.status !== "active" && subscription.status !== "trialing") { billingConflict = true; break; }
             const product = subscription.metadata?.product_id;
@@ -189,6 +200,10 @@ export async function POST(request: Request) {
           startingAfter = subscriptions.data.at(-1)?.id;
           if (!startingAfter) throw new Error("Stripe subscription pagination did not advance");
         } while (true);
+        if (!billingConflict && process.env.STRIPE_PLAN_EDITOR_ENABLED === "true" && activeSubscriptionCount === 1 && editorCandidate?.metadata?.user_id === user.id) {
+          try { readEditableCurrentPlan(editorCandidate, config); billingConflict = true; }
+          catch { /* A legacy/unsupported plan keeps its explicit separate-add-on path. */ }
+        }
         const openSessionData = [];
         let openSessionStartingAfter: string | undefined;
         do {
@@ -204,7 +219,9 @@ export async function POST(request: Request) {
           if (!openSessionStartingAfter) throw new Error("Stripe Checkout Session pagination did not advance");
         } while (true);
         if (billingConflict) {
-          throw new BillingStateConflictError("Existing Stripe billing state conflicts with this bank purchase");
+          throw new BillingStateConflictError(process.env.STRIPE_PLAN_EDITOR_ENABLED === "true"
+            ? "An existing Stripe subscription is connected to this account. Manage it at /account/subscription instead of starting a separate bill."
+            : "Existing Stripe billing state conflicts with this bank purchase");
         }
         const minimumUsableExpiry = Math.floor(Date.now() / 1000) + 60;
         const matchingOpenSession = openSessionData.find(({ expires_at, metadata }) => (

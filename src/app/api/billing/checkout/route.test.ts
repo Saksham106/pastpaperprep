@@ -26,8 +26,11 @@ function mockAdminRpc(
   adminRpc.mockImplementation(async (functionName: string, args?: Record<string, unknown>) => {
     if (functionName === "get_checkout_price_catalog") {
       const priceId = args?.p_price_id;
+      if (priceId === "price_single_monthly") return { data: [
+        { price_id: priceId, product_id: "bank_ib_sl", billing_interval: "monthly", grandfathered: false, active: true },
+        { price_id: priceId, product_id: "bank_ib_hl", billing_interval: "monthly", grandfathered: false, active: true },
+      ], error: null };
       const rows: Record<string, unknown> = {
-        price_single_monthly: { price_id: priceId, product_id: "bank_ib_sl", billing_interval: "monthly", grandfathered: false, active: true },
         price_custom_monthly: { price_id: priceId, product_id: "bundle_custom", billing_interval: "monthly", grandfathered: true, active: false },
       };
       return { data: rows[String(priceId)] ? [rows[String(priceId)]] : [], error: null };
@@ -156,6 +159,49 @@ describe("POST /api/billing/checkout", () => {
     expect(adminRpc).toHaveBeenCalledWith("confirm_addon_billing_checkout", expect.objectContaining({ p_user_id: user.id, p_product_id: "bank_ib_hl" }));
   });
 
+  it("routes paid members away from a new independent Checkout subscription when the editor is enabled", async () => {
+    vi.stubEnv("STRIPE_PLAN_EDITOR_ENABLED", "true");
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    userFrom.mockReturnValue(entitlementQuery([{ product_id: "bank_ib_sl", status: "active", starts_at: "2026-01-01T00:00:00.000Z", expires_at: "2099-01-01T00:00:00.000Z" }]));
+    mockAdminRpc("cus_existing");
+    subscriptionsList.mockResolvedValue({ data: [{ status: "active", schedule: null, pending_update: null, cancel_at_period_end: false, cancel_at: null,
+      metadata: { user_id: user.id, product_id: "bank_ib_sl", billing_interval: "monthly", price_id: "price_single_monthly" },
+      items: { data: [{ id: "si_existing", price: { id: "price_single_monthly", recurring: { interval: "month" } }, quantity: 1 }] } }], has_more: false });
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", { method: "POST", body: JSON.stringify({ interval: "monthly", productId: "bank_ib_hl" }) }));
+    expect(response.status).toBe(409);
+    expect((await response.json()).error).toMatch(/account\/subscription/i);
+    expect(sessionsCreate).not.toHaveBeenCalled();
+    expect(adminRpc).toHaveBeenCalledWith("reserve_billing_checkout", expect.anything());
+  });
+  it("preserves separately billed legacy add-ons when the single-plan editor is enabled", async () => {
+    vi.stubEnv("STRIPE_PLAN_EDITOR_ENABLED", "true");
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    userFrom.mockReturnValue(entitlementQuery([{ product_id: "bank_ib_sl", status: "active", starts_at: "2026-01-01T00:00:00.000Z", expires_at: "2099-01-01T00:00:00.000Z" }]));
+    mockAdminRpc("cus_existing");
+    const item = { price: { id: "price_single_monthly", recurring: { interval: "month" } }, quantity: 1 };
+    subscriptionsList.mockResolvedValue({ data: [
+      { status: "active", metadata: { product_id: "bank_ib_sl" }, items: { data: [item] } },
+      { status: "active", metadata: { product_id: "bank_ib_hl" }, items: { data: [item] } },
+    ], has_more: false });
+    sessionsCreate.mockResolvedValue({ url: "https://checkout.stripe.com/add-on" });
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", { method: "POST", body: JSON.stringify({ interval: "monthly", productId: "bank_igcse" }) }));
+    expect(response.status).toBe(200);
+    expect(sessionsCreate).toHaveBeenCalledOnce();
+  });
+  it("allows a complimentary-only account to buy a different bank without pretending its grant is a paid subscription", async () => {
+    vi.stubEnv("STRIPE_PLAN_EDITOR_ENABLED", "true");
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    userFrom.mockReturnValue(entitlementQuery([{ product_id: "bank_ib_sl", status: "active", starts_at: "2026-01-01T00:00:00.000Z", expires_at: "2099-01-01T00:00:00.000Z" }]));
+    mockAdminRpc("cus_existing");
+    subscriptionsList.mockResolvedValue({ data: [], has_more: false });
+    sessionsCreate.mockResolvedValue({ url: "https://checkout.stripe.com/new" });
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", { method: "POST", body: JSON.stringify({ interval: "monthly", productId: "bank_ib_hl" }) }));
+    expect(response.status).toBe(200);
+    expect(sessionsCreate).toHaveBeenCalledOnce();
+  });
   it("blocks an add-on when Stripe already has that bank even before webhook sync", async () => {
     const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
     getUser.mockResolvedValue({ data: { user } });

@@ -4,6 +4,7 @@ import { processReferralInvoicePaid, processReferralChargeRefunded, processRefer
 import { createStripeClient } from "@/lib/stripe";
 import { getStripeConfig } from "@/lib/stripe-config";
 import { buildSubscriptionSync, getSubscriptionEventReference } from "@/lib/stripe-subscriptions";
+import { verifyScheduledRenewalPayment } from "@/lib/account-schedule-invoice";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
@@ -28,12 +29,33 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
+  let invoicePaidReference: string | null = null;
+  let invoicePaidId: string | null = null;
   if (event.type === "invoice.paid") {
+    const invoice = event.data.object as Stripe.Invoice;
     try {
-      await processReferralInvoicePaid(stripe, createAdminClient(), event.data.object as Stripe.Invoice);
-      return NextResponse.json({ received: true });
+      await processReferralInvoicePaid(stripe, createAdminClient(), invoice);
     } catch {
       return NextResponse.json({ error: "Referral invoice processing failed" }, { status: 500 });
+    }
+    // Most paid invoices have nothing to do with the app's scheduled editor.
+    // Only its exact scheduled renewal can also reconcile bank entitlements.
+    const subscriptionId = invoice.parent?.type === "subscription_details" ? invoice.parent.subscription_details?.subscription : null;
+    if (invoice.status !== "paid" || invoice.billing_reason !== "subscription_cycle" || typeof subscriptionId !== "string") {
+      return NextResponse.json({ received: true });
+    }
+    try {
+      const current = await stripe.subscriptions.retrieve(subscriptionId, {}, { timeout: 60_000 });
+      const latestInvoiceId = typeof current.latest_invoice === "string" ? current.latest_invoice : current.latest_invoice?.id;
+      if (latestInvoiceId !== invoice.id) return NextResponse.json({ received: true });
+      const scheduleId = typeof current.schedule === "string" ? current.schedule : current.schedule?.id;
+      if (!scheduleId) return NextResponse.json({ received: true });
+      const schedule = await stripe.subscriptionSchedules.retrieve(scheduleId, {}, { timeout: 60_000 });
+      if (schedule.metadata?.owner !== "pastpaperprep") return NextResponse.json({ received: true });
+      invoicePaidReference = subscriptionId;
+      invoicePaidId = invoice.id;
+    } catch {
+      return NextResponse.json({ error: "Could not verify scheduled invoice" }, { status: 500 });
     }
   }
 
@@ -70,7 +92,7 @@ export async function POST(request: Request) {
 
   let reference;
   try {
-    reference = getSubscriptionEventReference(event);
+    reference = invoicePaidReference ? { subscriptionId: invoicePaidReference } : getSubscriptionEventReference(event);
   } catch {
     return NextResponse.json({ error: "Invalid subscription event" }, { status: 400 });
   }
@@ -100,6 +122,20 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: "Could not refresh subscription" }, { status: 500 });
       }
 
+      if (invoicePaidId) {
+        const latestInvoiceId = typeof currentSubscription.latest_invoice === "string" ? currentSubscription.latest_invoice : currentSubscription.latest_invoice?.id;
+        if (latestInvoiceId !== invoicePaidId) return NextResponse.json({ received: true });
+      }
+      let paidSecondPhaseScheduleId: string | null = null;
+      try {
+        const phase = await verifyScheduledRenewalPayment(stripe, currentSubscription as Stripe.Subscription);
+        if (phase === "paid-phase-two") paidSecondPhaseScheduleId = typeof currentSubscription.schedule === "string" ? currentSubscription.schedule : currentSubscription.schedule?.id ?? null;
+      } catch {
+        // A scheduled phase can change bank metadata before its invoice is paid.
+        // Never invalidate or grant from an unverified renewal; retry after payment.
+        return NextResponse.json({ error: "Scheduled renewal payment is pending or unverifiable" }, { status: 503 });
+      }
+
       let sync;
       try {
         const subscription = currentSubscription as Stripe.Subscription;
@@ -121,7 +157,7 @@ export async function POST(request: Request) {
           throw new Error("Stripe price does not match the catalog");
         }
         sync = buildSubscriptionSync(
-          { ...event, data: { object: currentSubscription } },
+          { ...event, type: invoicePaidReference ? "customer.subscription.updated" : event.type, data: { object: currentSubscription } },
           (productId, catalogPriceId, catalogInterval) => productId === metadataProductId && catalogPriceId === priceId && catalogInterval === interval,
         );
       } catch {
@@ -137,7 +173,7 @@ export async function POST(request: Request) {
       }
       if (!sync) return NextResponse.json({ received: true });
 
-      const { error } = await admin.rpc("apply_stripe_subscription_event", {
+      const { data: syncResult, error } = await admin.rpc("apply_stripe_subscription_event", {
         p_event_id: sync.eventId,
         p_event_created: sync.eventCreated,
         p_subscription_id: sync.subscriptionId,
@@ -153,9 +189,32 @@ export async function POST(request: Request) {
         p_lease_token: leaseToken,
         ...(sync.selectedBankIds ? { p_selected_bank_ids: sync.selectedBankIds } : {}),
       });
-      return error
-        ? NextResponse.json({ error: "Webhook processing failed" }, { status: 500 })
-        : NextResponse.json({ received: true });
+      if (error) return NextResponse.json({ error: "Webhook processing failed" }, { status: 500 });
+      if (paidSecondPhaseScheduleId) {
+        if (syncResult !== "applied" && syncResult !== "duplicate") return NextResponse.json({ error: "Scheduled renewal sync is unresolved" }, { status: 503 });
+        const before = currentSubscription as Stripe.Subscription;
+        const beforeItem = before.items.data[0];
+        try {
+          await stripe.subscriptionSchedules.release(paidSecondPhaseScheduleId, {}, {
+            idempotencyKey: `pastpaperprep-paid-schedule-release-${paidSecondPhaseScheduleId}`, timeout: 30_000,
+          });
+          const [released, after] = await Promise.all([
+            stripe.subscriptionSchedules.retrieve(paidSecondPhaseScheduleId, {}, { timeout: 30_000 }),
+            stripe.subscriptions.retrieve(before.id, {}, { timeout: 30_000 }),
+          ]);
+          const afterItem = after.items.data.length === 1 ? after.items.data[0] : null;
+          const beforePrice = typeof beforeItem.price === "string" ? beforeItem.price : beforeItem.price.id;
+          const afterPrice = afterItem ? typeof afterItem.price === "string" ? afterItem.price : afterItem.price.id : null;
+          if (released.id !== paidSecondPhaseScheduleId || released.status !== "released" || released.subscription !== null || released.current_phase !== null ||
+            after.id !== before.id || after.schedule !== null || after.status !== "active" || after.customer !== before.customer ||
+            !afterItem || afterItem.id !== beforeItem.id || afterPrice !== beforePrice || afterItem.quantity !== beforeItem.quantity ||
+            afterItem.current_period_start !== beforeItem.current_period_start || afterItem.current_period_end !== beforeItem.current_period_end ||
+            JSON.stringify(Object.entries(after.metadata).sort()) !== JSON.stringify(Object.entries(before.metadata).sort())) throw new Error("Paid schedule release readback mismatch");
+        } catch {
+          return NextResponse.json({ error: "Paid schedule release is pending verification" }, { status: 503 });
+        }
+      }
+      return NextResponse.json({ received: true });
     } catch {
       return NextResponse.json({ error: "Webhook processing failed" }, { status: 500 });
     }

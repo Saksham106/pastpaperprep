@@ -3,6 +3,10 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 vi.mock("server-only", () => ({}));
 const constructEvent = vi.fn();
 const retrieveSubscription = vi.fn();
+const retrieveSchedule = vi.fn();
+const releaseSchedule = vi.fn();
+const retrieveInvoice = vi.fn();
+const listInvoicePayments = vi.fn();
 const rpc = vi.fn();
 const { processReferralInvoicePaid, processReferralChargeRefunded, processReferralDisputeChanged } = vi.hoisted(() => ({ processReferralInvoicePaid: vi.fn(), processReferralChargeRefunded: vi.fn(), processReferralDisputeChanged: vi.fn() }));
 vi.mock("@/lib/referral-events", () => ({ processReferralInvoicePaid, processReferralChargeRefunded, processReferralDisputeChanged }));
@@ -11,6 +15,9 @@ vi.mock("@/lib/stripe", () => ({
   createStripeClient: vi.fn(() => ({
     webhooks: { constructEvent },
     subscriptions: { retrieve: retrieveSubscription },
+    subscriptionSchedules: { retrieve: retrieveSchedule, release: releaseSchedule },
+    invoices: { retrieve: retrieveInvoice },
+    invoicePayments: { list: listInvoicePayments },
   })),
 }));
 vi.mock("@/lib/stripe-config", async (importOriginal) => {
@@ -57,6 +64,28 @@ const subscriptionEvent = {
   },
 };
 
+function scheduledRenewal(status: "draft" | "paid" = "draft") {
+  const sub = { ...structuredClone(subscriptionEvent.data.object), schedule: "sub_sched_1", latest_invoice: "in_renew" };
+  const schedule = {
+    id: "sub_sched_1", status: "active", subscription: "sub_1", customer: "cus_1",
+    metadata: { owner: "pastpaperprep", user_id: userId, subscription_id: "sub_1", ownership_id: "account_qa_1" },
+    current_phase: { start_date: 1_799_000_000, end_date: 1_801_000_000 },
+    phases: [
+      { start_date: 1_797_000_000, end_date: 1_799_000_000, metadata: { user_id: userId, product_id: "bundle_all" }, items: [{ price: "price_annual", quantity: 1 }] },
+      { start_date: 1_799_000_000, end_date: 1_801_000_000, metadata: { user_id: userId, product_id: "bundle_all" }, items: [{ price: "price_monthly", quantity: 1 }] },
+    ],
+  };
+  const invoice = { id: "in_renew", status, customer: "cus_1", billing_reason: "subscription_cycle", collection_method: "charge_automatically", amount_due: 2500, amount_paid: status === "paid" ? 2500 : 0,
+    parent: { type: "subscription_details", subscription_details: { subscription: "sub_1" } },
+    lines: { has_more: false, data: [{ period: { start: 1_799_000_000, end: 1_801_000_000 }, parent: { type: "subscription_item_details", subscription_item_details: { subscription: "sub_1", proration: false } } }] },
+  };
+  retrieveSubscription.mockImplementation(async () => releaseSchedule.mock.calls.length ? { ...sub, schedule: null } : sub);
+  retrieveSchedule.mockImplementation(async () => releaseSchedule.mock.calls.length ? { ...schedule, status: "released", subscription: null, current_phase: null } : schedule);
+  releaseSchedule.mockResolvedValue({ ...schedule, status: "released", subscription: null, current_phase: null });
+  retrieveInvoice.mockResolvedValue(invoice);
+  listInvoicePayments.mockResolvedValue({ has_more: false, data: status === "paid" ? [{ invoice: "in_renew", status: "paid", amount_paid: 2500, payment: { type: "payment_intent", payment_intent: "pi_paid" } }] : [] });
+  return { sub, schedule, invoice };
+}
 function request(signature = "valid") {
   return new Request("https://pastpaperprep.com/api/stripe/webhook", {
     method: "POST",
@@ -68,6 +97,9 @@ function request(signature = "valid") {
 describe("POST /api/stripe/webhook", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    processReferralInvoicePaid.mockReset().mockResolvedValue(undefined);
+    processReferralChargeRefunded.mockReset().mockResolvedValue(undefined);
+    processReferralDisputeChanged.mockReset().mockResolvedValue(undefined);
     retrieveSubscription.mockResolvedValue(subscriptionEvent.data.object);
     rpc.mockImplementation(async (name: string, args?: { p_price_id?: string }) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : name === "get_checkout_price_catalog" ? [{ price_id: args?.p_price_id, product_id: args?.p_price_id?.includes("custom") ? "bundle_custom" : "bundle_all", billing_interval: args?.p_price_id?.includes("annual") ? "annual" : "monthly", active: true, grandfathered: false }] : "applied", error: null }));
   });
@@ -265,6 +297,74 @@ describe("POST /api/stripe/webhook", () => {
     retrieveSubscription.mockRejectedValue(new Error("temporary Stripe error"));
     const response = await POST(request());
     expect(response.status).toBe(500);
+    expect(rpc).not.toHaveBeenCalledWith("apply_stripe_subscription_event", expect.anything());
+  });
+
+  it("rejects a paid-looking scheduled renewal without a collected Stripe payment", async () => {
+    scheduledRenewal("paid");
+    listInvoicePayments.mockResolvedValue({ data: [], has_more: false });
+    constructEvent.mockReturnValue(subscriptionEvent);
+    expect((await POST(request())).status).toBe(503);
+    expect(rpc).not.toHaveBeenCalledWith("apply_stripe_subscription_event", expect.anything());
+  });
+
+  it("rejects a schedule whose app ownership does not match the subscription", async () => {
+    const { schedule } = scheduledRenewal("paid");
+    retrieveSchedule.mockResolvedValue({ ...schedule, metadata: { ...schedule.metadata, user_id: "wrong-user" } });
+    constructEvent.mockReturnValue(subscriptionEvent);
+    expect((await POST(request())).status).toBe(503);
+    expect(rpc).not.toHaveBeenCalledWith("apply_stripe_subscription_event", expect.anything());
+  });
+
+  it("rejects a paid invoice for the wrong subscription period", async () => {
+    const { invoice } = scheduledRenewal("paid");
+    retrieveInvoice.mockResolvedValue({ ...invoice, lines: { has_more: false, data: [{ ...invoice.lines.data[0], period: { start: 1_797_000_000, end: 1_799_000_000 } }] } });
+    constructEvent.mockReturnValue(subscriptionEvent);
+    expect((await POST(request())).status).toBe(503);
+    expect(rpc).not.toHaveBeenCalledWith("apply_stripe_subscription_event", expect.anything());
+  });
+
+  it("ignores an older paid invoice rather than using a later paid renewal as proof", async () => {
+    const { invoice } = scheduledRenewal("paid");
+    constructEvent.mockReturnValue({ id: "evt_old_paid", created: 1_798_000_000, type: "invoice.paid", data: { object: { ...invoice, id: "in_old" } } });
+    expect((await POST(request())).status).toBe(200);
+    expect(rpc).not.toHaveBeenCalledWith("apply_stripe_subscription_event", expect.anything());
+  });
+
+  it("reconciles the app-owned renewal from its exact paid invoice event", async () => {
+    const { invoice } = scheduledRenewal("paid");
+    constructEvent.mockReturnValue({ id: "evt_renew_paid", created: 1_800_000_001, type: "invoice.paid", data: { object: invoice } });
+    const response = await POST(request());
+    expect(response.status, JSON.stringify(await response.clone().json())).toBe(200);
+    expect(processReferralInvoicePaid).toHaveBeenCalledTimes(1);
+    expect(rpc).toHaveBeenCalledWith("apply_stripe_subscription_event", expect.objectContaining({ p_event_id: "evt_renew_paid", p_subscription_id: "sub_1", p_product_id: "bundle_all" }));
+  });
+
+  it("detaches a paid second phase after syncing access so customers can cancel or edit again", async () => {
+    const { sub, schedule, invoice } = scheduledRenewal("paid");
+    constructEvent.mockReturnValue({ id: "evt_renew_paid", created: 1_800_000_001, type: "invoice.paid", data: { object: invoice } });
+    releaseSchedule.mockResolvedValue({ ...schedule, status: "released", subscription: null, current_phase: null });
+    retrieveSchedule.mockImplementation(async () => releaseSchedule.mock.calls.length ? { ...schedule, status: "released", subscription: null, current_phase: null } : schedule);
+    retrieveSubscription.mockImplementation(async () => releaseSchedule.mock.calls.length ? { ...sub, schedule: null } : sub);
+    expect((await POST(request())).status).toBe(200);
+    expect(rpc).toHaveBeenCalledWith("apply_stripe_subscription_event", expect.objectContaining({ p_event_id: "evt_renew_paid" }));
+    expect(releaseSchedule).toHaveBeenCalledWith("sub_sched_1", {}, expect.objectContaining({ idempotencyKey: expect.any(String) }));
+  });
+
+  it("retries schedule release if Stripe leaves the paid second phase attached", async () => {
+    const { invoice } = scheduledRenewal("paid");
+    constructEvent.mockReturnValue({ id: "evt_renew_paid", created: 1_800_000_001, type: "invoice.paid", data: { object: invoice } });
+    releaseSchedule.mockRejectedValue(new Error("temporary Stripe error"));
+    expect((await POST(request())).status).toBe(503);
+    expect(rpc).toHaveBeenCalledWith("apply_stripe_subscription_event", expect.anything());
+  });
+
+  it("does not grant a scheduled target while its renewal invoice is draft", async () => {
+    scheduledRenewal("draft");
+    constructEvent.mockReturnValue(subscriptionEvent);
+    const response = await POST(request());
+    expect(response.status).toBe(503);
+    expect(retrieveSchedule).toHaveBeenCalledWith("sub_sched_1", {}, { timeout: 60_000 });
     expect(rpc).not.toHaveBeenCalledWith("apply_stripe_subscription_event", expect.anything());
   });
 });

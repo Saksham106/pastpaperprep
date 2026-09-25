@@ -29,7 +29,7 @@ export default async function AccountPage({
   ]);
   if (accessResult.error) throw accessResult.error;
   const entitlements = accessResult.rows as AccessEntitlement[];
-  const hasPaidAccess = getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, entitlements));
+  const hasAnyBankAccess = getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, entitlements));
 
   return (
     <section className="account-page shell">
@@ -50,7 +50,7 @@ export default async function AccountPage({
           <span>If you just completed checkout, your access should appear shortly. Refresh this page in a few seconds if it is not visible yet.</span>
         </div>
       )}
-      <article className="account-card"><AccountPlanOverview hasPaidAccess={hasPaidAccess} /></article>
+      <article className="account-card"><AccountPlanOverview hasBankAccess={hasAnyBankAccess} /></article>
       <div className="account-security-row">
         <div><strong>Security</strong><span>Add or change your password.</span></div>
         <Link className="button secondary" href="/account/password">Password settings</Link>
