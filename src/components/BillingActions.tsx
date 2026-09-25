@@ -151,6 +151,7 @@ export function CheckoutButton({
   interval,
   productId,
   selectedBankIds,
+  acknowledgeSeparateSubscription = false,
   navigate = defaultNavigate,
   pending: sharedPending,
   onPendingChange,
@@ -159,6 +160,7 @@ export function CheckoutButton({
   interval: BillingInterval;
   productId: ProductId;
   selectedBankIds?: readonly BankSlug[];
+  acknowledgeSeparateSubscription?: boolean;
   navigate?: Navigate;
   pending?: boolean;
   onPendingChange?: (pending: boolean) => void;
@@ -188,7 +190,7 @@ export function CheckoutButton({
       const response = await fetch("/api/billing/checkout", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ interval, productId, ...(selectedBankIds ? { selectedBankIds } : {}) }),
+        body: JSON.stringify({ interval, productId, ...(selectedBankIds ? { selectedBankIds } : {}), ...(acknowledgeSeparateSubscription ? { acknowledgeSeparateSubscription: true } : {}) }),
       });
       const payload = await responsePayload(response);
       if (response.status === 401) {
@@ -241,6 +243,8 @@ export function PlanCheckout({
   interval,
   authenticated,
   hasPaidAccess,
+  allowPaidPurchase = false,
+  previewOnly = false,
   initialProductId,
   ctaLabel = "Continue to checkout",
 }: {
@@ -248,20 +252,26 @@ export function PlanCheckout({
   interval: BillingInterval;
   authenticated: boolean;
   hasPaidAccess: boolean;
+  allowPaidPurchase?: boolean;
+  previewOnly?: boolean;
   initialProductId?: ProductId;
   ctaLabel?: string;
 }) {
   const availableInitial = initialProductId && options.some((option) => option.productId === initialProductId) ? initialProductId : options[0].productId;
   const [productId, setProductId] = useState<ProductId>(availableInitial);
-  if (hasPaidAccess) return null;
+  const [acknowledged, setAcknowledged] = useState(false);
+  if (hasPaidAccess && !allowPaidPurchase) return null;
   const pricingReturn = `/pricing?interval=${interval}&product=${productId}`;
   return (
     <div className="plan-checkout">
       {options.length > 1 ? (
         <PlanSelector options={options} value={productId} onChange={setProductId} />
       ) : null}
-      {authenticated
-        ? <CheckoutButton interval={interval} productId={productId} />
+      {previewOnly ? <div className="billing-actions"><button className="button primary" type="button" disabled>{ctaLabel}</button><p className="custom-bundle-selection-note">Preview only — checkout is disabled.</p></div> : authenticated
+        ? <>
+          {hasPaidAccess ? <><p className="custom-bundle-selection-note">This starts a separate All Access subscription. Your existing subscription keeps renewing unless you cancel it in Manage billing.</p><label className="custom-bundle-selection-note"><input type="checkbox" checked={acknowledged} onChange={(event) => setAcknowledged(event.target.checked)} /> I understand my existing subscriptions keep renewing alongside this new All Access subscription.</label></> : null}
+          {hasPaidAccess && !acknowledged ? null : <CheckoutButton interval={interval} productId={productId} label={hasPaidAccess ? ctaLabel : undefined} acknowledgeSeparateSubscription={hasPaidAccess && acknowledged} />}
+        </>
         : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`} onClick={() => trackProductEvent("checkout_auth_required", { interval, productId })}>{ctaLabel}</Link>}
     </div>
   );
@@ -272,6 +282,8 @@ export function CustomBundleCheckout({
   interval,
   authenticated,
   hasPaidAccess,
+  previewOnly = false,
+  allowPaidPurchase = false,
   initialBankIds = [],
   availableBanks = BANKS,
   onSelectionChange,
@@ -281,14 +293,15 @@ export function CustomBundleCheckout({
   interval: BillingInterval;
   authenticated: boolean;
   hasPaidAccess: boolean;
+  previewOnly?: boolean;
+  allowPaidPurchase?: boolean;
   initialBankIds?: readonly BankSlug[];
   availableBanks?: readonly Bank[];
   onSelectionChange?: (selectedBankIds: readonly BankSlug[]) => void;
   ctaLabel?: string;
 }) {
-  const selectableBanks = mode === "single"
-    ? availableBanks.filter((bank) => Boolean(bankProductForSlug(bank.slug)))
-    : availableBanks;
+  const selectableBanks = availableBanks.filter((bank) => mode !== "single" || Boolean(bankProductForSlug(bank.slug)));
+  const [acknowledged, setAcknowledged] = useState(false);
   const [selectedBankIds, setSelectedBankIds] = useState<BankSlug[]>(() => {
     const initial = [...initialBankIds];
     const initialSingleBank = initial[0];
@@ -299,9 +312,9 @@ export function CustomBundleCheckout({
   useEffect(() => {
     onSelectionChange?.(selectedBankIds);
   }, [onSelectionChange, selectedBankIds]);
-  if (hasPaidAccess) return null;
+  if (hasPaidAccess && !allowPaidPurchase) return null;
   const quantity = selectedBankIds.length;
-  const allAccess = quantity >= 6;
+  const allAccess = !hasPaidAccess && quantity >= 6;
 
   const bankSelection = [...selectedBankIds].sort();
   const pricingReturn = `/pricing?interval=${interval}&banks=${encodeURIComponent(bankSelection.join(","))}`;
@@ -320,7 +333,7 @@ export function CustomBundleCheckout({
     setSelectedBankIds((current) => {
       const next = mode === "single"
         ? [bankId]
-        : current.includes(bankId) ? current.filter((id) => id !== bankId) : [...current, bankId];
+        : current.includes(bankId) ? current.filter((id) => id !== bankId) : current.length >= 5 && hasPaidAccess ? current : [...current, bankId];
       trackProductEvent("bank_selection_change", { mode, bankCount: next.length, bank: mode === "single" ? bankId : undefined });
       return next;
     });
@@ -357,6 +370,7 @@ export function CustomBundleCheckout({
                         type={mode === "single" ? "radio" : "checkbox"}
                         name={mode === "single" ? "one-bank" : `custom-bank-${bank.slug}`}
                         checked={selectedBankIds.includes(bank.slug)}
+                        disabled={mode === "builder" && hasPaidAccess && selectedBankIds.length >= 5 && !selectedBankIds.includes(bank.slug)}
                         onChange={() => toggleBank(bank.slug)}
                       />
                       <span>{bank.shortName}</span>
@@ -370,11 +384,15 @@ export function CustomBundleCheckout({
       </details>
       {selectionNote ? <p className="custom-bundle-selection-note">{selectionNote}</p> : null}
       {canCheckout ? <>
-        {authenticated
+        {previewOnly ? <div className="billing-actions"><button className="button primary" type="button" disabled>{resolvedCtaLabel}</button><p className="custom-bundle-selection-note">Preview only — checkout is disabled.</p></div> : <>
+        {hasPaidAccess ? <p className="custom-bundle-selection-note">New separate subscription. Existing subscriptions and renewal dates stay unchanged; no credit for banks you already own.</p> : null}
+        {hasPaidAccess && mode === "builder" ? <label className="custom-bundle-selection-note"><input type="checkbox" checked={acknowledged} onChange={(event) => setAcknowledged(event.target.checked)} /> I understand my existing subscriptions keep renewing alongside this new bank bundle.</label> : null}
+        {hasPaidAccess && mode === "builder" && !acknowledged ? null : authenticated
           ? mode === "single"
             ? singleProductId ? <CheckoutButton interval={interval} productId={singleProductId} label={resolvedCtaLabel} /> : null
-            : <CheckoutButton interval={interval} productId="bundle_custom" selectedBankIds={bankSelection} label={resolvedCtaLabel} />
+            : <CheckoutButton interval={interval} productId="bundle_custom" selectedBankIds={bankSelection} label={resolvedCtaLabel} acknowledgeSeparateSubscription={hasPaidAccess && acknowledged} />
           : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`} onClick={() => trackProductEvent("checkout_auth_required", { interval, productId: mode === "single" ? singleProductId ?? "single_bank" : "bundle_custom", bankCount: bankSelection.length })}>{resolvedCtaLabel}</Link>}
+        </>}
       </> : null}
     </div>
   );

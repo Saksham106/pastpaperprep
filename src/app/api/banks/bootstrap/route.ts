@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { canExportPdf, hasBankAccess, type AccessEntitlement } from "@/lib/access";
 import { getBank, type BankSlug } from "@/lib/banks";
-import { normalizeEntitlements } from "@/lib/entitlements";
+import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { hasSupabaseAuthCookie } from "@/lib/supabase/proxy";
 import { createClient } from "@/lib/supabase/server";
 
@@ -46,19 +46,19 @@ export async function GET(request: NextRequest) {
   if (!userId) return NextResponse.json(payload(bank), PRIVATE_RESPONSE_INIT);
 
   const [
-    { data: entitlementRows, error: entitlementError },
+    entitlementResult,
     { data: savedRows, error: savedError },
     { data: attemptRows, error: attemptError },
   ] = await Promise.all([
-    supabase.from("entitlements").select("product_id, selected_bank_ids, status, starts_at, expires_at").eq("user_id", userId),
+    fetchAccessEntitlements(supabase as never, userId),
     supabase.from("saved_questions").select("question_id").eq("user_id", userId).eq("bank_slug", bank),
     supabase.from("attempts").select("question_id").eq("user_id", userId).eq("bank_slug", bank),
   ]);
-  if (entitlementError) {
+  if (entitlementResult.error) {
     return NextResponse.json({ error: "Could not verify access" }, { status: 503, ...PRIVATE_RESPONSE_INIT });
   }
 
-  const entitlements = normalizeEntitlements(entitlementRows ?? []);
+  const entitlements = entitlementResult.rows as AccessEntitlement[];
   return NextResponse.json(payload(
     bank,
     true,

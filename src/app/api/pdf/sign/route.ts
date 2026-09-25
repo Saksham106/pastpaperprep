@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { canExportPdf, isPreviewQuestion } from "@/lib/access";
 import { authorizeAssetRequests, type AssetRequest, type AuthorizedAssetRequest } from "@/lib/asset-access";
 import { getBank, type BankSlug } from "@/lib/banks";
-import { normalizeEntitlements } from "@/lib/entitlements";
+import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
 import { premiumAssetSignOptions, previewAssetSignOptions, signPrivateAssetUrls } from "@/lib/private-assets";
 import { loadBankQuestions } from "@/lib/question-loader";
@@ -64,12 +64,9 @@ export async function POST(request: Request) {
   const userId = typeof claimsData?.claims?.sub === "string" ? claimsData.claims.sub : null;
   if (!userId) return NextResponse.json({ error: "Sign in required" }, { status: 401 });
 
-  const { data, error } = await supabase
-    .from("entitlements")
-    .select("product_id, selected_bank_ids, status, starts_at, expires_at")
-    .eq("user_id", userId);
-  if (error) return NextResponse.json({ error: "Could not verify access" }, { status: 503 });
-  const entitlements = normalizeEntitlements(data ?? []);
+  const accessResult = await fetchAccessEntitlements(supabase as never, userId);
+  if (accessResult.error) return NextResponse.json({ error: "Could not verify access" }, { status: 503 });
+  const entitlements = accessResult.rows as import("@/lib/access").AccessEntitlement[];
   if (!canExportPdf(bank, entitlements)) {
     return NextResponse.json({ error: "Paid access to this question bank is required for PDF export" }, { status: 403 });
   }

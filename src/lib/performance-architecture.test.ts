@@ -20,6 +20,7 @@ describe("serverless performance boundaries", () => {
       "/account/:path*",
       "/dashboard/:path*",
       "/pricing",
+      "/pricing/preview",
       "/login",
       "/auth/:path*",
       "/api/:path*",

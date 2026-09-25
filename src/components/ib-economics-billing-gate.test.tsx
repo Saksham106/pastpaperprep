@@ -14,8 +14,8 @@ describe("IB Economics pricing discovery gate", () => {
     render(<PricingContent authenticated={false} hasPaidAccess={false} availableBanks={getBillingBanks(enabled)} />);
     const oneBank = screen.getByRole("heading", { name: "One Bank" }).closest("article") as HTMLElement;
     const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article") as HTMLElement;
-    expect(within(oneBank).queryByRole("radio", { name: "IB Economics HL" })).not.toBeInTheDocument();
-    expect(within(oneBank).queryByRole("radio", { name: "IB Economics SL" })).not.toBeInTheDocument();
+    expect(within(oneBank).getByRole("radio", { name: "IB Economics HL" })).toBeInTheDocument();
+    expect(within(oneBank).getByRole("radio", { name: "IB Economics SL" })).toBeInTheDocument();
     expect(within(builder).getByRole("checkbox", { name: "IB Economics HL" })).toBeInTheDocument();
     expect(within(builder).getByRole("checkbox", { name: "IB Economics SL" })).toBeInTheDocument();
     fireEvent.click(screen.getByRole("tab", { name: "IB Diploma" }));

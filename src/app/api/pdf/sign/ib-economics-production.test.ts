@@ -35,7 +35,7 @@ describe("IB Economics production PDF entitlement and quota gates", () => {
       eq: vi.fn().mockResolvedValue({ data: [{ product_id: "bank_ib_economics_hl", status: "active", starts_at: "2026-01-01T00:00:00Z", expires_at: null }], error: null }),
     };
     from.mockReturnValue(entitlementQuery);
-    rpc.mockResolvedValue({ data: true, error: null });
+    rpc.mockImplementation(async (name: string) => ({ data: name === "get_custom_bundle_access" ? [] : true, error: null }));
     createClient.mockResolvedValue({ auth: { getClaims }, from, rpc });
     createSignedUrls.mockImplementation(async (paths: string[]) => ({ data: paths.map((path) => ({ path, signedUrl: `https://assets.example/${path}` })), error: null }));
   });
@@ -49,7 +49,7 @@ describe("IB Economics production PDF entitlement and quota gates", () => {
     const response = await POST(request({ bank: "ib-economics-hl", questionIds: ["2021-may-none-hl-p2-q01"], content: "questions" }));
     expect(response.status).toBe(403);
     expect(createSignedUrls).not.toHaveBeenCalled();
-    expect(rpc).not.toHaveBeenCalled();
+    expect(rpc).toHaveBeenCalledExactlyOnceWith("get_custom_bundle_access", { p_user_id: "user-id" });
   });
 
   it("signs an entitled Economics export and consumes exact quota counts", async () => {
@@ -70,7 +70,7 @@ describe("IB Economics production PDF entitlement and quota gates", () => {
   });
 
   it("fails closed on exhausted Economics PDF quota without returning assets", async () => {
-    rpc.mockResolvedValueOnce({ data: false, error: null });
+    rpc.mockImplementationOnce(async () => ({ data: [], error: null })).mockResolvedValueOnce({ data: false, error: null });
     const response = await POST(request({ bank: "ib-economics-hl", questionIds: ["2025-may-none-hl-p3-q01"], content: "questions" }));
     expect(response.status).toBe(429);
     expect(await response.json()).toEqual({ error: "Daily worksheet limit reached. Try again tomorrow." });

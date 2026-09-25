@@ -61,11 +61,11 @@ function BankTable({ banks }: { banks: readonly Bank[] }) {
   return <div className="pricing-bank-table-wrap"><table className="pricing-bank-table" aria-label="Question bank coverage"><thead><tr><th scope="col">Question bank</th><th scope="col">Questions</th><th scope="col">Papers</th><th scope="col">Coverage</th><th scope="col"><span className="sr-only">Preview</span></th></tr></thead><tbody>{banks.map((bank) => { const tone = courseToneForBank(bank); const free = hasFreeTier(bank.slug); return <tr className={`course-tone-${tone}`} data-pricing-bank={bank.slug} data-has-free-tier={free ? "true" : undefined} key={bank.slug}><th scope="row"><div className="pricing-bank-name"><CourseIcon tone={tone} /><div><span>{bank.qualification}</span><strong>{bank.shortName}</strong></div></div></th><td data-label="Questions">{bank.questionCount.toLocaleString()}</td><td data-label="Papers">{bank.paperCount}</td><td data-label="Coverage">{bank.years}</td><td className="pricing-bank-preview">{free ? <Link href={bankEntryHref(bank.slug)} aria-label={`Preview ${bank.shortName}`}>Preview</Link> : <span className="pricing-bank-no-preview" aria-hidden="true">-</span>}</td></tr>; })}</tbody></table></div>;
 }
 
-export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], ownedBankIds = [], initialInterval = "monthly", initialProductId, initialBankIds, availableBanks = getCatalogRuntimeBanks() }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; ownedBankIds?: readonly BankSlug[]; initialInterval?: BillingInterval; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[] }) {
+export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], currentPlanProductIds = [], complimentaryAccess = false, previewOnly = false, ownedBankIds = [], initialInterval = "monthly", initialProductId, initialBankIds, availableBanks = getCatalogRuntimeBanks() }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; currentPlanProductIds?: readonly ProductId[]; complimentaryAccess?: boolean; previewOnly?: boolean; ownedBankIds?: readonly BankSlug[]; initialInterval?: BillingInterval; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[] }) {
   const [interval, setInterval] = useState<BillingInterval>(initialInterval);
   const initialBankId = initialProductId ? bankSlugForProduct(initialProductId) : undefined;
   const initialCustomBankIds = initialBankIds ?? (initialBankId ? [initialBankId] : undefined);
-  const [builderBankIds, setBuilderBankIds] = useState<BankSlug[]>(() => [...(initialCustomBankIds ?? [])]);
+  const [builderBankIds, setBuilderBankIds] = useState<BankSlug[]>(() => hasPaidAccess ? [] : [...(initialCustomBankIds ?? [])]);
   const handleBuilderSelectionChange = useCallback((selectedBankIds: readonly BankSlug[]) => {
     setBuilderBankIds([...selectedBankIds]);
   }, []);
@@ -76,6 +76,11 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
   const totalQuestions = availableBanks.reduce((total, bank) => total + bank.questionCount, 0);
   const totalPapers = availableBanks.reduce((total, bank) => total + bank.paperCount, 0);
   const addOnBanks = availableBanks.filter((bank) => !ownedBankIds.includes(bank.slug) && Boolean(getCatalogBank(bank.slug)?.productId));
+  const individualBankSubscriptions = currentPlanProductIds.filter((id) => id.startsWith("bank_")).length;
+  const ownsAllAccess = currentPlanProductIds.includes("bundle_all");
+  const currentPlanMode = ownsAllAccess ? "all"
+    : currentPlanProductIds.some((id) => id === "bundle_custom" || (id.startsWith("bundle_") && id !== "bundle_all")) ? "builder"
+      : currentPlanProductIds.some((id) => id.startsWith("bank_")) ? "single" : null;
 
   const renderPlan = (plan: (typeof PLANS)[number]) => {
     const PlanIcon = plan.icon;
@@ -88,6 +93,9 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         : formatCents(builderHeadlineCents)
       : interval === "annual" ? plan.annualMonthly : plan.monthly;
     const builderAnnualTotalCents = isBuilder ? getBuilderAnnualTotalCents(builderQuantity) : null;
+    const newSubscriptionNote = isBuilder && hasPaidAccess && builderQuantity >= 2 && builderQuantity <= 5
+      ? interval === "annual" ? `New plan: billed ${formatCents(builderAnnualTotalCents)} once a year.` : `New plan: billed ${headlinePrice} monthly.`
+      : null;
     const checkoutCta = isBuilder
       ? `Continue with ${builderQuantity} ${builderQuantity === 1 ? "bank" : "banks"}`
       : plan.cta;
@@ -99,26 +107,32 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           : `Billed ${plan.annual} once a year. Save ${plan.annualSaving}`
         : "Billed monthly";
 
+    const current = hasPaidAccess && currentPlanMode === plan.mode;
+    const currentAllAccess = ownsAllAccess || !addOnBanks.length;
+    const canAdd = hasPaidAccess && !currentAllAccess;
+    const cardBanks = canAdd ? addOnBanks : availableBanks;
     return (
-      <article className={`pricing-option${plan.popular ? " pricing-option-popular" : ""}`} data-plan-tone={plan.tone} data-mobile-order={plan.popular ? "first" : undefined} key={plan.name}>
+      <article className={`pricing-option${plan.popular ? " pricing-option-popular" : ""}${current ? " pricing-option-current" : ""}`} data-plan-tone={plan.tone} data-current-plan={current ? "true" : undefined} data-mobile-order={plan.popular ? "first" : undefined} key={plan.name}>
         <Image className="plan-art" src={plan.artwork} alt="" width={420} height={260} aria-hidden="true" sizes="(max-width: 1024px) 68vw, 300px" />
         <div className="pricing-option-heading">
           <div className="plan-title-block">
             <span className="plan-icon" aria-hidden="true"><PlanIcon weight="duotone" /></span>
             <div><p className="plan-label">{plan.label}</p><h2>{plan.name}</h2></div>
           </div>
-          {plan.popular ? <span className="pricing-badge">Most popular</span> : null}
+          {current ? <span className="pricing-badge pricing-badge-current">{plan.mode === "single" && individualBankSubscriptions > 1 ? "Your subscriptions" : "Your access"}</span> : plan.popular ? <span className="pricing-badge">Most popular</span> : null}
         </div>
         <div className="plan-price"><strong aria-live={isBuilder ? "polite" : undefined}>{headlinePrice}</strong><span>/ month</span></div>
-        <p className="plan-billing-note">{billingNote}</p>
+        <p className="plan-billing-note">{hasPaidAccess ? newSubscriptionNote ?? (canAdd || current ? "Standard price for a new subscription, not your current charge." : "Standard price shown, not your current charge.") : billingNote}</p>
         <p className="plan-description">{plan.description}</p>
-        {plan.mode === "all" ? (
+        {hasPaidAccess && !canAdd && plan.mode === "all" ? <p className="pricing-plan-access-note">{complimentaryAccess ? "Included with your complimentary access." : "Your existing rate stays unchanged."}</p> : plan.mode === "all" ? (
           <PlanCheckout
             options={[{ productId: "bundle_all", label: "All Access" }]}
             interval={interval}
             authenticated={authenticated}
             hasPaidAccess={hasPaidAccess}
-            ctaLabel={checkoutCta}
+            allowPaidPurchase={canAdd}
+            previewOnly={previewOnly}
+            ctaLabel={hasPaidAccess ? "Add All Access subscription" : checkoutCta}
           />
         ) : (
           <CustomBundleCheckout
@@ -126,13 +140,16 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
             interval={interval}
             authenticated={authenticated}
             hasPaidAccess={hasPaidAccess}
-            initialBankIds={initialCustomBankIds}
-            availableBanks={availableBanks}
+            allowPaidPurchase={canAdd}
+            previewOnly={previewOnly}
+            initialBankIds={hasPaidAccess ? [] : initialCustomBankIds}
+            availableBanks={cardBanks}
             onSelectionChange={isBuilder ? handleBuilderSelectionChange : undefined}
-            ctaLabel={checkoutCta}
+            ctaLabel={hasPaidAccess && isBuilder ? `Add ${builderQuantity} banks` : checkoutCta}
           />
         )}
-        <p className="plan-assurance">Secure Stripe checkout · Cancel any time</p>
+        {hasPaidAccess && !canAdd && plan.mode !== "all" ? <p className="pricing-plan-access-note">{current ? complimentaryAccess ? "Included with your complimentary access." : plan.mode === "single" && individualBankSubscriptions > 1 ? `${individualBankSubscriptions} separate bank subscriptions. Your existing rates stay unchanged.` : "Your existing rate stays unchanged." : "All available banks are already included."}</p> : null}
+        {!hasPaidAccess ? <p className="plan-assurance">Secure Stripe checkout · Cancel any time</p> : null}
       </article>
     );
   };
@@ -140,6 +157,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
   return (
     <div className="public-surface">
       <section className="simple-page pricing-page shell">
+        {previewOnly ? <p className="pricing-preview-notice" role="status">Local preview: no account or checkout is connected. Choose a view using the links above the pricing page.</p> : null}
         <div className="pricing-intro">
           <p className="eyebrow">PastPaperPrep pricing</p>
           <h1 aria-label="Pay only for what you study.">Pay only for what you study.</h1>
@@ -148,12 +166,12 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
 
         {authenticated ? (
           <section className="pricing-current-plan" aria-labelledby="current-plan-heading">
-            <div><span className="eyebrow">Account</span><h2 id="current-plan-heading">Your current plan</h2></div>
+            <div><span className="eyebrow">Account</span><h2 id="current-plan-heading">Your current access</h2></div>
             <div className="pricing-current-plan-details">
               <strong>{hasPaidAccess ? currentPlanNames.join(", ") || "Paid access" : "Free"}</strong>
-              <span>{hasPaidAccess ? "Your access is active. Use billing to cancel or update payment details." : "Choose a plan below to unlock every available question."}</span>
+              <span>{hasPaidAccess ? complimentaryAccess ? "Complimentary access" : previewOnly ? "Example paid account. No billing is connected in this preview." : "Your access is active. Manage billing to cancel or update payment details." : "Choose a plan below to unlock every available question."}</span>
             </div>
-            {hasPaidAccess ? <PortalButton /> : null}
+            {hasPaidAccess && !complimentaryAccess && !previewOnly ? <PortalButton /> : null}
           </section>
         ) : null}
 
@@ -162,14 +180,10 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           <button className="billing-toggle-annual" type="button" aria-pressed={interval === "annual"} onClick={() => chooseInterval("annual")}>Annual — save {maximumAnnualSavingPercent()}%<span className="billing-savings">2 months free</span></button>
         </div>
 
-        {hasPaidAccess ? (
-          addOnBanks.length ? <section className="pricing-addon" aria-labelledby="pricing-addon-heading">
-            <div><p className="eyebrow">Expand your access</p><h2 id="pricing-addon-heading">Add another bank</h2><p>Choose a bank you don’t already have. This starts a separate subscription at {interval === "annual" ? "$48/year" : "$6/month"}; your existing plan, price and renewal stay unchanged. Banks added later don’t receive the bundle discount and may renew on different dates.</p></div>
-            <CustomBundleCheckout mode="single" interval={interval} authenticated={authenticated} hasPaidAccess={false} availableBanks={addOnBanks} />
-          </section> : <p className="pricing-all-included">All available banks are included in your access.</p>
-        ) : <div className="pricing-decision-grid" aria-label="PastPaperPrep plans">
+        {hasPaidAccess && !addOnBanks.length ? <p className="pricing-all-included">All available banks are included in your access.</p> : null}
+        <div className="pricing-decision-grid" aria-label="PastPaperPrep plans" data-paid={hasPaidAccess ? "true" : undefined}>
           {PLANS.map(renderPlan)}
-        </div>}
+        </div>
 
         <div className="pricing-product-proof" aria-label="Current PastPaperPrep coverage">
           <span><strong>{totalQuestions.toLocaleString()}</strong> questions</span>

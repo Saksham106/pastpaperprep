@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { processReferralInvoicePaid, processReferralChargeRefunded, processReferralDisputeChanged } from "@/lib/referral-events";
 import { createStripeClient } from "@/lib/stripe";
-import { getStripeConfig, isStripePriceAllowedForProduct } from "@/lib/stripe-config";
+import { getStripeConfig } from "@/lib/stripe-config";
 import { buildSubscriptionSync, getSubscriptionEventReference } from "@/lib/stripe-subscriptions";
 import { createAdminClient } from "@/lib/supabase/admin";
 
@@ -76,50 +76,98 @@ export async function POST(request: Request) {
   }
   if (!reference) return NextResponse.json({ received: true });
 
-  let currentSubscription;
+  const admin = createAdminClient();
+  const leaseToken = crypto.randomUUID();
+  let acquired: boolean;
   try {
-    currentSubscription = await stripe.subscriptions.retrieve(reference.subscriptionId);
-  } catch {
-    return NextResponse.json({ error: "Could not refresh subscription" }, { status: 500 });
-  }
-
-  let sync;
-  try {
-    sync = buildSubscriptionSync(
-      { ...event, data: { object: currentSubscription } },
-      (productId, priceId, interval) => isStripePriceAllowedForProduct(productId, priceId, config, interval),
-    );
-  } catch {
-    const admin = createAdminClient();
-    const { error } = await admin.rpc("invalidate_stripe_subscription_event", {
-      p_event_id: event.id,
-      p_event_created: event.created,
+    const { data, error } = await admin.rpc("acquire_stripe_subscription_sync_lease", {
       p_subscription_id: reference.subscriptionId,
+      p_lease_token: leaseToken,
     });
     if (error) return NextResponse.json({ error: "Webhook processing failed" }, { status: 500 });
-    return NextResponse.json({ received: true });
-  }
-  if (!sync) return NextResponse.json({ received: true });
-
-  const admin = createAdminClient();
-  const { error } = await admin.rpc("apply_stripe_subscription_event", {
-    p_event_id: sync.eventId,
-    p_event_created: sync.eventCreated,
-    p_subscription_id: sync.subscriptionId,
-    p_customer_id: sync.customerId,
-    p_user_id: sync.userId,
-    p_product_id: sync.productId,
-    p_status: sync.status,
-    p_starts_at: sync.startsAt,
-    p_expires_at: sync.expiresAt,
-    p_quantity: sync.quantity,
-    p_price_id: sync.priceId,
-    p_interval: sync.interval,
-    ...(sync.selectedBankIds ? { p_selected_bank_ids: sync.selectedBankIds } : {}),
-  });
-  if (error) {
+    acquired = data === true;
+  } catch {
     return NextResponse.json({ error: "Webhook processing failed" }, { status: 500 });
   }
+  if (!acquired) return NextResponse.json({ error: "Subscription sync is busy" }, { status: 503 });
 
-  return NextResponse.json({ received: true });
+  const response = await (async (): Promise<NextResponse> => {
+    try {
+      let currentSubscription;
+      try {
+        currentSubscription = await stripe.subscriptions.retrieve(reference.subscriptionId, {}, { timeout: 60_000 });
+      } catch {
+        return NextResponse.json({ error: "Could not refresh subscription" }, { status: 500 });
+      }
+
+      let sync;
+      try {
+        const subscription = currentSubscription as Stripe.Subscription;
+        const metadataProductId = subscription.metadata?.product_id;
+        const items = subscription.items.data;
+        const item = items.length === 1 ? items[0] : null;
+        const priceId = item?.price?.id;
+        const interval = item?.price?.recurring?.interval === "month" ? "monthly"
+          : item?.price?.recurring?.interval === "year" ? "annual" : null;
+        if (typeof metadataProductId !== "string" || typeof priceId !== "string" || !interval) {
+          throw new Error("Stripe price identity is ambiguous");
+        }
+        const { data: catalogRows, error: catalogError } = await admin.rpc("get_checkout_price_catalog", { p_price_id: priceId });
+        if (catalogError) return NextResponse.json({ error: "Webhook processing failed" }, { status: 500 });
+        const matchingCatalogRows = Array.isArray(catalogRows)
+          ? catalogRows.filter((row) => row.price_id === priceId && row.product_id === metadataProductId && row.billing_interval === interval && (row.active === true || row.grandfathered === true))
+          : [];
+        if (matchingCatalogRows.length !== 1) {
+          throw new Error("Stripe price does not match the catalog");
+        }
+        sync = buildSubscriptionSync(
+          { ...event, data: { object: currentSubscription } },
+          (productId, catalogPriceId, catalogInterval) => productId === metadataProductId && catalogPriceId === priceId && catalogInterval === interval,
+        );
+      } catch {
+        const { error } = await admin.rpc("invalidate_stripe_subscription_event", {
+          p_event_id: event.id,
+          p_event_created: event.created,
+          p_subscription_id: reference.subscriptionId,
+          p_lease_token: leaseToken,
+        });
+        return error
+          ? NextResponse.json({ error: "Webhook processing failed" }, { status: 500 })
+          : NextResponse.json({ received: true });
+      }
+      if (!sync) return NextResponse.json({ received: true });
+
+      const { error } = await admin.rpc("apply_stripe_subscription_event", {
+        p_event_id: sync.eventId,
+        p_event_created: sync.eventCreated,
+        p_subscription_id: sync.subscriptionId,
+        p_customer_id: sync.customerId,
+        p_user_id: sync.userId,
+        p_product_id: sync.productId,
+        p_status: sync.status,
+        p_starts_at: sync.startsAt,
+        p_expires_at: sync.expiresAt,
+        p_quantity: sync.quantity,
+        p_price_id: sync.priceId,
+        p_interval: sync.interval,
+        p_lease_token: leaseToken,
+        ...(sync.selectedBankIds ? { p_selected_bank_ids: sync.selectedBankIds } : {}),
+      });
+      return error
+        ? NextResponse.json({ error: "Webhook processing failed" }, { status: 500 })
+        : NextResponse.json({ received: true });
+    } catch {
+      return NextResponse.json({ error: "Webhook processing failed" }, { status: 500 });
+    }
+  })();
+  try {
+    const { data, error } = await admin.rpc("release_stripe_subscription_sync_lease", {
+      p_subscription_id: reference.subscriptionId,
+      p_lease_token: leaseToken,
+    });
+    if (error || data !== true) return NextResponse.json({ error: "Webhook processing failed" }, { status: 500 });
+  } catch {
+    return NextResponse.json({ error: "Webhook processing failed" }, { status: 500 });
+  }
+  return response;
 }

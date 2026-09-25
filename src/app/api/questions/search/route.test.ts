@@ -1,10 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { loadBankQuestions as loadFixtureQuestions } from "@/lib/question-fixtures";
 
-const { createClient, getClaims, from, loadBankQuestions } = vi.hoisted(() => ({
+const { createClient, getClaims, from, rpc, loadBankQuestions } = vi.hoisted(() => ({
   createClient: vi.fn(),
   getClaims: vi.fn(),
   from: vi.fn(),
+  rpc: vi.fn(),
   loadBankQuestions: vi.fn(),
 }));
 
@@ -30,7 +31,8 @@ describe("GET /api/questions/search", () => {
       eq: vi.fn().mockResolvedValue({ data: [{ product_id: "bank_ib_sl", status: "active", starts_at: "2026-01-01T00:00:00Z", expires_at: null }], error: null }),
     };
     from.mockReturnValue(entitlementQuery);
-    createClient.mockResolvedValue({ auth: { getClaims }, from });
+    rpc.mockResolvedValue({ data: [], error: null });
+    createClient.mockResolvedValue({ auth: { getClaims }, from, rpc });
   });
 
   it("returns matching IDs for rich authorized search and no rich payload", async () => {
