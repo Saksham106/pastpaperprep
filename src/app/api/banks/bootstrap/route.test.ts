@@ -48,6 +48,7 @@ describe("bank member bootstrap", () => {
     createClient.mockResolvedValue({
       auth: { getClaims: vi.fn(async () => ({ data: { claims: { sub: "user-secret-id" } } })) },
       from: vi.fn((name: keyof typeof tables) => tables[name]),
+      rpc: vi.fn(async () => ({ data: [], error: null })),
     });
 
     const response = await GET(new NextRequest("https://pastpaperprep.com/api/banks/bootstrap?bank=ib-sl"));
@@ -69,6 +70,7 @@ describe("bank member bootstrap", () => {
     createClient.mockResolvedValue({
       auth: { getClaims: vi.fn(async () => ({ data: { claims: { sub: "user-secret-id" } } })) },
       from: vi.fn((name: keyof typeof tables) => tables[name]),
+      rpc: vi.fn(async () => ({ data: [], error: null })),
     });
 
     const response = await GET(new NextRequest("https://pastpaperprep.com/api/banks/bootstrap?bank=ib-sl"));

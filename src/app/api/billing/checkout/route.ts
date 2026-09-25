@@ -3,7 +3,8 @@ import { getCheckoutReferral } from "@/lib/referral-account";
 import { NextResponse } from "next/server";
 import { BANK_PRODUCTS, hasBankAccess, type ProductId } from "@/lib/access";
 import { getBillingBanks, getEntitlementBanks } from "@/lib/banks";
-import { normalizeEntitlements } from "@/lib/entitlements";
+import { validateCustomBankIds } from "@/lib/custom-bundles";
+import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { startCheckout } from "@/lib/stripe-checkout";
 import { getBillingPlan, getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
 import { createStripeClient } from "@/lib/stripe";
@@ -60,12 +61,9 @@ export async function POST(request: Request) {
   try {
     const config = getStripeConfig();
     const plan = getBillingPlan(body.productId, body.interval, config, body.selectedBankIds, process.env);
-    const { data: entitlementRows, error: entitlementError } = await supabase
-      .from("entitlements")
-      .select("product_id, selected_bank_ids, status, starts_at, expires_at")
-      .eq("user_id", user.id);
-    if (entitlementError) throw entitlementError;
-    const entitlements = normalizeEntitlements(entitlementRows ?? []);
+    const accessResult = await fetchAccessEntitlements(supabase as never, user.id);
+    if (accessResult.error) throw accessResult.error;
+    const entitlements = accessResult.rows as import("@/lib/access").AccessEntitlement[];
     const alreadyPaid = getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, entitlements));
     const paidBundle = alreadyPaid && (plan.productId === "bundle_custom" || plan.productId === "bundle_all");
     const alreadyAllAccess = entitlements.some((entitlement) => entitlement.productId === "bundle_all" && getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, [entitlement])));
@@ -158,27 +156,35 @@ export async function POST(request: Request) {
             limit: 100,
             ...(startingAfter ? { starting_after: startingAfter } : {}),
           });
-          billingConflict = subscriptions.data.some((subscription) => {
-            if (subscription.status === "canceled" || subscription.status === "incomplete_expired") return false;
-            if (!addOnBank && !paidBundle) return true;
-            // Existing, unrelated subscriptions are valid only when their coverage is known and disjoint.
-            if (subscription.status !== "active" && subscription.status !== "trialing") return true;
+          billingConflict = false;
+          for (const subscription of subscriptions.data) {
+            if (subscription.status === "canceled" || subscription.status === "incomplete_expired") continue;
+            if (!addOnBank && !paidBundle) { billingConflict = true; break; }
+            if (subscription.status !== "active" && subscription.status !== "trialing") { billingConflict = true; break; }
             const product = subscription.metadata?.product_id;
-            if (!product || product === "bundle_all") return true;
-            // Custom subscriptions can coexist when their selected banks do not overlap.
-            if (product === input.productId && product !== "bundle_custom") return true;
+            const items = subscription.items?.data;
+            if (!product || !Array.isArray(items) || items.length !== 1) { billingConflict = true; break; }
+            const item = items[0];
+            const priceId = typeof item.price === "string" ? item.price : item.price?.id;
+            const actualInterval = item.price && typeof item.price !== "string" ? item.price.recurring?.interval : undefined;
+            const interval = actualInterval === "month" ? "monthly" : actualInterval === "year" ? "annual" : null;
+            if (!priceId || !interval || !Number.isInteger(item.quantity) || (item.quantity ?? 0) < 1) { billingConflict = true; break; }
+            const { data: catalogRows, error: catalogError } = await admin.rpc("get_checkout_price_catalog", { p_price_id: priceId });
+            if (catalogError || !Array.isArray(catalogRows)) throw catalogError ?? new Error("Checkout price catalog lookup failed");
+            const catalog = catalogRows.find((row: { product_id?: unknown; billing_interval?: unknown }) => row.product_id === product && row.billing_interval === interval);
+            if (!catalog || catalogRows.length !== 1) { billingConflict = true; break; }
             const targets = paidBundle ? plan.productId === "bundle_all" ? [] : uncoveredSlugs : [addOnBank!];
             if (product === "bundle_custom") {
-              try {
-                const selected = JSON.parse(subscription.metadata.selected_bank_ids ?? "") as unknown;
-                if (!Array.isArray(selected) || selected.some((id) => typeof id !== "string")) return true;
-                return selected.some((id) => targets.includes(id));
-              } catch { return true; }
+              let selected: ReturnType<typeof validateCustomBankIds>;
+              try { selected = validateCustomBankIds(JSON.parse(subscription.metadata.selected_bank_ids ?? "")); } catch { billingConflict = true; break; }
+              if (selected.length !== item.quantity) { billingConflict = true; break; }
+              if (selected.some((id) => targets.includes(id))) { billingConflict = true; break; }
+              continue;
             }
+            if (item.quantity !== 1 || subscription.metadata.selected_bank_ids) { billingConflict = true; break; }
             const recorded = { productId: product as ProductId, status: "active" as const, startsAt: "2020-01-01T00:00:00Z", expiresAt: null };
-            // A missing/unknown product cannot be proven disjoint.
-            return targets.some((target) => hasBankAccess(target as Parameters<typeof hasBankAccess>[0], [recorded])) || !getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, [recorded]));
-          });
+            if (targets.some((target) => hasBankAccess(target as Parameters<typeof hasBankAccess>[0], [recorded])) || !getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, [recorded]))) { billingConflict = true; break; }
+          }
           if (billingConflict || !subscriptions.has_more) break;
           startingAfter = subscriptions.data.at(-1)?.id;
           if (!startingAfter) throw new Error("Stripe subscription pagination did not advance");
@@ -278,13 +284,8 @@ export async function POST(request: Request) {
       },
     });
 
-    const { error: releaseError } = await admin.rpc("release_billing_checkout", {
-      p_user_id: user.id,
-      p_intent_id: intentId,
-    });
-    if (releaseError) console.error("Stripe checkout reservation release failed", safeBillingError(releaseError));
-    reservation = null;
-
+    // Retain the lease while this Checkout Session is open. The next request
+    // must wait for lease expiry and then inspect open sessions at Stripe.
     return NextResponse.json({ url });
   } catch (error) {
     if (reservation && !sessionCreationAttempted) {

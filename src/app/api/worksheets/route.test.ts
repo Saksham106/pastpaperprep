@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const { createClient, getClaims, from, loadBankQuestions } = vi.hoisted(() => ({ createClient: vi.fn(), getClaims: vi.fn(), from: vi.fn(), loadBankQuestions: vi.fn() }));
+const { createClient, getClaims, from, rpc, loadBankQuestions } = vi.hoisted(() => ({ createClient: vi.fn(), getClaims: vi.fn(), from: vi.fn(), rpc: vi.fn(), loadBankQuestions: vi.fn() }));
 vi.mock("@/lib/supabase/server", () => ({ createClient }));
 vi.mock("@/lib/question-loader", () => ({ loadBankQuestions }));
 import { GET, POST } from "./route";
@@ -12,7 +12,7 @@ function setup({ userId = "user-id", entitlements = [{ product_id: "bundle_all",
   getClaims.mockResolvedValue({ data: { claims: userId ? { sub: userId } : {} } });
   const chain: Record<string, ReturnType<typeof vi.fn>> = { select: vi.fn(() => chain), eq: vi.fn(() => chain), order: vi.fn(() => Promise.resolve({ data: [], error: null })), insert: vi.fn(() => chain), single: vi.fn(() => Promise.resolve({ data: saved, error: null })) };
   from.mockImplementation((table: string) => table === "entitlements" ? { select: () => ({ eq: () => Promise.resolve({ data: entitlements, error: null }) }) } : chain);
-  createClient.mockResolvedValue({ auth: { getClaims }, from });
+  createClient.mockResolvedValue({ auth: { getClaims }, from, rpc: vi.fn().mockResolvedValue({ data: [], error: null }) });
   loadBankQuestions.mockResolvedValue([question]);
   return chain;
 }

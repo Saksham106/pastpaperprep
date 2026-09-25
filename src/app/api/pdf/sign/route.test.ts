@@ -32,7 +32,7 @@ describe("POST /api/pdf/sign", () => {
       eq: vi.fn().mockResolvedValue({ data: [{ product_id: "bundle_all", status: "active", starts_at: "2026-01-01T00:00:00Z", expires_at: null }], error: null }),
     };
     from.mockReturnValue(entitlementQuery);
-    rpc.mockResolvedValue({ data: true, error: null });
+    rpc.mockImplementation((name: string) => Promise.resolve(name === "get_custom_bundle_access" ? { data: [], error: null } : { data: true, error: null }));
     createClient.mockResolvedValue({ auth: { getClaims }, from, rpc });
     createSignedUrls.mockImplementation(async (paths: string[]) => ({ data: paths.map((path) => ({ path, signedUrl: `https://assets.example/${path}` })), error: null }));
     createAdminClient.mockReturnValue({ storage: { from: vi.fn(() => ({ createSignedUrls })) } });
@@ -88,7 +88,7 @@ describe("POST /api/pdf/sign", () => {
   });
 
   it("does not return signed assets after the worksheet allowance is exhausted", async () => {
-    rpc.mockResolvedValueOnce({ data: false, error: null });
+    rpc.mockImplementation((name: string) => Promise.resolve(name === "get_custom_bundle_access" ? { data: [], error: null } : { data: false, error: null }));
     const response = await POST(request({ bank: "ib-sl", questionIds: ["m26-math-aasl-p2-tza-q2"], content: "questions" }));
     expect(response.status).toBe(429);
     expect(createSignedUrls).toHaveBeenCalledOnce();
@@ -99,7 +99,7 @@ describe("POST /api/pdf/sign", () => {
     const response = await POST(request({ bank: "ib-sl", questionIds: ["m26-math-aasl-p2-tza-q2"], content: "questions" }));
 
     expect(response.status).toBe(503);
-    expect(rpc).not.toHaveBeenCalled();
+    expect(rpc).not.toHaveBeenCalledWith("consume_download_allowance", expect.anything());
   });
 
   it("keeps preview PDF assets on Supabase while locally presigning premium assets through R2", async () => {

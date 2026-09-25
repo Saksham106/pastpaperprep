@@ -7,6 +7,7 @@ vi.mock("next/headers", () => ({ cookies: vi.fn(async () => ({ get: () => ({ val
 
 const getUser = vi.fn();
 const userFrom = vi.fn();
+const userRpc = vi.fn().mockResolvedValue({ data: [], error: null });
 const customersSearch = vi.fn();
 const customersCreate = vi.fn();
 const sessionsCreate = vi.fn();
@@ -23,6 +24,14 @@ function mockAdminRpc(
   confirmationGranted = true,
 ) {
   adminRpc.mockImplementation(async (functionName: string, args?: Record<string, unknown>) => {
+    if (functionName === "get_checkout_price_catalog") {
+      const priceId = args?.p_price_id;
+      const rows: Record<string, unknown> = {
+        price_single_monthly: { price_id: priceId, product_id: "bank_ib_sl", billing_interval: "monthly", grandfathered: false, active: true },
+        price_custom_monthly: { price_id: priceId, product_id: "bundle_custom", billing_interval: "monthly", grandfathered: true, active: false },
+      };
+      return { data: rows[String(priceId)] ? [rows[String(priceId)]] : [], error: null };
+    }
     if (functionName === "reserve_billing_checkout") return { data: reservationGranted, error: null };
     if (functionName === "confirm_billing_checkout" || functionName === "confirm_addon_billing_checkout" || functionName === "confirm_paid_bundle_billing_checkout") return { data: confirmationGranted, error: null };
     if (functionName === "release_billing_checkout") return { data: true, error: null };
@@ -43,7 +52,7 @@ function entitlementQuery(data: unknown[] = [], error: unknown = null) {
 }
 
 vi.mock("@/lib/supabase/server", () => ({
-  createClient: vi.fn(async () => ({ auth: { getUser }, from: userFrom })),
+  createClient: vi.fn(async () => ({ auth: { getUser }, from: userFrom, rpc: userRpc })),
 }));
 vi.mock("@/lib/supabase/admin", () => ({
   createAdminClient: vi.fn(() => ({ rpc: adminRpc })),
@@ -87,6 +96,7 @@ describe("POST /api/billing/checkout", () => {
     vi.clearAllMocks();
     billingEnabled = true;
     userFrom.mockReturnValue(entitlementQuery());
+    userRpc.mockResolvedValue({ data: [], error: null });
     mockAdminRpc();
     getCheckoutReferral.mockResolvedValue(null);
     sessionsList.mockResolvedValue({ data: [] });
@@ -138,7 +148,7 @@ describe("POST /api/billing/checkout", () => {
     getUser.mockResolvedValue({ data: { user } });
     userFrom.mockReturnValue(entitlementQuery([{ product_id: "bank_ib_sl", status: "active", starts_at: "2026-01-01T00:00:00.000Z", expires_at: "2099-01-01T00:00:00.000Z" }]));
     mockAdminRpc("cus_existing");
-    subscriptionsList.mockResolvedValue({ data: [{ status: "active", metadata: { product_id: "bank_ib_sl" } }] });
+    subscriptionsList.mockResolvedValue({ data: [{ status: "active", metadata: { product_id: "bank_ib_sl" }, items: { data: [{ price: { id: "price_single_monthly", recurring: { interval: "month" } }, quantity: 1 }] } }] });
     sessionsCreate.mockResolvedValue({ url: "https://checkout.stripe.com/add-on" });
     const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", { method: "POST", body: JSON.stringify({ interval: "monthly", productId: "bank_ib_hl" }) }));
     expect(response.status).toBe(200);
@@ -233,10 +243,7 @@ describe("POST /api/billing/checkout", () => {
       p_user_id: user.id,
       p_intent_id: intentId,
     });
-    expect(adminRpc).toHaveBeenCalledWith("release_billing_checkout", {
-      p_user_id: user.id,
-      p_intent_id: intentId,
-    });
+    expect(adminRpc.mock.calls.some(([functionName]) => functionName === "release_billing_checkout")).toBe(false);
   });
 
   it("uses account-bound referral instead of a browser cookie for checkout and subscription metadata", async () => {
@@ -313,7 +320,7 @@ describe("POST /api/billing/checkout", () => {
     getUser.mockResolvedValue({ data: { user } });
     userFrom.mockReturnValue(entitlementQuery([{ product_id: "bundle_custom", selected_bank_ids: ["ib-sl", "igcse"], status: "active", starts_at: "2026-01-01T00:00:00.000Z", expires_at: "2099-01-01T00:00:00.000Z" }]));
     mockAdminRpc("cus_existing");
-    subscriptionsList.mockResolvedValue({ data: [{ status: "active", metadata: { product_id: "bundle_custom", selected_bank_ids: JSON.stringify(["ib-sl", "igcse"]) } }] });
+    subscriptionsList.mockResolvedValue({ data: [{ status: "active", metadata: { product_id: "bundle_custom", selected_bank_ids: JSON.stringify(["ib-sl", "igcse"]) }, items: { data: [{ price: { id: "price_custom_monthly", recurring: { interval: "month" } }, quantity: 2 }] } }] });
     sessionsCreate.mockResolvedValue({ url: "https://checkout.stripe.com/session" });
     const request = (selectedBankIds: string[]) => POST(new Request("https://pastpaperprep.com/api/billing/checkout", { method: "POST", body: JSON.stringify({ interval: "monthly", productId: "bundle_custom", selectedBankIds, acknowledgeSeparateSubscription: true }) }));
     expect((await request(["ib-hl", "ib-ai-hl"])).status).toBe(200);
@@ -467,7 +474,7 @@ describe("POST /api/billing/checkout", () => {
     }), expect.any(Object));
   });
 
-  it("returns a created Checkout Session even when reservation cleanup fails", async () => {
+  it("keeps a successful session's reservation even if a release RPC would fail", async () => {
     const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
     getUser.mockResolvedValue({ data: { user } });
     mockAdminRpc("cus_existing");
@@ -488,6 +495,7 @@ describe("POST /api/billing/checkout", () => {
 
     expect(response.status).toBe(200);
     await expect(response.json()).resolves.toEqual({ url: "https://checkout.stripe.com/session" });
+    expect(adminRpc.mock.calls.some(([functionName]) => functionName === "release_billing_checkout")).toBe(false);
   });
 
   it("creates an unmapped Stripe customer with a stable idempotency key", async () => {
@@ -591,6 +599,22 @@ describe("POST /api/billing/checkout", () => {
     });
   });
 
+  it("fails closed when an active subscription item is missing its canonical Stripe price identity", async () => {
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    mockAdminRpc("cus_existing");
+    userFrom.mockReturnValue(entitlementQuery([{ product_id: "bank_ib_ai_sl", status: "active", starts_at: "2026-01-01T00:00:00.000Z", expires_at: "2099-01-01T00:00:00.000Z" }]));
+    subscriptionsList.mockResolvedValue({ data: [{ id: "sub_legacy", status: "active", metadata: { product_id: "bank_ib_sl" }, items: { data: [{ price: { id: "price_retired", recurring: { interval: "month" } }, quantity: 1 }] } }] });
+
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", {
+      method: "POST", body: JSON.stringify({ interval: "monthly", productId: "bank_ib_hl" }),
+    }));
+
+    expect(response.status).toBe(409);
+    expect(adminRpc).toHaveBeenCalledWith("get_checkout_price_catalog", { p_price_id: "price_retired" });
+    expect(sessionsCreate).not.toHaveBeenCalled();
+  });
+
   it("rejects checkout when Stripe already has a non-terminal subscription", async () => {
     const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
     getUser.mockResolvedValue({ data: { user } });
@@ -649,7 +673,7 @@ describe("POST /api/billing/checkout", () => {
     getUser.mockResolvedValue({ data: { user } });
     userFrom.mockReturnValue(entitlementQuery([{ product_id: "bank_ib_sl", status: "active", starts_at: "2026-01-01T00:00:00.000Z", expires_at: "2099-01-01T00:00:00.000Z" }]));
     mockAdminRpc("cus_existing");
-    subscriptionsList.mockResolvedValue({ data: [{ status: "active", metadata: { product_id: "bank_ib_sl" } }] });
+    subscriptionsList.mockResolvedValue({ data: [{ status: "active", metadata: { product_id: "bank_ib_sl" }, items: { data: [{ price: { id: "price_single_monthly", recurring: { interval: "month" } }, quantity: 1 }] } }] });
     sessionsList.mockResolvedValue({ data: [{ id: "cs_prior", status: "open", expires_at: 4_102_444_800, url: "https://checkout.stripe.com/c/pay/cs_prior", metadata: { user_id: user.id, product_id: "bundle_all", billing_interval: "monthly", price_id: "price_all_monthly", acknowledge_separate_subscription: "true", billing_intent_id: "00000000-0000-0000-0000-000000000099" } }] });
     sessionsCreate.mockResolvedValue({ url: "https://checkout.stripe.com/c/pay/cs_fresh" });
     const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", { method: "POST", body: JSON.stringify({ interval: "monthly", productId: "bundle_all", acknowledgeSeparateSubscription: true }) }));
@@ -688,7 +712,7 @@ describe("POST /api/billing/checkout", () => {
     expect(sessionsList).toHaveBeenCalledWith({ customer: "cus_existing", status: "open", limit: 100 });
     expect(sessionsExpire).not.toHaveBeenCalled();
     expect(sessionsCreate).not.toHaveBeenCalled();
-    expect(adminRpc).toHaveBeenCalledWith("release_billing_checkout", expect.any(Object));
+    expect(adminRpc.mock.calls.some(([functionName]) => functionName === "release_billing_checkout")).toBe(false);
   });
 
   it("paginates open Checkout Sessions before deciding whether to resume", async () => {

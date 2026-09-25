@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { AccessEntitlement } from "@/lib/access";
 import { getBank, isLocalEconomicsBank, isLocalEconomicsPreviewEnabled, type BankSlug } from "@/lib/banks";
-import { normalizeEntitlements } from "@/lib/entitlements";
+import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { loadBankQuestions } from "@/lib/question-loader";
 import { searchQuestionIds } from "@/lib/question-search";
 import { createClient } from "@/lib/supabase/server";
@@ -37,12 +37,9 @@ export async function GET(request: Request) {
   let entitlements: AccessEntitlement[] = [];
 
   if (userId) {
-    const { data, error } = await supabase
-      .from("entitlements")
-      .select("product_id, selected_bank_ids, status, starts_at, expires_at")
-      .eq("user_id", userId);
-    if (error) return response({ error: "Could not verify access" }, 503);
-    entitlements = normalizeEntitlements(data ?? []);
+    const result = await fetchAccessEntitlements(supabase as never, userId);
+    if (result.error) return response({ error: "Could not verify access" }, 503);
+    entitlements = result.rows as AccessEntitlement[];
   }
 
   const ids = searchQuestionIds(await loadBankQuestions(bankParam as BankSlug), query, entitlements);

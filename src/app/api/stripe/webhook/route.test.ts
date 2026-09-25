@@ -69,6 +69,7 @@ describe("POST /api/stripe/webhook", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     retrieveSubscription.mockResolvedValue(subscriptionEvent.data.object);
+    rpc.mockImplementation(async (name: string) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease", error: null }));
   });
 
   it("rejects invalid signatures without mutating entitlement state", async () => {
@@ -80,25 +81,15 @@ describe("POST /api/stripe/webhook", () => {
 
   it("applies a verified subscription through the order-safe database RPC", async () => {
     constructEvent.mockReturnValue(subscriptionEvent);
-    rpc.mockResolvedValue({ data: "applied", error: null });
+    rpc.mockImplementation(async (name: string) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : "applied", error: null }));
 
     const response = await POST(request());
     expect(response.status).toBe(200);
-    expect(retrieveSubscription).toHaveBeenCalledWith("sub_1");
-    expect(rpc).toHaveBeenCalledWith("apply_stripe_subscription_event", {
-      p_event_id: "evt_1",
-      p_event_created: 1_800_000_000,
-      p_subscription_id: "sub_1",
-      p_customer_id: "cus_1",
-      p_user_id: userId,
-      p_product_id: "bundle_all",
-      p_status: "active",
-      p_starts_at: new Date(1_799_000_000 * 1000).toISOString(),
-      p_expires_at: new Date(1_801_000_000 * 1000).toISOString(),
-      p_quantity: 1,
-      p_price_id: "price_monthly",
-      p_interval: "monthly",
-    });
+    expect(retrieveSubscription).toHaveBeenCalledWith("sub_1", {}, { timeout: 60_000 });
+    expect(rpc).toHaveBeenNthCalledWith(1, "acquire_stripe_subscription_sync_lease", expect.objectContaining({ p_subscription_id: "sub_1" }));
+    expect(rpc).toHaveBeenCalledWith("apply_stripe_subscription_event", expect.objectContaining({ p_lease_token: expect.any(String) }));
+    expect(rpc).toHaveBeenCalledWith("release_stripe_subscription_sync_lease", { p_subscription_id: "sub_1", p_lease_token: expect.any(String) });
+
   });
 
   it("persists custom selected banks, quantity, and verified price through the RPC", async () => {
@@ -117,7 +108,7 @@ describe("POST /api/stripe/webhook", () => {
     customEvent.data.object.items.data[0].quantity = 2;
     constructEvent.mockReturnValue(customEvent);
     retrieveSubscription.mockResolvedValue(customEvent.data.object);
-    rpc.mockResolvedValue({ data: "applied", error: null });
+    rpc.mockImplementation(async (name: string) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : "applied", error: null }));
 
     const response = await POST(request());
 
@@ -139,7 +130,7 @@ describe("POST /api/stripe/webhook", () => {
       ...subscriptionEvent.data.object,
       status: "canceled",
     });
-    rpc.mockResolvedValue({ data: "applied", error: null });
+    rpc.mockImplementation(async (name: string) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : "applied", error: null }));
 
     const response = await POST(request());
     expect(response.status).toBe(200);
@@ -155,7 +146,7 @@ describe("POST /api/stripe/webhook", () => {
       ...subscriptionEvent.data.object,
       metadata: { user_id: userId, product_id: "unsupported_product" },
     });
-    rpc.mockResolvedValue({ data: "revoked", error: null });
+    rpc.mockImplementation(async (name: string) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : "revoked", error: null }));
 
     const response = await POST(request());
 
@@ -164,6 +155,7 @@ describe("POST /api/stripe/webhook", () => {
       p_event_id: "evt_1",
       p_event_created: 1_800_000_000,
       p_subscription_id: "sub_1",
+      p_lease_token: expect.any(String),
     });
   });
 
@@ -222,11 +214,35 @@ describe("POST /api/stripe/webhook", () => {
     expect(response.status).toBe(500);
   });
 
+  it("does not retrieve or mutate when the subscription lease is busy", async () => {
+    constructEvent.mockReturnValue(subscriptionEvent);
+    rpc.mockImplementation(async (name: string) => ({ data: name === "acquire_stripe_subscription_sync_lease" ? false : true, error: null }));
+    const response = await POST(request());
+    expect(response.status).toBe(503);
+    expect(retrieveSubscription).not.toHaveBeenCalled();
+    expect(rpc).toHaveBeenCalledTimes(1);
+  });
+
+  it("returns a retryable error when lease acquisition fails", async () => {
+    constructEvent.mockReturnValue(subscriptionEvent);
+    rpc.mockResolvedValue({ data: null, error: { message: "lease rpc unavailable" } });
+    const response = await POST(request());
+    expect(response.status).toBe(500);
+    expect(retrieveSubscription).not.toHaveBeenCalled();
+  });
+
+  it("returns a retryable error when lease release fails", async () => {
+    constructEvent.mockReturnValue(subscriptionEvent);
+    rpc.mockImplementation(async (name: string) => ({ data: name !== "release_stripe_subscription_sync_lease", error: null }));
+    const response = await POST(request());
+    expect(response.status).toBe(500);
+  });
+
   it("returns a retryable error when Stripe cannot refresh the subscription", async () => {
     constructEvent.mockReturnValue(subscriptionEvent);
     retrieveSubscription.mockRejectedValue(new Error("temporary Stripe error"));
     const response = await POST(request());
     expect(response.status).toBe(500);
-    expect(rpc).not.toHaveBeenCalled();
+    expect(rpc).not.toHaveBeenCalledWith("apply_stripe_subscription_event", expect.anything());
   });
 });

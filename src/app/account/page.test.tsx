@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const getClaims = vi.fn();
 const getUser = vi.fn();
+const rpc = vi.fn().mockResolvedValue({ data: [], error: null });
 const entitlementQuery = {
   select: vi.fn(),
   eq: vi.fn(),
@@ -20,6 +21,7 @@ vi.mock("@/lib/supabase/server", () => ({
   createClient: vi.fn(async () => ({
     auth: { getClaims, getUser },
     from: vi.fn(() => entitlementQuery),
+    rpc,
   })),
 }));
 vi.mock("@/app/auth/actions", () => ({ signOut: vi.fn() }));
@@ -29,6 +31,8 @@ import AccountPage from "@/app/account/page";
 
 describe("AccountPage checkout confirmation", () => {
   beforeEach(() => {
+    entitlementQuery.eq.mockResolvedValue({ data: [], error: null });
+    rpc.mockResolvedValue({ data: [], error: null });
     getClaims.mockResolvedValue({ data: { claims: { sub: "user-1" } } });
     getUser.mockResolvedValue({ data: { user: { email: "student@example.com" } } });
   });

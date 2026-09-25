@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-const { createClient, getClaims, from, loadBankQuestions } = vi.hoisted(() => ({ createClient: vi.fn(), getClaims: vi.fn(), from: vi.fn(), loadBankQuestions: vi.fn() }));
+const { createClient, getClaims, from, rpc, loadBankQuestions } = vi.hoisted(() => ({ createClient: vi.fn(), getClaims: vi.fn(), from: vi.fn(), rpc: vi.fn(), loadBankQuestions: vi.fn() }));
 vi.mock("@/lib/supabase/server", () => ({ createClient }));
 vi.mock("@/lib/question-loader", () => ({ loadBankQuestions }));
 import { GET, PATCH } from "./route";
@@ -15,7 +15,7 @@ function setup({ userId = "user-id", row: current = savedRow as typeof savedRow 
  from.mockImplementation((table: string) => table === "entitlements" ? { select: () => ({ eq: async () => ({ data: entitlements, error: null }) }) } : (savedQueryCount++ === 0 ? q : q));
  q.maybeSingle.mockImplementation(async () => ({ data: current, error: null }));
  q.select.mockImplementation(() => q); q.eq.mockImplementation(() => q);
- createClient.mockResolvedValue({ auth: { getClaims }, from }); loadBankQuestions.mockResolvedValue([{ id: "q1" }]);
+ createClient.mockResolvedValue({ auth: { getClaims }, from, rpc: vi.fn().mockResolvedValue({ data: [], error: null }) }); loadBankQuestions.mockResolvedValue([{ id: "q1" }]);
  // Last maybeSingle is the update's readback; override by counting calls.
  q.maybeSingle.mockImplementation(async () => ({ data: current, error: null }));
  return q;

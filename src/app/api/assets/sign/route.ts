@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { hasBankAccess, isPreviewQuestion, type AccessEntitlement } from "@/lib/access";
 import { authorizeAssetRequests, type AssetRequest } from "@/lib/asset-access";
 import { getBank, type BankSlug } from "@/lib/banks";
-import { normalizeEntitlements } from "@/lib/entitlements";
+import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { premiumAssetSignOptions, previewAssetSignOptions, signPrivateAssetUrls } from "@/lib/private-assets";
 import { getQuestionRichDetails } from "@/lib/question-delivery";
 import { createClient } from "@/lib/supabase/server";
@@ -43,12 +43,9 @@ export async function POST(request: Request) {
   let entitlements: AccessEntitlement[] = [];
 
   if (userId) {
-    const { data, error } = await supabase
-      .from("entitlements")
-      .select("product_id, selected_bank_ids, status, starts_at, expires_at")
-      .eq("user_id", userId);
-    if (error) return NextResponse.json({ error: "Could not verify access" }, { status: 503 });
-    entitlements = normalizeEntitlements(data ?? []);
+    const result = await fetchAccessEntitlements(supabase as never, userId);
+    if (result.error) return NextResponse.json({ error: "Could not verify access" }, { status: 503 });
+    entitlements = result.rows as AccessEntitlement[];
   }
 
   let authorized;
