@@ -272,6 +272,7 @@ export function CustomBundleCheckout({
   interval,
   authenticated,
   hasPaidAccess,
+  previewOnly = false,
   initialBankIds = [],
   availableBanks = BANKS,
   onSelectionChange,
@@ -281,6 +282,7 @@ export function CustomBundleCheckout({
   interval: BillingInterval;
   authenticated: boolean;
   hasPaidAccess: boolean;
+  previewOnly?: boolean;
   initialBankIds?: readonly BankSlug[];
   availableBanks?: readonly Bank[];
   onSelectionChange?: (selectedBankIds: readonly BankSlug[]) => void;
@@ -369,7 +371,7 @@ export function CustomBundleCheckout({
         </fieldset>
       </details>
       {selectionNote ? <p className="custom-bundle-selection-note">{selectionNote}</p> : null}
-      {canCheckout ? <>
+      {canCheckout && !previewOnly ? <>
         {authenticated
           ? mode === "single"
             ? singleProductId ? <CheckoutButton interval={interval} productId={singleProductId} label={resolvedCtaLabel} /> : null

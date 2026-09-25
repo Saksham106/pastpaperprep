@@ -8,6 +8,62 @@ const cambridgeBankCount = availableBanks.filter((bank) => bank.qualification ==
 const ibBankCount = availableBanks.filter((bank) => bank.qualification === "International Baccalaureate").length;
 
 describe("approved custom-bank pricing", () => {
+  it("shows all three plans to an all-access customer and highlights only All Access", () => {
+    const { container } = render(<PricingContent authenticated hasPaidAccess currentPlanNames={["All Access"]} currentPlanProductIds={["bundle_all"]} ownedBankIds={availableBanks.map((bank) => bank.slug)} availableBanks={availableBanks} />);
+    expect(container.querySelectorAll(".pricing-decision-grid > .pricing-option")).toHaveLength(3);
+    const all = screen.getByRole("heading", { name: "All Access" }).closest("article")!;
+    expect(all).toHaveAttribute("data-current-plan", "true");
+    expect(within(all).getByText("Your access")).toBeInTheDocument();
+    expect(container.querySelectorAll('[data-current-plan="true"]')).toHaveLength(1);
+    expect(screen.getByText(/all available banks are included/i)).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Unlock/ })).not.toBeInTheDocument();
+  });
+
+  it("shows One Bank as current for a one-bank customer without allowing repurchase", () => {
+    const { container } = render(<PricingContent authenticated hasPaidAccess currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
+    const one = screen.getByRole("heading", { name: "One Bank" }).closest("article")!;
+    expect(one).toHaveAttribute("data-current-plan", "true");
+    expect(container.querySelectorAll(".pricing-decision-grid > .pricing-option")).toHaveLength(3);
+    expect(within(one).queryByRole("radio")).not.toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Add another bank" })).toBeInTheDocument();
+    expect(screen.getByText(/your existing rate stays unchanged/i)).toBeInTheDocument();
+  });
+
+  it("does not mislabel two separately purchased banks as a discounted builder bundle", () => {
+    const { container } = render(<PricingContent authenticated hasPaidAccess currentPlanProductIds={["bank_ib_sl", "bank_ib_hl"]} ownedBankIds={["ib-sl", "ib-hl"]} availableBanks={availableBanks} />);
+    expect(screen.getByRole("heading", { name: "One Bank" }).closest("article")).toHaveAttribute("data-current-plan", "true");
+    expect(screen.getByRole("heading", { name: "Build Your Plan" }).closest("article")).not.toHaveAttribute("data-current-plan");
+    expect(container.querySelectorAll('[data-current-plan="true"]')).toHaveLength(1);
+    expect(screen.getByText("2 separate bank subscriptions. Your existing rates stay unchanged.")).toBeInTheDocument();
+    expect(screen.getByText("Your subscriptions")).toBeInTheDocument();
+  });
+
+  it("highlights a real custom bundle and never implies it is the single-bank plan", () => {
+    render(<PricingContent authenticated hasPaidAccess currentPlanProductIds={["bundle_custom"]} ownedBankIds={["ib-sl", "ib-hl"]} availableBanks={availableBanks} />);
+    expect(screen.getByRole("heading", { name: "Build Your Plan" }).closest("article")).toHaveAttribute("data-current-plan", "true");
+    expect(screen.getByRole("heading", { name: "One Bank" }).closest("article")).not.toHaveAttribute("data-current-plan");
+  });
+
+  it("marks a complimentary all-access grant as access, not a paid Stripe subscription", () => {
+    render(<PricingContent authenticated hasPaidAccess currentPlanNames={["All Access"]} currentPlanProductIds={["bundle_all"]} complimentaryAccess ownedBankIds={availableBanks.map((bank) => bank.slug)} availableBanks={availableBanks} />);
+    expect(screen.getByText("Complimentary access")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Your current access" })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Manage billing" })).not.toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "All Access" }).closest("article")).toHaveAttribute("data-current-plan", "true");
+    expect(screen.getByText("Included with your complimentary access.")).toBeInTheDocument();
+    expect(screen.queryByText(/your existing rate stays unchanged/i)).not.toBeInTheDocument();
+  });
+
+  it("keeps local preview entirely read-only even after choosing an add-on", () => {
+    render(<PricingContent authenticated hasPaidAccess previewOnly currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
+    expect(screen.getByText(/local preview.*no account or checkout/i)).toBeInTheDocument();
+    const picker = screen.getByRole("heading", { name: "Add another bank" }).closest("section")!;
+    fireEvent.click(within(picker).getByRole("radio", { name: "IB Math AA HL" }));
+    expect(within(picker).queryByRole("button", { name: /Unlock/ })).not.toBeInTheDocument();
+    expect(within(picker).queryByRole("link", { name: /Unlock/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Manage billing" })).not.toBeInTheDocument();
+  });
+
   it("lets paid members buy only unowned banks as separately priced subscriptions", () => {
     render(<PricingContent authenticated hasPaidAccess currentPlanNames={["One Bank"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
     expect(screen.getByRole("heading", { name: "Add another bank" })).toBeInTheDocument();
