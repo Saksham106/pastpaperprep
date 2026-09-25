@@ -102,7 +102,6 @@ export default async function BankPage({ params }: { params: Promise<{ slug: str
           <h1>{bank.title}</h1>
           <p>{bank.description}</p>
           <div className="bank-hero-stats"><span><strong>{bank.questionCount.toLocaleString()}</strong> questions</span><span><strong>{bank.paperCount}</strong> papers</span><span><strong>{bank.years}</strong> coverage</span></div>
-          {bank.slug === "ib-sl" && <Link className="bank-hero-beta-link" href="/banks/ib-sl/exam-style/trigonometry"><span>Beta</span> Try exam-style questions</Link>}
         </div>
       </section>
       <div className="shell">
