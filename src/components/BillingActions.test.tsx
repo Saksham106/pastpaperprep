@@ -60,6 +60,24 @@ describe("CheckoutButtons", () => {
     );
   });
 
+  it("takes an eligible subscriber to their existing plan instead of showing a checkout rejection", async () => {
+    const navigate = vi.fn();
+    fetchMock.mockResolvedValue({ ok: false, status: 409, json: async () => ({ code: "MANAGE_EXISTING_PLAN", manageUrl: "/account/subscription", error: "Use My Account" }) });
+    render(<CheckoutButton interval="monthly" productId="bank_ib_hl" navigate={navigate} />);
+    fireEvent.click(screen.getByRole("button", { name: /choose monthly/i }));
+    await waitFor(() => expect(navigate).toHaveBeenCalledWith("/account/subscription"));
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  });
+
+  it("never follows an arbitrary destination from a checkout error", async () => {
+    const navigate = vi.fn();
+    fetchMock.mockResolvedValue({ ok: false, status: 409, json: async () => ({ code: "MANAGE_EXISTING_PLAN", manageUrl: "https://evil.example/", error: "Try My Account" }) });
+    render(<CheckoutButton interval="monthly" productId="bank_ib_hl" navigate={navigate} />);
+    fireEvent.click(screen.getByRole("button", { name: /choose monthly/i }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("Try My Account");
+    expect(navigate).not.toHaveBeenCalled();
+  });
+
   it("starts the selected allowlisted billing interval and follows Stripe's URL", async () => {
     const navigate = vi.fn();
     fetchMock.mockResolvedValue({

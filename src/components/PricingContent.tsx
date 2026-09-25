@@ -171,6 +171,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
               <strong>{hasPaidAccess ? currentPlanNames.join(", ") || "Paid access" : "Free"}</strong>
               <span>{hasPaidAccess ? complimentaryAccess ? "Complimentary access" : previewOnly ? "Example paid account. No billing is connected in this preview." : "Your access is active. Manage billing to cancel or update payment details." : "Choose a plan below to unlock every available question."}</span>
             </div>
+            {hasPaidAccess && !previewOnly ? <Link className="button secondary" href="/account/subscription">{complimentaryAccess ? "View your access" : "View or change your subscription"}</Link> : null}
             {hasPaidAccess && !complimentaryAccess && !previewOnly ? <PortalButton /> : null}
           </section>
         ) : null}
