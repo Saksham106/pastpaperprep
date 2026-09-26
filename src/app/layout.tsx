@@ -56,7 +56,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" className={`${geist.variable} ${mono.variable}`} suppressHydrationWarning>
       <body data-build-revision={process.env.NEXT_PUBLIC_BUILD_REVISION ?? "local"}>
-        <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem enableColorScheme storageKey="pastpaperprep-theme" disableTransitionOnChange>
+        <ThemeProvider attribute="data-theme" defaultTheme="light" enableColorScheme storageKey="pastpaperprep-theme" disableTransitionOnChange>
           <SessionAwareSiteHeader />
           <main>{children}</main>
           <SiteFooter />

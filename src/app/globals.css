@@ -679,7 +679,7 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 :root[data-theme="dark"] :is(.simple-page, .articles-page, .article-page, .auth-page, .legal-page) { --public-ink: var(--ink); --public-muted: var(--muted); --public-burgundy: var(--burgundy); }
 .simple-page h1, .articles-page h1, .article-page h1, .auth-card h1, .legal-page h1 { color: var(--public-ink); font-family: Georgia, "Times New Roman", serif; font-weight: 600; }
 .simple-page .eyebrow, .articles-page .eyebrow, .article-page .eyebrow, .auth-page .eyebrow, .legal-page .eyebrow { color: var(--public-burgundy); }
-.article-page, .legal-page { background: color-mix(in srgb, var(--paper-warm) 44%, var(--paper)); }
+.legal-page { background: color-mix(in srgb, var(--paper-warm) 44%, var(--paper)); }
 /* Public surfaces paint the warm off-white edge to edge, so no page band stops at the shell width. */
 .public-surface { background: color-mix(in srgb, var(--paper-warm) 44%, var(--paper)); }
 .pricing-intro, .articles-hero, .article-header, .auth-card, .legal-page { border-color: color-mix(in srgb, var(--public-burgundy) 18%, var(--line)); }

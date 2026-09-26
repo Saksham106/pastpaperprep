@@ -32,6 +32,7 @@ export default function PietroPastPapersArticle() {
   };
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
+    <div className="public-surface">
     <article className="article-page shell">
       <header className="article-header">
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Articles", href: "/articles" }, { label: title }]} />
@@ -52,5 +53,6 @@ export default function PietroPastPapersArticle() {
         <p>The next time you practise, use a new question rather than repeating the one you went through together. That&apos;s how you find out whether you can now make the decision for yourself.</p>
       </section></div>
     </article>
+    </div>
   </>;
 }
