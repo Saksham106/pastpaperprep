@@ -14,6 +14,11 @@ describe("ThemeToggle", () => {
     expect(theme.setTheme).toHaveBeenCalledWith("dark");
   });
 
+  it("shows a visible mode action in the account appearance row", () => {
+    render(<ThemeToggle showLabel />);
+    expect(screen.getByRole("button", { name: "Switch to dark theme" })).toHaveTextContent("Dark mode");
+  });
+
   it("switches dark to light through the shared theme provider", () => {
     theme.resolvedTheme = "dark";
     render(<ThemeToggle />);

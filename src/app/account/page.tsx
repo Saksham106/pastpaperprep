@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { signOut } from "@/app/auth/actions";
 import { AccountPlanOverview } from "@/components/AccountPlanOverview";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { hasBankAccess, type AccessEntitlement } from "@/lib/access";
 import { getEntitlementBanks } from "@/lib/banks";
@@ -51,6 +52,10 @@ export default async function AccountPage({
         </div>
       )}
       <article className="account-card"><AccountPlanOverview hasBankAccess={hasAnyBankAccess} /></article>
+      <section className="account-setting-row account-appearance-row" role="group" aria-label="Appearance">
+        <div><strong>Appearance</strong><span>Choose light or dark mode. This setting also follows your device until you choose one.</span></div>
+        <ThemeToggle showLabel />
+      </section>
       <div className="account-setting-row account-security-row">
         <div><strong>Security</strong><span>Add or change your password.</span></div>
         <Link className="button secondary" href="/account/password">Password settings</Link>

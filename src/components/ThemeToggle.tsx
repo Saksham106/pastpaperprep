@@ -6,7 +6,7 @@ import { useSyncExternalStore } from "react";
 
 const subscribe = () => () => {};
 
-export function ThemeToggle() {
+export function ThemeToggle({ showLabel = false }: { showLabel?: boolean }) {
   const { resolvedTheme, setTheme } = useTheme();
   // The server cannot know a saved or system theme. Keep markup identical until hydration.
   const mounted = useSyncExternalStore(subscribe, () => true, () => false);
@@ -15,7 +15,7 @@ export function ThemeToggle() {
 
   return (
     <button
-      className="theme-toggle"
+      className={`theme-toggle${showLabel ? " theme-toggle-labeled" : ""}`}
       type="button"
       disabled={!mounted}
       onClick={() => setTheme(nextTheme)}
@@ -23,7 +23,9 @@ export function ThemeToggle() {
       title={mounted ? `Switch to ${nextTheme} theme` : "Change theme"}
     >
       {dark ? <Sun aria-hidden="true" weight="bold" /> : <Moon aria-hidden="true" weight="bold" />}
-      <span className="sr-only">Use {nextTheme} mode</span>
+      <span className={showLabel ? undefined : "sr-only"} aria-hidden={showLabel ? "true" : undefined}>
+        {mounted ? `${nextTheme === "dark" ? "Dark" : "Light"} mode` : "Theme"}
+      </span>
     </button>
   );
 }
