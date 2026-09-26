@@ -67,6 +67,7 @@ export function ArticlesIndex() {
 
 export function ArticleContent({ article }: { article: Article }) {
   return (
+    <div className="public-surface">
     <article className="article-page shell">
       <header className="article-header">
         <Breadcrumbs items={[
@@ -135,5 +136,6 @@ export function ArticleContent({ article }: { article: Article }) {
         ) : null}
       </div>
     </article>
+    </div>
   );
 }

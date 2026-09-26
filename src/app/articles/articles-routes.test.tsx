@@ -18,6 +18,13 @@ describe("article routes", () => {
     expect(renderToStaticMarkup(<ArticlesPage />)).toContain("Past paper practice guides");
   });
 
+  it("keeps article text constrained while its background spans the page", async () => {
+    const index = renderToStaticMarkup(<ArticlesPage />);
+    const detail = renderToStaticMarkup(await ArticlePage({ params: Promise.resolve({ slug: ARTICLES[0].slug }) }));
+    expect(index).toContain('<div class="public-surface"><div class="articles-page shell">');
+    expect(detail).toContain('<div class="public-surface"><article class="article-page shell">');
+  });
+
   it("prebuilds every article and emits canonical article metadata", async () => {
     expect(generateStaticParams()).toEqual(ARTICLES.map(({ slug }) => ({ slug })));
     const article = ARTICLES[0];
