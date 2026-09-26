@@ -32,7 +32,7 @@ describe("SiteHeader", () => {
     expect(screen.getByRole("link", { name: "Log in" })).toHaveAttribute("href", "/login?next=/pricing");
     expect(screen.getByRole("link", { name: "Log in" })).toHaveClass("nav-login");
     expect(screen.getByRole("link", { name: /start practising/i })).toHaveAttribute("href", "/dashboard");
-    expect(screen.queryByRole("button", { name: /switch to dark theme/i })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /switch to dark theme/i })).toBeInTheDocument();
   });
 
   it("marks the current primary destination and uses a bank icon for the mobile dashboard action", () => {

@@ -47,6 +47,13 @@ describe("AccountPage checkout confirmation", () => {
     expect(status).not.toHaveTextContent(/payment successful/i);
   });
 
+  it("offers a labeled Appearance control from Account Overview", async () => {
+    render(await AccountPage({ searchParams: Promise.resolve({}) }));
+    const appearance = screen.getByRole("group", { name: "Appearance" });
+    expect(appearance).toHaveTextContent(/light or dark/i);
+    expect(appearance.querySelector("button.theme-toggle")).toHaveAccessibleName("Switch to dark theme");
+  });
+
   it("does not show a success message for untrusted checkout values", async () => {
     render(await AccountPage({ searchParams: Promise.resolve({ checkout: "cancelled" }) }));
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
