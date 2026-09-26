@@ -69,16 +69,50 @@ describe("account subscription editor", () => {
     expect(fetch).not.toHaveBeenCalled();
   });
 
-  it("unchecks an existing bank on the first click even when opening an inactive builder card", () => {
+  it("requires explicit confirmation before unchecking an owned bank in the Builder picker", () => {
     const fetch = vi.fn(); vi.stubGlobal("fetch", fetch);
     render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={vi.fn()} />);
     const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article")!;
-    fireEvent.click(within(builder).getByRole("checkbox", { name: "IB Math AA HL" }));
-    expect(within(builder).getByRole("checkbox", { name: "IB Math AA HL" })).not.toBeChecked();
-    fireEvent.click(within(builder).getByRole("checkbox", { name: "IGCSE Mathematics" }));
-    fireEvent.click(within(builder).getByRole("checkbox", { name: "IB Math AA SL" }));
-    expect(within(builder).getByRole("button", { name: "Review renewal change" })).toBeEnabled();
+    const ownedBank = within(builder).getByRole("checkbox", { name: "IB Math AA HL" });
+    fireEvent.click(ownedBank);
+    const confirmation = screen.getByRole("alertdialog", { name: /Remove IB Math AA HL from your next plan/i });
+    expect(ownedBank).toBeChecked();
+    expect(confirmation).toHaveTextContent(/Oct 25, 2026/i);
+    expect(confirmation).toHaveTextContent(/no charge today/i);
+    expect(within(confirmation).getByRole("button", { name: "Keep bank" })).toHaveFocus();
     expect(fetch).not.toHaveBeenCalled();
+    fireEvent.keyDown(confirmation, { key: "Escape" });
+    expect(screen.queryByRole("alertdialog")).not.toBeInTheDocument();
+    expect(ownedBank).toHaveFocus();
+    fireEvent.click(ownedBank);
+    fireEvent.click(within(screen.getByRole("alertdialog")).getByRole("button", { name: "Keep bank" }));
+    expect(screen.queryByRole("alertdialog")).not.toBeInTheDocument();
+    expect(ownedBank).toBeChecked();
+    fireEvent.click(ownedBank);
+    fireEvent.click(within(screen.getByRole("alertdialog")).getByRole("button", { name: "Remove at renewal" }));
+    expect(ownedBank).not.toBeChecked();
+    expect(screen.queryByRole("alertdialog")).not.toBeInTheDocument();
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it("routes an owned-bank removal with a replacement to renewal after confirmation", async () => {
+    const twoBanks = { ...plan(), bankSelection: { kind: "selected" as const, banks: [banks[0], banks[1]] }, item: { ...plan().item, quantity: 2 } };
+    const renewalSnapshot = { subscriptionId: "sub_one", currentPeriodStart: 1790208000, currentPeriodEnd: 1792886400, currentPriceId: "price_two", currentQuantity: 2, currentProductId: "bundle_custom", currentSelectedBankIds: ["ib-hl", "igcse"], currentInterval: "monthly", targetPriceId: "price_two", quantity: 2, recurringSubtotalCents: 1000, selectedBankIds: ["ib-sl", "igcse"], allAccess: false, interval: "monthly", quotedAt: Math.floor(Date.now() / 1000) };
+    const fetch = vi.fn().mockResolvedValueOnce(response({ status: "preview", snapshot: renewalSnapshot, currency: "usd", effectiveAt: "2026-10-25T00:00:00Z" })); vi.stubGlobal("fetch", fetch);
+    render(<AccountSubscriptionEditor subscription={twoBanks} bankOptions={banks} onUpdated={vi.fn()} />);
+    const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article")!;
+    fireEvent.click(within(builder).getByRole("checkbox", { name: "IB Math AA SL" }));
+    fireEvent.click(within(builder).getByRole("checkbox", { name: "IB Math AA HL" }));
+    expect(within(builder).getByRole("checkbox", { name: "IB Math AA HL" })).toBeChecked();
+    expect(within(builder).getByRole("button", { name: "Review change" })).toBeDisabled();
+    expect(fetch).not.toHaveBeenCalled();
+    fireEvent.click(within(screen.getByRole("alertdialog")).getByRole("button", { name: "Remove at renewal" }));
+    expect(within(builder).getByRole("checkbox", { name: "IB Math AA HL" })).not.toBeChecked();
+    expect(within(builder).getByText(/Draft only.*Review and confirm.*Oct 25, 2026/i)).toBeInTheDocument();
+    fireEvent.click(within(builder).getByRole("button", { name: "Review renewal change" }));
+    await waitFor(() => expect(fetch).toHaveBeenCalledOnce());
+    expect(fetch.mock.calls[0][0]).toBe("/api/billing/subscription/schedule");
+    expect(JSON.parse(fetch.mock.calls[0][1].body)).toEqual({ intent: "preview", selectedBankIds: ["ib-sl", "igcse"], allAccess: false, interval: "monthly" });
   });
 
   it("lets an existing Builder customer add a third bank within the same plan", async () => {
