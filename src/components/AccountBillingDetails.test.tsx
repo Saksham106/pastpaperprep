@@ -93,6 +93,18 @@ describe("AccountBillingDetails", () => {
     expect(await screen.findByText(/no stripe subscription/i)).toBeInTheDocument();
     expect(screen.queryByText(/\$0/)).not.toBeInTheDocument();
   });
+  it("keeps complimentary access separate from Stripe billing when no customer exists", async () => {
+    mockFetch({ error: "No billing account found" }, 404);
+    render(<AccountBillingDetails mode="subscription" complimentaryAllAccess />);
+    expect(await screen.findByText(/no paid subscription is connected/i)).toBeInTheDocument();
+    expect(screen.queryByText(/no stripe subscription is connected/i)).not.toBeInTheDocument();
+  });
+  it("still shows separately billed plans beside a complimentary grant", async () => {
+    mockFetch({ subscriptions: [subscription("sub_one", ["Mathematics 0580"], 600)], invoices: [], paymentMethod: null, management: { editable: false } });
+    render(<AccountBillingDetails mode="subscription" complimentaryAllAccess />);
+    expect(await screen.findByTestId("subscription-detail")).toHaveTextContent("Mathematics 0580");
+    expect(screen.getByText(/\$6\.00.*month/i)).toBeInTheDocument();
+  });
   it("does not misformat non-USD Stripe minor units as US-style cents", async () => {
     mockFetch({ subscriptions: [{ ...subscription("sub_one", ["Mathematics 0580"], 600), items: [{ ...subscription("sub_one", ["Mathematics 0580"], 600).items[0], price: { currency: "jpy", interval: "month", intervalCount: 1 } }] }], invoices: [], paymentMethod: null, management: { editable: false } });
     render(<AccountBillingDetails mode="subscription" />);

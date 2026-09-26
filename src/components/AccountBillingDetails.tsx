@@ -69,7 +69,7 @@ function ScheduledChange({ plan, onUpdated, canUndo }: { plan: NonNullable<Subsc
   </div>;
 }
 
-export function AccountBillingDetails({ mode }: { mode: "subscription" | "billing" }) {
+export function AccountBillingDetails({ mode, complimentaryAllAccess = false }: { mode: "subscription" | "billing"; complimentaryAllAccess?: boolean }) {
   const [state, setState] = useState<LoadState>({ kind: "loading" });
   const [operationNotice, setOperationNotice] = useState("");
   async function refresh() {
@@ -97,7 +97,7 @@ export function AccountBillingDetails({ mode }: { mode: "subscription" | "billin
 
   if (state.kind === "loading") return <p role="status">Loading subscription details…</p>;
   if (state.kind === "error") return <>{operationNotice ? <p role="status">{operationNotice}</p> : null}<p role="alert">Subscription details are temporarily unavailable. Check Billing or try again later.</p></>;
-  if (state.kind === "none") return <p className="account-empty-state">No Stripe subscription is connected to this account. Complimentary access, if any, is separate from billing.</p>;
+  if (state.kind === "none") return <p className="account-empty-state">{complimentaryAllAccess ? "No paid subscription is connected. Your complimentary All Access is separate from billing." : "No Stripe subscription is connected to this account. Complimentary access, if any, is separate from billing."}</p>;
   const { subscriptions, invoices, paymentMethod } = state.data;
 
   if (mode === "billing") return (
@@ -121,9 +121,9 @@ export function AccountBillingDetails({ mode }: { mode: "subscription" | "billin
     </div>
   );
 
-  if (!subscriptions.length) return <p className="account-empty-state">No Stripe subscriptions are connected to this billing account.</p>;
+  if (!subscriptions.length) return <p className="account-empty-state">{complimentaryAllAccess ? "No paid subscription is connected. Your complimentary All Access is separate from billing." : "No Stripe subscriptions are connected to this billing account."}</p>;
   const current = subscriptions.filter((sub) => sub.status !== "canceled" && sub.status !== "incomplete_expired");
-  if (!current.length) return <p className="account-empty-state">No current paid subscriptions. Your past invoices remain available in Billing.</p>;
+  if (!current.length) return <p className="account-empty-state">No current paid subscriptions. {complimentaryAllAccess ? "Your complimentary All Access remains active." : "Your past invoices remain available in Billing."}</p>;
   return (
     <div className="account-billing-detail">
       {operationNotice ? <p role="status" className="account-editor-note">{operationNotice}</p> : null}

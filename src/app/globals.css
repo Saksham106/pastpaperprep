@@ -844,7 +844,7 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .form-message.success { color: var(--success); background: var(--success-soft); }
 .form-message.error { color: var(--danger); background: var(--danger-soft); }
 .auth-card > .auth-link-error { color: var(--danger); background: color-mix(in srgb, var(--danger) 8%, var(--surface)); border-left: 3px solid var(--danger); }
-.account-settings-layout { width: min(1180px, calc(100% - 48px)); margin: 0 auto; padding-block: 64px 100px; display: grid; grid-template-columns: 220px minmax(0, 1fr); align-items: start; gap: clamp(32px, 6vw, 76px); }
+.account-settings-layout { width: min(1460px, calc(100% - 48px)); margin: 0 auto; padding-block: 64px 100px; display: grid; grid-template-columns: 200px minmax(0, 1fr); align-items: start; gap: clamp(28px, 3vw, 44px); }
 .account-settings-content { min-width: 0; }
 .account-settings-nav { position: sticky; top: 24px; display: grid; gap: 5px; padding: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
 .account-settings-nav a { min-height: 44px; padding: 11px 13px; display: flex; align-items: center; color: var(--muted); border-radius: 8px; text-decoration: none; font-weight: 700; }
@@ -895,10 +895,21 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .account-editor-actions button:focus-visible, .account-editor-form input:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
 .account-editor-actions button:disabled { opacity: .55; cursor: wait; }
 .account-editor-review strong { color: var(--ink); font-variant-numeric: tabular-nums; }
-.account-settings-layout:has(.account-subscription-page) { width: min(1200px, calc(100% - 48px)); grid-template-columns: minmax(0, 1fr); gap: 28px; }
-.account-settings-layout:has(.account-subscription-page) .account-settings-nav { position: static; grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.account-settings-layout:has(.account-subscription-page) .account-settings-nav a { justify-content: center; }
 .account-subscription-page { max-width: none; }
+.account-overview-page { padding: 0; }
+.account-overview-page .account-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+.account-overview-page .account-heading h1 { font-size: clamp(2.35rem, 4vw, 3.45rem); text-wrap: balance; }
+.account-overview-page .account-heading > div { min-width: 0; }
+.account-overview-page .account-heading > div > p:last-child { overflow-wrap: anywhere; }
+.account-heading-actions { flex: 0 0 auto; }
+.account-plan-overview { padding: 23px 24px; display: flex; align-items: center; justify-content: space-between; gap: 28px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.account-plan-overview > div:first-child { min-width: 0; display: grid; gap: 7px; }
+.account-plan-overview strong { font: 780 1.15rem/1.2 var(--font-display); }
+.account-plan-overview span { max-width: 56ch; color: var(--muted); font-size: .9rem; line-height: 1.55; }
+.account-plan-actions { flex: 0 0 auto; display: flex; align-items: center; }
+.account-plan-actions .button, .account-security-row .button, .account-heading-actions .button { white-space: nowrap; }
+.account-security-row { margin-top: 16px; }
+@media (max-width: 1280px) and (min-width: 761px) { .account-subscription-page .account-pricing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .account-pricing-heading h2 { margin: 0 0 7px; font: 850 clamp(1.65rem, 3vw, 2.3rem)/1 var(--font-display); letter-spacing: -.04em; }
 .account-pricing-heading p, .account-plan-timing { max-width: 720px; margin: 0; color: var(--muted); font-size: .87rem; line-height: 1.55; }
 .account-plan-chooser { display: grid; gap: 18px; }
@@ -926,8 +937,7 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .account-plan-timing { max-width: none; }
 .account-editor-actions .account-cancel-action, .account-editor-actions .account-cancel-action:first-child { margin-left: auto; color: var(--muted); background: transparent; border-color: transparent; box-shadow: none; }
 .account-editor-actions .account-cancel-action:hover { color: var(--ink); text-decoration: underline; }
-@media (max-width: 760px) { .account-settings-layout:has(.account-subscription-page) { width: min(100% - 32px, 680px); } .account-pricing-grid .pricing-option { min-height: 530px; } }
-@media (max-width: 520px) { .account-settings-layout:has(.account-subscription-page) .account-settings-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 760px) { .account-pricing-grid .pricing-option { min-height: 530px; } }
 .account-editor-note { padding: 11px 14px; background: var(--cobalt-faint); border-left: 3px solid var(--cobalt); }
 @media (max-width: 760px) {
   .account-settings-layout { width: min(100% - 32px, 680px); padding-block: 40px 72px; grid-template-columns: minmax(0, 1fr); gap: 22px; }
@@ -941,6 +951,35 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
   .account-plan-overview, .account-setting-row { align-items: stretch; flex-direction: column; }
   .account-plan-actions { justify-content: flex-start; }
 }
+@media (max-width: 760px) { .account-overview-page .account-heading { align-items: flex-start; flex-direction: column; gap: 18px; } }
+@media (max-width: 620px) { .account-plan-overview { align-items: flex-start; flex-direction: column; gap: 17px; padding: 20px; } }
+.complimentary-access { display: grid; gap: 22px; }
+.complimentary-welcome { position: relative; min-width: 0; padding: clamp(22px, 4vw, 36px); display: flex; align-items: flex-start; gap: 22px; overflow: hidden; color: var(--ink); background: color-mix(in srgb, var(--surface) 78%, var(--paper-warm)); border: 1px solid var(--line-strong); border-left: 4px solid var(--burgundy); border-radius: 12px; }
+.complimentary-welcome::after { content: ""; position: absolute; width: 170px; height: 170px; right: -84px; bottom: -110px; border: 1px solid color-mix(in srgb, var(--burgundy) 28%, transparent); border-radius: 50%; pointer-events: none; }
+.complimentary-welcome-mark { flex: 0 0 auto; width: 54px; height: 54px; display: grid; place-items: center; color: var(--burgundy); background: color-mix(in srgb, var(--burgundy) 9%, var(--surface)); border-radius: 12px; }
+.complimentary-welcome-mark svg { width: 27px; height: 27px; }
+.complimentary-welcome-label { margin: 0 0 6px; color: var(--burgundy); font: 800 .72rem var(--font-mono); letter-spacing: .04em; text-transform: uppercase; }
+.complimentary-welcome h2 { margin: 0; font: 850 clamp(1.65rem, 3vw, 2.35rem)/1.07 var(--font-display); letter-spacing: -.045em; }
+.complimentary-welcome h2 + p { margin: 9px 0 0; color: var(--muted); line-height: 1.5; }
+.complimentary-plan-grid { margin: 0; }
+.complimentary-plan-grid .pricing-option { min-height: 295px; }
+.complimentary-plan-grid .pricing-option[data-plan-tone="premium"] { border-color: var(--burgundy); box-shadow: 0 14px 35px color-mix(in srgb, var(--burgundy) 14%, transparent); }
+.complimentary-plan-grid .pricing-option h2 { white-space: normal; }
+.complimentary-plan-grid .plan-description { margin-top: 22px; }
+.complimentary-plan-note { margin: 0 0 7px; color: var(--muted); font-size: .78rem; line-height: 1.4; }
+.complimentary-plan-grid .plan-checkout > .button { width: 100%; display: flex; align-items: center; justify-content: center; min-height: 46px; color: white; background: var(--burgundy); border-color: var(--burgundy); }
+.complimentary-plan-included { min-height: 46px; padding: 11px 12px; display: flex; align-items: center; justify-content: center; color: var(--muted); background: color-mix(in srgb, var(--ink) 5%, var(--surface)); border: 1px solid var(--line-strong); border-radius: 7px; font-size: .83rem; font-weight: 750; text-align: center; }
+@media (prefers-reduced-motion: no-preference) {
+  .complimentary-welcome { animation: complimentary-arrive .65s cubic-bezier(.16,1,.3,1) both; }
+  .complimentary-welcome-mark { animation: complimentary-spark .85s cubic-bezier(.16,1,.3,1) .18s both; }
+  .complimentary-plan-grid .pricing-option { animation: complimentary-arrive .65s cubic-bezier(.16,1,.3,1) both; }
+  .complimentary-plan-grid .pricing-option:nth-child(1) { animation-delay: .12s; }
+  .complimentary-plan-grid .pricing-option:nth-child(2) { animation-delay: .2s; }
+  .complimentary-plan-grid .pricing-option:nth-child(3) { animation-delay: .28s; }
+}
+@keyframes complimentary-arrive { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes complimentary-spark { from { opacity: 0; transform: scale(.65) rotate(-22deg); } to { opacity: 1; transform: scale(1) rotate(0); } }
+@media (max-width: 520px) { .complimentary-welcome { gap: 14px; } .complimentary-welcome-mark { width: 40px; height: 40px; } .complimentary-welcome-mark svg { width: 21px; height: 21px; } }
 
 .account-preference-row > div { display: grid; gap: 3px; }
 .not-found-page { min-height: 62vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
