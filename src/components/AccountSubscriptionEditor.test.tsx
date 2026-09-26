@@ -125,7 +125,14 @@ describe("account subscription editor", () => {
     const twoBanks = { ...plan(), bankSelection: { kind: "selected" as const, banks: [banks[0], banks[1]] }, item: { ...plan().item, quantity: 2 } };
     render(<AccountSubscriptionEditor subscription={twoBanks} bankOptions={banks} onUpdated={vi.fn()} />);
     const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article")!;
-    expect(within(builder).getByRole("button", { name: "Your plan" })).toBeDisabled();
+    const edit = within(builder).getByRole("button", { name: "Edit your banks" });
+    expect(edit).toBeEnabled();
+    const picker = within(builder).getByText("Choose your banks").closest("details")!;
+    expect(picker).not.toHaveAttribute("open");
+    fireEvent.click(edit);
+    expect(picker).toHaveAttribute("open");
+    expect(within(builder).getByText("Choose your banks").closest("summary")).toHaveFocus();
+    expect(fetch).not.toHaveBeenCalled();
     fireEvent.click(within(builder).getByRole("checkbox", { name: "IB Math AA SL" }));
     expect(builder.querySelector(".account-plan-card-price")).toHaveTextContent("$14/ month");
     fireEvent.click(within(builder).getByRole("button", { name: "Review change" }));
@@ -180,7 +187,7 @@ describe("account subscription editor", () => {
     vi.stubGlobal("fetch", fetch);
     const updated = vi.fn();
     render(<AccountSubscriptionEditor subscription={twoBanks} bankOptions={banks} onUpdated={updated} />);
-    expect(screen.getByRole("button", { name: "Your plan" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Edit your banks" })).toBeEnabled();
     fireEvent.click(screen.getByRole("button", { name: "Switch to One Bank" }));
     fireEvent.click(screen.getByRole("radio", { name: "IB Math AA SL" }));
     fireEvent.click(screen.getByRole("button", { name: "Review renewal change" }));

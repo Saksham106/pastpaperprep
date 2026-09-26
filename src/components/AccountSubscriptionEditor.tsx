@@ -51,6 +51,7 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
   const removalTrigger = useRef<HTMLInputElement | null>(null);
   const removalDialog = useRef<HTMLDialogElement | null>(null);
   const keepBankButton = useRef<HTMLButtonElement | null>(null);
+  const builderDisclosure = useRef<HTMLDetailsElement | null>(null);
   useEffect(() => {
     if (!pendingRemoval) {
       removalTrigger.current?.focus();
@@ -214,6 +215,7 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
           const artwork = option === "single" ? "/artwork/aristotle-tutoring-alexander.webp" : option === "builder" ? "/artwork/school-of-athens-plato-aristotle.webp" : "/artwork/plato-academy-mosaic.webp";
           const current = currentMode === option;
           const active = mode === option;
+          const editingBuilder = option === "builder" && current && active && unchanged;
           const ownedSingle = current && option === "single";
           const pickerIds = mode === "builder" ? selected : currentMode === "builder" ? currentIds : currentMode === "single" ? currentIds : [];
           const removedOwned = option === "builder" && active ? currentIds.filter((id) => !selected.includes(id)) : [];
@@ -227,9 +229,10 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
               : "Billed monthly";
           const canReview = active && validSelection && !unchanged;
           const action = ownedSingle ? !active || unchanged ? "Your bank" : "Review billing change"
+            : editingBuilder ? "Edit your banks"
             : active ? !validSelection ? "Choose one more bank" : unchanged ? "Your plan" : expansion ? "Review change" : "Review renewal change"
               : current ? option === "builder" ? "Edit your banks" : "Keep All Access" : `Switch to ${name}`;
-          const disabled = busy || subscription.cancelAtPeriodEnd || Boolean(pendingRemoval) || ownedSingle && !active || active && (demo || !validSelection || unchanged);
+          const disabled = busy || subscription.cancelAtPeriodEnd || Boolean(pendingRemoval) || ownedSingle && !active || active && (!validSelection || unchanged && !editingBuilder || demo && !editingBuilder);
           return <article className={`pricing-option${option === "builder" ? " pricing-option-popular" : ""}${current ? " pricing-option-current" : ""}`} data-plan-tone={option === "single" ? "starter" : option === "all" ? "premium" : "builder"} data-current-plan={current ? "true" : undefined} data-selected={active ? "true" : undefined} data-mobile-order={option === "builder" ? "first" : undefined} key={option}>
             <Image className="plan-art" src={artwork} alt="" width={420} height={260} aria-hidden="true" sizes="(max-width: 1024px) 68vw, 300px" />
             <div className="pricing-option-heading"><div className="plan-title-block"><span className="plan-icon" aria-hidden="true"><PlanIcon weight="duotone" /></span><div><p className="plan-label">{option === "single" ? "One bank" : option === "builder" ? "2 to 5 banks" : "All access"}</p><h2>{name}</h2></div></div>
@@ -240,7 +243,7 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
             <p className="plan-description">{option === "single" ? "Focus on one syllabus." : option === "builder" ? "Mix the banks you actually take." : "Everything, including future banks."}</p>
             <div className="plan-checkout custom-bundle-checkout">
               {ownedSingle ? <div className="custom-bank-disclosure account-owned-bank"><span>Your bank</span><span className="custom-bank-disclosure-value">{bankOptions.find((bank) => bank.slug === currentIds[0])?.name ?? currentIds[0]}</span></div>
-                : option !== "all" ? <details className="custom-bank-disclosure"><summary><span>{option === "single" ? "Choose question bank" : "Choose your banks"}</span><span className="custom-bank-disclosure-value">{option === "single" ? active ? bankOptions.find((bank) => bank.slug === selected[0])?.name ?? "Choose a bank" : "Choose a bank" : pickerIds.length ? `${pickerIds.length} selected` : "None selected"}</span><CaretDown aria-hidden="true" weight="bold" /></summary>
+                : option !== "all" ? <details ref={option === "builder" ? builderDisclosure : undefined} className="custom-bank-disclosure"><summary><span>{option === "single" ? "Choose question bank" : "Choose your banks"}</span><span className="custom-bank-disclosure-value">{option === "single" ? active ? bankOptions.find((bank) => bank.slug === selected[0])?.name ?? "Choose a bank" : "Choose a bank" : pickerIds.length ? `${pickerIds.length} selected` : "None selected"}</span><CaretDown aria-hidden="true" weight="bold" /></summary>
                 <fieldset className="custom-bank-picker" disabled={busy || subscription.cancelAtPeriodEnd}><legend className="sr-only">{option === "single" ? "Choose one question bank" : "Choose the banks you need"}</legend><div className="custom-bank-groups">
                   {bankGroups.map((group) => <section className="custom-bank-group" key={`${option}-${group.label}`} aria-label={group.label}><h3>{group.label}</h3><div className="custom-bank-group-options">{group.banks.map((bank) => <label key={bank.slug} data-bank-id={bank.slug}><input type={option === "single" ? "radio" : "checkbox"} name={option === "single" ? "account-one-bank" : `account-bank-${bank.slug}`} checked={option === "single" ? active && selected.includes(bank.slug) : pickerIds.includes(bank.slug)} disabled={option === "builder" && pickerIds.length >= 5 && !pickerIds.includes(bank.slug)} onChange={(event) => option === "single" ? selectSingle(bank.slug) : toggle(bank.slug, event.currentTarget)} /><span>{bank.name}</span>{option === "builder" && currentIds.includes(bank.slug) ? <small className="account-bank-current-tag" aria-hidden="true">Current</small> : null}</label>)}</div></section>)}
                 </div></fieldset></details> : null}
@@ -251,7 +254,7 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
               </dialog> : null}
               {removedOwned.length ? <p className="account-removal-draft-note">Draft only — {removedOwned.map((id) => bankOptions.find((bank) => bank.slug === id)?.name ?? id).join(", ")} {removedOwned.length === 1 ? "remains" : "remain"} active. Review and confirm to remove {removedOwned.length === 1 ? "it" : "them"} at the {date(subscription.item.currentPeriodEnd)} renewal; otherwise {removedOwned.length === 1 ? "it stays" : "they stay"} on your plan.</p> : null}
               {option === "builder" && active && selected.length < 2 ? <p className="custom-bundle-selection-note">{currentMode === "builder" && selected.length === 1 ? "One bank selected. Add another, or switch to One Bank for a downgrade." : "Select at least two banks to continue."}</p> : null}
-              <button className={`button primary${ownedSingle && (!active || unchanged) ? " account-plan-owned-cta" : ""}`} type="button" aria-pressed={active} disabled={disabled} onClick={() => { if (!active) chooseMode(option); else if (canReview) void (expansion ? preview() : previewRenewal()); }}>{demo && active && !unchanged ? "Preview only" : action}</button>
+              <button className={`button primary${ownedSingle && (!active || unchanged) ? " account-plan-owned-cta" : ""}`} type="button" aria-pressed={active} disabled={disabled} onClick={() => { if (editingBuilder) { if (builderDisclosure.current) { builderDisclosure.current.open = true; builderDisclosure.current.querySelector("summary")?.focus(); } } else if (!active) chooseMode(option); else if (canReview) void (expansion ? preview() : previewRenewal()); }}>{demo && active && !unchanged ? "Preview only" : action}</button>
               {demo && active ? <p className="custom-bundle-selection-note">No checkout or account changes in this preview.</p> : null}
             </div>
           </article>;
