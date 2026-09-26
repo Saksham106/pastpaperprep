@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { AccountSubscriptionEditor } from "@/components/AccountSubscriptionEditor";
 
 afterEach(() => vi.unstubAllGlobals());
@@ -10,12 +10,58 @@ const preview = { estimate: { amountDueTodayCents: 380, estimatedCreditCents: 20
 const response = (body: unknown, status = 200) => ({ ok: status === 200, status, json: async () => body });
 
 describe("account subscription editor", () => {
+  it("keeps the local UI demo interactive without exposing a billing mutation", () => {
+    const fetch = vi.fn(); vi.stubGlobal("fetch", fetch);
+    render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={vi.fn()} demo />);
+    fireEvent.click(screen.getByRole("button", { name: "Select Build Your Plan" }));
+    fireEvent.click(screen.getByRole("checkbox", { name: "IGCSE Mathematics" }));
+    expect(screen.getByText(/preview only/i)).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Review change" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Cancel subscription" })).not.toBeInTheDocument();
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it("shows three price cards, highlights the current plan, and reprices a builder selection before any Stripe request", () => {
+    const fetch = vi.fn(); vi.stubGlobal("fetch", fetch);
+    render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={vi.fn()} />);
+    const one = screen.getByRole("heading", { name: "One Bank" }).closest("article")!;
+    const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article")!;
+    expect(screen.getAllByRole("article")).toHaveLength(3);
+    expect(one).toHaveAttribute("data-current-plan", "true");
+    expect(one.querySelector(".account-plan-card-price")).toHaveTextContent("$6.00 / month");
+    fireEvent.click(within(builder).getByRole("button", { name: "Select Build Your Plan" }));
+    expect(builder.querySelector(".account-plan-card-price")).toHaveTextContent("From $10.00 / month");
+    fireEvent.click(screen.getByRole("checkbox", { name: "IGCSE Mathematics" }));
+    expect(builder.querySelector(".account-plan-card-price")).toHaveTextContent("$10.00 / month");
+    fireEvent.change(screen.getByRole("combobox", { name: "Billing cadence" }), { target: { value: "annual" } });
+    expect(builder.querySelector(".account-plan-card-price")).toHaveTextContent("$84.00 / year");
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it("quotes an existing two-bank customer's same-cadence All Access choice as an immediate expansion", async () => {
+    const allPreview = { ...preview,
+      snapshot: { ...snapshot, allAccess: true, selectedBankIds: [], targetPriceId: "price_all", targetQuantity: 1 },
+      target: { ...preview.target, productId: "bundle_all", selectedBankIds: [] },
+      estimate: { ...preview.estimate, recurringSubtotalCents: 2500 },
+    };
+    const fetch = vi.fn().mockResolvedValueOnce(response(allPreview)); vi.stubGlobal("fetch", fetch);
+    const twoBanks = { ...plan(), bankSelection: { kind: "selected" as const, banks: [banks[0], banks[1]] }, item: { ...plan().item, quantity: 2 } };
+    render(<AccountSubscriptionEditor subscription={twoBanks} bankOptions={banks} onUpdated={vi.fn()} />);
+    expect(screen.getByRole("heading", { name: "Build Your Plan" }).closest("article")).toHaveAttribute("data-current-plan", "true");
+    fireEvent.click(screen.getByRole("button", { name: "Select All Access" }));
+    expect(screen.getByRole("heading", { name: "All Access" }).closest("article")!.querySelector(".account-plan-card-price")).toHaveTextContent("$25.00 / month");
+    fireEvent.click(screen.getByRole("button", { name: "Review change" }));
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
+    expect(fetch.mock.calls[0][0]).toBe("/api/billing/subscription/change/preview");
+    expect(JSON.parse(fetch.mock.calls[0][1].body)).toEqual({ selectedBankIds: [], allAccess: true, interval: "monthly" });
+  });
+
   it("requires review of an exact same-cadence expansion quote before confirmation and never claims access is paid", async () => {
     const fetch = vi.fn().mockResolvedValueOnce(response(preview)).mockResolvedValueOnce(response({ status: "pending" }));
     vi.stubGlobal("fetch", fetch);
     const updated = vi.fn();
     render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={updated} />);
-    fireEvent.click(screen.getByRole("button", { name: "Change plan" }));
+    fireEvent.click(screen.getByRole("button", { name: "Select Build Your Plan" }));
     fireEvent.click(screen.getByRole("checkbox", { name: "IGCSE Mathematics" }));
     fireEvent.click(screen.getByRole("button", { name: "Review change" }));
     await screen.findByText(/estimated due today/i);
@@ -37,9 +83,7 @@ describe("account subscription editor", () => {
     vi.stubGlobal("fetch", fetch);
     const updated = vi.fn();
     render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={updated} />);
-    fireEvent.click(screen.getByRole("button", { name: "Change plan" }));
-    fireEvent.click(screen.getByRole("checkbox", { name: "IB Math AA HL" }));
-    fireEvent.click(screen.getByRole("checkbox", { name: "IGCSE Mathematics" }));
+    fireEvent.change(screen.getByRole("combobox", { name: "Choose one bank" }), { target: { value: "igcse" } });
     fireEvent.click(screen.getByRole("button", { name: "Review renewal change" }));
     expect(await screen.findByText(/\$6\.00 \/ month/i)).toBeInTheDocument();
     expect(fetch.mock.calls[0][0]).toBe("/api/billing/subscription/schedule");
@@ -70,7 +114,7 @@ describe("account subscription editor", () => {
     const fetch = vi.fn().mockResolvedValueOnce(response(preview)).mockResolvedValueOnce(response({ error: "Quote changed; preview again" }, 409));
     vi.stubGlobal("fetch", fetch);
     render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={vi.fn()} />);
-    fireEvent.click(screen.getByRole("button", { name: "Change plan" }));
+    fireEvent.click(screen.getByRole("button", { name: "Select Build Your Plan" }));
     fireEvent.click(screen.getByRole("checkbox", { name: "IGCSE Mathematics" }));
     fireEvent.click(screen.getByRole("button", { name: "Review change" }));
     fireEvent.click(await screen.findByRole("button", { name: "Confirm change" }));
