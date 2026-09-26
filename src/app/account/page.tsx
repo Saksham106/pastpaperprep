@@ -32,16 +32,16 @@ export default async function AccountPage({
   const hasAnyBankAccess = getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, entitlements));
 
   return (
-    <section className="account-page shell">
+    <section className="account-page account-overview-page">
       <div className="account-heading">
         <div>
           <p className="eyebrow">Account</p>
           <h1>Your access and security.</h1>
           <p>{userData.user?.email}</p>
         </div>
-        <div className="account-heading-actions"><form action={signOut}>
+        <form className="account-heading-actions" action={signOut}>
           <button className="button secondary" type="submit">Sign out</button>
-        </form></div>
+        </form>
       </div>
 
       {checkout === "success" && (
@@ -51,7 +51,7 @@ export default async function AccountPage({
         </div>
       )}
       <article className="account-card"><AccountPlanOverview hasBankAccess={hasAnyBankAccess} /></article>
-      <div className="account-security-row">
+      <div className="account-setting-row account-security-row">
         <div><strong>Security</strong><span>Add or change your password.</span></div>
         <Link className="button secondary" href="/account/password">Password settings</Link>
       </div>
