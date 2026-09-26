@@ -26,15 +26,33 @@ describe("account subscription editor", () => {
     render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={vi.fn()} />);
     const one = screen.getByRole("heading", { name: "One Bank" }).closest("article")!;
     const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article")!;
+    expect(screen.getByLabelText("PastPaperPrep plans")).toHaveClass("pricing-decision-grid");
     expect(screen.getAllByRole("article")).toHaveLength(3);
+    expect(one).toHaveClass("pricing-option");
+    expect(one.querySelector("img.plan-art")).toHaveAttribute("src", expect.stringContaining("aristotle-tutoring-alexander"));
+    expect(builder.querySelector("img.plan-art")).toHaveAttribute("src", expect.stringContaining("school-of-athens-plato-aristotle"));
+    expect(screen.getByRole("group", { name: "Billing period" })).toBeInTheDocument();
     expect(one).toHaveAttribute("data-current-plan", "true");
-    expect(one.querySelector(".account-plan-card-price")).toHaveTextContent("$6.00 / month");
+    expect(one.querySelector(".account-plan-card-price")).toHaveTextContent("$6/ month");
     fireEvent.click(within(builder).getByRole("button", { name: "Select Build Your Plan" }));
-    expect(builder.querySelector(".account-plan-card-price")).toHaveTextContent("From $10.00 / month");
+    expect(builder.querySelector(".account-plan-card-price")).toHaveTextContent("$10/ month");
     fireEvent.click(screen.getByRole("checkbox", { name: "IGCSE Mathematics" }));
-    expect(builder.querySelector(".account-plan-card-price")).toHaveTextContent("$10.00 / month");
-    fireEvent.change(screen.getByRole("combobox", { name: "Billing cadence" }), { target: { value: "annual" } });
-    expect(builder.querySelector(".account-plan-card-price")).toHaveTextContent("$84.00 / year");
+    expect(builder.querySelector(".account-plan-card-price")).toHaveTextContent("$10/ month");
+    fireEvent.click(screen.getByRole("button", { name: /Annual Save up to/i }));
+    expect(builder.querySelector(".account-plan-card-price")).toHaveTextContent("$7/ month");
+    expect(within(builder).getByText(/Billed \$84 once a year/)).toBeInTheDocument();
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it("unchecks an existing bank on the first click even when opening an inactive builder card", () => {
+    const fetch = vi.fn(); vi.stubGlobal("fetch", fetch);
+    render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={vi.fn()} />);
+    const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article")!;
+    fireEvent.click(within(builder).getByRole("checkbox", { name: "IB Math AA HL" }));
+    expect(within(builder).getByRole("checkbox", { name: "IB Math AA HL" })).not.toBeChecked();
+    fireEvent.click(within(builder).getByRole("checkbox", { name: "IGCSE Mathematics" }));
+    fireEvent.click(within(builder).getByRole("checkbox", { name: "IB Math AA SL" }));
+    expect(within(builder).getByRole("button", { name: "Review renewal change" })).toBeEnabled();
     expect(fetch).not.toHaveBeenCalled();
   });
 
@@ -49,7 +67,7 @@ describe("account subscription editor", () => {
     render(<AccountSubscriptionEditor subscription={twoBanks} bankOptions={banks} onUpdated={vi.fn()} />);
     expect(screen.getByRole("heading", { name: "Build Your Plan" }).closest("article")).toHaveAttribute("data-current-plan", "true");
     fireEvent.click(screen.getByRole("button", { name: "Select All Access" }));
-    expect(screen.getByRole("heading", { name: "All Access" }).closest("article")!.querySelector(".account-plan-card-price")).toHaveTextContent("$25.00 / month");
+    expect(screen.getByRole("heading", { name: "All Access" }).closest("article")!.querySelector(".account-plan-card-price")).toHaveTextContent("$25/ month");
     fireEvent.click(screen.getByRole("button", { name: "Review change" }));
     await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
     expect(fetch.mock.calls[0][0]).toBe("/api/billing/subscription/change/preview");
@@ -83,7 +101,8 @@ describe("account subscription editor", () => {
     vi.stubGlobal("fetch", fetch);
     const updated = vi.fn();
     render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={updated} />);
-    fireEvent.change(screen.getByRole("combobox", { name: "Choose one bank" }), { target: { value: "igcse" } });
+    fireEvent.click(screen.getByRole("heading", { name: "One Bank" }).closest("article")!.querySelector("summary")!);
+    fireEvent.click(screen.getByRole("radio", { name: "IGCSE Mathematics" }));
     fireEvent.click(screen.getByRole("button", { name: "Review renewal change" }));
     expect(await screen.findByText(/\$6\.00 \/ month/i)).toBeInTheDocument();
     expect(fetch.mock.calls[0][0]).toBe("/api/billing/subscription/schedule");
