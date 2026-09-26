@@ -895,6 +895,36 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .account-editor-actions button:focus-visible, .account-editor-form input:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
 .account-editor-actions button:disabled { opacity: .55; cursor: wait; }
 .account-editor-review strong { color: var(--ink); font-variant-numeric: tabular-nums; }
+.account-plan-chooser { display: grid; gap: 20px; }
+.account-plan-chooser-head { display: flex; gap: 24px; justify-content: space-between; align-items: end; }
+.account-plan-chooser-head h3 { margin: 0 0 6px; font: 650 1.55rem/1.15 Georgia, "Times New Roman", serif; letter-spacing: -.025em; }
+.account-plan-chooser-head p, .account-plan-timing { margin: 0; color: var(--muted); font-size: .88rem; line-height: 1.55; }
+.account-plan-chooser-head label, .account-plan-single { flex-shrink: 0; display: grid; gap: 6px; color: var(--ink); font-size: .76rem; font-weight: 760; }
+.account-plan-chooser-head select, .account-plan-single select { min-height: 40px; max-width: 100%; padding: 8px 32px 8px 11px; color: var(--ink); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 8px; font: 600 .86rem/1.2 var(--font-body); }
+.account-plan-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.account-plan-card { --plan-color: #20885b; display: flex; flex-direction: column; gap: 12px; min-width: 0; min-height: 204px; padding: 19px; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 14px; transition: border-color .15s ease, box-shadow .15s ease; }
+.account-plan-card[data-plan-tone="builder"] { --plan-color: var(--cobalt); }
+.account-plan-card[data-plan-tone="premium"] { --plan-color: #7f293a; }
+.account-plan-card[data-selected="true"] { border: 2px solid var(--plan-color); padding: 18px; box-shadow: 0 8px 28px color-mix(in srgb, var(--plan-color) 11%, transparent); }
+.account-plan-card-top { display: flex; align-items: start; justify-content: space-between; gap: 6px; min-height: 35px; }
+.account-plan-card h4 { margin: 0; font: 760 1.1rem/1.13 var(--font-display); letter-spacing: -.028em; }
+.account-plan-current { padding: 4px 7px; flex-shrink: 0; color: var(--plan-color); background: color-mix(in srgb, var(--plan-color) 9%, var(--surface)); border-radius: 5px; font-size: .64rem; font-weight: 800; white-space: nowrap; }
+.account-plan-card-price { margin: 0; font: 780 clamp(1.4rem, 2.3vw, 1.9rem)/1 var(--font-display); letter-spacing: -.035em; font-variant-numeric: tabular-nums; }
+.account-plan-card-price span { color: var(--muted); font: 600 .79rem/1 var(--font-body); letter-spacing: 0; }
+.account-plan-card-description { margin: 0; color: var(--muted); font-size: .82rem; line-height: 1.4; }
+.account-plan-card button { width: 100%; min-height: 39px; margin-top: auto; color: var(--plan-color); background: var(--surface); border: 1px solid var(--plan-color); border-radius: 7px; font-weight: 760; font-size: .8rem; }
+.account-plan-card[data-selected="true"] button { color: white; background: var(--plan-color); }
+.account-plan-card button:focus-visible, .account-plan-chooser select:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
+.account-plan-card button:disabled { opacity: .6; cursor: not-allowed; }
+.account-plan-single { max-width: 330px; }
+.account-plan-chooser .account-editor-form { max-width: none; }
+.account-plan-chooser .account-editor-form fieldset { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 14px; }
+.account-plan-chooser .account-editor-form legend { grid-column: 1 / -1; }
+.account-plan-owned { margin-left: auto; color: var(--cobalt); font-size: .71rem; font-weight: 740; }
+.account-editor-actions .account-cancel-action, .account-editor-actions .account-cancel-action:first-child { margin-left: auto; color: var(--muted); background: transparent; border-color: transparent; box-shadow: none; }
+.account-editor-actions .account-cancel-action:hover { color: var(--ink); text-decoration: underline; }
+@media (max-width: 900px) { .account-plan-cards { grid-template-columns: 1fr; } .account-plan-card { min-height: 0; } .account-plan-chooser-head { align-items: start; flex-direction: column; gap: 12px; } }
+@media (max-width: 620px) { .account-plan-chooser .account-editor-form fieldset { grid-template-columns: 1fr; } }
 .account-editor-note { padding: 11px 14px; background: var(--cobalt-faint); border-left: 3px solid var(--cobalt); }
 @media (max-width: 760px) {
   .account-settings-layout { width: min(100% - 32px, 680px); padding-block: 40px 72px; grid-template-columns: minmax(0, 1fr); gap: 22px; }

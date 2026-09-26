@@ -27,7 +27,8 @@ describe("AccountBillingDetails", () => {
     const bank = { slug: "mathematics-0580", name: "Mathematics 0580" };
     mockFetch({ subscriptions: [subscription("sub_one", [bank.name], 600)], invoices: [], paymentMethod: null, bankOptions: [bank, { slug: "ib-sl", name: "IB Math AA SL" }], management: { editable: true } });
     render(<AccountBillingDetails mode="subscription" />);
-    expect(await screen.findByRole("button", { name: "Change plan" })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { name: "Choose your plan" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Select Build Your Plan" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Cancel subscription" })).toBeInTheDocument();
   });
   it("shows a verified scheduled bank reduction and lets its owner undo before renewal", async () => {
@@ -60,12 +61,12 @@ describe("AccountBillingDetails", () => {
       .mockResolvedValueOnce({ ok: true, status: 200, json: async () => ({ subscriptions: [one], invoices: [], paymentMethod: null, bankOptions, management: { editable: true } }) });
     vi.stubGlobal("fetch", fetch);
     render(<AccountBillingDetails mode="subscription" />);
-    fireEvent.click(await screen.findByRole("button", { name: "Change plan" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Select Build Your Plan" }));
     fireEvent.click(screen.getByRole("checkbox", { name: "IB Math AA HL" }));
     fireEvent.click(screen.getByRole("button", { name: "Review change" }));
     fireEvent.click(await screen.findByRole("button", { name: "Confirm change" }));
     await waitFor(() => expect(fetch).toHaveBeenCalledTimes(4));
-    fireEvent.click(await screen.findByRole("button", { name: "Change plan" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Select Build Your Plan" }));
     expect(screen.getByRole("checkbox", { name: "IB Math AA HL" })).not.toBeChecked();
   });
   it("shows no editor actions when management is not editable", async () => {
@@ -73,6 +74,7 @@ describe("AccountBillingDetails", () => {
     render(<AccountBillingDetails mode="subscription" />);
     await screen.findByTestId("subscription-detail");
     expect(screen.queryByRole("button", { name: /change plan|cancel subscription|undo cancellation/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "Choose your plan" })).not.toBeInTheDocument();
   });
   it("explains pending payment without claiming that new banks are unlocked", async () => {
     mockFetch({ subscriptions: [{ ...subscription("sub_one", ["Mathematics 0580"], 600), pendingUpdate: true }], invoices: [], paymentMethod: null, management: { editable: false } });
