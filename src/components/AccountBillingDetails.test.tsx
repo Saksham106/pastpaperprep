@@ -28,7 +28,7 @@ describe("AccountBillingDetails", () => {
     mockFetch({ subscriptions: [subscription("sub_one", [bank.name], 600)], invoices: [], paymentMethod: null, bankOptions: [bank, { slug: "ib-sl", name: "IB Math AA SL" }], management: { editable: true } });
     render(<AccountBillingDetails mode="subscription" />);
     expect(await screen.findByRole("heading", { name: "Choose your plan" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Select Build Your Plan" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Switch to Build Your Plan" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Cancel subscription" })).toBeInTheDocument();
   });
   it("shows a verified scheduled bank reduction and lets its owner undo before renewal", async () => {
@@ -61,12 +61,12 @@ describe("AccountBillingDetails", () => {
       .mockResolvedValueOnce({ ok: true, status: 200, json: async () => ({ subscriptions: [one], invoices: [], paymentMethod: null, bankOptions, management: { editable: true } }) });
     vi.stubGlobal("fetch", fetch);
     render(<AccountBillingDetails mode="subscription" />);
-    fireEvent.click(await screen.findByRole("button", { name: "Select Build Your Plan" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Switch to Build Your Plan" }));
     fireEvent.click(screen.getByRole("checkbox", { name: "IB Math AA HL" }));
     fireEvent.click(screen.getByRole("button", { name: "Review change" }));
     fireEvent.click(await screen.findByRole("button", { name: "Confirm change" }));
     await waitFor(() => expect(fetch).toHaveBeenCalledTimes(4));
-    fireEvent.click(await screen.findByRole("button", { name: "Select Build Your Plan" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Switch to Build Your Plan" }));
     expect(screen.getByRole("checkbox", { name: "IB Math AA HL" })).not.toBeChecked();
   });
   it("shows no editor actions when management is not editable", async () => {

@@ -10,10 +10,35 @@ const preview = { estimate: { amountDueTodayCents: 380, estimatedCreditCents: 20
 const response = (body: unknown, status = 200) => ({ ok: status === 200, status, json: async () => body });
 
 describe("account subscription editor", () => {
+  it("makes the owned one-bank tier read-only while naming the other tiers as switches", () => {
+    const fetch = vi.fn(); vi.stubGlobal("fetch", fetch);
+    render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={vi.fn()} />);
+    const one = screen.getByRole("heading", { name: "One Bank" }).closest("article")!;
+    expect(one.querySelector(".account-owned-bank")).toHaveTextContent("IB Math AA HL");
+    expect(within(one).getByRole("button", { name: "Your bank" })).toBeDisabled();
+    expect(within(one).queryByText("Choose question bank")).not.toBeInTheDocument();
+    expect(within(one).queryByRole("radio")).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Switch to Build Your Plan" })).toBeEnabled();
+    expect(screen.getByRole("button", { name: "Switch to All Access" })).toBeEnabled();
+    expect(fetch).not.toHaveBeenCalled();
+  });
+  it("allows a billing-period change on the owned bank without allowing a bank swap", async () => {
+    const renewalSnapshot = { subscriptionId: "sub_one", currentPeriodStart: 1790208000, currentPeriodEnd: 1792886400, currentPriceId: "price_one", currentQuantity: 1, currentProductId: "bank_ib_hl", currentSelectedBankIds: ["ib-hl"], currentInterval: "monthly", targetPriceId: "price_one_annual", quantity: 1, recurringSubtotalCents: 4800, selectedBankIds: ["ib-hl"], allAccess: false, interval: "annual", quotedAt: Math.floor(Date.now() / 1000) };
+    const fetch = vi.fn().mockResolvedValueOnce(response({ status: "preview", snapshot: renewalSnapshot, currency: "usd", effectiveAt: "2026-10-25T00:00:00Z" })); vi.stubGlobal("fetch", fetch);
+    render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={vi.fn()} />);
+    fireEvent.click(screen.getByRole("button", { name: /Annual Save up to/i }));
+    const one = screen.getByRole("heading", { name: "One Bank" }).closest("article")!;
+    expect(within(one).queryByRole("radio")).not.toBeInTheDocument();
+    fireEvent.click(within(one).getByRole("button", { name: "Review billing change" }));
+    await waitFor(() => expect(fetch).toHaveBeenCalledOnce());
+    expect(fetch.mock.calls[0][0]).toBe("/api/billing/subscription/schedule");
+    expect(JSON.parse(fetch.mock.calls[0][1].body)).toEqual({ intent: "preview", selectedBankIds: ["ib-hl"], allAccess: false, interval: "annual" });
+  });
+
   it("keeps the local UI demo interactive without exposing a billing mutation", () => {
     const fetch = vi.fn(); vi.stubGlobal("fetch", fetch);
     render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={vi.fn()} demo />);
-    fireEvent.click(screen.getByRole("button", { name: "Select Build Your Plan" }));
+    fireEvent.click(screen.getByRole("button", { name: "Switch to Build Your Plan" }));
     fireEvent.click(screen.getByRole("checkbox", { name: "IGCSE Mathematics" }));
     expect(screen.getByText(/preview only/i)).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Review change" })).not.toBeInTheDocument();
@@ -34,7 +59,7 @@ describe("account subscription editor", () => {
     expect(screen.getByRole("group", { name: "Billing period" })).toBeInTheDocument();
     expect(one).toHaveAttribute("data-current-plan", "true");
     expect(one.querySelector(".account-plan-card-price")).toHaveTextContent("$6/ month");
-    fireEvent.click(within(builder).getByRole("button", { name: "Select Build Your Plan" }));
+    fireEvent.click(within(builder).getByRole("button", { name: "Switch to Build Your Plan" }));
     expect(builder.querySelector(".account-plan-card-price")).toHaveTextContent("$10/ month");
     fireEvent.click(screen.getByRole("checkbox", { name: "IGCSE Mathematics" }));
     expect(builder.querySelector(".account-plan-card-price")).toHaveTextContent("$10/ month");
@@ -56,6 +81,25 @@ describe("account subscription editor", () => {
     expect(fetch).not.toHaveBeenCalled();
   });
 
+  it("lets an existing Builder customer add a third bank within the same plan", async () => {
+    const threeBankPreview = { ...preview,
+      snapshot: { ...snapshot, currentQuantity: 2, currentPriceId: "price_two", targetQuantity: 3, targetPriceId: "price_three", selectedBankIds: ["ib-hl", "ib-sl", "igcse"] },
+      target: { ...preview.target, selectedBankIds: ["ib-hl", "ib-sl", "igcse"] },
+      estimate: { ...preview.estimate, recurringSubtotalCents: 1400 },
+    };
+    const fetch = vi.fn().mockResolvedValueOnce(response(threeBankPreview)); vi.stubGlobal("fetch", fetch);
+    const twoBanks = { ...plan(), bankSelection: { kind: "selected" as const, banks: [banks[0], banks[1]] }, item: { ...plan().item, quantity: 2 } };
+    render(<AccountSubscriptionEditor subscription={twoBanks} bankOptions={banks} onUpdated={vi.fn()} />);
+    const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article")!;
+    expect(within(builder).getByRole("button", { name: "Your plan" })).toBeDisabled();
+    fireEvent.click(within(builder).getByRole("checkbox", { name: "IB Math AA SL" }));
+    expect(builder.querySelector(".account-plan-card-price")).toHaveTextContent("$14/ month");
+    fireEvent.click(within(builder).getByRole("button", { name: "Review change" }));
+    await waitFor(() => expect(fetch).toHaveBeenCalledOnce());
+    expect(fetch.mock.calls[0][0]).toBe("/api/billing/subscription/change/preview");
+    expect(JSON.parse(fetch.mock.calls[0][1].body)).toEqual({ selectedBankIds: ["ib-hl", "ib-sl", "igcse"], allAccess: false, interval: "monthly" });
+  });
+
   it("quotes an existing two-bank customer's same-cadence All Access choice as an immediate expansion", async () => {
     const allPreview = { ...preview,
       snapshot: { ...snapshot, allAccess: true, selectedBankIds: [], targetPriceId: "price_all", targetQuantity: 1 },
@@ -66,7 +110,7 @@ describe("account subscription editor", () => {
     const twoBanks = { ...plan(), bankSelection: { kind: "selected" as const, banks: [banks[0], banks[1]] }, item: { ...plan().item, quantity: 2 } };
     render(<AccountSubscriptionEditor subscription={twoBanks} bankOptions={banks} onUpdated={vi.fn()} />);
     expect(screen.getByRole("heading", { name: "Build Your Plan" }).closest("article")).toHaveAttribute("data-current-plan", "true");
-    fireEvent.click(screen.getByRole("button", { name: "Select All Access" }));
+    fireEvent.click(screen.getByRole("button", { name: "Switch to All Access" }));
     expect(screen.getByRole("heading", { name: "All Access" }).closest("article")!.querySelector(".account-plan-card-price")).toHaveTextContent("$25/ month");
     fireEvent.click(screen.getByRole("button", { name: "Review change" }));
     await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
@@ -79,7 +123,7 @@ describe("account subscription editor", () => {
     vi.stubGlobal("fetch", fetch);
     const updated = vi.fn();
     render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={updated} />);
-    fireEvent.click(screen.getByRole("button", { name: "Select Build Your Plan" }));
+    fireEvent.click(screen.getByRole("button", { name: "Switch to Build Your Plan" }));
     fireEvent.click(screen.getByRole("checkbox", { name: "IGCSE Mathematics" }));
     fireEvent.click(screen.getByRole("button", { name: "Review change" }));
     await screen.findByText(/estimated due today/i);
@@ -95,21 +139,23 @@ describe("account subscription editor", () => {
     expect(screen.queryByText(/access unlocked|payment complete/i)).not.toBeInTheDocument();
     expect(updated).toHaveBeenCalledOnce();
   });
-  it("reviews a bank swap for renewal, never sending it to the immediate expansion endpoint", async () => {
-    const renewalSnapshot = { subscriptionId: "sub_one", currentPeriodStart: 1790208000, currentPeriodEnd: 1792886400, currentPriceId: "price_one", currentQuantity: 1, currentProductId: "bank_ib_hl", currentSelectedBankIds: ["ib-hl"], currentInterval: "monthly", targetPriceId: "price_one", quantity: 1, recurringSubtotalCents: 600, selectedBankIds: ["igcse"], allAccess: false, interval: "monthly", quotedAt: Math.floor(Date.now() / 1000) };
+  it("lets a Builder customer downgrade to One Bank at renewal without using the immediate expansion endpoint", async () => {
+    const twoBanks = { ...plan(), bankSelection: { kind: "selected" as const, banks: [banks[0], banks[1]] }, item: { ...plan().item, quantity: 2 } };
+    const renewalSnapshot = { subscriptionId: "sub_one", currentPeriodStart: 1790208000, currentPeriodEnd: 1792886400, currentPriceId: "price_two", currentQuantity: 2, currentProductId: "bundle_custom", currentSelectedBankIds: ["ib-hl", "igcse"], currentInterval: "monthly", targetPriceId: "price_one", quantity: 1, recurringSubtotalCents: 600, selectedBankIds: ["ib-sl"], allAccess: false, interval: "monthly", quotedAt: Math.floor(Date.now() / 1000) };
     const fetch = vi.fn().mockResolvedValueOnce(response({ status: "preview", snapshot: renewalSnapshot, currency: "usd", effectiveAt: "2026-10-25T00:00:00Z" })).mockResolvedValueOnce(response({ status: "scheduled", scheduleId: "sub_sched_1", effectiveAt: "2026-10-25T00:00:00Z" }));
     vi.stubGlobal("fetch", fetch);
     const updated = vi.fn();
-    render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={updated} />);
-    fireEvent.click(screen.getByRole("heading", { name: "One Bank" }).closest("article")!.querySelector("summary")!);
-    fireEvent.click(screen.getByRole("radio", { name: "IGCSE Mathematics" }));
+    render(<AccountSubscriptionEditor subscription={twoBanks} bankOptions={banks} onUpdated={updated} />);
+    expect(screen.getByRole("button", { name: "Your plan" })).toBeDisabled();
+    fireEvent.click(screen.getByRole("button", { name: "Switch to One Bank" }));
+    fireEvent.click(screen.getByRole("radio", { name: "IB Math AA SL" }));
     fireEvent.click(screen.getByRole("button", { name: "Review renewal change" }));
     expect(await screen.findByText(/\$6\.00 \/ month/i)).toBeInTheDocument();
     expect(fetch.mock.calls[0][0]).toBe("/api/billing/subscription/schedule");
-    expect(JSON.parse(fetch.mock.calls[0][1].body)).toEqual({ intent: "preview", selectedBankIds: ["igcse"], allAccess: false, interval: "monthly" });
+    expect(JSON.parse(fetch.mock.calls[0][1].body)).toEqual({ intent: "preview", selectedBankIds: ["ib-sl"], allAccess: false, interval: "monthly" });
     fireEvent.click(screen.getByRole("button", { name: "Schedule change" }));
     await waitFor(() => expect(updated).toHaveBeenCalledOnce());
-    expect(JSON.parse(fetch.mock.calls[1][1].body)).toEqual({ intent: "create", selectedBankIds: ["igcse"], allAccess: false, interval: "monthly", snapshot: renewalSnapshot });
+    expect(JSON.parse(fetch.mock.calls[1][1].body)).toEqual({ intent: "create", selectedBankIds: ["ib-sl"], allAccess: false, interval: "monthly", snapshot: renewalSnapshot });
     expect(screen.getByRole("status")).toHaveTextContent(/after renewal payment is verified/i);
   });
   it("reviews period-end cancellation and offers undo while access is still active", async () => {
@@ -133,7 +179,7 @@ describe("account subscription editor", () => {
     const fetch = vi.fn().mockResolvedValueOnce(response(preview)).mockResolvedValueOnce(response({ error: "Quote changed; preview again" }, 409));
     vi.stubGlobal("fetch", fetch);
     render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={vi.fn()} />);
-    fireEvent.click(screen.getByRole("button", { name: "Select Build Your Plan" }));
+    fireEvent.click(screen.getByRole("button", { name: "Switch to Build Your Plan" }));
     fireEvent.click(screen.getByRole("checkbox", { name: "IGCSE Mathematics" }));
     fireEvent.click(screen.getByRole("button", { name: "Review change" }));
     fireEvent.click(await screen.findByRole("button", { name: "Confirm change" }));
