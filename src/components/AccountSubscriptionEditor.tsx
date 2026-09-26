@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { BookOpen, CaretDown, CrownSimple, SlidersHorizontal } from "@phosphor-icons/react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getCatalogBank } from "@/lib/catalog";
 import { annualSavingPercent, formatPrice, maximumAnnualSavingPercent, priceForBankCount, PRICING_MODEL } from "@/lib/pricing-model";
 
@@ -47,6 +47,28 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  const [pendingRemoval, setPendingRemoval] = useState<string | null>(null);
+  const pendingRemainingCount = pendingRemoval ? (mode === "builder" ? selected : currentIds).filter((id) => id !== pendingRemoval).length : null;
+  const removalTrigger = useRef<HTMLInputElement | null>(null);
+  const removalDialog = useRef<HTMLDialogElement | null>(null);
+  const keepBankButton = useRef<HTMLButtonElement | null>(null);
+  useEffect(() => {
+    if (!pendingRemoval) {
+      removalTrigger.current?.focus();
+      removalTrigger.current = null;
+      return;
+    }
+    const dialog = removalDialog.current;
+    if (!dialog) return;
+    if (typeof dialog.showModal === "function") dialog.showModal();
+    else dialog.setAttribute("open", ""); // jsdom has no native dialog methods.
+    keepBankButton.current?.focus();
+    return () => {
+      if (!dialog.open) return;
+      if (typeof dialog.close === "function") dialog.close();
+      else dialog.removeAttribute("open");
+    };
+  }, [pendingRemoval]);
 
 
   const selectedIds = [...selected].sort();
@@ -58,26 +80,41 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
     selectedIds.length > currentIds.length && selectedIds.length <= 5 && currentIds.every((id) => selectedIds.includes(id)));
   const renewalChange = validSelection && !unchanged && !expansion;
   const input = { selectedBankIds: allAccess ? [] : selectedIds, allAccess, interval };
-  function reset() { setView("select"); setQuote(null); setRenewalQuote(null); setError(""); }
+  function reset() { setView("select"); setPendingRemoval(null); setQuote(null); setRenewalQuote(null); setError(""); }
   function chooseMode(next: "single" | "builder" | "all") {
-    setMode(next); setAllAccess(next === "all"); setQuote(null); setRenewalQuote(null); setError("");
+    setPendingRemoval(null); setMode(next); setAllAccess(next === "all"); setQuote(null); setRenewalQuote(null); setError("");
     if (next === "single") setSelected([selected[0] ?? currentIds[0] ?? bankOptions[0].slug]);
     if (next === "builder" && selected.length === 0) setSelected(currentIds.length ? currentIds : [bankOptions[0].slug]);
   }
-  function toggle(slug: string) {
+  function updateBuilder(next: string[]) {
+    setMode("builder"); setAllAccess(false); setSelected(next);
+    setQuote(null); setRenewalQuote(null); setError("");
+  }
+  function dismissRemoval() { setPendingRemoval(null); }
+  function confirmRemoval() {
+    if (!pendingRemoval || busy || subscription.cancelAtPeriodEnd) return;
+    const base = mode === "builder" ? selected : currentMode === "all" ? [] : currentIds;
+    if (base.includes(pendingRemoval) && currentIds.includes(pendingRemoval)) updateBuilder(base.filter((id) => id !== pendingRemoval));
+    dismissRemoval();
+  }
+  function toggle(slug: string, trigger?: HTMLInputElement) {
     const base = mode === "builder" ? selected : currentMode === "all" ? [] : currentIds;
     if (!base.includes(slug) && base.length >= 5) return;
-    setMode("builder"); setAllAccess(false);
-    setQuote(null); setRenewalQuote(null); setError("");
-    setSelected(base.includes(slug) ? base.filter((id) => id !== slug) : [...base, slug]);
+    if (base.includes(slug) && currentIds.includes(slug)) {
+      removalTrigger.current = trigger ?? null;
+      setPendingRemoval(slug);
+      return;
+    }
+    setPendingRemoval(null);
+    updateBuilder(base.includes(slug) ? base.filter((id) => id !== slug) : [...base, slug]);
   }
   function selectSingle(slug: string) {
-    setMode("single"); setAllAccess(false); setSelected([slug]);
+    setPendingRemoval(null); setMode("single"); setAllAccess(false); setSelected([slug]);
     setQuote(null); setRenewalQuote(null); setError("");
   }
   async function preview() {
     if (demo) return;
-    if (!expansion || busy) return;
+    if (!expansion || busy || pendingRemoval) return;
     setBusy(true); setError(""); setQuote(null);
     try {
       const result = await post("/api/billing/subscription/change/preview", input) as Estimate;
@@ -112,7 +149,7 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
   }
   async function previewRenewal() {
     if (demo) return;
-    if (!renewalChange || busy) return;
+    if (!renewalChange || busy || pendingRemoval) return;
     setBusy(true); setError(""); setRenewalQuote(null);
     try {
       const result = await post("/api/billing/subscription/schedule", { intent: "preview", ...input }) as RenewalQuote;
@@ -180,6 +217,7 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
           const active = mode === option;
           const ownedSingle = current && option === "single";
           const pickerIds = mode === "builder" ? selected : currentMode === "builder" ? currentIds : currentMode === "single" ? currentIds : [];
+          const removedOwned = option === "builder" && active ? currentIds.filter((id) => !selected.includes(id)) : [];
           const count = option === "single" ? 1 : Math.max(2, pickerIds.length);
           const startingRate = option === "builder" && pickerIds.length < 2;
           const monthlyCents = option === "all" ? PRICING_MODEL.allAccess.monthlyCents : priceForBankCount("monthly", count);
@@ -192,7 +230,7 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
           const action = ownedSingle ? !active || unchanged ? "Your bank" : "Review billing change"
             : active ? !validSelection ? "Choose one more bank" : unchanged ? "Your plan" : expansion ? "Review change" : "Review renewal change"
               : current ? option === "builder" ? "Edit your banks" : "Keep All Access" : `Switch to ${name}`;
-          const disabled = busy || subscription.cancelAtPeriodEnd || ownedSingle && !active || active && (demo || !validSelection || unchanged);
+          const disabled = busy || subscription.cancelAtPeriodEnd || Boolean(pendingRemoval) || ownedSingle && !active || active && (demo || !validSelection || unchanged);
           return <article className={`pricing-option${option === "builder" ? " pricing-option-popular" : ""}${current ? " pricing-option-current" : ""}`} data-plan-tone={option === "single" ? "starter" : option === "all" ? "premium" : "builder"} data-current-plan={current ? "true" : undefined} data-selected={active ? "true" : undefined} data-mobile-order={option === "builder" ? "first" : undefined} key={option}>
             <Image className="plan-art" src={artwork} alt="" width={420} height={260} aria-hidden="true" sizes="(max-width: 1024px) 68vw, 300px" />
             <div className="pricing-option-heading"><div className="plan-title-block"><span className="plan-icon" aria-hidden="true"><PlanIcon weight="duotone" /></span><div><p className="plan-label">{option === "single" ? "One bank" : option === "builder" ? "2 to 5 banks" : "All access"}</p><h2>{name}</h2></div></div>
@@ -205,9 +243,16 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
               {ownedSingle ? <div className="custom-bank-disclosure account-owned-bank"><span>Your bank</span><span className="custom-bank-disclosure-value">{bankOptions.find((bank) => bank.slug === currentIds[0])?.name ?? currentIds[0]}</span></div>
                 : option !== "all" ? <details className="custom-bank-disclosure"><summary><span>{option === "single" ? "Choose question bank" : "Choose your banks"}</span><span className="custom-bank-disclosure-value">{option === "single" ? active ? bankOptions.find((bank) => bank.slug === selected[0])?.name ?? "Choose a bank" : "Choose a bank" : pickerIds.length ? `${pickerIds.length} selected` : "None selected"}</span><CaretDown aria-hidden="true" weight="bold" /></summary>
                 <fieldset className="custom-bank-picker" disabled={busy || subscription.cancelAtPeriodEnd}><legend className="sr-only">{option === "single" ? "Choose one question bank" : "Choose the banks you need"}</legend><div className="custom-bank-groups">
-                  {bankGroups.map((group) => <section className="custom-bank-group" key={`${option}-${group.label}`} aria-label={group.label}><h3>{group.label}</h3><div className="custom-bank-group-options">{group.banks.map((bank) => <label key={bank.slug} data-bank-id={bank.slug}><input type={option === "single" ? "radio" : "checkbox"} name={option === "single" ? "account-one-bank" : `account-bank-${bank.slug}`} checked={option === "single" ? active && selected.includes(bank.slug) : pickerIds.includes(bank.slug)} disabled={option === "builder" && pickerIds.length >= 5 && !pickerIds.includes(bank.slug)} onChange={() => option === "single" ? selectSingle(bank.slug) : toggle(bank.slug)} /><span>{bank.name}</span></label>)}</div></section>)}
+                  {bankGroups.map((group) => <section className="custom-bank-group" key={`${option}-${group.label}`} aria-label={group.label}><h3>{group.label}</h3><div className="custom-bank-group-options">{group.banks.map((bank) => <label key={bank.slug} data-bank-id={bank.slug}><input type={option === "single" ? "radio" : "checkbox"} name={option === "single" ? "account-one-bank" : `account-bank-${bank.slug}`} checked={option === "single" ? active && selected.includes(bank.slug) : pickerIds.includes(bank.slug)} disabled={option === "builder" && pickerIds.length >= 5 && !pickerIds.includes(bank.slug)} onChange={(event) => option === "single" ? selectSingle(bank.slug) : toggle(bank.slug, event.currentTarget)} /><span>{bank.name}</span>{option === "builder" && currentIds.includes(bank.slug) ? <small className="account-bank-current-tag" aria-hidden="true">Current</small> : null}</label>)}</div></section>)}
                 </div></fieldset></details> : null}
-              {option === "builder" && active && selected.length < 2 ? <p className="custom-bundle-selection-note">Select one more bank to continue.</p> : null}
+              {option === "builder" && pendingRemoval ? <dialog ref={removalDialog} className="account-owned-removal-confirm" role="alertdialog" aria-modal="true" aria-labelledby="account-owned-removal-title" aria-describedby="account-owned-removal-description" onCancel={(event) => { event.preventDefault(); dismissRemoval(); }} onKeyDown={(event) => { if (event.key === "Escape") { event.stopPropagation(); dismissRemoval(); } }}>
+                <h3 id="account-owned-removal-title">Remove {bankOptions.find((bank) => bank.slug === pendingRemoval)?.name ?? pendingRemoval} from your next plan?</h3>
+                <p id="account-owned-removal-description">This is one of your paid banks. You keep access through {date(subscription.item.currentPeriodEnd) ?? "your renewal date"}. Removing it has no charge today; the new bank selection and any price change start at renewal, after payment is verified.</p>
+                {pendingRemainingCount === 0 ? <p>Builder needs at least two banks. Choose two replacements, or keep your current bank.</p> : pendingRemainingCount === 1 ? <p>{currentMode === "builder" ? "Builder needs at least two banks. To keep just one, switch to One Bank after this step." : "Builder needs at least two banks. Add another bank to continue."}</p> : null}
+                <div className="account-owned-removal-actions"><button ref={keepBankButton} type="button" onClick={dismissRemoval}>Keep bank</button><button type="button" onClick={confirmRemoval} disabled={busy || subscription.cancelAtPeriodEnd}>Remove at renewal</button></div>
+              </dialog> : null}
+              {removedOwned.length ? <p className="account-removal-draft-note">Draft only — {removedOwned.map((id) => bankOptions.find((bank) => bank.slug === id)?.name ?? id).join(", ")} {removedOwned.length === 1 ? "remains" : "remain"} active. Review and confirm to remove {removedOwned.length === 1 ? "it" : "them"} at the {date(subscription.item.currentPeriodEnd)} renewal; otherwise {removedOwned.length === 1 ? "it stays" : "they stay"} on your plan.</p> : null}
+              {option === "builder" && active && selected.length < 2 ? <p className="custom-bundle-selection-note">{currentMode === "builder" && selected.length === 1 ? "One bank selected. Add another, or switch to One Bank for a downgrade." : "Select at least two banks to continue."}</p> : null}
               <button className={`button primary${ownedSingle && (!active || unchanged) ? " account-plan-owned-cta" : ""}`} type="button" aria-pressed={active} disabled={disabled} onClick={() => { if (!active) chooseMode(option); else if (canReview) void (expansion ? preview() : previewRenewal()); }}>{demo && active && !unchanged ? "Preview only" : action}</button>
               {demo && active ? <p className="custom-bundle-selection-note">No checkout or account changes in this preview.</p> : null}
             </div>

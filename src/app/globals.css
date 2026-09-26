@@ -912,6 +912,16 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .account-pricing-grid .pricing-option .plan-checkout > .button.account-plan-owned-cta:hover { color: var(--muted); background: color-mix(in srgb, var(--ink) 7%, var(--surface)); border-color: var(--line-strong); box-shadow: none; opacity: 1; }
 .account-owned-bank { min-height: 46px; padding: 10px 12px; display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--muted); background: color-mix(in srgb, var(--ink) 4%, var(--surface)); font-size: .78rem; font-weight: 800; }
 .account-owned-bank .custom-bank-disclosure-value { color: var(--ink); }
+.account-owned-removal-confirm { width: min(430px, calc(100vw - 32px)); max-height: calc(100dvh - 40px); margin: auto; padding: 22px; overflow-y: auto; color: var(--ink); background: var(--surface-raised); border: 1px solid var(--burgundy); border-radius: 14px; box-shadow: 0 24px 70px color-mix(in srgb, var(--ink) 28%, transparent); }
+.account-owned-removal-confirm::backdrop { background: color-mix(in srgb, var(--ink) 50%, transparent); }
+.account-owned-removal-confirm h3 { margin: 0 0 8px; color: var(--ink); font: 800 1rem/1.2 var(--font-display); }
+.account-owned-removal-confirm p { margin: 6px 0; color: var(--muted); font-size: .78rem; line-height: 1.45; }
+.account-owned-removal-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 13px; }
+.account-owned-removal-actions button { min-height: 44px; padding: 8px 12px; color: var(--ink); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 7px; font-size: .76rem; font-weight: 760; }
+.account-owned-removal-actions button:last-child { color: white; background: var(--burgundy); border-color: var(--burgundy); }
+.account-owned-removal-actions button:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
+.account-pricing-grid .account-bank-current-tag { flex: 0 0 auto; padding: 3px 5px; color: var(--cobalt); background: var(--cobalt-faint); border-radius: 4px; font: 750 .59rem/1 var(--font-mono); text-transform: uppercase; }
+.account-removal-draft-note { padding: 9px 10px; color: var(--ink); background: var(--cobalt-faint); border-left: 3px solid var(--cobalt); border-radius: 3px; font-size: .76rem; line-height: 1.4; }
 .account-pricing-grid .plan-price strong { font-variant-numeric: tabular-nums; }
 .account-plan-timing { max-width: none; }
 .account-editor-actions .account-cancel-action, .account-editor-actions .account-cancel-action:first-child { margin-left: auto; color: var(--muted); background: transparent; border-color: transparent; box-shadow: none; }
