@@ -1,7 +1,10 @@
 "use client";
 
+import Image from "next/image";
+import { BookOpen, CaretDown, CrownSimple, SlidersHorizontal } from "@phosphor-icons/react";
 import { useState } from "react";
-import { priceForBankCount, PRICING_MODEL } from "@/lib/pricing-model";
+import { getCatalogBank } from "@/lib/catalog";
+import { annualSavingPercent, formatPrice, maximumAnnualSavingPercent, priceForBankCount, PRICING_MODEL } from "@/lib/pricing-model";
 
 type Bank = { slug: string; name: string };
 type Plan = {
@@ -62,9 +65,15 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
     if (next === "builder" && selected.length === 0) setSelected(currentIds.length ? currentIds : [bankOptions[0].slug]);
   }
   function toggle(slug: string) {
-    if (!selected.includes(slug) && selected.length >= 5) return;
+    const base = mode === "builder" ? selected : currentMode === "all" ? [] : currentIds;
+    if (!base.includes(slug) && base.length >= 5) return;
+    setMode("builder"); setAllAccess(false);
     setQuote(null); setRenewalQuote(null); setError("");
-    setSelected((current) => current.includes(slug) ? current.filter((id) => id !== slug) : [...current, slug]);
+    setSelected(base.includes(slug) ? base.filter((id) => id !== slug) : [...base, slug]);
+  }
+  function selectSingle(slug: string) {
+    setMode("single"); setAllAccess(false); setSelected([slug]);
+    setQuote(null); setRenewalQuote(null); setError("");
   }
   async function preview() {
     if (demo) return;
@@ -147,40 +156,63 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
   }
 
   if (subscription.bankSelection.kind === "unknown" || !bankOptions.length) return null;
+  const bankGroups = [
+    { label: "Cambridge", banks: bankOptions.filter((bank) => getCatalogBank(bank.slug)?.qualification === "Cambridge IGCSE") },
+    { label: "IB Mathematics", banks: bankOptions.filter((bank) => getCatalogBank(bank.slug)?.qualification === "IB Diploma" && getCatalogBank(bank.slug)?.subject.startsWith("Mathematics")) },
+    { label: "IB Sciences", banks: bankOptions.filter((bank) => getCatalogBank(bank.slug)?.qualification === "IB Diploma" && !getCatalogBank(bank.slug)?.subject.startsWith("Mathematics")) },
+    { label: "Other banks", banks: bankOptions.filter((bank) => !getCatalogBank(bank.slug)) },
+  ].filter((group) => group.banks.length > 0);
   return <div className="account-plan-editor">
     {notice ? <p role="status" className="account-editor-note">{notice}</p> : null}
     {error ? <p role="alert" className="account-billing-warning">{error}</p> : null}
     {view === "select" ? <div className="account-plan-chooser">
-      <div className="account-plan-chooser-head"><div><h3>Choose your plan</h3><p>Your current plan is marked below. Prices update as you choose banks; Stripe calculates any amount due today in the final review.</p></div>
-        <label>Billing cadence <select aria-label="Billing cadence" value={interval} disabled={busy || subscription.cancelAtPeriodEnd} onChange={(event) => { setInterval(event.target.value as "monthly" | "annual"); setQuote(null); setRenewalQuote(null); setError(""); }}><option value="monthly">Monthly</option><option value="annual">Annual</option></select></label>
+      <div className="account-pricing-heading"><h2>Choose your plan</h2><p>Choose the banks you need. Your current access is marked; review any change before it takes effect.</p></div>
+      <div className="billing-toggle" role="group" aria-label="Billing period">
+        <button type="button" aria-pressed={interval === "monthly"} disabled={busy || subscription.cancelAtPeriodEnd} onClick={() => { setInterval("monthly"); setQuote(null); setRenewalQuote(null); }}>Monthly</button>
+        <button type="button" className="billing-toggle-annual" aria-pressed={interval === "annual"} disabled={busy || subscription.cancelAtPeriodEnd} onClick={() => { setInterval("annual"); setQuote(null); setRenewalQuote(null); }}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
       </div>
-      <div className="account-plan-cards" aria-label="Subscription plans">
+      <div className="pricing-decision-grid account-pricing-grid" aria-label="PastPaperPrep plans" data-paid="true">
         {(["single", "builder", "all"] as const).map((option) => {
           const name = option === "single" ? "One Bank" : option === "builder" ? "Build Your Plan" : "All Access";
-          const count = option === "single" ? 1 : Math.max(2, mode === "builder" ? selected.length : currentMode === "builder" ? currentIds.length : 2);
-          const builderStartingRate = option === "builder" && (mode !== "builder" && currentMode !== "builder" || mode === "builder" && selected.length < 2);
-          const cents = option === "all" ? interval === "monthly" ? PRICING_MODEL.allAccess.monthlyCents : PRICING_MODEL.allAccess.annualCents : priceForBankCount(interval, count);
-          const amount = money(cents, "usd");
-          return <article className="account-plan-card" data-plan-tone={option === "all" ? "premium" : option} data-current-plan={currentMode === option ? "true" : undefined} data-selected={mode === option ? "true" : undefined} key={option}>
-            <div className="account-plan-card-top"><h4>{name}</h4>{currentMode === option ? <span className="account-plan-current">Your plan</span> : null}</div>
-            <p className="account-plan-card-price" aria-live="polite">{builderStartingRate ? <span>From </span> : null}{amount} <span>/ {interval === "monthly" ? "month" : "year"}</span></p>
-            <p className="account-plan-card-description">{option === "single" ? "One question bank." : option === "builder" ? builderStartingRate ? "Choose 2 to 5 banks." : `${count} banks. Pick the ones you study.` : "Every available question bank."}{option === currentMode && interval !== currentInterval ? <span className="account-plan-original-cadence"> Your current billing is {currentInterval}.</span> : null}</p>
-            <button type="button" aria-pressed={mode === option} disabled={busy || subscription.cancelAtPeriodEnd} onClick={() => chooseMode(option)}>{mode === option ? "Selected" : `Select ${name}`}</button>
+          const PlanIcon = option === "single" ? BookOpen : option === "builder" ? SlidersHorizontal : CrownSimple;
+          const artwork = option === "single" ? "/artwork/aristotle-tutoring-alexander.webp" : option === "builder" ? "/artwork/school-of-athens-plato-aristotle.webp" : "/artwork/plato-academy-mosaic.webp";
+          const current = currentMode === option;
+          const active = mode === option;
+          const pickerIds = mode === "builder" ? selected : currentMode === "builder" ? currentIds : currentMode === "single" ? currentIds : [];
+          const count = option === "single" ? 1 : Math.max(2, pickerIds.length);
+          const startingRate = option === "builder" && pickerIds.length < 2;
+          const monthlyCents = option === "all" ? PRICING_MODEL.allAccess.monthlyCents : priceForBankCount("monthly", count);
+          const annualCents = option === "all" ? PRICING_MODEL.allAccess.annualCents : priceForBankCount("annual", count);
+          const headline = formatPrice(interval === "annual" ? annualCents / 12 : monthlyCents);
+          const billingNote = startingRate ? "Two-bank minimum. Select banks to see your exact price."
+            : interval === "annual" ? `Billed ${formatPrice(annualCents)} once a year. Save ${annualSavingPercent(monthlyCents, annualCents)}%`
+              : "Billed monthly";
+          const canReview = active && validSelection && !unchanged;
+          const action = active ? !validSelection ? "Choose one more bank" : unchanged ? "Your current plan" : expansion ? "Review change" : "Review renewal change" : `Select ${name}`;
+          const disabled = busy || subscription.cancelAtPeriodEnd || active && (demo || !validSelection || unchanged);
+          return <article className={`pricing-option${option === "builder" ? " pricing-option-popular" : ""}${current ? " pricing-option-current" : ""}`} data-plan-tone={option === "single" ? "starter" : option === "all" ? "premium" : "builder"} data-current-plan={current ? "true" : undefined} data-selected={active ? "true" : undefined} data-mobile-order={option === "builder" ? "first" : undefined} key={option}>
+            <Image className="plan-art" src={artwork} alt="" width={420} height={260} aria-hidden="true" sizes="(max-width: 1024px) 68vw, 300px" />
+            <div className="pricing-option-heading"><div className="plan-title-block"><span className="plan-icon" aria-hidden="true"><PlanIcon weight="duotone" /></span><div><p className="plan-label">{option === "single" ? "One bank" : option === "builder" ? "2 to 5 banks" : "All access"}</p><h2>{name}</h2></div></div>
+              {current ? <span className="pricing-badge pricing-badge-current">Your access</span> : option === "builder" ? <span className="pricing-badge">Most popular</span> : null}
+            </div>
+            <div className="plan-price account-plan-card-price"><strong aria-live="polite">{headline}</strong><span>/ month</span></div>
+            <p className="plan-billing-note">{billingNote}{current && interval !== currentInterval ? ` · Current billing is ${currentInterval}` : ""}</p>
+            <p className="plan-description">{option === "single" ? "Focus on one syllabus." : option === "builder" ? "Mix the banks you actually take." : "Everything, including future banks."}</p>
+            <div className="plan-checkout custom-bundle-checkout">
+              {option !== "all" ? <details className="custom-bank-disclosure"><summary><span>{option === "single" ? "Choose question bank" : "Choose your banks"}</span><span className="custom-bank-disclosure-value">{option === "single" ? active ? bankOptions.find((bank) => bank.slug === selected[0])?.name ?? "Choose a bank" : "Choose a bank" : pickerIds.length ? `${pickerIds.length} selected` : "None selected"}</span><CaretDown aria-hidden="true" weight="bold" /></summary>
+                <fieldset className="custom-bank-picker" disabled={busy || subscription.cancelAtPeriodEnd}><legend className="sr-only">{option === "single" ? "Choose one question bank" : "Choose the banks you need"}</legend><div className="custom-bank-groups">
+                  {bankGroups.map((group) => <section className="custom-bank-group" key={`${option}-${group.label}`} aria-label={group.label}><h3>{group.label}</h3><div className="custom-bank-group-options">{group.banks.map((bank) => <label key={bank.slug} data-bank-id={bank.slug}><input type={option === "single" ? "radio" : "checkbox"} name={option === "single" ? "account-one-bank" : `account-bank-${bank.slug}`} checked={option === "single" ? active && selected.includes(bank.slug) : pickerIds.includes(bank.slug)} disabled={option === "builder" && pickerIds.length >= 5 && !pickerIds.includes(bank.slug)} onChange={() => option === "single" ? selectSingle(bank.slug) : toggle(bank.slug)} /><span>{bank.name}</span></label>)}</div></section>)}
+                </div></fieldset></details> : null}
+              {option === "builder" && active && selected.length < 2 ? <p className="custom-bundle-selection-note">Select one more bank to continue.</p> : null}
+              <button className="button primary" type="button" aria-pressed={active} disabled={disabled} onClick={() => { if (!active) chooseMode(option); else if (canReview) void (expansion ? preview() : previewRenewal()); }}>{demo && active ? "Preview only" : action}</button>
+              {demo && active ? <p className="custom-bundle-selection-note">No checkout or account changes in this preview.</p> : null}
+            </div>
           </article>;
         })}
       </div>
-      {mode === "single" ? <label className="account-plan-single">Your bank <select aria-label="Choose one bank" value={selected[0] ?? ""} disabled={busy || subscription.cancelAtPeriodEnd} onChange={(event) => { setSelected([event.target.value]); setQuote(null); setRenewalQuote(null); setError(""); }}>
-        {bankOptions.map((bank) => <option value={bank.slug} key={bank.slug}>{bank.name}{currentIds.includes(bank.slug) ? " (current)" : ""}</option>)}
-      </select></label> : null}
-      {mode === "builder" ? <div className="account-editor-form"><fieldset disabled={busy || subscription.cancelAtPeriodEnd}><legend>Choose 2 to 5 banks</legend>
-        {bankOptions.map((bank) => <label key={bank.slug}><input type="checkbox" checked={selected.includes(bank.slug)} disabled={!selected.includes(bank.slug) && selected.length >= 5} onChange={() => toggle(bank.slug)} />{bank.name}{currentIds.includes(bank.slug) ? <span className="account-plan-owned">Current</span> : null}</label>)}
-      </fieldset>{selected.length < 2 ? <p role="status">Choose one more bank to build your plan.</p> : selected.length > 5 ? <p role="status">Choose All Access instead of more than five banks.</p> : null}</div> : null}
-      <p className="account-plan-timing">{demo ? "Preview only. Select a plan, banks, and cadence to see the rate. No account or payment changes are possible here." : expansion && validSelection ? "Added banks can unlock after the new payment succeeds." : renewalChange ? "This change starts at your next renewal. Your existing banks stay available until then." : "Your current plan stays unchanged until you review and confirm a change."} Base rate shown before discounts and taxes.</p>
+      <p className="account-plan-timing">{demo ? "Example data only. Select banks or a billing period to see the price; no charge can be made here." : expansion && validSelection ? "Added banks unlock only after Stripe verifies the payment." : renewalChange ? "Removals, swaps and billing-period changes start at renewal after payment is verified." : "Your current plan stays in place until you review and confirm a change."} Displayed prices are standard rates before discounts and taxes; Stripe gives the exact quote before confirmation.</p>
       {subscription.cancelAtPeriodEnd ? <p className="account-plan-timing">Cancellation is scheduled. Undo it before choosing another plan.</p> : null}
-      <div className="account-editor-actions">{!demo && !subscription.cancelAtPeriodEnd && validSelection && expansion ? <button type="button" onClick={() => void preview()} disabled={busy}>{busy ? "Getting quote…" : "Review change"}</button> : null}
-        {!demo && !subscription.cancelAtPeriodEnd && validSelection && renewalChange ? <button type="button" onClick={() => void previewRenewal()} disabled={busy}>{busy ? "Getting rate…" : "Review renewal change"}</button> : null}
-        {demo ? null : subscription.cancelAtPeriodEnd ? <button type="button" onClick={() => void changeCancellation("undo")} disabled={busy}>Undo cancellation</button> : <button className="account-cancel-action" type="button" onClick={() => { setNotice(""); setView("cancel-review"); }}>Cancel subscription</button>}
-      </div>
+      <div className="account-editor-actions">{demo ? null : subscription.cancelAtPeriodEnd ? <button type="button" onClick={() => void changeCancellation("undo")} disabled={busy}>Undo cancellation</button> : <button className="account-cancel-action" type="button" onClick={() => { setNotice(""); setView("cancel-review"); }}>Cancel subscription</button>}</div>
     </div> : null}
     {view === "review" && quote ? <div className="account-editor-review">
       <h3>Review your change</h3>

@@ -4,7 +4,7 @@ export const metadata = { title: "Subscription" };
 
 export default function SubscriptionPage() {
   return (
-    <section className="account-section-page">
+    <section className="account-section-page account-subscription-page">
       <p className="eyebrow">Account</p>
       <h1>Subscription</h1>
       <AccountBillingDetails mode="subscription" />
