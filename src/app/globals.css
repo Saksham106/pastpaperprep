@@ -909,7 +909,7 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .account-plan-actions { flex: 0 0 auto; display: flex; align-items: center; }
 .account-plan-actions .button, .account-security-row .button, .account-heading-actions .button { white-space: nowrap; }
 .account-security-row { margin-top: 16px; }
-@media (max-width: 1280px) and (min-width: 761px) { .account-subscription-page .account-pricing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 1280px) and (min-width: 1025px) { .account-subscription-page .account-pricing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .account-pricing-heading h2 { margin: 0 0 7px; font: 850 clamp(1.65rem, 3vw, 2.3rem)/1 var(--font-display); letter-spacing: -.04em; }
 .account-pricing-heading p, .account-plan-timing { max-width: 720px; margin: 0; color: var(--muted); font-size: .87rem; line-height: 1.55; }
 .account-plan-chooser { display: grid; gap: 18px; }
