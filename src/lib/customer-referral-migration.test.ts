@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
-const sql = readFileSync(join(process.cwd(), "supabase/migrations/20260926000000_customer_referral_pilot.sql"), "utf8");
+const sql = readFileSync(join(process.cwd(), "supabase/migrations/20260926000005_customer_referral_pilot.sql"), "utf8");
 
 describe("customer referral pilot migration", () => {
   it("keeps customer links and attributions apart from tutor commissions", () => {
