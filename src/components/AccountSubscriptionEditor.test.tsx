@@ -75,10 +75,10 @@ describe("account subscription editor", () => {
     const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article")!;
     const ownedBank = within(builder).getByRole("checkbox", { name: "IB Math AA HL" });
     fireEvent.click(ownedBank);
-    const confirmation = screen.getByRole("alertdialog", { name: /Remove IB Math AA HL from your next plan/i });
+    const confirmation = screen.getByRole("alertdialog", { name: /Remove IB Math AA HL at renewal/i });
     expect(ownedBank).toBeChecked();
-    expect(confirmation).toHaveTextContent(/Oct 25, 2026/i);
-    expect(confirmation).toHaveTextContent(/no charge today/i);
+    expect(confirmation).toHaveTextContent("You’ll keep access until Oct 25, 2026. Nothing changes until you review and confirm your plan.");
+    expect(confirmation.querySelectorAll("p")).toHaveLength(1);
     expect(within(confirmation).getByRole("button", { name: "Keep bank" })).toHaveFocus();
     expect(fetch).not.toHaveBeenCalled();
     fireEvent.keyDown(confirmation, { key: "Escape" });
