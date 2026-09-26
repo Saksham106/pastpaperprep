@@ -1,8 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
+import { createClient } from "@/lib/supabase/server";
 
-vi.mock("@/lib/supabase/server", () => ({ createClient: async () => ({ auth: { getClaims: async () => ({ data: { claims: { sub: "user_example" } } }) } }) }));
+vi.mock("@/lib/supabase/server", () => ({ createClient: vi.fn().mockResolvedValue({ auth: { getClaims: async () => ({ data: { claims: { sub: "user_example" } } }) } }) }));
 vi.mock("@/lib/custom-bundle-access", () => ({ fetchAccessEntitlements: vi.fn().mockResolvedValue({ rows: [], error: null }) }));
 
 import SubscriptionPage from "@/app/account/subscription/page";
@@ -23,6 +24,10 @@ describe("account settings read-only pages", () => {
     render(await SubscriptionPage());
     expect(screen.getByRole("heading", { name: "Complimentary All Access" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Browse question banks" })).toHaveAttribute("href", "/dashboard");
+  });
+  it("redirects if the session disappears between the layout and subscription read", async () => {
+    vi.mocked(createClient).mockResolvedValueOnce({ auth: { getClaims: async () => ({ data: { claims: null } }) } } as never);
+    await expect(SubscriptionPage()).rejects.toThrow("NEXT_REDIRECT");
   });
   it("keeps billing self-service in the secure Stripe portal", () => {
     render(<BillingPage />);
