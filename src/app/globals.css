@@ -908,6 +908,10 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .account-pricing-grid .pricing-option[data-selected="true"] .plan-checkout > .button { color: white; background: var(--plan-accent); }
 .account-pricing-grid .pricing-option .plan-checkout > .button { width: 100%; min-height: 46px; color: white; background: var(--plan-accent); border-color: var(--plan-accent); }
 .account-pricing-grid .pricing-option .plan-checkout > .button:disabled { opacity: .65; cursor: not-allowed; }
+.account-pricing-grid .pricing-option .plan-checkout > .button.account-plan-owned-cta,
+.account-pricing-grid .pricing-option .plan-checkout > .button.account-plan-owned-cta:hover { color: var(--muted); background: color-mix(in srgb, var(--ink) 7%, var(--surface)); border-color: var(--line-strong); box-shadow: none; opacity: 1; }
+.account-owned-bank { min-height: 46px; padding: 10px 12px; display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--muted); background: color-mix(in srgb, var(--ink) 4%, var(--surface)); font-size: .78rem; font-weight: 800; }
+.account-owned-bank .custom-bank-disclosure-value { color: var(--ink); }
 .account-pricing-grid .plan-price strong { font-variant-numeric: tabular-nums; }
 .account-plan-timing { max-width: none; }
 .account-editor-actions .account-cancel-action, .account-editor-actions .account-cancel-action:first-child { margin-left: auto; color: var(--muted); background: transparent; border-color: transparent; box-shadow: none; }

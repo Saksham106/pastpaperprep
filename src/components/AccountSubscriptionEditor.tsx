@@ -178,6 +178,7 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
           const artwork = option === "single" ? "/artwork/aristotle-tutoring-alexander.webp" : option === "builder" ? "/artwork/school-of-athens-plato-aristotle.webp" : "/artwork/plato-academy-mosaic.webp";
           const current = currentMode === option;
           const active = mode === option;
+          const ownedSingle = current && option === "single";
           const pickerIds = mode === "builder" ? selected : currentMode === "builder" ? currentIds : currentMode === "single" ? currentIds : [];
           const count = option === "single" ? 1 : Math.max(2, pickerIds.length);
           const startingRate = option === "builder" && pickerIds.length < 2;
@@ -188,8 +189,10 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
             : interval === "annual" ? `Billed ${formatPrice(annualCents)} once a year. Save ${annualSavingPercent(monthlyCents, annualCents)}%`
               : "Billed monthly";
           const canReview = active && validSelection && !unchanged;
-          const action = active ? !validSelection ? "Choose one more bank" : unchanged ? "Your current plan" : expansion ? "Review change" : "Review renewal change" : `Select ${name}`;
-          const disabled = busy || subscription.cancelAtPeriodEnd || active && (demo || !validSelection || unchanged);
+          const action = ownedSingle ? !active || unchanged ? "Your bank" : "Review billing change"
+            : active ? !validSelection ? "Choose one more bank" : unchanged ? "Your plan" : expansion ? "Review change" : "Review renewal change"
+              : current ? option === "builder" ? "Edit your banks" : "Keep All Access" : `Switch to ${name}`;
+          const disabled = busy || subscription.cancelAtPeriodEnd || ownedSingle && !active || active && (demo || !validSelection || unchanged);
           return <article className={`pricing-option${option === "builder" ? " pricing-option-popular" : ""}${current ? " pricing-option-current" : ""}`} data-plan-tone={option === "single" ? "starter" : option === "all" ? "premium" : "builder"} data-current-plan={current ? "true" : undefined} data-selected={active ? "true" : undefined} data-mobile-order={option === "builder" ? "first" : undefined} key={option}>
             <Image className="plan-art" src={artwork} alt="" width={420} height={260} aria-hidden="true" sizes="(max-width: 1024px) 68vw, 300px" />
             <div className="pricing-option-heading"><div className="plan-title-block"><span className="plan-icon" aria-hidden="true"><PlanIcon weight="duotone" /></span><div><p className="plan-label">{option === "single" ? "One bank" : option === "builder" ? "2 to 5 banks" : "All access"}</p><h2>{name}</h2></div></div>
@@ -199,12 +202,13 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
             <p className="plan-billing-note">{billingNote}{current && interval !== currentInterval ? ` · Current billing is ${currentInterval}` : ""}</p>
             <p className="plan-description">{option === "single" ? "Focus on one syllabus." : option === "builder" ? "Mix the banks you actually take." : "Everything, including future banks."}</p>
             <div className="plan-checkout custom-bundle-checkout">
-              {option !== "all" ? <details className="custom-bank-disclosure"><summary><span>{option === "single" ? "Choose question bank" : "Choose your banks"}</span><span className="custom-bank-disclosure-value">{option === "single" ? active ? bankOptions.find((bank) => bank.slug === selected[0])?.name ?? "Choose a bank" : "Choose a bank" : pickerIds.length ? `${pickerIds.length} selected` : "None selected"}</span><CaretDown aria-hidden="true" weight="bold" /></summary>
+              {ownedSingle ? <div className="custom-bank-disclosure account-owned-bank"><span>Your bank</span><span className="custom-bank-disclosure-value">{bankOptions.find((bank) => bank.slug === currentIds[0])?.name ?? currentIds[0]}</span></div>
+                : option !== "all" ? <details className="custom-bank-disclosure"><summary><span>{option === "single" ? "Choose question bank" : "Choose your banks"}</span><span className="custom-bank-disclosure-value">{option === "single" ? active ? bankOptions.find((bank) => bank.slug === selected[0])?.name ?? "Choose a bank" : "Choose a bank" : pickerIds.length ? `${pickerIds.length} selected` : "None selected"}</span><CaretDown aria-hidden="true" weight="bold" /></summary>
                 <fieldset className="custom-bank-picker" disabled={busy || subscription.cancelAtPeriodEnd}><legend className="sr-only">{option === "single" ? "Choose one question bank" : "Choose the banks you need"}</legend><div className="custom-bank-groups">
                   {bankGroups.map((group) => <section className="custom-bank-group" key={`${option}-${group.label}`} aria-label={group.label}><h3>{group.label}</h3><div className="custom-bank-group-options">{group.banks.map((bank) => <label key={bank.slug} data-bank-id={bank.slug}><input type={option === "single" ? "radio" : "checkbox"} name={option === "single" ? "account-one-bank" : `account-bank-${bank.slug}`} checked={option === "single" ? active && selected.includes(bank.slug) : pickerIds.includes(bank.slug)} disabled={option === "builder" && pickerIds.length >= 5 && !pickerIds.includes(bank.slug)} onChange={() => option === "single" ? selectSingle(bank.slug) : toggle(bank.slug)} /><span>{bank.name}</span></label>)}</div></section>)}
                 </div></fieldset></details> : null}
               {option === "builder" && active && selected.length < 2 ? <p className="custom-bundle-selection-note">Select one more bank to continue.</p> : null}
-              <button className="button primary" type="button" aria-pressed={active} disabled={disabled} onClick={() => { if (!active) chooseMode(option); else if (canReview) void (expansion ? preview() : previewRenewal()); }}>{demo && active ? "Preview only" : action}</button>
+              <button className={`button primary${ownedSingle && (!active || unchanged) ? " account-plan-owned-cta" : ""}`} type="button" aria-pressed={active} disabled={disabled} onClick={() => { if (!active) chooseMode(option); else if (canReview) void (expansion ? preview() : previewRenewal()); }}>{demo && active && !unchanged ? "Preview only" : action}</button>
               {demo && active ? <p className="custom-bundle-selection-note">No checkout or account changes in this preview.</p> : null}
             </div>
           </article>;
