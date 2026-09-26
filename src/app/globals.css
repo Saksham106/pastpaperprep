@@ -882,6 +882,21 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .account-section-page h1 { margin: 8px 0 28px; font: 600 clamp(2.5rem, 5vw, 3.8rem)/1.02 Georgia, "Times New Roman", serif; letter-spacing: -.045em; }
 .account-readonly-note { padding: 22px 24px; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--cobalt); border-radius: 10px; }
 .account-readonly-note p { color: var(--muted); line-height: 1.65; }
+.account-referrals-page > p:not(.eyebrow) { max-width: 62ch; margin: -10px 0 25px; color: var(--muted); line-height: 1.6; }
+.account-referral-link label { display: block; margin-bottom: 10px; font-weight: 760; }
+.account-referral-link-controls { display: flex; gap: 9px; }
+.account-referral-link-controls input { min-width: 0; flex: 1; padding: 10px 12px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-strong); border-radius: 7px; font: .86rem/1.4 var(--font-mono); }
+.account-referral-link-controls .button { flex: 0 0 auto; white-space: nowrap; }
+.account-referral-link-controls input:focus-visible, .account-referral-link-controls button:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
+.account-referral-link [role="status"] { display: block; min-height: 1.5em; margin-top: 6px; color: var(--muted); font-size: .85rem; }
+.account-referral-progress { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 28px 0; }
+.account-referral-progress > div { padding-top: 20px; border-top: 1px solid var(--line-strong); }
+.account-referral-progress strong { display: block; margin-top: 8px; }
+.account-referral-progress p { margin: 8px 0 0; color: var(--muted); font-size: .88rem; line-height: 1.55; }
+.account-referral-number { color: var(--burgundy); font: 650 clamp(2.2rem, 4vw, 3rem)/1 var(--font-display); font-variant-numeric: tabular-nums; }
+.account-referral-terms { border-left-color: var(--burgundy); }
+.account-referral-terms strong { font: 750 1.08rem var(--font-display); }
+@media (max-width: 520px) { .account-referral-progress { grid-template-columns: 1fr; gap: 15px; } .account-referral-link-controls { flex-direction: column; } .account-referral-link-controls .button { align-self: flex-start; } }
 .account-page-help { color: var(--muted); font-size: .9rem; line-height: 1.6; }
 .account-setting-row { margin-top: 12px; padding: 20px 22px; display: flex; align-items: center; justify-content: space-between; gap: 18px; border: 1px solid var(--line); border-radius: 10px; }
 .account-setting-row > div { display: grid; gap: 4px; }
@@ -955,7 +970,7 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .account-editor-note { padding: 11px 14px; background: var(--cobalt-faint); border-left: 3px solid var(--cobalt); }
 @media (max-width: 760px) {
   .account-settings-layout { width: min(100% - 32px, 680px); padding-block: 40px 72px; grid-template-columns: minmax(0, 1fr); gap: 22px; }
-  .account-settings-nav { position: static; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2px; }
+  .account-settings-nav { position: static; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2px; }
   .account-settings-nav a { justify-content: center; padding-inline: 6px; font-size: .83rem; text-align: center; }
   .account-settings-nav a[aria-current="page"] { box-shadow: inset 0 -3px var(--burgundy); }
   .account-page { padding: 0; }

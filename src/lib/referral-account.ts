@@ -23,6 +23,14 @@ export async function bindReferralToAuthenticatedUser(userId: string, userCreate
   if (!Number.isFinite(createdAt) || createdAt < referral.attributedAt) return false;
 
   const admin = createAdminClient();
+  if (/^c_[a-f0-9]{24}$/.test(referral.code)) {
+    const { data, error } = await admin.rpc("bind_new_customer_referral", {
+      p_user_id: userId,
+      p_code: referral.code,
+      p_attributed_at: new Date(referral.attributedAt).toISOString(),
+    });
+    return !error && data === true;
+  }
   const { data, error } = await admin.rpc("bind_new_referral_attribution", {
     p_user_id: userId,
     p_partner_code: referral.code,

@@ -35,6 +35,17 @@ describe("checkout referral resolution", () => {
     expect(rpc).toHaveBeenCalledWith("bind_new_referral_attribution", expect.objectContaining({ p_partner_code: "pietro" }));
   });
 
+  it("binds a verified customer invite without entering the tutor commission flow", async () => {
+    process.env.REFERRAL_COOKIE_SECRET = "test-secret";
+    const { encodeReferral } = await import("./referral");
+    const token = encodeReferral("c_0123456789abcdef01234567", Date.now() - 1000)!;
+    const rpc = vi.fn().mockResolvedValue({ data: true, error: null });
+    createAdminClient.mockReturnValue({ rpc });
+    expect(await bindReferralToAuthenticatedUser("00000000-0000-4000-8000-000000000001", new Date().toISOString(), token)).toBe(true);
+    expect(rpc).toHaveBeenCalledOnce();
+    expect(rpc).toHaveBeenCalledWith("bind_new_customer_referral", expect.objectContaining({ p_code: "c_0123456789abcdef01234567" }));
+  });
+
   it("rejects expired referrals and inactive partners", async () => {
     const attribution = record({ partner_code: "pietro", attributed_at: "2026-08-01T20:00:00Z" });
     const partner = record(null);
