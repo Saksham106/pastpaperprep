@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, IBM_Plex_Mono } from "next/font/google";
-import Script from "next/script";
+import { ThemeProvider } from "next-themes";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SessionAwareSiteHeader } from "@/components/SessionAwareSiteHeader";
 import { SiteTelemetry } from "@/components/SiteTelemetry";
-import { THEME_INIT_SCRIPT } from "@/components/ThemeInitScript";
 import { SOCIAL_IMAGE, SOCIAL_IMAGE_URL } from "@/lib/seo";
 import "./globals.css";
 
@@ -57,11 +56,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" className={`${geist.variable} ${mono.variable}`} suppressHydrationWarning>
       <body data-build-revision={process.env.NEXT_PUBLIC_BUILD_REVISION ?? "local"}>
-        <Script id="pastpaperprep-theme" strategy="beforeInteractive">{THEME_INIT_SCRIPT}</Script>
-        <SessionAwareSiteHeader />
-        <main>{children}</main>
-        <SiteFooter />
-        <SiteTelemetry />
+        <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem enableColorScheme storageKey="pastpaperprep-theme" disableTransitionOnChange>
+          <SessionAwareSiteHeader />
+          <main>{children}</main>
+          <SiteFooter />
+          <SiteTelemetry />
+        </ThemeProvider>
       </body>
     </html>
   );

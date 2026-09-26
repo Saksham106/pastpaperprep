@@ -217,3 +217,56 @@
   .heroCopy { padding-inline: 12px; }
   .heroIndex { right: 8px; bottom: 14px; z-index: 5; width: 138px; max-width: calc(100% - 16px); }
 }
+
+/* The editorial landing page uses artwork and subject-specific panels; it needs its own
+   dark surfaces rather than an inverted filter over the paper-colored composition. */
+:global(:root[data-theme="dark"]) .home { background: var(--paper); }
+:global(:root[data-theme="dark"]) .hero { background: #1a1d23; color: var(--ink); border-color: var(--line-strong); }
+:global(:root[data-theme="dark"]) .heroCopy,
+:global(:root[data-theme="dark"]) .heroIndex { text-shadow: none; }
+:global(:root[data-theme="dark"]) .hero h1 { color: var(--ink); }
+:global(:root[data-theme="dark"]) .eyebrow,
+:global(:root[data-theme="dark"]) .sectionKicker,
+:global(:root[data-theme="dark"]) .hero h1 em { color: var(--burgundy); }
+:global(:root[data-theme="dark"]) .heroBuilding { mix-blend-mode: screen; opacity: .14; filter: grayscale(1) contrast(.85); }
+:global(:root[data-theme="dark"]) .heroIndex,
+:global(:root[data-theme="dark"]) .heroIndex strong { color: var(--ink-soft); }
+:global(:root[data-theme="dark"]) .hero .button.primary,
+:global(:root[data-theme="dark"]) .cta .button.primary { color: #fff; background: #3158a2; border-color: #3158a2; }
+:global(:root[data-theme="dark"]) .hero .button.primary:hover,
+:global(:root[data-theme="dark"]) .cta .button.primary:hover { background: #416ac0; }
+:global(:root[data-theme="dark"]) .hero .button.secondary { color: var(--ink); border-color: var(--line-strong); }
+:global(:root[data-theme="dark"]) .hero .button.secondary:hover { background: var(--surface-raised); border-color: var(--cobalt); }
+:global(:root[data-theme="dark"]) .banks { background: var(--paper); }
+:global(:root[data-theme="dark"]) .catalogHeader,
+:global(:root[data-theme="dark"]) .subjectGroup,
+:global(:root[data-theme="dark"]) .subjectGroup header,
+:global(:root[data-theme="dark"]) .faqQuestions,
+:global(:root[data-theme="dark"]) .faqQuestions details { border-color: var(--line-strong); }
+:global(:root[data-theme="dark"]) .catalogMark,
+:global(:root[data-theme="dark"]) .catalogCount,
+:global(:root[data-theme="dark"]) .faqQuestions summary svg { color: var(--burgundy); }
+:global(:root[data-theme="dark"]) .bankCard { color: var(--ink); border-color: var(--line-strong); border-left-color: var(--burgundy); }
+:global(:root[data-theme="dark"]) .bankCard:hover { color: var(--ink); border-color: var(--cobalt); }
+:global(:root[data-theme="dark"]) .subjectGroup h4,
+:global(:root[data-theme="dark"]) .faqQuestions summary { color: var(--ink); }
+:global(:root[data-theme="dark"]) .subjectGroup[data-subject-tone] { --subject-tint: color-mix(in srgb, var(--course-accent) 13%, var(--surface)); }
+:global(:root[data-theme="dark"]) .research { background: #191b1d; border-color: var(--line-strong); }
+:global(:root[data-theme="dark"]) .researchPanel { background: var(--surface); border-color: var(--line-strong); }
+:global(:root[data-theme="dark"]) .researchStudy { border-color: var(--line-strong); }
+:global(:root[data-theme="dark"]) .researchStudy:first-child { background: #582b3c; }
+:global(:root[data-theme="dark"]) .researchStudy:nth-child(3) { background: #26302c; }
+:global(:root[data-theme="dark"]) .researchStudy > p { color: var(--ink-soft); }
+:global(:root[data-theme="dark"]) .researchStudy > a,
+:global(:root[data-theme="dark"]) .faqAllLink,
+:global(:root[data-theme="dark"]) .faqContact a { color: var(--cobalt-strong); border-color: var(--line-strong); }
+:global(:root[data-theme="dark"]) .researchStudy:first-child > a { color: #fff8ed; }
+:global(:root[data-theme="dark"]) .cta { color: var(--ink); background: #283449; border-color: #455573; }
+:global(:root[data-theme="dark"]) .cta h2,
+:global(:root[data-theme="dark"]) .ctaNote { color: var(--ink); }
+:global(:root[data-theme="dark"]) .cta .sectionKicker { color: #e8a7b4; }
+:global(:root[data-theme="dark"]) .ctaArtwork { mix-blend-mode: screen; opacity: .2; }
+:global(:root[data-theme="dark"]) .heroIndex { background: transparent; }
+@media (max-width: 620px) {
+  :global(:root[data-theme="dark"]) .heroIndex { background: rgb(26 29 35 / .94); }
+}

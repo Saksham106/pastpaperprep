@@ -4,6 +4,7 @@ import Link from "next/link";
 import { BookOpenText, SquaresFour } from "@phosphor-icons/react/dist/ssr";
 import { useEffect, useRef, useState } from "react";
 import { HeaderNavigation } from "@/components/HeaderNavigation";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export function SiteHeader({ authenticated = false }: { authenticated?: boolean }) {
   const homeHref = authenticated ? "/dashboard" : "/";
@@ -25,6 +26,7 @@ export function SiteHeader({ authenticated = false }: { authenticated?: boolean 
       </Link>
       <div className="header-actions">
         <HeaderNavigation authenticated={authenticated} workspaceIcon={<SquaresFour data-testid="workspace-icon" aria-hidden="true" weight="bold" />} />
+        <ThemeToggle />
       </div>
     </header>
   </>;

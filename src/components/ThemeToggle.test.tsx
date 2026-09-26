@@ -1,50 +1,23 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
+const theme = vi.hoisted(() => ({ resolvedTheme: "light", setTheme: vi.fn() }));
+vi.mock("next-themes", () => ({ useTheme: () => theme }));
+
 describe("ThemeToggle", () => {
-  beforeEach(() => {
-    const values = new Map<string, string>();
-    Object.defineProperty(window, "localStorage", {
-      configurable: true,
-      value: {
-        clear: () => values.clear(),
-        getItem: (key: string) => values.get(key) ?? null,
-        setItem: (key: string, value: string) => values.set(key, value),
-      },
-    });
-    window.localStorage.clear();
-    delete document.documentElement.dataset.theme;
-    Object.defineProperty(window, "matchMedia", {
-      configurable: true,
-      value: vi.fn().mockReturnValue({ matches: false }),
-    });
-  });
+  beforeEach(() => { theme.resolvedTheme = "light"; theme.setTheme.mockClear(); });
 
-  afterEach(() => {
-    delete document.documentElement.dataset.theme;
-  });
-
-  it("uses the initialized document theme and persists the next choice", () => {
-    document.documentElement.dataset.theme = "dark";
+  it("switches light to dark through the shared theme provider", () => {
     render(<ThemeToggle />);
+    fireEvent.click(screen.getByRole("button", { name: "Switch to dark theme" }));
+    expect(theme.setTheme).toHaveBeenCalledWith("dark");
+  });
 
-    expect(screen.getByRole("button", { name: "Switch to light theme" })).toBeInTheDocument();
+  it("switches dark to light through the shared theme provider", () => {
+    theme.resolvedTheme = "dark";
+    render(<ThemeToggle />);
     fireEvent.click(screen.getByRole("button", { name: "Switch to light theme" }));
-
-    expect(document.documentElement.dataset.theme).toBe("light");
-    expect(window.localStorage.getItem("pastpaperprep-theme")).toBe("light");
-    expect(screen.getByRole("button", { name: "Switch to dark theme" })).toBeInTheDocument();
-  });
-
-  it("defaults to light when no initialized theme exists", () => {
-    Object.defineProperty(window, "matchMedia", {
-      configurable: true,
-      value: vi.fn().mockReturnValue({ matches: true }),
-    });
-
-    render(<ThemeToggle />);
-
-    expect(screen.getByRole("button", { name: "Switch to dark theme" })).toBeInTheDocument();
+    expect(theme.setTheme).toHaveBeenCalledWith("light");
   });
 });
