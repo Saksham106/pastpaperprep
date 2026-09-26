@@ -43,7 +43,10 @@ export function ArticlesIndex() {
 
         <section className="article-library" aria-label="Revision guides">
           {featuredArticle ? <div className="article-featured"><FeaturedArticle article={featuredArticle} /></div> : null}
-          <div className="article-latest"><header><p className="eyebrow">Latest guides</p><h2>Practical answers for your next session</h2></header><div className="article-index">{latestArticles.map((article) => <ArticleIndexRow article={article} key={article.slug} />)}</div></div>
+          <div className="article-latest"><header><p className="eyebrow">Latest guides</p><h2>Practical answers for your next session</h2></header><div className="article-index">
+            <article className="article-index-row"><div><p className="eyebrow">IB maths · Past papers &amp; tutoring</p><h3><Link href="/articles/ib-past-papers-mistakes-tutoring">How to use IB past papers when you keep making the same mistake</Link></h3><p>Find the step that keeps costing you marks, then decide whether focused practice or a tutor will help.</p><ul className="article-index-facts" aria-label="Guide details"><li>IB Diploma</li><li>4 min read</li></ul></div><div className="article-card-meta"><time dateTime="2026-09-26">2026-09-26</time><span>4 min</span></div></article>
+            {latestArticles.map((article) => <ArticleIndexRow article={article} key={article.slug} />)}
+          </div></div>
         </section>
 
         <aside className="article-bank-cta" aria-labelledby="article-bank-heading">

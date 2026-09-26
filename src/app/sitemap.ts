@@ -11,6 +11,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: SITE_URL },
     { url: `${SITE_URL}/pricing` },
     { url: `${SITE_URL}/articles` },
+    { url: `${SITE_URL}/articles/ib-past-papers-mistakes-tutoring`, lastModified: "2026-09-26" },
     { url: `${SITE_URL}/faq` },
     { url: `${SITE_URL}/about` },
     { url: `${SITE_URL}/cambridge-igcse` },

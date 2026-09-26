@@ -7,14 +7,15 @@ vi.mock("next/navigation", () => ({ usePathname: () => pathname }));
 import { AccountSettingsNav } from "@/components/AccountSettingsNav";
 
 describe("AccountSettingsNav", () => {
-  it("offers four clear settings destinations and marks the current page", () => {
-    pathname = "/account/subscription";
+  it("offers five clear settings destinations and marks the current page", () => {
+    pathname = "/account/referrals";
     render(<AccountSettingsNav />);
     const nav = screen.getByRole("navigation", { name: /account settings/i });
-    expect(nav.querySelectorAll("a")).toHaveLength(4);
+    expect(nav.querySelectorAll("a")).toHaveLength(5);
     expect(screen.getByRole("link", { name: "Overview" })).toHaveAttribute("href", "/account");
-    expect(screen.getByRole("link", { name: "Subscription" })).toHaveAttribute("aria-current", "page");
+    expect(screen.getByRole("link", { name: "Subscription" })).toHaveAttribute("href", "/account/subscription");
     expect(screen.getByRole("link", { name: "Billing" })).toHaveAttribute("href", "/account/billing");
+    expect(screen.getByRole("link", { name: "Referrals" })).toHaveAttribute("aria-current", "page");
     expect(screen.getByRole("link", { name: "Security" })).toHaveAttribute("href", "/account/security");
   });
 

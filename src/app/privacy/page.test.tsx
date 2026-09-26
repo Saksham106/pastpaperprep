@@ -10,6 +10,14 @@ describe("Privacy policy", () => {
     expect(screen.getByText(/partner commission/i)).toBeInTheDocument();
   });
 
+  it("discloses customer invite account binding and aggregate, manually reviewed reward progress", () => {
+    render(<PrivacyPage />);
+    expect(screen.getByText(/customer or partner referral link/i)).toBeInTheDocument();
+    expect(screen.getByText(/verified account/i)).toBeInTheDocument();
+    expect(screen.getByText(/aggregate signup/i)).toBeInTheDocument();
+    expect(screen.getByText(/manually review.*purchase/i)).toBeInTheDocument();
+  });
+
   it("discloses anonymous cookieless PostHog analytics without session replay", () => {
     render(<PrivacyPage />);
 

@@ -882,6 +882,33 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .account-section-page h1 { margin: 8px 0 28px; font: 600 clamp(2.5rem, 5vw, 3.8rem)/1.02 Georgia, "Times New Roman", serif; letter-spacing: -.045em; }
 .account-readonly-note { padding: 22px 24px; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--cobalt); border-radius: 10px; }
 .account-readonly-note p { color: var(--muted); line-height: 1.65; }
+.account-referrals-page > p:not(.eyebrow) { max-width: 62ch; margin: -10px 0 25px; color: var(--muted); line-height: 1.6; }
+.account-referral-link label { display: block; margin-bottom: 10px; font-weight: 760; }
+.account-referral-link-controls { display: flex; gap: 9px; }
+.account-referral-link-controls input { min-width: 0; flex: 1; padding: 10px 12px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-strong); border-radius: 7px; font: .86rem/1.4 var(--font-mono); }
+.account-referral-link-controls .button { flex: 0 0 auto; white-space: nowrap; }
+.account-referral-link-controls input:focus-visible, .account-referral-link-controls button:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
+.account-referral-link [role="status"] { display: block; min-height: 1.5em; margin-top: 6px; color: var(--muted); font-size: .85rem; }
+.account-referral-progress { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 28px 0; }
+.account-referral-progress > div { padding-top: 20px; border-top: 1px solid var(--line-strong); }
+.account-referral-progress strong { display: block; margin-top: 8px; }
+.account-referral-number { color: var(--burgundy); font: 650 clamp(2.2rem, 4vw, 3rem)/1 var(--font-display); font-variant-numeric: tabular-nums; }
+.account-referral-rewards { padding: 19px 23px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.account-referral-rewards .eyebrow { margin: 0 0 13px; }
+.account-referral-reward-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 22px; }
+.account-referral-reward-grid strong { font: 700 1.02rem/1.4 var(--font-body); }
+.account-referral-reward-grid strong span { color: var(--burgundy); }
+.account-referral-reward-footer { margin-top: 15px; padding-top: 12px; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 10px; color: var(--muted); font-size: .87rem; }
+.account-referral-more { padding: 5px 0; border: 0; background: none; color: var(--cobalt); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; cursor: pointer; font: 700 .87rem var(--font-body); }
+.account-referral-more:hover { color: var(--burgundy); }
+.account-referral-more:focus-visible, .account-referral-dialog-close:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; }
+.account-referral-dialog { position: fixed; width: min(520px, calc(100vw - 32px)); max-height: calc(100dvh - 40px); margin: auto; padding: 26px 30px; overflow-y: auto; color: var(--ink); background: var(--surface-raised); border: 1px solid var(--line-strong); border-radius: 12px; box-shadow: 0 24px 70px color-mix(in srgb, var(--ink) 28%, transparent); }
+.account-referral-dialog::backdrop { background: color-mix(in srgb, var(--ink) 58%, transparent); }
+.account-referral-dialog .eyebrow { margin: 0 0 8px; }
+.account-referral-dialog h2 { margin: 0 34px 18px 0; font: 600 1.7rem/1.1 var(--font-display); }
+.account-referral-dialog p:not(.eyebrow) { margin: 0 0 14px; color: var(--muted); font-size: .92rem; line-height: 1.58; }
+.account-referral-dialog-close { position: absolute; top: 17px; right: 19px; width: 34px; height: 34px; border: 1px solid var(--line-strong); border-radius: 7px; background: var(--surface); color: var(--ink); cursor: pointer; font-size: 1.3rem; line-height: 1; }
+@media (max-width: 520px) { .account-referral-progress { grid-template-columns: 1fr; gap: 15px; } .account-referral-reward-grid { grid-template-columns: 1fr; } .account-referral-reward-footer { align-items: flex-start; } .account-referral-link-controls { flex-direction: column; } .account-referral-link-controls .button { align-self: flex-start; } .account-referral-dialog { padding: 22px; } }
 .account-page-help { color: var(--muted); font-size: .9rem; line-height: 1.6; }
 .account-setting-row { margin-top: 12px; padding: 20px 22px; display: flex; align-items: center; justify-content: space-between; gap: 18px; border: 1px solid var(--line); border-radius: 10px; }
 .account-setting-row > div { display: grid; gap: 4px; }
@@ -955,7 +982,7 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .account-editor-note { padding: 11px 14px; background: var(--cobalt-faint); border-left: 3px solid var(--cobalt); }
 @media (max-width: 760px) {
   .account-settings-layout { width: min(100% - 32px, 680px); padding-block: 40px 72px; grid-template-columns: minmax(0, 1fr); gap: 22px; }
-  .account-settings-nav { position: static; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2px; }
+  .account-settings-nav { position: static; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2px; }
   .account-settings-nav a { justify-content: center; padding-inline: 6px; font-size: .83rem; text-align: center; }
   .account-settings-nav a[aria-current="page"] { box-shadow: inset 0 -3px var(--burgundy); }
   .account-page { padding: 0; }
