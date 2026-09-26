@@ -12,8 +12,8 @@ describe("referral terms", () => {
 
   it("keeps the detailed rules out of the page until More info opens a closable dialog", () => {
     render(<ReferralOverview summary={summary} />);
-    expect(screen.getByText(/5 verified signups/)).toBeVisible();
-    expect(screen.getByText(/1 first purchase/)).toBeVisible();
+    expect(screen.getByText(/5 verified signups.*1 month free/)).toBeVisible();
+    expect(screen.getByText(/1 referred first purchase.*1 month free/)).toBeVisible();
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(screen.queryByText(/For annual plans/)).not.toBeVisible();
 

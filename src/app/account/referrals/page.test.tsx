@@ -24,8 +24,9 @@ describe("account referrals", () => {
     expect(getCustomerReferralSummary).toHaveBeenCalledWith(userId, expect.objectContaining({ auth: expect.anything() }));
     expect(html).toContain(`https://pastpaperprep.com/invite/${code}`);
     expect(html).toContain("5 / 5");
-    expect(html).toMatch(/5 verified signups/);
-    expect(html).toMatch(/1 first purchase/);
+    expect(html).toMatch(/5 verified signups[\s\S]*1 month free/);
+    expect(html).toMatch(/1 referred first purchase[\s\S]*1 month free/);
+    expect(html).not.toMatch(/month’s value/i);
     expect(html).toMatch(/More info/);
     expect(html).toMatch(/<dialog[^>]*aria-labelledby=/);
     expect(html).toMatch(/review/i);

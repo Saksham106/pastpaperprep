@@ -26,8 +26,8 @@ export function ReferralOverview({ summary }: { summary: CustomerReferralSummary
       <div className="account-referral-rewards">
         <p className="eyebrow">Two ways to earn</p>
         <div className="account-referral-reward-grid">
-          <strong>5 verified signups <span aria-hidden="true">→</span> 1 month’s value</strong>
-          <strong>1 first purchase <span aria-hidden="true">→</span> 1 month’s value</strong>
+          <strong>5 verified signups <span aria-hidden="true">→</span> 1 month free</strong>
+          <strong>1 referred first purchase <span aria-hidden="true">→</span> 1 month free</strong>
         </div>
         <div className="account-referral-reward-footer">
           <span>Credits are added manually to a future bill.</span>
