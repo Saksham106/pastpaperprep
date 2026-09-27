@@ -20,6 +20,22 @@ describe("public bank index generator", () => {
     }
   });
 
+  it("projects 0610 numeric section codes to the year-era official name and preserves code provenance", () => {
+    const metadata = metadataFromRaw({
+      id: "0610-2026-m-12-q1", year: 2026, primaryTopic: "Characteristics and classification of living organisms",
+      subtopics: ["1.1"], detailedSubtopics: ["1.1"],
+    }, { bank: "igcse-biology-0610", normalizedProduction: true });
+
+    expect(metadata.subtopics).toEqual(["Characteristics of living organisms"]);
+    expect(metadata.officialCodeRefs).toEqual(["1.1"]);
+
+    const currentEdition = metadataFromRaw({
+      id: "0610-2026-m-12-q16", year: 2026, primaryTopic: "Reproduction",
+      subtopics: ["16.5"],
+    }, { bank: "igcse-biology-0610", normalizedProduction: true });
+    expect(currentEdition.subtopics).toEqual(["Sex hormones in humans"]);
+  });
+
   it("maps production AA slugs to the canonical overlay bank IDs", () => {
     const metadata = metadataFromRaw(
       { id: "2017-may-p2-tz1-q1" },

@@ -13,6 +13,13 @@ const aaTaxonomy = JSON.parse(await readFile(join(root, "src", "data", "aa-offic
 const aaOverlay = JSON.parse(await readFile(join(root, "src", "data", "aa-official-subtopics", "overlay.json"), "utf8"));
 const biologyOfficialTaxonomy = JSON.parse(await readFile(join(root, "src", "data", "ib-biology-official-subtopics", "taxonomy.json"), "utf8"));
 const biologyOfficialOverlay = JSON.parse(await readFile(join(root, "src", "data", "ib-biology-official-subtopics", "overlay.json"), "utf8"));
+const biology0610Taxonomy = JSON.parse(await readFile(join(root, "src", "data", "classification", "igcse-biology-0610-official-taxonomy-v2.json"), "utf8"));
+const biology0610Sections = new Map();
+for (const era of biology0610Taxonomy.eras) {
+  for (const topic of era.topics) {
+    for (const section of topic.subtopics) biology0610Sections.set(`${era.era}:${section.id}`, { title: section.title, topic: topic.title });
+  }
+}
 const overlayBankForSlug = (slug) => ({
   "igcse-additional": "0606",
   "ib-hl": "ib-aa-hl",
@@ -71,9 +78,20 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
   const aa = currentAaRecord(bank, raw);
   const biology = currentBiologyRecord(bank, raw);
   const official0610 = bank === "igcse-biology-0610" && normalizedProduction;
+  const rawSubtopics = strings(raw.subtopics);
+  const era0610 = raw.year === 2019 || raw.year === 2020 ? "2020_2021" : raw.year === 2026 ? "2023_2025" : null;
+  const mapped0610 = official0610 && era0610 && rawSubtopics.some((label) => /^\d+\.\d+$/.test(label));
+  const student0610 = mapped0610 ? rawSubtopics.map((label) => {
+    if (!/^\d+\.\d+$/.test(label)) return label;
+    const section = biology0610Sections.get(`${era0610}:${label}`);
+    if (!section) throw new Error(`Missing 0610 official section ${era0610}:${label} (${raw.id})`);
+    if (raw.primaryTopic !== section.topic) throw new Error(`0610 parent-topic mismatch for ${raw.id}: ${raw.primaryTopic} != ${section.topic}`);
+    if (raw.year === 2026 && label === "16.5") return "Sex hormones in humans";
+    return section.title;
+  }) : rawSubtopics;
   const controlledSkills = official0610 || aa || biology ? [] : strings(raw.skills);
   const studentSubtopics = official0610
-    ? strings(raw.subtopics)
+    ? student0610
     : aa
       ? (aa.status === "accepted" ? aa.subtopics.map((id) => aaGroupNames.get(id) ?? (() => { throw new Error(`Unknown official AA group ${id}`); })()) : [])
       : biology
@@ -113,7 +131,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     skills,
     subtopics,
     granularLabels: aa || biology ? [] : granularByKey.get(`${overlayBank}:${raw.id}`) ?? [],
-    ...(biology ? { officialCodeRefs: [...biology.officialCodes] } : strings(raw.officialCodeRefs).length ? { officialCodeRefs: strings(raw.officialCodeRefs) } : {}),
+    ...(biology ? { officialCodeRefs: [...biology.officialCodes] } : mapped0610 ? { officialCodeRefs: [...new Set([...strings(raw.officialCodeRefs), ...rawSubtopics.filter((label) => /^\d+\.\d+$/.test(label))])] } : strings(raw.officialCodeRefs).length ? { officialCodeRefs: strings(raw.officialCodeRefs) } : {}),
     ...(strings(raw.retrievalFacets).length ? { retrievalFacets: strings(raw.retrievalFacets) } : {}),
     subject: (typeof raw.subject === "string" && raw.subject) || (typeof raw.course === "string" ? raw.course : ""),
     option: typeof raw.p3Option === "string" ? raw.p3Option : "",
