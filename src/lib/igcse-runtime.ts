@@ -14,6 +14,7 @@ import { isIGCSEReleaseEnabled, type IGCSEReleaseBankSlug } from "@/lib/banks";
 type IGCSEArtifact = {
   questions: readonly Record<string, unknown>[];
   paperCount: number;
+  taxonomy?: { sha256?: string };
   runtimeArtifact?: {
     assetVerification?: string;
     storageReceiptSha256?: string | null;
@@ -23,6 +24,13 @@ type IGCSEArtifact = {
     runtimeSha256?: string | null;
     releaseTaxonomySha256?: string;
     runtimeTaxonomySha256?: string;
+    finalizedContentSha256?: string;
+    taxonomyRepair?: {
+      baselineRuntimeSha256?: string;
+      targetIdsSha256?: string;
+      changedCount?: number;
+      correctedTaxonomySha256?: string;
+    };
   };
 };
 
@@ -74,6 +82,39 @@ function runtimeSha256(artifact: IGCSEArtifact) {
   return canonicalSha256(copy);
 }
 
+const REPAIR_0654 = {
+  baselineRuntimeSha256: "712e208ab5c0cef1b2c970bd898eb6d9aa411f7f762e072bf35ecf6c4f2d8ca8",
+  targetIdsSha256: "fd9c04d82d30acc4bd37a61bf9ee476682b0c1760961e0cd6e9dbce98be437b0",
+  correctedTaxonomySha256: "24fdb70e4907faf3e069f9a88e42288b368ae451ee5d4d3bf8809a8b76b15378",
+  finalizedContentSha256: "77200f7f09e02163c4fdd8e37cf29036998e7d2f188f1911d4700fb818dba93e",
+  assetManifestSha256: "a315134b5523e694465fbb4759d14c70f02fe732a6ba6ddbc9cdc1c27fa1005a",
+  storageReceiptSha256: "2fcf4b04c2da12b57215309698de2ed3b19f0cb29b6d08407cb72514fc6c99ff",
+} as const;
+
+/** The original candidate seal describes the pre-repair release; this pins the corrected content separately. */
+export function assert0654TaxonomyRepair(artifact: IGCSEArtifact): void {
+  const seal = artifact.runtimeArtifact;
+  const repair = seal?.taxonomyRepair;
+  const changedIds = artifact.questions
+    .filter((q) => typeof q.year === "number" && q.year >= 2021 && q.year <= 2024
+      && q.primaryTopic === "Transport in animals" && q.primaryTopicId === "transport-in-animals"
+      && Array.isArray(q.subtopics) && q.subtopics.includes("Transport in mammals"))
+    .map((q) => q.id as string).sort();
+  if (
+    repair?.baselineRuntimeSha256 !== REPAIR_0654.baselineRuntimeSha256 ||
+    repair?.targetIdsSha256 !== REPAIR_0654.targetIdsSha256 ||
+    repair?.changedCount !== 39 || changedIds.length !== 39 ||
+    createHash("sha256").update(changedIds.join("\n")).digest("hex") !== REPAIR_0654.targetIdsSha256 ||
+    repair?.correctedTaxonomySha256 !== REPAIR_0654.correctedTaxonomySha256 ||
+    artifact.taxonomy?.sha256 !== REPAIR_0654.correctedTaxonomySha256 ||
+    seal?.releaseTaxonomySha256 !== REPAIR_0654.correctedTaxonomySha256 ||
+    seal?.assetManifestSha256 !== REPAIR_0654.assetManifestSha256 ||
+    seal?.storageReceiptSha256 !== REPAIR_0654.storageReceiptSha256 ||
+    seal?.finalizedContentSha256 !== REPAIR_0654.finalizedContentSha256 ||
+    canonicalSha256(artifact.questions) !== REPAIR_0654.finalizedContentSha256
+  ) throw new Error("IGCSE 0654 taxonomy repair provenance or finalized content mismatch");
+}
+
 export function getIGCSERuntimeArtifact(bank: IGCSEReleaseBankSlug, environment: Record<string, string | undefined> = process.env) {
   if (!isIGCSEReleaseEnabled(environment)) throw new Error("IGCSE release banks are disabled");
   const artifact = ARTIFACTS[bank];
@@ -94,6 +135,7 @@ export function getIGCSERuntimeArtifact(bank: IGCSEReleaseBankSlug, environment:
     )
   );
   if (artifact.questions.length !== questions || artifact.paperCount !== papers || metadata?.assetVerification !== "verified_readback" || typeof metadata?.storageReceiptSha256 !== "string" || typeof metadata?.assetManifestSha256 !== "string" || !taxonomySealed || !candidateSealed || !runtimeSealed || !questionStatesSealed) throw new Error("IGCSE runtime is not backed by verified storage, candidate, runtime, taxonomy, and question-state seals");
+  if (bank === "igcse-coordinated-sciences-0654") assert0654TaxonomyRepair(artifact);
   return artifact;
 }
 

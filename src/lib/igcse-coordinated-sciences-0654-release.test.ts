@@ -11,6 +11,7 @@ import { hasBankAccess, isPreviewQuestion } from "@/lib/access";
 import { normalizeEntitlements } from "@/lib/entitlements";
 import { getBillingPlan, getStripeConfig, isStripePriceAllowedForProduct, validateStripeConfig } from "@/lib/stripe-config";
 import { getPrivateBankObjectPrefix } from "@/lib/private-runtime-mapping";
+import { assert0654TaxonomyRepair } from "@/lib/igcse-runtime";
 import { getControlledSubtopics, getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 
 const ROOT = process.cwd();
@@ -160,7 +161,7 @@ describe("IGCSE Co-ordinated Sciences 0654 production release", () => {
     const artifact = production.runtimeArtifact as Record<string, string | null>;
     expect(production.version).toBe("igcse-coordinated-sciences-0654-full4721-v1");
     expect(artifact.releaseTaxonomySha256).toBe(createHash("sha256").update(readFileSync(join(ROOT, "src/data/igcse-coordinated-sciences-0654-taxonomy.json"))).digest("hex"));
-    expect(artifact.releaseTaxonomySha256).toBe("0f4790a44465163b5d8f6b1e09120df11e256f473f9e4b929fc6bf467aafdc6e");
+    expect(artifact.releaseTaxonomySha256).toBe("24fdb70e4907faf3e069f9a88e42288b368ae451ee5d4d3bf8809a8b76b15378");
     expect(artifact.runtimeTaxonomySha256).toBe(sha(taxonomy));
     const copy = JSON.parse(JSON.stringify(production)) as Runtime;
     (copy.runtimeArtifact as Record<string, unknown>).runtimeSha256 = null;
@@ -170,8 +171,24 @@ describe("IGCSE Co-ordinated Sciences 0654 production release", () => {
     expect((production as unknown as Record<string, unknown>).publicationStatus).toBe("production");
     expect(artifact.assetVerification).toBe("verified_readback");
     expect(artifact.assetManifestSha256).toBe("a315134b5523e694465fbb4759d14c70f02fe732a6ba6ddbc9cdc1c27fa1005a");
-    expect(artifact.storageReceiptSha256).toMatch(/^[a-f0-9]{64}$/);
+    expect(artifact.storageReceiptSha256).toBe("2fcf4b04c2da12b57215309698de2ed3b19f0cb29b6d08407cb72514fc6c99ff");
+    expect((production.runtimeArtifact as unknown as { taxonomyRepair: { changedCount: number; baselineRuntimeSha256: string } }).taxonomyRepair)
+      .toMatchObject({ changedCount: 39, baselineRuntimeSha256: "712e208ab5c0cef1b2c970bd898eb6d9aa411f7f762e072bf35ecf6c4f2d8ca8" });
     expect(production.rightsStatus).toBe("user_attested_rights_authorized");
+  });
+
+  it("validates the metadata-repair seal independently of the original candidate seal", () => {
+    const valid = structuredClone(production);
+    expect(() => assert0654TaxonomyRepair(valid as never)).not.toThrow();
+    const changedCount = structuredClone(production);
+    (changedCount.runtimeArtifact.taxonomyRepair as { changedCount: number }).changedCount = 40;
+    expect(() => assert0654TaxonomyRepair(changedCount as never)).toThrow(/repair/i);
+    const changedRow = structuredClone(production);
+    changedRow.questions[0].primaryTopic = "Other";
+    expect(() => assert0654TaxonomyRepair(changedRow as never)).toThrow(/repair|content/i);
+    const changedReceipt = structuredClone(production);
+    changedReceipt.runtimeArtifact.storageReceiptSha256 = "0".repeat(64);
+    expect(() => assert0654TaxonomyRepair(changedReceipt as never)).toThrow(/repair|receipt/i);
   });
 
   it("maps to a release-versioned immutable private object namespace and a hosted product", () => {

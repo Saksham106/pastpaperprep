@@ -20,7 +20,7 @@ import { createHash } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-export const TAXONOMY_SHA256 = "0f4790a44465163b5d8f6b1e09120df11e256f473f9e4b929fc6bf467aafdc6e";
+export const TAXONOMY_SHA256 = "24fdb70e4907faf3e069f9a88e42288b368ae451ee5d4d3bf8809a8b76b15378";
 export const DEFAULT_TAXONOMY_SOURCE = "/Users/sakshamgoel/Documents/ProjectsInternships/pastpaperprep/src/data/igcse-coordinated-sciences-0654-taxonomy.json";
 
 export function taxonomySourcePath(environment = process.env) {
