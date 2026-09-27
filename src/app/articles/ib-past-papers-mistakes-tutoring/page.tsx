@@ -38,7 +38,7 @@ export default function PietroPastPapersArticle() {
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Articles", href: "/articles" }, { label: title }]} />
         <p className="eyebrow">IB maths · Past papers &amp; tutoring</p>
         <h1>{title}</h1>
-        <div className="article-byline"><span>By Saksham Goel — I studied IB Mathematics AA HL.</span><span>Published <time dateTime={publishedAt}>{publishedAt}</time></span></div>
+        <div className="article-byline"><span>Published <time dateTime={publishedAt}>{publishedAt}</time></span></div>
       </header>
       <p className="article-answer">A past paper can tell you where you lost marks. It can&apos;t always tell you why. If you get stuck on the same kind of question each time, doing another full paper may just give you another version of the same mistake.</p>
       <div className="article-body"><section className="article-section" style={{ marginTop: 0 }}>
