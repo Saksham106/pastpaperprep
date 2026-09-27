@@ -1,0 +1,231 @@
+{
+  "purpose": "Bounded 2026 Physics MCQ suggestion corroboration only; source QP/MS and official syllabus govern labels. Broad historical Jev calibration failed and is not superseded by these in-sample agreements.",
+  "sourceModel": "jev-1.13.0",
+  "rows": [
+    {
+      "id": "0625-2026-m-12-q1",
+      "model": "jev-1.13.0",
+      "transport": "typesafe",
+      "choice": "none",
+      "confidence": 0.56,
+      "probabilities": {
+        "density": 0.0,
+        "measurement": 0.36,
+        "none": 0.64,
+        "gases_kelvin": 0.0,
+        "motion": 0.0,
+        "mass_weight": 0.0
+      },
+      "inputTokens": 744
+    },
+    {
+      "id": "0625-2026-m-12-q13",
+      "model": "jev-1.13.0",
+      "transport": "typesafe",
+      "choice": "gases_kelvin",
+      "confidence": 1.0,
+      "probabilities": {
+        "motion": 0.0,
+        "gases_kelvin": 1.0,
+        "density": 0.0,
+        "mass_weight": 0.0,
+        "none": 0.0,
+        "measurement": 0.0
+      },
+      "inputTokens": 681
+    },
+    {
+      "id": "0625-2026-m-12-q3",
+      "model": "jev-1.13.0",
+      "transport": "typesafe",
+      "choice": "mass_weight",
+      "confidence": 0.99,
+      "probabilities": {
+        "gases_kelvin": 0.0,
+        "density": 0.0,
+        "measurement": 0.0,
+        "none": 0.0,
+        "mass_weight": 1.0,
+        "motion": 0.0
+      },
+      "inputTokens": 663
+    },
+    {
+      "id": "0625-2026-m-22-q1",
+      "model": "jev-1.13.0",
+      "transport": "typesafe",
+      "choice": "measurement",
+      "confidence": 0.83,
+      "probabilities": {
+        "none": 0.01,
+        "motion": 0.0,
+        "gases_kelvin": 0.0,
+        "measurement": 0.86,
+        "mass_weight": 0.0,
+        "density": 0.13
+      },
+      "inputTokens": 674
+    },
+    {
+      "id": "0625-2026-s-11-q1",
+      "model": "jev-1.13.0",
+      "transport": "typesafe",
+      "choice": "measurement",
+      "confidence": 0.98,
+      "probabilities": {
+        "motion": 0.0,
+        "measurement": 0.99,
+        "none": 0.01,
+        "density": 0.0,
+        "gases_kelvin": 0.0,
+        "mass_weight": 0.0
+      },
+      "inputTokens": 748
+    },
+    {
+      "id": "0625-2026-s-11-q12",
+      "model": "jev-1.13.0",
+      "transport": "typesafe",
+      "choice": "gases_kelvin",
+      "confidence": 0.99,
+      "probabilities": {
+        "measurement": 0.0,
+        "motion": 0.0,
+        "mass_weight": 0.0,
+        "density": 0.0,
+        "gases_kelvin": 0.99,
+        "none": 0.01
+      },
+      "inputTokens": 701
+    },
+    {
+      "id": "0625-2026-s-11-q3",
+      "model": "jev-1.13.0",
+      "transport": "typesafe",
+      "choice": "motion",
+      "confidence": 0.94,
+      "probabilities": {
+        "mass_weight": 0.03,
+        "gases_kelvin": 0.0,
+        "measurement": 0.0,
+        "none": 0.02,
+        "motion": 0.95,
+        "density": 0.0
+      },
+      "inputTokens": 722
+    },
+    {
+      "id": "0625-2026-s-12-q1",
+      "model": "jev-1.13.0",
+      "transport": "typesafe",
+      "choice": "measurement",
+      "confidence": 0.82,
+      "probabilities": {
+        "none": 0.01,
+        "motion": 0.0,
+        "density": 0.14,
+        "measurement": 0.85,
+        "gases_kelvin": 0.0,
+        "mass_weight": 0.0
+      },
+      "inputTokens": 667
+    },
+    {
+      "id": "0625-2026-s-12-q12",
+      "model": "jev-1.13.0",
+      "transport": "typesafe",
+      "choice": "gases_kelvin",
+      "confidence": 1.0,
+      "probabilities": {
+        "density": 0.0,
+        "none": 0.0,
+        "measurement": 0.0,
+        "motion": 0.0,
+        "mass_weight": 0.0,
+        "gases_kelvin": 1.0
+      },
+      "inputTokens": 698
+    },
+    {
+      "id": "0625-2026-s-13-q1",
+      "model": "jev-1.13.0",
+      "transport": "typesafe",
+      "choice": "measurement",
+      "confidence": 0.83,
+      "probabilities": {
+        "gases_kelvin": 0.0,
+        "motion": 0.0,
+        "none": 0.01,
+        "density": 0.13,
+        "mass_weight": 0.0,
+        "measurement": 0.86
+      },
+      "inputTokens": 667
+    },
+    {
+      "id": "0625-2026-s-13-q12",
+      "model": "jev-1.13.0",
+      "transport": "typesafe",
+      "choice": "gases_kelvin",
+      "confidence": 0.99,
+      "probabilities": {
+        "motion": 0.0,
+        "measurement": 0.0,
+        "gases_kelvin": 1.0,
+        "density": 0.0,
+        "none": 0.0,
+        "mass_weight": 0.0
+      },
+      "inputTokens": 698
+    },
+    {
+      "id": "0625-2026-s-21-q1",
+      "model": "jev-1.13.0",
+      "transport": "typesafe",
+      "choice": "measurement",
+      "confidence": 1.0,
+      "probabilities": {
+        "motion": 0.0,
+        "measurement": 1.0,
+        "gases_kelvin": 0.0,
+        "density": 0.0,
+        "none": 0.0,
+        "mass_weight": 0.0
+      },
+      "inputTokens": 671
+    },
+    {
+      "id": "0625-2026-s-22-q1",
+      "model": "jev-1.13.0",
+      "transport": "typesafe",
+      "choice": "measurement",
+      "confidence": 0.98,
+      "probabilities": {
+        "measurement": 0.99,
+        "mass_weight": 0.0,
+        "density": 0.0,
+        "motion": 0.0,
+        "gases_kelvin": 0.0,
+        "none": 0.01
+      },
+      "inputTokens": 685
+    },
+    {
+      "id": "0625-2026-s-23-q1",
+      "model": "jev-1.13.0",
+      "transport": "typesafe",
+      "choice": "measurement",
+      "confidence": 1.0,
+      "probabilities": {
+        "gases_kelvin": 0.0,
+        "none": 0.0,
+        "motion": 0.0,
+        "mass_weight": 0.0,
+        "measurement": 1.0,
+        "density": 0.0
+      },
+      "inputTokens": 668
+    }
+  ],
+  "costEstimateUSD": 0.000406854
+}
