@@ -1,0 +1,18 @@
+--- a/scripts/emit_app_taxonomy.py
++++ b/scripts/emit_app_taxonomy.py
+@@ -112,6 +112,15 @@
+     """For split old topics pick the target whose own title best matches this old subtopic's title."""
+     tgs = targets.get(old_root) or []
+     if not tgs: return None
++    # Legacy B7.2 is printed as Transport in mammals. The generic title-token
++    # heuristic has no overlap with the modern "Transport in animals" heading,
++    # so it incorrectly falls back to the first target (plants). This exact
++    # source-section rule applies only to old-era routing, never modern B7.
++    if old_root == "B7" and norm_title(sub_title) == "transport in mammals":
++        animal = next((t for t in tgs
++                       if norm_title(next((tt for tc, tt in modern if tc == t), "")) == "transport in animals"), None)
++        if animal:
++            return animal, "exact legacy B7 / Transport in mammals source-title rule"
+     if len(tgs) == 1: return tgs[0], "sole target"
+     toks = {w for w in norm_title(sub_title).split() if len(w) > 3}
+     best, score, why = tgs[0], -1, "no title overlap; first (strongest-scoring) target"

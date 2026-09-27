@@ -9,7 +9,7 @@
  *                 6b161eb9e580bb5f63baa30f1ac2f1d322c9cfd79245ad305cb2a53a7d9a936d
  *   source manifests <SOURCE_ROOT>/data/segmentation/repair-ms-closure-v1/build-a/{base,extension-2020}/full-manifest.json
  *   emitted taxonomy src/data/igcse-coordinated-sciences-0654-taxonomy.json
- *                 0f4790a44465163b5d8f6b1e09120df11e256f473f9e4b929fc6bf467aafdc6e
+ *                 24fdb70e4907faf3e069f9a88e42288b368ae451ee5d4d3bf8809a8b76b15378
  *
  * Expected shape (asserted, not assumed): 4,721 runtime rows / 238 papers,
  * exactly one board-discounted exclusion (0654-2023-summer-22-q17), 4 unresolved
@@ -44,6 +44,37 @@ export const PRINTED_QP_TOTAL_MARKS = {
 export const EXTENSION_SUBJECT_LIST_WITHOUT_CROSS_SUBJECT_IDS = [
   "0654-2020-summer-11-q24", "0654-2020-winter-31-q9", "0654-2020-winter-33-q9", "0654-2020-winter-41-q5",
 ];
+
+export const TRANSPORT_MAMMALS_BASELINE_SHA256 = "6b161eb9e580bb5f63baa30f1ac2f1d322c9cfd79245ad305cb2a53a7d9a936d";
+export const TRANSPORT_MAMMALS_REPARENTING_IDS = [
+  "0654-2021-march-42-q10", "0654-2021-summer-23-q7", "0654-2021-summer-31-q7", "0654-2021-summer-32-q4", "0654-2021-summer-33-q4",
+  "0654-2021-winter-11-q7", "0654-2021-winter-12-q7", "0654-2021-winter-21-q7", "0654-2021-winter-22-q7", "0654-2021-winter-33-q1", "0654-2021-winter-43-q10",
+  "0654-2022-march-62-q2", "0654-2022-summer-22-q7", "0654-2022-summer-23-q7", "0654-2022-summer-31-q1", "0654-2022-summer-42-q1", "0654-2022-winter-23-q7", "0654-2022-winter-32-q4",
+  "0654-2023-march-12-q7", "0654-2023-march-22-q7", "0654-2023-march-32-q1", "0654-2023-summer-11-q7", "0654-2023-summer-21-q7", "0654-2023-summer-22-q7", "0654-2023-summer-32-q4", "0654-2023-summer-33-q4", "0654-2023-winter-23-q2", "0654-2023-winter-31-q4", "0654-2023-winter-43-q1",
+  "0654-2024-march-12-q7", "0654-2024-summer-11-q7", "0654-2024-summer-12-q7", "0654-2024-summer-13-q7", "0654-2024-summer-23-q7", "0654-2024-winter-11-q7", "0654-2024-winter-22-q7", "0654-2024-winter-31-q4", "0654-2024-winter-41-q4", "0654-2024-winter-42-q1",
+];
+
+export function applyTransportMammalsReparenting(rows, { baselineSha256 = TRANSPORT_MAMMALS_BASELINE_SHA256 } = {}) {
+  if (baselineSha256 !== TRANSPORT_MAMMALS_BASELINE_SHA256) throw new Error("0654 transport reparenting baseline SHA-256 mismatch");
+  if (!Array.isArray(rows)) throw new Error("0654 transport reparenting rows are not an array");
+  const byId = new Map(rows.map((row) => [row.question_id, row]));
+  if (byId.size !== rows.length) throw new Error("0654 transport reparenting source has duplicate IDs");
+  const expected = new Set(TRANSPORT_MAMMALS_REPARENTING_IDS);
+  const actual = rows.filter((row) => row.primary?.subtopic_label === "Transport in mammals"
+    && (row.primary?.topic_id === "transport-in-plants" || (row.primary?.topic_id === "transport-in-animals" && expected.has(row.question_id)))).map((row) => row.question_id);
+  if (actual.length !== expected.size || actual.some((id) => !expected.has(id)) || [...expected].some((id) => !byId.has(id))) {
+    throw new Error(`0654 transport reparenting target ID set differs from the frozen 39-ID source rule (actual=${actual.length}, missing=${[...expected].filter((id) => !actual.includes(id)).join(",")}, extra=${actual.filter((id) => !expected.has(id)).join(",")})`);
+  }
+  for (const id of expected) {
+    const primary = byId.get(id)?.primary;
+    if (!primary || primary.subtopic_label !== "Transport in mammals" || !["transport-in-plants", "transport-in-animals"].includes(primary.topic_id)) {
+      throw new Error(`0654 transport reparenting source rule mismatch: ${id}`);
+    }
+  }
+  return rows.map((row) => expected.has(row.question_id) && row.primary.topic_id !== "transport-in-animals"
+    ? { ...row, primary: { ...row.primary, topic_id: "transport-in-animals", topic_label: "Transport in animals" } }
+    : row);
+}
 
 function canonicalExtensionTopic(title, subtopic) {
   if (title === "Gas exchange and respiration") return subtopic === "Respiration" ? "Respiration" : "Gas exchange in humans";
@@ -332,7 +363,7 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
         qp_pdf: paper.question_paper, ms_pdf: paper.mark_scheme },
     };
   }));
-  const rows = [...assembly.rows, ...extensionRows];
+  const rows = applyTransportMammalsReparenting([...assembly.rows, ...extensionRows]);
   if (!Array.isArray(rows)) throw new Error("0654 assembly has no rows array");
 
   // The source manifest is the source universe: it still contains the board-discounted
@@ -345,8 +376,17 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
     throw new Error(`0654 extension source accounting mismatch: questions=${extensionManifest.question_count} papers=${extensionManifest.paper_count} assets=${extensionManifest.asset_count}`);
   }
 
-  const questions = rows.map((row) => rowToQuestion(row, taxonomy, index))
-    .sort((a, b) => b.year - a.year || a.paper - b.paper || a.number - b.number || a.id.localeCompare(b.id));
+  const questions = rows.map((row) => {
+    const question = rowToQuestion(row, taxonomy, index);
+    if (TRANSPORT_MAMMALS_REPARENTING_IDS.includes(row.question_id)) return question;
+    // Preserve the already-approved base cohort exactly; only the 39 repaired rows
+    // remain candidates for the separate release gate.
+    return {
+      ...question,
+      publicationStatus: "production",
+      classificationReviewStatus: row.classification_status === "unresolved" ? UNRESOLVED_TAXONOMY_STATUS : "classified",
+    };
+  }).sort((a, b) => b.year - a.year || a.paper - b.paper || a.number - b.number || a.id.localeCompare(b.id));
 
   // ---- Coverage assertions (fail closed) ----
   if (questions.length !== EXPECTED.rows) throw new Error(`0654 row count ${questions.length} != ${EXPECTED.rows}`);
