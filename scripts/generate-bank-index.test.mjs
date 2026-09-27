@@ -1,4 +1,7 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { PUBLIC_BANK_INDEX_FILES } from "../src/lib/bank-index-manifest.ts";
 import { metadataFromRaw } from "./generate-bank-index.mjs";
 
 describe("public bank index generator", () => {
@@ -34,6 +37,16 @@ describe("public bank index generator", () => {
       subtopics: ["16.5"],
     }, { bank: "igcse-biology-0610", normalizedProduction: true });
     expect(currentEdition.subtopics).toEqual(["Sex hormones in humans"]);
+  });
+
+  it("matches the 0610 public index exactly to the source runtime through the official-era projector", () => {
+    const slug = "igcse-biology-0610";
+    const source = JSON.parse(readFileSync(join(process.cwd(), "src/data/production", `${slug}.json`), "utf8"));
+    const published = JSON.parse(readFileSync(join(process.cwd(), "public/bank-index", PUBLIC_BANK_INDEX_FILES[slug]), "utf8"));
+    const expected = new Map(source.questions.map((raw) => [raw.id, metadataFromRaw(raw, { bank: slug, normalizedProduction: true })]));
+    expect(published.questions).toHaveLength(source.questions.length);
+    expect(expected.size).toBe(source.questions.length);
+    for (const row of published.questions) expect(row).toEqual(expected.get(row.id));
   });
 
   it("maps production AA slugs to the canonical overlay bank IDs", () => {
