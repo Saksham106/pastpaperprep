@@ -1141,6 +1141,9 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .article-section { margin-top: 50px; }
 .article-section h2, .article-faq > h2, .article-related h2, .article-sources h2 { margin: 0 0 18px; font: 700 2rem/1.08 var(--font-display); letter-spacing: -.04em; }
 .article-section p, .article-section li, .article-faq p { color: color-mix(in srgb, var(--ink) 82%, var(--muted)); font-size: 1rem; line-height: 1.78; }
+.article-section a { color: var(--cobalt-strong); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--cobalt-strong) 55%, transparent); text-underline-offset: 3px; }
+.article-section a:hover { color: var(--burgundy); text-decoration-color: currentColor; }
+.article-section a:focus-visible { outline: 2px solid var(--cobalt-strong); outline-offset: 3px; border-radius: 2px; }
 .article-section p + p { margin-top: 18px; }
 .article-section ul { margin: 20px 0 0; padding-left: 22px; display: grid; gap: 10px; }
 .article-faq { margin-top: 62px; }

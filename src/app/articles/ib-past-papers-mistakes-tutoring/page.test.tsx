@@ -10,7 +10,7 @@ describe("Pietro past-papers and tutoring article", () => {
   it("publishes the approved draft with the table, tutor quote, source links, and author", () => {
     const html = renderToStaticMarkup(<Article />);
     expect(html).toContain('<div class="public-surface"><article class="article-page shell">');
-    expect(html).toContain("By Saksham Goel");
+    expect(html).not.toContain("By Saksham Goel");
     expect(html).toContain("A past paper can tell you where you lost marks");
     expect(html).toContain("Left out the second solution in the interval");
     expect(html).toContain('href="https://pastpaperprep.com/"');
