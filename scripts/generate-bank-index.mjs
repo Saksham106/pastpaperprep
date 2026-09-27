@@ -79,6 +79,12 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
   const biology = currentBiologyRecord(bank, raw);
   const official0610 = bank === "igcse-biology-0610" && normalizedProduction;
   const rawSubtopics = strings(raw.subtopics);
+  // 2021–2025 runtime rows already have named subtopics; only 2019–20 and the
+  // 2026 extension contain numeric section codes needing projection. For 2026,
+  // the existing registry supplies code/parent validation, not the final title:
+  // all 50 used codes were checked against Cambridge's 2026–28 syllabus,
+  // https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  // and §16.5 is the one changed title ("Sex", not "Sexual").
   const era0610 = raw.year === 2019 || raw.year === 2020 ? "2020_2021" : raw.year === 2026 ? "2023_2025" : null;
   const mapped0610 = official0610 && era0610 && rawSubtopics.some((label) => /^\d+\.\d+$/.test(label));
   const student0610 = mapped0610 ? rawSubtopics.map((label) => {

@@ -46,6 +46,10 @@ describe("public bank index generator", () => {
     const expected = new Map(source.questions.map((raw) => [raw.id, metadataFromRaw(raw, { bank: slug, normalizedProduction: true })]));
     expect(published.questions).toHaveLength(source.questions.length);
     expect(expected.size).toBe(source.questions.length);
+    const namedYears = source.questions.filter((row) => row.year >= 2021 && row.year <= 2025);
+    expect(namedYears).toHaveLength(3441);
+    expect(namedYears.every((row) => !row.subtopics.some((label) => /^\d+\.\d+$/.test(label)))).toBe(true);
+    expect(published.questions.filter((row) => row.officialCodeRefs?.some((code) => /^\d+\.\d+$/.test(code)))).toHaveLength(1471);
     for (const row of published.questions) expect(row).toEqual(expected.get(row.id));
   });
 
