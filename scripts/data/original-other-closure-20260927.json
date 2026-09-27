@@ -1,0 +1,2553 @@
+{
+  "title": "Frozen original Other/transport-target closure; targeted scope, not exhaustive whole-bank semantic assurance",
+  "baselineCommit": "197ac22550d5bcb7559eafdbc0ae5cf391924bd5",
+  "originalQueueSha256": "53dc1b3154fe3ffaa1ec872d3d6efa54c98bfff3cb7863c58cfb6b9cc1793da0",
+  "scope": {
+    "otherRows": 194,
+    "transportParentRows": 39
+  },
+  "dispositionCounts": {
+    "chemistry_retrieval_in_this_change_historical_gap_retained": 30,
+    "released_broad_practical_retrieval_historical_gap_retained": 144,
+    "released_mcq_retrieval_historical_gap_retained": 14,
+    "released_parent_correction": 39,
+    "reviewed_unresolved_era_gap": 4,
+    "reviewed_unresolved_no_single_detail": 2
+  },
+  "interpretation": "Released retrieval can coexist with historical unresolved_taxonomy_gap and is not whole-bank semantic clearance. Six rows deliberately have no newly assigned route rather than a misleading single detail. Chemistry routes in this change are source-backed metadata additions, not asserted to be already deployed.",
+  "rows": [
+    {
+      "id": "0625-2019-m-52-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "4231041e4cd4bfa61b5e9aafda94a55a1de2a34bd4ab22dc7b46459c43466030",
+      "markSchemeSha256": "4231e5d4e5a991a1426d0c0bc63bd9dc72c577117bd080d2d130a52f8ae1f03a",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-m-52-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "4231041e4cd4bfa61b5e9aafda94a55a1de2a34bd4ab22dc7b46459c43466030",
+      "markSchemeSha256": "4231e5d4e5a991a1426d0c0bc63bd9dc72c577117bd080d2d130a52f8ae1f03a",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-m-52-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "4231041e4cd4bfa61b5e9aafda94a55a1de2a34bd4ab22dc7b46459c43466030",
+      "markSchemeSha256": "4231e5d4e5a991a1426d0c0bc63bd9dc72c577117bd080d2d130a52f8ae1f03a",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-m-52-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "4231041e4cd4bfa61b5e9aafda94a55a1de2a34bd4ab22dc7b46459c43466030",
+      "markSchemeSha256": "4231e5d4e5a991a1426d0c0bc63bd9dc72c577117bd080d2d130a52f8ae1f03a",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-m-62-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "b10db7996b409d698f465facdd01733af09e3fa59e30d98cb2502a1a4c5743f5",
+      "markSchemeSha256": "6a96a1a713e79665af56c8105b1f6cf78df4a8036bd30fc414b5af2a3ca8db8e",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-m-62-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "b10db7996b409d698f465facdd01733af09e3fa59e30d98cb2502a1a4c5743f5",
+      "markSchemeSha256": "6a96a1a713e79665af56c8105b1f6cf78df4a8036bd30fc414b5af2a3ca8db8e",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-m-62-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "b10db7996b409d698f465facdd01733af09e3fa59e30d98cb2502a1a4c5743f5",
+      "markSchemeSha256": "6a96a1a713e79665af56c8105b1f6cf78df4a8036bd30fc414b5af2a3ca8db8e",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-m-62-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "b10db7996b409d698f465facdd01733af09e3fa59e30d98cb2502a1a4c5743f5",
+      "markSchemeSha256": "6a96a1a713e79665af56c8105b1f6cf78df4a8036bd30fc414b5af2a3ca8db8e",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-51-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "d4f2e1444850644a823276f0f78e868cee8bae1acd33f6f023e266595ee5ef50",
+      "markSchemeSha256": "514a30c60c9139d5e3a389c0e19c07b8d118ec7ded7f92e4c3eaa5d09485a28e",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-51-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "d4f2e1444850644a823276f0f78e868cee8bae1acd33f6f023e266595ee5ef50",
+      "markSchemeSha256": "514a30c60c9139d5e3a389c0e19c07b8d118ec7ded7f92e4c3eaa5d09485a28e",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-51-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "d4f2e1444850644a823276f0f78e868cee8bae1acd33f6f023e266595ee5ef50",
+      "markSchemeSha256": "514a30c60c9139d5e3a389c0e19c07b8d118ec7ded7f92e4c3eaa5d09485a28e",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-51-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "d4f2e1444850644a823276f0f78e868cee8bae1acd33f6f023e266595ee5ef50",
+      "markSchemeSha256": "514a30c60c9139d5e3a389c0e19c07b8d118ec7ded7f92e4c3eaa5d09485a28e",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-52-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "151c02566eca75e9706e1f28d3b4425a08e5ed3f045a2d039717343d72434f7c",
+      "markSchemeSha256": "c6c5c361ba17641593a4eb2e09aadb33bfa24b2f7d900cc04a0477b9e82c4416",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-52-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "151c02566eca75e9706e1f28d3b4425a08e5ed3f045a2d039717343d72434f7c",
+      "markSchemeSha256": "c6c5c361ba17641593a4eb2e09aadb33bfa24b2f7d900cc04a0477b9e82c4416",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-52-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "151c02566eca75e9706e1f28d3b4425a08e5ed3f045a2d039717343d72434f7c",
+      "markSchemeSha256": "c6c5c361ba17641593a4eb2e09aadb33bfa24b2f7d900cc04a0477b9e82c4416",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-52-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "151c02566eca75e9706e1f28d3b4425a08e5ed3f045a2d039717343d72434f7c",
+      "markSchemeSha256": "c6c5c361ba17641593a4eb2e09aadb33bfa24b2f7d900cc04a0477b9e82c4416",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-53-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "0367a6819b33778213de9c2b584774118dd7d8c15934d4819663ac6bdbc0c465",
+      "markSchemeSha256": "4e15210fdee86d2ccd8ce4ad4807b479e2a2d7e89da602f55c7cd7223e578848",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-53-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "0367a6819b33778213de9c2b584774118dd7d8c15934d4819663ac6bdbc0c465",
+      "markSchemeSha256": "4e15210fdee86d2ccd8ce4ad4807b479e2a2d7e89da602f55c7cd7223e578848",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-53-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "0367a6819b33778213de9c2b584774118dd7d8c15934d4819663ac6bdbc0c465",
+      "markSchemeSha256": "4e15210fdee86d2ccd8ce4ad4807b479e2a2d7e89da602f55c7cd7223e578848",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-53-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "0367a6819b33778213de9c2b584774118dd7d8c15934d4819663ac6bdbc0c465",
+      "markSchemeSha256": "4e15210fdee86d2ccd8ce4ad4807b479e2a2d7e89da602f55c7cd7223e578848",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-61-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "28716e0642f2d3f71c431e8218b08fb452eec0a1911121e51293e7efc0064fda",
+      "markSchemeSha256": "085de54f03379c1dc1f69088dabbe1047e85966af404523ea5b38d09f6b4caf9",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-61-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "28716e0642f2d3f71c431e8218b08fb452eec0a1911121e51293e7efc0064fda",
+      "markSchemeSha256": "085de54f03379c1dc1f69088dabbe1047e85966af404523ea5b38d09f6b4caf9",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-61-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "28716e0642f2d3f71c431e8218b08fb452eec0a1911121e51293e7efc0064fda",
+      "markSchemeSha256": "085de54f03379c1dc1f69088dabbe1047e85966af404523ea5b38d09f6b4caf9",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-61-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "28716e0642f2d3f71c431e8218b08fb452eec0a1911121e51293e7efc0064fda",
+      "markSchemeSha256": "085de54f03379c1dc1f69088dabbe1047e85966af404523ea5b38d09f6b4caf9",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-62-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "802a6cf3acb44b68436f8f4d57708d4f01dad46150eeecfee3cb7421c4061dbf",
+      "markSchemeSha256": "9972f0f552cbe720087225020a319ac3a9eef65596783e90078eb04ba1a8c6f7",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-62-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "802a6cf3acb44b68436f8f4d57708d4f01dad46150eeecfee3cb7421c4061dbf",
+      "markSchemeSha256": "9972f0f552cbe720087225020a319ac3a9eef65596783e90078eb04ba1a8c6f7",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-62-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "802a6cf3acb44b68436f8f4d57708d4f01dad46150eeecfee3cb7421c4061dbf",
+      "markSchemeSha256": "9972f0f552cbe720087225020a319ac3a9eef65596783e90078eb04ba1a8c6f7",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-62-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "802a6cf3acb44b68436f8f4d57708d4f01dad46150eeecfee3cb7421c4061dbf",
+      "markSchemeSha256": "9972f0f552cbe720087225020a319ac3a9eef65596783e90078eb04ba1a8c6f7",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-63-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "e8db6c502ac24fda96cb8ac1473293d56dad472e3ee5e708f2975c18711aa254",
+      "markSchemeSha256": "f4277104838385e987bbfb135f4777c0d0bfd42e6dbff620c18d4a93206c2ee4",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-63-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "e8db6c502ac24fda96cb8ac1473293d56dad472e3ee5e708f2975c18711aa254",
+      "markSchemeSha256": "f4277104838385e987bbfb135f4777c0d0bfd42e6dbff620c18d4a93206c2ee4",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-63-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "e8db6c502ac24fda96cb8ac1473293d56dad472e3ee5e708f2975c18711aa254",
+      "markSchemeSha256": "f4277104838385e987bbfb135f4777c0d0bfd42e6dbff620c18d4a93206c2ee4",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-s-63-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "e8db6c502ac24fda96cb8ac1473293d56dad472e3ee5e708f2975c18711aa254",
+      "markSchemeSha256": "f4277104838385e987bbfb135f4777c0d0bfd42e6dbff620c18d4a93206c2ee4",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-51-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "bcc0e0153f5e5207fcc319826e3b82e9e524d52d6b7f9167b95858bf40c0ef93",
+      "markSchemeSha256": "8b7b7c2a4820fdffba35a21e5b36f8f52d67cafbb98313b734211ef546485cc0",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-51-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "bcc0e0153f5e5207fcc319826e3b82e9e524d52d6b7f9167b95858bf40c0ef93",
+      "markSchemeSha256": "8b7b7c2a4820fdffba35a21e5b36f8f52d67cafbb98313b734211ef546485cc0",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-51-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "bcc0e0153f5e5207fcc319826e3b82e9e524d52d6b7f9167b95858bf40c0ef93",
+      "markSchemeSha256": "8b7b7c2a4820fdffba35a21e5b36f8f52d67cafbb98313b734211ef546485cc0",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-51-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "bcc0e0153f5e5207fcc319826e3b82e9e524d52d6b7f9167b95858bf40c0ef93",
+      "markSchemeSha256": "8b7b7c2a4820fdffba35a21e5b36f8f52d67cafbb98313b734211ef546485cc0",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-52-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "e7a2b08d2f9bfa5e613645152309d362904afa52a777bcc8eb9f39a60c74bae8",
+      "markSchemeSha256": "e6717feb572b470b5fa8c206a4d8445622a3bf091151c5105dd9f42a6c0a5d20",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-52-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "e7a2b08d2f9bfa5e613645152309d362904afa52a777bcc8eb9f39a60c74bae8",
+      "markSchemeSha256": "e6717feb572b470b5fa8c206a4d8445622a3bf091151c5105dd9f42a6c0a5d20",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-52-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "e7a2b08d2f9bfa5e613645152309d362904afa52a777bcc8eb9f39a60c74bae8",
+      "markSchemeSha256": "e6717feb572b470b5fa8c206a4d8445622a3bf091151c5105dd9f42a6c0a5d20",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-52-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "e7a2b08d2f9bfa5e613645152309d362904afa52a777bcc8eb9f39a60c74bae8",
+      "markSchemeSha256": "e6717feb572b470b5fa8c206a4d8445622a3bf091151c5105dd9f42a6c0a5d20",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-53-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "83b84fa111cab0cb70d00d286fcc313c9cfb82f8e8152f5c7b50c756bf5dcee6",
+      "markSchemeSha256": "4f8674a6a1e87fdcba762530d60cab26565bc99ac17392e7a7f8a9e04ebfd2a8",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-53-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "83b84fa111cab0cb70d00d286fcc313c9cfb82f8e8152f5c7b50c756bf5dcee6",
+      "markSchemeSha256": "4f8674a6a1e87fdcba762530d60cab26565bc99ac17392e7a7f8a9e04ebfd2a8",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-53-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "83b84fa111cab0cb70d00d286fcc313c9cfb82f8e8152f5c7b50c756bf5dcee6",
+      "markSchemeSha256": "4f8674a6a1e87fdcba762530d60cab26565bc99ac17392e7a7f8a9e04ebfd2a8",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-53-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "83b84fa111cab0cb70d00d286fcc313c9cfb82f8e8152f5c7b50c756bf5dcee6",
+      "markSchemeSha256": "4f8674a6a1e87fdcba762530d60cab26565bc99ac17392e7a7f8a9e04ebfd2a8",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-61-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "56ca292e2448370f6aecd5874397c2590335a0196f14462cdc20962110ca7d61",
+      "markSchemeSha256": "39a855c81a6c35cf33d60602b28c39ff264fb942e0a45c1768c2d56aa685570a",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-61-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "56ca292e2448370f6aecd5874397c2590335a0196f14462cdc20962110ca7d61",
+      "markSchemeSha256": "39a855c81a6c35cf33d60602b28c39ff264fb942e0a45c1768c2d56aa685570a",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-61-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "56ca292e2448370f6aecd5874397c2590335a0196f14462cdc20962110ca7d61",
+      "markSchemeSha256": "39a855c81a6c35cf33d60602b28c39ff264fb942e0a45c1768c2d56aa685570a",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-61-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "56ca292e2448370f6aecd5874397c2590335a0196f14462cdc20962110ca7d61",
+      "markSchemeSha256": "39a855c81a6c35cf33d60602b28c39ff264fb942e0a45c1768c2d56aa685570a",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-62-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "1246c1d4f7a541d94c819a7db874d833a74c6ba3d262af3d4e7bd34c593646ea",
+      "markSchemeSha256": "4fa93de240f85fe4bdbf3e7866493b03100c7b8dc319fae07728d5542b629087",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-62-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "1246c1d4f7a541d94c819a7db874d833a74c6ba3d262af3d4e7bd34c593646ea",
+      "markSchemeSha256": "4fa93de240f85fe4bdbf3e7866493b03100c7b8dc319fae07728d5542b629087",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-62-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "1246c1d4f7a541d94c819a7db874d833a74c6ba3d262af3d4e7bd34c593646ea",
+      "markSchemeSha256": "4fa93de240f85fe4bdbf3e7866493b03100c7b8dc319fae07728d5542b629087",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-62-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "1246c1d4f7a541d94c819a7db874d833a74c6ba3d262af3d4e7bd34c593646ea",
+      "markSchemeSha256": "4fa93de240f85fe4bdbf3e7866493b03100c7b8dc319fae07728d5542b629087",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-63-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "619103cb227ddec9d2fd22e50666b7ab1fb66959ef124fa4a8f3bae41ce50add",
+      "markSchemeSha256": "ec58d2e2d0a7e7dfe3123cb139160bd9eb11f134929742b465a88e70e6ddb975",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-63-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "619103cb227ddec9d2fd22e50666b7ab1fb66959ef124fa4a8f3bae41ce50add",
+      "markSchemeSha256": "ec58d2e2d0a7e7dfe3123cb139160bd9eb11f134929742b465a88e70e6ddb975",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-63-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "619103cb227ddec9d2fd22e50666b7ab1fb66959ef124fa4a8f3bae41ce50add",
+      "markSchemeSha256": "ec58d2e2d0a7e7dfe3123cb139160bd9eb11f134929742b465a88e70e6ddb975",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2019-w-63-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "619103cb227ddec9d2fd22e50666b7ab1fb66959ef124fa4a8f3bae41ce50add",
+      "markSchemeSha256": "ec58d2e2d0a7e7dfe3123cb139160bd9eb11f134929742b465a88e70e6ddb975",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-m-52-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "41ca1ca05dba073a090a362f5cfb86ef74bc9599caf41332c8f070cd4f62ee1e",
+      "markSchemeSha256": "64f5de2fbfbc49d6114936b4a2b404958a0a31f99c86b93bb476042b2aa3c3b5",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-m-52-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "41ca1ca05dba073a090a362f5cfb86ef74bc9599caf41332c8f070cd4f62ee1e",
+      "markSchemeSha256": "64f5de2fbfbc49d6114936b4a2b404958a0a31f99c86b93bb476042b2aa3c3b5",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-m-52-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "41ca1ca05dba073a090a362f5cfb86ef74bc9599caf41332c8f070cd4f62ee1e",
+      "markSchemeSha256": "64f5de2fbfbc49d6114936b4a2b404958a0a31f99c86b93bb476042b2aa3c3b5",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-m-52-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "41ca1ca05dba073a090a362f5cfb86ef74bc9599caf41332c8f070cd4f62ee1e",
+      "markSchemeSha256": "64f5de2fbfbc49d6114936b4a2b404958a0a31f99c86b93bb476042b2aa3c3b5",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-m-62-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "821cb8469195f445fdac376e4febd7c4de62d994ab5589e8b5d4e9689e567049",
+      "markSchemeSha256": "10161e31a00faa11165159a619efeef557e0181df3040223939bf5dfff2630e2",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-m-62-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "821cb8469195f445fdac376e4febd7c4de62d994ab5589e8b5d4e9689e567049",
+      "markSchemeSha256": "10161e31a00faa11165159a619efeef557e0181df3040223939bf5dfff2630e2",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-m-62-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "821cb8469195f445fdac376e4febd7c4de62d994ab5589e8b5d4e9689e567049",
+      "markSchemeSha256": "10161e31a00faa11165159a619efeef557e0181df3040223939bf5dfff2630e2",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-m-62-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "821cb8469195f445fdac376e4febd7c4de62d994ab5589e8b5d4e9689e567049",
+      "markSchemeSha256": "10161e31a00faa11165159a619efeef557e0181df3040223939bf5dfff2630e2",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-51-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "81dd7d6c7bcec56194fd66b2c8ef1199a31a5763cf4406a1e42ce2e994f1fa32",
+      "markSchemeSha256": "f486f4efd08cc3a7ffd002dddfb14ea7150f716dd92cb3c27157c42bf836cc40",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-51-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "81dd7d6c7bcec56194fd66b2c8ef1199a31a5763cf4406a1e42ce2e994f1fa32",
+      "markSchemeSha256": "f486f4efd08cc3a7ffd002dddfb14ea7150f716dd92cb3c27157c42bf836cc40",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-51-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "81dd7d6c7bcec56194fd66b2c8ef1199a31a5763cf4406a1e42ce2e994f1fa32",
+      "markSchemeSha256": "f486f4efd08cc3a7ffd002dddfb14ea7150f716dd92cb3c27157c42bf836cc40",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-51-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "81dd7d6c7bcec56194fd66b2c8ef1199a31a5763cf4406a1e42ce2e994f1fa32",
+      "markSchemeSha256": "f486f4efd08cc3a7ffd002dddfb14ea7150f716dd92cb3c27157c42bf836cc40",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-52-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "0da54dee247fb392b8341c9b4d5d32d54bdcb0256784fb02245c0e478604162b",
+      "markSchemeSha256": "f26550de75274f10e7aa248fd67fabdd494ab8d8dc1d6837b7e4df36b544d05b",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-52-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "0da54dee247fb392b8341c9b4d5d32d54bdcb0256784fb02245c0e478604162b",
+      "markSchemeSha256": "f26550de75274f10e7aa248fd67fabdd494ab8d8dc1d6837b7e4df36b544d05b",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-52-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "0da54dee247fb392b8341c9b4d5d32d54bdcb0256784fb02245c0e478604162b",
+      "markSchemeSha256": "f26550de75274f10e7aa248fd67fabdd494ab8d8dc1d6837b7e4df36b544d05b",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-52-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "0da54dee247fb392b8341c9b4d5d32d54bdcb0256784fb02245c0e478604162b",
+      "markSchemeSha256": "f26550de75274f10e7aa248fd67fabdd494ab8d8dc1d6837b7e4df36b544d05b",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-53-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "3b6d7ec30ff0ba9c2d3002148d198d9543f2b26721d10067600995a9fc719afd",
+      "markSchemeSha256": "c9304bacbcfad25cfaf3019ac688a5903db707790fdbb09ff98592f61136ac52",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-53-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "3b6d7ec30ff0ba9c2d3002148d198d9543f2b26721d10067600995a9fc719afd",
+      "markSchemeSha256": "c9304bacbcfad25cfaf3019ac688a5903db707790fdbb09ff98592f61136ac52",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-53-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "3b6d7ec30ff0ba9c2d3002148d198d9543f2b26721d10067600995a9fc719afd",
+      "markSchemeSha256": "c9304bacbcfad25cfaf3019ac688a5903db707790fdbb09ff98592f61136ac52",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-53-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "3b6d7ec30ff0ba9c2d3002148d198d9543f2b26721d10067600995a9fc719afd",
+      "markSchemeSha256": "c9304bacbcfad25cfaf3019ac688a5903db707790fdbb09ff98592f61136ac52",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-61-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "e1adb0a455cac0c15a7ecf318ecdc64f6b9408a2329b1b36d7097249e3fae42a",
+      "markSchemeSha256": "2d13cc0e6546f50e599196edbe97589664b7126617d61c50cc7e74d2f00d1a08",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-61-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "e1adb0a455cac0c15a7ecf318ecdc64f6b9408a2329b1b36d7097249e3fae42a",
+      "markSchemeSha256": "2d13cc0e6546f50e599196edbe97589664b7126617d61c50cc7e74d2f00d1a08",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-61-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "e1adb0a455cac0c15a7ecf318ecdc64f6b9408a2329b1b36d7097249e3fae42a",
+      "markSchemeSha256": "2d13cc0e6546f50e599196edbe97589664b7126617d61c50cc7e74d2f00d1a08",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-61-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "e1adb0a455cac0c15a7ecf318ecdc64f6b9408a2329b1b36d7097249e3fae42a",
+      "markSchemeSha256": "2d13cc0e6546f50e599196edbe97589664b7126617d61c50cc7e74d2f00d1a08",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-62-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "8bf85b3af11a33294d4c88cd539fa54443514bb7d62e417e8673e33d89e485ef",
+      "markSchemeSha256": "a33b9e536a1bb68b59e27f548f01d72e79de7f797e38440edccd8e1d9f27e16c",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-62-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "8bf85b3af11a33294d4c88cd539fa54443514bb7d62e417e8673e33d89e485ef",
+      "markSchemeSha256": "a33b9e536a1bb68b59e27f548f01d72e79de7f797e38440edccd8e1d9f27e16c",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-62-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "8bf85b3af11a33294d4c88cd539fa54443514bb7d62e417e8673e33d89e485ef",
+      "markSchemeSha256": "a33b9e536a1bb68b59e27f548f01d72e79de7f797e38440edccd8e1d9f27e16c",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-62-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "8bf85b3af11a33294d4c88cd539fa54443514bb7d62e417e8673e33d89e485ef",
+      "markSchemeSha256": "a33b9e536a1bb68b59e27f548f01d72e79de7f797e38440edccd8e1d9f27e16c",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-63-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "6c5859985685eed2bf287ecc5d740cb1f46f42ac86e37c5ba4681b29ec0bc77d",
+      "markSchemeSha256": "728b8cd3b02fd86483a564c0271fb267b7bcd441a29bc9124ff882d2f8bcdda7",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-63-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "6c5859985685eed2bf287ecc5d740cb1f46f42ac86e37c5ba4681b29ec0bc77d",
+      "markSchemeSha256": "728b8cd3b02fd86483a564c0271fb267b7bcd441a29bc9124ff882d2f8bcdda7",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-63-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "6c5859985685eed2bf287ecc5d740cb1f46f42ac86e37c5ba4681b29ec0bc77d",
+      "markSchemeSha256": "728b8cd3b02fd86483a564c0271fb267b7bcd441a29bc9124ff882d2f8bcdda7",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-s-63-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "6c5859985685eed2bf287ecc5d740cb1f46f42ac86e37c5ba4681b29ec0bc77d",
+      "markSchemeSha256": "728b8cd3b02fd86483a564c0271fb267b7bcd441a29bc9124ff882d2f8bcdda7",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-51-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "2aff78bb459c29751ee639e6ec46127a78fc7dd91b45768c8394ac120bd32095",
+      "markSchemeSha256": "544300ad65e51d1ec48a163ea05289210dc0129e15a809792bec87c2d6de6d60",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-51-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "2aff78bb459c29751ee639e6ec46127a78fc7dd91b45768c8394ac120bd32095",
+      "markSchemeSha256": "544300ad65e51d1ec48a163ea05289210dc0129e15a809792bec87c2d6de6d60",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-51-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "2aff78bb459c29751ee639e6ec46127a78fc7dd91b45768c8394ac120bd32095",
+      "markSchemeSha256": "544300ad65e51d1ec48a163ea05289210dc0129e15a809792bec87c2d6de6d60",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-51-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "2aff78bb459c29751ee639e6ec46127a78fc7dd91b45768c8394ac120bd32095",
+      "markSchemeSha256": "544300ad65e51d1ec48a163ea05289210dc0129e15a809792bec87c2d6de6d60",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-52-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "2112f2f810db38cb4340dbceb2910a5430e2f5079dc40d4a7e12060e8d0cbe35",
+      "markSchemeSha256": "10b73b0eb42bbfc777a98ec92e03f8f0e17b80152f974ab99325201a7c8680d0",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-52-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "2112f2f810db38cb4340dbceb2910a5430e2f5079dc40d4a7e12060e8d0cbe35",
+      "markSchemeSha256": "10b73b0eb42bbfc777a98ec92e03f8f0e17b80152f974ab99325201a7c8680d0",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-52-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "2112f2f810db38cb4340dbceb2910a5430e2f5079dc40d4a7e12060e8d0cbe35",
+      "markSchemeSha256": "10b73b0eb42bbfc777a98ec92e03f8f0e17b80152f974ab99325201a7c8680d0",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-52-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "2112f2f810db38cb4340dbceb2910a5430e2f5079dc40d4a7e12060e8d0cbe35",
+      "markSchemeSha256": "10b73b0eb42bbfc777a98ec92e03f8f0e17b80152f974ab99325201a7c8680d0",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-53-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "12a39939fd1e4c321a8adaaf8ddc05fde4b31d68faf721f0c0ab75ce3171ae53",
+      "markSchemeSha256": "8f2d9d4199be434ecf9a27156695b3622a75259b4b0f3e8ab9c039fb92b7aaaf",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-53-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "12a39939fd1e4c321a8adaaf8ddc05fde4b31d68faf721f0c0ab75ce3171ae53",
+      "markSchemeSha256": "8f2d9d4199be434ecf9a27156695b3622a75259b4b0f3e8ab9c039fb92b7aaaf",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-53-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "12a39939fd1e4c321a8adaaf8ddc05fde4b31d68faf721f0c0ab75ce3171ae53",
+      "markSchemeSha256": "8f2d9d4199be434ecf9a27156695b3622a75259b4b0f3e8ab9c039fb92b7aaaf",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-53-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "12a39939fd1e4c321a8adaaf8ddc05fde4b31d68faf721f0c0ab75ce3171ae53",
+      "markSchemeSha256": "8f2d9d4199be434ecf9a27156695b3622a75259b4b0f3e8ab9c039fb92b7aaaf",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-61-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "63178bb0727b2f94e45d6d3841ed370197eff2e656942b7365f2113c16835332",
+      "markSchemeSha256": "2073be2f601c2a416a31c5b0058008fb2fdb449423a5357eb03a9c3a395ecd47",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-61-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "63178bb0727b2f94e45d6d3841ed370197eff2e656942b7365f2113c16835332",
+      "markSchemeSha256": "2073be2f601c2a416a31c5b0058008fb2fdb449423a5357eb03a9c3a395ecd47",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-61-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "63178bb0727b2f94e45d6d3841ed370197eff2e656942b7365f2113c16835332",
+      "markSchemeSha256": "2073be2f601c2a416a31c5b0058008fb2fdb449423a5357eb03a9c3a395ecd47",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-61-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "63178bb0727b2f94e45d6d3841ed370197eff2e656942b7365f2113c16835332",
+      "markSchemeSha256": "2073be2f601c2a416a31c5b0058008fb2fdb449423a5357eb03a9c3a395ecd47",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-62-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "8b443064ab4a1ef85c7334be9e340d8343e50ed1fe777cf5aa62bf8fd3cc1848",
+      "markSchemeSha256": "f1401272b117c23ad78d8a6568365907ebe6ab9529091cae3ab6d8fb746d5d89",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-62-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "8b443064ab4a1ef85c7334be9e340d8343e50ed1fe777cf5aa62bf8fd3cc1848",
+      "markSchemeSha256": "f1401272b117c23ad78d8a6568365907ebe6ab9529091cae3ab6d8fb746d5d89",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-62-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "8b443064ab4a1ef85c7334be9e340d8343e50ed1fe777cf5aa62bf8fd3cc1848",
+      "markSchemeSha256": "f1401272b117c23ad78d8a6568365907ebe6ab9529091cae3ab6d8fb746d5d89",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-62-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "8b443064ab4a1ef85c7334be9e340d8343e50ed1fe777cf5aa62bf8fd3cc1848",
+      "markSchemeSha256": "f1401272b117c23ad78d8a6568365907ebe6ab9529091cae3ab6d8fb746d5d89",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-63-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "ee6e17418e9c454438d45e1b34de7b4c567fcdd666c4f662fd96953a26df6027",
+      "markSchemeSha256": "5bd0cfebe9f741f2dab73e490381bebba97b13801080c23afc7714a732c47405",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-63-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "ee6e17418e9c454438d45e1b34de7b4c567fcdd666c4f662fd96953a26df6027",
+      "markSchemeSha256": "5bd0cfebe9f741f2dab73e490381bebba97b13801080c23afc7714a732c47405",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-63-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "ee6e17418e9c454438d45e1b34de7b4c567fcdd666c4f662fd96953a26df6027",
+      "markSchemeSha256": "5bd0cfebe9f741f2dab73e490381bebba97b13801080c23afc7714a732c47405",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2020-w-63-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "ee6e17418e9c454438d45e1b34de7b4c567fcdd666c4f662fd96953a26df6027",
+      "markSchemeSha256": "5bd0cfebe9f741f2dab73e490381bebba97b13801080c23afc7714a732c47405",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-m-12-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "eead38a2526d649a2b503bece616ced47e0056daf1ca94a6f637e4310ddbdc35",
+      "markSchemeSha256": "2e2825b2bee692913d94730c482d7a6fb23f534c61aefd557ad2e216a3bb9c06",
+      "disposition": "released_mcq_retrieval_historical_gap_retained",
+      "studentRoute": "Motion, forces and energy (parent only)",
+      "reason": "broad-only: volume and elapsed-time table; no exact volume-per-time syllabus item",
+      "releasePR": 124
+    },
+    {
+      "id": "0625-2026-m-12-q13",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "eead38a2526d649a2b503bece616ced47e0056daf1ca94a6f637e4310ddbdc35",
+      "markSchemeSha256": "2e2825b2bee692913d94730c482d7a6fb23f534c61aefd557ad2e216a3bb9c06",
+      "disposition": "released_mcq_retrieval_historical_gap_retained",
+      "studentRoute": "Thermal physics → Gases and temperature",
+      "reason": "Paired 2026 source operation matches 2.1.3 core item 2; the controlled detail is Gases and temperature.",
+      "releasePR": 124
+    },
+    {
+      "id": "0625-2026-m-12-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "eead38a2526d649a2b503bece616ced47e0056daf1ca94a6f637e4310ddbdc35",
+      "markSchemeSha256": "2e2825b2bee692913d94730c482d7a6fb23f534c61aefd557ad2e216a3bb9c06",
+      "disposition": "released_mcq_retrieval_historical_gap_retained",
+      "studentRoute": "Motion, forces and energy → Mass, weight and gravitational field strength",
+      "reason": "Paired 2026 source operation matches 1.3 core item 3; the controlled detail is Mass, weight and gravitational field strength.",
+      "releasePR": 124
+    },
+    {
+      "id": "0625-2026-m-22-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "93c78c13ec8b1ef799d5cd25e65941862e63e7ba0465f0d2bccfaed4d93bf72f",
+      "markSchemeSha256": "73c47aceb47f749e93f66b903a92443ee9d22e665b4f75bbd299227333e185dc",
+      "disposition": "released_mcq_retrieval_historical_gap_retained",
+      "studentRoute": "Motion, forces and energy → Physical quantities and measurement techniques",
+      "reason": "Paired 2026 source operation matches 1.1 core item 1; the controlled detail is Physical quantities and measurement techniques.",
+      "releasePR": 124
+    },
+    {
+      "id": "0625-2026-m-32-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "769f8d36011d75235e2f0885bb1e689966688318cdc0c5fbd5f17682dc310dd4",
+      "markSchemeSha256": "d97f45b8044fbd78e01efb67d57957f9583ad580eec47cfa3b73dfaffddd65d5",
+      "disposition": "reviewed_unresolved_no_single_detail",
+      "studentRoute": null,
+      "reason": "Eight marks span a pendulum-period measurement method, resultant-force vector calculation, and stopwatch reading; a single detailed owner would hide material operations."
+    },
+    {
+      "id": "0625-2026-m-52-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "74ee2d481c76420bbd7c16219d81f0c014b61fcac70eac0067aead3eda53eca1",
+      "markSchemeSha256": "708ee39592ca9e76cbac2e36d2e9d192d88ff52c6cd5d4b7b579c234e2351528",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-m-52-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "74ee2d481c76420bbd7c16219d81f0c014b61fcac70eac0067aead3eda53eca1",
+      "markSchemeSha256": "708ee39592ca9e76cbac2e36d2e9d192d88ff52c6cd5d4b7b579c234e2351528",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-m-52-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "74ee2d481c76420bbd7c16219d81f0c014b61fcac70eac0067aead3eda53eca1",
+      "markSchemeSha256": "708ee39592ca9e76cbac2e36d2e9d192d88ff52c6cd5d4b7b579c234e2351528",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-m-52-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "74ee2d481c76420bbd7c16219d81f0c014b61fcac70eac0067aead3eda53eca1",
+      "markSchemeSha256": "708ee39592ca9e76cbac2e36d2e9d192d88ff52c6cd5d4b7b579c234e2351528",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-m-62-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "ab0798417e8d56ae589bb10735684fec25ea1fa2ad9655e0e3e897668cc11efa",
+      "markSchemeSha256": "828bd9792968fb04d387938b71526200b7619d103230161a4db4640db9bcf33b",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-m-62-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "ab0798417e8d56ae589bb10735684fec25ea1fa2ad9655e0e3e897668cc11efa",
+      "markSchemeSha256": "828bd9792968fb04d387938b71526200b7619d103230161a4db4640db9bcf33b",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-m-62-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "ab0798417e8d56ae589bb10735684fec25ea1fa2ad9655e0e3e897668cc11efa",
+      "markSchemeSha256": "828bd9792968fb04d387938b71526200b7619d103230161a4db4640db9bcf33b",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-m-62-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "ab0798417e8d56ae589bb10735684fec25ea1fa2ad9655e0e3e897668cc11efa",
+      "markSchemeSha256": "828bd9792968fb04d387938b71526200b7619d103230161a4db4640db9bcf33b",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-11-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "b7ecd76ce4781397ba268742886c5bcd3226bc29ae6237da035fefd054933749",
+      "markSchemeSha256": "6f227888c6a7fb054b6082c3c05892b119de47eadf1d8b122ec1ee724963d952",
+      "disposition": "released_mcq_retrieval_historical_gap_retained",
+      "studentRoute": "Motion, forces and energy → Physical quantities and measurement techniques",
+      "reason": "Paired 2026 source operation matches 1.1 core item 3; the controlled detail is Physical quantities and measurement techniques.",
+      "releasePR": 124
+    },
+    {
+      "id": "0625-2026-s-11-q12",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "b7ecd76ce4781397ba268742886c5bcd3226bc29ae6237da035fefd054933749",
+      "markSchemeSha256": "6f227888c6a7fb054b6082c3c05892b119de47eadf1d8b122ec1ee724963d952",
+      "disposition": "released_mcq_retrieval_historical_gap_retained",
+      "studentRoute": "Thermal physics → Gases and temperature",
+      "reason": "Paired 2026 source operation matches 2.1.3 core item 2; the controlled detail is Gases and temperature.",
+      "releasePR": 124
+    },
+    {
+      "id": "0625-2026-s-11-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "b7ecd76ce4781397ba268742886c5bcd3226bc29ae6237da035fefd054933749",
+      "markSchemeSha256": "6f227888c6a7fb054b6082c3c05892b119de47eadf1d8b122ec1ee724963d952",
+      "disposition": "released_mcq_retrieval_historical_gap_retained",
+      "studentRoute": "Motion, forces and energy → Motion and graphs",
+      "reason": "Paired 2026 source operation matches 1.2 core item 8; the controlled detail is Motion and graphs.",
+      "releasePR": 124
+    },
+    {
+      "id": "0625-2026-s-12-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "33681bff57b8bfa1ed7aaded847e8dddfd4a4490b318eac3df98d329c0b86e19",
+      "markSchemeSha256": "d09b2a42673cdca6469dbfb1453b25abadffe1b6d6441342001bb9c9fe4652cb",
+      "disposition": "released_mcq_retrieval_historical_gap_retained",
+      "studentRoute": "Motion, forces and energy → Physical quantities and measurement techniques",
+      "reason": "1.1 core item 1; 1.4 item 2 also mentions displacement in a density context",
+      "releasePR": 124
+    },
+    {
+      "id": "0625-2026-s-12-q12",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "33681bff57b8bfa1ed7aaded847e8dddfd4a4490b318eac3df98d329c0b86e19",
+      "markSchemeSha256": "d09b2a42673cdca6469dbfb1453b25abadffe1b6d6441342001bb9c9fe4652cb",
+      "disposition": "released_mcq_retrieval_historical_gap_retained",
+      "studentRoute": "Thermal physics → Gases and temperature",
+      "reason": "Paired 2026 source operation matches 2.1.3 core item 2; the controlled detail is Gases and temperature.",
+      "releasePR": 124
+    },
+    {
+      "id": "0625-2026-s-13-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "4468b4ac762fe935eca3a2a9d51cb3636b2e0f89117df119bd76c0c5f7827415",
+      "markSchemeSha256": "76d6844591c00b2181488f6f5c593f231681f2c3a451faa65d6d131807255cde",
+      "disposition": "released_mcq_retrieval_historical_gap_retained",
+      "studentRoute": "Motion, forces and energy → Physical quantities and measurement techniques",
+      "reason": "1.1 core item 1; 1.4 item 2 also mentions displacement in a density context",
+      "releasePR": 124
+    },
+    {
+      "id": "0625-2026-s-13-q12",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "4468b4ac762fe935eca3a2a9d51cb3636b2e0f89117df119bd76c0c5f7827415",
+      "markSchemeSha256": "76d6844591c00b2181488f6f5c593f231681f2c3a451faa65d6d131807255cde",
+      "disposition": "released_mcq_retrieval_historical_gap_retained",
+      "studentRoute": "Thermal physics → Gases and temperature",
+      "reason": "Paired 2026 source operation matches 2.1.3 core item 2; the controlled detail is Gases and temperature.",
+      "releasePR": 124
+    },
+    {
+      "id": "0625-2026-s-21-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "ebbe0514cba8e1d1b30b6cbda5a282ec5e2ba2b9eab5f650f7ed54b509c57876",
+      "markSchemeSha256": "18a536e041d38c8d92bf7a0ec7af901046407b5af48b2d13962409ad4129c90f",
+      "disposition": "released_mcq_retrieval_historical_gap_retained",
+      "studentRoute": "Motion, forces and energy → Physical quantities and measurement techniques",
+      "reason": "Paired 2026 source operation matches 1.1 core item 2; the controlled detail is Physical quantities and measurement techniques.",
+      "releasePR": 124
+    },
+    {
+      "id": "0625-2026-s-22-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "6e6177daa20a38aa2032bc74858bcc0c4e6d9c79faccfd0c8122cd7c1d0beb4c",
+      "markSchemeSha256": "a74a2118fa5b7df67622d4037054acdafb446d0975982867b69002d41682dd34",
+      "disposition": "released_mcq_retrieval_historical_gap_retained",
+      "studentRoute": "Motion, forces and energy → Physical quantities and measurement techniques",
+      "reason": "1.1 core item 1; dimensions used to infer volume",
+      "releasePR": 124
+    },
+    {
+      "id": "0625-2026-s-23-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "e1d23b967489292e3fe6635eba0b6f2c340f8a55b86e5ec930e80b858b730923",
+      "markSchemeSha256": "e5b621e658fb640f24cea7192ecfa20e1131e4c9a33e16f3cc58e67fbd3b90bc",
+      "disposition": "released_mcq_retrieval_historical_gap_retained",
+      "studentRoute": "Motion, forces and energy → Physical quantities and measurement techniques",
+      "reason": "Paired 2026 source operation matches 1.1 core item 1; the controlled detail is Physical quantities and measurement techniques.",
+      "releasePR": 124
+    },
+    {
+      "id": "0625-2026-s-31-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "f61b10aac23ed11ececbb73e03cb51935ddfee598025e624afa5425240e3ee15",
+      "markSchemeSha256": "a28340f66ea0fe709bdcdc1ba423b8a0fdde329a5330c7781569d0908407c03a",
+      "disposition": "reviewed_unresolved_no_single_detail",
+      "studentRoute": null,
+      "reason": "Six marks split between measuring average disc thickness and calculating density; neither detail alone owns the whole printed question."
+    },
+    {
+      "id": "0625-2026-s-51-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "c058c932124d0712004c9911b6fa5331160a6dbb03e35b72d1dd7e7c8f178a25",
+      "markSchemeSha256": "6536883b29adfdf3e25d395ed7fcd5052a69d44d59058ce8ff8da28e1a4f4c23",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-51-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "c058c932124d0712004c9911b6fa5331160a6dbb03e35b72d1dd7e7c8f178a25",
+      "markSchemeSha256": "6536883b29adfdf3e25d395ed7fcd5052a69d44d59058ce8ff8da28e1a4f4c23",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-51-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "c058c932124d0712004c9911b6fa5331160a6dbb03e35b72d1dd7e7c8f178a25",
+      "markSchemeSha256": "6536883b29adfdf3e25d395ed7fcd5052a69d44d59058ce8ff8da28e1a4f4c23",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-51-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "c058c932124d0712004c9911b6fa5331160a6dbb03e35b72d1dd7e7c8f178a25",
+      "markSchemeSha256": "6536883b29adfdf3e25d395ed7fcd5052a69d44d59058ce8ff8da28e1a4f4c23",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-52-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "6aeedcbbbfcdd38f54defc1bce13dd61289649ce251d9d4e4d10939f82c88c35",
+      "markSchemeSha256": "d93f76600b788202f7759fe7bd235671f19fadce72904e11af795420ab144659",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-52-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "6aeedcbbbfcdd38f54defc1bce13dd61289649ce251d9d4e4d10939f82c88c35",
+      "markSchemeSha256": "d93f76600b788202f7759fe7bd235671f19fadce72904e11af795420ab144659",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-52-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "6aeedcbbbfcdd38f54defc1bce13dd61289649ce251d9d4e4d10939f82c88c35",
+      "markSchemeSha256": "d93f76600b788202f7759fe7bd235671f19fadce72904e11af795420ab144659",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-52-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "6aeedcbbbfcdd38f54defc1bce13dd61289649ce251d9d4e4d10939f82c88c35",
+      "markSchemeSha256": "d93f76600b788202f7759fe7bd235671f19fadce72904e11af795420ab144659",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-53-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "e5d4e205e3aea5e0e1c000d6fafb429e9a66b621394b9803321825f3a9daee88",
+      "markSchemeSha256": "7279f04c24b8116c23f50b96c5f15ed56868678c9cb62973db696eee946e2fd6",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-53-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "e5d4e205e3aea5e0e1c000d6fafb429e9a66b621394b9803321825f3a9daee88",
+      "markSchemeSha256": "7279f04c24b8116c23f50b96c5f15ed56868678c9cb62973db696eee946e2fd6",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-53-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "e5d4e205e3aea5e0e1c000d6fafb429e9a66b621394b9803321825f3a9daee88",
+      "markSchemeSha256": "7279f04c24b8116c23f50b96c5f15ed56868678c9cb62973db696eee946e2fd6",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-53-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "e5d4e205e3aea5e0e1c000d6fafb429e9a66b621394b9803321825f3a9daee88",
+      "markSchemeSha256": "7279f04c24b8116c23f50b96c5f15ed56868678c9cb62973db696eee946e2fd6",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-61-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "90ff7111e8447e6f87ddaf88aaf82ee925b4543b18dde79d0f837b0549d413ec",
+      "markSchemeSha256": "c25b1a78bf715e15d0344fe0d225c8a611730fd42245da190543b27bfbb41742",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-61-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "90ff7111e8447e6f87ddaf88aaf82ee925b4543b18dde79d0f837b0549d413ec",
+      "markSchemeSha256": "c25b1a78bf715e15d0344fe0d225c8a611730fd42245da190543b27bfbb41742",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-61-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "90ff7111e8447e6f87ddaf88aaf82ee925b4543b18dde79d0f837b0549d413ec",
+      "markSchemeSha256": "c25b1a78bf715e15d0344fe0d225c8a611730fd42245da190543b27bfbb41742",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-61-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "90ff7111e8447e6f87ddaf88aaf82ee925b4543b18dde79d0f837b0549d413ec",
+      "markSchemeSha256": "c25b1a78bf715e15d0344fe0d225c8a611730fd42245da190543b27bfbb41742",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-62-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "c43d298f380c9b2106aa77bcbcc6ced8008a19dd1f5425220e0fa1733dd53aaa",
+      "markSchemeSha256": "41f33aa524e7d8004f49eb42f6b31b9734c1c89071aff2d8098911fca0bac080",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-62-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "c43d298f380c9b2106aa77bcbcc6ced8008a19dd1f5425220e0fa1733dd53aaa",
+      "markSchemeSha256": "41f33aa524e7d8004f49eb42f6b31b9734c1c89071aff2d8098911fca0bac080",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-62-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "c43d298f380c9b2106aa77bcbcc6ced8008a19dd1f5425220e0fa1733dd53aaa",
+      "markSchemeSha256": "41f33aa524e7d8004f49eb42f6b31b9734c1c89071aff2d8098911fca0bac080",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-62-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "c43d298f380c9b2106aa77bcbcc6ced8008a19dd1f5425220e0fa1733dd53aaa",
+      "markSchemeSha256": "41f33aa524e7d8004f49eb42f6b31b9734c1c89071aff2d8098911fca0bac080",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-63-q1",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "2a93382f06fa2b6d5d7484e32e779910096307fd81636e33be1065c88fa3c8e0",
+      "markSchemeSha256": "98add46691a4c604666fa50928807298caee0077f0d50966a380ac38085aecc6",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-63-q2",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "2a93382f06fa2b6d5d7484e32e779910096307fd81636e33be1065c88fa3c8e0",
+      "markSchemeSha256": "98add46691a4c604666fa50928807298caee0077f0d50966a380ac38085aecc6",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-63-q3",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "2a93382f06fa2b6d5d7484e32e779910096307fd81636e33be1065c88fa3c8e0",
+      "markSchemeSha256": "98add46691a4c604666fa50928807298caee0077f0d50966a380ac38085aecc6",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0625-2026-s-63-q4",
+      "originalQueue": "igcse-physics-0625/other",
+      "questionPaperSha256": "2a93382f06fa2b6d5d7484e32e779910096307fd81636e33be1065c88fa3c8e0",
+      "markSchemeSha256": "98add46691a4c604666fa50928807298caee0077f0d50966a380ac38085aecc6",
+      "disposition": "released_broad_practical_retrieval_historical_gap_retained",
+      "studentRoute": "Experimental skills and investigations",
+      "reason": "Paper 5/6 assesses experimental work; broad practical role is source-backed, while a single narrow content owner is not established for this question.",
+      "releasePR": 122
+    },
+    {
+      "id": "0620-2019-s-11-q40",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "46f018a2c3aa62f29f3c8f078e036ae8311deac33b41a78886569faf158c8f51",
+      "markSchemeSha256": "f6d704391f79d00aec725371e8871fc29c225a1e50a8a692ed48d6e7645bd9aa",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "Organic chemistry → Polymers",
+      "secondaryRoutes": {},
+      "reason": "Natural/synthetic polymer and food constituent questions directly match the older-era polymers section.",
+      "syllabusSection": "14.8.3",
+      "syllabusSha256": "f0bfc48982ad7ae572d08ffaa9a6c8a3d4751b5e09b554c17074b0c36b42dd16",
+      "qpPages": [
+        14
+      ],
+      "msPages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "0620-2019-s-12-q40",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "ecb5cd8695db4a3e6775793d7c636d6ebd1bdf2b6633bffae5c49c03223f9047",
+      "markSchemeSha256": "753c84cc0249c9c57156331e51f8edbd5c834eb91ffdbe97e973fc67f71b8cb6",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "Organic chemistry → Polymers",
+      "secondaryRoutes": {},
+      "reason": "Natural/synthetic polymer and food constituent questions directly match the older-era polymers section.",
+      "syllabusSection": "14.8.3",
+      "syllabusSha256": "f0bfc48982ad7ae572d08ffaa9a6c8a3d4751b5e09b554c17074b0c36b42dd16",
+      "qpPages": [
+        15
+      ],
+      "msPages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "0620-2019-s-13-q40",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "0e6f069cdaa500462520cf72c283d4797cef5df650c6cb3660f3709cf0b72975",
+      "markSchemeSha256": "5f74a027fbf3f6db994a999a4087432f953113161d01ed1c720139cec94828d5",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "Organic chemistry → Polymers",
+      "secondaryRoutes": {},
+      "reason": "Natural/synthetic polymer and food constituent questions directly match the older-era polymers section.",
+      "syllabusSection": "14.8.3",
+      "syllabusSha256": "f0bfc48982ad7ae572d08ffaa9a6c8a3d4751b5e09b554c17074b0c36b42dd16",
+      "qpPages": [
+        15
+      ],
+      "msPages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "0620-2019-w-22-q40",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "757612fdfe44101c93cbd770e30d4fd1ed32c774c4bdc3f98622cee7208a3dde",
+      "markSchemeSha256": "30f1fe46c319c899ff5e0f75f8b2d7b2f807d12644f84bf6742fdb7fb6a5b7c8",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "Organic chemistry → Polymers",
+      "secondaryRoutes": {},
+      "reason": "Natural/synthetic polymer and food constituent questions directly match the older-era polymers section.",
+      "syllabusSection": "14.8.3",
+      "syllabusSha256": "f0bfc48982ad7ae572d08ffaa9a6c8a3d4751b5e09b554c17074b0c36b42dd16",
+      "qpPages": [
+        14
+      ],
+      "msPages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "0620-2019-w-23-q40",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "89612885658480aac0fa9feb2acb87d40972050a5083c088f800d1328c9639f3",
+      "markSchemeSha256": "bb08d05cfc749e2ebd4dd8414ce4f4744e4735b54c9cb56cbe63205514e5c8d6",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "Organic chemistry → Polymers",
+      "secondaryRoutes": {},
+      "reason": "Natural/synthetic polymer and food constituent questions directly match the older-era polymers section.",
+      "syllabusSection": "14.8.3",
+      "syllabusSha256": "f0bfc48982ad7ae572d08ffaa9a6c8a3d4751b5e09b554c17074b0c36b42dd16",
+      "qpPages": [
+        13
+      ],
+      "msPages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "0620-2019-w-61-q4",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "906569053ead0b613aee7e47a25b925f533b51d27f0acdb64d695496efe08f90",
+      "markSchemeSha256": "85dcffca39edc0af9ad6d88be66ee609face41bdd9df04a9d35c0e6ee09c92f9",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "Practical skills and investigations → Planning and evaluating methods",
+      "secondaryRoutes": {},
+      "reason": "Assessed operation is controlled experimental planning; a single chemistry content detail would overstate it.",
+      "syllabusSection": "practical experimental skills",
+      "syllabusSha256": "f0bfc48982ad7ae572d08ffaa9a6c8a3d4751b5e09b554c17074b0c36b42dd16",
+      "qpPages": [
+        8
+      ],
+      "msPages": [
+        6
+      ]
+    },
+    {
+      "id": "0620-2019-w-63-q4",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "bf3d8d3d3659f96c6e4182974ec89e94a29fc891029079550358279bce375137",
+      "markSchemeSha256": "4501edea5faff85a9dce8bfd82d470e720bd8c7fda408e4eea23f9091ae977b1",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "Practical skills and investigations → Planning and evaluating methods",
+      "secondaryRoutes": {},
+      "reason": "Assessed operation is controlled experimental planning; a single chemistry content detail would overstate it.",
+      "syllabusSection": "practical experimental skills",
+      "syllabusSha256": "f0bfc48982ad7ae572d08ffaa9a6c8a3d4751b5e09b554c17074b0c36b42dd16",
+      "qpPages": [
+        8
+      ],
+      "msPages": [
+        7
+      ]
+    },
+    {
+      "id": "0620-2020-m-12-q40",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "f43468e4425ff30e8f63aedf0455ebacc89f3bccf969931a4a119c591c22e35f",
+      "markSchemeSha256": "66a9641eeb8f95f48a58e1886bef6e19f38968c6f5992f8ab0dcebbb34bbc018",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "Organic chemistry → Polymers",
+      "secondaryRoutes": {},
+      "reason": "Natural/synthetic polymer and food constituent questions directly match the older-era polymers section.",
+      "syllabusSection": "14.8.3",
+      "syllabusSha256": "c54ad83999e7150c7862569d657f9cb4557da4c09dfca56ab937c44e15fa16a4",
+      "qpPages": [
+        14
+      ],
+      "msPages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "0620-2020-s-11-q40",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "90886d83636d40a3cc156e09912bf3b95f6c9bdef173e40b86aef2f5c60f9dbe",
+      "markSchemeSha256": "48d1876db074722695fbe03b1ff934ddf45a18063358e5c1462276884134c7e9",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "Organic chemistry → Polymers",
+      "secondaryRoutes": {},
+      "reason": "Natural/synthetic polymer and food constituent questions directly match the older-era polymers section.",
+      "syllabusSection": "14.8.3",
+      "syllabusSha256": "c54ad83999e7150c7862569d657f9cb4557da4c09dfca56ab937c44e15fa16a4",
+      "qpPages": [
+        15
+      ],
+      "msPages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "0620-2020-s-12-q40",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "766c01f078c8a9719d75983429f2ddf04bd1ba2a1c200b4e796dd8223bfffd74",
+      "markSchemeSha256": "a5292b3c5f52ab24557e3de94429f9bd5e2089ea9fda19ef6bb439f584e1d92f",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "Organic chemistry → Polymers",
+      "secondaryRoutes": {},
+      "reason": "Natural/synthetic polymer and food constituent questions directly match the older-era polymers section.",
+      "syllabusSection": "14.8.3",
+      "syllabusSha256": "c54ad83999e7150c7862569d657f9cb4557da4c09dfca56ab937c44e15fa16a4",
+      "qpPages": [
+        13
+      ],
+      "msPages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "0620-2020-s-13-q40",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "1fbc99604adbc848533e644b6f5c99f71b01644bcf502574995b1619335df59c",
+      "markSchemeSha256": "458205b13616d8eaea488cee93d97da1df07affbd9fe21db1d6dfbe98234be84",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "Organic chemistry → Polymers",
+      "secondaryRoutes": {},
+      "reason": "Natural/synthetic polymer and food constituent questions directly match the older-era polymers section.",
+      "syllabusSection": "14.8.3",
+      "syllabusSha256": "c54ad83999e7150c7862569d657f9cb4557da4c09dfca56ab937c44e15fa16a4",
+      "qpPages": [
+        14
+      ],
+      "msPages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "0620-2020-s-23-q40",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "c140f3eb4ff28d3a3054471cba2f57f5f50539e281a1d7056d31872517aa3a1a",
+      "markSchemeSha256": "40d22902a19b63ad2a67ad166c2483da2a185afec5ff60ee8b43b52a323c20fb",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "Organic chemistry → Polymers",
+      "secondaryRoutes": {},
+      "reason": "Natural/synthetic polymer and food constituent questions directly match the older-era polymers section.",
+      "syllabusSection": "14.8.3",
+      "syllabusSha256": "c54ad83999e7150c7862569d657f9cb4557da4c09dfca56ab937c44e15fa16a4",
+      "qpPages": [
+        14
+      ],
+      "msPages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "0620-2020-w-22-q40",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "d9082e91a1cd7ec2502da210d45fb68284c40d095dfbc6a9dfa6f6b9247d057f",
+      "markSchemeSha256": "42e6ea2bbf2469c607e88417866c23711e39ad21cd3fe50ab3878be65f5cdbfd",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "Organic chemistry → Polymers",
+      "secondaryRoutes": {},
+      "reason": "Natural/synthetic polymer and food constituent questions directly match the older-era polymers section.",
+      "syllabusSection": "14.8.3",
+      "syllabusSha256": "c54ad83999e7150c7862569d657f9cb4557da4c09dfca56ab937c44e15fa16a4",
+      "qpPages": [
+        13
+      ],
+      "msPages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "0620-2021-m-32-q7",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "a99e1390ffe475e7d6f59dbcdd60af097330ceae699395f8a69b748ff66276f6",
+      "markSchemeSha256": "84ca442eba8cc26205ca63d9f6ffaf63baebbdf7cf35dc70b1f9a2d1a6112a2f",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "Electrochemistry → Electrolysis",
+      "secondaryRoutes": {
+        "The Periodic Table": [
+          "Group I properties",
+          "Transition elements"
+        ]
+      },
+      "reason": "Fourteen-mark mixed question: molten/aqueous electrolysis earns the dominant marks; sodium versus transition metals is separately marked. Other one-mark operations remain historically unresolved, not a claim of full semantic closure.",
+      "syllabusSection": "4; 9",
+      "syllabusSha256": "c54ad83999e7150c7862569d657f9cb4557da4c09dfca56ab937c44e15fa16a4",
+      "qpPages": [
+        12,
+        13
+      ],
+      "msPages": [
+        9,
+        10
+      ]
+    },
+    {
+      "id": "0620-2021-m-42-q4",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "1873835b77c2ed5a080b7e7ba8d0672c595714962bde9a5bada247caf1740f73",
+      "markSchemeSha256": "6168039f2be353d917ebe480e53e09a1267f1efa8b1ca54a7c63a62537bd84bc",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "Acids, bases and salts → Preparation of salts",
+      "secondaryRoutes": {
+        "Stoichiometry": [
+          "The mole and the Avogadro constant"
+        ]
+      },
+      "reason": "Seventeen-mark mixed question: salt preparation and purification dominate; the five-mark titration concentration calculation independently tests moles. Historical unresolved provenance retained.",
+      "syllabusSection": "8; 9",
+      "syllabusSha256": "c54ad83999e7150c7862569d657f9cb4557da4c09dfca56ab937c44e15fa16a4",
+      "qpPages": [
+        5,
+        6
+      ],
+      "msPages": [
+        7
+      ]
+    },
+    {
+      "id": "0620-2026-m-12-q2",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "89904b81a0a86e9982ff067f8b41ac5606cbc0d186ef03ba8dd680cbd41eb0de",
+      "markSchemeSha256": "2b986c8a6c50c73803a3f7e076a3e0e4896cf53fde1202d8f96353ed49828166",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "States of matter → Solids, liquids and gases, Diffusion",
+      "secondaryRoutes": {},
+      "reason": "One-mark item requires both evaporation and gas diffusion to select the keyed answer.",
+      "syllabusSection": "1.1; 1.2",
+      "syllabusSha256": "6aab46afe64e4de40a447c36d1bfa382a10e9865eab9230af7915629cf576f0c",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "0620-2026-m-22-q1",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "ad6e2b2ed32fa3254aed054f2fd506bae6e3c1b1303a49966867833a385b1aab",
+      "markSchemeSha256": "377c707cf94feccadc08b85d15504d9f2dd1572d43536db75952a8f726e45e81",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "States of matter → Solids, liquids and gases",
+      "secondaryRoutes": {},
+      "reason": "Gas, liquid, solid particle behaviour or state change is the assessed operation.",
+      "syllabusSection": "1.1",
+      "syllabusSha256": "6aab46afe64e4de40a447c36d1bfa382a10e9865eab9230af7915629cf576f0c",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "0620-2026-m-22-q2",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "ad6e2b2ed32fa3254aed054f2fd506bae6e3c1b1303a49966867833a385b1aab",
+      "markSchemeSha256": "377c707cf94feccadc08b85d15504d9f2dd1572d43536db75952a8f726e45e81",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "States of matter → Diffusion",
+      "secondaryRoutes": {
+        "Acids, bases and salts": [
+          "The characteristic properties of acids and bases"
+        ]
+      },
+      "reason": "One-mark item requires relative gas diffusion and universal-indicator acid/base colour; the apparatus locations matter.",
+      "syllabusSection": "1.2; 9.1",
+      "syllabusSha256": "6aab46afe64e4de40a447c36d1bfa382a10e9865eab9230af7915629cf576f0c",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "0620-2026-s-11-q1",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "e63507c76a3d0355e9787b1e347f6a2064d0359613827467bfdaa5da768d4ece",
+      "markSchemeSha256": "8e182135d4c8aa463217c4c826badd607717d9c15aa34ed3b1a7a0d6948b8476",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "States of matter → Solids, liquids and gases",
+      "secondaryRoutes": {},
+      "reason": "Gas, liquid, solid particle behaviour or state change is the assessed operation.",
+      "syllabusSection": "1.1",
+      "syllabusSha256": "6aab46afe64e4de40a447c36d1bfa382a10e9865eab9230af7915629cf576f0c",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "0620-2026-s-11-q2",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "e63507c76a3d0355e9787b1e347f6a2064d0359613827467bfdaa5da768d4ece",
+      "markSchemeSha256": "8e182135d4c8aa463217c4c826badd607717d9c15aa34ed3b1a7a0d6948b8476",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "States of matter → Solids, liquids and gases",
+      "secondaryRoutes": {},
+      "reason": "Gas, liquid, solid particle behaviour or state change is the assessed operation.",
+      "syllabusSection": "1.1",
+      "syllabusSha256": "6aab46afe64e4de40a447c36d1bfa382a10e9865eab9230af7915629cf576f0c",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "0620-2026-s-12-q1",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "7eb2d6d39999250a6fefd7d2e5d4cbbbd5e8299066683c116466413d0df64cb3",
+      "markSchemeSha256": "45b7842e710d751798d258adc0e1d36da3a954776091a6b67f3c2cab6155c045",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "States of matter → Diffusion",
+      "secondaryRoutes": {},
+      "reason": "Concentration-gradient spreading or relative gas diffusion is the assessed operation.",
+      "syllabusSection": "1.2",
+      "syllabusSha256": "6aab46afe64e4de40a447c36d1bfa382a10e9865eab9230af7915629cf576f0c",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "0620-2026-s-13-q1",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "f5408a8c3158025ce458a7ae9dd4fe089accdaab2e3a8e6579457c8d9ac93cc9",
+      "markSchemeSha256": "0417e15c55af945a83da2e8e7b0aed193c2449f4c527abc72bfc5bc8f1c81871",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "States of matter → Solids, liquids and gases",
+      "secondaryRoutes": {},
+      "reason": "Gas, liquid, solid particle behaviour or state change is the assessed operation.",
+      "syllabusSection": "1.1",
+      "syllabusSha256": "6aab46afe64e4de40a447c36d1bfa382a10e9865eab9230af7915629cf576f0c",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "0620-2026-s-21-q3",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "db9c0e6b8d6a7f20ac828de0c318af1f03aa891914649e90aa8807fd6ba93be0",
+      "markSchemeSha256": "e20fe79afc3a80b03ec80cef06e264e1a9cc9ed6bfdf93dcda9aa3148b9bf8d7",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "States of matter → Solids, liquids and gases",
+      "secondaryRoutes": {},
+      "reason": "Gas, liquid, solid particle behaviour or state change is the assessed operation.",
+      "syllabusSection": "1.1",
+      "syllabusSha256": "6aab46afe64e4de40a447c36d1bfa382a10e9865eab9230af7915629cf576f0c",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "0620-2026-s-22-q1",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "78478185b8faae6bff73977e383087a04b63621ace15059db44148dbb0aec778",
+      "markSchemeSha256": "ecbd02d07f41f88cfb9f2fdfb1dea8badfa5583e42a2221026d14a8eb68e95f1",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "States of matter → Solids, liquids and gases",
+      "secondaryRoutes": {},
+      "reason": "Gas, liquid, solid particle behaviour or state change is the assessed operation.",
+      "syllabusSection": "1.1",
+      "syllabusSha256": "6aab46afe64e4de40a447c36d1bfa382a10e9865eab9230af7915629cf576f0c",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "0620-2026-s-22-q2",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "78478185b8faae6bff73977e383087a04b63621ace15059db44148dbb0aec778",
+      "markSchemeSha256": "ecbd02d07f41f88cfb9f2fdfb1dea8badfa5583e42a2221026d14a8eb68e95f1",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "States of matter → Solids, liquids and gases",
+      "secondaryRoutes": {},
+      "reason": "Gas, liquid, solid particle behaviour or state change is the assessed operation.",
+      "syllabusSection": "1.1",
+      "syllabusSha256": "6aab46afe64e4de40a447c36d1bfa382a10e9865eab9230af7915629cf576f0c",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "0620-2026-s-23-q2",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "157772981545680b2081a0905fc3f17cb1674a55b7534893fd93752311c1d44d",
+      "markSchemeSha256": "fd978aaa8a969024a419215e67b9714af06cdda8da8aa9e80e6254dc2d050f90",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "States of matter → Solids, liquids and gases",
+      "secondaryRoutes": {},
+      "reason": "Gas, liquid, solid particle behaviour or state change is the assessed operation.",
+      "syllabusSection": "1.1",
+      "syllabusSha256": "6aab46afe64e4de40a447c36d1bfa382a10e9865eab9230af7915629cf576f0c",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "0620-2026-s-23-q3",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "157772981545680b2081a0905fc3f17cb1674a55b7534893fd93752311c1d44d",
+      "markSchemeSha256": "fd978aaa8a969024a419215e67b9714af06cdda8da8aa9e80e6254dc2d050f90",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "States of matter → Solids, liquids and gases",
+      "secondaryRoutes": {},
+      "reason": "Gas, liquid, solid particle behaviour or state change is the assessed operation.",
+      "syllabusSection": "1.1",
+      "syllabusSha256": "6aab46afe64e4de40a447c36d1bfa382a10e9865eab9230af7915629cf576f0c",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "0620-2026-s-31-q5",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "affe8d424231d91baf5052204bdc8173af977996d825aa3eb94af38cd8bb2451",
+      "markSchemeSha256": "cd8494146a00d35366751b6aee0e3a0f9e98400dac74a4963daa0997d5468ec3",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "States of matter → Solids, liquids and gases",
+      "secondaryRoutes": {},
+      "reason": "Gas, liquid, solid particle behaviour or state change is the assessed operation.",
+      "syllabusSection": "1.1",
+      "syllabusSha256": "6aab46afe64e4de40a447c36d1bfa382a10e9865eab9230af7915629cf576f0c",
+      "qpPages": [
+        10,
+        11
+      ],
+      "msPages": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "id": "0620-2026-s-32-q5",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "a80282ff663e494cbe6eb4b183c20728b9a63fc5fd8684b4ff38f56cc370ffa1",
+      "markSchemeSha256": "7814b931740e2b8ac4ef53f91e2457a4fa428cd703fa2cfe38cea0dc4e2f4ec5",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "States of matter → Solids, liquids and gases, Diffusion",
+      "secondaryRoutes": {},
+      "reason": "Nine-mark question: particle model/state changes dominate; final diffusion operation independently earns one mark.",
+      "syllabusSection": "1.1; 1.2",
+      "syllabusSha256": "6aab46afe64e4de40a447c36d1bfa382a10e9865eab9230af7915629cf576f0c",
+      "qpPages": [
+        10,
+        11
+      ],
+      "msPages": [
+        13,
+        14,
+        15
+      ]
+    },
+    {
+      "id": "0620-2026-s-33-q5",
+      "originalQueue": "igcse-chemistry-0620/other",
+      "questionPaperSha256": "f70e5dab5cd562e395ee76765d6e5d2e1581a6677fbc301a3418cee6d8162d86",
+      "markSchemeSha256": "df8bace79a392055ab2f1e78d1c7e82c937fb0f33bd5d79b158535c40e898a63",
+      "disposition": "chemistry_retrieval_in_this_change_historical_gap_retained",
+      "studentRoute": "States of matter → Solids, liquids and gases",
+      "secondaryRoutes": {},
+      "reason": "Gas, liquid, solid particle behaviour or state change is the assessed operation.",
+      "syllabusSection": "1.1",
+      "syllabusSha256": "6aab46afe64e4de40a447c36d1bfa382a10e9865eab9230af7915629cf576f0c",
+      "qpPages": [
+        10
+      ],
+      "msPages": [
+        13,
+        14,
+        15
+      ]
+    },
+    {
+      "id": "0654-2021-march-12-q17",
+      "originalQueue": "igcse-coordinated-sciences-0654/other",
+      "questionPaperSha256": "dc9609582c1c5f362b77aca87b24cf25abc2eeea11eca05ab2173b5d21876c96",
+      "markSchemeSha256": "540229599f6f71636e1ec416396ac613dda6e0d8d4bff1fea5cb9449d24f4ce9",
+      "disposition": "reviewed_unresolved_era_gap",
+      "studentRoute": null,
+      "reason": "The keyed combination requires halogen reactivity not owned by an applicable 2019–21 Core objective; labeling the exothermic part alone would misrepresent the whole item."
+    },
+    {
+      "id": "0654-2021-winter-13-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/other",
+      "questionPaperSha256": "01072060abd5665ec720a86a702844669f2f72904645687b02ca5a12b3dcee95",
+      "markSchemeSha256": "3950fd2e94f47a760ca781c02c1518dbaa166c00c3489cb7ee342169ac58726a",
+      "disposition": "reviewed_unresolved_era_gap",
+      "studentRoute": null,
+      "reason": "Printed stem diagram requires identifying phloem position; 2019–21 Core objective covers xylem position or xylem/phloem function, not this positional claim."
+    },
+    {
+      "id": "0654-2021-winter-23-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/other",
+      "questionPaperSha256": "8d3301bc975ff4feb7722c7fbd13ec442bd7f8f297b9f0d5beb5881e9e008691",
+      "markSchemeSha256": "377006e690911c8c4b897fa1f3acfa52c92e34172f52d9627fb091991e49c413",
+      "disposition": "reviewed_unresolved_era_gap",
+      "studentRoute": null,
+      "reason": "Paired print and key require phloem position; the nearest old-era B7.1 objective names xylem position only; the earlier provisional candidate contains this gap."
+    },
+    {
+      "id": "0654-2023-winter-12-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/other",
+      "questionPaperSha256": "a22f5a1764d0b6987ce4a110a104a29b9fa38729441ba88a5d5d096339bb5b29",
+      "markSchemeSha256": "45cc1129ee03860c0fd047352b87eda1776d76f7f448e776d474fa00ae9bd0aa",
+      "disposition": "reviewed_unresolved_era_gap",
+      "studentRoute": null,
+      "reason": "Keyed water-balance/wilting inference is absent from the 2022-era Core objectives; later-era Supplement wilting content cannot be retrofitted."
+    },
+    {
+      "id": "0654-2021-march-42-q10",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2021-summer-23-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2021-summer-31-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2021-summer-32-q4",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2021-summer-33-q4",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2021-winter-11-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2021-winter-12-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2021-winter-21-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2021-winter-22-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2021-winter-33-q1",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2021-winter-43-q10",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2022-march-62-q2",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2022-summer-22-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2022-summer-23-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2022-summer-31-q1",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2022-summer-42-q1",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2022-winter-23-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2022-winter-32-q4",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2023-march-12-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2023-march-22-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2023-march-32-q1",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2023-summer-11-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2023-summer-21-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2023-summer-22-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2023-summer-32-q4",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2023-summer-33-q4",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2023-winter-23-q2",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2023-winter-31-q4",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2023-winter-43-q1",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2024-march-12-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2024-summer-11-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2024-summer-12-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2024-summer-13-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2024-summer-23-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2024-winter-11-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2024-winter-22-q7",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2024-winter-31-q4",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2024-winter-41-q4",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    },
+    {
+      "id": "0654-2024-winter-42-q1",
+      "originalQueue": "igcse-coordinated-sciences-0654/transport-in-mammals-misparented",
+      "disposition": "released_parent_correction",
+      "studentRoute": "Transport in animals → Transport in mammals",
+      "reason": "Correct 0654 taxonomy parent; the prior parent mixed plant and mammal transport.",
+      "releasePR": 121
+    }
+  ]
+}

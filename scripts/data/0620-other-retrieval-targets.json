@@ -1,0 +1,704 @@
+{
+  "baselineCommit": "197ac22550d5bcb7559eafdbc0ae5cf391924bd5",
+  "frozenOriginalOtherQueueSha256": "53dc1b3154fe3ffaa1ec872d3d6efa54c98bfff3cb7863c58cfb6b9cc1793da0",
+  "syllabi": {
+    "2019": {
+      "file": "0620-2019-syllabus.pdf",
+      "sha256": "f0bfc48982ad7ae572d08ffaa9a6c8a3d4751b5e09b554c17074b0c36b42dd16"
+    },
+    "2020": {
+      "file": "0620-2020-2021-syllabus.pdf",
+      "sha256": "c54ad83999e7150c7862569d657f9cb4557da4c09dfca56ab937c44e15fa16a4"
+    },
+    "2021": {
+      "file": "0620-2020-2021-syllabus.pdf",
+      "sha256": "c54ad83999e7150c7862569d657f9cb4557da4c09dfca56ab937c44e15fa16a4"
+    },
+    "2026": {
+      "file": "0620-2026-2028-syllabus.pdf",
+      "sha256": "6aab46afe64e4de40a447c36d1bfa382a10e9865eab9230af7915629cf576f0c"
+    }
+  },
+  "method": "Exact 30 source-pair + era-syllabus reviewed; bounded TypeSafe Jev suggestions only; metadata retrieval overlay, not full semantic clearance; preserve original unresolved provenance.",
+  "rows": [
+    {
+      "id": "0620-2019-s-11-q40",
+      "primaryTopic": "Organic chemistry",
+      "primaryTopicId": "organic-chemistry",
+      "details": [
+        "Polymers"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "14.8.3",
+      "decision": "Natural/synthetic polymer and food constituent questions directly match the older-era polymers section.",
+      "qpPages": [
+        14
+      ],
+      "msPages": [
+        2,
+        3
+      ],
+      "questionPaperSha256": "46f018a2c3aa62f29f3c8f078e036ae8311deac33b41a78886569faf158c8f51",
+      "markSchemeSha256": "f6d704391f79d00aec725371e8871fc29c225a1e50a8a692ed48d6e7645bd9aa",
+      "jevCandidate": "Organic chemistry",
+      "jevConfidence": 0.95
+    },
+    {
+      "id": "0620-2019-s-12-q40",
+      "primaryTopic": "Organic chemistry",
+      "primaryTopicId": "organic-chemistry",
+      "details": [
+        "Polymers"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "14.8.3",
+      "decision": "Natural/synthetic polymer and food constituent questions directly match the older-era polymers section.",
+      "qpPages": [
+        15
+      ],
+      "msPages": [
+        2,
+        3
+      ],
+      "questionPaperSha256": "ecb5cd8695db4a3e6775793d7c636d6ebd1bdf2b6633bffae5c49c03223f9047",
+      "markSchemeSha256": "753c84cc0249c9c57156331e51f8edbd5c834eb91ffdbe97e973fc67f71b8cb6",
+      "jevCandidate": "Organic chemistry",
+      "jevConfidence": 0.96
+    },
+    {
+      "id": "0620-2019-s-13-q40",
+      "primaryTopic": "Organic chemistry",
+      "primaryTopicId": "organic-chemistry",
+      "details": [
+        "Polymers"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "14.8.3",
+      "decision": "Natural/synthetic polymer and food constituent questions directly match the older-era polymers section.",
+      "qpPages": [
+        15
+      ],
+      "msPages": [
+        2,
+        3
+      ],
+      "questionPaperSha256": "0e6f069cdaa500462520cf72c283d4797cef5df650c6cb3660f3709cf0b72975",
+      "markSchemeSha256": "5f74a027fbf3f6db994a999a4087432f953113161d01ed1c720139cec94828d5",
+      "jevCandidate": "Organic chemistry",
+      "jevConfidence": 0.98
+    },
+    {
+      "id": "0620-2019-w-22-q40",
+      "primaryTopic": "Organic chemistry",
+      "primaryTopicId": "organic-chemistry",
+      "details": [
+        "Polymers"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "14.8.3",
+      "decision": "Natural/synthetic polymer and food constituent questions directly match the older-era polymers section.",
+      "qpPages": [
+        14
+      ],
+      "msPages": [
+        2,
+        3
+      ],
+      "questionPaperSha256": "757612fdfe44101c93cbd770e30d4fd1ed32c774c4bdc3f98622cee7208a3dde",
+      "markSchemeSha256": "30f1fe46c319c899ff5e0f75f8b2d7b2f807d12644f84bf6742fdb7fb6a5b7c8",
+      "jevCandidate": "Organic chemistry",
+      "jevConfidence": 0.92
+    },
+    {
+      "id": "0620-2019-w-23-q40",
+      "primaryTopic": "Organic chemistry",
+      "primaryTopicId": "organic-chemistry",
+      "details": [
+        "Polymers"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "14.8.3",
+      "decision": "Natural/synthetic polymer and food constituent questions directly match the older-era polymers section.",
+      "qpPages": [
+        13
+      ],
+      "msPages": [
+        2,
+        3
+      ],
+      "questionPaperSha256": "89612885658480aac0fa9feb2acb87d40972050a5083c088f800d1328c9639f3",
+      "markSchemeSha256": "bb08d05cfc749e2ebd4dd8414ce4f4744e4735b54c9cb56cbe63205514e5c8d6",
+      "jevCandidate": "Organic chemistry",
+      "jevConfidence": 0.97
+    },
+    {
+      "id": "0620-2019-w-61-q4",
+      "primaryTopic": "Practical skills and investigations",
+      "primaryTopicId": "practical-skills",
+      "details": [
+        "Planning and evaluating methods"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "practical experimental skills",
+      "decision": "Assessed operation is controlled experimental planning; a single chemistry content detail would overstate it.",
+      "qpPages": [
+        8
+      ],
+      "msPages": [
+        6
+      ],
+      "questionPaperSha256": "906569053ead0b613aee7e47a25b925f533b51d27f0acdb64d695496efe08f90",
+      "markSchemeSha256": "85dcffca39edc0af9ad6d88be66ee609face41bdd9df04a9d35c0e6ee09c92f9",
+      "jevCandidate": "Experimental techniques / practical skills",
+      "jevConfidence": 0.91
+    },
+    {
+      "id": "0620-2019-w-63-q4",
+      "primaryTopic": "Practical skills and investigations",
+      "primaryTopicId": "practical-skills",
+      "details": [
+        "Planning and evaluating methods"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "practical experimental skills",
+      "decision": "Assessed operation is controlled experimental planning; a single chemistry content detail would overstate it.",
+      "qpPages": [
+        8
+      ],
+      "msPages": [
+        7
+      ],
+      "questionPaperSha256": "bf3d8d3d3659f96c6e4182974ec89e94a29fc891029079550358279bce375137",
+      "markSchemeSha256": "4501edea5faff85a9dce8bfd82d470e720bd8c7fda408e4eea23f9091ae977b1",
+      "jevCandidate": "Chemical energetics",
+      "jevConfidence": 0.47
+    },
+    {
+      "id": "0620-2020-m-12-q40",
+      "primaryTopic": "Organic chemistry",
+      "primaryTopicId": "organic-chemistry",
+      "details": [
+        "Polymers"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "14.8.3",
+      "decision": "Natural/synthetic polymer and food constituent questions directly match the older-era polymers section.",
+      "qpPages": [
+        14
+      ],
+      "msPages": [
+        2,
+        3
+      ],
+      "questionPaperSha256": "f43468e4425ff30e8f63aedf0455ebacc89f3bccf969931a4a119c591c22e35f",
+      "markSchemeSha256": "66a9641eeb8f95f48a58e1886bef6e19f38968c6f5992f8ab0dcebbb34bbc018",
+      "jevCandidate": "Organic chemistry",
+      "jevConfidence": 0.96
+    },
+    {
+      "id": "0620-2020-s-11-q40",
+      "primaryTopic": "Organic chemistry",
+      "primaryTopicId": "organic-chemistry",
+      "details": [
+        "Polymers"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "14.8.3",
+      "decision": "Natural/synthetic polymer and food constituent questions directly match the older-era polymers section.",
+      "qpPages": [
+        15
+      ],
+      "msPages": [
+        2,
+        3
+      ],
+      "questionPaperSha256": "90886d83636d40a3cc156e09912bf3b95f6c9bdef173e40b86aef2f5c60f9dbe",
+      "markSchemeSha256": "48d1876db074722695fbe03b1ff934ddf45a18063358e5c1462276884134c7e9",
+      "jevCandidate": "Organic chemistry",
+      "jevConfidence": 0.95
+    },
+    {
+      "id": "0620-2020-s-12-q40",
+      "primaryTopic": "Organic chemistry",
+      "primaryTopicId": "organic-chemistry",
+      "details": [
+        "Polymers"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "14.8.3",
+      "decision": "Natural/synthetic polymer and food constituent questions directly match the older-era polymers section.",
+      "qpPages": [
+        13
+      ],
+      "msPages": [
+        2,
+        3
+      ],
+      "questionPaperSha256": "766c01f078c8a9719d75983429f2ddf04bd1ba2a1c200b4e796dd8223bfffd74",
+      "markSchemeSha256": "a5292b3c5f52ab24557e3de94429f9bd5e2089ea9fda19ef6bb439f584e1d92f",
+      "jevCandidate": "Organic chemistry",
+      "jevConfidence": 0.98
+    },
+    {
+      "id": "0620-2020-s-13-q40",
+      "primaryTopic": "Organic chemistry",
+      "primaryTopicId": "organic-chemistry",
+      "details": [
+        "Polymers"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "14.8.3",
+      "decision": "Natural/synthetic polymer and food constituent questions directly match the older-era polymers section.",
+      "qpPages": [
+        14
+      ],
+      "msPages": [
+        2,
+        3
+      ],
+      "questionPaperSha256": "1fbc99604adbc848533e644b6f5c99f71b01644bcf502574995b1619335df59c",
+      "markSchemeSha256": "458205b13616d8eaea488cee93d97da1df07affbd9fe21db1d6dfbe98234be84",
+      "jevCandidate": "Organic chemistry",
+      "jevConfidence": 0.92
+    },
+    {
+      "id": "0620-2020-s-23-q40",
+      "primaryTopic": "Organic chemistry",
+      "primaryTopicId": "organic-chemistry",
+      "details": [
+        "Polymers"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "14.8.3",
+      "decision": "Natural/synthetic polymer and food constituent questions directly match the older-era polymers section.",
+      "qpPages": [
+        14
+      ],
+      "msPages": [
+        2,
+        3
+      ],
+      "questionPaperSha256": "c140f3eb4ff28d3a3054471cba2f57f5f50539e281a1d7056d31872517aa3a1a",
+      "markSchemeSha256": "40d22902a19b63ad2a67ad166c2483da2a185afec5ff60ee8b43b52a323c20fb",
+      "jevCandidate": "Organic chemistry",
+      "jevConfidence": 0.92
+    },
+    {
+      "id": "0620-2020-w-22-q40",
+      "primaryTopic": "Organic chemistry",
+      "primaryTopicId": "organic-chemistry",
+      "details": [
+        "Polymers"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "14.8.3",
+      "decision": "Natural/synthetic polymer and food constituent questions directly match the older-era polymers section.",
+      "qpPages": [
+        13
+      ],
+      "msPages": [
+        2,
+        3
+      ],
+      "questionPaperSha256": "d9082e91a1cd7ec2502da210d45fb68284c40d095dfbc6a9dfa6f6b9247d057f",
+      "markSchemeSha256": "42e6ea2bbf2469c607e88417866c23711e39ad21cd3fe50ab3878be65f5cdbfd",
+      "jevCandidate": "Organic chemistry",
+      "jevConfidence": 0.54
+    },
+    {
+      "id": "0620-2021-m-32-q7",
+      "primaryTopic": "Electrochemistry",
+      "primaryTopicId": "electrochemistry",
+      "details": [
+        "Electrolysis"
+      ],
+      "secondaryTopics": {
+        "The Periodic Table": [
+          "Group I properties",
+          "Transition elements"
+        ]
+      },
+      "syllabusSection": "4; 9",
+      "decision": "Fourteen-mark mixed question: molten/aqueous electrolysis earns the dominant marks; sodium versus transition metals is separately marked. Other one-mark operations remain historically unresolved, not a claim of full semantic closure.",
+      "qpPages": [
+        12,
+        13
+      ],
+      "msPages": [
+        9,
+        10
+      ],
+      "questionPaperSha256": "a99e1390ffe475e7d6f59dbcdd60af097330ceae699395f8a69b748ff66276f6",
+      "markSchemeSha256": "84ca442eba8cc26205ca63d9f6ffaf63baebbdf7cf35dc70b1f9a2d1a6112a2f",
+      "jevCandidate": "Electrochemistry",
+      "jevConfidence": 0.42
+    },
+    {
+      "id": "0620-2021-m-42-q4",
+      "primaryTopic": "Acids, bases and salts",
+      "primaryTopicId": "acids-bases-salts",
+      "details": [
+        "Preparation of salts"
+      ],
+      "secondaryTopics": {
+        "Stoichiometry": [
+          "The mole and the Avogadro constant"
+        ]
+      },
+      "syllabusSection": "8; 9",
+      "decision": "Seventeen-mark mixed question: salt preparation and purification dominate; the five-mark titration concentration calculation independently tests moles. Historical unresolved provenance retained.",
+      "qpPages": [
+        5,
+        6
+      ],
+      "msPages": [
+        7
+      ],
+      "questionPaperSha256": "1873835b77c2ed5a080b7e7ba8d0672c595714962bde9a5bada247caf1740f73",
+      "markSchemeSha256": "6168039f2be353d917ebe480e53e09a1267f1efa8b1ca54a7c63a62537bd84bc",
+      "jevCandidate": "Acids, bases and salts",
+      "jevConfidence": 0.59
+    },
+    {
+      "id": "0620-2026-m-12-q2",
+      "primaryTopic": "States of matter",
+      "primaryTopicId": "particulate-nature",
+      "details": [
+        "Solids, liquids and gases",
+        "Diffusion"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "1.1; 1.2",
+      "decision": "One-mark item requires both evaporation and gas diffusion to select the keyed answer.",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ],
+      "questionPaperSha256": "89904b81a0a86e9982ff067f8b41ac5606cbc0d186ef03ba8dd680cbd41eb0de",
+      "markSchemeSha256": "2b986c8a6c50c73803a3f7e076a3e0e4896cf53fde1202d8f96353ed49828166",
+      "jevCandidate": "States of matter",
+      "jevConfidence": 0.99
+    },
+    {
+      "id": "0620-2026-m-22-q1",
+      "primaryTopic": "States of matter",
+      "primaryTopicId": "particulate-nature",
+      "details": [
+        "Solids, liquids and gases"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "1.1",
+      "decision": "Gas, liquid, solid particle behaviour or state change is the assessed operation.",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ],
+      "questionPaperSha256": "ad6e2b2ed32fa3254aed054f2fd506bae6e3c1b1303a49966867833a385b1aab",
+      "markSchemeSha256": "377c707cf94feccadc08b85d15504d9f2dd1572d43536db75952a8f726e45e81",
+      "jevCandidate": "States of matter",
+      "jevConfidence": 1.0
+    },
+    {
+      "id": "0620-2026-m-22-q2",
+      "primaryTopic": "States of matter",
+      "primaryTopicId": "particulate-nature",
+      "details": [
+        "Diffusion"
+      ],
+      "secondaryTopics": {
+        "Acids, bases and salts": [
+          "The characteristic properties of acids and bases"
+        ]
+      },
+      "syllabusSection": "1.2; 9.1",
+      "decision": "One-mark item requires relative gas diffusion and universal-indicator acid/base colour; the apparatus locations matter.",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ],
+      "questionPaperSha256": "ad6e2b2ed32fa3254aed054f2fd506bae6e3c1b1303a49966867833a385b1aab",
+      "markSchemeSha256": "377c707cf94feccadc08b85d15504d9f2dd1572d43536db75952a8f726e45e81",
+      "jevCandidate": "States of matter",
+      "jevConfidence": 0.73
+    },
+    {
+      "id": "0620-2026-s-11-q1",
+      "primaryTopic": "States of matter",
+      "primaryTopicId": "particulate-nature",
+      "details": [
+        "Solids, liquids and gases"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "1.1",
+      "decision": "Gas, liquid, solid particle behaviour or state change is the assessed operation.",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ],
+      "questionPaperSha256": "e63507c76a3d0355e9787b1e347f6a2064d0359613827467bfdaa5da768d4ece",
+      "markSchemeSha256": "8e182135d4c8aa463217c4c826badd607717d9c15aa34ed3b1a7a0d6948b8476",
+      "jevCandidate": "States of matter",
+      "jevConfidence": 1.0
+    },
+    {
+      "id": "0620-2026-s-11-q2",
+      "primaryTopic": "States of matter",
+      "primaryTopicId": "particulate-nature",
+      "details": [
+        "Solids, liquids and gases"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "1.1",
+      "decision": "Gas, liquid, solid particle behaviour or state change is the assessed operation.",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ],
+      "questionPaperSha256": "e63507c76a3d0355e9787b1e347f6a2064d0359613827467bfdaa5da768d4ece",
+      "markSchemeSha256": "8e182135d4c8aa463217c4c826badd607717d9c15aa34ed3b1a7a0d6948b8476",
+      "jevCandidate": "States of matter",
+      "jevConfidence": 1.0
+    },
+    {
+      "id": "0620-2026-s-12-q1",
+      "primaryTopic": "States of matter",
+      "primaryTopicId": "particulate-nature",
+      "details": [
+        "Diffusion"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "1.2",
+      "decision": "Concentration-gradient spreading or relative gas diffusion is the assessed operation.",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ],
+      "questionPaperSha256": "7eb2d6d39999250a6fefd7d2e5d4cbbbd5e8299066683c116466413d0df64cb3",
+      "markSchemeSha256": "45b7842e710d751798d258adc0e1d36da3a954776091a6b67f3c2cab6155c045",
+      "jevCandidate": "States of matter",
+      "jevConfidence": 0.99
+    },
+    {
+      "id": "0620-2026-s-13-q1",
+      "primaryTopic": "States of matter",
+      "primaryTopicId": "particulate-nature",
+      "details": [
+        "Solids, liquids and gases"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "1.1",
+      "decision": "Gas, liquid, solid particle behaviour or state change is the assessed operation.",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ],
+      "questionPaperSha256": "f5408a8c3158025ce458a7ae9dd4fe089accdaab2e3a8e6579457c8d9ac93cc9",
+      "markSchemeSha256": "0417e15c55af945a83da2e8e7b0aed193c2449f4c527abc72bfc5bc8f1c81871",
+      "jevCandidate": "States of matter",
+      "jevConfidence": 1.0
+    },
+    {
+      "id": "0620-2026-s-21-q3",
+      "primaryTopic": "States of matter",
+      "primaryTopicId": "particulate-nature",
+      "details": [
+        "Solids, liquids and gases"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "1.1",
+      "decision": "Gas, liquid, solid particle behaviour or state change is the assessed operation.",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ],
+      "questionPaperSha256": "db9c0e6b8d6a7f20ac828de0c318af1f03aa891914649e90aa8807fd6ba93be0",
+      "markSchemeSha256": "e20fe79afc3a80b03ec80cef06e264e1a9cc9ed6bfdf93dcda9aa3148b9bf8d7",
+      "jevCandidate": "States of matter",
+      "jevConfidence": 0.99
+    },
+    {
+      "id": "0620-2026-s-22-q1",
+      "primaryTopic": "States of matter",
+      "primaryTopicId": "particulate-nature",
+      "details": [
+        "Solids, liquids and gases"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "1.1",
+      "decision": "Gas, liquid, solid particle behaviour or state change is the assessed operation.",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ],
+      "questionPaperSha256": "78478185b8faae6bff73977e383087a04b63621ace15059db44148dbb0aec778",
+      "markSchemeSha256": "ecbd02d07f41f88cfb9f2fdfb1dea8badfa5583e42a2221026d14a8eb68e95f1",
+      "jevCandidate": "States of matter",
+      "jevConfidence": 1.0
+    },
+    {
+      "id": "0620-2026-s-22-q2",
+      "primaryTopic": "States of matter",
+      "primaryTopicId": "particulate-nature",
+      "details": [
+        "Solids, liquids and gases"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "1.1",
+      "decision": "Gas, liquid, solid particle behaviour or state change is the assessed operation.",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ],
+      "questionPaperSha256": "78478185b8faae6bff73977e383087a04b63621ace15059db44148dbb0aec778",
+      "markSchemeSha256": "ecbd02d07f41f88cfb9f2fdfb1dea8badfa5583e42a2221026d14a8eb68e95f1",
+      "jevCandidate": "States of matter",
+      "jevConfidence": 0.99
+    },
+    {
+      "id": "0620-2026-s-23-q2",
+      "primaryTopic": "States of matter",
+      "primaryTopicId": "particulate-nature",
+      "details": [
+        "Solids, liquids and gases"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "1.1",
+      "decision": "Gas, liquid, solid particle behaviour or state change is the assessed operation.",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ],
+      "questionPaperSha256": "157772981545680b2081a0905fc3f17cb1674a55b7534893fd93752311c1d44d",
+      "markSchemeSha256": "fd978aaa8a969024a419215e67b9714af06cdda8da8aa9e80e6254dc2d050f90",
+      "jevCandidate": "States of matter",
+      "jevConfidence": 0.97
+    },
+    {
+      "id": "0620-2026-s-23-q3",
+      "primaryTopic": "States of matter",
+      "primaryTopicId": "particulate-nature",
+      "details": [
+        "Solids, liquids and gases"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "1.1",
+      "decision": "Gas, liquid, solid particle behaviour or state change is the assessed operation.",
+      "qpPages": [
+        2
+      ],
+      "msPages": [
+        2,
+        3
+      ],
+      "questionPaperSha256": "157772981545680b2081a0905fc3f17cb1674a55b7534893fd93752311c1d44d",
+      "markSchemeSha256": "fd978aaa8a969024a419215e67b9714af06cdda8da8aa9e80e6254dc2d050f90",
+      "jevCandidate": "States of matter",
+      "jevConfidence": 1.0
+    },
+    {
+      "id": "0620-2026-s-31-q5",
+      "primaryTopic": "States of matter",
+      "primaryTopicId": "particulate-nature",
+      "details": [
+        "Solids, liquids and gases"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "1.1",
+      "decision": "Gas, liquid, solid particle behaviour or state change is the assessed operation.",
+      "qpPages": [
+        10,
+        11
+      ],
+      "msPages": [
+        10,
+        11,
+        12
+      ],
+      "questionPaperSha256": "affe8d424231d91baf5052204bdc8173af977996d825aa3eb94af38cd8bb2451",
+      "markSchemeSha256": "cd8494146a00d35366751b6aee0e3a0f9e98400dac74a4963daa0997d5468ec3",
+      "jevCandidate": "States of matter",
+      "jevConfidence": 0.99
+    },
+    {
+      "id": "0620-2026-s-32-q5",
+      "primaryTopic": "States of matter",
+      "primaryTopicId": "particulate-nature",
+      "details": [
+        "Solids, liquids and gases",
+        "Diffusion"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "1.1; 1.2",
+      "decision": "Nine-mark question: particle model/state changes dominate; final diffusion operation independently earns one mark.",
+      "qpPages": [
+        10,
+        11
+      ],
+      "msPages": [
+        13,
+        14,
+        15
+      ],
+      "questionPaperSha256": "a80282ff663e494cbe6eb4b183c20728b9a63fc5fd8684b4ff38f56cc370ffa1",
+      "markSchemeSha256": "7814b931740e2b8ac4ef53f91e2457a4fa428cd703fa2cfe38cea0dc4e2f4ec5",
+      "jevCandidate": "States of matter",
+      "jevConfidence": 0.99
+    },
+    {
+      "id": "0620-2026-s-33-q5",
+      "primaryTopic": "States of matter",
+      "primaryTopicId": "particulate-nature",
+      "details": [
+        "Solids, liquids and gases"
+      ],
+      "secondaryTopics": {},
+      "syllabusSection": "1.1",
+      "decision": "Gas, liquid, solid particle behaviour or state change is the assessed operation.",
+      "qpPages": [
+        10
+      ],
+      "msPages": [
+        13,
+        14,
+        15
+      ],
+      "questionPaperSha256": "f70e5dab5cd562e395ee76765d6e5d2e1581a6677fbc301a3418cee6d8162d86",
+      "markSchemeSha256": "df8bace79a392055ab2f1e78d1c7e82c937fb0f33bd5d79b158535c40e898a63",
+      "jevCandidate": "States of matter",
+      "jevConfidence": 0.99
+    }
+  ]
+}

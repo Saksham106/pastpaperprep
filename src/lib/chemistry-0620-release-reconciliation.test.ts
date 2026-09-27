@@ -42,6 +42,6 @@ describe("Chemistry 0620 finalized release reconciliation", () => {
     expect(runtime.assetVerification).toBe("verified_readback");
     expect(runtime.runtimeArtifact.publicationStatus).toBe("production");
     expect(runtime.runtimeArtifact.validatedExtensionUnlabeledGapCount).toBe(28);
-    expect(readFileSync(join(process.cwd(), paths[1]), "utf8")).toContain('"version": 2');
+    expect(read(paths[1]).version).toBe(2);
   });
 });

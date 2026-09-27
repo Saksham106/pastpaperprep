@@ -7,6 +7,7 @@ import physics from "@/data/production/igcse-physics-0625.json";
 import coordinated from "@/data/production/igcse-coordinated-sciences-0654.json";
 import economicsTaxonomy from "@/data/igcse-economics-0455-taxonomy.json";
 import chemistryTaxonomy from "@/data/igcse-chemistry-0620-official-taxonomy.json";
+import chemistryOtherTargets from "../../scripts/data/0620-other-retrieval-targets.json";
 import physicsTaxonomy from "@/data/igcse-physics-0625-official-taxonomy.json";
 import coordinatedTaxonomy from "@/data/igcse-coordinated-sciences-0654-taxonomy.json";
 import { isIGCSEReleaseEnabled, type IGCSEReleaseBankSlug } from "@/lib/banks";
@@ -25,6 +26,16 @@ type IGCSEArtifact = {
     releaseTaxonomySha256?: string;
     runtimeTaxonomySha256?: string;
     finalizedContentSha256?: string;
+    chemistryOtherRetrievalRepair?: {
+      baselineGitCommit?: string;
+      baselineRuntimeSha256?: string;
+      baselineContentSha256?: string;
+      frozenCohortSha256?: string;
+      targetIdsSha256?: string;
+      frozenOtherQueueSha256?: string;
+      changedCount?: number;
+      method?: string;
+    };
     taxonomyRepair?: {
       baselineRuntimeSha256?: string;
       targetIdsSha256?: string;
@@ -107,6 +118,54 @@ function runtimeSha256(artifact: IGCSEArtifact) {
   const copy = JSON.parse(JSON.stringify(artifact)) as IGCSEArtifact;
   if (copy.runtimeArtifact) copy.runtimeArtifact.runtimeSha256 = null;
   return canonicalSha256(copy);
+}
+
+const REPAIR_0620_OTHER = {
+  baselineGitCommit: "197ac22550d5bcb7559eafdbc0ae5cf391924bd5",
+  baselineRuntimeSha256: "9cf537ce5d68db06762521bb1cd1e57fa1b25fafc79ba2c558a3b993da2d8eba",
+  baselineContentSha256: "4ccfffcc3cd35751cded9749ae85763e6f5725d47cc96fa226c1ee27f409a067",
+  frozenCohortSha256: "740a4b457910ce88c8b588a1e0bcebc98d9f460047ef3fb8076322808f95fa43",
+  targetIdsSha256: "2eea52a294f8a2d2b504c0514f87e6d3dfd403e3319707d91481d91a19679dcc",
+  frozenOtherQueueSha256: "53dc1b3154fe3ffaa1ec872d3d6efa54c98bfff3cb7863c58cfb6b9cc1793da0",
+  finalizedContentSha256: "8b844d8565853b0508a9aaa7e7d5c8d972fa6013bf7bf05b9808e84d0bc3344d",
+  assetManifestSha256: "2b7c46666ece8f3d9bb57a50e3dfe7389a993432656b5215b12d782409fed43b",
+  storageReceiptSha256: "935f8c574bd1ef4e7fd1760a13fdec3ce31503144185070df0c76603a225b357",
+  method: "paired-QP-MS-and-era-syllabus-reviewed; bounded-TypeSafe-Jev-suggestions; retrieval-only; unresolved-provenance-preserved",
+} as const;
+
+/** Historical source-insufficient review stays intact; this seals exactly 30 student routes. */
+export function assert0620OtherRetrievalRepair(artifact: IGCSEArtifact): void {
+  const seal = artifact.runtimeArtifact;
+  const repair = seal?.chemistryOtherRetrievalRepair;
+  const rows = chemistryOtherTargets.rows;
+  const ids = rows.map((row) => row.id).sort();
+  const byId = new Map(artifact.questions.filter((q) => ids.includes(q.id as string)).map((q) => [q.id as string, q]));
+  if (
+    artifact.questions.length !== 5129 || rows.length !== 30 || byId.size !== 30 ||
+    canonicalSha256(chemistryOtherTargets) !== REPAIR_0620_OTHER.frozenCohortSha256 ||
+    createHash("sha256").update(ids.join("\n")).digest("hex") !== REPAIR_0620_OTHER.targetIdsSha256 ||
+    repair?.baselineGitCommit !== REPAIR_0620_OTHER.baselineGitCommit ||
+    repair?.baselineRuntimeSha256 !== REPAIR_0620_OTHER.baselineRuntimeSha256 ||
+    repair?.baselineContentSha256 !== REPAIR_0620_OTHER.baselineContentSha256 ||
+    repair?.frozenCohortSha256 !== REPAIR_0620_OTHER.frozenCohortSha256 ||
+    repair?.targetIdsSha256 !== REPAIR_0620_OTHER.targetIdsSha256 ||
+    repair?.frozenOtherQueueSha256 !== REPAIR_0620_OTHER.frozenOtherQueueSha256 ||
+    repair?.changedCount !== 30 || repair?.method !== REPAIR_0620_OTHER.method ||
+    rows.some((row) => {
+      const q = byId.get(row.id);
+      const details = [...row.details, ...Object.values(row.secondaryTopics).flat()];
+      const proof = q?.classificationProvenance as { sourceRowId?: string } | undefined;
+      return q?.primaryTopic !== row.primaryTopic || q?.primaryTopicId !== row.primaryTopicId ||
+        JSON.stringify(q?.secondaryTopics) !== JSON.stringify(Object.keys(row.secondaryTopics)) ||
+        JSON.stringify(q?.subtopics) !== JSON.stringify(details) ||
+        JSON.stringify(q?.detailedSubtopics) !== JSON.stringify(details) ||
+        q?.classificationReviewStatus !== "unresolved_taxonomy_gap" || proof?.sourceRowId !== row.id;
+    }) ||
+    seal?.assetManifestSha256 !== REPAIR_0620_OTHER.assetManifestSha256 ||
+    seal?.storageReceiptSha256 !== REPAIR_0620_OTHER.storageReceiptSha256 ||
+    seal?.finalizedContentSha256 !== REPAIR_0620_OTHER.finalizedContentSha256 ||
+    canonicalSha256(artifact.questions) !== REPAIR_0620_OTHER.finalizedContentSha256
+  ) throw new Error("IGCSE 0620 original Other retrieval provenance or finalized content mismatch");
 }
 
 const REPAIR_0654 = {
@@ -295,6 +354,7 @@ export function getIGCSERuntimeArtifact(bank: IGCSEReleaseBankSlug, environment:
   );
   if (artifact.questions.length !== questions || artifact.paperCount !== papers || metadata?.assetVerification !== "verified_readback" || typeof metadata?.storageReceiptSha256 !== "string" || typeof metadata?.assetManifestSha256 !== "string" || !taxonomySealed || !candidateSealed || !runtimeSealed || !questionStatesSealed) throw new Error("IGCSE runtime is not backed by verified storage, candidate, runtime, taxonomy, and question-state seals");
   if (bank === "igcse-biology-0610") assert0610PollutionRepair(artifact);
+  if (bank === "igcse-chemistry-0620") assert0620OtherRetrievalRepair(artifact);
   if (bank === "igcse-coordinated-sciences-0654") assert0654TaxonomyRepair(artifact);
   if (bank === "igcse-physics-0625") {
     assert0625PracticalRoleRepair(artifact);
