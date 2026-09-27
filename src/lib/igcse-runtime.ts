@@ -31,6 +31,15 @@ type IGCSEArtifact = {
       changedCount?: number;
       correctedTaxonomySha256?: string;
     };
+    practicalRoleRepair?: {
+      baselineRuntimeSha256?: string;
+      baselineContentSha256?: string;
+      targetIdsSha256?: string;
+      changedCount?: number;
+      targetIds?: string[];
+      method?: string;
+      annotation?: string;
+    };
   };
 };
 
@@ -91,6 +100,30 @@ const REPAIR_0654 = {
   storageReceiptSha256: "2fcf4b04c2da12b57215309698de2ed3b19f0cb29b6d08407cb72514fc6c99ff",
 } as const;
 
+const REPAIR_0625 = {
+  baselineRuntimeSha256: "1c397a5473e858b283b1748db8891e9296cd1776b550c363ea6952b94d5f80b1",
+  baselineContentSha256: "14b6756ed65b6f264f601519a4dba5b5a43ef0f0480bc849924cc037644c79e8",
+  targetIdsSha256: "1b4e4d76a05afa82df7ef51f94f66e5bf6c0255ec6b7b49ba5aabf982e8140a3",
+  finalizedContentSha256: "5fcd5092d799040bfe3b71c11541fc63a0d2f548556355bef301945c21aa546d",
+} as const;
+
+export function assert0625PracticalRoleRepair(artifact: IGCSEArtifact): void {
+  const repair = artifact.runtimeArtifact?.practicalRoleRepair;
+  const targetIds = [...(repair?.targetIds ?? [])].sort();
+  const targets = artifact.questions.filter((q) => targetIds.includes(q.id as string));
+  if (
+    repair?.baselineRuntimeSha256 !== REPAIR_0625.baselineRuntimeSha256 ||
+    repair?.baselineContentSha256 !== REPAIR_0625.baselineContentSha256 ||
+    repair?.targetIdsSha256 !== REPAIR_0625.targetIdsSha256 || repair?.changedCount !== 144 ||
+    repair?.method !== "frozen-other-queue-intersected-with-paper-components-51-53-and-61-63; broad practical role only; no semantic detail promotion" ||
+    repair?.annotation !== "Retains unresolved_taxonomy_gap and original classification provenance/gaps; assigns only the broad practical assessment role." ||
+    targetIds.length !== 144 || createHash("sha256").update(targetIds.join("\n")).digest("hex") !== REPAIR_0625.targetIdsSha256 ||
+    targets.some((q) => q.primaryTopicId !== "practical-skills" || q.primaryTopic !== "Experimental skills and investigations" || q.classificationReviewStatus !== "unresolved_taxonomy_gap") ||
+    artifact.runtimeArtifact?.finalizedContentSha256 !== REPAIR_0625.finalizedContentSha256 ||
+    canonicalSha256(artifact.questions) !== REPAIR_0625.finalizedContentSha256
+  ) throw new Error("IGCSE 0625 practical-role repair provenance or finalized content mismatch");
+}
+
 /** The original candidate seal describes the pre-repair release; this pins the corrected content separately. */
 export function assert0654TaxonomyRepair(artifact: IGCSEArtifact): void {
   const seal = artifact.runtimeArtifact;
@@ -136,6 +169,7 @@ export function getIGCSERuntimeArtifact(bank: IGCSEReleaseBankSlug, environment:
   );
   if (artifact.questions.length !== questions || artifact.paperCount !== papers || metadata?.assetVerification !== "verified_readback" || typeof metadata?.storageReceiptSha256 !== "string" || typeof metadata?.assetManifestSha256 !== "string" || !taxonomySealed || !candidateSealed || !runtimeSealed || !questionStatesSealed) throw new Error("IGCSE runtime is not backed by verified storage, candidate, runtime, taxonomy, and question-state seals");
   if (bank === "igcse-coordinated-sciences-0654") assert0654TaxonomyRepair(artifact);
+  if (bank === "igcse-physics-0625") assert0625PracticalRoleRepair(artifact);
   return artifact;
 }
 

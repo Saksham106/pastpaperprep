@@ -1,6 +1,10 @@
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
+import { assert0625PracticalRoleRepair } from "@/lib/igcse-runtime";
+import { normalizeBankQuestions } from "@/lib/questions";
+import { filterQuestions } from "@/lib/question-filter";
+import { getControlledSubtopics, getTopicOptions } from "@/lib/taxonomy-router";
 import runtimeJson from "@/data/production/igcse-physics-0625.json";
 import privateIndexJson from "@/data/private-index/igcse-physics-0625.json";
 import manifestJson from "../../data/storage/igcse-physics-0625.manifest.json";
@@ -13,6 +17,7 @@ type ProductionRuntime = {
   assetVerification: string;
   publicationStatus: string;
   questions: Array<{
+    id: string;
     classificationReviewStatus: string;
     publicationStatus: string;
     sourceQuestionUrl: string;
@@ -28,6 +33,7 @@ type ProductionRuntime = {
     storageReceiptSha256: string;
     assetVerification: string;
     publicationStatus: string;
+    practicalRoleRepair: { targetIds: string[]; targetIdsSha256: string; changedCount: number; annotation: string };
   };
 };
 type PrivateIndex = { questions: unknown[] };
@@ -41,7 +47,7 @@ const receipt = receiptJson as Receipt;
 const sha256 = (value: string) => createHash("sha256").update(value).digest("hex");
 
 const CANONICAL_MANIFEST_SHA256 = "82a09dc72b46895d6840b23dc65c88f5a0c839fb928f230e60184d01de97ea95";
-const RUNTIME_SHA256 = "1c397a5473e858b283b1748db8891e9296cd1776b550c363ea6952b94d5f80b1";
+const RUNTIME_SHA256 = "714a82e94575d0750423731675d284600ca9c5d6ddc3461758ab2809f6f666f2";
 
 describe("Physics 0625 finalized production release", () => {
   it("ships the approved counts and finalized production state", () => {
@@ -55,6 +61,29 @@ describe("Physics 0625 finalized production release", () => {
     expect(runtime.questions.every((q) => q.publicationStatus === "production")).toBe(true);
     expect(runtime.runtimeArtifact.candidate).toBe(true);
     expect(runtime.runtimeArtifact.runtimeSha256).toBe(RUNTIME_SHA256);
+  });
+
+  it("guards the deterministic practical-role cohort and rejects content tampering", () => {
+    const practical = runtime.questions.filter((q) => runtimeJson.runtimeArtifact.practicalRoleRepair.targetIds.includes(q.id));
+    expect(practical).toHaveLength(144);
+    expect(practical.every((q) => q.classificationReviewStatus === "unresolved_taxonomy_gap")).toBe(true);
+    expect(() => assert0625PracticalRoleRepair(runtimeJson as never)).not.toThrow();
+    const tampered = structuredClone(runtimeJson);
+    tampered.questions.find((q) => q.primaryTopicId === "practical-skills")!.summary += " tampered";
+    expect(() => assert0625PracticalRoleRepair(tampered as never)).toThrow(/finalized content mismatch/);
+  });
+
+  it("exposes all 144 repaired rows through the actual topic and subtopic filters", () => {
+    const label = "Experimental skills and investigations";
+    const questions = normalizeBankQuestions("igcse-physics-0625", privateIndex.questions as never);
+    const targetIds = runtime.runtimeArtifact.practicalRoleRepair.targetIds;
+    expect(getTopicOptions(questions)).toContain(label);
+    expect(getControlledSubtopics("igcse-physics-0625", label)).toContain(label);
+    expect(questions.filter((question) => targetIds.includes(question.id))).toHaveLength(144);
+    for (const filters of [{ topics: [label] }, { topics: [label], subtopics: [label] }]) {
+      const found = new Set(filterQuestions(questions, filters).map((question) => question.id));
+      expect(targetIds.every((id) => found.has(id))).toBe(true);
+    }
   });
 
   it("preserves exactly 336 unresolved taxonomy rows and official provenance", () => {
