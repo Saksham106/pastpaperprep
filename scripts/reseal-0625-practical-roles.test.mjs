@@ -4,6 +4,7 @@ import { expect, test } from "vitest";
 import { deriveTargets, reseal } from "./reseal-0625-practical-roles.mjs";
 
 const OLD_COMMIT = "b4dac6427191232ae9bd62ce9908b37d7318f92d";
+const PRACTICAL_RELEASE = "0a0b2246e269c03f81669548947d011c4f68b741";
 const baselineFile = (name) => JSON.parse(execFileSync("git", ["show", `${OLD_COMMIT}:${name}`], { maxBuffer: 40_000_000 }));
 const baseline = baselineFile("src/data/production/igcse-physics-0625.json");
 const originalIndex = baselineFile("src/data/private-index/igcse-physics-0625.json");
@@ -15,7 +16,8 @@ const input = { baseline, frozen, manifestText, receiptText };
 test("exact 144 practical roles preserve unresolved provenance and all other records", () => {
   const result = reseal(input);
   const targets = new Set(deriveTargets(baseline, frozen));
-  expect(result).toEqual(JSON.parse(readFileSync("src/data/production/igcse-physics-0625.json", "utf8")));
+  // Replay the original practical release against its own pinned commit, not the later MCQ overlay.
+  expect(result).toEqual(JSON.parse(execFileSync("git", ["show", `${PRACTICAL_RELEASE}:src/data/production/igcse-physics-0625.json`], { maxBuffer: 40_000_000 })));
   for (let i = 0; i < baseline.questions.length; i++) {
     const before = baseline.questions[i];
     const after = result.questions[i];
@@ -32,7 +34,7 @@ test("exact 144 practical roles preserve unresolved provenance and all other rec
     expect(after.subtopics).toEqual(["Experimental skills and investigations"]);
     expect(after.classificationReviewStatus).toBe("unresolved_taxonomy_gap");
   }
-  const publishedIndex = JSON.parse(readFileSync("src/data/private-index/igcse-physics-0625.json", "utf8"));
+  const publishedIndex = JSON.parse(execFileSync("git", ["show", `${PRACTICAL_RELEASE}:src/data/private-index/igcse-physics-0625.json`], { maxBuffer: 5_000_000 }));
   const indexTargets = new Set(publishedIndex.questions.filter((q, i) => JSON.stringify(q) !== JSON.stringify(originalIndex.questions[i])).map((q) => q.id));
   expect(indexTargets).toEqual(targets);
 });

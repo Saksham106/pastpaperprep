@@ -47,7 +47,7 @@ const receipt = receiptJson as Receipt;
 const sha256 = (value: string) => createHash("sha256").update(value).digest("hex");
 
 const CANONICAL_MANIFEST_SHA256 = "82a09dc72b46895d6840b23dc65c88f5a0c839fb928f230e60184d01de97ea95";
-const RUNTIME_SHA256 = "714a82e94575d0750423731675d284600ca9c5d6ddc3461758ab2809f6f666f2";
+const RUNTIME_SHA256 = "1a7f251dc51b3a86669edaad6bb60ba2b8b703d8b58a294f51acda74b090785c";
 
 describe("Physics 0625 finalized production release", () => {
   it("ships the approved counts and finalized production state", () => {

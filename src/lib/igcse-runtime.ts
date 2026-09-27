@@ -47,6 +47,17 @@ type IGCSEArtifact = {
       method?: string;
       annotation?: string;
     };
+    mcqRetrievalRepair?: {
+      baselineGitCommit?: string;
+      baselineRuntimeSha256?: string;
+      baselineFinalizedContentSha256?: string;
+      frozenCohortSha256?: string;
+      targetIdsSha256?: string;
+      syllabusSha256?: string;
+      changedCount?: number;
+      broadOnlyCount?: number;
+      method?: string;
+    };
   };
 };
 
@@ -126,9 +137,73 @@ export function assert0625PracticalRoleRepair(artifact: IGCSEArtifact): void {
     repair?.annotation !== "Retains unresolved_taxonomy_gap and original classification provenance/gaps; assigns only the broad practical assessment role." ||
     targetIds.length !== 144 || createHash("sha256").update(targetIds.join("\n")).digest("hex") !== REPAIR_0625.targetIdsSha256 ||
     targets.some((q) => q.primaryTopicId !== "practical-skills" || q.primaryTopic !== "Experimental skills and investigations" || q.classificationReviewStatus !== "unresolved_taxonomy_gap") ||
-    artifact.runtimeArtifact?.finalizedContentSha256 !== REPAIR_0625.finalizedContentSha256 ||
-    canonicalSha256(artifact.questions) !== REPAIR_0625.finalizedContentSha256
+    (artifact.runtimeArtifact?.mcqRetrievalRepair
+      ? artifact.runtimeArtifact.mcqRetrievalRepair.baselineFinalizedContentSha256 !== REPAIR_0625.finalizedContentSha256 ||
+        artifact.runtimeArtifact.finalizedContentSha256 !== MCQ_0625_2026.finalizedContentSha256 ||
+        canonicalSha256(artifact.questions) !== MCQ_0625_2026.finalizedContentSha256
+      : artifact.runtimeArtifact?.finalizedContentSha256 !== REPAIR_0625.finalizedContentSha256 ||
+        canonicalSha256(artifact.questions) !== REPAIR_0625.finalizedContentSha256)
   ) throw new Error("IGCSE 0625 practical-role repair provenance or finalized content mismatch");
+}
+
+const MCQ_0625_2026 = {
+  baselineGitCommit: "0a0b2246e269c03f81669548947d011c4f68b741",
+  baselineRuntimeSha256: "714a82e94575d0750423731675d284600ca9c5d6ddc3461758ab2809f6f666f2",
+  baselineFinalizedContentSha256: "5fcd5092d799040bfe3b71c11541fc63a0d2f548556355bef301945c21aa546d",
+  frozenCohortSha256: "581d6279f401f08615f94b07cd7bfaba4f58f20fb4f2fcd3bbfb4f89cc03dfa2",
+  targetIdsSha256: "bc3b01e37b3d2a122d18c612a1471b3cc4bcb92e34af9f1c606b42ec6a714dd2",
+  syllabusSha256: "baaf59f84543beb133ea87cbf8cfb0e8bf105a360cce5009cf57d3ae0a357075",
+  finalizedContentSha256: "f698083fe8ee260d5bc1da3a9df8fe49094c6d5e0713aea58996a398e95d318f",
+  assetManifestSha256: "82a09dc72b46895d6840b23dc65c88f5a0c839fb928f230e60184d01de97ea95",
+  storageReceiptSha256: "0a7823e1b04caa03c34a88dd4cdaa1adf3ed7238c5b4e3025d9c44a514cd018f",
+} as const;
+const MCQ_0625_2026_EXPECTED: Record<string, readonly [string, string, string | null]> = {
+  "0625-2026-m-12-q1": ["Motion, forces and energy", "motion-forces-energy", null],
+  "0625-2026-m-12-q3": ["Motion, forces and energy", "motion-forces-energy", "Mass, weight and gravitational field strength"],
+  "0625-2026-m-12-q13": ["Thermal physics", "thermal-physics", "Gases and temperature"],
+  "0625-2026-m-22-q1": ["Motion, forces and energy", "motion-forces-energy", "Physical quantities and measurement techniques"],
+  "0625-2026-s-11-q1": ["Motion, forces and energy", "motion-forces-energy", "Physical quantities and measurement techniques"],
+  "0625-2026-s-11-q3": ["Motion, forces and energy", "motion-forces-energy", "Motion and graphs"],
+  "0625-2026-s-11-q12": ["Thermal physics", "thermal-physics", "Gases and temperature"],
+  "0625-2026-s-12-q1": ["Motion, forces and energy", "motion-forces-energy", "Physical quantities and measurement techniques"],
+  "0625-2026-s-12-q12": ["Thermal physics", "thermal-physics", "Gases and temperature"],
+  "0625-2026-s-13-q1": ["Motion, forces and energy", "motion-forces-energy", "Physical quantities and measurement techniques"],
+  "0625-2026-s-13-q12": ["Thermal physics", "thermal-physics", "Gases and temperature"],
+  "0625-2026-s-21-q1": ["Motion, forces and energy", "motion-forces-energy", "Physical quantities and measurement techniques"],
+  "0625-2026-s-22-q1": ["Motion, forces and energy", "motion-forces-energy", "Physical quantities and measurement techniques"],
+  "0625-2026-s-23-q1": ["Motion, forces and energy", "motion-forces-energy", "Physical quantities and measurement techniques"],
+};
+
+/** Second metadata-only overlay: keep the earlier practical seal as a chained baseline. */
+export function assert0625McqRetrievalRepair(artifact: IGCSEArtifact): void {
+  const seal = artifact.runtimeArtifact;
+  const repair = seal?.mcqRetrievalRepair;
+  const ids = Object.keys(MCQ_0625_2026_EXPECTED).sort();
+  const targetById = new Map(artifact.questions.filter((q) => ids.includes(q.id as string)).map((q) => [q.id as string, q]));
+  if (
+    artifact.questions.length !== 5789 || ids.length !== 14 || targetById.size !== 14 ||
+    createHash("sha256").update(ids.join("\n")).digest("hex") !== MCQ_0625_2026.targetIdsSha256 ||
+    repair?.baselineGitCommit !== MCQ_0625_2026.baselineGitCommit ||
+    repair?.baselineRuntimeSha256 !== MCQ_0625_2026.baselineRuntimeSha256 ||
+    repair?.baselineFinalizedContentSha256 !== MCQ_0625_2026.baselineFinalizedContentSha256 ||
+    repair?.frozenCohortSha256 !== MCQ_0625_2026.frozenCohortSha256 ||
+    repair?.targetIdsSha256 !== MCQ_0625_2026.targetIdsSha256 ||
+    repair?.syllabusSha256 !== MCQ_0625_2026.syllabusSha256 ||
+    repair?.changedCount !== 14 || repair?.broadOnlyCount !== 1 ||
+    repair?.method !== "source-and-syllabus-reviewed-2026-mcqs; TypeSafe-Jev-bounded-agreement; retrieval-only; original-gaps-retained" ||
+    ids.some((id) => {
+      const q = targetById.get(id);
+      const [topic, topicId, detail] = MCQ_0625_2026_EXPECTED[id];
+      return q?.primaryTopic !== topic || q?.primaryTopicId !== topicId ||
+        JSON.stringify(q?.subtopics) !== JSON.stringify(detail === null ? [] : [detail]) ||
+        JSON.stringify(q?.detailedSubtopics) !== JSON.stringify(detail === null ? [] : [detail]) ||
+        q?.classificationReviewStatus !== "unresolved_taxonomy_gap";
+    }) ||
+    seal?.assetManifestSha256 !== MCQ_0625_2026.assetManifestSha256 ||
+    seal?.storageReceiptSha256 !== MCQ_0625_2026.storageReceiptSha256 ||
+    seal?.finalizedContentSha256 !== MCQ_0625_2026.finalizedContentSha256 ||
+    canonicalSha256(artifact.questions) !== MCQ_0625_2026.finalizedContentSha256
+  ) throw new Error("IGCSE 0625 2026 MCQ retrieval provenance or finalized content mismatch");
 }
 
 const REPAIR_0610_POLLUTION = {
@@ -221,7 +296,10 @@ export function getIGCSERuntimeArtifact(bank: IGCSEReleaseBankSlug, environment:
   if (artifact.questions.length !== questions || artifact.paperCount !== papers || metadata?.assetVerification !== "verified_readback" || typeof metadata?.storageReceiptSha256 !== "string" || typeof metadata?.assetManifestSha256 !== "string" || !taxonomySealed || !candidateSealed || !runtimeSealed || !questionStatesSealed) throw new Error("IGCSE runtime is not backed by verified storage, candidate, runtime, taxonomy, and question-state seals");
   if (bank === "igcse-biology-0610") assert0610PollutionRepair(artifact);
   if (bank === "igcse-coordinated-sciences-0654") assert0654TaxonomyRepair(artifact);
-  if (bank === "igcse-physics-0625") assert0625PracticalRoleRepair(artifact);
+  if (bank === "igcse-physics-0625") {
+    assert0625PracticalRoleRepair(artifact);
+    assert0625McqRetrievalRepair(artifact);
+  }
   return artifact;
 }
 

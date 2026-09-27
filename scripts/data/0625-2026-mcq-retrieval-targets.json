@@ -1,0 +1,44 @@
+{
+  "bank": "igcse-physics-0625",
+  "baselineCommit": "0a0b2246e269c03f81669548947d011c4f68b741",
+  "frozenOtherQueueSha256": "53dc1b3154fe3ffaa1ec872d3d6efa54c98bfff3cb7863c58cfb6b9cc1793da0",
+  "targetIdsSha256": "bc3b01e37b3d2a122d18c612a1471b3cc4bcb92e34af9f1c606b42ec6a714dd2",
+  "official2026Syllabus": {
+    "url": "https://www.cambridgeinternational.org/Images/697209-2026-2028-syllabus.pdf",
+    "sha256": "baaf59f84543beb133ea87cbf8cfb0e8bf105a360cce5009cf57d3ae0a357075"
+  },
+  "sourcePairs": {
+    "0625-2026-m-12": ["eead38a2526d649a2b503bece616ced47e0056daf1ca94a6f637e4310ddbdc35", "2e2825b2bee692913d94730c482d7a6fb23f534c61aefd557ad2e216a3bb9c06"],
+    "0625-2026-m-22": ["93c78c13ec8b1ef799d5cd25e65941862e63e7ba0465f0d2bccfaed4d93bf72f", "73c47aceb47f749e93f66b903a92443ee9d22e665b4f75bbd299227333e185dc"],
+    "0625-2026-s-11": ["b7ecd76ce4781397ba268742886c5bcd3226bc29ae6237da035fefd054933749", "6f227888c6a7fb054b6082c3c05892b119de47eadf1d8b122ec1ee724963d952"],
+    "0625-2026-s-12": ["33681bff57b8bfa1ed7aaded847e8dddfd4a4490b318eac3df98d329c0b86e19", "d09b2a42673cdca6469dbfb1453b25abadffe1b6d6441342001bb9c9fe4652cb"],
+    "0625-2026-s-13": ["4468b4ac762fe935eca3a2a9d51cb3636b2e0f89117df119bd76c0c5f7827415", "76d6844591c00b2181488f6f5c593f231681f2c3a451faa65d6d131807255cde"],
+    "0625-2026-s-21": ["ebbe0514cba8e1d1b30b6cbda5a282ec5e2ba2b9eab5f650f7ed54b509c57876", "18a536e041d38c8d92bf7a0ec7af901046407b5af48b2d13962409ad4129c90f"],
+    "0625-2026-s-22": ["6e6177daa20a38aa2032bc74858bcc0c4e6d9c79faccfd0c8122cd7c1d0beb4c", "a74a2118fa5b7df67622d4037054acdafb446d0975982867b69002d41682dd34"],
+    "0625-2026-s-23": ["e1d23b967489292e3fe6635eba0b6f2c340f8a55b86e5ec930e80b858b730923", "e5b621e658fb640f24cea7192ecfa20e1131e4c9a33e16f3cc58e67fbd3b90bc"]
+  },
+  "labels": {
+    "measurement": ["Motion, forces and energy", "motion-forces-energy", "Physical quantities and measurement techniques", "1.1"],
+    "broad_only": ["Motion, forces and energy", "motion-forces-energy", null, null],
+    "mass_weight": ["Motion, forces and energy", "motion-forces-energy", "Mass, weight and gravitational field strength", "1.3"],
+    "motion": ["Motion, forces and energy", "motion-forces-energy", "Motion and graphs", "1.2"],
+    "gases_kelvin": ["Thermal physics", "thermal-physics", "Gases and temperature", "2.1.3"]
+  },
+  "rows": [
+    ["0625-2026-m-12-q1", "broad_only", "broad-only: volume and elapsed-time table; no exact volume-per-time syllabus item"],
+    ["0625-2026-m-12-q3", "mass_weight", "1.3 core item 3"],
+    ["0625-2026-m-12-q13", "gases_kelvin", "2.1.3 core item 2"],
+    ["0625-2026-m-22-q1", "measurement", "1.1 core item 1"],
+    ["0625-2026-s-11-q1", "measurement", "1.1 core item 3"],
+    ["0625-2026-s-11-q3", "motion", "1.2 core item 8"],
+    ["0625-2026-s-11-q12", "gases_kelvin", "2.1.3 core item 2"],
+    ["0625-2026-s-12-q1", "measurement", "1.1 core item 1; 1.4 item 2 also mentions displacement in a density context"],
+    ["0625-2026-s-12-q12", "gases_kelvin", "2.1.3 core item 2"],
+    ["0625-2026-s-13-q1", "measurement", "1.1 core item 1; 1.4 item 2 also mentions displacement in a density context"],
+    ["0625-2026-s-13-q12", "gases_kelvin", "2.1.3 core item 2"],
+    ["0625-2026-s-21-q1", "measurement", "1.1 core item 2"],
+    ["0625-2026-s-22-q1", "measurement", "1.1 core item 1; dimensions used to infer volume"],
+    ["0625-2026-s-23-q1", "measurement", "1.1 core item 1"]
+  ],
+  "decision": "Source/2026 syllabus review plus bounded TypeSafe Jev 1.13.0 suggestions on all 14 MCQs. Jev agreement is corroboration, not authority. Preserve unresolved_taxonomy_gap, original provenance, all other 5775 rows, and immutable asset manifest/receipt. The two multi-operation structured Physics rows remain untouched."
+}
