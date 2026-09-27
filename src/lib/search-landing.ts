@@ -3,6 +3,8 @@ import { getCatalogBanksForDisplay, getCatalogBank } from "@/lib/catalog";
 import { loadBankQuestions } from "@/lib/question-loader";
 import type { UnifiedQuestion } from "@/lib/questions";
 import { getTopicOptions } from "@/lib/taxonomy";
+import { getTopicOptions as getRoutedTopicOptions } from "@/lib/taxonomy-router";
+import { canonicalBiology0610Topic } from "@/lib/biology-0610-topic-aliases";
 
 export type LandingTopic = {
   slug: string;
@@ -26,30 +28,6 @@ export type LandingManifest = {
   years: string;
   paperCount: number;
 };
-
-const IGCSE_BIOLOGY_SYLLABUS_TOPICS = [
-  "Characteristics and classification of living organisms",
-  "Organisation of the organism",
-  "Movement in and out of cells",
-  "Biological molecules",
-  "Enzymes",
-  "Plant nutrition",
-  "Human nutrition",
-  "Transport in plants",
-  "Transport in animals",
-  "Diseases and immunity",
-  "Gas exchange in humans",
-  "Respiration",
-  "Excretion in humans",
-  "Coordination and response",
-  "Drugs",
-  "Reproduction",
-  "Inheritance",
-  "Variation and selection",
-  "Organisms and their environment",
-  "Human influences on ecosystems",
-  "Biotechnology and genetic engineering",
-] as const;
 
 const CAMBRIDGE_OFFICIAL_PAGES: Partial<Record<BankSlug, string>> = {
   igcse: "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-mathematics-0580/",
@@ -84,12 +62,13 @@ const isUsefulTopic = (label: string) => Boolean(label)
   && !/^other$|^foundations?$/i.test(label)
   && !/unknown|unclassified/i.test(label);
 
-function topicCounts(questions: UnifiedQuestion[]) {
+function topicCounts(questions: UnifiedQuestion[], bankSlug: BankSlug) {
   const counts = new Map<string, number>();
   for (const question of questions) {
-    for (const label of new Set([question.primaryTopic, ...question.secondaryTopics])) {
-      if (isUsefulTopic(label)) counts.set(label, (counts.get(label) ?? 0) + 1);
-    }
+    const labels = new Set([question.primaryTopic, ...question.secondaryTopics]
+      .filter(isUsefulTopic)
+      .map((label) => bankSlug === "igcse-biology-0610" ? canonicalBiology0610Topic(label) : label));
+    for (const label of labels) counts.set(label, (counts.get(label) ?? 0) + 1);
   }
   return counts;
 }
@@ -102,7 +81,7 @@ export function buildLandingManifest(bankSlug: BankSlug, questions: UnifiedQuest
   const bank = getCatalogBank(bankSlug);
   if (!bank) throw new Error(`Unknown bank: ${bankSlug}`);
 
-  const counts = topicCounts(questions);
+  const counts = topicCounts(questions, bankSlug);
   const ranked = [...counts.entries()]
     .filter(([, count]) => count >= 20)
     .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
@@ -116,9 +95,9 @@ export function buildLandingManifest(bankSlug: BankSlug, questions: UnifiedQuest
   const topics = (preferredTopics.length ? preferredTopics : ranked.slice(0, 2))
     .map(([label, count]) => asLandingTopic(label, count));
 
-  const orderedLabels = bankSlug === "igcse-biology-0610"
-    ? IGCSE_BIOLOGY_SYLLABUS_TOPICS.filter((label) => counts.has(label))
-    : getTopicOptions(questions).filter((label) => isUsefulTopic(label) && (counts.get(label) ?? 0) >= 5);
+  const orderedLabels = (bankSlug === "igcse-biology-0610"
+    ? getRoutedTopicOptions(questions).filter((label) => counts.has(label))
+    : getTopicOptions(questions).filter((label) => isUsefulTopic(label) && (counts.get(label) ?? 0) >= 5));
   const syllabusTopics = orderedLabels.map((label) => asLandingTopic(label, counts.get(label) ?? 0));
 
   const paperCounts = new Map<number, number>();
