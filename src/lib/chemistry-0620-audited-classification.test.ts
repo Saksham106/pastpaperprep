@@ -4,6 +4,9 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { PUBLIC_BANK_INDEX_FILES } from "./bank-index-manifest";
+import chemistryOtherTargets from "../../scripts/data/0620-other-retrieval-targets.json";
+
+const retrievalById = new Map(chemistryOtherTargets.rows.map((row) => [row.id, row]));
 
 const readBytes = (path: string) => readFileSync(join(process.cwd(), path));
 const read = (path: string) => JSON.parse(readBytes(path).toString("utf8"));
@@ -95,8 +98,9 @@ describe("Chemistry 0620 audited base classification production overlay", () => 
     expect(runtime.assetVerification).toBe("verified_readback");
     expect(runtime.version).toBe("igcse-chemistry-0620-release-candidate-v4-taxonomy-projected");
     expect(PUBLIC_BANK_INDEX_FILES["igcse-chemistry-0620"]).toBe(
-      "igcse-chemistry-0620.v1-ec9a875c4808.json",
+      "igcse-chemistry-0620.v1-c76ee37bcb63.json",
     );
+    expect(runtime.runtimeArtifact.chemistryOtherRetrievalRepair.changedCount).toBe(30);
     expect(runtime.auditedBaseClassification).toMatchObject({
       auditVerdict: "PASS",
       rowCount: 3529,
@@ -142,15 +146,24 @@ describe("Chemistry 0620 audited base classification production overlay", () => 
         const entry = overlayById.get(finalRow.question_id);
         expect(entry, finalRow.question_id).toBeDefined();
         if (!entry) throw new Error(`Missing legacy overlay row: ${finalRow.question_id}`);
-        expect(row?.primaryTopic, finalRow.question_id).toBe(entry.legacy_display.primaryTopic);
-        expect(row?.primaryTopicId, finalRow.question_id).toBe(entry.legacy_display.primaryTopicId);
+        if (retrievalById.has(finalRow.question_id)) {
+          const repaired = retrievalById.get(finalRow.question_id)!;
+          expect(row?.primaryTopic, finalRow.question_id).toBe(repaired.primaryTopic);
+          expect(row?.primaryTopicId, finalRow.question_id).toBe(repaired.primaryTopicId);
+          expect(row?.subtopics, finalRow.question_id).toEqual([
+            ...repaired.details, ...Object.values(repaired.secondaryTopics).flat(),
+          ]);
+        } else {
+          expect(row?.primaryTopic, finalRow.question_id).toBe(entry.legacy_display.primaryTopic);
+          expect(row?.primaryTopicId, finalRow.question_id).toBe(entry.legacy_display.primaryTopicId);
+        }
         if (entry.disposition === "restore_legacy_unverified") {
           expect(row?.classificationReviewStatus, finalRow.question_id).toBe("legacy_unverified");
           expect(row?.classificationProvenance.selectedSource, finalRow.question_id).toBe("legacy_unverified");
           expect(row?.classificationProvenance.legacyPrimaryDetailId, finalRow.question_id).toBe(entry.legacy_primary_detail_id);
         } else {
           expect(row?.classificationReviewStatus, finalRow.question_id).toBe("unresolved_taxonomy_gap");
-          expect(row?.primaryTopic).toBe("Other");
+          expect(row?.primaryTopic, finalRow.question_id).toBe(retrievalById.get(finalRow.question_id)?.primaryTopic ?? "Other");
           expect(row?.classificationProvenance.gaps.length).toBeGreaterThan(0);
         }
       } else {
@@ -175,7 +188,7 @@ describe("Chemistry 0620 audited base classification production overlay", () => 
     expect(unresolved).toBe(725);
   });
 
-  it("projects all classified extension IDs through the official taxonomy and keeps only genuine unresolved rows as Other", () => {
+  it("projects all classified extension IDs and preserves original gap provenance alongside source-backed retrieval", () => {
     const runtime = read(runtimePath);
     const artifact = read(artifactPath);
     const receipt = read(receiptPath);
@@ -205,8 +218,13 @@ describe("Chemistry 0620 audited base classification production overlay", () => 
       expect(row.primaryTopic, row.id).toBe(topic?.title);
       if (topic?.id !== "practical-skills") expect(row.subtopics, row.id).toContain(subtopic?.title);
     }
-    expect(unresolved.every((row) => row.primaryTopic === "Other" && row.primaryTopicId === null && row.classificationProvenance.gaps.length > 0)).toBe(true);
-    expect(runtime.questions.filter((row: RuntimeRow) => row.primaryTopic === "Other")).toHaveLength(30);
+    expect(unresolved.every((row) => {
+      const retrieval = retrievalById.get(row.id);
+      return row.primaryTopic === (retrieval?.primaryTopic ?? "Other") &&
+        row.primaryTopicId === (retrieval?.primaryTopicId ?? null) &&
+        row.classificationProvenance.gaps.length > 0;
+    })).toBe(true);
+    expect(runtime.questions.filter((row: RuntimeRow) => row.primaryTopic === "Other")).toHaveLength(0);
     expect(receipt.extension.rowsProjected).toBe(1572);
     expect(receipt.extension.unresolved).toBe(28);
     expect(receipt.extension.classificationProjectionOnly).toBe(true);
