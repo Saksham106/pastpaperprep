@@ -29,15 +29,31 @@ export async function fetchAccessEntitlements(client: {
   from: (table: string) => { select: (columns: string) => { eq: (column: string, value: string) => Promise<{ data: unknown[] | null; error: unknown }> } };
   rpc: (name: string, args: Record<string, unknown>) => Promise<{ data: unknown[] | null; error: unknown }>;
 }, userId: string): Promise<{ rows: unknown[]; error: unknown }> {
-  const [entitlements, customBundles] = await Promise.all([
-    client.from("entitlements").select("product_id, selected_bank_ids, status, starts_at, expires_at, source, products(name)").eq("user_id", userId),
-    client.rpc("get_custom_bundle_access", { p_user_id: userId }),
-  ]);
-  if (entitlements.error || customBundles.error) {
-    return { rows: [], error: entitlements.error ?? customBundles.error };
+  // PostgREST can briefly reject a freshly issued Supabase session as being in
+  // the future (PGRST303). Retry only this read-only, exact error; a failed or
+  // malformed access check must never be interpreted as an unpaid account.
+  const delays = [1000, 2000];
+  for (let attempt = 0; ; attempt++) {
+    const [entitlements, customBundles] = await Promise.all([
+      client.from("entitlements").select("product_id, selected_bank_ids, status, starts_at, expires_at, source, products(name)").eq("user_id", userId),
+      client.rpc("get_custom_bundle_access", { p_user_id: userId }),
+    ]);
+    const errors = [entitlements.error, customBundles.error].filter(Boolean);
+    if (errors.length) {
+      const futureJwt = errors.every((error) => {
+        if (!error || typeof error !== "object") return false;
+        const failure = error as { code?: unknown; message?: unknown };
+        return failure.code === "PGRST303" && failure.message === "JWT issued at future";
+      });
+      if (futureJwt && attempt < delays.length) {
+        await new Promise((resolve) => setTimeout(resolve, delays[attempt]));
+        continue;
+      }
+      return { rows: [], error: entitlements.error ?? customBundles.error };
+    }
+    if (!Array.isArray(entitlements.data) || !Array.isArray(customBundles.data)) {
+      return { rows: [], error: new Error("Invalid billing access response") };
+    }
+    return { rows: mergeCustomBundleAccess(entitlements.data, customBundles.data), error: null };
   }
-  if (!Array.isArray(entitlements.data) || !Array.isArray(customBundles.data)) {
-    return { rows: [], error: new Error("Invalid billing access response") };
-  }
-  return { rows: mergeCustomBundleAccess(entitlements.data, customBundles.data), error: null };
 }
