@@ -1,0 +1,7 @@
+# Biology 0610: bounded 2022 Q43 taxonomy correction
+
+- Target: `0610-2022-w-43-q5` only. Paired 2022 winter Paper 43 question paper and mark scheme are pinned by SHA-256 in `scripts/reseal-biology-0610-pollution.mjs`; the applicable Cambridge 2022 syllabus is `https://www.cambridgeinternational.org/Images/556995-2022-syllabus.pdf` (also hash-pinned in the script).
+- Decision: the assessed environmental impact belongs under the **2022 syllabus section 21.3 Pollution**, parent **21 Human influences on ecosystems**. The prior genetic-modification label captured context rather than the dominant assessed content. A bounded TypeSafe Jev 1.13.0 suggestion agreed with Pollution at confidence 0.62; the QP/MS and syllabus, not this model confidence, govern the decision. The model was not used across the bank.
+- Historical `reviewStatus: blocked`, `classificationReviewStatus`, and `classificationProvenance` remain untouched. A separate finalized-content seal records the released correction; the old overlay is not silently rewritten as if it had made this decision.
+- `0610-2022-w-42-q4` is a **different** figure-dependent multipart case; do not propagate this label. Two 2023 specimen-size cases remain unchanged.
+- The metadata-only reseal preserves all question/answer asset paths, all other 4,912 records, the immutable storage manifest and full verified receipt. The private/public indexes are regenerated only from the corrected one-row mapping. No upload or billing change is involved.

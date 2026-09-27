@@ -30,6 +30,13 @@ type IGCSEArtifact = {
       targetIdsSha256?: string;
       changedCount?: number;
       correctedTaxonomySha256?: string;
+      baselineGitCommit?: string;
+      targetId?: string;
+      targetIdSha256?: string;
+      classification?: string;
+      questionPaperSha256?: string;
+      markSchemeSha256?: string;
+      examYearSyllabusSha256?: string;
     };
     practicalRoleRepair?: {
       baselineRuntimeSha256?: string;
@@ -124,6 +131,50 @@ export function assert0625PracticalRoleRepair(artifact: IGCSEArtifact): void {
   ) throw new Error("IGCSE 0625 practical-role repair provenance or finalized content mismatch");
 }
 
+const REPAIR_0610_POLLUTION = {
+  id: "0610-2022-w-43-q5",
+  baselineGitCommit: "10ed3bfbb290d07b3d7a46d5010b464f58030b25",
+  baselineRuntimeSha256: "61697c59efa36fc7fd2e04f2d0826a77ef6e5035f4598239b86b22e82c68f533",
+  targetIdSha256: "0956cdd65d0c3289d8ff9400904bc65d8863fa267b922c370d97f3a6c411ab6b",
+  finalizedContentSha256: "ea6aa0830e97ec40614bb14c35cf2c8f18c151f8f2be1d74326967b0a7146694",
+  assetManifestSha256: "4984902a3db4fc7e0599d1c646aabcfb023d958370d529861283c5d37189e3d9",
+  storageReceiptSha256: "2def116660b15df52777805496d024d4799826da0cdee59eabddadab29e622a2",
+  questionPaperSha256: "956b8decf8f9b9fce5ef61f22f546da85bf1503d9779116b27bd88227aa11c09",
+  markSchemeSha256: "5de6113ce0c70c60637d9ea74045704f4738fae3235215fab4aac1822e910c75",
+  examYearSyllabusSha256: "cbad4f7771aa7af6edeb19c7190c8b4e23d2fe2c52585ac3ae6e59a5fa8945c6",
+} as const;
+
+/** Original candidate provenance remains historical; this pins the one-row repaired content. */
+export function assert0610PollutionRepair(artifact: IGCSEArtifact): void {
+  const seal = artifact.runtimeArtifact;
+  const repair = seal?.taxonomyRepair;
+  const q = artifact.questions.filter((item) => item.id === REPAIR_0610_POLLUTION.id);
+  const proof = q[0]?.classificationProvenance as { sourceEvidence?: { questionPaper?: { sha256?: string }; markScheme?: { sha256?: string } }; originalPrimaryTopicId?: string } | undefined;
+  if (
+    q.length !== 1 || artifact.questions.length !== 4913 ||
+    q[0].primaryTopic !== "Human influences on ecosystems" ||
+    q[0].primaryTopicId !== "topic_20_human_influences_on_ecosystems.21.3" ||
+    JSON.stringify(q[0].subtopics) !== JSON.stringify(["Pollution"]) ||
+    JSON.stringify(q[0].detailedSubtopics) !== JSON.stringify(["Pollution"]) ||
+    q[0].classificationReviewStatus !== "classified" ||
+    proof?.originalPrimaryTopicId !== "topic_21_biotechnology_and_genetic_modification.21.3" ||
+    proof?.sourceEvidence?.questionPaper?.sha256 !== REPAIR_0610_POLLUTION.questionPaperSha256 ||
+    proof?.sourceEvidence?.markScheme?.sha256 !== REPAIR_0610_POLLUTION.markSchemeSha256 ||
+    repair?.baselineGitCommit !== REPAIR_0610_POLLUTION.baselineGitCommit ||
+    repair?.baselineRuntimeSha256 !== REPAIR_0610_POLLUTION.baselineRuntimeSha256 ||
+    repair?.targetId !== REPAIR_0610_POLLUTION.id ||
+    repair?.targetIdSha256 !== REPAIR_0610_POLLUTION.targetIdSha256 ||
+    repair?.changedCount !== 1 || repair?.classification !== "Pollution" ||
+    repair?.questionPaperSha256 !== REPAIR_0610_POLLUTION.questionPaperSha256 ||
+    repair?.markSchemeSha256 !== REPAIR_0610_POLLUTION.markSchemeSha256 ||
+    repair?.examYearSyllabusSha256 !== REPAIR_0610_POLLUTION.examYearSyllabusSha256 ||
+    seal?.assetManifestSha256 !== REPAIR_0610_POLLUTION.assetManifestSha256 ||
+    seal?.storageReceiptSha256 !== REPAIR_0610_POLLUTION.storageReceiptSha256 ||
+    seal?.finalizedContentSha256 !== REPAIR_0610_POLLUTION.finalizedContentSha256 ||
+    canonicalSha256(artifact.questions) !== REPAIR_0610_POLLUTION.finalizedContentSha256
+  ) throw new Error("IGCSE 0610 pollution repair provenance or finalized content mismatch");
+}
+
 /** The original candidate seal describes the pre-repair release; this pins the corrected content separately. */
 export function assert0654TaxonomyRepair(artifact: IGCSEArtifact): void {
   const seal = artifact.runtimeArtifact;
@@ -168,6 +219,7 @@ export function getIGCSERuntimeArtifact(bank: IGCSEReleaseBankSlug, environment:
     )
   );
   if (artifact.questions.length !== questions || artifact.paperCount !== papers || metadata?.assetVerification !== "verified_readback" || typeof metadata?.storageReceiptSha256 !== "string" || typeof metadata?.assetManifestSha256 !== "string" || !taxonomySealed || !candidateSealed || !runtimeSealed || !questionStatesSealed) throw new Error("IGCSE runtime is not backed by verified storage, candidate, runtime, taxonomy, and question-state seals");
+  if (bank === "igcse-biology-0610") assert0610PollutionRepair(artifact);
   if (bank === "igcse-coordinated-sciences-0654") assert0654TaxonomyRepair(artifact);
   if (bank === "igcse-physics-0625") assert0625PracticalRoleRepair(artifact);
   return artifact;

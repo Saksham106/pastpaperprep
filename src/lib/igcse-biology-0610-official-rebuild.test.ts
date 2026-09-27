@@ -66,7 +66,12 @@ describe("IGCSE Biology 0610 official rebuild", () => {
       const reviewed = candidateById.get(pristine.id)!;
       expect(pristine.questionImages).toEqual(expect.arrayContaining(pristine.questionImages));
       expect(pristine.markschemeImages).toEqual(expect.arrayContaining(pristine.markschemeImages));
-      if (reviewed.reviewStatus === "blocked") expect(pristine.subtopics).toEqual([]);
+      if (pristine.id === "0610-2022-w-43-q5") {
+        // The source-backed release repair is deliberately layered over the historical blocked review.
+        expect(pristine.reviewStatus).toBe("blocked");
+        expect(pristine.primaryTopic).toBe("Human influences on ecosystems");
+        expect(pristine.subtopics).toEqual(["Pollution"]);
+      } else if (reviewed.reviewStatus === "blocked") expect(pristine.subtopics).toEqual([]);
       else expect(pristine.subtopics).toEqual(reviewed.subtopics);
     }
   });
@@ -82,7 +87,9 @@ describe("IGCSE Biology 0610 official rebuild", () => {
     }));
     const blocked = rows.filter((question) => question.reviewStatus === "blocked");
     expect(blocked).toHaveLength(4);
-    expect(blocked.every((question) => question.primaryTopic && question.subtopics.length === 0)).toBe(true);
+    const repaired = blocked.find((question) => question.id === "0610-2022-w-43-q5");
+    expect(repaired?.subtopics).toEqual(["Pollution"]);
+    expect(blocked.filter((question) => question.id !== repaired?.id).every((question) => question.primaryTopic && question.subtopics.length === 0)).toBe(true);
     const topic = blocked[0].primaryTopic;
     expect(rows.filter((question) => question.primaryTopic === topic)).toEqual(expect.arrayContaining(blocked.filter((question) => question.primaryTopic === topic)));
     const groups = getSubtopicGroups(rows, [topic], []);
