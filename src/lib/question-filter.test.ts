@@ -11,6 +11,21 @@ const question = (id: string, code: string, facet: string): UnifiedQuestion => (
   sourceQuestionUrl: null, sourceMarkSchemeUrl: null,
 });
 
+describe("Biology 0610 era-aware retrieval", () => {
+  it("selecting the current official topic includes semantically equivalent historical-era questions", () => {
+    const make = (id: string, primaryTopic: string): UnifiedQuestion => ({
+      ...question(id, "", ""), bankSlug: "igcse-biology-0610", primaryTopic,
+      subject: "Biology", courseEra: "", searchText: "",
+    });
+    const questions = [
+      make("old", "Movement in and out of cells"),
+      make("current", "Movement into and out of cells"),
+      make("unrelated", "Organisation of the organism"),
+    ];
+    expect(filterQuestions(questions, { topics: ["Movement into and out of cells"] }).map((q) => q.id).sort()).toEqual(["current", "old"]);
+  });
+});
+
 describe("Economics retrieval filters", () => {
   it("matches era-qualified official codes and additive facets independently", () => {
     const questions = [question("q1", "new_first_assessment_2022/2.1", "facet.trade-and-advantage"), question("q2", "new_first_assessment_2022/3.1", "facet.demand-and-supply")];

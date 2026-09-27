@@ -41,6 +41,19 @@ describe("search landing manifests", () => {
     expect(paperFilterHref("igcse", 2)).toBe("/banks/igcse?paper=2");
   });
 
+  it("uses current 0610 syllabus headings and totals equivalent historical papers together", () => {
+    const questions = [
+      ...Array.from({ length: 24 }, (_, i) => question({ id: `old-${i}`, primaryTopic: "Movement in and out of cells", bankSlug: "igcse-biology-0610", year: 2020 })),
+      ...Array.from({ length: 5 }, (_, i) => question({ id: `new-${i}`, primaryTopic: "Movement into and out of cells", bankSlug: "igcse-biology-0610", year: 2025 })),
+      question({ id: "both", primaryTopic: "Movement in and out of cells", secondaryTopics: ["Movement into and out of cells"], bankSlug: "igcse-biology-0610" }),
+    ];
+    const manifest = buildLandingManifest("igcse-biology-0610", questions);
+    expect(manifest.syllabusTopics).toEqual([{ label: "Movement into and out of cells", count: 30, slug: "movement-into-and-out-of-cells" }]);
+    expect(manifest.topics).toEqual(manifest.syllabusTopics);
+    expect(topicFilterHref("igcse-biology-0610", manifest.topics[0].label))
+      .toBe("/banks/igcse-biology-0610?topic=Movement%20into%20and%20out%20of%20cells");
+  });
+
   it("keeps Cambridge source links explicit and official", () => {
     const physics = getCatalogBank("igcse-physics-0625");
     expect(physics).toBeDefined();

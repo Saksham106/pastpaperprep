@@ -1,3 +1,4 @@
+import { canonicalBiology0610Topic } from "@/lib/biology-0610-topic-aliases";
 import type { QuestionFilters, UnifiedQuestion } from "@/lib/questions";
 import { isLocalEconomicsBank } from "@/lib/banks";
 
@@ -9,7 +10,14 @@ function includesAny(selected: string[] | undefined, values: string[]): boolean 
 }
 
 function filterableTopics(question: UnifiedQuestion): string[] {
-  return [question.primaryTopic, ...question.secondaryTopics];
+  const topics = [question.primaryTopic, ...question.secondaryTopics];
+  // 0610's 2026–28 wording supersedes two older labels. Keep the stored
+  // classifications untouched, but make the current official choice retrieve
+  // semantically equivalent archive questions too.
+  if (question.bankSlug === "igcse-biology-0610") {
+    return [...new Set([...topics, ...topics.map(canonicalBiology0610Topic)])];
+  }
+  return topics;
 }
 
 function filterableSubtopics(question: UnifiedQuestion): string[] {

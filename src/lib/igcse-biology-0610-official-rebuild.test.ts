@@ -5,6 +5,7 @@ import path from "node:path";
 import production from "@/data/production/igcse-biology-0610.json";
 import candidate from "@/data/local-preview/igcse-biology-0610.json";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
+import { canonicalBiology0610Topic } from "@/lib/biology-0610-topic-aliases";
 import { parseExplorerState, serializeExplorerState } from "@/lib/explorer-state";
 import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
 
@@ -86,7 +87,7 @@ describe("IGCSE Biology 0610 official rebuild", () => {
     expect(rows.filter((question) => question.primaryTopic === topic)).toEqual(expect.arrayContaining(blocked.filter((question) => question.primaryTopic === topic)));
     const groups = getSubtopicGroups(rows, [topic], []);
     expect(groups.relevant).not.toContain("");
-    expect(getTopicOptions(rows)).toContain(topic);
+    expect(getTopicOptions(rows)).toContain(canonicalBiology0610Topic(topic));
     const state = parseExplorerState({ topic, subtopic: "Respiration", era: "2023_2025" });
     expect(serializeExplorerState(state).toString()).toContain("topic=");
     expect(serializeExplorerState(state).toString()).toContain("era=2023_2025");

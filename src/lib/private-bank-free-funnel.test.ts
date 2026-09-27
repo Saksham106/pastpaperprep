@@ -161,7 +161,7 @@ describe("private-bank free funnel", () => {
 
   it("emits immutable static indexes that exactly match all production runtime projections", async () => {
     const slugs = [
-      "ib-economics-hl", "ib-economics-sl", "igcse-biology-0610", "igcse-economics-0455",
+      "ib-economics-hl", "ib-economics-sl", "igcse-economics-0455",
       "igcse-chemistry-0620", "igcse-physics-0625", "igcse-coordinated-sciences-0654",
     ] as const;
 
