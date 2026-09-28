@@ -27,13 +27,7 @@ export function ExamStylePracticeSets() {
         ))}
       </div>
       <div className="exam-style-viewer">
-        <header>
-          <div>
-            <p className="eyebrow">Selected practice set</p>
-            <h2 id="practice-set-heading">{selected.title}</h2>
-          </div>
-        </header>
-        <ExamStylePdfViewer key={selected.slug} src={apiUrl} title={selected.title} />
+        <ExamStylePdfViewer key={selected.slug} src={apiUrl} title={selected.title} eyebrow="Selected practice set" headingId="practice-set-heading" />
       </div>
     </section>
   );
