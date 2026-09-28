@@ -24,7 +24,7 @@ export default async function BuildPage() {
 
   return <main className="worksheet-library-page shell">
     <Link className="worksheet-library-back" href="/worksheets" aria-label="Back to my worksheets">← <span>My worksheets</span></Link>
-    <header className="worksheet-library-header"><p className="eyebrow">Your work</p><h1>Build a paper</h1><p>Choose a bank, years, topic and how much to practise. Generate a random set, then save it to work through on the site.</p></header>
+    <header className="worksheet-library-header"><p className="eyebrow">Your work</p><h1>Build a paper</h1><p>Pick the questions that matter to your course. Preview the set here, then save it when it feels right.</p></header>
     <PaperBuilder banks={banks} />
   </main>;
 }
