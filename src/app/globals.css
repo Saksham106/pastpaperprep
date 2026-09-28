@@ -483,6 +483,16 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .exam-style-viewer h2 { margin: 5px 0 0; font: 800 1.3rem/1.1 var(--font-display); letter-spacing: -.03em; }
 .exam-style-fallbacks { display: flex; flex-wrap: wrap; gap: 7px 17px; font-size: .78rem; }
 .exam-style-pdf { width: 100%; height: min(78vh, 920px); display: block; border: 0; background: #fff; }
+.exam-style-pdf-shell { min-width: 0; }
+.exam-style-pdf-controls { min-height: 44px; padding: 7px 16px; display: flex; align-items: center; justify-content: flex-end; gap: 14px; background: var(--surface); border-bottom: 1px solid var(--line); }
+.exam-style-pdf-action { min-height: 34px; padding: 5px 9px; display: inline-flex; align-items: center; gap: 6px; border-radius: 6px; color: var(--cobalt-strong); font-size: .82rem; font-weight: 750; }
+.exam-style-pdf-action:hover { background: var(--cobalt-soft); }
+.exam-style-pdf-action:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
+.exam-style-pdf-action svg { width: 17px; height: 17px; }
+.exam-style-pdf-shell.is-focused { position: fixed; inset: 0; z-index: 1000; display: flex; flex-direction: column; background: var(--surface); }
+.exam-style-pdf-shell.is-focused .exam-style-pdf-controls { justify-content: space-between; padding: max(10px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) 10px max(18px, env(safe-area-inset-left)); }
+.exam-style-pdf-focus-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 800 1.1rem/1.2 var(--font-display); }
+.exam-style-pdf-shell.is-focused .exam-style-pdf-pages { flex: 1; height: auto; min-height: 0; }
 .exam-style-pdf-pages { height: min(78vh, 920px); overflow: auto; overscroll-behavior: contain; background: #e8e8e8; color: #293244; }
 .exam-style-pdf-pages:focus-visible { outline: 2px solid var(--cobalt); outline-offset: -3px; }
 .exam-style-pdf-page { min-height: 260px; margin: 14px auto; padding: 0 10px; max-width: 850px; text-align: center; }

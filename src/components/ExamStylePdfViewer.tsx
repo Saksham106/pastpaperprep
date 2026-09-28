@@ -1,13 +1,56 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { ArrowsOut, ArrowLeft } from "@phosphor-icons/react/dist/ssr";
 import type { PDFDocumentProxy, PDFPageProxy, RenderTask } from "pdfjs-dist";
 
 /** Render pages ourselves rather than embedding Chrome's PDF plugin and its download toolbar. */
 export function ExamStylePdfViewer({ src, title }: { src: string; title: string }) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const focusRef = useRef<HTMLDivElement>(null);
+  const expandRef = useRef<HTMLButtonElement>(null);
+  const backRef = useRef<HTMLButtonElement>(null);
+  const wasFocusedRef = useRef(false);
   const [document, setDocument] = useState<PDFDocumentProxy | null>(null);
   const [error, setError] = useState(false);
+  const [focused, setFocused] = useState(false);
+
+  useEffect(() => {
+    if (!focused) {
+      if (wasFocusedRef.current) expandRef.current?.focus();
+      wasFocusedRef.current = false;
+      return;
+    }
+    wasFocusedRef.current = true;
+    const previousOverflow = window.document.body.style.overflow;
+    window.document.body.style.overflow = "hidden";
+    const frame = requestAnimationFrame(() => backRef.current?.focus());
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setFocused(false);
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const controls = [backRef.current, scrollRef.current].filter((node): node is HTMLButtonElement | HTMLDivElement => node !== null);
+      if (!controls.length) return;
+      const first = controls[0];
+      const last = controls[controls.length - 1];
+      if (event.shiftKey && (window.document.activeElement === first || !focusRef.current?.contains(window.document.activeElement))) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (window.document.activeElement === last || !focusRef.current?.contains(window.document.activeElement))) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+    window.document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.document.removeEventListener("keydown", handleKeyDown);
+      window.document.body.style.overflow = previousOverflow;
+    };
+  }, [focused]);
 
   useEffect(() => {
     let disposed = false;
@@ -43,11 +86,25 @@ export function ExamStylePdfViewer({ src, title }: { src: string; title: string 
   }, [src]);
 
   return (
-    <div ref={scrollRef} className="exam-style-pdf-pages" role="region" aria-label={`${title} practice PDF`} tabIndex={0}>
-      {error ? <p className="exam-style-pdf-status" role="alert">This practice set could not be loaded. Please refresh and try again.</p> :
-        document ? Array.from({ length: document.numPages }, (_, index) => (
-          <PdfPage key={`${src}-${index}`} pdf={document} number={index + 1} scrollRoot={scrollRef} />
-        )) : <p className="exam-style-pdf-status" role="status">Loading practice set…</p>}
+    <div ref={focusRef} className={`exam-style-pdf-shell${focused ? " is-focused" : ""}`}
+      role={focused ? "dialog" : undefined} aria-modal={focused ? "true" : undefined}
+      aria-label={focused ? `${title} focused practice PDF` : undefined}>
+      <div className="exam-style-pdf-controls">
+        {focused ? <>
+          <span className="exam-style-pdf-focus-title">{title}</span>
+          <button ref={backRef} className="exam-style-pdf-action" type="button" onClick={() => setFocused(false)}>
+            <ArrowLeft aria-hidden="true" /> Back to practice
+          </button>
+        </> : <button ref={expandRef} className="exam-style-pdf-action" type="button" onClick={() => setFocused(true)}>
+          <ArrowsOut aria-hidden="true" /> Focus view
+        </button>}
+      </div>
+      <div ref={scrollRef} className="exam-style-pdf-pages" role="region" aria-label={`${title} practice PDF`} tabIndex={0}>
+        {error ? <p className="exam-style-pdf-status" role="alert">This practice set could not be loaded. Please refresh and try again.</p> :
+          document ? Array.from({ length: document.numPages }, (_, index) => (
+            <PdfPage key={`${src}-${index}`} pdf={document} number={index + 1} scrollRoot={scrollRef} />
+          )) : <p className="exam-style-pdf-status" role="status">Loading practice set…</p>}
+      </div>
     </div>
   );
 }
