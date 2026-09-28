@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowSquareOut, FilePdf } from "@phosphor-icons/react/dist/ssr";
+import { CaretDown, FilePdf } from "@phosphor-icons/react/dist/ssr";
 import { EXAM_STYLE_INDUCTION_SETS } from "@/lib/exam-style-induction";
 import { EXAM_STYLE_BINOMIAL_COUNTING_SETS } from "@/lib/exam-style-binomial-counting";
 
@@ -10,6 +10,7 @@ type Topic = (typeof TOPICS)[number];
 
 export function ExamStyleAAHLWorkspace() {
   const [topic, setTopic] = useState<Topic>(TOPICS[0]);
+  const [inductionOpen, setInductionOpen] = useState(true);
   const [setSlug, setSetSlug] = useState<string>(EXAM_STYLE_INDUCTION_SETS[0].slug);
   const sets = topic === TOPICS[0]
     ? EXAM_STYLE_INDUCTION_SETS
@@ -20,26 +21,47 @@ export function ExamStyleAAHLWorkspace() {
     : `/api/exam-style/binomial-counting/${selected.slug}`;
 
   function selectTopic(next: Topic) {
-    setTopic(next);
-    setSetSlug(next === TOPICS[0] ? EXAM_STYLE_INDUCTION_SETS[0].slug : next === TOPICS[1] ? "binomial" : "counting");
+    if (next === TOPICS[0]) {
+      setInductionOpen((open) => !open);
+      setTopic(next);
+      setSetSlug(EXAM_STYLE_INDUCTION_SETS[0].slug);
+    } else {
+      setTopic(next);
+      setInductionOpen(false);
+      setSetSlug(next === TOPICS[1] ? "binomial" : "counting");
+    }
   }
 
   return (
     <section className="exam-style-workspace" aria-labelledby="aa-hl-practice-set-heading">
-      <nav className="exam-style-set-list" aria-label="AA HL exam-style topics">
-        {TOPICS.map((item) => <button className={`exam-style-set-option${item === topic ? " is-selected" : ""}`} key={item} type="button" aria-pressed={item === topic} onClick={() => selectTopic(item)}>
-          <span><strong>{item}</strong><small>{item === TOPICS[0] ? "3 practice sets" : "1 practice set"}</small></span>
-        </button>)}
+      <nav className="exam-style-set-list exam-style-topic-tree" aria-label="AA HL exam-style topics">
+        {TOPICS.map((item) => (
+          <div className="exam-style-topic-branch" key={item}>
+            <button className={`exam-style-set-option${item === topic ? " is-selected" : ""}`} type="button"
+              aria-pressed={item === topic} aria-expanded={item === TOPICS[0] ? inductionOpen : undefined}
+              aria-controls={item === TOPICS[0] ? "induction-practice-sets" : undefined}
+              onClick={() => selectTopic(item)}>
+              <span><strong>{item}</strong><small>{item === TOPICS[0] ? "3 practice sets" : "1 practice set"}</small></span>
+              {item === TOPICS[0] && <CaretDown className={`exam-style-branch-caret${inductionOpen ? " is-open" : ""}`} aria-hidden="true" />}
+            </button>
+            {item === TOPICS[0] && inductionOpen && (
+              <div id="induction-practice-sets" className="exam-style-tree-children" role="group" aria-label="Proof by induction practice sets">
+                {EXAM_STYLE_INDUCTION_SETS.map((set) => (
+                  <button className={`exam-style-set-option exam-style-tree-child${topic === TOPICS[0] && set.slug === selected.slug ? " is-selected" : ""}`}
+                    key={set.slug} type="button" aria-pressed={topic === TOPICS[0] && set.slug === selected.slug}
+                    onClick={() => { setTopic(TOPICS[0]); setSetSlug(set.slug); }}>
+                    <FilePdf aria-hidden="true" weight="duotone" />
+                    <span><strong>{set.title}</strong><small>{set.count} questions · worked solutions</small></span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
       </nav>
       <div className="exam-style-viewer">
-        {sets.length > 1 && <div className="exam-style-topic-sets" role="group" aria-label={`${topic} practice sets`}>
-          {sets.map((set) => <button className={`exam-style-set-option${set.slug === selected.slug ? " is-selected" : ""}`} key={set.slug} type="button" aria-pressed={set.slug === selected.slug} onClick={() => setSetSlug(set.slug)}><FilePdf aria-hidden="true" weight="duotone" /><span><strong>{set.title}</strong><small>{set.count} questions · worked solutions</small></span></button>)}
-        </div>}
-        <header><div><p className="eyebrow">{topic} · selected practice set</p><h2 id="aa-hl-practice-set-heading">{selected.title}</h2></div>
-          <div className="exam-style-fallbacks"><a className="text-link" href={apiUrl} target="_blank" rel="noreferrer">Open in new tab <ArrowSquareOut aria-hidden="true" /></a></div>
-        </header>
+        <header><div><p className="eyebrow">{topic} · selected practice set</p><h2 id="aa-hl-practice-set-heading">{selected.title}</h2></div></header>
         <iframe className="exam-style-pdf" key={apiUrl} src={apiUrl} title={`${selected.title} practice PDF`} />
-        <p className="exam-style-fallback-note">If the embedded viewer does not load, open the practice set in a new tab.</p>
       </div>
     </section>
   );
