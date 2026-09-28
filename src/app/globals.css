@@ -463,6 +463,14 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .exam-style-header .text-link, .exam-style-fallbacks .text-link { display: inline-flex; align-items: center; gap: 6px; color: var(--cobalt-strong); font-weight: 780; }
 .exam-style-workspace { margin-top: 30px; display: grid; grid-template-columns: minmax(210px, .32fr) minmax(0, 1fr); gap: 26px; align-items: start; }
 .exam-style-set-list { display: grid; gap: 5px; }
+.exam-style-topic-tree { gap: 4px; }
+.exam-style-topic-branch { min-width: 0; }
+.exam-style-topic-branch > .exam-style-set-option { width: 100%; justify-content: space-between; }
+.exam-style-branch-caret { flex: 0 0 auto; transition: transform .18s ease; }
+.exam-style-branch-caret.is-open { transform: rotate(180deg); }
+.exam-style-tree-children { margin: 4px 0 10px 16px; padding-left: 11px; border-left: 1px solid var(--line-strong); display: grid; gap: 3px; }
+.exam-style-tree-child { width: 100%; min-height: 52px; }
+.exam-style-tree-child svg { flex: 0 0 auto; }
 .exam-style-set-option { min-height: 64px; padding: 11px 12px; display: flex; align-items: center; gap: 10px; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 8px; text-align: left; }
 .exam-style-set-option:hover, .exam-style-set-option.is-selected { color: var(--ink); background: var(--surface); border-color: var(--line); }
 .exam-style-set-option.is-selected { box-shadow: inset 3px 0 var(--cobalt); }
@@ -489,6 +497,7 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
   .exam-style-header h1 { font-size: clamp(2.7rem, 14vw, 4rem); }
   .exam-style-workspace { grid-template-columns: 1fr; gap: 18px; }
   .exam-style-set-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; }
+  .exam-style-topic-tree { grid-template-columns: 1fr; }
   .exam-style-set-option { min-height: 58px; padding: 9px; }
   .exam-style-set-option strong { font-size: .76rem; line-height: 1.2; }
   .exam-style-viewer > header { align-items: flex-start; flex-direction: column; }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowSquareOut, FilePdf } from "@phosphor-icons/react/dist/ssr";
+import { FilePdf } from "@phosphor-icons/react/dist/ssr";
 import { EXAM_STYLE_INDUCTION_SETS } from "@/lib/exam-style-induction";
 
 export function ExamStyleInductionSets() {
@@ -19,11 +19,8 @@ export function ExamStyleInductionSets() {
         ))}
       </div>
       <div className="exam-style-viewer">
-        <header><div><p className="eyebrow">Selected practice set</p><h2 id="induction-practice-set-heading">{selected.title}</h2></div>
-          <div className="exam-style-fallbacks"><a className="text-link" href={apiUrl} target="_blank" rel="noreferrer">Open in new tab <ArrowSquareOut aria-hidden="true" /></a></div>
-        </header>
+        <header><div><p className="eyebrow">Selected practice set</p><h2 id="induction-practice-set-heading">{selected.title}</h2></div></header>
         <iframe className="exam-style-pdf" key={selected.slug} src={apiUrl} title={`${selected.title} practice PDF`} />
-        <p className="exam-style-fallback-note">If the embedded viewer does not load, open the practice set in a new tab.</p>
       </div>
     </section>
   );

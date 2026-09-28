@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowSquareOut, FilePdf } from "@phosphor-icons/react/dist/ssr";
+import { FilePdf } from "@phosphor-icons/react/dist/ssr";
 import { EXAM_STYLE_TRIGONOMETRY_SETS } from "@/lib/exam-style-trigonometry";
 
 export function ExamStylePracticeSets() {
@@ -31,12 +31,8 @@ export function ExamStylePracticeSets() {
             <p className="eyebrow">Selected practice set</p>
             <h2 id="practice-set-heading">{selected.title}</h2>
           </div>
-          <div className="exam-style-fallbacks">
-            <a className="text-link" href={apiUrl} target="_blank" rel="noreferrer">Open in new tab <ArrowSquareOut aria-hidden="true" /></a>
-          </div>
         </header>
         <iframe className="exam-style-pdf" key={selected.slug} src={apiUrl} title={`${selected.title} PDF`} />
-        <p className="exam-style-fallback-note">If the embedded viewer does not load, open the practice set in a new tab.</p>
       </div>
     </section>
   );
