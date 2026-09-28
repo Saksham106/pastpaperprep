@@ -377,6 +377,26 @@ describe("approved custom-bank pricing", () => {
     expect(within(oneBank!).getByRole("radio", { name: "IB Math AA SL" })).toBeChecked();
   });
 
+  it("offers referral credits beneath free practice, before bank comparison, only on public pricing", () => {
+    const { container, rerender } = render(<PricingContent authenticated={false} hasPaidAccess={false} availableBanks={availableBanks} />);
+    const note = container.querySelector(".pricing-referral-note") as HTMLElement;
+    const free = container.querySelector(".pricing-free-strip") as HTMLElement;
+    const catalog = container.querySelector(".pricing-bank-catalog") as HTMLElement;
+    expect(note).not.toBeNull();
+    expect(free.compareDocumentPosition(note) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(note.compareDocumentPosition(catalog) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(within(note).getByRole("link", { name: "See referral rewards" })).toHaveAttribute("href", "/login?next=/account/referrals");
+    expect(within(note).getByText("Refer friends. Get plan credit.")).toBeInTheDocument();
+    expect(within(note).getByText("Eligible referrals can earn a month of credit toward a paid plan after review.")).toBeInTheDocument();
+    expect(note.querySelector("a")?.classList.contains("button")).toBe(true);
+    expect(container.querySelector(".pricing-includes-compact")).toBeNull();
+    rerender(<PricingContent authenticated hasPaidAccess={false} availableBanks={availableBanks} />);
+    expect(container.querySelectorAll(".pricing-referral-note")).toHaveLength(1);
+    expect(within(container.querySelector(".pricing-referral-note") as HTMLElement).getByRole("link", { name: "See referral rewards" })).toHaveAttribute("href", "/account/referrals");
+    rerender(<PricingContent authenticated hasPaidAccess currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
+    expect(container.querySelector(".pricing-referral-note")).toBeNull();
+  });
+
   it("keeps free access compact and switches the coverage comparison by qualification", () => {
     const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} />);
     expect(container.querySelector(".pricing-free-strip")).not.toBeNull();
