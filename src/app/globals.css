@@ -1719,7 +1719,8 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .worksheet-library-page { padding-block: clamp(2rem, 5vw, 4rem); }
 .worksheet-library-header { margin-bottom: 2rem; }
 .worksheet-library-header h1 { margin: .25rem 0; font: 800 clamp(2rem, 4vw, 3rem)/1.08 var(--font-display); letter-spacing: -.045em; color: var(--ink); }
-.worksheet-library-header > p:last-child { color: var(--muted-foreground, #5c6673); }
+.worksheet-library-header > p:not(.eyebrow) { color: var(--muted-foreground, #5c6673); }
+.worksheet-build-link { display: inline-flex; margin-top: 12px; min-height: 44px; }
 .dashboard-qualification-row { position: relative; margin-top: 24px; }
 .dashboard-qualification-row .dashboard-qualification-tabs { width: 100%; margin-top: 0; }
 .dashboard-qualification-row .dashboard-worksheets-link { position: absolute; z-index: 1; top: 0; left: 0; margin: 0; padding: .55rem .8rem; border-color: var(--line); color: var(--muted); font-size: .9rem; }
@@ -1780,7 +1781,7 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 :root[data-theme="dark"] .saved-worksheet-card { border-color: var(--line); }
 :root[data-theme="dark"] .saved-worksheet-info time,
 :root[data-theme="dark"] .saved-worksheets-empty,
-:root[data-theme="dark"] .worksheet-library-header > p:last-child { color: var(--muted); }
+:root[data-theme="dark"] .worksheet-library-header > p:not(.eyebrow) { color: var(--muted); }
 :root[data-theme="dark"] .dashboard-worksheets-link { color: var(--ink); }
 :root[data-theme="dark"] .dashboard-worksheets-link:hover,
 :root[data-theme="dark"] .dashboard-worksheets-link:focus-visible { color: var(--accent-contrast); background: var(--cobalt); }
