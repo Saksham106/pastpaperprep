@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRef } from "react";
 import { ArrowRight, CaretDown, Gear, Key } from "@phosphor-icons/react/dist/ssr";
 import { QualificationTabs } from "@/components/QualificationTabs";
 import { CourseIcon, courseToneForBank, type CourseTone } from "@/components/CourseIcon";
@@ -21,6 +22,8 @@ function displayBankName(bank: Bank): string {
 }
 
 export function DashboardContent({ authenticated, accessibleBanks, availableBanks = BANKS }: { authenticated: boolean; accessibleBanks: BankSlug[]; availableBanks?: readonly Bank[] }) {
+  const worksheetTrigger = useRef<HTMLButtonElement>(null);
+  const worksheetDialog = useRef<HTMLDialogElement>(null);
   const accessible = new Set(accessibleBanks);
   const hasPaidAccess = accessibleBanks.length > 0;
   const cambridgeSubjects = [...new Set(availableBanks.filter((bank) => bank.qualification === "Cambridge IGCSE").map((bank) => bank.subject.replace(/\s+\d{4}$/, "")))];
@@ -56,7 +59,8 @@ export function DashboardContent({ authenticated, accessibleBanks, availableBank
     <section className="dashboard-page dashboard-study-desk shell">
       <header className="dashboard-heading"><div><p className="eyebrow">Question banks</p><h1>{hasPaidAccess ? "Your study desk" : "Start practising"}</h1><p>{hasPaidAccess ? "Open an included bank or sample another course with free questions." : "Pick your course and start with complete older exam years for free."}</p></div>{authenticated ? <details className="dashboard-settings"><summary><Gear /> Account & settings <CaretDown /></summary><div className="dashboard-actions"><Link href={hasPaidAccess ? "/account/subscription" : "/pricing"}><Gear /> {hasPaidAccess ? "View your access" : "View plans"}</Link><Link href="/account"><Gear /> My account</Link><Link href="/account/password"><Key /> Password settings</Link></div></details> : null}</header>
       {!hasPaidAccess && <aside className="dashboard-upgrade-strip"><div><strong>Ready for the complete bank?</strong><span>Unlock one course from $6/month, or build a two-bank plan from $10/month.</span></div><Link className="button secondary" href="/pricing">View plans <ArrowRight weight="bold" /></Link></aside>}
-      <div className="dashboard-qualification-row">{authenticated && <Link className="dashboard-worksheets-link" href="/worksheets">My worksheets <ArrowRight weight="bold" /></Link>}{qualificationGroups.length > 0 ? <QualificationTabs items={qualificationPanels} className="dashboard-qualification-tabs" /> : <p className="dashboard-empty-state">No question banks are available right now.</p>}</div>
+      <div className="dashboard-qualification-row">{authenticated && (hasPaidAccess ? <Link className="dashboard-worksheets-link" href="/worksheets">My worksheets <ArrowRight weight="bold" /></Link> : <button ref={worksheetTrigger} type="button" className="dashboard-worksheets-link" onClick={() => worksheetDialog.current?.showModal()}>My worksheets <ArrowRight weight="bold" /></button>)}{qualificationGroups.length > 0 ? <QualificationTabs items={qualificationPanels} className="dashboard-qualification-tabs" /> : <p className="dashboard-empty-state">No question banks are available right now.</p>}</div>
+      {authenticated && !hasPaidAccess && <dialog ref={worksheetDialog} className="dashboard-worksheets-dialog" aria-labelledby="dashboard-worksheets-dialog-title" onCancel={(event) => { event.preventDefault(); worksheetDialog.current?.close(); }} onClose={() => worksheetTrigger.current?.focus()}><h2 id="dashboard-worksheets-dialog-title">Unlock worksheets</h2><p>Worksheets and PDF exports need a plan.</p><div className="dashboard-worksheets-dialog-actions"><Link className="button primary" href="/pricing" onClick={() => worksheetDialog.current?.close()}>See plans</Link><button type="button" className="button secondary" onClick={() => worksheetDialog.current?.close()}>Not now</button></div></dialog>}
     </section>
   );
 }

@@ -1745,8 +1745,15 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 @media (max-width: 850px) {
   .dashboard-qualification-row .dashboard-worksheets-link { position: static; margin: 0 0 14px; }
 }
-.dashboard-worksheets-link { display: inline-flex; align-items: center; gap: .65rem; margin: 0 0 1.25rem; padding: .75rem 1rem; border: 1px solid currentColor; border-radius: .65rem; color: var(--foreground, #18212b); font-weight: 700; text-decoration: none; }
+.dashboard-worksheets-link { display: inline-flex; align-items: center; gap: .65rem; margin: 0 0 1.25rem; padding: .75rem 1rem; border: 1px solid currentColor; border-radius: .65rem; background: transparent; color: var(--foreground, #18212b); font: inherit; font-weight: 700; text-decoration: none; cursor: pointer; }
 .dashboard-worksheets-link:hover, .dashboard-worksheets-link:focus-visible { background: var(--foreground, #18212b); color: var(--background, white); }
+.dashboard-worksheets-dialog { width: min(420px, calc(100% - 32px)); max-height: calc(100dvh - 32px); margin: auto; padding: 26px; overflow: auto; color: var(--ink); background: var(--surface-raised); border: 1px solid var(--line-strong); border-radius: 14px; box-shadow: 0 24px 70px rgb(25 34 54 / .22); }
+.dashboard-worksheets-dialog::backdrop { background: rgb(25 34 54 / .46); }
+.dashboard-worksheets-dialog h2 { margin: 0 0 8px; font: 800 1.6rem/1.15 var(--font-display); letter-spacing: -.035em; }
+.dashboard-worksheets-dialog p { margin: 0; color: var(--muted); line-height: 1.5; }
+.dashboard-worksheets-dialog-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.dashboard-worksheets-dialog-actions .button { min-height: 44px; }
+.dashboard-worksheets-dialog :is(a,button):focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; }
 .saved-worksheet-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; }
 .saved-worksheet-action { display: inline-flex; min-height: 2.75rem; align-items: center; justify-content: center; padding: .65rem 1rem; border: 2px solid #183e70; border-radius: .55rem; background: #fff; color: #183e70; font: inherit; font-weight: 750; line-height: 1.15; text-decoration: none; cursor: pointer; }
 .saved-worksheet-action:hover, .saved-worksheet-action:focus-visible { outline: 3px solid #a8c9f5; outline-offset: 2px; background: #edf5ff; }
