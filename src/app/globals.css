@@ -1738,7 +1738,7 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .worksheet-build-link { display: inline-flex; margin-top: 12px; min-height: 44px; }
 .dashboard-qualification-row { position: relative; margin-top: 24px; }
 .dashboard-qualification-row .dashboard-qualification-tabs { width: 100%; margin-top: 0; }
-.dashboard-qualification-row .dashboard-worksheets-link { position: absolute; z-index: 1; top: 0; left: 0; margin: 0; padding: .55rem .8rem; border-color: var(--line); color: var(--muted); font-size: .9rem; }
+.dashboard-qualification-row .dashboard-worksheets-link { position: absolute; z-index: 1; top: 0; left: 0; margin: 0; padding: .55rem .8rem; border-color: var(--ink); color: var(--ink); font-size: .9rem; }
 .dashboard-qualification-row .dashboard-worksheets-link:hover, .dashboard-qualification-row .dashboard-worksheets-link:focus-visible { border-color: var(--foreground, #18212b); color: var(--background, white); }
 .worksheet-library-back { display: inline-flex; align-items: center; gap: .45rem; min-height: 2.75rem; margin-bottom: 1.1rem; color: var(--cobalt); font-weight: 750; text-decoration: none; }
 .worksheet-library-back:hover, .worksheet-library-back:focus-visible { text-decoration: underline; text-underline-offset: .2em; }

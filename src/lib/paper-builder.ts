@@ -1,8 +1,10 @@
 import type { PublicQuestionMetadata } from "@/lib/question-index";
+import type { BankSlug } from "@/lib/banks";
+import { deriveCourseRoute, matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
 
-export type PaperCandidate = Pick<PublicQuestionMetadata, "id" | "paper" | "year" | "marks" | "primaryTopic" | "secondaryTopics">;
+export type PaperCandidate = Pick<PublicQuestionMetadata, "id" | "paper" | "year" | "marks" | "primaryTopic" | "secondaryTopics"> & { subtopics?: string[] };
 export type PaperTarget = { paper: number; amount: number };
-export type PaperPlan = { mode: "questions" | "marks"; targets: PaperTarget[]; seed: number; yearFrom?: number; yearTo?: number; topics?: string[] };
+export type PaperPlan = { mode: "questions" | "marks"; targets: PaperTarget[]; seed: number; yearFrom?: number; yearTo?: number; topics?: string[]; subtopics?: string[]; bank?: BankSlug; courseRoute?: CourseRouteSelection };
 
 function shuffled<T>(items: readonly T[], initialSeed: number): T[] {
   let seed = initialSeed >>> 0;
@@ -41,10 +43,15 @@ function exactMarks(pool: PaperCandidate[], target: number, maxQuestions: number
 
 /** Select source-backed questions from the public metadata index; saving rechecks IDs and access server-side. */
 export function generatePaper(questions: readonly PaperCandidate[], plan: PaperPlan): { questions: PaperCandidate[]; totalMarks: number } {
-  const { mode, targets, seed, yearFrom, yearTo, topics = [] } = plan;
+  const { mode, targets, seed, yearFrom, yearTo, topics = [], subtopics = [], bank, courseRoute = "all" } = plan;
   if (mode !== "questions" && mode !== "marks") throw new Error("Choose questions or marks");
   if (!Number.isInteger(seed) || !targets.length || targets.some(({ paper, amount }) => !Number.isInteger(paper) || paper < 1 || !Number.isInteger(amount) || amount < 1)) throw new Error("Choose a positive target for at least one paper");
   if (new Set(targets.map(({ paper }) => paper)).size !== targets.length) throw new Error("Duplicate paper targets are not allowed");
+  if (courseRoute !== "all" && courseRoute !== "core" && courseRoute !== "extended") throw new Error("Choose a valid course route");
+  if (courseRoute !== "all" && (!bank || !supportsCourseRoute(bank))) throw new Error("Core and Extended routes are not available for this bank");
+  if (courseRoute !== "all" && targets.some(({ paper }) => !matchesCourseRoute(deriveCourseRoute(bank!, paper), courseRoute))) {
+    throw new Error(`${courseRoute === "core" ? "Core" : "Extended"} students cannot select Paper ${targets.find(({ paper }) => !matchesCourseRoute(deriveCourseRoute(bank!, paper), courseRoute))!.paper}`);
+  }
   if (yearFrom !== undefined && yearTo !== undefined && yearFrom > yearTo) throw new Error("The first year must not be after the last year");
   if (mode === "questions" && targets.reduce((sum, target) => sum + target.amount, 0) > 50) throw new Error("A worksheet can contain at most 50 questions");
   if (mode === "marks" && targets.some(({ amount }) => amount > 200)) throw new Error("Choose at most 200 marks per paper");
@@ -53,7 +60,9 @@ export function generatePaper(questions: readonly PaperCandidate[], plan: PaperP
     Number.isInteger(question.marks) && question.marks! > 0 &&
     (yearFrom === undefined || question.year >= yearFrom) &&
     (yearTo === undefined || question.year <= yearTo) &&
-    (!topics.length || topics.some((topic) => question.primaryTopic === topic || question.secondaryTopics.includes(topic)))
+    (!topics.length || topics.some((topic) => question.primaryTopic === topic || question.secondaryTopics.includes(topic))) &&
+    (!subtopics.length || subtopics.some((subtopic) => question.subtopics?.includes(subtopic))) &&
+    (courseRoute === "all" || matchesCourseRoute(deriveCourseRoute(bank!, question.paper), courseRoute))
   ).map((question) => [question.id, question])).values()];
   const selected: PaperCandidate[] = [];
   for (const { paper, amount } of targets) {

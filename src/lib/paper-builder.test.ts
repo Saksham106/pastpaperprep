@@ -33,6 +33,26 @@ describe("generatePaper", () => {
     expect(result.questions.map((question) => question.id)).not.toContain("unknown");
   });
 
+  it("combines multiple topics and subtopics without admitting an unrelated paper", () => {
+    const pool: PaperCandidate[] = [
+      { ...questions[0], id: "atoms", subtopics: ["Atomic structure"] },
+      { ...questions[1], id: "energy", subtopics: ["Heat"] },
+      { ...questions[0], id: "wrong-detail", subtopics: ["Bonding"] },
+      { ...questions[0], id: "wrong-topic", primaryTopic: "Other", subtopics: ["Atomic structure"] },
+    ];
+    const result = generatePaper(pool, { mode: "questions", targets: [{ paper: 1, amount: 2 }], topics: ["Atoms", "Energy"], subtopics: ["Atomic structure", "Heat"], seed: 1 });
+    expect(result.questions.map((q) => q.id).sort()).toEqual(["atoms", "energy"]);
+  });
+
+  it("routes Core and Extended to their own theory papers while retaining shared practical papers", () => {
+    const pool: PaperCandidate[] = [1, 2, 3, 4, 5, 6].map((paper) => ({ ...questions[0], paper, id: `p${paper}` }));
+    const core = { bank: "igcse-chemistry-0620" as const, courseRoute: "core" as const, mode: "questions" as const, seed: 1 };
+    expect(generatePaper(pool, { ...core, targets: [{ paper: 1, amount: 1 }, { paper: 5, amount: 1 }] }).questions.map((q) => q.paper)).toEqual([1, 5]);
+    expect(() => generatePaper(pool, { ...core, targets: [{ paper: 2, amount: 1 }] })).toThrow(/Core.*Paper 2|Paper 2.*Core/i);
+    expect(generatePaper(pool, { ...core, courseRoute: "extended", targets: [{ paper: 4, amount: 1 }, { paper: 6, amount: 1 }] }).questions.map((q) => q.paper)).toEqual([4, 6]);
+    expect(() => generatePaper(pool, { ...core, bank: "ib-hl", targets: [{ paper: 1, amount: 1 }] })).toThrow(/Core.*Extended.*bank/i);
+  });
+
   it("fails clearly rather than silently underfilling or returning an impossible marks mix", () => {
     expect(() => generatePaper(questions, { mode: "questions", targets: [{ paper: 1, amount: 4 }], seed: 1 })).toThrow(/Paper 1.*3 available/i);
     expect(() => generatePaper(questions, { mode: "marks", targets: [{ paper: 2, amount: 4 }], seed: 1 })).toThrow(/Paper 2.*exactly 4 marks/i);

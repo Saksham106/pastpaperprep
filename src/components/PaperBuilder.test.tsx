@@ -12,17 +12,86 @@ const index = { version: 1, bank: bank.slug, questions: [metadata("a", 1, 2024, 
 afterEach(() => vi.unstubAllGlobals());
 
 describe("PaperBuilder", () => {
+  it("gives free members a direct pricing decision", () => {
+    render(<PaperBuilder banks={[]} />);
+    expect(screen.getByRole("link", { name: /see plans/i })).toHaveAttribute("href", "/pricing");
+    expect(screen.getByText(/paper building requires/i)).toBeInTheDocument();
+  });
+
+  it("keeps Cambridge route choices off IB banks and clears a previous draft on bank switch", async () => {
+    const ibBank = { ...bank, slug: "ib-hl" as const, label: "IB Math AA HL", indexUrl: "/ib.json" };
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValueOnce(Response.json(index)).mockResolvedValueOnce(Response.json({ ...index, bank: "ib-hl" })));
+    render(<PaperBuilder banks={[bank, ibBank]} />);
+    await screen.findByRole("group", { name: "Your Cambridge route" });
+    fireEvent.change(screen.getByRole("spinbutton", { name: "Paper 1 questions" }), { target: { value: "1" } });
+    fireEvent.click(screen.getByRole("button", { name: "Generate paper" }));
+    expect(screen.getByRole("region", { name: "Generated paper preview" })).toBeInTheDocument();
+    fireEvent.change(screen.getByLabelText("Question bank"), { target: { value: "ib-hl" } });
+    expect(screen.queryByRole("group", { name: "Your Cambridge route" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("region", { name: "Generated paper preview" })).not.toBeInTheDocument();
+    await screen.findByRole("spinbutton", { name: "Paper 2 questions" });
+  });
+
+  it("lets a student combine topics and subtopics and scopes paper choices to their Cambridge route", async () => {
+    const indexWithDetails: PublicBankIndex = { ...index, questions: [
+      { ...index.questions[0], subtopics: ["Atomic structure"] },
+      { ...index.questions[1], year: 2024, subtopics: ["Heat"] },
+      { ...index.questions[2], subtopics: ["Bonding"] },
+      { ...index.questions[3], subtopics: ["Heat"] },
+    ] };
+    const fetchMock = vi.fn().mockResolvedValue(Response.json(indexWithDetails));
+    vi.stubGlobal("fetch", fetchMock);
+    render(<PaperBuilder banks={[bank]} />);
+    await screen.findByRole("spinbutton", { name: "Paper 1 questions" });
+    fireEvent.click(screen.getByRole("button", { name: /Extended.*Papers 2.*4/i }));
+    expect(screen.queryByRole("spinbutton", { name: "Paper 1 questions" })).not.toBeInTheDocument();
+    expect(screen.getByRole("spinbutton", { name: "Paper 2 questions" })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: /All papers/i }));
+    fireEvent.click(screen.getByText("Topics", { selector: "summary" }));
+    fireEvent.click(screen.getByRole("checkbox", { name: "Atoms" }));
+    fireEvent.click(screen.getByRole("checkbox", { name: "Energy" }));
+    fireEvent.click(screen.getByText("Subtopics", { selector: "summary" }));
+    fireEvent.click(screen.getByRole("checkbox", { name: "Heat" }));
+    fireEvent.change(screen.getByRole("spinbutton", { name: "Paper 1 questions" }), { target: { value: "1" } });
+    fireEvent.change(screen.getByRole("spinbutton", { name: "Paper 2 questions" }), { target: { value: "1" } });
+    fireEvent.click(screen.getByRole("button", { name: "Generate paper" }));
+    expect(screen.getByRole("region", { name: "Generated paper preview" })).toHaveTextContent("2 questions");
+    expect(screen.getByText(/Paper 1 · Question 1/)).toBeInTheDocument();
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("previews actual question and answer images without saving a worksheet", async () => {
+    const asset = (kind: "question" | "answer") => Response.json({ expiresIn: 600, assets: [{ questionId: "a", kind, urls: [`https://assets.example.com/${kind}.png`] }] });
+    const fetchMock = vi.fn().mockResolvedValueOnce(Response.json(index)).mockResolvedValueOnce(asset("question")).mockResolvedValueOnce(asset("answer"));
+    vi.stubGlobal("fetch", fetchMock);
+    render(<PaperBuilder banks={[bank]} />);
+    await screen.findByRole("spinbutton", { name: "Paper 1 questions" });
+    fireEvent.change(screen.getByRole("spinbutton", { name: "Paper 1 questions" }), { target: { value: "1" } });
+    fireEvent.change(screen.getByLabelText("From year"), { target: { value: "2024" } });
+    fireEvent.click(screen.getByRole("button", { name: "Generate paper" }));
+    fireEvent.click(screen.getByRole("button", { name: "Preview paper" }));
+    expect(await screen.findByAltText("Original question 1")).toHaveAttribute("src", "https://assets.example.com/question.png");
+    expect(fetchMock.mock.calls[1][0]).toBe("/api/assets/sign");
+    fireEvent.click(screen.getByRole("button", { name: "Show answer" }));
+    expect(await screen.findByAltText("Official mark scheme page 1")).toHaveAttribute("src", "https://assets.example.com/answer.png");
+    expect(fetchMock.mock.calls.map(([url]) => url)).toEqual([bank.indexUrl, "/api/assets/sign", "/api/assets/sign"]);
+    expect(screen.getByRole("button", { name: "Save worksheet" })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Close preview" }));
+    expect(screen.queryByAltText("Original question 1")).not.toBeInTheDocument();
+  });
   it("generates a filtered in-site set and saves exactly its IDs through the existing worksheet API", async () => {
     const fetchMock = vi.fn().mockResolvedValueOnce(Response.json(index)).mockResolvedValueOnce(Response.json({ worksheet: { id: "w-123" } }, { status: 201 }));
     vi.stubGlobal("fetch", fetchMock);
     render(<PaperBuilder banks={[bank]} />);
     await waitFor(() => expect(screen.getByLabelText("From year").querySelectorAll("option")).toHaveLength(3));
     fireEvent.change(screen.getByLabelText("From year"), { target: { value: "2024" } });
-    fireEvent.change(screen.getByLabelText("Topic"), { target: { value: "Atoms" } });
+    fireEvent.click(screen.getByText("Topics", { selector: "summary" }));
+    fireEvent.click(screen.getByRole("checkbox", { name: "Atoms" }));
     fireEvent.change(screen.getByLabelText("Paper 1 questions"), { target: { value: "1" } });
     fireEvent.change(screen.getByLabelText("Paper 2 questions"), { target: { value: "1" } });
     fireEvent.click(screen.getByRole("button", { name: "Generate paper" }));
     const preview = await screen.findByRole("region", { name: "Generated paper preview" });
+    fireEvent.click(within(preview).getByText("Question list"));
     expect(within(preview).getAllByRole("listitem")).toHaveLength(2);
     expect(preview).toHaveTextContent("4 marks");
     expect(fetchMock).toHaveBeenCalledTimes(1); // generation creates no worksheet and consumes no export
