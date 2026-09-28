@@ -46,6 +46,20 @@ function cadence(item: Item) {
   return item.price.intervalCount && item.price.intervalCount > 1 ? `${item.price.intervalCount} ${unit}s` : unit;
 }
 
+/** Shares the exact live summary with the local example, rather than duplicating markup. */
+export function CurrentSubscriptionSummary({ subscription: sub, item }: { subscription: Pick<Subscription, "status" | "cancelAtPeriodEnd" | "bankSelection">; item: Item | null }) {
+  const amount = item ? money(item.recurringSubtotalCents, item.price.currency) : null;
+  const interval = item ? cadence(item) : null;
+  const periodEnd = item ? date(item.currentPeriodEnd) : null;
+  return <div className="account-current-access-summary">
+    <p className="eyebrow">Your current access</p>
+    <div className="account-detail-heading"><h2>{sub.bankSelection.kind === "all" ? "All Access" : sub.bankSelection.kind === "selected" ? sub.bankSelection.banks.length === 1 ? "One Bank" : "Build Your Plan" : "Subscription"}</h2><span>{sub.status === "active" && sub.cancelAtPeriodEnd ? "Ending" : sub.status.replaceAll("_", " ")}</span></div>
+    {sub.bankSelection.kind === "selected" ? <ul className="account-bank-list">{sub.bankSelection.banks.map((bank) => <li key={bank.slug}>{bank.name}</li>)}</ul> : sub.bankSelection.kind === "all" ? <p>Every available bank is included.</p> : <p>Bank selection unavailable. Check your invoice or contact support.</p>}
+    <p className="account-billing-amount">{amount && interval ? `${amount} / ${interval}` : "Plan price unavailable; see your Stripe invoice."}<span> Base rate before discounts, credits, or taxes.</span></p>
+    {periodEnd ? <p className="account-billing-date">{sub.cancelAtPeriodEnd ? `Access through ${periodEnd}` : `Current period ends ${periodEnd}`}</p> : null}
+  </div>;
+}
+
 function ScheduledChange({ plan, onUpdated, canUndo }: { plan: NonNullable<Subscription["scheduledPlan"]>; onUpdated: (message: string) => void; canUndo: boolean }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -97,7 +111,7 @@ export function AccountBillingDetails({ mode, complimentaryAllAccess = false }: 
 
   if (state.kind === "loading") return <p role="status">Loading subscription details…</p>;
   if (state.kind === "error") return <>{operationNotice ? <p role="status">{operationNotice}</p> : null}<p role="alert">Subscription details are temporarily unavailable. Check Billing or try again later.</p></>;
-  if (state.kind === "none") return <p className="account-empty-state">{complimentaryAllAccess ? "No paid subscription is connected. Your complimentary All Access is separate from billing." : "No Stripe subscription is connected to this account. Complimentary access, if any, is separate from billing."}</p>;
+  if (state.kind === "none") return complimentaryAllAccess && mode === "subscription" ? null : <p className="account-empty-state">{complimentaryAllAccess ? "No paid subscription is connected. Your complimentary All Access is separate from billing." : "No Stripe subscription is connected to this account. Complimentary access, if any, is separate from billing."}</p>;
   const { subscriptions, invoices, paymentMethod } = state.data;
 
   if (mode === "billing") return (
@@ -121,23 +135,17 @@ export function AccountBillingDetails({ mode, complimentaryAllAccess = false }: 
     </div>
   );
 
-  if (!subscriptions.length) return <p className="account-empty-state">{complimentaryAllAccess ? "No paid subscription is connected. Your complimentary All Access is separate from billing." : "No Stripe subscriptions are connected to this billing account."}</p>;
+  if (!subscriptions.length) return complimentaryAllAccess ? null : <p className="account-empty-state">No Stripe subscriptions are connected to this billing account.</p>;
   const current = subscriptions.filter((sub) => sub.status !== "canceled" && sub.status !== "incomplete_expired");
-  if (!current.length) return <p className="account-empty-state">No current paid subscriptions. {complimentaryAllAccess ? "Your complimentary All Access remains active." : "Your past invoices remain available in Billing."}</p>;
+  if (!current.length) return complimentaryAllAccess ? null : <p className="account-empty-state">No current paid subscriptions. Your past invoices remain available in Billing.</p>;
   return (
     <div className="account-billing-detail">
       {operationNotice ? <p role="status" className="account-editor-note">{operationNotice}</p> : null}
       {current.length > 1 ? <p className="account-billing-warning">These are billed as separate subscriptions, possibly on different renewal dates. Changing one will not change the others.</p> : null}
       {current.map((sub) => {
         const item = sub.items.length === 1 ? sub.items[0] : null;
-        const amount = item ? money(item.recurringSubtotalCents, item.price.currency) : null;
-        const interval = item ? cadence(item) : null;
-        const periodEnd = item ? date(item.currentPeriodEnd) : null;
         return <section className="account-detail-block" data-testid="subscription-detail" key={sub.id} aria-label={`Subscription ${sub.id}`}>
-          <div className="account-detail-heading"><h2>{sub.bankSelection.kind === "all" ? "All Access" : sub.bankSelection.kind === "selected" ? `${sub.bankSelection.banks.length} ${sub.bankSelection.banks.length === 1 ? "bank" : "banks"}` : "Subscription"}</h2><span>{sub.status === "active" && sub.cancelAtPeriodEnd ? "Ending" : sub.status.replaceAll("_", " ")}</span></div>
-          {sub.bankSelection.kind === "selected" ? <ul className="account-bank-list">{sub.bankSelection.banks.map((bank) => <li key={bank.slug}>{bank.name}</li>)}</ul> : sub.bankSelection.kind === "all" ? <p>Every available bank is included.</p> : <p>Bank selection unavailable. Check your invoice or contact support.</p>}
-          <p className="account-billing-amount">{amount && interval ? `${amount} / ${interval}` : "Plan price unavailable; see your Stripe invoice."}<span> Base rate before discounts, credits, or taxes.</span></p>
-          {periodEnd ? <p className="account-billing-date">{sub.cancelAtPeriodEnd ? `Access through ${periodEnd}` : `Current period ends ${periodEnd}`}</p> : null}
+          <CurrentSubscriptionSummary subscription={sub} item={item} />
           {sub.pendingUpdate ? <p className="account-billing-warning">A subscription change is awaiting payment. Current bank access remains in place until Stripe confirms the payment. Check Billing for the invoice or payment method.</p> : null}
           {sub.scheduledChange && sub.scheduledPlan ? <ScheduledChange plan={sub.scheduledPlan} canUndo={current.length === 1 && sub.status === "active"} onUpdated={(message) => { setOperationNotice(message); void refresh(); }} /> : null}
           {sub.scheduledChange && !sub.scheduledPlan ? <p className="account-billing-warning">A future subscription change is scheduled in Stripe. This editor cannot safely change it here.</p> : null}

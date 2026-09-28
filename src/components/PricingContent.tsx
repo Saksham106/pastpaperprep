@@ -61,7 +61,7 @@ function BankTable({ banks }: { banks: readonly Bank[] }) {
   return <div className="pricing-bank-table-wrap"><table className="pricing-bank-table" aria-label="Question bank coverage"><thead><tr><th scope="col">Question bank</th><th scope="col">Questions</th><th scope="col">Papers</th><th scope="col">Coverage</th><th scope="col"><span className="sr-only">Preview</span></th></tr></thead><tbody>{banks.map((bank) => { const tone = courseToneForBank(bank); const free = hasFreeTier(bank.slug); return <tr className={`course-tone-${tone}`} data-pricing-bank={bank.slug} data-has-free-tier={free ? "true" : undefined} key={bank.slug}><th scope="row"><div className="pricing-bank-name"><CourseIcon tone={tone} /><div><span>{bank.qualification}</span><strong>{bank.shortName}</strong></div></div></th><td data-label="Questions">{bank.questionCount.toLocaleString()}</td><td data-label="Papers">{bank.paperCount}</td><td data-label="Coverage">{bank.years}</td><td className="pricing-bank-preview">{free ? <Link href={bankEntryHref(bank.slug)} aria-label={`Preview ${bank.shortName}`}>Preview</Link> : <span className="pricing-bank-no-preview" aria-hidden="true">-</span>}</td></tr>; })}</tbody></table></div>;
 }
 
-export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], currentPlanProductIds = [], complimentaryAccess = false, previewOnly = false, ownedBankIds = [], initialInterval = "monthly", initialProductId, initialBankIds, availableBanks = getCatalogRuntimeBanks() }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; currentPlanProductIds?: readonly ProductId[]; complimentaryAccess?: boolean; previewOnly?: boolean; ownedBankIds?: readonly BankSlug[]; initialInterval?: BillingInterval; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[] }) {
+export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], currentPlanProductIds = [], complimentaryAccess = false, previewOnly = false, previewSubscriptionHref, ownedBankIds = [], initialInterval = "monthly", initialProductId, initialBankIds, availableBanks = getCatalogRuntimeBanks() }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; currentPlanProductIds?: readonly ProductId[]; complimentaryAccess?: boolean; previewOnly?: boolean; previewSubscriptionHref?: string; ownedBankIds?: readonly BankSlug[]; initialInterval?: BillingInterval; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[] }) {
   const [interval, setInterval] = useState<BillingInterval>(initialInterval);
   const initialBankId = initialProductId ? bankSlugForProduct(initialProductId) : undefined;
   const initialCustomBankIds = initialBankIds ?? (initialBankId ? [initialBankId] : undefined);
@@ -159,9 +159,9 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
       <section className="simple-page pricing-page shell">
         {previewOnly ? <p className="pricing-preview-notice" role="status">Local preview: no account or checkout is connected. Choose a view using the links above the pricing page.</p> : null}
         <div className="pricing-intro">
-          <p className="eyebrow">PastPaperPrep pricing</p>
-          <h1 aria-label="Pay only for what you study.">Pay only for what you study.</h1>
-          <p className="page-lede">Choose the question banks you need. Every plan includes the same study tools.</p>
+          <p className="eyebrow">{hasPaidAccess ? "Your access" : "PastPaperPrep pricing"}</p>
+          <h1>{hasPaidAccess ? "Your access is ready." : "Pay only for what you study."}</h1>
+          <p className="page-lede">{hasPaidAccess ? "See what you have, then get back to practising. Review your access and any available plan changes in Subscription settings." : "Choose the question banks you need. Every plan includes the same study tools."}</p>
         </div>
 
         {authenticated ? (
@@ -171,20 +171,29 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
               <strong>{hasPaidAccess ? currentPlanNames.join(", ") || "Paid access" : "Free"}</strong>
               <span>{hasPaidAccess ? complimentaryAccess ? "Complimentary access" : previewOnly ? "Example paid account. No billing is connected in this preview." : "Your access is active. Manage billing to cancel or update payment details." : "Choose a plan below to unlock every available question."}</span>
             </div>
-            {hasPaidAccess && !previewOnly ? <Link className="button secondary" href="/account/subscription">{complimentaryAccess ? "View your access" : "View or change your subscription"}</Link> : null}
+            {hasPaidAccess && (!previewOnly || previewSubscriptionHref) ? <Link className="button secondary" href={previewOnly && previewSubscriptionHref ? previewSubscriptionHref : "/account/subscription"}>{complimentaryAccess ? "View your access" : "View or change your subscription"}</Link> : null}
             {hasPaidAccess && !complimentaryAccess && !previewOnly ? <PortalButton /> : null}
           </section>
         ) : null}
 
-        <div className="billing-toggle" role="group" aria-label="Billing period">
-          <button type="button" aria-pressed={interval === "monthly"} onClick={() => chooseInterval("monthly")}>Monthly</button>
-          <button className="billing-toggle-annual" type="button" aria-pressed={interval === "annual"} onClick={() => chooseInterval("annual")}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
-        </div>
-
-        {hasPaidAccess && !addOnBanks.length ? <p className="pricing-all-included">All available banks are included in your access.</p> : null}
-        <div className="pricing-decision-grid" aria-label="PastPaperPrep plans" data-paid={hasPaidAccess ? "true" : undefined}>
-          {PLANS.map(renderPlan)}
-        </div>
+        {hasPaidAccess && !addOnBanks.length ? <p className="pricing-all-included">All available banks are included in your access. Head to <Link href="/dashboard">your question banks</Link> to start practising.</p> : null}
+        {hasPaidAccess ? (
+          <details className="pricing-additional-offers" open={Boolean(initialProductId || initialBankIds?.length) || undefined}>
+            <summary>{addOnBanks.length ? "Compare public prices and additional banks" : "Compare public plan prices"}</summary>
+            <p>{addOnBanks.length ? <>Your existing access stays separate. A purchase here may create a separate subscription and renewal; to change a supported current plan, use <Link href="/account/subscription">Subscription settings</Link> instead.</> : "These are public prices for new subscriptions, not your current charge. Your access is already covered."}</p>
+            <div className="billing-toggle" role="group" aria-label="Billing period">
+              <button type="button" aria-pressed={interval === "monthly"} onClick={() => chooseInterval("monthly")}>Monthly</button>
+              <button className="billing-toggle-annual" type="button" aria-pressed={interval === "annual"} onClick={() => chooseInterval("annual")}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
+            </div>
+            <div className="pricing-decision-grid" aria-label="Additional subscription offers" data-paid="true">{PLANS.map(renderPlan)}</div>
+          </details>
+        ) : !hasPaidAccess ? <>
+          <div className="billing-toggle" role="group" aria-label="Billing period">
+            <button type="button" aria-pressed={interval === "monthly"} onClick={() => chooseInterval("monthly")}>Monthly</button>
+            <button className="billing-toggle-annual" type="button" aria-pressed={interval === "annual"} onClick={() => chooseInterval("annual")}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
+          </div>
+          <div className="pricing-decision-grid" aria-label="PastPaperPrep plans">{PLANS.map(renderPlan)}</div>
+        </> : null}
 
         <div className="pricing-product-proof" aria-label="Current PastPaperPrep coverage">
           <span><strong>{totalQuestions.toLocaleString()}</strong> questions</span>
@@ -192,17 +201,17 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           <span><strong>{availableBanks.length}</strong> available banks</span>
         </div>
 
-        <div className="pricing-free-strip">
+        {!hasPaidAccess ? <div className="pricing-free-strip">
           <div><strong>Not ready to pay?</strong><span>Practise complete older exam years for free.</span></div>
-          {hasPaidAccess ? <span className="plan-status">Paid access is active</span> : <Link className="button secondary" href={bankEntryHref("igcse")}>Browse free questions</Link>}
-        </div>
+          <Link className="button secondary" href={bankEntryHref("igcse")}>Browse free questions</Link>
+        </div> : null}
 
-        <div className="pricing-includes-compact" aria-label="Included with every paid plan">
+        {!hasPaidAccess ? <div className="pricing-includes-compact" aria-label="Included with every paid plan">
           <span><Check /> All available questions</span>
           <span><Check /> Answers and mark schemes where available</span>
           <span><Check /> Smart filters</span>
           <span><Check /> PDF export</span>
-        </div>
+        </div> : null}
 
         <section className="pricing-bank-catalog" aria-labelledby="pricing-bank-catalog-heading">
           <div className="pricing-bank-catalog-heading">
@@ -210,7 +219,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
               <p className="eyebrow">What you get</p>
               <h2 id="pricing-bank-catalog-heading">Compare every question bank</h2>
             </div>
-            <p>See the real coverage behind each choice before you pay.</p>
+            <p>{hasPaidAccess ? "See what is available across the catalogue." : "See the real coverage behind each choice before you pay."}</p>
           </div>
           <QualificationTabs className="pricing-qualification-tabs" items={[
             { id: "pricing-cambridge", label: "Cambridge IGCSE", panel: <BankTable banks={availableBanks.filter((bank) => bank.qualification === "Cambridge IGCSE")} /> },
@@ -218,7 +227,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           ].filter((item) => item.panel.props.banks.length > 0)} />
         </section>
 
-        <p className="checkout-note">Secure Stripe checkout. Cancel any time. Existing subscribers remain grandfathered at their current price and access. <Link href="/refund-policy">Read the refund policy.</Link></p>
+        {!hasPaidAccess ? <p className="checkout-note">Secure Stripe checkout. Cancel any time. Existing subscribers remain grandfathered at their current price and access. <Link href="/refund-policy">Read the refund policy.</Link></p> : null}
       </section>
     </div>
   );

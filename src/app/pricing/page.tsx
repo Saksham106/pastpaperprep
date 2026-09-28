@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { PricingContent } from "@/components/PricingContent";
 import { hasBankAccess, type ProductId } from "@/lib/access";
@@ -76,6 +77,12 @@ export default async function PricingPage({ searchParams }: { searchParams: Prom
       const product = Array.isArray(row.products) ? row.products[0] : row.products;
       return product?.name ? [product.name] : [];
     })));
+  }
+
+  // Existing customers choose changes against their actual subscription, not
+  // the public first-purchase checkout. Explicit add-on deep links remain public.
+  if (hasPaidAccess && !purchaseProduct(params.product) && !purchaseBanks(params.banks)?.length) {
+    redirect("/account/subscription");
   }
 
   return <PricingContent

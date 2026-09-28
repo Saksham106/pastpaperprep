@@ -28,7 +28,13 @@ describe("AccountBillingDetails", () => {
     mockFetch({ subscriptions: [subscription("sub_one", [bank.name], 600)], invoices: [], paymentMethod: null, bankOptions: [bank, { slug: "ib-sl", name: "IB Math AA SL" }], management: { editable: true } });
     render(<AccountBillingDetails mode="subscription" />);
     expect(await screen.findByRole("heading", { name: "Choose your plan" })).toBeInTheDocument();
+    const current = screen.getByTestId("subscription-detail");
+    expect(within(current).getByText("Your current access")).toBeInTheDocument();
+    expect(current.querySelector(".account-detail-heading h2")).toHaveTextContent("One Bank");
     expect(screen.getByRole("button", { name: "Switch to Build Your Plan" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Switch to All Access" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Your bank" })).toBeDisabled();
+    expect(screen.getByText(/base rate before discounts, credits, or taxes/i)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Cancel subscription" })).toBeInTheDocument();
   });
   it("shows a verified scheduled bank reduction and lets its owner undo before renewal", async () => {
@@ -96,7 +102,8 @@ describe("AccountBillingDetails", () => {
   it("keeps complimentary access separate from Stripe billing when no customer exists", async () => {
     mockFetch({ error: "No billing account found" }, 404);
     render(<AccountBillingDetails mode="subscription" complimentaryAllAccess />);
-    expect(await screen.findByText(/no paid subscription is connected/i)).toBeInTheDocument();
+    await waitFor(() => expect(screen.queryByText(/loading subscription details/i)).not.toBeInTheDocument());
+    expect(screen.queryByText(/no paid subscription is connected/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/no stripe subscription is connected/i)).not.toBeInTheDocument();
   });
   it("still shows separately billed plans beside a complimentary grant", async () => {

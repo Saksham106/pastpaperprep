@@ -19,8 +19,11 @@ export default async function SubscriptionPage() {
   const complimentaryAllAccess = hasComplimentaryAllAccess(result.rows as (AccessEntitlement & { source?: unknown })[]);
   return (
     <section className="account-section-page account-subscription-page">
-      <p className="eyebrow">Account</p>
-      <h1>Subscription</h1>
+      <div className="pricing-intro account-subscription-intro">
+        <p className="eyebrow">Account / Subscription</p>
+        <h1>Subscription</h1>
+        <p className="page-lede">{complimentaryAllAccess ? "Every question bank is included in your access." : "Your access and available plans in one place. Review your current plan before making a change."}</p>
+      </div>
       {complimentaryAllAccess ? <ComplimentaryAllAccess /> : null}
       <AccountBillingDetails mode="subscription" complimentaryAllAccess={complimentaryAllAccess} />
       <p className="account-page-help">Payment methods and complete invoice history are in the secure billing portal. Changes to legacy or separately billed plans may need support.</p>

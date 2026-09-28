@@ -733,6 +733,13 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .pricing-addon p:last-child { color: var(--muted); line-height: 1.55; }
 .pricing-addon .plan-checkout { margin: 0; }
 .pricing-all-included { margin: 24px 0; color: var(--muted); }
+.pricing-additional-offers { margin: 26px 0 0; padding: 16px 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.pricing-additional-offers > summary { cursor: pointer; color: var(--ink); font-weight: 800; line-height: 1.5; }
+.pricing-additional-offers > summary:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 5px; border-radius: 3px; }
+.pricing-additional-offers > p { max-width: 760px; margin: 12px 0 0; color: var(--muted); font-size: .9rem; line-height: 1.6; }
+.pricing-additional-offers > p a, .pricing-all-included a { color: var(--cobalt); text-decoration: underline; text-underline-offset: 3px; }
+.pricing-additional-offers .pricing-decision-grid { margin-top: 22px; }
+@media (max-width: 720px) { .pricing-additional-offers { padding: 14px 16px; } }
 @media (max-width: 720px) { .pricing-addon { grid-template-columns: 1fr; } }
 .billing-toggle { width: fit-content; margin: 30px auto 0; padding: 4px; display: grid; grid-template-columns: 1fr 1.45fr; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
 .billing-toggle button { min-height: 44px; padding: 0 16px; color: var(--muted); background: transparent; border: 0; border-radius: 9px; font-weight: 820; }
@@ -893,6 +900,13 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .account-settings-nav a:hover { color: var(--ink); background: var(--paper); }
 .account-settings-nav a[aria-current="page"] { color: var(--ink); background: var(--paper); box-shadow: inset 3px 0 var(--burgundy); }
 .account-billing-detail { margin-top: 24px; display: grid; gap: 18px; }
+.account-subscription-intro { padding: 12px 0 10px; }
+.account-subscription-page .account-subscription-intro h1 { margin: 9px 0 12px; font: 850 clamp(2.7rem, 4.7vw, 4rem)/1 var(--font-display); letter-spacing: -.055em; }
+.account-subscription-intro .page-lede { max-width: 620px; margin: 0 auto; color: var(--muted); line-height: 1.55; }
+.account-current-access-summary { padding: 22px 26px; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--cobalt); border-radius: 12px; box-shadow: 0 14px 40px rgb(76 45 34 / .07); }
+.account-current-access-summary .eyebrow { margin: 0 0 12px; }
+.account-current-access-summary .account-billing-date { margin-bottom: 0; }
+@media (max-width: 720px) { .account-current-access-summary { padding: 18px; } }
 .account-detail-block { padding: 22px 0 24px; border-top: 1px solid var(--line-strong); }
 .account-detail-block h2 { margin: 0; font: 700 1.55rem/1.15 var(--font-display); letter-spacing: -.035em; }
 .account-detail-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
@@ -979,6 +993,7 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .account-plan-actions .button, .account-security-row .button, .account-heading-actions .button { white-space: nowrap; }
 .account-security-row { margin-top: 16px; }
 @media (max-width: 1280px) and (min-width: 1025px) { .account-subscription-page .account-pricing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 900px) and (max-width: 1024px) { .account-subscription-page .account-pricing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .account-pricing-heading h2 { margin: 0 0 7px; font: 850 clamp(1.65rem, 3vw, 2.3rem)/1 var(--font-display); letter-spacing: -.04em; }
 .account-pricing-heading p, .account-plan-timing { max-width: 720px; margin: 0; color: var(--muted); font-size: .87rem; line-height: 1.55; }
 .account-plan-chooser { display: grid; gap: 18px; }
