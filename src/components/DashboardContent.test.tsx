@@ -17,7 +17,8 @@ describe("DashboardContent", () => {
     expect(worksheetsLink.compareDocumentPosition(screen.getByRole("tab", { name: "Cambridge IGCSE" }))).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(screen.getByRole("link", { name: /my account/i })).toHaveAttribute("href", "/account");
     expect(screen.getByRole("link", { name: /password settings/i })).toHaveAttribute("href", "/account/password");
-    expect(screen.getByRole("link", { name: /manage plan/i })).toHaveAttribute("href", "/pricing");
+    expect(screen.getByRole("link", { name: /view your access/i })).toHaveAttribute("href", "/account/subscription");
+    expect(screen.queryByRole("link", { name: /manage plan/i })).not.toBeInTheDocument();
     expect(container.querySelector("#ib-diploma-panel .dashboard-bank-card")).toHaveAttribute("aria-label", "Open IB Math AI HL");
     expect(screen.getByRole("link", { name: /open ib math ai hl/i })).toHaveAttribute("href", "/banks/ib-ai-hl");
   });
@@ -28,6 +29,12 @@ describe("DashboardContent", () => {
     expect(screen.getByRole("link", { name: /start free.*mathematics 0580/i })).toHaveAttribute("href", "/banks/igcse?free=1");
     expect(screen.getByRole("link", { name: /view plans/i })).toHaveAttribute("href", "/pricing");
     expect(screen.queryByRole("link", { name: /sign in/i })).not.toBeInTheDocument();
+  });
+
+  it("sends signed-in free students to plans rather than an empty subscription editor", () => {
+    render(<DashboardContent authenticated accessibleBanks={[]} />);
+    expect(screen.getAllByRole("link", { name: /view plans/i }).every((link) => link.getAttribute("href") === "/pricing")).toBe(true);
+    expect(screen.queryByRole("link", { name: /view your access/i })).not.toBeInTheDocument();
   });
 
   it("groups banks by the courses students recognise and makes each complete card the link", () => {

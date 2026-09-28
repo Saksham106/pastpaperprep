@@ -12,7 +12,9 @@ import SecurityPage from "@/app/account/security/page";
 
 describe("account settings read-only pages", () => {
   it("does not invent an itemized subscription from coarse access data", async () => {
-    render(await SubscriptionPage());
+    const { container } = render(await SubscriptionPage());
+    expect(container.querySelector(".account-subscription-intro.pricing-intro")).toBeInTheDocument();
+    expect(screen.getByText(/your access and available plans in one place/i)).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /subscription/i })).toBeInTheDocument();
     expect(screen.getByText(/loading subscription details/i)).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /change plan|cancel subscription/i })).not.toBeInTheDocument();
@@ -23,6 +25,7 @@ describe("account settings read-only pages", () => {
     vi.mocked(fetchAccessEntitlements).mockResolvedValueOnce({ rows: [{ productId: "bundle_all", source: "manual", status: "active", startsAt: "2025-01-01T00:00:00Z", expiresAt: null }], error: null });
     render(await SubscriptionPage());
     expect(screen.getByRole("heading", { name: "Complimentary All Access" })).toBeInTheDocument();
+    expect(screen.getByText("Every question bank is included in your access.")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Browse question banks" })).toHaveAttribute("href", "/dashboard");
   });
   it("redirects if the session disappears between the layout and subscription read", async () => {

@@ -8,14 +8,44 @@ const cambridgeBankCount = availableBanks.filter((bank) => bank.qualification ==
 const ibBankCount = availableBanks.filter((bank) => bank.qualification === "International Baccalaureate").length;
 
 describe("approved custom-bank pricing", () => {
-  it("shows all three plans to an all-access customer and highlights only All Access", () => {
+  it("starts existing-access visitors on a compact management view, with optional public offers", () => {
+    const { container } = render(<PricingContent authenticated hasPaidAccess currentPlanNames={["One Bank"]} currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
+    expect(screen.getByRole("link", { name: "View or change your subscription" })).toHaveAttribute("href", "/account/subscription");
+    const comparison = container.querySelector<HTMLDetailsElement>("details.pricing-additional-offers");
+    expect(comparison).not.toBeNull();
+    expect(comparison).not.toHaveAttribute("open");
+    expect(comparison).toHaveTextContent(/separate subscription/i);
+    fireEvent.click(within(comparison!).getByText(/compare public prices and additional banks/i));
+    expect(comparison).toHaveAttribute("open");
+    expect(within(comparison!).getByRole("heading", { name: "Build Your Plan" })).toBeInTheDocument();
+  });
+
+  it("keeps all-access offers optional and read-only", () => {
     const { container } = render(<PricingContent authenticated hasPaidAccess currentPlanNames={["All Access"]} currentPlanProductIds={["bundle_all"]} ownedBankIds={availableBanks.map((bank) => bank.slug)} availableBanks={availableBanks} />);
-    expect(container.querySelectorAll(".pricing-decision-grid > .pricing-option")).toHaveLength(3);
-    const all = screen.getByRole("heading", { name: "All Access" }).closest("article")!;
-    expect(all).toHaveAttribute("data-current-plan", "true");
-    expect(within(all).getByText("Your access")).toBeInTheDocument();
-    expect(container.querySelectorAll('[data-current-plan="true"]')).toHaveLength(1);
+    const comparison = container.querySelector<HTMLDetailsElement>("details.pricing-additional-offers");
+    expect(comparison).not.toHaveAttribute("open");
+    fireEvent.click(within(comparison!).getByText("Compare public plan prices"));
+    expect(comparison).toHaveAttribute("open");
+    expect(container.querySelectorAll(".pricing-option")).toHaveLength(3);
+    expect(container.querySelectorAll(".pricing-option input, .pricing-option button, .pricing-option a")).toHaveLength(0);
+  });
+
+  it("preserves first-purchase cards for signed-in free students", () => {
+    const { container } = render(<PricingContent authenticated hasPaidAccess={false} availableBanks={availableBanks} />);
+    expect(container.querySelectorAll(".pricing-decision-grid > article")).toHaveLength(3);
+    expect(container.querySelector("details.pricing-additional-offers")).toBeNull();
+  });
+
+  it("does not show redundant plans to an all-access customer", () => {
+    const { container } = render(<PricingContent authenticated hasPaidAccess currentPlanNames={["All Access"]} currentPlanProductIds={["bundle_all"]} ownedBankIds={availableBanks.map((bank) => bank.slug)} availableBanks={availableBanks} />);
+    expect(screen.getByRole("heading", { name: "Your current access" })).toBeInTheDocument();
+    const comparison = container.querySelector<HTMLDetailsElement>("details.pricing-additional-offers");
+    expect(comparison).not.toBeNull();
+    expect(comparison).not.toHaveAttribute("open");
+    expect(within(comparison!).getByText("Compare public plan prices")).toBeInTheDocument();
     expect(screen.getByText(/all available banks are included/i)).toBeInTheDocument();
+    expect(screen.queryByText("Not ready to pay?")).not.toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Your access is ready." })).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /Unlock/ })).not.toBeInTheDocument();
   });
 
@@ -62,8 +92,7 @@ describe("approved custom-bank pricing", () => {
     expect(screen.getByText("Complimentary access")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Your current access" })).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Manage billing" })).not.toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "All Access" }).closest("article")).toHaveAttribute("data-current-plan", "true");
-    expect(screen.getByText("Included with your complimentary access.")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "View your access" })).toHaveAttribute("href", "/account/subscription");
     expect(screen.queryByText(/your existing rate stays unchanged/i)).not.toBeInTheDocument();
   });
 
@@ -89,11 +118,11 @@ describe("approved custom-bank pricing", () => {
     expect(within(card).getByRole("button", { name: /Add All Access subscription/i })).toBeInTheDocument();
   });
 
-  it("keeps the no-purchase state for complimentary All Access in every card", () => {
+  it("keeps the no-purchase state for complimentary All Access without extra cards", () => {
     const { container } = render(<PricingContent authenticated hasPaidAccess complimentaryAccess currentPlanProductIds={["bundle_all"]} ownedBankIds={availableBanks.map((bank) => bank.slug)} availableBanks={availableBanks} />);
-    expect(container.querySelectorAll(".pricing-option")).toHaveLength(3);
+    expect(container.querySelector(".pricing-additional-offers")).not.toHaveAttribute("open");
     expect(container.querySelectorAll(".pricing-option input, .pricing-option button, .pricing-option a")).toHaveLength(0);
-    expect(screen.getByRole("heading", { name: "All Access" }).closest("article")).toHaveAttribute("data-current-plan", "true");
+    expect(screen.getByRole("link", { name: "View your access" })).toHaveAttribute("href", "/account/subscription");
   });
 
   it("keeps local preview entirely read-only even after choosing an add-on", () => {
