@@ -480,17 +480,19 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .exam-style-set-option small { color: var(--muted); font: 600 .68rem/1.3 var(--font-mono); }
 .exam-style-viewer { min-width: 0; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 12px; overflow: hidden; }
 .exam-style-viewer > header { padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 18px; border-bottom: 1px solid var(--line); }
+.exam-style-pdf-heading > div { min-width: 0; }
+.exam-style-pdf-heading .exam-style-pdf-action { flex-shrink: 0; }
 .exam-style-viewer h2 { margin: 5px 0 0; font: 800 1.3rem/1.1 var(--font-display); letter-spacing: -.03em; }
 .exam-style-fallbacks { display: flex; flex-wrap: wrap; gap: 7px 17px; font-size: .78rem; }
 .exam-style-pdf { width: 100%; height: min(78vh, 920px); display: block; border: 0; background: #fff; }
 .exam-style-pdf-shell { min-width: 0; }
-.exam-style-pdf-controls { min-height: 44px; padding: 7px 16px; display: flex; align-items: center; justify-content: flex-end; gap: 14px; background: var(--surface); border-bottom: 1px solid var(--line); }
+.exam-style-pdf-controls { display: none; }
 .exam-style-pdf-action { min-height: 34px; padding: 5px 9px; display: inline-flex; align-items: center; gap: 6px; border-radius: 6px; color: var(--cobalt-strong); font-size: .82rem; font-weight: 750; }
 .exam-style-pdf-action:hover { background: var(--cobalt-soft); }
 .exam-style-pdf-action:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
 .exam-style-pdf-action svg { width: 17px; height: 17px; }
 .exam-style-pdf-shell.is-focused { position: fixed; inset: 0; z-index: 1000; display: flex; flex-direction: column; background: var(--surface); }
-.exam-style-pdf-shell.is-focused .exam-style-pdf-controls { justify-content: space-between; padding: max(10px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) 10px max(18px, env(safe-area-inset-left)); }
+.exam-style-pdf-shell.is-focused .exam-style-pdf-controls { display: flex; min-height: 44px; align-items: center; gap: 14px; justify-content: space-between; background: var(--surface); border-bottom: 1px solid var(--line); padding: max(10px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) 10px max(18px, env(safe-area-inset-left)); }
 .exam-style-pdf-focus-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 800 1.1rem/1.2 var(--font-display); }
 .exam-style-pdf-shell.is-focused .exam-style-pdf-pages { flex: 1; height: auto; min-height: 0; }
 .exam-style-pdf-pages { height: min(78vh, 920px); overflow: auto; overscroll-behavior: contain; background: #e8e8e8; color: #293244; }
@@ -516,7 +518,8 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
   .exam-style-topic-tree { grid-template-columns: 1fr; }
   .exam-style-set-option { min-height: 58px; padding: 9px; }
   .exam-style-set-option strong { font-size: .76rem; line-height: 1.2; }
-  .exam-style-viewer > header { align-items: flex-start; flex-direction: column; }
+  .exam-style-viewer > header { align-items: center; flex-direction: row; gap: 8px; padding: 12px; }
+  .exam-style-viewer h2 { overflow-wrap: anywhere; }
   .exam-style-pdf { height: 72vh; }
   .exam-style-pdf-pages { height: 72vh; }
   .exam-style-auth-gate { margin-top: 24px; padding: 28px 20px; }

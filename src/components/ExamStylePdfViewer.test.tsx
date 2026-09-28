@@ -10,7 +10,11 @@ describe("exam-style focused PDF viewer", () => {
 
   it("focuses the PDF in-page and restores the same viewer via button and Escape", async () => {
     vi.stubGlobal("fetch", vi.fn(() => new Promise(() => {})));
-    const { unmount } = render(<ExamStylePdfViewer src="/api/exam-style/proof-by-induction/divisibility" title="Divisibility" />);
+    const { unmount } = render(<div className="exam-style-viewer"><ExamStylePdfViewer src="/api/exam-style/proof-by-induction/divisibility" title="Divisibility" eyebrow="Selected practice set" headingId="practice-set-heading" /></div>);
+    const heading = screen.getByRole("heading", { name: "Divisibility" });
+    const header = heading.closest("header");
+    expect(header).toContainElement(screen.getByRole("button", { name: "Focus view" }));
+    expect(document.querySelector(".exam-style-pdf-shell .exam-style-pdf-controls button")).toBeNull();
     const viewer = screen.getByRole("region", { name: "Divisibility practice PDF" });
     const opener = screen.getByRole("button", { name: "Focus view" });
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();

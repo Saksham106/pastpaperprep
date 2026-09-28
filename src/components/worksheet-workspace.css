@@ -17,6 +17,12 @@
 .worksheet-unsaved-actions .text-button { padding-inline: 8px; }
 .worksheet-unsaved-actions .button { min-height: 44px; }
 .worksheet-unsaved-actions .button:disabled { opacity: .55; }
+.worksheet-delete-dialog { max-width: calc(100vw - 36px); max-height: calc(100dvh - 36px); margin: auto; }
+.worksheet-delete-dialog::backdrop { background: rgb(15 20 26 / .5); }
+.worksheet-delete-dialog .worksheet-confirm-delete { min-height: 44px; padding-inline: 18px; color: #fff; background: var(--danger, #a12533); border: 1px solid var(--danger, #a12533); }
+.worksheet-delete-dialog .worksheet-confirm-delete:hover:not(:disabled) { filter: brightness(.9); }
+.worksheet-delete-dialog .worksheet-confirm-delete:focus-visible { outline: 3px solid var(--danger, #a12533); outline-offset: 2px; }
+@media (max-width: 600px) { .worksheet-delete-dialog .worksheet-unsaved-actions { display: grid; grid-template-columns: 1fr; } }
 .worksheet-edit-card { margin: 0 0 18px; padding: 22px 24px; background: var(--surface-raised); border: 1px solid var(--line); border-radius: 14px; }
 .worksheet-edit-card .worksheet-name-field { margin: 0 0 18px; }
 .worksheet-content-options { display: flex; flex-wrap: wrap; gap: 8px 18px; padding: 0; margin: 0 0 18px; border: 0; }

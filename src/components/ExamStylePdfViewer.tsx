@@ -5,7 +5,7 @@ import { ArrowsOut, ArrowLeft } from "@phosphor-icons/react/dist/ssr";
 import type { PDFDocumentProxy, PDFPageProxy, RenderTask } from "pdfjs-dist";
 
 /** Render pages ourselves rather than embedding Chrome's PDF plugin and its download toolbar. */
-export function ExamStylePdfViewer({ src, title }: { src: string; title: string }) {
+export function ExamStylePdfViewer({ src, title, eyebrow, headingId }: { src: string; title: string; eyebrow: string; headingId: string }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const focusRef = useRef<HTMLDivElement>(null);
   const expandRef = useRef<HTMLButtonElement>(null);
@@ -85,7 +85,13 @@ export function ExamStylePdfViewer({ src, title }: { src: string; title: string 
     };
   }, [src]);
 
-  return (
+  return (<>
+    <header className="exam-style-pdf-heading">
+      <div><p className="eyebrow">{eyebrow}</p><h2 id={headingId}>{title}</h2></div>
+      {!focused && <button ref={expandRef} className="exam-style-pdf-action" type="button" onClick={() => setFocused(true)}>
+        <ArrowsOut aria-hidden="true" /> Focus view
+      </button>}
+    </header>
     <div ref={focusRef} className={`exam-style-pdf-shell${focused ? " is-focused" : ""}`}
       role={focused ? "dialog" : undefined} aria-modal={focused ? "true" : undefined}
       aria-label={focused ? `${title} focused practice PDF` : undefined}>
@@ -95,9 +101,7 @@ export function ExamStylePdfViewer({ src, title }: { src: string; title: string 
           <button ref={backRef} className="exam-style-pdf-action" type="button" onClick={() => setFocused(false)}>
             <ArrowLeft aria-hidden="true" /> Back to practice
           </button>
-        </> : <button ref={expandRef} className="exam-style-pdf-action" type="button" onClick={() => setFocused(true)}>
-          <ArrowsOut aria-hidden="true" /> Focus view
-        </button>}
+        </> : null}
       </div>
       <div ref={scrollRef} className="exam-style-pdf-pages" role="region" aria-label={`${title} practice PDF`} tabIndex={0}>
         {error ? <p className="exam-style-pdf-status" role="alert">This practice set could not be loaded. Please refresh and try again.</p> :
@@ -106,7 +110,7 @@ export function ExamStylePdfViewer({ src, title }: { src: string; title: string 
           )) : <p className="exam-style-pdf-status" role="status">Loading practice set…</p>}
       </div>
     </div>
-  );
+  </>);
 }
 
 function PdfPage({ pdf, number, scrollRoot }: { pdf: PDFDocumentProxy; number: number; scrollRoot: React.RefObject<HTMLDivElement | null> }) {

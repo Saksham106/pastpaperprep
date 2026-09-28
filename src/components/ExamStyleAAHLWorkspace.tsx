@@ -61,8 +61,7 @@ export function ExamStyleAAHLWorkspace() {
         ))}
       </nav>
       <div className="exam-style-viewer">
-        <header><div><p className="eyebrow">{topic} · selected practice set</p><h2 id="aa-hl-practice-set-heading">{selected.title}</h2></div></header>
-        <ExamStylePdfViewer key={apiUrl} src={apiUrl} title={selected.title} />
+        <ExamStylePdfViewer key={apiUrl} src={apiUrl} title={selected.title} eyebrow={`${topic} · selected practice set`} headingId="aa-hl-practice-set-heading" />
       </div>
     </section>
   );
