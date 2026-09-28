@@ -11,11 +11,12 @@ const json=async p=>JSON.parse(await readFile(path.join(root,p),"utf8"));
 const BANK="igcse-chemistry-0620";
 const inputs=async()=>({baseline:pinned(`src/data/production/${BANK}.json`),index:pinned(`src/data/private-index/${BANK}.json`),overlay:await json("data/classification/marks-repair/igcse-chemistry-0620-overlay-v1.json"),decision:await json("scripts/data/0620-marks-qp-source-decision.json")});
 describe("Chemistry 0620 printed-QP marks-only descendant",()=>{
- it("repairs exact 74 null and 16 wrong totals; preserves all other fields and 5,039 other rows",async()=>{
+ it("repairs 73 of 74 nulls and 16 wrong totals; preserves one removed-part exception and 5,040 other rows",async()=>{
   const input=await inputs();const {baseline,index,overlay}=input;const {runtime,privateIndex}=reseal0620Marks(input);
-  const affected=new Set(overlay.targets.map(x=>x.question_id));expect(affected.size).toBe(90);
+  const proposal=new Set(overlay.targets.map(x=>x.question_id));expect(proposal.size).toBe(90);
+  const affected=new Set([...proposal].filter(id=>id!==input.decision.excluded_targets[0].questionId));expect(affected.size).toBe(89);
   expect(runtime.questions.length).toBe(5129);expect(runtime.marks_ready).toBe(true);
-  expect(runtime.questions.filter(x=>x.marks==null || x.maxMarks==null)).toHaveLength(0);
+  expect(runtime.questions.filter(x=>x.marks==null || x.maxMarks==null).map(x=>x.id)).toEqual(["0620-2026-m-32-q3"]);
   expect(runtime.runtimeArtifact.assetManifestSha256).toBe(baseline.runtimeArtifact.assetManifestSha256);
   expect(runtime.runtimeArtifact.storageReceiptSha256).toBe(baseline.runtimeArtifact.storageReceiptSha256);
   expect(runtime.runtimeArtifact.contentSha256).toBe(baseline.runtimeArtifact.contentSha256);
@@ -28,7 +29,7 @@ describe("Chemistry 0620 printed-QP marks-only descendant",()=>{
    changed++;const target=overlay.targets.find(x=>x.question_id===before.id);
    expect({...after,marks:before.marks,maxMarks:before.maxMarks}).toEqual(before);
    expect(after.marks).toBe(target.proposed_marks);expect(after.maxMarks).toBe(target.proposed_marks);
-  }expect(changed).toBe(90);
+  }expect(changed).toBe(89);
   const o=new Map(runtime.questions.map(q=>[q.id,q]));
   for(let n=0;n<index.questions.length;n++){
    const before=index.questions[n],after=privateIndex.questions[n];expect(after.id).toBe(before.id);

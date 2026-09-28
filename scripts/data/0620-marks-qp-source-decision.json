@@ -1,7 +1,7 @@
 {
   "schemaVersion": "chemistry-0620-qp-source-decision-v1",
   "decision": "apply_exact_printed_question_total",
-  "scope": "90 marks-only rows: 74 blank totals and 16 stored totals differing from print",
+  "scope": "90 QP source proposals: 89 approved marks-only changes (73 blank fills, 16 non-null corrections) and one removed-part exception left null",
   "sourceOverlaySha256": "9577f31ce0b93cc12cdfef1a66dfa41028e9d397535c3dbcce9a37db608137e2",
   "baselineGitCommit": "5e6abbe33cb1a0d23f5148f39824390ed58312dd",
   "targetIdsSha256": "09a22264d647d79f8cbe982dc51132ab76451bdcb036ca09a085dad54f4fbb92",
@@ -14,15 +14,26 @@
     {"questionId":"0620-2026-s-31-q1","qpPage":3,"printedMarks":10},
     {"questionId":"0620-2026-s-51-q3","qpPage":8,"printedMarks":6}
   ],
+  "approved_target_count":89,
+  "approved_target_ids_sha256":"ba44a186730e5ec69dd9a9459052ac2ec3129cf2ca73982b6037d47c0e41d7c2",
+  "excluded_targets":[{"questionId":"0620-2026-m-32-q3","reason":"Printed QP p7 retains [Total: 14] after 3(d)(iv) was explicitly removed; published MS p9 allocates only 13 assessable marks. Leave existing null untouched rather than pretend the attainable maximum is resolved."}],
   "ms_comparison": {
-    "scope":"Mark-column geometry cross-check, not full human transcription of every MS part.",
+    "scope":"Independent mark-column geometry cross-check across all 23 papers; eight discrepant parser totals were followed up against printed QP and MS pages.",
     "paperCount":23,
-    "extracted_question_totals_match_qp_in_papers":15,
-    "parser_or_publisher_disagreements_requiring_attention": [
-      "0620-2020-s-32", "0620-2020-s-61", "0620-2020-s-63", "0620-2026-m-32", "0620-2026-s-42", "0620-2026-s-43", "0620-2026-s-53", "0620-2026-s-63"
+    "matched_without_manual_exception":15,
+    "parser_discrepancies_resolved_to_qp":[
+      {"paperId":"0620-2020-s-32","questionId":"0620-2020-s-32-q5","msPage":8,"part":"5(d)","qpTotal":10,"msTotal":10,"reason":"two credited marks at a continuation-page boundary"},
+      {"paperId":"0620-2020-s-61","questionId":"0620-2020-s-61-q3","msPage":7,"part":"3(c)","qpTotal":11,"msTotal":11,"reason":"three 1-mark criteria across the continuation boundary"},
+      {"paperId":"0620-2026-s-42","questionId":"0620-2026-s-42-q6","msPage":23,"part":"6(f)(i)","qpTotal":14,"msTotal":14,"reason":"two mark criteria in the printed scheme"},
+      {"paperId":"0620-2026-s-43","questionId":"0620-2026-s-43-q3","msPage":10,"part":"3(a)(ii)","qpTotal":9,"msTotal":9,"reason":"two-mark continuation rubric was counted twice by the parser"}
     ],
-    "examples":"2020-s-32 Q5(d) MS mark cell blank despite two credited answers; 2026-s-42 Q6(f)(i) lists M1/M2 without a numeric mark cell; 2026-s-43 Q3(a)(ii) repeats on a continuation page; 2026-m-32 Q3(d)(iv) is marked removed in MS. These are not license to change the printed QP totals.",
-    "claim_limit":"No assertion that all 90 QP/MS part sums agree. The candidate repairs question-level printed totals only; per-part marks are out of scope."
+    "publisher_conflicts_qp_primary":[
+      {"paperId":"0620-2020-s-63","questionId":"0620-2020-s-63-q2","qpPage":6,"msPage":6,"part":"2(f)","qpTotal":19,"msColumnTotal":20,"reason":"QP allocates [1] for reliability; MS prints 2 for repeat and compare. Use the QP question total."},
+      {"paperId":"0620-2026-s-53","questionId":"0620-2026-s-53-q2","qpPage":8,"msPages":[9,10],"parts":["2(b)(iv)","2(c)","2(d)(i)"],"qpTotal":16,"msColumnTotal":13,"reason":"MS b(iv) mark cell blank (QP [1]); MS c and d(i) each print 1 although QP [2] and each describes M1/M2. Use the printed QP total, not MS column under-allocation."},
+      {"paperId":"0620-2026-s-63","questionId":"0620-2026-s-63-q2","qpPage":7,"msPage":12,"parts":["2(h)","2(i)"],"qpTotal":18,"msColumnTotal":16,"reason":"MS mark cells for h and i are blank while QP allocates [1] each. Use printed QP total."}
+    ],
+    "excluded_conflict":{"paperId":"0620-2026-m-32","questionId":"0620-2026-m-32-q3","qpPage":7,"msPage":9,"part":"3(d)(iv)","qpTotal":14,"msColumnTotal":13,"reason":"The question was explicitly removed yet the printed QP total was not adjusted; the attainable maximum is unresolved. Do not fill this null."},
+    "claim_limit":"This is a question-total repair, not a correction of per-part marks or publisher text. All 90 proposal IDs remain in the frozen QP overlay; only 89 are approved for this release."
   },
-  "release_constraints":"Preserve immutable asset manifest, receipt and old classification provenance. Exact 90-ID diff only; private index parity and runtime hash; source QP totals not model guesses."
+  "release_constraints":"Preserve immutable asset manifest, receipt and old classification provenance. Exact 89-ID approved diff; one named target remains null; private index parity and runtime hash; source QP totals not model guesses."
 }

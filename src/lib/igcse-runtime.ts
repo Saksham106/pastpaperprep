@@ -33,6 +33,7 @@ type IGCSEArtifact = {
       overlaySha256?: string;
       sourceDecisionSha256?: string;
       targetIdsSha256?: string;
+      excludedQuestionId?: string;
       changedCount?: number;
       filledNullCount?: number;
       correctedNonNullCount?: number;
@@ -150,10 +151,11 @@ const REPAIR_0620_MARKS = {
   baselineRuntimeSha256: "264ad63d1b259b8fe314834ea8adf93be3fb9749e1bcd09b92c9b3e8c898cc55",
   baselineFinalizedContentSha256: "8b844d8565853b0508a9aaa7e7d5c8d972fa6013bf7bf05b9808e84d0bc3344d",
   overlaySha256: "9577f31ce0b93cc12cdfef1a66dfa41028e9d397535c3dbcce9a37db608137e2",
-  sourceDecisionSha256: "8c40431012ed16750ac5218aa163fd8b5fddb6283ad46d33d6d330946dce85ce",
-  targetIdsSha256: "09a22264d647d79f8cbe982dc51132ab76451bdcb036ca09a085dad54f4fbb92",
-  finalizedContentSha256: "ca8baa4b22412883e55f542b3cc143c55dcdbf48bc502c195358890faed967a1",
-  method: "printed QP question-anchor and per-paper maximum; QP primary; MS comparison disclosed in pinned decision; no asset or classification changes",
+  sourceDecisionSha256: "4a0e1c49ec3475bccf309ed6ba079918e20863170def21f556fffcbc59808767",
+  targetIdsSha256: "ba44a186730e5ec69dd9a9459052ac2ec3129cf2ca73982b6037d47c0e41d7c2",
+  excludedQuestionId: "0620-2026-m-32-q3",
+  finalizedContentSha256: "4ed96266d7fa59d6d90dc1b04b2b8aded65e98d552cabcdee8b61112782d24d2",
+  method: "printed QP question-anchor and per-paper maximum; QP primary for three MS conflicts; removed-part exception left null; no asset or classification changes",
 } as const;
 
 /** A second, marks-only descendant preserves the prior Other repair as ancestry. */
@@ -167,13 +169,15 @@ export function assert0620MarksRepair(artifact: IGCSEArtifact): void {
     repair?.overlaySha256 !== REPAIR_0620_MARKS.overlaySha256 ||
     repair?.sourceDecisionSha256 !== REPAIR_0620_MARKS.sourceDecisionSha256 ||
     repair?.targetIdsSha256 !== REPAIR_0620_MARKS.targetIdsSha256 ||
-    repair?.changedCount !== 90 || repair?.filledNullCount !== 74 || repair?.correctedNonNullCount !== 16 ||
+    repair?.excludedQuestionId !== REPAIR_0620_MARKS.excludedQuestionId ||
+    repair?.changedCount !== 89 || repair?.filledNullCount !== 73 || repair?.correctedNonNullCount !== 16 ||
     repair?.method !== REPAIR_0620_MARKS.method ||
     seal?.assetManifestSha256 !== REPAIR_0620_OTHER.assetManifestSha256 ||
     seal?.storageReceiptSha256 !== REPAIR_0620_OTHER.storageReceiptSha256 ||
     seal?.finalizedContentSha256 !== REPAIR_0620_MARKS.finalizedContentSha256 ||
     canonicalSha256(artifact.questions) !== REPAIR_0620_MARKS.finalizedContentSha256 ||
-    artifact.questions.some((question) => typeof question.marks !== "number" || question.marks <= 0 || question.maxMarks !== question.marks)
+    artifact.questions.filter((question) => question.marks == null || question.maxMarks == null).map((question) => question.id).join() !== REPAIR_0620_MARKS.excludedQuestionId ||
+    artifact.questions.some((question) => question.id !== REPAIR_0620_MARKS.excludedQuestionId && (typeof question.marks !== "number" || question.marks <= 0 || question.maxMarks !== question.marks))
   ) throw new Error("IGCSE 0620 marks repair provenance or finalized content mismatch");
 }
 
