@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { PricingContent } from "@/components/PricingContent";
 import { hasBankAccess, type ProductId } from "@/lib/access";
@@ -51,7 +52,21 @@ export default async function PricingPage({ searchParams }: { searchParams: Prom
 
   if (userId) {
     const result = await fetchAccessEntitlements(supabase as never, userId);
-    if (result.error) throw result.error;
+    if (result.error) {
+      // PostgREST 14.5 can retain a stale JWT validation clock. Its PGRST303
+      // may outlast the bounded read retry; never guess the subscriber's access
+      // or offer checkout when the access lookup could not be completed.
+      const error = result.error as { code?: unknown; message?: unknown };
+      if (error.code === "PGRST303" && error.message === "JWT issued at future") {
+        return <div className="public-surface"><section className="auth-page shell"><div className="auth-card" role="alert">
+          <p className="eyebrow">Access check delayed</p>
+          <h1>We couldn&apos;t check your access.</h1>
+          <p>Your account hasn&apos;t changed. Please try again in a moment.</p>
+          <Link className="button primary" href="/pricing">Try again</Link>
+        </div></section></div>;
+      }
+      throw result.error;
+    }
     const entitlements = result.rows as (AccessEntitlement & { source?: string; products?: { name?: string } | { name?: string }[] | null })[];
     ownedBankIds = billingBanks.filter(({ slug }) => hasBankAccess(slug, entitlements)).map(({ slug }) => slug);
     hasPaidAccess = getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, entitlements));
