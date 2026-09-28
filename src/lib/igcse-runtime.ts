@@ -26,6 +26,18 @@ type IGCSEArtifact = {
     releaseTaxonomySha256?: string;
     runtimeTaxonomySha256?: string;
     finalizedContentSha256?: string;
+    chemistryMarksRepair?: {
+      baselineGitCommit?: string;
+      baselineRuntimeSha256?: string;
+      baselineFinalizedContentSha256?: string;
+      overlaySha256?: string;
+      sourceDecisionSha256?: string;
+      targetIdsSha256?: string;
+      changedCount?: number;
+      filledNullCount?: number;
+      correctedNonNullCount?: number;
+      method?: string;
+    };
     chemistryOtherRetrievalRepair?: {
       baselineGitCommit?: string;
       baselineRuntimeSha256?: string;
@@ -133,6 +145,38 @@ const REPAIR_0620_OTHER = {
   method: "paired-QP-MS-and-era-syllabus-reviewed; bounded-TypeSafe-Jev-suggestions; retrieval-only; unresolved-provenance-preserved",
 } as const;
 
+const REPAIR_0620_MARKS = {
+  baselineGitCommit: "5e6abbe33cb1a0d23f5148f39824390ed58312dd",
+  baselineRuntimeSha256: "264ad63d1b259b8fe314834ea8adf93be3fb9749e1bcd09b92c9b3e8c898cc55",
+  baselineFinalizedContentSha256: "8b844d8565853b0508a9aaa7e7d5c8d972fa6013bf7bf05b9808e84d0bc3344d",
+  overlaySha256: "9577f31ce0b93cc12cdfef1a66dfa41028e9d397535c3dbcce9a37db608137e2",
+  sourceDecisionSha256: "8c40431012ed16750ac5218aa163fd8b5fddb6283ad46d33d6d330946dce85ce",
+  targetIdsSha256: "09a22264d647d79f8cbe982dc51132ab76451bdcb036ca09a085dad54f4fbb92",
+  finalizedContentSha256: "ca8baa4b22412883e55f542b3cc143c55dcdbf48bc502c195358890faed967a1",
+  method: "printed QP question-anchor and per-paper maximum; QP primary; MS comparison disclosed in pinned decision; no asset or classification changes",
+} as const;
+
+/** A second, marks-only descendant preserves the prior Other repair as ancestry. */
+export function assert0620MarksRepair(artifact: IGCSEArtifact): void {
+  const seal = artifact.runtimeArtifact;
+  const repair = seal?.chemistryMarksRepair;
+  if (
+    repair?.baselineGitCommit !== REPAIR_0620_MARKS.baselineGitCommit ||
+    repair?.baselineRuntimeSha256 !== REPAIR_0620_MARKS.baselineRuntimeSha256 ||
+    repair?.baselineFinalizedContentSha256 !== REPAIR_0620_MARKS.baselineFinalizedContentSha256 ||
+    repair?.overlaySha256 !== REPAIR_0620_MARKS.overlaySha256 ||
+    repair?.sourceDecisionSha256 !== REPAIR_0620_MARKS.sourceDecisionSha256 ||
+    repair?.targetIdsSha256 !== REPAIR_0620_MARKS.targetIdsSha256 ||
+    repair?.changedCount !== 90 || repair?.filledNullCount !== 74 || repair?.correctedNonNullCount !== 16 ||
+    repair?.method !== REPAIR_0620_MARKS.method ||
+    seal?.assetManifestSha256 !== REPAIR_0620_OTHER.assetManifestSha256 ||
+    seal?.storageReceiptSha256 !== REPAIR_0620_OTHER.storageReceiptSha256 ||
+    seal?.finalizedContentSha256 !== REPAIR_0620_MARKS.finalizedContentSha256 ||
+    canonicalSha256(artifact.questions) !== REPAIR_0620_MARKS.finalizedContentSha256 ||
+    artifact.questions.some((question) => typeof question.marks !== "number" || question.marks <= 0 || question.maxMarks !== question.marks)
+  ) throw new Error("IGCSE 0620 marks repair provenance or finalized content mismatch");
+}
+
 /** Historical source-insufficient review stays intact; this seals exactly 30 student routes. */
 export function assert0620OtherRetrievalRepair(artifact: IGCSEArtifact): void {
   const seal = artifact.runtimeArtifact;
@@ -163,8 +207,8 @@ export function assert0620OtherRetrievalRepair(artifact: IGCSEArtifact): void {
     }) ||
     seal?.assetManifestSha256 !== REPAIR_0620_OTHER.assetManifestSha256 ||
     seal?.storageReceiptSha256 !== REPAIR_0620_OTHER.storageReceiptSha256 ||
-    seal?.finalizedContentSha256 !== REPAIR_0620_OTHER.finalizedContentSha256 ||
-    canonicalSha256(artifact.questions) !== REPAIR_0620_OTHER.finalizedContentSha256
+    seal?.finalizedContentSha256 !== (seal?.chemistryMarksRepair ? REPAIR_0620_MARKS.finalizedContentSha256 : REPAIR_0620_OTHER.finalizedContentSha256) ||
+    canonicalSha256(artifact.questions) !== (seal?.chemistryMarksRepair ? REPAIR_0620_MARKS.finalizedContentSha256 : REPAIR_0620_OTHER.finalizedContentSha256)
   ) throw new Error("IGCSE 0620 original Other retrieval provenance or finalized content mismatch");
 }
 
@@ -354,7 +398,10 @@ export function getIGCSERuntimeArtifact(bank: IGCSEReleaseBankSlug, environment:
   );
   if (artifact.questions.length !== questions || artifact.paperCount !== papers || metadata?.assetVerification !== "verified_readback" || typeof metadata?.storageReceiptSha256 !== "string" || typeof metadata?.assetManifestSha256 !== "string" || !taxonomySealed || !candidateSealed || !runtimeSealed || !questionStatesSealed) throw new Error("IGCSE runtime is not backed by verified storage, candidate, runtime, taxonomy, and question-state seals");
   if (bank === "igcse-biology-0610") assert0610PollutionRepair(artifact);
-  if (bank === "igcse-chemistry-0620") assert0620OtherRetrievalRepair(artifact);
+  if (bank === "igcse-chemistry-0620") {
+    assert0620OtherRetrievalRepair(artifact);
+    assert0620MarksRepair(artifact);
+  }
   if (bank === "igcse-coordinated-sciences-0654") assert0654TaxonomyRepair(artifact);
   if (bank === "igcse-physics-0625") {
     assert0625PracticalRoleRepair(artifact);

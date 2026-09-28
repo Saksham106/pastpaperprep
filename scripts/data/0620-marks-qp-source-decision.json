@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "chemistry-0620-qp-source-decision-v1",
+  "decision": "apply_exact_printed_question_total",
+  "scope": "90 marks-only rows: 74 blank totals and 16 stored totals differing from print",
+  "sourceOverlaySha256": "9577f31ce0b93cc12cdfef1a66dfa41028e9d397535c3dbcce9a37db608137e2",
+  "baselineGitCommit": "5e6abbe33cb1a0d23f5148f39824390ed58312dd",
+  "targetIdsSha256": "09a22264d647d79f8cbe982dc51132ab76451bdcb036ca09a085dad54f4fbb92",
+  "authority": "Printed QP total wins over extracted or conflicting MS totals; source PDF hashes and question-anchor pages are pinned per target in the overlay.",
+  "whole_paper_evidence": "All 23 paired QPs have sequential question anchors and one bracketed total per theory question or one final practical [6]. Each complete paper sums to its printed maximum of 80 (theory) or 40 (practical).",
+  "independent_qp_spot_checks": [
+    {"questionId":"0620-2019-s-51-q2","qpPage":7,"printedMarks":16},
+    {"questionId":"0620-2020-s-61-q1","qpPage":2,"printedMarks":5},
+    {"questionId":"0620-2026-m-32-q2","qpPage":5,"printedMarks":14},
+    {"questionId":"0620-2026-s-31-q1","qpPage":3,"printedMarks":10},
+    {"questionId":"0620-2026-s-51-q3","qpPage":8,"printedMarks":6}
+  ],
+  "ms_comparison": {
+    "scope":"Mark-column geometry cross-check, not full human transcription of every MS part.",
+    "paperCount":23,
+    "extracted_question_totals_match_qp_in_papers":15,
+    "parser_or_publisher_disagreements_requiring_attention": [
+      "0620-2020-s-32", "0620-2020-s-61", "0620-2020-s-63", "0620-2026-m-32", "0620-2026-s-42", "0620-2026-s-43", "0620-2026-s-53", "0620-2026-s-63"
+    ],
+    "examples":"2020-s-32 Q5(d) MS mark cell blank despite two credited answers; 2026-s-42 Q6(f)(i) lists M1/M2 without a numeric mark cell; 2026-s-43 Q3(a)(ii) repeats on a continuation page; 2026-m-32 Q3(d)(iv) is marked removed in MS. These are not license to change the printed QP totals.",
+    "claim_limit":"No assertion that all 90 QP/MS part sums agree. The candidate repairs question-level printed totals only; per-part marks are out of scope."
+  },
+  "release_constraints":"Preserve immutable asset manifest, receipt and old classification provenance. Exact 90-ID diff only; private index parity and runtime hash; source QP totals not model guesses."
+}

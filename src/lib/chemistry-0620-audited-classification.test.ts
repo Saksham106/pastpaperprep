@@ -98,9 +98,10 @@ describe("Chemistry 0620 audited base classification production overlay", () => 
     expect(runtime.assetVerification).toBe("verified_readback");
     expect(runtime.version).toBe("igcse-chemistry-0620-release-candidate-v4-taxonomy-projected");
     expect(PUBLIC_BANK_INDEX_FILES["igcse-chemistry-0620"]).toBe(
-      "igcse-chemistry-0620.v1-c76ee37bcb63.json",
+      "igcse-chemistry-0620.v1-2e25bd546e6c.json",
     );
     expect(runtime.runtimeArtifact.chemistryOtherRetrievalRepair.changedCount).toBe(30);
+    expect(runtime.runtimeArtifact.chemistryMarksRepair).toMatchObject({changedCount:90,filledNullCount:74,correctedNonNullCount:16});
     expect(runtime.auditedBaseClassification).toMatchObject({
       auditVerdict: "PASS",
       rowCount: 3529,
