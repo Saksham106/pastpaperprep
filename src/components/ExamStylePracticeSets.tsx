@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FilePdf } from "@phosphor-icons/react/dist/ssr";
 import { EXAM_STYLE_TRIGONOMETRY_SETS } from "@/lib/exam-style-trigonometry";
+import { ExamStylePdfViewer } from "@/components/ExamStylePdfViewer";
 
 export function ExamStylePracticeSets() {
   const [selectedSlug, setSelectedSlug] = useState(EXAM_STYLE_TRIGONOMETRY_SETS[0].slug);
@@ -32,7 +33,7 @@ export function ExamStylePracticeSets() {
             <h2 id="practice-set-heading">{selected.title}</h2>
           </div>
         </header>
-        <iframe className="exam-style-pdf" key={selected.slug} src={apiUrl} title={`${selected.title} PDF`} />
+        <ExamStylePdfViewer key={selected.slug} src={apiUrl} title={selected.title} />
       </div>
     </section>
   );

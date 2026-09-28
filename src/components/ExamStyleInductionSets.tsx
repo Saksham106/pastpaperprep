@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FilePdf } from "@phosphor-icons/react/dist/ssr";
 import { EXAM_STYLE_INDUCTION_SETS } from "@/lib/exam-style-induction";
+import { ExamStylePdfViewer } from "@/components/ExamStylePdfViewer";
 
 export function ExamStyleInductionSets() {
   const [selectedSlug, setSelectedSlug] = useState<string>(EXAM_STYLE_INDUCTION_SETS[0].slug);
@@ -20,7 +21,7 @@ export function ExamStyleInductionSets() {
       </div>
       <div className="exam-style-viewer">
         <header><div><p className="eyebrow">Selected practice set</p><h2 id="induction-practice-set-heading">{selected.title}</h2></div></header>
-        <iframe className="exam-style-pdf" key={selected.slug} src={apiUrl} title={`${selected.title} practice PDF`} />
+        <ExamStylePdfViewer key={selected.slug} src={apiUrl} title={selected.title} />
       </div>
     </section>
   );

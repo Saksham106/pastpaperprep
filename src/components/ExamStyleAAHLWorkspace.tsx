@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CaretDown, FilePdf } from "@phosphor-icons/react/dist/ssr";
 import { EXAM_STYLE_INDUCTION_SETS } from "@/lib/exam-style-induction";
 import { EXAM_STYLE_BINOMIAL_COUNTING_SETS } from "@/lib/exam-style-binomial-counting";
+import { ExamStylePdfViewer } from "@/components/ExamStylePdfViewer";
 
 const TOPICS = ["Proof by induction", "Binomial theorem", "Counting principle"] as const;
 type Topic = (typeof TOPICS)[number];
@@ -61,7 +62,7 @@ export function ExamStyleAAHLWorkspace() {
       </nav>
       <div className="exam-style-viewer">
         <header><div><p className="eyebrow">{topic} · selected practice set</p><h2 id="aa-hl-practice-set-heading">{selected.title}</h2></div></header>
-        <iframe className="exam-style-pdf" key={apiUrl} src={apiUrl} title={`${selected.title} practice PDF`} />
+        <ExamStylePdfViewer key={apiUrl} src={apiUrl} title={selected.title} />
       </div>
     </section>
   );
