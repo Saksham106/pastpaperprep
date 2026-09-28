@@ -14,15 +14,36 @@ function enableDialog() {
 const items = [{ id: "w-1", bank_slug: "igcse-0580", title: "Algebra", question_ids: ["q1", "q2"], content_mode: "both" as const, revision: 3, updated_at: "2026-09-23T12:00:00Z" }];
 
 describe("WorksheetList", () => {
-  it("links signed-in users to the separate worksheet library without embedding the list", () => {
-    render(<DashboardContent authenticated accessibleBanks={[]} availableBanks={[]} />);
+  it("links entitled users to the separate worksheet library without embedding the list", () => {
+    render(<DashboardContent authenticated accessibleBanks={["igcse"]} availableBanks={[]} />);
     expect(screen.getByRole("link", { name: /my worksheets/i })).toHaveAttribute("href", "/worksheets");
     expect(screen.queryByRole("heading", { name: "My worksheets" })).not.toBeInTheDocument();
   });
 
-  it("keeps the worksheet library link private on the public dashboard", () => {
+  it("shows free members a short worksheet access dialog without navigating away", () => {
+    HTMLDialogElement.prototype.showModal = function () { this.open = true; this.querySelector<HTMLAnchorElement>("a")?.focus(); };
+    HTMLDialogElement.prototype.close = function () { this.open = false; this.dispatchEvent(new Event("close")); };
+    render(<DashboardContent authenticated accessibleBanks={[]} />);
+    expect(screen.queryByRole("link", { name: /my worksheets/i })).not.toBeInTheDocument();
+    const trigger = screen.getByRole("button", { name: /my worksheets/i });
+    fireEvent.click(trigger);
+    const dialog = screen.getByRole("dialog", { name: "Unlock worksheets" });
+    expect(dialog).toHaveTextContent("Worksheets and PDF exports need a plan.");
+    expect(screen.getByRole("link", { name: "See plans" })).toHaveAttribute("href", "/pricing");
+    expect(screen.getByRole("link", { name: "See plans" })).toHaveFocus();
+    fireEvent.click(screen.getByRole("button", { name: "Not now" }));
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(trigger).toHaveFocus();
+    fireEvent.click(trigger);
+    fireEvent(screen.getByRole("dialog", { name: "Unlock worksheets" }), new Event("cancel", { cancelable: true }));
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(trigger).toHaveFocus();
+  });
+
+  it("keeps the worksheet link private on the public dashboard", () => {
     render(<DashboardContent authenticated={false} accessibleBanks={[]} availableBanks={[]} />);
     expect(screen.queryByRole("link", { name: /my worksheets/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /my worksheets/i })).not.toBeInTheDocument();
   });
 
   it("has one prominent page title rather than repeating My worksheets inside the list", () => {
