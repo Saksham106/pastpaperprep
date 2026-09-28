@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { BookOpen, Check, CrownSimple, SlidersHorizontal } from "@phosphor-icons/react";
+import { BookOpen, CrownSimple, SlidersHorizontal } from "@phosphor-icons/react";
 import { useCallback, useState } from "react";
 import { CustomBundleCheckout, PlanCheckout, PortalButton } from "@/components/BillingActions";
 import { CourseIcon, courseToneForBank } from "@/components/CourseIcon";
@@ -206,12 +206,14 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           <Link className="button secondary" href={bankEntryHref("igcse")}>Browse free questions</Link>
         </div> : null}
 
-        {!hasPaidAccess ? <div className="pricing-includes-compact" aria-label="Included with every paid plan">
-          <span><Check /> All available questions</span>
-          <span><Check /> Answers and mark schemes where available</span>
-          <span><Check /> Smart filters</span>
-          <span><Check /> PDF export</span>
-        </div> : null}
+        {!hasPaidAccess ? <section className="pricing-referral-note" aria-labelledby="pricing-referral-heading">
+          <div>
+            <p className="eyebrow">Share &amp; save</p>
+            <h2 id="pricing-referral-heading">Refer friends. Get plan credit.</h2>
+            <p>Eligible referrals can earn a month of credit toward a paid plan after review.</p>
+          </div>
+          <Link className="button secondary" href={authenticated ? "/account/referrals" : "/login?next=/account/referrals"}>See referral rewards <span aria-hidden="true">↗</span></Link>
+        </section> : null}
 
         <section className="pricing-bank-catalog" aria-labelledby="pricing-bank-catalog-heading">
           <div className="pricing-bank-catalog-heading">

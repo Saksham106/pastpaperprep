@@ -818,13 +818,16 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .pricing-free-strip { margin-top: 18px; padding: 17px 19px; display: flex; align-items: center; justify-content: space-between; gap: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
 .pricing-free-strip > div { display: grid; gap: 2px; }
 .pricing-free-strip span { color: var(--muted); font-size: .86rem; }
-.pricing-includes-compact { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--muted); font-size: .81rem; }
-.pricing-includes-compact span svg { flex: 0 0 auto; width: .95em; height: .95em; color: var(--success); }
-.pricing-includes-compact span { display: inline-flex; align-items: center; gap: 5px; }
-.pricing-includes-compact svg { color: var(--success); }
+.pricing-referral-note { margin-top: 18px; padding: 24px 3px 0; display: flex; align-items: center; justify-content: space-between; gap: 26px; border-top: 1px solid var(--line-strong); }
+.pricing-referral-note .eyebrow { margin: 0 0 5px; color: var(--burgundy); }
+.pricing-referral-note h2 { margin: 0 0 6px; font: 750 clamp(1.13rem, 2vw, 1.42rem)/1.18 var(--font-display); letter-spacing: -.035em; }
+.pricing-referral-note p:not(.eyebrow) { max-width: 720px; margin: 0; color: var(--muted); font-size: .84rem; line-height: 1.55; }
+.pricing-referral-note > a { flex: 0 0 auto; min-height: 44px; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+@media (max-width: 720px) { .pricing-referral-note { align-items: flex-start; flex-direction: column; gap: 11px; } }
 .checkout-note { margin-top: 16px; color: var(--muted); font-size: .78rem; line-height: 1.5; }
 .checkout-note a { color: var(--cobalt-strong); text-decoration: underline; text-underline-offset: 2px; }
 .pricing-bank-catalog { margin-top: clamp(54px, 7vw, 86px); padding-top: clamp(32px, 5vw, 54px); border-top: 1px solid var(--line-strong); scroll-margin-top: 92px; }
+.pricing-referral-note + .pricing-bank-catalog { margin-top: 24px; }
 .pricing-bank-catalog-heading { display: flex; align-items: end; justify-content: space-between; gap: 32px; }
 .pricing-bank-catalog-heading h2 { max-width: 680px; margin: 7px 0 0; font: 850 clamp(2.25rem, 4vw, 3.5rem)/1 var(--font-display); letter-spacing: -.055em; }
 .pricing-bank-catalog-heading > p { max-width: 390px; margin: 0; color: var(--muted); line-height: 1.55; }
