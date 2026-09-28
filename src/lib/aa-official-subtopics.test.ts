@@ -112,6 +112,24 @@ describe("official AA normal subtopics", () => {
     }
   });
 
+  it("repairs only the three printed-source AA SL blanks, retaining rejected labels as history", () => {
+    const sl = normalizeBankQuestions("ib-sl", (rawSl as { questions: unknown[] }).questions as never[]);
+    const ids = ["2023-november-p1-tz2-q2", "2023-november-p2-tz1-q7", "2023-november-p2-tz2-q7"];
+    const rows = ids.map((id) => sl.find((row) => row.id === id) ?? (() => { throw new Error(id); })());
+    expect(rows[0]).toMatchObject({ primaryTopic: "Functions", subtopics: ["Composite and inverse functions"] });
+    for (const row of rows.slice(1)) {
+      expect(row).toMatchObject({ primaryTopic: "Calculus", secondaryTopics: ["Geometry and trigonometry"], subtopics: ["Second derivatives, optimization and kinematics", "Three-dimensional measurement and angles"] });
+      expect(row.subtopics).not.toContain("Radians, arc length and sector area");
+      for (const label of row.subtopics) expect(filterQuestions(sl, { subtopics: [label] })).toContainEqual(row);
+    }
+    for (const row of rows) {
+      expect(row.classificationProvenance?.status).toBe("accepted");
+      expect(row.classificationProvenance?.oldSubtopics.length).toBeGreaterThan(0);
+    }
+    expect(aaOverlay.records.filter((record) => record.level === "SL" && record.status === "blocked")).toHaveLength(0);
+    expect(aaOverlay.records.filter((record) => record.level === "HL" && record.status === "blocked")).toHaveLength(6);
+  });
+
   it("covers exactly the current AA universe and keeps legacy granular assignments", () => {
     const sl = normalizeBankQuestions("ib-sl", (rawSl as { questions: unknown[] }).questions as never[]);
     const hl = normalizeBankQuestions("ib-hl", (rawHl as { questions: unknown[] }).questions as never[]);
@@ -119,8 +137,8 @@ describe("official AA normal subtopics", () => {
     const currentHl = new Set(aaOverlay.records.filter((row) => row.level === "HL").map((row) => row.id));
     expect(sl.filter((row) => currentSl.has(row.id))).toHaveLength(378);
     expect(hl.filter((row) => currentHl.has(row.id))).toHaveLength(489);
-    expect(aaOverlay.records.filter((row) => row.status === "accepted")).toHaveLength(858);
-    expect(aaOverlay.records.filter((row) => row.status === "blocked")).toHaveLength(9);
+    expect(aaOverlay.records.filter((row) => row.status === "accepted")).toHaveLength(861);
+    expect(aaOverlay.records.filter((row) => row.status === "blocked")).toHaveLength(6);
     expect(aaReport.counts.primaryTopicCorrections).toBe(35);
     expect(aaReport.counts.crossTopicRows).toBe(2);
     expect([...sl, ...hl].filter((question) => question.classificationProvenance?.legacyGranularLabels.length).length).toBe(69);
