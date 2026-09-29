@@ -1,9 +1,11 @@
 import { canonicalBiology0610Topic } from "@/lib/biology-0610-topic-aliases";
 import type { QuestionFilters, UnifiedQuestion } from "@/lib/questions";
 import { isLocalEconomicsBank } from "@/lib/banks";
+import { BIOLOGY_0610_EARLIER, BIOLOGY_0610_SECTIONS, display0610Sections } from "@/lib/igcse-0610-official.mjs";
 
 /** Reused across sorts so topic sorting does not build a fresh collator per comparison. */
 const topicCollator = new Intl.Collator(undefined, { numeric: true });
+const biology0610CurrentHeadings = new Set<string>([...BIOLOGY_0610_SECTIONS.map((section) => section.title), BIOLOGY_0610_EARLIER]);
 
 function includesAny(selected: string[] | undefined, values: string[]): boolean {
   return !selected?.length || selected.some((value) => values.includes(value));
@@ -50,7 +52,11 @@ export function filterQuestions(questions: UnifiedQuestion[], filters: QuestionF
     // `skills` is the canonical filterable classification vocabulary. Keep
     // accepting legacy `subtopics`, but never let a correctly classified
     // secondary skill disappear because an older bank omitted it there.
-    if (!includesAny(filters.subtopics, filterableSubtopics(question))) return false;
+    if (filters.subtopics?.length && question.bankSlug === "igcse-biology-0610") {
+      const visible = display0610Sections(question.officialCodeRefs ?? []);
+      const aliases = filterableSubtopics(question);
+      if (!filters.subtopics.some((label) => biology0610CurrentHeadings.has(label) ? visible.includes(label) : aliases.includes(label))) return false;
+    } else if (!includesAny(filters.subtopics, filterableSubtopics(question))) return false;
     if (!includesAny(filters.granularLabels, question.granularLabels ?? [])) return false;
     if (!includesAny(filters.officialCodeRefs, question.officialCodeRefs ?? [])) return false;
     if (!includesAny(filters.retrievalFacets, question.retrievalFacets ?? [])) return false;

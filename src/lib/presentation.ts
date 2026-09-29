@@ -1,4 +1,5 @@
 import { display0455Sections } from "@/lib/igcse-0455-official.mjs";
+import { display0610Sections } from "@/lib/igcse-0610-official.mjs";
 import type { UnifiedQuestion } from "@/lib/questions";
 
 const GRANULAR_LABEL_NAMES: Readonly<Record<string, string>> = {
@@ -22,9 +23,9 @@ export function formatPublicLabel(value: string): string {
   return spaced.charAt(0).toLocaleUpperCase() + spaced.slice(1);
 }
 
-/** Student-visible headings; source classification aliases stay on the record for search. */
+/** Source aliases stay searchable; student cards and PDFs use official headings. */
 export function displayedQuestionSubtopics(question: Pick<UnifiedQuestion, "bankSlug" | "subtopics" | "officialCodeRefs">): string[] {
-  return question.bankSlug === "igcse-economics-0455"
-    ? display0455Sections(question.officialCodeRefs ?? [])
-    : question.subtopics;
+  if (question.bankSlug === "igcse-economics-0455") return display0455Sections(question.officialCodeRefs ?? []);
+  if (question.bankSlug === "igcse-biology-0610") return display0610Sections(question.officialCodeRefs ?? []);
+  return question.subtopics;
 }

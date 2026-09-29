@@ -1,5 +1,5 @@
 import { canonicalBiology0610Topic } from "@/lib/biology-0610-topic-aliases";
-import biology0610OfficialTaxonomy from "@/data/classification/igcse-biology-0610-official-taxonomy-v2.json";
+import { BIOLOGY_0610_EARLIER, BIOLOGY_0610_EARLIER_TOPIC, BIOLOGY_0610_SECTIONS, BIOLOGY_0610_TOPICS, display0610Sections } from "@/lib/igcse-0610-official.mjs";
 import economicsTaxonomy from "@/data/igcse-economics-0455-taxonomy.json";
 import { ECONOMICS_0455_TOPICS, ECONOMICS_0455_SECTIONS, ECONOMICS_0455_EARLIER } from "@/lib/igcse-0455-official.mjs";
 import coordinatedTaxonomy from "@/data/igcse-coordinated-sciences-0654-taxonomy.json";
@@ -13,11 +13,7 @@ import {
 } from "@/lib/taxonomy";
 import type { UnifiedQuestion } from "@/lib/questions";
 
-const BIOLOGY_0610_TOPIC_ORDER = biology0610OfficialTaxonomy.eras.at(-1)!.topics.map((topic) => topic.title);
-const BIOLOGY_0610_ALL_TOPIC_HEADINGS = [...new Set(biology0610OfficialTaxonomy.eras.flatMap((era) => era.topics.map((topic) => topic.title)))];
-const BIOLOGY_0610_GROUPS_BY_ERA: Record<string, Record<string, readonly string[]>> = Object.fromEntries(
-  biology0610OfficialTaxonomy.eras.map((era) => [era.era, Object.fromEntries(era.topics.map((topic) => [topic.title, topic.subtopics.map((subtopic) => subtopic.title)]))]),
-);
+const BIOLOGY_0610_TOPIC_ORDER = BIOLOGY_0610_TOPICS;
 const BIOLOGY_OFFICIAL_TOPIC_ORDER = [...new Set(biologyOfficialTaxonomy.curatedGroups.map((group) => group.parentTopic))];
 const BIOLOGY_OFFICIAL_GROUPS: Record<string, readonly string[]> = Object.fromEntries(
   BIOLOGY_OFFICIAL_TOPIC_ORDER.map((topic) => [topic, biologyOfficialTaxonomy.curatedGroups.filter((group) => group.parentTopic === topic).map((group) => group.studentFacingName)]),
@@ -107,7 +103,7 @@ export function getControlledSubtopics(bankSlug: string, topic: string): readonl
   if (isAaBank(bankSlug)) return AA_GROUPS[topic] ?? [];
   if (isOfficialBiologyBank(bankSlug)) return BIOLOGY_OFFICIAL_GROUPS[topic] ?? [];
   if (bankSlug === "igcse-biology-0610") {
-    return [...new Set(Object.values(BIOLOGY_0610_GROUPS_BY_ERA).flatMap((groups) => groups[topic] ?? []))];
+    return topic === BIOLOGY_0610_EARLIER_TOPIC ? [BIOLOGY_0610_EARLIER] : BIOLOGY_0610_SECTIONS.filter((section) => section.topic === topic).map((section) => section.title);
   }
   if (bankSlug === "igcse-economics-0455") return OFFICIAL_0455_GROUPS[topic] ?? [];
   if (isCoordinatedBank(bankSlug)) return COORDINATED_GROUPS[topic] ?? (COORDINATED_TOPIC_ORDER.includes(topic) ? [topic] : []);
@@ -134,11 +130,10 @@ export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
     const remaining = [...available].filter((topic) => !ordered.includes(topic)).sort();
     return [...ordered, ...remaining];
   }
+  if (isOfficial0610Bank(bank)) return [...BIOLOGY_0610_TOPIC_ORDER, ...(questions.some((question) => question.primaryTopic === BIOLOGY_0610_EARLIER_TOPIC) ? [BIOLOGY_0610_EARLIER_TOPIC] : [])];
   if (!isReleaseBank(bank)) return getLegacyTopicOptions(questions);
-  const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics])
-    .map((topic) => bank === "igcse-biology-0610" ? canonicalBiology0610Topic(topic) : topic));
-  const order = bank === "igcse-biology-0610" ? BIOLOGY_0610_TOPIC_ORDER : ECONOMICS_TOPIC_ORDER;
-  const ordered = order.filter((topic) => available.has(topic));
+  const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]));
+  const ordered = ECONOMICS_TOPIC_ORDER.filter((topic) => available.has(topic));
   const remaining = [...available].filter((topic) => !ordered.includes(topic)).sort();
   return [...ordered, ...remaining];
 }
@@ -187,15 +182,15 @@ export function getSubtopicGroups(
     };
   }
   if (isOfficial0610Bank(bank)) {
-    const all = [...new Set(BIOLOGY_0610_ALL_TOPIC_HEADINGS.flatMap((topic) => Object.values(BIOLOGY_0610_GROUPS_BY_ERA).flatMap((groups) => groups[topic] ?? [])))].filter((label) => questions.some((question) => question.subtopics.includes(label)));
+    const all = [...BIOLOGY_0610_SECTIONS.map((section) => section.title), ...(questions.some((question) => display0610Sections(question.officialCodeRefs).includes(BIOLOGY_0610_EARLIER)) ? [BIOLOGY_0610_EARLIER] : [])];
     const available = new Set(all);
     const selected = new Set(selectedTopics.map(canonicalBiology0610Topic));
     const relevant = selectedTopics.length
-      ? [...new Set(questions
+      ? [...new Set([...selectedTopics.flatMap((topic) => getControlledSubtopics(bank, topic)), ...questions
         .filter((question) => [question.primaryTopic, ...question.secondaryTopics]
           .some((topic) => selected.has(canonicalBiology0610Topic(topic))))
-        .flatMap((question) => question.subtopics)
-        .filter((label) => available.has(label)))]
+        .flatMap((question) => display0610Sections(question.officialCodeRefs))]
+        .filter((label) => available.has(label) && (label !== BIOLOGY_0610_EARLIER || selectedTopics.includes(BIOLOGY_0610_EARLIER_TOPIC))))]
       : all;
     const relevantSet = new Set(relevant);
     return {
