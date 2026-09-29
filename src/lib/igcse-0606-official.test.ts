@@ -52,8 +52,9 @@ describe("0606 official topic projection", () => {
     for (const label of EARLIER_0606_SUBTOPICS) {
       expect(filterQuestions([...normalized], { subtopics: [label] }).length).toBeGreaterThan(0);
     }
-    expect(getSubtopicGroups(normalized, [], []).all).toEqual([...EARLIER_0606_SUBTOPICS]);
+    expect(getSubtopicGroups(normalized, [], []).all).toEqual([]);
     expect(getSubtopicGroups(normalized, [EARLIER_0606_TOPIC], []).relevant).toEqual([...EARLIER_0606_SUBTOPICS]);
+    expect(getSubtopicGroups(normalized, [], ["Matrices"]).all).toEqual(["Matrices"]);
     expect(getSubtopicGroups(normalized, ["Functions"], []).relevant).toEqual([]);
     const searchable = normalized.find((q) => q.subtopics.includes("Indices and surds"))!;
     expect(filterQuestions([searchable], { search: "indices and surds" })).toHaveLength(1);
@@ -62,5 +63,8 @@ describe("0606 official topic projection", () => {
   it("fails closed on an unmapped new source label", () => {
     expect(() => project0606Topics({ id: "new", subtopics: ["Unknown section"] })).toThrow(/new.*Unknown section/);
     expect(() => project0606Topics({ id: "new-2026", year: 2026, subtopics: ["Indices and surds"] })).toThrow(/needs source review/);
+    const reviewed = source.find((q) => q.id === "0606-2025-march-22-q3")!;
+    expect(() => project0606Topics({ ...reviewed, year: 2026 })).toThrow(/source identity changed/);
+    expect(() => project0606Topics({ ...reviewed, subtopics: ["Matrices"] })).toThrow(/source identity changed/);
   });
 });

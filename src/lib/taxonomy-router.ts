@@ -152,8 +152,14 @@ export function getSubtopicGroups(
   const bank = questions[0]?.bankSlug;
   if (bank === "igcse-additional") {
     const sourceLabels = new Set(questions.flatMap((question) => [...question.subtopics, ...question.skills]));
-    const all = EARLIER_0606_SUBTOPICS.filter((label) => sourceLabels.has(label));
-    const relevant = selectedTopics.length && !selectedTopics.includes(EARLIER_0606_TOPIC) ? [] : all;
+    const earlierSelected = selectedTopics.includes(EARLIER_0606_TOPIC);
+    // The current syllabus has numbered learning statements, not named
+    // subtopic headings. Do not show the three legacy labels as the entire
+    // course's subtopic list before a student opens Earlier syllabus topics.
+    const all = earlierSelected
+      ? EARLIER_0606_SUBTOPICS.filter((label) => sourceLabels.has(label))
+      : selectedSubtopics.filter((label) => sourceLabels.has(label));
+    const relevant = earlierSelected ? all : [];
     return {
       all,
       relevant,

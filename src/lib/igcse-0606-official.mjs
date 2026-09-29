@@ -19,10 +19,10 @@ const earlier = new Set(EARLIER_0606_SUBTOPICS);
 // current papers. Source QP hashes, pages, and operation-level decisions are
 // pinned in docs/igcse-0606-current-era-review.md; source rows stay untouched.
 const CURRENT_ERA_REVIEWED = Object.freeze({
-  "0606-2025-march-22-q3": ["Equations, inequalities and graphs"],
-  "0606-2025-june-11-q4": ["Simultaneous equations", "Equations, inequalities and graphs"],
-  "0606-2025-june-12-q2": ["Equations, inequalities and graphs"],
-  "0606-2025-june-23-q13": ["Equations, inequalities and graphs", "Logarithmic and exponential functions"],
+  "0606-2025-march-22-q3": { labels: ["Indices and surds"], topics: ["Equations, inequalities and graphs"] },
+  "0606-2025-june-11-q4": { labels: ["Simultaneous equations", "Indices and surds"], topics: ["Simultaneous equations", "Equations, inequalities and graphs"] },
+  "0606-2025-june-12-q2": { labels: ["Indices and surds"], topics: ["Equations, inequalities and graphs"] },
+  "0606-2025-june-23-q13": { labels: ["Indices and surds", "Logarithmic and exponential functions"], topics: ["Equations, inequalities and graphs", "Logarithmic and exponential functions"] },
 });
 
 /**
@@ -38,10 +38,14 @@ export function project0606Topics(raw) {
   }
   const hasHistoricalLabel = labels.some((label) => earlier.has(label));
   const reviewed = CURRENT_ERA_REVIEWED[raw.id ?? ""];
+  if (reviewed && (raw.year !== 2025 || raw.primaryTopic !== "Algebra" ||
+    labels.length !== reviewed.labels.length || labels.some((label, index) => label !== reviewed.labels[index]))) {
+    throw new Error(`0606 reviewed source identity changed for ${raw.id ?? "unknown"}`);
+  }
   if (hasHistoricalLabel && (raw.year ?? 0) >= 2025 && !reviewed) {
     throw new Error(`0606 current-era historical label needs source review: ${raw.id ?? "unknown"}`);
   }
-  const current = [...new Set(reviewed ?? labels.filter((label) => official.has(label)))];
+  const current = [...new Set(reviewed?.topics ?? labels.filter((label) => official.has(label)))];
   const hasEarlier = hasHistoricalLabel && (raw.year ?? 0) < 2025;
   const primaryTopic = current[0] ?? EARLIER_0606_TOPIC;
   const previous = [raw.primaryTopic, ...(Array.isArray(raw.secondaryTopics) ? raw.secondaryTopics : [])]
