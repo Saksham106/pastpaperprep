@@ -51,6 +51,24 @@ describe("fetchSignedAssets", () => {
     }));
   });
 
+  it("preserves verified print geometry with the exact signed PDF image", async () => {
+    const fetcher = vi.fn(async () => Response.json({ expiresIn: 600, assets: [{
+      questionId: "0580-2025-november-11-q16", kind: "question",
+      urls: ["https://signed.test/q16.webp"], printSizesPt: [[513, 734.33]],
+    }] }));
+    const result = await fetchPdfAssets("igcse", ["0580-2025-november-11-q16"], "questions", fetcher);
+    expect(result.get("0580-2025-november-11-q16:question")?.printSizesPt).toEqual([[513, 734.33]]);
+  });
+
+  it("rejects mismatched signed image and print geometry lengths", async () => {
+    const fetcher = vi.fn(async () => Response.json({ expiresIn: 600, assets: [{
+      questionId: "0580-2025-november-11-q16", kind: "question",
+      urls: ["https://signed.test/q16.webp"], printSizesPt: [],
+    }] }));
+    await expect(fetchPdfAssets("igcse", ["0580-2025-november-11-q16"], "questions", fetcher))
+      .rejects.toThrow("Invalid signed asset response");
+  });
+
   it("keeps local preview asset signing explicit and isolated", async () => {
     const fetcher = vi.fn(async (_input: RequestInfo | URL, init?: RequestInit) => {
       const body = JSON.parse(String(init?.body)) as { requests: typeof requests };

@@ -4,7 +4,7 @@ import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent as Reac
 import Image from "next/image";
 import Link from "next/link";
 import { BookmarkSimple, CaretDown, Check, CheckCircle, DownloadSimple, Funnel, MagnifyingGlass, ShareNetwork, X } from "@phosphor-icons/react";
-import { downloadQuestionPdf, MAX_PDF_QUESTIONS, questionsForPdf, type PdfAnswerPlacement, type PdfContent } from "@/lib/pdf-export";
+import { attachPdfAssetMetadata, downloadQuestionPdf, MAX_PDF_QUESTIONS, questionsForPdf, type PdfAnswerPlacement, type PdfContent } from "@/lib/pdf-export";
 import { isPreviewQuestion } from "@/lib/access";
 
 import { filterQuestions, questionZoneValue } from "@/lib/question-filter";
@@ -952,11 +952,7 @@ access: ExplorerAccess;
     setPdfStatus(`Preparing ${exportQuestions.length} questions...`);
     try {
       const assets = await fetchPdfAssets(bank, exportQuestions.map((question) => question.id), pdfContent, fetch, localPreview);
-      const securedQuestions = exportQuestions.map((question) => ({
-        ...question,
-        questionImages: assets.get(signedAssetKey(question.id, "question"))?.urls ?? [],
-        markschemeImages: assets.get(signedAssetKey(question.id, "answer"))?.urls ?? [],
-      }));
+      const securedQuestions = attachPdfAssetMetadata(exportQuestions, assets);
       await downloadQuestionPdf(
         securedQuestions,
         pdfContent,

@@ -7,6 +7,7 @@ import {
   pdfFooterText,
   pdfPageLabel,
   planPdfImageSlices,
+  planVerifiedPdfImage,
   questionsForPdf,
 } from "@/lib/pdf-export";
 import { loadBankQuestions } from "@/lib/question-fixtures";
@@ -61,6 +62,20 @@ describe("questionsForPdf", () => {
     expect(slices).toHaveLength(1);
     expect(slices[0].renderedWidth).toBeGreaterThan(190);
     expect(slices[0].renderedHeight).toBeLessThanOrEqual(248);
+  });
+
+  it("keeps the 0580 Q16 graph intact at source physical size on one A4 page", () => {
+    const placement = planVerifiedPdfImage(1070, 1531, [513, 734.33]);
+    expect(placement.widthMm).toBeCloseTo(513 * 25.4 / 72, 4);
+    expect(placement.heightMm).toBeCloseTo(734.33 * 25.4 / 72, 4);
+    expect(placement.sourceY).toBe(0);
+    expect(placement.sourceHeight).toBe(1531);
+    expect(placement.yMm + placement.heightMm).toBeLessThanOrEqual(284);
+  });
+
+  it("refuses unverified and physically oversize crops rather than splitting them", () => {
+    expect(() => planVerifiedPdfImage(1070, 1531, undefined)).toThrow(/verified source geometry/i);
+    expect(() => planVerifiedPdfImage(1070, 3000, [513, 1300])).toThrow(/source size cannot fit/i);
   });
 
   it("darkens faint print without changing white paper or pure black ink", () => {

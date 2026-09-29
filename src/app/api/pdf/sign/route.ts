@@ -6,6 +6,7 @@ import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
 import { premiumAssetSignOptions, previewAssetSignOptions, signPrivateAssetUrls } from "@/lib/private-assets";
 import { loadBankQuestions } from "@/lib/question-loader";
+import { printSizesForSignedAssets, type PhysicalSizePt } from "@/lib/print-geometry";
 import { createClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
@@ -93,7 +94,7 @@ export async function POST(request: Request) {
   const premiumPathCount = premiumPaths.length;
 
   try {
-    let assets: Array<{ questionId: string; kind: "question" | "answer"; urls: Array<string | undefined> }> = [];
+    let assets: Array<{ questionId: string; kind: "question" | "answer"; urls: Array<string | undefined>; printSizesPt: Array<PhysicalSizePt | null> }> = [];
     if (paths.length) {
       const [previewUrls, premiumUrls] = await Promise.all([
         signPrivateAssetUrls(previewPaths, 600, previewAssetSignOptions(bank)),
@@ -104,6 +105,7 @@ export async function POST(request: Request) {
         questionId: item.questionId,
         kind: item.kind,
         urls: item.paths.map((path) => urlByPath.get(path)),
+        printSizesPt: printSizesForSignedAssets(bank, item.questionId, item.kind, item.paths),
       }));
     }
 

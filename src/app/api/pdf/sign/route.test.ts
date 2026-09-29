@@ -102,6 +102,13 @@ describe("POST /api/pdf/sign", () => {
     expect(rpc).not.toHaveBeenCalledWith("consume_download_allowance", expect.anything());
   });
 
+  it("signs exact source print geometry for the intact 0580 Q16 crop", async () => {
+    const response = await POST(request({ bank: "igcse", questionIds: ["0580-2025-november-11-q16"], content: "questions" }));
+    expect(response.status).toBe(200);
+    const payload = await response.json();
+    expect(payload.assets[0].printSizesPt).toEqual([[513, 734.33]]);
+  });
+
   it("keeps preview PDF assets on Supabase while locally presigning premium assets through R2", async () => {
     vi.stubEnv("ASSET_STORAGE_PROVIDER", "r2");
     vi.stubEnv("R2_ACCOUNT_ID", "92278648535014b5231edfe207b9391d");

@@ -10,6 +10,7 @@ export type SignedAsset = AssetRequest & {
   urls: string[];
   expiresAt: number;
   details?: QuestionRichDetails;
+  printSizesPt?: Array<[number, number] | null>;
 };
 
 export function signedAssetKey(questionId: string, kind: AssetKind): string {
@@ -30,7 +31,7 @@ function validDetails(value: unknown): value is QuestionRichDetails {
     (details.sourceMarkSchemeUrl === null || typeof details.sourceMarkSchemeUrl === "string");
 }
 
-function validAsset(value: unknown, localPreview = false): value is AssetRequest & { urls: string[]; details?: QuestionRichDetails } {
+function validAsset(value: unknown, localPreview = false): value is AssetRequest & { urls: string[]; details?: QuestionRichDetails; printSizesPt?: Array<[number, number] | null> } {
   if (!value || typeof value !== "object" || Array.isArray(value)) return false;
   const asset = value as Record<string, unknown>;
   return (
@@ -38,6 +39,10 @@ function validAsset(value: unknown, localPreview = false): value is AssetRequest
     (asset.kind === "question" || asset.kind === "answer") &&
     Array.isArray(asset.urls) &&
     asset.urls.every((url) => typeof url === "string" && (/^https:\/\//.test(url) || (localPreview && /^\/api\/local-preview-assets\//.test(url)))) &&
+    (asset.printSizesPt === undefined || (Array.isArray(asset.printSizesPt) &&
+      asset.printSizesPt.length === asset.urls.length && asset.printSizesPt.every((size) =>
+        size === null || (Array.isArray(size) && size.length === 2 &&
+          size.every((value) => typeof value === "number" && Number.isFinite(value) && value > 0))))) &&
     (asset.details === undefined || validDetails(asset.details))
   );
 }

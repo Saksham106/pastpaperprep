@@ -1,11 +1,33 @@
 import type { UnifiedQuestion } from "@/lib/questions";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
-import { displayedQuestionSubtopics, formatPublicLabel } from "@/lib/presentation";
+import { formatPublicLabel } from "@/lib/presentation";
+import type { SignedAsset } from "@/lib/signed-assets";
 
 export { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
 
 export type PdfContent = "questions" | "answers" | "both";
 export type PdfAnswerPlacement = "all-answers-last" | "after-each-question";
+export type PdfExportQuestion = UnifiedQuestion & {
+  questionPrintSizesPt?: Array<[number, number] | null>;
+  markschemePrintSizesPt?: Array<[number, number] | null>;
+};
+
+export function attachPdfAssetMetadata(
+  questions: UnifiedQuestion[],
+  signed: Map<string, SignedAsset>,
+): PdfExportQuestion[] {
+  return questions.map((question) => {
+    const questionAsset = signed.get(`${question.id}:question`);
+    const answerAsset = signed.get(`${question.id}:answer`);
+    return {
+      ...question,
+      questionImages: questionAsset?.urls ?? [],
+      markschemeImages: answerAsset?.urls ?? [],
+      questionPrintSizesPt: questionAsset?.printSizesPt,
+      markschemePrintSizesPt: answerAsset?.printSizesPt,
+    };
+  });
+}
 
 export type PdfJob<T> = { question: T; kind: "question" | "answer" };
 
@@ -65,6 +87,24 @@ export type PdfImageSlice = {
 
 const PDF_IMAGE_MAX_WIDTH = 194;
 const PDF_IMAGE_MAX_HEIGHT = 248;
+
+export function planVerifiedPdfImage(
+  widthPx: number,
+  heightPx: number,
+  physicalSizePt?: readonly [number, number],
+): { sourceY: 0; sourceHeight: number; xMm: number; yMm: number; widthMm: number; heightMm: number } {
+  if (!physicalSizePt || widthPx <= 0 || heightPx <= 0 ||
+    physicalSizePt.some((value) => !Number.isFinite(value) || value <= 0)) {
+    throw new Error("Verified source geometry is required for a graph-safe worksheet");
+  }
+  const widthMm = physicalSizePt[0] * 25.4 / 72;
+  const heightMm = physicalSizePt[1] * 25.4 / 72;
+  const yMm = 22;
+  if (widthMm > 194 || heightMm > 284 - yMm) {
+    throw new Error("Image at source size cannot fit on one A4 page; reviewed source boundary required");
+  }
+  return { sourceY: 0, sourceHeight: heightPx, xMm: (210 - widthMm) / 2, yMm, widthMm, heightMm };
+}
 
 export function planPdfImageSlices(
   width: number,
@@ -197,7 +237,7 @@ function pdfSliceData(image: PreparedPdfImage, slice: PdfImageSlice): string {
 }
 
 export async function downloadQuestionPdf(
-  questions: UnifiedQuestion[],
+  questions: PdfExportQuestion[],
   content: PdfContent,
   onProgress?: (complete: number, total: number) => void,
   accountMarker?: string,
@@ -208,15 +248,24 @@ export async function downloadQuestionPdf(
   const brandMark = imageData(await loadImage(PDF_BOOK_LOGO_DATA_URI), "image/png");
   pdf.setProperties({ title: "PastPaperPrep worksheet", subject: "Past paper practice questions", author: "PastPaperPrep", creator: "PastPaperPrep" });
   let pages = 0;
+  let nextImageY = 22;
   const total = questions.length;
 
   const addPage = () => {
     if (pages > 0) pdf.addPage();
     pages += 1;
+    nextImageY = 22;
   };
 
-  const addImagePages = async (source: string, heading: string, detail: string) => {
+  const addImagePages = async (source: string, heading: string, detail: string, physicalSizePt?: readonly [number, number] | null) => {
     const image = preparePdfImage(await loadImage(source));
+    if (physicalSizePt) {
+      const placement = planVerifiedPdfImage(image.width, image.height, physicalSizePt);
+      if (pages === 0 || nextImageY + placement.heightMm > 284) addPage();
+      pdf.addImage(image.canvas.toDataURL("image/jpeg", 0.98), "JPEG", placement.xMm, nextImageY, placement.widthMm, placement.heightMm);
+      nextImageY += placement.heightMm + 4;
+      return;
+    }
     const slices = planPdfImageSlices(image.width, image.height, image.rowInk);
     for (const [sliceIndex, slice] of slices.entries()) {
       addPage();
@@ -230,6 +279,7 @@ export async function downloadQuestionPdf(
       pdf.text(slices.length > 1 ? `${detail}  |  Part ${sliceIndex + 1} of ${slices.length}` : detail, 8, 29);
       const x = 8 + (PDF_IMAGE_MAX_WIDTH - slice.renderedWidth) / 2;
       pdf.addImage(pdfSliceData(image, slice), "JPEG", x, 32, slice.renderedWidth, slice.renderedHeight);
+      nextImageY = 284;
     }
   };
 
@@ -237,10 +287,14 @@ export async function downloadQuestionPdf(
   for (const { question, kind } of orderPdfJobs(questions, content, answerPlacement)) {
     const label = `${question.year} ${question.session} Paper ${question.paper}, Question ${question.number}`;
     if (kind === "question") {
-      for (const source of question.questionImages) await addImagePages(source, label, [question.primaryTopic, ...displayedQuestionSubtopics(question).slice(0, 2)].map(formatPublicLabel).join("  |  "));
+      for (const [index, source] of question.questionImages.entries()) {
+        await addImagePages(source, label, [question.primaryTopic, ...question.subtopics.slice(0, 2)].map(formatPublicLabel).join("  |  "), question.questionPrintSizesPt?.[index]);
+      }
     } else {
       if (question.markschemeImages.length) {
-        for (const source of question.markschemeImages) await addImagePages(source, `${label} - answer`, "Official mark scheme where available");
+        for (const [index, source] of question.markschemeImages.entries()) {
+          await addImagePages(source, `${label} - answer`, "Official mark scheme where available", question.markschemePrintSizesPt?.[index]);
+        }
       } else if (question.solution) {
         pdf.setFont("helvetica", "normal");
         pdf.setFontSize(10);
@@ -255,6 +309,7 @@ export async function downloadQuestionPdf(
           pdf.setFontSize(10);
           pdf.setTextColor(35, 45, 43);
           pdf.text(lines, 14, 34, { lineHeightFactor: 1.25 });
+          nextImageY = 284;
         }
       }
     }
