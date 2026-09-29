@@ -51,7 +51,7 @@ export function project0654Sections(raw) {
     for (const label of raw.subtopics ?? []) {
       const clean = label.replace(/\s*\(continued\)$|\s+continued$/, "");
       const match = bySubjectTitle.get(`${subject}:${clean}`);
-      if (match) currentSections.push(match);
+      if (match && match.ownerTopicId === raw.primaryTopicId) currentSections.push(match);
       else historical = true;
     }
     if (!raw.subtopics?.length) historical = true;

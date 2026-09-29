@@ -45,6 +45,13 @@ describe("0654 official 2025 student hierarchy", () => {
     expect(sections).not.toContain("Electrical quantities continued");
   });
 
+  it("does not silently move an old-era heading into a different current topic based on title alone", () => {
+    const old = source.find((row) => row.id === "0654-2024-march-12-q14")!;
+    expect(old.primaryTopic).toBe("Atoms, elements and compounds");
+    expect(project0654Sections(old).visibleTitles).toContain("Earlier syllabus content");
+    expect(project0654Sections(old).visibleTitles).not.toContain("Physical and chemical changes");
+  });
+
   it("matches each official section by projection without losing original search aliases", () => {
     const byId = new Map(questions.map((question) => [question.id, question]));
     for (const raw of source) {
@@ -69,5 +76,7 @@ describe("0654 official 2025 student hierarchy", () => {
     expect(filterQuestions([...questions], { subtopics: ["Earlier syllabus content"] })).toHaveLength(source.filter((raw) => project0654Sections(raw).historical).length);
     expect(filterQuestions([...questions], { topics: ["Earlier syllabus topics"] })).toHaveLength(source.filter((raw) => project0654Sections(raw).historical).length);
     expect(filterQuestions([...questions], { topics: ["Practical skills and investigations"] })).toHaveLength(55);
+    const practical = source.find((raw) => project0654Sections(raw).practical)!;
+    expect(filterQuestions([...questions], { subtopics: [practical.subtopics[0]] }).some((question) => question.id === practical.id)).toBe(true);
   }, 60_000);
 });
