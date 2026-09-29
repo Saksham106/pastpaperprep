@@ -425,26 +425,32 @@ export function getSubtopicGroups(
       selectedOutsideContext: selectedSubtopics.filter((subtopic) => available.has(subtopic) && !relevantSet.has(subtopic)),
     };
   }
-  // Skills are the canonical filterable classification vocabulary. Include
-  // legacy subtopics during migration so old URLs and stored selections keep
-  // working while richer labels remain discoverable in the UI.
-  const all = uniqueSorted(
-    questions.flatMap((question) => (
-      question.bankSlug === "ib-economics-hl" || question.bankSlug === "ib-economics-sl"
-        ? question.subtopics
-        : [...question.subtopics, ...question.skills]
-    )),
+  // 0580 uses its controlled student-facing taxonomy for subtopic filters.
+  // Do not union internal skills into filter options: skills remain part of the
+  // question/search record, while historical subtopic labels remain available
+  // for existing URLs and selections.
+  const bankSlug = questions[0]?.bankSlug;
+  const available = new Set(
+    uniqueSorted(
+      questions.flatMap((question) =>
+        bankSlug === "igcse"
+          ? question.subtopics
+          : question.bankSlug === "ib-economics-hl" || question.bankSlug === "ib-economics-sl"
+            ? question.subtopics
+            : [...question.subtopics, ...question.skills],
+      ),
+    ),
   );
-  const available = new Set(all);
+  const all = bankSlug === "igcse"
+    ? uniqueSorted([...available, ...Object.values(IGCSE_SUBTOPICS).flat()])
+    : [...available];
 
   let relevant: string[];
   if (!selectedTopics.length) {
     relevant = all;
   } else if (questions[0]?.bankSlug === "igcse") {
     relevant = uniqueSorted(
-      selectedTopics
-        .flatMap((topic) => IGCSE_SUBTOPICS[topic] ?? [])
-        .filter((subtopic) => available.has(subtopic)),
+      selectedTopics.flatMap((topic) => IGCSE_SUBTOPICS[topic] ?? []),
     );
   } else if (questions[0]?.bankSlug === "igcse-additional") {
     relevant = uniqueSorted(
