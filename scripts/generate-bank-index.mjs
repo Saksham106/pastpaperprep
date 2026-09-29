@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 import { project0606Topics } from "../src/lib/igcse-0606-official.mjs";
 import { project0455Sections } from "../src/lib/igcse-0455-official.mjs";
 import { project0610Sections } from "../src/lib/igcse-0610-official.mjs";
+import { project0654Sections } from "../src/lib/igcse-0654-official.mjs";
 
 const root = join(import.meta.dirname, "..");
 const outputDirectory = join(root, "public", "bank-index");
@@ -77,11 +78,14 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
   const biology = currentBiologyRecord(bank, raw);
   const additional = bank === "igcse-additional" ? project0606Topics(raw) : null;
   const economics0455 = bank === "igcse-economics-0455" ? project0455Sections(raw) : null;
+  const coordinated = bank === "igcse-coordinated-sciences-0654" && normalizedProduction ? project0654Sections(raw) : null;
   const official0610 = bank === "igcse-biology-0610" && normalizedProduction;
   const projected0610 = official0610 ? project0610Sections(raw) : null;
   const controlledSkills = official0610 || aa || biology ? [] : strings(raw.skills);
   const studentSubtopics = official0610
     ? projected0610.subtopics
+    : coordinated
+      ? coordinated.subtopics
     : aa
       ? (aa.status === "accepted" ? aa.subtopics.map((id) => aaGroupNames.get(id) ?? (() => { throw new Error(`Unknown official AA group ${id}`); })()) : [])
       : biology
@@ -108,6 +112,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
       ...detailedSubtopics,
       ...subtopics,
       ...(projected0610?.aliases ?? []),
+      ...(coordinated?.aliases ?? []),
     ])];
 
   const overlayBank = overlayBankForSlug(bank);
@@ -117,12 +122,12 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     paper: integer(raw.paper),
     year: integer(raw.year),
     session: typeof raw.session === "string" ? raw.session : "",
-    primaryTopic: official0610 ? projected0610.primaryTopic : biology ? biologyPrimaryTopic(biology, raw) : aa ? aa.primaryTopic : additional ? additional.primaryTopic : (typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other"),
-    secondaryTopics: official0610 ? projected0610.secondaryTopics : biology ? [...new Set(biology.secondary.map((group) => group.parentTopic))] : aa ? aa.secondaryTopics : additional ? additional.secondaryTopics : strings(raw.secondaryTopics),
+    primaryTopic: coordinated ? coordinated.primaryTopic : official0610 ? projected0610.primaryTopic : biology ? biologyPrimaryTopic(biology, raw) : aa ? aa.primaryTopic : additional ? additional.primaryTopic : (typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other"),
+    secondaryTopics: coordinated ? coordinated.secondaryTopics : official0610 ? projected0610.secondaryTopics : biology ? [...new Set(biology.secondary.map((group) => group.parentTopic))] : aa ? aa.secondaryTopics : additional ? additional.secondaryTopics : strings(raw.secondaryTopics),
     skills,
     subtopics,
     granularLabels: aa || biology ? [] : granularByKey.get(`${overlayBank}:${raw.id}`) ?? [],
-    ...(biology ? { officialCodeRefs: [...biology.officialCodes] } : official0610 ? { officialCodeRefs: projected0610.codeRefs } : economics0455 ? { officialCodeRefs: economics0455.codeRefs } : strings(raw.officialCodeRefs).length ? { officialCodeRefs: strings(raw.officialCodeRefs) } : {}),
+    ...(biology ? { officialCodeRefs: [...biology.officialCodes] } : coordinated ? { officialCodeRefs: coordinated.codeRefs } : official0610 ? { officialCodeRefs: projected0610.codeRefs } : economics0455 ? { officialCodeRefs: economics0455.codeRefs } : strings(raw.officialCodeRefs).length ? { officialCodeRefs: strings(raw.officialCodeRefs) } : {}),
     ...(strings(raw.retrievalFacets).length ? { retrievalFacets: strings(raw.retrievalFacets) } : {}),
     subject: (typeof raw.subject === "string" && raw.subject) || (typeof raw.course === "string" ? raw.course : ""),
     option: typeof raw.p3Option === "string" ? raw.p3Option : "",

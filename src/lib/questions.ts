@@ -10,6 +10,7 @@ import biologyOfficialTaxonomy from "@/data/ib-biology-official-subtopics/taxono
 import biologyOfficialOverlay from "@/data/ib-biology-official-subtopics/overlay.json";
 import { deriveCourseRoute, type CourseRoute } from "@/lib/course-route";
 import { project0610Sections } from "@/lib/igcse-0610-official.mjs";
+import { project0654Sections } from "@/lib/igcse-0654-official.mjs";
 
 const GRANULAR_LABELS = new Map<string, string[]>();
 const overlayBankForSlug = (slug: string) => ({
@@ -214,10 +215,11 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
   const additional = slug === "igcse-additional" ? project0606Topics(raw) : null;
   const economics0455 = slug === "igcse-economics-0455" ? project0455Sections(raw) : null;
   const igcseBiology = slug === "igcse-biology-0610" ? project0610Sections(raw) : null;
-  const primaryTopic = aa?.primaryTopic ?? biology?.primaryTopic ?? igcseBiology?.primaryTopic ?? additional?.primaryTopic ?? (text(raw.primaryTopic) || "Other");
-  const secondaryTopics = aa?.secondaryTopics ?? biology?.secondaryTopics ?? igcseBiology?.secondaryTopics ?? additional?.secondaryTopics ?? strings(raw.secondaryTopics);
+  const coordinated = slug === "igcse-coordinated-sciences-0654" ? project0654Sections(raw) : null;
+  const primaryTopic = aa?.primaryTopic ?? biology?.primaryTopic ?? coordinated?.primaryTopic ?? igcseBiology?.primaryTopic ?? additional?.primaryTopic ?? (text(raw.primaryTopic) || "Other");
+  const secondaryTopics = aa?.secondaryTopics ?? biology?.secondaryTopics ?? coordinated?.secondaryTopics ?? igcseBiology?.secondaryTopics ?? additional?.secondaryTopics ?? strings(raw.secondaryTopics);
   const controlledSkills = aa?.skills ?? biology?.skills ?? strings(raw.skills);
-  const studentSubtopics = aa?.subtopics ?? biology?.subtopics ?? igcseBiology?.subtopics ?? economics0455?.subtopics ?? strings(raw.subtopics);
+  const studentSubtopics = aa?.subtopics ?? biology?.subtopics ?? coordinated?.subtopics ?? igcseBiology?.subtopics ?? economics0455?.subtopics ?? strings(raw.subtopics);
   const secondarySubtopics = biology ? biology.subtopics.slice(1) : strings(raw.secondarySubtopics);
   const detailedSubtopics = strings(raw.detailedSubtopics);
   const subtopics = Array.from(new Set(
@@ -244,6 +246,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
       ...detailedSubtopics,
       ...subtopics,
       ...(igcseBiology?.aliases ?? []),
+      ...(coordinated?.aliases ?? []),
     ]));
   const officialMarkscheme = record(raw.officialMarkscheme);
   const solution = nullableText(raw.solution) ?? nullableText(raw.independentSolution);
@@ -280,7 +283,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     subtopics,
     secondarySubtopics,
     granularLabels: aa || biology ? [] : GRANULAR_LABELS.get(`${overlayBankForSlug(slug)}:${text(raw.id)}`) ?? [],
-    officialCodeRefs: biology ? biology.record.officialCodes : igcseBiology?.codeRefs ?? economics0455?.codeRefs ?? strings(raw.officialCodeRefs),
+    officialCodeRefs: biology ? biology.record.officialCodes : coordinated?.codeRefs ?? igcseBiology?.codeRefs ?? economics0455?.codeRefs ?? strings(raw.officialCodeRefs),
     retrievalFacets: strings(raw.retrievalFacets),
     classificationProvenance: aa?.provenance ?? biology?.provenance,
     subject: text(raw.subject) || text(raw.course),

@@ -2,8 +2,8 @@ import { canonicalBiology0610Topic } from "@/lib/biology-0610-topic-aliases";
 import { BIOLOGY_0610_EARLIER, BIOLOGY_0610_EARLIER_TOPIC, BIOLOGY_0610_SECTIONS, BIOLOGY_0610_TOPICS, display0610Sections } from "@/lib/igcse-0610-official.mjs";
 import economicsTaxonomy from "@/data/igcse-economics-0455-taxonomy.json";
 import { ECONOMICS_0455_TOPICS, ECONOMICS_0455_SECTIONS, ECONOMICS_0455_EARLIER } from "@/lib/igcse-0455-official.mjs";
-import coordinatedTaxonomy from "@/data/igcse-coordinated-sciences-0654-taxonomy.json";
 import { OFFICIAL_0606_TOPICS, EARLIER_0606_TOPIC, EARLIER_0606_SUBTOPICS } from "@/lib/igcse-0606-official.mjs";
+import { COORDINATED_0654_EARLIER, COORDINATED_0654_EARLIER_TOPIC, COORDINATED_0654_PRACTICAL_TOPIC, COORDINATED_0654_SECTIONS, COORDINATED_0654_TOPICS, display0654Sections } from "@/lib/igcse-0654-official.mjs";
 import aaTaxonomy from "@/data/aa-official-subtopics/taxonomy.json";
 import biologyOfficialTaxonomy from "@/data/ib-biology-official-subtopics/taxonomy.json";
 import {
@@ -72,22 +72,13 @@ function uniqueSorted(values: string[]): string[] {
 }
 
 /**
- * The emitted 0654 taxonomy is a FLAT document: `topics` already carries the printed
- * teaching order and subject, and `subtopics` carries each section's owning topic.
- * The adaptation below only groups what the document already states. It never derives
- * a label from an id, never collapses the three sciences into one subject, and never
- * re-maps a section across syllabus eras.
+ * The 0654 student picker uses the pinned 2025–27 B/C/P heading tree.
+ * Original era labels and practical skills stay on the question records for
+ * search and legacy links; only verified current sections appear here.
  */
-const COORDINATED_TOPIC_ORDER = [...coordinatedTaxonomy.topics]
-  .sort((left, right) => left.order - right.order)
-  .map((topic) => topic.title);
+const COORDINATED_TOPIC_ORDER = COORDINATED_0654_TOPICS;
 const COORDINATED_GROUPS: Record<string, readonly string[]> = Object.fromEntries(
-  [...coordinatedTaxonomy.topics]
-    .sort((left, right) => left.order - right.order)
-    .map((topic) => [
-      topic.title,
-      coordinatedTaxonomy.subtopics.filter((subtopic) => subtopic.ownerTopicId === topic.id).map((subtopic) => subtopic.title),
-    ]),
+  COORDINATED_TOPIC_ORDER.map((topic) => [topic, COORDINATED_0654_SECTIONS.filter((section) => section.topic === topic).map((section) => section.studentTitle)]),
 );
 
 function isReleaseBank(bank: string | undefined): bank is "igcse-biology-0610" | "igcse-economics-0455" | "igcse-coordinated-sciences-0654" {
@@ -106,7 +97,7 @@ export function getControlledSubtopics(bankSlug: string, topic: string): readonl
     return topic === BIOLOGY_0610_EARLIER_TOPIC ? [BIOLOGY_0610_EARLIER] : BIOLOGY_0610_SECTIONS.filter((section) => section.topic === topic).map((section) => section.title);
   }
   if (bankSlug === "igcse-economics-0455") return OFFICIAL_0455_GROUPS[topic] ?? [];
-  if (isCoordinatedBank(bankSlug)) return COORDINATED_GROUPS[topic] ?? (COORDINATED_TOPIC_ORDER.includes(topic) ? [topic] : []);
+  if (isCoordinatedBank(bankSlug)) return topic === COORDINATED_0654_EARLIER_TOPIC ? [COORDINATED_0654_EARLIER] : COORDINATED_GROUPS[topic] ?? (COORDINATED_TOPIC_ORDER.includes(topic) ? [topic] : []);
   return getLegacyControlledSubtopics(bankSlug, topic);
 }
 
@@ -125,10 +116,7 @@ export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
     return [...BIOLOGY_OFFICIAL_TOPIC_ORDER.filter((topic) => available.has(topic)), ...[...available].filter((topic) => !BIOLOGY_OFFICIAL_TOPIC_ORDER.includes(topic)).sort()];
   }
   if (isCoordinatedBank(bank)) {
-    const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));
-    const ordered = COORDINATED_TOPIC_ORDER.filter((topic) => available.has(topic));
-    const remaining = [...available].filter((topic) => !ordered.includes(topic)).sort();
-    return [...ordered, ...remaining];
+    return [...COORDINATED_TOPIC_ORDER, ...(questions.some((question) => [question.primaryTopic, ...question.secondaryTopics].includes(COORDINATED_0654_EARLIER_TOPIC)) ? [COORDINATED_0654_EARLIER_TOPIC] : []), ...(questions.some((question) => question.primaryTopic === COORDINATED_0654_PRACTICAL_TOPIC) ? [COORDINATED_0654_PRACTICAL_TOPIC] : [])];
   }
   if (isOfficial0610Bank(bank)) return [...BIOLOGY_0610_TOPIC_ORDER, ...(questions.some((question) => question.primaryTopic === BIOLOGY_0610_EARLIER_TOPIC) ? [BIOLOGY_0610_EARLIER_TOPIC] : [])];
   if (!isReleaseBank(bank)) return getLegacyTopicOptions(questions);
@@ -166,6 +154,21 @@ export function getSubtopicGroups(
       ))]
       : all;
     return { all, relevant, other: all.filter((label) => !relevant.includes(label)), selectedOutsideContext: selectedSubtopics.filter((label) => sourceLabels.has(label) && !relevant.includes(label)) };
+  }
+  if (isCoordinatedBank(bank)) {
+    const all = [...COORDINATED_0654_SECTIONS.map((section) => section.studentTitle), ...(questions.some((question) => question.officialCodeRefs?.includes("earlier:content")) ? [COORDINATED_0654_EARLIER] : [])];
+    const available = new Set(all);
+    const selected = new Set(selectedTopics);
+    const relevant = selectedTopics.length === 1 && selectedTopics[0] === COORDINATED_0654_EARLIER_TOPIC
+      ? [COORDINATED_0654_EARLIER]
+      : selectedTopics.length
+        ? [...new Set([...selectedTopics.flatMap((topic) => COORDINATED_GROUPS[topic] ?? []), ...questions
+          .filter((question) => [question.primaryTopic, ...question.secondaryTopics].some((topic) => selected.has(topic)))
+          .flatMap((question) => display0654Sections(question.officialCodeRefs ?? []))]
+          .filter((label) => available.has(label) && (label !== COORDINATED_0654_EARLIER || selected.has(COORDINATED_0654_EARLIER_TOPIC))))]
+        : all;
+    const relevantSet = new Set(relevant);
+    return { all, relevant, other: all.filter((label) => !relevantSet.has(label)), selectedOutsideContext: selectedSubtopics.filter((label) => available.has(label) && !relevantSet.has(label)) };
   }
   if (isOfficialBiologyBank(bank)) {
     const all = [...new Set(questions.flatMap((question) => question.subtopics))];
