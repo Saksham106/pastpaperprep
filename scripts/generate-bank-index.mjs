@@ -4,6 +4,7 @@ import { gzipSync } from "node:zlib";
 import { mkdir, readdir, readFile, unlink, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { project0606Topics } from "../src/lib/igcse-0606-official.mjs";
 
 const root = join(import.meta.dirname, "..");
 const outputDirectory = join(root, "public", "bank-index");
@@ -71,12 +72,14 @@ function integer(value) {
   return typeof value === "number" ? value : Number.parseInt(String(value), 10) || 0;
 }
 
+/** @param {Record<string, any>} raw @param {{bank?: string, normalizedProduction?: boolean, localEconomics?: boolean}} [options] */
 export function metadataFromRaw(raw, { bank, normalizedProduction = false, localEconomics = false } = {}) {
   const officialMarkscheme = raw.officialMarkscheme && typeof raw.officialMarkscheme === "object"
     ? raw.officialMarkscheme
     : {};
   const aa = currentAaRecord(bank, raw);
   const biology = currentBiologyRecord(bank, raw);
+  const additional = bank === "igcse-additional" ? project0606Topics(raw) : null;
   const official0610 = bank === "igcse-biology-0610" && normalizedProduction;
   const rawSubtopics = strings(raw.subtopics);
   // 2021–2025 runtime rows already have named subtopics; only 2019–20 and the
@@ -132,8 +135,8 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     paper: integer(raw.paper),
     year: integer(raw.year),
     session: typeof raw.session === "string" ? raw.session : "",
-    primaryTopic: official0610 ? (typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other") : biology ? biologyPrimaryTopic(biology, raw) : aa ? aa.primaryTopic : (typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other"),
-    secondaryTopics: official0610 ? strings(raw.secondaryTopics) : biology ? [...new Set(biology.secondary.map((group) => group.parentTopic))] : aa ? aa.secondaryTopics : strings(raw.secondaryTopics),
+    primaryTopic: official0610 ? (typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other") : biology ? biologyPrimaryTopic(biology, raw) : aa ? aa.primaryTopic : additional ? additional.primaryTopic : (typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other"),
+    secondaryTopics: official0610 ? strings(raw.secondaryTopics) : biology ? [...new Set(biology.secondary.map((group) => group.parentTopic))] : aa ? aa.secondaryTopics : additional ? additional.secondaryTopics : strings(raw.secondaryTopics),
     skills,
     subtopics,
     granularLabels: aa || biology ? [] : granularByKey.get(`${overlayBank}:${raw.id}`) ?? [],

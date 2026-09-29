@@ -2,6 +2,7 @@ import { canonicalBiology0610Topic } from "@/lib/biology-0610-topic-aliases";
 import biology0610OfficialTaxonomy from "@/data/classification/igcse-biology-0610-official-taxonomy-v2.json";
 import economicsTaxonomy from "@/data/igcse-economics-0455-taxonomy.json";
 import coordinatedTaxonomy from "@/data/igcse-coordinated-sciences-0654-taxonomy.json";
+import { OFFICIAL_0606_TOPICS, EARLIER_0606_TOPIC, EARLIER_0606_SUBTOPICS } from "@/lib/igcse-0606-official.mjs";
 import aaTaxonomy from "@/data/aa-official-subtopics/taxonomy.json";
 import biologyOfficialTaxonomy from "@/data/ib-biology-official-subtopics/taxonomy.json";
 import {
@@ -103,6 +104,7 @@ function isCoordinatedBank(bank: string | undefined): boolean {
 }
 
 export function getControlledSubtopics(bankSlug: string, topic: string): readonly string[] {
+  if (bankSlug === "igcse-additional") return topic === EARLIER_0606_TOPIC ? EARLIER_0606_SUBTOPICS : [];
   if (isAaBank(bankSlug)) return AA_GROUPS[topic] ?? [];
   if (isOfficialBiologyBank(bankSlug)) return BIOLOGY_OFFICIAL_GROUPS[topic] ?? [];
   if (bankSlug === "igcse-biology-0610") {
@@ -115,6 +117,10 @@ export function getControlledSubtopics(bankSlug: string, topic: string): readonl
 
 export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
   const bank = questions[0]?.bankSlug;
+  if (bank === "igcse-additional") {
+    const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]));
+    return [...OFFICIAL_0606_TOPICS, ...(available.has(EARLIER_0606_TOPIC) ? [EARLIER_0606_TOPIC] : [])];
+  }
   if (isAaBank(bank) && hasCurrentAa(questions)) {
     const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));
     return [...AA_TOPIC_ORDER.filter((topic) => available.has(topic)), ...[...available].filter((topic) => !AA_TOPIC_ORDER.includes(topic)).sort()];
@@ -144,6 +150,17 @@ export function getSubtopicGroups(
   selectedSubtopics: string[],
 ): { all: string[]; relevant: string[]; other: string[]; selectedOutsideContext: string[] } {
   const bank = questions[0]?.bankSlug;
+  if (bank === "igcse-additional") {
+    const sourceLabels = new Set(questions.flatMap((question) => [...question.subtopics, ...question.skills]));
+    const all = EARLIER_0606_SUBTOPICS.filter((label) => sourceLabels.has(label));
+    const relevant = selectedTopics.length && !selectedTopics.includes(EARLIER_0606_TOPIC) ? [] : all;
+    return {
+      all,
+      relevant,
+      other: all.filter((label) => !relevant.includes(label)),
+      selectedOutsideContext: selectedSubtopics.filter((label) => sourceLabels.has(label) && !relevant.includes(label)),
+    };
+  }
   if (isOfficialBiologyBank(bank)) {
     const all = [...new Set(questions.flatMap((question) => question.subtopics))];
     const available = new Set(all);

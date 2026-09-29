@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { loadBankQuestions } from "@/lib/question-fixtures";
+import rawAdditional from "@/data/raw/igcse-additional.json";
 import { getControlledSubtopics, getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy";
 
 describe("question taxonomy", () => {
@@ -27,8 +28,14 @@ describe("question taxonomy", () => {
     ]);
   });
 
-  it("groups Additional Mathematics syllabus sections into a useful two-level hierarchy", () => {
-    expect(getTopicOptions(loadBankQuestions("igcse-additional"))).toEqual([
+  it("preserves the sealed historical 0606 ownership vocabulary for existing URLs", () => {
+    const source = new Map(rawAdditional.questions.map((question) => [question.id, question]));
+    const historical = loadBankQuestions("igcse-additional").map((question) => ({
+      ...question,
+      primaryTopic: source.get(question.id)!.primaryTopic,
+      secondaryTopics: source.get(question.id)!.secondaryTopics,
+    }));
+    expect(getTopicOptions(historical)).toEqual([
       "Sets and functions",
       "Algebra",
       "Coordinate geometry",
@@ -38,7 +45,7 @@ describe("question taxonomy", () => {
       "Calculus",
     ]);
 
-    expect(getSubtopicGroups(loadBankQuestions("igcse-additional"), ["Algebra"], []).relevant).toEqual([
+    expect(getSubtopicGroups(historical, ["Algebra"], []).relevant).toEqual([
       "Equations, inequalities and graphs",
       "Factors of polynomials",
       "Indices and surds",

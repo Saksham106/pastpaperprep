@@ -1,6 +1,7 @@
 import { economicsStorageObjectPath, storageObjectPath } from "@/lib/assets";
 import { getBank, isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
 import { isPrivateRuntimeBank, privateStorageObjectPath } from "@/lib/private-runtime-mapping";
+import { project0606Topics } from "@/lib/igcse-0606-official.mjs";
 import granularOverlay from "@/data/math-granular-label-overlay.json";
 import aaTaxonomy from "@/data/aa-official-subtopics/taxonomy.json";
 import aaOverlay from "@/data/aa-official-subtopics/overlay.json";
@@ -208,8 +209,9 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
   const summary = text(raw.summary) || accessibleText.slice(0, 220);
   const aa = aaClassification(slug, raw);
   const biology = biologyClassification(slug, raw);
-  const primaryTopic = aa?.primaryTopic ?? biology?.primaryTopic ?? (text(raw.primaryTopic) || "Other");
-  const secondaryTopics = aa?.secondaryTopics ?? biology?.secondaryTopics ?? strings(raw.secondaryTopics);
+  const additional = slug === "igcse-additional" ? project0606Topics(raw) : null;
+  const primaryTopic = aa?.primaryTopic ?? biology?.primaryTopic ?? additional?.primaryTopic ?? (text(raw.primaryTopic) || "Other");
+  const secondaryTopics = aa?.secondaryTopics ?? biology?.secondaryTopics ?? additional?.secondaryTopics ?? strings(raw.secondaryTopics);
   const controlledSkills = aa?.skills ?? biology?.skills ?? strings(raw.skills);
   const studentSubtopics = aa?.subtopics ?? biology?.subtopics ?? strings(raw.subtopics);
   const secondarySubtopics = biology ? biology.subtopics.slice(1) : strings(raw.secondarySubtopics);
