@@ -5,6 +5,21 @@ import { formatPublicLabel } from "@/lib/presentation";
 export { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
 
 export type PdfContent = "questions" | "answers" | "both";
+export type PdfAnswerPlacement = "all-answers-last" | "after-each-question";
+
+export type PdfJob<T> = { question: T; kind: "question" | "answer" };
+
+export function orderPdfJobs<T>(questions: T[], content: PdfContent, placement: PdfAnswerPlacement): PdfJob<T>[] {
+  const questionJobs = questions.map((question): PdfJob<T> => ({ question, kind: "question" }));
+  const answerJobs = questions.map((question): PdfJob<T> => ({ question, kind: "answer" }));
+  if (content === "questions") return questionJobs;
+  if (content === "answers") return answerJobs;
+  if (placement === "all-answers-last") return [...questionJobs, ...answerJobs];
+  return questions.flatMap((question): PdfJob<T>[] => [
+    { question, kind: "question" },
+    { question, kind: "answer" },
+  ]);
+}
 
 export const PDF_SITE_URL = "https://pastpaperprep.com";
 export const PDF_BOOK_LOGO_PATH = "M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64ZM160,88h40a8,8,0,0,1,0,16H160a8,8,0,0,1,0-16Zm48,40a8,8,0,0,1-8,8H160a8,8,0,0,1,0-16h40A8,8,0,0,1,208,128Zm0,32a8,8,0,0,1-8,8H160a8,8,0,0,1,0-16h40A8,8,0,0,1,208,160Z";
@@ -186,6 +201,7 @@ export async function downloadQuestionPdf(
   content: PdfContent,
   onProgress?: (complete: number, total: number) => void,
   accountMarker?: string,
+  answerPlacement: PdfAnswerPlacement = "all-answers-last",
 ): Promise<void> {
   const { jsPDF } = await import("jspdf");
   const pdf = new jsPDF({ unit: "mm", format: "a4" });
@@ -217,12 +233,12 @@ export async function downloadQuestionPdf(
     }
   };
 
-  for (const [index, question] of questions.entries()) {
+  let completed = 0;
+  for (const { question, kind } of orderPdfJobs(questions, content, answerPlacement)) {
     const label = `${question.year} ${question.session} Paper ${question.paper}, Question ${question.number}`;
-    if (content !== "answers") {
+    if (kind === "question") {
       for (const source of question.questionImages) await addImagePages(source, label, [question.primaryTopic, ...question.subtopics.slice(0, 2)].map(formatPublicLabel).join("  |  "));
-    }
-    if (content !== "questions") {
+    } else {
       if (question.markschemeImages.length) {
         for (const source of question.markschemeImages) await addImagePages(source, `${label} - answer`, "Official mark scheme where available");
       } else if (question.solution) {
@@ -242,7 +258,7 @@ export async function downloadQuestionPdf(
         }
       }
     }
-    onProgress?.(index + 1, total);
+    if (kind === "answer" || content === "questions") onProgress?.(++completed, total);
   }
 
   if (pages === 0) throw new Error("There is nothing to export");
