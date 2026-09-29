@@ -82,7 +82,7 @@ export function project0610Sections(raw) {
   const currentTopics = [...new Set(currentSections.map((section) => section.topic))];
   const originalTopics = [...new Set([raw.primaryTopic ?? "", ...(raw.secondaryTopics ?? [])].filter(Boolean))];
   const primaryTopic = currentTopics[0] ?? BIOLOGY_0610_EARLIER_TOPIC;
-  const secondaryTopics = [...new Set([...currentTopics.slice(1), ...originalTopics.filter((topic) => topic !== primaryTopic)])];
+  const secondaryTopics = [...new Set([...currentTopics.slice(1), ...(historical && primaryTopic !== BIOLOGY_0610_EARLIER_TOPIC ? [BIOLOGY_0610_EARLIER_TOPIC] : []), ...originalTopics.filter((topic) => topic !== primaryTopic)])];
   return {
     primaryTopic,
     secondaryTopics,

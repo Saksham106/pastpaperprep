@@ -185,7 +185,9 @@ export function getSubtopicGroups(
     const all = [...BIOLOGY_0610_SECTIONS.map((section) => section.title), ...(questions.some((question) => display0610Sections(question.officialCodeRefs).includes(BIOLOGY_0610_EARLIER)) ? [BIOLOGY_0610_EARLIER] : [])];
     const available = new Set(all);
     const selected = new Set(selectedTopics.map(canonicalBiology0610Topic));
-    const relevant = selectedTopics.length
+    const relevant = selectedTopics.length === 1 && selectedTopics[0] === BIOLOGY_0610_EARLIER_TOPIC
+      ? [BIOLOGY_0610_EARLIER]
+      : selectedTopics.length
       ? [...new Set([...selectedTopics.flatMap((topic) => getControlledSubtopics(bank, topic)), ...questions
         .filter((question) => [question.primaryTopic, ...question.secondaryTopics]
           .some((topic) => selected.has(canonicalBiology0610Topic(topic))))

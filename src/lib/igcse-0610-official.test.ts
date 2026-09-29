@@ -60,6 +60,7 @@ describe("0610 official 2026 student projection", () => {
       expect(getSubtopicGroups(questions, [section.topic], []).relevant).toContain(section.title);
     }
     expect(filterQuestions([...questions], { subtopics: [BIOLOGY_0610_EARLIER] })).toHaveLength(624);
+    expect(filterQuestions([...questions], { topics: [BIOLOGY_0610_EARLIER_TOPIC] })).toHaveLength(624);
     const old = source.find((raw) => raw.courseEra === "2020_2021" && raw.subtopics.includes("Cell structure and organisation"))!;
     const question = byId.get(old.id)!;
     expect(filterQuestions([...questions], { subtopics: ["Cell structure and organisation"] }).some((row) => row.id === old.id)).toBe(true);
