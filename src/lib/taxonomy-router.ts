@@ -1,6 +1,7 @@
 import { canonicalBiology0610Topic } from "@/lib/biology-0610-topic-aliases";
 import biology0610OfficialTaxonomy from "@/data/classification/igcse-biology-0610-official-taxonomy-v2.json";
 import economicsTaxonomy from "@/data/igcse-economics-0455-taxonomy.json";
+import { ECONOMICS_0455_TOPICS, ECONOMICS_0455_SECTIONS, ECONOMICS_0455_EARLIER } from "@/lib/igcse-0455-official.mjs";
 import coordinatedTaxonomy from "@/data/igcse-coordinated-sciences-0654-taxonomy.json";
 import { OFFICIAL_0606_TOPICS, EARLIER_0606_TOPIC, EARLIER_0606_SUBTOPICS } from "@/lib/igcse-0606-official.mjs";
 import aaTaxonomy from "@/data/aa-official-subtopics/taxonomy.json";
@@ -27,12 +28,10 @@ function isOfficialBiologyBank(bank: string | undefined): boolean {
 }
 
 const ECONOMICS_TOPIC_ORDER = economicsTaxonomy.student_topics.map((topic) => topic.label);
-const ECONOMICS_GROUPS: Record<string, readonly string[]> = Object.fromEntries(
-  economicsTaxonomy.student_topics.map((topic) => [
-    topic.label,
-    topic.detailed_subtopics.map((subtopic) => subtopic.label),
-  ]),
+const OFFICIAL_0455_GROUPS: Record<string, readonly string[]> = Object.fromEntries(
+  ECONOMICS_0455_TOPICS.map((topic, index) => [topic, ECONOMICS_0455_SECTIONS.filter((section) => section.topic === index).map((section) => section.title)]),
 );
+
 
 const AA_TOPIC_ORDER = [...new Set(aaTaxonomy.groups
   .sort((left, right) => left.teachingOrder - right.teachingOrder)
@@ -110,7 +109,7 @@ export function getControlledSubtopics(bankSlug: string, topic: string): readonl
   if (bankSlug === "igcse-biology-0610") {
     return [...new Set(Object.values(BIOLOGY_0610_GROUPS_BY_ERA).flatMap((groups) => groups[topic] ?? []))];
   }
-  if (bankSlug === "igcse-economics-0455") return ECONOMICS_GROUPS[topic] ?? [];
+  if (bankSlug === "igcse-economics-0455") return OFFICIAL_0455_GROUPS[topic] ?? [];
   if (isCoordinatedBank(bankSlug)) return COORDINATED_GROUPS[topic] ?? (COORDINATED_TOPIC_ORDER.includes(topic) ? [topic] : []);
   return getLegacyControlledSubtopics(bankSlug, topic);
 }
@@ -153,19 +152,25 @@ export function getSubtopicGroups(
   if (bank === "igcse-additional") {
     const sourceLabels = new Set(questions.flatMap((question) => [...question.subtopics, ...question.skills]));
     const earlierSelected = selectedTopics.includes(EARLIER_0606_TOPIC);
-    // The current syllabus has numbered learning statements, not named
-    // subtopic headings. Do not show the three legacy labels as the entire
-    // course's subtopic list before a student opens Earlier syllabus topics.
+    // Current syllabus has learning statements, not named subtopic headings.
     const all = earlierSelected
       ? EARLIER_0606_SUBTOPICS.filter((label) => sourceLabels.has(label))
       : selectedSubtopics.filter((label) => sourceLabels.has(label));
     const relevant = earlierSelected ? all : [];
-    return {
-      all,
-      relevant,
-      other: all.filter((label) => !relevant.includes(label)),
-      selectedOutsideContext: selectedSubtopics.filter((label) => sourceLabels.has(label) && !relevant.includes(label)),
-    };
+    return { all, relevant, other: all.filter((label) => !relevant.includes(label)), selectedOutsideContext: selectedSubtopics.filter((label) => sourceLabels.has(label) && !relevant.includes(label)) };
+  }
+  if (bank === "igcse-economics-0455") {
+    const all = [...ECONOMICS_0455_SECTIONS.map((section) => section.title),
+      ...(questions.some((question) => question.subtopics.includes(ECONOMICS_0455_EARLIER)) ? [ECONOMICS_0455_EARLIER] : [])];
+    const sourceLabels = new Set(questions.flatMap((question) => [...question.subtopics, ...question.skills]));
+    const relevant = selectedTopics.length
+      ? [...new Set(selectedTopics.flatMap((topic) => OFFICIAL_0455_GROUPS[topic] ?? []).concat(
+        questions.some((question) => question.subtopics.includes(ECONOMICS_0455_EARLIER)
+          && selectedTopics.some((topic) => topic === question.primaryTopic || question.secondaryTopics.includes(topic)))
+          ? [ECONOMICS_0455_EARLIER] : [],
+      ))]
+      : all;
+    return { all, relevant, other: all.filter((label) => !relevant.includes(label)), selectedOutsideContext: selectedSubtopics.filter((label) => sourceLabels.has(label) && !relevant.includes(label)) };
   }
   if (isOfficialBiologyBank(bank)) {
     const all = [...new Set(questions.flatMap((question) => question.subtopics))];
@@ -224,15 +229,11 @@ export function getSubtopicGroups(
   const available = new Set(all);
   let relevant = all;
   if (selectedTopics.length) {
-    if (bank === "igcse-economics-0455") {
-      relevant = uniqueSorted(selectedTopics.flatMap((topic) => ECONOMICS_GROUPS[topic] ?? []).filter((label) => available.has(label)));
-    } else {
-      const selected = new Set(selectedTopics);
-      relevant = uniqueSorted(questions
-        .filter((question) => selected.has(question.primaryTopic) || question.secondaryTopics.some((topic) => selected.has(topic)))
-        .flatMap((question) => [...question.subtopics, ...question.skills])
-        .filter((label) => available.has(label)));
-    }
+    const selected = new Set(selectedTopics);
+    relevant = uniqueSorted(questions
+      .filter((question) => selected.has(question.primaryTopic) || question.secondaryTopics.some((topic) => selected.has(topic)))
+      .flatMap((question) => [...question.subtopics, ...question.skills])
+      .filter((label) => available.has(label)));
   }
   const relevantSet = new Set(relevant);
   return {

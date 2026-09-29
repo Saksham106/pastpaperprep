@@ -5,6 +5,7 @@ import { mkdir, readdir, readFile, unlink, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { project0606Topics } from "../src/lib/igcse-0606-official.mjs";
+import { project0455Sections } from "../src/lib/igcse-0455-official.mjs";
 
 const root = join(import.meta.dirname, "..");
 const outputDirectory = join(root, "public", "bank-index");
@@ -80,6 +81,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
   const aa = currentAaRecord(bank, raw);
   const biology = currentBiologyRecord(bank, raw);
   const additional = bank === "igcse-additional" ? project0606Topics(raw) : null;
+  const economics0455 = bank === "igcse-economics-0455" ? project0455Sections(raw) : null;
   const official0610 = bank === "igcse-biology-0610" && normalizedProduction;
   const rawSubtopics = strings(raw.subtopics);
   // 2021–2025 runtime rows already have named subtopics; only 2019–20 and the
@@ -105,7 +107,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
       ? (aa.status === "accepted" ? aa.subtopics.map((id) => aaGroupNames.get(id) ?? (() => { throw new Error(`Unknown official AA group ${id}`); })()) : [])
       : biology
         ? biologyGroupLabels(biology)
-        : strings(raw.subtopics);
+        : economics0455?.subtopics ?? strings(raw.subtopics);
   const detailedSubtopics = strings(raw.detailedSubtopics);
   const subtopics = [...new Set(
     studentSubtopics.length
@@ -140,7 +142,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     skills,
     subtopics,
     granularLabels: aa || biology ? [] : granularByKey.get(`${overlayBank}:${raw.id}`) ?? [],
-    ...(biology ? { officialCodeRefs: [...biology.officialCodes] } : mapped0610 ? { officialCodeRefs: [...new Set([...strings(raw.officialCodeRefs), ...rawSubtopics.filter((label) => /^\d+\.\d+$/.test(label))])] } : strings(raw.officialCodeRefs).length ? { officialCodeRefs: strings(raw.officialCodeRefs) } : {}),
+    ...(biology ? { officialCodeRefs: [...biology.officialCodes] } : economics0455 ? { officialCodeRefs: economics0455.codeRefs } : mapped0610 ? { officialCodeRefs: [...new Set([...strings(raw.officialCodeRefs), ...rawSubtopics.filter((label) => /^\d+\.\d+$/.test(label))])] } : strings(raw.officialCodeRefs).length ? { officialCodeRefs: strings(raw.officialCodeRefs) } : {}),
     ...(strings(raw.retrievalFacets).length ? { retrievalFacets: strings(raw.retrievalFacets) } : {}),
     subject: (typeof raw.subject === "string" && raw.subject) || (typeof raw.course === "string" ? raw.course : ""),
     option: typeof raw.p3Option === "string" ? raw.p3Option : "",
