@@ -151,14 +151,25 @@ export function getSubtopicGroups(
     return { all, relevant, other: all.filter((label) => !relevantSet.has(label)), selectedOutsideContext: selectedSubtopics.filter((label) => available.has(label) && !relevantSet.has(label)) };
   }
   if (bank === "igcse-additional") {
-    const sourceLabels = new Set(questions.flatMap((question) => [...question.subtopics, ...question.skills]));
-    const earlierSelected = selectedTopics.includes(EARLIER_0606_TOPIC);
-    // Current syllabus has learning statements, not named subtopic headings.
-    const all = earlierSelected
-      ? EARLIER_0606_SUBTOPICS.filter((label) => sourceLabels.has(label))
-      : selectedSubtopics.filter((label) => sourceLabels.has(label));
-    const relevant = earlierSelected ? all : [];
-    return { all, relevant, other: all.filter((label) => !relevant.includes(label)), selectedOutsideContext: selectedSubtopics.filter((label) => sourceLabels.has(label) && !relevant.includes(label)) };
+    // The 14 official headings are topics, but the 17 original source labels
+    // are still useful subtopic filters. Do not hide them while section work is open.
+    const all = uniqueSorted(questions.flatMap((question) => question.subtopics));
+    const available = new Set(all);
+    const selected = new Set(selectedTopics);
+    const currentSelected = new Set(selectedTopics.filter((topic) => topic !== EARLIER_0606_TOPIC));
+    const currentLabels = currentSelected.size
+      ? questions
+        .filter((question) => [question.primaryTopic, ...question.secondaryTopics].some((topic) => currentSelected.has(topic)))
+        .flatMap((question) => question.subtopics)
+      : [];
+    const earlierLabels = selected.has(EARLIER_0606_TOPIC)
+      ? EARLIER_0606_SUBTOPICS.filter((label) => available.has(label))
+      : [];
+    const relevant = !selected.size ? all : currentSelected.size
+      ? uniqueSorted([...earlierLabels, ...currentLabels])
+      : [...earlierLabels];
+    const relevantSet = new Set(relevant);
+    return { all, relevant, other: all.filter((label) => !relevantSet.has(label)), selectedOutsideContext: selectedSubtopics.filter((label) => available.has(label) && !relevantSet.has(label)) };
   }
   if (bank === "igcse-economics-0455") {
     const all = [...ECONOMICS_0455_SECTIONS.map((section) => section.title),
