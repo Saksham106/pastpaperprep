@@ -54,6 +54,51 @@ describe("questionsForPdf", () => {
     ])).toContain("q16 question image 1; q17 answer image 3");
   });
 
+  it("prints a full-width 1.5x science crop on A4 at its inferred source point scale", () => {
+    const placement = planWholePdfImage(893, 1113, undefined, false, 108);
+    expect(placement.format).toBe("a4");
+    expect(placement.orientation).toBe("portrait");
+    expect(placement.widthMm).toBeCloseTo(210, 1);
+    expect(placement.xMm).toBeCloseTo(0, 1);
+    expect(placement.scale).toBe(1);
+    expect(placement.heldReason).toBeNull();
+  });
+
+  it("uses a compact branded A4 header for a tall full-width science source page", () => {
+    const placement = planWholePdfImage(893, 1128, undefined, false, 108);
+    expect(placement.format).toBe("a4");
+    expect(placement.scale).toBe(1);
+    expect(placement.yMm).toBeLessThanOrEqual(10);
+    expect(placement.yMm + placement.heightMm).toBeLessThanOrEqual(284);
+  });
+
+  it("uses the source page width for a 1.75x IB science raster rather than sending it to A3", () => {
+    const placement = planWholePdfImage(1041, 1000, undefined, false, 126);
+    expect(placement.format).toBe("a4");
+    expect(placement.scale).toBe(1);
+    expect(placement.widthMm).toBeGreaterThan(209);
+    expect(placement.widthMm).toBeLessThanOrEqual(210);
+  });
+
+  it("keeps a full-width landscape practical mark scheme on A4 at source scale", () => {
+    const placement = planWholePdfImage(1263, 758, undefined, false, 108);
+    expect(placement.format).toBe("a4");
+    expect(placement.orientation).toBe("landscape");
+    expect(placement.widthMm).toBeCloseTo(297, 1);
+    expect(placement.scale).toBe(1);
+    expect(placement.yMm).toBeLessThanOrEqual(10);
+  });
+
+  it("keeps a short plain mark-scheme row on A4 with only the necessary under-5% reduction", () => {
+    const placement = planWholePdfImage(918, 34, undefined, true, 108);
+    expect(placement.format).toBe("a4");
+    expect(placement.orientation).toBe("portrait");
+    expect(placement.widthMm).toBeLessThanOrEqual(210);
+    expect(placement.scale).toBeGreaterThanOrEqual(0.95);
+    expect(placement.scale).toBeLessThan(1);
+    expect(placement.heldReason).toBeNull();
+  });
+
   it("keeps a tall unverified image whole and records fit-to-page instead of slicing ink rows", () => {
     const placement = planWholePdfImage(1070, 3082);
     expect(placement.format).toBe("a3");

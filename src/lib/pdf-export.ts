@@ -111,6 +111,7 @@ export type WholeImagePlacement = {
   widthMm: number;
   heightMm: number;
   scale: number;
+  headerMode: "standard" | "compact";
   heldReason: "fit-to-page" | null;
 };
 
@@ -124,11 +125,22 @@ const PDF_TOP_MM = 22;
 const PDF_BOTTOM_MM = 13;
 const PDF_SIDE_MM = 8;
 const PDF_FALLBACK_DPI = 150;
+const SOURCE_RENDER_DPI = new Set([108, 126, 144]);
+
+/** Generator raster rates are hints, not per-asset source-geometry receipts. */
+export function inferredPdfDpiForBank(bank: UnifiedQuestion["bankSlug"]): number {
+  if (["igcse-biology-0610", "igcse-chemistry-0620", "igcse-physics-0625",
+    "igcse-coordinated-sciences-0654", "igcse-economics-0455"].includes(bank)) return 108;
+  if (["ib-biology-hl", "ib-biology-sl", "ib-chemistry-hl", "ib-chemistry-sl",
+    "ib-physics-hl", "ib-physics-sl"].includes(bank)) return 126;
+  if (bank === "ib-economics-hl" || bank === "ib-economics-sl") return 144;
+  return PDF_FALLBACK_DPI;
+}
 
 /** One indivisible image, never enlarged. Geometry wins; otherwise use a conservative raster size. */
 export function planWholePdfImage(
   widthPx: number, heightPx: number, physicalSizePt?: readonly [number, number] | null,
-  plainTextOnly = false,
+  plainTextOnly = false, fallbackDpi = PDF_FALLBACK_DPI,
 ): WholeImagePlacement {
   if (!Number.isSafeInteger(widthPx) || widthPx <= 0 || !Number.isSafeInteger(heightPx) || heightPx <= 0) {
     throw new Error("PDF image dimensions must be positive");
@@ -136,16 +148,38 @@ export function planWholePdfImage(
   if (physicalSizePt && (physicalSizePt.length !== 2 || physicalSizePt.some((v) => !Number.isFinite(v) || v <= 0))) {
     throw new Error("Signed physical image geometry is invalid");
   }
-  const width = physicalSizePt ? physicalSizePt[0] * 25.4 / 72 : widthPx * 25.4 / PDF_FALLBACK_DPI;
-  const height = physicalSizePt ? physicalSizePt[1] * 25.4 / 72 : heightPx * 25.4 / PDF_FALLBACK_DPI;
-  const makePlacement = (page: typeof PDF_PAGES[number], scale: number, heldReason: WholeImagePlacement["heldReason"]): WholeImagePlacement => ({
+  if (!Number.isFinite(fallbackDpi) || fallbackDpi <= 0) throw new Error("PDF raster DPI must be positive");
+  const inferredWidth = widthPx * 25.4 / fallbackDpi;
+  // A rounded full-page raster can exceed A4 width by a fraction of one pixel.
+  const sourcePageWidth = !physicalSizePt && SOURCE_RENDER_DPI.has(fallbackDpi)
+    ? (inferredWidth > 210 && inferredWidth < 210.1 ? 210
+      : inferredWidth > 297 && inferredWidth < 297.1 ? 297 : inferredWidth)
+    : inferredWidth;
+  const width = physicalSizePt ? physicalSizePt[0] * 25.4 / 72 : sourcePageWidth;
+  const height = physicalSizePt ? physicalSizePt[1] * 25.4 / 72 : heightPx * 25.4 / fallbackDpi;
+  const makePlacement = (page: typeof PDF_PAGES[number], scale: number, heldReason: WholeImagePlacement["heldReason"], headerMode: WholeImagePlacement["headerMode"] = "standard"): WholeImagePlacement => ({
     format: page.format, orientation: page.orientation, pageWidthMm: page.width, pageHeightMm: page.height,
-    xMm: (page.width - width * scale) / 2, yMm: PDF_TOP_MM,
-    widthMm: width * scale, heightMm: height * scale, scale, heldReason,
+    xMm: (page.width - width * scale) / 2, yMm: headerMode === "compact" ? 10 : PDF_TOP_MM,
+    widthMm: width * scale, heightMm: height * scale, scale, headerMode, heldReason,
   });
   const fits = (page: typeof PDF_PAGES[number], scale: number) =>
     width * scale <= page.width - 2 * PDF_SIDE_MM + 0.001 &&
     height * scale <= page.height - PDF_TOP_MM - PDF_BOTTOM_MM + 0.001;
+  if (!physicalSizePt && SOURCE_RENDER_DPI.has(fallbackDpi)) {
+    if (width >= 209.5 && width <= 210) {
+      if (height <= 297 - PDF_TOP_MM - PDF_BOTTOM_MM) return makePlacement(PDF_PAGES[0], 1, null);
+      if (height <= 297 - 10 - PDF_BOTTOM_MM) return makePlacement(PDF_PAGES[0], 1, null, "compact");
+    }
+    if (width >= 296.5 && width <= 297) {
+      if (height <= 210 - PDF_TOP_MM - PDF_BOTTOM_MM) return makePlacement(PDF_PAGES[1], 1, null);
+      if (height <= 210 - 10 - PDF_BOTTOM_MM) return makePlacement(PDF_PAGES[1], 1, null, "compact");
+    }
+  }
+  // A visibly plain answer row need not rotate the worksheet just to save 3% width.
+  if (plainTextOnly && !physicalSizePt && fallbackDpi === 108 &&
+    width > 210 && width <= 210 / 0.95 && height <= 297 - PDF_TOP_MM - PDF_BOTTOM_MM) {
+    return makePlacement(PDF_PAGES[0], 210 / width, null);
+  }
   for (const page of PDF_PAGES) if (fits(page, 1)) return makePlacement(page, 1, null);
   if (plainTextOnly) {
     for (const page of PDF_PAGES) if (fits(page, 0.95)) return makePlacement(page, 0.95, null);
@@ -226,11 +260,11 @@ export async function downloadQuestionPdf(
   pdf.setProperties({ title: "PastPaperPrep worksheet", subject: "Past paper practice questions", author: "PastPaperPrep", creator: "PastPaperPrep" });
   let pages = 0;
   let nextImageY = PDF_TOP_MM;
-  const pageSpecs: Array<{ format: PdfPageFormat; orientation: PdfPageOrientation; width: number; height: number }> = [];
+  const pageSpecs: Array<{ format: PdfPageFormat; orientation: PdfPageOrientation; width: number; height: number; headerMode: WholeImagePlacement["headerMode"] }> = [];
   const heldRows: PdfHeldRow[] = [];
   const total = questions.length;
 
-  const addPage = (format: PdfPageFormat = "a4", orientation: PdfPageOrientation = "portrait") => {
+  const addPage = (format: PdfPageFormat = "a4", orientation: PdfPageOrientation = "portrait", headerMode: WholeImagePlacement["headerMode"] = "standard") => {
     if (pages > 0) pdf.addPage(format, orientation);
     else if (format !== "a4" || orientation !== "portrait") {
       pdf.addPage(format, orientation);
@@ -238,12 +272,12 @@ export async function downloadQuestionPdf(
     }
     pages += 1;
     const spec = PDF_PAGES.find((candidate) => candidate.format === format && candidate.orientation === orientation)!;
-    pageSpecs.push(spec);
-    nextImageY = PDF_TOP_MM;
+    pageSpecs.push({ ...spec, headerMode });
+    nextImageY = headerMode === "compact" ? 10 : PDF_TOP_MM;
   };
 
   const addImagePage = async (
-    questionId: string, kind: "question" | "answer", imageIndex: number, source: string,
+    bankSlug: UnifiedQuestion["bankSlug"], questionId: string, kind: "question" | "answer", imageIndex: number, source: string,
     physicalSizePt?: readonly [number, number] | null,
     sourceSegments?: readonly SourcePrintSegment[] | null,
     expectedRaster?: readonly [number, number] | null,
@@ -285,11 +319,14 @@ export async function downloadQuestionPdf(
       size = [physicalSizePt![0], physicalSizePt![1] - excluded[0].physicalHeightPt];
     }
     const image = preparePdfImage(loaded, visibleHeight);
-    const placement = planWholePdfImage(image.width, image.height, size);
+    const fallbackDpi = inferredPdfDpiForBank(bankSlug);
+    const shortAnswerRow = kind === "answer" && !size && fallbackDpi === 108 &&
+      image.height <= 48 && image.width >= 890;
+    const placement = planWholePdfImage(image.width, image.height, size, shortAnswerRow, fallbackDpi);
     const current = pageSpecs[pages - 1];
     if (!current || current.format !== placement.format || current.orientation !== placement.orientation ||
       nextImageY + placement.heightMm > current.height - PDF_BOTTOM_MM + 0.001) {
-      addPage(placement.format, placement.orientation);
+      addPage(placement.format, placement.orientation, placement.headerMode);
     }
     pdf.addImage(image.canvas.toDataURL("image/jpeg", 0.98), "JPEG",
       placement.xMm, nextImageY, placement.widthMm, placement.heightMm);
@@ -307,7 +344,7 @@ export async function downloadQuestionPdf(
           question.questionPrintSegments?.[index] && question.questionRasterSizesPx?.[index]) {
           await verify0606PdfMetadata(question, "question", index);
         }
-        await addImagePage(question.id, "question", index, source,
+        await addImagePage(question.bankSlug, question.id, "question", index, source,
           question.questionPrintSizesPt?.[index], question.questionPrintSegments?.[index], question.questionRasterSizesPx?.[index]);
       }
     } else {
@@ -317,7 +354,7 @@ export async function downloadQuestionPdf(
             question.markschemePrintSegments?.[index] && question.markschemeRasterSizesPx?.[index]) {
             await verify0606PdfMetadata(question, "answer", index);
           }
-          await addImagePage(question.id, "answer", index, source,
+          await addImagePage(question.bankSlug, question.id, "answer", index, source,
             question.markschemePrintSizesPt?.[index], question.markschemePrintSegments?.[index], question.markschemeRasterSizesPx?.[index]);
         }
       } else if (question.solution) {
@@ -351,17 +388,29 @@ export async function downloadQuestionPdf(
     const right = spec.width - 8;
     const footerLine = spec.height - 12;
     const footerTextY = spec.height - 7;
-    pdf.addImage(brandMark.data, "PNG", 8, 7.5, 10, 10);
-    pdf.setFont("helvetica", "bold");
-    pdf.setFontSize(10);
-    pdf.setTextColor(21, 52, 48);
-    pdf.text("PastPaperPrep", 22, 14.3);
-    pdf.setFont("helvetica", "normal");
-    pdf.setFontSize(8);
-    pdf.setTextColor(42, 74, 145);
-    pdf.textWithLink("pastpaperprep.com", right, 14.3, { align: "right", url: PDF_SITE_URL });
-    pdf.setDrawColor(190, 204, 200);
-    pdf.line(8, 19, right, 19);
+    if (spec.headerMode === "compact") {
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(8);
+      pdf.setTextColor(21, 52, 48);
+      pdf.text("PastPaperPrep", 8, 6);
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(42, 74, 145);
+      pdf.textWithLink("pastpaperprep.com", right, 6, { align: "right", url: PDF_SITE_URL });
+      pdf.setDrawColor(190, 204, 200);
+      pdf.line(8, 8, right, 8);
+    } else {
+      pdf.addImage(brandMark.data, "PNG", 8, 7.5, 10, 10);
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(10);
+      pdf.setTextColor(21, 52, 48);
+      pdf.text("PastPaperPrep", 22, 14.3);
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(8);
+      pdf.setTextColor(42, 74, 145);
+      pdf.textWithLink("pastpaperprep.com", right, 14.3, { align: "right", url: PDF_SITE_URL });
+      pdf.setDrawColor(190, 204, 200);
+      pdf.line(8, 19, right, 19);
+    }
     pdf.line(8, footerLine, right, footerLine);
     pdf.setFontSize(7);
     pdf.setTextColor(76, 88, 85);

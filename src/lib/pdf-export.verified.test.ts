@@ -37,6 +37,8 @@ describe("real worksheet image placement", () => {
         if (value.startsWith("data:image/svg")) { this.naturalWidth = 256; this.naturalHeight = 256; }
         if (value.includes("q11.webp")) { this.naturalWidth = 1070; this.naturalHeight = 4501; }
         if (value.includes("tall.webp")) { this.naturalWidth = 1070; this.naturalHeight = 3082; }
+        if (value.includes("science-full.webp")) { this.naturalWidth = 893; this.naturalHeight = 1128; }
+        if (value.includes("science-answer-row.webp")) { this.naturalWidth = 918; this.naturalHeight = 34; }
         if (value.includes("wide-answer.webp")) { this.naturalWidth = 1630; this.naturalHeight = 1941; }
         queueMicrotask(() => this.onload?.(new Event("load")));
       }
@@ -83,6 +85,30 @@ describe("real worksheet image placement", () => {
     expect(questionImages[0][5]).toBeCloseTo(734.33 * 25.4 / 72, 3);
     expect(addPage).not.toHaveBeenCalled();
     expect(save).toHaveBeenCalledOnce();
+  });
+
+  it("downloads a full-width 0610 source crop at A4 point size instead of the 150-DPI 28% shrink", async () => {
+    const science = { ...q16, id: "0610-2026-m-42-q2", bankSlug: "igcse-biology-0610" as const,
+      questionImages: ["https://signed.test/science-full.webp"], questionPrintSizesPt: undefined } as unknown as UnifiedQuestion;
+    const result = await downloadQuestionPdf([science], "questions");
+    const images = addImage.mock.calls.filter((call) => call[1] === "JPEG");
+    expect(images).toHaveLength(1);
+    expect(images[0][2]).toBeCloseTo(0, 1);
+    expect(images[0][3]).toBe(10);
+    expect(images[0][4]).toBeCloseTo(210, 1);
+    expect(result.heldRows).toEqual([]);
+  });
+
+  it("keeps a short 0610 answer row in the same A4 layout without rotating the paper", async () => {
+    const science = { ...q16, id: "0610-2026-m-42-q2", bankSlug: "igcse-biology-0610" as const,
+      questionImages: [], markschemeImages: ["https://signed.test/science-answer-row.webp"],
+      markschemePrintSizesPt: undefined } as unknown as UnifiedQuestion;
+    const result = await downloadQuestionPdf([science], "answers");
+    const image = addImage.mock.calls.find((call) => call[1] === "JPEG")!;
+    expect(image[2]).toBeCloseTo(0, 1);
+    expect(image[4]).toBeCloseTo(210, 1);
+    expect(addPage).not.toHaveBeenCalled();
+    expect(result.heldRows).toEqual([]);
   });
 
   it("places Q11 as one complete image after removing only its hash-verified BLANK PAGE tail", async () => {
