@@ -761,6 +761,19 @@ describe("QuestionExplorer", () => {
     expect(screen.queryByRole("group", { name: /course/i })).not.toBeInTheDocument();
   });
 
+  it("shows the preserved Additional Mathematics subtopics as clickable filters", () => {
+    window.history.replaceState({}, "", "/banks/igcse-additional");
+    const bank = loadBankQuestions("igcse-additional");
+    const chosen = [bank.find((question) => question.subtopics.includes("Functions"))!, bank.find((question) => question.subtopics.includes("Matrices"))!];
+    const questions = prepareQuestionsForDelivery(chosen, [{ productId: "bank_igcse_additional", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    render(<QuestionExplorer questions={questions} bankSlug="igcse-additional" access={fullAccess} />);
+    const subtopics = screen.getByRole("group", { name: /subtopics/i });
+    expect(within(subtopics).getByRole("checkbox", { name: "Subtopics: Functions" })).toBeInTheDocument();
+    const matrices = within(subtopics).getByRole("checkbox", { name: "Subtopics: Matrices" });
+    fireEvent.click(matrices);
+    expect(matrices).toBeChecked();
+  });
+
   it("filters Cambridge questions by the selected time-zone variant and keeps it in the URL", async () => {
     window.history.replaceState({}, "", "/banks/igcse-additional");
     const questions = prepareQuestionsForDelivery(loadBankQuestions("igcse-additional").slice(0, 120), [{ productId: "bank_igcse_additional", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);

@@ -44,6 +44,21 @@ describe("0606 official topic projection", () => {
     }
   });
 
+  it("keeps every original 0606 subtopic selectable under the projected topics", () => {
+    const originalLabels = [...new Set(source.flatMap((q) => q.subtopics))].sort();
+    const groups = getSubtopicGroups(normalized, [], []);
+    expect(originalLabels).toHaveLength(17);
+    expect([...groups.all].sort()).toEqual(originalLabels);
+    expect(getSubtopicGroups(normalized, ["Functions"], []).relevant).toContain("Functions");
+    const earlier = getSubtopicGroups(normalized, [EARLIER_0606_TOPIC], []);
+    expect(earlier.relevant).toEqual([...EARLIER_0606_SUBTOPICS]);
+    expect(getSubtopicGroups(normalized, ["Functions"], ["Matrices"]).selectedOutsideContext).toContain("Matrices");
+    for (const label of originalLabels) {
+      const expected = source.filter((q) => q.subtopics.includes(label)).map((q) => q.id).sort();
+      expect(filterQuestions([...normalized], { subtopics: [label] }).map((q) => q.id).sort()).toEqual(expected);
+    }
+  });
+
   it("keeps old topic/subtopic URLs and search while hiding skill codes from the student picker", () => {
     for (const old of ["Algebra", "Sets and functions", "Vectors and matrices"]) {
       const expected = source.filter((q) => q.primaryTopic === old || q.secondaryTopics?.includes(old)).map((q) => q.id).sort();
@@ -52,10 +67,11 @@ describe("0606 official topic projection", () => {
     for (const label of EARLIER_0606_SUBTOPICS) {
       expect(filterQuestions([...normalized], { subtopics: [label] }).length).toBeGreaterThan(0);
     }
-    expect(getSubtopicGroups(normalized, [], []).all).toEqual([]);
-    expect(getSubtopicGroups(normalized, [EARLIER_0606_TOPIC], []).relevant).toEqual([...EARLIER_0606_SUBTOPICS]);
-    expect(getSubtopicGroups(normalized, [], ["Matrices"]).all).toEqual(["Matrices"]);
-    expect(getSubtopicGroups(normalized, ["Functions"], []).relevant).toEqual([]);
+    expect(getSubtopicGroups(normalized, [], []).all).toHaveLength(17);
+    expect(getSubtopicGroups(normalized, [EARLIER_0606_TOPIC], []).relevant).toEqual(expect.arrayContaining([...EARLIER_0606_SUBTOPICS]));
+    expect(getSubtopicGroups(normalized, [], ["Matrices"]).all).toHaveLength(17);
+    expect(getSubtopicGroups(normalized, ["Functions"], []).relevant).toContain("Functions");
+    expect(getSubtopicGroups([{ ...normalized[0], skills: ["__internal_code__"] }], [], []).all).not.toContain("__internal_code__");
     const searchable = normalized.find((q) => q.subtopics.includes("Indices and surds"))!;
     expect(filterQuestions([searchable], { search: "indices and surds" })).toHaveLength(1);
   });
