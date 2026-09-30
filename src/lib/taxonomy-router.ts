@@ -138,6 +138,18 @@ export function getSubtopicGroups(
   selectedSubtopics: string[],
 ): { all: string[]; relevant: string[]; other: string[]; selectedOutsideContext: string[] } {
   const bank = questions[0]?.bankSlug;
+  if (bank === "igcse") {
+    // Keep 0580's picker cleanup outside the sealed shared taxonomy source:
+    // archived production audits bind its exact bytes for other banks.
+    const available = new Set(questions.flatMap((question) => question.subtopics));
+    const controlled = getLegacyTopicOptions(questions).flatMap((topic) => getLegacyControlledSubtopics(bank, topic));
+    const all = uniqueSorted([...available, ...controlled]);
+    const relevant = selectedTopics.length
+      ? uniqueSorted(selectedTopics.flatMap((topic) => getLegacyControlledSubtopics(bank, topic)))
+      : all;
+    const relevantSet = new Set(relevant);
+    return { all, relevant, other: all.filter((label) => !relevantSet.has(label)), selectedOutsideContext: selectedSubtopics.filter((label) => available.has(label) && !relevantSet.has(label)) };
+  }
   if (bank === "igcse-additional") {
     const sourceLabels = new Set(questions.flatMap((question) => [...question.subtopics, ...question.skills]));
     const earlierSelected = selectedTopics.includes(EARLIER_0606_TOPIC);

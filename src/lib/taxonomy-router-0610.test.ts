@@ -1,72 +1,45 @@
 import { describe, expect, it } from "vitest";
+import source from "@/data/production/igcse-biology-0610.json";
 import { filterQuestions } from "@/lib/question-filter";
+import { normalizeBankQuestions } from "@/lib/questions";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
-import type { UnifiedQuestion } from "@/lib/questions";
+import { BIOLOGY_0610_EARLIER, BIOLOGY_0610_EARLIER_TOPIC, BIOLOGY_0610_TOPICS } from "@/lib/igcse-0610-official.mjs";
 
-const row = (id: string, topic: string, subtopic: string): UnifiedQuestion => ({
-  id, bankSlug: "igcse-biology-0610", number: 1, paper: 1, year: 2021, session: "June",
-  primaryTopic: topic, secondaryTopics: [], subtopics: subtopic ? [subtopic] : [],
-  skills: [], secondarySubtopics: [], subject: "Biology", courseEra: "2020_2021",
-  option: "", zone: "", component: "11", calculator: null, marks: 1,
-  summary: "", accessibleText: "", searchText: "", questionImages: [], markschemeImages: [],
-  questionImageCount: 0, markschemeImageCount: 0, questionAssetPaths: [], markschemeAssetPaths: [],
-  solution: null, sourceQuestionUrl: null, sourceMarkSchemeUrl: null,
-});
+const questions = normalizeBankQuestions("igcse-biology-0610", (source as unknown as { questions: Record<string, unknown>[] }).questions);
+const byId = new Map(questions.map((question) => [question.id, question]));
 
-describe("0610 syllabus-first topic filters", () => {
-  it("shows one current official topic for equivalent historical topic names", () => {
-    const questions = [
-      row("old", "Movement in and out of cells", "Diffusion"),
-      row("current", "Movement into and out of cells", "Osmosis"),
-      row("old-biotech", "Biotechnology and genetic engineering", "Genetic engineering"),
-      row("new-biotech", "Biotechnology and genetic modification", "Genetic modification"),
-    ];
-    expect(getTopicOptions(questions)).toEqual([
-      "Movement into and out of cells",
-      "Biotechnology and genetic modification",
-    ]);
-    expect(filterQuestions(questions, { topics: ["Movement into and out of cells"] }).map((q) => q.id).sort())
-      .toEqual(["current", "old"]);
+describe("0610 official topic filters and historical aliases", () => {
+  it("shows the official tree, not old topic names or source subtopic headings", () => {
+    const topics = getTopicOptions(questions);
+    expect(topics).toEqual([...BIOLOGY_0610_TOPICS, BIOLOGY_0610_EARLIER_TOPIC]);
+    expect(topics).not.toContain("Movement in and out of cells");
+    expect(topics).not.toContain("Biotechnology and genetic engineering");
+    expect(topics).not.toContain("Size of specimens");
   });
 
-  it("offers old and current question-bearing subtopics inside the selected current topic", () => {
-    const questions = [
-      row("old", "Movement in and out of cells", "Diffusion"),
-      row("current", "Movement into and out of cells", "Osmosis"),
-    ];
-    const groups = getSubtopicGroups(questions, ["Movement into and out of cells"], []);
-    expect(groups.relevant).toEqual(expect.arrayContaining(["Diffusion", "Osmosis"]));
-    expect(filterQuestions(questions, { topics: ["Movement into and out of cells"], subtopics: ["Diffusion"] }).map((q) => q.id))
-      .toEqual(["old"]);
+  it("retains older section and topic aliases without displaying a false current section", () => {
+    const old = byId.get("0610-2022-s-11-q7");
+    expect(old).toMatchObject({
+      primaryTopic: "Movement into and out of cells",
+      secondaryTopics: ["Movement in and out of cells"],
+      officialCodeRefs: ["2022:3.1"],
+    });
+    const topic = "Movement into and out of cells";
+    expect(getSubtopicGroups(questions, [topic], []).relevant).toContain("Diffusion");
+    expect(filterQuestions(questions, { topics: [topic], subtopics: ["Diffusion"] }).some((q) => q.id === old?.id)).toBe(true);
+    expect(filterQuestions(questions, { topics: ["Movement in and out of cells"] }).some((q) => q.id === old?.id)).toBe(true);
   });
 
-  it("retains a historical-only subtopic as a usable filter under its current parent", () => {
-    const questions = [
-      row("old", "Biotechnology and genetic engineering", "Genetic engineering"),
-      row("current", "Biotechnology and genetic modification", "Genetic modification"),
-    ];
-    const topic = "Biotechnology and genetic modification";
-    expect(getSubtopicGroups(questions, [topic], []).relevant).toContain("Genetic engineering");
-    expect(filterQuestions(questions, { topics: [topic], subtopics: ["Genetic engineering"] }).map((q) => q.id))
-      .toEqual(["old"]);
-  });
-
-  it("moves source subtopic headings out of the top-level menu without losing their questions", () => {
-    const questions = [
-      row("size", "Size of specimens", ""),
-      row("habitat", "Habitat destruction", ""),
-      row("genetic", "Genetic modification", ""),
-    ];
-    expect(getTopicOptions(questions)).toEqual([
-      "Organisation of the organism",
-      "Human influences on ecosystems",
-      "Biotechnology and genetic modification",
-    ]);
-    expect(filterQuestions(questions, { topics: ["Organisation of the organism"] }).map((q) => q.id))
-      .toEqual(["size"]);
-    expect(filterQuestions(questions, { topics: ["Human influences on ecosystems"] }).map((q) => q.id))
-      .toEqual(["habitat"]);
-    expect(filterQuestions(questions, { topics: ["Biotechnology and genetic modification"] }).map((q) => q.id))
-      .toEqual(["genetic"]);
+  it("puts source rows without a section address in one compact Earlier group", () => {
+    const old = byId.get("0610-2023-m-12-q5");
+    expect(old).toMatchObject({
+      primaryTopic: BIOLOGY_0610_EARLIER_TOPIC,
+      secondaryTopics: ["Size of specimens"],
+      subtopics: [BIOLOGY_0610_EARLIER],
+      officialCodeRefs: [],
+    });
+    expect(getSubtopicGroups(questions, [BIOLOGY_0610_EARLIER_TOPIC], []).relevant).toEqual([BIOLOGY_0610_EARLIER]);
+    expect(filterQuestions(questions, { topics: [BIOLOGY_0610_EARLIER_TOPIC], subtopics: [BIOLOGY_0610_EARLIER] }).some((q) => q.id === old?.id)).toBe(true);
+    expect(filterQuestions(questions, { topics: ["Size of specimens"] }).some((q) => q.id === old?.id)).toBe(true);
   });
 });

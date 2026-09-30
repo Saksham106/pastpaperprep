@@ -249,19 +249,22 @@ describe("new-bank classification quality", () => {
 
     expect(byId.get("0606-2016-june-11-q3")).toMatchObject({
       primaryTopic: "Calculus",
-      secondaryTopics: ["Coordinate geometry"],
+      secondaryTopics: ["Straight-line graphs", "Coordinate geometry"],
       subtopics: ["Calculus", "Straight-line graphs"],
     });
     expect(byId.get("0606-2026-june-12-q2")).toMatchObject({
-      primaryTopic: "Coordinate geometry",
+      primaryTopic: "Straight-line graphs",
+      secondaryTopics: ["Coordinate geometry"],
       subtopics: ["Straight-line graphs"],
     });
     expect(byId.get("0606-2021-june-13-q6")).toMatchObject({
-      primaryTopic: "Geometry and trigonometry",
+      primaryTopic: "Circular measure",
+      secondaryTopics: ["Geometry and trigonometry"],
       subtopics: ["Circular measure"],
     });
     expect(byId.get("0606-2026-june-11-q4")).toMatchObject({
-      primaryTopic: "Algebra",
+      primaryTopic: "Logarithmic and exponential functions",
+      secondaryTopics: ["Algebra"],
       subtopics: ["Logarithmic and exponential functions"],
     });
   });

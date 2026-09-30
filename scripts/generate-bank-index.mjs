@@ -126,6 +126,13 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     ])];
 
   const overlayBank = overlayBankForSlug(bank);
+  const officialCodeRefs = biology ? [...biology.officialCodes]
+    : chemistry0620 ? chemistry0620.codeRefs
+    : physics0625 ? physics0625.codeRefs
+    : coordinated ? coordinated.codeRefs
+    : official0610 ? projected0610.codeRefs
+    : economics0455 ? economics0455.codeRefs
+    : strings(raw.officialCodeRefs);
   const metadata = {
     id: typeof raw.id === "string" ? raw.id : "",
     number: integer(raw.number),
@@ -137,7 +144,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     skills,
     subtopics,
     granularLabels: aa || biology ? [] : granularByKey.get(`${overlayBank}:${raw.id}`) ?? [],
-    ...(biology ? { officialCodeRefs: [...biology.officialCodes] } : chemistry0620 ? { officialCodeRefs: chemistry0620.codeRefs } : physics0625 ? { officialCodeRefs: physics0625.codeRefs } : coordinated ? { officialCodeRefs: coordinated.codeRefs } : official0610 ? { officialCodeRefs: projected0610.codeRefs } : economics0455 ? { officialCodeRefs: economics0455.codeRefs } : strings(raw.officialCodeRefs).length ? { officialCodeRefs: strings(raw.officialCodeRefs) } : {}),
+    ...(officialCodeRefs.length ? { officialCodeRefs } : {}),
     ...(strings(raw.retrievalFacets).length ? { retrievalFacets: strings(raw.retrievalFacets) } : {}),
     subject: (typeof raw.subject === "string" && raw.subject) || (typeof raw.course === "string" ? raw.course : ""),
     option: typeof raw.p3Option === "string" ? raw.p3Option : "",

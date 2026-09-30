@@ -25,18 +25,18 @@ describe("public bank index generator", () => {
 
   it("projects 0610 numeric section codes to the year-era official name and preserves code provenance", () => {
     const metadata = metadataFromRaw({
-      id: "0610-2026-m-12-q1", year: 2026, primaryTopic: "Characteristics and classification of living organisms",
+      id: "0610-2026-m-12-q1", year: 2026, courseEra: "2026_2028", primaryTopic: "Characteristics and classification of living organisms",
       subtopics: ["1.1"], detailedSubtopics: ["1.1"],
     }, { bank: "igcse-biology-0610", normalizedProduction: true });
 
-    expect(metadata.subtopics).toEqual(["Characteristics of living organisms"]);
-    expect(metadata.officialCodeRefs).toEqual(["1.1"]);
+    expect(metadata.subtopics).toEqual(["Characteristics of living organisms", "1.1"]);
+    expect(metadata.officialCodeRefs).toEqual(["2026_2028:1.1"]);
 
     const currentEdition = metadataFromRaw({
-      id: "0610-2026-m-12-q16", year: 2026, primaryTopic: "Reproduction",
+      id: "0610-2026-m-12-q16", year: 2026, courseEra: "2026_2028", primaryTopic: "Reproduction",
       subtopics: ["16.5"],
     }, { bank: "igcse-biology-0610", normalizedProduction: true });
-    expect(currentEdition.subtopics).toEqual(["Sex hormones in humans"]);
+    expect(currentEdition.subtopics).toEqual(["Sex hormones in humans", "Sexual hormones in humans", "16.5"]);
   });
 
   it("matches the 0610 public index exactly to the source runtime through the official-era projector", () => {
@@ -49,7 +49,7 @@ describe("public bank index generator", () => {
     const namedYears = source.questions.filter((row) => row.year >= 2021 && row.year <= 2025);
     expect(namedYears).toHaveLength(3441);
     expect(namedYears.every((row) => !row.subtopics.some((label) => /^\d+\.\d+$/.test(label)))).toBe(true);
-    expect(published.questions.filter((row) => row.officialCodeRefs?.some((code) => /^\d+\.\d+$/.test(code)))).toHaveLength(1471);
+    expect(published.questions.filter((row) => row.officialCodeRefs?.some((code) => /^(2020_2021|2022|2023_2025|2026_2028):\d+\.\d+$/.test(code)))).toHaveLength(4910);
     for (const row of published.questions) expect(row).toEqual(expected.get(row.id));
   });
 

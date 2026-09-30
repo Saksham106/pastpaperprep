@@ -5,6 +5,9 @@ import { reseal2026 } from "./reseal-0625-2026-mcq-retrieval.mjs";
 import { assert0625PracticalRoleRepair, assert0625McqRetrievalRepair } from "../src/lib/igcse-runtime.ts";
 import { normalizeBankQuestions } from "../src/lib/questions.ts";
 import { filterQuestions } from "../src/lib/question-filter.ts";
+import { PHYSICS_0625_SECTIONS } from "../src/lib/igcse-0625-official.mjs";
+
+const officialSections = new Set(PHYSICS_0625_SECTIONS.map((section) => section.title));
 
 const BASE = "0a0b2246e269c03f81669548947d011c4f68b741";
 const readBase = (file) => JSON.parse(execFileSync("git", ["show", `${BASE}:${file}`], { maxBuffer: 50_000_000 }));
@@ -49,7 +52,7 @@ describe("0625 2026 MCQ retrieval reseal", () => {
     expect(result).toEqual(reseal2026(inputs));
   }, 30000);
 
-  it("changes exactly fourteen private-index rows and exposes every row through the intended student filters", () => {
+  it("changes exactly fourteen private-index rows and keeps unverified section matches in review", () => {
     const original = readBase("src/data/private-index/igcse-physics-0625.json");
     const current = JSON.parse(readFileSync("src/data/private-index/igcse-physics-0625.json", "utf8"));
     expect(current.questions).toHaveLength(5789);
@@ -61,12 +64,19 @@ describe("0625 2026 MCQ retrieval reseal", () => {
       expect(Object.keys(row).filter((key) => JSON.stringify(row[key]) !== JSON.stringify(old[key])).sort())
         .toEqual(row.id === "0625-2026-m-12-q1" ? ["primaryTopic"] : ["primaryTopic", "subtopics"]);
     }
-    const questions = normalizeBankQuestions("igcse-physics-0625", current.questions);
+    // The private metadata index has no source-era provenance; project the sealed full runtime.
+    const questions = normalizeBankQuestions("igcse-physics-0625", JSON.parse(readFileSync("src/data/production/igcse-physics-0625.json", "utf8")).questions);
     for (const [id, key] of frozen.rows) {
       const [topic, , detail] = frozen.labels[key];
-      expect(filterQuestions(questions, { topics: [topic], subtopics: detail ? [detail] : [] }).some((q) => q.id === id)).toBe(true);
+      const projected = questions.find((q) => q.id === id);
+      if (projected.officialCodeRefs.includes("unresolved:current")) {
+        expect(filterQuestions(questions, { topics: ["Questions needing section review"], subtopics: ["Current syllabus section not yet mapped"] }).some((q) => q.id === id)).toBe(true);
+        if (detail) expect(filterQuestions(questions, { topics: [topic], subtopics: [detail] }).some((q) => q.id === id)).toBe(!officialSections.has(detail));
+      } else {
+        expect(filterQuestions(questions, { topics: [topic], subtopics: detail ? [detail] : [] }).some((q) => q.id === id)).toBe(true);
+      }
       if (detail === null) {
-        expect(questions.find((q) => q.id === id).subtopics).toEqual([]);
+        expect(projected.subtopics).toContain("Current syllabus section not yet mapped");
         expect(filterQuestions(questions, { topics: [topic], subtopics: ["Physical quantities and measurement techniques"] }).some((q) => q.id === id)).toBe(false);
       }
     }

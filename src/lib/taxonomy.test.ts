@@ -3,6 +3,7 @@ import { loadBankQuestions } from "@/lib/question-fixtures";
 import rawAdditional from "@/data/raw/igcse-additional.json";
 import { filterQuestions } from "@/lib/question-filter";
 import { getControlledSubtopics, getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy";
+import { getSubtopicGroups as getStudentSubtopicGroups } from "@/lib/taxonomy-router";
 
 describe("question taxonomy", () => {
   it("orders IB topics by the official syllabus sequence", () => {
@@ -88,7 +89,7 @@ describe("question taxonomy", () => {
       skills: ["internal.skill.code", "Student-facing search skill"],
       searchText: "student-facing search skill",
     };
-    const groups = getSubtopicGroups([question], ["Number"], []);
+    const groups = getStudentSubtopicGroups([question], ["Number"], []);
 
     expect(groups.all).toContain("Historical-era label");
     expect(groups.all).toContain("Bounds and estimation");
