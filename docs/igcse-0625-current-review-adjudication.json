@@ -1,0 +1,407 @@
+{
+  "schema": "0625-2026-current-review-source-adjudication-v1",
+  "officialSyllabusSha256": "baaf59f84543beb133ea87cbf8cfb0e8bf105a360cce5009cf57d3ae0a357075",
+  "scope": "Exact sixteen 2026 rows lacking a source officialCode; adds student-facing verified section refs without rewriting sealed source classification or its gap/provenance.",
+  "rows": [
+    {
+      "id": "0625-2026-m-12-q1",
+      "sourcePrimaryTopicId": "motion-forces-energy",
+      "sourcePrimaryTopic": "Motion, forces and energy",
+      "sourceSubtopics": [],
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_m26_qp_12.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_m26_ms_12.pdf",
+      "qpSha256": "eead38a2526d649a2b503bece616ced47e0056daf1ca94a6f637e4310ddbdc35",
+      "msSha256": "2e2825b2bee692913d94730c482d7a6fb23f534c61aefd557ad2e216a3bb9c06",
+      "qpPdfPages": [
+        2
+      ],
+      "msPdfPages": [
+        2
+      ],
+      "printedQuestionAnchor": "1 Water drips from a tap into a measuring cylinder. The",
+      "printedMSKey": "1 B 1",
+      "primaryCode": "1.1",
+      "secondaryCodes": [],
+      "applicability": "core_content_valid_for_core_and_extended",
+      "rationale": "Reading a measuring cylinder at intervals and finding the mean collected volume per minute; Core 1.1 names measuring cylinders and volume.",
+      "visualReview": "PDF text and keyed MS inspected; figure geometry itself not independently visual-reviewed where present."
+    },
+    {
+      "id": "0625-2026-m-12-q13",
+      "sourcePrimaryTopicId": "thermal-physics",
+      "sourcePrimaryTopic": "Thermal physics",
+      "sourceSubtopics": [
+        "Gases and temperature"
+      ],
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_m26_qp_12.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_m26_ms_12.pdf",
+      "qpSha256": "eead38a2526d649a2b503bece616ced47e0056daf1ca94a6f637e4310ddbdc35",
+      "msSha256": "2e2825b2bee692913d94730c482d7a6fb23f534c61aefd557ad2e216a3bb9c06",
+      "qpPdfPages": [
+        6
+      ],
+      "msPdfPages": [
+        2
+      ],
+      "printedQuestionAnchor": "13 A substance melts at – 40 °C. What is its melting po",
+      "printedMSKey": "13 D 1",
+      "primaryCode": "2.1.3",
+      "secondaryCodes": [],
+      "applicability": "core_content_valid_for_core_and_extended",
+      "rationale": "Converting a Celsius melting point to kelvin using T = θ + 273; Core 2.1.3 bullet 2.",
+      "visualReview": "PDF text and keyed MS inspected; figure geometry itself not independently visual-reviewed where present."
+    },
+    {
+      "id": "0625-2026-m-12-q3",
+      "sourcePrimaryTopicId": "motion-forces-energy",
+      "sourcePrimaryTopic": "Motion, forces and energy",
+      "sourceSubtopics": [
+        "Mass, weight and gravitational field strength"
+      ],
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_m26_qp_12.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_m26_ms_12.pdf",
+      "qpSha256": "eead38a2526d649a2b503bece616ced47e0056daf1ca94a6f637e4310ddbdc35",
+      "msSha256": "2e2825b2bee692913d94730c482d7a6fb23f534c61aefd557ad2e216a3bb9c06",
+      "qpPdfPages": [
+        2
+      ],
+      "msPdfPages": [
+        2
+      ],
+      "printedQuestionAnchor": "3 Which expression can be used to determine the acceler",
+      "printedMSKey": "3 D 1",
+      "primaryCode": "1.3",
+      "secondaryCodes": [],
+      "applicability": "core_content_valid_for_core_and_extended",
+      "rationale": "The keyed W/m expression derives g from weight and mass; Core 1.3 covers W=mg.",
+      "visualReview": "PDF text and keyed MS inspected; figure geometry itself not independently visual-reviewed where present."
+    },
+    {
+      "id": "0625-2026-m-22-q1",
+      "sourcePrimaryTopicId": "motion-forces-energy",
+      "sourcePrimaryTopic": "Motion, forces and energy",
+      "sourceSubtopics": [
+        "Physical quantities and measurement techniques"
+      ],
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_m26_qp_22.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_m26_ms_22.pdf",
+      "qpSha256": "93c78c13ec8b1ef799d5cd25e65941862e63e7ba0465f0d2bccfaed4d93bf72f",
+      "msSha256": "73c47aceb47f749e93f66b903a92443ee9d22e665b4f75bbd299227333e185dc",
+      "qpPdfPages": [
+        2
+      ],
+      "msPdfPages": [
+        2
+      ],
+      "printedQuestionAnchor": "1 The diagram shows a stone of irregular shape. Which p",
+      "printedMSKey": "1 C 1",
+      "primaryCode": "1.1",
+      "secondaryCodes": [],
+      "applicability": "core_content_valid_for_core_and_extended",
+      "rationale": "Irregular stone volume determined by displacement in a measuring cylinder; Core 1.1 bullet 1.",
+      "visualReview": "Printed QP pages independently rendered and inspected; figure content supports the cited section ownership and contains no unaccounted dominant operation."
+    },
+    {
+      "id": "0625-2026-m-32-q2",
+      "sourcePrimaryTopicId": null,
+      "sourcePrimaryTopic": null,
+      "sourceSubtopics": [],
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_m26_qp_32.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_m26_ms_32.pdf",
+      "qpSha256": "769f8d36011d75235e2f0885bb1e689966688318cdc0c5fbd5f17682dc310dd4",
+      "msSha256": "d97f45b8044fbd78e01efb67d57957f9583ad580eec47cfa3b73dfaffddd65d5",
+      "qpPdfPages": [
+        5,
+        6
+      ],
+      "msPdfPages": [
+        11
+      ],
+      "printedQuestionAnchor": "2 A student is measuring the time period for a pendulum",
+      "printedMSKey": "2(a) and 2(b) keyed on cited MS page",
+      "primaryCode": "1.1",
+      "secondaryCodes": [
+        "1.5.1",
+        "1.3"
+      ],
+      "applicability": "core_content_valid_for_core_and_extended",
+      "rationale": "MS awards 4 marks for timing multiple pendulum oscillations and 1 for reading stopwatch (1.1); 2 for resultant horizontal force (1.5.1); 2 for mass and weight definitions (1.3).",
+      "visualReview": "Printed QP pages independently rendered and inspected; figure content supports the cited section ownership and contains no unaccounted dominant operation."
+    },
+    {
+      "id": "0625-2026-s-11-q1",
+      "sourcePrimaryTopicId": "motion-forces-energy",
+      "sourcePrimaryTopic": "Motion, forces and energy",
+      "sourceSubtopics": [
+        "Physical quantities and measurement techniques"
+      ],
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_s26_qp_11.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_s26_ms_11.pdf",
+      "qpSha256": "b7ecd76ce4781397ba268742886c5bcd3226bc29ae6237da035fefd054933749",
+      "msSha256": "6f227888c6a7fb054b6082c3c05892b119de47eadf1d8b122ec1ee724963d952",
+      "qpPdfPages": [
+        2
+      ],
+      "msPdfPages": [
+        2
+      ],
+      "printedQuestionAnchor": "1 A student uses a stopwatch to determine the period of",
+      "printedMSKey": "1 B 1",
+      "primaryCode": "1.1",
+      "secondaryCodes": [],
+      "applicability": "core_content_valid_for_core_and_extended",
+      "rationale": "Period of pendulum obtained by timing 15 oscillations and dividing; Core 1.1 bullet 3.",
+      "visualReview": "PDF text and keyed MS inspected; figure geometry itself not independently visual-reviewed where present."
+    },
+    {
+      "id": "0625-2026-s-11-q12",
+      "sourcePrimaryTopicId": "thermal-physics",
+      "sourcePrimaryTopic": "Thermal physics",
+      "sourceSubtopics": [
+        "Gases and temperature"
+      ],
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_s26_qp_11.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_s26_ms_11.pdf",
+      "qpSha256": "b7ecd76ce4781397ba268742886c5bcd3226bc29ae6237da035fefd054933749",
+      "msSha256": "6f227888c6a7fb054b6082c3c05892b119de47eadf1d8b122ec1ee724963d952",
+      "qpPdfPages": [
+        6
+      ],
+      "msPdfPages": [
+        2
+      ],
+      "printedQuestionAnchor": "12 Which row gives the temperature of melting ice and t",
+      "printedMSKey": "12 D 1",
+      "primaryCode": "2.1.3",
+      "secondaryCodes": [],
+      "applicability": "core_content_valid_for_core_and_extended",
+      "rationale": "Ice melting/boiling temperatures in kelvin use Celsius–kelvin conversion; Core 2.1.3 bullet 2.",
+      "visualReview": "PDF text and keyed MS inspected; figure geometry itself not independently visual-reviewed where present."
+    },
+    {
+      "id": "0625-2026-s-11-q3",
+      "sourcePrimaryTopicId": "motion-forces-energy",
+      "sourcePrimaryTopic": "Motion, forces and energy",
+      "sourceSubtopics": [
+        "Motion and graphs"
+      ],
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_s26_qp_11.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_s26_ms_11.pdf",
+      "qpSha256": "b7ecd76ce4781397ba268742886c5bcd3226bc29ae6237da035fefd054933749",
+      "msSha256": "6f227888c6a7fb054b6082c3c05892b119de47eadf1d8b122ec1ee724963d952",
+      "qpPdfPages": [
+        2
+      ],
+      "msPdfPages": [
+        2
+      ],
+      "printedQuestionAnchor": "3 A falling object near to the surface of the Earth has",
+      "printedMSKey": "3 D 1",
+      "primaryCode": "1.2",
+      "secondaryCodes": [],
+      "applicability": "core_content_valid_for_core_and_extended",
+      "rationale": "Near-Earth g approximately 9.8 m/s² and approximately constant; Core 1.2 bullet 8.",
+      "visualReview": "PDF text and keyed MS inspected; figure geometry itself not independently visual-reviewed where present."
+    },
+    {
+      "id": "0625-2026-s-12-q1",
+      "sourcePrimaryTopicId": "motion-forces-energy",
+      "sourcePrimaryTopic": "Motion, forces and energy",
+      "sourceSubtopics": [
+        "Physical quantities and measurement techniques"
+      ],
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_s26_qp_12.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_s26_ms_12.pdf",
+      "qpSha256": "33681bff57b8bfa1ed7aaded847e8dddfd4a4490b318eac3df98d329c0b86e19",
+      "msSha256": "d09b2a42673cdca6469dbfb1453b25abadffe1b6d6441342001bb9c9fe4652cb",
+      "qpPdfPages": [
+        2
+      ],
+      "msPdfPages": [
+        2
+      ],
+      "printedQuestionAnchor": "1 A stone has an irregular shape. Which apparatus is ne",
+      "printedMSKey": "1 B 1",
+      "primaryCode": "1.1",
+      "secondaryCodes": [],
+      "applicability": "core_content_valid_for_core_and_extended",
+      "rationale": "Measuring-cylinder apparatus for irregular stone volume; Core 1.1 bullet 1.",
+      "visualReview": "PDF text and keyed MS inspected; figure geometry itself not independently visual-reviewed where present."
+    },
+    {
+      "id": "0625-2026-s-12-q12",
+      "sourcePrimaryTopicId": "thermal-physics",
+      "sourcePrimaryTopic": "Thermal physics",
+      "sourceSubtopics": [
+        "Gases and temperature"
+      ],
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_s26_qp_12.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_s26_ms_12.pdf",
+      "qpSha256": "33681bff57b8bfa1ed7aaded847e8dddfd4a4490b318eac3df98d329c0b86e19",
+      "msSha256": "d09b2a42673cdca6469dbfb1453b25abadffe1b6d6441342001bb9c9fe4652cb",
+      "qpPdfPages": [
+        5
+      ],
+      "msPdfPages": [
+        2
+      ],
+      "printedQuestionAnchor": "12 Which equation is used to convert temperatures betwe",
+      "printedMSKey": "12 B 1",
+      "primaryCode": "2.1.3",
+      "secondaryCodes": [],
+      "applicability": "core_content_valid_for_core_and_extended",
+      "rationale": "Celsius–kelvin conversion equation; Core 2.1.3 bullet 2.",
+      "visualReview": "PDF text and keyed MS inspected; figure geometry itself not independently visual-reviewed where present."
+    },
+    {
+      "id": "0625-2026-s-13-q1",
+      "sourcePrimaryTopicId": "motion-forces-energy",
+      "sourcePrimaryTopic": "Motion, forces and energy",
+      "sourceSubtopics": [
+        "Physical quantities and measurement techniques"
+      ],
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_s26_qp_13.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_s26_ms_13.pdf",
+      "qpSha256": "4468b4ac762fe935eca3a2a9d51cb3636b2e0f89117df119bd76c0c5f7827415",
+      "msSha256": "76d6844591c00b2181488f6f5c593f231681f2c3a451faa65d6d131807255cde",
+      "qpPdfPages": [
+        2
+      ],
+      "msPdfPages": [
+        2
+      ],
+      "printedQuestionAnchor": "1 A stone has an irregular shape. Which apparatus is ne",
+      "printedMSKey": "1 B 1",
+      "primaryCode": "1.1",
+      "secondaryCodes": [],
+      "applicability": "core_content_valid_for_core_and_extended",
+      "rationale": "Measuring-cylinder apparatus for irregular stone volume; Core 1.1 bullet 1.",
+      "visualReview": "PDF text and keyed MS inspected; figure geometry itself not independently visual-reviewed where present."
+    },
+    {
+      "id": "0625-2026-s-13-q12",
+      "sourcePrimaryTopicId": "thermal-physics",
+      "sourcePrimaryTopic": "Thermal physics",
+      "sourceSubtopics": [
+        "Gases and temperature"
+      ],
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_s26_qp_13.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_s26_ms_13.pdf",
+      "qpSha256": "4468b4ac762fe935eca3a2a9d51cb3636b2e0f89117df119bd76c0c5f7827415",
+      "msSha256": "76d6844591c00b2181488f6f5c593f231681f2c3a451faa65d6d131807255cde",
+      "qpPdfPages": [
+        5
+      ],
+      "msPdfPages": [
+        2
+      ],
+      "printedQuestionAnchor": "12 Which equation is used to convert temperatures betwe",
+      "printedMSKey": "12 B 1",
+      "primaryCode": "2.1.3",
+      "secondaryCodes": [],
+      "applicability": "core_content_valid_for_core_and_extended",
+      "rationale": "Celsius–kelvin conversion equation; Core 2.1.3 bullet 2.",
+      "visualReview": "PDF text and keyed MS inspected; figure geometry itself not independently visual-reviewed where present."
+    },
+    {
+      "id": "0625-2026-s-21-q1",
+      "sourcePrimaryTopicId": "motion-forces-energy",
+      "sourcePrimaryTopic": "Motion, forces and energy",
+      "sourceSubtopics": [
+        "Physical quantities and measurement techniques"
+      ],
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_s26_qp_21.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_s26_ms_21.pdf",
+      "qpSha256": "ebbe0514cba8e1d1b30b6cbda5a282ec5e2ba2b9eab5f650f7ed54b509c57876",
+      "msSha256": "18a536e041d38c8d92bf7a0ec7af901046407b5af48b2d13962409ad4129c90f",
+      "qpPdfPages": [
+        2
+      ],
+      "msPdfPages": [
+        2
+      ],
+      "printedQuestionAnchor": "1 A ball rolls down a slope. Which equipment is used to",
+      "printedMSKey": "1 D 1",
+      "primaryCode": "1.1",
+      "secondaryCodes": [],
+      "applicability": "core_content_valid_for_core_and_extended",
+      "rationale": "Stopwatch selected to measure time; Core 1.1 bullet 2.",
+      "visualReview": "PDF text and keyed MS inspected; figure geometry itself not independently visual-reviewed where present."
+    },
+    {
+      "id": "0625-2026-s-22-q1",
+      "sourcePrimaryTopicId": "motion-forces-energy",
+      "sourcePrimaryTopic": "Motion, forces and energy",
+      "sourceSubtopics": [
+        "Physical quantities and measurement techniques"
+      ],
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_s26_qp_22.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_s26_ms_22.pdf",
+      "qpSha256": "6e6177daa20a38aa2032bc74858bcc0c4e6d9c79faccfd0c8122cd7c1d0beb4c",
+      "msSha256": "a74a2118fa5b7df67622d4037054acdafb446d0975982867b69002d41682dd34",
+      "qpPdfPages": [
+        2
+      ],
+      "msPdfPages": [
+        2
+      ],
+      "printedQuestionAnchor": "1 A piece of modelling clay is rolled into the shape of",
+      "printedMSKey": "1 B 1",
+      "primaryCode": "1.1",
+      "secondaryCodes": [],
+      "applicability": "core_content_valid_for_core_and_extended",
+      "rationale": "Ruler selected to measure cylinder dimensions for volume; Core 1.1 bullet 1.",
+      "visualReview": "PDF text and keyed MS inspected; figure geometry itself not independently visual-reviewed where present."
+    },
+    {
+      "id": "0625-2026-s-23-q1",
+      "sourcePrimaryTopicId": "motion-forces-energy",
+      "sourcePrimaryTopic": "Motion, forces and energy",
+      "sourceSubtopics": [
+        "Physical quantities and measurement techniques"
+      ],
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_s26_qp_23.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_s26_ms_23.pdf",
+      "qpSha256": "e1d23b967489292e3fe6635eba0b6f2c340f8a55b86e5ec930e80b858b730923",
+      "msSha256": "e5b621e658fb640f24cea7192ecfa20e1131e4c9a33e16f3cc58e67fbd3b90bc",
+      "qpPdfPages": [
+        2
+      ],
+      "msPdfPages": [
+        2
+      ],
+      "printedQuestionAnchor": "1 Which piece of apparatus is used to measure the lengt",
+      "printedMSKey": "1 C 1",
+      "primaryCode": "1.1",
+      "secondaryCodes": [],
+      "applicability": "core_content_valid_for_core_and_extended",
+      "rationale": "Ruler selected to measure a 2 cm rod; Core 1.1 bullet 1.",
+      "visualReview": "PDF text and keyed MS inspected; figure geometry itself not independently visual-reviewed where present."
+    },
+    {
+      "id": "0625-2026-s-31-q2",
+      "sourcePrimaryTopicId": null,
+      "sourcePrimaryTopic": null,
+      "sourceSubtopics": [],
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_s26_qp_31.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/physics-0625/2026/0625_s26_ms_31.pdf",
+      "qpSha256": "f61b10aac23ed11ececbb73e03cb51935ddfee598025e624afa5425240e3ee15",
+      "msSha256": "a28340f66ea0fe709bdcdc1ba423b8a0fdde329a5330c7781569d0908407c03a",
+      "qpPdfPages": [
+        3
+      ],
+      "msPdfPages": [
+        7
+      ],
+      "printedQuestionAnchor": "2 Figure 2.1 shows a stack of eight identical discs. st",
+      "printedMSKey": "2(a) and 2(b) keyed on cited MS page",
+      "primaryCode": "1.1",
+      "secondaryCodes": [
+        "1.4"
+      ],
+      "applicability": "core_content_valid_for_core_and_extended",
+      "rationale": "MS awards 3 marks for measuring stack and dividing by eight (1.1), plus 3 for density from mass/volume (1.4); first assessed operation is primary in this tied row.",
+      "visualReview": "Printed QP pages independently rendered and inspected; figure content supports the cited section ownership and contains no unaccounted dominant operation."
+    }
+  ]
+}
