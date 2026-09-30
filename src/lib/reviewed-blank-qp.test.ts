@@ -47,9 +47,9 @@ describe("source- and receipt-reviewed whole BLANK PAGE assets", () => {
   });
 
   it("does not apply a release-only asset omission to partial metadata or reseal fixtures", () => {
-    const partial = { id: "0610-2019-m-12-q40", year: 2019, paper: 1,
-      questionImages: ["questions/fixture.webp"] };
-    const [q] = normalizeBankQuestions("igcse-biology-0610", [partial]);
+    const source = biology.questions.find((item) => item.id === "0610-2019-m-12-q40")!;
+    const partial = { ...source, questionImages: ["questions/fixture.webp"] };
+    const [q] = normalizeBankQuestions("igcse-biology-0610", [partial as Record<string, unknown>]);
     expect(q.questionImageCount).toBe(1);
     expect(q.questionImages[0]).toContain("fixture.webp");
   });

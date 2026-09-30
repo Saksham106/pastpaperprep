@@ -54,11 +54,8 @@ describe("public bank index generator", () => {
   });
 
   it("projects reviewed whole BLANK PAGE omissions into public image counts only", () => {
-    const raw = { id: "0610-2019-m-12-q40", questionImages: [
-      "questions/0610-2019-m-12/q40-14-1.webp",
-      "questions/0610-2019-m-12/q40-15-2.webp",
-      "questions/0610-2019-m-12/q40-16-3.webp",
-    ], markschemeImages: ["markschemes/keep.webp"] };
+    const runtime = JSON.parse(readFileSync(join(process.cwd(), "src/data/production/igcse-biology-0610.json"), "utf8"));
+    const raw = runtime.questions.find((row) => row.id === "0610-2019-m-12-q40");
     const metadata = metadataFromRaw(raw, { bank: "igcse-biology-0610", normalizedProduction: true });
     expect(metadata.questionImageCount).toBe(2);
     expect(metadata.markschemeImageCount).toBe(1);
