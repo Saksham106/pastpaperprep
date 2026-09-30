@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import ibBiologyHlData from "@/data/raw/ib-biology-hl.json";
 import ibBiologySlData from "@/data/raw/ib-biology-sl.json";
-import biology0610Candidate from "@/data/local-preview/igcse-biology-0610.json";
+import biology0610Runtime from "@/data/production/igcse-biology-0610.json";
 import { normalizeBankQuestions } from "@/lib/questions";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 
@@ -27,7 +27,7 @@ describe("IB Biology official syllabus subtopics", () => {
 
   it("keeps IB Biology and 0610 on separate official taxonomy branches", () => {
     const ib = normalizeBankQuestions("ib-biology-sl", ibBiologySlData.questions);
-    const biology0610 = normalizeBankQuestions("igcse-biology-0610", (biology0610Candidate as unknown as { questions: never[] }).questions);
+    const biology0610 = normalizeBankQuestions("igcse-biology-0610", (biology0610Runtime as unknown as { questions: never[] }).questions);
 
     expect(getTopicOptions(ib)).toEqual(expectedTopics);
     expect(getTopicOptions(biology0610)[0]).toBe("Characteristics and classification of living organisms");

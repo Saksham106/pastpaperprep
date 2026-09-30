@@ -1,7 +1,9 @@
 import { canonicalBiology0610Topic } from "@/lib/biology-0610-topic-aliases";
-import biology0610OfficialTaxonomy from "@/data/classification/igcse-biology-0610-official-taxonomy-v2.json";
+import { BIOLOGY_0610_EARLIER, BIOLOGY_0610_EARLIER_TOPIC, BIOLOGY_0610_SECTIONS, BIOLOGY_0610_TOPICS, display0610Sections } from "@/lib/igcse-0610-official.mjs";
 import economicsTaxonomy from "@/data/igcse-economics-0455-taxonomy.json";
-import coordinatedTaxonomy from "@/data/igcse-coordinated-sciences-0654-taxonomy.json";
+import { ECONOMICS_0455_TOPICS, ECONOMICS_0455_SECTIONS, ECONOMICS_0455_EARLIER } from "@/lib/igcse-0455-official.mjs";
+import { OFFICIAL_0606_TOPICS, EARLIER_0606_TOPIC, EARLIER_0606_SUBTOPICS } from "@/lib/igcse-0606-official.mjs";
+import { COORDINATED_0654_EARLIER, COORDINATED_0654_EARLIER_TOPIC, COORDINATED_0654_PRACTICAL_TOPIC, COORDINATED_0654_SECTIONS, COORDINATED_0654_TOPICS, display0654Sections } from "@/lib/igcse-0654-official.mjs";
 import aaTaxonomy from "@/data/aa-official-subtopics/taxonomy.json";
 import biologyOfficialTaxonomy from "@/data/ib-biology-official-subtopics/taxonomy.json";
 import {
@@ -10,12 +12,10 @@ import {
   getTopicOptions as getLegacyTopicOptions,
 } from "@/lib/taxonomy";
 import type { UnifiedQuestion } from "@/lib/questions";
+import { PHYSICS_0625_EARLIER, PHYSICS_0625_EARLIER_TOPIC, PHYSICS_0625_PRACTICAL_TOPIC, PHYSICS_0625_REVIEW, PHYSICS_0625_REVIEW_TOPIC, PHYSICS_0625_SECTIONS, PHYSICS_0625_TOPICS, display0625Sections } from "@/lib/igcse-0625-official.mjs";
+import { CHEMISTRY_0620_EARLIER, CHEMISTRY_0620_EARLIER_TOPIC, CHEMISTRY_0620_PRACTICAL_TOPIC, CHEMISTRY_0620_REVIEW, CHEMISTRY_0620_REVIEW_TOPIC, CHEMISTRY_0620_SECTIONS, CHEMISTRY_0620_TOPICS, display0620Sections } from "@/lib/igcse-0620-official.mjs";
 
-const BIOLOGY_0610_TOPIC_ORDER = biology0610OfficialTaxonomy.eras.at(-1)!.topics.map((topic) => topic.title);
-const BIOLOGY_0610_ALL_TOPIC_HEADINGS = [...new Set(biology0610OfficialTaxonomy.eras.flatMap((era) => era.topics.map((topic) => topic.title)))];
-const BIOLOGY_0610_GROUPS_BY_ERA: Record<string, Record<string, readonly string[]>> = Object.fromEntries(
-  biology0610OfficialTaxonomy.eras.map((era) => [era.era, Object.fromEntries(era.topics.map((topic) => [topic.title, topic.subtopics.map((subtopic) => subtopic.title)]))]),
-);
+const BIOLOGY_0610_TOPIC_ORDER = BIOLOGY_0610_TOPICS;
 const BIOLOGY_OFFICIAL_TOPIC_ORDER = [...new Set(biologyOfficialTaxonomy.curatedGroups.map((group) => group.parentTopic))];
 const BIOLOGY_OFFICIAL_GROUPS: Record<string, readonly string[]> = Object.fromEntries(
   BIOLOGY_OFFICIAL_TOPIC_ORDER.map((topic) => [topic, biologyOfficialTaxonomy.curatedGroups.filter((group) => group.parentTopic === topic).map((group) => group.studentFacingName)]),
@@ -26,12 +26,10 @@ function isOfficialBiologyBank(bank: string | undefined): boolean {
 }
 
 const ECONOMICS_TOPIC_ORDER = economicsTaxonomy.student_topics.map((topic) => topic.label);
-const ECONOMICS_GROUPS: Record<string, readonly string[]> = Object.fromEntries(
-  economicsTaxonomy.student_topics.map((topic) => [
-    topic.label,
-    topic.detailed_subtopics.map((subtopic) => subtopic.label),
-  ]),
+const OFFICIAL_0455_GROUPS: Record<string, readonly string[]> = Object.fromEntries(
+  ECONOMICS_0455_TOPICS.map((topic, index) => [topic, ECONOMICS_0455_SECTIONS.filter((section) => section.topic === index).map((section) => section.title)]),
 );
+
 
 const AA_TOPIC_ORDER = [...new Set(aaTaxonomy.groups
   .sort((left, right) => left.teachingOrder - right.teachingOrder)
@@ -76,22 +74,13 @@ function uniqueSorted(values: string[]): string[] {
 }
 
 /**
- * The emitted 0654 taxonomy is a FLAT document: `topics` already carries the printed
- * teaching order and subject, and `subtopics` carries each section's owning topic.
- * The adaptation below only groups what the document already states. It never derives
- * a label from an id, never collapses the three sciences into one subject, and never
- * re-maps a section across syllabus eras.
+ * The 0654 student picker uses the pinned 2025–27 B/C/P heading tree.
+ * Original era labels and practical skills stay on the question records for
+ * search and legacy links; only verified current sections appear here.
  */
-const COORDINATED_TOPIC_ORDER = [...coordinatedTaxonomy.topics]
-  .sort((left, right) => left.order - right.order)
-  .map((topic) => topic.title);
+const COORDINATED_TOPIC_ORDER = COORDINATED_0654_TOPICS;
 const COORDINATED_GROUPS: Record<string, readonly string[]> = Object.fromEntries(
-  [...coordinatedTaxonomy.topics]
-    .sort((left, right) => left.order - right.order)
-    .map((topic) => [
-      topic.title,
-      coordinatedTaxonomy.subtopics.filter((subtopic) => subtopic.ownerTopicId === topic.id).map((subtopic) => subtopic.title),
-    ]),
+  COORDINATED_TOPIC_ORDER.map((topic) => [topic, COORDINATED_0654_SECTIONS.filter((section) => section.topic === topic).map((section) => section.studentTitle)]),
 );
 
 function isReleaseBank(bank: string | undefined): bank is "igcse-biology-0610" | "igcse-economics-0455" | "igcse-coordinated-sciences-0654" {
@@ -103,18 +92,27 @@ function isCoordinatedBank(bank: string | undefined): boolean {
 }
 
 export function getControlledSubtopics(bankSlug: string, topic: string): readonly string[] {
+  if (bankSlug === "igcse-additional") return topic === EARLIER_0606_TOPIC ? EARLIER_0606_SUBTOPICS : [];
+  if (bankSlug === "igcse-physics-0625") return topic === PHYSICS_0625_EARLIER_TOPIC ? [PHYSICS_0625_EARLIER] : topic === PHYSICS_0625_REVIEW_TOPIC ? [PHYSICS_0625_REVIEW] : topic === PHYSICS_0625_PRACTICAL_TOPIC ? [PHYSICS_0625_PRACTICAL_TOPIC] : PHYSICS_0625_SECTIONS.filter((section) => section.topic === topic).map((section) => section.title);
+  if (bankSlug === "igcse-chemistry-0620") return topic === CHEMISTRY_0620_EARLIER_TOPIC ? [CHEMISTRY_0620_EARLIER] : topic === CHEMISTRY_0620_REVIEW_TOPIC ? [CHEMISTRY_0620_REVIEW] : topic === CHEMISTRY_0620_PRACTICAL_TOPIC ? [CHEMISTRY_0620_PRACTICAL_TOPIC] : CHEMISTRY_0620_SECTIONS.filter((section) => section.topic === topic).map((section) => section.title);
   if (isAaBank(bankSlug)) return AA_GROUPS[topic] ?? [];
   if (isOfficialBiologyBank(bankSlug)) return BIOLOGY_OFFICIAL_GROUPS[topic] ?? [];
   if (bankSlug === "igcse-biology-0610") {
-    return [...new Set(Object.values(BIOLOGY_0610_GROUPS_BY_ERA).flatMap((groups) => groups[topic] ?? []))];
+    return topic === BIOLOGY_0610_EARLIER_TOPIC ? [BIOLOGY_0610_EARLIER] : BIOLOGY_0610_SECTIONS.filter((section) => section.topic === topic).map((section) => section.title);
   }
-  if (bankSlug === "igcse-economics-0455") return ECONOMICS_GROUPS[topic] ?? [];
-  if (isCoordinatedBank(bankSlug)) return COORDINATED_GROUPS[topic] ?? (COORDINATED_TOPIC_ORDER.includes(topic) ? [topic] : []);
+  if (bankSlug === "igcse-economics-0455") return OFFICIAL_0455_GROUPS[topic] ?? [];
+  if (isCoordinatedBank(bankSlug)) return topic === COORDINATED_0654_EARLIER_TOPIC ? [COORDINATED_0654_EARLIER] : COORDINATED_GROUPS[topic] ?? (COORDINATED_TOPIC_ORDER.includes(topic) ? [topic] : []);
   return getLegacyControlledSubtopics(bankSlug, topic);
 }
 
 export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
   const bank = questions[0]?.bankSlug;
+  if (bank === "igcse-additional") {
+    const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]));
+    return [...OFFICIAL_0606_TOPICS, ...(available.has(EARLIER_0606_TOPIC) ? [EARLIER_0606_TOPIC] : [])];
+  }
+  if (bank === "igcse-physics-0625") return [...PHYSICS_0625_TOPICS, ...(questions.some((question) => [question.primaryTopic, ...question.secondaryTopics].includes(PHYSICS_0625_EARLIER_TOPIC)) ? [PHYSICS_0625_EARLIER_TOPIC] : []), ...(questions.some((question) => question.primaryTopic === PHYSICS_0625_PRACTICAL_TOPIC) ? [PHYSICS_0625_PRACTICAL_TOPIC] : []), ...(questions.some((question) => [question.primaryTopic, ...question.secondaryTopics].includes(PHYSICS_0625_REVIEW_TOPIC)) ? [PHYSICS_0625_REVIEW_TOPIC] : [])];
+  if (bank === "igcse-chemistry-0620") return [...CHEMISTRY_0620_TOPICS, ...(questions.some((question) => [question.primaryTopic, ...question.secondaryTopics].includes(CHEMISTRY_0620_EARLIER_TOPIC)) ? [CHEMISTRY_0620_EARLIER_TOPIC] : []), ...(questions.some((question) => question.primaryTopic === CHEMISTRY_0620_PRACTICAL_TOPIC) ? [CHEMISTRY_0620_PRACTICAL_TOPIC] : []), ...(questions.some((question) => [question.primaryTopic, ...question.secondaryTopics].includes(CHEMISTRY_0620_REVIEW_TOPIC)) ? [CHEMISTRY_0620_REVIEW_TOPIC] : [])];
   if (isAaBank(bank) && hasCurrentAa(questions)) {
     const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));
     return [...AA_TOPIC_ORDER.filter((topic) => available.has(topic)), ...[...available].filter((topic) => !AA_TOPIC_ORDER.includes(topic)).sort()];
@@ -124,16 +122,12 @@ export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
     return [...BIOLOGY_OFFICIAL_TOPIC_ORDER.filter((topic) => available.has(topic)), ...[...available].filter((topic) => !BIOLOGY_OFFICIAL_TOPIC_ORDER.includes(topic)).sort()];
   }
   if (isCoordinatedBank(bank)) {
-    const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));
-    const ordered = COORDINATED_TOPIC_ORDER.filter((topic) => available.has(topic));
-    const remaining = [...available].filter((topic) => !ordered.includes(topic)).sort();
-    return [...ordered, ...remaining];
+    return [...COORDINATED_TOPIC_ORDER, ...(questions.some((question) => [question.primaryTopic, ...question.secondaryTopics].includes(COORDINATED_0654_EARLIER_TOPIC)) ? [COORDINATED_0654_EARLIER_TOPIC] : []), ...(questions.some((question) => question.primaryTopic === COORDINATED_0654_PRACTICAL_TOPIC) ? [COORDINATED_0654_PRACTICAL_TOPIC] : [])];
   }
+  if (isOfficial0610Bank(bank)) return [...BIOLOGY_0610_TOPIC_ORDER, ...(questions.some((question) => question.primaryTopic === BIOLOGY_0610_EARLIER_TOPIC) ? [BIOLOGY_0610_EARLIER_TOPIC] : [])];
   if (!isReleaseBank(bank)) return getLegacyTopicOptions(questions);
-  const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics])
-    .map((topic) => bank === "igcse-biology-0610" ? canonicalBiology0610Topic(topic) : topic));
-  const order = bank === "igcse-biology-0610" ? BIOLOGY_0610_TOPIC_ORDER : ECONOMICS_TOPIC_ORDER;
-  const ordered = order.filter((topic) => available.has(topic));
+  const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]));
+  const ordered = ECONOMICS_TOPIC_ORDER.filter((topic) => available.has(topic));
   const remaining = [...available].filter((topic) => !ordered.includes(topic)).sort();
   return [...ordered, ...remaining];
 }
@@ -144,6 +138,74 @@ export function getSubtopicGroups(
   selectedSubtopics: string[],
 ): { all: string[]; relevant: string[]; other: string[]; selectedOutsideContext: string[] } {
   const bank = questions[0]?.bankSlug;
+  if (bank === "igcse") {
+    // Keep 0580's picker cleanup outside the sealed shared taxonomy source:
+    // archived production audits bind its exact bytes for other banks.
+    const available = new Set(questions.flatMap((question) => question.subtopics));
+    const controlled = getLegacyTopicOptions(questions).flatMap((topic) => getLegacyControlledSubtopics(bank, topic));
+    const all = uniqueSorted([...available, ...controlled]);
+    const relevant = selectedTopics.length
+      ? uniqueSorted(selectedTopics.flatMap((topic) => getLegacyControlledSubtopics(bank, topic)))
+      : all;
+    const relevantSet = new Set(relevant);
+    return { all, relevant, other: all.filter((label) => !relevantSet.has(label)), selectedOutsideContext: selectedSubtopics.filter((label) => available.has(label) && !relevantSet.has(label)) };
+  }
+  if (bank === "igcse-additional") {
+    const sourceLabels = new Set(questions.flatMap((question) => [...question.subtopics, ...question.skills]));
+    const earlierSelected = selectedTopics.includes(EARLIER_0606_TOPIC);
+    // Current syllabus has learning statements, not named subtopic headings.
+    const all = earlierSelected
+      ? EARLIER_0606_SUBTOPICS.filter((label) => sourceLabels.has(label))
+      : selectedSubtopics.filter((label) => sourceLabels.has(label));
+    const relevant = earlierSelected ? all : [];
+    return { all, relevant, other: all.filter((label) => !relevant.includes(label)), selectedOutsideContext: selectedSubtopics.filter((label) => sourceLabels.has(label) && !relevant.includes(label)) };
+  }
+  if (bank === "igcse-economics-0455") {
+    const all = [...ECONOMICS_0455_SECTIONS.map((section) => section.title),
+      ...(questions.some((question) => question.subtopics.includes(ECONOMICS_0455_EARLIER)) ? [ECONOMICS_0455_EARLIER] : [])];
+    const sourceLabels = new Set(questions.flatMap((question) => [...question.subtopics, ...question.skills]));
+    const relevant = selectedTopics.length
+      ? [...new Set(selectedTopics.flatMap((topic) => OFFICIAL_0455_GROUPS[topic] ?? []).concat(
+        questions.some((question) => question.subtopics.includes(ECONOMICS_0455_EARLIER)
+          && selectedTopics.some((topic) => topic === question.primaryTopic || question.secondaryTopics.includes(topic)))
+          ? [ECONOMICS_0455_EARLIER] : [],
+      ))]
+      : all;
+    return { all, relevant, other: all.filter((label) => !relevant.includes(label)), selectedOutsideContext: selectedSubtopics.filter((label) => sourceLabels.has(label) && !relevant.includes(label)) };
+  }
+  if (isCoordinatedBank(bank)) {
+    const all = [...COORDINATED_0654_SECTIONS.map((section) => section.studentTitle), ...(questions.some((question) => question.officialCodeRefs?.includes("earlier:content")) ? [COORDINATED_0654_EARLIER] : [])];
+    const available = new Set(all);
+    const selected = new Set(selectedTopics);
+    const relevant = selectedTopics.length === 1 && selectedTopics[0] === COORDINATED_0654_EARLIER_TOPIC
+      ? [COORDINATED_0654_EARLIER]
+      : selectedTopics.length
+        ? [...new Set([...selectedTopics.flatMap((topic) => COORDINATED_GROUPS[topic] ?? []), ...questions
+          .filter((question) => [question.primaryTopic, ...question.secondaryTopics].some((topic) => selected.has(topic)))
+          .flatMap((question) => display0654Sections(question.officialCodeRefs ?? []))]
+          .filter((label) => available.has(label) && (label !== COORDINATED_0654_EARLIER || selected.has(COORDINATED_0654_EARLIER_TOPIC))))]
+        : all;
+    const relevantSet = new Set(relevant);
+    return { all, relevant, other: all.filter((label) => !relevantSet.has(label)), selectedOutsideContext: selectedSubtopics.filter((label) => available.has(label) && !relevantSet.has(label)) };
+  }
+  if (bank === "igcse-physics-0625") {
+    const all = [...PHYSICS_0625_SECTIONS.map((section) => section.title), ...(questions.some((question) => question.officialCodeRefs?.includes("earlier:content")) ? [PHYSICS_0625_EARLIER] : []), ...(questions.some((question) => question.officialCodeRefs?.includes("unresolved:current")) ? [PHYSICS_0625_REVIEW] : [])];
+    const available = new Set(all);
+    const selected = new Set(selectedTopics);
+    const special = selectedTopics.length === 1 && selected.has(PHYSICS_0625_EARLIER_TOPIC) ? [PHYSICS_0625_EARLIER] : selectedTopics.length === 1 && selected.has(PHYSICS_0625_REVIEW_TOPIC) ? [PHYSICS_0625_REVIEW] : null;
+    const relevant = special ?? (selectedTopics.length ? [...new Set([...selectedTopics.flatMap((topic) => getControlledSubtopics(bank, topic)), ...questions.filter((question) => [question.primaryTopic, ...question.secondaryTopics].some((topic) => selected.has(topic))).flatMap((question) => display0625Sections(question.officialCodeRefs ?? []))].filter((label) => available.has(label) && (label !== PHYSICS_0625_EARLIER || selected.has(PHYSICS_0625_EARLIER_TOPIC)) && (label !== PHYSICS_0625_REVIEW || selected.has(PHYSICS_0625_REVIEW_TOPIC))))] : all);
+    const relevantSet = new Set(relevant);
+    return { all, relevant, other: all.filter((label) => !relevantSet.has(label)), selectedOutsideContext: selectedSubtopics.filter((label) => available.has(label) && !relevantSet.has(label)) };
+  }
+  if (bank === "igcse-chemistry-0620") {
+    const all = [...CHEMISTRY_0620_SECTIONS.map((section) => section.title), ...(questions.some((question) => question.officialCodeRefs?.includes("earlier:content")) ? [CHEMISTRY_0620_EARLIER] : []), ...(questions.some((question) => question.officialCodeRefs?.includes("unresolved:current")) ? [CHEMISTRY_0620_REVIEW] : [])];
+    const available = new Set(all);
+    const selected = new Set(selectedTopics);
+    const special = selectedTopics.length === 1 && selected.has(CHEMISTRY_0620_EARLIER_TOPIC) ? [CHEMISTRY_0620_EARLIER] : selectedTopics.length === 1 && selected.has(CHEMISTRY_0620_REVIEW_TOPIC) ? [CHEMISTRY_0620_REVIEW] : null;
+    const relevant = special ?? (selectedTopics.length ? [...new Set([...selectedTopics.flatMap((topic) => getControlledSubtopics(bank, topic)), ...questions.filter((question) => [question.primaryTopic, ...question.secondaryTopics].some((topic) => selected.has(topic))).flatMap((question) => display0620Sections(question.officialCodeRefs ?? []))].filter((label) => available.has(label) && (label !== CHEMISTRY_0620_EARLIER || selected.has(CHEMISTRY_0620_EARLIER_TOPIC)) && (label !== CHEMISTRY_0620_REVIEW || selected.has(CHEMISTRY_0620_REVIEW_TOPIC))))] : all);
+    const relevantSet = new Set(relevant);
+    return { all, relevant, other: all.filter((label) => !relevantSet.has(label)), selectedOutsideContext: selectedSubtopics.filter((label) => available.has(label) && !relevantSet.has(label)) };
+  }
   if (isOfficialBiologyBank(bank)) {
     const all = [...new Set(questions.flatMap((question) => question.subtopics))];
     const available = new Set(all);
@@ -159,15 +221,17 @@ export function getSubtopicGroups(
     };
   }
   if (isOfficial0610Bank(bank)) {
-    const all = [...new Set(BIOLOGY_0610_ALL_TOPIC_HEADINGS.flatMap((topic) => Object.values(BIOLOGY_0610_GROUPS_BY_ERA).flatMap((groups) => groups[topic] ?? [])))].filter((label) => questions.some((question) => question.subtopics.includes(label)));
+    const all = [...BIOLOGY_0610_SECTIONS.map((section) => section.title), ...(questions.some((question) => display0610Sections(question.officialCodeRefs).includes(BIOLOGY_0610_EARLIER)) ? [BIOLOGY_0610_EARLIER] : [])];
     const available = new Set(all);
     const selected = new Set(selectedTopics.map(canonicalBiology0610Topic));
-    const relevant = selectedTopics.length
-      ? [...new Set(questions
+    const relevant = selectedTopics.length === 1 && selectedTopics[0] === BIOLOGY_0610_EARLIER_TOPIC
+      ? [BIOLOGY_0610_EARLIER]
+      : selectedTopics.length
+      ? [...new Set([...selectedTopics.flatMap((topic) => getControlledSubtopics(bank, topic)), ...questions
         .filter((question) => [question.primaryTopic, ...question.secondaryTopics]
           .some((topic) => selected.has(canonicalBiology0610Topic(topic))))
-        .flatMap((question) => question.subtopics)
-        .filter((label) => available.has(label)))]
+        .flatMap((question) => display0610Sections(question.officialCodeRefs))]
+        .filter((label) => available.has(label) && (label !== BIOLOGY_0610_EARLIER || selectedTopics.includes(BIOLOGY_0610_EARLIER_TOPIC))))]
       : all;
     const relevantSet = new Set(relevant);
     return {
@@ -201,15 +265,11 @@ export function getSubtopicGroups(
   const available = new Set(all);
   let relevant = all;
   if (selectedTopics.length) {
-    if (bank === "igcse-economics-0455") {
-      relevant = uniqueSorted(selectedTopics.flatMap((topic) => ECONOMICS_GROUPS[topic] ?? []).filter((label) => available.has(label)));
-    } else {
-      const selected = new Set(selectedTopics);
-      relevant = uniqueSorted(questions
-        .filter((question) => selected.has(question.primaryTopic) || question.secondaryTopics.some((topic) => selected.has(topic)))
-        .flatMap((question) => [...question.subtopics, ...question.skills])
-        .filter((label) => available.has(label)));
-    }
+    const selected = new Set(selectedTopics);
+    relevant = uniqueSorted(questions
+      .filter((question) => selected.has(question.primaryTopic) || question.secondaryTopics.some((topic) => selected.has(topic)))
+      .flatMap((question) => [...question.subtopics, ...question.skills])
+      .filter((label) => available.has(label)));
   }
   const relevantSet = new Set(relevant);
   return {

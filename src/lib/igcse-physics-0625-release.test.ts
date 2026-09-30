@@ -75,7 +75,7 @@ describe("Physics 0625 finalized production release", () => {
 
   it("exposes all 144 repaired rows through the actual topic and subtopic filters", () => {
     const label = "Experimental skills and investigations";
-    const questions = normalizeBankQuestions("igcse-physics-0625", privateIndex.questions as never);
+    const questions = normalizeBankQuestions("igcse-physics-0625", runtime.questions as never);
     const targetIds = runtime.runtimeArtifact.practicalRoleRepair.targetIds;
     expect(getTopicOptions(questions)).toContain(label);
     expect(getControlledSubtopics("igcse-physics-0625", label)).toContain(label);

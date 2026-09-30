@@ -13,6 +13,8 @@ import { getBillingPlan, getStripeConfig, isStripePriceAllowedForProduct, valida
 import { getPrivateBankObjectPrefix } from "@/lib/private-runtime-mapping";
 import { assert0654TaxonomyRepair } from "@/lib/igcse-runtime";
 import { getControlledSubtopics, getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
+import { normalizeBankQuestions } from "@/lib/questions";
+import official2025 from "@/data/igcse-coordinated-sciences-0654-official-2025.json";
 
 const ROOT = process.cwd();
 const BANK = "igcse-coordinated-sciences-0654";
@@ -248,18 +250,16 @@ describe("IGCSE Co-ordinated Sciences 0654 production release", () => {
     }
   });
 
-  it("adapts the flat emitted taxonomy to the app's filter consumers without inventing labels", () => {
+  it("projects the flat era registry onto the printed 2025 content tree without losing earlier or practical rows", () => {
     const labels = getControlledSubtopics(BANK, "Motion, forces and energy");
     expect(labels.length).toBeGreaterThan(0);
     expect(labels.every((label) => !/^\d+(\.\d+)*$/.test(label))).toBe(true);
-    const questions = production.questions.map((question) => ({ ...question, bankSlug: BANK })) as never;
+    const questions = normalizeBankQuestions(BANK, production.questions as never);
     const groups = getSubtopicGroups(questions, ["Motion, forces and energy"], []);
     expect(groups.relevant).toEqual(expect.arrayContaining([...labels]));
     expect(groups.relevant.length).toBeGreaterThan(0);
     const ordered = getTopicOptions(questions);
-    const expectedOrder = [...taxonomyDocument.topics].sort((left, right) => left.order - right.order).map((topic) => topic.title);
-    const available = new Set(production.questions.flatMap((question) => [question.primaryTopic, ...(question as unknown as { secondaryTopics: string[] }).secondaryTopics].filter(Boolean)));
-    expect(ordered.filter((topic) => available.has(topic))).toEqual(expectedOrder.filter((topic) => available.has(topic)));
+    expect(ordered).toEqual([...official2025.topics.map((topic) => topic.title), "Earlier syllabus topics", "Practical skills and investigations"]);
   });
 
   it("never advertises the excluded board-discounted question as a preview", () => {

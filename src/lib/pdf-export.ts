@@ -1,6 +1,6 @@
 import type { UnifiedQuestion } from "@/lib/questions";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
-import { formatPublicLabel } from "@/lib/presentation";
+import { displayedQuestionSubtopics, formatPublicLabel } from "@/lib/presentation";
 
 export { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
 
@@ -237,7 +237,7 @@ export async function downloadQuestionPdf(
   for (const { question, kind } of orderPdfJobs(questions, content, answerPlacement)) {
     const label = `${question.year} ${question.session} Paper ${question.paper}, Question ${question.number}`;
     if (kind === "question") {
-      for (const source of question.questionImages) await addImagePages(source, label, [question.primaryTopic, ...question.subtopics.slice(0, 2)].map(formatPublicLabel).join("  |  "));
+      for (const source of question.questionImages) await addImagePages(source, label, [question.primaryTopic, ...displayedQuestionSubtopics(question).slice(0, 2)].map(formatPublicLabel).join("  |  "));
     } else {
       if (question.markschemeImages.length) {
         for (const source of question.markschemeImages) await addImagePages(source, `${label} - answer`, "Official mark scheme where available");

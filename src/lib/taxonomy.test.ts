@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { loadBankQuestions } from "@/lib/question-fixtures";
+import rawAdditional from "@/data/raw/igcse-additional.json";
+import { filterQuestions } from "@/lib/question-filter";
 import { getControlledSubtopics, getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy";
+import { getSubtopicGroups as getStudentSubtopicGroups } from "@/lib/taxonomy-router";
 
 describe("question taxonomy", () => {
   it("orders IB topics by the official syllabus sequence", () => {
@@ -27,8 +30,14 @@ describe("question taxonomy", () => {
     ]);
   });
 
-  it("groups Additional Mathematics syllabus sections into a useful two-level hierarchy", () => {
-    expect(getTopicOptions(loadBankQuestions("igcse-additional"))).toEqual([
+  it("preserves the sealed historical 0606 ownership vocabulary for existing URLs", () => {
+    const source = new Map(rawAdditional.questions.map((question) => [question.id, question]));
+    const historical = loadBankQuestions("igcse-additional").map((question) => ({
+      ...question,
+      primaryTopic: source.get(question.id)!.primaryTopic,
+      secondaryTopics: source.get(question.id)!.secondaryTopics,
+    }));
+    expect(getTopicOptions(historical)).toEqual([
       "Sets and functions",
       "Algebra",
       "Coordinate geometry",
@@ -38,7 +47,7 @@ describe("question taxonomy", () => {
       "Calculus",
     ]);
 
-    expect(getSubtopicGroups(loadBankQuestions("igcse-additional"), ["Algebra"], []).relevant).toEqual([
+    expect(getSubtopicGroups(historical, ["Algebra"], []).relevant).toEqual([
       "Equations, inequalities and graphs",
       "Factors of polynomials",
       "Indices and surds",
@@ -69,6 +78,28 @@ describe("question taxonomy", () => {
     expect(groups.relevant).toEqual(expected);
     expect(groups.relevant.length).toBeLessThan(groups.all.length);
     expect(groups.other.some((value) => expected.includes(value))).toBe(false);
+  });
+
+  it("keeps skills searchable but out of 0580 subtopic options and shows zero-match controlled options", () => {
+    const source = loadBankQuestions("igcse")[0];
+    const question = {
+      ...source,
+      id: "synthetic-0580-filter-test",
+      subtopics: ["Historical-era label"],
+      skills: ["internal.skill.code", "Student-facing search skill"],
+      searchText: "student-facing search skill",
+    };
+    const groups = getStudentSubtopicGroups([question], ["Number"], []);
+
+    expect(groups.all).toContain("Historical-era label");
+    expect(groups.all).toContain("Bounds and estimation");
+    expect(groups.all).not.toContain("internal.skill.code");
+    expect(groups.all).not.toContain("Student-facing search skill");
+    expect(groups.relevant).toContain("Bounds and estimation");
+    expect(filterQuestions([question], { subtopics: ["Bounds and estimation"] })).toEqual([]);
+    // Historical filter URLs remain valid because the retrieval predicate still
+    // accepts the skill token even though the option is no longer advertised.
+    expect(filterQuestions([question], { subtopics: ["Student-facing search skill"] })).toHaveLength(1);
   });
 
   it("keeps selected subtopics visible when their parent topic changes", () => {

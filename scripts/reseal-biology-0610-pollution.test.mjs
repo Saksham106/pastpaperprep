@@ -48,7 +48,8 @@ describe("0610 one-row, source-bound Pollution reseal", () => {
     expect(changed.map((q) => q.id)).toEqual([ID]);
     expect(changed[0].primaryTopic).toBe("Human influences on ecosystems");
     expect(changed[0].subtopics).toEqual(["Pollution"]);
-    const questions = normalizeBankQuestions("igcse-biology-0610", index.questions);
+    // Private metadata omits source-era fields required for official section projection.
+    const questions = normalizeBankQuestions("igcse-biology-0610", JSON.parse(readFileSync("src/data/production/igcse-biology-0610.json", "utf8")).questions);
     expect(filterQuestions(questions, { topics: ["Human influences on ecosystems"], subtopics: ["Pollution"] }).some((q) => q.id === ID)).toBe(true);
     expect(filterQuestions(questions, { topics: ["Biotechnology and genetic engineering"] }).some((q) => q.id === ID)).toBe(false);
   });

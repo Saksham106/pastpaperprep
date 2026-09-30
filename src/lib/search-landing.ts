@@ -95,7 +95,7 @@ export function buildLandingManifest(bankSlug: BankSlug, questions: UnifiedQuest
   const topics = (preferredTopics.length ? preferredTopics : ranked.slice(0, 2))
     .map(([label, count]) => asLandingTopic(label, count));
 
-  const orderedLabels = (bankSlug === "igcse-biology-0610"
+  const orderedLabels = (bankSlug === "igcse-biology-0610" || bankSlug === "igcse-additional"
     ? getRoutedTopicOptions(questions).filter((label) => counts.has(label))
     : getTopicOptions(questions).filter((label) => isUsefulTopic(label) && (counts.get(label) ?? 0) >= 5));
   const syllabusTopics = orderedLabels.map((label) => asLandingTopic(label, counts.get(label) ?? 0));

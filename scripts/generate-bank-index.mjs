@@ -4,6 +4,12 @@ import { gzipSync } from "node:zlib";
 import { mkdir, readdir, readFile, unlink, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { project0606Topics } from "../src/lib/igcse-0606-official.mjs";
+import { project0455Sections } from "../src/lib/igcse-0455-official.mjs";
+import { project0610Sections } from "../src/lib/igcse-0610-official.mjs";
+import { project0654Sections } from "../src/lib/igcse-0654-official.mjs";
+import { project0625Sections } from "../src/lib/igcse-0625-official.mjs";
+import { project0620Sections } from "../src/lib/igcse-0620-official.mjs";
 
 const root = join(import.meta.dirname, "..");
 const outputDirectory = join(root, "public", "bank-index");
@@ -13,13 +19,7 @@ const aaTaxonomy = JSON.parse(await readFile(join(root, "src", "data", "aa-offic
 const aaOverlay = JSON.parse(await readFile(join(root, "src", "data", "aa-official-subtopics", "overlay.json"), "utf8"));
 const biologyOfficialTaxonomy = JSON.parse(await readFile(join(root, "src", "data", "ib-biology-official-subtopics", "taxonomy.json"), "utf8"));
 const biologyOfficialOverlay = JSON.parse(await readFile(join(root, "src", "data", "ib-biology-official-subtopics", "overlay.json"), "utf8"));
-const biology0610Taxonomy = JSON.parse(await readFile(join(root, "src", "data", "classification", "igcse-biology-0610-official-taxonomy-v2.json"), "utf8"));
-const biology0610Sections = new Map();
-for (const era of biology0610Taxonomy.eras) {
-  for (const topic of era.topics) {
-    for (const section of topic.subtopics) biology0610Sections.set(`${era.era}:${section.id}`, { title: section.title, topic: topic.title });
-  }
-}
+
 const overlayBankForSlug = (slug) => ({
   "igcse-additional": "0606",
   "ib-hl": "ib-aa-hl",
@@ -71,38 +71,34 @@ function integer(value) {
   return typeof value === "number" ? value : Number.parseInt(String(value), 10) || 0;
 }
 
+/** @param {any} raw @param {{bank?: string, normalizedProduction?: boolean, localEconomics?: boolean}} options */
 export function metadataFromRaw(raw, { bank, normalizedProduction = false, localEconomics = false } = {}) {
   const officialMarkscheme = raw.officialMarkscheme && typeof raw.officialMarkscheme === "object"
     ? raw.officialMarkscheme
     : {};
   const aa = currentAaRecord(bank, raw);
   const biology = currentBiologyRecord(bank, raw);
+  const additional = bank === "igcse-additional" ? project0606Topics(raw) : null;
+  const economics0455 = bank === "igcse-economics-0455" ? project0455Sections(raw) : null;
+  const coordinated = bank === "igcse-coordinated-sciences-0654" && normalizedProduction ? project0654Sections(raw) : null;
+  const physics0625 = bank === "igcse-physics-0625" && normalizedProduction ? project0625Sections(raw) : null;
+  const chemistry0620 = bank === "igcse-chemistry-0620" && normalizedProduction ? project0620Sections(raw) : null;
   const official0610 = bank === "igcse-biology-0610" && normalizedProduction;
-  const rawSubtopics = strings(raw.subtopics);
-  // 2021–2025 runtime rows already have named subtopics; only 2019–20 and the
-  // 2026 extension contain numeric section codes needing projection. For 2026,
-  // the existing registry supplies code/parent validation, not the final title:
-  // all 50 used codes were checked against Cambridge's 2026–28 syllabus,
-  // https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
-  // and §16.5 is the one changed title ("Sex", not "Sexual").
-  const era0610 = raw.year === 2019 || raw.year === 2020 ? "2020_2021" : raw.year === 2026 ? "2023_2025" : null;
-  const mapped0610 = official0610 && era0610 && rawSubtopics.some((label) => /^\d+\.\d+$/.test(label));
-  const student0610 = mapped0610 ? rawSubtopics.map((label) => {
-    if (!/^\d+\.\d+$/.test(label)) return label;
-    const section = biology0610Sections.get(`${era0610}:${label}`);
-    if (!section) throw new Error(`Missing 0610 official section ${era0610}:${label} (${raw.id})`);
-    if (raw.primaryTopic !== section.topic) throw new Error(`0610 parent-topic mismatch for ${raw.id}: ${raw.primaryTopic} != ${section.topic}`);
-    if (raw.year === 2026 && label === "16.5") return "Sex hormones in humans";
-    return section.title;
-  }) : rawSubtopics;
+  const projected0610 = official0610 ? project0610Sections(raw) : null;
   const controlledSkills = official0610 || aa || biology ? [] : strings(raw.skills);
   const studentSubtopics = official0610
-    ? student0610
+    ? projected0610.subtopics
+    : coordinated
+      ? coordinated.subtopics
+    : physics0625
+      ? physics0625.subtopics
+    : chemistry0620
+      ? chemistry0620.subtopics
     : aa
       ? (aa.status === "accepted" ? aa.subtopics.map((id) => aaGroupNames.get(id) ?? (() => { throw new Error(`Unknown official AA group ${id}`); })()) : [])
       : biology
         ? biologyGroupLabels(biology)
-        : strings(raw.subtopics);
+        : economics0455?.subtopics ?? strings(raw.subtopics);
   const detailedSubtopics = strings(raw.detailedSubtopics);
   const subtopics = [...new Set(
     studentSubtopics.length
@@ -123,21 +119,32 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
       ...controlledSkills,
       ...detailedSubtopics,
       ...subtopics,
+      ...(projected0610?.aliases ?? []),
+      ...(coordinated?.aliases ?? []),
+      ...(physics0625?.aliases ?? []),
+      ...(chemistry0620?.aliases ?? []),
     ])];
 
   const overlayBank = overlayBankForSlug(bank);
+  const officialCodeRefs = biology ? [...biology.officialCodes]
+    : chemistry0620 ? chemistry0620.codeRefs
+    : physics0625 ? physics0625.codeRefs
+    : coordinated ? coordinated.codeRefs
+    : official0610 ? projected0610.codeRefs
+    : economics0455 ? economics0455.codeRefs
+    : strings(raw.officialCodeRefs);
   const metadata = {
     id: typeof raw.id === "string" ? raw.id : "",
     number: integer(raw.number),
     paper: integer(raw.paper),
     year: integer(raw.year),
     session: typeof raw.session === "string" ? raw.session : "",
-    primaryTopic: official0610 ? (typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other") : biology ? biologyPrimaryTopic(biology, raw) : aa ? aa.primaryTopic : (typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other"),
-    secondaryTopics: official0610 ? strings(raw.secondaryTopics) : biology ? [...new Set(biology.secondary.map((group) => group.parentTopic))] : aa ? aa.secondaryTopics : strings(raw.secondaryTopics),
+    primaryTopic: chemistry0620 ? chemistry0620.primaryTopic : physics0625 ? physics0625.primaryTopic : coordinated ? coordinated.primaryTopic : official0610 ? projected0610.primaryTopic : biology ? biologyPrimaryTopic(biology, raw) : aa ? aa.primaryTopic : additional ? additional.primaryTopic : (typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other"),
+    secondaryTopics: chemistry0620 ? chemistry0620.secondaryTopics : physics0625 ? physics0625.secondaryTopics : coordinated ? coordinated.secondaryTopics : official0610 ? projected0610.secondaryTopics : biology ? [...new Set(biology.secondary.map((group) => group.parentTopic))] : aa ? aa.secondaryTopics : additional ? additional.secondaryTopics : strings(raw.secondaryTopics),
     skills,
     subtopics,
     granularLabels: aa || biology ? [] : granularByKey.get(`${overlayBank}:${raw.id}`) ?? [],
-    ...(biology ? { officialCodeRefs: [...biology.officialCodes] } : mapped0610 ? { officialCodeRefs: [...new Set([...strings(raw.officialCodeRefs), ...rawSubtopics.filter((label) => /^\d+\.\d+$/.test(label))])] } : strings(raw.officialCodeRefs).length ? { officialCodeRefs: strings(raw.officialCodeRefs) } : {}),
+    ...(officialCodeRefs.length ? { officialCodeRefs } : {}),
     ...(strings(raw.retrievalFacets).length ? { retrievalFacets: strings(raw.retrievalFacets) } : {}),
     subject: (typeof raw.subject === "string" && raw.subject) || (typeof raw.course === "string" ? raw.course : ""),
     option: typeof raw.p3Option === "string" ? raw.p3Option : "",

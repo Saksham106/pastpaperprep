@@ -1,0 +1,637 @@
+{
+  "syllabus": "0580",
+  "era": "2025_2027",
+  "sourcePdfSha256": "627f8e5dab21605f95b9aceec4a2dcdddf91dce5767d6938d647b38041c6d363",
+  "topics": [
+    {
+      "code": "1",
+      "title": "Number",
+      "sections": [
+        {
+          "code": "1.1",
+          "title": "Types of number",
+          "coreCode": "C1.1",
+          "coreTitle": "Types of number",
+          "extendedCode": "E1.1",
+          "extendedTitle": "Types of number"
+        },
+        {
+          "code": "1.2",
+          "title": "Sets",
+          "coreCode": "C1.2",
+          "coreTitle": "Sets",
+          "extendedCode": "E1.2",
+          "extendedTitle": "Sets"
+        },
+        {
+          "code": "1.3",
+          "title": "Powers and roots",
+          "coreCode": "C1.3",
+          "coreTitle": "Powers and roots",
+          "extendedCode": "E1.3",
+          "extendedTitle": "Powers and roots"
+        },
+        {
+          "code": "1.4",
+          "title": "Fractions, decimals and percentages",
+          "coreCode": "C1.4",
+          "coreTitle": "Fractions, decimals and percentages",
+          "extendedCode": "E1.4",
+          "extendedTitle": "Fractions, decimals and percentages"
+        },
+        {
+          "code": "1.5",
+          "title": "Ordering",
+          "coreCode": "C1.5",
+          "coreTitle": "Ordering",
+          "extendedCode": "E1.5",
+          "extendedTitle": "Ordering"
+        },
+        {
+          "code": "1.6",
+          "title": "The four operations",
+          "coreCode": "C1.6",
+          "coreTitle": "The four operations",
+          "extendedCode": "E1.6",
+          "extendedTitle": "The four operations"
+        },
+        {
+          "code": "1.7",
+          "title": "Indices I",
+          "coreCode": "C1.7",
+          "coreTitle": "Indices I",
+          "extendedCode": "E1.7",
+          "extendedTitle": "Indices I"
+        },
+        {
+          "code": "1.8",
+          "title": "Standard form",
+          "coreCode": "C1.8",
+          "coreTitle": "Standard form",
+          "extendedCode": "E1.8",
+          "extendedTitle": "Standard form"
+        },
+        {
+          "code": "1.9",
+          "title": "Estimation",
+          "coreCode": "C1.9",
+          "coreTitle": "Estimation",
+          "extendedCode": "E1.9",
+          "extendedTitle": "Estimation"
+        },
+        {
+          "code": "1.10",
+          "title": "Limits of accuracy",
+          "coreCode": "C1.10",
+          "coreTitle": "Limits of accuracy",
+          "extendedCode": "E1.10",
+          "extendedTitle": "Limits of accuracy"
+        },
+        {
+          "code": "1.11",
+          "title": "Ratio and proportion",
+          "coreCode": "C1.11",
+          "coreTitle": "Ratio and proportion",
+          "extendedCode": "E1.11",
+          "extendedTitle": "Ratio and proportion"
+        },
+        {
+          "code": "1.12",
+          "title": "Rates",
+          "coreCode": "C1.12",
+          "coreTitle": "Rates",
+          "extendedCode": "E1.12",
+          "extendedTitle": "Rates"
+        },
+        {
+          "code": "1.13",
+          "title": "Percentages",
+          "coreCode": "C1.13",
+          "coreTitle": "Percentages",
+          "extendedCode": "E1.13",
+          "extendedTitle": "Percentages"
+        },
+        {
+          "code": "1.14",
+          "title": "Using a calculator",
+          "coreCode": "C1.14",
+          "coreTitle": "Using a calculator",
+          "extendedCode": "E1.14",
+          "extendedTitle": "Using a calculator"
+        },
+        {
+          "code": "1.15",
+          "title": "Time",
+          "coreCode": "C1.15",
+          "coreTitle": "Time",
+          "extendedCode": "E1.15",
+          "extendedTitle": "Time"
+        },
+        {
+          "code": "1.16",
+          "title": "Money",
+          "coreCode": "C1.16",
+          "coreTitle": "Money",
+          "extendedCode": "E1.16",
+          "extendedTitle": "Money"
+        },
+        {
+          "code": "1.17",
+          "title": "Exponential growth and decay",
+          "coreCode": null,
+          "coreTitle": null,
+          "extendedCode": "E1.17",
+          "extendedTitle": "Exponential growth and decay"
+        },
+        {
+          "code": "1.18",
+          "title": "Surds",
+          "coreCode": null,
+          "coreTitle": null,
+          "extendedCode": "E1.18",
+          "extendedTitle": "Surds"
+        }
+      ]
+    },
+    {
+      "code": "2",
+      "title": "Algebra and graphs",
+      "sections": [
+        {
+          "code": "2.1",
+          "title": "Introduction to algebra",
+          "coreCode": "C2.1",
+          "coreTitle": "Introduction to algebra",
+          "extendedCode": "E2.1",
+          "extendedTitle": "Introduction to algebra"
+        },
+        {
+          "code": "2.2",
+          "title": "Algebraic manipulation",
+          "coreCode": "C2.2",
+          "coreTitle": "Algebraic manipulation",
+          "extendedCode": "E2.2",
+          "extendedTitle": "Algebraic manipulation"
+        },
+        {
+          "code": "2.3",
+          "title": "Algebraic fractions",
+          "coreCode": null,
+          "coreTitle": null,
+          "extendedCode": "E2.3",
+          "extendedTitle": "Algebraic fractions"
+        },
+        {
+          "code": "2.4",
+          "title": "Indices II",
+          "coreCode": "C2.4",
+          "coreTitle": "Indices II",
+          "extendedCode": "E2.4",
+          "extendedTitle": "Indices II"
+        },
+        {
+          "code": "2.5",
+          "title": "Equations",
+          "coreCode": "C2.5",
+          "coreTitle": "Equations",
+          "extendedCode": "E2.5",
+          "extendedTitle": "Equations"
+        },
+        {
+          "code": "2.6",
+          "title": "Inequalities",
+          "coreCode": "C2.6",
+          "coreTitle": "Inequalities",
+          "extendedCode": "E2.6",
+          "extendedTitle": "Inequalities"
+        },
+        {
+          "code": "2.7",
+          "title": "Sequences",
+          "coreCode": "C2.7",
+          "coreTitle": "Sequences",
+          "extendedCode": "E2.7",
+          "extendedTitle": "Sequences"
+        },
+        {
+          "code": "2.8",
+          "title": "Proportion",
+          "coreCode": null,
+          "coreTitle": null,
+          "extendedCode": "E2.8",
+          "extendedTitle": "Proportion"
+        },
+        {
+          "code": "2.9",
+          "title": "Graphs in practical situations",
+          "coreCode": "C2.9",
+          "coreTitle": "Graphs in practical situations",
+          "extendedCode": "E2.9",
+          "extendedTitle": "Graphs in practical situations"
+        },
+        {
+          "code": "2.10",
+          "title": "Graphs of functions",
+          "coreCode": "C2.10",
+          "coreTitle": "Graphs of functions",
+          "extendedCode": "E2.10",
+          "extendedTitle": "Graphs of functions"
+        },
+        {
+          "code": "2.11",
+          "title": "Sketching curves",
+          "coreCode": "C2.11",
+          "coreTitle": "Sketching curves",
+          "extendedCode": "E2.11",
+          "extendedTitle": "Sketching curves"
+        },
+        {
+          "code": "2.12",
+          "title": "Differentiation",
+          "coreCode": null,
+          "coreTitle": null,
+          "extendedCode": "E2.12",
+          "extendedTitle": "Differentiation"
+        },
+        {
+          "code": "2.13",
+          "title": "Functions",
+          "coreCode": null,
+          "coreTitle": null,
+          "extendedCode": "E2.13",
+          "extendedTitle": "Functions"
+        }
+      ]
+    },
+    {
+      "code": "3",
+      "title": "Coordinate geometry",
+      "sections": [
+        {
+          "code": "3.1",
+          "title": "Coordinates",
+          "coreCode": "C3.1",
+          "coreTitle": "Coordinates",
+          "extendedCode": "E3.1",
+          "extendedTitle": "Coordinates"
+        },
+        {
+          "code": "3.2",
+          "title": "Drawing linear graphs",
+          "coreCode": "C3.2",
+          "coreTitle": "Drawing linear graphs",
+          "extendedCode": "E3.2",
+          "extendedTitle": "Drawing linear graphs"
+        },
+        {
+          "code": "3.3",
+          "title": "Gradient of linear graphs",
+          "coreCode": "C3.3",
+          "coreTitle": "Gradient of linear graphs",
+          "extendedCode": "E3.3",
+          "extendedTitle": "Gradient of linear graphs"
+        },
+        {
+          "code": "3.4",
+          "title": "Length and midpoint",
+          "coreCode": null,
+          "coreTitle": null,
+          "extendedCode": "E3.4",
+          "extendedTitle": "Length and midpoint"
+        },
+        {
+          "code": "3.5",
+          "title": "Equations of linear graphs",
+          "coreCode": "C3.5",
+          "coreTitle": "Equations of linear graphs",
+          "extendedCode": "E3.5",
+          "extendedTitle": "Equations of linear graphs"
+        },
+        {
+          "code": "3.6",
+          "title": "Parallel lines",
+          "coreCode": "C3.6",
+          "coreTitle": "Parallel lines",
+          "extendedCode": "E3.6",
+          "extendedTitle": "Parallel lines"
+        },
+        {
+          "code": "3.7",
+          "title": "Perpendicular lines",
+          "coreCode": null,
+          "coreTitle": null,
+          "extendedCode": "E3.7",
+          "extendedTitle": "Perpendicular lines"
+        }
+      ]
+    },
+    {
+      "code": "4",
+      "title": "Geometry",
+      "sections": [
+        {
+          "code": "4.1",
+          "title": "Geometrical terms",
+          "coreCode": "C4.1",
+          "coreTitle": "Geometrical terms",
+          "extendedCode": "E4.1",
+          "extendedTitle": "Geometrical terms"
+        },
+        {
+          "code": "4.2",
+          "title": "Geometrical constructions",
+          "coreCode": "C4.2",
+          "coreTitle": "Geometrical constructions",
+          "extendedCode": "E4.2",
+          "extendedTitle": "Geometrical constructions"
+        },
+        {
+          "code": "4.3",
+          "title": "Scale drawings",
+          "coreCode": "C4.3",
+          "coreTitle": "Scale drawings",
+          "extendedCode": "E4.3",
+          "extendedTitle": "Scale drawings"
+        },
+        {
+          "code": "4.4",
+          "title": "Similarity",
+          "coreCode": "C4.4",
+          "coreTitle": "Similarity",
+          "extendedCode": "E4.4",
+          "extendedTitle": "Similarity"
+        },
+        {
+          "code": "4.5",
+          "title": "Symmetry",
+          "coreCode": "C4.5",
+          "coreTitle": "Symmetry",
+          "extendedCode": "E4.5",
+          "extendedTitle": "Symmetry"
+        },
+        {
+          "code": "4.6",
+          "title": "Angles",
+          "coreCode": "C4.6",
+          "coreTitle": "Angles",
+          "extendedCode": "E4.6",
+          "extendedTitle": "Angles"
+        },
+        {
+          "code": "4.7",
+          "title": "Circle theorems I",
+          "coreCode": "C4.7",
+          "coreTitle": "Circle theorems",
+          "extendedCode": "E4.7",
+          "extendedTitle": "Circle theorems I"
+        },
+        {
+          "code": "4.8",
+          "title": "Circle theorems II",
+          "coreCode": null,
+          "coreTitle": null,
+          "extendedCode": "E4.8",
+          "extendedTitle": "Circle theorems II"
+        }
+      ]
+    },
+    {
+      "code": "5",
+      "title": "Mensuration",
+      "sections": [
+        {
+          "code": "5.1",
+          "title": "Units of measure",
+          "coreCode": "C5.1",
+          "coreTitle": "Units of measure",
+          "extendedCode": "E5.1",
+          "extendedTitle": "Units of measure"
+        },
+        {
+          "code": "5.2",
+          "title": "Area and perimeter",
+          "coreCode": "C5.2",
+          "coreTitle": "Area and perimeter",
+          "extendedCode": "E5.2",
+          "extendedTitle": "Area and perimeter"
+        },
+        {
+          "code": "5.3",
+          "title": "Circles, arcs and sectors",
+          "coreCode": "C5.3",
+          "coreTitle": "Circles, arcs and sectors",
+          "extendedCode": "E5.3",
+          "extendedTitle": "Circles, arcs and sectors"
+        },
+        {
+          "code": "5.4",
+          "title": "Surface area and volume",
+          "coreCode": "C5.4",
+          "coreTitle": "Surface area and volume",
+          "extendedCode": "E5.4",
+          "extendedTitle": "Surface area and volume"
+        },
+        {
+          "code": "5.5",
+          "title": "Compound shapes and parts of shapes",
+          "coreCode": "C5.5",
+          "coreTitle": "Compound shapes and parts of shapes",
+          "extendedCode": "E5.5",
+          "extendedTitle": "Compound shapes and parts of shapes"
+        }
+      ]
+    },
+    {
+      "code": "6",
+      "title": "Trigonometry",
+      "sections": [
+        {
+          "code": "6.1",
+          "title": "Pythagoras’ theorem",
+          "coreCode": "C6.1",
+          "coreTitle": "Pythagoras’ theorem",
+          "extendedCode": "E6.1",
+          "extendedTitle": "Pythagoras’ theorem"
+        },
+        {
+          "code": "6.2",
+          "title": "Right-angled triangles",
+          "coreCode": "C6.2",
+          "coreTitle": "Right-angled triangles",
+          "extendedCode": "E6.2",
+          "extendedTitle": "Right-angled triangles"
+        },
+        {
+          "code": "6.3",
+          "title": "Exact trigonometric values",
+          "coreCode": null,
+          "coreTitle": null,
+          "extendedCode": "E6.3",
+          "extendedTitle": "Exact trigonometric values"
+        },
+        {
+          "code": "6.4",
+          "title": "Trigonometric functions",
+          "coreCode": null,
+          "coreTitle": null,
+          "extendedCode": "E6.4",
+          "extendedTitle": "Trigonometric functions"
+        },
+        {
+          "code": "6.5",
+          "title": "Non-right-angled triangles",
+          "coreCode": null,
+          "coreTitle": null,
+          "extendedCode": "E6.5",
+          "extendedTitle": "Non-right-angled triangles"
+        },
+        {
+          "code": "6.6",
+          "title": "Pythagoras’ theorem and trigonometry",
+          "coreCode": null,
+          "coreTitle": null,
+          "extendedCode": "E6.6",
+          "extendedTitle": "Pythagoras’ theorem and trigonometry"
+        }
+      ]
+    },
+    {
+      "code": "7",
+      "title": "Transformations and vectors",
+      "sections": [
+        {
+          "code": "7.1",
+          "title": "Transformations",
+          "coreCode": "C7.1",
+          "coreTitle": "Transformations",
+          "extendedCode": "E7.1",
+          "extendedTitle": "Transformations"
+        },
+        {
+          "code": "7.2",
+          "title": "Vectors in two dimensions",
+          "coreCode": null,
+          "coreTitle": null,
+          "extendedCode": "E7.2",
+          "extendedTitle": "Vectors in two dimensions"
+        },
+        {
+          "code": "7.3",
+          "title": "Magnitude of a vector",
+          "coreCode": null,
+          "coreTitle": null,
+          "extendedCode": "E7.3",
+          "extendedTitle": "Magnitude of a vector"
+        },
+        {
+          "code": "7.4",
+          "title": "Vector geometry",
+          "coreCode": null,
+          "coreTitle": null,
+          "extendedCode": "E7.4",
+          "extendedTitle": "Vector geometry"
+        }
+      ]
+    },
+    {
+      "code": "8",
+      "title": "Probability",
+      "sections": [
+        {
+          "code": "8.1",
+          "title": "Introduction to probability",
+          "coreCode": "C8.1",
+          "coreTitle": "Introduction to probability",
+          "extendedCode": "E8.1",
+          "extendedTitle": "Introduction to probability"
+        },
+        {
+          "code": "8.2",
+          "title": "Relative and expected frequencies",
+          "coreCode": "C8.2",
+          "coreTitle": "Relative and expected frequencies",
+          "extendedCode": "E8.2",
+          "extendedTitle": "Relative and expected frequencies"
+        },
+        {
+          "code": "8.3",
+          "title": "Probability of combined events",
+          "coreCode": "C8.3",
+          "coreTitle": "Probability of combined events",
+          "extendedCode": "E8.3",
+          "extendedTitle": "Probability of combined events"
+        },
+        {
+          "code": "8.4",
+          "title": "Conditional probability",
+          "coreCode": null,
+          "coreTitle": null,
+          "extendedCode": "E8.4",
+          "extendedTitle": "Conditional probability"
+        }
+      ]
+    },
+    {
+      "code": "9",
+      "title": "Statistics",
+      "sections": [
+        {
+          "code": "9.1",
+          "title": "Classifying statistical data",
+          "coreCode": "C9.1",
+          "coreTitle": "Classifying statistical data",
+          "extendedCode": "E9.1",
+          "extendedTitle": "Classifying statistical data"
+        },
+        {
+          "code": "9.2",
+          "title": "Interpreting statistical data",
+          "coreCode": "C9.2",
+          "coreTitle": "Interpreting statistical data",
+          "extendedCode": "E9.2",
+          "extendedTitle": "Interpreting statistical data"
+        },
+        {
+          "code": "9.3",
+          "title": "Averages and measures of spread",
+          "coreCode": "C9.3",
+          "coreTitle": "Averages and range",
+          "extendedCode": "E9.3",
+          "extendedTitle": "Averages and measures of spread"
+        },
+        {
+          "code": "9.4",
+          "title": "Statistical charts and diagrams",
+          "coreCode": "C9.4",
+          "coreTitle": "Statistical charts and diagrams",
+          "extendedCode": "E9.4",
+          "extendedTitle": "Statistical charts and diagrams"
+        },
+        {
+          "code": "9.5",
+          "title": "Scatter diagrams",
+          "coreCode": "C9.5",
+          "coreTitle": "Scatter diagrams",
+          "extendedCode": "E9.5",
+          "extendedTitle": "Scatter diagrams"
+        },
+        {
+          "code": "9.6",
+          "title": "Cumulative frequency diagrams",
+          "coreCode": null,
+          "coreTitle": null,
+          "extendedCode": "E9.6",
+          "extendedTitle": "Cumulative frequency diagrams"
+        },
+        {
+          "code": "9.7",
+          "title": "Histograms",
+          "coreCode": null,
+          "coreTitle": null,
+          "extendedCode": "E9.7",
+          "extendedTitle": "Histograms"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,865 @@
+{
+  "source": "Cambridge IGCSE Co-ordinated Sciences (Double Award) 0654 syllabus 2025–27",
+  "pdfSha256": "6d46e4a07a512a12c80cbfc0d0715e2b4198f1faf76a5bb8d31f8d97ab6274f2",
+  "topics": [
+    {
+      "id": "characteristics-of-living-organisms",
+      "title": "Characteristics of living organisms",
+      "subject": "biology"
+    },
+    {
+      "id": "cells",
+      "title": "Cells",
+      "subject": "biology"
+    },
+    {
+      "id": "movement-into-and-out-of-cells",
+      "title": "Movement into and out of cells",
+      "subject": "biology"
+    },
+    {
+      "id": "biological-molecules",
+      "title": "Biological molecules",
+      "subject": "biology"
+    },
+    {
+      "id": "enzymes",
+      "title": "Enzymes",
+      "subject": "biology"
+    },
+    {
+      "id": "plant-nutrition",
+      "title": "Plant nutrition",
+      "subject": "biology"
+    },
+    {
+      "id": "human-nutrition",
+      "title": "Human nutrition",
+      "subject": "biology"
+    },
+    {
+      "id": "transport-in-plants",
+      "title": "Transport in plants",
+      "subject": "biology"
+    },
+    {
+      "id": "transport-in-animals",
+      "title": "Transport in animals",
+      "subject": "biology"
+    },
+    {
+      "id": "diseases-and-immunity",
+      "title": "Diseases and immunity",
+      "subject": "biology"
+    },
+    {
+      "id": "gas-exchange-in-humans",
+      "title": "Gas exchange in humans",
+      "subject": "biology"
+    },
+    {
+      "id": "respiration",
+      "title": "Respiration",
+      "subject": "biology"
+    },
+    {
+      "id": "coordination-and-response",
+      "title": "Coordination and response",
+      "subject": "biology"
+    },
+    {
+      "id": "drugs",
+      "title": "Drugs",
+      "subject": "biology"
+    },
+    {
+      "id": "reproduction",
+      "title": "Reproduction",
+      "subject": "biology"
+    },
+    {
+      "id": "inheritance",
+      "title": "Inheritance",
+      "subject": "biology"
+    },
+    {
+      "id": "variation-and-selection",
+      "title": "Variation and selection",
+      "subject": "biology"
+    },
+    {
+      "id": "organisms-and-their-environment",
+      "title": "Organisms and their environment",
+      "subject": "biology"
+    },
+    {
+      "id": "human-influences-on-ecosystems",
+      "title": "Human influences on ecosystems",
+      "subject": "biology"
+    },
+    {
+      "id": "states-of-matter",
+      "title": "States of matter",
+      "subject": "chemistry"
+    },
+    {
+      "id": "atoms-elements-and-compounds",
+      "title": "Atoms, elements and compounds",
+      "subject": "chemistry"
+    },
+    {
+      "id": "stoichiometry",
+      "title": "Stoichiometry",
+      "subject": "chemistry"
+    },
+    {
+      "id": "electrochemistry",
+      "title": "Electrochemistry",
+      "subject": "chemistry"
+    },
+    {
+      "id": "chemical-energetics",
+      "title": "Chemical energetics",
+      "subject": "chemistry"
+    },
+    {
+      "id": "chemical-reactions",
+      "title": "Chemical reactions",
+      "subject": "chemistry"
+    },
+    {
+      "id": "acids-bases-and-salts",
+      "title": "Acids, bases and salts",
+      "subject": "chemistry"
+    },
+    {
+      "id": "the-periodic-table",
+      "title": "The Periodic Table",
+      "subject": "chemistry"
+    },
+    {
+      "id": "metals",
+      "title": "Metals",
+      "subject": "chemistry"
+    },
+    {
+      "id": "chemistry-of-the-environment",
+      "title": "Chemistry of the environment",
+      "subject": "chemistry"
+    },
+    {
+      "id": "organic-chemistry",
+      "title": "Organic chemistry",
+      "subject": "chemistry"
+    },
+    {
+      "id": "experimental-techniques-and-chemical-analysis",
+      "title": "Experimental techniques and chemical analysis",
+      "subject": "chemistry"
+    },
+    {
+      "id": "motion-forces-and-energy",
+      "title": "Motion, forces and energy",
+      "subject": "physics"
+    },
+    {
+      "id": "thermal-physics",
+      "title": "Thermal physics",
+      "subject": "physics"
+    },
+    {
+      "id": "waves",
+      "title": "Waves",
+      "subject": "physics"
+    },
+    {
+      "id": "electricity-and-magnetism",
+      "title": "Electricity and magnetism",
+      "subject": "physics"
+    },
+    {
+      "id": "nuclear-physics",
+      "title": "Nuclear physics",
+      "subject": "physics"
+    },
+    {
+      "id": "space-physics",
+      "title": "Space physics",
+      "subject": "physics"
+    }
+  ],
+  "sections": [
+    {
+      "code": "B1.1",
+      "title": "Characteristics of living organisms",
+      "ownerTopicId": "characteristics-of-living-organisms",
+      "subject": "B"
+    },
+    {
+      "code": "B2.1",
+      "title": "Cell structure",
+      "ownerTopicId": "cells",
+      "subject": "B"
+    },
+    {
+      "code": "B2.2",
+      "title": "Size of specimens",
+      "ownerTopicId": "cells",
+      "subject": "B"
+    },
+    {
+      "code": "B3.1",
+      "title": "Diffusion",
+      "ownerTopicId": "movement-into-and-out-of-cells",
+      "subject": "B"
+    },
+    {
+      "code": "B3.2",
+      "title": "Osmosis",
+      "ownerTopicId": "movement-into-and-out-of-cells",
+      "subject": "B"
+    },
+    {
+      "code": "B3.3",
+      "title": "Active transport",
+      "ownerTopicId": "movement-into-and-out-of-cells",
+      "subject": "B"
+    },
+    {
+      "code": "B4.1",
+      "title": "Biological molecules",
+      "ownerTopicId": "biological-molecules",
+      "subject": "B"
+    },
+    {
+      "code": "B5.1",
+      "title": "Enzymes",
+      "ownerTopicId": "enzymes",
+      "subject": "B"
+    },
+    {
+      "code": "B6.1",
+      "title": "Photosynthesis",
+      "ownerTopicId": "plant-nutrition",
+      "subject": "B"
+    },
+    {
+      "code": "B6.2",
+      "title": "Leaf structure",
+      "ownerTopicId": "plant-nutrition",
+      "subject": "B"
+    },
+    {
+      "code": "B7.1",
+      "title": "Diet",
+      "ownerTopicId": "human-nutrition",
+      "subject": "B"
+    },
+    {
+      "code": "B7.2",
+      "title": "Digestive system",
+      "ownerTopicId": "human-nutrition",
+      "subject": "B"
+    },
+    {
+      "code": "B7.3",
+      "title": "Digestion",
+      "ownerTopicId": "human-nutrition",
+      "subject": "B"
+    },
+    {
+      "code": "B8.1",
+      "title": "Xylem and phloem",
+      "ownerTopicId": "transport-in-plants",
+      "subject": "B"
+    },
+    {
+      "code": "B8.2",
+      "title": "Water uptake",
+      "ownerTopicId": "transport-in-plants",
+      "subject": "B"
+    },
+    {
+      "code": "B8.3",
+      "title": "Transpiration",
+      "ownerTopicId": "transport-in-plants",
+      "subject": "B"
+    },
+    {
+      "code": "B8.4",
+      "title": "Translocation",
+      "ownerTopicId": "transport-in-plants",
+      "subject": "B"
+    },
+    {
+      "code": "B9.1",
+      "title": "Circulatory systems",
+      "ownerTopicId": "transport-in-animals",
+      "subject": "B"
+    },
+    {
+      "code": "B9.2",
+      "title": "Heart",
+      "ownerTopicId": "transport-in-animals",
+      "subject": "B"
+    },
+    {
+      "code": "B9.3",
+      "title": "Blood vessels",
+      "ownerTopicId": "transport-in-animals",
+      "subject": "B"
+    },
+    {
+      "code": "B9.4",
+      "title": "Blood",
+      "ownerTopicId": "transport-in-animals",
+      "subject": "B"
+    },
+    {
+      "code": "B10.1",
+      "title": "Diseases and immunity",
+      "ownerTopicId": "diseases-and-immunity",
+      "subject": "B"
+    },
+    {
+      "code": "B11.1",
+      "title": "Gas exchange in humans",
+      "ownerTopicId": "gas-exchange-in-humans",
+      "subject": "B"
+    },
+    {
+      "code": "B12.1",
+      "title": "Respiration",
+      "ownerTopicId": "respiration",
+      "subject": "B"
+    },
+    {
+      "code": "B13.1",
+      "title": "Coordination and response",
+      "ownerTopicId": "coordination-and-response",
+      "subject": "B"
+    },
+    {
+      "code": "B13.2",
+      "title": "Hormones",
+      "ownerTopicId": "coordination-and-response",
+      "subject": "B"
+    },
+    {
+      "code": "B13.3",
+      "title": "Homeostasis",
+      "ownerTopicId": "coordination-and-response",
+      "subject": "B"
+    },
+    {
+      "code": "B14.1",
+      "title": "Drugs",
+      "ownerTopicId": "drugs",
+      "subject": "B"
+    },
+    {
+      "code": "B15.1",
+      "title": "Asexual reproduction",
+      "ownerTopicId": "reproduction",
+      "subject": "B"
+    },
+    {
+      "code": "B15.2",
+      "title": "Sexual reproduction",
+      "ownerTopicId": "reproduction",
+      "subject": "B"
+    },
+    {
+      "code": "B15.3",
+      "title": "Sexual reproduction in plants",
+      "ownerTopicId": "reproduction",
+      "subject": "B"
+    },
+    {
+      "code": "B15.4",
+      "title": "Sexual reproduction in humans",
+      "ownerTopicId": "reproduction",
+      "subject": "B"
+    },
+    {
+      "code": "B15.5",
+      "title": "Sexually transmitted infections",
+      "ownerTopicId": "reproduction",
+      "subject": "B"
+    },
+    {
+      "code": "B16.1",
+      "title": "Chromosomes and genes",
+      "ownerTopicId": "inheritance",
+      "subject": "B"
+    },
+    {
+      "code": "B16.2",
+      "title": "Cell division",
+      "ownerTopicId": "inheritance",
+      "subject": "B"
+    },
+    {
+      "code": "B16.3",
+      "title": "Monohybrid inheritance",
+      "ownerTopicId": "inheritance",
+      "subject": "B"
+    },
+    {
+      "code": "B17.1",
+      "title": "Variation",
+      "ownerTopicId": "variation-and-selection",
+      "subject": "B"
+    },
+    {
+      "code": "B17.2",
+      "title": "Selection",
+      "ownerTopicId": "variation-and-selection",
+      "subject": "B"
+    },
+    {
+      "code": "B18.1",
+      "title": "Energy flow",
+      "ownerTopicId": "organisms-and-their-environment",
+      "subject": "B"
+    },
+    {
+      "code": "B18.2",
+      "title": "Food chains and food webs",
+      "ownerTopicId": "organisms-and-their-environment",
+      "subject": "B"
+    },
+    {
+      "code": "B18.3",
+      "title": "Carbon cycle",
+      "ownerTopicId": "organisms-and-their-environment",
+      "subject": "B"
+    },
+    {
+      "code": "B19.1",
+      "title": "Habitat destruction",
+      "ownerTopicId": "human-influences-on-ecosystems",
+      "subject": "B"
+    },
+    {
+      "code": "B19.2",
+      "title": "Conservation",
+      "ownerTopicId": "human-influences-on-ecosystems",
+      "subject": "B"
+    },
+    {
+      "code": "C1.1",
+      "title": "Solids, liquids and gases",
+      "ownerTopicId": "states-of-matter",
+      "subject": "C"
+    },
+    {
+      "code": "C1.2",
+      "title": "Diffusion",
+      "ownerTopicId": "states-of-matter",
+      "subject": "C"
+    },
+    {
+      "code": "C2.1",
+      "title": "Elements, compounds and mixtures",
+      "ownerTopicId": "atoms-elements-and-compounds",
+      "subject": "C"
+    },
+    {
+      "code": "C2.2",
+      "title": "Atomic structure and the Periodic Table",
+      "ownerTopicId": "atoms-elements-and-compounds",
+      "subject": "C"
+    },
+    {
+      "code": "C2.3",
+      "title": "Isotopes",
+      "ownerTopicId": "atoms-elements-and-compounds",
+      "subject": "C"
+    },
+    {
+      "code": "C2.4",
+      "title": "Ions and ionic bonds",
+      "ownerTopicId": "atoms-elements-and-compounds",
+      "subject": "C"
+    },
+    {
+      "code": "C2.5",
+      "title": "Simple molecules and covalent bonds",
+      "ownerTopicId": "atoms-elements-and-compounds",
+      "subject": "C"
+    },
+    {
+      "code": "C2.6",
+      "title": "Giant covalent structures",
+      "ownerTopicId": "atoms-elements-and-compounds",
+      "subject": "C"
+    },
+    {
+      "code": "C2.7",
+      "title": "Metallic bonding",
+      "ownerTopicId": "atoms-elements-and-compounds",
+      "subject": "C"
+    },
+    {
+      "code": "C3.1",
+      "title": "Formulas",
+      "ownerTopicId": "stoichiometry",
+      "subject": "C"
+    },
+    {
+      "code": "C3.2",
+      "title": "Relative masses of atoms and molecules",
+      "ownerTopicId": "stoichiometry",
+      "subject": "C"
+    },
+    {
+      "code": "C3.3",
+      "title": "The mole and the Avogadro constant",
+      "ownerTopicId": "stoichiometry",
+      "subject": "C"
+    },
+    {
+      "code": "C4.1",
+      "title": "Electrolysis",
+      "ownerTopicId": "electrochemistry",
+      "subject": "C"
+    },
+    {
+      "code": "C4.2",
+      "title": "Hydrogen–oxygen fuel cells",
+      "ownerTopicId": "electrochemistry",
+      "subject": "C"
+    },
+    {
+      "code": "C5.1",
+      "title": "Exothermic and endothermic reactions",
+      "ownerTopicId": "chemical-energetics",
+      "subject": "C"
+    },
+    {
+      "code": "C6.1",
+      "title": "Physical and chemical changes",
+      "ownerTopicId": "chemical-reactions",
+      "subject": "C"
+    },
+    {
+      "code": "C6.2",
+      "title": "Rate of reaction",
+      "ownerTopicId": "chemical-reactions",
+      "subject": "C"
+    },
+    {
+      "code": "C6.3",
+      "title": "Redox",
+      "ownerTopicId": "chemical-reactions",
+      "subject": "C"
+    },
+    {
+      "code": "C7.1",
+      "title": "The characteristic properties of acids and bases",
+      "ownerTopicId": "acids-bases-and-salts",
+      "subject": "C"
+    },
+    {
+      "code": "C7.2",
+      "title": "Oxides",
+      "ownerTopicId": "acids-bases-and-salts",
+      "subject": "C"
+    },
+    {
+      "code": "C7.3",
+      "title": "Preparation of salts",
+      "ownerTopicId": "acids-bases-and-salts",
+      "subject": "C"
+    },
+    {
+      "code": "C8.1",
+      "title": "Arrangement of elements",
+      "ownerTopicId": "the-periodic-table",
+      "subject": "C"
+    },
+    {
+      "code": "C8.2",
+      "title": "Group I properties",
+      "ownerTopicId": "the-periodic-table",
+      "subject": "C"
+    },
+    {
+      "code": "C8.3",
+      "title": "Group VII properties",
+      "ownerTopicId": "the-periodic-table",
+      "subject": "C"
+    },
+    {
+      "code": "C8.4",
+      "title": "Transition elements",
+      "ownerTopicId": "the-periodic-table",
+      "subject": "C"
+    },
+    {
+      "code": "C8.5",
+      "title": "Noble gases",
+      "ownerTopicId": "the-periodic-table",
+      "subject": "C"
+    },
+    {
+      "code": "C9.1",
+      "title": "Properties of metals",
+      "ownerTopicId": "metals",
+      "subject": "C"
+    },
+    {
+      "code": "C9.2",
+      "title": "Uses of metals",
+      "ownerTopicId": "metals",
+      "subject": "C"
+    },
+    {
+      "code": "C9.3",
+      "title": "Alloys and their properties",
+      "ownerTopicId": "metals",
+      "subject": "C"
+    },
+    {
+      "code": "C9.4",
+      "title": "Reactivity series",
+      "ownerTopicId": "metals",
+      "subject": "C"
+    },
+    {
+      "code": "C9.5",
+      "title": "Corrosion of metals",
+      "ownerTopicId": "metals",
+      "subject": "C"
+    },
+    {
+      "code": "C9.6",
+      "title": "Extraction of metals",
+      "ownerTopicId": "metals",
+      "subject": "C"
+    },
+    {
+      "code": "C10.1",
+      "title": "Water",
+      "ownerTopicId": "chemistry-of-the-environment",
+      "subject": "C"
+    },
+    {
+      "code": "C10.2",
+      "title": "Air quality and climate",
+      "ownerTopicId": "chemistry-of-the-environment",
+      "subject": "C"
+    },
+    {
+      "code": "C11.1",
+      "title": "Formulas and terminology",
+      "ownerTopicId": "organic-chemistry",
+      "subject": "C"
+    },
+    {
+      "code": "C11.2",
+      "title": "Naming organic compounds",
+      "ownerTopicId": "organic-chemistry",
+      "subject": "C"
+    },
+    {
+      "code": "C11.3",
+      "title": "Fuels",
+      "ownerTopicId": "organic-chemistry",
+      "subject": "C"
+    },
+    {
+      "code": "C11.4",
+      "title": "Alkanes",
+      "ownerTopicId": "organic-chemistry",
+      "subject": "C"
+    },
+    {
+      "code": "C11.5",
+      "title": "Alkenes",
+      "ownerTopicId": "organic-chemistry",
+      "subject": "C"
+    },
+    {
+      "code": "C11.6",
+      "title": "Alcohols",
+      "ownerTopicId": "organic-chemistry",
+      "subject": "C"
+    },
+    {
+      "code": "C11.7",
+      "title": "Polymers",
+      "ownerTopicId": "organic-chemistry",
+      "subject": "C"
+    },
+    {
+      "code": "C12.1",
+      "title": "Experimental design",
+      "ownerTopicId": "experimental-techniques-and-chemical-analysis",
+      "subject": "C"
+    },
+    {
+      "code": "C12.2",
+      "title": "Acid-base titrations",
+      "ownerTopicId": "experimental-techniques-and-chemical-analysis",
+      "subject": "C"
+    },
+    {
+      "code": "C12.3",
+      "title": "Chromatography",
+      "ownerTopicId": "experimental-techniques-and-chemical-analysis",
+      "subject": "C"
+    },
+    {
+      "code": "C12.4",
+      "title": "Separation and purification",
+      "ownerTopicId": "experimental-techniques-and-chemical-analysis",
+      "subject": "C"
+    },
+    {
+      "code": "C12.5",
+      "title": "Identification of ions and gases",
+      "ownerTopicId": "experimental-techniques-and-chemical-analysis",
+      "subject": "C"
+    },
+    {
+      "code": "P1.1",
+      "title": "Physical quantities and measurement techniques",
+      "ownerTopicId": "motion-forces-and-energy",
+      "subject": "P"
+    },
+    {
+      "code": "P1.2",
+      "title": "Motion",
+      "ownerTopicId": "motion-forces-and-energy",
+      "subject": "P"
+    },
+    {
+      "code": "P1.3",
+      "title": "Mass and weight",
+      "ownerTopicId": "motion-forces-and-energy",
+      "subject": "P"
+    },
+    {
+      "code": "P1.4",
+      "title": "Density",
+      "ownerTopicId": "motion-forces-and-energy",
+      "subject": "P"
+    },
+    {
+      "code": "P1.5",
+      "title": "Forces",
+      "ownerTopicId": "motion-forces-and-energy",
+      "subject": "P"
+    },
+    {
+      "code": "P1.6",
+      "title": "Energy, work and power",
+      "ownerTopicId": "motion-forces-and-energy",
+      "subject": "P"
+    },
+    {
+      "code": "P1.7",
+      "title": "Pressure",
+      "ownerTopicId": "motion-forces-and-energy",
+      "subject": "P"
+    },
+    {
+      "code": "P2.1",
+      "title": "Kinetic particle model of matter",
+      "ownerTopicId": "thermal-physics",
+      "subject": "P"
+    },
+    {
+      "code": "P2.2",
+      "title": "Thermal properties and temperature",
+      "ownerTopicId": "thermal-physics",
+      "subject": "P"
+    },
+    {
+      "code": "P2.3",
+      "title": "Transfer of thermal energy",
+      "ownerTopicId": "thermal-physics",
+      "subject": "P"
+    },
+    {
+      "code": "P3.1",
+      "title": "General properties of waves",
+      "ownerTopicId": "waves",
+      "subject": "P"
+    },
+    {
+      "code": "P3.2",
+      "title": "Light",
+      "ownerTopicId": "waves",
+      "subject": "P"
+    },
+    {
+      "code": "P3.3",
+      "title": "Electromagnetic spectrum",
+      "ownerTopicId": "waves",
+      "subject": "P"
+    },
+    {
+      "code": "P3.4",
+      "title": "Sound",
+      "ownerTopicId": "waves",
+      "subject": "P"
+    },
+    {
+      "code": "P4.1",
+      "title": "Simple phenomena of magnetism",
+      "ownerTopicId": "electricity-and-magnetism",
+      "subject": "P"
+    },
+    {
+      "code": "P4.2",
+      "title": "Electrical quantities",
+      "ownerTopicId": "electricity-and-magnetism",
+      "subject": "P"
+    },
+    {
+      "code": "P4.3",
+      "title": "Electrical circuits",
+      "ownerTopicId": "electricity-and-magnetism",
+      "subject": "P"
+    },
+    {
+      "code": "P4.4",
+      "title": "Electrical safety",
+      "ownerTopicId": "electricity-and-magnetism",
+      "subject": "P"
+    },
+    {
+      "code": "P4.5",
+      "title": "Electromagnetic effects",
+      "ownerTopicId": "electricity-and-magnetism",
+      "subject": "P"
+    },
+    {
+      "code": "P5.1",
+      "title": "The nucleus",
+      "ownerTopicId": "nuclear-physics",
+      "subject": "P"
+    },
+    {
+      "code": "P5.2",
+      "title": "Radioactivity",
+      "ownerTopicId": "nuclear-physics",
+      "subject": "P"
+    },
+    {
+      "code": "P6.1",
+      "title": "The Solar System",
+      "ownerTopicId": "space-physics",
+      "subject": "P"
+    },
+    {
+      "code": "P6.2",
+      "title": "Stars and the Universe",
+      "ownerTopicId": "space-physics",
+      "subject": "P"
+    }
+  ]
+}
