@@ -5,9 +5,9 @@ import {
   darkenPdfPixel,
   paginatePdfText,
   pdfFooterText,
+  pdfHeldNotice,
   pdfPageLabel,
-  planPdfImageSlices,
-  planVerifiedPdfImage,
+  planWholePdfImage,
   questionsForPdf,
 } from "@/lib/pdf-export";
 import { loadBankQuestions } from "@/lib/question-fixtures";
@@ -47,35 +47,57 @@ describe("questionsForPdf", () => {
     expect(PDF_BOOK_LOGO_PATH).not.toContain("PastPaperPrep");
   });
 
-  it("keeps tall multi-page crops readable by slicing them at full printable width", () => {
-    const slices = planPdfImageSlices(1070, 3082);
-
-    expect(slices).toHaveLength(3);
-    expect(slices.every((slice) => slice.renderedWidth >= 190)).toBe(true);
-    expect(slices.every((slice) => slice.renderedHeight <= 248)).toBe(true);
-    expect(slices.reduce((height, slice) => height + slice.sourceHeight, 0)).toBe(3082);
+  it("lists every fit-to-page exception by exact question and image", () => {
+    expect(pdfHeldNotice([
+      { questionId: "q16", kind: "question", imageIndex: 0, reason: "fit-to-page", scale: 0.8 },
+      { questionId: "q17", kind: "answer", imageIndex: 2, reason: "fit-to-page", scale: 0.7 },
+    ])).toContain("q16 question image 1; q17 answer image 3");
   });
 
-  it("keeps a normal exam page together when it fits the printable area", () => {
-    const slices = planPdfImageSlices(1191, 1524);
-
-    expect(slices).toHaveLength(1);
-    expect(slices[0].renderedWidth).toBeGreaterThan(190);
-    expect(slices[0].renderedHeight).toBeLessThanOrEqual(248);
+  it("keeps a tall unverified image whole and records fit-to-page instead of slicing ink rows", () => {
+    const placement = planWholePdfImage(1070, 3082);
+    expect(placement.format).toBe("a3");
+    expect(placement.orientation).toBe("portrait");
+    expect(placement.scale).toBeLessThan(1);
+    expect(placement.heldReason).toBe("fit-to-page");
+    expect(placement.yMm + placement.heightMm).toBeLessThanOrEqual(placement.pageHeightMm - 13);
   });
 
-  it("keeps the 0580 Q16 graph intact at source physical size on one A4 page", () => {
-    const placement = planVerifiedPdfImage(1070, 1531, [513, 734.33]);
+  it("uses A3 at original scale for an image that does not fit A4", () => {
+    const placement = planWholePdfImage(1191, 1524);
+    expect(placement.format).toBe("a3");
+    expect(placement.scale).toBe(1);
+    expect(placement.heldReason).toBeNull();
+  });
+
+  it("keeps the 0580 Q16 graph intact at verified physical size on one A4 page", () => {
+    const placement = planWholePdfImage(1070, 1531, [513, 734.33]);
+    expect(placement.format).toBe("a4");
+    expect(placement.scale).toBe(1);
     expect(placement.widthMm).toBeCloseTo(513 * 25.4 / 72, 4);
     expect(placement.heightMm).toBeCloseTo(734.33 * 25.4 / 72, 4);
-    expect(placement.sourceY).toBe(0);
-    expect(placement.sourceHeight).toBe(1531);
     expect(placement.yMm + placement.heightMm).toBeLessThanOrEqual(284);
   });
 
-  it("refuses unverified and physically oversize crops rather than splitting them", () => {
-    expect(() => planVerifiedPdfImage(1070, 1531, undefined)).toThrow(/verified source geometry/i);
-    expect(() => planVerifiedPdfImage(1070, 3000, [513, 1300])).toThrow(/source size cannot fit/i);
+  it("does not block absent geometry or an oversized verified image", () => {
+    expect(planWholePdfImage(1070, 1531).scale).toBeLessThanOrEqual(1);
+    const oversized = planWholePdfImage(1070, 3000, [513, 1300]);
+    expect(oversized.heldReason).toBe("fit-to-page");
+    expect(oversized.scale).toBeLessThan(1);
+  });
+
+  it("reserves the five-percent shrink option for explicitly plain text crops", () => {
+    const protectedImage = planWholePdfImage(1070, 1531, [820, 1130]);
+    const plain = planWholePdfImage(1070, 1531, [820, 1130], true);
+    expect(protectedImage.heldReason).toBe("fit-to-page");
+    expect(plain.heldReason).toBeNull();
+    expect(plain.scale).toBeGreaterThanOrEqual(0.95);
+    expect(plain.scale).toBeLessThanOrEqual(1);
+  });
+
+  it("never enlarges a small raster and rejects invalid dimensions", () => {
+    expect(planWholePdfImage(200, 300).scale).toBe(1);
+    expect(() => planWholePdfImage(0, 300)).toThrow(/dimensions must be positive/i);
   });
 
   it("darkens faint print without changing white paper or pure black ink", () => {

@@ -1,12 +1,14 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { UnifiedQuestion } from "@/lib/questions";
 import { attachPdfAssetMetadata, downloadQuestionPdf } from "@/lib/pdf-export";
+import approved from "@/data/reviewed-blank-tails-0606.json";
 
-const { addImage, addPage, save } = vi.hoisted(() => ({
-  addImage: vi.fn(), addPage: vi.fn(), save: vi.fn(),
+const { addImage, addPage, deletePage, save, verifyBytes } = vi.hoisted(() => ({
+  addImage: vi.fn(), addPage: vi.fn(), deletePage: vi.fn(), save: vi.fn(), verifyBytes: vi.fn(),
 }));
+vi.mock("@/lib/verified-asset-bytes", () => ({ fetchVerifiedImageBlob: verifyBytes }));
 vi.mock("jspdf", () => ({ jsPDF: class {
-  addImage = addImage; addPage = addPage; save = save;
+  addImage = addImage; addPage = addPage; deletePage = deletePage; save = save;
   setProperties() {} setFont() {} setFontSize() {} setTextColor() {} text() {}
   setPage() {} setDrawColor() {} line() {} textWithLink() {}
 } }));
@@ -23,6 +25,9 @@ describe("real worksheet image placement", () => {
   let originalImage: typeof window.Image;
   beforeEach(() => {
     vi.clearAllMocks();
+    verifyBytes.mockResolvedValue(new Blob(["verified-image"], { type: "image/webp" }));
+    Object.defineProperty(URL, "createObjectURL", { configurable: true, value: vi.fn(() => "blob:q11.webp") });
+    Object.defineProperty(URL, "revokeObjectURL", { configurable: true, value: vi.fn() });
     originalImage = window.Image;
     window.Image = class {
       naturalWidth = 1070; naturalHeight = 1531; crossOrigin = "";
@@ -30,6 +35,9 @@ describe("real worksheet image placement", () => {
       onerror: ((event: Event) => void) | null = null;
       set src(value: string) {
         if (value.startsWith("data:image/svg")) { this.naturalWidth = 256; this.naturalHeight = 256; }
+        if (value.includes("q11.webp")) { this.naturalWidth = 1070; this.naturalHeight = 4501; }
+        if (value.includes("tall.webp")) { this.naturalWidth = 1070; this.naturalHeight = 3082; }
+        if (value.includes("wide-answer.webp")) { this.naturalWidth = 1630; this.naturalHeight = 1941; }
         queueMicrotask(() => this.onload?.(new Event("load")));
       }
     } as unknown as typeof window.Image;
@@ -75,5 +83,114 @@ describe("real worksheet image placement", () => {
     expect(questionImages[0][5]).toBeCloseTo(734.33 * 25.4 / 72, 3);
     expect(addPage).not.toHaveBeenCalled();
     expect(save).toHaveBeenCalledOnce();
+  });
+
+  it("places Q11 as one complete image after removing only its hash-verified BLANK PAGE tail", async () => {
+    const stitched = {
+      ...q16, bankSlug: "igcse-additional" as const, id: "0606-2016-june-13-q11", number: 11,
+      questionImages: ["https://signed.test/q11.webp"],
+      questionPrintSizesPt: [[513, 2159] as [number, number]],
+      questionRasterSizesPx: [[1070, 4501] as [number, number]],
+      questionPrintSegments: [[
+        { sourceY: 0, sourceHeight: 1602, physicalHeightPt: 768.36, sourcePage: 14 },
+        { sourceY: 1602, sourceHeight: 1551, physicalHeightPt: 743.98, sourcePage: 15 },
+        { sourceY: 3153, sourceHeight: 1348, physicalHeightPt: 646.66, sourcePage: 16, include: false, imageSha256: approved.entries["0606-2016-june-13-q11"].imageSha256 },
+      ]],
+    };
+    const result = await downloadQuestionPdf([stitched], "questions");
+    const images = addImage.mock.calls.filter((call) => call[1] === "JPEG");
+    expect(images).toHaveLength(1);
+    expect(result.heldRows).toEqual([expect.objectContaining({ questionId: stitched.id, reason: "fit-to-page" })]);
+    expect(images[0][4]).toBeLessThan(513 * 25.4 / 72);
+    expect(images[0][5]).toBeLessThan(420 - 22 - 13);
+    expect(verifyBytes).toHaveBeenCalledWith("https://signed.test/q11.webp", approved.entries["0606-2016-june-13-q11"].imageSha256);
+    expect(URL.revokeObjectURL).toHaveBeenCalledWith("blob:q11.webp");
+  });
+
+  it("refuses to save any PDF when the reviewed blank-tail image bytes have changed", async () => {
+    verifyBytes.mockRejectedValueOnce(new Error("Verified image SHA-256 mismatch"));
+    const source = {
+      ...q16, bankSlug: "igcse-additional" as const, id: "0606-2016-june-13-q11", questionImages: ["https://signed.test/q11.webp"],
+      questionPrintSizesPt: [[513, 2159] as [number, number]],
+      questionRasterSizesPx: [[1070, 4501] as [number, number]],
+      questionPrintSegments: [[
+        { sourceY: 0, sourceHeight: 1602, physicalHeightPt: 768.36, sourcePage: 14 },
+        { sourceY: 1602, sourceHeight: 1551, physicalHeightPt: 743.98, sourcePage: 15 },
+        { sourceY: 3153, sourceHeight: 1348, physicalHeightPt: 646.66, sourcePage: 16,
+          include: false, imageSha256: approved.entries["0606-2016-june-13-q11"].imageSha256 },
+      ]],
+    };
+    await expect(downloadQuestionPdf([source], "questions")).rejects.toThrow("SHA-256 mismatch");
+    expect(save).not.toHaveBeenCalled();
+    expect(addImage.mock.calls.filter((call) => call[1] === "JPEG")).toHaveLength(0);
+  });
+
+  it("prints the whole 0606 image when signed geometry is absent instead of blocking export", async () => {
+    const missing = { ...q16, id: "0606-2016-june-11-q1", bankSlug: "igcse-additional" as const,
+      questionImages: ["https://signed.test/q1.webp"], questionPrintSizesPt: undefined } as unknown as UnifiedQuestion;
+    const result = await downloadQuestionPdf([missing], "questions");
+    expect(addImage.mock.calls.filter((call) => call[1] === "JPEG")).toHaveLength(1);
+    expect(save).toHaveBeenCalledOnce();
+    expect(result.heldRows).toEqual([]);
+  });
+
+  it("places an unverified tall image once on a page and records its fit-to-page exception", async () => {
+    const tall = { ...q16, bankSlug: "ib-biology-hl" as const,
+      questionImages: ["https://signed.test/tall.webp"], questionPrintSizesPt: undefined } as unknown as UnifiedQuestion;
+    const result = await downloadQuestionPdf([tall], "questions");
+    expect(addImage.mock.calls.filter((call) => call[1] === "JPEG")).toHaveLength(1);
+    expect(result.heldRows).toEqual([expect.objectContaining({ questionId: tall.id, kind: "question", reason: "fit-to-page" })]);
+    expect(save).toHaveBeenCalledOnce();
+  });
+
+  it("rejects an empty 0606 question image list even when another question rendered", async () => {
+    const missing = { ...q16, id: "0606-2016-june-11-q1", bankSlug: "igcse-additional" as const,
+      questionImages: [], questionPrintSizesPt: [], questionPrintSegments: [], questionRasterSizesPx: [] };
+    await expect(downloadQuestionPdf([q16, missing], "questions")).rejects.toThrow(/question image is missing/i);
+    expect(save).not.toHaveBeenCalled();
+  });
+
+  it("rejects a missing 0606 official answer rather than exporting its text solution", async () => {
+    const missing = { ...q16, id: "0606-2016-june-11-q1", bankSlug: "igcse-additional" as const,
+      markschemeImages: [], solution: "Do not substitute text for official answers" };
+    await expect(downloadQuestionPdf([missing], "answers")).rejects.toThrow(/official answer image is missing/i);
+    expect(save).not.toHaveBeenCalled();
+  });
+
+  it("rejects altered 0606 segment boundaries even if the image hash and total raster height agree", async () => {
+    const altered = { ...q16, bankSlug: "igcse-additional" as const, id: "0606-2016-june-13-q11",
+      questionImages: ["https://signed.test/q11.webp"],
+      questionPrintSizesPt: [[513, 2159] as [number, number]],
+      questionRasterSizesPx: [[1070, 4501] as [number, number]],
+      questionPrintSegments: [[
+        { sourceY: 0, sourceHeight: 1603, physicalHeightPt: 768.36, sourcePage: 14 },
+        { sourceY: 1603, sourceHeight: 1550, physicalHeightPt: 743.98, sourcePage: 15 },
+        { sourceY: 3153, sourceHeight: 1348, physicalHeightPt: 646.66, sourcePage: 16,
+          include: false, imageSha256: approved.entries["0606-2016-june-13-q11"].imageSha256 },
+      ]],
+    };
+    await expect(downloadQuestionPdf([altered], "questions")).rejects.toThrow(/verified source geometry/i);
+    expect(save).not.toHaveBeenCalled();
+  });
+
+  it("prints a wide official answer once on A3 at source physical size", async () => {
+    const wide = {
+      ...q16, bankSlug: "igcse-additional" as const, id: "0606-2026-june-21-q5", number: 5,
+      markschemeImages: ["https://signed.test/wide-answer.webp"],
+      markschemePrintSizesPt: [[781.92, 930.59] as [number, number]],
+      markschemeRasterSizesPx: [[1630, 1941] as [number, number]],
+      markschemePrintSegments: [[
+        { sourceY: 0, sourceHeight: 988, physicalHeightPt: 473.59, sourcePage: 13 },
+        { sourceY: 988, sourceHeight: 953, physicalHeightPt: 457, sourcePage: 14 },
+      ]],
+    };
+    const result = await downloadQuestionPdf([wide], "answers");
+    const images = addImage.mock.calls.filter((call) => call[1] === "JPEG");
+    expect(images).toHaveLength(1);
+    expect(images[0][4]).toBeCloseTo(781.92 * 25.4 / 72, 4);
+    expect(images[0][5]).toBeCloseTo(930.59 * 25.4 / 72, 4);
+    expect(result.heldRows).toEqual([]);
+    expect(addPage).toHaveBeenCalledWith("a3", "portrait");
+    expect(deletePage).toHaveBeenCalledWith(1);
   });
 });

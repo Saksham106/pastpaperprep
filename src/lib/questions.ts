@@ -4,6 +4,7 @@ import { isPrivateRuntimeBank, privateStorageObjectPath } from "@/lib/private-ru
 import { project0606Topics } from "@/lib/igcse-0606-official.mjs";
 import { project0606Sections } from "@/lib/igcse-0606-subtopics.mjs";
 import { project0455Sections } from "@/lib/igcse-0455-official.mjs";
+import { activeQuestionImagePaths } from "@/lib/reviewed-blank-qp";
 import granularOverlay from "@/data/math-granular-label-overlay.json";
 import aaTaxonomy from "@/data/aa-official-subtopics/taxonomy.json";
 import aaOverlay from "@/data/aa-official-subtopics/overlay.json";
@@ -210,7 +211,7 @@ function assetUrl(slug: BankSlug, path: string, economicsAssetMode: "local" | "p
   return `${base}/${path.replace(/^\//, "")}`;
 }
 
-function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode: "local" | "private"): UnifiedQuestion {
+function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode: "local" | "private", applyReviewedBlankPages: boolean): UnifiedQuestion {
   const accessibleText = text(raw.accessibleText);
   const summary = text(raw.summary) || accessibleText.slice(0, 220);
   const aa = aaClassification(slug, raw);
@@ -258,7 +259,10 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     ]));
   const officialMarkscheme = record(raw.officialMarkscheme);
   const solution = nullableText(raw.solution) ?? nullableText(raw.independentSolution);
-  const questionImages = strings(raw.questionImages).map((path) => assetUrl(slug, path, economicsAssetMode));
+  const sourceQuestionImages = strings(raw.questionImages);
+  const questionImages = (applyReviewedBlankPages
+    ? activeQuestionImagePaths(slug, text(raw.id), sourceQuestionImages)
+    : sourceQuestionImages).map((path) => assetUrl(slug, path, economicsAssetMode));
   const markschemeImagePaths = isPrivateRuntimeBank(slug)
     ? Array.from(new Set([...strings(raw.markschemeImages), ...strings(officialMarkscheme.images)]))
     : [...strings(raw.markschemeImages), ...strings(officialMarkscheme.images)];
@@ -323,10 +327,10 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
 export function normalizeBankQuestions(
   slug: BankSlug,
   rawQuestions: RawQuestion[],
-  options: { economicsAssetMode?: "local" | "private" } = {},
+  options: { economicsAssetMode?: "local" | "private"; applyReviewedBlankPages?: boolean } = {},
 ): UnifiedQuestion[] {
   return rawQuestions
-    .map((question) => normalizeQuestion(slug, question, options.economicsAssetMode ?? "local"))
+    .map((question) => normalizeQuestion(slug, question, options.economicsAssetMode ?? "local", options.applyReviewedBlankPages ?? false))
     .sort((a, b) => b.year - a.year
       || a.paper - b.paper
       || a.number - b.number

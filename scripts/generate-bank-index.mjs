@@ -20,7 +20,16 @@ const aaTaxonomy = JSON.parse(await readFile(join(root, "src", "data", "aa-offic
 const aaOverlay = JSON.parse(await readFile(join(root, "src", "data", "aa-official-subtopics", "overlay.json"), "utf8"));
 const biologyOfficialTaxonomy = JSON.parse(await readFile(join(root, "src", "data", "ib-biology-official-subtopics", "taxonomy.json"), "utf8"));
 const biologyOfficialOverlay = JSON.parse(await readFile(join(root, "src", "data", "ib-biology-official-subtopics", "overlay.json"), "utf8"));
-
+const reviewedBlankPages = JSON.parse(await readFile(join(root, "src", "data", "reviewed-blank-qp.json"), "utf8"));
+function activeQuestionImageCount(bank, raw) {
+  const paths = strings(raw.questionImages);
+  const hidden = reviewedBlankPages.entries[bank]?.[raw.id];
+  if (!hidden) return paths.length;
+  const approved = new Set(hidden.map((item) => item.path));
+  if (approved.size !== hidden.length || hidden.some((item) => !paths.includes(item.path)) ||
+    paths.length <= approved.size) throw new Error(`Reviewed BLANK PAGE list disagrees with ${bank}:${raw.id}`);
+  return paths.length - approved.size;
+}
 const overlayBankForSlug = (slug) => ({
   "igcse-additional": "0606",
   "ib-hl": "ib-aa-hl",
@@ -155,7 +164,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     component: typeof raw.component === "string" ? raw.component : "",
     calculator: typeof raw.calculator === "boolean" ? raw.calculator : null,
     marks: typeof raw.marks === "number" ? raw.marks : null,
-    questionImageCount: strings(raw.questionImages).length,
+    questionImageCount: activeQuestionImageCount(bank, raw),
     markschemeImageCount: normalizedProduction
       ? (strings(officialMarkscheme.images).length || strings(raw.markschemeImages).length)
       : strings(raw.markschemeImages).length + strings(officialMarkscheme.images).length,

@@ -51,6 +51,16 @@ describe("fetchSignedAssets", () => {
     }));
   });
 
+  it("rejects missing requested PDF assets rather than silently exporting an incomplete worksheet", async () => {
+    const fetcher = vi.fn(async () => Response.json({ expiresIn: 600, assets: [{
+      questionId: "q1", kind: "question", urls: ["https://signed.test/q1.webp"],
+    }] }));
+    await expect(fetchPdfAssets("igcse-additional", ["q1", "q2"], "questions", fetcher))
+      .rejects.toThrow("Invalid signed asset response");
+    await expect(fetchPdfAssets("igcse-additional", ["q1"], "both", fetcher))
+      .rejects.toThrow("Invalid signed asset response");
+  });
+
   it("preserves verified print geometry with the exact signed PDF image", async () => {
     const fetcher = vi.fn(async () => Response.json({ expiresIn: 600, assets: [{
       questionId: "0580-2025-november-11-q16", kind: "question",
@@ -60,12 +70,65 @@ describe("fetchSignedAssets", () => {
     expect(result.get("0580-2025-november-11-q16:question")?.printSizesPt).toEqual([[513, 734.33]]);
   });
 
+  it("keeps a full source-page segmentation attached to the exact image", async () => {
+    const fetcher = vi.fn(async () => Response.json({ expiresIn: 600, assets: [{
+      questionId: "0606-2016-june-13-q11", kind: "question", urls: ["https://signed.test/q11.webp"],
+      printSizesPt: [[513, 2159]], rasterSizesPx: [[1070, 4501]],
+      printSegments: [[
+        { sourceY: 0, sourceHeight: 1602, physicalHeightPt: 768.36, sourcePage: 14 },
+        { sourceY: 1602, sourceHeight: 1551, physicalHeightPt: 743.98, sourcePage: 15 },
+        { sourceY: 3153, sourceHeight: 1348, physicalHeightPt: 646.66, sourcePage: 16, include: false, imageSha256: "a".repeat(64) },
+      ]],
+    }] }));
+    const signed = await fetchPdfAssets("igcse-additional", ["0606-2016-june-13-q11"], "questions", fetcher);
+    expect(signed.get("0606-2016-june-13-q11:question")?.printSegments?.[0]).toHaveLength(3);
+  });
+
+  it("rejects a PDF furniture omission with no verified source-image digest", async () => {
+    const id = "0606-2016-june-13-q11";
+    const asset = { questionId: id, kind: "question", urls: ["https://signed.test/q11.webp"],
+      printSizesPt: [[513, 2159]], rasterSizesPx: [[1070, 4501]],
+      printSegments: [[
+        { sourceY: 0, sourceHeight: 3153, physicalHeightPt: 1512.34, sourcePage: 14 },
+        { sourceY: 3153, sourceHeight: 1348, physicalHeightPt: 646.66, sourcePage: 16, include: false },
+      ]] };
+    const fetcher = vi.fn(async () => Response.json({ expiresIn: 600, assets: [asset] }));
+    await expect(fetchPdfAssets("igcse-additional", [id], "questions", fetcher))
+      .rejects.toThrow("Invalid signed asset response");
+  });
+
+  it("rejects a source segment that overlaps or drops raster rows", async () => {
+    const fetcher = vi.fn(async () => Response.json({ expiresIn: 600, assets: [{
+      questionId: "0606-2016-june-13-q11", kind: "question", urls: ["https://signed.test/q11.webp"],
+      printSizesPt: [[513, 2159]], rasterSizesPx: [[1070, 4501]],
+      printSegments: [[
+        { sourceY: 0, sourceHeight: 1602, physicalHeightPt: 768.36, sourcePage: 14 },
+        { sourceY: 1603, sourceHeight: 2898, physicalHeightPt: 1390.64, sourcePage: 15 },
+      ]],
+    }] }));
+    await expect(fetchPdfAssets("igcse-additional", ["0606-2016-june-13-q11"], "questions", fetcher))
+      .rejects.toThrow("Invalid signed asset response");
+  });
+
   it("rejects mismatched signed image and print geometry lengths", async () => {
     const fetcher = vi.fn(async () => Response.json({ expiresIn: 600, assets: [{
       questionId: "0580-2025-november-11-q16", kind: "question",
       urls: ["https://signed.test/q16.webp"], printSizesPt: [],
     }] }));
     await expect(fetchPdfAssets("igcse", ["0580-2025-november-11-q16"], "questions", fetcher))
+      .rejects.toThrow("Invalid signed asset response");
+  });
+
+  it("validates visible-height metadata before hiding a reviewed source-page tail", async () => {
+    const id = "0606-2016-june-13-q11";
+    const asset = { questionId: id, kind: "question", urls: ["https://signed.test/q11.webp"],
+      displayCrops: [{ imageSha256: "a".repeat(64), fullWidthPx: 1070, fullHeightPx: 4501, visibleHeightPx: 3153 }] };
+    const valid = vi.fn(async () => Response.json({ expiresIn: 600, assets: [asset] }));
+    const signed = await fetchSignedAssets("igcse-additional", [{ questionId: id, kind: "question" }], valid);
+    expect(signed.get(`${id}:question`)?.displayCrops?.[0]?.visibleHeightPx).toBe(3153);
+    const malformed = vi.fn(async () => Response.json({ expiresIn: 600, assets: [{ ...asset,
+      displayCrops: [{ imageSha256: "a".repeat(64), fullWidthPx: 1070, fullHeightPx: 4501, visibleHeightPx: 4501 }] }] }));
+    await expect(fetchSignedAssets("igcse-additional", [{ questionId: id, kind: "question" }], malformed))
       .rejects.toThrow("Invalid signed asset response");
   });
 

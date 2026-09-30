@@ -89,6 +89,18 @@ describe("POST /api/assets/sign", () => {
     expect(payload.assets[0].details).not.toHaveProperty("searchText");
   });
 
+  it("signs the reviewed 0606 blank-tail display crop without altering the original asset URL", async () => {
+    const response = await POST(new Request("https://pastpaperprep.com/api/assets/sign", {
+      method: "POST",
+      body: JSON.stringify({ bank: "igcse-additional", requests: [{ questionId: "0606-2016-june-13-q11", kind: "question" }] }),
+      headers: { "content-type": "application/json" },
+    }));
+    expect(response.status).toBe(200);
+    const payload = await response.json();
+    expect(payload.assets[0].urls[0]).toContain("questions/0606-2016-june-13-q11.webp");
+    expect(payload.assets[0].displayCrops).toEqual([{ imageSha256: expect.stringMatching(/^[a-f0-9]{64}$/), fullWidthPx: 1070, fullHeightPx: 4501, visibleHeightPx: 3153 }]);
+  });
+
   it("does not charge the premium allowance for preview assets", async () => {
     vi.stubEnv("ASSET_STORAGE_PROVIDER", "r2");
     const response = await POST(new Request("https://pastpaperprep.com/api/assets/sign", {
