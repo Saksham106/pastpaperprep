@@ -3,9 +3,22 @@ import { loadBankQuestions } from "@/lib/question-fixtures";
 import rawAdditional from "@/data/raw/igcse-additional.json";
 import { filterQuestions } from "@/lib/question-filter";
 import { getControlledSubtopics, getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy";
-import { getSubtopicGroups as getStudentSubtopicGroups } from "@/lib/taxonomy-router";
+import { getSubtopicGroups as getStudentSubtopicGroups, getTopicOptions as getStudentTopicOptions } from "@/lib/taxonomy-router";
 
 describe("question taxonomy", () => {
+  it("shows the official 0580 tree independent of question assignments and preserves hierarchy", () => {
+    const questions = loadBankQuestions("igcse");
+    const topics = getStudentTopicOptions(questions);
+    expect(topics.slice(0, 9)).toEqual(["Number", "Algebra and graphs", "Coordinate geometry", "Geometry", "Mensuration", "Trigonometry", "Transformations and vectors", "Probability", "Statistics"]);
+    expect(topics.at(-1)).toBe("Questions needing section review");
+    const groups = getStudentSubtopicGroups(questions, topics, []);
+    expect(groups.all).toHaveLength(73);
+    expect(groups.all).toContain("1.1 Types of number");
+    expect(groups.all).toContain("9.3 Averages and measures of spread");
+    expect(getStudentTopicOptions([{ ...questions[0], subtopics: [] }])).toEqual(topics);
+    expect(getStudentSubtopicGroups([{ ...questions[0], subtopics: [] }], ["Number"], []).all).toHaveLength(73);
+  });
+
   it("orders IB topics by the official syllabus sequence", () => {
     expect(getTopicOptions(loadBankQuestions("ib-hl"))).toEqual([
       "Number and algebra",
@@ -27,6 +40,7 @@ describe("question taxonomy", () => {
       "Transformations and vectors",
       "Probability",
       "Statistics",
+      "Questions needing section review",
     ]);
   });
 
@@ -80,7 +94,7 @@ describe("question taxonomy", () => {
     expect(groups.other.some((value) => expected.includes(value))).toBe(false);
   });
 
-  it("keeps skills searchable but out of 0580 subtopic options and shows zero-match controlled options", () => {
+  it("keeps old 0580 labels searchable but only official sections and review in the picker", () => {
     const source = loadBankQuestions("igcse")[0];
     const question = {
       ...source,
@@ -91,12 +105,14 @@ describe("question taxonomy", () => {
     };
     const groups = getStudentSubtopicGroups([question], ["Number"], []);
 
-    expect(groups.all).toContain("Historical-era label");
-    expect(groups.all).toContain("Bounds and estimation");
+    expect(groups.all).not.toContain("Historical-era label");
+    expect(groups.all).not.toContain("Bounds and estimation");
+    expect(groups.all).toContain("1.10 Limits of accuracy");
     expect(groups.all).not.toContain("internal.skill.code");
     expect(groups.all).not.toContain("Student-facing search skill");
-    expect(groups.relevant).toContain("Bounds and estimation");
-    expect(filterQuestions([question], { subtopics: ["Bounds and estimation"] })).toEqual([]);
+    expect(groups.relevant).toContain("1.10 Limits of accuracy");
+    expect(filterQuestions([question], { subtopics: ["1.10 Limits of accuracy"] })).toEqual([]);
+    expect(filterQuestions([question], { subtopics: ["Historical-era label"] })).toHaveLength(1);
     // Historical filter URLs remain valid because the retrieval predicate still
     // accepts the skill token even though the option is no longer advertised.
     expect(filterQuestions([question], { subtopics: ["Student-facing search skill"] })).toHaveLength(1);

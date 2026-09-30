@@ -10,6 +10,7 @@ import { project0610Sections } from "../src/lib/igcse-0610-official.mjs";
 import { project0654Sections } from "../src/lib/igcse-0654-official.mjs";
 import { project0625Sections } from "../src/lib/igcse-0625-official.mjs";
 import { project0620Sections } from "../src/lib/igcse-0620-official.mjs";
+import { project0580Sections } from "../src/lib/igcse-0580-official.mjs";
 
 const root = join(import.meta.dirname, "..");
 const outputDirectory = join(root, "public", "bank-index");
@@ -83,10 +84,11 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
   const coordinated = bank === "igcse-coordinated-sciences-0654" && normalizedProduction ? project0654Sections(raw) : null;
   const physics0625 = bank === "igcse-physics-0625" && normalizedProduction ? project0625Sections(raw) : null;
   const chemistry0620 = bank === "igcse-chemistry-0620" && normalizedProduction ? project0620Sections(raw) : null;
+  const math0580 = bank === "igcse" ? project0580Sections(raw) : null;
   const official0610 = bank === "igcse-biology-0610" && normalizedProduction;
   const projected0610 = official0610 ? project0610Sections(raw) : null;
   const controlledSkills = official0610 || aa || biology ? [] : strings(raw.skills);
-  const studentSubtopics = official0610
+  const studentSubtopics = math0580 ? math0580.subtopics : official0610
     ? projected0610.subtopics
     : coordinated
       ? coordinated.subtopics
@@ -114,6 +116,8 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
       : subtopics;
   const skills = aa || biology ? [] : localEconomics
     ? [...new Set(controlledSkills)]
+    : math0580
+      ? [...new Set([...controlledSkills, ...detailedSubtopics, ...strings(raw.subtopics), ...strings(raw.secondarySubtopics)])]
     : [...new Set([
       ...skillSeed,
       ...controlledSkills,
@@ -126,7 +130,8 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     ])];
 
   const overlayBank = overlayBankForSlug(bank);
-  const officialCodeRefs = biology ? [...biology.officialCodes]
+  const officialCodeRefs = math0580 ? math0580.codeRefs
+    : biology ? [...biology.officialCodes]
     : chemistry0620 ? chemistry0620.codeRefs
     : physics0625 ? physics0625.codeRefs
     : coordinated ? coordinated.codeRefs
@@ -139,8 +144,8 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     paper: integer(raw.paper),
     year: integer(raw.year),
     session: typeof raw.session === "string" ? raw.session : "",
-    primaryTopic: chemistry0620 ? chemistry0620.primaryTopic : physics0625 ? physics0625.primaryTopic : coordinated ? coordinated.primaryTopic : official0610 ? projected0610.primaryTopic : biology ? biologyPrimaryTopic(biology, raw) : aa ? aa.primaryTopic : additional ? additional.primaryTopic : (typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other"),
-    secondaryTopics: chemistry0620 ? chemistry0620.secondaryTopics : physics0625 ? physics0625.secondaryTopics : coordinated ? coordinated.secondaryTopics : official0610 ? projected0610.secondaryTopics : biology ? [...new Set(biology.secondary.map((group) => group.parentTopic))] : aa ? aa.secondaryTopics : additional ? additional.secondaryTopics : strings(raw.secondaryTopics),
+    primaryTopic: math0580 ? math0580.primaryTopic : chemistry0620 ? chemistry0620.primaryTopic : physics0625 ? physics0625.primaryTopic : coordinated ? coordinated.primaryTopic : official0610 ? projected0610.primaryTopic : biology ? biologyPrimaryTopic(biology, raw) : aa ? aa.primaryTopic : additional ? additional.primaryTopic : (typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other"),
+    secondaryTopics: math0580 ? math0580.secondaryTopics : chemistry0620 ? chemistry0620.secondaryTopics : physics0625 ? physics0625.secondaryTopics : coordinated ? coordinated.secondaryTopics : official0610 ? projected0610.secondaryTopics : biology ? [...new Set(biology.secondary.map((group) => group.parentTopic))] : aa ? aa.secondaryTopics : additional ? additional.secondaryTopics : strings(raw.secondaryTopics),
     skills,
     subtopics,
     granularLabels: aa || biology ? [] : granularByKey.get(`${overlayBank}:${raw.id}`) ?? [],

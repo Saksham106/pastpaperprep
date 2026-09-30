@@ -5,6 +5,7 @@ import { BIOLOGY_0610_EARLIER, BIOLOGY_0610_SECTIONS, display0610Sections } from
 import { COORDINATED_0654_EARLIER, COORDINATED_0654_SECTIONS, display0654Sections } from "@/lib/igcse-0654-official.mjs";
 import { PHYSICS_0625_EARLIER, PHYSICS_0625_REVIEW, PHYSICS_0625_SECTIONS, display0625Sections } from "@/lib/igcse-0625-official.mjs";
 import { CHEMISTRY_0620_EARLIER, CHEMISTRY_0620_REVIEW, CHEMISTRY_0620_SECTIONS, display0620Sections } from "@/lib/igcse-0620-official.mjs";
+import { MATH_0580_SECTIONS, MATH_0580_REVIEW, display0580Sections } from "@/lib/igcse-0580-official.mjs";
 
 /** Reused across sorts so topic sorting does not build a fresh collator per comparison. */
 const topicCollator = new Intl.Collator(undefined, { numeric: true });
@@ -12,6 +13,7 @@ const biology0610CurrentHeadings = new Set<string>([...BIOLOGY_0610_SECTIONS.map
 const coordinated0654Headings = new Set<string>([...COORDINATED_0654_SECTIONS.map((section) => section.studentTitle), COORDINATED_0654_EARLIER]);
 const physics0625Headings = new Set<string>([...PHYSICS_0625_SECTIONS.map((section) => section.title), PHYSICS_0625_EARLIER, PHYSICS_0625_REVIEW]);
 const chemistry0620Headings = new Map<string, string>(CHEMISTRY_0620_SECTIONS.map((section) => [section.title, section.code]));
+const math0580Headings = new Set<string>([...MATH_0580_SECTIONS.map((section) => section.displayTitle), MATH_0580_REVIEW]);
 chemistry0620Headings.set(CHEMISTRY_0620_EARLIER, "earlier:content");
 chemistry0620Headings.set(CHEMISTRY_0620_REVIEW, "unresolved:current");
 
@@ -60,7 +62,11 @@ export function filterQuestions(questions: UnifiedQuestion[], filters: QuestionF
     // `skills` is the canonical filterable classification vocabulary. Keep
     // accepting legacy `subtopics`, but never let a correctly classified
     // secondary skill disappear because an older bank omitted it there.
-    if (filters.subtopics?.length && question.bankSlug === "igcse-biology-0610") {
+    if (filters.subtopics?.length && question.bankSlug === "igcse") {
+      const visible = display0580Sections(question.officialCodeRefs ?? []);
+      const aliases = filterableSubtopics(question);
+      if (!filters.subtopics.some((label) => math0580Headings.has(label) ? visible.includes(label) : aliases.includes(label))) return false;
+    } else if (filters.subtopics?.length && question.bankSlug === "igcse-biology-0610") {
       const visible = display0610Sections(question.officialCodeRefs ?? []);
       const aliases = filterableSubtopics(question);
       if (!filters.subtopics.some((label) => biology0610CurrentHeadings.has(label) ? visible.includes(label) : aliases.includes(label))) return false;

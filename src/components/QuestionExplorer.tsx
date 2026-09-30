@@ -18,6 +18,7 @@ import { mergeQuestionRichDetails, publicMetadataToQuestion, type PublicBankInde
 import { matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 import { displayedQuestionSubtopics, formatPublicLabel } from "@/lib/presentation";
+import { MATH_0580_REVIEW } from "@/lib/igcse-0580-official.mjs";
 import { trackProductEvent } from "@/lib/product-analytics";
 import { getFreeQuestionGate } from "@/lib/free-question-gate";
 import { FreeQuestionSignupGate } from "@/components/FreeQuestionSignupGate";
@@ -273,6 +274,9 @@ access: ExplorerAccess;
     () => getSubtopicGroups(catalogQuestions, filters.topics ?? [], filters.subtopics ?? []),
     [catalogQuestions, filters.topics, filters.subtopics],
   );
+  const sectionReviewCount = useMemo(() => bank === "igcse"
+    ? catalogQuestions.filter((question) => question.officialCodeRefs?.includes("review:section")).length
+    : null, [bank, catalogQuestions]);
   const visibleSubtopics = filters.topics?.length
     ? showAllSubtopics
       ? subtopicGroups.all
@@ -1040,7 +1044,7 @@ access: ExplorerAccess;
           {!bootstrapPending && !resolvedAccess.bankAccess && <div className="filter-group" role="group" aria-labelledby="filter-access"><h3 id="filter-access">Access</h3><div className="filter-options"><label><input aria-label="Free questions only" type="checkbox" checked={effectiveFreeOnly} onChange={() => { setFreeOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Free questions only</span></label></div></div>}
           {resolvedAccess.authenticated && <div className="filter-group" role="group" aria-labelledby="filter-study"><h3 id="filter-study">Study</h3><div className="filter-options"><label><input aria-label="Saved questions only" type="checkbox" checked={savedOnly} onChange={() => { setSavedOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Saved questions only</span></label></div></div>}
           <FilterGroup label="Topics" filterKey="topics" values={options.topics} selected={filters.topics ?? []} onToggle={toggle} />
-          <FilterGroup label="Subtopics" filterKey="subtopics" values={visibleSubtopics} selected={filters.subtopics ?? []} onToggle={toggle} />
+          <FilterGroup label="Subtopics" filterKey="subtopics" values={visibleSubtopics} selected={filters.subtopics ?? []} onToggle={toggle} counts={sectionReviewCount === null ? undefined : { [MATH_0580_REVIEW]: sectionReviewCount }} />
           {!!filters.topics?.length && !!subtopicGroups.other.length && <button className="text-button subtopic-more" aria-expanded={showAllSubtopics} onClick={() => setShowAllSubtopics((show) => !show)}>{showAllSubtopics ? "Hide other subtopics" : "Show other subtopics"}</button>}
           <button className="more-filters-button" type="button" aria-expanded={showMoreFilters} onClick={() => setShowMoreFilters((show) => !show)}><Funnel aria-hidden="true" /> {showMoreFilters ? "Fewer filters" : "More filters"}</button>
           <div className={`secondary-filters${showMoreFilters ? " is-open" : ""}`} aria-hidden={!showMoreFilters} inert={showMoreFilters ? undefined : true}>
@@ -1096,10 +1100,10 @@ access: ExplorerAccess;
   );
 }
 
-function FilterGroup({ label, filterKey, values, selected, onToggle }: { label: string; filterKey: MultiKey; values: string[]; selected: string[]; onToggle: (key: MultiKey, value: string) => void }) {
+function FilterGroup({ label, filterKey, values, selected, onToggle, counts }: { label: string; filterKey: MultiKey; values: string[]; selected: string[]; onToggle: (key: MultiKey, value: string) => void; counts?: Record<string, number> }) {
   if (!values.length) return null;
   const headingId = `filter-${filterKey}`;
-  return <div className="filter-group" role="group" aria-labelledby={headingId}><h3 id={headingId}>{label}</h3><div className="filter-options">{values.map((value) => { const publicLabel = formatPublicLabel(value); return <label key={value}><input aria-label={`${label}: ${publicLabel}`} type="checkbox" checked={selected.includes(value)} onChange={() => onToggle(filterKey, value)} /><span>{publicLabel}</span></label>; })}</div></div>;
+  return <div className="filter-group" role="group" aria-labelledby={headingId}><h3 id={headingId}>{label}</h3><div className="filter-options">{values.map((value) => { const publicLabel = formatPublicLabel(value); return <label key={value}><input aria-label={`${label}: ${publicLabel}`} type="checkbox" checked={selected.includes(value)} onChange={() => onToggle(filterKey, value)} /><span>{publicLabel}{counts?.[value] !== undefined ? ` (${counts[value].toLocaleString()})` : ""}</span></label>; })}</div></div>;
 }
 
 function QuestionCard({ question, unlocked, authenticated, localPreview, questionAsset, answerAsset, onQuestionAssetError, onAnswerAsset, selected, selectable, onSelect, saved, attempted, onToggleSaved, onAttempt }: {
