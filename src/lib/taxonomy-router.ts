@@ -13,6 +13,7 @@ import {
 } from "@/lib/taxonomy";
 import type { UnifiedQuestion } from "@/lib/questions";
 import { PHYSICS_0625_EARLIER, PHYSICS_0625_EARLIER_TOPIC, PHYSICS_0625_PRACTICAL_TOPIC, PHYSICS_0625_REVIEW, PHYSICS_0625_REVIEW_TOPIC, PHYSICS_0625_SECTIONS, PHYSICS_0625_TOPICS, display0625Sections } from "@/lib/igcse-0625-official.mjs";
+import { CHEMISTRY_0620_EARLIER, CHEMISTRY_0620_EARLIER_TOPIC, CHEMISTRY_0620_PRACTICAL_TOPIC, CHEMISTRY_0620_REVIEW, CHEMISTRY_0620_REVIEW_TOPIC, CHEMISTRY_0620_SECTIONS, CHEMISTRY_0620_TOPICS, display0620Sections } from "@/lib/igcse-0620-official.mjs";
 
 const BIOLOGY_0610_TOPIC_ORDER = BIOLOGY_0610_TOPICS;
 const BIOLOGY_OFFICIAL_TOPIC_ORDER = [...new Set(biologyOfficialTaxonomy.curatedGroups.map((group) => group.parentTopic))];
@@ -93,6 +94,7 @@ function isCoordinatedBank(bank: string | undefined): boolean {
 export function getControlledSubtopics(bankSlug: string, topic: string): readonly string[] {
   if (bankSlug === "igcse-additional") return topic === EARLIER_0606_TOPIC ? EARLIER_0606_SUBTOPICS : [];
   if (bankSlug === "igcse-physics-0625") return topic === PHYSICS_0625_EARLIER_TOPIC ? [PHYSICS_0625_EARLIER] : topic === PHYSICS_0625_REVIEW_TOPIC ? [PHYSICS_0625_REVIEW] : topic === PHYSICS_0625_PRACTICAL_TOPIC ? [PHYSICS_0625_PRACTICAL_TOPIC] : PHYSICS_0625_SECTIONS.filter((section) => section.topic === topic).map((section) => section.title);
+  if (bankSlug === "igcse-chemistry-0620") return topic === CHEMISTRY_0620_EARLIER_TOPIC ? [CHEMISTRY_0620_EARLIER] : topic === CHEMISTRY_0620_REVIEW_TOPIC ? [CHEMISTRY_0620_REVIEW] : topic === CHEMISTRY_0620_PRACTICAL_TOPIC ? [CHEMISTRY_0620_PRACTICAL_TOPIC] : CHEMISTRY_0620_SECTIONS.filter((section) => section.topic === topic).map((section) => section.title);
   if (isAaBank(bankSlug)) return AA_GROUPS[topic] ?? [];
   if (isOfficialBiologyBank(bankSlug)) return BIOLOGY_OFFICIAL_GROUPS[topic] ?? [];
   if (bankSlug === "igcse-biology-0610") {
@@ -110,6 +112,7 @@ export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
     return [...OFFICIAL_0606_TOPICS, ...(available.has(EARLIER_0606_TOPIC) ? [EARLIER_0606_TOPIC] : [])];
   }
   if (bank === "igcse-physics-0625") return [...PHYSICS_0625_TOPICS, ...(questions.some((question) => [question.primaryTopic, ...question.secondaryTopics].includes(PHYSICS_0625_EARLIER_TOPIC)) ? [PHYSICS_0625_EARLIER_TOPIC] : []), ...(questions.some((question) => question.primaryTopic === PHYSICS_0625_PRACTICAL_TOPIC) ? [PHYSICS_0625_PRACTICAL_TOPIC] : []), ...(questions.some((question) => [question.primaryTopic, ...question.secondaryTopics].includes(PHYSICS_0625_REVIEW_TOPIC)) ? [PHYSICS_0625_REVIEW_TOPIC] : [])];
+  if (bank === "igcse-chemistry-0620") return [...CHEMISTRY_0620_TOPICS, ...(questions.some((question) => [question.primaryTopic, ...question.secondaryTopics].includes(CHEMISTRY_0620_EARLIER_TOPIC)) ? [CHEMISTRY_0620_EARLIER_TOPIC] : []), ...(questions.some((question) => question.primaryTopic === CHEMISTRY_0620_PRACTICAL_TOPIC) ? [CHEMISTRY_0620_PRACTICAL_TOPIC] : []), ...(questions.some((question) => [question.primaryTopic, ...question.secondaryTopics].includes(CHEMISTRY_0620_REVIEW_TOPIC)) ? [CHEMISTRY_0620_REVIEW_TOPIC] : [])];
   if (isAaBank(bank) && hasCurrentAa(questions)) {
     const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));
     return [...AA_TOPIC_ORDER.filter((topic) => available.has(topic)), ...[...available].filter((topic) => !AA_TOPIC_ORDER.includes(topic)).sort()];
@@ -179,6 +182,15 @@ export function getSubtopicGroups(
     const selected = new Set(selectedTopics);
     const special = selectedTopics.length === 1 && selected.has(PHYSICS_0625_EARLIER_TOPIC) ? [PHYSICS_0625_EARLIER] : selectedTopics.length === 1 && selected.has(PHYSICS_0625_REVIEW_TOPIC) ? [PHYSICS_0625_REVIEW] : null;
     const relevant = special ?? (selectedTopics.length ? [...new Set([...selectedTopics.flatMap((topic) => getControlledSubtopics(bank, topic)), ...questions.filter((question) => [question.primaryTopic, ...question.secondaryTopics].some((topic) => selected.has(topic))).flatMap((question) => display0625Sections(question.officialCodeRefs ?? []))].filter((label) => available.has(label) && (label !== PHYSICS_0625_EARLIER || selected.has(PHYSICS_0625_EARLIER_TOPIC)) && (label !== PHYSICS_0625_REVIEW || selected.has(PHYSICS_0625_REVIEW_TOPIC))))] : all);
+    const relevantSet = new Set(relevant);
+    return { all, relevant, other: all.filter((label) => !relevantSet.has(label)), selectedOutsideContext: selectedSubtopics.filter((label) => available.has(label) && !relevantSet.has(label)) };
+  }
+  if (bank === "igcse-chemistry-0620") {
+    const all = [...CHEMISTRY_0620_SECTIONS.map((section) => section.title), ...(questions.some((question) => question.officialCodeRefs?.includes("earlier:content")) ? [CHEMISTRY_0620_EARLIER] : []), ...(questions.some((question) => question.officialCodeRefs?.includes("unresolved:current")) ? [CHEMISTRY_0620_REVIEW] : [])];
+    const available = new Set(all);
+    const selected = new Set(selectedTopics);
+    const special = selectedTopics.length === 1 && selected.has(CHEMISTRY_0620_EARLIER_TOPIC) ? [CHEMISTRY_0620_EARLIER] : selectedTopics.length === 1 && selected.has(CHEMISTRY_0620_REVIEW_TOPIC) ? [CHEMISTRY_0620_REVIEW] : null;
+    const relevant = special ?? (selectedTopics.length ? [...new Set([...selectedTopics.flatMap((topic) => getControlledSubtopics(bank, topic)), ...questions.filter((question) => [question.primaryTopic, ...question.secondaryTopics].some((topic) => selected.has(topic))).flatMap((question) => display0620Sections(question.officialCodeRefs ?? []))].filter((label) => available.has(label) && (label !== CHEMISTRY_0620_EARLIER || selected.has(CHEMISTRY_0620_EARLIER_TOPIC)) && (label !== CHEMISTRY_0620_REVIEW || selected.has(CHEMISTRY_0620_REVIEW_TOPIC))))] : all);
     const relevantSet = new Set(relevant);
     return { all, relevant, other: all.filter((label) => !relevantSet.has(label)), selectedOutsideContext: selectedSubtopics.filter((label) => available.has(label) && !relevantSet.has(label)) };
   }

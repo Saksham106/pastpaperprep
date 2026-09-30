@@ -4,12 +4,16 @@ import { isLocalEconomicsBank } from "@/lib/banks";
 import { BIOLOGY_0610_EARLIER, BIOLOGY_0610_SECTIONS, display0610Sections } from "@/lib/igcse-0610-official.mjs";
 import { COORDINATED_0654_EARLIER, COORDINATED_0654_SECTIONS, display0654Sections } from "@/lib/igcse-0654-official.mjs";
 import { PHYSICS_0625_EARLIER, PHYSICS_0625_REVIEW, PHYSICS_0625_SECTIONS, display0625Sections } from "@/lib/igcse-0625-official.mjs";
+import { CHEMISTRY_0620_EARLIER, CHEMISTRY_0620_REVIEW, CHEMISTRY_0620_SECTIONS, display0620Sections } from "@/lib/igcse-0620-official.mjs";
 
 /** Reused across sorts so topic sorting does not build a fresh collator per comparison. */
 const topicCollator = new Intl.Collator(undefined, { numeric: true });
 const biology0610CurrentHeadings = new Set<string>([...BIOLOGY_0610_SECTIONS.map((section) => section.title), BIOLOGY_0610_EARLIER]);
 const coordinated0654Headings = new Set<string>([...COORDINATED_0654_SECTIONS.map((section) => section.studentTitle), COORDINATED_0654_EARLIER]);
 const physics0625Headings = new Set<string>([...PHYSICS_0625_SECTIONS.map((section) => section.title), PHYSICS_0625_EARLIER, PHYSICS_0625_REVIEW]);
+const chemistry0620Headings = new Map<string, string>(CHEMISTRY_0620_SECTIONS.map((section) => [section.title, section.code]));
+chemistry0620Headings.set(CHEMISTRY_0620_EARLIER, "earlier:content");
+chemistry0620Headings.set(CHEMISTRY_0620_REVIEW, "unresolved:current");
 
 function includesAny(selected: string[] | undefined, values: string[]): boolean {
   return !selected?.length || selected.some((value) => values.includes(value));
@@ -68,6 +72,13 @@ export function filterQuestions(questions: UnifiedQuestion[], filters: QuestionF
       const visible = display0625Sections(question.officialCodeRefs ?? []);
       const aliases = filterableSubtopics(question);
       if (!filters.subtopics.some((label) => physics0625Headings.has(label) ? visible.includes(label) : aliases.includes(label))) return false;
+    } else if (filters.subtopics?.length && question.bankSlug === "igcse-chemistry-0620") {
+      const visible = display0620Sections(question.officialCodeRefs ?? []);
+      const aliases = filterableSubtopics(question);
+      if (!filters.subtopics.some((label) => {
+        const code = chemistry0620Headings.get(label);
+        return code ? visible.includes(label) || (code !== "earlier:content" && code !== "unresolved:current" && question.officialCodeRefs?.includes(`alias_current:${code}`)) : aliases.includes(label);
+      })) return false;
     } else if (!includesAny(filters.subtopics, filterableSubtopics(question))) return false;
     if (!includesAny(filters.granularLabels, question.granularLabels ?? [])) return false;
     if (!includesAny(filters.officialCodeRefs, question.officialCodeRefs ?? [])) return false;

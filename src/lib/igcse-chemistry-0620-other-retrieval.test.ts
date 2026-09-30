@@ -3,11 +3,10 @@ import { assert0620OtherRetrievalRepair, getIGCSERuntimeArtifact } from "@/lib/i
 import { normalizeBankQuestions } from "@/lib/questions";
 import { filterQuestions } from "@/lib/question-filter";
 import runtime from "@/data/production/igcse-chemistry-0620.json";
-import index from "@/data/private-index/igcse-chemistry-0620.json";
 import targets from "../../scripts/data/0620-other-retrieval-targets.json";
 
 const bank = "igcse-chemistry-0620";
-const normalized = normalizeBankQuestions(bank, index.questions as never);
+const normalized = normalizeBankQuestions(bank, runtime.questions as never);
 const byId = new Map(normalized.map((q) => [q.id, q]));
 
 const includes = (id: string, topics: string[], subtopics: string[]) =>
