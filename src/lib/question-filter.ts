@@ -3,11 +3,13 @@ import type { QuestionFilters, UnifiedQuestion } from "@/lib/questions";
 import { isLocalEconomicsBank } from "@/lib/banks";
 import { BIOLOGY_0610_EARLIER, BIOLOGY_0610_SECTIONS, display0610Sections } from "@/lib/igcse-0610-official.mjs";
 import { COORDINATED_0654_EARLIER, COORDINATED_0654_SECTIONS, display0654Sections } from "@/lib/igcse-0654-official.mjs";
+import { PHYSICS_0625_EARLIER, PHYSICS_0625_REVIEW, PHYSICS_0625_SECTIONS, display0625Sections } from "@/lib/igcse-0625-official.mjs";
 
 /** Reused across sorts so topic sorting does not build a fresh collator per comparison. */
 const topicCollator = new Intl.Collator(undefined, { numeric: true });
 const biology0610CurrentHeadings = new Set<string>([...BIOLOGY_0610_SECTIONS.map((section) => section.title), BIOLOGY_0610_EARLIER]);
 const coordinated0654Headings = new Set<string>([...COORDINATED_0654_SECTIONS.map((section) => section.studentTitle), COORDINATED_0654_EARLIER]);
+const physics0625Headings = new Set<string>([...PHYSICS_0625_SECTIONS.map((section) => section.title), PHYSICS_0625_EARLIER, PHYSICS_0625_REVIEW]);
 
 function includesAny(selected: string[] | undefined, values: string[]): boolean {
   return !selected?.length || selected.some((value) => values.includes(value));
@@ -62,6 +64,10 @@ export function filterQuestions(questions: UnifiedQuestion[], filters: QuestionF
       const visible = display0654Sections(question.officialCodeRefs ?? []);
       const aliases = filterableSubtopics(question);
       if (!filters.subtopics.some((label) => coordinated0654Headings.has(label) ? visible.includes(label) : aliases.includes(label))) return false;
+    } else if (filters.subtopics?.length && question.bankSlug === "igcse-physics-0625") {
+      const visible = display0625Sections(question.officialCodeRefs ?? []);
+      const aliases = filterableSubtopics(question);
+      if (!filters.subtopics.some((label) => physics0625Headings.has(label) ? visible.includes(label) : aliases.includes(label))) return false;
     } else if (!includesAny(filters.subtopics, filterableSubtopics(question))) return false;
     if (!includesAny(filters.granularLabels, question.granularLabels ?? [])) return false;
     if (!includesAny(filters.officialCodeRefs, question.officialCodeRefs ?? [])) return false;
