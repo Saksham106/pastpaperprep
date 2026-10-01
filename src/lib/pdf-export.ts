@@ -260,7 +260,9 @@ export async function downloadQuestionPdf(
   pdf.setProperties({ title: "PastPaperPrep worksheet", subject: "Past paper practice questions", author: "PastPaperPrep", creator: "PastPaperPrep" });
   let pages = 0;
   let nextImageY = PDF_TOP_MM;
-  const pageSpecs: Array<{ format: PdfPageFormat; orientation: PdfPageOrientation; width: number; height: number; headerMode: WholeImagePlacement["headerMode"] }> = [];
+  let currentSection = content === "answers" ? "Answers" : content === "both" && answerPlacement === "after-each-question" ? "Questions and answers" : "Questions";
+  let startAnswerPage = false;
+  const pageSpecs: Array<{ format: PdfPageFormat; orientation: PdfPageOrientation; width: number; height: number; headerMode: WholeImagePlacement["headerMode"]; section: string }> = [];
   const heldRows: PdfHeldRow[] = [];
   const total = questions.length;
 
@@ -272,12 +274,14 @@ export async function downloadQuestionPdf(
     }
     pages += 1;
     const spec = PDF_PAGES.find((candidate) => candidate.format === format && candidate.orientation === orientation)!;
-    pageSpecs.push({ ...spec, headerMode });
+    pageSpecs.push({ ...spec, headerMode, section: currentSection });
+    startAnswerPage = false;
     nextImageY = headerMode === "compact" ? 10 : PDF_TOP_MM;
   };
 
   const addImagePage = async (
     bankSlug: UnifiedQuestion["bankSlug"], questionId: string, kind: "question" | "answer", imageIndex: number, source: string,
+    label: string, marks: number | null,
     physicalSizePt?: readonly [number, number] | null,
     sourceSegments?: readonly SourcePrintSegment[] | null,
     expectedRaster?: readonly [number, number] | null,
@@ -323,10 +327,21 @@ export async function downloadQuestionPdf(
     const shortAnswerRow = kind === "answer" && !size && fallbackDpi === 108 &&
       image.height <= 48 && image.width >= 890;
     const placement = planWholePdfImage(image.width, image.height, size, shortAnswerRow, fallbackDpi);
+    // Omit the extra crop label only when it would prevent source-size placement.
+    const labelSpace = placement.yMm + 5 + placement.heightMm <= placement.pageHeightMm - PDF_BOTTOM_MM + 0.001 ? 5 : 0;
     const current = pageSpecs[pages - 1];
-    if (!current || current.format !== placement.format || current.orientation !== placement.orientation ||
-      nextImageY + placement.heightMm > current.height - PDF_BOTTOM_MM + 0.001) {
+    if (startAnswerPage || !current || current.format !== placement.format || current.orientation !== placement.orientation ||
+      nextImageY + labelSpace + placement.heightMm > current.height - PDF_BOTTOM_MM + 0.001) {
       addPage(placement.format, placement.orientation, placement.headerMode);
+    }
+    if (labelSpace) {
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(8);
+      pdf.setTextColor(76, 88, 85);
+      pdf.text(`${label}${imageIndex > 0 ? " (continued)" : ""}`, Math.max(8, placement.xMm), nextImageY + 3);
+      const detail = kind === "answer" ? "Official answer" : Number.isFinite(marks) && marks !== null ? `${marks} marks` : "";
+      if (detail) pdf.text(detail, Math.min(placement.pageWidthMm - 8, placement.xMm + placement.widthMm), nextImageY + 3, { align: "right" });
+      nextImageY += labelSpace;
     }
     pdf.addImage(image.canvas.toDataURL("image/jpeg", 0.98), "JPEG",
       placement.xMm, nextImageY, placement.widthMm, placement.heightMm);
@@ -336,7 +351,12 @@ export async function downloadQuestionPdf(
 
   let completed = 0;
   for (const { question, kind } of orderPdfJobs(questions, content, answerPlacement)) {
-    const label = `${question.year} ${question.session} Paper ${question.paper}, Question ${question.number}`;
+    if (content === "both" && answerPlacement === "all-answers-last" && kind === "answer" && currentSection !== "Answers") {
+      currentSection = "Answers";
+      startAnswerPage = true;
+    }
+    const component = question.component || question.id.match(/-(\d{2})-q\d+$/)?.[1] || String(question.paper);
+    const label = `${question.year} ${question.session} / Paper ${component} / Q${question.number}`;
     if (kind === "question") {
       if (!question.questionImages.length) throw new Error(`Question image is missing for ${question.id}`);
       for (const [index, source] of question.questionImages.entries()) {
@@ -344,7 +364,7 @@ export async function downloadQuestionPdf(
           question.questionPrintSegments?.[index] && question.questionRasterSizesPx?.[index]) {
           await verify0606PdfMetadata(question, "question", index);
         }
-        await addImagePage(question.bankSlug, question.id, "question", index, source,
+        await addImagePage(question.bankSlug, question.id, "question", index, source, label, question.marks,
           question.questionPrintSizesPt?.[index], question.questionPrintSegments?.[index], question.questionRasterSizesPx?.[index]);
       }
     } else {
@@ -354,7 +374,7 @@ export async function downloadQuestionPdf(
             question.markschemePrintSegments?.[index] && question.markschemeRasterSizesPx?.[index]) {
             await verify0606PdfMetadata(question, "answer", index);
           }
-          await addImagePage(question.bankSlug, question.id, "answer", index, source,
+          await addImagePage(question.bankSlug, question.id, "answer", index, source, label, question.marks,
             question.markschemePrintSizesPt?.[index], question.markschemePrintSegments?.[index], question.markschemeRasterSizesPx?.[index]);
         }
       } else if (question.solution) {
@@ -392,7 +412,7 @@ export async function downloadQuestionPdf(
       pdf.setFont("helvetica", "bold");
       pdf.setFontSize(8);
       pdf.setTextColor(21, 52, 48);
-      pdf.text("PastPaperPrep", 8, 6);
+      pdf.text(`PastPaperPrep / ${spec.section}`, 8, 6);
       pdf.setFont("helvetica", "normal");
       pdf.setTextColor(42, 74, 145);
       pdf.textWithLink("pastpaperprep.com", right, 6, { align: "right", url: PDF_SITE_URL });
@@ -404,6 +424,7 @@ export async function downloadQuestionPdf(
       pdf.setFontSize(10);
       pdf.setTextColor(21, 52, 48);
       pdf.text("PastPaperPrep", 22, 14.3);
+      pdf.text(spec.section, 65, 14.3);
       pdf.setFont("helvetica", "normal");
       pdf.setFontSize(8);
       pdf.setTextColor(42, 74, 145);

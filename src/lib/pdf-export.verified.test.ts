@@ -3,13 +3,13 @@ import type { UnifiedQuestion } from "@/lib/questions";
 import { attachPdfAssetMetadata, downloadQuestionPdf } from "@/lib/pdf-export";
 import approved from "@/data/reviewed-blank-tails-0606.json";
 
-const { addImage, addPage, deletePage, save, verifyBytes } = vi.hoisted(() => ({
-  addImage: vi.fn(), addPage: vi.fn(), deletePage: vi.fn(), save: vi.fn(), verifyBytes: vi.fn(),
+const { addImage, addPage, deletePage, save, verifyBytes, text } = vi.hoisted(() => ({
+  addImage: vi.fn(), addPage: vi.fn(), deletePage: vi.fn(), save: vi.fn(), verifyBytes: vi.fn(), text: vi.fn(),
 }));
 vi.mock("@/lib/verified-asset-bytes", () => ({ fetchVerifiedImageBlob: verifyBytes }));
 vi.mock("jspdf", () => ({ jsPDF: class {
   addImage = addImage; addPage = addPage; deletePage = deletePage; save = save;
-  setProperties() {} setFont() {} setFontSize() {} setTextColor() {} text() {}
+  setProperties() {} setFont() {} setFontSize() {} setTextColor() {} text = text;
   setPage() {} setDrawColor() {} line() {} textWithLink() {}
 } }));
 
@@ -65,14 +65,44 @@ describe("real worksheet image placement", () => {
     expect(prepared[0].questionPrintSizesPt).toEqual([[513, 734.33]]);
   });
 
+  it("draws source and marks labels above an image question without scaling it", async () => {
+    const short = { ...q16, number: 1, marks: 3, questionPrintSizesPt: [[513, 100] as [number, number]] };
+    await downloadQuestionPdf([short], "questions");
+    expect(text.mock.calls.some(([value]) => value === "2025 November / Paper 11 / Q1")).toBe(true);
+    expect(text.mock.calls.some(([value]) => value === "3 marks")).toBe(true);
+    const image = addImage.mock.calls.find((call) => call[1] === "JPEG")!;
+    expect(image[5]).toBeCloseTo(100 * 25.4 / 72, 4);
+  });
+
+  it("starts all-answers-last on a separately labelled page even when the last question leaves space", async () => {
+    const short = { ...q16, number: 1, questionPrintSizesPt: [[513, 100] as [number, number]],
+      markschemeImages: ["https://signed.test/answer.webp"], markschemePrintSizesPt: [[513, 60] as [number, number]] };
+    await downloadQuestionPdf([short], "both");
+    expect(addPage).toHaveBeenCalledTimes(1);
+    expect(text.mock.calls.some(([value]) => value === "Answers")).toBe(true);
+    expect(text.mock.calls.some(([value]) => value === "Official answer")).toBe(true);
+  });
+
+  it("retains the label when label plus image needs a fresh page", async () => {
+    const first = { ...q16, number: 1, questionPrintSizesPt: [[513, 600] as [number, number]] };
+    const second = { ...q16, id: "0580-2025-november-11-q2", number: 2,
+      questionPrintSizesPt: [[513, 200] as [number, number]] };
+    await downloadQuestionPdf([first, second], "questions");
+    expect(addPage).toHaveBeenCalledTimes(1);
+    expect(text.mock.calls.some(([value]) => value === "2025 November / Paper 11 / Q2")).toBe(true);
+    const images = addImage.mock.calls.filter((call) => call[1] === "JPEG");
+    expect(images[1][3]).toBe(27);
+    expect(images[1][5]).toBeCloseTo(200 * 25.4 / 72, 4);
+  });
+
   it("packs two short intact source-size images on the same page", async () => {
     const short = { ...q16, questionPrintSizesPt: [[513, 100] as [number, number]], questionImages: ["https://signed.test/short.webp"] };
     await downloadQuestionPdf([short, { ...short, id: "q2", number: 2 }], "questions");
     const images = addImage.mock.calls.filter((call) => call[1] === "JPEG");
     expect(images).toHaveLength(2);
     expect(addPage).not.toHaveBeenCalled();
-    expect(images[0][3]).toBe(22);
-    expect(images[1][3]).toBeCloseTo(22 + 100 * 25.4 / 72 + 4, 3);
+    expect(images[0][3]).toBe(27);
+    expect(images[1][3]).toBeCloseTo(27 + 100 * 25.4 / 72 + 4 + 5, 3);
   });
 
   it("places Q16 once at its verified physical size instead of slicing its graph", async () => {
@@ -94,7 +124,7 @@ describe("real worksheet image placement", () => {
     const images = addImage.mock.calls.filter((call) => call[1] === "JPEG");
     expect(images).toHaveLength(1);
     expect(images[0][2]).toBeCloseTo(0, 1);
-    expect(images[0][3]).toBe(10);
+    expect(images[0][3]).toBe(15);
     expect(images[0][4]).toBeCloseTo(210, 1);
     expect(result.heldRows).toEqual([]);
   });
