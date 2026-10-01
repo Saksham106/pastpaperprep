@@ -1,0 +1,549 @@
+{
+  "schemaVersion": 1,
+  "sourceUrl": "https://www.cambridgeinternational.org/Images/662470-2025-2027-syllabus.pdf",
+  "sourcePdfSha256": "7d5412763f74834a441e45f4b0f983d163d6fc7511568a8c63bdf830ec8508a8",
+  "examYears": [
+    2025,
+    2026,
+    2027
+  ],
+  "naming": "Derived student-facing names for official numbered learning statements, not separately published Cambridge headings. Extra source subtopics remain selectable.",
+  "sections": [
+    {
+      "code": "1.1",
+      "official_statement": "Understand the terms: function, domain, Includes explaining in words why a given function is range (image set), one–one function, a function. many–one function, inverse function and composition of functions.",
+      "topic_number": 1,
+      "title": "Function terminology and one–one functions",
+      "topic": "Functions",
+      "displayTitle": "1.1 Function terminology and one–one functions"
+    },
+    {
+      "code": "1.2",
+      "official_statement": "Find the domain and range of functions. Includes inverse functions and composite functions.",
+      "topic_number": 1,
+      "title": "Domain and range",
+      "topic": "Functions",
+      "displayTitle": "1.2 Domain and range"
+    },
+    {
+      "code": "1.3",
+      "official_statement": "Recognise and use function notation.",
+      "topic_number": 1,
+      "title": "Function notation",
+      "topic": "Functions",
+      "displayTitle": "1.3 Function notation"
+    },
+    {
+      "code": "1.4",
+      "official_statement": "Understand the relationship between y = f( x ) and y =",
+      "topic_number": 1,
+      "title": "Modulus functions and graphs",
+      "topic": "Functions",
+      "displayTitle": "1.4 Modulus functions and graphs"
+    },
+    {
+      "code": "1.5",
+      "official_statement": "Explain in words why a given function does not have an inverse.",
+      "topic_number": 1,
+      "title": "Existence of inverse functions",
+      "topic": "Functions",
+      "displayTitle": "1.5 Existence of inverse functions"
+    },
+    {
+      "code": "1.6",
+      "official_statement": "Find the inverse of a one–one function.",
+      "topic_number": 1,
+      "title": "Finding inverse functions",
+      "topic": "Functions",
+      "displayTitle": "1.6 Finding inverse functions"
+    },
+    {
+      "code": "1.7",
+      "official_statement": "Form and use composite functions.",
+      "topic_number": 1,
+      "title": "Composite functions",
+      "topic": "Functions",
+      "displayTitle": "1.7 Composite functions"
+    },
+    {
+      "code": "1.8",
+      "official_statement": "Use sketch graphs to show the relationship between a function and its inverse.",
+      "topic_number": 1,
+      "title": "Graphs of functions and inverses",
+      "topic": "Functions",
+      "displayTitle": "1.8 Graphs of functions and inverses"
+    },
+    {
+      "code": "2.1",
+      "official_statement": "Find the maximum or minimum value of the quadratic function f : x ↦ ax² + bx + c by completing the square or by differentiation.",
+      "topic_number": 2,
+      "title": "Quadratic maximum and minimum values",
+      "topic": "Quadratic functions",
+      "displayTitle": "2.1 Quadratic maximum and minimum values"
+    },
+    {
+      "code": "2.2",
+      "official_statement": "Use the maximum or minimum value of f( x ) to sketch the graph of y = f( x ) or determine the range for a given domain.",
+      "topic_number": 2,
+      "title": "Quadratic graphs and range",
+      "topic": "Quadratic functions",
+      "displayTitle": "2.2 Quadratic graphs and range"
+    },
+    {
+      "code": "2.3",
+      "official_statement": "Know the conditions for f( x ) = 0 to have: (i) two real roots (ii) two equal roots (iii) no real roots and the related conditions for a given line to: (i) intersect a given curve (ii) be a tangent to a given curve (iii) not intersect a given curve.",
+      "topic_number": 2,
+      "title": "Discriminant and real roots",
+      "topic": "Quadratic functions",
+      "displayTitle": "2.3 Discriminant and real roots"
+    },
+    {
+      "code": "2.4",
+      "official_statement": "Solve quadratic equations for real roots.",
+      "topic_number": 2,
+      "title": "Solving quadratic equations",
+      "topic": "Quadratic functions",
+      "displayTitle": "2.4 Solving quadratic equations"
+    },
+    {
+      "code": "2.5",
+      "official_statement": "Find the solution set for quadratic inequalities either graphically or algebraically.",
+      "topic_number": 2,
+      "title": "Quadratic inequalities",
+      "topic": "Quadratic functions",
+      "displayTitle": "2.5 Quadratic inequalities"
+    },
+    {
+      "code": "3.1",
+      "official_statement": "Know and use the remainder and factor theorems.",
+      "topic_number": 3,
+      "title": "Remainder and factor theorems",
+      "topic": "Factors of polynomials",
+      "displayTitle": "3.1 Remainder and factor theorems"
+    },
+    {
+      "code": "3.2",
+      "official_statement": "Find factors of polynomials.",
+      "topic_number": 3,
+      "title": "Factorising polynomials",
+      "topic": "Factors of polynomials",
+      "displayTitle": "3.2 Factorising polynomials"
+    },
+    {
+      "code": "3.3",
+      "official_statement": "Solve cubic equations.",
+      "topic_number": 3,
+      "title": "Solving cubic equations",
+      "topic": "Factors of polynomials",
+      "displayTitle": "3.3 Solving cubic equations"
+    },
+    {
+      "code": "4.1",
+      "official_statement": "Solve equations of the type •",
+      "topic_number": 4,
+      "title": "Modulus equations",
+      "topic": "Equations, inequalities and graphs",
+      "displayTitle": "4.1 Modulus equations"
+    },
+    {
+      "code": "4.2",
+      "official_statement": "Solve graphically or algebraically inequalities of the type • k",
+      "topic_number": 4,
+      "title": "Modulus inequalities",
+      "topic": "Equations, inequalities and graphs",
+      "displayTitle": "4.2 Modulus inequalities"
+    },
+    {
+      "code": "4.3",
+      "official_statement": "Use substitution to form and solve a quadratic equation in order to solve a related equation.",
+      "topic_number": 4,
+      "title": "Equations using substitution",
+      "topic": "Equations, inequalities and graphs",
+      "displayTitle": "4.3 Equations using substitution"
+    },
+    {
+      "code": "4.4",
+      "official_statement": "Sketch the graphs of cubic polynomials and their moduli, when given as a product of three linear factors.",
+      "topic_number": 4,
+      "title": "Cubic and modulus graph sketches",
+      "topic": "Equations, inequalities and graphs",
+      "displayTitle": "4.4 Cubic and modulus graph sketches"
+    },
+    {
+      "code": "4.5",
+      "official_statement": "Solve graphically cubic inequalities of the form • f( x ) ⩾ d • f( x ) > d • f( x ) ⩽ d • f( x ) < d where f( x ) is a product of three linear factors and d is a constant.",
+      "topic_number": 4,
+      "title": "Cubic inequalities",
+      "topic": "Equations, inequalities and graphs",
+      "displayTitle": "4.5 Cubic inequalities"
+    },
+    {
+      "code": "5.1",
+      "official_statement": "Solve simultaneous equations in two unknowns by elimination or substitution.",
+      "topic_number": 5,
+      "title": "Solving simultaneous equations",
+      "topic": "Simultaneous equations",
+      "displayTitle": "5.1 Solving simultaneous equations"
+    },
+    {
+      "code": "6.1",
+      "official_statement": "Know and use simple properties and graphs of the logarithmic and exponential functions, x including ln x and e.",
+      "topic_number": 6,
+      "title": "Logarithmic and exponential graphs",
+      "topic": "Logarithmic and exponential functions",
+      "displayTitle": "6.1 Logarithmic and exponential graphs"
+    },
+    {
+      "code": "6.2",
+      "official_statement": "Know and use the laws of logarithms, including change of base of logarithms.",
+      "topic_number": 6,
+      "title": "Laws of logarithms and change of base",
+      "topic": "Logarithmic and exponential functions",
+      "displayTitle": "6.2 Laws of logarithms and change of base"
+    },
+    {
+      "code": "6.3",
+      "official_statement": "Solve equations of the form a = b.",
+      "topic_number": 6,
+      "title": "Solving exponential equations",
+      "topic": "Logarithmic and exponential functions",
+      "displayTitle": "6.3 Solving exponential equations"
+    },
+    {
+      "code": "7.1",
+      "official_statement": "Use the equation of a straight line.",
+      "topic_number": 7,
+      "title": "Equations of straight lines",
+      "topic": "Straight-line graphs",
+      "displayTitle": "7.1 Equations of straight lines"
+    },
+    {
+      "code": "7.2",
+      "official_statement": "Know and use the condition for two lines to be parallel or perpendicular.",
+      "topic_number": 7,
+      "title": "Parallel and perpendicular lines",
+      "topic": "Straight-line graphs",
+      "displayTitle": "7.2 Parallel and perpendicular lines"
+    },
+    {
+      "code": "7.3",
+      "official_statement": "Solve problems involving midpoint and length of a line, including finding and using the equation of a perpendicular bisector.",
+      "topic_number": 7,
+      "title": "Midpoints, distances and perpendicular bisectors",
+      "topic": "Straight-line graphs",
+      "displayTitle": "7.3 Midpoints, distances and perpendicular bisectors"
+    },
+    {
+      "code": "7.4",
+      "official_statement": "Transform given relationships to and from straight-line form, including determining unknown constants by calculating the gradient or intercept of the transformed graph.",
+      "topic_number": 7,
+      "title": "Transformations to straight-line form",
+      "topic": "Straight-line graphs",
+      "displayTitle": "7.4 Transformations to straight-line form"
+    },
+    {
+      "code": "8.1",
+      "official_statement": "Know and use the equation of a circle with radius r and centre ( a, b ).",
+      "topic_number": 8,
+      "title": "Equations of circles",
+      "topic": "Coordinate geometry of the circle",
+      "displayTitle": "8.1 Equations of circles"
+    },
+    {
+      "code": "8.2",
+      "official_statement": "Solve problems involving the intersection of a circle and a straight line.",
+      "topic_number": 8,
+      "title": "Circle–line intersections",
+      "topic": "Coordinate geometry of the circle",
+      "displayTitle": "8.2 Circle–line intersections"
+    },
+    {
+      "code": "8.3",
+      "official_statement": "Solve problems involving tangents to a circle.",
+      "topic_number": 8,
+      "title": "Tangents to circles",
+      "topic": "Coordinate geometry of the circle",
+      "displayTitle": "8.3 Tangents to circles"
+    },
+    {
+      "code": "8.4",
+      "official_statement": "Solve problems involving the intersection of two circles.",
+      "topic_number": 8,
+      "title": "Intersections of two circles",
+      "topic": "Coordinate geometry of the circle",
+      "displayTitle": "8.4 Intersections of two circles"
+    },
+    {
+      "code": "9.1",
+      "official_statement": "Solve problems involving the arc length and sector area of a circle, including knowledge and use of radian measure.",
+      "topic_number": 9,
+      "title": "Radians, arc lengths and sector areas",
+      "topic": "Circular measure",
+      "displayTitle": "9.1 Radians, arc lengths and sector areas"
+    },
+    {
+      "code": "10.1",
+      "official_statement": "Know and use the six trigonometric functions of angles of any magnitude.",
+      "topic_number": 10,
+      "title": "Six trigonometric functions",
+      "topic": "Trigonometry",
+      "displayTitle": "10.1 Six trigonometric functions"
+    },
+    {
+      "code": "10.2",
+      "official_statement": "Understand and use the amplitude and period of a trigonometric function, including the relationship between graphs of related trigonometric functions.",
+      "topic_number": 10,
+      "title": "Amplitude and period",
+      "topic": "Trigonometry",
+      "displayTitle": "10.2 Amplitude and period"
+    },
+    {
+      "code": "10.3",
+      "official_statement": "Draw and use the graphs of y = a sin bx + c y = a cos bx + c y = a tan bx + c where a is a positive integer, b is a simple fraction or integer, and c is an integer.",
+      "topic_number": 10,
+      "title": "Trigonometric graph sketches",
+      "topic": "Trigonometry",
+      "displayTitle": "10.3 Trigonometric graph sketches"
+    },
+    {
+      "code": "10.4",
+      "official_statement": "Use the relationships: • sin² A + cos² A = 1 • sec² A = 1 + tan² A • cosec² A = 1 + cot² A",
+      "topic_number": 10,
+      "title": "Trigonometric identities",
+      "topic": "Trigonometry",
+      "displayTitle": "10.4 Trigonometric identities"
+    },
+    {
+      "code": "10.5",
+      "official_statement": "Solve, for a given domain, trigonometric equations involving the six trigonometric functions.",
+      "topic_number": 10,
+      "title": "Trigonometric equations",
+      "topic": "Trigonometry",
+      "displayTitle": "10.5 Trigonometric equations"
+    },
+    {
+      "code": "10.6",
+      "official_statement": "Prove trigonometric relationships involving the six trigonometric functions.",
+      "topic_number": 10,
+      "title": "Proving trigonometric relationships",
+      "topic": "Trigonometry",
+      "displayTitle": "10.6 Proving trigonometric relationships"
+    },
+    {
+      "code": "11.1",
+      "official_statement": "Recognise the difference between permutations and combinations and know when each should be used.",
+      "topic_number": 11,
+      "title": "Permutations versus combinations",
+      "topic": "Permutations and combinations",
+      "displayTitle": "11.1 Permutations versus combinations"
+    },
+    {
+      "code": "11.2",
+      "official_statement": "Know and use the notation n ! and the expressions for permutations and combinations of n items taken r at a time.",
+      "topic_number": 11,
+      "title": "Factorial and arrangement notation",
+      "topic": "Permutations and combinations",
+      "displayTitle": "11.2 Factorial and arrangement notation"
+    },
+    {
+      "code": "11.3",
+      "official_statement": "Solve problems on arrangement and selection using permutations or combinations.",
+      "topic_number": 11,
+      "title": "Arrangement and selection problems",
+      "topic": "Permutations and combinations",
+      "displayTitle": "11.3 Arrangement and selection problems"
+    },
+    {
+      "code": "12.1",
+      "official_statement": "Use the binomial theorem for expansion of n ( a + b ) for positive integer n.",
+      "topic_number": 12,
+      "title": "Binomial expansions",
+      "topic": "Series",
+      "displayTitle": "12.1 Binomial expansions"
+    },
+    {
+      "code": "12.2",
+      "official_statement": "Use the general term J N n n–r r K O a b, 0 ⩽ r ⩽ n. K O r L P",
+      "topic_number": 12,
+      "title": "General term of a binomial expansion",
+      "topic": "Series",
+      "displayTitle": "12.2 General term of a binomial expansion"
+    },
+    {
+      "code": "12.3",
+      "official_statement": "Recognise arithmetic and geometric progressions and understand the difference between them.",
+      "topic_number": 12,
+      "title": "Recognising arithmetic and geometric progressions",
+      "topic": "Series",
+      "displayTitle": "12.3 Recognising arithmetic and geometric progressions"
+    },
+    {
+      "code": "12.4",
+      "official_statement": "Use the formulas for the n th term and for the sum of the first n terms to solve problems involving arithmetic or geometric progressions.",
+      "topic_number": 12,
+      "title": "Progression terms and finite sums",
+      "topic": "Series",
+      "displayTitle": "12.4 Progression terms and finite sums"
+    },
+    {
+      "code": "12.5",
+      "official_statement": "Use the condition for the convergence of a geometric progression, and the formula for the sum to infinity of a convergent geometric progression.",
+      "topic_number": 12,
+      "title": "Convergence and infinite geometric sums",
+      "topic": "Series",
+      "displayTitle": "12.5 Convergence and infinite geometric sums"
+    },
+    {
+      "code": "13.1",
+      "official_statement": "Understand and use vector notation.",
+      "topic_number": 13,
+      "title": "Vector notation",
+      "topic": "Vectors in two dimensions",
+      "displayTitle": "13.1 Vector notation"
+    },
+    {
+      "code": "13.2",
+      "official_statement": "Know and use position vectors and unit vectors.",
+      "topic_number": 13,
+      "title": "Position vectors and unit vectors",
+      "topic": "Vectors in two dimensions",
+      "displayTitle": "13.2 Position vectors and unit vectors"
+    },
+    {
+      "code": "13.3",
+      "official_statement": "Find the magnitude of a vector; add and subtract vectors and multiply vectors by scalars.",
+      "topic_number": 13,
+      "title": "Vector magnitudes and operations",
+      "topic": "Vectors in two dimensions",
+      "displayTitle": "13.3 Vector magnitudes and operations"
+    },
+    {
+      "code": "13.4",
+      "official_statement": "Compose and resolve velocities.",
+      "topic_number": 13,
+      "title": "Velocity vectors and relative motion",
+      "topic": "Vectors in two dimensions",
+      "displayTitle": "13.4 Velocity vectors and relative motion"
+    },
+    {
+      "code": "14.1",
+      "official_statement": "Understand the idea of a derived function.",
+      "topic_number": 14,
+      "title": "Derived functions",
+      "topic": "Calculus",
+      "displayTitle": "14.1 Derived functions"
+    },
+    {
+      "code": "14.2",
+      "official_statement": "Use the notations R V 2 J NW S d d y y d y d KK OOW f′( x ), f″( x ),, S= 2 S d d x x W d x d x L P T X d y δ x, δ x → 0,. d x",
+      "topic_number": 14,
+      "title": "Derivative notation",
+      "topic": "Calculus",
+      "displayTitle": "14.2 Derivative notation"
+    },
+    {
+      "code": "14.3",
+      "official_statement": "Know and use the derivatives of the standard n functions x (for any rational n ), sin x, cos x, x tan x, e, ln x.",
+      "topic_number": 14,
+      "title": "Derivatives of standard and composite functions",
+      "topic": "Calculus",
+      "displayTitle": "14.3 Derivatives of standard and composite functions"
+    },
+    {
+      "code": "14.4",
+      "official_statement": "Differentiate products and quotients of functions.",
+      "topic_number": 14,
+      "title": "Product and quotient rules",
+      "topic": "Calculus",
+      "displayTitle": "14.4 Product and quotient rules"
+    },
+    {
+      "code": "14.5",
+      "official_statement": "Use differentiation to find gradients, tangents and normals.",
+      "topic_number": 14,
+      "title": "Gradients, tangents and normals",
+      "topic": "Calculus",
+      "displayTitle": "14.5 Gradients, tangents and normals"
+    },
+    {
+      "code": "14.6",
+      "official_statement": "Use differentiation to find stationary points.",
+      "topic_number": 14,
+      "title": "Stationary points",
+      "topic": "Calculus",
+      "displayTitle": "14.6 Stationary points"
+    },
+    {
+      "code": "14.7",
+      "official_statement": "Apply differentiation to connected rates of change, small increments and approximations.",
+      "topic_number": 14,
+      "title": "Connected rates, increments and approximations",
+      "topic": "Calculus",
+      "displayTitle": "14.7 Connected rates, increments and approximations"
+    },
+    {
+      "code": "14.8",
+      "official_statement": "Apply differentiation to practical problems involving maxima and minima.",
+      "topic_number": 14,
+      "title": "Optimisation problems",
+      "topic": "Calculus",
+      "displayTitle": "14.8 Optimisation problems"
+    },
+    {
+      "code": "14.9",
+      "official_statement": "Use the first and second derivative tests to discriminate between maxima and minima.",
+      "topic_number": 14,
+      "title": "First and second derivative tests",
+      "topic": "Calculus",
+      "displayTitle": "14.9 First and second derivative tests"
+    },
+    {
+      "code": "14.10",
+      "official_statement": "Understand integration as the reverse process of differentiation.",
+      "topic_number": 14,
+      "title": "Integration as reverse differentiation",
+      "topic": "Calculus",
+      "displayTitle": "14.10 Integration as reverse differentiation"
+    },
+    {
+      "code": "14.11",
+      "official_statement": "Integrate sums of terms in powers of x, 1 1 including and. x + ax b",
+      "topic_number": 14,
+      "title": "Integrating powers and reciprocal functions",
+      "topic": "Calculus",
+      "displayTitle": "14.11 Integrating powers and reciprocal functions"
+    },
+    {
+      "code": "14.12",
+      "official_statement": "Integrate functions of the form: n • ( ax + b ) for any rational n • sin ( ax + b ) • cos ( ax + b ) 2 • sec ( ax + b ) ax + b • e",
+      "topic_number": 14,
+      "title": "Integrating linear-argument functions",
+      "topic": "Calculus",
+      "displayTitle": "14.12 Integrating linear-argument functions"
+    },
+    {
+      "code": "14.13",
+      "official_statement": "Evaluate definite integrals and apply integration to the evaluation of plane areas.",
+      "topic_number": 14,
+      "title": "Definite integrals and areas",
+      "topic": "Calculus",
+      "displayTitle": "14.13 Definite integrals and areas"
+    },
+    {
+      "code": "14.14",
+      "official_statement": "Apply differentiation and integration to kinematics problems that involve displacement, velocity and acceleration of a particle moving in a straight line with variable or constant acceleration.",
+      "topic_number": 14,
+      "title": "Calculus in kinematics",
+      "topic": "Calculus",
+      "displayTitle": "14.14 Calculus in kinematics"
+    },
+    {
+      "code": "14.15",
+      "official_statement": "Make use of the relationships in 14.14 to draw and use the following graphs: • displacement–time • distance–time • velocity–time • speed–time • acceleration–time.",
+      "topic_number": 14,
+      "title": "Kinematics graph interpretation",
+      "topic": "Calculus",
+      "displayTitle": "14.15 Kinematics graph interpretation"
+    }
+  ]
+}
