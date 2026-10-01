@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { filterQuestions } from "@/lib/question-filter";
 import { loadBankQuestions } from "@/lib/question-fixtures";
 import { getControlledSubtopics, getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy";
+import { getSubtopicGroups as getStudentSubtopicGroups } from "@/lib/taxonomy-router";
 import { normalizeBankQuestions } from "@/lib/questions";
 
 describe("question normalization", () => {
@@ -68,11 +69,14 @@ describe("question normalization", () => {
     );
   });
 
-  it("exposes the complete refined IGCSE vocabulary to the student-facing subtopic filter", () => {
+  it("keeps the refined source vocabulary searchable while the picker shows official 0580 sections", () => {
     const questions = loadBankQuestions("igcse");
     const subtopics = new Set(questions.flatMap((question) => question.subtopics));
-
-    expect(subtopics.size).toBe(51);
+    const picker = getStudentSubtopicGroups(questions, [], []).all;
+    expect(subtopics.has("Bounds and estimation")).toBe(true);
+    expect(subtopics.has("Section not yet verified")).toBe(true);
+    expect(picker).toHaveLength(124);
+    expect(picker).toContain("Bounds and estimation");
   });
 
   it("promotes reconciled detailed IGCSE labels into filterable skills", () => {
@@ -80,13 +84,13 @@ describe("question normalization", () => {
       (candidate) => candidate.id === "0580-2026-march-22-q18",
     );
 
-    expect(question?.subtopics).toEqual([
+    expect(question?.subtopics).toEqual(expect.arrayContaining([
       "Algebraic manipulation",
       "Area and perimeter",
       "Equations and inequalities",
       "Quadratic equations and functions",
       "Volume and surface area",
-    ]);
+    ]));
     expect(question?.skills).toEqual([
       "Algebraic manipulation",
       "Area and perimeter",

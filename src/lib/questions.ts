@@ -16,6 +16,7 @@ import { project0610Sections } from "@/lib/igcse-0610-official.mjs";
 import { project0654Sections } from "@/lib/igcse-0654-official.mjs";
 import { project0625Sections } from "@/lib/igcse-0625-official.mjs";
 import { project0620Sections } from "@/lib/igcse-0620-official.mjs";
+import { project0580Sections } from "@/lib/igcse-0580-official.mjs";
 
 const GRANULAR_LABELS = new Map<string, string[]>();
 const overlayBankForSlug = (slug: string) => ({
@@ -224,10 +225,11 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
   const coordinated = slug === "igcse-coordinated-sciences-0654" ? project0654Sections(raw) : null;
   const physics0625 = slug === "igcse-physics-0625" ? project0625Sections(raw) : null;
   const chemistry0620 = slug === "igcse-chemistry-0620" ? project0620Sections(raw) : null;
-  const primaryTopic = aa?.primaryTopic ?? biology?.primaryTopic ?? chemistry0620?.primaryTopic ?? physics0625?.primaryTopic ?? coordinated?.primaryTopic ?? igcseBiology?.primaryTopic ?? additional?.primaryTopic ?? (text(raw.primaryTopic) || "Other");
-  const secondaryTopics = aa?.secondaryTopics ?? biology?.secondaryTopics ?? chemistry0620?.secondaryTopics ?? physics0625?.secondaryTopics ?? coordinated?.secondaryTopics ?? igcseBiology?.secondaryTopics ?? additional?.secondaryTopics ?? strings(raw.secondaryTopics);
+  const math0580 = slug === "igcse" ? project0580Sections(raw) : null;
+  const primaryTopic = aa?.primaryTopic ?? biology?.primaryTopic ?? math0580?.primaryTopic ?? chemistry0620?.primaryTopic ?? physics0625?.primaryTopic ?? coordinated?.primaryTopic ?? igcseBiology?.primaryTopic ?? additional?.primaryTopic ?? (text(raw.primaryTopic) || "Other");
+  const secondaryTopics = aa?.secondaryTopics ?? biology?.secondaryTopics ?? math0580?.secondaryTopics ?? chemistry0620?.secondaryTopics ?? physics0625?.secondaryTopics ?? coordinated?.secondaryTopics ?? igcseBiology?.secondaryTopics ?? additional?.secondaryTopics ?? strings(raw.secondaryTopics);
   const controlledSkills = aa?.skills ?? biology?.skills ?? strings(raw.skills);
-  const studentSubtopics = aa?.subtopics ?? biology?.subtopics ?? chemistry0620?.subtopics ?? physics0625?.subtopics ?? coordinated?.subtopics ?? igcseBiology?.subtopics ?? economics0455?.subtopics ?? additionalSections?.subtopics ?? strings(raw.subtopics);
+  const studentSubtopics = aa?.subtopics ?? biology?.subtopics ?? math0580?.subtopics ?? chemistry0620?.subtopics ?? physics0625?.subtopics ?? coordinated?.subtopics ?? igcseBiology?.subtopics ?? economics0455?.subtopics ?? additionalSections?.subtopics ?? strings(raw.subtopics);
   const secondarySubtopics = biology ? biology.subtopics.slice(1) : strings(raw.secondarySubtopics);
   const detailedSubtopics = strings(raw.detailedSubtopics);
   const subtopics = Array.from(new Set(
@@ -248,6 +250,8 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
       : subtopics;
   const skills = aa || biology ? [] : isLocalEconomicsBank(slug)
     ? Array.from(new Set(controlledSkills))
+    : math0580
+      ? Array.from(new Set([...controlledSkills, ...detailedSubtopics, ...strings(raw.subtopics), ...strings(raw.secondarySubtopics)]))
     : Array.from(new Set([
       ...skillSeed,
       ...controlledSkills,
@@ -296,7 +300,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     subtopics,
     secondarySubtopics,
     granularLabels: aa || biology ? [] : GRANULAR_LABELS.get(`${overlayBankForSlug(slug)}:${text(raw.id)}`) ?? [],
-    officialCodeRefs: biology ? biology.record.officialCodes : chemistry0620?.codeRefs ?? physics0625?.codeRefs ?? coordinated?.codeRefs ?? igcseBiology?.codeRefs ?? economics0455?.codeRefs ?? additionalSections?.codeRefs ?? strings(raw.officialCodeRefs),
+    officialCodeRefs: biology ? biology.record.officialCodes : math0580?.codeRefs ?? chemistry0620?.codeRefs ?? physics0625?.codeRefs ?? coordinated?.codeRefs ?? igcseBiology?.codeRefs ?? economics0455?.codeRefs ?? additionalSections?.codeRefs ?? strings(raw.officialCodeRefs),
     retrievalFacets: strings(raw.retrievalFacets),
     classificationProvenance: aa?.provenance ?? biology?.provenance,
     subject: text(raw.subject) || text(raw.course),

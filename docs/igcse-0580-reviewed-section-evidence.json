@@ -1,0 +1,300 @@
+{
+  "schema": "igcse-0580-reviewed-section-evidence-v1",
+  "officialSyllabusSha256": "627f8e5dab21605f95b9aceec4a2dcdddf91dce5767d6938d647b38041c6d363",
+  "scope": "25 exact printed-question/QP-MS source decisions, not a bulk model output or representative full-bank assurance; source labels untouched. Original working receipts in Hermes scratch are frozen by receipt hashes below.",
+  "receiptHashes": {
+    "round2-parent-accepted.json": "ad8ed6e2881ff2cf124610aa97fcbc41a776fe906df5367a58ee80413f089cb1",
+    "round3-parent-accepted-extra.json": "b7353ea548de0ad3d74bb03616cf9edaa43c9d8fbf9265a904a8f10f3f6126c3",
+    "round4-current-nine-parent-source-reviewed.json": "1b005faf8a401d0b923e915731ad4e3b36dfd9b2f3f53618109bba28c6703d84",
+    "round4-batch2-blind.json": "bc754a452b9b45b069ae3dd58f50ede70cf02ed75c22059b7295e8e13bfaacd9",
+    "round4-batch3-blind.json": "ce94cfb8c2f4a4fc8dbc15ad8071f1b2f7d120f7bb62dd8aa928d39bfd75e11c",
+    "round4-blind-aggregate-validation.json": "48d53fa299fe14ff0b3dda213ec200ab0b9ebcfea7326164dcf2fa26dc9e624b",
+    "round4-batch2-q21-parent-adjudication.json": "86defe0791ce53ef9ae07b3b3805e6038f05003d1a0ce5adfee3b11bf474a6b1"
+  },
+  "rows": [
+    {
+      "id": "0580-2017-november-23-q4",
+      "primaryCode": "E4.5",
+      "secondaryCodes": [],
+      "primaryTitle": "Symmetry",
+      "primaryTopic": "Geometry",
+      "sourceFile": "round3-parent-accepted-extra.json",
+      "evidence": "The applicable 2017 syllabus E3.5 and current E4.5 both name line and rotational symmetry of quadrilaterals. The printed Q4 describes one line/no rotational symmetry; keyed MS says Kite. Era-qualified addresses differ.",
+      "qpSha256": "6b26d89ba8db3765afad876f9d8b56318f6fd4b2a2813deea7f0d341a5def9e5",
+      "msSha256": "0d860f4599dda0257cdc4ff27fdbb0c8e85e1b9752bd4f2841137e02fc47038a"
+    },
+    {
+      "id": "0580-2022-june-13-q22",
+      "primaryCode": "C1.6",
+      "secondaryCodes": [
+        "C1.4"
+      ],
+      "primaryTitle": "The four operations",
+      "primaryTopic": "Number",
+      "sourceFile": "round2-parent-accepted.json",
+      "evidence": "Printed Core Q22 asks 4 1/6 − 1 7/8 without a calculator, with working and a simplified mixed-number answer. Matching 0580/13 May/June 2022 MS Q22 awards B1 for mixed-number handling, M1 for common denominator and A1 for 2 7/24. C1.6 explicitly covers arithmetic with fractions and mixed numbers (dominant operation); C1.4 covers mixed-number notation/conversion and simplest form (secondary). QP/MS page images visually checked.",
+      "qpSha256": "7e3e01e26e37c86bc6f5d987fd566a519aab4ce5778c14d991574162399da0d4",
+      "msSha256": "4d0b168a46a2f6cd9a437f430bbaf2d6eb044cb78c2fb7dff17396eb58d5b809"
+    },
+    {
+      "id": "0580-2022-june-23-q5",
+      "primaryCode": "E2.7",
+      "secondaryCodes": [],
+      "primaryTitle": "Sequences",
+      "primaryTopic": "Algebra and graphs",
+      "sourceFile": "round3-parent-accepted-extra.json",
+      "evidence": "Both applicable-era E2.7 and current E2.7 explicitly assess use of an nth term; the printed Q5 asks substitution into n²−1 and the keyed MS gives 0, 3, 8.",
+      "qpSha256": "3389a7ebdf2cb50a4e2b94df989d64cc2d779f8134fd256c890bacc3aee99de6",
+      "msSha256": "4039e815058b633ca3d869cd80593033b86057e8120e001b7729afa582731d35"
+    },
+    {
+      "id": "0580-2022-november-13-q14",
+      "primaryCode": "C3.5",
+      "secondaryCodes": [],
+      "primaryTitle": "Equations of linear graphs",
+      "primaryTopic": "Coordinate geometry",
+      "sourceFile": "round2-parent-accepted.json",
+      "evidence": "Printed Q14 asks why pictured line cannot have y=x+2; keyed MS awards 1 mark because its y-intercept is below zero. C3.5 explicitly covers interpreting y=mx+c and the y-intercept. Visual graph is decisive.",
+      "qpSha256": "2bc3245cca86537ba7aa9db273b27926014af7f0e3f3788ccf7317bcc3390680",
+      "msSha256": "42dfe03eba048468774f663aa268007733b04f5ad2e35d87a8020941277d430b"
+    },
+    {
+      "id": "0580-2024-march-22-q7",
+      "primaryCode": "E9.5",
+      "secondaryCodes": [],
+      "primaryTitle": "Scatter diagrams",
+      "primaryTopic": "Statistics",
+      "sourceFile": "round3-parent-accepted-extra.json",
+      "evidence": "The old syllabus E9.7 and current E9.5 both explicitly require understanding positive/negative/zero correlation; the printed Q7 asks positive correlation and keyed MS awards one mark for Positive.",
+      "qpSha256": "806bf89c5e4140980ad333fec329ebe33f82861f346bdc9c0213cf3fe05d29a1",
+      "msSha256": "ff18bceb62c190f45474aa32943a950c3ba5311bc7c00044f5ac162a3e4ef204"
+    },
+    {
+      "id": "0580-2025-june-12-q16",
+      "primaryCode": "C7.1",
+      "secondaryCodes": [
+        "C5.2",
+        "C3.1"
+      ],
+      "primaryTitle": "Transformations",
+      "primaryTopic": "Transformations and vectors",
+      "sourceFile": "round4-batch3-blind.json",
+      "evidence": "Transformation parts total 9 marks (translation 1, reflection 2, enlargement 3, rotation 3), exceeding the one-mark area and coordinate reads. Dominant 7.1; area and coordinate reading are independently keyed marks and retained as secondaries.",
+      "qpSha256": "316d718d1182c02a1082aa38e17bb8906c49310542a12ff6f2e878c9845db49d",
+      "msSha256": "776cddbd94cbfea629e270da0f7e437e695092b1b5b6d6c88771d61a213e91fa"
+    },
+    {
+      "id": "0580-2025-june-23-q1",
+      "primaryCode": "E8.1",
+      "secondaryCodes": [],
+      "primaryTitle": "Introduction to probability",
+      "primaryTopic": "Probability",
+      "sourceFile": "round4-current-nine-parent-source-reviewed.json",
+      "evidence": "Explicit §8.1 bullet 4: P(not A)=1−P(A).",
+      "qpSha256": "6b68a6ccc55acafe57f925885c78b63b490031f44be6d3568ff1d2992e8eaac7",
+      "msSha256": "141e42cefc2ac4a839d1717465bfc5f015e8e93f4cdccf3870be9610c20e6b0c"
+    },
+    {
+      "id": "0580-2025-june-23-q4",
+      "primaryCode": "E9.5",
+      "secondaryCodes": [],
+      "primaryTitle": "Scatter diagrams",
+      "primaryTopic": "Statistics",
+      "sourceFile": "round4-current-nine-parent-source-reviewed.json",
+      "evidence": "Explicit §9.5 bullet 2: positive correlation, even without a plotted chart.",
+      "qpSha256": "6b68a6ccc55acafe57f925885c78b63b490031f44be6d3568ff1d2992e8eaac7",
+      "msSha256": "141e42cefc2ac4a839d1717465bfc5f015e8e93f4cdccf3870be9610c20e6b0c"
+    },
+    {
+      "id": "0580-2025-june-31-q26",
+      "primaryCode": "C1.2",
+      "secondaryCodes": [],
+      "primaryTitle": "Sets",
+      "primaryTopic": "Number",
+      "sourceFile": "round4-batch2-blind.json",
+      "evidence": "All four marks concern representing/interpreting a two-set Venn diagram and set cardinality; no material secondary syllabus section.",
+      "qpSha256": "6073d96f01f9a2b0f3f1787e6171079befd875f7d8c335465727aaacaa180520",
+      "msSha256": "f7fb1dd84690e918e1cd750037fe3a524ff849275cc993f568053f7f8f7bb40c"
+    },
+    {
+      "id": "0580-2025-june-41-q19",
+      "primaryCode": "E5.3",
+      "secondaryCodes": [],
+      "primaryTitle": "Circles, arcs and sectors",
+      "primaryTopic": "Mensuration",
+      "sourceFile": "round4-batch3-blind.json",
+      "evidence": "The keyed method applies the major-sector arc fraction and adds the two radii; the assessed operation is wholly section 5.3.",
+      "qpSha256": "163c879d2a4c9f332adf54f63550416b889dc792a610d4d22784282e35a40430",
+      "msSha256": "1e86cdda6ed9d63f18b2840c5904548677749a6dc7f7278e24473f6d11115c14"
+    },
+    {
+      "id": "0580-2025-march-42-q7",
+      "primaryCode": "E9.5",
+      "secondaryCodes": [],
+      "primaryTitle": "Scatter diagrams",
+      "primaryTopic": "Statistics",
+      "sourceFile": "round4-batch3-blind.json",
+      "evidence": "All five keyed marks are plotting/interpreting/using a scatter diagram; estimation is explicitly taken from the best-fit line, not a separate rates/averages skill.",
+      "qpSha256": "854260a61df8fb8208f3f13c298f6dbd13ba43ea5b2b0a0e7816e178a86b5344",
+      "msSha256": "b85a4bc3d40d803c74db2c5b94e4e6929990432915724e1dd9359dd7b040f2eb"
+    },
+    {
+      "id": "0580-2025-november-13-q19",
+      "primaryCode": "C4.6",
+      "secondaryCodes": [],
+      "primaryTitle": "Angles",
+      "primaryTopic": "Geometry",
+      "sourceFile": "round2-parent-accepted.json",
+      "evidence": "Printed Q19 asks for number of sides of a regular polygon with interior angle 160°; keyed MS awards 2 marks with 360/(180−160) method. C4.6 explicitly includes angle properties of regular polygons.",
+      "qpSha256": "d8d46d62d7cff14225c3b76143182ad0e4bcb057d17185de6c0a64506ed907d6",
+      "msSha256": "097ae6ee70899c5d408b7c11d431fd4425e4c6223154f7e316fd5d1013a9e2d3"
+    },
+    {
+      "id": "0580-2025-november-13-q21",
+      "primaryCode": "C2.7",
+      "secondaryCodes": [],
+      "primaryTitle": "Sequences",
+      "primaryTopic": "Algebra and graphs",
+      "sourceFile": "round2-parent-accepted.json",
+      "evidence": "Printed Q21 asks next term, term-to-term rule, nth term and membership for −6, 1, 8, 15; keyed MS awards 1+1+2+2 marks for those operations. C2.7 explicitly covers continuing patterns, term-to-term rule and nth term.",
+      "qpSha256": "d8d46d62d7cff14225c3b76143182ad0e4bcb057d17185de6c0a64506ed907d6",
+      "msSha256": "097ae6ee70899c5d408b7c11d431fd4425e4c6223154f7e316fd5d1013a9e2d3"
+    },
+    {
+      "id": "0580-2025-november-13-q23",
+      "primaryCode": "C1.2",
+      "secondaryCodes": [],
+      "primaryTitle": "Sets",
+      "primaryTopic": "Number",
+      "sourceFile": "round4-batch2-blind.json",
+      "evidence": "Every part assesses set notation, Venn representation, or cardinality. The visual source contains the shaded overlap in (a) and two-circle diagram in (b); scheme gives A∩B, places 14 and 6, then n(T complement)=40.",
+      "qpSha256": "d8d46d62d7cff14225c3b76143182ad0e4bcb057d17185de6c0a64506ed907d6",
+      "msSha256": "097ae6ee70899c5d408b7c11d431fd4425e4c6223154f7e316fd5d1013a9e2d3"
+    },
+    {
+      "id": "0580-2025-november-33-q21",
+      "primaryCode": "C7.1",
+      "secondaryCodes": [],
+      "primaryTitle": "Transformations",
+      "primaryTopic": "Transformations and vectors",
+      "sourceFile": "round4-batch2-q21-parent-adjudication.json",
+      "evidence": "Paper 33 is Core (not Extended). Official C7.1 Transformations explicitly lists 90° rotation and reflection in a horizontal line; E4.4 is Similarity, not Transformations. Parent reopened exact QP PDF page 11 and keyed MS PDF page 9 and verified both parts/marks. Independent reviewer code and tier were invalid, so this is parent-adjudicated, not independent accepted.",
+      "qpSha256": "1952bbdda9f5c1de040de0ca48d41c7dc4dc6409246723a58306c5437152f53c",
+      "msSha256": "ba5ca3d9f03b264240b0520749ce78f7c782956c5edaea5a2026500dcf82f2d3"
+    },
+    {
+      "id": "0580-2025-november-33-q29",
+      "primaryCode": "C4.4",
+      "secondaryCodes": [
+        "C6.2"
+      ],
+      "primaryTitle": "Similarity",
+      "primaryTopic": "Geometry",
+      "sourceFile": "round4-batch3-blind.json",
+      "evidence": "Per-part marks tie 2–2; earliest printed part breaks the tie, so 4.4 Similarity is dominant. 6.2 is a genuinely marked second skill, not merely a diagram feature.",
+      "qpSha256": "1952bbdda9f5c1de040de0ca48d41c7dc4dc6409246723a58306c5437152f53c",
+      "msSha256": "ba5ca3d9f03b264240b0520749ce78f7c782956c5edaea5a2026500dcf82f2d3"
+    },
+    {
+      "id": "0580-2025-november-42-q15",
+      "primaryCode": "E6.5",
+      "secondaryCodes": [
+        "E5.2"
+      ],
+      "primaryTitle": "Non-right-angled triangles",
+      "primaryTopic": "Trigonometry",
+      "sourceFile": "round4-batch3-blind.json",
+      "evidence": "The six marks in (a)–(b) directly assess cosine/sine rules in the printed non-right triangle, more than any other section. Part (c)'s four keyed marks use triangle/quadrilateral area and perpendicular height; retain 5.2 as a genuine secondary.",
+      "qpSha256": "8d0c2b7fb9511a0a15d7e89faddef2c536244b799ec00ce990889f2931aea90a",
+      "msSha256": "d9a55b066376b47b9faee2e31de8742f9344095543d00008ee96fc329e83720f"
+    },
+    {
+      "id": "0580-2026-june-21-q12",
+      "primaryCode": "E3.3",
+      "secondaryCodes": [],
+      "primaryTitle": "Gradient of linear graphs",
+      "primaryTopic": "Coordinate geometry",
+      "sourceFile": "round4-current-nine-parent-source-reviewed.json",
+      "evidence": "Explicit §3.3 bullet 2: gradient from coordinates of two points.",
+      "qpSha256": "19418a4eac89a05368c68ce11ab55180f57c48704e45b5e2cf33215132bd7a67",
+      "msSha256": "5ea5822fba5cb287e3e6c02807c93830dbec7e52f9050af0b6c60671cf52c59d"
+    },
+    {
+      "id": "0580-2026-june-21-q18",
+      "primaryCode": "E6.3",
+      "secondaryCodes": [],
+      "primaryTitle": "Exact trigonometric values",
+      "primaryTopic": "Trigonometry",
+      "sourceFile": "round4-current-nine-parent-source-reviewed.json",
+      "evidence": "Explicit §6.3 exact values of sin60 and tan30; product simplification subordinate.",
+      "qpSha256": "19418a4eac89a05368c68ce11ab55180f57c48704e45b5e2cf33215132bd7a67",
+      "msSha256": "5ea5822fba5cb287e3e6c02807c93830dbec7e52f9050af0b6c60671cf52c59d"
+    },
+    {
+      "id": "0580-2026-june-22-q11",
+      "primaryCode": "E4.6",
+      "secondaryCodes": [],
+      "primaryTitle": "Angles",
+      "primaryTopic": "Geometry",
+      "sourceFile": "round4-current-nine-parent-source-reviewed.json",
+      "evidence": "Explicit §4.6 bullet 3: angle properties of regular polygons.",
+      "qpSha256": "0c77fa36956d229cc802fccb801892f88ba2d755bbaa41f5d017bdc38bd1956e",
+      "msSha256": "c6170b529af3ac7b691041ef3c1c5724df31d7eb5b8a74b3ef18e814eb3de609"
+    },
+    {
+      "id": "0580-2026-june-22-q13",
+      "primaryCode": "E5.3",
+      "secondaryCodes": [],
+      "primaryTitle": "Circles, arcs and sectors",
+      "primaryTopic": "Mensuration",
+      "sourceFile": "round4-current-nine-parent-source-reviewed.json",
+      "evidence": "Explicit §5.3 bullet 2: arc length as fraction of circumference.",
+      "qpSha256": "0c77fa36956d229cc802fccb801892f88ba2d755bbaa41f5d017bdc38bd1956e",
+      "msSha256": "c6170b529af3ac7b691041ef3c1c5724df31d7eb5b8a74b3ef18e814eb3de609"
+    },
+    {
+      "id": "0580-2026-june-23-q10",
+      "primaryCode": "E7.2",
+      "secondaryCodes": [],
+      "primaryTitle": "Vectors in two dimensions",
+      "primaryTopic": "Transformations and vectors",
+      "sourceFile": "round4-current-nine-parent-source-reviewed.json",
+      "evidence": "Explicit §7.2 bullet 2 vector addition, without a figure/geometry proof.",
+      "qpSha256": "916539073cc9226f503260d2c1199d5d7405e9989b8e499b0a35226a6c59a6e5",
+      "msSha256": "9aa5bd742b93265c463820fb5f2e79b2e31124d3a150ace4134d27273a58eeb2"
+    },
+    {
+      "id": "0580-2026-june-23-q25",
+      "primaryCode": "E1.2",
+      "secondaryCodes": [],
+      "primaryTitle": "Sets",
+      "primaryTopic": "Number",
+      "sourceFile": "round4-batch3-blind.json",
+      "evidence": "All four keyed marks concern set membership, Venn regions, intersection/complement and cardinality; no other official section is independently credited.",
+      "qpSha256": "916539073cc9226f503260d2c1199d5d7405e9989b8e499b0a35226a6c59a6e5",
+      "msSha256": "9aa5bd742b93265c463820fb5f2e79b2e31124d3a150ace4134d27273a58eeb2"
+    },
+    {
+      "id": "0580-2026-march-22-q15",
+      "primaryCode": "E1.18",
+      "secondaryCodes": [],
+      "primaryTitle": "Surds",
+      "primaryTopic": "Number",
+      "sourceFile": "round4-current-nine-parent-source-reviewed.json",
+      "evidence": "Use and simplify surds; both terms reduce to multiples of √10.",
+      "qpSha256": "7c545b13dcd3c706eb385de945754c3d9995aea1c63f1b92a6eca6c250724932",
+      "msSha256": "c04bac0a0a26b27c94d8310449836d7fffadaa0463dcdf4d2f52afc6263117d9"
+    },
+    {
+      "id": "0580-2026-march-22-q4",
+      "primaryCode": "E2.2",
+      "secondaryCodes": [],
+      "primaryTitle": "Algebraic manipulation",
+      "primaryTopic": "Algebra and graphs",
+      "sourceFile": "round4-current-nine-parent-source-reviewed.json",
+      "evidence": "Algebraic expression multiplication and simplification, not a rule-of-indices question.",
+      "qpSha256": "7c545b13dcd3c706eb385de945754c3d9995aea1c63f1b92a6eca6c250724932",
+      "msSha256": "c04bac0a0a26b27c94d8310449836d7fffadaa0463dcdf4d2f52afc6263117d9"
+    }
+  ]
+}
