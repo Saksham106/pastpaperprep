@@ -5,6 +5,7 @@ import { getBank, type BankSlug } from "@/lib/banks";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { premiumAssetSignOptions, previewAssetSignOptions, signPrivateAssetUrls } from "@/lib/private-assets";
 import { getQuestionRichDetails } from "@/lib/question-delivery";
+import { reviewedBlankTailForSignedAsset } from "@/lib/reviewed-blank-tails";
 import { createClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
@@ -103,6 +104,7 @@ export async function POST(request: Request) {
         kind: item.kind,
         details: getQuestionRichDetails(item.question, entitlements),
         urls: item.paths.map((path) => urlByPath.get(path)),
+        displayCrops: item.paths.map((path) => reviewedBlankTailForSignedAsset(body.bank as BankSlug, item.questionId, item.kind, path)),
       })),
     }, PRIVATE_RESPONSE_INIT);
   } catch {
