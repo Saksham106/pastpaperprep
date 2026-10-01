@@ -42,6 +42,8 @@ describe("0606 additive source-backed subtopics", () => {
     expect(project0606Sections({ subtopics: ["Quadratic functions"], accessibleText: "(a) Solve the inequality x squared minus x greater than zero. [3] (b) Write down the equation of the tangent at the minimum point. [1]" }).codes).toEqual(["2.5"]);
     expect(project0606Sections({ subtopics: ["Coordinate geometry of the circle"], accessibleText: "A circle has equation x squared plus y squared equals 20. Write down the centre and radius. The line AB is a diameter. Find B." }).codes).toEqual(["8.1"]);
     expect(project0606Sections({ subtopics: ["Calculus"], accessibleText: "The curve has a maximum at B. Find the area of the region enclosed by the line AB and the curve." }).codes).toEqual(["14.13"]);
+    expect(project0606Sections({ subtopics: ["Coordinate geometry of the circle"], accessibleText: "Find the points where the circle meets the y-axis." }).codes).toEqual(["8.2"]);
+    expect(project0606Sections({ subtopics: ["Coordinate geometry of the circle"], accessibleText: "The circle meets the x-axis at a given point. Find its equation." }).codes).not.toContain("8.2");
   });
   it("makes existing differentiation/integration labels useful ordinary subtopics", () => {
     const rows = loadBankQuestions("igcse-additional");

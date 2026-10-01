@@ -50,7 +50,7 @@ const cues = [
   ["7.3", /midpoint|perpendicular bisector|length of (?:the )?line/i],
   ["7.4", /straight.line (?:form|graph)|linear form/i],
   ["8.1", /(?:find|determine|write down|state|calculate).{0,100}(?:centre|center|radius|equation of.{0,30}circle)/i],
-  ["8.2", /intersect.{0,100}(?:line|circle)|(?:line|circle).{0,100}intersect|chord/i],
+  ["8.2", /intersect.{0,100}(?:line|circle)|(?:line|circle).{0,100}intersect|\bchord\b|(?:find|determine|calculate).{0,100}(?:points|coordinates).{0,100}(?:meets|crosses).{0,80}(?:axis|axes|line)/i],
   ["8.3", /\btangent/i],
   ["8.4", /two circles|circles.*(?:intersect|touch)|common chord/i],
   ["10.2", /amplitude|period/i],
