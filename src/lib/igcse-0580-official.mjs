@@ -1,5 +1,15 @@
 import official from "../data/igcse-0580-official-2025.json" with { type: "json" };
 import reviewed from "../data/igcse-0580-reviewed-section-overlay.json" with { type: "json" };
+import modelOverlay from "../data/igcse-0580-calibrated-model-overlay.json" with { type: "json" };
+
+export const MATH_0580_MODEL_SOURCE_SHA256 = modelOverlay.sourceRawSha256;
+const modelById = new Map(modelOverlay.rows.map(row => [row.id, row]));
+if (modelById.size !== modelOverlay.rows.length || modelOverlay.model !== "typesafe/jev-1.13-20260917") throw new Error("0580 model overlay identity drift");
+function textFingerprint(text) {
+  let hash = 2166136261;
+  for (const byte of new TextEncoder().encode(text)) hash = Math.imul(hash ^ byte, 16777619) >>> 0;
+  return hash.toString(16);
+}
 
 export const MATH_0580_TOPICS = Object.freeze(official.topics.map((topic) => topic.title));
 export const MATH_0580_SECTIONS = Object.freeze(official.topics.flatMap((topic) => topic.sections.map((section) => ({
@@ -81,9 +91,9 @@ export function display0580Sections(refs) {
 
 /**
  * Topic ownership uses the existing controlled nine-topic source label.
- * Only exact, QP/MS-source-reviewed IDs get an official section address.
- * All other source classifications stay searchable and topic-retrievable,
- * with explicit section-review membership rather than an invented section.
+ * Reviewed overrides take precedence, then explicit crosswalk/operation rules,
+ * then the hash-pinned calibrated model subset. Retain original filters for all
+ * remaining rows; section coverage is not exhaustive accuracy certification.
  * @param {{id?:string,year?:number,component?:string,primaryTopic?:string,secondaryTopics?:string[],subtopics?:string[],skills?:string[],accessibleText?:string}} raw
  * @returns {{primaryTopic:string,secondaryTopics:string[],subtopics:string[],visibleTitles:string[],aliases:string[],codeRefs:string[],needsReview:boolean}}
  */
@@ -136,8 +146,23 @@ export function project0580Sections(raw) {
     sectionCodes.add(code);
   }
   const sections = [...sectionCodes].map(code => byTierCode.get(`${tier ?? ""}${code}`)).filter(Boolean);
+  const modelRow = modelById.get(raw.id);
+  if (modelRow && (raw.year !== modelRow.sourceYear || raw.component !== modelRow.sourceComponent
+    || raw.primaryTopic !== modelRow.sourcePrimaryTopic
+    || JSON.stringify(labels) !== JSON.stringify(modelRow.sourceSubtopics)
+    || textFingerprint(raw.accessibleText ?? "") !== modelRow.sourceTextFingerprint)) {
+    throw new Error(`0580 model input drift ${raw.id}`);
+  }
+  let usedModel = false;
+  if (!sections.length && modelRow) {
+    const selected = byTierCode.get(modelRow.primaryCode);
+    if (!selected || modelRow.primaryCode[0] !== tier || modelRow.confidence < modelOverlay.confidenceThreshold) throw new Error(`0580 invalid calibrated model row ${raw.id}`);
+    sections.push(selected);
+    usedModel = true;
+  }
   if (sections.length) {
     const codeRefs = sections.map(section => `current_2025:${tier}${section.code}`);
+    if (usedModel) codeRefs.push(`model_calibrated_2025:${modelRow.primaryCode}`);
     const visibleTitles = [...new Set(sections.map(section => section.displayTitle))];
       return {
         primaryTopic: raw.primaryTopic ?? "", secondaryTopics: [...new Set([...(raw.secondaryTopics ?? []), ...sections.map(section => section.topic)])].filter(topic => topic !== raw.primaryTopic),

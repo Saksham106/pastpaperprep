@@ -18,7 +18,7 @@ describe("0580 official topic-first section projection", () => {
     expect(new Set(questions.map((question) => question.id)).size).toBe(3967);
     const topics = getTopicOptions(questions);
     expect(topics.slice(0, 9)).toEqual(["Number", "Algebra and graphs", "Coordinate geometry", "Geometry", "Mensuration", "Trigonometry", "Transformations and vectors", "Probability", "Statistics"]);
-    expect(topics).toContain("Questions needing section review");
+    expect(topics).toHaveLength(9);
     const groups = getSubtopicGroups(questions, [], []);
     expect(groups.all).toHaveLength(124);
     expect(groups.all.slice(72, -1)).toHaveLength(51);
@@ -36,13 +36,14 @@ describe("0580 official topic-first section projection", () => {
     expect(questions.filter(question => question.officialCodeRefs?.some(ref => ref.startsWith("review_verified_2025:")))).toHaveLength(25);
     const surds = byId.get("0580-2026-march-22-q15")!;
     expect(surds.officialCodeRefs).toContain("current_2025:E1.18");
-    expect(displayedQuestionSubtopics(surds)).toEqual(["1.18 Surds"]);
+    expect(displayedQuestionSubtopics(surds)).toEqual(expect.arrayContaining(["1.18 Surds", ...(raw.find(row => row.id === surds.id)?.subtopics ?? [])]));
     expect(filterQuestions([...questions], { subtopics: ["1.18 Surds"] }).map((question) => question.id)).toContain(surds.id);
     expect(byId.get("0580-2025-june-23-q3")?.officialCodeRefs).toContain("current_2025:E4.5");
     const unreviewed = questions.find(question => question.subtopics.includes("Matrix operations and algebra"))!;
     expect(unreviewed.officialCodeRefs).toEqual(["review:section"]);
     expect(unreviewed.skills).not.toContain(REVIEW);
-    expect(displayedQuestionSubtopics(unreviewed)).toEqual([REVIEW]);
+    expect(displayedQuestionSubtopics(unreviewed)).toEqual(expect.arrayContaining(["Matrix operations and algebra"]));
+    expect(displayedQuestionSubtopics(unreviewed)).not.toContain(REVIEW);
     const existingLabels = [...new Set(raw.flatMap((row) => row.subtopics))].sort();
     expect(existingLabels).toHaveLength(51);
     for (const label of existingLabels) {
@@ -60,7 +61,7 @@ describe("0580 official topic-first section projection", () => {
     expect(core.secondaryTopics).toContain("Probability");
     expect(core.officialCodeRefs).toContain("current_2025:C1.2");
     expect(extended.officialCodeRefs).toContain("current_2025:E1.2");
-    expect(displayedQuestionSubtopics(core)).toEqual(["1.2 Sets"]);
+    expect(displayedQuestionSubtopics(core)).toEqual(expect.arrayContaining(["1.2 Sets", ...(raw.find(row => row.id === core.id)?.subtopics ?? [])]));
     expect(filterQuestions([...questions], { topics: ["Probability"] }).map((question) => question.id)).toContain(core.id);
     expect(filterQuestions([...questions], { subtopics: ["1.2 Sets"] }).map((question) => question.id)).toEqual(expect.arrayContaining([core.id, extended.id]));
   });
@@ -74,7 +75,7 @@ describe("0580 official topic-first section projection", () => {
       expect(index.subtopics).toEqual(runtime.subtopics);
       expect(index.skills).toEqual(runtime.skills);
       expect(index.officialCodeRefs ?? []).toEqual(runtime.officialCodeRefs ?? []);
-      expect(displayedQuestionSubtopics(runtime)).toEqual(index.officialCodeRefs?.some((ref) => ref.startsWith("current_2025:")) ? runtime.subtopics.filter((label) => /^\d+\.\d+ /.test(label)) : [REVIEW]);
+      expect(displayedQuestionSubtopics(runtime)).toEqual(runtime.subtopics.filter(label => label !== REVIEW));
     }
   }, 60_000);
 });

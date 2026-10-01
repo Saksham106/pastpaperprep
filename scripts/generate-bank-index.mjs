@@ -11,7 +11,7 @@ import { project0610Sections } from "../src/lib/igcse-0610-official.mjs";
 import { project0654Sections } from "../src/lib/igcse-0654-official.mjs";
 import { project0625Sections } from "../src/lib/igcse-0625-official.mjs";
 import { project0620Sections } from "../src/lib/igcse-0620-official.mjs";
-import { project0580Sections } from "../src/lib/igcse-0580-official.mjs";
+import { project0580Sections, MATH_0580_MODEL_SOURCE_SHA256 } from "../src/lib/igcse-0580-official.mjs";
 
 const root = join(import.meta.dirname, "..");
 const outputDirectory = join(root, "public", "bank-index");
@@ -202,6 +202,8 @@ function assertSafe(serialized, rawQuestions) {
 }
 
 export async function generateBankIndexes() {
+  const math0580Source = await readFile(join(root, "src", "data", "raw", "igcse.json"));
+  if (createHash("sha256").update(math0580Source).digest("hex") !== MATH_0580_MODEL_SOURCE_SHA256) throw new Error("0580 calibrated projection source drift");
   await mkdir(outputDirectory, { recursive: true });
   const existingFiles = await readdir(outputDirectory);
   await Promise.all(existingFiles

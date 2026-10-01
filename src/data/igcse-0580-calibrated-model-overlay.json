@@ -1,0 +1,3972 @@
+{
+  "schemaVersion": 1,
+  "sourceRawSha256": "74f919b57dfba129a6c523da09148e3cd3347f7972aa5b7b4808630f5abe814b",
+  "model": "typesafe/jev-1.13-20260917",
+  "confidenceThreshold": 0.95,
+  "method": "Chapter-independent typed choice candidates, applied only to still-unmapped rows after bounded source-reviewed calibration and blinded semantic sample. Paper identity chooses Core/Extended, never predicted difficulty. Not exhaustive accuracy assurance.",
+  "calibration": {
+    "sourceReviewedControls": 25,
+    "topChoiceAgreements": 24,
+    "rawTextOnlyControls": 13,
+    "rawTextOnlyAgreements": 12,
+    "blindSample": 31,
+    "exactCodeAgreements": 17,
+    "numericSectionAgreements": 30,
+    "reviewerTierErrors": 13,
+    "appliedSubsetSampled": 13,
+    "appliedSubsetNumericAgreements": 13
+  },
+  "blockedIds": [
+    "0580-2022-november-22-q3"
+  ],
+  "batchCostUsd": 0.31519488,
+  "rows": [
+    {
+      "id": "0580-2016-june-21-q19",
+      "sourceYear": 2016,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Combined and conditional probability",
+        "Venn and tree diagrams"
+      ],
+      "sourceTextFingerprint": "8373b9ac",
+      "sourceTextSha256": "2affe27b2961d6d3eb01dd7d808064df762b6da24df5caa86b40c8eab2b37dbb",
+      "primaryCode": "E8.3",
+      "confidence": 0.95,
+      "inputSha256": "3ca54932adcf642501e089c71d7e3faae827f1246eec088a8a7634bf5b964988"
+    },
+    {
+      "id": "0580-2016-june-21-q20",
+      "sourceYear": 2016,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Mensuration",
+      "sourceSubtopics": [
+        "Area and perimeter"
+      ],
+      "sourceTextFingerprint": "f932040a",
+      "sourceTextSha256": "e2b3ea5b735028f5387432e0756ca1ed37613e9dd124d664afcd5f5ab7403a2b",
+      "primaryCode": "E5.3",
+      "confidence": 1,
+      "inputSha256": "9c92002d5bbff80592a9d73d385a33b9fe03548f63feaad88fe1fb0a213cb84a"
+    },
+    {
+      "id": "0580-2016-june-22-q15",
+      "sourceYear": 2016,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Quadratic equations and functions"
+      ],
+      "sourceTextFingerprint": "1ebc60bc",
+      "sourceTextSha256": "9b09a7b03bd010b1b43fd4c03c0f52ee339f63ed9d96391b4020da10b3a984ce",
+      "primaryCode": "E2.2",
+      "confidence": 0.95,
+      "inputSha256": "b985108bde2e784e1bcb05c5d7765ebd6e54a6818a13ad4237e72b36f850e731"
+    },
+    {
+      "id": "0580-2016-june-22-q19",
+      "sourceYear": 2016,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Ratio, proportion and rates"
+      ],
+      "sourceTextFingerprint": "3433b357",
+      "sourceTextSha256": "87598977cf958d2c391c42cf60ade3fb39568e847606f990ce44a6bdb92c2009",
+      "primaryCode": "E1.17",
+      "confidence": 1,
+      "inputSha256": "203adef84239d1c21c0dfe76623ca5c783bbe78196708154b1295c057700fee6"
+    },
+    {
+      "id": "0580-2016-june-22-q23",
+      "sourceYear": 2016,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Equations and inequalities",
+        "Straight-line graphs"
+      ],
+      "sourceTextFingerprint": "89f18a9a",
+      "sourceTextSha256": "27d897b1b6daff34f5e2a6a848c2a016fd4dab8a012a85ee6e3f5ee740215517",
+      "primaryCode": "E2.6",
+      "confidence": 0.97,
+      "inputSha256": "5cbc6ad3b15d4b16fb3272ddbea1d698178c25048879775eb2617166f9777828"
+    },
+    {
+      "id": "0580-2016-june-23-q1",
+      "sourceYear": 2016,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Indices and surds"
+      ],
+      "sourceTextFingerprint": "19d30e96",
+      "sourceTextSha256": "ba1d3340c95d2fae4df890b3d092cc345baa1f34550cd714298558ae5654340d",
+      "primaryCode": "E1.3",
+      "confidence": 1,
+      "inputSha256": "d95ca42bb2d4aa871fff5a073c8d04d7646b383421236ebad68887718666a13a"
+    },
+    {
+      "id": "0580-2016-june-23-q14",
+      "sourceYear": 2016,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Venn and tree diagrams"
+      ],
+      "sourceTextFingerprint": "b1d26562",
+      "sourceTextSha256": "0ee4f2893de8131ca229895f92b11222f557dbb640eb962a2dcc031dae45fcd7",
+      "primaryCode": "E1.2",
+      "confidence": 0.99,
+      "inputSha256": "1112d67cd0f12fc5176369e629a28c5d4871e7808538bf721d13507b74368da2"
+    },
+    {
+      "id": "0580-2016-june-23-q19",
+      "sourceYear": 2016,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Ratio, proportion and rates"
+      ],
+      "sourceTextFingerprint": "bb4aa04a",
+      "sourceTextSha256": "470ef80f107caba2c157f637b077dbfd5d3d3b731cdebf8cf4f80a01b847ae6a",
+      "primaryCode": "E1.17",
+      "confidence": 0.99,
+      "inputSha256": "174c76a732270fb8123375be565da4615e5d86de6ae7b1019ff696930095b1b4"
+    },
+    {
+      "id": "0580-2016-june-41-q8",
+      "sourceYear": 2016,
+      "sourceComponent": "41",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "ad4bd9d9",
+      "sourceTextSha256": "6511642bebd5c2053e6078ae90337ae80313714d250579c7aa6bb0dad43444a7",
+      "primaryCode": "E2.13",
+      "confidence": 0.99,
+      "inputSha256": "3de8073fb34574b1bfc4a6c8e61c9690296a02619cb8f2dab182d86066666b95"
+    },
+    {
+      "id": "0580-2016-june-42-q8",
+      "sourceYear": 2016,
+      "sourceComponent": "42",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Functions and graphs",
+        "Quadratic equations and functions"
+      ],
+      "sourceTextFingerprint": "80abe8e8",
+      "sourceTextSha256": "2edfd4828977e16d92f49f6a78df92c996a25c304f0a34e64587ca6e4668fd55",
+      "primaryCode": "E2.13",
+      "confidence": 0.96,
+      "inputSha256": "730cfbce57860645e177168c5eada3fad18be0044ae16244ac9a473cab71a907"
+    },
+    {
+      "id": "0580-2016-june-43-q5",
+      "sourceYear": 2016,
+      "sourceComponent": "43",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "c4c2333",
+      "sourceTextSha256": "ec25a568045b71b1d59f7a773e1f29c720ff5613a5b472605af5a93e649a2e90",
+      "primaryCode": "E6.5",
+      "confidence": 0.98,
+      "inputSha256": "ec4da2136953014300d8a6478db6e78f4a2ca426c743c160f6b5325d659ab3ee"
+    },
+    {
+      "id": "0580-2016-march-22-q1",
+      "sourceYear": 2016,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Quadratic equations and functions"
+      ],
+      "sourceTextFingerprint": "863dc24f",
+      "sourceTextSha256": "1d2f4dcbd37edfe25faa4ac0d25ba4c7450442ec9099dd69107fa494e2341b1b",
+      "primaryCode": "E2.5",
+      "confidence": 0.99,
+      "inputSha256": "e970c85d1d620563ed1e8cf41e4f02e7c80606e2fc720ced7562e581a6e1d7ca"
+    },
+    {
+      "id": "0580-2016-march-42-q11",
+      "sourceYear": 2016,
+      "sourceComponent": "42",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "8747f74f",
+      "sourceTextSha256": "82e8fdf83c4bf59a0205364716068727d3bb501b3361c2f0243aabc1af65811a",
+      "primaryCode": "E2.13",
+      "confidence": 0.99,
+      "inputSha256": "41138158d41215b9f5ae9910b093b35d1fa5cd447d9714d8ec80025b51e0633c"
+    },
+    {
+      "id": "0580-2016-november-23-q18",
+      "sourceYear": 2016,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "345af7b9",
+      "sourceTextSha256": "8c6d4b0a6f863cf6aef05fa85640154602d460143117152c960e5204c9fc88dc",
+      "primaryCode": "E2.13",
+      "confidence": 0.97,
+      "inputSha256": "dbd2167c8c88540ba5e154eb9c87793a3e93973664592de24074b4b4e553d86a"
+    },
+    {
+      "id": "0580-2016-november-23-q7",
+      "sourceYear": 2016,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "6ee2627a",
+      "sourceTextSha256": "2715309ea2de1045bd7512ddaf2c3b4082192f559ac187324810f23ce9842984",
+      "primaryCode": "E1.5",
+      "confidence": 0.99,
+      "inputSha256": "8e7412214f1fc640ec11fb6feb0c9add5fc833a1a47feed4e5fab9af81031e68"
+    },
+    {
+      "id": "0580-2016-november-43-q4",
+      "sourceYear": 2016,
+      "sourceComponent": "43",
+      "sourcePrimaryTopic": "Transformations and vectors",
+      "sourceSubtopics": [
+        "Transformations"
+      ],
+      "sourceTextFingerprint": "cefadcbe",
+      "sourceTextSha256": "868665e50fb2bcf24395921f1a4f75690a8141f6da4144a29dabc5230e260d3f",
+      "primaryCode": "E7.1",
+      "confidence": 0.97,
+      "inputSha256": "f3a16e989a97393c8bf1bd4595ac5c4b9db0ab3b71278003cd9da1ac4ac99fd6"
+    },
+    {
+      "id": "0580-2016-november-43-q5",
+      "sourceYear": 2016,
+      "sourceComponent": "43",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Combined and conditional probability"
+      ],
+      "sourceTextFingerprint": "86c8f038",
+      "sourceTextSha256": "dc9a5b6153d16d015b205b53fb437c7f9d3f56acdd135e087869a52d15a4ff11",
+      "primaryCode": "E8.3",
+      "confidence": 0.98,
+      "inputSha256": "735f70f63c54c95b91d58f5b42f55ac03609a1af2731858c7bb3870e7cc81265"
+    },
+    {
+      "id": "0580-2016-november-43-q6",
+      "sourceYear": 2016,
+      "sourceComponent": "43",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Pythagoras and right-angle trigonometry",
+        "Ratio, proportion and rates",
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "df849abf",
+      "sourceTextSha256": "58c9dabe0fa2c315d50d5f6ab82da5271f43f15947edc1c1c97dc5d1428f6c6c",
+      "primaryCode": "E6.5",
+      "confidence": 0.99,
+      "inputSha256": "fcd397ddebb59ca69a33d329e9ec2a37bf7897a2bb714010381187360e1302dd"
+    },
+    {
+      "id": "0580-2017-june-21-q10",
+      "sourceYear": 2017,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Equations and inequalities"
+      ],
+      "sourceTextFingerprint": "8b0509f5",
+      "sourceTextSha256": "cb923924b4c0668100277bacc9f3c629d073651f8bf14e93facbd48f5637afbb",
+      "primaryCode": "E2.6",
+      "confidence": 0.97,
+      "inputSha256": "fd95ed6ac04fefa22e3c093c9035335e2ba5896e44b746720c6bf810c074d590"
+    },
+    {
+      "id": "0580-2017-june-21-q17",
+      "sourceYear": 2017,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Venn and tree diagrams"
+      ],
+      "sourceTextFingerprint": "edbcb263",
+      "sourceTextSha256": "31a03082d02ce8519b0e4ff489fd6fa0acfc5ff8ce8767885f56ce8987accfb5",
+      "primaryCode": "E1.2",
+      "confidence": 0.97,
+      "inputSha256": "8f8a4949b00cc53fb7b3c34432aa793dc286f38615a6ac3addd13f0e0178b577"
+    },
+    {
+      "id": "0580-2017-june-21-q8",
+      "sourceYear": 2017,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Combined and conditional probability"
+      ],
+      "sourceTextFingerprint": "d78c7e43",
+      "sourceTextSha256": "aa06cf308c9f19f246aab319ba9b4892f4a25c79933e6688a9fc365705179826",
+      "primaryCode": "E8.3",
+      "confidence": 0.99,
+      "inputSha256": "d71f875ea0cc48c61b02a8d823c41e8be697f9373e03a88f65c4a8b37ac8b5a8"
+    },
+    {
+      "id": "0580-2017-june-22-q19",
+      "sourceYear": 2017,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "1c1f1d3f",
+      "sourceTextSha256": "a6589a9a4fb528f9ad153db487b72935184134fcb0496d41c759bb6faa99c820",
+      "primaryCode": "E6.5",
+      "confidence": 0.95,
+      "inputSha256": "c7e63959ca785a4e51259fb345a30095387097a599bf393a5dd141a2e746bc71"
+    },
+    {
+      "id": "0580-2017-june-22-q3",
+      "sourceYear": 2017,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Mensuration",
+      "sourceSubtopics": [
+        "Area and perimeter"
+      ],
+      "sourceTextFingerprint": "e6b3025d",
+      "sourceTextSha256": "970df4d1db7c8ad2c7607139b69619e594769acdb8f7cc01a4e650b531a8f28e",
+      "primaryCode": "E5.1",
+      "confidence": 0.98,
+      "inputSha256": "ed50360a27d418394ece7feb2aedf66acdf0b93efcbbbc2fb164ff90c6e7b40b"
+    },
+    {
+      "id": "0580-2017-june-23-q11",
+      "sourceYear": 2017,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Equations and inequalities"
+      ],
+      "sourceTextFingerprint": "9fb0e292",
+      "sourceTextSha256": "676ed4607f323100d559d1aac6547ebfba9b2ec4caae6e0ed51e132b02552f28",
+      "primaryCode": "E2.6",
+      "confidence": 0.98,
+      "inputSha256": "c0f02f5e7a98efaaffd413be21cd9313053bab94b11bfad317a8660dcb6dab3d"
+    },
+    {
+      "id": "0580-2017-june-23-q12",
+      "sourceYear": 2017,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "772d859e",
+      "sourceTextSha256": "595f82999dc09c53b51303d9a6489a85c1f4e2ba12a7eb5e1bab25283f0c26b3",
+      "primaryCode": "E2.13",
+      "confidence": 0.99,
+      "inputSha256": "0e4e4f0a05e7eedf6b3d8226eb01a009085baf2d9968378e2b39166eb3a01f58"
+    },
+    {
+      "id": "0580-2017-june-42-q10",
+      "sourceYear": 2017,
+      "sourceComponent": "42",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation",
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "e09ab7b9",
+      "sourceTextSha256": "2e085b75f28ef5aa9176c23b73e8f5a1ba02bdf03f317469e02c441bb21e0f2c",
+      "primaryCode": "E2.13",
+      "confidence": 0.99,
+      "inputSha256": "30e2fbe68abf2c5a1d5f297e54553c482f5dd3ff4afd96fadaa69cc107f55fc2"
+    },
+    {
+      "id": "0580-2017-march-22-q21",
+      "sourceYear": 2017,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "f587f141",
+      "sourceTextSha256": "491b23f4424e73d28a81317b09750225fcc4b19c54248f738c45a61263076b3a",
+      "primaryCode": "E2.13",
+      "confidence": 0.96,
+      "inputSha256": "8984e40c96b6c08b8c5308dbc738d40c65d26f913246a04dc7d199f3026b789c"
+    },
+    {
+      "id": "0580-2017-march-22-q4",
+      "sourceYear": 2017,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages",
+        "Ratio, proportion and rates"
+      ],
+      "sourceTextFingerprint": "fb80282e",
+      "sourceTextSha256": "b77183f12186210ca65d00d24b39e239527272a273f7e8a583beb10ebd13331b",
+      "primaryCode": "E1.17",
+      "confidence": 0.99,
+      "inputSha256": "5df326c8cff1c485626e8b4e809f8b244ef594a4abc17a530992acdb65cc5267"
+    },
+    {
+      "id": "0580-2017-november-21-q1",
+      "sourceYear": 2017,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Angles and polygons"
+      ],
+      "sourceTextFingerprint": "9ca042f1",
+      "sourceTextSha256": "21799d1781752d49534c3ebb4d5c659dff1d9517c95830c72c00bb600d4c5d7f",
+      "primaryCode": "E4.6",
+      "confidence": 0.96,
+      "inputSha256": "219ebbc7bab9a3da83ab4799e4b634067a6f9d4a81906b2a9a16508711bc2118"
+    },
+    {
+      "id": "0580-2017-november-21-q9",
+      "sourceYear": 2017,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "a49f29a9",
+      "sourceTextSha256": "be97917bebb8d5a83ac80e9681078310b15c9e8a29fc31cec299d9728fca8041",
+      "primaryCode": "E1.17",
+      "confidence": 1,
+      "inputSha256": "f044982574476ea60fd2271a42f4e907f246a5773d43ec6a9af3961f66b8cfc2"
+    },
+    {
+      "id": "0580-2017-november-22-q23",
+      "sourceYear": 2017,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Mensuration",
+      "sourceSubtopics": [
+        "Area and perimeter"
+      ],
+      "sourceTextFingerprint": "1ab63d4b",
+      "sourceTextSha256": "9f0972db180e18e088bf26e2c0f71087506b0f010b60cf8fc719cd0dcbfc8ec0",
+      "primaryCode": "E5.3",
+      "confidence": 0.95,
+      "inputSha256": "f359de677e00178c4754e42a9d75ec2991ee468d01ccd5125792e1cac40e61a1"
+    },
+    {
+      "id": "0580-2017-november-41-q7",
+      "sourceYear": 2017,
+      "sourceComponent": "41",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Functions and graphs",
+        "Indices and surds"
+      ],
+      "sourceTextFingerprint": "cfc2868e",
+      "sourceTextSha256": "97e9047a5f7d8d3c2efea483c2195281b0308731f785ee493b509b1068949fed",
+      "primaryCode": "E2.13",
+      "confidence": 0.99,
+      "inputSha256": "1e2a908980bd82690bbcc0dabc50866853732c913601044cc33c1f0587bc00e2"
+    },
+    {
+      "id": "0580-2017-november-42-q8",
+      "sourceYear": 2017,
+      "sourceComponent": "42",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation",
+        "Equations and inequalities",
+        "Ratio, proportion and rates"
+      ],
+      "sourceTextFingerprint": "b62d3a1f",
+      "sourceTextSha256": "c2515dd28d2f5548148d0570ce65dcf2182e187db161690d3556ca6ed23ffddc",
+      "primaryCode": "E2.5",
+      "confidence": 0.96,
+      "inputSha256": "94632ad76e7a7cb3d87dc1190cb05e8952a9ae46b0d32f92dcca8b1861958fdb"
+    },
+    {
+      "id": "0580-2017-november-42-q9",
+      "sourceYear": 2017,
+      "sourceComponent": "42",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "24287163",
+      "sourceTextSha256": "e3cdf4bac699573e2426ce7e63a1706e8b538418534b9571e219d86e36413e4b",
+      "primaryCode": "E2.13",
+      "confidence": 0.96,
+      "inputSha256": "0bc4c0c2a496d0a68e33adeed961cbfb29f3f1d7c4896b5ff8ba85c7113cbdda"
+    },
+    {
+      "id": "0580-2018-june-21-q14",
+      "sourceYear": 2018,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "1649245b",
+      "sourceTextSha256": "44b30498dcfd4eacaeb4ec7ce69b92d9fdfc64d7c9f7dbf51c70523cac688b0a",
+      "primaryCode": "E6.5",
+      "confidence": 0.98,
+      "inputSha256": "cf702894e87bc444624f55b86d7e26c1e679ec62f9030cdd4f5d7a4bcbdf08aa"
+    },
+    {
+      "id": "0580-2018-june-21-q22",
+      "sourceYear": 2018,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "aed02d4d",
+      "sourceTextSha256": "5572d1fa5d51d43cb2dc66f78bdbab702f6cf3e1f36e58debf929380963e3bf8",
+      "primaryCode": "E2.13",
+      "confidence": 1,
+      "inputSha256": "b98e6b67717154e6cb5484af0493698a62a67a293d79f3c6607cf287ae9a4e2e"
+    },
+    {
+      "id": "0580-2018-june-22-q24",
+      "sourceYear": 2018,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Basic probability",
+        "Combined and conditional probability"
+      ],
+      "sourceTextFingerprint": "3d5fdf58",
+      "sourceTextSha256": "d32dace03ddfc4e5823af592beb9f5878b6026172cd5fcfe2bd9a26562cdf70a",
+      "primaryCode": "E8.3",
+      "confidence": 0.95,
+      "inputSha256": "bfaf04f840d48bf86a8283e9b12d64b3d42903b72d1afb7d424f7c1b17becbac"
+    },
+    {
+      "id": "0580-2018-june-23-q5",
+      "sourceYear": 2018,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "eec844a0",
+      "sourceTextSha256": "6e868e23d5a724efd30ee9587b96734b03f8242f49d4de280d3224f6395b8ec7",
+      "primaryCode": "E1.13",
+      "confidence": 0.98,
+      "inputSha256": "90edaa9763a10d144c968019a792f49df630962431b72c7af51638c0f70d32a7"
+    },
+    {
+      "id": "0580-2018-june-43-q10",
+      "sourceYear": 2018,
+      "sourceComponent": "43",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "9376d480",
+      "sourceTextSha256": "d2bd783d29b7152cdb1d66576be39d7083e93b5042090605f9c0cc4ccbcc0f7d",
+      "primaryCode": "E2.13",
+      "confidence": 0.98,
+      "inputSha256": "3e827db00b135ba5ffbce41cf83eb7a49f26ea9484d30472ab15fa7cf6d0631f"
+    },
+    {
+      "id": "0580-2018-march-22-q8",
+      "sourceYear": 2018,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages",
+        "Indices and surds"
+      ],
+      "sourceTextFingerprint": "a51ba03b",
+      "sourceTextSha256": "53e0cc325deebf6ca6f24fe9e39a60d1da99f9caff281072bcb038ba2a1cde35",
+      "primaryCode": "E1.17",
+      "confidence": 1,
+      "inputSha256": "32fd24588dbed847a2941dd75f8450334d5dd2d5e9e0569fb7e23d5605acd3f9"
+    },
+    {
+      "id": "0580-2018-march-42-q8",
+      "sourceYear": 2018,
+      "sourceComponent": "42",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Pythagoras and right-angle trigonometry",
+        "Ratio, proportion and rates",
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "b1000ab",
+      "sourceTextSha256": "6d321aa4c9d35677cbc42458912251b10e126d4012296649bcf627c3cfa6379c",
+      "primaryCode": "E6.5",
+      "confidence": 1,
+      "inputSha256": "4728804b31ce9a7ecfb4a9523c46dc005a5e7d9467d929fcedbba6797f7a1800"
+    },
+    {
+      "id": "0580-2018-november-21-q16",
+      "sourceYear": 2018,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Angles and polygons"
+      ],
+      "sourceTextFingerprint": "6375da22",
+      "sourceTextSha256": "4f7b40e1ff6741dbc4dbda9c32a189474abf49198720c6a0011ea2fd99229864",
+      "primaryCode": "E4.6",
+      "confidence": 0.98,
+      "inputSha256": "30e96b0d3af0d58493d31d18182fb07213cdd5448616427b861a4f20a1d35492"
+    },
+    {
+      "id": "0580-2018-november-21-q23",
+      "sourceYear": 2018,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "e2d24585",
+      "sourceTextSha256": "06c505cbde6b00dac44b9cc4fe1255d01eb23b936e9eda81ab891835b480c376",
+      "primaryCode": "E2.13",
+      "confidence": 0.97,
+      "inputSha256": "1ec18555786ce794256a9c7d7e41fc3a7b3629e0ddb6a1b2797028ce304bacc8"
+    },
+    {
+      "id": "0580-2018-november-22-q25",
+      "sourceYear": 2018,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "adcf69e",
+      "sourceTextSha256": "a9407e066739571c20807ea94317f159ed6be9f3c8846f0fb86fb783217415a3",
+      "primaryCode": "E2.13",
+      "confidence": 0.98,
+      "inputSha256": "570a154cf5414edfa45020fee0f705424de92ec1197fc62ba438f70b22c5ccd7"
+    },
+    {
+      "id": "0580-2018-november-23-q19",
+      "sourceYear": 2018,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Mensuration",
+      "sourceSubtopics": [
+        "Area and perimeter"
+      ],
+      "sourceTextFingerprint": "fb1581c1",
+      "sourceTextSha256": "85892adcb03c6898728f836e3dd3011566cb17283515bdde3eb17fadf78cee94",
+      "primaryCode": "E5.3",
+      "confidence": 0.98,
+      "inputSha256": "95980df1fb677d5db48f1e852a15fe79f9f2cf40576de8ded3be576905215ac0"
+    },
+    {
+      "id": "0580-2018-november-42-q8",
+      "sourceYear": 2018,
+      "sourceComponent": "42",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Ratio, proportion and rates",
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "3139a09f",
+      "sourceTextSha256": "726d1fa8fbf13c87d351ef8c60438f5fc3c40c8557dbcde456013e60666f556f",
+      "primaryCode": "E6.5",
+      "confidence": 0.98,
+      "inputSha256": "82cda6082ba1fd2af00f5ba8963ebb8d85dfea4c09dec6de660910c33b02dfec"
+    },
+    {
+      "id": "0580-2018-november-43-q9",
+      "sourceYear": 2018,
+      "sourceComponent": "43",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation",
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "de0896f7",
+      "sourceTextSha256": "bd7eab49a3e7fd937e941f0f8f91f64e24335e89acd9ffed757e9694b40bc2d3",
+      "primaryCode": "E2.13",
+      "confidence": 0.97,
+      "inputSha256": "be12a1ac3bb2412bb3aa043cca4f9339072d585fc0655d51a10b2aa10667b001"
+    },
+    {
+      "id": "0580-2019-june-22-q4",
+      "sourceYear": 2019,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Angles and polygons"
+      ],
+      "sourceTextFingerprint": "fa64cb8a",
+      "sourceTextSha256": "5f3bdee6f7aac4a7ffa14d35dd4aab3f6ece3280de0cfafb2fdd5c7acdf4b2ef",
+      "primaryCode": "E4.1",
+      "confidence": 0.99,
+      "inputSha256": "063a4fe3314d7f1ebb9d822671b6b001069ad42ec1621846e9f3f4e3003826b2"
+    },
+    {
+      "id": "0580-2019-june-23-q12",
+      "sourceYear": 2019,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Mensuration",
+      "sourceSubtopics": [
+        "Area and perimeter"
+      ],
+      "sourceTextFingerprint": "93251182",
+      "sourceTextSha256": "5171f67e11f2b8c019c46009d4a2cf566cc041e180c0dfa611c5bf84a91872a5",
+      "primaryCode": "E5.3",
+      "confidence": 1,
+      "inputSha256": "8c7f0d2871a398a8986cbb74c5046e4221e25a4b02655d6d1b6acf2cdf495702"
+    },
+    {
+      "id": "0580-2019-june-41-q9",
+      "sourceYear": 2019,
+      "sourceComponent": "41",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "3f941b13",
+      "sourceTextSha256": "6147314a4f258945d3ecc9893e1a7d128ac7a29d994ac9baa2e61d76f1f19d41",
+      "primaryCode": "E2.13",
+      "confidence": 0.99,
+      "inputSha256": "0629464d1575aaa75ef1175fb0963e43a551072a5688d0a6f8adc0c4ca5b6f14"
+    },
+    {
+      "id": "0580-2019-march-22-q11",
+      "sourceYear": 2019,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "5770047d",
+      "sourceTextSha256": "1195a68b5e6923e4764f9c55ceabfb5e58bc744b913c7367497a658e2d4113cf",
+      "primaryCode": "E1.13",
+      "confidence": 0.95,
+      "inputSha256": "e2f0e098f67e961704d337de1579f7f515f9956218011e8e358704408f08c868"
+    },
+    {
+      "id": "0580-2019-march-22-q24",
+      "sourceYear": 2019,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "852234da",
+      "sourceTextSha256": "f73f59088137deef73c8043f4ca215598b56bc818da1127fdbf6582f0c5fe0f3",
+      "primaryCode": "E6.5",
+      "confidence": 0.96,
+      "inputSha256": "f7e06cefb1c000991693eafa8ac92f914577c0b82cae2f74c80b435c817acf43"
+    },
+    {
+      "id": "0580-2019-march-22-q6",
+      "sourceYear": 2019,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Basic probability"
+      ],
+      "sourceTextFingerprint": "3b25e8a7",
+      "sourceTextSha256": "8ecc9eacbfeb8202f2de2959f24a86d1808b2a5f929597cdd4e77003933321b6",
+      "primaryCode": "E8.2",
+      "confidence": 0.97,
+      "inputSha256": "9efb625f68d2c502b536314b5b0145bd10f93d3fb3936980667008c3a6035b0e"
+    },
+    {
+      "id": "0580-2019-march-42-q8",
+      "sourceYear": 2019,
+      "sourceComponent": "42",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation",
+        "Functions and graphs",
+        "Quadratic equations and functions"
+      ],
+      "sourceTextFingerprint": "8b69ea88",
+      "sourceTextSha256": "1a920598c1000b1bdde56736cdc5b91253fed7ce317d909194917a8177c0dbc4",
+      "primaryCode": "E2.13",
+      "confidence": 0.96,
+      "inputSha256": "d10e37dda55b8dda29432222a6e8945834ea999750696168981280f7c1fec1b0"
+    },
+    {
+      "id": "0580-2019-march-42-q9",
+      "sourceYear": 2019,
+      "sourceComponent": "42",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Venn and tree diagrams"
+      ],
+      "sourceTextFingerprint": "a633eb8f",
+      "sourceTextSha256": "085efcd22ef8cee5e739bcb1f621e000f8d045baf32cb14104e0ac3d99e42694",
+      "primaryCode": "E1.2",
+      "confidence": 0.99,
+      "inputSha256": "38667770320047922b91d820500e8ed5176722181318266faeab2f8c56ee433d"
+    },
+    {
+      "id": "0580-2019-november-21-q17",
+      "sourceYear": 2019,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Mensuration",
+      "sourceSubtopics": [
+        "Area and perimeter"
+      ],
+      "sourceTextFingerprint": "803a64bf",
+      "sourceTextSha256": "3620c4e1c4c8f9b806c205237743546a5496c2540749bd0aff43c072f27be752",
+      "primaryCode": "E5.3",
+      "confidence": 0.95,
+      "inputSha256": "129c1e623333197548fd8578768791b2edc5a093390661ef567af309d57ada4f"
+    },
+    {
+      "id": "0580-2019-november-21-q21",
+      "sourceYear": 2019,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Transformations and vectors",
+      "sourceSubtopics": [
+        "Transformations"
+      ],
+      "sourceTextFingerprint": "6f5a78e3",
+      "sourceTextSha256": "d8a74e49cc703b0cd61c1c3e056348442256833fa7b1ad9ea988990f4668b010",
+      "primaryCode": "E7.1",
+      "confidence": 0.98,
+      "inputSha256": "34674d99dc705df8daf3789d6e9fbdbb25dacc3fb22394afc2fe71c398e55297"
+    },
+    {
+      "id": "0580-2019-november-21-q23",
+      "sourceYear": 2019,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Venn and tree diagrams"
+      ],
+      "sourceTextFingerprint": "dc125b",
+      "sourceTextSha256": "2a1ec976faa69891693ff2dbca75cc516413d666e4fcede0e2a01bbe2e54094c",
+      "primaryCode": "E1.2",
+      "confidence": 0.99,
+      "inputSha256": "c56082d6e69ababdb335c7263b94d546fe8f500e34689a63a1b2582563428efc"
+    },
+    {
+      "id": "0580-2019-november-21-q24",
+      "sourceYear": 2019,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "2535d810",
+      "sourceTextSha256": "4513c990386a979e4cd2232e1ff0afd754dea4789be821b787188053ead73612",
+      "primaryCode": "E2.13",
+      "confidence": 0.98,
+      "inputSha256": "7f00ae89942660acf9fb1f9d1415f3620d037544332e106dbe7e56f930c09082"
+    },
+    {
+      "id": "0580-2019-november-22-q16",
+      "sourceYear": 2019,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Equations and inequalities",
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "10347a8d",
+      "sourceTextSha256": "84e704e079599034b03fc0eb8fde17a55187638f621608dc58c673956d408ded",
+      "primaryCode": "E2.6",
+      "confidence": 0.95,
+      "inputSha256": "bc6eac00b1263f7b9beb74f4cb6fb7ad9a932b84524035fc7cdd654008db06a9"
+    },
+    {
+      "id": "0580-2019-november-23-q13",
+      "sourceYear": 2019,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Coordinate geometry",
+      "sourceSubtopics": [
+        "Straight-line graphs"
+      ],
+      "sourceTextFingerprint": "31f117a2",
+      "sourceTextSha256": "8ac09a9c303d4aaf0427083b22506f5193a11880297a6f5aee6aad208b1836a8",
+      "primaryCode": "E3.3",
+      "confidence": 0.97,
+      "inputSha256": "6cf177b61ac4ee5ea4ae5e592a501993e42f3fcffb52c70175ce12cc36389eac"
+    },
+    {
+      "id": "0580-2019-november-23-q8",
+      "sourceYear": 2019,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Pythagoras and right-angle trigonometry"
+      ],
+      "sourceTextFingerprint": "7741f897",
+      "sourceTextSha256": "4c8e314af4c523ed95ccb1ab7ba5ac04713bda483b260bb89da369dcdf103e5f",
+      "primaryCode": "E6.4",
+      "confidence": 0.96,
+      "inputSha256": "e9b90f83835fa3cb4be35c29e912c07bace62d39f57446fbd006c166628b0848"
+    },
+    {
+      "id": "0580-2019-november-41-q5",
+      "sourceYear": 2019,
+      "sourceComponent": "41",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Ratio, proportion and rates",
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "5d057906",
+      "sourceTextSha256": "79e143e634c8f2e685743a6c85fc21efa5b7becbb87638b3dee3ce05325b3792",
+      "primaryCode": "E6.5",
+      "confidence": 0.96,
+      "inputSha256": "6ff34c39ce00b81f78e8ddf37d4feb12d33af3340d074bbe5ed191da1d29b159"
+    },
+    {
+      "id": "0580-2019-november-42-q7",
+      "sourceYear": 2019,
+      "sourceComponent": "42",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation",
+        "Equations and inequalities",
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "7d5348ff",
+      "sourceTextSha256": "e2ea82749837461a98b889345eb3bb0e47e68bb097e1d863018c785a90b6f755",
+      "primaryCode": "E2.13",
+      "confidence": 0.98,
+      "inputSha256": "342547788ac96f0cfff8add3b6d7c3534e05f36696a3d8a93cc80e528e8ba4cd"
+    },
+    {
+      "id": "0580-2020-june-21-q14",
+      "sourceYear": 2020,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation",
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "f6d972ee",
+      "sourceTextSha256": "934276fc209ce9ed1600a8b42ea5ef0296c5bd6c4877aa7a86f87509af1ceeb0",
+      "primaryCode": "E2.13",
+      "confidence": 0.98,
+      "inputSha256": "a0ef85df98ce75523c57152a6b3915b629bc305019f99cb7bacaec2e610b010f"
+    },
+    {
+      "id": "0580-2020-june-22-q12",
+      "sourceYear": 2020,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "1c501ccc",
+      "sourceTextSha256": "f7dbf0c3eb4937b00bd735a8ee66609abf97e3940b3db8926aaac0a427be00f5",
+      "primaryCode": "E1.13",
+      "confidence": 0.96,
+      "inputSha256": "590e1423fab4fbd886b57b0cb6f742acf60d33c862755fe99816a8ca6cf9885b"
+    },
+    {
+      "id": "0580-2020-june-22-q24",
+      "sourceYear": 2020,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Mensuration",
+      "sourceSubtopics": [
+        "Area and perimeter"
+      ],
+      "sourceTextFingerprint": "f5494255",
+      "sourceTextSha256": "f093f51c05cb7e0e89b3e99c3f81c601b986f704daab4caef71c95a35bd5ba07",
+      "primaryCode": "E5.3",
+      "confidence": 1,
+      "inputSha256": "1396c919dccd4bc7e08c1a2c17d4b2142559215126842c5ceafa71f259a558c7"
+    },
+    {
+      "id": "0580-2020-june-23-q19",
+      "sourceYear": 2020,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Venn and tree diagrams"
+      ],
+      "sourceTextFingerprint": "63efdbca",
+      "sourceTextSha256": "8c42419274326f97939f7386f32a1fba6768e9d3ab8f8febf00c34da3538ea3d",
+      "primaryCode": "E1.2",
+      "confidence": 0.99,
+      "inputSha256": "9f4eab8b8e7897e70c9ac4e40b4462ebb343c03380db1ee0ad480c6bc839359d"
+    },
+    {
+      "id": "0580-2020-june-23-q5",
+      "sourceYear": 2020,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Basic probability"
+      ],
+      "sourceTextFingerprint": "804c5d95",
+      "sourceTextSha256": "db79c6209bb48d42c3d045420788992369c78f6b8dda631b23c6a499d00b32ab",
+      "primaryCode": "E8.2",
+      "confidence": 1,
+      "inputSha256": "11ddbedff04434ec440c6744d1f59814942031181e572d9425e52afacde21ff5"
+    },
+    {
+      "id": "0580-2020-june-23-q9",
+      "sourceYear": 2020,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Mensuration",
+      "sourceSubtopics": [
+        "Area and perimeter"
+      ],
+      "sourceTextFingerprint": "4283220d",
+      "sourceTextSha256": "e9fee212b237c003dc4d69843749b84ea7016e7aa3db0629cb8a92f33f6dbe89",
+      "primaryCode": "E5.3",
+      "confidence": 1,
+      "inputSha256": "f2f0deae09dc118709b878c97d1a9710f138446e414601fe9c33102cc81851d5"
+    },
+    {
+      "id": "0580-2020-june-42-q6",
+      "sourceYear": 2020,
+      "sourceComponent": "42",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation",
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "dfcb79ce",
+      "sourceTextSha256": "ecc0de4eac1b29fab02d5a85ebd083ff6a2d934c7beea78be8139c445b558fbe",
+      "primaryCode": "E2.13",
+      "confidence": 0.99,
+      "inputSha256": "8e945a7687ae022e93aed477a735ec30d536f02e95996ddce603f96b34d3b995"
+    },
+    {
+      "id": "0580-2020-june-43-q11",
+      "sourceYear": 2020,
+      "sourceComponent": "43",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation",
+        "Equations and inequalities",
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "a37e4f1a",
+      "sourceTextSha256": "aa1c0e4feac95cbcfd1ea49692cda312ca80d5b2fa402d05e34d9a092080be26",
+      "primaryCode": "E2.13",
+      "confidence": 0.96,
+      "inputSha256": "f90414539cf69e2738f71f856648f39d7ae3eeb49f8b2246d9007173d3cdace6"
+    },
+    {
+      "id": "0580-2020-march-22-q12",
+      "sourceYear": 2020,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "d5932792",
+      "sourceTextSha256": "473c9a560c8f231a2627d62e465d632a6dafa75d2be7d2e484e7bdc9ad214dc4",
+      "primaryCode": "E1.17",
+      "confidence": 1,
+      "inputSha256": "545086ebe1affbfea8b7ced083dba1075fca74912ed3d3a2d68f82657be809e5"
+    },
+    {
+      "id": "0580-2020-march-22-q3",
+      "sourceYear": 2020,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Transformations and vectors",
+      "sourceSubtopics": [
+        "Vectors"
+      ],
+      "sourceTextFingerprint": "4814bd98",
+      "sourceTextSha256": "0340616794386372d50851a7357883a67a6d82678e2f115207d911f04744e354",
+      "primaryCode": "E7.2",
+      "confidence": 0.97,
+      "inputSha256": "2a08272f496344340634f7ec374107b5978755abbb2db231597ffb15c1dd504f"
+    },
+    {
+      "id": "0580-2020-november-21-q17",
+      "sourceYear": 2020,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "2e016a79",
+      "sourceTextSha256": "a36eba8715395668242d9ee82270aec87d5b10c0eea9273016de69cd934e8647",
+      "primaryCode": "E2.13",
+      "confidence": 0.96,
+      "inputSha256": "e90269c163163fd4ec3f341ea32c72807138f5eb82c0053e0159652023f36964"
+    },
+    {
+      "id": "0580-2020-november-22-q15",
+      "sourceYear": 2020,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Mensuration",
+      "sourceSubtopics": [
+        "Area and perimeter"
+      ],
+      "sourceTextFingerprint": "fd01a1e8",
+      "sourceTextSha256": "e8ba5888228178d9f67c28cd0af2f39543e935f8fd6918c430adf578255b43cb",
+      "primaryCode": "E5.3",
+      "confidence": 0.99,
+      "inputSha256": "9eb4f6a7e5fbcb6f801e78d1f79a602aee2df239b6bb9f9e09c1cebd0c515394"
+    },
+    {
+      "id": "0580-2020-november-22-q5",
+      "sourceYear": 2020,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "66e1ff83",
+      "sourceTextSha256": "3365cc0ca5b9e807632df736f461eba3f14b6c303a8d8aed3a6611aca9294aff",
+      "primaryCode": "E1.13",
+      "confidence": 0.96,
+      "inputSha256": "6a6ab58ba73ff88e25cf36546bd1cfe7380a1c18932eedebe4320cdc4efcf588"
+    },
+    {
+      "id": "0580-2020-november-23-q7",
+      "sourceYear": 2020,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Mensuration",
+      "sourceSubtopics": [
+        "Area and perimeter"
+      ],
+      "sourceTextFingerprint": "c38e592f",
+      "sourceTextSha256": "6ccf218c680a019e9d74ac76ec8111eac128e5f9069d350acf354b562858c455",
+      "primaryCode": "E5.1",
+      "confidence": 0.98,
+      "inputSha256": "2e307828632dc0d1d41fa50022a61b0c84f7660e7cc4adb834ae1bb5ef339d95"
+    },
+    {
+      "id": "0580-2020-november-23-q8",
+      "sourceYear": 2020,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Bounds and estimation"
+      ],
+      "sourceTextFingerprint": "17d9e872",
+      "sourceTextSha256": "848548346c532685c10699f806a778b229014c048bc17954c700b88ab7fe7f6e",
+      "primaryCode": "E1.10",
+      "confidence": 0.95,
+      "inputSha256": "b7a961cd7abecc8f89da32a320a8755382a64089115eaa5a06d5dfb24f662cc6"
+    },
+    {
+      "id": "0580-2020-november-42-q10",
+      "sourceYear": 2020,
+      "sourceComponent": "42",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation",
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "21149f3f",
+      "sourceTextSha256": "fb85741bff603254e422ac56d4aea473d72f8e1dd822e3be5f58140b5c398c0b",
+      "primaryCode": "E2.13",
+      "confidence": 0.99,
+      "inputSha256": "ecbccde1d0e6a3435dbc9fca41a77292638b52a3b27b92a01f1598e67152f405"
+    },
+    {
+      "id": "0580-2020-november-43-q10",
+      "sourceYear": 2020,
+      "sourceComponent": "43",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation",
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "1fe7e906",
+      "sourceTextSha256": "a37b118ee1077b0f624f2bc2a8b9849a8f4b2df8cfeb6614f514061052f48bba",
+      "primaryCode": "E2.13",
+      "confidence": 0.98,
+      "inputSha256": "bb63e9fb358a30527a3ddd9c958e3255395281f8e18db021a16cb7586078f421"
+    },
+    {
+      "id": "0580-2021-june-11-q1",
+      "sourceYear": 2021,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Statistics",
+      "sourceSubtopics": [
+        "Data charts and diagrams"
+      ],
+      "sourceTextFingerprint": "f104a2b5",
+      "sourceTextSha256": "0110dab118b31482e8a384e5573dbb62b8330ecc40f14e51467ef3529fd76003",
+      "primaryCode": "C9.4",
+      "confidence": 0.98,
+      "inputSha256": "71e6e8d79607e1ca8f5d586fa75b778435012d5df1128c323ecf948ec503ec66"
+    },
+    {
+      "id": "0580-2021-june-11-q15",
+      "sourceYear": 2021,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Bounds and estimation"
+      ],
+      "sourceTextFingerprint": "8d4076fc",
+      "sourceTextSha256": "ad0605a7b22b42646a60a05ffdd51029bda341ab608c79be71948cf6ab83c9ca",
+      "primaryCode": "C1.10",
+      "confidence": 0.96,
+      "inputSha256": "e5ae2d5b0978fd090adde108ecdedbc42fa8a69131d8f9c2f6e59f5646efd86f"
+    },
+    {
+      "id": "0580-2021-june-12-q19",
+      "sourceYear": 2021,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Venn and tree diagrams"
+      ],
+      "sourceTextFingerprint": "9417ec6",
+      "sourceTextSha256": "24fe978cd1ecf65a37915b2abc47ea32477fa7bcaa69934fd446c6e1d33c32e2",
+      "primaryCode": "C8.3",
+      "confidence": 0.97,
+      "inputSha256": "2dec99982e15a931e145984c2a69050f0b1ddf5a298a650443c15cb5f513a49c"
+    },
+    {
+      "id": "0580-2021-june-12-q3",
+      "sourceYear": 2021,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Constructions and loci"
+      ],
+      "sourceTextFingerprint": "ef155fda",
+      "sourceTextSha256": "97c9dc154ef1e43ee13a4836df31442baf087e3ed224d96678da3afdf633a946",
+      "primaryCode": "C4.2",
+      "confidence": 0.99,
+      "inputSha256": "e527a46cb7ff5357bd2b897c9543da9be35f7b985b9e90a19c1ab54317c49624"
+    },
+    {
+      "id": "0580-2021-june-21-q17",
+      "sourceYear": 2021,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Combined and conditional probability"
+      ],
+      "sourceTextFingerprint": "f0448770",
+      "sourceTextSha256": "22bf4fb28b8155e7877a4c6dced67f53b1e44171b60186a03213df828b83e269",
+      "primaryCode": "E8.3",
+      "confidence": 0.95,
+      "inputSha256": "0195de93401b660d10981f330d6d6bfb3bf9066f1c3a27d48db52c11a79683e1"
+    },
+    {
+      "id": "0580-2021-june-23-q23",
+      "sourceYear": 2021,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "ab9b4735",
+      "sourceTextSha256": "2b550c6fd0b8e3eb43a10ffc4eab57724c27f513bd492ffa46697e5fac00a537",
+      "primaryCode": "E6.5",
+      "confidence": 0.99,
+      "inputSha256": "d1924a9f86cc28f8c56de412d17f837c4967d2a4903f3757f783e6a2a031e318"
+    },
+    {
+      "id": "0580-2021-june-23-q25",
+      "sourceYear": 2021,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Calculus"
+      ],
+      "sourceTextFingerprint": "d06ead23",
+      "sourceTextSha256": "94237e3e83586ee233f96a89234e9740101f6ae0b188a9078941b4cec62e8431",
+      "primaryCode": "E2.12",
+      "confidence": 0.95,
+      "inputSha256": "0cd57b648b4e7b54a9758a4a91ced115e8ef9de79e0bac277b536f4fe19b0a48"
+    },
+    {
+      "id": "0580-2021-june-33-q10",
+      "sourceYear": 2021,
+      "sourceComponent": "33",
+      "sourcePrimaryTopic": "Transformations and vectors",
+      "sourceSubtopics": [
+        "Transformations"
+      ],
+      "sourceTextFingerprint": "8af209b2",
+      "sourceTextSha256": "84f8f56273b09c986e7772a9787041b76c91f520d8406cbb271b4374afbbc758",
+      "primaryCode": "C7.1",
+      "confidence": 0.99,
+      "inputSha256": "1a880ab6091c967ab4a4a14dcea8b0d8dfa18e8dbefc6240e04ead33d26af272"
+    },
+    {
+      "id": "0580-2021-june-41-q12",
+      "sourceYear": 2021,
+      "sourceComponent": "41",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Functions and graphs",
+        "Equations and inequalities"
+      ],
+      "sourceTextFingerprint": "20433486",
+      "sourceTextSha256": "b1e671b33758ca0a94d5cf7351b7990bc609d5bb87d1ba5c1d4d1238ce7ffcf7",
+      "primaryCode": "E2.13",
+      "confidence": 0.98,
+      "inputSha256": "ad1528ef923124c6c79ed6f39d8961fe38c90d5cadd8283539c2b91e020e1945"
+    },
+    {
+      "id": "0580-2021-june-43-q10",
+      "sourceYear": 2021,
+      "sourceComponent": "43",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Calculus",
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "2d8620a5",
+      "sourceTextSha256": "075ebc791ffa15a2b8832e35a11083a1669d22d17deacd9a971df69e1ada9be8",
+      "primaryCode": "E2.13",
+      "confidence": 0.96,
+      "inputSha256": "b010ae1351445dc8d2b2aff6c31139d802eddab9b5b9411596903d43641f7d57"
+    },
+    {
+      "id": "0580-2021-march-12-q10",
+      "sourceYear": 2021,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Statistics",
+      "sourceSubtopics": [
+        "Data charts and diagrams"
+      ],
+      "sourceTextFingerprint": "82833a5c",
+      "sourceTextSha256": "698e8999cbd5e5b47468f0c0e06f492ab62ae240785aaa5e96fb33f5f2b9bff7",
+      "primaryCode": "C9.4",
+      "confidence": 0.98,
+      "inputSha256": "5336afc8893439945316d13acfe9eee0490ef8aeb81ec988eb86d245d319ce41"
+    },
+    {
+      "id": "0580-2021-march-22-q10",
+      "sourceYear": 2021,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "249c61fa",
+      "sourceTextSha256": "e0afa9feca1ba21bd7cdcca98a7124aec9482d632bb74034ab69673a4de00f8a",
+      "primaryCode": "E4.6",
+      "confidence": 0.96,
+      "inputSha256": "9204577306627e33d1bae25619c3f0243936f217f5b9b4ad480c92e3a13e0f63"
+    },
+    {
+      "id": "0580-2021-march-22-q12",
+      "sourceYear": 2021,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Mensuration",
+      "sourceSubtopics": [
+        "Area and perimeter"
+      ],
+      "sourceTextFingerprint": "3e32ce1f",
+      "sourceTextSha256": "0c0a1a52cb9f8dab27a3af1d982a975b1c50919f6a87a799151f3db5681c8efa",
+      "primaryCode": "E5.5",
+      "confidence": 0.95,
+      "inputSha256": "6cd562b665237ca1b23d2101596da8044b5cb0b73350c6c757762b98fd6c3ed4"
+    },
+    {
+      "id": "0580-2021-march-22-q13",
+      "sourceYear": 2021,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages",
+        "Ratio, proportion and rates"
+      ],
+      "sourceTextFingerprint": "b3b92b6b",
+      "sourceTextSha256": "d01c21ea421bf3ec5d79501f7f0ca8754c8f64fa21eb555be47a94f026b9b8be",
+      "primaryCode": "E1.17",
+      "confidence": 1,
+      "inputSha256": "90cd6c1d22a33cfacf74106408165a41970d15917dde4cf62be34d634d243501"
+    },
+    {
+      "id": "0580-2021-november-11-q1",
+      "sourceYear": 2021,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "22df0f84",
+      "sourceTextSha256": "3a7c365a4559284a1eee83590b5a96fa9a45025abd3d0f1bd252db37b097153e",
+      "primaryCode": "C1.4",
+      "confidence": 1,
+      "inputSha256": "82aebeb36fbf2efb5eb893a350b794c68ae90b3f263affec70f154b869d044d8"
+    },
+    {
+      "id": "0580-2021-november-11-q9",
+      "sourceYear": 2021,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "ef16928a",
+      "sourceTextSha256": "fc00283e2adbb70c226b85159218660285abbd1d40247c2507021db23aca64e5",
+      "primaryCode": "C4.3",
+      "confidence": 0.99,
+      "inputSha256": "73a5221833e01b8cdd6b30df72fcd56eb0ac13619085b47aee1f67ab11076a72"
+    },
+    {
+      "id": "0580-2021-november-12-q18",
+      "sourceYear": 2021,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Angles and polygons"
+      ],
+      "sourceTextFingerprint": "ec0c505",
+      "sourceTextSha256": "ac3de251b909377b546180f88a8361c2d82aa18a3c87e8958692b5afcde3bd32",
+      "primaryCode": "C4.6",
+      "confidence": 0.98,
+      "inputSha256": "9ebeaae3aad810695a954cd933ce5091e2668d6247a2e9dab9e6c129b9101179"
+    },
+    {
+      "id": "0580-2021-november-12-q23",
+      "sourceYear": 2021,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Venn and tree diagrams"
+      ],
+      "sourceTextFingerprint": "ae7e7cca",
+      "sourceTextSha256": "4209d018e97c22bfbc28d493d4ab1ee6f0f050e4d7b4f2326e777b8d8473cfd2",
+      "primaryCode": "C1.2",
+      "confidence": 0.97,
+      "inputSha256": "f73623189bb1645c84aedbb5773cdac78cd76d18fc788a93f773cca0128351e9"
+    },
+    {
+      "id": "0580-2021-november-12-q9",
+      "sourceYear": 2021,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "aa557f15",
+      "sourceTextSha256": "3b2f2a7113476159e66213625bef81b14cd8368c2edc5b0b0c14c3b66ab656f6",
+      "primaryCode": "C5.1",
+      "confidence": 0.99,
+      "inputSha256": "86497af248b2bf8106345abe41e22e2c5d165be03602f09ddd65b3fa7dc4cba3"
+    },
+    {
+      "id": "0580-2021-november-13-q1",
+      "sourceYear": 2021,
+      "sourceComponent": "13",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "75c5be9e",
+      "sourceTextSha256": "ce7f2a929fab2d3fde2dd620fb565e5a15856a1f54de95faee4e4c8fbe5ca1a7",
+      "primaryCode": "C1.4",
+      "confidence": 0.99,
+      "inputSha256": "1f00cb3273c33b381f24859e4545f83fce7de259b2426bfcf6c4fcc67b8aa637"
+    },
+    {
+      "id": "0580-2021-november-13-q5",
+      "sourceYear": 2021,
+      "sourceComponent": "13",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Basic probability"
+      ],
+      "sourceTextFingerprint": "bd2fa1f8",
+      "sourceTextSha256": "6bf7b6d2201351d4f583e36ed6b504d14073256442946e3a0c224f9304b9f5bf",
+      "primaryCode": "C8.1",
+      "confidence": 0.97,
+      "inputSha256": "abd172d9134685d345fea726ebd1f0b7d282c639143f47a64ba836808968ec13"
+    },
+    {
+      "id": "0580-2021-november-21-q6",
+      "sourceYear": 2021,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Ratio, proportion and rates",
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "50dcc283",
+      "sourceTextSha256": "6ab2fa5d101c8450ab95c279c9f5f18ec77952d77798b64ad3aa689654c5e1cf",
+      "primaryCode": "E4.3",
+      "confidence": 0.99,
+      "inputSha256": "d7c9372a2123672ccbc68fffdf6a32eda4a9543dbefd8e7bd8e0fb63dc9a6ccc"
+    },
+    {
+      "id": "0580-2021-november-22-q4",
+      "sourceYear": 2021,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Angles and polygons"
+      ],
+      "sourceTextFingerprint": "859ef5f8",
+      "sourceTextSha256": "e3f2bc9c1835e8f4ce3a7277ee6be9d0fe2d0fa18a2256d8f6d61a1d7b5cadf9",
+      "primaryCode": "E4.6",
+      "confidence": 0.98,
+      "inputSha256": "b5400d48b56cbe8088c2967bf082c3b20ab70a893401df8a72940cad3da63cf5"
+    },
+    {
+      "id": "0580-2021-november-43-q10",
+      "sourceYear": 2021,
+      "sourceComponent": "43",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Basic probability",
+        "Combined and conditional probability"
+      ],
+      "sourceTextFingerprint": "889b465a",
+      "sourceTextSha256": "8364cc9a718829e6327ed3d8dcd04913e3b4bb3420d176be5a0d5ce16b36512d",
+      "primaryCode": "E8.3",
+      "confidence": 0.97,
+      "inputSha256": "bdb1cd8e1356f5b0b3b785ed819c83bbef6296a8784d5bbc9dbfd697a86fa18b"
+    },
+    {
+      "id": "0580-2021-november-43-q7",
+      "sourceYear": 2021,
+      "sourceComponent": "43",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation",
+        "Equations and inequalities",
+        "Quadratic equations and functions",
+        "Ratio, proportion and rates"
+      ],
+      "sourceTextFingerprint": "bd203966",
+      "sourceTextSha256": "e72129ad830b41b29a606d20eb7f6f1fc53e57dab9306c744985b68216344d67",
+      "primaryCode": "E2.5",
+      "confidence": 0.96,
+      "inputSha256": "b633cee67968d63b8af09daa1e5d29d0c15d0e0c321b8ca7a9544952708e1af2"
+    },
+    {
+      "id": "0580-2022-june-11-q15",
+      "sourceYear": 2022,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Pythagoras and right-angle trigonometry"
+      ],
+      "sourceTextFingerprint": "45f2d9d7",
+      "sourceTextSha256": "9f7f83c7dd096a944d1466d48b254a6e2f5a2468e15cab5a043a5bb7acc845f6",
+      "primaryCode": "C6.2",
+      "confidence": 0.99,
+      "inputSha256": "97622a2c91a4bf38896afdc128a0f3210e0f4f418712a3214d1cce7a9d2bc8db"
+    },
+    {
+      "id": "0580-2022-june-11-q4",
+      "sourceYear": 2022,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "61c7ffc2",
+      "sourceTextSha256": "1862acb51fb552b4cfc70c3e6d727c3e661c241a58d8e67c33ca037c19dcda18",
+      "primaryCode": "C4.3",
+      "confidence": 0.98,
+      "inputSha256": "fe78241b3750c6ef88577e18217487966afae954dabb9e7f1a14ee3b7ea6013a"
+    },
+    {
+      "id": "0580-2022-june-11-q5",
+      "sourceYear": 2022,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "7a04147e",
+      "sourceTextSha256": "fa0f9bad60d79d73bc90eb422be644f8995b02380fa5b95dc68028f699b7fc5d",
+      "primaryCode": "C5.1",
+      "confidence": 0.98,
+      "inputSha256": "4f418e2513e1b32cf18dd485c2ba504edee0599407725579df5677b8568e0729"
+    },
+    {
+      "id": "0580-2022-june-11-q6",
+      "sourceYear": 2022,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "f6d06722",
+      "sourceTextSha256": "eea7d09ede5a63228fda5ee30fbb1eae306589170beba85ef40fd86a10920422",
+      "primaryCode": "C1.5",
+      "confidence": 0.99,
+      "inputSha256": "b4cc7ecb26946df9d1be00787a8d45db88d1571278c68697896aa3b72bd512c8"
+    },
+    {
+      "id": "0580-2022-june-12-q19",
+      "sourceYear": 2022,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Bounds and estimation"
+      ],
+      "sourceTextFingerprint": "2c3d185e",
+      "sourceTextSha256": "a6c031f4c7d467bfbe888804094a80c0aba0bb525747a691685a012e7e76c59b",
+      "primaryCode": "C1.10",
+      "confidence": 0.97,
+      "inputSha256": "7afedb5e01511410652bceb08854470d8e24556c745647d56b225472d2ac66e7"
+    },
+    {
+      "id": "0580-2022-june-12-q5",
+      "sourceYear": 2022,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "435ca172",
+      "sourceTextSha256": "52a827d2d98b1a218dc3a176ddc3d368afba2e49b7a2b7dae39e93e259f5f7ab",
+      "primaryCode": "C1.6",
+      "confidence": 0.99,
+      "inputSha256": "33c8b23192c937dc29e5326aa4266c54570082325e8f8a64250c115b5e350890"
+    },
+    {
+      "id": "0580-2022-june-12-q6",
+      "sourceYear": 2022,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Statistics",
+      "sourceSubtopics": [
+        "Data charts and diagrams"
+      ],
+      "sourceTextFingerprint": "23137d59",
+      "sourceTextSha256": "4a12e8ffc3ee269f0fc10138204db03b8e530850ab0454d2a8139efc69d19357",
+      "primaryCode": "C9.4",
+      "confidence": 0.97,
+      "inputSha256": "2f73673096cd404797326db22b80930c21e5e4dbe55bb2e76dbf0add1810a6ab"
+    },
+    {
+      "id": "0580-2022-june-13-q21",
+      "sourceYear": 2022,
+      "sourceComponent": "13",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Ratio, proportion and rates"
+      ],
+      "sourceTextFingerprint": "51ac234a",
+      "sourceTextSha256": "25f3cc1b13998bdb77ea2865789574bf0195a3a826a883ae939c5c4b958c331d",
+      "primaryCode": "C8.2",
+      "confidence": 0.99,
+      "inputSha256": "c0a9df0333937a74cd30ca78341c70ff984684ce6a47a75cfd3730ad8bda45cd"
+    },
+    {
+      "id": "0580-2022-june-22-q9",
+      "sourceYear": 2022,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "94ae7b8d",
+      "sourceTextSha256": "a1e590793ef56631b74a5c8a98c948a18b0249e11ac4faab4ae005dc9cd6df1d",
+      "primaryCode": "E4.6",
+      "confidence": 0.95,
+      "inputSha256": "337e5560bec12e08dfc24fe7a420e4588bca6292e5ebe120958a085519d20915"
+    },
+    {
+      "id": "0580-2022-june-41-q4",
+      "sourceYear": 2022,
+      "sourceComponent": "41",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation",
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "6f56dff",
+      "sourceTextSha256": "eec2044b4660fcd338d414bff3d7e938b0f7ec41b2e27685ba34b9c89ee874d8",
+      "primaryCode": "E2.13",
+      "confidence": 0.98,
+      "inputSha256": "e9dda98558adbdb633229c81b3ad257dd2f80cee18d56b10390783f9535543c6"
+    },
+    {
+      "id": "0580-2022-march-22-q14",
+      "sourceYear": 2022,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Mensuration",
+      "sourceSubtopics": [
+        "Area and perimeter"
+      ],
+      "sourceTextFingerprint": "5e0832db",
+      "sourceTextSha256": "d3bc71606a14704e6b265140774047a72b9fb9acbf12d5a0f25c5c98dbbb753f",
+      "primaryCode": "E5.3",
+      "confidence": 0.97,
+      "inputSha256": "bb39d1c4c31f243d38d6d9ddacd8a119661ba884761de3a78226c9ae8aea5dd0"
+    },
+    {
+      "id": "0580-2022-march-42-q3",
+      "sourceYear": 2022,
+      "sourceComponent": "42",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation",
+        "Equations and inequalities",
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "91d66c13",
+      "sourceTextSha256": "4e7c39f15f558cfc8c0ce5a5d719c2794be74c8fb764737060aa29be960c1c15",
+      "primaryCode": "E2.13",
+      "confidence": 0.98,
+      "inputSha256": "5c7339fda898fa811cd84a32f2a6f11399bbd029dc5a48963aebe6e2fddb6d35"
+    },
+    {
+      "id": "0580-2022-november-11-q12",
+      "sourceYear": 2022,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "b8805304",
+      "sourceTextSha256": "06e0d519164f053c49c9b971422d6823da39b77b9290a5268ef2710ceb31c1a1",
+      "primaryCode": "C1.13",
+      "confidence": 0.95,
+      "inputSha256": "656895da78e42db19b06da2a7c89d12fec973eddf1c63f9c6524811c7a9227d7"
+    },
+    {
+      "id": "0580-2022-november-11-q23",
+      "sourceYear": 2022,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Equations and inequalities"
+      ],
+      "sourceTextFingerprint": "c3c628b6",
+      "sourceTextSha256": "ab1c169de1016d7ab6549e808a15720972144b20927c098b0afb1d8502d0cb6c",
+      "primaryCode": "C2.5",
+      "confidence": 0.97,
+      "inputSha256": "3067f4f177270f3335546fdee7deb4717e8fac265cc623de84d7e09f096bb2b3"
+    },
+    {
+      "id": "0580-2022-november-21-q15",
+      "sourceYear": 2022,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Mensuration",
+      "sourceSubtopics": [
+        "Area and perimeter"
+      ],
+      "sourceTextFingerprint": "92134237",
+      "sourceTextSha256": "d58fa9c73cc1a4037a929ef12851bd9683f3db7071a52f1850060ef3a41e0a74",
+      "primaryCode": "E5.3",
+      "confidence": 1,
+      "inputSha256": "c23531f0064d85da6d9eec68c8e11e3f494978d1a4610d52e3ba10587eafe1fa"
+    },
+    {
+      "id": "0580-2022-november-21-q21",
+      "sourceYear": 2022,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Calculus",
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "c963efec",
+      "sourceTextSha256": "0d79152cde7f068ea21f130220a08168695cdfe67b1634a5a678898e4df694ee",
+      "primaryCode": "E2.11",
+      "confidence": 0.97,
+      "inputSha256": "b538a49437ec9722f2a69ab974fb22ce63ee7df9a34c54e2166e0aba8e0c0dff"
+    },
+    {
+      "id": "0580-2022-november-21-q6",
+      "sourceYear": 2022,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "3c35fd75",
+      "sourceTextSha256": "c66ca578293fad9b12c4938e2548a4d8ead4d8837301e124a2e419cc41506d22",
+      "primaryCode": "E1.13",
+      "confidence": 0.96,
+      "inputSha256": "e845255749273c6302e354b4db843fcb0b269c4fd583292c0571bbe3c94b78ac"
+    },
+    {
+      "id": "0580-2022-november-22-q16",
+      "sourceYear": 2022,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Venn and tree diagrams"
+      ],
+      "sourceTextFingerprint": "21c60162",
+      "sourceTextSha256": "aaba37d78d96a0e51b204e421ce94a6abbf20d3191c8d5eb33de44177b2381f8",
+      "primaryCode": "E1.2",
+      "confidence": 0.95,
+      "inputSha256": "54aa963b8a34a914ec4b2f8fbf7d41bedd0e72d56ed776ec19526db29b3a9b69"
+    },
+    {
+      "id": "0580-2022-november-22-q17",
+      "sourceYear": 2022,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation",
+        "Equations and inequalities",
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "51860682",
+      "sourceTextSha256": "0b43e7b6ef1de5fcab864abf9ef46efe328836fc27fac019f2b02bd36b8e0574",
+      "primaryCode": "E2.13",
+      "confidence": 0.95,
+      "inputSha256": "f4c2f3b087939716dcc4f8ef32eb6b6938517b3ea361ac8187861071a540ac19"
+    },
+    {
+      "id": "0580-2022-november-23-q17",
+      "sourceYear": 2022,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Direct and inverse proportion"
+      ],
+      "sourceTextFingerprint": "1c471aaa",
+      "sourceTextSha256": "c2192149bc70a1a3b25c9a1fdd5a0f90c46c9e54fdf83ae7ef071f4280eeed8e",
+      "primaryCode": "E2.8",
+      "confidence": 0.95,
+      "inputSha256": "adc854e8c02af5d8d0f9e1393af44fb0980eb0934c5a1016dcc5a5d0db2a6b69"
+    },
+    {
+      "id": "0580-2022-november-23-q19",
+      "sourceYear": 2022,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation",
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "290bbc4d",
+      "sourceTextSha256": "e16603e1329b13d2454d8aaebb6a31f9b30dfe449dc5d89419e6cbf6ecba52f0",
+      "primaryCode": "E2.13",
+      "confidence": 0.98,
+      "inputSha256": "e09d5005d5220598adb2b5a671cea8b06decb1da5d2afdacebeef56a0c63518b"
+    },
+    {
+      "id": "0580-2022-november-31-q2",
+      "sourceYear": 2022,
+      "sourceComponent": "31",
+      "sourcePrimaryTopic": "Transformations and vectors",
+      "sourceSubtopics": [
+        "Transformations"
+      ],
+      "sourceTextFingerprint": "92f4812b",
+      "sourceTextSha256": "b2a116d26c687bdc444e8c038d2ab2ba7fafd711e7a1d525bf9ff0fb7370a8e2",
+      "primaryCode": "C7.1",
+      "confidence": 0.99,
+      "inputSha256": "a057a7490847df1305282e3a95ecd9df69b20be81cd22ace7bc9f74e05d1ff4f"
+    },
+    {
+      "id": "0580-2022-november-32-q7",
+      "sourceYear": 2022,
+      "sourceComponent": "32",
+      "sourcePrimaryTopic": "Mensuration",
+      "sourceSubtopics": [
+        "Area and perimeter"
+      ],
+      "sourceTextFingerprint": "555b5617",
+      "sourceTextSha256": "e06119ee82aefaa4b7c4b9cc85816aa10f253224012d173ab0c5d678d3b9f43e",
+      "primaryCode": "C5.2",
+      "confidence": 0.98,
+      "inputSha256": "ff82aa4fbf0d841e0c76659d893d7382eebf23028baee1b378dd84fa30c1daeb"
+    },
+    {
+      "id": "0580-2023-june-11-q12",
+      "sourceYear": 2023,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Angles and polygons"
+      ],
+      "sourceTextFingerprint": "b2cbcf80",
+      "sourceTextSha256": "176d019e8f0911673753172780026b9d08f3b95beff3068869c84a692b30fdba",
+      "primaryCode": "C4.6",
+      "confidence": 0.98,
+      "inputSha256": "43bfc3a30ea5f135176eb0e668f24d72f4cc984a48e5920bca8280e68c308140"
+    },
+    {
+      "id": "0580-2023-june-11-q18",
+      "sourceYear": 2023,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Bounds and estimation"
+      ],
+      "sourceTextFingerprint": "8e71df30",
+      "sourceTextSha256": "0647ab12373b06b056fcb1c2fd078bb9b6f7c8a765d7e3a940e4f8b13c85b0a5",
+      "primaryCode": "C1.10",
+      "confidence": 0.95,
+      "inputSha256": "2d479f281d2b17649629e100d2f0f08b20dc8214e7dea7263664ac0564b0b573"
+    },
+    {
+      "id": "0580-2023-june-11-q7",
+      "sourceYear": 2023,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "6ff92ce0",
+      "sourceTextSha256": "a660c7640b77ca8b60e54e25b774b32d16e1d4a75a2388482a8168d362a9bd11",
+      "primaryCode": "C1.5",
+      "confidence": 1,
+      "inputSha256": "cea546b6b69ae3c3d0af65a7a0bbfa286a49da3bb529dd09ed23ac52bf9d4600"
+    },
+    {
+      "id": "0580-2023-june-12-q23",
+      "sourceYear": 2023,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Bounds and estimation"
+      ],
+      "sourceTextFingerprint": "920756e0",
+      "sourceTextSha256": "c23b35c704987a933c998548614bf037a5bdcc71b1b18486f36c4ab5260173af",
+      "primaryCode": "C1.10",
+      "confidence": 0.99,
+      "inputSha256": "3863cd8fbaf7af71af1d0a1cc166a16fc44b1c2bf4c38ef51085372b4f286f67"
+    },
+    {
+      "id": "0580-2023-june-12-q5",
+      "sourceYear": 2023,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Angles and polygons"
+      ],
+      "sourceTextFingerprint": "c60c0011",
+      "sourceTextSha256": "c6aad3d3a32255c4b190c12c7fb0e4e6c9d02e9bfc6c0e21c1616234753addae",
+      "primaryCode": "C4.6",
+      "confidence": 0.95,
+      "inputSha256": "8b5a0812003547cb2259b987418b45b85b7024384cfa61906dd9fff80ceaa9c4"
+    },
+    {
+      "id": "0580-2023-june-13-q12",
+      "sourceYear": 2023,
+      "sourceComponent": "13",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Angles and polygons"
+      ],
+      "sourceTextFingerprint": "1707053c",
+      "sourceTextSha256": "8ae46e033bc008a6f7a2be855acf88880aae4673ac60d5acff9cbb5465526a3d",
+      "primaryCode": "C4.6",
+      "confidence": 0.99,
+      "inputSha256": "35fba3afa3428857a18d0102c0e92c88406827a0e330fab8850310cf7ee6ff97"
+    },
+    {
+      "id": "0580-2023-june-13-q18",
+      "sourceYear": 2023,
+      "sourceComponent": "13",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Basic probability"
+      ],
+      "sourceTextFingerprint": "fb4dfd13",
+      "sourceTextSha256": "4b203f6447a4d021d15df5297fcfe80e2e23e4270f66df6692b751a57867fac8",
+      "primaryCode": "C8.2",
+      "confidence": 0.99,
+      "inputSha256": "084fa9cdc6e0d57d50dde119031e1c4631e5309a028463950968d52ae9882679"
+    },
+    {
+      "id": "0580-2023-june-13-q23",
+      "sourceYear": 2023,
+      "sourceComponent": "13",
+      "sourcePrimaryTopic": "Transformations and vectors",
+      "sourceSubtopics": [
+        "Transformations"
+      ],
+      "sourceTextFingerprint": "180a6831",
+      "sourceTextSha256": "4dba950f496921ef21a06d1da7819a54e092572fd709ca341f6d0963a02ca0aa",
+      "primaryCode": "C7.1",
+      "confidence": 0.98,
+      "inputSha256": "b616e4a416b14de40121cb6da69c86ab2b99b91c2f5f8f20d5e28693e11ece92"
+    },
+    {
+      "id": "0580-2023-june-21-q3",
+      "sourceYear": 2023,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Angles and polygons"
+      ],
+      "sourceTextFingerprint": "25dacdab",
+      "sourceTextSha256": "001864ab788ed15d11b0ffafbb48ecbf621e3d01fb23dd15c3d28359f02830a0",
+      "primaryCode": "E4.6",
+      "confidence": 0.95,
+      "inputSha256": "28dbba6f481bcb643021fa49eca95a284d55d1f5ba6ef896a817c8675abc62ce"
+    },
+    {
+      "id": "0580-2023-june-22-q4",
+      "sourceYear": 2023,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Ratio, proportion and rates"
+      ],
+      "sourceTextFingerprint": "4afce209",
+      "sourceTextSha256": "52d13373379437919af4154ab59ff72788b75a5c35aa6fe2c5a4d10f7d61edb8",
+      "primaryCode": "E4.3",
+      "confidence": 0.95,
+      "inputSha256": "aeb3a8bb216defbacd518f736e4196a0b7e63ddcb75ca2a7a9672fafc57f673c"
+    },
+    {
+      "id": "0580-2023-june-23-q11",
+      "sourceYear": 2023,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Venn and tree diagrams"
+      ],
+      "sourceTextFingerprint": "bbe06c9",
+      "sourceTextSha256": "605c83006803393d36200e51bae993c791e50e9009d3aef174ec2ac210ae4d39",
+      "primaryCode": "E1.2",
+      "confidence": 0.96,
+      "inputSha256": "df72436c62cde8549a74fbb8d98c0918f18deff9bf5bbb4d8587fd31b6d2cec9"
+    },
+    {
+      "id": "0580-2023-june-23-q20",
+      "sourceYear": 2023,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation",
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "87c34fb4",
+      "sourceTextSha256": "2e0508bd4af794dd24bffb7d521dbb913349510822858e99c2ae951272f3d2df",
+      "primaryCode": "E2.13",
+      "confidence": 0.97,
+      "inputSha256": "c5c04e1d4d05356090e895a263d88f1bf0c39613081afaa2a137b3e51fb806cf"
+    },
+    {
+      "id": "0580-2023-june-31-q9",
+      "sourceYear": 2023,
+      "sourceComponent": "31",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Venn and tree diagrams"
+      ],
+      "sourceTextFingerprint": "77b70117",
+      "sourceTextSha256": "8f0210ea7cf5dd43c7d5028d7fe974b9ce5cc96fb7d1ce2d1a6b8e990169d8d0",
+      "primaryCode": "C8.3",
+      "confidence": 0.95,
+      "inputSha256": "0909fbd89107001d205eea9c25ebe4a3fe8e64d40bf3ce979fe8f377a29bd115"
+    },
+    {
+      "id": "0580-2023-june-41-q9",
+      "sourceYear": 2023,
+      "sourceComponent": "41",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Venn and tree diagrams"
+      ],
+      "sourceTextFingerprint": "376b7424",
+      "sourceTextSha256": "ed0413976e639018e98fb2367c0b9158ed7e7d5fd9c418319f83ed317bcc3ccc",
+      "primaryCode": "E1.2",
+      "confidence": 0.98,
+      "inputSha256": "8ea336afc65e381ea3d88099cf322947bb7322d26933f9803f9b0cb2eda05f7d"
+    },
+    {
+      "id": "0580-2023-june-43-q12",
+      "sourceYear": 2023,
+      "sourceComponent": "43",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Calculus",
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "314c4558",
+      "sourceTextSha256": "949cafe1b0845573d8c1b0da5e24c95f7c61928c923ce698e47c00dd61389c71",
+      "primaryCode": "E2.12",
+      "confidence": 0.99,
+      "inputSha256": "c30fc7ce5b01e03ae112262a9c5c47e46b8a2aa77dbb02042c8b743be574db5d"
+    },
+    {
+      "id": "0580-2023-march-12-q22",
+      "sourceYear": 2023,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Basic probability"
+      ],
+      "sourceTextFingerprint": "908baa5c",
+      "sourceTextSha256": "329b8c482b2de42cf1d082987492807298a777f5bf1b7f0f9d45da2b7bcedc93",
+      "primaryCode": "C8.2",
+      "confidence": 0.99,
+      "inputSha256": "445f29db7bf4b6d65daac0d0ca7b0a21a8b7cea24e6f79799553986e03f58837"
+    },
+    {
+      "id": "0580-2023-march-22-q14",
+      "sourceYear": 2023,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Area and perimeter",
+        "Pythagoras and right-angle trigonometry",
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "aa5c4b7f",
+      "sourceTextSha256": "a01d7eb171a9223291070ac1dbcdb90fd29518b4aa399bb7ddd5a81cd22b7855",
+      "primaryCode": "E5.3",
+      "confidence": 1,
+      "inputSha256": "b75019f70c059f816b6b09f9fff6586a9a3941c239bfc13ea3606fb4800d41de"
+    },
+    {
+      "id": "0580-2023-march-32-q7",
+      "sourceYear": 2023,
+      "sourceComponent": "32",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "b66e372f",
+      "sourceTextSha256": "c5a717d0a04e2f7dac1e7827a7b267f5ced4b44390ff4db46fb3b53a85e5c5d6",
+      "primaryCode": "C4.3",
+      "confidence": 0.98,
+      "inputSha256": "e211377f0179ef4e8f54bf8a3351b83f243001dc57d873f6a67428158b594b5c"
+    },
+    {
+      "id": "0580-2023-march-42-q11",
+      "sourceYear": 2023,
+      "sourceComponent": "42",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation",
+        "Equations and inequalities",
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "33fdbcf2",
+      "sourceTextSha256": "9488ac1bbe1e1310e1b0907bf49e9afd3d348105fa292ef7dac88f709d703963",
+      "primaryCode": "E2.13",
+      "confidence": 0.97,
+      "inputSha256": "3bd170b180d66199b2e99edb741f3f6a3eb5e792d3b81bb85b03e5715c4a06d8"
+    },
+    {
+      "id": "0580-2023-november-11-q22",
+      "sourceYear": 2023,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Bounds and estimation"
+      ],
+      "sourceTextFingerprint": "a5b7aea2",
+      "sourceTextSha256": "93dcbcc5b400db1430c378f0d70875c39ca22c05deeeffe64e61a42d3efe4ac6",
+      "primaryCode": "C1.10",
+      "confidence": 0.95,
+      "inputSha256": "ce5de56c1a5cf5bab9b9f98e4994f2d198d58a63988958b27b6b92afa6486803"
+    },
+    {
+      "id": "0580-2023-november-11-q8",
+      "sourceYear": 2023,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Angles and polygons"
+      ],
+      "sourceTextFingerprint": "7ac8856a",
+      "sourceTextSha256": "f0157f8ec69a9a4e594d53a0843e3283ac504678fa9b588b46c24e883d3a5290",
+      "primaryCode": "C4.6",
+      "confidence": 0.95,
+      "inputSha256": "8d504e58f126c4a2a06afcfd9d3a778309e0fcc6e43f9a6bd679a0c891a3d41e"
+    },
+    {
+      "id": "0580-2023-november-12-q10",
+      "sourceYear": 2023,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "4219c4b7",
+      "sourceTextSha256": "d79b8728b9a7f7b600541a40fb4557d3343634297d983362c7cdf15643f6e610",
+      "primaryCode": "C5.1",
+      "confidence": 0.99,
+      "inputSha256": "cc0936c2919d7a979e0d3c87d52d7e6d649543cdf1cae1246669615d090c6f82"
+    },
+    {
+      "id": "0580-2023-november-12-q5",
+      "sourceYear": 2023,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "a828c8aa",
+      "sourceTextSha256": "23497c62058bd2c47333f70479ee6c26103a26dfd5ae073307acfb4eaaf323a2",
+      "primaryCode": "C1.5",
+      "confidence": 1,
+      "inputSha256": "efd7217aaff7f2a34aa04f1182abb2378552fc0b6486c0e094942d4d5f7840ad"
+    },
+    {
+      "id": "0580-2023-november-13-q12",
+      "sourceYear": 2023,
+      "sourceComponent": "13",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Basic probability"
+      ],
+      "sourceTextFingerprint": "ffd0a932",
+      "sourceTextSha256": "019c8a27a8848c07e76a0c7965348cdf99bccd8ba659e1c2d0c2b4b3d3714201",
+      "primaryCode": "C8.2",
+      "confidence": 0.95,
+      "inputSha256": "30abe7d25b00f8070453fc5388f00073dbd63be5ae52b826469840080d001a31"
+    },
+    {
+      "id": "0580-2023-november-21-q14",
+      "sourceYear": 2023,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Venn and tree diagrams"
+      ],
+      "sourceTextFingerprint": "6d319dd7",
+      "sourceTextSha256": "50af50d9c12119685d1584ad022a76e74a29f48a488281b58236fa109f883f49",
+      "primaryCode": "E1.2",
+      "confidence": 0.95,
+      "inputSha256": "8cd73693d9f7eb055e6c1d5b3f648742d23b21f5d3bbe9974e96771370e19727"
+    },
+    {
+      "id": "0580-2023-november-21-q15",
+      "sourceYear": 2023,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Equations and inequalities"
+      ],
+      "sourceTextFingerprint": "ffc5959e",
+      "sourceTextSha256": "8e11e455e662a1ff7a23e5a38c4b53936c80b45e3e4967fb01832b48b36388cf",
+      "primaryCode": "E2.6",
+      "confidence": 0.95,
+      "inputSha256": "468b2831c4866d3004da73042e14182f7746fd1a626d26073e461975eeac484b"
+    },
+    {
+      "id": "0580-2023-november-22-q15",
+      "sourceYear": 2023,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Venn and tree diagrams"
+      ],
+      "sourceTextFingerprint": "db3bde89",
+      "sourceTextSha256": "0779cf98276ec185f1d3623629efc9ad3366ef05d9deeebaad96e2b9f81c9f34",
+      "primaryCode": "E1.2",
+      "confidence": 0.97,
+      "inputSha256": "fbe2c83d1723c7094bf4f7b6986c6546c228957d2633671956b9c95825f6d48e"
+    },
+    {
+      "id": "0580-2023-november-22-q25",
+      "sourceYear": 2023,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation",
+        "Calculus"
+      ],
+      "sourceTextFingerprint": "68c2c29c",
+      "sourceTextSha256": "a86334d50c3bc2d878a25a09b67c6408f9b8a493f3baf2bd3c56218a2ed4a614",
+      "primaryCode": "E2.12",
+      "confidence": 0.96,
+      "inputSha256": "edfc21ad9939eac0d1047285c1d61ff08c908c9244faae58a925dddf811cf3c3"
+    },
+    {
+      "id": "0580-2023-november-22-q4",
+      "sourceYear": 2023,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Ratio, proportion and rates"
+      ],
+      "sourceTextFingerprint": "eb5c4a2",
+      "sourceTextSha256": "1653515aeffb7f6b0fc719407f57d97f29f1a19f9921322eff0df2ffe5fe0296",
+      "primaryCode": "E5.1",
+      "confidence": 1,
+      "inputSha256": "36e3c354c57e1eb9172619698030b5693e3f929ec712c800aa0d4de9afbc47c9"
+    },
+    {
+      "id": "0580-2023-november-23-q13",
+      "sourceYear": 2023,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Equations and inequalities"
+      ],
+      "sourceTextFingerprint": "fcb92936",
+      "sourceTextSha256": "475b6d31555e371078476858bbe1bc6a9a93e1a72054b12b2ebbce0571534a59",
+      "primaryCode": "E2.6",
+      "confidence": 0.96,
+      "inputSha256": "92de6b1862c8edb6fb17e81ce253e7ab5e827c111bdce8be87270a4abdbd1f9f"
+    },
+    {
+      "id": "0580-2023-november-32-q9",
+      "sourceYear": 2023,
+      "sourceComponent": "32",
+      "sourcePrimaryTopic": "Transformations and vectors",
+      "sourceSubtopics": [
+        "Transformations"
+      ],
+      "sourceTextFingerprint": "f9c03d8f",
+      "sourceTextSha256": "5f4df13357dd0da682504028001fedf79cfa1eee991b0da5c87f52c3be31bac2",
+      "primaryCode": "C7.1",
+      "confidence": 0.98,
+      "inputSha256": "01f7fa4968971a38dff85fade48ae2f0e81d853d3096a40e3fa00adf8900c4c5"
+    },
+    {
+      "id": "0580-2023-november-41-q4",
+      "sourceYear": 2023,
+      "sourceComponent": "41",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Basic probability",
+        "Combined and conditional probability",
+        "Venn and tree diagrams"
+      ],
+      "sourceTextFingerprint": "10f0e35a",
+      "sourceTextSha256": "bf02fd34248b156ef64359bcbf1f7466934d0722fadff37437c4c199c0154024",
+      "primaryCode": "E8.3",
+      "confidence": 0.98,
+      "inputSha256": "b24694c844f08b0ae886019115fcbdd3fbe9c93ef309dd5ccd649511c179927f"
+    },
+    {
+      "id": "0580-2023-november-41-q9",
+      "sourceYear": 2023,
+      "sourceComponent": "41",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation",
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "10e8c036",
+      "sourceTextSha256": "888d44ae41e47c008096f7608facf57f6b20f7f9731df7479ee77241af95f79e",
+      "primaryCode": "E2.13",
+      "confidence": 0.96,
+      "inputSha256": "4b0a18327fa5be762f14b1250e42704ef551ce8c9e1b3a690b1486315edef4f3"
+    },
+    {
+      "id": "0580-2024-june-12-q24",
+      "sourceYear": 2024,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Ratio, proportion and rates"
+      ],
+      "sourceTextFingerprint": "9a4dd859",
+      "sourceTextSha256": "8a9047665275a03638e15e2cbbcc5ee01afa23f86dbbc23bbf8c1602f799584d",
+      "primaryCode": "C8.2",
+      "confidence": 0.95,
+      "inputSha256": "0ec7b3d66c5daa7c4771f7712e643f339e1282845dd80011fb7115c3922f940a"
+    },
+    {
+      "id": "0580-2024-june-12-q4",
+      "sourceYear": 2024,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "831b73ab",
+      "sourceTextSha256": "791d8b2f5a7d5d4ece1ffc41c3a4e6ef84efd911089eecd78760c9c5a553b127",
+      "primaryCode": "C1.5",
+      "confidence": 0.98,
+      "inputSha256": "b6e443ddae9007813d88e5aad0482d6deffcd0a972942ac4901bae4479543424"
+    },
+    {
+      "id": "0580-2024-june-13-q16",
+      "sourceYear": 2024,
+      "sourceComponent": "13",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "57048996",
+      "sourceTextSha256": "f5030bc81279ae6dc6a2ddf03f328ceda46105c5b42cd6ca0089fdd5bbfdae6f",
+      "primaryCode": "C1.13",
+      "confidence": 0.95,
+      "inputSha256": "bf8e87de648ed4cccd8962fa220df8c2d0df904e831d88de62cc60b56ff38be9"
+    },
+    {
+      "id": "0580-2024-june-13-q18",
+      "sourceYear": 2024,
+      "sourceComponent": "13",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Bounds and estimation"
+      ],
+      "sourceTextFingerprint": "a395b4e3",
+      "sourceTextSha256": "2db59565bf76d1a2f13f31be125ab8a9ba7503b7de33a9610b696dfbcf0e806d",
+      "primaryCode": "C1.10",
+      "confidence": 0.96,
+      "inputSha256": "8c7a9f2a7b7c1499ed791cf0a2d0c6f0372507e875ea25de3d78d44831201bae"
+    },
+    {
+      "id": "0580-2024-june-13-q20",
+      "sourceYear": 2024,
+      "sourceComponent": "13",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "48ef9da1",
+      "sourceTextSha256": "d7e0edad865247e83b984eb1729c3150fd333c84d4e3e06dd957be7eb029bff2",
+      "primaryCode": "C4.6",
+      "confidence": 0.95,
+      "inputSha256": "fdb51d4aa20a10731c983ddecb0ba7e67a7f5d3dc86f0a7dcf6327c7bddba4cf"
+    },
+    {
+      "id": "0580-2024-june-13-q6",
+      "sourceYear": 2024,
+      "sourceComponent": "13",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "96d6f71d",
+      "sourceTextSha256": "836af236a59647d41c42c02447eb827d92709d8a4466c4b9f31a83cdfcaddede",
+      "primaryCode": "C1.5",
+      "confidence": 0.99,
+      "inputSha256": "2b6eb61fb327d228bd7d5ebb0398dd77a78e14c4eac94f7855136d214f169aad"
+    },
+    {
+      "id": "0580-2024-june-21-q11",
+      "sourceYear": 2024,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Equations and inequalities"
+      ],
+      "sourceTextFingerprint": "2e38f393",
+      "sourceTextSha256": "3fe1c6bf39818a034adeaa2ab2debda6d1dc43ca0632a1551222de3ae01acbd0",
+      "primaryCode": "E2.6",
+      "confidence": 0.96,
+      "inputSha256": "69434e5f9fa531c05b55f910e75b24780802c365d79002fa32c17cfd75c36c4f"
+    },
+    {
+      "id": "0580-2024-june-21-q14",
+      "sourceYear": 2024,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Mensuration",
+      "sourceSubtopics": [
+        "Area and perimeter"
+      ],
+      "sourceTextFingerprint": "c67d4887",
+      "sourceTextSha256": "63556f97cf9e9974cf731fd699fe2a66ffd44cc3f4d9d8c32a7328255ad47e10",
+      "primaryCode": "E5.3",
+      "confidence": 1,
+      "inputSha256": "3b08c15f1a2e3fc2d6f5f8257378ae97a9fac28d26dac00cd7a33108f7393a4c"
+    },
+    {
+      "id": "0580-2024-june-21-q16",
+      "sourceYear": 2024,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Venn and tree diagrams"
+      ],
+      "sourceTextFingerprint": "a903833c",
+      "sourceTextSha256": "b9a01a61b2c9c0af949b33b2f9008b69979767aa100f73d2a9274539826835bf",
+      "primaryCode": "E1.2",
+      "confidence": 0.99,
+      "inputSha256": "e6d91f910270a99ab6ac0881816e89b8dd3bf1b74c7782503453440a15641c53"
+    },
+    {
+      "id": "0580-2024-june-21-q22",
+      "sourceYear": 2024,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Combined and conditional probability"
+      ],
+      "sourceTextFingerprint": "d871ff9f",
+      "sourceTextSha256": "d1b11c6ccd8b21db59a3cdf8204131e0aff2aa174772dcc6c0c1e7c2705c02d3",
+      "primaryCode": "E8.3",
+      "confidence": 0.99,
+      "inputSha256": "471946682f62ced4094f160f056a6ac9c1a56450ac159d4be7e9815544222818"
+    },
+    {
+      "id": "0580-2024-june-21-q9",
+      "sourceYear": 2024,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "e77ca83b",
+      "sourceTextSha256": "f2d1081ad179d2337995aafbc4282cd9b3bf75973103088c137d870a20511e33",
+      "primaryCode": "E1.17",
+      "confidence": 1,
+      "inputSha256": "f5937f2c6393a08ec2a199a89c86ca95c321d16304a72a8592174bcfd9043ddf"
+    },
+    {
+      "id": "0580-2024-june-22-q11",
+      "sourceYear": 2024,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Ratio, proportion and rates"
+      ],
+      "sourceTextFingerprint": "74955dd7",
+      "sourceTextSha256": "d362efa74ed5be25db9750bdb43f684124d080ec0c0d19ac756daa58db81ec82",
+      "primaryCode": "E8.2",
+      "confidence": 0.95,
+      "inputSha256": "ba9effbd6091dbf29e2494ffba692e485dbd3347d5d8b50dfbf80457dca3ff8e"
+    },
+    {
+      "id": "0580-2024-june-22-q15",
+      "sourceYear": 2024,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Angles and polygons",
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "c0231613",
+      "sourceTextSha256": "9c1cffdc19dcf1a8fca967efd6732e371ed21ba127c5d758818c4119b2c18314",
+      "primaryCode": "E4.6",
+      "confidence": 0.96,
+      "inputSha256": "590483f541dce182a88503d00a1832694cffc78ed86d5ab51caca37a796dd7d6"
+    },
+    {
+      "id": "0580-2024-june-22-q17",
+      "sourceYear": 2024,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Venn and tree diagrams"
+      ],
+      "sourceTextFingerprint": "b5cf8fab",
+      "sourceTextSha256": "13eec0541c0631b8cadbab634ac9359252078ed3a94db416b1d2cffcc8077f24",
+      "primaryCode": "E1.2",
+      "confidence": 0.98,
+      "inputSha256": "c0cae1129754c6646a8d5d883f184e5df1a1ec35991c647569d5858bb29985d5"
+    },
+    {
+      "id": "0580-2024-june-32-q3",
+      "sourceYear": 2024,
+      "sourceComponent": "32",
+      "sourcePrimaryTopic": "Transformations and vectors",
+      "sourceSubtopics": [
+        "Transformations"
+      ],
+      "sourceTextFingerprint": "1724e0c7",
+      "sourceTextSha256": "2e25321594b1556959142c353b49a3e81ad88d4b80338aac5d126f1cd30efa92",
+      "primaryCode": "C7.1",
+      "confidence": 0.97,
+      "inputSha256": "152a88b5609ce8ec6981684e0770b1ebf2e1bedbd91e50fb486a1c9a779cdef1"
+    },
+    {
+      "id": "0580-2024-june-33-q1",
+      "sourceYear": 2024,
+      "sourceComponent": "33",
+      "sourcePrimaryTopic": "Statistics",
+      "sourceSubtopics": [
+        "Data charts and diagrams"
+      ],
+      "sourceTextFingerprint": "257cb3db",
+      "sourceTextSha256": "5eda71a49004782db96dd9220617cdbd6f344fe9401f6861679c89d5b4abbfdb",
+      "primaryCode": "C9.4",
+      "confidence": 0.98,
+      "inputSha256": "7c1442255dce22a3670e3a2234ad6c44475af860234b35d5cd6437b4c439ebc9"
+    },
+    {
+      "id": "0580-2024-june-41-q9",
+      "sourceYear": 2024,
+      "sourceComponent": "41",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation",
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "d8b6be5b",
+      "sourceTextSha256": "51047fc14fc815bf4a101edaf91fc9ba9a5829b36c3a305d4b61778b3ab61813",
+      "primaryCode": "E2.13",
+      "confidence": 0.98,
+      "inputSha256": "bfd2eacc83d7b007e2f187e6490a72637b3e0768133d2bdfb9077e815ebd83f5"
+    },
+    {
+      "id": "0580-2024-june-42-q6",
+      "sourceYear": 2024,
+      "sourceComponent": "42",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Angles and polygons",
+        "Pythagoras and right-angle trigonometry",
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "9f301e97",
+      "sourceTextSha256": "79dfbe6d1d25c0efdd8b4edf58fc56a3fa64a07882f8f6201593d7ebb7578065",
+      "primaryCode": "E6.5",
+      "confidence": 0.95,
+      "inputSha256": "f42240b02e1ea660b33d1c77da8aecaf1d78e23bac6045f9cfa1df7e6d19b264"
+    },
+    {
+      "id": "0580-2024-june-43-q10",
+      "sourceYear": 2024,
+      "sourceComponent": "43",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Calculus"
+      ],
+      "sourceTextFingerprint": "c25b427c",
+      "sourceTextSha256": "4cba563124affea1dfa80c9da4ef6f49c6d850df3e3d5064c7c06fb2cbe3841e",
+      "primaryCode": "E2.12",
+      "confidence": 0.97,
+      "inputSha256": "798e62497ea96f6b66516b5f603c6cb8c230a72b925412acba7add01adda7a85"
+    },
+    {
+      "id": "0580-2024-march-12-q21",
+      "sourceYear": 2024,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Bounds and estimation"
+      ],
+      "sourceTextFingerprint": "3c4f426f",
+      "sourceTextSha256": "58ccaa657845cfa08546c153357483da9cecde41e564866d4b79ea6516419353",
+      "primaryCode": "C1.10",
+      "confidence": 0.95,
+      "inputSha256": "32b93804fef7e5ab513901875fe38796ba6deb06ef1da99c60a11991922f7f01"
+    },
+    {
+      "id": "0580-2024-march-22-q12",
+      "sourceYear": 2024,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Basic probability"
+      ],
+      "sourceTextFingerprint": "c658d74c",
+      "sourceTextSha256": "e02fe573c7be2ea8cad4fffac8572f5952e3af27f09d48904e46ac6bfa895f7c",
+      "primaryCode": "E8.2",
+      "confidence": 0.99,
+      "inputSha256": "6562a66cdd4fdbf1f0009c34e3438f5ecfbbd522a6f4836e6963c6f7c6784989"
+    },
+    {
+      "id": "0580-2024-march-22-q16",
+      "sourceYear": 2024,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Venn and tree diagrams"
+      ],
+      "sourceTextFingerprint": "481ec2e",
+      "sourceTextSha256": "6877a45675388566b928f43cc6c1a15310fdc68cd30473679df1be3a2fbdf4fc",
+      "primaryCode": "E1.2",
+      "confidence": 0.95,
+      "inputSha256": "5e75925f379c757c208fa13e5edb857e305934157ea5a2e562988c91898eb57c"
+    },
+    {
+      "id": "0580-2024-march-42-q6",
+      "sourceYear": 2024,
+      "sourceComponent": "42",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Pythagoras and right-angle trigonometry",
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "37b58188",
+      "sourceTextSha256": "0640ee9ddaaa5663e809efa57af4eb1eed827a20a2acc214ba712063536cd775",
+      "primaryCode": "E6.5",
+      "confidence": 0.95,
+      "inputSha256": "48d74f64150f61079144205b6126798dfa2dc6e65b7f778aa40d5bf3a8b99518"
+    },
+    {
+      "id": "0580-2024-november-11-q17",
+      "sourceYear": 2024,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Bounds and estimation"
+      ],
+      "sourceTextFingerprint": "15c4d336",
+      "sourceTextSha256": "34a45740ad43fbfab0e1b444472658acec342d8e6964a85163dc8f1e3c64f3dc",
+      "primaryCode": "C1.10",
+      "confidence": 0.97,
+      "inputSha256": "70cc0bc726451ec350e4771ee3d063d5ec8865ba9b61e044453e2d1a286221c0"
+    },
+    {
+      "id": "0580-2024-november-11-q2",
+      "sourceYear": 2024,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "73dbd3b6",
+      "sourceTextSha256": "5077f3f96ff602e60ea4f13a1ce14b305b41b415fe9adf57a9afb9f0d5104228",
+      "primaryCode": "C5.1",
+      "confidence": 0.99,
+      "inputSha256": "5692460c5f1b1388acf95694d490f93bf6e30527dec11f93856dc0b1c78bcfcd"
+    },
+    {
+      "id": "0580-2024-november-11-q8",
+      "sourceYear": 2024,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Angles and polygons"
+      ],
+      "sourceTextFingerprint": "a5c222ca",
+      "sourceTextSha256": "0819b4201c31e22e5f9ac02ae35539d5195a751d6462028b4fd963fc8ec86816",
+      "primaryCode": "C4.6",
+      "confidence": 0.95,
+      "inputSha256": "dcfa337fa5706afc82f023b6c903a66a0c9af2e8fdd3ca0235b80b9238f68ae7"
+    },
+    {
+      "id": "0580-2024-november-12-q12",
+      "sourceYear": 2024,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "c17cd4eb",
+      "sourceTextSha256": "afb325d53b9685439e906eb6c384a709a61bd9203534fbac1b6186d85c031643",
+      "primaryCode": "C4.3",
+      "confidence": 0.97,
+      "inputSha256": "8a8d76ea9b43faf56161ee6b2c45d18dfdc635793aaa0d28d1d1d82a46a25c24"
+    },
+    {
+      "id": "0580-2024-november-12-q2",
+      "sourceYear": 2024,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Statistics",
+      "sourceSubtopics": [
+        "Data charts and diagrams"
+      ],
+      "sourceTextFingerprint": "6e7e7351",
+      "sourceTextSha256": "08a28a74eaeb542135a3a98611a945349761085147eb9cdcf76f42fed4e1a169",
+      "primaryCode": "C9.4",
+      "confidence": 1,
+      "inputSha256": "6614acf1b0195adb316053934d599789208083d9084fe5c6f174ff9b81fe4f64"
+    },
+    {
+      "id": "0580-2024-november-13-q11",
+      "sourceYear": 2024,
+      "sourceComponent": "13",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Angles and polygons"
+      ],
+      "sourceTextFingerprint": "13f45b71",
+      "sourceTextSha256": "9c7b794bd7b241c13a61176b9c892d30971b546cae77e634ae9689761a0dfba3",
+      "primaryCode": "C4.6",
+      "confidence": 0.97,
+      "inputSha256": "f5c1dda5be1ce44fdaded5f8a8b128066a0161b3b2ea34945ab37e4a4e7fe91f"
+    },
+    {
+      "id": "0580-2024-november-13-q17",
+      "sourceYear": 2024,
+      "sourceComponent": "13",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Equations and inequalities"
+      ],
+      "sourceTextFingerprint": "b59884d0",
+      "sourceTextSha256": "705698e6946061f0df278192b709986dae068676a811c5da0ca47e02acc72a6d",
+      "primaryCode": "C2.5",
+      "confidence": 0.97,
+      "inputSha256": "d2226d5d17415d943c9360e2c965c8a930a62ea0c0c50a11fa6164ea7f1f7c63"
+    },
+    {
+      "id": "0580-2024-november-13-q20",
+      "sourceYear": 2024,
+      "sourceComponent": "13",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Bounds and estimation"
+      ],
+      "sourceTextFingerprint": "af6a5473",
+      "sourceTextSha256": "a1913d1d8345d7bbbe18560d87f3871007be22c7a002a473fcf8df59cec409c3",
+      "primaryCode": "C1.10",
+      "confidence": 0.96,
+      "inputSha256": "143245b4e0a72e488111d53b8e3d571f27f244886d5b4e2ed9357cf9cbdaad4c"
+    },
+    {
+      "id": "0580-2024-november-13-q5",
+      "sourceYear": 2024,
+      "sourceComponent": "13",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Basic probability"
+      ],
+      "sourceTextFingerprint": "4917323b",
+      "sourceTextSha256": "ff016efe10fed1ee889d2e0ce927fc92ee568394aa0a45c39e2c8e694c395f47",
+      "primaryCode": "C8.1",
+      "confidence": 0.97,
+      "inputSha256": "5f2ac30f5c92adf9d7ef9d965b8c998298847d9fb67291b9d2f60f1daf4f3f9c"
+    },
+    {
+      "id": "0580-2024-november-13-q7",
+      "sourceYear": 2024,
+      "sourceComponent": "13",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation"
+      ],
+      "sourceTextFingerprint": "13558fb",
+      "sourceTextSha256": "50408021ebb4d22eca6a836219b57239f9a406474d324a392efaadb475903bd9",
+      "primaryCode": "C2.2",
+      "confidence": 0.99,
+      "inputSha256": "78b449eb448e9c23914ab72740529353c16a73a1afa04ee8d577777291fc6bcf"
+    },
+    {
+      "id": "0580-2024-november-13-q9",
+      "sourceYear": 2024,
+      "sourceComponent": "13",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "8e7ee933",
+      "sourceTextSha256": "1a499f7e954bef874613ea059205b242483c1a552f14581b9f987ab7916c2891",
+      "primaryCode": "C4.3",
+      "confidence": 0.99,
+      "inputSha256": "a43483a28d497ebcfb3b8ed9519f9924c8444920d297ec71dfa6513760bfc18d"
+    },
+    {
+      "id": "0580-2024-november-21-q19",
+      "sourceYear": 2024,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Venn and tree diagrams"
+      ],
+      "sourceTextFingerprint": "a2743c2d",
+      "sourceTextSha256": "88db2664b62e77b55ea4d9f921c04b34eb091779acdd924ea38b83eda0bd2397",
+      "primaryCode": "E1.2",
+      "confidence": 0.98,
+      "inputSha256": "ca356cac0fea4e1813069325d94691d2eee1169dbd6e16626aaab2a0b9dd9ab5"
+    },
+    {
+      "id": "0580-2024-november-22-q15",
+      "sourceYear": 2024,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Ratio, proportion and rates"
+      ],
+      "sourceTextFingerprint": "28bf55e0",
+      "sourceTextSha256": "ffbf8846fff6b7ed4c8fb57b014bc09bde870f38927f74da086f4a65243b15ee",
+      "primaryCode": "E1.17",
+      "confidence": 0.97,
+      "inputSha256": "3148c660737edf5239b409478255ae0845a0d0f2502d80f50850bcd20edd4920"
+    },
+    {
+      "id": "0580-2024-november-23-q3",
+      "sourceYear": 2024,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation"
+      ],
+      "sourceTextFingerprint": "79a1f71d",
+      "sourceTextSha256": "35a59f8bf83e3f0039efb3aebace91faa6d93560682987807b3c003bc4e3a432",
+      "primaryCode": "E2.2",
+      "confidence": 0.98,
+      "inputSha256": "23d396df69c7f7eb587b748202c9d1dbd50f500beaf357fff0a56ae84dfcc73d"
+    },
+    {
+      "id": "0580-2024-november-23-q4",
+      "sourceYear": 2024,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Ratio, proportion and rates",
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "68ce5a95",
+      "sourceTextSha256": "dc723fb6a81b042dae30833acc1a3554a62717e93944b67f9b7d8bd1d563aa78",
+      "primaryCode": "E4.3",
+      "confidence": 0.98,
+      "inputSha256": "d2d47f1666c25326653abb7f43916b22f032fb6019ea206f84febdc1edb36de1"
+    },
+    {
+      "id": "0580-2024-november-32-q9",
+      "sourceYear": 2024,
+      "sourceComponent": "32",
+      "sourcePrimaryTopic": "Transformations and vectors",
+      "sourceSubtopics": [
+        "Transformations"
+      ],
+      "sourceTextFingerprint": "96c31463",
+      "sourceTextSha256": "5245dd51c30291600514dc494f7e3a1a712cda2d6a6222b6aee234631df506c1",
+      "primaryCode": "C7.1",
+      "confidence": 0.98,
+      "inputSha256": "4abe978f43282726b5a6d9efae35c978730170c3371c27a02791be28e31cf81d"
+    },
+    {
+      "id": "0580-2024-november-41-q6",
+      "sourceYear": 2024,
+      "sourceComponent": "41",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Area and perimeter",
+        "Ratio, proportion and rates",
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "f019caa9",
+      "sourceTextSha256": "ece4fbf11cbbd757993dc9000dfbf625e514b76f8ba00d14299075032500fa20",
+      "primaryCode": "E6.5",
+      "confidence": 0.96,
+      "inputSha256": "5da708813916540f917fa175e4747a1bc3c2a3c4e90e09a83a300bbb40888b71"
+    },
+    {
+      "id": "0580-2024-november-43-q11",
+      "sourceYear": 2024,
+      "sourceComponent": "43",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation",
+        "Functions and graphs",
+        "Indices and surds"
+      ],
+      "sourceTextFingerprint": "f1f447df",
+      "sourceTextSha256": "879eb4c24bd8af866cbc1fdc8d46ad30e744aae8ff2b1087befe201843a8ae1a",
+      "primaryCode": "E2.13",
+      "confidence": 0.96,
+      "inputSha256": "9dd96da98e14362ca211247ce6c872bfaf3e814c68d80ca50c85b0e15c5050e8"
+    },
+    {
+      "id": "0580-2025-june-11-q18",
+      "sourceYear": 2025,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Angles and polygons"
+      ],
+      "sourceTextFingerprint": "89fe4bda",
+      "sourceTextSha256": "3801d48cca07c6af9e3203c2fdc93e1d79fd12d12526e75b5773fa31dc1ac781",
+      "primaryCode": "C4.6",
+      "confidence": 0.97,
+      "inputSha256": "d24df4061d7beeedaa0a03562d0f8314bf2422a7c123257ba3b065ef8c648fc1"
+    },
+    {
+      "id": "0580-2025-june-11-q19",
+      "sourceYear": 2025,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Venn and tree diagrams"
+      ],
+      "sourceTextFingerprint": "3dc71cc2",
+      "sourceTextSha256": "4a6ad97f52530838cb45b117657ac3371ab82239303f9b12cfe1d2fc7ff4f418",
+      "primaryCode": "C8.3",
+      "confidence": 0.98,
+      "inputSha256": "2e4863dd0de4adeac86878fb66fb10dc44f3542748cc6af7fea7819af45c6c4a"
+    },
+    {
+      "id": "0580-2025-june-12-q2",
+      "sourceYear": 2025,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "813d124b",
+      "sourceTextSha256": "bab70453715a7e1564279cf1d19158b7f3a1a4220163e1e6eb0873bf30580bb5",
+      "primaryCode": "C1.4",
+      "confidence": 1,
+      "inputSha256": "e4214e9891862b31bd7265d66ca6555388ea46b3d75843d87e86117e8b8b204a"
+    },
+    {
+      "id": "0580-2025-june-12-q4",
+      "sourceYear": 2025,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Constructions and loci"
+      ],
+      "sourceTextFingerprint": "a514f0f9",
+      "sourceTextSha256": "56425daa80117569ff6cc3060529f0dff5165246981046955a55c06e94d4cbe9",
+      "primaryCode": "C4.2",
+      "confidence": 0.95,
+      "inputSha256": "4a1542ddaff1cec52143077b85943f728da8187adc377da97ba1117fe980e1ff"
+    },
+    {
+      "id": "0580-2025-june-13-q12",
+      "sourceYear": 2025,
+      "sourceComponent": "13",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Venn and tree diagrams"
+      ],
+      "sourceTextFingerprint": "82b05a7",
+      "sourceTextSha256": "5c8507faf568484c1a5a02e19e36bd52815d71be593720abe6decccc41e0b49f",
+      "primaryCode": "C1.2",
+      "confidence": 0.96,
+      "inputSha256": "94ba5f34f587d2894d838284c54d2c5b4bebf9884e4c9a6c11c5c8899f59eacf"
+    },
+    {
+      "id": "0580-2025-june-21-q1",
+      "sourceYear": 2025,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation"
+      ],
+      "sourceTextFingerprint": "5e2dc353",
+      "sourceTextSha256": "2a579291252804a75395bb6ee477aff3f741ab6abae779d6a802ce78675c38d0",
+      "primaryCode": "E2.2",
+      "confidence": 0.99,
+      "inputSha256": "5b3f7ad832bee66b084e1328fc64f65b1562d308387cd46a78bdfe2f2928a9e2"
+    },
+    {
+      "id": "0580-2025-june-21-q22",
+      "sourceYear": 2025,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Calculus"
+      ],
+      "sourceTextFingerprint": "38cac9ee",
+      "sourceTextSha256": "1dd5159115ca322c361a4775ffb8b300f28c02ea223b8ec28d72b0890294b454",
+      "primaryCode": "E2.12",
+      "confidence": 0.98,
+      "inputSha256": "5c1bfca99e75eaec487e91db7f09b55d310cf73df366b2c9b0c3aa4236bd5a63"
+    },
+    {
+      "id": "0580-2025-june-21-q23",
+      "sourceYear": 2025,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Algebraic manipulation"
+      ],
+      "sourceTextFingerprint": "c6299cf6",
+      "sourceTextSha256": "53567c4f1503a621cdd41bfb2eec062302e59b517596a9c554639a746ca40096",
+      "primaryCode": "E2.3",
+      "confidence": 0.98,
+      "inputSha256": "35c275ca8e86750b7d139638d87321ee2940d9f0aea931a29227bafc83efc43b"
+    },
+    {
+      "id": "0580-2025-june-22-q10",
+      "sourceYear": 2025,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Mensuration",
+      "sourceSubtopics": [
+        "Area and perimeter"
+      ],
+      "sourceTextFingerprint": "ebc27167",
+      "sourceTextSha256": "010f251c5ba2ebf67ce81873b3d3c915eaf52c81ceba2a20e6475599f589c916",
+      "primaryCode": "E5.3",
+      "confidence": 0.95,
+      "inputSha256": "04a65d2253f872968c8fd8591f788879a5989a9b82ddc36527e23e679c231ea6"
+    },
+    {
+      "id": "0580-2025-june-22-q2",
+      "sourceYear": 2025,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Ratio, proportion and rates",
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "236be26a",
+      "sourceTextSha256": "a0d48a8c825ae49e81c022e37d74e4011a17c5c7398c3a3e683f49a17382edc0",
+      "primaryCode": "E4.3",
+      "confidence": 0.97,
+      "inputSha256": "d3cf7bf9a47da03c9a8affa97929ade385c84b8fc6975a4b52b98460f6cffca8"
+    },
+    {
+      "id": "0580-2025-june-23-q2",
+      "sourceYear": 2025,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Angles and polygons"
+      ],
+      "sourceTextFingerprint": "c3f3fae5",
+      "sourceTextSha256": "623005acc15b222454b75a72e3219fadd22038037a7447a581880e6cb54ef611",
+      "primaryCode": "E4.6",
+      "confidence": 0.95,
+      "inputSha256": "f6224336806e69a8d644fec0ba02396d633409f1d428e1fe23d99e119614fc32"
+    },
+    {
+      "id": "0580-2025-june-23-q22",
+      "sourceYear": 2025,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "5c14553a",
+      "sourceTextSha256": "a6519dbcc9c382c433f39d61396fa2fe980e4f014f778d52afc1c5f6bd4a40ae",
+      "primaryCode": "E2.13",
+      "confidence": 0.97,
+      "inputSha256": "5f9fe806bd092d313f67adba44e5ae6e539bd7ce5b634d9898dacfa7d79d4d42"
+    },
+    {
+      "id": "0580-2025-june-31-q10",
+      "sourceYear": 2025,
+      "sourceComponent": "31",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "f261bb41",
+      "sourceTextSha256": "8d84fb6f0c7703513dd7ae36eadc5952a9aa4482717d495613f7509953a8aaf7",
+      "primaryCode": "C1.5",
+      "confidence": 0.99,
+      "inputSha256": "b23b01a02be426e19e5d16bf8e66e10ade136488f07296188f5c374b5003365c"
+    },
+    {
+      "id": "0580-2025-june-31-q13",
+      "sourceYear": 2025,
+      "sourceComponent": "31",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "7066c459",
+      "sourceTextSha256": "e0e8aa87c725120a7b3e80c8b07d5b6646421824410512230a82f78109a61376",
+      "primaryCode": "C4.3",
+      "confidence": 0.99,
+      "inputSha256": "b95862be22a8355f40a62298294b389c056cd5126c88ba1381ccb79f7a3a26bc"
+    },
+    {
+      "id": "0580-2025-june-32-q11",
+      "sourceYear": 2025,
+      "sourceComponent": "32",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "eb0749fe",
+      "sourceTextSha256": "9712612656a9149609efaf4f30065c550e9630ca8dc03fef4d1e7d347de42982",
+      "primaryCode": "C4.3",
+      "confidence": 1,
+      "inputSha256": "3502041574c76cc4720e48300bdd66f4f8b12d11792746e8e3701c040a019e04"
+    },
+    {
+      "id": "0580-2025-june-32-q12",
+      "sourceYear": 2025,
+      "sourceComponent": "32",
+      "sourcePrimaryTopic": "Statistics",
+      "sourceSubtopics": [
+        "Data charts and diagrams"
+      ],
+      "sourceTextFingerprint": "d4a1a060",
+      "sourceTextSha256": "acc48ea5f2f7b6042658f71a2b777c3dfe837aee150e5970ac05d1d679f7f545",
+      "primaryCode": "C9.4",
+      "confidence": 0.99,
+      "inputSha256": "6e47945443f620d91ebed6c8ffe97547ff481606d8f8e32e680105b238158e6d"
+    },
+    {
+      "id": "0580-2025-june-32-q3",
+      "sourceYear": 2025,
+      "sourceComponent": "32",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "753846e6",
+      "sourceTextSha256": "047c9f7f1b68db150cdecb045db62ebdfccc17a255fdef0e8a5434e4d84f55f9",
+      "primaryCode": "C5.1",
+      "confidence": 1,
+      "inputSha256": "111eb5787c17e56a6abe4e8e1546523954802225474d207400da8fee9a8d97b1"
+    },
+    {
+      "id": "0580-2025-june-32-q6",
+      "sourceYear": 2025,
+      "sourceComponent": "32",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "94298d0e",
+      "sourceTextSha256": "0a8a77c64cecee958ab5c16eb2aed1610f91872946d5a8b180eded44bbb20045",
+      "primaryCode": "C1.13",
+      "confidence": 0.96,
+      "inputSha256": "1d9a7fa6a8cc116e787ae95e14fa71d7cf214245e61fe68fe44451103d1e6cac"
+    },
+    {
+      "id": "0580-2025-june-33-q13",
+      "sourceYear": 2025,
+      "sourceComponent": "33",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "5203615a",
+      "sourceTextSha256": "de4241bda83009807c6b56f63f4fad0374a901d5916d9c73077839d5046abcc0",
+      "primaryCode": "C1.13",
+      "confidence": 0.95,
+      "inputSha256": "4258f2d603749b3c9d980fb8918468ef853dc6d6421e98a874d3b6108283ca43"
+    },
+    {
+      "id": "0580-2025-june-33-q16",
+      "sourceYear": 2025,
+      "sourceComponent": "33",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Ratio, proportion and rates"
+      ],
+      "sourceTextFingerprint": "69b7b45f",
+      "sourceTextSha256": "aded92b9ba72e8140fc91c488121b3c72a6feb93c51da0790b8adcd3d862dd63",
+      "primaryCode": "C4.3",
+      "confidence": 0.99,
+      "inputSha256": "4cfbf07eee0f138251572ef36c09506e7cbbe51c67d1e3660b6e5ef1d4ab8c92"
+    },
+    {
+      "id": "0580-2025-june-33-q20",
+      "sourceYear": 2025,
+      "sourceComponent": "33",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Basic probability"
+      ],
+      "sourceTextFingerprint": "a8627276",
+      "sourceTextSha256": "182cce854f823acb1ea5291cdc9786b6114b7b95282e3c51014624139327893a",
+      "primaryCode": "C8.2",
+      "confidence": 1,
+      "inputSha256": "30c673fd0b1c30ed9a2faaa9c6d2f5a03751efa71c0cb8c6a7d96d842e386424"
+    },
+    {
+      "id": "0580-2025-june-33-q24",
+      "sourceYear": 2025,
+      "sourceComponent": "33",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Pythagoras and right-angle trigonometry"
+      ],
+      "sourceTextFingerprint": "58efd2bb",
+      "sourceTextSha256": "48e321904a4a3f72e0a9280fc24e61ad4dd2e3479fb858bce188c50019593fbf",
+      "primaryCode": "C6.2",
+      "confidence": 0.97,
+      "inputSha256": "c4cb368cbed0c0aeddad0f142500ac1c6fc82dbbc3111dc8f8bb9927bea2562a"
+    },
+    {
+      "id": "0580-2025-june-33-q4",
+      "sourceYear": 2025,
+      "sourceComponent": "33",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Motion graphs and kinematics"
+      ],
+      "sourceTextFingerprint": "2dafd250",
+      "sourceTextSha256": "5cb829987fbd6abba8bd7021fe213ec2ebc6dd65c978867d76ffb2f5c4813ee1",
+      "primaryCode": "C2.9",
+      "confidence": 0.96,
+      "inputSha256": "6d02fa5545493e4a569d434c949231a4cab31a063ab6eaba299f12931e72ff04"
+    },
+    {
+      "id": "0580-2025-june-33-q9",
+      "sourceYear": 2025,
+      "sourceComponent": "33",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Angles and polygons"
+      ],
+      "sourceTextFingerprint": "9e9f507f",
+      "sourceTextSha256": "0e261eb326b551efccf63d386da3b0d73cea26d6b85f96aaa8b877cf1a3b8fd9",
+      "primaryCode": "C4.6",
+      "confidence": 0.95,
+      "inputSha256": "021c1b822fb549e70dd7d76a70aee1e385b5967d2898d001a46eab221b5029ef"
+    },
+    {
+      "id": "0580-2025-june-42-q11",
+      "sourceYear": 2025,
+      "sourceComponent": "42",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "5a80be5b",
+      "sourceTextSha256": "bb1eae8361e571515e388aff596833090f90ac4a927b246bb9ed4737660ab398",
+      "primaryCode": "E1.13",
+      "confidence": 0.95,
+      "inputSha256": "4d8f56946fc3aa98a2ba67d32f3c3d98c3a0d0575406c1b4bfc6cb123f2784f9"
+    },
+    {
+      "id": "0580-2025-june-42-q19",
+      "sourceYear": 2025,
+      "sourceComponent": "42",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "7e1ee217",
+      "sourceTextSha256": "33e4fc81ab2467e5058d857ca58015194889b7d89eebcf5c9a4de0a87296f24f",
+      "primaryCode": "E2.13",
+      "confidence": 0.98,
+      "inputSha256": "133aa4de302e935f4fd8ae6b29713f9313f104fd2713d5e74a8f3a663b39b15a"
+    },
+    {
+      "id": "0580-2025-june-42-q3",
+      "sourceYear": 2025,
+      "sourceComponent": "42",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Ratio, proportion and rates"
+      ],
+      "sourceTextFingerprint": "22f945e0",
+      "sourceTextSha256": "e01c84e63137a1854e722ce737d9a1fcf33f9898f9a76f6a374cc400ac6e1072",
+      "primaryCode": "E1.11",
+      "confidence": 0.99,
+      "inputSha256": "66024eb28d196c380458734ffce804badd3cdaceedc7f692c48a779c71839867"
+    },
+    {
+      "id": "0580-2025-june-43-q16",
+      "sourceYear": 2025,
+      "sourceComponent": "43",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Equations and inequalities"
+      ],
+      "sourceTextFingerprint": "91b46b88",
+      "sourceTextSha256": "38d71b4acfca849a74bf9aec14dbb585c8393418f39bafbed6c45dbc46e9e3af",
+      "primaryCode": "E2.6",
+      "confidence": 0.96,
+      "inputSha256": "450db19fd8a5f4ab398aa53986ad670347bb409c07e55a7e651ebf5eead1c76c"
+    },
+    {
+      "id": "0580-2025-june-43-q2",
+      "sourceYear": 2025,
+      "sourceComponent": "43",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Constructions and loci"
+      ],
+      "sourceTextFingerprint": "fa6744e0",
+      "sourceTextSha256": "7ab36c7a0b7a4f7804a4f49e980768aecea26fd4a639b4b9a326d8da755c7e97",
+      "primaryCode": "E4.3",
+      "confidence": 0.98,
+      "inputSha256": "cb72defd9eccd4128ceb7513490ce3192bd204451b5bd0774ac45a2daf4d1fae"
+    },
+    {
+      "id": "0580-2025-june-43-q3",
+      "sourceYear": 2025,
+      "sourceComponent": "43",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Indices and surds"
+      ],
+      "sourceTextFingerprint": "9e961eec",
+      "sourceTextSha256": "79e24f2f63b9c27f10f89aa9d188d7cba034328734473258056069ee2babe50a",
+      "primaryCode": "E1.1",
+      "confidence": 1,
+      "inputSha256": "703b943b2aaa6de5038329dc3f528efd687c6d0e17fdbff144a3008ad30b7d1d"
+    },
+    {
+      "id": "0580-2025-march-12-q19",
+      "sourceYear": 2025,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Equations and inequalities"
+      ],
+      "sourceTextFingerprint": "e6748219",
+      "sourceTextSha256": "4699e628a2095badc527a91e34e4485ace7b4fc7394c9dff82215488f964ec6b",
+      "primaryCode": "C2.6",
+      "confidence": 0.97,
+      "inputSha256": "a7a1efb6991a7c056622eb719feaff1a2585ec72488acd8ed249b9d4a34c4021"
+    },
+    {
+      "id": "0580-2025-march-12-q2",
+      "sourceYear": 2025,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "c7db5a0e",
+      "sourceTextSha256": "967cf04bf3930d40a9a4dc83509d38f8fa9f5ef2fca350f5e85d19af887a0c27",
+      "primaryCode": "C1.4",
+      "confidence": 0.96,
+      "inputSha256": "0200b0097a2d3e75367e14d3ae9ce92fc4e7b1becc211f8ec6209317aee08891"
+    },
+    {
+      "id": "0580-2025-march-12-q20",
+      "sourceYear": 2025,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Bounds and estimation"
+      ],
+      "sourceTextFingerprint": "c50ab9d1",
+      "sourceTextSha256": "c9bb041c782f98f406335b79d4d561142ae2849c5fc0727c7d7030eb9281e1ae",
+      "primaryCode": "C1.10",
+      "confidence": 0.95,
+      "inputSha256": "ba49944e1737bdaf001f5e25479fecb65d48b0ad85de6fab83dacefda9514d35"
+    },
+    {
+      "id": "0580-2025-march-12-q8",
+      "sourceYear": 2025,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "f2b8952",
+      "sourceTextSha256": "429a9ab0a27daab8477820cac44e9dab2351e7f77441fc2fb7e572838701f736",
+      "primaryCode": "C1.5",
+      "confidence": 0.97,
+      "inputSha256": "a77fd0cfbf84937f7ea39b1bc09cd24bd7a450145795affb326184987e911d76"
+    },
+    {
+      "id": "0580-2025-march-32-q11",
+      "sourceYear": 2025,
+      "sourceComponent": "32",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "64027dd7",
+      "sourceTextSha256": "e8b714093d59e6a875ffd256bb3342b54f0963b94980cf3d55b0d6b32de40a34",
+      "primaryCode": "C4.3",
+      "confidence": 0.96,
+      "inputSha256": "aea84ea31117af80776881a5953b3836e1ef504d92b9d865b976fe158d5941d2"
+    },
+    {
+      "id": "0580-2025-march-42-q14",
+      "sourceYear": 2025,
+      "sourceComponent": "42",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "8236c734",
+      "sourceTextSha256": "d28d2f23517605b167f167dc1eaf3169e4f1f76aff1194dfaaa39e2530a5d7e1",
+      "primaryCode": "E2.13",
+      "confidence": 0.95,
+      "inputSha256": "2c39e56d8604ab87c95c1f80780b34c8bf3dc3026302b31bd98b22a9420a214d"
+    },
+    {
+      "id": "0580-2025-november-11-q13",
+      "sourceYear": 2025,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "9f4777ac",
+      "sourceTextSha256": "3c1196e1152f6695b2ab57735d7a3b0131f1f43ee0bbc8b9407609a51e420794",
+      "primaryCode": "C4.3",
+      "confidence": 0.99,
+      "inputSha256": "2fcf2bee2d3d5c4d6626b8799a42e5c6355cd3528df67270cd796a043a454738"
+    },
+    {
+      "id": "0580-2025-november-11-q15",
+      "sourceYear": 2025,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Angles and polygons"
+      ],
+      "sourceTextFingerprint": "d6feee2",
+      "sourceTextSha256": "a51dfeb6e6ee51ba197935755156a20b98e5adc40558e5597d4fc6b0f9f63fa7",
+      "primaryCode": "C4.6",
+      "confidence": 0.95,
+      "inputSha256": "d815527378875d26ba0df6196be55460a29b43fe4e0e2dd0844a18a028f4fcc5"
+    },
+    {
+      "id": "0580-2025-november-11-q22",
+      "sourceYear": 2025,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Ratio, proportion and rates"
+      ],
+      "sourceTextFingerprint": "283526be",
+      "sourceTextSha256": "5e36e94472736ac32d340e96fc80cf96babdf1fb87bd593d79602b6256a04b9b",
+      "primaryCode": "C1.11",
+      "confidence": 0.96,
+      "inputSha256": "dfd4a36b9ad6c17443cd45b815bd447a0404d3fb3df806e5a244fb2ec1e33993"
+    },
+    {
+      "id": "0580-2025-november-11-q29",
+      "sourceYear": 2025,
+      "sourceComponent": "11",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Equations and inequalities"
+      ],
+      "sourceTextFingerprint": "8f222910",
+      "sourceTextSha256": "3f13f98faff9c2b4ce1c7561ff796ed4af5751cf7ec0e1cff6751254b14a3995",
+      "primaryCode": "C2.5",
+      "confidence": 0.97,
+      "inputSha256": "51681b2f3ecdc2f92d5933609a105894e8915b82c8d87f93d3dc5ee3a8aaaf45"
+    },
+    {
+      "id": "0580-2025-november-12-q23",
+      "sourceYear": 2025,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Equations and inequalities"
+      ],
+      "sourceTextFingerprint": "923bc8f",
+      "sourceTextSha256": "f2c9c6f3b915c08569a686ebd015f471c2a0eece09cf172a5740fbea635c9f4a",
+      "primaryCode": "C2.5",
+      "confidence": 0.96,
+      "inputSha256": "15751a2e1ae033afff65473f3f394bb0bb4447891acd7ed161a8ab07eef184e0"
+    },
+    {
+      "id": "0580-2025-november-12-q7",
+      "sourceYear": 2025,
+      "sourceComponent": "12",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Basic probability"
+      ],
+      "sourceTextFingerprint": "341854d9",
+      "sourceTextSha256": "be458b1fff3ba9268b97385c6975d82fed236205f3ed147683baf4f400dd9cce",
+      "primaryCode": "C8.1",
+      "confidence": 0.98,
+      "inputSha256": "c3a291fdc3e7e083f2c94a7fff551d2b3199559687af1d157345cc6e750ad6ac"
+    },
+    {
+      "id": "0580-2025-november-13-q15",
+      "sourceYear": 2025,
+      "sourceComponent": "13",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "9bae0f38",
+      "sourceTextSha256": "f9e3f71dc8008079cd4f2caa2fd24277cadf67f9f14abf6c0552e0d029976b99",
+      "primaryCode": "C5.1",
+      "confidence": 0.98,
+      "inputSha256": "852b8c6d978fdf5c0790e6658fec632ce599dce99b930d7f0bcb15f89bcf28e7"
+    },
+    {
+      "id": "0580-2025-november-13-q20",
+      "sourceYear": 2025,
+      "sourceComponent": "13",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Bounds and estimation"
+      ],
+      "sourceTextFingerprint": "d54057de",
+      "sourceTextSha256": "899d0e6c973da049d99e316068e08a992777201f5241e1e1ee07ae3076ffb1d3",
+      "primaryCode": "C1.10",
+      "confidence": 0.95,
+      "inputSha256": "35b9f97f3734e4e83ccd45591d9c1b25023642ea0ed80ac8880429a578d42d8b"
+    },
+    {
+      "id": "0580-2025-november-13-q22",
+      "sourceYear": 2025,
+      "sourceComponent": "13",
+      "sourcePrimaryTopic": "Transformations and vectors",
+      "sourceSubtopics": [
+        "Transformations"
+      ],
+      "sourceTextFingerprint": "59c95c59",
+      "sourceTextSha256": "e488a28f8a95ca6d2d73f41da6d6be63cb974817224a36792e0bea9648227a85",
+      "primaryCode": "C7.1",
+      "confidence": 0.97,
+      "inputSha256": "de52420746a81f44bd74376c13f83504ab7dbbafd310ada54aee09963d168ec0"
+    },
+    {
+      "id": "0580-2025-november-13-q26",
+      "sourceYear": 2025,
+      "sourceComponent": "13",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Venn and tree diagrams"
+      ],
+      "sourceTextFingerprint": "a80c2d09",
+      "sourceTextSha256": "ef2843a61f3dfa2f8fd4b8426d68d0a959d97ac39be1a28502347beac2977c04",
+      "primaryCode": "C8.3",
+      "confidence": 0.97,
+      "inputSha256": "f63b2eff20a511a20bf1fbf073a52199c07886e04a37a198cbc815a6bcd5327d"
+    },
+    {
+      "id": "0580-2025-november-21-q12",
+      "sourceYear": 2025,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Mensuration",
+      "sourceSubtopics": [
+        "Area and perimeter"
+      ],
+      "sourceTextFingerprint": "bb915362",
+      "sourceTextSha256": "88e3a2122a49fcec7962d7563a6e517fa40d30a4473ed3d3db7f9d068f261213",
+      "primaryCode": "E5.3",
+      "confidence": 0.97,
+      "inputSha256": "0ad98ddb2704f3ecc8bb92ca8f56e5f17cf8b88763088f29a6bd269e738d08a5"
+    },
+    {
+      "id": "0580-2025-november-21-q8",
+      "sourceYear": 2025,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Equations and inequalities"
+      ],
+      "sourceTextFingerprint": "bbdb1a57",
+      "sourceTextSha256": "cdf9e3f8335b22efe991703edf3a8c8d9b82637d776a1cd56fa777f8eb352049",
+      "primaryCode": "E2.5",
+      "confidence": 0.98,
+      "inputSha256": "6395bb768e606f34d5ef62c738470efd37ceb497def7dde9b491793c97d1ec51"
+    },
+    {
+      "id": "0580-2025-november-22-q16",
+      "sourceYear": 2025,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Angles and polygons"
+      ],
+      "sourceTextFingerprint": "2b61af2f",
+      "sourceTextSha256": "b41923fb2492109b4d3ae7cad71cc3bfa90199ccf26e57267ce556ca4d065836",
+      "primaryCode": "E4.6",
+      "confidence": 0.95,
+      "inputSha256": "7fe7a1c8191cc7bf09d9541789369febad6343c9028fc78835f82bcd5d7c332d"
+    },
+    {
+      "id": "0580-2025-november-22-q20",
+      "sourceYear": 2025,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Functions and graphs",
+        "Quadratic equations and functions"
+      ],
+      "sourceTextFingerprint": "fd426922",
+      "sourceTextSha256": "ec8b85b452453a0c8cb34669de6cf560f323405f051dd97f246499e582370b9c",
+      "primaryCode": "E2.13",
+      "confidence": 0.96,
+      "inputSha256": "24c3df3fbe540f2e2f59f1f4de62d79ae3e78518a5622e4acae23c223fee65c6"
+    },
+    {
+      "id": "0580-2025-november-22-q6",
+      "sourceYear": 2025,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Angles and polygons"
+      ],
+      "sourceTextFingerprint": "823593c",
+      "sourceTextSha256": "9f5edfb18ad80bfbccab22ea9dce60cd7b6817e90ac9a5d767dcabed89146bb0",
+      "primaryCode": "E4.6",
+      "confidence": 0.99,
+      "inputSha256": "9a122a0f39004bdf5421580297870f59621e448b567bc06477eb77d5864a8897"
+    },
+    {
+      "id": "0580-2025-november-23-q11",
+      "sourceYear": 2025,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Combined and conditional probability",
+        "Basic probability"
+      ],
+      "sourceTextFingerprint": "ee65b410",
+      "sourceTextSha256": "f69622dfd1959f55c4de742a9af719534488339dd523abea45a3e5dfaa2d57b9",
+      "primaryCode": "E8.3",
+      "confidence": 0.99,
+      "inputSha256": "31781c99cc0f265c8ef9fbe8a79ec6b1f2f4298a82a51c5d6ae7b25fa4d5cece"
+    },
+    {
+      "id": "0580-2025-november-23-q19",
+      "sourceYear": 2025,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Mensuration",
+      "sourceSubtopics": [
+        "Area and perimeter"
+      ],
+      "sourceTextFingerprint": "fc6ecb4a",
+      "sourceTextSha256": "a63f6f6588c134703061208a12a6ee6273b773f1d086eed649002f55e13875d5",
+      "primaryCode": "E5.3",
+      "confidence": 0.99,
+      "inputSha256": "85debbe63de945b1f417a062acacc57fd96d4f674f41246b0dafc614228834e2"
+    },
+    {
+      "id": "0580-2025-november-31-q4",
+      "sourceYear": 2025,
+      "sourceComponent": "31",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "1b513621",
+      "sourceTextSha256": "560fa6aee7a5754b1f01108a2b21875a904b50997e114207e2c16fa203876f66",
+      "primaryCode": "C1.4",
+      "confidence": 0.97,
+      "inputSha256": "06eee753fcfb07b0cb6659f6da4c0ff73bb9cd54712bd32f3ad425900b703763"
+    },
+    {
+      "id": "0580-2025-november-31-q9",
+      "sourceYear": 2025,
+      "sourceComponent": "31",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Angles and polygons"
+      ],
+      "sourceTextFingerprint": "b5789ab",
+      "sourceTextSha256": "265e171d8e46209685299eb78c280d759d469493b3ec71c77eb829ec0c9246b0",
+      "primaryCode": "C4.6",
+      "confidence": 0.99,
+      "inputSha256": "3841f7104e16eea107c685326f18abb04e770c38c4052dd26ba97c273cfa0771"
+    },
+    {
+      "id": "0580-2025-november-32-q15",
+      "sourceYear": 2025,
+      "sourceComponent": "32",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "90e09a75",
+      "sourceTextSha256": "d33ad80f313506e48a9ca40a9a44a63988a03eecc3a02c35bd5443fab88bbd99",
+      "primaryCode": "C4.3",
+      "confidence": 1,
+      "inputSha256": "9a5043db6e5b0032a7d805327a220129e4b70d67d6bea9ac2454aaff1ec3e004"
+    },
+    {
+      "id": "0580-2025-november-32-q16",
+      "sourceYear": 2025,
+      "sourceComponent": "32",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "1a51463f",
+      "sourceTextSha256": "3abee176e7a7b13016389eb3c58d628212c60a4462bb997b592dfe385a3e1f9f",
+      "primaryCode": "C1.13",
+      "confidence": 0.97,
+      "inputSha256": "b12efb724992283a88567bc51dedead227eacbefaf0c29b7f6b268ec78031fb5"
+    },
+    {
+      "id": "0580-2025-november-32-q8",
+      "sourceYear": 2025,
+      "sourceComponent": "32",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "face4b16",
+      "sourceTextSha256": "49a800f2256b209dadb12d6e1f5c01ce3c23efdde37de5598d8a6bdedb4e1f7b",
+      "primaryCode": "C5.1",
+      "confidence": 0.99,
+      "inputSha256": "f22aeed01afb23c164fbccda4fe2f774b6469ed8d7eb9a326dd6ef7123a2da77"
+    },
+    {
+      "id": "0580-2025-november-32-q9",
+      "sourceYear": 2025,
+      "sourceComponent": "32",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Angles and polygons"
+      ],
+      "sourceTextFingerprint": "eb25712a",
+      "sourceTextSha256": "5346273d946defcf50ff789a5349046163b7bbcb8ff0c33b7d907ebf869c7413",
+      "primaryCode": "C4.1",
+      "confidence": 0.97,
+      "inputSha256": "b9b636fd0c340d6254a52c9d6da867b10a6eab8862eed1fdb8f526065ad8255b"
+    },
+    {
+      "id": "0580-2025-november-33-q11",
+      "sourceYear": 2025,
+      "sourceComponent": "33",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "a071dd14",
+      "sourceTextSha256": "0d7583f7db0ba5fcf3bdceba8600bf5e8508acff6661c088336201f5ca60bdcf",
+      "primaryCode": "C1.13",
+      "confidence": 0.95,
+      "inputSha256": "89dc9f8480f80d07ea2a10847bb7d86bb5bceda0c2a9529e44031ca31d0efd86"
+    },
+    {
+      "id": "0580-2025-november-33-q5",
+      "sourceYear": 2025,
+      "sourceComponent": "33",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Basic probability"
+      ],
+      "sourceTextFingerprint": "c3ecebf3",
+      "sourceTextSha256": "265f3731e5a401d54d2f62384716ad66722feccc10e5a3cc5e44b91ffa538d22",
+      "primaryCode": "C8.1",
+      "confidence": 0.95,
+      "inputSha256": "05a3118efe66e528e4f9408113a1a2940c08dca79d939d347fbce8c578580667"
+    },
+    {
+      "id": "0580-2025-november-33-q7",
+      "sourceYear": 2025,
+      "sourceComponent": "33",
+      "sourcePrimaryTopic": "Statistics",
+      "sourceSubtopics": [
+        "Data charts and diagrams"
+      ],
+      "sourceTextFingerprint": "66d35821",
+      "sourceTextSha256": "b50875ea0fee15f92f48f37e8c84513a71349547d8bdddd53247ab175f773a28",
+      "primaryCode": "C9.4",
+      "confidence": 0.97,
+      "inputSha256": "073b82cc1e396a8cae00bc138c2a71d3a9766ff5fb63df8b0dc389d553c47054"
+    },
+    {
+      "id": "0580-2025-november-41-q11",
+      "sourceYear": 2025,
+      "sourceComponent": "41",
+      "sourcePrimaryTopic": "Number",
+      "sourceSubtopics": [
+        "Fractions, decimals and percentages"
+      ],
+      "sourceTextFingerprint": "19679d4b",
+      "sourceTextSha256": "dcf285fca810c907c3eb6de2ef821c2cb205b5ffd172baa3ccb483ed3cc2cd73",
+      "primaryCode": "E1.13",
+      "confidence": 0.96,
+      "inputSha256": "712e144e69e5e7c282e075e7db2d5bbd7deed6a27662168eb6ceaa0f3c71f4c1"
+    },
+    {
+      "id": "0580-2025-november-41-q12",
+      "sourceYear": 2025,
+      "sourceComponent": "41",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Venn and tree diagrams"
+      ],
+      "sourceTextFingerprint": "c719568e",
+      "sourceTextSha256": "7bf945a247d493ceb18954de23c306aa707450f57aac3ec6006d10af0982a7a3",
+      "primaryCode": "E1.2",
+      "confidence": 0.97,
+      "inputSha256": "a8fdb0528d92bfcbd9b889a932235380371444fefc511c234cd4c816b7f34353"
+    },
+    {
+      "id": "0580-2025-november-42-q7",
+      "sourceYear": 2025,
+      "sourceComponent": "42",
+      "sourcePrimaryTopic": "Mensuration",
+      "sourceSubtopics": [
+        "Area and perimeter",
+        "Pythagoras and right-angle trigonometry"
+      ],
+      "sourceTextFingerprint": "97baa8ee",
+      "sourceTextSha256": "dc9d6495ea3bbdfa17715aeea3c5f5779e9c83b060bb115af52b4d2f29980411",
+      "primaryCode": "E5.2",
+      "confidence": 0.98,
+      "inputSha256": "f8a2e00e9d14ee28fbc933cc31b39cb1eb4b70d0dd999dd0289af5d9031c6ffb"
+    },
+    {
+      "id": "0580-2026-june-21-q15",
+      "sourceYear": 2026,
+      "sourceComponent": "21",
+      "sourcePrimaryTopic": "Mensuration",
+      "sourceSubtopics": [
+        "Area and perimeter"
+      ],
+      "sourceTextFingerprint": "d1585620",
+      "sourceTextSha256": "593e4b20f73fcd1513378ea4b7340077a10380d5b07ada423c99af5663416398",
+      "primaryCode": "E5.3",
+      "confidence": 0.97,
+      "inputSha256": "72c960dd193cfd90b26863031f429fcf486b1676ecde2619367d0d8723dc54ae"
+    },
+    {
+      "id": "0580-2026-june-22-q18",
+      "sourceYear": 2026,
+      "sourceComponent": "22",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Combined and conditional probability",
+        "Basic probability"
+      ],
+      "sourceTextFingerprint": "7807eeaf",
+      "sourceTextSha256": "5ad5feb1d379fc12fd91e3cd78d0dadf37c98e0952fbec29370586db1de7c9f5",
+      "primaryCode": "E8.3",
+      "confidence": 0.96,
+      "inputSha256": "f1a68808a9f4dc51806d5a2b41d9f14aa1faeee6c42dc614d3f87d80b6e38186"
+    },
+    {
+      "id": "0580-2026-june-23-q2",
+      "sourceYear": 2026,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Statistics",
+      "sourceSubtopics": [
+        "Data charts and diagrams"
+      ],
+      "sourceTextFingerprint": "fa18c583",
+      "sourceTextSha256": "34d5844f55b79024c326e8049fb1b1a15205260d2f5fdf180a5f8f5945dd2978",
+      "primaryCode": "E9.4",
+      "confidence": 0.95,
+      "inputSha256": "8bf5dfeaf83a18d42ed603ba1d24edd66ca03aa2e9e7306ef4809da8ce4fbcca"
+    },
+    {
+      "id": "0580-2026-june-23-q23",
+      "sourceYear": 2026,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Mensuration",
+      "sourceSubtopics": [
+        "Area and perimeter"
+      ],
+      "sourceTextFingerprint": "f3842968",
+      "sourceTextSha256": "9ddb12d50c3aec51d054b99dc92da62ee35af59cda69971d6c223f3547f9bde7",
+      "primaryCode": "E5.3",
+      "confidence": 0.99,
+      "inputSha256": "a4e0b7ee71ec8e1a89f7dc9b895eee07121b0a248937c8adb54937554ed3a77c"
+    },
+    {
+      "id": "0580-2026-june-23-q5",
+      "sourceYear": 2026,
+      "sourceComponent": "23",
+      "sourcePrimaryTopic": "Probability",
+      "sourceSubtopics": [
+        "Basic probability"
+      ],
+      "sourceTextFingerprint": "c81d9762",
+      "sourceTextSha256": "c6bfdfaabd272a461060baddb2d74201aef780ca2e27e6680b99d76921d42bb6",
+      "primaryCode": "E8.2",
+      "confidence": 1,
+      "inputSha256": "2f8bea94dbf5da8b9d951d9c4391d0d99722d66f7250ae70d2e19bcf278ceb14"
+    },
+    {
+      "id": "0580-2026-june-43-q15",
+      "sourceYear": 2026,
+      "sourceComponent": "43",
+      "sourcePrimaryTopic": "Trigonometry",
+      "sourceSubtopics": [
+        "Sine/cosine rules and bearings"
+      ],
+      "sourceTextFingerprint": "643b341",
+      "sourceTextSha256": "292839b1637344b806ac2d86fb49175c279c79a799095e6fb8ccf1c6e8b092a4",
+      "primaryCode": "E6.5",
+      "confidence": 0.99,
+      "inputSha256": "e8bc203fe9fa2ad526f336c295d24f474fa081070aeb141e2baa07d833a3def7"
+    },
+    {
+      "id": "0580-2026-june-43-q18",
+      "sourceYear": 2026,
+      "sourceComponent": "43",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Equations and inequalities",
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "72895801",
+      "sourceTextSha256": "29ca3819951ac0281799026c7927c09604dd7ae51c37a7e42d8043e9b9fa4797",
+      "primaryCode": "E2.13",
+      "confidence": 0.97,
+      "inputSha256": "7d02b31458adb9a4da2038178280171e744e6dcc14f15fa5b85eeccea940b0da"
+    },
+    {
+      "id": "0580-2026-march-42-q15",
+      "sourceYear": 2026,
+      "sourceComponent": "42",
+      "sourcePrimaryTopic": "Algebra and graphs",
+      "sourceSubtopics": [
+        "Functions and graphs"
+      ],
+      "sourceTextFingerprint": "4ae59253",
+      "sourceTextSha256": "f6382dad03e8bfa1ef0dfa71838eea935b28bacfe854f01388ace970d5658a41",
+      "primaryCode": "E2.13",
+      "confidence": 0.97,
+      "inputSha256": "300de744fe61229688fdd9a577dceb445c050403feffda48760bc0a67a5d50e8"
+    },
+    {
+      "id": "0580-2026-march-42-q8",
+      "sourceYear": 2026,
+      "sourceComponent": "42",
+      "sourcePrimaryTopic": "Geometry",
+      "sourceSubtopics": [
+        "Angles and polygons"
+      ],
+      "sourceTextFingerprint": "d878956",
+      "sourceTextSha256": "c9cca5e730f3dc2079bbac5885c00b3c52ec74157225ff8e292ab29c71d3f7e1",
+      "primaryCode": "E4.5",
+      "confidence": 0.99,
+      "inputSha256": "ad32f405610a9c91b174dfe5d46447e03a7e02059d3f2fda455f727fa4e497ff"
+    }
+  ]
+}

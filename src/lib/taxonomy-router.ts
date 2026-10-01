@@ -113,7 +113,7 @@ export function getControlledSubtopics(bankSlug: string, topic: string): readonl
 
 export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
   const bank = questions[0]?.bankSlug;
-  if (bank === "igcse") return [...MATH_0580_TOPICS, ...(questions.some((question) => question.officialCodeRefs?.includes("review:section")) ? [MATH_0580_REVIEW_TOPIC] : [])];
+  if (bank === "igcse") return [...MATH_0580_TOPICS];
   if (bank === "igcse-additional") {
     const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]));
     return [...OFFICIAL_0606_TOPICS, ...(available.has(EARLIER_0606_TOPIC) ? [EARLIER_0606_TOPIC] : [])];

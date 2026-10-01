@@ -30,18 +30,6 @@ describe("QuestionExplorer", () => {
   afterEach(() => { vi.unstubAllGlobals(); window.history.replaceState({}, "", "/banks/ib-sl"); });
 
   const fullAccess = { authenticated: true, bankAccess: true, canExportPdf: true };
-  it("shows a count beside the 0580 section-review filter without changing its filter value", () => {
-    window.history.replaceState({}, "", "/banks/igcse");
-    const bank = loadBankQuestions("igcse");
-    const reviewed = bank.find((question) => question.id === "0580-2026-march-22-q15")!;
-    const pending = bank.find((question) => question.id === "0580-2025-june-23-q3")!;
-    const questions = prepareQuestionsForDelivery([reviewed, pending], [{ productId: "bank_igcse", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
-    render(<QuestionExplorer questions={questions} bankSlug="igcse" access={fullAccess} />);
-    const review = screen.getByRole("checkbox", { name: "Subtopics: Section not yet verified" });
-    expect(review.parentElement).toHaveTextContent("Section not yet verified (1)");
-    fireEvent.click(review);
-    expect(screen.getByText("1 question")).toBeInTheDocument();
-  });
 
   it("keeps Core, Extended, and All on the question page and filters both-route banks", async () => {
     window.history.replaceState({}, "", "/banks/igcse");
