@@ -145,12 +145,17 @@ export function getSubtopicGroups(
 ): { all: string[]; relevant: string[]; other: string[]; selectedOutsideContext: string[] } {
   const bank = questions[0]?.bankSlug;
   if (bank === "igcse") {
-    const all = [...MATH_0580_SECTIONS.map((section) => section.displayTitle), ...(questions.some((question) => question.officialCodeRefs?.includes("review:section")) ? [MATH_0580_REVIEW] : [])];
+    const all = [...new Set([...MATH_0580_SECTIONS.map((section) => section.displayTitle),
+      ...questions.flatMap((question) => question.subtopics).filter((label) => !MATH_0580_SECTIONS.some((section) => section.displayTitle === label) && label !== MATH_0580_REVIEW),
+      ...(questions.some((question) => question.officialCodeRefs?.includes("review:section")) ? [MATH_0580_REVIEW] : [])])];
     const available = new Set(questions.flatMap((question) => [...question.subtopics, ...question.skills]));
     const selected = new Set(selectedTopics);
+    const legacyForSelected = selectedTopics.length ? questions
+      .filter((question) => [question.primaryTopic, ...question.secondaryTopics].some((topic) => selected.has(topic)))
+      .flatMap((question) => question.subtopics.filter((label) => !MATH_0580_SECTIONS.some((section) => section.displayTitle === label) && label !== MATH_0580_REVIEW)) : [];
     const relevant = selectedTopics.length === 1 && selected.has(MATH_0580_REVIEW_TOPIC)
       ? [MATH_0580_REVIEW]
-      : selectedTopics.length ? [...new Set([...selectedTopics.flatMap((topic) => getControlledSubtopics(bank, topic)),
+      : selectedTopics.length ? [...new Set([...selectedTopics.flatMap((topic) => getControlledSubtopics(bank, topic)), ...legacyForSelected,
         ...(questions.some((question) => question.officialCodeRefs?.includes("review:section") && [question.primaryTopic, ...question.secondaryTopics].some((topic) => selected.has(topic))) ? [MATH_0580_REVIEW] : [])])] : all;
     const relevantSet = new Set(relevant);
     return { all, relevant, other: all.filter((label) => !relevantSet.has(label)), selectedOutsideContext: selectedSubtopics.filter((label) => available.has(label) && !relevantSet.has(label)) };

@@ -20,7 +20,11 @@ describe("0580 official topic-first section projection", () => {
     expect(topics.slice(0, 9)).toEqual(["Number", "Algebra and graphs", "Coordinate geometry", "Geometry", "Mensuration", "Trigonometry", "Transformations and vectors", "Probability", "Statistics"]);
     expect(topics).toContain("Questions needing section review");
     const groups = getSubtopicGroups(questions, [], []);
-    expect(groups.all).toHaveLength(73);
+    expect(groups.all).toHaveLength(124);
+    expect(groups.all.slice(72, -1)).toHaveLength(51);
+    expect(groups.all.slice(72, -1)).toEqual(expect.arrayContaining([
+      "Algebraic manipulation", "Fractions, decimals and percentages", "Bounds and estimation",
+    ]));
     expect(groups.all.at(-1)).toBe(REVIEW);
     expect(groups.all.slice(0, -1)).toEqual([...new Set(groups.all.slice(0, -1))]);
     expect(filterQuestions([...questions], { subtopics: [REVIEW] })).toHaveLength(3942);
@@ -37,6 +41,12 @@ describe("0580 official topic-first section projection", () => {
     expect(unreviewed.officialCodeRefs).toEqual(["review:section"]);
     expect(unreviewed.skills).not.toContain(REVIEW);
     expect(displayedQuestionSubtopics(unreviewed)).toEqual([REVIEW]);
+    const existingLabels = [...new Set(raw.flatMap((row) => row.subtopics))].sort();
+    expect(existingLabels).toHaveLength(51);
+    for (const label of existingLabels) {
+      const expectedIds = raw.filter((row) => row.subtopics.includes(label)).map((row) => row.id).sort();
+      expect(filterQuestions([...questions], { subtopics: [label] }).map((question) => question.id).sort(), label).toEqual(expectedIds);
+    }
     const legacy = raw.filter((row) => row.subtopics.includes("Bounds and estimation")).map((row) => row.id).sort();
     expect(filterQuestions([...questions], { subtopics: ["Bounds and estimation"] }).map((question) => question.id).sort()).toEqual(legacy);
   });
