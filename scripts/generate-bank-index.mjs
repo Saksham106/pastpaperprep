@@ -5,7 +5,7 @@ import { mkdir, readdir, readFile, unlink, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { project0606Topics } from "../src/lib/igcse-0606-official.mjs";
-import { project0606Sections } from "../src/lib/igcse-0606-subtopics.mjs";
+import { project0606Sections, MATH_0606_MULTI_SOURCE_SHA256 } from "../src/lib/igcse-0606-subtopics.mjs";
 import { project0455Sections } from "../src/lib/igcse-0455-official.mjs";
 import { project0610Sections } from "../src/lib/igcse-0610-official.mjs";
 import { project0654Sections } from "../src/lib/igcse-0654-official.mjs";
@@ -158,7 +158,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     year: integer(raw.year),
     session: typeof raw.session === "string" ? raw.session : "",
     primaryTopic: math0580 ? math0580.primaryTopic : chemistry0620 ? chemistry0620.primaryTopic : physics0625 ? physics0625.primaryTopic : coordinated ? coordinated.primaryTopic : official0610 ? projected0610.primaryTopic : biology ? biologyPrimaryTopic(biology, raw) : aa ? aa.primaryTopic : additional ? additional.primaryTopic : (typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other"),
-    secondaryTopics: math0580 ? math0580.secondaryTopics : chemistry0620 ? chemistry0620.secondaryTopics : physics0625 ? physics0625.secondaryTopics : coordinated ? coordinated.secondaryTopics : official0610 ? projected0610.secondaryTopics : biology ? [...new Set(biology.secondary.map((group) => group.parentTopic))] : aa ? aa.secondaryTopics : additional ? additional.secondaryTopics : strings(raw.secondaryTopics),
+    secondaryTopics: math0580 ? math0580.secondaryTopics : chemistry0620 ? chemistry0620.secondaryTopics : physics0625 ? physics0625.secondaryTopics : coordinated ? coordinated.secondaryTopics : official0610 ? projected0610.secondaryTopics : biology ? [...new Set(biology.secondary.map((group) => group.parentTopic))] : aa ? aa.secondaryTopics : additional ? [...new Set([...additional.secondaryTopics, ...(additionalSections?.topics ?? [])])].filter(topic => topic !== additional.primaryTopic) : strings(raw.secondaryTopics),
     skills,
     subtopics,
     granularLabels: aa || biology ? [] : granularByKey.get(`${overlayBank}:${raw.id}`) ?? [],
@@ -214,6 +214,8 @@ function assertSafe(serialized, rawQuestions) {
 export async function generateBankIndexes() {
   const math0580Source = await readFile(join(root, "src", "data", "raw", "igcse.json"));
   if (createHash("sha256").update(math0580Source).digest("hex") !== MATH_0580_MODEL_SOURCE_SHA256) throw new Error("0580 calibrated projection source drift");
+  const math0606Source = await readFile(join(root, "src", "data", "raw", "igcse-additional.json"));
+  if (createHash("sha256").update(math0606Source).digest("hex") !== MATH_0606_MULTI_SOURCE_SHA256) throw new Error("0606 multi-label projection source drift");
   await mkdir(outputDirectory, { recursive: true });
   const existingFiles = await readdir(outputDirectory);
   await Promise.all(existingFiles

@@ -228,6 +228,9 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
   const math0580 = slug === "igcse" ? project0580Sections(raw) : null;
   const primaryTopic = aa?.primaryTopic ?? biology?.primaryTopic ?? math0580?.primaryTopic ?? chemistry0620?.primaryTopic ?? physics0625?.primaryTopic ?? coordinated?.primaryTopic ?? igcseBiology?.primaryTopic ?? additional?.primaryTopic ?? (text(raw.primaryTopic) || "Other");
   const secondaryTopics = aa?.secondaryTopics ?? biology?.secondaryTopics ?? math0580?.secondaryTopics ?? chemistry0620?.secondaryTopics ?? physics0625?.secondaryTopics ?? coordinated?.secondaryTopics ?? igcseBiology?.secondaryTopics ?? additional?.secondaryTopics ?? strings(raw.secondaryTopics);
+  for (const topic of additionalSections?.topics ?? []) {
+    if (topic !== primaryTopic && !secondaryTopics.includes(topic)) secondaryTopics.push(topic);
+  }
   const controlledSkills = aa?.skills ?? biology?.skills ?? strings(raw.skills);
   const studentSubtopics = aa?.subtopics ?? biology?.subtopics ?? math0580?.subtopics ?? chemistry0620?.subtopics ?? physics0625?.subtopics ?? coordinated?.subtopics ?? igcseBiology?.subtopics ?? economics0455?.subtopics ?? additionalSections?.subtopics ?? strings(raw.subtopics);
   const secondarySubtopics = biology ? biology.subtopics.slice(1) : strings(raw.secondarySubtopics);

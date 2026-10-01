@@ -1,0 +1,44 @@
+{
+  "overlay": "igcse-0606-multilabel-section-overlay.json",
+  "assurance": "Per-statement Jev proposals with measured thresholds, explicit operation/parent guards, bounded source-content review and four exact visual source adjudications. Not exhaustive independently verified accuracy.",
+  "sourceEvidence": [
+    {
+      "id": "0606-2025-june-21-q10",
+      "codes": [
+        "14.10",
+        "14.11",
+        "14.12",
+        "14.14"
+      ],
+      "evidence": "QP p14 and printed transcript continuation: integrate polynomial acceleration, then exponential linear-argument acceleration to obtain displacement."
+    },
+    {
+      "id": "0606-2022-june-23-q8",
+      "codes": [
+        "14.3",
+        "14.4",
+        "14.10"
+      ],
+      "evidence": "Visual QP p8: differentiate 2x e^(4x) using product rule, then integrate x e^(4x) using reverse differentiation."
+    },
+    {
+      "id": "0606-2018-november-12-q3",
+      "codes": [
+        "1.4",
+        "4.1",
+        "4.2",
+        "7.1"
+      ],
+      "evidence": "Visual QP p5: sketch y=|6-3x|, solve |6-3x|=2, then |6-3x|>2."
+    },
+    {
+      "id": "0606-2016-june-22-q9",
+      "codes": [
+        "14.11",
+        "14.12",
+        "14.13"
+      ],
+      "evidence": "Visual QP p9: integrate polynomial quotient; integrate sin(5x+pi), then evaluate definite integral."
+    }
+  ]
+}

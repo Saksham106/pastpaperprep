@@ -1,5 +1,14 @@
 import taxonomy from "../data/igcse-0606-numbered-subtopics.json" with { type: "json" };
 import granular from "../data/math-granular-label-overlay.json" with { type: "json" };
+import multiOverlay from "../data/igcse-0606-multilabel-section-overlay.json" with { type: "json" };
+const multiById = new Map(multiOverlay.rows.map(row => [row.id, row]));
+export const MATH_0606_MULTI_SOURCE_SHA256 = multiOverlay.sourceRawSha256;
+if (multiById.size !== multiOverlay.rows.length || multiOverlay.officialSyllabusSha256 !== taxonomy.sourcePdfSha256) throw new Error("0606 multi-label source identity drift");
+function textFingerprint(text) {
+  let hash = 2166136261;
+  for (const byte of new TextEncoder().encode(text)) hash = Math.imul(hash ^ byte, 16777619) >>> 0;
+  return hash.toString(16);
+}
 
 export const SECTIONS_0606 = Object.freeze(taxonomy.sections);
 const byCode = new Map(SECTIONS_0606.map(s => [s.code, s]));
@@ -72,6 +81,8 @@ const cues = [
   ["14.7", /rate of change|small (?:increment|change)|approximate change/i],
   ["14.8", /(?:find|calculate|determine|show|prove).{0,100}(?:maximum|minimum).{0,60}(?:volume|area|cost|length|distance)|(?:find|calculate|determine|show|prove).{0,100}(?:volume|area|cost|length).{0,60}(?:maximum|minimum)/i],
   ["14.9", /nature of.*stationary|derivative test|determine.*(?:maximum or minimum|maxima|minima)/i],
+  ["14.3", /differentiate|find.{0,100}derivative|derivative of (?:the )?(?:standard|power|sine|cosine|tangent|exponential|logarithmic)/i],
+  ["14.10", /\b(?:integrate|integration|antiderivative|indefinite integral)\b|(?:find|evaluate|show|prove).{0,100}integral/i],
   ["14.13", /area.*(?:curve|region|bounded)|(?:definite integral)/i],
   ["14.14", /particle|displacement|velocity|acceleration|at rest/i],
   ["14.15", /(?:sketch|draw).*?(?:velocity|speed|displacement|acceleration).*graph/i],
@@ -90,14 +101,23 @@ export function project0606Sections(raw) {
     const section = byCode.get(code);
     if (owners.has(section.topic) && chunks.some(chunk => regex.test(chunk))) codes.add(code);
   }
+  const addition = multiById.get(raw.id);
+  if (addition) {
+    if (textFingerprint(raw.accessibleText ?? "") !== addition.sourceTextFingerprint || JSON.stringify(labels) !== JSON.stringify(addition.sourceSubtopics)) throw new Error(`0606 multi-label input drift ${raw.id}`);
+    for (const code of addition.codes) {
+      if (!byCode.has(code)) throw new Error(`0606 multi-label invalid section ${raw.id}: ${code}`);
+      codes.add(code);
+    }
+  }
   // A general progression or binomial label is not proof of every numbered item.
   const finer = (fineById.get(raw.id) ?? []).filter(label =>
     owners.has(label === "Differentiation" || label === "Integration" ? "Calculus" : "Series"));
   const ordered = SECTIONS_0606.filter(s => codes.has(s.code));
   return {
     codes: ordered.map(s => s.code),
+    topics: [...new Set(ordered.map(s => s.topic))],
     subtopics: [...new Set([...labels, ...finer, ...ordered.map(s => s.displayTitle)])],
     codeRefs: ordered.map(s => `current_2025:${s.code}`),
-    method: "existing-reviewed-label-single-section-crosswalk-and-explicit-assessed-operation-v1",
+    method: "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
   };
 }
