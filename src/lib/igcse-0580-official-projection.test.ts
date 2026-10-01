@@ -30,14 +30,16 @@ describe("0580 official topic-first section projection", () => {
     expect(filterQuestions([...questions], { subtopics: [REVIEW] })).toHaveLength(questions.filter((question) => (question.officialCodeRefs ?? []).includes("review:section")).length);
   });
 
-  it("assigns only 25 exact source-reviewed IDs to numbered sections, with original labels still searchable", () => {
+  it("preserves the 25 reviewed overrides and adds mappings without erasing old filters", () => {
     const sectionIds = questions.filter((question) => (question.officialCodeRefs ?? []).some((ref) => ref.startsWith("current_2025:")));
-    expect(sectionIds).toHaveLength(raw.filter((row) => (byId.get(row.id)?.officialCodeRefs ?? []).some((ref) => ref.startsWith("current_2025:"))).length);
+    expect(sectionIds.length).toBeGreaterThan(25);
+    expect(questions.filter(question => question.officialCodeRefs?.some(ref => ref.startsWith("review_verified_2025:")))).toHaveLength(25);
     const surds = byId.get("0580-2026-march-22-q15")!;
     expect(surds.officialCodeRefs).toContain("current_2025:E1.18");
     expect(displayedQuestionSubtopics(surds)).toEqual(["1.18 Surds"]);
     expect(filterQuestions([...questions], { subtopics: ["1.18 Surds"] }).map((question) => question.id)).toContain(surds.id);
-    const unreviewed = byId.get("0580-2025-june-23-q3")!;
+    expect(byId.get("0580-2025-june-23-q3")?.officialCodeRefs).toContain("current_2025:E4.5");
+    const unreviewed = questions.find(question => question.subtopics.includes("Matrix operations and algebra"))!;
     expect(unreviewed.officialCodeRefs).toEqual(["review:section"]);
     expect(unreviewed.skills).not.toContain(REVIEW);
     expect(displayedQuestionSubtopics(unreviewed)).toEqual([REVIEW]);

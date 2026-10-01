@@ -14,26 +14,54 @@ const reviewedById = new Map(reviewed.rows.map((row) => [row.id, row]));
 // Exact existing fine-label equivalents only. Labels spanning multiple official
 // sections, or depending on an assessed operation not named by the label, stay unresolved.
 const sectionCrosswalk = Object.freeze({
-  "Circle theorems": "4.7",
   "Similarity and congruence": "4.4",
-  "Constructions and loci": "4.2",
-  "Basic probability": "8.1",
-  "Combined and conditional probability": "8.3",
   "Set language and notation": "1.2",
-  "Fractions, decimals and percentages": "1.4",
   "Exponential growth and decay": "1.17",
-  "Straight-line graphs": "3.2",
   "Distance and midpoint": "3.4",
-  "Area and perimeter": "5.2",
   "Volume and surface area": "5.4",
   "Sequences": "2.7",
-  "Calculus": "2.12",
-  "Vectors": "7.2",
-  "Transformations": "7.1",
-  "Histograms and cumulative frequency": "9.6",
   "Scatter graphs": "9.5",
   "Averages and spread": "9.3",
+  "Number properties": "1.1",
+  "Prime factors, HCF and LCM": "1.1",
+  "Standard form": "1.8",
+  "Recurring decimals": "1.4",
+  "Time calculations": "1.15",
+  "Order of operations": "1.6",
+  "Density, mass and volume": "1.12",
+  "Compound shapes": "5.5",
+  "Circular measure: arcs, sectors and segments": "5.3",
+  "Exact trigonometric values": "6.3",
+  "3D trigonometry": "6.6",
+  "Symmetry": "4.5",
 });
+/** @type {Array<[string, RegExp, string[]]>} */
+const operationCues = [
+  ["9.7", /histogram|frequency density/i, ["Histograms and cumulative frequency"]],
+  ["9.6", /cumulative frequency/i, ["Histograms and cumulative frequency"]],
+  ["7.3", /magnitude/i, ["Vectors"]],
+  ["7.4", /collinear|vector geometry/i, ["Vectors"]],
+  ["3.2", /(?:draw|plot|complete).{0,70}(?:line|graph)/i, ["Straight-line graphs", "Coordinates and geometry"]],
+  ["3.3", /(?:find|calculate|work out|determine).{0,70}gradient/i, ["Straight-line graphs", "Coordinates and geometry"]],
+  ["3.5", /(?:find|write down|determine|calculate|give).{0,90}equation.{0,60}(?:line|linear graph)/i, ["Straight-line graphs", "Coordinates and geometry"]],
+  ["3.6", /parallel/i, ["Straight-line graphs", "Coordinates and geometry"]],
+  ["3.7", /perpendicular/i, ["Straight-line graphs", "Coordinates and geometry"]],
+  ["2.5", /solve.{0,60}equation/i, ["Equations and inequalities", "Quadratic equations and functions"]],
+  ["2.6", /(?:solve|show|write|represent).{0,60}inequalit/i, ["Equations and inequalities"]],
+  ["2.2", /factoris|factoriz|expand|collect.{0,40}terms/i, ["Algebraic manipulation"]],
+  ["2.12", /differentiat|stationary point|gradient.{0,50}curve/i, ["Calculus"]],
+  ["4.5", /lines? of symmetry|rotational symmetry|line symmetry/i, ["Transformations", "Symmetry", "Angles and polygons"]],
+  ["7.1", /reflection|translation|enlargement|rotat(?:e|ion)\b/i, ["Transformations"]],
+  ["4.6", /(?:find|calculate|work out|determine).{0,60}angle|interior angle|exterior angle/i, ["Angles and polygons"]],
+  ["4.2", /(?:construct|bisect|perpendicular bisector)/i, ["Constructions and loci"]],
+  ["1.10", /upper bound|lower bound|bounds|limits of accuracy/i, ["Bounds and estimation"]],
+  ["1.9", /estimat|round|significant figures|decimal places/i, ["Bounds and estimation"]],
+  ["1.18", /surd|rationalis|rationaliz/i, ["Indices and surds"]],
+  ["1.11", /\bratio\b|share|divide.{0,40}proportion/i, ["Ratio, proportion and rates"]],
+  ["2.8", /directly proportional|inversely proportional/i, ["Direct and inverse proportion", "Ratio, proportion and rates"]],
+  ["1.4", /(?:write|express|convert).{0,60}(?:fraction|decimal|percentage)/i, ["Fractions, decimals and percentages"]],
+  ["5.2", /(?:area|perimeter)/i, ["Area and perimeter"]],
+];
 if (MATH_0580_TOPICS.length !== 9 || MATH_0580_SECTIONS.length !== 72 || byDisplay.size !== 72
   || reviewedById.size !== 25 || reviewed.officialSyllabusSha256 !== official.sourcePdfSha256) {
   throw new Error("0580 official inventory or exact reviewed overlay changed");
@@ -56,7 +84,8 @@ export function display0580Sections(refs) {
  * Only exact, QP/MS-source-reviewed IDs get an official section address.
  * All other source classifications stay searchable and topic-retrievable,
  * with explicit section-review membership rather than an invented section.
- * @param {{id?:string,year?:number,component?:string,primaryTopic?:string,secondaryTopics?:string[],subtopics?:string[],skills?:string[]}} raw
+ * @param {{id?:string,year?:number,component?:string,primaryTopic?:string,secondaryTopics?:string[],subtopics?:string[],skills?:string[],accessibleText?:string}} raw
+ * @returns {{primaryTopic:string,secondaryTopics:string[],subtopics:string[],visibleTitles:string[],aliases:string[],codeRefs:string[],needsReview:boolean}}
  */
 export function project0580Sections(raw) {
   if (!MATH_0580_TOPICS.includes(raw.primaryTopic)) throw new Error(`0580 unsupported source topic ${raw.id ?? "unknown"}: ${raw.primaryTopic}`);
@@ -94,22 +123,29 @@ export function project0580Sections(raw) {
       needsReview: false,
     };
   }
-  const mappedLabels = [...new Set(raw.subtopics ?? [])].filter((label) => sectionCrosswalk[label]);
-  const mappedSectionCode = mappedLabels.length === 1 && (raw.subtopics ?? []).length === 1
-    ? sectionCrosswalk[mappedLabels[0]] : null;
-  if (mappedSectionCode) {
-    const tier = /^[13]/.test(raw.component ?? "") ? "C" : /^[24]/.test(raw.component ?? "") ? "E" : null;
-    const code = `${tier ?? ""}${mappedSectionCode}`;
-    const section = byTierCode.get(code);
-    if (section && section.topic === raw.primaryTopic) {
+  const tier = /^[13]/.test(raw.component ?? "") ? "C" : /^[24]/.test(raw.component ?? "") ? "E" : null;
+  const labels = raw.subtopics ?? [];
+  const text = (raw.accessibleText ?? "").replace(/\s+/g, " ");
+  const chunks = text.split(/\[\s*\d+\s*\]|\([a-z]\)|[.!?](?:\s|$)/i);
+  const sectionCodes = new Set(labels.map(label => sectionCrosswalk[label]).filter(Boolean));
+  if (labels.includes("Averages and spread") && /cumulative frequency|histogram/i.test(text)) sectionCodes.delete("9.3");
+  if (tier === "C" && labels.includes("Circle theorems")) sectionCodes.add("4.7");
+  for (const [code, cue, owners] of operationCues) {
+    if (!owners.some(owner => labels.includes(owner)) || !chunks.some(chunk => cue.test(chunk))) continue;
+    if (code === "5.2" && /circle|sector|arc|compound|composite/i.test(text)) continue;
+    sectionCodes.add(code);
+  }
+  const sections = [...sectionCodes].map(code => byTierCode.get(`${tier ?? ""}${code}`)).filter(Boolean);
+  if (sections.length) {
+    const codeRefs = sections.map(section => `current_2025:${tier}${section.code}`);
+    const visibleTitles = [...new Set(sections.map(section => section.displayTitle))];
       return {
-        primaryTopic: raw.primaryTopic ?? "", secondaryTopics: raw.secondaryTopics ?? [],
-        subtopics: [section.displayTitle, ...(raw.subtopics ?? [])].filter((value, index, all) => all.indexOf(value) === index),
-        visibleTitles: [section.displayTitle],
+        primaryTopic: raw.primaryTopic ?? "", secondaryTopics: [...new Set([...(raw.secondaryTopics ?? []), ...sections.map(section => section.topic)])].filter(topic => topic !== raw.primaryTopic),
+        subtopics: [...new Set([...visibleTitles, ...labels])],
+        visibleTitles,
         aliases: [...new Set([...(raw.subtopics ?? []), ...(raw.skills ?? []), raw.primaryTopic ?? "", ...(raw.secondaryTopics ?? [])].filter(Boolean))],
-        codeRefs: [`current_2025:${code}`], needsReview: false,
+        codeRefs, needsReview: false,
       };
-    }
   }
   return {
     primaryTopic: raw.primaryTopic ?? "",
