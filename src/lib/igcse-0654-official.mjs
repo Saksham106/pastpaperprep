@@ -1,4 +1,12 @@
 import official2025 from "../data/igcse-coordinated-sciences-0654-official-2025.json" with { type: "json" };
+import additive from "../data/igcse-0654-additive-section-overlay.json" with { type: "json" };
+const additions = new Map(additive.rows.map(row => [row.id, row]));
+if (additions.size !== additive.rows.length || additive.officialSyllabusSha256 !== official2025.pdfSha256) throw new Error("0654 additive source identity drift");
+function textFingerprint(text) {
+  let hash = 2166136261;
+  for (const byte of new TextEncoder().encode(text)) hash = Math.imul(hash ^ byte, 16777619) >>> 0;
+  return hash.toString(16);
+}
 
 export const COORDINATED_0654_EARLIER_TOPIC = "Earlier syllabus topics";
 export const COORDINATED_0654_EARLIER = "Earlier syllabus content";
@@ -25,7 +33,7 @@ export function display0654Sections(refs) {
   return [...current, ...((refs ?? []).includes("earlier:content") ? [COORDINATED_0654_EARLIER] : [])];
 }
 
-/** @param {{id?: string, year?: number, courseEra?: string, primaryTopic?: string, primaryTopicId?: string, secondaryTopics?: string[], subtopics?: string[], skills?: string[], subject?: string, classificationProvenance?: {era?: string|null, officialCode?: string|null}}} raw */
+/** @param {{id?: string, year?: number, component?: string, accessibleText?: string, courseEra?: string, primaryTopic?: string, primaryTopicId?: string, secondaryTopics?: string[], subtopics?: string[], skills?: string[], subject?: string, classificationProvenance?: {era?: string|null, officialCode?: string|null}}} raw */
 export function project0654Sections(raw) {
   const era = raw.classificationProvenance?.era;
   const sourceCode = raw.classificationProvenance?.officialCode;
@@ -64,5 +72,19 @@ export function project0654Sections(raw) {
   const sourceRef = sourceCode ? [`${era}:${sourceCode}`] : [];
   const codeRefs = [...sourceRef, ...current.map((section) => `current_2025:${section.code}`), ...(historical ? ["earlier:content"] : [])];
   const aliases = [...new Set([...(raw.subtopics ?? []), ...(raw.skills ?? []), raw.primaryTopic ?? ""] .filter(Boolean))];
+  const addition = additions.get(raw.id);
+  if (addition) {
+    if (raw.year !== addition.sourceYear || raw.component !== addition.sourceComponent || textFingerprint(raw.accessibleText ?? "") !== addition.sourceTextFingerprint) throw new Error(`0654 additive input drift ${raw.id}`);
+    for (const code of addition.codes) {
+      const section = byCode.get(code);
+      if (!section || section.subject !== subject) throw new Error(`0654 invalid additive section ${raw.id}: ${code}`);
+      if (!visibleTitles.includes(section.studentTitle)) visibleTitles.push(section.studentTitle);
+      if (!codeRefs.includes(`current_2025:${code}`)) codeRefs.push(`current_2025:${code}`);
+      codeRefs.push(`source_adjudicated_addition:${code}`);
+      if (section.topic !== primaryTopic && !secondaryTopics.includes(section.topic)) secondaryTopics.push(section.topic);
+    }
+    const earlierIndex = visibleTitles.indexOf(COORDINATED_0654_EARLIER);
+    if (earlierIndex >= 0) visibleTitles.push(...visibleTitles.splice(earlierIndex, 1));
+  }
   return { primaryTopic, secondaryTopics, subtopics: [...new Set([...visibleTitles, ...aliases])], visibleTitles, aliases, codeRefs, historical, practical: false };
 }

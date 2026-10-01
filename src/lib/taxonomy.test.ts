@@ -16,7 +16,7 @@ describe("question taxonomy", () => {
     expect(groups.all).toContain("1.1 Types of number");
     expect(groups.all).toContain("9.3 Averages and measures of spread");
     expect(getStudentTopicOptions([{ ...questions[0], subtopics: [] }])).toEqual(topics);
-    expect(getStudentSubtopicGroups([{ ...questions[0], subtopics: [] }], ["Number"], []).all).toHaveLength(73);
+    expect(getStudentSubtopicGroups([{ ...questions[0], subtopics: [], officialCodeRefs: [] }], ["Number"], []).all).toHaveLength(72);
   });
 
   it("orders IB topics by the official syllabus sequence", () => {

@@ -45,6 +45,18 @@ describe("0606 additive source-backed subtopics", () => {
     expect(project0606Sections({ subtopics: ["Coordinate geometry of the circle"], accessibleText: "Find the points where the circle meets the y-axis." }).codes).toEqual(["8.2"]);
     expect(project0606Sections({ subtopics: ["Coordinate geometry of the circle"], accessibleText: "The circle meets the x-axis at a given point. Find its equation." }).codes).not.toContain("8.2");
   });
+  it("adds evidenced standard differentiation and primitive integration statements to already-mapped calculus questions", () => {
+    const derivative = raw.questions.find(q => q.id === "0606-2025-november-11-q7");
+    const primitive = raw.questions.find(q => q.id === "0606-2025-november-23-q4");
+    expect(project0606Sections({ subtopics: derivative!.subtopics, accessibleText: derivative!.accessibleText }).codes).toEqual(expect.arrayContaining(["14.3"]));
+    expect(project0606Sections({ subtopics: primitive!.subtopics, accessibleText: primitive!.accessibleText }).codes).toContain("14.10");
+    expect(project0606Sections({ subtopics: ["Calculus"], accessibleText: "The curve y = sin x has a stationary point. Find its coordinates." }).codes).not.toContain("14.12");
+    const rows = loadBankQuestions("igcse-additional");
+    for (const [id, code] of [["0606-2025-november-11-q7", "14.3"], ["0606-2025-november-23-q4", "14.10"]]) {
+      const label = SECTIONS_0606.find(s => s.code === code)!.displayTitle;
+      expect(filterQuestions(rows, { subtopics: [label] }).map(q => q.id)).toContain(id);
+    }
+  });
   it("makes existing differentiation/integration labels useful ordinary subtopics", () => {
     const rows = loadBankQuestions("igcse-additional");
     const options = getSubtopicGroups(rows, ["Calculus"], []).relevant;
