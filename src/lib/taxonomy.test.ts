@@ -10,9 +10,9 @@ describe("question taxonomy", () => {
     const questions = loadBankQuestions("igcse");
     const topics = getStudentTopicOptions(questions);
     expect(topics.slice(0, 9)).toEqual(["Number", "Algebra and graphs", "Coordinate geometry", "Geometry", "Mensuration", "Trigonometry", "Transformations and vectors", "Probability", "Statistics"]);
-    expect(topics.at(-1)).toBe("Questions needing section review");
+    expect(topics).toHaveLength(9);
     const groups = getStudentSubtopicGroups(questions, topics, []);
-    expect(groups.all).toHaveLength(73);
+    expect(groups.all).toHaveLength(124);
     expect(groups.all).toContain("1.1 Types of number");
     expect(groups.all).toContain("9.3 Averages and measures of spread");
     expect(getStudentTopicOptions([{ ...questions[0], subtopics: [] }])).toEqual(topics);
@@ -40,7 +40,6 @@ describe("question taxonomy", () => {
       "Transformations and vectors",
       "Probability",
       "Statistics",
-      "Questions needing section review",
     ]);
   });
 

@@ -12,7 +12,7 @@ import {
   getSubtopicGroups as getLegacySubtopicGroups,
   getTopicOptions as getLegacyTopicOptions,
 } from "@/lib/taxonomy";
-import { MATH_0580_TOPICS, MATH_0580_SECTIONS, MATH_0580_REVIEW, MATH_0580_REVIEW_TOPIC } from "@/lib/igcse-0580-official.mjs";
+import { MATH_0580_TOPICS, MATH_0580_SECTIONS, MATH_0580_REVIEW, MATH_0580_REVIEW_TOPIC, MATH_0580_LEGACY_SUBTOPICS } from "@/lib/igcse-0580-official.mjs";
 import type { UnifiedQuestion } from "@/lib/questions";
 import { PHYSICS_0625_EARLIER, PHYSICS_0625_EARLIER_TOPIC, PHYSICS_0625_PRACTICAL_TOPIC, PHYSICS_0625_REVIEW, PHYSICS_0625_REVIEW_TOPIC, PHYSICS_0625_SECTIONS, PHYSICS_0625_TOPICS, display0625Sections } from "@/lib/igcse-0625-official.mjs";
 import { CHEMISTRY_0620_EARLIER, CHEMISTRY_0620_EARLIER_TOPIC, CHEMISTRY_0620_PRACTICAL_TOPIC, CHEMISTRY_0620_REVIEW, CHEMISTRY_0620_REVIEW_TOPIC, CHEMISTRY_0620_SECTIONS, CHEMISTRY_0620_TOPICS, display0620Sections } from "@/lib/igcse-0620-official.mjs";
@@ -147,13 +147,13 @@ export function getSubtopicGroups(
   const bank = questions[0]?.bankSlug;
   if (bank === "igcse") {
     const all = [...new Set([...MATH_0580_SECTIONS.map((section) => section.displayTitle),
-      ...questions.flatMap((question) => question.subtopics).filter((label) => !MATH_0580_SECTIONS.some((section) => section.displayTitle === label) && label !== MATH_0580_REVIEW),
+      ...questions.flatMap((question) => question.subtopics).filter((label) => MATH_0580_LEGACY_SUBTOPICS.includes(label)),
       ...(questions.some((question) => question.officialCodeRefs?.includes("review:section")) ? [MATH_0580_REVIEW] : [])])];
     const available = new Set(questions.flatMap((question) => [...question.subtopics, ...question.skills]));
     const selected = new Set(selectedTopics);
     const legacyForSelected = selectedTopics.length ? questions
       .filter((question) => [question.primaryTopic, ...question.secondaryTopics].some((topic) => selected.has(topic)))
-      .flatMap((question) => question.subtopics.filter((label) => !MATH_0580_SECTIONS.some((section) => section.displayTitle === label) && label !== MATH_0580_REVIEW)) : [];
+      .flatMap((question) => question.subtopics.filter((label) => MATH_0580_LEGACY_SUBTOPICS.includes(label))) : [];
     const relevant = selectedTopics.length === 1 && selected.has(MATH_0580_REVIEW_TOPIC)
       ? [MATH_0580_REVIEW]
       : selectedTopics.length ? [...new Set([...selectedTopics.flatMap((topic) => getControlledSubtopics(bank, topic)), ...legacyForSelected,

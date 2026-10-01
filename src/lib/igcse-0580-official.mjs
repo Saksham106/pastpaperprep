@@ -3,6 +3,7 @@ import reviewed from "../data/igcse-0580-reviewed-section-overlay.json" with { t
 import modelOverlay from "../data/igcse-0580-calibrated-model-overlay.json" with { type: "json" };
 
 export const MATH_0580_MODEL_SOURCE_SHA256 = modelOverlay.sourceRawSha256;
+export const MATH_0580_LEGACY_SUBTOPICS = Object.freeze(modelOverlay.legacySubtopics);
 const modelById = new Map(modelOverlay.rows.map(row => [row.id, row]));
 if (modelById.size !== modelOverlay.rows.length || modelOverlay.model !== "typesafe/jev-1.13-20260917") throw new Error("0580 model overlay identity drift");
 function textFingerprint(text) {
@@ -174,7 +175,7 @@ export function project0580Sections(raw) {
   }
   return {
     primaryTopic: raw.primaryTopic ?? "",
-    secondaryTopics: [...new Set([...(raw.secondaryTopics ?? []), MATH_0580_REVIEW_TOPIC])].filter((topic) => topic !== raw.primaryTopic),
+    secondaryTopics: [...new Set(raw.secondaryTopics ?? [])].filter((topic) => topic !== raw.primaryTopic),
     subtopics: [...new Set([MATH_0580_REVIEW, ...(raw.subtopics ?? [])])],
     visibleTitles: [MATH_0580_REVIEW],
     aliases: [...new Set([...(raw.subtopics ?? []), ...(raw.skills ?? []), raw.primaryTopic ?? "", ...(raw.secondaryTopics ?? [])].filter(Boolean))],

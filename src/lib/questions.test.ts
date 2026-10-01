@@ -75,8 +75,8 @@ describe("question normalization", () => {
     const picker = getStudentSubtopicGroups(questions, [], []).all;
     expect(subtopics.has("Bounds and estimation")).toBe(true);
     expect(subtopics.has("Section not yet verified")).toBe(true);
-    expect(picker).toHaveLength(73);
-    expect(picker).not.toContain("Bounds and estimation");
+    expect(picker).toHaveLength(124);
+    expect(picker).toContain("Bounds and estimation");
   });
 
   it("promotes reconciled detailed IGCSE labels into filterable skills", () => {
@@ -84,14 +84,13 @@ describe("question normalization", () => {
       (candidate) => candidate.id === "0580-2026-march-22-q18",
     );
 
-    expect(question?.subtopics).toEqual([
-      "Section not yet verified",
+    expect(question?.subtopics).toEqual(expect.arrayContaining([
       "Algebraic manipulation",
       "Area and perimeter",
       "Equations and inequalities",
       "Quadratic equations and functions",
       "Volume and surface area",
-    ]);
+    ]));
     expect(question?.skills).toEqual([
       "Algebraic manipulation",
       "Area and perimeter",

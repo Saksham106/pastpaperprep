@@ -37,9 +37,9 @@ describe("0580 deterministic existing-label crosswalk", () => {
     }
   });
   it("uses only registered section codes for mapped labels", () => {
-    const raw = JSON.parse(readFileSync("src/data/raw/igcse.json", "utf8")).questions;
-    const mapped = raw.map((row: any) => project0580Sections(row)).filter((p: any) => !p.needsReview);
-    const codes = new Set(MATH_0580_SECTIONS.flatMap((s: any) => [s.coreCode, s.extendedCode].filter(Boolean).map((c: string) => `current_2025:${c}`)));
+    const raw = JSON.parse(readFileSync("src/data/raw/igcse.json", "utf8")).questions as Parameters<typeof project0580Sections>[0][];
+    const mapped = raw.map(row => project0580Sections(row)).filter(p => !p.needsReview);
+    const codes = new Set(MATH_0580_SECTIONS.flatMap(s => [s.coreCode, s.extendedCode].filter((code): code is string => typeof code === "string").map(c => `current_2025:${c}`)));
     expect(mapped.length).toBeGreaterThanOrEqual(25);
     for (const result of mapped) for (const ref of result.codeRefs.filter((value: string) => value.startsWith("current_2025:"))) expect(codes.has(ref)).toBe(true);
   });
