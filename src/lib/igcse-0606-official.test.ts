@@ -38,8 +38,8 @@ describe("0606 official topic projection", () => {
       const display = byId.get(q.id)!;
       const index = metadataFromRaw(q, { bank: "igcse-additional" });
       expect([display.primaryTopic, ...display.secondaryTopics]).toEqual([index.primaryTopic, ...index.secondaryTopics]);
-      expect(index.subtopics).toEqual(q.subtopics);
-      expect(display.subtopics).toEqual(q.subtopics);
+      expect(index.subtopics).toEqual(expect.arrayContaining(q.subtopics));
+      expect(display.subtopics).toEqual(index.subtopics);
       expect(display.searchText).toContain(q.primaryTopic.toLowerCase());
     }
   });
@@ -48,7 +48,7 @@ describe("0606 official topic projection", () => {
     const originalLabels = [...new Set(source.flatMap((q) => q.subtopics))].sort();
     const groups = getSubtopicGroups(normalized, [], []);
     expect(originalLabels).toHaveLength(17);
-    expect([...groups.all].sort()).toEqual(originalLabels);
+    expect(groups.all).toEqual(expect.arrayContaining(originalLabels));
     expect(getSubtopicGroups(normalized, ["Functions"], []).relevant).toContain("Functions");
     const earlier = getSubtopicGroups(normalized, [EARLIER_0606_TOPIC], []);
     expect(earlier.relevant).toEqual([...EARLIER_0606_SUBTOPICS]);
@@ -67,9 +67,9 @@ describe("0606 official topic projection", () => {
     for (const label of EARLIER_0606_SUBTOPICS) {
       expect(filterQuestions([...normalized], { subtopics: [label] }).length).toBeGreaterThan(0);
     }
-    expect(getSubtopicGroups(normalized, [], []).all).toHaveLength(17);
+    expect(getSubtopicGroups(normalized, [], []).all).toHaveLength(88);
     expect(getSubtopicGroups(normalized, [EARLIER_0606_TOPIC], []).relevant).toEqual(expect.arrayContaining([...EARLIER_0606_SUBTOPICS]));
-    expect(getSubtopicGroups(normalized, [], ["Matrices"]).all).toHaveLength(17);
+    expect(getSubtopicGroups(normalized, [], ["Matrices"]).all).toHaveLength(88);
     expect(getSubtopicGroups(normalized, ["Functions"], []).relevant).toContain("Functions");
     expect(getSubtopicGroups([{ ...normalized[0], skills: ["__internal_code__"] }], [], []).all).not.toContain("__internal_code__");
     const searchable = normalized.find((q) => q.subtopics.includes("Indices and surds"))!;

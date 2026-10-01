@@ -5,6 +5,7 @@ import { mkdir, readdir, readFile, unlink, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { project0606Topics } from "../src/lib/igcse-0606-official.mjs";
+import { project0606Sections } from "../src/lib/igcse-0606-subtopics.mjs";
 import { project0455Sections } from "../src/lib/igcse-0455-official.mjs";
 import { project0610Sections } from "../src/lib/igcse-0610-official.mjs";
 import { project0654Sections } from "../src/lib/igcse-0654-official.mjs";
@@ -79,6 +80,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
   const aa = currentAaRecord(bank, raw);
   const biology = currentBiologyRecord(bank, raw);
   const additional = bank === "igcse-additional" ? project0606Topics(raw) : null;
+  const additionalSections = additional ? project0606Sections(raw) : null;
   const economics0455 = bank === "igcse-economics-0455" ? project0455Sections(raw) : null;
   const coordinated = bank === "igcse-coordinated-sciences-0654" && normalizedProduction ? project0654Sections(raw) : null;
   const physics0625 = bank === "igcse-physics-0625" && normalizedProduction ? project0625Sections(raw) : null;
@@ -98,7 +100,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
       ? (aa.status === "accepted" ? aa.subtopics.map((id) => aaGroupNames.get(id) ?? (() => { throw new Error(`Unknown official AA group ${id}`); })()) : [])
       : biology
         ? biologyGroupLabels(biology)
-        : economics0455?.subtopics ?? strings(raw.subtopics);
+        : economics0455?.subtopics ?? additionalSections?.subtopics ?? strings(raw.subtopics);
   const detailedSubtopics = strings(raw.detailedSubtopics);
   const subtopics = [...new Set(
     studentSubtopics.length
@@ -132,6 +134,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     : coordinated ? coordinated.codeRefs
     : official0610 ? projected0610.codeRefs
     : economics0455 ? economics0455.codeRefs
+    : additionalSections ? additionalSections.codeRefs
     : strings(raw.officialCodeRefs);
   const metadata = {
     id: typeof raw.id === "string" ? raw.id : "",

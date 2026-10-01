@@ -2,6 +2,7 @@ import { economicsStorageObjectPath, storageObjectPath } from "@/lib/assets";
 import { getBank, isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
 import { isPrivateRuntimeBank, privateStorageObjectPath } from "@/lib/private-runtime-mapping";
 import { project0606Topics } from "@/lib/igcse-0606-official.mjs";
+import { project0606Sections } from "@/lib/igcse-0606-subtopics.mjs";
 import { project0455Sections } from "@/lib/igcse-0455-official.mjs";
 import granularOverlay from "@/data/math-granular-label-overlay.json";
 import aaTaxonomy from "@/data/aa-official-subtopics/taxonomy.json";
@@ -215,6 +216,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
   const aa = aaClassification(slug, raw);
   const biology = biologyClassification(slug, raw);
   const additional = slug === "igcse-additional" ? project0606Topics(raw) : null;
+  const additionalSections = additional ? project0606Sections(raw) : null;
   const economics0455 = slug === "igcse-economics-0455" ? project0455Sections(raw) : null;
   const igcseBiology = slug === "igcse-biology-0610" ? project0610Sections(raw) : null;
   const coordinated = slug === "igcse-coordinated-sciences-0654" ? project0654Sections(raw) : null;
@@ -223,7 +225,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
   const primaryTopic = aa?.primaryTopic ?? biology?.primaryTopic ?? chemistry0620?.primaryTopic ?? physics0625?.primaryTopic ?? coordinated?.primaryTopic ?? igcseBiology?.primaryTopic ?? additional?.primaryTopic ?? (text(raw.primaryTopic) || "Other");
   const secondaryTopics = aa?.secondaryTopics ?? biology?.secondaryTopics ?? chemistry0620?.secondaryTopics ?? physics0625?.secondaryTopics ?? coordinated?.secondaryTopics ?? igcseBiology?.secondaryTopics ?? additional?.secondaryTopics ?? strings(raw.secondaryTopics);
   const controlledSkills = aa?.skills ?? biology?.skills ?? strings(raw.skills);
-  const studentSubtopics = aa?.subtopics ?? biology?.subtopics ?? chemistry0620?.subtopics ?? physics0625?.subtopics ?? coordinated?.subtopics ?? igcseBiology?.subtopics ?? economics0455?.subtopics ?? strings(raw.subtopics);
+  const studentSubtopics = aa?.subtopics ?? biology?.subtopics ?? chemistry0620?.subtopics ?? physics0625?.subtopics ?? coordinated?.subtopics ?? igcseBiology?.subtopics ?? economics0455?.subtopics ?? additionalSections?.subtopics ?? strings(raw.subtopics);
   const secondarySubtopics = biology ? biology.subtopics.slice(1) : strings(raw.secondarySubtopics);
   const detailedSubtopics = strings(raw.detailedSubtopics);
   const subtopics = Array.from(new Set(
@@ -289,7 +291,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     subtopics,
     secondarySubtopics,
     granularLabels: aa || biology ? [] : GRANULAR_LABELS.get(`${overlayBankForSlug(slug)}:${text(raw.id)}`) ?? [],
-    officialCodeRefs: biology ? biology.record.officialCodes : chemistry0620?.codeRefs ?? physics0625?.codeRefs ?? coordinated?.codeRefs ?? igcseBiology?.codeRefs ?? economics0455?.codeRefs ?? strings(raw.officialCodeRefs),
+    officialCodeRefs: biology ? biology.record.officialCodes : chemistry0620?.codeRefs ?? physics0625?.codeRefs ?? coordinated?.codeRefs ?? igcseBiology?.codeRefs ?? economics0455?.codeRefs ?? additionalSections?.codeRefs ?? strings(raw.officialCodeRefs),
     retrievalFacets: strings(raw.retrievalFacets),
     classificationProvenance: aa?.provenance ?? biology?.provenance,
     subject: text(raw.subject) || text(raw.course),
