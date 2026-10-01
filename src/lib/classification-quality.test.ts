@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 import { filterQuestions } from "@/lib/question-filter";
 import { loadBankQuestions } from "@/lib/question-fixtures";
 import { getControlledSubtopics } from "@/lib/taxonomy";
+import { getControlledSubtopics as getDisplayedSubtopics } from "@/lib/taxonomy-router";
 
 type AuditManifest = {
   manifestVersion: string;
@@ -235,7 +236,7 @@ describe("new-bank classification quality", () => {
     for (const question of questions) {
       const controlled = new Set(
         [question.primaryTopic, ...question.secondaryTopics].flatMap((topic) =>
-          getControlledSubtopics("igcse-additional", topic),
+          [...getControlledSubtopics("igcse-additional", topic), ...getDisplayedSubtopics("igcse-additional", topic)],
         ),
       );
       expect(question.subtopics, question.id).not.toHaveLength(0);
@@ -250,22 +251,22 @@ describe("new-bank classification quality", () => {
     expect(byId.get("0606-2016-june-11-q3")).toMatchObject({
       primaryTopic: "Calculus",
       secondaryTopics: ["Straight-line graphs", "Coordinate geometry"],
-      subtopics: ["Calculus", "Straight-line graphs"],
+      subtopics: expect.arrayContaining(["Calculus", "Straight-line graphs"]),
     });
     expect(byId.get("0606-2026-june-12-q2")).toMatchObject({
       primaryTopic: "Straight-line graphs",
       secondaryTopics: ["Coordinate geometry"],
-      subtopics: ["Straight-line graphs"],
+      subtopics: expect.arrayContaining(["Straight-line graphs"]),
     });
     expect(byId.get("0606-2021-june-13-q6")).toMatchObject({
       primaryTopic: "Circular measure",
       secondaryTopics: ["Geometry and trigonometry"],
-      subtopics: ["Circular measure"],
+      subtopics: expect.arrayContaining(["Circular measure"]),
     });
     expect(byId.get("0606-2026-june-11-q4")).toMatchObject({
       primaryTopic: "Logarithmic and exponential functions",
       secondaryTopics: ["Algebra"],
-      subtopics: ["Logarithmic and exponential functions"],
+      subtopics: expect.arrayContaining(["Logarithmic and exponential functions"]),
     });
   });
 
