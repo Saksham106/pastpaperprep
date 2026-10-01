@@ -53,6 +53,15 @@ describe("public bank index generator", () => {
     for (const row of published.questions) expect(row).toEqual(expected.get(row.id));
   });
 
+  it("projects reviewed whole BLANK PAGE omissions into public image counts only", () => {
+    const runtime = JSON.parse(readFileSync(join(process.cwd(), "src/data/production/igcse-biology-0610.json"), "utf8"));
+    const raw = runtime.questions.find((row) => row.id === "0610-2019-m-12-q40");
+    const metadata = metadataFromRaw(raw, { bank: "igcse-biology-0610", normalizedProduction: true });
+    expect(metadata.questionImageCount).toBe(2);
+    expect(metadata.markschemeImageCount).toBe(1);
+    expect(raw.questionImages).toHaveLength(3);
+  });
+
   it("maps production AA slugs to the canonical overlay bank IDs", () => {
     const metadata = metadataFromRaw(
       { id: "2017-may-p2-tz1-q1" },

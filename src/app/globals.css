@@ -619,6 +619,8 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .question-topic span { padding: 3px 7px; color: var(--muted); border: 1px solid var(--line); border-radius: 6px; font-size: .67rem; }
 .question-images { padding: 24px clamp(16px, 4vw, 42px) 30px; display: grid; gap: 12px; }
 .question-images img, .answer-panel img { width: 100%; max-width: 900px; height: auto; margin: 0 auto; background: #fefefe; border: 1px solid var(--line); border-radius: 6px; }
+.source-tail-clipped { width: 100%; max-width: 900px; overflow: hidden; margin: 0 auto; background: #fefefe; border: 1px solid var(--line); border-radius: 6px; }
+.question-images .source-tail-clipped img, .paper-preview-images .source-tail-clipped img { display: block; width: 100%; max-width: none; height: auto; margin: 0; border: 0; border-radius: 0; }
 .asset-placeholder { position: relative; min-height: 200px; display: grid; align-content: center; justify-items: center; gap: 12px; overflow: hidden; color: var(--muted); background: var(--paper); border-radius: 10px; }
 .asset-placeholder .placeholder-shimmer { position: absolute; inset: 0; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--surface-raised) 70%, transparent), transparent); background-size: 220% 100%; }
 .asset-placeholder .placeholder-bars { position: relative; width: min(72%, 340px); display: grid; gap: 9px; }

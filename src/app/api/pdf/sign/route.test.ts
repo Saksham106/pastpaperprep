@@ -14,6 +14,7 @@ vi.mock("@/lib/supabase/server", () => ({ createClient }));
 vi.mock("@/lib/supabase/admin", () => ({ createAdminClient }));
 
 import { POST } from "./route";
+import reviewed0606 from "@/data/reviewed-blank-tails-0606.json";
 
 function request(body: unknown) {
   return new Request("https://pastpaperprep.com/api/pdf/sign", {
@@ -100,6 +101,25 @@ describe("POST /api/pdf/sign", () => {
 
     expect(response.status).toBe(503);
     expect(rpc).not.toHaveBeenCalledWith("consume_download_allowance", expect.anything());
+  });
+
+  it("signs exact source print geometry for the intact 0580 Q16 crop", async () => {
+    const response = await POST(request({ bank: "igcse", questionIds: ["0580-2025-november-11-q16"], content: "questions" }));
+    expect(response.status).toBe(200);
+    const payload = await response.json();
+    expect(payload.assets[0].printSizesPt).toEqual([[513, 734.33]]);
+  });
+
+  it("signs 0606 source-page boundaries for an intact stitched question", async () => {
+    const response = await POST(request({ bank: "igcse-additional", questionIds: ["0606-2016-june-13-q11"], content: "questions" }));
+    expect(response.status).toBe(200);
+    const payload = await response.json();
+    expect(payload.assets[0].printSizesPt).toEqual([[513, 2159]]);
+    expect(payload.assets[0].printSegments[0].map((part: { sourceY: number; sourceHeight: number }) =>
+      [part.sourceY, part.sourceHeight])).toEqual([[0, 1602], [1602, 1551], [3153, 1348]]);
+    expect(payload.assets[0].printSegments[0][2]).toEqual(expect.objectContaining({
+      include: false, imageSha256: reviewed0606.entries["0606-2016-june-13-q11"].imageSha256,
+    }));
   });
 
   it("keeps preview PDF assets on Supabase while locally presigning premium assets through R2", async () => {

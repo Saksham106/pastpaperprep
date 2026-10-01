@@ -1,11 +1,43 @@
 import type { UnifiedQuestion } from "@/lib/questions";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
-import { displayedQuestionSubtopics, formatPublicLabel } from "@/lib/presentation";
+import type { SignedAsset } from "@/lib/signed-assets";
+import type { SourcePrintSegment } from "@/lib/print-geometry";
+import { fetchVerifiedImageBlob } from "@/lib/verified-asset-bytes";
+import { verify0606PdfMetadata } from "@/lib/verified-0606-client";
 
 export { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
 
 export type PdfContent = "questions" | "answers" | "both";
 export type PdfAnswerPlacement = "all-answers-last" | "after-each-question";
+export type PdfExportQuestion = UnifiedQuestion & {
+  questionPrintSizesPt?: Array<[number, number] | null>;
+  markschemePrintSizesPt?: Array<[number, number] | null>;
+  questionPrintSegments?: Array<SourcePrintSegment[] | null>;
+  markschemePrintSegments?: Array<SourcePrintSegment[] | null>;
+  questionRasterSizesPx?: Array<[number, number] | null>;
+  markschemeRasterSizesPx?: Array<[number, number] | null>;
+};
+
+export function attachPdfAssetMetadata(
+  questions: UnifiedQuestion[],
+  signed: Map<string, SignedAsset>,
+): PdfExportQuestion[] {
+  return questions.map((question) => {
+    const questionAsset = signed.get(`${question.id}:question`);
+    const answerAsset = signed.get(`${question.id}:answer`);
+    return {
+      ...question,
+      questionImages: questionAsset?.urls ?? [],
+      markschemeImages: answerAsset?.urls ?? [],
+      questionPrintSizesPt: questionAsset?.printSizesPt,
+      markschemePrintSizesPt: answerAsset?.printSizesPt,
+      questionPrintSegments: questionAsset?.printSegments,
+      markschemePrintSegments: answerAsset?.printSegments,
+      questionRasterSizesPx: questionAsset?.rasterSizesPx,
+      markschemeRasterSizesPx: answerAsset?.rasterSizesPx,
+    };
+  });
+}
 
 export type PdfJob<T> = { question: T; kind: "question" | "answer" };
 
@@ -56,59 +88,108 @@ export function paginatePdfText(lines: string[], linesPerPage = 48): string[][] 
   return pages;
 }
 
-export type PdfImageSlice = {
-  sourceY: number;
-  sourceHeight: number;
-  renderedWidth: number;
-  renderedHeight: number;
+export type PdfPageFormat = "a4" | "a3";
+export type PdfPageOrientation = "portrait" | "landscape";
+export type PdfHeldRow = {
+  questionId: string;
+  kind: "question" | "answer";
+  imageIndex: number;
+  reason: "fit-to-page";
+  scale: number;
+};
+export function pdfHeldNotice(rows: readonly PdfHeldRow[]): string {
+  return `Downloaded with ${rows.length} fit-to-page image${rows.length === 1 ? "" : "s"} held for print review: ` +
+    rows.map((row) => `${row.questionId} ${row.kind} image ${row.imageIndex + 1}`).join("; ");
+}
+export type WholeImagePlacement = {
+  format: PdfPageFormat;
+  orientation: PdfPageOrientation;
+  pageWidthMm: number;
+  pageHeightMm: number;
+  xMm: number;
+  yMm: number;
+  widthMm: number;
+  heightMm: number;
+  scale: number;
+  headerMode: "standard" | "compact";
+  heldReason: "fit-to-page" | null;
 };
 
-const PDF_IMAGE_MAX_WIDTH = 194;
-const PDF_IMAGE_MAX_HEIGHT = 248;
+const PDF_PAGES: Array<{ format: PdfPageFormat; orientation: PdfPageOrientation; width: number; height: number }> = [
+  { format: "a4", orientation: "portrait", width: 210, height: 297 },
+  { format: "a4", orientation: "landscape", width: 297, height: 210 },
+  { format: "a3", orientation: "portrait", width: 297, height: 420 },
+  { format: "a3", orientation: "landscape", width: 420, height: 297 },
+];
+const PDF_TOP_MM = 22;
+const PDF_BOTTOM_MM = 13;
+const PDF_SIDE_MM = 8;
+const PDF_FALLBACK_DPI = 150;
+const SOURCE_RENDER_DPI = new Set([108, 126, 144]);
 
-export function planPdfImageSlices(
-  width: number,
-  height: number,
-  rowInk: readonly number[] = [],
-  maxWidth = PDF_IMAGE_MAX_WIDTH,
-  maxHeight = PDF_IMAGE_MAX_HEIGHT,
-): PdfImageSlice[] {
-  if (width <= 0 || height <= 0) throw new Error("PDF image dimensions must be positive");
+/** Generator raster rates are hints, not per-asset source-geometry receipts. */
+export function inferredPdfDpiForBank(bank: UnifiedQuestion["bankSlug"]): number {
+  if (["igcse-biology-0610", "igcse-chemistry-0620", "igcse-physics-0625",
+    "igcse-coordinated-sciences-0654", "igcse-economics-0455"].includes(bank)) return 108;
+  if (["ib-biology-hl", "ib-biology-sl", "ib-chemistry-hl", "ib-chemistry-sl",
+    "ib-physics-hl", "ib-physics-sl"].includes(bank)) return 126;
+  if (bank === "ib-economics-hl" || bank === "ib-economics-sl") return 144;
+  return PDF_FALLBACK_DPI;
+}
 
-  const fullWidthScale = maxWidth / width;
-  const fullWidthHeight = height * fullWidthScale;
-  if (fullWidthHeight <= maxHeight * 1.03) {
-    const scale = Math.min(fullWidthScale, maxHeight / height);
-    return [{ sourceY: 0, sourceHeight: height, renderedWidth: width * scale, renderedHeight: height * scale }];
+/** One indivisible image, never enlarged. Geometry wins; otherwise use a conservative raster size. */
+export function planWholePdfImage(
+  widthPx: number, heightPx: number, physicalSizePt?: readonly [number, number] | null,
+  plainTextOnly = false, fallbackDpi = PDF_FALLBACK_DPI,
+): WholeImagePlacement {
+  if (!Number.isSafeInteger(widthPx) || widthPx <= 0 || !Number.isSafeInteger(heightPx) || heightPx <= 0) {
+    throw new Error("PDF image dimensions must be positive");
   }
-
-  const maxSourceHeight = Math.max(1, Math.floor(maxHeight / fullWidthScale));
-  const slices: PdfImageSlice[] = [];
-  let sourceY = 0;
-  while (sourceY < height) {
-    const hardEnd = Math.min(height, sourceY + maxSourceHeight);
-    let sourceEnd = hardEnd;
-    if (hardEnd < height && rowInk.length === height) {
-      const searchStart = sourceY + Math.floor(maxSourceHeight * 0.8);
-      let bestInk = Number.POSITIVE_INFINITY;
-      for (let candidate = searchStart; candidate <= hardEnd; candidate += 1) {
-        const ink = rowInk[candidate] ?? Number.POSITIVE_INFINITY;
-        if (ink <= bestInk) {
-          bestInk = ink;
-          sourceEnd = candidate;
-        }
-      }
+  if (physicalSizePt && (physicalSizePt.length !== 2 || physicalSizePt.some((v) => !Number.isFinite(v) || v <= 0))) {
+    throw new Error("Signed physical image geometry is invalid");
+  }
+  if (!Number.isFinite(fallbackDpi) || fallbackDpi <= 0) throw new Error("PDF raster DPI must be positive");
+  const inferredWidth = widthPx * 25.4 / fallbackDpi;
+  // A rounded full-page raster can exceed A4 width by a fraction of one pixel.
+  const sourcePageWidth = !physicalSizePt && SOURCE_RENDER_DPI.has(fallbackDpi)
+    ? (inferredWidth > 210 && inferredWidth < 210.1 ? 210
+      : inferredWidth > 297 && inferredWidth < 297.1 ? 297 : inferredWidth)
+    : inferredWidth;
+  const width = physicalSizePt ? physicalSizePt[0] * 25.4 / 72 : sourcePageWidth;
+  const height = physicalSizePt ? physicalSizePt[1] * 25.4 / 72 : heightPx * 25.4 / fallbackDpi;
+  const makePlacement = (page: typeof PDF_PAGES[number], scale: number, heldReason: WholeImagePlacement["heldReason"], headerMode: WholeImagePlacement["headerMode"] = "standard"): WholeImagePlacement => ({
+    format: page.format, orientation: page.orientation, pageWidthMm: page.width, pageHeightMm: page.height,
+    xMm: (page.width - width * scale) / 2, yMm: headerMode === "compact" ? 10 : PDF_TOP_MM,
+    widthMm: width * scale, heightMm: height * scale, scale, headerMode, heldReason,
+  });
+  const fits = (page: typeof PDF_PAGES[number], scale: number) =>
+    width * scale <= page.width - 2 * PDF_SIDE_MM + 0.001 &&
+    height * scale <= page.height - PDF_TOP_MM - PDF_BOTTOM_MM + 0.001;
+  if (!physicalSizePt && SOURCE_RENDER_DPI.has(fallbackDpi)) {
+    if (width >= 209.5 && width <= 210) {
+      if (height <= 297 - PDF_TOP_MM - PDF_BOTTOM_MM) return makePlacement(PDF_PAGES[0], 1, null);
+      if (height <= 297 - 10 - PDF_BOTTOM_MM) return makePlacement(PDF_PAGES[0], 1, null, "compact");
     }
-    const sourceHeight = Math.max(1, sourceEnd - sourceY);
-    slices.push({
-      sourceY,
-      sourceHeight,
-      renderedWidth: maxWidth,
-      renderedHeight: sourceHeight * fullWidthScale,
-    });
-    sourceY = sourceEnd;
+    if (width >= 296.5 && width <= 297) {
+      if (height <= 210 - PDF_TOP_MM - PDF_BOTTOM_MM) return makePlacement(PDF_PAGES[1], 1, null);
+      if (height <= 210 - 10 - PDF_BOTTOM_MM) return makePlacement(PDF_PAGES[1], 1, null, "compact");
+    }
   }
-  return slices;
+  // A visibly plain answer row need not rotate the worksheet just to save 3% width.
+  if (plainTextOnly && !physicalSizePt && fallbackDpi === 108 &&
+    width > 210 && width <= 210 / 0.95 && height <= 297 - PDF_TOP_MM - PDF_BOTTOM_MM) {
+    return makePlacement(PDF_PAGES[0], 210 / width, null);
+  }
+  for (const page of PDF_PAGES) if (fits(page, 1)) return makePlacement(page, 1, null);
+  if (plainTextOnly) {
+    for (const page of PDF_PAGES) if (fits(page, 0.95)) return makePlacement(page, 0.95, null);
+  }
+  const choices = PDF_PAGES.map((page) => ({
+    page, scale: Math.min(1, (page.width - 2 * PDF_SIDE_MM) / width,
+      (page.height - PDF_TOP_MM - PDF_BOTTOM_MM) / height),
+  }));
+  const best = choices.reduce((winner, option) => option.scale > winner.scale ? option : winner);
+  return makePlacement(best.page, best.scale, "fit-to-page");
 }
 
 export function darkenPdfPixel(value: number): number {
@@ -141,107 +222,165 @@ type PreparedPdfImage = {
   canvas: HTMLCanvasElement;
   width: number;
   height: number;
-  rowInk: number[];
 };
 
-function preparePdfImage(image: HTMLImageElement): PreparedPdfImage {
+/** Only a verified final furniture tail may shorten the displayed raster. */
+function preparePdfImage(image: HTMLImageElement, visibleHeight = image.naturalHeight): PreparedPdfImage {
+  if (!Number.isSafeInteger(visibleHeight) || visibleHeight < 1 || visibleHeight > image.naturalHeight) {
+    throw new Error("Reviewed image height is invalid");
+  }
   const canvas = document.createElement("canvas");
   canvas.width = image.naturalWidth;
-  canvas.height = image.naturalHeight;
+  canvas.height = visibleHeight;
   const context = canvas.getContext("2d", { willReadFrequently: true });
   if (!context) throw new Error("Canvas is unavailable");
   context.fillStyle = "#ffffff";
   context.fillRect(0, 0, canvas.width, canvas.height);
   context.drawImage(image, 0, 0);
-
   const pixels = context.getImageData(0, 0, canvas.width, canvas.height);
-  const rowInk = Array.from({ length: canvas.height }, () => 0);
-  const contentStart = Math.floor(canvas.width * 0.02);
-  const contentEnd = Math.ceil(canvas.width * 0.98);
-  for (let y = 0; y < canvas.height; y += 1) {
-    for (let x = 0; x < canvas.width; x += 1) {
-      const offset = (y * canvas.width + x) * 4;
-      const red = pixels.data[offset];
-      const green = pixels.data[offset + 1];
-      const blue = pixels.data[offset + 2];
-      if (x >= contentStart && x < contentEnd && (red + green + blue) / 3 < 245) rowInk[y] += 1;
-      pixels.data[offset] = darkenPdfPixel(red);
-      pixels.data[offset + 1] = darkenPdfPixel(green);
-      pixels.data[offset + 2] = darkenPdfPixel(blue);
-    }
+  for (let offset = 0; offset < pixels.data.length; offset += 4) {
+    pixels.data[offset] = darkenPdfPixel(pixels.data[offset]);
+    pixels.data[offset + 1] = darkenPdfPixel(pixels.data[offset + 1]);
+    pixels.data[offset + 2] = darkenPdfPixel(pixels.data[offset + 2]);
   }
   context.putImageData(pixels, 0, 0);
-  return { canvas, width: canvas.width, height: canvas.height, rowInk };
-}
-
-function pdfSliceData(image: PreparedPdfImage, slice: PdfImageSlice): string {
-  const canvas = document.createElement("canvas");
-  canvas.width = image.width;
-  canvas.height = slice.sourceHeight;
-  const context = canvas.getContext("2d");
-  if (!context) throw new Error("Canvas is unavailable");
-  context.fillStyle = "#ffffff";
-  context.fillRect(0, 0, canvas.width, canvas.height);
-  context.drawImage(
-    image.canvas,
-    0,
-    slice.sourceY,
-    image.width,
-    slice.sourceHeight,
-    0,
-    0,
-    image.width,
-    slice.sourceHeight,
-  );
-  return canvas.toDataURL("image/jpeg", 0.98);
+  return { canvas, width: canvas.width, height: canvas.height };
 }
 
 export async function downloadQuestionPdf(
-  questions: UnifiedQuestion[],
+  questions: PdfExportQuestion[],
   content: PdfContent,
   onProgress?: (complete: number, total: number) => void,
   accountMarker?: string,
   answerPlacement: PdfAnswerPlacement = "all-answers-last",
-): Promise<void> {
+): Promise<{ heldRows: PdfHeldRow[] }> {
   const { jsPDF } = await import("jspdf");
   const pdf = new jsPDF({ unit: "mm", format: "a4" });
   const brandMark = imageData(await loadImage(PDF_BOOK_LOGO_DATA_URI), "image/png");
   pdf.setProperties({ title: "PastPaperPrep worksheet", subject: "Past paper practice questions", author: "PastPaperPrep", creator: "PastPaperPrep" });
   let pages = 0;
+  let nextImageY = PDF_TOP_MM;
+  let currentSection = content === "answers" ? "Answers" : content === "both" && answerPlacement === "after-each-question" ? "Questions and answers" : "Questions";
+  let startAnswerPage = false;
+  const pageSpecs: Array<{ format: PdfPageFormat; orientation: PdfPageOrientation; width: number; height: number; headerMode: WholeImagePlacement["headerMode"]; section: string }> = [];
+  const heldRows: PdfHeldRow[] = [];
   const total = questions.length;
 
-  const addPage = () => {
-    if (pages > 0) pdf.addPage();
+  const addPage = (format: PdfPageFormat = "a4", orientation: PdfPageOrientation = "portrait", headerMode: WholeImagePlacement["headerMode"] = "standard") => {
+    if (pages > 0) pdf.addPage(format, orientation);
+    else if (format !== "a4" || orientation !== "portrait") {
+      pdf.addPage(format, orientation);
+      pdf.deletePage(1);
+    }
     pages += 1;
+    const spec = PDF_PAGES.find((candidate) => candidate.format === format && candidate.orientation === orientation)!;
+    pageSpecs.push({ ...spec, headerMode, section: currentSection });
+    startAnswerPage = false;
+    nextImageY = headerMode === "compact" ? 10 : PDF_TOP_MM;
   };
 
-  const addImagePages = async (source: string, heading: string, detail: string) => {
-    const image = preparePdfImage(await loadImage(source));
-    const slices = planPdfImageSlices(image.width, image.height, image.rowInk);
-    for (const [sliceIndex, slice] of slices.entries()) {
-      addPage();
-      pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(11);
-      pdf.setTextColor(21, 52, 48);
-      pdf.text(`${heading}${sliceIndex > 0 ? " (continued)" : ""}`, 8, 24);
+  const addImagePage = async (
+    bankSlug: UnifiedQuestion["bankSlug"], questionId: string, kind: "question" | "answer", imageIndex: number, source: string,
+    label: string, marks: number | null,
+    physicalSizePt?: readonly [number, number] | null,
+    sourceSegments?: readonly SourcePrintSegment[] | null,
+    expectedRaster?: readonly [number, number] | null,
+  ) => {
+    const excluded = sourceSegments?.filter((part) => part.include === false) ?? [];
+    let loaded: HTMLImageElement;
+    if (excluded.length) {
+      if (excluded.length !== 1 || sourceSegments?.at(-1) !== excluded[0] ||
+        !excluded[0].imageSha256 || !physicalSizePt || !expectedRaster) {
+        throw new Error("Reviewed furniture exclusion lacks a bound source image hash");
+      }
+      const blob = await fetchVerifiedImageBlob(source, excluded[0].imageSha256);
+      const objectUrl = URL.createObjectURL(blob);
+      try { loaded = await loadImage(objectUrl); }
+      finally { URL.revokeObjectURL(objectUrl); }
+    } else {
+      loaded = await loadImage(source);
+    }
+    if (expectedRaster && (loaded.naturalWidth !== expectedRaster[0] || loaded.naturalHeight !== expectedRaster[1])) {
+      throw new Error("Signed image raster dimensions differ from verified source geometry");
+    }
+    let visibleHeight = loaded.naturalHeight;
+    let size = physicalSizePt;
+    if (excluded.length) {
+      let cursor = 0;
+      let physicalTotal = 0;
+      for (const part of sourceSegments!) {
+        if (part.sourceY !== cursor || !Number.isSafeInteger(part.sourceHeight) || part.sourceHeight <= 0 ||
+          !Number.isFinite(part.physicalHeightPt) || part.physicalHeightPt <= 0) {
+          throw new Error("Verified source segments do not cover the original raster");
+        }
+        cursor += part.sourceHeight;
+        physicalTotal += part.physicalHeightPt;
+      }
+      if (cursor !== loaded.naturalHeight || Math.abs(physicalTotal - physicalSizePt![1]) > 0.1) {
+        throw new Error("Verified source segments disagree with image geometry");
+      }
+      visibleHeight = excluded[0].sourceY;
+      size = [physicalSizePt![0], physicalSizePt![1] - excluded[0].physicalHeightPt];
+    }
+    const image = preparePdfImage(loaded, visibleHeight);
+    const fallbackDpi = inferredPdfDpiForBank(bankSlug);
+    const shortAnswerRow = kind === "answer" && !size && fallbackDpi === 108 &&
+      image.height <= 48 && image.width >= 890;
+    const placement = planWholePdfImage(image.width, image.height, size, shortAnswerRow, fallbackDpi);
+    // Omit the extra crop label only when it would prevent source-size placement.
+    const labelSpace = placement.yMm + 5 + placement.heightMm <= placement.pageHeightMm - PDF_BOTTOM_MM + 0.001 ? 5 : 0;
+    const current = pageSpecs[pages - 1];
+    if (startAnswerPage || !current || current.format !== placement.format || current.orientation !== placement.orientation ||
+      nextImageY + labelSpace + placement.heightMm > current.height - PDF_BOTTOM_MM + 0.001) {
+      addPage(placement.format, placement.orientation, placement.headerMode);
+    }
+    if (labelSpace) {
       pdf.setFont("helvetica", "normal");
       pdf.setFontSize(8);
       pdf.setTextColor(76, 88, 85);
-      pdf.text(slices.length > 1 ? `${detail}  |  Part ${sliceIndex + 1} of ${slices.length}` : detail, 8, 29);
-      const x = 8 + (PDF_IMAGE_MAX_WIDTH - slice.renderedWidth) / 2;
-      pdf.addImage(pdfSliceData(image, slice), "JPEG", x, 32, slice.renderedWidth, slice.renderedHeight);
+      pdf.text(`${label}${imageIndex > 0 ? " (continued)" : ""}`, Math.max(8, placement.xMm), nextImageY + 3);
+      const detail = kind === "answer" ? "Official answer" : Number.isFinite(marks) && marks !== null ? `${marks} marks` : "";
+      if (detail) pdf.text(detail, Math.min(placement.pageWidthMm - 8, placement.xMm + placement.widthMm), nextImageY + 3, { align: "right" });
+      nextImageY += labelSpace;
     }
+    pdf.addImage(image.canvas.toDataURL("image/jpeg", 0.98), "JPEG",
+      placement.xMm, nextImageY, placement.widthMm, placement.heightMm);
+    nextImageY += placement.heightMm + 4;
+    if (placement.heldReason) heldRows.push({ questionId, kind, imageIndex, reason: placement.heldReason, scale: placement.scale });
   };
 
   let completed = 0;
   for (const { question, kind } of orderPdfJobs(questions, content, answerPlacement)) {
-    const label = `${question.year} ${question.session} Paper ${question.paper}, Question ${question.number}`;
+    if (content === "both" && answerPlacement === "all-answers-last" && kind === "answer" && currentSection !== "Answers") {
+      currentSection = "Answers";
+      startAnswerPage = true;
+    }
+    const component = question.component || question.id.match(/-(\d{2})-q\d+$/)?.[1] || String(question.paper);
+    const label = `${question.year} ${question.session} / Paper ${component} / Q${question.number}`;
     if (kind === "question") {
-      for (const source of question.questionImages) await addImagePages(source, label, [question.primaryTopic, ...displayedQuestionSubtopics(question).slice(0, 2)].map(formatPublicLabel).join("  |  "));
+      if (!question.questionImages.length) throw new Error(`Question image is missing for ${question.id}`);
+      for (const [index, source] of question.questionImages.entries()) {
+        if (question.bankSlug === "igcse-additional" && question.questionPrintSizesPt?.[index] &&
+          question.questionPrintSegments?.[index] && question.questionRasterSizesPx?.[index]) {
+          await verify0606PdfMetadata(question, "question", index);
+        }
+        await addImagePage(question.bankSlug, question.id, "question", index, source, label, question.marks,
+          question.questionPrintSizesPt?.[index], question.questionPrintSegments?.[index], question.questionRasterSizesPx?.[index]);
+      }
     } else {
       if (question.markschemeImages.length) {
-        for (const source of question.markschemeImages) await addImagePages(source, `${label} - answer`, "Official mark scheme where available");
+        for (const [index, source] of question.markschemeImages.entries()) {
+          if (question.bankSlug === "igcse-additional" && question.markschemePrintSizesPt?.[index] &&
+            question.markschemePrintSegments?.[index] && question.markschemeRasterSizesPx?.[index]) {
+            await verify0606PdfMetadata(question, "answer", index);
+          }
+          await addImagePage(question.bankSlug, question.id, "answer", index, source, label, question.marks,
+            question.markschemePrintSizesPt?.[index], question.markschemePrintSegments?.[index], question.markschemeRasterSizesPx?.[index]);
+        }
       } else if (question.solution) {
+        if (question.bankSlug === "igcse-additional") {
+          throw new Error(`Official answer image is missing for ${question.id}`);
+        }
         pdf.setFont("helvetica", "normal");
         pdf.setFontSize(10);
         const solutionPages = paginatePdfText(pdf.splitTextToSize(question.solution, 182));
@@ -255,6 +394,7 @@ export async function downloadQuestionPdf(
           pdf.setFontSize(10);
           pdf.setTextColor(35, 45, 43);
           pdf.text(lines, 14, 34, { lineHeightFactor: 1.25 });
+          nextImageY = 284;
         }
       }
     }
@@ -264,23 +404,40 @@ export async function downloadQuestionPdf(
   if (pages === 0) throw new Error("There is nothing to export");
   for (let page = 1; page <= pages; page += 1) {
     pdf.setPage(page);
-    pdf.addImage(brandMark.data, "PNG", 8, 7.5, 10, 10);
-    pdf.setFont("helvetica", "bold");
-    pdf.setFontSize(10);
-    pdf.setTextColor(21, 52, 48);
-    pdf.text("PastPaperPrep", 22, 14.3);
-    pdf.setFont("helvetica", "normal");
-    pdf.setFontSize(8);
-    pdf.setTextColor(42, 74, 145);
-    pdf.textWithLink("pastpaperprep.com", 202, 14.3, { align: "right", url: PDF_SITE_URL });
-    pdf.setDrawColor(190, 204, 200);
-    pdf.line(8, 19, 202, 19);
-    pdf.setDrawColor(190, 204, 200);
-    pdf.line(8, 285, 202, 285);
+    const spec = pageSpecs[page - 1];
+    const right = spec.width - 8;
+    const footerLine = spec.height - 12;
+    const footerTextY = spec.height - 7;
+    if (spec.headerMode === "compact") {
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(8);
+      pdf.setTextColor(21, 52, 48);
+      pdf.text(`PastPaperPrep / ${spec.section}`, 8, 6);
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(42, 74, 145);
+      pdf.textWithLink("pastpaperprep.com", right, 6, { align: "right", url: PDF_SITE_URL });
+      pdf.setDrawColor(190, 204, 200);
+      pdf.line(8, 8, right, 8);
+    } else {
+      pdf.addImage(brandMark.data, "PNG", 8, 7.5, 10, 10);
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(10);
+      pdf.setTextColor(21, 52, 48);
+      pdf.text("PastPaperPrep", 22, 14.3);
+      pdf.text(spec.section, 65, 14.3);
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(8);
+      pdf.setTextColor(42, 74, 145);
+      pdf.textWithLink("pastpaperprep.com", right, 14.3, { align: "right", url: PDF_SITE_URL });
+      pdf.setDrawColor(190, 204, 200);
+      pdf.line(8, 19, right, 19);
+    }
+    pdf.line(8, footerLine, right, footerLine);
     pdf.setFontSize(7);
     pdf.setTextColor(76, 88, 85);
-    if (accountMarker) pdf.text(pdfFooterText(accountMarker), 8, 290);
-    pdf.text(pdfPageLabel(page, pages), 202, 290, { align: "right" });
+    if (accountMarker) pdf.text(pdfFooterText(accountMarker), 8, footerTextY);
+    pdf.text(pdfPageLabel(page, pages), right, footerTextY, { align: "right" });
   }
   pdf.save("pastpaperprep-questions.pdf");
+  return { heldRows };
 }
