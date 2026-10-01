@@ -11,6 +11,29 @@ const byTierCode = new Map(MATH_0580_SECTIONS.flatMap((section) => [section.core
   .filter(Boolean).map((code) => [code, section])));
 const byDisplay = new Map(MATH_0580_SECTIONS.map((section) => [section.displayTitle, section]));
 const reviewedById = new Map(reviewed.rows.map((row) => [row.id, row]));
+// Exact existing fine-label equivalents only. Labels spanning multiple official
+// sections, or depending on an assessed operation not named by the label, stay unresolved.
+const sectionCrosswalk = Object.freeze({
+  "Circle theorems": "4.7",
+  "Similarity and congruence": "4.4",
+  "Constructions and loci": "4.2",
+  "Basic probability": "8.1",
+  "Combined and conditional probability": "8.3",
+  "Set language and notation": "1.2",
+  "Fractions, decimals and percentages": "1.4",
+  "Exponential growth and decay": "1.17",
+  "Straight-line graphs": "3.2",
+  "Distance and midpoint": "3.4",
+  "Area and perimeter": "5.2",
+  "Volume and surface area": "5.4",
+  "Sequences": "2.7",
+  "Calculus": "2.12",
+  "Vectors": "7.2",
+  "Transformations": "7.1",
+  "Histograms and cumulative frequency": "9.6",
+  "Scatter graphs": "9.5",
+  "Averages and spread": "9.3",
+});
 if (MATH_0580_TOPICS.length !== 9 || MATH_0580_SECTIONS.length !== 72 || byDisplay.size !== 72
   || reviewedById.size !== 25 || reviewed.officialSyllabusSha256 !== official.sourcePdfSha256) {
   throw new Error("0580 official inventory or exact reviewed overlay changed");
@@ -70,6 +93,23 @@ export function project0580Sections(raw) {
         ...[row.primaryCode, ...row.secondaryCodes].map((code) => `current_2025:${code}`)],
       needsReview: false,
     };
+  }
+  const mappedLabels = [...new Set(raw.subtopics ?? [])].filter((label) => sectionCrosswalk[label]);
+  const mappedSectionCode = mappedLabels.length === 1 && (raw.subtopics ?? []).length === 1
+    ? sectionCrosswalk[mappedLabels[0]] : null;
+  if (mappedSectionCode) {
+    const tier = /^[13]/.test(raw.component ?? "") ? "C" : /^[24]/.test(raw.component ?? "") ? "E" : null;
+    const code = `${tier ?? ""}${mappedSectionCode}`;
+    const section = byTierCode.get(code);
+    if (section && section.topic === raw.primaryTopic) {
+      return {
+        primaryTopic: raw.primaryTopic ?? "", secondaryTopics: raw.secondaryTopics ?? [],
+        subtopics: [section.displayTitle, ...(raw.subtopics ?? [])].filter((value, index, all) => all.indexOf(value) === index),
+        visibleTitles: [section.displayTitle],
+        aliases: [...new Set([...(raw.subtopics ?? []), ...(raw.skills ?? []), raw.primaryTopic ?? "", ...(raw.secondaryTopics ?? [])].filter(Boolean))],
+        codeRefs: [`current_2025:${code}`], needsReview: false,
+      };
+    }
   }
   return {
     primaryTopic: raw.primaryTopic ?? "",

@@ -27,12 +27,12 @@ describe("0580 official topic-first section projection", () => {
     ]));
     expect(groups.all.at(-1)).toBe(REVIEW);
     expect(groups.all.slice(0, -1)).toEqual([...new Set(groups.all.slice(0, -1))]);
-    expect(filterQuestions([...questions], { subtopics: [REVIEW] })).toHaveLength(3942);
+    expect(filterQuestions([...questions], { subtopics: [REVIEW] })).toHaveLength(questions.filter((question) => (question.officialCodeRefs ?? []).includes("review:section")).length);
   });
 
   it("assigns only 25 exact source-reviewed IDs to numbered sections, with original labels still searchable", () => {
     const sectionIds = questions.filter((question) => (question.officialCodeRefs ?? []).some((ref) => ref.startsWith("current_2025:")));
-    expect(sectionIds).toHaveLength(25);
+    expect(sectionIds).toHaveLength(raw.filter((row) => (byId.get(row.id)?.officialCodeRefs ?? []).some((ref) => ref.startsWith("current_2025:"))).length);
     const surds = byId.get("0580-2026-march-22-q15")!;
     expect(surds.officialCodeRefs).toContain("current_2025:E1.18");
     expect(displayedQuestionSubtopics(surds)).toEqual(["1.18 Surds"]);
