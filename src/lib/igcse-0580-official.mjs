@@ -1,6 +1,9 @@
 import official from "../data/igcse-0580-official-2025.json" with { type: "json" };
 import reviewed from "../data/igcse-0580-reviewed-section-overlay.json" with { type: "json" };
 import modelOverlay from "../data/igcse-0580-calibrated-model-overlay.json" with { type: "json" };
+import multiOverlay from "../data/igcse-0580-multilabel-section-overlay.json" with { type: "json" };
+const multiById = new Map(multiOverlay.rows.map(row => [row.id, row]));
+if (multiById.size !== multiOverlay.rows.length || multiOverlay.sourceOfficialPdfSha256 !== official.sourcePdfSha256 || multiOverlay.sourceRawSha256 !== modelOverlay.sourceRawSha256) throw new Error("0580 multi-label source identity drift");
 
 export const MATH_0580_MODEL_SOURCE_SHA256 = modelOverlay.sourceRawSha256;
 export const MATH_0580_LEGACY_SUBTOPICS = Object.freeze(modelOverlay.legacySubtopics);
@@ -98,7 +101,7 @@ export function display0580Sections(refs) {
  * @param {{id?:string,year?:number,component?:string,primaryTopic?:string,secondaryTopics?:string[],subtopics?:string[],skills?:string[],accessibleText?:string}} raw
  * @returns {{primaryTopic:string,secondaryTopics:string[],subtopics:string[],visibleTitles:string[],aliases:string[],codeRefs:string[],needsReview:boolean}}
  */
-export function project0580Sections(raw) {
+function project0580Base(raw) {
   if (!MATH_0580_TOPICS.includes(raw.primaryTopic)) throw new Error(`0580 unsupported source topic ${raw.id ?? "unknown"}: ${raw.primaryTopic}`);
   const row = reviewedById.get(raw.id);
   if (row && (raw.year !== row.sourceYear || raw.component !== row.sourceComponent
@@ -181,5 +184,33 @@ export function project0580Sections(raw) {
     aliases: [...new Set([...(raw.subtopics ?? []), ...(raw.skills ?? []), raw.primaryTopic ?? "", ...(raw.secondaryTopics ?? [])].filter(Boolean))],
     codeRefs: ["review:section"],
     needsReview: true,
+  };
+}
+
+/** Add all accepted material sections, including secondaries on already-mapped rows.
+ * @param {{id?:string,year?:number,component?:string,primaryTopic?:string,secondaryTopics?:string[],subtopics?:string[],skills?:string[],accessibleText?:string,classificationEvidence?:{method?:string,terms?:string[]}}} raw
+ */
+export function project0580Sections(raw) {
+  const base = project0580Base(raw);
+  const row = multiById.get(raw.id);
+  if (!row) return base;
+  if (raw.year !== row.sourceYear || raw.component !== row.sourceComponent || textFingerprint(raw.accessibleText ?? "") !== row.sourceTextFingerprint) throw new Error(`0580 multi-label input drift ${raw.id}`);
+  const evidence = raw.classificationEvidence;
+  const fact = evidence?.method?.startsWith("manual adjudication") ? (evidence.terms ?? []).join(" ") : "";
+  if (textFingerprint(fact) !== row.sourceFactFingerprint) throw new Error(`0580 multi-label source fact drift ${raw.id}`);
+  const tier = /^[13]/.test(raw.component ?? "") ? "C" : "E";
+  const sections = row.codes.map(code => {
+    const section = byTierCode.get(code);
+    if (!section || code[0] !== tier) throw new Error(`0580 multi-label invalid code ${raw.id}: ${code}`);
+    return section;
+  });
+  const visibleTitles = [...new Set([...base.visibleTitles.filter(label => label !== MATH_0580_REVIEW), ...sections.map(section => section.displayTitle)])];
+  return {
+    ...base,
+    secondaryTopics: [...new Set([...base.secondaryTopics, ...sections.map(section => section.topic)])].filter(topic => topic !== base.primaryTopic),
+    subtopics: [...new Set([...base.subtopics.filter(label => label !== MATH_0580_REVIEW), ...visibleTitles])],
+    visibleTitles,
+    codeRefs: [...new Set([...base.codeRefs.filter(ref => ref !== "review:section"), ...row.codes.map(code => `current_2025:${code}`), ...row.codes.map(code => `multilabel_candidate_calibrated:${code}`)])],
+    needsReview: false,
   };
 }

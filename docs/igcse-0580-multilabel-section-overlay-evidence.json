@@ -1,0 +1,36 @@
+{
+  "overlay": "igcse-0580-multilabel-section-overlay.json",
+  "assurance": "Batch independent per-section Jev proposals, typed tier-constrained inputs, source-fact or raw-text lanes, explicit symbolic/graph/context guards, bounded parent source-content sample adjudication; not independent whole-bank accuracy proof.",
+  "sourceEvidence": [
+    {
+      "id": "0580-2021-november-22-q14",
+      "codes": [
+        "E4.7",
+        "E4.8"
+      ],
+      "evidence": "Part (b): asked why the triangle formed by the two tangents from S is isosceles, using equal tangent lengths."
+    },
+    {
+      "id": "0580-2020-june-43-q8",
+      "codes": [
+        "E4.7",
+        "E4.8"
+      ],
+      "evidence": "Part (c): equidistant chords OM=ON and chord midpoint radii, asked to prove OAB and OCD congruent."
+    },
+    {
+      "id": "0580-2018-november-22-q2",
+      "codes": [
+        "E4.8"
+      ],
+      "evidence": "Equal chords AB=DE and perpendicular distances OM/ON: asked to find ON from OM, using equal chords equidistant from centre."
+    },
+    {
+      "id": "0580-2023-november-42-q10",
+      "codes": [
+        "E4.8"
+      ],
+      "evidence": "Part (b): asked to prove tangents TP and TQ from the same external point are equal, via congruent triangles."
+    }
+  ]
+}
