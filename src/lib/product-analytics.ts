@@ -26,8 +26,10 @@ function loadClient() {
           person_profiles: "never",
           cookieless_mode: "always",
           disable_session_recording: true,
-          advanced_disable_flags: true,
-          capture_performance: false,
+          // Keep remote collection configuration available for Web Vitals,
+          // but do not evaluate feature flags or enable recording products.
+          advanced_disable_flags: false,
+          advanced_disable_feature_flags: true,
           capture_exceptions: false,
         });
         initialized = true;

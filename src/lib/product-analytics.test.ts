@@ -37,9 +37,11 @@ describe("PostHog product analytics", () => {
       person_profiles: "never",
       cookieless_mode: "always",
       disable_session_recording: true,
-      advanced_disable_flags: true,
-      capture_performance: false,
+      advanced_disable_flags: false,
+      advanced_disable_feature_flags: true,
+      capture_exceptions: false,
     }));
+    expect(posthog.init.mock.calls[0]?.[1]).not.toHaveProperty("capture_performance");
     expect(posthog.init.mock.calls[0]?.[1]).not.toHaveProperty("session_recording");
   });
 
