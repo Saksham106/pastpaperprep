@@ -186,12 +186,14 @@ export function CheckoutButton({
     setPending(true);
     setError("");
     setNeedsLogin(false);
+    let responseStatus: number | undefined;
     try {
       const response = await fetch("/api/billing/checkout", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ interval, productId, ...(selectedBankIds ? { selectedBankIds } : {}), ...(acknowledgeSeparateSubscription ? { acknowledgeSeparateSubscription: true } : {}) }),
       });
+      responseStatus = response.status;
       const payload = await responsePayload(response);
       if (response.status === 401) {
         trackProductEvent("checkout_auth_required", { interval, productId });
@@ -210,7 +212,14 @@ export function CheckoutButton({
       trackProductEvent("checkout_redirect", { interval, productId });
       navigate(checkoutUrl);
     } catch (caught) {
-      trackProductEvent("checkout_error", { interval, productId });
+      trackProductEvent("checkout_error", {
+        interval,
+        productId,
+        ...(responseStatus !== undefined ? { status: responseStatus } : {}),
+        errorCategory: responseStatus !== undefined
+          ? responseStatus >= 500 ? "server_error" : responseStatus >= 400 ? "client_error" : "unexpected_response"
+          : "network_or_invalid_response",
+      });
       setError(caught instanceof Error ? caught.message : "Checkout is temporarily unavailable");
     } finally {
       setPending(false);

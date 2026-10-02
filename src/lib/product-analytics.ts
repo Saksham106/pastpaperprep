@@ -27,6 +27,8 @@ function loadClient() {
           cookieless_mode: "always",
           disable_session_recording: true,
           advanced_disable_flags: true,
+          capture_performance: true,
+          capture_exceptions: false,
         });
         initialized = true;
       }
