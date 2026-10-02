@@ -97,14 +97,15 @@ describe("Chemistry 0620 audited base classification production overlay", () => 
     expect(runtime.publicationStatus).toBe("production");
     expect(runtime.assetVerification).toBe("verified_readback");
     expect(runtime.version).toBe("igcse-chemistry-0620-release-candidate-v4-taxonomy-projected");
-    // Reconstruct the prior immutable index by undoing answer-image counts only;
-    // classification, reviewed blank QP exclusions and the finalized source seal stay intact.
+    // Undo answer-row projection and the one documented retrieval descendant
+    // to reconstruct the original immutable classification index.
     const activeIndexPath = `public/bank-index/${PUBLIC_BANK_INDEX_FILES["igcse-chemistry-0620"]}`;
     const activeIndex = read(activeIndexPath);
     const oldCounts = new Map<string, number>(runtime.questions.map((row: { id: string; markschemeImages: string[]; officialMarkscheme?: { images?: string[] } }) =>
       [row.id, row.officialMarkscheme?.images?.length || row.markschemeImages.length]));
+    const descendant = read("docs/0620-source-owned-diffusion-delta.json");
     const historicalIndex = { ...activeIndex, questions: activeIndex.questions.map((row: { id: string; markschemeImageCount: number }) =>
-      ({ ...row, markschemeImageCount: oldCounts.get(row.id) })) };
+      ({ ...(row.id === descendant.exact_changed_ids[0] ? descendant.before_public_metadata : row), markschemeImageCount: oldCounts.get(row.id) })) };
     expect(sha256(Buffer.from(`${JSON.stringify(historicalIndex)}\n`)).slice(0, 12)).toBe("90ba51dd0b85");
     expect(PUBLIC_BANK_INDEX_FILES["igcse-chemistry-0620"]).toBe(
       `igcse-chemistry-0620.v1-${sha256(readBytes(activeIndexPath)).slice(0, 12)}.json`,
