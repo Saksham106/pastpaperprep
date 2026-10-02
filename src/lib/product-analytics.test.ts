@@ -115,6 +115,16 @@ describe("PostHog product analytics", () => {
     await vi.waitFor(() => expect(posthog.capture).toHaveBeenCalledWith("browser_error", { category: "UnhandledError", frame: "" }));
   });
 
+  it("scrubs nested Web Vitals navigation and resource URLs", async () => {
+    const { sanitizeAnalyticsEvent } = await import("@/lib/product-analytics");
+    const result = sanitizeAnalyticsEvent({ properties: { $web_vitals_LCP_event: {
+      value: 1200, navigationURL: "https://pastpaperprep.com/account?token=private#secret",
+      attribution: { url: "https://assets.example.test/crop.webp?signature=private", resourceLoadDuration: 250 },
+    } } });
+    expect(result?.properties.$web_vitals_LCP_event).toEqual({ value: 1200, navigationURL: "https://pastpaperprep.com/account",
+      attribution: { url: "https://assets.example.test/crop.webp", resourceLoadDuration: 250 } });
+  });
+
   it("never identifies users in always-cookieless mode", async () => {
     vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
     const { initializeProductAnalytics } = await import("@/lib/product-analytics");

@@ -46,18 +46,22 @@ const ERROR_CATEGORIES = new Set(["Error", "TypeError", "ReferenceError", "Range
 
 export function sanitizeAnalyticsEvent<T extends { properties?: Record<string, unknown> }>(event: T | null): T | null {
   if (!event?.properties) return event;
-  const properties = { ...event.properties };
-  for (const key of Object.keys(properties)) {
-    if (!/(?:url|href|referrer)$/i.test(key) || typeof properties[key] !== "string") continue;
-    try {
-      const url = new URL(properties[key] as string);
-      if (url.protocol !== "https:" && url.protocol !== "http:") throw new Error("Unsupported analytics URL");
-      properties[key] = `${url.origin}${url.pathname}`;
-    } catch {
-      delete properties[key];
+  const scrub = (value: unknown, key = "", depth = 0): unknown => {
+    if (depth > 8) return undefined;
+    if (typeof value === "string" && /(?:url|href|referrer)$/i.test(key)) {
+      try {
+        const url = new URL(value);
+        if (url.protocol !== "https:" && url.protocol !== "http:") return undefined;
+        return `${url.origin}${url.pathname}`;
+      } catch { return undefined; }
     }
-  }
-  return { ...event, properties };
+    if (Array.isArray(value)) return value.map(item => scrub(item, key, depth + 1)).filter(item => item !== undefined);
+    if (value && typeof value === "object") {
+      return Object.fromEntries(Object.entries(value).map(([name, item]) => [name, scrub(item, name, depth + 1)]).filter(([, item]) => item !== undefined));
+    }
+    return value;
+  };
+  return { ...event, properties: scrub(event.properties) as Record<string, unknown> };
 }
 
 export function captureBrowserError(error: { name?: unknown; filename?: unknown; lineno?: unknown; colno?: unknown }) {
