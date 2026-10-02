@@ -5,13 +5,11 @@ import { mkdir, readdir, readFile, unlink, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { project0606Topics } from "../src/lib/igcse-0606-official.mjs";
-import { project0606Sections, MATH_0606_MULTI_SOURCE_SHA256 } from "../src/lib/igcse-0606-subtopics.mjs";
 import { project0455Sections } from "../src/lib/igcse-0455-official.mjs";
 import { project0610Sections } from "../src/lib/igcse-0610-official.mjs";
 import { project0654Sections } from "../src/lib/igcse-0654-official.mjs";
 import { project0625Sections } from "../src/lib/igcse-0625-official.mjs";
 import { project0620Sections } from "../src/lib/igcse-0620-official.mjs";
-import { project0580Sections, MATH_0580_MODEL_SOURCE_SHA256 } from "../src/lib/igcse-0580-official.mjs";
 
 const root = join(import.meta.dirname, "..");
 const outputDirectory = join(root, "public", "bank-index");
@@ -21,6 +19,7 @@ const aaTaxonomy = JSON.parse(await readFile(join(root, "src", "data", "aa-offic
 const aaOverlay = JSON.parse(await readFile(join(root, "src", "data", "aa-official-subtopics", "overlay.json"), "utf8"));
 const biologyOfficialTaxonomy = JSON.parse(await readFile(join(root, "src", "data", "ib-biology-official-subtopics", "taxonomy.json"), "utf8"));
 const biologyOfficialOverlay = JSON.parse(await readFile(join(root, "src", "data", "ib-biology-official-subtopics", "overlay.json"), "utf8"));
+
 const reviewedBlankPages = JSON.parse(await readFile(join(root, "src", "data", "reviewed-blank-qp.json"), "utf8"));
 const retiredQuestionCrops = JSON.parse(await readFile(join(root, "src", "data", "retired-question-crops.json"), "utf8"));
 function activeQuestionImageCount(bank, raw) {
@@ -91,16 +90,14 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
   const aa = currentAaRecord(bank, raw);
   const biology = currentBiologyRecord(bank, raw);
   const additional = bank === "igcse-additional" ? project0606Topics(raw) : null;
-  const additionalSections = additional ? project0606Sections(raw) : null;
   const economics0455 = bank === "igcse-economics-0455" ? project0455Sections(raw) : null;
   const coordinated = bank === "igcse-coordinated-sciences-0654" && normalizedProduction ? project0654Sections(raw) : null;
   const physics0625 = bank === "igcse-physics-0625" && normalizedProduction ? project0625Sections(raw) : null;
   const chemistry0620 = bank === "igcse-chemistry-0620" && normalizedProduction ? project0620Sections(raw) : null;
-  const math0580 = bank === "igcse" ? project0580Sections(raw) : null;
   const official0610 = bank === "igcse-biology-0610" && normalizedProduction;
   const projected0610 = official0610 ? project0610Sections(raw) : null;
   const controlledSkills = official0610 || aa || biology ? [] : strings(raw.skills);
-  const studentSubtopics = math0580 ? math0580.subtopics : official0610
+  const studentSubtopics = official0610
     ? projected0610.subtopics
     : coordinated
       ? coordinated.subtopics
@@ -112,7 +109,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
       ? (aa.status === "accepted" ? aa.subtopics.map((id) => aaGroupNames.get(id) ?? (() => { throw new Error(`Unknown official AA group ${id}`); })()) : [])
       : biology
         ? biologyGroupLabels(biology)
-        : economics0455?.subtopics ?? additionalSections?.subtopics ?? strings(raw.subtopics);
+        : economics0455?.subtopics ?? strings(raw.subtopics);
   const detailedSubtopics = strings(raw.detailedSubtopics);
   const subtopics = [...new Set(
     studentSubtopics.length
@@ -128,8 +125,6 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
       : subtopics;
   const skills = aa || biology ? [] : localEconomics
     ? [...new Set(controlledSkills)]
-    : math0580
-      ? [...new Set([...controlledSkills, ...detailedSubtopics, ...strings(raw.subtopics), ...strings(raw.secondarySubtopics)])]
     : [...new Set([
       ...skillSeed,
       ...controlledSkills,
@@ -142,14 +137,12 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     ])];
 
   const overlayBank = overlayBankForSlug(bank);
-  const officialCodeRefs = math0580 ? math0580.codeRefs
-    : biology ? [...biology.officialCodes]
+  const officialCodeRefs = biology ? [...biology.officialCodes]
     : chemistry0620 ? chemistry0620.codeRefs
     : physics0625 ? physics0625.codeRefs
     : coordinated ? coordinated.codeRefs
     : official0610 ? projected0610.codeRefs
     : economics0455 ? economics0455.codeRefs
-    : additionalSections ? additionalSections.codeRefs
     : strings(raw.officialCodeRefs);
   const metadata = {
     id: typeof raw.id === "string" ? raw.id : "",
@@ -157,8 +150,8 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     paper: integer(raw.paper),
     year: integer(raw.year),
     session: typeof raw.session === "string" ? raw.session : "",
-    primaryTopic: math0580 ? math0580.primaryTopic : chemistry0620 ? chemistry0620.primaryTopic : physics0625 ? physics0625.primaryTopic : coordinated ? coordinated.primaryTopic : official0610 ? projected0610.primaryTopic : biology ? biologyPrimaryTopic(biology, raw) : aa ? aa.primaryTopic : additional ? additional.primaryTopic : (typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other"),
-    secondaryTopics: math0580 ? math0580.secondaryTopics : chemistry0620 ? chemistry0620.secondaryTopics : physics0625 ? physics0625.secondaryTopics : coordinated ? coordinated.secondaryTopics : official0610 ? projected0610.secondaryTopics : biology ? [...new Set(biology.secondary.map((group) => group.parentTopic))] : aa ? aa.secondaryTopics : additional ? [...new Set([...additional.secondaryTopics, ...(additionalSections?.topics ?? [])])].filter(topic => topic !== additional.primaryTopic) : strings(raw.secondaryTopics),
+    primaryTopic: chemistry0620 ? chemistry0620.primaryTopic : physics0625 ? physics0625.primaryTopic : coordinated ? coordinated.primaryTopic : official0610 ? projected0610.primaryTopic : biology ? biologyPrimaryTopic(biology, raw) : aa ? aa.primaryTopic : additional ? additional.primaryTopic : (typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other"),
+    secondaryTopics: chemistry0620 ? chemistry0620.secondaryTopics : physics0625 ? physics0625.secondaryTopics : coordinated ? coordinated.secondaryTopics : official0610 ? projected0610.secondaryTopics : biology ? [...new Set(biology.secondary.map((group) => group.parentTopic))] : aa ? aa.secondaryTopics : additional ? additional.secondaryTopics : strings(raw.secondaryTopics),
     skills,
     subtopics,
     granularLabels: aa || biology ? [] : granularByKey.get(`${overlayBank}:${raw.id}`) ?? [],
@@ -212,10 +205,6 @@ function assertSafe(serialized, rawQuestions) {
 }
 
 export async function generateBankIndexes() {
-  const math0580Source = await readFile(join(root, "src", "data", "raw", "igcse.json"));
-  if (createHash("sha256").update(math0580Source).digest("hex") !== MATH_0580_MODEL_SOURCE_SHA256) throw new Error("0580 calibrated projection source drift");
-  const math0606Source = await readFile(join(root, "src", "data", "raw", "igcse-additional.json"));
-  if (createHash("sha256").update(math0606Source).digest("hex") !== MATH_0606_MULTI_SOURCE_SHA256) throw new Error("0606 multi-label projection source drift");
   await mkdir(outputDirectory, { recursive: true });
   const existingFiles = await readdir(outputDirectory);
   await Promise.all(existingFiles

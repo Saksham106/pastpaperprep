@@ -3,7 +3,6 @@ import { BIOLOGY_0610_EARLIER, BIOLOGY_0610_EARLIER_TOPIC, BIOLOGY_0610_SECTIONS
 import economicsTaxonomy from "@/data/igcse-economics-0455-taxonomy.json";
 import { ECONOMICS_0455_TOPICS, ECONOMICS_0455_SECTIONS, ECONOMICS_0455_EARLIER } from "@/lib/igcse-0455-official.mjs";
 import { OFFICIAL_0606_TOPICS, EARLIER_0606_TOPIC, EARLIER_0606_SUBTOPICS } from "@/lib/igcse-0606-official.mjs";
-import { controlled0606Subtopics, SECTIONS_0606 } from "@/lib/igcse-0606-subtopics.mjs";
 import { COORDINATED_0654_EARLIER, COORDINATED_0654_EARLIER_TOPIC, COORDINATED_0654_PRACTICAL_TOPIC, COORDINATED_0654_SECTIONS, COORDINATED_0654_TOPICS, display0654Sections } from "@/lib/igcse-0654-official.mjs";
 import aaTaxonomy from "@/data/aa-official-subtopics/taxonomy.json";
 import biologyOfficialTaxonomy from "@/data/ib-biology-official-subtopics/taxonomy.json";
@@ -12,7 +11,6 @@ import {
   getSubtopicGroups as getLegacySubtopicGroups,
   getTopicOptions as getLegacyTopicOptions,
 } from "@/lib/taxonomy";
-import { MATH_0580_TOPICS, MATH_0580_SECTIONS, MATH_0580_REVIEW, MATH_0580_REVIEW_TOPIC, MATH_0580_LEGACY_SUBTOPICS } from "@/lib/igcse-0580-official.mjs";
 import type { UnifiedQuestion } from "@/lib/questions";
 import { PHYSICS_0625_EARLIER, PHYSICS_0625_EARLIER_TOPIC, PHYSICS_0625_PRACTICAL_TOPIC, PHYSICS_0625_REVIEW, PHYSICS_0625_REVIEW_TOPIC, PHYSICS_0625_SECTIONS, PHYSICS_0625_TOPICS, display0625Sections } from "@/lib/igcse-0625-official.mjs";
 import { CHEMISTRY_0620_EARLIER, CHEMISTRY_0620_EARLIER_TOPIC, CHEMISTRY_0620_PRACTICAL_TOPIC, CHEMISTRY_0620_REVIEW, CHEMISTRY_0620_REVIEW_TOPIC, CHEMISTRY_0620_SECTIONS, CHEMISTRY_0620_TOPICS, display0620Sections } from "@/lib/igcse-0620-official.mjs";
@@ -71,7 +69,6 @@ function splitAaQuestions(questions: UnifiedQuestion[]): { current: UnifiedQuest
   };
 }
 
-
 function uniqueSorted(values: string[]): string[] {
   return [...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b));
 }
@@ -95,10 +92,7 @@ function isCoordinatedBank(bank: string | undefined): boolean {
 }
 
 export function getControlledSubtopics(bankSlug: string, topic: string): readonly string[] {
-  if (bankSlug === "igcse") {
-    return topic === MATH_0580_REVIEW_TOPIC ? [MATH_0580_REVIEW] : MATH_0580_SECTIONS.filter((section) => section.topic === topic).map((section) => section.displayTitle);
-  }
-  if (bankSlug === "igcse-additional") return topic === EARLIER_0606_TOPIC ? EARLIER_0606_SUBTOPICS : controlled0606Subtopics(topic);
+  if (bankSlug === "igcse-additional") return topic === EARLIER_0606_TOPIC ? EARLIER_0606_SUBTOPICS : [];
   if (bankSlug === "igcse-physics-0625") return topic === PHYSICS_0625_EARLIER_TOPIC ? [PHYSICS_0625_EARLIER] : topic === PHYSICS_0625_REVIEW_TOPIC ? [PHYSICS_0625_REVIEW] : topic === PHYSICS_0625_PRACTICAL_TOPIC ? [PHYSICS_0625_PRACTICAL_TOPIC] : PHYSICS_0625_SECTIONS.filter((section) => section.topic === topic).map((section) => section.title);
   if (bankSlug === "igcse-chemistry-0620") return topic === CHEMISTRY_0620_EARLIER_TOPIC ? [CHEMISTRY_0620_EARLIER] : topic === CHEMISTRY_0620_REVIEW_TOPIC ? [CHEMISTRY_0620_REVIEW] : topic === CHEMISTRY_0620_PRACTICAL_TOPIC ? [CHEMISTRY_0620_PRACTICAL_TOPIC] : CHEMISTRY_0620_SECTIONS.filter((section) => section.topic === topic).map((section) => section.title);
   if (isAaBank(bankSlug)) return AA_GROUPS[topic] ?? [];
@@ -113,7 +107,6 @@ export function getControlledSubtopics(bankSlug: string, topic: string): readonl
 
 export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
   const bank = questions[0]?.bankSlug;
-  if (bank === "igcse") return [...MATH_0580_TOPICS];
   if (bank === "igcse-additional") {
     const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]));
     return [...OFFICIAL_0606_TOPICS, ...(available.has(EARLIER_0606_TOPIC) ? [EARLIER_0606_TOPIC] : [])];
@@ -146,25 +139,21 @@ export function getSubtopicGroups(
 ): { all: string[]; relevant: string[]; other: string[]; selectedOutsideContext: string[] } {
   const bank = questions[0]?.bankSlug;
   if (bank === "igcse") {
-    const all = [...new Set([...MATH_0580_SECTIONS.map((section) => section.displayTitle),
-      ...questions.flatMap((question) => question.subtopics).filter((label) => MATH_0580_LEGACY_SUBTOPICS.includes(label)),
-      ...(questions.some((question) => question.officialCodeRefs?.includes("review:section")) ? [MATH_0580_REVIEW] : [])])];
-    const available = new Set(questions.flatMap((question) => [...question.subtopics, ...question.skills]));
-    const selected = new Set(selectedTopics);
-    const legacyForSelected = selectedTopics.length ? questions
-      .filter((question) => [question.primaryTopic, ...question.secondaryTopics].some((topic) => selected.has(topic)))
-      .flatMap((question) => question.subtopics.filter((label) => MATH_0580_LEGACY_SUBTOPICS.includes(label))) : [];
-    const relevant = selectedTopics.length === 1 && selected.has(MATH_0580_REVIEW_TOPIC)
-      ? [MATH_0580_REVIEW]
-      : selectedTopics.length ? [...new Set([...selectedTopics.flatMap((topic) => getControlledSubtopics(bank, topic)), ...legacyForSelected,
-        ...(questions.some((question) => question.officialCodeRefs?.includes("review:section") && [question.primaryTopic, ...question.secondaryTopics].some((topic) => selected.has(topic))) ? [MATH_0580_REVIEW] : [])])] : all;
+    // Keep 0580's picker cleanup outside the sealed shared taxonomy source:
+    // archived production audits bind its exact bytes for other banks.
+    const available = new Set(questions.flatMap((question) => question.subtopics));
+    const controlled = getLegacyTopicOptions(questions).flatMap((topic) => getLegacyControlledSubtopics(bank, topic));
+    const all = uniqueSorted([...available, ...controlled]);
+    const relevant = selectedTopics.length
+      ? uniqueSorted(selectedTopics.flatMap((topic) => getLegacyControlledSubtopics(bank, topic)))
+      : all;
     const relevantSet = new Set(relevant);
     return { all, relevant, other: all.filter((label) => !relevantSet.has(label)), selectedOutsideContext: selectedSubtopics.filter((label) => available.has(label) && !relevantSet.has(label)) };
   }
   if (bank === "igcse-additional") {
     // The 14 official headings are topics, but the 17 original source labels
     // are still useful subtopic filters. Do not hide them while section work is open.
-    const all = [...SECTIONS_0606.map((section) => section.displayTitle), ...uniqueSorted(questions.flatMap((question) => question.subtopics)).filter((label) => !SECTIONS_0606.some((section) => section.displayTitle === label))];
+    const all = uniqueSorted(questions.flatMap((question) => question.subtopics));
     const available = new Set(all);
     const selected = new Set(selectedTopics);
     const currentSelected = new Set(selectedTopics.filter((topic) => topic !== EARLIER_0606_TOPIC));
@@ -177,7 +166,7 @@ export function getSubtopicGroups(
       ? EARLIER_0606_SUBTOPICS.filter((label) => available.has(label))
       : [];
     const relevant = !selected.size ? all : currentSelected.size
-      ? [...new Set([...selectedTopics.flatMap(controlled0606Subtopics), ...earlierLabels, ...currentLabels])]
+      ? uniqueSorted([...earlierLabels, ...currentLabels])
       : [...earlierLabels];
     const relevantSet = new Set(relevant);
     return { all, relevant, other: all.filter((label) => !relevantSet.has(label)), selectedOutsideContext: selectedSubtopics.filter((label) => available.has(label) && !relevantSet.has(label)) };
