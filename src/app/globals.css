@@ -1224,6 +1224,8 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .footer-group a:hover, .footer-policy-links a:hover { color: var(--cobalt-strong); }
 .footer-base { grid-column: 1 / -1; padding-top: 24px; display: flex; align-items: center; justify-content: space-between; gap: 30px; border-top: 1px solid var(--line); }
 .footer-policy-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px 22px; color: var(--muted); font-size: .8rem; }
+.footer-policy-links .cookie-settings-link { padding: 0; border: 0; color: inherit; background: transparent; font: inherit; cursor: pointer; }
+.footer-policy-links .cookie-settings-link:hover { color: var(--cobalt-strong); }
 @media (max-width: 640px) { .site-footer { padding-top: 42px; gap: 38px; }.site-footer::after { display: none; } }
 
 /* Loading */

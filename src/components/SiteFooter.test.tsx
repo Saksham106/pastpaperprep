@@ -1,8 +1,15 @@
-import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
 import { SiteFooter } from "@/components/SiteFooter";
 
 describe("SiteFooter", () => {
+  it("reopens the consent banner via the cookie settings control", () => {
+    const dispatch = vi.spyOn(window, "dispatchEvent");
+    render(<SiteFooter />);
+    fireEvent.click(screen.getByRole("button", { name: "Cookie settings" }));
+    expect(dispatch).toHaveBeenCalledWith(expect.objectContaining({ type: "ppp:open-analytics-consent" }));
+  });
+
   it("links every available question bank", () => {
     render(<SiteFooter />);
 
@@ -21,6 +28,7 @@ describe("SiteFooter", () => {
     expect(screen.getByRole("link", { name: "IB Mathematics AA HL · Exam-style practice" })).toHaveAttribute("href", "/banks/ib-hl/exam-style");
     expect(screen.queryByRole("link", { name: /IB Mathematics AA HL · Proof by induction/i })).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Frequently asked questions" })).toHaveAttribute("href", "/faq");
+    expect(screen.getByRole("button", { name: "Cookie settings" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "hello@pastpaperprep.com" })).toHaveAttribute("href", "mailto:hello@pastpaperprep.com");
   });
 });

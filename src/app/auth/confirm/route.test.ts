@@ -43,7 +43,7 @@ describe("GET /auth/confirm", () => {
 
     expect(verifyOtp).toHaveBeenCalledWith({ type: "signup", token_hash: tokenHash });
     expect(response.headers.get("location")).toBe("https://pastpaperprep.com/pricing?interval=monthly&product=single");
-    expect(captureConversionOutcome).toHaveBeenCalledWith({ outcome: "signup_confirmed", eventKey: "signup:user-123", occurredAt: "2026-01-01T00:00:00Z" });
+    expect(captureConversionOutcome).toHaveBeenCalledWith({ outcome: "signup_confirmed", eventKey: "signup:user-123", userId: "user-123", occurredAt: "2026-01-01T00:00:00Z" });
   });
 
   it("does not count regular email confirmation or failed signup verification as a signup", async () => {
