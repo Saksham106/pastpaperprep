@@ -10,6 +10,9 @@ describe("buildAssetRetentionPlan", () => {
     );
 
     expect(plan.allPaths.size).toBe(EXPECTED_ASSET_TOTALS.all);
+    expect(plan.allPaths.has('ib-ai-hl/markschemes/2025-november-tz0-p1-q12-page-16.webp')).toBe(false);
+    expect(plan.premiumPaths.has('ib-ai-hl/markschemes/2025-november-tz0-p1-q12-page-15.webp')).toBe(true);
+    expect(plan.premiumPaths.has('ib-ai-hl/repairs/ib-matrix-head-v1-afad830c4e282071/ad1aa69fb329506f1d86c26a6619dde62191abdb7e1d54b6444505f4d2eb7b63.webp')).toBe(true);
     expect(plan.previewPaths.size).toBe(EXPECTED_ASSET_TOTALS.preview);
     expect(plan.premiumPaths.size).toBe(EXPECTED_ASSET_TOTALS.premium);
     expect(plan.previewPaths.has("ib-hl/markschemes/2017-may-tz1-p1-q1-page-7.webp")).toBe(true);
@@ -29,6 +32,9 @@ describe("buildAssetRetentionPlan", () => {
       expect([...plan.premiumPaths].filter((path) => path.startsWith(`${bank}/`)), `${bank} premium`).toHaveLength(expected.premium);
     }
     expect(plan.allPaths.size).toBe(EXPECTED_ASSET_TOTALS.all);
+    expect(plan.allPaths.has('ib-ai-hl/markschemes/2025-november-tz0-p1-q12-page-16.webp')).toBe(false);
+    expect(plan.premiumPaths.has('ib-ai-hl/markschemes/2025-november-tz0-p1-q12-page-15.webp')).toBe(true);
+    expect(plan.premiumPaths.has('ib-ai-hl/repairs/ib-matrix-head-v1-afad830c4e282071/ad1aa69fb329506f1d86c26a6619dde62191abdb7e1d54b6444505f4d2eb7b63.webp')).toBe(true);
     expect(plan.previewPaths.size).toBe(EXPECTED_ASSET_TOTALS.preview);
     expect(plan.premiumPaths.size).toBe(EXPECTED_ASSET_TOTALS.premium);
   }, 20_000);
