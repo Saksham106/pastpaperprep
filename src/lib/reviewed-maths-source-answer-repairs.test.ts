@@ -5,6 +5,7 @@ const manifest = JSON.parse(readFileSync('data/storage/maths-source-answer-repai
 const maths = JSON.parse(readFileSync('src/data/raw/igcse.json','utf8'));
 const additional = JSON.parse(readFileSync('src/data/raw/igcse-additional.json','utf8'));
 import { reviewedMarkschemePaths } from '@/lib/reviewed-mcq-answer-repairs';
+import { loadBankQuestions } from '@/lib/question-loader';
 import { normalizeBankQuestions } from '@/lib/questions';
 import type { BankSlug } from '@/lib/banks';
 
@@ -30,6 +31,15 @@ describe('reviewed IGCSE maths source-answer repairs', () => {
       }
     }
     expect(count).toBe(2007);
+  });
+  test('actual legacy-bank loader used by the live signer activates all reviewed answers',async()=> {
+    for(const bank of ['igcse','igcse-additional'] as const){
+      const loaded=new Map((await loadBankQuestions(bank)).map(q=>[q.id,q]));
+      const raw=(bank==='igcse'?maths:additional).questions;
+      const original=new Map(normalizeBankQuestions(bank,raw).map(q=>[q.id,q]));
+      for(const [qid,q]of loaded)expect(q.questionAssetPaths).toEqual(original.get(qid)?.questionAssetPaths);
+      for(const [qid,entry]of Object.entries(repairs[bank]))expect(loaded.get(qid)?.markschemeAssetPaths).toEqual(entry.newPaths.map(p=>`${bank}/${p}`));
+    }
   });
   test('stale exact old paths fail closed',()=> {
     const [id]=Object.keys(repairs.igcse);
