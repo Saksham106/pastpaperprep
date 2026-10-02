@@ -5,29 +5,30 @@ import { normalizeBankQuestions } from "@/lib/questions";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 import { filterQuestions } from "@/lib/question-filter";
 import { displayedQuestionSubtopics } from "@/lib/presentation";
+import { project0580Sections, MATH_0580_SECTIONS } from "./igcse-0580-official.mjs";
 import { metadataFromRaw } from "../../scripts/generate-bank-index.mjs";
 
 const raw = (JSON.parse(readFileSync(join(process.cwd(), "src/data/raw/igcse.json"), "utf8")) as { questions: Array<Record<string, unknown> & { id: string; subtopics: string[] }> }).questions;
-const questions = normalizeBankQuestions("igcse", raw);
+const releasedQuestions = normalizeBankQuestions("igcse", raw);
+const releasedById = new Map(releasedQuestions.map(q => [q.id, q]));
+// Experimental mapping remains testable offline, never through the student loader.
+const questions = raw.map(source => { const p = project0580Sections(source); return { ...releasedById.get(source.id)!, ...p, officialCodeRefs: p.codeRefs }; });
 const byId = new Map(questions.map((question) => [question.id, question]));
 const REVIEW = "Section not yet verified";
 
 describe("0580 official topic-first section projection", () => {
-  it("shows the full nine-topic/72-section tree plus an explicit countable review choice", () => {
+  it("keeps the nine topics and 51 legacy student filters while the 72-section candidate stays offline", () => {
     expect(raw).toHaveLength(3967);
     expect(new Set(questions.map((question) => question.id)).size).toBe(3967);
     const topics = getTopicOptions(questions);
     expect(topics.slice(0, 9)).toEqual(["Number", "Algebra and graphs", "Coordinate geometry", "Geometry", "Mensuration", "Trigonometry", "Transformations and vectors", "Probability", "Statistics"]);
     expect(topics).toHaveLength(9);
-    const groups = getSubtopicGroups(questions, [], []);
-    expect(groups.all).toHaveLength(124);
-    expect(groups.all.slice(72, -1)).toHaveLength(51);
-    expect(groups.all.slice(72, -1)).toEqual(expect.arrayContaining([
-      "Algebraic manipulation", "Fractions, decimals and percentages", "Bounds and estimation",
-    ]));
-    expect(groups.all.at(-1)).toBe(REVIEW);
-    expect(groups.all.slice(0, -1)).toEqual([...new Set(groups.all.slice(0, -1))]);
-    expect(filterQuestions([...questions], { subtopics: [REVIEW] })).toHaveLength(questions.filter((question) => (question.officialCodeRefs ?? []).includes("review:section")).length);
+    const groups = getSubtopicGroups(releasedQuestions, [], []);
+    expect(groups.all).toHaveLength(51);
+    expect(groups.all).not.toContain(REVIEW);
+    expect(MATH_0580_SECTIONS).toHaveLength(72);
+    expect(new Set(MATH_0580_SECTIONS.map(s => s.displayTitle)).size).toBe(72);
+    for (const s of MATH_0580_SECTIONS) expect(groups.all).not.toContain(s.displayTitle);
   });
 
   it("preserves the 25 reviewed overrides and adds mappings without erasing old filters", () => {
@@ -43,7 +44,7 @@ describe("0580 official topic-first section projection", () => {
     expect(unreviewed.officialCodeRefs).toEqual(["review:section"]);
     expect(unreviewed.skills).not.toContain(REVIEW);
     expect(displayedQuestionSubtopics(unreviewed)).toEqual(expect.arrayContaining(["Matrix operations and algebra"]));
-    expect(displayedQuestionSubtopics(unreviewed)).not.toContain(REVIEW);
+    expect(displayedQuestionSubtopics(releasedById.get(unreviewed.id)!)).not.toContain(REVIEW);
     const existingLabels = [...new Set(raw.flatMap((row) => row.subtopics))].sort();
     expect(existingLabels).toHaveLength(51);
     for (const label of existingLabels) {
@@ -68,7 +69,7 @@ describe("0580 official topic-first section projection", () => {
 
   it("keeps runtime/public-index metadata identical for every served row", () => {
     for (const source of raw) {
-      const runtime = byId.get(source.id)!;
+      const runtime = releasedById.get(source.id)!;
       const index = metadataFromRaw(source, { bank: "igcse" });
       expect(index.primaryTopic).toBe(runtime.primaryTopic);
       expect(index.secondaryTopics).toEqual(runtime.secondaryTopics);

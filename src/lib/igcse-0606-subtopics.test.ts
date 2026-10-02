@@ -2,18 +2,19 @@ import { describe, expect, it } from "vitest";
 import raw from "@/data/raw/igcse-additional.json";
 import { loadBankQuestions } from "@/lib/question-fixtures";
 import { filterQuestions } from "@/lib/question-filter";
-import { getControlledSubtopics, getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
+import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 import { metadataFromRaw } from "../../scripts/generate-bank-index.mjs";
 import { project0606Sections, SECTIONS_0606 } from "@/lib/igcse-0606-subtopics.mjs";
 
 describe("0606 additive source-backed subtopics", () => {
-  it("exposes all 67 numbered items, keeping all old options and current topics", () => {
+  it("keeps the numbered experimental projection offline from released student options", () => {
     const rows = loadBankQuestions("igcse-additional");
     expect(SECTIONS_0606).toHaveLength(67);
     const options = getSubtopicGroups(rows, [], []).all;
+    expect(options).toHaveLength(17);
     for (const q of raw.questions) for (const label of q.subtopics) expect(options).toContain(label);
-    for (const s of SECTIONS_0606) expect(options).toContain(s.displayTitle);
-    expect(getControlledSubtopics("igcse-additional", "Vectors in two dimensions")).toEqual(expect.arrayContaining(SECTIONS_0606.filter(s => s.code.startsWith("13.")).map(s => s.displayTitle)));
+    for (const s of SECTIONS_0606) expect(options).not.toContain(s.displayTitle);
+    expect(SECTIONS_0606.filter(s => s.code.startsWith("13.")).map(s => s.displayTitle)).toHaveLength(4);
     expect(getTopicOptions(rows)).toHaveLength(15);
   });
   it("preserves every original subtopic's exact question IDs and runtime/index parity", () => {
@@ -21,7 +22,7 @@ describe("0606 additive source-backed subtopics", () => {
     expect(rows).toHaveLength(1633);
     const byId = new Map(rows.map(q => [q.id, q]));
     for (const label of new Set(raw.questions.flatMap(q => q.subtopics))) {
-      expect(filterQuestions(rows, { subtopics: [label] }).map(q => q.id).sort()).toEqual(raw.questions.filter(q => q.subtopics.includes(label)).map(q => q.id).sort());
+        expect(filterQuestions(rows, { subtopics: [label] }).map(q => q.id).sort()).toEqual(raw.questions.filter(q => q.subtopics.includes(label)).map(q => q.id).sort());
     }
     for (const q of raw.questions) {
       const index = metadataFromRaw(q, { bank: "igcse-additional" });
@@ -51,14 +52,14 @@ describe("0606 additive source-backed subtopics", () => {
     expect(project0606Sections({ subtopics: derivative!.subtopics, accessibleText: derivative!.accessibleText }).codes).toEqual(expect.arrayContaining(["14.3"]));
     expect(project0606Sections({ subtopics: primitive!.subtopics, accessibleText: primitive!.accessibleText }).codes).toContain("14.10");
     expect(project0606Sections({ subtopics: ["Calculus"], accessibleText: "The curve y = sin x has a stationary point. Find its coordinates." }).codes).not.toContain("14.12");
-    const rows = loadBankQuestions("igcse-additional");
+    const rows = loadBankQuestions("igcse-additional").map(row => { const source = raw.questions.find(q => q.id === row.id)!; const p = project0606Sections(source); return { ...row, subtopics: p.subtopics, officialCodeRefs: p.codeRefs }; });
     for (const [id, code] of [["0606-2025-november-11-q7", "14.3"], ["0606-2025-november-23-q4", "14.10"]]) {
       const label = SECTIONS_0606.find(s => s.code === code)!.displayTitle;
       expect(filterQuestions(rows, { subtopics: [label] }).map(q => q.id)).toContain(id);
     }
   });
-  it("makes existing differentiation/integration labels useful ordinary subtopics", () => {
-    const rows = loadBankQuestions("igcse-additional");
+  it("preserves the candidate finer calculus filters offline", () => {
+    const rows = loadBankQuestions("igcse-additional").map(row => ({ ...row, subtopics: project0606Sections(raw.questions.find(q => q.id === row.id)!).subtopics }));
     const options = getSubtopicGroups(rows, ["Calculus"], []).relevant;
     expect(options).toContain("Differentiation");
     expect(options).toContain("Integration");

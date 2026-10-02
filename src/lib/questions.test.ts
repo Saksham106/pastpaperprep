@@ -74,8 +74,9 @@ describe("question normalization", () => {
     const subtopics = new Set(questions.flatMap((question) => question.subtopics));
     const picker = getStudentSubtopicGroups(questions, [], []).all;
     expect(subtopics.has("Bounds and estimation")).toBe(true);
-    expect(subtopics.has("Section not yet verified")).toBe(true);
-    expect(picker).toHaveLength(124);
+    expect(subtopics.has("Section not yet verified")).toBe(false);
+    expect(picker).toHaveLength(51);
+    expect(picker).not.toContain("1.1 Types of number");
     expect(picker).toContain("Bounds and estimation");
   });
 

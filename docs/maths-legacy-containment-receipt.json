@@ -1,0 +1,187 @@
+{
+  "baselineCommit": "e187b7e7239af760f44fdc782d331a0f0d5d615c",
+  "banks": [
+    {
+      "bank": "ib-ai-hl",
+      "questions": 409,
+      "filename": "ib-ai-hl.v1-d4d5ac52e17c.json",
+      "sha256": "d4d5ac52e17c9a9c27517954508e7d548735c89ed5afdb7632ae1e3072d84868",
+      "baselineSha256": "d4d5ac52e17c9a9c27517954508e7d548735c89ed5afdb7632ae1e3072d84868",
+      "unchanged": true,
+      "identicalIds": true
+    },
+    {
+      "bank": "ib-ai-sl",
+      "questions": 334,
+      "filename": "ib-ai-sl.v1-f7e5111e17f0.json",
+      "sha256": "f7e5111e17f015c638425e3c5b7ec22a50ca435feb839f06efd29a242e53b64b",
+      "baselineSha256": "f7e5111e17f015c638425e3c5b7ec22a50ca435feb839f06efd29a242e53b64b",
+      "unchanged": true,
+      "identicalIds": true
+    },
+    {
+      "bank": "ib-biology-hl",
+      "questions": 1911,
+      "filename": "ib-biology-hl.v1-3072a3abd42f.json",
+      "sha256": "3072a3abd42fef63af714c65cec901383254a7cd5d6f3494b850c2be99a36b78",
+      "baselineSha256": "3072a3abd42fef63af714c65cec901383254a7cd5d6f3494b850c2be99a36b78",
+      "unchanged": true,
+      "identicalIds": true
+    },
+    {
+      "bank": "ib-biology-sl",
+      "questions": 1548,
+      "filename": "ib-biology-sl.v1-8ebbd1995106.json",
+      "sha256": "8ebbd1995106de1ea5e219ae6c90b4f34b08944e3d81ede4d2c0b59230221d1c",
+      "baselineSha256": "8ebbd1995106de1ea5e219ae6c90b4f34b08944e3d81ede4d2c0b59230221d1c",
+      "unchanged": true,
+      "identicalIds": true
+    },
+    {
+      "bank": "ib-chemistry-hl",
+      "questions": 1872,
+      "filename": "ib-chemistry-hl.v1-9fe83285a847.json",
+      "sha256": "9fe83285a84780806bb7f9d7b51bd6402f73ee3882b00eb8f02d8d8d0e35fbac",
+      "baselineSha256": "9fe83285a84780806bb7f9d7b51bd6402f73ee3882b00eb8f02d8d8d0e35fbac",
+      "unchanged": true,
+      "identicalIds": true
+    },
+    {
+      "bank": "ib-chemistry-sl",
+      "questions": 1412,
+      "filename": "ib-chemistry-sl.v1-60a1943e3576.json",
+      "sha256": "60a1943e3576435feb1bd4a41a69e61fb390060d4d6f0977bcc7b422f3a7ef9b",
+      "baselineSha256": "60a1943e3576435feb1bd4a41a69e61fb390060d4d6f0977bcc7b422f3a7ef9b",
+      "unchanged": true,
+      "identicalIds": true
+    },
+    {
+      "bank": "ib-economics-hl",
+      "questions": 111,
+      "filename": "ib-economics-hl.v1-7914148a77f7.json",
+      "sha256": "7914148a77f7d1ad9febe27bfa66ca6bcb6982b9b695337eaf32757827949c67",
+      "baselineSha256": "7914148a77f7d1ad9febe27bfa66ca6bcb6982b9b695337eaf32757827949c67",
+      "unchanged": true,
+      "identicalIds": true
+    },
+    {
+      "bank": "ib-economics-sl",
+      "questions": 89,
+      "filename": "ib-economics-sl.v1-27d48eda5bb7.json",
+      "sha256": "27d48eda5bb73b0413ffbcab4dbb7e431cd365e137171348c5ff08118ae4241f",
+      "baselineSha256": "27d48eda5bb73b0413ffbcab4dbb7e431cd365e137171348c5ff08118ae4241f",
+      "unchanged": true,
+      "identicalIds": true
+    },
+    {
+      "bank": "ib-hl",
+      "questions": 841,
+      "filename": "ib-hl.v1-3b880b4a1a90.json",
+      "sha256": "3b880b4a1a9087442cc49afd74275bf1ecb3b981291c5cc31ab543a42a9c8cc6",
+      "baselineSha256": "3b880b4a1a9087442cc49afd74275bf1ecb3b981291c5cc31ab543a42a9c8cc6",
+      "unchanged": true,
+      "identicalIds": true
+    },
+    {
+      "bank": "ib-physics-hl",
+      "questions": 1875,
+      "filename": "ib-physics-hl.v1-cf34fc98817f.json",
+      "sha256": "cf34fc98817f5a60af5e21431cd394a05dd02c3b1d78d6b360ac3284f02f2f36",
+      "baselineSha256": "cf34fc98817f5a60af5e21431cd394a05dd02c3b1d78d6b360ac3284f02f2f36",
+      "unchanged": true,
+      "identicalIds": true
+    },
+    {
+      "bank": "ib-physics-sl",
+      "questions": 1314,
+      "filename": "ib-physics-sl.v1-aee1edd739ab.json",
+      "sha256": "aee1edd739ab3add9a10ddae0e26dc6c9190e656d4fda3fb86473aa3bf2c1055",
+      "baselineSha256": "aee1edd739ab3add9a10ddae0e26dc6c9190e656d4fda3fb86473aa3bf2c1055",
+      "unchanged": true,
+      "identicalIds": true
+    },
+    {
+      "bank": "ib-sl",
+      "questions": 578,
+      "filename": "ib-sl.v1-6a5335f87a2e.json",
+      "sha256": "6a5335f87a2e150b5cc9dde118f964d0209c8145f9dbbeaef7428d7af412cc7e",
+      "baselineSha256": "6a5335f87a2e150b5cc9dde118f964d0209c8145f9dbbeaef7428d7af412cc7e",
+      "unchanged": true,
+      "identicalIds": true
+    },
+    {
+      "bank": "igcse",
+      "questions": 3967,
+      "filename": "igcse.v1-9fc884c73c12.json",
+      "sha256": "9fc884c73c12c13051bd670f9daa187cc62becb2476ac44159c757dd08bea1c7",
+      "baselineSha256": "ca821aac5c4ab8da7ffa560e37c198799123216405ccdc9b76420afa036b24f0",
+      "unchanged": false,
+      "identicalIds": true
+    },
+    {
+      "bank": "igcse-additional",
+      "questions": 1633,
+      "filename": "igcse-additional.v1-40bc9ebe4b72.json",
+      "sha256": "40bc9ebe4b722aad5864e25e152b3f4367c46362359c2463a42b7ad8e257b50b",
+      "baselineSha256": "6b84becc84b09e85384efd93ef181ff59e7ab38cae7fcd7ea39937247173f36e",
+      "unchanged": false,
+      "identicalIds": true
+    },
+    {
+      "bank": "igcse-biology-0610",
+      "questions": 4913,
+      "filename": "igcse-biology-0610.v1-01fd66e20457.json",
+      "sha256": "01fd66e20457ec22d6a7be1688d46d8e62577f896445e5241308bcd2a9b93e2b",
+      "baselineSha256": "01fd66e20457ec22d6a7be1688d46d8e62577f896445e5241308bcd2a9b93e2b",
+      "unchanged": true,
+      "identicalIds": true
+    },
+    {
+      "bank": "igcse-chemistry-0620",
+      "questions": 5129,
+      "filename": "igcse-chemistry-0620.v1-90ba51dd0b85.json",
+      "sha256": "90ba51dd0b85129c062e514b407408482a00b5aa9516cf1fc724a34ff002f1b0",
+      "baselineSha256": "90ba51dd0b85129c062e514b407408482a00b5aa9516cf1fc724a34ff002f1b0",
+      "unchanged": true,
+      "identicalIds": true
+    },
+    {
+      "bank": "igcse-coordinated-sciences-0654",
+      "questions": 4721,
+      "filename": "igcse-coordinated-sciences-0654.v1-1a166cf7dd91.json",
+      "sha256": "1a166cf7dd916a4f63d79c1ce7648b7cb61ec9336250d36f129c6865dd11bcbd",
+      "baselineSha256": "1a166cf7dd916a4f63d79c1ce7648b7cb61ec9336250d36f129c6865dd11bcbd",
+      "unchanged": true,
+      "identicalIds": true
+    },
+    {
+      "bank": "igcse-economics-0455",
+      "questions": 1723,
+      "filename": "igcse-economics-0455.v1-deb4743edb59.json",
+      "sha256": "deb4743edb59fe30eb97b9ca2c89f90601e241eb93e4818b93cdace596a57707",
+      "baselineSha256": "deb4743edb59fe30eb97b9ca2c89f90601e241eb93e4818b93cdace596a57707",
+      "unchanged": true,
+      "identicalIds": true
+    },
+    {
+      "bank": "igcse-physics-0625",
+      "questions": 5789,
+      "filename": "igcse-physics-0625.v1-6a7ea407d401.json",
+      "sha256": "6a7ea407d40136282e1e8644b235244d4a2cac1dd6c55dd5277129cd8a99f4f5",
+      "baselineSha256": "6a7ea407d40136282e1e8644b235244d4a2cac1dd6c55dd5277129cd8a99f4f5",
+      "unchanged": true,
+      "identicalIds": true
+    }
+  ],
+  "candidateTestsPassed": 1204,
+  "sharedBaselineFailures": 2,
+  "newTestFailures": 0,
+  "legacy0580FilterCount": 51,
+  "legacy0606FilterCount": 17,
+  "indicesSurdsCount": 178,
+  "typecheck": "passed",
+  "eslint": "passed",
+  "build": "passed",
+  "browser": "Local 0580 filter + reload178;0606 Calculus454 with17options",
+  "semantics": "Containment, not new OCR-based classification accuracy."
+}
