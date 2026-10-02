@@ -21,6 +21,15 @@ const biologyOfficialTaxonomy = JSON.parse(await readFile(join(root, "src", "dat
 const biologyOfficialOverlay = JSON.parse(await readFile(join(root, "src", "data", "ib-biology-official-subtopics", "overlay.json"), "utf8"));
 
 const reviewedBlankPages = JSON.parse(await readFile(join(root, "src", "data", "reviewed-blank-qp.json"), "utf8"));
+const scienceAnswerRepairs = JSON.parse(await readFile(join(root, "src", "data", "reviewed-science-mcq-answer-repairs.json"), "utf8"));
+function activeMarkschemeImageCount(bank, raw) {
+  const repair = scienceAnswerRepairs[bank]?.[raw.id];
+  if (!repair) return null;
+  if (JSON.stringify(strings(raw.markschemeImages)) !== JSON.stringify(repair.oldPaths) || repair.newPaths.length !== 1) {
+    throw new Error(`Reviewed answer count disagrees with ${bank}:${raw.id}`);
+  }
+  return repair.newPaths.length;
+}
 const retiredQuestionCrops = JSON.parse(await readFile(join(root, "src", "data", "retired-question-crops.json"), "utf8"));
 function activeQuestionImageCount(bank, raw) {
   const paths = strings(raw.questionImages);
@@ -164,9 +173,9 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     calculator: typeof raw.calculator === "boolean" ? raw.calculator : null,
     marks: typeof raw.marks === "number" ? raw.marks : null,
     questionImageCount: activeQuestionImageCount(bank, raw),
-    markschemeImageCount: normalizedProduction
+    markschemeImageCount: activeMarkschemeImageCount(bank, raw) ?? (normalizedProduction
       ? (strings(officialMarkscheme.images).length || strings(raw.markschemeImages).length)
-      : strings(raw.markschemeImages).length + strings(officialMarkscheme.images).length,
+      : strings(raw.markschemeImages).length + strings(officialMarkscheme.images).length),
   };
   return metadata;
 }
