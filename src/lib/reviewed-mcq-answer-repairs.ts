@@ -2,6 +2,7 @@ import repairs from '@/data/reviewed-mcq-answer-repairs.json';
 import scienceRepairs from '@/data/reviewed-science-mcq-answer-repairs.json';
 import writtenRepairs from '@/data/reviewed-biology-written-answer-repairs.json';
 import mathsRepairs from '@/data/reviewed-maths-source-answer-repairs.json';
+import scienceWrittenRepairs from '@/data/reviewed-science-written-answer-repairs.json';
 import type { BankSlug } from '@/lib/banks';
 
 type Repair = { oldPaths: string[]; newPaths: string[]; sha256: string };
@@ -26,6 +27,17 @@ export function reviewedMarkschemePaths(bank: BankSlug, questionId: string, path
     return [...maths.newPaths];
   }
   if (bank !== repairs.bank) {
+    const scienceWrittenEntries = scienceWrittenRepairs as Partial<Record<BankSlug, Record<string,{oldPaths:string[];newPaths:string[];sha256:string[]}>>>;
+    const writtenScience = scienceWrittenEntries[bank]?.[questionId];
+    if (writtenScience) {
+      if (JSON.stringify(paths)!==JSON.stringify(writtenScience.oldPaths) || writtenScience.newPaths.length<1 ||
+          writtenScience.newPaths.length!==writtenScience.sha256.length || new Set(writtenScience.newPaths).size!==writtenScience.newPaths.length ||
+          writtenScience.newPaths.some((path,i)=>!/^repairs\/science-written-v1-[a-f0-9]{16}\/[a-f0-9]{64}\.webp$/.test(path) ||
+            !/^[a-f0-9]{64}$/.test(writtenScience.sha256[i]) || !path.endsWith(`/${writtenScience.sha256[i]}.webp`))) {
+        throw new Error(`Reviewed science written answer disagrees with ${bank}:${questionId}`);
+      }
+      return [...writtenScience.newPaths];
+    }
     const repair = scienceEntries[bank]?.[questionId];
     if (!repair) return [...paths];
     if (JSON.stringify(paths) !== JSON.stringify(repair.oldPaths) || repair.newPaths.length !== 1 ||

@@ -27,7 +27,7 @@ describe('exact active science MCQ row projection',()=>{
       const before=normalizeBankQuestions(bank,raw.questions,{economicsAssetMode:'private'});
       const after=normalizeBankQuestions(bank,raw.questions,{economicsAssetMode:'private',applyReviewedBlankPages:true});
       expect(after.map(q=>q.id)).toEqual(before.map(q=>q.id));
-      const changed=after.filter((q,i)=>JSON.stringify(q.markschemeAssetPaths)!==JSON.stringify(before[i].markschemeAssetPaths));
+      const changed=after.filter((q,i)=>repairs[bank][q.id] && JSON.stringify(q.markschemeAssetPaths)!==JSON.stringify(before[i].markschemeAssetPaths));
       expect(changed).toHaveLength(count);
       expect(changed.map(q=>q.id).sort()).toEqual(Object.keys(repairs[bank]).sort());
       for(let i=0;i<after.length;i++)expect(stable(after[i])).toEqual(stable(before[i]));
