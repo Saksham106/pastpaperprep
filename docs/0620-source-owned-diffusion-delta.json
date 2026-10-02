@@ -1,0 +1,77 @@
+{
+  "baseline_commit": "8b8ea4f7dfd3bc59138a9dd8b263cb2d0d96303b",
+  "target_inventory": 5129,
+  "exact_changed_ids": [
+    "0620-2025-w-11-q1"
+  ],
+  "public_index_delta": [
+    {
+      "id": "0620-2025-w-11-q1",
+      "fields": [
+        "officialCodeRefs",
+        "primaryTopic",
+        "skills",
+        "subtopics"
+      ]
+    }
+  ],
+  "unchanged_bank_indexes": [
+    "ib-chemistry-sl",
+    "ib-ai-hl",
+    "ib-physics-sl",
+    "ib-biology-sl",
+    "igcse-physics-0625",
+    "igcse",
+    "igcse-additional",
+    "ib-economics-sl",
+    "ib-ai-sl",
+    "igcse-economics-0455",
+    "ib-physics-hl",
+    "igcse-biology-0610",
+    "ib-chemistry-hl",
+    "ib-sl",
+    "ib-economics-hl",
+    "ib-biology-hl",
+    "igcse-coordinated-sciences-0654",
+    "ib-hl"
+  ],
+  "raw_runtime_changed": false,
+  "private_index_changed": false,
+  "asset_or_access_changes": false,
+  "candidate_tests_passed": 1215,
+  "shared_baseline_failures": 2,
+  "new_failures": 0,
+  "assurance": "Exact source-confirmed one-row repair; not full bank semantic closure.",
+  "before_public_metadata": {
+    "id": "0620-2025-w-11-q1",
+    "number": 1,
+    "paper": 1,
+    "year": 2025,
+    "session": "November",
+    "primaryTopic": "Chemical reactions",
+    "secondaryTopics": [],
+    "skills": [
+      "Physical and chemical changes",
+      "Chemical reactions"
+    ],
+    "subtopics": [
+      "Physical and chemical changes",
+      "Chemical reactions"
+    ],
+    "granularLabels": [],
+    "officialCodeRefs": [
+      "source_recorded:2023_2025:6.1",
+      "current_2026:6.1",
+      "alias_current:6.1"
+    ],
+    "subject": "Chemistry 0620",
+    "option": "",
+    "zone": "Variant 1",
+    "component": "11",
+    "calculator": null,
+    "marks": 1,
+    "questionImageCount": 1,
+    "markschemeImageCount": 2
+  },
+  "rebased_baseline": "8b8ea4f7dfd3bc59138a9dd8b263cb2d0d96303b"
+}

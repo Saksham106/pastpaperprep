@@ -1,0 +1,21 @@
+import {test,expect} from 'vitest';
+import {readFileSync} from 'node:fs';
+const data=JSON.parse(readFileSync('src/data/production/igcse-chemistry-0620.json','utf8')) as {questions:Array<Record<string,unknown>&{id:string}>};
+import {normalizeBankQuestions} from './questions';
+import {filterQuestions} from './question-filter';
+import {displayedQuestionSubtopics} from './presentation';
+import {metadataFromRaw} from '../../scripts/generate-bank-index.mjs';
+const source=data.questions.find(q=>q.id==='0620-2025-w-11-q1')!;
+test('source-confirmed diffusion MCQ is retrieved by its credited content, not freezing/melting distractors',()=>{
+ const before=JSON.stringify(source);
+ const rows=normalizeBankQuestions('igcse-chemistry-0620',[source]);
+ const q=rows[0];
+ expect(q.primaryTopic).toBe('States of matter');
+ expect(displayedQuestionSubtopics(q)).toEqual(['Diffusion']);
+ expect(filterQuestions(rows,{subtopics:['Diffusion']}).map(q=>q.id)).toEqual([source.id]);
+ expect(filterQuestions(rows,{subtopics:['Physical and chemical changes']})).toHaveLength(0);
+ const index=metadataFromRaw(source,{bank:'igcse-chemistry-0620',normalizedProduction:true});
+ expect(index.primaryTopic).toBe(q.primaryTopic);
+ expect(index.officialCodeRefs).toEqual(q.officialCodeRefs);
+ expect(JSON.stringify(source)).toBe(before);
+});
