@@ -1,0 +1,50 @@
+{
+  "schema": "ib-matrix-head-repairs-manifest-v1",
+  "baselineCommit": "efacea200f13fe9311f477384df1dee0fa44feee",
+  "candidateSha256": "afad830c4e28207139b52caa93471ab68d39bb02135014f422f94b27572cc11c",
+  "sourcePdfSha256": "2a2febabcc934f515f8637d3fa3353596e6a9d5fc7d617471bfd51eabd68cc4b",
+  "sourceReview": "deleg_5877d240",
+  "originalReadbackSha256": "815f16ff202ac544ea7a2e20304bd6f0bbd0809805a174f045d31eea2e2d90c2",
+  "logicalReplacementCount": 2,
+  "objectCount": 1,
+  "objects": [
+    {
+      "localPath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/all-bank-crop-repair-20261002/ib-maths/matrix-family/q13-head-restored.webp",
+      "objectKey": "ib-ai-hl/repairs/ib-matrix-head-v1-afad830c4e282071/ad1aa69fb329506f1d86c26a6619dde62191abdb7e1d54b6444505f4d2eb7b63.webp",
+      "sha256": "ad1aa69fb329506f1d86c26a6619dde62191abdb7e1d54b6444505f4d2eb7b63",
+      "bytes": 56152
+    }
+  ],
+  "entries": {
+    "2025-november-tz0-p1-q12": {
+      "oldPaths": [
+        "markschemes/2025-november-tz0-p1-q12-page-15.webp",
+        "markschemes/2025-november-tz0-p1-q12-page-16.webp"
+      ],
+      "oldSha256": [
+        "68f701b00775a52af6bc0ca8108835a10bde5f6a947ef5fbb177faaf1c1df067",
+        "7683072cce7a019f2a05d3b5f46a7ad72bc39a138d889ff032a9321fe624e18d"
+      ],
+      "newPaths": [
+        "markschemes/2025-november-tz0-p1-q12-page-15.webp"
+      ],
+      "sha256": [
+        "68f701b00775a52af6bc0ca8108835a10bde5f6a947ef5fbb177faaf1c1df067"
+      ]
+    },
+    "2025-november-tz0-p1-q13": {
+      "oldPaths": [
+        "markschemes/2025-november-tz0-p1-q13-page-16.webp"
+      ],
+      "oldSha256": [
+        "f4ed7613fcc57cacd4f31e02001b13a41d2150f628d758ad5f114f0baeb4f35d"
+      ],
+      "newPaths": [
+        "repairs/ib-matrix-head-v1-afad830c4e282071/ad1aa69fb329506f1d86c26a6619dde62191abdb7e1d54b6444505f4d2eb7b63.webp"
+      ],
+      "sha256": [
+        "ad1aa69fb329506f1d86c26a6619dde62191abdb7e1d54b6444505f4d2eb7b63"
+      ]
+    }
+  }
+}

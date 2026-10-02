@@ -26,7 +26,14 @@ const scienceAnswerRepairs = JSON.parse(await readFile(join(root, "src", "data",
 const writtenAnswerRepairs = JSON.parse(await readFile(join(root, "src", "data", "reviewed-biology-written-answer-repairs.json"), "utf8"));
 const mathsAnswerRepairs = JSON.parse(await readFile(join(root, "src", "data", "reviewed-maths-source-answer-repairs.json"), "utf8"));
 const scienceWrittenAnswerRepairs = JSON.parse(await readFile(join(root, "src", "data", "reviewed-science-written-answer-repairs.json"), "utf8"));
+const ibMatrixRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-matrix-head-repairs.json'), 'utf8'));
 function activeMarkschemeImageCount(bank, raw) {
+  const ibMatrix = bank === ibMatrixRepairs.bank ? ibMatrixRepairs.entries[raw.id] : null;
+  if (ibMatrix) {
+    const sourcePaths=[...strings(raw.markschemeImages),...strings(raw.officialMarkscheme?.images)];
+    if(JSON.stringify(sourcePaths)!==JSON.stringify(ibMatrix.oldPaths)||ibMatrix.newPaths.length<1)throw new Error(`Reviewed IB answer count disagrees with ${bank}:${raw.id}`);
+    return ibMatrix.newPaths.length;
+  }
   const written = bank === 'igcse-biology-0610' ? writtenAnswerRepairs[raw.id] : null;
   const maths = mathsAnswerRepairs[bank]?.[raw.id];
   const scienceWritten = scienceWrittenAnswerRepairs[bank]?.[raw.id];
