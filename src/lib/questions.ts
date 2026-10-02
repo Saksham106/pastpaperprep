@@ -5,6 +5,7 @@ import { project0606Topics } from "@/lib/igcse-0606-official.mjs";
 import { project0455Sections } from "@/lib/igcse-0455-official.mjs";
 import { activeQuestionImagePaths } from "@/lib/reviewed-blank-qp";
 import { activeQuestionCropPaths } from "@/lib/retired-crops";
+import { reviewedMarkschemePaths } from "@/lib/reviewed-mcq-answer-repairs";
 import granularOverlay from "@/data/math-granular-label-overlay.json";
 import aaTaxonomy from "@/data/aa-official-subtopics/taxonomy.json";
 import aaOverlay from "@/data/aa-official-subtopics/overlay.json";
@@ -265,7 +266,9 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
   const markschemeImagePaths = isPrivateRuntimeBank(slug)
     ? Array.from(new Set([...strings(raw.markschemeImages), ...strings(officialMarkscheme.images)]))
     : [...strings(raw.markschemeImages), ...strings(officialMarkscheme.images)];
-  const markschemeImages = markschemeImagePaths.map((path) => assetUrl(slug, path, economicsAssetMode));
+  const activeMarkschemePaths = applyReviewedBlankPages
+    ? reviewedMarkschemePaths(slug, text(raw.id), markschemeImagePaths) : markschemeImagePaths;
+  const markschemeImages = activeMarkschemePaths.map((path) => assetUrl(slug, path, economicsAssetMode));
   const searchable = [
     primaryTopic,
     ...secondaryTopics,
