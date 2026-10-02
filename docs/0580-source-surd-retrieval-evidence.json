@@ -1,0 +1,75 @@
+{
+  "scope": "Two exact source-confirmed secondary retrieval additions; no full-bank classification assurance.",
+  "sources": [
+    {
+      "id": "0580-2025-march-22-q18",
+      "kind": "question",
+      "source_url": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-0580/2025/0580_m25_qp_22.pdf",
+      "sha256": "a026e90c4a840f505e269cdbdb3cba5b37e24bfb4297d0326e235698b0c7aec1",
+      "printed_pages": [
+        15
+      ],
+      "archive_path": "/Users/sakshamgoel/Documents/ProjectsInternships/research/pastpaperprep-crop-audit-20260928/math-geometry/0580-source-acquisition/0580-2025-march-22-question.pdf"
+    },
+    {
+      "id": "0580-2025-march-22-q18",
+      "kind": "markscheme",
+      "source_url": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-0580/2025/0580_m25_ms_22.pdf",
+      "sha256": "87ae12848e693c05f0502108131902286214a17692c44d096fb453e55d4c259f",
+      "printed_pages": [
+        11
+      ],
+      "archive_path": "/Users/sakshamgoel/Documents/ProjectsInternships/research/pastpaperprep-crop-audit-20260928/math-geometry/0580-source-acquisition/0580-2025-march-22-markscheme.pdf"
+    },
+    {
+      "id": "0580-2025-november-22-q17",
+      "kind": "question",
+      "source_url": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-0580/2025/0580_w25_qp_22.pdf",
+      "sha256": "59f5ac2ddc32276ef2fe809f39d64481462a9b0436538de9839cc21b53a06fd7",
+      "printed_pages": [
+        11
+      ],
+      "archive_path": "/Users/sakshamgoel/Documents/ProjectsInternships/research/pastpaperprep-crop-audit-20260928/math-geometry/0580-source-acquisition/0580-2025-november-22-question.pdf"
+    },
+    {
+      "id": "0580-2025-november-22-q17",
+      "kind": "markscheme",
+      "source_url": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-0580/2025/0580_w25_ms_22.pdf",
+      "sha256": "fc576f3b6f9753a4f8b33ea16666d57e8b25c5b2c2c1144f3f6a0c955cfe1ac2",
+      "printed_pages": [
+        9
+      ],
+      "archive_path": "/Users/sakshamgoel/Documents/ProjectsInternships/research/pastpaperprep-crop-audit-20260928/math-geometry/0580-source-acquisition/0580-2025-november-22-markscheme.pdf"
+    }
+  ],
+  "original_question_crops": [
+    {
+      "id": "0580-2025-march-22-q18",
+      "sha256": "d285248514fed90946a6d23be6637ba0c5b7f284ac306569af272bc2e49bd777"
+    },
+    {
+      "id": "0580-2025-november-22-q17",
+      "sha256": "e950a06180949ac2d8359432fdf8bf33546076d9591b6a8f4d8f080f97b50706"
+    }
+  ],
+  "decisions": [
+    {
+      "id": "0580-2025-march-22-q18",
+      "assessed_part": "18(b),4marks",
+      "source_directive": "Give your answer in the form p + k√q.",
+      "keyed_answer": "39 + 9√3",
+      "preserve_primary": "Trigonometry",
+      "add_secondary_topic": "Number",
+      "add_existing_subtopic": "Indices and surds"
+    },
+    {
+      "id": "0580-2025-november-22-q17",
+      "assessed_part": "17(a),5marks",
+      "source_directive": "Give your answer as a surd in its simplest form.",
+      "keyed_answer": "3√17",
+      "preserve_primary": "Coordinate geometry",
+      "add_secondary_topic": "Number",
+      "add_existing_subtopic": "Indices and surds"
+    }
+  ]
+}

@@ -48,7 +48,10 @@ describe("0580 official topic-first section projection", () => {
     const existingLabels = [...new Set(raw.flatMap((row) => row.subtopics))].sort();
     expect(existingLabels).toHaveLength(51);
     for (const label of existingLabels) {
-      const expectedIds = raw.filter((row) => row.subtopics.includes(label)).map((row) => row.id).sort();
+      // The source-only original sets remain intact; the served descendant
+      // additionally owns two printed geometric-surd operations.
+      const expectedIds = [...raw.filter((row) => row.subtopics.includes(label)).map((row) => row.id),
+        ...(label === "Indices and surds" ? ["0580-2025-march-22-q18", "0580-2025-november-22-q17"] : [])].sort();
       expect(filterQuestions([...questions], { subtopics: [label] }).map((question) => question.id).sort(), label).toEqual(expectedIds);
     }
     const legacy = raw.filter((row) => row.subtopics.includes("Bounds and estimation")).map((row) => row.id).sort();
