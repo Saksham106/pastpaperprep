@@ -27,7 +27,7 @@ function loadClient() {
           cookieless_mode: "always",
           disable_session_recording: true,
           advanced_disable_flags: true,
-          capture_performance: true,
+          capture_performance: false,
           capture_exceptions: false,
         });
         initialized = true;
@@ -37,6 +37,25 @@ function loadClient() {
     .catch(() => null);
 
   return clientPromise;
+}
+
+export function captureBrowserError(error: { name?: unknown; filename?: unknown; lineno?: unknown; colno?: unknown }) {
+  const category = typeof error.name === "string" && /^[A-Za-z]{1,40}Error$/.test(error.name) ? error.name : "UnhandledError";
+  let frame = "";
+  if (typeof error.filename === "string") {
+    try {
+      const url = new URL(error.filename);
+      const basename = url.pathname.split("/").filter(Boolean).pop() ?? "";
+      if (basename.endsWith(".js") || basename.endsWith(".mjs") || basename.endsWith(".cjs")) {
+        frame = basename;
+        if (typeof error.lineno === "number" && Number.isFinite(error.lineno)) {
+          frame += `:${Math.trunc(error.lineno)}`;
+          if (typeof error.colno === "number" && Number.isFinite(error.colno)) frame += `:${Math.trunc(error.colno)}`;
+        }
+      }
+    } catch { /* Ignore malformed source URLs. */ }
+  }
+  trackProductEvent("browser_error", { category, frame });
 }
 
 export function initializeProductAnalytics() {

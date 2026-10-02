@@ -38,7 +38,7 @@ describe("PostHog product analytics", () => {
       cookieless_mode: "always",
       disable_session_recording: true,
       advanced_disable_flags: true,
-      capture_performance: true,
+      capture_performance: false,
     }));
     expect(posthog.init.mock.calls[0]?.[1]).not.toHaveProperty("session_recording");
   });
@@ -72,6 +72,23 @@ describe("PostHog product analytics", () => {
         bankCount: 6,
       });
     });
+  });
+
+  it("scrubs browser error telemetry to a bounded category and URL-free stack frames", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    const { initializeProductAnalytics, captureBrowserError } = await import("@/lib/product-analytics");
+    initializeProductAnalytics();
+    captureBrowserError({
+      name: "TypeError",
+      filename: "https://example.test/_next/static/chunks/app.js?token=secret#hash",
+      lineno: 12,
+      colno: 34,
+    });
+    await vi.waitFor(() => expect(posthog.capture).toHaveBeenCalledWith("browser_error", {
+      category: "TypeError",
+      frame: "app.js:12:34",
+    }));
+    expect(JSON.stringify(posthog.capture.mock.calls)).not.toContain("secret");
   });
 
   it("never identifies users in always-cookieless mode", async () => {
