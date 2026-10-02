@@ -22,10 +22,13 @@ const biologyOfficialOverlay = JSON.parse(await readFile(join(root, "src", "data
 
 const reviewedBlankPages = JSON.parse(await readFile(join(root, "src", "data", "reviewed-blank-qp.json"), "utf8"));
 const scienceAnswerRepairs = JSON.parse(await readFile(join(root, "src", "data", "reviewed-science-mcq-answer-repairs.json"), "utf8"));
+const writtenAnswerRepairs = JSON.parse(await readFile(join(root, "src", "data", "reviewed-biology-written-answer-repairs.json"), "utf8"));
 function activeMarkschemeImageCount(bank, raw) {
-  const repair = scienceAnswerRepairs[bank]?.[raw.id];
+  const written = bank === 'igcse-biology-0610' ? writtenAnswerRepairs[raw.id] : null;
+  const repair = written ?? scienceAnswerRepairs[bank]?.[raw.id];
   if (!repair) return null;
-  if (JSON.stringify(strings(raw.markschemeImages)) !== JSON.stringify(repair.oldPaths) || repair.newPaths.length !== 1) {
+  if (JSON.stringify(strings(raw.markschemeImages)) !== JSON.stringify(repair.oldPaths) ||
+      (written ? repair.newPaths.length < 1 : repair.newPaths.length !== 1)) {
     throw new Error(`Reviewed answer count disagrees with ${bank}:${raw.id}`);
   }
   return repair.newPaths.length;
