@@ -6,9 +6,11 @@ const { createClient, verifyOtp, getUser } = vi.hoisted(() => ({
   verifyOtp: vi.fn(),
   getUser: vi.fn(),
 }));
+const { captureConversionOutcome } = vi.hoisted(() => ({ captureConversionOutcome: vi.fn().mockResolvedValue(undefined) }));
 
 vi.mock("@/lib/supabase/server", () => ({ createClient }));
 vi.mock("@/lib/referral-account", () => ({ bindReferralToAuthenticatedUser: vi.fn() }));
+vi.mock("@/lib/server-conversion-analytics", () => ({ captureConversionOutcome }));
 
 import { GET } from "./route";
 
@@ -35,11 +37,21 @@ describe("GET /auth/confirm", () => {
   });
 
   it("verifies first-time signup tokens and preserves a safe pricing path", async () => {
+    getUser.mockResolvedValue({ data: { user: { id: "user-123", created_at: "2026-01-01T00:00:00Z" } } });
     const next = encodeURIComponent("/pricing?interval=monthly&product=single");
     const response = await GET(request(`token_hash=${tokenHash}&type=signup&next=${next}`));
 
     expect(verifyOtp).toHaveBeenCalledWith({ type: "signup", token_hash: tokenHash });
     expect(response.headers.get("location")).toBe("https://pastpaperprep.com/pricing?interval=monthly&product=single");
+    expect(captureConversionOutcome).toHaveBeenCalledWith({ outcome: "signup_confirmed", eventKey: "signup:user-123" });
+  });
+
+  it("does not count regular email confirmation or failed signup verification as a signup", async () => {
+    getUser.mockResolvedValue({ data: { user: { id: "user-123", created_at: "2026-01-01T00:00:00Z" } } });
+    await GET(request(`token_hash=${tokenHash}&type=email`));
+    verifyOtp.mockResolvedValueOnce({ error: new Error("invalid token") });
+    await GET(request(`token_hash=${tokenHash}&type=signup`));
+    expect(captureConversionOutcome).not.toHaveBeenCalled();
   });
 
   it("pins recovery tokens to the password page", async () => {

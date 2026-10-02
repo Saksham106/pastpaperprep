@@ -1,17 +1,19 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-const { redirect, createClient, bindReferral, cookies } = vi.hoisted(() => ({
+const { redirect, createClient, bindReferral, captureConversionOutcome, cookies } = vi.hoisted(() => ({
   redirect: vi.fn(() => {
     throw new Error("NEXT_REDIRECT");
   }),
   createClient: vi.fn(),
   bindReferral: vi.fn().mockResolvedValue(false),
+  captureConversionOutcome: vi.fn().mockResolvedValue(undefined),
   cookies: vi.fn(async () => ({ get: () => ({ value: "signed-referral" }) })),
 }));
 
 vi.mock("next/navigation", () => ({ redirect }));
 vi.mock("next/headers", () => ({ cookies }));
 vi.mock("@/lib/referral-account", () => ({ bindReferralToAuthenticatedUser: bindReferral }));
+vi.mock("@/lib/server-conversion-analytics", () => ({ captureConversionOutcome }));
 vi.mock("@/lib/supabase/server", () => ({ createClient }));
 
 import { createAccountWithPassword, requestMagicLink, requestPasswordReset, signInWithPassword, updatePassword } from "./actions";
@@ -26,6 +28,7 @@ function form(values: Record<string, string>) {
 describe("password authentication actions", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    captureConversionOutcome.mockResolvedValue(undefined);
     vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://pastpaperprep.com");
   });
 
@@ -80,6 +83,7 @@ describe("password authentication actions", () => {
     }))).rejects.toThrow("NEXT_REDIRECT");
 
     expect(bindReferral).toHaveBeenCalledWith(user.id, user.created_at, "signed-referral");
+    expect(captureConversionOutcome).toHaveBeenCalledWith({ outcome: "signup_confirmed", eventKey: "signup:user-new" });
     expect(redirect).toHaveBeenCalledWith("/dashboard");
   });
 

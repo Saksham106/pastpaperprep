@@ -6,6 +6,7 @@ import { getStripeConfig } from "@/lib/stripe-config";
 import { buildSubscriptionSync, getSubscriptionEventReference } from "@/lib/stripe-subscriptions";
 import { verifyScheduledRenewalPayment } from "@/lib/account-schedule-invoice";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { captureConversionOutcome } from "@/lib/server-conversion-analytics";
 
 export const runtime = "nodejs";
 
@@ -31,6 +32,7 @@ export async function POST(request: Request) {
 
   let invoicePaidReference: string | null = null;
   let invoicePaidId: string | null = null;
+  let verifiedPaidRenewal = false;
   if (event.type === "invoice.paid") {
     const invoice = event.data.object as Stripe.Invoice;
     try {
@@ -41,7 +43,7 @@ export async function POST(request: Request) {
     // Most paid invoices have nothing to do with the app's scheduled editor.
     // Only its exact scheduled renewal can also reconcile bank entitlements.
     const subscriptionId = invoice.parent?.type === "subscription_details" ? invoice.parent.subscription_details?.subscription : null;
-    if (invoice.status !== "paid" || invoice.billing_reason !== "subscription_cycle" || typeof subscriptionId !== "string") {
+    if (invoice.status !== "paid" || invoice.amount_paid <= 0 || invoice.billing_reason !== "subscription_cycle" || typeof subscriptionId !== "string") {
       return NextResponse.json({ received: true });
     }
     try {
@@ -52,6 +54,7 @@ export async function POST(request: Request) {
       if (!scheduleId) return NextResponse.json({ received: true });
       const schedule = await stripe.subscriptionSchedules.retrieve(scheduleId, {}, { timeout: 60_000 });
       if (schedule.metadata?.owner !== "pastpaperprep") return NextResponse.json({ received: true });
+      verifiedPaidRenewal = true;
       invoicePaidReference = subscriptionId;
       invoicePaidId = invoice.id;
     } catch {
@@ -190,6 +193,14 @@ export async function POST(request: Request) {
         ...(sync.selectedBankIds ? { p_selected_bank_ids: sync.selectedBankIds } : {}),
       });
       if (error) return NextResponse.json({ error: "Webhook processing failed" }, { status: 500 });
+      if (verifiedPaidRenewal && (syncResult === "applied" || syncResult === "duplicate")) {
+        await captureConversionOutcome({
+          outcome: "payment_renewal_paid",
+          eventKey: `stripe:${event.id}`,
+          product: sync.productId,
+          interval: sync.interval,
+        });
+      }
       if (paidSecondPhaseScheduleId) {
         if (syncResult !== "applied" && syncResult !== "duplicate") return NextResponse.json({ error: "Scheduled renewal sync is unresolved" }, { status: 503 });
         const before = currentSubscription as Stripe.Subscription;
