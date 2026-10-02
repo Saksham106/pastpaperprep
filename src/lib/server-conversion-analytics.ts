@@ -39,6 +39,8 @@ export async function captureConversionOutcome(input: ConversionInput): Promise<
     const properties: Record<string, string | boolean> = {
       outcome: input.outcome,
       $insert_id: eventUuid(`insert:${input.eventKey}`),
+      // PostHog's documented event UUID deduplication property; key by invoice ID upstream.
+      $uuid: eventUuid(`uuid:${input.eventKey}`),
       $process_person_profile: false,
     };
     if (input.product && PRODUCTS.has(input.product)) properties.product = input.product;

@@ -26,7 +26,9 @@ describe("captureConversionOutcome", () => {
     expect(sent.event).toBe("conversion_outcome");
     expect(sent.distinct_id).toMatch(/^[0-9a-f-]{36}$/);
     expect(sent.properties).toEqual(expect.objectContaining({ outcome: "payment_initial_paid", product: "bundle_all", interval: "annual", $process_person_profile: false, $insert_id: expect.any(String) }));
+    expect(sent.properties.$uuid).toMatch(/^[0-9a-f-]{36}$/);
     expect(sent.properties.$insert_id).toBe(JSON.parse(String(fetchMock.mock.calls[1][1].body)).properties.$insert_id);
+    expect(sent.properties.$uuid).toBe(JSON.parse(String(fetchMock.mock.calls[1][1].body)).properties.$uuid);
     expect(JSON.stringify(sent)).not.toMatch(/private@example|acct-secret|https:\/\/secret/);
   });
 

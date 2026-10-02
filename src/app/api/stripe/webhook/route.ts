@@ -32,7 +32,6 @@ export async function POST(request: Request) {
 
   let invoicePaidReference: string | null = null;
   let invoicePaidId: string | null = null;
-  let verifiedPaidRenewal = false;
   if (event.type === "invoice.paid") {
     const invoice = event.data.object as Stripe.Invoice;
     try {
@@ -40,10 +39,37 @@ export async function POST(request: Request) {
     } catch {
       return NextResponse.json({ error: "Referral invoice processing failed" }, { status: 500 });
     }
+    // Payment outcomes are independent of entitlement reconciliation. Only capture a
+    // positive, signature-verified paid invoice after read-only ownership/catalog checks.
+    const subscriptionId = invoice.parent?.type === "subscription_details" ? invoice.parent.subscription_details?.subscription : null;
+    if (invoice.status === "paid" && Number.isSafeInteger(invoice.amount_paid) && invoice.amount_paid > 0 &&
+      (invoice.billing_reason === "subscription_create" || invoice.billing_reason === "subscription_cycle") && typeof subscriptionId === "string") {
+      try {
+        const current = await stripe.subscriptions.retrieve(subscriptionId, {}, { timeout: 10_000 });
+        const latestInvoiceId = typeof current.latest_invoice === "string" ? current.latest_invoice : current.latest_invoice?.id;
+        const metadataProductId = current.metadata?.product_id;
+        const items = current.items.data;
+        const item = items.length === 1 ? items[0] : null;
+        const priceId = item?.price?.id;
+        const interval = item?.price?.recurring?.interval === "month" ? "monthly"
+          : item?.price?.recurring?.interval === "year" ? "annual" : null;
+        if (latestInvoiceId === invoice.id && typeof metadataProductId === "string" && typeof priceId === "string" && interval) {
+          const { data: rows, error } = await createAdminClient().rpc("get_checkout_price_catalog", { p_price_id: priceId });
+          const matches = !error && Array.isArray(rows) ? rows.filter((row) => row.price_id === priceId && row.product_id === metadataProductId && row.billing_interval === interval && (row.active === true || row.grandfathered === true)) : [];
+          if (matches.length === 1) await captureConversionOutcome({
+            outcome: invoice.billing_reason === "subscription_create" ? "payment_initial_paid" : "payment_renewal_paid",
+            eventKey: `stripe:invoice:${invoice.id}`,
+            product: metadataProductId,
+            interval,
+          });
+        }
+      } catch {
+        // Lookup/analytics failure must never affect invoice or entitlement processing.
+      }
+    }
     // Most paid invoices have nothing to do with the app's scheduled editor.
     // Only its exact scheduled renewal can also reconcile bank entitlements.
-    const subscriptionId = invoice.parent?.type === "subscription_details" ? invoice.parent.subscription_details?.subscription : null;
-    if (invoice.status !== "paid" || invoice.amount_paid <= 0 || invoice.billing_reason !== "subscription_cycle" || typeof subscriptionId !== "string") {
+    if (invoice.status !== "paid" || invoice.billing_reason !== "subscription_cycle" || typeof subscriptionId !== "string") {
       return NextResponse.json({ received: true });
     }
     try {
@@ -54,7 +80,6 @@ export async function POST(request: Request) {
       if (!scheduleId) return NextResponse.json({ received: true });
       const schedule = await stripe.subscriptionSchedules.retrieve(scheduleId, {}, { timeout: 60_000 });
       if (schedule.metadata?.owner !== "pastpaperprep") return NextResponse.json({ received: true });
-      verifiedPaidRenewal = true;
       invoicePaidReference = subscriptionId;
       invoicePaidId = invoice.id;
     } catch {
@@ -193,14 +218,6 @@ export async function POST(request: Request) {
         ...(sync.selectedBankIds ? { p_selected_bank_ids: sync.selectedBankIds } : {}),
       });
       if (error) return NextResponse.json({ error: "Webhook processing failed" }, { status: 500 });
-      if (verifiedPaidRenewal && (syncResult === "applied" || syncResult === "duplicate")) {
-        await captureConversionOutcome({
-          outcome: "payment_renewal_paid",
-          eventKey: `stripe:${event.id}`,
-          product: sync.productId,
-          interval: sync.interval,
-        });
-      }
       if (paidSecondPhaseScheduleId) {
         if (syncResult !== "applied" && syncResult !== "duplicate") return NextResponse.json({ error: "Scheduled renewal sync is unresolved" }, { status: 503 });
         const before = currentSubscription as Stripe.Subscription;
