@@ -93,6 +93,28 @@ describe("PostHog product analytics", () => {
     expect(JSON.stringify(posthog.capture.mock.calls)).not.toContain("secret");
   });
 
+  it("removes query strings and auth fragments before events leave the browser", async () => {
+    const { sanitizeAnalyticsEvent } = await import("@/lib/product-analytics");
+    const result = sanitizeAnalyticsEvent({ event: "$pageview", properties: {
+      $current_url: "https://pastpaperprep.com/auth/email-link?token_hash=private#access_token=private",
+      $referrer: "https://pastpaperprep.com/login?email=person@example.com",
+      bankCount: 3,
+    } });
+    expect(result?.properties).toEqual({
+      $current_url: "https://pastpaperprep.com/auth/email-link",
+      $referrer: "https://pastpaperprep.com/login",
+      bankCount: 3,
+    });
+  });
+
+  it("drops invalid analytics URLs and arbitrary error names", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    const { sanitizeAnalyticsEvent, captureBrowserError } = await import("@/lib/product-analytics");
+    expect(sanitizeAnalyticsEvent({ properties: { $current_url: "javascript:private", count: 2 } })?.properties).toEqual({ count: 2 });
+    captureBrowserError({ name: "PrivateCustomerNameError", filename: "https://example.test/alice.email.js?token=private" });
+    await vi.waitFor(() => expect(posthog.capture).toHaveBeenCalledWith("browser_error", { category: "UnhandledError", frame: "" }));
+  });
+
   it("never identifies users in always-cookieless mode", async () => {
     vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
     const { initializeProductAnalytics } = await import("@/lib/product-analytics");

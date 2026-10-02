@@ -31,6 +31,7 @@ function loadClient() {
           advanced_disable_flags: false,
           advanced_disable_feature_flags: true,
           capture_exceptions: false,
+          before_send: sanitizeAnalyticsEvent,
         });
         initialized = true;
       }
@@ -41,14 +42,32 @@ function loadClient() {
   return clientPromise;
 }
 
+const ERROR_CATEGORIES = new Set(["Error", "TypeError", "ReferenceError", "RangeError", "SyntaxError", "URIError", "EvalError", "AggregateError", "AbortError", "NetworkError", "SecurityError", "NotAllowedError", "NotFoundError"]);
+
+export function sanitizeAnalyticsEvent<T extends { properties?: Record<string, unknown> }>(event: T | null): T | null {
+  if (!event?.properties) return event;
+  const properties = { ...event.properties };
+  for (const key of Object.keys(properties)) {
+    if (!/(?:url|href|referrer)$/i.test(key) || typeof properties[key] !== "string") continue;
+    try {
+      const url = new URL(properties[key] as string);
+      if (url.protocol !== "https:" && url.protocol !== "http:") throw new Error("Unsupported analytics URL");
+      properties[key] = `${url.origin}${url.pathname}`;
+    } catch {
+      delete properties[key];
+    }
+  }
+  return { ...event, properties };
+}
+
 export function captureBrowserError(error: { name?: unknown; filename?: unknown; lineno?: unknown; colno?: unknown }) {
-  const category = typeof error.name === "string" && /^[A-Za-z]{1,40}Error$/.test(error.name) ? error.name : "UnhandledError";
+  const category = typeof error.name === "string" && ERROR_CATEGORIES.has(error.name) ? error.name : "UnhandledError";
   let frame = "";
   if (typeof error.filename === "string") {
     try {
       const url = new URL(error.filename);
       const basename = url.pathname.split("/").filter(Boolean).pop() ?? "";
-      if (basename.endsWith(".js") || basename.endsWith(".mjs") || basename.endsWith(".cjs")) {
+      if (/^[A-Za-z0-9_-]{1,100}\.(?:js|mjs|cjs)$/.test(basename)) {
         frame = basename;
         if (typeof error.lineno === "number" && Number.isFinite(error.lineno)) {
           frame += `:${Math.trunc(error.lineno)}`;
