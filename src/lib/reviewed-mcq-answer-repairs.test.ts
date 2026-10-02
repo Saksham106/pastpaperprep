@@ -18,15 +18,18 @@ describe('source-verified MCQ answer crop repair projection', () => {
     expect(q.markschemeAssetPaths).toEqual(entry.newPaths.map(path=>'igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/'+path));
     expect(JSON.stringify(raw)).toBe(before);
   });
-  it('preserves all unrelated metadata and exactly 4913 question IDs; only 99 answer path lists change', () => {
+  it('preserves 4913 IDs and the exact 99 MCQ repairs alongside reviewed written repairs', () => {
     const before=normalizeBankQuestions('igcse-biology-0610',runtime.questions as Array<Record<string,unknown>>,{economicsAssetMode:'private'});
     const after=normalizeBankQuestions('igcse-biology-0610',runtime.questions as Array<Record<string,unknown>>,{economicsAssetMode:'private',applyReviewedBlankPages:true});
     expect(after.map(q=>q.id)).toEqual(before.map(q=>q.id));
     expect(after).toHaveLength(4913);
     const changed=after.filter((q,i)=>JSON.stringify(q.markschemeAssetPaths)!==JSON.stringify(before[i].markschemeAssetPaths));
-    expect(changed.map(q=>q.id).sort()).toEqual(Object.keys(repairs.entries).sort());
-    expect(changed).toHaveLength(99);
-    const ignored=new Set(['markschemeImages','markschemeAssetPaths','questionImages','questionAssetPaths','questionImageCount']);
+    const writtenIds=Object.keys(JSON.parse(readFileSync('src/data/reviewed-biology-written-answer-repairs.json','utf8')));
+    expect(changed.map(q=>q.id).sort()).toEqual([...Object.keys(repairs.entries),...writtenIds].sort());
+    const mcqChanged=changed.filter(q=>Object.hasOwn(repairs.entries,q.id));
+    expect(mcqChanged).toHaveLength(99);
+    expect(changed).toHaveLength(Object.keys(repairs.entries).length+writtenIds.length);
+    const ignored=new Set(['markschemeImages','markschemeAssetPaths','markschemeImageCount','questionImages','questionAssetPaths','questionImageCount']);
     const stable=(q: typeof after[number])=>Object.fromEntries(Object.entries(q).filter(([key])=>!ignored.has(key)));
     for(let i=0;i<after.length;i++) expect(stable(after[i])).toEqual(stable(before[i]));
   });
