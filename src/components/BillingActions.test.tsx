@@ -39,6 +39,16 @@ describe("CheckoutButtons", () => {
     expect(navigate).toHaveBeenCalledWith("https://checkout.stripe.com/c/pay/monthly");
   });
 
+  it("captures only bounded response status and category for checkout failures", async () => {
+    fetchMock.mockResolvedValue({ ok: false, status: 503, json: async () => ({ error: "private detail should not be sent" }) });
+    render(<CheckoutButton interval="monthly" productId="bank_ib_hl" />);
+    fireEvent.click(screen.getByRole("button", { name: /choose monthly/i }));
+    await waitFor(() => expect(analytics.trackProductEvent).toHaveBeenCalledWith("checkout_error", {
+      interval: "monthly", productId: "bank_ib_hl", status: 503, errorCategory: "server_error",
+    }));
+    expect(JSON.stringify(analytics.trackProductEvent.mock.calls)).not.toContain("private detail");
+  });
+
   it("sends selected canonical bank IDs for a custom bundle", async () => {
     fetchMock.mockResolvedValue({ ok: true, json: async () => ({ url: "https://checkout.stripe.com/c/pay/custom" }) });
     const navigate = vi.fn();

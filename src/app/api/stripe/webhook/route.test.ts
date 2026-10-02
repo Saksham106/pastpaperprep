@@ -8,7 +8,7 @@ const releaseSchedule = vi.fn();
 const retrieveInvoice = vi.fn();
 const listInvoicePayments = vi.fn();
 const rpc = vi.fn();
-const { processReferralInvoicePaid, processReferralChargeRefunded, processReferralDisputeChanged } = vi.hoisted(() => ({ processReferralInvoicePaid: vi.fn(), processReferralChargeRefunded: vi.fn(), processReferralDisputeChanged: vi.fn() }));
+const { processReferralInvoicePaid, processReferralChargeRefunded, processReferralDisputeChanged, captureConversionOutcome } = vi.hoisted(() => ({ processReferralInvoicePaid: vi.fn(), processReferralChargeRefunded: vi.fn(), processReferralDisputeChanged: vi.fn(), captureConversionOutcome: vi.fn().mockResolvedValue(undefined) }));
 vi.mock("@/lib/referral-events", () => ({ processReferralInvoicePaid, processReferralChargeRefunded, processReferralDisputeChanged }));
 
 vi.mock("@/lib/stripe", () => ({
@@ -40,6 +40,7 @@ vi.mock("@/lib/stripe-config", async (importOriginal) => {
 vi.mock("@/lib/supabase/admin", () => ({
   createAdminClient: vi.fn(() => ({ rpc })),
 }));
+vi.mock("@/lib/server-conversion-analytics", () => ({ captureConversionOutcome }));
 
 import { POST } from "@/app/api/stripe/webhook/route";
 
@@ -75,7 +76,7 @@ function scheduledRenewal(status: "draft" | "paid" = "draft") {
       { start_date: 1_799_000_000, end_date: 1_801_000_000, metadata: { user_id: userId, product_id: "bundle_all" }, items: [{ price: "price_monthly", quantity: 1 }] },
     ],
   };
-  const invoice = { id: "in_renew", status, customer: "cus_1", billing_reason: "subscription_cycle", collection_method: "charge_automatically", amount_due: 2500, amount_paid: status === "paid" ? 2500 : 0,
+  const invoice = { id: "in_renew", created: 1_800_000_000, status, customer: "cus_1", billing_reason: "subscription_cycle", collection_method: "charge_automatically", amount_due: 2500, amount_paid: status === "paid" ? 2500 : 0,
     parent: { type: "subscription_details", subscription_details: { subscription: "sub_1" } },
     lines: { has_more: false, data: [{ period: { start: 1_799_000_000, end: 1_801_000_000 }, parent: { type: "subscription_item_details", subscription_item_details: { subscription: "sub_1", proration: false } } }] },
   };
@@ -100,6 +101,7 @@ describe("POST /api/stripe/webhook", () => {
     processReferralInvoicePaid.mockReset().mockResolvedValue(undefined);
     processReferralChargeRefunded.mockReset().mockResolvedValue(undefined);
     processReferralDisputeChanged.mockReset().mockResolvedValue(undefined);
+    captureConversionOutcome.mockReset().mockResolvedValue(undefined);
     retrieveSubscription.mockResolvedValue(subscriptionEvent.data.object);
     rpc.mockImplementation(async (name: string, args?: { p_price_id?: string }) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : name === "get_checkout_price_catalog" ? [{ price_id: args?.p_price_id, product_id: args?.p_price_id?.includes("custom") ? "bundle_custom" : "bundle_all", billing_interval: args?.p_price_id?.includes("annual") ? "annual" : "monthly", active: true, grandfathered: false }] : "applied", error: null }));
   });
@@ -220,7 +222,7 @@ describe("POST /api/stripe/webhook", () => {
     expect(rpc).not.toHaveBeenCalled();
   });
 
-  it("records a signed first paid invoice without confusing it with entitlement sync", async () => {
+  it("preserves referral processing without asserting an incomplete invoice is paid", async () => {
     const event = { id: "evt_invoice", type: "invoice.paid", data: { object: { id: "in_first", billing_reason: "subscription_create" } } };
     constructEvent.mockReturnValue(event);
     processReferralInvoicePaid.mockResolvedValue(undefined);
@@ -228,6 +230,17 @@ describe("POST /api/stripe/webhook", () => {
     expect(response.status).toBe(200);
     expect(processReferralInvoicePaid).toHaveBeenCalledTimes(1);
     expect(rpc).not.toHaveBeenCalled();
+  });
+
+  it.each(["subscription_create", "subscription_cycle"])("captures a collected %s invoice without depending on a schedule", async (reason) => {
+    const invoice = { id: "in_plain", status: "paid", amount_paid: 2500, created: 1_800_000_000, billing_reason: reason,
+      parent: { type: "subscription_details", subscription_details: { subscription: "sub_1" } } };
+    retrieveSubscription.mockResolvedValue({ ...subscriptionEvent.data.object, latest_invoice: invoice.id, schedule: null });
+    constructEvent.mockReturnValue({ id: "evt_plain", created: invoice.created, type: "invoice.paid", data: { object: invoice } });
+    expect((await POST(request())).status).toBe(200);
+    expect(captureConversionOutcome).toHaveBeenCalledWith({ outcome: reason === "subscription_create" ? "payment_initial_paid" : "payment_renewal_paid",
+      eventKey: "stripe:invoice:in_plain", occurredAt: new Date(invoice.created * 1000).toISOString(), product: "bundle_all", interval: "monthly" });
+    expect(rpc).not.toHaveBeenCalledWith("apply_stripe_subscription_event", expect.anything());
   });
 
   it("reconciles charge refunds through the signed Stripe event", async () => {
@@ -338,6 +351,18 @@ describe("POST /api/stripe/webhook", () => {
     expect(response.status, JSON.stringify(await response.clone().json())).toBe(200);
     expect(processReferralInvoicePaid).toHaveBeenCalledTimes(1);
     expect(rpc).toHaveBeenCalledWith("apply_stripe_subscription_event", expect.objectContaining({ p_event_id: "evt_renew_paid", p_subscription_id: "sub_1", p_product_id: "bundle_all" }));
+    expect(captureConversionOutcome).toHaveBeenCalledWith({ outcome: "payment_renewal_paid", eventKey: "stripe:invoice:in_renew", occurredAt: new Date(invoice.created * 1000).toISOString(), product: "bundle_all", interval: "monthly" });
+  });
+
+  it("does not count zero-dollar or unpaid invoices as paid conversions", async () => {
+    const { invoice } = scheduledRenewal("paid");
+    constructEvent.mockReturnValue({ id: "evt_zero", created: invoice.created, type: "invoice.paid", data: { object: { ...invoice, amount_paid: 0 } } });
+    expect((await POST(request())).status).toBe(200);
+    expect(captureConversionOutcome).not.toHaveBeenCalled();
+    expect(rpc).toHaveBeenCalledWith("apply_stripe_subscription_event", expect.objectContaining({ p_event_id: "evt_zero" }));
+    constructEvent.mockReturnValue({ id: "evt_unpaid", type: "invoice.paid", data: { object: { ...invoice, status: "open" } } });
+    expect((await POST(request())).status).toBe(200);
+    expect(captureConversionOutcome).not.toHaveBeenCalled();
   });
 
   it("detaches a paid second phase after syncing access so customers can cancel or edit again", async () => {

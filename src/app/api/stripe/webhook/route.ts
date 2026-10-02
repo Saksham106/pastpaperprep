@@ -6,6 +6,7 @@ import { getStripeConfig } from "@/lib/stripe-config";
 import { buildSubscriptionSync, getSubscriptionEventReference } from "@/lib/stripe-subscriptions";
 import { verifyScheduledRenewalPayment } from "@/lib/account-schedule-invoice";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { captureConversionOutcome } from "@/lib/server-conversion-analytics";
 
 export const runtime = "nodejs";
 
@@ -38,9 +39,38 @@ export async function POST(request: Request) {
     } catch {
       return NextResponse.json({ error: "Referral invoice processing failed" }, { status: 500 });
     }
+    // Payment outcomes are independent of entitlement reconciliation. Only capture a
+    // positive, signature-verified paid invoice after read-only ownership/catalog checks.
+    const subscriptionId = invoice.parent?.type === "subscription_details" ? invoice.parent.subscription_details?.subscription : null;
+    if (invoice.status === "paid" && Number.isSafeInteger(invoice.amount_paid) && invoice.amount_paid > 0 &&
+      (invoice.billing_reason === "subscription_create" || invoice.billing_reason === "subscription_cycle") && typeof subscriptionId === "string") {
+      try {
+        const current = await stripe.subscriptions.retrieve(subscriptionId, {}, { timeout: 10_000 });
+        const latestInvoiceId = typeof current.latest_invoice === "string" ? current.latest_invoice : current.latest_invoice?.id;
+        const metadataProductId = current.metadata?.product_id;
+        const items = current.items.data;
+        const item = items.length === 1 ? items[0] : null;
+        const priceId = item?.price?.id;
+        const interval = item?.price?.recurring?.interval === "month" ? "monthly"
+          : item?.price?.recurring?.interval === "year" ? "annual" : null;
+        if (latestInvoiceId === invoice.id && typeof metadataProductId === "string" && typeof priceId === "string" && interval) {
+          const { data: rows, error } = await createAdminClient().rpc("get_checkout_price_catalog", { p_price_id: priceId });
+          const matches = !error && Array.isArray(rows) ? rows.filter((row) => row.price_id === priceId && row.product_id === metadataProductId && row.billing_interval === interval && (row.active === true || row.grandfathered === true)) : [];
+          const paidAt = invoice.status_transitions?.paid_at ?? invoice.created;
+          if (matches.length === 1 && Number.isSafeInteger(paidAt) && paidAt > 0) await captureConversionOutcome({
+            outcome: invoice.billing_reason === "subscription_create" ? "payment_initial_paid" : "payment_renewal_paid",
+            eventKey: `stripe:invoice:${invoice.id}`,
+            occurredAt: new Date(paidAt * 1000).toISOString(),
+            product: metadataProductId,
+            interval,
+          });
+        }
+      } catch {
+        // Lookup/analytics failure must never affect invoice or entitlement processing.
+      }
+    }
     // Most paid invoices have nothing to do with the app's scheduled editor.
     // Only its exact scheduled renewal can also reconcile bank entitlements.
-    const subscriptionId = invoice.parent?.type === "subscription_details" ? invoice.parent.subscription_details?.subscription : null;
     if (invoice.status !== "paid" || invoice.billing_reason !== "subscription_cycle" || typeof subscriptionId !== "string") {
       return NextResponse.json({ received: true });
     }

@@ -4,6 +4,7 @@ import { safeNextPath } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { bindReferralToAuthenticatedUser } from "@/lib/referral-account";
 import { REFERRAL_COOKIE } from "@/lib/referral";
+import { captureConversionOutcome } from "@/lib/server-conversion-analytics";
 
 const ALLOWED_CONFIRMATION_TYPES = new Set<EmailOtpType>(["email", "signup", "recovery"]);
 
@@ -30,6 +31,11 @@ export async function GET(request: NextRequest) {
     if (type !== "recovery") {
       const { data: { user } } = await supabase.auth.getUser();
       if (user?.id && user.created_at) await bindReferralToAuthenticatedUser(user.id, user.created_at, request.cookies.get(REFERRAL_COOKIE)?.value);
+      // The one-time signup OTP is the authoritative first-confirmation boundary;
+      // ordinary sign-in/email tokens must never be counted as account creation.
+      if (type === "signup" && user?.id) {
+        await captureConversionOutcome({ outcome: "signup_confirmed", eventKey: `signup:${user.id}`, occurredAt: user.email_confirmed_at ?? user.confirmed_at ?? user.created_at });
+      }
     }
     return NextResponse.redirect(new URL(next, url.origin));
   }
