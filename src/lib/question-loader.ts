@@ -43,7 +43,7 @@ export function loadBankQuestions(slug: BankSlug): Promise<UnifiedQuestion[]> {
     : loaders[slug]())
     .then((raw) => normalizeBankQuestions(slug, raw.questions, {
       economicsAssetMode: production ? "private" : "local",
-      applyReviewedBlankPages: productionIGCSE,
+      applyReviewedBlankPages: productionIGCSE || slug === 'igcse' || slug === 'igcse-additional',
     }));
   cache.set(cacheKey, questions);
   return questions;
