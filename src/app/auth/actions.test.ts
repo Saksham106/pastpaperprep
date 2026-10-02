@@ -83,7 +83,7 @@ describe("password authentication actions", () => {
     }))).rejects.toThrow("NEXT_REDIRECT");
 
     expect(bindReferral).toHaveBeenCalledWith(user.id, user.created_at, "signed-referral");
-    expect(captureConversionOutcome).toHaveBeenCalledWith({ outcome: "signup_confirmed", eventKey: "signup:user-new" });
+    expect(captureConversionOutcome).toHaveBeenCalledWith({ outcome: "signup_confirmed", eventKey: "signup:user-new", occurredAt: user.created_at });
     expect(redirect).toHaveBeenCalledWith("/dashboard");
   });
 

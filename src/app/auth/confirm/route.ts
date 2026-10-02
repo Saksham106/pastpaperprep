@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
       // The one-time signup OTP is the authoritative first-confirmation boundary;
       // ordinary sign-in/email tokens must never be counted as account creation.
       if (type === "signup" && user?.id) {
-        await captureConversionOutcome({ outcome: "signup_confirmed", eventKey: `signup:${user.id}` });
+        await captureConversionOutcome({ outcome: "signup_confirmed", eventKey: `signup:${user.id}`, occurredAt: user.email_confirmed_at ?? user.confirmed_at ?? user.created_at });
       }
     }
     return NextResponse.redirect(new URL(next, url.origin));

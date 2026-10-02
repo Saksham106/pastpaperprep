@@ -93,7 +93,7 @@ export async function createAccountWithPassword(
   }
   if (data.session) {
     if (data.user?.id) {
-      await captureConversionOutcome({ outcome: "signup_confirmed", eventKey: `signup:${data.user.id}` });
+      await captureConversionOutcome({ outcome: "signup_confirmed", eventKey: `signup:${data.user.id}`, occurredAt: data.user.email_confirmed_at ?? data.user.confirmed_at ?? data.user.created_at });
     }
     if (data.user?.id && data.user.created_at) {
       const { bindReferralToAuthenticatedUser } = await import("@/lib/referral-account");

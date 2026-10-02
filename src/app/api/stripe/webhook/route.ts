@@ -56,9 +56,11 @@ export async function POST(request: Request) {
         if (latestInvoiceId === invoice.id && typeof metadataProductId === "string" && typeof priceId === "string" && interval) {
           const { data: rows, error } = await createAdminClient().rpc("get_checkout_price_catalog", { p_price_id: priceId });
           const matches = !error && Array.isArray(rows) ? rows.filter((row) => row.price_id === priceId && row.product_id === metadataProductId && row.billing_interval === interval && (row.active === true || row.grandfathered === true)) : [];
-          if (matches.length === 1) await captureConversionOutcome({
+          const paidAt = invoice.status_transitions?.paid_at ?? invoice.created;
+          if (matches.length === 1 && Number.isSafeInteger(paidAt) && paidAt > 0) await captureConversionOutcome({
             outcome: invoice.billing_reason === "subscription_create" ? "payment_initial_paid" : "payment_renewal_paid",
             eventKey: `stripe:invoice:${invoice.id}`,
+            occurredAt: new Date(paidAt * 1000).toISOString(),
             product: metadataProductId,
             interval,
           });

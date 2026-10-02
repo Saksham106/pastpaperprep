@@ -6,6 +6,7 @@ type ConversionInput = {
   outcome: ConversionOutcome;
   /** Stable only for this exact source event; never an account identifier. */
   eventKey: string;
+  occurredAt: string;
   product?: string | null;
   interval?: string | null;
 };
@@ -33,6 +34,8 @@ export async function captureConversionOutcome(input: ConversionInput): Promise<
   const token = process.env.POSTHOG_PROJECT_TOKEN ?? process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN;
   if (!token || input.eventKey.length < 1 || input.eventKey.length > 256) return;
   try {
+    const timestamp = new Date(input.occurredAt);
+    if (!Number.isFinite(timestamp.getTime())) return;
     const host = process.env.POSTHOG_HOST ?? process.env.NEXT_PUBLIC_POSTHOG_HOST ?? "https://us.i.posthog.com";
     const base = new URL(host);
     if (base.protocol !== "https:" || base.username || base.password || base.search || base.hash) return;
@@ -56,6 +59,8 @@ export async function captureConversionOutcome(input: ConversionInput): Promise<
           api_key: token,
           event: "conversion_outcome",
           distinct_id: eventUuid(`distinct:${input.eventKey}`),
+          uuid: eventUuid(`uuid:${input.eventKey}`),
+          timestamp: timestamp.toISOString(),
           properties,
         }),
       });
