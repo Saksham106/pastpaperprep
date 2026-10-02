@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   MAX_PDF_QUESTIONS,
   PDF_BOOK_LOGO_PATH,
+  PDF_BOOK_LOGO_SVG,
   darkenPdfPixel,
   paginatePdfText,
   pdfFooterText,
@@ -42,10 +43,10 @@ describe("questionsForPdf", () => {
     expect(pdfPageLabel(2, 7)).toBe("Page 2 of 7");
   });
 
-  it("uses the same open-book mark as the website instead of a placeholder letter", () => {
-    expect(PDF_BOOK_LOGO_PATH).toContain("M232,48H160");
-    expect(PDF_BOOK_LOGO_PATH).not.toContain("PastPaperPrep");
+  it("sets intrinsic SVG dimensions so the book mark is not rasterized with the browser's 2:1 default size", () => {
+    expect(PDF_BOOK_LOGO_SVG).toContain('width="256" height="256" viewBox="0 0 256 256"');
   });
+
 
   it("lists every fit-to-page exception by exact question and image", () => {
     expect(pdfHeldNotice([
