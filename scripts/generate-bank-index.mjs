@@ -4,6 +4,7 @@ import { gzipSync } from "node:zlib";
 import { mkdir, readdir, readFile, unlink, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { verified0580RetrievalAdditions } from '../src/lib/igcse-0580-source-retrieval.mjs';
 import { project0606Topics } from "../src/lib/igcse-0606-official.mjs";
 import { project0455Sections } from "../src/lib/igcse-0455-official.mjs";
 import { project0610Sections } from "../src/lib/igcse-0610-official.mjs";
@@ -96,6 +97,7 @@ function integer(value) {
 
 /** @param {any} raw @param {{bank?: string, normalizedProduction?: boolean, localEconomics?: boolean}} options */
 export function metadataFromRaw(raw, { bank, normalizedProduction = false, localEconomics = false } = {}) {
+  const sourceAddition = bank === 'igcse' ? verified0580RetrievalAdditions(raw) : null;
   const officialMarkscheme = raw.officialMarkscheme && typeof raw.officialMarkscheme === "object"
     ? raw.officialMarkscheme
     : {};
@@ -130,6 +132,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
         ? detailedSubtopics
         : controlledSkills,
   )];
+  for (const label of sourceAddition?.subtopics ?? []) if (!subtopics.includes(label)) subtopics.push(label);
   const skillSeed = controlledSkills.length
     ? controlledSkills
     : detailedSubtopics.length
@@ -163,7 +166,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     year: integer(raw.year),
     session: typeof raw.session === "string" ? raw.session : "",
     primaryTopic: chemistry0620 ? chemistry0620.primaryTopic : physics0625 ? physics0625.primaryTopic : coordinated ? coordinated.primaryTopic : official0610 ? projected0610.primaryTopic : biology ? biologyPrimaryTopic(biology, raw) : aa ? aa.primaryTopic : additional ? additional.primaryTopic : (typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other"),
-    secondaryTopics: chemistry0620 ? chemistry0620.secondaryTopics : physics0625 ? physics0625.secondaryTopics : coordinated ? coordinated.secondaryTopics : official0610 ? projected0610.secondaryTopics : biology ? [...new Set(biology.secondary.map((group) => group.parentTopic))] : aa ? aa.secondaryTopics : additional ? additional.secondaryTopics : strings(raw.secondaryTopics),
+    secondaryTopics: sourceAddition ? [...new Set([...strings(raw.secondaryTopics), ...sourceAddition.secondaryTopics])] : chemistry0620 ? chemistry0620.secondaryTopics : physics0625 ? physics0625.secondaryTopics : coordinated ? coordinated.secondaryTopics : official0610 ? projected0610.secondaryTopics : biology ? [...new Set(biology.secondary.map((group) => group.parentTopic))] : aa ? aa.secondaryTopics : additional ? additional.secondaryTopics : strings(raw.secondaryTopics),
     skills,
     subtopics,
     granularLabels: aa || biology ? [] : granularByKey.get(`${overlayBank}:${raw.id}`) ?? [],

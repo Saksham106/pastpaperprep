@@ -1,0 +1,69 @@
+{
+  "baseline_sha": "a64469825c2554794a0e0e66a63c4101e9d963fc",
+  "inventory": 3967,
+  "preserved_legacy_combined": 178,
+  "combined_after": 180,
+  "global_legacy_subtopic_options": 51,
+  "numbered_student_projections_enabled": false,
+  "changed_records": [
+    {
+      "id": "0580-2025-november-22-q17",
+      "fields": [
+        "secondaryTopics",
+        "skills",
+        "subtopics"
+      ]
+    },
+    {
+      "id": "0580-2025-march-22-q18",
+      "fields": [
+        "secondaryTopics",
+        "skills",
+        "subtopics"
+      ]
+    }
+  ],
+  "unchanged_other_banks": [
+    "ib-chemistry-sl",
+    "ib-ai-hl",
+    "ib-physics-sl",
+    "ib-biology-sl",
+    "igcse-physics-0625",
+    "igcse-chemistry-0620",
+    "igcse-coordinated-sciences-0654",
+    "igcse-additional",
+    "ib-economics-sl",
+    "ib-ai-sl",
+    "igcse-economics-0455",
+    "ib-physics-hl",
+    "igcse-biology-0610",
+    "ib-chemistry-hl",
+    "ib-sl",
+    "ib-economics-hl",
+    "ib-biology-hl",
+    "ib-hl"
+  ],
+  "candidate_tests_passed": 1223,
+  "shared_baseline_failures": [
+    [
+      "ux-polish-style-contract.test.ts",
+      "mobile question explorer keeps two rows with a wider Filters control gives filters the wide column and sort only the icon pair"
+    ],
+    [
+      "ux-polish-style-contract.test.ts",
+      "mobile question explorer keeps two rows with a wider Filters control keeps two rows on the unboxed toolbar with no padded card"
+    ]
+  ],
+  "new_failures": 0,
+  "scope": "Two source-confirmed additive legacy retrieval links, not whole-bank recall closure.",
+  "runtime_changed_fields": [
+    "secondaryTopics",
+    "skills",
+    "subtopics",
+    "searchText"
+  ],
+  "search_text_note": "Existing derived searchText intentionally incorporates added topic/subtopic/skill labels. No aliases field exists or is added to runtime/public records.",
+  "skills_note": "Legacy normalization already mirrors each subtopic in skills; preserving this existing union is intentional and verified against independently executed pristine runtime evidence.",
+  "test_execution_note": "One-worker full differential plus focused science authorization shard. Default high parallelism caused a5second chemical authorization cold-load timeout; unchanged test passes in both candidate and pristine at matched one-worker concurrency.",
+  "rebase_note": "Preserves independently released Biology written-answer repairs; all18othercurrent indexes byte-identical."
+}

@@ -12,7 +12,8 @@ test('0580 student retrieval uses the preserved complete legacy split while numb
  expect(labels).toContain('Indices and surds');
  expect(labels).not.toContain('1.18 Surds');
  expect(labels.some(label=>/^\d+\.\d+\s/.test(label))).toBe(false);
- expect(filterQuestions(qs,{subtopics:['Indices and surds']})).toHaveLength(178);
+ // The 178 restored legacy IDs remain; two source-confirmed geometric surds are additive descendants.
+ expect(filterQuestions(qs,{subtopics:['Indices and surds']})).toHaveLength(180);
  expect(qs.flatMap(displayedQuestionSubtopics).some(label=>/^\d+\.\d+\s/.test(label))).toBe(false);
 });
 test('0606 preserves original subtopic filters while experimental numbered assignments stay offline',()=>{
