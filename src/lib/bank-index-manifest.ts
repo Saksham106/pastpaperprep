@@ -4,7 +4,7 @@ export const PUBLIC_BANK_INDEX_FILES = {
   "igcse-additional": "igcse-additional.v1-657d649b28a1.json",
   "ib-hl": "ib-hl.v1-3b880b4a1a90.json",
   "ib-sl": "ib-sl.v1-6a5335f87a2e.json",
-  "ib-ai-hl": "ib-ai-hl.v1-d4d5ac52e17c.json",
+  "ib-ai-hl": "ib-ai-hl.v1-0b03ffce308d.json",
   "ib-ai-sl": "ib-ai-sl.v1-f7e5111e17f0.json",
   "ib-chemistry-hl": "ib-chemistry-hl.v1-9fe83285a847.json",
   "ib-chemistry-sl": "ib-chemistry-sl.v1-60a1943e3576.json",

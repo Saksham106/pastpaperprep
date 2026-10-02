@@ -19,7 +19,8 @@ export const EXPECTED_ASSET_COUNTS = {
   "igcse-additional": { preview: 956, premium: 2310, all: 3266 },
   "ib-hl": { preview: 314, premium: 2708, all: 3022 },
   "ib-sl": { preview: 147, premium: 1316, all: 1463 },
-  "ib-ai-hl": { preview: 236, premium: 1117, all: 1353 },
+  // Reviewed Q12 foreign-only tail retired; Q13 immutable restoration is a one-for-one replacement.
+  "ib-ai-hl": { preview: 236, premium: 1116, all: 1352 },
   "ib-ai-sl": { preview: 155, premium: 847, all: 1002 },
   "ib-chemistry-hl": { preview: 232, premium: 5396, all: 5628 },
   "ib-chemistry-sl": { preview: 159, premium: 3877, all: 4036 },
