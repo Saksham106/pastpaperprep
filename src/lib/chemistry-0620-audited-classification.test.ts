@@ -97,10 +97,17 @@ describe("Chemistry 0620 audited base classification production overlay", () => 
     expect(runtime.publicationStatus).toBe("production");
     expect(runtime.assetVerification).toBe("verified_readback");
     expect(runtime.version).toBe("igcse-chemistry-0620-release-candidate-v4-taxonomy-projected");
-    // The finalized source seal is unchanged; the official-topic index also
-    // omits exactly the 269 reviewed blank QP pages.
+    // Reconstruct the prior immutable index by undoing answer-image counts only;
+    // classification, reviewed blank QP exclusions and the finalized source seal stay intact.
+    const activeIndexPath = `public/bank-index/${PUBLIC_BANK_INDEX_FILES["igcse-chemistry-0620"]}`;
+    const activeIndex = read(activeIndexPath);
+    const oldCounts = new Map<string, number>(runtime.questions.map((row: { id: string; markschemeImages: string[]; officialMarkscheme?: { images?: string[] } }) =>
+      [row.id, row.officialMarkscheme?.images?.length || row.markschemeImages.length]));
+    const historicalIndex = { ...activeIndex, questions: activeIndex.questions.map((row: { id: string; markschemeImageCount: number }) =>
+      ({ ...row, markschemeImageCount: oldCounts.get(row.id) })) };
+    expect(sha256(Buffer.from(`${JSON.stringify(historicalIndex)}\n`)).slice(0, 12)).toBe("90ba51dd0b85");
     expect(PUBLIC_BANK_INDEX_FILES["igcse-chemistry-0620"]).toBe(
-      "igcse-chemistry-0620.v1-90ba51dd0b85.json",
+      `igcse-chemistry-0620.v1-${sha256(readBytes(activeIndexPath)).slice(0, 12)}.json`,
     );
     expect(runtime.runtimeArtifact.chemistryOtherRetrievalRepair.changedCount).toBe(30);
     expect(runtime.runtimeArtifact.chemistryMarksRepair).toMatchObject({changedCount:89,filledNullCount:73,correctedNonNullCount:16,excludedQuestionId:"0620-2026-m-32-q3"});
