@@ -38,7 +38,7 @@ vi.mock("@/lib/stripe-config", async (importOriginal) => {
   }) };
 });
 vi.mock("@/lib/supabase/admin", () => ({
-  createAdminClient: vi.fn(() => ({ rpc })),
+  createAdminClient: vi.fn(() => ({ rpc, from: () => ({ select: () => ({ eq: () => ({ maybeSingle: async () => ({ data: { user_id: userId }, error: null }) }) }) }) })),
 }));
 vi.mock("@/lib/server-conversion-analytics", () => ({ captureConversionOutcome }));
 
@@ -103,7 +103,7 @@ describe("POST /api/stripe/webhook", () => {
     processReferralDisputeChanged.mockReset().mockResolvedValue(undefined);
     captureConversionOutcome.mockReset().mockResolvedValue(undefined);
     retrieveSubscription.mockResolvedValue(subscriptionEvent.data.object);
-    rpc.mockImplementation(async (name: string, args?: { p_price_id?: string }) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : name === "get_checkout_price_catalog" ? [{ price_id: args?.p_price_id, product_id: args?.p_price_id?.includes("custom") ? "bundle_custom" : "bundle_all", billing_interval: args?.p_price_id?.includes("annual") ? "annual" : "monthly", active: true, grandfathered: false }] : "applied", error: null }));
+    rpc.mockImplementation(async (name: string, args?: { p_price_id?: string }) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : name === "get_stripe_customer_id" ? "cus_1" : name === "get_checkout_price_catalog" ? [{ price_id: args?.p_price_id, product_id: args?.p_price_id?.includes("custom") ? "bundle_custom" : "bundle_all", billing_interval: args?.p_price_id?.includes("annual") ? "annual" : "monthly", active: true, grandfathered: false }] : "applied", error: null }));
   });
 
   it("rejects invalid signatures without mutating entitlement state", async () => {
@@ -115,7 +115,7 @@ describe("POST /api/stripe/webhook", () => {
 
   it("looks up the actual price in the service catalog before applying", async () => {
     constructEvent.mockReturnValue(subscriptionEvent);
-    rpc.mockImplementation(async (name: string, args?: { p_price_id?: string }) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : name === "get_checkout_price_catalog" ? [{ price_id: args?.p_price_id, product_id: "bundle_all", billing_interval: "monthly", active: false, grandfathered: true }, { price_id: args?.p_price_id, product_id: "bank_ib_hl", billing_interval: "monthly", active: true, grandfathered: false }] : "applied", error: null }));
+    rpc.mockImplementation(async (name: string, args?: { p_price_id?: string }) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : name === "get_stripe_customer_id" ? "cus_1" : name === "get_checkout_price_catalog" ? [{ price_id: args?.p_price_id, product_id: "bundle_all", billing_interval: "monthly", active: false, grandfathered: true }, { price_id: args?.p_price_id, product_id: "bank_ib_hl", billing_interval: "monthly", active: true, grandfathered: false }] : "applied", error: null }));
     const response = await POST(request());
     expect(response.status).toBe(200);
     expect(rpc).toHaveBeenCalledWith("get_checkout_price_catalog", { p_price_id: "price_monthly" });
@@ -125,7 +125,7 @@ describe("POST /api/stripe/webhook", () => {
     constructEvent.mockReturnValue(subscriptionEvent);
     rpc.mockImplementation(async (name: string, args?: { p_price_id?: string }) => ({
       data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true
-        : name === "get_checkout_price_catalog" ? [{ price_id: args?.p_price_id, product_id: "bundle_custom", billing_interval: "monthly", active: false, grandfathered: true }]
+        : name === "get_stripe_customer_id" ? "cus_1" : name === "get_checkout_price_catalog" ? [{ price_id: args?.p_price_id, product_id: "bundle_custom", billing_interval: "monthly", active: false, grandfathered: true }]
           : "revoked",
       error: null,
     }));
@@ -137,7 +137,7 @@ describe("POST /api/stripe/webhook", () => {
 
   it("applies a verified subscription through the order-safe database RPC", async () => {
     constructEvent.mockReturnValue(subscriptionEvent);
-    rpc.mockImplementation(async (name: string, args?: { p_price_id?: string }) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : name === "get_checkout_price_catalog" ? [{ price_id: args?.p_price_id, product_id: args?.p_price_id?.includes("custom") ? "bundle_custom" : "bundle_all", billing_interval: args?.p_price_id?.includes("annual") ? "annual" : "monthly", active: true, grandfathered: false }] : "applied", error: null }));
+    rpc.mockImplementation(async (name: string, args?: { p_price_id?: string }) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : name === "get_stripe_customer_id" ? "cus_1" : name === "get_checkout_price_catalog" ? [{ price_id: args?.p_price_id, product_id: args?.p_price_id?.includes("custom") ? "bundle_custom" : "bundle_all", billing_interval: args?.p_price_id?.includes("annual") ? "annual" : "monthly", active: true, grandfathered: false }] : "applied", error: null }));
 
     const response = await POST(request());
     expect(response.status).toBe(200);
@@ -164,7 +164,7 @@ describe("POST /api/stripe/webhook", () => {
     customEvent.data.object.items.data[0].quantity = 2;
     constructEvent.mockReturnValue(customEvent);
     retrieveSubscription.mockResolvedValue(customEvent.data.object);
-    rpc.mockImplementation(async (name: string, args?: { p_price_id?: string }) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : name === "get_checkout_price_catalog" ? [{ price_id: args?.p_price_id, product_id: args?.p_price_id?.includes("custom") ? "bundle_custom" : "bundle_all", billing_interval: args?.p_price_id?.includes("annual") ? "annual" : "monthly", active: true, grandfathered: false }] : "applied", error: null }));
+    rpc.mockImplementation(async (name: string, args?: { p_price_id?: string }) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : name === "get_stripe_customer_id" ? "cus_1" : name === "get_checkout_price_catalog" ? [{ price_id: args?.p_price_id, product_id: args?.p_price_id?.includes("custom") ? "bundle_custom" : "bundle_all", billing_interval: args?.p_price_id?.includes("annual") ? "annual" : "monthly", active: true, grandfathered: false }] : "applied", error: null }));
 
     const response = await POST(request());
 
@@ -186,7 +186,7 @@ describe("POST /api/stripe/webhook", () => {
       ...subscriptionEvent.data.object,
       status: "canceled",
     });
-    rpc.mockImplementation(async (name: string, args?: { p_price_id?: string }) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : name === "get_checkout_price_catalog" ? [{ price_id: args?.p_price_id, product_id: args?.p_price_id?.includes("custom") ? "bundle_custom" : "bundle_all", billing_interval: args?.p_price_id?.includes("annual") ? "annual" : "monthly", active: true, grandfathered: false }] : "applied", error: null }));
+    rpc.mockImplementation(async (name: string, args?: { p_price_id?: string }) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : name === "get_stripe_customer_id" ? "cus_1" : name === "get_checkout_price_catalog" ? [{ price_id: args?.p_price_id, product_id: args?.p_price_id?.includes("custom") ? "bundle_custom" : "bundle_all", billing_interval: args?.p_price_id?.includes("annual") ? "annual" : "monthly", active: true, grandfathered: false }] : "applied", error: null }));
 
     const response = await POST(request());
     expect(response.status).toBe(200);
@@ -233,13 +233,13 @@ describe("POST /api/stripe/webhook", () => {
   });
 
   it.each(["subscription_create", "subscription_cycle"])("captures a collected %s invoice without depending on a schedule", async (reason) => {
-    const invoice = { id: "in_plain", status: "paid", amount_paid: 2500, created: 1_800_000_000, billing_reason: reason,
+    const invoice = { id: "in_plain", status: "paid", amount_paid: 2500, created: 1_800_000_000, customer: "cus_1", billing_reason: reason,
       parent: { type: "subscription_details", subscription_details: { subscription: "sub_1" } } };
     retrieveSubscription.mockResolvedValue({ ...subscriptionEvent.data.object, latest_invoice: invoice.id, schedule: null });
     constructEvent.mockReturnValue({ id: "evt_plain", created: invoice.created, type: "invoice.paid", data: { object: invoice } });
     expect((await POST(request())).status).toBe(200);
     expect(captureConversionOutcome).toHaveBeenCalledWith({ outcome: reason === "subscription_create" ? "payment_initial_paid" : "payment_renewal_paid",
-      eventKey: "stripe:invoice:in_plain", occurredAt: new Date(invoice.created * 1000).toISOString(), product: "bundle_all", interval: "monthly" });
+      eventKey: "stripe:invoice:in_plain", userId, occurredAt: new Date(invoice.created * 1000).toISOString(), product: "bundle_all", interval: "monthly" });
     expect(rpc).not.toHaveBeenCalledWith("apply_stripe_subscription_event", expect.anything());
   });
 
@@ -351,7 +351,7 @@ describe("POST /api/stripe/webhook", () => {
     expect(response.status, JSON.stringify(await response.clone().json())).toBe(200);
     expect(processReferralInvoicePaid).toHaveBeenCalledTimes(1);
     expect(rpc).toHaveBeenCalledWith("apply_stripe_subscription_event", expect.objectContaining({ p_event_id: "evt_renew_paid", p_subscription_id: "sub_1", p_product_id: "bundle_all" }));
-    expect(captureConversionOutcome).toHaveBeenCalledWith({ outcome: "payment_renewal_paid", eventKey: "stripe:invoice:in_renew", occurredAt: new Date(invoice.created * 1000).toISOString(), product: "bundle_all", interval: "monthly" });
+    expect(captureConversionOutcome).toHaveBeenCalledWith({ outcome: "payment_renewal_paid", eventKey: "stripe:invoice:in_renew", userId, occurredAt: new Date(invoice.created * 1000).toISOString(), product: "bundle_all", interval: "monthly" });
   });
 
   it("does not count zero-dollar or unpaid invoices as paid conversions", async () => {

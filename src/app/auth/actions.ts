@@ -6,6 +6,7 @@ import { REFERRAL_COOKIE } from "@/lib/referral";
 import { isValidEmail, isValidPassword, safeNextPath, type MagicLinkState } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { captureConversionOutcome } from "@/lib/server-conversion-analytics";
+import { ANALYTICS_CONSENT_VERSION, parseAnalyticsConsent } from "@/lib/analytics-consent";
 
 export async function requestMagicLink(
   _previousState: MagicLinkState,
@@ -82,10 +83,15 @@ export async function createAccountWithPassword(
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   const handoffUrl = new URL("/auth/email-link", siteUrl);
   handoffUrl.searchParams.set("next", next);
+  const consent = parseAnalyticsConsent((await cookies()).get("ppp_analytics_consent")?.value);
+  const options = consent === null ? { emailRedirectTo: handoffUrl.toString() } : {
+    emailRedirectTo: handoffUrl.toString(),
+    data: { analytics_consent: { accepted: consent, version: ANALYTICS_CONSENT_VERSION, updated_at: new Date().toISOString() } },
+  };
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    options: { emailRedirectTo: handoffUrl.toString() },
+    options,
   });
 
   if (error) {
@@ -93,7 +99,7 @@ export async function createAccountWithPassword(
   }
   if (data.session) {
     if (data.user?.id) {
-      await captureConversionOutcome({ outcome: "signup_confirmed", eventKey: `signup:${data.user.id}`, occurredAt: data.user.email_confirmed_at ?? data.user.confirmed_at ?? data.user.created_at });
+      await captureConversionOutcome({ userId: data.user.id, outcome: "signup_confirmed", eventKey: `signup:${data.user.id}`, occurredAt: data.user.email_confirmed_at ?? data.user.confirmed_at ?? data.user.created_at });
     }
     if (data.user?.id && data.user.created_at) {
       const { bindReferralToAuthenticatedUser } = await import("@/lib/referral-account");

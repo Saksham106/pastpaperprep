@@ -47,19 +47,25 @@ export async function POST(request: Request) {
       try {
         const current = await stripe.subscriptions.retrieve(subscriptionId, {}, { timeout: 10_000 });
         const latestInvoiceId = typeof current.latest_invoice === "string" ? current.latest_invoice : current.latest_invoice?.id;
+        const metadataUserId = current.metadata?.user_id;
+        const customerId = typeof current.customer === "string" ? current.customer : current.customer?.id;
+        const invoiceCustomerId = typeof invoice.customer === "string" ? invoice.customer : invoice.customer?.id;
+        const validUserId = typeof metadataUserId === "string" && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(metadataUserId);
         const metadataProductId = current.metadata?.product_id;
         const items = current.items.data;
         const item = items.length === 1 ? items[0] : null;
         const priceId = item?.price?.id;
         const interval = item?.price?.recurring?.interval === "month" ? "monthly"
           : item?.price?.recurring?.interval === "year" ? "annual" : null;
-        if (latestInvoiceId === invoice.id && typeof metadataProductId === "string" && typeof priceId === "string" && interval) {
+        if (latestInvoiceId === invoice.id && typeof metadataProductId === "string" && typeof priceId === "string" && interval && validUserId && customerId === invoiceCustomerId) {
           const { data: rows, error } = await createAdminClient().rpc("get_checkout_price_catalog", { p_price_id: priceId });
           const matches = !error && Array.isArray(rows) ? rows.filter((row) => row.price_id === priceId && row.product_id === metadataProductId && row.billing_interval === interval && (row.active === true || row.grandfathered === true)) : [];
           const paidAt = invoice.status_transitions?.paid_at ?? invoice.created;
-          if (matches.length === 1 && Number.isSafeInteger(paidAt) && paidAt > 0) await captureConversionOutcome({
+          const { data: mappedCustomer, error: mappingError } = await createAdminClient().rpc("get_stripe_customer_id", { p_user_id: metadataUserId });
+          if (matches.length === 1 && !mappingError && mappedCustomer === customerId && Number.isSafeInteger(paidAt) && paidAt > 0) await captureConversionOutcome({
             outcome: invoice.billing_reason === "subscription_create" ? "payment_initial_paid" : "payment_renewal_paid",
             eventKey: `stripe:invoice:${invoice.id}`,
+            userId: metadataUserId,
             occurredAt: new Date(paidAt * 1000).toISOString(),
             product: metadataProductId,
             interval,

@@ -18,10 +18,11 @@ describe("Privacy policy", () => {
     expect(screen.getByText(/manually review.*purchase/i)).toBeInTheDocument();
   });
 
-  it("discloses anonymous cookieless PostHog analytics without session replay", () => {
+  it("discloses consented PostHog analytics and account linkage without session replay", () => {
     render(<PrivacyPage />);
 
-    expect(screen.getByText(/PostHog provides anonymous, cookieless product analytics/i)).toBeInTheDocument();
+    expect(screen.getByText(/only after you allow optional analytics/i)).toBeInTheDocument();
+    expect(screen.getByText(/link usage and confirmed conversion events to your account identifier/i)).toBeInTheDocument();
     expect(screen.getByText(/session replay and automatic click capture are disabled/i)).toBeInTheDocument();
   });
 });

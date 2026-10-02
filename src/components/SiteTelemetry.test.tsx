@@ -1,22 +1,28 @@
-import { render, screen } from "@testing-library/react";
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
-import { describe, expect, it, vi } from "vitest";
-
+import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { renderToString } from "react-dom/server";
+const { getUser, authListener, initialize, disable, identify, track } = vi.hoisted(() => ({ getUser: vi.fn(), authListener: vi.fn(), initialize: vi.fn(), disable: vi.fn(), identify: vi.fn(), track: vi.fn() }));
+vi.mock("next/navigation", () => ({ usePathname: () => "/practice" }));
+vi.mock("@/lib/supabase/browser", () => ({ createClient: () => ({ auth: { getUser, onAuthStateChange: (cb: (event: string, session: unknown) => void) => { authListener.mockImplementation(cb); return { data: { subscription: { unsubscribe: vi.fn() } } }; } } }) }));
+vi.mock("@/lib/product-analytics", () => ({ initializeProductAnalytics: initialize, disableProductAnalytics: disable, setProductAnalyticsIdentity: identify, trackProductEvent: track }));
 vi.mock("@vercel/analytics/next", () => ({ Analytics: () => <i data-testid="vercel-analytics" /> }));
-vi.mock("@vercel/speed-insights/next", () => ({ SpeedInsights: () => <i data-testid="vercel-speed-insights" /> }));
-
-import { SiteTelemetry } from "@/components/SiteTelemetry";
-
-describe("Vercel telemetry", () => {
-  it("mounts privacy-friendly traffic analytics and real-user performance tracking", () => {
-    render(<SiteTelemetry />);
-    expect(screen.getByTestId("vercel-analytics")).toBeInTheDocument();
-    expect(screen.getByTestId("vercel-speed-insights")).toBeInTheDocument();
-  });
-
-  it("mounts telemetry once in the root layout", () => {
-    const source = readFileSync(join(process.cwd(), "src/app/layout.tsx"), "utf8");
-    expect(source.match(/<SiteTelemetry\s*\/>/g)).toHaveLength(1);
-  });
+vi.mock("@vercel/speed-insights/next", () => ({ SpeedInsights: () => <i data-testid="speed-insights" /> }));
+vi.mock("@/components/BrowserErrorMonitor", () => ({ BrowserErrorMonitor: () => <i data-testid="error-monitor" /> }));
+import { SiteTelemetry } from "./SiteTelemetry";
+afterEach(() => { cleanup(); vi.restoreAllMocks(); });
+beforeEach(() => { vi.clearAllMocks(); document.cookie = "ppp_analytics_consent=; Max-Age=0; path=/"; sessionStorage.clear(); getUser.mockResolvedValue({ data: { user: null }, error: null }); initialize.mockResolvedValue(undefined); identify.mockResolvedValue(undefined); vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true, json: async () => ({ accepted: true, version: 1 }) })); });
+describe("SiteTelemetry consent coordinator", () => {
+ it("keeps server markup deterministic without a premature consent banner", () => { expect(renderToString(<SiteTelemetry />)).not.toContain("A little cookie housekeeping."); });
+ it("shows the saved accepted setting when preferences are reopened", async () => { document.cookie = "ppp_analytics_consent=v1.accepted; path=/"; getUser.mockResolvedValue({ data: { user: null }, error: { name: "AuthSessionMissingError" } }); render(<SiteTelemetry />); await waitFor(() => expect(screen.getByTestId("vercel-analytics")).toBeInTheDocument()); window.dispatchEvent(new Event("ppp:open-analytics-consent")); fireEvent.click(await screen.findByRole("button", { name: "Customize" })); expect(screen.getByRole("checkbox", { name: "Optional analytics" })).toBeChecked(); });
+ it("keeps optional telemetry off when consent is absent and dismissal is not acceptance", async () => { render(<SiteTelemetry />); expect(await screen.findByRole("heading", { name: "A little cookie housekeeping." })).toBeVisible(); expect(screen.queryByTestId("vercel-analytics")).not.toBeInTheDocument(); fireEvent.click(screen.getByRole("button", { name: "Close cookie banner" })); expect(screen.queryByRole("heading", { name: "A little cookie housekeeping." })).not.toBeInTheDocument(); expect(initialize).not.toHaveBeenCalled(); expect(fetch).not.toHaveBeenCalled(); });
+ it("persists explicit accept before enabling telemetry and emits a pageview", async () => { render(<SiteTelemetry />); fireEvent.click(await screen.findByRole("button", { name: "Sure, allow cookies" })); await waitFor(() => expect(screen.getByTestId("vercel-analytics")).toBeInTheDocument()); expect(fetch).toHaveBeenCalledWith("/api/analytics-consent", expect.objectContaining({ body: JSON.stringify({ accepted: true }) })); expect(initialize).toHaveBeenCalledOnce(); expect(track).toHaveBeenCalledWith("$pageview", { path: "/practice" }); });
+ it("reopens the same inline banner from a custom event", async () => { render(<SiteTelemetry />); fireEvent.click(await screen.findByRole("button", { name: "Close cookie banner" })); window.dispatchEvent(new Event("ppp:open-analytics-consent")); expect(await screen.findByRole("heading", { name: "A little cookie housekeeping." })).toBeVisible(); });
+ it("shows retry feedback on a failed choice without turning telemetry on", async () => { (fetch as ReturnType<typeof vi.fn>).mockRejectedValueOnce(new Error("offline")); render(<SiteTelemetry />); fireEvent.click(await screen.findByRole("button", { name: "Sure, allow cookies" })); expect(await screen.findByRole("alert")).toHaveTextContent("couldn’t save your choice"); expect(screen.queryByTestId("vercel-analytics")).not.toBeInTheDocument(); });
+ it("links a consent choice to a verified account only after an explicit browser opt-in", async () => { document.cookie = "ppp_analytics_consent=v1.accepted; path=/"; getUser.mockResolvedValue({ data: { user: { id: "account-123", user_metadata: { analytics_consent: { accepted: true, version: 1, updated_at: new Date().toISOString() } }, app_metadata: { role: "operator" } } }, error: null }); render(<SiteTelemetry />); await waitFor(() => expect(identify).toHaveBeenCalledWith("account-123", true)); expect(initialize).toHaveBeenCalled(); expect(fetch).not.toHaveBeenCalled(); });
+ it("does not link stored account acceptance when browser consent is unknown", async () => { getUser.mockResolvedValue({ data: { user: { id: "account-123", user_metadata: { analytics_consent: { accepted: true, version: 1, updated_at: new Date().toISOString() } }, app_metadata: {} } }, error: null }); render(<SiteTelemetry />); expect(await screen.findByRole("heading", { name: "A little cookie housekeeping." })).toBeVisible(); expect(identify).not.toHaveBeenCalledWith("account-123", expect.anything()); expect(initialize).not.toHaveBeenCalled(); });
+ it("an account refusal overrides a stale accepted cookie", async () => { document.cookie = "ppp_analytics_consent=v1.accepted; path=/"; getUser.mockResolvedValue({ data: { user: { id: "account-123", user_metadata: { analytics_consent: { accepted: false, version: 1, updated_at: new Date().toISOString() } }, app_metadata: {} } }, error: null }); render(<SiteTelemetry />); await waitFor(() => expect(disable).toHaveBeenCalled()); expect(identify).not.toHaveBeenCalled(); expect(initialize).not.toHaveBeenCalled(); expect(fetch).toHaveBeenCalledWith("/api/analytics-consent", expect.objectContaining({ body: JSON.stringify({ accepted: false }) })); });
+ it("boots optional telemetry and sends the initial pageview for a returning consenting guest", async () => { document.cookie = "ppp_analytics_consent=v1.accepted; path=/"; getUser.mockResolvedValue({ data: { user: null }, error: { name: "AuthSessionMissingError" } }); render(<SiteTelemetry />); await waitFor(() => expect(screen.getByTestId("vercel-analytics")).toBeInTheDocument()); expect(initialize).toHaveBeenCalled(); expect(track).toHaveBeenCalledWith("$pageview", { path: "/practice" }); });
+ it("fails closed on a generic auth lookup error despite a stale accepted cookie", async () => { document.cookie = "ppp_analytics_consent=v1.accepted; path=/"; getUser.mockResolvedValue({ data: { user: null }, error: { name: "AuthRetryableFetchError" } }); render(<SiteTelemetry />); await waitFor(() => expect(disable).toHaveBeenCalled()); expect(initialize).not.toHaveBeenCalled(); expect(screen.queryByTestId("vercel-analytics")).not.toBeInTheDocument(); });
+ it("refuses account linkage when the post-consent canonical auth lookup fails", async () => { getUser.mockResolvedValue({ data: { user: null }, error: { name: "AuthRetryableFetchError" } }); render(<SiteTelemetry />); fireEvent.click(await screen.findByRole("button", { name: "Sure, allow cookies" })); expect(await screen.findByRole("alert")).toHaveTextContent("couldn’t save your choice"); expect(identify).not.toHaveBeenCalled(); expect(screen.queryByTestId("vercel-analytics")).not.toBeInTheDocument(); });
+ it("resets identity on logout and ignores a stale auth lookup", async () => { let resolveUser!: (value: unknown) => void; getUser.mockImplementationOnce(() => new Promise(resolve => { resolveUser = resolve; })); document.cookie = "ppp_analytics_consent=v1.accepted; path=/"; render(<SiteTelemetry />); authListener("SIGNED_OUT", null); resolveUser({ data: { user: { id: "old", user_metadata: {}, app_metadata: {} } }, error: null }); await waitFor(() => expect(disable).toHaveBeenCalled()); expect(identify).not.toHaveBeenCalledWith("old", expect.anything()); });
 });
