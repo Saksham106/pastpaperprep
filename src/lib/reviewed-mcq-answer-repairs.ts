@@ -5,6 +5,7 @@ import mathsRepairs from '@/data/reviewed-maths-source-answer-repairs.json';
 import scienceWrittenRepairs from '@/data/reviewed-science-written-answer-repairs.json';
 import economicsWrittenRepairs from '@/data/reviewed-economics-written-answer-repairs.json';
 import ibMatrixRepairs from '@/data/reviewed-ib-matrix-head-repairs.json';
+import ibBoundaryRepairs from '@/data/reviewed-ib-boundary-batch-repairs.json';
 import type { BankSlug } from '@/lib/banks';
 
 type Repair = { oldPaths: string[]; newPaths: string[]; sha256: string };
@@ -15,6 +16,20 @@ const writtenEntries = writtenRepairs as Record<string, { oldPaths: string[]; ne
 
 /** Exact reviewed replacements; original sealed runtime and storage receipts remain historical. */
 export function reviewedMarkschemePaths(bank: BankSlug, questionId: string, paths: readonly string[]): string[] {
+  if (bank === 'ib-hl') {
+    const entry = (ibBoundaryRepairs.banks['ib-hl'] as Record<string,{oldPaths:string[];oldSha256:string[];newPaths:string[];sha256:string[]}>)[questionId];
+    if (!entry) return [...paths];
+    if (JSON.stringify(paths)!==JSON.stringify(entry.oldPaths) || entry.oldPaths.length!==entry.oldSha256.length ||
+        entry.newPaths.length<1 || entry.newPaths.length!==entry.sha256.length || new Set(entry.newPaths).size!==entry.newPaths.length ||
+        !/^repairs\/ib-boundary-batch-v1-[a-f0-9]{16}$/.test(ibBoundaryRepairs.namespace) ||
+        entry.newPaths.some((path,i)=>{
+          const oldIndex=entry.oldPaths.indexOf(path);
+          return !/^[a-f0-9]{64}$/.test(entry.sha256[i]) || (oldIndex>=0
+            ? entry.sha256[i]!==entry.oldSha256[oldIndex]
+            : path!==`${ibBoundaryRepairs.namespace}/${entry.sha256[i]}.webp`);
+        })) throw new Error(`Reviewed IB boundary repair disagrees with ${bank}:${questionId}`);
+    return [...entry.newPaths];
+  }
   if (bank === 'ib-ai-hl') {
     const entry = (ibMatrixRepairs.entries as Record<string,{oldPaths:string[];oldSha256:string[];newPaths:string[];sha256:string[]}>)[questionId];
     if (!entry) return [...paths];

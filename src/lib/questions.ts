@@ -271,7 +271,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
   const markschemeImagePaths = isPrivateRuntimeBank(slug)
     ? Array.from(new Set([...strings(raw.markschemeImages), ...strings(officialMarkscheme.images)]))
     : [...strings(raw.markschemeImages), ...strings(officialMarkscheme.images)];
-  const activeMarkschemePaths = applyReviewedBlankPages || slug === 'ib-ai-hl'
+  const activeMarkschemePaths = applyReviewedBlankPages || slug === 'ib-ai-hl' || slug === 'ib-hl'
     ? reviewedMarkschemePaths(slug, text(raw.id), markschemeImagePaths) : markschemeImagePaths;
   const markschemeImages = activeMarkschemePaths.map((path) => assetUrl(slug, path, economicsAssetMode));
   const searchable = [
