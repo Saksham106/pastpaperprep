@@ -109,6 +109,7 @@ describe("PostHog product analytics", () => {
     vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
     const analytics = await import("@/lib/product-analytics");
     await analytics.initializeProductAnalytics();
+    await analytics.initializeConsentedAnalytics();
     await analytics.setProductAnalyticsIdentity("user-a", true);
     expect(posthogConsented.identify).toHaveBeenLastCalledWith("account:user-a", { is_operator: true });
     await analytics.setProductAnalyticsIdentity("user-b");
@@ -122,6 +123,7 @@ describe("PostHog product analytics", () => {
     vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
     const analytics = await import("@/lib/product-analytics");
     await analytics.initializeProductAnalytics();
+    await analytics.initializeConsentedAnalytics();
     await analytics.setProductAnalyticsIdentity("user-a");
     window.localStorage.setItem("ph_phc_test_project_token_consented", "identifier");
     window.localStorage.setItem("ph_phc_test_project_token_posthog", "baseline-or-other-instance");
@@ -137,14 +139,40 @@ describe("PostHog product analytics", () => {
     expect(posthog.capture).toHaveBeenCalledWith("checkout_start", {});
   });
 
-  it("does not capture an event queued before rejection", async () => {
+  it("keeps a baseline event queued across optional-channel rejection", async () => {
     vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
     const analytics = await import("@/lib/product-analytics");
     await analytics.initializeProductAnalytics();
     analytics.trackProductEvent("checkout_start");
     analytics.disableProductAnalytics();
     await new Promise(resolve => setTimeout(resolve, 0));
-    expect(posthog.capture).not.toHaveBeenCalled();
+    expect(posthog.capture).toHaveBeenCalledWith("checkout_start", {});
+  });
+
+  it("keeps the first anonymous pageview when auth resets during SDK loading", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    const analytics = await import("@/lib/product-analytics");
+    analytics.trackProductEvent("$pageview", { path: "/" });
+    analytics.disableProductAnalytics();
+    await vi.waitFor(() => expect(posthog.capture).toHaveBeenCalledWith("$pageview", { path: "/" }));
+  });
+
+  it("does not initialize the optional channel from a cookie before canonical authorization", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    const analytics = await import("@/lib/product-analytics");
+    analytics.trackProductEvent("answer_reveal");
+    await vi.waitFor(() => expect(posthog.capture).toHaveBeenCalledWith("answer_reveal", {}));
+    expect(posthog.init).toHaveBeenCalledTimes(1);
+  });
+
+  it("removes legacy persistent storage when starting the anonymous baseline", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    localStorage.setItem("ph_phc_test_project_token_posthog", "legacy-account");
+    document.cookie = "ph_phc_test_project_token_posthog=legacy-account; Path=/";
+    const analytics = await import("@/lib/product-analytics");
+    await analytics.initializeProductAnalytics();
+    expect(localStorage.getItem("ph_phc_test_project_token_posthog")).toBeNull();
+    expect(document.cookie).not.toContain("ph_phc_test_project_token_posthog=");
   });
 
   it("tags verification traffic while still removing sensitive URL data", async () => {
@@ -161,6 +189,15 @@ describe("PostHog product analytics", () => {
       const consentedBeforeSend = posthog.init.mock.calls[1][1].before_send;
       expect(consentedBeforeSend({ properties: { $current_url: "https://pastpaperprep.com/privacy?token=private" } }).properties).toEqual({ $current_url: "https://pastpaperprep.com/privacy", analytics_verification: true });
     } finally { window.history.replaceState(null, "", original); }
+  });
+
+  it("opts the optional SDK back in after withdrawal and fresh acceptance", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    const analytics = await import("@/lib/product-analytics");
+    await analytics.initializeConsentedAnalytics();
+    analytics.disableProductAnalytics();
+    await analytics.initializeConsentedAnalytics();
+    expect(posthogConsented.opt_in_capturing).toHaveBeenCalledTimes(2);
   });
 
   it("does nothing when PostHog is not configured", async () => {

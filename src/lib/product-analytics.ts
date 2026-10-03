@@ -12,9 +12,10 @@ let consentInitialized = false;
 let consentClient: PostHogClient | null = null;
 let generation = 0;
 let accountIdentity: string | null = null;
+let consentEnabled = false;
 
 function canCapture() { return true; }
-function canCaptureConsented() { return readBrowserAnalyticsConsent() === true; }
+function canCaptureConsented() { return consentEnabled && readBrowserAnalyticsConsent() === true; }
 
 function projectToken() {
   return process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN?.trim() ?? "";
@@ -24,10 +25,8 @@ function loadClient() {
   if (!projectToken() || !canCapture()) return Promise.resolve(null);
   if (clientPromise) return clientPromise;
 
-  const startedAt = generation;
   clientPromise = import("posthog-js")
     .then(({ default: posthog }) => {
-      if (!canCapture() || startedAt !== generation) { clientPromise = null; return null; }
       if (!initialized) {
         posthog.init(projectToken(), {
           api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST?.trim() || "https://us.i.posthog.com",
@@ -104,11 +103,35 @@ export function captureBrowserError(error: { name?: unknown; filename?: unknown;
   trackProductEvent("browser_error", { category, frame });
 }
 
+function clearLegacyAnalyticsStorage() {
+  if (typeof window === "undefined" || !projectToken()) return;
+  const key = `ph_${projectToken()}_posthog`;
+  for (const name of ["localStorage", "sessionStorage"] as const) {
+    try { window[name].removeItem(key); } catch { /* Preserve unrelated storage. */ }
+  }
+  try {
+    document.cookie = `${key}=; Max-Age=0; Path=/; SameSite=Lax`;
+    document.cookie = `${key}=; Max-Age=0; Path=/; Domain=${window.location.hostname}; SameSite=Lax`;
+  } catch { /* Browser privacy controls may restrict storage. */ }
+}
+
 export function initializeProductAnalytics() {
+  clearLegacyAnalyticsStorage();
   return loadClient();
 }
 
 export function initializeConsentedAnalytics() {
+  consentEnabled = readBrowserAnalyticsConsent() === true;
+  const epoch = generation;
+  return loadConsentedClient().then(client => {
+    if (client && epoch === generation && canCaptureConsented()) {
+      client.opt_in_capturing({ captureEventName: false });
+    }
+    return client;
+  });
+}
+
+function loadConsentedClient() {
   if (!projectToken() || !canCaptureConsented()) return Promise.resolve(null);
   if (consentClientPromise) return consentClientPromise;
   const startedAt = generation;
@@ -121,7 +144,8 @@ export function initializeConsentedAnalytics() {
         persistence: "localStorage+cookie", persistence_name: `${projectToken()}_consented`, cookie_expiration: 180, cross_subdomain_cookie: false,
         consent_persistence_name: `__ph_opt_in_out_${projectToken()}_consented`,
         opt_out_capturing_cookie_prefix: "__ph_opt_in_out_consented_",
-        disable_session_recording: true, advanced_disable_flags: false, advanced_disable_feature_flags: true,
+        disable_session_recording: true, advanced_disable_flags: true, advanced_disable_feature_flags: true,
+        capture_performance: false,
         capture_exceptions: false, before_send: event => {
           if (!canCaptureConsented()) return null;
           const scrubbed = sanitizeAnalyticsEvent(event);
@@ -132,7 +156,6 @@ export function initializeConsentedAnalytics() {
         },
       }, "consented");
       consentInitialized = true;
-      consentClient.opt_in_capturing({ captureEventName: false });
     }
     return consentClient;
   }).catch(() => { consentClientPromise = null; return null; });
@@ -148,12 +171,13 @@ export async function setProductAnalyticsIdentity(userId: string | null, isOpera
   }
   accountIdentity = next;
   if (!next || !canCaptureConsented()) return;
-  const client = await initializeConsentedAnalytics();
+  const client = await loadConsentedClient();
   if (!client || epoch !== generation || !canCaptureConsented()) return;
   try { client.identify(next, { is_operator: isOperator }); } catch { /* Never block auth. */ }
 }
 
 export function disableProductAnalytics() {
+  consentEnabled = false;
   generation++;
   accountIdentity = null;
   try { consentClient?.opt_out_capturing(); } catch { /* Continue local cleanup. */ }
@@ -179,7 +203,7 @@ export function disableProductAnalytics() {
 
 export function trackConsentedProductEvent(name: string, properties: ProductEventProperties = {}) {
   const epoch = generation;
-  void initializeConsentedAnalytics().then(client => {
+  void loadConsentedClient().then(client => {
     if (!client || !canCaptureConsented() || epoch !== generation) return;
     try { client.capture(`consented_${name}`, Object.fromEntries(Object.entries(properties).filter(([, value]) => value !== undefined))); } catch { /* Best effort. */ }
   });
@@ -187,9 +211,8 @@ export function trackConsentedProductEvent(name: string, properties: ProductEven
 
 export function trackProductEvent(name: string, properties: ProductEventProperties = {}) {
   if (name !== "$pageview") trackConsentedProductEvent(name, properties);
-  const epoch = generation;
   void loadClient().then((posthog) => {
-    if (!posthog || !canCapture() || epoch !== generation) return;
+    if (!posthog || !canCapture()) return;
     try {
       posthog.capture(name, Object.fromEntries(
         Object.entries(properties).filter(([, value]) => value !== undefined),

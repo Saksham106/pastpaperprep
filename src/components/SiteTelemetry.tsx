@@ -140,7 +140,7 @@ export function SiteTelemetry() {
             if (authError || !data.user) {
               if (isMissingSession(authError) && readBrowserAnalyticsConsent() === true) {
                 accepted.current = true;
-                void initializeProductAnalytics().then(() => {
+                void initializeConsentedAnalytics().then(() => {
                   if (mounted && nextVersion === generation.current) {
                     void setProductAnalyticsIdentity(null).then(() => { if (nextVersion === generation.current) setAnalyticsReady(true); });
                   }
