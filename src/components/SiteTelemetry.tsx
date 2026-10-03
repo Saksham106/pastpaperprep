@@ -8,7 +8,7 @@ import { BrowserErrorMonitor } from "@/components/BrowserErrorMonitor";
 import { AnalyticsConsentBanner } from "@/components/AnalyticsConsentBanner";
 import { createClient } from "@/lib/supabase/browser";
 import { ANALYTICS_CONSENT_VERSION, readBrowserAnalyticsConsent } from "@/lib/analytics-consent";
-import { disableProductAnalytics, initializeProductAnalytics, setProductAnalyticsIdentity, trackProductEvent } from "@/lib/product-analytics";
+import { disableProductAnalytics, initializeProductAnalytics, initializeConsentedAnalytics, setProductAnalyticsIdentity, trackConsentedProductEvent, trackProductEvent } from "@/lib/product-analytics";
 
 const OPEN_EVENT = "ppp:open-analytics-consent";
 const SESSION_DISMISS_KEY = "ppp_analytics_consent_dismissed";
@@ -49,6 +49,8 @@ export function SiteTelemetry() {
   const savingRef = useRef(false);
   const generation = useRef(0);
   const accepted = useRef(false);
+  const lastBaselinePath = useRef<string | null>(null);
+  const lastConsentedPath = useRef<string | null>(null);
 
   const syncIdentity = useCallback(async (user: User | null, version: number) => {
     if (version !== generation.current) return;
@@ -77,7 +79,7 @@ export function SiteTelemetry() {
         return;
       }
       accepted.current = true; setChoice(true); setBannerOpen(false);
-      await initializeProductAnalytics();
+      await initializeConsentedAnalytics();
       if (version !== generation.current) return;
       await setProductAnalyticsIdentity(user.id, user.app_metadata?.role === "operator");
       if (version === generation.current) setAnalyticsReady(true);
@@ -89,7 +91,7 @@ export function SiteTelemetry() {
         await saveChoice(true);
         if (version !== generation.current) return;
         accepted.current = true; setChoice(true); setBannerOpen(false);
-        await initializeProductAnalytics();
+        await initializeConsentedAnalytics();
         if (version !== generation.current) return;
         await setProductAnalyticsIdentity(user.id, user.app_metadata?.role === "operator");
         if (version === generation.current) setAnalyticsReady(true);
@@ -114,7 +116,7 @@ export function SiteTelemetry() {
         if (!authError && data.user) await syncIdentity(data.user as User, version);
         else if (isMissingSession(authError) && initialCookie === true) {
           accepted.current = true;
-          await initializeProductAnalytics();
+          await initializeConsentedAnalytics();
           if (mounted && version === generation.current) {
             await setProductAnalyticsIdentity(null);
             if (version === generation.current) setAnalyticsReady(true);
@@ -159,9 +161,19 @@ export function SiteTelemetry() {
     return () => { mounted = false; generation.current++; subscription.unsubscribe(); window.removeEventListener(OPEN_EVENT, open); };
   }, [syncIdentity]);
 
+  useEffect(() => { void initializeProductAnalytics(); }, []);
+
   useEffect(() => {
-    if (analyticsReady && resolvedChoice === true && pathname) trackProductEvent("$pageview", { path: pathname });
-  }, [pathname, resolvedChoice, analyticsReady]);
+    if (!pathname || lastBaselinePath.current === pathname) return;
+    lastBaselinePath.current = pathname;
+    trackProductEvent("$pageview", { path: pathname });
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!analyticsReady || resolvedChoice !== true || !pathname || lastConsentedPath.current === pathname) return;
+    lastConsentedPath.current = pathname;
+    trackConsentedProductEvent("pageview", { path: pathname });
+  }, [analyticsReady, resolvedChoice, pathname]);
 
   const choose = async (next: boolean) => {
     if (savingRef.current) return;
@@ -170,10 +182,7 @@ export function SiteTelemetry() {
     const choiceGeneration = generation.current;
     try {
       await saveChoice(next);
-      if (choiceGeneration !== generation.current) {
-        if (!next) { setChoice(false); setBannerOpen(false); window.location.reload(); }
-        return;
-      }
+      if (choiceGeneration !== generation.current) return;
       if (typeof sessionStorage !== "undefined") sessionStorage.removeItem(SESSION_DISMISS_KEY);
       if (next) {
         const { data, error: authError } = await createClient().auth.getUser();
@@ -181,7 +190,7 @@ export function SiteTelemetry() {
         if (authError && !isMissingSession(authError)) {
           disableProductAnalytics(); accepted.current = false; setAnalyticsReady(false); setChoice(false); setBannerOpen(true); setError(true); return;
         }
-        await initializeProductAnalytics();
+        await initializeConsentedAnalytics();
         if (choiceGeneration !== generation.current) return;
         if (!authError && data.user) await setProductAnalyticsIdentity(data.user.id, data.user.app_metadata?.role === "operator");
         else await setProductAnalyticsIdentity(null);
@@ -190,7 +199,6 @@ export function SiteTelemetry() {
       } else {
         await setProductAnalyticsIdentity(null);
         setChoice(false); setBannerOpen(false); setError(false);
-        window.location.reload();
       }
     } catch {
       if (choiceGeneration !== generation.current) return;
@@ -203,7 +211,7 @@ export function SiteTelemetry() {
   const dismiss = () => { try { sessionStorage.setItem(SESSION_DISMISS_KEY, "1"); } catch { /* optional */ } setBannerOpen(false); };
 
   return <>
-    {analyticsReady && resolvedChoice === true && <><BrowserErrorMonitor /><Analytics /><SpeedInsights /></>}
+    <><BrowserErrorMonitor /><Analytics /><SpeedInsights /></>
     {showBanner && <AnalyticsConsentBanner initialAnalytics={resolvedChoice === true} onChoice={accepted => void choose(accepted)} onDismiss={dismiss} busy={saving} error={error} />}
   </>;
 }
