@@ -27,10 +27,10 @@ export function AnalyticsConsentBanner({ onChoice, onDismiss, initialAnalytics =
         <span className={styles.mark} aria-hidden="true"><Cookie size={22} weight="duotone" /></span>
         <h2 id={`${id}-title`}>A little cookie housekeeping.</h2>
       </div>
-      <p className={styles.copy}>Optional analytics cookies help us see what works and make practice smoother. Signed in? We link that usage to your account.{!customizing && <>{" "}<button className={styles.customize} type="button" aria-expanded={false} aria-controls={`${id}-preferences`} onClick={() => setCustomizing(true)}>Customize</button></>}</p>
+      <p className={styles.copy}>Anonymous, cookie-free statistics help us improve practice. Optional analytics cookies add returning-visit insights. Signed in? We link that extra usage to your account.{!customizing && <>{" "}<button className={styles.customize} type="button" aria-expanded={false} aria-controls={`${id}-preferences`} onClick={() => setCustomizing(true)}>Customize</button></>}</p>
       {customizing && <div id={`${id}-preferences`} className={styles.preferences}>
         <div className={styles.preference}><div><strong>Essential cookies</strong><p>Keep sign-in and your preferences working.</p></div><span className={styles.always}>Always on</span></div>
-        <label className={styles.preference}><div><strong>Optional analytics</strong><p id={`${id}-analytics-description`}>Usage, performance and account-linked insights. No session recording.</p></div><input ref={analyticsInput} type="checkbox" aria-label="Optional analytics" aria-describedby={`${id}-analytics-description`} checked={analytics} onChange={event => setAnalytics(event.target.checked)} /></label>
+        <label className={styles.preference}><div><strong>Optional analytics</strong><p id={`${id}-analytics-description`}>Returning-visit and account-linked insights. No session recording.</p></div><input ref={analyticsInput} type="checkbox" aria-label="Optional analytics" aria-describedby={`${id}-analytics-description`} checked={analytics} onChange={event => setAnalytics(event.target.checked)} /></label>
       </div>}
       {error && <p role="alert" className={styles.copy}>We couldn’t save your choice. Please try again.</p>}
       <div className={`${styles.actions} ${customizing ? styles.expanded : ""}`}>
