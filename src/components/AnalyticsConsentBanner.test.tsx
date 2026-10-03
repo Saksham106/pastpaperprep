@@ -12,6 +12,7 @@ describe("AnalyticsConsentBanner", () => {
     expect(screen.getByRole("heading", { name: "A little cookie housekeeping." })).toBeVisible();
     expect(screen.queryByRole("button", { name: "Reject" })).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Customize" }).closest("p")).toHaveTextContent("Optional analytics cookies");
+    expect(screen.getByRole("button", { name: "Customize" }).closest("p")).toHaveTextContent("Anonymous, cookie-free statistics");
     expect(screen.queryByText(/PostHog|a little transparency/i)).not.toBeInTheDocument();
     expect(screen.queryByRole("checkbox")).not.toBeInTheDocument();
     expect(onChoice).not.toHaveBeenCalled();
@@ -31,7 +32,7 @@ describe("AnalyticsConsentBanner", () => {
     render(<AnalyticsConsentBanner onChoice={onChoice} onDismiss={vi.fn()} />);
     fireEvent.click(screen.getByRole("button", { name: "Sure, allow cookies" }));
     expect(onChoice).toHaveBeenCalledExactlyOnceWith(true);
-    expect(screen.getByText(/signed in\? we link that usage to your account/i)).toBeVisible();
+    expect(screen.getByText(/signed in\? we link that extra usage to your account/i)).toBeVisible();
   });
 
   it("expands preferences in the same card with analytics off by default", () => {
