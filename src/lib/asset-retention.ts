@@ -17,7 +17,8 @@ export type AssetRetentionPlan = {
 export const EXPECTED_ASSET_COUNTS = {
   igcse: { preview: 1436, premium: 6498, all: 7934 },
   "igcse-additional": { preview: 956, premium: 2310, all: 3266 },
-  "ib-hl": { preview: 314, premium: 2708, all: 3022 },
+  // Six source-owned foreign-only tails retired; restoration objects replace old images one-for-one.
+  "ib-hl": { preview: 314, premium: 2702, all: 3016 },
   "ib-sl": { preview: 147, premium: 1316, all: 1463 },
   // Reviewed Q12 foreign-only tail retired; Q13 immutable restoration is a one-for-one replacement.
   "ib-ai-hl": { preview: 236, premium: 1116, all: 1352 },
