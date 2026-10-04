@@ -177,6 +177,7 @@ export const ALTERNATIVES_COMPARISONS = [
     ],
   },
   {
+    draft: false,
     slug: "best-revision-village-alternatives",
     title: "Best Revision Village Alternatives for IB Students: Free and Paid Options",
     description: "Compare free and paid Revision Village alternatives for IB students, from PastPaperPrep and RevisionDojo to Save My Exams and official IB materials.",
