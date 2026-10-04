@@ -6,6 +6,7 @@ import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { verified0580RetrievalAdditions } from '../src/lib/igcse-0580-source-retrieval.mjs';
 import { project0580Sections, IGCSE_0580_SECTION_OVERLAY } from '../src/lib/igcse-0580-section-retrieval-v3.mjs';
+import { project0606ApprovedSections } from "../src/lib/igcse-0606-section-retrieval-v3.mjs";
 import { project0606Topics } from "../src/lib/igcse-0606-official.mjs";
 import { project0455Sections } from "../src/lib/igcse-0455-official.mjs";
 import { project0610Sections } from "../src/lib/igcse-0610-official.mjs";
@@ -124,6 +125,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
   const aa = currentAaRecord(bank, raw);
   const biology = currentBiologyRecord(bank, raw);
   const additional = bank === "igcse-additional" ? project0606Topics(raw) : null;
+  const official0606 = bank === "igcse-additional" ? project0606ApprovedSections(raw) : null;
   const economics0455 = bank === "igcse-economics-0455" ? project0455Sections(raw) : null;
   const coordinated = bank === "igcse-coordinated-sciences-0654" && normalizedProduction ? project0654Sections(raw) : null;
   const physics0625 = bank === "igcse-physics-0625" && normalizedProduction ? project0625Sections(raw) : null;
@@ -152,7 +154,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
         ? detailedSubtopics
         : controlledSkills,
   )];
-  for (const label of [...(sourceAddition?.subtopics ?? []), ...(official0580?.subtopics ?? [])]) if (!subtopics.includes(label)) subtopics.push(label);
+  for (const label of [...(sourceAddition?.subtopics ?? []), ...(official0580?.subtopics ?? []), ...(official0606?.subtopics ?? [])]) if (!subtopics.includes(label)) subtopics.push(label);
   const skillSeed = controlledSkills.length
     ? controlledSkills
     : detailedSubtopics.length
@@ -178,7 +180,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     : coordinated ? coordinated.codeRefs
     : official0610 ? projected0610.codeRefs
     : economics0455 ? economics0455.codeRefs
-    : [...strings(raw.officialCodeRefs), ...(official0580?.codeRefs ?? [])];
+    : [...strings(raw.officialCodeRefs), ...(official0580?.codeRefs ?? []), ...(official0606?.codeRefs ?? [])];
   const metadata = {
     id: typeof raw.id === "string" ? raw.id : "",
     number: integer(raw.number),
@@ -186,7 +188,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     year: integer(raw.year),
     session: typeof raw.session === "string" ? raw.session : "",
     primaryTopic: chemistry0620 ? chemistry0620.primaryTopic : physics0625 ? physics0625.primaryTopic : coordinated ? coordinated.primaryTopic : official0610 ? projected0610.primaryTopic : biology ? biologyPrimaryTopic(biology, raw) : aa ? aa.primaryTopic : additional ? additional.primaryTopic : (typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other"),
-    secondaryTopics: bank === "igcse" ? [...new Set([...strings(raw.secondaryTopics), ...(sourceAddition?.secondaryTopics ?? []), ...(official0580?.secondaryTopics ?? [])])].filter((topic) => topic !== raw.primaryTopic) : chemistry0620 ? chemistry0620.secondaryTopics : physics0625 ? physics0625.secondaryTopics : coordinated ? coordinated.secondaryTopics : official0610 ? projected0610.secondaryTopics : biology ? [...new Set(biology.secondary.map((group) => group.parentTopic))] : aa ? aa.secondaryTopics : additional ? additional.secondaryTopics : strings(raw.secondaryTopics),
+    secondaryTopics: bank === "igcse" ? [...new Set([...strings(raw.secondaryTopics), ...(sourceAddition?.secondaryTopics ?? []), ...(official0580?.secondaryTopics ?? [])])].filter((topic) => topic !== raw.primaryTopic) : chemistry0620 ? chemistry0620.secondaryTopics : physics0625 ? physics0625.secondaryTopics : coordinated ? coordinated.secondaryTopics : official0610 ? projected0610.secondaryTopics : biology ? [...new Set(biology.secondary.map((group) => group.parentTopic))] : aa ? aa.secondaryTopics : additional ? [...new Set([...additional.secondaryTopics, ...(official0606?.secondaryTopics ?? [])])].filter(topic => topic !== additional.primaryTopic) : strings(raw.secondaryTopics),
     skills,
     subtopics,
     granularLabels: aa || biology ? [] : granularByKey.get(`${overlayBank}:${raw.id}`) ?? [],

@@ -16,11 +16,12 @@ test('0580 additive numbered mapping preserves the complete legacy retrieval spl
  expect(filterQuestions(qs,{subtopics:['Indices and surds']})).toHaveLength(180);
  expect(qs.flatMap(displayedQuestionSubtopics).some(label=>/^\d+\.\d+\s/.test(label))).toBe(true);
 });
-test('0606 preserves original subtopic filters while experimental numbered assignments stay offline',()=>{
+test('0606 additive official statements preserve original fine filters',()=>{
  const qs=normalizeBankQuestions('igcse-additional',rows('src/data/raw/igcse-additional.json'));
  expect(qs).toHaveLength(1633);
  const labels=getSubtopicGroups(qs,[],[]).all;
- expect(labels).toHaveLength(17);
- expect(labels.some(label=>/^\d+\.\d+\s/.test(label))).toBe(false);
- expect(qs.flatMap(displayedQuestionSubtopics).some(label=>/^\d+\.\d+\s/.test(label))).toBe(false);
+ expect(labels).toHaveLength(84);
+ expect(labels.filter(label=>/^\d+\.\d+\s/.test(label))).toHaveLength(67);
+ expect(filterQuestions(qs,{subtopics:["Calculus"]})).toHaveLength(454);
+ expect(qs.flatMap(displayedQuestionSubtopics).some(label=>/^\d+\.\d+\s/.test(label))).toBe(true);
 });

@@ -66,7 +66,8 @@ describe("0606 offline candidate ledger", () => {
     const projected = runtime.map(q => {
       const source = raw.questions.find(row => row.id === q.id)!;
       const projection = project0606Sections(source);
-      return { ...q, subtopics: projection.subtopics };
+      // Isolate the historical offline projector from the new accepted runtime overlay.
+      return { ...q, subtopics: projection.subtopics, skills: [...source.subtopics, ...projection.subtopics], officialCodeRefs: projection.codeRefs };
     });
     const rows = new Map(ledger.rows.map(r => [r.id, r]));
     expect(new Set(taxonomy.sections.map(s => s.topic)).size).toBe(14);

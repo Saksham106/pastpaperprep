@@ -3,6 +3,7 @@ import { BIOLOGY_0610_EARLIER, BIOLOGY_0610_EARLIER_TOPIC, BIOLOGY_0610_SECTIONS
 import economicsTaxonomy from "@/data/igcse-economics-0455-taxonomy.json";
 import { ECONOMICS_0455_TOPICS, ECONOMICS_0455_SECTIONS, ECONOMICS_0455_EARLIER } from "@/lib/igcse-0455-official.mjs";
 import { OFFICIAL_0606_TOPICS, EARLIER_0606_TOPIC, EARLIER_0606_SUBTOPICS } from "@/lib/igcse-0606-official.mjs";
+import numbered0606 from "@/data/igcse-0606-numbered-subtopics.json";
 import { COORDINATED_0654_EARLIER, COORDINATED_0654_EARLIER_TOPIC, COORDINATED_0654_PRACTICAL_TOPIC, COORDINATED_0654_SECTIONS, COORDINATED_0654_TOPICS, display0654Sections } from "@/lib/igcse-0654-official.mjs";
 import aaTaxonomy from "@/data/aa-official-subtopics/taxonomy.json";
 import biologyOfficialTaxonomy from "@/data/ib-biology-official-subtopics/taxonomy.json";
@@ -94,7 +95,7 @@ function isCoordinatedBank(bank: string | undefined): boolean {
 
 export function getControlledSubtopics(bankSlug: string, topic: string): readonly string[] {
   if (bankSlug === "igcse") return [...IGCSE_0580_SECTIONS.filter((section) => section.topic === topic).map((section) => section.displayTitle), ...getLegacyControlledSubtopics(bankSlug, topic)];
-  if (bankSlug === "igcse-additional") return topic === EARLIER_0606_TOPIC ? EARLIER_0606_SUBTOPICS : [];
+  if (bankSlug === "igcse-additional") return topic === EARLIER_0606_TOPIC ? EARLIER_0606_SUBTOPICS : [...numbered0606.sections.filter(section => section.topic === topic).map(section => section.displayTitle), ...(OFFICIAL_0606_TOPICS.includes(topic) ? [topic] : [])];
   if (bankSlug === "igcse-physics-0625") return topic === PHYSICS_0625_EARLIER_TOPIC ? [PHYSICS_0625_EARLIER] : topic === PHYSICS_0625_REVIEW_TOPIC ? [PHYSICS_0625_REVIEW] : topic === PHYSICS_0625_PRACTICAL_TOPIC ? [PHYSICS_0625_PRACTICAL_TOPIC] : PHYSICS_0625_SECTIONS.filter((section) => section.topic === topic).map((section) => section.title);
   if (bankSlug === "igcse-chemistry-0620") return topic === CHEMISTRY_0620_EARLIER_TOPIC ? [CHEMISTRY_0620_EARLIER] : topic === CHEMISTRY_0620_REVIEW_TOPIC ? [CHEMISTRY_0620_REVIEW] : topic === CHEMISTRY_0620_PRACTICAL_TOPIC ? [CHEMISTRY_0620_PRACTICAL_TOPIC] : CHEMISTRY_0620_SECTIONS.filter((section) => section.topic === topic).map((section) => section.title);
   if (isAaBank(bankSlug)) return AA_GROUPS[topic] ?? [];
@@ -159,20 +160,22 @@ export function getSubtopicGroups(
   if (bank === "igcse-additional") {
     // The 14 official headings are topics, but the 17 original source labels
     // are still useful subtopic filters. Do not hide them while section work is open.
-    const all = uniqueSorted(questions.flatMap((question) => question.subtopics));
+    const official = numbered0606.sections.map(section => section.displayTitle);
+    const fine = uniqueSorted(questions.flatMap((question) => question.subtopics)).filter(label => !official.includes(label));
+    const all = [...official, ...fine];
     const available = new Set(all);
     const selected = new Set(selectedTopics);
     const currentSelected = new Set(selectedTopics.filter((topic) => topic !== EARLIER_0606_TOPIC));
     const currentLabels = currentSelected.size
       ? questions
         .filter((question) => [question.primaryTopic, ...question.secondaryTopics].some((topic) => currentSelected.has(topic)))
-        .flatMap((question) => question.subtopics)
+        .flatMap((question) => question.subtopics).filter(label => fine.includes(label))
       : [];
     const earlierLabels = selected.has(EARLIER_0606_TOPIC)
       ? EARLIER_0606_SUBTOPICS.filter((label) => available.has(label))
       : [];
     const relevant = !selected.size ? all : currentSelected.size
-      ? uniqueSorted([...earlierLabels, ...currentLabels])
+      ? [...new Set([...selectedTopics.flatMap(topic => getControlledSubtopics(bank, topic)), ...earlierLabels, ...currentLabels])]
       : [...earlierLabels];
     const relevantSet = new Set(relevant);
     return { all, relevant, other: all.filter((label) => !relevantSet.has(label)), selectedOutsideContext: selectedSubtopics.filter((label) => available.has(label) && !relevantSet.has(label)) };

@@ -1,0 +1,656 @@
+{
+  "scope": "23distinctpairedQP/MSreviews; boundednotexhaustive.13initialindependentcompleterecords,3parentresolveduninspectedrecords,and7supplementarysourcecases. Independentminimalreferencesdonot implyallpossiblevalidlinks.",
+  "records": [
+    {
+      "id": "0606-2022-june-11-q3",
+      "parts": [
+        {
+          "part": "(a)",
+          "printed_operation": "Write down the range of f, where f(x)=ln(2x+1), x>-1/2.",
+          "marks": 1,
+          "official_codes": [
+            "1.2"
+          ],
+          "evidence": "QP panel 0 shows Q3(a), range request and [1]. MS Q3(a) gives range y\u2208R, 1 mark.",
+          "ms_checked": true
+        },
+        {
+          "part": "(b)",
+          "printed_operation": "Find the exact solution of g f(x)=13, where g(x)=5x\u22127 and f(x)=ln(2x+1).",
+          "marks": 3,
+          "official_codes": [
+            "1.7",
+            "6.1"
+          ],
+          "evidence": "QP panel 0 shows Q3(b), composite notation gf(x), exact solution and [3]. MS Q3(b) substitutes 5 ln(2x+1)\u22127=13 and solves exactly. Parent: ln(2x+1)=4 uses inverse log/exp properties6.1, not unknown-exponent equation6.3.",
+          "ms_checked": true
+        },
+        {
+          "part": "(c)",
+          "printed_operation": "Find the solution of f\u2032(x)=g\u207b\u00b9(x).",
+          "marks": 6,
+          "official_codes": [
+            "1.6",
+            "14.2",
+            "14.3",
+            "2.4"
+          ],
+          "evidence": "QP panels 0\u20131 show Q3(c), derivative/inverse equation and [6]. MS Q3(c) differentiates f, finds g inverse, equates to form 2x\u00b2+15x\u22123=0, solves roots and rejects negative root using domain constraint. Parent: explicit derivative notation14.2; not a gradient/derived-function interpretation14.1.",
+          "ms_checked": true
+        }
+      ],
+      "unresolved": [],
+      "source_image_sha256": "5b6558bf8261684103366a027eee17b24fa880c5470f7462ab272ca2b2add5e6",
+      "source_ms_sha256": "9c01fb85485abb1955c02ca6030a1d94063ce63c57843e37383d45937cdb96bb"
+    },
+    {
+      "id": "0606-2018-november-22-q7",
+      "parts": [
+        {
+          "part": "(unlettered)",
+          "printed_operation": "Solve (1\u2212\u221a3)x\u00b2+x+(1+\u221a3)=0, giving your answer in the form a+b\u221a3, where a and b are constants.",
+          "marks": 6,
+          "official_codes": [
+            "2.4"
+          ],
+          "evidence": "QP panel 0 shows printed Q7 and [6]. MS panel Q7 applies quadratic formula, rationalises and gives both exact roots in requested surd form.",
+          "ms_checked": true
+        }
+      ],
+      "unresolved": [],
+      "source_image_sha256": "fea4bf1b57910eea2d6a9ed178fb91a4eceb79bb46448a33c3fd1f2014ce0b17",
+      "source_ms_sha256": "e329552ae2731315da4dba377abca85ab311c1e30c5cc55892a7f8fc24c3dd8b"
+    },
+    {
+      "id": "0606-2023-november-12-q6",
+      "parts": [
+        {
+          "part": "(a)",
+          "printed_operation": "Find a, b and c for p(x)=ax\u00b3+bx\u00b2+cx\u22125, using p\u2032(0)=12, factor 3x\u22121, and remainder 95 on division by x\u22122.",
+          "marks": 7,
+          "official_codes": [
+            "14.2",
+            "14.3",
+            "3.1",
+            "3.2",
+            "5.1"
+          ],
+          "evidence": "QP panel 0 shows Q6(a), conditions and [7]. MS panel 0 confirms c=12 from derivative, factor theorem p(1/3)=0, remainder theorem p(2)=95, simultaneous linear equations and a=6,b=7.",
+          "ms_checked": true
+        },
+        {
+          "part": "(b)",
+          "printed_operation": "Show that p(x)=0 has only one real root.",
+          "marks": 3,
+          "official_codes": [
+            "3.2",
+            "2.3"
+          ],
+          "evidence": "QP panel 1 shows Q6(b) and [3]. MS panel 0 factors as (3x\u22121)(2x\u00b2+3x+5), then uses negative discriminant of quadratic factor to conclude only root x=1/3.",
+          "ms_checked": true
+        }
+      ],
+      "unresolved": [],
+      "source_image_sha256": "57cd4637295b4c515480cf5269191f963d99d0c214e99b205c83bd6249a12e3a",
+      "source_ms_sha256": "0fc095942c6d16c0524ad08776a87f649d5a58f6fc75f53e80a782674b04e1f7"
+    },
+    {
+      "id": "0606-2016-june-22-q1",
+      "parts": [
+        {
+          "part": "(i)",
+          "printed_operation": "Given x\u00b2+2kx+4k\u22123=0 has no real roots, show k\u00b2\u22124k+3<0.",
+          "marks": 2,
+          "official_codes": [
+            "2.3"
+          ],
+          "evidence": "QP panel shows Q1(i), no-real-roots condition and required inequality [2]. MS Q1(i) applies discriminant b\u00b2\u22124ac<0 and derives the stated inequality.",
+          "ms_checked": true
+        },
+        {
+          "part": "(ii)",
+          "printed_operation": "Solve k\u00b2\u22124k+3<0.",
+          "marks": 2,
+          "official_codes": [
+            "2.5"
+          ],
+          "evidence": "QP panel shows Q1(ii) and [2]. MS Q1(ii) identifies critical values 1 and 3 and solution 1<k<3.",
+          "ms_checked": true
+        }
+      ],
+      "unresolved": [],
+      "source_image_sha256": "52eed9b97eabef8b37c55bc36a6ccc4662d9c51420107128c20e5f972f72aa12",
+      "source_ms_sha256": "d9054e04c68eb277b7ce468fe264d223ec76a1db9fd37c55208a7b32122c36e3"
+    },
+    {
+      "id": "0606-2016-june-22-q8",
+      "parts": [
+        {
+          "part": "8",
+          "printed_operation": "Find the coordinates of the points of intersection of curve 4 + 5/y + 3/x = 0 and line y = 15x + 10",
+          "marks": 6,
+          "official_codes": [
+            "5.1",
+            "7.1",
+            "2.4"
+          ],
+          "evidence": "QP prints a rational curve and straight line, asks for intersection coordinates. MS eliminates a variable, forms/solves a quadratic, then gives paired x,y intersections; straight-line equation and line-curve intersection are assessed. Parent official-registry correction:8.2 is circle/lineintersection, not general rationalcurve/line; use simultaneous-equation solving5.1 and derived quadratic2.4.",
+          "ms_checked": true
+        }
+      ],
+      "unresolved": [],
+      "source_image_sha256": "6fad15a6844bf27c81237632b63e9f92157d2354b011a1093edfbcedf70217b5",
+      "source_ms_sha256": "03d27da039111955548e20524a1d7b8f9d7fe401a219d1a916b47fe0b8c28be7"
+    },
+    {
+      "id": "0606-2024-november-13-q4",
+      "parts": [
+        {
+          "part": "4(a)",
+          "printed_operation": "Write 3 + 4 log\u2082 a \u2212 log\u2082 b as a single base 2 logarithm",
+          "marks": 3,
+          "official_codes": [
+            "6.2"
+          ],
+          "evidence": "MS converts 3 to log\u20828 and applies multiplication, division and power laws to obtain log\u2082(8a\u2074/b).",
+          "ms_checked": true
+        },
+        {
+          "part": "4(b)",
+          "printed_operation": "Solve lg x = 4 log\u2093 10",
+          "marks": 4,
+          "official_codes": [
+            "6.2"
+          ],
+          "evidence": "MS changes base, obtains (lg x)\u00b2 = 4 (equivalently (log\u209310)\u00b2 = 1/4), and gives x=100 or 1/100. This is logarithm law/change-of-base and solving, with no current standalone equation-solving-logarithms statement beyond 6.2.",
+          "ms_checked": true
+        }
+      ],
+      "unresolved": [],
+      "source_image_sha256": "befa2ff4be8a7b90e3fbbbf1c2f3ac9e6ffc920c047a0612f7384736a0cb32e7",
+      "source_ms_sha256": "58901ff3bd3b149d0058208c19bb09e01abaa5e2143334ca2ab9e7404953c36c"
+    },
+    {
+      "id": "0606-2016-june-11-q3",
+      "parts": [
+        {
+          "part": "3",
+          "printed_operation": "Find the equation of the normal to y = ln(2x\u00b2 \u2212 7) where the curve crosses the positive x-axis, in form ax + by + c = 0 with integer a,b,c",
+          "marks": 5,
+          "official_codes": [
+            "14.3",
+            "14.5"
+          ],
+          "evidence": "MS sets 2x\u00b2\u22127=1 to find the positive-axis crossing, differentiates ln(2x\u00b2\u22127), evaluates gradient, takes negative reciprocal, forms normal through (2,0), and rearranges to integer-coefficient form.",
+          "ms_checked": true
+        }
+      ],
+      "unresolved": [],
+      "source_image_sha256": "dffce71d8b0159a979418e456f9cd5c05026f5fae9a256c582c63242c7b93f1f",
+      "source_ms_sha256": "76015c1ccc8db345fb01b57f9480ce691a0714799464a1639b8729e88e6a4b69"
+    },
+    {
+      "id": "0606-2025-june-12-q3",
+      "parts": [
+        {
+          "part": "3(a)",
+          "printed_operation": "Show y=2x\u22123 is tangent to circle x\u00b2+y\u00b2\u221210x\u22124y+24=0",
+          "marks": 3,
+          "official_codes": [
+            "8.2",
+            "8.3"
+          ],
+          "evidence": "MS substitutes line into circle to obtain a three-term quadratic and uses discriminant/repeated root or one solution to establish tangency; tangent/circle-line intersection classification.",
+          "ms_checked": true
+        },
+        {
+          "part": "3(b)",
+          "printed_operation": "Given tangent touches at P, find coordinates of P",
+          "marks": 2,
+          "official_codes": [
+            "8.3"
+          ],
+          "evidence": "MS gives P=(3,3); alternative uses circle centre (5,2), perpendicular radius to the tangent, and intersection.",
+          "ms_checked": true
+        },
+        {
+          "part": "3(c)",
+          "printed_operation": "Find equation of circle centred at P and passing through origin",
+          "marks": 3,
+          "official_codes": [
+            "8.1"
+          ],
+          "evidence": "MS uses radius 3\u221a2 and writes (x\u22123)\u00b2+(y\u22123)\u00b2=18; circle equation from centre and radius.",
+          "ms_checked": true
+        }
+      ],
+      "unresolved": [],
+      "source_image_sha256": "5c7dd7290eb3c16028465cad7f53a6a08906a9ac25dad6b93605bf2c664c42da",
+      "source_ms_sha256": "34758d02f355474c30f38011f68dc794e01ae1c477448ddaf8a73b55d3f204a9"
+    },
+    {
+      "id": "0606-2025-november-21-q9",
+      "parts": [
+        {
+          "part": "9(a)",
+          "printed_operation": "Find \u03b8 in radians for isosceles triangle with equal sides 5 cm and opposite side 8 cm.",
+          "marks": 2,
+          "official_codes": [
+            "9.1"
+          ],
+          "evidence": "Printed QP panel Q9(a): cosine/sine triangle-angle calculation explicitly asks radians. MS 9(a) accepts 2sin\u207b\u00b9(4/5) or cosine rule and gives 1.85 rad.",
+          "ms_checked": true
+        },
+        {
+          "part": "9(b)(i)",
+          "printed_operation": "Use the part (a) answer to find perimeter of a two-arc shape, each arc radius 5 cm.",
+          "marks": 2,
+          "official_codes": [
+            "9.1"
+          ],
+          "evidence": "Printed QP panel Q9(b)(i) asks perimeter; MS credits 5 \u00d7 their 1.85 (less than 2\u03c0), yielding 18.5.",
+          "ms_checked": true
+        },
+        {
+          "part": "9(b)(ii)",
+          "printed_operation": "Use part (a) answer to find area of the two-arc shape.",
+          "marks": 3,
+          "official_codes": [
+            "9.1"
+          ],
+          "evidence": "Printed QP panel Q9(b)(ii) asks area. MS credits sector area \u00bd\u00d75\u00b2\u00d7their angle and subtracts the two triangular areas, result about 22.4; all are sector/radian area operations.",
+          "ms_checked": true
+        }
+      ],
+      "unresolved": [],
+      "source_image_sha256": "93d2bd8a4f1e19eaed1efe1579348988a0dcfb620e60bf7bd35a3ee621e8ea22",
+      "source_ms_sha256": "bec428c04788c2de46e174a42885641505c380e4916bd01e900c7ad514488d55"
+    },
+    {
+      "id": "0606-2026-june-11-q3",
+      "parts": [
+        {
+          "part": "3",
+          "printed_operation": "Show that (3+5cot\u03b8)\u00b2+(3\u22125cot\u03b8)\u00b2\u221250cosec\u00b2\u03b8, for 0<\u03b8<\u03c0/2, simplifies to a constant.",
+          "marks": 4,
+          "official_codes": [
+            "10.4",
+            "10.6"
+          ],
+          "evidence": "QP panel prints the trigonometric identity simplification. MS awards expansion, simplification and use of cot\u00b2\u03b8\u2212cosec\u00b2\u03b8=\u22121 (or equivalent sin\u00b2 identity), ending \u221232; this is a trigonometric identity relationship. Parent: showing constant proves a trigonometric relationship10.6 using identities10.4.",
+          "ms_checked": true
+        }
+      ],
+      "unresolved": [],
+      "source_image_sha256": "6c03af7d8958b0891eba1946d56f6b3569a8d472279355a712f4fa30f690921d",
+      "source_ms_sha256": "fd73c4e706491391ba5e5b6858d66497acc888637f75ebf835a28cad6ea0ebff"
+    },
+    {
+      "id": "0606-2018-march-22-q3",
+      "parts": [
+        {
+          "part": "3(i)",
+          "printed_operation": "Count assignments of chairperson, treasurer and secretary from five people, with chairperson and treasurer both men.",
+          "marks": 2,
+          "official_codes": [
+            "11.1",
+            "11.2",
+            "11.3"
+          ],
+          "evidence": "QP Q3(i) requires choosing two men for distinct offices then assigning a secretary. MS gives 3P2 \u00d7 3P1 (or 3\u00d72\u00d73), identifying ordered arrangements and permutation counting.",
+          "ms_checked": true
+        },
+        {
+          "part": "3(ii)",
+          "printed_operation": "Count seating arrangements of five people in a row of five chairs when David must sit in the middle.",
+          "marks": 1,
+          "official_codes": [
+            "11.3"
+          ],
+          "evidence": "QP Q3(ii) fixes David in the middle; MS answer 24, the arrangements of remaining four people.",
+          "ms_checked": true
+        },
+        {
+          "part": "3(iii)",
+          "printed_operation": "Count seating arrangements when Alice and Carl must sit together.",
+          "marks": 2,
+          "official_codes": [
+            "11.3"
+          ],
+          "evidence": "QP Q3(iii) requires adjacent pair. MS credits 2\u00d74!, treating Alice/Carl as a block with two internal orders.",
+          "ms_checked": true
+        }
+      ],
+      "unresolved": [],
+      "source_image_sha256": "ae5862e328dce1f9ad6296e9c92863f5c6adcedf09b13df1dd333cfb9979a500",
+      "source_ms_sha256": "58061664af8bbc292d049f2e31b4e104ce0c3f400bad5f69839d0f222013655f"
+    },
+    {
+      "id": "0606-2018-november-12-q5",
+      "parts": [
+        {
+          "part": "5(i)",
+          "printed_operation": "Show b=1/a given the 7th term in the ascending expansion of (a+bx)^12 is 924x^6.",
+          "marks": 2,
+          "official_codes": [
+            "12.1",
+            "12.2"
+          ],
+          "evidence": "QP Q5(i) identifies a specific term of a positive-integer binomial expansion and asks for a coefficient relation. MS uses 7th term 924a\u2076b\u2076x\u2076=924x\u2076, then (ab)\u2076=1 and positive a,b to conclude b=1/a.",
+          "ms_checked": true
+        },
+        {
+          "part": "5(ii)",
+          "printed_operation": "Find a and b using the 6th-term coefficient 198x^5 together with part (i).",
+          "marks": 4,
+          "official_codes": [
+            "12.1",
+            "12.2"
+          ],
+          "evidence": "QP Q5(ii) gives the 6th term of the same binomial expansion and requests a,b. MS uses 792a\u2077b\u2075x\u2075=198x\u2075; combines with ab=1 to solve, giving a=1/2 and b=2.",
+          "ms_checked": true
+        }
+      ],
+      "unresolved": [],
+      "source_image_sha256": "73ea30166d1d81ae3839d69d8df55bab7ffd021530e713434576558a10703f5f",
+      "source_ms_sha256": "1eb8921bc3a28de54b0ce23704d6979bfdd3c7c9df5f40297e4f8d2fd473e617"
+    },
+    {
+      "id": "0606-2019-march-22-q8",
+      "parts": [
+        {
+          "part": "(i)",
+          "printed_operation": "Write down and simplify an expression for vector AB.",
+          "marks": 2,
+          "official_codes": [
+            "13.1",
+            "13.3"
+          ],
+          "evidence": "QP panel shows position vectors A=2i+12j and B=6i\u22124j; asks for AB. MS confirms 6i\u22124j\u2212(2i+12j), yielding 4i\u221216j. Vector notation/ subtraction and scalar operations are assessed.",
+          "ms_checked": true
+        },
+        {
+          "part": "(ii)",
+          "printed_operation": "Find the unit vector in the direction of OC, with C on AB and AC:CB=1:3.",
+          "marks": 4,
+          "official_codes": [
+            "13.1",
+            "13.2",
+            "13.3"
+          ],
+          "evidence": "QP panel states ratio division and asks unit vector OC. MS gives OC construction, result 3i+8j, magnitude sqrt(73), and normalized vector (3i+8j)/sqrt(73). Position/vector operations and unit vector are materially assessed.",
+          "ms_checked": true
+        },
+        {
+          "part": "(iii)",
+          "printed_operation": "Given D on OA with OD:DA=1:lambda, find AD in terms of lambda, i and j.",
+          "marks": 2,
+          "official_codes": [
+            "13.1",
+            "13.2",
+            "13.3"
+          ],
+          "evidence": "QP panel gives ratio on OA and requests vector AD. MS gives \u2212lambda/(1+lambda)(2i+12j), with intermediate OD=1/(1+lambda)(2i+12j). Position vectors and vector subtraction/scalar operations are assessed.",
+          "ms_checked": true
+        }
+      ],
+      "unresolved": [],
+      "source_image_sha256": "ea2b9e8a376673438b6d73862e7808daed39bde0382520dbea39401c69fa0030",
+      "source_ms_sha256": "b104c2b5f9da14d9daec7e3dd3ce2ce990cb800f2039a04da7326e06130feac7"
+    },
+    {
+      "id": "0606-2023-november-22-q7",
+      "parts": [
+        {
+          "part": "a",
+          "printed_operation": "Differentiate displacement1.5e^(2t)+2e^(\u22122t)\u2212t twice to velocity and acceleration; MS v=3e^(2t)\u22124e^(\u22122t)\u22121,a=6e^(2t)+8e^(\u22122t).",
+          "marks": 3,
+          "official_codes": [
+            "14.3",
+            "14.14"
+          ],
+          "evidence": "Parent original QP/MS direct inspection: Differentiate displacement1.5e^(2t)+2e^(\u22122t)\u2212t twice to velocity and acceleration; MS v=3e^(2t)\u22124e^(\u22122t)\u22121,a=6e^(2t)+8e^(\u22122t).",
+          "ms_checked": true
+        },
+        {
+          "part": "b",
+          "printed_operation": "Setvelocity0; MS3e^(4t)\u2212e^(2t)\u22124=0 factorsquadraticine^(2t),e^(2t)=4/3,T=(1/2)ln(4/3).",
+          "marks": 4,
+          "official_codes": [
+            "14.14",
+            "4.3",
+            "6.3"
+          ],
+          "evidence": "Parent original QP/MS direct inspection: Setvelocity0; MS3e^(4t)\u2212e^(2t)\u22124=0 factorsquadraticine^(2t),e^(2t)=4/3,T=(1/2)ln(4/3).",
+          "ms_checked": true
+        },
+        {
+          "part": "c",
+          "printed_operation": "EvaluateaccelerationatT; MS14.",
+          "marks": 2,
+          "official_codes": [
+            "14.14"
+          ],
+          "evidence": "Parent original QP/MS direct inspection: EvaluateaccelerationatT; MS14.",
+          "ms_checked": true
+        }
+      ],
+      "unresolved": [],
+      "source_image_sha256": "10ba324954c7ac64af6b6b41e0d15556d3578d502321d80279d506e0315413e3",
+      "source_ms_sha256": "c2bd0b0580d0c93c1dd754b2501ca48ea8d0c8836eec3ee7477def06c777a8b0"
+    },
+    {
+      "id": "0606-2025-june-12-q2",
+      "parts": [
+        {
+          "part": "whole",
+          "printed_operation": "Solvex^(1/3)+1=6/x^(1/3); MSquadraticinu=x^(1/3),factored(u+3)(u\u22122), answers\u221227and8.",
+          "marks": 4,
+          "official_codes": [
+            "4.3",
+            "2.4"
+          ],
+          "evidence": "Parent original QP/MS direct inspection: Solvex^(1/3)+1=6/x^(1/3); MSquadraticinu=x^(1/3),factored(u+3)(u\u22122), answers\u221227and8.",
+          "ms_checked": true
+        }
+      ],
+      "unresolved": [],
+      "source_image_sha256": "ed853c09379cd1e84b13cc95af813d459a2a3a0c16737d8711bd5acfcd3fbc14",
+      "source_ms_sha256": "ad21f9bb08bba3853354c1d52e8996ca442fb79e3551bba466091cc052abaebe"
+    },
+    {
+      "id": "0606-2016-june-11-q9",
+      "parts": [
+        {
+          "part": "i",
+          "printed_operation": "Proveequivalentfactorform usingcot=cos/sin; MS(a cosx\u2212b)(cosx\u2212sinx)=0witha2,b1.",
+          "marks": 4,
+          "official_codes": [
+            "10.6"
+          ],
+          "evidence": "Parent original QP/MS direct inspection: Proveequivalentfactorform usingcot=cos/sin; MS(a cosx\u2212b)(cosx\u2212sinx)=0witha2,b1.",
+          "ms_checked": true
+        },
+        {
+          "part": "ii",
+          "printed_operation": "Solvetrigonometric equation on0<x<\u03c0; MScosx=1/2 ortanx=1, x\u03c0/3 or\u03c0/4.",
+          "marks": 3,
+          "official_codes": [
+            "10.5"
+          ],
+          "evidence": "Parent original QP/MS direct inspection: Solvetrigonometric equation on0<x<\u03c0; MScosx=1/2 ortanx=1, x\u03c0/3 or\u03c0/4.",
+          "ms_checked": true
+        }
+      ],
+      "unresolved": [],
+      "source_image_sha256": "39ffc86ccfaec05bc86efd8c8d5568be582405d55576d91ed2fa742751724a8b",
+      "source_ms_sha256": "81b3f29d3c266d1097f42fd8be9c9d865b66c9e3fd48b9198a71d482343c7644"
+    },
+    {
+      "id": "0606-2018-june-21-q7",
+      "parts": [
+        {
+          "part": "i",
+          "official_codes": [
+            "14.3",
+            "14.4"
+          ],
+          "printed_operation": "Differentiate4x tanx; MS4tanx+4xsec\u00b2x.",
+          "evidence": "ParentoriginalQP/MSinspection",
+          "ms_checked": true
+        },
+        {
+          "part": "ii",
+          "official_codes": [
+            "14.3",
+            "14.4"
+          ],
+          "printed_operation": "Differentiatee^(3x+1)/(x\u00b2\u22121); MSchain exponential derivative3e^(3x+1),thenquotientrule.",
+          "evidence": "ParentoriginalQP/MSinspection",
+          "ms_checked": true
+        }
+      ],
+      "source_image_sha256": "ca4b04785abd53bb9fe919986379c5df41137b3d8464c477b3750c754acc14b8",
+      "source_ms_sha256": "f1055c8ae1aa97520e560f7e48dc5201b7832e2c9fa350b0769fae7c5019442b",
+      "unresolved": []
+    },
+    {
+      "id": "0606-2024-march-12-q7",
+      "parts": [
+        {
+          "part": "a",
+          "official_codes": [
+            "14.11",
+            "14.13"
+          ],
+          "printed_operation": "Definiteintegral(5x\u22122)^(\u22122/3)from2to4; MSpowerantiderivativeandlimits.",
+          "evidence": "ParentoriginalQP/MSinspection",
+          "ms_checked": true
+        },
+        {
+          "part": "b",
+          "official_codes": [
+            "14.11",
+            "14.13"
+          ],
+          "printed_operation": "Definiteintegral4/(2x+1)+8/(2x+1)\u00b2 from0to1/2; MS2ln(2x+1)\u22124/(2x+1), limits.",
+          "evidence": "ParentoriginalQP/MSinspection",
+          "ms_checked": true
+        }
+      ],
+      "source_image_sha256": "55c0cbe27b084731a3f8703763b72469adfb61003c9f7c32f267acca7334cede",
+      "source_ms_sha256": "b8915d95cc6a0b765f96dbd4bedc20fda604db55f2545c214ad58a6354e40776",
+      "unresolved": []
+    },
+    {
+      "id": "0606-2018-november-12-q3",
+      "parts": [
+        {
+          "part": "whole",
+          "official_codes": [
+            "1.4",
+            "4.1",
+            "4.2"
+          ],
+          "printed_operation": "QPsketchy=|6\u22123x|,solvemodulusequation=2,inequality>2;MSVshape,twobranches,outersolution intervals.",
+          "evidence": "ParentQP/MSvisualinspection",
+          "ms_checked": true
+        }
+      ],
+      "unresolved": [],
+      "source_image_sha256": "dfa708d5366af6b1ec874e3a6d82cbb079673e2f59bff8434e77b12efe318108",
+      "source_ms_sha256": "0485a2f8c6bc3f2df1428711889589ff293cead4f1df518a88c8c44ea480dffb"
+    },
+    {
+      "id": "0606-2016-june-22-q9",
+      "parts": [
+        {
+          "part": "whole",
+          "official_codes": [
+            "14.11",
+            "14.12",
+            "14.13"
+          ],
+          "printed_operation": "QPpowerintegral(x\u00b3+x\u00b2+1)/x\u00b2,linear-argumentsin(5x+\u03c0)indefiniteanddefiniteintegrals;MSantiderivatives andlimits.",
+          "evidence": "ParentQP/MSvisualinspection",
+          "ms_checked": true
+        }
+      ],
+      "unresolved": [],
+      "source_image_sha256": "4fac0087bb9ef5a76dbefc9de286943fcfc26c46cfa5e21f7f29dd361be13944",
+      "source_ms_sha256": "c27d6abffa44cc2fd9aab3354bf5df79bbc5149aa677f94ed0d56231787d2500"
+    },
+    {
+      "id": "0606-2016-june-11-q9",
+      "parts": [
+        {
+          "part": "whole",
+          "official_codes": [
+            "10.1"
+          ],
+          "printed_operation": "QPtrigproof specificallyusescot=cos/sin;MSfirstM1 explicitlyforcotdefinition.",
+          "evidence": "ParentQP/MSvisualinspection",
+          "ms_checked": true
+        }
+      ],
+      "unresolved": [],
+      "source_image_sha256": "39ffc86ccfaec05bc86efd8c8d5568be582405d55576d91ed2fa742751724a8b",
+      "source_ms_sha256": "81b3f29d3c266d1097f42fd8be9c9d865b66c9e3fd48b9198a71d482343c7644"
+    },
+    {
+      "id": "0606-2025-march-22-q3",
+      "parts": [
+        {
+          "part": "whole",
+          "official_codes": [
+            "4.3",
+            "2.4"
+          ],
+          "evidence": "QP6x^(3/5)+1=12/x^(3/5);MSquadraticinu=x^(3/5),solvebothrootsandfractionalpower.",
+          "ms_checked": true
+        }
+      ],
+      "source_image_sha256": "905ae583b0640699440b1983bf2b81155b5423e58b2f7ed0b15e685daf4869b3",
+      "source_ms_sha256": "669f42692f18fd05d8f026ce4ceefc2c3b544c8d9232e3ebbdd77f7eb46fcfab",
+      "unresolved": []
+    },
+    {
+      "id": "0606-2025-june-11-q4",
+      "parts": [
+        {
+          "part": "whole",
+          "official_codes": [
+            "4.3",
+            "5.1",
+            "6.1",
+            "2.4"
+          ],
+          "evidence": "QP(a)x^(1/3)\u2212x^(1/6)=2;MSrelatedquadratic andinvalidnegative-rootrejection.(b)lg(x+2y)=0andnonlinearpaired equation;MSlog/expinverse,simultaneouselimination,quadraticroots.",
+          "ms_checked": true
+        }
+      ],
+      "source_image_sha256": "077d7b39a08346e3b6520a8216652b76829936d8e303d7ba248cfdc6158ea5ee",
+      "source_ms_sha256": "9f594e1e4120af9c081fcaaf0e9af7ef6920eec030ba467d3a30c543b67b96f6",
+      "unresolved": []
+    },
+    {
+      "id": "0606-2025-june-23-q13",
+      "parts": [
+        {
+          "part": "whole",
+          "official_codes": [
+            "4.3",
+            "6.3",
+            "2.4"
+          ],
+          "evidence": "QP64^(x+1/3)+2^(3x)\u22123=0;MSu=8^x,quadraticfactorisation,thenlog8(0.75).",
+          "ms_checked": true
+        }
+      ],
+      "source_image_sha256": "034e1a6ce59700f24757ee1c8172dfd1f3a772cc24e468ca85096fa77b3828a8",
+      "source_ms_sha256": "3693ec5bfbbc0a448df010c6cdf9ca1788a20f6e9b9adf5c5a9da3f6e47155b0",
+      "unresolved": []
+    }
+  ],
+  "uniqueReviewed": 23
+}

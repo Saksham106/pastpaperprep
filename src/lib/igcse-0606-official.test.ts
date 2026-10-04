@@ -67,9 +67,9 @@ describe("0606 official topic projection", () => {
     for (const label of EARLIER_0606_SUBTOPICS) {
       expect(filterQuestions([...normalized], { subtopics: [label] }).length).toBeGreaterThan(0);
     }
-    expect(getSubtopicGroups(normalized, [], []).all).toHaveLength(17);
+    expect(getSubtopicGroups(normalized, [], []).all).toHaveLength(84);
     expect(getSubtopicGroups(normalized, [EARLIER_0606_TOPIC], []).relevant).toEqual(expect.arrayContaining([...EARLIER_0606_SUBTOPICS]));
-    expect(getSubtopicGroups(normalized, [], ["Matrices"]).all).toHaveLength(17);
+    expect(getSubtopicGroups(normalized, [], ["Matrices"]).all).toHaveLength(84);
     expect(getSubtopicGroups(normalized, ["Functions"], []).relevant).toContain("Functions");
     expect(getSubtopicGroups([{ ...normalized[0], skills: ["__internal_code__"] }], [], []).all).not.toContain("__internal_code__");
     const searchable = normalized.find((q) => q.subtopics.includes("Indices and surds"))!;
