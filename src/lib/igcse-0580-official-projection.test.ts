@@ -17,18 +17,18 @@ const byId = new Map(questions.map((question) => [question.id, question]));
 const REVIEW = "Section not yet verified";
 
 describe("0580 official topic-first section projection", () => {
-  it("keeps the nine topics and 51 legacy student filters while the 72-section candidate stays offline", () => {
+  it("keeps nine topics and all 51 legacy filters beside the accepted 72-section additive tree", () => {
     expect(raw).toHaveLength(3967);
     expect(new Set(questions.map((question) => question.id)).size).toBe(3967);
     const topics = getTopicOptions(questions);
     expect(topics.slice(0, 9)).toEqual(["Number", "Algebra and graphs", "Coordinate geometry", "Geometry", "Mensuration", "Trigonometry", "Transformations and vectors", "Probability", "Statistics"]);
     expect(topics).toHaveLength(9);
     const groups = getSubtopicGroups(releasedQuestions, [], []);
-    expect(groups.all).toHaveLength(51);
+    expect(groups.all).toHaveLength(123);
     expect(groups.all).not.toContain(REVIEW);
     expect(MATH_0580_SECTIONS).toHaveLength(72);
     expect(new Set(MATH_0580_SECTIONS.map(s => s.displayTitle)).size).toBe(72);
-    for (const s of MATH_0580_SECTIONS) expect(groups.all).not.toContain(s.displayTitle);
+    for (const s of MATH_0580_SECTIONS) expect(groups.all).toContain(s.displayTitle);
   });
 
   it("preserves the 25 reviewed overrides and adds mappings without erasing old filters", () => {
