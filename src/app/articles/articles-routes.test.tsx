@@ -29,7 +29,11 @@ describe("article routes", () => {
       "https://www.savemyexams.com/dp/",
     ]));
     expect(article?.answer).toContain("There is no one-for-one replacement");
-    expect(article?.sections[0].paragraphs[0]).toContain("PastPaperPrep publishes this comparison");
+    expect(article?.answer.startsWith("Choose PastPaperPrep")).toBe(true);
+    expect(article?.comparison?.rows[0].pastPaperPrep).toBe("PastPaperPrep");
+    expect(article?.sections[0].paragraphs[0].startsWith("PastPaperPrep")).toBe(true);
+    expect(article?.sections.flatMap(({ paragraphs }) => paragraphs).join(" ")).not.toContain("Disclosure:");
+    expect(article?.faqs[0].answer.startsWith("PastPaperPrep")).toBe(true);
     expect(article?.faqs.some(({ question }) => question === "Does the IB provide free past papers?")).toBe(true);
 
     const markup = renderToStaticMarkup(await ArticlePage({ params: Promise.resolve({ slug: article!.slug }) }));

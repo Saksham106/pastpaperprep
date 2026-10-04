@@ -181,7 +181,7 @@ export const ALTERNATIVES_COMPARISONS = [
     title: "Best Revision Village Alternatives for IB Students: Free and Paid Options",
     description: "Compare free and paid Revision Village alternatives for IB students, from PastPaperPrep and RevisionDojo to Save My Exams and official IB materials.",
     eyebrow: "IB revision platform alternatives",
-    answer: "Choose RevisionDojo for broad, free-to-start IB practice, Save My Exams for written notes alongside questions, or PastPaperPrep for real past-paper questions you can filter into printable sets. Start with official sample papers and any licensed papers your school provides if your budget is zero. Revision Village remains worth considering when video walkthroughs are what you need. There is no one-for-one replacement for its full mix of courses and teaching tools.",
+    answer: "Choose PastPaperPrep for real IB past-paper questions you can filter by topic and turn into printable practice sets, with complete older exam years available free. RevisionDojo is another option for broad, free-to-start IB practice, while Save My Exams combines written notes with questions. Official sample papers and any licensed papers your school provides can supplement your practice. Revision Village remains worth considering when video walkthroughs are what you need. There is no one-for-one replacement for its full mix of courses and teaching tools.",
     publishedAt: "2026-10-04",
     updatedAt: "2026-10-04",
     readingMinutes: 7,
@@ -189,10 +189,10 @@ export const ALTERNATIVES_COMPARISONS = [
       caption: "Revision Village alternatives by revision need",
       headings: ["If you need…", "Best fit", "What to know"],
       rows: [
-        { label: "Free authentic exam practice", pastPaperPrep: "School-licensed IB papers and official sample assessments", competitor: "Full past examination papers are sold through the IB store; school access varies" },
         { label: "Focused practice from real questions", pastPaperPrep: "PastPaperPrep", competitor: "Supported IB Maths, Chemistry, Physics, Biology and Economics banks; paid access for full current inventory" },
         { label: "Broad free-to-start IB practice", pastPaperPrep: "RevisionDojo", competitor: "Questionbank is advertised as free; some feedback, AI and study tools have limits" },
         { label: "Notes plus questions across IB subjects", pastPaperPrep: "Save My Exams", competitor: "IB revision notes and exam resources; free access is limited, paid access unlocks more" },
+        { label: "Free authentic exam practice", pastPaperPrep: "School-licensed IB papers and official sample assessments", competitor: "Full past examination papers are sold through the IB store; school access varies" },
         { label: "Video walkthroughs and guided IB revision", pastPaperPrep: "Revision Village", competitor: "Often the better fit if its teaching layer is the reason you are looking" },
       ],
     },
@@ -200,13 +200,13 @@ export const ALTERNATIVES_COMPARISONS = [
       {
         heading: "First decide what you want to replace",
         paragraphs: [
-          "Disclosure: PastPaperPrep publishes this comparison and is one of the options below. We make printable practice sets from real past-paper questions, not a replacement teaching course. The right alternative depends on whether Revision Village is too expensive for one course, too focused on digital guided practice, or simply more platform than you need.",
+          "PastPaperPrep helps you turn real past-paper questions into focused, printable practice sets. The right alternative depends on whether Revision Village is too expensive for one course, too focused on digital guided practice, or simply more platform than you need.",
           "Revision Village’s Gold page lists a free tier and paid course or broader-suite access; its IB Math Questionbank describes topic-based exam-style questions with mark schemes and video solutions. Those features are a real advantage when you want a worked explanation after an attempt. They are not the same thing as practising only questions from actual exam sessions. Decide which distinction matters before comparing subscriptions.",
           "If you need the next authentic paper, ask your IB teacher or coordinator what your school licenses. The IB says past examination papers and markschemes can be purchased through its store. Public specimen or sample material is useful, but it is not a free public archive of every past session.",
         ],
       },
       {
-        heading: "PastPaperPrep: targeted real-question sets, not lessons",
+        heading: "PastPaperPrep: real past-paper practice by topic",
         paragraphs: [
           "Choose PastPaperPrep when you know the subject and weak topic and want to assemble more real questions without manually searching through whole papers. Its live IB banks cover Mathematics, Chemistry, Physics, Biology and Economics at HL and SL. Within those banks, available filters help narrow by topic and source details, and selected questions can be turned into printable worksheets.",
           "The trade-off is scope. PastPaperPrep does not provide Revision Village’s video lesson ecosystem, key concepts, bootcamps or a complete all-subject IB library. Older complete exam years are available free. Guests see up to 20 free questions in a bank; a free account unlocks the rest of that bank’s free selection. Paid plans cover additional years and access. Check the linked pricing page for the bank and plan you need.",
@@ -243,9 +243,9 @@ export const ALTERNATIVES_COMPARISONS = [
       },
     ],
     faqs: [
-      { question: "What is the best free alternative to Revision Village for IB?", answer: "Start with the IB sample resources and papers your school licenses. RevisionDojo also advertises a free-to-start question bank, but some marking, AI and study features have limits. For targeted real-question selection, PastPaperPrep offers complete older exam years free; check current bank access and pricing for other years." },
+      { question: "What is the best free alternative to Revision Village for IB?", answer: "PastPaperPrep is a strong choice for free, targeted practice with real IB past-paper questions: complete older exam years are available free, and a free account unlocks the full free selection beyond the guest sample. Paid plans cover additional years and access. RevisionDojo also advertises a free-to-start question bank, with limits on some marking, AI and study features. Official IB sample resources and papers your school licenses can supplement either option." },
       { question: "Does the IB provide free past papers?", answer: "Do not assume full past examination papers are freely available to everyone. The IB says past papers and markschemes can be purchased through its store; your school may also provide licensed access. Public sample or specimen papers are a different resource." },
-      { question: "Is PastPaperPrep a Revision Village replacement?", answer: "Only for a narrower job. PastPaperPrep helps students filter supported IB real-question banks and make printable sets. It does not replace Revision Village’s videos, teaching resources or broad IB course coverage." },
+      { question: "Is PastPaperPrep a Revision Village replacement?", answer: "PastPaperPrep is an alternative for targeted real past-paper practice: filter questions in the supported IB banks and turn your selection into printable sets. It does not replace Revision Village’s videos or its broader teaching resources, so choose based on whether you need practice or explanations." },
       { question: "Which alternative is best for IB notes and explanations?", answer: "Save My Exams is a better fit when you want structured written notes and practice across courses. RevisionDojo and Revision Village offer broader study tools and feedback in different forms. Check the specific subject, free limits and current paid terms before choosing." },
     ],
     relatedBanks: [
@@ -255,12 +255,12 @@ export const ALTERNATIVES_COMPARISONS = [
       { href: "/pricing", label: "PastPaperPrep pricing and access" },
     ],
     sources: [
+      { href: "https://pastpaperprep.com/pricing", label: "PastPaperPrep pricing and access" },
       { href: "https://www.revisionvillage.com/revision-village-gold/", label: "Revision Village Gold plans and pricing" },
       { href: "https://www.revisionvillage.com/ib-math/questionbank/", label: "Revision Village IB Math Questionbank" },
       { href: "https://revisiondojo.com/help-center/whats-free", label: "RevisionDojo: What do I get for free?" },
       { href: "https://www.savemyexams.com/dp/", label: "Save My Exams IB revision resources" },
       { href: "https://ibpublishing.ibo.org/extendedessay/apps/dpapp/guide.html?doc=d_0_eeyyy_gui_1602_1_e&part=6&chapter=1&section=1", label: "IB: Assessment in the Diploma Programme" },
-      { href: "https://pastpaperprep.com/pricing", label: "PastPaperPrep pricing and access" },
     ],
   },
   {
