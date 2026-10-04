@@ -72,6 +72,10 @@ export const ARTICLE_INDEX_DETAILS: Readonly<Record<string, ArticleIndexDetail>>
     { href: "/banks/ib-hl?topic=Calculus", label: "IB Maths AA HL: Calculus" },
     { href: "/banks/ib-sl?topic=Functions", label: "IB Maths AA SL: Functions" },
   ] },
+  "best-revision-village-alternatives": { difficulty: "Foundational", exam: "IB Diploma", practiceLinks: [
+    { href: "/banks/ib-hl?topic=Calculus", label: "IB Maths AA HL: Calculus" },
+    { href: "/banks/ib-sl?topic=Functions", label: "IB Maths AA SL: Functions" },
+  ] },
   "pastpaperprep-vs-revision-village": { difficulty: "Intermediate", exam: "IB Diploma", practiceLinks: [
     { href: "/banks/ib-hl?topic=Statistics%20and%20probability", label: "IB Maths AA HL: Statistics and probability" },
     { href: "/banks/ib-sl?topic=Number%20and%20algebra", label: "IB Maths AA SL: Number and algebra" },
