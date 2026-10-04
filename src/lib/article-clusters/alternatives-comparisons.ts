@@ -181,7 +181,7 @@ export const ALTERNATIVES_COMPARISONS = [
     title: "Best Revision Village Alternatives for IB Students: Free and Paid Options",
     description: "Compare free and paid Revision Village alternatives for IB students, from PastPaperPrep and RevisionDojo to Save My Exams and official IB materials.",
     eyebrow: "IB revision platform alternatives",
-    answer: "The best Revision Village alternative depends on what you want instead. For free, authentic past-paper practice, start with your school’s licensed IB materials and official sample assessments; do not assume the IB gives public access to full past exam papers. For targeted real-question practice across PastPaperPrep’s supported IB Maths and science banks, use its topic, paper, and other available filters to build printable sets. Choose RevisionDojo for a broad, free-to-start IB question bank with stated usage caps on some tools; Save My Exams for structured notes and exam practice across subjects, with free access limited; or stay with Revision Village if its video solutions and guided revision tools are what you need. There is no one-for-one replacement for Revision Village’s full mix of IB courses and instructional features.",
+    answer: "Choose RevisionDojo for broad, free-to-start IB practice, Save My Exams for written notes alongside questions, or PastPaperPrep for real past-paper questions you can filter into printable sets. Start with official sample papers and any licensed papers your school provides if your budget is zero. Revision Village remains worth considering when video walkthroughs are what you need. There is no one-for-one replacement for its full mix of courses and teaching tools.",
     publishedAt: "2026-10-04",
     updatedAt: "2026-10-04",
     readingMinutes: 7,
@@ -209,7 +209,7 @@ export const ALTERNATIVES_COMPARISONS = [
         heading: "PastPaperPrep: targeted real-question sets, not lessons",
         paragraphs: [
           "Choose PastPaperPrep when you know the subject and weak topic and want to assemble more real questions without manually searching through whole papers. Its live IB banks cover Mathematics, Chemistry, Physics, Biology and Economics at HL and SL. Within those banks, available filters help narrow by topic and source details, and selected questions can be turned into printable worksheets.",
-          "The trade-off is scope. PastPaperPrep does not provide Revision Village’s video lesson ecosystem, key concepts, bootcamps or a complete all-subject IB library. It is a practice workflow. Older complete exam years are available free; current access and plan prices are listed on the linked pricing page, and may change. Check the course and plan before paying rather than treating a monthly equivalent as a checkout total.",
+          "The trade-off is scope. PastPaperPrep does not provide Revision Village’s video lesson ecosystem, key concepts, bootcamps or a complete all-subject IB library. Older complete exam years are available free. Guests see up to 20 free questions in a bank; a free account unlocks the rest of that bank’s free selection. Paid plans cover additional years and access. Check the linked pricing page for the bank and plan you need.",
           "Best for: students who already have teaching from class, a textbook or another source, and want focused question selection. Skip it if your main problem is understanding a new concept and you need someone to teach it.",
         ],
       },
