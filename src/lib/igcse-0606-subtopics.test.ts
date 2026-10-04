@@ -7,13 +7,13 @@ import { metadataFromRaw } from "../../scripts/generate-bank-index.mjs";
 import { project0606Sections, SECTIONS_0606 } from "@/lib/igcse-0606-subtopics.mjs";
 
 describe("0606 additive source-backed subtopics", () => {
-  it("keeps the numbered experimental projection offline from released student options", () => {
+  it("adds all67official statements beside retained finer student options", () => {
     const rows = loadBankQuestions("igcse-additional");
     expect(SECTIONS_0606).toHaveLength(67);
     const options = getSubtopicGroups(rows, [], []).all;
-    expect(options).toHaveLength(17);
+    expect(options).toHaveLength(84);
     for (const q of raw.questions) for (const label of q.subtopics) expect(options).toContain(label);
-    for (const s of SECTIONS_0606) expect(options).not.toContain(s.displayTitle);
+    for (const s of SECTIONS_0606) expect(options).toContain(s.displayTitle);
     expect(SECTIONS_0606.filter(s => s.code.startsWith("13.")).map(s => s.displayTitle)).toHaveLength(4);
     expect(getTopicOptions(rows)).toHaveLength(15);
   });

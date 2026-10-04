@@ -1,0 +1,19 @@
+import assert from 'node:assert/strict';
+import {readFileSync,writeFileSync}from'node:fs';
+import {createHash}from'node:crypto';
+import {metadataFromRaw}from'./generate-bank-index.mjs';
+import {OVERLAY_0606_V3,SECTIONS_0606_V3,project0606ApprovedSections}from'../src/lib/igcse-0606-section-retrieval-v3.mjs';
+const read=p=>JSON.parse(readFileSync(p,'utf8'));
+const raw=read('src/data/raw/igcse-additional.json').questions;
+assert.equal(createHash('sha256').update(readFileSync('src/data/raw/igcse-additional.json')).digest('hex'),OVERLAY_0606_V3.sourceRawSha256);
+assert.equal(raw.length,1633);assert.equal(new Set(raw.map(r=>r.id)).size,1633);
+const seal=read('docs/0606-legacy-filter-seal-v3.json'),baseline=read('docs/0606-public-baseline-v3.json');
+const projected=raw.map(r=>metadataFromRaw(r,{bank:'igcse-additional'}));const old=new Map(baseline.questions.map(r=>[r.id,r]));
+const mutable=new Set(['secondaryTopics','subtopics','skills','officialCodeRefs']);
+for(const row of projected){const prior=old.get(row.id);assert.ok(prior,row.id);for(const key of new Set([...Object.keys(row),...Object.keys(prior)])){if(mutable.has(key)){for(const v of prior[key]??[])assert.ok((row[key]??[]).includes(v),`${row.id}/${key}/${v}`);}else assert.deepEqual(row[key],prior[key],`${row.id}/${key}`);}}
+for(const[label,ids]of Object.entries(seal.fineFilterIds))assert.deepEqual(projected.filter(r=>r.subtopics.includes(label)||r.skills.includes(label)).map(r=>r.id).sort(),ids,label);
+const rawById=new Map(raw.map(r=>[r.id,r]));const rows=OVERLAY_0606_V3.rows.map(r=>{assert.ok(rawById.has(r.id),r.id);const links=project0606ApprovedSections(rawById.get(r.id));return{...r,labels:links.subtopics};});
+const perSection=SECTIONS_0606_V3.map(s=>({code:s.code,title:s.displayTitle,topic:s.topic,ids:rows.filter(r=>r.sectionCodes.includes(s.code)).map(r=>r.id)}));
+const evidenceCounts={};for(const r of rows)for(const type of Object.values(r.evidenceByCode))evidenceCounts[type]=(evidenceCounts[type]??0)+1;
+const accepted=new Set(rows.map(r=>r.id));const result={schemaVersion:1,questions:1633,legacyFilters:17,legacyCalculus:seal.fineFilterIds.Calculus.length,officialStatements:67,linked:rows.length,legacyOnly:1633-rows.length,evidenceCounts,perSection,dispositions:raw.map(r=>({id:r.id,disposition:accepted.has(r.id)?'additive-official-links':'legacy-only-unresolved'}))};
+writeFileSync('docs/0606-section-reconciliation-v3.json',JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify({questions:result.questions,linked:result.linked,legacyOnly:result.legacyOnly,evidenceCounts}));
