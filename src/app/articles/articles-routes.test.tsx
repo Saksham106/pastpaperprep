@@ -18,6 +18,27 @@ describe("article routes", () => {
     expect(renderToStaticMarkup(<ArticlesPage />)).toContain("Past paper practice guides");
   });
 
+  it("activates the Revision Village alternatives guide with grounded comparison content", async () => {
+    const article = ARTICLES.find(({ slug }) => slug === "best-revision-village-alternatives");
+    expect(article).toBeDefined();
+    expect(generateStaticParams()).toContainEqual({ slug: "best-revision-village-alternatives" });
+    expect(article?.title).toBe("Best Revision Village Alternatives for IB Students: Free and Paid Options");
+    expect(article?.sources?.map(({ href }) => href)).toEqual(expect.arrayContaining([
+      "https://www.revisionvillage.com/revision-village-gold/",
+      "https://revisiondojo.com/help-center/whats-free",
+      "https://www.savemyexams.com/dp/",
+    ]));
+    expect(article?.answer).toContain("There is no one-for-one replacement");
+    expect(article?.sections[0].paragraphs[0]).toContain("PastPaperPrep publishes this comparison");
+    expect(article?.faqs.some(({ question }) => question === "Does the IB provide free past papers?")).toBe(true);
+
+    const markup = renderToStaticMarkup(await ArticlePage({ params: Promise.resolve({ slug: article!.slug }) }));
+    expect(markup).toContain(article!.title);
+    expect(markup).toContain("RevisionDojo");
+    expect(markup).toContain("School-licensed IB papers");
+    expect(markup).toContain("Official IB and school resources");
+  });
+
   it("keeps article text constrained while its background spans the page", async () => {
     const index = renderToStaticMarkup(<ArticlesPage />);
     const detail = renderToStaticMarkup(await ArticlePage({ params: Promise.resolve({ slug: ARTICLES[0].slug }) }));
