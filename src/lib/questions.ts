@@ -1,7 +1,8 @@
 import { economicsStorageObjectPath, storageObjectPath } from "@/lib/assets";
 import { getBank, isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
 import { isPrivateRuntimeBank, privateStorageObjectPath } from "@/lib/private-runtime-mapping";
-import { verified0580RetrievalAdditions } from '@/lib/igcse-0580-source-retrieval.mjs';
+import { verified0580RetrievalAdditions } from "@/lib/igcse-0580-source-retrieval.mjs";
+import { project0580Sections } from "@/lib/igcse-0580-section-retrieval-v3.mjs";
 import { project0606Topics } from "@/lib/igcse-0606-official.mjs";
 import { project0455Sections } from "@/lib/igcse-0455-official.mjs";
 import { activeQuestionImagePaths } from "@/lib/reviewed-blank-qp";
@@ -215,6 +216,7 @@ function assetUrl(slug: BankSlug, path: string, economicsAssetMode: "local" | "p
 
 function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode: "local" | "private", applyReviewedBlankPages: boolean): UnifiedQuestion {
   const sourceAddition = slug === 'igcse' ? verified0580RetrievalAdditions(raw) : null;
+  const official0580 = slug === "igcse" ? project0580Sections(raw) : null;
   const accessibleText = text(raw.accessibleText);
   const summary = text(raw.summary) || accessibleText.slice(0, 220);
   const aa = aaClassification(slug, raw);
@@ -227,7 +229,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
   const chemistry0620 = slug === "igcse-chemistry-0620" ? project0620Sections(raw) : null;
   const primaryTopic = aa?.primaryTopic ?? biology?.primaryTopic ?? chemistry0620?.primaryTopic ?? physics0625?.primaryTopic ?? coordinated?.primaryTopic ?? igcseBiology?.primaryTopic ?? additional?.primaryTopic ?? (text(raw.primaryTopic) || "Other");
   const originalSecondaryTopics = aa?.secondaryTopics ?? biology?.secondaryTopics ?? chemistry0620?.secondaryTopics ?? physics0625?.secondaryTopics ?? coordinated?.secondaryTopics ?? igcseBiology?.secondaryTopics ?? additional?.secondaryTopics ?? strings(raw.secondaryTopics);
-  const secondaryTopics = sourceAddition ? [...new Set([...originalSecondaryTopics, ...sourceAddition.secondaryTopics])] : originalSecondaryTopics;
+  const secondaryTopics = slug === "igcse" ? [...new Set([...originalSecondaryTopics, ...(sourceAddition?.secondaryTopics ?? []), ...(official0580?.secondaryTopics ?? [])])].filter((topic) => topic !== primaryTopic) : originalSecondaryTopics;
   const controlledSkills = aa?.skills ?? biology?.skills ?? strings(raw.skills);
   const studentSubtopics = aa?.subtopics ?? biology?.subtopics ?? chemistry0620?.subtopics ?? physics0625?.subtopics ?? coordinated?.subtopics ?? igcseBiology?.subtopics ?? economics0455?.subtopics ?? strings(raw.subtopics);
   const secondarySubtopics = biology ? biology.subtopics.slice(1) : strings(raw.secondarySubtopics);
@@ -239,7 +241,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
         ? detailedSubtopics
         : controlledSkills,
   ));
-  for (const label of sourceAddition?.subtopics ?? []) if (!subtopics.includes(label)) subtopics.push(label);
+  for (const label of [...(sourceAddition?.subtopics ?? []), ...(official0580?.subtopics ?? [])]) if (!subtopics.includes(label)) subtopics.push(label);
   // `detailedSubtopics` is the richer classification vocabulary used by the
   // reconciled 0580 source. Keep every vocabulary during the runtime
   // migration: v2-native `skills`, legacy `subtopics`, and detailed labels may
@@ -260,7 +262,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
       ...(coordinated?.aliases ?? []),
       ...(physics0625?.aliases ?? []),
       ...(chemistry0620?.aliases ?? []),
-      ...(sourceAddition?.subtopics ?? []),
+      ...(sourceAddition?.subtopics ?? []), ...(official0580?.subtopics ?? []),
     ]));
   const officialMarkscheme = record(raw.officialMarkscheme);
   const solution = nullableText(raw.solution) ?? nullableText(raw.independentSolution);
@@ -302,7 +304,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     subtopics,
     secondarySubtopics,
     granularLabels: aa || biology ? [] : GRANULAR_LABELS.get(`${overlayBankForSlug(slug)}:${text(raw.id)}`) ?? [],
-    officialCodeRefs: biology ? biology.record.officialCodes : chemistry0620?.codeRefs ?? physics0625?.codeRefs ?? coordinated?.codeRefs ?? igcseBiology?.codeRefs ?? economics0455?.codeRefs ?? strings(raw.officialCodeRefs),
+    officialCodeRefs: biology ? biology.record.officialCodes : chemistry0620?.codeRefs ?? physics0625?.codeRefs ?? coordinated?.codeRefs ?? igcseBiology?.codeRefs ?? economics0455?.codeRefs ?? [...strings(raw.officialCodeRefs), ...(official0580?.codeRefs ?? [])],
     retrievalFacets: strings(raw.retrievalFacets),
     classificationProvenance: aa?.provenance ?? biology?.provenance,
     subject: text(raw.subject) || text(raw.course),

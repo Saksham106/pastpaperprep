@@ -5,16 +5,16 @@ import {getSubtopicGroups} from './taxonomy-router';
 import {filterQuestions} from './question-filter';
 import {displayedQuestionSubtopics} from './presentation';
 const rows=(file:string)=>JSON.parse(readFileSync(file,'utf8')).questions;
-test('0580 student retrieval uses the preserved complete legacy split while numbered mapping is offline',()=>{
+test('0580 additive numbered mapping preserves the complete legacy retrieval split',()=>{
  const qs=normalizeBankQuestions('igcse',rows('src/data/raw/igcse.json'));
  expect(qs).toHaveLength(3967);
  const labels=getSubtopicGroups(qs,[],[]).all;
  expect(labels).toContain('Indices and surds');
- expect(labels).not.toContain('1.18 Surds');
- expect(labels.some(label=>/^\d+\.\d+\s/.test(label))).toBe(false);
+ expect(labels).toContain('1.18 Surds');
+ expect(labels.filter(label=>/^\d+\.\d+\s/.test(label))).toHaveLength(72);
  // The 178 restored legacy IDs remain; two source-confirmed geometric surds are additive descendants.
  expect(filterQuestions(qs,{subtopics:['Indices and surds']})).toHaveLength(180);
- expect(qs.flatMap(displayedQuestionSubtopics).some(label=>/^\d+\.\d+\s/.test(label))).toBe(false);
+ expect(qs.flatMap(displayedQuestionSubtopics).some(label=>/^\d+\.\d+\s/.test(label))).toBe(true);
 });
 test('0606 preserves original subtopic filters while experimental numbered assignments stay offline',()=>{
  const qs=normalizeBankQuestions('igcse-additional',rows('src/data/raw/igcse-additional.json'));

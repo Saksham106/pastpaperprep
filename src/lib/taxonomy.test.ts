@@ -12,11 +12,11 @@ describe("question taxonomy", () => {
     expect(topics.slice(0, 9)).toEqual(["Number", "Algebra and graphs", "Coordinate geometry", "Geometry", "Mensuration", "Trigonometry", "Transformations and vectors", "Probability", "Statistics"]);
     expect(topics).toHaveLength(9);
     const groups = getStudentSubtopicGroups(questions, topics, []);
-    expect(groups.all).toHaveLength(51);
-    expect(groups.all).not.toContain("1.1 Types of number");
+    expect(groups.all).toHaveLength(123);
+    expect(groups.all).toContain("1.1 Types of number");
     expect(groups.all).toContain("Bounds and estimation");
-    expect(getStudentTopicOptions([{ ...questions[0], subtopics: [] }])).toEqual(["Number"]);
-    expect(getStudentSubtopicGroups([{ ...questions[0], subtopics: [], officialCodeRefs: [] }], ["Number"], []).all).toHaveLength(14);
+    expect(getStudentTopicOptions([{ ...questions[0], subtopics: [] }])).toEqual(topics);
+    expect(getStudentSubtopicGroups([{ ...questions[0], subtopics: [], officialCodeRefs: [] }], ["Number"], []).all.filter(label => !/^\d+\.\d+\s/.test(label))).toHaveLength(14);
   });
 
   it("orders IB topics by the official syllabus sequence", () => {
@@ -93,7 +93,7 @@ describe("question taxonomy", () => {
     expect(groups.other.some((value) => expected.includes(value))).toBe(false);
   });
 
-  it("keeps released legacy 0580 labels selectable without exposing offline projections or skills", () => {
+  it("keeps released legacy 0580 labels selectable beside the accepted official tree without exposing internal skills", () => {
     const source = loadBankQuestions("igcse")[0];
     const question = {
       ...source,
@@ -106,10 +106,10 @@ describe("question taxonomy", () => {
 
     expect(groups.all).toContain("Historical-era label");
     expect(groups.all).toContain("Bounds and estimation");
-    expect(groups.all).not.toContain("1.10 Limits of accuracy");
+    expect(groups.all).toContain("1.10 Limits of accuracy");
     expect(groups.all).not.toContain("internal.skill.code");
     expect(groups.all).not.toContain("Student-facing search skill");
-    expect(groups.relevant).not.toContain("1.10 Limits of accuracy");
+    expect(groups.relevant).toContain("1.10 Limits of accuracy");
     expect(filterQuestions([question], { subtopics: ["1.10 Limits of accuracy"] })).toEqual([]);
     expect(filterQuestions([question], { subtopics: ["Historical-era label"] })).toHaveLength(1);
     // Historical filter URLs remain valid because the retrieval predicate still

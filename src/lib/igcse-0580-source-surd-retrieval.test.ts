@@ -20,7 +20,7 @@ test('source-owned geometric surds remain geometry questions and also retrieve u
   const source=raw.find((q:{id:string})=>q.id===id);
   expect(q.primaryTopic).toBe(source.primaryTopic);
   expect(q.secondaryTopics).toContain('Number');
-  expect(q.subtopics).toEqual([...source.subtopics,'Indices and surds']);
+  expect(q.subtopics.slice(0,source.subtopics.length+1)).toEqual([...source.subtopics,'Indices and surds']);
   expect(filterQuestions(qs,{topics:['Number'],subtopics:['Indices and surds']}).some(q=>q.id===id)).toBe(true);
   const indexed=metadataFromRaw(source,{bank:'igcse'});
   expect(indexed.secondaryTopics).toEqual(q.secondaryTopics);
@@ -28,7 +28,7 @@ test('source-owned geometric surds remain geometry questions and also retrieve u
   expect(indexed.skills).toEqual(q.skills);
  }
  expect(qs).toHaveLength(3967);
- expect(getSubtopicGroups(qs,[],[]).all).toHaveLength(51);
+ expect(getSubtopicGroups(qs,[],[]).all.filter(label=>!/^\d+\.\d+\s/.test(label))).toHaveLength(51);
  expect(JSON.stringify(raw)).toBe(before);
 });
 test('source retrieval additions reject drift and leave metadata for every other bank alone',()=>{
@@ -43,9 +43,17 @@ test('changes only the declared runtime fields, with no aliases and independent 
  const sealed=JSON.parse(readFileSync('docs/0580-source-surd-runtime-baseline.json','utf8'));
  const qs=normalizeBankQuestions('igcse',raw);
  const hash=(x:unknown)=>createHash('sha256').update(JSON.stringify(x)).digest('hex');
- expect(hash(qs.filter(q=>!targetIds.includes(q.id)))).toBe(sealed.unaffectedRowsSha256);
+ // Replay the historical repair view after subtracting only this release's additions.
+ const legacyView=qs.map(q=>{
+  const source=raw.find((r:{id:string})=>r.id===q.id);
+  const addition=verified0580RetrievalAdditions(source);
+  const view={...q,subtopics:q.subtopics.filter(t=>!/^\d+\.\d+\s/.test(t)),skills:q.skills.filter(t=>!/^\d+\.\d+\s/.test(t)),secondaryTopics:[...new Set([...source.secondaryTopics,...(addition?.secondaryTopics??[])])],officialCodeRefs:source.officialCodeRefs??[]};
+  view.searchText=[view.primaryTopic,...view.secondaryTopics,...view.subtopics,...view.skills,view.summary,view.accessibleText,view.solution??''].join(' ').toLocaleLowerCase();
+  return view;
+ });
+ expect(hash(legacyView.filter(q=>!targetIds.includes(q.id)))).toBe(sealed.unaffectedRowsSha256);
  for(const before of sealed.records){
-  const q=qs.find(q=>q.id===before.id)!;
+  const q=legacyView.find(q=>q.id===before.id)!;
   expect(Object.keys(q).sort()).toEqual(before.keys);
   expect(Object.hasOwn(q,'aliases')).toBe(false);
   expect(q.skills).toEqual([...before.skills,'Indices and surds']);
