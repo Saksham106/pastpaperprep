@@ -3,7 +3,7 @@ import { hasBankAccess, isPreviewQuestion, type AccessEntitlement } from "@/lib/
 import { authorizeAssetRequests, type AssetRequest } from "@/lib/asset-access";
 import { getBank, type BankSlug } from "@/lib/banks";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
-import { premiumAssetSignOptions, previewAssetSignOptions, signPrivateAssetUrls } from "@/lib/private-assets";
+import { premiumAssetSignOptions, previewAssetSignOptions, resolvedAssetSignProvider, signPrivateAssetUrls } from "@/lib/private-assets";
 import { getQuestionRichDetails } from "@/lib/question-delivery";
 import { reviewedBlankTailForSignedAsset } from "@/lib/reviewed-blank-tails";
 import { createClient } from "@/lib/supabase/server";
@@ -82,10 +82,14 @@ export async function POST(request: Request) {
   }
 
   try {
-    const [previewUrls, premiumUrls] = await Promise.all([
-      signPrivateAssetUrls(previewPaths, 600, previewAssetSignOptions(body.bank as BankSlug)),
-      signPrivateAssetUrls(premiumPaths, 600, premiumAssetSignOptions(body.bank as BankSlug)),
-    ]);
+    const previewOptions = previewAssetSignOptions(body.bank as BankSlug);
+    const premiumOptions = premiumAssetSignOptions(body.bank as BankSlug);
+    const [previewUrls, premiumUrls] = resolvedAssetSignProvider(previewOptions) === resolvedAssetSignProvider(premiumOptions)
+      ? [await signPrivateAssetUrls(paths, 600, previewOptions), new Map<string, string>()]
+      : await Promise.all([
+        signPrivateAssetUrls(previewPaths, 600, previewOptions),
+        signPrivateAssetUrls(premiumPaths, 600, premiumOptions),
+      ]);
     const urlByPath = new Map([...previewUrls, ...premiumUrls]);
 
     if (userId && premiumPaths.length && hasBankAccess(body.bank as BankSlug, entitlements)) {

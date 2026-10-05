@@ -27,12 +27,34 @@ const loaders: Record<BankSlug, () => Promise<RawBank>> = {
 };
 
 const cache = new Map<string, Promise<UnifiedQuestion[]>>();
+const questionIndexCache = new Map<string, Promise<ReadonlyMap<string, UnifiedQuestion>>>();
+
+function bankRuntimeCacheKey(slug: BankSlug): string {
+  const productionEconomics = isLocalEconomicsBank(slug) && isEconomicsProductionEnabled();
+  const productionIGCSE = isIGCSEReleaseBank(slug) && isIGCSEReleaseEnabled();
+  return `${slug}:${productionEconomics || productionIGCSE ? "production" : "preview"}`;
+}
+
+export function loadBankQuestionMap(slug: BankSlug): Promise<ReadonlyMap<string, UnifiedQuestion>> {
+  const cacheKey = bankRuntimeCacheKey(slug);
+  const cached = questionIndexCache.get(cacheKey);
+  if (cached) return cached;
+
+  const index = loadBankQuestions(slug).then((questions) =>
+    new Map(questions.map((question) => [question.id, question])),
+  );
+  questionIndexCache.set(cacheKey, index);
+  void index.catch(() => {
+    if (questionIndexCache.get(cacheKey) === index) questionIndexCache.delete(cacheKey);
+  });
+  return index;
+}
 
 export function loadBankQuestions(slug: BankSlug): Promise<UnifiedQuestion[]> {
   const productionEconomics = isLocalEconomicsBank(slug) && isEconomicsProductionEnabled();
   const productionIGCSE = isIGCSEReleaseBank(slug) && isIGCSEReleaseEnabled();
   const production = productionEconomics || productionIGCSE;
-  const cacheKey = `${slug}:${production ? "production" : "preview"}`;
+  const cacheKey = bankRuntimeCacheKey(slug);
   const cached = cache.get(cacheKey);
   if (cached) return cached;
 
@@ -46,5 +68,8 @@ export function loadBankQuestions(slug: BankSlug): Promise<UnifiedQuestion[]> {
       applyReviewedBlankPages: productionIGCSE || slug === 'igcse' || slug === 'igcse-additional',
     }));
   cache.set(cacheKey, questions);
+  void questions.catch(() => {
+    if (cache.get(cacheKey) === questions) cache.delete(cacheKey);
+  });
   return questions;
 }

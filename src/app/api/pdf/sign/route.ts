@@ -5,7 +5,7 @@ import { getBank, type BankSlug } from "@/lib/banks";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
 import { premiumAssetSignOptions, previewAssetSignOptions, signPrivateAssetUrls } from "@/lib/private-assets";
-import { loadBankQuestions } from "@/lib/question-loader";
+import { loadBankQuestionMap } from "@/lib/question-loader";
 import { printGeometryForSignedAssets } from "@/lib/print-geometry";
 import { createClient } from "@/lib/supabase/server";
 
@@ -44,7 +44,7 @@ export async function POST(request: Request) {
   ) return NextResponse.json({ error: "Invalid PDF export request" }, { status: 400 });
 
   const bank = body.bank as BankSlug;
-  const canonicalById = new Map((await loadBankQuestions(bank)).map((question) => [question.id, question]));
+  const canonicalById = await loadBankQuestionMap(bank);
   const questions = body.questionIds.map((id) => canonicalById.get(id));
   if (questions.some((question) => !question)) {
     return NextResponse.json({ error: "Invalid PDF export request" }, { status: 400 });

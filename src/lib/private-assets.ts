@@ -11,7 +11,7 @@ export function getPrivateBankObjectPrefix(bank: BankSlug): string {
   return getMappedPrivateBankObjectPrefix(bank);
 }
 
-type AssetStorageProvider = "supabase" | "r2";
+export type AssetStorageProvider = "supabase" | "r2";
 
 type R2Config = {
   accountId: string;
@@ -83,6 +83,10 @@ function validateRequest(paths: string[], expiresIn: number) {
   ))) {
     throw new Error("Private asset path is invalid");
   }
+}
+
+export function resolvedAssetSignProvider(options: SignPrivateAssetOptions = {}): AssetStorageProvider {
+  return getProvider(options.provider);
 }
 
 async function signWithSupabase(paths: string[], expiresIn: number) {

@@ -101,6 +101,32 @@ describe("POST /api/assets/sign", () => {
     expect(payload.assets[0].displayCrops).toEqual([{ imageSha256: expect.stringMatching(/^[a-f0-9]{64}$/), fullWidthPx: 1070, fullHeightPx: 4501, visibleHeightPx: 3153 }]);
   });
 
+  it("keeps preview and premium signing separate when resolved providers differ", async () => {
+    vi.stubEnv("ASSET_STORAGE_PROVIDER", "r2");
+    vi.stubEnv("R2_ACCOUNT_ID", "92278648535014b5231edfe207b9391d");
+    vi.stubEnv("R2_ACCESS_KEY_ID", "a".repeat(32));
+    vi.stubEnv("R2_SECRET_ACCESS_KEY", "b".repeat(64));
+    vi.stubEnv("R2_BUCKET_NAME", "pastpaperprep-assets");
+
+    const response = await POST(new Request("https://pastpaperprep.com/api/assets/sign", {
+      method: "POST",
+      body: JSON.stringify({ bank: "ib-sl", requests: [
+        { questionId: "2017-may-p1-tz1-q1", kind: "question" },
+        { questionId: "m26-math-aasl-p2-tza-q2", kind: "question" },
+      ] }),
+      headers: { "content-type": "application/json" },
+    }));
+
+    expect(response.status).toBe(200);
+    expect(createSignedUrls).toHaveBeenCalledOnce();
+    expect(createSignedUrls.mock.calls[0][0]).toEqual(expect.arrayContaining([
+      expect.stringContaining("2017-may-p1-tz1-q1"),
+    ]));
+    const payload = await response.json();
+    expect(new URL(payload.assets[0].urls[0]).hostname).toBe("assets.example");
+    expect(new URL(payload.assets[1].urls[0]).hostname).toBe("92278648535014b5231edfe207b9391d.r2.cloudflarestorage.com");
+  });
+
   it("does not charge the premium allowance for preview assets", async () => {
     vi.stubEnv("ASSET_STORAGE_PROVIDER", "r2");
     const response = await POST(new Request("https://pastpaperprep.com/api/assets/sign", {

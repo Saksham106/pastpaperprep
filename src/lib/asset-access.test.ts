@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { PREVIEW_QUESTION_IDS, type AccessEntitlement } from "@/lib/access";
 import { authorizeAssetRequests } from "@/lib/asset-access";
+import { loadBankQuestionMap } from "@/lib/question-loader";
 
 const now = new Date("2026-08-25T18:00:00.000Z");
 const paid: AccessEntitlement[] = [{
@@ -11,6 +12,17 @@ const paid: AccessEntitlement[] = [{
 }];
 
 describe("asset request authorization", () => {
+  it("reuses the bank question-ID index while keeping authorization per call", async () => {
+    const questionId = PREVIEW_QUESTION_IDS["ib-sl"][0];
+    const firstMap = await loadBankQuestionMap("ib-sl");
+    const secondMap = await loadBankQuestionMap("ib-sl");
+    expect(secondMap).toBe(firstMap);
+
+    const allowed = await authorizeAssetRequests("ib-sl", [{ questionId, kind: "question" }], [], now);
+    expect(allowed[0].question).toBe(firstMap.get(questionId));
+    await expect(authorizeAssetRequests("ib-sl", [{ questionId: "m26-math-aasl-p1-tza-q4", kind: "question" }], [], now))
+      .rejects.toThrow("not authorized");
+  });
   it("authorizes a public preview question and answer", async () => {
     const questionId = PREVIEW_QUESTION_IDS["ib-sl"][0];
     const result = await authorizeAssetRequests(

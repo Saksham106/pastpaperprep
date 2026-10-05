@@ -4,7 +4,7 @@ import {
   type AccessEntitlement,
 } from "@/lib/access";
 import { isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
-import { loadBankQuestions } from "@/lib/question-loader";
+import { loadBankQuestionMap } from "@/lib/question-loader";
 import type { UnifiedQuestion } from "@/lib/questions";
 
 export type AssetKind = "question" | "answer";
@@ -21,7 +21,7 @@ export async function authorizeAssetRequests(
     throw new Error("Asset request batch must contain between 1 and 20 items");
   }
 
-  const questions = new Map((await loadBankQuestions(bankSlug)).map((question) => [question.id, question]));
+  const questions = await loadBankQuestionMap(bankSlug);
   const seen = new Set<string>();
 
   return requests.map((request) => {
@@ -65,7 +65,7 @@ export async function authorizeLocalPreviewAssetRequests(
     throw new Error("Asset request batch must contain between 1 and 20 items");
   }
 
-  const questions = new Map((await loadBankQuestions(bankSlug)).map((question) => [question.id, question]));
+  const questions = await loadBankQuestionMap(bankSlug);
   const seen = new Set<string>();
   return requests.map((request) => {
     if (!request || typeof request.questionId !== "string" || (request.kind !== "question" && request.kind !== "answer")) {
