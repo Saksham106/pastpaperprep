@@ -4,6 +4,7 @@ import { display0654Sections } from "@/lib/igcse-0654-official.mjs";
 import { display0625Sections } from "@/lib/igcse-0625-official.mjs";
 import { display0620Sections } from "@/lib/igcse-0620-official.mjs";
 import type { UnifiedQuestion } from "@/lib/questions";
+import { displayedMathsSubtopics, isCleanMathsBank, mathsPickerLabel } from "@/lib/maths-picker";
 
 const GRANULAR_LABEL_NAMES: Readonly<Record<string, string>> = {
   "math.0606.algebra.binomial-expansion": "Binomial expansion",
@@ -17,6 +18,10 @@ const GRANULAR_LABEL_NAMES: Readonly<Record<string, string>> = {
   "math.ai.statistics-probability.quartiles-box-plots-cumulative-frequency": "Quartiles, box plots and cumulative frequency",
 };
 
+export function formatMathsPickerLabel(bank: string, value: string): string {
+  return mathsPickerLabel(bank, value);
+}
+
 export function formatPublicLabel(value: string): string {
   const granularName = GRANULAR_LABEL_NAMES[value];
   if (granularName) return granularName;
@@ -28,6 +33,7 @@ export function formatPublicLabel(value: string): string {
 
 /** Source aliases stay searchable; student cards and PDFs use official headings. */
 export function displayedQuestionSubtopics(question: Pick<UnifiedQuestion, "bankSlug" | "subtopics" | "officialCodeRefs">): string[] {
+  if (isCleanMathsBank(question.bankSlug)) return displayedMathsSubtopics(question);
   if (question.bankSlug === "igcse-economics-0455") return display0455Sections(question.officialCodeRefs ?? []);
   if (question.bankSlug === "igcse-biology-0610") return display0610Sections(question.officialCodeRefs ?? []);
   if (question.bankSlug === "igcse-coordinated-sciences-0654") return display0654Sections(question.officialCodeRefs ?? []);

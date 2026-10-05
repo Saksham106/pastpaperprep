@@ -1,6 +1,7 @@
 import { canonicalBiology0610Topic } from "@/lib/biology-0610-topic-aliases";
 import type { QuestionFilters, UnifiedQuestion } from "@/lib/questions";
 import { isLocalEconomicsBank } from "@/lib/banks";
+import { EARLIER_MATHS_TOPIC, isCleanMathsBank, isEarlierMathsQuestion, mathsSubtopicMatches } from "@/lib/maths-picker";
 import { BIOLOGY_0610_EARLIER, BIOLOGY_0610_SECTIONS, display0610Sections } from "@/lib/igcse-0610-official.mjs";
 import { COORDINATED_0654_EARLIER, COORDINATED_0654_SECTIONS, display0654Sections } from "@/lib/igcse-0654-official.mjs";
 import { PHYSICS_0625_EARLIER, PHYSICS_0625_REVIEW, PHYSICS_0625_SECTIONS, display0625Sections } from "@/lib/igcse-0625-official.mjs";
@@ -21,6 +22,7 @@ function includesAny(selected: string[] | undefined, values: string[]): boolean 
 
 function filterableTopics(question: UnifiedQuestion): string[] {
   const topics = [question.primaryTopic, ...question.secondaryTopics];
+  if (isEarlierMathsQuestion(question)) return [...topics, EARLIER_MATHS_TOPIC];
   // 0610's 2026–28 wording supersedes two older labels. Keep the stored
   // classifications untouched, but make the current official choice retrieve
   // semantically equivalent archive questions too.
@@ -79,6 +81,8 @@ export function filterQuestions(questions: UnifiedQuestion[], filters: QuestionF
         const code = chemistry0620Headings.get(label);
         return code ? visible.includes(label) || (code !== "earlier:content" && code !== "unresolved:current" && question.officialCodeRefs?.includes(`alias_current:${code}`)) : aliases.includes(label);
       })) return false;
+    } else if (filters.subtopics?.length && isCleanMathsBank(question.bankSlug)) {
+      if (!filters.subtopics.some(value => mathsSubtopicMatches(question, value))) return false;
     } else if (!includesAny(filters.subtopics, filterableSubtopics(question))) return false;
     if (!includesAny(filters.granularLabels, question.granularLabels ?? [])) return false;
     if (!includesAny(filters.officialCodeRefs, question.officialCodeRefs ?? [])) return false;

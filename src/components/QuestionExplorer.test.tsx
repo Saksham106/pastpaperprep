@@ -761,17 +761,20 @@ describe("QuestionExplorer", () => {
     expect(screen.queryByRole("group", { name: /course/i })).not.toBeInTheDocument();
   });
 
-  it("shows the preserved Additional Mathematics subtopics as clickable filters", () => {
+  it("shows clean current subtopics and distinct earlier-only filters", async () => {
     window.history.replaceState({}, "", "/banks/igcse-additional");
     const bank = loadBankQuestions("igcse-additional");
-    const chosen = [bank.find((question) => question.subtopics.includes("Functions"))!, bank.find((question) => question.subtopics.includes("Matrices"))!];
+    const chosen = [bank.find(q => q.subtopics.includes("1.2 Domain and range"))!, bank.find(q => q.subtopics.includes("Matrices") && !q.subtopics.some(v => /^\d+\.\d+ /.test(v)))!];
     const questions = prepareQuestionsForDelivery(chosen, [{ productId: "bank_igcse_additional", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
     render(<QuestionExplorer questions={questions} bankSlug="igcse-additional" access={fullAccess} />);
-    const subtopics = screen.getByRole("group", { name: /subtopics/i });
-    expect(within(subtopics).getByRole("checkbox", { name: "Subtopics: Functions" })).toBeInTheDocument();
-    const matrices = within(subtopics).getByRole("checkbox", { name: "Subtopics: Matrices" });
-    fireEvent.click(matrices);
-    expect(matrices).toBeChecked();
+    const subtopics = screen.getByRole("group", { name: "Subtopics" });
+    expect(within(subtopics).queryByRole("checkbox", { name: "Subtopics: Functions" })).not.toBeInTheDocument();
+    expect(within(subtopics).getByRole("checkbox", { name: "Subtopics: Domain and range" })).toBeInTheDocument();
+    expect(within(subtopics).queryByRole("checkbox", { name: /Subtopics: \d+\.\d+/ })).not.toBeInTheDocument();
+    const earlier = screen.getByRole("group", { name: "Earlier syllabus" });
+    const matrices = within(earlier).getByRole("checkbox", { name: "Earlier syllabus: Matrices" });
+    fireEvent.click(matrices);expect(matrices).toBeChecked();
+    await waitFor(() => expect(new URLSearchParams(window.location.search).get("subtopic")).toBe("earlier-only:igcse-additional:Matrices"));
   });
 
   it("filters Cambridge questions by the selected time-zone variant and keeps it in the URL", async () => {
