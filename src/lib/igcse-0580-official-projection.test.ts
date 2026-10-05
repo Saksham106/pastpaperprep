@@ -37,7 +37,8 @@ describe("0580 official topic-first section projection", () => {
     expect(questions.filter(question => question.officialCodeRefs?.some(ref => ref.startsWith("review_verified_2025:")))).toHaveLength(25);
     const surds = byId.get("0580-2026-march-22-q15")!;
     expect(surds.officialCodeRefs).toContain("current_2025:E1.18");
-    expect(displayedQuestionSubtopics(surds)).toEqual(expect.arrayContaining(["1.18 Surds", ...(raw.find(row => row.id === surds.id)?.subtopics ?? [])]));
+    expect(displayedQuestionSubtopics(surds)).toContain("Surds");
+    expect(surds.subtopics).toEqual(expect.arrayContaining(raw.find(row => row.id === surds.id)?.subtopics ?? []));
     expect(filterQuestions([...questions], { subtopics: ["1.18 Surds"] }).map((question) => question.id)).toContain(surds.id);
     expect(byId.get("0580-2025-june-23-q3")?.officialCodeRefs).toContain("current_2025:E4.5");
     const unreviewed = questions.find(question => question.subtopics.includes("Matrix operations and algebra"))!;
@@ -65,7 +66,8 @@ describe("0580 official topic-first section projection", () => {
     expect(core.secondaryTopics).toContain("Probability");
     expect(core.officialCodeRefs).toContain("current_2025:C1.2");
     expect(extended.officialCodeRefs).toContain("current_2025:E1.2");
-    expect(displayedQuestionSubtopics(core)).toEqual(expect.arrayContaining(["1.2 Sets", ...(raw.find(row => row.id === core.id)?.subtopics ?? [])]));
+    expect(displayedQuestionSubtopics(core)).toContain("Sets");
+    expect(core.subtopics).toEqual(expect.arrayContaining(raw.find(row => row.id === core.id)?.subtopics ?? []));
     expect(filterQuestions([...questions], { topics: ["Probability"] }).map((question) => question.id)).toContain(core.id);
     expect(filterQuestions([...questions], { subtopics: ["1.2 Sets"] }).map((question) => question.id)).toEqual(expect.arrayContaining([core.id, extended.id]));
   });
@@ -79,7 +81,8 @@ describe("0580 official topic-first section projection", () => {
       expect(index.subtopics).toEqual(runtime.subtopics);
       expect(index.skills).toEqual(runtime.skills);
       expect(index.officialCodeRefs ?? []).toEqual(runtime.officialCodeRefs ?? []);
-      expect(displayedQuestionSubtopics(runtime)).toEqual(runtime.subtopics.filter(label => label !== REVIEW));
+      expect(displayedQuestionSubtopics(runtime)).toEqual(displayedQuestionSubtopics({ ...runtime, subtopics: index.subtopics }));
+      expect(displayedQuestionSubtopics(runtime).some(label => /^\d+\.\d+ /.test(label))).toBe(false);
     }
   }, 60_000);
 });

@@ -5,6 +5,7 @@ import type { BankSlug } from "@/lib/banks";
 import { deriveCourseRoute, matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
 import type { PublicBankIndex, PublicQuestionMetadata } from "@/lib/question-index";
 import { generatePaper, type PaperCandidate } from "@/lib/paper-builder";
+import { EARLIER_MATHS_TOPIC, getMathsPickerGroups, getMathsPickerSections, isCleanMathsBank, isEarlierMathsQuestion, isMathsEarlierToken, mathsPickerLabel } from "@/lib/maths-picker";
 import { PaperPreview } from "@/components/PaperPreview";
 import "./paper-builder.css";
 
@@ -12,14 +13,14 @@ type BuilderBank = { slug: BankSlug; label: string; indexUrl: string };
 type Draft = { questions: PaperCandidate[]; totalMarks: number };
 const SESSION_LABELS: Record<string, string> = { s: "June", w: "November", m: "March" };
 
-function MultiPicker({ title, options, selected, onChange, disabled = false }: { title: string; options: string[]; selected: string[]; onChange: (next: string[]) => void; disabled?: boolean }) {
+function MultiPicker({ title, options, selected, onChange, disabled = false, bank = "" }: { title: string; options: string[]; selected: string[]; onChange: (next: string[]) => void; disabled?: boolean; bank?: string }) {
   const [search, setSearch] = useState("");
-  const filtered = options.filter((option) => option.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
+  const filtered = options.filter((option) => `${option} ${mathsPickerLabel(bank, option)}`.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
   return <details className="paper-builder-picker">
     <summary>{title}<span>{selected.length ? `${selected.length} selected` : "All"}</span></summary>
     <div className="paper-builder-picker-panel"><input type="search" aria-label={`Search ${title.toLowerCase()}`} placeholder={`Find ${title.toLowerCase()}…`} value={search} disabled={disabled} onChange={(event) => setSearch(event.target.value)} />
       {selected.length > 0 && <button type="button" className="paper-builder-picker-clear" disabled={disabled} onClick={() => onChange([])}>Clear selection</button>}
-      <div className="paper-builder-picker-options" role="group" aria-label={title}>{filtered.length ? filtered.map((option) => <label key={option}><input type="checkbox" disabled={disabled} checked={selected.includes(option)} onChange={() => onChange(selected.includes(option) ? selected.filter((value) => value !== option) : [...selected, option])} /><span>{option}</span></label>) : <p>No matching {title.toLowerCase()}.</p>}</div>
+      <div className="paper-builder-picker-options" role="group" aria-label={title}>{filtered.length ? filtered.map((option) => <label key={option}><input type="checkbox" disabled={disabled} checked={selected.includes(option)} onChange={() => onChange(selected.includes(option) ? selected.filter((value) => value !== option) : [...selected, option])} /><span>{mathsPickerLabel(bank, option)}</span></label>) : <p>No matching {title.toLowerCase()}.</p>}</div>
     </div>
   </details>;
 }
@@ -65,8 +66,14 @@ export function PaperBuilder({ banks }: { banks: BuilderBank[] }) {
 
   const years = useMemo(() => [...new Set(questions.map((question) => question.year))].sort((a, b) => b - a), [questions]);
   const papers = useMemo(() => [...new Set(questions.map((question) => question.paper))].sort((a, b) => a - b), [questions]);
-  const topicOptions = useMemo(() => [...new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]))].filter(Boolean).sort(), [questions]);
-  const subtopicOptions = useMemo(() => [...new Set(questions.filter((question) => !topics.length || topics.some((value) => question.primaryTopic === value || question.secondaryTopics.includes(value))).flatMap((question) => question.subtopics))].filter(Boolean).sort(), [questions, topics]);
+  const cleanMaths = isCleanMathsBank(bank);
+  const mathsQuestions = useMemo(() => questions.map(question => ({ ...question, bankSlug: bank })), [questions, bank]);
+  const mathsGroups = useMemo(() => getMathsPickerGroups(mathsQuestions, topics, subtopics), [mathsQuestions, topics, subtopics]);
+  const topicOptions = useMemo(() => cleanMaths
+    ? [...new Set(getMathsPickerSections(bank).map(section => section.topic)), ...(mathsQuestions.some(isEarlierMathsQuestion) ? [EARLIER_MATHS_TOPIC] : [])]
+    : [...new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]))].filter(Boolean).sort(), [questions, bank, cleanMaths, mathsQuestions]);
+  const subtopicOptions = useMemo(() => cleanMaths ? mathsGroups.relevant.filter(value => !isMathsEarlierToken(value))
+    : [...new Set(questions.filter((question) => !topics.length || topics.some((value) => question.primaryTopic === value || question.secondaryTopics.includes(value))).flatMap((question) => question.subtopics))].filter(Boolean).sort(), [questions, topics, cleanMaths, mathsGroups]);
   const visiblePapers = papers.filter((paper) => !supportsCourseRoute(bank || undefined) || matchesCourseRoute(deriveCourseRoute(bank as BankSlug, paper), courseRoute));
   const byId = useMemo(() => new Map(questions.map((question) => [question.id, question])), [questions]);
   const previewQuestions = draft?.questions.map((question) => byId.get(question.id)).filter((question): question is PublicQuestionMetadata => Boolean(question)) ?? [];
@@ -127,7 +134,7 @@ export function PaperBuilder({ banks }: { banks: BuilderBank[] }) {
           ["all", "All papers", "Choose freely"], ["core", "Core", "Papers 1 & 3"], ["extended", "Extended", "Papers 2 & 4"],
         ] as const).map(([value, label, hint]) => <button key={value} type="button" disabled={saving} aria-pressed={courseRoute === value} onClick={() => { setCourseRoute(value); setTargets((current) => Object.fromEntries(Object.entries(current).filter(([paper]) => value === "all" || matchesCourseRoute(deriveCourseRoute(bank as BankSlug, Number(paper)), value)))); resetDraft(); }}><strong>{label}</strong><small>{hint}</small></button>)}</div><p className="paper-builder-muted">Papers 5 & 6 are practical options for both routes.</p></div>}
         <fieldset className="paper-builder-year-range" disabled={saving}><legend>Exam years</legend><div><label>From year<select value={fromYear} onChange={(event) => { setFromYear(event.target.value); resetDraft(); }}><option value="">Any year</option>{years.map((year) => <option key={year}>{year}</option>)}</select></label><label>To year<select value={toYear} onChange={(event) => { setToYear(event.target.value); resetDraft(); }}><option value="">Any year</option>{years.map((year) => <option key={year}>{year}</option>)}</select></label></div></fieldset>
-        <div className="paper-builder-filter-grid"><MultiPicker title="Topics" options={topicOptions} selected={topics} disabled={saving || loading} onChange={(next) => { const available = new Set(questions.filter((question) => !next.length || next.some((value) => question.primaryTopic === value || question.secondaryTopics.includes(value))).flatMap((question) => question.subtopics)); setTopics(next); setSubtopics((current) => current.filter((item) => available.has(item))); resetDraft(); }} /><MultiPicker title="Subtopics" options={subtopicOptions} selected={subtopics} disabled={saving || loading} onChange={(next) => { setSubtopics(next); resetDraft(); }} /></div>
+        <div className="paper-builder-filter-grid"><MultiPicker title="Topics" options={topicOptions} selected={topics} disabled={saving || loading} onChange={(next) => { const available = new Set(cleanMaths ? getMathsPickerGroups(mathsQuestions, next, []).relevant : questions.filter((question) => !next.length || next.some((value) => question.primaryTopic === value || question.secondaryTopics.includes(value))).flatMap((question) => question.subtopics)); setTopics(next); setSubtopics((current) => current.filter((item) => available.has(item))); resetDraft(); }} /><MultiPicker title="Subtopics" options={subtopicOptions} selected={cleanMaths ? subtopics.filter(value => !isMathsEarlierToken(value)) : subtopics} bank={bank} disabled={saving || loading} onChange={(next) => { setSubtopics(current => cleanMaths ? [...current.filter(isMathsEarlierToken), ...next] : next); resetDraft(); }} />{cleanMaths && mathsGroups.earlier.length > 0 && <MultiPicker title="Earlier syllabus" options={mathsGroups.earlier} selected={subtopics.filter(isMathsEarlierToken)} bank={bank} disabled={saving || loading} onChange={(next) => { setSubtopics(current => [...current.filter(value => !isMathsEarlierToken(value)), ...next]); resetDraft(); }} />}</div>
         <p className="paper-builder-muted">Multiple choices within a filter broaden the set. Topics and subtopics work together.</p>
       </section>
       <section className="paper-builder-mix" aria-label="Paper mix"><p className="eyebrow">02 / Paper mix</p><h2>Set your target</h2>

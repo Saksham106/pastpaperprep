@@ -1,5 +1,6 @@
 import type { PublicQuestionMetadata } from "@/lib/question-index";
 import type { BankSlug } from "@/lib/banks";
+import { isCleanMathsBank, mathsSubtopicMatches, mathsTopicMatches } from "@/lib/maths-picker";
 import { deriveCourseRoute, matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
 
 export type PaperCandidate = Pick<PublicQuestionMetadata, "id" | "paper" | "year" | "marks" | "primaryTopic" | "secondaryTopics"> & { subtopics?: string[] };
@@ -60,8 +61,8 @@ export function generatePaper(questions: readonly PaperCandidate[], plan: PaperP
     Number.isInteger(question.marks) && question.marks! > 0 &&
     (yearFrom === undefined || question.year >= yearFrom) &&
     (yearTo === undefined || question.year <= yearTo) &&
-    (!topics.length || topics.some((topic) => question.primaryTopic === topic || question.secondaryTopics.includes(topic))) &&
-    (!subtopics.length || subtopics.some((subtopic) => question.subtopics?.includes(subtopic))) &&
+    (!topics.length || topics.some((topic) => bank && isCleanMathsBank(bank) ? mathsTopicMatches({ ...question, bankSlug: bank, subtopics: question.subtopics ?? [] }, topic) : question.primaryTopic === topic || question.secondaryTopics.includes(topic))) &&
+    (!subtopics.length || subtopics.some((subtopic) => bank && isCleanMathsBank(bank) ? mathsSubtopicMatches({ ...question, bankSlug: bank, subtopics: question.subtopics ?? [] }, subtopic) : question.subtopics?.includes(subtopic))) &&
     (courseRoute === "all" || matchesCourseRoute(deriveCourseRoute(bank!, question.paper), courseRoute))
   ).map((question) => [question.id, question])).values()];
   const selected: PaperCandidate[] = [];

@@ -14,7 +14,7 @@ test('0580 additive numbered mapping preserves the complete legacy retrieval spl
  expect(labels.filter(label=>/^\d+\.\d+\s/.test(label))).toHaveLength(72);
  // The 178 restored legacy IDs remain; two source-confirmed geometric surds are additive descendants.
  expect(filterQuestions(qs,{subtopics:['Indices and surds']})).toHaveLength(180);
- expect(qs.flatMap(displayedQuestionSubtopics).some(label=>/^\d+\.\d+\s/.test(label))).toBe(true);
+ expect(qs.flatMap(displayedQuestionSubtopics).some(label=>/^\d+\.\d+\s/.test(label))).toBe(false);
 });
 test('0606 additive official statements preserve original fine filters',()=>{
  const qs=normalizeBankQuestions('igcse-additional',rows('src/data/raw/igcse-additional.json'));
@@ -23,5 +23,5 @@ test('0606 additive official statements preserve original fine filters',()=>{
  expect(labels).toHaveLength(84);
  expect(labels.filter(label=>/^\d+\.\d+\s/.test(label))).toHaveLength(67);
  expect(filterQuestions(qs,{subtopics:["Calculus"]})).toHaveLength(454);
- expect(qs.flatMap(displayedQuestionSubtopics).some(label=>/^\d+\.\d+\s/.test(label))).toBe(true);
+ expect(qs.flatMap(displayedQuestionSubtopics).some(label=>/^\d+\.\d+\s/.test(label))).toBe(false);
 });
