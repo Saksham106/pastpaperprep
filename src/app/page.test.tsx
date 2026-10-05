@@ -186,6 +186,9 @@ describe("home page corpus summary", () => {
 
   it("describes Economics in homepage search metadata", () => {
     expect(JSON.stringify(metadata)).toContain("Economics");
+    expect(metadata.title).toEqual({ absolute: "IGCSE & IB Past Papers by Topic | PastPaperPrep" });
+    expect(metadata.description?.length).toBeGreaterThanOrEqual(25);
+    expect(metadata.description?.length).toBeLessThanOrEqual(160);
   });
 
   it("does not advertise gated banks before their release flags are enabled", () => {

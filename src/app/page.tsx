@@ -5,11 +5,11 @@ import { JsonLd } from "@/components/JsonLd";
 import { SOCIAL_IMAGE } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: { absolute: "IGCSE & IB Maths, Sciences and Economics Past Papers by Topic | PastPaperPrep" },
-  description: "Practise Cambridge IGCSE Maths, Biology, Chemistry, Physics, Co-ordinated Sciences and Economics, plus IB Mathematics, Biology, Chemistry, Physics and Economics past-paper questions by topic. Filter exact questions, check answers, and build printable sets.",
+  title: { absolute: "IGCSE & IB Past Papers by Topic | PastPaperPrep" },
+  description: "Practise real IGCSE and IB Maths, science and Economics questions by topic. Filter past papers, check answers and build printable revision sets.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "IGCSE & IB Maths, Sciences and Economics Past Papers by Topic | PastPaperPrep",
+    title: "IGCSE & IB Past Papers by Topic | PastPaperPrep",
     description: "Practise Cambridge IGCSE, IB Mathematics, IB sciences, and IB Economics past-paper questions by topic and build focused revision sets.",
     url: "/",
     type: "website",
