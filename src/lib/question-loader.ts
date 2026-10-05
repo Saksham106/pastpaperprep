@@ -68,5 +68,8 @@ export function loadBankQuestions(slug: BankSlug): Promise<UnifiedQuestion[]> {
       applyReviewedBlankPages: productionIGCSE || slug === 'igcse' || slug === 'igcse-additional',
     }));
   cache.set(cacheKey, questions);
+  void questions.catch(() => {
+    if (cache.get(cacheKey) === questions) cache.delete(cacheKey);
+  });
   return questions;
 }
