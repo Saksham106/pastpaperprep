@@ -74,6 +74,14 @@ export const ARTICLE_INDEX_DETAILS: Readonly<Record<string, ArticleIndexDetail>>
     { href: "/banks/ib-hl?topic=Calculus", label: "IB Maths AA HL: Calculus" },
     { href: "/banks/ib-sl?topic=Functions", label: "IB Maths AA SL: Functions" },
   ] },
+  "best-exam-mate-alternatives": { difficulty: "Foundational", exam: "Cambridge IGCSE", practiceLinks: [
+    { href: "/banks/igcse?topic=Number", label: "IGCSE Maths 0580: Number" },
+    { href: "/banks/ib-hl?topic=Calculus", label: "IB Maths AA HL: Calculus" },
+  ] },
+  "revisiondojo-vs-revision-village": { difficulty: "Foundational", exam: "IB Diploma", practiceLinks: [
+    { href: "/banks/ib-hl?topic=Calculus", label: "IB Maths AA HL: Calculus" },
+    { href: "/banks/ib-sl?topic=Functions", label: "IB Maths AA SL: Functions" },
+  ] },
   "best-revision-village-alternatives": { difficulty: "Foundational", exam: "IB Diploma", practiceLinks: [
     { href: "/banks/ib-hl?topic=Calculus", label: "IB Maths AA HL: Calculus" },
     { href: "/banks/ib-sl?topic=Functions", label: "IB Maths AA SL: Functions" },

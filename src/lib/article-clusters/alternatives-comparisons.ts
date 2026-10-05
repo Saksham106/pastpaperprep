@@ -28,10 +28,10 @@ export const ALTERNATIVES_COMPARISONS = [
         heading: "Start with PastPaperPrep for real questions by topic",
         paragraphs: [
           "If your reason for leaving Exam-Mate is that you want a focused set from actual exam sessions, start with PastPaperPrep. Its IB and Cambridge IGCSE banks organise real past-paper questions around course and available filters, so you can narrow a weak area, select questions, and make a printable worksheet where your access supports export. Try the bank before paying: complete older years are free, guests see up to 20 questions matching their active filters, and a free account can access the full free selection for that bank.",
-          "PastPaperPrep is not a universal Exam-Mate replacement. Its current catalogue covers Mathematics, sciences, and Economics across supported Cambridge IGCSE and IB Diploma banks; it does not claim to cover every Exam-Mate curriculum, board, or subject. Confirm the exact course and level in the live catalogue before choosing. The advantage is not that other sites lack questions; it is a more direct path from a topic filter to a curated set of authentic questions.",
+          "PastPaperPrep is not a universal Exam-Mate replacement. Its current catalogue covers Mathematics, sciences, and Economics across supported Cambridge IGCSE and IB Diploma banks; it does not claim to cover every Exam-Mate curriculum, board, or subject. Confirm the exact course and level in the live catalogue before choosing. The advantage is a direct path from a topic filter to a curated set of authentic questions. PDF export requires eligible bank access and follows your plan’s download allowance.",
           "If you're comparing subscriptions, use the separate pricing and access comparison rather than treating this alternatives guide as a second price list. This article is about choosing a practice workflow, not repeating every plan and term.",
         ],
-        links: [{ href: "/articles/exam-mate-vs-save-my-exams", label: "Exam-Mate pricing and access comparison" }],
+        links: [{ href: "/articles/pastpaperprep-vs-exam-mate", label: "Exam-Mate pricing and access comparison" }],
       },
       {
         heading: "PMT: a free library when you do not mind assembling the set",
@@ -52,7 +52,7 @@ export const ALTERNATIVES_COMPARISONS = [
         paragraphs: [
           "Exam-Mate's topical-papers page lists several curricula, including Cambridge IGCSE and IB Diploma, and lets students refine practice by subject, topic, paper type, year, and season. It says topical questions are not downloadable. The pricing page says its individual topical subscription is separate from Build Exam; topical access is included with Build Exam, so those are different purchase choices, not interchangeable price labels.",
           "Its free access does not include the most recent years: the Exam-Mate FAQ says free subscribers cannot access the newest years, and its topical pricing page labels access through 2019 separately. If you want Exam-Mate's wider curriculum coverage or its online practice interface, it may remain the right option. Compare actual access for your curriculum and the current billed term before paying; do not infer unlimited access from a free account.",
-          "For the individual topical plan, the public pricing page lists USD $12 for one month, $65 for six months, $120 for twelve months, or $220 for twenty-four months. Build Exam is not included in that individual topical subscription. Prices checked 5 October 2026; see the pricing comparison linked above for the broader plan breakdown.",
+          "The individual Topical Past Papers subscription starts at USD $12 for one month. Build Exam is a separate purchase with a different workflow; do not assume a topical subscription includes it. Price and access checked 5 October 2026; use the dedicated pricing guide for longer billing terms.",
         ],
       },
       {
@@ -71,7 +71,7 @@ export const ALTERNATIVES_COMPARISONS = [
       },
     ],
     faqs: [
-      { question: "What is the best free Exam-Mate alternative for IB or IGCSE?", answer: "PMT is a useful free starting point for downloadable papers and mark schemes across many boards, though you may assemble topical practice yourself. PastPaperPrep offers complete older years free in its supported IB and Cambridge IGCSE banks; guests see a limited matching sample, while a free account can access the full free selection for that bank." },
+      { question: "What is the best free Exam-Mate alternative for IB or IGCSE?", answer: "PastPaperPrep offers complete older years free in its supported IB and Cambridge IGCSE banks; guests see a limited matching sample, while a free account can access the full free selection for that bank. PMT is another useful free option for downloadable papers and mark schemes across many boards, though you may assemble topical practice yourself." },
       { question: "Are PastPaperPrep questions real past-paper questions?", answer: "Its supported banks are organised from real past-paper questions. Check the chosen bank and question context; this differs from a provider's authored exam-style questions, which may resemble an exam without coming from an actual session." },
       { question: "Does Exam-Mate let students download topical questions?", answer: "Exam-Mate's topical-papers page says questions are not downloadable. If printable custom selection matters, check PastPaperPrep's eligible bank access and PDF workflow, or use a downloadable library such as PMT and assemble your own set." },
       { question: "Are Exam-Mate topical questions free?", answer: "Exam-Mate says free subscribers cannot access the most recent years, and the pricing page separates topical access through 2019 from newer access. The individual topical plan is paid; Build Exam includes the service, while the individual topical subscription does not include Build Exam." },
@@ -79,7 +79,7 @@ export const ALTERNATIVES_COMPARISONS = [
     ],
     relatedBanks: [
       { href: "/#question-banks", label: "PastPaperPrep IB and IGCSE question banks" },
-      { href: "/articles/exam-mate-vs-save-my-exams", label: "Exam-Mate pricing and access comparison" },
+      { href: "/articles/pastpaperprep-vs-exam-mate", label: "Exam-Mate pricing and access comparison" },
       { href: "/pricing", label: "PastPaperPrep plans and access" },
     ],
     sources: [

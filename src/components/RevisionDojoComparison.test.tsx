@@ -20,7 +20,7 @@ describe("RevisionDojo vs Revision Village article", () => {
     expect(text).toContain("10 question walkthroughs");
     expect(text).toContain("monthly-equivalent");
     expect(text).toContain("printable real-paper practice");
-    expect(text).toContain("revision-village-pricing");
+    expect(text).toContain("pastpaperprep-vs-revision-village");
     expect(text).toContain("best-revision-village-alternatives");
     expect(article?.sections[0].heading).toMatch(/printable topic practice/i);
   });

@@ -28,8 +28,8 @@ describe("Exam-Mate alternatives article", () => {
     expect(content).toMatch(/exam-style/);
     expect(content).toMatch(/not downloadable/);
     expect(content).toMatch(/USD \$12/);
-    expect(content).toContain("/articles/exam-mate-vs-save-my-exams");
+    expect(content).toContain("/articles/pastpaperprep-vs-exam-mate");
     expect(content).not.toMatch(/the universal best|(?<!no question bank )guarantees? (?:a|your) grade/);
-    expect(article.faqs[0].answer).toMatch(/^PMT is a useful free starting point/);
+    expect(article.faqs[0].answer).toMatch(/^PastPaperPrep offers/);
   });
 });
