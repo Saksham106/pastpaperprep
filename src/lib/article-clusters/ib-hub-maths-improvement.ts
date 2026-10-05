@@ -91,11 +91,12 @@ export const IB_HUB_MATHS_IMPROVEMENT = [
     eyebrow: "IB Mathematics AA and AI",
     answer: "The best IB Maths question bank depends on whether you need authentic past-paper questions or a wider teaching platform. PastPaperPrep is a strong fit for students who want separate AA HL, AA SL, AI HL, and AI SL banks, granular filters, answers where available, and printable custom sets. Revision Village is stronger for exam-style questions organised by difficulty with video solutions and key concepts. Choose the resource that matches your course, level, and feedback needs.",
     publishedAt: "2026-09-15",
-    updatedAt: "2026-09-15",
+    updatedAt: "2026-10-05",
     readingMinutes: 8,
     sections: [
       {
         heading: "AA and AI are different practice problems",
+        links: [{ href: "/articles/best-revision-village-alternatives", label: "Choosing a platform? Compare Revision Village alternatives" }],
         paragraphs: [
           "Do not begin with a generic search for “IB Maths questions.” The IB offers Mathematics: analysis and approaches and Mathematics: applications and interpretation, and each is available at Standard Level and Higher Level. Your question bank must preserve that distinction. A question that looks mathematically familiar can still train the wrong course emphasis or level of demand.",
           "AA practice commonly needs careful algebraic manipulation, proof, functions, calculus, and exact mathematical communication. AI practice places more weight on mathematics in context, modelling, statistics, interpretation, and technology-supported work. These are broad study orientations, not a reason to ignore the rest of your syllabus. Start with the official course and your school’s assessment route, then use questions to identify the skills you actually miss.",

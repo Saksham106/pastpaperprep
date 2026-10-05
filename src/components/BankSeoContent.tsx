@@ -54,13 +54,14 @@ export function BankSeoContent({ bank }: { bank: Bank }) {
       <div>
         <p className="eyebrow">{isIbMathAaHl ? "IB Mathematics AA HL · focused practice" : "Revision method"}</p>
         <h2 id="bank-guide-heading">{isIbMathAaHl ? "Build a printable IB Maths AA HL practice set" : `How to use the ${bank.shortName} question bank`}</h2>
-        <p>{isIbMathAaHl ? <>Use this existing question bank for <Link href={guide.href}>IB Maths AA HL past papers by topic</Link>: choose a topic, select matching questions, then build a worksheet and download its PDF when your account and plan allow. The bank remains the canonical place to practise; this guide explains the workflow.</> : coverage}</p>
+        <p>{isIbMathAaHl ? "PastPaperPrep lets you turn selected real AA HL questions into a printable practice set. Choose a topic, select the questions you need, then export a worksheet with the available answers." : coverage}</p>
+        {isIbMathAaHl ? <p>{coverage}</p> : null}
       </div>
       {isIbMathAaHl ? (
         <ol>
           <li><strong>Choose a topic.</strong> Filter the IB Maths AA HL bank by the topic you want to practise.</li>
           <li><strong>Select questions, then build a worksheet.</strong> Choose questions from the results and use the worksheet controls to assemble your set.</li>
-          <li><strong>Download PDF when eligible.</strong> PDF export is available only with an eligible paid plan and subject to its export quota. Free questions require an account; the free allowance is limited per filtered result set. Paid questions remain locked unless your plan includes this bank.</li>
+          <li><strong>Export your practice set.</strong> PDF export requires eligible access to this bank and follows your plan’s download allowance. Guests can view up to 20 matching free questions; a free account unlocks the rest of the free selection. Recent paid questions and worksheet/PDF tools require eligible bank access.</li>
         </ol>
       ) : (
         <ol>

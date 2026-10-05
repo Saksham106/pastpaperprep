@@ -101,6 +101,7 @@ export default async function BankPage({ params }: { params: Promise<{ slug: str
           <p className="eyebrow">{bank.qualification}</p>
           <h1>{bank.title}</h1>
           <p>{bank.description}</p>
+          {slug === "ib-hl" ? <p>Select real AA HL questions by topic and turn them into a printable practice set with eligible bank access. <Link href="#bank-guide-heading">See worksheet and PDF options</Link>.</p> : null}
           <div className="bank-hero-stats"><span><strong>{bank.questionCount.toLocaleString()}</strong> questions</span><span><strong>{bank.paperCount}</strong> papers</span><span><strong>{bank.years}</strong> coverage</span></div>
         </div>
       </section>

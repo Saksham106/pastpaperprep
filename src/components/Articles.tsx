@@ -65,6 +65,13 @@ export function ArticlesIndex() {
   );
 }
 
+function LinkedAnswer({ article }: { article: Article }) {
+  const link = article.answerLink;
+  const offset = link?.label ? article.answer.indexOf(link.label) : -1;
+  if (!link || offset < 0 || !link.href.startsWith("/") || link.href.startsWith("//")) return <>{article.answer}</>;
+  return <>{article.answer.slice(0, offset)}<Link href={link.href}>{link.label}</Link>{article.answer.slice(offset + link.label.length)}</>;
+}
+
 export function ArticleContent({ article }: { article: Article }) {
   return (
     <div className="public-surface">
@@ -86,7 +93,7 @@ export function ArticleContent({ article }: { article: Article }) {
         </div>
       </header>
 
-      <p className="article-answer">{article.answer}</p>
+      <p className="article-answer"><LinkedAnswer article={article} /></p>
 
       <div className="article-body">
         {article.comparison ? (
@@ -110,6 +117,7 @@ export function ArticleContent({ article }: { article: Article }) {
             <h2>{section.heading}</h2>
             {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             {section.bullets ? <ul>{section.bullets.map((item) => <li key={item}>{item}</li>)}</ul> : null}
+            {section.links?.length ? <p>{section.links.map((link, index) => <span key={link.href}>{index > 0 ? " · " : ""}<Link href={link.href}>{link.label}</Link></span>)}</p> : null}
           </section>
         ))}
 

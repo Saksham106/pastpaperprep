@@ -42,7 +42,7 @@ describe("article library", () => {
     const releaseMatrix = [
       ["best-revision-village-alternatives", "2026-10-04", "2026-10-04", false],
       ["best-ib-question-banks-maths-sciences", "2026-09-15", "2026-09-15", true],
-      ["best-ib-maths-question-banks-aa-ai", "2026-09-15", "2026-09-15", false],
+      ["best-ib-maths-question-banks-aa-ai", "2026-09-15", "2026-10-05", false],
       ["best-ib-chemistry-question-banks", "2026-09-15", "2026-09-15", false],
       ["best-ib-physics-question-banks", "2026-09-15", "2026-09-15", false],
       ["best-ib-biology-question-banks", "2026-09-15", "2026-09-15", false],
@@ -58,7 +58,7 @@ describe("article library", () => {
       ["best-igcse-maths-past-paper-websites", "2026-09-15", "2026-09-15", false],
       ["best-igcse-science-question-banks", "2026-09-15", "2026-09-15", true],
       ["best-igcse-chemistry-0620-question-banks", "2026-09-15", "2026-09-15", false],
-      ["best-igcse-physics-0625-question-banks", "2026-09-15", "2026-09-15", false],
+      ["best-igcse-physics-0625-question-banks", "2026-09-15", "2026-10-05", false],
       ["best-igcse-biology-0610-question-banks", "2026-09-15", "2026-09-15", false],
       ["best-igcse-coordinated-sciences-0654-question-banks", "2026-09-15", "2026-09-15", false],
       ["best-igcse-economics-0455-question-banks", "2026-09-15", "2026-09-21", false],
@@ -360,14 +360,14 @@ describe("article library", () => {
 
   it("targets the live pricing queries already earning Search Console impressions", () => {
     expect(getArticle("pastpaperprep-vs-revision-village")).toMatchObject({
-      title: "Revision Village Pricing: Cost, Plans, and PastPaperPrep Comparison",
-      description: "Revision Village lists Gold at $249 for one course and $499 for the complete suite. Compare those one-time prices with PastPaperPrep plans and features.",
-      updatedAt: "2026-09-23",
+      title: "Revision Village Pricing (2026): Monthly vs Full Course",
+      description: "Revision Village Gold costs $70 monthly or $249 once for one IB course. Compare free access, full-course billing and PastPaperPrep’s focused practice plans.",
+      updatedAt: "2026-10-05",
     });
     expect(getArticle("pastpaperprep-vs-exam-mate")).toMatchObject({
-      title: "Exam-Mate Subscription Price: Plans vs PastPaperPrep",
-      description: "Exam-Mate lists topical plans from $12 monthly to $120 yearly. Compare its subscription pricing, subject breadth, and features with PastPaperPrep.",
-      updatedAt: "2026-09-23",
+      title: "Exam-Mate Subscription Price: Free and Paid Plans (2026)",
+      description: "Exam-Mate Topical Past Papers costs $12 for one month or $120 for 12 months. Compare free limits, Build Exam access and PastPaperPrep’s practice plans.",
+      updatedAt: "2026-10-05",
     });
   });
 
@@ -377,14 +377,14 @@ describe("article library", () => {
     const { rerender } = render(<ArticleContent article={revisionVillage} />);
 
     expect(screen.getByRole("table", { name: /pastpaperprep vs revision village/i })).toBeInTheDocument();
-    expect(screen.getByText(/Pricing checked 23 September 2026/i)).toBeInTheDocument();
+    expect(screen.getByText(/Pricing checked 5 October 2026/i)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Revision Village Gold pricing/i })).toHaveAttribute(
       "href",
       "https://www.revisionvillage.com/revision-village-gold/",
     );
 
     rerender(<ArticleContent article={examMate} />);
-    expect(screen.getByText(/Pricing checked 23 September 2026/i)).toBeInTheDocument();
+    expect(screen.getByText(/Pricing checked 5 October 2026/i)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Exam-Mate Topical Past Papers pricing/i })).toHaveAttribute(
       "href",
       "https://www.exam-mate.com/topicalpastpapers/pricing",
