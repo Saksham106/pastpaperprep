@@ -265,8 +265,13 @@ describe("new-bank classification quality", () => {
     });
     expect(byId.get("0606-2026-june-11-q4")).toMatchObject({
       primaryTopic: "Logarithmic and exponential functions",
-      secondaryTopics: ["Algebra"],
-      subtopics: expect.arrayContaining(["Logarithmic and exponential functions"]),
+      // Preserve the reviewed owner and Algebra while exposing the printed definite integral.
+      secondaryTopics: expect.arrayContaining(["Algebra", "Calculus"]),
+      subtopics: expect.arrayContaining([
+        "Logarithmic and exponential functions",
+        "14.11 Integrating powers and reciprocal functions",
+        "14.13 Definite integrals and areas",
+      ]),
     });
   });
 
