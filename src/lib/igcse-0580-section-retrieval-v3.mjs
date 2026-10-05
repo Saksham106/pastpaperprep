@@ -30,11 +30,11 @@ export function project0580Sections(raw) {
   const expectedTier = /^[13]/.test(raw.component ?? "") ? "Core" : /^[24]/.test(raw.component ?? "") ? "Extended" : null;
   if (!expectedTier || tiers.size !== 1 || !tiers.has(expectedTier)) throw new Error(`0580 tier drift: ${raw.id}`);
   const evidenceFor = (code) => row.evidenceByCode?.[code] ?? row.evidenceType;
-  if (row.sectionCodes.some((code) => !["source-reviewed", "sample-calibrated-model", "deterministic-correspondence"].includes(evidenceFor(code)))) throw new Error(`0580 unaccepted per-link evidence: ${raw.id}`);
+  if (row.sectionCodes.some((code) => !["source-reviewed", "sample-calibrated-model", "deterministic-correspondence", "direct-image-model-review"].includes(evidenceFor(code)))) throw new Error(`0580 unaccepted per-link evidence: ${raw.id}`);
   const codes = new Set(row.sectionCodes);
   const sections = IGCSE_0580_SECTIONS.filter((section) => codes.has(section.coreCode) || codes.has(section.extendedCode));
   const labels = sections.map((section) => section.displayTitle);
   const secondaryTopics = [...new Set(sections.map((section) => section.topic))].filter((topic) => topic !== raw.primaryTopic && !(raw.secondaryTopics ?? []).includes(topic));
-  return { subtopics: labels, secondaryTopics, codeRefs: row.sectionCodes.flatMap((code) => [`current_2025:${code}`, `${evidenceFor(code) === "source-reviewed" ? "source_reviewed_v3" : evidenceFor(code) === "deterministic-correspondence" ? "deterministic_v3" : "sample_calibrated_v3"}:${code}`]), evidenceType: row.evidenceType };
+  return { subtopics: labels, secondaryTopics, codeRefs: row.sectionCodes.flatMap((code) => [`current_2025:${code}`, `${evidenceFor(code) === "source-reviewed" ? "source_reviewed_v3" : evidenceFor(code) === "deterministic-correspondence" ? "deterministic_v3" : evidenceFor(code) === "direct-image-model-review" ? "source_image_model_0580_v4" : "sample_calibrated_v3"}:${code}`]), evidenceType: row.evidenceType };
 }
 export const IGCSE_0580_SECTION_OVERLAY = overlay;
