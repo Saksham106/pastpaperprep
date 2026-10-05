@@ -1,85 +1,83 @@
 #!/usr/bin/env node
-import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { dirname, resolve } from "node:path";
-import { spawnSync } from "node:child_process";
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { dirname, resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
+import { spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 
-export const SITE = "https://pastpaperprep.com";
+export const SITE = 'https://pastpaperprep.com';
+const ENDPOINT = 'https://api.indexnow.org/indexnow';
+const STATIC = new Set(['/', '/pricing', '/articles', '/faq', '/about', '/cambridge-igcse', '/ib']);
+export function canonical(raw) {
+  try {
+    const u = new URL(raw);
+    if (u.origin !== SITE || u.search || u.hash || u.username || u.password || /%/.test(u.pathname)) return null;
+    if (!STATIC.has(u.pathname) && !/^\/articles\/[a-z0-9-]+$/.test(u.pathname) && !/^\/(banks|syllabus)\/[a-z0-9-]+(?:\/(topics|papers)\/[a-z0-9-]+)?$/.test(u.pathname)) return null;
+    if (/\/articles\/(preview|draft-)/.test(u.pathname)) return null;
+    return u.href;
+  } catch { return null; }
+}
 export function parseSitemap(xml) {
-  const parsed = spawnSync("python3", ["-c", "import sys,xml.etree.ElementTree as E\nr=E.fromstring(sys.stdin.buffer.read())\nns={'s':'http://www.sitemaps.org/schemas/sitemap/0.9'}\nassert r.tag.split('}')[-1]=='urlset'\nfor u in r.findall('s:url',ns):\n l=u.find('s:loc',ns); m=u.find('s:lastmod',ns)\n if l is None or not l.text: raise ValueError('missing loc')\n print(l.text+'\\t'+(m.text or '' if m is not None else ''))"], { input: xml, encoding: "utf8" });
-  if (parsed.status !== 0) throw new Error(`Malformed sitemap XML: ${parsed.stderr.trim()}`);
-  const result = {};
-  for (const row of parsed.stdout.trimEnd().split("\\n")) { if (!row) continue; const [loc, modified = ""] = row.split("\\t"); const url = canonical(loc); if (url) result[url] = modified; }
-  if (!Object.hasOwn(result, `${SITE}/`)) throw new Error("Canonical homepage absent");
-  return result;
+  const code = `import sys,json,xml.etree.ElementTree as E
+r=E.fromstring(sys.stdin.buffer.read())
+ns={'s':'http://www.sitemaps.org/schemas/sitemap/0.9'}
+assert r.tag=='{http://www.sitemaps.org/schemas/sitemap/0.9}urlset'
+a=[]
+for u in r.findall('s:url',ns):
+ l=u.find('s:loc',ns); m=u.find('s:lastmod',ns)
+ if l is None or not l.text: raise ValueError('missing loc')
+ a.append([l.text,m.text if m is not None else ''])
+print(json.dumps(a))`;
+  const p = spawnSync(process.env.INDEXNOW_PYTHON || 'python3', ['-c', code], { input: xml, encoding: 'utf8' });
+  if (p.error || p.status !== 0) throw new Error(`Malformed sitemap XML: ${p.error?.message || p.stderr.trim()}`);
+  const map = {};
+  for (const [loc, date] of JSON.parse(p.stdout)) { const url = canonical(loc); if (url) map[url] = date || ''; }
+  if (!Object.hasOwn(map, SITE + '/')) throw new Error('Canonical homepage absent');
+  return map;
+}
+// Hash only public editorial content, not build IDs, scripts, personalized header or telemetry.
+export function fingerprint(html) {
+  const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1];
+  if (main === undefined) throw new Error('Public main content absent');
+  const metadata = (html.match(/<title\b[^>]*>[\s\S]*?<\/title>/i)?.[0] || '') + (html.match(/<meta\b[^>]*name="description"[^>]*>/i)?.[0] || '');
+  const clean = main.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '').replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+  return createHash('sha256').update(metadata + clean).digest('hex');
 }
 export function diffSitemaps(previous, current) {
   if (!previous) return { changed: [], deleted: [] };
-  return { changed: Object.keys(current).filter((url) => !(url in previous) || current[url] !== previous[url]), deleted: Object.keys(previous).filter((url) => !(url in current) && canonical(url)) };
+  return { changed: Object.keys(current).filter(u => !(u in previous) || JSON.stringify(current[u]) !== JSON.stringify(previous[u])), deleted: Object.keys(previous).filter(u => !(u in current) && canonical(u)) };
 }
-
-const ENDPOINT = "https://api.indexnow.org/indexnow";
-const STATE = resolve(process.env.INDEXNOW_STATE ?? ".indexnow/state.json");
-const LOG = resolve(process.env.INDEXNOW_LOG ?? ".indexnow/delivery.jsonl");
-const KEY = (await readFile(new URL("../public/key.txt", import.meta.url), "utf8")).trim();
-const APPLY = process.argv.includes("--submit");
-const ALLOWED_STATIC = new Set(["/", "/pricing", "/articles", "/faq", "/about", "/cambridge-igcse", "/ib"]);
-
-function canonical(raw) {
-  let u;
-  try { u = new URL(raw); } catch { return null; }
-  if (u.origin !== SITE || u.search || u.hash || u.username || u.password) return null;
-  if (u.pathname !== "/" && u.pathname.endsWith("/")) return null;
-  if (u.pathname.startsWith("/articles/")) {
-    const slug = u.pathname.slice("/articles/".length);
-    if (!slug || slug.includes("/") || slug === "preview" || slug.startsWith("draft-")) return null;
-  } else if (!ALLOWED_STATIC.has(u.pathname) && !/^\/(banks|syllabus)\/[a-z0-9-]+(?:\/(topics|papers)\/[a-z0-9-]+)?$/.test(u.pathname)) return null;
-  return u.href;
+export async function run({ submit = false, explicit = [], state = '.indexnow/state.json', log = '.indexnow/delivery.jsonl', fetcher = fetch, keyPath = new URL('../public/key.txt', import.meta.url) } = {}) {
+  if (!Array.isArray(explicit) || explicit.length > 1000 || explicit.some(u => !canonical(u))) throw new Error('Explicit URLs must be canonical public URLs, maximum 1000');
+  const get = async url => { const r = await fetcher(url, { redirect: 'error', signal: AbortSignal.timeout(30000) }); if (!r.ok) throw new Error(`HTTP ${r.status}: ${url}`); return r.text(); };
+  const dates = parseSitemap(await get(SITE + '/sitemap.xml'));
+  if (explicit.some(u => !Object.hasOwn(dates, u))) throw new Error('Explicit URL is absent from public sitemap');
+  const current = {};
+  const entries = Object.entries(dates);
+  // Bounded parallelism; snapshot all live public content so undated edits are detected too.
+  for (let i = 0; i < entries.length; i += 4) await Promise.all(entries.slice(i, i + 4).map(async ([u, lastmod]) => { current[u] = { lastmod, hash: fingerprint(await get(u)) }; }));
+  let previous = null;
+  try { previous = JSON.parse(await readFile(state, 'utf8')); } catch (e) { if (e.code !== 'ENOENT') throw e; }
+  const { changed, deleted } = diffSitemaps(previous, current);
+  const targets = [...new Set([...changed, ...deleted, ...explicit])];
+  if (targets.length > 10000) throw new Error('IndexNow limit exceeded');
+  const record = { at: new Date().toISOString(), outcome: previous ? 'no-change' : 'baseline-only', urls: targets, changed: changed.length, deleted: deleted.length, submit };
+  if (targets.length && submit) {
+    const key = (await readFile(keyPath, 'utf8')).trim();
+    if (!/^[A-Za-z0-9-]{8,128}$/.test(key)) throw new Error('Invalid public verification key');
+    const keyLocation = SITE + '/key.txt';
+    if ((await get(keyLocation)).trim() !== key) throw new Error('Public key verification failed');
+    const response = await fetcher(ENDPOINT, { method: 'POST', headers: { 'content-type': 'application/json; charset=utf-8' }, body: JSON.stringify({ host: 'pastpaperprep.com', key, keyLocation, urlList: targets }), signal: AbortSignal.timeout(30000) });
+    record.status = response.status; record.outcome = 'submitted';
+    await mkdir(dirname(log), { recursive: true }); await writeFile(log, JSON.stringify(record) + '\n', { flag: 'a' });
+    if (![200, 202].includes(response.status)) throw new Error(`IndexNow HTTP ${response.status}; baseline preserved`);
+  } else { await mkdir(dirname(log), { recursive: true }); await writeFile(log, JSON.stringify(record) + '\n', { flag: 'a' }); }
+  if (submit || !previous) { await mkdir(dirname(state), { recursive: true }); await writeFile(state, JSON.stringify(current, null, 2) + '\n'); }
+  console.log(JSON.stringify(record));
+  return record;
 }
-
-async function sitemap() {
-  const response = await fetch(`${SITE}/sitemap.xml`, { signal: AbortSignal.timeout(20000) });
-  if (!response.ok) throw new Error(`Sitemap HTTP ${response.status}`);
-  const xml = await response.text();
-  return parseSitemap(xml);
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+  const i = process.argv.indexOf('--urls');
+  const explicit = i < 0 ? [] : JSON.parse(await readFile(process.argv[i + 1], 'utf8'));
+  await run({ submit: process.argv.includes('--submit'), explicit, state: process.env.INDEXNOW_STATE || '.indexnow/state.json', log: process.env.INDEXNOW_LOG || '.indexnow/delivery.jsonl' });
 }
-async function readState() { try { return JSON.parse(await readFile(STATE, "utf8")); } catch (e) { if (e.code === "ENOENT") return null; throw e; } }
-async function append(entry) { await mkdir(dirname(LOG), { recursive: true }); await writeFile(LOG, `${JSON.stringify(entry)}\n`, { flag: "a" }); }
-
-const current = await sitemap();
-const previous = await readState();
-if (!previous) {
-  await mkdir(dirname(STATE), { recursive: true });
-  await writeFile(STATE, `${JSON.stringify(current, null, 2)}\n`);
-  await append({ at: new Date().toISOString(), outcome: "baseline-only", urls: 0 });
-  console.log(`Initialized baseline: ${Object.keys(current).length} canonical URLs; no notification sent.`);
-  process.exit(0);
-}
-const { changed, deleted } = diffSitemaps(previous, current);
-const urlsArg = process.argv.indexOf("--urls");
-let explicit = [];
-if (urlsArg >= 0) {
-  const input = JSON.parse(await readFile(process.argv[urlsArg + 1], "utf8"));
-  if (!Array.isArray(input) || input.length > 1000) throw new Error("--urls requires a JSON array of at most 1000 URLs");
-  explicit = input.map(canonical);
-  if (explicit.some((url) => !url)) throw new Error("--urls contains a disallowed URL");
-}
-const urls = changed;
-const deletedUrls = deleted;
-const targets = [...new Set([...urls, ...deletedUrls, ...explicit])];
-if (targets.length > 10000) throw new Error(`Refusing ${targets.length} URLs (IndexNow limit 10,000)`);
-if (!targets.length) {
-  if (APPLY) { await mkdir(dirname(STATE), { recursive: true }); await writeFile(STATE, `${JSON.stringify(current, null, 2)}\\n`); await append({ at: new Date().toISOString(), outcome: "no-change", urls: 0 }); }
-  console.log("No canonical sitemap changes."); process.exit(0);
-}
-if (!APPLY) { console.log(JSON.stringify({ changed, deleted: deletedUrls, submit: false }, null, 2)); process.exit(0); }
-const keyFile = `${SITE}/key.txt`;
-const payload = { host: new URL(SITE).host, key: KEY, keyLocation: keyFile, urlList: targets };
-const keyResponse = await fetch(payload.keyLocation, { redirect: "error", signal: AbortSignal.timeout(15000) });
-if (!keyResponse.ok || (await keyResponse.text()).trim() !== KEY) throw new Error(`Public IndexNow key file verification failed at ${payload.keyLocation}; no URLs submitted`);
-const response = await fetch(ENDPOINT, { method: "POST", headers: { "content-type": "application/json; charset=utf-8" }, body: JSON.stringify(payload), signal: AbortSignal.timeout(30000) });
-const record = { at: new Date().toISOString(), endpoint: ENDPOINT, status: response.status, urls: targets, addedOrChanged: urls.length, deleted: deleted.length };
-await append(record);
-if (response.status !== 200 && response.status !== 202) throw new Error(`IndexNow rejected submission: HTTP ${response.status}; state left unchanged for retry`);
-await mkdir(dirname(STATE), { recursive: true });
-await writeFile(STATE, `${JSON.stringify(current, null, 2)}\n`);
-console.log(`IndexNow accepted ${targets.length} URL(s), HTTP ${response.status}; delivery log: ${LOG}`);

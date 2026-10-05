@@ -1,15 +1,11 @@
-# IndexNow deployment
+# IndexNow
 
-The GitHub Actions workflow compares the **live canonical sitemap** with the last successful sitemap snapshot after Vercel reports the pushed main revision successful. It submits only newly listed URLs and entries whose sitemap `lastmod` changed, plus sitemap removals. For non-article pages without `lastmod`, changed content that does not add/remove a sitemap URL is intentionally not inferred; add correct `lastmod` metadata if those pages need content-sensitive notifications. It does not crawl, index, or submit every URL on every deployment.
+The main-branch GitHub workflow runs after publication and daily as a catch-up. It waits for the latest exact `Vercel` commit status to succeed and stops if that revision is no longer main. No paid service or account secret is required. `public/key.txt` is a public protocol verification token, checked against its deployed root URL before any submission.
 
-## One-time setup
+The notifier parses the live sitemap with Python standard-library XML parsing. It fetches only allowlisted canonical public pages, with four concurrent requests, and snapshots sitemap lastmod plus hashes of the public main text/title/description. Scripts, build IDs and personalized header/footer are excluded. This detects edits to undated public pages too. It submits only additions, changed content/lastmod, and previously-public deletions; not every sitemap URL on every deploy. This is bounded HTML change detection, not a complete image-only or JavaScript-behavior change detector.
 
-A random 32-character lowercase hexadecimal protocol key is committed at `public/key.txt`. IndexNow keys are public verification tokens, not account credentials or secrets; no GitHub secret or variable is required. The script reads the key from this file and verifies that its deployed root URL serves the same value before submitting. Deploy the file before enabling notifications.
+State is cached between successful runs under unique run/attempt keys. Failed HTTP submissions preserve the baseline; retries remain possible. First run snapshots without sending anything. Every completed comparison writes a receipt, uploaded as a 90-day artifact. If the cache expires, the next run deliberately re-baselines rather than blasting all URLs. Daily catch-up avoids losing subsequent undated edits.
 
-The workflow waits for the Vercel status for the pushed revision and compares the live canonical sitemap to its prior snapshot. The first run initializes a baseline only. `--urls <json-file>` supports a bounded explicit initial URL list (maximum 1,000) for a deliberate post-deployment first notification. Sitemap additions/removals and lastmod updates remain the recurring notification source. Artifacts include delivery receipts; HTTP 200/202 is accepted by IndexNow, not proof of indexing.
+`node scripts/indexnow.mjs` is a safe dry run. `--submit` sends the detected changes. An operator may use `--urls file.json --submit` for an initial bounded list of recently published/updated URLs; explicit URLs must also be in the current public sitemap and maximum 1,000. A batch over 10,000 fails closed. Private/query/fragment/foreign-host URLs are rejected. Python 3 and Node 22+ are required; Actions installs both. Local ARM hosts may set `INDEXNOW_PYTHON` to their native interpreter.
 
-Only canonical allowlisted public routes are submitted; URLs with query strings, fragments, or noncanonical trailing slashes are rejected. Batches above 10,000 are refused. Do not submit private/account routes.
-
-## Local safe check
-
-`node scripts/indexnow.mjs` reads the public sitemap and either initializes a local baseline or prints a dry-run diff; it never submits. State/log files live under ignored `.indexnow/`. Do not use `--submit` locally. Official protocol details: <https://www.indexnow.org/documentation>.
+HTTP200/202 means accepted/received, **not indexed**. Verify live key and actual delivery receipts after deployment. Official protocol: https://www.indexnow.org/documentation.
