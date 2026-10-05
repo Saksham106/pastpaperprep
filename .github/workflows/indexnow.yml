@@ -1,0 +1,62 @@
+name: IndexNow notifications
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: indexnow-production
+  cancel-in-progress: false
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - name: Wait for this revision's production deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.sha }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 60); do
+            states=$(gh api "repos/$REPOSITORY/commits/$SHA/status" --jq '[.statuses[] | select(.context | test("vercel"; "i")) | .state] | unique | join(",")')
+            if [[ "$states" == *success* ]]; then exit 0; fi
+            if [[ "$states" == *failure* || "$states" == *error* ]]; then echo "Vercel deployment failed for $SHA ($states)" >&2; exit 1; fi
+            echo "Waiting for Vercel production status for $SHA (attempt $attempt/60)"
+            sleep 30
+          done
+          echo "Timed out waiting for Vercel production status for $SHA" >&2
+          exit 1
+      - uses: actions/cache/restore@v4
+        with:
+          path: .indexnow/state.json
+          key: indexnow-state-${{ github.sha }}
+          restore-keys: indexnow-state-
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Compare live canonical sitemap and notify changed URLs
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+          INDEXNOW_KEY_FILE: ${{ vars.INDEXNOW_KEY_FILE }}
+        run: node scripts/indexnow.mjs --submit
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: indexnow-delivery-${{ github.sha }}
+          path: .indexnow/delivery.jsonl
+          if-no-files-found: ignore
+          retention-days: 90
+      - uses: actions/cache/save@v4
+        if: success()
+        with:
+          path: .indexnow/state.json
+          key: indexnow-state-${{ github.sha }}

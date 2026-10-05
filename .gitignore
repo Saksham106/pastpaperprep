@@ -2,6 +2,9 @@
 
 # dependencies
 /node_modules
+
+# Persistent IndexNow URL baseline and delivery state are CI cache/artifacts only.
+.indexnow/
 /.pnp
 .pnp.*
 .yarn/*
