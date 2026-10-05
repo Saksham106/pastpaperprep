@@ -15,5 +15,8 @@ for(const[label,ids]of Object.entries(seal.fineFilterIds))assert.deepEqual(proje
 const rawById=new Map(raw.map(r=>[r.id,r]));const rows=OVERLAY_0606_V3.rows.map(r=>{assert.ok(rawById.has(r.id),r.id);const links=project0606ApprovedSections(rawById.get(r.id));return{...r,labels:links.subtopics};});
 const perSection=SECTIONS_0606_V3.map(s=>({code:s.code,title:s.displayTitle,topic:s.topic,ids:rows.filter(r=>r.sectionCodes.includes(s.code)).map(r=>r.id)}));
 const evidenceCounts={};for(const r of rows)for(const type of Object.values(r.evidenceByCode))evidenceCounts[type]=(evidenceCounts[type]??0)+1;
-const accepted=new Set(rows.map(r=>r.id));const result={schemaVersion:1,questions:1633,legacyFilters:17,legacyCalculus:seal.fineFilterIds.Calculus.length,officialStatements:67,linked:rows.length,legacyOnly:1633-rows.length,evidenceCounts,perSection,dispositions:raw.map(r=>({id:r.id,disposition:accepted.has(r.id)?'additive-official-links':'legacy-only-unresolved'}))};
+const accepted=new Set(rows.map(r=>r.id));
+const directSource=read('docs/0606-direct-source-input-v4.json');
+const historical=new Set(directSource.reviews.filter(r=>r.disposition==='historical-only').map(r=>r.id));
+const result={schemaVersion:1,questions:1633,legacyFilters:17,legacyCalculus:seal.fineFilterIds.Calculus.length,officialStatements:67,linked:rows.length,legacyOnly:1633-rows.length,evidenceCounts,perSection,dispositions:raw.map(r=>({id:r.id,disposition:accepted.has(r.id)?'additive-official-links':historical.has(r.id)?'legacy-only-historical-image-review':'legacy-only-unresolved'}))};
 writeFileSync('docs/0606-section-reconciliation-v3.json',JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify({questions:result.questions,linked:result.linked,legacyOnly:result.legacyOnly,evidenceCounts}));

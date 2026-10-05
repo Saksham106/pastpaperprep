@@ -14,8 +14,14 @@ export function fingerprint0606(r){
 export function project0606ApprovedSections(raw){
  const row=byId.get(raw.id);if(!row)return null;
  if(fingerprint0606(raw)!==row.inputFingerprint)throw new Error(`0606 approved input drift: ${raw.id}`);
- const types=['source-reviewed','deterministic-correspondence','sample-calibrated-model'];
+ const types=['source-reviewed','deterministic-correspondence','sample-calibrated-model','direct-image-model-review'];
  for(const code of row.sectionCodes)if(!byCode.has(code)||!types.includes(row.evidenceByCode[code]))throw new Error(`0606 invalid per-link evidence: ${raw.id}/${code}`);
  const sections=SECTIONS_0606_V3.filter(s=>row.sectionCodes.includes(s.code));
- return {subtopics:sections.map(s=>s.displayTitle),secondaryTopics:[...new Set(sections.map(s=>s.topic))],codeRefs:sections.flatMap(s=>[`current_2025:${s.code}`,`${row.evidenceByCode[s.code]==='source-reviewed'?'source_reviewed_0606_v3':row.evidenceByCode[s.code]==='deterministic-correspondence'?'deterministic_0606_v3':'sample_calibrated_0606_v3'}:${s.code}`])};
+ const evidenceRef={
+  'source-reviewed':'source_reviewed_0606_v3',
+  'deterministic-correspondence':'deterministic_0606_v3',
+  'sample-calibrated-model':'sample_calibrated_0606_v3',
+  'direct-image-model-review':'source_image_model_0606_v4',
+ };
+ return {subtopics:sections.map(s=>s.displayTitle),secondaryTopics:[...new Set(sections.map(s=>s.topic))],codeRefs:sections.flatMap(s=>[`current_2025:${s.code}`,`${evidenceRef[row.evidenceByCode[s.code]]}:${s.code}`])};
 }
