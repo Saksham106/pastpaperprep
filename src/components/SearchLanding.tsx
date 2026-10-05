@@ -55,6 +55,12 @@ export function QualificationHub({ qualification, title, intro }: { qualificatio
       <div className="search-bank-grid">
         {banks.map((bank) => <BankLandingCard key={bank.slug} bank={bank} />)}
       </div>
+      {qualification === "IB Diploma" ? (
+        <section className="landing-method" aria-labelledby="ib-resources-heading">
+          <div><Target aria-hidden="true" /><h2 id="ib-resources-heading">More IB study resources</h2></div>
+          <p>Comparing revision platforms? See our <Link href="/articles/best-revision-village-alternatives">Revision Village alternatives</Link> guide alongside the official course resources.</p>
+        </section>
+      ) : null}
     </main>
   );
 }
