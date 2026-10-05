@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { SearchDetail, SyllabusLanding } from "@/components/SearchLanding";
+import { QualificationHub, SearchDetail, SyllabusLanding } from "@/components/SearchLanding";
 import { getCatalogBank } from "@/lib/catalog";
 import type { LandingManifest } from "@/lib/search-landing";
 
@@ -19,6 +19,13 @@ const manifest: LandingManifest = {
 };
 
 describe("SearchLanding", () => {
+  it("adds Revision Village alternatives as a contextual IB hub resource only", () => {
+    render(<QualificationHub qualification="IB Diploma" title="IB Diploma past-paper practice" intro="Browse IB banks." />);
+    expect(screen.getByRole("link", { name: "Revision Village alternatives" })).toHaveAttribute("href", "/articles/best-revision-village-alternatives");
+    const { container } = render(<QualificationHub qualification="Cambridge IGCSE" title="IGCSE practice" intro="Browse IGCSE banks." />);
+    expect(container.querySelector("a[href='/articles/best-revision-village-alternatives']")).toBeNull();
+  });
+
   it("keeps the syllabus guide static and deep-links into the existing explorer", () => {
     const { container } = render(<SyllabusLanding bank={bank} manifest={manifest} />);
 

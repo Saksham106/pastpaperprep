@@ -90,6 +90,7 @@ describe("article routes", () => {
       author: { "@type": "Organization", name: "PastPaperPrep Team" },
     });
     expect(jsonLd["@graph"][1].mainEntity).toHaveLength(article.faqs.length);
-    expect(markup).toContain(article.answer);
+    const document = new DOMParser().parseFromString(markup, "text/html");
+    expect(document.querySelector(".article-answer")?.textContent).toBe(article.answer);
   });
 });

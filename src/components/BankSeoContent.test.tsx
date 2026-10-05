@@ -14,4 +14,19 @@ describe("BankSeoContent", () => {
       "/articles/igcse-maths-0580-past-papers-by-topic",
     );
   });
+
+  it("puts the AA HL printable workflow early and states account, plan, and quota gates", () => {
+    render(<BankSeoContent bank={BANKS.find((bank) => bank.slug === "ib-hl")!} />);
+    expect(screen.getByRole("heading", { name: /build a printable ib maths aa hl practice set/i })).toBeInTheDocument();
+    expect(screen.getByText(/PastPaperPrep lets you turn selected real AA HL questions/i)).toBeInTheDocument();
+    expect(screen.getByText(/Guests can view up to 20 matching free questions/i)).toBeInTheDocument();
+    expect(screen.getByText(/a free account unlocks the rest of the free selection/i)).toBeInTheDocument();
+    expect(screen.getByText(/follows your plan’s download allowance/i)).toBeInTheDocument();
+  });
+
+  it("leaves non-AA-HL bank guidance unchanged", () => {
+    render(<BankSeoContent bank={BANKS[0]} />);
+    expect(screen.getByRole("heading", { name: /how to use the mathematics 0580 question bank/i })).toBeInTheDocument();
+    expect(screen.queryByText(/build a printable/i)).not.toBeInTheDocument();
+  });
 });

@@ -41,8 +41,8 @@
   --instrument-text: #f0efe9;
   --shadow-sm: 0 10px 28px rgb(46 40 34 / .08);
   --shadow-lg: 0 34px 90px rgb(46 40 34 / .16);
-  --font-body: var(--font-geist), sans-serif;
-  --font-display: var(--font-geist), sans-serif;
+  --font-body: var(--font-geist, "Geist", Arial), sans-serif;
+  --font-display: var(--font-geist, "Geist", Arial), sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
   --burgundy: #7f293a;
   --paper-warm: #eee9df;

@@ -2,6 +2,96 @@ import type { Article } from "@/lib/articles";
 
 export const ALTERNATIVES_COMPARISONS = [
   {
+    draft: false,
+    slug: "best-exam-mate-alternatives",
+    title: "Best Exam-Mate Alternatives for IB and IGCSE: Free and Paid Topical Practice",
+    description: "Compare Exam-Mate alternatives for IB and IGCSE topical practice: real questions, exam-style sets, answers, printable options, and free limits.",
+    eyebrow: "IB and IGCSE topical practice",
+    answer: "PastPaperPrep is the first alternative to consider if you want to filter real IB or Cambridge IGCSE past-paper questions by topic and build a printable set; complete older years are free, with broader access on paid plans. For a free resource library, Physics & Maths Tutor (PMT) offers past papers and mark schemes across many boards, though you assemble your own topic set. Revision Village is an IB-focused option for exam-style topic practice with mark schemes and video solutions. Choose by subject and provenance: an actual exam question is not the same as an authored exam-style one.",
+    publishedAt: "2026-10-05",
+    updatedAt: "2026-10-05",
+    readingMinutes: 8,
+    answerLink: { href: "/#question-banks", label: "PastPaperPrep" },
+    comparison: {
+      caption: "Exam-Mate alternatives by practice need",
+      headings: ["What you need", "Best fit", "Trade-off"],
+      rows: [
+        { label: "Real IB or IGCSE questions by topic, printable selection", pastPaperPrep: "PastPaperPrep", competitor: "Supported banks only; wider current archive is paid, older complete years free" },
+        { label: "Free downloadable papers and mark schemes", pastPaperPrep: "PMT", competitor: "Broad resource pages; you select, assemble, and print files yourself" },
+        { label: "IB exam-style topic sets with worked support", pastPaperPrep: "Revision Village", competitor: "Exam-style questions, mark schemes and video solutions; not a substitute for authentic session questions" },
+        { label: "Practice inside Exam-Mate's topical interface", pastPaperPrep: "Exam-Mate", competitor: "Newest topical questions require a subscription; questions are not downloadable" },
+        { label: "Free first attempt", pastPaperPrep: "Compare each provider's current access gate", competitor: "A visible sample or free account does not mean unlimited recent questions or marking" },
+      ],
+    },
+    sections: [
+      {
+        heading: "Start with PastPaperPrep for real questions by topic",
+        paragraphs: [
+          "If your reason for leaving Exam-Mate is that you want a focused set from actual exam sessions, start with PastPaperPrep. Its IB and Cambridge IGCSE banks organise real past-paper questions around course and available filters, so you can narrow a weak area, select questions, and make a printable worksheet where your access supports export. Try the bank before paying: complete older years are free, guests see up to 20 questions matching their active filters, and a free account can access the full free selection for that bank.",
+          "PastPaperPrep is not a universal Exam-Mate replacement. Its current catalogue covers Mathematics, sciences, and Economics across supported Cambridge IGCSE and IB Diploma banks; it does not claim to cover every Exam-Mate curriculum, board, or subject. Confirm the exact course and level in the live catalogue before choosing. The advantage is a direct path from a topic filter to a curated set of authentic questions. PDF export requires eligible bank access and follows your plan’s download allowance.",
+          "If you're comparing subscriptions, use the separate pricing and access comparison rather than treating this alternatives guide as a second price list. This article is about choosing a practice workflow, not repeating every plan and term.",
+        ],
+        links: [{ href: "/articles/pastpaperprep-vs-exam-mate", label: "Exam-Mate pricing and access comparison" }],
+      },
+      {
+        heading: "PMT: a free library when you do not mind assembling the set",
+        paragraphs: [
+          "Physics & Maths Tutor lists past papers and mark schemes across AQA, CAIE, Edexcel, OCR, Eduqas, and WJEC, including GCSE and IGCSE subjects. Its pages are useful when you know the subject and board and want a complete paper, a mark scheme, or organised downloadable resources without starting with a paid topical subscription.",
+          "The trade-off is the work after you find the files. PMT is a library of pages and downloads, not one unified cross-bank question picker. You may need to open papers, identify the relevant question, and prepare your own topic worksheet. Check each resource's label and source: a worksheet or practice set is not automatically an authentic past-paper question, and the presence of an old paper does not guarantee current-syllabus alignment.",
+        ],
+      },
+      {
+        heading: "Revision Village: IB exam-style practice and explanation",
+        paragraphs: [
+          "Revision Village is worth comparing if you are an IB student who values topic organisation plus explanation. Its IB Mathematics question-bank pages describe exam-style questions arranged by topic, subtopic, and difficulty, with mark schemes and video tutorials. Its broader IB course resources include other study tools, though access depends on the resource and plan.",
+          "Be precise about provenance. Revision Village describes these as exam-style questions; that is useful practice, but it does not mean each item is from an actual examination session. Choose it when guided solutions or an IB-specific teaching layer matter. Choose an authentic past-paper bank when your goal is to practise questions that appeared in a real session. Its paid and free access vary, so check the relevant current course page rather than assuming every question or video is open.",
+        ],
+      },
+      {
+        heading: "Exam-Mate may still fit if its breadth is what you need",
+        paragraphs: [
+          "Exam-Mate's topical-papers page lists several curricula, including Cambridge IGCSE and IB Diploma, and lets students refine practice by subject, topic, paper type, year, and season. It says topical questions are not downloadable. The pricing page says its individual topical subscription is separate from Build Exam; topical access is included with Build Exam, so those are different purchase choices, not interchangeable price labels.",
+          "Its free access does not include the most recent years: the Exam-Mate FAQ says free subscribers cannot access the newest years, and its topical pricing page labels access through 2019 separately. If you want Exam-Mate's wider curriculum coverage or its online practice interface, it may remain the right option. Compare actual access for your curriculum and the current billed term before paying; do not infer unlimited access from a free account.",
+          "The individual Topical Past Papers subscription starts at USD $12 for one month. Build Exam is a separate purchase with a different workflow; do not assume a topical subscription includes it. Price and access checked 5 October 2026; use the dedicated pricing guide for longer billing terms.",
+        ],
+      },
+      {
+        heading: "Compare the practice itself, not just the question count",
+        paragraphs: [
+          "Before switching, inspect a sample in your own subject and level. Ask whether questions are authentic session questions or authored exam-style practice; whether you can check a worked answer or only a mark scheme; whether the exact topic and course match your syllabus; and whether a set can be printed or only completed online. Those details decide whether a platform helps with diagnosis, explanation, or exam simulation.",
+          "A mark scheme and a teaching explanation are not identical. A mark scheme indicates the credited answer and method; a video or worked solution may explain why the method works. Likewise, a printable resource is not necessarily customisable, and a topic label does not guarantee that every question suits your level or current syllabus. Check one or two representative questions before committing to a longer plan.",
+        ],
+      },
+      {
+        heading: "A practical choice by student",
+        paragraphs: [
+          "Choose PastPaperPrep when you are studying one of its supported IB or Cambridge IGCSE courses and want to select real questions by topic, then create a printable practice set. Choose PMT when free papers, mark schemes, and broad board coverage matter more than automated set-building. Choose Revision Village when IB exam-style drills plus video explanations fit your study habits. Keep Exam-Mate when its curriculum breadth, online topical interface, or Build Exam workflow is the feature you actually use.",
+          "There is no single best platform for every subject. A sensible sequence is to diagnose with a real paper, practise the specific gap, and return to mixed or timed questions to see whether the method transfers. Check the bank or provider's current free rules and course coverage before buying; no question bank guarantees a grade.",
+        ],
+      },
+    ],
+    faqs: [
+      { question: "What is the best free Exam-Mate alternative for IB or IGCSE?", answer: "PastPaperPrep offers complete older years free in its supported IB and Cambridge IGCSE banks; guests see a limited matching sample, while a free account can access the full free selection for that bank. PMT is another useful free option for downloadable papers and mark schemes across many boards, though you may assemble topical practice yourself." },
+      { question: "Are PastPaperPrep questions real past-paper questions?", answer: "Its supported banks are organised from real past-paper questions. Check the chosen bank and question context; this differs from a provider's authored exam-style questions, which may resemble an exam without coming from an actual session." },
+      { question: "Does Exam-Mate let students download topical questions?", answer: "Exam-Mate's topical-papers page says questions are not downloadable. If printable custom selection matters, check PastPaperPrep's eligible bank access and PDF workflow, or use a downloadable library such as PMT and assemble your own set." },
+      { question: "Are Exam-Mate topical questions free?", answer: "Exam-Mate says free subscribers cannot access the most recent years, and the pricing page separates topical access through 2019 from newer access. The individual topical plan is paid; Build Exam includes the service, while the individual topical subscription does not include Build Exam." },
+      { question: "Does Revision Village use actual IB past-paper questions?", answer: "Its question-bank pages describe exam-style questions, mark schemes, and video solutions. Exam-style means designed to practise the assessment style; it should not be assumed to mean an actual question from a past examination session." },
+    ],
+    relatedBanks: [
+      { href: "/#question-banks", label: "PastPaperPrep IB and IGCSE question banks" },
+      { href: "/articles/pastpaperprep-vs-exam-mate", label: "Exam-Mate pricing and access comparison" },
+      { href: "/pricing", label: "PastPaperPrep plans and access" },
+    ],
+    sources: [
+      { href: "https://www.exam-mate.com/topicalpastpapers", label: "Exam-Mate topical past-paper questions" },
+      { href: "https://www.exam-mate.com/topicalpastpapers/pricing", label: "Exam-Mate topical pricing and access" },
+      { href: "https://www.exam-mate.com/faq/TOPICAL%20PAST%20PAPER%20QUESTIONS", label: "Exam-Mate topical papers FAQ" },
+      { href: "https://www.physicsandmathstutor.com/past-papers/", label: "PMT past papers and mark schemes" },
+      { href: "https://www.revisionvillage.com/ib-math/questionbank", label: "Revision Village IB Math question bank" },
+      { href: "https://pastpaperprep.com/pricing", label: "PastPaperPrep catalogue and pricing" },
+    ],
+  },
+  {
     "draft": false,
     "slug": "best-save-my-exams-alternatives-topical-past-papers",
     title: "Best Save My Exams Alternatives for Topical Past Papers",

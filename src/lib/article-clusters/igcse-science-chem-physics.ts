@@ -241,11 +241,30 @@ export const IGCSE_SCIENCE_CHEM_PHYSICS: readonly Article[] = [
     "title": "IGCSE Physics 0625 Question Banks & Past Papers by Topic",
     "description": "Compare the best Physics 0625 question banks and past-paper sites for calculations, graphs, practical skills and timed exam practice.",
     "eyebrow": "Cambridge IGCSE Physics 0625",
-    "answer": "The best IGCSE Physics 0625 setup is a combination, not one website. Use Cambridge International for the syllabus, assessment structure and official sample of past papers. Use PMT for free past papers and mark schemes. Use Save My Exams for guided topic questions and explanations. Use exam-mate when topical filtering or custom paper building will make your practice more targeted.",
+    "answer": "PastPaperPrep is a focused option for real IGCSE Physics 0625 questions by topic: practise mechanics or electricity, check the available mark scheme and build a printable set with eligible bank access. Start with targeted calculation practice, then use full papers to test whether you can choose the right method without a topic prompt. PMT is useful for free paper archives; Save My Exams adds guided explanations.",
+    "answerLink": { "href": "/banks/igcse-physics-0625", "label": "PastPaperPrep" },
     "publishedAt": "2026-09-15",
-    "updatedAt": "2026-09-15",
+    "updatedAt": "2026-10-05",
     "readingMinutes": 4,
     "sections": [
+      {
+        "heading": "Physics 0625 calculation questions by topic",
+        "paragraphs": [
+          "PastPaperPrep lets you select real Physics questions for the topic you need rather than search through whole papers. Start with motion, forces and energy for mechanics practice, or electricity and magnetism for circuit work. These topic sets contain a mix of question types, not a calculation-only filter. Narrow them further with the available subtopics and source filters.",
+          "For each calculation, write the known values, convert units when needed, choose the relationship and rearrange it before substituting. Show the numerical working and the final unit, then check the marking points where an answer is available. If the setup was wrong, practise another question testing the same idea before returning to a timed paper.",
+          "Free questions are available for practice; a free account opens the complete free selection beyond the guest sample. Worksheet and PDF tools require eligible bank access and follow your plan’s download allowance."
+        ],
+        "links": [
+          {
+            "href": "/banks/igcse-physics-0625/topics/motion-forces-and-energy",
+            "label": "Motion, forces and energy calculation practice"
+          },
+          {
+            "href": "/banks/igcse-physics-0625/topics/electricity-and-magnetism",
+            "label": "Electricity and magnetism practice"
+          }
+        ]
+      },
       {
         "heading": "The short answer",
         "paragraphs": [
