@@ -22,7 +22,8 @@ describe("Privacy policy", () => {
     render(<PrivacyPage />);
 
     expect(screen.getByText(/only after you allow optional analytics/i)).toBeInTheDocument();
-    expect(screen.getByText(/link usage and confirmed conversion events to your account identifier/i)).toBeInTheDocument();
+    expect(screen.getByText(/link usage and confirmed conversion events to your stable account identifier/i)).toBeInTheDocument();
+    expect(screen.getByText(/earlier analytics acceptance does not authorize email disclosure/i)).toBeInTheDocument();
     expect(screen.getByText(/session replay and automatic click capture are disabled/i)).toBeInTheDocument();
   });
 });

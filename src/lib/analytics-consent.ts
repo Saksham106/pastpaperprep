@@ -1,10 +1,10 @@
 export const ANALYTICS_CONSENT_COOKIE = "ppp_analytics_consent";
-export const ANALYTICS_CONSENT_VERSION = 1 as const;
+export const ANALYTICS_CONSENT_VERSION = 2 as const;
 export type AnalyticsConsent = boolean | null;
 
 export function parseAnalyticsConsent(value: string | null | undefined): AnalyticsConsent {
-  if (value === "v1.accepted") return true;
-  if (value === "v1.rejected") return false;
+  if (value === "v2.accepted") return true;
+  if (value === "v2.rejected" || value === "v1.rejected") return false;
   return null;
 }
 

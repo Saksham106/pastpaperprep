@@ -162,9 +162,17 @@ function loadConsentedClient() {
   return consentClientPromise;
 }
 
-export async function setProductAnalyticsIdentity(userId: string | null, isOperator = false) {
+export async function setProductAnalyticsIdentity(userId: string | null, isOperator = false, email?: string | null) {
   const next = stableAnalyticsDistinctId(userId);
-  if (next === accountIdentity) return;
+  if (next === accountIdentity) {
+    if (next && canCaptureConsented() && email) {
+      const epoch = generation;
+      const client = await loadConsentedClient();
+      if (!client || epoch !== generation || !canCaptureConsented() || next !== accountIdentity) return;
+      try { client.identify(next, { is_operator: isOperator, ...(email ? { email } : {}) }); } catch { /* Best effort; never block auth. */ }
+    }
+    return;
+  }
   const epoch = ++generation;
   if (consentClient && accountIdentity !== null) {
     try { consentClient.reset(true); } catch { /* Best effort. */ }
@@ -173,7 +181,7 @@ export async function setProductAnalyticsIdentity(userId: string | null, isOpera
   if (!next || !canCaptureConsented()) return;
   const client = await loadConsentedClient();
   if (!client || epoch !== generation || !canCaptureConsented()) return;
-  try { client.identify(next, { is_operator: isOperator }); } catch { /* Never block auth. */ }
+  try { client.identify(next, { is_operator: isOperator, ...(email ? { email } : {}) }); } catch { /* Never block auth. */ }
 }
 
 export function disableProductAnalytics() {

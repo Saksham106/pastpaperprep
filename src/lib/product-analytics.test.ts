@@ -22,7 +22,7 @@ describe("PostHog product analytics", () => {
     posthogConsented.reset.mockReset();
     posthogConsented.opt_in_capturing.mockReset();
     posthogConsented.opt_out_capturing.mockReset();
-    document.cookie = "ppp_analytics_consent=v1.accepted; Path=/";
+    document.cookie = "ppp_analytics_consent=v2.accepted; Path=/";
   });
 
   it("captures anonymous baseline in always-cookieless mode before any choice and after rejection", async () => {
@@ -85,14 +85,20 @@ describe("PostHog product analytics", () => {
 
   it("does not initialize or emit the persistent channel without explicit acceptance", async () => {
     vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
-    document.cookie = "ppp_analytics_consent=; Max-Age=0; Path=/";
+    document.cookie = "ppp_analytics_consent=v1.accepted; Path=/";
     const analytics = await import("@/lib/product-analytics");
     await analytics.initializeProductAnalytics();
     await analytics.initializeConsentedAnalytics();
-    analytics.trackConsentedProductEvent("answer_reveal");
-    await new Promise(resolve => setTimeout(resolve, 0));
+    await analytics.setProductAnalyticsIdentity("user-a", false, "student@example.com");
     expect(posthog.init).toHaveBeenCalledTimes(1);
-    expect(posthog.capture).not.toHaveBeenCalled();
+    expect(posthogConsented.identify).not.toHaveBeenCalled();
+
+    document.cookie = "ppp_analytics_consent=; Max-Age=0; Path=/";
+    document.cookie = "ppp_analytics_consent=v2.accepted; Path=/";
+    await analytics.initializeConsentedAnalytics();
+    await analytics.setProductAnalyticsIdentity("user-a", false, "student@example.com");
+    expect(posthog.init).toHaveBeenCalledTimes(2);
+    expect(posthogConsented.identify).toHaveBeenCalledWith("account:user-a", { is_operator: false, email: "student@example.com" });
   });
 
   it("does not let consent revocation stop anonymous baseline events", async () => {
@@ -117,6 +123,21 @@ describe("PostHog product analytics", () => {
     expect(posthogConsented.identify).toHaveBeenLastCalledWith("account:user-b", { is_operator: false });
     await analytics.setProductAnalyticsIdentity(null);
     expect(posthogConsented.reset).toHaveBeenCalledTimes(2);
+  });
+
+  it("updates consented account properties without resetting an unchanged identity", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    const analytics = await import("@/lib/product-analytics");
+    await analytics.initializeProductAnalytics();
+    await analytics.initializeConsentedAnalytics();
+    await analytics.setProductAnalyticsIdentity("user-a", true, "student@example.com");
+    expect(posthogConsented.identify).toHaveBeenLastCalledWith("account:user-a", { is_operator: true, email: "student@example.com" });
+    await analytics.setProductAnalyticsIdentity("user-a", true, "updated@example.com");
+    expect(posthogConsented.reset).not.toHaveBeenCalled();
+    expect(posthogConsented.identify).toHaveBeenLastCalledWith("account:user-a", { is_operator: true, email: "updated@example.com" });
+    document.cookie = "ppp_analytics_consent=; Max-Age=0; Path=/";
+    await analytics.setProductAnalyticsIdentity("user-a", true, "must-not-leak@example.com");
+    expect(posthogConsented.identify).toHaveBeenCalledTimes(2);
   });
 
   it("revokes and clears only this project's identifiers", async () => {
