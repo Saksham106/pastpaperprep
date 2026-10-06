@@ -49,7 +49,7 @@ export async function captureConversionOutcome(input: ConversionInput): Promise<
     } finally { if (lookupTimer) clearTimeout(lookupTimer); }
     const consent = result && "data" in result ? result.data.user?.user_metadata?.analytics_consent : null;
     const updatedAt = typeof consent?.updated_at === "string" ? Date.parse(consent.updated_at) : NaN;
-    if (!result || !("data" in result) || result.error || !result.data.user || result.data.user.id !== input.userId || consent?.accepted !== true || consent?.version !== 1 ||
+    if (!result || !("data" in result) || result.error || !result.data.user || result.data.user.id !== input.userId || consent?.accepted !== true || consent?.version !== 2 ||
       !Number.isFinite(updatedAt) || updatedAt > Date.now() + 120_000 || Date.now() - updatedAt > 180 * 24 * 60 * 60 * 1000) return;
     const timestamp = new Date(input.occurredAt);
     if (!Number.isFinite(timestamp.getTime())) return;

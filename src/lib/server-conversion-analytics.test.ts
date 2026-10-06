@@ -7,7 +7,7 @@ import { captureConversionOutcome } from "./server-conversion-analytics";
 describe("captureConversionOutcome consent gating", () => {
   beforeEach(() => {
     vi.stubEnv("POSTHOG_PROJECT_TOKEN", "phc_test");
-    getUserById.mockResolvedValue({ data: { user: { id: "auth-user-123", user_metadata: { analytics_consent: { accepted: true, version: 1, updated_at: new Date().toISOString() } } } }, error: null });
+    getUserById.mockResolvedValue({ data: { user: { id: "auth-user-123", user_metadata: { analytics_consent: { accepted: true, version: 2, updated_at: new Date().toISOString() } } } }, error: null });
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("ok")));
   });
   afterEach(() => { vi.unstubAllEnvs(); vi.unstubAllGlobals(); vi.clearAllMocks(); });
@@ -19,9 +19,10 @@ describe("captureConversionOutcome consent gating", () => {
     expect(sent.properties.$process_person_profile).toBe(true);
   });
   it.each([
-    ["unknown", null], ["rejected", { accepted: false, version: 1, updated_at: new Date().toISOString() }],
-    ["expired", { accepted: true, version: 1, updated_at: new Date(Date.now() - 181 * 86400000).toISOString() }],
-    ["future", { accepted: true, version: 1, updated_at: new Date(Date.now() + 300000).toISOString() }],
+    ["unknown", null], ["legacy accepted", { accepted: true, version: 1, updated_at: new Date().toISOString() }],
+    ["rejected", { accepted: false, version: 2, updated_at: new Date().toISOString() }],
+    ["expired", { accepted: true, version: 2, updated_at: new Date(Date.now() - 181 * 86400000).toISOString() }],
+    ["future", { accepted: true, version: 2, updated_at: new Date(Date.now() + 300000).toISOString() }],
     ["malformed", { accepted: true, version: 8, updated_at: "bad" }],
   ])("does not capture %s consent", async (_label, consent) => {
     getUserById.mockResolvedValue({ data: { user: { user_metadata: consent ? { analytics_consent: consent } : {} } }, error: null });

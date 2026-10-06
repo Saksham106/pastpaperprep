@@ -19,7 +19,7 @@ type User = { id: string; email?: string | null; user_metadata?: Record<string, 
 
 function isMissingSession(error: { name?: string } | null) { return error?.name === "AuthSessionMissingError"; }
 
-function validAccountChoice(value: unknown): value is { accepted: boolean; version: 1; updated_at: string } {
+function validAccountChoice(value: unknown): value is { accepted: boolean; version: 2; updated_at: string } {
   if (!value || typeof value !== "object") return false;
   const choice = value as Record<string, unknown>;
   const time = typeof choice.updated_at === "string" ? Date.parse(choice.updated_at) : NaN;
@@ -62,8 +62,9 @@ export function SiteTelemetry() {
     }
     const existing = user.user_metadata?.analytics_consent;
     if (existing !== undefined && existing !== null && !validAccountChoice(existing)) {
-      disableProductAnalytics(); accepted.current = false; setAnalyticsReady(false); setChoice(false); setBannerOpen(false);
-      try { await saveChoice(false); } catch { /* fail closed; prompt remains available */ }
+      disableProductAnalytics(); accepted.current = false; setAnalyticsReady(false);
+      const previousAccepted = typeof existing === "object" && (existing as Record<string, unknown>).accepted === true;
+      setChoice(previousAccepted ? null : false); setBannerOpen(previousAccepted);
       return;
     }
     if (validAccountChoice(existing)) {
