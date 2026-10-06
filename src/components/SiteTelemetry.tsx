@@ -15,7 +15,7 @@ const SESSION_DISMISS_KEY = "ppp_analytics_consent_dismissed";
 const MAX_AGE = 180 * 24 * 60 * 60 * 1000;
 const subscribeHydration = () => () => {};
 type Choice = { accepted: boolean; version: number };
-type User = { id: string; user_metadata?: Record<string, unknown>; app_metadata?: Record<string, unknown> };
+type User = { id: string; email?: string | null; user_metadata?: Record<string, unknown>; app_metadata?: Record<string, unknown> };
 
 function isMissingSession(error: { name?: string } | null) { return error?.name === "AuthSessionMissingError"; }
 
@@ -81,7 +81,7 @@ export function SiteTelemetry() {
       accepted.current = true; setChoice(true); setBannerOpen(false);
       await initializeConsentedAnalytics();
       if (version !== generation.current) return;
-      await setProductAnalyticsIdentity(user.id, user.app_metadata?.role === "operator");
+      await setProductAnalyticsIdentity(user.id, user.app_metadata?.role === "operator", user.email);
       if (version === generation.current) setAnalyticsReady(true);
       return;
     }
@@ -93,7 +93,7 @@ export function SiteTelemetry() {
         accepted.current = true; setChoice(true); setBannerOpen(false);
         await initializeConsentedAnalytics();
         if (version !== generation.current) return;
-        await setProductAnalyticsIdentity(user.id, user.app_metadata?.role === "operator");
+        await setProductAnalyticsIdentity(user.id, user.app_metadata?.role === "operator", user.email);
         if (version === generation.current) setAnalyticsReady(true);
       } catch { if (version !== generation.current) return; disableProductAnalytics(); accepted.current = false; setAnalyticsReady(false); setChoice(null); setError(true); }
     } else {
@@ -192,7 +192,7 @@ export function SiteTelemetry() {
         }
         await initializeConsentedAnalytics();
         if (choiceGeneration !== generation.current) return;
-        if (!authError && data.user) await setProductAnalyticsIdentity(data.user.id, data.user.app_metadata?.role === "operator");
+        if (!authError && data.user) await setProductAnalyticsIdentity(data.user.id, data.user.app_metadata?.role === "operator", data.user.email);
         else await setProductAnalyticsIdentity(null);
         if (choiceGeneration !== generation.current) return;
         accepted.current = true; setAnalyticsReady(true); setChoice(true); setBannerOpen(false);

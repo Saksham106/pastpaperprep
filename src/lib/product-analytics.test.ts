@@ -119,6 +119,21 @@ describe("PostHog product analytics", () => {
     expect(posthogConsented.reset).toHaveBeenCalledTimes(2);
   });
 
+  it("updates consented account properties without resetting an unchanged identity", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    const analytics = await import("@/lib/product-analytics");
+    await analytics.initializeProductAnalytics();
+    await analytics.initializeConsentedAnalytics();
+    await analytics.setProductAnalyticsIdentity("user-a", true, "student@example.com");
+    expect(posthogConsented.identify).toHaveBeenLastCalledWith("account:user-a", { is_operator: true, email: "student@example.com" });
+    await analytics.setProductAnalyticsIdentity("user-a", true, "updated@example.com");
+    expect(posthogConsented.reset).not.toHaveBeenCalled();
+    expect(posthogConsented.identify).toHaveBeenLastCalledWith("account:user-a", { is_operator: true, email: "updated@example.com" });
+    document.cookie = "ppp_analytics_consent=; Max-Age=0; Path=/";
+    await analytics.setProductAnalyticsIdentity("user-a", true, "must-not-leak@example.com");
+    expect(posthogConsented.identify).toHaveBeenCalledTimes(2);
+  });
+
   it("revokes and clears only this project's identifiers", async () => {
     vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
     const analytics = await import("@/lib/product-analytics");
