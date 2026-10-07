@@ -1,7 +1,7 @@
 "use client";
 
 import { flushSync } from "react-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
 const BANK_PATH = /^\/banks\/[^/]+(?:\/|$)/;
@@ -19,34 +19,42 @@ export function shouldShowBankNavigationFeedback(anchor: HTMLAnchorElement, curr
 export function BankNavigationFeedback() {
   const pathname = usePathname();
   const [pendingPath, setPendingPath] = useState<string | null>(null);
+  const [previousPath, setPreviousPath] = useState(pathname);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  if (previousPath !== pathname) {
+    setPreviousPath(pathname);
+    setPendingPath(null);
+  }
+
+  const clearPending = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = undefined;
+    setPendingPath(null);
+  };
+
   const pending = pendingPath === pathname;
 
   useEffect(() => {
-    let timer: ReturnType<typeof setTimeout> | undefined;
-    const clear = () => {
-      if (timer) clearTimeout(timer);
-      timer = undefined;
-      setPendingPath(null);
-    };
     const onClick = (event: MouseEvent) => {
       if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       const target = event.target;
       if (!(target instanceof Element)) return;
       const anchor = target.closest("a[href]");
       if (!(anchor instanceof HTMLAnchorElement) || !shouldShowBankNavigationFeedback(anchor, window.location.pathname)) return;
-      if (timer) clearTimeout(timer);
+      clearPending();
       // Commit feedback in the click turn; Next's router remains in control of navigation.
       flushSync(() => setPendingPath(window.location.pathname));
-      timer = setTimeout(clear, FAILURE_GUARD_MS);
+      timerRef.current = setTimeout(clearPending, FAILURE_GUARD_MS);
     };
     window.addEventListener("click", onClick, true);
-    window.addEventListener("popstate", clear);
-    window.addEventListener("pagehide", clear);
+    window.addEventListener("popstate", clearPending);
+    window.addEventListener("pagehide", clearPending);
     return () => {
       window.removeEventListener("click", onClick, true);
-      window.removeEventListener("popstate", clear);
-      window.removeEventListener("pagehide", clear);
-      if (timer) clearTimeout(timer);
+      window.removeEventListener("popstate", clearPending);
+      window.removeEventListener("pagehide", clearPending);
+      if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, []);
 
