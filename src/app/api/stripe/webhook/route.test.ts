@@ -7,6 +7,7 @@ const retrieveSchedule = vi.fn();
 const releaseSchedule = vi.fn();
 const retrieveInvoice = vi.fn();
 const retrieveCharge = vi.fn();
+const retrievePaymentIntent = vi.fn().mockResolvedValue({ id: "pi_lifetime", status: "succeeded", customer: "cus_1", amount_received: 29900, currency: "usd", metadata: { user_id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", product_id: "lifetime_all_access", purchase_type: "lifetime", billing_intent_id: "intent_lifetime_1" } });
 const listLineItems = vi.fn();
 const listInvoicePayments = vi.fn();
 const rpc = vi.fn();
@@ -20,6 +21,7 @@ vi.mock("@/lib/stripe", () => ({
     subscriptionSchedules: { retrieve: retrieveSchedule, release: releaseSchedule },
     invoices: { retrieve: retrieveInvoice },
     charges: { retrieve: retrieveCharge },
+    paymentIntents: { retrieve: retrievePaymentIntent },
     invoicePayments: { list: listInvoicePayments },
     checkout: { sessions: { listLineItems } },
   })),
@@ -400,7 +402,7 @@ describe("POST /api/stripe/webhook", () => {
   });
 
   it("rejects a lifetime session whose actual Stripe line item is not the one-time offer", async () => {
-    const session = { id: "cs_lifetime", mode: "payment", client_reference_id: userId, customer: "cus_1", payment_intent: "pi_lifetime", amount_total: 29900, currency: "usd", payment_status: "paid", created: 1_800_000_000, metadata: { user_id: userId, product_id: "lifetime_all_access", purchase_type: "lifetime" } };
+    const session = { id: "cs_lifetime", mode: "payment", client_reference_id: userId, customer: "cus_1", payment_intent: "pi_lifetime", amount_total: 29900, currency: "usd", payment_status: "paid", created: 1_800_000_000, metadata: { user_id: userId, product_id: "lifetime_all_access", purchase_type: "lifetime", billing_intent_id: "intent_lifetime_1" } };
     listLineItems.mockResolvedValue({ data: [{ quantity: 1, amount_subtotal: 29900, currency: "usd", price: null, price_data: { unit_amount: 29900, currency: "usd", recurring: { interval: "month" }, product: "prod_wrong" } }], has_more: false });
     constructEvent.mockReturnValue({ id: "evt_lifetime_wrong_item", created: 1_800_000_000, type: "checkout.session.completed", data: { object: session } });
     expect((await POST(request())).status).toBe(400);
@@ -408,7 +410,7 @@ describe("POST /api/stripe/webhook", () => {
   });
 
   it("fulfills only a correctly priced paid lifetime checkout and tolerates asynchronous success", async () => {
-    const session = { id: "cs_lifetime", mode: "payment", client_reference_id: userId, customer: "cus_1", payment_intent: "pi_lifetime", amount_total: 29900, currency: "usd", payment_status: "paid", created: 1_800_000_000, metadata: { user_id: userId, product_id: "lifetime_all_access", purchase_type: "lifetime" } };
+    const session = { id: "cs_lifetime", mode: "payment", client_reference_id: userId, customer: "cus_1", payment_intent: "pi_lifetime", amount_total: 29900, currency: "usd", payment_status: "paid", created: 1_800_000_000, metadata: { user_id: userId, product_id: "lifetime_all_access", purchase_type: "lifetime", billing_intent_id: "intent_lifetime_1" } };
     constructEvent.mockReturnValue({ id: "evt_lifetime_paid", created: 1_800_000_000, type: "checkout.session.async_payment_succeeded", data: { object: session } });
     const response = await POST(request());
     expect(response.status).toBe(200);
@@ -416,7 +418,7 @@ describe("POST /api/stripe/webhook", () => {
   });
 
   it("does not grant lifetime access for unpaid or malformed sessions", async () => {
-    const session = { id: "cs_lifetime", mode: "payment", client_reference_id: userId, customer: "cus_1", payment_intent: "pi_lifetime", amount_total: 29900, currency: "usd", payment_status: "unpaid", created: 1_800_000_000, metadata: { user_id: userId, product_id: "lifetime_all_access", purchase_type: "lifetime" } };
+    const session = { id: "cs_lifetime", mode: "payment", client_reference_id: userId, customer: "cus_1", payment_intent: "pi_lifetime", amount_total: 29900, currency: "usd", payment_status: "unpaid", created: 1_800_000_000, metadata: { user_id: userId, product_id: "lifetime_all_access", purchase_type: "lifetime", billing_intent_id: "intent_lifetime_1" } };
     constructEvent.mockReturnValue({ id: "evt_lifetime_unpaid", created: 1_800_000_000, type: "checkout.session.completed", data: { object: session } });
     expect((await POST(request())).status).toBe(200);
     expect(rpc).not.toHaveBeenCalledWith("fulfill_lifetime_purchase", expect.anything());
@@ -427,7 +429,7 @@ describe("POST /api/stripe/webhook", () => {
   });
 
   it("rejects lifetime sessions with the wrong paid amount", async () => {
-    constructEvent.mockReturnValue({ id: "evt_lifetime_wrong_amount", created: 1_800_000_000, type: "checkout.session.completed", data: { object: { id: "cs_bad", mode: "payment", client_reference_id: userId, customer: "cus_1", payment_intent: "pi_bad", amount_total: 100, currency: "usd", payment_status: "paid", metadata: { user_id: userId, product_id: "lifetime_all_access", purchase_type: "lifetime" } } } });
+    constructEvent.mockReturnValue({ id: "evt_lifetime_wrong_amount", created: 1_800_000_000, type: "checkout.session.completed", data: { object: { id: "cs_bad", mode: "payment", client_reference_id: userId, customer: "cus_1", payment_intent: "pi_bad", amount_total: 100, currency: "usd", payment_status: "paid", metadata: { user_id: userId, product_id: "lifetime_all_access", purchase_type: "lifetime", billing_intent_id: "intent_lifetime_1" } } } });
     expect((await POST(request())).status).toBe(400);
     expect(rpc).not.toHaveBeenCalledWith("fulfill_lifetime_purchase", expect.anything());
   });

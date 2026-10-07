@@ -241,11 +241,12 @@ export function CheckoutButton({
   );
 }
 
-export function LifetimeCheckout({ authenticated, previewOnly = false }: { authenticated: boolean; previewOnly?: boolean }) {
+export function LifetimeCheckout({ authenticated, existingAccess = false, previewOnly = false }: { authenticated: boolean; existingAccess?: boolean; previewOnly?: boolean }) {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
   const [needsLogin, setNeedsLogin] = useState(false);
   if (previewOnly) return <div className="billing-actions"><button className="button primary" disabled type="button">Buy Lifetime All Access</button><p className="custom-bundle-selection-note">Preview only — checkout is disabled.</p></div>;
+  if (existingAccess) return <div className="billing-actions"><button className="button primary" disabled type="button">Buy Lifetime All Access</button><p className="custom-bundle-selection-note">Lifetime checkout is unavailable because this account already has paid or complimentary access. Contact support before purchasing.</p></div>;
   if (!authenticated) return <Link className="button primary" href={`/login?next=${encodeURIComponent("/pricing?plan=lifetime")}`}>Sign in to continue</Link>;
   async function start() {
     if (pending) return;

@@ -60,6 +60,21 @@ export async function POST(request: Request) {
     if (!customerId || !paymentIntentId || session.amount_total !== LIFETIME_OFFER.amountCents || session.currency !== LIFETIME_OFFER.currency) {
       return NextResponse.json({ error: "Lifetime payment verification failed" }, { status: 400 });
     }
+    try {
+      const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId, {}, { timeout: 10_000 });
+      const intentCustomerId = typeof paymentIntent.customer === "string" ? paymentIntent.customer : paymentIntent.customer?.id;
+      if (paymentIntent.status !== "succeeded" || intentCustomerId !== customerId ||
+        paymentIntent.amount_received !== LIFETIME_OFFER.amountCents || paymentIntent.currency !== LIFETIME_OFFER.currency ||
+        paymentIntent.metadata?.user_id !== session.metadata.user_id ||
+        paymentIntent.metadata?.product_id !== session.metadata.product_id ||
+        paymentIntent.metadata?.purchase_type !== session.metadata.purchase_type ||
+        typeof session.metadata.billing_intent_id !== "string" || !session.metadata.billing_intent_id ||
+        paymentIntent.metadata?.billing_intent_id !== session.metadata.billing_intent_id) {
+        return NextResponse.json({ error: "Lifetime payment verification failed" }, { status: 400 });
+      }
+    } catch {
+      return NextResponse.json({ error: "Lifetime payment verification failed" }, { status: 500 });
+    }
     const { data: mappedCustomer, error: mappingError } = await admin.rpc("get_stripe_customer_id", { p_user_id: userId });
     if (mappingError || mappedCustomer !== customerId) return NextResponse.json({ error: "Lifetime customer ownership could not be verified" }, { status: 500 });
     const { error } = await admin.rpc("fulfill_lifetime_purchase", {
