@@ -21,9 +21,9 @@ describe("BankNavigationFeedback mounted behavior", () => {
     act(() => link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true })));
     expect(screen.getByRole("status")).toBeTruthy();
 
-    navigateTo("/banks/chemistry", view.rerender);
+    navigateTo("/banks/chemistry", () => view.rerender(<BankNavigationFeedback />));
     expect(screen.queryByRole("status")).toBeNull();
-    navigateTo("/", view.rerender);
+    navigateTo("/", () => view.rerender(<BankNavigationFeedback />));
     expect(screen.queryByRole("status")).toBeNull();
     link.remove();
   });
