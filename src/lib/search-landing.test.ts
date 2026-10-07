@@ -91,11 +91,17 @@ describe("search landing manifests", () => {
     };
     for (const [slug, file] of Object.entries(datasets)) {
       const raw = JSON.parse(readFileSync(resolve(process.cwd(), file), "utf8"));
-      const questions = raw.questions.map((q: Record<string, unknown>) => ({ ...question(q as Partial<UnifiedQuestion>), ...q, bankSlug: slug } as UnifiedQuestion));
+      const questions: UnifiedQuestion[] = raw.questions.map((q: Record<string, unknown>) => ({ ...question(q as Partial<UnifiedQuestion>), ...q, bankSlug: slug } as UnifiedQuestion));
       const manifest = buildLandingManifest(slug as Parameters<typeof buildLandingManifest>[0], questions);
-      expect(manifest.topics).toHaveLength(CURATED_TOPIC_LANDINGS[slug as keyof typeof CURATED_TOPIC_LANDINGS]?.length ?? 0);
+      const labels = [...new Set(questions.flatMap(({ primaryTopic, secondaryTopics }) => [primaryTopic, ...secondaryTopics]))];
+      const counts = new Map(labels.map((label) => [label, questions.filter((q) => q.primaryTopic === label || q.secondaryTopics.includes(label)).length]));
+      const ranked = [...counts.entries()].filter(([, count]) => count >= 20).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+      const oldLabels = slug === "igcse-biology-0610"
+        ? ["Enzymes", "Biological molecules"]
+        : ranked.slice(0, 2).map(([label]) => label);
+      expect(manifest.topics.slice(0, oldLabels.length).map(({ label }) => label)).toEqual(oldLabels);
+      expect(manifest.topics.length).toBe(oldLabels.length + (CURATED_TOPIC_LANDINGS[slug as keyof typeof CURATED_TOPIC_LANDINGS] ?? []).filter((label) => !oldLabels.includes(label)).length);
       expect(manifest.topics.every((topic) => topic.count >= 20)).toBe(true);
-      expect(manifest.topics.map((topic) => topic.label)).toEqual(CURATED_TOPIC_LANDINGS[slug as keyof typeof CURATED_TOPIC_LANDINGS]);
       expect(manifest.topics.every((topic) => topicPath(slug, topic).endsWith(`/${topic.slug}`))).toBe(true);
     }
     const old = buildLandingManifest("igcse", [

@@ -87,11 +87,21 @@ export function buildLandingManifest(bankSlug: BankSlug, questions: UnifiedQuest
     .filter(([, count]) => count >= 20)
     .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 
-  const curated = CURATED_TOPIC_LANDINGS[bankSlug] ?? [];
-  const selected = curated
+  const preferred = bankSlug === "igcse-biology-0610"
+    ? ["Enzymes", "Biological molecules"]
+    : [];
+  const preferredTopics = preferred
     .map((label) => [label, counts.get(label) ?? 0] as const)
     .filter(([, count]) => count >= 20);
-  const topics = (selected.length ? selected : ranked.slice(0, 2))
+  const curated = (CURATED_TOPIC_LANDINGS[bankSlug] ?? [])
+    .map((label) => [label, counts.get(label) ?? 0] as const)
+    .filter(([, count]) => count >= 20);
+  const existingTopics = preferredTopics.length ? preferredTopics : ranked.slice(0, 2);
+  const existingLabels = new Set(existingTopics.map(([label]) => label));
+  const topics = [
+    ...existingTopics,
+    ...curated.filter(([label]) => !existingLabels.has(label)),
+  ]
     .map(([label, count]) => asLandingTopic(label, count));
 
   const orderedLabels = (bankSlug === "igcse-biology-0610" || bankSlug === "igcse-additional"

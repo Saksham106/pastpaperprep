@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import { ALL_ARTICLES, ARTICLES, ARTICLE_INDEX_DETAILS, getArticleIndexDetail } from "@/lib/articles";
 import { BANK_CATALOG, getCatalogBank } from "@/lib/catalog";
 import { loadBankQuestions } from "@/lib/question-fixtures";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 
 const DIFFICULTIES = new Set(["Foundational", "Intermediate", "Advanced"]);
 
@@ -54,8 +56,17 @@ describe("articles index enrichment", () => {
         const { slug, topic } = parsePracticeHref(link.href);
         if (!topic) continue;
         if (!topicsByBank.has(slug)) {
-          const questions = loadBankQuestions(slug as never);
-          topicsByBank.set(slug, new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics])));
+          const privateDataFiles: Record<string, string> = {
+            "igcse-biology-0610": "src/data/production/igcse-biology-0610.json",
+            "igcse-economics-0455": "src/data/production/igcse-economics-0455.json",
+            "igcse-chemistry-0620": "src/data/production/igcse-chemistry-0620.json",
+            "igcse-physics-0625": "src/data/production/igcse-physics-0625.json",
+            "igcse-coordinated-sciences-0654": "src/data/production/igcse-coordinated-sciences-0654.json",
+          };
+          const topicLabels = privateDataFiles[slug]
+            ? JSON.parse(readFileSync(resolve(process.cwd(), privateDataFiles[slug]), "utf8")).questions.flatMap((question: { primaryTopic: string; secondaryTopics?: string[] }) => [question.primaryTopic, ...(question.secondaryTopics ?? [])])
+            : loadBankQuestions(slug as never).flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]);
+          topicsByBank.set(slug, new Set(topicLabels));
         }
         expect(topicsByBank.get(slug)!.has(topic), `${slug} does not expose topic "${topic}"`).toBe(true);
       }

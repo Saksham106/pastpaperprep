@@ -5,6 +5,7 @@ import { IB_SCIENCE_BUYER_GUIDES } from "@/lib/article-clusters/ib-sciences";
 import { IGCSE_BIO_COORDINATED_ECON } from "@/lib/article-clusters/igcse-bio-coordinated-econ";
 import { IGCSE_SCIENCE_CHEM_PHYSICS } from "@/lib/article-clusters/igcse-science-chem-physics";
 import { TUTORS_PRICING_IGCSE_MATHS } from "@/lib/article-clusters/tutors-pricing-igcse-maths";
+import { SUBJECT_PRACTICE_GUIDES } from "@/lib/article-clusters/subject-practice-guides";
 
 export type ArticleSection = {
   heading: string;
@@ -181,6 +182,20 @@ export const ARTICLE_INDEX_DETAILS: Readonly<Record<string, ArticleIndexDetail>>
   ] },
   "best-igcse-economics-0455-question-banks": { difficulty: "Intermediate", exam: "Cambridge IGCSE", practiceLinks: [
     { href: "/banks/igcse-economics-0455", label: "IGCSE Economics 0455 question bank" },
+  ] },
+  "economics-0455-2027-syllabus-changes-practice-plan": { difficulty: "Intermediate", exam: "Cambridge IGCSE", practiceLinks: [
+    { href: "/banks/igcse-economics-0455?topic=Microeconomic%20decision%20makers", label: "Economics 0455: Microeconomic decision makers" },
+    { href: "/banks/igcse-economics-0455?topic=Government%20and%20the%20macroeconomy", label: "Economics 0455: Government and the macroeconomy" },
+  ] },
+  "biology-0610-paper-6-graphs-data-practice": { difficulty: "Intermediate", exam: "Cambridge IGCSE", practiceLinks: [
+    { href: "/banks/igcse-biology-0610?topic=Inheritance", label: "Biology 0610: Inheritance" },
+  ] },
+  "cambridge-science-0654-vs-0653-paper-practice": { difficulty: "Intermediate", exam: "Cambridge IGCSE", practiceLinks: [
+    { href: "/banks/igcse-coordinated-sciences-0654?topic=Motion%2C%20forces%20and%20energy", label: "Co-ordinated Sciences 0654: Motion, forces and energy" },
+  ] },
+  "ib-science-past-papers-current-course-compatibility": { difficulty: "Advanced", exam: "IB Diploma", practiceLinks: [
+    { href: "/banks/ib-chemistry-hl", label: "IB Chemistry HL question bank" },
+    { href: "/banks/ib-physics-hl", label: "IB Physics HL question bank" },
   ] },
   "physics-and-maths-tutor-vs-save-my-exams": { difficulty: "Foundational", exam: "Cambridge IGCSE", practiceLinks: [
     { href: "/banks/igcse?topic=Number", label: "IGCSE Maths 0580: Number" },
@@ -1125,6 +1140,7 @@ export const ALL_ARTICLES: readonly Article[] = [
   ...TUTORS_PRICING_IGCSE_MATHS,
   ...IGCSE_SCIENCE_CHEM_PHYSICS,
   ...IGCSE_BIO_COORDINATED_ECON,
+  ...SUBJECT_PRACTICE_GUIDES,
 ] as const;
 
 export const ARTICLES: readonly Article[] = ALL_ARTICLES
