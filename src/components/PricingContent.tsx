@@ -151,19 +151,31 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           />
         )}
         {hasPaidAccess && !canAdd && plan.mode !== "all" ? <p className="pricing-plan-access-note">{current ? complimentaryAccess ? "Included with your complimentary access." : plan.mode === "single" && individualBankSubscriptions > 1 ? `${individualBankSubscriptions} separate bank subscriptions. Your existing rates stay unchanged.` : "Your existing rate stays unchanged." : "All available banks are already included."}</p> : null}
-        {!hasPaidAccess ? <p className="plan-assurance">Secure Stripe checkout · Cancel any time</p> : null}
+        {!hasPaidAccess ? <p className="plan-assurance">Secure checkout · Cancel any time</p> : null}
       </article>
     );
   };
 
-  const lifetimeOffer = <div className="pricing-decision-grid pricing-lifetime-grid" data-lifetime="true" aria-label="Lifetime plan"><article className="pricing-option" data-plan-tone="premium">
-    <div className="pricing-option-heading"><div className="plan-title-block"><span className="plan-icon" aria-hidden="true"><CrownSimple weight="duotone" /></span><div><p className="plan-label">Lifetime</p><h2>All Access</h2></div></div></div>
-    <div className="plan-price"><strong>$299</strong><span> one time</span></div>
-    <p className="plan-billing-note">Pay once. No subscription, no renewals.</p>
-    <p className="plan-description">All current and future question banks, with explanations included.</p>
-    <LifetimeCheckout authenticated={authenticated} previewOnly={previewOnly} existingAccess={hasPaidAccess} />
-    <p className="plan-assurance">One named account · Secure Stripe checkout</p>
-  </article></div>;
+  const lifetimeOffer = <div className="pricing-decision-grid pricing-lifetime-grid" data-lifetime="true" aria-label="Lifetime plan">
+    <div className="lifetime-architecture" aria-hidden="true">
+      <svg viewBox="0 0 900 410" preserveAspectRatio="xMidYMax slice" focusable="false">
+        <defs><pattern id="lifetime-stone" width="82" height="54" patternUnits="userSpaceOnUse"><path d="M0 53.5H82M41 0V27M0 27H82M20 27v27" fill="none" stroke="currentColor" strokeWidth=".7" opacity=".52"/></pattern></defs>
+        <path className="architecture-ground" d="M0 365h900v45H0z"/><path d="M0 365V175h70v-42h48V96h70v37h48v42h62v190m392 0V175h62v-42h48V96h70v37h48v42h62v190" fill="currentColor" opacity=".14"/>
+        <path d="M48 365V154h103v-61h82v61h103v211m228 0V154h103v-61h82v61h103v211" fill="none" stroke="currentColor" strokeWidth="2" opacity=".58"/>
+        <path d="M315 365V227c0-75 61-136 135-136s135 61 135 136v138" fill="currentColor" opacity=".12"/><path d="M339 365V229c0-62 50-112 111-112s111 50 111 112v136" fill="none" stroke="currentColor" strokeWidth="2.2"/>
+        <path d="M0 365h900M0 381h900M0 396h900" fill="none" stroke="currentColor" strokeWidth="1" opacity=".55"/><path d="M0 0h900v410H0z" fill="url(#lifetime-stone)" opacity=".4"/>
+        <path d="M366 365v-78a84 84 0 0 1 168 0v78" fill="none" stroke="currentColor" strokeWidth="1" opacity=".5"/>
+      </svg>
+    </div>
+    <article className="pricing-option lifetime-card" data-plan-tone="premium">
+      <div className="lifetime-card-engraving" aria-hidden="true">EST. FOR THE LONG VIEW <span>— &nbsp; ALL ACCESS &nbsp; —</span></div>
+      <div className="pricing-option-heading"><div className="plan-title-block"><span className="plan-icon" aria-hidden="true"><CrownSimple weight="duotone" /></span><div><p className="plan-label">Lifetime · All Access</p><h2>One decision.<br />Every bank.</h2></div></div></div>
+      <div className="plan-price"><strong>$299</strong><span> once</span></div>
+      <p className="plan-description">Current and future question banks.</p>
+      <LifetimeCheckout authenticated={authenticated} previewOnly={previewOnly} existingAccess={hasPaidAccess} />
+      <p className="plan-assurance">One named account <span aria-hidden="true">·</span> Secure checkout</p>
+    </article>
+  </div>;
 
   return (
     <div className="public-surface">
@@ -242,7 +254,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           ].filter((item) => item.panel.props.banks.length > 0)} />
         </section>
 
-        {!hasPaidAccess ? <p className="checkout-note">Secure Stripe checkout. Cancel any time. Existing subscribers remain grandfathered at their current price and access. <Link href="/refund-policy">Read the refund policy.</Link></p> : null}
+        {!hasPaidAccess ? <p className="checkout-note">Secure checkout. Cancel any time. Existing subscribers remain grandfathered at their current price and access. <Link href="/refund-policy">Read the refund policy.</Link></p> : null}
       </section>
     </div>
   );

@@ -740,8 +740,49 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .pricing-additional-offers > summary:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 5px; border-radius: 3px; }
 .pricing-additional-offers > p { max-width: 760px; margin: 12px 0 0; color: var(--muted); font-size: .9rem; line-height: 1.6; }
 .pricing-additional-offers > p a, .pricing-all-included a { color: var(--cobalt); text-decoration: underline; text-underline-offset: 3px; }
-.pricing-decision-grid.pricing-lifetime-grid { grid-template-columns: minmax(0, 390px); justify-content: center; }
-.pricing-lifetime-grid .pricing-option { min-height: 500px; }
+.pricing-decision-grid.pricing-lifetime-grid { position: relative; min-height: 500px; grid-template-columns: minmax(0, 410px); align-items: center; justify-content: center; isolation: isolate; }
+.pricing-lifetime-grid::before { content: ""; position: absolute; z-index: -2; inset: -22px min(14vw, 150px) -22px; pointer-events: none; border-block: 1px solid color-mix(in srgb, var(--public-burgundy) 23%, var(--line)); background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--paper-warm) 75%, transparent) 18%, color-mix(in srgb, var(--paper-warm) 75%, transparent) 82%, transparent); }
+.lifetime-architecture { position: absolute; z-index: -1; inset: 0 max(-10vw, -100px) -24px; overflow: hidden; color: var(--public-burgundy); opacity: .74; pointer-events: none; }
+.lifetime-architecture svg { width: 100%; height: 100%; display: block; }
+.lifetime-architecture .architecture-ground { fill: color-mix(in srgb, var(--public-burgundy) 7%, transparent); }
+.lifetime-card { width: 100%; min-height: 0; margin-block: 26px; padding: 28px 30px 25px; color: #f6f0e5; background: linear-gradient(155deg, #292422 0%, #201e1d 65%, #302522 100%); border: 1px solid color-mix(in srgb, var(--public-burgundy) 65%, #c1a99b); border-radius: 4px; box-shadow: 0 30px 72px rgb(48 35 30 / .22), inset 0 0 0 5px rgb(255 255 255 / .035), inset 0 0 0 6px rgb(255 255 255 / .11); }
+:root[data-theme="dark"] .lifetime-card { background: linear-gradient(155deg, #292421 0%, #201d1b 65%, #34262a 100%); }
+.lifetime-card::before { width: 150px; height: 150px; top: -78px; right: -64px; border-color: rgb(235 207 183 / .2); background: radial-gradient(circle, rgb(176 114 102 / .2), transparent 70%); }
+.lifetime-card::after { right: 25px; bottom: 82px; border-color: rgb(235 207 183 / .12); }
+.lifetime-card .lifetime-card-engraving { position: relative; z-index: 1; margin: -1px 0 24px; padding-bottom: 12px; color: #d1b6a7; border-bottom: 1px solid rgb(238 221 205 / .2); font: 600 .59rem/1.2 var(--font-mono); letter-spacing: .12em; }
+.lifetime-card-engraving span { float: right; color: rgb(238 221 205 / .7); }
+.lifetime-card .plan-icon { color: #d9b8a0; background: rgb(237 221 202 / .08); border-color: rgb(237 221 202 / .22); box-shadow: none; }
+.lifetime-card .plan-label { color: #d3b9aa; }
+.lifetime-card .pricing-option-heading { min-height: 0; }
+.lifetime-card .pricing-option h2 { color: #f6f0e5; font: 500 clamp(2rem, 4vw, 2.7rem)/.99 Georgia, "Times New Roman", serif; letter-spacing: -.035em; }
+.lifetime-card .plan-price { margin-top: 28px; padding-top: 18px; border-top: 1px solid rgb(238 221 205 / .2); }
+.lifetime-card .plan-price strong { color: #fff7eb; font: 500 clamp(3.9rem, 7vw, 5rem)/.9 Georgia, "Times New Roman", serif; letter-spacing: -.06em; }
+.lifetime-card .plan-price span, .lifetime-card .plan-description, .lifetime-card .plan-assurance { color: #d1c5ba; }
+.lifetime-card .plan-price span { font-size: .9rem; }
+.lifetime-card .plan-description { margin-top: 12px; font-size: .97rem; }
+.lifetime-card .plan-assurance { margin-top: 16px; text-align: center; font-size: .63rem; letter-spacing: .015em; }
+.lifetime-card .plan-checkout { margin-top: 22px; }
+.lifetime-card .billing-actions .button, .lifetime-card > .button { min-height: 52px; color: #29211e; background: #e8d8c3; border-color: #e8d8c3; border-radius: 2px; box-shadow: none; font-weight: 800; }
+.lifetime-card .billing-actions .button:hover, .lifetime-card > .button:hover { color: #201b18; background: #f2e6d7; }
+.lifetime-card .custom-bundle-selection-note { color: #d1c5ba; }
+@media (prefers-reduced-motion: no-preference) {
+  .pricing-decision-grid[data-lifetime="true"] { animation: lifetime-arrive 580ms cubic-bezier(.2,.8,.2,1) both; }
+  .lifetime-card { animation: lifetime-card-arrive 680ms 80ms cubic-bezier(.2,.8,.2,1) both; }
+  .lifetime-architecture { animation: lifetime-lines-arrive 760ms 60ms ease-out both; }
+  @keyframes lifetime-arrive { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes lifetime-card-arrive { from { opacity: 0; transform: translateY(10px) scale(.992); } to { opacity: 1; transform: none; } }
+  @keyframes lifetime-lines-arrive { from { opacity: 0; transform: translateY(6px); } to { opacity: .74; transform: none; } }
+}
+@media (prefers-reduced-motion: reduce) { .pricing-decision-grid[data-lifetime="true"], .pricing-decision-grid[data-lifetime="true"] *, .pricing-decision-grid[data-lifetime="true"]::before { animation: none !important; transition: none !important; } }
+@media (max-width: 640px) {
+  .pricing-decision-grid.pricing-lifetime-grid { min-height: 430px; grid-template-columns: minmax(0, 1fr); }
+  .lifetime-architecture { inset-inline: -22vw; opacity: .5; }
+  .pricing-decision-grid.pricing-lifetime-grid::before { inset-inline: -12px; }
+  .lifetime-card { margin-block: 14px; padding: 23px 21px 20px; }
+  .lifetime-card .pricing-option h2 { font-size: clamp(2rem, 9vw, 2.55rem); }
+  .lifetime-card .plan-price strong { font-size: clamp(3.8rem, 18vw, 4.65rem); }
+  .lifetime-card-engraving { font-size: .52rem !important; letter-spacing: .08em !important; }
+}
 .billing-toggle button[aria-pressed="true"] { color: var(--ink); }
 
 @media (max-width: 720px) { .pricing-additional-offers { padding: 14px 16px; } }

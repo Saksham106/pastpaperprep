@@ -245,9 +245,9 @@ export function LifetimeCheckout({ authenticated, existingAccess = false, previe
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
   const [needsLogin, setNeedsLogin] = useState(false);
-  if (previewOnly) return <div className="billing-actions"><button className="button primary" disabled type="button">Buy Lifetime All Access</button><p className="custom-bundle-selection-note">Preview only — checkout is disabled.</p></div>;
-  if (existingAccess) return <div className="billing-actions"><button className="button primary" disabled type="button">Buy Lifetime All Access</button><p className="custom-bundle-selection-note">Lifetime checkout is unavailable because this account already has paid or complimentary access. Contact support before purchasing.</p></div>;
-  if (!authenticated) return <Link className="button primary" href={`/login?next=${encodeURIComponent("/pricing?plan=lifetime")}`}>Sign in to continue</Link>;
+  if (previewOnly) return <div className="billing-actions"><button className="button primary" disabled type="button">Unlock lifetime access</button><p className="custom-bundle-selection-note">Preview only — checkout is disabled.</p></div>;
+  if (existingAccess) return <div className="billing-actions"><button className="button primary" disabled type="button">Unlock lifetime access</button><p className="custom-bundle-selection-note">Lifetime checkout is unavailable because this account already has paid or complimentary access. Contact support before purchasing.</p></div>;
+  if (!authenticated) return <Link className="button primary" href={`/login?next=${encodeURIComponent("/pricing?plan=lifetime")}`}>Unlock lifetime access</Link>;
   async function start() {
     if (pending) return;
     setPending(true); setError("");
@@ -260,7 +260,7 @@ export function LifetimeCheckout({ authenticated, existingAccess = false, previe
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Checkout is temporarily unavailable"); }
     finally { setPending(false); }
   }
-  return <div className="billing-actions"><button className="button primary" type="button" disabled={pending} onClick={start}>{pending ? "Opening secure checkout…" : "Buy Lifetime All Access"}</button>{needsLogin ? <Link href={`/login?next=${encodeURIComponent("/pricing?plan=lifetime")}`}>Sign in to continue</Link> : null}{error ? <p role="alert">{error}</p> : null}</div>;
+  return <div className="billing-actions"><button className="button primary" type="button" disabled={pending} onClick={start}>{pending ? "Opening secure checkout…" : "Unlock lifetime access"}</button>{needsLogin ? <Link href={`/login?next=${encodeURIComponent("/pricing?plan=lifetime")}`}>Sign in to continue</Link> : null}{error ? <p role="alert">{error}</p> : null}</div>;
 }
 
 export function CheckoutButtons({ productId, navigate = defaultNavigate }: { productId: ProductId; navigate?: Navigate }) {

@@ -199,7 +199,7 @@ describe("approved custom-bank pricing", () => {
     expect(screen.queryAllByRole("radio", { checked: true })).toHaveLength(0);
     expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(0);
     expect(screen.getAllByRole("checkbox")).toHaveLength(availableBanks.length);
-    expect(screen.getAllByText(/Secure Stripe checkout · Cancel any time/)).toHaveLength(3);
+    expect(screen.getAllByText(/Secure checkout · Cancel any time/)).toHaveLength(3);
     expect(screen.getByText(/Existing subscribers remain grandfathered at their current price and access\./)).toBeInTheDocument();
   });
 
@@ -404,10 +404,14 @@ describe("approved custom-bank pricing", () => {
     expect(screen.getByRole("button", { name: "Lifetime" })).toHaveAttribute("aria-pressed", "true");
     expect(screen.queryByText("Pay once")).not.toBeInTheDocument();
     expect(container.querySelectorAll(".pricing-decision-grid > article")).toHaveLength(1);
-    expect(screen.getByRole("heading", { name: "All Access" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "One decision. Every bank." })).toBeInTheDocument();
     expect(screen.getByText("$299")).toBeInTheDocument();
-    expect(screen.getByText("Pay once. No subscription, no renewals.")).toBeInTheDocument();
-    expect(screen.getByText("All current and future question banks, with explanations included.")).toBeInTheDocument();
+    expect(screen.queryByText(/Pay once\. No subscription, no renewals\./)).not.toBeInTheDocument();
+    expect(screen.getByText("Current and future question banks.")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /unlock lifetime access/i })).toBeInTheDocument();
+    expect(container.querySelector(".lifetime-architecture svg")).toBeInTheDocument();
+    expect(container.querySelector(".lifetime-card")).toHaveAttribute("data-plan-tone", "premium");
+    expect(container.querySelector(".lifetime-card .plan-assurance")).toHaveTextContent("One named account · Secure checkout");
     const lifetimeCard = container.querySelector(".pricing-lifetime-grid .pricing-option")!;
     expect(lifetimeCard.querySelector("img, .plan-art")).toBeNull();
     expect(lifetimeCard.querySelector(".billing-actions, > a.button")).not.toBeNull();
