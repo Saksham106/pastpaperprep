@@ -41,6 +41,19 @@ export async function POST(request: Request) {
     // `completed` also fires for unpaid asynchronous methods. Only fulfillment
     // follows Stripe's paid status; async success is independently supported.
     if (session.payment_status !== "paid") return NextResponse.json({ received: true });
+    try {
+      const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 2, expand: ["data.price.product"] });
+      const lifetimeItems = lineItems.data;
+      const lifetimeProduct = lifetimeItems.length === 1 ? lifetimeItems[0]?.price?.product : null;
+      const productMetadata = lifetimeProduct && typeof lifetimeProduct === "object" && !("deleted" in lifetimeProduct) ? lifetimeProduct.metadata : null;
+      const validLineItem = !lineItems.has_more && lifetimeItems.length === 1 && lifetimeItems[0]?.quantity === 1 &&
+        lifetimeItems[0]?.amount_subtotal === LIFETIME_OFFER.amountCents && lifetimeItems[0]?.currency === LIFETIME_OFFER.currency &&
+        lifetimeItems[0]?.price?.unit_amount === LIFETIME_OFFER.amountCents && lifetimeItems[0]?.price?.currency === LIFETIME_OFFER.currency &&
+        !lifetimeItems[0]?.price?.recurring && productMetadata?.purchase_type === "lifetime" && productMetadata?.product_id === LIFETIME_OFFER.productId;
+      if (!validLineItem) return NextResponse.json({ error: "Lifetime line item verification failed" }, { status: 400 });
+    } catch {
+      return NextResponse.json({ error: "Lifetime line item verification failed" }, { status: 500 });
+    }
     const userId = session.client_reference_id!;
     const customerId = typeof session.customer === "string" ? session.customer : session.customer?.id;
     const paymentIntentId = typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id;

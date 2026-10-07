@@ -55,11 +55,34 @@ export async function POST() {
       after = page.has_more ? page.data.at(-1)?.id : undefined;
       if (page.has_more && !after) throw new Error("Subscription pagination did not advance");
     } while (after);
+    let openAfter: string | undefined;
+    do {
+      const openPage = await stripe.checkout.sessions.list({ customer: customerId, status: "open", limit: 100, ...(openAfter ? { starting_after: openAfter } : {}) });
+      for (const openSession of openPage.data) {
+        if (openSession.mode !== "payment" || openSession.metadata?.purchase_type !== "lifetime" ||
+          openSession.metadata?.product_id !== LIFETIME_OFFER.productId || openSession.metadata?.user_id !== user.id ||
+          openSession.client_reference_id !== user.id || openSession.customer !== customerId) continue;
+        const lineItems = await stripe.checkout.sessions.listLineItems(openSession.id, { limit: 2, expand: ["data.price.product"] });
+        const line = lineItems.data.length === 1 ? lineItems.data[0] : null;
+        const product = line?.price?.product;
+        const productMetadata = product && typeof product === "object" && !("deleted" in product) ? product.metadata : null;
+        const matchesOffer = !lineItems.has_more && line?.quantity === 1 && line.amount_subtotal === LIFETIME_OFFER.amountCents &&
+          line.currency === LIFETIME_OFFER.currency && line.price?.unit_amount === LIFETIME_OFFER.amountCents &&
+          line.price.currency === LIFETIME_OFFER.currency && !line.price.recurring &&
+          productMetadata?.purchase_type === "lifetime" && productMetadata?.product_id === LIFETIME_OFFER.productId;
+        if (matchesOffer && openSession.url && openSession.expires_at > Math.floor(Date.now() / 1000) + 60) {
+          return NextResponse.json({ url: openSession.url });
+        }
+        await stripe.checkout.sessions.expire(openSession.id, {}, { idempotencyKey: `pastpaperprep-expire-lifetime-${openSession.id}` });
+      }
+      openAfter = openPage.has_more ? openPage.data.at(-1)?.id : undefined;
+      if (openPage.has_more && !openAfter) throw new Error("Open Checkout pagination did not advance");
+    } while (openAfter);
     sessionAttempted = true;
     const metadata = { user_id: user.id, product_id: LIFETIME_OFFER.productId, purchase_type: "lifetime", billing_intent_id: intentId };
     const session = await stripe.checkout.sessions.create({
       mode: "payment", customer: customerId, client_reference_id: user.id,
-      line_items: [{ quantity: 1, price_data: { currency: LIFETIME_OFFER.currency, unit_amount: LIFETIME_OFFER.amountCents, product_data: { name: "Lifetime All Access", description: "All current and future question banks. One-time payment; no subscription or renewals." } } }],
+      line_items: [{ quantity: 1, price_data: { currency: LIFETIME_OFFER.currency, unit_amount: LIFETIME_OFFER.amountCents, product_data: { name: "Lifetime All Access", description: "All current and future question banks. One-time payment; no subscription or renewals.", metadata: { purchase_type: "lifetime", product_id: LIFETIME_OFFER.productId } } } }],
       success_url: `${config.siteUrl}/account?checkout=lifetime-pending`, cancel_url: `${config.siteUrl}/pricing?checkout=cancelled`,
       metadata, payment_intent_data: { metadata },
       integration_identifier: `pastpaperprep-lifetime-${randomUUID().replaceAll("-", "").slice(0, 8)}`,

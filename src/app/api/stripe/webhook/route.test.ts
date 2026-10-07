@@ -7,6 +7,7 @@ const retrieveSchedule = vi.fn();
 const releaseSchedule = vi.fn();
 const retrieveInvoice = vi.fn();
 const retrieveCharge = vi.fn();
+const listLineItems = vi.fn();
 const listInvoicePayments = vi.fn();
 const rpc = vi.fn();
 const { processReferralInvoicePaid, processReferralChargeRefunded, processReferralDisputeChanged, captureConversionOutcome } = vi.hoisted(() => ({ processReferralInvoicePaid: vi.fn(), processReferralChargeRefunded: vi.fn(), processReferralDisputeChanged: vi.fn(), captureConversionOutcome: vi.fn().mockResolvedValue(undefined) }));
@@ -20,6 +21,7 @@ vi.mock("@/lib/stripe", () => ({
     invoices: { retrieve: retrieveInvoice },
     charges: { retrieve: retrieveCharge },
     invoicePayments: { list: listInvoicePayments },
+    checkout: { sessions: { listLineItems } },
   })),
 }));
 vi.mock("@/lib/stripe-config", async (importOriginal) => {
@@ -106,6 +108,7 @@ describe("POST /api/stripe/webhook", () => {
     captureConversionOutcome.mockReset().mockResolvedValue(undefined);
     retrieveSubscription.mockResolvedValue(subscriptionEvent.data.object);
     retrieveCharge.mockResolvedValue({ id: "ch_lifetime", amount: 29900, amount_refunded: 0 });
+    listLineItems.mockResolvedValue({ data: [{ quantity: 1, amount_subtotal: 29900, currency: "usd", price: { unit_amount: 29900, currency: "usd", recurring: null, product: { id: "prod_lifetime", metadata: { purchase_type: "lifetime", product_id: "lifetime_all_access" } } } }], has_more: false });
     rpc.mockImplementation(async (name: string, args?: { p_price_id?: string }) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : name === "get_stripe_customer_id" ? "cus_1" : name === "get_checkout_price_catalog" ? [{ price_id: args?.p_price_id, product_id: args?.p_price_id?.includes("custom") ? "bundle_custom" : "bundle_all", billing_interval: args?.p_price_id?.includes("annual") ? "annual" : "monthly", active: true, grandfathered: false }] : "applied", error: null }));
   });
 
@@ -394,6 +397,14 @@ describe("POST /api/stripe/webhook", () => {
     expect(response.status).toBe(503);
     expect(retrieveSchedule).toHaveBeenCalledWith("sub_sched_1", {}, { timeout: 60_000 });
     expect(rpc).not.toHaveBeenCalledWith("apply_stripe_subscription_event", expect.anything());
+  });
+
+  it("rejects a lifetime session whose actual Stripe line item is not the one-time offer", async () => {
+    const session = { id: "cs_lifetime", mode: "payment", client_reference_id: userId, customer: "cus_1", payment_intent: "pi_lifetime", amount_total: 29900, currency: "usd", payment_status: "paid", created: 1_800_000_000, metadata: { user_id: userId, product_id: "lifetime_all_access", purchase_type: "lifetime" } };
+    listLineItems.mockResolvedValue({ data: [{ quantity: 1, amount_subtotal: 29900, currency: "usd", price: null, price_data: { unit_amount: 29900, currency: "usd", recurring: { interval: "month" }, product: "prod_wrong" } }], has_more: false });
+    constructEvent.mockReturnValue({ id: "evt_lifetime_wrong_item", created: 1_800_000_000, type: "checkout.session.completed", data: { object: session } });
+    expect((await POST(request())).status).toBe(400);
+    expect(rpc).not.toHaveBeenCalledWith("fulfill_lifetime_purchase", expect.anything());
   });
 
   it("fulfills only a correctly priced paid lifetime checkout and tolerates asynchronous success", async () => {
