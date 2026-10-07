@@ -195,7 +195,8 @@ export const IGCSE_SCIENCE_CHEM_PHYSICS: readonly Article[] = [
       }
     ],
     "relatedBanks": [
-      { "href": "/banks/igcse-chemistry-0620", "label": "Practise IGCSE Chemistry 0620 by topic" }
+      { "href": "/banks/igcse-chemistry-0620", "label": "Practise IGCSE Chemistry 0620 by topic" },
+      { href: "/articles/cambridge-science-0654-vs-0653-paper-practice", label: "0654 vs 0653 paper-selection guide" },
     ],
     "sources": [
       {
@@ -329,7 +330,8 @@ export const IGCSE_SCIENCE_CHEM_PHYSICS: readonly Article[] = [
       }
     ],
     "relatedBanks": [
-      { "href": "/banks/igcse-physics-0625", "label": "Practise IGCSE Physics 0625 by topic" }
+      { "href": "/banks/igcse-physics-0625", "label": "Practise IGCSE Physics 0625 by topic" },
+      { href: "/articles/cambridge-science-0654-vs-0653-paper-practice", label: "0654 vs 0653 paper-selection guide" },
     ],
     "sources": [
       {

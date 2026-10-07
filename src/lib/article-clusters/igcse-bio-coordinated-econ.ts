@@ -98,7 +98,8 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
       {
         "label": "Pricing",
         "href": "/pricing"
-      }
+      },
+      { href: "/articles/biology-0610-paper-6-graphs-data-practice", label: "Biology 0610 Paper 6 graphs and data guide" },
     ],
     "sources": [
       {
@@ -210,7 +211,8 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
       {
         "label": "Pricing",
         "href": "/pricing"
-      }
+      },
+      { href: "/articles/cambridge-science-0654-vs-0653-paper-practice", label: "0654 vs 0653 paper-selection guide" },
     ],
     "sources": [
       {
@@ -254,7 +256,7 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
       {
         "heading": "1. Cambridge International: the primary reference",
         "paragraphs": [
-          "Use the official 0455 syllabus to confirm the content, assessment route and command-word expectations. The 2026 syllabus is Version 2 and is for examinations in 2026, with June and November series and March availability in India. Cambridge's assessment guidance says the 2026 route contains a 30-mark Paper 1 and a 90-mark Paper 2; Paper 1 lasts 45 minutes and Paper 2 lasts 2 hours 15 minutes.",
+          "Use the official 0455 syllabus to confirm the content, assessment route and command-word expectations. The 2026 syllabus is Version 2 and is for examinations in 2026, with June and November series and March availability in India. Cambridge's assessment guidance says the 2026 route contains a 30-mark Paper 1 and a 90-mark Paper 2; Paper 1 lasts 45 minutes and Paper 2 lasts 2 hours 15 minutes. For exams in 2027–2029, use the separate updated syllabus: Paper 1 is 40 marks in one hour and Paper 2 is 80 marks in two hours; AO weightings are 43% AO1, 47% AO2 and 10% AO3. This does not change the 2026 timings. See our 2027 syllabus changes and practice-plan guide.",
           "Cambridge also publishes a selected set of past papers, mark schemes and examiner reports on its qualification pages, while registered schools can access more resources through the School Support Hub. Official papers are the benchmark for timing, wording and mark allocation. They are not a convenient topical bank, so organise them yourself or use a third-party index alongside them."
         ]
       },
@@ -327,7 +329,8 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
       {
         "label": "Pricing",
         "href": "/pricing"
-      }
+      },
+      { href: "/articles/economics-0455-2027-syllabus-changes-practice-plan", label: "Economics 0455: 2027 syllabus changes and practice plan" },
     ],
     "sources": [
       {
@@ -337,6 +340,10 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
       {
         "label": "Cambridge IGCSE Economics 0455 syllabus for 2026",
         "href": "https://cambridgeinternational.org/Images/697154-2026-syllabus.pdf"
+      },
+      {
+        "label": "Cambridge IGCSE Economics 0455 syllabus for 2027–2029",
+        "href": "https://www.cambridgeinternational.org/Images/718148-2027-2029-syllabus.pdf"
       },
       {
         "label": "Cambridge IGCSE Economics 0455 programme page",

@@ -92,7 +92,8 @@ export const IB_SCIENCE_BUYER_GUIDES: readonly Article[] = [
     ],
     relatedBanks: [
       { href: "/banks/ib-chemistry-hl", label: "IB Chemistry HL question bank" },
-      { href: "/banks/ib-chemistry-sl", label: "IB Chemistry SL question bank" }
+      { href: "/banks/ib-chemistry-sl", label: "IB Chemistry SL question bank" },
+      { href: "/articles/ib-science-past-papers-current-course-compatibility", label: "Using older IB science papers for the current course" },
     ],
     comparison: {
       caption: "Choose by the kind of Chemistry practice you need.",
@@ -200,7 +201,8 @@ export const IB_SCIENCE_BUYER_GUIDES: readonly Article[] = [
     ],
     relatedBanks: [
       { href: "/banks/ib-physics-hl", label: "IB Physics HL question bank" },
-      { href: "/banks/ib-physics-sl", label: "IB Physics SL question bank" }
+      { href: "/banks/ib-physics-sl", label: "IB Physics SL question bank" },
+      { href: "/articles/ib-science-past-papers-current-course-compatibility", label: "Using older IB science papers for the current course" },
     ],
     comparison: {
       caption: "Match the Physics resource to your practice stage.",
@@ -308,7 +310,8 @@ export const IB_SCIENCE_BUYER_GUIDES: readonly Article[] = [
     ],
     relatedBanks: [
       { href: "/banks/ib-biology-hl", label: "IB Biology HL question bank" },
-      { href: "/banks/ib-biology-sl", label: "IB Biology SL question bank" }
+      { href: "/banks/ib-biology-sl", label: "IB Biology SL question bank" },
+      { href: "/articles/ib-science-past-papers-current-course-compatibility", label: "Using older IB science papers for the current course" },
     ],
     comparison: {
       caption: "Pick the Biology resource that matches your revision job.",
