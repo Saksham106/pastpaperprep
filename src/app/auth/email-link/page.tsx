@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, EnvelopeSimpleOpen } from "@phosphor-icons/react/dist/ssr";
 import { safeNextPath } from "@/lib/auth";
+import { ConfirmationForm } from "@/app/auth/confirmation-form";
 
 export const metadata = { title: "Continue signing in" };
 
@@ -30,14 +31,14 @@ export default async function EmailLinkPage({ searchParams }: { searchParams: Pr
         {valid ? (
           <>
             <p>Press continue to finish signing in. This extra step keeps email security scanners from using your one-time link first.</p>
-            <form action="/auth/confirm" method="get" className="auth-form">
+            <ConfirmationForm className="auth-form">
               <input type="hidden" name="token_hash" value={tokenHash} />
               <input type="hidden" name="type" value={type} />
               <input type="hidden" name="next" value={next} />
               <button className="button primary" type="submit">
                 <EnvelopeSimpleOpen weight="bold" /> Continue to PastPaperPrep <ArrowRight weight="bold" />
               </button>
-            </form>
+            </ConfirmationForm>
           </>
         ) : (
           <>

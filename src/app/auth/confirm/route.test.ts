@@ -12,15 +12,24 @@ vi.mock("@/lib/supabase/server", () => ({ createClient }));
 vi.mock("@/lib/referral-account", () => ({ bindReferralToAuthenticatedUser: vi.fn() }));
 vi.mock("@/lib/server-conversion-analytics", () => ({ captureConversionOutcome }));
 
-import { GET } from "./route";
+import { GET, HEAD, POST } from "./route";
 
 const tokenHash = "a".repeat(64);
 
-function request(query: string) {
-  return new NextRequest(`https://pastpaperprep.com/auth/confirm?${query}`);
+
+function postRequest(body: Record<string, string>) {
+  return new NextRequest("https://pastpaperprep.com/auth/confirm", {
+    method: "POST",
+    headers: { "content-type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams(body),
+  });
 }
 
-describe("GET /auth/confirm", () => {
+function postQuery(query: string) {
+  return postRequest(Object.fromEntries(new URLSearchParams(query)));
+}
+
+describe("POST /auth/confirm", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     getUser.mockResolvedValue({ data: { user: null } });
@@ -29,8 +38,7 @@ describe("GET /auth/confirm", () => {
   });
 
   it("verifies scanner-safe email tokens and preserves a safe pricing path", async () => {
-    const next = encodeURIComponent("/pricing?interval=annual&product=bundle_all");
-    const response = await GET(request(`token_hash=${tokenHash}&type=email&next=${next}`));
+    const response = await POST(postRequest({ token_hash: tokenHash, type: "email", next: "/pricing?interval=annual&product=bundle_all" }));
 
     expect(verifyOtp).toHaveBeenCalledWith({ type: "email", token_hash: tokenHash });
     expect(response.headers.get("location")).toBe("https://pastpaperprep.com/pricing?interval=annual&product=bundle_all");
@@ -39,7 +47,7 @@ describe("GET /auth/confirm", () => {
   it("verifies first-time signup tokens and preserves a safe pricing path", async () => {
     getUser.mockResolvedValue({ data: { user: { id: "user-123", created_at: "2026-01-01T00:00:00Z" } } });
     const next = encodeURIComponent("/pricing?interval=monthly&product=single");
-    const response = await GET(request(`token_hash=${tokenHash}&type=signup&next=${next}`));
+    const response = await POST(postQuery(`token_hash=${tokenHash}&type=signup&next=${next}`));
 
     expect(verifyOtp).toHaveBeenCalledWith({ type: "signup", token_hash: tokenHash });
     expect(response.headers.get("location")).toBe("https://pastpaperprep.com/pricing?interval=monthly&product=single");
@@ -48,14 +56,14 @@ describe("GET /auth/confirm", () => {
 
   it("does not count regular email confirmation or failed signup verification as a signup", async () => {
     getUser.mockResolvedValue({ data: { user: { id: "user-123", created_at: "2026-01-01T00:00:00Z" } } });
-    await GET(request(`token_hash=${tokenHash}&type=email`));
+    await POST(postQuery(`token_hash=${tokenHash}&type=email`));
     verifyOtp.mockResolvedValueOnce({ error: new Error("invalid token") });
-    await GET(request(`token_hash=${tokenHash}&type=signup`));
+    await POST(postQuery(`token_hash=${tokenHash}&type=signup`));
     expect(captureConversionOutcome).not.toHaveBeenCalled();
   });
 
   it("pins recovery tokens to the password page", async () => {
-    const response = await GET(request(`token_hash=${tokenHash}&type=recovery&next=%2Fpricing`));
+    const response = await POST(postQuery(`token_hash=${tokenHash}&type=recovery&next=%2Fpricing`));
 
     expect(verifyOtp).toHaveBeenCalledWith({ type: "recovery", token_hash: tokenHash });
     expect(response.headers.get("location")).toBe("https://pastpaperprep.com/account/password");
@@ -64,7 +72,7 @@ describe("GET /auth/confirm", () => {
   it.each(["invite", "magiclink", "email_change", "unknown"])(
     "rejects the %s OTP flow before verification",
     async (type) => {
-      const response = await GET(request(`token_hash=${tokenHash}&type=${type}&next=%2Fpricing`));
+      const response = await POST(postQuery(`token_hash=${tokenHash}&type=${type}&next=%2Fpricing`));
 
       expect(verifyOtp).not.toHaveBeenCalled();
       expect(response.headers.get("location")).toBe("https://pastpaperprep.com/login?error=confirmation");
@@ -72,18 +80,68 @@ describe("GET /auth/confirm", () => {
   );
 
   it("rejects malformed token hashes and unsafe email redirects", async () => {
-    const malformed = await GET(request("token_hash=short&type=email&next=%2Fpricing"));
+    const malformed = await POST(postQuery("token_hash=short&type=email&next=%2Fpricing"));
     expect(verifyOtp).not.toHaveBeenCalled();
     expect(malformed.headers.get("location")).toBe("https://pastpaperprep.com/login?error=confirmation");
 
-    const unsafe = await GET(request(`token_hash=${tokenHash}&type=email&next=${encodeURIComponent("//evil.example")}`));
+    const unsafe = await POST(postQuery(`token_hash=${tokenHash}&type=email&next=${encodeURIComponent("//evil.example")}`));
     expect(unsafe.headers.get("location")).toBe("https://pastpaperprep.com/pricing");
   });
 
   it("fails closed when Supabase rejects the token", async () => {
     verifyOtp.mockResolvedValue({ error: new Error("expired") });
-    const response = await GET(request(`token_hash=${tokenHash}&type=email&next=%2Fpricing`));
+    const response = await POST(postQuery(`token_hash=${tokenHash}&type=email&next=%2Fpricing`));
 
+    expect(response.headers.get("location")).toBe("https://pastpaperprep.com/login?error=confirmation");
+  });
+});
+
+describe("POST /auth/confirm", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    getUser.mockResolvedValue({ data: { user: null } });
+    createClient.mockResolvedValue({ auth: { verifyOtp, getUser } });
+    verifyOtp.mockResolvedValue({ error: null });
+  });
+
+  it("redeems only on explicit POST and redirects with 303", async () => {
+    const response = await POST(postRequest({ token_hash: tokenHash, type: "email", next: "/pricing" }));
+    expect(verifyOtp).toHaveBeenCalledWith({ type: "email", token_hash: tokenHash });
+    expect(response.status).toBe(303);
+    expect(response.headers.get("location")).toBe("https://pastpaperprep.com/pricing");
+  });
+
+  it("does not redeem on GET or HEAD", async () => {
+    const get = await GET();
+    const head = await HEAD();
+    expect(verifyOtp).not.toHaveBeenCalled();
+    expect(get.status).not.toBe(303);
+    expect(head.status).not.toBe(303);
+  });
+
+  it("fails closed when the request body cannot be parsed", async () => {
+    const malformed = new NextRequest("https://pastpaperprep.com/auth/confirm", {
+      method: "POST",
+      headers: { "content-type": "multipart/form-data; boundary=bad" },
+      body: "not-a-valid-multipart-body",
+    });
+    const response = await POST(malformed);
+    expect(response.status).toBe(303);
+    expect(response.headers.get("location")).toBe("https://pastpaperprep.com/login?error=confirmation");
+    expect(verifyOtp).not.toHaveBeenCalled();
+  });
+
+  it("fails closed when the same token is submitted under an unrelated OTP type", async () => {
+    await POST(postRequest({ token_hash: tokenHash, type: "email", next: "/pricing" }));
+    verifyOtp.mockResolvedValueOnce({ error: new Error("otp_expired") });
+    const response = await POST(postRequest({ token_hash: tokenHash, type: "recovery" }));
+    expect(verifyOtp).toHaveBeenLastCalledWith({ type: "recovery", token_hash: tokenHash });
+    expect(response.headers.get("location")).toBe("https://pastpaperprep.com/login?error=confirmation");
+  });
+  it("fails closed when a stale different token is submitted", async () => {
+    await POST(postRequest({ token_hash: tokenHash, type: "email", next: "/pricing" }));
+    verifyOtp.mockResolvedValueOnce({ error: new Error("otp_expired") });
+    const response = await POST(postRequest({ token_hash: "b".repeat(64), type: "email", next: "/pricing" }));
     expect(response.headers.get("location")).toBe("https://pastpaperprep.com/login?error=confirmation");
   });
 });

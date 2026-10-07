@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ConfirmationForm } from "@/app/auth/confirmation-form";
 import { ArrowRight, Key } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata = { title: "Reset password" };
@@ -19,12 +20,12 @@ export default async function RecoveryPage({ searchParams }: { searchParams: Pro
         {validTokenHash(tokenHash) ? (
           <>
             <p>Continue when you are ready. This protects your one-time link from email scanners.</p>
-            <form action="/auth/confirm" method="get" className="auth-form">
+            <ConfirmationForm className="auth-form">
               <input type="hidden" name="token_hash" value={tokenHash} />
               <input type="hidden" name="type" value="recovery" />
               <input type="hidden" name="next" value="/account/password" />
               <button className="button primary" type="submit"><Key weight="bold" /> Continue to reset password <ArrowRight weight="bold" /></button>
-            </form>
+            </ConfirmationForm>
           </>
         ) : (
           <>

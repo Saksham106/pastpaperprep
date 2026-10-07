@@ -12,19 +12,38 @@ function validTokenHash(value: string | null): value is string {
   return typeof value === "string" && /^[A-Za-z0-9_-]{32,256}$/.test(value);
 }
 
-export async function GET(request: NextRequest) {
-  const url = new URL(request.url);
-  const tokenHash = url.searchParams.get("token_hash");
-  const rawType = url.searchParams.get("type");
+function methodNotAllowed() {
+  return new NextResponse(null, { status: 405, headers: { allow: "POST" } });
+}
 
-  if (!validTokenHash(tokenHash) || !rawType || !ALLOWED_CONFIRMATION_TYPES.has(rawType as EmailOtpType)) {
-    return NextResponse.redirect(new URL("/login?error=confirmation", url.origin));
+export async function GET() {
+  return methodNotAllowed();
+}
+
+export async function HEAD() {
+  return methodNotAllowed();
+}
+
+export async function POST(request: NextRequest) {
+  const url = new URL(request.url);
+  let form: FormData;
+  try {
+    form = await request.formData();
+  } catch {
+    return NextResponse.redirect(new URL("/login?error=confirmation", url.origin), 303);
+  }
+  const tokenHash = form.get("token_hash");
+  const rawType = form.get("type");
+
+  if (typeof tokenHash !== "string" || !validTokenHash(tokenHash) || typeof rawType !== "string" || !ALLOWED_CONFIRMATION_TYPES.has(rawType as EmailOtpType)) {
+    return NextResponse.redirect(new URL("/login?error=confirmation", url.origin), 303);
   }
 
   const type = rawType as "email" | "signup" | "recovery";
   const next = type === "recovery"
     ? "/account/password"
-    : safeNextPath(url.searchParams.get("next"));
+    : safeNextPath(typeof form.get("next") === "string" ? form.get("next") as string : null);
+
   const supabase = await createClient();
   const { error } = await supabase.auth.verifyOtp({ type, token_hash: tokenHash });
   if (!error) {
@@ -39,8 +58,8 @@ export async function GET(request: NextRequest) {
  occurredAt: user.email_confirmed_at ?? user.confirmed_at ?? user.created_at });
       }
     }
-    return NextResponse.redirect(new URL(next, url.origin));
+    return NextResponse.redirect(new URL(next, url.origin), 303);
   }
 
-  return NextResponse.redirect(new URL("/login?error=confirmation", url.origin));
+  return NextResponse.redirect(new URL("/login?error=confirmation", url.origin), 303);
 }
