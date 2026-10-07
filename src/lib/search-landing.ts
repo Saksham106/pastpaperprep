@@ -5,6 +5,7 @@ import type { UnifiedQuestion } from "@/lib/questions";
 import { getTopicOptions } from "@/lib/taxonomy";
 import { getTopicOptions as getRoutedTopicOptions } from "@/lib/taxonomy-router";
 import { canonicalBiology0610Topic } from "@/lib/biology-0610-topic-aliases";
+import { CURATED_TOPIC_LANDINGS } from "@/lib/search-landing-topic-content";
 
 export type LandingTopic = {
   slug: string;
@@ -92,7 +93,15 @@ export function buildLandingManifest(bankSlug: BankSlug, questions: UnifiedQuest
   const preferredTopics = preferred
     .map((label) => [label, counts.get(label) ?? 0] as const)
     .filter(([, count]) => count >= 20);
-  const topics = (preferredTopics.length ? preferredTopics : ranked.slice(0, 2))
+  const curated = (CURATED_TOPIC_LANDINGS[bankSlug] ?? [])
+    .map((label) => [label, counts.get(label) ?? 0] as const)
+    .filter(([, count]) => count >= 20);
+  const existingTopics = preferredTopics.length ? preferredTopics : ranked.slice(0, 2);
+  const existingLabels = new Set(existingTopics.map(([label]) => label));
+  const topics = [
+    ...existingTopics,
+    ...curated.filter(([label]) => !existingLabels.has(label)),
+  ]
     .map(([label, count]) => asLandingTopic(label, count));
 
   const orderedLabels = (bankSlug === "igcse-biology-0610" || bankSlug === "igcse-additional"

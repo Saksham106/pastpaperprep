@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import { ALL_ARTICLES, ARTICLES, ARTICLE_INDEX_DETAILS, getArticleIndexDetail } from "@/lib/articles";
 import { BANK_CATALOG, getCatalogBank } from "@/lib/catalog";
 import { loadBankQuestions } from "@/lib/question-fixtures";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 
 const DIFFICULTIES = new Set(["Foundational", "Intermediate", "Advanced"]);
 
@@ -54,8 +56,17 @@ describe("articles index enrichment", () => {
         const { slug, topic } = parsePracticeHref(link.href);
         if (!topic) continue;
         if (!topicsByBank.has(slug)) {
-          const questions = loadBankQuestions(slug as never);
-          topicsByBank.set(slug, new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics])));
+          const privateDataFiles: Record<string, string> = {
+            "igcse-biology-0610": "src/data/production/igcse-biology-0610.json",
+            "igcse-economics-0455": "src/data/production/igcse-economics-0455.json",
+            "igcse-chemistry-0620": "src/data/production/igcse-chemistry-0620.json",
+            "igcse-physics-0625": "src/data/production/igcse-physics-0625.json",
+            "igcse-coordinated-sciences-0654": "src/data/production/igcse-coordinated-sciences-0654.json",
+          };
+          const topicLabels = privateDataFiles[slug]
+            ? JSON.parse(readFileSync(resolve(process.cwd(), privateDataFiles[slug]), "utf8")).questions.flatMap((question: { primaryTopic: string; secondaryTopics?: string[] }) => [question.primaryTopic, ...(question.secondaryTopics ?? [])])
+            : loadBankQuestions(slug as never).flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]);
+          topicsByBank.set(slug, new Set(topicLabels));
         }
         expect(topicsByBank.get(slug)!.has(topic), `${slug} does not expose topic "${topic}"`).toBe(true);
       }
@@ -71,6 +82,36 @@ describe("articles index enrichment", () => {
       }
       expect(detail.practiceLinks.length).toBeGreaterThanOrEqual(1);
       expect(slug).toBe(slug.trim());
+    }
+  });
+  it("keeps the 2026 and 2027 Economics AO comparisons source-correct and cross-linked", () => {
+    const guide = ALL_ARTICLES.find((article) => article.slug === "economics-0455-2027-syllabus-changes-practice-plan")!;
+    const body = [guide.answer, ...guide.sections.flatMap((section) => section.paragraphs)].join(" ");
+    expect(body).toContain("2026 syllabus allocates 40%, 40%, and 20%");
+    expect(body).toContain("AO2 analysis rises from 40% to 47%");
+    expect(body).toContain("AO3 evaluation decreases from 20% to 10%");
+    expect(body).not.toContain("prior syllabus allocated 40%, 50%, and 10%");
+    expect(guide.sources?.some((source) => source.href === "https://www.cambridgeinternational.org/Images/718148-2027-2029-syllabus.pdf")).toBe(true);
+
+    const existing = ALL_ARTICLES.find((article) => article.slug === "best-igcse-economics-0455-question-banks")!;
+    expect(existing.sections.flatMap((section) => section.paragraphs).join(" ")).toContain("This does not change the 2026 timings");
+    expect(existing.relatedBanks?.some((link) => link.href === `/articles/${guide.slug}`)).toBe(true);
+  });
+
+  it("links the existing subject articles to the relevant new practice guides", () => {
+    const expectations: Record<string, string> = {
+      "best-igcse-biology-0610-question-banks": "biology-0610-paper-6-graphs-data-practice",
+      "best-igcse-coordinated-sciences-0654-question-banks": "cambridge-science-0654-vs-0653-paper-practice",
+      "best-igcse-economics-0455-question-banks": "economics-0455-2027-syllabus-changes-practice-plan",
+      "best-igcse-chemistry-0620-question-banks": "cambridge-science-0654-vs-0653-paper-practice",
+      "best-igcse-physics-0625-question-banks": "cambridge-science-0654-vs-0653-paper-practice",
+      "best-ib-chemistry-question-banks": "ib-science-past-papers-current-course-compatibility",
+      "best-ib-physics-question-banks": "ib-science-past-papers-current-course-compatibility",
+      "best-ib-biology-question-banks": "ib-science-past-papers-current-course-compatibility",
+    };
+    for (const [existingSlug, guideSlug] of Object.entries(expectations)) {
+      const article = ALL_ARTICLES.find((candidate) => candidate.slug === existingSlug)!;
+      expect(article.relatedBanks?.some((link) => link.href === `/articles/${guideSlug}`), `${existingSlug} should link to ${guideSlug}`).toBe(true);
     }
   });
 });

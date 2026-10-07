@@ -46,7 +46,7 @@ function guideFor(bank: Bank) {
 export function BankSeoContent({ bank }: { bank: Bank }) {
   const guide = guideFor(bank);
   const isScience = bank.slug === "ib-chemistry-hl" || bank.slug === "ib-chemistry-sl" || bank.slug === "ib-physics-hl" || bank.slug === "ib-physics-sl" || bank.slug === "ib-biology-hl" || bank.slug === "ib-biology-sl";
-  const coverage = `This bank contains ${bank.questionCount.toLocaleString()} questions drawn from ${bank.paperCount} real past papers, covering ${bank.years}. Use it to isolate weak topics before switching to timed whole-paper practice.`;
+  const coverage = `Practise ${bank.questionCount.toLocaleString()} authentic past-paper questions from ${bank.paperCount} archived papers (${bank.years}). These are past-paper questions, not AI-generated exam-style substitutes. Start with a topic, then switch to mixed or timed practice.`;
   const isIbMathAaHl = bank.slug === "ib-hl";
 
   return (
@@ -54,7 +54,7 @@ export function BankSeoContent({ bank }: { bank: Bank }) {
       <div>
         <p className="eyebrow">{isIbMathAaHl ? "IB Mathematics AA HL · focused practice" : "Revision method"}</p>
         <h2 id="bank-guide-heading">{isIbMathAaHl ? "Build a printable IB Maths AA HL practice set" : `How to use the ${bank.shortName} question bank`}</h2>
-        <p>{isIbMathAaHl ? "PastPaperPrep lets you turn selected real AA HL questions into a printable practice set. Choose a topic, select the questions you need, then export a worksheet with the available answers." : coverage}</p>
+        <p>{isIbMathAaHl ? "PastPaperPrep lets you practise authentic AA HL past-paper questions and turn selected questions into a printable practice set. Choose a topic, select questions, then export a worksheet with available answers." : coverage}</p>
         {isIbMathAaHl ? <p>{coverage}</p> : null}
       </div>
       {isIbMathAaHl ? (
@@ -65,9 +65,9 @@ export function BankSeoContent({ bank }: { bank: Bank }) {
         </ol>
       ) : (
         <ol>
-          <li><strong>Choose one topic.</strong> Start narrow enough that mistakes reveal a specific gap.</li>
-          <li><strong>Filter deliberately.</strong> Use year, paper, marks, and other filters to control difficulty and format.</li>
-          <li><strong>Check, record, repeat.</strong> Review the mark scheme, note the cause of each lost mark, then retry a similar set.</li>
+          <li><strong>Choose a topic.</strong> Focus your practice on a real past-paper topic rather than a generated exam-style substitute.</li>
+          <li><strong>Work through the available questions and answers.</strong> Use the matching mark scheme to check your reasoning and identify a precise gap.</li>
+          <li><strong>Export when eligible.</strong> Guests can view up to 20 matching free questions; a free account can access the remaining free selection. PDF export is subject to eligible bank access and the account’s download allowance.</li>
         </ol>
       )}
       <div className="bank-seo-links">

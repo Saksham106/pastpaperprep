@@ -95,4 +95,10 @@ describe("SearchLanding", () => {
     expect(screen.getByText(/archive coverage for this paper filter/i)).toBeInTheDocument();
     expect(screen.queryByText(/historical frequency signal/i)).not.toBeInTheDocument();
   });
+
+  it("uses concise topic-specific guidance rather than cloned generic copy", () => {
+    render(<SearchDetail bank={bank} title="IB Physics Mechanics questions" kind="topic" label="Mechanics and motion" count={358} filterHref="/banks/ib-physics-hl?topic=Mechanics%20and%20motion" canonicalPath="/banks/ib-physics-hl/topics/mechanics-and-motion" />);
+    expect(screen.getByText(/connect kinematics and force models to graphs/i)).toBeInTheDocument();
+    expect(screen.queryByText(/exact topic filter already applied/i)).not.toBeInTheDocument();
+  });
 });

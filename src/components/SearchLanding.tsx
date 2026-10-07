@@ -7,6 +7,7 @@ import { CourseIcon, courseToneForBank } from "@/components/CourseIcon";
 import { JsonLd } from "@/components/JsonLd";
 import { assessmentGuideFor } from "@/lib/assessment-guides";
 import type { AssessmentPaper } from "@/lib/assessment-guides";
+import { topicLandingCopy } from "@/lib/search-landing-topic-content";
 import {
   courseOverview,
   officialQualificationSource,
@@ -162,7 +163,7 @@ export function SearchDetail({ bank, title, kind, label, count, filterHref, cano
       <JsonLd data={{ "@context": "https://schema.org", "@type": "CollectionPage", name: title, url: `${SITE_URL}${canonicalPath}`, isPartOf: { "@id": `${SITE_URL}/banks/${bank.slug}#page` } }} />
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: bank.shortName, href: `/banks/${bank.slug}` }, { label: title }]} />
       <header className="search-detail-header">
-        <div><p className="eyebrow">{kind === "topic" ? "Topic practice" : "Paper practice"}</p><h1>{title}</h1><p className="lead">A clean entry point into the existing question bank, with the exact {kind} filter already applied.</p></div>
+        <div><p className="eyebrow">{kind === "topic" ? "Topic practice" : "Paper practice"}</p><h1>{title}</h1><p className="lead">{kind === "topic" ? topicLandingCopy(label.toLocaleLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""), label) : "A clean entry point into the existing question bank, with the exact paper filter already applied."}</p></div>
         <aside className="detail-signal"><ChartBar aria-hidden="true" /><strong>{count.toLocaleString()}</strong><span>archived questions {kind === "topic" ? "tagged to" : "matching"} {label}</span><small>{kind === "topic" ? "An observed historical topic count, not a guarantee of what appears next." : "Archive coverage for this paper filter; access rules still apply in the question bank."}</small></aside>
       </header>
       <section className="detail-workflow">
