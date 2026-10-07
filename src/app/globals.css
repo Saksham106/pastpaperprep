@@ -1974,7 +1974,7 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .lifetime-benefits svg { width: 16px; height: 16px; color: #762b3b; }
 :root[data-theme="dark"] .lifetime-scenic { color: #172337; }
 @media (max-width: 700px) {
- .lifetime-scenic { min-height: 610px; margin-top: 12px; background-size: auto 100%; background-position: 49% center; }
+ .lifetime-scenic { width: 100vw; margin-left: calc(50% - 50vw); margin-right: 0; min-height: 610px; margin-top: 12px; background-size: auto 100%; background-position: 49% center; }
  .lifetime-scenic::before { background: linear-gradient(180deg, rgb(246 239 225 / .04) 0%, rgb(246 239 225 / .35) 17%, rgb(248 244 235 / .86) 34%, rgb(248 244 235 / .88) 68%, rgb(246 239 225 / .18) 100%); }
  .lifetime-scenic-content { padding: 32px 14px; }
  .lifetime-benefits { gap: 12px 17px; }
