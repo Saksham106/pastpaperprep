@@ -7,9 +7,10 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
     "title": "IGCSE Biology 0610 Question Banks & Past Papers by Topic",
     "description": "Compare the best IGCSE Biology 0610 past-paper websites and question banks, with practical advice on mark schemes, diagrams, and revision.",
     "eyebrow": "IGCSE Biology 0610",
-    "answer": "The best IGCSE Biology 0610 practice setup combines official Cambridge papers and mark schemes with a genuinely topical question bank. Cambridge's own Biology page is the authority for the syllabus, specimen material and selected past papers. PastPaperPrep is the strongest fit when you want to find authentic 0610 questions by topic and build a printable set without sorting through whole PDFs; its live bank contains real past-paper questions from papers covering recent exam years. Use a teaching resource alongside it when you need notes, worked explanations or a lesson before practice.",
+    "answer": "For Cambridge IGCSE Biology 0610, use Cambridge’s current 2026–2028 syllabus and selected official papers to confirm the course and assessment style. PastPaperPrep fits when you need real 0610 questions filtered by topic, paper or skill and collected into a printable set; use a notes-led resource when you need content taught or a worked explanation first. For Paper 6/data practice, keep the graph, table or experiment attached and mark against the matching scheme rather than relying on recall quizzes alone.",
+    "answerLink": { "href": "/banks/igcse-biology-0610", "label": "PastPaperPrep" },
     "publishedAt": "2026-09-15",
-    "updatedAt": "2026-09-15",
+    "updatedAt": "2026-10-07",
     "readingMinutes": 7,
     "sections": [
       {
@@ -58,7 +59,7 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
       {
         "heading": "Where PastPaperPrep fits for 0610",
         "paragraphs": [
-          "PastPaperPrep's live IGCSE Biology 0610 bank contains real past-paper questions from papers covering recent exam years. It keeps diagrams, tables and experimental context attached while letting you filter by syllabus topic, paper, year, session, marks and other available exam details. That makes it useful after a paper exposes a narrow weakness and you need several fresh versions of the same skill.",
+          "PastPaperPrep's live IGCSE Biology 0610 bank contains real past-paper questions from papers covering recent exam years. It keeps diagrams, tables and experimental context attached while letting you filter by syllabus topic, paper, year, session, marks and other available exam details. That makes it useful after a paper exposes a narrow weakness and you need several fresh versions of the same skill. Guests see up to 20 questions matching active filters; a free account opens the remaining free selection in that bank. PDF export requires eligible bank access and follows the plan’s download allowance.",
           "It is not a full Biology course. Use Cambridge for the syllabus and official assessment truth, and use notes, a teacher or a guided platform when you need the content explained. PastPaperPrep's job is narrower: turn the exact gap you found into a focused, printable practice set."
         ]
       }
@@ -132,9 +133,10 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
     "title": "IGCSE Co-ordinated Sciences 0654 Past Papers & Question Banks",
     "description": "Find the best IGCSE Co-ordinated Sciences 0654 past-paper resources and learn how to match combined science papers to your component and tier.",
     "eyebrow": "IGCSE Co-ordinated Sciences 0654",
-    "answer": "For IGCSE Co-ordinated Sciences (Double Award) 0654, use Cambridge's official syllabus and papers to confirm your component route, then use a topical bank to practise weak Biology, Chemistry and Physics areas without splitting the qualification into three unrelated courses. PastPaperPrep's live 0654 bank contains real past-paper questions from papers covering recent exam years. It is the strongest fit when you want authentic questions, syllabus-aware topic filters and printable mixed sets; a notes-led platform is better when you still need the science explained.",
+    "answer": "For IGCSE Co-ordinated Sciences (Double Award) 0654, use Cambridge's official syllabus and papers to confirm your component route, then use a topical bank to practise weak Biology, Chemistry and Physics areas without splitting the qualification into three unrelated courses. PastPaperPrep's live 0654 bank contains real past-paper questions from papers covering recent exam years. Use it when you want authentic questions, syllabus-aware topic filters and printable mixed sets; a notes-led platform is better when you still need the science explained.",
+    "answerLink": { "href": "/banks/igcse-coordinated-sciences-0654", "label": "PastPaperPrep" },
     "publishedAt": "2026-09-15",
-    "updatedAt": "2026-09-15",
+    "updatedAt": "2026-10-07",
     "readingMinutes": 6,
     "sections": [
       {
@@ -170,7 +172,7 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
         "heading": "What the PastPaperPrep 0654 bank does",
         "paragraphs": [
           "PastPaperPrep's live 0654 bank keeps the combined qualification as one bank and makes real past-paper questions from recent exam years searchable by syllabus topic. Biology, Chemistry and Physics topics stay distinct, paper and component identity is retained, each question's printed session applies, and practical skills remain practical skills rather than being flattened into generic science.",
-          "Use it to isolate a weak science or build a mixed printable set while keeping the original question context. Use Cambridge as the authority for the syllabus, entry route and assessment structure. That split is deliberate: PastPaperPrep organises the practice; Cambridge defines the qualification."
+          "Use it to isolate a weak science or build a mixed printable set while keeping the original question context. Guests see up to 20 questions matching active filters; a free account opens the remaining free selection in that bank, while PDF export requires eligible bank access and follows the plan’s download allowance. Use Cambridge as the authority for the syllabus, entry route and assessment structure. That split is deliberate: PastPaperPrep organises the practice; Cambridge defines the qualification."
         ]
       }
     ],
@@ -235,9 +237,10 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
     "title": "IGCSE Economics 0455 Question Banks & Past Papers by Topic",
     "description": "Compare IGCSE Economics 0455 question banks and past-paper websites, with a practical method for data response, diagrams, calculations, and evaluation.",
     "eyebrow": "IGCSE Economics 0455",
-    "answer": "The best IGCSE Economics 0455 revision setup uses Cambridge's official syllabus and papers for exam truth, then adds a topical bank for repeated practice by concept and response skill. PastPaperPrep's live Economics 0455 bank contains real past-paper questions from papers covering recent exam years. It is the strongest fit when you want to filter authentic questions while preserving data-response context, diagrams, calculations and command words; use a teaching resource when you first need the economics explained.",
+    "answer": "For Cambridge IGCSE Economics 0455, use the current syllabus and matching paper to verify the assessment route before practising. To improve a Paper 2 data response, choose real questions that preserve the extract and figures, then practise calculation, analysis and evaluation against the matching mark scheme; PastPaperPrep supports filtering by topic and paper and making printable sets. Generic essay frameworks cannot replace applying the supplied evidence, and the bank is practice—not a lessons or model-essay course.",
+    "answerLink": { "href": "/banks/igcse-economics-0455", "label": "PastPaperPrep" },
     "publishedAt": "2026-09-15",
-    "updatedAt": "2026-09-21",
+    "updatedAt": "2026-10-07",
     "readingMinutes": 6,
     "sections": [
       {

@@ -7,9 +7,10 @@ export const IB_SCIENCE_BUYER_GUIDES: readonly Article[] = [
     title: "Best IB Chemistry Question Banks for HL and SL (2026)",
     description: "Compare the best IB Chemistry HL and SL question banks for 2026, including official IB resources, Revision Village, Save My Exams, Exam-Mate, and PastPaperPrep.",
     eyebrow: "IB Chemistry HL and SL",
-    answer: "The best IB Chemistry question bank depends on the job you need done. Use official IB specimen papers, sample papers, and mark schemes to learn the assessment standard. Choose Revision Village if you want a broad digital bank with difficulty levels and video solutions, Save My Exams if structured notes and downloadable topic PDFs matter most, Exam-Mate if you prefer topical filtering and saved online lists, and PastPaperPrep if you want real past-paper questions organized into focused, printable practice sets. PastPaperPrep is not the best choice when your main need is a full teaching course, extensive video lessons, or a replacement for your teacher's explanation of the new syllabus.",
+    answer: "The best IB Chemistry question bank depends on the job you need done. Use official IB specimen papers, sample papers, and mark schemes to learn the assessment standard. Choose Revision Village if you want a broad digital bank with difficulty levels and video solutions, Save My Exams if structured notes and downloadable topic PDFs matter most, Exam-Mate if you prefer topical filtering and saved online lists, and PastPaperPrep if you want real past-paper questions organized into focused, printable practice sets for HL or SL. PastPaperPrep is not the best choice when your main need is a full teaching course, extensive video lessons, or a replacement for your teacher's explanation of the new syllabus.",
+    answerLink: { href: "/banks/ib-chemistry-hl", label: "PastPaperPrep" },
     publishedAt: "2026-09-15",
-    updatedAt: "2026-09-15",
+    updatedAt: "2026-10-07",
     readingMinutes: 8,
     sections: [
       {
@@ -72,14 +73,14 @@ export const IB_SCIENCE_BUYER_GUIDES: readonly Article[] = [
         heading: "Best for focused real-question practice: PastPaperPrep",
         paragraphs: [
           "PastPaperPrep is the practical choice when you know the content and need efficient repetitions with real past-paper questions. The IB Chemistry HL and SL banks are separate, and the routes are /banks/ib-chemistry-hl and /banks/ib-chemistry-sl. Use topic and source filters to isolate a weak area, then make a set that is narrow enough to review properly. Answers and mark schemes are included where available, and printable sets make it easier to write full responses instead of tapping through a screen.",
-          "Pricing is simple for a focused revision tool: one bank is $6 per month or $48 per year; two to five banks start at $10 per month, with $4 per additional bank, or $84 annually for two, with $36 per additional bank; six or more are $25 per month or $216 per year. Confirm the live checkout before purchase because prices can change. PastPaperPrep is not best if you need extensive videos, lesson notes, flashcards, or a tutor-like explanation before you can attempt the questions."
+          "Guests can see up to 20 questions matching their active filters; a free account opens the rest of that bank’s free selection. PDF export requires eligible bank access and follows the plan download allowance. Check current access on the bank page. PastPaperPrep is not best if you need extensive videos, lesson notes, flashcards, or a tutor-like explanation before you can attempt the questions."
         ]
       },
       {
         heading: "How to choose for HL or SL",
         paragraphs: [
           "For SL, prioritize accurate course matching, data-based questions, practical skills, and clear correction. For HL, add more multi-step quantitative work, unfamiliar contexts, and questions that connect structure, reactivity, and experimental reasoning. In either level, begin with one official paper or specimen set to diagnose the gap, use topical practice to repair it, and finish with mixed or timed work.",
-          "The best bank is the one that supports that loop without letting you confuse recognition with mastery. A labeled topic set is helpful while rebuilding a skill. It is not the final test. Remove the label, mix topics, and mark your answer against the strongest available official or teacher-reviewed guidance."
+          "Choose the exact course before filtering: IB Chemistry HL and SL use separate banks. The best bank is the one that supports that loop without letting you confuse recognition with mastery. A labeled topic set is helpful while rebuilding a skill. It is not the final test. Remove the label, mix topics, and mark your answer against the strongest available official or teacher-reviewed guidance."
         ]
       }
     ],
@@ -119,8 +120,9 @@ export const IB_SCIENCE_BUYER_GUIDES: readonly Article[] = [
     description: "Compare the best IB Physics HL and SL question banks for 2026, from official IB papers to Revision Village, Save My Exams, Exam-Mate, and PastPaperPrep.",
     eyebrow: "IB Physics HL and SL",
     answer: "For IB Physics, the best question bank is the one that forces you to model situations, handle data, show units, and explain choices rather than only recall formulas. Use official IB material for the assessment target. Choose Revision Village for digital questions with difficulty levels and videos, Save My Exams for notes plus topic questions, Exam-Mate for online topical filters, and PastPaperPrep for real past-paper questions that can be filtered into printable HL or SL sets. PastPaperPrep is not the best replacement for teaching mechanics, fields, uncertainty, or mathematical methods from the beginning.",
+    answerLink: { href: "/banks/ib-physics-hl", label: "PastPaperPrep" },
     publishedAt: "2026-09-15",
-    updatedAt: "2026-09-15",
+    updatedAt: "2026-10-07",
     readingMinutes: 8,
     sections: [
       {
@@ -178,13 +180,13 @@ export const IB_SCIENCE_BUYER_GUIDES: readonly Article[] = [
         heading: "Best focused paper practice: PastPaperPrep",
         paragraphs: [
           "PastPaperPrep fits the middle of the revision cycle, after you have learned the physics but before you rely only on full timed papers. Its separate HL and SL routes are /banks/ib-physics-hl and /banks/ib-physics-sl. Topic and source filters help you collect real questions on a precise skill, while answers and mark schemes are available where the source provides them. Printable sets support the habits Physics needs: drawing diagrams, writing equations, tracking units, and explaining assumptions.",
-          "One bank costs $6 per month or $48 per year. Two to five banks start at $10 per month, with $4 for each additional bank, or $84 annually for two, with $36 for each additional bank. Six or more are $25 per month or $216 per year. Check the live pricing page before purchasing. PastPaperPrep is not the best choice if you need video teaching, extensive revision notes, flashcards, or a guided course sequence."
+          "Guests can see up to 20 questions matching their active filters; a free account opens the rest of that bank’s free selection. PDF export requires eligible bank access and follows the plan download allowance. Check current access on the bank page. PastPaperPrep is not the best choice if you need video teaching, extensive revision notes, flashcards, or a guided course sequence."
         ]
       },
       {
         heading: "A Physics revision plan that uses the bank well",
         paragraphs: [
-          "Begin with a short official paper section or mixed diagnostic. Label each lost mark by cause: wrong model, formula selection, algebra, units, graph or uncertainty handling, or written explanation. Practise the narrow cause in a topical set, then remove the topic label and mix the skill with other themes. Finish with a timed paper and compare the pattern across attempts.",
+          "Choose the exact course before filtering: IB Physics HL and SL use separate banks. Begin with a short official paper section or mixed diagnostic. Label each lost mark by cause: wrong model, formula selection, algebra, units, graph or uncertainty handling, or written explanation. Practise the narrow cause in a topical set, then remove the topic label and mix the skill with other themes. Finish with a timed paper and compare the pattern across attempts.",
           "For HL, include multi-step and unfamiliar-context questions earlier because recognition alone will not carry the extra scope. For SL, do not neglect data analysis and practical reasoning just because the algebra looks manageable. In both courses, an answer that reaches the right number with missing units or unsupported reasoning is not a reliable success.",
           "Keep a short error log with the question source, the first failed decision, and the correction you want to remember. Revisit it after a few days without opening the solution. That delayed check is more informative than a same-minute reread, because it tests whether the reasoning has become available independently."
         ]
@@ -226,8 +228,9 @@ export const IB_SCIENCE_BUYER_GUIDES: readonly Article[] = [
     description: "Compare the best IB Biology HL and SL question banks for 2026, including official IB materials, Revision Village, Save My Exams, Exam-Mate, and PastPaperPrep.",
     eyebrow: "IB Biology HL and SL",
     answer: "The best IB Biology question bank depends on whether you need recall, data interpretation, or mark-aware written practice. Use official IB guides and sample material to calibrate the current assessment. Choose Revision Village for a large digital bank with topic, difficulty, and video support; Save My Exams for notes and downloadable topic questions; Exam-Mate for online topical filtering; and PastPaperPrep for real past-paper questions organized into focused HL or SL printable sets. PastPaperPrep is not the best choice if you need a full biology lesson library, extensive concept videos, or help learning every process before attempting questions.",
+    answerLink: { href: "/banks/ib-biology-hl", label: "PastPaperPrep" },
     publishedAt: "2026-09-15",
-    updatedAt: "2026-09-15",
+    updatedAt: "2026-10-07",
     readingMinutes: 8,
     sections: [
       {
@@ -285,7 +288,7 @@ export const IB_SCIENCE_BUYER_GUIDES: readonly Article[] = [
         heading: "Best real-question workflow: PastPaperPrep",
         paragraphs: [
           "PastPaperPrep is designed for the practice stage where Biology students need many relevant questions without losing the source context. The HL and SL banks are separate at /banks/ib-biology-hl and /banks/ib-biology-sl. Topic and source filters let you focus on a weak area, while answers and mark schemes are included where available. Printable sets are useful for writing full definitions, explanations, graph interpretations, and evaluation responses by hand.",
-          "The current pricing is $6 per month or $48 per year for one bank; two to five banks start at $10 per month, with $4 per additional bank, or $84 annually for two, with $36 per additional bank; six or more are $25 per month or $216 per year. Check the live product page before buying. PastPaperPrep is not best when your main need is teaching content through notes and videos, flashcards, or an adaptive lesson sequence."
+          "Guests can see up to 20 questions matching their active filters; a free account opens the rest of that bank’s free selection. PDF export requires eligible bank access and follows the plan download allowance. Check current access on the bank page. PastPaperPrep is not best when your main need is teaching content through notes and videos, flashcards, or an adaptive lesson sequence."
         ]
       },
       {
