@@ -6,6 +6,7 @@ const retrieveSubscription = vi.fn();
 const retrieveSchedule = vi.fn();
 const releaseSchedule = vi.fn();
 const retrieveInvoice = vi.fn();
+const retrieveCharge = vi.fn();
 const listInvoicePayments = vi.fn();
 const rpc = vi.fn();
 const { processReferralInvoicePaid, processReferralChargeRefunded, processReferralDisputeChanged, captureConversionOutcome } = vi.hoisted(() => ({ processReferralInvoicePaid: vi.fn(), processReferralChargeRefunded: vi.fn(), processReferralDisputeChanged: vi.fn(), captureConversionOutcome: vi.fn().mockResolvedValue(undefined) }));
@@ -17,6 +18,7 @@ vi.mock("@/lib/stripe", () => ({
     subscriptions: { retrieve: retrieveSubscription },
     subscriptionSchedules: { retrieve: retrieveSchedule, release: releaseSchedule },
     invoices: { retrieve: retrieveInvoice },
+    charges: { retrieve: retrieveCharge },
     invoicePayments: { list: listInvoicePayments },
   })),
 }));
@@ -103,6 +105,7 @@ describe("POST /api/stripe/webhook", () => {
     processReferralDisputeChanged.mockReset().mockResolvedValue(undefined);
     captureConversionOutcome.mockReset().mockResolvedValue(undefined);
     retrieveSubscription.mockResolvedValue(subscriptionEvent.data.object);
+    retrieveCharge.mockResolvedValue({ id: "ch_lifetime", amount: 29900, amount_refunded: 0 });
     rpc.mockImplementation(async (name: string, args?: { p_price_id?: string }) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : name === "get_stripe_customer_id" ? "cus_1" : name === "get_checkout_price_catalog" ? [{ price_id: args?.p_price_id, product_id: args?.p_price_id?.includes("custom") ? "bundle_custom" : "bundle_all", billing_interval: args?.p_price_id?.includes("annual") ? "annual" : "monthly", active: true, grandfathered: false }] : "applied", error: null }));
   });
 
@@ -391,5 +394,68 @@ describe("POST /api/stripe/webhook", () => {
     expect(response.status).toBe(503);
     expect(retrieveSchedule).toHaveBeenCalledWith("sub_sched_1", {}, { timeout: 60_000 });
     expect(rpc).not.toHaveBeenCalledWith("apply_stripe_subscription_event", expect.anything());
+  });
+
+  it("fulfills only a correctly priced paid lifetime checkout and tolerates asynchronous success", async () => {
+    const session = { id: "cs_lifetime", mode: "payment", client_reference_id: userId, customer: "cus_1", payment_intent: "pi_lifetime", amount_total: 29900, currency: "usd", payment_status: "paid", created: 1_800_000_000, metadata: { user_id: userId, product_id: "lifetime_all_access", purchase_type: "lifetime" } };
+    constructEvent.mockReturnValue({ id: "evt_lifetime_paid", created: 1_800_000_000, type: "checkout.session.async_payment_succeeded", data: { object: session } });
+    const response = await POST(request());
+    expect(response.status).toBe(200);
+    expect(rpc).toHaveBeenCalledWith("fulfill_lifetime_purchase", expect.objectContaining({ p_user_id: userId, p_session_id: "cs_lifetime", p_payment_intent_id: "pi_lifetime", p_amount_cents: 29900, p_currency: "usd" }));
+  });
+
+  it("does not grant lifetime access for unpaid or malformed sessions", async () => {
+    const session = { id: "cs_lifetime", mode: "payment", client_reference_id: userId, customer: "cus_1", payment_intent: "pi_lifetime", amount_total: 29900, currency: "usd", payment_status: "unpaid", created: 1_800_000_000, metadata: { user_id: userId, product_id: "lifetime_all_access", purchase_type: "lifetime" } };
+    constructEvent.mockReturnValue({ id: "evt_lifetime_unpaid", created: 1_800_000_000, type: "checkout.session.completed", data: { object: session } });
+    expect((await POST(request())).status).toBe(200);
+    expect(rpc).not.toHaveBeenCalledWith("fulfill_lifetime_purchase", expect.anything());
+    session.payment_status = "paid";
+    session.metadata.product_id = "bundle_all";
+    expect((await POST(request())).status).toBe(400);
+    expect(rpc).not.toHaveBeenCalledWith("fulfill_lifetime_purchase", expect.anything());
+  });
+
+  it("rejects lifetime sessions with the wrong paid amount", async () => {
+    constructEvent.mockReturnValue({ id: "evt_lifetime_wrong_amount", created: 1_800_000_000, type: "checkout.session.completed", data: { object: { id: "cs_bad", mode: "payment", client_reference_id: userId, customer: "cus_1", payment_intent: "pi_bad", amount_total: 100, currency: "usd", payment_status: "paid", metadata: { user_id: userId, product_id: "lifetime_all_access", purchase_type: "lifetime" } } } });
+    expect((await POST(request())).status).toBe(400);
+    expect(rpc).not.toHaveBeenCalledWith("fulfill_lifetime_purchase", expect.anything());
+  });
+
+  it("revokes lifetime access for a fully refunded lifetime payment", async () => {
+    constructEvent.mockReturnValue({ id: "evt_lifetime_refund", created: 1_800_000_010, type: "charge.refunded", data: { object: { id: "ch_lifetime", payment_intent: "pi_lifetime", amount: 29900, amount_refunded: 29900 } } });
+    expect((await POST(request())).status).toBe(200);
+    expect(rpc).toHaveBeenCalledWith("revoke_lifetime_purchase", { p_payment_intent_id: "pi_lifetime", p_status: "refunded" });
+  });
+
+  it("revokes lifetime access on an open dispute", async () => {
+    constructEvent.mockReturnValue({ id: "evt_lifetime_dispute", created: 1_800_000_011, type: "charge.dispute.created", data: { object: { id: "dp_lifetime", charge: "ch_lifetime", payment_intent: "pi_lifetime", status: "needs_response" } } });
+    expect((await POST(request())).status).toBe(200);
+    expect(rpc).toHaveBeenCalledWith("revoke_lifetime_purchase", { p_payment_intent_id: "pi_lifetime", p_status: "disputed" });
+  });
+
+  it("restores access when a dispute is won and the payment is not refunded", async () => {
+    constructEvent.mockReturnValue({ id: "evt_lifetime_dispute_won", created: 1_800_000_013, type: "charge.dispute.closed", data: { object: { id: "dp_lifetime", charge: "ch_lifetime", payment_intent: "pi_lifetime", status: "won" } } });
+    expect((await POST(request())).status).toBe(200);
+    expect(retrieveCharge).toHaveBeenCalledWith("ch_lifetime", {}, { timeout: 10_000 });
+    expect(rpc).toHaveBeenCalledWith("restore_lifetime_purchase", { p_payment_intent_id: "pi_lifetime" });
+  });
+
+  it("does not restore access after a dispute win if the payment was fully refunded", async () => {
+    retrieveCharge.mockResolvedValue({ id: "ch_lifetime", amount: 29900, amount_refunded: 29900 });
+    constructEvent.mockReturnValue({ id: "evt_lifetime_dispute_won_refunded", created: 1_800_000_014, type: "charge.dispute.closed", data: { object: { id: "dp_lifetime", charge: "ch_lifetime", payment_intent: "pi_lifetime", status: "won" } } });
+    expect((await POST(request())).status).toBe(200);
+    expect(rpc).not.toHaveBeenCalledWith("restore_lifetime_purchase", expect.anything());
+  });
+
+  it("does not revoke lifetime access for a partial refund", async () => {
+    constructEvent.mockReturnValue({ id: "evt_lifetime_partial_refund", created: 1_800_000_012, type: "charge.refunded", data: { object: { id: "ch_lifetime", payment_intent: "pi_lifetime", amount: 29900, amount_refunded: 1000 } } });
+    expect((await POST(request())).status).toBe(200);
+    expect(rpc).not.toHaveBeenCalledWith("revoke_lifetime_purchase", expect.anything());
+  });
+
+  it("does not process subscription checkout as lifetime", async () => {
+    constructEvent.mockReturnValue({ id: "evt_regular_checkout", created: 1_800_000_000, type: "checkout.session.completed", data: { object: { metadata: { product_id: "bundle_all" } } } });
+    expect((await POST(request())).status).toBe(200);
+    expect(rpc).not.toHaveBeenCalledWith("fulfill_lifetime_purchase", expect.anything());
   });
 });

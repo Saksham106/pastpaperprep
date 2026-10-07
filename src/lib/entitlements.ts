@@ -31,6 +31,7 @@ const PRODUCT_IDS = new Set<ProductId>([
   "bundle_ib_economics",
   "bundle_all",
   "bundle_custom",
+  "lifetime_all_access",
 ]);
 const STATUSES = new Set<EntitlementStatus>(["active", "trialing", "expired", "revoked"]);
 

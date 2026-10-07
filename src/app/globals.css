@@ -740,10 +740,13 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .pricing-additional-offers > summary:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 5px; border-radius: 3px; }
 .pricing-additional-offers > p { max-width: 760px; margin: 12px 0 0; color: var(--muted); font-size: .9rem; line-height: 1.6; }
 .pricing-additional-offers > p a, .pricing-all-included a { color: var(--cobalt); text-decoration: underline; text-underline-offset: 3px; }
-.pricing-additional-offers .pricing-decision-grid { margin-top: 22px; }
+.pricing-decision-grid.pricing-lifetime-grid { grid-template-columns: minmax(0, 390px); justify-content: center; }
+.pricing-lifetime-grid .pricing-option { min-height: 500px; }
+.billing-toggle button[aria-pressed="true"] { color: var(--ink); }
+
 @media (max-width: 720px) { .pricing-additional-offers { padding: 14px 16px; } }
 @media (max-width: 720px) { .pricing-addon { grid-template-columns: 1fr; } }
-.billing-toggle { width: fit-content; margin: 30px auto 0; padding: 4px; display: grid; grid-template-columns: 1fr 1.45fr; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.billing-toggle { width: fit-content; margin: 30px auto 0; padding: 4px; display: grid; grid-template-columns: repeat(3, minmax(0, auto)); background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
 .billing-toggle button { min-height: 44px; padding: 0 16px; color: var(--muted); background: transparent; border: 0; border-radius: 9px; font-weight: 820; }
 .billing-toggle button[aria-pressed="true"] { color: var(--surface); background: var(--ink); }
 .billing-toggle button span { margin-left: 4px; font-size: .68rem; }

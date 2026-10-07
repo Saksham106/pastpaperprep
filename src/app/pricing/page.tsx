@@ -39,7 +39,7 @@ function purchaseProduct(value: string | undefined): ProductId | undefined {
   return PURCHASABLE_PRODUCTS.find((productId) => productId === value);
 }
 
-export default async function PricingPage({ searchParams }: { searchParams: Promise<{ interval?: string; product?: string; banks?: string }> }) {
+export default async function PricingPage({ searchParams }: { searchParams: Promise<{ interval?: string; product?: string; banks?: string; plan?: string }> }) {
   const params = await searchParams;
   const billingBanks = getBillingBanks();
   const supabase = await createClient();
@@ -81,7 +81,7 @@ export default async function PricingPage({ searchParams }: { searchParams: Prom
 
   // Existing customers choose changes against their actual subscription, not
   // the public first-purchase checkout. Explicit add-on deep links remain public.
-  if (hasPaidAccess && !purchaseProduct(params.product) && !purchaseBanks(params.banks)?.length) {
+  if (hasPaidAccess && params.plan !== "lifetime" && !purchaseProduct(params.product) && !purchaseBanks(params.banks)?.length) {
     redirect("/account/subscription");
   }
 
@@ -93,6 +93,7 @@ export default async function PricingPage({ searchParams }: { searchParams: Prom
     currentPlanProductIds={currentPlanProductIds}
     complimentaryAccess={complimentaryAccess}
     initialInterval={params.interval === "annual" ? "annual" : "monthly"}
+    initialLifetimeSelected={params.plan === "lifetime"}
     initialProductId={purchaseProduct(params.product)}
     initialBankIds={purchaseBanks(params.banks)}
     availableBanks={billingBanks}

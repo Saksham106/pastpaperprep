@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { BookOpen, CrownSimple, SlidersHorizontal } from "@phosphor-icons/react";
 import { useCallback, useState } from "react";
-import { CustomBundleCheckout, PlanCheckout, PortalButton } from "@/components/BillingActions";
+import { CustomBundleCheckout, LifetimeCheckout, PlanCheckout, PortalButton } from "@/components/BillingActions";
 import { CourseIcon, courseToneForBank } from "@/components/CourseIcon";
 import type { ProductId } from "@/lib/access";
 import { bankEntryHref, hasFreeTier } from "@/lib/access";
@@ -61,23 +61,25 @@ function BankTable({ banks }: { banks: readonly Bank[] }) {
   return <div className="pricing-bank-table-wrap"><table className="pricing-bank-table" aria-label="Question bank coverage"><thead><tr><th scope="col">Question bank</th><th scope="col">Questions</th><th scope="col">Papers</th><th scope="col">Coverage</th><th scope="col"><span className="sr-only">Preview</span></th></tr></thead><tbody>{banks.map((bank) => { const tone = courseToneForBank(bank); const free = hasFreeTier(bank.slug); return <tr className={`course-tone-${tone}`} data-pricing-bank={bank.slug} data-has-free-tier={free ? "true" : undefined} key={bank.slug}><th scope="row"><div className="pricing-bank-name"><CourseIcon tone={tone} /><div><span>{bank.qualification}</span><strong>{bank.shortName}</strong></div></div></th><td data-label="Questions">{bank.questionCount.toLocaleString()}</td><td data-label="Papers">{bank.paperCount}</td><td data-label="Coverage">{bank.years}</td><td className="pricing-bank-preview">{free ? <Link href={bankEntryHref(bank.slug)} aria-label={`Preview ${bank.shortName}`}>Preview</Link> : <span className="pricing-bank-no-preview" aria-hidden="true">-</span>}</td></tr>; })}</tbody></table></div>;
 }
 
-export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], currentPlanProductIds = [], complimentaryAccess = false, previewOnly = false, previewSubscriptionHref, ownedBankIds = [], initialInterval = "monthly", initialProductId, initialBankIds, availableBanks = getCatalogRuntimeBanks() }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; currentPlanProductIds?: readonly ProductId[]; complimentaryAccess?: boolean; previewOnly?: boolean; previewSubscriptionHref?: string; ownedBankIds?: readonly BankSlug[]; initialInterval?: BillingInterval; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[] }) {
+export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], currentPlanProductIds = [], complimentaryAccess = false, previewOnly = false, previewSubscriptionHref, ownedBankIds = [], initialInterval = "monthly", initialLifetimeSelected = false, initialProductId, initialBankIds, availableBanks = getCatalogRuntimeBanks() }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; currentPlanProductIds?: readonly ProductId[]; complimentaryAccess?: boolean; previewOnly?: boolean; previewSubscriptionHref?: string; ownedBankIds?: readonly BankSlug[]; initialInterval?: BillingInterval; initialLifetimeSelected?: boolean; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[] }) {
   const [interval, setInterval] = useState<BillingInterval>(initialInterval);
+  const [lifetimeSelected, setLifetimeSelected] = useState(initialLifetimeSelected ?? false);
   const initialBankId = initialProductId ? bankSlugForProduct(initialProductId) : undefined;
   const initialCustomBankIds = initialBankIds ?? (initialBankId ? [initialBankId] : undefined);
   const [builderBankIds, setBuilderBankIds] = useState<BankSlug[]>(() => hasPaidAccess ? [] : [...(initialCustomBankIds ?? [])]);
   const handleBuilderSelectionChange = useCallback((selectedBankIds: readonly BankSlug[]) => {
     setBuilderBankIds([...selectedBankIds]);
   }, []);
-  const chooseInterval = (nextInterval: BillingInterval) => {
-    setInterval(nextInterval);
+  const chooseInterval = (nextInterval: BillingInterval | "lifetime") => {
+    setLifetimeSelected(nextInterval === "lifetime");
+    if (nextInterval !== "lifetime") setInterval(nextInterval);
     trackProductEvent("billing_interval_change", { interval: nextInterval });
   };
   const totalQuestions = availableBanks.reduce((total, bank) => total + bank.questionCount, 0);
   const totalPapers = availableBanks.reduce((total, bank) => total + bank.paperCount, 0);
   const addOnBanks = availableBanks.filter((bank) => !ownedBankIds.includes(bank.slug) && Boolean(getCatalogBank(bank.slug)?.productId));
   const individualBankSubscriptions = currentPlanProductIds.filter((id) => id.startsWith("bank_")).length;
-  const ownsAllAccess = currentPlanProductIds.includes("bundle_all");
+  const ownsAllAccess = currentPlanProductIds.includes("bundle_all") || currentPlanProductIds.includes("lifetime_all_access");
   const currentPlanMode = ownsAllAccess ? "all"
     : currentPlanProductIds.some((id) => id === "bundle_custom" || (id.startsWith("bundle_") && id !== "bundle_all")) ? "builder"
       : currentPlanProductIds.some((id) => id.startsWith("bank_")) ? "single" : null;
@@ -154,6 +156,16 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
     );
   };
 
+  const lifetimeOffer = <div className="pricing-decision-grid pricing-lifetime-grid" data-lifetime="true" aria-label="Lifetime plan"><article className="pricing-option" data-plan-tone="premium">
+    <Image className="plan-art" src="/artwork/plato-academy-mosaic.webp" alt="" width={420} height={260} aria-hidden="true" sizes="(max-width: 1024px) 68vw, 300px" />
+    <div className="pricing-option-heading"><div className="plan-title-block"><span className="plan-icon" aria-hidden="true"><CrownSimple weight="duotone" /></span><div><p className="plan-label">Lifetime</p><h2>All Access</h2></div></div></div>
+    <div className="plan-price"><strong>$299</strong><span> one time</span></div>
+    <p className="plan-billing-note">Pay once. No subscription, no renewals.</p>
+    <p className="plan-description">All current and future question banks, with explanations included.</p>
+    <LifetimeCheckout authenticated={authenticated} previewOnly={previewOnly} />
+    <p className="plan-assurance">One named account · Secure Stripe checkout</p>
+  </article></div>;
+
   return (
     <div className="public-surface">
       <section className="simple-page pricing-page shell">
@@ -182,17 +194,19 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
             <summary>{addOnBanks.length ? "Compare public prices and additional banks" : "Compare public plan prices"}</summary>
             <p>{addOnBanks.length ? <>Your existing access stays separate. A purchase here may create a separate subscription and renewal; to change a supported current plan, use <Link href="/account/subscription">Subscription settings</Link> instead.</> : "These are public prices for new subscriptions, not your current charge. Your access is already covered."}</p>
             <div className="billing-toggle" role="group" aria-label="Billing period">
-              <button type="button" aria-pressed={interval === "monthly"} onClick={() => chooseInterval("monthly")}>Monthly</button>
-              <button className="billing-toggle-annual" type="button" aria-pressed={interval === "annual"} onClick={() => chooseInterval("annual")}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
+              <button type="button" aria-pressed={!lifetimeSelected && interval === "monthly"} onClick={() => chooseInterval("monthly")}>Monthly</button>
+              <button className="billing-toggle-annual" type="button" aria-pressed={!lifetimeSelected && interval === "annual"} onClick={() => chooseInterval("annual")}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
+              <button type="button" aria-pressed={lifetimeSelected} onClick={() => chooseInterval("lifetime")}>Lifetime <span className="billing-savings">Pay once</span></button>
             </div>
-            <div className="pricing-decision-grid" aria-label="Additional subscription offers" data-paid="true">{PLANS.map(renderPlan)}</div>
+            {lifetimeSelected ? lifetimeOffer : <div className="pricing-decision-grid" aria-label="Additional subscription offers" data-paid="true">{PLANS.map(renderPlan)}</div>}
           </details>
         ) : !hasPaidAccess ? <>
           <div className="billing-toggle" role="group" aria-label="Billing period">
-            <button type="button" aria-pressed={interval === "monthly"} onClick={() => chooseInterval("monthly")}>Monthly</button>
-            <button className="billing-toggle-annual" type="button" aria-pressed={interval === "annual"} onClick={() => chooseInterval("annual")}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
+            <button type="button" aria-pressed={!lifetimeSelected && interval === "monthly"} onClick={() => chooseInterval("monthly")}>Monthly</button>
+            <button className="billing-toggle-annual" type="button" aria-pressed={!lifetimeSelected && interval === "annual"} onClick={() => chooseInterval("annual")}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
+            <button type="button" aria-pressed={lifetimeSelected} onClick={() => chooseInterval("lifetime")}>Lifetime <span className="billing-savings">Pay once</span></button>
           </div>
-          <div className="pricing-decision-grid" aria-label="PastPaperPrep plans">{PLANS.map(renderPlan)}</div>
+          {lifetimeSelected ? lifetimeOffer : <div className="pricing-decision-grid" aria-label="PastPaperPrep plans">{PLANS.map(renderPlan)}</div>}
         </> : null}
 
         <div className="pricing-product-proof" aria-label="Current PastPaperPrep coverage">

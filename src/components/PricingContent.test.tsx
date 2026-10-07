@@ -397,6 +397,30 @@ describe("approved custom-bank pricing", () => {
     expect(container.querySelector(".pricing-referral-note")).toBeNull();
   });
 
+  it("switches between the three recurring cards and a single one-time lifetime offer", () => {
+    const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} availableBanks={availableBanks} />);
+    expect(container.querySelectorAll(".pricing-decision-grid > article")).toHaveLength(3);
+    fireEvent.click(screen.getByRole("button", { name: /Lifetime/ }));
+    expect(screen.getByRole("button", { name: /Lifetime/ })).toHaveAttribute("aria-pressed", "true");
+    expect(container.querySelectorAll(".pricing-decision-grid > article")).toHaveLength(1);
+    expect(screen.getByRole("heading", { name: "All Access" })).toBeInTheDocument();
+    expect(screen.getByText("$299")).toBeInTheDocument();
+    expect(screen.getByText("Pay once. No subscription, no renewals.")).toBeInTheDocument();
+    expect(screen.getByText("All current and future question banks, with explanations included.")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Monthly" }));
+    expect(container.querySelectorAll(".pricing-decision-grid > article")).toHaveLength(3);
+  });
+
+  it("keeps only the lifetime period selected inside paid subscribers' optional comparison", () => {
+    render(<PricingContent authenticated hasPaidAccess currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} initialProductId="bank_ib_sl" />);
+    const comparison = screen.getByText("Compare public prices and additional banks").closest("details")!;
+    const toggle = within(comparison).getByRole("group", { name: "Billing period" });
+    fireEvent.click(within(toggle).getByRole("button", { name: /Lifetime/ }));
+    expect(within(toggle).getByRole("button", { name: "Monthly" })).toHaveAttribute("aria-pressed", "false");
+    expect(within(toggle).getByRole("button", { name: /Annual/ })).toHaveAttribute("aria-pressed", "false");
+    expect(within(toggle).getByRole("button", { name: /Lifetime/ })).toHaveAttribute("aria-pressed", "true");
+  });
+
   it("keeps free access compact and switches the coverage comparison by qualification", () => {
     const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} />);
     expect(container.querySelector(".pricing-free-strip")).not.toBeNull();
