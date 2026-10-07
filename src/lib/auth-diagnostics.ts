@@ -1,5 +1,6 @@
 import "server-only";
 import { randomUUID } from "node:crypto";
+import { captureAuthProviderFailure } from "@/lib/server-error-tracking";
 
 const PHASES = ["signup_requested", "signup_result", "magic_link_requested", "magic_link_result", "resend_requested", "resend_result", "email_link_rendered", "confirmation_requested", "confirmation_result", "password_signin_requested", "password_signin_result"] as const;
 const OUTCOMES = ["accepted", "rejected", "verified"] as const;
@@ -33,6 +34,9 @@ export function logAuthDiagnostic(input: AuthDiagnostic): void {
   if (input.outcome && OUTCOMES.includes(input.outcome)) record.outcome = input.outcome;
   if (input.providerCode !== undefined) {
     record.providerCode = PROVIDER_CODES.has(input.providerCode) ? input.providerCode : "unknown";
+  }
+  if (input.providerCode === "unexpected_failure" || input.providerCode === "smtp_error") {
+    try { captureAuthProviderFailure(input.phase, input.providerCode); } catch { /* Exception telemetry must never interrupt auth. */ }
   }
   const logger = input.providerCode === "unexpected_failure" || input.providerCode === "smtp_error" || record.providerCode === "unknown"
     ? console.error

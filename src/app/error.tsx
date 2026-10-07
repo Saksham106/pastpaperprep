@@ -1,8 +1,11 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
+import { captureAppException } from "@/lib/product-analytics";
 
-export default function AppError() {
+export default function AppError({ error }: { error: Error & { digest?: string } }) {
+  useEffect(() => { captureAppException(error); }, [error]);
   return (
     <section className="auth-page shell" role="alert">
       <div className="auth-card">

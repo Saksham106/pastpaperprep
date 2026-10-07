@@ -1,14 +1,18 @@
 import { existsSync } from "node:fs";
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it } from "vitest";
+import { render } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
 import path from "node:path";
+
+const captureAppException = vi.hoisted(() => vi.fn());
+vi.mock("@/lib/product-analytics", () => ({ captureAppException, initializeProductAnalytics: vi.fn() }));
 
 describe("unexpected server errors", () => {
   it("renders a safe retry boundary for every app page rather than the Next.js black error screen", async () => {
     const boundary = path.join(process.cwd(), "src/app/error.tsx");
     expect(existsSync(boundary)).toBe(true);
     const { default: AppError } = await import("./error");
-    const html = renderToStaticMarkup(<AppError />);
+    const html = renderToStaticMarkup(<AppError error={new Error("safe")} />);
     expect(html).toContain("We couldn&#x27;t load this page");
     expect(html).toContain("Reload page");
     expect(html).toContain('href="/"');
@@ -17,11 +21,19 @@ describe("unexpected server errors", () => {
     expect(html).not.toContain("Your access hasn&#x27;t been changed");
   });
 
+  it("reports an error passed through the real Next app error-boundary component", async () => {
+    captureAppException.mockClear();
+    const { default: AppError } = await import("./error");
+    const error = new Error("private details");
+    render(<AppError error={error} />);
+    expect(captureAppException).toHaveBeenCalledWith(error);
+  });
+
   it("provides a standalone recovery boundary if even the root layout fails", async () => {
     const boundary = path.join(process.cwd(), "src/app/global-error.tsx");
     expect(existsSync(boundary)).toBe(true);
     const { default: GlobalError } = await import("./global-error");
-    const html = renderToStaticMarkup(<GlobalError />);
+    const html = renderToStaticMarkup(<GlobalError error={new Error("safe")} />);
     expect(html).toContain('<html lang="en">');
     expect(html).toContain("Reload page");
     expect(html).toContain('href="/"');

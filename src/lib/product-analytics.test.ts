@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const posthog = vi.hoisted(() => ({ init: vi.fn(), capture: vi.fn(), identify: vi.fn(), reset: vi.fn(), opt_in_capturing: vi.fn(), opt_out_capturing: vi.fn() }));
+const posthog = vi.hoisted(() => ({ init: vi.fn(), capture: vi.fn(), captureException: vi.fn(), identify: vi.fn(), reset: vi.fn(), opt_in_capturing: vi.fn(), opt_out_capturing: vi.fn() }));
 const posthogConsented = vi.hoisted(() => ({ init: vi.fn(), capture: vi.fn(), identify: vi.fn(), reset: vi.fn(), opt_in_capturing: vi.fn(), opt_out_capturing: vi.fn() }));
 
 vi.mock("posthog-js", () => ({ default: posthog }));
@@ -11,6 +11,7 @@ describe("PostHog product analytics", () => {
     vi.unstubAllEnvs();
     posthog.init.mockReset();
     posthog.capture.mockReset();
+    posthog.captureException.mockReset();
     posthog.reset.mockReset();
     posthogConsented.identify.mockReset();
     posthogConsented.reset.mockReset();
@@ -300,6 +301,52 @@ describe("PostHog product analytics", () => {
     } } });
     expect(result?.properties.$web_vitals_LCP_event).toEqual({ value: 1200, navigationURL: "https://pastpaperprep.com/account",
       attribution: { url: "https://assets.example.test/crop.webp", resourceLoadDuration: 250 } });
+  });
+
+  it("strips exception messages and stack URLs before SDK exception capture", async () => {
+    const { sanitizeAnalyticsEvent } = await import("@/lib/product-analytics");
+    const result = sanitizeAnalyticsEvent({ properties: { $exception_message: "alice@example.com password=hunter2", $exception_list: [{
+      type: "TypeError", value: "failed for alice@example.com password=hunter2",
+      stacktrace: { frames: [{ filename: "https://app.test/_next/static/chunks/app.js?token=secret", function: "render" }] },
+    }] } });
+    expect(JSON.stringify(result)).not.toMatch(/alice|hunter2|secret|page\\?/);
+    expect(JSON.stringify(result)).toContain("https://app.test/_next/static/chunks/app.js");
+    expect(result?.properties.$exception_list).toBeDefined();
+  });
+
+  it("rejects sensitive static paths and caps structured exception frames", async () => {
+    const { sanitizeAnalyticsEvent } = await import("@/lib/product-analytics");
+    const frames = [{ filename: "https://app.test/_next/static/chunks/user@example.com.js?token=secret", function: "bad" }, { filename: "https://app.test/_next/static/chunks/app/layout-ABC123.js?token=secret", function: "layout", lineno: 8, colno: 1 }, ...Array.from({ length: 100 }, () => ({ filename: "https://app.test/_next/static/chunks/app/page-ABC123.js", function: "render" }))];
+    const result = sanitizeAnalyticsEvent({ properties: { $exception_list: [{ type: "TypeError", value: "private@example.com password=x", stacktrace: { frames } }] } });
+    const json = JSON.stringify(result);
+    expect(json).not.toMatch(/private@example|password=x|token=secret|user@example/);
+    expect(json).toContain("/_next/static/chunks/app/layout-ABC123.js");
+    const safeFrames = (result?.properties.$exception_list as Array<{ stacktrace: { frames: unknown[] } }>)[0].stacktrace.frames;
+    expect(safeFrames.length).toBeLessThanOrEqual(50);
+  });
+
+  it("captures sanitized unexpected exceptions without forwarding raw messages", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    const { initializeProductAnalytics, captureAppException } = await import("@/lib/product-analytics");
+    await initializeProductAnalytics();
+    const error = new Error("account alice@example.com token=secret");
+    error.stack = "Error: account alice@example.com token=secret\n at render (https://example.test/_next/static/chunks/app.js?token=secret#access_token=secret:2:3)";
+    captureAppException(error);
+    await vi.waitFor(() => expect(posthog.captureException).toHaveBeenCalledTimes(1));
+    const captured = posthog.captureException.mock.calls[0][0] as Error;
+    expect(captured.message).toBe("Application exception");
+    expect(captured.stack).not.toMatch(/alice|secret|access_token/);
+    expect(captured.stack).toContain("/_next/static/chunks/app.js");
+    expect(captured.stack).toContain(":2:3");
+  });
+
+  it("does not capture expected Next control-flow exceptions", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    const { captureAppException } = await import("@/lib/product-analytics");
+    const expected = Object.assign(new Error("not found"), { digest: "NEXT_NOT_FOUND" });
+    captureAppException(expected);
+    await Promise.resolve();
+    expect(posthog.captureException).not.toHaveBeenCalled();
   });
 
   it("does not identify an account from initialization alone", async () => {
