@@ -1948,3 +1948,29 @@ body:has(.bank-hero) .site-footer::after { display: none; }
   .pricing-lifetime-grid .pricing-option.lifetime-card,
   :root[data-theme="dark"] .pricing-lifetime-grid .pricing-option.lifetime-card { min-height: 460px; padding: 26px; }
 }
+
+/* Full-bleed lifetime offer, composed around the supplied panoramic artwork. */
+.pricing-page:has(.lifetime-scenic) .pricing-intro { display: none; }
+.lifetime-scenic { position: relative; isolation: isolate; width: calc(100% + 48px); min-height: clamp(540px, 56vw, 760px); margin: 18px -24px 0; display: grid; place-items: center; overflow: hidden; color: #172337; background-color: #eee6d7; background-size: cover; background-position: center; }
+.lifetime-scenic::before { content: ""; position: absolute; inset: 0; z-index: 0; background: linear-gradient(90deg, rgb(245 239 226 / .10), rgb(248 244 235 / .50) 35%, rgb(248 244 235 / .66) 50%, rgb(248 244 235 / .46) 65%, rgb(245 239 226 / .10)); }
+.lifetime-scenic-content { position: relative; z-index: 1; width: min(100% - 32px, 590px); padding: 40px 20px; text-align: center; }
+.lifetime-kicker { margin: 0 0 15px; color: #762b3b; font: 700 .76rem/1.2 var(--font-geist), sans-serif; letter-spacing: .15em; text-transform: uppercase; }
+.lifetime-scenic h2 { margin: 0 auto; color: #172337; font: 500 clamp(2.35rem, 5vw, 4.25rem)/1.05 var(--font-display), Georgia, serif; letter-spacing: -.035em; }
+.lifetime-price { margin: 19px 0 0; display: flex; gap: 9px; align-items: baseline; justify-content: center; color: #172337; font-family: var(--font-geist), sans-serif; }
+.lifetime-price strong { font-size: clamp(3.6rem, 7vw, 5.2rem); line-height: .98; font-weight: 800; letter-spacing: -.06em; }
+.lifetime-price span { font-size: 1rem; }
+.lifetime-scope { margin: 11px 0 0; color: #243348; font: 600 1rem/1.4 var(--font-geist), sans-serif; }
+.lifetime-scenic .plan-checkout { margin: 22px auto 0; width: min(100%, 360px); }
+.lifetime-scenic .plan-checkout .button { width: 100%; min-height: 54px; color: #fffaf2; background: #762b3b; border-color: #762b3b; }
+.lifetime-scenic .plan-checkout .button:hover { background: #5d1f2d; }
+.lifetime-benefits { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 25px; margin: 25px 0 0; padding: 0; list-style: none; color: #253449; font: 600 .78rem/1.3 var(--font-geist), sans-serif; }
+.lifetime-benefits li { display: flex; align-items: center; gap: 7px; }
+.lifetime-benefits svg { width: 16px; height: 16px; color: #762b3b; }
+:root[data-theme="dark"] .lifetime-scenic { color: #172337; }
+@media (max-width: 700px) {
+ .lifetime-scenic { min-height: 610px; margin-top: 12px; background-size: auto 100%; background-position: 49% center; }
+ .lifetime-scenic::before { background: linear-gradient(180deg, rgb(246 239 225 / .04) 0%, rgb(246 239 225 / .35) 17%, rgb(248 244 235 / .86) 34%, rgb(248 244 235 / .88) 68%, rgb(246 239 225 / .18) 100%); }
+ .lifetime-scenic-content { padding: 32px 14px; }
+ .lifetime-benefits { gap: 12px 17px; }
+}
+@media (prefers-reduced-motion: reduce) { .lifetime-scenic *, .lifetime-scenic *::before, .lifetime-scenic *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }

@@ -156,16 +156,18 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
     );
   };
 
-  const lifetimeOffer = <div className="pricing-decision-grid pricing-lifetime-grid" data-lifetime="true" aria-label="Lifetime plan">
-    <article className="pricing-option lifetime-card" data-plan-tone="premium">
-      <div className="lifetime-card-visual" aria-hidden="true"><svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" focusable="false"><g fill="none" stroke="currentColor"><ellipse cx="355" cy="40" rx="160" ry="260" transform="rotate(-35 355 40)"/><ellipse cx="355" cy="40" rx="136" ry="230" transform="rotate(-35 355 40)"/><ellipse cx="355" cy="40" rx="112" ry="200" transform="rotate(-35 355 40)"/><ellipse cx="355" cy="40" rx="88" ry="170" transform="rotate(-35 355 40)"/></g></svg></div>
-      <div className="pricing-option-heading"><div className="plan-title-block"><span className="plan-icon" aria-hidden="true"><CrownSimple weight="duotone" /></span><div><p className="plan-label">Lifetime · All Access</p><h2>One decision.<br />Every bank.</h2></div></div></div>
-      <div className="plan-price"><strong>$299</strong><span> once</span></div>
-      <p className="plan-description">Current and future question banks.</p>
+  const lifetimeOffer = <section className="lifetime-scenic" data-lifetime="true" aria-label="Lifetime access offer" style={{ backgroundImage: "url('/artwork/lifetime-philosopher-cathedral.webp')" }}>
+    <div className="lifetime-scenic-content">
+      <p className="lifetime-kicker">Lifetime access</p>
+      <h2>Current + future<br />question banks.</h2>
+      <div className="lifetime-price"><strong>$299</strong><span> once</span></div>
+      <p className="lifetime-scope">All current + future question banks</p>
       <LifetimeCheckout authenticated={authenticated} previewOnly={previewOnly} existingAccess={hasPaidAccess} />
-      <p className="plan-assurance">One named account <span aria-hidden="true">·</span> Secure checkout</p>
-    </article>
-  </div>;
+      <ul className="lifetime-benefits" aria-label="Lifetime plan features">
+        <li><BookOpen aria-hidden="true" />All subjects</li><li><CrownSimple aria-hidden="true" />Lifetime updates</li><li><SlidersHorizontal aria-hidden="true" />One payment</li><li><BookOpen aria-hidden="true" />Secure checkout</li>
+      </ul>
+    </div>
+  </section>;
 
   return (
     <div className="public-surface">
