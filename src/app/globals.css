@@ -740,7 +740,7 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .pricing-additional-offers > summary:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 5px; border-radius: 3px; }
 .pricing-additional-offers > p { max-width: 760px; margin: 12px 0 0; color: var(--muted); font-size: .9rem; line-height: 1.6; }
 .pricing-additional-offers > p a, .pricing-all-included a { color: var(--cobalt); text-decoration: underline; text-underline-offset: 3px; }
-.pricing-decision-grid.pricing-lifetime-grid { position: relative; min-height: 500px; grid-template-columns: minmax(0, 410px); align-items: center; justify-content: center; isolation: isolate; }
+.pricing-decision-grid.pricing-lifetime-grid { position: relative; min-height: 500px; grid-template-columns: minmax(0, 410px); align-items: center; justify-content: center; isolation: isolate; overflow: clip; }
 .pricing-lifetime-grid::before { content: ""; position: absolute; z-index: -2; inset: -22px min(14vw, 150px) -22px; pointer-events: none; border-block: 1px solid color-mix(in srgb, var(--public-burgundy) 23%, var(--line)); background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--paper-warm) 75%, transparent) 18%, color-mix(in srgb, var(--paper-warm) 75%, transparent) 82%, transparent); }
 .lifetime-architecture { position: absolute; z-index: -1; inset: 0 max(-10vw, -100px) -24px; overflow: hidden; color: var(--public-burgundy); opacity: .74; pointer-events: none; }
 .lifetime-architecture svg { width: 100%; height: 100%; display: block; }
@@ -754,9 +754,9 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .lifetime-card .plan-icon { color: #d9b8a0; background: rgb(237 221 202 / .08); border-color: rgb(237 221 202 / .22); box-shadow: none; }
 .lifetime-card .plan-label { color: #d3b9aa; }
 .lifetime-card .pricing-option-heading { min-height: 0; }
-.lifetime-card .pricing-option h2 { color: #f6f0e5; font: 500 clamp(2rem, 4vw, 2.7rem)/.99 Georgia, "Times New Roman", serif; letter-spacing: -.035em; }
+.lifetime-card .pricing-option h2 { color: #f6f0e5; font: 800 clamp(2rem, 4vw, 2.7rem)/1.08 var(--font-geist), sans-serif; letter-spacing: -.035em; }
 .lifetime-card .plan-price { margin-top: 28px; padding-top: 18px; border-top: 1px solid rgb(238 221 205 / .2); }
-.lifetime-card .plan-price strong { color: #fff7eb; font: 500 clamp(3.9rem, 7vw, 5rem)/.9 Georgia, "Times New Roman", serif; letter-spacing: -.06em; }
+.lifetime-card .plan-price strong { color: #fff7eb; font: 900 clamp(3.9rem, 7vw, 5rem)/.95 var(--font-geist), sans-serif; letter-spacing: -.06em; }
 .lifetime-card .plan-price span, .lifetime-card .plan-description, .lifetime-card .plan-assurance { color: #d1c5ba; }
 .lifetime-card .plan-price span { font-size: .9rem; }
 .lifetime-card .plan-description { margin-top: 12px; font-size: .97rem; }

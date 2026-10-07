@@ -168,7 +168,6 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
       </svg>
     </div>
     <article className="pricing-option lifetime-card" data-plan-tone="premium">
-      <div className="lifetime-card-engraving" aria-hidden="true">EST. FOR THE LONG VIEW <span>— &nbsp; ALL ACCESS &nbsp; —</span></div>
       <div className="pricing-option-heading"><div className="plan-title-block"><span className="plan-icon" aria-hidden="true"><CrownSimple weight="duotone" /></span><div><p className="plan-label">Lifetime · All Access</p><h2>One decision.<br />Every bank.</h2></div></div></div>
       <div className="plan-price"><strong>$299</strong><span> once</span></div>
       <p className="plan-description">Current and future question banks.</p>
