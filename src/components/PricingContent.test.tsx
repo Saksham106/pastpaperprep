@@ -403,8 +403,9 @@ describe("approved custom-bank pricing", () => {
     fireEvent.click(screen.getByRole("button", { name: /Lifetime/ }));
     expect(screen.getByRole("button", { name: "Lifetime" })).toHaveAttribute("aria-pressed", "true");
     expect(container.querySelectorAll(".lifetime-scenic")).toHaveLength(1);
+    expect(within(screen.getByRole("region", { name: "Lifetime access offer" })).getByRole("group", { name: "Billing period" })).toBeInTheDocument();
     expect(container.querySelectorAll(".lifetime-scenic article, .lifetime-scenic .pricing-option")).toHaveLength(0);
-    expect(screen.getByRole("heading", { name: /Current \+ future banks\. A brighter future\./ })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Lifetime full access" })).toBeInTheDocument();
     expect(screen.getByText("$299")).toBeInTheDocument();
     expect(screen.getByText("All current + future question banks")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /unlock lifetime access/i })).toBeInTheDocument();
@@ -418,9 +419,10 @@ describe("approved custom-bank pricing", () => {
     const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} previewOnly availableBanks={availableBanks} />);
     fireEvent.click(screen.getByRole("button", { name: "Lifetime" }));
     expect(container.querySelectorAll(".lifetime-scenic")).toHaveLength(1);
+    expect(within(screen.getByRole("region", { name: "Lifetime access offer" })).getByRole("group", { name: "Billing period" })).toBeInTheDocument();
     expect(container.querySelector(".lifetime-scenic")).toHaveStyle({ backgroundImage: "url('/artwork/lifetime-philosopher-cathedral.webp')" });
     expect(container.querySelectorAll(".lifetime-scenic article, .lifetime-scenic .pricing-option")).toHaveLength(0);
-    expect(screen.getByRole("heading", { name: /Current \+ future banks\. A brighter future\./ })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Lifetime full access" })).toBeInTheDocument();
     expect(screen.getByText("$299")).toBeInTheDocument();
     expect(within(screen.getByRole("list", { name: "Lifetime plan features" })).getAllByRole("listitem")).toHaveLength(4);
     expect(screen.getByRole("button", { name: /lifetime access/i })).toBeDisabled();

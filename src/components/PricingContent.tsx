@@ -156,10 +156,16 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
     );
   };
 
+  const billingToggle = <div className="billing-toggle" role="group" aria-label="Billing period">
+    <button type="button" aria-pressed={!lifetimeSelected && interval === "monthly"} onClick={() => chooseInterval("monthly")}>Monthly</button>
+    <button className="billing-toggle-annual" type="button" aria-pressed={!lifetimeSelected && interval === "annual"} onClick={() => chooseInterval("annual")}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
+    <button className="billing-toggle-lifetime" type="button" aria-pressed={lifetimeSelected} onClick={() => chooseInterval("lifetime")}>Lifetime</button>
+  </div>;
+
   const lifetimeOffer = <section className="lifetime-scenic" data-lifetime="true" aria-label="Lifetime access offer" style={{ backgroundImage: "url('/artwork/lifetime-philosopher-cathedral.webp')" }}>
+    {billingToggle}
     <div className="lifetime-scenic-content">
-      <p className="lifetime-kicker">Lifetime access</p>
-      <h2>Current + future banks.<br />A brighter future.</h2>
+      <h2>Lifetime full access</h2>
       <div className="lifetime-price"><strong>$299</strong><span> once</span></div>
       <p className="lifetime-scope">All current + future question banks</p>
       <LifetimeCheckout authenticated={authenticated} previewOnly={previewOnly} existingAccess={hasPaidAccess} />
@@ -196,19 +202,11 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           <details className="pricing-additional-offers" open={Boolean(initialProductId || initialBankIds?.length) || undefined}>
             <summary>{addOnBanks.length ? "Compare public prices and additional banks" : "Compare public plan prices"}</summary>
             <p>{addOnBanks.length ? <>Your existing access stays separate. A purchase here may create a separate subscription and renewal; to change a supported current plan, use <Link href="/account/subscription">Subscription settings</Link> instead.</> : "These are public prices for new subscriptions, not your current charge. Your access is already covered."}</p>
-            <div className="billing-toggle" role="group" aria-label="Billing period">
-              <button type="button" aria-pressed={!lifetimeSelected && interval === "monthly"} onClick={() => chooseInterval("monthly")}>Monthly</button>
-              <button className="billing-toggle-annual" type="button" aria-pressed={!lifetimeSelected && interval === "annual"} onClick={() => chooseInterval("annual")}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
-              <button className="billing-toggle-lifetime" type="button" aria-pressed={lifetimeSelected} onClick={() => chooseInterval("lifetime")}>Lifetime</button>
-            </div>
+            {!lifetimeSelected ? billingToggle : null}
             {lifetimeSelected ? lifetimeOffer : <div className="pricing-decision-grid" aria-label="Additional subscription offers" data-paid="true">{PLANS.map(renderPlan)}</div>}
           </details>
         ) : !hasPaidAccess ? <>
-          <div className="billing-toggle" role="group" aria-label="Billing period">
-            <button type="button" aria-pressed={!lifetimeSelected && interval === "monthly"} onClick={() => chooseInterval("monthly")}>Monthly</button>
-            <button className="billing-toggle-annual" type="button" aria-pressed={!lifetimeSelected && interval === "annual"} onClick={() => chooseInterval("annual")}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
-            <button className="billing-toggle-lifetime" type="button" aria-pressed={lifetimeSelected} onClick={() => chooseInterval("lifetime")}>Lifetime</button>
-          </div>
+          {!lifetimeSelected ? billingToggle : null}
           {lifetimeSelected ? lifetimeOffer : <div className="pricing-decision-grid" aria-label="PastPaperPrep plans">{PLANS.map(renderPlan)}</div>}
         </> : null}
 
