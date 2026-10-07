@@ -18,7 +18,7 @@ describe("scanner-safe magic-link handoff", () => {
     const markup = renderToStaticMarkup(node);
 
     expect(markup).toContain('action="/auth/confirm"');
-    expect(markup).toContain('method="get"');
+    expect(markup).toContain('method="post"');
     expect(markup).toContain(`name="token_hash" value="${tokenHash}"`);
     expect(markup).toContain('name="type" value="email"');
     expect(markup).toContain('name="next" value="/pricing?interval=annual&amp;product=bundle_all"');

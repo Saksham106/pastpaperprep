@@ -9,6 +9,7 @@ describe("password recovery handoff", () => {
     const markup = renderToStaticMarkup(node);
 
     expect(markup).toContain('action="/auth/confirm"');
+    expect(markup).toContain('method="post"');
     expect(markup).toContain(`name="token_hash" value="${tokenHash}"`);
     expect(markup).toContain('name="type" value="recovery"');
     expect(markup).toContain("Continue to reset password");
