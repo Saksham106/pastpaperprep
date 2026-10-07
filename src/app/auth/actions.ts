@@ -7,6 +7,7 @@ import { isValidEmail, isValidPassword, safeNextPath, type MagicLinkState } from
 import { createClient } from "@/lib/supabase/server";
 import { captureConversionOutcome } from "@/lib/server-conversion-analytics";
 import { ANALYTICS_CONSENT_VERSION, parseAnalyticsConsent } from "@/lib/analytics-consent";
+import { createAuthAttemptId, logAuthDiagnostic } from "@/lib/auth-diagnostics";
 
 export async function requestMagicLink(
   _previousState: MagicLinkState,
@@ -19,23 +20,27 @@ export async function requestMagicLink(
     return { status: "error", message: "Enter a valid email address." };
   }
 
-  const supabase = await createClient();
+  const attemptId = createAuthAttemptId();
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   const handoffUrl = new URL("/auth/email-link", siteUrl);
   handoffUrl.searchParams.set("next", next);
+  handoffUrl.searchParams.set("auth_attempt", attemptId);
+  logAuthDiagnostic({ attemptId, phase: "magic_link_requested" });
 
-  const { error } = await supabase.auth.signInWithOtp({
-    email,
-    options: {
-      emailRedirectTo: handoffUrl.toString(),
-      shouldCreateUser: true,
-    },
-  });
-
-  if (error) {
+  try {
+    const supabase = await createClient();
+    const { error } = await supabase.auth.signInWithOtp({
+      email, options: { emailRedirectTo: handoffUrl.toString(), shouldCreateUser: true },
+    });
+    if (error) {
+      logAuthDiagnostic({ attemptId, phase: "magic_link_result", outcome: "rejected", providerCode: error.code ?? "unknown" });
+      return { status: "error", message: "We couldn’t send the sign-in link. Try again in a minute." };
+    }
+  } catch {
+    logAuthDiagnostic({ attemptId, phase: "magic_link_result", outcome: "rejected", providerCode: "unexpected_failure" });
     return { status: "error", message: "We couldn’t send the sign-in link. Try again in a minute." };
   }
-
+  logAuthDiagnostic({ attemptId, phase: "magic_link_result", outcome: "accepted" });
   return { status: "success", message: "Check your email. Your secure sign-in link is on its way." };
 }
 
@@ -79,24 +84,34 @@ export async function createAccountWithPassword(
     return { status: "error", message: "Those passwords do not match." };
   }
 
-  const supabase = await createClient();
+  const attemptId = createAuthAttemptId();
+  logAuthDiagnostic({ attemptId, phase: "signup_requested" });
+  const supabase = await createClient().catch(() => null);
+  if (!supabase) {
+    logAuthDiagnostic({ attemptId, phase: "signup_result", outcome: "rejected", providerCode: "unexpected_failure" });
+    return { status: "error", message: "We couldn’t create your account. Try again in a minute." };
+  }
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   const handoffUrl = new URL("/auth/email-link", siteUrl);
   handoffUrl.searchParams.set("next", next);
+  handoffUrl.searchParams.set("auth_attempt", attemptId);
   const consent = parseAnalyticsConsent((await cookies()).get("ppp_analytics_consent")?.value);
   const options = consent === null ? { emailRedirectTo: handoffUrl.toString() } : {
     emailRedirectTo: handoffUrl.toString(),
     data: { analytics_consent: { accepted: consent, version: ANALYTICS_CONSENT_VERSION, updated_at: new Date().toISOString() } },
   };
-  const { data, error } = await supabase.auth.signUp({
+  const result = await supabase.auth.signUp({
     email,
     password,
     options,
-  });
+  }).catch(() => null);
 
-  if (error) {
+  if (!result || result.error) {
+    logAuthDiagnostic({ attemptId, phase: "signup_result", outcome: "rejected", providerCode: result?.error?.code ?? "unexpected_failure" });
     return { status: "error", message: "We couldn’t create your account. Try again in a minute." };
   }
+  logAuthDiagnostic({ attemptId, phase: "signup_result", outcome: "accepted" });
+  const { data } = result;
   if (data.session) {
     if (data.user?.id) {
       await captureConversionOutcome({ userId: data.user.id, outcome: "signup_confirmed", eventKey: `signup:${data.user.id}`, occurredAt: data.user.email_confirmed_at ?? data.user.confirmed_at ?? data.user.created_at });
@@ -109,6 +124,35 @@ export async function createAccountWithPassword(
   }
 
   return { status: "success", message: "Check your email to confirm your account." };
+}
+
+export async function resendSignupConfirmation(
+  _previousState: MagicLinkState,
+  formData: FormData,
+): Promise<MagicLinkState> {
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  const next = safeNextPath(String(formData.get("next") ?? "/pricing"));
+  if (!isValidEmail(email)) return { status: "error", message: "Enter a valid email address." };
+
+  const attemptId = createAuthAttemptId();
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const handoffUrl = new URL("/auth/email-link", siteUrl);
+  handoffUrl.searchParams.set("next", next);
+  handoffUrl.searchParams.set("auth_attempt", attemptId);
+  logAuthDiagnostic({ attemptId, phase: "resend_requested" });
+  try {
+    const supabase = await createClient();
+    const { error } = await supabase.auth.resend({ type: "signup", email, options: { emailRedirectTo: handoffUrl.toString() } });
+    if (error) {
+      logAuthDiagnostic({ attemptId, phase: "resend_result", outcome: "rejected", providerCode: error.code ?? "unknown" });
+      return { status: "error", message: "We couldn’t resend the confirmation email. Wait a minute and try again." };
+    }
+  } catch {
+    logAuthDiagnostic({ attemptId, phase: "resend_result", outcome: "rejected", providerCode: "unexpected_failure" });
+    return { status: "error", message: "We couldn’t resend the confirmation email. Wait a minute and try again." };
+  }
+  logAuthDiagnostic({ attemptId, phase: "resend_result", outcome: "accepted" });
+  return { status: "success", message: "If the signup is pending, a confirmation email is on its way." };
 }
 
 export async function requestPasswordReset(
