@@ -45,7 +45,8 @@ describe("approved custom-bank pricing", () => {
     expect(within(comparison!).getByText("Compare public plan prices")).toBeInTheDocument();
     expect(screen.getByText(/all available banks are included/i)).toBeInTheDocument();
     expect(screen.queryByText("Not ready to pay?")).not.toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Your access is ready." })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Your current access" })).toBeInTheDocument();
+    expect(screen.queryByText("Pay only for what you study.")).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /Unlock/ })).not.toBeInTheDocument();
   });
 
@@ -422,7 +423,7 @@ describe("approved custom-bank pricing", () => {
     fireEvent.click(screen.getByRole("button", { name: "Lifetime" }));
     expect(container.querySelectorAll(".lifetime-scenic")).toHaveLength(1);
     expect(within(container).getByRole("group", { name: "Billing period" })).toBeInTheDocument();
-    expect(container.querySelector(".lifetime-scenic")).toHaveStyle({ backgroundImage: "url('/artwork/lifetime-philosopher-cathedral.webp')" });
+    expect(container.querySelector(".pricing-toggle-anchor-lifetime")).toHaveStyle({ backgroundImage: "url('/artwork/lifetime-philosopher-cathedral.webp')" });
     expect(container.querySelectorAll(".lifetime-scenic article, .lifetime-scenic .pricing-option")).toHaveLength(0);
     expect(screen.getByRole("heading", { name: "Lifetime full access" })).toBeInTheDocument();
     expect(screen.getByText("$299")).toBeInTheDocument();

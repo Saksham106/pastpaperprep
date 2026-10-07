@@ -166,8 +166,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
     <button className="billing-toggle-lifetime" type="button" aria-pressed={lifetimeSelected} onClick={() => chooseInterval("lifetime")}>Lifetime</button>
   </div>;
 
-  const lifetimeOffer = <section className="lifetime-scenic" data-lifetime="true" aria-label="Lifetime access offer" style={{ backgroundImage: "url('/artwork/lifetime-philosopher-cathedral.webp')" }}>
-    <div className="lifetime-art-depth" aria-hidden="true" />
+  const lifetimeOffer = <section className="lifetime-scenic" data-lifetime="true" aria-label="Lifetime access offer">
     <div className="lifetime-scenic-content">
       <h2>Lifetime full access</h2>
       <div className="lifetime-price"><strong>$299</strong><span> once</span></div>
@@ -182,13 +181,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
   return (
     <div className="public-surface">
       <section className="simple-page pricing-page shell">
-        {previewOnly ? <p className="pricing-preview-notice" role="status">Local preview: no account or checkout is connected. Choose a view using the links above the pricing page.</p> : null}
-        <div className="pricing-intro">
-          <p className="eyebrow">{hasPaidAccess ? "Your access" : "PastPaperPrep pricing"}</p>
-          <h1>{hasPaidAccess ? "Your access is ready." : "Pay only for what you study."}</h1>
-          <p className="page-lede">{hasPaidAccess ? "See what you have, then get back to practising. Review your access and any available plan changes in Subscription settings." : "Choose the question banks you need. Every plan includes the same study tools."}</p>
-        </div>
-        <div className={`pricing-toggle-anchor${lifetimeSelected ? " pricing-toggle-anchor-lifetime" : ""}`} data-selected-mode={lifetimeSelected ? "lifetime" : interval}>
+        <div className={`pricing-toggle-anchor${lifetimeSelected ? " pricing-toggle-anchor-lifetime" : ""}`} data-selected-mode={lifetimeSelected ? "lifetime" : interval} style={lifetimeSelected ? { backgroundImage: "url('/artwork/lifetime-philosopher-cathedral.webp')" } : undefined}>
           {billingToggle}
           {lifetimeSelected ? lifetimeOffer : null}
         </div>
@@ -215,6 +208,8 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         ) : !hasPaidAccess ? <>
           {lifetimeSelected ? null : <div className="pricing-decision-grid" aria-label="PastPaperPrep plans">{PLANS.map(renderPlan)}</div>}
         </> : null}
+
+        {previewOnly ? <p className="pricing-preview-notice" role="status">Local preview: no account or checkout is connected. Choose a view using the links above the pricing page.</p> : null}
 
         <div className="pricing-product-proof" aria-label="Current PastPaperPrep coverage">
           <span><strong>{totalQuestions.toLocaleString()}</strong> questions</span>

@@ -1990,7 +1990,9 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 @media (max-width: 700px) { .lifetime-art-depth { background-size: auto 100%; background-position: 49% center; } }
 @media (prefers-reduced-motion: reduce) { .pricing-toggle-anchor-lifetime .lifetime-scenic::after { display: none; } }
 .pricing-toggle-anchor > .billing-toggle { margin: 28px auto 30px; }
-.pricing-toggle-anchor-lifetime { margin: 0; padding-top: 0; }
+.pricing-toggle-anchor-lifetime { width: 100vw; margin: 0 0 0 calc(50% - 50vw); padding-top: 0; background-color: #eee6d7; background-size: cover; background-position: center; }
+.pricing-toggle-anchor-lifetime .lifetime-scenic { background: transparent; }
+@media (max-width: 700px) { .pricing-toggle-anchor-lifetime { background-size: auto 100%; background-position: 49% center; } }
 .pricing-toggle-anchor-lifetime > .billing-toggle { position: relative; z-index: 4; margin: 28px auto 0; }
 .pricing-toggle-anchor-lifetime .lifetime-scenic { margin-top: -56px; padding-top: 56px; }
 .pricing-toggle-anchor-lifetime .lifetime-scenic-content { animation: lifetime-offer-reveal 720ms 400ms both; }
