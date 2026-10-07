@@ -49,7 +49,7 @@ export function BankNavigationFeedback() {
       // A later capture handler (e.g. an unsaved worksheet) can veto this click.
       // Recheck after dispatch, before paint, without interfering with its guard.
       queueMicrotask(() => {
-        if (event.defaultPrevented) clearPending();
+        if (event.defaultPrevented) flushSync(clearPending);
       });
     };
     window.addEventListener("click", onClick, true);
