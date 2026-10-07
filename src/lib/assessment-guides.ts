@@ -22,10 +22,10 @@ const scienceCambridge = (subject: string): AssessmentGuide => ({
   papers: subject === "Co-ordinated Sciences" ? [
     { name: "Paper 1", route: "Core", format: "Multiple choice", duration: "45 min", marks: "40", weighting: "30%" },
     { name: "Paper 2", route: "Extended", format: "Multiple choice", duration: "45 min", marks: "40", weighting: "30%" },
-    { name: "Paper 3", route: "Core", format: "Theory", duration: "1 hr 15 min", marks: "120", weighting: "50%" },
-    { name: "Paper 4", route: "Extended", format: "Theory", duration: "1 hr 15 min", marks: "120", weighting: "50%" },
-    { name: "Paper 5", route: "Both routes", format: "Practical test", duration: "1 hr 15 min", marks: "60", weighting: "20%" },
-    { name: "Paper 6", route: "Both routes", format: "Alternative to practical", duration: "1 hr 40 min", marks: "60", weighting: "20%" },
+    { name: "Paper 3", route: "Core", format: "Theory", duration: "2 hr", marks: "120", weighting: "50%" },
+    { name: "Paper 4", route: "Extended", format: "Theory", duration: "2 hr", marks: "120", weighting: "50%" },
+    { name: "Paper 5", route: "Both routes", format: "Practical test", duration: "2 hr", marks: "60", weighting: "20%" },
+    { name: "Paper 6", route: "Both routes", format: "Alternative to practical", duration: "1 hr 30 min", marks: "60", weighting: "20%" },
   ] : [
     { name: "Paper 1", route: "Core", format: "Multiple choice", duration: "45 min", marks: "40", weighting: "30%" },
     { name: "Paper 2", route: "Extended", format: "Multiple choice", duration: "45 min", marks: "40", weighting: "30%" },
