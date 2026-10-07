@@ -34,7 +34,10 @@ export async function requestMagicLink(
     });
     if (error) {
       logAuthDiagnostic({ attemptId, phase: "magic_link_result", outcome: "rejected", providerCode: error.code ?? "unknown" });
-      return { status: "error", message: "We couldn’t send the sign-in link. Try again in a minute." };
+      const message = error.code === "over_email_send_rate_limit" || error.code === "over_request_rate_limit"
+        ? "An earlier email may already be on its way. Check your inbox and spam or junk folder, wait a minute, then request another link."
+        : "We couldn’t send the sign-in link. Try again in a minute.";
+      return { status: "error", message };
     }
   } catch {
     logAuthDiagnostic({ attemptId, phase: "magic_link_result", outcome: "rejected", providerCode: "unexpected_failure" });
@@ -56,11 +59,22 @@ export async function signInWithPassword(
     return { status: "error", message: "Enter your email and password." };
   }
 
-  const supabase = await createClient();
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error) {
-    return { status: "error", message: "That email or password is incorrect." };
+  const attemptId = createAuthAttemptId();
+  logAuthDiagnostic({ attemptId, phase: "password_signin_requested" });
+  let result: Awaited<ReturnType<Awaited<ReturnType<typeof createClient>>["auth"]["signInWithPassword"]>>;
+  try {
+    const supabase = await createClient();
+    result = await supabase.auth.signInWithPassword({ email, password });
+  } catch {
+    logAuthDiagnostic({ attemptId, phase: "password_signin_result", outcome: "rejected", providerCode: "unexpected_failure" });
+    return { status: "error", message: "We couldn’t sign you in. Try again. If you just signed up, confirm your email first; check your inbox and spam or junk folder." };
   }
+  const { error } = result;
+  if (error) {
+    logAuthDiagnostic({ attemptId, phase: "password_signin_result", outcome: "rejected", providerCode: error.code ?? "unknown" });
+    return { status: "error", message: "We couldn’t sign you in. If you just signed up, confirm your email first; check your inbox and spam or junk folder, then try again." };
+  }
+  logAuthDiagnostic({ attemptId, phase: "password_signin_result", outcome: "accepted" });
 
   redirect(next);
 }
@@ -107,8 +121,12 @@ export async function createAccountWithPassword(
   }).catch(() => null);
 
   if (!result || result.error) {
-    logAuthDiagnostic({ attemptId, phase: "signup_result", outcome: "rejected", providerCode: result?.error?.code ?? "unexpected_failure" });
-    return { status: "error", message: "We couldn’t create your account. Try again in a minute." };
+    logAuthDiagnostic({ attemptId, phase: "signup_result", outcome: "rejected", providerCode: result?.error?.code ?? (result ? "unknown" : "unexpected_failure") });
+    const code = result?.error?.code;
+    const message = code === "over_email_send_rate_limit" || code === "over_request_rate_limit"
+      ? "An earlier email may already be on its way. Check your inbox and spam or junk folder, wait a minute, then try again."
+      : "We couldn’t create your account. Try again in a minute.";
+    return { status: "error", message };
   }
   logAuthDiagnostic({ attemptId, phase: "signup_result", outcome: "accepted" });
   const { data } = result;

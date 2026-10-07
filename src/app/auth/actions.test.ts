@@ -34,6 +34,8 @@ describe("password authentication actions", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.spyOn(console, "info").mockImplementation(() => {});
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    vi.spyOn(console, "warn").mockImplementation(() => {});
     captureConversionOutcome.mockResolvedValue(undefined);
     vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://pastpaperprep.com");
   });
@@ -56,17 +58,55 @@ describe("password authentication actions", () => {
     createClient.mockResolvedValue({ auth: { signUp } });
     const values = { email: "private@example.com", password: "private password value", passwordConfirmation: "private password value" };
     expect((await createAccountWithPassword(initialMagicLinkState, form(values))).status).toBe("error");
-    expect(console.info).toHaveBeenCalledWith(expect.objectContaining({ phase: "signup_result", outcome: "rejected", providerCode: "weak_password" }));
+    expect(console.warn).toHaveBeenCalledWith(expect.objectContaining({ phase: "signup_result", outcome: "rejected", providerCode: "weak_password" }));
     expect((await createAccountWithPassword(initialMagicLinkState, form(values))).status).toBe("error");
-    expect(JSON.stringify(vi.mocked(console.info).mock.calls)).not.toContain("private");
+    expect(JSON.stringify(vi.mocked(console.warn).mock.calls)).not.toContain("private");
+    expect(console.error).toHaveBeenCalledWith(expect.objectContaining({ phase: "signup_result", outcome: "rejected", providerCode: "unexpected_failure" }));
+    expect(JSON.stringify(vi.mocked(console.error).mock.calls)).not.toContain("private");
   });
 
   it("fails neutrally when resend throws and does not claim mail was sent", async () => {
     createClient.mockResolvedValue({ auth: { resend: vi.fn().mockRejectedValue(new Error("private network failure")) } });
     const result = await resendSignupConfirmation(initialMagicLinkState, form({ email: "private@example.com" }));
     expect(result.status).toBe("error");
-    expect(console.info).toHaveBeenCalledWith(expect.objectContaining({ phase: "resend_result", outcome: "rejected", providerCode: "unexpected_failure" }));
-    expect(JSON.stringify(vi.mocked(console.info).mock.calls)).not.toContain("private");
+    expect(console.error).toHaveBeenCalledWith(expect.objectContaining({ phase: "resend_result", outcome: "rejected", providerCode: "unexpected_failure" }));
+    expect(JSON.stringify(vi.mocked(console.error).mock.calls)).not.toContain("private");
+  });
+
+  it("explains signup throttling without claiming account creation failed or disclosing account state", async () => {
+    createClient.mockResolvedValue({ auth: { signUp: vi.fn().mockResolvedValue({ data: null, error: { code: "over_email_send_rate_limit", message: "private@example.com" } }) } });
+    const result = await createAccountWithPassword(initialMagicLinkState, form({ email: "private@example.com", password: "private password", passwordConfirmation: "private password" }));
+    expect(result.status).toBe("error");
+    expect(result.message).toMatch(/earlier email/);
+    expect(result.message).toMatch(/inbox/);
+    expect(result.message).not.toMatch(/private|couldn’t create/);
+  });
+
+  it("gives bounded pending-email guidance for magic-link rate limits", async () => {
+    createClient.mockResolvedValue({ auth: { signInWithOtp: vi.fn().mockResolvedValue({ error: { code: "over_email_send_rate_limit", message: "private@example.com blocked" } }) } });
+    const result = await requestMagicLink(initialMagicLinkState, form({ email: "private@example.com" }));
+    expect(result.status).toBe("error");
+    expect(result.message).toMatch(/earlier email|already on its way/i);
+    expect(result.message).toMatch(/inbox|spam/i);
+    expect(result.message).not.toContain("private");
+  });
+
+  it("gives generic inbox and spam guidance after a password sign-in rejection", async () => {
+    createClient.mockResolvedValue({ auth: { signInWithPassword: vi.fn().mockResolvedValue({ error: { code: "email_not_confirmed", message: "private@example.com" } }) } });
+    const result = await signInWithPassword(initialMagicLinkState, form({ email: "private@example.com", password: "private password" }));
+    expect(result.status).toBe("error");
+    expect(result.message).toMatch(/confirm your email|email confirmation/i);
+    expect(result.message).toMatch(/inbox|spam/i);
+    expect(result.message).not.toContain("private");
+  });
+
+  it("uses generic pending-confirmation guidance for any password failure without exposing the provider error", async () => {
+    createClient.mockResolvedValue({ auth: { signInWithPassword: vi.fn().mockResolvedValue({ error: { code: "invalid_credentials", message: "private raw provider details" } }) } });
+    const result = await signInWithPassword(initialMagicLinkState, form({ email: "private@example.com", password: "private password" }));
+    expect(result.status).toBe("error");
+    expect(result.message).toMatch(/just signed up|confirm your email/i);
+    expect(result.message).toMatch(/spam|junk/i);
+    expect(result.message).not.toMatch(/invalid_credentials|private/);
   });
 
   it("fails neutrally when a magic-link request throws", async () => {

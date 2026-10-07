@@ -158,7 +158,7 @@ describe("POST /auth/confirm", () => {
 
   it("records a rejected provider code without raw error text or token values", async () => {
     const attemptId = "30be40c9-7a0a-4250-8615-7b929938a620";
-    const info = vi.spyOn(console, "info").mockImplementation(() => {});
+    const info = vi.spyOn(console, "warn").mockImplementation(() => {});
     verifyOtp.mockResolvedValueOnce({ error: { code: "otp_expired", message: "private@example.com private-token" } });
     const response = await POST(postRequest({ token_hash: tokenHash, type: "signup", auth_attempt: attemptId }));
     expect(response.headers.get("location")).toContain("error=confirmation");
@@ -167,7 +167,7 @@ describe("POST /auth/confirm", () => {
   });
 
   it("fails closed and records a bounded outcome when verification throws", async () => {
-    const info = vi.spyOn(console, "info").mockImplementation(() => {});
+    const info = vi.spyOn(console, "error").mockImplementation(() => {});
     verifyOtp.mockRejectedValueOnce(new Error("private network failure"));
     const response = await POST(postRequest({ token_hash: tokenHash, type: "signup" }));
     expect(response.status).toBe(303);

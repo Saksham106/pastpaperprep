@@ -1,7 +1,7 @@
 import "server-only";
 import { randomUUID } from "node:crypto";
 
-const PHASES = ["signup_requested", "signup_result", "magic_link_requested", "magic_link_result", "resend_requested", "resend_result", "email_link_rendered", "confirmation_requested", "confirmation_result"] as const;
+const PHASES = ["signup_requested", "signup_result", "magic_link_requested", "magic_link_result", "resend_requested", "resend_result", "email_link_rendered", "confirmation_requested", "confirmation_result", "password_signin_requested", "password_signin_result"] as const;
 const OUTCOMES = ["accepted", "rejected", "verified"] as const;
 const PROVIDER_CODES = new Set([
   "otp_expired", "over_email_send_rate_limit", "over_request_rate_limit", "email_not_confirmed",
@@ -34,8 +34,11 @@ export function logAuthDiagnostic(input: AuthDiagnostic): void {
   if (input.providerCode !== undefined) {
     record.providerCode = PROVIDER_CODES.has(input.providerCode) ? input.providerCode : "unknown";
   }
+  const logger = input.providerCode === "unexpected_failure" || input.providerCode === "smtp_error" || record.providerCode === "unknown"
+    ? console.error
+    : input.outcome === "rejected" ? console.warn : console.info;
   try {
-    console.info(record);
+    logger(record);
   } catch {
     // Diagnostics must never break sign-up, confirmation, or a redirect.
   }
