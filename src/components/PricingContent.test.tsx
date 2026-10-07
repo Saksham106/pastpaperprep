@@ -408,6 +408,10 @@ describe("approved custom-bank pricing", () => {
     expect(screen.getByText("$299")).toBeInTheDocument();
     expect(screen.getByText("Pay once. No subscription, no renewals.")).toBeInTheDocument();
     expect(screen.getByText("All current and future question banks, with explanations included.")).toBeInTheDocument();
+    const lifetimeCard = container.querySelector(".pricing-lifetime-grid .pricing-option")!;
+    expect(lifetimeCard.querySelector("img, .plan-art")).toBeNull();
+    expect(lifetimeCard.querySelector(".billing-actions, > a.button")).not.toBeNull();
+    expect(lifetimeCard.querySelector(".plan-assurance")).toHaveTextContent(/One named account/);
     fireEvent.click(screen.getByRole("button", { name: "Monthly" }));
     expect(container.querySelectorAll(".pricing-decision-grid > article")).toHaveLength(3);
   });

@@ -157,12 +157,11 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
   };
 
   const lifetimeOffer = <div className="pricing-decision-grid pricing-lifetime-grid" data-lifetime="true" aria-label="Lifetime plan"><article className="pricing-option" data-plan-tone="premium">
-    <Image className="plan-art" src="/artwork/plato-academy-mosaic.webp" alt="" width={420} height={260} aria-hidden="true" sizes="(max-width: 1024px) 68vw, 300px" />
     <div className="pricing-option-heading"><div className="plan-title-block"><span className="plan-icon" aria-hidden="true"><CrownSimple weight="duotone" /></span><div><p className="plan-label">Lifetime</p><h2>All Access</h2></div></div></div>
     <div className="plan-price"><strong>$299</strong><span> one time</span></div>
     <p className="plan-billing-note">Pay once. No subscription, no renewals.</p>
     <p className="plan-description">All current and future question banks, with explanations included.</p>
-    <LifetimeCheckout authenticated={authenticated} previewOnly={previewOnly} />
+    <LifetimeCheckout authenticated={authenticated} previewOnly={previewOnly} existingAccess={hasPaidAccess} />
     <p className="plan-assurance">One named account · Secure Stripe checkout</p>
   </article></div>;
 
