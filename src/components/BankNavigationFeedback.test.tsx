@@ -28,6 +28,28 @@ describe("BankNavigationFeedback mounted behavior", () => {
     link.remove();
   });
 
+  it("clears before paint when a later worksheet capture guard cancels navigation", async () => {
+    render(<BankNavigationFeedback />);
+    const link = document.createElement("a");
+    link.href = "/banks/chemistry";
+    document.body.append(link);
+    const veto = (event: MouseEvent) => {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    };
+    document.addEventListener("click", veto, true);
+    try {
+      await act(async () => {
+        link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+        await Promise.resolve();
+      });
+      expect(screen.queryByRole("status")).toBeNull();
+    } finally {
+      document.removeEventListener("click", veto, true);
+      link.remove();
+    }
+  });
+
   it("clears status on popstate and ignores modified, canceled, and non-primary clicks", () => {
     render(<BankNavigationFeedback />);
     const link = document.createElement("a");

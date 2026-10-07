@@ -46,6 +46,11 @@ export function BankNavigationFeedback() {
       // Commit feedback in the click turn; Next's router remains in control of navigation.
       flushSync(() => setPendingPath(window.location.pathname));
       timerRef.current = setTimeout(clearPending, FAILURE_GUARD_MS);
+      // A later capture handler (e.g. an unsaved worksheet) can veto this click.
+      // Recheck after dispatch, before paint, without interfering with its guard.
+      queueMicrotask(() => {
+        if (event.defaultPrevented) clearPending();
+      });
     };
     window.addEventListener("click", onClick, true);
     window.addEventListener("popstate", clearPending);
