@@ -409,7 +409,8 @@ describe("approved custom-bank pricing", () => {
     expect(screen.queryByText(/Pay once\. No subscription, no renewals\./)).not.toBeInTheDocument();
     expect(screen.getByText("Current and future question banks.")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /unlock lifetime access/i })).toBeInTheDocument();
-    expect(container.querySelector(".lifetime-architecture svg")).toBeInTheDocument();
+    expect(container.querySelector(".lifetime-card .lifetime-card-visual svg")).toBeInTheDocument();
+    expect(container.querySelector(".lifetime-architecture")).not.toBeInTheDocument();
     expect(container.querySelector(".lifetime-card")).toHaveAttribute("data-plan-tone", "premium");
     expect(container.querySelector(".lifetime-card .plan-assurance")).toHaveTextContent("One named account · Secure checkout");
     const lifetimeCard = container.querySelector(".pricing-lifetime-grid .pricing-option")!;

@@ -1911,3 +1911,40 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .pricing-lifetime-grid .plan-assurance { margin-top: 12px; }
 .pricing-lifetime-grid .plan-label { color: var(--burgundy); }
 @media (max-width: 600px) { .pricing-lifetime-grid .pricing-option { min-height: 0; padding: 23px; } .pricing-lifetime-grid .billing-actions, .pricing-lifetime-grid .pricing-option > a.button { padding-top: 24px; } }
+
+/* Own every Lifetime colour explicitly: generic light cards must not override it. */
+.pricing-decision-grid.pricing-lifetime-grid { overflow: visible; }
+.pricing-lifetime-grid::before { display: none; }
+.pricing-lifetime-grid .pricing-option.lifetime-card,
+:root[data-theme="dark"] .pricing-lifetime-grid .pricing-option.lifetime-card {
+  min-height: 490px; padding: 34px; border-radius: 18px;
+  color: #fff8ee; background: #252323;
+  border: 1px solid #9b6c73;
+  box-shadow: 0 24px 60px rgb(40 25 30 / .18), inset 0 1px 0 rgb(255 255 255 / .1);
+}
+.pricing-lifetime-grid .pricing-option.lifetime-card > .lifetime-card-visual {
+  position: absolute; z-index: 0; inset: 0; color: #c78f9b;
+  opacity: .44; pointer-events: none; overflow: hidden;
+  mask-image: linear-gradient(180deg, #000 0%, #000 35%, transparent 68%);
+}
+.lifetime-card-visual svg { width: 100%; height: 100%; display: block; }
+.pricing-lifetime-grid .lifetime-card::before,
+.pricing-lifetime-grid .lifetime-card::after { display: none; }
+.pricing-lifetime-grid .lifetime-card .plan-label { color: #efb4c2; }
+.pricing-lifetime-grid .lifetime-card h2 { color: #fff8ee; font-family: var(--font-display); white-space: normal; }
+.pricing-lifetime-grid .lifetime-card .plan-price strong { color: #fff8ee; font-family: var(--font-display); }
+.pricing-lifetime-grid .lifetime-card .plan-price span,
+.pricing-lifetime-grid .lifetime-card .plan-description,
+.pricing-lifetime-grid .lifetime-card .plan-assurance,
+.pricing-lifetime-grid .lifetime-card .custom-bundle-selection-note { color: #e3d4d6; }
+.pricing-lifetime-grid .lifetime-card .plan-checkout { margin-top: auto; padding-top: 34px; }
+.pricing-lifetime-grid .lifetime-card .plan-checkout .button {
+  color: #261e20; background: #f1d7de; border-color: #f1d7de;
+  border-radius: 9px; min-height: 52px; box-shadow: none;
+}
+.pricing-lifetime-grid .lifetime-card .plan-checkout .button:hover { background: #ffe8ee; }
+.pricing-lifetime-grid .lifetime-card .plan-checkout .button:disabled { opacity: 1; }
+@media (max-width: 600px) {
+  .pricing-lifetime-grid .pricing-option.lifetime-card,
+  :root[data-theme="dark"] .pricing-lifetime-grid .pricing-option.lifetime-card { min-height: 460px; padding: 26px; }
+}
