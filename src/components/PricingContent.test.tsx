@@ -401,7 +401,8 @@ describe("approved custom-bank pricing", () => {
     const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} availableBanks={availableBanks} />);
     expect(container.querySelectorAll(".pricing-decision-grid > article")).toHaveLength(3);
     fireEvent.click(screen.getByRole("button", { name: /Lifetime/ }));
-    expect(screen.getByRole("button", { name: /Lifetime/ })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByRole("button", { name: "Lifetime" })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.queryByText("Pay once")).not.toBeInTheDocument();
     expect(container.querySelectorAll(".pricing-decision-grid > article")).toHaveLength(1);
     expect(screen.getByRole("heading", { name: "All Access" })).toBeInTheDocument();
     expect(screen.getByText("$299")).toBeInTheDocument();

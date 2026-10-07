@@ -196,7 +196,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
             <div className="billing-toggle" role="group" aria-label="Billing period">
               <button type="button" aria-pressed={!lifetimeSelected && interval === "monthly"} onClick={() => chooseInterval("monthly")}>Monthly</button>
               <button className="billing-toggle-annual" type="button" aria-pressed={!lifetimeSelected && interval === "annual"} onClick={() => chooseInterval("annual")}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
-              <button type="button" aria-pressed={lifetimeSelected} onClick={() => chooseInterval("lifetime")}>Lifetime <span className="billing-savings">Pay once</span></button>
+              <button className="billing-toggle-lifetime" type="button" aria-pressed={lifetimeSelected} onClick={() => chooseInterval("lifetime")}>Lifetime</button>
             </div>
             {lifetimeSelected ? lifetimeOffer : <div className="pricing-decision-grid" aria-label="Additional subscription offers" data-paid="true">{PLANS.map(renderPlan)}</div>}
           </details>
@@ -204,7 +204,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           <div className="billing-toggle" role="group" aria-label="Billing period">
             <button type="button" aria-pressed={!lifetimeSelected && interval === "monthly"} onClick={() => chooseInterval("monthly")}>Monthly</button>
             <button className="billing-toggle-annual" type="button" aria-pressed={!lifetimeSelected && interval === "annual"} onClick={() => chooseInterval("annual")}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
-            <button type="button" aria-pressed={lifetimeSelected} onClick={() => chooseInterval("lifetime")}>Lifetime <span className="billing-savings">Pay once</span></button>
+            <button className="billing-toggle-lifetime" type="button" aria-pressed={lifetimeSelected} onClick={() => chooseInterval("lifetime")}>Lifetime</button>
           </div>
           {lifetimeSelected ? lifetimeOffer : <div className="pricing-decision-grid" aria-label="PastPaperPrep plans">{PLANS.map(renderPlan)}</div>}
         </> : null}

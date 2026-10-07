@@ -1819,3 +1819,63 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 :root[data-theme="dark"] .dashboard-worksheets-link:focus-visible { color: var(--accent-contrast); background: var(--cobalt); }
 :root[data-theme="dark"] .dashboard-qualification-row .dashboard-worksheets-link:hover,
 :root[data-theme="dark"] .dashboard-qualification-row .dashboard-worksheets-link:focus-visible { color: var(--accent-contrast); border-color: var(--cobalt); }
+
+/* Lifetime: a restrained editorial emphasis, distinct from the subscription grid. */
+.billing-toggle-lifetime[aria-pressed="true"] {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #fffaf4 !important;
+  background: #7f293a !important;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / .16), 0 5px 15px rgb(127 41 58 / .22);
+}
+.billing-toggle-lifetime[aria-pressed="true"]::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -80% -35%;
+  background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / .24) 48%, rgb(255 235 200 / .4) 52%, transparent 65%);
+  transform: translateX(-75%);
+  animation: lifetime-light 3.8s ease-in-out infinite;
+}
+@keyframes lifetime-light { 0%, 35% { transform: translateX(-75%); } 75%, 100% { transform: translateX(75%); } }
+.pricing-lifetime-grid { margin-top: 34px; }
+.pricing-lifetime-grid .pricing-option {
+  min-height: 530px;
+  padding: 34px;
+  background: linear-gradient(150deg, color-mix(in srgb, var(--paper-warm) 78%, var(--surface)) 0%, var(--surface) 62%);
+  border-color: color-mix(in srgb, var(--burgundy) 38%, var(--line));
+  box-shadow: 0 20px 56px color-mix(in srgb, var(--burgundy) 11%, transparent);
+}
+.pricing-lifetime-grid .plan-art {
+  right: -30px;
+  bottom: 0;
+  width: 88%;
+  height: 290px;
+  opacity: .29;
+  filter: grayscale(.45) sepia(.12) contrast(1.02);
+  mask-image: linear-gradient(145deg, transparent 4%, #000 53%, #000 100%);
+  -webkit-mask-image: linear-gradient(145deg, transparent 4%, #000 53%, #000 100%);
+}
+.pricing-lifetime-grid .plan-title-block h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 500;
+  letter-spacing: -.035em;
+}
+.pricing-lifetime-grid .plan-label { color: var(--burgundy); }
+.pricing-lifetime-grid .plan-price strong { font-family: Georgia, "Times New Roman", serif; font-weight: 500; }
+.pricing-lifetime-grid .plan-description { max-width: 28rem; }
+:root[data-theme="dark"] .billing-toggle-lifetime[aria-pressed="true"] { background: #81364c !important; }
+:root[data-theme="dark"] .pricing-lifetime-grid .pricing-option {
+  background: linear-gradient(150deg, color-mix(in srgb, #392831 55%, var(--surface)) 0%, var(--surface) 68%);
+  border-color: color-mix(in srgb, var(--burgundy) 48%, var(--line));
+}
+:root[data-theme="dark"] .pricing-lifetime-grid .plan-art { opacity: .2; mix-blend-mode: screen; }
+@media (prefers-reduced-motion: reduce) {
+  .billing-toggle-lifetime[aria-pressed="true"]::after { animation: none; transform: translateX(0); opacity: .45; }
+}
+@media (max-width: 600px) {
+  .pricing-lifetime-grid { margin-top: 22px; }
+  .pricing-lifetime-grid .pricing-option { min-height: 500px; padding: 23px; }
+  .pricing-lifetime-grid .plan-art { width: 100%; height: 235px; right: -24px; }
+}
