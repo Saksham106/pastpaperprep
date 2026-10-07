@@ -93,24 +93,26 @@ export async function POST(request: Request) {
       : rawPaymentIntent && typeof rawPaymentIntent === "object" ? rawPaymentIntent.id : null;
     if (pi) {
       const fullRefund = !isDispute && (charge as Stripe.Charge).amount_refunded >= (charge as Stripe.Charge).amount;
-      const disputed = isDispute && event.type !== "charge.dispute.closed" || isDispute && (charge as Stripe.Dispute).status !== "won";
-      if (disputed || fullRefund) {
-        const { error } = await admin.rpc("revoke_lifetime_purchase", { p_payment_intent_id: pi, p_status: disputed ? "disputed" : "refunded" });
-        if (error) return NextResponse.json({ error: "Lifetime access revocation failed" }, { status: 500 });
-      } else if (isDispute && event.type === "charge.dispute.closed" && (charge as Stripe.Dispute).status === "won") {
-        const dispute = charge as Stripe.Dispute;
-        const rawCharge = dispute.charge;
-        const chargeId = typeof rawCharge === "string" ? rawCharge : rawCharge?.id;
-        if (!chargeId) return NextResponse.json({ error: "Lifetime dispute charge could not be verified" }, { status: 400 });
+      const dispute = isDispute ? charge as Stripe.Dispute : null;
+      const disputeId = dispute?.id;
+      if (dispute && disputeId) {
         try {
-          const settledCharge = await stripe.charges.retrieve(chargeId, {}, { timeout: 10_000 });
-          if (settledCharge.amount_refunded < settledCharge.amount) {
-            const { error } = await admin.rpc("restore_lifetime_purchase", { p_payment_intent_id: pi });
-            if (error) return NextResponse.json({ error: "Lifetime access restoration failed" }, { status: 500 });
-          }
+          const currentDispute = await stripe.disputes.retrieve(disputeId, {}, { timeout: 10_000 });
+          const currentPi = typeof currentDispute.payment_intent === "string" ? currentDispute.payment_intent : currentDispute.payment_intent?.id;
+          if (currentPi !== pi) return NextResponse.json({ error: "Lifetime dispute payment could not be verified" }, { status: 400 });
+          const status = currentDispute.status === "won" || currentDispute.status === "warning_closed" ? "won"
+            : currentDispute.status === "lost" ? "lost"
+              : currentDispute.status === "needs_response" || currentDispute.status === "warning_needs_response" || currentDispute.status === "under_review" || currentDispute.status === "warning_under_review" ? "open" : null;
+          if (!status) return NextResponse.json({ error: "Lifetime dispute status could not be verified" }, { status: 500 });
+          const { error } = await admin.rpc("sync_lifetime_dispute", { p_payment_intent_id: pi, p_dispute_id: disputeId, p_status: status });
+          if (error) return NextResponse.json({ error: "Lifetime dispute state sync failed" }, { status: 500 });
         } catch {
-          return NextResponse.json({ error: "Lifetime dispute resolution could not be verified" }, { status: 500 });
+          return NextResponse.json({ error: "Lifetime dispute state could not be verified" }, { status: 500 });
         }
+      }
+      if (fullRefund) {
+        const { error } = await admin.rpc("revoke_lifetime_purchase", { p_payment_intent_id: pi, p_status: "refunded" });
+        if (error) return NextResponse.json({ error: "Lifetime access revocation failed" }, { status: 500 });
       }
     }
     // Existing referral refund/dispute bookkeeping still runs below for its own records.

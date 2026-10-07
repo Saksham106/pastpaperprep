@@ -14,7 +14,7 @@ test('lifetime migration fulfills idempotently and revokes only after last activ
         status text not null, starts_at timestamptz not null, expires_at timestamptz, source text not null, source_reference text,
         created_at timestamptz not null default now(), updated_at timestamptz not null default now(), unique(user_id,product_id));
       create table public.billing_checkout_reservations(user_id uuid, intent_id uuid, expires_at timestamptz, updated_at timestamptz);
-      insert into auth.users values ('00000000-0000-0000-0000-000000000001'); insert into public.products values ('bundle_all','All Access',true);
+      insert into auth.users values ('00000000-0000-0000-0000-000000000001'), ('00000000-0000-0000-0000-000000000002'); insert into public.products values ('bundle_all','All Access',true);
       set request.jwt.claim.role='service_role';`);
     let migration = await readFile(new URL('../migrations/20261007000000_lifetime_all_access.sql', import.meta.url), 'utf8');
     migration = migration.replace(/^create extension if not exists pgcrypto;\s*/m, '').replace(/notify pgrst, 'reload schema';\s*/g, '');
@@ -23,10 +23,10 @@ test('lifetime migration fulfills idempotently and revokes only after last activ
     const apply = (session, intent) => db.query('select public.fulfill_lifetime_purchase($1,$2,$3,29900,\'usd\',now()) as result', [user, session, intent]);
     assert.equal((await db.query("select public.revoke_lifetime_purchase('pi_refunded_first','refunded') as result")).rows[0].result, 'unknown');
     await assert.rejects(apply('cs_refunded_first','pi_refunded_first'));
-    assert.equal((await db.query("select public.revoke_lifetime_purchase('pi_disputed_first','disputed') as result")).rows[0].result, 'unknown');
+    assert.equal((await db.query("select public.sync_lifetime_dispute('pi_disputed_first','dp_disputed_first','open') as result")).rows[0].result, 'disputed');
     await assert.rejects(apply('cs_disputed_first','pi_disputed_first'));
-    assert.equal((await db.query("select public.revoke_lifetime_purchase('pi_won_first','disputed') as result")).rows[0].result, 'unknown');
-    assert.equal((await db.query("select public.restore_lifetime_purchase('pi_won_first') as result")).rows[0].result, 'unchanged');
+    assert.equal((await db.query("select public.sync_lifetime_dispute('pi_won_first','dp_won_first','open') as result")).rows[0].result, 'disputed');
+    assert.equal((await db.query("select public.sync_lifetime_dispute('pi_won_first','dp_won_first','won') as result")).rows[0].result, 'paid');
     assert.equal((await apply('cs_won_first','pi_won_first')).rows[0].result, 'applied');
     assert.equal((await apply('cs_a','pi_a')).rows[0].result, 'applied');
     assert.equal((await apply('cs_a','pi_a')).rows[0].result, 'duplicate');
@@ -38,12 +38,22 @@ test('lifetime migration fulfills idempotently and revokes only after last activ
     assert.equal((await db.query("select public.confirm_billing_checkout($1,'00000000-0000-0000-0000-000000000099') as result", [user])).rows[0].result, false);
     assert.equal((await db.query("select public.revoke_lifetime_purchase('pi_a','refunded') as result")).rows[0].result, 'revoked');
     assert.equal((await db.query("select status from public.entitlements where product_id='lifetime_all_access'")).rows[0].status, 'active');
-    assert.equal((await db.query("select public.revoke_lifetime_purchase('pi_b','disputed') as result")).rows[0].result, 'revoked');
+    assert.equal((await db.query("select public.sync_lifetime_dispute('pi_b','dp_b','open') as result")).rows[0].result, 'disputed');
+    assert.equal((await db.query("select public.sync_lifetime_dispute('pi_b','dp_b','won') as result")).rows[0].result, 'paid');
     assert.equal((await db.query("select status from public.entitlements where product_id='lifetime_all_access'")).rows[0].status, 'active');
-    assert.equal((await db.query("select public.restore_lifetime_purchase('pi_b') as result")).rows[0].result, 'restored');
-    assert.equal((await db.query("select status from public.entitlements where product_id='lifetime_all_access'")).rows[0].status, 'active');
-    assert.equal((await db.query("select public.revoke_lifetime_purchase('pi_b','disputed') as result")).rows[0].result, 'revoked');
-    assert.equal((await db.query("select public.restore_lifetime_purchase('pi_a') as result")).rows[0].result, 'unchanged');
+    const raceUser = '00000000-0000-0000-0000-000000000002';
+    await db.query("select public.fulfill_lifetime_purchase($1,'cs_race','pi_race',29900,'usd',now())", [raceUser]);
+    const syncDispute = (dispute, status) => db.query('select public.sync_lifetime_dispute($1,$2,$3) as result', ['pi_race', dispute, status]);
+    assert.equal((await syncDispute('dp_old','open')).rows[0].result, 'disputed');
+    assert.equal((await syncDispute('dp_old','won')).rows[0].result, 'paid');
+    assert.equal((await syncDispute('dp_old','open')).rows[0].result, 'paid');
+    assert.equal((await syncDispute('dp_new','open')).rows[0].result, 'disputed');
+    assert.equal((await syncDispute('dp_old','won')).rows[0].result, 'disputed');
+    assert.equal((await db.query("select status from public.entitlements where user_id='00000000-0000-0000-0000-000000000002' and product_id='lifetime_all_access'")).rows[0].status, 'revoked');
+    assert.equal((await syncDispute('dp_new','won')).rows[0].result, 'paid');
+    assert.equal((await db.query("select status from public.entitlements where user_id='00000000-0000-0000-0000-000000000002' and product_id='lifetime_all_access'")).rows[0].status, 'active');
+    await assert.rejects(db.query("select public.sync_lifetime_dispute('pi_foreign','dp_old','open')"));
+    assert.equal((await syncDispute('dp_new','open')).rows[0].result, 'paid');
     await db.exec("set request.jwt.claim.role='authenticated'");
     await assert.rejects(db.query("select public.fulfill_lifetime_purchase($1,'cs_forbidden','pi_forbidden',29900,'usd',now())", [user]));
   } finally { await db.close(); }

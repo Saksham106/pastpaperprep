@@ -7,6 +7,7 @@ const retrieveSchedule = vi.fn();
 const releaseSchedule = vi.fn();
 const retrieveInvoice = vi.fn();
 const retrieveCharge = vi.fn();
+const retrieveDispute = vi.fn();
 const retrievePaymentIntent = vi.fn().mockResolvedValue({ id: "pi_lifetime", status: "succeeded", customer: "cus_1", amount_received: 29900, currency: "usd", metadata: { user_id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", product_id: "lifetime_all_access", purchase_type: "lifetime", billing_intent_id: "intent_lifetime_1" } });
 const listLineItems = vi.fn();
 const listInvoicePayments = vi.fn();
@@ -21,6 +22,7 @@ vi.mock("@/lib/stripe", () => ({
     subscriptionSchedules: { retrieve: retrieveSchedule, release: releaseSchedule },
     invoices: { retrieve: retrieveInvoice },
     charges: { retrieve: retrieveCharge },
+    disputes: { retrieve: retrieveDispute },
     paymentIntents: { retrieve: retrievePaymentIntent },
     invoicePayments: { list: listInvoicePayments },
     checkout: { sessions: { listLineItems } },
@@ -110,6 +112,7 @@ describe("POST /api/stripe/webhook", () => {
     captureConversionOutcome.mockReset().mockResolvedValue(undefined);
     retrieveSubscription.mockResolvedValue(subscriptionEvent.data.object);
     retrieveCharge.mockResolvedValue({ id: "ch_lifetime", amount: 29900, amount_refunded: 0 });
+    retrieveDispute.mockResolvedValue({ id: "dp_lifetime", payment_intent: "pi_lifetime", status: "needs_response" });
     listLineItems.mockResolvedValue({ data: [{ quantity: 1, amount_subtotal: 29900, currency: "usd", price: { unit_amount: 29900, currency: "usd", recurring: null, product: { id: "prod_lifetime", metadata: { purchase_type: "lifetime", product_id: "lifetime_all_access" } } } }], has_more: false });
     rpc.mockImplementation(async (name: string, args?: { p_price_id?: string }) => ({ data: name === "acquire_stripe_subscription_sync_lease" || name === "release_stripe_subscription_sync_lease" ? true : name === "get_stripe_customer_id" ? "cus_1" : name === "get_checkout_price_catalog" ? [{ price_id: args?.p_price_id, product_id: args?.p_price_id?.includes("custom") ? "bundle_custom" : "bundle_all", billing_interval: args?.p_price_id?.includes("annual") ? "annual" : "monthly", active: true, grandfathered: false }] : "applied", error: null }));
   });
@@ -409,6 +412,14 @@ describe("POST /api/stripe/webhook", () => {
     expect(rpc).not.toHaveBeenCalledWith("fulfill_lifetime_purchase", expect.anything());
   });
 
+  it("rejects a PaymentIntent whose billing intent does not match the Checkout Session", async () => {
+    const session = { id: "cs_lifetime", mode: "payment", client_reference_id: userId, customer: "cus_1", payment_intent: "pi_lifetime", amount_total: 29900, currency: "usd", payment_status: "paid", created: 1_800_000_000, metadata: { user_id: userId, product_id: "lifetime_all_access", purchase_type: "lifetime", billing_intent_id: "intent_session" } };
+    retrievePaymentIntent.mockResolvedValueOnce({ id: "pi_lifetime", status: "succeeded", customer: "cus_1", amount_received: 29900, currency: "usd", metadata: { user_id: userId, product_id: "lifetime_all_access", purchase_type: "lifetime", billing_intent_id: "intent_other" } });
+    constructEvent.mockReturnValue({ id: "evt_lifetime_pi_mismatch", created: 1_800_000_000, type: "checkout.session.completed", data: { object: session } });
+    expect((await POST(request())).status).toBe(400);
+    expect(rpc).not.toHaveBeenCalledWith("fulfill_lifetime_purchase", expect.anything());
+  });
+
   it("fulfills only a correctly priced paid lifetime checkout and tolerates asynchronous success", async () => {
     const session = { id: "cs_lifetime", mode: "payment", client_reference_id: userId, customer: "cus_1", payment_intent: "pi_lifetime", amount_total: 29900, currency: "usd", payment_status: "paid", created: 1_800_000_000, metadata: { user_id: userId, product_id: "lifetime_all_access", purchase_type: "lifetime", billing_intent_id: "intent_lifetime_1" } };
     constructEvent.mockReturnValue({ id: "evt_lifetime_paid", created: 1_800_000_000, type: "checkout.session.async_payment_succeeded", data: { object: session } });
@@ -441,23 +452,40 @@ describe("POST /api/stripe/webhook", () => {
   });
 
   it("revokes lifetime access on an open dispute", async () => {
+    retrieveDispute.mockResolvedValueOnce({ id: "dp_lifetime", payment_intent: "pi_lifetime", status: "needs_response" });
     constructEvent.mockReturnValue({ id: "evt_lifetime_dispute", created: 1_800_000_011, type: "charge.dispute.created", data: { object: { id: "dp_lifetime", charge: "ch_lifetime", payment_intent: "pi_lifetime", status: "needs_response" } } });
     expect((await POST(request())).status).toBe(200);
-    expect(rpc).toHaveBeenCalledWith("revoke_lifetime_purchase", { p_payment_intent_id: "pi_lifetime", p_status: "disputed" });
+    expect(retrieveDispute).toHaveBeenCalledWith("dp_lifetime", {}, { timeout: 10_000 });
+    expect(rpc).toHaveBeenCalledWith("sync_lifetime_dispute", { p_payment_intent_id: "pi_lifetime", p_dispute_id: "dp_lifetime", p_status: "open" });
+  });
+
+  it("syncs the current dispute status, not a stale event snapshot", async () => {
+    retrieveDispute.mockResolvedValueOnce({ id: "dp_lifetime", payment_intent: "pi_lifetime", status: "won" });
+    constructEvent.mockReturnValue({ id: "evt_stale_dispute_created", created: 1_800_000_010, type: "charge.dispute.created", data: { object: { id: "dp_lifetime", charge: "ch_lifetime", payment_intent: "pi_lifetime", status: "needs_response" } } });
+    expect((await POST(request())).status).toBe(200);
+    expect(rpc).toHaveBeenCalledWith("sync_lifetime_dispute", { p_payment_intent_id: "pi_lifetime", p_dispute_id: "dp_lifetime", p_status: "won" });
+    expect(rpc).not.toHaveBeenCalledWith("revoke_lifetime_purchase", expect.anything());
+  });
+
+  it("does not apply a foreign dispute to a lifetime payment", async () => {
+    retrieveDispute.mockResolvedValueOnce({ id: "dp_foreign", payment_intent: "pi_other", status: "needs_response" });
+    constructEvent.mockReturnValue({ id: "evt_foreign_dispute", created: 1_800_000_010, type: "charge.dispute.created", data: { object: { id: "dp_foreign", charge: "ch_lifetime", payment_intent: "pi_lifetime", status: "needs_response" } } });
+    expect((await POST(request())).status).toBe(400);
+    expect(rpc).not.toHaveBeenCalledWith("sync_lifetime_dispute", expect.anything());
   });
 
   it("restores access when a dispute is won and the payment is not refunded", async () => {
+    retrieveDispute.mockResolvedValueOnce({ id: "dp_lifetime", payment_intent: "pi_lifetime", status: "won" });
     constructEvent.mockReturnValue({ id: "evt_lifetime_dispute_won", created: 1_800_000_013, type: "charge.dispute.closed", data: { object: { id: "dp_lifetime", charge: "ch_lifetime", payment_intent: "pi_lifetime", status: "won" } } });
     expect((await POST(request())).status).toBe(200);
-    expect(retrieveCharge).toHaveBeenCalledWith("ch_lifetime", {}, { timeout: 10_000 });
-    expect(rpc).toHaveBeenCalledWith("restore_lifetime_purchase", { p_payment_intent_id: "pi_lifetime" });
+    expect(rpc).toHaveBeenCalledWith("sync_lifetime_dispute", { p_payment_intent_id: "pi_lifetime", p_dispute_id: "dp_lifetime", p_status: "won" });
   });
 
-  it("does not restore access after a dispute win if the payment was fully refunded", async () => {
-    retrieveCharge.mockResolvedValue({ id: "ch_lifetime", amount: 29900, amount_refunded: 29900 });
+  it("keeps refunded payment terminal despite a later dispute win", async () => {
+    retrieveDispute.mockResolvedValueOnce({ id: "dp_lifetime", payment_intent: "pi_lifetime", status: "won" });
     constructEvent.mockReturnValue({ id: "evt_lifetime_dispute_won_refunded", created: 1_800_000_014, type: "charge.dispute.closed", data: { object: { id: "dp_lifetime", charge: "ch_lifetime", payment_intent: "pi_lifetime", status: "won" } } });
     expect((await POST(request())).status).toBe(200);
-    expect(rpc).not.toHaveBeenCalledWith("restore_lifetime_purchase", expect.anything());
+    expect(rpc).toHaveBeenCalledWith("sync_lifetime_dispute", { p_payment_intent_id: "pi_lifetime", p_dispute_id: "dp_lifetime", p_status: "won" });
   });
 
   it("does not revoke lifetime access for a partial refund", async () => {

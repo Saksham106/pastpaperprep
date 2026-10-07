@@ -39,7 +39,7 @@ $$;
 
 create table public.lifetime_payment_states (
   payment_intent_id text primary key,
-  status text not null check (status in ('paid', 'refunded', 'disputed')),
+  status text not null check (status in ('paid', 'refunded', 'disputed', 'lost')),
   updated_at timestamptz not null default now()
 );
 alter table public.lifetime_payment_states enable row level security;
@@ -53,7 +53,7 @@ create table public.lifetime_purchases (
   payment_intent_id text not null unique,
   amount_cents integer not null check (amount_cents = 29900),
   currency text not null check (currency = 'usd'),
-  status text not null check (status in ('paid', 'refunded', 'disputed')),
+  status text not null check (status in ('paid', 'refunded', 'disputed', 'lost')),
   purchased_at timestamptz not null,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -62,6 +62,54 @@ create index lifetime_purchases_user_status_idx on public.lifetime_purchases(use
 alter table public.lifetime_purchases enable row level security;
 revoke all on public.lifetime_purchases from public, anon, authenticated;
 grant select on public.lifetime_purchases to service_role;
+
+create table public.lifetime_disputes (
+  dispute_id text primary key,
+  payment_intent_id text not null,
+  status text not null check (status in ('open', 'won', 'lost')),
+  updated_at timestamptz not null default now()
+);
+create index lifetime_disputes_payment_idx on public.lifetime_disputes(payment_intent_id, status);
+alter table public.lifetime_disputes enable row level security;
+revoke all on public.lifetime_disputes from public, anon, authenticated;
+grant select on public.lifetime_disputes to service_role;
+
+create or replace function public.sync_lifetime_dispute(p_payment_intent_id text, p_dispute_id text, p_status text)
+returns text language plpgsql security definer set search_path = '' as $$
+declare purchase_user_id uuid; effective_status text; prior_status text; prior_pi text;
+begin
+  if coalesce(auth.role(), '') <> 'service_role' then raise exception 'server-only function' using errcode = '42501'; end if;
+  if nullif(btrim(p_payment_intent_id), '') is null or nullif(btrim(p_dispute_id), '') is null or p_status not in ('open', 'won', 'lost') then raise exception 'invalid lifetime dispute'; end if;
+  perform pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended('lifetime:' || p_payment_intent_id, 1));
+  select status, payment_intent_id into prior_status, prior_pi from public.lifetime_disputes where dispute_id = p_dispute_id for update;
+  if prior_pi is not null and prior_pi <> p_payment_intent_id then raise exception 'lifetime dispute identity conflict'; end if;
+  if prior_status is null then
+    insert into public.lifetime_disputes(dispute_id, payment_intent_id, status) values (p_dispute_id, p_payment_intent_id, p_status);
+  elsif prior_status = 'open' then
+    update public.lifetime_disputes set status = p_status, updated_at = now() where dispute_id = p_dispute_id;
+  end if;
+  if exists(select 1 from public.lifetime_payment_states where payment_intent_id = p_payment_intent_id and status = 'refunded') then return 'refunded'; end if;
+  if exists(select 1 from public.lifetime_disputes where payment_intent_id = p_payment_intent_id and status = 'lost') then effective_status := 'lost';
+  elsif exists(select 1 from public.lifetime_disputes where payment_intent_id = p_payment_intent_id and status = 'open') then effective_status := 'disputed';
+  else effective_status := 'paid'; end if;
+  insert into public.lifetime_payment_states(payment_intent_id, status, updated_at) values (p_payment_intent_id, effective_status, now())
+    on conflict (payment_intent_id) do update set status = excluded.status, updated_at = now()
+    where public.lifetime_payment_states.status <> 'refunded';
+  select user_id into purchase_user_id from public.lifetime_purchases where payment_intent_id = p_payment_intent_id;
+  if purchase_user_id is null then return effective_status; end if;
+  perform pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended(purchase_user_id::text, 0));
+  update public.lifetime_purchases set status = effective_status, updated_at = now()
+    where payment_intent_id = p_payment_intent_id and status not in ('refunded', 'lost');
+  if effective_status = 'paid' then
+    update public.entitlements set status = 'active', expires_at = null, source = 'stripe', source_reference = 'lifetime:' || p_payment_intent_id, updated_at = now()
+      where user_id = purchase_user_id and product_id = 'lifetime_all_access' and source <> 'manual';
+  elsif not exists(select 1 from public.lifetime_purchases where user_id = purchase_user_id and status = 'paid') then
+    update public.entitlements set status = 'revoked', source_reference = 'lifetime:' || p_payment_intent_id, updated_at = now()
+      where user_id = purchase_user_id and product_id = 'lifetime_all_access' and source = 'stripe';
+  end if;
+  return effective_status;
+end;
+$$;
 
 create or replace function public.fulfill_lifetime_purchase(
   p_user_id uuid, p_session_id text, p_payment_intent_id text,
@@ -76,7 +124,7 @@ begin
     raise exception 'invalid lifetime payment';
   end if;
   perform pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended('lifetime:' || p_payment_intent_id, 1));
-  if exists(select 1 from public.lifetime_payment_states where payment_intent_id = p_payment_intent_id and status in ('refunded', 'disputed')) then
+  if exists(select 1 from public.lifetime_payment_states where payment_intent_id = p_payment_intent_id and status in ('refunded', 'disputed', 'lost')) then
     raise exception 'lifetime payment is not eligible for fulfillment';
   end if;
   perform pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended(p_user_id::text, 0));
@@ -108,7 +156,7 @@ returns text language plpgsql security definer set search_path = '' as $$
 declare purchase_user_id uuid; changed integer;
 begin
   if coalesce(auth.role(), '') <> 'service_role' then raise exception 'server-only function' using errcode = '42501'; end if;
-  if nullif(btrim(p_payment_intent_id), '') is null or p_status not in ('refunded', 'disputed') then raise exception 'invalid lifetime revocation'; end if;
+  if nullif(btrim(p_payment_intent_id), '') is null or p_status <> 'refunded' then raise exception 'invalid lifetime revocation'; end if;
   perform pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended('lifetime:' || p_payment_intent_id, 1));
   insert into public.lifetime_payment_states(payment_intent_id, status, updated_at) values (p_payment_intent_id, p_status, now())
     on conflict (payment_intent_id) do update set status = case when public.lifetime_payment_states.status = 'refunded' then 'refunded' else excluded.status end, updated_at = now();
@@ -126,38 +174,11 @@ begin
 end;
 $$;
 
-create or replace function public.restore_lifetime_purchase(p_payment_intent_id text)
-returns text language plpgsql security definer set search_path = '' as $$
-declare purchase_user_id uuid; changed integer;
-begin
-  if coalesce(auth.role(), '') <> 'service_role' then raise exception 'server-only function' using errcode = '42501'; end if;
-  if nullif(btrim(p_payment_intent_id), '') is null then raise exception 'invalid lifetime restoration'; end if;
-  perform pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended('lifetime:' || p_payment_intent_id, 1));
-  update public.lifetime_payment_states set status = 'paid', updated_at = now()
-    where payment_intent_id = p_payment_intent_id and status = 'disputed';
-  select user_id into purchase_user_id from public.lifetime_purchases where payment_intent_id = p_payment_intent_id and status = 'disputed';
-  if purchase_user_id is null then return 'unchanged'; end if;
-  perform pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended(purchase_user_id::text, 0));
-  update public.lifetime_purchases set status = 'paid', updated_at = now()
-    where payment_intent_id = p_payment_intent_id and user_id = purchase_user_id and status = 'disputed';
-  get diagnostics changed = row_count;
-  if changed = 0 then return 'unchanged'; end if;
-  insert into public.entitlements(user_id, product_id, status, starts_at, expires_at, source, source_reference)
-  select purchase_user_id, 'lifetime_all_access', 'active', p.purchased_at, null, 'stripe', 'lifetime:' || p_payment_intent_id
-    from public.lifetime_purchases p where p.payment_intent_id = p_payment_intent_id
-  on conflict (user_id, product_id) do update set status = 'active', expires_at = null, source = 'stripe',
-    source_reference = excluded.source_reference, updated_at = now()
-  where public.entitlements.source <> 'manual';
-  get diagnostics changed = row_count;
-  if changed = 0 then raise exception 'lifetime restoration conflicts with manual access'; end if;
-  return 'restored';
-end;
-$$;
 revoke all on function public.fulfill_lifetime_purchase(uuid, text, text, integer, text, timestamptz) from public, anon, authenticated;
 grant execute on function public.fulfill_lifetime_purchase(uuid, text, text, integer, text, timestamptz) to service_role;
 revoke all on function public.revoke_lifetime_purchase(text, text) from public, anon, authenticated;
 grant execute on function public.revoke_lifetime_purchase(text, text) to service_role;
-revoke all on function public.restore_lifetime_purchase(text) from public, anon, authenticated;
-grant execute on function public.restore_lifetime_purchase(text) to service_role;
+revoke all on function public.sync_lifetime_dispute(text, text, text) from public, anon, authenticated;
+grant execute on function public.sync_lifetime_dispute(text, text, text) to service_role;
 notify pgrst, 'reload schema';
 commit;
