@@ -1,12 +1,29 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
+vi.mock("server-only", () => ({}));
+afterEach(() => vi.restoreAllMocks());
 import EmailLinkPage from "./page";
 
 const tokenHash = "a".repeat(64);
 
 describe("scanner-safe magic-link handoff", () => {
+  it("carries an opaque issuance attempt through the form and logs only the render phase", async () => {
+    const attemptId = "30be40c9-7a0a-4250-8615-7b929938a620";
+    const info = vi.spyOn(console, "info").mockImplementation(() => {});
+    const markup = renderToStaticMarkup(await EmailLinkPage({ searchParams: Promise.resolve({ token_hash: tokenHash, type: "signup", auth_attempt: attemptId }) }));
+    expect(markup).toContain(`name="auth_attempt" value="${attemptId}"`);
+    expect(info).toHaveBeenCalledWith({ event: "auth_flow", attemptId, phase: "email_link_rendered" });
+    expect(JSON.stringify(info.mock.calls)).not.toContain(tokenHash);
+  });
+
+  it("does not log or carry arbitrary correlation values from the URL", async () => {
+    const info = vi.spyOn(console, "info").mockImplementation(() => {});
+    const markup = renderToStaticMarkup(await EmailLinkPage({ searchParams: Promise.resolve({ token_hash: tokenHash, type: "signup", auth_attempt: "private@example.com" }) }));
+    expect(markup).not.toContain('name="auth_attempt"');
+    expect(info).not.toHaveBeenCalled();
+  });
   it("renders an explicit confirmation step without consuming the token", async () => {
     const node = await EmailLinkPage({
       searchParams: Promise.resolve({

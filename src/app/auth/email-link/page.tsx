@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, EnvelopeSimpleOpen } from "@phosphor-icons/react/dist/ssr";
 import { safeNextPath } from "@/lib/auth";
 import { ConfirmationForm } from "@/app/auth/confirmation-form";
+import { logAuthDiagnostic, validAuthAttemptId } from "@/lib/auth-diagnostics";
 
 export const metadata = { title: "Continue signing in" };
 
@@ -22,6 +23,9 @@ export default async function EmailLinkPage({ searchParams }: { searchParams: Pr
   const next = safeNextPath(first(params.next));
   const validType = type === "email" || type === "signup";
   const valid = validTokenHash(tokenHash) && validType;
+  const rawAttempt = first(params.auth_attempt);
+  const attemptId = validAuthAttemptId(rawAttempt) ? rawAttempt : undefined;
+  if (valid && attemptId) logAuthDiagnostic({ attemptId, phase: "email_link_rendered" });
 
   return (
     <section className="auth-page shell">
@@ -35,6 +39,7 @@ export default async function EmailLinkPage({ searchParams }: { searchParams: Pr
               <input type="hidden" name="token_hash" value={tokenHash} />
               <input type="hidden" name="type" value={type} />
               <input type="hidden" name="next" value={next} />
+              {attemptId && <input type="hidden" name="auth_attempt" value={attemptId} />}
               <button className="button primary" type="submit">
                 <EnvelopeSimpleOpen weight="bold" /> Continue to PastPaperPrep <ArrowRight weight="bold" />
               </button>

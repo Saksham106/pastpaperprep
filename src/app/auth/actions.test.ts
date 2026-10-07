@@ -1,4 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+vi.mock("server-only", () => ({}));
+vi.mock("@/lib/auth-diagnostics", async (importOriginal) => ({
+  ...await importOriginal<typeof import("@/lib/auth-diagnostics")>(),
+  createAuthAttemptId: () => "30be40c9-7a0a-4250-8615-7b929938a620",
+}));
 
 const { redirect, createClient, bindReferral, captureConversionOutcome, cookies } = vi.hoisted(() => ({
   redirect: vi.fn(() => {
@@ -16,7 +21,7 @@ vi.mock("@/lib/referral-account", () => ({ bindReferralToAuthenticatedUser: bind
 vi.mock("@/lib/server-conversion-analytics", () => ({ captureConversionOutcome }));
 vi.mock("@/lib/supabase/server", () => ({ createClient }));
 
-import { createAccountWithPassword, requestMagicLink, requestPasswordReset, signInWithPassword, updatePassword } from "./actions";
+import { createAccountWithPassword, resendSignupConfirmation, requestMagicLink, requestPasswordReset, signInWithPassword, updatePassword } from "./actions";
 import { initialMagicLinkState } from "@/lib/auth";
 
 function form(values: Record<string, string>) {
@@ -28,12 +33,45 @@ function form(values: Record<string, string>) {
 describe("password authentication actions", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.spyOn(console, "info").mockImplementation(() => {});
     captureConversionOutcome.mockResolvedValue(undefined);
     vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://pastpaperprep.com");
   });
 
   afterEach(() => {
+    vi.restoreAllMocks();
     vi.unstubAllEnvs();
+  });
+
+  it("correlates signup issuance metadata and never logs the submitted credentials", async () => {
+    createClient.mockResolvedValue({ auth: { signUp: vi.fn().mockResolvedValue({ data: { session: null }, error: null }) } });
+    await createAccountWithPassword(initialMagicLinkState, form({ email: "private@example.com", password: "private password value", passwordConfirmation: "private password value" }));
+    expect(console.info).toHaveBeenCalledWith({ event: "auth_flow", attemptId: "30be40c9-7a0a-4250-8615-7b929938a620", phase: "signup_requested" });
+    expect(console.info).toHaveBeenCalledWith({ event: "auth_flow", attemptId: "30be40c9-7a0a-4250-8615-7b929938a620", phase: "signup_result", outcome: "accepted" });
+    expect(JSON.stringify(vi.mocked(console.info).mock.calls)).not.toContain("private");
+  });
+
+  it("fails neutrally and logs only a code when signup rejects or throws", async () => {
+    const signUp = vi.fn().mockResolvedValueOnce({ data: { session: null }, error: { code: "weak_password", message: "private@example.com" } }).mockRejectedValueOnce(new Error("private network failure"));
+    createClient.mockResolvedValue({ auth: { signUp } });
+    const values = { email: "private@example.com", password: "private password value", passwordConfirmation: "private password value" };
+    expect((await createAccountWithPassword(initialMagicLinkState, form(values))).status).toBe("error");
+    expect(console.info).toHaveBeenCalledWith(expect.objectContaining({ phase: "signup_result", outcome: "rejected", providerCode: "weak_password" }));
+    expect((await createAccountWithPassword(initialMagicLinkState, form(values))).status).toBe("error");
+    expect(JSON.stringify(vi.mocked(console.info).mock.calls)).not.toContain("private");
+  });
+
+  it("fails neutrally when resend throws and does not claim mail was sent", async () => {
+    createClient.mockResolvedValue({ auth: { resend: vi.fn().mockRejectedValue(new Error("private network failure")) } });
+    const result = await resendSignupConfirmation(initialMagicLinkState, form({ email: "private@example.com" }));
+    expect(result.status).toBe("error");
+    expect(console.info).toHaveBeenCalledWith(expect.objectContaining({ phase: "resend_result", outcome: "rejected", providerCode: "unexpected_failure" }));
+    expect(JSON.stringify(vi.mocked(console.info).mock.calls)).not.toContain("private");
+  });
+
+  it("fails neutrally when a magic-link request throws", async () => {
+    createClient.mockResolvedValue({ auth: { signInWithOtp: vi.fn().mockRejectedValue(new Error("private network failure")) } });
+    expect((await requestMagicLink(initialMagicLinkState, form({ email: "private@example.com" }))).status).toBe("error");
   });
 
   it("signs in with a server-trusted internal redirect", async () => {
@@ -48,6 +86,28 @@ describe("password authentication actions", () => {
 
     expect(signInWithPasswordMock).toHaveBeenCalledWith({ email: "student@example.com", password: "three calm otters" });
     expect(redirect).toHaveBeenCalledWith("/pricing");
+  });
+
+  it("resends only a valid normalized signup email with a safe handoff; reports provider errors neutrally", async () => {
+    const resend = vi.fn().mockResolvedValue({ error: null });
+    createClient.mockResolvedValue({ auth: { resend } });
+    const result = await resendSignupConfirmation(initialMagicLinkState, form({ email: " STUDENT@example.com ", next: "//evil.example" }));
+    expect(result).toEqual({ status: "success", message: "If the signup is pending, a confirmation email is on its way." });
+    expect(resend).toHaveBeenCalledWith({
+      type: "signup",
+      email: "student@example.com",
+      options: { emailRedirectTo: "https://pastpaperprep.com/auth/email-link?next=%2Fpricing&auth_attempt=30be40c9-7a0a-4250-8615-7b929938a620" },
+    });
+    resend.mockResolvedValueOnce({ error: new Error("rate limit") });
+    const failed = await resendSignupConfirmation(initialMagicLinkState, form({ email: "student@example.com", next: "/account" }));
+    expect(failed).toEqual({ status: "error", message: "We couldn’t resend the confirmation email. Wait a minute and try again." });
+    expect(failed.message).not.toMatch(/rate limit/i);
+  });
+
+  it("rejects an invalid resend email without accessing Supabase", async () => {
+    const result = await resendSignupConfirmation(initialMagicLinkState, form({ email: "not-an-email" }));
+    expect(result.status).toBe("error");
+    expect(createClient).not.toHaveBeenCalled();
   });
 
   it("creates a password account through the existing confirmation handoff", async () => {
@@ -66,7 +126,7 @@ describe("password authentication actions", () => {
       email: "new.student@example.com",
       password: "three calm otters",
       options: {
-        emailRedirectTo: "https://pastpaperprep.com/auth/email-link?next=%2Fdashboard",
+        emailRedirectTo: "https://pastpaperprep.com/auth/email-link?next=%2Fdashboard&auth_attempt=30be40c9-7a0a-4250-8615-7b929938a620",
       },
     });
   });
@@ -112,7 +172,7 @@ describe("password authentication actions", () => {
     expect(signInWithOtp).toHaveBeenCalledWith({
       email: "devon@example.com",
       options: {
-        emailRedirectTo: "https://pastpaperprep.com/auth/email-link?next=%2Fpricing%3Finterval%3Dannual%26product%3Dbundle_all",
+        emailRedirectTo: "https://pastpaperprep.com/auth/email-link?next=%2Fpricing%3Finterval%3Dannual%26product%3Dbundle_all&auth_attempt=30be40c9-7a0a-4250-8615-7b929938a620",
         shouldCreateUser: true,
       },
     });
