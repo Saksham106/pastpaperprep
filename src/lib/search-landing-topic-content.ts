@@ -4,7 +4,7 @@ import type { BankSlug } from "@/lib/catalog";
 export const CURATED_TOPIC_LANDINGS: Partial<Record<BankSlug, readonly string[]>> = {
   "igcse-biology-0610": ["Inheritance"],
   "igcse-economics-0455": ["Microeconomic decision makers"],
-  "igcse-chemistry-0620": ["Atoms, elements and compounds"],
+  "igcse-chemistry-0620": ["Atoms, elements and compounds", "Stoichiometry"],
   "igcse-physics-0625": ["Motion, forces and energy"],
   "igcse-coordinated-sciences-0654": ["Motion, forces and energy"],
   "ib-chemistry-hl": ["Matter, amounts and stoichiometry"],
@@ -27,6 +27,7 @@ export const TOPIC_LANDING_COPY: Record<string, string> = {
   "chemical-reactions": "Practise explaining reaction patterns and representing changes with equations. Compare conditions and observations carefully instead of relying on a memorised reaction label.",
   "motion-forces-and-energy": "Use motion and force questions to connect diagrams, graphs, equations and units. Practise explaining what a calculated quantity means in the physical situation.",
   "electricity-and-magnetism": "Work between circuit diagrams, measurements and electrical relationships, then practise explaining magnetic effects with the direction and conditions made explicit.",
+  "stoichiometry": "Start with relative formula masses and balanced equations, then use the mole ratios in those equations to connect reactant and product amounts. Practise showing each step, keeping units consistent, and checking that your final quantity answers the question asked.",
   "matter-amounts-and-stoichiometry": "Practise translating between masses, moles, formulae and balanced equations. Keep units visible and check that each ratio comes from the equation in the question.",
   "bonding-structure-and-materials": "Compare structures and bonding to explain observable properties. Strong answers connect the particle-level model to the material behaviour asked about.",
   "mechanics-and-motion": "Connect kinematics and force models to graphs and free-body reasoning. Check sign conventions, units and whether the result matches the stated motion.",
