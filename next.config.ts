@@ -1,4 +1,6 @@
 import type { NextConfig } from "next";
+import { withPostHogConfig } from "@posthog/nextjs-config";
+import { getPostHogBuildConfig } from "@/lib/posthog-build-config";
 
 const nextConfig: NextConfig = {
   experimental: {
@@ -18,6 +20,10 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: process.cwd(),
   },
+  // Release IDs are public build metadata; credentials remain server-only.
+  env: {
+    NEXT_PUBLIC_BUILD_REVISION: process.env.NEXT_PUBLIC_BUILD_REVISION || process.env.VERCEL_GIT_COMMIT_SHA || "local",
+  },
   images: {
     // Artwork ships as pre-compressed WebP, so the optimizer must pass quality 90 through
     // instead of clamping to the default 75 and re-encoding the hero on every request.
@@ -31,4 +37,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withPostHogConfig(nextConfig, getPostHogBuildConfig());

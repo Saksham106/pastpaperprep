@@ -1,6 +1,7 @@
 "use client";
 
 import { readBrowserAnalyticsConsent, stableAnalyticsDistinctId } from "@/lib/analytics-consent";
+import { boundExceptionFrames, scrubStack } from "@/lib/error-privacy";
 
 type ProductEventProperties = Record<string, string | number | boolean | null | undefined>;
 type PostHogClient = typeof import("posthog-js").default;
@@ -66,22 +67,50 @@ const ERROR_CATEGORIES = new Set(["Error", "TypeError", "ReferenceError", "Range
 
 export function sanitizeAnalyticsEvent<T extends { properties?: Record<string, unknown> }>(event: T | null): T | null {
   if (!event?.properties) return event;
-  const scrub = (value: unknown, key = "", depth = 0): unknown => {
+  const scrub = (value: unknown, key = "", depth = 0, inException = false): unknown => {
     if (depth > 8) return undefined;
+    const exception = inException || /exception/i.test(key);
+    if (exception && (/^(?:value|message|error|error_string)$/i.test(key) || /exception.*(?:message|value|error)/i.test(key))) return undefined;
+    if (exception && /^(?:filename|source|url|href)$/i.test(key)) {
+      if (typeof value !== "string" || value.length > 2048) return undefined;
+      try { const url = new URL(value); const path = boundExceptionFrames([{ filename: value }])[0]?.filename; return path ? `${url.origin}${new URL(path).pathname}` : undefined; }
+      catch { return undefined; }
+    }
     if (typeof value === "string" && /(?:url|href|referrer)$/i.test(key)) {
-      try {
-        const url = new URL(value);
-        if (url.protocol !== "https:" && url.protocol !== "http:") return undefined;
-        return `${url.origin}${url.pathname}`;
-      } catch { return undefined; }
+      try { const url = new URL(value); if ((url.protocol !== "https:" && url.protocol !== "http:") || url.username || url.password) return undefined; return `${url.origin}${url.pathname}`; }
+      catch { return undefined; }
     }
-    if (Array.isArray(value)) return value.map(item => scrub(item, key, depth + 1)).filter(item => item !== undefined);
-    if (value && typeof value === "object") {
-      return Object.fromEntries(Object.entries(value).map(([name, item]) => [name, scrub(item, name, depth + 1)]).filter(([, item]) => item !== undefined));
+    if (Array.isArray(value)) {
+      const items = exception && key === "frames" ? boundExceptionFrames(value.filter(item => item && typeof item === "object") as Record<string, unknown>[]) : value;
+      return items.slice(0, exception ? 50 : items.length).map(item => scrub(item, key, depth + 1, exception)).filter(item => item !== undefined);
     }
+    if (value && typeof value === "object") return Object.fromEntries(Object.entries(value).map(([name, item]) => [name, scrub(item, name, depth + 1, exception)]).filter(([, item]) => item !== undefined));
+    if (typeof value === "string" && exception) return value.slice(0, 500);
     return value;
   };
   return { ...event, properties: scrub(event.properties) as Record<string, unknown> };
+}
+
+const reportedErrors = new WeakSet<object>();
+export function captureAppException(error: unknown) {
+  if (isExpectedControlFlow(error) || (error && typeof error === "object" && reportedErrors.has(error))) return;
+  if (error && typeof error === "object") reportedErrors.add(error);
+  if (!(error instanceof Error)) return;
+  const safe = new Error("Application exception");
+  safe.name = ERROR_CATEGORIES.has(error.name) ? error.name : "Error";
+  safe.stack = scrubStack(error.stack, safe.name);
+  void loadClient().then(client => {
+    if (!client) return;
+    try { client.captureException(safe); } catch { /* Never affect application behavior. */ }
+  });
+}
+
+export function isExpectedControlFlow(error: unknown) {
+  if (!error || typeof error !== "object") return false;
+  const value = error as { digest?: unknown; message?: unknown };
+  const digest = typeof value.digest === "string" ? value.digest : "";
+  return digest.startsWith("NEXT_REDIRECT") || digest.startsWith("NEXT_NOT_FOUND") ||
+    (typeof value.message === "string" && /(?:rate.?limit|cooldown|invalid credentials)/i.test(value.message));
 }
 
 export function captureBrowserError(error: { name?: unknown; filename?: unknown; lineno?: unknown; colno?: unknown }) {

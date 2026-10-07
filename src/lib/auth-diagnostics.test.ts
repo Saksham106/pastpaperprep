@@ -1,5 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 vi.mock("server-only", () => ({}));
+const captureAuthProviderFailure = vi.hoisted(() => vi.fn());
+vi.mock("@/lib/server-error-tracking", () => ({ captureAuthProviderFailure }));
 import { createAuthAttemptId, validAuthAttemptId, logAuthDiagnostic } from "./auth-diagnostics";
 
 const attemptId = "30be40c9-7a0a-4250-8615-7b929938a620";
@@ -37,6 +39,24 @@ describe("token-free auth diagnostics", () => {
     expect(error).toHaveBeenCalledWith(expect.objectContaining({ providerCode: "unexpected_failure" }));
     error.mockImplementation(() => { throw new Error("sink unavailable"); });
     expect(() => logAuthDiagnostic({ attemptId, phase: "magic_link_result", outcome: "rejected", providerCode: "smtp_error" })).not.toThrow();
+  });
+
+  it("captures only unexpected provider failures with safe phase and code fields", () => {
+    captureAuthProviderFailure.mockClear();
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const error = vi.spyOn(console, "error").mockImplementation(() => {});
+    logAuthDiagnostic({ attemptId, phase: "password_signin_result", outcome: "rejected", providerCode: "invalid_credentials" });
+    logAuthDiagnostic({ attemptId, phase: "magic_link_result", outcome: "rejected", providerCode: "over_email_send_rate_limit" });
+    expect(captureAuthProviderFailure).not.toHaveBeenCalled();
+    logAuthDiagnostic({ attemptId, phase: "magic_link_result", outcome: "rejected", providerCode: "unexpected_failure" });
+    logAuthDiagnostic({ attemptId, phase: "resend_result", outcome: "rejected", providerCode: "smtp_error" });
+    expect(captureAuthProviderFailure).toHaveBeenNthCalledWith(1, "magic_link_result", "unexpected_failure");
+    expect(captureAuthProviderFailure).toHaveBeenNthCalledWith(2, "resend_result", "smtp_error");
+    expect(JSON.stringify(captureAuthProviderFailure.mock.calls)).not.toMatch(/email|password|raw/);
+    captureAuthProviderFailure.mockImplementationOnce(() => { throw new Error("telemetry unavailable"); });
+    expect(() => logAuthDiagnostic({ attemptId, phase: "signup_result", outcome: "rejected", providerCode: "unexpected_failure" })).not.toThrow();
+    expect(warn).toHaveBeenCalled();
+    expect(error).toHaveBeenCalled();
   });
 
   it("replaces unsafe provider codes and ignores invalid attempt identifiers", () => {
