@@ -2,6 +2,10 @@ import { describe, expect, it } from "vitest";
 import { scrubStack } from "./error-privacy";
 
 describe("real browser and server frame formats", () => {
+  it("retains the immutable chunk prefix served by the actual Vercel build", () => {
+    expect(scrubStack("TypeError: private message\n    at render (https://pastpaperprep.com/_next/static/immutable/chunks/0bqrzw0nf0wio.js:12:8)", "TypeError"))
+      .toContain("https://pastpaperprep.com/_next/static/immutable/chunks/0bqrzw0nf0wio.js:12:8");
+  });
   it("retains line and column on normal Chrome generated chunk frames", () => {
     expect(scrubStack("TypeError: private message\n    at render (https://pastpaperprep.com/_next/static/chunks/2dwlnrg2u4gi9.js:12:8)", "TypeError"))
       .toContain("https://pastpaperprep.com/_next/static/chunks/2dwlnrg2u4gi9.js:12:8");

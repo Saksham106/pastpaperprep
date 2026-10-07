@@ -5,8 +5,9 @@ const APP_DIRS = new Set(["app", "account", "api", "articles", "auth", "banks", 
 const CLIENT_FILE = /^[A-Za-z0-9_-]{1,80}\.m?js$/;
 
 export function safeGeneratedPath(pathname: string): string | null {
-  if (!pathname.startsWith("/_next/static/chunks/") || pathname.length > 300 || /[%\\?#@]/.test(pathname)) return null;
-  const parts = pathname.slice("/_next/static/chunks/".length).split("/");
+  const prefix = pathname.startsWith("/_next/static/immutable/chunks/") ? "/_next/static/immutable/chunks/" : "/_next/static/chunks/";
+  if (!pathname.startsWith(prefix) || pathname.length > 300 || /[%\\?#@]/.test(pathname)) return null;
+  const parts = pathname.slice(prefix.length).split("/");
   const filename = parts.pop()!;
   if (!CLIENT_FILE.test(filename)) return null;
   if (parts.length && (parts[0] !== "app" || parts.length > 6 || !parts.every(part => APP_DIRS.has(part)))) return null;
