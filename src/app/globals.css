@@ -1950,7 +1950,7 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 }
 
 /* Full-bleed lifetime offer, composed around the supplied panoramic artwork. */
-.pricing-page:has(.lifetime-scenic) .pricing-intro { display: none; }
+.pricing-page .pricing-intro { display: block; }
 .lifetime-scenic { position: relative; isolation: isolate; width: 100vw; min-height: 640px; aspect-ratio: 1822 / 863; margin: 0 0 0 calc(50% - 50vw); display: flex; flex-direction: column; align-items: center; overflow: hidden; color: #172337; background-color: #eee6d7; background-size: cover; background-position: center; }
 .lifetime-scenic > .billing-toggle { position: relative; z-index: 2; flex-shrink: 0; margin: 28px auto 0; background: #faf7ef; }
 .pricing-page:has(.lifetime-scenic) { padding-top: 0; }
