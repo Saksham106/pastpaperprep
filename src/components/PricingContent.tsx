@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { BookOpen, CrownSimple, SlidersHorizontal } from "@phosphor-icons/react";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { CustomBundleCheckout, LifetimeCheckout, PlanCheckout, PortalButton } from "@/components/BillingActions";
 import { CourseIcon, courseToneForBank } from "@/components/CourseIcon";
 import type { ProductId } from "@/lib/access";
@@ -64,6 +64,41 @@ function BankTable({ banks }: { banks: readonly Bank[] }) {
 export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], currentPlanProductIds = [], complimentaryAccess = false, previewOnly = false, previewSubscriptionHref, ownedBankIds = [], initialInterval = "monthly", initialLifetimeSelected = false, initialProductId, initialBankIds, availableBanks = getCatalogRuntimeBanks() }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; currentPlanProductIds?: readonly ProductId[]; complimentaryAccess?: boolean; previewOnly?: boolean; previewSubscriptionHref?: string; ownedBankIds?: readonly BankSlug[]; initialInterval?: BillingInterval; initialLifetimeSelected?: boolean; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[] }) {
   const [interval, setInterval] = useState<BillingInterval>(initialInterval);
   const [lifetimeSelected, setLifetimeSelected] = useState(initialLifetimeSelected ?? false);
+  const scenicRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const artwork = new window.Image();
+    artwork.src = "/artwork/lifetime-philosopher-cathedral.webp";
+  }, []);
+  useEffect(() => {
+    const scene = scenicRef.current;
+    if (!lifetimeSelected || !scene || typeof window.matchMedia !== "function") return;
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const pointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const art = scene.querySelector<HTMLElement>(".lifetime-art-depth");
+    if (!art) return;
+    let frame = 0;
+    let x = 0;
+    let y = 0;
+    const reset = () => { cancelAnimationFrame(frame); frame = 0; art.style.transform = ""; };
+    const move = (event: PointerEvent) => {
+      if (motion.matches || !pointer.matches) return;
+      const bounds = scene.getBoundingClientRect();
+      x = Math.max(-3, Math.min(3, ((event.clientX - bounds.left) / bounds.width - .5) * 6));
+      y = Math.max(-3, Math.min(3, ((event.clientY - bounds.top) / bounds.height - .5) * 6));
+      if (!frame) frame = requestAnimationFrame(() => { art.style.transform = `translate3d(${x}px, ${y}px, 0)`; frame = 0; });
+    };
+    scene.addEventListener("pointermove", move);
+    scene.addEventListener("pointerleave", reset);
+    motion.addEventListener("change", reset);
+    pointer.addEventListener("change", reset);
+    return () => {
+      reset();
+      scene.removeEventListener("pointermove", move);
+      scene.removeEventListener("pointerleave", reset);
+      motion.removeEventListener("change", reset);
+      pointer.removeEventListener("change", reset);
+    };
+  }, [lifetimeSelected]);
   const initialBankId = initialProductId ? bankSlugForProduct(initialProductId) : undefined;
   const initialCustomBankIds = initialBankIds ?? (initialBankId ? [initialBankId] : undefined);
   const [builderBankIds, setBuilderBankIds] = useState<BankSlug[]>(() => hasPaidAccess ? [] : [...(initialCustomBankIds ?? [])]);
@@ -162,7 +197,8 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
     <button className="billing-toggle-lifetime" type="button" aria-pressed={lifetimeSelected} onClick={() => chooseInterval("lifetime")}>Lifetime</button>
   </div>;
 
-  const lifetimeOffer = <section className="lifetime-scenic" data-lifetime="true" aria-label="Lifetime access offer" style={{ backgroundImage: "url('/artwork/lifetime-philosopher-cathedral.webp')" }}>
+  const lifetimeOffer = <section ref={scenicRef} className="lifetime-scenic" data-lifetime="true" aria-label="Lifetime access offer" style={{ backgroundImage: "url('/artwork/lifetime-philosopher-cathedral.webp')" }}>
+    <div className="lifetime-art-depth" aria-hidden="true" />
     <div className="lifetime-scenic-content">
       <h2>Lifetime full access</h2>
       <div className="lifetime-price"><strong>$299</strong><span> once</span></div>

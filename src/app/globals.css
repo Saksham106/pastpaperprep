@@ -1982,9 +1982,15 @@ body:has(.bank-hero) .site-footer::after { display: none; }
  .lifetime-benefits { gap: 12px 17px; }
 }
 /* Stable billing selector: the same node remains at the top of the pricing flow in every mode. */
-.pricing-toggle-anchor { position: relative; z-index: 3; }
+.pricing-toggle-anchor { position: relative; z-index: 3; display: flow-root; }
+.pricing-page { padding-top: 0; }
+.lifetime-art-depth { position: absolute; z-index: 0; inset: -6px; pointer-events: none; background-image: url('/artwork/lifetime-philosopher-cathedral.webp'); background-size: cover; background-position: center; }
+.lifetime-scenic::before { z-index: 1; }
+.lifetime-scenic-content { z-index: 2; }
+@media (max-width: 700px) { .lifetime-art-depth { background-size: auto 100%; background-position: 49% center; } }
+@media (prefers-reduced-motion: reduce) { .pricing-toggle-anchor-lifetime .lifetime-scenic::after { display: none; } }
 .pricing-toggle-anchor > .billing-toggle { margin: 28px auto 30px; }
-.pricing-toggle-anchor-lifetime { margin: 0; padding-top: 1px; }
+.pricing-toggle-anchor-lifetime { margin: 0; padding-top: 0; }
 .pricing-toggle-anchor-lifetime > .billing-toggle { position: relative; z-index: 4; margin: 28px auto 0; }
 .pricing-toggle-anchor-lifetime .lifetime-scenic { margin-top: -56px; padding-top: 56px; }
 .pricing-toggle-anchor-lifetime .lifetime-scenic-content { animation: lifetime-offer-reveal 720ms 400ms both; }
@@ -1992,7 +1998,8 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 @keyframes lifetime-parchment-wash { from { clip-path: inset(0 0 0); opacity: .94; transform: translateY(0); } to { clip-path: inset(0 0 100%); opacity: 0; transform: translateY(-8px); } }
 @keyframes lifetime-offer-reveal { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 .pricing-toggle-anchor-lifetime .lifetime-price, .pricing-toggle-anchor-lifetime .lifetime-scenic .billing-actions { animation: lifetime-offer-reveal 420ms 400ms both; }
-.pricing-toggle-anchor-lifetime .lifetime-scenic .billing-actions .button { animation: lifetime-cta-glow 900ms 850ms ease-out both; }
+.pricing-toggle-anchor-lifetime .lifetime-scenic .billing-actions .button,
+.pricing-toggle-anchor-lifetime .lifetime-scenic-content > a.button { animation: lifetime-cta-glow 900ms 850ms ease-out both; }
 @keyframes lifetime-cta-glow { 0% { box-shadow: 0 0 0 0 rgb(158 18 63 / 0); } 35% { box-shadow: 0 0 0 7px rgb(158 18 63 / .19), 0 0 25px rgb(158 18 63 / .26); } 100% { box-shadow: 0 0 0 0 rgb(158 18 63 / 0); } }
 @media (prefers-reduced-motion: reduce) { .pricing-toggle-anchor-lifetime *, .pricing-toggle-anchor-lifetime *::before, .pricing-toggle-anchor-lifetime *::after { animation: none !important; transition: none !important; } }
 @media (max-width: 767px) { .pricing-toggle-anchor-lifetime { margin-right: calc(50% - 50vw); margin-left: calc(50% - 50vw); } }
