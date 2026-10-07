@@ -175,6 +175,7 @@ export function SearchDetail({ bank, title, kind, label, count, filterHref, cano
         <Link className="button primary" href={`${filterHref}${filterHref.includes("?") ? "&" : "?"}free=0`}>Open this practice set <ArrowRight weight="bold" /></Link>
         <Link className="button secondary" href={`/syllabus/${bank.slug}`}>Read the syllabus guide</Link>
       </div>
+      {bank.slug === "igcse-chemistry-0620" && kind === "topic" && label === "Stoichiometry" && <p className="access-footnote">Need more revision context? Read our <Link href="/articles/best-igcse-chemistry-0620-question-banks">IGCSE Chemistry 0620 question-bank guide</Link>.</p>}
       <p className="access-footnote"><LockKey weight="bold" /> These public pages expose labels and counts only. They do not unlock paid questions, answers, or PDF exports.</p>
     </main>
   );

@@ -79,6 +79,12 @@ describe("SearchLanding", () => {
     expect(script?.textContent).not.toContain("?topic=");
   });
 
+  it("adds the existing 0620 chemistry guide early on the Stoichiometry detail only", () => {
+    const chemistry = getCatalogBank("igcse-chemistry-0620")!;
+    render(<SearchDetail bank={chemistry} title="IGCSE Chemistry 0620 Stoichiometry Questions" kind="topic" label="Stoichiometry" count={475} filterHref="/banks/igcse-chemistry-0620?topic=Stoichiometry" canonicalPath="/banks/igcse-chemistry-0620/topics/stoichiometry" />);
+    expect(screen.getByRole("link", { name: "IGCSE Chemistry 0620 question-bank guide" })).toHaveAttribute("href", "/articles/best-igcse-chemistry-0620-question-banks");
+  });
+
   it("describes paper counts as archive coverage rather than topic frequency", () => {
     render(
       <SearchDetail
