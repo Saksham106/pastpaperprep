@@ -4,7 +4,8 @@ import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent as Reac
 import Image from "next/image";
 import Link from "next/link";
 import { BookmarkSimple, CaretDown, Check, CheckCircle, DownloadSimple, Funnel, MagnifyingGlass, ShareNetwork, X } from "@phosphor-icons/react";
-import { attachPdfAssetMetadata, downloadQuestionPdf, MAX_PDF_QUESTIONS, pdfHeldNotice, questionsForPdf, type PdfAnswerPlacement, type PdfContent } from "@/lib/pdf-export";
+import type { PdfAnswerPlacement, PdfContent } from "@/lib/pdf-export";
+import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
 import { isPreviewQuestion } from "@/lib/access";
 
 import { filterQuestions, questionZoneValue } from "@/lib/question-filter";
@@ -936,7 +937,11 @@ access: ExplorerAccess;
     });
   };
 
-  const exportQuestions = sharedSetView ? [] : worksheetId ? savedSetQuestions : questionsForPdf(filtered, selectedIds, selectionIsExplicit, catalogQuestions);
+  const exportQuestions = sharedSetView ? [] : worksheetId ? savedSetQuestions : (() => {
+    if (!selectionIsExplicit) return filtered.slice(0, MAX_PDF_QUESTIONS);
+    const byId = new Map(catalogQuestions.map((question) => [question.id, question]));
+    return [...selectedIds].map((id) => byId.get(id)).filter((question): question is UnifiedQuestion => Boolean(question)).slice(0, MAX_PDF_QUESTIONS);
+  })();
   const openPdfBuilder = () => {
     if (worksheetId && (!worksheetReady || worksheetLoadFailed || !exportQuestions.length)) return;
     if (worksheetId && worksheetDirty) { setPendingWorksheetAction({ kind: "pdf" }); return; }
@@ -955,7 +960,10 @@ access: ExplorerAccess;
     setPdfStatusKind("progress");
     setPdfStatus(`Preparing ${exportQuestions.length} questions...`);
     try {
-      const assets = await fetchPdfAssets(bank, exportQuestions.map((question) => question.id), pdfContent, fetch, localPreview);
+      const [{ attachPdfAssetMetadata, downloadQuestionPdf, pdfHeldNotice }, assets] = await Promise.all([
+        import("@/lib/pdf-export"),
+        fetchPdfAssets(bank, exportQuestions.map((question) => question.id), pdfContent, fetch, localPreview),
+      ]);
       const securedQuestions = attachPdfAssetMetadata(exportQuestions, assets);
       const result = await downloadQuestionPdf(
         securedQuestions,
