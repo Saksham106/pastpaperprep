@@ -42,6 +42,18 @@ describe("serverless performance boundaries", () => {
     expect(questions).not.toContain("const rawBanks");
   });
 
+  it("keeps PDF generation out of the cold explorer entry chunk", () => {
+    const explorer = source("src/components/QuestionExplorer.tsx");
+    expect(explorer).not.toMatch(/^import\s+(?!type\b).*from [\"']@\/lib\/pdf-export[\"']/m);
+    expect(explorer).toContain('import("@/lib/pdf-export")');
+  });
+
+  it("gives bank navigation its own accessible loading boundary", () => {
+    const loading = source("src/app/banks/[slug]/loading.tsx");
+    expect(loading).toContain('aria-label="Loading question bank"');
+    expect(loading).toContain("bank-loading-workspace");
+  });
+
   it("keeps bank route delivery bounded to the first matching page", () => {
     const page = source("src/app/banks/[slug]/page.tsx");
     expect(page).not.toContain("prepareQuestionsForDelivery");
