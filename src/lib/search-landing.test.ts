@@ -9,6 +9,9 @@ import {
   topicPath,
 } from "@/lib/search-landing";
 import { getCatalogBank } from "@/lib/catalog";
+import { CURATED_TOPIC_LANDINGS } from "@/lib/search-landing-topic-content";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 
 function question(overrides: Partial<UnifiedQuestion>): UnifiedQuestion {
   return {
@@ -72,5 +75,34 @@ describe("search landing manifests", () => {
     for (const forbidden of ["questionText", "answer", "solution", "asset", "storagePath", "signedUrl"]) {
       expect(serialized).not.toContain(forbidden);
     }
+  });
+
+  it("keeps the original top-two routes and adds only curated, live labels with meaningful inventory", () => {
+    const datasets: Record<string, string> = {
+      "igcse-biology-0610": "src/data/production/igcse-biology-0610.json",
+      "igcse-economics-0455": "src/data/production/igcse-economics-0455.json",
+      "igcse-chemistry-0620": "src/data/production/igcse-chemistry-0620.json",
+      "igcse-physics-0625": "src/data/production/igcse-physics-0625.json",
+      "igcse-coordinated-sciences-0654": "src/data/production/igcse-coordinated-sciences-0654.json",
+      "ib-chemistry-hl": "src/data/raw/ib-chemistry-hl.json", "ib-chemistry-sl": "src/data/raw/ib-chemistry-sl.json",
+      "ib-physics-hl": "src/data/raw/ib-physics-hl.json", "ib-physics-sl": "src/data/raw/ib-physics-sl.json",
+      "ib-biology-hl": "src/data/raw/ib-biology-hl.json", "ib-biology-sl": "src/data/raw/ib-biology-sl.json",
+      "ib-economics-hl": "src/data/local-preview/ib-economics-hl.json", "ib-economics-sl": "src/data/local-preview/ib-economics-sl.json",
+    };
+    for (const [slug, file] of Object.entries(datasets)) {
+      const raw = JSON.parse(readFileSync(resolve(process.cwd(), file), "utf8"));
+      const questions = raw.questions.map((q: Record<string, unknown>) => ({ ...question(q as Partial<UnifiedQuestion>), ...q, bankSlug: slug } as UnifiedQuestion));
+      const manifest = buildLandingManifest(slug as Parameters<typeof buildLandingManifest>[0], questions);
+      expect(manifest.topics).toHaveLength(CURATED_TOPIC_LANDINGS[slug as keyof typeof CURATED_TOPIC_LANDINGS]?.length ?? 0);
+      expect(manifest.topics.every((topic) => topic.count >= 20)).toBe(true);
+      expect(manifest.topics.map((topic) => topic.label)).toEqual(CURATED_TOPIC_LANDINGS[slug as keyof typeof CURATED_TOPIC_LANDINGS]);
+      expect(manifest.topics.every((topic) => topicPath(slug, topic).endsWith(`/${topic.slug}`))).toBe(true);
+    }
+    const old = buildLandingManifest("igcse", [
+      ...Array.from({ length: 25 }, () => question({ primaryTopic: "Algebra and graphs" })),
+      ...Array.from({ length: 21 }, () => question({ primaryTopic: "Number" })),
+      ...Array.from({ length: 20 }, () => question({ primaryTopic: "Geometry" })),
+    ]);
+    expect(old.topics.map((topic) => topic.label)).toEqual(["Algebra and graphs", "Number"]);
   });
 });
