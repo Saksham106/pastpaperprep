@@ -1951,15 +1951,21 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 
 /* Full-bleed lifetime offer, composed around the supplied panoramic artwork. */
 .pricing-page:has(.lifetime-scenic) .pricing-intro { display: none; }
-.lifetime-scenic { position: relative; isolation: isolate; width: calc(100% + 48px); min-height: clamp(540px, 56vw, 760px); margin: 18px -24px 0; display: grid; place-items: center; overflow: hidden; color: #172337; background-color: #eee6d7; background-size: cover; background-position: center; }
+.lifetime-scenic { position: relative; isolation: isolate; width: calc(100% + 48px); min-height: 540px; aspect-ratio: 1822 / 863; margin: 18px -24px 0; display: grid; place-items: center; overflow: hidden; color: #172337; background-color: #eee6d7; background-size: cover; background-position: center; }
 .lifetime-scenic::before { content: ""; position: absolute; inset: 0; z-index: 0; background: linear-gradient(90deg, rgb(245 239 226 / .10), rgb(248 244 235 / .50) 35%, rgb(248 244 235 / .66) 50%, rgb(248 244 235 / .46) 65%, rgb(245 239 226 / .10)); }
 .lifetime-scenic-content { position: relative; z-index: 1; width: min(100% - 32px, 590px); padding: 40px 20px; text-align: center; }
 .lifetime-kicker { margin: 0 0 15px; color: #762b3b; font: 700 .76rem/1.2 var(--font-geist), sans-serif; letter-spacing: .15em; text-transform: uppercase; }
-.lifetime-scenic h2 { margin: 0 auto; color: #172337; font: 500 clamp(2.35rem, 5vw, 4.25rem)/1.05 var(--font-display), Georgia, serif; letter-spacing: -.035em; }
+.lifetime-scenic h2 { margin: 0 auto; color: #172337; font: 500 clamp(2.1rem, 3.9vw, 3.6rem)/1.05 Georgia, "Times New Roman", serif; letter-spacing: -.035em; }
 .lifetime-price { margin: 19px 0 0; display: flex; gap: 9px; align-items: baseline; justify-content: center; color: #172337; font-family: var(--font-geist), sans-serif; }
 .lifetime-price strong { font-size: clamp(3.6rem, 7vw, 5.2rem); line-height: .98; font-weight: 800; letter-spacing: -.06em; }
 .lifetime-price span { font-size: 1rem; }
 .lifetime-scope { margin: 11px 0 0; color: #243348; font: 600 1rem/1.4 var(--font-geist), sans-serif; }
+.lifetime-scenic .billing-actions, .lifetime-scenic-content > a.button { width: min(100%, 360px); margin: 22px auto 0; }
+.lifetime-scenic .billing-actions .button, .lifetime-scenic-content > a.button { width: 100%; min-height: 54px; color: #fffaf2; background: #9e123f; border-color: #9e123f; }
+.lifetime-scenic .billing-actions .button:disabled { opacity: 1; }
+.lifetime-scenic-content > a.button { width: min(100%, 360px); }
+.lifetime-scenic .billing-actions .button:hover, .lifetime-scenic-content > a.button:hover { background: #7a0d30; }
+.lifetime-scenic .custom-bundle-selection-note { color: #243348; }
 .lifetime-scenic .plan-checkout { margin: 22px auto 0; width: min(100%, 360px); }
 .lifetime-scenic .plan-checkout .button { width: 100%; min-height: 54px; color: #fffaf2; background: #762b3b; border-color: #762b3b; }
 .lifetime-scenic .plan-checkout .button:hover { background: #5d1f2d; }

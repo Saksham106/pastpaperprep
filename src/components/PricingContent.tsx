@@ -159,7 +159,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
   const lifetimeOffer = <section className="lifetime-scenic" data-lifetime="true" aria-label="Lifetime access offer" style={{ backgroundImage: "url('/artwork/lifetime-philosopher-cathedral.webp')" }}>
     <div className="lifetime-scenic-content">
       <p className="lifetime-kicker">Lifetime access</p>
-      <h2>Current + future<br />question banks.</h2>
+      <h2>Current + future banks.<br />A brighter future.</h2>
       <div className="lifetime-price"><strong>$299</strong><span> once</span></div>
       <p className="lifetime-scope">All current + future question banks</p>
       <LifetimeCheckout authenticated={authenticated} previewOnly={previewOnly} existingAccess={hasPaidAccess} />

@@ -404,7 +404,7 @@ describe("approved custom-bank pricing", () => {
     expect(screen.getByRole("button", { name: "Lifetime" })).toHaveAttribute("aria-pressed", "true");
     expect(container.querySelectorAll(".lifetime-scenic")).toHaveLength(1);
     expect(container.querySelectorAll(".lifetime-scenic article, .lifetime-scenic .pricing-option")).toHaveLength(0);
-    expect(screen.getByRole("heading", { name: /Current \+ future question banks/ })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /Current \+ future banks\. A brighter future\./ })).toBeInTheDocument();
     expect(screen.getByText("$299")).toBeInTheDocument();
     expect(screen.getByText("All current + future question banks")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /unlock lifetime access/i })).toBeInTheDocument();
@@ -420,7 +420,7 @@ describe("approved custom-bank pricing", () => {
     expect(container.querySelectorAll(".lifetime-scenic")).toHaveLength(1);
     expect(container.querySelector(".lifetime-scenic")).toHaveStyle({ backgroundImage: "url('/artwork/lifetime-philosopher-cathedral.webp')" });
     expect(container.querySelectorAll(".lifetime-scenic article, .lifetime-scenic .pricing-option")).toHaveLength(0);
-    expect(screen.getByRole("heading", { name: /Current \+ future question banks/ })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /Current \+ future banks\. A brighter future\./ })).toBeInTheDocument();
     expect(screen.getByText("$299")).toBeInTheDocument();
     expect(within(screen.getByRole("list", { name: "Lifetime plan features" })).getAllByRole("listitem")).toHaveLength(4);
     expect(screen.getByRole("button", { name: /lifetime access/i })).toBeDisabled();
