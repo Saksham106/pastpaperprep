@@ -1,5 +1,19 @@
 @import "tailwindcss";
 
+.bank-navigation-feedback {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.55rem 1rem;
+  color: var(--foreground);
+  background: var(--background);
+  border-bottom: 2px solid var(--accent, currentColor);
+  text-align: center;
+  font-size: 0.875rem;
+}
+
 .saved-worksheets { margin: 1.5rem 0 2.5rem; padding: 1.25rem; border: 1px solid var(--border, #dedbd5); border-radius: 1rem; background: var(--surface, #fff); }
 .saved-worksheets-heading { display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; }
 .saved-worksheets-heading h2 { margin:0; }

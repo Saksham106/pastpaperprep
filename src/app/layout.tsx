@@ -4,6 +4,7 @@ import { ThemeProvider } from "next-themes";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SessionAwareSiteHeader } from "@/components/SessionAwareSiteHeader";
 import { SiteTelemetry } from "@/components/SiteTelemetry";
+import { BankNavigationFeedback } from "@/components/BankNavigationFeedback";
 import { SOCIAL_IMAGE, SOCIAL_IMAGE_URL } from "@/lib/seo";
 import "./globals.css";
 
@@ -58,6 +59,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body data-build-revision={process.env.NEXT_PUBLIC_BUILD_REVISION ?? "local"}>
         <ThemeProvider attribute="data-theme" defaultTheme="light" enableColorScheme storageKey="pastpaperprep-theme" disableTransitionOnChange>
           <SessionAwareSiteHeader />
+          <BankNavigationFeedback />
           <main>{children}</main>
           <SiteFooter />
           <SiteTelemetry />
