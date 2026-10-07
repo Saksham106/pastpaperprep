@@ -403,8 +403,10 @@ describe("approved custom-bank pricing", () => {
     fireEvent.click(screen.getByRole("button", { name: /Lifetime/ }));
     expect(screen.getByRole("button", { name: "Lifetime" })).toHaveAttribute("aria-pressed", "true");
     expect(container.querySelectorAll(".lifetime-scenic")).toHaveLength(1);
-    expect(within(screen.getByRole("region", { name: "Lifetime access offer" })).getByRole("group", { name: "Billing period" })).toBeInTheDocument();
+    expect(within(container).getByRole("group", { name: "Billing period" })).toBeInTheDocument();
     expect(container.querySelectorAll(".lifetime-scenic article, .lifetime-scenic .pricing-option")).toHaveLength(0);
+    expect(container.querySelectorAll(".billing-toggle")).toHaveLength(1);
+    expect(container.querySelector(".billing-toggle")?.parentElement).toHaveClass("pricing-toggle-anchor");
     expect(screen.getByRole("heading", { name: "Lifetime full access" })).toBeInTheDocument();
     expect(screen.getByText("$299")).toBeInTheDocument();
     expect(screen.getByText("All current + future question banks")).toBeInTheDocument();
@@ -419,7 +421,7 @@ describe("approved custom-bank pricing", () => {
     const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} previewOnly availableBanks={availableBanks} />);
     fireEvent.click(screen.getByRole("button", { name: "Lifetime" }));
     expect(container.querySelectorAll(".lifetime-scenic")).toHaveLength(1);
-    expect(within(screen.getByRole("region", { name: "Lifetime access offer" })).getByRole("group", { name: "Billing period" })).toBeInTheDocument();
+    expect(within(container).getByRole("group", { name: "Billing period" })).toBeInTheDocument();
     expect(container.querySelector(".lifetime-scenic")).toHaveStyle({ backgroundImage: "url('/artwork/lifetime-philosopher-cathedral.webp')" });
     expect(container.querySelectorAll(".lifetime-scenic article, .lifetime-scenic .pricing-option")).toHaveLength(0);
     expect(screen.getByRole("heading", { name: "Lifetime full access" })).toBeInTheDocument();

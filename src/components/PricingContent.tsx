@@ -163,7 +163,6 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
   </div>;
 
   const lifetimeOffer = <section className="lifetime-scenic" data-lifetime="true" aria-label="Lifetime access offer" style={{ backgroundImage: "url('/artwork/lifetime-philosopher-cathedral.webp')" }}>
-    {billingToggle}
     <div className="lifetime-scenic-content">
       <h2>Lifetime full access</h2>
       <div className="lifetime-price"><strong>$299</strong><span> once</span></div>
@@ -179,6 +178,10 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
     <div className="public-surface">
       <section className="simple-page pricing-page shell">
         {previewOnly ? <p className="pricing-preview-notice" role="status">Local preview: no account or checkout is connected. Choose a view using the links above the pricing page.</p> : null}
+        <div className={`pricing-toggle-anchor${lifetimeSelected ? " pricing-toggle-anchor-lifetime" : ""}`} data-selected-mode={lifetimeSelected ? "lifetime" : interval}>
+          {billingToggle}
+          {lifetimeSelected ? lifetimeOffer : null}
+        </div>
         <div className="pricing-intro">
           <p className="eyebrow">{hasPaidAccess ? "Your access" : "PastPaperPrep pricing"}</p>
           <h1>{hasPaidAccess ? "Your access is ready." : "Pay only for what you study."}</h1>
@@ -202,12 +205,10 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           <details className="pricing-additional-offers" open={Boolean(initialProductId || initialBankIds?.length) || undefined}>
             <summary>{addOnBanks.length ? "Compare public prices and additional banks" : "Compare public plan prices"}</summary>
             <p>{addOnBanks.length ? <>Your existing access stays separate. A purchase here may create a separate subscription and renewal; to change a supported current plan, use <Link href="/account/subscription">Subscription settings</Link> instead.</> : "These are public prices for new subscriptions, not your current charge. Your access is already covered."}</p>
-            {!lifetimeSelected ? billingToggle : null}
-            {lifetimeSelected ? lifetimeOffer : <div className="pricing-decision-grid" aria-label="Additional subscription offers" data-paid="true">{PLANS.map(renderPlan)}</div>}
+            {lifetimeSelected ? null : <div className="pricing-decision-grid" aria-label="Additional subscription offers" data-paid="true">{PLANS.map(renderPlan)}</div>}
           </details>
         ) : !hasPaidAccess ? <>
-          {!lifetimeSelected ? billingToggle : null}
-          {lifetimeSelected ? lifetimeOffer : <div className="pricing-decision-grid" aria-label="PastPaperPrep plans">{PLANS.map(renderPlan)}</div>}
+          {lifetimeSelected ? null : <div className="pricing-decision-grid" aria-label="PastPaperPrep plans">{PLANS.map(renderPlan)}</div>}
         </> : null}
 
         <div className="pricing-product-proof" aria-label="Current PastPaperPrep coverage">
