@@ -7,6 +7,7 @@ import { buildSubscriptionSync, getSubscriptionEventReference } from "@/lib/stri
 import { verifyScheduledRenewalPayment } from "@/lib/account-schedule-invoice";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { captureConversionOutcome } from "@/lib/server-conversion-analytics";
+import { lifetimeCheckoutMetadataIsValid, LIFETIME_OFFER } from "@/lib/lifetime-offer";
 
 export const runtime = "nodejs";
 
@@ -28,6 +29,93 @@ export async function POST(request: Request) {
     event = stripe.webhooks.constructEvent(rawBody, signature, config.webhookSecret);
   } catch {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
+  }
+
+  const admin = createAdminClient();
+  if (event.type === "checkout.session.completed" || event.type === "checkout.session.async_payment_succeeded") {
+    const session = event.data.object as Stripe.Checkout.Session;
+    if (session.metadata?.purchase_type !== "lifetime") return NextResponse.json({ received: true });
+    if (!lifetimeCheckoutMetadataIsValid(session.metadata, session.client_reference_id ?? "") || session.mode !== "payment") {
+      return NextResponse.json({ error: "Invalid lifetime checkout metadata" }, { status: 400 });
+    }
+    // `completed` also fires for unpaid asynchronous methods. Only fulfillment
+    // follows Stripe's paid status; async success is independently supported.
+    if (session.payment_status !== "paid") return NextResponse.json({ received: true });
+    try {
+      const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 2, expand: ["data.price.product"] });
+      const lifetimeItems = lineItems.data;
+      const lifetimeProduct = lifetimeItems.length === 1 ? lifetimeItems[0]?.price?.product : null;
+      const productMetadata = lifetimeProduct && typeof lifetimeProduct === "object" && !("deleted" in lifetimeProduct) ? lifetimeProduct.metadata : null;
+      const validLineItem = !lineItems.has_more && lifetimeItems.length === 1 && lifetimeItems[0]?.quantity === 1 &&
+        lifetimeItems[0]?.amount_subtotal === LIFETIME_OFFER.amountCents && lifetimeItems[0]?.currency === LIFETIME_OFFER.currency &&
+        lifetimeItems[0]?.price?.unit_amount === LIFETIME_OFFER.amountCents && lifetimeItems[0]?.price?.currency === LIFETIME_OFFER.currency &&
+        !lifetimeItems[0]?.price?.recurring && productMetadata?.purchase_type === "lifetime" && productMetadata?.product_id === LIFETIME_OFFER.productId;
+      if (!validLineItem) return NextResponse.json({ error: "Lifetime line item verification failed" }, { status: 400 });
+    } catch {
+      return NextResponse.json({ error: "Lifetime line item verification failed" }, { status: 500 });
+    }
+    const userId = session.client_reference_id!;
+    const customerId = typeof session.customer === "string" ? session.customer : session.customer?.id;
+    const paymentIntentId = typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id;
+    if (!customerId || !paymentIntentId || session.amount_total !== LIFETIME_OFFER.amountCents || session.currency !== LIFETIME_OFFER.currency) {
+      return NextResponse.json({ error: "Lifetime payment verification failed" }, { status: 400 });
+    }
+    try {
+      const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId, {}, { timeout: 10_000 });
+      const intentCustomerId = typeof paymentIntent.customer === "string" ? paymentIntent.customer : paymentIntent.customer?.id;
+      if (paymentIntent.status !== "succeeded" || intentCustomerId !== customerId ||
+        paymentIntent.amount_received !== LIFETIME_OFFER.amountCents || paymentIntent.currency !== LIFETIME_OFFER.currency ||
+        paymentIntent.metadata?.user_id !== session.metadata.user_id ||
+        paymentIntent.metadata?.product_id !== session.metadata.product_id ||
+        paymentIntent.metadata?.purchase_type !== session.metadata.purchase_type ||
+        typeof session.metadata.billing_intent_id !== "string" || !session.metadata.billing_intent_id ||
+        paymentIntent.metadata?.billing_intent_id !== session.metadata.billing_intent_id) {
+        return NextResponse.json({ error: "Lifetime payment verification failed" }, { status: 400 });
+      }
+    } catch {
+      return NextResponse.json({ error: "Lifetime payment verification failed" }, { status: 500 });
+    }
+    const { data: mappedCustomer, error: mappingError } = await admin.rpc("get_stripe_customer_id", { p_user_id: userId });
+    if (mappingError || mappedCustomer !== customerId) return NextResponse.json({ error: "Lifetime customer ownership could not be verified" }, { status: 500 });
+    const { error } = await admin.rpc("fulfill_lifetime_purchase", {
+      p_user_id: userId, p_session_id: session.id, p_payment_intent_id: paymentIntentId,
+      p_amount_cents: session.amount_total, p_currency: session.currency,
+      p_purchased_at: new Date((session.created || event.created) * 1000).toISOString(),
+    });
+    if (error) return NextResponse.json({ error: "Lifetime purchase fulfillment failed" }, { status: 500 });
+    return NextResponse.json({ received: true });
+  }
+  if (event.type === "charge.refunded" || event.type === "charge.dispute.created" || event.type === "charge.dispute.updated" || event.type === "charge.dispute.closed") {
+    const charge = event.data.object as Stripe.Charge | Stripe.Dispute;
+    const isDispute = event.type.startsWith("charge.dispute.");
+    const rawPaymentIntent = isDispute ? (charge as Stripe.Dispute).payment_intent : (charge as Stripe.Charge).payment_intent;
+    const pi = typeof rawPaymentIntent === "string" ? rawPaymentIntent
+      : rawPaymentIntent && typeof rawPaymentIntent === "object" ? rawPaymentIntent.id : null;
+    if (pi) {
+      const fullRefund = !isDispute && (charge as Stripe.Charge).amount_refunded >= (charge as Stripe.Charge).amount;
+      const dispute = isDispute ? charge as Stripe.Dispute : null;
+      const disputeId = dispute?.id;
+      if (dispute && disputeId) {
+        try {
+          const currentDispute = await stripe.disputes.retrieve(disputeId, {}, { timeout: 10_000 });
+          const currentPi = typeof currentDispute.payment_intent === "string" ? currentDispute.payment_intent : currentDispute.payment_intent?.id;
+          if (currentPi !== pi) return NextResponse.json({ error: "Lifetime dispute payment could not be verified" }, { status: 400 });
+          const status = currentDispute.status === "won" || currentDispute.status === "warning_closed" ? "won"
+            : currentDispute.status === "lost" ? "lost"
+              : currentDispute.status === "needs_response" || currentDispute.status === "warning_needs_response" || currentDispute.status === "under_review" || currentDispute.status === "warning_under_review" ? "open" : null;
+          if (!status) return NextResponse.json({ error: "Lifetime dispute status could not be verified" }, { status: 500 });
+          const { error } = await admin.rpc("sync_lifetime_dispute", { p_payment_intent_id: pi, p_dispute_id: disputeId, p_status: status });
+          if (error) return NextResponse.json({ error: "Lifetime dispute state sync failed" }, { status: 500 });
+        } catch {
+          return NextResponse.json({ error: "Lifetime dispute state could not be verified" }, { status: 500 });
+        }
+      }
+      if (fullRefund) {
+        const { error } = await admin.rpc("revoke_lifetime_purchase", { p_payment_intent_id: pi, p_status: "refunded" });
+        if (error) return NextResponse.json({ error: "Lifetime access revocation failed" }, { status: 500 });
+      }
+    }
+    // Existing referral refund/dispute bookkeeping still runs below for its own records.
   }
 
   let invoicePaidReference: string | null = null;
@@ -134,7 +222,6 @@ export async function POST(request: Request) {
   }
   if (!reference) return NextResponse.json({ received: true });
 
-  const admin = createAdminClient();
   const leaseToken = crypto.randomUUID();
   let acquired: boolean;
   try {

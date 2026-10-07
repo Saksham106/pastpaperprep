@@ -3,8 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { BookOpen, CrownSimple, SlidersHorizontal } from "@phosphor-icons/react";
-import { useCallback, useState } from "react";
-import { CustomBundleCheckout, PlanCheckout, PortalButton } from "@/components/BillingActions";
+import { useCallback, useEffect, useState } from "react";
+import { CustomBundleCheckout, LifetimeCheckout, PlanCheckout, PortalButton } from "@/components/BillingActions";
 import { CourseIcon, courseToneForBank } from "@/components/CourseIcon";
 import type { ProductId } from "@/lib/access";
 import { bankEntryHref, hasFreeTier } from "@/lib/access";
@@ -61,23 +61,29 @@ function BankTable({ banks }: { banks: readonly Bank[] }) {
   return <div className="pricing-bank-table-wrap"><table className="pricing-bank-table" aria-label="Question bank coverage"><thead><tr><th scope="col">Question bank</th><th scope="col">Questions</th><th scope="col">Papers</th><th scope="col">Coverage</th><th scope="col"><span className="sr-only">Preview</span></th></tr></thead><tbody>{banks.map((bank) => { const tone = courseToneForBank(bank); const free = hasFreeTier(bank.slug); return <tr className={`course-tone-${tone}`} data-pricing-bank={bank.slug} data-has-free-tier={free ? "true" : undefined} key={bank.slug}><th scope="row"><div className="pricing-bank-name"><CourseIcon tone={tone} /><div><span>{bank.qualification}</span><strong>{bank.shortName}</strong></div></div></th><td data-label="Questions">{bank.questionCount.toLocaleString()}</td><td data-label="Papers">{bank.paperCount}</td><td data-label="Coverage">{bank.years}</td><td className="pricing-bank-preview">{free ? <Link href={bankEntryHref(bank.slug)} aria-label={`Preview ${bank.shortName}`}>Preview</Link> : <span className="pricing-bank-no-preview" aria-hidden="true">-</span>}</td></tr>; })}</tbody></table></div>;
 }
 
-export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], currentPlanProductIds = [], complimentaryAccess = false, previewOnly = false, previewSubscriptionHref, ownedBankIds = [], initialInterval = "monthly", initialProductId, initialBankIds, availableBanks = getCatalogRuntimeBanks() }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; currentPlanProductIds?: readonly ProductId[]; complimentaryAccess?: boolean; previewOnly?: boolean; previewSubscriptionHref?: string; ownedBankIds?: readonly BankSlug[]; initialInterval?: BillingInterval; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[] }) {
+export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], currentPlanProductIds = [], complimentaryAccess = false, previewOnly = false, previewSubscriptionHref, ownedBankIds = [], initialInterval = "monthly", initialLifetimeSelected = false, initialProductId, initialBankIds, availableBanks = getCatalogRuntimeBanks() }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; currentPlanProductIds?: readonly ProductId[]; complimentaryAccess?: boolean; previewOnly?: boolean; previewSubscriptionHref?: string; ownedBankIds?: readonly BankSlug[]; initialInterval?: BillingInterval; initialLifetimeSelected?: boolean; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[] }) {
   const [interval, setInterval] = useState<BillingInterval>(initialInterval);
+  const [lifetimeSelected, setLifetimeSelected] = useState(initialLifetimeSelected ?? false);
+  useEffect(() => {
+    const artwork = new window.Image();
+    artwork.src = "/artwork/lifetime-philosopher-cathedral.webp";
+  }, []);
   const initialBankId = initialProductId ? bankSlugForProduct(initialProductId) : undefined;
   const initialCustomBankIds = initialBankIds ?? (initialBankId ? [initialBankId] : undefined);
   const [builderBankIds, setBuilderBankIds] = useState<BankSlug[]>(() => hasPaidAccess ? [] : [...(initialCustomBankIds ?? [])]);
   const handleBuilderSelectionChange = useCallback((selectedBankIds: readonly BankSlug[]) => {
     setBuilderBankIds([...selectedBankIds]);
   }, []);
-  const chooseInterval = (nextInterval: BillingInterval) => {
-    setInterval(nextInterval);
+  const chooseInterval = (nextInterval: BillingInterval | "lifetime") => {
+    setLifetimeSelected(nextInterval === "lifetime");
+    if (nextInterval !== "lifetime") setInterval(nextInterval);
     trackProductEvent("billing_interval_change", { interval: nextInterval });
   };
   const totalQuestions = availableBanks.reduce((total, bank) => total + bank.questionCount, 0);
   const totalPapers = availableBanks.reduce((total, bank) => total + bank.paperCount, 0);
   const addOnBanks = availableBanks.filter((bank) => !ownedBankIds.includes(bank.slug) && Boolean(getCatalogBank(bank.slug)?.productId));
   const individualBankSubscriptions = currentPlanProductIds.filter((id) => id.startsWith("bank_")).length;
-  const ownsAllAccess = currentPlanProductIds.includes("bundle_all");
+  const ownsAllAccess = currentPlanProductIds.includes("bundle_all") || currentPlanProductIds.includes("lifetime_all_access");
   const currentPlanMode = ownsAllAccess ? "all"
     : currentPlanProductIds.some((id) => id === "bundle_custom" || (id.startsWith("bundle_") && id !== "bundle_all")) ? "builder"
       : currentPlanProductIds.some((id) => id.startsWith("bank_")) ? "single" : null;
@@ -149,19 +155,35 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           />
         )}
         {hasPaidAccess && !canAdd && plan.mode !== "all" ? <p className="pricing-plan-access-note">{current ? complimentaryAccess ? "Included with your complimentary access." : plan.mode === "single" && individualBankSubscriptions > 1 ? `${individualBankSubscriptions} separate bank subscriptions. Your existing rates stay unchanged.` : "Your existing rate stays unchanged." : "All available banks are already included."}</p> : null}
-        {!hasPaidAccess ? <p className="plan-assurance">Secure Stripe checkout · Cancel any time</p> : null}
+        {!hasPaidAccess ? <p className="plan-assurance">Secure checkout · Cancel any time</p> : null}
       </article>
     );
   };
 
+  const billingToggle = <div className="billing-toggle" role="group" aria-label="Billing period">
+    <button type="button" aria-pressed={!lifetimeSelected && interval === "monthly"} onClick={() => chooseInterval("monthly")}>Monthly</button>
+    <button className="billing-toggle-annual" type="button" aria-pressed={!lifetimeSelected && interval === "annual"} onClick={() => chooseInterval("annual")}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
+    <button className="billing-toggle-lifetime" type="button" aria-pressed={lifetimeSelected} onClick={() => chooseInterval("lifetime")}>Lifetime</button>
+  </div>;
+
+  const lifetimeOffer = <section className="lifetime-scenic" data-lifetime="true" aria-label="Lifetime access offer">
+    <div className="lifetime-scenic-content">
+      <h2>Lifetime full access</h2>
+      <div className="lifetime-price"><strong>$299</strong><span> once</span></div>
+      <p className="lifetime-scope">All current + future question banks</p>
+      <LifetimeCheckout authenticated={authenticated} previewOnly={previewOnly} existingAccess={hasPaidAccess} />
+      <ul className="lifetime-benefits" aria-label="Lifetime plan features">
+        <li><BookOpen aria-hidden="true" />All subjects</li><li><CrownSimple aria-hidden="true" />Lifetime updates</li><li><SlidersHorizontal aria-hidden="true" />One payment</li><li><BookOpen aria-hidden="true" />Secure checkout</li>
+      </ul>
+    </div>
+  </section>;
+
   return (
     <div className="public-surface">
       <section className="simple-page pricing-page shell">
-        {previewOnly ? <p className="pricing-preview-notice" role="status">Local preview: no account or checkout is connected. Choose a view using the links above the pricing page.</p> : null}
-        <div className="pricing-intro">
-          <p className="eyebrow">{hasPaidAccess ? "Your access" : "PastPaperPrep pricing"}</p>
-          <h1>{hasPaidAccess ? "Your access is ready." : "Pay only for what you study."}</h1>
-          <p className="page-lede">{hasPaidAccess ? "See what you have, then get back to practising. Review your access and any available plan changes in Subscription settings." : "Choose the question banks you need. Every plan includes the same study tools."}</p>
+        <div className={`pricing-toggle-anchor${lifetimeSelected ? " pricing-toggle-anchor-lifetime" : ""}`} data-selected-mode={lifetimeSelected ? "lifetime" : interval} style={lifetimeSelected ? { backgroundImage: "url('/artwork/lifetime-philosopher-cathedral.webp')" } : undefined}>
+          {billingToggle}
+          {lifetimeSelected ? lifetimeOffer : null}
         </div>
 
         {authenticated ? (
@@ -181,19 +203,13 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           <details className="pricing-additional-offers" open={Boolean(initialProductId || initialBankIds?.length) || undefined}>
             <summary>{addOnBanks.length ? "Compare public prices and additional banks" : "Compare public plan prices"}</summary>
             <p>{addOnBanks.length ? <>Your existing access stays separate. A purchase here may create a separate subscription and renewal; to change a supported current plan, use <Link href="/account/subscription">Subscription settings</Link> instead.</> : "These are public prices for new subscriptions, not your current charge. Your access is already covered."}</p>
-            <div className="billing-toggle" role="group" aria-label="Billing period">
-              <button type="button" aria-pressed={interval === "monthly"} onClick={() => chooseInterval("monthly")}>Monthly</button>
-              <button className="billing-toggle-annual" type="button" aria-pressed={interval === "annual"} onClick={() => chooseInterval("annual")}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
-            </div>
-            <div className="pricing-decision-grid" aria-label="Additional subscription offers" data-paid="true">{PLANS.map(renderPlan)}</div>
+            {lifetimeSelected ? null : <div className="pricing-decision-grid" aria-label="Additional subscription offers" data-paid="true">{PLANS.map(renderPlan)}</div>}
           </details>
         ) : !hasPaidAccess ? <>
-          <div className="billing-toggle" role="group" aria-label="Billing period">
-            <button type="button" aria-pressed={interval === "monthly"} onClick={() => chooseInterval("monthly")}>Monthly</button>
-            <button className="billing-toggle-annual" type="button" aria-pressed={interval === "annual"} onClick={() => chooseInterval("annual")}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
-          </div>
-          <div className="pricing-decision-grid" aria-label="PastPaperPrep plans">{PLANS.map(renderPlan)}</div>
+          {lifetimeSelected ? null : <div className="pricing-decision-grid" aria-label="PastPaperPrep plans">{PLANS.map(renderPlan)}</div>}
         </> : null}
+
+        {previewOnly ? <p className="pricing-preview-notice" role="status">Local preview: no account or checkout is connected. Choose a view using the links above the pricing page.</p> : null}
 
         <div className="pricing-product-proof" aria-label="Current PastPaperPrep coverage">
           <span><strong>{totalQuestions.toLocaleString()}</strong> questions</span>
@@ -229,7 +245,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           ].filter((item) => item.panel.props.banks.length > 0)} />
         </section>
 
-        {!hasPaidAccess ? <p className="checkout-note">Secure Stripe checkout. Cancel any time. Existing subscribers remain grandfathered at their current price and access. <Link href="/refund-policy">Read the refund policy.</Link></p> : null}
+        {!hasPaidAccess ? <p className="checkout-note">Secure checkout. Cancel any time. Existing subscribers remain grandfathered at their current price and access. <Link href="/refund-policy">Read the refund policy.</Link></p> : null}
       </section>
     </div>
   );

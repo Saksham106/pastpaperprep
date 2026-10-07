@@ -45,7 +45,8 @@ describe("approved custom-bank pricing", () => {
     expect(within(comparison!).getByText("Compare public plan prices")).toBeInTheDocument();
     expect(screen.getByText(/all available banks are included/i)).toBeInTheDocument();
     expect(screen.queryByText("Not ready to pay?")).not.toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Your access is ready." })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Your current access" })).toBeInTheDocument();
+    expect(screen.queryByText("Pay only for what you study.")).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /Unlock/ })).not.toBeInTheDocument();
   });
 
@@ -199,7 +200,7 @@ describe("approved custom-bank pricing", () => {
     expect(screen.queryAllByRole("radio", { checked: true })).toHaveLength(0);
     expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(0);
     expect(screen.getAllByRole("checkbox")).toHaveLength(availableBanks.length);
-    expect(screen.getAllByText(/Secure Stripe checkout · Cancel any time/)).toHaveLength(3);
+    expect(screen.getAllByText(/Secure checkout · Cancel any time/)).toHaveLength(3);
     expect(screen.getByText(/Existing subscribers remain grandfathered at their current price and access\./)).toBeInTheDocument();
   });
 
@@ -395,6 +396,43 @@ describe("approved custom-bank pricing", () => {
     expect(within(container.querySelector(".pricing-referral-note") as HTMLElement).getByRole("link", { name: "See referral rewards" })).toHaveAttribute("href", "/account/referrals");
     rerender(<PricingContent authenticated hasPaidAccess currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
     expect(container.querySelector(".pricing-referral-note")).toBeNull();
+  });
+
+  it("switches between three recurring cards and the card-free lifetime panorama", () => {
+    const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} availableBanks={availableBanks} />);
+    expect(container.querySelectorAll(".pricing-decision-grid > article")).toHaveLength(3);
+    fireEvent.click(screen.getByRole("button", { name: /Lifetime/ }));
+    expect(screen.getByRole("button", { name: "Lifetime" })).toHaveAttribute("aria-pressed", "true");
+    expect(container.querySelectorAll(".lifetime-scenic")).toHaveLength(1);
+    expect(within(container).getByRole("group", { name: "Billing period" })).toBeInTheDocument();
+    expect(container.querySelectorAll(".lifetime-scenic article, .lifetime-scenic .pricing-option")).toHaveLength(0);
+    expect(container.querySelectorAll(".billing-toggle")).toHaveLength(1);
+    expect(container.querySelector(".billing-toggle")?.parentElement).toHaveClass("pricing-toggle-anchor");
+    expect(screen.getByRole("heading", { name: "Lifetime full access" })).toBeInTheDocument();
+    expect(screen.getByText("$299")).toBeInTheDocument();
+    expect(screen.getByText("All current + future question banks")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /unlock lifetime access/i })).toBeInTheDocument();
+    expect(container.querySelector(".lifetime-card")).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: "Monthly" }));
+    expect(container.querySelector(".lifetime-scenic")).toBeNull();
+    expect(container.querySelectorAll(".pricing-decision-grid > article")).toHaveLength(3);
+  });
+
+  it("renders one full-width scenic lifetime offer, keeps checkout gated and restores three subscription cards", () => {
+    const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} previewOnly availableBanks={availableBanks} />);
+    fireEvent.click(screen.getByRole("button", { name: "Lifetime" }));
+    expect(container.querySelectorAll(".lifetime-scenic")).toHaveLength(1);
+    expect(within(container).getByRole("group", { name: "Billing period" })).toBeInTheDocument();
+    expect(container.querySelector(".pricing-toggle-anchor-lifetime")).toHaveStyle({ backgroundImage: "url('/artwork/lifetime-philosopher-cathedral.webp')" });
+    expect(container.querySelectorAll(".lifetime-scenic article, .lifetime-scenic .pricing-option")).toHaveLength(0);
+    expect(screen.getByRole("heading", { name: "Lifetime full access" })).toBeInTheDocument();
+    expect(screen.getByText("$299")).toBeInTheDocument();
+    expect(within(screen.getByRole("list", { name: "Lifetime plan features" })).getAllByRole("listitem")).toHaveLength(4);
+    expect(screen.getByRole("button", { name: /lifetime access/i })).toBeDisabled();
+    expect(screen.getByText(/preview only.*checkout is disabled/i)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Monthly" }));
+    expect(container.querySelector(".lifetime-scenic")).toBeNull();
+    expect(container.querySelectorAll(".pricing-decision-grid > article")).toHaveLength(3);
   });
 
   it("keeps free access compact and switches the coverage comparison by qualification", () => {

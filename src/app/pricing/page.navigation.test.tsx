@@ -27,10 +27,12 @@ describe("pricing for an existing customer", () => {
   it("keeps first-purchase pricing open to free and anonymous students", async () => {
     mocks.fetchAccessEntitlements.mockResolvedValue({ rows: [], error: null });
     const free = renderToStaticMarkup(await PricingPage({ searchParams: Promise.resolve({}) }));
-    expect(free).toContain("Pay only for what you study");
+    expect(free).not.toContain("Pay only for what you study");
+    expect(free).toContain('aria-label="Billing period"');
     expect(mocks.redirect).not.toHaveBeenCalled();
     mocks.getClaims.mockResolvedValue({ data: { claims: null } });
     const anonymous = renderToStaticMarkup(await PricingPage({ searchParams: Promise.resolve({}) }));
-    expect(anonymous).toContain("Pay only for what you study");
+    expect(anonymous).not.toContain("Pay only for what you study");
+    expect(anonymous).toContain('aria-label="Billing period"');
   });
 });

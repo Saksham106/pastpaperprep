@@ -42,6 +42,14 @@ describe("bank access", () => {
     expect(hasBankAccess("igcse", entitlements, now)).toBe(true);
   });
 
+  it("grants lifetime access to every current bank through the canonical access resolver", () => {
+    const lifetime = entitlement("lifetime_all_access", { expiresAt: null });
+    expect(hasBankAccess("ib-sl", [lifetime], now)).toBe(true);
+    expect(hasBankAccess("ib-physics-sl", [lifetime], now)).toBe(true);
+    expect(hasBankAccess("igcse-coordinated-sciences-0654", [lifetime], now)).toBe(true);
+    expect(hasBankAccess("ib-sl", [entitlement("lifetime_all_access", { status: "revoked", expiresAt: null })], now)).toBe(false);
+  });
+
   it("grants only the canonical banks stored on a custom bundle", () => {
     const custom = entitlement("bundle_custom", { selectedBankIds: ["ib-sl", "igcse"] });
 

@@ -66,6 +66,9 @@ export async function POST(request: Request) {
     const accessResult = await fetchAccessEntitlements(supabase as never, user.id);
     if (accessResult.error) throw accessResult.error;
     const entitlements = accessResult.rows as import("@/lib/access").AccessEntitlement[];
+    if (entitlements.some((entitlement) => entitlement.productId === "lifetime_all_access" && getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, [entitlement])))) {
+      return NextResponse.json({ error: "Your Lifetime All Access purchase already covers every current and future bank" }, { status: 409 });
+    }
     const alreadyPaid = getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, entitlements));
 
     const paidBundle = alreadyPaid && (plan.productId === "bundle_custom" || plan.productId === "bundle_all");

@@ -1,7 +1,7 @@
 import type { BankSlug, ProductionBankSlug } from "@/lib/banks";
 import { BANK_CATALOG } from "@/lib/catalog";
 
-export type ProductId = "bank_igcse" | "bank_igcse_additional" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bank_ib_chemistry_hl" | "bank_ib_chemistry_sl" | "bank_ib_physics_hl" | "bank_ib_physics_sl" | "bank_ib_biology_hl" | "bank_ib_biology_sl" | "bank_ib_economics_hl" | "bank_ib_economics_sl" | "bank_igcse_biology_0610" | "bank_igcse_economics_0455" | "bank_igcse_chemistry_0620" | "bank_igcse_physics_0625" | "bank_igcse_coordinated_sciences_0654" | "bundle_igcse" | "bundle_ib_aa" | "bundle_ib_ai" | "bundle_ib_chemistry" | "bundle_ib_physics" | "bundle_ib_biology" | "bundle_ib_economics" | "bundle_all" | "bundle_custom";
+export type ProductId = "bank_igcse" | "bank_igcse_additional" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bank_ib_chemistry_hl" | "bank_ib_chemistry_sl" | "bank_ib_physics_hl" | "bank_ib_physics_sl" | "bank_ib_biology_hl" | "bank_ib_biology_sl" | "bank_ib_economics_hl" | "bank_ib_economics_sl" | "bank_igcse_biology_0610" | "bank_igcse_economics_0455" | "bank_igcse_chemistry_0620" | "bank_igcse_physics_0625" | "bank_igcse_coordinated_sciences_0654" | "bundle_igcse" | "bundle_ib_aa" | "bundle_ib_ai" | "bundle_ib_chemistry" | "bundle_ib_physics" | "bundle_ib_biology" | "bundle_ib_economics" | "bundle_all" | "bundle_custom" | "lifetime_all_access";
 export type EntitlementStatus = "active" | "trialing" | "expired" | "revoked";
 
 export type AccessEntitlement = {
@@ -170,7 +170,7 @@ export function hasBankAccess(
   return entitlements.some(
     (entitlement) =>
       isCurrent(entitlement, now) &&
-      (Boolean(bankProduct) && entitlement.productId === bankProduct || BANK_BUNDLES[bankSlug]?.includes(entitlement.productId) || entitlement.productId === "bundle_all" ||
+      (Boolean(bankProduct) && entitlement.productId === bankProduct || BANK_BUNDLES[bankSlug]?.includes(entitlement.productId) || entitlement.productId === "bundle_all" || entitlement.productId === "lifetime_all_access" ||
         (entitlement.productId === "bundle_custom" && entitlement.selectedBankIds?.includes(bankSlug))),
   );
 }
