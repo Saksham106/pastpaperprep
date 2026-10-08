@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import type Stripe from "stripe";
 import { NextResponse } from "next/server";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { readEditableCurrentPlan } from "@/lib/account-plan-target";
@@ -15,8 +16,16 @@ const BILLABLE = new Set(["active", "trialing", "past_due", "unpaid", "paused", 
 const RECOVERY_LIMIT = 100;
 const support = () => NextResponse.json({ error: "Billing requires support review" }, { status: 503, headers: NO_STORE });
 const sameSnapshot = (a: Record<string, unknown>, b: Record<string, unknown>) => ["priceId", "itemId", "quantity", "productId", "selectedBankIds", "interval", "periodStart", "periodEnd", "status", "customerId"].every((key) => JSON.stringify(a[key]) === JSON.stringify(b[key]));
-function validLifetimeSession(session: any, userId: string, customerId: string, intentId: string) {
-  return session && session.customer === customerId && session.client_reference_id === userId && session.metadata?.user_id === userId && session.metadata?.conversion_intent_id === intentId && session.metadata?.billing_intent_id === intentId && session.metadata?.purchase_type === "lifetime" && session.metadata?.product_id === LIFETIME_OFFER.productId && session.mode === "payment" && Array.isArray(session.line_items?.data) && session.line_items.data.length === 1 && session.line_items.data[0].quantity === 1 && session.line_items.data[0].amount_total === LIFETIME_OFFER.amountCents && session.line_items.data[0].currency === LIFETIME_OFFER.currency;
+function validLifetimeSession(session: Stripe.Checkout.Session, userId: string, customerId: string, intentId: string) {
+  const lines = session.line_items;
+  const line = lines?.data.length === 1 ? lines.data[0] : null;
+  const product = line?.price?.product;
+  const productMetadata = product && typeof product === "object" && !("deleted" in product) ? product.metadata : null;
+  return session.customer === customerId && session.client_reference_id === userId && session.metadata?.user_id === userId && session.metadata?.conversion_intent_id === intentId && session.metadata?.billing_intent_id === intentId && session.metadata?.purchase_type === "lifetime" && session.metadata?.product_id === LIFETIME_OFFER.productId && session.mode === "payment" && lines?.has_more === false && line?.quantity === 1 && line.amount_subtotal === LIFETIME_OFFER.amountCents && line.currency === LIFETIME_OFFER.currency && line.price?.unit_amount === LIFETIME_OFFER.amountCents && line.price.currency === LIFETIME_OFFER.currency && !line.price.recurring && productMetadata?.purchase_type === "lifetime" && productMetadata.product_id === LIFETIME_OFFER.productId;
+}
+function checkoutParams(userId: string, customerId: string, intentId: string, expiresSeconds: number, siteUrl: string): Stripe.Checkout.SessionCreateParams {
+ const metadata = { user_id: userId, product_id: LIFETIME_OFFER.productId, purchase_type: "lifetime", billing_intent_id: intentId, conversion_intent_id: intentId };
+ return { mode: "payment", customer: customerId, client_reference_id: userId, line_items: [{ quantity: 1, price_data: { currency: LIFETIME_OFFER.currency, unit_amount: LIFETIME_OFFER.amountCents, product_data: { name: "Lifetime All Access", description: "One-time purchase; subscription renewals stop after confirmed payment.", metadata: { purchase_type: "lifetime", product_id: LIFETIME_OFFER.productId } } } }], success_url: `${siteUrl}/account?checkout=lifetime-pending`, cancel_url: `${siteUrl}/pricing?checkout=cancelled`, expires_at: expiresSeconds, metadata, payment_intent_data: { metadata }, integration_identifier: `pastpaperprep-lifetime-${intentId.replaceAll("-", "").slice(0, 8)}` } as Stripe.Checkout.SessionCreateParams;
 }
 export async function createLifetimeConversionCheckout() {
   const supabase = await createClient();
@@ -33,7 +42,7 @@ export async function createLifetimeConversionCheckout() {
     if (access.error) throw access.error;
     const pendingResult = await admin.from("lifetime_conversions").select("*").eq("user_id", user.id).in("status", ["pending", "paid"]).maybeSingle();
     if (pendingResult.error) throw pendingResult.error;
-    const pendingConversion = pendingResult.data as Record<string, any> | null;
+    const pendingConversion = pendingResult.data as { intent_id: string; user_id: string; customer_id: string; subscription_id: string; subscription_snapshot: Record<string, unknown>; status: string; checkout_session_id: string | null; expires_at: string } | null;
     if (pendingConversion?.status === "paid") return support();
     const purchases = await admin.from("lifetime_purchases").select("status").eq("user_id", user.id).eq("status", "paid").limit(1);
     if (purchases.error) throw purchases.error;
@@ -61,11 +70,35 @@ export async function createLifetimeConversionCheckout() {
     if (pendingConversion) {
       const stored = pendingConversion.subscription_snapshot as Record<string, unknown>;
       if (!pendingConversion.intent_id || pendingConversion.customer_id !== customerId || pendingConversion.subscription_id !== sub.id || !sameSnapshot(stored, snapshot)) return support();
-      if (pendingConversion.checkout_session_id) {
-        const existing = await stripe.checkout.sessions.retrieve(pendingConversion.checkout_session_id, { expand: ["line_items"] });
+      let recoverySessionId = pendingConversion.checkout_session_id;
+      if (!recoverySessionId) {
+        let after: string | undefined;
+        for (let pageNumber = 0; pageNumber < 5; pageNumber++) {
+          const page = await stripe.checkout.sessions.list({ customer: customerId, limit: RECOVERY_LIMIT, ...(after ? { starting_after: after } : {}) });
+          const matching = page.data.filter((entry) => entry.metadata?.conversion_intent_id === pendingConversion.intent_id);
+          if (matching.length > 1) return support();
+          if (matching.length === 1) { recoverySessionId = matching[0].id; break; }
+          if (!page.has_more) break;
+          after = page.data.at(-1)?.id;
+          if (!after || pageNumber === 4) return support();
+        }
+        if (!recoverySessionId) {
+          const originalExpires = Math.floor(Date.parse(pendingConversion.expires_at) / 1000);
+          if (!Number.isSafeInteger(originalExpires) || originalExpires < Math.floor(Date.now() / 1000) + 1800) return support();
+          sessionCreationAttempted = true;
+          const recovered = await stripe.checkout.sessions.create(checkoutParams(user.id, customerId, pendingConversion.intent_id, originalExpires, config.siteUrl), { idempotencyKey: `pastpaperprep-lifetime-${pendingConversion.intent_id}`, timeout: 30_000 });
+          recoverySessionId = recovered.id;
+        }
+      }
+      if (recoverySessionId) {
+        const existing = await stripe.checkout.sessions.retrieve(recoverySessionId, { expand: ["line_items.data.price.product"] });
         if (!validLifetimeSession(existing, user.id, customerId, pendingConversion.intent_id)) return support();
         if (existing.payment_status === "paid" || existing.status === "complete") return support();
-        if (existing.status === "open" && existing.url && existing.expires_at > Math.floor(Date.now() / 1000) + 60) return NextResponse.json({ url: existing.url }, { headers: NO_STORE });
+        if (existing.status === "open" && existing.url && existing.expires_at > Math.floor(Date.now() / 1000) + 60) {
+          const attached = await admin.rpc("attach_lifetime_conversion_session", { p_user_id: user.id, p_intent_id: pendingConversion.intent_id, p_session_id: existing.id, p_expires_at: new Date(existing.expires_at * 1000).toISOString() });
+          if (attached.error || attached.data !== true) return support();
+          return NextResponse.json({ url: existing.url }, { headers: NO_STORE });
+        }
         if (existing.status !== "expired") return support();
         const expired = await admin.rpc("expire_lifetime_conversion", { p_session_id: existing.id });
         if (expired.error || expired.data !== true) return support();
@@ -84,9 +117,8 @@ export async function createLifetimeConversionCheckout() {
     try { currentTarget = readEditableCurrentPlan(current, config); } catch { return NextResponse.json({ error: "Subscription changed; reload billing" }, { status: 409, headers: NO_STORE }); }
     const currentPeriods = { current_period_start: current.items.data[0]?.current_period_start, current_period_end: current.items.data[0]?.current_period_end };
     if (current.customer !== customerId || current.status !== "active" || JSON.stringify(currentTarget) !== JSON.stringify(target) || current.items.data[0].id !== item.id || currentPeriods.current_period_start !== periods.current_period_start || currentPeriods.current_period_end !== periods.current_period_end) return NextResponse.json({ error: "Subscription changed; reload billing" }, { status: 409, headers: NO_STORE });
-    const metadata = { user_id: user.id, product_id: LIFETIME_OFFER.productId, purchase_type: "lifetime", billing_intent_id: intentId, conversion_intent_id: intentId };
     sessionCreationAttempted = true;
-    const session = await stripe.checkout.sessions.create({ mode: "payment", customer: customerId, client_reference_id: user.id, line_items: [{ quantity: 1, price_data: { currency: LIFETIME_OFFER.currency, unit_amount: LIFETIME_OFFER.amountCents, product_data: { name: "Lifetime All Access", description: "One-time purchase; subscription renewals stop after confirmed payment.", metadata: { purchase_type: "lifetime", product_id: LIFETIME_OFFER.productId } } } }], success_url: `${config.siteUrl}/account?checkout=lifetime-pending`, cancel_url: `${config.siteUrl}/pricing?checkout=cancelled`, expires_at: Math.floor(expiresAt.getTime() / 1000), metadata, payment_intent_data: { metadata }, integration_identifier: `pastpaperprep-lifetime-${randomUUID().replaceAll("-", "").slice(0, 8)}` } as Parameters<typeof stripe.checkout.sessions.create>[0], { idempotencyKey: `pastpaperprep-lifetime-${intentId}`, timeout: 30_000 });
+    const session = await stripe.checkout.sessions.create(checkoutParams(user.id, customerId, intentId, Math.floor(expiresAt.getTime() / 1000), config.siteUrl), { idempotencyKey: `pastpaperprep-lifetime-${intentId}`, timeout: 30_000 });
     if (!session.url) throw new Error("Stripe did not return checkout URL");
     const attached = await admin.rpc("attach_lifetime_conversion_session", { p_user_id: user.id, p_intent_id: intentId, p_session_id: session.id, p_expires_at: new Date(session.expires_at * 1000).toISOString() });
     if (attached.error) throw attached.error;
