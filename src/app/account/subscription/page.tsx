@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { AccountBillingDetails } from "@/components/AccountBillingDetails";
 import { ComplimentaryAllAccess } from "@/components/ComplimentaryAllAccess";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
@@ -26,7 +27,7 @@ export default async function SubscriptionPage() {
       </div>
       {complimentaryAllAccess ? <ComplimentaryAllAccess /> : null}
       <AccountBillingDetails mode="subscription" complimentaryAllAccess={complimentaryAllAccess} />
-      <p className="account-page-help">Payment methods and complete invoice history are in the secure billing portal. Changes to legacy or separately billed plans may need support.</p>
+      {!complimentaryAllAccess ? <p className="account-page-help">Want to compare the plans? <Link href="/pricing">Change plan on Pricing</Link>. Payment methods and complete invoice history are in the secure billing portal. Changes to legacy or separately billed plans may need support.</p> : <p className="account-page-help">Payment methods and complete invoice history are in the secure billing portal. Complimentary access is not a billed plan.</p>}
     </section>
   );
 }

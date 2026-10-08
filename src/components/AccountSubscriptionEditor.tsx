@@ -33,11 +33,16 @@ async function post(path: string, body: unknown): Promise<Record<string, unknown
 }
 
 /** Immediate additions use a Stripe invoice preview; removals, swaps, and cadence changes use a reviewed native renewal schedule. */
-export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated, demo = false }: { subscription: Plan; bankOptions: Bank[]; onUpdated: (message?: string) => void; demo?: boolean }) {
+export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated, demo = false, billingInterval: controlledInterval, onBillingIntervalChange }: { subscription: Plan; bankOptions: Bank[]; onUpdated: (message?: string) => void; demo?: boolean; billingInterval?: "monthly" | "annual"; onBillingIntervalChange?: (interval: "monthly" | "annual") => void }) {
   const currentIds = subscription.bankSelection.kind === "selected" ? subscription.bankSelection.banks.map(({ slug }) => slug) : [];
   const currentInterval = subscription.item.price.interval === "year" ? "annual" : "monthly";
   const currentMode = subscription.bankSelection.kind === "all" ? "all" : currentIds.length === 1 ? "single" : "builder";
-  const [interval, setInterval] = useState<"monthly" | "annual">(currentInterval);
+  const [localInterval, setLocalInterval] = useState<"monthly" | "annual">(currentInterval);
+  const interval = controlledInterval ?? localInterval;
+  function changeInterval(next: "monthly" | "annual") {
+    setLocalInterval(next);
+    onBillingIntervalChange?.(next);
+  }
   const [view, setView] = useState<View>("select");
   const [mode, setMode] = useState<"single" | "builder" | "all">(currentMode);
   const [selected, setSelected] = useState<string[]>(currentIds);
@@ -139,7 +144,7 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
         : "Stripe is processing the change. Your bank access updates after payment is verified.";
       setNotice(message); setView("select"); setQuote(null);
       // A processing response is not paid access. Reset the picker to the last verified plan until readback changes.
-      setSelected(currentIds); setAllAccess(subscription.bankSelection.kind === "all"); setMode(currentMode); setInterval(currentInterval);
+      setSelected(currentIds); setAllAccess(subscription.bankSelection.kind === "all"); setMode(currentMode); changeInterval(currentInterval);
       onUpdated(message);
     } catch (cause) {
       const message = cause instanceof Error ? cause.message : "Could not verify the change. Check Billing before trying again.";
@@ -204,10 +209,10 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
     {error ? <p role="alert" className="account-billing-warning">{error}</p> : null}
     {view === "select" ? <div className="account-plan-chooser">
       <div className="account-pricing-heading"><h2>Choose your plan</h2><p>Choose the banks you need. Your current access is marked; review any change before it takes effect.</p></div>
-      <div className="billing-toggle" role="group" aria-label="Billing period">
-        <button type="button" aria-pressed={interval === "monthly"} disabled={busy || subscription.cancelAtPeriodEnd} onClick={() => { setInterval("monthly"); setQuote(null); setRenewalQuote(null); }}>Monthly</button>
-        <button type="button" className="billing-toggle-annual" aria-pressed={interval === "annual"} disabled={busy || subscription.cancelAtPeriodEnd} onClick={() => { setInterval("annual"); setQuote(null); setRenewalQuote(null); }}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
-      </div>
+      {!controlledInterval ? <div className="billing-toggle" role="group" aria-label="Billing period">
+        <button type="button" aria-pressed={interval === "monthly"} disabled={busy || subscription.cancelAtPeriodEnd} onClick={() => { changeInterval("monthly"); setQuote(null); setRenewalQuote(null); }}>Monthly</button>
+        <button type="button" className="billing-toggle-annual" aria-pressed={interval === "annual"} disabled={busy || subscription.cancelAtPeriodEnd} onClick={() => { changeInterval("annual"); setQuote(null); setRenewalQuote(null); }}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
+      </div> : null}
       <div className="pricing-decision-grid account-pricing-grid" aria-label="PastPaperPrep plans" data-paid="true">
         {(["single", "builder", "all"] as const).map((option) => {
           const name = option === "single" ? "One Bank" : option === "builder" ? "Build Your Plan" : "All Access";

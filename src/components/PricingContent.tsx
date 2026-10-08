@@ -4,7 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { BookOpen, CrownSimple, ShieldCheck, SlidersHorizontal } from "@phosphor-icons/react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { CustomBundleCheckout, LifetimeCheckout, PlanCheckout, PortalButton } from "@/components/BillingActions";
+import { CustomBundleCheckout, LifetimeCheckout, PlanCheckout } from "@/components/BillingActions";
+import { AccountBillingDetails, CurrentSubscriptionSummary } from "@/components/AccountBillingDetails";
+import { AccountSubscriptionEditor } from "@/components/AccountSubscriptionEditor";
 import { CourseIcon, courseToneForBank } from "@/components/CourseIcon";
 import type { ProductId } from "@/lib/access";
 import { bankEntryHref, hasFreeTier } from "@/lib/access";
@@ -70,7 +72,7 @@ function BankTable({ banks }: { banks: readonly Bank[] }) {
   return <div className="pricing-bank-table-wrap"><table className="pricing-bank-table" aria-label="Question bank coverage"><thead><tr><th scope="col">Question bank</th><th scope="col">Questions</th><th scope="col">Papers</th><th scope="col">Coverage</th><th scope="col"><span className="sr-only">Preview</span></th></tr></thead><tbody>{banks.map((bank) => { const tone = courseToneForBank(bank); const free = hasFreeTier(bank.slug); return <tr className={`course-tone-${tone}`} data-pricing-bank={bank.slug} data-has-free-tier={free ? "true" : undefined} key={bank.slug}><th scope="row"><div className="pricing-bank-name"><CourseIcon tone={tone} /><div><span>{bank.qualification}</span><strong>{bank.shortName}</strong></div></div></th><td data-label="Questions">{bank.questionCount.toLocaleString()}</td><td data-label="Papers">{bank.paperCount}</td><td data-label="Coverage">{bank.years}</td><td className="pricing-bank-preview">{free ? <Link href={bankEntryHref(bank.slug)} aria-label={`Preview ${bank.shortName}`}>Preview</Link> : <span className="pricing-bank-no-preview" aria-hidden="true">-</span>}</td></tr>; })}</tbody></table></div>;
 }
 
-export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], currentPlanProductIds = [], complimentaryAccess = false, previewOnly = false, previewSubscriptionHref, ownedBankIds = [], initialInterval = "monthly", initialLifetimeSelected = false, initialProductId, initialBankIds, availableBanks = getCatalogRuntimeBanks() }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; currentPlanProductIds?: readonly ProductId[]; complimentaryAccess?: boolean; previewOnly?: boolean; previewSubscriptionHref?: string; ownedBankIds?: readonly BankSlug[]; initialInterval?: BillingInterval; initialLifetimeSelected?: boolean; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[] }) {
+export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], currentPlanProductIds = [], complimentaryAccess = false, previewOnly = false, previewStacked = false, addOnIntent = false, ownedBankIds = [], initialInterval = "monthly", initialLifetimeSelected = false, initialProductId, initialBankIds, availableBanks = getCatalogRuntimeBanks() }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; currentPlanProductIds?: readonly ProductId[]; complimentaryAccess?: boolean; previewOnly?: boolean; previewStacked?: boolean; addOnIntent?: boolean; ownedBankIds?: readonly BankSlug[]; initialInterval?: BillingInterval; initialLifetimeSelected?: boolean; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[] }) {
   const [interval, setInterval] = useState<BillingInterval>(initialInterval);
   const [lifetimeSelected, setLifetimeSelected] = useState(initialLifetimeSelected ?? false);
   const pricingPageRef = useRef<HTMLElement>(null);
@@ -117,6 +119,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
   const addOnBanks = availableBanks.filter((bank) => !ownedBankIds.includes(bank.slug) && Boolean(getCatalogBank(bank.slug)?.productId));
   const individualBankSubscriptions = currentPlanProductIds.filter((id) => id.startsWith("bank_")).length;
   const ownsAllAccess = currentPlanProductIds.includes("bundle_all") || currentPlanProductIds.includes("lifetime_all_access");
+  const ownsLifetimeAccess = currentPlanProductIds.includes("lifetime_all_access");
   const currentPlanMode = ownsAllAccess ? "all"
     : currentPlanProductIds.some((id) => id === "bundle_custom" || (id.startsWith("bundle_") && id !== "bundle_all")) ? "builder"
       : currentPlanProductIds.some((id) => id.startsWith("bank_")) ? "single" : null;
@@ -204,12 +207,21 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
       <h2>Lifetime full access</h2>
       <div className="lifetime-price"><strong>$299</strong><span> once</span></div>
       <p className="lifetime-scope">All current + future question banks</p>
-      <LifetimeCheckout authenticated={authenticated} previewOnly={previewOnly} existingAccess={hasPaidAccess} />
+      <LifetimeCheckout authenticated={authenticated} previewOnly={previewOnly} accessCovered={complimentaryAccess || ownsLifetimeAccess} />
       <ul className="lifetime-benefits" aria-label="Lifetime plan features">
         <li><BookOpen aria-hidden="true" />All subjects</li><li><CrownSimple aria-hidden="true" />Lifetime updates</li><li><SlidersHorizontal aria-hidden="true" />One payment</li><li><ShieldCheck aria-hidden="true" />Secure checkout</li>
       </ul>
     </div>
   </section>;
+  const previewSubscription = previewOnly && hasPaidAccess && !complimentaryAccess ? (() => {
+    const selectedBanks = availableBanks.filter((bank) => ownedBankIds.includes(bank.slug)).map(({ slug, shortName }) => ({ slug, name: shortName }));
+    const bankSelection = ownsAllAccess ? { kind: "all" as const } : { kind: "selected" as const, banks: selectedBanks };
+    const currentInterval = initialInterval === "annual" ? "year" : "month";
+    const quantity = ownsAllAccess ? availableBanks.length : Math.max(1, selectedBanks.length);
+    const monthly = ownsAllAccess ? PRICING_MODEL.allAccess.monthlyCents : priceForBankCount("monthly", quantity);
+    const annual = ownsAllAccess ? PRICING_MODEL.allAccess.annualCents : priceForBankCount("annual", quantity);
+    return { status: "active", cancelAtPeriodEnd: false, bankSelection, item: { id: "preview-price", quantity: 1, recurringSubtotalCents: initialInterval === "annual" ? annual : monthly, currentPeriodEnd: "2027-06-30T00:00:00.000Z", price: { currency: "usd", interval: currentInterval, intervalCount: 1 } } };
+  })() : null;
 
   return (
     <div className="public-surface">
@@ -223,28 +235,22 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         </div>
         {lifetimeSelected ? <div className="pricing-toggle-anchor pricing-toggle-anchor-lifetime" data-selected-mode="lifetime">{lifetimeOffer}</div> : null}
 
-        {authenticated ? (
-          <section className="pricing-current-plan" aria-labelledby="current-plan-heading">
-            <div><span className="eyebrow">Account</span><h2 id="current-plan-heading">Your current access</h2></div>
-            <div className="pricing-current-plan-details">
-              <strong>{hasPaidAccess ? currentPlanNames.join(", ") || "Paid access" : "Free"}</strong>
-              <span>{hasPaidAccess ? complimentaryAccess ? "Complimentary access" : previewOnly ? "Example paid account. No billing is connected in this preview." : "Your access is active. Manage billing to cancel or update payment details." : "Choose a plan below to unlock every available question."}</span>
-            </div>
-            {hasPaidAccess && (!previewOnly || previewSubscriptionHref) ? <Link className="button secondary" href={previewOnly && previewSubscriptionHref ? previewSubscriptionHref : "/account/subscription"}>{complimentaryAccess ? "View your access" : "View or change your subscription"}</Link> : null}
-            {hasPaidAccess && !complimentaryAccess && !previewOnly ? <PortalButton /> : null}
-          </section>
-        ) : null}
-
-        {hasPaidAccess && !addOnBanks.length ? <p className="pricing-all-included">All available banks are included in your access. Head to <Link href="/dashboard">your question banks</Link> to start practising.</p> : null}
-        {hasPaidAccess ? (
-          <details className="pricing-additional-offers" open={Boolean(initialProductId || initialBankIds?.length) || undefined}>
-            <summary>{addOnBanks.length ? "Compare public prices and additional banks" : "Compare public plan prices"}</summary>
-            <p>{addOnBanks.length ? <>Your existing access stays separate. A purchase here may create a separate subscription and renewal; to change a supported current plan, use <Link href="/account/subscription">Subscription settings</Link> instead.</> : "These are public prices for new subscriptions, not your current charge. Your access is already covered."}</p>
-            {lifetimeSelected ? null : <div className="pricing-decision-grid" aria-label="Additional subscription offers" data-paid="true">{PLANS.map(renderPlan)}</div>}
-          </details>
-        ) : !hasPaidAccess ? <>
-          {lifetimeSelected ? null : <div className="pricing-decision-grid" aria-label="PastPaperPrep plans">{PLANS.map(renderPlan)}</div>}
-        </> : null}
+        {authenticated && !hasPaidAccess ? <section className="pricing-current-plan" aria-labelledby="current-plan-heading"><div><span className="eyebrow">Account</span><h2 id="current-plan-heading">Your current access</h2></div><div className="pricing-current-plan-details"><strong>Free</strong><span>Choose a plan below to unlock every available question.</span></div></section> : null}
+        {hasPaidAccess && !complimentaryAccess ? <section className="pricing-current-plan" aria-labelledby="current-plan-heading">
+          <div><span className="eyebrow">Account</span><h2 id="current-plan-heading">Your current access</h2></div>
+          <div className="pricing-current-plan-details"><strong>{ownsLifetimeAccess ? "Lifetime access" : currentPlanNames.join(", ") || "Paid access"}</strong><span>{ownsLifetimeAccess ? "Lifetime access is active. Any separately billed subscription remains listed under Billing." : previewOnly ? "Example only — price and renewal date are illustrative; no billing account is connected." : "Your account entitlement is verified above. Charges and change options appear below only after billing state is verified; public standard prices may differ from your stored rate."}</span></div>
+          {previewOnly ? <span className="pricing-current-plan-note">Manage billing is disabled in this local example.</span> : <Link className="button secondary" href="/account/billing">Manage billing</Link>}
+        </section> : null}
+        {hasPaidAccess && !complimentaryAccess && !ownsLifetimeAccess && !lifetimeSelected ? <section id="change-plan" className="pricing-account-plan-editor" aria-label="Change your current subscription">
+          {previewStacked && previewSubscription ? <><div className="pricing-preview-notice" role="status">Example only — these separate subscription prices and dates are illustrative. No billing account or change handlers are connected.</div><p className="account-billing-warning">These are separate subscriptions with separate charges and renewal dates. They are not a combined plan.</p>{previewSubscription.bankSelection.kind === "selected" ? previewSubscription.bankSelection.banks.map((bank, index) => <CurrentSubscriptionSummary key={bank.slug} subscription={{ status: "active", cancelAtPeriodEnd: false, bankSelection: { kind: "selected", banks: [bank] } }} item={{ ...previewSubscription.item, id: `preview-price-${index}`, recurringSubtotalCents: priceForBankCount("monthly", 1), currentPeriodEnd: index ? "2027-07-31T00:00:00.000Z" : "2027-06-30T00:00:00.000Z" }} />) : null}</> : previewSubscription ? <><div className="pricing-preview-notice" role="status">Example only — price and renewal date are illustrative. No billing account or change handlers are connected.</div><CurrentSubscriptionSummary subscription={previewSubscription} item={previewSubscription.item} /><AccountSubscriptionEditor subscription={{ id: "preview-subscription", cancelAtPeriodEnd: false, bankSelection: previewSubscription.bankSelection, item: previewSubscription.item }} bankOptions={availableBanks.map(({ slug, shortName }) => ({ slug, name: shortName }))} onUpdated={() => undefined} demo billingInterval={interval} onBillingIntervalChange={setInterval} /></> : <AccountBillingDetails mode="subscription" billingInterval={interval} onBillingIntervalChange={setInterval} />}
+        </section> : null}
+        {hasPaidAccess && !complimentaryAccess && addOnIntent && addOnBanks.length > 0 && !lifetimeSelected ? <details className="pricing-additional-offers" open>
+          <summary>Requested additional subscription</summary>
+          <p>This is separate from your current plan and creates a separate charge and renewal. It does not replace your subscription or apply credit. For an ordinary plan change, use the reviewed editor above.</p>
+          <div className="pricing-decision-grid" aria-label="Requested additional subscription" data-paid="true">{PLANS.map(renderPlan)}</div>
+        </details> : null}
+        {!hasPaidAccess && !lifetimeSelected ? <div className="pricing-decision-grid" aria-label="PastPaperPrep plans">{PLANS.map(renderPlan)}</div> : null}
+        {complimentaryAccess ? <section className="pricing-current-plan" aria-labelledby="current-plan-heading"><div><span className="eyebrow">Account</span><h2 id="current-plan-heading">Your current access</h2></div><div className="pricing-current-plan-details"><strong>Complimentary access</strong><span>This is a grant, not a billed subscription. No renewal or plan-change controls are available.</span></div><Link className="button secondary" href="/account/subscription">View your access</Link></section> : null}
 
         {previewOnly ? <p className="pricing-preview-notice" role="status">Local preview: no account or checkout is connected. Choose a view using the links above the pricing page.</p> : null}
 

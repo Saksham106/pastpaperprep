@@ -8,26 +8,20 @@ const cambridgeBankCount = availableBanks.filter((bank) => bank.qualification ==
 const ibBankCount = availableBanks.filter((bank) => bank.qualification === "International Baccalaureate").length;
 
 describe("approved custom-bank pricing", () => {
-  it("starts existing-access visitors on a compact management view, with optional public offers", () => {
-    const { container } = render(<PricingContent authenticated hasPaidAccess currentPlanNames={["One Bank"]} currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
-    expect(screen.getByRole("link", { name: "View or change your subscription" })).toHaveAttribute("href", "/account/subscription");
+  it("shows optional add-on offers only for an explicit request and keeps account management primary", () => {
+    const { container } = render(<PricingContent authenticated hasPaidAccess addOnIntent currentPlanNames={["One Bank"]} currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
+    expect(screen.getByRole("link", { name: "Manage billing" })).toHaveAttribute("href", "/account/billing");
     const comparison = container.querySelector<HTMLDetailsElement>("details.pricing-additional-offers");
     expect(comparison).not.toBeNull();
-    expect(comparison).not.toHaveAttribute("open");
-    expect(comparison).toHaveTextContent(/separate subscription/i);
-    fireEvent.click(within(comparison!).getByText(/compare public prices and additional banks/i));
     expect(comparison).toHaveAttribute("open");
+    expect(comparison).toHaveTextContent(/separate charge and renewal/i);
     expect(within(comparison!).getByRole("heading", { name: "Build Your Plan" })).toBeInTheDocument();
   });
 
-  it("keeps all-access offers optional and read-only", () => {
-    const { container } = render(<PricingContent authenticated hasPaidAccess currentPlanNames={["All Access"]} currentPlanProductIds={["bundle_all"]} ownedBankIds={availableBanks.map((bank) => bank.slug)} availableBanks={availableBanks} />);
-    const comparison = container.querySelector<HTMLDetailsElement>("details.pricing-additional-offers");
-    expect(comparison).not.toHaveAttribute("open");
-    fireEvent.click(within(comparison!).getByText("Compare public plan prices"));
-    expect(comparison).toHaveAttribute("open");
-    expect(container.querySelectorAll(".pricing-option")).toHaveLength(3);
-    expect(container.querySelectorAll(".pricing-option input, .pricing-option button, .pricing-option a")).toHaveLength(0);
+  it("does not offer another plan to an existing all-access owner, even on an add-on link", () => {
+    const { container } = render(<PricingContent authenticated hasPaidAccess addOnIntent currentPlanNames={["All Access"]} currentPlanProductIds={["bundle_all"]} ownedBankIds={availableBanks.map((bank) => bank.slug)} availableBanks={availableBanks} />);
+    expect(container.querySelector("details.pricing-additional-offers")).toBeNull();
+    expect(container.querySelectorAll(".pricing-option")).toHaveLength(0);
   });
 
   it("preserves first-purchase cards for signed-in free students", () => {
@@ -39,11 +33,8 @@ describe("approved custom-bank pricing", () => {
   it("does not show redundant plans to an all-access customer", () => {
     const { container } = render(<PricingContent authenticated hasPaidAccess currentPlanNames={["All Access"]} currentPlanProductIds={["bundle_all"]} ownedBankIds={availableBanks.map((bank) => bank.slug)} availableBanks={availableBanks} />);
     expect(screen.getByRole("heading", { name: "Your current access" })).toBeInTheDocument();
-    const comparison = container.querySelector<HTMLDetailsElement>("details.pricing-additional-offers");
-    expect(comparison).not.toBeNull();
-    expect(comparison).not.toHaveAttribute("open");
-    expect(within(comparison!).getByText("Compare public plan prices")).toBeInTheDocument();
-    expect(screen.getByText(/all available banks are included/i)).toBeInTheDocument();
+    expect(container.querySelector("details.pricing-additional-offers")).toBeNull();
+    expect(container.querySelectorAll(".pricing-option")).toHaveLength(0);
     expect(screen.queryByText("Not ready to pay?")).not.toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Your current access" })).toBeInTheDocument();
     expect(screen.queryByText("Pay only for what you study.")).not.toBeInTheDocument();
@@ -51,15 +42,15 @@ describe("approved custom-bank pricing", () => {
   });
 
   it("gives paid subscribers a direct My Account path before offering a separate purchase", () => {
-    render(<PricingContent authenticated hasPaidAccess currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
-    expect(within(screen.getByRole("region", { name: "Your current access" })).getByRole("link", { name: "View or change your subscription" })).toHaveAttribute("href", "/account/subscription");
+    render(<PricingContent authenticated hasPaidAccess addOnIntent currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
+    expect(within(screen.getByRole("region", { name: "Your current access" })).getByRole("link", { name: "Manage billing" })).toHaveAttribute("href", "/account/billing");
   });
 
   it("shows One Bank as current for a one-bank customer without allowing repurchase", () => {
-    const { container } = render(<PricingContent authenticated hasPaidAccess currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
+    const { container } = render(<PricingContent authenticated hasPaidAccess addOnIntent currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
     const one = screen.getByRole("heading", { name: "One Bank" }).closest("article")!;
     expect(screen.getByRole("heading", { name: "Your current access" })).toBeInTheDocument();
-    const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article")!;
+    const builder = container.querySelector("details.pricing-additional-offers [data-plan-tone=builder]") as HTMLElement;
     const all = screen.getByRole("heading", { name: "All Access" }).closest("article")!;
     expect(screen.queryByRole("heading", { name: "Add another bank" })).not.toBeInTheDocument();
     expect(one).toHaveAttribute("data-current-plan", "true");
@@ -74,7 +65,7 @@ describe("approved custom-bank pricing", () => {
   });
 
   it("does not mislabel two separately purchased banks as a discounted builder bundle", () => {
-    const { container } = render(<PricingContent authenticated hasPaidAccess currentPlanProductIds={["bank_ib_sl", "bank_ib_hl"]} ownedBankIds={["ib-sl", "ib-hl"]} availableBanks={availableBanks} />);
+    const { container } = render(<PricingContent authenticated hasPaidAccess addOnIntent currentPlanProductIds={["bank_ib_sl", "bank_ib_hl"]} ownedBankIds={["ib-sl", "ib-hl"]} availableBanks={availableBanks} />);
     expect(screen.getByRole("heading", { name: "One Bank" }).closest("article")).toHaveAttribute("data-current-plan", "true");
     expect(screen.getByRole("heading", { name: "Build Your Plan" }).closest("article")).not.toHaveAttribute("data-current-plan");
     expect(container.querySelectorAll('[data-current-plan="true"]')).toHaveLength(1);
@@ -83,13 +74,13 @@ describe("approved custom-bank pricing", () => {
   });
 
   it("highlights a real custom bundle and never implies it is the single-bank plan", () => {
-    render(<PricingContent authenticated hasPaidAccess currentPlanProductIds={["bundle_custom"]} ownedBankIds={["ib-sl", "ib-hl"]} availableBanks={availableBanks} />);
+    render(<PricingContent authenticated hasPaidAccess addOnIntent currentPlanProductIds={["bundle_custom"]} ownedBankIds={["ib-sl", "ib-hl"]} availableBanks={availableBanks} />);
     expect(screen.getByRole("heading", { name: "Build Your Plan" }).closest("article")).toHaveAttribute("data-current-plan", "true");
     expect(screen.getByRole("heading", { name: "One Bank" }).closest("article")).not.toHaveAttribute("data-current-plan");
   });
 
   it("marks a complimentary all-access grant as access, not a paid Stripe subscription", () => {
-    render(<PricingContent authenticated hasPaidAccess currentPlanNames={["All Access"]} currentPlanProductIds={["bundle_all"]} complimentaryAccess ownedBankIds={availableBanks.map((bank) => bank.slug)} availableBanks={availableBanks} />);
+    render(<PricingContent authenticated hasPaidAccess addOnIntent currentPlanNames={["All Access"]} currentPlanProductIds={["bundle_all"]} complimentaryAccess ownedBankIds={availableBanks.map((bank) => bank.slug)} availableBanks={availableBanks} />);
     expect(screen.getByText("Complimentary access")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Your current access" })).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Manage billing" })).not.toBeInTheDocument();
@@ -98,8 +89,8 @@ describe("approved custom-bank pricing", () => {
   });
 
   it("prices a separately selected two-bank add-on inside Build Your Plan without relabeling existing access", () => {
-    render(<PricingContent authenticated hasPaidAccess currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
-    const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article")!;
+    const { container } = render(<PricingContent authenticated hasPaidAccess addOnIntent currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
+    const builder = container.querySelector("details.pricing-additional-offers [data-plan-tone=builder]") as HTMLElement;
     fireEvent.click(within(builder).getByRole("checkbox", { name: "IB Math AA HL" }));
     fireEvent.click(within(builder).getByRole("checkbox", { name: "IB Math AI HL" }));
     expect(within(builder).getByText("$10")).toBeInTheDocument();
@@ -112,7 +103,7 @@ describe("approved custom-bank pricing", () => {
   });
 
   it("requires explicit acknowledgment before offering a second All Access subscription", () => {
-    render(<PricingContent authenticated hasPaidAccess currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
+    render(<PricingContent authenticated hasPaidAccess addOnIntent currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
     const card = screen.getByRole("heading", { name: "All Access" }).closest("article")!;
     expect(within(card).queryByRole("button", { name: /Add All Access subscription/i })).not.toBeInTheDocument();
     fireEvent.click(within(card).getByRole("checkbox", { name: /existing subscriptions keep renewing/i }));
@@ -121,30 +112,30 @@ describe("approved custom-bank pricing", () => {
 
   it("keeps the no-purchase state for complimentary All Access without extra cards", () => {
     const { container } = render(<PricingContent authenticated hasPaidAccess complimentaryAccess currentPlanProductIds={["bundle_all"]} ownedBankIds={availableBanks.map((bank) => bank.slug)} availableBanks={availableBanks} />);
-    expect(container.querySelector(".pricing-additional-offers")).not.toHaveAttribute("open");
+    expect(container.querySelector(".pricing-additional-offers")).toBeNull();
     expect(container.querySelectorAll(".pricing-option input, .pricing-option button, .pricing-option a")).toHaveLength(0);
     expect(screen.getByRole("link", { name: "View your access" })).toHaveAttribute("href", "/account/subscription");
   });
 
   it("keeps local preview entirely read-only even after choosing an add-on", () => {
-    render(<PricingContent authenticated hasPaidAccess previewOnly currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
+    const { container } = render(<PricingContent authenticated hasPaidAccess addOnIntent previewOnly currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
     expect(screen.getByText(/local preview.*no account or checkout/i)).toBeInTheDocument();
-    const picker = screen.getByRole("heading", { name: "One Bank" }).closest("article")!;
+    const picker = container.querySelector("details.pricing-additional-offers .pricing-option") as HTMLElement;
     fireEvent.click(within(picker).getByRole("radio", { name: "IB Math AA HL" }));
     expect(within(picker).getByRole("button", { name: /Unlock IB Math AA HL/i })).toBeDisabled();
     expect(within(picker).getByText(/Preview only.*checkout is disabled/i)).toBeInTheDocument();
     expect(within(picker).queryByRole("link", { name: /Unlock/ })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Manage billing" })).not.toBeInTheDocument();
-    const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article")!;
+    const builder = container.querySelector("details.pricing-additional-offers [data-plan-tone=builder]") as HTMLElement;
     fireEvent.click(within(builder).getByRole("checkbox", { name: "IB Math AA HL" }));
     fireEvent.click(within(builder).getByRole("checkbox", { name: "IB Math AI HL" }));
     expect(within(builder).getByRole("button", { name: /Add 2 banks/i })).toBeDisabled();
-    const all = screen.getByRole("heading", { name: "All Access" }).closest("article")!;
+    const all = container.querySelector("details.pricing-additional-offers [data-plan-tone=premium]") as HTMLElement;
     expect(within(all).getByRole("button", { name: /Add All Access subscription/i })).toBeDisabled();
   });
 
   it("lets paid members buy only unowned banks as separately priced subscriptions", () => {
-    render(<PricingContent authenticated hasPaidAccess currentPlanNames={["One Bank"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
+    render(<PricingContent authenticated hasPaidAccess addOnIntent currentPlanNames={["One Bank"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
     expect(screen.queryByRole("heading", { name: "Add another bank" })).not.toBeInTheDocument();
     const picker = screen.getByRole("heading", { name: "One Bank" }).closest("article")!;
     expect(within(picker).queryByLabelText(/Mathematics AA SL/i)).not.toBeInTheDocument();
@@ -158,15 +149,16 @@ describe("approved custom-bank pricing", () => {
     const enabled = { NODE_ENV: "production", PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION: "true", PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED: "true" };
     const banks = getCatalogBillingBanks(enabled).map(catalogBankToRuntimeBank);
     expect(banks.some((bank) => bank.slug === "ib-economics-hl")).toBe(true);
-    render(<PricingContent authenticated hasPaidAccess ownedBankIds={["ib-sl"]} availableBanks={banks} />);
+    render(<PricingContent authenticated hasPaidAccess addOnIntent ownedBankIds={["ib-sl"]} availableBanks={banks} />);
     const picker = screen.getByRole("heading", { name: "One Bank" }).closest("article")!;
     expect(within(picker).getByLabelText(/Economics HL/i)).toBeInTheDocument();
     expect(within(picker).getByLabelText(/Economics SL/i)).toBeInTheDocument();
   });
 
   it("does not offer an add-on when every billable bank is already included", () => {
-    render(<PricingContent authenticated hasPaidAccess ownedBankIds={availableBanks.map((bank) => bank.slug)} availableBanks={availableBanks} />);
-    expect(screen.getByText(/all available banks are included/i)).toBeInTheDocument();
+    const { container } = render(<PricingContent authenticated hasPaidAccess addOnIntent ownedBankIds={availableBanks.map((bank) => bank.slug)} availableBanks={availableBanks} />);
+    expect(container.querySelector("details.pricing-additional-offers")).toBeNull();
+    expect(container.querySelectorAll(".pricing-option")).toHaveLength(0);
     expect(screen.queryByRole("button", { name: /Unlock/ })).not.toBeInTheDocument();
   });
 
@@ -394,7 +386,7 @@ describe("approved custom-bank pricing", () => {
     rerender(<PricingContent authenticated hasPaidAccess={false} availableBanks={availableBanks} />);
     expect(container.querySelectorAll(".pricing-referral-note")).toHaveLength(1);
     expect(within(container.querySelector(".pricing-referral-note") as HTMLElement).getByRole("link", { name: "See referral rewards" })).toHaveAttribute("href", "/account/referrals");
-    rerender(<PricingContent authenticated hasPaidAccess currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
+    rerender(<PricingContent authenticated hasPaidAccess addOnIntent currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
     expect(container.querySelector(".pricing-referral-note")).toBeNull();
   });
 

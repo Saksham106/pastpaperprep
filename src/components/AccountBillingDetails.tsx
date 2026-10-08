@@ -83,7 +83,7 @@ function ScheduledChange({ plan, onUpdated, canUndo }: { plan: NonNullable<Subsc
   </div>;
 }
 
-export function AccountBillingDetails({ mode, complimentaryAllAccess = false }: { mode: "subscription" | "billing"; complimentaryAllAccess?: boolean }) {
+export function AccountBillingDetails({ mode, complimentaryAllAccess = false, billingInterval, onBillingIntervalChange }: { mode: "subscription" | "billing"; complimentaryAllAccess?: boolean; billingInterval?: "monthly" | "annual"; onBillingIntervalChange?: (interval: "monthly" | "annual") => void }) {
   const [state, setState] = useState<LoadState>({ kind: "loading" });
   const [operationNotice, setOperationNotice] = useState("");
   async function refresh() {
@@ -154,6 +154,8 @@ export function AccountBillingDetails({ mode, complimentaryAllAccess = false }: 
             subscription={{ id: sub.id, cancelAtPeriodEnd: sub.cancelAtPeriodEnd, bankSelection: sub.bankSelection, item }}
             bankOptions={state.data.bankOptions}
             onUpdated={(message) => { setOperationNotice(message ?? "Billing state updated."); void refresh(); }}
+            billingInterval={billingInterval}
+            onBillingIntervalChange={onBillingIntervalChange}
           /> : null}
           {sub.status === "past_due" || sub.status === "unpaid" ? <p className="account-billing-warning">Payment needs attention. Review your payment method in the secure billing portal.</p> : null}
         </section>;
