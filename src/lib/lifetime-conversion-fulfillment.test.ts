@@ -3,10 +3,10 @@ import { finishLifetimeConversion } from "@/lib/lifetime-conversion-fulfillment"
 const intentId = "150a3d0e-4c34-45cc-9748-68252f0fb8f1";
 const userId = "250a3d0e-4c34-45cc-9748-68252f0fb8f1";
 function fixture(status = "pending") {
-  const row = { intent_id: intentId, user_id: userId, customer_id: "cus_1", subscription_id: "sub_1", subscription_snapshot: { itemId: "si_1", priceId: "price_1", quantity: 1, productId: "bundle_all", selectedBankIds: ["ib-hl"] }, checkout_session_id: "cs_test_1", payment_intent_id: null, status };
+  const row = { intent_id: intentId, user_id: userId, customer_id: "cus_1", subscription_id: "sub_1", subscription_snapshot: { itemId: "si_1", priceId: "price_1", quantity: 1, productId: "bundle_all", selectedBankIds: [] }, checkout_session_id: "cs_test_1", payment_intent_id: null, status };
   const from = vi.fn((table: string) => { const query: any = { select: () => query, eq: () => query, maybeSingle: async () => ({ data: table === "lifetime_conversions" ? row : { user_id: userId, checkout_session_id: "cs_test_1", payment_intent_id: "pi_1", status: "paid" }, error: null }) }; return query; });
   const rpc = vi.fn(async () => ({ data: true, error: null }));
-  const sub = { id: "sub_1", customer: "cus_1", status: "active", cancel_at_period_end: false, metadata: { user_id: userId, product_id: "bundle_all", selected_bank_ids: '["ib-hl"]' }, items: { data: [{ id: "si_1", price: { id: "price_1" }, quantity: 1 }] } };
+  const sub = { id: "sub_1", customer: "cus_1", status: "active", cancel_at_period_end: false, metadata: { user_id: userId, product_id: "bundle_all" }, items: { data: [{ id: "si_1", price: { id: "price_1" }, quantity: 1 }] } };
   const subscriptions = { retrieve: vi.fn().mockResolvedValue(sub), update: vi.fn().mockResolvedValue({ ...sub, cancel_at_period_end: true }) };
   return { admin: { from, rpc } as any, stripe: { subscriptions } as any, row, sub, rpc };
 }
