@@ -25,9 +25,9 @@ export function AnalyticsConsentBanner({ onChoice, onDismiss, initialAnalytics =
       <button className={styles.close} type="button" aria-label="Close cookie banner" onClick={() => onDismiss()}><X size={12} weight="bold" aria-hidden="true" /></button>
       <div className={styles.heading}>
         <span className={styles.mark} aria-hidden="true"><Cookie size={22} weight="duotone" /></span>
-        <h2 id={`${id}-title`}>Optional analytics</h2>
+        <h2 id={`${id}-title`}>A little cookie housekeeping.</h2>
       </div>
-      <p className={styles.copy}>Anonymous statistics work without cookies. With your permission, optional analytics cookies help us understand returning visits and use your email to recognise your signed-in account.{!customizing && <>{" "}<button className={styles.customize} type="button" aria-expanded={false} aria-controls={`${id}-preferences`} onClick={() => setCustomizing(true)}>Customize</button></>}</p>
+      <p className={styles.copy}>Anonymous, cookie-free statistics help us improve practice. Optional analytics cookies add returning-visit insights. Signed in? With your permission, we use your email to recognise your account in PostHog.{!customizing && <>{" "}<button className={styles.customize} type="button" aria-expanded={false} aria-controls={`${id}-preferences`} onClick={() => setCustomizing(true)}>Customize</button></>}</p>
       {customizing && <div id={`${id}-preferences`} className={styles.preferences}>
         <div className={styles.preference}><div><strong>Essential cookies</strong><p>Keep sign-in and your preferences working.</p></div><span className={styles.always}>Always on</span></div>
         <label className={styles.preference}><div><strong>Optional analytics</strong><p id={`${id}-analytics-description`}>Returning-visit and account-linked insights. No session recording.</p></div><input ref={analyticsInput} type="checkbox" aria-label="Optional analytics" aria-describedby={`${id}-analytics-description`} checked={analytics} onChange={event => setAnalytics(event.target.checked)} /></label>
@@ -36,7 +36,7 @@ export function AnalyticsConsentBanner({ onChoice, onDismiss, initialAnalytics =
       <div className={`${styles.actions} ${customizing ? styles.expanded : ""}`}>
         {customizing && <button className={styles.reject} type="button" disabled={busy} onClick={() => onChoice(false)}>Reject</button>}
         {customizing && <button className={styles.save} type="button" disabled={busy} onClick={() => onChoice(analytics)}>{busy ? "Saving…" : "Save preferences"}</button>}
-        <button className={styles.accept} type="button" disabled={busy} onClick={() => onChoice(true)}>{busy ? "Saving…" : "Allow analytics"}</button>
+        <button className={styles.accept} type="button" disabled={busy} onClick={() => onChoice(true)}>{busy ? "Saving…" : "Sure, allow cookies"}</button>
       </div>
       <div className={styles.footnote}><span>Change your choice anytime.</span><a href="/privacy">Privacy policy <span aria-hidden="true">↗</span></a></div>
     </aside>
