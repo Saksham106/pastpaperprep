@@ -32,24 +32,24 @@ describe("approved custom-bank pricing", () => {
 
   it("does not show redundant plans to an all-access customer", () => {
     const { container } = render(<PricingContent authenticated hasPaidAccess currentPlanNames={["All Access"]} currentPlanProductIds={["bundle_all"]} ownedBankIds={availableBanks.map((bank) => bank.slug)} availableBanks={availableBanks} />);
-    expect(screen.getByRole("heading", { name: "Your current access" })).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "Your current access" })).not.toBeInTheDocument();
     expect(container.querySelector("details.pricing-additional-offers")).toBeNull();
     expect(container.querySelectorAll(".pricing-option")).toHaveLength(0);
     expect(screen.queryByText("Not ready to pay?")).not.toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Your current access" })).toBeInTheDocument();
+    expect(container.querySelector(".pricing-current-plan")).toBeNull();
     expect(screen.queryByText("Pay only for what you study.")).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /Unlock/ })).not.toBeInTheDocument();
   });
 
   it("gives paid subscribers a direct My Account path before offering a separate purchase", () => {
     render(<PricingContent authenticated hasPaidAccess addOnIntent currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
-    expect(within(screen.getByRole("region", { name: "Your current access" })).getByRole("link", { name: "Manage billing" })).toHaveAttribute("href", "/account/billing");
+    expect(within(screen.getByRole("region", { name: "Change your current subscription" })).getByRole("link", { name: "Manage billing" })).toHaveAttribute("href", "/account/billing");
   });
 
   it("shows One Bank as current for a one-bank customer without allowing repurchase", () => {
     const { container } = render(<PricingContent authenticated hasPaidAccess addOnIntent currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
     const one = screen.getByRole("heading", { name: "One Bank" }).closest("article")!;
-    expect(screen.getByRole("heading", { name: "Your current access" })).toBeInTheDocument();
+    expect(container.querySelector(".pricing-current-plan")).toBeNull();
     const builder = container.querySelector("details.pricing-additional-offers [data-plan-tone=builder]") as HTMLElement;
     const all = screen.getByRole("heading", { name: "All Access" }).closest("article")!;
     expect(screen.queryByRole("heading", { name: "Add another bank" })).not.toBeInTheDocument();
@@ -70,7 +70,7 @@ describe("approved custom-bank pricing", () => {
     expect(screen.getByRole("heading", { name: "Build Your Plan" }).closest("article")).not.toHaveAttribute("data-current-plan");
     expect(container.querySelectorAll('[data-current-plan="true"]')).toHaveLength(1);
     expect(screen.getByText("Your subscriptions")).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Your current access" })).toBeInTheDocument();
+    expect(container.querySelector(".pricing-current-plan")).toBeNull();
   });
 
   it("highlights a real custom bundle and never implies it is the single-bank plan", () => {
