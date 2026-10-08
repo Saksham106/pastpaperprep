@@ -13,26 +13,28 @@ describe("local-only subscriber pricing preview", () => {
 
   it("previews free, stacked, lifetime, and complimentary states without connecting billing", async () => {
     vi.stubEnv("NODE_ENV", "development");
-    const { unmount } = render(await PricingPreviewPage({ searchParams: Promise.resolve({ view: "free" }) }));
+    let preview = render(await PricingPreviewPage({ searchParams: Promise.resolve({ view: "free" }) }));
     expect(screen.getByText("Free")).toBeInTheDocument();
     expect(document.querySelectorAll(".pricing-option")).toHaveLength(3);
-    unmount();
+    preview.unmount();
 
-    render(await PricingPreviewPage({ searchParams: Promise.resolve({ view: "stacked" }) }));
+    preview = render(await PricingPreviewPage({ searchParams: Promise.resolve({ view: "stacked" }) }));
     expect(screen.getByText(/separate subscriptions with separate charges and renewal dates/i)).toBeInTheDocument();
     expect(document.querySelectorAll(".account-current-access-summary")).toHaveLength(2);
     expect(screen.getByText("Example only — these separate subscription prices and dates are illustrative. No billing account or change handlers are connected.")).toBeInTheDocument();
-    unmount();
+    preview.unmount();
 
-    render(await PricingPreviewPage({ searchParams: Promise.resolve({ view: "lifetime" }) }));
+    preview = render(await PricingPreviewPage({ searchParams: Promise.resolve({ view: "lifetime" }) }));
     expect(screen.getByRole("heading", { name: /lifetime full access/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Lifetime access is active" })).toBeDisabled();
     expect(screen.queryByRole("button", { name: /unlock lifetime access/i })).not.toBeInTheDocument();
-    unmount();
+    preview.unmount();
 
     render(await PricingPreviewPage({ searchParams: Promise.resolve({ view: "all" }) }));
     expect(screen.getByText(/this is a grant, not a billed subscription/i)).toBeInTheDocument();
-    expect(document.querySelectorAll(".pricing-option")).toHaveLength(0);
+    expect(document.querySelectorAll(".pricing-option")).toHaveLength(3);
+    fireEvent.click(screen.getByRole("button", { name: /^Annual/ }));
+    expect(document.querySelectorAll(".pricing-option")).toHaveLength(3);
     expect(screen.queryByRole("button", { name: /unlock lifetime access/i })).not.toBeInTheDocument();
   });
 

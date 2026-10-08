@@ -14,6 +14,11 @@ describe("complimentary All Access", () => {
     expect(hasComplimentaryAllAccess([{ ...activeGrant, productId: "bank_igcse" }])).toBe(false);
   });
 
+  it("recognizes an active manual All Access grant alongside an expired Stripe row", () => {
+    const expiredStripeRow = { ...activeGrant, productId: "bank_igcse" as const, source: "stripe", status: "expired" as const, expiresAt: "2025-02-01T00:00:00Z" };
+    expect(hasComplimentaryAllAccess([activeGrant, expiredStripeRow])).toBe(true);
+  });
+
   it("shows a welcome and all three familiar plan cards without a checkout or invented renewal", () => {
     render(<ComplimentaryAllAccess />);
     expect(screen.getByRole("heading", { name: /complimentary all access/i })).toBeInTheDocument();

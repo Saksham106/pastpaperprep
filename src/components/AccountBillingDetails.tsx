@@ -101,7 +101,7 @@ function ScheduledChange({ plan, onUpdated, canUndo }: { plan: NonNullable<Subsc
   </div>;
 }
 
-export function AccountBillingDetails({ mode, complimentaryAllAccess = false, billingInterval, onBillingIntervalChange, showBillingManagement = false }: { mode: "subscription" | "billing"; complimentaryAllAccess?: boolean; billingInterval?: "monthly" | "annual"; onBillingIntervalChange?: (interval: "monthly" | "annual") => void; showBillingManagement?: boolean }) {
+export function AccountBillingDetails({ mode, complimentaryAllAccess = false, billingInterval, onBillingIntervalChange, showBillingManagement = false, showPlanEditor = true }: { mode: "subscription" | "billing"; complimentaryAllAccess?: boolean; billingInterval?: "monthly" | "annual"; onBillingIntervalChange?: (interval: "monthly" | "annual") => void; showBillingManagement?: boolean; showPlanEditor?: boolean }) {
   const [state, setState] = useState<LoadState>({ kind: "loading" });
   const [operationNotice, setOperationNotice] = useState("");
   async function refresh() {
@@ -168,7 +168,8 @@ export function AccountBillingDetails({ mode, complimentaryAllAccess = false, bi
           {sub.pendingUpdate ? <p className="account-billing-warning">A subscription change is awaiting payment. Current bank access remains in place until Stripe confirms the payment. Check Billing for the invoice or payment method.</p> : null}
           {sub.scheduledChange && sub.scheduledPlan ? <ScheduledChange plan={sub.scheduledPlan} canUndo={current.length === 1 && sub.status === "active"} onUpdated={(message) => { setOperationNotice(message); void refresh(); }} /> : null}
           {sub.scheduledChange && !sub.scheduledPlan ? <p className="account-billing-warning">A future subscription change is scheduled in Stripe. This editor cannot safely change it here.</p> : null}
-          {state.data.management.editable && current.length === 1 && sub.status === "active" && item && state.data.bankOptions?.length ? <AccountSubscriptionEditor
+          {(showPlanEditor || mode === "subscription" && !showPlanEditor) && state.data.management.editable && current.length === 1 && sub.status === "active" && item && state.data.bankOptions?.length ? <AccountSubscriptionEditor
+            managementOnly={!showPlanEditor}
             key={`${sub.id}:${sub.cancelAtPeriodEnd}:${item.id}:${item.price.interval}:${item.recurringSubtotalCents}:${sub.bankSelection.kind === "selected" ? sub.bankSelection.banks.map((bank) => bank.slug).sort().join(",") : sub.bankSelection.kind}`}
             subscription={{ id: sub.id, cancelAtPeriodEnd: sub.cancelAtPeriodEnd, bankSelection: sub.bankSelection, item }}
             bankOptions={state.data.bankOptions}
@@ -176,6 +177,7 @@ export function AccountBillingDetails({ mode, complimentaryAllAccess = false, bi
             billingInterval={billingInterval}
             onBillingIntervalChange={onBillingIntervalChange}
           /> : null}
+
           {sub.status === "past_due" || sub.status === "unpaid" ? <p className="account-billing-warning">Payment needs attention. Review your payment method in the secure billing portal.</p> : null}
         </section>;
       })}

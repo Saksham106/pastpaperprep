@@ -8,6 +8,36 @@ const cambridgeBankCount = availableBanks.filter((bank) => bank.qualification ==
 const ibBankCount = availableBanks.filter((bank) => bank.qualification === "International Baccalaureate").length;
 
 describe("approved custom-bank pricing", () => {
+  it("shows partial manual-access cards read-only in both billing periods", () => {
+    const { container } = render(<PricingContent authenticated hasPaidAccess manualAccess currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
+    expect(container.querySelectorAll(".pricing-decision-grid > article")).toHaveLength(3);
+    expect(container.querySelectorAll(".pricing-option button")).toHaveLength(0);
+    fireEvent.click(screen.getByRole("button", { name: /annual/i }));
+    expect(container.querySelectorAll(".pricing-decision-grid > article")).toHaveLength(3);
+    expect(container.querySelectorAll(".pricing-option button")).toHaveLength(0);
+    fireEvent.click(screen.getByRole("button", { name: "Monthly" }));
+    expect(container.querySelectorAll(".pricing-decision-grid > article")).toHaveLength(3);
+    expect(container.querySelectorAll(".pricing-option button")).toHaveLength(0);
+    expect(screen.getByText("Manual access")).toBeInTheDocument();
+    expect(screen.queryByText("All available banks are already included.")).not.toBeInTheDocument();
+    expect(container.querySelectorAll(".pricing-plan-access-note")[2]).toHaveTextContent("Shown for comparison. Your grant covers only selected banks.");
+  });
+
+  it("shows read-only plan cards for complimentary all-access without purchase controls", () => {
+    const { container } = render(<PricingContent authenticated hasPaidAccess complimentaryAccess currentPlanProductIds={["bundle_all"]} availableBanks={availableBanks} />);
+    expect(container.querySelectorAll(".pricing-decision-grid > article")).toHaveLength(3);
+    expect(container.querySelectorAll(".pricing-decision-grid button")).toHaveLength(0);
+    expect(screen.getAllByText(/included with your complimentary access/i).length).toBeGreaterThan(0);
+  });
+
+  it("shows covered plan cards without subscription editors for lifetime owners", () => {
+    const { container } = render(<PricingContent authenticated hasPaidAccess currentPlanProductIds={["lifetime_all_access"]} availableBanks={availableBanks} />);
+    fireEvent.click(screen.getByRole("button", { name: "Monthly" }));
+    expect(container.querySelectorAll(".pricing-decision-grid > article")).toHaveLength(3);
+    expect(container.querySelector(".pricing-account-plan-editor")).toBeNull();
+    expect(container.querySelectorAll(".pricing-option button")).toHaveLength(0);
+  });
+
   it("shows optional add-on offers only for an explicit request and keeps account management primary", () => {
     const { container } = render(<PricingContent authenticated hasPaidAccess addOnIntent currentPlanNames={["One Bank"]} currentPlanProductIds={["bank_ib_sl"]} ownedBankIds={["ib-sl"]} availableBanks={availableBanks} />);
     expect(screen.getByRole("link", { name: "Manage billing" })).toHaveAttribute("href", "/account/billing");

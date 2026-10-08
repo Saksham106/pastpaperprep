@@ -1,10 +1,10 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { PricingContent } from "@/components/PricingContent";
-import { hasBankAccess, type ProductId } from "@/lib/access";
+import { hasBankAccess, type AccessEntitlement, type ProductId } from "@/lib/access";
+import { hasComplimentaryAllAccess } from "@/lib/complimentary-access";
 import { getBillingBanks, getEntitlementBanks, type BankSlug } from "@/lib/banks";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
-import type { AccessEntitlement } from "@/lib/access";
 import { SOCIAL_IMAGE } from "@/lib/seo";
 import { createClient } from "@/lib/supabase/server";
 
@@ -49,6 +49,8 @@ export default async function PricingPage({ searchParams }: { searchParams: Prom
   let currentPlanNames: string[] = [];
   let currentPlanProductIds: ProductId[] = [];
   let complimentaryAccess = false;
+  let manualAccess = false;
+  let activeStripeAccess = false;
 
   if (userId) {
     const result = await fetchAccessEntitlements(supabase as never, userId);
@@ -70,9 +72,14 @@ export default async function PricingPage({ searchParams }: { searchParams: Prom
     const entitlements = result.rows as (AccessEntitlement & { source?: string; products?: { name?: string } | { name?: string }[] | null })[];
     ownedBankIds = billingBanks.filter(({ slug }) => hasBankAccess(slug, entitlements)).map(({ slug }) => slug);
     hasPaidAccess = getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, entitlements));
-    currentPlanProductIds = entitlements.map(({ productId }) => productId);
-    complimentaryAccess = hasPaidAccess && entitlements.length > 0 && entitlements.every(({ source }) => source === "manual");
-    currentPlanNames = Array.from(new Set(entitlements.flatMap((row) => {
+    const currentEntitlements = entitlements.filter((row) => billingBanks.some(({ slug }) => hasBankAccess(slug, [row])));
+    manualAccess = currentEntitlements.some((row) => row.source === "manual");
+    activeStripeAccess = currentEntitlements.some((row) => row.source === "stripe");
+    currentPlanProductIds = currentEntitlements.map(({ productId }) => productId);
+    // A manual All Access grant remains complimentary when stale/expired Stripe rows
+    // are present, but a separately active Stripe entitlement remains billable.
+    complimentaryAccess = hasPaidAccess && hasComplimentaryAllAccess(entitlements) && !activeStripeAccess;
+    currentPlanNames = Array.from(new Set(currentEntitlements.flatMap((row) => {
       const product = Array.isArray(row.products) ? row.products[0] : row.products;
       return product?.name ? [product.name] : [];
     })));
@@ -87,6 +94,7 @@ export default async function PricingPage({ searchParams }: { searchParams: Prom
     currentPlanNames={currentPlanNames}
     currentPlanProductIds={currentPlanProductIds}
     complimentaryAccess={complimentaryAccess}
+    manualAccess={!activeStripeAccess && manualAccess}
     initialInterval={params.interval === "annual" ? "annual" : "monthly"}
     initialLifetimeSelected={params.plan === "lifetime"}
     initialProductId={purchaseProduct(params.product)}

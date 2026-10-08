@@ -26,8 +26,8 @@ export default async function SubscriptionPage() {
         <p className="page-lede">{complimentaryAllAccess ? "Every question bank is included in your access." : "Your access and available plans in one place. Review your current plan before making a change."}</p>
       </div>
       {complimentaryAllAccess ? <ComplimentaryAllAccess /> : null}
-      <AccountBillingDetails mode="subscription" complimentaryAllAccess={complimentaryAllAccess} />
-      {!complimentaryAllAccess ? <p className="account-page-help">Want to compare the plans? <Link href="/pricing">Change plan on Pricing</Link>. Payment methods and complete invoice history are in the secure billing portal. Changes to legacy or separately billed plans may need support.</p> : <p className="account-page-help">Payment methods and complete invoice history are in the secure billing portal. Complimentary access is not a billed plan.</p>}
+      <AccountBillingDetails mode="subscription" complimentaryAllAccess={complimentaryAllAccess} showPlanEditor={false} />
+      <p className="account-page-help">{complimentaryAllAccess ? "Complimentary access is not a billed plan. " : ""}Compare or change plans on <Link href="/pricing">Pricing</Link>. Payment methods and complete invoice history are in the secure billing portal.{!complimentaryAllAccess ? " Changes to legacy or separately billed plans may need support." : ""}</p>
     </section>
   );
 }

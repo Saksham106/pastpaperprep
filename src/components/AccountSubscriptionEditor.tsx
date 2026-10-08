@@ -33,7 +33,7 @@ async function post(path: string, body: unknown): Promise<Record<string, unknown
 }
 
 /** Immediate additions use a Stripe invoice preview; removals, swaps, and cadence changes use a reviewed native renewal schedule. */
-export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated, demo = false, billingInterval: controlledInterval, onBillingIntervalChange }: { subscription: Plan; bankOptions: Bank[]; onUpdated: (message?: string) => void; demo?: boolean; billingInterval?: "monthly" | "annual"; onBillingIntervalChange?: (interval: "monthly" | "annual") => void }) {
+export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated, demo = false, managementOnly = false, billingInterval: controlledInterval, onBillingIntervalChange }: { subscription: Plan; bankOptions: Bank[]; onUpdated: (message?: string) => void; demo?: boolean; managementOnly?: boolean; billingInterval?: "monthly" | "annual"; onBillingIntervalChange?: (interval: "monthly" | "annual") => void }) {
   const currentIds = subscription.bankSelection.kind === "selected" ? subscription.bankSelection.banks.map(({ slug }) => slug) : [];
   const currentInterval = subscription.item.price.interval === "year" ? "annual" : "monthly";
   const currentMode = subscription.bankSelection.kind === "all" ? "all" : currentIds.length === 1 ? "single" : "builder";
@@ -210,12 +210,12 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
     {notice ? <p role="status" className="account-editor-note">{notice}</p> : null}
     {error ? <p role="alert" className="account-billing-warning">{error}</p> : null}
     {view === "select" ? <div className="account-plan-chooser">
-      <div className="account-pricing-heading"><h2>Choose your plan</h2><p>Choose the banks you need. Your current access is marked; review any change before it takes effect.</p></div>
-      {!controlledInterval ? <div className="billing-toggle" role="group" aria-label="Billing period">
+      {!managementOnly ? <div className="account-pricing-heading"><h2>Choose your plan</h2><p>Choose the banks you need. Your current access is marked; review any change before it takes effect.</p></div> : null}
+      {!managementOnly && !controlledInterval ? <div className="billing-toggle" role="group" aria-label="Billing period">
         <button type="button" aria-pressed={interval === "monthly"} disabled={busy || subscription.cancelAtPeriodEnd} onClick={() => { changeInterval("monthly"); setQuote(null); setRenewalQuote(null); }}>Monthly</button>
         <button type="button" className="billing-toggle-annual" aria-pressed={interval === "annual"} disabled={busy || subscription.cancelAtPeriodEnd} onClick={() => { changeInterval("annual"); setQuote(null); setRenewalQuote(null); }}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
       </div> : null}
-      <div className="pricing-decision-grid account-pricing-grid" aria-label="PastPaperPrep plans" data-paid="true">
+      {!managementOnly ? <div className="pricing-decision-grid account-pricing-grid" aria-label="PastPaperPrep plans" data-paid="true">
         {(["single", "builder", "all"] as const).map((option) => {
           const name = option === "single" ? "One Bank" : option === "builder" ? "Build Your Plan" : "All Access";
           const PlanIcon = option === "single" ? BookOpen : option === "builder" ? SlidersHorizontal : CrownSimple;
@@ -266,8 +266,8 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
             </div>
           </article>;
         })}
-      </div>
-      <p className="account-plan-timing">{demo ? "Example data only. Select banks or a billing period to see the price; no charge can be made here." : expansion && validSelection ? "Added banks unlock only after Stripe verifies the payment." : renewalChange ? "Removals, swaps and billing-period changes start at renewal after payment is verified." : "Your current plan stays in place until you review and confirm a change."} Displayed prices are standard rates before discounts and taxes; Stripe gives the exact quote before confirmation.</p>
+      </div> : null}
+      {!managementOnly ? <p className="account-plan-timing">{demo ? "Example data only. Select banks or a billing period to see the price; no charge can be made here." : expansion && validSelection ? "Added banks unlock only after Stripe verifies the payment." : renewalChange ? "Removals, swaps and billing-period changes start at renewal after payment is verified." : "Your current plan stays in place until you review and confirm a change."} Displayed prices are standard rates before discounts and taxes; Stripe gives the exact quote before confirmation.</p> : null}
       {subscription.cancelAtPeriodEnd ? <p className="account-plan-timing">Cancellation is scheduled. Undo it before choosing another plan.</p> : null}
       <div className="account-editor-actions">{demo ? null : subscription.cancelAtPeriodEnd ? <button type="button" onClick={() => void changeCancellation("undo")} disabled={busy}>Undo cancellation</button> : <button className="account-cancel-action" type="button" onClick={() => { setNotice(""); setView("cancel-review"); }}>Cancel subscription</button>}</div>
     </div> : null}

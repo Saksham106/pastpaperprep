@@ -11,6 +11,14 @@ const subscription = (id: string, banks: string[], amount: number) => ({
 const mockFetch = (body: unknown, status = 200) => vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: status === 200, status, json: async () => body }));
 
 describe("AccountBillingDetails", () => {
+  it("keeps subscription details while routing plan selection back to Pricing", async () => {
+    mockFetch({ subscriptions: [subscription("sub_one", ["Mathematics 0580"], 600)], invoices: [], paymentMethod: null, bankOptions: [{ slug: "mathematics-0580", name: "Mathematics 0580" }], management: { editable: true } });
+    render(<AccountBillingDetails mode="subscription" showPlanEditor={false} />);
+    expect(await screen.findByTestId("subscription-detail")).toHaveTextContent("Mathematics 0580");
+    expect(screen.queryByRole("heading", { name: "Choose your plan" })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Cancel subscription" })).toBeInTheDocument();
+    expect(screen.getByText(/\$6\.00.*month/i)).toBeInTheDocument();
+  });
   it("shows exact separate plans, prices, banks, and renewal dates without implying consolidation", async () => {
     mockFetch({ subscriptions: [subscription("sub_one", ["Mathematics 0580"], 600), subscription("sub_two", ["IB Math AA HL"], 600)], invoices: [], invoicesHasMore: false, paymentMethod: null, management: { editable: false } });
     render(<AccountBillingDetails mode="subscription" />);
