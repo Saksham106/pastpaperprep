@@ -38,6 +38,7 @@ describe("single subscriber summary on pricing", () => {
     expect(screen.getAllByText("Your plan")).toHaveLength(1);
     expect(container.querySelectorAll(".account-current-access-summary")).toHaveLength(1);
     expect(container.querySelector(".pricing-current-plan")).toBeNull();
+    expect(screen.queryByText(/Before discounts, credits & tax/)).not.toBeInTheDocument();
     expect(screen.getByText("Manage billing")).toHaveAttribute("aria-disabled", "true");
     expect(screen.queryByRole("link", { name: "Manage billing" })).not.toBeInTheDocument();
   });

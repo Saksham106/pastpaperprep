@@ -65,7 +65,6 @@ export function CurrentSubscriptionSummary({ subscription: sub, item, billingMan
       <div className="account-plan-summary-billing">
         <p className="account-plan-summary-price">{amount && cadenceLabel ? <>{amount}<span> / {cadenceLabel}</span></> : "Price unavailable"}</p>
         {periodEnd ? <p className="account-plan-summary-date">{ending ? "Access until" : sub.status === "active" || sub.status === "trialing" ? "Renews" : "Period ends"} {periodEnd}</p> : null}
-        {amount ? <p className="account-plan-summary-disclosure">Before discounts, credits &amp; tax</p> : null}
       </div>
       {billingManagement === "enabled" ? <Link className="account-plan-summary-link" href="/account/billing">Manage billing <span aria-hidden="true">↗</span></Link> : <span className="account-plan-summary-link account-plan-summary-link-disabled" aria-disabled="true" title="Unavailable in this preview">Manage billing <span aria-hidden="true">↗</span></span>}
     </div>;
