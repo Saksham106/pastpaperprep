@@ -4,11 +4,10 @@ import { useEffect, useId, useRef, useState } from "react";
 import { Cookie, X } from "@phosphor-icons/react/dist/ssr";
 import styles from "./AnalyticsConsentBanner.module.css";
 
-export function AnalyticsConsentBanner({ onChoice, onDismiss, initialAnalytics = false, busy = false, error = false, focusOnOpen = false }: {
+export function AnalyticsConsentBanner({ onChoice, onDismiss, initialAnalytics = false, busy = false, error = false }: {
   onChoice: (analyticsAccepted: boolean) => void;
   onDismiss: () => void;
   initialAnalytics?: boolean;
-  focusOnOpen?: boolean;
   busy?: boolean;
   error?: boolean;
 }) {
@@ -16,8 +15,6 @@ export function AnalyticsConsentBanner({ onChoice, onDismiss, initialAnalytics =
   const [analytics, setAnalytics] = useState(initialAnalytics);
   const id = useId();
   const analyticsInput = useRef<HTMLInputElement>(null);
-  const closeButton = useRef<HTMLButtonElement>(null);
-  useEffect(() => { if (focusOnOpen) { closeButton.current?.scrollIntoView?.({ block: "center" }); closeButton.current?.focus({ preventScroll: true }); } }, [focusOnOpen]);
 
   useEffect(() => {
     if (customizing) analyticsInput.current?.focus({ preventScroll: true });
@@ -25,7 +22,7 @@ export function AnalyticsConsentBanner({ onChoice, onDismiss, initialAnalytics =
 
   return (
     <aside className={styles.banner} aria-labelledby={`${id}-title`}>
-      <button ref={closeButton} className={styles.close} type="button" aria-label="Close cookie banner" onClick={() => onDismiss()}><X size={12} weight="bold" aria-hidden="true" /></button>
+      <button className={styles.close} type="button" aria-label="Close cookie banner" onClick={() => onDismiss()}><X size={12} weight="bold" aria-hidden="true" /></button>
       <div className={styles.heading}>
         <span className={styles.mark} aria-hidden="true"><Cookie size={22} weight="duotone" /></span>
         <h2 id={`${id}-title`}>Optional analytics</h2>

@@ -41,7 +41,6 @@ export function SiteTelemetry() {
   const browserChoice = hydrated ? readBrowserAnalyticsConsent() : null;
   const [choice, setChoice] = useState<boolean | null>(null);
   const [bannerOpen, setBannerOpen] = useState<boolean | null>(null);
-  const [focusConsent, setFocusConsent] = useState(false);
   const resolvedChoice = choice ?? browserChoice;
   const showBanner = bannerOpen ?? (hydrated && browserChoice === null && !sessionDismissed());
   const [saving, setSaving] = useState(false);
@@ -156,7 +155,7 @@ export function SiteTelemetry() {
           });
       }, 0);
     });
-    const open = () => { setError(false); setFocusConsent(true); setBannerOpen(true); };
+    const open = () => { setError(false); setBannerOpen(true); };
     window.addEventListener(OPEN_EVENT, open);
     // Invalidate every pending async path during cleanup to prevent stale identity changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -210,11 +209,11 @@ export function SiteTelemetry() {
       setError(true); setBannerOpen(true);
     } finally { savingRef.current = false; if (choiceGeneration === generation.current) setSaving(false); }
   };
-  const dismiss = () => { try { sessionStorage.setItem(SESSION_DISMISS_KEY, "1"); } catch { /* optional */ } setFocusConsent(false); setBannerOpen(false); };
+  const dismiss = () => { try { sessionStorage.setItem(SESSION_DISMISS_KEY, "1"); } catch { /* optional */ } setBannerOpen(false); };
 
   return <>
     <><BrowserErrorMonitor /><Analytics /><SpeedInsights /></>
-    {showBanner && <AnalyticsConsentBanner initialAnalytics={resolvedChoice === true} focusOnOpen={focusConsent} onChoice={accepted => void choose(accepted)} onDismiss={dismiss} busy={saving} error={error} />}
+    {showBanner && <AnalyticsConsentBanner initialAnalytics={resolvedChoice === true} onChoice={accepted => void choose(accepted)} onDismiss={dismiss} busy={saving} error={error} />}
   </>;
 }
 
