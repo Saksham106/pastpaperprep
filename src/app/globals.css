@@ -1532,6 +1532,7 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .plan-art { position: absolute; z-index: -1; right: -18px; bottom: -4px; width: 68%; height: 220px; object-fit: cover; object-position: center; opacity: .2; mix-blend-mode: multiply; filter: grayscale(1) sepia(.2) contrast(.92); mask-image: linear-gradient(135deg, transparent 0%, #000 54%, #000 100%); -webkit-mask-image: linear-gradient(135deg, transparent 0%, #000 54%, #000 100%); pointer-events: none; }
 .pricing-option .plan-art { z-index: 0; }
 .pricing-option > *:not(.plan-art) { position: relative; z-index: 1; }
+
 .auth-page { grid-template-columns: 1fr; justify-items: center; }
 .auth-page .auth-card { width: min(460px, 100%); padding: 34px; border-left: 1px solid var(--line-strong); box-shadow: var(--shadow-sm); }
 .dashboard-cambridge-subject-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -1637,6 +1638,7 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .pricing-option-popular { border-width: 2px; }
 .pricing-option[data-plan-tone="starter"] .plan-art { object-position: center 40%; }
 .pricing-option[data-plan-tone="builder"] .plan-art { object-position: center 24%; }
+
 .pricing-option .plan-description,
 .pricing-option .custom-bundle-selection-note {
   width: fit-content;
@@ -1646,6 +1648,49 @@ body:has(.bank-hero) .site-footer::after { display: none; }
   background: color-mix(in srgb, var(--surface) 88%, transparent);
   border-radius: 3px;
 }
+
+/* Recurring public offers only; account plan cards and Lifetime retain their own styling. */
+.pricing-page .pricing-option { padding-top: 35px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 8px 24px color-mix(in srgb, var(--ink) 5%, transparent); transition: transform 240ms ease, border-color 240ms ease, box-shadow 240ms ease; }
+.pricing-page .pricing-option::before, .pricing-page .pricing-option::after { content: none; }
+:root:not([data-theme="dark"]) .pricing-page .pricing-recurring-intro h1,
+:root:not([data-theme="dark"]) .pricing-page .pricing-decision-grid .pricing-option-heading h2,
+:root:not([data-theme="dark"]) .pricing-page .pricing-decision-grid .plan-price { color: #243b53; }
+.pricing-page .pricing-option[data-plan-tone="builder"] { --plan-accent: var(--cobalt); --plan-soft: var(--cobalt-faint); --plan-action: var(--cobalt); }
+.pricing-page .pricing-option[data-plan-tone="premium"] { --plan-accent: #7f293a; --plan-soft: #f3e5df; --plan-action: var(--public-action); }
+.pricing-page .pricing-option-popular { padding-top: 34px; background: #edf2f7; border: 2px solid #243b53; box-shadow: 0 12px 30px rgb(31 51 73 / 12%); overflow: visible; }
+.pricing-page .pricing-option-popular > .pricing-option-heading { position: static; }
+.pricing-page .pricing-option-popular .pricing-badge { position: absolute; top: -13px; right: auto; left: 50%; transform: translateX(-50%); padding: 6px 12px; color: #fff; background: #243b53; border: 1px solid #243b53; border-radius: 999px; box-shadow: 0 2px 4px rgb(31 51 73 / 12%); white-space: nowrap; font: 850 .72rem/1 var(--font-body); letter-spacing: 0; text-transform: none; }
+.pricing-page .pricing-option:hover { transform: translateY(-3px); border-color: color-mix(in srgb, #294a68 48%, var(--line)); box-shadow: 0 14px 32px color-mix(in srgb, var(--ink) 10%, transparent); }
+.pricing-page .pricing-option-popular:hover { border-color: #243b53; box-shadow: 0 16px 34px rgb(31 51 73 / 16%); }
+.pricing-page .pricing-option-popular .plan-label,
+.pricing-page .pricing-option-popular .pricing-option-heading h2,
+.pricing-page .pricing-option-popular .plan-price,
+.pricing-page .pricing-option-popular .plan-price strong,
+.pricing-page .pricing-option-popular .plan-price span,
+.pricing-page .pricing-option-popular .plan-billing-note,
+.pricing-page .pricing-option-popular .plan-description,
+.pricing-page .pricing-option-popular .plan-assurance { color: #243b53; }
+:root[data-theme="dark"] .pricing-page .pricing-option-popular .pricing-badge { color: #fff; background: #243b53; border-color: #243b53; }
+.pricing-page .pricing-recurring-intro { max-width: 760px; margin: 24px auto 2px; display: grid; align-content: center; justify-items: center; text-align: center; }
+.pricing-page .pricing-recurring-intro h1 { margin: 0; color: var(--ink); font: 760 clamp(2.1rem, 4vw, 3.15rem)/1.06 var(--font-display); letter-spacing: -.045em; }
+.pricing-page .pricing-recurring-intro p { margin: 10px 0 0; color: var(--muted); font-size: 1rem; letter-spacing: .01em; }
+@media (max-width: 720px) { .pricing-page .pricing-recurring-intro p { font-size: .9rem; } .pricing-page .pricing-option-popular { padding-top: 34px; } }
+  .pricing-page .pricing-option .plan-description,
+  .pricing-page .pricing-option .custom-bundle-selection-note,
+  .pricing-page .pricing-option .pricing-plan-access-note {
+    width: auto;
+    padding: 0;
+    margin-left: 0;
+    color: color-mix(in srgb, var(--ink) 74%, var(--muted));
+    background: transparent;
+    border-radius: 0;
+  }
+
+
+  .pricing-page .pricing-option-popular .plan-description,
+  .pricing-page .pricing-option-popular .custom-bundle-selection-note,
+  .pricing-page .pricing-option-popular .pricing-plan-access-note { background: transparent; }
+
 .auth-page { background: transparent; }
 .dashboard-bank-family { padding: 14px; }
 .dashboard-bank-family > header { min-height: 0; margin-bottom: 8px; }
@@ -2030,6 +2075,65 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .pricing-toggle-anchor-lifetime .lifetime-scenic-content > a.button { animation: lifetime-cta-glow 900ms 850ms ease-out both; }
 @keyframes lifetime-cta-glow { 0% { box-shadow: 0 0 0 0 rgb(158 18 63 / 0); } 35% { box-shadow: 0 0 0 7px rgb(158 18 63 / .19), 0 0 25px rgb(158 18 63 / .26); } 100% { box-shadow: 0 0 0 0 rgb(158 18 63 / 0); } }
 @media (prefers-reduced-motion: reduce) { .pricing-toggle-anchor-lifetime *, .pricing-toggle-anchor-lifetime *::before, .pricing-toggle-anchor-lifetime *::after { animation: none !important; transition: none !important; } }
-@media (max-width: 767px) { .pricing-toggle-anchor-lifetime { margin-right: calc(50% - 50vw); margin-left: calc(50% - 50vw); } }
+@media (max-width: 767px) { .pricing-toggle-anchor-lifetime { margin-right: calc(50% - 50vw); margin-left: calc(50% - 50vw); } .pricing-toggle-anchor-lifetime > .billing-toggle { width: calc(100% - 24px); max-width: 440px; } }
 
 @media (prefers-reduced-motion: reduce) { .lifetime-scenic *, .lifetime-scenic *::before, .lifetime-scenic *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+
+/* Shared decision control: sticky only within the common pricing page. */
+.pricing-page > .pricing-recurring-intro { min-height: 0; margin: 24px auto 14px; }
+.pricing-page > .pricing-toggle-sticky { position: sticky; top: 76px; z-index: 5; width: fit-content; max-width: 100%; margin: 0 auto 24px; padding: 5px; border: 1px solid color-mix(in srgb, var(--surface-raised) 75%, transparent); border-radius: 999px; background: color-mix(in srgb, var(--surface) 48%, transparent); backdrop-filter: blur(20px) saturate(145%); -webkit-backdrop-filter: blur(20px) saturate(145%); box-shadow: inset 0 1px 0 rgb(255 255 255 / 65%), 0 6px 20px rgb(25 39 56 / 10%); }
+.pricing-page > .pricing-toggle-sticky > .billing-toggle { margin: 0; padding: 0; border: 0; border-radius: 999px; background: transparent; box-shadow: none; }
+.pricing-page > .pricing-toggle-sticky .billing-toggle { max-width: 100%; }
+.pricing-page > .pricing-toggle-sticky .billing-toggle > button { border: 0; border-radius: 999px; background: transparent; box-shadow: none; }
+.pricing-page > .pricing-toggle-sticky .billing-toggle > button[aria-pressed="true"] { color: #fff; background: rgb(36 59 83 / 88%); box-shadow: inset 0 1px 0 rgb(255 255 255 / 20%), 0 2px 6px rgb(25 39 56 / 14%); }
+.pricing-page > .pricing-toggle-sticky .billing-toggle > button:not([aria-pressed="true"]):hover { background: color-mix(in srgb, var(--surface-raised) 55%, transparent); }
+.pricing-page .pricing-decision-grid:not([data-paid]) .pricing-option { min-height: 610px; position: relative; isolation: isolate; overflow: hidden; }
+.pricing-page .pricing-decision-grid:not([data-paid]) .pricing-option-popular { overflow: visible; }
+.pricing-page .pricing-plan-engraving { top: 90px; right: 0; bottom: auto; left: 0; width: 100%; height: calc(100% - 110px); object-fit: contain; object-position: center 65%; opacity: .10; mask-image: linear-gradient(to bottom, #000 0%, #000 88%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 88%, transparent 100%); }
+.pricing-page .pricing-plan-engraving-builder { opacity: .11; }
+.pricing-page .pricing-plan-engraving-all { opacity: .11; }
+.pricing-page .pricing-option > .pricing-plan-engraving { position: absolute; z-index: 0; }
+.pricing-page .pricing-option > :not(.pricing-plan-engraving) { position: relative; z-index: 1; }
+.pricing-page .pricing-option-popular > .pricing-option-heading { position: static; }
+.pricing-page .pricing-option .custom-bundle-selection-note,
+.pricing-page .pricing-option-popular .plan-description,
+.pricing-page .pricing-option-popular .custom-bundle-selection-note { background: transparent; }
+:root[data-theme="dark"] .pricing-page .pricing-option-popular .plan-description,
+:root[data-theme="dark"] .pricing-page .pricing-option-popular .custom-bundle-selection-note { color: #294a68; }
+@media (max-width: 720px) {
+ .pricing-page > .pricing-recurring-intro { margin: 18px auto 12px; }
+ .pricing-page > .pricing-toggle-sticky { margin-bottom: 18px; }
+ .pricing-page .pricing-decision-grid:not([data-paid]) .pricing-option { min-height: 590px; }
+}
+
+/* The pricing page owns the stationary Lifetime panorama through the offer boundary. */
+.pricing-page { position: relative; display: flow-root; isolation: isolate; }
+.pricing-page.pricing-page-lifetime::before { content: ""; position: absolute; z-index: 0; top: 0; left: calc(50% - 50vw); width: 100vw; height: var(--lifetime-scene-height, 820px); pointer-events: none; background: #eee6d7 url('/artwork/lifetime-philosopher-cathedral.webp') center top / cover no-repeat; }
+.pricing-page > * { position: relative; z-index: 1; }
+.pricing-page.pricing-page-lifetime .pricing-recurring-intro h1 { color: #172337; }
+.pricing-page.pricing-page-lifetime .pricing-recurring-intro p { color: #465262; }
+.pricing-page .pricing-opening-lifetime .lifetime-scenic,
+.pricing-page.pricing-page-lifetime .lifetime-scenic { background: transparent; }
+.pricing-page.pricing-page-lifetime .lifetime-scenic::after { content: none; }
+.pricing-page .pricing-toggle-anchor-lifetime { width: 100vw; margin: 0 0 0 calc(50% - 50vw); padding: 0; background: transparent; }
+.pricing-page .pricing-toggle-anchor-lifetime > .lifetime-scenic { margin-top: 0; padding-top: 24px; }
+.pricing-page .pricing-toggle-anchor-lifetime > .billing-toggle { display: none; }
+.pricing-page .pricing-toggle-anchor-lifetime .lifetime-scenic-content { justify-content: flex-start; padding-top: 48px; animation: lifetime-offer-reveal 720ms 250ms both; }
+@media (max-width: 767px) { .pricing-page .pricing-toggle-anchor-lifetime .lifetime-scenic-content { padding-top: 24px; } }
+@media (max-width: 767px) { .pricing-page .pricing-toggle-anchor-lifetime { margin-right: calc(50% - 50vw); margin-left: calc(50% - 50vw); } .pricing-page.pricing-page-lifetime::before { background-size: auto var(--lifetime-scene-height, 820px); background-position: 75% top; } }
+.pricing-page.pricing-page-lifetime .pricing-toggle-sticky { background: rgb(250 247 239 / 72%); border-color: rgb(255 255 255 / 82%); }
+.pricing-page.pricing-page-lifetime .pricing-toggle-sticky .billing-toggle > button:not([aria-pressed="true"]) { color: #243b53; }
+:root[data-theme="dark"] .pricing-page.pricing-page-lifetime .pricing-toggle-sticky { background: rgb(27 28 24 / 82%); border-color: rgb(255 255 255 / 16%); box-shadow: inset 0 1px 0 rgb(255 255 255 / 12%), 0 6px 20px rgb(0 0 0 / 22%); }
+:root[data-theme="dark"] .pricing-page.pricing-page-lifetime .pricing-toggle-sticky .billing-toggle > button:not([aria-pressed="true"]) { color: #f0efe9; }
+:root[data-theme="dark"] .pricing-page.pricing-page-lifetime .pricing-toggle-sticky .billing-savings { color: #c6d5ff; }
+.pricing-page .pricing-toggle-sticky .billing-toggle > button[aria-pressed="true"] { color: #fff !important; background: linear-gradient(145deg, #3564e8 0%, #2855d9 58%, #1d46bd 100%) !important; }
+.pricing-page .pricing-toggle-sticky { position: sticky; top: 76px; z-index: 5; width: fit-content; max-width: 100%; margin: 0 auto 24px; padding: 5px; border: 1px solid color-mix(in srgb, var(--surface-raised) 75%, transparent); border-radius: 999px; background: color-mix(in srgb, var(--surface) 48%, transparent); backdrop-filter: blur(20px) saturate(145%); -webkit-backdrop-filter: blur(20px) saturate(145%); box-shadow: inset 0 1px 0 rgb(255 255 255 / 65%), 0 6px 20px rgb(25 39 56 / 10%); }
+.pricing-page .pricing-toggle-sticky > .billing-toggle { margin: 0; padding: 0; border: 0; border-radius: 999px; background: transparent; box-shadow: none; }
+.pricing-page .pricing-toggle-sticky .billing-toggle { max-width: 100%; }
+.pricing-page .pricing-toggle-sticky .billing-toggle > button { border: 0; border-radius: 999px; background: transparent; box-shadow: none; }
+.pricing-page .pricing-toggle-sticky .billing-toggle > button[aria-pressed="true"] { color: #fff !important; background: linear-gradient(145deg, #3564e8 0%, #2855d9 58%, #1d46bd 100%) !important; box-shadow: inset 0 1px 0 rgb(255 255 255 / 48%), 0 3px 9px rgb(29 70 189 / 30%); }
+.pricing-page .pricing-toggle-sticky .billing-toggle > button:not([aria-pressed="true"]):hover { background: color-mix(in srgb, var(--surface-raised) 55%, transparent); }
+.pricing-page .pricing-toggle-sticky .billing-toggle > button:focus-visible { outline: 2px solid #244fca; outline-offset: 2px; }
+.pricing-page .pricing-plan-engraving { top: 90px; right: 0; bottom: auto; left: 0; width: 100%; height: calc(100% - 110px); object-fit: contain; object-position: center 65%; opacity: .14; mask-image: linear-gradient(to bottom, #000 0%, #000 88%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 88%, transparent 100%); }
+.pricing-page .pricing-plan-engraving-builder, .pricing-page .pricing-plan-engraving-all { opacity: .15; }
+@media (max-width: 720px) { .pricing-page .pricing-toggle-sticky { margin-bottom: 18px; } }

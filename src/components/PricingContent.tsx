@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
-import { BookOpen, CrownSimple, SlidersHorizontal } from "@phosphor-icons/react";
-import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
+import { BookOpen, CrownSimple, ShieldCheck, SlidersHorizontal } from "@phosphor-icons/react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { CustomBundleCheckout, LifetimeCheckout, PlanCheckout, PortalButton } from "@/components/BillingActions";
 import { CourseIcon, courseToneForBank } from "@/components/CourseIcon";
 import type { ProductId } from "@/lib/access";
@@ -23,19 +23,28 @@ function bankSlugForProduct(productId: string): BankSlug | undefined {
 const PLANS = [
   {
     name: "One Bank", label: PRICING_MODEL.oneBank.label, monthly: formatPrice(PRICING_MODEL.oneBank.monthlyCents), annualMonthly: formatPrice(PRICING_MODEL.oneBank.annualCents / 12), annual: formatPrice(PRICING_MODEL.oneBank.annualCents), annualSaving: `${annualSavingPercent(PRICING_MODEL.oneBank.monthlyCents, PRICING_MODEL.oneBank.annualCents)}%`,
-    description: "Focus on one syllabus.", mode: "single" as const, tone: "starter", artwork: "/artwork/aristotle-tutoring-alexander.webp", popular: false, icon: BookOpen, cta: "Choose One Bank",
+    description: "Focus on one syllabus.", mode: "single" as const, tone: "starter", popular: false, icon: BookOpen, cta: "Choose One Bank",
   },
   {
     name: "Build Your Plan", label: `${PRICING_MODEL.builder.minBanks} to ${PRICING_MODEL.builder.maxBanks} banks`, monthly: formatPrice(PRICING_MODEL.builder.baseMonthlyCents), annualMonthly: formatPrice(PRICING_MODEL.builder.baseAnnualCents / 12), annual: `${formatPrice(PRICING_MODEL.builder.baseAnnualCents)}+`, annualSaving: `${annualSavingPercent(PRICING_MODEL.builder.baseMonthlyCents, PRICING_MODEL.builder.baseAnnualCents)}%`,
-    description: "Mix the banks you actually take.", mode: "builder" as const, tone: "builder", artwork: "/artwork/school-of-athens-plato-aristotle.webp", popular: true, icon: SlidersHorizontal, cta: "Build Your Plan",
+    description: "Mix the banks you actually take.", mode: "builder" as const, tone: "builder", popular: true, icon: SlidersHorizontal, cta: "Build Your Plan",
   },
   {
     name: "All Access", label: PRICING_MODEL.allAccess.label, monthly: formatPrice(PRICING_MODEL.allAccess.monthlyCents), annualMonthly: formatPrice(PRICING_MODEL.allAccess.annualCents / 12), annual: formatPrice(PRICING_MODEL.allAccess.annualCents), annualSaving: `${annualSavingPercent(PRICING_MODEL.allAccess.monthlyCents, PRICING_MODEL.allAccess.annualCents)}%`,
-    description: "Everything, including future banks.", mode: "all" as const, tone: "premium", artwork: "/artwork/plato-academy-mosaic.webp", popular: false, icon: CrownSimple, cta: "Unlock all banks",
+    description: "Everything, including future banks.", mode: "all" as const, tone: "premium", popular: false, icon: CrownSimple, cta: "Unlock all banks",
   },
 ] as const;
 
 type BillingInterval = "monthly" | "annual";
+
+function PlanEngraving({ stage }: { stage: "single" | "builder" | "all" }) {
+  const artwork = {
+    single: "/artwork/pricing-one-bank-engraving.svg",
+    builder: "/artwork/pricing-builder-corridor.svg",
+    all: "/artwork/pricing-all-access-city.svg",
+  }[stage];
+  return <Image className={`pricing-plan-engraving pricing-plan-engraving-${stage}`} src={artwork} width={340} height={230} unoptimized alt="" aria-hidden="true" loading="eager" decoding="async" />;
+}
 
 function getBuilderMonthlyEquivalentCents(interval: BillingInterval, quantity: number): number | null {
   if (quantity < 2) return null;
@@ -64,6 +73,30 @@ function BankTable({ banks }: { banks: readonly Bank[] }) {
 export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], currentPlanProductIds = [], complimentaryAccess = false, previewOnly = false, previewSubscriptionHref, ownedBankIds = [], initialInterval = "monthly", initialLifetimeSelected = false, initialProductId, initialBankIds, availableBanks = getCatalogRuntimeBanks() }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; currentPlanProductIds?: readonly ProductId[]; complimentaryAccess?: boolean; previewOnly?: boolean; previewSubscriptionHref?: string; ownedBankIds?: readonly BankSlug[]; initialInterval?: BillingInterval; initialLifetimeSelected?: boolean; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[] }) {
   const [interval, setInterval] = useState<BillingInterval>(initialInterval);
   const [lifetimeSelected, setLifetimeSelected] = useState(initialLifetimeSelected ?? false);
+  const pricingPageRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const page = pricingPageRef.current;
+    const scene = page?.querySelector<HTMLElement>(".lifetime-scenic");
+    if (!page || !scene || !lifetimeSelected) {
+      page?.style.removeProperty("--lifetime-scene-height");
+      return;
+    }
+    const measure = () => {
+      const pageTop = page.getBoundingClientRect().top;
+      const sceneBottom = scene.getBoundingClientRect().bottom;
+      page.style.setProperty("--lifetime-scene-height", `${Math.max(0, sceneBottom - pageTop)}px`);
+    };
+    measure();
+    const observer = typeof ResizeObserver !== "undefined" ? new ResizeObserver(measure) : null;
+    observer?.observe(page);
+    observer?.observe(scene);
+    window.addEventListener("resize", measure);
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener("resize", measure);
+      page.style.removeProperty("--lifetime-scene-height");
+    };
+  }, [lifetimeSelected]);
   useEffect(() => {
     const artwork = new window.Image();
     artwork.src = "/artwork/lifetime-philosopher-cathedral.webp";
@@ -119,7 +152,6 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
     const cardBanks = canAdd ? addOnBanks : availableBanks;
     return (
       <article className={`pricing-option${plan.popular ? " pricing-option-popular" : ""}${current ? " pricing-option-current" : ""}`} data-plan-tone={plan.tone} data-current-plan={current ? "true" : undefined} data-mobile-order={plan.popular ? "first" : undefined} key={plan.name}>
-        <Image className="plan-art" src={plan.artwork} alt="" width={420} height={260} aria-hidden="true" sizes="(max-width: 1024px) 68vw, 300px" />
         <div className="pricing-option-heading">
           <div className="plan-title-block">
             <span className="plan-icon" aria-hidden="true"><PlanIcon weight="duotone" /></span>
@@ -156,6 +188,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         )}
         {hasPaidAccess && !canAdd && plan.mode !== "all" ? <p className="pricing-plan-access-note">{current ? complimentaryAccess ? "Included with your complimentary access." : plan.mode === "single" && individualBankSubscriptions > 1 ? `${individualBankSubscriptions} separate bank subscriptions. Your existing rates stay unchanged.` : "Your existing rate stays unchanged." : "All available banks are already included."}</p> : null}
         {!hasPaidAccess ? <p className="plan-assurance">Secure checkout · Cancel any time</p> : null}
+        <PlanEngraving stage={plan.mode} />
       </article>
     );
   };
@@ -173,18 +206,22 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
       <p className="lifetime-scope">All current + future question banks</p>
       <LifetimeCheckout authenticated={authenticated} previewOnly={previewOnly} existingAccess={hasPaidAccess} />
       <ul className="lifetime-benefits" aria-label="Lifetime plan features">
-        <li><BookOpen aria-hidden="true" />All subjects</li><li><CrownSimple aria-hidden="true" />Lifetime updates</li><li><SlidersHorizontal aria-hidden="true" />One payment</li><li><BookOpen aria-hidden="true" />Secure checkout</li>
+        <li><BookOpen aria-hidden="true" />All subjects</li><li><CrownSimple aria-hidden="true" />Lifetime updates</li><li><SlidersHorizontal aria-hidden="true" />One payment</li><li><ShieldCheck aria-hidden="true" />Secure checkout</li>
       </ul>
     </div>
   </section>;
 
   return (
     <div className="public-surface">
-      <section className="simple-page pricing-page shell">
-        <div className={`pricing-toggle-anchor${lifetimeSelected ? " pricing-toggle-anchor-lifetime" : ""}`} data-selected-mode={lifetimeSelected ? "lifetime" : interval} style={lifetimeSelected ? { backgroundImage: "url('/artwork/lifetime-philosopher-cathedral.webp')" } : undefined}>
+      <section ref={pricingPageRef} className={`simple-page pricing-page shell${lifetimeSelected ? " pricing-page-lifetime" : ""}`}>
+        <header className="pricing-recurring-intro" aria-label="Pricing plans">
+          <h1>Invest in your future.</h1>
+          <p>Past papers. Practice. Real progress.</p>
+        </header>
+        <div className="pricing-toggle-sticky">
           {billingToggle}
-          {lifetimeSelected ? lifetimeOffer : null}
         </div>
+        {lifetimeSelected ? <div className="pricing-toggle-anchor pricing-toggle-anchor-lifetime" data-selected-mode="lifetime">{lifetimeOffer}</div> : null}
 
         {authenticated ? (
           <section className="pricing-current-plan" aria-labelledby="current-plan-heading">

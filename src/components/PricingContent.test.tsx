@@ -183,8 +183,8 @@ describe("approved custom-bank pricing", () => {
     expect(cards[0]).toHaveAttribute("data-plan-tone", "starter");
     expect(cards[1]).toHaveAttribute("data-plan-tone", "builder");
     expect(cards[2]).toHaveAttribute("data-plan-tone", "premium");
-    expect(container.querySelectorAll(".plan-art")).toHaveLength(3);
-    expect(new Set([...container.querySelectorAll<HTMLImageElement>(".plan-art")].map((image) => image.getAttribute("src"))).size).toBe(3);
+    expect(container.querySelectorAll(".pricing-plan-engraving")).toHaveLength(3);
+    expect(container.querySelectorAll(".pricing-plan-engraving svg")).toHaveLength(0);
     expect(container.querySelectorAll(".plan-icon[aria-hidden=\"true\"]")).toHaveLength(3);
     expect(container.querySelectorAll(".plan-feature-list")).toHaveLength(0);
     expect(within(cards[0] as HTMLElement).getByText("Focus on one syllabus.")).toBeInTheDocument();
@@ -407,7 +407,7 @@ describe("approved custom-bank pricing", () => {
     expect(within(container).getByRole("group", { name: "Billing period" })).toBeInTheDocument();
     expect(container.querySelectorAll(".lifetime-scenic article, .lifetime-scenic .pricing-option")).toHaveLength(0);
     expect(container.querySelectorAll(".billing-toggle")).toHaveLength(1);
-    expect(container.querySelector(".billing-toggle")?.parentElement).toHaveClass("pricing-toggle-anchor");
+    expect(container.querySelector(".billing-toggle")?.parentElement).toHaveClass("pricing-toggle-sticky");
     expect(screen.getByRole("heading", { name: "Lifetime full access" })).toBeInTheDocument();
     expect(screen.getByText("$299")).toBeInTheDocument();
     expect(screen.getByText("All current + future question banks")).toBeInTheDocument();
@@ -418,12 +418,48 @@ describe("approved custom-bank pricing", () => {
     expect(container.querySelectorAll(".pricing-decision-grid > article")).toHaveLength(3);
   });
 
+  it("keeps the shared headline and toggle in one stable sticky parent across all modes", () => {
+    const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} availableBanks={availableBanks} />);
+    const intro = container.querySelector(".pricing-recurring-intro")!;
+    const toggle = container.querySelector(".billing-toggle")!;
+    const stickyParent = container.querySelector(".pricing-toggle-sticky")!;
+    expect(intro.nextElementSibling).toBe(stickyParent);
+    expect(stickyParent.querySelector(".billing-toggle")).toBe(toggle);
+    expect(stickyParent.parentElement).toBe(container.querySelector(".pricing-page"));
+    expect(intro.compareDocumentPosition(toggle) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(screen.getByRole("heading", { name: "Invest in your future." })).toBeInTheDocument();
+    expect(screen.getByText("Past papers. Practice. Real progress.")).toBeInTheDocument();
+    const art = [...container.querySelectorAll<HTMLImageElement>(".pricing-plan-engraving")];
+    expect(art.map((image) => image.getAttribute("src"))).toEqual([
+      "/artwork/pricing-one-bank-engraving.svg",
+      "/artwork/pricing-builder-corridor.svg",
+      "/artwork/pricing-all-access-city.svg",
+    ]);
+    expect(art.every((image) => image.getAttribute("alt") === "" && image.getAttribute("aria-hidden") === "true")).toBe(true);
+    expect(container.querySelectorAll(".pricing-option-popular .pricing-badge")).toHaveLength(1);
+    const lifetimeButton = screen.getByRole("button", { name: "Lifetime" });
+    lifetimeButton.focus();
+    fireEvent.click(lifetimeButton);
+    expect(screen.getByRole("heading", { name: "Invest in your future." })).toBeInTheDocument();
+    expect(container.querySelectorAll(".pricing-plan-engraving")).toHaveLength(0);
+    expect(container.querySelector(".billing-toggle")).toBe(toggle);
+    expect(document.activeElement).toBe(lifetimeButton);
+    fireEvent.click(screen.getByRole("button", { name: /^Annual/ }));
+    expect(screen.getByRole("heading", { name: "Invest in your future." })).toBeInTheDocument();
+    expect(container.querySelector(".billing-toggle")).toBe(toggle);
+  });
+
   it("renders one full-width scenic lifetime offer, keeps checkout gated and restores three subscription cards", () => {
     const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} previewOnly availableBanks={availableBanks} />);
     fireEvent.click(screen.getByRole("button", { name: "Lifetime" }));
     expect(container.querySelectorAll(".lifetime-scenic")).toHaveLength(1);
     expect(within(container).getByRole("group", { name: "Billing period" })).toBeInTheDocument();
-    expect(container.querySelector(".pricing-toggle-anchor-lifetime")).toHaveStyle({ backgroundImage: "url('/artwork/lifetime-philosopher-cathedral.webp')" });
+    expect(container.querySelector(".pricing-page")).toHaveClass("pricing-page-lifetime");
+    expect(container.querySelector(".pricing-page")?.contains(container.querySelector(".pricing-recurring-intro"))).toBe(true);
+    expect(container.querySelector(".pricing-page")?.contains(container.querySelector(".pricing-toggle-sticky"))).toBe(true);
+    expect(container.querySelector(".pricing-page")?.contains(container.querySelector(".lifetime-scenic"))).toBe(true);
+    expect(container.querySelector(".pricing-page")?.contains(container.querySelector(".pricing-free-strip"))).toBe(true);
+    expect(container.querySelector(".lifetime-scenic")?.contains(container.querySelector(".pricing-free-strip"))).toBe(false);
     expect(container.querySelectorAll(".lifetime-scenic article, .lifetime-scenic .pricing-option")).toHaveLength(0);
     expect(screen.getByRole("heading", { name: "Lifetime full access" })).toBeInTheDocument();
     expect(screen.getByText("$299")).toBeInTheDocument();
@@ -435,8 +471,19 @@ describe("approved custom-bank pricing", () => {
     expect(container.querySelectorAll(".pricing-decision-grid > article")).toHaveLength(3);
   });
 
+  it("uses a distinct security icon for Secure checkout while retaining BookOpen for All subjects", () => {
+    const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} availableBanks={availableBanks} />);
+    fireEvent.click(screen.getByRole("button", { name: "Lifetime" }));
+    const benefits = within(screen.getByRole("list", { name: "Lifetime plan features" }));
+    const subjects = benefits.getByText("All subjects").closest("li")?.querySelector("svg");
+    const secure = benefits.getByText("Secure checkout").closest("li")?.querySelector("svg");
+    expect(subjects).toBeInTheDocument();
+    expect(secure).toBeInTheDocument();
+    expect(secure).not.toEqual(subjects);
+    expect(container.querySelector(".pricing-page-lifetime .pricing-recurring-intro h1")).toHaveTextContent("Invest in your future.");
+  });
   it("keeps free access compact and switches the coverage comparison by qualification", () => {
-    const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} />);
+    const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} availableBanks={availableBanks} />);
     expect(container.querySelector(".pricing-free-strip")).not.toBeNull();
 
     const cambridgeTab = screen.getByRole("tab", { name: "Cambridge IGCSE" });
