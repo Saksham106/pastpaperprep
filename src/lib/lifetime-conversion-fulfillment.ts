@@ -30,11 +30,18 @@ export async function finishLifetimeConversion(admin: Admin, stripe: StripeClien
   const { data: conversion, error } = await admin.from("lifetime_conversions").select("*").eq("intent_id", input.intentId).maybeSingle();
   if (error || !conversion || conversion.user_id !== input.userId || conversion.customer_id !== input.customerId || conversion.status === "expired" || !["pending", "paid", "renewals_stopped"].includes(conversion.status)) throw new Error("Conversion target unavailable");
   const { data: purchase, error: purchaseError } = await admin.from("lifetime_purchases").select("*").eq("user_id", input.userId).eq("checkout_session_id", input.sessionId).eq("payment_intent_id", input.paymentIntentId).maybeSingle();
-  if (purchaseError || !purchase || purchase.status !== "paid") throw new Error("Paid lifetime purchase not durably verified");
+  if (purchaseError || !purchase) throw new Error("Paid lifetime purchase not durably verified");
   if (conversion.payment_intent_id && conversion.payment_intent_id !== input.paymentIntentId) throw new Error("Payment identity mismatch");
   if (conversion.checkout_session_id && conversion.checkout_session_id !== input.sessionId) throw new Error("Session identity mismatch");
   const prior = conversion.status;
-  if (prior === "renewals_stopped") return { completed: true, alreadyCompleted: true };
+  if (prior === "renewals_stopped") {
+    // A refund/dispute may supersede paid access after renewals were already
+    // stopped. Acknowledge only the exact durable completed binding; do not
+    // grant access, re-fence payment, cancel again, or restart old renewals.
+    if (conversion.payment_intent_id !== input.paymentIntentId || conversion.checkout_session_id !== input.sessionId) throw new Error("Completed conversion identity mismatch");
+    return { completed: true, alreadyCompleted: true };
+  }
+  if (purchase.status !== "paid") throw new Error("Paid lifetime purchase not durably verified");
   const paid = await admin.rpc("mark_lifetime_conversion_paid", { p_intent_id: input.intentId, p_session_id: input.sessionId, p_payment_intent_id: input.paymentIntentId });
   if (paid.error || paid.data !== true) throw new Error("Conversion payment fence failed");
   // A provider renewal may advance the paid period while Checkout is open.
