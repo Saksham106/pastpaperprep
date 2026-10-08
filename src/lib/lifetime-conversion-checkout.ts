@@ -58,7 +58,7 @@ export async function createLifetimeConversionCheckout() {
     const sub = subscriptions[0];
     let target;
     try { target = readEditableCurrentPlan(sub, config); } catch { return NextResponse.json({ error: "Subscription requires support review" }, { status: 409, headers: NO_STORE }); }
-    if (sub.status !== "active" || sub.customer !== customerId || sub.cancel_at_period_end !== false || sub.cancel_at != null || sub.pending_update != null || sub.schedule != null) return NextResponse.json({ error: "Subscription requires support review" }, { status: 409, headers: NO_STORE });
+    if (sub.metadata.user_id !== user.id || sub.status !== "active" || sub.customer !== customerId || sub.cancel_at_period_end !== false || sub.cancel_at != null || sub.pending_update != null || sub.schedule != null) return NextResponse.json({ error: "Subscription requires support review" }, { status: 409, headers: NO_STORE });
     const item = sub.items.data[0];
     const catalog = await admin.rpc("get_checkout_price_catalog", { p_price_id: target.priceId });
     if (catalog.error || !Array.isArray(catalog.data) || catalog.data.filter((row: { price_id?: unknown; product_id?: unknown; billing_interval?: unknown; active?: unknown; grandfathered?: unknown }) => row.price_id === target.priceId && row.product_id === target.productId && row.billing_interval === target.interval && (row.active === true || row.grandfathered === true)).length !== 1) return NextResponse.json({ error: "Subscription price requires support review" }, { status: 409, headers: NO_STORE });

@@ -34,7 +34,7 @@ export async function GET() {
     }
     const billable = subs.filter((s) => ["active", "trialing", "past_due", "unpaid", "paused", "incomplete"].includes(s.status));
     const catalogMatches = await Promise.all(billable.map(async (s) => {
-      if (s.items.data.length !== 1) return false;
+      if (s.metadata.user_id !== user.id || s.items.data.length !== 1) return false;
       const item = s.items.data[0];
       const interval = item.price.recurring?.interval === "month" ? "monthly" : item.price.recurring?.interval === "year" ? "annual" : null;
       const product = s.metadata.product_id;

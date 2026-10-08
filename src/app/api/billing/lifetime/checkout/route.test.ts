@@ -31,6 +31,12 @@ describe("lifetime conversion checkout and recovery", () => {
   m.create.mockRejectedValue(Error("timeout")); expect((await POST()).status).toBe(503);
   expect(m.rpc).not.toHaveBeenCalledWith("abort_lifetime_conversion", expect.anything());
  });
+ it("rejects missing owner metadata before accepting a Lifetime payment", async () => {
+  const unowned = { ...subscription(), metadata: { product_id: "bank_igcse", billing_interval: "monthly", price_id: "price_month" } };
+  m.list.mockResolvedValue({ data: [unowned], has_more: false });
+  expect((await POST()).status).toBe(409); expect(m.create).not.toHaveBeenCalled();
+  expect(m.rpc).not.toHaveBeenCalledWith("reserve_lifetime_conversion", expect.anything());
+ });
  it("resumes an exact verified open session without creating another", async () => {
   m.pending.mockResolvedValue({ data: pending(), error: null });
   expect((await POST()).status).toBe(200); expect(m.create).not.toHaveBeenCalled();

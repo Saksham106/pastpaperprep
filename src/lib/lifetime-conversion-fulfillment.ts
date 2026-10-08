@@ -37,6 +37,10 @@ export async function finishLifetimeConversion(admin: Admin, stripe: StripeClien
   if (prior === "renewals_stopped") return { completed: true, alreadyCompleted: true };
   const paid = await admin.rpc("mark_lifetime_conversion_paid", { p_intent_id: input.intentId, p_session_id: input.sessionId, p_payment_intent_id: input.paymentIntentId });
   if (paid.error || paid.data !== true) throw new Error("Conversion payment fence failed");
+  // A provider renewal may advance the paid period while Checkout is open.
+  // The approved full-price/no-credit conversion preserves that paid period and
+  // stops the NEXT renewal after payment; never rewrite period dates or refund it.
+  // Item, price, product, bank set and ownership must still match exactly.
   const sub = await stripe.subscriptions.retrieve(conversion.subscription_id, {}, { timeout: 10_000 });
   const snap = conversion.subscription_snapshot as Record<string, unknown>;
   const item = sub.items.data.length === 1 ? sub.items.data[0] : null;
