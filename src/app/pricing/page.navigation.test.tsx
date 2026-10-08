@@ -15,13 +15,18 @@ beforeEach(() => {
 });
 
 describe("pricing for an existing customer", () => {
-  it("routes verified existing access to the single personalized subscription chooser", async () => {
-    await expect(PricingPage({ searchParams: Promise.resolve({}) })).rejects.toThrow("REDIRECT:/account/subscription");
+  it("keeps verified existing access on pricing with the shared selector and account editor", async () => {
+    const html = renderToStaticMarkup(await PricingPage({ searchParams: Promise.resolve({}) }));
+    expect(html).toContain('aria-label="Billing period"');
+    expect(html).toContain('aria-label="Change your current subscription"');
+    expect(html).not.toContain('id="current-plan-heading"');
+    expect(mocks.redirect).not.toHaveBeenCalled();
   });
   it("keeps a deliberate add-on selection available without treating it as an in-place upgrade", async () => {
     const html = renderToStaticMarkup(await PricingPage({ searchParams: Promise.resolve({ product: "bank_ib_hl" }) }));
-    expect(html).toContain("Your current access");
-    expect(html).toContain("separate subscription");
+    expect(html).toContain('aria-label="Change your current subscription"');
+    expect(html).not.toContain('id="current-plan-heading"');
+    expect(html).toContain("separate charge and renewal");
     expect(mocks.redirect).not.toHaveBeenCalled();
   });
   it("keeps first-purchase pricing open to free and anonymous students", async () => {

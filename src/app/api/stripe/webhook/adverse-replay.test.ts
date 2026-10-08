@@ -34,6 +34,14 @@ describe("paid Lifetime replay after durable adverse payment state", () => {
     m.state.mockResolvedValue({ data: null, error: null });
     expect((await POST(request())).status).toBe(500);
   });
+  it("returns a retryable response for unfinished conversion work and completes the same paid event on retry", async () => {
+    m.rpc.mockImplementation(async (name: string) => name === "get_stripe_customer_id" ? { data: "cus_1", error: null } : { data: "duplicate", error: null });
+    m.finish.mockRejectedValueOnce(new Error("Subscription no longer matches stored conversion snapshot")).mockResolvedValueOnce({ completed: true });
+    expect((await POST(request())).status).toBe(503);
+    expect((await POST(request())).status).toBe(200);
+    expect(m.finish).toHaveBeenCalledTimes(2);
+    expect(m.finish.mock.calls[0][2]).toEqual(m.finish.mock.calls[1][2]);
+  });
   it("does not swallow a failed authority read", async () => {
     m.state.mockResolvedValue({ data: null, error: { message: "unavailable" } });
     expect((await POST(request())).status).toBe(500);

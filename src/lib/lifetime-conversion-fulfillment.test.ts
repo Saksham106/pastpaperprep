@@ -40,6 +40,23 @@ describe("finishLifetimeConversion", () => {
     await expect(finishLifetimeConversion(f.admin as unknown as Parameters<typeof finishLifetimeConversion>[0], f.stripe as unknown as Parameters<typeof finishLifetimeConversion>[1], { intentId, userId, customerId: "cus_1", sessionId: "cs_test_1", paymentIntentId: "pi_1" })).rejects.toThrow("payment fence");
     expect(f.stripe.subscriptions.update).not.toHaveBeenCalled();
   });
+  it("recovers a paid conversion on webhook retry after a temporary snapshot mismatch", async () => {
+    const f = fixture();
+    f.rpc.mockImplementation(async (name?: string) => {
+      if (name === "mark_lifetime_conversion_paid") { f.row.status = "paid"; f.row.payment_intent_id = "pi_1"; }
+      if (name === "complete_lifetime_conversion") f.row.status = "renewals_stopped";
+      return { data: true, error: null };
+    });
+    f.stripe.subscriptions.retrieve.mockResolvedValueOnce({ ...f.sub, items: { data: [{ id: "si_changed", price: { id: "price_1" }, quantity: 1 }] } })
+      .mockResolvedValueOnce(f.sub).mockResolvedValueOnce({ ...f.sub, cancel_at_period_end: true });
+    const input = { intentId, userId, customerId: "cus_1", sessionId: "cs_test_1", paymentIntentId: "pi_1" };
+    await expect(finishLifetimeConversion(f.admin as unknown as Parameters<typeof finishLifetimeConversion>[0], f.stripe as unknown as Parameters<typeof finishLifetimeConversion>[1], input)).rejects.toThrow("snapshot");
+    expect(f.row.status).toBe("paid");
+    expect(f.stripe.subscriptions.update).not.toHaveBeenCalled();
+    await expect(finishLifetimeConversion(f.admin as unknown as Parameters<typeof finishLifetimeConversion>[0], f.stripe as unknown as Parameters<typeof finishLifetimeConversion>[1], input)).resolves.toMatchObject({ completed: true });
+    expect(f.row.status).toBe("renewals_stopped");
+    expect(f.stripe.subscriptions.update).toHaveBeenCalledTimes(1);
+  });
   it("retries a transient cancellation failure using the same idempotency key", async () => {
     const f = fixture(); f.stripe.subscriptions.update.mockRejectedValueOnce(Error("provider unavailable"));
     f.stripe.subscriptions.retrieve.mockResolvedValueOnce(f.sub).mockResolvedValueOnce(f.sub).mockResolvedValueOnce({ ...f.sub, cancel_at_period_end: true });
