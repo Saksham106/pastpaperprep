@@ -22,8 +22,8 @@ describe("PricingPage", () => {
 
   it("keeps paid customers on pricing and loads their verified account editor", () => {
     render(<PricingContent authenticated hasPaidAccess currentPlanNames={["IB Mathematics AI"]} />);
-    expect(screen.getByRole("heading", { name: /your current access/i })).toBeInTheDocument();
-    expect(screen.getByText("IB Mathematics AI")).toBeInTheDocument();
+    expect(screen.getByRole("region", { name: /change your current subscription/i })).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: /your current access/i })).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: /manage billing/i })).toHaveAttribute("href", "/account/billing");
     expect(screen.getByRole("status")).toHaveTextContent(/loading subscription details/i);
     expect(screen.queryByRole("link", { name: /unlock all banks/i })).not.toBeInTheDocument();
