@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
     // below the per-worker heap ceiling as the question corpus grows.
     cpus: 2,
   },
+  outputFileTracingIncludes: {
+    "/api/exam-style/worksheets/[course]/[slug]": ["./private/exam-style/**/*.pdf"],
+  },
   async headers() {
     return [{
       source: "/bank-index/:slug.v1-:hash.json",
