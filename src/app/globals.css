@@ -1689,6 +1689,7 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .pricing-page .pricing-option-popular { padding-top: 34px; background: #edf2f7; border: 2px solid #243b53; box-shadow: 0 12px 30px rgb(31 51 73 / 12%); overflow: visible; }
 .pricing-page .pricing-option-popular > .pricing-option-heading { position: static; }
 .pricing-page .pricing-option-popular .pricing-badge { position: absolute; top: -13px; right: auto; left: 50%; transform: translateX(-50%); padding: 6px 12px; color: #fff; background: #243b53; border: 1px solid #243b53; border-radius: 999px; box-shadow: 0 2px 4px rgb(31 51 73 / 12%); white-space: nowrap; font: 850 .72rem/1 var(--font-body); letter-spacing: 0; text-transform: none; }
+.pricing-page .pricing-option-popular .pricing-badge:not(.pricing-badge-current) { top: -1px; transform: translate(-50%, -50%); z-index: 3; display: inline-flex; align-items: center; justify-content: center; min-width: 166px; padding: 10px 20px; border-radius: 8px; box-shadow: 0 4px 10px rgb(31 51 73 / 18%); font: 800 .78rem/1.1 var(--font-body); letter-spacing: .095em; text-transform: uppercase; pointer-events: none; }
 .pricing-page .pricing-option:hover { transform: translateY(-3px); border-color: color-mix(in srgb, #294a68 48%, var(--line)); box-shadow: 0 14px 32px color-mix(in srgb, var(--ink) 10%, transparent); }
 .pricing-page .pricing-option-popular:hover { border-color: #243b53; box-shadow: 0 16px 34px rgb(31 51 73 / 16%); }
 .pricing-page .pricing-option-popular .plan-label,
