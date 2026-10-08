@@ -1,19 +1,21 @@
-import { PortalButton } from "@/components/BillingActions";
-import { AccountBillingDetails } from "@/components/AccountBillingDetails";
-
-export const metadata = { title: "Billing" };
-
-export default function BillingPage() {
-  return (
-    <section className="account-section-page">
-      <p className="eyebrow">Account</p>
-      <h1>Billing</h1>
-      <div className="account-readonly-note">
-        <strong>Payment methods and invoices</strong>
-        <p>Open the secure billing portal to update payment methods, review invoices, and manage billing documents. Card details are not stored on this page.</p>
-        <PortalButton />
-      </div>
-      <AccountBillingDetails mode="billing" />
-    </section>
-  );
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
+import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
+import { hasComplimentaryAllAccess } from "@/lib/complimentary-access";
+import { hasBankAccess, type AccessEntitlement } from "@/lib/access";
+import { BANKS } from "@/lib/banks";
+import { AccountBillingHub, type HubAccess } from "@/components/AccountBillingHub";
+export const metadata = { title: "Subscription & billing" };
+export default async function BillingPage() {
+ const supabase=await createClient();
+ const {data}=await supabase.auth.getClaims();
+ const userId=data?.claims?.sub;
+ if (!userId) redirect("/login?next=/account/billing");
+ const result=await fetchAccessEntitlements(supabase as never,userId);
+ if (result.error) throw result.error;
+ const rows=result.rows as (AccessEntitlement & {source?:unknown})[];
+ const manual=rows.filter(row=>row.source === "manual");
+ const lifetime=rows.filter(row=>row.productId === "lifetime_all_access");
+ const access: HubAccess | undefined = hasBankAccess("igcse",lifetime) ? "lifetime" : hasComplimentaryAllAccess(rows) ? "complimentary" : BANKS.some(bank=>hasBankAccess(bank.slug,manual)) ? "manual" : undefined;
+ return <AccountBillingHub access={access} />;
 }
