@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 const analytics = vi.hoisted(() => ({ trackProductEvent: vi.fn() }));
 vi.mock("@/lib/product-analytics", () => analytics);
 
-import { CheckoutButton, CheckoutButtons, CustomBundleCheckout, PlanCheckout, PortalButton } from "@/components/BillingActions";
+import { CheckoutButton, CheckoutButtons, CustomBundleCheckout, LifetimeCheckout, PlanCheckout, PortalButton } from "@/components/BillingActions";
 
 const fetchMock = vi.fn();
 
@@ -240,23 +240,55 @@ describe("PlanCheckout", () => {
   });
 
   it("supports keyboard selection in the designed access picker", () => {
-    render(<PlanCheckout
-      authenticated={false}
-      hasPaidAccess={false}
-      interval="annual"
-      options={[
-        { productId: "bank_igcse", label: "IGCSE 0580" },
-        { productId: "bank_ib_ai_hl", label: "IB AI HL" },
-      ]}
-    />);
-
+    render(<PlanCheckout authenticated={false} hasPaidAccess={false} interval="annual" options={[{ productId: "bank_igcse", label: "IGCSE 0580" }, { productId: "bank_ib_ai_hl", label: "IB AI HL" }]} />);
     const trigger = screen.getByRole("button", { name: /choose access.*IGCSE 0580/i });
     fireEvent.keyDown(trigger, { key: "ArrowDown" });
     const option = screen.getByRole("option", { name: "IB AI HL" });
-    option.focus();
-    fireEvent.keyDown(option, { key: "Enter" });
-
+    option.focus(); fireEvent.keyDown(option, { key: "Enter" });
     expect(trigger).toHaveTextContent("IB AI HL");
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+  });
+
+  it("shows lifetime conversion only after server eligibility verification", async () => {
+    fetchMock.mockResolvedValue({ ok: true, json: async () => ({ state: "conversion_eligible", priceCents: 29900, currency: "usd", creditCents: 0, renewalStopsAfterPayment: true }) });
+    render(<LifetimeCheckout authenticated />);
+    expect(screen.getByRole("button", { name: /checking billing eligibility/i })).toBeDisabled();
+    expect(await screen.findByText(/after this payment is verified, your current subscription renewals stop/i)).toBeInTheDocument();
+    expect(screen.getByText(/no automatic credit or refund/i)).toBeInTheDocument();
+    expect(fetchMock).toHaveBeenCalledWith("/api/billing/lifetime/eligibility", expect.objectContaining({ method: "GET", cache: "no-store" }));
+  });
+
+  it("fails closed when lifetime eligibility cannot be verified", async () => {
+    fetchMock.mockResolvedValue({ ok: false, json: async () => ({ error: "unavailable" }) });
+    render(<LifetimeCheckout authenticated />);
+    expect(await screen.findByRole("button", { name: /lifetime checkout unavailable/i })).toBeDisabled();
+    expect(screen.queryByRole("button", { name: "Unlock lifetime access" })).not.toBeInTheDocument();
+  });
+
+  it("offers first-purchase lifetime only for a verified eligible account", async () => {
+    fetchMock.mockResolvedValue({ ok: true, json: async () => ({ state: "eligible", priceCents: 29900, currency: "usd", creditCents: 0, renewalStopsAfterPayment: false }) });
+    render(<LifetimeCheckout authenticated />);
+    expect(await screen.findByRole("button", { name: "Unlock lifetime access" })).toBeEnabled();
+    expect(screen.queryByText(/current subscription renewals stop/i)).not.toBeInTheDocument();
+  });
+
+  it("does not offer a second lifetime purchase when the server says access is covered", async () => {
+    fetchMock.mockResolvedValue({ ok: true, json: async () => ({ state: "covered", reason: "access_covered" }) });
+    render(<LifetimeCheckout authenticated />);
+    expect(await screen.findByRole("button", { name: /lifetime access is active/i })).toBeDisabled();
+    expect(screen.queryByRole("button", { name: "Unlock lifetime access" })).not.toBeInTheDocument();
+  });
+
+  it("fails closed for a server-classified complex billing arrangement", async () => {
+    fetchMock.mockResolvedValue({ ok: true, json: async () => ({ state: "billing_support", reason: "billing_support" }) });
+    render(<LifetimeCheckout authenticated />);
+    expect(await screen.findByRole("button", { name: /lifetime checkout unavailable/i })).toBeDisabled();
+    expect(screen.getByText(/couldn’t safely verify this billing arrangement/i)).toBeInTheDocument();
+  });
+
+  it("keeps lifetime checkout available to anonymous visitors through sign in", () => {
+    render(<LifetimeCheckout authenticated={false} />);
+    expect(screen.getByRole("link", { name: /unlock lifetime access/i })).toHaveAttribute("href", "/login?next=%2Fpricing%3Fplan%3Dlifetime");
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 });

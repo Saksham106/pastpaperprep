@@ -8,6 +8,7 @@ import { verifyScheduledRenewalPayment } from "@/lib/account-schedule-invoice";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { captureConversionOutcome } from "@/lib/server-conversion-analytics";
 import { lifetimeCheckoutMetadataIsValid, LIFETIME_OFFER } from "@/lib/lifetime-offer";
+import { finishLifetimeConversion } from "@/lib/lifetime-conversion-fulfillment";
 
 export const runtime = "nodejs";
 
@@ -32,9 +33,35 @@ export async function POST(request: Request) {
   }
 
   const admin = createAdminClient();
+  if (event.type === "checkout.session.expired") {
+    const delivered = event.data.object as Stripe.Checkout.Session;
+    if (!delivered.metadata?.conversion_intent_id) return NextResponse.json({ received: true });
+    try {
+      const current = await stripe.checkout.sessions.retrieve(delivered.id, {}, { timeout: 10_000 });
+      const owner = current.client_reference_id;
+      const customer = typeof current.customer === "string" ? current.customer : current.customer?.id;
+      const intent = current.metadata?.conversion_intent_id;
+      if (current.status !== "expired" || current.payment_status !== "unpaid") return NextResponse.json({ received: true });
+      if (!owner || !customer || current.mode !== "payment" || !intent ||
+          current.metadata?.billing_intent_id !== intent || delivered.metadata.conversion_intent_id !== intent ||
+          !lifetimeCheckoutMetadataIsValid(current.metadata, owner)) return NextResponse.json({ error: "Invalid expired conversion" }, { status: 400 });
+      const target = await admin.from("lifetime_conversions").select("*").eq("intent_id", intent).maybeSingle();
+      if (target.error || !target.data || target.data.user_id !== owner || target.data.customer_id !== customer ||
+          target.data.checkout_session_id !== current.id) throw new Error("Expired conversion identity mismatch");
+      if (target.data.status !== "pending") return NextResponse.json({ received: true });
+      const expired = await admin.rpc("expire_lifetime_conversion", { p_session_id: current.id });
+      if (expired.error || expired.data !== true) throw new Error("Conversion expiry fence failed");
+      const release = await admin.rpc("release_billing_checkout", { p_user_id: owner, p_intent_id: intent });
+      if (release.error) throw release.error;
+      return NextResponse.json({ received: true });
+    } catch {
+      return NextResponse.json({ error: "Conversion expiry could not be verified" }, { status: 503 });
+    }
+  }
   if (event.type === "checkout.session.completed" || event.type === "checkout.session.async_payment_succeeded") {
     const session = event.data.object as Stripe.Checkout.Session;
     if (session.metadata?.purchase_type !== "lifetime") return NextResponse.json({ received: true });
+    if (session.metadata.conversion_intent_id !== undefined && session.metadata.conversion_intent_id !== session.metadata.billing_intent_id) return NextResponse.json({ error: "Invalid conversion intent" }, { status: 400 });
     if (!lifetimeCheckoutMetadataIsValid(session.metadata, session.client_reference_id ?? "") || session.mode !== "payment") {
       return NextResponse.json({ error: "Invalid lifetime checkout metadata" }, { status: 400 });
     }
@@ -82,7 +109,24 @@ export async function POST(request: Request) {
       p_amount_cents: session.amount_total, p_currency: session.currency,
       p_purchased_at: new Date((session.created || event.created) * 1000).toISOString(),
     });
-    if (error) return NextResponse.json({ error: "Lifetime purchase fulfillment failed" }, { status: 500 });
+    if (error) {
+      // A delayed paid event cannot undo a terminal refund/chargeback. The SQL
+      // payment lock rejected fulfillment; acknowledge only its exact rejection
+      // AND a confirmed durable terminal state. Open disputes remain retryable
+      // so a later win can still fulfill an as-yet unrecorded purchase.
+      if (error.code === "P0001" && error.message === "lifetime payment is not eligible for fulfillment") {
+        const state = await admin.from("lifetime_payment_states").select("status").eq("payment_intent_id", paymentIntentId).maybeSingle();
+        if (!state.error && state.data && ["refunded", "lost"].includes(state.data.status)) return NextResponse.json({ received: true });
+      }
+      return NextResponse.json({ error: "Lifetime purchase fulfillment failed" }, { status: 500 });
+    }
+    if (session.metadata.conversion_intent_id) {
+      try {
+        await finishLifetimeConversion(admin, stripe, { intentId: session.metadata.conversion_intent_id, userId, customerId, sessionId: session.id, paymentIntentId });
+      } catch {
+        return NextResponse.json({ error: "Lifetime conversion cancellation is pending verification" }, { status: 503 });
+      }
+    }
     return NextResponse.json({ received: true });
   }
   if (event.type === "charge.refunded" || event.type === "charge.dispute.created" || event.type === "charge.dispute.updated" || event.type === "charge.dispute.closed") {

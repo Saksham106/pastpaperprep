@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { createLifetimeConversionCheckout } from "@/lib/lifetime-conversion-checkout";
 import { NextResponse } from "next/server";
 import { getEntitlementBanks } from "@/lib/banks";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
@@ -19,7 +20,7 @@ export async function POST() {
   const access = await fetchAccessEntitlements(supabase as never, user.id);
   if (access.error) return NextResponse.json({ error: "Could not verify account access" }, { status: 503 });
   if (getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, access.rows as never[]))) {
-    return NextResponse.json({ error: "Lifetime checkout is unavailable for accounts with existing access. Contact support before purchasing." }, { status: 409 });
+    return createLifetimeConversionCheckout();
   }
   const admin = createAdminClient();
   const intentId = randomUUID();

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { PricingContent } from "@/components/PricingContent";
 import { hasBankAccess, type ProductId } from "@/lib/access";
@@ -79,15 +78,11 @@ export default async function PricingPage({ searchParams }: { searchParams: Prom
     })));
   }
 
-  // Existing customers choose changes against their actual subscription, not
-  // the public first-purchase checkout. Explicit add-on deep links remain public.
-  if (hasPaidAccess && params.plan !== "lifetime" && !purchaseProduct(params.product) && !purchaseBanks(params.banks)?.length) {
-    redirect("/account/subscription");
-  }
-
+  const hasExplicitAddonIntent = Boolean(purchaseProduct(params.product) || purchaseBanks(params.banks)?.length);
   return <PricingContent
     authenticated={Boolean(userId)}
     hasPaidAccess={hasPaidAccess}
+    addOnIntent={hasExplicitAddonIntent}
     ownedBankIds={ownedBankIds}
     currentPlanNames={currentPlanNames}
     currentPlanProductIds={currentPlanProductIds}

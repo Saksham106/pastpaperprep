@@ -241,18 +241,39 @@ export function CheckoutButton({
   );
 }
 
-export function LifetimeCheckout({ authenticated, existingAccess = false, previewOnly = false }: { authenticated: boolean; existingAccess?: boolean; previewOnly?: boolean }) {
+export function LifetimeCheckout({ authenticated, previewOnly = false, accessCovered = false }: { authenticated: boolean; previewOnly?: boolean; accessCovered?: boolean }) {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
   const [needsLogin, setNeedsLogin] = useState(false);
+  const [eligibility, setEligibility] = useState<"loading" | "eligible" | "conversion_eligible" | "covered" | "billing_support" | "error">(authenticated ? "loading" : "eligible");
+  useEffect(() => {
+    if (!authenticated || previewOnly) return;
+    const controller = new AbortController();
+    fetch("/api/billing/lifetime/eligibility", { method: "GET", credentials: "same-origin", cache: "no-store", signal: controller.signal })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Eligibility could not be verified.");
+        const result = await responsePayload(response);
+        const validOffer = result.priceCents === 29900 && result.currency === "usd" && result.creditCents === 0;
+        if (result.state === "eligible" && validOffer && result.renewalStopsAfterPayment === false) setEligibility("eligible");
+        else if (result.state === "conversion_eligible" && validOffer && result.renewalStopsAfterPayment === true) setEligibility("conversion_eligible");
+        else if (result.state === "covered" && result.reason === "access_covered") setEligibility("covered");
+        else if (result.state === "billing_support" && result.reason === "billing_support") setEligibility("billing_support");
+        else throw new Error("Eligibility could not be verified.");
+      })
+      .catch(() => { if (!controller.signal.aborted) setEligibility("error"); });
+    return () => controller.abort();
+  }, [authenticated, previewOnly]);
+  if (accessCovered) return <div className="billing-actions"><button className="button primary" disabled type="button">Lifetime access is active</button><p className="custom-bundle-selection-note">This account already has lifetime or complimentary access.</p></div>;
   if (previewOnly) return <div className="billing-actions"><button className="button primary" disabled type="button">Unlock lifetime access</button><p className="custom-bundle-selection-note">Preview only — checkout is disabled.</p></div>;
-  if (existingAccess) return <div className="billing-actions"><button className="button primary" disabled type="button">Unlock lifetime access</button><p className="custom-bundle-selection-note">Lifetime checkout is unavailable because this account already has paid or complimentary access. Contact support before purchasing.</p></div>;
+  if (eligibility === "loading") return <div className="billing-actions"><button className="button primary" disabled type="button">Checking billing eligibility…</button></div>;
+  if (eligibility === "covered") return <div className="billing-actions"><button className="button primary" disabled type="button">Lifetime access is active</button><p className="custom-bundle-selection-note">This account already has lifetime or complimentary access.</p></div>;
+  if (eligibility === "billing_support" || eligibility === "error") return <div className="billing-actions"><button className="button primary" disabled type="button">Lifetime checkout unavailable</button><p className="custom-bundle-selection-note">We couldn’t safely verify this billing arrangement. Manage billing or contact support before purchasing.</p></div>;
   if (!authenticated) return <Link className="button primary" href={`/login?next=${encodeURIComponent("/pricing?plan=lifetime")}`}>Unlock lifetime access</Link>;
   async function start() {
     if (pending) return;
     setPending(true); setError("");
     try {
-      const response = await fetch("/api/billing/lifetime/checkout", { method: "POST" });
+      const response = await fetch("/api/billing/lifetime/checkout", { method: "POST", credentials: "same-origin", cache: "no-store" });
       const payload = await responsePayload(response);
       if (response.status === 401) { setNeedsLogin(true); return; }
       if (!response.ok) throw new Error(typeof payload.error === "string" ? payload.error : "Checkout is temporarily unavailable");
@@ -260,7 +281,7 @@ export function LifetimeCheckout({ authenticated, existingAccess = false, previe
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Checkout is temporarily unavailable"); }
     finally { setPending(false); }
   }
-  return <div className="billing-actions"><button className="button primary" type="button" disabled={pending} onClick={start}>{pending ? "Opening secure checkout…" : "Unlock lifetime access"}</button>{needsLogin ? <Link href={`/login?next=${encodeURIComponent("/pricing?plan=lifetime")}`}>Sign in to continue</Link> : null}{error ? <p role="alert">{error}</p> : null}</div>;
+  return <div className="billing-actions"><button className="button primary" type="button" disabled={pending} onClick={start}>{pending ? "Opening secure checkout…" : "Unlock lifetime access"}</button>{eligibility === "conversion_eligible" ? <p className="custom-bundle-selection-note">After this payment is verified, your current subscription renewals stop. No automatic credit or refund for prepaid time.</p> : null}{needsLogin ? <Link href={`/login?next=${encodeURIComponent("/pricing?plan=lifetime")}`}>Sign in to continue</Link> : null}{error ? <p role="alert">{error}</p> : null}</div>;
 }
 
 export function CheckoutButtons({ productId, navigate = defaultNavigate }: { productId: ProductId; navigate?: Navigate }) {
