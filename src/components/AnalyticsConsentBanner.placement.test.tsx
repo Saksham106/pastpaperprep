@@ -5,6 +5,14 @@ import { describe, expect, it, vi } from "vitest";
 import { AnalyticsConsentBanner } from "./AnalyticsConsentBanner";
 
 describe("non-obstructing consent notice", () => {
+  it("makes a footer-reopened notice reachable without overlaying the page", () => {
+    render(<AnalyticsConsentBanner focusOnOpen onChoice={vi.fn()} onDismiss={vi.fn()} />);
+    expect(screen.getByRole("button", { name: "Close cookie banner" })).toHaveFocus();
+  });
+  it("does not steal keyboard focus on a first visit", () => {
+    render(<><input aria-label="Practice search" autoFocus /><AnalyticsConsentBanner onChoice={vi.fn()} onDismiss={vi.fn()} /></>);
+    expect(screen.getByRole("textbox", { name: "Practice search" })).toHaveFocus();
+  });
   it("uses normal document flow instead of covering plan actions", () => {
     const css = readFileSync(resolve("src/components/AnalyticsConsentBanner.module.css"), "utf8");
     expect(css.match(/\.banner\s*\{([^}]+)/)?.[1]).toMatch(/position:\s*relative/);
