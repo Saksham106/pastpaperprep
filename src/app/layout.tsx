@@ -59,10 +59,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body data-build-revision={process.env.NEXT_PUBLIC_BUILD_REVISION ?? "local"}>
         <ThemeProvider attribute="data-theme" defaultTheme="light" enableColorScheme storageKey="pastpaperprep-theme" disableTransitionOnChange>
           <SessionAwareSiteHeader />
+          <SiteTelemetry />
           <BankNavigationFeedback />
           <main>{children}</main>
           <SiteFooter />
-          <SiteTelemetry />
         </ThemeProvider>
       </body>
     </html>
