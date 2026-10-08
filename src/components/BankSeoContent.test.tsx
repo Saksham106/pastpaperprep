@@ -15,6 +15,15 @@ describe("BankSeoContent", () => {
     );
   });
 
+  it("links exam-style worksheets from their course bank hubs", () => {
+    const { rerender } = render(<BankSeoContent bank={BANKS.find((bank) => bank.slug === "igcse")!} />);
+    expect(screen.getByRole("link", { name: "IGCSE 0580 exam-style practice" })).toHaveAttribute("href", "/banks/igcse/exam-style");
+    rerender(<BankSeoContent bank={BANKS.find((bank) => bank.slug === "igcse-additional")!} />);
+    expect(screen.getByRole("link", { name: "IGCSE 0606 differentiation practice" })).toHaveAttribute("href", "/banks/igcse-additional/exam-style");
+    rerender(<BankSeoContent bank={BANKS.find((bank) => bank.slug === "ib-sl")!} />);
+    expect(screen.getByRole("link", { name: "IB Math AA SL probability-distribution practice" })).toHaveAttribute("href", "/banks/ib-sl/exam-style/probability-distributions");
+  });
+
   it("puts the AA HL printable workflow early and states account, plan, and quota gates", () => {
     render(<BankSeoContent bank={BANKS.find((bank) => bank.slug === "ib-hl")!} />);
     expect(screen.getByRole("heading", { name: /build a printable ib maths aa hl practice set/i })).toBeInTheDocument();

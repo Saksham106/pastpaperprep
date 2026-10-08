@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "pastpaperprep-exam-style-import-v1",
+  "sourceDirectory": "/Users/sakshamgoel/Desktop/exam style",
+  "sourceFilesAreUnmodified": true,
+  "courses": {
+    "IB Mathematics AA SL": 3,
+    "IGCSE 0580": 7,
+    "IGCSE 0606": 1
+  },
+  "worksheets": [
+    { "course": "IB Mathematics AA SL", "source": "ib aa sl math/1. Binomial-Distribution-Worksheet.pdf", "privatePath": "private/exam-style/ib-math-aa-sl/binomial-distribution-worksheet.pdf", "title": "Binomial Distribution", "pages": 18, "sha256": "bc2da1a1300b992ad2237f976308be4908867346443b8a9f0b2f5d24c5e9b6f2" },
+    { "course": "IB Mathematics AA SL", "source": "ib aa sl math/2. Normal-Distribution-Worksheet.pdf", "privatePath": "private/exam-style/ib-math-aa-sl/normal-distribution-worksheet.pdf", "title": "Normal Distribution", "pages": 36, "sha256": "e614a4864243282b0509fe033580fd857406abe2718d4c16002854f8c3d80d5f" },
+    { "course": "IB Mathematics AA SL", "source": "ib aa sl math/3.Binomial -Normal Distribution Exam Based Practice.pdf", "privatePath": "private/exam-style/ib-math-aa-sl/probability-distributions-mixed-exam-practice.pdf", "title": "Probability Distributions: Mixed Exam Practice", "pages": 101, "sha256": "40287683d4c166c93074172a366b3d7fee3889e69b24f3b29d94bc3b114ffbb5", "topics": ["Discrete random variables", "Expected value", "Binomial distribution", "Normal distribution", "Mixed probability distributions"] },
+    { "course": "IGCSE 0580", "source": "ig 0580/1. Unit 4 - 2D Shapes and 3D Solids Worksheet.pdf", "privatePath": "private/exam-style/igcse-0580/2d-shapes-and-3d-solids.pdf", "title": "2D Shapes and 3D Solids", "pages": 98, "sha256": "5eb959506c3ab90e5d2d8919a9c55b437734cc988af5e136b5054cee2ae2650e" },
+    { "course": "IGCSE 0580", "source": "ig 0580/1. Advanced Trigonometry.pdf", "privatePath": "private/exam-style/igcse-0580/advanced-trigonometry.pdf", "title": "Advanced Trigonometry", "pages": 193, "sha256": "ffd9f37348c182c3375e3f46bbd5cd9d641766d7a2762bdaa3c56d8f5dec0f32" },
+    { "course": "IGCSE 0580", "source": "ig 0580/2. Sequences.pdf", "privatePath": "private/exam-style/igcse-0580/sequences.pdf", "title": "Sequences", "pages": 117, "sha256": "35d8ccef443cf31fa7956b008268332d209dd0e90388494a3553eac1b4bc3f2c" },
+    { "course": "IGCSE 0580", "source": "ig 0580/3.  Speed Distance Time and Travel Graphs Worksheet.pdf", "privatePath": "private/exam-style/igcse-0580/speed-distance-time-and-travel-graphs.pdf", "title": "Speed, Distance, Time and Travel Graphs", "pages": 57, "sha256": "3f7b38b0dabe69603363d5a7a6ff3a835ec59051fc8caabc0db6fe4a797e0c8a" },
+    { "course": "IGCSE 0580", "source": "ig 0580/Composite-and-Inverse-Functions.pdf", "privatePath": "private/exam-style/igcse-0580/composite-and-inverse-functions.pdf", "title": "Composite and Inverse Functions", "pages": 158, "sha256": "7202cd1dbfe7f9249df069e26e90de3329a304aec138ecf9fcd5abd316e120c2", "provenanceNote": "Includes Pemberton exercises and Cambridge 0580 past-paper questions; do not describe as official-exam-only material." },
+    { "course": "IGCSE 0580", "source": "ig 0580/Differentiation-1 (0580).pdf", "privatePath": "private/exam-style/igcse-0580/differentiation-0580.pdf", "title": "Differentiation", "pages": 100, "sha256": "b3e63f35c65c72100be67b26098014c61d64c60d690b782fe002b3994998ece2", "provenanceNote": "Includes Pemberton exercises and Cambridge 0580 past-paper questions; do not describe as official-exam-only material." },
+    { "course": "IGCSE 0580", "source": "ig 0580/Factorisation-Worksheet.pdf", "privatePath": "private/exam-style/igcse-0580/factorisation.pdf", "title": "Factorisation", "pages": 56, "sha256": "4175da176a2ade67c969e345a71729d951db4d8d6bd8619f92c097f6969d9abe" },
+    { "course": "IGCSE 0606", "source": "add math/Differentiation-2 (0606).pdf", "privatePath": "private/exam-style/igcse-0606/differentiation-0606.pdf", "title": "Differentiation", "pages": 392, "sha256": "5b7cc466e1e2add0e45040dd3cee954914094d4cffa13054ac6b024322c56f44", "provenanceNote": "Includes textbook exercises and past-paper questions; do not describe as official-exam-only material." }
+  ]
+}

@@ -24,9 +24,12 @@ describe("SiteFooter", () => {
     expect(screen.queryByRole("link", { name: /IB IB/i })).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Revision guides" })).toHaveAttribute("href", "/articles");
     expect(screen.getByRole("heading", { name: "Exam-style practice" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "IB Mathematics AA SL · Trigonometry" })).toHaveAttribute("href", "/banks/ib-sl/exam-style/trigonometry");
-    expect(screen.getByRole("link", { name: "IB Mathematics AA HL · Exam-style practice" })).toHaveAttribute("href", "/banks/ib-hl/exam-style");
-    expect(screen.queryByRole("link", { name: /IB Mathematics AA HL · Proof by induction/i })).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "IB Math AA SL" })).toHaveAttribute("href", "/banks/ib-sl");
+    expect(screen.getByRole("link", { name: "IB Math AA HL" })).toHaveAttribute("href", "/banks/ib-hl");
+    expect(screen.getByRole("link", { name: "IGCSE 0580" })).toHaveAttribute("href", "/banks/igcse");
+    expect(screen.getByRole("link", { name: "IGCSE 0606" })).toHaveAttribute("href", "/banks/igcse-additional");
+    expect(screen.queryByRole("link", { name: /exam-style practice|trigonometry/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /IB Mathematics AA SL · Trigonometry|IB Mathematics AA HL · Exam-style practice/i })).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Frequently asked questions" })).toHaveAttribute("href", "/faq");
     expect(screen.getByRole("button", { name: "Cookie settings" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "hello@pastpaperprep.com" })).toHaveAttribute("href", "mailto:hello@pastpaperprep.com");

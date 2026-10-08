@@ -43,8 +43,16 @@ function guideFor(bank: Bank) {
   };
 }
 
+function examStyleLinkFor(bank: Bank) {
+  if (bank.slug === "ib-sl") return { href: "/banks/ib-sl/exam-style/probability-distributions", label: "IB Math AA SL probability-distribution practice" };
+  if (bank.slug === "igcse") return { href: "/banks/igcse/exam-style", label: "IGCSE 0580 exam-style practice" };
+  if (bank.slug === "igcse-additional") return { href: "/banks/igcse-additional/exam-style", label: "IGCSE 0606 differentiation practice" };
+  return null;
+}
+
 export function BankSeoContent({ bank }: { bank: Bank }) {
   const guide = guideFor(bank);
+  const examStyleLink = examStyleLinkFor(bank);
   const isScience = bank.slug === "ib-chemistry-hl" || bank.slug === "ib-chemistry-sl" || bank.slug === "ib-physics-hl" || bank.slug === "ib-physics-sl" || bank.slug === "ib-biology-hl" || bank.slug === "ib-biology-sl";
   const coverage = `Practise ${bank.questionCount.toLocaleString()} authentic past-paper questions from ${bank.paperCount} archived papers (${bank.years}). These are past-paper questions, not AI-generated exam-style substitutes. Start with a topic, then switch to mixed or timed practice.`;
   const isIbMathAaHl = bank.slug === "ib-hl";
@@ -72,6 +80,7 @@ export function BankSeoContent({ bank }: { bank: Bank }) {
       )}
       <div className="bank-seo-links">
         <Link href={guide.href}>{guide.label}</Link>
+        {examStyleLink ? <Link href={examStyleLink.href}>{examStyleLink.label}</Link> : null}
         {!isScience ? (
           <Link href="/articles/how-to-use-maths-past-papers-effectively">How to use past papers effectively</Link>
         ) : null}
