@@ -52,4 +52,21 @@ describe("local-only subscriber pricing preview", () => {
     const nav = screen.getByRole("navigation", { name: "Subscriber views" });
     expect(document.querySelector(".pricing-page")!.compareDocumentPosition(nav) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
+
+  it("shows an explicitly illustrative quote sample in the read-only subscriber preview", async () => {
+    vi.stubEnv("NODE_ENV", "development");
+    const fetch = vi.fn();
+    vi.stubGlobal("fetch", fetch);
+    render(await PricingPreviewPage({ searchParams: Promise.resolve({ view: "one-bank" }) }));
+    fireEvent.click(screen.getByRole("button", { name: "Switch to Build Your Plan" }));
+    fireEvent.click(screen.getByRole("checkbox", { name: "IB Math AA HL" }));
+    fireEvent.click(screen.getByRole("button", { name: "See example quote" }));
+    expect(screen.getByRole("heading", { name: "Example plan-change quote" })).toBeInTheDocument();
+    expect(screen.getByText(/not a Stripe quote or verified bill/i)).toBeInTheDocument();
+    expect(screen.getByText(/due today: not available in this preview/i)).toBeInTheDocument();
+    expect(screen.getByText(/credit: not available in this preview/i)).toBeInTheDocument();
+    expect(screen.getByText(/new standard rate: \$10\.00 \/ month/i)).toBeInTheDocument();
+    expect(screen.getByText(/effective date: jun 30, 2027 \(illustrative fixture\)/i)).toBeInTheDocument();
+    expect(fetch).not.toHaveBeenCalled();
+  });
 });

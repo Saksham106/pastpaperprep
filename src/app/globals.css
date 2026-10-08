@@ -2087,8 +2087,8 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .pricing-page > .pricing-toggle-sticky .billing-toggle > button { border: 0; border-radius: 999px; background: transparent; box-shadow: none; }
 .pricing-page > .pricing-toggle-sticky .billing-toggle > button[aria-pressed="true"] { color: #fff; background: rgb(36 59 83 / 88%); box-shadow: inset 0 1px 0 rgb(255 255 255 / 20%), 0 2px 6px rgb(25 39 56 / 14%); }
 .pricing-page > .pricing-toggle-sticky .billing-toggle > button:not([aria-pressed="true"]):hover { background: color-mix(in srgb, var(--surface-raised) 55%, transparent); }
-.pricing-page .pricing-decision-grid:not([data-paid]) .pricing-option { min-height: 610px; position: relative; isolation: isolate; overflow: hidden; }
-.pricing-page .pricing-decision-grid:not([data-paid]) .pricing-option-popular { overflow: visible; }
+.pricing-page .pricing-decision-grid:is(:not([data-paid]), .account-pricing-grid) .pricing-option { min-height: 610px; position: relative; isolation: isolate; overflow: hidden; }
+.pricing-page .pricing-decision-grid:is(:not([data-paid]), .account-pricing-grid) .pricing-option-popular { overflow: visible; }
 .pricing-page .pricing-plan-engraving { top: 90px; right: 0; bottom: auto; left: 0; width: 100%; height: calc(100% - 110px); object-fit: contain; object-position: center 65%; opacity: .10; mask-image: linear-gradient(to bottom, #000 0%, #000 88%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 88%, transparent 100%); }
 .pricing-page .pricing-plan-engraving-builder { opacity: .11; }
 .pricing-page .pricing-plan-engraving-all { opacity: .11; }
@@ -2103,7 +2103,7 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 @media (max-width: 720px) {
  .pricing-page > .pricing-recurring-intro { margin: 18px auto 12px; }
  .pricing-page > .pricing-toggle-sticky { margin-bottom: 18px; }
- .pricing-page .pricing-decision-grid:not([data-paid]) .pricing-option { min-height: 590px; }
+ .pricing-page .pricing-decision-grid:is(:not([data-paid]), .account-pricing-grid) .pricing-option { min-height: 590px; }
 }
 
 /* The pricing page owns the stationary Lifetime panorama through the offer boundary. */

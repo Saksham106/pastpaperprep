@@ -40,7 +40,9 @@ describe("account subscription editor", () => {
     render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={vi.fn()} demo />);
     fireEvent.click(screen.getByRole("button", { name: "Switch to Build Your Plan" }));
     fireEvent.click(screen.getByRole("checkbox", { name: "IGCSE Mathematics" }));
-    expect(screen.getByText(/preview only/i)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "See example quote" }));
+    expect(screen.getByRole("heading", { name: "Example plan-change quote" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Preview only — confirmation disabled" })).toBeDisabled();
     expect(screen.queryByRole("button", { name: "Review change" })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Cancel subscription" })).not.toBeInTheDocument();
     expect(fetch).not.toHaveBeenCalled();
@@ -54,8 +56,8 @@ describe("account subscription editor", () => {
     expect(screen.getByLabelText("PastPaperPrep plans")).toHaveClass("pricing-decision-grid");
     expect(screen.getAllByRole("article")).toHaveLength(3);
     expect(one).toHaveClass("pricing-option");
-    expect(one.querySelector("img.plan-art")).toHaveAttribute("src", expect.stringContaining("aristotle-tutoring-alexander"));
-    expect(builder.querySelector("img.plan-art")).toHaveAttribute("src", expect.stringContaining("school-of-athens-plato-aristotle"));
+    expect(one.querySelector("img.pricing-plan-engraving")).toHaveAttribute("src", "/artwork/pricing-one-bank-engraving.svg");
+    expect(builder.querySelector("img.pricing-plan-engraving")).toHaveAttribute("src", "/artwork/pricing-builder-corridor.svg");
     expect(screen.getByRole("group", { name: "Billing period" })).toBeInTheDocument();
     expect(one).toHaveAttribute("data-current-plan", "true");
     expect(one.querySelector(".account-plan-card-price")).toHaveTextContent("$6/ month");

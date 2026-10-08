@@ -19,7 +19,7 @@ type Estimate = {
   snapshot: { prorationDate: number; selectedBankIds: string[]; allAccess: boolean; interval: string; [key: string]: unknown };
 };
 type RenewalQuote = { status: "preview"; snapshot: { subscriptionId: string; currentPeriodStart: number; currentPeriodEnd: number; currentPriceId: string; currentQuantity: number; currentProductId: string; currentSelectedBankIds: string[]; currentInterval: string; targetPriceId: string; quantity: number; recurringSubtotalCents: number; selectedBankIds: string[]; allAccess: boolean; interval: string; quotedAt: number }; effectiveAt: string; currency: string };
-type View = "select" | "review" | "renewal-review" | "cancel-review";
+type View = "select" | "review" | "renewal-review" | "demo-review" | "cancel-review";
 
 const money = (cents: number, currency: string) => currency === "usd" && Number.isSafeInteger(cents) && cents >= 0
   ? new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100) : null;
@@ -85,6 +85,8 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
     selectedIds.length > currentIds.length && selectedIds.length <= 5 && currentIds.every((id) => selectedIds.includes(id)));
   const renewalChange = validSelection && !unchanged && !expansion;
   const input = { selectedBankIds: allAccess ? [] : selectedIds, allAccess, interval };
+  const demoRecurringCents = allAccess ? interval === "annual" ? PRICING_MODEL.allAccess.annualCents : PRICING_MODEL.allAccess.monthlyCents
+    : priceForBankCount(interval, Math.max(1, selectedIds.length));
   function reset() { setView("select"); setPendingRemoval(null); setQuote(null); setRenewalQuote(null); setError(""); }
   function chooseMode(next: "single" | "builder" | "all") {
     setPendingRemoval(null); setMode(next); setAllAccess(next === "all"); setQuote(null); setRenewalQuote(null); setError("");
@@ -217,7 +219,7 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
         {(["single", "builder", "all"] as const).map((option) => {
           const name = option === "single" ? "One Bank" : option === "builder" ? "Build Your Plan" : "All Access";
           const PlanIcon = option === "single" ? BookOpen : option === "builder" ? SlidersHorizontal : CrownSimple;
-          const artwork = option === "single" ? "/artwork/aristotle-tutoring-alexander.webp" : option === "builder" ? "/artwork/school-of-athens-plato-aristotle.webp" : "/artwork/plato-academy-mosaic.webp";
+          const artwork = option === "single" ? "/artwork/pricing-one-bank-engraving.svg" : option === "builder" ? "/artwork/pricing-builder-corridor.svg" : "/artwork/pricing-all-access-city.svg";
           const current = currentMode === option;
           const active = mode === option;
           const editingBuilder = option === "builder" && current && active && unchanged;
@@ -237,9 +239,9 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
             : editingBuilder ? "Edit your banks"
             : active ? !validSelection ? "Choose one more bank" : unchanged ? "Your plan" : expansion ? "Review change" : "Review renewal change"
               : current ? option === "builder" ? "Edit your banks" : "Keep All Access" : `Switch to ${name}`;
-          const disabled = busy || subscription.cancelAtPeriodEnd || Boolean(pendingRemoval) || ownedSingle && !active || active && (!validSelection || unchanged && !editingBuilder || demo && !editingBuilder);
+          const disabled = busy || subscription.cancelAtPeriodEnd || Boolean(pendingRemoval) || ownedSingle && !active || active && (!validSelection || unchanged && !editingBuilder);
           return <article className={`pricing-option${option === "builder" ? " pricing-option-popular" : ""}${current ? " pricing-option-current" : ""}`} data-plan-tone={option === "single" ? "starter" : option === "all" ? "premium" : "builder"} data-current-plan={current ? "true" : undefined} data-selected={active ? "true" : undefined} data-mobile-order={option === "builder" ? "first" : undefined} key={option}>
-            <Image className="plan-art" src={artwork} alt="" width={420} height={260} aria-hidden="true" sizes="(max-width: 1024px) 68vw, 300px" />
+            <Image className="pricing-plan-engraving" src={artwork} alt="" width={340} height={230} unoptimized aria-hidden="true" />
             <div className="pricing-option-heading"><div className="plan-title-block"><span className="plan-icon" aria-hidden="true"><PlanIcon weight="duotone" /></span><div><p className="plan-label">{option === "single" ? "One bank" : option === "builder" ? "2 to 5 banks" : "All access"}</p><h2>{name}</h2></div></div>
               {current ? <span className="pricing-badge pricing-badge-current">Your access</span> : option === "builder" ? <span className="pricing-badge">Most popular</span> : null}
             </div>
@@ -259,7 +261,7 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
               </dialog> : null}
               {removedOwned.length ? <p className="account-removal-draft-note">Draft only — {removedOwned.map((id) => bankOptions.find((bank) => bank.slug === id)?.name ?? id).join(", ")} {removedOwned.length === 1 ? "remains" : "remain"} active. Review and confirm to remove {removedOwned.length === 1 ? "it" : "them"} at the {date(subscription.item.currentPeriodEnd)} renewal; otherwise {removedOwned.length === 1 ? "it stays" : "they stay"} on your plan.</p> : null}
               {option === "builder" && active && selected.length < 2 ? <p className="custom-bundle-selection-note">{currentMode === "builder" && selected.length === 1 ? "One bank selected. Add another, or switch to One Bank for a downgrade." : "Select at least two banks to continue."}</p> : null}
-              <button className={`button primary${ownedSingle && (!active || unchanged) ? " account-plan-owned-cta" : ""}`} type="button" aria-pressed={active} disabled={disabled} onClick={() => { if (editingBuilder) { if (builderDisclosure.current) { builderDisclosure.current.open = true; builderDisclosure.current.querySelector("summary")?.focus(); } } else if (!active) chooseMode(option); else if (canReview) void (expansion ? preview() : previewRenewal()); }}>{demo && active && !unchanged ? "Preview only" : action}</button>
+              <button className={`button primary${ownedSingle && (!active || unchanged) ? " account-plan-owned-cta" : ""}`} type="button" aria-pressed={active} disabled={disabled} onClick={() => { if (editingBuilder) { if (builderDisclosure.current) { builderDisclosure.current.open = true; builderDisclosure.current.querySelector("summary")?.focus(); } } else if (!active) chooseMode(option); else if (canReview) { if (demo) setView("demo-review"); else void (expansion ? preview() : previewRenewal()); } }}>{demo && canReview ? "See example quote" : action}</button>
               {demo && active ? <p className="custom-bundle-selection-note">No checkout or account changes in this preview.</p> : null}
             </div>
           </article>;
@@ -268,6 +270,15 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
       <p className="account-plan-timing">{demo ? "Example data only. Select banks or a billing period to see the price; no charge can be made here." : expansion && validSelection ? "Added banks unlock only after Stripe verifies the payment." : renewalChange ? "Removals, swaps and billing-period changes start at renewal after payment is verified." : "Your current plan stays in place until you review and confirm a change."} Displayed prices are standard rates before discounts and taxes; Stripe gives the exact quote before confirmation.</p>
       {subscription.cancelAtPeriodEnd ? <p className="account-plan-timing">Cancellation is scheduled. Undo it before choosing another plan.</p> : null}
       <div className="account-editor-actions">{demo ? null : subscription.cancelAtPeriodEnd ? <button type="button" onClick={() => void changeCancellation("undo")} disabled={busy}>Undo cancellation</button> : <button className="account-cancel-action" type="button" onClick={() => { setNotice(""); setView("cancel-review"); }}>Cancel subscription</button>}</div>
+    </div> : null}
+    {view === "demo-review" && demo ? <div className="account-editor-review">
+      <h3>Example plan-change quote</h3>
+      <p role="status">Illustrative fixture only — not a Stripe quote or verified bill. No payment or account change is possible here.</p>
+      <p>Due today: not available in this preview.</p>
+      <p>Credit: not available in this preview.</p>
+      <p>New standard rate: {money(demoRecurringCents, "usd")} / {interval === "annual" ? "year" : "month"} before taxes and discounts.</p>
+      <p>Effective date: {date(subscription.item.currentPeriodEnd)} (illustrative fixture).</p>
+      <div className="account-editor-actions"><button type="button" disabled>Preview only — confirmation disabled</button><button type="button" onClick={reset}>Edit plan</button></div>
     </div> : null}
     {view === "review" && quote ? <div className="account-editor-review">
       <h3>Review your change</h3>
