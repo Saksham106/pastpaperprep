@@ -6,6 +6,22 @@ vi.mock("server-only", () => ({}));
 afterEach(() => vi.unstubAllGlobals());
 const paid: BillingLoadState = {kind:"loaded",data:{subscriptions:[{id:"sub_fixture",status:"active",cancelAtPeriodEnd:false,cancelAt:null,bankSelection:{kind:"selected",banks:[{slug:"igcse",name:"IGCSE Mathematics"}]},items:[{id:"item_fixture",quantity:1,recurringSubtotalCents:499,price:{currency:"usd",interval:"month",intervalCount:1},currentPeriodEnd:"2026-11-01T00:00:00Z"}]}],invoices:[{id:"invoice_fixture",status:"paid",amountPaid:499,amountDue:0,currency:"usd",created:"2026-10-01T00:00:00Z"}],paymentMethod:{type:"card",cardBrand:"visa",last4:"4242"},management:{editable:true},bankOptions:[{slug:"igcse",name:"IGCSE Mathematics"}]}};
 describe("Subscription & billing hub", () => {
+ it("makes the paid plan card a single accessible Pricing link, with cancellation outside", () => {
+  const {container}=render(<AccountBillingHub previewState={paid}/>);
+  const card=screen.getByRole("link",{name:"Manage subscription on Pricing"});
+  expect(card).toHaveAttribute("href","/pricing");
+  expect(card.querySelector(".account-plan-summary-price")).toHaveTextContent("$4.99 / mo");
+  expect(card.querySelectorAll("a,button,input")).toHaveLength(0);
+  expect(card).not.toContainElement(screen.getByRole("button",{name:"Cancel subscription"}));
+  expect(container.querySelector(".account-hub-pricing")).toBeVisible();
+ });
+ it("takes complimentary access management to Pricing, not the question-bank dashboard", () => {
+  render(<AccountBillingHub access="complimentary" previewState={{kind:"none"}}/>);
+  const card=screen.getByRole("link",{name:"Manage subscription on Pricing"});
+  expect(card).toHaveAttribute("href","/pricing");
+  expect(within(card).getByText("Manage subscription")).toBeVisible();
+  expect(screen.queryByRole("link",{name:/Browse question banks/})).toBeNull();
+ });
  it("keeps invoice history when there is no current subscription", () => {
   if(paid.kind!=="loaded") throw new Error("fixture");
   render(<AccountBillingHub previewState={{kind:"loaded",data:{...paid.data,subscriptions:[]}}}/>);

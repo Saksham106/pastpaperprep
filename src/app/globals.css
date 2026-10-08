@@ -1150,6 +1150,11 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .account-billing-hub .account-current-access-summary { margin-bottom:12px; }
 .account-hub-footer-note { margin:26px 0 0; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.73rem; line-height:1.6; }
 .account-billing-hub button:disabled { cursor:not-allowed; }
+.account-plan-card-link { display:block; color:inherit; text-decoration:none; border-radius:9px; }
+.account-plan-card-link.account-hub-access { display:flex; }
+.account-plan-card-link:focus-visible { outline:2px solid var(--cobalt); outline-offset:4px; }
+.account-plan-card-link:hover .account-current-access-summary-compact,.account-plan-card-link.account-hub-access:hover { border-color:var(--cobalt); }
+.account-plan-card-link:hover .account-plan-summary-link,.account-plan-card-link:hover .account-hub-text-link { text-decoration:underline; text-underline-offset:4px; }
 @media(max-width:640px) { .account-hub-header { grid-template-columns:minmax(0,1fr); gap:17px; margin-bottom:27px; padding-bottom:23px; } .account-hub-pricing { width:100%; } .account-hub-access { align-items:flex-start; flex-direction:column; gap:10px; padding:20px; } .account-hub-portal { align-items:flex-start; flex-direction:column; gap:12px; } .account-hub-empty { padding:20px; } .account-hub-section { margin-top:25px; } .account-billing-hub .account-billing-list li { align-items:flex-start; } }
 @media (max-width: 760px) {
   .account-settings-layout { width: min(100% - 32px, 680px); padding-block: 40px 72px; grid-template-columns: minmax(0, 1fr); gap: 22px; }

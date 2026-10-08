@@ -66,7 +66,7 @@ export function CurrentSubscriptionSummary({ subscription: sub, item, billingMan
         <p className="account-plan-summary-price">{amount && cadenceLabel ? <>{amount}<span> / {cadenceLabel}</span></> : "Price unavailable"}</p>
         {periodEnd ? <p className="account-plan-summary-date">{ending ? "Access until" : sub.status === "active" || sub.status === "trialing" ? "Renews" : "Period ends"} {periodEnd}</p> : null}
       </div>
-      {billingManagement === "enabled" ? <Link className="account-plan-summary-link" href="/account/billing">Manage billing <span aria-hidden="true">↗</span></Link> : billingManagement === "preview" ? <span className="account-plan-summary-link account-plan-summary-link-disabled" aria-disabled="true" title="Unavailable in this preview">Manage billing <span aria-hidden="true">↗</span></span> : null}
+      {billingManagement === "enabled" ? <Link className="account-plan-summary-link" href="/account/billing">Manage billing <span aria-hidden="true">↗</span></Link> : billingManagement === "preview" ? <span className="account-plan-summary-link account-plan-summary-link-disabled" aria-disabled="true" title="Unavailable in this preview">Manage billing <span aria-hidden="true">↗</span></span> : <span className="account-plan-summary-link">Manage subscription <span aria-hidden="true">↗</span></span>}
     </div>;
   }
   return <div className="account-current-access-summary">
@@ -168,7 +168,7 @@ export function AccountBillingDetails({ mode, complimentaryAllAccess = false, bi
       {current.map((sub) => {
         const item = sub.items.length === 1 ? sub.items[0] : null;
         return <section className="account-detail-block" data-testid="subscription-detail" key={sub.id} aria-label={`Subscription ${sub.id}`}>
-          <CurrentSubscriptionSummary subscription={sub} item={item} billingManagement={providedState ? "inline" : showBillingManagement ? "enabled" : undefined} />
+          {providedState ? <Link href="/pricing" aria-label="Manage subscription on Pricing" className="account-plan-card-link"><CurrentSubscriptionSummary subscription={sub} item={item} billingManagement="inline" /></Link> : <CurrentSubscriptionSummary subscription={sub} item={item} billingManagement={showBillingManagement ? "enabled" : undefined} />}
           {sub.pendingUpdate ? <p className="account-billing-warning">A subscription change is awaiting payment. Current bank access remains in place until Stripe confirms the payment. Check Billing for the invoice or payment method.</p> : null}
           {sub.scheduledChange && sub.scheduledPlan ? <ScheduledChange plan={sub.scheduledPlan} readOnly={readOnly} canUndo={current.length === 1 && sub.status === "active"} onUpdated={(message) => { setOperationNotice(message); void refresh(); }} /> : null}
           {sub.scheduledChange && !sub.scheduledPlan ? <p className="account-billing-warning">A future subscription change is scheduled in Stripe. This editor cannot safely change it here.</p> : null}
