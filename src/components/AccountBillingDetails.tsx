@@ -52,13 +52,30 @@ export function CurrentSubscriptionSummary({ subscription: sub, item, billingMan
   const amount = item ? money(item.recurringSubtotalCents, item.price.currency) : null;
   const interval = item ? cadence(item) : null;
   const periodEnd = item ? date(item.currentPeriodEnd) : null;
+  if (billingManagement) {
+    const cadenceLabel = interval === "month" ? "mo" : interval === "year" ? "yr" : interval;
+    const bankNames = sub.bankSelection.kind === "selected" ? sub.bankSelection.banks.map(bank => bank.name).join(" · ") : sub.bankSelection.kind === "all" ? "All question banks" : "Bank details unavailable";
+    const ending = sub.cancelAtPeriodEnd || sub.status === "canceled";
+    return <div className="account-current-access-summary account-current-access-summary-compact">
+      <div className="account-plan-summary-main">
+        <p className="account-plan-summary-kicker">Your plan</p>
+        <div className="account-plan-summary-heading"><h2>{sub.bankSelection.kind === "all" ? "All Access" : sub.bankSelection.kind === "selected" ? sub.bankSelection.banks.length === 1 ? "One Bank" : "Build Your Plan" : "Subscription"}</h2><span className="account-plan-summary-status" data-active={sub.status === "active" && !ending}>{ending ? "Ending" : sub.status.replaceAll("_", " ")}</span></div>
+        <p className="account-plan-summary-banks">{bankNames}</p>
+      </div>
+      <div className="account-plan-summary-billing">
+        <p className="account-plan-summary-price">{amount && cadenceLabel ? <>{amount}<span> / {cadenceLabel}</span></> : "Price unavailable"}</p>
+        {periodEnd ? <p className="account-plan-summary-date">{ending ? "Access until" : sub.status === "active" || sub.status === "trialing" ? "Renews" : "Period ends"} {periodEnd}</p> : null}
+        {amount ? <p className="account-plan-summary-disclosure">Before discounts, credits &amp; tax</p> : null}
+      </div>
+      {billingManagement === "enabled" ? <Link className="account-plan-summary-link" href="/account/billing">Manage billing <span aria-hidden="true">↗</span></Link> : <span className="account-plan-summary-link account-plan-summary-link-disabled" aria-disabled="true" title="Unavailable in this preview">Manage billing <span aria-hidden="true">↗</span></span>}
+    </div>;
+  }
   return <div className="account-current-access-summary">
     <p className="eyebrow">Your current access</p>
     <div className="account-detail-heading"><h2>{sub.bankSelection.kind === "all" ? "All Access" : sub.bankSelection.kind === "selected" ? sub.bankSelection.banks.length === 1 ? "One Bank" : "Build Your Plan" : "Subscription"}</h2><span>{sub.status === "active" && sub.cancelAtPeriodEnd ? "Ending" : sub.status.replaceAll("_", " ")}</span></div>
     {sub.bankSelection.kind === "selected" ? <ul className="account-bank-list">{sub.bankSelection.banks.map((bank) => <li key={bank.slug}>{bank.name}</li>)}</ul> : sub.bankSelection.kind === "all" ? <p>Every available bank is included.</p> : <p>Bank selection unavailable. Check your invoice or contact support.</p>}
     <p className="account-billing-amount">{amount && interval ? `${amount} / ${interval}` : "Plan price unavailable; see your Stripe invoice."}<span> Base rate before discounts, credits, or taxes.</span></p>
     {periodEnd ? <p className="account-billing-date">{sub.cancelAtPeriodEnd ? `Access through ${periodEnd}` : `Current period ends ${periodEnd}`}</p> : null}
-    {billingManagement === "enabled" ? <Link className="button secondary" href="/account/billing">Manage billing</Link> : billingManagement === "preview" ? <span className="pricing-current-plan-note">Manage billing is disabled in this local example.</span> : null}
   </div>;
 }
 

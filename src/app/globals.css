@@ -969,6 +969,35 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .account-current-access-summary { padding: 22px 26px; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--cobalt); border-radius: 12px; box-shadow: 0 14px 40px rgb(76 45 34 / .07); }
 .account-current-access-summary .eyebrow { margin: 0 0 12px; }
 .account-current-access-summary .account-billing-date { margin-bottom: 0; }
+.account-current-access-summary.account-current-access-summary-compact { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 28px; padding: 18px 22px; border: 1px solid var(--line); border-radius: 10px; box-shadow: none; }
+.account-plan-summary-kicker { margin: 0 0 6px; color: var(--muted); font-size: .73rem; font-weight: 600; }
+.account-plan-summary-heading { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+.account-current-access-summary-compact .account-plan-summary-heading h2 { margin: 0; color: var(--ink); font: 650 1.35rem/1.2 var(--font-display); letter-spacing: -.025em; }
+.account-plan-summary-status { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: .72rem; text-transform: capitalize; }
+.account-plan-summary-status::before { content: ""; width: 5px; height: 5px; background: var(--muted); border-radius: 50%; }
+.account-plan-summary-status[data-active="true"]::before { background: #527260; }
+.account-plan-summary-banks { margin: 6px 0 0; color: var(--muted); font-size: .82rem; line-height: 1.45; overflow-wrap: anywhere; }
+.account-plan-summary-billing { text-align: right; }
+.account-plan-summary-price { margin: 0; color: var(--ink); font-size: 1.2rem; font-weight: 650; letter-spacing: -.025em; white-space: nowrap; }
+.account-plan-summary-price span { color: var(--muted); font-size: .82rem; font-weight: 400; letter-spacing: 0; }
+.account-plan-summary-date { margin: 5px 0 0; color: var(--muted); font-size: .76rem; }
+.account-plan-summary-disclosure { margin: 3px 0 0; color: var(--muted); font-size: .72rem; }
+.account-plan-summary-link { display: inline-flex; align-items: center; gap: 5px; min-height: 44px; color: var(--ink); font-size: .78rem; font-weight: 550; text-decoration: none; white-space: nowrap; }
+.account-plan-summary-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+.account-plan-summary-link:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 4px; border-radius: 3px; }
+.account-plan-summary-link-disabled { color: var(--muted); cursor: default; }
+@media (max-width: 720px) {
+  .account-current-access-summary.account-current-access-summary-compact { grid-template-columns: minmax(0, 1fr) auto; gap: 14px 16px; padding: 16px 18px; }
+  .account-plan-summary-link { grid-column: 1 / -1; min-height: 30px; border-top: 1px solid var(--line); padding-top: 12px; }
+}
+@media (max-width: 420px) {
+  .account-plan-summary-billing { max-width: 150px; }
+  .account-current-access-summary-compact .account-plan-summary-heading h2 { font-size: 1.25rem; }
+}
+@media (max-width: 360px) {
+  .account-current-access-summary.account-current-access-summary-compact { grid-template-columns: minmax(0, 1fr); }
+  .account-plan-summary-billing { max-width: none; text-align: left; }
+}
 @media (max-width: 720px) { .account-current-access-summary { padding: 18px; } }
 .account-detail-block { padding: 22px 0 24px; border-top: 1px solid var(--line-strong); }
 .account-detail-block h2 { margin: 0; font: 700 1.55rem/1.15 var(--font-display); letter-spacing: -.035em; }
