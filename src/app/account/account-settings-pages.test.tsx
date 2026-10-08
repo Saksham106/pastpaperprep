@@ -1,50 +1,39 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { createClient } from "@/lib/supabase/server";
 
-vi.mock("@/lib/supabase/server", () => ({ createClient: vi.fn().mockResolvedValue({ auth: { getClaims: async () => ({ data: { claims: { sub: "user_example" } } }) } }) }));
-vi.mock("@/lib/custom-bundle-access", () => ({ fetchAccessEntitlements: vi.fn().mockResolvedValue({ rows: [], error: null }) }));
-
+vi.mock("server-only", () => ({}));
+vi.mock("@/lib/supabase/server", () => ({createClient:vi.fn().mockResolvedValue({auth:{getClaims:async()=>({data:{claims:{sub:"user_example"}}})}})}));
+vi.mock("@/lib/custom-bundle-access", () => ({fetchAccessEntitlements:vi.fn().mockResolvedValue({rows:[],error:null})}));
 import SubscriptionPage from "@/app/account/subscription/page";
 import BillingPage from "@/app/account/billing/page";
 import SecurityPage from "@/app/account/security/page";
-
-describe("account settings read-only pages", () => {
-  it("does not invent an itemized subscription from coarse access data", async () => {
-    const { container } = render(await SubscriptionPage());
-    expect(container.querySelector(".account-subscription-intro.pricing-intro")).toBeInTheDocument();
-    expect(screen.getByText(/your access and available plans in one place/i)).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /subscription/i })).toBeInTheDocument();
-    expect(screen.getByText(/loading subscription details/i)).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: /change plan|cancel subscription/i })).not.toBeInTheDocument();
-    expect(screen.queryByText(/\$\d+/)).not.toBeInTheDocument();
-  });
-
-  it("shows complimentary All Access only for a current manual grant", async () => {
-    vi.mocked(fetchAccessEntitlements).mockResolvedValueOnce({ rows: [{ productId: "bundle_all", source: "manual", status: "active", startsAt: "2025-01-01T00:00:00Z", expiresAt: null }], error: null });
-    render(await SubscriptionPage());
-    expect(screen.getByRole("heading", { name: "Complimentary All Access" })).toBeInTheDocument();
-    expect(screen.getByText("Every question bank is included in your access.")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Browse question banks" })).toHaveAttribute("href", "/dashboard");
-  });
-  it("redirects if the session disappears between the layout and subscription read", async () => {
-    vi.mocked(createClient).mockResolvedValueOnce({ auth: { getClaims: async () => ({ data: { claims: null } }) } } as never);
-    await expect(SubscriptionPage()).rejects.toThrow("NEXT_REDIRECT");
-  });
-  it("keeps billing self-service in the secure Stripe portal", () => {
-    render(<BillingPage />);
-    expect(screen.getByRole("heading", { name: /billing/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /manage billing/i })).toBeInTheDocument();
-    expect(screen.getByText(/payment methods and invoices/i)).toBeInTheDocument();
-    expect(screen.getByText(/loading subscription details/i)).toBeInTheDocument();
-    expect(screen.queryByText(/visa|mastercard|ending in/i)).not.toBeInTheDocument();
-  });
-
-  it("preserves password settings and provides a sign-out action", () => {
-    render(<SecurityPage />);
-    expect(screen.getByRole("heading", { name: /security/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /password settings/i })).toHaveAttribute("href", "/account/password");
-    expect(screen.getByRole("button", { name: /sign out/i })).toBeInTheDocument();
-  });
+beforeEach(()=>vi.stubGlobal("fetch",vi.fn().mockImplementation(()=>new Promise(()=>{}))));
+describe("combined account pages",()=>{
+ it("does not invent a subscription while verified billing is loading",async()=>{
+  render(await BillingPage());
+  expect(screen.getByRole("heading",{name:"Subscription & billing"})).toBeVisible();
+  expect(screen.getByRole("link",{name:/Compare plans/})).toHaveAttribute("href","/pricing");
+  expect(screen.queryByRole("button",{name:/cancel subscription/})).toBeNull();
+  expect(screen.queryByText(/\$\d+/)).toBeNull();
+ });
+ it("keeps manual All Access compact, without a second plan grid",async()=>{
+  vi.mocked(fetchAccessEntitlements).mockResolvedValueOnce({rows:[{productId:"bundle_all",source:"manual",status:"active",startsAt:"2025-01-01T00:00:00Z",expiresAt:null}],error:null});
+  const {container}=render(await BillingPage());
+  expect(screen.getByRole("heading",{name:"Complimentary All Access"})).toBeVisible();
+  expect(container.querySelector(".pricing-decision-grid")).toBeNull();
+ });
+ it("redirects the legacy Subscription route to the correct section",async()=>{
+  await expect(Promise.resolve().then(SubscriptionPage)).rejects.toMatchObject({digest:expect.stringContaining("/account/billing#subscription")});
+ });
+ it("redirects if the authenticated session disappears",async()=>{
+  vi.mocked(createClient).mockResolvedValueOnce({auth:{getClaims:async()=>({data:{claims:null}})}} as never);
+  await expect(BillingPage()).rejects.toMatchObject({digest:expect.stringContaining("/login?next=/account/billing")});
+ });
+ it("keeps password settings and sign-out available",()=>{
+  render(<SecurityPage/>);
+  expect(screen.getByRole("link",{name:/password settings/i})).toHaveAttribute("href","/account/password");
+  expect(screen.getByRole("button",{name:/sign out/i})).toBeVisible();
+ });
 });

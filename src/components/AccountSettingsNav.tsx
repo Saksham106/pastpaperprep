@@ -5,14 +5,14 @@ import { usePathname } from "next/navigation";
 
 const sections = [
   { href: "/account", label: "Overview" },
-  { href: "/account/subscription", label: "Subscription" },
-  { href: "/account/billing", label: "Billing" },
+  { href: "/account/billing", label: "Subscription & billing" },
   { href: "/account/referrals", label: "Referrals" },
   { href: "/account/security", label: "Security" },
 ] as const;
 
-export function AccountSettingsNav() {
-  const pathname = usePathname();
+export function AccountSettingsNav({ activePath }: { activePath?: string } = {}) {
+  const actualPath = usePathname();
+  const pathname = activePath ?? actualPath;
   return (
     <nav className="account-settings-nav" aria-label="Account settings">
       {sections.map(({ href, label }) => {

@@ -23,7 +23,7 @@ type BillingResponse = {
   management: { editable: boolean; reason?: string };
   bankOptions?: { slug: string; name: string }[];
 };
-type LoadState = { kind: "loading" } | { kind: "none" } | { kind: "error" } | { kind: "loaded"; data: BillingResponse };
+export type BillingLoadState = { kind: "loading" } | { kind: "none" } | { kind: "error" } | { kind: "loaded"; data: BillingResponse };
 
 function date(value: string | null | undefined) {
   if (!value) return null;
@@ -48,7 +48,7 @@ function cadence(item: Item) {
 }
 
 /** Shares the exact live summary with the local example, rather than duplicating markup. */
-export function CurrentSubscriptionSummary({ subscription: sub, item, billingManagement }: { subscription: Pick<Subscription, "status" | "cancelAtPeriodEnd" | "bankSelection">; item: Item | null; billingManagement?: "enabled" | "preview" }) {
+export function CurrentSubscriptionSummary({ subscription: sub, item, billingManagement }: { subscription: Pick<Subscription, "status" | "cancelAtPeriodEnd" | "bankSelection">; item: Item | null; billingManagement?: "enabled" | "preview" | "inline" }) {
   const amount = item ? money(item.recurringSubtotalCents, item.price.currency) : null;
   const interval = item ? cadence(item) : null;
   const periodEnd = item ? date(item.currentPeriodEnd) : null;
@@ -66,7 +66,7 @@ export function CurrentSubscriptionSummary({ subscription: sub, item, billingMan
         <p className="account-plan-summary-price">{amount && cadenceLabel ? <>{amount}<span> / {cadenceLabel}</span></> : "Price unavailable"}</p>
         {periodEnd ? <p className="account-plan-summary-date">{ending ? "Access until" : sub.status === "active" || sub.status === "trialing" ? "Renews" : "Period ends"} {periodEnd}</p> : null}
       </div>
-      {billingManagement === "enabled" ? <Link className="account-plan-summary-link" href="/account/billing">Manage billing <span aria-hidden="true">↗</span></Link> : <span className="account-plan-summary-link account-plan-summary-link-disabled" aria-disabled="true" title="Unavailable in this preview">Manage billing <span aria-hidden="true">↗</span></span>}
+      {billingManagement === "enabled" ? <Link className="account-plan-summary-link" href="/account/billing">Manage billing <span aria-hidden="true">↗</span></Link> : billingManagement === "preview" ? <span className="account-plan-summary-link account-plan-summary-link-disabled" aria-disabled="true" title="Unavailable in this preview">Manage billing <span aria-hidden="true">↗</span></span> : <span className="account-plan-summary-link">Manage subscription <span aria-hidden="true">↗</span></span>}
     </div>;
   }
   return <div className="account-current-access-summary">
@@ -78,12 +78,12 @@ export function CurrentSubscriptionSummary({ subscription: sub, item, billingMan
   </div>;
 }
 
-function ScheduledChange({ plan, onUpdated, canUndo }: { plan: NonNullable<Subscription["scheduledPlan"]>; onUpdated: (message: string) => void; canUndo: boolean }) {
+function ScheduledChange({ plan, onUpdated, canUndo, readOnly = false }: { plan: NonNullable<Subscription["scheduledPlan"]>; onUpdated: (message: string) => void; canUndo: boolean; readOnly?: boolean }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const target = plan.bankSelection.kind === "all" ? "All Access" : plan.bankSelection.kind === "selected" ? plan.bankSelection.banks.map((bank) => bank.name).join(", ") : "a different plan";
   async function undo() {
-    if (busy) return;
+    if (busy || readOnly) return;
     setBusy(true); setError("");
     try {
       const response = await fetch("/api/billing/subscription/schedule", { method: "POST", credentials: "same-origin", cache: "no-store", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ intent: "undo", scheduleId: plan.id }) });
@@ -97,14 +97,17 @@ function ScheduledChange({ plan, onUpdated, canUndo }: { plan: NonNullable<Subsc
   return <div className="account-editor-review">
     <p className="account-billing-warning">Scheduled: {target} from {date(plan.effectiveAt) ?? "your next renewal"} ({plan.interval === "annual" ? "annual" : "monthly"}). Your current banks remain available until renewal; the change takes effect only after the renewal payment is verified.</p>
     {error ? <p role="alert" className="account-billing-warning">{error}</p> : null}
-    {canUndo ? <button type="button" onClick={() => void undo()} disabled={busy}>{busy ? "Undoing…" : "Undo scheduled change"}</button> : null}
+    {canUndo ? <button type="button" onClick={() => void undo()} disabled={busy || readOnly}>{busy ? "Undoing…" : "Undo scheduled change"}</button> : null}
   </div>;
 }
 
-export function AccountBillingDetails({ mode, complimentaryAllAccess = false, billingInterval, onBillingIntervalChange, showBillingManagement = false, showPlanEditor = true }: { mode: "subscription" | "billing"; complimentaryAllAccess?: boolean; billingInterval?: "monthly" | "annual"; onBillingIntervalChange?: (interval: "monthly" | "annual") => void; showBillingManagement?: boolean; showPlanEditor?: boolean }) {
-  const [state, setState] = useState<LoadState>({ kind: "loading" });
+export function AccountBillingDetails({ mode, complimentaryAllAccess = false, billingInterval, onBillingIntervalChange, showBillingManagement = false, showPlanEditor = true, providedState, readOnly = false, onReload }: { mode: "subscription" | "billing"; complimentaryAllAccess?: boolean; billingInterval?: "monthly" | "annual"; onBillingIntervalChange?: (interval: "monthly" | "annual") => void; showBillingManagement?: boolean; showPlanEditor?: boolean; providedState?: BillingLoadState; readOnly?: boolean; onReload?: () => void }) {
+  const [localState, setState] = useState<BillingLoadState>({ kind: "loading" });
+  const state = providedState ?? localState;
   const [operationNotice, setOperationNotice] = useState("");
   async function refresh() {
+    if (readOnly) return;
+    if (providedState) { onReload?.(); return; }
     try {
       const response = await fetch("/api/billing/subscription", { cache: "no-store" });
       if (!response.ok) { setState({ kind: response.status === 404 ? "none" : "error" }); return; }
@@ -114,6 +117,7 @@ export function AccountBillingDetails({ mode, complimentaryAllAccess = false, bi
     } catch { setState({ kind: "error" }); }
   }
   useEffect(() => {
+    if (providedState) return;
     const controller = new AbortController();
     fetch("/api/billing/subscription", { cache: "no-store", signal: controller.signal })
       .then(async (response) => {
@@ -125,7 +129,7 @@ export function AccountBillingDetails({ mode, complimentaryAllAccess = false, bi
       })
       .catch(() => { if (!controller.signal.aborted) setState({ kind: "error" }); });
     return () => controller.abort();
-  }, []);
+  }, [providedState]);
 
   const billingLink = showBillingManagement ? <Link className="button secondary" href="/account/billing">Manage billing</Link> : null;
   if (state.kind === "loading") return <>{billingLink}<p role="status">Loading subscription details…</p></>;
@@ -164,11 +168,12 @@ export function AccountBillingDetails({ mode, complimentaryAllAccess = false, bi
       {current.map((sub) => {
         const item = sub.items.length === 1 ? sub.items[0] : null;
         return <section className="account-detail-block" data-testid="subscription-detail" key={sub.id} aria-label={`Subscription ${sub.id}`}>
-          <CurrentSubscriptionSummary subscription={sub} item={item} billingManagement={showBillingManagement ? "enabled" : undefined} />
+          {providedState ? <Link href="/pricing" aria-label="Manage subscription on Pricing" className="account-plan-card-link"><CurrentSubscriptionSummary subscription={sub} item={item} billingManagement="inline" /></Link> : <CurrentSubscriptionSummary subscription={sub} item={item} billingManagement={showBillingManagement ? "enabled" : undefined} />}
           {sub.pendingUpdate ? <p className="account-billing-warning">A subscription change is awaiting payment. Current bank access remains in place until Stripe confirms the payment. Check Billing for the invoice or payment method.</p> : null}
-          {sub.scheduledChange && sub.scheduledPlan ? <ScheduledChange plan={sub.scheduledPlan} canUndo={current.length === 1 && sub.status === "active"} onUpdated={(message) => { setOperationNotice(message); void refresh(); }} /> : null}
+          {sub.scheduledChange && sub.scheduledPlan ? <ScheduledChange plan={sub.scheduledPlan} readOnly={readOnly} canUndo={current.length === 1 && sub.status === "active"} onUpdated={(message) => { setOperationNotice(message); void refresh(); }} /> : null}
           {sub.scheduledChange && !sub.scheduledPlan ? <p className="account-billing-warning">A future subscription change is scheduled in Stripe. This editor cannot safely change it here.</p> : null}
-          {(showPlanEditor || mode === "subscription" && !showPlanEditor) && state.data.management.editable && current.length === 1 && sub.status === "active" && item && state.data.bankOptions?.length ? <AccountSubscriptionEditor
+          {(showPlanEditor || mode === "subscription" && !showPlanEditor) && !(readOnly && !showPlanEditor) && state.data.management.editable && current.length === 1 && sub.status === "active" && item && state.data.bankOptions?.length ? <AccountSubscriptionEditor
+            demo={readOnly}
             managementOnly={!showPlanEditor}
             key={`${sub.id}:${sub.cancelAtPeriodEnd}:${item.id}:${item.price.interval}:${item.recurringSubtotalCents}:${sub.bankSelection.kind === "selected" ? sub.bankSelection.banks.map((bank) => bank.slug).sort().join(",") : sub.bankSelection.kind}`}
             subscription={{ id: sub.id, cancelAtPeriodEnd: sub.cancelAtPeriodEnd, bankSelection: sub.bankSelection, item }}
@@ -178,6 +183,7 @@ export function AccountBillingDetails({ mode, complimentaryAllAccess = false, bi
             onBillingIntervalChange={onBillingIntervalChange}
           /> : null}
 
+          {readOnly && !showPlanEditor && state.data.management.editable && current.length === 1 && sub.status === "active" ? <div className="account-editor-actions"><button className="account-cancel-action" type="button" disabled>{sub.cancelAtPeriodEnd ? "Undo cancellation" : "Cancel subscription"}</button></div> : null}
           {sub.status === "past_due" || sub.status === "unpaid" ? <p className="account-billing-warning">Payment needs attention. Review your payment method in the secure billing portal.</p> : null}
         </section>;
       })}
