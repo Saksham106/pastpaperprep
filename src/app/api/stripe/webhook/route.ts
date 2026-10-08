@@ -8,6 +8,7 @@ import { verifyScheduledRenewalPayment } from "@/lib/account-schedule-invoice";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { captureConversionOutcome } from "@/lib/server-conversion-analytics";
 import { lifetimeCheckoutMetadataIsValid, LIFETIME_OFFER } from "@/lib/lifetime-offer";
+import { finishLifetimeConversion } from "@/lib/lifetime-conversion-fulfillment";
 
 export const runtime = "nodejs";
 
@@ -35,6 +36,7 @@ export async function POST(request: Request) {
   if (event.type === "checkout.session.completed" || event.type === "checkout.session.async_payment_succeeded") {
     const session = event.data.object as Stripe.Checkout.Session;
     if (session.metadata?.purchase_type !== "lifetime") return NextResponse.json({ received: true });
+    if (session.metadata.conversion_intent_id !== undefined && session.metadata.conversion_intent_id !== session.metadata.billing_intent_id) return NextResponse.json({ error: "Invalid conversion intent" }, { status: 400 });
     if (!lifetimeCheckoutMetadataIsValid(session.metadata, session.client_reference_id ?? "") || session.mode !== "payment") {
       return NextResponse.json({ error: "Invalid lifetime checkout metadata" }, { status: 400 });
     }
@@ -83,6 +85,13 @@ export async function POST(request: Request) {
       p_purchased_at: new Date((session.created || event.created) * 1000).toISOString(),
     });
     if (error) return NextResponse.json({ error: "Lifetime purchase fulfillment failed" }, { status: 500 });
+    if (session.metadata.conversion_intent_id) {
+      try {
+        await finishLifetimeConversion(admin, stripe, { intentId: session.metadata.conversion_intent_id, userId, customerId, sessionId: session.id, paymentIntentId });
+      } catch {
+        return NextResponse.json({ error: "Lifetime conversion cancellation is pending verification" }, { status: 503 });
+      }
+    }
     return NextResponse.json({ received: true });
   }
   if (event.type === "charge.refunded" || event.type === "charge.dispute.created" || event.type === "charge.dispute.updated" || event.type === "charge.dispute.closed") {
