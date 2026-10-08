@@ -19,6 +19,8 @@ describe("approved custom-bank pricing", () => {
     expect(container.querySelectorAll(".pricing-decision-grid > article")).toHaveLength(3);
     expect(container.querySelectorAll(".pricing-option button")).toHaveLength(0);
     expect(screen.getByText("Manual access")).toBeInTheDocument();
+    expect(screen.queryByText("All available banks are already included.")).not.toBeInTheDocument();
+    expect(container.querySelectorAll(".pricing-plan-access-note")[2]).toHaveTextContent("Shown for comparison. Your grant covers only selected banks.");
   });
 
   it("shows read-only plan cards for complimentary all-access without purchase controls", () => {

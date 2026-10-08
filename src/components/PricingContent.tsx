@@ -165,7 +165,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         <div className="plan-price"><strong aria-live={isBuilder ? "polite" : undefined}>{headlinePrice}</strong><span>/ month</span></div>
         <p className="plan-billing-note">{hasPaidAccess ? newSubscriptionNote ?? (canAdd || current ? "Standard price for a new subscription, not your current charge." : "Standard price shown, not your current charge.") : billingNote}</p>
         <p className="plan-description">{plan.description}</p>
-        {hasPaidAccess && !canAdd && plan.mode === "all" ? <p className="pricing-plan-access-note">{complimentaryAccess ? "Included with your complimentary access." : manualAccess ? "Covered by your manual access grant." : ownsLifetimeAccess ? "Included with your Lifetime access." : "Your existing rate stays unchanged."}</p> : plan.mode === "all" ? (
+        {hasPaidAccess && !canAdd && plan.mode === "all" ? <p className="pricing-plan-access-note">{complimentaryAccess ? "Included with your complimentary access." : manualAccess ? "Shown for comparison. Your grant covers only selected banks." : ownsLifetimeAccess ? "Included with your Lifetime access." : "Your existing rate stays unchanged."}</p> : plan.mode === "all" ? (
           <PlanCheckout
             options={[{ productId: "bundle_all", label: "All Access" }]}
             interval={interval}
@@ -189,7 +189,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
             ctaLabel={hasPaidAccess && isBuilder ? `Add ${builderQuantity} banks` : checkoutCta}
           />
         )}
-        {hasPaidAccess && !canAdd && plan.mode !== "all" ? <p className="pricing-plan-access-note">{current ? complimentaryAccess ? "Included with your complimentary access." : manualAccess ? "Covered by your manual access grant." : ownsLifetimeAccess ? "Included with your Lifetime access." : plan.mode === "single" && individualBankSubscriptions > 1 ? `${individualBankSubscriptions} separate bank subscriptions. Your existing rates stay unchanged.` : "Your existing rate stays unchanged." : "All available banks are already included."}</p> : null}
+        {hasPaidAccess && !canAdd && plan.mode !== "all" ? <p className="pricing-plan-access-note">{current ? complimentaryAccess ? "Included with your complimentary access." : manualAccess ? "Shown for comparison. Your grant covers only selected banks." : ownsLifetimeAccess ? "Included with your Lifetime access." : plan.mode === "single" && individualBankSubscriptions > 1 ? `${individualBankSubscriptions} separate bank subscriptions. Your existing rates stay unchanged.` : "Your existing rate stays unchanged." : manualAccess ? "Shown for comparison. Your grant covers only selected banks." : "All available banks are already included."}</p> : null}
         {!hasPaidAccess ? <p className="plan-assurance">Secure checkout · Cancel any time</p> : null}
         <PlanEngraving stage={plan.mode} />
       </article>
