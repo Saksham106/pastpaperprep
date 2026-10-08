@@ -109,7 +109,17 @@ export async function POST(request: Request) {
       p_amount_cents: session.amount_total, p_currency: session.currency,
       p_purchased_at: new Date((session.created || event.created) * 1000).toISOString(),
     });
-    if (error) return NextResponse.json({ error: "Lifetime purchase fulfillment failed" }, { status: 500 });
+    if (error) {
+      // A delayed paid event cannot undo a terminal refund/chargeback. The SQL
+      // payment lock rejected fulfillment; acknowledge only its exact rejection
+      // AND a confirmed durable terminal state. Open disputes remain retryable
+      // so a later win can still fulfill an as-yet unrecorded purchase.
+      if (error.code === "P0001" && error.message === "lifetime payment is not eligible for fulfillment") {
+        const state = await admin.from("lifetime_payment_states").select("status").eq("payment_intent_id", paymentIntentId).maybeSingle();
+        if (!state.error && state.data && ["refunded", "lost"].includes(state.data.status)) return NextResponse.json({ received: true });
+      }
+      return NextResponse.json({ error: "Lifetime purchase fulfillment failed" }, { status: 500 });
+    }
     if (session.metadata.conversion_intent_id) {
       try {
         await finishLifetimeConversion(admin, stripe, { intentId: session.metadata.conversion_intent_id, userId, customerId, sessionId: session.id, paymentIntentId });
