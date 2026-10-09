@@ -1,7 +1,8 @@
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
-import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { copyFileSync, existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { getControlledSubtopics } from "@/lib/taxonomy";
 
@@ -70,7 +71,8 @@ describe("AI HL full-bank production target", () => {
     }
   });
 
-  it("preserves every nonclassification field and matches the source runtime", () => {
+  // Needs the sibling audit workspace; it only exists on the operator machine.
+  it.skipIf(!existsSync(sourcePath))("preserves every nonclassification field and matches the source runtime", () => {
     const baseline = load(resolve(audit, "production-baseline-overlay.json"));
     const baselineRecords = baseline.records as JsonRecord[];
     const baselineById = new Map<string, JsonRecord>(baselineRecords.map((r) => [String(r.id), r]));
@@ -89,9 +91,16 @@ describe("AI HL full-bank production target", () => {
 
   it("is byte-deterministic on a second apply", () => {
     const apply = resolve(root, "scripts/ai_hl_production_audit.py");
-    execFileSync("python", [apply, "--apply"], { cwd: root, encoding: "utf8" });
-    const first = readFileSync(bankPath);
-    execFileSync("python", [apply, "--apply"], { cwd: root, encoding: "utf8" });
-    expect(readFileSync(bankPath).equals(first)).toBe(true);
+    const dir = mkdtempSync(join(tmpdir(), "ai-hl-apply-"));
+    const copy = join(dir, "ib-ai-hl.json");
+    try {
+      copyFileSync(bankPath, copy);
+      execFileSync("python3", [apply, "--apply", "--bank", copy], { cwd: root, encoding: "utf8" });
+      const first = readFileSync(copy);
+      execFileSync("python3", [apply, "--apply", "--bank", copy], { cwd: root, encoding: "utf8" });
+      expect(readFileSync(copy).equals(first)).toBe(true);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
   }, 20_000);
 });

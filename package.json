@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --webpack",
     "predev": "npm run generate:bank-index",
-    "build": "NODE_OPTIONS=--max-heap-size=6144 next build",
+    "build": "node scripts/next-build.mjs",
     "prebuild": "npm run generate:bank-index",
     "postbuild": "node scripts/verify-private-sourcemaps.mjs",
     "generate:bank-index": "node scripts/generate-bank-index.mjs",
@@ -26,6 +26,7 @@
     "storage:reconcile": "tsx scripts/reconcile-supabase-assets.ts",
     "start": "next start",
     "lint": "eslint",
+    "typecheck": "node --max-old-space-size=8192 node_modules/typescript/bin/tsc --noEmit",
     "pretest": "npm run generate:bank-index",
     "test": "vitest run",
     "test:watch": "vitest"

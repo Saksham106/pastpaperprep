@@ -290,7 +290,7 @@ describe("question explorer toolbar is unboxed while its controls stay boxed", (
   });
 });
 
-describe("mobile question explorer keeps two rows with a wider Filters control", () => {
+describe("mobile question explorer keeps search, route, and filter rows with a wider Filters control", () => {
   const mobile = "max-width: 640px";
   const toolbar = styleFor(globalBlocks, ".explorer-toolbar", mobile);
   const filterButton = styleFor(globalBlocks, ".explorer-toolbar .mobile-filter-button", mobile);
@@ -299,17 +299,18 @@ describe("mobile question explorer keeps two rows with a wider Filters control",
   const share = styleFor(globalBlocks, ".explorer-toolbar .share-view-button", mobile);
   const download = styleFor(globalBlocks, ".explorer-toolbar .download-button", mobile);
 
-  it("keeps two rows on the unboxed toolbar with no padded card", () => {
-    expect(normalize(toolbar["grid-template-rows"])).toMatch(/^auto auto$/);
+  // Row 2 holds the Core/Extended route picker on tiered banks (#89).
+  it("keeps three rows on the unboxed toolbar with no padded card", () => {
+    expect(normalize(toolbar["grid-template-rows"])).toMatch(/^auto auto auto$/);
     expect(paintsNothing(toolbar.padding)).toBe(true);
   });
 
   it("gives filters the wide column and sort only the icon pair", () => {
     expect(normalize(toolbar["grid-template-columns"])).toBe("minmax(0, 1fr) 44px 44px");
     expect(normalize(filterButton["grid-column"])).toBe("1");
-    expect(normalize(filterButton["grid-row"])).toBe("2");
+    expect(normalize(filterButton["grid-row"])).toBe("3");
     expect(normalize(sortField["grid-column"])).toBe("2 / -1");
-    expect(normalize(sortField["grid-row"])).toBe("2");
+    expect(normalize(sortField["grid-row"])).toBe("3");
   });
 
   it("keeps search, share, and download on the first row", () => {

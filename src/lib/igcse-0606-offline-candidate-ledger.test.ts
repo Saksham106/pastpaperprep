@@ -63,9 +63,11 @@ describe("0606 offline candidate ledger", () => {
   });
   test("all 67 candidate section retrieval sets equal projector output through runtime filtering", () => {
     const runtime = loadBankQuestions("igcse-additional");
+    // Project each source question once; the section loop below would otherwise redo it 67 times.
+    const projections = new Map(raw.questions.map(q => [q.id, project0606Sections(q)]));
     const projected = runtime.map(q => {
       const source = raw.questions.find(row => row.id === q.id)!;
-      const projection = project0606Sections(source);
+      const projection = projections.get(source.id)!;
       // Isolate the historical offline projector from the new accepted runtime overlay.
       return { ...q, subtopics: projection.subtopics, skills: [...source.subtopics, ...projection.subtopics], officialCodeRefs: projection.codeRefs };
     });
@@ -73,9 +75,9 @@ describe("0606 offline candidate ledger", () => {
     expect(new Set(taxonomy.sections.map(s => s.topic)).size).toBe(14);
     expect(taxonomy.sections).toHaveLength(67);
     for (const section of taxonomy.sections) {
-      const expected = raw.questions.filter(q => project0606Sections(q).codes.includes(section.code)).map(q => q.id);
+      const expected = raw.questions.filter(q => projections.get(q.id)!.codes.includes(section.code)).map(q => q.id);
       expect(sorted(filterQuestions(projected, { subtopics: [section.displayTitle] }).map(q => q.id)), section.code).toEqual(sorted(expected));
-      for (const q of raw.questions) expect(rows.get(q.id)?.statementCodes.includes(section.code)).toBe(project0606Sections(q).codes.includes(section.code));
+      for (const q of raw.questions) expect(rows.get(q.id)?.statementCodes.includes(section.code)).toBe(projections.get(q.id)!.codes.includes(section.code));
     }
     expect(filterQuestions(loadBankQuestions("igcse-additional"), { subtopics: ["Calculus"] })).toHaveLength(454);
   });

@@ -1,10 +1,13 @@
+import { existsSync } from "node:fs";
 import { describe, expect, it, afterAll } from "vitest";
 import { POST as signLocalAssets } from "@/app/api/local-preview-assets/sign/route";
 import { POST as signLocalPdf } from "@/app/api/local-preview-assets/pdf/route";
 import { GET as getLocalAsset } from "@/app/api/local-preview-assets/[...path]/route";
 import { loadBankQuestions } from "@/lib/question-loader";
 
-const SOURCE_ROOT = "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice";
+// The Economics source workspace only exists on the operator machine.
+const SOURCE_ROOT = process.env.PASTPAPERPREP_TEST_IB_ECONOMICS_SOURCE_ROOT ?? "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice";
+const withSource = it.skipIf(!existsSync(SOURCE_ROOT));
 const env = { ...process.env };
 afterAll(() => { process.env = { ...env }; });
 
@@ -19,7 +22,7 @@ describe("local Economics preview routes", () => {
     expect(response.status).toBe(404);
   });
 
-  it("returns all question and official-mark-scheme image URLs through the dev-only path", async () => {
+  withSource("returns all question and official-mark-scheme image URLs through the dev-only path", async () => {
     process.env = { ...env, NODE_ENV: "development", PASTPAPERPREP_ENABLE_LOCAL_IB_ECONOMICS_PREVIEW: "true", PASTPAPERPREP_IB_ECONOMICS_SOURCE_ROOT: SOURCE_ROOT };
     const response = await signLocalAssets(new Request("http://localhost/api/local-preview-assets/sign", {
       method: "POST",
@@ -37,7 +40,7 @@ describe("local Economics preview routes", () => {
     expect(payload.assets[1].urls.every((url: string) => url.includes("markschemes"))).toBe(true);
   });
 
-  it("keeps PDF selection bounded while preserving every image for shared stimuli", async () => {
+  withSource("keeps PDF selection bounded while preserving every image for shared stimuli", async () => {
     process.env = { ...env, NODE_ENV: "development", PASTPAPERPREP_ENABLE_LOCAL_IB_ECONOMICS_PREVIEW: "true", PASTPAPERPREP_IB_ECONOMICS_SOURCE_ROOT: SOURCE_ROOT };
     const response = await signLocalPdf(new Request("http://localhost/api/local-preview-assets/pdf", {
       method: "POST",
@@ -50,7 +53,7 @@ describe("local Economics preview routes", () => {
     expect(payload.assets[1].urls.length).toBeGreaterThan(0);
   });
 
-  it("serves a mounted question image only through the private resolver", async () => {
+  withSource("serves a mounted question image only through the private resolver", async () => {
     process.env = { ...env, NODE_ENV: "development", PASTPAPERPREP_ENABLE_LOCAL_IB_ECONOMICS_PREVIEW: "true", PASTPAPERPREP_IB_ECONOMICS_SOURCE_ROOT: SOURCE_ROOT };
     const question = (await loadBankQuestions("ib-economics-hl")).find((item) => item.id === "2025-may-tz1-hl-p1-q01")!;
     const assetPath = question.questionImages[0].replace("/api/local-preview-assets/", "").split("/");

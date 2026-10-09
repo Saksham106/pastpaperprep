@@ -17,6 +17,8 @@ describe("serverless performance boundaries", () => {
 
   it("runs session middleware only on auth-sensitive routes", () => {
     expect(config.matcher).toEqual([
+      // Source-map denial runs before static serving (see src/proxy.ts).
+      "/_next/static/:path(.*(?:\\.|%2[eE])(?:m|%6[dD])(?:a|%61)(?:p|%70))",
       "/account/:path*",
       "/dashboard/:path*",
       "/pricing",
