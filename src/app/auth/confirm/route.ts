@@ -28,6 +28,13 @@ export async function HEAD() {
 export async function POST(request: NextRequest) {
   const url = new URL(request.url);
   let attemptId = createAuthAttemptId();
+  // Browsers always send Origin on cross-site form posts; refusing a foreign one stops a third-party
+  // page from signing the visitor into an attacker-controlled account.
+  const origin = request.headers.get("origin");
+  if (origin !== null && origin !== url.origin) {
+    logAuthDiagnostic({ attemptId, phase: "confirmation_result", outcome: "rejected", providerCode: "validation_failed" });
+    return NextResponse.redirect(new URL("/login?error=confirmation", url.origin), 303);
+  }
   let form: FormData;
   try {
     form = await request.formData();

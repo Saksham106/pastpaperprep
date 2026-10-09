@@ -23,8 +23,14 @@ export function isValidPassword(value: string) {
   return value.length >= MIN_PASSWORD_LENGTH && value.length <= MAX_PASSWORD_LENGTH;
 }
 
+const NEXT_PATH_PROBE_ORIGIN = "https://next-path.invalid";
+
 export function safeNextPath(value: string | null | undefined) {
-  if (!value?.startsWith("/") || value.startsWith("//") || value.includes("\\")) {
+  // URL parsing silently drops tab/CR/LF, so "/\t/evil.example" would become //evil.example.
+  if (!value?.startsWith("/") || value.startsWith("//") || /[\\\u0000-\u001f\u007f]/.test(value)) {
+    return DEFAULT_NEXT_PATH;
+  }
+  if (new URL(value, NEXT_PATH_PROBE_ORIGIN).origin !== NEXT_PATH_PROBE_ORIGIN) {
     return DEFAULT_NEXT_PATH;
   }
 
