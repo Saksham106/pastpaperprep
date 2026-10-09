@@ -97,6 +97,26 @@ describe("fetchSignedAssets", () => {
       .rejects.toThrow("Invalid signed asset response");
   });
 
+  it("accepts a hash-bound BLANK PAGE in the middle of a crop but never an all-hidden crop", async () => {
+    const id = "0580-2022-june-43-q10";
+    const segments = (hiddenSha?: string) => [
+      { sourceY: 0, sourceHeight: 1500, physicalHeightPt: 720, sourcePage: 18 },
+      { sourceY: 1500, sourceHeight: 1400, physicalHeightPt: 672, sourcePage: 19, include: false, ...(hiddenSha ? { imageSha256: hiddenSha } : {}) },
+      { sourceY: 2900, sourceHeight: 1500, physicalHeightPt: 720, sourcePage: 20 },
+    ];
+    const respond = (printSegments: unknown) => vi.fn(async () => Response.json({ expiresIn: 600, assets: [{
+      questionId: id, kind: "question", urls: ["https://signed.test/q10.webp"],
+      printSizesPt: [[513, 2112]], rasterSizesPx: [[1070, 4400]], printSegments: [printSegments],
+    }] }));
+    const signed = await fetchPdfAssets("igcse", [id], "questions", respond(segments("a".repeat(64))));
+    expect(signed.get(`${id}:question`)?.printSegments?.[0]?.[1]).toMatchObject({ include: false });
+    await expect(fetchPdfAssets("igcse", [id], "questions", respond(segments())))
+      .rejects.toThrow("Invalid signed asset response");
+    const allHidden = segments("a".repeat(64)).map((part) => ({ ...part, include: false, imageSha256: "a".repeat(64) }));
+    await expect(fetchPdfAssets("igcse", [id], "questions", respond(allHidden)))
+      .rejects.toThrow("Invalid signed asset response");
+  });
+
   it("rejects a source segment that overlaps or drops raster rows", async () => {
     const fetcher = vi.fn(async () => Response.json({ expiresIn: 600, assets: [{
       questionId: "0606-2016-june-13-q11", kind: "question", urls: ["https://signed.test/q11.webp"],

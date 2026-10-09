@@ -99,20 +99,35 @@ describe("questionsForPdf", () => {
     expect(placement.heldReason).toBeNull();
   });
 
-  it("keeps a tall unverified image whole and records fit-to-page instead of slicing ink rows", () => {
+  it("keeps a tall unverified image whole on A4 and records fit-to-page instead of slicing ink rows", () => {
     const placement = planWholePdfImage(1070, 3082);
-    expect(placement.format).toBe("a3");
+    expect(placement.format).toBe("a4");
     expect(placement.orientation).toBe("portrait");
     expect(placement.scale).toBeLessThan(1);
     expect(placement.heldReason).toBe("fit-to-page");
     expect(placement.yMm + placement.heightMm).toBeLessThanOrEqual(placement.pageHeightMm - 13);
   });
 
-  it("uses A3 at original scale for an image that does not fit A4", () => {
+  it("fits an image slightly wider than the A4 print area onto A4 instead of sending it to A3", () => {
+    // A3 "at original scale" prints at 71% on an A4 printer; fitting to A4 keeps it at about 96%.
     const placement = planWholePdfImage(1191, 1524);
-    expect(placement.format).toBe("a3");
-    expect(placement.scale).toBe(1);
-    expect(placement.heldReason).toBeNull();
+    expect(placement.format).toBe("a4");
+    expect(placement.scale).toBeCloseTo(194 / (1191 * 25.4 / 150), 4);
+    expect(placement.heldReason).toBe("fit-to-page");
+  });
+
+  it("never chooses A3, even for an image far larger than A4", () => {
+    for (const [w, h] of [[1070, 4479], [1630, 1941], [2400, 900]]) expect(planWholePdfImage(w, h).format).toBe("a4");
+  });
+
+  it("treats a 126-DPI landscape mark-scheme page one pixel over 297 mm as A4 landscape at source size", () => {
+    const placement = planWholePdfImage(1474, 908, null, false, 126);
+    expect(placement).toMatchObject({ format: "a4", orientation: "landscape", scale: 1, heldReason: null });
+  });
+
+  it("uses the compact header rather than shrinking a full exam page by a few percent", () => {
+    const placement = planWholePdfImage(1070, 1575, [513, 755.55]);
+    expect(placement).toMatchObject({ format: "a4", scale: 1, headerMode: "compact", heldReason: null });
   });
 
   it("keeps the 0580 Q16 graph intact at verified physical size on one A4 page", () => {
@@ -132,8 +147,8 @@ describe("questionsForPdf", () => {
   });
 
   it("reserves the five-percent shrink option for explicitly plain text crops", () => {
-    const protectedImage = planWholePdfImage(1070, 1531, [820, 1130]);
-    const plain = planWholePdfImage(1070, 1531, [820, 1130], true);
+    const protectedImage = planWholePdfImage(1070, 1531, [575, 567]);
+    const plain = planWholePdfImage(1070, 1531, [575, 567], true);
     expect(protectedImage.heldReason).toBe("fit-to-page");
     expect(plain.heldReason).toBeNull();
     expect(plain.scale).toBeGreaterThanOrEqual(0.95);

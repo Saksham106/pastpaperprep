@@ -116,13 +116,17 @@ export type WholeImagePlacement = {
   heldReason: "fit-to-page" | null;
 };
 
+// Worksheets are printed on A4. An A3 page "at source size" comes out at 71% on an A4 printer,
+// which is smaller than fitting the same image to A4, so only A4 orientations are offered.
 const PDF_PAGES: Array<{ format: PdfPageFormat; orientation: PdfPageOrientation; width: number; height: number }> = [
   { format: "a4", orientation: "portrait", width: 210, height: 297 },
   { format: "a4", orientation: "landscape", width: 297, height: 210 },
-  { format: "a3", orientation: "portrait", width: 297, height: 420 },
-  { format: "a3", orientation: "landscape", width: 420, height: 297 },
 ];
 const PDF_TOP_MM = 22;
+const PDF_COMPACT_TOP_MM = 10;
+// Fitting a full-page scan to A4 with margins lands around 90%; only clearly smaller output needs review.
+const PDF_REVIEW_SCALE = 0.8;
+const PDF_LABEL_SHRINK_LIMIT = 0.97;
 const PDF_BOTTOM_MM = 13;
 const PDF_SIDE_MM = 8;
 const PDF_FALLBACK_DPI = 150;
@@ -151,29 +155,30 @@ export function planWholePdfImage(
   }
   if (!Number.isFinite(fallbackDpi) || fallbackDpi <= 0) throw new Error("PDF raster DPI must be positive");
   const inferredWidth = widthPx * 25.4 / fallbackDpi;
-  // A rounded full-page raster can exceed A4 width by a fraction of one pixel.
+  // A rounded full-page raster can exceed A4 width by up to one pixel (0.2 mm at 126 DPI).
+  const onePixelMm = 25.4 / fallbackDpi;
   const sourcePageWidth = !physicalSizePt && SOURCE_RENDER_DPI.has(fallbackDpi)
-    ? (inferredWidth > 210 && inferredWidth < 210.1 ? 210
-      : inferredWidth > 297 && inferredWidth < 297.1 ? 297 : inferredWidth)
+    ? (inferredWidth > 210 && inferredWidth <= 210 + onePixelMm ? 210
+      : inferredWidth > 297 && inferredWidth <= 297 + onePixelMm ? 297 : inferredWidth)
     : inferredWidth;
   const width = physicalSizePt ? physicalSizePt[0] * 25.4 / 72 : sourcePageWidth;
   const height = physicalSizePt ? physicalSizePt[1] * 25.4 / 72 : heightPx * 25.4 / fallbackDpi;
   const makePlacement = (page: typeof PDF_PAGES[number], scale: number, heldReason: WholeImagePlacement["heldReason"], headerMode: WholeImagePlacement["headerMode"] = "standard"): WholeImagePlacement => ({
     format: page.format, orientation: page.orientation, pageWidthMm: page.width, pageHeightMm: page.height,
-    xMm: (page.width - width * scale) / 2, yMm: headerMode === "compact" ? 10 : PDF_TOP_MM,
+    xMm: (page.width - width * scale) / 2, yMm: headerMode === "compact" ? PDF_COMPACT_TOP_MM : PDF_TOP_MM,
     widthMm: width * scale, heightMm: height * scale, scale, headerMode, heldReason,
   });
-  const fits = (page: typeof PDF_PAGES[number], scale: number) =>
+  const fits = (page: typeof PDF_PAGES[number], scale: number, top = PDF_TOP_MM) =>
     width * scale <= page.width - 2 * PDF_SIDE_MM + 0.001 &&
-    height * scale <= page.height - PDF_TOP_MM - PDF_BOTTOM_MM + 0.001;
+    height * scale <= page.height - top - PDF_BOTTOM_MM + 0.001;
   if (!physicalSizePt && SOURCE_RENDER_DPI.has(fallbackDpi)) {
     if (width >= 209.5 && width <= 210) {
       if (height <= 297 - PDF_TOP_MM - PDF_BOTTOM_MM) return makePlacement(PDF_PAGES[0], 1, null);
-      if (height <= 297 - 10 - PDF_BOTTOM_MM) return makePlacement(PDF_PAGES[0], 1, null, "compact");
+      if (height <= 297 - PDF_COMPACT_TOP_MM - PDF_BOTTOM_MM) return makePlacement(PDF_PAGES[0], 1, null, "compact");
     }
     if (width >= 296.5 && width <= 297) {
       if (height <= 210 - PDF_TOP_MM - PDF_BOTTOM_MM) return makePlacement(PDF_PAGES[1], 1, null);
-      if (height <= 210 - 10 - PDF_BOTTOM_MM) return makePlacement(PDF_PAGES[1], 1, null, "compact");
+      if (height <= 210 - PDF_COMPACT_TOP_MM - PDF_BOTTOM_MM) return makePlacement(PDF_PAGES[1], 1, null, "compact");
     }
   }
   // A visibly plain answer row need not rotate the worksheet just to save 3% width.
@@ -182,15 +187,18 @@ export function planWholePdfImage(
     return makePlacement(PDF_PAGES[0], 210 / width, null);
   }
   for (const page of PDF_PAGES) if (fits(page, 1)) return makePlacement(page, 1, null);
+  // A slimmer header is better than shrinking a full exam page by a few percent.
+  for (const page of PDF_PAGES) if (fits(page, 1, PDF_COMPACT_TOP_MM)) return makePlacement(page, 1, null, "compact");
   if (plainTextOnly) {
     for (const page of PDF_PAGES) if (fits(page, 0.95)) return makePlacement(page, 0.95, null);
   }
-  const choices = PDF_PAGES.map((page) => ({
-    page, scale: Math.min(1, (page.width - 2 * PDF_SIDE_MM) / width,
-      (page.height - PDF_TOP_MM - PDF_BOTTOM_MM) / height),
-  }));
-  const best = choices.reduce((winner, option) => option.scale > winner.scale ? option : winner);
-  return makePlacement(best.page, best.scale, "fit-to-page");
+  const choices = PDF_PAGES.flatMap((page) => (["standard", "compact"] as const).map((headerMode) => ({
+    page, headerMode, scale: Math.min(1, (page.width - 2 * PDF_SIDE_MM) / width,
+      (page.height - (headerMode === "compact" ? PDF_COMPACT_TOP_MM : PDF_TOP_MM) - PDF_BOTTOM_MM) / height),
+  })));
+  // Prefer the standard header unless the compact one prints the image noticeably larger.
+  const best = choices.reduce((winner, option) => option.scale > winner.scale + 0.005 ? option : winner);
+  return makePlacement(best.page, best.scale, "fit-to-page", best.headerMode);
 }
 
 export function darkenPdfPixel(value: number): number {
@@ -225,19 +233,20 @@ type PreparedPdfImage = {
   height: number;
 };
 
-/** Only a verified final furniture tail may shorten the displayed raster. */
-function preparePdfImage(image: HTMLImageElement, visibleHeight = image.naturalHeight): PreparedPdfImage {
-  if (!Number.isSafeInteger(visibleHeight) || visibleHeight < 1 || visibleHeight > image.naturalHeight) {
+/** Draws rows [sourceY, sourceY + height) of the raster; verified source-page bounds decide the rows. */
+function preparePdfImage(image: HTMLImageElement, height = image.naturalHeight, sourceY = 0): PreparedPdfImage {
+  if (!Number.isSafeInteger(sourceY) || sourceY < 0 || !Number.isSafeInteger(height) || height < 1 ||
+    sourceY + height > image.naturalHeight) {
     throw new Error("Reviewed image height is invalid");
   }
   const canvas = document.createElement("canvas");
   canvas.width = image.naturalWidth;
-  canvas.height = visibleHeight;
+  canvas.height = height;
   const context = canvas.getContext("2d", { willReadFrequently: true });
   if (!context) throw new Error("Canvas is unavailable");
   context.fillStyle = "#ffffff";
   context.fillRect(0, 0, canvas.width, canvas.height);
-  context.drawImage(image, 0, 0);
+  context.drawImage(image, 0, -sourceY);
   const pixels = context.getImageData(0, 0, canvas.width, canvas.height);
   for (let offset = 0; offset < pixels.data.length; offset += 4) {
     pixels.data[offset] = darkenPdfPixel(pixels.data[offset]);
@@ -277,7 +286,48 @@ export async function downloadQuestionPdf(
     const spec = PDF_PAGES.find((candidate) => candidate.format === format && candidate.orientation === orientation)!;
     pageSpecs.push({ ...spec, headerMode, section: currentSection });
     startAnswerPage = false;
-    nextImageY = headerMode === "compact" ? 10 : PDF_TOP_MM;
+    nextImageY = headerMode === "compact" ? PDF_COMPACT_TOP_MM : PDF_TOP_MM;
+  };
+
+  const placeImage = (
+    image: PreparedPdfImage, size: readonly [number, number] | null | undefined, plainTextOnly: boolean, fallbackDpi: number,
+    questionId: string, kind: "question" | "answer", imageIndex: number, label: string, marks: number | null, continued: boolean,
+  ) => {
+    let placement = planWholePdfImage(image.width, image.height, size, plainTextOnly, fallbackDpi);
+    const labelFits = (top: number) => top + 5 + placement.heightMm <= placement.pageHeightMm - PDF_BOTTOM_MM + 0.001;
+    // Keep the question label: a slimmer header makes room for it before the label is dropped.
+    if (!labelFits(placement.yMm) && placement.headerMode === "standard" && labelFits(PDF_COMPACT_TOP_MM)) {
+      placement = { ...placement, headerMode: "compact", yMm: PDF_COMPACT_TOP_MM };
+    }
+    // A full-height exam page can still crowd out the label; an invisible (at most 3%) reduction keeps it.
+    const labelScale = (placement.pageHeightMm - PDF_BOTTOM_MM - PDF_COMPACT_TOP_MM - 5) / placement.heightMm;
+    if (!labelFits(placement.yMm) && labelScale >= PDF_LABEL_SHRINK_LIMIT) {
+      const widthMm = placement.widthMm * labelScale;
+      placement = { ...placement, headerMode: "compact", yMm: PDF_COMPACT_TOP_MM, scale: placement.scale * labelScale,
+        widthMm, heightMm: placement.heightMm * labelScale, xMm: (placement.pageWidthMm - widthMm) / 2 };
+    }
+    // Omit the extra crop label only when it would prevent source-size placement.
+    const labelSpace = labelFits(placement.yMm) ? 5 : 0;
+    const current = pageSpecs[pages - 1];
+    if (startAnswerPage || !current || current.format !== placement.format || current.orientation !== placement.orientation ||
+      nextImageY + labelSpace + placement.heightMm > current.height - PDF_BOTTOM_MM + 0.001) {
+      addPage(placement.format, placement.orientation, placement.headerMode);
+    }
+    if (labelSpace) {
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(8);
+      pdf.setTextColor(76, 88, 85);
+      pdf.text(`${label}${continued ? " (continued)" : ""}`, Math.max(8, placement.xMm), nextImageY + 3);
+      const detail = continued ? "" : kind === "answer" ? "Official answer" : Number.isFinite(marks) && marks !== null ? `${marks} marks` : "";
+      if (detail) pdf.text(detail, Math.min(placement.pageWidthMm - 8, placement.xMm + placement.widthMm), nextImageY + 3, { align: "right" });
+      nextImageY += labelSpace;
+    }
+    pdf.addImage(image.canvas.toDataURL("image/jpeg", 0.98), "JPEG",
+      placement.xMm, nextImageY, placement.widthMm, placement.heightMm);
+    nextImageY += placement.heightMm + 4;
+    if (placement.heldReason && placement.scale < PDF_REVIEW_SCALE) {
+      heldRows.push({ questionId, kind, imageIndex, reason: placement.heldReason, scale: placement.scale });
+    }
   };
 
   const addImagePage = async (
@@ -290,11 +340,11 @@ export async function downloadQuestionPdf(
     const excluded = sourceSegments?.filter((part) => part.include === false) ?? [];
     let loaded: HTMLImageElement;
     if (excluded.length) {
-      if (excluded.length !== 1 || sourceSegments?.at(-1) !== excluded[0] ||
-        !excluded[0].imageSha256 || !physicalSizePt || !expectedRaster) {
+      if (excluded.length === sourceSegments!.length || !physicalSizePt || !expectedRaster ||
+        excluded.some((part) => !part.imageSha256 || part.imageSha256 !== excluded[0].imageSha256)) {
         throw new Error("Reviewed furniture exclusion lacks a bound source image hash");
       }
-      const blob = await fetchVerifiedImageBlob(source, excluded[0].imageSha256);
+      const blob = await fetchVerifiedImageBlob(source, excluded[0].imageSha256!);
       const objectUrl = URL.createObjectURL(blob);
       try { loaded = await loadImage(objectUrl); }
       finally { URL.revokeObjectURL(objectUrl); }
@@ -304,12 +354,11 @@ export async function downloadQuestionPdf(
     if (expectedRaster && (loaded.naturalWidth !== expectedRaster[0] || loaded.naturalHeight !== expectedRaster[1])) {
       throw new Error("Signed image raster dimensions differ from verified source geometry");
     }
-    let visibleHeight = loaded.naturalHeight;
-    let size = physicalSizePt;
-    if (excluded.length) {
+    const segments = sourceSegments && physicalSizePt && expectedRaster ? sourceSegments : null;
+    if (segments) {
       let cursor = 0;
       let physicalTotal = 0;
-      for (const part of sourceSegments!) {
+      for (const part of segments) {
         if (part.sourceY !== cursor || !Number.isSafeInteger(part.sourceHeight) || part.sourceHeight <= 0 ||
           !Number.isFinite(part.physicalHeightPt) || part.physicalHeightPt <= 0) {
           throw new Error("Verified source segments do not cover the original raster");
@@ -320,34 +369,32 @@ export async function downloadQuestionPdf(
       if (cursor !== loaded.naturalHeight || Math.abs(physicalTotal - physicalSizePt![1]) > 0.1) {
         throw new Error("Verified source segments disagree with image geometry");
       }
-      visibleHeight = excluded[0].sourceY;
-      size = [physicalSizePt![0], physicalSizePt![1] - excluded[0].physicalHeightPt];
+    } else if (excluded.length) {
+      throw new Error("Reviewed furniture exclusion lacks a bound source image hash");
     }
-    const image = preparePdfImage(loaded, visibleHeight);
     const fallbackDpi = inferredPdfDpiForBank(bankSlug);
-    const shortAnswerRow = kind === "answer" && !size && fallbackDpi === 108 &&
-      image.height <= 48 && image.width >= 890;
-    const placement = planWholePdfImage(image.width, image.height, size, shortAnswerRow, fallbackDpi);
-    // Omit the extra crop label only when it would prevent source-size placement.
-    const labelSpace = placement.yMm + 5 + placement.heightMm <= placement.pageHeightMm - PDF_BOTTOM_MM + 0.001 ? 5 : 0;
-    const current = pageSpecs[pages - 1];
-    if (startAnswerPage || !current || current.format !== placement.format || current.orientation !== placement.orientation ||
-      nextImageY + labelSpace + placement.heightMm > current.height - PDF_BOTTOM_MM + 0.001) {
-      addPage(placement.format, placement.orientation, placement.headerMode);
+    const kept = segments?.filter((part) => part.include !== false) ?? [];
+    // Hidden pages only at the end can be dropped by shortening the raster; anywhere else needs page placement.
+    const firstHidden = segments?.findIndex((part) => part.include === false) ?? -1;
+    const hiddenOnlyAtEnd = firstHidden === -1 || segments!.slice(firstHidden).every((part) => part.include === false);
+    const visibleHeight = firstHidden === -1 ? loaded.naturalHeight : segments![firstHidden].sourceY;
+    const wholeSize: readonly [number, number] | null | undefined = segments
+      ? [physicalSizePt![0], kept.reduce((sum, part) => sum + part.physicalHeightPt, 0)]
+      : physicalSizePt;
+    const shortAnswerRow = kind === "answer" && !wholeSize && fallbackDpi === 108 &&
+      visibleHeight <= 48 && loaded.naturalWidth >= 890;
+    const whole = planWholePdfImage(loaded.naturalWidth, visibleHeight, wholeSize, shortAnswerRow, fallbackDpi);
+    if (hiddenOnlyAtEnd && (!segments || kept.length === 1 || (whole.scale === 1 && !whole.heldReason))) {
+      placeImage(preparePdfImage(loaded, visibleHeight), wholeSize, shortAnswerRow, fallbackDpi,
+        questionId, kind, imageIndex, label, marks, imageIndex > 0);
+      return;
     }
-    if (labelSpace) {
-      pdf.setFont("helvetica", "normal");
-      pdf.setFontSize(8);
-      pdf.setTextColor(76, 88, 85);
-      pdf.text(`${label}${imageIndex > 0 ? " (continued)" : ""}`, Math.max(8, placement.xMm), nextImageY + 3);
-      const detail = kind === "answer" ? "Official answer" : Number.isFinite(marks) && marks !== null ? `${marks} marks` : "";
-      if (detail) pdf.text(detail, Math.min(placement.pageWidthMm - 8, placement.xMm + placement.widthMm), nextImageY + 3, { align: "right" });
-      nextImageY += labelSpace;
+    // Too tall for one A4 page at print size: break only where the exam paper itself breaks,
+    // so every source page keeps its printed size and no diagram is ever cut.
+    for (const [partIndex, part] of kept.entries()) {
+      placeImage(preparePdfImage(loaded, part.sourceHeight, part.sourceY), [physicalSizePt![0], part.physicalHeightPt],
+        false, fallbackDpi, questionId, kind, imageIndex, label, marks, imageIndex > 0 || partIndex > 0);
     }
-    pdf.addImage(image.canvas.toDataURL("image/jpeg", 0.98), "JPEG",
-      placement.xMm, nextImageY, placement.widthMm, placement.heightMm);
-    nextImageY += placement.heightMm + 4;
-    if (placement.heldReason) heldRows.push({ questionId, kind, imageIndex, reason: placement.heldReason, scale: placement.scale });
   };
 
   let completed = 0;

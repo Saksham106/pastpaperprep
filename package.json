@@ -9,6 +9,7 @@
     "prebuild": "npm run generate:bank-index",
     "postbuild": "node scripts/verify-private-sourcemaps.mjs",
     "generate:bank-index": "node scripts/generate-bank-index.mjs",
+    "generate:print-geometry-0580": "node scripts/generate-print-geometry-0580.mjs",
     "indexnow:dry-run": "node scripts/indexnow.mjs",
     "generate:0606-offline-candidate-ledger": "node scripts/0606-offline-reconciliation.mjs",
     "generate:aa-official-subtopics": "python3 scripts/generate_aa_official_subtopics.py --research-root /Users/sakshamgoel/Documents/ProjectsInternships/research/aa-official-subtopics",

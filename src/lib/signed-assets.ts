@@ -48,12 +48,14 @@ function validPrintSegments(value: unknown, size: unknown, raster: unknown): val
     !raster.every((dimension) => Number.isSafeInteger(dimension) && dimension > 0)) return false;
   let nextY = 0;
   let totalHeightPt = 0;
-  for (const [index, part] of value.entries()) {
+  let included = 0;
+  for (const part of value) {
     if (!part || typeof part !== "object" || Array.isArray(part)) return false;
     const item = part as Record<string, unknown>;
     if (item.include !== undefined && typeof item.include !== "boolean") return false;
-    if (item.include === false && (index !== value.length - 1 || index === 0 ||
-      typeof item.imageSha256 !== "string" || !/^[a-f0-9]{64}$/.test(item.imageSha256))) return false;
+    // A hidden source page (e.g. BLANK PAGE) must be bound to the image bytes it hides.
+    if (item.include === false && (typeof item.imageSha256 !== "string" || !/^[a-f0-9]{64}$/.test(item.imageSha256))) return false;
+    if (item.include !== false) included += 1;
     if (item.include !== false && item.imageSha256 !== undefined) return false;
     if (item.sourceY !== nextY || !Number.isSafeInteger(item.sourceHeight) ||
       (item.sourceHeight as number) <= 0 || !Number.isSafeInteger(item.sourcePage) ||
@@ -62,7 +64,7 @@ function validPrintSegments(value: unknown, size: unknown, raster: unknown): val
     nextY += item.sourceHeight as number;
     totalHeightPt += item.physicalHeightPt;
   }
-  return nextY === raster[1] && Math.abs(totalHeightPt - size[1]) < 0.1;
+  return included > 0 && nextY === raster[1] && Math.abs(totalHeightPt - size[1]) < 0.1;
 }
 
 function validDisplayCrop(value: unknown): value is VisibleImageCrop | null {

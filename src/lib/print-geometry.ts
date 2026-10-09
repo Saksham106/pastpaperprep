@@ -1,4 +1,4 @@
-import core0580 from "@/data/print-geometry-0580-core.json";
+import verified0580 from "@/data/print-geometry-0580.json";
 import verified0606 from "@/data/print-geometry-0606.json";
 import type { BankSlug } from "@/lib/banks";
 import { reviewedBlankTailForSignedAsset, reviewedBlankSourcePage } from "@/lib/reviewed-blank-tails";
@@ -13,6 +13,9 @@ export type SourcePrintSegment = {
   include?: boolean;
 };
 
+/** [path, imageSha256, widthPx, heightPx, widthPt, heightPt, [sourceY, sourceHeight, physicalHeightPt, sourcePage, include][]] */
+type Verified0580Entry = [string, string, number, number, number, number, [number, number, number, number, 0 | 1][]];
+
 type Verified0606Entry = {
   physicalSizePt: [number, number];
   imageDimensions: [number, number];
@@ -24,11 +27,18 @@ function geometryForSignedPath(
   bank: BankSlug, questionId: string, kind: "question" | "answer", path: string,
 ): { size: PhysicalSizePt; rasterSize?: [number, number]; segments?: SourcePrintSegment[] } | null {
   if (bank === "igcse") {
-    const pair = (core0580.entries as unknown as Record<string, [PhysicalSizePt, PhysicalSizePt]>)[questionId];
-    const folder = kind === "question" ? "core-questions" : "core-markschemes";
-    const expected = `${folder}/${questionId}.webp`;
-    if (!pair || (path !== expected && !path.endsWith(`/${expected}`))) return null;
-    return { size: pair[kind === "question" ? 0 : 1] };
+    const entry = (verified0580.entries as unknown as Record<string, [Verified0580Entry | null, Verified0580Entry | null]>)[questionId]
+      ?.[kind === "question" ? 0 : 1];
+    if (!entry || (path !== entry[0] && !path.endsWith(`/${entry[0]}`))) return null;
+    const [, imageSha256, widthPx, heightPx, widthPt, heightPt, segments] = entry;
+    return {
+      size: [widthPt, heightPt],
+      rasterSize: [widthPx, heightPx],
+      // Blank exam pages carry the image hash so the exporter can prove the bytes before hiding them.
+      segments: segments.map(([sourceY, sourceHeight, physicalHeightPt, sourcePage, include]) => ({
+        sourceY, sourceHeight, physicalHeightPt, sourcePage, ...(include ? {} : { include: false, imageSha256 }),
+      })),
+    };
   }
   if (bank === "igcse-additional") {
     const pair = (verified0606.entries as unknown as Record<string, [Verified0606Entry, Verified0606Entry]>)[questionId];
