@@ -61,7 +61,7 @@ Today's card has a header made of five grey chips, a topic row, an exam image in
   - "More filters" keeps Sessions, Components, Time zone / variant, Calculator, Granular labels, the economics-only groups, Course era and Paper 3 option.
   - The auto-open rule stays. If a shared or URL state uses a filter that is still inside More filters, the disclosure opens. Years and Papers no longer trigger it.
 - **Subtopics follow the chosen topics.**
-  - With **no topic selected**, the Subtopics and Earlier syllabus groups show only the subtopics that are already selected (from a URL or shared view), plus a hint: "Pick a topic to narrow subtopics", and a text button, "Show all subtopics".
+  - With **no topic selected**, the Subtopics and Earlier syllabus groups show only the subtopics that are already selected (from a URL or shared view), and a text button, "Show all subtopics", sits under Topics. No hint text.
   - Clicking "Show all subtopics" lists everything, as today. The button then reads "Hide subtopics".
   - With a topic selected, behaviour is unchanged:
     - Clean-maths banks show the relevant subtopics.
@@ -85,10 +85,10 @@ This applies on the bank page, outside a saved worksheet and outside a shared se
    - The `pdf_builder_open` analytics event is kept unchanged.
 4. The dialog is titled **Save N question(s) as a PDF**, with the eyebrow "Save PDF".
    - The intro text keeps today's three cases (explicit selection, every current result, or over the 50-question limit), with "worksheet" changed to "PDF".
-   - Fields: **Name** (accessible name `PDF name`, default name logic unchanged) and **Include** (Questions / Answers / Both, stored as `contentMode`).
+   - Fields: **Name** (accessible name `PDF name`, default name logic unchanged) and **Include** (the existing Questions / Answers / Questions and answers radios, stored as `contentMode`).
    - **The answer-placement choice is not shown here.** It is a download-time option and stays in the download dialog.
    - The only action is **Save PDF** (primary), plus the close button. **There is no Download PDF button here.**
-   - A footnote reads: "Saved to My Worksheets. Download it from there any time."
+   - A short footnote reads: "Saved to My Worksheets."
 5. **On success:**
    - The dialog closes.
    - A confirmation replaces "Worksheet saved". It reads **Saved "<name>" to My Worksheets**, with an **Open** link (to the existing `/banks/<bank>?worksheet=<id>` view) and a **My Worksheets** link.
