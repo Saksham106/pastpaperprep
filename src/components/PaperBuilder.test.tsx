@@ -143,7 +143,7 @@ describe("PaperBuilder", () => {
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(Response.json(igcseIndex)));
     render(<PaperBuilder banks={[igcse]} />);
     await screen.findByRole("spinbutton", { name: "Paper 1 questions" });
-    expect(screen.getByText(/Papers 1 and 2 are non-calculator from 2025/)).toBeInTheDocument();
+    expect(screen.getByText(/Before 2025 every paper allowed a calculator\. From 2025, Papers 1 and 2 are non-calculator\./)).toBeInTheDocument();
     const paper1 = () => screen.getByRole("spinbutton", { name: "Paper 1 questions" }).closest(".paper-builder-target")!;
     const paper4 = () => screen.getByRole("spinbutton", { name: "Paper 4 questions" }).closest(".paper-builder-target")!;
     expect(within(paper1() as HTMLElement).queryByText(/CALCULATOR/)).not.toBeInTheDocument();
@@ -157,7 +157,7 @@ describe("PaperBuilder", () => {
     render(<PaperBuilder banks={[bank]} />);
     await screen.findByRole("spinbutton", { name: "Paper 1 questions" });
     expect(screen.queryByText(/CALCULATOR/)).not.toBeInTheDocument();
-    expect(screen.queryByText(/non-calculator from 2025/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Before 2025 every paper allowed a calculator/)).not.toBeInTheDocument();
   });
   it("starts on the bank the teacher came from", async () => {
     const second = { ...bank, slug: "igcse-physics-0625" as const, label: "Physics 0625", indexUrl: "/physics.json" };

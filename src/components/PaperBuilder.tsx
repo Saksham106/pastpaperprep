@@ -78,7 +78,9 @@ export function PaperBuilder({ banks, initialBank }: { banks: BuilderBank[]; ini
     : [...new Set(questions.filter((question) => !topics.length || topics.some((value) => question.primaryTopic === value || question.secondaryTopics.includes(value))).flatMap((question) => question.subtopics))].filter(Boolean).sort(), [questions, topics, cleanMaths, mathsGroups]);
   const visiblePapers = papers.filter((paper) => !supportsCourseRoute(bank || undefined) || matchesCourseRoute(deriveCourseRoute(bank as BankSlug, paper), courseRoute));
   const yearPool = useMemo(() => questions.filter((question) => (!fromYear || question.year >= Number(fromYear)) && (!toYear || question.year <= Number(toYear))), [questions, fromYear, toYear]);
-  const calculatorHint = bank === "igcse" ? "Papers 1 and 2 are non-calculator from 2025." : bank === "igcse-additional" ? "Paper 1 is non-calculator from 2025." : "";
+  // Older Cambridge papers all allowed a calculator; only the 2025 syllabus split them.
+  const calculatorHint = bank === "igcse" ? "Before 2025 every paper allowed a calculator. From 2025, Papers 1 and 2 are non-calculator."
+    : bank === "igcse-additional" ? "Before 2025 every paper allowed a calculator. From 2025, Paper 1 is non-calculator." : "";
   const byId = useMemo(() => new Map(questions.map((question) => [question.id, question])), [questions]);
   const previewQuestions = draft?.questions.map((question) => byId.get(question.id)).filter((question): question is PublicQuestionMetadata => Boolean(question)) ?? [];
   const routed = supportsCourseRoute(bank || undefined);
