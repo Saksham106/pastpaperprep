@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
   MAX_PDF_QUESTIONS,
-  PDF_BOOK_LOGO_PATH,
   PDF_BOOK_LOGO_SVG,
   darkenPdfPixel,
   paginatePdfText,

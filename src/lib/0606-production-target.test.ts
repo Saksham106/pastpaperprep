@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { getControlledSubtopics } from "@/lib/taxonomy";
@@ -85,7 +86,8 @@ describe("0606 finalized full-bank production target", () => {
     expect(correctionRecords.every((record) => ids.includes(record.id))).toBe(true);
   });
 
-  it("matches target tuples, actual taxonomy ownership, source runtime, and nonclassification baseline", () => {
+  // Needs the sibling audit workspace; it only exists on the operator machine.
+  it.skipIf(!existsSync(sourceRoot))("matches target tuples, actual taxonomy ownership, source runtime, and nonclassification baseline", () => {
     const target = load(join(audit, "reviewed-production-target.json"));
     const records = target.records as TargetRecord[];
     const corrections = load(join(audit, "final-corrections.json")).records as CorrectionRecord[];
@@ -134,16 +136,22 @@ describe("0606 finalized full-bank production target", () => {
   });
 
   it("has zero app nonclassification drift and is byte-deterministic on a second apply", () => {
-    const bankPath = join(root, "src", "data", "raw", "igcse-additional.json");
-    const before = readFileSync(bankPath);
-    execFileSync("python3", [join(root, "scripts", "apply_0606_production_target.py")], { cwd: root, encoding: "utf8" });
-    const afterFirst = readFileSync(bankPath);
-    execFileSync("python3", [join(root, "scripts", "apply_0606_production_target.py")], { cwd: root, encoding: "utf8" });
-    const afterSecond = readFileSync(bankPath);
-    expect(afterSecond.equals(afterFirst)).toBe(true);
-    const old = load(join(root, "src", "data", "raw", "igcse-additional.json")).questions as BankQuestion[];
-    const original = JSON.parse(before.toString("utf8")).questions as BankQuestion[];
-    const strip = (question: BankQuestion) => Object.fromEntries(Object.entries(question).filter(([key]) => !CLASSIFICATION_FIELDS.has(key)));
-    expect(old.map(strip)).toEqual(original.map(strip));
+    const dir = mkdtempSync(join(tmpdir(), "0606-apply-"));
+    const bankPath = join(dir, "igcse-additional.json");
+    try {
+      copyFileSync(join(root, "src", "data", "raw", "igcse-additional.json"), bankPath);
+      const before = readFileSync(bankPath);
+      execFileSync("python3", [join(root, "scripts", "apply_0606_production_target.py"), "--bank", bankPath], { cwd: root, encoding: "utf8" });
+      const afterFirst = readFileSync(bankPath);
+      execFileSync("python3", [join(root, "scripts", "apply_0606_production_target.py"), "--bank", bankPath], { cwd: root, encoding: "utf8" });
+      const afterSecond = readFileSync(bankPath);
+      expect(afterSecond.equals(afterFirst)).toBe(true);
+      const old = load(bankPath).questions as BankQuestion[];
+      const original = JSON.parse(before.toString("utf8")).questions as BankQuestion[];
+      const strip = (question: BankQuestion) => Object.fromEntries(Object.entries(question).filter(([key]) => !CLASSIFICATION_FIELDS.has(key)));
+      expect(old.map(strip)).toEqual(original.map(strip));
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
   });
 });

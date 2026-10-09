@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --webpack",
     "predev": "npm run generate:bank-index",
-    "build": "NODE_OPTIONS=--max-heap-size=6144 next build",
+    "build": "node scripts/next-build.mjs",
     "prebuild": "npm run generate:bank-index",
     "postbuild": "node scripts/verify-private-sourcemaps.mjs",
     "generate:bank-index": "node scripts/generate-bank-index.mjs",
@@ -26,6 +26,7 @@
     "storage:reconcile": "tsx scripts/reconcile-supabase-assets.ts",
     "start": "next start",
     "lint": "eslint",
+    "typecheck": "node --max-old-space-size=8192 node_modules/typescript/bin/tsc --noEmit",
     "pretest": "npm run generate:bank-index",
     "test": "vitest run",
     "test:watch": "vitest"
@@ -40,7 +41,7 @@
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "jspdf": "^4.2.1",
-    "next": "16.3.4",
+    "next": "16.3.8",
     "next-themes": "^0.4.6",
     "pdfjs-dist": "5.4.624",
     "posthog-js": "^1.434.9",
@@ -48,7 +49,7 @@
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "server-only": "^0.0.1",
-    "sharp": "0.35.4",
+    "sharp": "0.35.5",
     "stripe": "^22.5.0"
   },
   "devDependencies": {
@@ -62,7 +63,7 @@
     "@vitejs/plugin-react": "^5.0.2",
     "axe-core": "^4.13.0",
     "eslint": "^9",
-    "eslint-config-next": "16.3.4",
+    "eslint-config-next": "16.3.8",
     "jsdom": "^26.1.0",
     "tailwindcss": "^4",
     "tsx": "^4.23.13",

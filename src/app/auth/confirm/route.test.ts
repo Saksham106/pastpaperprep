@@ -1,3 +1,4 @@
+// @vitest-environment node
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 vi.mock("server-only", () => ({}));
 afterEach(() => vi.restoreAllMocks());
@@ -19,10 +20,10 @@ import { GET, HEAD, POST } from "./route";
 const tokenHash = "a".repeat(64);
 
 
-function postRequest(body: Record<string, string>) {
+function postRequest(body: Record<string, string>, origin = "https://pastpaperprep.com") {
   return new NextRequest("https://pastpaperprep.com/auth/confirm", {
     method: "POST",
-    headers: { "content-type": "application/x-www-form-urlencoded" },
+    headers: { "content-type": "application/x-www-form-urlencoded", origin },
     body: new URLSearchParams(body),
   });
 }
@@ -88,6 +89,13 @@ describe("POST /auth/confirm", () => {
 
     const unsafe = await POST(postQuery(`token_hash=${tokenHash}&type=email&next=${encodeURIComponent("//evil.example")}`));
     expect(unsafe.headers.get("location")).toBe("https://pastpaperprep.com/pricing");
+  });
+
+  it("refuses cross-site confirmation posts before redeeming the token", async () => {
+    const response = await POST(postRequest({ token_hash: tokenHash, type: "email", next: "/pricing" }, "https://evil.example"));
+
+    expect(verifyOtp).not.toHaveBeenCalled();
+    expect(response.headers.get("location")).toBe("https://pastpaperprep.com/login?error=confirmation");
   });
 
   it("fails closed when Supabase rejects the token", async () => {

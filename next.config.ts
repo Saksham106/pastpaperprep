@@ -13,6 +13,15 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [{
+      // Low-risk defaults only; CSP and frame restrictions need a staged rollout
+      // (PostHog, Stripe, and the pdf.js worker all load cross-origin resources).
+      source: "/:path*",
+      headers: [
+        { key: "X-Content-Type-Options", value: "nosniff" },
+        { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+        { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+      ],
+    }, {
       source: "/bank-index/:slug.v1-:hash.json",
       headers: [
         { key: "Cache-Control", value: "public, max-age=31536000, immutable" },

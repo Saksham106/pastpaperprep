@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, expect, it } from "vitest";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import production from "@/data/production/igcse-biology-0610.json";
 import candidate from "@/data/local-preview/igcse-biology-0610.json";
@@ -17,10 +17,14 @@ import {
   BIOLOGY_0610_ERAS,
   buildBiology0610Runtime,
   validateBiology0610Overlay,
+  biology0610PinnedPaths,
 } from "@/lib/igcse-biology-0610-official-rebuild";
 
+// The rebuild reads the 0610 source workspace, which only exists on the operator machine.
+const withSource = it.skipIf(!existsSync(biology0610PinnedPaths.assembly));
+
 describe("IGCSE Biology 0610 official rebuild", () => {
-  it("pins the reviewed overlay and fail-closed coverage", async () => {
+  withSource("pins the reviewed overlay and fail-closed coverage", async () => {
     const result = await buildBiology0610Runtime();
     expect(result.rows).toHaveLength(3441);
     expect(result.counts).toEqual(BIOLOGY_0610_COUNTS);
@@ -37,7 +41,7 @@ describe("IGCSE Biology 0610 official rebuild", () => {
     expect(result.rows.filter((row) => row.primaryTopicId === null)).toHaveLength(4);
   });
 
-  it("exposes ordered official labels while preserving source provenance", async () => {
+  withSource("exposes ordered official labels while preserving source provenance", async () => {
     const result = await buildBiology0610Runtime();
     expect(result.taxonomy.eras.every((era: { topics: Array<{ id: string }> }) => era.topics.map((topic) => topic.id) .join(",") === "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21")).toBe(true);
     const sample = result.rows.find((row) => row.id === "0610-2022-w-42-q4");
@@ -46,7 +50,7 @@ describe("IGCSE Biology 0610 official rebuild", () => {
     expect(sample?.reviewStatus).toBe("blocked");
   });
 
-  it("keeps primary and secondary roles distinct for normal filters", async () => {
+  withSource("keeps primary and secondary roles distinct for normal filters", async () => {
     const result = await buildBiology0610Runtime();
     const row = result.rows.find((candidate) => candidate.id === "0610-2025-s-12-q35");
     expect(row?.primaryTopicId).toBe("topic_19_organisms_and_environment.19.3");
