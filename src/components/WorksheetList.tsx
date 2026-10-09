@@ -5,7 +5,18 @@ import "./worksheet-workspace.css";
 
 type Worksheet = { id: string; bank_slug: string; title: string; question_ids: string[]; content_mode: "questions" | "answers" | "both"; revision: number; updated_at: string };
 
-export function WorksheetList() {
+/** "Today", "Yesterday", "N days ago" within a week, otherwise a short date. */
+export function formatEdited(iso: string, now = Date.now()): string {
+  const then = Date.parse(iso);
+  if (!Number.isFinite(then)) return "";
+  const days = Math.floor((now - then) / 86_400_000);
+  if (days < 1) return "Today";
+  if (days === 1) return "Yesterday";
+  if (days < 7) return `${days} days ago`;
+  return new Date(then).toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" });
+}
+
+export function WorksheetList({ bankLabels = {} }: { bankLabels?: Record<string, string> }) {
   const [worksheets, setWorksheets] = useState<Worksheet[]>([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
@@ -35,7 +46,7 @@ export function WorksheetList() {
 
   function restoreFocus() {
     if (triggerRef.current?.isConnected) triggerRef.current.focus();
-    else document.querySelector<HTMLElement>(".saved-worksheet-action, .worksheet-library-header a")?.focus();
+    else document.querySelector<HTMLElement>(".saved-worksheet-action, .worksheet-build-panel a")?.focus();
   }
 
   async function remove(item: Worksheet) {
@@ -52,12 +63,25 @@ export function WorksheetList() {
     finally { deletingRef.current = null; setBusy(null); }
   }
 
-  return <section className="saved-worksheets" aria-label="Saved worksheets">
+  return <section className="saved-worksheets" aria-labelledby="saved-worksheets-title">
+    <h2 id="saved-worksheets-title" className="saved-worksheets-title">Saved worksheets{worksheets.length > 0 && <span> · {worksheets.length}</span>}</h2>
     {error && <p role="alert" className="saved-worksheets-error">{error}</p>}
-    {loading ? <p role="status">Loading worksheets…</p> : worksheets.length === 0 ? <p className="saved-worksheets-empty">No saved worksheets yet. Save a question set from any bank to find it here.</p> : <ul className="saved-worksheets-list">{worksheets.map((item) => <li className="saved-worksheet-card" key={item.id}>
-      <div className="saved-worksheet-info"><h3>{item.title}</h3><p>{item.bank_slug.replaceAll("-", " ")} · {item.question_ids.length} {item.question_ids.length === 1 ? "question" : "questions"}</p><time dateTime={item.updated_at}>Edited {new Date(item.updated_at).toLocaleDateString()}</time></div>
-      <div className="saved-worksheet-actions"><a className="saved-worksheet-action saved-worksheet-action-open" aria-label={`Open ${item.title}`} href={`/banks/${encodeURIComponent(item.bank_slug)}?worksheet=${encodeURIComponent(item.id)}`}>Open</a><a className="saved-worksheet-action saved-worksheet-action-edit" aria-label={`Edit ${item.title}`} href={`/banks/${encodeURIComponent(item.bank_slug)}?worksheet=${encodeURIComponent(item.id)}&mode=edit`}>Edit</a><button className="saved-worksheet-action saved-worksheet-action-delete" type="button" aria-label={`Delete ${item.title}`} disabled={busy === item.id} onClick={(event) => { triggerRef.current = event.currentTarget; setDeleteError(""); setPending(item); }}>Delete</button></div>
-    </li>)}</ul>}
+    {loading ? <p role="status">Loading worksheets…</p> : worksheets.length === 0 ? <div className="saved-worksheets-empty"><p><strong>No saved papers yet</strong></p><p>Papers you build, or question sets you save from a bank, will appear here.</p></div> : <table className="saved-worksheets-table">
+      <thead><tr><th scope="col">Name</th><th scope="col">Bank</th><th scope="col">Questions</th><th scope="col">Edited</th><th scope="col"><span className="sr-only">Actions</span></th></tr></thead>
+      <tbody>{worksheets.map((item) => <tr key={item.id}>
+        <th scope="row" className="saved-worksheet-name">{item.title}</th>
+        <td data-label="Bank">{bankLabels[item.bank_slug] ?? item.bank_slug.replaceAll("-", " ")}</td>
+        <td data-label="Questions">{item.question_ids.length} {item.question_ids.length === 1 ? "question" : "questions"}</td>
+        <td data-label="Edited"><time dateTime={item.updated_at}>{formatEdited(item.updated_at)}</time></td>
+        <td className="saved-worksheet-actions">
+          <a className="saved-worksheet-action saved-worksheet-action-open" aria-label={`Open ${item.title}`} href={`/banks/${encodeURIComponent(item.bank_slug)}?worksheet=${encodeURIComponent(item.id)}`}>Open</a>
+          <a className="saved-worksheet-action saved-worksheet-action-edit" aria-label={`Edit ${item.title}`} href={`/banks/${encodeURIComponent(item.bank_slug)}?worksheet=${encodeURIComponent(item.id)}&mode=edit`}>Edit</a>
+          <details className="saved-worksheet-more"><summary aria-label={`More actions for ${item.title}`}>⋯</summary>
+            <button className="saved-worksheet-action saved-worksheet-action-delete" type="button" aria-label={`Delete ${item.title}`} disabled={busy === item.id} onClick={(event) => { triggerRef.current = event.currentTarget; setDeleteError(""); setPending(item); }}>Delete</button>
+          </details>
+        </td>
+      </tr>)}</tbody>
+    </table>}
     {pending && <dialog ref={dialogRef} className="worksheet-unsaved-dialog worksheet-delete-dialog" aria-labelledby="worksheet-delete-title" aria-describedby="worksheet-delete-description"
       onCancel={(event) => { if (busy) event.preventDefault(); }}
       onClose={() => { setPending(null); restoreFocus(); }}>
