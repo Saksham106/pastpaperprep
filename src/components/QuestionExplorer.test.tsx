@@ -433,6 +433,7 @@ describe("QuestionExplorer", () => {
     expect(document.querySelector(".explorer-toolbar .save-pdf-button")).toBeNull();
     expect(screen.queryByRole("checkbox", { name: /add question/i })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: `Remove question ${ids[0]}` })).not.toBeInTheDocument();
+    expect(document.querySelector(".question-card.is-selected")).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
     expect(screen.getByRole("radio", { name: "Answers" })).toBeChecked();
     expect(screen.getByRole("dialog", { name: /download 2 questions/i })).toHaveTextContent("Only the questions in this worksheet");

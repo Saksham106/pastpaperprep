@@ -443,3 +443,30 @@ describe("free access note is one slim line", () => {
     expect(styleFor(globalBlocks, ".free-value-strip > .button")).toEqual({});
   });
 });
+
+describe("toolbar keeps Save PDF in its own track on every bank", () => {
+  const wide = "min-width: 851px";
+  const tablet = "min-width: 641px";
+
+  it("pins share and Save PDF to the last two tracks", () => {
+    expect(normalize(styleFor(globalBlocks, ".explorer-toolbar .share-view-button", wide)["grid-column"])).toBe("-3 / -2");
+    expect(normalize(styleFor(globalBlocks, ".explorer-toolbar .save-pdf-button", wide)["grid-column"])).toBe("-2 / -1");
+  });
+
+  it("drops the route column on banks without a course route", () => {
+    expect(normalize(styleFor(globalBlocks, ".explorer-toolbar:not(:has(.course-route-picker))", wide)["grid-template-columns"])).toBe("minmax(220px, 1fr) minmax(190px, auto) 48px auto");
+  });
+
+  it("gives the Core/Extended picker its own row on tablets", () => {
+    const picker = styleFor(globalBlocks, ".explorer-toolbar:has(.course-route-picker) .course-route-picker", tablet);
+    expect(normalize(picker["grid-column"])).toBe("1 / -1");
+    expect(normalize(picker["grid-row"])).toBe("2");
+    expect(normalize(styleFor(globalBlocks, ".explorer-toolbar:has(.course-route-picker) .sort-field", tablet)["grid-row"])).toBe("3");
+  });
+
+  it("moves share and Save PDF beside search on tablets", () => {
+    expect(normalize(styleFor(globalBlocks, ".explorer-toolbar .save-pdf-button", tablet)["grid-row"])).toBe("1");
+    expect(normalize(styleFor(globalBlocks, ".explorer-toolbar .sort-field", tablet)["grid-row"])).toBe("2");
+  });
+});
+
