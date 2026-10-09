@@ -3,14 +3,15 @@ import type { UnifiedQuestion } from "@/lib/questions";
 import { attachPdfAssetMetadata, downloadQuestionPdf } from "@/lib/pdf-export";
 import approved from "@/data/reviewed-blank-tails-0606.json";
 
-const { addImage, addPage, deletePage, save, verifyBytes, text } = vi.hoisted(() => ({
-  addImage: vi.fn(), addPage: vi.fn(), deletePage: vi.fn(), save: vi.fn(), verifyBytes: vi.fn(), text: vi.fn(),
+const { addImage, addPage, deletePage, save, verifyBytes, text, roundedRect } = vi.hoisted(() => ({
+  addImage: vi.fn(), addPage: vi.fn(), deletePage: vi.fn(), save: vi.fn(), verifyBytes: vi.fn(), text: vi.fn(), roundedRect: vi.fn(),
 }));
 vi.mock("@/lib/verified-asset-bytes", () => ({ fetchVerifiedImageBlob: verifyBytes }));
 vi.mock("jspdf", () => ({ jsPDF: class {
-  addImage = addImage; addPage = addPage; deletePage = deletePage; save = save;
+  addImage = addImage; addPage = addPage; deletePage = deletePage; save = save; roundedRect = roundedRect;
   setProperties() {} setFont() {} setFontSize() {} setTextColor() {} text = text;
-  setPage() {} setDrawColor() {} line() {} textWithLink() {}
+  setPage() {} setDrawColor() {} setFillColor() {} setLineWidth() {} line() {} textWithLink() {}
+  getTextWidth(value: string) { return value.length * 1.5; }
 } }));
 
 const q16 = {
@@ -281,6 +282,32 @@ describe("real worksheet image placement", () => {
         imageSha256: "d9019dbe02bcbd7beaa089dae81a933e429e10a164b2cf7719f96216710ed0e6" },
     ]],
   } as unknown as UnifiedQuestion;
+
+  it("prints a solid NO CALCULATOR badge left of the marks on a non-calculator question", async () => {
+    await downloadQuestionPdf([{ ...q16, marks: 6, calculator: false } as UnifiedQuestion], "questions");
+    expect(text).toHaveBeenCalledWith("NO CALCULATOR", expect.any(Number), expect.any(Number));
+    const [x, , width, , , , style] = roundedRect.mock.calls[0];
+    expect(style).toBe("FD");
+    const marksCall = text.mock.calls.find((call) => call[0] === "6 marks")!;
+    expect(x + width).toBeLessThanOrEqual(marksCall[1] - "6 marks".length * 1.5);
+  });
+
+  it("prints an outlined CALCULATOR badge, and nothing for unknown status or on answer pages", async () => {
+    await downloadQuestionPdf([{ ...q16, marks: 6, calculator: true } as UnifiedQuestion], "questions");
+    expect(roundedRect.mock.calls[0][6]).toBe("S");
+    expect(text).toHaveBeenCalledWith("CALCULATOR", expect.any(Number), expect.any(Number));
+    roundedRect.mockClear();
+    await downloadQuestionPdf([{ ...q16, marks: 6, calculator: null } as UnifiedQuestion], "questions");
+    expect(roundedRect).not.toHaveBeenCalled();
+    await downloadQuestionPdf([{ ...q16, calculator: false, markschemeImages: ["https://signed.test/q16.webp"] } as UnifiedQuestion], "answers");
+    expect(roundedRect).not.toHaveBeenCalled();
+  });
+
+  it("repeats the badge on the continued part of a question split across pages", async () => {
+    vi.mocked(URL.createObjectURL).mockReturnValue("blob:0580-q11.webp");
+    await downloadQuestionPdf([{ ...q0580, calculator: false } as UnifiedQuestion], "questions");
+    expect(text.mock.calls.filter((call) => call[0] === "NO CALCULATOR")).toHaveLength(2);
+  });
 
   it("prints the reported 0580 2024 June 43 Q11 at full size instead of 36% (regression)", async () => {
     vi.mocked(URL.createObjectURL).mockReturnValue("blob:0580-q11.webp");
