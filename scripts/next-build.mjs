@@ -24,7 +24,9 @@ function acceptsInNodeOptions(option) {
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  const nodeOptions = [process.env.NODE_OPTIONS, heapOption()].filter(Boolean).join(" ");
+  const heap = heapOption();
+  console.log(`next-build: heap option ${heap}`);
+  const nodeOptions = [process.env.NODE_OPTIONS, heap].filter(Boolean).join(" ");
   const nextBin = createRequire(import.meta.url).resolve("next/dist/bin/next");
   const result = spawnSync(process.execPath, [nextBin, "build", ...process.argv.slice(2)], {
     env: { ...process.env, NODE_OPTIONS: nodeOptions },
