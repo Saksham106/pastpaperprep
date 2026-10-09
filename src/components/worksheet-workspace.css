@@ -5,7 +5,7 @@
 .worksheet-workspace-heading span { color: var(--muted); font-size: .8rem; }
 .worksheet-workspace-heading .button { flex-shrink: 0; }
 .worksheet-workspace-actions { display: flex; align-items: center; gap: 8px; }
-.worksheet-workspace-actions .download-button { width: 42px; height: 42px; flex-shrink: 0; }
+.worksheet-download-button { min-height: 42px; display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
 .worksheet-workspace-actions .share-view-button { width: 42px; height: 42px; flex-shrink: 0; }
 .worksheet-workspace .eyebrow { display: none; }
 .worksheet-unsaved-backdrop { position: fixed; z-index: 100; inset: 0; display: grid; place-items: center; padding: 18px; background: rgb(15 20 26 / .5); }
@@ -42,10 +42,11 @@
 .worksheet-edit-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; }
 .worksheet-edit-actions > button { min-height: 44px; }
 .worksheet-edit-card > [role="status"], .worksheet-edit-card > [role="alert"] { margin-bottom: 0; }
-.pdf-dialog .worksheet-actions:not(.only-download) { grid-template-columns: minmax(0, 1.35fr) minmax(0, .85fr); }
+.pdf-dialog .worksheet-actions:not(.only-download):not(.only-save) { grid-template-columns: minmax(0, 1.35fr) minmax(0, .85fr); }
 .pdf-dialog .worksheet-actions .pdf-download { color: var(--ink); background: var(--surface); border: 1px solid var(--line-strong); font-weight: 700; box-shadow: none; }
 .pdf-dialog .worksheet-actions .pdf-download:hover { color: var(--ink); background: var(--surface-raised); border-color: var(--cobalt); }
-.pdf-dialog .worksheet-actions.only-download { grid-template-columns: 1fr; }
+.pdf-dialog .worksheet-actions.only-download, .pdf-dialog .worksheet-actions.only-save { grid-template-columns: 1fr; }
+.pdf-save-note { color: var(--muted); }
 .worksheet-saved-notice { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin: 12px 0 20px; padding: 14px 17px; color: var(--ink); background: color-mix(in srgb, var(--success) 10%, var(--surface-raised)); border: 1px solid var(--success); border-radius: 10px; }
 .worksheet-saved-notice > svg { color: var(--success); }
 .worksheet-saved-notice a { color: var(--cobalt); font-weight: 750; }

@@ -558,6 +558,9 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .mobile-filter-button { display: none; padding-inline: 14px; }
 .download-button { color: var(--accent-contrast); background: var(--cobalt); border-color: var(--cobalt); }
 .download-button:hover { color: var(--accent-contrast); background: var(--cobalt-strong); border-color: var(--cobalt-strong); }
+.save-pdf-button { min-height: 48px; padding: 0 16px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; color: var(--accent-contrast); background: var(--cobalt); border: 1px solid var(--cobalt); border-radius: 7px; font-weight: 800; white-space: nowrap; cursor: pointer; }
+.save-pdf-button:hover { color: var(--accent-contrast); background: var(--cobalt-strong); border-color: var(--cobalt-strong); }
+.save-pdf-count { min-width: 20px; padding: 1px 6px; color: var(--cobalt-strong); background: var(--accent-contrast); border-radius: 999px; font-size: .72rem; line-height: 1.4; text-align: center; }
 .toolbar-status { width: fit-content; margin: 8px 0 0 auto; display: inline-flex; align-items: center; gap: 5px; color: var(--muted); font-size: .78rem; font-weight: 700; }
 .toolbar-status.is-error { color: var(--danger); }
 .toolbar-status.is-success { color: var(--success); }

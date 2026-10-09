@@ -379,7 +379,7 @@ describe("QuestionExplorer", () => {
     expect(screen.getByRole("option", { name: "Newest papers" })).toHaveAttribute("aria-selected", "false");
   });
 
-  it("saves the exact ordered selection and content mode as a worksheet", async () => {
+  it("saves the exact ordered selection to My Worksheets without downloading", async () => {
     const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 8), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
     const calls: Array<{ url: string; init?: RequestInit }> = [];
     vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
@@ -393,24 +393,26 @@ describe("QuestionExplorer", () => {
     render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} />);
     const boxes = screen.getAllByRole("checkbox", { name: /add question/i });
     fireEvent.click(boxes[1]); fireEvent.click(boxes[0]);
-    fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
-    const dialog = screen.getByRole("dialog", { name: /build worksheet from 2 questions/i });
-    const nameField = within(dialog).getByRole("textbox", { name: "Worksheet name" });
+    fireEvent.click(screen.getByRole("button", { name: "Save PDF (2 selected)" }));
+    const dialog = screen.getByRole("dialog", { name: /save 2 questions as a pdf/i });
+    const nameField = within(dialog).getByRole("textbox", { name: "PDF name" });
     expect((nameField as HTMLInputElement).value).toMatch(/^IB SL /);
-    expect(nameField.closest(".worksheet-name-field")).not.toBeNull();
-    expect(within(dialog).getByRole("button", { name: "Save worksheet" })).toHaveClass("primary");
-    expect(within(dialog).getByRole("button", { name: "Download PDF" })).toHaveClass("secondary");
-    expect(within(dialog).getByRole("button", { name: "Save worksheet" }).closest(".worksheet-actions")).toBe(within(dialog).getByRole("button", { name: "Download PDF" }).closest(".worksheet-actions"));
-    fireEvent.click(screen.getByRole("radio", { name: "Answers" }));
-    fireEvent.change(screen.getByLabelText(/worksheet name/i), { target: { value: "My set" } });
-    fireEvent.click(screen.getByRole("button", { name: /save worksheet/i }));
+    expect(within(dialog).queryByRole("button", { name: /download/i })).not.toBeInTheDocument();
+    expect(within(dialog).queryByRole("radio", { name: /each question followed/i })).not.toBeInTheDocument();
+    fireEvent.click(within(dialog).getByRole("radio", { name: "Answers" }));
+    fireEvent.change(nameField, { target: { value: "My set" } });
+    fireEvent.click(within(dialog).getByRole("button", { name: "Save PDF" }));
     await waitFor(() => expect(calls.some(({ url }) => url === "/api/worksheets")).toBe(true));
     const save = calls.find(({ url }) => url === "/api/worksheets")!;
     expect(JSON.parse(String(save.init?.body))).toEqual({ bank: "ib-sl", name: "My set", questionIds: [questions[1].id, questions[0].id], contentMode: "answers" });
-    expect(await screen.findByText(/worksheet saved/i)).toBeInTheDocument();
+    expect(await screen.findByText(/saved “my set” to my worksheets/i)).toBeInTheDocument();
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(window.location.search).not.toContain("worksheet=");
-    expect(screen.getByRole("link", { name: /view worksheet/i })).toHaveAttribute("href", "/banks/ib-sl?worksheet=worksheet-1");
+    expect(screen.getByRole("link", { name: "Open" })).toHaveAttribute("href", "/banks/ib-sl?worksheet=worksheet-1");
+    expect(screen.getByRole("link", { name: "My Worksheets" })).toHaveAttribute("href", "/worksheets");
+    expect(screen.getAllByRole("checkbox", { name: /add question/i }).every((box) => !(box as HTMLInputElement).checked)).toBe(true);
+    fireEvent.click(screen.getByRole("button", { name: "Save PDF" }));
+    expect((within(screen.getByRole("dialog")).getByRole("textbox", { name: "PDF name" }) as HTMLInputElement).value).toMatch(/^IB SL /);
   });
 
   it("reopens a worksheet by opaque ID and restores saved content and selected membership", async () => {
@@ -428,7 +430,7 @@ describe("QuestionExplorer", () => {
     expect(screen.getByRole("button", { name: "Edit worksheet" })).toBeInTheDocument();
     const heading = screen.getByText("Revision set").closest(".worksheet-workspace");
     expect(heading).toContainElement(screen.getByRole("button", { name: "Download PDF" }));
-    expect(document.querySelector(".explorer-toolbar .download-button")).toBeNull();
+    expect(document.querySelector(".explorer-toolbar .save-pdf-button")).toBeNull();
     expect(screen.queryByRole("checkbox", { name: /add question/i })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: `Remove question ${ids[0]}` })).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
@@ -599,12 +601,12 @@ describe("QuestionExplorer", () => {
     }));
     window.history.replaceState({}, "", "/banks/ib-sl");
     render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} />);
-    fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
+    fireEvent.click(screen.getByRole("button", { name: "Save PDF" }));
     fireEvent.click(screen.getAllByRole("checkbox", { name: /add question/i })[0]);
-    fireEvent.change(screen.getByLabelText(/worksheet name/i), { target: { value: "My set" } });
-    fireEvent.click(screen.getByRole("button", { name: /save (?:worksheet|changes)/i }));
+    fireEvent.change(screen.getByLabelText("PDF name"), { target: { value: "My set" } });
+    fireEvent.click(within(screen.getByRole("dialog")).getByRole("button", { name: "Save PDF" }));
     expect(await screen.findByRole("alert")).toHaveTextContent("Service unavailable");
-    expect(screen.getByText(/unsaved worksheet changes/i)).toBeInTheDocument();
+    expect(screen.getByRole("dialog", { name: /as a pdf/i })).toBeInTheDocument();
   });
 
   it("offers save, discard and keep editing before leaving a changed worksheet", async () => {
@@ -677,9 +679,9 @@ describe("QuestionExplorer", () => {
     expect(screen.queryByRole("dialog", { name: /unsaved worksheet changes/i })).not.toBeInTheDocument();
   });
 
-  it("keeps the PDF download icon visible on hover in both themes", () => {
+  it("keeps the Save PDF button readable on hover", () => {
     const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
-    expect(css).toMatch(/\.download-button:hover\s*\{[^}]*color:\s*var\(--accent-contrast\)/);
+    expect(css).toMatch(/\.save-pdf-button:hover\s*\{[^}]*color:\s*var\(--accent-contrast\)/);
     expect(css).toContain("--accent-contrast:");
   });
 
@@ -742,7 +744,7 @@ describe("QuestionExplorer", () => {
     expect(screen.queryByRole("link", { name: /source paper/i })).not.toBeInTheDocument();
     expect(screen.queryByRole("link", { name: /mark scheme/i })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /transcript/i })).not.toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /download pdf/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Save PDF" })).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "Show all subtopics" }));
     expect(screen.getByRole("group", { name: /subtopics/i })).toBeInTheDocument();
     expect(await screen.findByRole("img", { name: /original question/i })).toBeInTheDocument();
@@ -970,12 +972,14 @@ describe("QuestionExplorer", () => {
 
     fireEvent.click(screen.getAllByRole("checkbox", { name: /add question/i })[0]);
     expect(screen.getByText(/1 selected for PDF/i)).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
-    expect(screen.getByRole("dialog", { name: /build worksheet from 1 question/i })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Save PDF (1 selected)" }));
+    expect(screen.getByRole("dialog", { name: /save 1 question as a pdf/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /close pdf options/i })).toHaveFocus();
     fireEvent.keyDown(document, { key: "Escape" });
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /download pdf/i })).toHaveFocus();
+    expect(screen.getByRole("button", { name: "Save PDF (1 selected)" })).toHaveFocus();
+    fireEvent.click(screen.getByRole("button", { name: "Clear selection" }));
+    expect(screen.queryByText(/selected for PDF/i)).toBeNull();
   });
 
   it("keeps study actions quiet by saving explicitly and marking an attempt when the answer opens", async () => {
@@ -1016,16 +1020,16 @@ describe("QuestionExplorer", () => {
     fireEvent.click(screen.getByRole("checkbox", { name: /free questions only/i }));
     expect(screen.getByText(/paid plan required/i)).toBeInTheDocument();
     expect(screen.queryByText(/all-access question/i)).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
-    const upgradeDialog = screen.getByRole("dialog", { name: /pdf export needs paid access/i });
+    fireEvent.click(screen.getByRole("button", { name: "Save PDF" }));
+    const upgradeDialog = screen.getByRole("dialog", { name: /saving pdfs needs paid access/i });
     expect(upgradeDialog).toBeInTheDocument();
     expect(document.body.style.overflow).toBe("hidden");
     expect(screen.getByRole("button", { name: /close pdf access message/i })).toHaveFocus();
     expect(within(upgradeDialog).getByRole("link", { name: /^view plans$/i })).toHaveAttribute("href", "/login?next=/pricing");
     fireEvent.keyDown(document, { key: "Escape" });
-    expect(screen.queryByRole("dialog", { name: /pdf export needs paid access/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole("dialog", { name: /saving pdfs needs paid access/i })).not.toBeInTheDocument();
     expect(document.body.style.overflow).toBe("");
-    expect(screen.getByRole("button", { name: /download pdf/i })).toHaveFocus();
+    expect(screen.getByRole("button", { name: "Save PDF" })).toHaveFocus();
     await waitFor(() => expect(fetch).toHaveBeenCalled());
   });
 
