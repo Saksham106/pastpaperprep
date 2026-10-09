@@ -1916,7 +1916,7 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .worksheet-library-header > p:not(.eyebrow) { color: var(--muted-foreground, #5c6673); }
 .worksheet-build-panel { display: flex; align-items: center; gap: 14px; margin: 0 0 2rem; padding: 16px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
 .worksheet-build-panel > div { flex: 1; min-width: 0; }
-.worksheet-build-panel h2 { margin: 0; font-size: 1rem; }
+.worksheet-build-panel h2 { margin: 0; font-size: 1rem; font-weight: 750; }
 .worksheet-build-panel p { margin: .2rem 0 0; color: var(--muted); }
 .worksheet-build-icon { position: relative; flex: none; width: 30px; height: 36px; border: 1.5px solid var(--cobalt); border-radius: 4px; background: var(--surface-raised); }
 .worksheet-build-icon::after { content: "+"; position: absolute; inset: 0; display: grid; place-items: center; color: var(--cobalt); font-size: 1.15rem; }

@@ -57,9 +57,9 @@
 @media (max-width: 600px) { .worksheet-workspace-heading { align-items: flex-start; flex-direction: column; } .worksheet-workspace-actions { width: 100%; flex-wrap: wrap; } .worksheet-workspace, .worksheet-edit-card { padding: 16px; } .worksheet-edit-actions > button { flex: 1 1 150px; } .worksheet-edit-list li { align-items: flex-start; flex-direction: column; } }
 @media (prefers-reduced-motion: reduce) { .worksheet-edit-list li { transition: none; } }
 .saved-worksheets { margin: 0 0 2.5rem; }
-.saved-worksheets-title { margin: 0 0 .6rem; font-size: 1rem; }
+.saved-worksheets-title { margin: 0 0 .6rem; font-size: 1rem; font-weight: 750; }
 .saved-worksheets-title span { color: var(--muted); font-weight: 450; }
-.saved-worksheets-table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.saved-worksheets-table { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
 .saved-worksheets-table th, .saved-worksheets-table td { padding: .7rem .85rem; border-bottom: 1px solid var(--line); text-align: left; font-size: .9rem; }
 .saved-worksheets-table tbody tr:last-child > * { border-bottom: 0; }
 .saved-worksheets-table thead th { color: var(--muted); font: 600 .68rem/1 var(--font-mono); text-transform: uppercase; letter-spacing: .08em; }
@@ -84,6 +84,6 @@
   .saved-worksheets-table tbody tr:last-child { border-bottom: 0; }
   .saved-worksheets-table th, .saved-worksheets-table td { display: inline; padding: 0; border: 0; }
   .saved-worksheet-name { display: block !important; margin-bottom: .2rem; }
-  .saved-worksheets-table td[data-label]:not(:last-of-type)::after { content: " · "; }
+  .saved-worksheets-table td[data-label="Bank"]::after, .saved-worksheets-table td[data-label="Questions"]::after { content: " · "; }
   .saved-worksheet-actions { display: flex !important; justify-content: flex-start; margin-top: .4rem; }
 }

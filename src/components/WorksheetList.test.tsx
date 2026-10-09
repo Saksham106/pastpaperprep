@@ -173,4 +173,14 @@ describe("WorksheetList", () => {
     expect(formatEdited("2026-09-01T12:00:00Z", now)).toMatch(/2026/);
     expect(formatEdited("not a date", now)).toBe("");
   });
+  it("keeps the actions menu visible, the phone row tidy, and the section titles bold", () => {
+    const css = readFileSync(join(process.cwd(), "src/components/worksheet-workspace.css"), "utf8");
+    const globals = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+    const table = css.match(/\.saved-worksheets-table \{([^}]*)\}/)![1];
+    expect(table).not.toMatch(/overflow:\s*hidden/);
+    expect(css).not.toMatch(/td\[data-label\]:not\(:last-of-type\)::after/);
+    expect(css).toMatch(/td\[data-label="Bank"\]::after,\s*\.saved-worksheets-table td\[data-label="Questions"\]::after\s*\{\s*content: " · "/);
+    expect(css).toMatch(/\.saved-worksheets-title \{[^}]*font-weight:\s*750/);
+    expect(globals).toMatch(/\.worksheet-build-panel h2 \{[^}]*font-weight:\s*750/);
+  });
 });
