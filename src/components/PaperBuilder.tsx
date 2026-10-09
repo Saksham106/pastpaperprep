@@ -4,7 +4,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { BankSlug } from "@/lib/banks";
 import { deriveCourseRoute, matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
 import type { PublicBankIndex, PublicQuestionMetadata } from "@/lib/question-index";
-import { generatePaper, type PaperCandidate } from "@/lib/paper-builder";
+import { generatePaper, paperCalculator, type PaperCandidate } from "@/lib/paper-builder";
+import { CalculatorBadge } from "@/components/CalculatorBadge";
 import { EARLIER_MATHS_TOPIC, getMathsPickerGroups, getMathsPickerSections, isCleanMathsBank, isEarlierMathsQuestion, isMathsEarlierToken, mathsPickerLabel } from "@/lib/maths-picker";
 import { PaperPreview } from "@/components/PaperPreview";
 import "./paper-builder.css";
@@ -75,6 +76,8 @@ export function PaperBuilder({ banks }: { banks: BuilderBank[] }) {
   const subtopicOptions = useMemo(() => cleanMaths ? mathsGroups.relevant.filter(value => !isMathsEarlierToken(value))
     : [...new Set(questions.filter((question) => !topics.length || topics.some((value) => question.primaryTopic === value || question.secondaryTopics.includes(value))).flatMap((question) => question.subtopics))].filter(Boolean).sort(), [questions, topics, cleanMaths, mathsGroups]);
   const visiblePapers = papers.filter((paper) => !supportsCourseRoute(bank || undefined) || matchesCourseRoute(deriveCourseRoute(bank as BankSlug, paper), courseRoute));
+  const yearPool = useMemo(() => questions.filter((question) => (!fromYear || question.year >= Number(fromYear)) && (!toYear || question.year <= Number(toYear))), [questions, fromYear, toYear]);
+  const calculatorHint = bank === "igcse" ? "Papers 1 and 2 are non-calculator from 2025." : bank === "igcse-additional" ? "Paper 1 is non-calculator from 2025." : "";
   const byId = useMemo(() => new Map(questions.map((question) => [question.id, question])), [questions]);
   const previewQuestions = draft?.questions.map((question) => byId.get(question.id)).filter((question): question is PublicQuestionMetadata => Boolean(question)) ?? [];
   const routed = supportsCourseRoute(bank || undefined);
@@ -140,7 +143,8 @@ export function PaperBuilder({ banks }: { banks: BuilderBank[] }) {
       <section className="paper-builder-mix" aria-label="Paper mix"><p className="eyebrow">02 / Paper mix</p><h2>Set your target</h2>
         {loading ? <p role="status">Loading question options…</p> : <><fieldset className="paper-builder-mode" disabled={saving}><legend>Build by</legend><label><input type="radio" name="paper-mode" checked={mode === "questions"} onChange={() => { setMode("questions"); setTargets({}); resetDraft(); }} /> Questions</label><label><input type="radio" name="paper-mode" checked={mode === "marks"} onChange={() => { setMode("marks"); setTargets({}); resetDraft(); }} /> Exact marks</label></fieldset>
           <p className="paper-builder-muted">Enter a target for each paper. Leave 0 to skip it.</p>
-          {paperGroups.filter((group) => group.papers.length).map((group) => <div className="paper-builder-paper-group" key={group.label}><h3>{group.label}</h3><div className="paper-builder-targets">{group.papers.map((paper) => <label key={paper}>Paper {paper} {mode === "questions" ? "questions" : "marks"}<input type="number" min="0" max={mode === "questions" ? 50 : 200} step="1" disabled={saving} value={targets[paper] ?? 0} onChange={(event) => { setTargets((current) => ({ ...current, [paper]: Number(event.target.value) })); resetDraft(); }} /></label>)}</div></div>)}
+          {calculatorHint && <p className="paper-builder-muted">{calculatorHint} Set From year to 2025 for a fully non-calculator paper.</p>}
+          {paperGroups.filter((group) => group.papers.length).map((group) => <div className="paper-builder-paper-group" key={group.label}><h3>{group.label}</h3><div className="paper-builder-targets">{group.papers.map((paper) => <div className="paper-builder-target" key={paper}><label>Paper {paper} {mode === "questions" ? "questions" : "marks"}<input type="number" min="0" max={mode === "questions" ? 50 : 200} step="1" disabled={saving} value={targets[paper] ?? 0} onChange={(event) => { setTargets((current) => ({ ...current, [paper]: Number(event.target.value) })); resetDraft(); }} /></label><CalculatorBadge value={paperCalculator(yearPool, paper)} /></div>)}</div></div>)}
           <button type="button" className="button primary paper-builder-generate" disabled={saving} onClick={build}>Generate paper</button>
         </>}
         {error && <p role="alert" className="paper-builder-error">{error}</p>}

@@ -3,7 +3,13 @@ import type { BankSlug } from "@/lib/banks";
 import { isCleanMathsBank, mathsSubtopicMatches, mathsTopicMatches } from "@/lib/maths-picker";
 import { deriveCourseRoute, matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
 
-export type PaperCandidate = Pick<PublicQuestionMetadata, "id" | "paper" | "year" | "marks" | "primaryTopic" | "secondaryTopics"> & { subtopics?: string[] };
+export type PaperCandidate = Pick<PublicQuestionMetadata, "id" | "paper" | "year" | "marks" | "primaryTopic" | "secondaryTopics"> & { subtopics?: string[]; calculator?: boolean | null };
+
+/** The calculator status shared by every question of a paper in the pool, or null when unknown or mixed. */
+export function paperCalculator(pool: readonly { paper: number; calculator?: boolean | null }[], paper: number): boolean | null {
+  const values = new Set(pool.filter((question) => question.paper === paper).map((question) => question.calculator ?? null));
+  return values.size === 1 ? [...values][0] : null;
+}
 export type PaperTarget = { paper: number; amount: number };
 export type PaperPlan = { mode: "questions" | "marks"; targets: PaperTarget[]; seed: number; yearFrom?: number; yearTo?: number; topics?: string[]; subtopics?: string[]; bank?: BankSlug; courseRoute?: CourseRouteSelection };
 
