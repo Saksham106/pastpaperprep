@@ -183,4 +183,10 @@ describe("WorksheetList", () => {
     expect(css).toMatch(/\.saved-worksheets-title \{[^}]*font-weight:\s*750/);
     expect(globals).toMatch(/\.worksheet-build-panel h2 \{[^}]*font-weight:\s*750/);
   });
+  it("never tells a teacher they have no papers when loading failed", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(null, { status: 500 })));
+    render(<WorksheetList />);
+    expect(await screen.findByRole("alert")).toHaveTextContent("Could not load your worksheets");
+    expect(screen.queryByText("No saved papers yet")).not.toBeInTheDocument();
+  });
 });

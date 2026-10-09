@@ -66,7 +66,7 @@ export function WorksheetList({ bankLabels = {} }: { bankLabels?: Record<string,
   return <section className="saved-worksheets" aria-labelledby="saved-worksheets-title">
     <h2 id="saved-worksheets-title" className="saved-worksheets-title">Saved worksheets{worksheets.length > 0 && <span> · {worksheets.length}</span>}</h2>
     {error && <p role="alert" className="saved-worksheets-error">{error}</p>}
-    {loading ? <p role="status">Loading worksheets…</p> : worksheets.length === 0 ? <div className="saved-worksheets-empty"><p><strong>No saved papers yet</strong></p><p>Papers you build, or question sets you save from a bank, will appear here.</p></div> : <table className="saved-worksheets-table">
+    {loading ? <p role="status">Loading worksheets…</p> : error ? null : worksheets.length === 0 ? <div className="saved-worksheets-empty"><p><strong>No saved papers yet</strong></p><p>Papers you build, or question sets you save from a bank, will appear here.</p></div> : <table className="saved-worksheets-table">
       <thead><tr><th scope="col">Name</th><th scope="col">Bank</th><th scope="col">Questions</th><th scope="col">Edited</th><th scope="col"><span className="sr-only">Actions</span></th></tr></thead>
       <tbody>{worksheets.map((item) => <tr key={item.id}>
         <th scope="row" className="saved-worksheet-name">{item.title}</th>
