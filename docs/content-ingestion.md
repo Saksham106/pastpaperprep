@@ -352,7 +352,7 @@ npm run r2:sync
 npm run r2:verify
 ```
 
-The sync derives object keys from runtime JSON references, uploads only referenced WebPs, and verifies the resulting inventory. Shared source roots such as IB Chemistry and the Physics HL/SL source repository are therefore not uploaded twice; every key is bank-prefixed to prevent collisions. Delete the temporary write token immediately after verification; production uses a separate read-only runtime token.
+The sync derives object keys from runtime JSON references, uploads only referenced WebPs, and verifies the resulting inventory. Shared source roots such as IB Chemistry and the Physics HL/SL source repository are therefore not uploaded twice; every key is bank-prefixed to prevent collisions. Source repositories are resolved as siblings of the main checkout, so the script also works from a linked worktree. IB science 2016–2019 extension rows reference full GitHub Pages URLs; their key is the URL path below the bank's public root (exactly as `storageObjectPath` derives it), and their source file comes from the committed `docs/ib-science-storage/<bank>.pending-upload-manifest.json`, whose sha256 must match the local bytes. Delete the temporary write token immediately after verification; production uses a separate read-only runtime token.
 
 Then add only missing free-preview assets to Supabase:
 
