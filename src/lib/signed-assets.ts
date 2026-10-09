@@ -26,6 +26,11 @@ export function isSignedAssetFresh(asset: SignedAsset | undefined, now = Date.no
   return Boolean(asset && asset.expiresAt > now);
 }
 
+/** Expiry of a signed asset that has already lapsed, or undefined when it is missing or still valid. */
+export function lapsedSignedAssetExpiry(asset: SignedAsset | undefined, now = Date.now()): number | undefined {
+  return asset && asset.expiresAt <= now ? asset.expiresAt : undefined;
+}
+
 function validDetails(value: unknown): value is QuestionRichDetails {
   if (!value || typeof value !== "object" || Array.isArray(value)) return false;
   const details = value as Record<string, unknown>;

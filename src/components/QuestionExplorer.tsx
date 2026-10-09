@@ -13,7 +13,7 @@ import { EXPLORER_PAGE_SIZE, parseExplorerState, serializeExplorerState, type Ex
 import { encodeSharedSet, parseSharedSet } from "@/lib/shared-question-set";
 import type { QuestionFilters, QuestionSort, UnifiedQuestion } from "@/lib/questions";
 import type { BankSlug } from "@/lib/banks";
-import { fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
+import { fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, lapsedSignedAssetExpiry, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
 import { pulseSuccess, shakeElement } from "@/lib/button-feedback";
 import { mergeQuestionRichDetails, publicMetadataToQuestion, type PublicBankIndex } from "@/lib/question-index";
 import { matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
@@ -157,8 +157,6 @@ export type ExplorerAccess = { authenticated: boolean; bankAccess: boolean; canE
 export type ExplorerStudyState = { savedIds: string[]; attemptedIds: string[] };
 
 const DEFAULT_EXPLORER_STATE: ExplorerState = { search: "", sort: DEFAULT_SORT, filters: {}, freeOnly: false, savedOnly: false, courseRoute: "all", visible: EXPLORER_PAGE_SIZE };
-/** Re-sign assets whose URLs die within this window; the server grants 600s TTL. */
-const SIGN_REFRESH_MARGIN_MS = 90_000;
 const EMPTY_STUDY_STATE: ExplorerStudyState = { savedIds: [], attemptedIds: [] };
 
 /**
@@ -243,6 +241,10 @@ access: ExplorerAccess;
   const [failedAssetKeys, setFailedAssetKeys] = useState(new Set<string>());
   const [assetError, setAssetError] = useState("");
   const [assetEpoch, setAssetEpoch] = useState(() => Date.now());
+  // Signed URLs last 10 minutes. A lazy image scrolled into view after that fails, so re-sign
+  // it once per expired URL instead of re-signing every visible question on a timer, which
+  // would spend the daily signed-asset allowance on images that already loaded.
+  const resignedExpiryRef = useRef(new Map<string, number>());
   const [savedIds, setSavedIds] = useState(new Set(studyState.savedIds));
   const [attemptedIds, setAttemptedIds] = useState(new Set(studyState.attemptedIds));
   const [studyError, setStudyError] = useState("");
@@ -364,18 +366,6 @@ access: ExplorerAccess;
     .filter((question) => !isSignedAssetFresh(signedAssets.get(signedAssetKey(question.id, "question")), assetEpoch))
     .map((question) => ({ questionId: question.id, kind: "question" as const })),
   [bootstrapPending, locationHydrated, resolvedAccess.bankAccess, assetEpoch, failedAssetKeys, shownQuestions, signedAssets]);
-  // The 30s epoch only matters when a displayed signature is near expiry; without this
-  // guard the tick re-renders every card and re-runs the signing effect twice a minute
-  // even when every URL is still valid for minutes.
-  const expiringSoon = useMemo(() => shownQuestions.some((question) => {
-    const asset = signedAssets.get(signedAssetKey(question.id, "question"));
-    return Boolean(asset && asset.expiresAt - assetEpoch <= SIGN_REFRESH_MARGIN_MS);
-  }), [assetEpoch, shownQuestions, signedAssets]);
-  useEffect(() => {
-    if (!expiringSoon) return;
-    const timer = window.setInterval(() => setAssetEpoch(Date.now()), 30_000);
-    return () => window.clearInterval(timer);
-  }, [expiringSoon]);
 
   useEffect(() => {
     if (!hydrateFromLocation) return;
@@ -884,11 +874,17 @@ access: ExplorerAccess;
 
   const markQuestionAssetFailed = (questionId: string) => {
     const key = signedAssetKey(questionId, "question");
+    const expiredAt = lapsedSignedAssetExpiry(signedAssets.get(key));
     setSignedAssets((current) => {
       const next = new Map(current);
       next.delete(key);
       return next;
     });
+    if (expiredAt !== undefined && resignedExpiryRef.current.get(key) !== expiredAt) {
+      // Dropping the stale entry puts the question back in the signing queue.
+      resignedExpiryRef.current.set(key, expiredAt);
+      return;
+    }
     setFailedAssetKeys((current) => new Set(current).add(key));
     setAssetError("Some question images could not load.");
   };
