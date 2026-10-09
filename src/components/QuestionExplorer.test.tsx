@@ -924,6 +924,20 @@ describe("QuestionExplorer", () => {
     expect(screen.getByRole("button", { name: new RegExp(`^${year}$`) })).toBeInTheDocument();
   });
 
+  it("outlines a card added to the PDF and labels the mark scheme", async () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").filter((q) => q.markschemeImageCount > 0).slice(0, 3), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      if (String(input) === "/api/assets/sign") { const body = JSON.parse(String(init?.body)); return new Response(JSON.stringify({ expiresIn: 600, assets: body.requests.map((request: { questionId: string; kind: string }) => ({ ...request, urls: [`https://assets.example/${request.questionId}-${request.kind}.webp`] })) }), { status: 200 }); }
+      return new Response("{}", { status: 200 });
+    }));
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} />);
+    const box = screen.getAllByRole("checkbox", { name: /add question/i })[0];
+    fireEvent.click(box);
+    expect(box.closest(".question-card")).toHaveClass("is-selected");
+    fireEvent.click(screen.getAllByRole("button", { name: /show answer/i })[0]);
+    expect(await screen.findByText("Mark scheme")).toHaveClass("answer-panel-label");
+  });
+
   it("keeps an explicit PDF selection and opens the export options", () => {
     const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-hl").slice(0, 8), [{ productId: "bank_ib_hl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
     render(<QuestionExplorer questions={questions} access={fullAccess} />);

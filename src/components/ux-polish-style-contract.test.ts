@@ -408,3 +408,19 @@ describe("landing subject panels keep a centered, symmetric frame", () => {
     expect(paintsSomething(styleFor(homeBlocks, ".bankCard", "all").background)).toBe(true);
   });
 });
+
+describe("question cards are calm study cards", () => {
+  it("drops the cobalt rail and the boxed exam image", () => {
+    expect(styleFor(globalBlocks, ".question-paper::before")).toEqual({});
+    const image = styleFor(globalBlocks, ".question-images img", "base");
+    expect(paintsNothing(image.border)).toBe(true);
+  });
+
+  it("draws a clearly visible custom checkbox", () => {
+    const box = styleFor(globalBlocks, ".filter-group input[type=\"checkbox\"]", "base");
+    expect(normalize(box.appearance)).toBe("none");
+    expect(Number.parseFloat(box.width ?? "0")).toBeGreaterThanOrEqual(16);
+    const checked = styleFor(globalBlocks, ".filter-group input[type=\"checkbox\"]:checked", "base");
+    expect(normalize(checked.background)).toBe("var(--cobalt)");
+  });
+});
