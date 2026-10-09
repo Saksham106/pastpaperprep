@@ -26,8 +26,9 @@ function MultiPicker({ title, options, selected, onChange, disabled = false, ban
   </details>;
 }
 
-export function PaperBuilder({ banks }: { banks: BuilderBank[] }) {
-  const [bank, setBank] = useState<BankSlug | "">(banks[0]?.slug ?? "");
+export function PaperBuilder({ banks, initialBank }: { banks: BuilderBank[]; initialBank?: BankSlug }) {
+  const startBank = banks.find((item) => item.slug === initialBank) ?? banks[0];
+  const [bank, setBank] = useState<BankSlug | "">(startBank?.slug ?? "");
   const [questions, setQuestions] = useState<PublicQuestionMetadata[]>([]);
   const [loading, setLoading] = useState(Boolean(banks.length));
   const [error, setError] = useState("");
@@ -38,7 +39,7 @@ export function PaperBuilder({ banks }: { banks: BuilderBank[] }) {
   const [topics, setTopics] = useState<string[]>([]);
   const [subtopics, setSubtopics] = useState<string[]>([]);
   const [targets, setTargets] = useState<Record<number, number>>({});
-  const [name, setName] = useState(banks[0] ? `${banks[0].label} practice paper` : "");
+  const [name, setName] = useState(startBank ? `${startBank.label} practice paper` : "");
   const [draft, setDraft] = useState<Draft | null>(null);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [savedId, setSavedId] = useState("");

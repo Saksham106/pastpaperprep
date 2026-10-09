@@ -159,4 +159,13 @@ describe("PaperBuilder", () => {
     expect(screen.queryByText(/CALCULATOR/)).not.toBeInTheDocument();
     expect(screen.queryByText(/non-calculator from 2025/)).not.toBeInTheDocument();
   });
+  it("starts on the bank the teacher came from", async () => {
+    const second = { ...bank, slug: "igcse-physics-0625" as const, label: "Physics 0625", indexUrl: "/physics.json" };
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(Response.json({ ...index, bank: "igcse-physics-0625" })));
+    render(<PaperBuilder banks={[bank, second]} initialBank="igcse-physics-0625" />);
+    expect(screen.getByLabelText("Question bank")).toHaveValue("igcse-physics-0625");
+    fireEvent.change(await screen.findByRole("spinbutton", { name: "Paper 1 questions" }), { target: { value: "1" } });
+    fireEvent.click(screen.getByRole("button", { name: "Generate paper" }));
+    expect(screen.getByDisplayValue("Physics 0625 practice paper")).toBeInTheDocument();
+  });
 });

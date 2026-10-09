@@ -463,6 +463,7 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .bank-hero h1 { max-width: 1040px; margin: 4px 0 6px; font: 850 clamp(2.2rem, 3.8vw, 3.35rem)/.97 var(--font-display); letter-spacing: -.06em; }
 .bank-hero .shell > p:not(.eyebrow) { max-width: 720px; margin: 0; color: var(--muted); line-height: 1.52; }
 .bank-hero-stats { margin-top: 9px; display: flex; gap: 8px 20px; flex-wrap: wrap; color: var(--muted); font-size: .82rem; }
+.bank-hero-build { display: inline-flex; margin-top: 12px; min-height: 40px; }
 .bank-hero-stats strong { color: var(--ink); }
 .bank-hero-beta-link { width: fit-content; margin-top: 13px; display: inline-flex; align-items: center; gap: 8px; color: var(--cobalt-strong); font-size: .78rem; font-weight: 780; }
 .bank-hero-beta-link span, .beta-badge { padding: 3px 6px; color: var(--public-burgundy, var(--burgundy)); background: color-mix(in srgb, var(--burgundy) 9%, var(--surface)); border: 1px solid color-mix(in srgb, var(--burgundy) 24%, var(--line)); border-radius: 999px; font: 700 .62rem/1 var(--font-mono); letter-spacing: .04em; text-transform: uppercase; }

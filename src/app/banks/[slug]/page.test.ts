@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const { loadBankQuestions, notFound, createClient } = vi.hoisted(() => ({
@@ -46,5 +48,10 @@ describe("bank route fail-closed behaviour", () => {
     })).rejects.toThrow("NEXT_NOT_FOUND");
 
     expect(loadBankQuestions).not.toHaveBeenCalled();
+  });
+  it("links each bank to the paper builder with the bank preselected", () => {
+    const source = readFileSync(join(process.cwd(), "src/app/banks/[slug]/page.tsx"), "utf8");
+    expect(source).toContain("href={`/worksheets/build?bank=${slug}`}");
+    expect(source).toContain(">Build a paper</Link>");
   });
 });
