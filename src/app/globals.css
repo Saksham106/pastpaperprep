@@ -14,21 +14,6 @@
   font-size: 0.875rem;
 }
 
-.saved-worksheets { margin: 1.5rem 0 2.5rem; padding: 1.25rem; border: 1px solid var(--border, #dedbd5); border-radius: 1rem; background: var(--surface, #fff); }
-.saved-worksheets-heading { display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; }
-.saved-worksheets-heading h2 { margin:0; }
-.saved-worksheets-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr)); gap:.75rem; padding:0; list-style:none; }
-.saved-worksheet-card { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem; padding:1rem; border:1px solid var(--border,#dedbd5); border-radius:.75rem; }
-.saved-worksheet-info h3,.saved-worksheet-info p { margin:0 0 .35rem; }
-.saved-worksheet-info time { color:var(--muted-foreground,#646464); font-size:.875rem; }
-.saved-worksheet-actions { display:flex; flex-wrap:wrap; gap:.5rem; }
-.saved-worksheet-actions button,.saved-worksheet-info form button,.saved-worksheet-info input { min-height:2.75rem; }
-.saved-worksheet-info form { display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; }
-.saved-worksheet-info form label { flex-basis:100%; }
-.saved-worksheet-info input { max-width:100%; padding:.5rem; }
-.saved-worksheets-error { color:#a52525; }
-.saved-worksheets-empty { color:var(--muted-foreground,#646464); }
-@media(max-width:600px) { .saved-worksheets { padding:.9rem; } .saved-worksheet-card { align-items:flex-start; } .saved-worksheet-actions { width:100%; } .saved-worksheet-actions > * { flex:1 1 auto; text-align:center; } }
 
 /* Exam Studio: cool paper, graphite, and one cobalt action color. */
 :root,
@@ -463,6 +448,7 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .bank-hero h1 { max-width: 1040px; margin: 4px 0 6px; font: 850 clamp(2.2rem, 3.8vw, 3.35rem)/.97 var(--font-display); letter-spacing: -.06em; }
 .bank-hero .shell > p:not(.eyebrow) { max-width: 720px; margin: 0; color: var(--muted); line-height: 1.52; }
 .bank-hero-stats { margin-top: 9px; display: flex; gap: 8px 20px; flex-wrap: wrap; color: var(--muted); font-size: .82rem; }
+.bank-hero-build { display: inline-flex; margin-top: 12px; min-height: 40px; }
 .bank-hero-stats strong { color: var(--ink); }
 .bank-hero-beta-link { width: fit-content; margin-top: 13px; display: inline-flex; align-items: center; gap: 8px; color: var(--cobalt-strong); font-size: .78rem; font-weight: 780; }
 .bank-hero-beta-link span, .beta-badge { padding: 3px 6px; color: var(--public-burgundy, var(--burgundy)); background: color-mix(in srgb, var(--burgundy) 9%, var(--surface)); border: 1px solid color-mix(in srgb, var(--burgundy) 24%, var(--line)); border-radius: 999px; font: 700 .62rem/1 var(--font-mono); letter-spacing: .04em; text-transform: uppercase; }
@@ -1928,7 +1914,13 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .worksheet-library-header { margin-bottom: 2rem; }
 .worksheet-library-header h1 { margin: .25rem 0; font: 800 clamp(2rem, 4vw, 3rem)/1.08 var(--font-display); letter-spacing: -.045em; color: var(--ink); }
 .worksheet-library-header > p:not(.eyebrow) { color: var(--muted-foreground, #5c6673); }
-.worksheet-build-link { display: inline-flex; margin-top: 12px; min-height: 44px; }
+.worksheet-build-panel { display: flex; align-items: center; gap: 14px; margin: 0 0 2rem; padding: 16px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.worksheet-build-panel > div { flex: 1; min-width: 0; }
+.worksheet-build-panel h2 { margin: 0; font-size: 1rem; font-weight: 750; }
+.worksheet-build-panel p { margin: .2rem 0 0; color: var(--muted); }
+.worksheet-build-icon { position: relative; flex: none; width: 30px; height: 36px; border: 1.5px solid var(--cobalt); border-radius: 4px; background: var(--surface-raised); }
+.worksheet-build-icon::after { content: "+"; position: absolute; inset: 0; display: grid; place-items: center; color: var(--cobalt); font-size: 1.15rem; }
+@media (max-width: 600px) { .worksheet-build-panel { flex-wrap: wrap; } .worksheet-build-panel .button { width: 100%; justify-content: center; } }
 .dashboard-qualification-row { position: relative; margin-top: 24px; }
 .dashboard-qualification-row .dashboard-qualification-tabs { width: 100%; margin-top: 0; }
 .dashboard-qualification-row .dashboard-worksheets-link { position: absolute; z-index: 1; top: 0; left: 0; margin: 0; padding: .55rem .8rem; border-color: var(--ink); color: var(--ink); font-size: .9rem; }
@@ -1947,15 +1939,6 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .dashboard-worksheets-dialog-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
 .dashboard-worksheets-dialog-actions .button { min-height: 44px; }
 .dashboard-worksheets-dialog :is(a,button):focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; }
-.saved-worksheet-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; }
-.saved-worksheet-action { display: inline-flex; min-height: 2.75rem; align-items: center; justify-content: center; padding: .65rem 1rem; border: 2px solid #183e70; border-radius: .55rem; background: #fff; color: #183e70; font: inherit; font-weight: 750; line-height: 1.15; text-decoration: none; cursor: pointer; }
-.saved-worksheet-action:hover, .saved-worksheet-action:focus-visible { outline: 3px solid #a8c9f5; outline-offset: 2px; background: #edf5ff; }
-.saved-worksheet-action-edit { border-color: #14532d; background: #14532d; color: #fff; }
-.saved-worksheet-action-edit:hover, .saved-worksheet-action-edit:focus-visible { background: #0f3d22; color: #fff; }
-.saved-worksheet-action-delete { border-color: #9f2525; color: #8b1e1e; }
-.saved-worksheet-action-delete:hover, .saved-worksheet-action-delete:focus-visible { background: #fff0f0; }
-.saved-worksheet-action:disabled { cursor: wait; opacity: .6; }
-@media (max-width: 600px) { .saved-worksheet-actions { width: 100%; } .saved-worksheet-action { flex: 1 1 5rem; } }
 
 /* Paid pricing: keep the comparison visible without suggesting a plan switch. */
 .pricing-decision-grid[data-paid="true"] .pricing-option { min-height: 370px; }
@@ -1982,20 +1965,6 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 :root[data-theme="dark"] .pricing-decision-grid[data-paid="true"] .pricing-option-current[data-plan-tone="builder"] { border-color: var(--plan-accent); background: color-mix(in srgb, var(--plan-soft) 58%, var(--surface)); box-shadow: var(--shadow-sm); }
 :root[data-theme="dark"] .pricing-badge { color: #fff8ed; background: var(--public-action); border-color: var(--public-action); }
 :root[data-theme="dark"] .plan-art { mix-blend-mode: screen; opacity: .1; }
-:root[data-theme="dark"] .saved-worksheet-action { color: var(--cobalt-strong); background: var(--surface); border-color: var(--cobalt); }
-:root[data-theme="dark"] .saved-worksheet-action:hover,
-:root[data-theme="dark"] .saved-worksheet-action:focus-visible { background: var(--cobalt-faint); outline-color: var(--cobalt); }
-:root[data-theme="dark"] .saved-worksheet-action-edit,
-:root[data-theme="dark"] .saved-worksheet-action-edit:hover,
-:root[data-theme="dark"] .saved-worksheet-action-edit:focus-visible { color: #fff; background: #286146; border-color: #65aa86; }
-:root[data-theme="dark"] .saved-worksheet-action-delete { color: var(--danger); border-color: var(--danger); }
-:root[data-theme="dark"] .saved-worksheet-action-delete:hover,
-:root[data-theme="dark"] .saved-worksheet-action-delete:focus-visible { background: var(--danger-soft); }
-:root[data-theme="dark"] .saved-worksheets-error { color: var(--danger); }
-:root[data-theme="dark"] .saved-worksheets,
-:root[data-theme="dark"] .saved-worksheet-card { border-color: var(--line); }
-:root[data-theme="dark"] .saved-worksheet-info time,
-:root[data-theme="dark"] .saved-worksheets-empty,
 :root[data-theme="dark"] .worksheet-library-header > p:not(.eyebrow) { color: var(--muted); }
 :root[data-theme="dark"] .dashboard-worksheets-link { color: var(--ink); }
 :root[data-theme="dark"] .dashboard-worksheets-link:hover,

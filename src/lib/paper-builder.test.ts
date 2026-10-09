@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { generatePaper, type PaperCandidate } from "@/lib/paper-builder";
+import { generatePaper, paperCalculator, type PaperCandidate } from "@/lib/paper-builder";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
@@ -79,5 +79,19 @@ describe("generatePaper", () => {
     expect(new Set(result.questions.map((question) => question.id)).size).toBe(10);
     expect(result.questions.every((question) => question.year >= 2023 && question.year <= 2025)).toBe(true);
     expect(result.totalMarks).toBeGreaterThan(0);
+  });
+});
+
+describe("paperCalculator", () => {
+  it("returns the shared value, or null when a paper mixes or lacks values", () => {
+    const pool = [
+      { paper: 1, calculator: false }, { paper: 1, calculator: false },
+      { paper: 2, calculator: false }, { paper: 2, calculator: true },
+      { paper: 3, calculator: null },
+    ];
+    expect(paperCalculator(pool, 1)).toBe(false);
+    expect(paperCalculator(pool, 2)).toBeNull();
+    expect(paperCalculator(pool, 3)).toBeNull();
+    expect(paperCalculator(pool, 4)).toBeNull();
   });
 });

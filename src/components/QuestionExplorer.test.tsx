@@ -761,6 +761,18 @@ describe("QuestionExplorer", () => {
     expect(screen.queryByRole("group", { name: /course/i })).not.toBeInTheDocument();
   });
 
+  it("offers the calculator filter for IB AA but not for IB AI", () => {
+    const aa = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 40), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const { unmount } = render(<QuestionExplorer questions={aa} access={fullAccess} />);
+    fireEvent.click(screen.getByRole("button", { name: /more filters/i }));
+    expect(screen.getByRole("group", { name: /calculator/i })).toBeInTheDocument();
+    unmount();
+    const ai = prepareQuestionsForDelivery(loadBankQuestions("ib-ai-sl").slice(0, 40), [{ productId: "bank_ib_ai_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    render(<QuestionExplorer questions={ai} access={fullAccess} />);
+    fireEvent.click(screen.getByRole("button", { name: /more filters/i }));
+    expect(screen.queryByRole("group", { name: /calculator/i })).not.toBeInTheDocument();
+  });
+
   it("shows clean current subtopics and distinct earlier-only filters", async () => {
     window.history.replaceState({}, "", "/banks/igcse-additional");
     const bank = loadBankQuestions("igcse-additional");

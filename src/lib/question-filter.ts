@@ -96,6 +96,8 @@ export function filterQuestions(questions: UnifiedQuestion[], filters: QuestionF
     if (!includesAny(filters.options, [question.option])) return false;
     if (!includesAny(filters.components, [question.component])) return false;
     if (filters.calculator?.length) {
+      // Unknown status matches neither option.
+      if (question.calculator === null) return false;
       const mode = question.calculator ? "calculator" : "non-calculator";
       if (!filters.calculator.includes(mode)) return false;
     }

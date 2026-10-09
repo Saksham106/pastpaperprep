@@ -135,4 +135,37 @@ describe("PaperBuilder", () => {
     expect(screen.getByRole("region", { name: "Generated paper preview" })).toBeInTheDocument();
     expect(screen.queryByRole("link", { name: "Open paper" })).not.toBeInTheDocument();
   });
+
+  it("badges each 0580 paper by calculator status for the chosen years and explains the 2025 change", async () => {
+    const igcse = { slug: "igcse" as const, label: "Mathematics 0580", indexUrl: "/igcse.json" };
+    const row = (id: string, paper: number, year: number, calculator: boolean) => ({ ...metadata(id, paper, year, 4, "Number"), calculator });
+    const igcseIndex = { version: 1, bank: "igcse", questions: [row("p1-new", 1, 2025, false), row("p1-old", 1, 2024, true), row("p4", 4, 2025, true)] };
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(Response.json(igcseIndex)));
+    render(<PaperBuilder banks={[igcse]} />);
+    await screen.findByRole("spinbutton", { name: "Paper 1 questions" });
+    expect(screen.getByText(/Before 2025 every paper allowed a calculator\. From 2025, Papers 1 and 2 are non-calculator\./)).toBeInTheDocument();
+    const paper1 = () => screen.getByRole("spinbutton", { name: "Paper 1 questions" }).closest(".paper-builder-target")!;
+    const paper4 = () => screen.getByRole("spinbutton", { name: "Paper 4 questions" }).closest(".paper-builder-target")!;
+    expect(within(paper1() as HTMLElement).queryByText(/CALCULATOR/)).not.toBeInTheDocument();
+    expect(within(paper4() as HTMLElement).getByText("CALCULATOR")).toBeInTheDocument();
+    fireEvent.change(screen.getByLabelText("From year"), { target: { value: "2025" } });
+    expect(within(paper1() as HTMLElement).getByText("NO CALCULATOR")).toBeInTheDocument();
+  });
+
+  it("shows no calculator badges or hint for science banks", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(Response.json(index)));
+    render(<PaperBuilder banks={[bank]} />);
+    await screen.findByRole("spinbutton", { name: "Paper 1 questions" });
+    expect(screen.queryByText(/CALCULATOR/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Before 2025 every paper allowed a calculator/)).not.toBeInTheDocument();
+  });
+  it("starts on the bank the teacher came from", async () => {
+    const second = { ...bank, slug: "igcse-physics-0625" as const, label: "Physics 0625", indexUrl: "/physics.json" };
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(Response.json({ ...index, bank: "igcse-physics-0625" })));
+    render(<PaperBuilder banks={[bank, second]} initialBank="igcse-physics-0625" />);
+    expect(screen.getByLabelText("Question bank")).toHaveValue("igcse-physics-0625");
+    fireEvent.change(await screen.findByRole("spinbutton", { name: "Paper 1 questions" }), { target: { value: "1" } });
+    fireEvent.click(screen.getByRole("button", { name: "Generate paper" }));
+    expect(screen.getByDisplayValue("Physics 0625 practice paper")).toBeInTheDocument();
+  });
 });

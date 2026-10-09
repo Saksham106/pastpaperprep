@@ -3,6 +3,7 @@ import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
 import type { SignedAsset } from "@/lib/signed-assets";
 import type { SourcePrintSegment } from "@/lib/print-geometry";
 import { fetchVerifiedImageBlob } from "@/lib/verified-asset-bytes";
+import { calculatorBadgeText } from "@/lib/calculator-policy.mjs";
 import { verify0606PdfMetadata } from "@/lib/verified-0606-client";
 
 export { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
@@ -289,9 +290,26 @@ export async function downloadQuestionPdf(
     nextImageY = headerMode === "compact" ? PDF_COMPACT_TOP_MM : PDF_TOP_MM;
   };
 
+  // Boxed tag beside the marks: solid for "NO CALCULATOR" so it stands out like the exam's own warning.
+  const drawCalculatorBadge = (badge: string, rightMm: number, topMm: number) => {
+    pdf.setFont("helvetica", "bold");
+    pdf.setFontSize(6.5);
+    const width = pdf.getTextWidth(badge) + 2.4;
+    const x = rightMm - width;
+    const solid = badge === "NO CALCULATOR";
+    pdf.setLineWidth(0.25);
+    pdf.setDrawColor(25, 25, 23);
+    pdf.setFillColor(25, 25, 23);
+    pdf.roundedRect(x, topMm + 0.4, width, 3.4, 0.6, 0.6, solid ? "FD" : "S");
+    if (solid) pdf.setTextColor(255, 255, 255); else pdf.setTextColor(25, 25, 23);
+    pdf.text(badge, x + 1.2, topMm + 2.9);
+    pdf.setFont("helvetica", "normal");
+  };
+
   const placeImage = (
     image: PreparedPdfImage, size: readonly [number, number] | null | undefined, plainTextOnly: boolean, fallbackDpi: number,
-    questionId: string, kind: "question" | "answer", imageIndex: number, label: string, marks: number | null, continued: boolean,
+    questionId: string, kind: "question" | "answer", imageIndex: number, label: string, marks: number | null,
+    calculator: boolean | null, continued: boolean,
   ) => {
     let placement = planWholePdfImage(image.width, image.height, size, plainTextOnly, fallbackDpi);
     const labelFits = (top: number) => top + 5 + placement.heightMm <= placement.pageHeightMm - PDF_BOTTOM_MM + 0.001;
@@ -319,7 +337,10 @@ export async function downloadQuestionPdf(
       pdf.setTextColor(76, 88, 85);
       pdf.text(`${label}${continued ? " (continued)" : ""}`, Math.max(8, placement.xMm), nextImageY + 3);
       const detail = continued ? "" : kind === "answer" ? "Official answer" : Number.isFinite(marks) && marks !== null ? `${marks} marks` : "";
-      if (detail) pdf.text(detail, Math.min(placement.pageWidthMm - 8, placement.xMm + placement.widthMm), nextImageY + 3, { align: "right" });
+      const rightEdge = Math.min(placement.pageWidthMm - 8, placement.xMm + placement.widthMm);
+      if (detail) pdf.text(detail, rightEdge, nextImageY + 3, { align: "right" });
+      const badge = kind === "question" ? calculatorBadgeText(calculator) : null;
+      if (badge) drawCalculatorBadge(badge, rightEdge - (detail ? pdf.getTextWidth(detail) + 2 : 0), nextImageY);
       nextImageY += labelSpace;
     }
     pdf.addImage(image.canvas.toDataURL("image/jpeg", 0.98), "JPEG",
@@ -332,7 +353,7 @@ export async function downloadQuestionPdf(
 
   const addImagePage = async (
     bankSlug: UnifiedQuestion["bankSlug"], questionId: string, kind: "question" | "answer", imageIndex: number, source: string,
-    label: string, marks: number | null,
+    label: string, marks: number | null, calculator: boolean | null,
     physicalSizePt?: readonly [number, number] | null,
     sourceSegments?: readonly SourcePrintSegment[] | null,
     expectedRaster?: readonly [number, number] | null,
@@ -386,14 +407,14 @@ export async function downloadQuestionPdf(
     const whole = planWholePdfImage(loaded.naturalWidth, visibleHeight, wholeSize, shortAnswerRow, fallbackDpi);
     if (hiddenOnlyAtEnd && (!segments || kept.length === 1 || (whole.scale === 1 && !whole.heldReason))) {
       placeImage(preparePdfImage(loaded, visibleHeight), wholeSize, shortAnswerRow, fallbackDpi,
-        questionId, kind, imageIndex, label, marks, imageIndex > 0);
+        questionId, kind, imageIndex, label, marks, calculator, imageIndex > 0);
       return;
     }
     // Too tall for one A4 page at print size: break only where the exam paper itself breaks,
     // so every source page keeps its printed size and no diagram is ever cut.
     for (const [partIndex, part] of kept.entries()) {
       placeImage(preparePdfImage(loaded, part.sourceHeight, part.sourceY), [physicalSizePt![0], part.physicalHeightPt],
-        false, fallbackDpi, questionId, kind, imageIndex, label, marks, imageIndex > 0 || partIndex > 0);
+        false, fallbackDpi, questionId, kind, imageIndex, label, marks, calculator, imageIndex > 0 || partIndex > 0);
     }
   };
 
@@ -412,7 +433,7 @@ export async function downloadQuestionPdf(
           question.questionPrintSegments?.[index] && question.questionRasterSizesPx?.[index]) {
           await verify0606PdfMetadata(question, "question", index);
         }
-        await addImagePage(question.bankSlug, question.id, "question", index, source, label, question.marks,
+        await addImagePage(question.bankSlug, question.id, "question", index, source, label, question.marks, question.calculator ?? null,
           question.questionPrintSizesPt?.[index], question.questionPrintSegments?.[index], question.questionRasterSizesPx?.[index]);
       }
     } else {
@@ -422,7 +443,7 @@ export async function downloadQuestionPdf(
             question.markschemePrintSegments?.[index] && question.markschemeRasterSizesPx?.[index]) {
             await verify0606PdfMetadata(question, "answer", index);
           }
-          await addImagePage(question.bankSlug, question.id, "answer", index, source, label, question.marks,
+          await addImagePage(question.bankSlug, question.id, "answer", index, source, label, question.marks, null,
             question.markschemePrintSizesPt?.[index], question.markschemePrintSegments?.[index], question.markschemeRasterSizesPx?.[index]);
         }
       } else if (question.solution) {
