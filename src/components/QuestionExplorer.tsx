@@ -31,7 +31,7 @@ import "./worksheet-workspace.css";
 type MultiKey = ExplorerFilterKey;
 
 const SECONDARY_FILTER_KEYS: MultiKey[] = [
-  "years", "sessions", "papers", "components", "calculator", "subjects", "courseEras", "options", "zones", "granularLabels", "officialCodeRefs", "retrievalFacets",
+  "sessions", "components", "calculator", "subjects", "courseEras", "options", "zones", "granularLabels", "officialCodeRefs", "retrievalFacets",
 ];
 
 const SORT_OPTIONS: readonly { value: QuestionSort; label: string }[] = [
@@ -281,12 +281,14 @@ access: ExplorerAccess;
     [catalogQuestions, filters.topics, filters.subtopics, bank],
   );
   const cleanMaths = isCleanMathsBank(bank);
-  const visibleSubtopics = cleanMaths
+  const subtopicsCollapsed = !filters.topics?.length && !showAllSubtopics;
+  const keepSelectedSubtopics = (values: string[]) => subtopicsCollapsed ? values.filter((value) => (filters.subtopics ?? []).includes(value)) : values;
+  const visibleSubtopics = keepSelectedSubtopics(cleanMaths
     ? subtopicGroups.relevant.filter(value => !isMathsEarlierToken(value))
     : filters.topics?.length
       ? showAllSubtopics ? subtopicGroups.all : [...subtopicGroups.relevant, ...subtopicGroups.selectedOutsideContext]
-      : subtopicGroups.all;
-  const earlierSubtopics = cleanMaths && "earlier" in subtopicGroups && Array.isArray(subtopicGroups.earlier) ? subtopicGroups.earlier : [];
+      : subtopicGroups.all);
+  const earlierSubtopics = keepSelectedSubtopics(cleanMaths && "earlier" in subtopicGroups && Array.isArray(subtopicGroups.earlier) ? subtopicGroups.earlier : []);
   const routeScopedQuestions = useMemo(
     () => catalogQuestions.filter((question) => matchesCourseRoute(question.syllabusRoute, effectiveCourseRoute)),
     [catalogQuestions, effectiveCourseRoute],
@@ -1052,13 +1054,14 @@ access: ExplorerAccess;
           <FilterGroup label="Topics" filterKey="topics" values={options.topics} selected={filters.topics ?? []} onToggle={toggle} />
           <FilterGroup label="Subtopics" filterKey="subtopics" values={visibleSubtopics} selected={filters.subtopics ?? []} onToggle={toggle} bank={bank} />
           <FilterGroup label="Earlier syllabus" filterKey="subtopics" values={earlierSubtopics} selected={filters.subtopics ?? []} onToggle={toggle} bank={bank} />
+          {!filters.topics?.length && subtopicGroups.all.length > 0 && <button className="text-button subtopic-more" type="button" aria-expanded={showAllSubtopics} onClick={() => setShowAllSubtopics((show) => !show)}>{showAllSubtopics ? "Hide subtopics" : "Show all subtopics"}</button>}
           {!cleanMaths && !!filters.topics?.length && !!subtopicGroups.other.length && <button className="text-button subtopic-more" aria-expanded={showAllSubtopics} onClick={() => setShowAllSubtopics((show) => !show)}>{showAllSubtopics ? "Hide other subtopics" : "Show other subtopics"}</button>}
+          <FilterGroup label="Years" filterKey="years" values={options.years} selected={filters.years ?? []} onToggle={toggle} />
+          <FilterGroup label="Papers" filterKey="papers" values={options.papers} selected={filters.papers ?? []} onToggle={toggle} />
           <button className="more-filters-button" type="button" aria-expanded={showMoreFilters} onClick={() => setShowMoreFilters((show) => !show)}><Funnel aria-hidden="true" /> {showMoreFilters ? "Fewer filters" : "More filters"}</button>
           <div className={`secondary-filters${showMoreFilters ? " is-open" : ""}`} aria-hidden={!showMoreFilters} inert={showMoreFilters ? undefined : true}>
             <div className="secondary-filters-inner">
-              <FilterGroup label="Years" filterKey="years" values={options.years} selected={filters.years ?? []} onToggle={toggle} />
               <FilterGroup label="Sessions" filterKey="sessions" values={options.sessions} selected={filters.sessions ?? []} onToggle={toggle} />
-              <FilterGroup label="Papers" filterKey="papers" values={options.papers} selected={filters.papers ?? []} onToggle={toggle} />
               {isCambridge && <FilterGroup label="Components" filterKey="components" values={options.components} selected={filters.components ?? []} onToggle={toggle} />}
               {isCambridge && <FilterGroup label="Time zone / variant" filterKey="zones" values={options.zones} selected={filters.zones ?? []} onToggle={toggle} />}
               {calculatorFilter && <FilterGroup label="Calculator" filterKey="calculator" values={["calculator", "non-calculator"]} selected={filters.calculator ?? []} onToggle={toggle} />}

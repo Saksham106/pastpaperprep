@@ -743,6 +743,7 @@ describe("QuestionExplorer", () => {
     expect(screen.queryByRole("link", { name: /mark scheme/i })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /transcript/i })).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: /download pdf/i })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Show all subtopics" }));
     expect(screen.getByRole("group", { name: /subtopics/i })).toBeInTheDocument();
     expect(await screen.findByRole("img", { name: /original question/i })).toBeInTheDocument();
   });
@@ -779,6 +780,7 @@ describe("QuestionExplorer", () => {
     const chosen = [bank.find(q => q.subtopics.includes("1.2 Domain and range"))!, bank.find(q => q.subtopics.includes("Matrices") && !q.subtopics.some(v => /^\d+\.\d+ /.test(v)))!];
     const questions = prepareQuestionsForDelivery(chosen, [{ productId: "bank_igcse_additional", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
     render(<QuestionExplorer questions={questions} bankSlug="igcse-additional" access={fullAccess} />);
+    fireEvent.click(screen.getByRole("button", { name: "Show all subtopics" }));
     const subtopics = screen.getByRole("group", { name: "Subtopics" });
     expect(within(subtopics).queryByRole("checkbox", { name: "Subtopics: Functions" })).not.toBeInTheDocument();
     expect(within(subtopics).getByRole("checkbox", { name: "Subtopics: Domain and range" })).toBeInTheDocument();
@@ -916,12 +918,36 @@ describe("QuestionExplorer", () => {
 
   it("opens additional filters when a shared workspace already uses one", () => {
     const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-hl").slice(0, 120), [{ productId: "bank_ib_hl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
-    const year = String(questions[0].year);
-    render(<QuestionExplorer questions={questions} access={fullAccess} initialState={{ search: "", sort: "paper", filters: { years: [year] }, freeOnly: false, savedOnly: false, courseRoute: "all", visible: 24 }} />);
+    const session = questions[0].session;
+    render(<QuestionExplorer questions={questions} access={fullAccess} initialState={{ search: "", sort: "paper", filters: { sessions: [session] }, freeOnly: false, savedOnly: false, courseRoute: "all", visible: 24 }} />);
 
     expect(screen.getByRole("button", { name: /fewer filters/i })).toHaveAttribute("aria-expanded", "true");
-    expect(screen.getByRole("group", { name: /years/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: new RegExp(`^${year}$`) })).toBeInTheDocument();
+    expect(screen.getByRole("group", { name: /sessions/i })).toBeInTheDocument();
+    expect(screen.getByRole("checkbox", { name: `Sessions: ${session}` })).toBeChecked();
+  });
+
+  it("shows Years and Papers without opening more filters", () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("igcse").slice(0, 40), [{ productId: "bank_igcse", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    render(<QuestionExplorer questions={questions} access={fullAccess} />);
+    expect(screen.getByRole("group", { name: "Years" }).closest(".secondary-filters")).toBeNull();
+    expect(screen.getByRole("group", { name: "Papers" }).closest(".secondary-filters")).toBeNull();
+    expect(screen.getByRole("button", { name: /more filters/i })).toHaveAttribute("aria-expanded", "false");
+  });
+
+  it("collapses subtopics until a topic is chosen but keeps selected ones visible", () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("igcse").slice(0, 200), [{ productId: "bank_igcse", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    render(<QuestionExplorer questions={questions} bankSlug="igcse" access={fullAccess} />);
+    expect(screen.queryByRole("group", { name: "Subtopics" })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Show all subtopics" }));
+    const all = within(screen.getByRole("group", { name: "Subtopics" })).getAllByRole("checkbox");
+    expect(all.length).toBeGreaterThan(1);
+    const name = all[0].getAttribute("aria-label")!;
+    fireEvent.click(all[0]);
+    fireEvent.click(screen.getByRole("button", { name: "Hide subtopics" }));
+    const kept = within(screen.getByRole("group", { name: "Subtopics" })).getAllByRole("checkbox");
+    expect(kept).toHaveLength(1);
+    expect(kept[0]).toHaveAttribute("aria-label", name);
+    expect(kept[0]).toBeChecked();
   });
 
   it("outlines a card added to the PDF and labels the mark scheme", async () => {
@@ -1141,6 +1167,7 @@ describe("QuestionExplorer", () => {
     }]);
     render(<QuestionExplorer questions={questions} access={fullAccess} />);
 
+    fireEvent.click(screen.getByRole("button", { name: "Show all subtopics" }));
     const subtopics = screen.getByRole("group", { name: /subtopics/i });
     expect(within(subtopics).getByRole("checkbox", { name: `Subtopics: ${publicSkill}` })).toBeInTheDocument();
     expect(within(subtopics).queryByRole("checkbox", { name: `Subtopics: ${internalSkill}` })).not.toBeInTheDocument();
