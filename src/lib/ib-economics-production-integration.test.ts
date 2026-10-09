@@ -128,7 +128,7 @@ describe("IB Economics production integration", () => {
   });
 
   it("keeps the database migration inactive and free of invented Stripe identifiers", () => {
-    const migration = readFileSync(join(ROOT, "supabase/migrations/20260911010000_add_ib_economics_candidate.sql"), "utf8");
+    const migration = readFileSync(join(ROOT, "supabase/unapplied/20260911010000_add_ib_economics_candidate.sql"), "utf8");
     for (const productId of ECONOMICS_PRODUCT_IDS) expect(migration).toContain(productId);
     expect(migration).toContain("('bank_ib_economics_hl', 'IB Economics HL', false)");
     expect(migration).toContain("('bank_ib_economics_sl', 'IB Economics SL', false)");
