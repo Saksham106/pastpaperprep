@@ -67,6 +67,11 @@ Today's card has a header made of five grey chips, a topic row, an exam image in
     - Clean-maths banks show the relevant subtopics.
     - Other banks show relevant plus selected-outside subtopics, with "Show other subtopics".
   - `showAllSubtopics` resets when the topics change, as today.
+- **Checkboxes** (filter groups and the card's Add to PDF): a custom checkbox instead of the native one with only a cobalt tint, which shows a faint, thin tick.
+  - Size and border: 16px, 1.5px `--line-strong` border, 4px radius.
+  - Checked: a solid `--cobalt` fill with a clearly visible white tick (CSS mask, so it themes correctly).
+  - A visible focus ring.
+  - The same in light and dark mode. It is still a real `<input type="checkbox">`, so keyboard and screen-reader behaviour are unchanged.
 - **Sidebar styling**: clearer group headings, consistent spacing between groups, and a cobalt checked state. There is no change to the markup roles or labels, other than the new hint and button.
 
 ## 4. Save PDF flow
@@ -123,6 +128,10 @@ Landing page (a separate PR), a practice or focus mode, a syllabus tree with cou
   - 0580 (free, anonymous) and IB AA SL (paid account) at desktop and phone widths, in light and dark mode.
   - Save PDF end to end, then open the worksheet and download.
 - `npm run lint`, `npm run typecheck`, `npm test` and `npm run build` must all pass.
+
+## Style note
+
+UI copy stays short and plain. Don't add explanatory text beyond what is specified here; prefer whitespace and hierarchy to extra labels.
 
 ## Risks
 
