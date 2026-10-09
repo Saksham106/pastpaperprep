@@ -39,7 +39,7 @@ describe("calculator filter", () => {
     const unknown = { ...question("unknown", "c", "f"), calculator: null };
     const none = { ...question("none", "c", "f"), calculator: false };
     const allowed = { ...question("allowed", "c", "f"), calculator: true };
-    const ids = (calculator: string[]) => filterQuestions([unknown, none, allowed], { calculator }).map((item) => item.id);
+    const ids = (calculator: Array<"calculator" | "non-calculator">) => filterQuestions([unknown, none, allowed], { calculator }).map((item) => item.id);
     expect(ids(["non-calculator"])).toEqual(["none"]);
     expect(ids(["calculator"])).toEqual(["allowed"]);
   });
