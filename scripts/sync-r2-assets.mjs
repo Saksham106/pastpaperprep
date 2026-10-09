@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { createReadStream } from "node:fs";
 import { readFile, realpath, stat } from "node:fs/promises";
@@ -8,7 +9,21 @@ import { fileURLToPath } from "node:url";
 import { ListObjectsV2Command, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const WORKSPACE_ROOT = resolve(REPO_ROOT, "..");
+// Source repositories are siblings of the main checkout. Resolve through Git's common directory so the
+// script finds them from a linked worktree (for example .worktrees/<name>) as well.
+function workspaceRoot() {
+  try {
+    const commonDir = execFileSync("git", ["-C", REPO_ROOT, "rev-parse", "--path-format=absolute", "--git-common-dir"], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    }).trim();
+    return resolve(dirname(commonDir), "..");
+  } catch {
+    return resolve(REPO_ROOT, "..");
+  }
+}
+
+const WORKSPACE_ROOT = workspaceRoot();
 const BUCKET = process.env.R2_BUCKET_NAME ?? "pastpaperprep-assets";
 const ACCOUNT_ID = process.env.R2_ACCOUNT_ID;
 const ACCESS_KEY_ID = process.env.R2_SYNC_ACCESS_KEY_ID;
@@ -19,19 +34,37 @@ const IGCSE_SOURCE_ROOT = process.env.PASTPAPERPREP_IGCSE_0580_SOURCE_ROOT
   ? resolve(process.env.PASTPAPERPREP_IGCSE_0580_SOURCE_ROOT)
   : join(WORKSPACE_ROOT, "igcse-0580-topic-practice/site");
 
+// IB science 2016–2019 extension rows reference their images by public URL. The URL path is the R2 key
+// (see storageObjectPath in src/lib/assets.ts); the committed upload manifest maps each key to its source
+// file, which lives outside site/ (site-extension/, data-extension/site/, site/*-extension/).
+function ibScience(bank, repository) {
+  return {
+    bank,
+    root: join(WORKSPACE_ROOT, repository, "site"),
+    raw: join(REPO_ROOT, `src/data/raw/${bank}.json`),
+    imageFields: ["questionImages"],
+    officialMarkschemeImages: true,
+    publicRoot: `https://saksham106.github.io/${repository}/`,
+    extension: {
+      repositoryRoot: join(WORKSPACE_ROOT, repository),
+      manifest: join(REPO_ROOT, `docs/ib-science-storage/${bank}.pending-upload-manifest.json`),
+    },
+  };
+}
+
 const SOURCES = [
   { bank: "igcse", root: IGCSE_SOURCE_ROOT, raw: join(REPO_ROOT, "src/data/raw/igcse.json"), imageFields: ["questionImages", "markschemeImages"] },
-  { bank: "igcse-additional", root: join(WORKSPACE_ROOT, "igcse-additional-mathematics-0606-topic-practice-full-audit-final/site"), raw: join(REPO_ROOT, "src/data/raw/igcse-additional.json"), imageFields: ["questionImages", "markschemeImages"] },
+  { bank: "igcse-additional", root: join(WORKSPACE_ROOT, "igcse-additional-mathematics-0606-topic-practice/site"), raw: join(REPO_ROOT, "src/data/raw/igcse-additional.json"), imageFields: ["questionImages", "markschemeImages"] },
   { bank: "ib-hl", root: join(WORKSPACE_ROOT, "ib-maths-aa-hl-topic-practice/site"), raw: join(REPO_ROOT, "src/data/raw/ib-hl.json"), imageFields: ["questionImages"], officialMarkschemeImages: true },
   { bank: "ib-sl", root: join(WORKSPACE_ROOT, "ib-maths-aa-topic-finder-audit/site"), raw: join(REPO_ROOT, "src/data/raw/ib-sl.json"), imageFields: ["questionImages"], officialMarkschemeImages: true },
   { bank: "ib-ai-hl", root: join(WORKSPACE_ROOT, "ib-maths-ai-hl-topic-practice-full-audit-final/site"), raw: join(REPO_ROOT, "src/data/raw/ib-ai-hl.json"), imageFields: ["questionImages"], officialMarkschemeImages: true },
   { bank: "ib-ai-sl", root: join(WORKSPACE_ROOT, "ib-maths-ai-sl-topic-practice-audit-fix-ai-sl/site"), raw: join(REPO_ROOT, "src/data/raw/ib-ai-sl.json"), imageFields: ["questionImages"], officialMarkschemeImages: true },
-  { bank: "ib-chemistry-hl", root: join(WORKSPACE_ROOT, "ib-chemistry-topic-practice/site"), raw: join(REPO_ROOT, "src/data/raw/ib-chemistry-hl.json"), imageFields: ["questionImages"], officialMarkschemeImages: true },
-  { bank: "ib-chemistry-sl", root: join(WORKSPACE_ROOT, "ib-chemistry-topic-practice/site"), raw: join(REPO_ROOT, "src/data/raw/ib-chemistry-sl.json"), imageFields: ["questionImages"], officialMarkschemeImages: true },
-  { bank: "ib-physics-hl", root: join(WORKSPACE_ROOT, "ib-physics-topic-practice/site"), raw: join(REPO_ROOT, "src/data/raw/ib-physics-hl.json"), imageFields: ["questionImages"], officialMarkschemeImages: true },
-  { bank: "ib-physics-sl", root: join(WORKSPACE_ROOT, "ib-physics-topic-practice/site"), raw: join(REPO_ROOT, "src/data/raw/ib-physics-sl.json"), imageFields: ["questionImages"], officialMarkschemeImages: true },
-  { bank: "ib-biology-hl", root: join(WORKSPACE_ROOT, "ib-biology-topic-practice/site"), raw: join(REPO_ROOT, "src/data/raw/ib-biology-hl.json"), imageFields: ["questionImages"], officialMarkschemeImages: true },
-  { bank: "ib-biology-sl", root: join(WORKSPACE_ROOT, "ib-biology-topic-practice/site"), raw: join(REPO_ROOT, "src/data/raw/ib-biology-sl.json"), imageFields: ["questionImages"], officialMarkschemeImages: true },
+  ibScience("ib-chemistry-hl", "ib-chemistry-topic-practice"),
+  ibScience("ib-chemistry-sl", "ib-chemistry-topic-practice"),
+  ibScience("ib-physics-hl", "ib-physics-topic-practice"),
+  ibScience("ib-physics-sl", "ib-physics-topic-practice"),
+  ibScience("ib-biology-hl", "ib-biology-topic-practice"),
+  ibScience("ib-biology-sl", "ib-biology-topic-practice"),
 ];
 
 export { SOURCES };
@@ -87,19 +120,89 @@ function referenceValues(question, source) {
   return values;
 }
 
-function assertSafeReference(source, reference, rootPath) {
-  if (typeof reference !== "string" || !reference.endsWith(".webp") || reference.startsWith("/") || reference.includes("\\")) {
+function assertSafeRelativePath(source, reference, relativePath = reference) {
+  if (typeof relativePath !== "string" || !relativePath.endsWith(".webp") || relativePath.startsWith("/") || relativePath.includes("\\")) {
     throw new Error(`Invalid referenced ${source.bank} asset: ${String(reference)}`);
   }
-  const segments = reference.split("/");
+  const segments = relativePath.split("/");
   if (segments.some((segment) => !segment || segment === "." || segment === "..")) {
     throw new Error(`Referenced ${source.bank} asset escapes source root: ${reference}`);
   }
-  const absolute = resolve(rootPath, reference);
+}
+
+function resolveInside(source, reference, rootPath, relativePath) {
+  const absolute = resolve(rootPath, relativePath);
   if (absolute !== rootPath && !absolute.startsWith(`${rootPath}${sep}`)) {
     throw new Error(`Referenced ${source.bank} asset escapes source root: ${reference}`);
   }
   return absolute;
+}
+
+function isAbsoluteUrl(reference) {
+  return typeof reference === "string" && /^[a-z][a-z0-9+.-]*:/i.test(reference);
+}
+
+/** Mirrors storageObjectPath in src/lib/assets.ts: the R2 key is `${bank}/${path below the public root}`. */
+export function publicUrlRelativeKey(source, reference) {
+  if (!source.publicRoot) throw new Error(`Referenced ${source.bank} asset is a URL but the bank has no public root: ${reference}`);
+  const expectedRoot = new URL(source.publicRoot);
+  let url;
+  try {
+    url = new URL(reference);
+  } catch {
+    throw new Error(`Invalid referenced ${source.bank} asset: ${String(reference)}`);
+  }
+  if (url.protocol !== "https:" || url.origin !== expectedRoot.origin || url.search || url.hash) {
+    throw new Error(`Referenced ${source.bank} asset host is not allowed: ${reference}`);
+  }
+  if (!url.pathname.startsWith(expectedRoot.pathname)) {
+    throw new Error(`Referenced ${source.bank} asset does not belong to ${source.publicRoot}: ${reference}`);
+  }
+  let relativePath;
+  try {
+    relativePath = decodeURIComponent(url.pathname.slice(expectedRoot.pathname.length));
+  } catch {
+    throw new Error(`Invalid referenced ${source.bank} asset: ${reference}`);
+  }
+  assertSafeRelativePath(source, reference, relativePath);
+  return relativePath;
+}
+
+async function loadExtensionManifest(source) {
+  const manifest = JSON.parse(await readFile(source.extension.manifest, "utf8"));
+  if (
+    manifest?.schemaVersion !== "ib-science-pending-upload-manifest.v1" ||
+    manifest.bank !== source.bank ||
+    manifest.prefix !== `${source.bank}/` ||
+    !Array.isArray(manifest.assets)
+  ) {
+    throw new Error(`Invalid ${source.bank} extension upload manifest`);
+  }
+  const repositoryRoot = await realpath(source.extension.repositoryRoot);
+  const byKey = new Map();
+  for (const asset of manifest.assets) {
+    if (!asset || typeof asset.objectKey !== "string" || typeof asset.sourcePath !== "string" || !/^[a-f0-9]{64}$/.test(asset.sha256)) {
+      throw new Error(`Invalid ${source.bank} extension manifest asset`);
+    }
+    assertSafeRelativePath(source, asset.objectKey);
+    assertSafeRelativePath(source, asset.sourcePath);
+    if (byKey.has(asset.objectKey)) throw new Error(`Duplicate ${source.bank} extension manifest key: ${asset.objectKey}`);
+    byKey.set(asset.objectKey, { ...asset, path: resolveInside(source, asset.sourcePath, repositoryRoot, asset.sourcePath) });
+  }
+  return { repositoryRoot, byKey };
+}
+
+async function existingPathInside(source, reference, rootPath, absolute) {
+  let actualPath;
+  try {
+    actualPath = await realpath(absolute);
+  } catch {
+    throw new Error(`Missing referenced ${source.bank} asset: ${reference}`);
+  }
+  if (actualPath !== rootPath && !actualPath.startsWith(`${rootPath}${sep}`)) {
+    throw new Error(`Referenced ${source.bank} asset escapes source root: ${reference}`);
+  }
+  return actualPath;
 }
 
 export async function referencedWebpFiles(source) {
@@ -107,40 +210,53 @@ export async function referencedWebpFiles(source) {
   const raw = JSON.parse(await readFile(source.raw, "utf8"));
   if (!raw || !Array.isArray(raw.questions)) throw new Error(`Invalid runtime JSON questions for ${source.bank}`);
   const rootPath = await realpath(source.root);
-  const relativePaths = new Set();
+  const extension = source.extension ? await loadExtensionManifest(source) : null;
+  const files = new Map();
+  function add(relative, file, reference) {
+    const existing = files.get(relative);
+    if (existing && existing.path !== file.path) {
+      throw new Error(`Referenced ${source.bank} key ${relative} resolves to two source files: ${reference}`);
+    }
+    files.set(relative, existing ?? { ...file, relative });
+  }
   for (const question of raw.questions) {
     if (!question || typeof question !== "object" || Array.isArray(question)) {
       throw new Error(`Invalid runtime question in ${source.bank}`);
     }
     for (const reference of referenceValues(question, source)) {
-      const absolute = assertSafeReference(source, reference, rootPath);
-      let actualPath;
-      try {
-        actualPath = await realpath(absolute);
-      } catch {
-        throw new Error(`Missing referenced ${source.bank} asset: ${reference}`);
+      if (isAbsoluteUrl(reference) && source.publicRoot) {
+        const relative = publicUrlRelativeKey(source, reference);
+        const asset = extension?.byKey.get(relative);
+        if (!asset) throw new Error(`Referenced ${source.bank} asset has no upload manifest entry: ${reference}`);
+        const path = await existingPathInside(source, reference, extension.repositoryRoot, asset.path);
+        add(relative, { path, sha256: asset.sha256 }, reference);
+        continue;
       }
-      if (actualPath !== rootPath && !actualPath.startsWith(`${rootPath}${sep}`)) {
-        throw new Error(`Referenced ${source.bank} asset escapes source root: ${reference}`);
-      }
-      relativePaths.add(reference);
+      assertSafeRelativePath(source, reference);
+      const path = await existingPathInside(source, reference, rootPath, resolveInside(source, reference, rootPath, reference));
+      add(reference, { path }, reference);
     }
   }
-  return [...relativePaths].sort().map((relativePath) => ({ path: join(rootPath, relativePath), relative: relativePath }));
+  return [...files.values()].sort((a, b) => a.relative.localeCompare(b.relative));
 }
 
-async function md5(path) {
-  const hash = createHash("md5");
-  for await (const chunk of createReadStream(path)) hash.update(chunk);
-  return hash.digest("hex");
+async function digests(path) {
+  const md5 = createHash("md5");
+  const sha256 = createHash("sha256");
+  for await (const chunk of createReadStream(path)) {
+    md5.update(chunk);
+    sha256.update(chunk);
+  }
+  return { md5: md5.digest("hex"), sha256: sha256.digest("hex") };
 }
 
 export async function localManifest(sources = SOURCES, concurrency = CONCURRENCY) {
   const groups = await Promise.all(sources.map(async (source) => {
     const files = await referencedWebpFiles(source);
     return files.map((file) => ({
-      key: `${source.bank}/${file.relative.split(sep).join("/")}`,
+      key: `${source.bank}/${file.relative}`,
       path: file.path,
+      expectedSha256: file.sha256,
       size: 0,
       etag: "",
     }));
@@ -151,9 +267,14 @@ export async function localManifest(sources = SOURCES, concurrency = CONCURRENCY
     while (true) {
       const index = next++;
       if (index >= entries.length) return;
-      const metadata = await stat(entries[index].path);
-      entries[index].size = metadata.size;
-      entries[index].etag = await md5(entries[index].path);
+      const entry = entries[index];
+      const metadata = await stat(entry.path);
+      const digest = await digests(entry.path);
+      if (entry.expectedSha256 && digest.sha256 !== entry.expectedSha256) {
+        throw new Error(`Source bytes for ${entry.key} do not match the upload manifest sha256.`);
+      }
+      entry.size = metadata.size;
+      entry.etag = digest.md5;
     }
   }
   await Promise.all(Array.from({ length: Math.min(concurrency, Math.max(1, entries.length)) }, worker));
