@@ -73,7 +73,7 @@ describe("local Economics preview routes", () => {
     expect(response.status).toBe(404);
   });
 
-  it("does not let spoofed forwarded headers change the development gate", async () => {
+  withSource("does not let spoofed forwarded headers change the development gate", async () => {
     process.env = { ...env, NODE_ENV: "development", PASTPAPERPREP_ENABLE_LOCAL_IB_ECONOMICS_PREVIEW: "true", PASTPAPERPREP_IB_ECONOMICS_SOURCE_ROOT: SOURCE_ROOT };
     const question = (await loadBankQuestions("ib-economics-hl")).find((item) => item.id === "2025-may-tz1-hl-p1-q01")!;
     const assetPath = question.questionImages[0].replace("/api/local-preview-assets/", "").split("/");
