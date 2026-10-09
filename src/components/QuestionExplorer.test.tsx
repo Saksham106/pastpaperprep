@@ -834,6 +834,37 @@ describe("QuestionExplorer", () => {
     expect(screen.getByRole("button", { name: /retry images/i })).toBeInTheDocument();
   });
 
+  it("quietly re-signs a question image whose signed URL expired instead of showing the retry banner", async () => {
+    let issued = 0;
+    const fetchMock = vi.fn(async (_input: RequestInfo | URL, init?: RequestInit) => {
+      const body = JSON.parse(String(init?.body));
+      issued += 1;
+      return new Response(JSON.stringify({
+        expiresIn: 600,
+        assets: body.requests.map((request: { questionId: string; kind: string }) => ({ ...request, urls: [`https://assets.example/${request.questionId}-v${issued}.webp`] })),
+      }), { status: 200 });
+    });
+    vi.stubGlobal("fetch", fetchMock);
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("igcse").slice(0, 1), [{ productId: "bank_igcse", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    render(<QuestionExplorer questions={questions} access={fullAccess} />);
+
+    const first = await screen.findByRole("img", { name: /original question/i });
+    expect(first.getAttribute("src")).toContain("-v1.webp");
+    const signedAt = Date.now();
+    const now = vi.spyOn(Date, "now").mockReturnValue(signedAt + 11 * 60_000);
+    try {
+      fireEvent.error(first);
+      await waitFor(() => expect(screen.getByRole("img", { name: /original question/i }).getAttribute("src")).toContain("-v2.webp"));
+      expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+
+      // A fresh URL that still fails is a real failure, so the retry banner appears.
+      fireEvent.error(screen.getByRole("img", { name: /original question/i }));
+      expect(screen.getByRole("alert")).toHaveTextContent("Some question images could not load.");
+    } finally {
+      now.mockRestore();
+    }
+  });
+
   it("keeps IB time zones available inside compact additional filters", () => {
     const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-hl").slice(0, 120), [{ productId: "bank_ib_hl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
     render(<QuestionExplorer questions={questions} access={fullAccess} />);
