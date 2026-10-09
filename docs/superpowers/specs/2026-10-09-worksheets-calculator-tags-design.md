@@ -16,7 +16,7 @@ Out of scope (later phases): the bank-page question explorer redesign and the la
 
 Layout chosen in the visual review ("A panel, slimmed" + "C table"):
 
-- **Header:** back link, eyebrow "Your work", serif "My worksheets" title. No build button in the header.
+- **Header:** back link, eyebrow "Your work", "My worksheets" title in the existing page heading style. No build button in the header.
 - **Build panel:** a slim surface card: small paper-with-plus icon, "Build a paper", one line
   "A printable mock from any bank, with its mark scheme.", primary button **Start building →**
   linking to `/worksheets/build`.
@@ -61,8 +61,10 @@ TypeScript app import it). `calculatorAllowed(bank, { paper, year })` returns `t
 - **Data correction:** this changes 691 pre-2025 0606 Paper 1 questions from non-calculator to calculator.
   Evidence: pre-2025 questions on both 0606 papers say "do not use a calculator in this question" (29 on
   Paper 1, 51 on Paper 2), while 2025+ Paper 1 has none; the site's own assessment guide describes 2025+
-  Paper 1 as the non-calculator paper. The raw `papers[]` entries in `src/data/raw/igcse-additional.json`
-  are corrected to match so the data no longer disagrees with the rule.
+  Paper 1 as the non-calculator paper. The correction lives in the rule: the raw file
+  `src/data/raw/igcse-additional.json` is left untouched because audit tests pin a fingerprint of every
+  non-classification field per question (`calculator` included). A test pins exactly which 691 questions
+  the rule changes.
 - **Badge = the paper's rule.** Some questions on calculator papers forbid a calculator for one part; that
   instruction is already printed in the question image. We do not guess per question from transcribed text.
 - **Filter bug:** `src/lib/question-filter.ts` currently treats `null` as non-calculator. Unknown values will
