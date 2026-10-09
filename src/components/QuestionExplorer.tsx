@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from "react";
+import { CALCULATOR_FILTER_BANKS } from "@/lib/calculator-policy.mjs";
 import Image from "next/image";
 import Link from "next/link";
 import { BookmarkSimple, CaretDown, Check, CheckCircle, DownloadSimple, Funnel, MagnifyingGlass, ShareNetwork, X } from "@phosphor-icons/react";
@@ -269,6 +270,7 @@ access: ExplorerAccess;
   const routeSupported = supportsCourseRoute(bank);
   const effectiveCourseRoute: CourseRouteSelection = routeSupported ? courseRoute : "all";
   const isCambridge = bank === "igcse" || bank === "igcse-additional";
+  const calculatorFilter = (CALCULATOR_FILTER_BANKS as readonly string[]).includes(bank);
   const plansHref = plansHrefFor(resolvedAccess.authenticated);
   // Static bank pages start with anonymous-safe data. Keep that provisional free filter
   // out of the visible workspace until the member bootstrap resolves, and never apply it
@@ -1059,7 +1061,7 @@ access: ExplorerAccess;
               <FilterGroup label="Papers" filterKey="papers" values={options.papers} selected={filters.papers ?? []} onToggle={toggle} />
               {isCambridge && <FilterGroup label="Components" filterKey="components" values={options.components} selected={filters.components ?? []} onToggle={toggle} />}
               {isCambridge && <FilterGroup label="Time zone / variant" filterKey="zones" values={options.zones} selected={filters.zones ?? []} onToggle={toggle} />}
-              {isCambridge && <FilterGroup label="Calculator" filterKey="calculator" values={["calculator", "non-calculator"]} selected={filters.calculator ?? []} onToggle={toggle} />}
+              {calculatorFilter && <FilterGroup label="Calculator" filterKey="calculator" values={["calculator", "non-calculator"]} selected={filters.calculator ?? []} onToggle={toggle} />}
               {options.granularLabels.length > 0 && <FilterGroup label="Granular labels" filterKey="granularLabels" values={options.granularLabels} selected={filters.granularLabels ?? []} onToggle={toggle} />}
               {bank === "ib-economics-hl" || bank === "ib-economics-sl" ? <>
                 {options.officialCodeRefs.length > 0 && <FilterGroup label="Official units / codes" filterKey="officialCodeRefs" values={options.officialCodeRefs} selected={filters.officialCodeRefs ?? []} onToggle={toggle} />}
