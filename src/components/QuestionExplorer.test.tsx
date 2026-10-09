@@ -1015,6 +1015,7 @@ describe("QuestionExplorer", () => {
     // "sign in and choose a plan" calls to action were collapsed into this single CTA.
     expect(screen.getAllByRole("link", { name: /^view plans$/i })).toHaveLength(1);
     expect(screen.getByRole("link", { name: /^view plans$/i })).toHaveAttribute("href", "/login?next=/pricing");
+    expect(screen.getByRole("link", { name: /^view plans$/i })).toHaveClass("free-value-link");
     expect(screen.queryByRole("button", { name: /preview full bank/i })).not.toBeInTheDocument();
     expect(screen.queryByText(/sign in and choose a plan/i)).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("checkbox", { name: /free questions only/i }));

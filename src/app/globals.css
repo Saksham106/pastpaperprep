@@ -279,7 +279,7 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .dashboard-bank-link small { color: var(--muted); font-size: .72rem; font-weight: 620; }
 
 /* Question bank workspace */
-.bank-hero { padding: 24px 0 19px; background: var(--surface); border-bottom: 1px solid var(--line); }
+.bank-hero { padding: 18px 0 16px; background: var(--surface); border-bottom: 1px solid var(--line); }
 .breadcrumbs { margin-bottom: 20px; color: var(--muted); font: 700 .72rem/1.4 var(--font-mono); }
 .breadcrumbs ol { display: flex; flex-wrap: wrap; gap: 5px 9px; margin: 0; padding: 0; list-style: none; }
 .breadcrumbs li { display: inline-flex; align-items: center; gap: 9px; }
@@ -445,10 +445,11 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
   .about-workflow li { grid-template-columns: 28px 1fr; }
   .about-workflow li span { grid-column: 2; }
 }
-.bank-hero h1 { max-width: 1040px; margin: 4px 0 6px; font: 850 clamp(2.2rem, 3.8vw, 3.35rem)/.97 var(--font-display); letter-spacing: -.06em; }
+.bank-hero h1 { max-width: 1040px; margin: 4px 0 6px; font: 850 clamp(2rem, 3.2vw, 2.8rem)/.97 var(--font-display); letter-spacing: -.06em; }
 .bank-hero .shell > p:not(.eyebrow) { max-width: 720px; margin: 0; color: var(--muted); line-height: 1.52; }
-.bank-hero-stats { margin-top: 9px; display: flex; gap: 8px 20px; flex-wrap: wrap; color: var(--muted); font-size: .82rem; }
-.bank-hero-build { display: inline-flex; margin-top: 12px; min-height: 40px; }
+.bank-hero-meta { margin-top: 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px 20px; flex-wrap: wrap; }
+.bank-hero-stats { margin-top: 0; display: flex; gap: 8px 20px; flex-wrap: wrap; color: var(--muted); font-size: .82rem; }
+.bank-hero-build { display: inline-flex; margin-top: 0; min-height: 40px; }
 .bank-hero-stats strong { color: var(--ink); }
 .bank-hero-beta-link { width: fit-content; margin-top: 13px; display: inline-flex; align-items: center; gap: 8px; color: var(--cobalt-strong); font-size: .78rem; font-weight: 780; }
 .bank-hero-beta-link span, .beta-badge { padding: 3px 6px; color: var(--public-burgundy, var(--burgundy)); background: color-mix(in srgb, var(--burgundy) 9%, var(--surface)); border: 1px solid color-mix(in srgb, var(--burgundy) 24%, var(--line)); border-radius: 999px; font: 700 .62rem/1 var(--font-mono); letter-spacing: .04em; text-transform: uppercase; }
@@ -527,7 +528,7 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 }
 @media (max-width: 420px) { .exam-style-set-list { grid-template-columns: 1fr; } }
 
-.explorer-toolbar { position: sticky; z-index: 6; top: 8px; padding: 0; display: grid; grid-template-columns: minmax(220px, 1fr) minmax(300px, auto) auto 48px 48px; gap: 8px; color: var(--ink); background: transparent; border: 0; border-radius: 0; box-shadow: none; }
+.explorer-toolbar { position: sticky; z-index: 6; top: 8px; padding: 0; display: grid; grid-template-columns: minmax(220px, 1fr) minmax(300px, auto) auto 48px auto; gap: 8px; color: var(--ink); background: transparent; border: 0; border-radius: 0; box-shadow: none; }
 .course-route-picker { min-width: 300px; margin: 0; padding: 0; border: 0; }
 .course-route-options { height: 100%; display: inline-grid; grid-template-columns: repeat(3, minmax(82px, 1fr)); gap: 3px; padding: 3px; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 8px; }
 .course-route-options label { cursor: pointer; position: relative; }
@@ -556,8 +557,6 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .toolbar-icon-button { width: 48px; }
 .toolbar-icon-button:hover, .mobile-filter-button:hover { border-color: var(--burgundy); color: var(--burgundy); }
 .mobile-filter-button { display: none; padding-inline: 14px; }
-.download-button { color: var(--accent-contrast); background: var(--cobalt); border-color: var(--cobalt); }
-.download-button:hover { color: var(--accent-contrast); background: var(--cobalt-strong); border-color: var(--cobalt-strong); }
 .save-pdf-button { min-height: 48px; padding: 0 16px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; color: var(--accent-contrast); background: var(--cobalt); border: 1px solid var(--cobalt); border-radius: 7px; font-weight: 800; white-space: nowrap; cursor: pointer; }
 .save-pdf-button:hover { color: var(--accent-contrast); background: var(--cobalt-strong); border-color: var(--cobalt-strong); }
 .save-pdf-count { min-width: 20px; padding: 1px 6px; color: var(--cobalt-strong); background: var(--accent-contrast); border-radius: 999px; font-size: .72rem; line-height: 1.4; text-align: center; }
@@ -583,11 +582,12 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
     100% { box-shadow: 0 0 0 12px rgb(47 112 82 / 0); }
   }
 }
-.access-notice, .free-value-strip { margin-top: 10px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; color: var(--muted); font-size: .84rem; }
-.access-notice a, .free-value-strip a { color: var(--cobalt); font-weight: 830; }
-.free-value-strip { background: var(--cobalt-faint); border-color: color-mix(in srgb, var(--cobalt) 25%, var(--line)); }
-.free-value-strip > div { display: flex; align-items: center; gap: 12px; }
-.free-value-strip > div:first-child { display: grid; gap: 2px; }
+.access-notice { margin-top: 10px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; color: var(--muted); font-size: .84rem; }
+.access-notice a { color: var(--cobalt); font-weight: 830; }
+.free-value-strip { margin-top: 10px; padding: 9px 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--cobalt-faint); border: 0; border-radius: 8px; font-size: .84rem; }
+.free-value-strip p { min-width: 0; margin: 0; color: var(--ink-soft); }
+.free-value-strip p span { color: var(--muted); }
+.free-value-link { flex: 0 0 auto; color: var(--cobalt-strong); font-weight: 750; white-space: nowrap; }
 .explorer-layout { margin-top: 28px; display: grid; grid-template-columns: 225px minmax(0, 1fr); align-items: start; gap: clamp(24px, 4vw, 52px); }
 .filter-sidebar { position: sticky; top: 86px; max-height: calc(100dvh - 102px); overflow: auto; padding: 0 14px 18px 0; background: transparent; border: 0; border-radius: 0; }
 .filter-sidebar-heading { padding-bottom: 10px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
@@ -1427,7 +1427,7 @@ body:has(.bank-hero) .site-footer::after { display: none; }
   .dashboard-bank-groups { grid-template-columns: 1fr; }
   .dashboard-bank-family-cambridge { grid-column: auto; }
   .dashboard-bank-family-cambridge .dashboard-bank-grid { grid-template-columns: 1fr; }
-  .explorer-toolbar { position: static; grid-template-columns: minmax(220px, 1fr) auto minmax(150px, 190px) 48px 48px; }
+  .explorer-toolbar { position: static; grid-template-columns: minmax(220px, 1fr) auto minmax(150px, 190px) 48px auto; }
   .course-route-picker { min-width: 220px; }
   .course-route-options { width: 100%; grid-template-columns: repeat(3, 1fr); }
   .course-route-options span { padding-inline: 7px; }
@@ -1514,9 +1514,6 @@ body:has(.bank-hero) .site-footer::after { display: none; }
   .dashboard-upgrade-strip span { display: none; }
   .dashboard-upgrade-strip .button { min-height: 40px; padding-inline: 13px; flex: 0 0 auto; font-size: .78rem; }
   .pricing-free-strip { align-items: stretch; flex-direction: column; }
-  .free-value-strip { padding: 9px 10px; gap: 8px; }
-  .free-value-strip > div { gap: 9px; }
-  .free-value-strip > div:first-child span { display: none; }
   .pricing-free-strip .button { width: 100%; }
   .dashboard-bank-groups { margin-top: 17px; gap: 22px; }
   .dashboard-bank-family { padding-top: 16px; }
@@ -1525,7 +1522,7 @@ body:has(.bank-hero) .site-footer::after { display: none; }
   .bank-hero { padding-block: 18px 15px; }
   .bank-hero h1 { margin-block: 4px 6px; font-size: 1.8rem; }
   .bank-hero .shell > p:not(.eyebrow) { display: none; }
-  .bank-hero-stats { margin-top: 9px; display: flex; gap: 6px 14px; font-size: .75rem; }
+  .bank-hero-stats { display: flex; gap: 6px 14px; font-size: .75rem; }
   .explorer { padding-top: 9px; }
   .explorer-toolbar .search-field,
   .explorer-toolbar .sort-field,
@@ -1859,7 +1856,6 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .pricing-bank-no-preview { color: var(--muted); }
 
 /* 4. Free/paid upsell: one action, full-width on small screens. */
-.free-value-strip > .button { flex: 0 0 auto; min-height: 40px; padding-inline: 16px; white-space: nowrap; }
 .question-locked-action { margin-top: 4px; align-self: flex-start; color: var(--cobalt); font-weight: 830; text-decoration: underline; text-underline-offset: 2px; }
 
 /* 5. Mobile question explorer. Row one is the search query plus the two view actions;
@@ -1867,14 +1863,14 @@ body:has(.bank-hero) .site-footer::after { display: none; }
    The free-tier strip collapses to one quiet row so the first question stays near the fold. */
 @media (max-width: 640px) {
   .explorer-toolbar {
-    grid-template-columns: minmax(0, 1fr) 44px 44px;
+    grid-template-columns: minmax(0, 1fr) 44px auto;
     grid-template-rows: auto auto auto;
     padding: 0;
     gap: 6px;
   }
   .explorer-toolbar .search-field { grid-column: 1; grid-row: 1; min-width: 0; min-height: 44px; padding-inline: 10px; }
   .explorer-toolbar .share-view-button { grid-column: 2; grid-row: 1; }
-  .explorer-toolbar .download-button { grid-column: 3; grid-row: 1; }
+  .explorer-toolbar .save-pdf-button { grid-column: 3; grid-row: 1; min-height: 44px; padding-inline: 12px; }
   .explorer-toolbar .course-route-picker { grid-column: 1 / -1; grid-row: 2; min-width: 0; }
   .explorer-toolbar .course-route-options { min-height: 42px; }
   .explorer-toolbar .course-route-options span { min-height: 36px; padding: 3px 7px; }
@@ -1903,12 +1899,8 @@ body:has(.bank-hero) .site-footer::after { display: none; }
   .explorer-toolbar .sort-select-trigger small { display: none; }
   .explorer-toolbar .sort-select-menu { left: 0; right: 0; min-width: 0; }
   .explorer-toolbar .toolbar-icon-button { width: 44px; min-height: 44px; }
-  .free-value-strip { min-height: 44px; margin-top: 6px; padding: 5px 6px 5px 12px; gap: 8px; font-size: .78rem; }
-  .free-value-strip strong { font-size: .78rem; }
-  .free-value-strip > div { gap: 8px; min-width: 0; }
-  .free-value-strip > div:first-child { display: grid; }
-  .free-value-strip > div:first-child span { display: none; }
-  .free-value-strip > .button { min-height: 34px; padding-inline: 11px; font-size: .76rem; }
+  .free-value-strip { margin-top: 6px; padding: 8px 12px; font-size: .78rem; }
+  .free-value-strip p span { display: none; }
   .question-list { gap: 12px; }
   .question-actions { padding: 10px 13px; }
 }

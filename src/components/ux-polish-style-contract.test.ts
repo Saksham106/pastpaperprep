@@ -297,7 +297,7 @@ describe("mobile question explorer keeps search, route, and filter rows with a w
   const sortField = styleFor(globalBlocks, ".explorer-toolbar .sort-field", mobile);
   const search = styleFor(globalBlocks, ".explorer-toolbar .search-field", mobile);
   const share = styleFor(globalBlocks, ".explorer-toolbar .share-view-button", mobile);
-  const download = styleFor(globalBlocks, ".explorer-toolbar .download-button", mobile);
+  const save = styleFor(globalBlocks, ".explorer-toolbar .save-pdf-button", mobile);
 
   // Row 2 holds the Core/Extended route picker on tiered banks (#89).
   it("keeps three rows on the unboxed toolbar with no padded card", () => {
@@ -306,17 +306,18 @@ describe("mobile question explorer keeps search, route, and filter rows with a w
   });
 
   it("gives filters the wide column and sort only the icon pair", () => {
-    expect(normalize(toolbar["grid-template-columns"])).toBe("minmax(0, 1fr) 44px 44px");
+    expect(normalize(toolbar["grid-template-columns"])).toBe("minmax(0, 1fr) 44px auto");
     expect(normalize(filterButton["grid-column"])).toBe("1");
     expect(normalize(filterButton["grid-row"])).toBe("3");
     expect(normalize(sortField["grid-column"])).toBe("2 / -1");
     expect(normalize(sortField["grid-row"])).toBe("3");
   });
 
-  it("keeps search, share, and download on the first row", () => {
+  it("keeps search, share, and Save PDF on the first row", () => {
     expect(normalize(search["grid-row"])).toBe("1");
     expect(normalize(share["grid-row"])).toBe("1");
-    expect(normalize(download["grid-row"])).toBe("1");
+    expect(normalize(save["grid-row"])).toBe("1");
+    expect(Number.parseFloat(save["min-height"] ?? "0")).toBeGreaterThanOrEqual(44);
   });
 
   it("keeps every control at a 44px touch target", () => {
@@ -422,5 +423,13 @@ describe("question cards are calm study cards", () => {
     expect(Number.parseFloat(box.width ?? "0")).toBeGreaterThanOrEqual(16);
     const checked = styleFor(globalBlocks, ".filter-group input[type=\"checkbox\"]:checked", "base");
     expect(normalize(checked.background)).toBe("var(--cobalt)");
+  });
+});
+
+describe("free access note is one slim line", () => {
+  it("has no border or button inside", () => {
+    const strip = styleFor(globalBlocks, ".free-value-strip", "base");
+    expect(drawsNoEdge(strip)).toBe(true);
+    expect(styleFor(globalBlocks, ".free-value-strip > .button")).toEqual({});
   });
 });
