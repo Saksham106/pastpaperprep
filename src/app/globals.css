@@ -622,14 +622,15 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .question-paper { position: relative; }
 .question-card-header { padding: 14px 18px 0; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
 .question-meta { display: flex; flex-wrap: wrap; align-items: center; color: var(--muted); font: 500 .74rem/1.45 var(--font-mono); }
-.question-meta span + span::before { content: "·"; margin: 0 7px; opacity: .7; }
+.question-meta span:not(:last-child)::after { content: "·"; margin: 0 7px; opacity: .7; }
 .pdf-select { display: flex; align-items: center; gap: 7px; white-space: nowrap; color: var(--muted); font-size: .76rem; font-weight: 700; cursor: pointer; }
 .pdf-select:has(input:checked) { color: var(--cobalt-strong); }
 .question-topic { padding: 6px 18px 0; display: flex; align-items: baseline; flex-wrap: wrap; font-size: .84rem; }
 .question-topic strong { font-weight: 750; }
 .question-topic span { color: var(--muted); }
-.question-topic span::before { content: "·"; margin: 0 6px; }
-.question-images { margin-top: 12px; padding: 18px clamp(16px, 4vw, 42px); display: grid; gap: 12px; background: #fefefe; border-block: 1px solid var(--line); }
+.question-topic > :not(:last-child)::after { content: "·"; margin: 0 6px; color: var(--muted); font-weight: 400; }
+.question-images { margin-top: 12px; padding: 18px clamp(16px, 4vw, 42px); display: grid; gap: 12px; border-block: 1px solid var(--line); }
+.question-images:has(img) { background: #fefefe; }
 .question-images img { width: 100%; max-width: 900px; height: auto; margin: 0 auto; background: #fefefe; border: 0; border-radius: 0; }
 .answer-panel img { width: 100%; max-width: 900px; height: auto; margin: 0 auto; background: #fefefe; border: 1px solid var(--line); border-radius: 6px; }
 .source-tail-clipped { width: 100%; max-width: 900px; overflow: hidden; margin: 0 auto; background: #fefefe; border: 1px solid var(--line); border-radius: 6px; }
@@ -1531,6 +1532,7 @@ body:has(.bank-hero) .site-footer::after { display: none; }
   .access-notice { padding: 9px 10px; align-items: flex-start; }
   .explorer-layout { margin-top: 12px; }
   .question-card-header { padding: 12px 13px 0; }
+  .question-meta { font-size: .7rem; }
   .question-topic { padding-inline: 13px; }
   .question-images { padding: 12px 8px; }
   .question-actions { align-items: center; }

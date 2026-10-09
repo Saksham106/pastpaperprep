@@ -417,6 +417,16 @@ describe("question cards are calm study cards", () => {
     expect(paintsNothing(image.border)).toBe(true);
   });
 
+  it("ends wrapped metadata lines with the separator instead of starting them with it", () => {
+    expect(styleFor(globalBlocks, ".question-meta span + span::before")).toEqual({});
+    expect(styleFor(globalBlocks, ".question-meta span:not(:last-child)::after", "base").content).toBe('"·"');
+  });
+
+  it("paints the white exam sheet only once an image has loaded", () => {
+    expect(paintsNothing(styleFor(globalBlocks, ".question-images", "base").background)).toBe(true);
+    expect(normalize(styleFor(globalBlocks, ".question-images:has(img)", "base").background)).toBe("#fefefe");
+  });
+
   it("draws a clearly visible custom checkbox", () => {
     const box = styleFor(globalBlocks, ".filter-group input[type=\"checkbox\"]", "base");
     expect(normalize(box.appearance)).toBe("none");
