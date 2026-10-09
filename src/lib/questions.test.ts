@@ -200,3 +200,15 @@ describe("question filtering", () => {
     expect(getTopicOptions(synthetic)).toContain("Statistics");
   });
 });
+
+describe("calculator status", () => {
+  it("derives calculator status from the paper rule for every maths bank", () => {
+    const additional = loadBankQuestions("igcse-additional");
+    expect(additional.find((question) => question.year < 2025 && question.paper === 1)?.calculator).toBe(true);
+    expect(additional.find((question) => question.year >= 2025 && question.paper === 1)?.calculator).toBe(false);
+    const aa = loadBankQuestions("ib-sl");
+    expect(aa.find((question) => question.paper === 1)?.calculator).toBe(false);
+    expect(aa.find((question) => question.paper === 2)?.calculator).toBe(true);
+    expect(loadBankQuestions("ib-ai-hl").every((question) => question.calculator === true)).toBe(true);
+  });
+});

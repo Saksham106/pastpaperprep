@@ -1,4 +1,5 @@
 import { economicsStorageObjectPath, storageObjectPath } from "@/lib/assets";
+import { calculatorAllowed } from "@/lib/calculator-policy.mjs";
 import { getBank, isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
 import { isPrivateRuntimeBank, privateStorageObjectPath } from "@/lib/private-runtime-mapping";
 import { verified0580RetrievalAdditions } from "@/lib/igcse-0580-source-retrieval.mjs";
@@ -314,7 +315,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     option: text(raw.p3Option),
     zone: text(raw.timezone) || text(raw.zone),
     component: text(raw.component),
-    calculator: typeof raw.calculator === "boolean" ? raw.calculator : null,
+    calculator: calculatorAllowed(slug, { paper, year: integer(raw.year) }),
     marks: typeof raw.marks === "number" ? raw.marks : null,
     summary,
     accessibleText,

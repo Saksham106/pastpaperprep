@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { PUBLIC_BANK_INDEX_FILES } from "../src/lib/bank-index-manifest.ts";
 import { metadataFromRaw } from "./generate-bank-index.mjs";
+import { calculatorAllowed } from "../src/lib/calculator-policy.mjs";
 
 describe("public bank index generator", () => {
   it("does not copy courseEra or private fields from raw questions", () => {
@@ -84,5 +85,15 @@ describe("public bank index generator", () => {
       officialCodeRefs: ["new_first_assessment_2022/2.1"],
       retrievalFacets: ["facet.trade-and-advantage"],
     });
+  });
+});
+
+describe("bank index calculator values", () => {
+  it("follow the paper rule for maths banks and stay empty elsewhere", () => {
+    for (const bank of ["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "igcse-chemistry-0620"]) {
+      const index = JSON.parse(readFileSync(join(process.cwd(), "public/bank-index", PUBLIC_BANK_INDEX_FILES[bank]), "utf8"));
+      const wrong = index.questions.filter((question) => question.calculator !== calculatorAllowed(bank, question));
+      expect(wrong, bank).toEqual([]);
+    }
   });
 });

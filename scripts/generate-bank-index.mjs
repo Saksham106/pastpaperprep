@@ -13,6 +13,7 @@ import { project0610Sections } from "../src/lib/igcse-0610-official.mjs";
 import { project0654Sections } from "../src/lib/igcse-0654-official.mjs";
 import { project0625Sections } from "../src/lib/igcse-0625-official.mjs";
 import { project0620Sections } from "../src/lib/igcse-0620-official.mjs";
+import { calculatorAllowed } from "../src/lib/calculator-policy.mjs";
 
 const root = join(import.meta.dirname, "..");
 const outputDirectory = join(root, "public", "bank-index");
@@ -198,7 +199,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     option: typeof raw.p3Option === "string" ? raw.p3Option : "",
     zone: (typeof raw.timezone === "string" && raw.timezone) || (typeof raw.zone === "string" ? raw.zone : ""),
     component: typeof raw.component === "string" ? raw.component : "",
-    calculator: typeof raw.calculator === "boolean" ? raw.calculator : null,
+    calculator: calculatorAllowed(bank, { paper: integer(raw.paper), year: integer(raw.year) }),
     marks: typeof raw.marks === "number" ? raw.marks : null,
     questionImageCount: activeQuestionImageCount(bank, raw),
     markschemeImageCount: activeMarkschemeImageCount(bank, raw) ?? (normalizedProduction
