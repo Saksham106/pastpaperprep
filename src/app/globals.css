@@ -2250,3 +2250,9 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .pricing-compare-heading { margin: 36px 0 16px; text-align: center; font-size: 1.15rem; }
 #plan-all { scroll-margin-top: 96px; }
 @media (max-width: 720px) { .pricing-bank-focus-card { grid-template-columns: 1fr; padding: 18px; } }
+.dashboard-plan-card { margin-top: 16px; padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; gap: 16px 24px; flex-wrap: wrap; background: var(--surface-raised); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow-sm); }
+.dashboard-plan-card > div { display: grid; gap: 3px; min-width: 0; }
+.dashboard-plan-card .eyebrow { color: var(--muted); }
+.dashboard-plan-card strong { font-size: 1.02rem; }
+.dashboard-plan-card span { color: var(--muted); }
+.dashboard-plan-card .button { flex: 0 0 auto; }

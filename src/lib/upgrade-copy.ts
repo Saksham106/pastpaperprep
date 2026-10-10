@@ -2,7 +2,7 @@ import { freeQuestionYears } from "@/lib/access";
 import { BANK_CATALOG, type BankSlug } from "@/lib/catalog";
 import { formatPrice, PRICING_MODEL } from "@/lib/pricing-model";
 
-export type UpgradePlacement = "top_note" | "feed_teaser" | "feed_timeline" | "locked_card" | "practice_milestone" | "signup_gate" | "pdf_dialog";
+export type UpgradePlacement = "top_note" | "feed_teaser" | "feed_timeline" | "locked_card" | "practice_milestone" | "signup_gate" | "pdf_dialog" | "dashboard";
 
 export type BankYearFacts = {
   freeLabel: string;
@@ -49,7 +49,7 @@ export function bankYearFacts(bankSlug: string): BankYearFacts | null {
   return { freeLabel: yearRangeLabel(freeYears), newerPaidLabel: yearRangeLabel(newerPaidYears), latestYear: end, coverage, freeYears, newerPaidYears };
 }
 
-const PLACEMENTS: readonly UpgradePlacement[] = ["top_note", "feed_teaser", "feed_timeline", "locked_card", "practice_milestone", "signup_gate", "pdf_dialog"];
+const PLACEMENTS: readonly UpgradePlacement[] = ["top_note", "feed_teaser", "feed_timeline", "locked_card", "practice_milestone", "signup_gate", "pdf_dialog", "dashboard"];
 
 export function isUpgradePlacement(value: unknown): value is UpgradePlacement {
   return typeof value === "string" && (PLACEMENTS as readonly string[]).includes(value);
