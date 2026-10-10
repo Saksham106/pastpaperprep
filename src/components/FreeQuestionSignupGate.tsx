@@ -4,31 +4,37 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ANONYMOUS_FREE_QUESTION_LIMIT } from "@/lib/free-question-gate";
 import { trackProductEvent } from "@/lib/product-analytics";
+import { trackUpgrade } from "@/components/UpgradeNudges";
 
 type GateProps = {
   bankSlug: string;
   remainingCount: number;
   signupHref: string;
   signinHref: string;
+  plansHref?: string;
+  plansLine?: string;
 };
 
 type GateMessageProps = GateProps & {
   titleId: string;
 };
 
-function GateMessage({ bankSlug, remainingCount, signupHref, signinHref, titleId }: GateMessageProps) {
+function GateMessage({ bankSlug, remainingCount, signupHref, signinHref, plansHref = "/pricing", plansLine = "Want every year? Plans start at $6/month.", titleId }: GateMessageProps) {
   const eventProperties = { bank: bankSlug, limit: ANONYMOUS_FREE_QUESTION_LIMIT, remainingCount };
 
   return (
     <div className="free-question-gate-copy">
       <p className="free-question-gate-kicker">Free account</p>
-      <h2 id={titleId}>Unlock all free questions</h2>
+      <h2 id={titleId}>Keep practising for free</h2>
       <p className="free-question-gate-description">
-        You&apos;ve reached the first {ANONYMOUS_FREE_QUESTION_LIMIT}. Create a free account to open the remaining {remainingCount.toLocaleString()} free questions in this bank. No payment required.
+        Create a free account for the other {remainingCount.toLocaleString()} free questions. {plansLine}
       </p>
       <div className="free-question-gate-actions">
         <Link className="button primary" href={signupHref} onClick={() => trackProductEvent("free_gate_signup_click", eventProperties)}>
           Create free account
+        </Link>
+        <Link className="button secondary" href={plansHref} onClick={() => trackUpgrade("click", bankSlug, "signup_gate")}>
+          See plans
         </Link>
         <p className="free-question-gate-account-link">
           <span>Already have an account?</span>{" "}
@@ -41,7 +47,7 @@ function GateMessage({ bankSlug, remainingCount, signupHref, signinHref, titleId
   );
 }
 
-export function FreeQuestionSignupGate({ bankSlug, remainingCount, signupHref, signinHref }: GateProps) {
+export function FreeQuestionSignupGate({ bankSlug, remainingCount, signupHref, signinHref, plansHref, plansLine }: GateProps) {
   const inlineRef = useRef<HTMLElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -120,6 +126,8 @@ export function FreeQuestionSignupGate({ bankSlug, remainingCount, signupHref, s
           remainingCount={remainingCount}
           signupHref={signupHref}
           signinHref={signinHref}
+          plansHref={plansHref}
+          plansLine={plansLine}
           titleId="free-question-gate-inline-title"
         />
       </section>
@@ -142,6 +150,8 @@ export function FreeQuestionSignupGate({ bankSlug, remainingCount, signupHref, s
             remainingCount={remainingCount}
             signupHref={signupHref}
             signinHref={signinHref}
+            plansHref={plansHref}
+            plansLine={plansLine}
             titleId="free-question-gate-dialog-title"
           />
         </div>

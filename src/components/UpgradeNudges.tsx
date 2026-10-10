@@ -77,7 +77,7 @@ export type TeaserQuestion = { year: number; session: string; paper: string | nu
 export function FeedTeaserCard({ bank, question, topicLabel, href, onDismiss }: CardProps & { question: TeaserQuestion; topicLabel: string }) {
   const viewRef = useUpgradeView(bank, "feed_teaser");
   return (
-    <aside ref={viewRef} className="question-card upgrade-card is-teaser" aria-label="Upgrade">
+    <aside ref={viewRef} className="upgrade-card is-teaser" aria-label="Upgrade">
       <header className="question-card-header">
         <div className="question-meta"><span>{question.year} {question.session}</span>{" "}<span>Paper {question.paper}</span>{" "}<span>Question {question.number}</span>{question.marks !== null && <>{" "}<span>{question.marks} {question.marks === 1 ? "mark" : "marks"}</span></>}</div>
         <span className="upgrade-lock">{question.year} paper</span>

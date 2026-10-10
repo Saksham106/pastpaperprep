@@ -1,5 +1,5 @@
-import { freeQuestionYears, type BankSlug } from "@/lib/access";
-import { BANK_CATALOG } from "@/lib/catalog";
+import { freeQuestionYears } from "@/lib/access";
+import { BANK_CATALOG, type BankSlug } from "@/lib/catalog";
 import { formatPrice, PRICING_MODEL } from "@/lib/pricing-model";
 
 export type UpgradePlacement = "top_note" | "feed_teaser" | "feed_timeline" | "locked_card" | "practice_milestone" | "signup_gate" | "pdf_dialog";

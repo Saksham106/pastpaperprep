@@ -38,16 +38,22 @@ describe("FreeQuestionSignupGate", () => {
     vi.unstubAllGlobals();
   });
 
-  it("uses clear account copy without the old metadata teasers", () => {
-    render(<FreeQuestionSignupGate bankSlug="ib-sl" remainingCount={37} signupHref="/login?mode=sign-up" signinHref="/login" />);
+  it("offers a free account first and the plan as the next step", () => {
+    render(<FreeQuestionSignupGate bankSlug="ib-sl" remainingCount={37} signupHref="/login?mode=sign-up" signinHref="/login" plansHref="/pricing?product=bank_ib_sl" plansLine="Want 2018–2026 too? Plans start at $6/month." />);
 
-    expect(screen.getByRole("heading", { name: "Unlock all free questions" })).toBeInTheDocument();
-    expect(screen.getAllByText(/remaining 37 free questions/i)).toHaveLength(2);
-    expect(screen.getAllByText(/no payment required/i)).toHaveLength(2);
+    expect(screen.getByRole("heading", { name: "Keep practising for free" })).toBeInTheDocument();
+    expect(screen.getAllByText(/Create a free account for the other 37 free questions\. Want 2018–2026 too\? Plans start at \$6\/month\./)).toHaveLength(2);
+    expect(screen.getAllByRole("link", { name: "Create free account" })[0]).toHaveClass("primary");
+    const plans = screen.getAllByRole("link", { name: "See plans" })[0];
+    expect(plans).toHaveAttribute("href", "/pricing?product=bank_ib_sl");
     expect(screen.getByRole("link", { name: "Sign in" })).toHaveClass("free-question-gate-signin");
-    expect(screen.queryByText("More free questions")).not.toBeInTheDocument();
-    expect(screen.queryByText("Keep your practice going")).not.toBeInTheDocument();
-    expect(screen.queryByText("Explore another topic")).not.toBeInTheDocument();
+    expect(screen.queryByText(/no payment required/i)).not.toBeInTheDocument();
+  });
+
+  it("falls back to a generic plans line", () => {
+    render(<FreeQuestionSignupGate bankSlug="ib-sl" remainingCount={3} signupHref="/login?mode=sign-up" signinHref="/login" />);
+    expect(screen.getAllByText(/Want every year\? Plans start at \$6\/month\./)).toHaveLength(2);
+    expect(screen.getAllByRole("link", { name: "See plans" })[0]).toHaveAttribute("href", "/pricing");
   });
 
   it("elevates once when reached and returns to the inline prompt after dismissal", () => {
@@ -59,13 +65,13 @@ describe("FreeQuestionSignupGate", () => {
     });
 
     expect(showModal).toHaveBeenCalledTimes(1);
-    expect(screen.getByRole("dialog", { name: "Unlock all free questions" })).toHaveAttribute("open");
+    expect(screen.getByRole("dialog", { name: "Keep practising for free" })).toHaveAttribute("open");
     const inlinePrompt = document.querySelector(".free-question-signup-gate");
     expect(inlinePrompt).toHaveAttribute("inert");
 
     fireEvent.click(screen.getByRole("button", { name: "Close account prompt" }));
     expect(close).toHaveBeenCalledTimes(1);
-    expect(screen.getByRole("region", { name: "Unlock all free questions" })).toBeInTheDocument();
+    expect(screen.getByRole("region", { name: "Keep practising for free" })).toBeInTheDocument();
     expect(inlinePrompt).not.toHaveAttribute("inert");
 
     act(() => {

@@ -12,6 +12,7 @@
 .upgrade-dismiss { padding: 6px 4px; color: var(--muted); background: transparent; border: 0; font-weight: 650; cursor: pointer; }
 .upgrade-dismiss:hover { color: var(--ink); }
 
+.upgrade-card.is-teaser { overflow: hidden; background: var(--surface-raised); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow-sm); }
 .upgrade-card.is-teaser .question-card-header { align-items: center; }
 .upgrade-lock { flex: 0 0 auto; color: var(--cobalt-strong); font-size: .74rem; font-weight: 750; white-space: nowrap; }
 .upgrade-teaser-body { position: relative; margin-top: 12px; border-block: 1px solid var(--line); }
