@@ -84,7 +84,7 @@ export function FeedTeaserCard({ bank, question, topicLabel, href, onDismiss }: 
       </header>
       <div className="question-topic"><strong>{topicLabel}</strong></div>
       <div className="upgrade-teaser-body">
-        <div className="upgrade-skeleton" aria-hidden="true"><i /><i /><i /><i /><i /></div>
+        <div className="upgrade-skeleton" aria-hidden="true"><i /><i /><i /><i /><i /><i /><i /><i /></div>
         <div className="upgrade-overlay">
           <strong>This is from the {question.year} paper</strong>
           <p>Practise the newest questions on {topicLabel}, with mark schemes.</p>

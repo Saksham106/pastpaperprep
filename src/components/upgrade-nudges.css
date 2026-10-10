@@ -15,11 +15,12 @@
 .upgrade-card.is-teaser { overflow: hidden; background: var(--surface-raised); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow-sm); }
 .upgrade-card.is-teaser .question-card-header { align-items: center; }
 .upgrade-lock { flex: 0 0 auto; color: var(--cobalt-strong); font-size: .74rem; font-weight: 750; white-space: nowrap; }
-.upgrade-teaser-body { position: relative; margin-top: 12px; border-block: 1px solid var(--line); }
+.upgrade-teaser-body { margin-top: 12px; display: grid; border-block: 1px solid var(--line); }
+.upgrade-teaser-body > * { grid-area: 1 / 1; }
 .upgrade-skeleton { padding: 18px clamp(16px, 4vw, 42px); display: grid; gap: 10px; }
 .upgrade-skeleton i { height: 10px; background: color-mix(in srgb, var(--ink) 9%, var(--surface)); border-radius: 4px; }
-.upgrade-skeleton i:nth-child(1) { width: 82%; } .upgrade-skeleton i:nth-child(2) { width: 64%; } .upgrade-skeleton i:nth-child(3) { width: 74%; } .upgrade-skeleton i:nth-child(4) { width: 40%; } .upgrade-skeleton i:nth-child(5) { width: 58%; }
-.upgrade-overlay { position: absolute; inset: 0; padding: 14px 18px; display: grid; place-content: center; justify-items: center; gap: 4px; text-align: center; background: linear-gradient(180deg, color-mix(in srgb, var(--surface-raised) 55%, transparent), var(--surface-raised) 48%); }
+.upgrade-skeleton i:nth-child(odd) { width: 78%; } .upgrade-skeleton i:nth-child(even) { width: 56%; } .upgrade-skeleton i:nth-child(3n) { width: 68%; }
+.upgrade-overlay { padding: 56px 18px 18px; display: grid; align-content: end; justify-items: center; gap: 4px; text-align: center; background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--surface-raised) 82%, transparent) 38%, var(--surface-raised) 62%); }
 .upgrade-overlay strong { font-size: 1.02rem; }
 .upgrade-overlay .upgrade-actions { margin-top: 8px; justify-content: center; }
 

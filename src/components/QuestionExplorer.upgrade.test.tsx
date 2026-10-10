@@ -42,6 +42,7 @@ describe("bank page upgrade nudges", () => {
   it("leads with the newest paid years in the top note", () => {
     render(<QuestionExplorer questions={mixed()} bankSlug="igcse" access={anonymous} initialState={state(true)} />);
     const note = document.querySelector(".free-value-strip")!;
+    expect(note).toHaveClass("is-upgrade");
     expect(note).toHaveTextContent("You’re practising 2016–2018 papers.");
     expect(note).toHaveTextContent("The 2019–2026 papers, including 2026, need a plan.");
     expect(within(note as HTMLElement).getByRole("link", { name: "Unlock from $6/mo" })).toHaveAttribute("href", "/pricing?product=bank_igcse");

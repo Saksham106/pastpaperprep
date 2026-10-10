@@ -1902,7 +1902,7 @@ body:has(.bank-hero) .site-footer::after { display: none; }
   .explorer-toolbar .sort-select-menu { left: 0; right: 0; min-width: 0; }
   .explorer-toolbar .toolbar-icon-button { width: 44px; min-height: 44px; }
   .free-value-strip { margin-top: 6px; padding: 8px 12px; font-size: .78rem; }
-  .free-value-strip p span { display: none; }
+  .free-value-strip:not(.is-upgrade) p span { display: none; }
   .question-list { gap: 12px; }
   .question-actions { padding: 10px 13px; }
 }
