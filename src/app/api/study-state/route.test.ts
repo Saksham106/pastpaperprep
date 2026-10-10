@@ -48,6 +48,13 @@ describe("POST /api/study-state", () => {
     expect(savedUpsert).not.toHaveBeenCalled();
   });
 
+  it("rejects unknown questions before authentication", async () => {
+    const response = await POST(request({ bank: "ib-sl", questionId: "not-a-question", action: "save" }));
+
+    expect(response.status).toBe(400);
+    expect(getClaims).not.toHaveBeenCalled();
+  });
+
   it("saves a trusted question for the authenticated user", async () => {
     const response = await POST(request({ bank: "ib-sl", questionId: "m26-math-aasl-p1-tza-q1", action: "save" }));
 

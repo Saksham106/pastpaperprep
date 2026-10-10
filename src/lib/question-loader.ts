@@ -29,7 +29,7 @@ const loaders: Record<BankSlug, () => Promise<RawBank>> = {
 const cache = new Map<string, Promise<UnifiedQuestion[]>>();
 const questionIndexCache = new Map<string, Promise<ReadonlyMap<string, UnifiedQuestion>>>();
 
-function bankRuntimeCacheKey(slug: BankSlug): string {
+export function bankRuntimeCacheKey(slug: BankSlug): string {
   const productionEconomics = isLocalEconomicsBank(slug) && isEconomicsProductionEnabled();
   const productionIGCSE = isIGCSEReleaseBank(slug) && isIGCSEReleaseEnabled();
   return `${slug}:${productionEconomics || productionIGCSE ? "production" : "preview"}`;
