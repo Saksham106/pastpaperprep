@@ -478,3 +478,9 @@ describe("upgrade notes keep their whole message on phones", () => {
   });
 });
 
+describe("pricing billing toggle stays in the page flow", () => {
+  it("is not sticky, so it never floats over the plans, stats or table", () => {
+    expect(normalize(styleFor(globalBlocks, ".pricing-page .pricing-toggle-sticky", "base").position)).not.toBe("sticky");
+    expect(normalize(styleFor(globalBlocks, ".pricing-page > .pricing-toggle-sticky", "base").position)).not.toBe("sticky");
+  });
+});

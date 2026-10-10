@@ -205,10 +205,12 @@ describe("approved custom-bank pricing", () => {
     expect(cards[0]).toHaveAttribute("data-plan-tone", "starter");
     expect(cards[1]).toHaveAttribute("data-plan-tone", "builder");
     expect(cards[2]).toHaveAttribute("data-plan-tone", "premium");
-    expect(container.querySelectorAll(".pricing-plan-engraving")).toHaveLength(3);
-    expect(container.querySelectorAll(".pricing-plan-engraving svg")).toHaveLength(0);
+    expect(container.querySelectorAll(".pricing-plan-engraving")).toHaveLength(0);
     expect(container.querySelectorAll(".plan-icon[aria-hidden=\"true\"]")).toHaveLength(3);
-    expect(container.querySelectorAll(".plan-feature-list")).toHaveLength(0);
+    expect(container.querySelectorAll(".plan-feature-list")).toHaveLength(3);
+    expect(within(screen.getByRole("list", { name: "One Bank includes" })).getAllByRole("listitem").map((item) => item.textContent)).toEqual(["Every year, including the newest papers", "Every official mark scheme", "Save and download PDFs", "Mock paper builder"]);
+    expect(within(screen.getByRole("list", { name: "Build Your Plan includes" })).getAllByRole("listitem").map((item) => item.textContent)).toEqual(["Everything in One Bank", "For every subject you take", "One subscription, one bill"]);
+    expect(within(screen.getByRole("list", { name: "All Access includes" })).getAllByRole("listitem").map((item) => item.textContent)).toEqual(["Every bank, every subject", "New banks as they launch", "Best for tutors and schools"]);
     expect(within(cards[0] as HTMLElement).getByText("Focus on one syllabus.")).toBeInTheDocument();
     expect(within(cards[1] as HTMLElement).getByText("Mix the banks you actually take.")).toBeInTheDocument();
     expect(within(cards[1] as HTMLElement).getByText("2 to 5 banks")).toBeInTheDocument();
@@ -289,12 +291,14 @@ describe("approved custom-bank pricing", () => {
     expect(headlinePrice()).toBe("$16");
   });
 
-  it("shows the two-bank starting price while the builder selection is empty", () => {
+  it("shows the two-bank starting price with just the billing line while the builder selection is empty", () => {
     render(<PricingContent authenticated={true} hasPaidAccess={false} initialBankIds={[]} />);
     const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article") as HTMLElement;
 
     expect(builder.querySelector(".plan-price strong")).toHaveTextContent("$10");
-    expect(within(builder).getByText("Two-bank minimum. Select banks to see your exact price.")).toBeInTheDocument();
+    expect(builder.querySelector(".plan-price")).toHaveTextContent(/^\$10\s*\/ month$/);
+    expect(within(builder).getByText("Billed monthly")).toBeInTheDocument();
+    expect(within(builder).queryByText(/two-bank minimum|for 2|for two/i)).not.toBeInTheDocument();
   });
 
   it("organizes every bank choice into compact, discoverable subject groups", () => {
@@ -449,25 +453,19 @@ describe("approved custom-bank pricing", () => {
     expect(stickyParent.querySelector(".billing-toggle")).toBe(toggle);
     expect(stickyParent.parentElement).toBe(container.querySelector(".pricing-page"));
     expect(intro.compareDocumentPosition(toggle) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
-    expect(screen.getByRole("heading", { name: "Invest in your future." })).toBeInTheDocument();
-    expect(screen.getByText("Past papers. Practice. Real progress.")).toBeInTheDocument();
-    const art = [...container.querySelectorAll<HTMLImageElement>(".pricing-plan-engraving")];
-    expect(art.map((image) => image.getAttribute("src"))).toEqual([
-      "/artwork/pricing-one-bank-engraving.svg",
-      "/artwork/pricing-builder-corridor.svg",
-      "/artwork/pricing-all-access-city.svg",
-    ]);
-    expect(art.every((image) => image.getAttribute("alt") === "" && image.getAttribute("aria-hidden") === "true")).toBe(true);
+    expect(screen.getByRole("heading", { name: "Practise every past paper, newest first." })).toBeInTheDocument();
+    expect(screen.getByText("Start free with older years. A plan unlocks the latest papers and every mark scheme.")).toBeInTheDocument();
+    expect(container.querySelectorAll(".pricing-plan-engraving")).toHaveLength(0);
     expect(container.querySelectorAll(".pricing-option-popular .pricing-badge")).toHaveLength(1);
     const lifetimeButton = screen.getByRole("button", { name: "Lifetime" });
     lifetimeButton.focus();
     fireEvent.click(lifetimeButton);
-    expect(screen.getByRole("heading", { name: "Invest in your future." })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Practise every past paper, newest first." })).toBeInTheDocument();
     expect(container.querySelectorAll(".pricing-plan-engraving")).toHaveLength(0);
     expect(container.querySelector(".billing-toggle")).toBe(toggle);
     expect(document.activeElement).toBe(lifetimeButton);
     fireEvent.click(screen.getByRole("button", { name: /^Annual/ }));
-    expect(screen.getByRole("heading", { name: "Invest in your future." })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Practise every past paper, newest first." })).toBeInTheDocument();
     expect(container.querySelector(".billing-toggle")).toBe(toggle);
   });
 
@@ -502,7 +500,7 @@ describe("approved custom-bank pricing", () => {
     expect(subjects).toBeInTheDocument();
     expect(secure).toBeInTheDocument();
     expect(secure).not.toEqual(subjects);
-    expect(container.querySelector(".pricing-page-lifetime .pricing-recurring-intro h1")).toHaveTextContent("Invest in your future.");
+    expect(container.querySelector(".pricing-page-lifetime .pricing-recurring-intro h1")).toHaveTextContent("Practise every past paper, newest first.");
   });
   it("keeps free access compact and switches the coverage comparison by qualification", () => {
     const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} availableBanks={availableBanks} />);
@@ -519,5 +517,17 @@ describe("approved custom-bank pricing", () => {
     expect(cambridgeTab).toHaveAttribute("aria-selected", "false");
     expect(within(screen.getByRole("table", { name: "Question bank coverage" })).getAllByRole("row")).toHaveLength(ibBankCount + 1);
     expect(container.querySelectorAll("[data-pricing-bank]")).toHaveLength(availableBanks.length);
+  });
+
+  it("answers the common questions for people choosing a plan, and not for subscribers", () => {
+    const { unmount } = render(<PricingContent authenticated={false} hasPaidAccess={false} availableBanks={availableBanks} />);
+    const faq = screen.getByRole("region", { name: "Common questions" });
+    expect(within(faq).getByText("What's free?")).toBeInTheDocument();
+    expect(within(faq).getByText("Older exam years for each bank, with answers. No card needed.")).toBeInTheDocument();
+    expect(within(faq).getByText("Yes, any time from your account. Access continues through the paid billing period.")).toBeInTheDocument();
+    expect(within(faq).getByText(/Annual saves up to \d+%\. You can switch later\./)).toBeInTheDocument();
+    unmount();
+    render(<PricingContent authenticated hasPaidAccess complimentaryAccess availableBanks={availableBanks} />);
+    expect(screen.queryByRole("region", { name: "Common questions" })).not.toBeInTheDocument();
   });
 });

@@ -2220,3 +2220,17 @@ body:has(.bank-hero) .site-footer::after { display: none; }
   .explorer-toolbar:has(.course-route-picker) .sort-field { grid-column: 3 / -1; grid-row: 3; }
 }
 
+
+/* Pricing refresh: cards size to their content (no artwork), the billing toggle stays in
+   the page flow instead of floating over the plans, stats and table. */
+.pricing-page .pricing-decision-grid .pricing-option { min-height: 0; }
+.pricing-page .pricing-toggle-sticky, .pricing-page > .pricing-toggle-sticky { position: relative; top: auto; }
+.plan-feature-list { margin: 18px 0 0; padding: 16px 0 0; display: grid; gap: 8px; list-style: none; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: .88rem; line-height: 1.35; }
+.plan-feature-list li { display: flex; gap: 9px; }
+.plan-feature-list li::before { content: "✓"; flex: 0 0 auto; color: var(--success); font-weight: 800; }
+.pricing-faq { max-width: 760px; margin: 52px auto 0; }
+.pricing-faq h2 { margin: 0 0 10px; font-size: 1.4rem; letter-spacing: -.02em; }
+.pricing-faq dl { margin: 0; }
+.pricing-faq dl > div { padding: 14px 0; border-top: 1px solid var(--line); }
+.pricing-faq dt { color: var(--ink); font-weight: 750; }
+.pricing-faq dd { margin: 4px 0 0; color: var(--muted); line-height: 1.5; }
