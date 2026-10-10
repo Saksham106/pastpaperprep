@@ -426,6 +426,8 @@ describe("POST /api/stripe/webhook", () => {
     const response = await POST(request());
     expect(response.status).toBe(200);
     expect(rpc).toHaveBeenCalledWith("fulfill_lifetime_purchase", expect.objectContaining({ p_user_id: userId, p_session_id: "cs_lifetime", p_payment_intent_id: "pi_lifetime", p_amount_cents: 29900, p_currency: "usd" }));
+    expect(captureConversionOutcome).toHaveBeenCalledTimes(1);
+    expect(captureConversionOutcome).toHaveBeenCalledWith({ outcome: "lifetime_paid", eventKey: "stripe:checkout:cs_lifetime", userId, occurredAt: new Date(1_800_000_000 * 1000).toISOString(), product: "lifetime_all_access", interval: null });
   });
 
   it("does not grant lifetime access for unpaid or malformed sessions", async () => {
@@ -437,6 +439,7 @@ describe("POST /api/stripe/webhook", () => {
     session.metadata.product_id = "bundle_all";
     expect((await POST(request())).status).toBe(400);
     expect(rpc).not.toHaveBeenCalledWith("fulfill_lifetime_purchase", expect.anything());
+    expect(captureConversionOutcome).not.toHaveBeenCalled();
   });
 
   it("rejects lifetime sessions with the wrong paid amount", async () => {

@@ -120,6 +120,15 @@ export async function POST(request: Request) {
       }
       return NextResponse.json({ error: "Lifetime purchase fulfillment failed" }, { status: 500 });
     }
+    // Best effort and deduplicated by session ID, so a retried delivery is counted once.
+    await captureConversionOutcome({
+      outcome: "lifetime_paid",
+      eventKey: `stripe:checkout:${session.id}`,
+      userId,
+      occurredAt: new Date((session.created || event.created) * 1000).toISOString(),
+      product: LIFETIME_OFFER.productId,
+      interval: null,
+    });
     if (session.metadata.conversion_intent_id) {
       try {
         await finishLifetimeConversion(admin, stripe, { intentId: session.metadata.conversion_intent_id, userId, customerId, sessionId: session.id, paymentIntentId });

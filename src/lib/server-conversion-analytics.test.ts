@@ -17,21 +17,46 @@ describe("captureConversionOutcome consent gating", () => {
     const sent = JSON.parse(String((fetch as ReturnType<typeof vi.fn>).mock.calls[0][1].body));
     expect(sent.distinct_id).toBe("account:auth-user-123");
     expect(sent.properties.$process_person_profile).toBe(true);
+    expect(sent.properties.identified).toBe(true);
   });
+  const sentAnonymously = () => {
+    expect(fetch).toHaveBeenCalledTimes(1);
+    const raw = String((fetch as ReturnType<typeof vi.fn>).mock.calls[0][1].body);
+    const sent = JSON.parse(raw);
+    expect(sent.distinct_id).toMatch(/^anon:[0-9a-f-]{36}$/);
+    expect(sent.properties.$process_person_profile).toBe(false);
+    expect(sent.properties.identified).toBe(false);
+    expect(raw).not.toContain("account:");
+    expect(raw).not.toContain("auth-user-123");
+    return sent;
+  };
   it.each([
     ["unknown", null], ["legacy accepted", { accepted: true, version: 1, updated_at: new Date().toISOString() }],
     ["rejected", { accepted: false, version: 2, updated_at: new Date().toISOString() }],
     ["expired", { accepted: true, version: 2, updated_at: new Date(Date.now() - 181 * 86400000).toISOString() }],
     ["future", { accepted: true, version: 2, updated_at: new Date(Date.now() + 300000).toISOString() }],
     ["malformed", { accepted: true, version: 8, updated_at: "bad" }],
-  ])("does not capture %s consent", async (_label, consent) => {
+  ])("counts %s consent anonymously without identity", async (_label, consent) => {
     getUserById.mockResolvedValue({ data: { user: { user_metadata: consent ? { analytics_consent: consent } : {} } }, error: null });
     await captureConversionOutcome(input);
-    expect(fetch).not.toHaveBeenCalled();
+    expect(sentAnonymously().properties.outcome).toBe("signup_confirmed");
   });
-  it("fails closed when account lookup fails", async () => {
+  it("counts anonymously when the account lookup fails", async () => {
     getUserById.mockRejectedValue(new Error("no"));
     await captureConversionOutcome(input);
-    expect(fetch).not.toHaveBeenCalled();
+    sentAnonymously();
+  });
+  it("keeps the same anonymous id for retries of one event", async () => {
+    getUserById.mockResolvedValue({ data: { user: { user_metadata: {} } }, error: null });
+    await captureConversionOutcome(input);
+    await captureConversionOutcome(input);
+    const [first, second] = (fetch as ReturnType<typeof vi.fn>).mock.calls.map((call) => JSON.parse(String(call[1].body)));
+    expect(first.distinct_id).toBe(second.distinct_id);
+    expect(first.uuid).toBe(second.uuid);
+  });
+  it("records lifetime purchases with their product", async () => {
+    await captureConversionOutcome({ ...input, outcome: "lifetime_paid", eventKey: "stripe:checkout:cs_1", product: "lifetime_all_access", interval: null });
+    const sent = JSON.parse(String((fetch as ReturnType<typeof vi.fn>).mock.calls[0][1].body));
+    expect(sent.properties).toMatchObject({ outcome: "lifetime_paid", product: "lifetime_all_access" });
   });
 });
