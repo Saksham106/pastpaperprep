@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { canExportPdf, isPreviewQuestion } from "@/lib/access";
 import { authorizeAssetRequests, type AssetRequest, type AuthorizedAssetRequest } from "@/lib/asset-access";
 import { getBank, type BankSlug } from "@/lib/banks";
@@ -30,7 +31,7 @@ function validContent(value: unknown): value is PdfContent {
   return value === "questions" || value === "answers" || value === "both";
 }
 
-export async function POST(request: Request) {
+async function handlePOST(request: Request) {
   let body: RequestBody;
   try {
     body = await request.json() as RequestBody;
@@ -121,3 +122,5 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503 });
   }
 }
+
+export const POST = withFailureReporting("/api/pdf/sign", handlePOST);

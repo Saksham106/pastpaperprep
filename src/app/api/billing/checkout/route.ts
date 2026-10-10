@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { getCheckoutReferral } from "@/lib/referral-account";
 import { NextResponse } from "next/server";
 import { BANK_PRODUCTS, hasBankAccess, type ProductId } from "@/lib/access";
@@ -38,7 +39,7 @@ function safeBillingError(error: unknown) {
   return { type: typeof error };
 }
 
-export async function POST(request: Request) {
+async function handlePOST(request: Request) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user?.email) {
@@ -339,3 +340,5 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Checkout is temporarily unavailable" }, { status: 503 });
   }
 }
+
+export const POST = withFailureReporting("/api/billing/checkout", handlePOST);

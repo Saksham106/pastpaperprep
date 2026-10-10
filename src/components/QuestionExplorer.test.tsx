@@ -1015,7 +1015,7 @@ describe("QuestionExplorer", () => {
     // One clear next action, one label: the competing "preview the full bank" and
     // "sign in and choose a plan" calls to action were collapsed into this single CTA.
     expect(screen.getAllByRole("link", { name: /^unlock from \$6\/mo$/i })).toHaveLength(1);
-    expect(document.querySelector(".free-value-link")).toHaveAttribute("href", "/pricing?product=bank_ib_sl");
+    expect(document.querySelector(".free-value-link")).toHaveAttribute("href", "/pricing?product=bank_ib_sl&from=top_note");
     expect(screen.queryByRole("link", { name: /^view plans$/i })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /preview full bank/i })).not.toBeInTheDocument();
     expect(screen.queryByText(/sign in and choose a plan/i)).not.toBeInTheDocument();
@@ -1027,7 +1027,7 @@ describe("QuestionExplorer", () => {
     expect(upgradeDialog).toBeInTheDocument();
     expect(document.body.style.overflow).toBe("hidden");
     expect(screen.getByRole("button", { name: /close pdf access message/i })).toHaveFocus();
-    expect(within(upgradeDialog).getByRole("link", { name: /^view plans$/i })).toHaveAttribute("href", "/pricing?product=bank_ib_sl");
+    expect(within(upgradeDialog).getByRole("link", { name: /^view plans$/i })).toHaveAttribute("href", "/pricing?product=bank_ib_sl&from=pdf_dialog");
     fireEvent.keyDown(document, { key: "Escape" });
     expect(screen.queryByRole("dialog", { name: /saving pdfs needs paid access/i })).not.toBeInTheDocument();
     expect(document.body.style.overflow).toBe("");

@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { createClient } from "@/lib/supabase/server";
 import { loadBankQuestions } from "@/lib/question-loader";
 import { hasBankAccess } from "@/lib/access";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { validateWorksheet } from "@/lib/worksheets";
 
-export async function GET(_request: Request, context: { params: Promise<{ id: string }> }) {
+async function handleGET(_request: Request, context: { params: Promise<{ id: string }> }) {
   const { id } = await context.params;
   const client = await createClient();
   const { data: claims } = await client.auth.getClaims();
@@ -20,7 +21,7 @@ export async function GET(_request: Request, context: { params: Promise<{ id: st
   return NextResponse.json({ worksheet: data });
 }
 
-export async function PATCH(request: Request, context: { params: Promise<{ id: string }> }) {
+async function handlePATCH(request: Request, context: { params: Promise<{ id: string }> }) {
   const { id } = await context.params;
   let body: Record<string, unknown>;
   try { body = await request.json() as Record<string, unknown>; } catch { return NextResponse.json({ error: "Invalid JSON" }, { status: 400 }); }
@@ -54,7 +55,7 @@ export async function PATCH(request: Request, context: { params: Promise<{ id: s
   return NextResponse.json({ worksheet: data });
 }
 
-export async function DELETE(_request: Request, context: { params: Promise<{ id: string }> }) {
+async function handleDELETE(_request: Request, context: { params: Promise<{ id: string }> }) {
   const { id } = await context.params;
   const client = await createClient();
   const { data: claims } = await client.auth.getClaims();
@@ -64,3 +65,7 @@ export async function DELETE(_request: Request, context: { params: Promise<{ id:
   if (error) return NextResponse.json({ error: "Worksheet could not be deleted" }, { status: 503 });
   return new NextResponse(null, { status: 204 });
 }
+
+export const GET = withFailureReporting("/api/worksheets/[id]", handleGET);
+export const PATCH = withFailureReporting("/api/worksheets/[id]", handlePATCH);
+export const DELETE = withFailureReporting("/api/worksheets/[id]", handleDELETE);

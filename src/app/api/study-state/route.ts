@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { getBank, type BankSlug } from "@/lib/banks";
 import { loadBankQuestions } from "@/lib/question-loader";
 import { createClient } from "@/lib/supabase/server";
@@ -7,7 +8,7 @@ type StudyAction = "save" | "unsave" | "attempt";
 type StudyRequest = { bank?: unknown; questionId?: unknown; action?: unknown };
 const ACTIONS = new Set<StudyAction>(["save", "unsave", "attempt"]);
 
-export async function POST(request: Request) {
+async function handlePOST(request: Request) {
   let body: StudyRequest;
   try {
     body = await request.json() as StudyRequest;
@@ -64,3 +65,5 @@ export async function POST(request: Request) {
   if (error) return NextResponse.json({ error: "Study progress could not be updated" }, { status: 503 });
   return NextResponse.json({ saved: body.action === "save", attempted: body.action === "attempt" });
 }
+
+export const POST = withFailureReporting("/api/study-state", handlePOST);

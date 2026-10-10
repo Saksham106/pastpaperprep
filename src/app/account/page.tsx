@@ -7,6 +7,7 @@ import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { hasBankAccess, type AccessEntitlement } from "@/lib/access";
 import { getEntitlementBanks } from "@/lib/banks";
 import { createClient } from "@/lib/supabase/server";
+import { CheckoutReturnTracker } from "@/components/CheckoutReturnTracker";
 
 export const metadata = { title: "Your account" };
 
@@ -45,6 +46,7 @@ export default async function AccountPage({
         </form>
       </div>
 
+      {(checkout === "success" || checkout === "lifetime-pending") && <CheckoutReturnTracker status={checkout} />}
       {checkout === "success" && (
         <div className="account-checkout-status" role="status">
           <strong>Finishing your plan setup.</strong>

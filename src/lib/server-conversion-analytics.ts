@@ -1,9 +1,9 @@
 import "server-only";
-import { createHash } from "node:crypto";
+import { createHash, createHmac, randomUUID } from "node:crypto";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { stableAnalyticsDistinctId } from "@/lib/analytics-consent";
 
-type ConversionOutcome = "signup_confirmed" | "payment_initial_paid" | "payment_renewal_paid";
+type ConversionOutcome = "signup_confirmed" | "payment_initial_paid" | "payment_renewal_paid" | "lifetime_paid";
 type ConversionInput = {
   /** Canonical app account ID resolved by the authenticated/server billing path. */
   userId: string;
@@ -21,6 +21,7 @@ const PRODUCTS = new Set([
   "bank_ib_chemistry_hl", "bank_ib_chemistry_sl", "bank_ib_physics_hl", "bank_ib_physics_sl", "bank_ib_biology_hl", "bank_ib_biology_sl", "bank_ib_economics_hl", "bank_ib_economics_sl",
   "bank_igcse_biology_0610", "bank_igcse_economics_0455", "bank_igcse_chemistry_0620", "bank_igcse_physics_0625", "bank_igcse_coordinated_sciences_0654",
   "bundle_igcse", "bundle_ib_aa", "bundle_ib_ai", "bundle_ib_chemistry", "bundle_ib_physics", "bundle_ib_biology", "bundle_ib_economics", "bundle_all", "bundle_custom",
+  "lifetime_all_access",
 ]);
 const INTERVALS = new Set(["monthly", "annual"]);
 
@@ -33,35 +34,33 @@ function eventUuid(eventKey: string): string {
   return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
 }
 
-/** Best-effort, bounded PostHog capture. Never throws or logs provider data. */
+/**
+ * Best-effort, bounded PostHog capture. Never throws or logs provider data.
+ * With current analytics consent the event is tied to the account; otherwise it is an
+ * anonymous count (no account ID, no person profile) so the funnel stays measurable.
+ */
 export async function captureConversionOutcome(input: ConversionInput): Promise<void> {
   const token = process.env.POSTHOG_PROJECT_TOKEN ?? process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN;
   if (!token || !input.userId || input.eventKey.length < 1 || input.eventKey.length > 256) return;
   try {
-    const lookup = createAdminClient().auth.admin.getUserById(input.userId);
-    let lookupTimer: ReturnType<typeof setTimeout> | undefined;
-    let result;
-    try {
-      result = await Promise.race([
-        lookup,
-        new Promise<null>((resolve) => { lookupTimer = setTimeout(() => resolve(null), 500); }),
-      ]);
-    } finally { if (lookupTimer) clearTimeout(lookupTimer); }
-    const consent = result && "data" in result ? result.data.user?.user_metadata?.analytics_consent : null;
-    const updatedAt = typeof consent?.updated_at === "string" ? Date.parse(consent.updated_at) : NaN;
-    if (!result || !("data" in result) || result.error || !result.data.user || result.data.user.id !== input.userId || consent?.accepted !== true || consent?.version !== 2 ||
-      !Number.isFinite(updatedAt) || updatedAt > Date.now() + 120_000 || Date.now() - updatedAt > 180 * 24 * 60 * 60 * 1000) return;
+    const consented = await hasCurrentConsent(input.userId);
     const timestamp = new Date(input.occurredAt);
     if (!Number.isFinite(timestamp.getTime())) return;
     const host = process.env.POSTHOG_HOST ?? process.env.NEXT_PUBLIC_POSTHOG_HOST ?? "https://us.i.posthog.com";
     const base = new URL(host);
     if (base.protocol !== "https:" || base.username || base.password || base.search || base.hash) return;
+    // Without consent, ids come from a keyed hash of the event key: retries still dedupe, but
+    // nobody holding an account or invoice ID can recompute them and link the count to a person.
+    const idSource = consented ? input.eventKey : anonymousIdSource(input.eventKey);
+    const eventId = eventUuid(`uuid:${idSource}`);
     const properties: Record<string, string | boolean> = {
       outcome: input.outcome,
-      $insert_id: eventUuid(`insert:${input.eventKey}`),
+      $insert_id: eventUuid(`insert:${idSource}`),
       // PostHog's documented event UUID deduplication property; key by invoice ID upstream.
-      $uuid: eventUuid(`uuid:${input.eventKey}`),
-      $process_person_profile: true,
+      $uuid: eventId,
+      $process_person_profile: consented,
+      $geoip_disable: true,
+      identified: consented,
     };
     if (input.product && PRODUCTS.has(input.product)) properties.product = input.product;
     if (input.interval && INTERVALS.has(input.interval)) properties.interval = input.interval;
@@ -75,8 +74,8 @@ export async function captureConversionOutcome(input: ConversionInput): Promise<
         body: JSON.stringify({
           api_key: token,
           event: "conversion_outcome",
-          distinct_id: stableAnalyticsDistinctId(input.userId),
-          uuid: eventUuid(`uuid:${input.eventKey}`),
+          distinct_id: consented ? stableAnalyticsDistinctId(input.userId) : `anon:${eventUuid(`anon:${idSource}`)}`,
+          uuid: eventId,
           timestamp: timestamp.toISOString(),
           properties,
         }),
@@ -86,5 +85,32 @@ export async function captureConversionOutcome(input: ConversionInput): Promise<
     }
   } catch {
     // Analytics must not change the outcome of auth, billing, or webhook processing.
+  }
+}
+
+/** Keyed by a server-only secret; a one-off random id when none is configured (no dedupe, never linkable). */
+function anonymousIdSource(eventKey: string): string {
+  const secret = process.env.SUPABASE_SECRET_KEY;
+  return secret ? createHmac("sha256", secret).update(`ppp-analytics-anon-v1:${eventKey}`).digest("hex") : randomUUID();
+}
+
+/** True only for an accepted v2 consent recorded in the last 180 days. Any lookup problem is "no". */
+async function hasCurrentConsent(userId: string): Promise<boolean> {
+  try {
+    const lookup = createAdminClient().auth.admin.getUserById(userId);
+    let lookupTimer: ReturnType<typeof setTimeout> | undefined;
+    let result;
+    try {
+      result = await Promise.race([
+        lookup,
+        new Promise<null>((resolve) => { lookupTimer = setTimeout(() => resolve(null), 500); }),
+      ]);
+    } finally { if (lookupTimer) clearTimeout(lookupTimer); }
+    const consent = result && "data" in result ? result.data.user?.user_metadata?.analytics_consent : null;
+    const updatedAt = typeof consent?.updated_at === "string" ? Date.parse(consent.updated_at) : NaN;
+    return Boolean(result && "data" in result && !result.error && result.data.user && result.data.user.id === userId && consent?.accepted === true && consent?.version === 2 &&
+      Number.isFinite(updatedAt) && updatedAt <= Date.now() + 120_000 && Date.now() - updatedAt <= 180 * 24 * 60 * 60 * 1000);
+  } catch {
+    return false;
   }
 }

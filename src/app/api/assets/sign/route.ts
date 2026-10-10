@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { hasBankAccess, isPreviewQuestion, type AccessEntitlement } from "@/lib/access";
 import { authorizeAssetRequests, type AssetRequest } from "@/lib/asset-access";
 import { getBank, type BankSlug } from "@/lib/banks";
@@ -19,7 +20,7 @@ type SignRequestBody = {
   requests?: unknown;
 };
 
-export async function POST(request: Request) {
+async function handlePOST(request: Request) {
   let body: SignRequestBody;
   try {
     body = await request.json() as SignRequestBody;
@@ -115,3 +116,5 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503 });
   }
 }
+
+export const POST = withFailureReporting("/api/assets/sign", handlePOST);

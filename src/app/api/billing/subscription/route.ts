@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { createStripeClient } from "@/lib/stripe";
 import { getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -10,7 +11,7 @@ import { getBillingBanks } from "@/lib/banks";
 export const runtime = "nodejs";
 const NO_STORE = { "Cache-Control": "private, no-store, max-age=0" };
 
-export async function GET() {
+async function handleGET() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Authentication required" }, { status: 401, headers: NO_STORE });
@@ -126,3 +127,5 @@ export async function GET() {
     return NextResponse.json({ error: "Subscription details are temporarily unavailable" }, { status: 503, headers: NO_STORE });
   }
 }
+
+export const GET = withFailureReporting("/api/billing/subscription", handleGET);
