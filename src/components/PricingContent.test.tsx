@@ -452,7 +452,7 @@ describe("approved custom-bank pricing", () => {
     expect(stickyParent.parentElement).toBe(container.querySelector(".pricing-page"));
     expect(intro.compareDocumentPosition(toggle) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     expect(screen.getByRole("heading", { name: "Invest in your future." })).toBeInTheDocument();
-    expect(screen.getByText("Past papers. Practice. Real progress.")).toBeInTheDocument();
+    expect(screen.getByText("Start free. A plan unlocks the latest papers and every mark scheme.")).toBeInTheDocument();
     const art = [...container.querySelectorAll<HTMLImageElement>(".pricing-plan-engraving")];
     expect(art.map((image) => image.getAttribute("src"))).toEqual([
       "/artwork/pricing-one-bank-engraving.svg",

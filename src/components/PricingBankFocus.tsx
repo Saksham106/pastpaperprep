@@ -82,7 +82,7 @@ export function PricingBankFocus({ bank, productId, interval, authenticated, pre
           <p className="plan-assurance">Secure checkout · Cancel any time</p>
         </div>
         {otherBanks.length ? <div className="pricing-bank-focus-more">
-          <p><strong>Taking another subject too?</strong> <span>Add it and pay {perMonth(priceForBankCount(interval, 2))}/month for both.</span></p>
+          <p><strong>Taking another subject too?</strong> <span>Add one for just {perMonth(priceForBankCount(interval, 2) - priceForBankCount(interval, 1))}/month.</span></p>
           <div className="pricing-bank-focus-chips">
             {otherBanks.slice(0, 4).map((other) => <Link key={other.slug} className="button secondary" href={addSubjectHref(other)}>+ {other.shortName}</Link>)}
             <a className="button secondary pricing-bank-focus-all" href="#plan-all">All {allBankCount} banks · {perMonth(interval === "annual" ? PRICING_MODEL.allAccess.annualCents : PRICING_MODEL.allAccess.monthlyCents)}/mo</a>

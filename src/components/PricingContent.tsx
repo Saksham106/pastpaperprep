@@ -255,7 +255,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
       <section ref={pricingPageRef} className={`simple-page pricing-page shell${lifetimeSelected ? " pricing-page-lifetime" : ""}`}>
         <header className="pricing-recurring-intro" aria-label="Pricing plans">
           <h1>Invest in your future.</h1>
-          <p>Past papers. Practice. Real progress.</p>
+          <p>Start free. A plan unlocks the latest papers and every mark scheme.</p>
         </header>
         <div className="pricing-toggle-sticky">
           {billingToggle}
