@@ -6,8 +6,11 @@ import { spawn } from "node:child_process";
 import { mkdir, readdir, unlink, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { getAvailableBanks, type BankSlug } from "@/lib/banks";
-import { ASSET_MANIFEST_DIRECTORY, assetManifestFileName, buildBankAssetManifest } from "@/lib/asset-manifest";
+import { assetManifestFileName } from "@/lib/asset-manifest";
+import { buildBankAssetManifest } from "@/lib/asset-manifest-build";
 import { loadBankQuestions } from "@/lib/question-loader";
+
+const ASSET_MANIFEST_DIRECTORY = join(process.cwd(), "generated", "asset-manifest");
 
 const single = process.argv.indexOf("--bank");
 if (single >= 0) {

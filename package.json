@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
-    "predev": "npm run generate:bank-index",
+    "predev": "npm run generate:bank-index && npm run generate:asset-manifest",
     "build": "node scripts/next-build.mjs",
     "prebuild": "npm run generate:bank-index && npm run generate:asset-manifest",
     "postbuild": "node scripts/verify-private-sourcemaps.mjs",
@@ -29,7 +29,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "node --max-old-space-size=8192 node_modules/typescript/bin/tsc --noEmit",
-    "pretest": "npm run generate:bank-index",
+    "pretest": "npm run generate:bank-index && npm run generate:asset-manifest",
     "test": "vitest run",
     "test:watch": "vitest"
   },

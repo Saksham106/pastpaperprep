@@ -31,7 +31,9 @@ async function handlePOST(request: Request) {
 
   const bank = body.bank as BankSlug;
   const questionId = body.questionId;
-  if (!(await loadBankAssetManifest(bank)).has(questionId)) {
+  const manifest = await loadBankAssetManifest(bank).catch(() => null);
+  if (!manifest) return NextResponse.json({ error: "Study progress could not be updated" }, { status: 503 });
+  if (!manifest.has(questionId)) {
     return NextResponse.json({ error: "Unknown question" }, { status: 400 });
   }
 

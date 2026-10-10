@@ -79,6 +79,21 @@ describe("serverless performance boundaries", () => {
     expect(questions).not.toContain("const rawBanks");
   });
 
+  it("keeps the hot asset routes free of the full question corpus", () => {
+    for (const route of ["src/app/api/assets/sign/route.ts", "src/app/api/assets/free/route.ts", "src/app/api/study-state/route.ts"]) {
+      const graph = clientImportGraph(route);
+      expect(graph, route).toContain("src/lib/asset-manifest.ts");
+      expect(graph, route).not.toContain("src/lib/question-loader.ts");
+      expect(graph.some((file) => file.startsWith("src/data/raw/") || file.startsWith("src/data/production/")), route).toBe(false);
+    }
+  });
+
+  it("reads asset manifests from a constant path so file tracing stays bounded", () => {
+    const manifest = source("src/lib/asset-manifest.ts");
+    expect(manifest).toContain('join(process.cwd(), "generated", "asset-manifest", assetManifestFileName(slug))');
+    expect(manifest).not.toMatch(/join\(directory/);
+  });
+
   it("keeps server-only classification ledgers out of the bank explorer bundle", () => {
     const graph = clientImportGraph("src/components/QuestionExplorer.tsx");
     expect(graph).toContain("src/lib/taxonomy-router.ts");

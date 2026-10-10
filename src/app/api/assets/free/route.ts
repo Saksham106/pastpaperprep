@@ -29,7 +29,9 @@ async function handleGET(request: NextRequest) {
   if (!isPreviewQuestion(bank, questionId)) {
     return NextResponse.json({ error: "Access required" }, { status: 403, ...NO_STORE });
   }
-  const entry = (await loadBankAssetManifest(bank)).get(questionId);
+  const manifest = await loadBankAssetManifest(bank).catch(() => null);
+  if (!manifest) return NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503, ...NO_STORE });
+  const entry = manifest.get(questionId);
   if (!entry) return NextResponse.json({ error: "Unknown question" }, { status: 404, ...NO_STORE });
 
   const paths = kind === "question" ? entry.questionAssetPaths : entry.markschemeAssetPaths;

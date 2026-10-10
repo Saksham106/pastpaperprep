@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { hasBankAccess, isPreviewQuestion, type AccessEntitlement } from "@/lib/access";
-import { authorizeManifestAssetRequests, type AssetRequest } from "@/lib/asset-access";
+import type { AssetRequest } from "@/lib/asset-access";
+import { authorizeManifestAssetRequests, loadBankAssetManifest } from "@/lib/asset-manifest";
 import { getBank, type BankSlug } from "@/lib/banks";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { premiumAssetSignOptions, previewAssetSignOptions, resolvedAssetSignProvider, signPrivateAssetUrls } from "@/lib/private-assets";
@@ -50,12 +51,16 @@ async function handlePOST(request: Request) {
     entitlements = result.rows as AccessEntitlement[];
   }
 
+  const manifest = await loadBankAssetManifest(body.bank as BankSlug).catch(() => null);
+  if (!manifest) return NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503, ...PRIVATE_RESPONSE_INIT });
+
   let authorized;
   try {
-    authorized = await authorizeManifestAssetRequests(
+    authorized = authorizeManifestAssetRequests(
       body.bank as BankSlug,
       body.requests as AssetRequest[],
       entitlements,
+      manifest,
     );
   } catch (error) {
     const message = error instanceof Error ? error.message : "Invalid asset request";
