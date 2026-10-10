@@ -174,7 +174,7 @@ describe("DashboardContent", () => {
 
     const untouched = screen.getByRole("link", { name: /start free ib math aa hl/i });
     expect(untouched).toHaveTextContent(/start free/i);
-    expect(untouched.querySelector(".dashboard-bank-link small")?.textContent).toMatch(/older exam years/i);
+    expect(untouched.querySelector(".dashboard-bank-link small")?.textContent).toMatch(/^free exam years$/i);
   });
 
   it("promises only free practice on an unlocked bank", () => {
@@ -182,7 +182,7 @@ describe("DashboardContent", () => {
 
     const free = screen.getByRole("link", { name: /start free.*mathematics 0580/i });
     expect(free).toHaveTextContent(/start free/i);
-    expect(free.querySelector(".dashboard-bank-link small")?.textContent).toMatch(/older exam years/i);
+    expect(free.querySelector(".dashboard-bank-link small")?.textContent).toMatch(/^free exam years$/i);
   });
 
   it("renders a non-empty title for every available bank", () => {

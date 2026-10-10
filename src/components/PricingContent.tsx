@@ -292,7 +292,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         </div>
 
         {!hasPaidAccess ? <div className="pricing-free-strip">
-          <div><strong>Not ready to pay?</strong><span>Practise complete older exam years for free.</span></div>
+          <div><strong>Not ready to pay?</strong><span>Practise the free exam years of any bank.</span></div>
           <Link className="button secondary" href={bankEntryHref("igcse")}>Browse free questions</Link>
         </div> : null}
 

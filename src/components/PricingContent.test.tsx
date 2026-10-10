@@ -530,4 +530,10 @@ describe("approved custom-bank pricing", () => {
     render(<PricingContent authenticated hasPaidAccess complimentaryAccess availableBanks={availableBanks} />);
     expect(screen.queryByRole("region", { name: "Common questions" })).not.toBeInTheDocument();
   });
+
+  it("describes the free tier as free exam years, which is accurate for every bank", () => {
+    render(<PricingContent authenticated={false} hasPaidAccess={false} availableBanks={availableBanks} />);
+    expect(screen.getByText("Practise the free exam years of any bank.")).toBeInTheDocument();
+    expect(screen.queryByText(/older exam years/i)).not.toBeInTheDocument();
+  });
 });
