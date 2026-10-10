@@ -2,6 +2,8 @@ import { fireEvent, render, screen, waitFor, within } from "@testing-library/rea
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { readFileSync } from "node:fs";
 import { renderToString } from "react-dom/server";
+import { hydrateRoot } from "react-dom/client";
+import { act } from "react";
 import { join } from "node:path";
 import { QuestionExplorer } from "@/components/QuestionExplorer";
 import { PREVIEW_QUESTION_IDS, isPreviewQuestion } from "@/lib/access";
@@ -1359,14 +1361,17 @@ describe("QuestionExplorer asset loading", () => {
     expect(page.querySelector('[aria-label="Remove free questions only filter"]')).not.toBeNull();
   });
 
-  it("keeps the member view provisional until bootstrap", async () => {
+  it("keeps the free strip but withholds the free-only filter while a member's bootstrap is pending", async () => {
     document.cookie = "sb-test-auth-token=x; path=/";
     const fetchMock = assetFetch(() => new Promise<Response>(() => {}));
     vi.stubGlobal("fetch", fetchMock);
 
     render(<QuestionExplorer questions={[freeQuestion]} bankSlug="ib-sl" access={anonymous} initialState={{ search: "", sort: "paper", filters: {}, freeOnly: true, savedOnly: false, courseRoute: "all", visible: 24 }} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
 
-    await waitFor(() => expect(document.querySelector(".free-value-strip")).toBeNull());
+    await waitFor(() => expect(fetchMock.mock.calls.some(([input]) => String(input).startsWith("/api/banks/bootstrap"))).toBe(true));
+    expect(document.querySelector(".free-value-strip")).not.toBeNull();
+    expect(screen.getByRole("group", { name: /access/i })).toBeInTheDocument();
+    expect(screen.queryByText(/you’re practising .* papers\./i)).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /remove free questions only filter/i })).not.toBeInTheDocument();
   });
 
@@ -1380,6 +1385,22 @@ describe("QuestionExplorer asset loading", () => {
     const images = screen.getAllByRole("img", { name: /original question/i });
     expect(images[0]).toHaveAttribute("fetchpriority", "high");
     expect(images.slice(1).every((image) => image.getAttribute("loading") === "lazy")).toBe(true);
+  });
+
+  it("hydrates the static anonymous render without a mismatch", async () => {
+    const free = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").filter((question) => freeIds.has(question.id)).slice(0, 24), []);
+    const element = <QuestionExplorer questions={free} bankSlug="ib-sl" access={anonymous} initialState={{ search: "", sort: "paper", filters: {}, freeOnly: true, savedOnly: false, courseRoute: "all", visible: 24 }} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />;
+    vi.stubGlobal("fetch", assetFetch());
+    const container = document.createElement("div");
+    container.innerHTML = renderToString(element);
+    document.body.appendChild(container);
+    const errors: unknown[] = [];
+
+    const root = await act(async () => hydrateRoot(container, element, { onRecoverableError: (error) => errors.push(error) }));
+
+    expect(errors.map(String)).toEqual([]);
+    act(() => root.unmount());
+    container.remove();
   });
 });
 

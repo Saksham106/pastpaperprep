@@ -224,6 +224,17 @@ describe("fetchFreeAssets", () => {
     }
   });
 
+  it("shortens the lifetime when the CDN reports an older copy than expected", async () => {
+    vi.useFakeTimers({ now: 1_000_000 });
+    try {
+      const stale = () => new Response(JSON.stringify({ expiresIn: 3600, maxAge: 900, asset: { questionId: "a", kind: "question", urls: ["https://assets.example/a.webp"] } }), { status: 200, headers: { age: "3000" } });
+      const { assets } = await fetchFreeAssets("ib-sl", [{ questionId: "a", kind: "question" }], async () => stale());
+      expect(assets.get("a:question")!.expiresAt).toBe(1_000_000 + (3600 - 3000 - 300) * 1000);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   it("reports failures per asset instead of failing the batch", async () => {
     const fetcher = vi.fn(async (input: RequestInfo | URL) => String(input).includes("id=bad")
       ? new Response(JSON.stringify({ error: "Access required" }), { status: 403 })

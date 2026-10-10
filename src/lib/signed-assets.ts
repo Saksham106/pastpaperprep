@@ -220,8 +220,11 @@ export async function fetchFreeAssets(
         !validAsset(payload.asset) ||
         signedAssetKey(payload.asset.questionId, payload.asset.kind) !== key
       ) throw new Error("Invalid free asset response");
-      // A CDN copy can be up to maxAge old; expire early so a lazy image never meets a dead link.
-      const lifetime = Math.max(payload.expiresIn - payload.maxAge - FREE_ASSET_SAFETY_SECONDS, 1);
+      // A CDN copy is normally at most maxAge old; trust a larger Age header if the CDN reports
+      // one, so a stale copy can never hand out a link that is already dead.
+      const reportedAge = Number(response.headers?.get("age"));
+      const age = Math.max(Number.isFinite(reportedAge) ? reportedAge : 0, payload.maxAge);
+      const lifetime = Math.max(payload.expiresIn - age - FREE_ASSET_SAFETY_SECONDS, 1);
       return { key, asset: { ...payload.asset, expiresAt: Date.now() + lifetime * 1000 } as SignedAsset };
     } catch {
       return { key, asset: null };
