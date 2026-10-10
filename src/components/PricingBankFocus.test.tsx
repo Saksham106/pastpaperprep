@@ -13,7 +13,8 @@ describe("pricing for someone who came from a bank's upgrade prompt", () => {
     expect(within(panel).getByText("A plan opens 2019–2026, including 2026’s papers.")).toBeInTheDocument();
     expect(within(panel).getByText("Cambridge IGCSE · Mathematics 0580")).toBeInTheDocument();
     expect(panel.querySelector(".plan-price")).toHaveTextContent(/^\$6\s*\/ month$/);
-    expect(within(within(panel).getByRole("list", { name: "Mathematics 0580 plan includes" })).getAllByRole("listitem")[0]).toHaveTextContent("All 3,967 questions, 2016–2026");
+    expect(within(panel).queryByRole("list", { name: /plan includes/ })).not.toBeInTheDocument();
+    expect(within(panel).queryByText("Billed monthly")).not.toBeInTheDocument();
     expect([...panel.querySelectorAll(".upgrade-years li.is-paid")].map((chip) => chip.firstChild?.textContent)).toEqual(["2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"]);
     expect(within(panel).getByRole("link", { name: "Unlock Mathematics 0580" })).toHaveAttribute("href", `/login?next=${encodeURIComponent("/pricing?interval=monthly&product=bank_igcse")}`);
     expect(within(panel).getByText("Taking another subject too?")).toBeInTheDocument();
@@ -58,7 +59,7 @@ describe("pricing for someone who came from a bank's upgrade prompt", () => {
     render(<PricingContent authenticated={false} hasPaidAccess={false} initialProductId="bank_ib_chemistry_hl" availableBanks={availableBanks} />);
     const panel = screen.getByRole("region", { name: /Unlock every .*Chemistry.* paper/ });
     expect(within(panel).getByText("A plan opens 2016–2019, 2021–2025, including 2025’s papers.")).toBeInTheDocument();
-    expect(within(panel).getByText("Grey years are free. Blue years come with a plan.")).toBeInTheDocument();
+    expect(within(panel).queryByText(/Grey years are free/)).not.toBeInTheDocument();
   });
 
   it("suggests a different subject, not another level of the same one or the other maths course", () => {
@@ -88,7 +89,8 @@ describe("pricing for someone who came from a bank's upgrade prompt", () => {
   it("leaves manual grants and oversized selections unselected", () => {
     const { unmount } = render(<PricingContent authenticated hasPaidAccess manualAccess initialBankIds={["igcse", "ib-hl"]} ownedBankIds={["ib-sl"]} currentPlanProductIds={["bank_ib_sl"]} availableBanks={availableBanks} />);
     const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article") as HTMLElement;
-    expect(builder).toHaveTextContent("Standard price shown, not your current charge.");
+    expect(builder).not.toHaveTextContent(/New plan: billed/);
+    expect(builder).not.toHaveTextContent(/not your current charge/);
     unmount();
     const six = availableBanks.filter((bank) => bank.slug !== "ib-sl").slice(0, 6).map((bank) => bank.slug);
     render(<PricingContent authenticated hasPaidAccess addOnIntent initialBankIds={six} ownedBankIds={["ib-sl"]} currentPlanProductIds={["bank_ib_sl"]} availableBanks={availableBanks} />);

@@ -20,14 +20,15 @@ describe("approved custom-bank pricing", () => {
     expect(container.querySelectorAll(".pricing-option button")).toHaveLength(0);
     expect(screen.getByText("Manual access")).toBeInTheDocument();
     expect(screen.queryByText("All available banks are already included.")).not.toBeInTheDocument();
-    expect(container.querySelectorAll(".pricing-plan-access-note")[2]).toHaveTextContent("Shown for comparison. Your grant covers only selected banks.");
+    expect(container.querySelectorAll(".pricing-plan-access-note")).toHaveLength(0);
+    expect(screen.queryByText(/Shown for comparison|not your current charge|Included with your/)).not.toBeInTheDocument();
   });
 
   it("shows read-only plan cards for complimentary all-access without purchase controls", () => {
     const { container } = render(<PricingContent authenticated hasPaidAccess complimentaryAccess currentPlanProductIds={["bundle_all"]} availableBanks={availableBanks} />);
     expect(container.querySelectorAll(".pricing-decision-grid > article")).toHaveLength(3);
     expect(container.querySelectorAll(".pricing-decision-grid button")).toHaveLength(0);
-    expect(screen.getAllByText(/included with your complimentary access/i).length).toBeGreaterThan(0);
+    expect(screen.queryByText(/included with your complimentary access/i)).not.toBeInTheDocument();
   });
 
   it("shows covered plan cards without subscription editors for lifetime owners", () => {
@@ -91,7 +92,7 @@ describe("approved custom-bank pricing", () => {
     expect(within(all).getByRole("checkbox", { name: /existing subscriptions keep renewing/i })).toBeInTheDocument();
     expect(within(all).queryByRole("button", { name: /all access/i })).not.toBeInTheDocument();
     expect(container.querySelectorAll(".pricing-decision-grid > .pricing-option")).toHaveLength(3);
-    expect(within(one).getByText(/Standard price for a new subscription/i)).toBeInTheDocument();
+    expect(within(one).queryByText(/Standard price for a new subscription/i)).not.toBeInTheDocument();
   });
 
   it("does not mislabel two separately purchased banks as a discounted builder bundle", () => {
@@ -124,7 +125,7 @@ describe("approved custom-bank pricing", () => {
     fireEvent.click(within(builder).getByRole("checkbox", { name: "IB Math AA HL" }));
     fireEvent.click(within(builder).getByRole("checkbox", { name: "IB Math AI HL" }));
     expect(within(builder).getByText("$10")).toBeInTheDocument();
-    expect(within(builder).getByText("New plan: billed $10 monthly.")).toBeInTheDocument();
+    expect(within(builder).queryByText(/New plan: billed/)).not.toBeInTheDocument();
     expect(within(builder).queryByRole("button", { name: "Add 2 banks" })).not.toBeInTheDocument();
     fireEvent.click(within(builder).getByRole("checkbox", { name: /existing subscriptions keep renewing/i }));
     expect(within(builder).getByRole("button", { name: "Add 2 banks" })).toBeInTheDocument();
@@ -207,24 +208,21 @@ describe("approved custom-bank pricing", () => {
     expect(cards[2]).toHaveAttribute("data-plan-tone", "premium");
     expect(container.querySelectorAll(".pricing-plan-engraving")).toHaveLength(0);
     expect(container.querySelectorAll(".plan-icon[aria-hidden=\"true\"]")).toHaveLength(3);
-    expect(container.querySelectorAll(".plan-feature-list")).toHaveLength(3);
-    expect(within(screen.getByRole("list", { name: "One Bank includes" })).getAllByRole("listitem").map((item) => item.textContent)).toEqual(["Every year, including the newest papers", "Every official mark scheme", "Save and download PDFs", "Mock paper builder"]);
-    expect(within(screen.getByRole("list", { name: "Build Your Plan includes" })).getAllByRole("listitem").map((item) => item.textContent)).toEqual(["Everything in One Bank", "For every subject you take", "One subscription, one bill"]);
-    expect(within(screen.getByRole("list", { name: "All Access includes" })).getAllByRole("listitem").map((item) => item.textContent)).toEqual(["Every bank, every subject", "New banks as they launch", "Ideal for tutors"]);
-    expect(within(cards[0] as HTMLElement).getByText("Focus on one syllabus.")).toBeInTheDocument();
-    expect(within(cards[1] as HTMLElement).getByText("Mix the banks you actually take.")).toBeInTheDocument();
+    expect(container.querySelectorAll(".plan-feature-list, .plan-description, .plan-assurance")).toHaveLength(0);
+    expect(container.querySelectorAll(".plan-label")).toHaveLength(1);
     expect(within(cards[1] as HTMLElement).getByText("2 to 5 banks")).toBeInTheDocument();
-    expect(within(cards[2] as HTMLElement).getByText("Everything, including future banks.")).toBeInTheDocument();
+
     expect(within(cards[0] as HTMLElement).queryByRole("link", { name: "Choose One Bank" })).not.toBeInTheDocument();
     expect(within(cards[1] as HTMLElement).queryByRole("link", { name: /Continue with/ })).not.toBeInTheDocument();
     expect(within(cards[2] as HTMLElement).getByRole("link", { name: "Unlock all banks" })).toBeInTheDocument();
-    expect(within(cards[0] as HTMLElement).getByText("Select one bank to continue.")).toBeInTheDocument();
-    expect(within(cards[1] as HTMLElement).getByText("Select at least two banks to continue.")).toBeInTheDocument();
+    expect(within(cards[0] as HTMLElement).getByRole("button", { name: "Pick a bank" })).toBeDisabled();
+    expect(within(cards[1] as HTMLElement).getByRole("button", { name: "Pick 2+ banks" })).toBeDisabled();
+    expect(screen.queryByText(/Billed monthly|to continue\./)).not.toBeInTheDocument();
     expect(screen.getByText("Most popular")).toBeInTheDocument();
     expect(screen.queryAllByRole("radio", { checked: true })).toHaveLength(0);
     expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(0);
     expect(screen.getAllByRole("checkbox")).toHaveLength(availableBanks.length);
-    expect(screen.getAllByText(/Secure checkout · Cancel any time/)).toHaveLength(3);
+    expect(screen.getAllByText("Secure checkout · Cancel any time")).toHaveLength(1);
     expect(screen.getByText(/Existing subscribers remain grandfathered at their current price and access\./)).toBeInTheDocument();
   });
 
@@ -239,7 +237,7 @@ describe("approved custom-bank pricing", () => {
     fireEvent.click(checkboxes[0]);
 
     expect(within(builder!).getByText("1 selected")).toBeInTheDocument();
-    expect(within(builder!).getByText("Select one more bank to continue.")).toBeInTheDocument();
+    expect(within(builder!).getByRole("button", { name: "Pick 1 more bank" })).toBeDisabled();
     expect(within(builder!).queryByRole("button", { name: /Continue with/ })).not.toBeInTheDocument();
 
     fireEvent.click(checkboxes[1]);
@@ -297,7 +295,7 @@ describe("approved custom-bank pricing", () => {
 
     expect(builder.querySelector(".plan-price strong")).toHaveTextContent("$10");
     expect(builder.querySelector(".plan-price")).toHaveTextContent(/^\$10\s*\/ month$/);
-    expect(within(builder).getByText("Billed monthly")).toBeInTheDocument();
+    expect(within(builder).queryByText("Billed monthly")).not.toBeInTheDocument();
     expect(within(builder).queryByText(/two-bank minimum|for 2|for two/i)).not.toBeInTheDocument();
   });
 
@@ -343,12 +341,12 @@ describe("approved custom-bank pricing", () => {
     const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article") as HTMLElement;
     const checkbox = within(builder).getAllByRole("checkbox")[0];
 
-    expect(within(builder).getByText("Select at least two banks to continue.")).toBeInTheDocument();
+    expect(within(builder).getByRole("button", { name: "Pick 2+ banks" })).toBeDisabled();
     expect(within(builder).queryByRole("button", { name: /continue with/i })).not.toBeInTheDocument();
 
     fireEvent.click(checkbox);
 
-    expect(within(builder).getByText("Select one more bank to continue.")).toBeInTheDocument();
+    expect(within(builder).getByRole("button", { name: "Pick 1 more bank" })).toBeDisabled();
     expect(within(builder).queryByRole("button", { name: /continue with/i })).not.toBeInTheDocument();
   });
 
@@ -535,5 +533,12 @@ describe("approved custom-bank pricing", () => {
     render(<PricingContent authenticated={false} hasPaidAccess={false} availableBanks={availableBanks} />);
     expect(screen.getByText("Practise the free exam years of any bank.")).toBeInTheDocument();
     expect(screen.queryByText(/older exam years/i)).not.toBeInTheDocument();
+  });
+
+  it("keeps only the annual billing line, which states a different amount", () => {
+    render(<PricingContent authenticated={false} hasPaidAccess={false} availableBanks={availableBanks} />);
+    fireEvent.click(screen.getByRole("button", { name: /^Annual/ }));
+    const one = screen.getByRole("heading", { name: "One Bank" }).closest("article") as HTMLElement;
+    expect(within(one).getByText(/^Billed \$48 once a year/)).toBeInTheDocument();
   });
 });

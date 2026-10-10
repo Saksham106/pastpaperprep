@@ -395,15 +395,15 @@ export function CustomBundleCheckout({
     });
   }
 
-  const selectionNote = allAccess
-    ? "Six or more banks automatically use All Access."
-    : mode === "single" && quantity === 0
-      ? "Select one bank to continue."
-      : mode === "builder" && quantity === 0
-        ? "Select at least two banks to continue."
-        : mode === "builder" && quantity === 1
-          ? "Select one more bank to continue."
-          : null;
+  const selectionNote = allAccess ? "Six or more banks automatically use All Access." : null;
+  // Until enough banks are picked, the button itself says what is missing.
+  const pickPrompt = mode === "single" && quantity === 0
+    ? "Pick a bank"
+    : mode === "builder" && quantity === 0
+      ? "Pick 2+ banks"
+      : mode === "builder" && quantity === 1
+        ? "Pick 1 more bank"
+        : null;
 
   return (
     <div className="plan-checkout custom-bundle-checkout">
@@ -439,6 +439,7 @@ export function CustomBundleCheckout({
         </fieldset>
       </details>
       {selectionNote ? <p className="custom-bundle-selection-note">{selectionNote}</p> : null}
+      {!canCheckout && pickPrompt ? <div className="billing-actions"><button className="button primary" type="button" disabled>{pickPrompt}</button></div> : null}
       {canCheckout ? <>
         {previewOnly ? <div className="billing-actions"><button className="button primary" type="button" disabled>{resolvedCtaLabel}</button><p className="custom-bundle-selection-note">Preview only — checkout is disabled.</p></div> : <>
         {hasPaidAccess ? <p className="custom-bundle-selection-note">New separate subscription. Existing subscriptions and renewal dates stay unchanged; no credit for banks you already own.</p> : null}

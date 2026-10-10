@@ -68,17 +68,10 @@ export function PricingBankFocus({ bank, productId, interval, authenticated, pre
       <div className="pricing-bank-focus-card">
         <div>
           <div className="plan-price"><strong>{price}</strong><span>/ month</span></div>
-          <p className="plan-billing-note">{billing}</p>
-          <ul className="plan-feature-list" aria-label={`${bank.shortName} plan includes`}>
-            <li>All {bank.questionCount.toLocaleString()} questions, {bank.years.replace("-", "–")}</li>
-            <li>Every official mark scheme</li>
-            <li>Save and download PDFs</li>
-            <li>Mock paper builder</li>
-          </ul>
+          {interval === "annual" ? <p className="plan-billing-note">{billing}</p> : null}
           {facts ? <ol className="upgrade-years" aria-label="Exam years">
             {facts.coverage.map((year) => { const free = facts.freeYears.includes(year); return <li key={year} className={free ? "is-free" : "is-paid"}>{year}<span className="sr-only"> {free ? "free" : "on a plan"}</span></li>; })}
           </ol> : null}
-          {facts ? <p className="pricing-bank-focus-key">Grey years are free. Blue years come with a plan.</p> : null}
         </div>
         <div className="pricing-bank-focus-action">
           {previewOnly
