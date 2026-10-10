@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import Link from "next/link";
 import { BookOpen, CrownSimple, ShieldCheck, SlidersHorizontal } from "@phosphor-icons/react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -40,6 +42,15 @@ const PLANS = [
 ] as const;
 
 type BillingInterval = "monthly" | "annual";
+
+function PlanEngraving({ stage }: { stage: "single" | "builder" | "all" }) {
+  const artwork = {
+    single: "/artwork/pricing-one-bank-engraving.svg",
+    builder: "/artwork/pricing-builder-corridor.svg",
+    all: "/artwork/pricing-all-access-city.svg",
+  }[stage];
+  return <Image className={`pricing-plan-engraving pricing-plan-engraving-${stage}`} src={artwork} width={340} height={230} unoptimized alt="" aria-hidden="true" loading="eager" decoding="async" />;
+}
 
 function getBuilderMonthlyEquivalentCents(interval: BillingInterval, quantity: number): number | null {
   if (quantity < 2) return null;
@@ -207,6 +218,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
             ctaLabel={hasPaidAccess && isBuilder ? `Add ${builderQuantity} banks` : checkoutCta}
           />
         )}
+        <PlanEngraving stage={plan.mode} />
       </article>
     );
   };
@@ -242,8 +254,8 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
     <div className="public-surface">
       <section ref={pricingPageRef} className={`simple-page pricing-page shell${lifetimeSelected ? " pricing-page-lifetime" : ""}`}>
         <header className="pricing-recurring-intro" aria-label="Pricing plans">
-          <h1>Practise every past paper, newest first.</h1>
-          <p>Start free. A plan unlocks the latest papers and every mark scheme.</p>
+          <h1>Invest in your future.</h1>
+          <p>Past papers. Practice. Real progress.</p>
         </header>
         <div className="pricing-toggle-sticky">
           {billingToggle}
