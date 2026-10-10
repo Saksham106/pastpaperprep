@@ -184,7 +184,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
     const canAdd = hasPaidAccess && !currentAllAccess && !manualAccess;
     const cardBanks = canAdd ? addOnBanks : availableBanks;
     return (
-      <article id={plan.mode === "all" && !hasPaidAccess ? "plan-all" : undefined} className={`pricing-option${plan.popular ? " pricing-option-popular" : ""}${current ? " pricing-option-current" : ""}`} data-plan-tone={plan.tone} data-current-plan={current ? "true" : undefined} data-mobile-order={plan.popular ? "first" : undefined} key={plan.name}>
+      <article id={hasPaidAccess ? undefined : plan.mode === "all" ? "plan-all" : plan.mode === "builder" ? "plan-builder" : undefined} className={`pricing-option${plan.popular ? " pricing-option-popular" : ""}${current ? " pricing-option-current" : ""}`} data-plan-tone={plan.tone} data-current-plan={current ? "true" : undefined} data-mobile-order={plan.popular ? "first" : undefined} key={plan.name}>
         <div className="pricing-option-heading">
           <div className="plan-title-block">
             <span className="plan-icon" aria-hidden="true"><PlanIcon weight="duotone" /></span>

@@ -53,6 +53,11 @@ export function PricingBankFocus({ bank, productId, interval, authenticated, pre
   const perMonth = (cents: number) => formatPrice(interval === "annual" ? cents / 12 : cents);
   const pricingReturn = `/pricing?interval=${interval}&product=${productId}${source ? `&from=${source}` : ""}`;
   const headingId = `pricing-focus-${bank.slug}`;
+  // The builder already has this bank selected; open its list so any other bank can be added.
+  const openBuilderPicker = () => {
+    const picker = document.querySelector<HTMLDetailsElement>("#plan-builder details.custom-bank-disclosure");
+    if (picker) picker.open = true;
+  };
   const addSubjectHref = (other: Bank) => {
     const params = new URLSearchParams({ banks: `${bank.slug},${other.slug}` });
     if (interval === "annual") params.set("interval", "annual");
@@ -85,6 +90,7 @@ export function PricingBankFocus({ bank, productId, interval, authenticated, pre
           <p><strong>Taking another subject too?</strong> <span>Add one for just {perMonth(priceForBankCount(interval, 2) - priceForBankCount(interval, 1))}/month.</span></p>
           <div className="pricing-bank-focus-chips">
             {otherBanks.slice(0, 4).map((other) => <Link key={other.slug} className="button secondary" href={addSubjectHref(other)}>+ {other.shortName}</Link>)}
+            <a className="button secondary pricing-bank-focus-custom" href="#plan-builder" onClick={openBuilderPicker}>+ Choose another bank</a>
             <a className="button secondary pricing-bank-focus-all" href="#plan-all">All {allBankCount} banks · {perMonth(interval === "annual" ? PRICING_MODEL.allAccess.annualCents : PRICING_MODEL.allAccess.monthlyCents)}/mo</a>
           </div>
         </div> : null}

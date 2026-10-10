@@ -20,7 +20,7 @@ describe("pricing for someone who came from a bank's upgrade prompt", () => {
     expect(within(panel).getByText("Taking another subject too?")).toBeInTheDocument();
     expect(within(panel).getByText("Add one for just $4/month.")).toBeInTheDocument();
     expect(within(panel).getByRole("link", { name: "+ Additional Mathematics 0606" })).toHaveAttribute("href", "/pricing?banks=igcse%2Cigcse-additional");
-    expect(within(panel).getAllByRole("link", { name: /^\+ / }).length).toBeLessThanOrEqual(4);
+    expect(within(panel).getAllByRole("link", { name: /^\+ (?!Choose another bank)/ }).length).toBeLessThanOrEqual(4);
     expect(within(panel).getByRole("link", { name: /^All \d+ banks · \$25\/mo$/ })).toHaveAttribute("href", "#plan-all");
     expect(screen.getByRole("heading", { name: "Or compare every plan" })).toBeInTheDocument();
     expect(container.querySelectorAll(".pricing-decision-grid > article")).toHaveLength(3);
@@ -65,7 +65,7 @@ describe("pricing for someone who came from a bank's upgrade prompt", () => {
 
   it("suggests a different subject, not another level of the same one or the other maths course", () => {
     render(<PricingContent authenticated={false} hasPaidAccess={false} initialProductId="bank_ib_hl" availableBanks={availableBanks} />);
-    const names = within(screen.getByRole("region", { name: /Unlock every .* paper/ })).getAllByRole("link", { name: /^\+ / }).map((link) => link.textContent);
+    const names = within(screen.getByRole("region", { name: /Unlock every .* paper/ })).getAllByRole("link", { name: /^\+ (?!Choose another bank)/ }).map((link) => link.textContent);
     expect(names.length).toBeGreaterThan(0);
     expect(names.some((name) => /Math/.test(name ?? ""))).toBe(false);
     const subjects = names.map((name) => name?.replace(/^\+ /, "").replace(/ (HL|SL|Higher Level|Standard Level)$/, ""));
@@ -101,13 +101,27 @@ describe("pricing for someone who came from a bank's upgrade prompt", () => {
 
   it("only suggests banks from the same qualification", () => {
     const { unmount } = render(<PricingContent authenticated={false} hasPaidAccess={false} initialProductId="bank_igcse" availableBanks={availableBanks} />);
-    const igcse = within(screen.getByRole("region", { name: /Unlock every .* paper/ })).getAllByRole("link", { name: /^\+ / }).map((link) => link.getAttribute("href"));
+    const igcse = within(screen.getByRole("region", { name: /Unlock every .* paper/ })).getAllByRole("link", { name: /^\+ (?!Choose another bank)/ }).map((link) => link.getAttribute("href"));
     expect(igcse.length).toBeGreaterThan(0);
     expect(igcse.every((href) => /banks=igcse%2Cigcse-/.test(href ?? ""))).toBe(true);
     unmount();
     render(<PricingContent authenticated={false} hasPaidAccess={false} initialProductId="bank_ib_physics_sl" availableBanks={availableBanks} />);
-    const ib = within(screen.getByRole("region", { name: /Unlock every .* paper/ })).getAllByRole("link", { name: /^\+ / }).map((link) => link.getAttribute("href"));
+    const ib = within(screen.getByRole("region", { name: /Unlock every .* paper/ })).getAllByRole("link", { name: /^\+ (?!Choose another bank)/ }).map((link) => link.getAttribute("href"));
     expect(ib.length).toBeGreaterThan(0);
     expect(ib.every((href) => /banks=ib-physics-sl%2Cib-/.test(href ?? ""))).toBe(true);
+  });
+
+  it("lets them choose any other bank when the suggestions don't fit", () => {
+    const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} initialProductId="bank_ib_physics_sl" availableBanks={availableBanks} />);
+    const builder = container.querySelector("#plan-builder") as HTMLElement;
+    expect(builder).toHaveAttribute("data-plan-tone", "builder");
+    const picker = builder.querySelector("details.custom-bank-disclosure") as HTMLDetailsElement;
+    expect(picker.open).toBe(false);
+    const choose = within(screen.getByRole("region", { name: /Unlock every .* paper/ })).getByRole("link", { name: "+ Choose another bank" });
+    expect(choose).toHaveAttribute("href", "#plan-builder");
+    fireEvent.click(choose);
+    expect(picker.open).toBe(true);
+    expect(within(builder).getByRole("checkbox", { name: "Physics SL" })).toBeChecked();
+    expect(within(builder).getByRole("checkbox", { name: "Chemistry HL" })).not.toBeChecked();
   });
 });
