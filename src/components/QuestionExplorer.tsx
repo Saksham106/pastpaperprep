@@ -1288,22 +1288,27 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, freeAns
   const [solutionOpen, setSolutionOpen] = useState(false);
   const [answerLoading, setAnswerLoading] = useState(false);
   const [answerError, setAnswerError] = useState("");
-  const answerRequestRef = useRef<Promise<SignedAsset> | null>(null);
+  const answerRequestRef = useRef<{ promise: Promise<SignedAsset>; expiresAt: number } | null>(null);
   const loadAnswer = () => {
-    if (answerAsset) return Promise.resolve(answerAsset);
-    answerRequestRef.current ??= (freeAnswer
-      ? fetchFreeAssets(question.bankSlug, [{ questionId: question.id, kind: "answer" }]).then(({ assets }) => assets.get(signedAssetKey(question.id, "answer")))
-      : fetchSignedAssets(question.bankSlug, [{ questionId: question.id, kind: "answer" }], fetch, localPreview).then((assets) => assets.get(signedAssetKey(question.id, "answer"))))
-      .then((asset) => {
-        if (!asset) throw new Error("Missing answer asset");
-        onAnswerAsset(asset);
-        return asset;
-      })
-      .catch((error: unknown) => {
-        answerRequestRef.current = null;
-        throw error;
-      });
-    return answerRequestRef.current;
+    if (answerAsset && isSignedAssetFresh(answerAsset)) return Promise.resolve(answerAsset);
+    if (answerRequestRef.current && answerRequestRef.current.expiresAt <= Date.now()) answerRequestRef.current = null;
+    if (!answerRequestRef.current) {
+      const request = (freeAnswer
+        ? fetchFreeAssets(question.bankSlug, [{ questionId: question.id, kind: "answer" }]).then(({ assets }) => assets.get(signedAssetKey(question.id, "answer")))
+        : fetchSignedAssets(question.bankSlug, [{ questionId: question.id, kind: "answer" }], fetch, localPreview).then((assets) => assets.get(signedAssetKey(question.id, "answer"))))
+        .then((asset) => {
+          if (!asset) throw new Error("Missing answer asset");
+          if (answerRequestRef.current?.promise === request) answerRequestRef.current.expiresAt = asset.expiresAt;
+          onAnswerAsset(asset);
+          return asset;
+        })
+        .catch((error: unknown) => {
+          if (answerRequestRef.current?.promise === request) answerRequestRef.current = null;
+          throw error;
+        });
+      answerRequestRef.current = { promise: request, expiresAt: Number.POSITIVE_INFINITY };
+    }
+    return answerRequestRef.current.promise;
   };
   // Free answers are public and CDN-cached, so warm them on intent; paid answers sign on click
   // only, because each signature spends the member's daily allowance.
