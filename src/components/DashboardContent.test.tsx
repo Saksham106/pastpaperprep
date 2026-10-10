@@ -28,7 +28,7 @@ describe("DashboardContent", () => {
 
     expect(screen.getByRole("link", { name: /start free.*mathematics 0580/i })).toHaveAttribute("href", "/banks/igcse?free=1");
     const plan = screen.getByRole("region", { name: "Your plan: Free" });
-    expect(plan).toHaveTextContent("You have the older years of every bank.");
+    expect(plan).toHaveTextContent("You have the free exam years of every bank.");
     expect(plan).toHaveTextContent("Plans add the newest papers, every mark scheme and PDFs. From $6/month.");
     expect(screen.getByRole("link", { name: "See plans" })).toHaveAttribute("href", "/pricing?from=dashboard");
     expect(screen.queryByRole("link", { name: /sign in/i })).not.toBeInTheDocument();

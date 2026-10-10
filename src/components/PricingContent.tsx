@@ -18,7 +18,7 @@ import type { UpgradePlacement } from "@/lib/upgrade-copy";
 import { clearCheckoutParam } from "@/components/CheckoutReturnTracker";
 import { annualSavingPercent, formatPrice, maximumAnnualSavingPercent, priceForBankCount } from "@/lib/pricing-model";
 import { QualificationTabs } from "@/components/QualificationTabs";
-import { PricingBankFocus } from "@/components/PricingBankFocus";
+import { PricingBankFocus, secondSubjectOptions } from "@/components/PricingBankFocus";
 
 function bankSlugForProduct(productId: string): BankSlug | undefined {
   return getCatalogBanksForDisplay().find((bank) => bank.productId === productId)?.slug;
@@ -35,7 +35,7 @@ const PLANS = [
   },
   {
     name: "All Access", label: PRICING_MODEL.allAccess.label, monthly: formatPrice(PRICING_MODEL.allAccess.monthlyCents), annualMonthly: formatPrice(PRICING_MODEL.allAccess.annualCents / 12), annual: formatPrice(PRICING_MODEL.allAccess.annualCents), annualSaving: `${annualSavingPercent(PRICING_MODEL.allAccess.monthlyCents, PRICING_MODEL.allAccess.annualCents)}%`,
-    description: "Everything, including future banks.", features: ["Every bank, every subject", "New banks as they launch", "Best for tutors and schools"], mode: "all" as const, tone: "premium", popular: false, icon: CrownSimple, cta: "Unlock all banks",
+    description: "Everything, including future banks.", features: ["Every bank, every subject", "New banks as they launch", "Ideal for tutors"], mode: "all" as const, tone: "premium", popular: false, icon: CrownSimple, cta: "Unlock all banks",
   },
 ] as const;
 
@@ -114,8 +114,14 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
     // Report the page as it was first opened; later selections are separate events.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  // Subscribers keep the bank they asked for, minus banks they already own.
-  const preselectedBankIds = hasPaidAccess ? (initialCustomBankIds ?? []).filter((id) => !ownedBankIds.includes(id)) : initialCustomBankIds;
+  // Subscribers keep the banks they asked for, minus banks they already own, but only when an
+  // add-on can actually be sold to them and the request fits the 2–5 bank builder.
+  const sellsAddOns = hasPaidAccess && addOnIntent && !manualAccess && !complimentaryAccess
+    && !currentPlanProductIds.some((id) => id === "bundle_all" || id === "lifetime_all_access");
+  const requestedAddOns = (initialCustomBankIds ?? []).filter((id) => !ownedBankIds.includes(id) && availableBanks.some((bank) => bank.slug === id));
+  const preselectedBankIds = hasPaidAccess
+    ? sellsAddOns && requestedAddOns.length <= PRICING_MODEL.builder.maxBanks ? requestedAddOns : []
+    : initialCustomBankIds;
   const [builderBankIds, setBuilderBankIds] = useState<BankSlug[]>(() => [...(preselectedBankIds ?? [])]);
   const handleBuilderSelectionChange = useCallback((selectedBankIds: readonly BankSlug[]) => {
     setBuilderBankIds([...selectedBankIds]);
@@ -241,7 +247,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
       <section ref={pricingPageRef} className={`simple-page pricing-page shell${lifetimeSelected ? " pricing-page-lifetime" : ""}`}>
         <header className="pricing-recurring-intro" aria-label="Pricing plans">
           <h1>Practise every past paper, newest first.</h1>
-          <p>Start free with older years. A plan unlocks the latest papers and every mark scheme.</p>
+          <p>Start free. A plan unlocks the latest papers and every mark scheme.</p>
         </header>
         <div className="pricing-toggle-sticky">
           {billingToggle}
@@ -268,7 +274,8 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           interval={interval}
           authenticated={authenticated}
           previewOnly={previewOnly}
-          otherBanks={availableBanks.filter((bank) => bank.qualification === focusBank.qualification && bank.slug !== focusBank.slug)}
+          otherBanks={secondSubjectOptions(focusBank, availableBanks)}
+          source={source}
           allBankCount={availableBanks.length}
         /> : null}
         {focusBank && !lifetimeSelected ? <h2 className="pricing-compare-heading">Or compare every plan</h2> : null}
@@ -301,7 +308,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         {!hasPaidAccess ? <section className="pricing-faq" aria-labelledby="pricing-faq-heading">
           <h2 id="pricing-faq-heading">Common questions</h2>
           <dl>
-            <div><dt>{"What's free?"}</dt><dd>Older exam years for each bank, with answers. No card needed.</dd></div>
+            <div><dt>{"What's free?"}</dt><dd>Free exam years for every bank, with answers. No card needed.</dd></div>
             <div><dt>Can I cancel?</dt><dd>Yes, any time from your account. Access continues through the paid billing period.</dd></div>
             <div><dt>Monthly or annual?</dt><dd>Annual saves up to {maximumAnnualSavingPercent()}%. You can switch later.</dd></div>
             <div><dt>Do I get the newest papers?</dt><dd>{"Yes. Every plan includes the latest sessions as they're added."}</dd></div>

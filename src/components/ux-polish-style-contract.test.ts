@@ -492,3 +492,22 @@ describe("new pricing headings read as headings", () => {
     }
   });
 });
+
+describe("pricing refresh styling", () => {
+  it("lets public plan cards size to their content at every width", () => {
+    expect(styleFor(globalBlocks, ".pricing-page .pricing-decision-grid:not([data-paid]) .pricing-option", "base")["min-height"]).toBe("0");
+    expect(styleFor(globalBlocks, ".pricing-page .pricing-decision-grid:not([data-paid]) .pricing-option", "max-width: 720px")["min-height"]).toBe("0");
+  });
+
+  it("keeps the popular card's feature list dark on its light background in dark mode", () => {
+    expect(normalize(styleFor(globalBlocks, ".pricing-page .pricing-option-popular .plan-feature-list", "base").color)).toBe("#243b53");
+  });
+
+  it("makes the focus panel's checkout button a filled primary button", () => {
+    expect(normalize(styleFor(globalBlocks, ".pricing-bank-focus-action .billing-actions .button", "base").background)).toBe("var(--cobalt)");
+  });
+
+  it("drops the retired dashboard upgrade strip styles", () => {
+    expect(styleFor(globalBlocks, ".dashboard-upgrade-strip", "all")).toEqual({});
+  });
+});

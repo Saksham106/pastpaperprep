@@ -53,4 +53,46 @@ describe("pricing for someone who came from a bank's upgrade prompt", () => {
     expect(checked).toHaveLength(1);
     expect(checked[0]).toMatch(/0580/);
   });
+
+  it("lists every paid year for banks whose free year is in the middle", () => {
+    render(<PricingContent authenticated={false} hasPaidAccess={false} initialProductId="bank_ib_chemistry_hl" availableBanks={availableBanks} />);
+    const panel = screen.getByRole("region", { name: /Unlock every .*Chemistry.* paper/ });
+    expect(within(panel).getByText("A plan opens 2016–2019, 2021–2025, including 2025’s papers.")).toBeInTheDocument();
+    expect(within(panel).getByText("Grey years are free. Blue years come with a plan.")).toBeInTheDocument();
+  });
+
+  it("suggests a different subject, not another level of the same one or the other maths course", () => {
+    render(<PricingContent authenticated={false} hasPaidAccess={false} initialProductId="bank_ib_hl" availableBanks={availableBanks} />);
+    const names = within(screen.getByRole("region", { name: /Unlock every .* paper/ })).getAllByRole("link", { name: /^\+ / }).map((link) => link.textContent);
+    expect(names.length).toBeGreaterThan(0);
+    expect(names.some((name) => /Math/.test(name ?? ""))).toBe(false);
+    const subjects = names.map((name) => name?.replace(/^\+ /, "").replace(/ (HL|SL|Higher Level|Standard Level)$/, ""));
+    expect(new Set(subjects).size).toBe(subjects.length);
+  });
+
+  it("prices the second subject and All Access for the chosen billing period, and keeps the prompt source", () => {
+    render(<PricingContent authenticated={false} hasPaidAccess={false} initialProductId="bank_igcse" source="top_note" availableBanks={availableBanks} />);
+    fireEvent.click(screen.getByRole("button", { name: /^Annual/ }));
+    const panel = focus();
+    expect(within(panel).getByText("Add it and pay $7/month for both.")).toBeInTheDocument();
+    expect(within(panel).getByRole("link", { name: /^All \d+ banks · \$18\/mo$/ })).toBeInTheDocument();
+    expect(within(panel).getByRole("link", { name: "+ Additional Mathematics 0606" })).toHaveAttribute("href", "/pricing?banks=igcse%2Cigcse-additional&interval=annual&from=top_note");
+    expect(within(panel).queryAllByText(/Cancel any time/)).toHaveLength(1);
+  });
+
+  it("says checkout is disabled in preview", () => {
+    render(<PricingContent authenticated={false} hasPaidAccess={false} previewOnly initialProductId="bank_igcse" availableBanks={availableBanks} />);
+    expect(within(focus()).getByText("Preview only — checkout is disabled.")).toBeInTheDocument();
+  });
+
+  it("leaves manual grants and oversized selections unselected", () => {
+    const { unmount } = render(<PricingContent authenticated hasPaidAccess manualAccess initialBankIds={["igcse", "ib-hl"]} ownedBankIds={["ib-sl"]} currentPlanProductIds={["bank_ib_sl"]} availableBanks={availableBanks} />);
+    const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article") as HTMLElement;
+    expect(builder).toHaveTextContent("Standard price shown, not your current charge.");
+    unmount();
+    const six = availableBanks.filter((bank) => bank.slug !== "ib-sl").slice(0, 6).map((bank) => bank.slug);
+    render(<PricingContent authenticated hasPaidAccess addOnIntent initialBankIds={six} ownedBankIds={["ib-sl"]} currentPlanProductIds={["bank_ib_sl"]} availableBanks={availableBanks} />);
+    const offered = screen.getAllByRole("heading", { name: "Build Your Plan" }).map((heading) => heading.closest("article") as HTMLElement).find((card) => card.closest(".pricing-additional-offers"))!;
+    expect(within(offered).getAllByRole("checkbox").filter((box) => (box as HTMLInputElement).checked)).toHaveLength(0);
+  });
 });

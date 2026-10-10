@@ -6,6 +6,8 @@ export type UpgradePlacement = "top_note" | "feed_teaser" | "feed_timeline" | "l
 
 export type BankYearFacts = {
   freeLabel: string;
+  /** Every paid year, e.g. "2016–2019, 2021–2025" when the free year sits in the middle. */
+  paidLabel: string;
   newerPaidLabel: string;
   latestYear: number;
   coverage: number[];
@@ -46,7 +48,7 @@ export function bankYearFacts(bankSlug: string): BankYearFacts | null {
   const newestFree = Math.max(...freeYears);
   const newerPaidYears = coverage.filter((year) => year > newestFree && !freeYears.includes(year));
   if (!newerPaidYears.length) return null;
-  return { freeLabel: yearRangeLabel(freeYears), newerPaidLabel: yearRangeLabel(newerPaidYears), latestYear: end, coverage, freeYears, newerPaidYears };
+  return { freeLabel: yearRangeLabel(freeYears), paidLabel: yearRangeLabel(coverage.filter((year) => !freeYears.includes(year))), newerPaidLabel: yearRangeLabel(newerPaidYears), latestYear: end, coverage, freeYears, newerPaidYears };
 }
 
 const PLACEMENTS: readonly UpgradePlacement[] = ["top_note", "feed_teaser", "feed_timeline", "locked_card", "practice_milestone", "signup_gate", "pdf_dialog", "dashboard"];
