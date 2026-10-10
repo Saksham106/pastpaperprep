@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { canExportPdf, isPreviewQuestion } from "@/lib/access";
 import { authorizeAssetRequests, type AssetRequest, type AuthorizedAssetRequest } from "@/lib/asset-access";
 import { getBank, type BankSlug } from "@/lib/banks";
@@ -9,7 +10,6 @@ import { loadBankQuestionMap } from "@/lib/question-loader";
 import { printGeometryForSignedAssets } from "@/lib/print-geometry";
 import { createClient } from "@/lib/supabase/server";
 
-import { withFailureReporting } from "@/lib/route-failure-reporting";
 export const runtime = "nodejs";
 
 const AUTHORIZATION_BATCH_SIZE = 20;

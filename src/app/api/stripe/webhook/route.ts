@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 import type Stripe from "stripe";
 import { processReferralInvoicePaid, processReferralChargeRefunded, processReferralDisputeChanged } from "@/lib/referral-events";
 import { createStripeClient } from "@/lib/stripe";
@@ -10,7 +11,6 @@ import { captureConversionOutcome } from "@/lib/server-conversion-analytics";
 import { lifetimeCheckoutMetadataIsValid, LIFETIME_OFFER } from "@/lib/lifetime-offer";
 import { finishLifetimeConversion } from "@/lib/lifetime-conversion-fulfillment";
 
-import { withFailureReporting } from "@/lib/route-failure-reporting";
 export const runtime = "nodejs";
 
 async function handlePOST(request: Request) {
@@ -121,7 +121,15 @@ async function handlePOST(request: Request) {
       }
       return NextResponse.json({ error: "Lifetime purchase fulfillment failed" }, { status: 500 });
     }
-    // Best effort and deduplicated by session ID, so a retried delivery is counted once.
+    if (session.metadata.conversion_intent_id) {
+      try {
+        await finishLifetimeConversion(admin, stripe, { intentId: session.metadata.conversion_intent_id, userId, customerId, sessionId: session.id, paymentIntentId });
+      } catch {
+        return NextResponse.json({ error: "Lifetime conversion cancellation is pending verification" }, { status: 503 });
+      }
+    }
+    // Counted only once every step succeeded, so a delivery Stripe must retry is not counted
+    // twice. Best effort; deduplicated by Checkout Session ID.
     await captureConversionOutcome({
       outcome: "lifetime_paid",
       eventKey: `stripe:checkout:${session.id}`,
@@ -130,13 +138,6 @@ async function handlePOST(request: Request) {
       product: LIFETIME_OFFER.productId,
       interval: null,
     });
-    if (session.metadata.conversion_intent_id) {
-      try {
-        await finishLifetimeConversion(admin, stripe, { intentId: session.metadata.conversion_intent_id, userId, customerId, sessionId: session.id, paymentIntentId });
-      } catch {
-        return NextResponse.json({ error: "Lifetime conversion cancellation is pending verification" }, { status: 503 });
-      }
-    }
     return NextResponse.json({ received: true });
   }
   if (event.type === "charge.refunded" || event.type === "charge.dispute.created" || event.type === "charge.dispute.updated" || event.type === "charge.dispute.closed") {

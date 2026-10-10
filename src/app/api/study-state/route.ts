@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { getBank, type BankSlug } from "@/lib/banks";
 import { loadBankQuestions } from "@/lib/question-loader";
 import { createClient } from "@/lib/supabase/server";
 
-import { withFailureReporting } from "@/lib/route-failure-reporting";
 type StudyAction = "save" | "unsave" | "attempt";
 type StudyRequest = { bank?: unknown; questionId?: unknown; action?: unknown };
 const ACTIONS = new Set<StudyAction>(["save", "unsave", "attempt"]);

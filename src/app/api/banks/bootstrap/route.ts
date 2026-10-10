@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { NextRequest, NextResponse } from "next/server";
 import { canExportPdf, hasBankAccess, type AccessEntitlement } from "@/lib/access";
 import { getBank, type BankSlug } from "@/lib/banks";
@@ -6,7 +7,6 @@ import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { hasSupabaseAuthCookie } from "@/lib/supabase/proxy";
 import { createClient } from "@/lib/supabase/server";
 
-import { withFailureReporting } from "@/lib/route-failure-reporting";
 export const runtime = "nodejs";
 
 const PRIVATE_RESPONSE_INIT = {

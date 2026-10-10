@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { createClient } from "@/lib/supabase/server";
 import { loadBankQuestions } from "@/lib/question-loader";
 import { hasBankAccess } from "@/lib/access";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { validateWorksheet } from "@/lib/worksheets";
 
-import { withFailureReporting } from "@/lib/route-failure-reporting";
 async function handleGET(_request: Request, context: { params: Promise<{ id: string }> }) {
   const { id } = await context.params;
   const client = await createClient();

@@ -1,5 +1,5 @@
 import "server-only";
-import { createHash } from "node:crypto";
+import { createHash, createHmac, randomUUID } from "node:crypto";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { stableAnalyticsDistinctId } from "@/lib/analytics-consent";
 
@@ -49,12 +49,17 @@ export async function captureConversionOutcome(input: ConversionInput): Promise<
     const host = process.env.POSTHOG_HOST ?? process.env.NEXT_PUBLIC_POSTHOG_HOST ?? "https://us.i.posthog.com";
     const base = new URL(host);
     if (base.protocol !== "https:" || base.username || base.password || base.search || base.hash) return;
+    // Without consent, ids come from a keyed hash of the event key: retries still dedupe, but
+    // nobody holding an account or invoice ID can recompute them and link the count to a person.
+    const idSource = consented ? input.eventKey : anonymousIdSource(input.eventKey);
+    const eventId = eventUuid(`uuid:${idSource}`);
     const properties: Record<string, string | boolean> = {
       outcome: input.outcome,
-      $insert_id: eventUuid(`insert:${input.eventKey}`),
+      $insert_id: eventUuid(`insert:${idSource}`),
       // PostHog's documented event UUID deduplication property; key by invoice ID upstream.
-      $uuid: eventUuid(`uuid:${input.eventKey}`),
+      $uuid: eventId,
       $process_person_profile: consented,
+      $geoip_disable: true,
       identified: consented,
     };
     if (input.product && PRODUCTS.has(input.product)) properties.product = input.product;
@@ -69,8 +74,8 @@ export async function captureConversionOutcome(input: ConversionInput): Promise<
         body: JSON.stringify({
           api_key: token,
           event: "conversion_outcome",
-          distinct_id: consented ? stableAnalyticsDistinctId(input.userId) : `anon:${eventUuid(`anon:${input.eventKey}`)}`,
-          uuid: eventUuid(`uuid:${input.eventKey}`),
+          distinct_id: consented ? stableAnalyticsDistinctId(input.userId) : `anon:${eventUuid(`anon:${idSource}`)}`,
+          uuid: eventId,
           timestamp: timestamp.toISOString(),
           properties,
         }),
@@ -81,6 +86,12 @@ export async function captureConversionOutcome(input: ConversionInput): Promise<
   } catch {
     // Analytics must not change the outcome of auth, billing, or webhook processing.
   }
+}
+
+/** Keyed by a server-only secret; a one-off random id when none is configured (no dedupe, never linkable). */
+function anonymousIdSource(eventKey: string): string {
+  const secret = process.env.SUPABASE_SECRET_KEY;
+  return secret ? createHmac("sha256", secret).update(`ppp-analytics-anon-v1:${eventKey}`).digest("hex") : randomUUID();
 }
 
 /** True only for an accepted v2 consent recorded in the last 180 days. Any lookup problem is "no". */

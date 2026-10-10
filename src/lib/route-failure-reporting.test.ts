@@ -54,4 +54,19 @@ describe("withFailureReporting", () => {
     const response = await withFailureReporting("/api/worksheets/[id]", handler)(new Request("https://example.test"), { params: Promise.resolve({ id: "w1" }) });
     expect(await response.json()).toEqual({ id: "w1" });
   });
+
+  it("never waits on a 5xx body that does not finish", async () => {
+    const endless = new ReadableStream({ start() { /* never closes */ } });
+    const started = Date.now();
+    const response = await withFailureReporting("/api/x", async () => new Response(endless, { status: 500, headers: { "content-type": "application/json" } }))();
+    expect(response.status).toBe(500);
+    expect(Date.now() - started).toBeLessThan(500);
+  });
+
+  it("drops reasons that look like personal or provider data", async () => {
+    await withFailureReporting("/api/x", async () => json(500, { error: "Could not email alice@example.com" }))();
+    await withFailureReporting("/api/x", async () => json(500, { error: "Upstream said: duplicate key 123456789" }))();
+    await flush();
+    expect(captureServerException.mock.calls.every(([, metadata]) => !("reason" in metadata))).toBe(true);
+  });
 });

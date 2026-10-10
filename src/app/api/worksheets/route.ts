@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { createClient } from "@/lib/supabase/server";
 import { getBank } from "@/lib/banks";
 import { loadBankQuestions } from "@/lib/question-loader";
@@ -6,7 +7,6 @@ import { hasBankAccess } from "@/lib/access";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { validateWorksheet } from "@/lib/worksheets";
 
-import { withFailureReporting } from "@/lib/route-failure-reporting";
 async function identity() {
   const client = await createClient();
   const { data } = await client.auth.getClaims();

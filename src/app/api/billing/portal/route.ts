@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { createStripeClient } from "@/lib/stripe";
 import { getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
-import { withFailureReporting } from "@/lib/route-failure-reporting";
 export const runtime = "nodejs";
 
 function safeBillingError(error: unknown) {

@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { getCheckoutReferral } from "@/lib/referral-account";
 import { NextResponse } from "next/server";
 import { BANK_PRODUCTS, hasBankAccess, type ProductId } from "@/lib/access";
@@ -12,7 +13,6 @@ import { createStripeClient } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
-import { withFailureReporting } from "@/lib/route-failure-reporting";
 export const runtime = "nodejs";
 
 type CheckoutBody = { interval?: unknown; productId?: unknown; selectedBankIds?: unknown; acknowledgeSeparateSubscription?: unknown };

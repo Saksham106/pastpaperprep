@@ -30,4 +30,18 @@ describe("pricing and checkout funnel events", () => {
     rerender(<CheckoutReturnTracker status="success" />);
     expect(eventsNamed("checkout_returned")).toEqual([["checkout_returned", { status: "success" }]]);
   });
+
+  it("clears the checkout status from the address so a reload is not counted again", () => {
+    window.history.replaceState({}, "", "/account?checkout=success&x=1");
+    render(<CheckoutReturnTracker status="success" />);
+    expect(window.location.search).toBe("?x=1");
+    window.history.replaceState({}, "", "/pricing?checkout=cancelled");
+    render(<PricingContent authenticated={false} hasPaidAccess={false} checkoutStatus="cancelled" />);
+    expect(window.location.search).toBe("");
+  });
+
+  it("reports no preselected banks for subscribers, whose builder starts empty", () => {
+    render(<PricingContent authenticated hasPaidAccess initialProductId="bank_igcse" />);
+    expect(eventsNamed("pricing_view")[0][1]).toMatchObject({ bankCount: 0 });
+  });
 });

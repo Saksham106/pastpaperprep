@@ -43,13 +43,23 @@ No email, name or account ID is ever sent without consent.
 | `$exception` with `error_source: handled_response` | a key API route answered 5xx (`withFailureReporting`) | `route`, `error_code` (HTTP status), `reason` (the route's error message) |
 | `$exception` with `error_source: auth_provider` | auth provider failures | `auth_phase`, `provider_code` |
 
-`conversion_outcome` is deduplicated by source (invoice ID or Checkout Session ID), so Stripe retries count once.
+`conversion_outcome` carries a stable `$insert_id` per purchase or sign-up. Without consent, that ID is a keyed hash that can't be traced back to the account.
 
-## Funnels to create in PostHog
+## Funnels and insights to create in PostHog
 
-1. **Upgrade prompt to paid:** `upgrade_prompt_view` → `upgrade_prompt_click` → `pricing_view` → `checkout_start` → `conversion_outcome` (outcome is `payment_initial_paid` or `lifetime_paid`). Break down by `placement` and `bank`.
-2. **Free account:** `free_gate_view` → `free_gate_signup_click` → `conversion_outcome` (outcome is `signup_confirmed`).
-3. **Checkout drop-off:** `pricing_view` → `checkout_start` → `checkout_cancelled` / `checkout_returned`.
-4. **Handled failures:** `$exception` where `error_source = handled_response`, broken down by `route` and `reason`. Alert on spikes for `/api/assets/sign` and `/api/billing/checkout`.
+Browser events and server conversions never share an ID. Browser events are cookieless and anonymous, and the server counts purchases separately. So a single funnel from a prompt all the way to `conversion_outcome` only works for people who consented.
 
-Because anonymous events have no person, funnels mixing browser and server events should use **unique sessions or totals**, not unique users, for people without consent.
+**Linked funnels (consented visitors only):**
+1. **Prompt to paid:** `consented_upgrade_prompt_view` → `consented_upgrade_prompt_click` → `consented_pricing_view` → `consented_checkout_start` → `conversion_outcome` where `identified = true` and `outcome` is `payment_initial_paid` or `lifetime_paid`. Break down by `placement`.
+2. **Free account:** `consented_free_gate_view` → `consented_free_gate_signup_click` → `conversion_outcome` where `identified = true` and `outcome = signup_confirmed`.
+
+**Everyone (trends and ratios of totals, not funnels):**
+3. **Prompt effectiveness:** `upgrade_prompt_click` ÷ `upgrade_prompt_view`, broken down by `placement` and `bank`.
+4. **Which prompts bring buyers to pricing:** `pricing_view` broken down by `from`.
+5. **Pricing to paid:** `conversion_outcome` (`payment_initial_paid` + `lifetime_paid`) ÷ `pricing_view`, per week.
+6. **Checkout drop-off (browser only, a real funnel works):** `pricing_view` → `checkout_start` → `checkout_returned`, with `checkout_cancelled` as a trend alongside.
+
+**Reliability:**
+7. `$exception` where `error_source = handled_response`, broken down by `route` and `reason`. Alert on spikes for `/api/assets/sign` and `/api/billing/checkout`.
+
+For revenue counts, count distinct `$insert_id` on `conversion_outcome`. A Stripe delivery that had to be retried is normally counted once, and that keeps it exact.

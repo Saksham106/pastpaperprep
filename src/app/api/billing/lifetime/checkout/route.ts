@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { createLifetimeConversionCheckout } from "@/lib/lifetime-conversion-checkout";
 import { NextResponse } from "next/server";
 import { getEntitlementBanks } from "@/lib/banks";
@@ -10,7 +11,6 @@ import { createClient } from "@/lib/supabase/server";
 import { createStripeClient } from "@/lib/stripe";
 import { getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
 
-import { withFailureReporting } from "@/lib/route-failure-reporting";
 export const runtime = "nodejs";
 
 async function handlePOST() {

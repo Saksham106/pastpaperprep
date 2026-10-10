@@ -16,6 +16,7 @@ import { getCatalogBank, getCatalogBanksForDisplay, getCatalogRuntimeBanks } fro
 import { PRICING_MODEL } from "@/lib/pricing-model";
 import { trackProductEvent } from "@/lib/product-analytics";
 import type { UpgradePlacement } from "@/lib/upgrade-copy";
+import { clearCheckoutParam } from "@/components/CheckoutReturnTracker";
 import { annualSavingPercent, formatPrice, maximumAnnualSavingPercent, priceForBankCount } from "@/lib/pricing-model";
 import { QualificationTabs } from "@/components/QualificationTabs";
 
@@ -116,9 +117,9 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
       interval: initialInterval,
       signedIn: authenticated,
       hasPaidAccess,
-      bankCount: initialCustomBankIds?.length ?? 0,
+      bankCount: hasPaidAccess ? 0 : initialCustomBankIds?.length ?? 0,
     });
-    if (checkoutStatus === "cancelled") trackProductEvent("checkout_cancelled", {});
+    if (checkoutStatus === "cancelled") { trackProductEvent("checkout_cancelled", {}); clearCheckoutParam(); }
     // Report the page as it was first opened; later selections are separate events.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

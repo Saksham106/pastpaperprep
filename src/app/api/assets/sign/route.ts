@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { hasBankAccess, isPreviewQuestion, type AccessEntitlement } from "@/lib/access";
 import { authorizeAssetRequests, type AssetRequest } from "@/lib/asset-access";
 import { getBank, type BankSlug } from "@/lib/banks";
@@ -8,7 +9,6 @@ import { getQuestionRichDetails } from "@/lib/question-delivery";
 import { reviewedBlankTailForSignedAsset } from "@/lib/reviewed-blank-tails";
 import { createClient } from "@/lib/supabase/server";
 
-import { withFailureReporting } from "@/lib/route-failure-reporting";
 export const runtime = "nodejs";
 
 const PRIVATE_RESPONSE_INIT = {

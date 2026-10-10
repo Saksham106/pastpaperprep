@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { createStripeClient } from "@/lib/stripe";
 import { getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -7,7 +8,6 @@ import { describeSubscriptionBanks, recurringPriceSubtotal } from "@/lib/account
 import { readEditableCurrentPlan } from "@/lib/account-plan-target";
 import { getBillingBanks } from "@/lib/banks";
 
-import { withFailureReporting } from "@/lib/route-failure-reporting";
 export const runtime = "nodejs";
 const NO_STORE = { "Cache-Control": "private, no-store, max-age=0" };
 

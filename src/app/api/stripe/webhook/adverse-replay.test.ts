@@ -1,5 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 vi.mock("server-only", () => ({}));
+const capture = vi.hoisted(() => vi.fn().mockResolvedValue(undefined));
+vi.mock("@/lib/server-conversion-analytics", () => ({ captureConversionOutcome: capture }));
 const m = vi.hoisted(() => ({ rpc: vi.fn(), state: vi.fn(), finish: vi.fn() }));
 const userId = "150a3d0e-4c34-45cc-9748-68252f0fb8f1";
 const intentId = "250a3d0e-4c34-45cc-9748-68252f0fb8f1";
@@ -41,6 +43,7 @@ describe("paid Lifetime replay after durable adverse payment state", () => {
     expect((await POST(request())).status).toBe(200);
     expect(m.finish).toHaveBeenCalledTimes(2);
     expect(m.finish.mock.calls[0][2]).toEqual(m.finish.mock.calls[1][2]);
+    expect(capture).toHaveBeenCalledTimes(1); // only once the conversion work completed, not on the 503 attempt
   });
   it("does not swallow a failed authority read", async () => {
     m.state.mockResolvedValue({ data: null, error: { message: "unavailable" } });
