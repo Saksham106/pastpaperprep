@@ -1354,6 +1354,23 @@ describe("QuestionExplorer asset loading", () => {
     await waitFor(() => expect(screen.getByRole("img", { name: /official mark scheme/i })).toHaveAttribute("src", expect.stringContaining(`free-${freeQuestion.id}-answer`)));
   });
 
+  it("refetches a prefetched free answer on click after expiry without an image error", async () => {
+    const fetchMock = assetFetch();
+    vi.stubGlobal("fetch", fetchMock);
+    const baseTime = 1_800_000_000_000;
+    vi.spyOn(Date, "now").mockReturnValue(baseTime);
+    render(<QuestionExplorer questions={[freeQuestion]} bankSlug="ib-sl" access={anonymous} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+    const toggle = await screen.findByRole("button", { name: "Show answer" });
+
+    fireEvent.pointerEnter(toggle);
+    await waitFor(() => expect(freeCalls(fetchMock, "answer")).toHaveLength(1));
+    vi.spyOn(Date, "now").mockReturnValue(baseTime + 41 * 60 * 1000);
+
+    fireEvent.click(toggle);
+    await waitFor(() => expect(freeCalls(fetchMock, "answer")).toHaveLength(2));
+    await waitFor(() => expect(screen.getByRole("img", { name: /official mark scheme/i })).toHaveAttribute("src", expect.stringContaining(`free-${freeQuestion.id}-answer`)));
+  });
+
   it("does not prefetch a paid answer on hover", async () => {
     document.cookie = "sb-test-auth-token=x; path=/";
     const fetchMock = assetFetch(memberBootstrap);

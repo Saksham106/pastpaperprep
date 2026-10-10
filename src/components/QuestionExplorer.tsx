@@ -1289,8 +1289,9 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, freeAns
   const [answerLoading, setAnswerLoading] = useState(false);
   const [answerError, setAnswerError] = useState("");
   const answerRequestRef = useRef<{ promise: Promise<SignedAsset>; expiresAt: number } | null>(null);
+  const hasFreshAnswerAsset = () => isSignedAssetFresh(answerAsset);
   const loadAnswer = () => {
-    if (answerAsset && isSignedAssetFresh(answerAsset)) return Promise.resolve(answerAsset);
+    if (hasFreshAnswerAsset()) return Promise.resolve(answerAsset!);
     if (answerRequestRef.current && answerRequestRef.current.expiresAt <= Date.now()) answerRequestRef.current = null;
     if (!answerRequestRef.current) {
       const request = (freeAnswer
@@ -1313,7 +1314,7 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, freeAns
   // Free answers are public and CDN-cached, so warm them on intent; paid answers sign on click
   // only, because each signature spends the member's daily allowance.
   const prefetchAnswer = () => {
-    if (!freeAnswer || answerOpen || answerAsset || question.markschemeImageCount < 1) return;
+    if (!freeAnswer || answerOpen || hasFreshAnswerAsset() || question.markschemeImageCount < 1) return;
     void loadAnswer().then((asset) => {
       if (asset.urls[0]) new window.Image().src = asset.urls[0];
     }).catch(() => {});
@@ -1322,7 +1323,7 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, freeAns
   const toggleAnswer = async () => {
     if (answerOpen) { setAnswerOpen(false); return; }
     trackProductEvent("answer_reveal", { bank: question.bankSlug, freePreview: isPreviewQuestion(question.bankSlug, question.id) });
-    if (question.markschemeImageCount > 0 && !answerAsset) {
+    if (question.markschemeImageCount > 0 && !hasFreshAnswerAsset()) {
       setAnswerLoading(true);
       setAnswerError("");
       try {
