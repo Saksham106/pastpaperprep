@@ -13,7 +13,7 @@ import {
   getTopicOptions as getLegacyTopicOptions,
 } from "@/lib/taxonomy";
 import type { UnifiedQuestion } from "@/lib/questions";
-import { IGCSE_0580_TOPICS, IGCSE_0580_SECTIONS } from "@/lib/igcse-0580-section-retrieval-v3.mjs";
+import { IGCSE_0580_TOPICS, IGCSE_0580_SECTIONS } from "@/lib/igcse-0580-syllabus.mjs";
 import { PHYSICS_0625_EARLIER, PHYSICS_0625_EARLIER_TOPIC, PHYSICS_0625_PRACTICAL_TOPIC, PHYSICS_0625_REVIEW, PHYSICS_0625_REVIEW_TOPIC, PHYSICS_0625_SECTIONS, PHYSICS_0625_TOPICS, display0625Sections } from "@/lib/igcse-0625-official.mjs";
 import { CHEMISTRY_0620_EARLIER, CHEMISTRY_0620_EARLIER_TOPIC, CHEMISTRY_0620_PRACTICAL_TOPIC, CHEMISTRY_0620_REVIEW, CHEMISTRY_0620_REVIEW_TOPIC, CHEMISTRY_0620_SECTIONS, CHEMISTRY_0620_TOPICS, display0620Sections } from "@/lib/igcse-0620-official.mjs";
 

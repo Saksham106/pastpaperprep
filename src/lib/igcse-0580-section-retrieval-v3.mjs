@@ -1,12 +1,7 @@
-import syllabus from "../data/igcse-0580-official-2025.json" with { type: "json" };
 import overlay from "../data/igcse-0580-section-retrieval-v3.json" with { type: "json" };
+import { IGCSE_0580_SYLLABUS as syllabus, IGCSE_0580_TOPICS, IGCSE_0580_SECTIONS } from "./igcse-0580-syllabus.mjs";
 
-export const IGCSE_0580_TOPICS = syllabus.topics.map(({ title }) => title);
-export const IGCSE_0580_SECTIONS = syllabus.topics.flatMap((topic) => topic.sections.map((section) => ({
-  ...section,
-  topic: topic.title,
-  displayTitle: `${section.code} ${section.title}`,
-})));
+export { IGCSE_0580_TOPICS, IGCSE_0580_SECTIONS };
 const hex = (n) => (n >>> 0).toString(16);
 export function inputFingerprint(raw) {
   const input = JSON.stringify([raw.id, raw.year ?? null, raw.component ?? null, raw.primaryTopic ?? null, raw.secondaryTopics ?? [], raw.subtopics ?? [], raw.skills ?? [], raw.accessibleText === undefined ? "" : raw.accessibleText, raw.questionImages ?? []]);

@@ -1,10 +1,31 @@
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
+import { existsSync, readFileSync, statSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { config } from "@/proxy";
 
 function source(path: string) {
   return readFileSync(join(process.cwd(), path), "utf8");
+}
+
+/** Every file a module statically imports (value imports only), resolved like the app's aliases. */
+function clientImportGraph(entry: string) {
+  const seen = new Set<string>();
+  const resolveSpec = (from: string, spec: string) => {
+    const base = spec.startsWith("@/") ? join(process.cwd(), "src", spec.slice(2)) : spec.startsWith(".") ? resolve(dirname(from), spec) : null;
+    if (!base) return null;
+    return [base, `${base}.ts`, `${base}.tsx`, `${base}.mjs`, `${base}.js`].find((candidate) => existsSync(candidate) && statSync(candidate).isFile()) ?? null;
+  };
+  const walk = (file: string) => {
+    if (seen.has(file)) return;
+    seen.add(file);
+    if (!/\.(ts|tsx|mjs|js)$/.test(file)) return;
+    for (const match of readFileSync(file, "utf8").matchAll(/^\s*(?:import|export)\s+(?!type\b)(?:[^"';]*?\sfrom\s+)?["']([^"']+)["']/gm)) {
+      const next = resolveSpec(file, match[1]);
+      if (next) walk(next);
+    }
+  };
+  walk(join(process.cwd(), entry));
+  return [...seen].map((file) => file.replace(`${process.cwd()}/`, ""));
 }
 
 describe("serverless performance boundaries", () => {
@@ -56,6 +77,13 @@ describe("serverless performance boundaries", () => {
     const questions = source("src/lib/questions.ts");
     expect(questions).not.toContain("@/data/raw/");
     expect(questions).not.toContain("const rawBanks");
+  });
+
+  it("keeps server-only classification ledgers out of the bank explorer bundle", () => {
+    const graph = clientImportGraph("src/components/QuestionExplorer.tsx");
+    expect(graph).toContain("src/lib/taxonomy-router.ts");
+    expect(graph).not.toContain("src/data/igcse-0580-section-retrieval-v3.json");
+    expect(graph).not.toContain("src/data/classification/igcse-biology-0610-official-taxonomy-v2.json");
   });
 
   it("keeps PDF generation out of the cold explorer entry chunk", () => {
