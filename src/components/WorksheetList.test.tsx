@@ -29,8 +29,8 @@ describe("WorksheetList", () => {
     fireEvent.click(trigger);
     const dialog = screen.getByRole("dialog", { name: "Unlock worksheets" });
     expect(dialog).toHaveTextContent("Worksheets and PDF exports need a plan.");
-    expect(screen.getByRole("link", { name: "See plans" })).toHaveAttribute("href", "/pricing");
-    expect(screen.getByRole("link", { name: "See plans" })).toHaveFocus();
+    expect(within(dialog).getByRole("link", { name: "See plans" })).toHaveAttribute("href", "/pricing");
+    expect(within(dialog).getByRole("link", { name: "See plans" })).toHaveFocus();
     fireEvent.click(screen.getByRole("button", { name: "Not now" }));
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(trigger).toHaveFocus();
