@@ -286,10 +286,10 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         {!hasPaidAccess ? <section className="pricing-faq" aria-labelledby="pricing-faq-heading">
           <h2 id="pricing-faq-heading">Common questions</h2>
           <dl>
-            <div><dt>What's free?</dt><dd>Older exam years for each bank, with answers. No card needed.</dd></div>
+            <div><dt>{"What's free?"}</dt><dd>Older exam years for each bank, with answers. No card needed.</dd></div>
             <div><dt>Can I cancel?</dt><dd>Yes, any time from your account. Access continues through the paid billing period.</dd></div>
             <div><dt>Monthly or annual?</dt><dd>Annual saves up to {maximumAnnualSavingPercent()}%. You can switch later.</dd></div>
-            <div><dt>Do I get the newest papers?</dt><dd>Yes. Every plan includes the latest sessions as they're added.</dd></div>
+            <div><dt>Do I get the newest papers?</dt><dd>{"Yes. Every plan includes the latest sessions as they're added."}</dd></div>
           </dl>
         </section> : null}
 
