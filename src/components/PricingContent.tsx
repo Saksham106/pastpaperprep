@@ -18,6 +18,7 @@ import type { UpgradePlacement } from "@/lib/upgrade-copy";
 import { clearCheckoutParam } from "@/components/CheckoutReturnTracker";
 import { annualSavingPercent, formatPrice, maximumAnnualSavingPercent, priceForBankCount } from "@/lib/pricing-model";
 import { QualificationTabs } from "@/components/QualificationTabs";
+import { PricingBankFocus } from "@/components/PricingBankFocus";
 
 function bankSlugForProduct(productId: string): BankSlug | undefined {
   return getCatalogBanksForDisplay().find((bank) => bank.productId === productId)?.slug;
@@ -113,7 +114,9 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
     // Report the page as it was first opened; later selections are separate events.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const [builderBankIds, setBuilderBankIds] = useState<BankSlug[]>(() => hasPaidAccess ? [] : [...(initialCustomBankIds ?? [])]);
+  // Subscribers keep the bank they asked for, minus banks they already own.
+  const preselectedBankIds = hasPaidAccess ? (initialCustomBankIds ?? []).filter((id) => !ownedBankIds.includes(id)) : initialCustomBankIds;
+  const [builderBankIds, setBuilderBankIds] = useState<BankSlug[]>(() => [...(preselectedBankIds ?? [])]);
   const handleBuilderSelectionChange = useCallback((selectedBankIds: readonly BankSlug[]) => {
     setBuilderBankIds([...selectedBankIds]);
   }, []);
@@ -122,6 +125,8 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
     if (nextInterval !== "lifetime") setInterval(nextInterval);
     trackProductEvent("billing_interval_change", { interval: nextInterval });
   };
+  // Visitors who came from a bank's upgrade prompt see that bank first.
+  const focusBank = !hasPaidAccess && initialProductId?.startsWith("bank_") ? availableBanks.find((bank) => bank.slug === bankSlugForProduct(initialProductId)) : undefined;
   const totalQuestions = availableBanks.reduce((total, bank) => total + bank.questionCount, 0);
   const totalPapers = availableBanks.reduce((total, bank) => total + bank.paperCount, 0);
   const addOnBanks = availableBanks.filter((bank) => !ownedBankIds.includes(bank.slug) && Boolean(getCatalogBank(bank.slug)?.productId));
@@ -162,7 +167,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
     const canAdd = hasPaidAccess && !currentAllAccess && !manualAccess;
     const cardBanks = canAdd ? addOnBanks : availableBanks;
     return (
-      <article className={`pricing-option${plan.popular ? " pricing-option-popular" : ""}${current ? " pricing-option-current" : ""}`} data-plan-tone={plan.tone} data-current-plan={current ? "true" : undefined} data-mobile-order={plan.popular ? "first" : undefined} key={plan.name}>
+      <article id={plan.mode === "all" && !hasPaidAccess ? "plan-all" : undefined} className={`pricing-option${plan.popular ? " pricing-option-popular" : ""}${current ? " pricing-option-current" : ""}`} data-plan-tone={plan.tone} data-current-plan={current ? "true" : undefined} data-mobile-order={plan.popular ? "first" : undefined} key={plan.name}>
         <div className="pricing-option-heading">
           <div className="plan-title-block">
             <span className="plan-icon" aria-hidden="true"><PlanIcon weight="duotone" /></span>
@@ -191,7 +196,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
             hasPaidAccess={hasPaidAccess}
             allowPaidPurchase={canAdd}
             previewOnly={previewOnly}
-            initialBankIds={hasPaidAccess ? [] : initialCustomBankIds}
+            initialBankIds={preselectedBankIds}
             availableBanks={cardBanks}
             onSelectionChange={isBuilder ? handleBuilderSelectionChange : undefined}
             ctaLabel={hasPaidAccess && isBuilder ? `Add ${builderQuantity} banks` : checkoutCta}
@@ -257,6 +262,16 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           <p>This is separate from your current plan and creates a separate charge and renewal. It does not replace your subscription or apply credit. For an ordinary plan change, use the reviewed editor above.</p>
           <div className="pricing-decision-grid" aria-label="Requested additional subscription" data-paid="true">{PLANS.map(renderPlan)}</div>
         </details> : null}
+        {focusBank && initialProductId && !lifetimeSelected ? <PricingBankFocus
+          bank={focusBank}
+          productId={initialProductId}
+          interval={interval}
+          authenticated={authenticated}
+          previewOnly={previewOnly}
+          otherBanks={availableBanks.filter((bank) => bank.qualification === focusBank.qualification && bank.slug !== focusBank.slug)}
+          allBankCount={availableBanks.length}
+        /> : null}
+        {focusBank && !lifetimeSelected ? <h2 className="pricing-compare-heading">Or compare every plan</h2> : null}
         {(!hasPaidAccess || (hasPaidAccess && (complimentaryAccess || manualAccess || ownsLifetimeAccess))) && !lifetimeSelected ? <div className="pricing-decision-grid" aria-label="PastPaperPrep plans">{PLANS.map(renderPlan)}</div> : null}
         {manualAccess && !complimentaryAccess ? <section className="pricing-current-plan" aria-labelledby="current-plan-heading"><div><span className="eyebrow">Account</span><h2 id="current-plan-heading">Your current access</h2></div><div className="pricing-current-plan-details"><strong>Manual access</strong><span>Included banks are covered by an access grant, not a billed plan. Billing details for any separate subscription remain in your account.</span></div><Link className="button secondary" href="/account/subscription">View your access</Link></section> : null}
         {complimentaryAccess ? <section className="pricing-current-plan" aria-labelledby="current-plan-heading"><div><span className="eyebrow">Account</span><h2 id="current-plan-heading">Your current access</h2></div><div className="pricing-current-plan-details"><strong>Complimentary access</strong><span>This is a grant, not a billed subscription. No renewal or plan-change controls are available.</span></div><Link className="button secondary" href="/account/subscription">View your access</Link></section> : null}

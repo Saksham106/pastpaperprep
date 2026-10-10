@@ -2234,3 +2234,19 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .pricing-faq dl > div { padding: 14px 0; border-top: 1px solid var(--line); }
 .pricing-faq dt { color: var(--ink); font-weight: 750; }
 .pricing-faq dd { margin: 4px 0 0; color: var(--muted); line-height: 1.5; }
+.pricing-bank-focus { max-width: 860px; margin: 0 auto 8px; }
+.pricing-bank-focus > h2 { margin: 6px 0 4px; font-size: clamp(1.6rem, 3vw, 2.1rem); letter-spacing: -.03em; }
+.pricing-bank-focus-lead { margin: 0 0 16px; color: var(--muted); }
+.pricing-bank-focus-card { padding: 22px; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(220px, 1fr); gap: 18px 28px; align-items: center; background: var(--surface-raised); border: 2px solid var(--cobalt); border-radius: 18px; box-shadow: 0 12px 32px color-mix(in srgb, var(--cobalt) 12%, transparent); }
+.pricing-bank-focus-card .plan-feature-list { border-top: 0; padding-top: 4px; margin-top: 10px; }
+.pricing-bank-focus-action { display: grid; gap: 8px; }
+.pricing-bank-focus-action .button { width: 100%; min-height: 48px; justify-content: center; }
+.pricing-bank-focus-action .plan-assurance { margin: 0; text-align: center; }
+.pricing-bank-focus-more { grid-column: 1 / -1; padding-top: 16px; border-top: 1px solid var(--line); }
+.pricing-bank-focus-more p { margin: 0 0 10px; } .pricing-bank-focus-more p span { color: var(--muted); }
+.pricing-bank-focus-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.pricing-bank-focus-chips .button { min-height: 38px; padding-inline: 12px; font-size: .86rem; }
+.pricing-bank-focus-all { color: var(--cobalt-strong); }
+.pricing-compare-heading { margin: 36px 0 16px; text-align: center; font-size: 1.15rem; }
+#plan-all { scroll-margin-top: 96px; }
+@media (max-width: 720px) { .pricing-bank-focus-card { grid-template-columns: 1fr; padding: 18px; } }
