@@ -25,8 +25,17 @@ describe("serverless performance boundaries", () => {
       "/pricing/preview",
       "/login",
       "/auth/:path*",
-      "/api/:path*",
+      "/api/((?!assets/free$).*)",
     ]);
+  });
+
+  it("keeps the cacheable free asset route out of session middleware", () => {
+    const api = config.matcher.at(-1)!;
+    const pattern = new RegExp(`^${api.replace("/api/", "\\/api\\/")}$`);
+    expect(pattern.test("/api/assets/free")).toBe(false);
+    expect(pattern.test("/api/assets/sign")).toBe(true);
+    expect(pattern.test("/api/study-state")).toBe(true);
+    expect(pattern.test("/api/assets/free-extra")).toBe(true);
   });
 
   it("pre-renders bank pages instead of doing corpus and auth work per request", () => {

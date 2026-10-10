@@ -5,6 +5,9 @@ import type { SourcePrintSegment } from "@/lib/print-geometry";
 import type { VisibleImageCrop } from "@/lib/reviewed-blank-tails";
 
 const SIGN_BATCH_SIZE = 20;
+/** Free-year links: signed for an hour, shared by the CDN for at most 15 minutes. */
+export const FREE_ASSET_EXPIRES_IN = 3600;
+export const FREE_ASSET_CDN_MAX_AGE = 900;
 
 type Fetcher = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
 
@@ -195,4 +198,37 @@ export async function fetchPdfAssets(
   }
   if (expected0606?.size) throw new Error("Invalid signed asset response");
   return signed;
+}
+
+const FREE_ASSET_SAFETY_SECONDS = 300;
+
+/** Free-year assets through the CDN-cached GET route; one request per asset so cache keys ignore filters. */
+export async function fetchFreeAssets(
+  bank: BankSlug,
+  requests: readonly AssetRequest[],
+  fetcher: Fetcher = fetch,
+): Promise<{ assets: Map<string, SignedAsset>; failedKeys: string[] }> {
+  const results = await Promise.all(requests.map(async (request) => {
+    const key = signedAssetKey(request.questionId, request.kind);
+    try {
+      const query = new URLSearchParams({ bank, id: request.questionId, kind: request.kind });
+      const response = await fetcher(`/api/assets/free?${query}`);
+      const payload = await response.json().catch(() => null) as Record<string, unknown> | null;
+      if (
+        !response.ok || !payload ||
+        typeof payload.expiresIn !== "number" || typeof payload.maxAge !== "number" ||
+        !validAsset(payload.asset) ||
+        signedAssetKey(payload.asset.questionId, payload.asset.kind) !== key
+      ) throw new Error("Invalid free asset response");
+      // A CDN copy can be up to maxAge old; expire early so a lazy image never meets a dead link.
+      const lifetime = Math.max(payload.expiresIn - payload.maxAge - FREE_ASSET_SAFETY_SECONDS, 1);
+      return { key, asset: { ...payload.asset, expiresAt: Date.now() + lifetime * 1000 } as SignedAsset };
+    } catch {
+      return { key, asset: null };
+    }
+  }));
+  return {
+    assets: new Map(results.flatMap(({ key, asset }) => asset ? [[key, asset] as const] : [])),
+    failedKeys: results.flatMap(({ key, asset }) => asset ? [] : [key]),
+  };
 }

@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, signedAssetKey } from "@/lib/signed-assets";
+import { fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, signedAssetKey } from "@/lib/signed-assets";
 
 const requests = Array.from({ length: 21 }, (_, index) => ({
   questionId: `question-${index + 1}`,
@@ -188,5 +188,57 @@ describe("fetchSignedAssets", () => {
 
     expect(isSignedAssetFresh(asset, 1_999)).toBe(true);
     expect(isSignedAssetFresh(asset, 2_000)).toBe(false);
+  });
+});
+
+describe("fetchFreeAssets", () => {
+  const ok = (questionId: string, kind: string) => new Response(JSON.stringify({
+    expiresIn: 3600,
+    maxAge: 900,
+    asset: { questionId, kind, urls: [`https://assets.example/${questionId}.webp`] },
+  }), { status: 200 });
+
+  it("requests one cacheable GET per asset", async () => {
+    const fetcher = vi.fn(async (input: RequestInfo | URL) => {
+      const url = new URL(String(input), "https://pastpaperprep.com");
+      return ok(url.searchParams.get("id")!, url.searchParams.get("kind")!);
+    });
+
+    const { assets, failedKeys } = await fetchFreeAssets("ib-sl", [{ questionId: "a", kind: "question" }, { questionId: "b", kind: "answer" }], fetcher);
+
+    expect(fetcher.mock.calls.map(([input]) => String(input))).toEqual([
+      "/api/assets/free?bank=ib-sl&id=a&kind=question",
+      "/api/assets/free?bank=ib-sl&id=b&kind=answer",
+    ]);
+    expect([...assets.keys()]).toEqual(["a:question", "b:answer"]);
+    expect(failedKeys).toEqual([]);
+  });
+
+  it("treats cached free links conservatively", async () => {
+    vi.useFakeTimers({ now: 1_000_000 });
+    try {
+      const { assets } = await fetchFreeAssets("ib-sl", [{ questionId: "a", kind: "question" }], async () => ok("a", "question"));
+      expect(assets.get("a:question")!.expiresAt).toBe(1_000_000 + (3600 - 900 - 300) * 1000);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("reports failures per asset instead of failing the batch", async () => {
+    const fetcher = vi.fn(async (input: RequestInfo | URL) => String(input).includes("id=bad")
+      ? new Response(JSON.stringify({ error: "Access required" }), { status: 403 })
+      : ok("good", "question"));
+
+    const { assets, failedKeys } = await fetchFreeAssets("ib-sl", [{ questionId: "good", kind: "question" }, { questionId: "bad", kind: "question" }], fetcher);
+
+    expect([...assets.keys()]).toEqual(["good:question"]);
+    expect(failedKeys).toEqual(["bad:question"]);
+  });
+
+  it("rejects a response for a different asset", async () => {
+    const { assets, failedKeys } = await fetchFreeAssets("ib-sl", [{ questionId: "a", kind: "question" }], async () => ok("other", "question"));
+
+    expect(assets.size).toBe(0);
+    expect(failedKeys).toEqual(["a:question"]);
   });
 });
