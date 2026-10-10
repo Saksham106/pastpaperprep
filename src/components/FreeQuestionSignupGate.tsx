@@ -57,6 +57,7 @@ export function FreeQuestionSignupGate({ bankSlug, remainingCount, signupHref, s
 
   useEffect(() => {
     trackProductEvent("free_gate_view", { bank: bankSlug, limit: ANONYMOUS_FREE_QUESTION_LIMIT, remainingCount });
+    trackUpgrade("view", bankSlug, "signup_gate");
   }, [bankSlug, remainingCount]);
 
   const dismissPrompt = useCallback(() => {

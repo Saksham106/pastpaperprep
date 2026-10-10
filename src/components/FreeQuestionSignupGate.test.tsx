@@ -1,5 +1,8 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+const track = vi.hoisted(() => vi.fn());
+vi.mock("@/lib/product-analytics", async (importOriginal) => ({ ...(await importOriginal<object>()), trackProductEvent: track }));
+
 import { FreeQuestionSignupGate } from "./FreeQuestionSignupGate";
 
 describe("FreeQuestionSignupGate", () => {
@@ -48,6 +51,7 @@ describe("FreeQuestionSignupGate", () => {
     expect(plans).toHaveAttribute("href", "/pricing?product=bank_ib_sl");
     expect(screen.getByRole("link", { name: "Sign in" })).toHaveClass("free-question-gate-signin");
     expect(screen.queryByText(/no payment required/i)).not.toBeInTheDocument();
+    expect(track).toHaveBeenCalledWith("upgrade_prompt_view", { bank: "ib-sl", placement: "signup_gate" });
   });
 
   it("falls back to a generic plans line", () => {

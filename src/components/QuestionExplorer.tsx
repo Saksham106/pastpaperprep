@@ -384,26 +384,34 @@ access: ExplorerAccess;
     : [], [nudgesActive, effectiveFreeOnly, matching]);
   const storedFeedDismissed = useSyncExternalStore(subscribeToNothing, readFeedNudgeDismissed, () => false);
   const [feedDismissedNow, setFeedDismissedNow] = useState(false);
-  const feedNudges = nudgesActive && effectiveFreeOnly && !storedFeedDismissed && !feedDismissedNow;
+  // Wait for the full index: before it loads only the server sample is known, so there is nothing true to tease or count.
+  const feedNudges = nudgesActive && effectiveFreeOnly && indexLoaded && !storedFeedDismissed && !feedDismissedNow;
+  const [sentUpgradeViews] = useState(() => new Set<string>()); // stable for the page; views are recorded, not rendered
   const dismissFeedNudges = () => { writeFeedNudgeDismissed(); setFeedDismissedNow(true); };
   const renderFeedSlot = (position: number, isLast: boolean) => {
     if (!feedNudges) return null;
     const slot = position === 3 ? 0 : position > 3 && (position - 3) % 5 === 0 ? (position - 3) / 5 : -1;
     if (slot < 0 || (isLast && position !== 3)) return null;
-    const teaser = slot % 2 === 0 ? teaserPool[slot / 2] : undefined;
-    if (teaser) return <FeedTeaserCard bank={nudgeBank} question={teaser} topicLabel={questionTopicLabel(teaser)} href={upgradeLink} slot={slot} onDismiss={dismissFeedNudges} />;
-    if (yearFacts) return <FeedTimelineCard bank={nudgeBank} shortName={bankShortName} facts={yearFacts} href={upgradeLink} slot={slot} onDismiss={dismissFeedNudges} />;
-    return null;
+    if (slot % 2 === 0) {
+      // No matching paid question: skip the slot rather than repeat the timeline card.
+      const teaser = teaserPool[slot / 2];
+      return teaser ? <FeedTeaserCard bank={nudgeBank} question={teaser} topicLabel={questionTopicLabel(teaser)} href={upgradeLink} slot={slot} sentViews={sentUpgradeViews} onDismiss={dismissFeedNudges} /> : null;
+    }
+    return yearFacts ? <FeedTimelineCard bank={nudgeBank} shortName={bankShortName} facts={yearFacts} href={upgradeLink} slot={slot} sentViews={sentUpgradeViews} onDismiss={dismissFeedNudges} /> : null;
   };
   const [milestoneVisible, setMilestoneVisible] = useState(false);
-  const recordReveal = () => {
+  const recordReveal = (questionId: string) => {
     if (!nudgesActive) return;
     try {
-      const countKey = `ppp:reveals:${nudgeBank}`;
+      const revealedKey = `ppp:revealed:${nudgeBank}`;
       const shownKey = `ppp:milestone-shown:${nudgeBank}`;
-      const count = Number(window.localStorage.getItem(countKey) ?? "0") + 1;
-      window.localStorage.setItem(countKey, String(count));
-      if (count >= 10 && !window.localStorage.getItem(shownKey)) {
+      if (window.localStorage.getItem(shownKey)) return;
+      const revealed = new Set<string>(JSON.parse(window.localStorage.getItem(revealedKey) ?? "[]"));
+      if (revealed.has(questionId)) return;
+      revealed.add(questionId);
+      window.localStorage.setItem(revealedKey, JSON.stringify([...revealed]));
+      if (revealed.size >= 10) {
+        window.localStorage.removeItem(revealedKey);
         window.localStorage.setItem(shownKey, "1");
         setMilestoneVisible(true);
       }
@@ -1100,7 +1108,7 @@ access: ExplorerAccess;
       {indexError && <div className="access-notice" role="alert"><span>{indexError}</span><button className="text-button" type="button" onClick={() => { setIndexError(""); setIndexAttempt((attempt) => attempt + 1); }}>Retry question index</button></div>}
       {assetError && <div className="access-notice" role="alert"><span>{assetError}</span><button className="text-button" type="button" onClick={retryQuestionAssets}>Retry images</button></div>}
       {studyError && <div className="access-notice" role="alert">{studyError}</div>}
-      {!bootstrapPending && !resolvedAccess.bankAccess && <div className={`free-value-strip${nudgesActive && yearFacts ? " is-upgrade" : ""}`}><p>{nudgesActive && yearFacts ? (effectiveFreeOnly ? <><strong>You’re practising {yearFacts.freeLabel} papers.</strong> <span>The {yearFacts.newerPaidLabel} papers, including {yearFacts.latestYear}, need a plan.</span></> : <strong>Locked questions are from {yearFacts.newerPaidLabel} papers.</strong>) : <><strong>{sharedSetView ? "Free questions in this set are open." : effectiveFreeOnly ? "Free exam years are open." : "You’re browsing the full bank."}</strong> <span>{sharedSetView ? "Questions outside your plan stay locked; signing in unlocks every free question in the set." : effectiveFreeOnly ? "Practise now, or clear the Free questions only filter to preview the rest." : "Locked questions show what a paid bank plan unlocks."}</span></>}</p>{nudgesActive ? <Link ref={topNoteViewRef} className="free-value-link" href={upgradeLink} onClick={() => trackUpgrade("click", nudgeBank, "top_note")}>Unlock from {UPGRADE_PRICE_LABEL}<span aria-hidden="true"> →</span></Link> : <Link className="free-value-link" href={plansHref}>{PLANS_LABEL}<span aria-hidden="true"> →</span></Link>}</div>}
+      {!bootstrapPending && !resolvedAccess.bankAccess && <div className={`free-value-strip${nudgesActive && yearFacts ? " is-upgrade" : ""}`}><p>{nudgesActive && yearFacts ? (effectiveFreeOnly ? <><strong>You’re practising {yearFacts.freeLabel} papers.</strong> <span>The {yearFacts.newerPaidLabel} papers, including {yearFacts.latestYear}, need a plan.</span></> : <strong>Locked questions include the {yearFacts.newerPaidLabel} papers.</strong>) : <><strong>{sharedSetView ? "Free questions in this set are open." : effectiveFreeOnly ? "Free exam years are open." : "You’re browsing the full bank."}</strong> <span>{sharedSetView ? "Questions outside your plan stay locked; signing in unlocks every free question in the set." : effectiveFreeOnly ? "Practise now, or clear the Free questions only filter to preview the rest." : "Locked questions show what a paid bank plan unlocks."}</span></>}</p>{nudgesActive ? <Link ref={topNoteViewRef} className="free-value-link" href={upgradeLink} onClick={() => trackUpgrade("click", nudgeBank, "top_note")}>Unlock from {UPGRADE_PRICE_LABEL}<span aria-hidden="true"> →</span></Link> : <Link className="free-value-link" href={plansHref}>{PLANS_LABEL}<span aria-hidden="true"> →</span></Link>}</div>}
 
       <div className="explorer-layout">
         {filtersOpen && <button className="filter-backdrop" type="button" tabIndex={-1} aria-hidden="true" onClick={() => setFiltersOpen(false)} />}
@@ -1153,7 +1161,7 @@ access: ExplorerAccess;
               return <Fragment key={question.id}><QuestionCard question={question} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAsset={(asset) => {
                 setSignedAssets((current) => new Map(current).set(signedAssetKey(question.id, "answer"), asset));
                 if (asset.details) setCatalogQuestions((current) => current.map((item) => item.id === question.id ? mergeQuestionRichDetails(item, asset.details!) : item));
-              }} selected={selectedIds.has(question.id)} selectable={!savedWorksheetView && !sharedSetView} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => toggleSaved(question.id)} onAttempt={() => recordAttempt(question.id)} onReveal={recordReveal} locked={nudgesActive ? { title: `${question.year} paper · on any plan`, body: `Unlock ${paidCount.toLocaleString()} more ${bankShortName} questions with mark schemes and PDFs.`, href: upgradeLink, onClick: () => trackUpgrade("click", nudgeBank, "locked_card") } : undefined} />{renderFeedSlot(index + 1, index === shownQuestions.length - 1)}</Fragment>;
+              }} selected={selectedIds.has(question.id)} selectable={!savedWorksheetView && !sharedSetView} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => toggleSaved(question.id)} onAttempt={() => recordAttempt(question.id)} onReveal={() => recordReveal(question.id)} locked={nudgesActive ? { title: `${question.year} paper · on any plan`, body: indexLoaded ? `Unlock ${paidCount.toLocaleString()} more ${bankShortName} questions with mark schemes and PDFs.` : `Unlock every ${bankShortName} question with mark schemes and PDFs.`, href: upgradeLink, onClick: () => trackUpgrade("click", nudgeBank, "locked_card") } : undefined} />{renderFeedSlot(index + 1, index === shownQuestions.length - 1)}</Fragment>;
             })}
           </div>
           {!savedWorksheetView && !sharedSetView && filtered.length === 0 && <div className="empty-state"><strong>No questions match that combination.</strong><span>Clear a filter and try again.</span></div>}

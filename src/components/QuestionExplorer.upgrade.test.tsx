@@ -83,16 +83,18 @@ describe("bank page upgrade nudges", () => {
     expect(document.querySelectorAll('aside[aria-label="Upgrade"]')).toHaveLength(0);
   });
 
-  it("falls back to the timeline when no paid question matches", () => {
-    render(<QuestionExplorer questions={mixed(12, 0)} bankSlug="igcse" access={anonymous} initialState={state(true)} />);
-    const asides = [...document.querySelectorAll('aside[aria-label="Upgrade"]')];
+  it("skips teaser slots when no paid question matches instead of repeating the timeline", () => {
+    render(<QuestionExplorer questions={mixed(30, 0)} bankSlug="igcse" access={anonymous} initialState={state(true)} />);
+    const children = listChildren();
+    const asides = children.filter((node) => node.matches('aside[aria-label="Upgrade"]'));
     expect(asides).toHaveLength(2);
     expect(asides.every((node) => node.classList.contains("is-timeline"))).toBe(true);
+    expect(children.indexOf(asides[0])).toBe(8);
   });
 
   it("prices locked cards by year in the full-bank preview", () => {
     render(<QuestionExplorer questions={mixed(5, 30)} bankSlug="igcse" access={anonymous} initialState={state(false)} />);
-    expect(document.querySelector(".free-value-strip")).toHaveTextContent("Locked questions are from 2019–2026 papers.");
+    expect(document.querySelector(".free-value-strip")).toHaveTextContent("Locked questions include the 2019–2026 papers.");
     const locked = document.querySelector(".question-locked") as HTMLElement;
     expect(locked).toHaveTextContent(/20\d\d paper · on any plan/);
     expect(locked).toHaveTextContent("Unlock 30 more Mathematics 0580 questions with mark schemes and PDFs.");
@@ -123,5 +125,47 @@ describe("bank page upgrade nudges", () => {
     expect(link).toHaveAttribute("href", "/pricing?product=bank_igcse");
     fireEvent.click(link);
     expect(track).toHaveBeenCalledWith("upgrade_prompt_click", { bank: "igcse", placement: "pdf_dialog" });
+  });
+
+  it("does not claim locked IB science questions are only the newest years", () => {
+    const chemistry = loadBankQuestions("ib-chemistry-hl");
+    const questions = prepareQuestionsForDelivery([...chemistry.filter((q) => isPreviewQuestion("ib-chemistry-hl", q.id)).slice(0, 5), ...chemistry.filter((q) => !isPreviewQuestion("ib-chemistry-hl", q.id)).slice(0, 5)], []);
+    render(<QuestionExplorer questions={questions} bankSlug="ib-chemistry-hl" access={anonymous} initialState={state(false)} />);
+    expect(document.querySelector(".free-value-strip")).toHaveTextContent("Locked questions include the 2021–2025 papers.");
+  });
+
+  it("waits for the full question index before counting or teasing paid questions", () => {
+    vi.stubGlobal("fetch", vi.fn((input: RequestInfo | URL) => String(input).includes("bank-index") ? new Promise<Response>(() => {}) : Promise.resolve(new Response(JSON.stringify({ expiresIn: 600, assets: [] }), { status: 200 }))));
+    const { unmount } = render(<QuestionExplorer questions={mixed(5, 30)} bankSlug="igcse" indexUrl="/bank-index/igcse.json" access={anonymous} initialState={state(false)} />);
+    expect(document.querySelector(".question-locked")).toHaveTextContent("Unlock every Mathematics 0580 question with mark schemes and PDFs.");
+    unmount();
+    render(<QuestionExplorer questions={mixed()} bankSlug="igcse" indexUrl="/bank-index/igcse.json" access={anonymous} initialState={state(true)} />);
+    expect(document.querySelectorAll('aside[aria-label="Upgrade"]')).toHaveLength(0);
+  });
+
+  it("reports each in-feed slot once per page even when filters remount it", () => {
+    render(<QuestionExplorer questions={mixed()} bankSlug="igcse" access={anonymous} initialState={state(true)} />);
+    const teaserViews = () => track.mock.calls.filter(([name, props]) => name === "upgrade_prompt_view" && props.placement === "feed_teaser").length;
+    const teasersShown = document.querySelectorAll(".is-teaser").length;
+    expect(teaserViews()).toBe(teasersShown);
+    const firstCardBefore = document.querySelector(".question-list > article")?.textContent;
+    fireEvent.click(screen.getByRole("button", { name: /sort/i }));
+    fireEvent.click(screen.getByRole("option", { name: /topic/i }));
+    expect(document.querySelector(".question-list > article")?.textContent).not.toBe(firstCardBefore);
+    expect(document.querySelector(".is-teaser")).not.toBeNull();
+    expect(teaserViews()).toBe(teasersShown);
+  });
+
+  it("counts distinct questions toward the practice milestone", async () => {
+    const withAnswers = freeQuestions.filter((question) => question.markschemeImageCount > 0 || question.solution).slice(0, 3);
+    render(<QuestionExplorer questions={prepareQuestionsForDelivery(withAnswers, [])} bankSlug="igcse" access={anonymous} initialState={state(true)} />);
+    const button = screen.getAllByRole("button", { name: "Show answer" })[0];
+    for (let round = 0; round < 10; round += 1) {
+      fireEvent.click(button);
+      await waitFor(() => expect(button).toHaveTextContent("Hide answer"));
+      fireEvent.click(button);
+      await waitFor(() => expect(button).toHaveTextContent("Show answer"));
+    }
+    expect(screen.queryByText("10 practised. Nice.")).not.toBeInTheDocument();
   });
 });

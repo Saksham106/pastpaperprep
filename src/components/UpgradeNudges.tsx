@@ -13,18 +13,24 @@ export function trackUpgrade(kind: keyof typeof EVENT_NAMES, bank: string, place
   trackProductEvent(EVENT_NAMES[kind], { bank, placement });
 }
 
-/** Ref callback that reports one view per mount once half the prompt is on screen. */
-export function useUpgradeView(bank: string, placement: UpgradePlacement) {
+/**
+ * Ref callback that reports one view once half the prompt is on screen. Pass a shared
+ * `sentViews` set and a `key` to keep it to once per page even when the prompt remounts.
+ */
+export function useUpgradeView(bank: string, placement: UpgradePlacement, sentViews?: Set<string>, key = "") {
   const sentRef = useRef(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
   useEffect(() => () => observerRef.current?.disconnect(), []);
   return useCallback((node: Element | null) => {
     observerRef.current?.disconnect();
     observerRef.current = null;
-    if (!node || sentRef.current) return;
+    const viewKey = `${placement}:${key}`;
+    const alreadySent = () => sentRef.current || Boolean(sentViews?.has(viewKey));
+    if (!node || alreadySent()) return;
     const send = () => {
-      if (sentRef.current) return;
+      if (alreadySent()) return;
       sentRef.current = true;
+      sentViews?.add(viewKey);
       trackUpgrade("view", bank, placement);
     };
     if (typeof IntersectionObserver === "undefined") { send(); return; }
@@ -35,7 +41,7 @@ export function useUpgradeView(bank: string, placement: UpgradePlacement) {
     }, { threshold: 0.5 });
     observer.observe(node);
     observerRef.current = observer;
-  }, [bank, placement]);
+  }, [bank, placement, sentViews, key]);
 }
 
 export function readFeedNudgeDismissed(): boolean {
@@ -46,7 +52,7 @@ export function writeFeedNudgeDismissed() {
   try { window.sessionStorage.setItem(FEED_DISMISSED_KEY, "1"); } catch { /* private mode: hidden until reload */ }
 }
 
-type CardProps = { bank: string; href: string; slot: number; onDismiss: () => void };
+type CardProps = { bank: string; href: string; slot: number; sentViews?: Set<string>; onDismiss: () => void };
 
 function Actions({ bank, placement, href, label, onDismiss }: { bank: string; placement: UpgradePlacement; href: string; label: string; onDismiss: () => void }) {
   return (
@@ -57,8 +63,8 @@ function Actions({ bank, placement, href, label, onDismiss }: { bank: string; pl
   );
 }
 
-export function FeedTimelineCard({ bank, shortName, facts, href, onDismiss }: CardProps & { shortName: string; facts: BankYearFacts }) {
-  const viewRef = useUpgradeView(bank, "feed_timeline");
+export function FeedTimelineCard({ bank, shortName, facts, href, slot, sentViews, onDismiss }: CardProps & { shortName: string; facts: BankYearFacts }) {
+  const viewRef = useUpgradeView(bank, "feed_timeline", sentViews, String(slot));
   return (
     <aside ref={viewRef} className="upgrade-card is-timeline" aria-label="Upgrade">
       <p className="upgrade-eyebrow">Missing the latest papers</p>
@@ -74,8 +80,8 @@ export function FeedTimelineCard({ bank, shortName, facts, href, onDismiss }: Ca
 
 export type TeaserQuestion = { year: number; session: string; paper: string | number; number: string | number; marks: number | null; primaryTopic: string };
 
-export function FeedTeaserCard({ bank, question, topicLabel, href, onDismiss }: CardProps & { question: TeaserQuestion; topicLabel: string }) {
-  const viewRef = useUpgradeView(bank, "feed_teaser");
+export function FeedTeaserCard({ bank, question, topicLabel, href, slot, sentViews, onDismiss }: CardProps & { question: TeaserQuestion; topicLabel: string }) {
+  const viewRef = useUpgradeView(bank, "feed_teaser", sentViews, String(slot));
   return (
     <aside ref={viewRef} className="upgrade-card is-teaser" aria-label="Upgrade">
       <header className="question-card-header">
