@@ -99,6 +99,7 @@ describe("bank page upgrade nudges", () => {
     expect(locked).toHaveTextContent(/20\d\d paper · on any plan/);
     expect(locked).toHaveTextContent("Unlock 30 more Mathematics 0580 questions with mark schemes and PDFs.");
     expect(within(locked).getByRole("link", { name: "Unlock from $6/mo" })).toHaveAttribute("href", "/pricing?product=bank_igcse");
+    expect(within(locked).getByRole("link", { name: "Unlock from $6/mo" })).toHaveClass("button", "primary");
     expect(document.querySelectorAll('aside.upgrade-card')).toHaveLength(0);
   });
 

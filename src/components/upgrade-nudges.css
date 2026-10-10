@@ -36,3 +36,4 @@
   .upgrade-milestone p span { display: none; }
 }
 .question-list > .upgrade-milestone { margin: 0; }
+.question-locked-upgrade { width: fit-content; min-height: 40px; margin-top: 8px; }
