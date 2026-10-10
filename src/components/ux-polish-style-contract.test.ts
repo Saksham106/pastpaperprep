@@ -484,3 +484,11 @@ describe("pricing billing toggle stays in the page flow", () => {
     expect(normalize(styleFor(globalBlocks, ".pricing-page > .pricing-toggle-sticky", "base").position)).not.toBe("sticky");
   });
 });
+
+describe("new pricing headings read as headings", () => {
+  it("are bold rather than inheriting the page's light h2 weight", () => {
+    for (const selector of [".pricing-page .pricing-bank-focus > h2", ".pricing-page .pricing-compare-heading", ".pricing-page .pricing-faq h2"]) {
+      expect(Number.parseInt(styleFor(globalBlocks, selector, "base")["font-weight"] ?? "0", 10)).toBeGreaterThanOrEqual(750);
+    }
+  });
+});

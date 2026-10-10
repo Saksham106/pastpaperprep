@@ -2256,3 +2256,4 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .dashboard-plan-card strong { font-size: 1.02rem; }
 .dashboard-plan-card span { color: var(--muted); }
 .dashboard-plan-card .button { flex: 0 0 auto; }
+.pricing-page .pricing-bank-focus > h2, .pricing-page .pricing-compare-heading, .pricing-page .pricing-faq h2 { font-weight: 820; color: var(--ink); }
