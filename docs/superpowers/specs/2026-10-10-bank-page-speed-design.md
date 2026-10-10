@@ -34,7 +34,7 @@ Opening `/banks/[slug]` should show question images almost at once, with the sam
   - It ignores cookies and sessions.
   - It answers only questions where `isPreviewQuestion(bank, id)` is true. Any other ID returns **403** with `Cache-Control: private, no-store`.
   - It signs with a 3600 s expiry, using the same provider choice as today (`previewAssetSignOptions`).
-  - It returns the same asset shape as the POST route: `urls`, `details`, `displayCrops`, plus `expiresAt`.
+  - It returns the same asset shape as the POST route (`urls`, `details`, `displayCrops`), plus `expiresIn: 3600` and `maxAge: 900`.
 - **Caching:**
   - A success response sends `Cache-Control: public, max-age=0, s-maxage=900`. The CDN then shares it for 15 minutes, so a cached link always has at least 45 minutes left.
   - Errors and 4xx responses are never cacheable.
@@ -43,7 +43,7 @@ Opening `/banks/[slug]` should show question images almost at once, with the sam
 - **Client:**
   - Free question images always use this route, for every visitor including subscribers. This doesn't change allowance accounting, because free paths are never counted today.
   - Locked or paid images keep using `POST /api/assets/sign`, unchanged.
-  - The client treats an asset as expired 5 minutes before the server's expiry.
+  - The client assumes the worst-case CDN age: it treats an asset as expired after `expiresIn − maxAge − 300` seconds (40 minutes).
 - **Download allowance:** `/api/assets/sign` behaviour is unchanged, and `consume_download_allowance` still applies only to premium paths.
 
 ### 3. Build-time server asset manifest
@@ -64,7 +64,7 @@ Opening `/banks/[slug]` should show question images almost at once, with the sam
 - The bank page preconnects to the Supabase Storage origin, and to the R2 origin for R2-backed banks.
 - The first image of the first question card loads eagerly with `fetchPriority="high"`. Other images stay lazy.
 - The static HTML renders the anonymous state that visitors end up seeing: the free-value strip and the Access filter group. A signed-in subscriber is the only case where they disappear after bootstrap.
-- The image placeholder reserves a typical question height, so swapping in the image shifts less.
+- The image placeholder keeps its current size. Question images range from short strips (about 1070×163) to full pages, so a fixed reservation would add shift rather than remove it.
 - **Answer prefetch on intent:** pointer-enter, focus or touch-start on "Show answer" for a free question fetches the answer through the free route. Locked or paid answers still sign only on click, so hovering never spends download allowance.
 
 ## Out of scope
