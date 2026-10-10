@@ -8,6 +8,7 @@ import { QuestionExplorer } from "@/components/QuestionExplorer";
 import { isPreviewQuestion } from "@/lib/access";
 import { prepareQuestionsForDelivery } from "@/lib/question-delivery";
 import { loadBankQuestions } from "@/lib/question-fixtures";
+import { freeAssetIds, freeAssetResponse, isFreeAssetRequest } from "../../test/free-asset-fetch";
 
 const anonymous = { authenticated: false, bankAccess: false, canExportPdf: false };
 const fullAccess = { authenticated: true, bankAccess: true, canExportPdf: true };
@@ -26,6 +27,10 @@ describe("bank page upgrade nudges", () => {
     window.localStorage.clear();
     window.history.replaceState({}, "", "/banks/igcse");
     vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      if (isFreeAssetRequest(input)) {
+        signRequests.push(freeAssetIds([[input]]));
+        return freeAssetResponse(input);
+      }
       if (String(input) === "/api/assets/sign") {
         const body = JSON.parse(String(init?.body));
         signRequests.push(body.requests.map((request: { questionId: string }) => request.questionId));

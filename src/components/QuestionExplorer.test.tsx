@@ -8,10 +8,12 @@ import { prepareQuestionsForDelivery } from "@/lib/question-delivery";
 import { toPublicQuestionMetadata } from "@/lib/question-index";
 import { loadBankQuestions } from "@/lib/question-fixtures";
 import { loadBankQuestions as loadEconomicsBankQuestions } from "@/lib/question-loader";
+import { freeAssetIds, freeAssetResponse, isFreeAssetRequest } from "../../test/free-asset-fetch";
 
 describe("QuestionExplorer", () => {
   beforeEach(() => {
     vi.stubGlobal("fetch", vi.fn(async (input, init) => {
+      if (isFreeAssetRequest(input)) return freeAssetResponse(input);
       if (String(input) === "/api/study-state") {
         const body = JSON.parse(String(init?.body));
         return new Response(JSON.stringify({ saved: body.action === "save", attempted: body.action === "attempt" }), { status: 200 });
@@ -27,7 +29,13 @@ describe("QuestionExplorer", () => {
     }));
   });
 
-  afterEach(() => { vi.unstubAllGlobals(); window.history.replaceState({}, "", "/banks/ib-sl"); });
+  afterEach(() => {
+    vi.unstubAllGlobals();
+    document.cookie = "sb-test-auth-token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+    window.history.replaceState({}, "", "/banks/ib-sl");
+  });
+  // Member bootstrap only runs when the browser holds a Supabase session cookie.
+  const signIn = () => { document.cookie = "sb-test-auth-token=x; path=/"; };
 
   const fullAccess = { authenticated: true, bankAccess: true, canExportPdf: true };
 
@@ -136,7 +144,8 @@ describe("QuestionExplorer", () => {
     expect(freeQuestions).toHaveLength(30);
     const questions = prepareQuestionsForDelivery(freeQuestions, []);
     window.history.replaceState({}, "", "/banks/ib-sl?free=1&sort=topic");
-    const fetchMock = vi.fn(async (_input: RequestInfo | URL, init?: RequestInit) => {
+    const fetchMock = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      if (isFreeAssetRequest(input)) return freeAssetResponse(input, (questionId) => `https://assets.example/${questionId}.webp`);
       const body = JSON.parse(String(init?.body)) as { requests: Array<{ questionId: string; kind: string }> };
       return new Response(JSON.stringify({
         expiresIn: 600,
@@ -158,10 +167,9 @@ describe("QuestionExplorer", () => {
     expect(screen.getAllByText(/other 10 free questions/i)).toHaveLength(2);
     expect(screen.queryByRole("button", { name: /show 24 more questions/i })).not.toBeInTheDocument();
 
-    await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/assets/sign", expect.any(Object)));
-    const signerCall = fetchMock.mock.calls.find(([input]) => String(input) === "/api/assets/sign");
-    const signerBody = JSON.parse(String(signerCall?.[1]?.body)) as { requests: Array<{ questionId: string }> };
-    expect(signerBody.requests).toHaveLength(20);
+    await waitFor(() => expect(freeAssetIds(fetchMock.mock.calls)).toHaveLength(20));
+    expect(fetchMock.mock.calls.some(([input]) => String(input) === "/api/assets/sign")).toBe(false);
+    const signerBody = { requests: freeAssetIds(fetchMock.mock.calls).map((questionId) => ({ questionId })) };
     await waitFor(() => expect(screen.getAllByRole("img", { name: /original question/i })).toHaveLength(20));
     const renderedAssetIds = screen.getAllByRole("img", { name: /original question/i }).map((image) => {
       const match = image.getAttribute("src")?.match(/\/([^/]+)\.webp$/);
@@ -177,6 +185,7 @@ describe("QuestionExplorer", () => {
   });
 
   it("hydrates shared filters and member access without making the bank page dynamic", async () => {
+    signIn();
     const all = loadBankQuestions("ib-sl");
     const initial = prepareQuestionsForDelivery(all.slice(0, 40), []);
     const savedQuestion = initial[0];
@@ -219,6 +228,7 @@ describe("QuestionExplorer", () => {
   });
 
   it("never exposes a stale free-only state when entitled access is still resolving", async () => {
+    signIn();
     const all = loadBankQuestions("ib-sl");
     const initial = prepareQuestionsForDelivery(all.slice(0, 40), []);
     let resolveBootstrap!: (response: Response) => void;
@@ -260,6 +270,7 @@ describe("QuestionExplorer", () => {
   });
 
   it("removes the anonymous free-only default when paid access resolves after URL hydration", async () => {
+    signIn();
     const all = loadBankQuestions("ib-sl");
     const initial = prepareQuestionsForDelivery(all.slice(0, 40), []);
     let resolveBootstrap!: (response: Response) => void;
@@ -297,6 +308,7 @@ describe("QuestionExplorer", () => {
   });
 
   it("fails closed to free-only access when member bootstrap fails", async () => {
+    signIn();
     const all = loadBankQuestions("ib-sl");
     const initial = prepareQuestionsForDelivery(all.slice(0, 40), []);
     window.history.replaceState({}, "", "/banks/ib-sl");
@@ -1218,3 +1230,121 @@ describe("QuestionExplorer", () => {
     vi.useRealTimers();
   });
 });
+
+describe("QuestionExplorer asset loading", () => {
+  const freeIds = new Set(loadBankQuestions("ib-sl").filter((question) => isPreviewQuestion(question.bankSlug, question.id)).map((question) => question.id));
+  const freeQuestion = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").filter((question) => freeIds.has(question.id) && question.markschemeImageCount > 0).slice(0, 1), [])[0];
+  const paidQuestion = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").filter((question) => !freeIds.has(question.id) && question.markschemeImageCount > 0).slice(0, 1), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }])[0];
+  const anonymous = { authenticated: false, bankAccess: false, canExportPdf: false };
+  const member = { authenticated: true, bankAccess: true, canExportPdf: true };
+  const freeCalls = (fetchMock: ReturnType<typeof vi.fn>, kind = "question") => fetchMock.mock.calls
+    .map(([input]) => String(input))
+    .filter((url) => url.startsWith("/api/assets/free?") && url.endsWith(`kind=${kind}`));
+  const signBodies = (fetchMock: ReturnType<typeof vi.fn>) => fetchMock.mock.calls
+    .filter(([input]) => String(input) === "/api/assets/sign")
+    .map(([, init]) => JSON.parse(String((init as RequestInit).body)) as { requests: Array<{ questionId: string; kind: string }> });
+  const assetFetch = (bootstrap?: () => Promise<Response>) => vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+    const url = String(input);
+    if (url.startsWith("/api/banks/bootstrap")) return bootstrap ? bootstrap() : new Response(JSON.stringify({ access: anonymous, studyState: { savedIds: [], attemptedIds: [] } }), { status: 200 });
+    if (url.startsWith("/api/assets/free?")) {
+      const params = new URL(url, "https://pastpaperprep.com").searchParams;
+      return new Response(JSON.stringify({ expiresIn: 3600, maxAge: 900, asset: { questionId: params.get("id"), kind: params.get("kind"), urls: [`https://assets.example/free-${params.get("id")}-${params.get("kind")}.webp`] } }), { status: 200 });
+    }
+    if (url === "/api/assets/sign") {
+      const body = JSON.parse(String(init?.body)) as { requests: Array<{ questionId: string; kind: string }> };
+      return new Response(JSON.stringify({ expiresIn: 600, assets: body.requests.map((request) => ({ ...request, urls: [`https://assets.example/paid-${request.questionId}-${request.kind}.webp`] })) }), { status: 200 });
+    }
+    return new Response(null, { status: 404 });
+  });
+  const memberBootstrap = () => Promise.resolve(new Response(JSON.stringify({ access: member, studyState: { savedIds: [], attemptedIds: [] } }), { status: 200 }));
+
+  beforeEach(() => { window.history.replaceState({}, "", "/banks/ib-sl?free=0"); });
+  afterEach(() => {
+    document.cookie = "sb-test-auth-token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+    vi.restoreAllMocks();
+    vi.unstubAllGlobals();
+    window.history.replaceState({}, "", "/banks/ib-sl");
+  });
+
+  it("skips bootstrap and signs free questions through the free route when no auth cookie exists", async () => {
+    const fetchMock = assetFetch();
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(<QuestionExplorer questions={[freeQuestion]} bankSlug="ib-sl" access={anonymous} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+
+    await waitFor(() => expect(screen.getByRole("img", { name: /original question/i })).toHaveAttribute("src", expect.stringContaining(`free-${freeQuestion.id}-question`)));
+    expect(freeCalls(fetchMock)).toEqual([`/api/assets/free?bank=ib-sl&id=${encodeURIComponent(freeQuestion.id)}&kind=question`]);
+    expect(fetchMock.mock.calls.some(([input]) => String(input).startsWith("/api/banks/bootstrap"))).toBe(false);
+    expect(signBodies(fetchMock)).toEqual([]);
+  });
+
+  it("signs free questions before bootstrap resolves", async () => {
+    document.cookie = "sb-test-auth-token=x; path=/";
+    const fetchMock = assetFetch(() => new Promise<Response>(() => {}));
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(<QuestionExplorer questions={[freeQuestion]} bankSlug="ib-sl" access={anonymous} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+
+    await waitFor(() => expect(freeCalls(fetchMock)).toHaveLength(1));
+    expect(fetchMock.mock.calls.some(([input]) => String(input).startsWith("/api/banks/bootstrap"))).toBe(true);
+    expect(signBodies(fetchMock)).toEqual([]);
+  });
+
+  it("signs locked questions through POST only after bootstrap grants access", async () => {
+    document.cookie = "sb-test-auth-token=x; path=/";
+    const fetchMock = assetFetch(memberBootstrap);
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(<QuestionExplorer questions={[freeQuestion, paidQuestion]} bankSlug="ib-sl" access={anonymous} initialState={{ search: "", sort: "paper", filters: {}, freeOnly: false, savedOnly: false, courseRoute: "all", visible: 24 }} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+
+    await waitFor(() => expect(signBodies(fetchMock)).toHaveLength(1));
+    expect(signBodies(fetchMock)[0].requests).toEqual([{ questionId: paidQuestion.id, kind: "question" }]);
+    expect(freeCalls(fetchMock)).toEqual([`/api/assets/free?bank=ib-sl&id=${encodeURIComponent(freeQuestion.id)}&kind=question`]);
+  });
+
+  it("re-signs a failed free image through the free route", async () => {
+    const fetchMock = assetFetch();
+    vi.stubGlobal("fetch", fetchMock);
+    render(<QuestionExplorer questions={[freeQuestion]} bankSlug="ib-sl" access={anonymous} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+    const image = await screen.findByRole("img", { name: /original question/i });
+
+    const later = Date.now() + 41 * 60 * 1000;
+    vi.spyOn(Date, "now").mockReturnValue(later);
+    fireEvent.error(image);
+
+    await waitFor(() => expect(freeCalls(fetchMock)).toHaveLength(2));
+    expect(signBodies(fetchMock)).toEqual([]);
+  });
+
+  it("prefetches a free answer on hover", async () => {
+    const fetchMock = assetFetch();
+    vi.stubGlobal("fetch", fetchMock);
+    render(<QuestionExplorer questions={[freeQuestion]} bankSlug="ib-sl" access={anonymous} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+    const toggle = await screen.findByRole("button", { name: "Show answer" });
+
+    fireEvent.pointerEnter(toggle);
+
+    await waitFor(() => expect(freeCalls(fetchMock, "answer")).toHaveLength(1));
+    fireEvent.click(toggle);
+    await waitFor(() => expect(screen.getByRole("img", { name: /official mark scheme/i })).toHaveAttribute("src", expect.stringContaining(`free-${freeQuestion.id}-answer`)));
+    expect(freeCalls(fetchMock, "answer")).toHaveLength(1);
+  });
+
+  it("does not prefetch a paid answer on hover", async () => {
+    document.cookie = "sb-test-auth-token=x; path=/";
+    const fetchMock = assetFetch(memberBootstrap);
+    vi.stubGlobal("fetch", fetchMock);
+    render(<QuestionExplorer questions={[paidQuestion]} bankSlug="ib-sl" access={anonymous} initialState={{ search: "", sort: "paper", filters: {}, freeOnly: false, savedOnly: false, courseRoute: "all", visible: 24 }} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+    const toggle = await screen.findByRole("button", { name: "Show answer" });
+
+    fireEvent.pointerEnter(toggle);
+    fireEvent.focus(toggle);
+    await new Promise((resolve) => setTimeout(resolve, 20));
+
+    expect(signBodies(fetchMock).flatMap((body) => body.requests).some((request) => request.kind === "answer")).toBe(false);
+    expect(freeCalls(fetchMock, "answer")).toEqual([]);
+    fireEvent.click(toggle);
+    await waitFor(() => expect(signBodies(fetchMock).flatMap((body) => body.requests)).toContainEqual({ questionId: paidQuestion.id, kind: "answer" }));
+  });
+});
+

@@ -16,8 +16,9 @@ import { EXPLORER_PAGE_SIZE, parseExplorerState, serializeExplorerState, type Ex
 import { encodeSharedSet, parseSharedSet } from "@/lib/shared-question-set";
 import type { QuestionFilters, QuestionSort, UnifiedQuestion } from "@/lib/questions";
 import type { BankSlug } from "@/lib/banks";
-import { fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, lapsedSignedAssetExpiry, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
+import { fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, lapsedSignedAssetExpiry, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
 import { pulseSuccess, shakeElement } from "@/lib/button-feedback";
+import { documentHasSupabaseAuthCookie } from "@/lib/supabase/auth-cookie";
 import { mergeQuestionRichDetails, publicMetadataToQuestion, type PublicBankIndex } from "@/lib/question-index";
 import { matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
@@ -263,6 +264,7 @@ access: ExplorerAccess;
   const [resolvedExportMarker, setResolvedExportMarker] = useState(exportMarker);
   const [locationHydrated, setLocationHydrated] = useState(!hydrateFromLocation);
   const [bootstrapPending, setBootstrapPending] = useState(Boolean(bootstrapUrl));
+  const [authCookiePresent, setAuthCookiePresent] = useState(false);
   const filterTriggerRef = useRef<HTMLButtonElement>(null);
   const filterDialogRef = useRef<HTMLElement>(null);
   const pdfTriggerRef = useRef<HTMLButtonElement>(null);
@@ -427,12 +429,22 @@ access: ExplorerAccess;
     trackUpgrade("view", nudgeBank, "locked_card");
   }, [showsLockedCard, nudgeBank]);
   const activeCount = Object.values(filters).reduce((count, values) => count + (values?.length ?? 0), (effectiveFreeOnly ? 1 : 0) + (savedOnly ? 1 : 0));
-  const questionAssetRequests = useMemo(() => bootstrapPending || !locationHydrated ? [] : shownQuestions
-    .filter((question) => resolvedAccess.bankAccess || isPreviewQuestion(question.bankSlug, question.id))
+  // Free-year questions sign through the cookie-less, CDN-cached route as soon as the URL state
+  // is known; only locked questions wait for the member bootstrap.
+  const freeAssetRequests = useMemo(() => !locationHydrated || localPreview ? [] : shownQuestions
+    .filter((question) => isPreviewQuestion(question.bankSlug, question.id))
     .filter((question) => !failedAssetKeys.has(signedAssetKey(question.id, "question")))
     .filter((question) => !isSignedAssetFresh(signedAssets.get(signedAssetKey(question.id, "question")), assetEpoch))
     .map((question) => ({ questionId: question.id, kind: "question" as const })),
-  [bootstrapPending, locationHydrated, resolvedAccess.bankAccess, assetEpoch, failedAssetKeys, shownQuestions, signedAssets]);
+  [locationHydrated, localPreview, assetEpoch, failedAssetKeys, shownQuestions, signedAssets]);
+  const questionAssetRequests = useMemo(() => bootstrapPending || !locationHydrated ? [] : shownQuestions
+    .filter((question) => localPreview
+      ? resolvedAccess.bankAccess || isPreviewQuestion(question.bankSlug, question.id)
+      : resolvedAccess.bankAccess && !isPreviewQuestion(question.bankSlug, question.id))
+    .filter((question) => !failedAssetKeys.has(signedAssetKey(question.id, "question")))
+    .filter((question) => !isSignedAssetFresh(signedAssets.get(signedAssetKey(question.id, "question")), assetEpoch))
+    .map((question) => ({ questionId: question.id, kind: "question" as const })),
+  [bootstrapPending, locationHydrated, localPreview, resolvedAccess.bankAccess, assetEpoch, failedAssetKeys, shownQuestions, signedAssets]);
 
   useEffect(() => {
     if (!hydrateFromLocation) return;
@@ -466,6 +478,17 @@ access: ExplorerAccess;
   useEffect(() => {
     if (!bootstrapUrl) return;
     let cancelled = false;
+    if (!documentHasSupabaseAuthCookie(document.cookie)) {
+      // No session cookie: the server would answer "anonymous" without touching Supabase.
+      queueMicrotask(() => {
+        if (cancelled) return;
+        setResolvedAccess({ authenticated: false, bankAccess: false, canExportPdf: false });
+        setResolvedExportMarker(undefined);
+        setBootstrapPending(false);
+      });
+      return () => { cancelled = true; };
+    }
+    queueMicrotask(() => { if (!cancelled) setAuthCookiePresent(true); });
     fetch(bootstrapUrl, { cache: "no-store", credentials: "same-origin" })
       .then(async (response) => {
         if (!response.ok) throw new Error("Member state unavailable");
@@ -709,6 +732,17 @@ access: ExplorerAccess;
     window.history.replaceState(window.history.state, "", nextUrl);
   }, [bootstrapPending, effectiveCourseRoute, effectiveFreeOnly, filters, locationHydrated, resolvedAccess.bankAccess, savedOnly, search, sharedSetView, sort, visible, worksheetId, worksheetMode]);
 
+  const applySignedAssets = (assets: Map<string, SignedAsset>) => {
+    setSignedAssets((current) => new Map([...current, ...assets]));
+    const detailsById = new Map([...assets.values()].flatMap((asset) => asset.details ? [[asset.questionId, asset.details] as const] : []));
+    if (detailsById.size) {
+      setCatalogQuestions((current) => current.map((question) => {
+        const details = detailsById.get(question.id);
+        return details ? mergeQuestionRichDetails(question, details) : question;
+      }));
+    }
+  };
+
   useEffect(() => {
     if (!bank) return;
     const pendingRequests = questionAssetRequests.filter((request) => (
@@ -719,14 +753,7 @@ access: ExplorerAccess;
     for (const key of pendingKeys) signingAssetKeysRef.current.add(key);
     fetchSignedAssets(bank, pendingRequests, fetch, localPreview)
       .then((assets) => {
-        setSignedAssets((current) => new Map([...current, ...assets]));
-        const detailsById = new Map([...assets.values()].flatMap((asset) => asset.details ? [[asset.questionId, asset.details] as const] : []));
-        if (detailsById.size) {
-          setCatalogQuestions((current) => current.map((question) => {
-            const details = detailsById.get(question.id);
-            return details ? mergeQuestionRichDetails(question, details) : question;
-          }));
-        }
+        applySignedAssets(assets);
         setAssetError("");
       })
       .catch(() => {
@@ -737,6 +764,27 @@ access: ExplorerAccess;
         for (const key of pendingKeys) signingAssetKeysRef.current.delete(key);
       });
   }, [bank, localPreview, questionAssetRequests]);
+
+  useEffect(() => {
+    if (!bank) return;
+    const pendingRequests = freeAssetRequests.filter((request) => (
+      !signingAssetKeysRef.current.has(signedAssetKey(request.questionId, request.kind))
+    ));
+    if (!pendingRequests.length) return;
+    const pendingKeys = pendingRequests.map((request) => signedAssetKey(request.questionId, request.kind));
+    for (const key of pendingKeys) signingAssetKeysRef.current.add(key);
+    fetchFreeAssets(bank, pendingRequests)
+      .then(({ assets, failedKeys }) => {
+        applySignedAssets(assets);
+        if (failedKeys.length) {
+          setFailedAssetKeys((current) => new Set([...current, ...failedKeys]));
+          setAssetError("Some question images could not load.");
+        }
+      })
+      .finally(() => {
+        for (const key of pendingKeys) signingAssetKeysRef.current.delete(key);
+      });
+  }, [bank, freeAssetRequests]);
 
   const worksheetDefinition = () => JSON.stringify({ name: worksheetName.trim(), ids: [...selectedIds], content: pdfContent });
   const worksheetDirty = worksheetId ? Boolean(worksheetMode === "edit" && worksheetBaseline && worksheetBaseline !== worksheetDefinition()) : Boolean(selectionIsExplicit && worksheetName.trim() && (worksheetBaseline ? worksheetBaseline !== worksheetDefinition() : selectedIds.size));
@@ -1160,7 +1208,7 @@ access: ExplorerAccess;
               const unlocked = resolvedAccess.bankAccess || isPreviewQuestion(question.bankSlug, question.id);
               const questionAsset = signedAssets.get(signedAssetKey(question.id, "question"));
               const answerAsset = signedAssets.get(signedAssetKey(question.id, "answer"));
-              return <Fragment key={question.id}><QuestionCard question={question} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAsset={(asset) => {
+              return <Fragment key={question.id}><QuestionCard question={question} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} freeAnswer={!localPreview && isPreviewQuestion(question.bankSlug, question.id)} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAsset={(asset) => {
                 setSignedAssets((current) => new Map(current).set(signedAssetKey(question.id, "answer"), asset));
                 if (asset.details) setCatalogQuestions((current) => current.map((item) => item.id === question.id ? mergeQuestionRichDetails(item, asset.details!) : item));
               }} selected={selectedIds.has(question.id)} selectable={!savedWorksheetView && !sharedSetView} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => toggleSaved(question.id)} onAttempt={() => recordAttempt(question.id)} onReveal={() => recordReveal(question.id)} locked={nudgesActive ? { title: `${question.year} paper · on any plan`, body: indexLoaded ? `Unlock ${paidCount.toLocaleString()} more ${bankShortName} questions with mark schemes and PDFs.` : `Unlock every ${bankShortName} question with mark schemes and PDFs.`, href: upgradeLink("locked_card"), onClick: () => trackUpgrade("click", nudgeBank, "locked_card") } : undefined} />{nudgesActive && milestoneQuestionId === question.id && <PracticeMilestone bank={nudgeBank} facts={yearFacts} href={upgradeLink("practice_milestone")} onDismiss={() => setMilestoneQuestionId("")} />}{renderFeedSlot(index + 1, index === shownQuestions.length - 1)}</Fragment>;
@@ -1206,11 +1254,12 @@ function FilterGroup({ label, filterKey, values, selected, onToggle, bank }: { l
   return <div className="filter-group" role="group" aria-labelledby={headingId}><h3 id={headingId}>{label}</h3><div className="filter-options">{values.map((value) => { const publicLabel = formatPublicLabel(bank === "igcse" || bank === "igcse-additional" ? formatMathsPickerLabel(bank, value) : value); return <label key={value}><input aria-label={`${label}: ${publicLabel}`} type="checkbox" checked={selected.includes(value)} onChange={() => onToggle(filterKey, value)} /><span>{publicLabel}</span></label>; })}</div></div>;
 }
 
-function QuestionCard({ question, unlocked, authenticated, localPreview, questionAsset, answerAsset, onQuestionAssetError, onAnswerAsset, selected, selectable, onSelect, saved, attempted, onToggleSaved, onAttempt, onReveal, locked }: {
+function QuestionCard({ question, unlocked, authenticated, localPreview, freeAnswer, questionAsset, answerAsset, onQuestionAssetError, onAnswerAsset, selected, selectable, onSelect, saved, attempted, onToggleSaved, onAttempt, onReveal, locked }: {
   question: UnifiedQuestion;
   unlocked: boolean;
   authenticated: boolean;
   localPreview: boolean;
+  freeAnswer: boolean;
   questionAsset?: SignedAsset;
   answerAsset?: SignedAsset;
   onQuestionAssetError: () => void;
@@ -1229,6 +1278,31 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, questio
   const [solutionOpen, setSolutionOpen] = useState(false);
   const [answerLoading, setAnswerLoading] = useState(false);
   const [answerError, setAnswerError] = useState("");
+  const answerRequestRef = useRef<Promise<SignedAsset> | null>(null);
+  const loadAnswer = () => {
+    if (answerAsset) return Promise.resolve(answerAsset);
+    answerRequestRef.current ??= (freeAnswer
+      ? fetchFreeAssets(question.bankSlug, [{ questionId: question.id, kind: "answer" }]).then(({ assets }) => assets.get(signedAssetKey(question.id, "answer")))
+      : fetchSignedAssets(question.bankSlug, [{ questionId: question.id, kind: "answer" }], fetch, localPreview).then((assets) => assets.get(signedAssetKey(question.id, "answer"))))
+      .then((asset) => {
+        if (!asset) throw new Error("Missing answer asset");
+        onAnswerAsset(asset);
+        return asset;
+      })
+      .catch((error: unknown) => {
+        answerRequestRef.current = null;
+        throw error;
+      });
+    return answerRequestRef.current;
+  };
+  // Free answers are public and CDN-cached, so warm them on intent; paid answers sign on click
+  // only, because each signature spends the member's daily allowance.
+  const prefetchAnswer = () => {
+    if (!freeAnswer || answerOpen || answerAsset || question.markschemeImageCount < 1) return;
+    void loadAnswer().then((asset) => {
+      if (asset.urls[0]) new window.Image().src = asset.urls[0];
+    }).catch(() => {});
+  };
 
   const toggleAnswer = async () => {
     if (answerOpen) { setAnswerOpen(false); return; }
@@ -1237,10 +1311,7 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, questio
       setAnswerLoading(true);
       setAnswerError("");
       try {
-        const assets = await fetchSignedAssets(question.bankSlug, [{ questionId: question.id, kind: "answer" }], fetch, localPreview);
-        const asset = assets.get(signedAssetKey(question.id, "answer"));
-        if (!asset) throw new Error("Missing answer asset");
-        onAnswerAsset(asset);
+        await loadAnswer();
       } catch {
         setAnswerError("The answer could not load. Try again.");
         setAnswerLoading(false);
@@ -1259,7 +1330,7 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, questio
       <div className="question-topic"><strong>{formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, question.primaryTopic) : question.primaryTopic)}</strong>{displayedQuestionSubtopics(question).slice(0, 4).map((topic) => <span key={topic}>{formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, topic) : topic)}</span>)}</div>
       {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <SourceCropImage key={source} bankSlug={question.bankSlug} questionId={question.id} src={source} crop={questionAsset.displayCrops?.[index]} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} onError={onQuestionAssetError} />) : <div className="asset-placeholder" role="status"><span className="placeholder-shimmer" aria-hidden="true" /><span className="placeholder-bars" aria-hidden="true"><i /><i /><i /><i /></span><span className="sr-only">Loading original question</span></div>}</div> : <div className="question-locked"><strong>{locked?.title ?? "Paid plan required"}</strong><span>{locked?.body ?? "Unlock this bank’s full question set, answers, and PDF export."}</span><Link className={locked ? "button primary question-locked-upgrade" : "question-locked-action"} href={locked?.href ?? plansHrefFor(authenticated)} onClick={locked?.onClick}>{locked ? `Unlock from ${UPGRADE_PRICE_LABEL}` : PLANS_LABEL}</Link></div>}
       <div className="question-actions">
-        <div className="question-action-buttons">{unlocked ? ((question.solution || question.markschemeImageCount > 0) ? <button className="answer-toggle" disabled={answerLoading} aria-expanded={answerOpen} onClick={toggleAnswer}>{answerLoading ? "Loading answer..." : answerOpen ? "Hide answer" : "Show answer"}</button> : <span className="muted">Answer coming soon</span>) : null}{answerError && <span className="muted" role="alert">{answerError}</span>}</div>
+        <div className="question-action-buttons">{unlocked ? ((question.solution || question.markschemeImageCount > 0) ? <button className="answer-toggle" disabled={answerLoading} aria-expanded={answerOpen} onClick={toggleAnswer} onPointerEnter={prefetchAnswer} onFocus={prefetchAnswer} onTouchStart={prefetchAnswer}>{answerLoading ? "Loading answer..." : answerOpen ? "Hide answer" : "Show answer"}</button> : <span className="muted">Answer coming soon</span>) : null}{answerError && <span className="muted" role="alert">{answerError}</span>}</div>
         <div className="source-links">{attempted && <span className="study-state"><CheckCircle weight="fill" /> Practised</span>}{authenticated && unlocked && <button className={`study-icon-button ${saved ? "is-saved" : ""}`} title={saved ? "Remove from saved" : "Save question"} aria-label={saved ? `Remove question from saved ${question.id}` : `Save question ${question.id}`} onClick={onToggleSaved}><BookmarkSimple weight={saved ? "fill" : "regular"} aria-hidden="true" /></button>}</div>
       </div>
       {answerOpen && <div className="answer-panel">{answerAsset?.urls.length ? <p className="answer-panel-label">Mark scheme</p> : null}{answerAsset?.urls.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Official mark scheme page ${index + 1}`} />)}{question.solution && (answerAsset?.urls.length ? <div className="solution-wrap"><button className="text-button" aria-expanded={solutionOpen} onClick={() => setSolutionOpen((open) => !open)}>{solutionOpen ? "Hide worked text" : "Show worked text"}</button>{solutionOpen && <p>{question.solution}</p>}</div> : <p>{question.solution}</p>)}</div>}
