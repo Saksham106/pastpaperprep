@@ -494,9 +494,12 @@ describe("new pricing headings read as headings", () => {
 });
 
 describe("pricing refresh styling", () => {
-  it("lets public plan cards size to their content at every width", () => {
-    expect(styleFor(globalBlocks, ".pricing-page .pricing-decision-grid:not([data-paid]) .pricing-option", "base")["min-height"]).toBe("0");
-    expect(styleFor(globalBlocks, ".pricing-page .pricing-decision-grid:not([data-paid]) .pricing-option", "max-width: 720px")["min-height"]).toBe("0");
+  it("gives public plan cards room for their artwork without the old 610px height", () => {
+    for (const media of ["base", "max-width: 720px"] as const) {
+      const height = Number.parseFloat(styleFor(globalBlocks, ".pricing-page .pricing-decision-grid:not([data-paid]) .pricing-option", media)["min-height"] ?? "0");
+      expect(height).toBeGreaterThanOrEqual(380);
+      expect(height).toBeLessThanOrEqual(500);
+    }
   });
 
   it("keeps the popular card's feature list dark on its light background in dark mode", () => {

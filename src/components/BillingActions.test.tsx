@@ -149,7 +149,8 @@ describe("CustomBundleCheckout", () => {
 
     expect(screen.queryAllByRole("radio", { checked: true })).toHaveLength(0);
     expect(screen.getByText("Choose a bank")).toBeInTheDocument();
-    expect(screen.getByText("Select one bank to continue.")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Pick a bank" })).toBeDisabled();
+    expect(screen.queryByText(/to continue/)).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /choose monthly/i })).not.toBeInTheDocument();
   });
 
@@ -166,11 +167,11 @@ describe("CustomBundleCheckout", () => {
     const checkboxes = screen.getAllByRole("checkbox");
 
     expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(0);
-    expect(screen.getByText("Select at least two banks to continue.")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Pick 2+ banks" })).toBeDisabled();
     expect(screen.queryByRole("button", { name: /continue with/i })).not.toBeInTheDocument();
 
     fireEvent.click(checkboxes[0]);
-    expect(screen.getByText("Select one more bank to continue.")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Pick 1 more bank" })).toBeDisabled();
     expect(screen.queryByRole("button", { name: /continue with/i })).not.toBeInTheDocument();
 
     fireEvent.click(checkboxes[1]);

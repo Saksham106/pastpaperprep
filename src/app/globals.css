@@ -2217,8 +2217,8 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 
 /* Pricing refresh: cards size to their content (no artwork), the billing toggle stays in
    the page flow instead of floating over the plans, stats and table. */
-.pricing-page .pricing-decision-grid:not([data-paid]) .pricing-option { min-height: 0; }
-@media (max-width: 720px) { .pricing-page .pricing-decision-grid:not([data-paid]) .pricing-option { min-height: 0; } }
+.pricing-page .pricing-decision-grid:not([data-paid]) .pricing-option { min-height: 480px; }
+@media (max-width: 720px) { .pricing-page .pricing-decision-grid:not([data-paid]) .pricing-option { min-height: 420px; } }
 .pricing-page .pricing-toggle-sticky, .pricing-page > .pricing-toggle-sticky { position: relative; top: auto; }
 .plan-feature-list { margin: 18px 0 0; padding: 16px 0 0; display: grid; gap: 8px; list-style: none; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: .88rem; line-height: 1.35; }
 .plan-feature-list li { display: flex; gap: 9px; }
@@ -2257,3 +2257,5 @@ body:has(.bank-hero) .site-footer::after { display: none; }
 .pricing-bank-focus-action .billing-actions .button { color: var(--accent-contrast); background: var(--cobalt); border-color: var(--cobalt); }
 .pricing-bank-focus-action .billing-actions { margin: 0; }
 .pricing-bank-focus-key { margin: 8px 0 0; color: var(--muted); font-size: .78rem; }
+.pricing-assurance { margin: 14px 0 0; text-align: center; color: var(--muted); font-size: .82rem; }
+#plan-builder { scroll-margin-top: 96px; }

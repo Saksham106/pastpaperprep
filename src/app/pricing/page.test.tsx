@@ -10,7 +10,7 @@ describe("PricingPage", () => {
     expect(screen.getByRole("button", { name: "Monthly" })).toHaveAttribute("aria-pressed", "true");
     expect(screen.getAllByText("$6").length).toBeGreaterThan(0);
     expect(screen.getByText("$25")).toBeInTheDocument();
-    expect(screen.getByText("Everything, including future banks.")).toBeInTheDocument();
+    expect(screen.queryByText("Everything, including future banks.")).not.toBeInTheDocument();
     expect(screen.queryByText(/unlock every current bank/i)).not.toBeInTheDocument();
     expect(screen.getByText(/most popular/i)).toBeInTheDocument();
     expect(screen.getByText(/existing subscribers remain grandfathered at their current price and access/i)).toBeInTheDocument();

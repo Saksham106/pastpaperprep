@@ -53,6 +53,11 @@ export function PricingBankFocus({ bank, productId, interval, authenticated, pre
   const perMonth = (cents: number) => formatPrice(interval === "annual" ? cents / 12 : cents);
   const pricingReturn = `/pricing?interval=${interval}&product=${productId}${source ? `&from=${source}` : ""}`;
   const headingId = `pricing-focus-${bank.slug}`;
+  // The builder already has this bank selected; open its list so any other bank can be added.
+  const openBuilderPicker = () => {
+    const picker = document.querySelector<HTMLDetailsElement>("#plan-builder details.custom-bank-disclosure");
+    if (picker) picker.open = true;
+  };
   const addSubjectHref = (other: Bank) => {
     const params = new URLSearchParams({ banks: `${bank.slug},${other.slug}` });
     if (interval === "annual") params.set("interval", "annual");
@@ -68,17 +73,10 @@ export function PricingBankFocus({ bank, productId, interval, authenticated, pre
       <div className="pricing-bank-focus-card">
         <div>
           <div className="plan-price"><strong>{price}</strong><span>/ month</span></div>
-          <p className="plan-billing-note">{billing}</p>
-          <ul className="plan-feature-list" aria-label={`${bank.shortName} plan includes`}>
-            <li>All {bank.questionCount.toLocaleString()} questions, {bank.years.replace("-", "–")}</li>
-            <li>Every official mark scheme</li>
-            <li>Save and download PDFs</li>
-            <li>Mock paper builder</li>
-          </ul>
+          {interval === "annual" ? <p className="plan-billing-note">{billing}</p> : null}
           {facts ? <ol className="upgrade-years" aria-label="Exam years">
             {facts.coverage.map((year) => { const free = facts.freeYears.includes(year); return <li key={year} className={free ? "is-free" : "is-paid"}>{year}<span className="sr-only"> {free ? "free" : "on a plan"}</span></li>; })}
           </ol> : null}
-          {facts ? <p className="pricing-bank-focus-key">Grey years are free. Blue years come with a plan.</p> : null}
         </div>
         <div className="pricing-bank-focus-action">
           {previewOnly
@@ -89,9 +87,10 @@ export function PricingBankFocus({ bank, productId, interval, authenticated, pre
           <p className="plan-assurance">Secure checkout · Cancel any time</p>
         </div>
         {otherBanks.length ? <div className="pricing-bank-focus-more">
-          <p><strong>Taking another subject too?</strong> <span>Add it and pay {perMonth(priceForBankCount(interval, 2))}/month for both.</span></p>
+          <p><strong>Taking another subject too?</strong> <span>Add one for just {perMonth(priceForBankCount(interval, 2) - priceForBankCount(interval, 1))}/month.</span></p>
           <div className="pricing-bank-focus-chips">
             {otherBanks.slice(0, 4).map((other) => <Link key={other.slug} className="button secondary" href={addSubjectHref(other)}>+ {other.shortName}</Link>)}
+            <a className="button secondary pricing-bank-focus-custom" href="#plan-builder" onClick={openBuilderPicker}>+ Choose another bank</a>
             <a className="button secondary pricing-bank-focus-all" href="#plan-all">All {allBankCount} banks · {perMonth(interval === "annual" ? PRICING_MODEL.allAccess.annualCents : PRICING_MODEL.allAccess.monthlyCents)}/mo</a>
           </div>
         </div> : null}
