@@ -47,6 +47,11 @@ describe("serverless performance boundaries", () => {
     expect(page).toContain("bootstrapUrl=");
   });
 
+  it("preconnects bank pages to the hosts that serve question images", () => {
+    const page = source("src/app/banks/[slug]/page.tsx");
+    expect(page).toMatch(/for \(const origin of assetOriginsForBank\(slug\)\) preconnect\(origin/);
+  });
+
   it("does not eagerly import every question bank into the shared question module", () => {
     const questions = source("src/lib/questions.ts");
     expect(questions).not.toContain("@/data/raw/");

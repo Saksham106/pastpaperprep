@@ -55,4 +55,16 @@ describe("SourceCropImage", () => {
     expect(container.querySelector(".source-tail-clipped")).toBeNull();
     expect(screen.getByRole("img", { name: "Real question" })).toBeTruthy();
   });
+
+  it("loads a priority image eagerly with high fetch priority", () => {
+    render(<SourceCropImage bankSlug="ib-sl" questionId="q" src="https://assets.example/q.webp" alt="Original question 1" priority />);
+    const image = screen.getByAltText("Original question 1");
+    expect(image).toHaveAttribute("loading", "eager");
+    expect(image).toHaveAttribute("fetchpriority", "high");
+  });
+
+  it("keeps other images lazy", () => {
+    render(<SourceCropImage bankSlug="ib-sl" questionId="q" src="https://assets.example/q.webp" alt="Original question 2" />);
+    expect(screen.getByAltText("Original question 2")).toHaveAttribute("loading", "lazy");
+  });
 });

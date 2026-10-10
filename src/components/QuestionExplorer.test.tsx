@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { readFileSync } from "node:fs";
+import { renderToString } from "react-dom/server";
 import { join } from "node:path";
 import { QuestionExplorer } from "@/components/QuestionExplorer";
 import { PREVIEW_QUESTION_IDS, isPreviewQuestion } from "@/lib/access";
@@ -1345,6 +1346,40 @@ describe("QuestionExplorer asset loading", () => {
     expect(freeCalls(fetchMock, "answer")).toEqual([]);
     fireEvent.click(toggle);
     await waitFor(() => expect(signBodies(fetchMock).flatMap((body) => body.requests)).toContainEqual({ questionId: paidQuestion.id, kind: "answer" }));
+  });
+
+  it("renders the anonymous default list and free strip before hydration", () => {
+    const free = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").filter((question) => freeIds.has(question.id)).slice(0, 24), []);
+
+    const html = renderToString(<QuestionExplorer questions={free} bankSlug="ib-sl" access={anonymous} initialState={{ search: "", sort: "paper", filters: {}, freeOnly: true, savedOnly: false, courseRoute: "all", visible: 24 }} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+    const page = new DOMParser().parseFromString(html, "text/html");
+
+    expect(page.querySelectorAll("article.question-card")).toHaveLength(20);
+    expect(page.querySelector(".free-value-strip")).not.toBeNull();
+    expect(page.querySelector('[aria-label="Remove free questions only filter"]')).not.toBeNull();
+  });
+
+  it("keeps the member view provisional until bootstrap", async () => {
+    document.cookie = "sb-test-auth-token=x; path=/";
+    const fetchMock = assetFetch(() => new Promise<Response>(() => {}));
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(<QuestionExplorer questions={[freeQuestion]} bankSlug="ib-sl" access={anonymous} initialState={{ search: "", sort: "paper", filters: {}, freeOnly: true, savedOnly: false, courseRoute: "all", visible: 24 }} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+
+    await waitFor(() => expect(document.querySelector(".free-value-strip")).toBeNull());
+    expect(screen.queryByRole("button", { name: /remove free questions only filter/i })).not.toBeInTheDocument();
+  });
+
+  it("loads only the first question image eagerly", async () => {
+    const free = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").filter((question) => freeIds.has(question.id)).slice(0, 3), []);
+    vi.stubGlobal("fetch", assetFetch());
+
+    render(<QuestionExplorer questions={free} bankSlug="ib-sl" access={anonymous} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+
+    await waitFor(() => expect(screen.getAllByRole("img", { name: /original question/i }).length).toBeGreaterThan(2));
+    const images = screen.getAllByRole("img", { name: /original question/i });
+    expect(images[0]).toHaveAttribute("fetchpriority", "high");
+    expect(images.slice(1).every((image) => image.getAttribute("loading") === "lazy")).toBe(true);
   });
 });
 

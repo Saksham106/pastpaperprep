@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { preconnect } from "react-dom";
 import { QuestionExplorer } from "@/components/QuestionExplorer";
 import { BankSeoContent } from "@/components/BankSeoContent";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { isPreviewQuestion } from "@/lib/access";
+import { assetOriginsForBank } from "@/lib/asset-origins";
 import { getAvailableBanks, getBank, isLocalEconomicsBank, isLocalEconomicsPreviewEnabled, type BankSlug } from "@/lib/banks";
 import { EXPLORER_PAGE_SIZE, parseExplorerState } from "@/lib/explorer-state";
 import { filterQuestions } from "@/lib/question-filter";
@@ -48,6 +50,8 @@ export default async function BankPage({ params }: { params: Promise<{ slug: str
   // advertising a route that renders an error boundary, which would return HTTP 200.
   const allQuestions = await loadBankQuestions(slug).catch(() => null);
   if (!allQuestions) notFound();
+  // Question images come from signed Storage/R2 URLs; open those connections while JS loads.
+  for (const origin of assetOriginsForBank(slug)) preconnect(origin);
   const filterableQuestions = allQuestions.map((question) => publicMetadataToQuestion(toPublicQuestionMetadata(question), slug));
   // Request-specific URL and member state hydrate in the client. Keeping them out of this
   // route lets Next pre-render every bank once at build time instead of parsing a full corpus
