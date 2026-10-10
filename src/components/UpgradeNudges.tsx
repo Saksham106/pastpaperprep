@@ -66,12 +66,12 @@ function Actions({ bank, placement, href, label, onDismiss }: { bank: string; pl
 export function FeedTimelineCard({ bank, shortName, facts, href, slot, sentViews, onDismiss }: CardProps & { shortName: string; facts: BankYearFacts }) {
   const viewRef = useUpgradeView(bank, "feed_timeline", sentViews, String(slot));
   return (
-    <aside ref={viewRef} className="upgrade-card is-timeline" aria-label="Upgrade">
+    <aside ref={viewRef} className="upgrade-card is-timeline" aria-label="Upgrade: exam years">
       <p className="upgrade-eyebrow">Missing the latest papers</p>
       <h3>Exams change. Practise the newest papers.</h3>
       <p>{facts.newerPaidLabel} papers, with every mark scheme, are on any plan.</p>
       <ol className="upgrade-years" aria-label="Exam years">
-        {facts.coverage.map((year) => <li key={year} className={facts.freeYears.includes(year) ? "is-free" : "is-paid"}>{year}</li>)}
+        {facts.coverage.map((year) => { const free = facts.freeYears.includes(year); return <li key={year} className={free ? "is-free" : "is-paid"}>{year}<span className="sr-only"> {free ? "free" : "on a plan"}</span></li>; })}
       </ol>
       <Actions bank={bank} placement="feed_timeline" href={href} label={`Unlock ${shortName} · ${UPGRADE_PRICE_LABEL}`} onDismiss={onDismiss} />
     </aside>
@@ -83,7 +83,7 @@ export type TeaserQuestion = { year: number; session: string; paper: string | nu
 export function FeedTeaserCard({ bank, question, topicLabel, href, slot, sentViews, onDismiss }: CardProps & { question: TeaserQuestion; topicLabel: string }) {
   const viewRef = useUpgradeView(bank, "feed_teaser", sentViews, String(slot));
   return (
-    <aside ref={viewRef} className="upgrade-card is-teaser" aria-label="Upgrade">
+    <aside ref={viewRef} className="upgrade-card is-teaser" aria-label="Upgrade: newest paper">
       <header className="question-card-header">
         <div className="question-meta"><span>{question.year} {question.session}</span>{" "}<span>Paper {question.paper}</span>{" "}<span>Question {question.number}</span>{question.marks !== null && <>{" "}<span>{question.marks} {question.marks === 1 ? "mark" : "marks"}</span></>}</div>
         <span className="upgrade-lock">{question.year} paper</span>
@@ -104,7 +104,7 @@ export function FeedTeaserCard({ bank, question, topicLabel, href, slot, sentVie
 export function PracticeMilestone({ bank, facts, href, onDismiss }: { bank: string; facts: BankYearFacts | null; href: string; onDismiss: () => void }) {
   const viewRef = useUpgradeView(bank, "practice_milestone");
   return (
-    <div ref={viewRef} className="upgrade-milestone" role="status">
+    <div ref={viewRef} className="upgrade-milestone">
       <p><strong>10 practised. Nice.</strong> <span>{facts ? `Keep going with ${facts.newerPaidLabel} papers.` : "Keep going with every year."}</span></p>
       <Link href={href} onClick={() => trackUpgrade("click", bank, "practice_milestone")}>Unlock <span aria-hidden="true">→</span></Link>
       <button type="button" aria-label="Dismiss" onClick={() => { trackUpgrade("dismiss", bank, "practice_milestone"); onDismiss(); }}><span aria-hidden="true">×</span></button>

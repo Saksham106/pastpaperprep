@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { ANONYMOUS_FREE_QUESTION_LIMIT } from "@/lib/free-question-gate";
 import { trackProductEvent } from "@/lib/product-analytics";
 import { trackUpgrade } from "@/components/UpgradeNudges";
+import { UPGRADE_PRICE_MONTH } from "@/lib/upgrade-copy";
 
 type GateProps = {
   bankSlug: string;
@@ -19,7 +20,7 @@ type GateMessageProps = GateProps & {
   titleId: string;
 };
 
-function GateMessage({ bankSlug, remainingCount, signupHref, signinHref, plansHref = "/pricing", plansLine = "Want every year? Plans start at $6/month.", titleId }: GateMessageProps) {
+function GateMessage({ bankSlug, remainingCount, signupHref, signinHref, plansHref = "/pricing", plansLine = `Want every year? Plans start at ${UPGRADE_PRICE_MONTH}.`, titleId }: GateMessageProps) {
   const eventProperties = { bank: bankSlug, limit: ANONYMOUS_FREE_QUESTION_LIMIT, remainingCount };
 
   return (

@@ -66,7 +66,7 @@ describe("bank page upgrade nudges", () => {
   it("hides every in-feed card for the session after Not now", () => {
     render(<QuestionExplorer questions={mixed()} bankSlug="igcse" access={anonymous} initialState={state(true)} />);
     fireEvent.click(within(document.querySelector(".is-teaser") as HTMLElement).getByRole("button", { name: "Not now" }));
-    expect(document.querySelectorAll('aside[aria-label="Upgrade"]')).toHaveLength(0);
+    expect(document.querySelectorAll('aside.upgrade-card')).toHaveLength(0);
     expect(window.sessionStorage.getItem("ppp:feed-nudge-dismissed")).toBe("1");
     expect(track).toHaveBeenCalledWith("upgrade_prompt_dismiss", { bank: "igcse", placement: "feed_teaser" });
   });
@@ -74,19 +74,19 @@ describe("bank page upgrade nudges", () => {
   it("never nudges someone who has the bank", () => {
     render(<QuestionExplorer questions={mixed()} bankSlug="igcse" access={fullAccess} initialState={state(false)} />);
     expect(document.querySelector(".free-value-strip")).toBeNull();
-    expect(document.querySelectorAll('aside[aria-label="Upgrade"]')).toHaveLength(0);
+    expect(document.querySelectorAll('aside.upgrade-card')).toHaveLength(0);
     expect(track.mock.calls.some(([name]) => String(name).startsWith("upgrade_prompt"))).toBe(false);
   });
 
   it("shows no in-feed card when fewer than three questions are listed", () => {
     render(<QuestionExplorer questions={mixed(2, 5)} bankSlug="igcse" access={anonymous} initialState={state(true)} />);
-    expect(document.querySelectorAll('aside[aria-label="Upgrade"]')).toHaveLength(0);
+    expect(document.querySelectorAll('aside.upgrade-card')).toHaveLength(0);
   });
 
   it("skips teaser slots when no paid question matches instead of repeating the timeline", () => {
     render(<QuestionExplorer questions={mixed(30, 0)} bankSlug="igcse" access={anonymous} initialState={state(true)} />);
     const children = listChildren();
-    const asides = children.filter((node) => node.matches('aside[aria-label="Upgrade"]'));
+    const asides = children.filter((node) => node.matches('aside.upgrade-card'));
     expect(asides).toHaveLength(2);
     expect(asides.every((node) => node.classList.contains("is-timeline"))).toBe(true);
     expect(children.indexOf(asides[0])).toBe(8);
@@ -99,7 +99,7 @@ describe("bank page upgrade nudges", () => {
     expect(locked).toHaveTextContent(/20\d\d paper · on any plan/);
     expect(locked).toHaveTextContent("Unlock 30 more Mathematics 0580 questions with mark schemes and PDFs.");
     expect(within(locked).getByRole("link", { name: "Unlock from $6/mo" })).toHaveAttribute("href", "/pricing?product=bank_igcse");
-    expect(document.querySelectorAll('aside[aria-label="Upgrade"]')).toHaveLength(0);
+    expect(document.querySelectorAll('aside.upgrade-card')).toHaveLength(0);
   });
 
   it("celebrates the 10th revealed answer once per bank", async () => {
@@ -140,7 +140,7 @@ describe("bank page upgrade nudges", () => {
     expect(document.querySelector(".question-locked")).toHaveTextContent("Unlock every Mathematics 0580 question with mark schemes and PDFs.");
     unmount();
     render(<QuestionExplorer questions={mixed()} bankSlug="igcse" indexUrl="/bank-index/igcse.json" access={anonymous} initialState={state(true)} />);
-    expect(document.querySelectorAll('aside[aria-label="Upgrade"]')).toHaveLength(0);
+    expect(document.querySelectorAll('aside.upgrade-card')).toHaveLength(0);
   });
 
   it("reports each in-feed slot once per page even when filters remount it", () => {
@@ -167,5 +167,39 @@ describe("bank page upgrade nudges", () => {
       await waitFor(() => expect(button).toHaveTextContent("Show answer"));
     }
     expect(screen.queryByText("10 practised. Nice.")).not.toBeInTheDocument();
+  });
+
+  it("labels each in-feed card for screen readers and keeps focus after Not now", () => {
+    render(<QuestionExplorer questions={mixed()} bankSlug="igcse" access={anonymous} initialState={state(true)} />);
+    expect(screen.getAllByRole("complementary", { name: "Upgrade: newest paper" })[0]).toHaveClass("is-teaser");
+    expect(screen.getAllByRole("complementary", { name: "Upgrade: exam years" })[0]).toHaveClass("is-timeline");
+    fireEvent.click(within(screen.getAllByRole("complementary", { name: "Upgrade: newest paper" })[0]).getByRole("button", { name: "Not now" }));
+    expect(document.activeElement).toBe(document.querySelector(".results-heading"));
+  });
+
+  it("shows the practice milestone under the answer that reached ten and announces it", async () => {
+    const withAnswers = freeQuestions.filter((question) => question.markschemeImageCount > 0 || question.solution).slice(0, 12);
+    render(<QuestionExplorer questions={prepareQuestionsForDelivery(withAnswers, [])} bankSlug="igcse" access={anonymous} initialState={state(true)} />);
+    const buttons = screen.getAllByRole("button", { name: "Show answer" });
+    for (const button of buttons.slice(0, 10)) { fireEvent.click(button); await waitFor(() => expect(button).toHaveTextContent("Hide answer")); }
+    const milestone = await screen.findByText("10 practised. Nice.");
+    expect(milestone.closest(".upgrade-milestone")?.previousElementSibling).toBe(buttons[9].closest("article"));
+    expect([...document.querySelectorAll('[role="status"]')].some((node) => node.textContent === "10 practised. Nice. Unlock the newer papers from a plan.")).toBe(true);
+  });
+
+  it("counts the PDF upgrade prompt once per page and ignores clicks before access is known", () => {
+    const { unmount } = render(<QuestionExplorer questions={mixed()} bankSlug="igcse" access={anonymous} initialState={state(true)} />);
+    const views = () => track.mock.calls.filter(([name, props]) => name === "upgrade_prompt_view" && props.placement === "pdf_dialog").length;
+    fireEvent.click(screen.getByRole("button", { name: "Save PDF" }));
+    fireEvent.click(screen.getByRole("button", { name: /close pdf access message/i }));
+    fireEvent.click(screen.getByRole("button", { name: "Save PDF" }));
+    expect(views()).toBe(1);
+    unmount();
+    track.mockClear();
+    vi.stubGlobal("fetch", vi.fn((input: RequestInfo | URL) => String(input).includes("/api/banks/bootstrap") ? new Promise<Response>(() => {}) : Promise.resolve(new Response(JSON.stringify({ expiresIn: 600, assets: [] }), { status: 200 }))));
+    render(<QuestionExplorer questions={mixed()} bankSlug="igcse" access={anonymous} bootstrapUrl="/api/banks/bootstrap?bank=igcse" initialState={state(true)} />);
+    fireEvent.click(screen.getByRole("button", { name: "Save PDF" }));
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(views()).toBe(0);
   });
 });

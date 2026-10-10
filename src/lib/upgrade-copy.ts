@@ -14,6 +14,7 @@ export type BankYearFacts = {
 };
 
 export const UPGRADE_PRICE_LABEL = `${formatPrice(PRICING_MODEL.oneBank.monthlyCents)}/mo`;
+export const UPGRADE_PRICE_MONTH = `${formatPrice(PRICING_MODEL.oneBank.monthlyCents)}/month`;
 
 /** [2016, 2017, 2018] → "2016–2018"; [2016, 2017, 2019] → "2016–2017, 2019". */
 export function yearRangeLabel(years: readonly number[]): string {

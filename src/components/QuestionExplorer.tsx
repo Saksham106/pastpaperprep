@@ -9,7 +9,7 @@ import type { PdfAnswerPlacement, PdfContent } from "@/lib/pdf-export";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
 import { hasFreeTier, isPreviewQuestion } from "@/lib/access";
 import { BANK_CATALOG } from "@/lib/catalog";
-import { bankYearFacts, upgradeHref, UPGRADE_PRICE_LABEL } from "@/lib/upgrade-copy";
+import { bankYearFacts, upgradeHref, UPGRADE_PRICE_LABEL, UPGRADE_PRICE_MONTH } from "@/lib/upgrade-copy";
 
 import { filterQuestions, questionZoneValue } from "@/lib/question-filter";
 import { EXPLORER_PAGE_SIZE, parseExplorerState, serializeExplorerState, type ExplorerFilterKey, type ExplorerSearchParams, type ExplorerState } from "@/lib/explorer-state";
@@ -387,7 +387,8 @@ access: ExplorerAccess;
   // Wait for the full index: before it loads only the server sample is known, so there is nothing true to tease or count.
   const feedNudges = nudgesActive && effectiveFreeOnly && indexLoaded && !storedFeedDismissed && !feedDismissedNow;
   const [sentUpgradeViews] = useState(() => new Set<string>()); // stable for the page; views are recorded, not rendered
-  const dismissFeedNudges = () => { writeFeedNudgeDismissed(); setFeedDismissedNow(true); };
+  const resultsHeadingRef = useRef<HTMLDivElement>(null);
+  const dismissFeedNudges = () => { writeFeedNudgeDismissed(); setFeedDismissedNow(true); resultsHeadingRef.current?.focus({ preventScroll: true }); };
   const renderFeedSlot = (position: number, isLast: boolean) => {
     if (!feedNudges) return null;
     const slot = position === 3 ? 0 : position > 3 && (position - 3) % 5 === 0 ? (position - 3) / 5 : -1;
@@ -399,7 +400,7 @@ access: ExplorerAccess;
     }
     return yearFacts ? <FeedTimelineCard bank={nudgeBank} shortName={bankShortName} facts={yearFacts} href={upgradeLink} slot={slot} sentViews={sentUpgradeViews} onDismiss={dismissFeedNudges} /> : null;
   };
-  const [milestoneVisible, setMilestoneVisible] = useState(false);
+  const [milestoneQuestionId, setMilestoneQuestionId] = useState("");
   const recordReveal = (questionId: string) => {
     if (!nudgesActive) return;
     try {
@@ -413,7 +414,7 @@ access: ExplorerAccess;
       if (revealed.size >= 10) {
         window.localStorage.removeItem(revealedKey);
         window.localStorage.setItem(shownKey, "1");
-        setMilestoneVisible(true);
+        setMilestoneQuestionId(questionId);
       }
     } catch { /* storage unavailable: no milestone */ }
   };
@@ -1007,6 +1008,7 @@ access: ExplorerAccess;
     return [...selectedIds].map((id) => byId.get(id)).filter((question): question is UnifiedQuestion => Boolean(question)).slice(0, MAX_PDF_QUESTIONS);
   })();
   const openPdfBuilder = () => {
+    if (bootstrapPending) return; // access is still unknown: a payer must not see the upgrade prompt
     if (worksheetId && (!worksheetReady || worksheetLoadFailed || !exportQuestions.length)) return;
     if (worksheetId && worksheetDirty) { setPendingWorksheetAction({ kind: "pdf" }); return; }
     if (!resolvedAccess.canExportPdf) { showPdfUpgrade(); return; }
@@ -1059,7 +1061,7 @@ access: ExplorerAccess;
 
   const showPdfUpgrade = () => {
     trackProductEvent("pdf_upgrade_view", { bank: bank ?? "unknown" });
-    if (bank) trackUpgrade("view", bank, "pdf_dialog");
+    if (bank && !sentUpgradeViews.has("pdf_dialog:")) { sentUpgradeViews.add("pdf_dialog:"); trackUpgrade("view", bank, "pdf_dialog"); }
     shakeElement(pdfTriggerRef.current);
     setPdfUpgradeOpen(true);
   };
@@ -1143,11 +1145,11 @@ access: ExplorerAccess;
         </aside>
 
         <div className="explorer-results" inert={filtersOpen || undefined}>
-          <div className="results-heading">
+          <div ref={resultsHeadingRef} className="results-heading" tabIndex={-1}>
             <div><strong>{resultQuestions.length.toLocaleString()} {savedWorksheetView ? "saved " : !sharedSetView && effectiveFreeOnly ? "free " : ""}{resultQuestions.length === 1 ? "question" : "questions"}</strong>{selectionIsExplicit && !savedWorksheetView && !sharedSetView && <span>{selectedIds.size} selected for PDF</span>}</div>
             <div>{selectionIsExplicit && !worksheetId && !sharedSetView && <button className="text-button" onClick={() => { setSelectionIsExplicit(false); setSelectedIds(new Set()); }}>Clear selection</button>}{!savedWorksheetView && !sharedSetView && (search || activeCount > 0 || courseRoute !== "all") && <button className="text-button" onClick={clearFilters}>Clear filters</button>}</div>
           </div>
-          {nudgesActive && milestoneVisible && <PracticeMilestone bank={nudgeBank} facts={yearFacts} href={upgradeLink} onDismiss={() => setMilestoneVisible(false)} />}
+          {nudgesActive && <p className="sr-only" role="status">{milestoneQuestionId ? "10 practised. Nice. Unlock the newer papers from a plan." : ""}</p>}
           {!savedWorksheetView && !sharedSetView && activeCount > 0 && <div className="active-filters">
             {effectiveFreeOnly && <button aria-label="Remove free questions only filter" onClick={() => setFreeOnly(false)}>Free only <X /></button>}
             {savedOnly && <button aria-label="Remove saved questions only filter" onClick={() => setSavedOnly(false)}>Saved only <X /></button>}
@@ -1161,11 +1163,11 @@ access: ExplorerAccess;
               return <Fragment key={question.id}><QuestionCard question={question} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAsset={(asset) => {
                 setSignedAssets((current) => new Map(current).set(signedAssetKey(question.id, "answer"), asset));
                 if (asset.details) setCatalogQuestions((current) => current.map((item) => item.id === question.id ? mergeQuestionRichDetails(item, asset.details!) : item));
-              }} selected={selectedIds.has(question.id)} selectable={!savedWorksheetView && !sharedSetView} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => toggleSaved(question.id)} onAttempt={() => recordAttempt(question.id)} onReveal={() => recordReveal(question.id)} locked={nudgesActive ? { title: `${question.year} paper · on any plan`, body: indexLoaded ? `Unlock ${paidCount.toLocaleString()} more ${bankShortName} questions with mark schemes and PDFs.` : `Unlock every ${bankShortName} question with mark schemes and PDFs.`, href: upgradeLink, onClick: () => trackUpgrade("click", nudgeBank, "locked_card") } : undefined} />{renderFeedSlot(index + 1, index === shownQuestions.length - 1)}</Fragment>;
+              }} selected={selectedIds.has(question.id)} selectable={!savedWorksheetView && !sharedSetView} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => toggleSaved(question.id)} onAttempt={() => recordAttempt(question.id)} onReveal={() => recordReveal(question.id)} locked={nudgesActive ? { title: `${question.year} paper · on any plan`, body: indexLoaded ? `Unlock ${paidCount.toLocaleString()} more ${bankShortName} questions with mark schemes and PDFs.` : `Unlock every ${bankShortName} question with mark schemes and PDFs.`, href: upgradeLink, onClick: () => trackUpgrade("click", nudgeBank, "locked_card") } : undefined} />{nudgesActive && milestoneQuestionId === question.id && <PracticeMilestone bank={nudgeBank} facts={yearFacts} href={upgradeLink} onDismiss={() => setMilestoneQuestionId("")} />}{renderFeedSlot(index + 1, index === shownQuestions.length - 1)}</Fragment>;
             })}
           </div>
           {!savedWorksheetView && !sharedSetView && filtered.length === 0 && <div className="empty-state"><strong>No questions match that combination.</strong><span>Clear a filter and try again.</span></div>}
-          {!savedWorksheetView && !sharedError && !missingSharedCount && freeGate.active && bankSlug && <FreeQuestionSignupGate bankSlug={bankSlug} remainingCount={freeGate.remainingCount} signupHref={signupHref} signinHref={signinHref} plansHref={upgradeLink} plansLine={yearFacts ? `Want ${yearFacts.newerPaidLabel} too? Plans start at $6/month.` : "Want every year? Plans start at $6/month."} />}
+          {!savedWorksheetView && !sharedError && !missingSharedCount && freeGate.active && bankSlug && <FreeQuestionSignupGate bankSlug={bankSlug} remainingCount={freeGate.remainingCount} signupHref={signupHref} signinHref={signinHref} plansHref={upgradeLink} plansLine={yearFacts ? `Want ${yearFacts.newerPaidLabel} too? Plans start at ${UPGRADE_PRICE_MONTH}.` : `Want every year? Plans start at ${UPGRADE_PRICE_MONTH}.`} />}
           {!savedWorksheetView && !sharedSetView && !freeGate.active && visible < filtered.length && <button className="load-more" onClick={() => setVisible((count) => count + EXPLORER_PAGE_SIZE)}>Show 24 more questions</button>}
         </div>
       </div>

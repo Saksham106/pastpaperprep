@@ -22,7 +22,9 @@ describe("FeedTimelineCard", () => {
     expect(screen.getByText("2019–2026 papers, with every mark scheme, are on any plan.")).toBeInTheDocument();
     const chips = container.querySelectorAll(".upgrade-years li");
     expect(chips).toHaveLength(11);
-    expect([...chips].filter((chip) => chip.classList.contains("is-paid")).map((chip) => chip.textContent)).toEqual(["2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"]);
+    expect([...chips].filter((chip) => chip.classList.contains("is-paid")).map((chip) => chip.firstChild?.textContent)).toEqual(["2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"]);
+    expect(chips[0]).toHaveTextContent("2016 free");
+    expect(chips[10]).toHaveTextContent("2026 on a plan");
     const link = screen.getByRole("link", { name: "Unlock Mathematics 0580 · $6/mo" });
     expect(link).toHaveAttribute("href", "/pricing?product=bank_igcse");
     fireEvent.click(link);

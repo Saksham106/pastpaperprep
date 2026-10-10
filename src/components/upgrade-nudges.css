@@ -35,3 +35,4 @@
   .upgrade-overlay { padding-inline: 12px; }
   .upgrade-milestone p span { display: none; }
 }
+.question-list > .upgrade-milestone { margin: 0; }

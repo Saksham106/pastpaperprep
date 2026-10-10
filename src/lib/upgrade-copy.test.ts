@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { bankYearFacts, upgradeHref, UPGRADE_PRICE_LABEL, yearRangeLabel } from "@/lib/upgrade-copy";
+import { bankYearFacts, upgradeHref, UPGRADE_PRICE_LABEL, UPGRADE_PRICE_MONTH, yearRangeLabel } from "@/lib/upgrade-copy";
 
 describe("upgrade copy", () => {
   it("labels year runs with an en dash", () => {
@@ -27,5 +27,6 @@ describe("upgrade copy", () => {
   it("links to pricing with the bank preselected", () => {
     expect(upgradeHref("igcse")).toBe("/pricing?product=bank_igcse");
     expect(UPGRADE_PRICE_LABEL).toBe("$6/mo");
+    expect(UPGRADE_PRICE_MONTH).toBe("$6/month");
   });
 });
