@@ -4,7 +4,7 @@ import { PostHog } from "posthog-node";
 import { scrubStack } from "@/lib/error-privacy";
 
 const AUTH_PHASES = new Set(["signup_result", "magic_link_result", "resend_result", "password_signin_result", "confirmation_result"]);
-const SAFE_PROPERTY_KEYS = new Set(["router_kind", "route_type", "route", "auth_phase", "provider_code", "error_source", "error_code"]);
+const SAFE_PROPERTY_KEYS = new Set(["router_kind", "route_type", "route", "auth_phase", "provider_code", "error_source", "error_code", "reason"]);
 const PROVIDER_FAILURE_CODES = new Set(["unexpected_failure", "smtp_error"]);
 let client: PostHog | null = null;
 

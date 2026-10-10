@@ -12,6 +12,7 @@ import { createStripeClient } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 export const runtime = "nodejs";
 
 type CheckoutBody = { interval?: unknown; productId?: unknown; selectedBankIds?: unknown; acknowledgeSeparateSubscription?: unknown };
@@ -38,7 +39,7 @@ function safeBillingError(error: unknown) {
   return { type: typeof error };
 }
 
-export async function POST(request: Request) {
+async function handlePOST(request: Request) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user?.email) {
@@ -339,3 +340,5 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Checkout is temporarily unavailable" }, { status: 503 });
   }
 }
+
+export const POST = withFailureReporting("/api/billing/checkout", handlePOST);

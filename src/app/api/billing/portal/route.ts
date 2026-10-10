@@ -4,6 +4,7 @@ import { getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 export const runtime = "nodejs";
 
 function safeBillingError(error: unknown) {
@@ -19,7 +20,7 @@ function safeBillingError(error: unknown) {
   return { type: typeof error };
 }
 
-export async function POST() {
+async function handlePOST() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user?.email) return NextResponse.json({ error: "Authentication required" }, { status: 401 });
@@ -54,3 +55,5 @@ export async function POST() {
     return NextResponse.json({ error: "Billing portal is temporarily unavailable" }, { status: 503 });
   }
 }
+
+export const POST = withFailureReporting("/api/billing/portal", handlePOST);

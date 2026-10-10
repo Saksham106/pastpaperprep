@@ -8,6 +8,7 @@ import { getQuestionRichDetails } from "@/lib/question-delivery";
 import { reviewedBlankTailForSignedAsset } from "@/lib/reviewed-blank-tails";
 import { createClient } from "@/lib/supabase/server";
 
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 export const runtime = "nodejs";
 
 const PRIVATE_RESPONSE_INIT = {
@@ -19,7 +20,7 @@ type SignRequestBody = {
   requests?: unknown;
 };
 
-export async function POST(request: Request) {
+async function handlePOST(request: Request) {
   let body: SignRequestBody;
   try {
     body = await request.json() as SignRequestBody;
@@ -115,3 +116,5 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503 });
   }
 }
+
+export const POST = withFailureReporting("/api/assets/sign", handlePOST);

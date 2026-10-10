@@ -10,9 +10,10 @@ import { captureConversionOutcome } from "@/lib/server-conversion-analytics";
 import { lifetimeCheckoutMetadataIsValid, LIFETIME_OFFER } from "@/lib/lifetime-offer";
 import { finishLifetimeConversion } from "@/lib/lifetime-conversion-fulfillment";
 
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 export const runtime = "nodejs";
 
-export async function POST(request: Request) {
+async function handlePOST(request: Request) {
   let config;
   try {
     config = getStripeConfig();
@@ -406,3 +407,5 @@ export async function POST(request: Request) {
   }
   return response;
 }
+
+export const POST = withFailureReporting("/api/stripe/webhook", handlePOST);

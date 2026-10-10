@@ -6,13 +6,14 @@ import { hasBankAccess } from "@/lib/access";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { validateWorksheet } from "@/lib/worksheets";
 
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 async function identity() {
   const client = await createClient();
   const { data } = await client.auth.getClaims();
   return { client, userId: typeof data?.claims?.sub === "string" ? data.claims.sub : null };
 }
 
-export async function GET() {
+async function handleGET() {
   const { client, userId } = await identity();
   if (!userId) return NextResponse.json({ error: "Authentication required" }, { status: 401 });
   const access = await fetchAccessEntitlements(client as never, userId);
@@ -22,7 +23,7 @@ export async function GET() {
   return NextResponse.json({ worksheets: (data ?? []).filter((worksheet) => hasBankAccess(worksheet.bank_slug, access.rows as never)) });
 }
 
-export async function POST(request: Request) {
+async function handlePOST(request: Request) {
   let body: Record<string, unknown>;
   try { body = await request.json() as Record<string, unknown>; } catch { return NextResponse.json({ error: "Invalid JSON" }, { status: 400 }); }
   let definition;
@@ -40,3 +41,6 @@ export async function POST(request: Request) {
   if (error) return NextResponse.json({ error: "Worksheet could not be saved" }, { status: 503 });
   return NextResponse.json({ worksheet: data }, { status: 201 });
 }
+
+export const GET = withFailureReporting("/api/worksheets", handleGET);
+export const POST = withFailureReporting("/api/worksheets", handlePOST);

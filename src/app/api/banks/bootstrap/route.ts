@@ -6,6 +6,7 @@ import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { hasSupabaseAuthCookie } from "@/lib/supabase/proxy";
 import { createClient } from "@/lib/supabase/server";
 
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 export const runtime = "nodejs";
 
 const PRIVATE_RESPONSE_INIT = {
@@ -28,7 +29,7 @@ function payload(bank: BankSlug, authenticated = false, entitlements: readonly A
 }
 
 /** Hydrates member-only state after the CDN-rendered bank page is interactive. */
-export async function GET(request: NextRequest) {
+async function handleGET(request: NextRequest) {
   const bankParam = request.nextUrl.searchParams.get("bank");
   if (!bankParam || !getBank(bankParam)) {
     return NextResponse.json({ error: "Invalid bank" }, { status: 400, ...PRIVATE_RESPONSE_INIT });
@@ -69,3 +70,5 @@ export async function GET(request: NextRequest) {
     Boolean(savedError || attemptError),
   ), PRIVATE_RESPONSE_INIT);
 }
+
+export const GET = withFailureReporting("/api/banks/bootstrap", handleGET);
