@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { bankYearFacts, upgradeHref, UPGRADE_PRICE_LABEL, UPGRADE_PRICE_MONTH, yearRangeLabel } from "@/lib/upgrade-copy";
+import { bankYearFacts, isUpgradePlacement, upgradeHref, UPGRADE_PRICE_LABEL, UPGRADE_PRICE_MONTH, yearRangeLabel } from "@/lib/upgrade-copy";
 
 describe("upgrade copy", () => {
   it("labels year runs with an en dash", () => {
@@ -28,5 +28,16 @@ describe("upgrade copy", () => {
     expect(upgradeHref("igcse")).toBe("/pricing?product=bank_igcse");
     expect(UPGRADE_PRICE_LABEL).toBe("$6/mo");
     expect(UPGRADE_PRICE_MONTH).toBe("$6/month");
+  });
+
+  it("tags upgrade links with where they were clicked", () => {
+    expect(upgradeHref("igcse", "feed_teaser")).toBe("/pricing?product=bank_igcse&from=feed_teaser");
+    expect(upgradeHref("nope", "top_note")).toBe("/pricing?from=top_note");
+  });
+
+  it("only accepts known placements", () => {
+    expect(isUpgradePlacement("locked_card")).toBe(true);
+    expect(isUpgradePlacement("<script>")).toBe(false);
+    expect(isUpgradePlacement(undefined)).toBe(false);
   });
 });

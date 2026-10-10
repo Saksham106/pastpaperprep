@@ -45,7 +45,7 @@ describe("bank page upgrade nudges", () => {
     expect(note).toHaveClass("is-upgrade");
     expect(note).toHaveTextContent("You’re practising 2016–2018 papers.");
     expect(note).toHaveTextContent("The 2019–2026 papers, including 2026, need a plan.");
-    expect(within(note as HTMLElement).getByRole("link", { name: "Unlock from $6/mo" })).toHaveAttribute("href", "/pricing?product=bank_igcse");
+    expect(within(note as HTMLElement).getByRole("link", { name: "Unlock from $6/mo" })).toHaveAttribute("href", "/pricing?product=bank_igcse&from=top_note");
     expect(track).toHaveBeenCalledWith("upgrade_prompt_view", { bank: "igcse", placement: "top_note" });
   });
 
@@ -58,6 +58,8 @@ describe("bank page upgrade nudges", () => {
     expect(children[9]).toHaveClass("is-timeline");
     const newestPaidYear = Math.max(...paidQuestions.slice(0, 30).map((question) => question.year));
     expect(children[3].querySelector(".question-meta")).toHaveTextContent(String(newestPaidYear));
+    expect(within(children[3] as HTMLElement).getByRole("link")).toHaveAttribute("href", "/pricing?product=bank_igcse&from=feed_teaser");
+    expect(within(children[9] as HTMLElement).getByRole("link")).toHaveAttribute("href", "/pricing?product=bank_igcse&from=feed_timeline");
     await waitFor(() => expect(signRequests.length).toBeGreaterThan(0));
     const paidIds = new Set(paidQuestions.map((question) => question.id));
     expect(signRequests.flat().some((id) => paidIds.has(id))).toBe(false);
@@ -98,7 +100,7 @@ describe("bank page upgrade nudges", () => {
     const locked = document.querySelector(".question-locked") as HTMLElement;
     expect(locked).toHaveTextContent(/20\d\d paper · on any plan/);
     expect(locked).toHaveTextContent("Unlock 30 more Mathematics 0580 questions with mark schemes and PDFs.");
-    expect(within(locked).getByRole("link", { name: "Unlock from $6/mo" })).toHaveAttribute("href", "/pricing?product=bank_igcse");
+    expect(within(locked).getByRole("link", { name: "Unlock from $6/mo" })).toHaveAttribute("href", "/pricing?product=bank_igcse&from=locked_card");
     expect(within(locked).getByRole("link", { name: "Unlock from $6/mo" })).toHaveClass("button", "primary");
     expect(document.querySelectorAll('aside.upgrade-card')).toHaveLength(0);
   });
@@ -123,7 +125,7 @@ describe("bank page upgrade nudges", () => {
     fireEvent.click(screen.getByRole("button", { name: "Save PDF" }));
     const dialog = screen.getByRole("dialog", { name: /saving pdfs needs paid access/i });
     const link = within(dialog).getByRole("link", { name: "View plans" });
-    expect(link).toHaveAttribute("href", "/pricing?product=bank_igcse");
+    expect(link).toHaveAttribute("href", "/pricing?product=bank_igcse&from=pdf_dialog");
     fireEvent.click(link);
     expect(track).toHaveBeenCalledWith("upgrade_prompt_click", { bank: "igcse", placement: "pdf_dialog" });
   });

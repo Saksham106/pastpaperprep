@@ -49,8 +49,21 @@ export function bankYearFacts(bankSlug: string): BankYearFacts | null {
   return { freeLabel: yearRangeLabel(freeYears), newerPaidLabel: yearRangeLabel(newerPaidYears), latestYear: end, coverage, freeYears, newerPaidYears };
 }
 
-/** Pricing with this bank preselected. Pricing is public and asks for sign-in at checkout. */
-export function upgradeHref(bankSlug: string): string {
+const PLACEMENTS: readonly UpgradePlacement[] = ["top_note", "feed_teaser", "feed_timeline", "locked_card", "practice_milestone", "signup_gate", "pdf_dialog"];
+
+export function isUpgradePlacement(value: unknown): value is UpgradePlacement {
+  return typeof value === "string" && (PLACEMENTS as readonly string[]).includes(value);
+}
+
+/**
+ * Pricing with this bank preselected, tagged with the prompt that sent them (`from`) so
+ * the pricing view can be attributed. Pricing is public and asks for sign-in at checkout.
+ */
+export function upgradeHref(bankSlug: string, placement?: UpgradePlacement): string {
+  const params = new URLSearchParams();
   const productId = catalogEntry(bankSlug)?.productId;
-  return productId ? `/pricing?product=${encodeURIComponent(productId)}` : "/pricing";
+  if (productId) params.set("product", productId);
+  if (placement) params.set("from", placement);
+  const query = params.toString();
+  return query ? `/pricing?${query}` : "/pricing";
 }

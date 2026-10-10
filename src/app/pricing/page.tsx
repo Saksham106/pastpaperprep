@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { PricingContent } from "@/components/PricingContent";
+import { isUpgradePlacement } from "@/lib/upgrade-copy";
 import { hasBankAccess, type AccessEntitlement, type ProductId } from "@/lib/access";
 import { hasComplimentaryAllAccess } from "@/lib/complimentary-access";
 import { getBillingBanks, getEntitlementBanks, type BankSlug } from "@/lib/banks";
@@ -38,7 +39,7 @@ function purchaseProduct(value: string | undefined): ProductId | undefined {
   return PURCHASABLE_PRODUCTS.find((productId) => productId === value);
 }
 
-export default async function PricingPage({ searchParams }: { searchParams: Promise<{ interval?: string; product?: string; banks?: string; plan?: string }> }) {
+export default async function PricingPage({ searchParams }: { searchParams: Promise<{ interval?: string; product?: string; banks?: string; plan?: string; from?: string; checkout?: string }> }) {
   const params = await searchParams;
   const billingBanks = getBillingBanks();
   const supabase = await createClient();
@@ -100,5 +101,7 @@ export default async function PricingPage({ searchParams }: { searchParams: Prom
     initialProductId={purchaseProduct(params.product)}
     initialBankIds={purchaseBanks(params.banks)}
     availableBanks={billingBanks}
+    source={isUpgradePlacement(params.from) ? params.from : undefined}
+    checkoutStatus={params.checkout === "cancelled" ? "cancelled" : undefined}
   />;
 }
