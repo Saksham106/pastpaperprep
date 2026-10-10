@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { BookOpen, CrownSimple, ShieldCheck, SlidersHorizontal } from "@phosphor-icons/react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -19,6 +18,7 @@ import type { UpgradePlacement } from "@/lib/upgrade-copy";
 import { clearCheckoutParam } from "@/components/CheckoutReturnTracker";
 import { annualSavingPercent, formatPrice, maximumAnnualSavingPercent, priceForBankCount } from "@/lib/pricing-model";
 import { QualificationTabs } from "@/components/QualificationTabs";
+import { PricingBankFocus, secondSubjectOptions } from "@/components/PricingBankFocus";
 
 function bankSlugForProduct(productId: string): BankSlug | undefined {
   return getCatalogBanksForDisplay().find((bank) => bank.productId === productId)?.slug;
@@ -27,28 +27,19 @@ function bankSlugForProduct(productId: string): BankSlug | undefined {
 const PLANS = [
   {
     name: "One Bank", label: PRICING_MODEL.oneBank.label, monthly: formatPrice(PRICING_MODEL.oneBank.monthlyCents), annualMonthly: formatPrice(PRICING_MODEL.oneBank.annualCents / 12), annual: formatPrice(PRICING_MODEL.oneBank.annualCents), annualSaving: `${annualSavingPercent(PRICING_MODEL.oneBank.monthlyCents, PRICING_MODEL.oneBank.annualCents)}%`,
-    description: "Focus on one syllabus.", mode: "single" as const, tone: "starter", popular: false, icon: BookOpen, cta: "Choose One Bank",
+    description: "Focus on one syllabus.", features: ["Every year, including the newest papers", "Every official mark scheme", "Save and download PDFs", "Mock paper builder"], mode: "single" as const, tone: "starter", popular: false, icon: BookOpen, cta: "Choose One Bank",
   },
   {
     name: "Build Your Plan", label: `${PRICING_MODEL.builder.minBanks} to ${PRICING_MODEL.builder.maxBanks} banks`, monthly: formatPrice(PRICING_MODEL.builder.baseMonthlyCents), annualMonthly: formatPrice(PRICING_MODEL.builder.baseAnnualCents / 12), annual: `${formatPrice(PRICING_MODEL.builder.baseAnnualCents)}+`, annualSaving: `${annualSavingPercent(PRICING_MODEL.builder.baseMonthlyCents, PRICING_MODEL.builder.baseAnnualCents)}%`,
-    description: "Mix the banks you actually take.", mode: "builder" as const, tone: "builder", popular: true, icon: SlidersHorizontal, cta: "Build Your Plan",
+    description: "Mix the banks you actually take.", features: ["Everything in One Bank", "For every subject you take", "One subscription, one bill"], mode: "builder" as const, tone: "builder", popular: true, icon: SlidersHorizontal, cta: "Build Your Plan",
   },
   {
     name: "All Access", label: PRICING_MODEL.allAccess.label, monthly: formatPrice(PRICING_MODEL.allAccess.monthlyCents), annualMonthly: formatPrice(PRICING_MODEL.allAccess.annualCents / 12), annual: formatPrice(PRICING_MODEL.allAccess.annualCents), annualSaving: `${annualSavingPercent(PRICING_MODEL.allAccess.monthlyCents, PRICING_MODEL.allAccess.annualCents)}%`,
-    description: "Everything, including future banks.", mode: "all" as const, tone: "premium", popular: false, icon: CrownSimple, cta: "Unlock all banks",
+    description: "Everything, including future banks.", features: ["Every bank, every subject", "New banks as they launch", "Ideal for tutors"], mode: "all" as const, tone: "premium", popular: false, icon: CrownSimple, cta: "Unlock all banks",
   },
 ] as const;
 
 type BillingInterval = "monthly" | "annual";
-
-function PlanEngraving({ stage }: { stage: "single" | "builder" | "all" }) {
-  const artwork = {
-    single: "/artwork/pricing-one-bank-engraving.svg",
-    builder: "/artwork/pricing-builder-corridor.svg",
-    all: "/artwork/pricing-all-access-city.svg",
-  }[stage];
-  return <Image className={`pricing-plan-engraving pricing-plan-engraving-${stage}`} src={artwork} width={340} height={230} unoptimized alt="" aria-hidden="true" loading="eager" decoding="async" />;
-}
 
 function getBuilderMonthlyEquivalentCents(interval: BillingInterval, quantity: number): number | null {
   if (quantity < 2) return null;
@@ -123,7 +114,15 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
     // Report the page as it was first opened; later selections are separate events.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const [builderBankIds, setBuilderBankIds] = useState<BankSlug[]>(() => hasPaidAccess ? [] : [...(initialCustomBankIds ?? [])]);
+  // Subscribers keep the banks they asked for, minus banks they already own, but only when an
+  // add-on can actually be sold to them and the request fits the 2–5 bank builder.
+  const sellsAddOns = hasPaidAccess && addOnIntent && !manualAccess && !complimentaryAccess
+    && !currentPlanProductIds.some((id) => id === "bundle_all" || id === "lifetime_all_access");
+  const requestedAddOns = (initialCustomBankIds ?? []).filter((id) => !ownedBankIds.includes(id) && availableBanks.some((bank) => bank.slug === id));
+  const preselectedBankIds = hasPaidAccess
+    ? sellsAddOns && requestedAddOns.length <= PRICING_MODEL.builder.maxBanks ? requestedAddOns : []
+    : initialCustomBankIds;
+  const [builderBankIds, setBuilderBankIds] = useState<BankSlug[]>(() => [...(preselectedBankIds ?? [])]);
   const handleBuilderSelectionChange = useCallback((selectedBankIds: readonly BankSlug[]) => {
     setBuilderBankIds([...selectedBankIds]);
   }, []);
@@ -132,6 +131,8 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
     if (nextInterval !== "lifetime") setInterval(nextInterval);
     trackProductEvent("billing_interval_change", { interval: nextInterval });
   };
+  // Visitors who came from a bank's upgrade prompt see that bank first.
+  const focusBank = !hasPaidAccess && initialProductId?.startsWith("bank_") ? availableBanks.find((bank) => bank.slug === bankSlugForProduct(initialProductId)) : undefined;
   const totalQuestions = availableBanks.reduce((total, bank) => total + bank.questionCount, 0);
   const totalPapers = availableBanks.reduce((total, bank) => total + bank.paperCount, 0);
   const addOnBanks = availableBanks.filter((bank) => !ownedBankIds.includes(bank.slug) && Boolean(getCatalogBank(bank.slug)?.productId));
@@ -160,7 +161,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
       ? `Continue with ${builderQuantity} ${builderQuantity === 1 ? "bank" : "banks"}`
       : plan.cta;
     const billingNote = isBuilder && builderQuantity < 2
-      ? "Two-bank minimum. Select banks to see your exact price."
+      ? interval === "annual" ? "Billed once a year" : "Billed monthly"
       : interval === "annual"
         ? isBuilder
           ? `Billed ${formatCents(builderAnnualTotalCents)} once a year. Save ${getBuilderAnnualSaving(builderQuantity)}`
@@ -172,7 +173,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
     const canAdd = hasPaidAccess && !currentAllAccess && !manualAccess;
     const cardBanks = canAdd ? addOnBanks : availableBanks;
     return (
-      <article className={`pricing-option${plan.popular ? " pricing-option-popular" : ""}${current ? " pricing-option-current" : ""}`} data-plan-tone={plan.tone} data-current-plan={current ? "true" : undefined} data-mobile-order={plan.popular ? "first" : undefined} key={plan.name}>
+      <article id={plan.mode === "all" && !hasPaidAccess ? "plan-all" : undefined} className={`pricing-option${plan.popular ? " pricing-option-popular" : ""}${current ? " pricing-option-current" : ""}`} data-plan-tone={plan.tone} data-current-plan={current ? "true" : undefined} data-mobile-order={plan.popular ? "first" : undefined} key={plan.name}>
         <div className="pricing-option-heading">
           <div className="plan-title-block">
             <span className="plan-icon" aria-hidden="true"><PlanIcon weight="duotone" /></span>
@@ -201,7 +202,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
             hasPaidAccess={hasPaidAccess}
             allowPaidPurchase={canAdd}
             previewOnly={previewOnly}
-            initialBankIds={hasPaidAccess ? [] : initialCustomBankIds}
+            initialBankIds={preselectedBankIds}
             availableBanks={cardBanks}
             onSelectionChange={isBuilder ? handleBuilderSelectionChange : undefined}
             ctaLabel={hasPaidAccess && isBuilder ? `Add ${builderQuantity} banks` : checkoutCta}
@@ -209,7 +210,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         )}
         {hasPaidAccess && !canAdd && plan.mode !== "all" ? <p className="pricing-plan-access-note">{current ? complimentaryAccess ? "Included with your complimentary access." : manualAccess ? "Shown for comparison. Your grant covers only selected banks." : ownsLifetimeAccess ? "Included with your Lifetime access." : plan.mode === "single" && individualBankSubscriptions > 1 ? `${individualBankSubscriptions} separate bank subscriptions. Your existing rates stay unchanged.` : "Your existing rate stays unchanged." : manualAccess ? "Shown for comparison. Your grant covers only selected banks." : "All available banks are already included."}</p> : null}
         {!hasPaidAccess ? <p className="plan-assurance">Secure checkout · Cancel any time</p> : null}
-        <PlanEngraving stage={plan.mode} />
+        <ul className="plan-feature-list" aria-label={`${plan.name} includes`}>{plan.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>
       </article>
     );
   };
@@ -245,8 +246,8 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
     <div className="public-surface">
       <section ref={pricingPageRef} className={`simple-page pricing-page shell${lifetimeSelected ? " pricing-page-lifetime" : ""}`}>
         <header className="pricing-recurring-intro" aria-label="Pricing plans">
-          <h1>Invest in your future.</h1>
-          <p>Past papers. Practice. Real progress.</p>
+          <h1>Practise every past paper, newest first.</h1>
+          <p>Start free. A plan unlocks the latest papers and every mark scheme.</p>
         </header>
         <div className="pricing-toggle-sticky">
           {billingToggle}
@@ -267,6 +268,17 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           <p>This is separate from your current plan and creates a separate charge and renewal. It does not replace your subscription or apply credit. For an ordinary plan change, use the reviewed editor above.</p>
           <div className="pricing-decision-grid" aria-label="Requested additional subscription" data-paid="true">{PLANS.map(renderPlan)}</div>
         </details> : null}
+        {focusBank && initialProductId && !lifetimeSelected ? <PricingBankFocus
+          bank={focusBank}
+          productId={initialProductId}
+          interval={interval}
+          authenticated={authenticated}
+          previewOnly={previewOnly}
+          otherBanks={secondSubjectOptions(focusBank, availableBanks)}
+          source={source}
+          allBankCount={availableBanks.length}
+        /> : null}
+        {focusBank && !lifetimeSelected ? <h2 className="pricing-compare-heading">Or compare every plan</h2> : null}
         {(!hasPaidAccess || (hasPaidAccess && (complimentaryAccess || manualAccess || ownsLifetimeAccess))) && !lifetimeSelected ? <div className="pricing-decision-grid" aria-label="PastPaperPrep plans">{PLANS.map(renderPlan)}</div> : null}
         {manualAccess && !complimentaryAccess ? <section className="pricing-current-plan" aria-labelledby="current-plan-heading"><div><span className="eyebrow">Account</span><h2 id="current-plan-heading">Your current access</h2></div><div className="pricing-current-plan-details"><strong>Manual access</strong><span>Included banks are covered by an access grant, not a billed plan. Billing details for any separate subscription remain in your account.</span></div><Link className="button secondary" href="/account/subscription">View your access</Link></section> : null}
         {complimentaryAccess ? <section className="pricing-current-plan" aria-labelledby="current-plan-heading"><div><span className="eyebrow">Account</span><h2 id="current-plan-heading">Your current access</h2></div><div className="pricing-current-plan-details"><strong>Complimentary access</strong><span>This is a grant, not a billed subscription. No renewal or plan-change controls are available.</span></div><Link className="button secondary" href="/account/subscription">View your access</Link></section> : null}
@@ -280,7 +292,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         </div>
 
         {!hasPaidAccess ? <div className="pricing-free-strip">
-          <div><strong>Not ready to pay?</strong><span>Practise complete older exam years for free.</span></div>
+          <div><strong>Not ready to pay?</strong><span>Practise the free exam years of any bank.</span></div>
           <Link className="button secondary" href={bankEntryHref("igcse")}>Browse free questions</Link>
         </div> : null}
 
@@ -291,6 +303,16 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
             <p>Eligible referrals can earn a month of credit toward a paid plan after review.</p>
           </div>
           <Link className="button secondary" href={authenticated ? "/account/referrals" : "/login?next=/account/referrals"}>See referral rewards <span aria-hidden="true">↗</span></Link>
+        </section> : null}
+
+        {!hasPaidAccess ? <section className="pricing-faq" aria-labelledby="pricing-faq-heading">
+          <h2 id="pricing-faq-heading">Common questions</h2>
+          <dl>
+            <div><dt>{"What's free?"}</dt><dd>Free exam years for every bank, with answers. No card needed.</dd></div>
+            <div><dt>Can I cancel?</dt><dd>Yes, any time from your account. Access continues through the paid billing period.</dd></div>
+            <div><dt>Monthly or annual?</dt><dd>Annual saves up to {maximumAnnualSavingPercent()}%. You can switch later.</dd></div>
+            <div><dt>Do I get the newest papers?</dt><dd>{"Yes. Every plan includes the latest sessions as they're added."}</dd></div>
+          </dl>
         </section> : null}
 
         <section className="pricing-bank-catalog" aria-labelledby="pricing-bank-catalog-heading">

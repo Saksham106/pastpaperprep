@@ -478,3 +478,36 @@ describe("upgrade notes keep their whole message on phones", () => {
   });
 });
 
+describe("pricing billing toggle stays in the page flow", () => {
+  it("is not sticky, so it never floats over the plans, stats or table", () => {
+    expect(normalize(styleFor(globalBlocks, ".pricing-page .pricing-toggle-sticky", "base").position)).not.toBe("sticky");
+    expect(normalize(styleFor(globalBlocks, ".pricing-page > .pricing-toggle-sticky", "base").position)).not.toBe("sticky");
+  });
+});
+
+describe("new pricing headings read as headings", () => {
+  it("are bold rather than inheriting the page's light h2 weight", () => {
+    for (const selector of [".pricing-page .pricing-bank-focus > h2", ".pricing-page .pricing-compare-heading", ".pricing-page .pricing-faq h2"]) {
+      expect(Number.parseInt(styleFor(globalBlocks, selector, "base")["font-weight"] ?? "0", 10)).toBeGreaterThanOrEqual(750);
+    }
+  });
+});
+
+describe("pricing refresh styling", () => {
+  it("lets public plan cards size to their content at every width", () => {
+    expect(styleFor(globalBlocks, ".pricing-page .pricing-decision-grid:not([data-paid]) .pricing-option", "base")["min-height"]).toBe("0");
+    expect(styleFor(globalBlocks, ".pricing-page .pricing-decision-grid:not([data-paid]) .pricing-option", "max-width: 720px")["min-height"]).toBe("0");
+  });
+
+  it("keeps the popular card's feature list dark on its light background in dark mode", () => {
+    expect(normalize(styleFor(globalBlocks, ".pricing-page .pricing-option-popular .plan-feature-list", "base").color)).toBe("#243b53");
+  });
+
+  it("makes the focus panel's checkout button a filled primary button", () => {
+    expect(normalize(styleFor(globalBlocks, ".pricing-bank-focus-action .billing-actions .button", "base").background)).toBe("var(--cobalt)");
+  });
+
+  it("drops the retired dashboard upgrade strip styles", () => {
+    expect(styleFor(globalBlocks, ".dashboard-upgrade-strip", "all")).toEqual({});
+  });
+});

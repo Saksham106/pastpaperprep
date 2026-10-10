@@ -7,7 +7,7 @@ export const FAQS = [
   },
   {
     question: "What can I use for free?",
-    answer: "Every live bank includes complete older exam years that you can practise without paid access. Paid access unlocks the full available bank, mark schemes, and PDF worksheet export for the bank or bundle you choose.",
+    answer: "Every live bank includes free exam years that you can practise without paid access. Paid access unlocks the full available bank, mark schemes, and PDF worksheet export for the bank or bundle you choose.",
   },
   {
     question: "Which courses are available?",

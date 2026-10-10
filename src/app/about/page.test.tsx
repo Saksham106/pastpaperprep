@@ -26,7 +26,7 @@ describe("About page", () => {
     expect(within(facts).getByText("Core offering")).toBeInTheDocument();
     expect(within(facts).getByText("Pricing")).toBeInTheDocument();
     expect(within(facts).getByRole("link", { name: /view current plans/i })).toHaveAttribute("href", "/pricing");
-    expect(screen.getByText(/supported banks include complete older exam years/i)).toBeInTheDocument();
+    expect(screen.getByText(/supported banks include free exam years/i)).toBeInTheDocument();
     expect(container.textContent).not.toMatch(/each bank provides a free preview/i);
 
     const schemas = [...container.querySelectorAll('script[type="application/ld+json"]')]

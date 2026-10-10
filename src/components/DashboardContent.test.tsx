@@ -27,13 +27,16 @@ describe("DashboardContent", () => {
     render(<DashboardContent authenticated={false} accessibleBanks={[]} />);
 
     expect(screen.getByRole("link", { name: /start free.*mathematics 0580/i })).toHaveAttribute("href", "/banks/igcse?free=1");
-    expect(screen.getByRole("link", { name: /view plans/i })).toHaveAttribute("href", "/pricing");
+    const plan = screen.getByRole("region", { name: "Your plan: Free" });
+    expect(plan).toHaveTextContent("You have the free exam years of every bank.");
+    expect(plan).toHaveTextContent("Plans add the newest papers, every mark scheme and PDFs. From $6/month.");
+    expect(screen.getByRole("link", { name: "See plans" })).toHaveAttribute("href", "/pricing?from=dashboard");
     expect(screen.queryByRole("link", { name: /sign in/i })).not.toBeInTheDocument();
   });
 
   it("sends signed-in free students to plans rather than an empty subscription editor", () => {
     render(<DashboardContent authenticated accessibleBanks={[]} />);
-    expect(screen.getAllByRole("link", { name: /view plans/i }).every((link) => link.getAttribute("href") === "/pricing")).toBe(true);
+    expect(screen.getAllByRole("link", { name: /see plans/i }).every((link) => link.getAttribute("href")?.startsWith("/pricing"))).toBe(true);
     expect(screen.queryByRole("link", { name: /view your access/i })).not.toBeInTheDocument();
   });
 
@@ -49,7 +52,7 @@ describe("DashboardContent", () => {
     const cardLink = screen.getByRole("link", { name: /start free.*mathematics 0580/i });
     expect(cardLink).toHaveClass("dashboard-bank-card");
     expect(cardLink).toContainElement(screen.getByRole("heading", { name: "Mathematics 0580" }));
-    expect(container.querySelector(".dashboard-upgrade-strip")?.compareDocumentPosition(container.querySelector(".dashboard-bank-groups")!)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(container.querySelector(".dashboard-plan-card")?.compareDocumentPosition(container.querySelector(".dashboard-bank-groups")!)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
   });
 
   it("keeps each bank card concise without repeating its course identity", () => {
@@ -171,7 +174,7 @@ describe("DashboardContent", () => {
 
     const untouched = screen.getByRole("link", { name: /start free ib math aa hl/i });
     expect(untouched).toHaveTextContent(/start free/i);
-    expect(untouched.querySelector(".dashboard-bank-link small")?.textContent).toMatch(/older exam years/i);
+    expect(untouched.querySelector(".dashboard-bank-link small")?.textContent).toMatch(/^free exam years$/i);
   });
 
   it("promises only free practice on an unlocked bank", () => {
@@ -179,7 +182,7 @@ describe("DashboardContent", () => {
 
     const free = screen.getByRole("link", { name: /start free.*mathematics 0580/i });
     expect(free).toHaveTextContent(/start free/i);
-    expect(free.querySelector(".dashboard-bank-link small")?.textContent).toMatch(/older exam years/i);
+    expect(free.querySelector(".dashboard-bank-link small")?.textContent).toMatch(/^free exam years$/i);
   });
 
   it("renders a non-empty title for every available bank", () => {

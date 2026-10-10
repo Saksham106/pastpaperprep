@@ -37,6 +37,7 @@ describe("upgrade copy", () => {
 
   it("only accepts known placements", () => {
     expect(isUpgradePlacement("locked_card")).toBe(true);
+    expect(isUpgradePlacement("dashboard")).toBe(true);
     expect(isUpgradePlacement("<script>")).toBe(false);
     expect(isUpgradePlacement(undefined)).toBe(false);
   });

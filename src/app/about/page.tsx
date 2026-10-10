@@ -26,7 +26,7 @@ const faqs = [
   },
   {
     question: "Can I try PastPaperPrep before subscribing?",
-    answer: "Yes. You can browse the banks without subscribing, and supported banks include complete older exam years that can be practised for free. Paid access unlocks the wider archive and eligible PDF export features according to the selected plan.",
+    answer: "Yes. You can browse the banks without subscribing, and supported banks include free exam years that can be practised without paying. Paid access unlocks the wider archive and eligible PDF export features according to the selected plan.",
   },
 ];
 
