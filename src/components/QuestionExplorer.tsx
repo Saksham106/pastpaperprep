@@ -4,7 +4,7 @@ import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent as Reac
 import { CALCULATOR_FILTER_BANKS } from "@/lib/calculator-policy.mjs";
 import Image from "next/image";
 import Link from "next/link";
-import { BookmarkSimple, CaretDown, Check, CheckCircle, DownloadSimple, Funnel, MagnifyingGlass, ShareNetwork, X } from "@phosphor-icons/react";
+import { BookmarkSimple, CaretDown, Check, CheckCircle, DownloadSimple, FilePlus, Funnel, MagnifyingGlass, ShareNetwork, X } from "@phosphor-icons/react";
 import type { PdfAnswerPlacement, PdfContent } from "@/lib/pdf-export";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
 import { isPreviewQuestion } from "@/lib/access";
@@ -31,7 +31,7 @@ import "./worksheet-workspace.css";
 type MultiKey = ExplorerFilterKey;
 
 const SECONDARY_FILTER_KEYS: MultiKey[] = [
-  "years", "sessions", "papers", "components", "calculator", "subjects", "courseEras", "options", "zones", "granularLabels", "officialCodeRefs", "retrievalFacets",
+  "sessions", "components", "calculator", "subjects", "courseEras", "options", "zones", "granularLabels", "officialCodeRefs", "retrievalFacets",
 ];
 
 const SORT_OPTIONS: readonly { value: QuestionSort; label: string }[] = [
@@ -224,7 +224,7 @@ access: ExplorerAccess;
   const allowWorksheetExitRef = useRef(false);
   const worksheetGuardUrlRef = useRef("");
   const worksheetGuardActiveRef = useRef(false);
-  const [savedWorksheetLink, setSavedWorksheetLink] = useState("");
+  const [savedWorksheet, setSavedWorksheet] = useState<{ href: string; title: string } | null>(null);
   const worksheetSavingRef = useRef(false);
   const [worksheetLoadFailed, setWorksheetLoadFailed] = useState(false);
   const [worksheetLoading, setWorksheetLoading] = useState(false);
@@ -281,12 +281,14 @@ access: ExplorerAccess;
     [catalogQuestions, filters.topics, filters.subtopics, bank],
   );
   const cleanMaths = isCleanMathsBank(bank);
-  const visibleSubtopics = cleanMaths
+  const subtopicsCollapsed = !filters.topics?.length && !showAllSubtopics;
+  const keepSelectedSubtopics = (values: string[]) => subtopicsCollapsed ? values.filter((value) => (filters.subtopics ?? []).includes(value)) : values;
+  const visibleSubtopics = keepSelectedSubtopics(cleanMaths
     ? subtopicGroups.relevant.filter(value => !isMathsEarlierToken(value))
     : filters.topics?.length
       ? showAllSubtopics ? subtopicGroups.all : [...subtopicGroups.relevant, ...subtopicGroups.selectedOutsideContext]
-      : subtopicGroups.all;
-  const earlierSubtopics = cleanMaths && "earlier" in subtopicGroups && Array.isArray(subtopicGroups.earlier) ? subtopicGroups.earlier : [];
+      : subtopicGroups.all);
+  const earlierSubtopics = keepSelectedSubtopics(cleanMaths && "earlier" in subtopicGroups && Array.isArray(subtopicGroups.earlier) ? subtopicGroups.earlier : []);
   const routeScopedQuestions = useMemo(
     () => catalogQuestions.filter((question) => matchesCourseRoute(question.syllabusRoute, effectiveCourseRoute)),
     [catalogQuestions, effectiveCourseRoute],
@@ -783,12 +785,14 @@ access: ExplorerAccess;
       const saved = payload.worksheet;
       setWorksheetName(saved.title);
       setWorksheetRevision(saved.revision);
-      setSelectedIds(new Set(saved.question_ids)); setSelectionIsExplicit(true);
-      setWorksheetBaseline(JSON.stringify({ name: saved.title, ids: saved.question_ids, content: saved.content_mode }));
       if (editingExisting) {
+        setSelectedIds(new Set(saved.question_ids)); setSelectionIsExplicit(true);
+        setWorksheetBaseline(JSON.stringify({ name: saved.title, ids: saved.question_ids, content: saved.content_mode }));
         setWorksheetStatus("Changes saved.");
       } else {
-        setSavedWorksheetLink(`/banks/${encodeURIComponent(bank)}?worksheet=${encodeURIComponent(saved.id)}`);
+        setSavedWorksheet({ href: `/banks/${encodeURIComponent(bank)}?worksheet=${encodeURIComponent(saved.id)}`, title: saved.title });
+        setSelectedIds(new Set()); setSelectionIsExplicit(false);
+        setWorksheetName(""); setWorksheetBaseline("");
         setWorksheetStatus("");
         setPdfOpen(false);
       }
@@ -1004,7 +1008,7 @@ access: ExplorerAccess;
 
   return (
     <section ref={explorerRootRef} className={`explorer${savedWorksheetView || sharedSetView ? " is-worksheet-view" : ""}`} aria-label="Question explorer">
-      {worksheetId && <div className="worksheet-workspace"><Link href="/worksheets">← My worksheets</Link>{worksheetReady && !worksheetLoadFailed && <div className="worksheet-workspace-heading"><div><h2>{worksheetName}</h2><span>{selectedIds.size} {selectedIds.size === 1 ? "question" : "questions"}</span></div><div className="worksheet-workspace-actions">{worksheetMode === "view" ? <button className="button secondary" type="button" onClick={() => setWorksheetMode("edit")}>Edit worksheet</button> : <button className="button secondary" type="button" onClick={closeWorksheetEditor}>View worksheet</button>}<button ref={shareButtonRef} className="share-view-button toolbar-icon-button" type="button" title="Share this view" aria-label="Copy link to this view" onClick={shareWorkspace}><ShareNetwork aria-hidden="true" /></button><button ref={pdfTriggerRef} className="download-button toolbar-icon-button" type="button" title="Download PDF" aria-label="Download PDF" onClick={openPdfBuilder}><DownloadSimple aria-hidden="true" /></button></div></div>}</div>}
+      {worksheetId && <div className="worksheet-workspace"><Link href="/worksheets">← My worksheets</Link>{worksheetReady && !worksheetLoadFailed && <div className="worksheet-workspace-heading"><div><h2>{worksheetName}</h2><span>{selectedIds.size} {selectedIds.size === 1 ? "question" : "questions"}</span></div><div className="worksheet-workspace-actions">{worksheetMode === "view" ? <button className="button secondary" type="button" onClick={() => setWorksheetMode("edit")}>Edit worksheet</button> : <button className="button secondary" type="button" onClick={closeWorksheetEditor}>View worksheet</button>}<button ref={shareButtonRef} className="share-view-button toolbar-icon-button" type="button" title="Share this view" aria-label="Copy link to this view" onClick={shareWorkspace}><ShareNetwork aria-hidden="true" /></button><button ref={pdfTriggerRef} className="button secondary worksheet-download-button" type="button" onClick={openPdfBuilder}><DownloadSimple aria-hidden="true" /> Download PDF</button></div></div>}</div>}
       {pendingWorksheetAction && <div className="worksheet-unsaved-backdrop" role="presentation"><section ref={worksheetUnsavedDialogRef} className="worksheet-unsaved-dialog" role="dialog" aria-modal="true" aria-labelledby="worksheet-unsaved-title"><p className="eyebrow">Before you go</p><h2 id="worksheet-unsaved-title">Unsaved worksheet changes</h2><p>Save your changes before continuing, or discard them.</p>{worksheetStatus && !worksheetSaving && worksheetStatus !== "Changes saved." && <p role="alert">{worksheetStatus}</p>}{confirmDiscard && <p className="worksheet-discard-warning">Discard unsaved changes? This cannot be undone.</p>}<div className="worksheet-unsaved-actions"><button type="button" className="button primary" disabled={worksheetSaving || !worksheetName.trim() || !selectedIds.size} onClick={async () => { const action = pendingWorksheetAction; if (action) { setConfirmDiscard(false); if (await saveWorksheet()) finishWorksheetAction(action); else setFailedLeaveSave(true); } }}>{worksheetSaving ? "Saving…" : "Save changes"}</button><button type="button" className="button secondary" disabled={worksheetSaving} onClick={discardWorksheetChanges}>{confirmDiscard ? "Confirm discard" : "Discard changes"}</button><button type="button" className="text-button" disabled={worksheetSaving} onClick={() => { setPendingWorksheetAction(null); setFailedLeaveSave(false); setConfirmDiscard(false); }}>Keep editing</button></div></section></div>}
       {worksheetId && worksheetMode === "edit" && worksheetReady && !worksheetLoadFailed && <WorksheetEditCard title={worksheetName} ids={[...selectedIds]} content={pdfContent} adding={addingQuestions} busy={worksheetSaving} dirty={worksheetDirty} status={worksheetStatus} onTitle={setWorksheetName} onContent={setPdfContent} onMove={(id, direction) => setSelectedIds((current) => { const ids = [...current]; const index = ids.indexOf(id); const next = index + direction; if (index < 0 || next < 0 || next >= ids.length) return current; [ids[index], ids[next]] = [ids[next], ids[index]]; return new Set(ids); })} onRemove={(id) => setSelectedIds((current) => { const next = new Set(current); next.delete(id); return next; })} onAdd={() => { clearFilters(); setAddingQuestions(true); }} onDoneAdding={() => setAddingQuestions(false)} onSave={() => void saveWorksheet()} />}
       {worksheetId && worksheetLoadFailed && <div className="access-notice" role="alert" aria-label="Worksheet unavailable"><span>{worksheetStatus}</span><button className="button secondary" type="button" onClick={() => { setWorksheetStatus(""); setWorksheetLoadFailed(false); setWorksheetReady(false); }}>Retry loading worksheet</button></div>}
@@ -1032,16 +1036,16 @@ access: ExplorerAccess;
         <button ref={filterTriggerRef} className={`mobile-filter-button${activeCount ? " is-active" : ""}`} type="button" aria-haspopup="dialog" aria-expanded={filtersOpen} onClick={() => setFiltersOpen(true)}><Funnel weight="bold" aria-hidden="true" /> Filters{activeCount ? ` (${activeCount})` : ""}</button>
         <SortSelector value={sort} onChange={setSort} />
         {!worksheetId && <button ref={shareButtonRef} className="share-view-button toolbar-icon-button" type="button" title="Share this view" aria-label="Copy link to this view" onClick={shareWorkspace}><ShareNetwork aria-hidden="true" /></button>}
-        {(!worksheetId || worksheetLoadFailed) && <button ref={pdfTriggerRef} className="download-button toolbar-icon-button" type="button" title="Download PDF" aria-label="Download PDF" onClick={openPdfBuilder}><DownloadSimple aria-hidden="true" /></button>}
+        {(!worksheetId || worksheetLoadFailed) && <button ref={pdfTriggerRef} className="save-pdf-button" type="button" aria-label={worksheetId ? "Download PDF" : selectionIsExplicit && selectedIds.size ? `Save PDF (${selectedIds.size} selected)` : "Save PDF"} onClick={openPdfBuilder}>{worksheetId ? <DownloadSimple aria-hidden="true" /> : <FilePlus aria-hidden="true" />}<span>{worksheetId ? "Download PDF" : "Save PDF"}</span>{!worksheetId && selectionIsExplicit && selectedIds.size > 0 && <span className="save-pdf-count" aria-hidden="true">{selectedIds.size}</span>}</button>}
       </div>}
-      {savedWorksheetLink && <div className="worksheet-saved-notice" role="status"><Check aria-hidden="true" weight="bold" /><strong>Worksheet saved</strong><a href={savedWorksheetLink}>View worksheet</a><Link href="/worksheets">My worksheets</Link><button type="button" aria-label="Dismiss saved confirmation" onClick={() => setSavedWorksheetLink("")}><X aria-hidden="true" /></button></div>}
+      {savedWorksheet && <div className="worksheet-saved-notice" role="status"><Check aria-hidden="true" weight="bold" /><strong>Saved “{savedWorksheet.title}” to My Worksheets</strong><a href={savedWorksheet.href}>Open</a><Link href="/worksheets">My Worksheets</Link><button type="button" aria-label="Dismiss saved confirmation" onClick={() => setSavedWorksheet(null)}><X aria-hidden="true" /></button></div>}
       {shareStatus && <p className={`toolbar-status${shareStatus.startsWith("Couldn't") ? " is-error" : " is-success"}`} role="status">{shareStatus}</p>}
 
 
       {indexError && <div className="access-notice" role="alert"><span>{indexError}</span><button className="text-button" type="button" onClick={() => { setIndexError(""); setIndexAttempt((attempt) => attempt + 1); }}>Retry question index</button></div>}
       {assetError && <div className="access-notice" role="alert"><span>{assetError}</span><button className="text-button" type="button" onClick={retryQuestionAssets}>Retry images</button></div>}
       {studyError && <div className="access-notice" role="alert">{studyError}</div>}
-      {!bootstrapPending && !resolvedAccess.bankAccess && <div className="free-value-strip"><div><strong>{sharedSetView ? "Free questions in this set are open." : effectiveFreeOnly ? "Free exam years are open." : "You’re browsing the full bank."}</strong><span>{sharedSetView ? "Questions outside your plan stay locked; signing in unlocks every free question in the set." : effectiveFreeOnly ? "Practise now, or clear the Free questions only filter to preview the rest." : "Locked questions show what a paid bank plan unlocks."}</span></div><Link className="button secondary" href={plansHref}>{PLANS_LABEL}</Link></div>}
+      {!bootstrapPending && !resolvedAccess.bankAccess && <div className="free-value-strip"><p><strong>{sharedSetView ? "Free questions in this set are open." : effectiveFreeOnly ? "Free exam years are open." : "You’re browsing the full bank."}</strong> <span>{sharedSetView ? "Questions outside your plan stay locked; signing in unlocks every free question in the set." : effectiveFreeOnly ? "Practise now, or clear the Free questions only filter to preview the rest." : "Locked questions show what a paid bank plan unlocks."}</span></p><Link className="free-value-link" href={plansHref}>{PLANS_LABEL}<span aria-hidden="true"> →</span></Link></div>}
 
       <div className="explorer-layout">
         {filtersOpen && <button className="filter-backdrop" type="button" tabIndex={-1} aria-hidden="true" onClick={() => setFiltersOpen(false)} />}
@@ -1052,13 +1056,14 @@ access: ExplorerAccess;
           <FilterGroup label="Topics" filterKey="topics" values={options.topics} selected={filters.topics ?? []} onToggle={toggle} />
           <FilterGroup label="Subtopics" filterKey="subtopics" values={visibleSubtopics} selected={filters.subtopics ?? []} onToggle={toggle} bank={bank} />
           <FilterGroup label="Earlier syllabus" filterKey="subtopics" values={earlierSubtopics} selected={filters.subtopics ?? []} onToggle={toggle} bank={bank} />
+          {!filters.topics?.length && subtopicGroups.all.length > 0 && <button className="text-button subtopic-more" type="button" aria-expanded={showAllSubtopics} onClick={() => setShowAllSubtopics((show) => !show)}>{showAllSubtopics ? "Hide subtopics" : "Show all subtopics"}</button>}
           {!cleanMaths && !!filters.topics?.length && !!subtopicGroups.other.length && <button className="text-button subtopic-more" aria-expanded={showAllSubtopics} onClick={() => setShowAllSubtopics((show) => !show)}>{showAllSubtopics ? "Hide other subtopics" : "Show other subtopics"}</button>}
+          <FilterGroup label="Years" filterKey="years" values={options.years} selected={filters.years ?? []} onToggle={toggle} />
+          <FilterGroup label="Papers" filterKey="papers" values={options.papers} selected={filters.papers ?? []} onToggle={toggle} />
           <button className="more-filters-button" type="button" aria-expanded={showMoreFilters} onClick={() => setShowMoreFilters((show) => !show)}><Funnel aria-hidden="true" /> {showMoreFilters ? "Fewer filters" : "More filters"}</button>
           <div className={`secondary-filters${showMoreFilters ? " is-open" : ""}`} aria-hidden={!showMoreFilters} inert={showMoreFilters ? undefined : true}>
             <div className="secondary-filters-inner">
-              <FilterGroup label="Years" filterKey="years" values={options.years} selected={filters.years ?? []} onToggle={toggle} />
               <FilterGroup label="Sessions" filterKey="sessions" values={options.sessions} selected={filters.sessions ?? []} onToggle={toggle} />
-              <FilterGroup label="Papers" filterKey="papers" values={options.papers} selected={filters.papers ?? []} onToggle={toggle} />
               {isCambridge && <FilterGroup label="Components" filterKey="components" values={options.components} selected={filters.components ?? []} onToggle={toggle} />}
               {isCambridge && <FilterGroup label="Time zone / variant" filterKey="zones" values={options.zones} selected={filters.zones ?? []} onToggle={toggle} />}
               {calculatorFilter && <FilterGroup label="Calculator" filterKey="calculator" values={["calculator", "non-calculator"]} selected={filters.calculator ?? []} onToggle={toggle} />}
@@ -1077,7 +1082,7 @@ access: ExplorerAccess;
         <div className="explorer-results" inert={filtersOpen || undefined}>
           <div className="results-heading">
             <div><strong>{resultQuestions.length.toLocaleString()} {savedWorksheetView ? "saved " : !sharedSetView && effectiveFreeOnly ? "free " : ""}{resultQuestions.length === 1 ? "question" : "questions"}</strong>{selectionIsExplicit && !savedWorksheetView && !sharedSetView && <span>{selectedIds.size} selected for PDF</span>}</div>
-            <div>{selectionIsExplicit && !worksheetId && !sharedSetView && <button className="text-button" onClick={() => { setSelectionIsExplicit(false); setSelectedIds(new Set()); }}>Use all results for PDF</button>}{!savedWorksheetView && !sharedSetView && (search || activeCount > 0 || courseRoute !== "all") && <button className="text-button" onClick={clearFilters}>Clear filters</button>}</div>
+            <div>{selectionIsExplicit && !worksheetId && !sharedSetView && <button className="text-button" onClick={() => { setSelectionIsExplicit(false); setSelectedIds(new Set()); }}>Clear selection</button>}{!savedWorksheetView && !sharedSetView && (search || activeCount > 0 || courseRoute !== "all") && <button className="text-button" onClick={clearFilters}>Clear filters</button>}</div>
           </div>
           {!savedWorksheetView && !sharedSetView && activeCount > 0 && <div className="active-filters">
             {effectiveFreeOnly && <button aria-label="Remove free questions only filter" onClick={() => setFreeOnly(false)}>Free only <X /></button>}
@@ -1101,8 +1106,30 @@ access: ExplorerAccess;
         </div>
       </div>
 
-      {pdfOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfDialogRef} className="pdf-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-title"><button className="pdf-close" aria-label="Close PDF options" onClick={() => setPdfOpen(false)}><X /></button><p className="eyebrow">Worksheet builder</p><h2 id="pdf-title">{worksheetId ? "Download" : "Build worksheet from"} {exportQuestions.length.toLocaleString()} {exportQuestions.length === 1 ? "question" : "questions"}</h2><p>{worksheetId ? "Only the questions in this worksheet are included." : selectionIsExplicit ? "Using your selected questions, including selections outside the current filters." : filtered.length > MAX_PDF_QUESTIONS ? `Worksheets are limited to ${MAX_PDF_QUESTIONS} questions. Narrow your filters or make a selection for a different set.` : "No manual selection yet, so this uses every current result."}</p><div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div>{pdfContent === "both" && <fieldset className="pdf-options"><legend>Answer placement</legend><label><input type="radio" name="pdf-answer-placement" checked={pdfAnswerPlacement === "all-answers-last"} onChange={() => setPdfAnswerPlacement("all-answers-last")} /> All questions, then all answers</label><label><input type="radio" name="pdf-answer-placement" checked={pdfAnswerPlacement === "after-each-question"} onChange={() => setPdfAnswerPlacement("after-each-question")} /> Each question followed by its answer</label></fieldset>}{!worksheetId && <label className="worksheet-name-field">Worksheet name<input aria-label="Worksheet name" maxLength={80} value={worksheetName} onChange={(event) => setWorksheetName(event.target.value)} placeholder="e.g. Algebra revision" /></label>}<div className={`worksheet-actions${worksheetId ? " only-download" : ""}`}>{!worksheetId && <button type="button" className="button primary" disabled={!resolvedAccess.bankAccess || !worksheetReady || worksheetLoading || worksheetSaving || !exportQuestions.length || !worksheetName.trim()} onClick={saveWorksheet}>Save worksheet</button>}<button ref={pdfBuildButtonRef} className="button secondary pdf-download" disabled={!exportQuestions.length} onClick={handleDownload}><DownloadSimple /> {pdfStatusKind === "success" ? "PDF downloaded" : "Download PDF"}</button></div>{worksheetStatus && <p role={worksheetLoadFailed || worksheetStatus.includes("could not") || worksheetStatus.includes("required") || worksheetStatus.includes("unavailable") ? "alert" : "status"}>{worksheetStatus}</p>}{worksheetLoadFailed && <button type="button" onClick={() => { setWorksheetStatus(""); setWorksheetLoadFailed(false); setWorksheetReady(false); }}>Retry loading worksheet</button>}{worksheetDirty && <small>Unsaved worksheet changes</small>}{pdfStatus && <small ref={pdfStatusRef} role="status" aria-live="polite" className={pdfStatusKind === "progress" ? "" : pdfStatusKind === "error" ? "is-error" : "is-success"}>{pdfStatus}</small>}</section></div>}
-      {pdfUpgradeOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfUpgradeDialogRef} className="pdf-dialog access-upgrade-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-upgrade-title"><button className="pdf-close" aria-label="Close PDF access message" onClick={() => setPdfUpgradeOpen(false)}><X /></button><span className="access-upgrade-icon"><DownloadSimple aria-hidden="true" weight="bold" /></span><h2 id="pdf-upgrade-title">PDF export needs paid access</h2><p>Build and download worksheets with paid access to this question bank.</p><Link className="button primary" href={plansHref}>{PLANS_LABEL}</Link></section></div>}
+      {pdfOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfDialogRef} className={`pdf-dialog${worksheetId ? "" : " is-save"}`} role="dialog" aria-modal="true" aria-labelledby="pdf-title"><button className="pdf-close" aria-label="Close PDF options" onClick={() => setPdfOpen(false)}><X /></button>
+        {worksheetId ? <>
+          <p className="eyebrow">Worksheet builder</p>
+          <h2 id="pdf-title">Download {exportQuestions.length.toLocaleString()} {exportQuestions.length === 1 ? "question" : "questions"}</h2>
+          <p>Only the questions in this worksheet are included.</p>
+          <div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div>
+          {pdfContent === "both" && <fieldset className="pdf-options"><legend>Answer placement</legend><label><input type="radio" name="pdf-answer-placement" checked={pdfAnswerPlacement === "all-answers-last"} onChange={() => setPdfAnswerPlacement("all-answers-last")} /> All questions, then all answers</label><label><input type="radio" name="pdf-answer-placement" checked={pdfAnswerPlacement === "after-each-question"} onChange={() => setPdfAnswerPlacement("after-each-question")} /> Each question followed by its answer</label></fieldset>}
+          <div className="worksheet-actions only-download"><button ref={pdfBuildButtonRef} className="button secondary pdf-download" disabled={!exportQuestions.length} onClick={handleDownload}><DownloadSimple /> {pdfStatusKind === "success" ? "PDF downloaded" : "Download PDF"}</button></div>
+          {worksheetStatus && <p role={worksheetLoadFailed || worksheetStatus.includes("could not") || worksheetStatus.includes("required") || worksheetStatus.includes("unavailable") ? "alert" : "status"}>{worksheetStatus}</p>}
+          {worksheetLoadFailed && <button type="button" onClick={() => { setWorksheetStatus(""); setWorksheetLoadFailed(false); setWorksheetReady(false); }}>Retry loading worksheet</button>}
+          {worksheetDirty && <small>Unsaved worksheet changes</small>}
+          {pdfStatus && <small ref={pdfStatusRef} role="status" aria-live="polite" className={pdfStatusKind === "progress" ? "" : pdfStatusKind === "error" ? "is-error" : "is-success"}>{pdfStatus}</small>}
+        </> : <>
+          <p className="eyebrow">Save PDF</p>
+          <h2 id="pdf-title">Save {exportQuestions.length.toLocaleString()} {exportQuestions.length === 1 ? "question" : "questions"} as a PDF</h2>
+          <p>{selectionIsExplicit ? "Using your selected questions." : filtered.length > MAX_PDF_QUESTIONS ? `PDFs are limited to ${MAX_PDF_QUESTIONS} questions. Narrow your filters or select questions.` : "Nothing selected, so this uses every current result."}</p>
+          <label className="worksheet-name-field">Name<input aria-label="PDF name" maxLength={80} value={worksheetName} onChange={(event) => setWorksheetName(event.target.value)} placeholder="e.g. Algebra revision" /></label>
+          <div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div>
+          <div className="worksheet-actions only-save"><button type="button" className="button primary" disabled={!resolvedAccess.bankAccess || !worksheetReady || worksheetLoading || worksheetSaving || !exportQuestions.length || !worksheetName.trim()} onClick={saveWorksheet}>{worksheetSaving ? "Saving…" : "Save PDF"}</button></div>
+          <small className="pdf-save-note">Saved to My Worksheets.</small>
+          {worksheetStatus && <p role={worksheetStatus.endsWith("…") ? "status" : "alert"}>{worksheetStatus}</p>}
+        </>}
+      </section></div>}
+      {pdfUpgradeOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfUpgradeDialogRef} className="pdf-dialog access-upgrade-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-upgrade-title"><button className="pdf-close" aria-label="Close PDF access message" onClick={() => setPdfUpgradeOpen(false)}><X /></button><span className="access-upgrade-icon"><DownloadSimple aria-hidden="true" weight="bold" /></span><h2 id="pdf-upgrade-title">Saving PDFs needs paid access</h2><p>Save and download PDFs with paid access to this question bank.</p><Link className="button primary" href={plansHref}>{PLANS_LABEL}</Link></section></div>}
     </section>
   );
 }
@@ -1158,7 +1185,7 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, questio
   };
 
   return (
-    <article className="question-card question-paper">
+    <article className={`question-card question-paper${selected && selectable ? " is-selected" : ""}`}>
       <header className="question-card-header"><div className="question-meta"><span>{question.year} {question.session}</span><span>Paper {question.paper}</span><span>Question {question.number}</span>{question.component && <span>Component {question.component}</span>}{question.zone && <span>{question.zone}</span>}{question.marks !== null && <span>{question.marks} {question.marks === 1 ? "mark" : "marks"}</span>}</div>{unlocked && selectable && <label className="pdf-select"><input aria-label={`Add question ${question.number} to PDF`} type="checkbox" checked={selected} onChange={onSelect} /> Add to PDF</label>}</header>
       <div className="question-topic"><strong>{formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, question.primaryTopic) : question.primaryTopic)}</strong>{displayedQuestionSubtopics(question).slice(0, 4).map((topic) => <span key={topic}>{formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, topic) : topic)}</span>)}</div>
       {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <SourceCropImage key={source} bankSlug={question.bankSlug} questionId={question.id} src={source} crop={questionAsset.displayCrops?.[index]} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} onError={onQuestionAssetError} />) : <div className="asset-placeholder" role="status"><span className="placeholder-shimmer" aria-hidden="true" /><span className="placeholder-bars" aria-hidden="true"><i /><i /><i /><i /></span><span className="sr-only">Loading original question</span></div>}</div> : <div className="question-locked"><strong>Paid plan required</strong><span>Unlock this bank’s full question set, answers, and PDF export.</span><Link className="question-locked-action" href={plansHrefFor(authenticated)}>{PLANS_LABEL}</Link></div>}
@@ -1166,7 +1193,7 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, questio
         <div className="question-action-buttons">{unlocked ? ((question.solution || question.markschemeImageCount > 0) ? <button className="answer-toggle" disabled={answerLoading} aria-expanded={answerOpen} onClick={toggleAnswer}>{answerLoading ? "Loading answer..." : answerOpen ? "Hide answer" : "Show answer"}</button> : <span className="muted">Answer coming soon</span>) : null}{answerError && <span className="muted" role="alert">{answerError}</span>}</div>
         <div className="source-links">{attempted && <span className="study-state"><CheckCircle weight="fill" /> Practised</span>}{authenticated && unlocked && <button className={`study-icon-button ${saved ? "is-saved" : ""}`} title={saved ? "Remove from saved" : "Save question"} aria-label={saved ? `Remove question from saved ${question.id}` : `Save question ${question.id}`} onClick={onToggleSaved}><BookmarkSimple weight={saved ? "fill" : "regular"} aria-hidden="true" /></button>}</div>
       </div>
-      {answerOpen && <div className="answer-panel">{answerAsset?.urls.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Official mark scheme page ${index + 1}`} />)}{question.solution && (answerAsset?.urls.length ? <div className="solution-wrap"><button className="text-button" aria-expanded={solutionOpen} onClick={() => setSolutionOpen((open) => !open)}>{solutionOpen ? "Hide worked text" : "Show worked text"}</button>{solutionOpen && <p>{question.solution}</p>}</div> : <p>{question.solution}</p>)}</div>}
+      {answerOpen && <div className="answer-panel">{answerAsset?.urls.length ? <p className="answer-panel-label">Mark scheme</p> : null}{answerAsset?.urls.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Official mark scheme page ${index + 1}`} />)}{question.solution && (answerAsset?.urls.length ? <div className="solution-wrap"><button className="text-button" aria-expanded={solutionOpen} onClick={() => setSolutionOpen((open) => !open)}>{solutionOpen ? "Hide worked text" : "Show worked text"}</button>{solutionOpen && <p>{question.solution}</p>}</div> : <p>{question.solution}</p>)}</div>}
     </article>
   );
 }

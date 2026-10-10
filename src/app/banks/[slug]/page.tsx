@@ -102,8 +102,7 @@ export default async function BankPage({ params }: { params: Promise<{ slug: str
           <h1>{bank.title}</h1>
           <p>{bank.description}</p>
           {slug === "ib-hl" ? <p>Select real AA HL questions by topic and turn them into a printable practice set with eligible bank access. <Link href="#bank-guide-heading">See worksheet and PDF options</Link>.</p> : null}
-          <div className="bank-hero-stats"><span><strong>{bank.questionCount.toLocaleString()}</strong> questions</span><span><strong>{bank.paperCount}</strong> papers</span><span><strong>{bank.years}</strong> coverage</span></div>
-          <Link className="button secondary bank-hero-build" href={`/worksheets/build?bank=${slug}`}>Build a paper</Link>
+          <div className="bank-hero-meta"><div className="bank-hero-stats"><span><strong>{bank.questionCount.toLocaleString()}</strong> questions</span><span><strong>{bank.paperCount}</strong> papers</span><span><strong>{bank.years}</strong> coverage</span></div><Link className="button secondary bank-hero-build" href={`/worksheets/build?bank=${slug}`}>Build a paper</Link></div>
         </div>
       </section>
       <div className="shell">

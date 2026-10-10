@@ -297,7 +297,7 @@ describe("mobile question explorer keeps search, route, and filter rows with a w
   const sortField = styleFor(globalBlocks, ".explorer-toolbar .sort-field", mobile);
   const search = styleFor(globalBlocks, ".explorer-toolbar .search-field", mobile);
   const share = styleFor(globalBlocks, ".explorer-toolbar .share-view-button", mobile);
-  const download = styleFor(globalBlocks, ".explorer-toolbar .download-button", mobile);
+  const save = styleFor(globalBlocks, ".explorer-toolbar .save-pdf-button", mobile);
 
   // Row 2 holds the Core/Extended route picker on tiered banks (#89).
   it("keeps three rows on the unboxed toolbar with no padded card", () => {
@@ -306,17 +306,18 @@ describe("mobile question explorer keeps search, route, and filter rows with a w
   });
 
   it("gives filters the wide column and sort only the icon pair", () => {
-    expect(normalize(toolbar["grid-template-columns"])).toBe("minmax(0, 1fr) 44px 44px");
+    expect(normalize(toolbar["grid-template-columns"])).toBe("minmax(0, 1fr) 44px auto");
     expect(normalize(filterButton["grid-column"])).toBe("1");
     expect(normalize(filterButton["grid-row"])).toBe("3");
     expect(normalize(sortField["grid-column"])).toBe("2 / -1");
     expect(normalize(sortField["grid-row"])).toBe("3");
   });
 
-  it("keeps search, share, and download on the first row", () => {
+  it("keeps search, share, and Save PDF on the first row", () => {
     expect(normalize(search["grid-row"])).toBe("1");
     expect(normalize(share["grid-row"])).toBe("1");
-    expect(normalize(download["grid-row"])).toBe("1");
+    expect(normalize(save["grid-row"])).toBe("1");
+    expect(Number.parseFloat(save["min-height"] ?? "0")).toBeGreaterThanOrEqual(44);
   });
 
   it("keeps every control at a 44px touch target", () => {
@@ -408,3 +409,64 @@ describe("landing subject panels keep a centered, symmetric frame", () => {
     expect(paintsSomething(styleFor(homeBlocks, ".bankCard", "all").background)).toBe(true);
   });
 });
+
+describe("question cards are calm study cards", () => {
+  it("drops the cobalt rail and the boxed exam image", () => {
+    expect(styleFor(globalBlocks, ".question-paper::before")).toEqual({});
+    const image = styleFor(globalBlocks, ".question-images img", "base");
+    expect(paintsNothing(image.border)).toBe(true);
+  });
+
+  it("ends wrapped metadata lines with the separator instead of starting them with it", () => {
+    expect(styleFor(globalBlocks, ".question-meta span + span::before")).toEqual({});
+    expect(styleFor(globalBlocks, ".question-meta span:not(:last-child)::after", "base").content).toBe('"·"');
+  });
+
+  it("paints the white exam sheet only once an image has loaded", () => {
+    expect(paintsNothing(styleFor(globalBlocks, ".question-images", "base").background)).toBe(true);
+    expect(normalize(styleFor(globalBlocks, ".question-images:has(img)", "base").background)).toBe("#fefefe");
+  });
+
+  it("draws a clearly visible custom checkbox", () => {
+    const box = styleFor(globalBlocks, ".filter-group input[type=\"checkbox\"]", "base");
+    expect(normalize(box.appearance)).toBe("none");
+    expect(Number.parseFloat(box.width ?? "0")).toBeGreaterThanOrEqual(16);
+    const checked = styleFor(globalBlocks, ".filter-group input[type=\"checkbox\"]:checked", "base");
+    expect(normalize(checked.background)).toBe("var(--cobalt)");
+  });
+});
+
+describe("free access note is one slim line", () => {
+  it("has no border or button inside", () => {
+    const strip = styleFor(globalBlocks, ".free-value-strip", "base");
+    expect(drawsNoEdge(strip)).toBe(true);
+    expect(styleFor(globalBlocks, ".free-value-strip > .button")).toEqual({});
+  });
+});
+
+describe("toolbar keeps Save PDF in its own track on every bank", () => {
+  const wide = "min-width: 851px";
+  const tablet = "min-width: 641px";
+
+  it("pins share and Save PDF to the last two tracks", () => {
+    expect(normalize(styleFor(globalBlocks, ".explorer-toolbar .share-view-button", wide)["grid-column"])).toBe("-3 / -2");
+    expect(normalize(styleFor(globalBlocks, ".explorer-toolbar .save-pdf-button", wide)["grid-column"])).toBe("-2 / -1");
+  });
+
+  it("drops the route column on banks without a course route", () => {
+    expect(normalize(styleFor(globalBlocks, ".explorer-toolbar:not(:has(.course-route-picker))", wide)["grid-template-columns"])).toBe("minmax(220px, 1fr) minmax(190px, auto) 48px auto");
+  });
+
+  it("gives the Core/Extended picker its own row on tablets", () => {
+    const picker = styleFor(globalBlocks, ".explorer-toolbar:has(.course-route-picker) .course-route-picker", tablet);
+    expect(normalize(picker["grid-column"])).toBe("1 / -1");
+    expect(normalize(picker["grid-row"])).toBe("2");
+    expect(normalize(styleFor(globalBlocks, ".explorer-toolbar:has(.course-route-picker) .sort-field", tablet)["grid-row"])).toBe("3");
+  });
+
+  it("moves share and Save PDF beside search on tablets", () => {
+    expect(normalize(styleFor(globalBlocks, ".explorer-toolbar .save-pdf-button", tablet)["grid-row"])).toBe("1");
+    expect(normalize(styleFor(globalBlocks, ".explorer-toolbar .sort-field", tablet)["grid-row"])).toBe("2");
+  });
+});
+
