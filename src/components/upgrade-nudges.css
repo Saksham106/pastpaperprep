@@ -1,0 +1,39 @@
+/* Upgrade prompts shown on bank pages to people without a plan for that bank. */
+.upgrade-card { margin: 0; color: var(--ink); }
+.upgrade-card.is-timeline { padding: 18px 20px; background: linear-gradient(180deg, var(--cobalt-faint), var(--surface-raised) 72%); border: 1px solid color-mix(in srgb, var(--cobalt) 40%, var(--line)); border-radius: 12px; box-shadow: var(--shadow-sm); }
+.upgrade-eyebrow { margin: 0; color: var(--cobalt-strong); font: 700 .68rem/1.2 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
+.upgrade-card h3 { margin: 8px 0 4px; font-size: 1.12rem; font-weight: 800; letter-spacing: -.01em; }
+.upgrade-card p { margin: 0; color: var(--muted); }
+.upgrade-years { margin: 12px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px; list-style: none; }
+.upgrade-years li { padding: 3px 7px; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 5px; font: 600 .7rem/1.3 var(--font-mono); }
+.upgrade-years li.is-paid { color: var(--accent-contrast); background: var(--cobalt); border-color: var(--cobalt); }
+.upgrade-actions { margin-top: 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
+.upgrade-actions .button { min-height: 40px; }
+.upgrade-dismiss { padding: 6px 4px; color: var(--muted); background: transparent; border: 0; font-weight: 650; cursor: pointer; }
+.upgrade-dismiss:hover { color: var(--ink); }
+
+.upgrade-card.is-teaser { overflow: hidden; background: var(--surface-raised); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow-sm); }
+.upgrade-card.is-teaser .question-card-header { align-items: center; }
+.upgrade-lock { flex: 0 0 auto; color: var(--cobalt-strong); font-size: .74rem; font-weight: 750; white-space: nowrap; }
+.upgrade-teaser-body { margin-top: 12px; display: grid; border-block: 1px solid var(--line); }
+.upgrade-teaser-body > * { grid-area: 1 / 1; }
+.upgrade-skeleton { padding: 18px clamp(16px, 4vw, 42px); display: grid; gap: 10px; }
+.upgrade-skeleton i { height: 10px; background: color-mix(in srgb, var(--ink) 9%, var(--surface)); border-radius: 4px; }
+.upgrade-skeleton i:nth-child(odd) { width: 78%; } .upgrade-skeleton i:nth-child(even) { width: 56%; } .upgrade-skeleton i:nth-child(3n) { width: 68%; }
+.upgrade-overlay { padding: 56px 18px 18px; display: grid; align-content: end; justify-items: center; gap: 4px; text-align: center; background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--surface-raised) 82%, transparent) 38%, var(--surface-raised) 62%); }
+.upgrade-overlay strong { font-size: 1.02rem; }
+.upgrade-overlay .upgrade-actions { margin-top: 8px; justify-content: center; }
+
+.upgrade-milestone { margin: 0 0 10px; padding: 8px 8px 8px 14px; display: flex; align-items: center; gap: 12px; background: color-mix(in srgb, var(--success) 10%, var(--surface)); border-radius: 8px; font-size: .84rem; }
+.upgrade-milestone p { flex: 1; min-width: 0; margin: 0; color: var(--ink-soft); }
+.upgrade-milestone p span { color: var(--muted); }
+.upgrade-milestone a { color: var(--cobalt-strong); font-weight: 750; white-space: nowrap; }
+.upgrade-milestone button { width: 28px; height: 28px; padding: 0; color: var(--muted); background: transparent; border: 0; font-size: 1.1rem; cursor: pointer; }
+
+@media (max-width: 640px) {
+  .upgrade-card.is-timeline { padding: 15px 14px; }
+  .upgrade-overlay { padding-inline: 12px; }
+  .upgrade-milestone p span { display: none; }
+}
+.question-list > .upgrade-milestone { margin: 0; }
+.question-locked-upgrade { width: fit-content; min-height: 40px; margin-top: 8px; }

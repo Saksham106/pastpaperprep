@@ -470,3 +470,11 @@ describe("toolbar keeps Save PDF in its own track on every bank", () => {
   });
 });
 
+describe("upgrade notes keep their whole message on phones", () => {
+  it("only hides the second sentence of non-upgrade free notes", () => {
+    const mobile = "max-width: 640px";
+    expect(styleFor(globalBlocks, ".free-value-strip p span", mobile).display).toBeUndefined();
+    expect(styleFor(globalBlocks, ".free-value-strip:not(.is-upgrade) p span", mobile).display).toBe("none");
+  });
+});
+

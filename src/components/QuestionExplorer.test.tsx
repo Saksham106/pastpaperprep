@@ -153,9 +153,9 @@ describe("QuestionExplorer", () => {
       hydrateFromLocation
     />);
 
-    await waitFor(() => expect(screen.getByRole("heading", { name: /unlock all free questions/i })).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByRole("heading", { name: /keep practising for free/i })).toBeInTheDocument());
     expect(container.querySelectorAll(".question-card")).toHaveLength(20);
-    expect(screen.getAllByText(/remaining 10 free questions/i)).toHaveLength(2);
+    expect(screen.getAllByText(/other 10 free questions/i)).toHaveLength(2);
     expect(screen.queryByRole("button", { name: /show 24 more questions/i })).not.toBeInTheDocument();
 
     await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/assets/sign", expect.any(Object)));
@@ -245,7 +245,7 @@ describe("QuestionExplorer", () => {
       hydrateFromLocation
     />);
 
-    expect(screen.queryByText(/free exam years are open/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/you’re practising .* papers\./i)).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /remove free questions only filter/i })).not.toBeInTheDocument();
 
     resolveBootstrap(new Response(JSON.stringify({
@@ -254,7 +254,7 @@ describe("QuestionExplorer", () => {
     }), { status: 200, headers: { "content-type": "application/json" } }));
 
     await waitFor(() => expect(screen.getByRole("group", { name: /study/i })).toBeInTheDocument());
-    expect(screen.queryByText(/free exam years are open/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/you’re practising .* papers\./i)).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /remove free questions only filter/i })).not.toBeInTheDocument();
     await waitFor(() => expect(new URLSearchParams(window.location.search).has("free")).toBe(false));
   });
@@ -316,7 +316,7 @@ describe("QuestionExplorer", () => {
       hydrateFromLocation
     />);
 
-    await waitFor(() => expect(screen.getByText(/free exam years are open/i)).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText(/you’re practising .* papers\./i)).toBeInTheDocument());
     expect(screen.getByRole("button", { name: /remove free questions only filter/i })).toBeInTheDocument();
     await waitFor(() => expect(new URLSearchParams(window.location.search).get("free")).toBe("1"));
   });
@@ -1011,23 +1011,23 @@ describe("QuestionExplorer", () => {
 
     expect(await screen.findByRole("img", { name: /original question/i })).toBeInTheDocument();
     expect(screen.queryByText(/all-access question/i)).not.toBeInTheDocument();
-    expect(screen.getByText(/free exam years are open/i)).toBeInTheDocument();
+    expect(screen.getByText(/you’re practising .* papers\./i)).toBeInTheDocument();
     // One clear next action, one label: the competing "preview the full bank" and
     // "sign in and choose a plan" calls to action were collapsed into this single CTA.
-    expect(screen.getAllByRole("link", { name: /^view plans$/i })).toHaveLength(1);
-    expect(screen.getByRole("link", { name: /^view plans$/i })).toHaveAttribute("href", "/login?next=/pricing");
-    expect(screen.getByRole("link", { name: /^view plans$/i })).toHaveClass("free-value-link");
+    expect(screen.getAllByRole("link", { name: /^unlock from \$6\/mo$/i })).toHaveLength(1);
+    expect(document.querySelector(".free-value-link")).toHaveAttribute("href", "/pricing?product=bank_ib_sl");
+    expect(screen.queryByRole("link", { name: /^view plans$/i })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /preview full bank/i })).not.toBeInTheDocument();
     expect(screen.queryByText(/sign in and choose a plan/i)).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("checkbox", { name: /free questions only/i }));
-    expect(screen.getByText(/paid plan required/i)).toBeInTheDocument();
+    expect(screen.getByText(/20\d\d paper · on any plan/)).toBeInTheDocument();
     expect(screen.queryByText(/all-access question/i)).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "Save PDF" }));
     const upgradeDialog = screen.getByRole("dialog", { name: /saving pdfs needs paid access/i });
     expect(upgradeDialog).toBeInTheDocument();
     expect(document.body.style.overflow).toBe("hidden");
     expect(screen.getByRole("button", { name: /close pdf access message/i })).toHaveFocus();
-    expect(within(upgradeDialog).getByRole("link", { name: /^view plans$/i })).toHaveAttribute("href", "/login?next=/pricing");
+    expect(within(upgradeDialog).getByRole("link", { name: /^view plans$/i })).toHaveAttribute("href", "/pricing?product=bank_ib_sl");
     fireEvent.keyDown(document, { key: "Escape" });
     expect(screen.queryByRole("dialog", { name: /saving pdfs needs paid access/i })).not.toBeInTheDocument();
     expect(document.body.style.overflow).toBe("");
