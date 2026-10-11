@@ -13,138 +13,94 @@ const liveBankEnvironment = {
   PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true",
 };
 
-describe("home page corpus summary", () => {
-  it("presents the base catalog without the old subject-list hero or duplicate bank icons", () => {
+describe("home page", () => {
+  it("leads with the layered headline, the picker and data-driven proof", () => {
     const markup = renderToStaticMarkup(<MarketingHome environment={{}} />);
 
     expect(BANKS.reduce((total, bank) => total + bank.questionCount, 0)).toBe(17694);
-    expect(markup).toContain("17,694 questions");
-    expect(markup).toContain("1,121 papers");
-    expect(markup).toContain("Practice the");
-    expect(markup).toContain("topics you need.");
-    expect(markup).not.toContain("Find a syllabus point, practise the questions that match, and keep the mark scheme close.");
-    expect(markup).toContain("Choose where to begin.");
-    expect(markup).toContain("Cambridge IGCSE");
-    expect(markup).toContain("IB Diploma");
-    expect(markup).toContain("Try free questions");
-    expect(markup).toContain("Choose your course");
-    expect(markup).not.toContain("Focused practice with real exam questions builds familiarity");
-    expect(markup).not.toContain("Complete older exam years");
-    expect(markup).toContain("Open real free questions");
-    expect(markup).toContain("From topic to finished practice set.");
-    expect(markup).toContain("PastPaperPrep");
-    expect(markup).toContain("Stay close to the syllabus and the source paper.");
-    expect(markup).toContain("mark scheme");
-    expect(markup).toContain("Download the questions and mark scheme together as a clean PDF.");
-    expect(markup).not.toContain("markscheme");
-    expect(markup).not.toContain("Export the outcome");
-    expect(markup).not.toContain("gives your next session a shape");
-    expect(markup).not.toContain(">+</span>");
-    expect(markup).toContain("Additional Mathematics 0606");
-    expect(markup).toContain("Mathematics 0580");
-    expect(markup).not.toContain("Cambridge IGCSE Mathematics 0580");
+    expect(markup).toContain("Past papers,");
+    expect(markup).toContain("by topic.");
+    expect(markup).toContain("17,000+");
+    expect(markup).not.toContain("17,694");
+    expect(markup).toContain('href="/banks/igcse?free=1"');
+    expect(markup).not.toContain("Practice the");
+    expect(markup).not.toContain("Choose where to begin.");
+    expect(markup).not.toContain("From topic to finished practice set.");
     expect(markup).not.toMatch(/^<main/);
-    expect(markup).toContain("role=\"tablist\"");
-    expect(markup).toContain("Cambridge IGCSE");
-    expect(markup).toContain("IB Diploma");
-    expect(markup).not.toContain("IGCSE + IB Maths + Chemistry + Physics + Biology");
-    expect(markup).not.toContain("exam-index-visual");
-    expect(markup).not.toContain("More subjects are on the way.");
-    expect(markup.match(/data-course-icon=/g)).toHaveLength(10);
   });
 
-  it("shows every enabled release bank, grouped by subject with a real economics icon", () => {
-    const enabledBanks = getAvailableBanks(liveBankEnvironment);
-    const markup = renderToStaticMarkup(<MarketingHome environment={liveBankEnvironment} />);
-
-    expect(enabledBanks).toHaveLength(19);
-    expect(markup).toContain("IB Economics HL");
-    expect(markup).toContain("IB Economics SL");
-    expect(markup).toContain("Biology 0610");
-    expect(markup).toContain("Economics 0455");
-    expect(markup).toContain("Chemistry 0620");
-    expect(markup).toContain("Physics 0625");
-    expect(markup).toContain("href=\"/banks/ib-economics-hl?free=1\"");
-    expect(markup).toContain("href=\"/banks/igcse-biology-0610?free=1\"");
-    expect(markup).toContain("href=\"/banks/igcse-economics-0455?free=1\"");
-    expect(markup).toContain("href=\"/banks/igcse-chemistry-0620?free=1\"");
-    expect(markup).toContain("href=\"/banks/igcse-physics-0625?free=1\"");
-    expect(enabledBanks.map((bank) => bank.slug)).toContain("igcse-coordinated-sciences-0654");
-    expect(markup).toContain("Co-ordinated Sciences 0654");
-    expect(markup).toContain("href=\"/banks/igcse-coordinated-sciences-0654?free=1\"");
-    expect(markup).toContain("data-course-icon=\"economics\"");
-    expect(markup).toContain("19 banks");
-    expect(markup).toContain("Mathematics 0580");
-    expect(markup).not.toContain("Cambridge IGCSE Mathematics 0580");
-    expect(markup).not.toContain("ArrowUpRight");
-    expect(markup.match(/data-course-icon=/g)).toHaveLength(22);
-  });
-
-  it("gives each subject panel a visual hook and centers singleton banks", () => {
-    const markup = renderToStaticMarkup(<MarketingHome environment={liveBankEnvironment} />);
-
-    expect(markup).toContain('data-subject-tone="chemistry"');
-    expect(markup).toContain('data-subject-tone="biology"');
-    expect(markup).toContain('data-subject-tone="physics"');
-    expect(markup).toContain('data-subject-tone="economics"');
-    expect(markup).toContain('data-bank-count="1"');
-    expect(markup).toContain('data-subject-watermark="true"');
-    expect(markup).toMatch(/bankCardsSingle/);
-    expect(markup).not.toContain('ArrowUpRight');
-  });
-
-  it("splits Mathematics 0580 and 0606 into two separate full-tile bank links", () => {
+  it("shows every enabled bank as one full-row link inside its subject card", () => {
     const { container } = render(<MarketingHome environment={liveBankEnvironment} />);
-    const cambridgePanel = container.querySelector("#cambridge-catalog-panel");
-    expect(cambridgePanel).not.toBeNull();
+    const rows = [...container.querySelectorAll<HTMLAnchorElement>("#question-banks a[data-bank-slug]")];
 
-    const groups = [...cambridgePanel!.querySelectorAll<HTMLElement>('[class*="subjectGroup"]')];
-    const mathematics = groups.find((group) => group.querySelector("h4")?.textContent === "Mathematics");
-    expect(mathematics, "expected one Mathematics subject group").toBeTruthy();
-    // Mathematics is the panel's first child, so a positional `:first-child` rule can shift it.
-    expect(groups[0]).toBe(mathematics);
-
-    const tiles = [...mathematics!.querySelectorAll<HTMLAnchorElement>("a[data-bank-slug]")];
-    expect(tiles.map((tile) => tile.dataset.bankSlug)).toEqual(["igcse", "igcse-additional"]);
-    expect(tiles.map((tile) => tile.getAttribute("href")))
-      .toEqual(["/banks/igcse?free=1", "/banks/igcse-additional?free=1"]);
-    expect(tiles[0].textContent).toContain("Mathematics 0580");
-    expect(tiles[1].textContent).toContain("Additional Mathematics 0606");
-    expect(tiles[0].textContent).toMatch(/questions/);
-
-    // The subject group itself is a container, never a link, and each bank is the whole cell.
-    expect(mathematics!.closest("a")).toBeNull();
-    const tilesContainer = mathematics!.querySelector<HTMLElement>('[class*="bankCards"]');
-    expect(tilesContainer).not.toBeNull();
-    expect([...tilesContainer!.children].map((child) => child.tagName)).toEqual(["A", "A"]);
-    // The pair keeps its own two-tile layout class inside the centered subject column.
-    expect(tilesContainer!.className).toContain("bankCardsTwo");
-    const content = tilesContainer!.parentElement;
-    expect(content!.className).toContain("subjectContent");
-  });
-
-  it("makes every rendered bank tile its own full-tile link with a readable name", () => {
-    const { container } = render(<MarketingHome environment={liveBankEnvironment} />);
-
+    expect(getAvailableBanks(liveBankEnvironment)).toHaveLength(19);
+    expect(rows).toHaveLength(19);
     expect(container.querySelectorAll("a a")).toHaveLength(0);
-    const tiles = [...container.querySelectorAll<HTMLAnchorElement>("a[data-bank-slug]")];
-    expect(tiles).toHaveLength(19);
-    for (const tile of tiles) {
-      expect(tile.textContent?.trim()).not.toBe("");
-      expect(tile.textContent).toMatch(/\d+\squestions/);
+    for (const row of rows) {
+      expect(row.getAttribute("href")).toMatch(/^\/banks\/[a-z0-9-]+(\?free=1)?$/);
+      expect(row.textContent).toMatch(/\d+\squestions/);
     }
+    expect(rows.find((row) => row.dataset.bankSlug === "igcse-economics-0455")?.closest("[data-subject-tone]")?.getAttribute("data-subject-tone")).toBe("economics");
+    expect(rows.find((row) => row.dataset.bankSlug === "igcse-additional")?.closest("[data-subject-tone]")?.getAttribute("data-subject-tone")).toBe("math");
+    const cards = container.querySelectorAll("#question-banks [data-subject-tone]");
+    expect(cards.length).toBeGreaterThan(0);
+    expect(container.querySelectorAll("#question-banks [data-course-icon]")).toHaveLength(cards.length);
   });
 
-  it("switches qualification panels with the tablist keyboard contract", () => {
+  it("switches catalog qualification with the tablist keyboard contract", () => {
     const { getAllByRole } = render(<MarketingHome environment={liveBankEnvironment} />);
     const tabs = getAllByRole("tab");
     expect(tabs[0]).toHaveAttribute("aria-selected", "true");
     expect(tabs[1]).toHaveAttribute("tabindex", "-1");
     fireEvent.keyDown(tabs[0], { key: "ArrowRight" });
     expect(tabs[1]).toHaveAttribute("aria-selected", "true");
-    expect(tabs[0]).toHaveAttribute("tabindex", "-1");
     fireEvent.keyDown(tabs[1], { key: "Home" });
     expect(tabs[0]).toHaveAttribute("aria-selected", "true");
+  });
+
+  it("compares free and plan in two plain cards priced from the model", () => {
+    const { container } = render(<MarketingHome environment={liveBankEnvironment} />);
+    const free = container.querySelector('[data-plan-tier="free"]');
+    const plan = container.querySelector('[data-plan-tier="plan"]');
+    expect(free?.textContent).toMatch(/free/i);
+    expect(free?.querySelector('a[href="/banks/igcse?free=1"]')).not.toBeNull();
+    expect(plan?.textContent).toContain("$6");
+    expect(plan?.textContent).toContain("2026");
+    expect(plan?.querySelector('a[href="/pricing"]')).not.toBeNull();
+  });
+
+  it("goes straight from the hero to the bank toggle, with no sample section", () => {
+    const { container } = render(<MarketingHome environment={liveBankEnvironment} />);
+    const images = [...container.querySelectorAll("img")].map((image) => image.getAttribute("src") ?? "");
+    expect(images.some((src) => src.includes("sample-"))).toBe(false);
+    expect(container.textContent).not.toContain("A real question.");
+    const order = [...container.querySelectorAll("[data-home-section]")].map((section) => section.getAttribute("data-home-section"));
+    expect(order).toEqual(["hero", "banks", "proof", "plan", "faq", "cta"]);
+  });
+
+  it("shows proof as a few rounded, meaningful facts and three short cited studies", () => {
+    const { container, getAllByRole } = render(<MarketingHome environment={liveBankEnvironment} />);
+    const proof = container.querySelector('[data-home-section="proof"]');
+    const total = getAvailableBanks(liveBankEnvironment).reduce((sum, bank) => sum + bank.questionCount, 0);
+    const rounded = `${(Math.floor(total / 1000) * 1000).toLocaleString()}+`;
+    expect(proof?.textContent).toContain(rounded);
+    expect(proof?.textContent).not.toContain(total.toLocaleString());
+    expect(proof?.textContent).toContain("2026");
+    expect(proof?.textContent).toMatch(/by topic/i);
+    const studies = [...container.querySelectorAll("article[data-research-study]")];
+    expect(studies).toHaveLength(3);
+    for (const study of studies) expect((study.textContent ?? "").replace(/\s+/g, " ").length).toBeLessThan(110);
+    expect(getAllByRole("link", { name: /read study/i }).map((link) => link.getAttribute("href"))).toEqual([
+      "https://doi.org/10.1037/a0021782",
+      "https://doi.org/10.1126/science.1199327",
+      "https://doi.org/10.1111/j.1467-9280.2006.01693.x",
+    ]);
+  });
+
+  it("gives the catalog its own (visually hidden) heading for the subject card headings", () => {
+    const { getByRole } = render(<MarketingHome environment={liveBankEnvironment} />);
+    const heading = getByRole("heading", { level: 2, name: "Question banks" });
+    expect(heading.closest("#question-banks")).not.toBeNull();
   });
 
   it("offers a compact FAQ preview without adding header clutter", () => {
@@ -157,31 +113,6 @@ describe("home page corpus summary", () => {
       "href",
       "mailto:hello@pastpaperprep.com",
     );
-  });
-
-  it("translates three studies into outcomes students can understand", () => {
-    const { container, getByRole, getByText, getAllByRole, queryByRole, queryByText } = render(<MarketingHome environment={liveBankEnvironment} />);
-
-    expect(getByRole("link", { name: /try free questions/i })).toHaveAttribute("href", "/banks/igcse?free=1");
-    expect(getByText("Backed by learning science")).toBeInTheDocument();
-    expect(queryByRole("heading", { name: /practice works better when you retrieve/i })).not.toBeInTheDocument();
-    expect(queryByText(/three large research reviews/i)).not.toBeInTheDocument();
-    expect(container.querySelectorAll("article[data-research-study]")).toHaveLength(3);
-    expect(container.querySelector("article[data-research-study] strong")?.textContent?.replace(/\s+/g, " ").trim()).toBe("Up to 25%");
-    expect(container.querySelector("article[data-research-study] strong > span")?.textContent).toBe("Up to");
-    expect(getByText("37%")).toBeInTheDocument();
-    expect(getByText("53%")).toBeInTheDocument();
-    expect(getByText(/real unit exams/i)).toBeInTheDocument();
-    expect(getByText(/67% after retrieval practice versus 49% after repeated study/i)).toBeInTheDocument();
-    expect(getByText(/61% after self-testing versus 40% after rereading/i)).toBeInTheDocument();
-    const studyLinks = getAllByRole("link", { name: /read study/i });
-    expect(studyLinks).toHaveLength(3);
-    expect(studyLinks.map((link) => link.getAttribute("href"))).toEqual([
-      "https://doi.org/10.1037/a0021782",
-      "https://doi.org/10.1126/science.1199327",
-      "https://doi.org/10.1111/j.1467-9280.2006.01693.x",
-    ]);
-    expect(container.querySelector("blockquote")).toBeNull();
   });
 
   it("describes Economics in homepage search metadata", () => {

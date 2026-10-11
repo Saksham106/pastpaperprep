@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, IBM_Plex_Mono } from "next/font/google";
+import { Geist, IBM_Plex_Mono, Young_Serif } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SessionAwareSiteHeader } from "@/components/SessionAwareSiteHeader";
@@ -11,6 +11,7 @@ import "./globals.css";
 import "./motion.css";
 
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
+const youngSerif = Young_Serif({ variable: "--font-young-serif", subsets: ["latin"], weight: "400" });
 const mono = IBM_Plex_Mono({ variable: "--font-mono", subsets: ["latin"], weight: ["400", "500", "600"] });
 
 export const metadata: Metadata = {
@@ -57,7 +58,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${geist.variable} ${mono.variable} ${youngSerif.variable}`} suppressHydrationWarning>
       <body data-build-revision={process.env.NEXT_PUBLIC_BUILD_REVISION ?? "local"}>
         <ThemeProvider attribute="data-theme" defaultTheme="light" enableColorScheme storageKey="pastpaperprep-theme" disableTransitionOnChange>
           <SessionAwareSiteHeader />

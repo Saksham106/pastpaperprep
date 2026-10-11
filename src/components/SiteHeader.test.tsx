@@ -75,8 +75,38 @@ describe("SiteHeader", () => {
     expect(screen.getByRole("link", { name: "Articles" })).toHaveAttribute("aria-current", "page");
   });
 
-  it("keeps the compact workspace action at least 44 by 44 pixels", () => {
+  it("opens and closes the phone menu from one button", () => {
+    usePathname.mockReturnValue("/");
+    const { container } = render(<SiteHeader authenticated={false} />);
+    const toggle = screen.getByRole("button", { name: /open menu/i });
+    const nav = container.querySelector("#site-menu");
+
+    expect(toggle).toHaveAttribute("aria-expanded", "false");
+    expect(toggle).toHaveAttribute("aria-controls", "site-menu");
+    expect(nav).toHaveAttribute("data-open", "false");
+
+    fireEvent.click(toggle);
+    expect(screen.getByRole("button", { name: /close menu/i })).toHaveAttribute("aria-expanded", "true");
+    expect(nav).toHaveAttribute("data-open", "true");
+
+    fireEvent.keyDown(document, { key: "Escape" });
+    expect(nav).toHaveAttribute("data-open", "false");
+
+    fireEvent.click(screen.getByRole("button", { name: /open menu/i }));
+    fireEvent.click(screen.getByRole("link", { name: "Pricing" }));
+    expect(nav).toHaveAttribute("data-open", "false");
+  });
+
+  it("gives the menu button a 44px target and animates the panel only when motion is allowed", () => {
     const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
-    expect(css).toContain(".nav-cta { width: 44px; height: 44px; min-height: 44px;");
+    expect(css).toMatch(/\.menu-toggle \{[^}]*width: 44px; height: 44px;/);
+    expect(css).toMatch(/prefers-reduced-motion: reduce\)[^{]*\{[^}]*\.site-menu/);
+  });
+
+  it("stays glassy after scrolling instead of turning solid", () => {
+    const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+    const scrolled = css.match(/\.site-header\.is-scrolled[^{]*\{([^}]*)\}/)?.[1] ?? "";
+    expect(scrolled).toContain("var(--header-overlay)");
+    expect(scrolled).toMatch(/backdrop-filter: blur\(\d+px\)/);
   });
 });

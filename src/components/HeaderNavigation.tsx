@@ -14,7 +14,7 @@ function current(pathname: string, destination: "banks" | "articles" | "pricing"
   return pathname === "/dashboard";
 }
 
-export function HeaderNavigation({ authenticated, workspaceIcon }: { authenticated: boolean; workspaceIcon: ReactNode }) {
+export function HeaderNavigation({ authenticated, workspaceIcon, menuOpen = false, onNavigate }: { authenticated: boolean; workspaceIcon: ReactNode; menuOpen?: boolean; onNavigate?: () => void }) {
   const pathname = usePathname();
   const banksHref = authenticated ? "/dashboard" : "/#question-banks";
   const [banksHashActive, setBanksHashActive] = useState(false);
@@ -38,7 +38,7 @@ export function HeaderNavigation({ authenticated, workspaceIcon }: { authenticat
   }
 
   return (
-    <nav aria-label="Main navigation">
+    <nav id="site-menu" className="site-menu" data-open={menuOpen ? "true" : "false"} aria-label="Main navigation" onClick={(event) => { if ((event.target as Element).closest("a")) onNavigate?.(); }}>
       <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "banks", banksHashActive) ? "nav-active" : undefined} aria-current={current(pathname, "banks", banksHashActive) ? "page" : undefined} href={banksHref} onClick={openLandingBanks}>Question banks</Link>
       <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "articles") ? "nav-active" : undefined} aria-current={current(pathname, "articles") ? "page" : undefined} href="/articles">Articles</Link>
       <Link transitionTypes={PAGE_NAVIGATION} className={`nav-pricing${current(pathname, "pricing") ? " nav-active" : ""}`} aria-current={current(pathname, "pricing") ? "page" : undefined} href="/pricing">Pricing</Link>

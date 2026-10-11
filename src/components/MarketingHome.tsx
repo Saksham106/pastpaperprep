@@ -1,11 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, CaretDown, Check, DownloadSimple, FunnelSimple, PencilSimpleLine } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, CaretDown } from "@phosphor-icons/react/dist/ssr";
 import type { Bank } from "@/lib/banks";
 import { getCatalogRuntimeBanks } from "@/lib/catalog";
 import { CourseIcon, type CourseTone } from "@/components/CourseIcon";
+import { HeroPicker, type PickerGroup } from "@/components/HeroPicker";
 import { QualificationTabs } from "@/components/QualificationTabs";
 import { bankEntryHref, hasFreeTier } from "@/lib/access";
+import { bankYearFacts } from "@/lib/upgrade-copy";
+import { formatPrice, priceForBankCount } from "@/lib/pricing-model";
 import { FAQS } from "@/components/FaqContent";
 import styles from "./MarketingHome.module.css";
 
@@ -19,69 +22,101 @@ const SUBJECTS: readonly { name: string; tone: CourseTone; matches: (bank: Bank)
   { name: "Co-ordinated Sciences", tone: "coordinated", matches: (bank) => bank.subject.includes("Co-ordinated") },
 ];
 const HOME_FAQS = [FAQS[1], FAQS[2], FAQS[3], FAQS[5]];
+const SAMPLE_BANK = "igcse";
+const STUDIES = [
+  { figure: "+25%", outcome: "exam scores from regular quizzing", source: "J. Educ. Psychology, 2011", href: "https://doi.org/10.1037/a0021782" },
+  { figure: "+37%", outcome: "a week later vs. re-studying", source: "Science, 2011", href: "https://doi.org/10.1126/science.1199327" },
+  { figure: "+53%", outcome: "remembered vs. rereading", source: "Psychological Science, 2006", href: "https://doi.org/10.1111/j.1467-9280.2006.01693.x" },
+] as const;
+/** Round down to the thousand: "40,000+" reads better than "40,169" and never overstates. */
+const roundedDown = (count: number) => `${(Math.floor(count / 1000) * 1000).toLocaleString()}+`;
+
 function groupSubjects(banks: readonly Bank[]): SubjectGroup[] { return SUBJECTS.map((s) => ({ name: s.name, tone: s.tone, banks: banks.filter(s.matches) })).filter((s) => s.banks.length > 0); }
-function CatalogPanel({ banks }: { banks: readonly Bank[] }) {
-  const groups = groupSubjects(banks);
-  return <section className={styles.catalog} aria-label="Question banks"><div className={styles.subjectGrid}>{groups.map((group) => {
-    const bankCount = group.banks.length;
-    const bankLayout = bankCount === 1 ? styles.bankCardsSingle : bankCount === 2 ? styles.bankCardsTwo : styles.bankCardsMany;
-    return <section className={`${styles.subjectGroup} course-tone-${group.tone}`} data-subject-tone={group.tone} key={group.name}>
-      <div className={styles.subjectContent}><header><span className={styles.subjectHeading}><CourseIcon tone={group.tone} /><h4>{group.name}</h4></span></header><div className={`${styles.bankCards} ${bankLayout}`} data-bank-count={bankCount}>{group.banks.map((bank) => <Link className={styles.bankCard} href={bankEntryHref(bank.slug)} data-bank-slug={bank.slug} data-has-free-tier={hasFreeTier(bank.slug) ? "true" : undefined} key={bank.slug}><span className={styles.bankCardCopy}><strong>{bank.shortName}</strong><span className={styles.bankChips}><span>{bank.questionCount.toLocaleString()} questions</span></span></span></Link>)}</div></div>
-      <span className={styles.subjectWatermark} data-subject-watermark="true" aria-hidden="true"><CourseIcon tone={group.tone} /></span>
-    </section>;
-  })}</div></section>;
+
+function SubjectCards({ banks }: { banks: readonly Bank[] }) {
+  return <div className={styles.subjectGrid}>{groupSubjects(banks).map((group) => <section className={`${styles.subjectCard} course-tone-${group.tone}`} data-subject-tone={group.tone} key={group.name}>
+    <header className={styles.subjectHead}><h3>{group.name}</h3><span className={styles.subjectMark}><CourseIcon tone={group.tone} /></span></header>
+    <div className={styles.bankRows}>{group.banks.map((bank) => <Link className={styles.bankRow} href={bankEntryHref(bank.slug)} data-bank-slug={bank.slug} data-has-free-tier={hasFreeTier(bank.slug) ? "true" : undefined} key={bank.slug}>
+      <strong>{bank.shortName}</strong><span>{bank.questionCount.toLocaleString()} questions</span><ArrowRight aria-hidden="true" weight="bold" />
+    </Link>)}</div>
+  </section>)}</div>;
 }
+
+const toPickerBanks = (banks: readonly Bank[]) => banks.map((bank) => ({ slug: bank.slug, label: bank.shortName, href: bankEntryHref(bank.slug) }));
 
 export function MarketingHome({ environment = process.env }: { environment?: Record<string, string | undefined> }) {
   const banks = getCatalogRuntimeBanks(environment);
   const cambridgeBanks = banks.filter((bank) => bank.qualification === "Cambridge IGCSE");
   const ibBanks = banks.filter((bank) => bank.qualification === "International Baccalaureate");
   const totalQuestions = banks.reduce((total, bank) => total + bank.questionCount, 0);
-  const totalPapers = banks.reduce((total, bank) => total + bank.paperCount, 0);
+  const pickerGroups: PickerGroup[] = [
+    { id: "igcse", label: "IGCSE", banks: toPickerBanks(cambridgeBanks) },
+    { id: "ib", label: "IB", banks: toPickerBanks(ibBanks) },
+  ];
+  const years = bankYearFacts(SAMPLE_BANK);
+
   return <div className={`${styles.home} landing-editorial`}>
-    <section className={styles.hero}>
-      <div className={styles.heroArtwork} aria-hidden="true"><Image className={styles.heroBuilding} src="/artwork/georgetown-1829.webp" alt="" width={1280} height={771} priority sizes="100vw" quality={90} /><Image className={styles.heroBotanical} src="/artwork/atkins-spiraea.webp" alt="" width={444} height={624} sizes="(min-width: 621px) 0px" /></div>
-      <div className={`shell ${styles.heroStage}`}>
-        <div className={styles.heroCopy}><p className={styles.eyebrow}>PastPaperPrep</p><h1>Practice the<br /><em>topics you need.</em></h1><div className={styles.heroActions}><Link className="button primary" href="/banks/igcse?free=1">Try free questions <ArrowRight weight="bold" /></Link><Link className="button secondary" href="#question-banks">Choose your course <ArrowRight weight="bold" /></Link></div></div>
-        <div className={styles.heroIndex}><span>Question archive</span><strong>{totalQuestions.toLocaleString()}</strong><small>questions across {totalPapers.toLocaleString()} papers</small><span className={styles.visuallyHidden}>{totalQuestions.toLocaleString()} questions across {totalPapers.toLocaleString()} papers in {banks.length} banks.</span></div>
+    <section className={styles.hero} data-home-section="hero">
+      <div className={styles.stage}>
+        <Image className={styles.back} src="/artwork/landing-gothic.webp" alt="" fill preload sizes="100vw" quality={85} />
+        <h1 className={styles.headline}><span>Past papers,</span> <em>by topic.</em></h1>
+        <Image className={styles.front} src="/artwork/landing-gothic-front.webp" alt="" fill loading="eager" sizes="100vw" quality={85} />
+        <div className={styles.fade} aria-hidden="true" />
+      </div>
+      <div className={styles.lede}>
+        <HeroPicker groups={pickerGroups} />
+        <p className={styles.heroLinks}><a href="#question-banks">All {banks.length} banks</a><span aria-hidden="true">·</span><Link href="/pricing">Plans</Link></p>
+        <p className={styles.proof}><span><b>{roundedDown(totalQuestions)}</b> questions</span>{years && <span>Papers to <b>{years.latestYear}</b></span>}<span>Sorted by topic</span></p>
       </div>
     </section>
 
+    <section className={`shell ${styles.banks}`} id="question-banks" data-home-section="banks" aria-labelledby="question-banks-heading">
+      <h2 className="sr-only" id="question-banks-heading">Question banks</h2>
+      <QualificationTabs items={[...(cambridgeBanks.length > 0 ? [{ id: "cambridge-catalog", label: "Cambridge IGCSE", panel: <SubjectCards banks={cambridgeBanks} /> }] : []), ...(ibBanks.length > 0 ? [{ id: "ib-catalog", label: "IB Diploma", panel: <SubjectCards banks={ibBanks} /> }] : [])]} />
+    </section>
 
-    <section className={`shell ${styles.banks}`} id="question-banks" aria-labelledby="question-banks-heading"><header className={styles.sectionHeader}><p className={styles.sectionKicker}>The collection</p><h2 id="question-banks-heading">Choose where to begin.</h2><p>Qualification first. Subject second. Then a bank of real questions, ready to work through.</p></header><QualificationTabs items={[...(cambridgeBanks.length > 0 ? [{ id: "cambridge-catalog", label: "Cambridge IGCSE", panel: <CatalogPanel banks={cambridgeBanks} /> }] : []), ...(ibBanks.length > 0 ? [{ id: "ib-catalog", label: "IB Diploma", panel: <CatalogPanel banks={ibBanks} /> }] : [])]} /></section>
-
-    <section className={styles.workflow} id="workflow" aria-labelledby="workflow-heading"><div className={`shell ${styles.workflowGrid}`}><div className={styles.workflowIntro}><p className={styles.sectionKicker}>A better revision loop</p><h2 id="workflow-heading">From topic to finished practice set.</h2><p>Stay close to the syllabus and the source paper. Nothing invented, nothing extra.</p><Link className={styles.workflowLink} href="/banks/igcse?free=1">Open real free questions <ArrowRight weight="bold" /></Link></div><ol className={styles.workflowList}><li><FunnelSimple aria-hidden="true" /><div><strong>Select a topic</strong><span>Start with the syllabus point you need to strengthen.</span></div></li><li><PencilSimpleLine aria-hidden="true" /><div><strong>Solve real questions</strong><span>Work through exam questions chosen for that exact topic.</span></div></li><li><DownloadSimple aria-hidden="true" /><div><strong>Keep the mark scheme close</strong><span>Download the questions and mark scheme together as a clean PDF.</span></div></li></ol></div></section>
-
-    <section className={styles.research} aria-label="Backed by learning science">
-      <div className={`shell ${styles.researchShell}`}>
-        <p className={styles.sectionKicker}>Backed by learning science</p>
-        <div className={styles.researchPanel}>
-          <article className={styles.researchStudy} data-research-study>
-            <strong><span>Up to</span> 25%</strong>
-            <span>higher unit-exam scores</span>
-            <p>Low-stakes quizzes with feedback raised scores by 13–25% on real unit exams in 8th-grade science classes.</p>
-            <a href="https://doi.org/10.1037/a0021782" target="_blank" rel="noreferrer"><small>Journal of Educational Psychology · 2011</small>Read study <ArrowRight weight="bold" /></a>
-          </article>
-          <article className={styles.researchStudy} data-research-study>
-            <strong>37%</strong>
-            <span>higher score after one week</span>
-            <p>Students scored 67% after retrieval practice versus 49% after repeated study—a 37% lift.</p>
-            <a href="https://doi.org/10.1126/science.1199327" target="_blank" rel="noreferrer"><small>Science · 2011</small>Read study <ArrowRight weight="bold" /></a>
-          </article>
-          <article className={styles.researchStudy} data-research-study>
-            <strong>53%</strong>
-            <span>more remembered after one week</span>
-            <p>Students remembered 61% after self-testing versus 40% after rereading—53% more.</p>
-            <a href="https://doi.org/10.1111/j.1467-9280.2006.01693.x" target="_blank" rel="noreferrer"><small>Psychological Science · 2006</small>Read study <ArrowRight weight="bold" /></a>
-          </article>
+    <section className={styles.proofBand} data-home-section="proof" aria-labelledby="proof-heading">
+      <div className="shell">
+        <h2 className="sr-only" id="proof-heading">Why practise with past papers</h2>
+        <dl className={styles.stats}>
+          <div><dt>Real exam questions</dt><dd>{roundedDown(totalQuestions)}</dd></div>
+          {years && <div><dt>Latest papers included</dt><dd>{years.latestYear}</dd></div>}
+          <div><dt>Every question</dt><dd>By topic</dd></div>
+          <div><dt>IGCSE &amp; IB subjects</dt><dd>{banks.length}</dd></div>
+        </dl>
+        <p className={styles.eyebrow}>Why practice works</p>
+        <div className={styles.studies}>
+          {STUDIES.map((study) => <article className={styles.study} data-research-study key={study.href}>
+            <strong>{study.figure}</strong>
+            <p>{study.outcome}</p>
+            <a href={study.href} target="_blank" rel="noreferrer">{study.source} · Read study <ArrowRight weight="bold" /></a>
+          </article>)}
         </div>
       </div>
     </section>
-    <section className={`shell ${styles.faqPreview}`} aria-labelledby="home-faq-heading">
+
+    <section className={`shell ${styles.planSection}`} data-home-section="plan" aria-labelledby="plan-heading">
+      <h2 id="plan-heading">Start free. <em>Upgrade for the newest papers.</em></h2>
+      <div className={styles.tiers}>
+        <div className={styles.tier} data-plan-tier="free">
+          <p className={styles.tierName}>Free</p>
+          <p className={styles.tierPrice}>$0</p>
+          <ul><li>Older exam years on every bank</li><li>Answers included</li><li>No card needed</li></ul>
+          <Link className="button secondary" href={bankEntryHref(SAMPLE_BANK)}>Start free</Link>
+        </div>
+        <div className={`${styles.tier} ${styles.tierPlan}`} data-plan-tier="plan">
+          <p className={styles.tierName}>Plan</p>
+          <p className={styles.tierPrice}><small>from </small>{formatPrice(priceForBankCount("monthly", 1))}<small>/mo</small></p>
+          <ul><li>{years ? `Every year up to ${years.latestYear}` : "Every exam year"}</li><li>Every official mark scheme</li><li>Cancel any time</li></ul>
+          <Link className="button primary" href="/pricing">See plans <ArrowRight weight="bold" /></Link>
+        </div>
+      </div>
+    </section>
+
+    <section className={`shell ${styles.faqPreview}`} data-home-section="faq" aria-labelledby="home-faq-heading">
       <header className={styles.faqIntro}>
-        <p className={styles.sectionKicker}>Good to know</p>
+        <p className={styles.eyebrow}>Good to know</p>
         <h2 id="home-faq-heading">Questions before you start?</h2>
-        <p>Quick answers about access, courses, PDFs, and billing.</p>
         <Link className={styles.faqAllLink} href="/faq">View all FAQs <ArrowRight weight="bold" /></Link>
       </header>
       <div className={styles.faqQuestions}>
@@ -92,6 +127,10 @@ export function MarketingHome({ environment = process.env }: { environment?: Rec
         <p className={styles.faqContact}>Still need help? <a href="mailto:hello@pastpaperprep.com">hello@pastpaperprep.com</a></p>
       </div>
     </section>
-    <section className={`shell ${styles.cta}`} aria-labelledby="cta-heading"><div><p className={styles.sectionKicker}>Begin with one topic</p><h2 id="cta-heading">Make revision specific.</h2></div><div className={styles.ctaActions}><Link className="button primary" href="#question-banks">Choose your course <ArrowRight weight="bold" /></Link><span className={styles.ctaNote}><Check weight="bold" /> Free years on every bank</span></div><Image className={styles.ctaArtwork} src="/artwork/flegel-study.webp" alt="Botanical study from the Flegel collection" width={1280} height={771} sizes="(max-width: 620px) 280px, (max-width: 900px) 38vw, 540px" /></section>
+
+    <section className={`shell ${styles.cta}`} data-home-section="cta" aria-labelledby="cta-heading">
+      <h2 id="cta-heading">Start with one topic.</h2>
+      <Link className="button primary" href="#question-banks">Choose your course <ArrowRight weight="bold" /></Link>
+    </section>
   </div>;
 }
