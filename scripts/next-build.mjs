@@ -7,6 +7,20 @@
 // --max-old-space-size: the main process keeps the budget and workers use Node's default.
 import { spawnSync } from "node:child_process";
 import { createRequire } from "node:module";
+import { lstatSync } from "node:fs";
+import { join } from "node:path";
+
+// `next build` is always a production build, regardless of client flags or NODE_ENV.
+// Reject the whole local-fixture path (including symlinks) without deleting user data.
+function assertNoPublicExplanationFixtures() {
+  try {
+    lstatSync(join(process.cwd(), "public", "dev-explanations"));
+  } catch (error) {
+    if (error.code === "ENOENT") return;
+    throw error;
+  }
+  throw new Error("next-build: public/dev-explanations must be moved outside public before a production build; local fixtures are not deleted automatically.");
+}
 
 export const HEAP_MB = 6144;
 
@@ -24,6 +38,7 @@ function acceptsInNodeOptions(option) {
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
+  assertNoPublicExplanationFixtures();
   const heap = heapOption();
   console.log(`next-build: heap option ${heap}`);
   const nodeOptions = [process.env.NODE_OPTIONS, heap].filter(Boolean).join(" ");
