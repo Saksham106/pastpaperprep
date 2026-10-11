@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PAGE_NAVIGATION } from "@/components/PageTransition";
 import { ArrowRight, ChartBar, Clock, FileText, LockKey, Target } from "@phosphor-icons/react/dist/ssr";
 import type { CatalogBank, Qualification } from "@/lib/catalog";
 import { getCatalogBanksForDisplay } from "@/lib/catalog";
@@ -59,7 +60,7 @@ export function QualificationHub({ qualification, title, intro }: { qualificatio
       {qualification === "IB Diploma" ? (
         <section className="landing-method" aria-labelledby="ib-resources-heading">
           <div><Target aria-hidden="true" /><h2 id="ib-resources-heading">More IB study resources</h2></div>
-          <p>Comparing revision platforms? See our <Link href="/articles/best-revision-village-alternatives">Revision Village alternatives</Link> guide alongside the official course resources.</p>
+          <p>Comparing revision platforms? See our <Link transitionTypes={PAGE_NAVIGATION} href="/articles/best-revision-village-alternatives">Revision Village alternatives</Link> guide alongside the official course resources.</p>
         </section>
       ) : null}
     </main>
@@ -72,9 +73,9 @@ export function BankLandingCard({ bank }: { bank: CatalogBank }) {
     <article className={`search-bank-card course-tone-${tone}`} data-subject-tone={tone}>
       <span className="search-bank-watermark" aria-hidden="true"><CourseIcon tone={tone} marker={false} /></span>
       <div className="search-bank-card-head"><CourseIcon tone={tone} /><p className="eyebrow">{bank.subject}</p></div>
-      <h2><Link href={`/syllabus/${bank.slug}`}>{bank.title}</Link></h2>
+      <h2><Link transitionTypes={PAGE_NAVIGATION} href={`/syllabus/${bank.slug}`}>{bank.title}</Link></h2>
       <p>{bank.questionCount.toLocaleString()} archive questions · {bank.paperCount} indexed papers</p>
-      <Link className="text-button" href={`/syllabus/${bank.slug}`}>Open the course guide <ArrowRight weight="bold" /></Link>
+      <Link transitionTypes={PAGE_NAVIGATION} className="text-button" href={`/syllabus/${bank.slug}`}>Open the course guide <ArrowRight weight="bold" /></Link>
     </article>
   );
 }
@@ -84,7 +85,7 @@ function ArchiveStats({ bank, manifest }: { bank: CatalogBank; manifest: Landing
     <div><strong>{manifest.questionCount.toLocaleString()}</strong><span>questions</span></div>
     <div><strong>{manifest.paperCount.toLocaleString()}</strong><span>archive papers</span></div>
     <div><strong>{manifest.years}</strong><span>coverage</span></div>
-    <Link className="button primary" href={`/banks/${bank.slug}?free=0`}>Open the question bank <ArrowRight weight="bold" /></Link>
+    <Link transitionTypes={PAGE_NAVIGATION} className="button primary" href={`/banks/${bank.slug}?free=0`}>Open the question bank <ArrowRight weight="bold" /></Link>
     <small><LockKey weight="bold" /> Public metadata; paid questions stay locked.</small>
   </aside>;
 }
@@ -135,7 +136,7 @@ export function SyllabusLanding({ bank, manifest }: { bank: CatalogBank; manifes
         <section className="topic-visual" aria-labelledby="topic-map-heading">
           <header><div><p className="eyebrow">Historical topic frequency</p><h2 id="topic-map-heading">How often topics appear in the archive</h2></div><p>Bar length compares topic-tag counts across the covered years. The longest bar is the most frequently tagged topic in this archive.</p></header>
           <div className="topic-bars">
-            {manifest.syllabusTopics.map((topic) => <Link key={topic.slug} href={topicFilterHref(bank.slug, topic.label)} className="topic-bar-row">
+            {manifest.syllabusTopics.map((topic) => <Link transitionTypes={PAGE_NAVIGATION} key={topic.slug} href={topicFilterHref(bank.slug, topic.label)} className="topic-bar-row">
               <span className="topic-bar-label">{topic.label}</span>
               <span className="topic-bar-track" aria-hidden="true"><i style={{ width: `${Math.max(3, (topic.count / maxTopicCount) * 100)}%` }} /></span>
               <strong>{topic.count.toLocaleString()}</strong>
@@ -146,7 +147,7 @@ export function SyllabusLanding({ bank, manifest }: { bank: CatalogBank; manifes
 
         <section className="paper-practice" aria-labelledby="paper-practice-heading">
           <header><div><p className="eyebrow">Paper practice</p><h2 id="paper-practice-heading">Move from a topic to exam conditions</h2></div><p>Each page explains the archive slice, then opens the same bank explorer with the exact paper filter applied.</p></header>
-          <div className="paper-link-grid">{manifest.papers.map((paper) => <Link key={paper.slug} href={paperPath(bank.slug, paper)}><FileText aria-hidden="true" /><span><strong>{paper.label}</strong><small>{paper.count.toLocaleString()} archived questions</small></span><ArrowRight weight="bold" /></Link>)}</div>
+          <div className="paper-link-grid">{manifest.papers.map((paper) => <Link transitionTypes={PAGE_NAVIGATION} key={paper.slug} href={paperPath(bank.slug, paper)}><FileText aria-hidden="true" /><span><strong>{paper.label}</strong><small>{paper.count.toLocaleString()} archived questions</small></span><ArrowRight weight="bold" /></Link>)}</div>
         </section>
 
         <section className="landing-method"><div><Target aria-hidden="true" /><h2>Use the map without overthinking it</h2></div><ol><li>Repair one narrow topic.</li><li>Remove the label and mix methods.</li><li>Finish with the correct paper under timed conditions.</li></ol></section>
@@ -172,10 +173,10 @@ export function SearchDetail({ bank, title, kind, label, count, filterHref, cano
         <div><span>03</span><strong>Mix it up</strong><p>Remove the filter after focused practice to test whether you can recognise the method unaided.</p></div>
       </section>
       <div className="landing-actions">
-        <Link className="button primary" href={`${filterHref}${filterHref.includes("?") ? "&" : "?"}free=0`}>Open this practice set <ArrowRight weight="bold" /></Link>
-        <Link className="button secondary" href={`/syllabus/${bank.slug}`}>Read the syllabus guide</Link>
+        <Link transitionTypes={PAGE_NAVIGATION} className="button primary" href={`${filterHref}${filterHref.includes("?") ? "&" : "?"}free=0`}>Open this practice set <ArrowRight weight="bold" /></Link>
+        <Link transitionTypes={PAGE_NAVIGATION} className="button secondary" href={`/syllabus/${bank.slug}`}>Read the syllabus guide</Link>
       </div>
-      {bank.slug === "igcse-chemistry-0620" && kind === "topic" && label === "Stoichiometry" && <p className="access-footnote">Need more revision context? Read our <Link href="/articles/best-igcse-chemistry-0620-question-banks">IGCSE Chemistry 0620 question-bank guide</Link>.</p>}
+      {bank.slug === "igcse-chemistry-0620" && kind === "topic" && label === "Stoichiometry" && <p className="access-footnote">Need more revision context? Read our <Link transitionTypes={PAGE_NAVIGATION} href="/articles/best-igcse-chemistry-0620-question-banks">IGCSE Chemistry 0620 question-bank guide</Link>.</p>}
       <p className="access-footnote"><LockKey weight="bold" /> These public pages expose labels and counts only. They do not unlock paid questions, answers, or PDF exports.</p>
     </main>
   );
