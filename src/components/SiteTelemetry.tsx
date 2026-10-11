@@ -224,7 +224,8 @@ export function SiteTelemetry() {
 function recentlyDismissed() {
   try {
     const at = Number(localStorage.getItem(DISMISS_KEY));
-    return Number.isFinite(at) && at > 0 && Date.now() - at < DISMISS_FOR;
+    const age = Date.now() - at;
+    return Number.isFinite(at) && at > 0 && age >= 0 && age < DISMISS_FOR;
   } catch { return false; }
 }
 
