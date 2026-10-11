@@ -5,6 +5,7 @@ import { describe, expect, it, vi } from "vitest";
 vi.mock("next/font/google", () => ({
   Geist: () => ({ variable: "--font-geist" }),
   IBM_Plex_Mono: () => ({ variable: "--font-mono" }),
+  Young_Serif: () => ({ variable: "--font-young-serif" }),
 }));
 
 import { metadata as rootMetadata } from "@/app/layout";

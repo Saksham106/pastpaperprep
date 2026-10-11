@@ -4,6 +4,7 @@ import { describe, expect, it, vi } from "vitest";
 vi.mock("next/font/google", () => ({
   Geist: () => ({ variable: "geist-test" }),
   IBM_Plex_Mono: () => ({ variable: "mono-test" }),
+  Young_Serif: () => ({ variable: "serif-test" }),
 }));
 vi.mock("next-themes", () => ({
   ThemeProvider: ({ children, defaultTheme, storageKey }: { children: React.ReactNode; defaultTheme: string; storageKey: string }) =>
