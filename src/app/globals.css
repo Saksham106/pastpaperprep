@@ -95,9 +95,11 @@ main { min-height: 72vh; }
 .eyebrow, .kicker { margin: 0; color: var(--cobalt-strong); font: 600 .73rem/1.2 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
 
 /* Header */
-.site-header { position: sticky; z-index: 30; top: 10px; width: min(1240px, calc(100% - 24px)); min-height: 58px; margin: 10px auto 0; padding: 6px 6px 6px 18px; display: flex; align-items: center; justify-content: space-between; background: var(--header-overlay); backdrop-filter: blur(14px) saturate(1.15); -webkit-backdrop-filter: blur(14px) saturate(1.15); border: 1px solid color-mix(in srgb, var(--line-strong) 55%, transparent); border-radius: 999px; box-shadow: 0 12px 32px -22px rgb(24 35 59 / .45); transition: background-color 180ms ease, box-shadow 180ms ease; }
+.site-header { position: sticky; z-index: 30; top: 10px; width: min(1240px, calc(100% - 24px)); min-height: 58px; margin: 10px auto 0; padding: 6px 6px 6px 18px; display: flex; align-items: center; justify-content: space-between; isolation: isolate; background: transparent; border: 1px solid color-mix(in srgb, var(--line-strong) 55%, transparent); border-radius: 999px; box-shadow: 0 12px 32px -22px rgb(24 35 59 / .45); transition: box-shadow 180ms ease; }
+.site-header::before { content: ""; position: absolute; z-index: -1; inset: 0; border-radius: inherit; background: var(--header-overlay); backdrop-filter: blur(14px) saturate(1.15); transition: backdrop-filter 180ms ease; pointer-events: none; }
 .header-scroll-sentinel { position: absolute; top: -1px; width: 1px; height: 1px; pointer-events: none; }
-.site-header.is-scrolled, .site-header.menu-open { background: var(--header-overlay); backdrop-filter: blur(20px) saturate(1.5); -webkit-backdrop-filter: blur(20px) saturate(1.5); box-shadow: 0 16px 36px -20px rgb(24 35 59 / .5); }
+.site-header.is-scrolled, .site-header.menu-open { box-shadow: 0 16px 36px -20px rgb(24 35 59 / .5); }
+.site-header.is-scrolled::before, .site-header.menu-open::before { background: var(--header-overlay); backdrop-filter: blur(20px) saturate(1.5); }
 .brand { min-height: 48px; flex: 0 0 auto; display: inline-flex; align-items: center; gap: 10px; color: var(--ink); font: 700 1.04rem/1 var(--font-display); letter-spacing: -.04em; }
 .brand-mark { width: 32px; height: 32px; display: grid; place-items: center; color: var(--accent-contrast); background: var(--cobalt); border-radius: 9px; font-size: 1.1rem; }
 .header-actions { display: flex; align-items: center; gap: 8px; }
@@ -360,6 +362,12 @@ main { min-height: 72vh; }
 .detail-workflow span { color: var(--public-burgundy); font: 600 .72rem/1 var(--font-mono); }
 .detail-workflow strong { margin-top: 18px; display: block; font: 400 1.5rem/1 var(--font-serif); }
 .detail-workflow p { color: var(--public-muted); line-height: 1.6; }
+.detail-breakdown { margin: 0; padding: 18px 0 6px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 22px; color: var(--public-muted); font-size: .92rem; }
+.detail-breakdown strong { color: var(--public-ink); font: 600 .72rem/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+.detail-breakdown small { margin-left: 4px; font: 500 .78rem/1 var(--font-mono); }
+.detail-related { margin-top: 64px; padding-top: 36px; display: grid; gap: 22px; border-top: 1px solid var(--line-strong); }
+.detail-related h2 { margin: 0; font: 400 clamp(1.6rem, 3vw, 2.2rem)/1.05 var(--font-serif); }
+.detail-related .text-button { justify-self: start; }
 .landing-actions, .about-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
 .access-footnote { margin-top: 15px; }
 .about-principles { margin-top: 48px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-block: 1px solid var(--line-strong); }
@@ -695,7 +703,7 @@ main { min-height: 72vh; }
 .free-question-gate-signin:hover { color: var(--burgundy); }
 .free-question-signup-gate a:focus-visible, .free-question-gate-dialog a:focus-visible, .free-question-gate-close:focus-visible { outline: 3px solid var(--cobalt); outline-offset: 3px; }
 .free-question-gate-dialog { width: min(620px, calc(100% - 32px)); max-height: calc(100dvh - 32px); margin: auto; padding: 0; overflow: auto; color: var(--ink); background: var(--surface-raised); border: 1px solid var(--line-strong); border-top: 4px solid var(--burgundy); border-radius: 16px; box-shadow: 0 30px 90px rgb(25 34 54 / .28); }
-.free-question-gate-dialog::backdrop { background: rgb(25 34 54 / .48); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
+.free-question-gate-dialog::backdrop { background: rgb(25 34 54 / .48); backdrop-filter: blur(5px); }
 .free-question-gate-dialog-focus { padding: clamp(34px, 6vw, 54px); }
 .free-question-gate-dialog .free-question-gate-copy { max-width: 500px; }
 .free-question-gate-dialog .free-question-gate-copy h2 { font-size: clamp(1.85rem, 5vw, 2.65rem); }
@@ -2117,7 +2125,7 @@ main { min-height: 72vh; }
 
 /* Shared decision control: sticky only within the common pricing page. */
 .pricing-page > .pricing-recurring-intro { min-height: 0; margin: 24px auto 14px; }
-.pricing-page > .pricing-toggle-sticky { position: sticky; top: 76px; z-index: 5; width: fit-content; max-width: 100%; margin: 0 auto 24px; padding: 5px; border: 1px solid color-mix(in srgb, var(--surface-raised) 75%, transparent); border-radius: 999px; background: color-mix(in srgb, var(--surface) 48%, transparent); backdrop-filter: blur(20px) saturate(145%); -webkit-backdrop-filter: blur(20px) saturate(145%); box-shadow: inset 0 1px 0 rgb(255 255 255 / 65%), 0 6px 20px rgb(25 39 56 / 10%); }
+.pricing-page > .pricing-toggle-sticky { position: sticky; top: 76px; z-index: 5; width: fit-content; max-width: 100%; margin: 0 auto 24px; padding: 5px; border: 1px solid color-mix(in srgb, var(--surface-raised) 75%, transparent); border-radius: 999px; background: color-mix(in srgb, var(--surface) 48%, transparent); backdrop-filter: blur(20px) saturate(145%); box-shadow: inset 0 1px 0 rgb(255 255 255 / 65%), 0 6px 20px rgb(25 39 56 / 10%); }
 .pricing-page > .pricing-toggle-sticky > .billing-toggle { margin: 0; padding: 0; border: 0; border-radius: 999px; background: transparent; box-shadow: none; }
 .pricing-page > .pricing-toggle-sticky .billing-toggle { max-width: 100%; }
 .pricing-page > .pricing-toggle-sticky .billing-toggle > button { border: 0; border-radius: 999px; background: transparent; box-shadow: none; }
@@ -2163,7 +2171,7 @@ main { min-height: 72vh; }
 :root[data-theme="dark"] .pricing-page.pricing-page-lifetime .pricing-toggle-sticky .billing-toggle > button:not([aria-pressed="true"]) { color: #f0efe9; }
 :root[data-theme="dark"] .pricing-page.pricing-page-lifetime .pricing-toggle-sticky .billing-savings { color: #c6d5ff; }
 .pricing-page .pricing-toggle-sticky .billing-toggle > button[aria-pressed="true"] { color: #fff !important; background: linear-gradient(145deg, #3564e8 0%, #2855d9 58%, #1d46bd 100%) !important; }
-.pricing-page .pricing-toggle-sticky { position: sticky; top: 76px; z-index: 5; width: fit-content; max-width: 100%; margin: 0 auto 24px; padding: 5px; border: 1px solid color-mix(in srgb, var(--surface-raised) 75%, transparent); border-radius: 999px; background: color-mix(in srgb, var(--surface) 48%, transparent); backdrop-filter: blur(20px) saturate(145%); -webkit-backdrop-filter: blur(20px) saturate(145%); box-shadow: inset 0 1px 0 rgb(255 255 255 / 65%), 0 6px 20px rgb(25 39 56 / 10%); }
+.pricing-page .pricing-toggle-sticky { position: sticky; top: 76px; z-index: 5; width: fit-content; max-width: 100%; margin: 0 auto 24px; padding: 5px; border: 1px solid color-mix(in srgb, var(--surface-raised) 75%, transparent); border-radius: 999px; background: color-mix(in srgb, var(--surface) 48%, transparent); backdrop-filter: blur(20px) saturate(145%); box-shadow: inset 0 1px 0 rgb(255 255 255 / 65%), 0 6px 20px rgb(25 39 56 / 10%); }
 .pricing-page .pricing-toggle-sticky > .billing-toggle { margin: 0; padding: 0; border: 0; border-radius: 999px; background: transparent; box-shadow: none; }
 .pricing-page .pricing-toggle-sticky .billing-toggle { max-width: 100%; }
 .pricing-page .pricing-toggle-sticky .billing-toggle > button { border: 0; border-radius: 999px; background: transparent; box-shadow: none; }
@@ -2295,3 +2303,17 @@ main { min-height: 72vh; }
 .footer-base { position: relative; z-index: 1; }
 @media (max-width: 1100px) { .footer-links { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .footer-links { grid-template-columns: repeat(2, minmax(0, 1fr)); } .footer-wordmark { font-size: 12.4vw; } }
+
+/* Phone bar: question-banks shortcut instead of the theme switch, which moves into the menu.
+   On desktop the switch sits at the end of the nav as an icon. The open menu is glass, like the bar. */
+.nav-quick { display: none; width: 44px; height: 44px; flex: 0 0 auto; align-items: center; justify-content: center; color: var(--accent-contrast); background: var(--cobalt); border-radius: 999px; box-shadow: 0 8px 18px -10px rgb(47 91 234 / .7); }
+.nav-quick svg { width: 19px; height: 19px; }
+.nav-quick:focus-visible { outline: 3px solid var(--cobalt); outline-offset: 3px; }
+.site-menu .theme-toggle-labeled { width: 42px; min-width: 0; margin-left: 4px; padding: 0; gap: 0; }
+.site-menu .theme-toggle-labeled > span { display: none; }
+@media (max-width: 760px) {
+  .nav-quick { display: inline-flex; }
+  .site-header .site-menu { background: color-mix(in srgb, var(--surface-raised) 72%, transparent); backdrop-filter: blur(22px) saturate(1.5); border-color: color-mix(in srgb, var(--line-strong) 55%, transparent); }
+  .site-menu .theme-toggle-labeled { width: 100%; min-height: 50px; margin: 6px 0 0; padding: 0 16px; gap: 10px; justify-content: flex-start; color: var(--ink); background: transparent; border: 0; border-top: 1px solid color-mix(in srgb, var(--line-strong) 50%, transparent); border-radius: 0; font-size: 1rem; }
+  .site-menu .theme-toggle-labeled > span { display: inline; }
+}

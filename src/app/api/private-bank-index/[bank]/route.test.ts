@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { GET } from "./route";
+import { GET, dynamicParams, generateStaticParams } from "./route";
 
 const context = { params: Promise.resolve({ bank: "ib-economics-hl" }) };
 
@@ -43,6 +43,24 @@ describe("private bank metadata index", () => {
     vi.stubEnv("PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION", "false");
     const response = await GET(new Request("https://pastpaperprep.com/api/private-bank-index/ib-economics-hl"), context);
     expect(response.status).toBe(404);
+  });
+
+  it("prerenders every released private bank at build time", async () => {
+    vi.stubEnv("PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS", "true");
+    vi.stubEnv("PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED", "true");
+    const banks = (await generateStaticParams()).map((params) => params.bank).sort();
+    expect(banks).toEqual(expect.arrayContaining(["ib-economics-hl", "ib-economics-sl", "igcse-physics-0625"]));
+    expect(banks).not.toContain("igcse");
+  });
+
+  it("never generates an index for a slug outside the prerendered set", () => {
+    expect(dynamicParams).toBe(false);
+  });
+
+  it("prerenders nothing while every release gate is off", async () => {
+    vi.stubEnv("PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION", "false");
+    vi.stubEnv("PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS", "false");
+    expect(await generateStaticParams()).toEqual([]);
   });
 
   it("refuses a non-private bank", async () => {

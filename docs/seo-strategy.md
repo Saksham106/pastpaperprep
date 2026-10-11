@@ -47,6 +47,10 @@ Build these from the verified question taxonomy, not from invented keyword lists
 - links back to its course bank and relevant guide;
 - one stable canonical URL.
 
+Topic and paper landings render the real question-bank explorer with that filter preset, so the page itself is the practice set: server HTML carries the free questions' text (paid questions stay locked and text-free), archive counts, and links to sibling topics. Query-string filter states keep canonicalising to their clean route.
+
+**0580 pilot (October 2026):** every IGCSE Mathematics 0580 syllabus topic with at least 20 questions has a landing (`FULL_TOPIC_LANDING_BANKS` in `src/lib/search-landing.ts`). After 3–4 weeks, compare Search Console impressions, clicks, and indexed status for these pages against the other banks' topic pages; extend the set bank by bank only if the pilot pages are indexed and earning impressions. Subtopic landings come after that.
+
 Do **not** index every filter combination or query-string state. That creates duplicate and thin pages. Topic pages should be curated, stable routes with enough real inventory to deserve indexing.
 
 ### Tier 3 — supporting articles

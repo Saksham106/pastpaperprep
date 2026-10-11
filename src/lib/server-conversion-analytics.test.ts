@@ -20,6 +20,11 @@ describe("captureConversionOutcome consent gating", () => {
     expect(sent.properties.$process_person_profile).toBe(true);
     expect(sent.properties.identified).toBe(true);
   });
+  it("keeps an accepted consent identified for twelve months", async () => {
+    getUserById.mockResolvedValue({ data: { user: { id: "auth-user-123", user_metadata: { analytics_consent: { accepted: true, version: 2, updated_at: new Date(Date.now() - 200 * 86400000).toISOString() } } } }, error: null });
+    await captureConversionOutcome(input);
+    expect(JSON.parse(String((fetch as ReturnType<typeof vi.fn>).mock.calls[0][1].body)).distinct_id).toBe("account:auth-user-123");
+  });
   const sentAnonymously = () => {
     expect(fetch).toHaveBeenCalledTimes(1);
     const raw = String((fetch as ReturnType<typeof vi.fn>).mock.calls[0][1].body);
@@ -34,7 +39,7 @@ describe("captureConversionOutcome consent gating", () => {
   it.each([
     ["unknown", null], ["legacy accepted", { accepted: true, version: 1, updated_at: new Date().toISOString() }],
     ["rejected", { accepted: false, version: 2, updated_at: new Date().toISOString() }],
-    ["expired", { accepted: true, version: 2, updated_at: new Date(Date.now() - 181 * 86400000).toISOString() }],
+    ["expired", { accepted: true, version: 2, updated_at: new Date(Date.now() - 366 * 86400000).toISOString() }],
     ["future", { accepted: true, version: 2, updated_at: new Date(Date.now() + 300000).toISOString() }],
     ["malformed", { accepted: true, version: 8, updated_at: "bad" }],
   ])("counts %s consent anonymously without identity", async (_label, consent) => {

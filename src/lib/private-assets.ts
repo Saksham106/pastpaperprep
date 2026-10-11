@@ -47,8 +47,12 @@ function getR2Config(): R2Config {
   return { accountId, accessKeyId, secretAccessKey, bucket };
 }
 
-function validateRequest(paths: string[], expiresIn: number) {
-  if (!Number.isInteger(expiresIn) || expiresIn < 1 || expiresIn > 3600) {
+const MAX_EXPIRES_IN = 3600;
+const MAX_LONG_LIVED_EXPIRES_IN = 86_400;
+
+function validateRequest(paths: string[], expiresIn: number, longLived = false) {
+  const maxExpiresIn = longLived ? MAX_LONG_LIVED_EXPIRES_IN : MAX_EXPIRES_IN;
+  if (!Number.isInteger(expiresIn) || expiresIn < 1 || expiresIn > maxExpiresIn) {
     throw new Error("Signed URL expiry is invalid");
   }
   if (paths.some((path) => !isExplanationObjectPath(path) && (
@@ -78,8 +82,13 @@ async function signWithSupabase(paths: string[], expiresIn: number) {
   return urls;
 }
 
-async function signWithR2(paths: string[], expiresIn: number) {
-  const config = getR2Config();
+// One client per warm instance: building it (and its credential chain) on every request
+// was measurable CPU on the busiest route.
+let r2Client: { key: string; client: S3Client } | null = null;
+
+function getR2Client(config: R2Config): S3Client {
+  const key = `${config.accountId}:${config.accessKeyId}:${config.secretAccessKey}`;
+  if (r2Client?.key === key) return r2Client.client;
   const client = new S3Client({
     region: "auto",
     endpoint: `https://${config.accountId}.r2.cloudflarestorage.com`,
@@ -89,6 +98,13 @@ async function signWithR2(paths: string[], expiresIn: number) {
       secretAccessKey: config.secretAccessKey,
     },
   });
+  r2Client = { key, client };
+  return client;
+}
+
+async function signWithR2(paths: string[], expiresIn: number) {
+  const config = getR2Config();
+  const client = getR2Client(config);
 
   const entries = await Promise.all(paths.map(async (path) => [
     path,
@@ -102,7 +118,7 @@ export async function signPrivateAssetUrls(
   expiresIn: number,
   options: SignPrivateAssetOptions = {},
 ) {
-  validateRequest(paths, expiresIn);
+  validateRequest(paths, expiresIn, options.longLived);
   if (!paths.length) return new Map<string, string>();
   return getProvider(options.provider) === "r2"
     ? signWithR2(paths, expiresIn)

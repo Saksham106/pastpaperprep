@@ -105,8 +105,33 @@ describe("SiteHeader", () => {
 
   it("stays glassy after scrolling instead of turning solid", () => {
     const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
-    const scrolled = css.match(/\.site-header\.is-scrolled[^{]*\{([^}]*)\}/)?.[1] ?? "";
+    const scrolled = css.match(/\.site-header\.is-scrolled::before[^{]*\{([^}]*)\}/)?.[1] ?? "";
     expect(scrolled).toContain("var(--header-overlay)");
     expect(scrolled).toMatch(/backdrop-filter: blur\(\d+px\)/);
+  });
+
+  it("puts the question-banks shortcut in the phone bar and the theme switch inside the menu", () => {
+    const { container } = render(<SiteHeader authenticated={false} />);
+    const quick = screen.getByRole("link", { name: "Open question banks" });
+    expect(quick).toHaveAttribute("href", "/dashboard");
+    expect(quick).toHaveClass("nav-quick");
+    expect(quick.closest("#site-menu")).toBeNull();
+    const theme = screen.getByRole("button", { name: /switch to dark theme/i });
+    expect(theme.closest("#site-menu")).toBe(container.querySelector("#site-menu"));
+  });
+
+  it("shows the shortcut only on phones and makes the open menu glassy", () => {
+    const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+    expect(css).toMatch(/\.nav-quick \{[^}]*display: none/);
+    const phone = css.slice(css.lastIndexOf("@media (max-width: 760px)"));
+    expect(phone).toMatch(/\.nav-quick \{[^}]*display: inline-flex/);
+    expect(phone).toMatch(/\.site-header \.site-menu \{[^}]*backdrop-filter: blur\(\d+px\)/);
+  });
+
+  it("writes only the standard backdrop-filter so the build keeps it for Chrome", () => {
+    // With both spellings in one rule the CSS pipeline kept only -webkit-backdrop-filter,
+    // which Chrome ignores: the header had no blur outside Safari.
+    const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+    expect(css).not.toContain("-webkit-backdrop-filter");
   });
 });

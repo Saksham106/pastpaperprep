@@ -50,7 +50,7 @@ function examStyleLinkFor(bank: Bank) {
   return null;
 }
 
-export function BankSeoContent({ bank }: { bank: Bank }) {
+export function BankSeoContent({ bank, topicLinks = [] }: { bank: Bank; topicLinks?: Array<{ label: string; href: string }> }) {
   const guide = guideFor(bank);
   const examStyleLink = examStyleLinkFor(bank);
   const isScience = bank.slug === "ib-chemistry-hl" || bank.slug === "ib-chemistry-sl" || bank.slug === "ib-physics-hl" || bank.slug === "ib-physics-sl" || bank.slug === "ib-biology-hl" || bank.slug === "ib-biology-sl";
@@ -78,6 +78,11 @@ export function BankSeoContent({ bank }: { bank: Bank }) {
           <li><strong>Export when eligible.</strong> Guests can view up to 20 matching free questions; a free account can access the remaining free selection. PDF export is subject to eligible bank access and the account’s download allowance.</li>
         </ol>
       )}
+      {topicLinks.length ? (
+        <nav className="bank-seo-links" aria-label={`${bank.shortName} topics`}>
+          {topicLinks.map((topic) => <Link key={topic.href} href={topic.href}>{topic.label} questions</Link>)}
+        </nav>
+      ) : null}
       <div className="bank-seo-links">
         <Link href={guide.href}>{guide.label}</Link>
         {examStyleLink ? <Link href={examStyleLink.href}>{examStyleLink.label}</Link> : null}

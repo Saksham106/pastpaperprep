@@ -27,7 +27,10 @@ export function captureServerException(error: unknown, metadata: Record<string, 
   const safe = sanitizeError(error);
   const posthog = getClient();
   if (!safe || !posthog) return;
-  const properties = Object.fromEntries(Object.entries(metadata).filter(([key, value]) => SAFE_PROPERTY_KEYS.has(key) && typeof value === "string" && value.length <= 80));
+  const properties: Record<string, unknown> = Object.fromEntries(Object.entries(metadata).filter(([key, value]) => SAFE_PROPERTY_KEYS.has(key) && typeof value === "string" && value.length <= 80));
+  // Preview deploys share the PostHog project; tag the environment so their failures stay separable.
+  const vercelEnv = process.env.VERCEL_ENV;
+  if (vercelEnv === "production" || vercelEnv === "preview" || vercelEnv === "development") properties.vercel_env = vercelEnv;
   try {
     after(async () => {
       try { await posthog.captureExceptionImmediate(safe, `server:${globalThis.crypto.randomUUID()}`, { ...properties, $process_person_profile: false }); }

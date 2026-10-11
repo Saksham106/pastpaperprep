@@ -38,7 +38,8 @@ async function handleGET(request: NextRequest) {
   const paths = assetPathsForKind(entry, kind);
   let urlByPath: Awaited<ReturnType<typeof signPrivateAssetUrls>>;
   try {
-    urlByPath = await signPrivateAssetUrls(paths, FREE_ASSET_EXPIRES_IN, kind === "explanation" ? explanationAssetSignOptions() : previewAssetSignOptions(bank));
+    const options = kind === "explanation" ? explanationAssetSignOptions() : previewAssetSignOptions(bank);
+    urlByPath = await signPrivateAssetUrls(paths, FREE_ASSET_EXPIRES_IN, { ...options, longLived: true });
   } catch {
     return NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503, ...NO_STORE });
   }

@@ -5,6 +5,8 @@ export type AssetStorageProvider = "supabase" | "r2";
 
 export type SignPrivateAssetOptions = {
   provider?: AssetStorageProvider;
+  /** Free-year links only: allows up to a day instead of an hour. Never for paid assets. */
+  longLived?: boolean;
 };
 
 /**

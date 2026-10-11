@@ -59,18 +59,23 @@ describe("serverless performance boundaries", () => {
     expect(pattern.test("/api/assets/free-extra")).toBe(true);
   });
 
-  it("pre-renders bank pages instead of doing corpus and auth work per request", () => {
-    const page = source("src/app/banks/[slug]/page.tsx");
-    expect(page).not.toContain('from "next/headers"');
-    expect(page).not.toContain('from "@/lib/supabase/server"');
-    expect(page).not.toContain("searchParams:");
-    expect(page).toContain("export const dynamicParams = false");
-    expect(page).toContain("bootstrapUrl=");
+  const EXPLORER_ROUTES = ["src/app/banks/[slug]/page.tsx", "src/app/banks/[slug]/topics/[topicSlug]/page.tsx", "src/app/banks/[slug]/papers/[paperSlug]/page.tsx"];
+
+  it("pre-renders bank, topic, and paper pages instead of doing corpus and auth work per request", () => {
+    for (const route of EXPLORER_ROUTES) {
+      const page = source(route);
+      expect(page).not.toContain('from "next/headers"');
+      expect(page).not.toContain('from "@/lib/supabase/server"');
+      expect(page).not.toContain("searchParams:");
+      expect(page).toContain("export const dynamicParams = false");
+      expect(page).toContain("loadBankExplorer(");
+      expect(page).toContain("<BankQuestionExplorer");
+    }
+    expect(source("src/components/BankQuestionExplorer.tsx")).toContain("bootstrapUrl=");
   });
 
-  it("preconnects bank pages to the hosts that serve question images", () => {
-    const page = source("src/app/banks/[slug]/page.tsx");
-    expect(page).toMatch(/for \(const origin of assetOriginsForBank\(slug\)\) preconnect\(origin/);
+  it("preconnects explorer pages to the hosts that serve question images", () => {
+    expect(source("src/components/BankQuestionExplorer.tsx")).toMatch(/for \(const origin of assetOriginsForBank\(slug\)\) preconnect\(origin/);
   });
 
   it("does not eagerly import every question bank into the shared question module", () => {
@@ -114,7 +119,7 @@ describe("serverless performance boundaries", () => {
   });
 
   it("keeps bank route delivery bounded to the first matching page", () => {
-    const page = source("src/app/banks/[slug]/page.tsx");
+    const page = source("src/lib/bank-explorer.ts");
     expect(page).not.toContain("prepareQuestionsForDelivery");
     expect(page).toContain("const filterableQuestions = allQuestions.map");
     expect(page).toContain("mergeQuestionRichDetails");

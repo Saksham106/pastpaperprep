@@ -22,7 +22,8 @@ describe("account canvas and theme surfaces", () => {
   it("uses a legible dark header rather than the light-only hero glaze", () => {
     expect(declaration(':root[data-theme="dark"]', "--paper-warm")).toBeTruthy();
     expect(declaration(':root[data-theme="dark"]', "--header-overlay")).toBeTruthy();
-    expect(declaration(".site-header", "background")).toContain("var(--header-overlay)");
+    // The glass sits on a layer behind the bar so the phone menu inside it can blur the page too.
+    expect(declaration(".site-header::before", "background")).toContain("var(--header-overlay)");
   });
 
   it("keeps public headings, plan actions, and active tabs readable in both themes", () => {

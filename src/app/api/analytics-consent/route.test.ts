@@ -21,6 +21,7 @@ describe("analytics preference endpoint", () => {
     expect(await response.json()).toEqual({ accepted, version: 2 });
     expect(response.headers.get("cache-control")).toBe("private, no-store");
     expect(response.cookies.get("ppp_analytics_consent")?.value).toBe(`v2.${accepted ? "accepted" : "rejected"}`);
+    expect(response.cookies.get("ppp_analytics_consent")?.maxAge).toBe(365 * 24 * 60 * 60);
   });
   it("writes metadata only to the authenticated account and fails without cookie on update error", async () => {
     const updateUser = vi.fn().mockResolvedValue({ error: null });

@@ -15,6 +15,12 @@ describe("BankSeoContent", () => {
     );
   });
 
+  it("links the bank's topic landing pages", () => {
+    render(<BankSeoContent bank={BANKS[0]} topicLinks={[{ label: "Geometry", href: "/banks/igcse/topics/geometry" }]} />);
+    expect(screen.getByRole("navigation", { name: /mathematics 0580 topics/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Geometry questions" })).toHaveAttribute("href", "/banks/igcse/topics/geometry");
+  });
+
   it("links exam-style worksheets from their course bank hubs", () => {
     const { rerender } = render(<BankSeoContent bank={BANKS.find((bank) => bank.slug === "igcse")!} />);
     expect(screen.getByRole("link", { name: "IGCSE 0580 exam-style practice" })).toHaveAttribute("href", "/banks/igcse/exam-style");
