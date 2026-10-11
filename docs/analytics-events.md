@@ -3,7 +3,7 @@
 PostHog receives two kinds of data.
 
 - **Anonymous by default.** The browser client is cookieless, memory-only and creates no person profiles. Every event below is sent this way for every visitor.
-- **Identified only with consent.** With analytics consent (v2, at most 180 days old), the same browser events are also sent as `consented_<name>`, linked to the visitor. Server conversion events are then linked to the account (`account:<id>`).
+- **Identified only with consent.** With analytics consent (v2, at most 12 months old), the same browser events are also sent as `consented_<name>`, linked to the visitor. Server conversion events are then linked to the account (`account:<id>`).
 
 Without consent, server conversions are still counted, anonymously:
 - `distinct_id` is `anon:<uuid>`
