@@ -118,9 +118,9 @@
   .faqIntro { position: static; }
 }
 @media (max-width: 700px) {
-  .stage { aspect-ratio: 4 / 5; max-height: none; min-height: 0; }
+  .stage { aspect-ratio: 1 / 1; max-height: none; min-height: 0; }
   .back, .front { object-position: 50% 50%; }
-  .headline { inset: 18% 12px auto; font-size: clamp(2.6rem, 12.6vw, 4.4rem); }
+  .headline { inset: 22% 12px auto; font-size: clamp(2.6rem, 12.6vw, 4.4rem); }
   .lede { margin-top: -64px; padding-bottom: 48px; }
   .picker { grid-template-columns: 1fr; padding: 8px; }
   .pickerToggle { padding: 4px; grid-auto-columns: 1fr; background: #efe9dd; border-radius: 12px; }
