@@ -19,6 +19,15 @@ export const CURATED_TOPIC_LANDINGS: Partial<Record<BankSlug, readonly string[]>
 
 /** Concise guidance tied to the actual topic; no lesson or exam outcome claims. */
 export const TOPIC_LANDING_COPY: Record<string, string> = {
+  "number": "Practise the core skills every paper leans on: fractions, percentages, ratio, standard form, bounds and time. Show each step, since method marks often survive a slip in arithmetic.",
+  "algebra-and-graphs": "Work through expanding, factorising, equations, inequalities and sequences, then link them to graphs and functions. Check each answer by substituting it back into the original expression.",
+  "coordinate-geometry": "Practise gradients, midpoints, lengths and equations of straight lines, including parallel and perpendicular lines. Sketch the points first so you can sanity-check the sign and size of your answer.",
+  "geometry": "Work through angle properties, polygons, circle theorems, similarity and constructions. Name the property you used for each angle, because the reason is often worth a mark of its own.",
+  "mensuration": "Practise perimeter, area, surface area and volume, including arcs, sectors and compound shapes. Keep units visible and convert them before you substitute into a formula.",
+  "trigonometry": "Use right-angled trigonometry, Pythagoras, bearings and the sine and cosine rules. Label the sides relative to the angle before choosing a ratio or rule.",
+  "transformations-and-vectors": "Practise describing and performing transformations precisely, then work with vector notation, magnitude and geometric proofs. A full description names every detail: centre, angle, direction, scale factor or vector.",
+  "probability": "Work through single events, combined events, tree diagrams and conditional probability. Check that the probabilities on each set of branches add up to 1.",
+  "statistics": "Practise averages, charts, cumulative frequency, histograms and scatter diagrams. Read the axes and scales carefully before you calculate or interpret anything.",
   "inheritance": "Practise how genetic information is passed on, then connect inheritance questions to variation and selection. Check whether you can interpret a cross or explain a pattern from the evidence given.",
   "organisms-and-their-environment": "Work through feeding relationships, populations and ecosystems, and practise reading ecological data before writing explanations that link cause to effect.",
   "microeconomic-decision-makers": "Focus on how households, workers and firms make choices. Use questions to practise applying incentives, costs and market outcomes to the context rather than reciting definitions alone.",

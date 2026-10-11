@@ -90,3 +90,24 @@ export function serializeExplorerState(state: ExplorerState, options: { persistF
   if (page > 1) params.set("page", String(page));
   return params;
 }
+
+const hasFilterParams = (params: ExplorerSearchParams) => PARAMS.some(([param]) => values(params[param]).length > 0);
+
+/** A topic or paper route implies its filter until the URL names filters of its own. */
+export function withRoutePreset(params: ExplorerSearchParams, preset: ExplorerSearchParams): ExplorerSearchParams {
+  return hasFilterParams(params) ? params : { ...params, ...preset };
+}
+
+/** Drops the filter params a route already implies, so the clean route URL stays the address. */
+export function stripRoutePreset(params: URLSearchParams, preset: ExplorerSearchParams): URLSearchParams {
+  if (!hasFilterParams(preset)) return params;
+  const same = PARAMS.every(([param]) => {
+    const current = [...new Set(params.getAll(param))].sort();
+    const implied = values(preset[param]).sort();
+    return current.length === implied.length && current.every((value, index) => value === implied[index]);
+  });
+  if (!same) return params;
+  const stripped = new URLSearchParams(params);
+  for (const [param] of PARAMS) stripped.delete(param);
+  return stripped;
+}

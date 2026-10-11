@@ -1,3 +1,4 @@
+import { isPreviewQuestion } from "@/lib/access";
 import type { BankSlug, CatalogBank } from "@/lib/catalog";
 import { getCatalogBanksForDisplay, getCatalogBank } from "@/lib/catalog";
 import { loadBankQuestions } from "@/lib/question-loader";
@@ -18,6 +19,13 @@ export type LandingPaper = {
   label: string;
   paper: number;
   count: number;
+};
+
+export type DetailStats = {
+  total: number;
+  free: number;
+  /** Where the slice shows up: papers for a topic page, topics for a paper page. */
+  breakdown: Array<{ label: string; count: number }>;
 };
 
 export type LandingManifest = {
@@ -51,6 +59,9 @@ const COURSE_OVERVIEWS: Record<string, string> = {
   "Mathematics AA": "Analysis and approaches emphasises algebraic reasoning, functions, proof, calculus, geometry, and mathematical argument. The course still spans all five IB mathematics themes, with HL requiring greater depth and synthesis than SL.",
   "Mathematics AI": "Applications and interpretation emphasises modelling, statistics, technology, and mathematics in context. The course still needs algebra, functions, geometry, and calculus, but questions often ask you to interpret a model or result rather than stop at a calculation.",
 };
+
+/** Pilot banks where every syllabus topic with real inventory gets its own landing page. */
+const FULL_TOPIC_LANDING_BANKS = new Set<BankSlug>(["igcse"]);
 
 const slugify = (value: string) => value
   .toLocaleLowerCase()
@@ -98,16 +109,22 @@ export function buildLandingManifest(bankSlug: BankSlug, questions: UnifiedQuest
     .filter(([, count]) => count >= 20);
   const existingTopics = preferredTopics.length ? preferredTopics : ranked.slice(0, 2);
   const existingLabels = new Set(existingTopics.map(([label]) => label));
-  const topics = [
-    ...existingTopics,
-    ...curated.filter(([label]) => !existingLabels.has(label)),
-  ]
-    .map(([label, count]) => asLandingTopic(label, count));
 
   const orderedLabels = (bankSlug === "igcse-biology-0610" || bankSlug === "igcse-additional"
     ? getRoutedTopicOptions(questions).filter((label) => counts.has(label))
     : getTopicOptions(questions).filter((label) => isUsefulTopic(label) && (counts.get(label) ?? 0) >= 5));
   const syllabusTopics = orderedLabels.map((label) => asLandingTopic(label, counts.get(label) ?? 0));
+  const fullSyllabus = FULL_TOPIC_LANDING_BANKS.has(bankSlug)
+    ? syllabusTopics.filter((topic) => topic.count >= 20).map((topic) => [topic.label, topic.count] as const)
+    : [];
+
+  const topicEntries: Array<readonly [string, number]> = [...existingTopics];
+  for (const entry of [...curated, ...fullSyllabus]) {
+    if (existingLabels.has(entry[0])) continue;
+    existingLabels.add(entry[0]);
+    topicEntries.push(entry);
+  }
+  const topics = topicEntries.map(([label, count]) => asLandingTopic(label, count));
 
   const paperCounts = new Map<number, number>();
   for (const question of questions) {
@@ -167,4 +184,30 @@ export function officialQualificationSource(bank: CatalogBank) {
 export function courseOverview(bank: CatalogBank) {
   return COURSE_OVERVIEWS[bank.subject]
     ?? `${bank.title} is organised into connected syllabus areas that should be practised first in focused sets and later in mixed, timed work.`;
+}
+
+/** Archive facts for a topic or paper landing, from the same questions its explorer filters. */
+export function landingDetailStats(bankSlug: BankSlug, matches: readonly UnifiedQuestion[], kind: "topic" | "paper"): DetailStats {
+  const counts = new Map<string, number>();
+  for (const question of matches) {
+    const labels = kind === "topic"
+      ? [`Paper ${question.paper}`]
+      : [...new Set([question.primaryTopic, ...question.secondaryTopics].filter(isUsefulTopic))];
+    for (const label of labels) counts.set(label, (counts.get(label) ?? 0) + 1);
+  }
+  const breakdown = [...counts.entries()]
+    .map(([label, count]) => ({ label, count }))
+    .sort((a, b) => kind === "topic" ? a.label.localeCompare(b.label, undefined, { numeric: true }) : b.count - a.count || a.label.localeCompare(b.label))
+    .slice(0, 6);
+  return {
+    total: matches.length,
+    free: matches.filter((question) => isPreviewQuestion(bankSlug, question.id)).length,
+    breakdown,
+  };
+}
+
+/** The course name students type into search, e.g. "IGCSE Mathematics 0580" or "IB Chemistry HL". */
+export function bankSearchName(bank: CatalogBank) {
+  if (bank.qualification !== "IB Diploma") return `IGCSE ${bank.shortName}`;
+  return bank.shortName.startsWith("IB ") ? bank.shortName : `IB ${bank.shortName}`;
 }

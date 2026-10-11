@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { PAGE_NAVIGATION } from "@/components/PageTransition";
 import { ArrowRight, ChartBar, Clock, FileText, LockKey, Target } from "@phosphor-icons/react/dist/ssr";
@@ -14,6 +15,8 @@ import {
   officialQualificationSource,
   paperPath,
   topicFilterHref,
+  topicPath,
+  type DetailStats,
   type LandingManifest,
 } from "@/lib/search-landing";
 
@@ -96,6 +99,7 @@ export function SyllabusLanding({ bank, manifest }: { bank: CatalogBank; manifes
   const groupedPapers = assessmentGroups(guide.papers);
   const maxTopicCount = Math.max(1, ...manifest.syllabusTopics.map((topic) => topic.count));
   const tone = courseToneForBank(bank);
+  const landingSlugs = new Set(manifest.topics.map((topic) => topic.slug));
   return (
     <main className={`search-landing shell public-editorial course-tone-${tone}`} data-subject-tone={tone}>
       <JsonLd data={{ "@context": "https://schema.org", "@type": "CollectionPage", name: `${bank.title} syllabus and past-paper practice guide`, description: `A plain-English guide to ${bank.shortName}, its assessment structure, archive topic map, and focused past-paper practice.`, url: `${SITE_URL}${canonicalPath}`, isPartOf: { "@id": `${SITE_URL}/${bank.qualification === "IB Diploma" ? "ib" : "cambridge-igcse"}#page` } }} />
@@ -136,7 +140,7 @@ export function SyllabusLanding({ bank, manifest }: { bank: CatalogBank; manifes
         <section className="topic-visual" aria-labelledby="topic-map-heading">
           <header><div><p className="eyebrow">Historical topic frequency</p><h2 id="topic-map-heading">How often topics appear in the archive</h2></div><p>Bar length compares topic-tag counts across the covered years. The longest bar is the most frequently tagged topic in this archive.</p></header>
           <div className="topic-bars">
-            {manifest.syllabusTopics.map((topic) => <Link transitionTypes={PAGE_NAVIGATION} key={topic.slug} href={topicFilterHref(bank.slug, topic.label)} className="topic-bar-row">
+            {manifest.syllabusTopics.map((topic) => <Link transitionTypes={PAGE_NAVIGATION} key={topic.slug} href={landingSlugs.has(topic.slug) ? topicPath(bank.slug, topic) : topicFilterHref(bank.slug, topic.label)} className="topic-bar-row">
               <span className="topic-bar-label">{topic.label}</span>
               <span className="topic-bar-track" aria-hidden="true"><i style={{ width: `${Math.max(3, (topic.count / maxTopicCount) * 100)}%` }} /></span>
               <strong>{topic.count.toLocaleString()}</strong>
@@ -157,27 +161,23 @@ export function SyllabusLanding({ bank, manifest }: { bank: CatalogBank; manifes
   );
 }
 
-export function SearchDetail({ bank, title, kind, label, count, filterHref, canonicalPath }: { bank: CatalogBank; title: string; kind: "topic" | "paper"; label: string; count: number; filterHref: string; canonicalPath: string }) {
+export function SearchDetail({ bank, eyebrow, title, kind, label, canonicalPath, stats, related, children }: { bank: CatalogBank; eyebrow: string; title: string; kind: "topic" | "paper"; label: string; canonicalPath: string; stats: DetailStats; related: Array<{ label: string; href: string; count: number }>; children: ReactNode }) {
   const tone = courseToneForBank(bank);
+  const locked = stats.total - stats.free;
   return (
-    <main className={`search-landing search-detail shell public-editorial course-tone-${tone}`} data-subject-tone={tone}>
+    <div className={`search-landing search-detail shell public-editorial course-tone-${tone}`} data-subject-tone={tone}>
       <JsonLd data={{ "@context": "https://schema.org", "@type": "CollectionPage", name: title, url: `${SITE_URL}${canonicalPath}`, isPartOf: { "@id": `${SITE_URL}/banks/${bank.slug}#page` } }} />
-      <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: bank.shortName, href: `/banks/${bank.slug}` }, { label: title }]} />
+      <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: bank.shortName, href: `/banks/${bank.slug}` }, { label }]} />
       <header className="search-detail-header">
-        <div><p className="eyebrow">{kind === "topic" ? "Topic practice" : "Paper practice"}</p><h1>{title}</h1><p className="lead">{kind === "topic" ? topicLandingCopy(label.toLocaleLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""), label) : "A clean entry point into the existing question bank, with the exact paper filter already applied."}</p></div>
-        <aside className="detail-signal"><ChartBar aria-hidden="true" /><strong>{count.toLocaleString()}</strong><span>archived questions {kind === "topic" ? "tagged to" : "matching"} {label}</span><small>{kind === "topic" ? "An observed historical topic count, not a guarantee of what appears next." : "Archive coverage for this paper filter; access rules still apply in the question bank."}</small></aside>
+        <div><p className="eyebrow">{eyebrow}</p><h1>{title}</h1><p className="lead">{kind === "topic" ? topicLandingCopy(slugifyLabel(label), label) : `Every archived ${bank.shortName} ${label} question in one place. Practise them by topic, then sit a full paper under timed conditions.`}</p></div>
+        <aside className="detail-signal"><ChartBar aria-hidden="true" /><strong>{stats.total.toLocaleString()}</strong><span>past-paper questions · {bank.years}</span><small>{stats.free.toLocaleString()} free to practise now{locked > 0 ? ` · ${locked.toLocaleString()} more with a plan` : ""}</small></aside>
       </header>
-      <section className="detail-workflow">
-        <div><span>01</span><strong>Open the set</strong><p>The link carries the exact filter into the regular bank explorer.</p></div>
-        <div><span>02</span><strong>Check access</strong><p>Free questions open normally. Paid questions remain visible but locked until the bank is included in your plan.</p></div>
-        <div><span>03</span><strong>Mix it up</strong><p>Remove the filter after focused practice to test whether you can recognise the method unaided.</p></div>
-      </section>
-      <div className="landing-actions">
-        <Link transitionTypes={PAGE_NAVIGATION} className="button primary" href={`${filterHref}${filterHref.includes("?") ? "&" : "?"}free=0`}>Open this practice set <ArrowRight weight="bold" /></Link>
-        <Link transitionTypes={PAGE_NAVIGATION} className="button secondary" href={`/syllabus/${bank.slug}`}>Read the syllabus guide</Link>
-      </div>
+      {stats.breakdown.length ? <p className="detail-breakdown"><strong>{kind === "topic" ? "Appears in" : "Most-tested topics"}</strong>{stats.breakdown.map((item) => <span key={item.label}>{item.label} <small>{item.count.toLocaleString()}</small></span>)}</p> : null}
+      {children}
       {bank.slug === "igcse-chemistry-0620" && kind === "topic" && label === "Stoichiometry" && <p className="access-footnote">Need more revision context? Read our <Link transitionTypes={PAGE_NAVIGATION} href="/articles/best-igcse-chemistry-0620-question-banks">IGCSE Chemistry 0620 question-bank guide</Link>.</p>}
-      <p className="access-footnote"><LockKey weight="bold" /> These public pages expose labels and counts only. They do not unlock paid questions, answers, or PDF exports.</p>
-    </main>
+      {related.length ? <nav className="detail-related" aria-label={`More ${bank.shortName} practice`}><h2>More {bank.shortName} {kind === "topic" ? "topics" : "papers"}</h2><div className="paper-link-grid">{related.map((item) => <Link transitionTypes={PAGE_NAVIGATION} key={item.href} href={item.href}>{kind === "topic" ? <Target aria-hidden="true" /> : <FileText aria-hidden="true" />}<span><strong>{item.label}</strong><small>{item.count.toLocaleString()} questions</small></span><ArrowRight weight="bold" /></Link>)}</div><Link transitionTypes={PAGE_NAVIGATION} className="text-button" href={`/syllabus/${bank.slug}`}>Read the {bank.shortName} syllabus guide <ArrowRight weight="bold" /></Link></nav> : null}
+    </div>
   );
 }
+
+const slugifyLabel = (label: string) => label.toLocaleLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
