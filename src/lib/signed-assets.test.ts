@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, signedAssetKey } from "@/lib/signed-assets";
+import { FREE_ASSET_CDN_MAX_AGE, FREE_ASSET_EXPIRES_IN, fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, signedAssetKey } from "@/lib/signed-assets";
 
 const requests = Array.from({ length: 21 }, (_, index) => ({
   questionId: `question-${index + 1}`,
@@ -230,6 +230,17 @@ describe("fetchFreeAssets", () => {
       const stale = () => new Response(JSON.stringify({ expiresIn: 3600, maxAge: 900, asset: { questionId: "a", kind: "question", urls: ["https://assets.example/a.webp"] } }), { status: 200, headers: { age: "3000" } });
       const { assets } = await fetchFreeAssets("ib-sl", [{ questionId: "a", kind: "question" }], async () => stale());
       expect(assets.get("a:question")!.expiresAt).toBe(1_000_000 + (3600 - 3000 - 300) * 1000);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("leaves every cached free link at least a day of life", async () => {
+    vi.useFakeTimers({ now: 0 });
+    try {
+      const response = new Response(JSON.stringify({ expiresIn: FREE_ASSET_EXPIRES_IN, maxAge: FREE_ASSET_CDN_MAX_AGE, asset: { questionId: "a", kind: "question", urls: ["https://assets.example/a.webp"] } }), { status: 200, headers: { age: String(FREE_ASSET_CDN_MAX_AGE) } });
+      const { assets } = await fetchFreeAssets("ib-sl", [{ questionId: "a", kind: "question" }], async () => response);
+      expect(assets.get("a:question")!.expiresAt).toBeGreaterThanOrEqual(23.9 * 60 * 60 * 1000);
     } finally {
       vi.useRealTimers();
     }

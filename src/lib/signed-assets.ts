@@ -6,12 +6,17 @@ import type { VisibleImageCrop } from "@/lib/reviewed-blank-tails";
 
 const SIGN_BATCH_SIZE = 20;
 /**
- * Free-year links: signed for a day and shared by the CDN for up to 20 hours, so each free
- * image is signed by a function about once a day per region instead of four times an hour.
+ * Free-year links: signed for a week (the R2 presign maximum). The CDN keeps a response fresh
+ * for four days and may serve it for two more while refreshing in the background, so visitors
+ * never wait on a signing function and a cached link always has a day left. Every production
+ * deploy clears the CDN cache, so content changes still take effect on the next deploy.
  * Only free-year questions use these; paid assets keep 10-minute links behind sign-in.
  */
-export const FREE_ASSET_EXPIRES_IN = 86_400;
-export const FREE_ASSET_CDN_MAX_AGE = 72_000;
+export const FREE_ASSET_EXPIRES_IN = 7 * 24 * 60 * 60;
+export const FREE_ASSET_CDN_FRESH = 4 * 24 * 60 * 60;
+export const FREE_ASSET_CDN_STALE = 2 * 24 * 60 * 60;
+/** The oldest copy the CDN may hand out; the client expires links assuming this age. */
+export const FREE_ASSET_CDN_MAX_AGE = FREE_ASSET_CDN_FRESH + FREE_ASSET_CDN_STALE;
 
 type Fetcher = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
 

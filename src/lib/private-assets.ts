@@ -47,7 +47,7 @@ function getR2Config(): R2Config {
 }
 
 const MAX_EXPIRES_IN = 3600;
-const MAX_LONG_LIVED_EXPIRES_IN = 86_400;
+const MAX_LONG_LIVED_EXPIRES_IN = 7 * 24 * 60 * 60; // SigV4 presign maximum
 
 function validateRequest(paths: string[], expiresIn: number, longLived = false) {
   const maxExpiresIn = longLived ? MAX_LONG_LIVED_EXPIRES_IN : MAX_EXPIRES_IN;
