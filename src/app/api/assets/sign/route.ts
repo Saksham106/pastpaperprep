@@ -26,7 +26,7 @@ async function handlePOST(request: Request) {
   try {
     body = await request.json() as SignRequestBody;
   } catch {
-    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+    return NextResponse.json({ error: "Invalid JSON" }, { status: 400, ...PRIVATE_RESPONSE_INIT });
   }
 
   if (
@@ -37,7 +37,7 @@ async function handlePOST(request: Request) {
     !getBank(body.bank) ||
     !Array.isArray(body.requests)
   ) {
-    return NextResponse.json({ error: "Invalid asset request" }, { status: 400 });
+    return NextResponse.json({ error: "Invalid asset request" }, { status: 400, ...PRIVATE_RESPONSE_INIT });
   }
 
   const supabase = await createClient();
@@ -47,7 +47,7 @@ async function handlePOST(request: Request) {
 
   if (userId) {
     const result = await fetchAccessEntitlements(supabase as never, userId);
-    if (result.error) return NextResponse.json({ error: "Could not verify access" }, { status: 503 });
+    if (result.error) return NextResponse.json({ error: "Could not verify access" }, { status: 503, ...PRIVATE_RESPONSE_INIT });
     entitlements = result.rows as AccessEntitlement[];
   }
 
@@ -65,7 +65,7 @@ async function handlePOST(request: Request) {
   } catch (error) {
     const message = error instanceof Error ? error.message : "Invalid asset request";
     const status = /not authorized/i.test(message) ? 403 : 400;
-    return NextResponse.json({ error: status === 403 ? "Access required" : message }, { status });
+    return NextResponse.json({ error: status === 403 ? "Access required" : message }, { status, ...PRIVATE_RESPONSE_INIT });
   }
 
   const paths = [...new Set(authorized.flatMap((item) => item.paths))];
@@ -103,19 +103,28 @@ async function handlePOST(request: Request) {
     const urlByPath = new Map([...previewUrls, ...premiumUrls, ...explanationUrls]);
 
     const paidExplanationCount = authorized.filter((item) => item.kind === "explanation" && item.paths.length && !isPreviewQuestion(body.bank as BankSlug, item.questionId)).length;
+    // A mixed response must commit both counters together: a denied image quota must
+    // not spend explanations that are withheld, and vice versa.
+    const mixedPaidAssets = Boolean(userId && paidExplanationCount && premiumPaths.length);
     if (userId && paidExplanationCount) {
-      const { data: allowed, error: capError } = await supabase.rpc("consume_explanation_allowance", { p_count: paidExplanationCount });
-      if (capError) return NextResponse.json({ error: "Could not verify explanation allowance" }, { status: 503 });
-      if (!allowed) return NextResponse.json({ error: "Daily explanation limit reached. Try again tomorrow." }, { status: 429 });
+      const { data: allowed, error: capError } = mixedPaidAssets
+        ? await supabase.rpc("consume_explanation_and_download_allowance", { p_count: paidExplanationCount, p_asset_count: premiumPaths.length })
+        : await supabase.rpc("consume_explanation_allowance", { p_count: paidExplanationCount });
+      if (capError) return NextResponse.json({ error: "Could not verify explanation allowance" }, { status: 503, ...PRIVATE_RESPONSE_INIT });
+      if (!allowed) return NextResponse.json({
+        error: mixedPaidAssets
+          ? "Daily explanation or download limit reached. Try again tomorrow."
+          : "Daily explanation limit reached. Try again tomorrow.",
+      }, { status: 429, ...PRIVATE_RESPONSE_INIT });
     }
 
-    if (userId && premiumPaths.length && hasBankAccess(body.bank as BankSlug, entitlements)) {
+    if (!mixedPaidAssets && userId && premiumPaths.length && hasBankAccess(body.bank as BankSlug, entitlements)) {
       const { data: allowed, error: quotaError } = await supabase.rpc("consume_download_allowance", {
         p_asset_count: premiumPaths.length,
         p_pdf_question_count: 0,
       });
-      if (quotaError) return NextResponse.json({ error: "Could not verify download allowance" }, { status: 503 });
-      if (!allowed) return NextResponse.json({ error: "Daily download limit reached. Try again tomorrow." }, { status: 429 });
+      if (quotaError) return NextResponse.json({ error: "Could not verify download allowance" }, { status: 503, ...PRIVATE_RESPONSE_INIT });
+      if (!allowed) return NextResponse.json({ error: "Daily download limit reached. Try again tomorrow." }, { status: 429, ...PRIVATE_RESPONSE_INIT });
     }
 
     return NextResponse.json({
@@ -129,7 +138,7 @@ async function handlePOST(request: Request) {
       })),
     }, PRIVATE_RESPONSE_INIT);
   } catch {
-    return NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503 });
+    return NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503, ...PRIVATE_RESPONSE_INIT });
   }
 }
 
