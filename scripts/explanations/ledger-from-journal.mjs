@@ -1,0 +1,86 @@
+#!/usr/bin/env node
+// Rebuilds a bank's verification ledger from one or more workflow journals, merging with any existing
+// ledger, and lists what is still to do.
+// Usage: node scripts/explanations/ledger-from-journal.mjs --bank ib-hl --manifest <manifest.json> <journal.jsonl> [...]
+// Writes <research>/explanations/<bank>/_ledger.json and _todo.json.
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
+import { outputPathFor, researchRoot } from "./prepare-batch.mjs";
+
+const argv = process.argv.slice(2);
+const flag = (name) => argv[argv.indexOf(name) + 1];
+const bank = flag("--bank");
+const manifest = JSON.parse(readFileSync(flag("--manifest"), "utf8"));
+const journals = argv.filter((arg, i) => arg.endsWith(".jsonl") && argv[i - 1] !== "--manifest");
+
+const critical = (v) => v.verdict === "fail" || v.issues.some((i) => i.severity === "critical");
+const needsFix = (v) => v.verdict !== "pass" || v.issues.some((i) => i.severity === "critical");
+
+// Latest outcome per question, by stage.
+const verify = new Map();
+const fixed = new Map();
+const reverify = new Map();
+for (const file of journals) {
+  const labels = new Map();
+  for (const line of readFileSync(file, "utf8").split("\n")) {
+    if (!line.trim()) continue;
+    const entry = JSON.parse(line);
+    if (entry.type === "started") labels.set(entry.agentId, entry.label ?? "");
+    if (entry.type !== "result" || !entry.result?.results) continue;
+    const label = labels.get(entry.agentId) ?? "";
+    for (const r of entry.result.results) {
+      if (label.startsWith("re-verify")) reverify.set(r.questionId, r);
+      else if (label.startsWith("verify")) verify.set(r.questionId, r);
+      else if (label.startsWith("fix")) fixed.set(r.questionId, r);
+    }
+  }
+}
+
+const ledgerPath = join(researchRoot, bank, "_ledger.json");
+const previous = existsSync(ledgerPath) ? new Map(JSON.parse(readFileSync(ledgerPath, "utf8")).rows.map((row) => [row.questionId, row])) : new Map();
+const done = new Set(["pass", "pass-after-fix", "pass-after-minor-fix", "review"]);
+const rows = [];
+const todo = { generate: [], verify: [], fix: [], reverify: [] };
+
+for (const task of manifest.tasks) {
+  const id = task.questionId;
+  const v = verify.get(id);
+  const rv = reverify.get(id);
+  const fx = fixed.get(id);
+  let row;
+  if (rv) {
+    const ok = rv.verdict === "pass" && !rv.issues.some((i) => i.severity === "critical");
+    row = { questionId: id, status: ok ? "pass-after-fix" : "review", verdict: v?.verdict ?? null, quality: rv.quality, issues: rv.issues.filter((i) => i.severity === "critical").map((i) => `${i.part}: ${i.problem}`) };
+  } else if (v && !needsFix(v)) {
+    row = { questionId: id, status: "pass", verdict: v.verdict, quality: v.quality, issues: [] };
+  } else if (v && fx && !critical(v)) {
+    row = { questionId: id, status: fx.fixed ? "pass-after-minor-fix" : "review", verdict: v.verdict, quality: v.quality, issues: [] };
+  } else if (v && fx) {
+    row = { questionId: id, status: "needs-reverify", verdict: v.verdict, quality: v.quality, issues: v.issues.filter((i) => i.severity === "critical").map((i) => `${i.part}: ${i.problem}`) };
+    todo.reverify.push(id);
+  } else if (v) {
+    row = { questionId: id, status: "needs-fix", verdict: v.verdict, quality: v.quality, issues: v.issues.map((i) => `${i.severity} ${i.part}: ${i.problem}`) };
+    todo.fix.push({ questionId: id, verdict: v.verdict, issues: v.issues });
+  } else if (existsSync(outputPathFor(bank, id))) {
+    row = { questionId: id, status: "needs-verify", issues: [] };
+    todo.verify.push(id);
+  } else {
+    row = { questionId: id, status: "needs-generate", issues: [] };
+    todo.generate.push(id);
+  }
+  const prior = previous.get(id);
+  if (prior && done.has(prior.status) && !done.has(row.status)) row = prior;
+  rows.push(row);
+}
+
+// Remove todo entries that an earlier ledger already settled.
+const settled = new Set(rows.filter((row) => done.has(row.status)).map((row) => row.questionId));
+todo.generate = todo.generate.filter((id) => !settled.has(id));
+todo.verify = todo.verify.filter((id) => !settled.has(id));
+todo.fix = todo.fix.filter((item) => !settled.has(item.questionId));
+todo.reverify = todo.reverify.filter((id) => !settled.has(id));
+
+writeFileSync(ledgerPath, `${JSON.stringify({ bank, updated: new Date().toISOString(), rows }, null, 2)}\n`);
+writeFileSync(join(researchRoot, bank, "_todo.json"), `${JSON.stringify(todo, null, 2)}\n`);
+const counts = rows.reduce((acc, row) => ((acc[row.status] = (acc[row.status] ?? 0) + 1), acc), {});
+console.log(JSON.stringify({ bank, total: rows.length, counts, todo: Object.fromEntries(Object.entries(todo).map(([k, v]) => [k, v.length])) }));
