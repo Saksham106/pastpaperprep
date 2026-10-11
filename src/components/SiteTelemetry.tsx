@@ -7,11 +7,12 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { BrowserErrorMonitor } from "@/components/BrowserErrorMonitor";
 import { AnalyticsConsentBanner } from "@/components/AnalyticsConsentBanner";
 import { createClient } from "@/lib/supabase/browser";
-import { ANALYTICS_CONSENT_VERSION, readBrowserAnalyticsConsent } from "@/lib/analytics-consent";
+import { ANALYTICS_CONSENT_VERSION, isConsentPromptPath, readBrowserAnalyticsConsent } from "@/lib/analytics-consent";
 import { disableProductAnalytics, initializeProductAnalytics, initializeConsentedAnalytics, setProductAnalyticsIdentity, trackConsentedProductEvent, trackProductEvent } from "@/lib/product-analytics";
 
 const OPEN_EVENT = "ppp:open-analytics-consent";
-const SESSION_DISMISS_KEY = "ppp_analytics_consent_dismissed";
+const DISMISS_KEY = "ppp_analytics_consent_dismissed_at";
+const DISMISS_FOR = 30 * 24 * 60 * 60 * 1000;
 const MAX_AGE = 180 * 24 * 60 * 60 * 1000;
 const subscribeHydration = () => () => {};
 type Choice = { accepted: boolean; version: number };
@@ -41,8 +42,10 @@ export function SiteTelemetry() {
   const browserChoice = hydrated ? readBrowserAnalyticsConsent() : null;
   const [choice, setChoice] = useState<boolean | null>(null);
   const [bannerOpen, setBannerOpen] = useState<boolean | null>(null);
+  // Opened from cookie settings: shown on any page until the visitor chooses or closes it.
+  const [requested, setRequested] = useState(false);
   const resolvedChoice = choice ?? browserChoice;
-  const showBanner = bannerOpen ?? (hydrated && browserChoice === null && !sessionDismissed());
+  const showBanner = requested || (isConsentPromptPath(pathname) && (bannerOpen ?? (hydrated && browserChoice === null && !recentlyDismissed())));
   const [saving, setSaving] = useState(false);
   const [analyticsReady, setAnalyticsReady] = useState(false);
   const [error, setError] = useState(false);
@@ -76,7 +79,7 @@ export function SiteTelemetry() {
       if (version !== generation.current) return;
       if (readBrowserAnalyticsConsent() !== true) {
         accepted.current = false; await setProductAnalyticsIdentity(null);
-        setChoice(readBrowserAnalyticsConsent()); setBannerOpen(readBrowserAnalyticsConsent() === null && !sessionDismissed());
+        setChoice(readBrowserAnalyticsConsent()); setBannerOpen(readBrowserAnalyticsConsent() === null && !recentlyDismissed());
         return;
       }
       accepted.current = true; setChoice(true); setBannerOpen(false);
@@ -101,7 +104,7 @@ export function SiteTelemetry() {
       accepted.current = false;
       await setProductAnalyticsIdentity(null);
       setChoice(readBrowserAnalyticsConsent());
-      if (readBrowserAnalyticsConsent() === null) setBannerOpen(!sessionDismissed());
+      if (readBrowserAnalyticsConsent() === null) setBannerOpen(!recentlyDismissed());
     }
   }, []);
 
@@ -155,7 +158,7 @@ export function SiteTelemetry() {
           });
       }, 0);
     });
-    const open = () => { setError(false); setBannerOpen(true); };
+    const open = () => { setError(false); setRequested(true); setBannerOpen(true); };
     window.addEventListener(OPEN_EVENT, open);
     // Invalidate every pending async path during cleanup to prevent stale identity changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -184,7 +187,7 @@ export function SiteTelemetry() {
     try {
       await saveChoice(next);
       if (choiceGeneration !== generation.current) return;
-      if (typeof sessionStorage !== "undefined") sessionStorage.removeItem(SESSION_DISMISS_KEY);
+      try { localStorage.removeItem(DISMISS_KEY); } catch { /* optional */ }
       if (next) {
         const { data, error: authError } = await createClient().auth.getUser();
         if (choiceGeneration !== generation.current) return;
@@ -196,10 +199,10 @@ export function SiteTelemetry() {
         if (!authError && data.user) await setProductAnalyticsIdentity(data.user.id, data.user.app_metadata?.role === "operator", data.user.email);
         else await setProductAnalyticsIdentity(null);
         if (choiceGeneration !== generation.current) return;
-        accepted.current = true; setAnalyticsReady(true); setChoice(true); setBannerOpen(false);
+        accepted.current = true; setAnalyticsReady(true); setChoice(true); setBannerOpen(false); setRequested(false);
       } else {
         await setProductAnalyticsIdentity(null);
-        setChoice(false); setBannerOpen(false); setError(false);
+        setChoice(false); setBannerOpen(false); setRequested(false); setError(false);
       }
     } catch {
       if (choiceGeneration !== generation.current) return;
@@ -209,7 +212,7 @@ export function SiteTelemetry() {
       setError(true); setBannerOpen(true);
     } finally { savingRef.current = false; if (choiceGeneration === generation.current) setSaving(false); }
   };
-  const dismiss = () => { try { sessionStorage.setItem(SESSION_DISMISS_KEY, "1"); } catch { /* optional */ } setBannerOpen(false); };
+  const dismiss = () => { try { localStorage.setItem(DISMISS_KEY, String(Date.now())); } catch { /* optional */ } setBannerOpen(false); setRequested(false); };
 
   return <>
     <><BrowserErrorMonitor /><Analytics /><SpeedInsights /></>
@@ -217,7 +220,13 @@ export function SiteTelemetry() {
   </>;
 }
 
-function sessionDismissed() { try { return sessionStorage.getItem(SESSION_DISMISS_KEY) === "1"; } catch { return false; } }
+/** Closing the banner without choosing keeps it away for 30 days; consent stays off meanwhile. */
+function recentlyDismissed() {
+  try {
+    const at = Number(localStorage.getItem(DISMISS_KEY));
+    return Number.isFinite(at) && at > 0 && Date.now() - at < DISMISS_FOR;
+  } catch { return false; }
+}
 
 export function openAnalyticsConsent() {
   if (typeof window !== "undefined") window.dispatchEvent(new Event(OPEN_EVENT));

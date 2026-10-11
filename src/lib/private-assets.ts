@@ -47,7 +47,8 @@ function getR2Config(): R2Config {
 }
 
 function validateRequest(paths: string[], expiresIn: number) {
-  if (!Number.isInteger(expiresIn) || expiresIn < 1 || expiresIn > 3600) {
+  // Seven days is the SigV4 presign maximum. Paid assets sign for 10 minutes; only free-year links are longer.
+  if (!Number.isInteger(expiresIn) || expiresIn < 1 || expiresIn > 7 * 24 * 60 * 60) {
     throw new Error("Signed URL expiry is invalid");
   }
   if (paths.some((path) => (

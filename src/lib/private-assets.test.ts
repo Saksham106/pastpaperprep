@@ -32,6 +32,12 @@ describe("signPrivateAssetUrls", () => {
     expect(createSignedUrls).toHaveBeenCalledWith(["ib-sl/questions/a.webp"], 600);
   });
 
+  it("allows links up to seven days (the R2 presign limit) and nothing longer", async () => {
+    await expect(signPrivateAssetUrls(["ib-sl/questions/a.webp"], 604800)).resolves.toBeInstanceOf(Map);
+    expect(createSignedUrls).toHaveBeenCalledWith(["ib-sl/questions/a.webp"], 604800);
+    await expect(signPrivateAssetUrls(["ib-sl/questions/a.webp"], 604801)).rejects.toThrow("Signed URL expiry is invalid");
+  });
+
   it("can force preview assets to Supabase while R2 is enabled", async () => {
     vi.stubEnv("ASSET_STORAGE_PROVIDER", "r2");
 

@@ -27,18 +27,18 @@ describe("GET /api/assets/free", () => {
     createAdminClient.mockReturnValue({ storage: { from: vi.fn(() => ({ createSignedUrls })) } });
   });
 
-  it("signs a free question for an hour and lets the CDN share it", async () => {
+  it("signs a free question for three days and lets the CDN share it for a day", async () => {
     const response = await GET(request("bank=ib-sl&id=2017-may-p1-tz1-q1&kind=question"));
 
     expect(response.status).toBe(200);
-    expect(response.headers.get("cache-control")).toBe("public, max-age=0, s-maxage=900");
+    expect(response.headers.get("cache-control")).toBe("public, max-age=0, s-maxage=86400, stale-while-revalidate=86400");
     const body = await response.json();
-    expect(body.expiresIn).toBe(3600);
-    expect(body.maxAge).toBe(900);
+    expect(body.expiresIn).toBe(259200);
+    expect(body.maxAge).toBe(172800);
     expect(body.asset).toMatchObject({ questionId: "2017-may-p1-tz1-q1", kind: "question" });
     expect(body.asset.urls).toEqual([
-      "https://assets.example/ib-sl/questions/2017-may-p1-tz1-q1-page-2.webp?e=3600",
-      "https://assets.example/ib-sl/questions/2017-may-p1-tz1-q1-page-3.webp?e=3600",
+      "https://assets.example/ib-sl/questions/2017-may-p1-tz1-q1-page-2.webp?e=259200",
+      "https://assets.example/ib-sl/questions/2017-may-p1-tz1-q1-page-3.webp?e=259200",
     ]);
     expect(body.asset.displayCrops).toHaveLength(2);
     expect(createClient).not.toHaveBeenCalled();
@@ -48,7 +48,7 @@ describe("GET /api/assets/free", () => {
     const response = await GET(request("bank=ib-sl&id=2017-may-p1-tz1-q1&kind=answer"));
 
     expect(response.status).toBe(200);
-    expect((await response.json()).asset.urls).toEqual(["https://assets.example/ib-sl/markschemes/2017-may-p1-tz1-q1-page-7.webp?e=3600"]);
+    expect((await response.json()).asset.urls).toEqual(["https://assets.example/ib-sl/markschemes/2017-may-p1-tz1-q1-page-7.webp?e=259200"]);
   });
 
   it("rejects paid ids even with a session cookie", async () => {

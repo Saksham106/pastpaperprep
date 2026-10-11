@@ -5,9 +5,16 @@ import type { SourcePrintSegment } from "@/lib/print-geometry";
 import type { VisibleImageCrop } from "@/lib/reviewed-blank-tails";
 
 const SIGN_BATCH_SIZE = 20;
-/** Free-year links: signed for an hour, shared by the CDN for at most 15 minutes. */
-export const FREE_ASSET_EXPIRES_IN = 3600;
-export const FREE_ASSET_CDN_MAX_AGE = 900;
+/**
+ * Free-year links: signed for three days; the CDN keeps a response fresh for a day and may serve
+ * it stale for one more while it refreshes, so a cached link always has at least a day left.
+ * The request carries the build revision, so every deploy starts a fresh cache.
+ */
+export const FREE_ASSET_EXPIRES_IN = 3 * 24 * 60 * 60;
+export const FREE_ASSET_CDN_FRESH = 24 * 60 * 60;
+export const FREE_ASSET_CDN_STALE = 24 * 60 * 60;
+/** The oldest copy the CDN may hand out. */
+export const FREE_ASSET_CDN_MAX_AGE = FREE_ASSET_CDN_FRESH + FREE_ASSET_CDN_STALE;
 
 type Fetcher = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
 
@@ -211,7 +218,7 @@ export async function fetchFreeAssets(
   const results = await Promise.all(requests.map(async (request) => {
     const key = signedAssetKey(request.questionId, request.kind);
     try {
-      const query = new URLSearchParams({ bank, id: request.questionId, kind: request.kind });
+      const query = new URLSearchParams({ v: process.env.NEXT_PUBLIC_BUILD_REVISION || "local", bank, id: request.questionId, kind: request.kind });
       const response = await fetcher(`/api/assets/free?${query}`);
       const payload = await response.json().catch(() => null) as Record<string, unknown> | null;
       if (
