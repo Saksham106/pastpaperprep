@@ -1,7 +1,7 @@
 import "server-only";
 import { createHash, createHmac, randomUUID } from "node:crypto";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { stableAnalyticsDistinctId } from "@/lib/analytics-consent";
+import { ANALYTICS_CONSENT_MAX_AGE_SECONDS, stableAnalyticsDistinctId } from "@/lib/analytics-consent";
 
 type ConversionOutcome = "signup_confirmed" | "payment_initial_paid" | "payment_renewal_paid" | "lifetime_paid";
 type ConversionInput = {
@@ -94,7 +94,7 @@ function anonymousIdSource(eventKey: string): string {
   return secret ? createHmac("sha256", secret).update(`ppp-analytics-anon-v1:${eventKey}`).digest("hex") : randomUUID();
 }
 
-/** True only for an accepted v2 consent recorded in the last 180 days. Any lookup problem is "no". */
+/** True only for an accepted v2 consent recorded in the last twelve months. Any lookup problem is "no". */
 async function hasCurrentConsent(userId: string): Promise<boolean> {
   try {
     const lookup = createAdminClient().auth.admin.getUserById(userId);
@@ -109,7 +109,7 @@ async function hasCurrentConsent(userId: string): Promise<boolean> {
     const consent = result && "data" in result ? result.data.user?.user_metadata?.analytics_consent : null;
     const updatedAt = typeof consent?.updated_at === "string" ? Date.parse(consent.updated_at) : NaN;
     return Boolean(result && "data" in result && !result.error && result.data.user && result.data.user.id === userId && consent?.accepted === true && consent?.version === 2 &&
-      Number.isFinite(updatedAt) && updatedAt <= Date.now() + 120_000 && Date.now() - updatedAt <= 180 * 24 * 60 * 60 * 1000);
+      Number.isFinite(updatedAt) && updatedAt <= Date.now() + 120_000 && Date.now() - updatedAt <= ANALYTICS_CONSENT_MAX_AGE_SECONDS * 1000);
   } catch {
     return false;
   }

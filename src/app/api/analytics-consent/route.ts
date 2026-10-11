@@ -1,8 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { ANALYTICS_CONSENT_COOKIE, ANALYTICS_CONSENT_VERSION, analyticsConsentCookieValue } from "@/lib/analytics-consent";
+import { ANALYTICS_CONSENT_COOKIE, ANALYTICS_CONSENT_MAX_AGE_SECONDS, ANALYTICS_CONSENT_VERSION, analyticsConsentCookieValue } from "@/lib/analytics-consent";
 
-const MAX_AGE = 180 * 24 * 60 * 60;
+const MAX_AGE = ANALYTICS_CONSENT_MAX_AGE_SECONDS;
 
 function json(body: unknown, status = 200) {
   return NextResponse.json(body, { status, headers: { "Cache-Control": "private, no-store" } });

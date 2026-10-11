@@ -7,13 +7,13 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { BrowserErrorMonitor } from "@/components/BrowserErrorMonitor";
 import { AnalyticsConsentBanner } from "@/components/AnalyticsConsentBanner";
 import { createClient } from "@/lib/supabase/browser";
-import { ANALYTICS_CONSENT_VERSION, isConsentPromptPath, readBrowserAnalyticsConsent } from "@/lib/analytics-consent";
+import { ANALYTICS_CONSENT_MAX_AGE_SECONDS, ANALYTICS_CONSENT_VERSION, isConsentPromptPath, readBrowserAnalyticsConsent } from "@/lib/analytics-consent";
 import { disableProductAnalytics, initializeProductAnalytics, initializeConsentedAnalytics, setProductAnalyticsIdentity, trackConsentedProductEvent, trackProductEvent } from "@/lib/product-analytics";
 
 const OPEN_EVENT = "ppp:open-analytics-consent";
 const DISMISS_KEY = "ppp_analytics_consent_dismissed_at";
 const DISMISS_FOR = 7 * 24 * 60 * 60 * 1000;
-const MAX_AGE = 180 * 24 * 60 * 60 * 1000;
+const MAX_AGE = ANALYTICS_CONSENT_MAX_AGE_SECONDS * 1000;
 const subscribeHydration = () => () => {};
 type Choice = { accepted: boolean; version: number };
 type User = { id: string; email?: string | null; user_metadata?: Record<string, unknown>; app_metadata?: Record<string, unknown> };
