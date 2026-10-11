@@ -22,7 +22,7 @@ Explanations sit under their own top-level prefix, outside every bank's image pr
    `node scripts/explanations/prepare-batch.mjs --bank ib-hl --all --pending`
 2. **Generate and verify** with subagents (Claude Code workflow): one agent writes each explanation from the images following `SPEC.md` and runs `validate.mjs`; a fresh agent solves the question blind, checks it against the mark scheme and returns pass / fix / fail. Fails and critical issues are repaired and re-verified once; anything still failing is held for review.
 3. **Ledger**: save the workflow's per-question statuses to `_ledger.json`.
-4. **Before the first deploy**, apply `supabase/migrations/20261012000000_explanation_daily_cap.sql` to production and read back `consume_explanation_allowance` (owner approval). Without it, paid explanations return 503.
+4. **Before the first deploy**, reconcile the original migration history and apply `supabase/migrations/20261012010000_atomic_explanation_sign_allowance.sql` with owner approval. Read back both `consume_explanation_allowance` and `consume_explanation_and_download_allowance`, their ACLs, and migration history. The forward migration preserves the original migration file, rejects invalid counts before exemption handling, and atomically debits mixed explanation/image requests. A missing mixed-call RPC fails closed with 503; do not deploy ahead of this dependency.
 5. **Publish** (owner approval; temporary bucket-scoped R2 token as `R2_SYNC_ACCESS_KEY_ID` / `R2_SYNC_SECRET_ACCESS_KEY`):
    `node scripts/explanations/publish.mjs --bank ib-hl` (dry run), then `--apply`. Uploads use atomic create-if-absent (`If-None-Match: *`), never overwrite an existing object, and read back every projected body by SHA-256. An existing identical object is accepted; a conflict, upload failure, or read-back failure holds the entire proposed bank set and leaves `available.json` unchanged. A durable receipt under `<bank>/_publish-receipts/` records the exact expected keys/hashes and every verification result before the availability file is atomically replaced. Commit that file only after a complete receipt; the button appears after the next deploy.
 
@@ -48,9 +48,19 @@ A ledger pass is an assertion, not sufficient evidence that the current file was
 
 Verify both the installed `consume_explanation_allowance` definition/permissions and the migration-history record `20261012000000`. A matching installed function alone does not prove that migration history is reconciled. If the function is already installed but that record is absent, stop automatic replay and arrange an owner-approved migration-history reconciliation after comparing the installed definition; do not change production during an audit.
 
+## Coverage and review holds
+
+The current candidate advertises 1,972 explanations: AA HL 801, AA SL 541, AI HL 300, and AI SL 330. Availability is per question, not a claim that every question in those banks is complete. Physics and the IGCSE pilot remain unadvertised.
+
+The audit held 104 formerly advertised AI HL IDs because their journal verdicts came only from AI SL reviewers of shared IDs. This is a provenance hold, not a claim that their mathematics is wrong. Their objects and original private ledgers remain unchanged. Restore an ID only after independent same-bank verification and a reviewed availability update; never restore the old ledger's inferred passes. A bank-scoped replay protects the boundary but is not a new blind review or a content-hash binding for historical results.
+
+Cloudflare readback matched all 2,076 pre-hold objects to their exact publication projections by key, size and single-part ETag/MD5. Sixteen full GET samples matched SHA-256, and a separate 16-question source/content sample found no mathematical blocker. The sample was not a sealed, strictly mark-scheme-blind exercise and does not establish correctness of every explanation. Two AA HL prose corrections are staged privately for a separately approved content replacement; they are not uploaded or committed as premium text.
+
 ## Local preview
 
-Signing returns 503 locally (no R2 keys). To see explanations in `next dev`, copy JSON files to `public/dev-explanations/<bank>/` (ignored by Git) and start the dev server with `NEXT_PUBLIC_EXPLANATIONS_DEV=1`. The bank index then flags those questions and the client reads the local files. Never set this variable in Vercel.
+Signing returns 503 locally without storage credentials. Vercel previews also lack the production-only R2 credentials, and their origins are outside the intentional R2 CORS allowlist. Do not broaden credentials or CORS merely to make previews pass.
+
+To check rendering in `next dev`, copy only the student-facing JSON projection to `public/dev-explanations/<bank>/` (ignored by Git) and start the dev server with `NEXT_PUBLIC_EXPLANATIONS_DEV=1`. Treat this as local client/rendering QA, not production entitlement, signing, or quota evidence. Remove all local explanation fixtures before a production build; production must refuse this directory and deny its HTTP path even if the client flag is set. Never set the flag in Vercel.
 
 ## Taking one down
 
