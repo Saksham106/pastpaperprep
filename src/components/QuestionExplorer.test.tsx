@@ -1276,7 +1276,7 @@ describe("QuestionExplorer asset loading", () => {
     render(<QuestionExplorer questions={[freeQuestion]} bankSlug="ib-sl" access={anonymous} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
 
     await waitFor(() => expect(screen.getByRole("img", { name: /original question/i })).toHaveAttribute("src", expect.stringContaining(`free-${freeQuestion.id}-question`)));
-    expect(freeCalls(fetchMock)).toEqual([`/api/assets/free?v=local&bank=ib-sl&id=${encodeURIComponent(freeQuestion.id)}&kind=question`]);
+    expect(freeCalls(fetchMock)).toEqual([`/api/assets/free?bank=ib-sl&id=${encodeURIComponent(freeQuestion.id)}&kind=question`]);
     expect(fetchMock.mock.calls.some(([input]) => String(input).startsWith("/api/banks/bootstrap"))).toBe(false);
     expect(signBodies(fetchMock)).toEqual([]);
   });
@@ -1302,7 +1302,7 @@ describe("QuestionExplorer asset loading", () => {
 
     await waitFor(() => expect(signBodies(fetchMock)).toHaveLength(1));
     expect(signBodies(fetchMock)[0].requests).toEqual([{ questionId: paidQuestion.id, kind: "question" }]);
-    expect(freeCalls(fetchMock)).toEqual([`/api/assets/free?v=local&bank=ib-sl&id=${encodeURIComponent(freeQuestion.id)}&kind=question`]);
+    expect(freeCalls(fetchMock)).toEqual([`/api/assets/free?bank=ib-sl&id=${encodeURIComponent(freeQuestion.id)}&kind=question`]);
   });
 
   it("re-signs a failed free image through the free route", async () => {

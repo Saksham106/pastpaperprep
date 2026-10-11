@@ -6,12 +6,12 @@ import { previewAssetSignOptions, signPrivateAssetUrls } from "@/lib/private-ass
 import { richDetailsFor } from "@/lib/question-delivery";
 import { reviewedBlankTailForSignedAsset } from "@/lib/reviewed-blank-tails";
 import { withFailureReporting } from "@/lib/route-failure-reporting";
-import { FREE_ASSET_CDN_FRESH, FREE_ASSET_CDN_MAX_AGE, FREE_ASSET_CDN_STALE, FREE_ASSET_EXPIRES_IN } from "@/lib/signed-assets";
+import { FREE_ASSET_CDN_MAX_AGE, FREE_ASSET_EXPIRES_IN } from "@/lib/signed-assets";
 
 export const runtime = "nodejs";
 
 const NO_STORE = { headers: { "Cache-Control": "private, no-store, max-age=0" } } as const;
-const SHARED = { headers: { "Cache-Control": `public, max-age=0, s-maxage=${FREE_ASSET_CDN_FRESH}, stale-while-revalidate=${FREE_ASSET_CDN_STALE}` } } as const;
+const SHARED = { headers: { "Cache-Control": `public, max-age=0, s-maxage=${FREE_ASSET_CDN_MAX_AGE}` } } as const;
 
 /**
  * Free-year question and answer images only. It reads no cookies, so one CDN entry serves

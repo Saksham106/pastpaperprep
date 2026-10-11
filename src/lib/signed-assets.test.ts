@@ -207,8 +207,8 @@ describe("fetchFreeAssets", () => {
     const { assets, failedKeys } = await fetchFreeAssets("ib-sl", [{ questionId: "a", kind: "question" }, { questionId: "b", kind: "answer" }], fetcher);
 
     expect(fetcher.mock.calls.map(([input]) => String(input))).toEqual([
-      "/api/assets/free?v=local&bank=ib-sl&id=a&kind=question",
-      "/api/assets/free?v=local&bank=ib-sl&id=b&kind=answer",
+      "/api/assets/free?bank=ib-sl&id=a&kind=question",
+      "/api/assets/free?bank=ib-sl&id=b&kind=answer",
     ]);
     expect([...assets.keys()]).toEqual(["a:question", "b:answer"]);
     expect(failedKeys).toEqual([]);
