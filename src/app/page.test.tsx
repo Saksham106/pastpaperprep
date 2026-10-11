@@ -25,7 +25,6 @@ describe("home page", () => {
     expect(markup).toContain('href="/banks/igcse?free=1"');
     expect(markup).not.toContain("Practice the");
     expect(markup).not.toContain("Choose where to begin.");
-    expect(markup).not.toContain("Backed by learning science");
     expect(markup).not.toContain("From topic to finished practice set.");
     expect(markup).not.toMatch(/^<main/);
   });
@@ -59,32 +58,42 @@ describe("home page", () => {
     expect(tabs[0]).toHaveAttribute("aria-selected", "true");
   });
 
-  it("prices the plans from the pricing model and marks the paid exam years", () => {
+  it("compares free and plan in two plain cards priced from the model", () => {
     const { container } = render(<MarketingHome environment={liveBankEnvironment} />);
-    const plans = [...container.querySelectorAll("[data-plan]")].map((plan) => plan.textContent ?? "");
-    expect(plans).toHaveLength(3);
-    expect(plans[0]).toContain("$6");
-    expect(plans[1]).toContain("$10");
-    expect(plans[2]).toContain("$25");
-    expect(container.querySelectorAll("[data-year-paid]").length).toBeGreaterThan(0);
-    expect(container.querySelector('a[href="/pricing"]')).not.toBeNull();
-    const strip = container.querySelector("[data-year-paid]")?.parentElement;
-    expect(strip).toHaveAttribute("role", "img");
-    expect(strip?.getAttribute("aria-label")).toMatch(/free.*plan/);
+    const free = container.querySelector('[data-plan-tier="free"]');
+    const plan = container.querySelector('[data-plan-tier="plan"]');
+    expect(free?.textContent).toMatch(/free/i);
+    expect(free?.querySelector('a[href="/banks/igcse?free=1"]')).not.toBeNull();
+    expect(plan?.textContent).toContain("$6");
+    expect(plan?.textContent).toContain("2026");
+    expect(plan?.querySelector('a[href="/pricing"]')).not.toBeNull();
+  });
+
+  it("goes straight from the hero to the bank toggle, with no sample section", () => {
+    const { container } = render(<MarketingHome environment={liveBankEnvironment} />);
+    const images = [...container.querySelectorAll("img")].map((image) => image.getAttribute("src") ?? "");
+    expect(images.some((src) => src.includes("sample-"))).toBe(false);
+    expect(container.textContent).not.toContain("A real question.");
+    const order = [...container.querySelectorAll("[data-home-section]")].map((section) => section.getAttribute("data-home-section"));
+    expect(order).toEqual(["hero", "banks", "proof", "plan", "faq", "cta"]);
+  });
+
+  it("shows proof from real data: the archive size and three cited studies", () => {
+    const { container, getAllByRole } = render(<MarketingHome environment={liveBankEnvironment} />);
+    const proof = container.querySelector('[data-home-section="proof"]');
+    expect(proof?.textContent).toContain((getAvailableBanks(liveBankEnvironment).reduce((total, bank) => total + bank.questionCount, 0)).toLocaleString());
+    expect(container.querySelectorAll("article[data-research-study]")).toHaveLength(3);
+    expect(getAllByRole("link", { name: /read study/i }).map((link) => link.getAttribute("href"))).toEqual([
+      "https://doi.org/10.1037/a0021782",
+      "https://doi.org/10.1126/science.1199327",
+      "https://doi.org/10.1111/j.1467-9280.2006.01693.x",
+    ]);
   });
 
   it("gives the catalog its own (visually hidden) heading for the subject card headings", () => {
     const { getByRole } = render(<MarketingHome environment={liveBankEnvironment} />);
     const heading = getByRole("heading", { level: 2, name: "Question banks" });
     expect(heading.closest("#question-banks")).not.toBeNull();
-  });
-
-  it("shows a real free question with its official mark scheme", () => {
-    const { container, getByRole } = render(<MarketingHome environment={liveBankEnvironment} />);
-    const images = [...container.querySelectorAll("img")].map((image) => image.getAttribute("src") ?? "");
-    expect(images.some((src) => src.includes("sample-question"))).toBe(true);
-    expect(images.some((src) => src.includes("sample-markscheme"))).toBe(true);
-    expect(getByRole("link", { name: /try free questions/i })).toHaveAttribute("href", "/banks/igcse?free=1");
   });
 
   it("offers a compact FAQ preview without adding header clutter", () => {

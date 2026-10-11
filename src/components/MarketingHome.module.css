@@ -3,11 +3,11 @@
 .eyebrow { margin: 0; color: #7f293a; font: 600 .68rem/1.2 var(--font-mono); letter-spacing: .16em; text-transform: uppercase; }
 
 /* 1. Hero: background engraving, headline, then the same scene with the sky cut out on top. */
-.hero { position: relative; color-scheme: light; background: #efe9dd; color: #18233b; }
+.hero { position: relative; padding-top: 64px; color-scheme: light; background: #efe9dd; color: #18233b; }
 .stage { position: relative; width: 100%; aspect-ratio: 1859 / 846; max-height: 88vh; min-height: 520px; overflow: hidden; }
 .back, .front { object-fit: cover; object-position: 50% 62%; }
 .back { z-index: 0; }
-.headline { position: absolute; z-index: 2; inset: 15% 0 auto; margin: 0; display: grid; justify-items: center; color: #18233b; font: 400 clamp(3.4rem, 9.4vw, 9.6rem)/.88 var(--font-serif); letter-spacing: -.035em; text-align: center; }
+.headline { position: absolute; z-index: 2; inset: 21% 0 auto; margin: 0; display: grid; justify-items: center; color: #18233b; font: 400 clamp(3.4rem, 9.4vw, 9.6rem)/.88 var(--font-serif); letter-spacing: -.035em; text-align: center; }
 .headline em { color: #7f293a; font-style: italic; }
 .front { z-index: 3; pointer-events: none; }
 .fade { position: absolute; z-index: 4; inset: auto 0 0; height: 30%; background: linear-gradient(180deg, rgb(239 233 221 / 0), #efe9dd 92%); pointer-events: none; }
@@ -39,20 +39,6 @@
 .pickerGo:hover { background: #2347bd; }
 .pickerGo:active { transform: translateY(1px); }
 
-/* 2. Try one now */
-.sample { padding: 88px 0 72px; display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(36px, 6vw, 88px); align-items: center; }
-.sampleCopy { display: grid; justify-items: start; gap: 16px; }
-.sampleCopy h2, .planBand h2, .faqIntro h2, .cta h2 { margin: 0; color: var(--ink); font: 400 clamp(2.3rem, 4.4vw, 3.9rem)/1 var(--font-serif); letter-spacing: -.03em; }
-.sampleCopy h2 em, .planBand h2 em { display: block; color: var(--burgundy); }
-.sampleFigure { position: relative; margin: 0; padding-bottom: 44px; }
-.sampleQuestion, .sampleAnswer { overflow: hidden; background: #fff; border: 1px solid var(--line); border-radius: 14px; }
-.sampleQuestion { width: 92%; box-shadow: 0 30px 60px -32px rgb(24 35 59 / .4); }
-.sampleQuestion p, .sampleAnswer p { margin: 0; padding: 10px 14px; color: #66645f; background: #fafaf7; border-bottom: 1px solid var(--line); font: 600 .7rem/1.3 var(--font-mono); }
-.sampleQuestion img { width: 100%; height: auto; max-height: 300px; object-fit: cover; object-position: top; display: block; }
-.sampleAnswer { position: absolute; right: 0; bottom: 0; width: 80%; border-color: #c9d6ff; box-shadow: 0 30px 50px -24px rgb(47 91 234 / .45); }
-.sampleAnswer p { color: #fff; background: #2f5bea; border-color: #2f5bea; letter-spacing: .12em; text-transform: uppercase; }
-.sampleAnswer img { width: 100%; height: auto; display: block; padding: 6px 6px 8px; }
-
 /* 3. Catalog: toggle and colour-block subject cards */
 .banks { padding: 40px 0 96px; scroll-margin-top: 86px; }
 .qualificationTabs { display: flex; gap: 8px; margin-bottom: 18px; }
@@ -73,27 +59,43 @@
 .bankRow:hover { border-color: var(--course-accent); transform: translateY(-2px); box-shadow: 0 12px 24px -16px var(--course-accent); }
 .bankRow:focus-visible { outline: 3px solid color-mix(in srgb, var(--course-accent) 55%, transparent); outline-offset: 2px; }
 
-/* 4. Free vs plan */
-.planBand { padding: 96px 0; color: #eef0f6; background: #18233b; }
-.planBand .eyebrow { color: #e9a1ae; }
-.planBand h2 { color: #fff; }
-.planBand h2 em { color: #e9a1ae; }
-.planGrid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(36px, 6vw, 80px); align-items: center; }
-.planGrid > div:first-child { display: grid; gap: 16px; }
-.planNote { max-width: 460px; margin: 0; color: #c3c8d6; line-height: 1.55; }
-.years { display: flex; flex-wrap: wrap; gap: 5px; }
-.years span { padding: 7px 9px; color: #aab0c4; background: rgb(255 255 255 / .06); border: 1px solid rgb(255 255 255 / .14); border-radius: 7px; font: 600 .72rem/1 var(--font-mono); }
-.years span[data-year-paid] { color: #fff; background: #2f5bea; border-color: #2f5bea; }
-.planOffer { display: grid; gap: 18px; justify-items: start; }
-.planCards { width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-.planCards p { margin: 0; padding: 16px; display: grid; gap: 8px; background: rgb(255 255 255 / .05); border: 1px solid rgb(255 255 255 / .14); border-radius: 14px; }
-.planCards p:nth-child(2) { border-color: #2f5bea; }
-.planCards span { color: #aab0c4; font: 700 .64rem/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
-.planCards p { min-width: 0; }
-.planCards strong { color: #fff; font: 400 clamp(1.5rem, 2.2vw, 1.9rem)/1.05 var(--font-serif); }
-.planCards small { color: #aab0c4; font: 500 .72rem/1 var(--font-mono); }
+/* 4. Proof: archive size and the research behind retrieval practice */
+.proofBand { padding: 88px 0 96px; color: #eef0f6; background: #18233b; }
+.proofBand .eyebrow { margin-top: 56px; color: #e9a1ae; }
+.stats { margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-block: 1px solid rgb(255 255 255 / .14); }
+.stats div { padding: 26px 24px 24px; display: flex; flex-direction: column-reverse; gap: 10px; border-right: 1px solid rgb(255 255 255 / .14); }
+.stats div:last-child { border-right: 0; }
+.stats dt { color: #aab0c4; font: 700 .66rem/1 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; }
+.stats dd { margin: 0; color: #fff; font: 400 clamp(2.2rem, 4vw, 3.4rem)/1 var(--font-serif); letter-spacing: -.02em; }
+.studies { margin-top: 18px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.study { padding: 26px 24px 22px; display: flex; flex-direction: column; background: rgb(255 255 255 / .05); border: 1px solid rgb(255 255 255 / .14); border-radius: 18px; }
+.study > strong { display: inline-flex; align-items: baseline; gap: .3em; color: #fff; font: 400 clamp(2.8rem, 4.6vw, 4rem)/.9 var(--font-serif); white-space: nowrap; }
+.study > strong > span { font: 700 .72rem/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: #e9a1ae; }
+.studyOutcome { margin-top: 12px; color: #e9a1ae; font: 700 .7rem/1.4 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+.study > p { margin: 12px 0 20px; color: #c3c8d6; font-size: .92rem; line-height: 1.6; }
+.study > a { margin-top: auto; padding-top: 14px; display: grid; grid-template-columns: 1fr auto; gap: 6px 10px; align-items: center; color: #fff; border-top: 1px solid rgb(255 255 255 / .14); font: 700 .74rem/1.2 var(--font-mono); letter-spacing: .05em; text-transform: uppercase; }
+.study > a small { grid-column: 1 / -1; color: #aab0c4; font: 600 .62rem/1.4 var(--font-mono); letter-spacing: 0; text-transform: none; }
+.study > a svg { transition: transform 160ms ease; }
+.study > a:hover svg { transform: translateX(3px); }
 
-/* 5. FAQ */
+/* 5. Free vs plan: two plain cards */
+.planSection { padding: 96px 0 8px; display: grid; justify-items: center; gap: 32px; text-align: center; }
+.planSection h2 { margin: 0; color: var(--ink); font: 400 clamp(2.2rem, 4.2vw, 3.6rem)/1.02 var(--font-serif); letter-spacing: -.03em; }
+.planSection h2 em { display: block; color: var(--burgundy); }
+.tiers { width: min(820px, 100%); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; text-align: left; }
+.tier { padding: 28px; display: grid; gap: 14px; align-content: start; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; }
+.tierPlan { background: color-mix(in srgb, var(--cobalt) 6%, var(--surface)); border-color: color-mix(in srgb, var(--cobalt) 45%, var(--line)); box-shadow: 0 24px 50px -32px rgb(47 91 234 / .55); }
+.tierName { margin: 0; color: var(--muted); font: 700 .7rem/1 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; }
+.tierPlan .tierName { color: var(--cobalt-strong); }
+.tierPrice { margin: 0; color: var(--ink); font: 400 2.8rem/1 var(--font-serif); }
+.tierPrice small { color: var(--muted); font: 600 .78rem/1 var(--font-mono); }
+.tier ul { margin: 4px 0 8px; padding: 0; display: grid; gap: 10px; list-style: none; }
+.tier li { position: relative; padding-left: 26px; color: var(--ink-soft); line-height: 1.4; }
+.tier li::before { content: ""; position: absolute; left: 2px; top: .3em; width: 14px; height: 8px; border-left: 2px solid var(--success, #1f7a4d); border-bottom: 2px solid var(--success, #1f7a4d); transform: rotate(-45deg); }
+.tier :global(.button) { justify-self: start; }
+
+/* 6. FAQ */
+.faqIntro h2, .cta h2 { margin: 0; color: var(--ink); font: 400 clamp(2.3rem, 4.4vw, 3.9rem)/1 var(--font-serif); letter-spacing: -.03em; }
 .faqPreview { padding: 100px 0 20px; display: grid; grid-template-columns: minmax(240px, .76fr) minmax(0, 1.24fr); gap: clamp(52px, 9vw, 132px); align-items: start; }
 .faqIntro { position: sticky; top: 100px; display: grid; justify-items: start; gap: 14px; }
 .faqAllLink { display: inline-flex; align-items: center; gap: 7px; color: #203b66; font: 700 .76rem/1.2 var(--font-mono); text-transform: uppercase; letter-spacing: .07em; }
@@ -109,17 +111,17 @@
 .faqContact { margin: 24px 0 0; color: var(--muted); font-size: .92rem; }
 .faqContact a { color: #203b66; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 
-/* 6. Closing call to action */
+/* 7. Closing call to action */
 .cta { margin: 88px auto 106px; padding: 48px 54px; display: flex; align-items: center; justify-content: space-between; gap: 32px; background: #dfe5ee; border: 1px solid #b8c3d3; border-radius: 20px; }
 .cta h2 { color: #18233b; }
 
-@media (max-width: 1180px) {
-  .planCards { grid-template-columns: 1fr; }
-  .planCards p { grid-template-columns: 1fr auto; align-items: center; }
-}
 @media (max-width: 980px) {
+  .faqPreview { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stats div:nth-child(2) { border-right: 0; }
+  .stats div:nth-child(-n+2) { border-bottom: 1px solid rgb(255 255 255 / .14); }
+  .studies { grid-template-columns: 1fr; }
   .subjectGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .sample, .planGrid, .faqPreview { grid-template-columns: 1fr; }
   .faqIntro { position: static; }
 }
 @media (max-width: 700px) {
@@ -131,13 +133,10 @@
   .pickerToggle { padding: 4px; grid-auto-columns: 1fr; background: #efe9dd; border-radius: 12px; }
   .pickerField { padding: 10px 10px 8px; border-left: 0; border-top: 1px solid #d8d8d1; }
   .pickerGo { justify-content: center; }
-  .sample { padding: 64px 0 56px; }
-  .sampleQuestion, .sampleAnswer { width: 100%; }
-  .sampleAnswer { position: relative; margin-top: -24px; margin-left: 8%; width: 92%; }
-  .sampleFigure { padding-bottom: 0; }
-  .planBand { padding: 72px 0; }
-  .planCards { grid-template-columns: 1fr; }
-  .planCards p { grid-template-columns: 1fr auto; align-items: center; }
+  .hero { padding-top: 60px; }
+  .tiers { grid-template-columns: 1fr; }
+  .proofBand { padding: 64px 0 72px; }
+  .planSection { padding-top: 72px; }
   .cta { flex-direction: column; align-items: stretch; margin-block: 64px 80px; padding: 32px 24px; }
 }
 @media (max-width: 640px) {
@@ -147,16 +146,16 @@
 
 /* Dark theme: sections below the hero follow the theme; the hero illustration does not. */
 :global(:root[data-theme="dark"]) .home { background: var(--paper); }
-:global(:root[data-theme="dark"]) .sampleCopy .eyebrow, :global(:root[data-theme="dark"]) .faqIntro .eyebrow { color: var(--burgundy); }
+:global(:root[data-theme="dark"]) .faqIntro .eyebrow { color: var(--burgundy); }
 :global(:root[data-theme="dark"]) .subjectHead h3 { color: var(--ink); }
 :global(:root[data-theme="dark"]) .bankRow { background: color-mix(in srgb, var(--surface) 80%, transparent); border-color: var(--line-strong); }
-:global(:root[data-theme="dark"]) .sampleQuestion, :global(:root[data-theme="dark"]) .sampleAnswer { border-color: var(--line-strong); }
 :global(:root[data-theme="dark"]) .faqQuestions,
 :global(:root[data-theme="dark"]) .faqQuestions details { border-color: var(--line-strong); }
 :global(:root[data-theme="dark"]) .faqQuestions summary { color: var(--ink); }
 :global(:root[data-theme="dark"]) .faqQuestions summary svg { color: var(--burgundy); }
 :global(:root[data-theme="dark"]) .faqAllLink,
 :global(:root[data-theme="dark"]) .faqContact a { color: var(--cobalt-strong); }
-:global(:root[data-theme="dark"]) .planBand { background: #10172a; }
+:global(:root[data-theme="dark"]) .proofBand { background: #10172a; }
+:global(:root[data-theme="dark"]) .tier { border-color: var(--line-strong); }
 :global(:root[data-theme="dark"]) .cta { background: #283449; border-color: #455573; }
 :global(:root[data-theme="dark"]) .cta h2 { color: var(--ink); }

@@ -8,7 +8,7 @@ import { HeroPicker, type PickerGroup } from "@/components/HeroPicker";
 import { QualificationTabs } from "@/components/QualificationTabs";
 import { bankEntryHref, hasFreeTier } from "@/lib/access";
 import { bankYearFacts } from "@/lib/upgrade-copy";
-import { PRICING_MODEL, formatPrice, priceForBankCount } from "@/lib/pricing-model";
+import { formatPrice, priceForBankCount } from "@/lib/pricing-model";
 import { FAQS } from "@/components/FaqContent";
 import styles from "./MarketingHome.module.css";
 
@@ -23,6 +23,11 @@ const SUBJECTS: readonly { name: string; tone: CourseTone; matches: (bank: Bank)
 ];
 const HOME_FAQS = [FAQS[1], FAQS[2], FAQS[3], FAQS[5]];
 const SAMPLE_BANK = "igcse";
+const STUDIES = [
+  { lead: "Up to", figure: "25%", outcome: "higher unit-exam scores", detail: "Low-stakes quizzes with feedback raised scores by 13–25% on real unit exams in 8th-grade science classes.", source: "Journal of Educational Psychology · 2011", href: "https://doi.org/10.1037/a0021782" },
+  { lead: "", figure: "37%", outcome: "higher score after one week", detail: "Students scored 67% after retrieval practice versus 49% after repeated study—a 37% lift.", source: "Science · 2011", href: "https://doi.org/10.1126/science.1199327" },
+  { lead: "", figure: "53%", outcome: "more remembered after one week", detail: "Students remembered 61% after self-testing versus 40% after rereading—53% more.", source: "Psychological Science · 2006", href: "https://doi.org/10.1111/j.1467-9280.2006.01693.x" },
+] as const;
 
 function groupSubjects(banks: readonly Bank[]): SubjectGroup[] { return SUBJECTS.map((s) => ({ name: s.name, tone: s.tone, banks: banks.filter(s.matches) })).filter((s) => s.banks.length > 0); }
 
@@ -48,14 +53,9 @@ export function MarketingHome({ environment = process.env }: { environment?: Rec
     { id: "ib", label: "IB", banks: toPickerBanks(ibBanks) },
   ];
   const years = bankYearFacts(SAMPLE_BANK);
-  const plans = [
-    { label: "One bank", price: formatPrice(priceForBankCount("monthly", 1)) },
-    { label: `${PRICING_MODEL.builder.minBanks}–${PRICING_MODEL.builder.maxBanks} banks`, price: formatPrice(priceForBankCount("monthly", PRICING_MODEL.builder.minBanks)), from: true },
-    { label: "All banks", price: formatPrice(PRICING_MODEL.allAccess.monthlyCents) },
-  ];
 
   return <div className={`${styles.home} landing-editorial`}>
-    <section className={styles.hero}>
+    <section className={styles.hero} data-home-section="hero">
       <div className={styles.stage}>
         <Image className={styles.back} src="/artwork/landing-gothic.webp" alt="" fill preload sizes="100vw" quality={85} />
         <h1 className={styles.headline}><span>Past papers,</span> <em>by topic.</em></h1>
@@ -69,47 +69,51 @@ export function MarketingHome({ environment = process.env }: { environment?: Rec
       </div>
     </section>
 
-    <section className={`shell ${styles.sample}`} aria-labelledby="sample-heading">
-      <div className={styles.sampleCopy}>
-        <p className={styles.eyebrow}>Try one now</p>
-        <h2 id="sample-heading">A real question. <em>The real mark scheme.</em></h2>
-        <Link className="button primary" href={bankEntryHref(SAMPLE_BANK)}>Try free questions <ArrowRight weight="bold" /></Link>
-      </div>
-      <figure className={styles.sampleFigure}>
-        <div className={styles.sampleQuestion}>
-          <p>0580 · 2018 May/June · Paper 23 · Q22 · Sequences</p>
-          <Image src="/landing/sample-question.webp" alt="Question 22: find an expression for the nth term of each sequence. (a) 11, 7, 3, −1, … (b) 3, 6, 12, 24, …" width={900} height={593} sizes="(max-width: 980px) 92vw, 640px" />
-        </div>
-        <div className={styles.sampleAnswer}>
-          <p>Mark scheme</p>
-          <Image src="/landing/sample-markscheme.webp" alt="Mark scheme: (a) 15 − 4n, 2 marks. (b) 3 × 2 to the power n − 1, 2 marks." width={900} height={97} sizes="(max-width: 980px) 86vw, 520px" />
-        </div>
-      </figure>
-    </section>
-
-    <section className={`shell ${styles.banks}`} id="question-banks" aria-labelledby="question-banks-heading">
+    <section className={`shell ${styles.banks}`} id="question-banks" data-home-section="banks" aria-labelledby="question-banks-heading">
       <h2 className="sr-only" id="question-banks-heading">Question banks</h2>
       <QualificationTabs items={[...(cambridgeBanks.length > 0 ? [{ id: "cambridge-catalog", label: "Cambridge IGCSE", panel: <SubjectCards banks={cambridgeBanks} /> }] : []), ...(ibBanks.length > 0 ? [{ id: "ib-catalog", label: "IB Diploma", panel: <SubjectCards banks={ibBanks} /> }] : [])]} />
     </section>
 
-    <section className={styles.planBand} aria-labelledby="plan-heading">
-      <div className={`shell ${styles.planGrid}`}>
-        <div>
-          <p className={styles.eyebrow}>Free vs plan</p>
-          <h2 id="plan-heading">The newest papers <em>are the ones that count.</em></h2>
-          <p className={styles.planNote}>Older years are free on every bank. A plan opens the latest papers and every mark scheme.</p>
-          {years && <div className={styles.years} role="img" aria-label={`Mathematics 0580: ${years.freeLabel} free, ${years.paidLabel} on a plan`}>
-            {years.coverage.map((year) => <span key={year} data-year-paid={!years.freeYears.includes(year) || undefined}>{year}</span>)}
-          </div>}
+    <section className={styles.proofBand} data-home-section="proof" aria-labelledby="proof-heading">
+      <div className="shell">
+        <h2 className="sr-only" id="proof-heading">Why practise with past papers</h2>
+        <dl className={styles.stats}>
+          <div><dt>Questions</dt><dd>{totalQuestions.toLocaleString()}</dd></div>
+          <div><dt>Past papers</dt><dd>{totalPapers.toLocaleString()}</dd></div>
+          <div><dt>Question banks</dt><dd>{banks.length}</dd></div>
+          {years && <div><dt>Exam years</dt><dd>{years.coverage[0]}–{String(years.latestYear).slice(2)}</dd></div>}
+        </dl>
+        <p className={styles.eyebrow}>Backed by learning science</p>
+        <div className={styles.studies}>
+          {STUDIES.map((study) => <article className={styles.study} data-research-study key={study.href}>
+            <strong>{study.lead && <span>{study.lead}</span>}{study.figure}</strong>
+            <span className={styles.studyOutcome}>{study.outcome}</span>
+            <p>{study.detail}</p>
+            <a href={study.href} target="_blank" rel="noreferrer"><small>{study.source}</small>Read study <ArrowRight weight="bold" /></a>
+          </article>)}
         </div>
-        <div className={styles.planOffer}>
-          <div className={styles.planCards}>{plans.map((plan) => <p data-plan key={plan.label}><span>{plan.label}</span><strong>{plan.from && <small>from </small>}{plan.price}<small>/mo</small></strong></p>)}</div>
+      </div>
+    </section>
+
+    <section className={`shell ${styles.planSection}`} data-home-section="plan" aria-labelledby="plan-heading">
+      <h2 id="plan-heading">Start free. <em>Upgrade for the newest papers.</em></h2>
+      <div className={styles.tiers}>
+        <div className={styles.tier} data-plan-tier="free">
+          <p className={styles.tierName}>Free</p>
+          <p className={styles.tierPrice}>$0</p>
+          <ul><li>Older exam years on every bank</li><li>Answers included</li><li>No card needed</li></ul>
+          <Link className="button secondary" href={bankEntryHref(SAMPLE_BANK)}>Start free</Link>
+        </div>
+        <div className={`${styles.tier} ${styles.tierPlan}`} data-plan-tier="plan">
+          <p className={styles.tierName}>Plan</p>
+          <p className={styles.tierPrice}><small>from </small>{formatPrice(priceForBankCount("monthly", 1))}<small>/mo</small></p>
+          <ul><li>{years ? `Every year up to ${years.latestYear}` : "Every exam year"}</li><li>Every official mark scheme</li><li>Cancel any time</li></ul>
           <Link className="button primary" href="/pricing">See plans <ArrowRight weight="bold" /></Link>
         </div>
       </div>
     </section>
 
-    <section className={`shell ${styles.faqPreview}`} aria-labelledby="home-faq-heading">
+    <section className={`shell ${styles.faqPreview}`} data-home-section="faq" aria-labelledby="home-faq-heading">
       <header className={styles.faqIntro}>
         <p className={styles.eyebrow}>Good to know</p>
         <h2 id="home-faq-heading">Questions before you start?</h2>
@@ -124,7 +128,7 @@ export function MarketingHome({ environment = process.env }: { environment?: Rec
       </div>
     </section>
 
-    <section className={`shell ${styles.cta}`} aria-labelledby="cta-heading">
+    <section className={`shell ${styles.cta}`} data-home-section="cta" aria-labelledby="cta-heading">
       <h2 id="cta-heading">Start with one topic.</h2>
       <Link className="button primary" href="#question-banks">Choose your course <ArrowRight weight="bold" /></Link>
     </section>

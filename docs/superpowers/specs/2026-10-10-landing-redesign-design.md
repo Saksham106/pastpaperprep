@@ -104,3 +104,13 @@ Rebuild the homepage (`/`) so it gets students practising in one or two clicks, 
 - Performance work beyond keeping the page static. The parallel speed session owns that.
 - Changes to bank, pricing or dashboard layouts. They only pick up the new tokens and font.
 - Merging or deploying, which needs the owner's go-ahead on the PR.
+
+## Revision 2 (owner review, 11 October 2026)
+
+- **Header (site-wide):** a floating rounded pill. On phones it shows the logo, the theme toggle and a menu button. The menu opens a rounded panel with the links easing in (no animation under reduced motion). Escape, a tap outside the header or picking a link closes it.
+- **Hero:** the artwork starts below the header, and the headline sits lower.
+- **Removed:** the "Try one now" sample section and its images. The page goes straight from the hero to the bank toggle.
+- **Proof:** a dark band with archive stats from data (questions, papers, banks, exam years) and the three cited studies, restored and restyled.
+- **Free vs plan:** two plain cards. Free ($0: older years, answers, no card) and Plan (from $6/mo: every year up to the latest, every mark scheme, cancel any time).
+- **Order:** hero → banks → proof → plan → FAQ → CTA.
+- **Testimonials or user counts:** none are added until the owner supplies real ones.
