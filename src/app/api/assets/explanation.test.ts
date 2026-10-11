@@ -72,6 +72,30 @@ describe("explanation assets", () => {
     expect(rpc).not.toHaveBeenCalledWith("consume_download_allowance", expect.anything());
   });
 
+  it("counts paid explanations against the daily explanation cap", async () => {
+    const response = await sign([{ questionId: PAID, kind: "explanation" }]);
+
+    expect(response.status).toBe(200);
+    expect(rpc).toHaveBeenCalledWith("consume_explanation_allowance", { p_count: 1 });
+  });
+
+  it("stops at the daily explanation cap", async () => {
+    rpc.mockImplementation((name: string) => Promise.resolve(
+      name === "get_custom_bundle_access" ? { data: [], error: null } : { data: name !== "consume_explanation_allowance", error: null },
+    ));
+    const response = await sign([{ questionId: PAID, kind: "explanation" }]);
+
+    expect(response.status).toBe(429);
+    expect((await response.json()).error).toBe("Daily explanation limit reached. Try again tomorrow.");
+  });
+
+  it("does not count free-year explanations against the cap", async () => {
+    const response = await sign([{ questionId: FREE, kind: "explanation" }]);
+
+    expect(response.status).toBe(200);
+    expect(rpc).not.toHaveBeenCalledWith("consume_explanation_allowance", expect.anything());
+  });
+
   it("charges the allowance for the mark scheme only when both are signed together", async () => {
     const response = await sign([{ questionId: PAID, kind: "answer" }, { questionId: PAID, kind: "explanation" }]);
 

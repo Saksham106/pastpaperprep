@@ -69,7 +69,7 @@ async function handlePOST(request: Request) {
   }
 
   const paths = [...new Set(authorized.flatMap((item) => item.paths))];
-  // Explanations are JSON in R2 for every question; they are not downloads, so they skip the allowance.
+  // Explanations are JSON in R2 for every question. They skip the download allowance and have their own daily cap.
   const explanationPaths = [...new Set(authorized.filter((item) => item.kind === "explanation").flatMap((item) => item.paths))];
   const explanationPathSet = new Set(explanationPaths);
   const previewPaths = [...new Set(authorized
@@ -101,6 +101,13 @@ async function handlePOST(request: Request) {
       ]);
     const explanationUrls = await signPrivateAssetUrls(explanationPaths, 600, explanationAssetSignOptions());
     const urlByPath = new Map([...previewUrls, ...premiumUrls, ...explanationUrls]);
+
+    const paidExplanationCount = authorized.filter((item) => item.kind === "explanation" && item.paths.length && !isPreviewQuestion(body.bank as BankSlug, item.questionId)).length;
+    if (userId && paidExplanationCount) {
+      const { data: allowed, error: capError } = await supabase.rpc("consume_explanation_allowance", { p_count: paidExplanationCount });
+      if (capError) return NextResponse.json({ error: "Could not verify explanation allowance" }, { status: 503 });
+      if (!allowed) return NextResponse.json({ error: "Daily explanation limit reached. Try again tomorrow." }, { status: 429 });
+    }
 
     if (userId && premiumPaths.length && hasBankAccess(body.bank as BankSlug, entitlements)) {
       const { data: allowed, error: quotaError } = await supabase.rpc("consume_download_allowance", {

@@ -12,7 +12,7 @@ Each question can carry a worked explanation: an "Explanation" button beside "Sh
 | Published objects | R2 `pastpaperprep-assets`, key `explanations/<bank>/<id>.json` | no |
 | Which questions have one | `src/data/explanations/available.json` (IDs only) | yes |
 
-The public bank index carries `hasExplanation: true` for listed IDs. The explanation itself is signed by `/api/assets/sign` (paid) or `/api/assets/free` (free years) with the same access rule as the mark scheme, always from R2. Explanation signing does not spend the daily download allowance. R2 CORS (`config/r2-cors.json`) already allows `GET` from the site, which the browser needs to fetch the JSON.
+The public bank index carries `hasExplanation: true` for listed IDs. The explanation itself is signed by `/api/assets/sign` (paid) or `/api/assets/free` (free years) with the same access rule as the mark scheme, always from R2. Explanation signing does not spend the daily download allowance. Instead each member can open at most 200 paid explanations a day (`consume_explanation_allowance`, migration `20261012000000_explanation_daily_cap.sql`); free-year explanations and accounts with a download exemption are not capped. R2 CORS (`config/r2-cors.json`) already allows `GET` from the site, which the browser needs to fetch the JSON.
 
 Explanations sit under their own top-level prefix, outside every bank's image prefix, so `npm run r2:verify` is unaffected.
 
@@ -22,7 +22,8 @@ Explanations sit under their own top-level prefix, outside every bank's image pr
    `node scripts/explanations/prepare-batch.mjs --bank ib-hl --all --pending`
 2. **Generate and verify** with subagents (Claude Code workflow): one agent writes each explanation from the images following `SPEC.md` and runs `validate.mjs`; a fresh agent solves the question blind, checks it against the mark scheme and returns pass / fix / fail. Fails and critical issues are repaired and re-verified once; anything still failing is held for review.
 3. **Ledger**: save the workflow's per-question statuses to `_ledger.json`.
-4. **Publish** (owner approval; temporary bucket-scoped R2 token as `R2_SYNC_ACCESS_KEY_ID` / `R2_SYNC_SECRET_ACCESS_KEY`):
+4. **Before the first deploy**, apply `supabase/migrations/20261012000000_explanation_daily_cap.sql` to production and read back `consume_explanation_allowance` (owner approval). Without it, paid explanations return 503.
+5. **Publish** (owner approval; temporary bucket-scoped R2 token as `R2_SYNC_ACCESS_KEY_ID` / `R2_SYNC_SECRET_ACCESS_KEY`):
    `node scripts/explanations/publish.mjs --bank ib-hl` (dry run), then `--apply`. It uploads, reads every object back by hash, and writes the verified IDs to `available.json`. Commit that file; the button appears after the next deploy.
 
 ## Local preview
