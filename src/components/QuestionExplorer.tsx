@@ -16,15 +16,16 @@ import { EXPLORER_PAGE_SIZE, parseExplorerState, serializeExplorerState, type Ex
 import { encodeSharedSet, parseSharedSet } from "@/lib/shared-question-set";
 import type { QuestionFilters, QuestionSort, UnifiedQuestion } from "@/lib/questions";
 import type { BankSlug } from "@/lib/banks";
-import { fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, lapsedSignedAssetExpiry, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
+import { fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, lapsedSignedAssetExpiry, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
 import { pulseSuccess, shakeElement } from "@/lib/button-feedback";
+import { documentHasSupabaseAuthCookie } from "@/lib/supabase/auth-cookie";
 import { mergeQuestionRichDetails, publicMetadataToQuestion, type PublicBankIndex } from "@/lib/question-index";
 import { matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 import { getMathsPickerGroups, getMathsPickerTopics, isCleanMathsBank, isMathsEarlierToken } from "@/lib/maths-picker";
 import { displayedQuestionSubtopics, formatMathsPickerLabel, formatPublicLabel } from "@/lib/presentation";
 import { trackProductEvent } from "@/lib/product-analytics";
-import { getFreeQuestionGate } from "@/lib/free-question-gate";
+import { ANONYMOUS_FREE_QUESTION_LIMIT, getFreeQuestionGate } from "@/lib/free-question-gate";
 import { FreeQuestionSignupGate } from "@/components/FreeQuestionSignupGate";
 import { FeedTeaserCard, FeedTimelineCard, PracticeMilestone, readFeedNudgeDismissed, trackUpgrade, useUpgradeView, writeFeedNudgeDismissed } from "@/components/UpgradeNudges";
 import { WorksheetEditCard } from "@/components/WorksheetEditCard";
@@ -176,6 +177,9 @@ const SESSION_ORDER = ["feb", "mar", "may", "jun", "oct", "nov"];
 const sessionRank = (session: string) => Math.max(0, SESSION_ORDER.findIndex((key) => session.toLowerCase().includes(key)));
 const questionTopicLabel = (question: UnifiedQuestion) => formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, question.primaryTopic) : question.primaryTopic);
 
+const readAuthCookiePresent = () => documentHasSupabaseAuthCookie(document.cookie);
+const serverHasNoAuthCookie = () => false;
+
 export function QuestionExplorer({
   questions,
   bankSlug,
@@ -263,6 +267,8 @@ access: ExplorerAccess;
   const [resolvedExportMarker, setResolvedExportMarker] = useState(exportMarker);
   const [locationHydrated, setLocationHydrated] = useState(!hydrateFromLocation);
   const [bootstrapPending, setBootstrapPending] = useState(Boolean(bootstrapUrl));
+  // Server HTML assumes no session; the browser reads the real cookie without a hydration mismatch.
+  const authCookiePresent = useSyncExternalStore(subscribeToNothing, readAuthCookiePresent, serverHasNoAuthCookie);
   const filterTriggerRef = useRef<HTMLButtonElement>(null);
   const filterDialogRef = useRef<HTMLElement>(null);
   const pdfTriggerRef = useRef<HTMLButtonElement>(null);
@@ -279,10 +285,12 @@ access: ExplorerAccess;
   const isCambridge = bank === "igcse" || bank === "igcse-additional";
   const calculatorFilter = (CALCULATOR_FILTER_BANKS as readonly string[]).includes(bank);
   const plansHref = plansHrefFor(resolvedAccess.authenticated);
-  // Static bank pages start with anonymous-safe data. Keep that provisional free filter
-  // out of the visible workspace until the member bootstrap resolves, and never apply it
-  // to an entitled account (including manual/complimentary entitlements).
-  const effectiveFreeOnly = freeOnly && !bootstrapPending && !resolvedAccess.bankAccess;
+  // Static bank pages render the anonymous view (free filter, free strip) so nothing shifts for
+  // most visitors. A browser holding a session cookie keeps the strip but withholds the
+  // provisional free filter until its member bootstrap resolves; the filter never applies to an
+  // entitled account (including manual/complimentary entitlements).
+  const provisional = bootstrapPending && authCookiePresent;
+  const effectiveFreeOnly = freeOnly && !provisional && !resolvedAccess.bankAccess;
   const subtopicGroups = useMemo(
     () => isCleanMathsBank(bank) ? getMathsPickerGroups(catalogQuestions, filters.topics ?? [], filters.subtopics ?? []) : getSubtopicGroups(catalogQuestions, filters.topics ?? [], filters.subtopics ?? []),
     [catalogQuestions, filters.topics, filters.subtopics, bank],
@@ -356,7 +364,11 @@ access: ExplorerAccess;
   const accessResolved = locationHydrated && !bootstrapPending;
   const freeGate = getFreeQuestionGate({ resolved: accessResolved, authenticated: resolvedAccess.authenticated, bankAccess: resolvedAccess.bankAccess, freeOnly, freeQuestionCount: matchingFreeCount });
   const shownQuestions = useMemo(() => {
-    if (!locationHydrated || (sharedSetView && (sharedError || Boolean(missingSharedCount)))) return [];
+    if (!locationHydrated) {
+      // Static HTML: the anonymous default (free filter, default sort) the server already computed.
+      return hydrateFromLocation && !localPreview ? questions.slice(0, Math.min(visible, ANONYMOUS_FREE_QUESTION_LIMIT)) : [];
+    }
+    if (sharedSetView && (sharedError || Boolean(missingSharedCount))) return [];
     if (!anonymous) return savedWorksheetView || sharedSetView ? resultQuestions : resultQuestions.slice(0, visible);
     if (savedWorksheetView) return [];
     const freeLimit = freeGate.visibleCount;
@@ -368,12 +380,12 @@ access: ExplorerAccess;
       return true;
     });
     return safeSample.slice(0, visible);
-  }, [accessResolved, anonymous, freeGate.visibleCount, locationHydrated, missingSharedCount, visible, resultQuestions, savedWorksheetView, sharedError, sharedSetView]);
+  }, [accessResolved, anonymous, freeGate.visibleCount, hydrateFromLocation, localPreview, locationHydrated, missingSharedCount, questions, visible, resultQuestions, savedWorksheetView, sharedError, sharedSetView]);
   const returnPath = typeof window === "undefined" ? "/" : `${window.location.pathname}${window.location.search}`;
   const signupHref = `/login?mode=sign-up&next=${encodeURIComponent(returnPath)}`;
   const signinHref = `/login?next=${encodeURIComponent(returnPath)}`;
   // Upgrade nudges: only for people without this bank, on the normal bank view.
-  const nudgesActive = Boolean(bank) && !bootstrapPending && !resolvedAccess.bankAccess && hasFreeTier(bank as BankSlug) && !worksheetId && !sharedSetView;
+  const nudgesActive = Boolean(bank) && !provisional && !resolvedAccess.bankAccess && hasFreeTier(bank as BankSlug) && !worksheetId && !sharedSetView;
   const nudgeBank = bank ?? "unknown";
   const yearFacts = useMemo(() => bank ? bankYearFacts(bank) : null, [bank]);
   const upgradeLink = (placement: UpgradePlacement) => bank ? upgradeHref(bank, placement) : upgradeHref("", placement);
@@ -427,12 +439,22 @@ access: ExplorerAccess;
     trackUpgrade("view", nudgeBank, "locked_card");
   }, [showsLockedCard, nudgeBank]);
   const activeCount = Object.values(filters).reduce((count, values) => count + (values?.length ?? 0), (effectiveFreeOnly ? 1 : 0) + (savedOnly ? 1 : 0));
-  const questionAssetRequests = useMemo(() => bootstrapPending || !locationHydrated ? [] : shownQuestions
-    .filter((question) => resolvedAccess.bankAccess || isPreviewQuestion(question.bankSlug, question.id))
+  // Free-year questions sign through the cookie-less, CDN-cached route as soon as the URL state
+  // is known; only locked questions wait for the member bootstrap.
+  const freeAssetRequests = useMemo(() => !locationHydrated || localPreview ? [] : shownQuestions
+    .filter((question) => isPreviewQuestion(question.bankSlug, question.id))
     .filter((question) => !failedAssetKeys.has(signedAssetKey(question.id, "question")))
     .filter((question) => !isSignedAssetFresh(signedAssets.get(signedAssetKey(question.id, "question")), assetEpoch))
     .map((question) => ({ questionId: question.id, kind: "question" as const })),
-  [bootstrapPending, locationHydrated, resolvedAccess.bankAccess, assetEpoch, failedAssetKeys, shownQuestions, signedAssets]);
+  [locationHydrated, localPreview, assetEpoch, failedAssetKeys, shownQuestions, signedAssets]);
+  const questionAssetRequests = useMemo(() => bootstrapPending || !locationHydrated ? [] : shownQuestions
+    .filter((question) => localPreview
+      ? resolvedAccess.bankAccess || isPreviewQuestion(question.bankSlug, question.id)
+      : resolvedAccess.bankAccess && !isPreviewQuestion(question.bankSlug, question.id))
+    .filter((question) => !failedAssetKeys.has(signedAssetKey(question.id, "question")))
+    .filter((question) => !isSignedAssetFresh(signedAssets.get(signedAssetKey(question.id, "question")), assetEpoch))
+    .map((question) => ({ questionId: question.id, kind: "question" as const })),
+  [bootstrapPending, locationHydrated, localPreview, resolvedAccess.bankAccess, assetEpoch, failedAssetKeys, shownQuestions, signedAssets]);
 
   useEffect(() => {
     if (!hydrateFromLocation) return;
@@ -466,6 +488,16 @@ access: ExplorerAccess;
   useEffect(() => {
     if (!bootstrapUrl) return;
     let cancelled = false;
+    if (!documentHasSupabaseAuthCookie(document.cookie)) {
+      // No session cookie: the server would answer "anonymous" without touching Supabase.
+      queueMicrotask(() => {
+        if (cancelled) return;
+        setResolvedAccess({ authenticated: false, bankAccess: false, canExportPdf: false });
+        setResolvedExportMarker(undefined);
+        setBootstrapPending(false);
+      });
+      return () => { cancelled = true; };
+    }
     fetch(bootstrapUrl, { cache: "no-store", credentials: "same-origin" })
       .then(async (response) => {
         if (!response.ok) throw new Error("Member state unavailable");
@@ -709,6 +741,17 @@ access: ExplorerAccess;
     window.history.replaceState(window.history.state, "", nextUrl);
   }, [bootstrapPending, effectiveCourseRoute, effectiveFreeOnly, filters, locationHydrated, resolvedAccess.bankAccess, savedOnly, search, sharedSetView, sort, visible, worksheetId, worksheetMode]);
 
+  const applySignedAssets = (assets: Map<string, SignedAsset>) => {
+    setSignedAssets((current) => new Map([...current, ...assets]));
+    const detailsById = new Map([...assets.values()].flatMap((asset) => asset.details ? [[asset.questionId, asset.details] as const] : []));
+    if (detailsById.size) {
+      setCatalogQuestions((current) => current.map((question) => {
+        const details = detailsById.get(question.id);
+        return details ? mergeQuestionRichDetails(question, details) : question;
+      }));
+    }
+  };
+
   useEffect(() => {
     if (!bank) return;
     const pendingRequests = questionAssetRequests.filter((request) => (
@@ -719,14 +762,7 @@ access: ExplorerAccess;
     for (const key of pendingKeys) signingAssetKeysRef.current.add(key);
     fetchSignedAssets(bank, pendingRequests, fetch, localPreview)
       .then((assets) => {
-        setSignedAssets((current) => new Map([...current, ...assets]));
-        const detailsById = new Map([...assets.values()].flatMap((asset) => asset.details ? [[asset.questionId, asset.details] as const] : []));
-        if (detailsById.size) {
-          setCatalogQuestions((current) => current.map((question) => {
-            const details = detailsById.get(question.id);
-            return details ? mergeQuestionRichDetails(question, details) : question;
-          }));
-        }
+        applySignedAssets(assets);
         setAssetError("");
       })
       .catch(() => {
@@ -737,6 +773,27 @@ access: ExplorerAccess;
         for (const key of pendingKeys) signingAssetKeysRef.current.delete(key);
       });
   }, [bank, localPreview, questionAssetRequests]);
+
+  useEffect(() => {
+    if (!bank) return;
+    const pendingRequests = freeAssetRequests.filter((request) => (
+      !signingAssetKeysRef.current.has(signedAssetKey(request.questionId, request.kind))
+    ));
+    if (!pendingRequests.length) return;
+    const pendingKeys = pendingRequests.map((request) => signedAssetKey(request.questionId, request.kind));
+    for (const key of pendingKeys) signingAssetKeysRef.current.add(key);
+    fetchFreeAssets(bank, pendingRequests)
+      .then(({ assets, failedKeys }) => {
+        applySignedAssets(assets);
+        if (failedKeys.length) {
+          setFailedAssetKeys((current) => new Set([...current, ...failedKeys]));
+          setAssetError("Some question images could not load.");
+        }
+      })
+      .finally(() => {
+        for (const key of pendingKeys) signingAssetKeysRef.current.delete(key);
+      });
+  }, [bank, freeAssetRequests]);
 
   const worksheetDefinition = () => JSON.stringify({ name: worksheetName.trim(), ids: [...selectedIds], content: pdfContent });
   const worksheetDirty = worksheetId ? Boolean(worksheetMode === "edit" && worksheetBaseline && worksheetBaseline !== worksheetDefinition()) : Boolean(selectionIsExplicit && worksheetName.trim() && (worksheetBaseline ? worksheetBaseline !== worksheetDefinition() : selectedIds.size));
@@ -1110,13 +1167,13 @@ access: ExplorerAccess;
       {indexError && <div className="access-notice" role="alert"><span>{indexError}</span><button className="text-button" type="button" onClick={() => { setIndexError(""); setIndexAttempt((attempt) => attempt + 1); }}>Retry question index</button></div>}
       {assetError && <div className="access-notice" role="alert"><span>{assetError}</span><button className="text-button" type="button" onClick={retryQuestionAssets}>Retry images</button></div>}
       {studyError && <div className="access-notice" role="alert">{studyError}</div>}
-      {!bootstrapPending && !resolvedAccess.bankAccess && <div className={`free-value-strip${nudgesActive && yearFacts ? " is-upgrade" : ""}`}><p>{nudgesActive && yearFacts ? (effectiveFreeOnly ? <><strong>You’re practising {yearFacts.freeLabel} papers.</strong> <span>The {yearFacts.newerPaidLabel} papers, including {yearFacts.latestYear}, need a plan.</span></> : <strong>Locked questions include the {yearFacts.newerPaidLabel} papers.</strong>) : <><strong>{sharedSetView ? "Free questions in this set are open." : effectiveFreeOnly ? "Free exam years are open." : "You’re browsing the full bank."}</strong> <span>{sharedSetView ? "Questions outside your plan stay locked; signing in unlocks every free question in the set." : effectiveFreeOnly ? "Practise now, or clear the Free questions only filter to preview the rest." : "Locked questions show what a paid bank plan unlocks."}</span></>}</p>{nudgesActive ? <Link ref={topNoteViewRef} className="free-value-link" href={upgradeLink("top_note")} onClick={() => trackUpgrade("click", nudgeBank, "top_note")}>Unlock from {UPGRADE_PRICE_LABEL}<span aria-hidden="true"> →</span></Link> : <Link className="free-value-link" href={plansHref}>{PLANS_LABEL}<span aria-hidden="true"> →</span></Link>}</div>}
+      {!resolvedAccess.bankAccess && <div className={`free-value-strip${nudgesActive && yearFacts ? " is-upgrade" : ""}`}><p>{nudgesActive && yearFacts ? (effectiveFreeOnly ? <><strong>You’re practising {yearFacts.freeLabel} papers.</strong> <span>The {yearFacts.newerPaidLabel} papers, including {yearFacts.latestYear}, need a plan.</span></> : <strong>Locked questions include the {yearFacts.newerPaidLabel} papers.</strong>) : <><strong>{sharedSetView ? "Free questions in this set are open." : effectiveFreeOnly ? "Free exam years are open." : "You’re browsing the full bank."}</strong> <span>{sharedSetView ? "Questions outside your plan stay locked; signing in unlocks every free question in the set." : effectiveFreeOnly ? "Practise now, or clear the Free questions only filter to preview the rest." : "Locked questions show what a paid bank plan unlocks."}</span></>}</p>{nudgesActive ? <Link ref={topNoteViewRef} className="free-value-link" href={upgradeLink("top_note")} onClick={() => trackUpgrade("click", nudgeBank, "top_note")}>Unlock from {UPGRADE_PRICE_LABEL}<span aria-hidden="true"> →</span></Link> : <Link className="free-value-link" href={plansHref}>{PLANS_LABEL}<span aria-hidden="true"> →</span></Link>}</div>}
 
       <div className="explorer-layout">
         {filtersOpen && <button className="filter-backdrop" type="button" tabIndex={-1} aria-hidden="true" onClick={() => setFiltersOpen(false)} />}
         <aside ref={filterDialogRef} className={`filter-sidebar ${filtersOpen ? "is-open" : ""}`} role={filtersOpen ? "dialog" : undefined} aria-modal={filtersOpen ? true : undefined} aria-labelledby={filtersOpen ? "filter-sidebar-title" : undefined} aria-label={filtersOpen ? undefined : "Question filters"}>
           <div className="filter-sidebar-heading"><strong id="filter-sidebar-title">Filters</strong><button className="filter-close" type="button" aria-label="Close filters" onClick={() => setFiltersOpen(false)}><X /></button></div>
-          {!bootstrapPending && !resolvedAccess.bankAccess && <div className="filter-group" role="group" aria-labelledby="filter-access"><h3 id="filter-access">Access</h3><div className="filter-options"><label><input aria-label="Free questions only" type="checkbox" checked={effectiveFreeOnly} onChange={() => { setFreeOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Free questions only</span></label></div></div>}
+          {!resolvedAccess.bankAccess && <div className="filter-group" role="group" aria-labelledby="filter-access"><h3 id="filter-access">Access</h3><div className="filter-options"><label><input aria-label="Free questions only" type="checkbox" checked={effectiveFreeOnly} onChange={() => { setFreeOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Free questions only</span></label></div></div>}
           {resolvedAccess.authenticated && <div className="filter-group" role="group" aria-labelledby="filter-study"><h3 id="filter-study">Study</h3><div className="filter-options"><label><input aria-label="Saved questions only" type="checkbox" checked={savedOnly} onChange={() => { setSavedOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Saved questions only</span></label></div></div>}
           <FilterGroup label="Topics" filterKey="topics" values={options.topics} selected={filters.topics ?? []} onToggle={toggle} />
           <FilterGroup label="Subtopics" filterKey="subtopics" values={visibleSubtopics} selected={filters.subtopics ?? []} onToggle={toggle} bank={bank} />
@@ -1160,7 +1217,7 @@ access: ExplorerAccess;
               const unlocked = resolvedAccess.bankAccess || isPreviewQuestion(question.bankSlug, question.id);
               const questionAsset = signedAssets.get(signedAssetKey(question.id, "question"));
               const answerAsset = signedAssets.get(signedAssetKey(question.id, "answer"));
-              return <Fragment key={question.id}><QuestionCard question={question} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAsset={(asset) => {
+              return <Fragment key={question.id}><QuestionCard question={question} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} freeAnswer={!localPreview && isPreviewQuestion(question.bankSlug, question.id)} priority={index === 0} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAsset={(asset) => {
                 setSignedAssets((current) => new Map(current).set(signedAssetKey(question.id, "answer"), asset));
                 if (asset.details) setCatalogQuestions((current) => current.map((item) => item.id === question.id ? mergeQuestionRichDetails(item, asset.details!) : item));
               }} selected={selectedIds.has(question.id)} selectable={!savedWorksheetView && !sharedSetView} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => toggleSaved(question.id)} onAttempt={() => recordAttempt(question.id)} onReveal={() => recordReveal(question.id)} locked={nudgesActive ? { title: `${question.year} paper · on any plan`, body: indexLoaded ? `Unlock ${paidCount.toLocaleString()} more ${bankShortName} questions with mark schemes and PDFs.` : `Unlock every ${bankShortName} question with mark schemes and PDFs.`, href: upgradeLink("locked_card"), onClick: () => trackUpgrade("click", nudgeBank, "locked_card") } : undefined} />{nudgesActive && milestoneQuestionId === question.id && <PracticeMilestone bank={nudgeBank} facts={yearFacts} href={upgradeLink("practice_milestone")} onDismiss={() => setMilestoneQuestionId("")} />}{renderFeedSlot(index + 1, index === shownQuestions.length - 1)}</Fragment>;
@@ -1206,11 +1263,13 @@ function FilterGroup({ label, filterKey, values, selected, onToggle, bank }: { l
   return <div className="filter-group" role="group" aria-labelledby={headingId}><h3 id={headingId}>{label}</h3><div className="filter-options">{values.map((value) => { const publicLabel = formatPublicLabel(bank === "igcse" || bank === "igcse-additional" ? formatMathsPickerLabel(bank, value) : value); return <label key={value}><input aria-label={`${label}: ${publicLabel}`} type="checkbox" checked={selected.includes(value)} onChange={() => onToggle(filterKey, value)} /><span>{publicLabel}</span></label>; })}</div></div>;
 }
 
-function QuestionCard({ question, unlocked, authenticated, localPreview, questionAsset, answerAsset, onQuestionAssetError, onAnswerAsset, selected, selectable, onSelect, saved, attempted, onToggleSaved, onAttempt, onReveal, locked }: {
+function QuestionCard({ question, unlocked, authenticated, localPreview, freeAnswer, priority = false, questionAsset, answerAsset, onQuestionAssetError, onAnswerAsset, selected, selectable, onSelect, saved, attempted, onToggleSaved, onAttempt, onReveal, locked }: {
   question: UnifiedQuestion;
   unlocked: boolean;
   authenticated: boolean;
   localPreview: boolean;
+  freeAnswer: boolean;
+  priority?: boolean;
   questionAsset?: SignedAsset;
   answerAsset?: SignedAsset;
   onQuestionAssetError: () => void;
@@ -1229,18 +1288,46 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, questio
   const [solutionOpen, setSolutionOpen] = useState(false);
   const [answerLoading, setAnswerLoading] = useState(false);
   const [answerError, setAnswerError] = useState("");
+  const answerRequestRef = useRef<{ promise: Promise<SignedAsset>; expiresAt: number } | null>(null);
+  const hasFreshAnswerAsset = () => isSignedAssetFresh(answerAsset);
+  const loadAnswer = () => {
+    if (hasFreshAnswerAsset()) return Promise.resolve(answerAsset!);
+    if (answerRequestRef.current && answerRequestRef.current.expiresAt <= Date.now()) answerRequestRef.current = null;
+    if (!answerRequestRef.current) {
+      const request = (freeAnswer
+        ? fetchFreeAssets(question.bankSlug, [{ questionId: question.id, kind: "answer" }]).then(({ assets }) => assets.get(signedAssetKey(question.id, "answer")))
+        : fetchSignedAssets(question.bankSlug, [{ questionId: question.id, kind: "answer" }], fetch, localPreview).then((assets) => assets.get(signedAssetKey(question.id, "answer"))))
+        .then((asset) => {
+          if (!asset) throw new Error("Missing answer asset");
+          if (answerRequestRef.current?.promise === request) answerRequestRef.current.expiresAt = asset.expiresAt;
+          onAnswerAsset(asset);
+          return asset;
+        })
+        .catch((error: unknown) => {
+          if (answerRequestRef.current?.promise === request) answerRequestRef.current = null;
+          throw error;
+        });
+      answerRequestRef.current = { promise: request, expiresAt: Number.POSITIVE_INFINITY };
+    }
+    return answerRequestRef.current.promise;
+  };
+  // Free answers are public and CDN-cached, so warm them on intent; paid answers sign on click
+  // only, because each signature spends the member's daily allowance.
+  const prefetchAnswer = () => {
+    if (!freeAnswer || answerOpen || hasFreshAnswerAsset() || question.markschemeImageCount < 1) return;
+    void loadAnswer().then((asset) => {
+      if (asset.urls[0]) new window.Image().src = asset.urls[0];
+    }).catch(() => {});
+  };
 
   const toggleAnswer = async () => {
     if (answerOpen) { setAnswerOpen(false); return; }
     trackProductEvent("answer_reveal", { bank: question.bankSlug, freePreview: isPreviewQuestion(question.bankSlug, question.id) });
-    if (question.markschemeImageCount > 0 && !answerAsset) {
+    if (question.markschemeImageCount > 0 && !hasFreshAnswerAsset()) {
       setAnswerLoading(true);
       setAnswerError("");
       try {
-        const assets = await fetchSignedAssets(question.bankSlug, [{ questionId: question.id, kind: "answer" }], fetch, localPreview);
-        const asset = assets.get(signedAssetKey(question.id, "answer"));
-        if (!asset) throw new Error("Missing answer asset");
-        onAnswerAsset(asset);
+        await loadAnswer();
       } catch {
         setAnswerError("The answer could not load. Try again.");
         setAnswerLoading(false);
@@ -1257,9 +1344,9 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, questio
     <article className={`question-card question-paper${selected && selectable ? " is-selected" : ""}`}>
       <header className="question-card-header"><div className="question-meta"><span>{question.year} {question.session}</span><span>Paper {question.paper}</span><span>Question {question.number}</span>{question.component && <span>Component {question.component}</span>}{question.zone && <span>{question.zone}</span>}{question.marks !== null && <span>{question.marks} {question.marks === 1 ? "mark" : "marks"}</span>}</div>{unlocked && selectable && <label className="pdf-select"><input aria-label={`Add question ${question.number} to PDF`} type="checkbox" checked={selected} onChange={onSelect} /> Add to PDF</label>}</header>
       <div className="question-topic"><strong>{formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, question.primaryTopic) : question.primaryTopic)}</strong>{displayedQuestionSubtopics(question).slice(0, 4).map((topic) => <span key={topic}>{formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, topic) : topic)}</span>)}</div>
-      {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <SourceCropImage key={source} bankSlug={question.bankSlug} questionId={question.id} src={source} crop={questionAsset.displayCrops?.[index]} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} onError={onQuestionAssetError} />) : <div className="asset-placeholder" role="status"><span className="placeholder-shimmer" aria-hidden="true" /><span className="placeholder-bars" aria-hidden="true"><i /><i /><i /><i /></span><span className="sr-only">Loading original question</span></div>}</div> : <div className="question-locked"><strong>{locked?.title ?? "Paid plan required"}</strong><span>{locked?.body ?? "Unlock this bank’s full question set, answers, and PDF export."}</span><Link className={locked ? "button primary question-locked-upgrade" : "question-locked-action"} href={locked?.href ?? plansHrefFor(authenticated)} onClick={locked?.onClick}>{locked ? `Unlock from ${UPGRADE_PRICE_LABEL}` : PLANS_LABEL}</Link></div>}
+      {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <SourceCropImage key={source} bankSlug={question.bankSlug} questionId={question.id} src={source} priority={priority && index === 0} crop={questionAsset.displayCrops?.[index]} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} onError={onQuestionAssetError} />) : <div className="asset-placeholder" role="status"><span className="placeholder-shimmer" aria-hidden="true" /><span className="placeholder-bars" aria-hidden="true"><i /><i /><i /><i /></span><span className="sr-only">Loading original question</span></div>}</div> : <div className="question-locked"><strong>{locked?.title ?? "Paid plan required"}</strong><span>{locked?.body ?? "Unlock this bank’s full question set, answers, and PDF export."}</span><Link className={locked ? "button primary question-locked-upgrade" : "question-locked-action"} href={locked?.href ?? plansHrefFor(authenticated)} onClick={locked?.onClick}>{locked ? `Unlock from ${UPGRADE_PRICE_LABEL}` : PLANS_LABEL}</Link></div>}
       <div className="question-actions">
-        <div className="question-action-buttons">{unlocked ? ((question.solution || question.markschemeImageCount > 0) ? <button className="answer-toggle" disabled={answerLoading} aria-expanded={answerOpen} onClick={toggleAnswer}>{answerLoading ? "Loading answer..." : answerOpen ? "Hide answer" : "Show answer"}</button> : <span className="muted">Answer coming soon</span>) : null}{answerError && <span className="muted" role="alert">{answerError}</span>}</div>
+        <div className="question-action-buttons">{unlocked ? ((question.solution || question.markschemeImageCount > 0) ? <button className="answer-toggle" disabled={answerLoading} aria-expanded={answerOpen} onClick={toggleAnswer} onPointerEnter={prefetchAnswer} onFocus={prefetchAnswer} onTouchStart={prefetchAnswer}>{answerLoading ? "Loading answer..." : answerOpen ? "Hide answer" : "Show answer"}</button> : <span className="muted">Answer coming soon</span>) : null}{answerError && <span className="muted" role="alert">{answerError}</span>}</div>
         <div className="source-links">{attempted && <span className="study-state"><CheckCircle weight="fill" /> Practised</span>}{authenticated && unlocked && <button className={`study-icon-button ${saved ? "is-saved" : ""}`} title={saved ? "Remove from saved" : "Save question"} aria-label={saved ? `Remove question from saved ${question.id}` : `Save question ${question.id}`} onClick={onToggleSaved}><BookmarkSimple weight={saved ? "fill" : "regular"} aria-hidden="true" /></button>}</div>
       </div>
       {answerOpen && <div className="answer-panel">{answerAsset?.urls.length ? <p className="answer-panel-label">Mark scheme</p> : null}{answerAsset?.urls.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Official mark scheme page ${index + 1}`} />)}{question.solution && (answerAsset?.urls.length ? <div className="solution-wrap"><button className="text-button" aria-expanded={solutionOpen} onClick={() => setSolutionOpen((open) => !open)}>{solutionOpen ? "Hide worked text" : "Show worked text"}</button>{solutionOpen && <p>{question.solution}</p>}</div> : <p>{question.solution}</p>)}</div>}

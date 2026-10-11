@@ -1,8 +1,9 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { isSupabaseAuthCookieName } from "@/lib/supabase/auth-cookie";
 
 export function hasSupabaseAuthCookie(cookies: readonly { name: string }[]) {
-  return cookies.some(({ name }) => /^sb-.+-auth-token(?:\.\d+)?$/.test(name));
+  return cookies.some(({ name }) => isSupabaseAuthCookieName(name));
 }
 
 export async function updateSession(request: NextRequest) {

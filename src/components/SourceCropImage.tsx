@@ -5,21 +5,24 @@ import { matchesReviewedDisplayCrop, type VisibleImageCrop } from "@/lib/reviewe
 import { fetchVerifiedImageBlob } from "@/lib/verified-asset-bytes";
 
 /** Clips only a signed, reviewed furniture tail; never changes the image width. */
-export function SourceCropImage({ src, alt, crop, bankSlug, questionId, onError }: {
+export function SourceCropImage({ src, alt, crop, bankSlug, questionId, onError, priority = false }: {
   src: string;
   alt: string;
   bankSlug: BankSlug;
   questionId: string;
   crop?: VisibleImageCrop | null;
   onError?: ReactEventHandler<HTMLImageElement>;
+  /** The first question image on the page: fetch it before anything else below the fold. */
+  priority?: boolean;
 }) {
+  const loading = { loading: priority ? "eager" : "lazy", fetchPriority: priority ? "high" : "auto" } as const;
   if (!crop || !matchesReviewedDisplayCrop(bankSlug, questionId, crop)) {
-    return <Image unoptimized width={1400} height={1000} src={src} alt={alt} onError={onError} />;
+    return <Image unoptimized width={1400} height={1000} src={src} alt={alt} onError={onError} {...loading} />;
   }
-  return <VerifiedCrop key={`${src}:${crop.imageSha256}`} src={src} alt={alt} crop={crop} onError={onError} />;
+  return <VerifiedCrop key={`${src}:${crop.imageSha256}`} src={src} alt={alt} crop={crop} onError={onError} loading={loading} />;
 }
 
-function VerifiedCrop({ src, alt, crop, onError }: { src: string; alt: string; crop: VisibleImageCrop; onError?: ReactEventHandler<HTMLImageElement> }) {
+function VerifiedCrop({ src, alt, crop, onError, loading }: { src: string; alt: string; crop: VisibleImageCrop; onError?: ReactEventHandler<HTMLImageElement>; loading: { loading: "eager" | "lazy"; fetchPriority: "high" | "auto" } }) {
   const [verifiedUrl, setVerifiedUrl] = useState<string | null>(null);
   const [failed, setFailed] = useState(false);
   useEffect(() => {
@@ -35,9 +38,9 @@ function VerifiedCrop({ src, alt, crop, onError }: { src: string; alt: string; c
     })();
     return () => { active = false; if (objectUrl) URL.revokeObjectURL(objectUrl); };
   }, [src, crop.imageSha256]);
-  if (failed) return <Image unoptimized width={crop.fullWidthPx} height={crop.fullHeightPx} src={src} alt={alt} onError={onError} />;
+  if (failed) return <Image unoptimized width={crop.fullWidthPx} height={crop.fullHeightPx} src={src} alt={alt} onError={onError} {...loading} />;
   if (!verifiedUrl) return <div role="status" aria-label="Verifying original image" />;
   return <div className="source-tail-clipped" style={{ aspectRatio: `${crop.fullWidthPx} / ${crop.visibleHeightPx}` }}>
-    <Image unoptimized width={crop.fullWidthPx} height={crop.fullHeightPx} src={verifiedUrl} alt={alt} onError={onError} />
+    <Image unoptimized width={crop.fullWidthPx} height={crop.fullHeightPx} src={verifiedUrl} alt={alt} onError={onError} {...loading} />
   </div>;
 }

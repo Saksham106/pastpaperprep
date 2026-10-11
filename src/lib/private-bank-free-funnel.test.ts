@@ -22,6 +22,7 @@ import { getAvailableBanks, isPrivateBankIndexEnabled } from "@/lib/banks";
 import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
 import { createPublicBankIndex, publicBankIndexUrl } from "@/lib/question-index";
 import { loadBankQuestions } from "@/lib/question-loader";
+import { ensureAssetManifestForCurrentEnvironment } from "../../test/asset-manifest-fixture";
 import coordinatedRuntime from "@/data/production/igcse-coordinated-sciences-0654.json";
 import biologyRuntime from "@/data/production/igcse-biology-0610.json";
 import economicsRuntime from "@/data/production/igcse-economics-0455.json";
@@ -62,9 +63,10 @@ function jsonRequest(body: unknown): Request {
   });
 }
 
-beforeEach(() => {
+beforeEach(async () => {
   vi.clearAllMocks();
   for (const [key, value] of Object.entries(RELEASE_ENVIRONMENT)) vi.stubEnv(key, value);
+  await ensureAssetManifestForCurrentEnvironment("igcse-physics-0625");
   getClaims.mockResolvedValue({ data: { claims: null } });
   createClient.mockResolvedValue({ auth: { getClaims }, from, rpc });
   rpc.mockResolvedValue({ data: true, error: null });

@@ -10,6 +10,9 @@ const nextConfig: NextConfig = {
   },
   outputFileTracingIncludes: {
     "/api/exam-style/worksheets/[course]/[slug]": ["./private/exam-style/**/*.pdf"],
+    "/api/assets/sign": ["./generated/asset-manifest/**"],
+    "/api/assets/free": ["./generated/asset-manifest/**"],
+    "/api/study-state": ["./generated/asset-manifest/**"],
   },
   async headers() {
     return [{

@@ -3,7 +3,7 @@ import {
   canViewQuestionAsset,
   type AccessEntitlement,
 } from "@/lib/access";
-import { isLocalEconomicsBank } from "@/lib/banks";
+import { isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
 import type { UnifiedQuestion, QuestionRichDetails } from "@/lib/questions";
 
 function publicSearchText(question: UnifiedQuestion): string {
@@ -72,12 +72,32 @@ export function getQuestionRichDetails(
   now = new Date(),
   allowLocalPreview = false,
 ): QuestionRichDetails {
-  const delivered = prepareQuestionsForDelivery([question], entitlements, now, allowLocalPreview)[0];
+  return richDetailsFor(question.bankSlug, question.id, {
+    summary: question.summary,
+    accessibleText: question.accessibleText,
+    solution: question.solution,
+    sourceQuestionUrl: question.sourceQuestionUrl,
+    sourceMarkSchemeUrl: question.sourceMarkSchemeUrl,
+  }, entitlements, now, allowLocalPreview);
+}
+
+/** Same gating as prepareQuestionsForDelivery, for callers that hold only manifest fields. */
+export function richDetailsFor(
+  bankSlug: BankSlug,
+  questionId: string,
+  details: QuestionRichDetails,
+  entitlements: readonly AccessEntitlement[],
+  now = new Date(),
+  allowLocalPreview = false,
+): QuestionRichDetails {
+  const localPreview = allowLocalPreview && isLocalEconomicsBank(bankSlug);
+  const canViewQuestion = localPreview || canViewQuestionAsset(bankSlug, questionId, entitlements, now);
+  const canViewQuestionAnswer = localPreview || canViewAnswer(bankSlug, questionId, entitlements, now);
   return {
-    summary: delivered.summary,
-    accessibleText: delivered.accessibleText,
-    solution: delivered.solution,
-    sourceQuestionUrl: delivered.sourceQuestionUrl,
-    sourceMarkSchemeUrl: delivered.sourceMarkSchemeUrl,
+    summary: canViewQuestion ? details.summary : "",
+    accessibleText: canViewQuestion ? details.accessibleText : "",
+    solution: canViewQuestionAnswer ? details.solution : null,
+    sourceQuestionUrl: canViewQuestion ? details.sourceQuestionUrl : null,
+    sourceMarkSchemeUrl: canViewQuestionAnswer ? details.sourceMarkSchemeUrl : null,
   };
 }

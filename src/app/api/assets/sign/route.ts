@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
 import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { hasBankAccess, isPreviewQuestion, type AccessEntitlement } from "@/lib/access";
-import { authorizeAssetRequests, type AssetRequest } from "@/lib/asset-access";
+import type { AssetRequest } from "@/lib/asset-access";
+import { authorizeManifestAssetRequests, loadBankAssetManifest } from "@/lib/asset-manifest";
 import { getBank, type BankSlug } from "@/lib/banks";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { premiumAssetSignOptions, previewAssetSignOptions, resolvedAssetSignProvider, signPrivateAssetUrls } from "@/lib/private-assets";
-import { getQuestionRichDetails } from "@/lib/question-delivery";
+import { richDetailsFor } from "@/lib/question-delivery";
 import { reviewedBlankTailForSignedAsset } from "@/lib/reviewed-blank-tails";
 import { createClient } from "@/lib/supabase/server";
 
@@ -50,12 +51,16 @@ async function handlePOST(request: Request) {
     entitlements = result.rows as AccessEntitlement[];
   }
 
+  const manifest = await loadBankAssetManifest(body.bank as BankSlug).catch(() => null);
+  if (!manifest) return NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503, ...PRIVATE_RESPONSE_INIT });
+
   let authorized;
   try {
-    authorized = await authorizeAssetRequests(
+    authorized = authorizeManifestAssetRequests(
       body.bank as BankSlug,
       body.requests as AssetRequest[],
       entitlements,
+      manifest,
     );
   } catch (error) {
     const message = error instanceof Error ? error.message : "Invalid asset request";
@@ -76,7 +81,7 @@ async function handlePOST(request: Request) {
       assets: authorized.map((item) => ({
         questionId: item.questionId,
         kind: item.kind,
-        details: getQuestionRichDetails(item.question, entitlements),
+        details: richDetailsFor(body.bank as BankSlug, item.questionId, item.details, entitlements),
         urls: [],
       })),
     }, PRIVATE_RESPONSE_INIT);
@@ -107,7 +112,7 @@ async function handlePOST(request: Request) {
       assets: authorized.map((item) => ({
         questionId: item.questionId,
         kind: item.kind,
-        details: getQuestionRichDetails(item.question, entitlements),
+        details: richDetailsFor(body.bank as BankSlug, item.questionId, item.details, entitlements),
         urls: item.paths.map((path) => urlByPath.get(path)),
         displayCrops: item.paths.map((path) => reviewedBlankTailForSignedAsset(body.bank as BankSlug, item.questionId, item.kind, path)),
       })),

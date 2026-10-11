@@ -20,6 +20,8 @@ __pycache__/
 
 # next.js
 /.next/
+# server-only asset manifests (npm run generate:asset-manifest)
+/generated/
 /out/
 
 # production
