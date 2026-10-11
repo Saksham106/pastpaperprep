@@ -1,5 +1,5 @@
 /* Landing page. The hero is an illustration and stays light in both themes. */
-.home { margin-top: -68px; overflow: clip; background: var(--paper-warm); }
+.home { margin-top: -68px; display: flow-root; overflow: clip; background: var(--paper-warm); }
 .eyebrow { margin: 0; color: #7f293a; font: 600 .68rem/1.2 var(--font-mono); letter-spacing: .16em; text-transform: uppercase; }
 
 /* 1. Hero: background engraving, headline, then the same scene with the sky cut out on top. */
@@ -120,7 +120,7 @@
 @media (max-width: 700px) {
   .stage { aspect-ratio: 4 / 5; max-height: none; min-height: 0; }
   .back, .front { object-position: 50% 50%; }
-  .headline { inset: 16% 12px auto; font-size: clamp(3rem, 17vw, 4.6rem); }
+  .headline { inset: 18% 12px auto; font-size: clamp(2.6rem, 12.6vw, 4.4rem); }
   .lede { margin-top: -64px; padding-bottom: 48px; }
   .picker { grid-template-columns: 1fr; padding: 8px; }
   .pickerToggle { padding: 4px; grid-auto-columns: 1fr; background: #efe9dd; border-radius: 12px; }
