@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { PAGE_NAVIGATION } from "@/components/PageTransition";
 import { BookOpenText, SquaresFour } from "@phosphor-icons/react/dist/ssr";
 import { useEffect, useRef, useState } from "react";
 import { HeaderNavigation } from "@/components/HeaderNavigation";
@@ -34,7 +35,7 @@ export function SiteHeader({ authenticated = false }: { authenticated?: boolean 
   return <>
     <span ref={sentinelRef} className="header-scroll-sentinel" aria-hidden="true" />
     <header ref={headerRef} className={`site-header${scrolled ? " is-scrolled" : ""}${menuOpen ? " menu-open" : ""}`}>
-      <Link className="brand" href={homeHref} aria-label="PastPaperPrep home">
+      <Link transitionTypes={PAGE_NAVIGATION} className="brand" href={homeHref} aria-label="PastPaperPrep home">
         <span className="brand-mark"><BookOpenText weight="bold" /></span>
         <span>PastPaperPrep</span>
       </Link>

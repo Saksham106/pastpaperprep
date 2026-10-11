@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { getBank, type BankSlug } from "@/lib/banks";
-import { loadBankQuestions } from "@/lib/question-loader";
+import { loadBankAssetManifest } from "@/lib/asset-manifest";
 import { createClient } from "@/lib/supabase/server";
 
 type StudyAction = "save" | "unsave" | "attempt";
@@ -31,7 +31,9 @@ async function handlePOST(request: Request) {
 
   const bank = body.bank as BankSlug;
   const questionId = body.questionId;
-  if (!(await loadBankQuestions(bank)).some((question) => question.id === questionId)) {
+  const manifest = await loadBankAssetManifest(bank).catch(() => null);
+  if (!manifest) return NextResponse.json({ error: "Study progress could not be updated" }, { status: 503 });
+  if (!manifest.has(questionId)) {
     return NextResponse.json({ error: "Unknown question" }, { status: 400 });
   }
 

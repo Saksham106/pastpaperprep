@@ -1,0 +1,39 @@
+/* Site motion: short, transform/opacity only, and off for reduced motion.
+   Loaded after globals.css. Route crossfades come from <PageTransition> (React ViewTransition). */
+
+/* Keep the header still and the page clickable while a route crossfades. */
+.site-header { view-transition-name: site-header; }
+::view-transition { pointer-events: none; }
+::view-transition-group(site-header) { z-index: 100; }
+::view-transition-old(site-header) { display: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Route changes: the old page fades out, the new one fades up 6px. */
+  ::view-transition-old(.page-fade) { animation: motion-fade-out 120ms ease-in both; }
+  ::view-transition-new(.page-fade) { animation: motion-fade-up 220ms 40ms cubic-bezier(.2, .8, .2, 1) both; }
+  ::view-transition-group(site-header), ::view-transition-new(site-header) { animation: none; }
+
+  /* Answers open with a short settle; question images fade in when their link arrives. */
+  .answer-panel { animation: motion-settle 200ms cubic-bezier(.2, .8, .2, 1) both; }
+  .question-images img, .answer-panel img { animation: motion-fade-in 240ms ease-out both; }
+
+  /* Press feedback on study controls and bank cards. */
+  .answer-toggle, .load-more, .text-button, .study-icon-button, .mobile-filter-button, .more-filters-button,
+  .dashboard-bank-card, .search-bank-card, .curriculum-bank-links a { transition: transform 120ms ease; }
+  .answer-toggle:active, .load-more:active, .text-button:active, .study-icon-button:active,
+  .mobile-filter-button:active, .more-filters-button:active { transform: scale(.97); }
+  .dashboard-bank-card:active, .search-bank-card:active, .curriculum-bank-links a:active { transform: scale(.99); }
+
+  /* Image placeholder sweep: transform instead of background-position, so it stays on the compositor. */
+  .asset-placeholder .placeholder-shimmer { background-size: 100% 100%; animation: motion-sweep 1.4s ease-in-out infinite; }
+
+  @keyframes motion-fade-out { to { opacity: 0; } }
+  @keyframes motion-fade-up { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @keyframes motion-fade-in { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes motion-settle { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+  @keyframes motion-sweep { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}

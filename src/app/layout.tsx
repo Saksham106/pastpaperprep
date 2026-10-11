@@ -5,8 +5,10 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SessionAwareSiteHeader } from "@/components/SessionAwareSiteHeader";
 import { SiteTelemetry } from "@/components/SiteTelemetry";
 import { BankNavigationFeedback } from "@/components/BankNavigationFeedback";
+import { PageTransition } from "@/components/PageTransition";
 import { SOCIAL_IMAGE, SOCIAL_IMAGE_URL } from "@/lib/seo";
 import "./globals.css";
+import "./motion.css";
 
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
 const youngSerif = Young_Serif({ variable: "--font-young-serif", subsets: ["latin"], weight: "400" });
@@ -61,7 +63,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <ThemeProvider attribute="data-theme" defaultTheme="light" enableColorScheme storageKey="pastpaperprep-theme" disableTransitionOnChange>
           <SessionAwareSiteHeader />
           <BankNavigationFeedback />
-          <main>{children}</main>
+          <main><PageTransition>{children}</PageTransition></main>
           <SiteFooter />
           <SiteTelemetry />
         </ThemeProvider>

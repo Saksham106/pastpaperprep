@@ -1,4 +1,5 @@
 import { isEconomicsProductionEnabled, isIGCSEReleaseBank, isIGCSEReleaseEnabled, isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
+import { bankRuntimeCacheKey } from "@/lib/bank-runtime-key";
 import { getEconomicsRuntimeArtifact } from "@/lib/economics-runtime";
 import { normalizeBankQuestions, type UnifiedQuestion } from "@/lib/questions";
 
@@ -29,11 +30,6 @@ const loaders: Record<BankSlug, () => Promise<RawBank>> = {
 const cache = new Map<string, Promise<UnifiedQuestion[]>>();
 const questionIndexCache = new Map<string, Promise<ReadonlyMap<string, UnifiedQuestion>>>();
 
-function bankRuntimeCacheKey(slug: BankSlug): string {
-  const productionEconomics = isLocalEconomicsBank(slug) && isEconomicsProductionEnabled();
-  const productionIGCSE = isIGCSEReleaseBank(slug) && isIGCSEReleaseEnabled();
-  return `${slug}:${productionEconomics || productionIGCSE ? "production" : "preview"}`;
-}
 
 export function loadBankQuestionMap(slug: BankSlug): Promise<ReadonlyMap<string, UnifiedQuestion>> {
   const cacheKey = bankRuntimeCacheKey(slug);

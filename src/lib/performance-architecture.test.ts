@@ -1,10 +1,31 @@
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
+import { existsSync, readFileSync, statSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { config } from "@/proxy";
 
 function source(path: string) {
   return readFileSync(join(process.cwd(), path), "utf8");
+}
+
+/** Every file a module statically imports (value imports only), resolved like the app's aliases. */
+function clientImportGraph(entry: string) {
+  const seen = new Set<string>();
+  const resolveSpec = (from: string, spec: string) => {
+    const base = spec.startsWith("@/") ? join(process.cwd(), "src", spec.slice(2)) : spec.startsWith(".") ? resolve(dirname(from), spec) : null;
+    if (!base) return null;
+    return [base, `${base}.ts`, `${base}.tsx`, `${base}.mjs`, `${base}.js`].find((candidate) => existsSync(candidate) && statSync(candidate).isFile()) ?? null;
+  };
+  const walk = (file: string) => {
+    if (seen.has(file)) return;
+    seen.add(file);
+    if (!/\.(ts|tsx|mjs|js)$/.test(file)) return;
+    for (const match of readFileSync(file, "utf8").matchAll(/^\s*(?:import|export)\s+(?!type\b)(?:[^"';]*?\sfrom\s+)?["']([^"']+)["']/gm)) {
+      const next = resolveSpec(file, match[1]);
+      if (next) walk(next);
+    }
+  };
+  walk(join(process.cwd(), entry));
+  return [...seen].map((file) => file.replace(`${process.cwd()}/`, ""));
 }
 
 describe("serverless performance boundaries", () => {
@@ -25,8 +46,17 @@ describe("serverless performance boundaries", () => {
       "/pricing/preview",
       "/login",
       "/auth/:path*",
-      "/api/:path*",
+      "/api/((?!assets/free$).*)",
     ]);
+  });
+
+  it("keeps the cacheable free asset route out of session middleware", () => {
+    const api = config.matcher.at(-1)!;
+    const pattern = new RegExp(`^${api.replace("/api/", "\\/api\\/")}$`);
+    expect(pattern.test("/api/assets/free")).toBe(false);
+    expect(pattern.test("/api/assets/sign")).toBe(true);
+    expect(pattern.test("/api/study-state")).toBe(true);
+    expect(pattern.test("/api/assets/free-extra")).toBe(true);
   });
 
   it("pre-renders bank pages instead of doing corpus and auth work per request", () => {
@@ -38,10 +68,37 @@ describe("serverless performance boundaries", () => {
     expect(page).toContain("bootstrapUrl=");
   });
 
+  it("preconnects bank pages to the hosts that serve question images", () => {
+    const page = source("src/app/banks/[slug]/page.tsx");
+    expect(page).toMatch(/for \(const origin of assetOriginsForBank\(slug\)\) preconnect\(origin/);
+  });
+
   it("does not eagerly import every question bank into the shared question module", () => {
     const questions = source("src/lib/questions.ts");
     expect(questions).not.toContain("@/data/raw/");
     expect(questions).not.toContain("const rawBanks");
+  });
+
+  it("keeps the hot asset routes free of the full question corpus", () => {
+    for (const route of ["src/app/api/assets/sign/route.ts", "src/app/api/assets/free/route.ts", "src/app/api/study-state/route.ts"]) {
+      const graph = clientImportGraph(route);
+      expect(graph, route).toContain("src/lib/asset-manifest.ts");
+      expect(graph, route).not.toContain("src/lib/question-loader.ts");
+      expect(graph.some((file) => file.startsWith("src/data/raw/") || file.startsWith("src/data/production/")), route).toBe(false);
+    }
+  });
+
+  it("reads asset manifests from a constant path so file tracing stays bounded", () => {
+    const manifest = source("src/lib/asset-manifest.ts");
+    expect(manifest).toContain('join(process.cwd(), "generated", "asset-manifest", assetManifestFileName(slug))');
+    expect(manifest).not.toMatch(/join\(directory/);
+  });
+
+  it("keeps server-only classification ledgers out of the bank explorer bundle", () => {
+    const graph = clientImportGraph("src/components/QuestionExplorer.tsx");
+    expect(graph).toContain("src/lib/taxonomy-router.ts");
+    expect(graph).not.toContain("src/data/igcse-0580-section-retrieval-v3.json");
+    expect(graph).not.toContain("src/data/classification/igcse-biology-0610-official-taxonomy-v2.json");
   });
 
   it("keeps PDF generation out of the cold explorer entry chunk", () => {

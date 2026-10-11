@@ -1,4 +1,4 @@
-import taxonomy from "../data/classification/igcse-biology-0610-official-taxonomy-v2.json" with { type: "json" };
+import taxonomy from "../data/client/biology-0610-eras.json" with { type: "json" };
 import official2026 from "../data/igcse-biology-0610-official-2026.json" with { type: "json" };
 
 // Cambridge Biology 0610, 2026–28 syllabus, pp. 14–48. The 2023–25

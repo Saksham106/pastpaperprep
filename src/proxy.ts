@@ -22,6 +22,7 @@ export const config = {
     "/pricing/preview",
     "/login",
     "/auth/:path*",
-    "/api/:path*",
+    // The free asset route is cookie-less and CDN-cached; keep proxy work off its hits.
+    "/api/((?!assets/free$).*)",
   ],
 };
