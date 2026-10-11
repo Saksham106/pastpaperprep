@@ -20,8 +20,8 @@ describe("home page", () => {
     expect(BANKS.reduce((total, bank) => total + bank.questionCount, 0)).toBe(17694);
     expect(markup).toContain("Past papers,");
     expect(markup).toContain("by topic.");
-    expect(markup).toContain("17,694");
-    expect(markup).toContain("1,121");
+    expect(markup).toContain("17,000+");
+    expect(markup).not.toContain("17,694");
     expect(markup).toContain('href="/banks/igcse?free=1"');
     expect(markup).not.toContain("Practice the");
     expect(markup).not.toContain("Choose where to begin.");
@@ -78,11 +78,18 @@ describe("home page", () => {
     expect(order).toEqual(["hero", "banks", "proof", "plan", "faq", "cta"]);
   });
 
-  it("shows proof from real data: the archive size and three cited studies", () => {
+  it("shows proof as a few rounded, meaningful facts and three short cited studies", () => {
     const { container, getAllByRole } = render(<MarketingHome environment={liveBankEnvironment} />);
     const proof = container.querySelector('[data-home-section="proof"]');
-    expect(proof?.textContent).toContain((getAvailableBanks(liveBankEnvironment).reduce((total, bank) => total + bank.questionCount, 0)).toLocaleString());
-    expect(container.querySelectorAll("article[data-research-study]")).toHaveLength(3);
+    const total = getAvailableBanks(liveBankEnvironment).reduce((sum, bank) => sum + bank.questionCount, 0);
+    const rounded = `${(Math.floor(total / 1000) * 1000).toLocaleString()}+`;
+    expect(proof?.textContent).toContain(rounded);
+    expect(proof?.textContent).not.toContain(total.toLocaleString());
+    expect(proof?.textContent).toContain("2026");
+    expect(proof?.textContent).toMatch(/by topic/i);
+    const studies = [...container.querySelectorAll("article[data-research-study]")];
+    expect(studies).toHaveLength(3);
+    for (const study of studies) expect((study.textContent ?? "").replace(/\s+/g, " ").length).toBeLessThan(110);
     expect(getAllByRole("link", { name: /read study/i }).map((link) => link.getAttribute("href"))).toEqual([
       "https://doi.org/10.1037/a0021782",
       "https://doi.org/10.1126/science.1199327",

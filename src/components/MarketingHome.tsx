@@ -24,10 +24,12 @@ const SUBJECTS: readonly { name: string; tone: CourseTone; matches: (bank: Bank)
 const HOME_FAQS = [FAQS[1], FAQS[2], FAQS[3], FAQS[5]];
 const SAMPLE_BANK = "igcse";
 const STUDIES = [
-  { lead: "Up to", figure: "25%", outcome: "higher unit-exam scores", detail: "Low-stakes quizzes with feedback raised scores by 13–25% on real unit exams in 8th-grade science classes.", source: "Journal of Educational Psychology · 2011", href: "https://doi.org/10.1037/a0021782" },
-  { lead: "", figure: "37%", outcome: "higher score after one week", detail: "Students scored 67% after retrieval practice versus 49% after repeated study—a 37% lift.", source: "Science · 2011", href: "https://doi.org/10.1126/science.1199327" },
-  { lead: "", figure: "53%", outcome: "more remembered after one week", detail: "Students remembered 61% after self-testing versus 40% after rereading—53% more.", source: "Psychological Science · 2006", href: "https://doi.org/10.1111/j.1467-9280.2006.01693.x" },
+  { figure: "+25%", outcome: "exam scores from regular quizzing", source: "J. Educ. Psychology, 2011", href: "https://doi.org/10.1037/a0021782" },
+  { figure: "+37%", outcome: "a week later vs. re-studying", source: "Science, 2011", href: "https://doi.org/10.1126/science.1199327" },
+  { figure: "+53%", outcome: "remembered vs. rereading", source: "Psychological Science, 2006", href: "https://doi.org/10.1111/j.1467-9280.2006.01693.x" },
 ] as const;
+/** Round down to the thousand: "40,000+" reads better than "40,169" and never overstates. */
+const roundedDown = (count: number) => `${(Math.floor(count / 1000) * 1000).toLocaleString()}+`;
 
 function groupSubjects(banks: readonly Bank[]): SubjectGroup[] { return SUBJECTS.map((s) => ({ name: s.name, tone: s.tone, banks: banks.filter(s.matches) })).filter((s) => s.banks.length > 0); }
 
@@ -47,7 +49,6 @@ export function MarketingHome({ environment = process.env }: { environment?: Rec
   const cambridgeBanks = banks.filter((bank) => bank.qualification === "Cambridge IGCSE");
   const ibBanks = banks.filter((bank) => bank.qualification === "International Baccalaureate");
   const totalQuestions = banks.reduce((total, bank) => total + bank.questionCount, 0);
-  const totalPapers = banks.reduce((total, bank) => total + bank.paperCount, 0);
   const pickerGroups: PickerGroup[] = [
     { id: "igcse", label: "IGCSE", banks: toPickerBanks(cambridgeBanks) },
     { id: "ib", label: "IB", banks: toPickerBanks(ibBanks) },
@@ -65,7 +66,7 @@ export function MarketingHome({ environment = process.env }: { environment?: Rec
       <div className={styles.lede}>
         <HeroPicker groups={pickerGroups} />
         <p className={styles.heroLinks}><a href="#question-banks">All {banks.length} banks</a><span aria-hidden="true">·</span><Link href="/pricing">Plans</Link></p>
-        <p className={styles.proof}><span><b>{totalQuestions.toLocaleString()}</b> questions</span><span><b>{totalPapers.toLocaleString()}</b> papers</span><span><b>{banks.length}</b> banks</span></p>
+        <p className={styles.proof}><span><b>{roundedDown(totalQuestions)}</b> questions</span>{years && <span>Papers to <b>{years.latestYear}</b></span>}<span>Sorted by topic</span></p>
       </div>
     </section>
 
@@ -78,18 +79,17 @@ export function MarketingHome({ environment = process.env }: { environment?: Rec
       <div className="shell">
         <h2 className="sr-only" id="proof-heading">Why practise with past papers</h2>
         <dl className={styles.stats}>
-          <div><dt>Questions</dt><dd>{totalQuestions.toLocaleString()}</dd></div>
-          <div><dt>Past papers</dt><dd>{totalPapers.toLocaleString()}</dd></div>
-          <div><dt>Question banks</dt><dd>{banks.length}</dd></div>
-          {years && <div><dt>Exam years</dt><dd>{years.coverage[0]}–{String(years.latestYear).slice(2)}</dd></div>}
+          <div><dt>Real exam questions</dt><dd>{roundedDown(totalQuestions)}</dd></div>
+          {years && <div><dt>Latest papers included</dt><dd>{years.latestYear}</dd></div>}
+          <div><dt>Every question</dt><dd>By topic</dd></div>
+          <div><dt>IGCSE &amp; IB subjects</dt><dd>{banks.length}</dd></div>
         </dl>
-        <p className={styles.eyebrow}>Backed by learning science</p>
+        <p className={styles.eyebrow}>Why practice works</p>
         <div className={styles.studies}>
           {STUDIES.map((study) => <article className={styles.study} data-research-study key={study.href}>
-            <strong>{study.lead && <span>{study.lead}</span>}{study.figure}</strong>
-            <span className={styles.studyOutcome}>{study.outcome}</span>
-            <p>{study.detail}</p>
-            <a href={study.href} target="_blank" rel="noreferrer"><small>{study.source}</small>Read study <ArrowRight weight="bold" /></a>
+            <strong>{study.figure}</strong>
+            <p>{study.outcome}</p>
+            <a href={study.href} target="_blank" rel="noreferrer">{study.source} · Read study <ArrowRight weight="bold" /></a>
           </article>)}
         </div>
       </div>
