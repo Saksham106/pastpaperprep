@@ -35,7 +35,9 @@ for (const file of journals) {
     const labelledBank = /^(?:generate|verify|fix|re-verify)\s+((?:ib|igcse)[a-z0-9-]*)(?:\s|$)/.exec(label)?.[1];
     if (labelledBank && labelledBank !== bank) continue;
     for (const r of entry.result.results) {
-      if (r.bank && r.bank !== bank) continue;
+      // Missing scope is not evidence. If both scopes exist they must agree.
+      if (Object.hasOwn(r, "bank") && r.bank !== bank) continue;
+      if (labelledBank !== bank && r.bank !== bank) continue;
       if (label.startsWith("re-verify")) reverify.set(r.questionId, r);
       else if (label.startsWith("verify")) {
         verify.set(r.questionId, r);
@@ -50,7 +52,10 @@ for (const file of journals) {
 }
 
 const ledgerPath = join(researchRoot, bank, "_ledger.json");
-const previous = existsSync(ledgerPath) ? new Map(JSON.parse(readFileSync(ledgerPath, "utf8")).rows.map((row) => [row.questionId, row])) : new Map();
+const priorLedger = existsSync(ledgerPath) ? JSON.parse(readFileSync(ledgerPath, "utf8")) : null;
+if (priorLedger && (priorLedger.bank !== bank || !Array.isArray(priorLedger.rows))) throw new Error("Invalid prior bank ledger");
+const previous = new Map((priorLedger?.rows ?? []).map((row) => [row.questionId, row]));
+const scopedPrior = (row) => priorLedger?.bankEvidenceVersion === 1 && row.bankEvidenceVersion === 1 && row.bank === bank;
 const done = new Set(["pass", "pass-after-fix", "pass-after-minor-fix", "review"]);
 const rows = [];
 const todo = { generate: [], verify: [], fix: [], reverify: [] };
@@ -81,15 +86,24 @@ for (const task of manifest.tasks) {
     row = { questionId: id, status: "needs-generate", issues: [] };
     todo.generate.push(id);
   }
+  // This marker asserts scoped reducer evidence, not hash-bound content review.
+  if (v || rv || fx) row = { ...row, bank, bankEvidenceVersion: 1 };
   const prior = previous.get(id);
-  // Preserve a prior outcome only when these journals provide no new evidence.
-  if (prior && !v && !rv && !fx && done.has(prior.status)) row = prior;
+  // Legacy rows need explicit journal rematerialization; never bless them by fallback.
+  if (prior && scopedPrior(prior) && !v && !rv && !fx && done.has(prior.status)) row = prior;
   rows.push(row);
 }
 
 // Keep rows outside a bounded continuation/calibration manifest.
 const included = new Set(rows.map(row => row.questionId));
-for (const [id, row] of previous) if (!included.has(id)) rows.push(row);
+for (const [id, row] of previous) if (!included.has(id)) {
+  // A new header must not upgrade untrusted rows outside a subset manifest.
+  if (scopedPrior(row)) rows.push(row);
+  else {
+    const { bankEvidenceVersion, ...legacy } = row;
+    rows.push(legacy);
+  }
+}
 
 // Remove todo entries that an earlier ledger already settled.
 const settled = new Set(rows.filter((row) => done.has(row.status)).map((row) => row.questionId));
@@ -98,7 +112,7 @@ todo.verify = todo.verify.filter((id) => !settled.has(id));
 todo.fix = todo.fix.filter((item) => !settled.has(item.questionId));
 todo.reverify = todo.reverify.filter((id) => !settled.has(id));
 
-writeFileSync(ledgerPath, `${JSON.stringify({ bank, updated: new Date().toISOString(), rows }, null, 2)}\n`);
+writeFileSync(ledgerPath, `${JSON.stringify({ bank, bankEvidenceVersion: 1, updated: new Date().toISOString(), rows }, null, 2)}\n`);
 writeFileSync(join(researchRoot, bank, "_todo.json"), `${JSON.stringify(todo, null, 2)}\n`);
 const counts = rows.reduce((acc, row) => ((acc[row.status] = (acc[row.status] ?? 0) + 1), acc), {});
 console.log(JSON.stringify({ bank, total: rows.length, counts, todo: Object.fromEntries(Object.entries(todo).map(([k, v]) => [k, v.length])) }));

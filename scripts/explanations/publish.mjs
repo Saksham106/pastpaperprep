@@ -55,6 +55,9 @@ function publishable() {
     objectKey(row.questionId);
     if (seen.has(row.questionId)) throw new Error(`Duplicate ledger ID ${row.questionId}`);
     seen.add(row.questionId);
+    if (ledger.bankEvidenceVersion !== 1 || row.bankEvidenceVersion !== 1 || row.bank !== bank) {
+      skipped.push(`${row.questionId}: bank-scoped replay required`); continue;
+    }
     const q = questions.get(row.questionId);
     if (!q) { skipped.push(`${row.questionId}: unknown runtime question`); continue; }
     const marks = q.marks ?? q.maxMarks ?? q.maximumMarks;

@@ -39,6 +39,77 @@ test('local reader rejects traversal and a symlinked explanation file', async ()
 
 const script = join(import.meta.dirname, 'publish.mjs');
 
+function replayFixture(entries, previous) {
+ const projects=mkdtempSync(join(realpathSync(tmpdir()),'explanation-provenance-'));
+ const dir=join(projects,'research/explanations/ib-hl');mkdirSync(dir,{recursive:true});
+ const id='2025-may-tz1-p1-q1';
+ writeFileSync(join(dir,id+'.json'),'{}');
+ if(previous) writeFileSync(join(dir,'_ledger.json'),JSON.stringify(previous));
+ const manifest=join(projects,'manifest.json');writeFileSync(manifest,JSON.stringify({bank:'ib-hl',tasks:[{bank:'ib-hl',questionId:id}]}));
+ const journal=join(projects,'journal.jsonl');writeFileSync(journal,entries.map(JSON.stringify).join('\n'));
+ const run=spawnSync(process.execPath,[join(import.meta.dirname,'ledger-from-journal.mjs'),'--bank','ib-hl','--manifest',manifest,journal],{encoding:'utf8',env:{...process.env,PPP_PROJECTS_ROOT:projects}});
+ assert.equal(run.status,0,run.stderr);
+ return {projects,dir,id,ledger:JSON.parse(readFileSync(join(dir,'_ledger.json')))};
+}
+function outcome(label, bank) {
+ return [{type:'started',agentId:'a',label},{type:'result',agentId:'a',result:{results:[{questionId:'2025-may-tz1-p1-q1',...(bank===undefined?{}:{bank}),verdict:'pass',issues:[]}]}}];
+}
+test('ambiguous or conflicting bank evidence cannot settle a row', () => {
+ for(const [label,bank] of [['verify-q',undefined],['verify unknown v0',undefined],['verify ib-ai-sl v0','ib-hl'],['verify ib-hl v0','ib-ai-sl'],['verify-q','unknown']]) {
+  const {ledger}=replayFixture(outcome(label,bank));
+  assert.equal(ledger.rows[0].status,'needs-verify',`${label}/${bank}`);
+ }
+});
+test('legacy passes are not inherited without scoped rematerialization', () => {
+ const id='2025-may-tz1-p1-q1';
+ const {ledger}=replayFixture([], {bank:'ib-hl',rows:[{questionId:id,status:'pass'}]});
+ assert.equal(ledger.rows[0].status,'needs-verify');
+});
+test('publisher refuses legacy passes and header-only upgrades before reading content', () => {
+ const {projects,dir,id}=replayFixture([]);
+ const doc={schemaVersion:1,bank:'ib-hl',questionId:id,totalMarks:5,parts:[{label:'',marks:5,approach:'Test',answer:'Test',steps:[{text:'Test',marks:[]}]}]};
+ writeFileSync(join(dir,id+'.json'),JSON.stringify(doc));
+ for(const header of [{},{bankEvidenceVersion:1}]) {
+  writeFileSync(join(dir,'_ledger.json'),JSON.stringify({bank:'ib-hl',...header,rows:[{questionId:id,status:'pass'}]}));
+  const run=spawnSync(process.execPath,[script,'--bank','ib-hl'],{encoding:'utf8',env:{...process.env,PPP_PROJECTS_ROOT:projects}});
+  assert.equal(run.status,0,run.stderr);
+  assert.match(run.stdout,/0 publishable, 1 held back/);
+  assert.match(run.stdout,/bank-scoped replay required/);
+ }
+});
+
+test('scoped replay explicitly rematerializes legacy rows and remains publishable', () => {
+ const id='2025-may-tz1-p1-q1';
+ const {projects,dir,ledger}=replayFixture(outcome('verify ib-hl v0'),{bank:'ib-hl',rows:[{questionId:id,status:'pass'}]});
+ assert.equal(ledger.bankEvidenceVersion,1);assert.equal(ledger.rows[0].bankEvidenceVersion,1);assert.equal(ledger.rows[0].bank,'ib-hl');
+ assert.equal(replayFixture([],ledger).ledger.rows[0].status,'pass');
+ writeFileSync(join(dir,id+'.json'),JSON.stringify({schemaVersion:1,bank:'ib-hl',questionId:id,totalMarks:5,parts:[{label:'',marks:5,approach:'Test',answer:'Test',steps:[{text:'Test',marks:[]}]}]}));
+ const run=spawnSync(process.execPath,[script,'--bank','ib-hl'],{encoding:'utf8',env:{...process.env,PPP_PROJECTS_ROOT:projects}});
+ assert.equal(run.status,0,run.stderr);assert.match(run.stdout,/1 publishable, 0 held back/);
+});
+test('subset replay never upgrades unproven rows outside its manifest', () => {
+ const other='2025-may-tz1-p1-q2';
+ for(const header of [{},{bankEvidenceVersion:1}]) {
+  const {ledger}=replayFixture(outcome('verify ib-hl v0'),{bank:'ib-hl',...header,rows:[{questionId:other,status:'pass',...(header.bankEvidenceVersion?{}:{bank:'ib-hl',bankEvidenceVersion:1})}]});
+  assert.equal(ledger.rows.find(r=>r.questionId===other).bankEvidenceVersion,undefined);
+ }
+});
+test('unbanked repair and recheck cannot replace a scoped failure', () => {
+ const id='2025-may-tz1-p1-q1';
+ const entries=[{type:'started',agentId:'v',label:'verify ib-hl v0'},{type:'result',agentId:'v',result:{results:[{questionId:id,verdict:'fail',issues:[]}]}}];
+ for(const label of ['fix-q','re-verify-q']) {
+  const result={questionId:id,verdict:'pass',issues:[],fixed:true,validatorPassed:true};
+  const {ledger}=replayFixture([...entries,{type:'started',agentId:'x',label},{type:'result',agentId:'x',result:{results:[result]}}]);
+  assert.equal(ledger.rows[0].status,'needs-fix');
+ }
+});
+
+test('explicit row bank or matching label bank remains legitimate evidence', () => {
+ for(const [label,bank] of [['verify-q','ib-hl'],['verify ib-hl v0',undefined],['verify ib-hl v0','ib-hl']]) {
+  assert.equal(replayFixture(outcome(label,bank)).ledger.rows[0].status,'pass');
+ }
+});
+
 test('latest failed review supersedes previous ledger pass', () => {
  const projects=mkdtempSync(join(realpathSync(tmpdir()),'explanation-ledger-'));
  const dir=join(projects,'research/explanations/ib-hl');mkdirSync(dir,{recursive:true});
@@ -46,7 +117,7 @@ test('latest failed review supersedes previous ledger pass', () => {
  writeFileSync(join(dir,'_ledger.json'),JSON.stringify({bank:'ib-hl',rows:[{questionId:id,status:'pass'}]}));
  const manifest=join(projects,'manifest.json');writeFileSync(manifest,JSON.stringify({bank:'ib-hl',tasks:[{bank:'ib-hl',questionId:id}]}));
  const journal=join(projects,'journal.jsonl');
- writeFileSync(journal,[{type:'started',agentId:'a',label:'verify-q'},{type:'result',agentId:'a',result:{results:[{questionId:id,verdict:'fail',issues:[{severity:'critical',part:'a',problem:'wrong'}]}]}}].map(JSON.stringify).join('\n'));
+ writeFileSync(journal,[{type:'started',agentId:'a',label:'verify ib-hl v0'},{type:'result',agentId:'a',result:{results:[{questionId:id,verdict:'fail',issues:[{severity:'critical',part:'a',problem:'wrong'}]}]}}].map(JSON.stringify).join('\n'));
  const run=spawnSync(process.execPath,[join(import.meta.dirname,'ledger-from-journal.mjs'),'--bank','ib-hl','--manifest',manifest,journal],{encoding:'utf8',env:{...process.env,PPP_PROJECTS_ROOT:projects}});
  assert.equal(run.status,0,run.stderr);
  assert.equal(JSON.parse(readFileSync(join(dir,'_ledger.json'))).rows[0].status,'needs-fix');
@@ -57,7 +128,7 @@ test('later failed verification cannot be hidden by an older passing recheck', (
  const id='2025-may-tz1-p1-q1';
  const manifest=join(projects,'manifest.json');writeFileSync(manifest,JSON.stringify({bank:'ib-hl',tasks:[{bank:'ib-hl',questionId:id}]}));
  const journal=join(projects,'journal.jsonl');
- writeFileSync(journal,[{type:'started',agentId:'old',label:'re-verify-q'},{type:'result',agentId:'old',result:{results:[{questionId:id,verdict:'pass',issues:[]}]}},{type:'started',agentId:'new',label:'verify-q'},{type:'result',agentId:'new',result:{results:[{questionId:id,verdict:'fail',issues:[{severity:'critical',part:'a',problem:'wrong'}]}]}}].map(JSON.stringify).join('\n'));
+ writeFileSync(journal,[{type:'started',agentId:'old',label:'re-verify ib-hl v0'},{type:'result',agentId:'old',result:{results:[{questionId:id,verdict:'pass',issues:[]}]}},{type:'started',agentId:'new',label:'verify ib-hl v0'},{type:'result',agentId:'new',result:{results:[{questionId:id,verdict:'fail',issues:[{severity:'critical',part:'a',problem:'wrong'}]}]}}].map(JSON.stringify).join('\n'));
  const run=spawnSync(process.execPath,[join(import.meta.dirname,'ledger-from-journal.mjs'),'--bank','ib-hl','--manifest',manifest,journal],{encoding:'utf8',env:{...process.env,PPP_PROJECTS_ROOT:projects}});
  assert.equal(run.status,0,run.stderr);
  assert.equal(JSON.parse(readFileSync(join(dir,'_ledger.json'))).rows[0].status,'needs-fix');
@@ -91,7 +162,7 @@ test('a subset manifest does not discard previously verified bank rows', () => {
  const projects=mkdtempSync(join(realpathSync(tmpdir()),'explanation-ledger-'));
  const dir=join(projects,'research/explanations/ib-hl');mkdirSync(dir,{recursive:true});
  const id='2025-may-tz1-p1-q1',other='2025-may-tz1-p1-q2';
- writeFileSync(join(dir,'_ledger.json'),JSON.stringify({bank:'ib-hl',rows:[{questionId:other,status:'pass'}]}));
+ writeFileSync(join(dir,'_ledger.json'),JSON.stringify({bank:'ib-hl',bankEvidenceVersion:1,rows:[{questionId:other,status:'pass',bank:'ib-hl',bankEvidenceVersion:1}]}));
  const manifest=join(projects,'manifest.json');writeFileSync(manifest,JSON.stringify({bank:'ib-hl',tasks:[{bank:'ib-hl',questionId:id}]}));
  const run=spawnSync(process.execPath,[join(import.meta.dirname,'ledger-from-journal.mjs'),'--bank','ib-hl','--manifest',manifest],{encoding:'utf8',env:{...process.env,PPP_PROJECTS_ROOT:projects}});
  assert.equal(run.status,0,run.stderr);
@@ -111,7 +182,7 @@ test('publisher holds structurally valid files with wrong runtime marks', () => 
  const projects=mkdtempSync(join(realpathSync(tmpdir()),'explanation-marks-'));
  const dir=join(projects,'research/explanations/ib-hl');mkdirSync(dir,{recursive:true});
  const id='2025-may-tz1-p1-q1';
- writeFileSync(join(dir,'_ledger.json'),JSON.stringify({bank:'ib-hl',rows:[{questionId:id,status:'pass'}]}));
+ writeFileSync(join(dir,'_ledger.json'),JSON.stringify({bank:'ib-hl',bankEvidenceVersion:1,rows:[{questionId:id,status:'pass',bank:'ib-hl',bankEvidenceVersion:1}]}));
  writeFileSync(join(dir,id+'.json'),JSON.stringify({schemaVersion:1,bank:'ib-hl',questionId:id,totalMarks:999,parts:[{label:'',marks:999,approach:'Test',answer:'Test',steps:[{text:'Test',marks:[]}]}]}));
  const run=spawnSync(process.execPath,[script,'--bank','ib-hl'],{encoding:'utf8',env:{...process.env,PPP_PROJECTS_ROOT:projects}});
  assert.equal(run.status,0,run.stderr);assert.match(run.stdout,/0 publishable, 1 held back/);
