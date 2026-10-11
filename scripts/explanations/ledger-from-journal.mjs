@@ -100,7 +100,8 @@ for (const [id, row] of previous) if (!included.has(id)) {
   // A new header must not upgrade untrusted rows outside a subset manifest.
   if (scopedPrior(row)) rows.push(row);
   else {
-    const { bankEvidenceVersion, ...legacy } = row;
+    const legacy = { ...row };
+    delete legacy.bankEvidenceVersion;
     rows.push(legacy);
   }
 }
