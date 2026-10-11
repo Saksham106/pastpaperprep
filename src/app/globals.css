@@ -170,10 +170,10 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .curriculum-index { border-top: 1px solid var(--line-strong); }
 .curriculum-row { min-height: 148px; padding: 22px 0; display: grid; grid-template-columns: minmax(260px, .72fr) minmax(0, 1.28fr); align-items: stretch; gap: clamp(28px, 6vw, 84px); border-bottom: 1px solid var(--line-strong); }
 .course-tone-math, [data-subject-tone="math"] { --course-pastel: #cfdcff; --course-accent: #2447b8; --subject-panel-tint: color-mix(in srgb, #cfdcff 38%, #fff); }
-.course-tone-chemistry, [data-subject-tone="chemistry"] { --course-pastel: #ffd6c7; --course-accent: #b4482a; --subject-panel-tint: color-mix(in srgb, #ffd6c7 38%, #fff); }
+.course-tone-chemistry, [data-subject-tone="chemistry"] { --course-pastel: #ffd6c7; --course-accent: #a8401f; --subject-panel-tint: color-mix(in srgb, #ffd6c7 38%, #fff); }
 .course-tone-physics, [data-subject-tone="physics"] { --course-pastel: #e0d5fc; --course-accent: #5b3fae; --subject-panel-tint: color-mix(in srgb, #e0d5fc 38%, #fff); }
 .course-tone-biology, [data-subject-tone="biology"] { --course-pastel: #c9eed8; --course-accent: #1d7546; --subject-panel-tint: color-mix(in srgb, #c9eed8 38%, #fff); }
-.course-tone-economics, [data-subject-tone="economics"] { --course-pastel: #fde9ad; --course-accent: #8f6400; --subject-panel-tint: color-mix(in srgb, #fde9ad 38%, #fff); }
+.course-tone-economics, [data-subject-tone="economics"] { --course-pastel: #fde9ad; --course-accent: #845c00; --subject-panel-tint: color-mix(in srgb, #fde9ad 38%, #fff); }
 .course-tone-coordinated, [data-subject-tone="coordinated"] { --course-pastel: #c4ecef; --course-accent: #167279; --subject-panel-tint: color-mix(in srgb, #c4ecef 38%, #fff); }
 :root[data-theme="dark"] .course-tone-math, :root[data-theme="dark"] [data-subject-tone="math"] { --course-accent: var(--cobalt); }
 :root[data-theme="dark"] .course-tone-chemistry, :root[data-theme="dark"] [data-subject-tone="chemistry"] { --course-accent: #f0a98c; }
@@ -389,7 +389,7 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .about-workflow ol { margin: 30px 0 0; padding: 0; list-style: none; counter-reset: about-steps; display: grid; }
 .about-workflow li { counter-increment: about-steps; padding: 18px 0; display: grid; grid-template-columns: 34px minmax(120px, .6fr) minmax(0, 1fr); gap: 14px; border-top: 1px solid var(--line); }
 .about-workflow li::before { content: counter(about-steps, decimal-leading-zero); color: var(--public-burgundy); font: 650 .72rem/1.5 var(--font-mono); }
-.about-workflow li strong { font-family: var(--font-serif); font-weight: 560; }
+.about-workflow li strong { font-family: var(--font-serif); font-weight: 400; }
 .about-workflow li span { color: var(--public-muted); line-height: 1.5; }
 .about-facts { margin: 42px 0 0; border-top: 1px solid var(--line-strong); }
 .about-facts > div { min-height: 74px; padding: 17px 0; display: grid; grid-template-columns: minmax(160px, .42fr) minmax(0, 1fr); gap: 30px; align-items: baseline; border-bottom: 1px solid var(--line); }
@@ -719,7 +719,7 @@ body:has(.landing-editorial) .site-header.is-scrolled { background: var(--paper-
 .simple-page { padding: 54px 0 110px; }
 .simple-page, .articles-page, .article-page, .auth-page, .legal-page { --public-ink: #27221f; --public-muted: #6d625b; --public-burgundy: #7f293a; }
 :root[data-theme="dark"] :is(.simple-page, .articles-page, .article-page, .auth-page, .legal-page) { --public-ink: var(--ink); --public-muted: var(--muted); --public-burgundy: var(--burgundy); }
-.simple-page h1, .articles-page h1, .article-page h1, .auth-card h1, .legal-page h1 { color: var(--public-ink); font-family: var(--font-serif); font-weight: 600; }
+.simple-page h1, .articles-page h1, .article-page h1, .auth-card h1, .legal-page h1 { color: var(--public-ink); font-family: var(--font-serif); font-weight: 400; }
 .simple-page .eyebrow, .articles-page .eyebrow, .article-page .eyebrow, .auth-page .eyebrow, .legal-page .eyebrow { color: var(--public-burgundy); }
 .legal-page { background: color-mix(in srgb, var(--paper-warm) 44%, var(--paper)); }
 /* Public surfaces paint the warm off-white edge to edge, so no page band stops at the shell width. */

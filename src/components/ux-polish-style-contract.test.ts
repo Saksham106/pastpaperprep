@@ -378,3 +378,19 @@ describe("pastel subject palette and serif token", () => {
     expect(readFileSync(path.join(PROJECT_ROOT, "src/app/globals.css"), "utf8")).not.toMatch(/Georgia/);
   });
 });
+
+describe("landing stays legible in dark mode", () => {
+  it("lifts section eyebrows off the dark paper", () => {
+    const dark = homeBlocks.find((block) => block.selector.includes('[data-theme="dark"]') && /\.eyebrow/.test(block.selector) && !/planBand/.test(block.selector));
+    expect(dark?.declarations.color).toBe("var(--burgundy)");
+  });
+  it("keeps the light hero's native controls light", () => {
+    expect(normalize(styleFor(homeBlocks, ".hero", "all")["color-scheme"])).toBe("light");
+  });
+  it("loads only weight 400 for Young Serif, so serif headings never fake bold", () => {
+    for (const block of globalBlocks) {
+      if (!block.declarations["font-family"]?.includes("--font-serif")) continue;
+      expect(block.declarations["font-weight"] ?? "400", block.selector).toBe("400");
+    }
+  });
+});

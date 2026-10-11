@@ -57,9 +57,9 @@ export function MarketingHome({ environment = process.env }: { environment?: Rec
   return <div className={`${styles.home} landing-editorial`}>
     <section className={styles.hero}>
       <div className={styles.stage}>
-        <Image className={styles.back} src="/artwork/landing-gothic.webp" alt="" fill priority sizes="100vw" quality={85} />
+        <Image className={styles.back} src="/artwork/landing-gothic.webp" alt="" fill preload sizes="100vw" quality={85} />
         <h1 className={styles.headline}><span>Past papers,</span> <em>by topic.</em></h1>
-        <Image className={styles.front} src="/artwork/landing-gothic-front.webp" alt="" fill sizes="100vw" quality={85} />
+        <Image className={styles.front} src="/artwork/landing-gothic-front.webp" alt="" fill loading="eager" sizes="100vw" quality={85} />
         <div className={styles.fade} aria-hidden="true" />
       </div>
       <div className={styles.lede}>
@@ -78,16 +78,17 @@ export function MarketingHome({ environment = process.env }: { environment?: Rec
       <figure className={styles.sampleFigure}>
         <div className={styles.sampleQuestion}>
           <p>0580 · 2018 May/June · Paper 23 · Q22 · Sequences</p>
-          <Image src="/landing/sample-question.webp" alt="Question 22: find an expression for the nth term of each sequence. (a) 11, 7, 3, −1, … (b) 3, 6, 12, 24, …" width={900} height={593} sizes="(max-width: 900px) 92vw, 560px" />
+          <Image src="/landing/sample-question.webp" alt="Question 22: find an expression for the nth term of each sequence. (a) 11, 7, 3, −1, … (b) 3, 6, 12, 24, …" width={900} height={593} sizes="(max-width: 980px) 92vw, 640px" />
         </div>
         <div className={styles.sampleAnswer}>
           <p>Mark scheme</p>
-          <Image src="/landing/sample-markscheme.webp" alt="Mark scheme: (a) 15 − 4n, 2 marks. (b) 3 × 2 to the power n − 1, 2 marks." width={900} height={97} sizes="(max-width: 900px) 86vw, 470px" />
+          <Image src="/landing/sample-markscheme.webp" alt="Mark scheme: (a) 15 − 4n, 2 marks. (b) 3 × 2 to the power n − 1, 2 marks." width={900} height={97} sizes="(max-width: 980px) 86vw, 520px" />
         </div>
       </figure>
     </section>
 
-    <section className={`shell ${styles.banks}`} id="question-banks" aria-label="Question banks">
+    <section className={`shell ${styles.banks}`} id="question-banks" aria-labelledby="question-banks-heading">
+      <h2 className="sr-only" id="question-banks-heading">Question banks</h2>
       <QualificationTabs items={[...(cambridgeBanks.length > 0 ? [{ id: "cambridge-catalog", label: "Cambridge IGCSE", panel: <SubjectCards banks={cambridgeBanks} /> }] : []), ...(ibBanks.length > 0 ? [{ id: "ib-catalog", label: "IB Diploma", panel: <SubjectCards banks={ibBanks} /> }] : [])]} />
     </section>
 
@@ -97,7 +98,7 @@ export function MarketingHome({ environment = process.env }: { environment?: Rec
           <p className={styles.eyebrow}>Free vs plan</p>
           <h2 id="plan-heading">The newest papers <em>are the ones that count.</em></h2>
           <p className={styles.planNote}>Older years are free on every bank. A plan opens the latest papers and every mark scheme.</p>
-          {years && <div className={styles.years} aria-label={`Mathematics 0580: ${years.freeLabel} free, ${years.paidLabel} on a plan`}>
+          {years && <div className={styles.years} role="img" aria-label={`Mathematics 0580: ${years.freeLabel} free, ${years.paidLabel} on a plan`}>
             {years.coverage.map((year) => <span key={year} data-year-paid={!years.freeYears.includes(year) || undefined}>{year}</span>)}
           </div>}
         </div>

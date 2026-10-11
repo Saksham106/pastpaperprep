@@ -68,6 +68,15 @@ describe("home page", () => {
     expect(plans[2]).toContain("$25");
     expect(container.querySelectorAll("[data-year-paid]").length).toBeGreaterThan(0);
     expect(container.querySelector('a[href="/pricing"]')).not.toBeNull();
+    const strip = container.querySelector("[data-year-paid]")?.parentElement;
+    expect(strip).toHaveAttribute("role", "img");
+    expect(strip?.getAttribute("aria-label")).toMatch(/free.*plan/);
+  });
+
+  it("gives the catalog its own (visually hidden) heading for the subject card headings", () => {
+    const { getByRole } = render(<MarketingHome environment={liveBankEnvironment} />);
+    const heading = getByRole("heading", { level: 2, name: "Question banks" });
+    expect(heading.closest("#question-banks")).not.toBeNull();
   });
 
   it("shows a real free question with its official mark scheme", () => {

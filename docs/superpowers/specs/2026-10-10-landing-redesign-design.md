@@ -22,10 +22,10 @@ Rebuild the homepage (`/`) so it gets students practising in one or two clicks, 
   | Tone | Pastel (header) | Ink (icon, accent text) |
   |---|---|---|
   | math | `#cfdcff` | `#2447b8` |
-  | chemistry | `#ffd6c7` | `#b4482a` |
+  | chemistry | `#ffd6c7` | `#a8401f` |
   | physics | `#e0d5fc` | `#5b3fae` |
   | biology | `#c9eed8` | `#1d7546` |
-  | economics | `#fde9ad` | `#8f6400` |
+  | economics | `#fde9ad` | `#845c00` |
   | coordinated | `#c4ecef` | `#167279` |
 
   The existing tokens change: `--course-accent` becomes the ink colour, and `--subject-panel-tint` becomes the pastel mixed 38% with white. A new `--course-pastel` token is added. Dark mode keeps its own light-on-dark accents and derives the tints with `color-mix` as it does today.

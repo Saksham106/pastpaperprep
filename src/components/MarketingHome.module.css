@@ -3,7 +3,7 @@
 .eyebrow { margin: 0; color: #7f293a; font: 600 .68rem/1.2 var(--font-mono); letter-spacing: .16em; text-transform: uppercase; }
 
 /* 1. Hero: background engraving, headline, then the same scene with the sky cut out on top. */
-.hero { position: relative; background: #efe9dd; color: #18233b; }
+.hero { position: relative; color-scheme: light; background: #efe9dd; color: #18233b; }
 .stage { position: relative; width: 100%; aspect-ratio: 1859 / 846; max-height: 88vh; min-height: 520px; overflow: hidden; }
 .back, .front { object-fit: cover; object-position: 50% 62%; }
 .back { z-index: 0; }
@@ -33,7 +33,7 @@
 .pickerToggle button[aria-pressed="true"] { color: #fafaf7; background: #191917; }
 .pickerField { position: relative; min-width: 0; padding: 4px 12px; border-left: 1px solid #d8d8d1; }
 .pickerField label { display: block; color: #66645f; font: 700 .62rem/1 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; }
-.pickerField select { width: 100%; min-height: 30px; padding: 2px 22px 0 0; color: #191917; background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 256 256'%3E%3Cpath fill='%2366645f' d='M216.49 104.49l-80 80a12 12 0 0 1-17 0l-80-80a12 12 0 0 1 17-17L128 159l71.51-71.52a12 12 0 0 1 17 17Z'/%3E%3C/svg%3E") no-repeat right 2px center; border: 0; appearance: none; font: 650 1rem/1.2 var(--font-body); cursor: pointer; }
+.pickerField select { width: 100%; min-height: 36px; padding: 2px 22px 0 0; color: #191917; background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 256 256'%3E%3Cpath fill='%2366645f' d='M216.49 104.49l-80 80a12 12 0 0 1-17 0l-80-80a12 12 0 0 1 17-17L128 159l71.51-71.52a12 12 0 0 1 17 17Z'/%3E%3C/svg%3E") no-repeat right 2px center; border: 0; appearance: none; font: 650 1rem/1.2 var(--font-body); cursor: pointer; }
 .pickerToggle button:focus-visible, .pickerField select:focus-visible, .pickerGo:focus-visible { outline: 3px solid color-mix(in srgb, #2f5bea 55%, transparent); outline-offset: 2px; }
 .pickerGo { min-height: 48px; padding: 0 20px; display: inline-flex; align-items: center; gap: 8px; color: #fff; background: #2f5bea; border-radius: 11px; font-weight: 800; white-space: nowrap; box-shadow: 0 8px 20px -10px rgb(47 91 234 / .7); transition: background-color 140ms ease, transform 140ms ease; }
 .pickerGo:hover { background: #2347bd; }
@@ -89,7 +89,8 @@
 .planCards p { margin: 0; padding: 16px; display: grid; gap: 8px; background: rgb(255 255 255 / .05); border: 1px solid rgb(255 255 255 / .14); border-radius: 14px; }
 .planCards p:nth-child(2) { border-color: #2f5bea; }
 .planCards span { color: #aab0c4; font: 700 .64rem/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
-.planCards strong { color: #fff; font: 400 1.9rem/1 var(--font-serif); white-space: nowrap; }
+.planCards p { min-width: 0; }
+.planCards strong { color: #fff; font: 400 clamp(1.5rem, 2.2vw, 1.9rem)/1.05 var(--font-serif); }
 .planCards small { color: #aab0c4; font: 500 .72rem/1 var(--font-mono); }
 
 /* 5. FAQ */
@@ -112,6 +113,10 @@
 .cta { margin: 88px auto 106px; padding: 48px 54px; display: flex; align-items: center; justify-content: space-between; gap: 32px; background: #dfe5ee; border: 1px solid #b8c3d3; border-radius: 20px; }
 .cta h2 { color: #18233b; }
 
+@media (max-width: 1180px) {
+  .planCards { grid-template-columns: 1fr; }
+  .planCards p { grid-template-columns: 1fr auto; align-items: center; }
+}
 @media (max-width: 980px) {
   .subjectGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .sample, .planGrid, .faqPreview { grid-template-columns: 1fr; }
@@ -142,6 +147,7 @@
 
 /* Dark theme: sections below the hero follow the theme; the hero illustration does not. */
 :global(:root[data-theme="dark"]) .home { background: var(--paper); }
+:global(:root[data-theme="dark"]) .sampleCopy .eyebrow, :global(:root[data-theme="dark"]) .faqIntro .eyebrow { color: var(--burgundy); }
 :global(:root[data-theme="dark"]) .subjectHead h3 { color: var(--ink); }
 :global(:root[data-theme="dark"]) .bankRow { background: color-mix(in srgb, var(--surface) 80%, transparent); border-color: var(--line-strong); }
 :global(:root[data-theme="dark"]) .sampleQuestion, :global(:root[data-theme="dark"]) .sampleAnswer { border-color: var(--line-strong); }
