@@ -8,18 +8,20 @@
 //
 // Uploading needs owner approval. Two ways to reach R2:
 //   default         a temporary bucket-scoped token as R2_SYNC_ACCESS_KEY_ID / R2_SYNC_SECRET_ACCESS_KEY
-//   --via-wrangler  the owner's logged-in Wrangler (no token); set WRANGLER to a local binary to skip npx
+//   --via-wrangler  read-back only via logged-in Wrangler; set WRANGLER to a local binary to skip npx
 // A question is publishable when the ledger marks it verified and validate.mjs passes.
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { execFile } from "node:child_process";
-import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { promisify } from "node:util";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { GetObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { validateExplanation } from "./validate.mjs";
-import { outputPathFor, researchRoot } from "./prepare-batch.mjs";
+import { BANKS, outputPathFor, researchRoot } from "./prepare-batch.mjs";
+import { loadLocalPath } from "./local-files.mjs";
+import { publishSet } from "./publish-set.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const AVAILABLE = join(repoRoot, "src/data/explanations/available.json");
@@ -41,15 +43,27 @@ const objectKey = (id) => {
 function publishable() {
   const ledgerPath = join(researchRoot, bank, "_ledger.json");
   if (!existsSync(ledgerPath)) throw new Error(`No ledger at ${ledgerPath}`);
-  const ledger = JSON.parse(readFileSync(ledgerPath, "utf8"));
+  const ledger = JSON.parse(loadLocalPath(researchRoot, ledgerPath));
+  const config = BANKS[bank];
+  if (!config || ledger.bank !== bank || !Array.isArray(ledger.rows)) throw new Error("Invalid bank ledger");
+  const raw = JSON.parse(readFileSync(join(repoRoot, config.data), "utf8"));
+  const questions = new Map((raw.questions ?? raw).map(q => [q.id, q]));
   const out = [];
   const skipped = [];
+  const seen = new Set();
   for (const row of ledger.rows) {
+    objectKey(row.questionId);
+    if (seen.has(row.questionId)) throw new Error(`Duplicate ledger ID ${row.questionId}`);
+    seen.add(row.questionId);
+    const q = questions.get(row.questionId);
+    if (!q) { skipped.push(`${row.questionId}: unknown runtime question`); continue; }
+    const marks = q.marks ?? q.maxMarks ?? q.maximumMarks;
+    if (!Number.isInteger(marks) || marks <= 0) { skipped.push(`${row.questionId}: unknown runtime marks`); continue; }
     const file = outputPathFor(bank, row.questionId);
     if (!PUBLISHABLE.has(row.status) || !existsSync(file)) { skipped.push(`${row.questionId}: ${row.status}`); continue; }
-    const text = readFileSync(file, "utf8");
+    const text = loadLocalPath(researchRoot, file);
     const doc = JSON.parse(text);
-    const errors = validateExplanation(doc, { bank, questionId: row.questionId });
+    const errors = validateExplanation(doc, { bank, questionId: row.questionId, marks });
     if (doc.status === "needs_review" || errors.length) { skipped.push(`${row.questionId}: ${errors[0] ?? "needs_review"}`); continue; }
     // Publish only the student-facing fields.
     const body = JSON.stringify({ schemaVersion: 1, bank, questionId: row.questionId, totalMarks: doc.totalMarks, parts: doc.parts });
@@ -70,8 +84,7 @@ function client() {
 function s3Store(bucket) {
   const s3 = client();
   return {
-    concurrency: 16,
-    put: (key, body) => s3.send(new PutObjectCommand({ Bucket: bucket, Key: key, Body: body, ContentType: "application/json", CacheControl: "private, max-age=600" })),
+    putIfAbsent: (key, body) => s3.send(new PutObjectCommand({ Bucket: bucket, Key: key, Body: body, IfNoneMatch: "*", ContentType: "application/json", CacheControl: "private, max-age=600" })),
     get: async (key) => (await s3.send(new GetObjectCommand({ Bucket: bucket, Key: key }))).Body.transformToString(),
     close: () => {},
   };
@@ -93,11 +106,6 @@ function wranglerStore(bucket) {
     }
   };
   return {
-    concurrency: 4,
-    put: async (key, body) => {
-      writeFileSync(file(key), body);
-      await wrangler(["r2", "object", "put", `${bucket}/${key}`, "--file", file(key), "--content-type", "application/json", "--cache-control", "private, max-age=600", "--remote"]);
-    },
     get: async (key) => {
       const target = `${file(key)}.read`;
       await wrangler(["r2", "object", "get", `${bucket}/${key}`, "--file", target, "--remote"]);
@@ -107,13 +115,10 @@ function wranglerStore(bucket) {
   };
 }
 
-async function pool(items, size, fn) {
-  const queue = [...items];
-  await Promise.all(Array.from({ length: size }, async () => { while (queue.length) await fn(queue.shift()); }));
-}
-
 async function main() {
-  if (!bank) throw new Error("Pass --bank <slug>");
+  if (!bank || !/^[a-z0-9-]+$/.test(bank)) throw new Error("Pass --bank <safe slug>");
+  if (apply && verifyOnly) throw new Error("--apply and --verify-only are mutually exclusive");
+  if (apply && viaWrangler) throw new Error("Wrangler uploads cannot enforce conditional create; use the scoped S3 token. --via-wrangler --verify-only remains supported.");
   const { out, skipped } = publishable();
   console.log(`${bank}: ${out.length} publishable, ${skipped.length} held back`);
   for (const line of skipped) console.log(`  held: ${line}`);
@@ -121,31 +126,26 @@ async function main() {
 
   const bucket = process.env.R2_BUCKET_NAME ?? "pastpaperprep-assets";
   const store = viaWrangler ? wranglerStore(bucket) : s3Store(bucket);
-  if (apply) {
-    let done = 0;
-    await pool(out, store.concurrency, async (item) => {
-      await store.put(objectKey(item.id), item.body);
-      if (++done % 100 === 0) console.log(`  uploaded ${done}/${out.length}`);
-    });
-    console.log(`Uploaded ${out.length}`);
-  }
-  const verified = [];
-  const mismatched = [];
-  await pool(out, store.concurrency, async (item) => {
-    try {
-      if (sha256(await store.get(objectKey(item.id))) === item.hash) verified.push(item.id); else mismatched.push(item.id);
-    } catch { mismatched.push(item.id); }
-  });
-  store.close();
-  if (mismatched.length) {
-    console.error(`Read-back failed for ${mismatched.length}: ${mismatched.slice(0, 20).join(", ")}`);
-    console.error("available.json left unchanged. Fix the failures and rerun.");
-    process.exitCode = 1;
-    return;
-  }
+  const receiptDir = join(researchRoot, bank, "_publish-receipts");
+  mkdirSync(receiptDir, { recursive: true });
+  const expected = out.map(item => ({ key: objectKey(item.id), body: item.body }));
+  const setHash = sha256(JSON.stringify(expected.map(({key, body}) => ({key, sha256: sha256(body)}))));
+  if (realpathSync(receiptDir) !== receiptDir) throw new Error("Unsafe receipt directory symlink");
+  const receiptPath = join(receiptDir, `${setHash}-${randomUUID()}.json`);
+  let verified;
+  try {
+    const keys = await publishSet(expected, store, { apply, receipt: (state) => {
+      const temp = `${receiptPath}.${process.pid}.tmp`;
+      writeFileSync(temp, `${JSON.stringify({ bank, bucket, setHash, ...state }, null, 2)}\n`, { flush: true, flag: "wx" });
+      renameSync(temp, receiptPath);
+    } });
+    verified = keys.map(key => key.slice(`explanations/${bank}/`.length, -5));
+  } finally { store.close(); }
   const available = existsSync(AVAILABLE) ? JSON.parse(readFileSync(AVAILABLE, "utf8")) : {};
   available[bank] = verified.sort();
-  writeFileSync(AVAILABLE, `${JSON.stringify(Object.fromEntries(Object.entries(available).sort()), null, 2)}\n`);
+  const tempAvailable = `${AVAILABLE}.${process.pid}.tmp`;
+  writeFileSync(tempAvailable, `${JSON.stringify(Object.fromEntries(Object.entries(available).sort()), null, 2)}\n`, { flush: true, flag: "wx" });
+  renameSync(tempAvailable, AVAILABLE);
   console.log(`Verified ${verified.length}; wrote ${AVAILABLE}`);
 }
 

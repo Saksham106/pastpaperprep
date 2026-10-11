@@ -5,12 +5,15 @@
 // Writes <research>/explanations/<bank>/_ledger.json and _todo.json.
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { outputPathFor, researchRoot } from "./prepare-batch.mjs";
+import { BANKS, outputPathFor, researchRoot } from "./prepare-batch.mjs";
 
 const argv = process.argv.slice(2);
 const flag = (name) => argv[argv.indexOf(name) + 1];
 const bank = flag("--bank");
+if (!Object.hasOwn(BANKS, bank)) throw new Error("Pass --bank <known slug>");
 const manifest = JSON.parse(readFileSync(flag("--manifest"), "utf8"));
+if (manifest.bank !== bank || !Array.isArray(manifest.tasks) || manifest.tasks.some(t => t.bank !== bank || typeof t.questionId !== "string" || !/^[A-Za-z0-9._-]+$/.test(t.questionId) || [".", ".."].includes(t.questionId))) throw new Error("Manifest bank/IDs do not match requested bank");
+if (new Set(manifest.tasks.map(t => t.questionId)).size !== manifest.tasks.length) throw new Error("Duplicate manifest question IDs");
 const journals = argv.filter((arg, i) => arg.endsWith(".jsonl") && argv[i - 1] !== "--manifest");
 
 const critical = (v) => v.verdict === "fail" || v.issues.some((i) => i.severity === "critical");
@@ -28,10 +31,20 @@ for (const file of journals) {
     if (entry.type === "started") labels.set(entry.agentId, entry.label ?? "");
     if (entry.type !== "result" || !entry.result?.results) continue;
     const label = labels.get(entry.agentId) ?? "";
+    // Multi-bank workflows reuse question IDs. Never borrow another bank's verdict.
+    const labelledBank = /^(?:generate|verify|fix|re-verify)\s+((?:ib|igcse)[a-z0-9-]*)(?:\s|$)/.exec(label)?.[1];
+    if (labelledBank && labelledBank !== bank) continue;
     for (const r of entry.result.results) {
+      if (r.bank && r.bank !== bank) continue;
       if (label.startsWith("re-verify")) reverify.set(r.questionId, r);
-      else if (label.startsWith("verify")) verify.set(r.questionId, r);
-      else if (label.startsWith("fix")) fixed.set(r.questionId, r);
+      else if (label.startsWith("verify")) {
+        verify.set(r.questionId, r);
+        fixed.delete(r.questionId);
+        reverify.delete(r.questionId);
+      } else if (label.startsWith("fix")) {
+        fixed.set(r.questionId, r);
+        reverify.delete(r.questionId);
+      }
     }
   }
 }
@@ -54,7 +67,7 @@ for (const task of manifest.tasks) {
   } else if (v && !needsFix(v)) {
     row = { questionId: id, status: "pass", verdict: v.verdict, quality: v.quality, issues: [] };
   } else if (v && fx && !critical(v)) {
-    row = { questionId: id, status: fx.fixed ? "pass-after-minor-fix" : "review", verdict: v.verdict, quality: v.quality, issues: [] };
+    row = { questionId: id, status: fx.fixed === true && fx.validatorPassed === true ? "pass-after-minor-fix" : "review", verdict: v.verdict, quality: v.quality, issues: [] };
   } else if (v && fx) {
     row = { questionId: id, status: "needs-reverify", verdict: v.verdict, quality: v.quality, issues: v.issues.filter((i) => i.severity === "critical").map((i) => `${i.part}: ${i.problem}`) };
     todo.reverify.push(id);
@@ -69,9 +82,14 @@ for (const task of manifest.tasks) {
     todo.generate.push(id);
   }
   const prior = previous.get(id);
-  if (prior && done.has(prior.status) && !done.has(row.status)) row = prior;
+  // Preserve a prior outcome only when these journals provide no new evidence.
+  if (prior && !v && !rv && !fx && done.has(prior.status)) row = prior;
   rows.push(row);
 }
+
+// Keep rows outside a bounded continuation/calibration manifest.
+const included = new Set(rows.map(row => row.questionId));
+for (const [id, row] of previous) if (!included.has(id)) rows.push(row);
 
 // Remove todo entries that an earlier ledger already settled.
 const settled = new Set(rows.filter((row) => done.has(row.status)).map((row) => row.questionId));
