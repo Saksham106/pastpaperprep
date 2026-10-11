@@ -12,7 +12,7 @@ import { BANK_CATALOG } from "@/lib/catalog";
 import { bankYearFacts, upgradeHref, UPGRADE_PRICE_LABEL, UPGRADE_PRICE_MONTH, type UpgradePlacement } from "@/lib/upgrade-copy";
 
 import { filterQuestions, questionZoneValue } from "@/lib/question-filter";
-import { EXPLORER_PAGE_SIZE, parseExplorerState, serializeExplorerState, stripRoutePreset, withRoutePreset, type ExplorerFilterKey, type ExplorerSearchParams, type ExplorerState } from "@/lib/explorer-state";
+import { EXPLORER_PAGE_SIZE, parseExplorerState, serializeExplorerState, preserveClearedRoutePreset, stripRoutePreset, withRoutePreset, type ExplorerFilterKey, type ExplorerSearchParams, type ExplorerState } from "@/lib/explorer-state";
 import { encodeSharedSet, parseSharedSet } from "@/lib/shared-question-set";
 import type { QuestionFilters, QuestionSort, UnifiedQuestion } from "@/lib/questions";
 import type { BankSlug } from "@/lib/banks";
@@ -470,7 +470,7 @@ access: ExplorerAccess;
         const current = raw[key];
         raw[key] = current === undefined ? value : Array.isArray(current) ? [...current, value] : [current, value];
       }
-      const next = parseExplorerState(routePreset ? withRoutePreset(raw, routePreset) : raw, { defaultFreeOnly: !access.bankAccess });
+      const next = parseExplorerState(routePreset && !locationParams.has("set") && !locationParams.has("worksheet") ? withRoutePreset(raw, routePreset) : raw, { defaultFreeOnly: !access.bankAccess });
       if (locationParams.has("set") && !locationParams.has("worksheet")) {
         try { setSharedIds(parseSharedSet(locationParams.get("set") ?? "")); setSharedError(""); }
         catch { setSharedIds(null); setSharedError("This shared question link is invalid."); }
@@ -738,7 +738,7 @@ access: ExplorerAccess;
   useEffect(() => {
     if (!locationHydrated || bootstrapPending) return;
     const query = sharedSetView ? new URLSearchParams(window.location.search) : serializeExplorerState({ search, sort, filters, freeOnly: effectiveFreeOnly, savedOnly, courseRoute: effectiveCourseRoute, visible }, { persistFreeChoice: !resolvedAccess.bankAccess });
-    const params = routePreset && !sharedSetView ? stripRoutePreset(new URLSearchParams(query), routePreset) : new URLSearchParams(query);
+    const params = routePreset && !sharedSetView && !worksheetId ? stripRoutePreset(preserveClearedRoutePreset(new URLSearchParams(query), routePreset), routePreset) : new URLSearchParams(query);
     if (worksheetId) { params.set("worksheet", worksheetId); if (worksheetMode === "edit") params.set("mode", "edit"); }
     const nextUrl = `${window.location.pathname}${params.size ? `?${params}` : ""}${window.location.hash}`;
     window.history.replaceState(window.history.state, "", nextUrl);

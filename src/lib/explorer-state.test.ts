@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseExplorerState, serializeExplorerState, stripRoutePreset, withRoutePreset } from "@/lib/explorer-state";
+import { parseExplorerState, preserveClearedRoutePreset, serializeExplorerState, stripRoutePreset, withRoutePreset } from "@/lib/explorer-state";
 
 describe("question explorer URL state", () => {
   it("parses shareable filters, sort, saved-only mode, and pagination", () => {
@@ -86,7 +86,19 @@ describe("route presets", () => {
   it("applies the route filter only when the URL names no filters", () => {
     expect(parseExplorerState(withRoutePreset({ free: "1" }, preset)).filters).toEqual({ topics: ["Algebra and graphs"] });
     expect(parseExplorerState(withRoutePreset({ topic: "Number" }, preset)).filters).toEqual({ topics: ["Number"] });
-    expect(parseExplorerState(withRoutePreset({ year: "2018" }, preset)).filters).toEqual({ years: ["2018"] });
+    expect(parseExplorerState(withRoutePreset({ year: "2018" }, preset)).filters).toEqual({ topics: ["Algebra and graphs"], years: ["2018"] });
+  });
+
+  it("adds route dimensions when another dimension is explicitly filtered", () => {
+    expect(parseExplorerState(withRoutePreset({ year: "2021" }, preset)).filters).toEqual({ topics: ["Algebra and graphs"], years: ["2021"] });
+    expect(parseExplorerState(withRoutePreset({ topic: "Number", year: "2021" }, preset)).filters).toEqual({ topics: ["Number"], years: ["2021"] });
+  });
+
+  it("preserves Clear filters across a reload without overriding shared or worksheet URLs", () => {
+    const cleared = preserveClearedRoutePreset(new URLSearchParams("free=1"), preset);
+    expect(cleared.toString()).toBe("free=1&_preset=clear");
+    expect(parseExplorerState(withRoutePreset(Object.fromEntries(cleared), preset)).filters).toEqual({});
+    expect(parseExplorerState(withRoutePreset({ year: "2021", _preset: "clear" }, preset)).filters).toEqual({ years: ["2021"] });
   });
 
   it("keeps the clean route URL while the state matches the route", () => {

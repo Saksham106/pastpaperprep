@@ -93,9 +93,28 @@ export function serializeExplorerState(state: ExplorerState, options: { persistF
 
 const hasFilterParams = (params: ExplorerSearchParams) => PARAMS.some(([param]) => values(params[param]).length > 0);
 
-/** A topic or paper route implies its filter until the URL names filters of its own. */
+const ROUTE_PRESET_CLEAR_PARAM = "_preset";
+
+/** Route presets fill only omitted dimensions; explicit same-dimension filters replace them. */
 export function withRoutePreset(params: ExplorerSearchParams, preset: ExplorerSearchParams): ExplorerSearchParams {
-  return hasFilterParams(params) ? params : { ...params, ...preset };
+  if (params[ROUTE_PRESET_CLEAR_PARAM] === "clear") {
+    const { [ROUTE_PRESET_CLEAR_PARAM]: _ignored, ...explicit } = params;
+    return explicit;
+  }
+  const merged = { ...preset, ...params };
+  delete merged[ROUTE_PRESET_CLEAR_PARAM];
+  return merged;
+}
+
+/** Keeps a deliberate Clear filters action durable on a route that implies a filter. */
+export function preserveClearedRoutePreset(params: URLSearchParams, preset: ExplorerSearchParams): URLSearchParams {
+  const cleared = new URLSearchParams(params);
+  const presetWasRemoved = Object.entries(preset).some(([key, value]) =>
+    values(value).length > 0 && cleared.getAll(key).length === 0,
+  );
+  if (presetWasRemoved) cleared.set(ROUTE_PRESET_CLEAR_PARAM, "clear");
+  else cleared.delete(ROUTE_PRESET_CLEAR_PARAM);
+  return cleared;
 }
 
 /** Drops the filter params a route already implies, so the clean route URL stays the address. */
