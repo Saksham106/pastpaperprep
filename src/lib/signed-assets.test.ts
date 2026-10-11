@@ -214,10 +214,14 @@ describe("fetchFreeAssets", () => {
     expect(failedKeys).toEqual([]);
   });
 
-  it("treats cached free links conservatively", async () => {
+  it.each([undefined, "invalid", "-500", "0"])("treats cached free links conservatively with Age=%s", async (age) => {
     vi.useFakeTimers({ now: 1_000_000 });
     try {
-      const { assets } = await fetchFreeAssets("ib-sl", [{ questionId: "a", kind: "question" }], async () => ok("a", "question"));
+      const { assets } = await fetchFreeAssets("ib-sl", [{ questionId: "a", kind: "question" }], async () => {
+        const response = ok("a", "question");
+        if (age !== undefined) response.headers.set("age", age);
+        return response;
+      });
       expect(assets.get("a:question")!.expiresAt).toBe(1_000_000 + (3600 - 900 - 300) * 1000);
     } finally {
       vi.useRealTimers();
@@ -244,6 +248,38 @@ describe("fetchFreeAssets", () => {
     } finally {
       vi.useRealTimers();
     }
+  });
+
+  it.each([true, false])("revalidates an exhausted CDN link once, recovery=%s", async (recovers) => {
+    const stale = () => new Response(JSON.stringify({
+      expiresIn: FREE_ASSET_EXPIRES_IN, maxAge: FREE_ASSET_CDN_MAX_AGE,
+      asset: { questionId: "a", kind: "question", urls: ["https://assets.example/a.webp"] },
+    }), { headers: { age: String(FREE_ASSET_EXPIRES_IN) } });
+    const fetcher = vi.fn().mockImplementationOnce(async () => stale())
+      .mockImplementation(async () => recovers ? ok("a", "question") : stale());
+
+    const { assets, failedKeys } = await fetchFreeAssets("ib-sl", [{ questionId: "a", kind: "question" }], fetcher);
+
+    expect(fetcher).toHaveBeenCalledTimes(2);
+    expect(fetcher.mock.calls[1][1]).toEqual({ cache: "reload", headers: { "cache-control": "no-cache", pragma: "no-cache" } });
+    expect(assets.size).toBe(recovers ? 1 : 0);
+    expect(failedKeys).toEqual(recovers ? [] : ["a:question"]);
+    if (recovers) expect(assets.get("a:question")!.expiresAt).toBeGreaterThan(Date.now() + 1000);
+  });
+
+  it.each([
+    { expiresIn: -1, maxAge: 900 },
+    { expiresIn: 3600, maxAge: -1 },
+    { expiresIn: 3600, maxAge: 3600 },
+    { expiresIn: 1e308, maxAge: 900 },
+  ])("rejects invalid free expiry metadata %j", async (metadata) => {
+    const fetcher = vi.fn(async () => new Response(JSON.stringify({
+      ...metadata, asset: { questionId: "a", kind: "question", urls: ["https://assets.example/a.webp"] },
+    })));
+    const { assets, failedKeys } = await fetchFreeAssets("ib-sl", [{ questionId: "a", kind: "question" }], fetcher);
+    expect(assets.size).toBe(0);
+    expect(failedKeys).toEqual(["a:question"]);
+    expect(fetcher).toHaveBeenCalledTimes(1);
   });
 
   it("reports failures per asset instead of failing the batch", async () => {
