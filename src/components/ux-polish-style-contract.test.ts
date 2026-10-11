@@ -514,3 +514,21 @@ describe("pricing refresh styling", () => {
     expect(styleFor(globalBlocks, ".dashboard-upgrade-strip", "all")).toEqual({});
   });
 });
+
+describe("pastel subject palette and serif token", () => {
+  const PASTEL: Record<string, string> = { math: "#cfdcff", chemistry: "#ffd6c7", physics: "#e0d5fc", biology: "#c9eed8", economics: "#fde9ad", coordinated: "#c4ecef" };
+
+  it("defines a pastel and a tint for every subject tone", () => {
+    for (const [tone, pastel] of Object.entries(PASTEL)) {
+      const block = styleFor(globalBlocks, `[data-subject-tone="${tone}"]`, "base");
+      expect(normalize(block["--course-pastel"]), tone).toBe(pastel);
+      expect(normalize(block["--subject-panel-tint"]), tone).toContain("38%");
+      expect(normalize(styleFor(globalBlocks, `.course-tone-${tone}`, "base")["--course-pastel"]), tone).toBe(pastel);
+    }
+  });
+
+  it("routes serif headings through the Young Serif token", () => {
+    expect(normalize(styleFor(globalBlocks, ":root", "base")["--font-serif"])).toContain("--font-young-serif");
+    expect(readFileSync(path.join(PROJECT_ROOT, "src/app/globals.css"), "utf8")).not.toMatch(/Georgia/);
+  });
+});
