@@ -50,7 +50,7 @@ Mark scheme images can contain neighbouring questions. Use only the rows for thi
 | `steps[]` | 1–6 steps (up to 10 for a parent part covering several sub-parts). Each step is one move a student would write down. |
 | `steps[].text` | Plain sentence, inline maths in `$...$`. |
 | `steps[].math` | Optional display maths (LaTeX, no `$`). Use for the line a student would actually write. |
-| `steps[].marks` | Mark codes earned at this step, exactly as the scheme writes them (`M1`, `A1`, `R1`, `(M1)`, `(A1)`, `B1`, `N2`, `AG`, `SC1`...). Empty array if none. Every mark the scheme awards on its main method must be attached to exactly one step. |
+| `steps[].marks` | Mark codes earned at this step, exactly as the scheme writes them. Keep combined codes whole: if the scheme says `M2` for a full method (with `M1` as partial credit) or `B2`/`B4` for a complete answer or curve, put that one code on the step where the method or answer is complete; do not split it into invented singles. Keep `dep` suffixes (`M1dep`) (`M1`, `A1`, `R1`, `(M1)`, `(A1)`, `B1`, `N2`, `AG`, `SC1`...). Empty array if none. Every mark the scheme awards on its main method must be attached to exactly one step. |
 | `answer` | The final answer as the scheme accepts it (exact form, or 3 s.f. where the scheme does). For "show that" parts, the given result. For sketches, a list of the features that score. |
 | `mistake` | Optional. One common slip for this part, only when there is a real, specific one. No generic advice. |
 
@@ -65,7 +65,7 @@ Mark scheme images can contain neighbouring questions. Use only the rows for thi
 7. **Proofs and induction.** Keep the scheme's structure (basis, assumption, inductive step, conclusion) and attach `R1` marks to the reasoning sentences.
 8. **Follow-through.** Ignore `FT` rules. Explain the correct path only.
 9. **Do not copy the scheme's wording or notes to examiners.** Explain in your own words. Never write "the mark scheme says" or mention examiners in the text; the mark codes carry that.
-10. **Multiple choice (1 mark, options A–D).** One part with label `""`. Step 1–3: the reasoning that picks the right option, with the key calculation or fact. Final step: why the tempting wrong options fail, one short clause each. Mark code on the deciding step is `"A1"` unless the scheme shows another. `answer` is the letter plus the value or statement, e.g. `"B: $4.0\\text{ m s}^{-1}$"`.
+10. **Multiple choice (1 mark, options A–D).** One part with label `""`. Step 1–3: the reasoning that picks the right option, with the key calculation or fact. Final step: why the tempting wrong options fail, one short clause each, describing each option exactly as printed. If you cannot say precisely why an option is wrong, leave it out. Mark code on the deciding step is `"A1"` unless the scheme shows another. `answer` is the letter plus the value or statement, e.g. `"B: $4.0\\text{ m s}^{-1}$"`.
 11. **Science written answers.** Each marking point the scheme lists is a step or part of one. When the scheme awards ticks (✓) instead of codes, use `"✓"` as the mark code, one per tick. Give units and the significant figures the scheme expects. For "explain/describe" parts, write the sentence a student should write, not a summary of it.
 12. **Stay inside the question.** No content beyond what the question and scheme support. If something in the images is unreadable or missing, do not guess: set `"status": "needs_review"` and `"reviewNote"` at the top level and still write every part you can.
 
