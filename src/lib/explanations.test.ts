@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { fetchExplanation } from "@/lib/explanation-client";
 import { assetPathsForKind, isAssetKind } from "@/lib/asset-kinds";
 import { parseExplanation } from "@/lib/explanation-format";
-import { explanationObjectPath, isExplanationObjectPath } from "@/lib/explanations";
+import { explanationObjectPath, hasExplanation, isExplanationObjectPath } from "@/lib/explanations";
 import { formatPartLabel, renderInlineMath } from "@/components/ExplanationPanel";
 
 const doc = {
@@ -14,6 +14,12 @@ const doc = {
 };
 
 describe("explanation paths", () => {
+  it("holds AI HL IDs with only AI SL verification without hiding the AI SL explanation", () => {
+    const sharedId = "2021-may-tz1-p1-q10";
+    expect(hasExplanation("ib-ai-hl", sharedId)).toBe(false);
+    expect(hasExplanation("ib-ai-sl", sharedId)).toBe(true);
+  });
+
   it("builds R2 keys under the explanations prefix only", () => {
     expect(explanationObjectPath("ib-hl", "2025-may-tz1-p1-q1")).toBe("explanations/ib-hl/2025-may-tz1-p1-q1.json");
     expect(() => explanationObjectPath("ib-hl", "../secrets")).toThrow();
