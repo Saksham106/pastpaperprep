@@ -2,13 +2,14 @@
 import { spawnSync } from "node:child_process";
 import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { tmpdir } from "node:os";
 import { afterEach, expect, test } from "vitest";
 
 const roots = [];
 afterEach(() => roots.splice(0).forEach((root) => rmSync(root, { recursive: true, force: true })));
 
 function buildSandbox() {
-  const root = mkdtempSync(join(process.env.TMPDIR, "explanation-build-guard-"));
+  const root = mkdtempSync(join(tmpdir(), "explanation-build-guard-"));
   roots.push(root);
   mkdirSync(join(root, "scripts"));
   copyFileSync(new URL("./next-build.mjs", import.meta.url), join(root, "scripts/next-build.mjs"));

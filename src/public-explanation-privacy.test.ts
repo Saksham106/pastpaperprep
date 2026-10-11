@@ -1,6 +1,7 @@
 // @vitest-environment node
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { tmpdir } from "node:os";
 import { NextRequest, NextResponse } from "next/server";
 import { unstable_doesMiddlewareMatch } from "next/experimental/testing/server";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -21,7 +22,7 @@ describe("public development explanation privacy boundary", () => {
   it("blocks anonymous static fallback even when a fake fixture appears after build", async () => {
     vi.stubEnv("NODE_ENV", "production");
     vi.stubEnv("NEXT_PUBLIC_EXPLANATIONS_DEV", "0");
-    const root = mkdtempSync(join(process.env.TMPDIR!, "explanation-static-privacy-"));
+    const root = mkdtempSync(join(tmpdir(), "explanation-static-privacy-"));
     const fixture = join(root, "fake-question.json");
     const payload = '{"testOnly":"NONPREMIUM fixture"}';
     writeFileSync(fixture, payload);
