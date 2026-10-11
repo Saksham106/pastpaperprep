@@ -1302,21 +1302,28 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, freeAns
   const [explanationOpen, setExplanationOpen] = useState(false);
   const [explanationLoading, setExplanationLoading] = useState(false);
   const [explanationError, setExplanationError] = useState("");
+  const explanationRequestRef = useRef(false);
   const showExplanationButton = unlocked && Boolean(question.hasExplanation) && !localPreview;
   const toggleExplanation = async () => {
+    // React's disabled state is not synchronous; protect quota before starting the request.
+    if (explanationRequestRef.current) return;
     if (explanationOpen) { setExplanationOpen(false); return; }
     trackProductEvent("explanation_open", { bank: question.bankSlug, freePreview: isPreviewQuestion(question.bankSlug, question.id) });
     if (!explanation) {
+      explanationRequestRef.current = true;
       setExplanationLoading(true);
       setExplanationError("");
       try {
         setExplanation(await fetchExplanation(question.bankSlug, question.id, { free: freeAnswer }));
-      } catch {
-        setExplanationError("The explanation could not load. Try again.");
-        setExplanationLoading(false);
+      } catch (error) {
+        // Only surface this known public error, not arbitrary storage/API details.
+        setExplanationError(error instanceof Error && error.message === "Daily explanation limit reached. Try again tomorrow."
+          ? error.message : "The explanation could not load. Try again.");
         return;
+      } finally {
+        explanationRequestRef.current = false;
+        setExplanationLoading(false);
       }
-      setExplanationLoading(false);
     }
     setExplanationOpen(true);
     onReveal();

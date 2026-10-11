@@ -8,7 +8,7 @@ import styles from "./ExplanationPanel.module.css";
 const ESCAPES: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
 const escapeHtml = (text: string) => text.replace(/[&<>"']/g, (char) => ESCAPES[char]);
 const textHtml = (text: string) => escapeHtml(text).replace(/\\\$/g, "$");
-const KATEX = { throwOnError: false, strict: "ignore", trust: false, maxExpand: 1000, output: "html" } as const;
+const KATEX = { throwOnError: false, strict: "ignore", trust: false, maxExpand: 1000, output: "htmlAndMathml" } as const;
 
 /** Plain text with inline `$...$` maths. Text is escaped; maths goes through KaTeX. */
 export function renderInlineMath(text: string): string {

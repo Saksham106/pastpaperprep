@@ -16,18 +16,33 @@ export type Explanation = {
   parts: ExplanationPart[];
 };
 
-/** Shape check for JSON fetched from storage before it reaches the renderer. */
+const MARK_CODE = /^(\(?(M|A|R|B|N|SC|AG|E|C|P|S|G)\d*\)?( ?\(?dep\)?)?|✓)$/;
+const LABEL = /^([a-z](\([ivx]+\))?)?$/;
+const record = (value: unknown): value is Record<string, unknown> => Boolean(value && typeof value === "object" && !Array.isArray(value));
+const onlyKeys = (value: Record<string, unknown>, allowed: string[]) => Object.keys(value).every((key) => allowed.includes(key));
+const text = (value: unknown): value is string => typeof value === "string" && value.trim().length > 0;
+const marks = (value: unknown): value is number => typeof value === "number" && Number.isSafeInteger(value) && value >= 0;
+
+/** Accept only complete, internally consistent published JSON for this question, not review drafts. */
 export function parseExplanation(value: unknown, bank: string, questionId: string): Explanation | null {
-  if (!value || typeof value !== "object") return null;
-  const doc = value as Partial<Explanation>;
-  if (doc.schemaVersion !== 1 || doc.bank !== bank || doc.questionId !== questionId || !Array.isArray(doc.parts)) return null;
-  const strings = (...values: unknown[]) => values.every((item) => typeof item === "string");
-  const valid = doc.parts.every((part) => part && strings(part.label, part.approach, part.answer)
-    && (part.mistake === undefined || typeof part.mistake === "string")
-    && Number.isInteger(part.marks)
-    && Array.isArray(part.steps)
-    && part.steps.every((step) => step && typeof step.text === "string"
-      && (step.math === undefined || typeof step.math === "string")
-      && Array.isArray(step.marks) && step.marks.every((code) => typeof code === "string")));
-  return valid ? (doc as Explanation) : null;
+  if (!record(value) || !onlyKeys(value, ["schemaVersion", "bank", "questionId", "totalMarks", "parts"])) return null;
+  if (value.schemaVersion !== 1 || value.bank !== bank || value.questionId !== questionId
+    || !marks(value.totalMarks) || !Array.isArray(value.parts) || value.parts.length === 0) return null;
+  const labels = new Set<string>();
+  let total = 0;
+  for (const part of value.parts) {
+    if (!record(part) || !onlyKeys(part, ["label", "marks", "approach", "steps", "answer", "mistake"])
+      || typeof part.label !== "string" || !LABEL.test(part.label) || labels.has(part.label)
+      || !marks(part.marks) || !text(part.approach) || !text(part.answer)
+      || (part.mistake !== undefined && !text(part.mistake))
+      || !Array.isArray(part.steps) || part.steps.length < 1 || part.steps.length > 10) return null;
+    labels.add(part.label);
+    total += part.marks;
+    for (const step of part.steps) {
+      if (!record(step) || !onlyKeys(step, ["text", "math", "marks"]) || !text(step.text)
+        || (step.math !== undefined && !text(step.math))
+        || !Array.isArray(step.marks) || !step.marks.every((code) => typeof code === "string" && MARK_CODE.test(code))) return null;
+    }
+  }
+  return total === value.totalMarks ? value as Explanation : null;
 }
