@@ -12,7 +12,7 @@ import { disableProductAnalytics, initializeProductAnalytics, initializeConsente
 
 const OPEN_EVENT = "ppp:open-analytics-consent";
 const DISMISS_KEY = "ppp_analytics_consent_dismissed_at";
-const DISMISS_FOR = 30 * 24 * 60 * 60 * 1000;
+const DISMISS_FOR = 7 * 24 * 60 * 60 * 1000;
 const MAX_AGE = 180 * 24 * 60 * 60 * 1000;
 const subscribeHydration = () => () => {};
 type Choice = { accepted: boolean; version: number };
@@ -220,7 +220,7 @@ export function SiteTelemetry() {
   </>;
 }
 
-/** Closing the banner without choosing keeps it away for 30 days; consent stays off meanwhile. */
+/** Closing the banner without choosing keeps it away for a week; consent stays off meanwhile. */
 function recentlyDismissed() {
   try {
     const at = Number(localStorage.getItem(DISMISS_KEY));
