@@ -68,6 +68,28 @@ describe("signPrivateAssetUrls", () => {
   });
 
 
+  it("keeps signed links to an hour unless the caller opts into long-lived free links", async () => {
+    await expect(signPrivateAssetUrls(["ib-sl/questions/a.webp"], 3601)).rejects.toThrow("Signed URL expiry is invalid");
+    await expect(signPrivateAssetUrls(["ib-sl/questions/a.webp"], 86_401, { longLived: true })).rejects.toThrow("Signed URL expiry is invalid");
+
+    await signPrivateAssetUrls(["ib-sl/questions/a.webp"], 86_400, { longLived: true });
+    expect(createSignedUrls).toHaveBeenCalledWith(["ib-sl/questions/a.webp"], 86_400);
+  });
+
+  it("signs day-long R2 links when asked, reusing one client per configuration", async () => {
+    vi.stubEnv("ASSET_STORAGE_PROVIDER", "r2");
+    vi.stubEnv("R2_ACCOUNT_ID", "92278648535014b5231edfe207b9391d");
+    vi.stubEnv("R2_ACCESS_KEY_ID", "a".repeat(32));
+    vi.stubEnv("R2_SECRET_ACCESS_KEY", "b".repeat(64));
+    vi.stubEnv("R2_BUCKET_NAME", "pastpaperprep-assets");
+
+    const first = await signPrivateAssetUrls(["igcse/questions/one.webp"], 86_400, { longLived: true });
+    const second = await signPrivateAssetUrls(["igcse/questions/two.webp"], 600);
+
+    expect(new URL(first.get("igcse/questions/one.webp")!).searchParams.get("X-Amz-Expires")).toBe("86400");
+    expect(new URL(second.get("igcse/questions/two.webp")!).searchParams.get("X-Amz-Expires")).toBe("600");
+  });
+
   it("fails closed when R2 configuration is incomplete", async () => {
     vi.stubEnv("ASSET_STORAGE_PROVIDER", "r2");
     vi.stubEnv("R2_ACCOUNT_ID", "92278648535014b5231edfe207b9391d");

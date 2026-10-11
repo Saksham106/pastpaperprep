@@ -5,9 +5,13 @@ import type { SourcePrintSegment } from "@/lib/print-geometry";
 import type { VisibleImageCrop } from "@/lib/reviewed-blank-tails";
 
 const SIGN_BATCH_SIZE = 20;
-/** Free-year links: signed for an hour, shared by the CDN for at most 15 minutes. */
-export const FREE_ASSET_EXPIRES_IN = 3600;
-export const FREE_ASSET_CDN_MAX_AGE = 900;
+/**
+ * Free-year links: signed for a day and shared by the CDN for up to 20 hours, so each free
+ * image is signed by a function about once a day per region instead of four times an hour.
+ * Only free-year questions use these; paid assets keep 10-minute links behind sign-in.
+ */
+export const FREE_ASSET_EXPIRES_IN = 86_400;
+export const FREE_ASSET_CDN_MAX_AGE = 72_000;
 
 type Fetcher = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
 

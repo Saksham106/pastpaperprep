@@ -9,6 +9,7 @@ describe("server exception privacy boundary", () => {
   beforeEach(() => {
     vi.resetModules();
     captureExceptionImmediate.mockReset();
+    vi.stubEnv("VERCEL_ENV", "");
   });
 
   it("uses structured SDK exception capture with redacted error text and bounded metadata", async () => {
@@ -30,6 +31,14 @@ describe("server exception privacy boundary", () => {
     const { captureServerException } = await import("./server-error-tracking");
     captureServerException(new Error("Handled server failure"), { error_source: "handled_response", route: "/api/assets/sign", error_code: "503", reason: "Private assets are temporarily unavailable" });
     expect(captureExceptionImmediate.mock.calls[0][2]).toEqual({ error_source: "handled_response", route: "/api/assets/sign", error_code: "503", reason: "Private assets are temporarily unavailable", $process_person_profile: false });
+  });
+
+  it("tags the Vercel environment so preview failures never read as production ones", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    vi.stubEnv("VERCEL_ENV", "preview");
+    const { captureServerException } = await import("./server-error-tracking");
+    captureServerException(new Error("Handled server failure"), { route: "/api/assets/free", vercel_env: "production" });
+    expect(captureExceptionImmediate.mock.calls[0][2]).toEqual({ route: "/api/assets/free", vercel_env: "preview", $process_person_profile: false });
   });
 
   it("is a no-op when PostHog project configuration is absent", async () => {

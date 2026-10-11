@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { isPrivateBankIndexEnabled } from "@/lib/banks";
+import { getAvailableBanks, isPrivateBankIndexEnabled } from "@/lib/banks";
 import { createPublicBankIndex } from "@/lib/question-index";
 import { loadBankQuestions } from "@/lib/question-loader";
 
@@ -9,6 +9,21 @@ const CACHEABLE_RESPONSE_INIT = {
 } as const;
 
 export const runtime = "nodejs";
+
+/**
+ * Built once per deploy for every released private bank, so visitors read a static file
+ * instead of a function loading the whole bank (several seconds of CPU per cold copy).
+ * Any other slug is a plain 404 without running or caching anything, so made-up slugs
+ * cannot create cache entries.
+ */
+export const dynamicParams = false;
+
+export async function generateStaticParams(): Promise<Array<{ bank: string }>> {
+  return getAvailableBanks()
+    .map((bank) => bank.slug)
+    .filter((slug) => isPrivateBankIndexEnabled(slug))
+    .map((bank) => ({ bank }));
+}
 
 /**
  * Metadata-only index for a private release bank.
