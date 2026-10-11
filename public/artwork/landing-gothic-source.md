@@ -4,4 +4,4 @@
 - Source: user-supplied file `Engraved Gothic Collegiate Panorama.png` (supplied 10 October 2026)
 - Original dimensions: 1859 × 846 px
 - Local derivatives: WebP, built with `node scripts/landing-artwork.mjs "<source.png>"`; original file left unchanged.
-- Creator, title, date, source URL, and usage/license terms: not supplied; not independently verified. Do not claim public-domain or commercial-use status.
+- License: the owner confirmed on 10 October 2026 that PastPaperPrep holds a license to use this artwork. Creator, title, date, and source URL were not supplied. Do not describe it as public domain.
