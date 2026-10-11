@@ -40,8 +40,9 @@ export function SiteHeader({ authenticated = false }: { authenticated?: boolean 
         <span>PastPaperPrep</span>
       </Link>
       <div className="header-actions">
-        <HeaderNavigation authenticated={authenticated} menuOpen={menuOpen} onNavigate={() => setMenuOpen(false)} workspaceIcon={<SquaresFour data-testid="workspace-icon" aria-hidden="true" weight="bold" />} />
-        <ThemeToggle />
+        <HeaderNavigation authenticated={authenticated} menuOpen={menuOpen} onNavigate={() => setMenuOpen(false)} workspaceIcon={<SquaresFour data-testid="workspace-icon" aria-hidden="true" weight="bold" />} trailing={<ThemeToggle showLabel />} />
+        {/* Phones: the bar keeps the one action that matters, opening the question banks. */}
+        <Link transitionTypes={PAGE_NAVIGATION} className="nav-quick" href="/dashboard" aria-label="Open question banks" title="Open question banks" onClick={() => setMenuOpen(false)}><SquaresFour aria-hidden="true" weight="bold" /></Link>
         <button className="menu-toggle" type="button" aria-expanded={menuOpen} aria-controls="site-menu" aria-label={menuOpen ? "Close menu" : "Open menu"} onClick={() => setMenuOpen((open) => !open)}>
           <span className="menu-toggle-bars" aria-hidden="true"><i /><i /></span>
         </button>

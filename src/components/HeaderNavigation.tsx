@@ -14,7 +14,7 @@ function current(pathname: string, destination: "banks" | "articles" | "pricing"
   return pathname === "/dashboard";
 }
 
-export function HeaderNavigation({ authenticated, workspaceIcon, menuOpen = false, onNavigate }: { authenticated: boolean; workspaceIcon: ReactNode; menuOpen?: boolean; onNavigate?: () => void }) {
+export function HeaderNavigation({ authenticated, workspaceIcon, menuOpen = false, onNavigate, trailing }: { authenticated: boolean; workspaceIcon: ReactNode; menuOpen?: boolean; onNavigate?: () => void; trailing?: ReactNode }) {
   const pathname = usePathname();
   const banksHref = authenticated ? "/dashboard" : "/#question-banks";
   const [banksHashActive, setBanksHashActive] = useState(false);
@@ -52,6 +52,7 @@ export function HeaderNavigation({ authenticated, workspaceIcon, menuOpen = fals
         <span className="nav-cta-label">{authenticated ? "Dashboard" : "Start practising"}</span>
         {workspaceIcon}
       </Link>
+      {trailing}
     </nav>
   );
 }

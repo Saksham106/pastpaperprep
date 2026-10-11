@@ -1,8 +1,10 @@
 /* Site motion: short, transform/opacity only, and off for reduced motion.
    Loaded after globals.css. Route crossfades come from <PageTransition> (React ViewTransition). */
 
-/* Keep the header still and the page clickable while a route crossfades. */
-.site-header { view-transition-name: site-header; }
+/* Keep the header still and the page clickable while a route crossfades. The name is set only
+   during a transition: an element with a view-transition-name is a backdrop root, so a permanent
+   name would switch off the header's (and its phone menu's) glass blur. */
+:root:active-view-transition .site-header { view-transition-name: site-header; }
 ::view-transition { pointer-events: none; }
 ::view-transition-group(site-header) { z-index: 100; }
 ::view-transition-old(site-header) { display: none; }
