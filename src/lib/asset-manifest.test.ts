@@ -22,6 +22,7 @@ describe("buildBankAssetManifest", () => {
       expect(manifest[question.id]).toEqual({
         questionAssetPaths: question.questionAssetPaths,
         markschemeAssetPaths: question.markschemeAssetPaths,
+        ...(question.explanationAssetPaths?.length ? { explanationAssetPaths: question.explanationAssetPaths } : {}),
         details: {
           summary: question.summary,
           accessibleText: question.accessibleText,
