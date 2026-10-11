@@ -2,13 +2,14 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { canViewAnswer, canViewQuestionAsset, type AccessEntitlement } from "@/lib/access";
 import type { AssetRequest } from "@/lib/asset-access";
+import { assetPathsForKind, isAssetKind } from "@/lib/asset-kinds";
 import { bankRuntimeCacheKey } from "@/lib/bank-runtime-key";
 import type { BankSlug } from "@/lib/banks";
 import type { QuestionRichDetails } from "@/lib/questions";
 
 // Server-only: entries hold premium text. Nothing here may import the question loader, so the
 // routes that read manifests stay small instead of bundling the whole corpus.
-export type AssetManifestEntry = { questionAssetPaths: string[]; markschemeAssetPaths: string[]; details: QuestionRichDetails };
+export type AssetManifestEntry = { questionAssetPaths: string[]; markschemeAssetPaths: string[]; explanationAssetPaths?: string[]; details: QuestionRichDetails };
 export type AssetManifest = ReadonlyMap<string, AssetManifestEntry>;
 
 /** The runtime mode is part of the name, so a flag flip never reads a manifest built for the other mode. */
@@ -51,7 +52,7 @@ export function authorizeManifestAssetRequests(
   }
   const seen = new Set<string>();
   return requests.map((request) => {
-    if (!request || typeof request.questionId !== "string" || (request.kind !== "question" && request.kind !== "answer")) {
+    if (!request || typeof request.questionId !== "string" || !isAssetKind(request.kind)) {
       throw new Error("Asset request is invalid");
     }
     const requestKey = `${request.questionId}:${request.kind}`;
@@ -67,7 +68,7 @@ export function authorizeManifestAssetRequests(
       questionId: request.questionId,
       kind: request.kind,
       details: entry.details,
-      paths: request.kind === "question" ? entry.questionAssetPaths : entry.markschemeAssetPaths,
+      paths: assetPathsForKind(entry, request.kind),
     };
   });
 }

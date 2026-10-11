@@ -56,3 +56,6 @@ supabase/.temp/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local explanation previews (premium text, never commit)
+/public/dev-explanations/

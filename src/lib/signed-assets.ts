@@ -1,4 +1,5 @@
 import type { AssetKind, AssetRequest } from "@/lib/asset-access";
+import { isAssetKind } from "@/lib/asset-kinds";
 import type { QuestionRichDetails } from "@/lib/questions";
 import type { BankSlug } from "@/lib/banks";
 import type { SourcePrintSegment } from "@/lib/print-geometry";
@@ -86,7 +87,7 @@ function validAsset(value: unknown, localPreview = false): value is AssetRequest
   const asset = value as Record<string, unknown>;
   return (
     typeof asset.questionId === "string" &&
-    (asset.kind === "question" || asset.kind === "answer") &&
+    isAssetKind(asset.kind) &&
     Array.isArray(asset.urls) &&
     asset.urls.every((url) => typeof url === "string" && (/^https:\/\//.test(url) || (localPreview && /^\/api\/local-preview-assets\//.test(url)))) &&
     (asset.printSizesPt === undefined || (Array.isArray(asset.printSizesPt) &&

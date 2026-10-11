@@ -5,7 +5,7 @@ import type { AssetRequest } from "@/lib/asset-access";
 import { authorizeManifestAssetRequests, loadBankAssetManifest } from "@/lib/asset-manifest";
 import { getBank, type BankSlug } from "@/lib/banks";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
-import { premiumAssetSignOptions, previewAssetSignOptions, resolvedAssetSignProvider, signPrivateAssetUrls } from "@/lib/private-assets";
+import { explanationAssetSignOptions, premiumAssetSignOptions, previewAssetSignOptions, resolvedAssetSignProvider, signPrivateAssetUrls } from "@/lib/private-assets";
 import { richDetailsFor } from "@/lib/question-delivery";
 import { reviewedBlankTailForSignedAsset } from "@/lib/reviewed-blank-tails";
 import { createClient } from "@/lib/supabase/server";
@@ -69,11 +69,14 @@ async function handlePOST(request: Request) {
   }
 
   const paths = [...new Set(authorized.flatMap((item) => item.paths))];
+  // Explanations are JSON in R2 for every question; they are not downloads, so they skip the allowance.
+  const explanationPaths = [...new Set(authorized.filter((item) => item.kind === "explanation").flatMap((item) => item.paths))];
+  const explanationPathSet = new Set(explanationPaths);
   const previewPaths = [...new Set(authorized
-    .filter((item) => isPreviewQuestion(body.bank as BankSlug, item.questionId))
+    .filter((item) => item.kind !== "explanation" && isPreviewQuestion(body.bank as BankSlug, item.questionId))
     .flatMap((item) => item.paths))];
   const previewPathSet = new Set(previewPaths);
-  const premiumPaths = paths.filter((path) => !previewPathSet.has(path));
+  const premiumPaths = paths.filter((path) => !previewPathSet.has(path) && !explanationPathSet.has(path));
 
   if (!paths.length) {
     return NextResponse.json({
@@ -91,12 +94,13 @@ async function handlePOST(request: Request) {
     const previewOptions = previewAssetSignOptions(body.bank as BankSlug);
     const premiumOptions = premiumAssetSignOptions(body.bank as BankSlug);
     const [previewUrls, premiumUrls] = resolvedAssetSignProvider(previewOptions) === resolvedAssetSignProvider(premiumOptions)
-      ? [await signPrivateAssetUrls(paths, 600, previewOptions), new Map<string, string>()]
+      ? [await signPrivateAssetUrls([...previewPaths, ...premiumPaths], 600, previewOptions), new Map<string, string>()]
       : await Promise.all([
         signPrivateAssetUrls(previewPaths, 600, previewOptions),
         signPrivateAssetUrls(premiumPaths, 600, premiumOptions),
       ]);
-    const urlByPath = new Map([...previewUrls, ...premiumUrls]);
+    const explanationUrls = await signPrivateAssetUrls(explanationPaths, 600, explanationAssetSignOptions());
+    const urlByPath = new Map([...previewUrls, ...premiumUrls, ...explanationUrls]);
 
     if (userId && premiumPaths.length && hasBankAccess(body.bank as BankSlug, entitlements)) {
       const { data: allowed, error: quotaError } = await supabase.rpc("consume_download_allowance", {

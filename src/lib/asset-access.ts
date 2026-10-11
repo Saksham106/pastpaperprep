@@ -3,11 +3,12 @@ import {
   canViewQuestionAsset,
   type AccessEntitlement,
 } from "@/lib/access";
+import { assetPathsForKind, isAssetKind, type AssetKind } from "@/lib/asset-kinds";
 import { isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
 import { loadBankQuestionMap } from "@/lib/question-loader";
 import type { UnifiedQuestion } from "@/lib/questions";
 
-export type AssetKind = "question" | "answer";
+export { ASSET_KINDS, isAssetKind, type AssetKind } from "@/lib/asset-kinds";
 export type AssetRequest = { questionId: string; kind: AssetKind };
 export type AuthorizedAssetRequest = AssetRequest & { paths: string[]; question: UnifiedQuestion };
 
@@ -25,11 +26,7 @@ export async function authorizeAssetRequests(
   const seen = new Set<string>();
 
   return requests.map((request) => {
-    if (
-      !request ||
-      typeof request.questionId !== "string" ||
-      (request.kind !== "question" && request.kind !== "answer")
-    ) {
+    if (!request || typeof request.questionId !== "string" || !isAssetKind(request.kind)) {
       throw new Error("Asset request is invalid");
     }
 
@@ -48,9 +45,7 @@ export async function authorizeAssetRequests(
     return {
       ...request,
       question,
-      paths: request.kind === "question"
-        ? question.questionAssetPaths
-        : question.markschemeAssetPaths,
+      paths: assetPathsForKind(question, request.kind),
     };
   });
 }

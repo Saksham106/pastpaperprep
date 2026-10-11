@@ -10,17 +10,29 @@ import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { calculatorAllowed } from "../../src/lib/calculator-policy.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const projectsRoot = process.env.PPP_PROJECTS_ROOT ?? "/Users/sakshamgoel/Documents/ProjectsInternships";
 export const researchRoot = join(projectsRoot, "research/explanations");
 
+const site = (repository) => join(projectsRoot, repository, "site");
+const calculator = (bank) => (q) => calculatorAllowed(bank, { paper: q.paper, year: q.year });
+
+// Image roots match scripts/sync-r2-assets.mjs SOURCES.
 export const BANKS = {
-  "ib-hl": {
-    data: "src/data/raw/ib-hl.json",
-    imageRoot: join(projectsRoot, "ib-maths-aa-hl-topic-practice/site"),
-    calculator: (q) => q.paper !== 1,
+  "ib-hl": { data: "src/data/raw/ib-hl.json", imageRoot: site("ib-maths-aa-hl-topic-practice"), calculator: calculator("ib-hl") },
+  "ib-sl": { data: "src/data/raw/ib-sl.json", imageRoot: site("ib-maths-aa-topic-finder-audit"), calculator: calculator("ib-sl") },
+  "ib-ai-hl": { data: "src/data/raw/ib-ai-hl.json", imageRoot: site("ib-maths-ai-hl-topic-practice-full-audit-final"), calculator: calculator("ib-ai-hl") },
+  "ib-ai-sl": { data: "src/data/raw/ib-ai-sl.json", imageRoot: site("ib-maths-ai-sl-topic-practice-audit-fix-ai-sl"), calculator: calculator("ib-ai-sl") },
+  "ib-physics-hl": {
+    data: "src/data/raw/ib-physics-hl.json",
+    imageRoot: site("ib-physics-topic-practice"),
+    calculator: calculator("ib-physics-hl"),
+    // 2016-2019 extension rows reference images by public URL; the committed manifest maps them to source files.
+    extension: { publicRoot: "https://saksham106.github.io/ib-physics-topic-practice/", repositoryRoot: join(projectsRoot, "ib-physics-topic-practice"), manifest: "docs/ib-science-storage/ib-physics-hl.pending-upload-manifest.json" },
   },
+  "igcse": { data: "src/data/raw/igcse.json", imageRoot: site("igcse-0580-topic-practice"), calculator: calculator("igcse") },
 };
 
 function args(argv) {
@@ -37,8 +49,24 @@ function args(argv) {
 const hash = (s) => createHash("sha256").update(s).digest("hex");
 export const outputPathFor = (bank, id) => join(researchRoot, bank, `${id}.json`);
 
-function toPng(bank, imageRoot, rel) {
-  const src = join(imageRoot, rel);
+const extensionSources = new Map();
+function sourceFile(bank, config, rel) {
+  if (!/^https?:/.test(rel)) return join(config.imageRoot, rel);
+  const ext = config.extension;
+  if (!ext || !rel.startsWith(ext.publicRoot)) throw new Error(`Unmapped image URL ${rel}`);
+  if (!extensionSources.has(bank)) {
+    const manifest = JSON.parse(readFileSync(join(repoRoot, ext.manifest), "utf8"));
+    extensionSources.set(bank, new Map(manifest.assets.map((asset) => [asset.objectKey, join(ext.repositoryRoot, asset.sourcePath)])));
+  }
+  const key = rel.slice(ext.publicRoot.length);
+  const file = extensionSources.get(bank).get(key);
+  if (!file) throw new Error(`No extension source for ${rel}`);
+  return file;
+}
+
+function toPng(bank, config, rel) {
+  const src = sourceFile(bank, config, rel);
+  rel = rel.replace(/^https?:\/\/[^/]+\/[^/]+\//, "");
   if (!existsSync(src)) throw new Error(`Missing image ${src}`);
   const dest = join(researchRoot, "_png", bank, rel.replace(/\.webp$/i, ".png"));
   if (!existsSync(dest)) {
@@ -100,9 +128,11 @@ function main() {
     throw new Error("Pass --ids, --sample N or --all");
   }
 
-  const tasks = chosen.map((q) => {
-    const msImages = q.officialMarkscheme?.images ?? q.markschemeImages ?? [];
-    if (!msImages.length) throw new Error(`No mark scheme images for ${q.id}`);
+  const msImagesOf = (q) => q.officialMarkscheme?.images ?? q.markschemeImages ?? [];
+  const skipped = chosen.filter((q) => !msImagesOf(q).length).map((q) => q.id);
+  if (skipped.length && !a.all) throw new Error(`No mark scheme images for ${skipped.join(", ")}`);
+  const tasks = chosen.filter((q) => msImagesOf(q).length).map((q) => {
+    const msImages = msImagesOf(q);
     return {
       bank,
       questionId: q.id,
@@ -112,8 +142,8 @@ function main() {
       session: q.session,
       marks: q.marks ?? q.maxMarks ?? q.maximumMarks,
       calculator: config.calculator(q),
-      questionImages: (q.questionImages ?? []).map((p) => toPng(bank, config.imageRoot, p)),
-      markschemeImages: msImages.map((p) => toPng(bank, config.imageRoot, p)),
+      questionImages: (q.questionImages ?? []).map((p) => toPng(bank, config, p)),
+      markschemeImages: msImages.map((p) => toPng(bank, config, p)),
       questionText: q.accessibleText ?? q.summary ?? "",
       markschemeText: q.markschemeTranscript ?? "",
       outputPath: outputPathFor(bank, q.id),
@@ -124,6 +154,7 @@ function main() {
   mkdirSync(dirname(manifestPath), { recursive: true });
   writeFileSync(manifestPath, `${JSON.stringify({ bank, name, count: tasks.length, tasks }, null, 2)}\n`);
   console.log(manifestPath);
+  if (skipped.length) console.log(`Skipped ${skipped.length} without a mark scheme: ${skipped.join(", ")}`);
   console.log(`${tasks.length} tasks: ${tasks.map((t) => `${t.questionId} [${t.marks}]`).join(", ")}`);
 }
 

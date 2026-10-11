@@ -19,6 +19,7 @@ No email, name or account ID is ever sent without consent.
 | `$pageview` | every page | (path) |
 | `question_filter_change` | bank page | `bank`, `filter` |
 | `answer_reveal` | bank page | `bank`, `freePreview` |
+| `explanation_open` | bank page, Explanation button | `bank`, `freePreview` |
 | `pdf_builder_open` | Save PDF / Download PDF | `bank`, `questionCount` |
 | `pdf_export_attempt` / `_success` / `_error` | Download PDF | `bank`, `questionCount`, `content` |
 | `pdf_upgrade_view` | PDF prompt for people without access | `bank` |

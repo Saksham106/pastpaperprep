@@ -65,7 +65,9 @@ Mark scheme images can contain neighbouring questions. Use only the rows for thi
 7. **Proofs and induction.** Keep the scheme's structure (basis, assumption, inductive step, conclusion) and attach `R1` marks to the reasoning sentences.
 8. **Follow-through.** Ignore `FT` rules. Explain the correct path only.
 9. **Do not copy the scheme's wording or notes to examiners.** Explain in your own words. Never write "the mark scheme says" or mention examiners in the text; the mark codes carry that.
-10. **Stay inside the question.** No content beyond what the question and scheme support. If something in the images is unreadable or missing, do not guess: set `"status": "needs_review"` and `"reviewNote"` at the top level and still write every part you can.
+10. **Multiple choice (1 mark, options A–D).** One part with label `""`. Step 1–3: the reasoning that picks the right option, with the key calculation or fact. Final step: why the tempting wrong options fail, one short clause each. Mark code on the deciding step is `"A1"` unless the scheme shows another. `answer` is the letter plus the value or statement, e.g. `"B: $4.0\\text{ m s}^{-1}$"`.
+11. **Science written answers.** Each marking point the scheme lists is a step or part of one. When the scheme awards ticks (✓) instead of codes, use `"✓"` as the mark code, one per tick. Give units and the significant figures the scheme expects. For "explain/describe" parts, write the sentence a student should write, not a summary of it.
+12. **Stay inside the question.** No content beyond what the question and scheme support. If something in the images is unreadable or missing, do not guess: set `"status": "needs_review"` and `"reviewNote"` at the top level and still write every part you can.
 
 ## Maths formatting (KaTeX)
 

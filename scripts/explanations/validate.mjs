@@ -5,7 +5,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import katex from "katex";
 
-const MARK_CODE = /^\(?(M|A|R|B|N|SC|AG|E|C|P|S|G)\d*\)?$/;
+const MARK_CODE = /^(\(?(M|A|R|B|N|SC|AG|E|C|P|S|G)\d*\)?|✓)$/;
 const LABEL = /^([a-z](\([ivx]+\))?)?$/;
 
 function renderErrors(str, where) {
