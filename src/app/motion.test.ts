@@ -47,7 +47,9 @@ describe("site motion", () => {
   });
 
   it("anchors the header and keeps the page clickable during a route transition", () => {
-    expect(css).toMatch(/\.site-header\s*\{[^}]*view-transition-name:\s*site-header/);
+    expect(css).toMatch(/:root:active-view-transition \.site-header\s*\{[^}]*view-transition-name:\s*site-header/);
+    // A permanent name makes the header a backdrop root and kills its glass blur.
+    expect(css).not.toMatch(/(^|\n)\.site-header\s*\{[^}]*view-transition-name/);
     expect(css).toMatch(/::view-transition\s*\{[^}]*pointer-events:\s*none/);
   });
 
