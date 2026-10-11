@@ -98,7 +98,8 @@ const ROUTE_PRESET_CLEAR_PARAM = "_preset";
 /** Route presets fill only omitted dimensions; explicit same-dimension filters replace them. */
 export function withRoutePreset(params: ExplorerSearchParams, preset: ExplorerSearchParams): ExplorerSearchParams {
   if (params[ROUTE_PRESET_CLEAR_PARAM] === "clear") {
-    const { [ROUTE_PRESET_CLEAR_PARAM]: _ignored, ...explicit } = params;
+    const explicit = { ...params };
+    delete explicit[ROUTE_PRESET_CLEAR_PARAM];
     return explicit;
   }
   const merged = { ...preset, ...params };
