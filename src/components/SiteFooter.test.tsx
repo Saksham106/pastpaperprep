@@ -36,4 +36,16 @@ describe("SiteFooter", () => {
     expect(screen.getByRole("button", { name: "Cookie settings" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "hello@pastpaperprep.com" })).toHaveAttribute("href", "mailto:hello@pastpaperprep.com");
   });
+
+  it("keeps every link in a few columns with a decorative skyline and wordmark", () => {
+    const { container } = render(<SiteFooter />);
+    const headings = [...container.querySelectorAll(".footer-group h2")].map((heading) => heading.textContent);
+    expect(headings.length).toBeLessThanOrEqual(5);
+    expect(headings).toContain("IB Sciences & Economics");
+    expect(screen.getByRole("link", { name: /ib chemistry hl/i })).toHaveAttribute("href", "/banks/ib-chemistry-hl");
+    const skyline = container.querySelector("svg.footer-skyline");
+    expect(skyline).toHaveAttribute("aria-hidden", "true");
+    expect(skyline?.querySelector("path")?.getAttribute("d")?.length).toBeGreaterThan(100);
+    expect(container.querySelector(".footer-wordmark")).toHaveAttribute("aria-hidden", "true");
+  });
 });

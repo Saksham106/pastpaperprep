@@ -102,4 +102,11 @@ describe("SiteHeader", () => {
     expect(css).toMatch(/\.menu-toggle \{[^}]*width: 44px; height: 44px;/);
     expect(css).toMatch(/prefers-reduced-motion: reduce\)[^{]*\{[^}]*\.site-menu/);
   });
+
+  it("stays glassy after scrolling instead of turning solid", () => {
+    const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+    const scrolled = css.match(/\.site-header\.is-scrolled[^{]*\{([^}]*)\}/)?.[1] ?? "";
+    expect(scrolled).toContain("var(--header-overlay)");
+    expect(scrolled).toMatch(/backdrop-filter: blur\(\d+px\)/);
+  });
 });
