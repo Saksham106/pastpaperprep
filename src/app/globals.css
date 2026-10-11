@@ -362,6 +362,12 @@ main { min-height: 72vh; }
 .detail-workflow span { color: var(--public-burgundy); font: 600 .72rem/1 var(--font-mono); }
 .detail-workflow strong { margin-top: 18px; display: block; font: 400 1.5rem/1 var(--font-serif); }
 .detail-workflow p { color: var(--public-muted); line-height: 1.6; }
+.detail-breakdown { margin: 0; padding: 18px 0 6px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 22px; color: var(--public-muted); font-size: .92rem; }
+.detail-breakdown strong { color: var(--public-ink); font: 600 .72rem/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+.detail-breakdown small { margin-left: 4px; font: 500 .78rem/1 var(--font-mono); }
+.detail-related { margin-top: 64px; padding-top: 36px; display: grid; gap: 22px; border-top: 1px solid var(--line-strong); }
+.detail-related h2 { margin: 0; font: 400 clamp(1.6rem, 3vw, 2.2rem)/1.05 var(--font-serif); }
+.detail-related .text-button { justify-self: start; }
 .landing-actions, .about-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
 .access-footnote { margin-top: 15px; }
 .about-principles { margin-top: 48px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-block: 1px solid var(--line-strong); }

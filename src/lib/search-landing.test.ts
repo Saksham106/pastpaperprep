@@ -104,11 +104,24 @@ describe("search landing manifests", () => {
       expect(manifest.topics.every((topic) => topic.count >= 20)).toBe(true);
       expect(manifest.topics.every((topic) => topicPath(slug, topic).endsWith(`/${topic.slug}`))).toBe(true);
     }
-    const old = buildLandingManifest("igcse", [
+    const old = buildLandingManifest("ib-hl", [
       ...Array.from({ length: 25 }, () => question({ primaryTopic: "Algebra and graphs" })),
       ...Array.from({ length: 21 }, () => question({ primaryTopic: "Number" })),
       ...Array.from({ length: 20 }, () => question({ primaryTopic: "Geometry" })),
     ]);
     expect(old.topics.map((topic) => topic.label)).toEqual(["Algebra and graphs", "Number"]);
+  });
+
+  it("gives every 0580 syllabus topic with real inventory its own landing, keeping existing routes first", () => {
+    const manifest = buildLandingManifest("igcse", [
+      ...Array.from({ length: 25 }, () => question({ primaryTopic: "Algebra and graphs", bankSlug: "igcse" })),
+      ...Array.from({ length: 21 }, () => question({ primaryTopic: "Number", bankSlug: "igcse" })),
+      ...Array.from({ length: 20 }, () => question({ primaryTopic: "Geometry", bankSlug: "igcse" })),
+      ...Array.from({ length: 19 }, () => question({ primaryTopic: "Probability", bankSlug: "igcse" })),
+    ]);
+    expect(manifest.topics.slice(0, 2).map((topic) => topic.label)).toEqual(["Algebra and graphs", "Number"]);
+    expect(manifest.topics.map((topic) => topic.label)).toContain("Geometry");
+    expect(manifest.topics.map((topic) => topic.label)).not.toContain("Probability");
+    expect(new Set(manifest.topics.map((topic) => topic.slug)).size).toBe(manifest.topics.length);
   });
 });

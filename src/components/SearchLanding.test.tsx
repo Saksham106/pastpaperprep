@@ -48,8 +48,9 @@ describe("SearchLanding", () => {
     expect(screen.queryByText(/share of archived question assignments/i)).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: /motion, forces and energy/i })).toHaveAttribute(
       "href",
-      "/banks/igcse-physics-0625?topic=Motion%2C%20forces%20and%20energy",
+      "/banks/igcse-physics-0625/topics/motion-forces-and-energy",
     );
+    expect(screen.getByRole("link", { name: /waves/i })).toHaveAttribute("href", "/banks/igcse-physics-0625?topic=Waves");
     expect(screen.getByRole("link", { name: /paper 4/i })).toHaveAttribute(
       "href",
       "/banks/igcse-physics-0625/papers/paper-4",
@@ -57,23 +58,22 @@ describe("SearchLanding", () => {
     expect(container.querySelector("[data-question-id]")).toBeNull();
   });
 
-  it("uses the static landing URL in schema and the query URL only for the practice CTA", () => {
+  const stats = { total: 75, free: 12, breakdown: [{ label: "Paper 2", count: 30 }, { label: "Paper 4", count: 45 }] };
+  const related = [{ label: "Waves", href: "/banks/igcse-physics-0625/topics/waves", count: 45 }];
+
+  it("renders the live explorer under real archive stats with the static URL in schema", () => {
     const canonicalPath = "/banks/igcse-physics-0625/topics/motion-forces-and-energy";
-    const filterHref = "/banks/igcse-physics-0625?topic=Motion%2C%20forces%20and%20energy";
     const { container } = render(
-      <SearchDetail
-        bank={bank}
-        title="IGCSE Physics 0625 Motion, Forces and Energy Questions"
-        kind="topic"
-        label="Motion, forces and energy"
-        count={75}
-        filterHref={filterHref}
-        canonicalPath={canonicalPath}
-      />,
+      <SearchDetail eyebrow="Topic practice" bank={bank} title="IGCSE Physics 0625 Motion, forces and energy past paper questions" kind="topic" label="Motion, forces and energy" canonicalPath={canonicalPath} stats={stats} related={related}>
+        <div data-testid="explorer" />
+      </SearchDetail>,
     );
 
-    expect(screen.getByRole("link", { name: "Open this practice set" })).toHaveAttribute("href", `${filterHref}&free=0`);
-    expect(screen.getByText(/do not unlock paid questions/i)).toBeInTheDocument();
+    expect(screen.getByTestId("explorer")).toBeInTheDocument();
+    expect(screen.getByText("75")).toBeInTheDocument();
+    expect(screen.getByText(/12 free to practise now · 63 more with a plan/)).toBeInTheDocument();
+    expect(screen.getByText("Appears in").parentElement).toHaveTextContent("Paper 2 30Paper 4 45");
+    expect(screen.getByRole("link", { name: /waves/i })).toHaveAttribute("href", "/banks/igcse-physics-0625/topics/waves");
     const script = container.querySelector('script[type="application/ld+json"]');
     expect(JSON.parse(script?.textContent ?? "{}").url).toBe(`https://pastpaperprep.com${canonicalPath}`);
     expect(script?.textContent).not.toContain("?topic=");
@@ -81,30 +81,22 @@ describe("SearchLanding", () => {
 
   it("adds the existing 0620 chemistry guide early on the Stoichiometry detail only", () => {
     const chemistry = getCatalogBank("igcse-chemistry-0620")!;
-    render(<SearchDetail bank={chemistry} title="IGCSE Chemistry 0620 Stoichiometry Questions" kind="topic" label="Stoichiometry" count={475} filterHref="/banks/igcse-chemistry-0620?topic=Stoichiometry" canonicalPath="/banks/igcse-chemistry-0620/topics/stoichiometry" />);
+    render(<SearchDetail eyebrow="Topic practice" bank={chemistry} title="IGCSE Chemistry 0620 Stoichiometry Questions" kind="topic" label="Stoichiometry" canonicalPath="/banks/igcse-chemistry-0620/topics/stoichiometry" stats={stats} related={[]}>{null}</SearchDetail>);
     expect(screen.getByRole("link", { name: "IGCSE Chemistry 0620 question-bank guide" })).toHaveAttribute("href", "/articles/best-igcse-chemistry-0620-question-banks");
   });
 
-  it("describes paper counts as archive coverage rather than topic frequency", () => {
+  it("labels a paper page's breakdown by topic and omits the upsell when everything is free", () => {
     render(
-      <SearchDetail
-        bank={bank}
-        title="IGCSE Physics 0625 Paper 4 Questions"
-        kind="paper"
-        label="Paper 4"
-        count={60}
-        filterHref="/banks/igcse-physics-0625?paper=4"
-        canonicalPath="/banks/igcse-physics-0625/papers/paper-4"
-      />,
+      <SearchDetail eyebrow="Topic practice" bank={bank} title="IGCSE Physics 0625 Paper 4 past paper questions" kind="paper" label="Paper 4" canonicalPath="/banks/igcse-physics-0625/papers/paper-4" stats={{ total: 60, free: 60, breakdown: [{ label: "Waves", count: 20 }] }} related={[]}>{null}</SearchDetail>,
     );
 
-    expect(screen.getByText(/archive coverage for this paper filter/i)).toBeInTheDocument();
-    expect(screen.queryByText(/historical frequency signal/i)).not.toBeInTheDocument();
+    expect(screen.getByText("Most-tested topics")).toBeInTheDocument();
+    expect(screen.getByText("60 free to practise now")).toBeInTheDocument();
+    expect(screen.queryByRole("navigation", { name: /more/i })).not.toBeInTheDocument();
   });
 
   it("uses concise topic-specific guidance rather than cloned generic copy", () => {
-    render(<SearchDetail bank={bank} title="IB Physics Mechanics questions" kind="topic" label="Mechanics and motion" count={358} filterHref="/banks/ib-physics-hl?topic=Mechanics%20and%20motion" canonicalPath="/banks/ib-physics-hl/topics/mechanics-and-motion" />);
+    render(<SearchDetail eyebrow="Topic practice" bank={bank} title="IB Physics Mechanics questions" kind="topic" label="Mechanics and motion" canonicalPath="/banks/ib-physics-hl/topics/mechanics-and-motion" stats={stats} related={[]}>{null}</SearchDetail>);
     expect(screen.getByText(/connect kinematics and force models to graphs/i)).toBeInTheDocument();
-    expect(screen.queryByText(/exact topic filter already applied/i)).not.toBeInTheDocument();
   });
 });

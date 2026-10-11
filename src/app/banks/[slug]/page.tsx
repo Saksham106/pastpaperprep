@@ -1,19 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { preconnect } from "react-dom";
-import { QuestionExplorer } from "@/components/QuestionExplorer";
+import { BankQuestionExplorer } from "@/components/BankQuestionExplorer";
 import { BankSeoContent } from "@/components/BankSeoContent";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
-import { isPreviewQuestion } from "@/lib/access";
-import { assetOriginsForBank } from "@/lib/asset-origins";
-import { getAvailableBanks, getBank, isLocalEconomicsBank, isLocalEconomicsPreviewEnabled, type BankSlug } from "@/lib/banks";
-import { EXPLORER_PAGE_SIZE, parseExplorerState } from "@/lib/explorer-state";
-import { filterQuestions } from "@/lib/question-filter";
-import { getQuestionRichDetails } from "@/lib/question-delivery";
-import { localPreviewBankIndexUrl, mergeQuestionRichDetails, publicBankIndexUrl, publicMetadataToQuestion, toPublicQuestionMetadata } from "@/lib/question-index";
-import { loadBankQuestions } from "@/lib/question-loader";
+import { loadBankExplorer } from "@/lib/bank-explorer";
+import { getAvailableBanks, getBank, type BankSlug } from "@/lib/banks";
+import { getCatalogBanksForDisplay } from "@/lib/catalog";
+import { getLandingManifest, topicPath } from "@/lib/search-landing";
 import { SOCIAL_IMAGE, SOCIAL_IMAGE_URL } from "@/lib/seo";
 
 export const dynamicParams = false;
@@ -44,33 +39,11 @@ export default async function BankPage({ params }: { params: Promise<{ slug: str
   const slug = (await params).slug as BankSlug;
   const bank = getBank(slug);
   if (!bank) notFound();
-  const localPreview = isLocalEconomicsPreviewEnabled() && isLocalEconomicsBank(slug);
-  // A catalog entry is not proof that a bank is runnable. A gated bank whose sealed
-  // runtime is not promoted yet (or a corrupt artifact) fails closed as a 404 instead of
-  // advertising a route that renders an error boundary, which would return HTTP 200.
-  const allQuestions = await loadBankQuestions(slug).catch(() => null);
-  if (!allQuestions) notFound();
-  // Question images come from signed Storage/R2 URLs; open those connections while JS loads.
-  for (const origin of assetOriginsForBank(slug)) preconnect(origin);
-  const filterableQuestions = allQuestions.map((question) => publicMetadataToQuestion(toPublicQuestionMetadata(question), slug));
-  // Request-specific URL and member state hydrate in the client. Keeping them out of this
-  // route lets Next pre-render every bank once at build time instead of parsing a full corpus
-  // for every crawler and visitor request.
-  const initialState = parseExplorerState({}, { defaultFreeOnly: !localPreview });
-  const initialMatches = filterQuestions(filterableQuestions, {
-    ...initialState.filters,
-    search: undefined,
-    sort: initialState.sort,
-  })
-    .filter((question) => !initialState.freeOnly || isPreviewQuestion(slug, question.id))
-    .filter(() => !initialState.savedOnly);
-  const sourceById = new Map(allQuestions.map((question) => [question.id, question]));
-  const initialQuestions = initialMatches.slice(0, EXPLORER_PAGE_SIZE).map((question) => {
-    const sourceQuestion = sourceById.get(question.id);
-    return sourceQuestion
-      ? mergeQuestionRichDetails(question, getQuestionRichDetails(sourceQuestion, [], new Date(), localPreview))
-      : question;
-  });
+  const explorer = await loadBankExplorer(slug);
+  if (!explorer) notFound();
+  const topicLinks = getCatalogBanksForDisplay().some((entry) => entry.slug === slug)
+    ? (await getLandingManifest(slug)).topics.map((topic) => ({ label: topic.label, href: topicPath(slug, topic) }))
+    : [];
 
   return (
     <>
@@ -110,8 +83,8 @@ export default async function BankPage({ params }: { params: Promise<{ slug: str
         </div>
       </section>
       <div className="shell">
-        <QuestionExplorer questions={initialQuestions} bankSlug={slug} localPreview={localPreview} indexUrl={localPreview ? localPreviewBankIndexUrl(slug) : publicBankIndexUrl(slug)} access={{ authenticated: false, bankAccess: localPreview, canExportPdf: localPreview }} initialState={initialState} bootstrapUrl={localPreview ? undefined : `/api/banks/bootstrap?bank=${encodeURIComponent(slug)}`} hydrateFromLocation />
-        <BankSeoContent bank={bank} />
+        <BankQuestionExplorer slug={slug} explorer={explorer} />
+        <BankSeoContent bank={bank} topicLinks={topicLinks} />
       </div>
     </>
   );

@@ -6,6 +6,7 @@ import { hydrateRoot } from "react-dom/client";
 import { act } from "react";
 import { join } from "node:path";
 import { QuestionExplorer } from "@/components/QuestionExplorer";
+import { parseExplorerState } from "@/lib/explorer-state";
 import { PREVIEW_QUESTION_IDS, isPreviewQuestion } from "@/lib/access";
 import { prepareQuestionsForDelivery } from "@/lib/question-delivery";
 import { toPublicQuestionMetadata } from "@/lib/question-index";
@@ -103,6 +104,27 @@ describe("QuestionExplorer", () => {
     expect(screen.queryByRole("radiogroup", { name: /course route/i })).not.toBeInTheDocument();
     await waitFor(() => expect(screen.getByText("8 questions")).toBeInTheDocument());
     await waitFor(() => expect(new URLSearchParams(window.location.search).has("route")).toBe(false));
+  });
+
+  it("applies a topic route's preset on its clean URL and drops it from the query", async () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 12), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const topic = questions[0].primaryTopic;
+    const expected = questions.filter((question) => question.primaryTopic === topic || question.secondaryTopics.includes(topic)).length;
+    expect(expected).toBeLessThan(questions.length);
+    window.history.replaceState({}, "", "/banks/ib-sl/topics/a-topic");
+
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} hydrateFromLocation routePreset={{ topic }} initialState={parseExplorerState({ topic })} />);
+
+    await waitFor(() => expect(screen.getByText(`${expected} ${expected === 1 ? "question" : "questions"}`)).toBeInTheDocument());
+    await waitFor(() => expect(window.location.pathname).toBe("/banks/ib-sl/topics/a-topic"));
+    expect(new URLSearchParams(window.location.search).has("topic")).toBe(false);
+  });
+
+  it("puts the text of viewable questions into the server HTML for screen readers and search", () => {
+    const [question] = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").filter((item) => item.accessibleText).slice(0, 1), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const html = renderToString(<QuestionExplorer questions={[question]} bankSlug="ib-sl" access={fullAccess} initialState={parseExplorerState({})} />);
+    expect(html).toContain("question-transcript");
+    expect(html).toContain(question.accessibleText.slice(0, 40).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"));
   });
 
   it("filters hydrated public-index metadata and shares practical Papers 5 and 6 across both routes", async () => {

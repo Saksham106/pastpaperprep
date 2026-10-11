@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { BankQuestionExplorer } from "@/components/BankQuestionExplorer";
 import { SearchDetail } from "@/components/SearchLanding";
+import { loadBankExplorer } from "@/lib/bank-explorer";
 import { getCatalogBank, getCatalogBanksForDisplay } from "@/lib/catalog";
 import {
+  bankSearchName,
   getLandingManifest,
-  paperFilterHref,
+  landingDetailStats,
   paperPath,
 } from "@/lib/search-landing";
 export const dynamicParams = false;
@@ -29,8 +32,8 @@ export async function generateMetadata({
     : undefined;
   return bank && paper
     ? {
-        title: `${paper.label} ${bank.shortName} past papers`,
-        description: `Practise archive questions from ${paper.label} in the ${bank.shortName} PastPaperPrep bank.`,
+        title: `${paper.label} Past Paper Questions – ${bankSearchName(bank)}`,
+        description: `Practise ${paper.count.toLocaleString()} ${bankSearchName(bank)} ${paper.label} past-paper questions from ${bank.years}. Filter by topic and year, check answers, and build a worksheet.`,
         alternates: { canonical: paperPath(bank.slug, paper) },
         openGraph: { url: paperPath(bank.slug, paper) },
       }
@@ -48,19 +51,26 @@ export default async function PaperPage({
     !getCatalogBanksForDisplay().some((entry) => entry.slug === slug)
   )
     notFound();
-  const paper = (await getLandingManifest(bank.slug)).papers.find(
-    (item) => item.slug === paperSlug,
-  );
+  const manifest = await getLandingManifest(bank.slug);
+  const paper = manifest.papers.find((item) => item.slug === paperSlug);
   if (!paper) notFound();
+  const routePreset = { paper: String(paper.paper) };
+  const explorer = await loadBankExplorer(bank.slug, routePreset);
+  if (!explorer) notFound();
   return (
     <SearchDetail
       bank={bank}
-      title={`${paper.label}: ${bank.shortName} past papers`}
+      eyebrow={`${bankSearchName(bank)} · Paper practice`}
+      title={`${paper.label} past paper questions`}
       kind="paper"
       label={paper.label}
-      count={paper.count}
-      filterHref={paperFilterHref(bank.slug, paper.paper)}
       canonicalPath={paperPath(bank.slug, paper)}
-    />
+      stats={landingDetailStats(bank.slug, explorer.routeMatches, "paper")}
+      related={manifest.papers
+        .filter((item) => item.slug !== paper.slug)
+        .map((item) => ({ label: item.label, href: paperPath(bank.slug, item), count: item.count }))}
+    >
+      <BankQuestionExplorer slug={bank.slug} explorer={explorer} routePreset={routePreset} />
+    </SearchDetail>
   );
 }

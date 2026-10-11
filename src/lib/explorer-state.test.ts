@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseExplorerState, serializeExplorerState } from "@/lib/explorer-state";
+import { parseExplorerState, preserveClearedRoutePreset, serializeExplorerState, stripRoutePreset, withRoutePreset } from "@/lib/explorer-state";
 
 describe("question explorer URL state", () => {
   it("parses shareable filters, sort, saved-only mode, and pagination", () => {
@@ -77,5 +77,37 @@ describe("question explorer URL state", () => {
     expect(parseExplorerState({ route: "extended" }).courseRoute).toBe("extended");
     expect(parseExplorerState({ route: "both" }).courseRoute).toBe("all");
     expect(parseExplorerState({ route: "nonsense" }).courseRoute).toBe("all");
+  });
+});
+
+describe("route presets", () => {
+  const preset = { topic: "Algebra and graphs" };
+
+  it("applies the route filter only when the URL names no filters", () => {
+    expect(parseExplorerState(withRoutePreset({ free: "1" }, preset)).filters).toEqual({ topics: ["Algebra and graphs"] });
+    expect(parseExplorerState(withRoutePreset({ topic: "Number" }, preset)).filters).toEqual({ topics: ["Number"] });
+    expect(parseExplorerState(withRoutePreset({ year: "2018" }, preset)).filters).toEqual({ topics: ["Algebra and graphs"], years: ["2018"] });
+  });
+
+  it("adds route dimensions when another dimension is explicitly filtered", () => {
+    expect(parseExplorerState(withRoutePreset({ year: "2021" }, preset)).filters).toEqual({ topics: ["Algebra and graphs"], years: ["2021"] });
+    expect(parseExplorerState(withRoutePreset({ topic: "Number", year: "2021" }, preset)).filters).toEqual({ topics: ["Number"], years: ["2021"] });
+  });
+
+  it("preserves Clear filters across a reload without overriding shared or worksheet URLs", () => {
+    const cleared = preserveClearedRoutePreset(new URLSearchParams("free=1"), preset);
+    expect(cleared.toString()).toBe("free=1&_preset=clear");
+    expect(parseExplorerState(withRoutePreset(Object.fromEntries(cleared), preset)).filters).toEqual({});
+    expect(parseExplorerState(withRoutePreset({ year: "2021", _preset: "clear" }, preset)).filters).toEqual({ years: ["2021"] });
+  });
+
+  it("keeps the clean route URL while the state matches the route", () => {
+    const own = serializeExplorerState({ ...parseExplorerState(preset), freeOnly: true });
+    expect(stripRoutePreset(own, preset).toString()).toBe("free=1");
+    const widened = new URLSearchParams("topic=Algebra+and+graphs&topic=Number&free=1");
+    expect(stripRoutePreset(widened, preset).toString()).toBe(widened.toString());
+    const narrowed = new URLSearchParams("topic=Algebra+and+graphs&year=2018");
+    expect(stripRoutePreset(narrowed, preset).toString()).toBe(narrowed.toString());
+    expect(stripRoutePreset(narrowed, {}).toString()).toBe(narrowed.toString());
   });
 });

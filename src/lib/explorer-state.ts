@@ -90,3 +90,44 @@ export function serializeExplorerState(state: ExplorerState, options: { persistF
   if (page > 1) params.set("page", String(page));
   return params;
 }
+
+const hasFilterParams = (params: ExplorerSearchParams) => PARAMS.some(([param]) => values(params[param]).length > 0);
+
+const ROUTE_PRESET_CLEAR_PARAM = "_preset";
+
+/** Route presets fill only omitted dimensions; explicit same-dimension filters replace them. */
+export function withRoutePreset(params: ExplorerSearchParams, preset: ExplorerSearchParams): ExplorerSearchParams {
+  if (params[ROUTE_PRESET_CLEAR_PARAM] === "clear") {
+    const explicit = { ...params };
+    delete explicit[ROUTE_PRESET_CLEAR_PARAM];
+    return explicit;
+  }
+  const merged = { ...preset, ...params };
+  delete merged[ROUTE_PRESET_CLEAR_PARAM];
+  return merged;
+}
+
+/** Keeps a deliberate Clear filters action durable on a route that implies a filter. */
+export function preserveClearedRoutePreset(params: URLSearchParams, preset: ExplorerSearchParams): URLSearchParams {
+  const cleared = new URLSearchParams(params);
+  const presetWasRemoved = Object.entries(preset).some(([key, value]) =>
+    values(value).length > 0 && cleared.getAll(key).length === 0,
+  );
+  if (presetWasRemoved) cleared.set(ROUTE_PRESET_CLEAR_PARAM, "clear");
+  else cleared.delete(ROUTE_PRESET_CLEAR_PARAM);
+  return cleared;
+}
+
+/** Drops the filter params a route already implies, so the clean route URL stays the address. */
+export function stripRoutePreset(params: URLSearchParams, preset: ExplorerSearchParams): URLSearchParams {
+  if (!hasFilterParams(preset)) return params;
+  const same = PARAMS.every(([param]) => {
+    const current = [...new Set(params.getAll(param))].sort();
+    const implied = values(preset[param]).sort();
+    return current.length === implied.length && current.every((value, index) => value === implied[index]);
+  });
+  if (!same) return params;
+  const stripped = new URLSearchParams(params);
+  for (const [param] of PARAMS) stripped.delete(param);
+  return stripped;
+}

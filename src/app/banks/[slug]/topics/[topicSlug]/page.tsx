@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { BankQuestionExplorer } from "@/components/BankQuestionExplorer";
 import { SearchDetail } from "@/components/SearchLanding";
+import { loadBankExplorer } from "@/lib/bank-explorer";
 import { getCatalogBank, getCatalogBanksForDisplay } from "@/lib/catalog";
 import {
+  bankSearchName,
   getLandingManifest,
-  topicFilterHref,
+  landingDetailStats,
   topicPath,
 } from "@/lib/search-landing";
 export const dynamicParams = false;
@@ -29,8 +32,8 @@ export async function generateMetadata({
     : undefined;
   return bank && topic
     ? {
-        title: `${topic.label} ${bank.shortName} past-paper questions`,
-        description: `Practise ${topic.label} questions from the ${bank.shortName} PastPaperPrep archive.`,
+        title: `${topic.label} Past Paper Questions – ${bankSearchName(bank)}`,
+        description: `Practise ${topic.count.toLocaleString()} ${bankSearchName(bank)} ${topic.label} past-paper questions from ${bank.years}. Start with the free questions, check answers, and build a worksheet.`,
         alternates: { canonical: topicPath(bank.slug, topic) },
         openGraph: { url: topicPath(bank.slug, topic) },
       }
@@ -48,19 +51,26 @@ export default async function TopicPage({
     !getCatalogBanksForDisplay().some((entry) => entry.slug === slug)
   )
     notFound();
-  const topic = (await getLandingManifest(bank.slug)).topics.find(
-    (item) => item.slug === topicSlug,
-  );
+  const manifest = await getLandingManifest(bank.slug);
+  const topic = manifest.topics.find((item) => item.slug === topicSlug);
   if (!topic) notFound();
+  const routePreset = { topic: topic.label };
+  const explorer = await loadBankExplorer(bank.slug, routePreset);
+  if (!explorer) notFound();
   return (
     <SearchDetail
       bank={bank}
-      title={`${topic.label}: ${bank.shortName} past-paper questions`}
+      eyebrow={`${bankSearchName(bank)} · Topic practice`}
+      title={`${topic.label} past paper questions`}
       kind="topic"
       label={topic.label}
-      count={topic.count}
-      filterHref={topicFilterHref(bank.slug, topic.label)}
       canonicalPath={topicPath(bank.slug, topic)}
-    />
+      stats={landingDetailStats(bank.slug, explorer.routeMatches, "topic")}
+      related={manifest.topics
+        .filter((item) => item.slug !== topic.slug)
+        .map((item) => ({ label: item.label, href: topicPath(bank.slug, item), count: item.count }))}
+    >
+      <BankQuestionExplorer slug={bank.slug} explorer={explorer} routePreset={routePreset} />
+    </SearchDetail>
   );
 }
