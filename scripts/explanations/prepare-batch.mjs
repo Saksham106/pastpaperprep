@@ -13,7 +13,16 @@ import { fileURLToPath } from "node:url";
 import { calculatorAllowed } from "../../src/lib/calculator-policy.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
-const projectsRoot = process.env.PPP_PROJECTS_ROOT ?? "/Users/sakshamgoel/Documents/ProjectsInternships";
+// Sibling workspaces sit next to the main checkout; resolve through Git so this works from a worktree too.
+function workspaceRoot() {
+  try {
+    const commonDir = execFileSync("git", ["-C", repoRoot, "rev-parse", "--path-format=absolute", "--git-common-dir"], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim();
+    return resolve(dirname(commonDir), "..");
+  } catch {
+    return resolve(repoRoot, "..");
+  }
+}
+const projectsRoot = process.env.PPP_PROJECTS_ROOT ?? workspaceRoot();
 export const researchRoot = join(projectsRoot, "research/explanations");
 
 const site = (repository) => join(projectsRoot, repository, "site");

@@ -56,6 +56,10 @@ describe("explanation rendering", () => {
     expect(html).not.toContain("<b>");
   });
 
+  it("shows an escaped dollar as a plain dollar sign", () => {
+    expect(renderInlineMath("It costs \\$5 and $x = 2$")).toMatch(/^It costs \$5 and <span class="katex">/);
+  });
+
   it("falls back to escaped text when dollars are unbalanced", () => {
     expect(renderInlineMath("costs $5 <now>")).toBe("costs $5 &lt;now&gt;");
   });

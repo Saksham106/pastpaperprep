@@ -9,7 +9,10 @@ export type { Explanation, ExplanationPart, ExplanationStep } from "@/lib/explan
  */
 const EXPLANATION_PATH = /^explanations\/[a-z0-9-]+\/[A-Za-z0-9._-]+\.json$/;
 const availableByBank = new Map(
-  Object.entries(available as Record<string, string[]>).map(([bank, ids]) => [bank, new Set(ids)]),
+  Object.entries(available as Record<string, string[]>).map(([bank, ids]) => [
+    bank,
+    new Set(ids.filter((id) => EXPLANATION_PATH.test(`explanations/${bank}/${id}.json`) && id !== "." && id !== "..")),
+  ]),
 );
 
 export function hasExplanation(bank: string, questionId: string): boolean {

@@ -26,7 +26,12 @@ const apply = argv.includes("--apply");
 const verifyOnly = argv.includes("--verify-only");
 
 const sha256 = (text) => createHash("sha256").update(text).digest("hex");
-const objectKey = (id) => `explanations/${bank}/${id}.json`;
+const SAFE = /^[A-Za-z0-9._-]+$/;
+const objectKey = (id) => {
+  const key = `explanations/${bank}/${id}.json`;
+  if (!/^[a-z0-9-]+$/.test(bank) || !SAFE.test(id) || id === "." || id === "..") throw new Error(`Unsafe explanation key ${key}`);
+  return key;
+};
 
 function publishable() {
   const ledgerPath = join(researchRoot, bank, "_ledger.json");
@@ -43,6 +48,7 @@ function publishable() {
     if (doc.status === "needs_review" || errors.length) { skipped.push(`${row.questionId}: ${errors[0] ?? "needs_review"}`); continue; }
     // Publish only the student-facing fields.
     const body = JSON.stringify({ schemaVersion: 1, bank, questionId: row.questionId, totalMarks: doc.totalMarks, parts: doc.parts });
+    objectKey(row.questionId);
     out.push({ id: row.questionId, body, hash: sha256(body) });
   }
   return { out, skipped };
@@ -87,7 +93,9 @@ async function main() {
   });
   if (mismatched.length) {
     console.error(`Read-back failed for ${mismatched.length}: ${mismatched.slice(0, 20).join(", ")}`);
+    console.error("available.json left unchanged. Fix the failures and rerun.");
     process.exitCode = 1;
+    return;
   }
   const available = existsSync(AVAILABLE) ? JSON.parse(readFileSync(AVAILABLE, "utf8")) : {};
   available[bank] = verified.sort();

@@ -7,18 +7,18 @@ import styles from "./ExplanationPanel.module.css";
 
 const ESCAPES: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
 const escapeHtml = (text: string) => text.replace(/[&<>"']/g, (char) => ESCAPES[char]);
+const textHtml = (text: string) => escapeHtml(text).replace(/\\\$/g, "$");
+const KATEX = { throwOnError: false, strict: "ignore", trust: false, maxExpand: 1000, output: "html" } as const;
 
 /** Plain text with inline `$...$` maths. Text is escaped; maths goes through KaTeX. */
 export function renderInlineMath(text: string): string {
   const segments = text.split(/(?<!\\)\$/);
-  if (segments.length % 2 === 0) return escapeHtml(text);
-  return segments.map((segment, index) => index % 2
-    ? katex.renderToString(segment, { throwOnError: false, strict: "ignore", output: "html" })
-    : escapeHtml(segment)).join("");
+  if (segments.length % 2 === 0) return textHtml(text);
+  return segments.map((segment, index) => index % 2 ? katex.renderToString(segment, KATEX) : textHtml(segment)).join("");
 }
 
 function renderDisplayMath(tex: string): string {
-  return katex.renderToString(tex, { throwOnError: false, strict: "ignore", displayMode: true, output: "html" });
+  return katex.renderToString(tex, { ...KATEX, displayMode: true });
 }
 
 /** "a(ii)" -> "(a)(ii)"; "" stays empty. */
