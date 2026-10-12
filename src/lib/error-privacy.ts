@@ -73,7 +73,8 @@ export function boundExceptionFrames<T extends Record<string, unknown>>(frames: 
       const value = frame[key];
       if (typeof value === "number" && Number.isFinite(value) && value >= 0 && value <= 100_000_000) safe[key] = value;
       if (typeof value === "boolean") safe[key] = value;
-      if (typeof value === "string" && /^[A-Za-z0-9_-]{1,80}$/.test(value)) safe[key] = value;
+      // Colon allowed: posthog-js sends platform "web:javascript", and PostHog rejects frames without it.
+      if (typeof value === "string" && /^[A-Za-z0-9_:-]{1,80}$/.test(value)) safe[key] = value;
     }
     if (typeof frame.function === "string") safe.function = safeFunction(frame.function);
     return [safe as T];
