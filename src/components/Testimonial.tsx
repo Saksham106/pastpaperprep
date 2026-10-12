@@ -1,8 +1,11 @@
 import type { Testimonial as TestimonialEntry } from "@/lib/testimonials";
 
-/** One customer quote. `inline` is the compact single-line form used inside heroes, dialogs, and forms. */
-export function Testimonial({ testimonial, variant = "card" }: { testimonial: TestimonialEntry; variant?: "card" | "inline" }) {
-  return <figure className={`testimonial testimonial-${variant}`} data-testimonial>
+/**
+ * One customer quote. `inline` is the compact form used inside heroes and dialogs.
+ * `signedOutOnly` hides it (via CSS, before paint) for anyone with a session: members practising every day don't need selling to.
+ */
+export function Testimonial({ testimonial, variant = "card", signedOutOnly = false }: { testimonial: TestimonialEntry; variant?: "card" | "inline"; signedOutOnly?: boolean }) {
+  return <figure className={`testimonial testimonial-${variant}`} data-testimonial data-signed-out-only={signedOutOnly || undefined}>
     <blockquote><p>“{testimonial.quote}”</p></blockquote>
     <figcaption><strong>{testimonial.name}</strong><span>{testimonial.detail}</span></figcaption>
   </figure>;
