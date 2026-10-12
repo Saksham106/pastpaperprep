@@ -4,7 +4,7 @@ import { startTransition, useActionState, useEffect, useRef, useState, type Form
 import { PaperPlaneTilt } from "@phosphor-icons/react";
 import { requestMagicLink } from "@/app/auth/actions";
 import { initialMagicLinkState, isLikelyOrganizationEmail } from "@/lib/auth";
-import { EmailCodeForm, OrganizationEmailNotice } from "@/components/CheckEmailHelp";
+import { CheckEmailHeader, EmailCodeForm, OrganizationEmailNotice } from "@/components/CheckEmailHelp";
 
 function CheckEmail({ email, next, onEdit, onUsePersonal }: { email: string; next: string; onEdit: () => void; onUsePersonal: () => void }) {
   const [state, action, pending] = useActionState(requestMagicLink, initialMagicLinkState);
@@ -38,23 +38,25 @@ function CheckEmail({ email, next, onEdit, onUsePersonal }: { email: string; nex
   }
 
   return (
-    <section className="auth-form" aria-labelledby="magic-link-success-heading">
-      <h2 id="magic-link-success-heading" ref={heading} tabIndex={-1}>Check your email</h2>
-      <p>Check <strong>{email}</strong> for a sign-in link and code.</p>
+    <section className="check-email" aria-labelledby="magic-link-success-heading">
+      <CheckEmailHeader id="magic-link-success-heading" headingRef={heading} email={email} what="a sign-in link and code" />
       {isLikelyOrganizationEmail(email) && <OrganizationEmailNotice onUsePersonal={onUsePersonal} />}
       <EmailCodeForm email={email} type="email" next={next} />
-      <form action={action} onSubmit={resend}>
-        <input type="hidden" name="email" value={email} />
-        <input type="hidden" name="next" value={next} />
-        <button className="button secondary auth-submit" type="submit" disabled={pending || cooldown > 0}>
-          <PaperPlaneTilt weight="bold" />
-          {pending ? "Requesting…" : cooldown > 0 ? `Resend available in ${cooldown}s` : "Request another link"}
-        </button>
-      </form>
+      <div className="check-email-footer">
+        <span>{cooldown === 0 && !isLikelyOrganizationEmail(email) ? "Nothing yet? Check spam." : "Didn’t get it?"}</span>
+        <div className="check-email-actions">
+          <form action={action} onSubmit={resend}>
+            <input type="hidden" name="email" value={email} />
+            <input type="hidden" name="next" value={next} />
+            <button className="text-button" type="submit" disabled={pending || cooldown > 0}>
+              {pending ? "Sending…" : cooldown > 0 ? `Resend in ${cooldown}s` : "Resend email"}
+            </button>
+          </form>
+          <button className="text-button" type="button" disabled={pending} onClick={onEdit}>Change email</button>
+        </div>
+      </div>
       {state.status === "error" && <p ref={alert} tabIndex={-1} className="form-message error" role="alert">{state.message}</p>}
-      {state.status === "success" && <p className="form-message success" role="status">Another link was requested. Check your inbox and use the newest email.</p>}
-      {cooldown === 0 && !isLikelyOrganizationEmail(email) && <p className="auth-fine-print">Nothing yet? Check spam.</p>}
-      <button className="auth-mode-switch" type="button" disabled={pending} onClick={onEdit}>Use a different email</button>
+      {state.status === "success" && <p className="form-message success" role="status">Sent again. Use the newest email.</p>}
     </section>
   );
 }
