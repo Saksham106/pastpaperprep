@@ -179,6 +179,8 @@ const EMPTY_STUDY_STATE: ExplorerStudyState = { savedIds: [], attemptedIds: [] }
 const PLANS_LABEL = "View plans";
 const plansHrefFor = (authenticated: boolean) => (authenticated ? "/pricing" : "/login?next=/pricing");
 const subscribeToNothing = () => () => {};
+const hydratedSnapshot = () => true;
+const serverSnapshot = () => false;
 const SESSION_ORDER = ["feb", "mar", "may", "jun", "oct", "nov"];
 const sessionRank = (session: string) => Math.max(0, SESSION_ORDER.findIndex((key) => session.toLowerCase().includes(key)));
 const questionTopicLabel = (question: UnifiedQuestion) => formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, question.primaryTopic) : question.primaryTopic);
@@ -231,9 +233,15 @@ access: ExplorerAccess;
   ));
   const [selectedIds, setSelectedIds] = useState(new Set<string>());
   const [selectionIsExplicit, setSelectionIsExplicit] = useState(false);
-  const [worksheetId] = useState(() => typeof window === "undefined" ? "" : new URLSearchParams(window.location.search).get("worksheet") ?? "");
+  // Static bank HTML never sees the query string, so ignore it while hydrating (React #418)
+  // and switch to it in the re-render straight after. Client navigations read it at once.
+  const hydrated = useSyncExternalStore(subscribeToNothing, hydratedSnapshot, serverSnapshot);
+  const [mountSearch] = useState(() => typeof window === "undefined" ? "" : window.location.search);
+  const mountParams = useMemo(() => new URLSearchParams(hydrated ? mountSearch : ""), [hydrated, mountSearch]);
+  const worksheetId = mountParams.get("worksheet") ?? "";
   const [worksheetRevision, setWorksheetRevision] = useState(0);
-  const [worksheetMode, setWorksheetMode] = useState<"view" | "edit">(() => typeof window !== "undefined" && new URLSearchParams(window.location.search).get("mode") === "edit" ? "edit" : "view");
+  const [chosenWorksheetMode, setWorksheetMode] = useState<"view" | "edit" | null>(null);
+  const worksheetMode = chosenWorksheetMode ?? (mountParams.get("mode") === "edit" ? "edit" : "view");
   const [addingQuestions, setAddingQuestions] = useState(false);
   const [worksheetName, setWorksheetName] = useState("");
   const [worksheetStatus, setWorksheetStatus] = useState("");
@@ -249,7 +257,8 @@ access: ExplorerAccess;
   const [worksheetLoadFailed, setWorksheetLoadFailed] = useState(false);
   const [worksheetLoading, setWorksheetLoading] = useState(false);
   const [worksheetBaseline, setWorksheetBaseline] = useState("");
-  const [worksheetReady, setWorksheetReady] = useState(() => typeof window === "undefined" || !new URLSearchParams(window.location.search).has("worksheet"));
+  const [loadedWorksheetReady, setWorksheetReady] = useState<boolean | null>(null);
+  const worksheetReady = loadedWorksheetReady ?? !worksheetId;
   const [pdfOpen, setPdfOpen] = useState(false);
   const [pdfUpgradeOpen, setPdfUpgradeOpen] = useState(false);
   const [pdfContent, setPdfContent] = useState<PdfContent>("both");
@@ -390,7 +399,7 @@ access: ExplorerAccess;
     });
     return safeSample.slice(0, visible);
   }, [accessResolved, anonymous, freeGate.visibleCount, hydrateFromLocation, localPreview, locationHydrated, missingSharedCount, questions, visible, resultQuestions, savedWorksheetView, sharedError, sharedSetView]);
-  const returnPath = typeof window === "undefined" ? "/" : `${window.location.pathname}${window.location.search}`;
+  const returnPath = hydrated ? `${window.location.pathname}${window.location.search}` : "/";
   const signupHref = `/login?mode=sign-up&next=${encodeURIComponent(returnPath)}`;
   const signinHref = `/login?next=${encodeURIComponent(returnPath)}`;
   // Upgrade nudges: only for people without this bank, on the normal bank view.
