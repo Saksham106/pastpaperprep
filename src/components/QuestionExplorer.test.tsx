@@ -13,6 +13,7 @@ import { toPublicQuestionMetadata } from "@/lib/question-index";
 import { loadBankQuestions } from "@/lib/question-fixtures";
 import { loadBankQuestions as loadEconomicsBankQuestions } from "@/lib/question-loader";
 import { freeAssetIds, freeAssetResponse, isFreeAssetRequest } from "../../test/free-asset-fetch";
+import { sessionFingerprint, writeCachedAccess } from "@/lib/member-session-cache";
 
 describe("QuestionExplorer", () => {
   beforeEach(() => {
@@ -1293,6 +1294,80 @@ describe("QuestionExplorer asset loading", () => {
     window.history.replaceState({}, "", "/banks/ib-sl");
   });
 
+  const paidQuestions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").filter((question) => !freeIds.has(question.id)).slice(0, 30), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+  const fullBank = { search: "", sort: "paper" as const, filters: {}, freeOnly: false, savedOnly: false, courseRoute: "all" as const, visible: 24 };
+  const signedIds = (fetchMock: ReturnType<typeof vi.fn>) => signBodies(fetchMock).flatMap((body) => body.requests.map((request) => request.questionId));
+
+  it("signs paid questions from this tab's cached access without waiting for bootstrap", async () => {
+    document.cookie = "sb-test-auth-token=x; path=/";
+    writeCachedAccess("ib-sl", sessionFingerprint(document.cookie)!, { access: member });
+    const fetchMock = assetFetch(() => new Promise<Response>(() => {}));
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(<QuestionExplorer questions={[paidQuestion]} bankSlug="ib-sl" access={anonymous} initialState={fullBank} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+
+    await waitFor(() => expect(signedIds(fetchMock)).toEqual([paidQuestion.id]));
+    expect(fetchMock.mock.calls.some(([input]) => String(input).startsWith("/api/banks/bootstrap"))).toBe(true);
+  });
+
+  it("reuses this session's signed links when the bank opens again", async () => {
+    document.cookie = "sb-test-auth-token=x; path=/";
+    const fetchMock = assetFetch(memberBootstrap);
+    vi.stubGlobal("fetch", fetchMock);
+    const first = render(<QuestionExplorer questions={[paidQuestion]} bankSlug="ib-sl" access={anonymous} initialState={fullBank} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+    await waitFor(() => expect(signBodies(fetchMock)).toHaveLength(1));
+    first.unmount();
+
+    render(<QuestionExplorer questions={[paidQuestion]} bankSlug="ib-sl" access={anonymous} initialState={fullBank} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+
+    await waitFor(() => expect(screen.getByRole("img", { name: /original question/i })).toHaveAttribute("src", expect.stringContaining(`paid-${paidQuestion.id}-question`)));
+    expect(signBodies(fetchMock)).toHaveLength(1);
+  });
+
+  it("does not reuse links after the login session changes", async () => {
+    document.cookie = "sb-test-auth-token=x; path=/";
+    const fetchMock = assetFetch(memberBootstrap);
+    vi.stubGlobal("fetch", fetchMock);
+    const first = render(<QuestionExplorer questions={[paidQuestion]} bankSlug="ib-sl" access={anonymous} initialState={fullBank} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+    await waitFor(() => expect(signBodies(fetchMock)).toHaveLength(1));
+    first.unmount();
+
+    document.cookie = "sb-test-auth-token=y; path=/";
+    render(<QuestionExplorer questions={[paidQuestion]} bankSlug="ib-sl" access={anonymous} initialState={fullBank} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+
+    await waitFor(() => expect(signBodies(fetchMock)).toHaveLength(2));
+  });
+
+  it("signs a fresh link on retry instead of reusing one that failed to load", async () => {
+    document.cookie = "sb-test-auth-token=x; path=/";
+    const fetchMock = assetFetch(memberBootstrap);
+    vi.stubGlobal("fetch", fetchMock);
+    render(<QuestionExplorer questions={[paidQuestion]} bankSlug="ib-sl" access={anonymous} initialState={fullBank} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+    fireEvent.error(await screen.findByRole("img", { name: /original question/i }));
+
+    fireEvent.click(await screen.findByRole("button", { name: "Retry images" }));
+
+    await waitFor(() => expect(signBodies(fetchMock)).toHaveLength(2));
+  });
+
+  it("signs the next page when a member points at Show 24 more, then shows it without signing again", async () => {
+    document.cookie = "sb-test-auth-token=x; path=/";
+    const fetchMock = assetFetch(memberBootstrap);
+    vi.stubGlobal("fetch", fetchMock);
+    render(<QuestionExplorer questions={paidQuestions} bankSlug="ib-sl" access={anonymous} initialState={fullBank} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+    await waitFor(() => expect(signedIds(fetchMock)).toHaveLength(24));
+    const more = await screen.findByRole("button", { name: /show 24 more questions/i });
+
+    fireEvent.pointerEnter(more);
+
+    await waitFor(() => expect(signedIds(fetchMock)).toHaveLength(30));
+    expect(new Set(signedIds(fetchMock).slice(24))).toEqual(new Set(paidQuestions.slice(24).map((question) => question.id)));
+    const posts = signBodies(fetchMock).length;
+    fireEvent.click(more);
+    await waitFor(() => expect(screen.getAllByRole("img", { name: /original question/i })).toHaveLength(30));
+    expect(signBodies(fetchMock)).toHaveLength(posts);
+  });
+
   it("skips bootstrap and signs free questions through the free route when no auth cookie exists", async () => {
     const fetchMock = assetFetch();
     vi.stubGlobal("fetch", fetchMock);
@@ -1370,8 +1445,9 @@ describe("QuestionExplorer asset loading", () => {
     fireEvent.error(await screen.findByRole("img", { name: /original question/i }));
     const later = baseTime + 41 * 60 * 1000;
     vi.spyOn(Date, "now").mockReturnValue(later);
+    const signedBeforeRetry = freeCalls(fetchMock).length;
     fireEvent.click(screen.getByRole("button", { name: "Retry images" }));
-    await waitFor(() => expect(freeCalls(fetchMock)).toHaveLength(3));
+    await waitFor(() => expect(freeCalls(fetchMock)).toHaveLength(signedBeforeRetry + 1));
 
     fireEvent.click(toggle);
     await waitFor(() => expect(freeCalls(fetchMock, "answer")).toHaveLength(2));

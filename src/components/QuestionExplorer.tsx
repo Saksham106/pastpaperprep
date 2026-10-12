@@ -18,10 +18,12 @@ import { filterQuestions, questionZoneValue } from "@/lib/question-filter";
 import { EXPLORER_PAGE_SIZE, parseExplorerState, serializeExplorerState, preserveClearedRoutePreset, stripRoutePreset, withRoutePreset, type ExplorerFilterKey, type ExplorerSearchParams, type ExplorerState } from "@/lib/explorer-state";
 import { encodeSharedSet, parseSharedSet } from "@/lib/shared-question-set";
 import type { QuestionFilters, QuestionSort, UnifiedQuestion } from "@/lib/questions";
+import type { AssetRequest } from "@/lib/asset-access";
 import type { BankSlug } from "@/lib/banks";
 import { fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, lapsedSignedAssetExpiry, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
 import { pulseSuccess, shakeElement } from "@/lib/button-feedback";
 import { documentHasSupabaseAuthCookie } from "@/lib/supabase/auth-cookie";
+import { forgetAsset, readCachedAccess, readCachedAssets, rememberAssets, sessionFingerprint, writeCachedAccess } from "@/lib/member-session-cache";
 import { mergeQuestionRichDetails, publicMetadataToQuestion, type PublicBankIndex } from "@/lib/question-index";
 import { matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
@@ -199,6 +201,8 @@ const sessionRank = (session: string) => Math.max(0, SESSION_ORDER.findIndex((ke
 const questionTopicLabel = (question: UnifiedQuestion) => formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, question.primaryTopic) : question.primaryTopic);
 
 const readAuthCookiePresent = () => documentHasSupabaseAuthCookie(document.cookie);
+/** Whose per-tab caches this page may use: the login session, or "anonymous". */
+const cacheOwner = () => sessionFingerprint(document.cookie) ?? "anonymous";
 const serverHasNoAuthCookie = () => false;
 
 export function QuestionExplorer({
@@ -529,6 +533,19 @@ access: ExplorerAccess;
       });
       return () => { cancelled = true; };
     }
+    // A member's access for this bank, remembered by this tab: show and sign straight away,
+    // then confirm in the background. The server still checks every paid request.
+    const owner = cacheOwner();
+    const cached = bank ? readCachedAccess(bank, owner) : null;
+    if (cached) {
+      queueMicrotask(() => {
+        if (cancelled) return;
+        setResolvedAccess(cached.access);
+        setResolvedExportMarker(cached.exportMarker);
+        if (cached.access.bankAccess) setFreeOnly(false);
+        setBootstrapPending(false);
+      });
+    }
     fetch(bootstrapUrl, { cache: "no-store", credentials: "same-origin" })
       .then(async (response) => {
         if (!response.ok) throw new Error("Member state unavailable");
@@ -541,6 +558,7 @@ access: ExplorerAccess;
         }
         setResolvedAccess(payload.access);
         setResolvedExportMarker(payload.exportMarker);
+        if (bank) writeCachedAccess(bank, owner, { access: payload.access, ...(payload.exportMarker ? { exportMarker: payload.exportMarker } : {}) });
         setSavedIds(new Set(payload.studyState.savedIds));
         setAttemptedIds(new Set(payload.studyState.attemptedIds));
         if (payload.studyStateUnavailable) {
@@ -558,7 +576,7 @@ access: ExplorerAccess;
         if (!cancelled) setBootstrapPending(false);
       });
     return () => { cancelled = true; };
-  }, [bootstrapUrl]);
+  }, [bank, bootstrapUrl]);
 
   useEffect(() => {
     if (!bank || !indexUrl) return;
@@ -772,7 +790,9 @@ access: ExplorerAccess;
     window.history.replaceState(window.history.state, "", nextUrl);
   }, [bootstrapPending, effectiveCourseRoute, effectiveFreeOnly, filters, locationHydrated, resolvedAccess.bankAccess, routePreset, savedOnly, search, sharedSetView, sort, visible, worksheetId, worksheetMode]);
 
-  const applySignedAssets = (assets: Map<string, SignedAsset>) => {
+  const applySignedAssets = (assets: Map<string, SignedAsset>, owner: string) => {
+    if (!assets.size) return;
+    if (bank) rememberAssets(owner, bank, assets);
     setSignedAssets((current) => new Map([...current, ...assets]));
     const detailsById = new Map([...assets.values()].flatMap((asset) => asset.details ? [[asset.questionId, asset.details] as const] : []));
     if (detailsById.size) {
@@ -783,48 +803,66 @@ access: ExplorerAccess;
     }
   };
 
-  useEffect(() => {
+  /**
+   * Signs what isn't signed yet: links this session already holds are reused (no request, no
+   * allowance spent), free-year assets use the CDN-cached route, and the rest use the paid signer.
+   */
+  const signAssets = (requests: readonly AssetRequest[], route: "free" | "paid") => {
     if (!bank) return;
-    const pendingRequests = questionAssetRequests.filter((request) => (
-      !signingAssetKeysRef.current.has(signedAssetKey(request.questionId, request.kind))
-    ));
-    if (!pendingRequests.length) return;
-    const pendingKeys = pendingRequests.map((request) => signedAssetKey(request.questionId, request.kind));
+    const owner = cacheOwner();
+    const remembered = readCachedAssets(owner, bank);
+    const pending = requests.filter((request) => !signingAssetKeysRef.current.has(signedAssetKey(request.questionId, request.kind)));
+    const reused = new Map(pending.flatMap((request) => {
+      const key = signedAssetKey(request.questionId, request.kind);
+      const asset = remembered.get(key);
+      return asset ? [[key, asset] as const] : [];
+    }));
+    applySignedAssets(reused, owner);
+    const toSign = pending.filter((request) => !reused.has(signedAssetKey(request.questionId, request.kind)));
+    if (!toSign.length) return;
+    const pendingKeys = toSign.map((request) => signedAssetKey(request.questionId, request.kind));
     for (const key of pendingKeys) signingAssetKeysRef.current.add(key);
-    fetchSignedAssets(bank, pendingRequests, fetch, localPreview)
+    const finished = () => { for (const key of pendingKeys) signingAssetKeysRef.current.delete(key); };
+    if (route === "free") {
+      fetchFreeAssets(bank, toSign)
+        .then(({ assets, failedKeys }) => {
+          applySignedAssets(assets, owner);
+          if (failedKeys.length) {
+            setFailedAssetKeys((current) => new Set([...current, ...failedKeys]));
+            setAssetError("Some question images could not load.");
+          }
+        })
+        .finally(finished);
+      return;
+    }
+    fetchSignedAssets(bank, toSign, fetch, localPreview)
       .then((assets) => {
-        applySignedAssets(assets);
+        applySignedAssets(assets, owner);
         setAssetError("");
       })
       .catch(() => {
         setFailedAssetKeys((current) => new Set([...current, ...pendingKeys]));
         setAssetError("Some question images could not load.");
       })
-      .finally(() => {
-        for (const key of pendingKeys) signingAssetKeysRef.current.delete(key);
-      });
-  }, [bank, localPreview, questionAssetRequests]);
+      .finally(finished);
+  };
 
-  useEffect(() => {
-    if (!bank) return;
-    const pendingRequests = freeAssetRequests.filter((request) => (
-      !signingAssetKeysRef.current.has(signedAssetKey(request.questionId, request.kind))
-    ));
-    if (!pendingRequests.length) return;
-    const pendingKeys = pendingRequests.map((request) => signedAssetKey(request.questionId, request.kind));
-    for (const key of pendingKeys) signingAssetKeysRef.current.add(key);
-    fetchFreeAssets(bank, pendingRequests)
-      .then(({ assets, failedKeys }) => {
-        applySignedAssets(assets);
-        if (failedKeys.length) {
-          setFailedAssetKeys((current) => new Set([...current, ...failedKeys]));
-          setAssetError("Some question images could not load.");
-        }
-      })
-      .finally(() => {
-        for (const key of pendingKeys) signingAssetKeysRef.current.delete(key);
-      });
-  }, [bank, freeAssetRequests]);
+  // signAssets only reads refs and calls state setters.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { signAssets(questionAssetRequests, "paid"); }, [bank, localPreview, questionAssetRequests]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { signAssets(freeAssetRequests, "free"); }, [bank, freeAssetRequests]);
+
+  /** A member about to press "Show 24 more": sign that page now so it appears signed. */
+  const prefetchNextPage = () => {
+    if (!locationHydrated || bootstrapPending || anonymous || localPreview) return;
+    const unsigned = resultQuestions.slice(visible, visible + EXPLORER_PAGE_SIZE)
+      .filter((question) => !failedAssetKeys.has(signedAssetKey(question.id, "question")))
+      .filter((question) => !isSignedAssetFresh(signedAssets.get(signedAssetKey(question.id, "question"))));
+    const toRequest = (questions: UnifiedQuestion[]) => questions.map((question) => ({ questionId: question.id, kind: "question" as const }));
+    signAssets(toRequest(unsigned.filter((question) => isPreviewQuestion(question.bankSlug, question.id))), "free");
+    if (resolvedAccess.bankAccess) signAssets(toRequest(unsigned.filter((question) => !isPreviewQuestion(question.bankSlug, question.id))), "paid");
+  };
 
   const worksheetDefinition = () => JSON.stringify({ name: worksheetName.trim(), ids: [...selectedIds], content: pdfContent });
   const worksheetDirty = worksheetId ? Boolean(worksheetMode === "edit" && worksheetBaseline && worksheetBaseline !== worksheetDefinition()) : Boolean(selectionIsExplicit && worksheetName.trim() && (worksheetBaseline ? worksheetBaseline !== worksheetDefinition() : selectedIds.size));
@@ -1034,6 +1072,7 @@ access: ExplorerAccess;
     const expiredAt = lapsedSignedAssetExpiry(signedAssets.get(key));
     const retrying = expiredAt !== undefined && resignedExpiryRef.current.get(key) !== expiredAt;
     trackAssetLoadFailure(bank ?? "unknown", questionId, "question", retrying ? "expired_resign" : "failed", signedAssets.get(key)?.urls[0]);
+    if (bank) forgetAsset(bank, key);
     setSignedAssets((current) => {
       const next = new Map(current);
       next.delete(key);
@@ -1259,7 +1298,7 @@ access: ExplorerAccess;
           </div>
           {!savedWorksheetView && !sharedSetView && filtered.length === 0 && <div className="empty-state"><strong>No questions match that combination.</strong><span>Clear a filter and try again.</span></div>}
           {!savedWorksheetView && !sharedError && !missingSharedCount && freeGate.active && bankSlug && <FreeQuestionSignupGate bankSlug={bankSlug} remainingCount={freeGate.remainingCount} signupHref={signupHref} signinHref={signinHref} plansHref={upgradeLink("signup_gate")} plansLine={yearFacts ? `Want ${yearFacts.newerPaidLabel} too? Plans start at ${UPGRADE_PRICE_MONTH}.` : `Want every year? Plans start at ${UPGRADE_PRICE_MONTH}.`} />}
-          {!savedWorksheetView && !sharedSetView && !freeGate.active && visible < filtered.length && <button className="load-more" onClick={() => setVisible((count) => count + EXPLORER_PAGE_SIZE)}>Show 24 more questions</button>}
+          {!savedWorksheetView && !sharedSetView && !freeGate.active && visible < filtered.length && <button className="load-more" onPointerEnter={prefetchNextPage} onFocus={prefetchNextPage} onTouchStart={prefetchNextPage} onClick={() => setVisible((count) => count + EXPLORER_PAGE_SIZE)}>Show 24 more questions</button>}
         </div>
       </div>
 
