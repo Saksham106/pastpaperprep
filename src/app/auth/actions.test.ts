@@ -276,13 +276,55 @@ describe("verifyEmailCode", () => {
     expect(redirect).toHaveBeenCalledWith("/banks/ib-hl");
   });
 
-  it("treats sign-in codes as email codes and never counts them as signups", async () => {
+  it("counts first confirmation from the combined email-code form using provider signup verification", async () => {
     const verifyOtp = vi.fn().mockResolvedValue({ error: null });
+    const user = { id: "first-email-user", created_at: "2026-10-12T00:00:00Z", email_confirmed_at: "2026-10-12T00:01:00Z" };
+    createClient.mockResolvedValue({ auth: { verifyOtp, getUser: vi.fn().mockResolvedValue({ data: { user } }) } });
+    await expect(verifyEmailCode(initialMagicLinkState, form({ email: "student@gmail.com", code: "12345678", type: "email" }))).rejects.toThrow("NEXT_REDIRECT");
+    expect(verifyOtp).toHaveBeenCalledExactlyOnceWith({ email: "student@gmail.com", token: "12345678", type: "signup" });
+    expect(captureConversionOutcome).toHaveBeenCalledWith({ outcome: "signup_confirmed", eventKey: "signup:first-email-user", userId: user.id, occurredAt: user.email_confirmed_at });
+  });
+
+  it("falls back after provider signup-token rejection and excludes ordinary returning email sign-ins", async () => {
+    const verifyOtp = vi.fn().mockResolvedValueOnce({ error: { code: "otp_expired" } }).mockResolvedValueOnce({ error: null });
     createClient.mockResolvedValue({ auth: { verifyOtp, getUser: vi.fn().mockResolvedValue({ data: { user: { id: "user-1", created_at: "2026-10-12T00:00:00Z" } } }) } });
     await expect(verifyEmailCode(initialMagicLinkState, form({ email: "student@gmail.com", code: "12345678", type: "invite", next: "//evil.example" }))).rejects.toThrow("NEXT_REDIRECT");
-    expect(verifyOtp).toHaveBeenCalledWith({ email: "student@gmail.com", token: "12345678", type: "email" });
+    expect(verifyOtp).toHaveBeenNthCalledWith(1, { email: "student@gmail.com", token: "12345678", type: "signup" });
+    expect(verifyOtp).toHaveBeenNthCalledWith(2, { email: "student@gmail.com", token: "12345678", type: "email" });
+    expect(verifyOtp).toHaveBeenCalledTimes(2);
     expect(captureConversionOutcome).not.toHaveBeenCalled();
     expect(redirect).toHaveBeenCalledWith("/pricing");
+  });
+
+  it("redirects after successful redemption even when referral cookie access throws", async () => {
+    const user = { id: "verified-user", created_at: "2026-10-12T00:00:00Z" };
+    const verifyOtp = vi.fn().mockResolvedValue({ error: null });
+    createClient.mockResolvedValue({ auth: { verifyOtp, getUser: vi.fn().mockResolvedValue({ data: { user } }) } });
+    cookies.mockRejectedValueOnce(new Error("private cookie failure"));
+    await expect(verifyEmailCode(initialMagicLinkState, form({ email: "student@gmail.com", code: "12345678", type: "email" }))).rejects.toThrow("NEXT_REDIRECT");
+    expect(verifyOtp).toHaveBeenCalledTimes(1);
+    expect(captureConversionOutcome).toHaveBeenCalledWith(expect.objectContaining({ eventKey: "signup:verified-user" }));
+    expect(redirect).toHaveBeenCalledWith("/pricing");
+  });
+
+  it.each(["over_request_rate_limit", "user_banned", "unexpected_provider_code"])("does not retry signup verification on %s", async (providerCode) => {
+    const verifyOtp = vi.fn().mockResolvedValue({ error: { code: providerCode } });
+    createClient.mockResolvedValue({ auth: { verifyOtp } });
+    expect((await verifyEmailCode(initialMagicLinkState, form({ email: "student@gmail.com", code: "12345678", type: "email" }))).status).toBe("error");
+    expect(verifyOtp).toHaveBeenCalledTimes(1);
+    expect(bindReferral).not.toHaveBeenCalled();
+    expect(captureConversionOutcome).not.toHaveBeenCalled();
+    expect(redirect).not.toHaveBeenCalled();
+  });
+
+  it("rejects both invalid email-token attempts without using an existing session", async () => {
+    const verifyOtp = vi.fn().mockResolvedValue({ error: { code: "otp_expired" } });
+    const getUser = vi.fn().mockResolvedValue({ data: { user: { id: "unrelated-session" } } });
+    createClient.mockResolvedValue({ auth: { verifyOtp, getUser } });
+    expect((await verifyEmailCode(initialMagicLinkState, form({ email: "student@gmail.com", code: "12345678", type: "email" }))).status).toBe("error");
+    expect(verifyOtp).toHaveBeenCalledTimes(2);
+    expect(getUser).not.toHaveBeenCalled();
+    expect(redirect).not.toHaveBeenCalled();
   });
 
   it("rejects malformed input without contacting Supabase", async () => {

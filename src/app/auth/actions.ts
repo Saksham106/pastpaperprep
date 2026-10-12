@@ -191,9 +191,18 @@ export async function verifyEmailCode(
   logAuthDiagnostic({ attemptId, phase: "code_requested" });
   let supabase: Awaited<ReturnType<typeof createClient>>;
   let error: { code?: string } | null;
+  let verifiedType: "signup" | "email" = "signup";
   try {
     supabase = await createClient();
-    ({ error } = await supabase.auth.verifyOtp({ email, token: code, type }));
+    // Supabase Auth verifyUserAndToken accepts only confirmation tokens for
+    // signup; mismatches return otp_expired before any mutation. For the
+    // combined form, try the ordinary email contract only after that rejection.
+    // Never retry transport/unknown failures: redemption may already have run.
+    ({ error } = await supabase.auth.verifyOtp({ email, token: code, type: "signup" }));
+    if (type === "email" && error?.code === "otp_expired") {
+      verifiedType = "email";
+      ({ error } = await supabase.auth.verifyOtp({ email, token: code, type: "email" }));
+    }
   } catch {
     logAuthDiagnostic({ attemptId, phase: "code_result", outcome: "rejected", providerCode: "unexpected_failure" });
     return { status: "error", message: "We couldn’t check that code. Try again in a minute." };
@@ -203,7 +212,13 @@ export async function verifyEmailCode(
     return { status: "error", message: "That code didn’t work. Use the code from the newest email, or request a new one." };
   }
   logAuthDiagnostic({ attemptId, phase: "code_result", outcome: "verified" });
-  await completeEmailVerification(supabase, type, (await cookies()).get(REFERRAL_COOKIE)?.value);
+  let referralCookie: string | undefined;
+  try {
+    referralCookie = (await cookies()).get(REFERRAL_COOKIE)?.value;
+  } catch {
+    // Cookie/referral failures must not strand an already redeemed code.
+  }
+  await completeEmailVerification(supabase, verifiedType, referralCookie);
   redirect(next);
 }
 
