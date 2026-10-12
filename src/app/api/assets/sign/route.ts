@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { withFailureReporting } from "@/lib/route-failure-reporting";
+import { annotateFailureResponse, withFailureReporting, type FailureDiagnostics } from "@/lib/route-failure-reporting";
 import { hasBankAccess, isPreviewQuestion, type AccessEntitlement } from "@/lib/access";
 import type { AssetRequest } from "@/lib/asset-access";
 import { authorizeManifestAssetRequests, loadBankAssetManifest } from "@/lib/asset-manifest";
@@ -20,6 +20,16 @@ type SignRequestBody = {
   bank?: unknown;
   requests?: unknown;
 };
+
+// The wrapper contains only an enumerated provider, never an upstream error/cause.
+class AssetSigningFailure extends Error {
+  constructor(readonly provider: "r2" | "supabase") { super("Asset signing failed"); }
+}
+async function signWithDiagnostics(paths: string[], options: Parameters<typeof signPrivateAssetUrls>[2]) {
+  const provider = resolvedAssetSignProvider(options);
+  try { return await signPrivateAssetUrls(paths, 600, options); }
+  catch { throw new AssetSigningFailure(provider); }
+}
 
 async function handlePOST(request: Request) {
   let body: SignRequestBody;
@@ -47,12 +57,12 @@ async function handlePOST(request: Request) {
 
   if (userId) {
     const result = await fetchAccessEntitlements(supabase as never, userId);
-    if (result.error) return NextResponse.json({ error: "Could not verify access" }, { status: 503 });
+    if (result.error) return annotateFailureResponse(NextResponse.json({ error: "Could not verify access" }, { status: 503 }), { bank: body.bank, stage: "entitlement", storage_provider: "supabase", error_code: "entitlement_unavailable" });
     entitlements = result.rows as AccessEntitlement[];
   }
 
   const manifest = await loadBankAssetManifest(body.bank as BankSlug).catch(() => null);
-  if (!manifest) return NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503, ...PRIVATE_RESPONSE_INIT });
+  if (!manifest) return annotateFailureResponse(NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503, ...PRIVATE_RESPONSE_INIT }), { bank: body.bank, stage: "manifest", storage_provider: "local", error_code: "manifest_unavailable" });
 
   let authorized;
   try {
@@ -87,26 +97,29 @@ async function handlePOST(request: Request) {
     }, PRIVATE_RESPONSE_INIT);
   }
 
+  let stage: FailureDiagnostics["stage"] = "signing";
   try {
     const previewOptions = previewAssetSignOptions(body.bank as BankSlug);
     const premiumOptions = premiumAssetSignOptions(body.bank as BankSlug);
     const [previewUrls, premiumUrls] = resolvedAssetSignProvider(previewOptions) === resolvedAssetSignProvider(premiumOptions)
-      ? [await signPrivateAssetUrls(paths, 600, previewOptions), new Map<string, string>()]
+      ? [await signWithDiagnostics(paths, previewOptions), new Map<string, string>()]
       : await Promise.all([
-        signPrivateAssetUrls(previewPaths, 600, previewOptions),
-        signPrivateAssetUrls(premiumPaths, 600, premiumOptions),
+        signWithDiagnostics(previewPaths, previewOptions),
+        signWithDiagnostics(premiumPaths, premiumOptions),
       ]);
     const urlByPath = new Map([...previewUrls, ...premiumUrls]);
 
     if (userId && premiumPaths.length && hasBankAccess(body.bank as BankSlug, entitlements)) {
+      stage = "quota";
       const { data: allowed, error: quotaError } = await supabase.rpc("consume_download_allowance", {
         p_asset_count: premiumPaths.length,
         p_pdf_question_count: 0,
       });
-      if (quotaError) return NextResponse.json({ error: "Could not verify download allowance" }, { status: 503 });
+      if (quotaError) return annotateFailureResponse(NextResponse.json({ error: "Could not verify download allowance" }, { status: 503 }), { bank: body.bank, stage: "quota", storage_provider: "supabase", error_code: "quota_unavailable" });
       if (!allowed) return NextResponse.json({ error: "Daily download limit reached. Try again tomorrow." }, { status: 429 });
     }
 
+    stage = "response";
     return NextResponse.json({
       expiresIn: 600,
       assets: authorized.map((item) => ({
@@ -117,8 +130,12 @@ async function handlePOST(request: Request) {
         displayCrops: item.paths.map((path) => reviewedBlankTailForSignedAsset(body.bank as BankSlug, item.questionId, item.kind, path)),
       })),
     }, PRIVATE_RESPONSE_INIT);
-  } catch {
-    return NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503 });
+  } catch (error) {
+    return annotateFailureResponse(NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503 }), {
+      bank: body.bank, stage,
+      storage_provider: error instanceof AssetSigningFailure ? error.provider : stage === "quota" ? "supabase" : "unknown",
+      error_code: stage === "quota" ? "quota_unavailable" : stage === "response" ? "response_failed" : "signing_failed",
+    });
   }
 }
 

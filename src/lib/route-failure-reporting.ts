@@ -1,39 +1,34 @@
 import "server-only";
 import { captureServerException } from "@/lib/server-error-tracking";
 
-const SAFE_REASON = /^[\x20-\x7E’]{1,80}$/;
-// Static route messages only: anything resembling an address or an identifier is dropped.
-const UNSAFE_REASON = /@|\d{4,}/;
-const PARSE_TIMEOUT = Symbol("timeout");
+export type FailureDiagnostics = {
+  bank: string;
+  stage: "manifest" | "signing" | "entitlement" | "quota" | "response";
+  storage_provider: "local" | "supabase" | "r2" | "unknown";
+  error_code: "manifest_unavailable" | "signing_failed" | "entitlement_unavailable" | "quota_unavailable" | "response_failed";
+};
+const diagnostics = new WeakMap<Response, FailureDiagnostics>();
+const reported = new WeakSet<Response>();
 
-/**
- * Wraps an API route handler so 5xx responses it returns on purpose (caught failures
- * answered with a polite error) still reach error tracking. Unhandled throws keep
- * propagating to `onRequestError`, which already reports them. Never changes the response.
- */
+/** Internal-only annotations: never read diagnostic fields from a client body or headers. */
+export function annotateFailureResponse<T extends Response>(response: T, metadata: FailureDiagnostics): T {
+  diagnostics.set(response, { ...metadata });
+  return response;
+}
+
+/** Thrown failures propagate to onRequestError. Returned failures are reported once, without reading their bodies. */
 export function withFailureReporting<Args extends unknown[]>(route: string, handler: (...args: Args) => Promise<Response>) {
   return async (...args: Args): Promise<Response> => {
     const response = await handler(...args);
-    if (response.status >= 500) await reportHandledFailure(route, response);
+    if (response.status >= 500 && !reported.has(response)) {
+      reported.add(response);
+      try {
+        captureServerException(new Error("Handled server failure"), {
+          error_source: "handled_response", route, http_status: String(response.status),
+          error_code: "response_failed", ...diagnostics.get(response),
+        });
+      } catch { /* Telemetry must never change the response. */ }
+    }
     return response;
   };
-}
-
-async function reportHandledFailure(route: string, response: Response) {
-  try {
-    const metadata: Record<string, string> = { error_source: "handled_response", route, error_code: String(response.status) };
-    if (response.headers.get("content-type")?.includes("application/json")) {
-      // Never hold the response on its body: give the copy 50 ms, then let it go.
-      const copy = response.clone();
-      let timer: ReturnType<typeof setTimeout> | undefined;
-      const body = await Promise.race([
-        copy.json().catch(() => undefined),
-        new Promise<typeof PARSE_TIMEOUT>((resolve) => { timer = setTimeout(() => resolve(PARSE_TIMEOUT), 50); }),
-      ]).finally(() => clearTimeout(timer));
-      if (body === PARSE_TIMEOUT) void copy.body?.cancel().catch(() => {});
-      const reason = body && typeof body === "object" && "error" in body ? (body as { error: unknown }).error : undefined;
-      if (typeof reason === "string" && SAFE_REASON.test(reason) && !UNSAFE_REASON.test(reason)) metadata.reason = reason;
-    }
-    captureServerException(new Error("Handled server failure"), metadata);
-  } catch { /* telemetry is best effort */ }
 }

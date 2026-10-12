@@ -36,6 +36,17 @@ describe("onRequestError telemetry", () => {
     expect(captureServerException.mock.calls[1][1]).not.toHaveProperty("error_code");
   });
 
+  it("recovers only allowlisted codes from bounded Next JSON messages", async () => {
+    const context = { routerKind: "App Router", routePath: "/account", routeType: "render" };
+    await onRequestError(new Error(JSON.stringify({ code: "PGRST303", message: "alice@example.com token=secret", details: "secret" })), request, context);
+    await onRequestError(new Error(JSON.stringify({ code: "secret" })), request, context);
+    await onRequestError(new Error("prefix PGRST303 secret"), request, context);
+    await onRequestError(new Error(JSON.stringify({ code: "PGRST303", message: "x".repeat(9000) })), request, context);
+    expect(captureServerException.mock.calls[0][1]).toMatchObject({ error_code: "PGRST303" });
+    expect(captureServerException.mock.calls.slice(1).every((call) => !("error_code" in call[1]))).toBe(true);
+    expect(JSON.stringify(captureServerException.mock.calls.map((call) => call[1]))).not.toMatch(/secret|alice/);
+  });
+
   it("still ignores redirects and expected auth noise", async () => {
     await onRequestError(Object.assign(new Error("NEXT_REDIRECT"), { digest: "NEXT_REDIRECT;replace;/login;307;" }), request, { routerKind: "App Router", routePath: "/account", routeType: "render" });
     await onRequestError(new Error("Invalid login credentials"), request, { routerKind: "App Router", routePath: "/login", routeType: "action" });
