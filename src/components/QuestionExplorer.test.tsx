@@ -1350,22 +1350,83 @@ describe("QuestionExplorer asset loading", () => {
     await waitFor(() => expect(signBodies(fetchMock)).toHaveLength(2));
   });
 
-  it("signs the next page when a member points at Show 24 more, then shows it without signing again", async () => {
+  it("does not spend paid allowance on pagination intent before activation", async () => {
     document.cookie = "sb-test-auth-token=x; path=/";
     const fetchMock = assetFetch(memberBootstrap);
     vi.stubGlobal("fetch", fetchMock);
     render(<QuestionExplorer questions={paidQuestions} bankSlug="ib-sl" access={anonymous} initialState={fullBank} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
     await waitFor(() => expect(signedIds(fetchMock)).toHaveLength(24));
     const more = await screen.findByRole("button", { name: /show 24 more questions/i });
+    await act(async () => { fireEvent.pointerEnter(more); fireEvent.focus(more); fireEvent.touchStart(more); });
+    expect(signedIds(fetchMock)).toHaveLength(24);
+    fireEvent.click(more);
+    await waitFor(() => expect(signedIds(fetchMock)).toHaveLength(30));
+    await waitFor(() => expect(screen.getAllByRole("img", { name: /original question/i })).toHaveLength(30));
+  });
+
+  it("warms free pagination assets on intent and reuses them on activation", async () => {
+    document.cookie = "sb-test-auth-token=x; path=/";
+    const freePage = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").filter((question) => freeIds.has(question.id)).slice(0, 30), []);
+    expect(freePage).toHaveLength(30);
+    const fetchMock = assetFetch(memberBootstrap);
+    vi.stubGlobal("fetch", fetchMock);
+    render(<QuestionExplorer questions={freePage} bankSlug="ib-sl" access={anonymous} initialState={fullBank} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+    await waitFor(() => expect(freeCalls(fetchMock)).toHaveLength(24));
+    const more = await screen.findByRole("button", { name: /show 24 more questions/i });
 
     fireEvent.pointerEnter(more);
 
-    await waitFor(() => expect(signedIds(fetchMock)).toHaveLength(30));
-    expect(new Set(signedIds(fetchMock).slice(24))).toEqual(new Set(paidQuestions.slice(24).map((question) => question.id)));
-    const posts = signBodies(fetchMock).length;
+    await waitFor(() => expect(freeCalls(fetchMock)).toHaveLength(30));
+    expect(signBodies(fetchMock)).toHaveLength(0);
     fireEvent.click(more);
     await waitFor(() => expect(screen.getAllByRole("img", { name: /original question/i })).toHaveLength(30));
-    expect(signBodies(fetchMock)).toHaveLength(posts);
+    expect(freeCalls(fetchMock)).toHaveLength(30);
+  });
+
+  it("does not poison visible loading when free pagination prefetch fails", async () => {
+    document.cookie = "sb-test-auth-token=x; path=/";
+    const freePage = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").filter((question) => freeIds.has(question.id)).slice(0, 30), []);
+    const nextIds = new Set(freePage.slice(24).map(question => question.id));
+    let failPrefetch = true;
+    const baseFetch = assetFetch(memberBootstrap);
+    const fetchMock = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      const url = String(input);
+      if (failPrefetch && url.startsWith("/api/assets/free?") && nextIds.has(new URL(url, "https://app.test").searchParams.get("id")!)) return new Response(null, { status: 503 });
+      return baseFetch(input, init);
+    });
+    vi.stubGlobal("fetch", fetchMock);
+    render(<QuestionExplorer questions={freePage} bankSlug="ib-sl" access={anonymous} initialState={fullBank} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+    await waitFor(() => expect(screen.getAllByRole("img", { name: /original question/i })).toHaveLength(24));
+    const more = screen.getByRole("button", { name: /show 24 more questions/i });
+    await act(async () => { fireEvent.pointerEnter(more); });
+    expect(screen.queryByRole("button", { name: "Retry images" })).not.toBeInTheDocument();
+    failPrefetch = false;
+    fireEvent.click(more);
+    await waitFor(() => expect(screen.getAllByRole("img", { name: /original question/i })).toHaveLength(30));
+  });
+
+  it("retries committed free pagination after its in-flight speculative request fails", async () => {
+    document.cookie = "sb-test-auth-token=x; path=/";
+    const freePage = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").filter((question) => freeIds.has(question.id)).slice(0, 30), []);
+    const nextIds = new Set(freePage.slice(24).map(question => question.id));
+    const pending: Array<() => void> = [];
+    let speculative = true;
+    const baseFetch = assetFetch(memberBootstrap);
+    const fetchMock = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      const url = String(input);
+      if (speculative && url.startsWith("/api/assets/free?") && nextIds.has(new URL(url, "https://app.test").searchParams.get("id")!)) return new Promise<Response>(resolve => { pending.push(() => resolve(new Response(null, { status: 503 }))); });
+      return baseFetch(input, init);
+    });
+    vi.stubGlobal("fetch", fetchMock);
+    render(<QuestionExplorer questions={freePage} bankSlug="ib-sl" access={anonymous} initialState={fullBank} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+    await waitFor(() => expect(screen.getAllByRole("img", { name: /original question/i })).toHaveLength(24));
+    const more = screen.getByRole("button", { name: /show 24 more questions/i });
+    fireEvent.pointerEnter(more);
+    await waitFor(() => expect(pending).toHaveLength(6));
+    fireEvent.click(more);
+    speculative = false;
+    await act(async () => { pending.forEach(resolve => resolve()); });
+    await waitFor(() => expect(screen.getAllByRole("img", { name: /original question/i })).toHaveLength(30));
   });
 
   it("skips bootstrap and signs free questions through the free route when no auth cookie exists", async () => {

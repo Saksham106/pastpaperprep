@@ -807,7 +807,7 @@ access: ExplorerAccess;
    * Signs what isn't signed yet: links this session already holds are reused (no request, no
    * allowance spent), free-year assets use the CDN-cached route, and the rest use the paid signer.
    */
-  const signAssets = (requests: readonly AssetRequest[], route: "free" | "paid") => {
+  const signAssets = (requests: readonly AssetRequest[], route: "free" | "paid", speculative = false) => {
     if (!bank) return;
     const owner = cacheOwner();
     const remembered = readCachedAssets(owner, bank);
@@ -824,15 +824,22 @@ access: ExplorerAccess;
     for (const key of pendingKeys) signingAssetKeysRef.current.add(key);
     const finished = () => { for (const key of pendingKeys) signingAssetKeysRef.current.delete(key); };
     if (route === "free") {
+      let failedPrefetch = false;
       fetchFreeAssets(bank, toSign)
         .then(({ assets, failedKeys }) => {
           applySignedAssets(assets, owner);
-          if (failedKeys.length) {
+          failedPrefetch = speculative && failedKeys.length > 0;
+          if (failedKeys.length && !speculative) {
             setFailedAssetKeys((current) => new Set([...current, ...failedKeys]));
             setAssetError("Some question images could not load.");
           }
         })
-        .finally(finished);
+        .finally(() => {
+          finished();
+          // Activation may have happened while the speculative request was pending.
+          // Release its keys and re-evaluate visible demand; offscreen failures stay quiet.
+          if (failedPrefetch) setAssetEpoch((current) => Math.max(Date.now(), current + 1));
+        });
       return;
     }
     fetchSignedAssets(bank, toSign, fetch, localPreview)
@@ -860,8 +867,9 @@ access: ExplorerAccess;
       .filter((question) => !failedAssetKeys.has(signedAssetKey(question.id, "question")))
       .filter((question) => !isSignedAssetFresh(signedAssets.get(signedAssetKey(question.id, "question"))));
     const toRequest = (questions: UnifiedQuestion[]) => questions.map((question) => ({ questionId: question.id, kind: "question" as const }));
-    signAssets(toRequest(unsigned.filter((question) => isPreviewQuestion(question.bankSlug, question.id))), "free");
-    if (resolvedAccess.bankAccess) signAssets(toRequest(unsigned.filter((question) => !isPreviewQuestion(question.bankSlug, question.id))), "paid");
+    // Paid signatures consume a daily allowance: acquire them only on activation.
+    // Free links are quota-neutral and can safely be warmed on intent.
+    signAssets(toRequest(unsigned.filter((question) => isPreviewQuestion(question.bankSlug, question.id))), "free", true);
   };
 
   const worksheetDefinition = () => JSON.stringify({ name: worksheetName.trim(), ids: [...selectedIds], content: pdfContent });
