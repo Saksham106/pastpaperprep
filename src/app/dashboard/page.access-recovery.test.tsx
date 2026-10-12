@@ -51,9 +51,9 @@ describe.each([
     expect(mocks.rpc).toHaveBeenCalledTimes(3);
     expect(mocks.capture).toHaveBeenCalledExactlyOnceWith(expect.any(Error), {
       route: `/${route}`, route_type: "render", stage: "entitlement",
-      storage_provider: "supabase", error_code: "PGRST303",
+      storage_provider: "supabase", error_code: "PGRST303", user_id: "owner",
     });
-    expect(JSON.stringify(mocks.capture.mock.calls)).not.toMatch(/owner|student@example.com/);
+    expect(JSON.stringify(mocks.capture.mock.calls)).not.toMatch(/student@example.com/);
   });
 
   it.each([

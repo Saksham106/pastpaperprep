@@ -18,11 +18,11 @@ describe("Privacy policy", () => {
     expect(screen.getByText(/manually review.*purchase/i)).toBeInTheDocument();
   });
 
-  it("discloses consented PostHog analytics and account linkage without session replay", () => {
+  it("discloses consented analytics and account linkage without session replay", () => {
     render(<PrivacyPage />);
 
-    expect(screen.getByText(/only after you allow optional analytics/i)).toBeInTheDocument();
-    expect(screen.getByText(/link usage and confirmed conversion events to your stable account identifier/i)).toBeInTheDocument();
+    expect(screen.getByText(/we also recognise returning visits/i)).toBeInTheDocument();
+    expect(screen.getByText(/link your activity to your account and share your email address with our analytics provider/i)).toBeInTheDocument();
     expect(screen.getByText(/earlier analytics acceptance does not authorize email disclosure/i)).toBeInTheDocument();
     expect(screen.getByText(/session replay and automatic click capture are disabled/i)).toBeInTheDocument();
   });

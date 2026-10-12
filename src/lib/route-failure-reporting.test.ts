@@ -28,6 +28,21 @@ describe("withFailureReporting", () => {
     expect(serverLog).toHaveBeenCalledWith("error", "api_request", expect.objectContaining({ status: 503, correlation_id: "7f1b6a2e-0000-4000-8000-000000000000", bank: "ib-sl", stage: "signing", storage_provider: "r2" }));
   });
 
+  it("links a signed-in request's failure report and log to the account id from its session cookie", async () => {
+    const id = "7f1b6a2e-0000-4000-8000-000000000000";
+    const cookie = `sb-wrig-auth-token=base64-${Buffer.from(JSON.stringify({ user: { id, email: "student@example.com" } })).toString("base64url")}`;
+    await withFailureReporting("/api/pdf/sign", async (request: Request) => json(503, { method: request.method }))(new Request("https://pastpaperprep.com/api/pdf/sign", { method: "POST", headers: { cookie } }));
+    expect(captureServerException.mock.calls[0][1]).toMatchObject({ user_id: id });
+    expect(serverLog).toHaveBeenCalledWith("error", "api_request", expect.objectContaining({ user_id: id }));
+    expect(JSON.stringify([captureServerException.mock.calls, serverLog.mock.calls])).not.toContain("student@example.com");
+  });
+
+  it("leaves anonymous requests unlinked", async () => {
+    await withFailureReporting("/api/assets/free", async (request: Request) => json(503, { method: request.method }))(new Request("https://pastpaperprep.com/api/assets/free"));
+    expect(captureServerException.mock.calls[0][1]).not.toHaveProperty("user_id");
+    expect(serverLog.mock.calls[0][2]).toMatchObject({ user_id: undefined });
+  });
+
   it("logs a thrown handler and rethrows it for onRequestError", async () => {
     const failure = new Error("boom");
     await expect(withFailureReporting("/api/x", async () => { throw failure; })()).rejects.toBe(failure);

@@ -1,5 +1,29 @@
 import { describe, expect, it } from "vitest";
-import { documentHasSupabaseAuthCookie, isSupabaseAuthCookieName } from "@/lib/supabase/auth-cookie";
+import { accountIdFromCookieHeader, documentHasSupabaseAuthCookie, isSupabaseAuthCookieName } from "@/lib/supabase/auth-cookie";
+
+const USER_ID = "7f1b6a2e-0000-4000-8000-000000000000";
+const session = (id = USER_ID) => `base64-${Buffer.from(JSON.stringify({ access_token: "a.b.c", user: { id, email: "student@example.com" } })).toString("base64url")}`;
+
+describe("accountIdFromCookieHeader", () => {
+  it("reads the account id from a whole or chunked Supabase session cookie", () => {
+    expect(accountIdFromCookieHeader(`theme=dark; sb-wrig-auth-token=${session()}`)).toBe(USER_ID);
+    const value = session();
+    const header = `sb-wrig-auth-token.1=${encodeURIComponent(value.slice(40))}; other=1; sb-wrig-auth-token.0=${encodeURIComponent(value.slice(0, 40))}`;
+    expect(accountIdFromCookieHeader(header)).toBe(USER_ID);
+  });
+  it("falls back to the access token subject when the session has no user object", () => {
+    const token = ["x", Buffer.from(JSON.stringify({ sub: USER_ID })).toString("base64url"), "sig"].join(".");
+    const value = `base64-${Buffer.from(JSON.stringify({ access_token: token })).toString("base64url")}`;
+    expect(accountIdFromCookieHeader(`sb-wrig-auth-token=${value}`)).toBe(USER_ID);
+  });
+  it("returns only a UUID, never other session fields, and nothing for anonymous or malformed cookies", () => {
+    expect(accountIdFromCookieHeader("")).toBeUndefined();
+    expect(accountIdFromCookieHeader(undefined)).toBeUndefined();
+    expect(accountIdFromCookieHeader("sb-wrig-auth-token=base64-%%%")).toBeUndefined();
+    expect(accountIdFromCookieHeader(`sb-wrig-auth-token=${session("student@example.com")}`)).toBeUndefined();
+    expect(accountIdFromCookieHeader(`sb-wrig-auth-token-code-verifier=${session()}`)).toBeUndefined();
+  });
+});
 import { hasSupabaseAuthCookie } from "@/lib/supabase/proxy";
 
 describe("Supabase auth cookie detection", () => {

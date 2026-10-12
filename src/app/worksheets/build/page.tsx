@@ -26,7 +26,7 @@ export default async function BuildPage({ searchParams }: { searchParams: Promis
     if (isFutureIssuedJwtError(access.error)) {
       captureServerException(new Error("Access verification failed"), {
         route: "/worksheets/build", route_type: "render", stage: "entitlement",
-        storage_provider: "supabase", error_code: "PGRST303",
+        storage_provider: "supabase", error_code: "PGRST303", user_id: userId,
       });
       return <AccessReadRecovery retryPath={requestedBank ? `/worksheets/build?bank=${requestedBank}` : "/worksheets/build"} />;
     }

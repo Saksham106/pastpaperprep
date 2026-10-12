@@ -52,6 +52,17 @@ describe("server exception privacy boundary", () => {
     expect(captureExceptionImmediate.mock.calls[1][2]).not.toHaveProperty("digest");
   });
 
+  it("keeps a UUID account id but never lets it split an issue's grouping", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    const { captureServerException } = await import("./server-error-tracking");
+    captureServerException(new Error("Handled server failure"), { route: "/api/pdf/sign", error_source: "handled_response", error_code: "response_failed", user_id: "7f1b6a2e-0000-4000-8000-000000000000" });
+    captureServerException(new Error("Handled server failure"), { route: "/api/pdf/sign", error_source: "handled_response", error_code: "response_failed", user_id: "student@example.com" });
+    const [first, second] = captureExceptionImmediate.mock.calls.map((call) => call[2] as Record<string, unknown>);
+    expect(first.user_id).toBe("7f1b6a2e-0000-4000-8000-000000000000");
+    expect(second).not.toHaveProperty("user_id");
+    expect(first.$exception_fingerprint).toBe(second.$exception_fingerprint);
+  });
+
   it("titles unclassified errors from their scrubbed message, not a generic route label", async () => {
     vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
     const { captureServerException } = await import("./server-error-tracking");

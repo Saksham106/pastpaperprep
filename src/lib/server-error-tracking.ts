@@ -27,7 +27,9 @@ function safeMetadata(metadata: Record<string, unknown>) {
       || key === "route" && /^\/[A-Za-z0-9_\-/[\].()]*$/.test(value)
       // Next's render digest also reaches the browser error boundary, which links the two reports.
       || key === "digest" && /^[A-Za-z0-9_-]{1,40}$/.test(value) && !value.startsWith("NEXT_")
-      || key === "correlation_id" && UUID.test(value)) properties[key] = value;
+      || key === "correlation_id" && UUID.test(value)
+      // Signed-in requests link their error reports to the account id (disclosed in /privacy).
+      || key === "user_id" && UUID.test(value)) properties[key] = value;
   }
   return properties;
 }
