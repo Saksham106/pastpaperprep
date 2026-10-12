@@ -5,6 +5,7 @@ import { AuthEntry } from "@/components/AuthEntry";
 
 vi.mock("@/components/SignInMethods", () => ({ SignInMethods: () => <div>Existing sign-in methods</div> }));
 vi.mock("@/components/PasswordSignUpForm", () => ({ PasswordSignUpForm: () => <div>New account form</div> }));
+vi.mock("@/app/auth/actions", () => ({ signInWithGoogle: vi.fn() }));
 
 describe("AuthEntry", () => {
   it("makes account creation explicit without changing the default sign-in flow", () => {
@@ -56,5 +57,14 @@ describe("AuthEntry", () => {
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /sign in instead/i }));
     expect(screen.getByRole("alert")).toHaveTextContent(/invalid or expired/i);
+  });
+
+  it("offers Google first in both modes and explains an unfinished Google sign-in", () => {
+    render(<AuthEntry next="/dashboard" hasGoogleError />);
+    expect(screen.getByRole("button", { name: "Continue with Google" }).closest("form")!.querySelector("input[name=next]")).toHaveValue("/dashboard");
+    expect(screen.getByRole("alert")).toHaveTextContent(/google sign-in didn’t finish/i);
+    expect(screen.queryByText(/sign-in link is invalid/i)).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: /create a free account/i }));
+    expect(screen.getByRole("button", { name: "Continue with Google" })).toBeInTheDocument();
   });
 });

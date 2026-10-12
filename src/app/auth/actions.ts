@@ -207,6 +207,27 @@ export async function verifyEmailCode(
   redirect(next);
 }
 
+export async function signInWithGoogle(formData: FormData) {
+  const next = safeNextPath(String(formData.get("next") ?? "/pricing"));
+  const attemptId = createAuthAttemptId();
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const callbackUrl = new URL("/auth/callback", siteUrl);
+  callbackUrl.searchParams.set("next", next);
+  logAuthDiagnostic({ attemptId, phase: "oauth_requested" });
+  let url: string | null = null;
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase.auth.signInWithOAuth({ provider: "google", options: { redirectTo: callbackUrl.toString() } });
+    if (!error) url = data.url;
+    else logAuthDiagnostic({ attemptId, phase: "oauth_result", outcome: "rejected", providerCode: error.code ?? "unknown" });
+  } catch {
+    logAuthDiagnostic({ attemptId, phase: "oauth_result", outcome: "rejected", providerCode: "unexpected_failure" });
+  }
+  if (!url) redirect("/login?error=google");
+  logAuthDiagnostic({ attemptId, phase: "oauth_result", outcome: "accepted" });
+  redirect(url);
+}
+
 export async function requestPasswordReset(
   _previousState: MagicLinkState,
   formData: FormData,

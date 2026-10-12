@@ -928,7 +928,16 @@ main { min-height: 72vh; }
 .auth-card { position: relative; width: min(660px, 100%); margin: 0 auto; padding: clamp(28px, 6vw, 58px); background: var(--surface); border: 1px solid var(--line-strong); border-left: 5px solid var(--cobalt); border-radius: 12px; box-shadow: var(--shadow-lg); }
 .auth-card::after { content: ""; position: absolute; inset: 18px 18px auto auto; width: 44px; height: 3px; background: var(--cobalt); }
 .auth-card h1 { font-size: clamp(2.7rem, 6vw, 4.4rem); }
-.sign-in-methods { margin-top: 24px; }
+.google-sign-in { margin-top: 24px; }
+.google-button { width: 100%; min-height: 50px; padding: 0 16px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; color: #1f1f1f; background: #ffffff; border: 1px solid #747775; border-radius: 10px; font: inherit; font-weight: 750; cursor: pointer; transition: background-color .15s ease, box-shadow .15s ease; }
+.google-button:hover:not(:disabled) { background: #f7f8f8; box-shadow: 0 1px 3px rgb(60 64 67 / .18); }
+.google-button:focus-visible { outline: 3px solid color-mix(in srgb, var(--cobalt) 35%, transparent); outline-offset: 2px; }
+.google-button:disabled { opacity: .7; cursor: progress; }
+:root[data-theme="dark"] .google-button { color: #e3e3e3; background: #131314; border-color: #8e918f; }
+:root[data-theme="dark"] .google-button:hover:not(:disabled) { background: #1c1c1e; }
+.auth-divider { margin: 22px 0 0; display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: .82rem; }
+.auth-divider::before, .auth-divider::after { content: ""; height: 1px; flex: 1; background: var(--line); }
+.sign-in-methods { margin-top: 20px; }
 .sign-in-tabs { padding: 4px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; background: var(--paper); border: 1px solid var(--line); border-radius: 10px; }
 .sign-in-tabs button { min-height: 46px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; color: var(--muted); background: transparent; border: 0; border-radius: 9px; font-weight: 820; }
 .sign-in-tabs button[aria-selected="true"] { color: var(--surface); background: var(--ink); }
@@ -951,7 +960,7 @@ main { min-height: 72vh; }
   .auth-mode-switch { grid-template-columns: 1fr; text-align: center; }
   .auth-mode-switch button { width: 100%; }
 }
-.check-email { margin-top: 24px; padding-top: 24px; display: grid; gap: 18px; border-top: 1px solid var(--line); }
+.check-email { margin-top: 22px; display: grid; gap: 18px; }
 .check-email-head { display: grid; grid-template-columns: 48px minmax(0, 1fr); align-items: start; gap: 14px; }
 .check-email-icon { width: 48px; height: 48px; display: grid; place-items: center; color: var(--cobalt-strong); background: var(--cobalt-soft); border-radius: 12px; font-size: 1.6rem; }
 .check-email-head h2 { margin: 1px 0 3px; font: 800 1.45rem/1.15 var(--font-display); letter-spacing: -.02em; }

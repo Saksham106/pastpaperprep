@@ -21,7 +21,7 @@ vi.mock("@/lib/referral-account", () => ({ bindReferralToAuthenticatedUser: bind
 vi.mock("@/lib/server-conversion-analytics", () => ({ captureConversionOutcome }));
 vi.mock("@/lib/supabase/server", () => ({ createClient }));
 
-import { createAccountWithPassword, resendSignupConfirmation, requestMagicLink, requestPasswordReset, signInWithPassword, updatePassword, verifyEmailCode } from "./actions";
+import { createAccountWithPassword, resendSignupConfirmation, requestMagicLink, requestPasswordReset, signInWithPassword, updatePassword, verifyEmailCode, signInWithGoogle } from "./actions";
 import { initialMagicLinkState } from "@/lib/auth";
 
 function form(values: Record<string, string>) {
@@ -304,5 +304,32 @@ describe("verifyEmailCode", () => {
     createClient.mockResolvedValue({ auth: { verifyOtp: vi.fn().mockRejectedValue(new Error("network")) } });
     const result = await verifyEmailCode(initialMagicLinkState, form({ email: "student@gmail.com", code: "12345678", type: "email" }));
     expect(result).toEqual({ status: "error", message: "We couldn’t check that code. Try again in a minute." });
+  });
+});
+
+describe("signInWithGoogle", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    vi.spyOn(console, "info").mockImplementation(() => {});
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://pastpaperprep.com");
+  });
+
+  it("asks Supabase for a Google URL that returns through the callback with a safe next path", async () => {
+    const signInWithOAuth = vi.fn().mockResolvedValue({ data: { url: "https://accounts.google.com/o/oauth2/v2/auth?x=1" }, error: null });
+    createClient.mockResolvedValue({ auth: { signInWithOAuth } });
+    await expect(signInWithGoogle(form({ next: "//evil.example" }))).rejects.toThrow("NEXT_REDIRECT");
+    expect(signInWithOAuth).toHaveBeenCalledWith({ provider: "google", options: { redirectTo: "https://pastpaperprep.com/auth/callback?next=%2Fpricing" } });
+    expect(redirect).toHaveBeenCalledWith("https://accounts.google.com/o/oauth2/v2/auth?x=1");
+  });
+
+  it("returns to login with a Google error when Supabase refuses or fails", async () => {
+    createClient.mockResolvedValue({ auth: { signInWithOAuth: vi.fn().mockResolvedValue({ data: { url: null }, error: { code: "validation_failed" } }) } });
+    await expect(signInWithGoogle(form({ next: "/account" }))).rejects.toThrow("NEXT_REDIRECT");
+    expect(redirect).toHaveBeenCalledWith("/login?error=google");
+    createClient.mockRejectedValue(new Error("network"));
+    await expect(signInWithGoogle(form({ next: "/account" }))).rejects.toThrow("NEXT_REDIRECT");
+    expect(redirect).toHaveBeenLastCalledWith("/login?error=google");
   });
 });
