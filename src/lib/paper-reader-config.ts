@@ -9,8 +9,9 @@ export type PaperReaderConfig = {
   component: string;
   paperName: string;
   variant: string;
-  durationMinutes: number;
-  maxMarks: number;
+  durationMinutes: number | null;
+  maxMarks: number | null;
+  bankSlug?: string;
   sources: { question: string; markscheme: string };
   archiveHref?: string;
   reportAvailable?: boolean;

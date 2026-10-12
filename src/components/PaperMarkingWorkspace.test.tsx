@@ -10,7 +10,7 @@ describe('self marking workspace', () => {
     expect(screen.getByText(paper.title)).toBeInTheDocument();
     expect(screen.getAllByRole('textbox')).toHaveLength(40);
     for (let i = 1; i <= 40; i++) fireEvent.change(screen.getByLabelText(`Question ${i} marks`), { target: { value: '0' } });
-    expect(JSON.parse(localStorage.getItem('pastpaperprep:marks:mcq-12:v1')!)).toMatchObject({ q1: 0, q40: 0 });
+    expect(JSON.parse(localStorage.getItem('pastpaperprep:marks:igcse-physics-0625:mcq-12:v1')!)).toMatchObject({ q1: 0, q40: 0 });
     fireEvent.click(screen.getByText('See revision report'));
     expect(screen.getByText('0 / 40 paper marks')).toBeInTheDocument();
     const url = new URL(screen.getByRole('link', { name: 'Practise Motion & forces - free preview' }).getAttribute('href')!);
@@ -24,13 +24,23 @@ describe('self marking workspace', () => {
     fireEvent.change(screen.getByLabelText('Question 1 marks'), { target: { value: '70' } });
     fireEvent.click(screen.getByText('See revision report'));
     expect(screen.getByText('70 / 80 paper marks')).toBeInTheDocument();
-    expect(JSON.parse(localStorage.getItem('pastpaperprep:marks:theory-42:v1')!)).toEqual({ q1: 70 });
+    expect(JSON.parse(localStorage.getItem('pastpaperprep:marks:igcse-physics-0625:theory-42:v1')!)).toEqual({ q1: 70 });
     view.rerender(<PaperMarkingWorkspace paper={paper} />);
     expect(screen.getByLabelText('Question 1 marks')).toHaveValue('0');
     expect(screen.queryByText('70 / 80 paper marks')).not.toBeInTheDocument();
     view.rerender(<PaperMarkingWorkspace paper={{ ...paper, version: 'v2' }} />);
     expect(screen.getByLabelText('Question 1 marks')).toHaveValue('');
-    expect(localStorage.getItem('pastpaperprep:marks:mcq-12:v2')).toBeNull();
+    expect(localStorage.getItem('pastpaperprep:marks:igcse-physics-0625:mcq-12:v2')).toBeNull();
+  });
+  it('keeps identical paper IDs and versions isolated across different banks', () => {
+    const paper = { id: '2025-may-p1', version: 'v1', bankSlug: 'ib-ai-hl', title: 'AI HL', maxMarks: 1, questions: [{id:'q1',number:1,maxMarks:1,topics:['Functions']}] };
+    const view = render(<PaperMarkingWorkspace paper={paper}/>);
+    fireEvent.change(screen.getByLabelText('Question 1 marks'),{target:{value:'1'}});
+    view.rerender(<PaperMarkingWorkspace paper={{...paper,bankSlug:'ib-ai-sl',title:'AI SL'}}/>);
+    expect(screen.getByLabelText('Question 1 marks')).toHaveValue('');
+    fireEvent.change(screen.getByLabelText('Question 1 marks'),{target:{value:'0'}});
+    view.rerender(<PaperMarkingWorkspace paper={paper}/>);
+    expect(screen.getByLabelText('Question 1 marks')).toHaveValue('1');
   });
   it('keeps invalid unsaved drafts when the same paper props are recreated', () => {
     const paper = { id: 'same', version: 'v1', bankSlug: 'igcse-chemistry-0620', title: 'Same paper', maxMarks: 1, questions: [{ id: 'q1', number: 1, maxMarks: 1, topics: ['Metals'] }] };
@@ -42,7 +52,7 @@ describe('self marking workspace', () => {
     expect(screen.getByLabelText('Question 1 marks')).toHaveAttribute('aria-invalid', 'true');
   });
   it('restores persisted marks without overwriting before restore and saves updates', () => {
-    const key = 'pastpaperprep:marks:0620-2023-w-42:question-topic-review-v1';
+    const key = 'pastpaperprep:marks:igcse-chemistry-0620:0620-2023-w-42:question-topic-review-v1';
     localStorage.setItem(key, JSON.stringify({ '0620-2023-w-42-q1': 4 }));
     const write = vi.spyOn(Storage.prototype, 'setItem');
     const view = render(<PaperMarkingWorkspace />);
@@ -68,7 +78,7 @@ describe('self marking workspace', () => {
     expect(screen.getByRole('button', { name: 'See revision report' })).toBeDisabled();
   });
   it('ignores corrupt storage and survives denied access or quota', () => {
-    localStorage.setItem('pastpaperprep:marks:0620-2023-w-42:question-topic-review-v1', '{broken');
+    localStorage.setItem('pastpaperprep:marks:igcse-chemistry-0620:0620-2023-w-42:question-topic-review-v1', '{broken');
     const view = render(<PaperMarkingWorkspace />);
     expect(screen.getByLabelText('Question 1 marks')).toHaveValue('');
     view.unmount();

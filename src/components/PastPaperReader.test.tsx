@@ -246,6 +246,16 @@ describe("PastPaperReader", () => {
     fireEvent.keyDown(screen.getByRole("tab", { name: "Mark scheme" }), { key: "ArrowLeft" });
     expect(screen.getByRole("tab", { name: "Question paper" })).toHaveAttribute("aria-selected", "true");
   });
+  it("does not invent timing or total marks for an unverified original and links to its own bank", async () => {
+    render(<PastPaperReader paper={{ ...DEFAULT_PAPER_READER_CONFIG, id: 'ib-ai-sl-2025-may-p1', subject: 'Mathematics AI', syllabusCode: 'AI', qualification: 'IB Diploma', component: '1', variant: 'TZ2', durationMinutes: null, maxMarks: null, bankSlug: 'ib-ai-sl', reportAvailable: false }} />);
+    await waitFor(() => expect(screen.getByRole('img', { name: /Question paper, page 1/ })).toBeInTheDocument());
+    expect(screen.queryByRole('button', { name: 'Start timer' })).not.toBeInTheDocument();
+    expect(screen.getByText('Duration unverified')).toBeInTheDocument();
+    expect(screen.getByText('Marks unverified')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Try topic practice/ })).toHaveAttribute('href', 'https://pastpaperprep.com/banks/ib-ai-sl?free=1');
+    expect(screen.getByText('Paper 1 · TZ2')).toBeInTheDocument();
+    expect(screen.getByRole('navigation', { name: 'Breadcrumb' })).toHaveTextContent('IB Diploma');
+  });
   it("does not promise self-marking when paper metadata declares no report", async () => {
     render(<PastPaperReader paper={{ ...DEFAULT_PAPER_READER_CONFIG, reportAvailable: false }} />);
     await waitFor(() => expect(screen.getByRole("img", { name: /Question paper, page 1/ })).toBeInTheDocument());

@@ -55,6 +55,8 @@ supabase/.temp/
 
 # Local-only paper design fixtures. Never commit original examination PDFs.
 /private/paper-preview/
+/private/chemistry-paper-archive/
+/private/paper-archives/
 
 # typescript
 *.tsbuildinfo

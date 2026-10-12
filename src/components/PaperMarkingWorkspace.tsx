@@ -20,7 +20,7 @@ function TopicEvidence({ topic, bankSlug }: { topic: TopicReview; bankSlug: stri
 }
 
 export function PaperMarkingWorkspace({ paper = PAPER_MARKING_PREVIEW }: { paper?: PaperMarkingPaper }) {
-  return <PaperMarkingSession key={JSON.stringify([paper.id, paper.version])} paper={paper} />;
+  return <PaperMarkingSession key={JSON.stringify([paper.bankSlug, paper.id, paper.version])} paper={paper} />;
 }
 
 function PaperMarkingSession({ paper }: { paper: PaperMarkingPaper }) {
@@ -42,7 +42,7 @@ function PaperMarkingSession({ paper }: { paper: PaperMarkingPaper }) {
     else if (previousReport.current) firstInput.current?.focus();
     previousReport.current = showReport;
   }, [showReport]);
-  const storageKey = `pastpaperprep:marks:${paper.id}:${paper.version}`;
+  const storageKey = `pastpaperprep:marks:${paper.bankSlug}:${paper.id}:${paper.version}`;
   useEffect(() => {
     try {
       const saved = localStorage.getItem(storageKey);

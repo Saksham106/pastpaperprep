@@ -1,0 +1,26 @@
+.hub { width:min(1132px,calc(100% - 48px)); margin:0 auto; padding:28px 0 64px; color:var(--ink); }
+.hub nav { display:flex; gap:12px; font-size:12px; color:var(--muted); }
+.hub nav a { text-decoration:underline; text-underline-offset:3px; }
+.hub header { padding:44px 0 32px; }
+.kicker { text-transform:uppercase; font-size:11px; letter-spacing:.13em; color:var(--muted); font-weight:600; margin:0 0 18px; }
+.hub h1 { font:400 clamp(42px,6vw,72px)/1.08 var(--font-paper-editorial,Georgia),serif; letter-spacing:-.04em; margin:0; }
+.lede { margin:24px 0; font-size:16px; line-height:1.7; color:var(--muted); }
+.facts { display:flex; gap:12px 26px; flex-wrap:wrap; font-size:12px; color:var(--muted); }
+.facts span:first-child { color:var(--ink); font-weight:650; }
+.explainer { display:flex; gap:24px; padding:22px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); font-size:11px; color:var(--burgundy); }
+.explainer strong { font-size:12px; font-weight:500; color:var(--ink); margin-left:10px; }
+.section { margin-top:38px; }
+.section h2 { font:400 28px/1.2 var(--font-paper-editorial,Georgia),serif; margin:0 0 18px; letter-spacing:-.02em; }
+.banks { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:36px; border-top:1px solid var(--line-strong); }
+.bank { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:22px 0; border-bottom:1px solid var(--line); }
+.bank h3 { font-size:16px; font-weight:650; margin:8px 0; }
+.bank p { font-size:11px; color:var(--muted); margin:0; }
+.bank span { font-size:12px; color:var(--muted); }
+.action { display:flex; align-items:center; gap:14px; }
+.action span { font-size:11px; text-align:right; max-width:100px; }
+.action svg { width:18px; height:18px; color:var(--burgundy); flex-shrink:0; }
+.bank:hover h3 { color:var(--burgundy); }
+.hub a:focus-visible { outline:2px solid var(--burgundy); outline-offset:4px; }
+.note { border-top:1px solid var(--line); margin-top:36px; padding-top:24px; line-height:1.7; font-size:12px; color:var(--muted); }
+@media(max-width:760px) { .banks { grid-template-columns:1fr; } .explainer { flex-wrap:wrap; gap:16px; } }
+@media(max-width:480px) { .hub { width:calc(100% - 32px); padding-top:20px; } .hub header { padding:30px 0; } .facts { flex-direction:column; gap:10px; } .explainer { flex-direction:column; } .action span { display:none; } .bank h3 { font-size:15px; } }
