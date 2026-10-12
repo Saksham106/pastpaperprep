@@ -206,8 +206,33 @@ const cacheOwner = (): string | null => sessionLifecycleOwner(document.cookie);
 const serverHasNoAuthCookie = () => false;
 const anonymousAccess: ExplorerAccess = { authenticated: false, bankAccess: false, canExportPdf: false };
 
-export function QuestionExplorer(props: Parameters<typeof SessionQuestionExplorer>[0]) {
-  const observedOwner = useSyncExternalStore(subscribeToSessionChanges, cacheOwner, () => null);
+type WorksheetDraft = {
+  bank: BankSlug | undefined;
+  worksheetId: string;
+  mode: "view" | "edit";
+  name: string;
+  ids: string[];
+  content: PdfContent;
+  baseline: string;
+  revision: number;
+  explicit: boolean;
+};
+type WorksheetDraftHandoff = {
+  accountId: string | null;
+  owner: string | null;
+  draft: WorksheetDraft | null;
+};
+
+export function QuestionExplorer(props: Omit<Parameters<typeof SessionQuestionExplorer>[0], "draftHandoffRef">) {
+  // RAM only. A nonce change remounts/quarantines the editor, not this draft-only handoff.
+  // No signed URLs, question details, access or study state cross this boundary.
+  const draftHandoffRef = useRef<WorksheetDraftHandoff>({ accountId: null, owner: null, draft: null });
+  const subscribeToOwner = useCallback((listener: () => void) => subscribeToSessionChanges(() => {
+    // Observe definitive signout even if React batches a subsequent signin into one render.
+    if (!readAuthCookiePresent()) draftHandoffRef.current = { accountId: null, owner: null, draft: null };
+    listener();
+  }), []);
+  const observedOwner = useSyncExternalStore(subscribeToOwner, cacheOwner, () => null);
   const hydrated = useSyncExternalStore(subscribeToNothing, hydratedSnapshot, serverSnapshot);
   const [initialOwner] = useState(() => typeof document === "undefined" ? null : cacheOwner());
   const owner = hydrated ? observedOwner : initialOwner;
@@ -221,6 +246,7 @@ export function QuestionExplorer(props: Parameters<typeof SessionQuestionExplore
     }
   )) : props.questions, [ownerChanged, props.questions]);
   return <SessionQuestionExplorer {...props} key={`${props.bankSlug ?? props.questions[0]?.bankSlug}:${owner ?? "unknown"}`}
+    draftHandoffRef={draftHandoffRef}
     questions={safeQuestions} access={ownerChanged ? anonymousAccess : props.access}
     studyState={ownerChanged ? EMPTY_STUDY_STATE : props.studyState}
     exportMarker={ownerChanged ? undefined : props.exportMarker} />;
@@ -238,6 +264,7 @@ function SessionQuestionExplorer({
   bootstrapUrl,
   hydrateFromLocation = false,
   routePreset,
+  draftHandoffRef,
 }: {
 questions: UnifiedQuestion[];
 bankSlug?: BankSlug;
@@ -251,6 +278,7 @@ access: ExplorerAccess;
   hydrateFromLocation?: boolean;
   /** Filters a topic or paper route implies, e.g. `{ topic: "Algebra and graphs" }`. */
   routePreset?: ExplorerSearchParams;
+  draftHandoffRef: { current: WorksheetDraftHandoff };
 }) {
   const [scopeOwner] = useState(() => typeof document === "undefined" ? null : cacheOwner());
   const activeScopeRef = useRef(true);
@@ -330,6 +358,7 @@ access: ExplorerAccess;
   const [resolvedExportMarker, setResolvedExportMarker] = useState(exportMarker);
   const [locationHydrated, setLocationHydrated] = useState(!hydrateFromLocation);
   const [bootstrapPending, setBootstrapPending] = useState(Boolean(bootstrapUrl));
+  const [identityResolved, setIdentityResolved] = useState(!bootstrapUrl);
   // Server HTML assumes no session; the browser reads the real cookie without a hydration mismatch.
   const authCookiePresent = useSyncExternalStore(subscribeToNothing, readAuthCookiePresent, serverHasNoAuthCookie);
   const filterTriggerRef = useRef<HTMLButtonElement>(null);
@@ -556,6 +585,8 @@ access: ExplorerAccess;
       queueMicrotask(() => {
         if (cancelled || !scopeIsCurrent()) return;
         setResolvedAccess({ authenticated: false, bankAccess: false, canExportPdf: false });
+        draftHandoffRef.current = { accountId: null, owner: null, draft: null };
+        setIdentityResolved(true);
         setResolvedExportMarker(undefined);
         setBootstrapPending(false);
       });
@@ -577,13 +608,28 @@ access: ExplorerAccess;
     fetch(bootstrapUrl, { cache: "no-store", credentials: "same-origin" })
       .then(async (response) => {
         if (!response.ok) throw new Error("Member state unavailable");
-        return response.json() as Promise<{ access: ExplorerAccess; exportMarker?: string; studyState: ExplorerStudyState; studyStateUnavailable?: boolean }>;
+        return response.json() as Promise<{ accountId?: string; access: ExplorerAccess; exportMarker?: string; studyState: ExplorerStudyState; studyStateUnavailable?: boolean }>;
       })
       .then((payload) => {
         if (cancelled || !scopeIsCurrent()) return;
         if (!payload?.access || !payload?.studyState || !Array.isArray(payload.studyState.savedIds) || !Array.isArray(payload.studyState.attemptedIds)) {
           throw new Error("Invalid member state");
         }
+        const accountId = payload.access.authenticated && typeof payload.accountId === "string" && payload.accountId ? payload.accountId : null;
+        const previous = draftHandoffRef.current;
+        const draft = accountId && previous.accountId === accountId ? previous.draft : null;
+        if (draft && draft.bank === bank && draft.worksheetId === worksheetId && draft.mode === worksheetMode && payload.access.bankAccess) {
+          setWorksheetName(draft.name);
+          setSelectedIds(new Set(draft.ids));
+          setPdfContent(draft.content);
+          setWorksheetBaseline(draft.baseline);
+          // Keep the original revision so intervening server edits still produce a 409.
+          setWorksheetRevision(draft.revision);
+          setSelectionIsExplicit(draft.explicit);
+          setWorksheetReady(true);
+        }
+        draftHandoffRef.current = { accountId, owner: scopeOwner, draft: null };
+        setIdentityResolved(true);
         setResolvedAccess(payload.access);
         setResolvedExportMarker(payload.exportMarker);
         if (bank && owner) writeCachedAccess(bank, owner, { access: payload.access, ...(payload.exportMarker ? { exportMarker: payload.exportMarker } : {}) });
@@ -596,6 +642,8 @@ access: ExplorerAccess;
       })
       .catch(() => {
         if (cancelled || !scopeIsCurrent()) return;
+        // A transient error is not identity proof: keep the draft quarantined in RAM.
+        setIdentityResolved(true);
         setResolvedAccess({ authenticated: false, bankAccess: false, canExportPdf: false });
         setResolvedExportMarker(undefined);
         setFreeOnly(true);
@@ -604,7 +652,9 @@ access: ExplorerAccess;
         if (!cancelled && scopeIsCurrent()) setBootstrapPending(false);
       });
     return () => { cancelled = true; };
-  }, [bank, bootstrapUrl, scopeIsCurrent]);
+  // Worksheet identity/mode here are the mounted URL, not later editor UI changes.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bank, bootstrapUrl, scopeIsCurrent, draftHandoffRef]);
 
   useEffect(() => {
     if (!bank || !indexUrl) return;
@@ -907,6 +957,14 @@ access: ExplorerAccess;
   const worksheetDefinition = () => JSON.stringify({ name: worksheetName.trim(), ids: [...selectedIds], content: pdfContent });
   const worksheetDirty = worksheetId ? Boolean(worksheetMode === "edit" && worksheetBaseline && worksheetBaseline !== worksheetDefinition()) : Boolean(selectionIsExplicit && worksheetName.trim() && (worksheetBaseline ? worksheetBaseline !== worksheetDefinition() : selectedIds.size));
   useEffect(() => {
+    const handoff = draftHandoffRef.current;
+    if (!scopeIsCurrent() || handoff.owner !== scopeOwner || !handoff.accountId) return;
+    draftHandoffRef.current = { ...handoff, draft: worksheetDirty && worksheetReady && !worksheetLoadFailed ? {
+      bank, worksheetId, mode: worksheetMode, name: worksheetName, ids: [...selectedIds],
+      content: pdfContent, baseline: worksheetBaseline, revision: worksheetRevision, explicit: selectionIsExplicit,
+    } : null };
+  }, [bank, draftHandoffRef, pdfContent, scopeIsCurrent, scopeOwner, selectedIds, selectionIsExplicit, worksheetBaseline, worksheetDirty, worksheetId, worksheetLoadFailed, worksheetMode, worksheetName, worksheetReady, worksheetRevision]);
+  useEffect(() => {
     if (!pendingWorksheetAction) return;
     const dialog = worksheetUnsavedDialogRef.current;
     const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
@@ -922,7 +980,7 @@ access: ExplorerAccess;
     return () => { document.removeEventListener("keydown", onKeyDown); previousFocus?.focus(); };
   }, [pendingWorksheetAction]);
   useEffect(() => {
-    if (!worksheetId || !indexLoaded || indexError || bootstrapPending || worksheetReady) return;
+    if (!worksheetId || !indexLoaded || indexError || bootstrapPending || !identityResolved || worksheetReady) return;
     let cancelled = false;
     queueMicrotask(() => { if (!cancelled) setWorksheetLoading(true); });
     fetch(`/api/worksheets/${encodeURIComponent(worksheetId)}`, { cache: "no-store" }).then(async (response) => {
@@ -942,7 +1000,7 @@ access: ExplorerAccess;
     }).catch((error: unknown) => { if (!cancelled) { setWorksheetStatus(error instanceof Error ? error.message : "Saved worksheet unavailable"); setWorksheetLoadFailed(true); setWorksheetReady(true); } })
       .finally(() => { if (!cancelled) setWorksheetLoading(false); });
     return () => { cancelled = true; };
-  }, [worksheetId, indexLoaded, indexError, bootstrapPending, worksheetReady, worksheetBaseline, bank, catalogQuestions]);
+  }, [worksheetId, indexLoaded, indexError, bootstrapPending, identityResolved, worksheetReady, worksheetBaseline, bank, catalogQuestions]);
   useEffect(() => {
     if (!worksheetDirty) return;
     const warn = (event: BeforeUnloadEvent) => { if (allowWorksheetExitRef.current) return; event.preventDefault(); event.returnValue = ""; };
