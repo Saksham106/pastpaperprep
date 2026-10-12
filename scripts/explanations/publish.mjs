@@ -5,8 +5,8 @@
 //   node scripts/explanations/publish.mjs --bank ib-hl                 dry run: what would be published
 //   node scripts/explanations/publish.mjs --bank ib-hl --apply         upload + read back + write available.json
 //   node scripts/explanations/publish.mjs --bank ib-hl --verify-only   read back only, then write available.json
-//   ... --apply --replace id1,id2   deliberately replace those objects: only IDs whose ledger row is
-//                                   pass-after-fix / pass-after-minor-fix (corrected, then re-checked)
+//   ... --apply --replace id1,id2   deliberately replace those named objects after a correction; each must
+//                                   be publishable now (its current text passed verification)
 //
 // Uploading needs owner approval. Two ways to reach R2:
 //   default         a temporary bucket-scoped token as R2_SYNC_ACCESS_KEY_ID / R2_SYNC_SECRET_ACCESS_KEY
@@ -35,7 +35,6 @@ const apply = argv.includes("--apply");
 const verifyOnly = argv.includes("--verify-only");
 const viaWrangler = argv.includes("--via-wrangler");
 const replaceIds = argv.includes("--replace") ? new Set(String(argv[argv.indexOf("--replace") + 1] ?? "").split(",").filter(Boolean)) : new Set();
-const CORRECTED = new Set(["pass-after-fix", "pass-after-minor-fix"]);
 
 const sha256 = (text) => createHash("sha256").update(text).digest("hex");
 const SAFE = /^[A-Za-z0-9._-]+$/;
@@ -153,7 +152,6 @@ async function main() {
   for (const id of replaceIds) {
     const item = byId.get(id);
     if (!item) throw new Error(`--replace ${id}: not publishable`);
-    if (!CORRECTED.has(item.status)) throw new Error(`--replace ${id}: ledger status ${item.status} is not a re-checked correction`);
   }
   if (replaceIds.size && !apply) throw new Error("--replace needs --apply");
   console.log(`${bank}: ${out.length} publishable, ${skipped.length} held back`);
