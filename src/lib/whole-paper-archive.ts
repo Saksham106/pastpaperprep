@@ -3,7 +3,8 @@ import { lstatSync, realpathSync, openSync, fstatSync, closeSync, readSync, cons
 import { join, resolve, relative, isAbsolute, parse, sep } from 'node:path';
 import { createHash } from 'node:crypto';
 import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
-import { BANK_CATALOG } from './catalog';
+import { BANK_CATALOG, type BankSlug } from './catalog';
+import { paperSlug, subjectSlugForBank } from './past-paper-catalog';
 import type { WholePaperManifest, WholePaperBankSummary, WholePaperSummary, WholePaperDetail } from './whole-paper-types';
 
 export function wholePaperPreviewEnabled() { return process.env.NODE_ENV === 'development' && process.env.LOCAL_PAPER_PREVIEW === 'true'; }
@@ -40,11 +41,21 @@ function validManifest(value: unknown, slug: string): value is WholePaperManifes
   }
   return c.reports === reports && c.held === value.papers.length - reports;
 }
+/** Static generation renders ~2,700 pages from 19 manifests, so each validated manifest is parsed once.
+ * The key includes the file's identity and mtime, so a rebuilt or replaced manifest is always re-read. */
+const MANIFESTS = new Map<string, { stamp: string; manifest: WholePaperManifest }>();
 function readManifest(slug: string): WholePaperManifest | null {
   if (!SAFE_ID.test(slug) || !BANK_CATALOG.some(b => b.slug === slug)) return null;
   try {
-    const value: unknown = JSON.parse(checkedRead(join(process.cwd(), 'src/data/paper-archives', `${slug}.json`), 16 * 1024 * 1024).toString('utf8'));
-    return validManifest(value, slug) ? value : null;
+    const path = join(process.cwd(), 'src/data/paper-archives', `${slug}.json`);
+    const stat = lstatSync(path);
+    const stamp = `${stat.dev}:${stat.ino}:${stat.size}:${stat.mtimeMs}`;
+    const cached = MANIFESTS.get(path);
+    if (cached?.stamp === stamp) return cached.manifest;
+    const value: unknown = JSON.parse(checkedRead(path, 16 * 1024 * 1024).toString('utf8'));
+    if (!validManifest(value, slug)) return null;
+    MANIFESTS.set(path, { stamp, manifest: value });
+    return value;
   } catch { return null; }
 }
 export function getWholePaperSummaries(slug: string): WholePaperSummary[] { return readManifest(slug)?.papers.map(p => p.summary) ?? []; }
@@ -57,7 +68,13 @@ export function getWholePaperBanks(): WholePaperBankSummary[] {
 }
 export function getWholePaper(slug: string, id: string): WholePaperDetail | null {
   const entry = readManifest(slug)?.papers.find(p => p.summary.id === id);
-  return entry ? { ...entry, sources: { question: `/past-papers/${slug}/${id}/document?kind=question`, markscheme: `/past-papers/${slug}/${id}/document?kind=markscheme` } } : null;
+  if (!entry) return null;
+  const base = `/past-papers/${subjectSlugForBank(entry.summary.bankSlug)}/${paperSlug(entry.summary)}/document`;
+  return { ...entry, sources: { question: `${base}?kind=question`, markscheme: `${base}?kind=markscheme` } };
+}
+export function findWholePaperBySlug(bank: BankSlug, slug: string): WholePaperDetail | null {
+  const entry = readManifest(bank)?.papers.find(p => paperSlug(p.summary) === slug);
+  return entry ? getWholePaper(bank, entry.summary.id) : null;
 }
 function safeRelativePath(v: unknown): v is string {
   return text(v, 2048) && !isAbsolute(v) && !/[\\\\:%?#]/.test(v) && v.split('/').every(part => part !== '' && part !== '.' && part !== '..');

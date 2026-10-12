@@ -11,7 +11,7 @@ vi.mock('@aws-sdk/client-s3', () => ({
   S3Client: class { constructor(config: unknown) { remote.requests.push(config); } send = remote.send; destroy() {} },
   GetObjectCommand: class { constructor(public input: unknown) {} },
 }));
-import { getWholePaperBanks, getWholePaperSummaries, getWholePaper, getWholePaperDocument, wholePaperPreviewEnabled, wholePaperArchiveEnabled } from './whole-paper-archive';
+import { getWholePaperBanks, getWholePaperSummaries, getWholePaper, getWholePaperDocument, wholePaperPreviewEnabled, wholePaperArchiveEnabled, findWholePaperBySlug } from './whole-paper-archive';
 
 let root: string;
 const hash = (bytes: string | Buffer) => createHash('sha256').update(bytes).digest('hex');
@@ -180,8 +180,21 @@ describe('whole-paper public registry', () => {
     expect(getWholePaperBanks().map(b => b.bankSlug)).toEqual(BANK_CATALOG.map(b => b.slug));
     expect(getWholePaperBanks().find(b => b.bankSlug === 'igcse')).toMatchObject({ paperCount: 1, reportCount: 1, available: true, years: '2025' });
     expect(getWholePaperSummaries('igcse')).toEqual([fixture().papers[0].summary]);
-    expect(getWholePaper('igcse', 'paper-2025-21')).toMatchObject({ sources: { question: '/past-papers/igcse/paper-2025-21/document?kind=question', markscheme: '/past-papers/igcse/paper-2025-21/document?kind=markscheme' } });
+    expect(getWholePaper('igcse', 'paper-2025-21')).toMatchObject({ sources: { question: '/past-papers/igcse-maths-0580/2025-may-june-21/document?kind=question', markscheme: '/past-papers/igcse-maths-0580/2025-may-june-21/document?kind=markscheme' } });
     expect(getWholePaperSummaries('ib-hl')).toEqual([]);
+  });
+  it('finds papers by their public slug and nothing else', () => {
+    manifest();
+    expect(findWholePaperBySlug('igcse', '2025-may-june-21')?.summary.id).toBe('paper-2025-21');
+    for (const slug of ['paper-2025-21', '2025-may-june-22', '', '../2025-may-june-21']) expect(findWholePaperBySlug('igcse', slug)).toBeNull();
+    expect(findWholePaperBySlug('ib-hl', '2025-may-june-21')).toBeNull();
+  });
+  it('parses an unchanged manifest once and re-reads it after it changes', () => {
+    manifest();
+    const first = getWholePaper('igcse', 'paper-2025-21');
+    expect(getWholePaper('igcse', 'paper-2025-21')?.questions).toBe(first?.questions);
+    const changed = fixture(); changed.papers[0].summary.title = 'Paper 21 (changed title)'; manifest(changed);
+    expect(getWholePaper('igcse', 'paper-2025-21')?.summary.title).toBe('Paper 21 (changed title)');
   });
   it.each([
     ['duplicate papers', (m: ReturnType<typeof fixture>) => m.papers.push(m.papers[0])],
