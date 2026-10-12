@@ -30,6 +30,7 @@ export const EXAM_STYLE_COURSES: Record<ExamStyleCourse, { label: string; route:
       { course: "igcse-0580", slug: "composite-and-inverse-functions", title: "Composite and Inverse Functions", fileName: "composite-and-inverse-functions.pdf", topics: ["Function notation", "Composite functions", "Inverse functions"] },
       { course: "igcse-0580", slug: "differentiation-0580", title: "Differentiation", fileName: "differentiation-0580.pdf", topics: ["Differentiating powers", "Gradients", "Tangents and normals", "Stationary points", "Second derivative"] },
       { course: "igcse-0580", slug: "factorisation", title: "Factorisation", fileName: "factorisation.pdf", topics: ["Common factors", "Difference of two squares", "Quadratic factorisation", "Mixed factorisation"] },
+      { course: "igcse-0580", slug: "indices", title: "Indices", fileName: "indices.pdf", topics: ["Laws of indices", "Algebraic indices", "Zero and negative indices", "Fractional indices", "Index equations"] },
     ],
   },
   "igcse-0606": {
