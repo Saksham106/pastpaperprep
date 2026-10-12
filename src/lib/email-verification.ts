@@ -17,9 +17,10 @@ export async function bindVerifiedReferralBestEffort(userId: string, createdAt: 
 // Call only after successful OTP verification. `type` is the provider contract
 // that actually succeeded, never an unverified form label. Both paths retain
 // the stable signup event key used by the conversion sink for deduplication.
-export async function completeEmailVerification(supabase: SupabaseServerClient, type: "email" | "signup", referralCookie: string | undefined) {
+// Returns the verified user id (when readable) so callers can pick the post-sign-in destination.
+export async function completeEmailVerification(supabase: SupabaseServerClient, type: "email" | "signup", referralCookie: string | undefined): Promise<string | undefined> {
   const result = await supabase.auth.getUser().catch(() => null);
-  if (!result || result.error) return;
+  if (!result || result.error) return undefined;
   const { data: { user } } = result;
   if (user?.id && user.created_at) await bindVerifiedReferralBestEffort(user.id, user.created_at, referralCookie);
   // The one-time signup OTP is the authoritative first-confirmation boundary;
@@ -33,4 +34,5 @@ export async function completeEmailVerification(supabase: SupabaseServerClient, 
       // Conversion reporting is ancillary to the already verified session.
     }
   }
+  return user?.id;
 }

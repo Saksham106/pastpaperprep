@@ -10,6 +10,7 @@ import { ANALYTICS_CONSENT_VERSION, parseAnalyticsConsent } from "@/lib/analytic
 import { createAuthAttemptId, logAuthDiagnostic } from "@/lib/auth-diagnostics";
 import { googleAuthorizationUrl } from "@/lib/oauth-pkce";
 import { completeEmailVerification } from "@/lib/email-verification";
+import { postAuthDestination } from "@/lib/post-auth-destination";
 
 export async function requestMagicLink(
   _previousState: MagicLinkState,
@@ -63,9 +64,10 @@ export async function signInWithPassword(
 
   const attemptId = createAuthAttemptId();
   logAuthDiagnostic({ attemptId, phase: "password_signin_requested" });
+  let supabase: Awaited<ReturnType<typeof createClient>>;
   let result: Awaited<ReturnType<Awaited<ReturnType<typeof createClient>>["auth"]["signInWithPassword"]>>;
   try {
-    const supabase = await createClient();
+    supabase = await createClient();
     result = await supabase.auth.signInWithPassword({ email, password });
   } catch {
     logAuthDiagnostic({ attemptId, phase: "password_signin_result", outcome: "rejected", providerCode: "unexpected_failure" });
@@ -78,7 +80,7 @@ export async function signInWithPassword(
   }
   logAuthDiagnostic({ attemptId, phase: "password_signin_result", outcome: "accepted" });
 
-  redirect(next);
+  redirect(await postAuthDestination(supabase, result.data?.user?.id, next));
 }
 
 export async function createAccountWithPassword(
@@ -219,8 +221,8 @@ export async function verifyEmailCode(
   } catch {
     // Cookie/referral failures must not strand an already redeemed code.
   }
-  await completeEmailVerification(supabase, verifiedType, referralCookie);
-  redirect(next);
+  const userId = await completeEmailVerification(supabase, verifiedType, referralCookie);
+  redirect(await postAuthDestination(supabase, userId, next));
 }
 
 export async function signInWithGoogle(formData: FormData) {
