@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { ANALYTICS_CONSENT_COOKIE, ANALYTICS_CONSENT_MAX_AGE_SECONDS, ANALYTICS_CONSENT_VERSION, analyticsConsentCookieValue } from "@/lib/analytics-consent";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 
 const MAX_AGE = ANALYTICS_CONSENT_MAX_AGE_SECONDS;
 
@@ -8,7 +9,7 @@ function json(body: unknown, status = 200) {
   return NextResponse.json(body, { status, headers: { "Cache-Control": "private, no-store" } });
 }
 
-export async function POST(request: NextRequest) {
+async function handlePOST(request: NextRequest) {
   if (request.headers.get("origin") !== new URL(request.url).origin) return json({ error: "Invalid origin" }, 403);
   const length = Number(request.headers.get("content-length") ?? "0");
   if (length > 1024) return json({ error: "Invalid request" }, 400);
@@ -38,3 +39,5 @@ export async function POST(request: NextRequest) {
     return response;
   } catch { return json({ error: "Could not save preference" }, 500); }
 }
+
+export const POST = withFailureReporting("/api/analytics-consent", handlePOST);

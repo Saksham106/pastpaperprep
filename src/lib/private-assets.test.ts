@@ -1,12 +1,14 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-const { createAdminClient, createSignedUrls } = vi.hoisted(() => ({
+const { createAdminClient, createSignedUrls, serverLog } = vi.hoisted(() => ({
   createAdminClient: vi.fn(),
   createSignedUrls: vi.fn(),
+  serverLog: vi.fn(),
 }));
 
 vi.mock("server-only", () => ({}));
 vi.mock("@/lib/supabase/admin", () => ({ createAdminClient }));
+vi.mock("@/lib/server-logs", () => ({ serverLog }));
 
 import { signPrivateAssetUrls } from "@/lib/private-assets";
 
@@ -24,6 +26,15 @@ describe("signPrivateAssetUrls", () => {
   });
 
   afterEach(() => vi.unstubAllEnvs());
+
+  it("logs which store signed which bank's batch, and failures with a scrubbed message", async () => {
+    await signPrivateAssetUrls(["ib-economics-hl/questions/q1/question-01.webp", "ib-economics-hl/questions/q1/question-02.webp"], 600, { provider: "supabase" });
+    expect(serverLog).toHaveBeenCalledWith("info", "asset_signing", expect.objectContaining({ provider: "supabase", bank: "ib-economics-hl", assets: 2, outcome: "signed", long_lived: false }));
+    createSignedUrls.mockResolvedValueOnce({ data: null, error: Object.assign(new Error("Object not found for alice@example.com"), { statusCode: "404" }) });
+    await expect(signPrivateAssetUrls(["ib-economics-hl/questions/q1/question-01.webp"], 600, { provider: "supabase" })).rejects.toThrow();
+    expect(serverLog).toHaveBeenLastCalledWith("error", "asset_signing", expect.objectContaining({ provider: "supabase", bank: "ib-economics-hl", outcome: "failed", message: "Object not found for <email>" }));
+    expect(JSON.stringify(serverLog.mock.calls)).not.toContain("questions/q1");
+  });
 
   it("uses Supabase unless R2 is explicitly enabled", async () => {
     const urls = await signPrivateAssetUrls(["ib-sl/questions/a.webp"], 600);

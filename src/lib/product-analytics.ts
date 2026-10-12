@@ -1,7 +1,7 @@
 "use client";
 
 import { readBrowserAnalyticsConsent, stableAnalyticsDistinctId } from "@/lib/analytics-consent";
-import { boundExceptionFrames, scrubStack } from "@/lib/error-privacy";
+import { boundExceptionFrames, safeErrorMessage, scrubStack } from "@/lib/error-privacy";
 
 type ProductEventProperties = Record<string, string | number | boolean | null | undefined>;
 type PostHogClient = typeof import("posthog-js").default;
@@ -63,13 +63,15 @@ function loadClient() {
   return clientPromise;
 }
 
-const ERROR_CATEGORIES = new Set(["Error", "TypeError", "ReferenceError", "RangeError", "SyntaxError", "URIError", "EvalError", "AggregateError", "AbortError", "NetworkError", "SecurityError", "NotAllowedError", "NotFoundError"]);
+const ERROR_CATEGORIES = new Set(["Error", "TypeError", "ReferenceError", "RangeError", "SyntaxError", "URIError", "EvalError", "AggregateError", "AbortError", "NetworkError", "SecurityError", "NotAllowedError", "NotFoundError", "UnhandledRejection"]);
 
 export function sanitizeAnalyticsEvent<T extends { properties?: Record<string, unknown> }>(event: T | null): T | null {
   if (!event?.properties) return event;
   const scrub = (value: unknown, key = "", depth = 0, inException = false): unknown => {
     if (depth > 8) return undefined;
     const exception = inException || /exception/i.test(key);
+    // An exception's own `value` survives as its scrubbed message; every other message field is dropped.
+    if (exception && key === "value" && depth > 1) return safeErrorMessage(value);
     if (exception && (/^(?:value|message|error|error_string)$/i.test(key) || /exception.*(?:message|value|error)/i.test(key))) return undefined;
     if (exception && /^(?:filename|source|url|href)$/i.test(key)) {
       if (typeof value !== "string" || value.length > 2048) return undefined;
@@ -96,12 +98,15 @@ export function captureAppException(error: unknown) {
   if (isExpectedControlFlow(error) || (error && typeof error === "object" && reportedErrors.has(error))) return;
   if (error && typeof error === "object") reportedErrors.add(error);
   if (!(error instanceof Error)) return;
-  const safe = new Error("Application exception");
+  const safe = new Error(safeErrorMessage(error.message) ?? "Application exception");
   safe.name = ERROR_CATEGORIES.has(error.name) ? error.name : "Error";
   safe.stack = scrubStack(error.stack, safe.name);
+  // A server render failure reaches the error boundary with the same digest the server reported.
+  const digest = (error as { digest?: unknown }).digest;
+  const properties = typeof digest === "string" && /^[A-Za-z0-9_-]{1,40}$/.test(digest) ? { digest } : undefined;
   void loadClient().then(client => {
     if (!client) return;
-    try { client.captureException(safe); } catch { /* Never affect application behavior. */ }
+    try { client.captureException(safe, properties); } catch { /* Never affect application behavior. */ }
   });
 }
 
@@ -111,25 +116,6 @@ export function isExpectedControlFlow(error: unknown) {
   const digest = typeof value.digest === "string" ? value.digest : "";
   return digest.startsWith("NEXT_REDIRECT") || digest.startsWith("NEXT_NOT_FOUND") ||
     (typeof value.message === "string" && /(?:rate.?limit|cooldown|invalid credentials)/i.test(value.message));
-}
-
-export function captureBrowserError(error: { name?: unknown; filename?: unknown; lineno?: unknown; colno?: unknown }) {
-  const category = typeof error.name === "string" && ERROR_CATEGORIES.has(error.name) ? error.name : "UnhandledError";
-  let frame = "";
-  if (typeof error.filename === "string") {
-    try {
-      const url = new URL(error.filename);
-      const basename = url.pathname.split("/").filter(Boolean).pop() ?? "";
-      if (/^[A-Za-z0-9_-]{1,100}\.(?:js|mjs|cjs)$/.test(basename)) {
-        frame = basename;
-        if (typeof error.lineno === "number" && Number.isFinite(error.lineno)) {
-          frame += `:${Math.trunc(error.lineno)}`;
-          if (typeof error.colno === "number" && Number.isFinite(error.colno)) frame += `:${Math.trunc(error.colno)}`;
-        }
-      }
-    } catch { /* Ignore malformed source URLs. */ }
-  }
-  trackProductEvent("browser_error", { category, frame });
 }
 
 function clearLegacyAnalyticsStorage() {

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getAvailableBanks, isPrivateBankIndexEnabled } from "@/lib/banks";
 import { createPublicBankIndex } from "@/lib/question-index";
 import { loadBankQuestions } from "@/lib/question-loader";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 
 type RouteContext = { params: Promise<{ bank: string }> };
 const CACHEABLE_RESPONSE_INIT = {
@@ -36,7 +37,7 @@ export async function generateStaticParams(): Promise<Array<{ bank: string }>> {
  * unreachable. Access control for the actual content stays in /api/assets/sign,
  * /api/pdf/sign, and prepareQuestionsForDelivery.
  */
-export async function GET(_request: Request, context: RouteContext) {
+async function handleGET(_request: Request, context: RouteContext) {
   const bank = (await context.params).bank;
   if (!isPrivateBankIndexEnabled(bank)) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
@@ -49,3 +50,5 @@ export async function GET(_request: Request, context: RouteContext) {
     return NextResponse.json({ error: "Question index unavailable" }, { status: 503 });
   }
 }
+
+export const GET = withFailureReporting("/api/private-bank-index/[bank]", handleGET);

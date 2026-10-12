@@ -6,13 +6,14 @@ import { getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { recurringPriceSubtotal } from "@/lib/account-billing-view";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 
 export const runtime = "nodejs";
 const HEADERS = { "Cache-Control": "private, no-store, max-age=0", "Referrer-Policy": "no-referrer" };
 const json = (body: unknown, status = 200) => NextResponse.json(body, { status, headers: HEADERS });
 class Conflict extends Error {}
 type Body = { selectedBankIds?: unknown; allAccess?: unknown; interval?: unknown };
-export async function POST(request: Request) {
+async function handlePOST(request: Request) {
   if (request.headers.get("origin") !== new URL(request.url).origin) return json({ error: "Origin not allowed" }, 403);
   if (process.env.STRIPE_PLAN_EDITOR_ENABLED !== "true") return json({ error: "Plan editor is unavailable" }, 404);
   const supabase = await createClient();
@@ -48,3 +49,5 @@ export async function POST(request: Request) {
     return json({ error: "Subscription preview is temporarily unavailable" }, 503);
   }
 }
+
+export const POST = withFailureReporting("/api/billing/subscription/change/preview", handlePOST);

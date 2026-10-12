@@ -22,10 +22,8 @@ function errorCode(error: unknown): string | undefined {
 export async function onRequestError(error: unknown, _request: Request, context: { routerKind: string; routePath: string; routeType: string }) {
   const message = error instanceof Error ? error.message : "";
   if (/(?:rate.?limit|cooldown|too many requests|invalid credentials|invalid login credentials)/i.test(message)) return;
-  if (error && typeof error === "object") {
-    const digest = "digest" in error && typeof error.digest === "string" ? error.digest : "";
-    if (digest.startsWith("NEXT_REDIRECT") || digest.startsWith("NEXT_NOT_FOUND")) return;
-  }
+  const digest = error && typeof error === "object" && "digest" in error && typeof error.digest === "string" ? error.digest : "";
+  if (digest.startsWith("NEXT_REDIRECT") || digest.startsWith("NEXT_NOT_FOUND")) return;
   const route = context.routePath.length <= 80 && ROUTE_PATTERN.test(context.routePath)
     ? context.routePath
     : context.routeType === "route" ? "/api/[route]" : "/[route]";
@@ -35,5 +33,6 @@ export async function onRequestError(error: unknown, _request: Request, context:
     route_type: context.routeType.slice(0, 20),
     route,
     ...(code ? { error_code: code } : {}),
+    ...(digest ? { digest } : {}),
   });
 }

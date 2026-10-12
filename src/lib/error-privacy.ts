@@ -63,6 +63,38 @@ export function scrubStack(stack: string | undefined, fallbackName: string): str
   return result.join("\n").slice(0, MAX_STACK_CHARS);
 }
 
+const MAX_MESSAGE_CHARS = 200;
+// Production React errors carry only a code; their args can hold rendered text, so keep the code alone.
+const REACT_ERROR = /(?:Minified React error #|react\.dev\/errors\/)(\d{1,4})/;
+const CODE_IDENTIFIER = /^[A-Za-z_$][\w$.-]{0,60}$/;
+
+/**
+ * An exception message with anything that could identify a person replaced by a
+ * placeholder: emails, URLs, ids, key=value pairs, long numbers, tokens, free text in
+ * quotes and non-ASCII text. What remains is the code's own wording, which is what makes
+ * an error diagnosable ("Cannot read properties of undefined (reading 'x')").
+ */
+export function safeErrorMessage(message: unknown): string | undefined {
+  if (typeof message !== "string") return undefined;
+  const react = message.match(REACT_ERROR);
+  if (react) return `React error #${react[1]}`;
+  const text = message.slice(0, 2000).split("\n")[0]
+    .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, "<email>")
+    .replace(/\b(?:https?|wss?|file|data|blob):\/?\/?\S+/gi, "<url>")
+    .replace(/\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b/gi, "<id>")
+    .replace(/\b(?:acct|ch|cs|cus|dp|evt|ii|il|in|pi|pm|price|prod|re|seti|si|sub|txn)_[A-Za-z0-9]{6,}\b/g, "<stripe-id>")
+    .replace(/\)=\([^)]*\)/g, ")=(<value>)") // Postgres "Key (column)=(value) already exists"
+    .replace(/\b([A-Za-z_][\w.-]{0,40})=("[^"]*"|'[^']*'|[^\s&,;)]+)/g, "$1=<value>")
+    .replace(/(["'`])((?:(?!\1).){0,300})\1/g, (match, quote: string, inner: string) => CODE_IDENTIFIER.test(inner) || /^<[a-z-]+>$/.test(inner) ? match : `${quote}<text>${quote}`)
+    .replace(/\b(?=[\w-]*\d)[A-Za-z0-9_-]{20,}\b/g, "<token>")
+    .replace(/\d{4,}/g, "<n>")
+    .replace(/[^\x20-\x7E]+/g, "...")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!text) return undefined;
+  return text.length > MAX_MESSAGE_CHARS ? `${text.slice(0, MAX_MESSAGE_CHARS - 3)}...` : text;
+}
+
 export function boundExceptionFrames<T extends Record<string, unknown>>(frames: T[]): T[] {
   return frames.slice(0, MAX_FRAMES).flatMap(frame => {
     if (typeof frame.filename !== "string") return [];

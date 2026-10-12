@@ -8,7 +8,6 @@ vi.mock("@/lib/supabase/browser", () => ({ createClient: () => ({ auth: { getUse
 vi.mock("@/lib/product-analytics", () => ({ initializeProductAnalytics: initialize, initializeConsentedAnalytics: initializeOptional, disableProductAnalytics: disable, setProductAnalyticsIdentity: identify, trackProductEvent: track, trackConsentedProductEvent: trackOptional }));
 vi.mock("@vercel/analytics/next", () => ({ Analytics: () => <i data-testid="vercel-analytics" /> }));
 vi.mock("@vercel/speed-insights/next", () => ({ SpeedInsights: () => <i data-testid="speed-insights" /> }));
-vi.mock("@/components/BrowserErrorMonitor", () => ({ BrowserErrorMonitor: () => <i data-testid="error-monitor" /> }));
 import { SiteTelemetry } from "./SiteTelemetry";
 afterEach(() => { cleanup(); vi.restoreAllMocks(); });
 beforeEach(() => { vi.clearAllMocks(); document.cookie = "ppp_analytics_consent=; Max-Age=0; path=/"; sessionStorage.clear(); localStorage.clear(); navigation.pathname = "/"; getUser.mockResolvedValue({ data: { user: null }, error: null }); initialize.mockResolvedValue(undefined); identify.mockResolvedValue(undefined); vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true, json: async () => ({ accepted: true, version: 2 }) })); });

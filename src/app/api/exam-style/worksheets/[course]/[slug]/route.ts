@@ -3,11 +3,12 @@ import { join } from "node:path";
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getExamStyleWorksheet } from "@/lib/exam-style-worksheets";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function GET(_request: Request, { params }: { params: Promise<{ course: string; slug: string }> }) {
+async function handleGET(_request: Request, { params }: { params: Promise<{ course: string; slug: string }> }) {
   const { course, slug } = await params;
   const worksheet = getExamStyleWorksheet(course, slug);
   if (!worksheet) return NextResponse.json({ error: "Practice set not found" }, { status: 404 });
@@ -30,3 +31,5 @@ export async function GET(_request: Request, { params }: { params: Promise<{ cou
     return NextResponse.json({ error: "Practice set temporarily unavailable" }, { status: 503, headers: { "Cache-Control": "private, no-store, max-age=0" } });
   }
 }
+
+export const GET = withFailureReporting("/api/exam-style/worksheets/[course]/[slug]", handleGET);
