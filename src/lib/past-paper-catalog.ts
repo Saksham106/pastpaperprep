@@ -72,9 +72,9 @@ export function fileAliases(p: WholePaperSummary): { question: string; markschem
 
 export type MatrixRoute = 'Core' | 'Extended' | 'Shared' | null;
 export type MatrixLink = { href: string; label: string; title: string; markPrefix: string; route: MatrixRoute };
-export type MatrixColumn = { paper: string; label: string; note: string; href: string };
+export type MatrixColumn = { paper: string; label: string; note: string; href: string; route: MatrixRoute };
 export type MatrixRow = { key: string; session: string; label: string; latest: boolean; cells: MatrixLink[][] };
-export type MatrixYear = { year: number; rows: MatrixRow[] };
+export type MatrixYear = { year: number; href: string; rows: MatrixRow[] };
 export type PaperMatrixData = { columns: MatrixColumn[]; years: MatrixYear[]; total: number; tiers: boolean };
 
 const comparePaperNumber = (a: string, b: string) => parseInt(a, 10) - parseInt(b, 10) || a.localeCompare(b);
@@ -85,19 +85,32 @@ export function buildPaperMatrix(papers: readonly WholePaperSummary[], subjectSl
   const columns = numbers.map(paper => {
     const routes = new Set(papers.filter(p => p.paper === paper).map(tier));
     const only = routes.size === 1 ? [...routes][0] : null;
-    return { paper, label: `Paper ${paper.toUpperCase()}`, note: only === 'Shared' ? 'Core & Extended' : only ?? '', href: `/past-papers/${subjectSlug}/${paperNumberSlug(paper)}` };
+    return { paper, label: `Paper ${paper.toUpperCase()}`, note: only === 'Shared' ? 'Core & Extended' : only ?? '', href: `/past-papers/${subjectSlug}/${paperNumberSlug(paper)}`, route: only };
   });
   const sorted = [...papers].sort((a, b) => b.year - a.year || sessionRank(b.session) - sessionRank(a.session) || comparePaperNumber(a.paper, b.paper) || chipLabel(a).localeCompare(chipLabel(b), undefined, { numeric: true }));
   const years: MatrixYear[] = [];
   for (const p of sorted) {
     let year = years.at(-1);
-    if (year?.year !== p.year) years.push(year = { year: p.year, rows: [] });
+    if (year?.year !== p.year) years.push(year = { year: p.year, href: `/past-papers/${subjectSlug}/${p.year}`, rows: [] });
     let row = year.rows.at(-1);
     if (row?.session !== p.session) year.rows.push(row = { key: `${p.year}-${SESSION_SLUG[p.session] ?? p.session}`, session: p.session, label: shortSession(p.session), latest: false, cells: columns.map(() => []) });
     row.cells[numbers.indexOf(p.paper)].push({ href: `/past-papers/${subjectSlug}/${paperSlug(p)}`, label: chipLabel(p), title: `${paperName(p)}, ${p.session} ${p.year}`, markPrefix: `pastpaperprep:marks:${p.bankSlug}:${p.id}:`, route: tier(p) });
   }
   if (years[0]?.rows[0]) years[0].rows[0].latest = true;
   return { columns, years, total: papers.length, tiers: papers.some(p => p.route === 'Core') && papers.some(p => p.route === 'Extended') };
+}
+
+export type MatrixTier = 'all' | 'core' | 'ext';
+/** Core or Extended removes the other tier's columns and papers; rows and years left empty disappear. Shared papers stay in both. */
+export function filterMatrixByTier(data: PaperMatrixData, tier: MatrixTier): PaperMatrixData {
+  if (tier === 'all') return data;
+  const hidden: MatrixRoute = tier === 'core' ? 'Extended' : 'Core';
+  const keep = data.columns.flatMap((column, i) => column.route === hidden ? [] : [i]);
+  const years = data.years.map(year => ({
+    ...year,
+    rows: year.rows.map(row => ({ ...row, cells: keep.map(i => row.cells[i].filter(link => link.route !== hidden)) })).filter(row => row.cells.some(cell => cell.length > 0)),
+  })).filter(year => year.rows.length > 0);
+  return { ...data, columns: keep.map(i => data.columns[i]), years, total: years.reduce((n, y) => n + y.rows.reduce((m, r) => m + r.cells.flat().length, 0), 0) };
 }
 
 export type PaperQuery = { code?: string; year?: number; session?: 'feb-march' | 'may-june' | 'oct-nov'; component?: string; paper?: string; tz?: string };

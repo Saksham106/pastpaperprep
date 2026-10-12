@@ -28,6 +28,8 @@ describe('PastPaperHub', () => {
     expect(screen.getByRole('link', { name: 'IGCSE' })).toHaveAttribute('href', '/past-papers/igcse');
     expect(screen.getByRole('link', { name: 'All' })).toHaveAttribute('aria-current', 'page');
     expect(screen.getByRole('combobox', { name: 'Find a paper' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Questions and answers together' })).toBeInTheDocument();
+    expect(screen.queryByText(/Paper and scheme together/)).not.toBeInTheDocument();
     expect(ldTypes(container)).toEqual(['BreadcrumbList', 'CollectionPage']);
   });
 

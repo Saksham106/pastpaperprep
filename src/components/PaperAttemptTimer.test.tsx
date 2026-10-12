@@ -33,3 +33,12 @@ it('reports a timer start for the paper’s bank', () => {
   fireEvent.click(screen.getByRole('button', { name: 'Start timer' }));
   expect(analytics.trackProductEvent).toHaveBeenCalledWith('past_paper_timer_start', { bank: 'igcse' });
 });
+it('ends on a single row: just the clock and a New timer button', () => {
+  vi.spyOn(Date, 'now').mockReturnValue(1000);
+  render(<PaperAttemptTimer durationMinutes={45} />);
+  fireEvent.click(screen.getByRole('button', { name: 'Start timer' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Finish practice' }));
+  expect(screen.getByRole('button', { name: 'New timer' })).toBeInTheDocument();
+  expect(screen.queryByText(/Keep reading/)).not.toBeInTheDocument();
+  expect(screen.getByRole('status')).toHaveClass(/visuallyHidden/);
+});

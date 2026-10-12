@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { BANK_CATALOG } from './catalog';
 import type { WholePaperManifest } from './whole-paper-types';
-import { SUBJECT_SLUGS, bankForSubjectSlug, buildPaperMatrix, chipLabel, fileAliases, matchPapers, paperName, paperSlug, parsePaperQuery, subjectSlugForBank } from './past-paper-catalog';
+import { SUBJECT_SLUGS, bankForSubjectSlug, buildPaperMatrix, chipLabel, fileAliases, filterMatrixByTier, matchPapers, paperName, paperSlug, parsePaperQuery, subjectSlugForBank } from './past-paper-catalog';
 
 const papers = (slug: string) => (JSON.parse(readFileSync(join(process.cwd(), 'src/data/paper-archives', `${slug}.json`), 'utf8')) as WholePaperManifest).papers.map(p => p.summary);
 const find = (slug: string, id: string) => papers(slug).find(p => p.id === id)!;
@@ -117,5 +117,30 @@ describe('paper code search', () => {
     const nov = matchPapers(ib, parsePaperQuery('nov 2019 p2'));
     expect(nov.length).toBeGreaterThan(0);
     expect(nov.every(p => p.session === 'November' && p.year === 2019 && p.paper === '2')).toBe(true);
+  });
+});
+
+describe('matrix years and tiers', () => {
+  const maths = buildPaperMatrix(papers('igcse'), 'igcse-maths-0580');
+  const links = (m: ReturnType<typeof buildPaperMatrix>) => m.years.flatMap(y => y.rows.flatMap(r => r.cells.flat()));
+  it('links every year to its year page', () => {
+    expect(maths.years[0]).toMatchObject({ year: 2026, href: '/past-papers/igcse-maths-0580/2026' });
+  });
+  it('keeps only Core columns, rows and papers for Core', () => {
+    const core = filterMatrixByTier(maths, 'core');
+    expect(core.columns.map(c => c.label)).toEqual(['Paper 1', 'Paper 3']);
+    expect(links(core).every(l => l.route === 'Core')).toBe(true);
+    expect(core.total).toBe(links(core).length);
+    expect(core.years[0].year).toBe(2025);
+    expect(core.years.every(y => y.rows.every(r => r.cells.length === 2 && r.cells.some(c => c.length > 0)))).toBe(true);
+  });
+  it('keeps only Extended columns for Extended and everything for All', () => {
+    expect(filterMatrixByTier(maths, 'ext').columns.map(c => c.label)).toEqual(['Paper 2', 'Paper 4']);
+    expect(filterMatrixByTier(maths, 'all')).toBe(maths);
+  });
+  it('keeps shared practical papers under both tiers', () => {
+    const chem = buildPaperMatrix(papers('igcse-chemistry-0620'), 'igcse-chemistry-0620');
+    expect(filterMatrixByTier(chem, 'core').columns.map(c => c.label)).toEqual(['Paper 1', 'Paper 3', 'Paper 5', 'Paper 6']);
+    expect(filterMatrixByTier(chem, 'ext').columns.map(c => c.label)).toEqual(['Paper 2', 'Paper 4', 'Paper 5', 'Paper 6']);
   });
 });

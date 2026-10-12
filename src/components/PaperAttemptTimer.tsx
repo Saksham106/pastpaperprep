@@ -57,7 +57,7 @@ function PaperAttemptTimerSession({ durationMinutes, analyticsBank }: { duration
         <button type="button" className={styles.icon} aria-label="Finish practice" onClick={() => { const time = Date.now(); setNow(time); setTimer(finishTimer(timer, time)); }}><Stop aria-hidden="true" weight="fill" /></button>
       </>}
       {ended && <>
-        <span className={styles.status} role="status">{expired ? "Time is up." : "Practice finished."}<span className={styles.hint}> Keep reading and marking.</span></span>
+        <span className={styles.visuallyHidden} role="status">{expired ? "Time is up." : "Practice finished."}</span>
         <button type="button" className={styles.text} onClick={() => setTimer(null)}>New timer</button>
       </>}
     </>}

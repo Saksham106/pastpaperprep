@@ -58,4 +58,14 @@ describe('PastPaperPaperPage', () => {
     expect(screen.queryByRole('link', { name: /questions by topic/ })).not.toBeInTheDocument();
     expect(screen.getByTestId('workspace')).toHaveAttribute('data-practice', 'false');
   });
+  it('suggests same-session papers from the student\'s own route', () => {
+    const sitting = [summary, { ...summary, id: '0580-2024-june-22', component: '22', paper: '2' }, { ...summary, id: '0580-2024-june-12', component: '12', paper: '1', route: 'Core' as const }, { ...summary, id: '0580-2024-june-32', component: '32', paper: '3', route: 'Core' as const }, { ...summary, id: '0580-2024-june-62', component: '62', paper: '6', route: 'Shared' as const }];
+    render(<PastPaperPaperPage view={{ kind: 'paper', bank, detail, all: sitting, practice: true }} />);
+    const same = screen.getByRole('navigation', { name: 'Same session' });
+    expect(within(same).getAllByRole('link').map(a => a.textContent)).toEqual(['22', '62']);
+    cleanup();
+    const coreDetail = { ...detail, summary: sitting[2] };
+    render(<PastPaperPaperPage view={{ kind: 'paper', bank, detail: coreDetail, all: sitting, practice: true }} />);
+    expect(within(screen.getByRole('navigation', { name: 'Same session' })).getAllByRole('link').map(a => a.textContent)).toEqual(['32', '62']);
+  });
 });

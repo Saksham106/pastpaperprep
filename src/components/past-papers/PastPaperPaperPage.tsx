@@ -41,7 +41,9 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
   const crumbs = [{ name: 'Past papers', path: '/past-papers' }, qualification, { name, path: `/past-papers/${subject}` }, { name: String(p.year), path: `/past-papers/${subject}/${p.year}` }, { name: label, path }];
   const sameSitting = all.filter(o => o.year === p.year && o.session === p.session);
   const variants = sameSitting.filter(o => o.paper === p.paper).sort((a, b) => chipLabel(a).localeCompare(chipLabel(b), undefined, { numeric: true }));
-  const session = sameSitting.filter(o => o.paper !== p.paper).sort((a, b) => a.component.localeCompare(b.component, undefined, { numeric: true }) || a.variant.localeCompare(b.variant));
+  // Suggest the student's own route: a Core paper lists Core and shared papers, an Extended paper Extended and shared.
+  const otherRoute = p.route === 'Core' ? 'Extended' : p.route === 'Extended' ? 'Core' : null;
+  const session = sameSitting.filter(o => o.paper !== p.paper && (!otherRoute || o.route !== otherRoute)).sort((a, b) => a.component.localeCompare(b.component, undefined, { numeric: true }) || a.variant.localeCompare(b.variant));
   const previous = neighbour(all, p, -1), next = neighbour(all, p, 1);
   const tz = /^tz[1-9]$/i.test(p.variant) ? p.variant.toUpperCase() : null;
   const facts = [p.route === 'Core' || p.route === 'Extended' ? p.route : null, p.durationMinutes !== null ? formatDuration(p.durationMinutes) : null, p.maxMarks !== null ? `${p.maxMarks} marks` : null, p.qualification === 'Cambridge IGCSE' && /^\d$/.test(p.variant) ? `Variant ${p.variant}` : tz].filter((fact): fact is string => !!fact);

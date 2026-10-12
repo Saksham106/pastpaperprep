@@ -38,6 +38,19 @@ describe('PaperMatrix', () => {
     expect(screen.getByRole('link', { name: /21/ })).toHaveAttribute('data-done');
   });
 
+  it('links each year label to that year\'s page', () => {
+    render(<PaperMatrix data={data} tier="all" />);
+    expect(screen.getByRole('link', { name: '2026' })).toHaveAttribute('href', '/past-papers/igcse-maths-0580/2026');
+  });
+
+  it('uses a compact layout when a bank has more than four papers', () => {
+    const wide = buildPaperMatrix([...IGCSE_PAPERS, ...['51', '61'].map(component => ({ ...IGCSE_PAPERS[0], id: `0580-2026-june-${component}`, component, paper: component[0], route: 'Shared' as const }))], 'igcse-maths-0580');
+    const { container, rerender } = render(<PaperMatrix data={wide} tier="all" />);
+    expect(container.querySelector('section[data-dense]')).not.toBeNull();
+    rerender(<PaperMatrix data={data} tier="all" />);
+    expect(container.querySelector('section[data-dense]')).toBeNull();
+  });
+
   it('shows no progress line before anything is marked', () => {
     render(<PaperMatrix data={data} tier="all" />);
     expect(screen.queryByText(/marked/)).not.toBeInTheDocument();
@@ -45,13 +58,20 @@ describe('PaperMatrix', () => {
 });
 
 describe('PaperLibraryTools', () => {
-  it('switches tiers with the toggle beside the search box', async () => {
+  it('removes the other tier\'s columns and papers instead of dimming them', async () => {
     const { container } = render(<PaperLibraryTools data={data} papers={IGCSE_PAPERS} />);
     const toggle = screen.getByRole('group', { name: 'Course route' });
     expect(within(toggle).getByRole('button', { name: 'All' })).toHaveAttribute('aria-pressed', 'true');
     await userEvent.click(within(toggle).getByRole('button', { name: 'Core' }));
-    expect(container.querySelector('[data-tier]')).toHaveAttribute('data-tier', 'core');
     expect(within(toggle).getByRole('button', { name: 'Core' })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getAllByRole('link', { name: /^Paper \d/ }).map(a => a.textContent)).toEqual(['Paper 1Core']);
+    expect(screen.getByRole('link', { name: '12' })).toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: '21' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: '2026' })).not.toBeInTheDocument();
+    expect(container.querySelector('[style*="--cols: 1"]')).not.toBeNull();
+    await userEvent.click(within(toggle).getByRole('button', { name: 'Extended' }));
+    expect(screen.getAllByRole('link', { name: /^Paper \d/ }).map(a => a.textContent)).toEqual(['Paper 2Extended', 'Paper 4Extended']);
+    expect(screen.queryByRole('link', { name: '12' })).not.toBeInTheDocument();
   });
 
   it('has no tier toggle for IB banks', () => {
