@@ -2,10 +2,11 @@ import { NextResponse } from "next/server";
 import { getExamStyleTrigonometrySet } from "@/lib/exam-style-trigonometry";
 import { signExamStyleTrigonometryPdf } from "@/lib/exam-style-trigonometry-server";
 import { createClient } from "@/lib/supabase/server";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 
 export const runtime = "nodejs";
 
-export async function GET(
+async function handleGET(
   _request: Request,
   { params }: { params: Promise<{ slug: string }> },
 ) {
@@ -28,3 +29,5 @@ export async function GET(
     headers: { "Cache-Control": "private, no-store, max-age=0" },
   });
 }
+
+export const GET = withFailureReporting("/api/exam-style/trigonometry/[slug]", handleGET);

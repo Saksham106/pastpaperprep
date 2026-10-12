@@ -1,12 +1,14 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-const { createAdminClient, createSignedUrls } = vi.hoisted(() => ({
+const { createAdminClient, createSignedUrls, serverLog } = vi.hoisted(() => ({
   createAdminClient: vi.fn(),
   createSignedUrls: vi.fn(),
+  serverLog: vi.fn(),
 }));
 
 vi.mock("server-only", () => ({}));
 vi.mock("@/lib/supabase/admin", () => ({ createAdminClient }));
+vi.mock("@/lib/server-logs", () => ({ serverLog }));
 
 import { signPrivateAssetUrls } from "@/lib/private-assets";
 
@@ -24,6 +26,15 @@ describe("signPrivateAssetUrls", () => {
   });
 
   afterEach(() => vi.unstubAllEnvs());
+
+  it("logs which store signed which bank's batch, and failures with a scrubbed message", async () => {
+    await signPrivateAssetUrls(["ib-economics-hl/questions/q1/question-01.webp", "ib-economics-hl/questions/q1/question-02.webp"], 600, { provider: "supabase" });
+    expect(serverLog).toHaveBeenCalledWith("info", "asset_signing", expect.objectContaining({ provider: "supabase", bank: "ib-economics-hl", assets: 2, outcome: "signed", long_lived: false }));
+    createSignedUrls.mockResolvedValueOnce({ data: null, error: Object.assign(new Error("Object not found for alice@example.com"), { statusCode: "404" }) });
+    await expect(signPrivateAssetUrls(["ib-economics-hl/questions/q1/question-01.webp"], 600, { provider: "supabase" })).rejects.toThrow();
+    expect(serverLog).toHaveBeenLastCalledWith("error", "asset_signing", expect.objectContaining({ provider: "supabase", bank: "ib-economics-hl", outcome: "failed", message: undefined }));
+    expect(JSON.stringify(serverLog.mock.calls)).not.toMatch(/alice|questions\/q1/);
+  });
 
   it("uses Supabase unless R2 is explicitly enabled", async () => {
     const urls = await signPrivateAssetUrls(["ib-sl/questions/a.webp"], 600);
@@ -67,6 +78,31 @@ describe("signPrivateAssetUrls", () => {
     }
   });
 
+
+  it("signs explanation JSON from R2 with a bounded GET signature", async () => {
+    vi.stubEnv("R2_ACCOUNT_ID", "92278648535014b5231edfe207b9391d");
+    vi.stubEnv("R2_ACCESS_KEY_ID", "a".repeat(32));
+    vi.stubEnv("R2_SECRET_ACCESS_KEY", "b".repeat(64));
+    vi.stubEnv("R2_BUCKET_NAME", "pastpaperprep-assets");
+    const path = "explanations/ib-hl/2025-may-tz1-p1-q1.json";
+    const urls = await signPrivateAssetUrls([path], 600, { provider: "r2" });
+    const url = new URL(urls.get(path)!);
+    expect(url.pathname).toBe(`/pastpaperprep-assets/${path}`);
+    expect(url.searchParams.get("X-Amz-Expires")).toBe("600");
+    expect(createAdminClient).not.toHaveBeenCalled();
+  });
+
+  it.each([
+    "explanations/ib-hl/../secret.json",
+    "explanations/ib-hl/%2e%2e%2fsecret.json",
+    "/explanations/ib-hl/q1.json",
+    "explanations/ib-hl/nested/q1.json",
+    "ib-hl/markschemes/q1.json",
+    "explanations/ib-hl/q1.json?other=secret",
+  ])("rejects noncanonical explanation key %s before contacting any provider", async (path) => {
+    await expect(signPrivateAssetUrls([path], 600, { provider: "r2" })).rejects.toThrow("Private asset path is invalid");
+    expect(createAdminClient).not.toHaveBeenCalled();
+  });
 
   it("keeps signed links to an hour unless the caller opts into long-lived free links", async () => {
     await expect(signPrivateAssetUrls(["ib-sl/questions/a.webp"], 3601)).rejects.toThrow("Signed URL expiry is invalid");

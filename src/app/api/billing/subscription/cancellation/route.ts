@@ -4,6 +4,7 @@ import { createStripeClient } from "@/lib/stripe";
 import { getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 
 export const runtime = "nodejs";
 const HEADERS = { "Cache-Control": "private, no-store, max-age=0", "Referrer-Policy": "no-referrer" };
@@ -11,7 +12,7 @@ const json = (body: unknown, status = 200) => NextResponse.json(body, { status, 
 class Conflict extends Error {}
 type Intent = "cancel" | "undo";
 
-export async function POST(request: Request) {
+async function handlePOST(request: Request) {
   if (request.headers.get("origin") !== new URL(request.url).origin) return json({ error: "Origin not allowed" }, 403);
   if (process.env.STRIPE_PLAN_EDITOR_ENABLED !== "true") return json({ error: "Subscription cancellation is unavailable" }, 404);
   const supabase = await createClient();
@@ -77,3 +78,5 @@ export async function POST(request: Request) {
     return json({ error: "Subscription cancellation is temporarily unavailable" }, 503);
   }
 }
+
+export const POST = withFailureReporting("/api/billing/subscription/cancellation", handlePOST);

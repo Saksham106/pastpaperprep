@@ -21,6 +21,8 @@ import { clearCheckoutParam } from "@/components/CheckoutReturnTracker";
 import { annualSavingPercent, formatPrice, maximumAnnualSavingPercent, priceForBankCount } from "@/lib/pricing-model";
 import { QualificationTabs } from "@/components/QualificationTabs";
 import { PricingBankFocus, secondSubjectOptions } from "@/components/PricingBankFocus";
+import { TestimonialGrid } from "@/components/Testimonial";
+import { PRICING_TESTIMONIALS } from "@/lib/testimonials";
 
 function bankSlugForProduct(productId: string): BankSlug | undefined {
   return getCatalogBanksForDisplay().find((bank) => bank.productId === productId)?.slug;
@@ -289,6 +291,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         {focusBank && !lifetimeSelected ? <h2 className="pricing-compare-heading">Or compare every plan</h2> : null}
         {(!hasPaidAccess || (hasPaidAccess && (complimentaryAccess || manualAccess || ownsLifetimeAccess))) && !lifetimeSelected ? <div className="pricing-decision-grid" aria-label="PastPaperPrep plans">{PLANS.map(renderPlan)}</div> : null}
         {!hasPaidAccess && !lifetimeSelected ? <p className="pricing-assurance">Secure checkout · Cancel any time</p> : null}
+        {!hasPaidAccess && !lifetimeSelected ? <TestimonialGrid testimonials={PRICING_TESTIMONIALS} label="What students, parents, and tutors say" /> : null}
         {manualAccess && !complimentaryAccess ? <section className="pricing-current-plan" aria-labelledby="current-plan-heading"><div><span className="eyebrow">Account</span><h2 id="current-plan-heading">Your current access</h2></div><div className="pricing-current-plan-details"><strong>Manual access</strong><span>Included banks are covered by an access grant, not a billed plan. Billing details for any separate subscription remain in your account.</span></div><Link className="button secondary" href="/account/subscription">View your access</Link></section> : null}
         {complimentaryAccess ? <section className="pricing-current-plan" aria-labelledby="current-plan-heading"><div><span className="eyebrow">Account</span><h2 id="current-plan-heading">Your current access</h2></div><div className="pricing-current-plan-details"><strong>Complimentary access</strong><span>This is a grant, not a billed subscription. No renewal or plan-change controls are available.</span></div><Link className="button secondary" href="/account/subscription">View your access</Link></section> : null}
 

@@ -36,8 +36,11 @@ describe("serverless performance boundaries", () => {
     expect(source("src/app/page.tsx")).not.toContain("getClaims(");
   });
 
-  it("runs session middleware only on auth-sensitive routes", () => {
+  it("scopes proxy work to auth-sensitive routes and static privacy fences", () => {
     expect(config.matcher).toEqual([
+      // Local-fixture denial runs before both static serving and session work.
+      "/dev-explanations/:path*",
+      "/:path((?:d|%64)(?:e|%65)(?:v|%76)(?:-|%2[dD])(?:e|%65)(?:x|%78)(?:p|%70)(?:l|%6[cC])(?:a|%61)(?:n|%6[eE])(?:a|%61)(?:t|%74)(?:i|%69)(?:o|%6[fF])(?:n|%6[eE])(?:s|%73)(?:(?:/|%2[fF]).*)?)",
       // Source-map denial runs before static serving (see src/proxy.ts).
       "/_next/static/:path(.*(?:\\.|%2[eE])(?:m|%6[dD])(?:a|%61)(?:p|%70))",
       "/account/:path*",

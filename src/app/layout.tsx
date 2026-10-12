@@ -9,6 +9,7 @@ import { PageTransition } from "@/components/PageTransition";
 import { SOCIAL_IMAGE, SOCIAL_IMAGE_URL } from "@/lib/seo";
 import "./globals.css";
 import "./motion.css";
+import { SESSION_HINT_SCRIPT } from "@/lib/supabase/auth-cookie";
 
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
 const youngSerif = Young_Serif({ variable: "--font-young-serif", subsets: ["latin"], weight: "400" });
@@ -59,6 +60,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geist.variable} ${mono.variable} ${youngSerif.variable}`} suppressHydrationWarning>
+      <head><script dangerouslySetInnerHTML={{ __html: SESSION_HINT_SCRIPT }} /></head>
       <body data-build-revision={process.env.NEXT_PUBLIC_BUILD_REVISION ?? "local"}>
         <ThemeProvider attribute="data-theme" defaultTheme="light" enableColorScheme storageKey="pastpaperprep-theme" disableTransitionOnChange>
           <SessionAwareSiteHeader />

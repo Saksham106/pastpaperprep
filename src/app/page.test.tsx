@@ -75,7 +75,7 @@ describe("home page", () => {
     expect(images.some((src) => src.includes("sample-"))).toBe(false);
     expect(container.textContent).not.toContain("A real question.");
     const order = [...container.querySelectorAll("[data-home-section]")].map((section) => section.getAttribute("data-home-section"));
-    expect(order).toEqual(["hero", "banks", "proof", "plan", "faq", "cta"]);
+    expect(order).toEqual(["hero", "banks", "proof", "testimonials", "plan", "faq", "cta"]);
   });
 
   it("shows proof as a few rounded, meaningful facts and three short cited studies", () => {

@@ -1,3 +1,6 @@
+import { isFutureIssuedJwtError } from "@/lib/access-recovery";
+import { safeServerErrorCode } from "@/lib/safe-server-error-code";
+import { serverLog } from "@/lib/server-logs";
 import type { AccessEntitlement } from "@/lib/access";
 import { normalizeEntitlements } from "@/lib/entitlements";
 
@@ -32,28 +35,38 @@ export async function fetchAccessEntitlements(client: {
   // PostgREST can briefly reject a freshly issued Supabase session as being in
   // the future (PGRST303). Retry only this read-only, exact error; a failed or
   // malformed access check must never be interpreted as an unpaid account.
+  // Three read attempts, three seconds of backoff. A stale provider clock
+  // cannot be cured by waiting longer; exhaustion requires manual recovery.
   const delays = [1000, 2000];
   for (let attempt = 0; ; attempt++) {
     const [entitlements, customBundles] = await Promise.all([
       client.from("entitlements").select("product_id, selected_bank_ids, status, starts_at, expires_at, source, products(name)").eq("user_id", userId),
       client.rpc("get_custom_bundle_access", { p_user_id: userId }),
     ]);
+    // A nominally successful parallel read must be valid even when the other
+    // read fails. Never label a malformed response as recoverable clock skew.
+    if ([entitlements, customBundles].some((result) => !result.error && !Array.isArray(result.data))) {
+      return { rows: [], error: new Error("Invalid billing access response") };
+    }
     const errors = [entitlements.error, customBundles.error].filter(Boolean);
     if (errors.length) {
-      const futureJwt = errors.every((error) => {
-        if (!error || typeof error !== "object") return false;
-        const failure = error as { code?: unknown; message?: unknown };
-        return failure.code === "PGRST303" && failure.message === "JWT issued at future";
-      });
+      const futureJwt = errors.every(isFutureIssuedJwtError);
       if (futureJwt && attempt < delays.length) {
+        // Logged even when a later attempt succeeds: how often Supabase's clock bug bites.
+        serverLog("warn", "entitlement_read_retry", { attempt: attempt + 1, error_code: "PGRST303" });
         await new Promise((resolve) => setTimeout(resolve, delays[attempt]));
         continue;
       }
-      return { rows: [], error: entitlements.error ?? customBundles.error };
+      const code = errors.map((error) => safeServerErrorCode((error as { code?: unknown } | null)?.code)).find(Boolean);
+      serverLog("error", "entitlement_read_failed", { attempts: attempt + 1, error_code: code ?? "other" });
+      // Preserve an unrelated parallel failure rather than disguising it as
+      // the recoverable clock error on the page.
+      return { rows: [], error: errors.find((error) => !isFutureIssuedJwtError(error)) ?? errors[0] };
     }
     if (!Array.isArray(entitlements.data) || !Array.isArray(customBundles.data)) {
       return { rows: [], error: new Error("Invalid billing access response") };
     }
+    if (attempt > 0) serverLog("info", "entitlement_read_recovered", { attempts: attempt + 1 });
     return { rows: mergeCustomBundleAccess(entitlements.data, customBundles.data), error: null };
   }
 }

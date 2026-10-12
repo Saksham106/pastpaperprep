@@ -63,6 +63,53 @@ export function scrubStack(stack: string | undefined, fallbackName: string): str
   return result.join("\n").slice(0, MAX_STACK_CHARS);
 }
 
+const ERROR_NAMES = new Set(["Error", "TypeError", "ReferenceError", "RangeError", "SyntaxError", "URIError", "EvalError", "AggregateError", "AbortError", "TimeoutError", "NetworkError", "SecurityError", "NotAllowedError", "NotFoundError", "UnhandledRejection", "AuthApiError", "AuthRetryableFetchError"]);
+
+export function safeErrorName(name: unknown): string {
+  return typeof name === "string" && ERROR_NAMES.has(name) ? name : "Error";
+}
+
+// Only these code-controlled words can appear inside a readable diagnostic.
+// A quoted identifier's shape alone says nothing about whether it contains private data.
+const DIAGNOSTIC_WORDS = new Set(["rows", "questionAssetPaths", "cooldown"]);
+const DIAGNOSTIC_MESSAGES = new Set([
+  "Application exception", "Application server exception", "Authentication provider failure",
+  "Handled server failure", "Non-error promise rejection", "Failed to fetch", "fetch failed",
+  "Load failed", "NetworkError when attempting to fetch resource.", "JWT issued at future",
+  "Unexpected end of JSON input", "Invalid JSON input", "Database key already exists",
+  "Database unique constraint violation", "No such customer", "Value is not a function",
+]);
+const REACT_ERROR = /^(?:Minified React error #|React error #)(\d{1,4})(?:\D|$)/;
+
+/**
+ * Returns a fixed diagnostic or a normalized template, never a regex-masked arbitrary
+ * message. Unknown text is omitted so each caller uses its existing generic fallback.
+ * The result is idempotent: SDK before_send can apply this boundary a second time.
+ */
+export function safeErrorMessage(message: unknown): string | undefined {
+  if (typeof message !== "string") return undefined;
+  const text = message.slice(0, 2000).split("\n")[0].trim();
+  if (!text) return undefined;
+  if (DIAGNOSTIC_MESSAGES.has(text)) return text;
+  const react = text.match(REACT_ERROR);
+  if (react) return `React error #${react[1]}`;
+  const property = text.match(/^Cannot (read|set) properties of (undefined|null)(?: \((?:reading|setting) ['"]([^'"\r\n]*)['"]\))?$/);
+  if (property) {
+    const operation = property[1] === "read" ? "reading" : "setting";
+    const key = DIAGNOSTIC_WORDS.has(property[3]) ? property[3] : "<property>";
+    return `Cannot ${property[1]} properties of ${property[2]}${property[3] === undefined ? "" : ` (${operation} '${key}')`}`;
+  }
+  const reference = text.match(/^([A-Za-z_$][\w$]*|<identifier>) is not defined$/);
+  if (reference) return `${DIAGNOSTIC_WORDS.has(reference[1]) ? reference[1] : "<identifier>"} is not defined`;
+  if (/^.+ is not a function$/.test(text)) return "Value is not a function";
+  if (/^Unexpected token .+ is not valid JSON$/.test(text)
+    || /^Expected (?:property name|','|':'|double-quoted property name).+ in JSON at position /.test(text)) return "Invalid JSON input";
+  if (/^Key \([^)]*\)=\([^)]*\) already exists\.?$/.test(text)) return "Database key already exists";
+  if (/^duplicate key value violates unique constraint /.test(text)) return "Database unique constraint violation";
+  if (/^No such customer: /.test(text)) return "No such customer";
+  return undefined;
+}
+
 export function boundExceptionFrames<T extends Record<string, unknown>>(frames: T[]): T[] {
   return frames.slice(0, MAX_FRAMES).flatMap(frame => {
     if (typeof frame.filename !== "string") return [];
@@ -73,7 +120,8 @@ export function boundExceptionFrames<T extends Record<string, unknown>>(frames: 
       const value = frame[key];
       if (typeof value === "number" && Number.isFinite(value) && value >= 0 && value <= 100_000_000) safe[key] = value;
       if (typeof value === "boolean") safe[key] = value;
-      if (typeof value === "string" && /^[A-Za-z0-9_-]{1,80}$/.test(value)) safe[key] = value;
+      // Colon allowed: posthog-js sends platform "web:javascript", and PostHog rejects frames without it.
+      if (typeof value === "string" && /^[A-Za-z0-9_:-]{1,80}$/.test(value)) safe[key] = value;
     }
     if (typeof frame.function === "string") safe.function = safeFunction(frame.function);
     return [safe as T];

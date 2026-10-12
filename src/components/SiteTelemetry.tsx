@@ -4,7 +4,6 @@ import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "
 import { usePathname } from "next/navigation";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { BrowserErrorMonitor } from "@/components/BrowserErrorMonitor";
 import { AnalyticsConsentBanner } from "@/components/AnalyticsConsentBanner";
 import { createClient } from "@/lib/supabase/browser";
 import { ANALYTICS_CONSENT_MAX_AGE_SECONDS, ANALYTICS_CONSENT_VERSION, isConsentPromptPath, readBrowserAnalyticsConsent } from "@/lib/analytics-consent";
@@ -215,7 +214,7 @@ export function SiteTelemetry() {
   const dismiss = () => { try { localStorage.setItem(DISMISS_KEY, String(Date.now())); } catch { /* optional */ } setBannerOpen(false); setRequested(false); };
 
   return <>
-    <><BrowserErrorMonitor /><Analytics /><SpeedInsights /></>
+    <><Analytics /><SpeedInsights /></>
     {showBanner && <AnalyticsConsentBanner initialAnalytics={resolvedChoice === true} onChoice={accepted => void choose(accepted)} onDismiss={dismiss} busy={saving} error={error} />}
   </>;
 }

@@ -3,10 +3,13 @@
 import { Fragment, useEffect, useId, useMemo, useRef, useState, useSyncExternalStore, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { CALCULATOR_FILTER_BANKS } from "@/lib/calculator-policy.mjs";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { BookmarkSimple, CaretDown, Check, CheckCircle, DownloadSimple, FilePlus, Funnel, MagnifyingGlass, ShareNetwork, X } from "@phosphor-icons/react";
 import type { PdfAnswerPlacement, PdfContent } from "@/lib/pdf-export";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
+import { fetchExplanation } from "@/lib/explanation-client";
+import type { Explanation } from "@/lib/explanation-format";
 import { hasFreeTier, isPreviewQuestion } from "@/lib/access";
 import { BANK_CATALOG } from "@/lib/catalog";
 import { bankYearFacts, upgradeHref, UPGRADE_PRICE_LABEL, UPGRADE_PRICE_MONTH, type UpgradePlacement } from "@/lib/upgrade-copy";
@@ -27,6 +30,8 @@ import { displayedQuestionSubtopics, formatMathsPickerLabel, formatPublicLabel }
 import { trackProductEvent } from "@/lib/product-analytics";
 import { ANONYMOUS_FREE_QUESTION_LIMIT, getFreeQuestionGate } from "@/lib/free-question-gate";
 import { FreeQuestionSignupGate } from "@/components/FreeQuestionSignupGate";
+import { Testimonial } from "@/components/Testimonial";
+import { PDF_TESTIMONIAL } from "@/lib/testimonials";
 import { FeedTeaserCard, FeedTimelineCard, PracticeMilestone, readFeedNudgeDismissed, trackUpgrade, useUpgradeView, writeFeedNudgeDismissed } from "@/components/UpgradeNudges";
 import { WorksheetEditCard } from "@/components/WorksheetEditCard";
 import { SourceCropImage } from "@/components/SourceCropImage";
@@ -34,6 +39,9 @@ import "./worksheet-workspace.css";
 
 type MultiKey = ExplorerFilterKey;
 
+
+// KaTeX loads only when someone opens an explanation.
+const ExplanationPanel = dynamic(() => import("@/components/ExplanationPanel"), { ssr: false, loading: () => <p className="muted" role="status">Loading explanation…</p> });
 const SECONDARY_FILTER_KEYS: MultiKey[] = [
   "sessions", "components", "calculator", "subjects", "courseEras", "options", "zones", "granularLabels", "officialCodeRefs", "retrievalFacets",
 ];
@@ -173,6 +181,19 @@ const EMPTY_STUDY_STATE: ExplorerStudyState = { savedIds: [], attemptedIds: [] }
 const PLANS_LABEL = "View plans";
 const plansHrefFor = (authenticated: boolean) => (authenticated ? "/pricing" : "/login?next=/pricing");
 const subscribeToNothing = () => () => {};
+/** Which store served a failed image; hostnames and signatures never leave the browser. */
+function assetHost(url: string | undefined) {
+  try {
+    const host = new URL(url ?? "").hostname;
+    return host.endsWith(".r2.cloudflarestorage.com") ? "r2" : host.endsWith(".supabase.co") ? "supabase" : host === window.location.hostname ? "self" : "other";
+  } catch { return "unknown"; }
+}
+// R2 signing never checks an object exists, so a missing image is only visible here.
+function trackAssetLoadFailure(bank: string, questionId: string, kind: "question" | "answer", outcome: "expired_resign" | "failed", url: string | undefined) {
+  trackProductEvent("asset_load_failed", { bank, question_id: questionId.slice(0, 120), kind, outcome, host: assetHost(url) });
+}
+const hydratedSnapshot = () => true;
+const serverSnapshot = () => false;
 const SESSION_ORDER = ["feb", "mar", "may", "jun", "oct", "nov"];
 const sessionRank = (session: string) => Math.max(0, SESSION_ORDER.findIndex((key) => session.toLowerCase().includes(key)));
 const questionTopicLabel = (question: UnifiedQuestion) => formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, question.primaryTopic) : question.primaryTopic);
@@ -225,9 +246,15 @@ access: ExplorerAccess;
   ));
   const [selectedIds, setSelectedIds] = useState(new Set<string>());
   const [selectionIsExplicit, setSelectionIsExplicit] = useState(false);
-  const [worksheetId] = useState(() => typeof window === "undefined" ? "" : new URLSearchParams(window.location.search).get("worksheet") ?? "");
+  // Static bank HTML never sees the query string, so ignore it while hydrating (React #418)
+  // and switch to it in the re-render straight after. Client navigations read it at once.
+  const hydrated = useSyncExternalStore(subscribeToNothing, hydratedSnapshot, serverSnapshot);
+  const [mountSearch] = useState(() => typeof window === "undefined" ? "" : window.location.search);
+  const mountParams = useMemo(() => new URLSearchParams(hydrated ? mountSearch : ""), [hydrated, mountSearch]);
+  const worksheetId = mountParams.get("worksheet") ?? "";
   const [worksheetRevision, setWorksheetRevision] = useState(0);
-  const [worksheetMode, setWorksheetMode] = useState<"view" | "edit">(() => typeof window !== "undefined" && new URLSearchParams(window.location.search).get("mode") === "edit" ? "edit" : "view");
+  const [chosenWorksheetMode, setWorksheetMode] = useState<"view" | "edit" | null>(null);
+  const worksheetMode = chosenWorksheetMode ?? (mountParams.get("mode") === "edit" ? "edit" : "view");
   const [addingQuestions, setAddingQuestions] = useState(false);
   const [worksheetName, setWorksheetName] = useState("");
   const [worksheetStatus, setWorksheetStatus] = useState("");
@@ -243,7 +270,8 @@ access: ExplorerAccess;
   const [worksheetLoadFailed, setWorksheetLoadFailed] = useState(false);
   const [worksheetLoading, setWorksheetLoading] = useState(false);
   const [worksheetBaseline, setWorksheetBaseline] = useState("");
-  const [worksheetReady, setWorksheetReady] = useState(() => typeof window === "undefined" || !new URLSearchParams(window.location.search).has("worksheet"));
+  const [loadedWorksheetReady, setWorksheetReady] = useState<boolean | null>(null);
+  const worksheetReady = loadedWorksheetReady ?? !worksheetId;
   const [pdfOpen, setPdfOpen] = useState(false);
   const [pdfUpgradeOpen, setPdfUpgradeOpen] = useState(false);
   const [pdfContent, setPdfContent] = useState<PdfContent>("both");
@@ -384,7 +412,7 @@ access: ExplorerAccess;
     });
     return safeSample.slice(0, visible);
   }, [accessResolved, anonymous, freeGate.visibleCount, hydrateFromLocation, localPreview, locationHydrated, missingSharedCount, questions, visible, resultQuestions, savedWorksheetView, sharedError, sharedSetView]);
-  const returnPath = typeof window === "undefined" ? "/" : `${window.location.pathname}${window.location.search}`;
+  const returnPath = hydrated ? `${window.location.pathname}${window.location.search}` : "/";
   const signupHref = `/login?mode=sign-up&next=${encodeURIComponent(returnPath)}`;
   const signinHref = `/login?next=${encodeURIComponent(returnPath)}`;
   // Upgrade nudges: only for people without this bank, on the normal bank view.
@@ -1004,12 +1032,14 @@ access: ExplorerAccess;
   const markQuestionAssetFailed = (questionId: string) => {
     const key = signedAssetKey(questionId, "question");
     const expiredAt = lapsedSignedAssetExpiry(signedAssets.get(key));
+    const retrying = expiredAt !== undefined && resignedExpiryRef.current.get(key) !== expiredAt;
+    trackAssetLoadFailure(bank ?? "unknown", questionId, "question", retrying ? "expired_resign" : "failed", signedAssets.get(key)?.urls[0]);
     setSignedAssets((current) => {
       const next = new Map(current);
       next.delete(key);
       return next;
     });
-    if (expiredAt !== undefined && resignedExpiryRef.current.get(key) !== expiredAt) {
+    if (retrying) {
       // Dropping the stale entry puts the question back in the signing queue.
       resignedExpiryRef.current.set(key, expiredAt);
       return;
@@ -1078,11 +1108,12 @@ access: ExplorerAccess;
       setWorksheetName(`${bankLabel} ${topics.length === 1 && topics[0].length <= 28 ? topics[0] : "Worksheet 1"}`.slice(0, 80));
     }
     trackProductEvent("pdf_builder_open", { bank: bank ?? "unknown", questionCount: exportQuestions.length });
+    if (pdfStatusKind !== "progress") setPdfStatus(""); // drop a finished download's message, keep one still running
     setPdfOpen(true);
   };
   const handleDownload = async () => {
     if (!resolvedAccess.canExportPdf || !bank || !exportQuestions.length || Boolean(worksheetId && (worksheetLoadFailed || !worksheetReady))) return;
-    trackProductEvent("pdf_export_attempt", { bank, questionCount: exportQuestions.length, content: pdfContent });
+    trackProductEvent("pdf_export_attempt", { bank, questionCount: exportQuestions.length, content: pdfContent, source: worksheetId ? "worksheet" : "save_dialog" });
     setPdfStatusKind("progress");
     setPdfStatus(`Preparing ${exportQuestions.length} questions...`);
     try {
@@ -1099,7 +1130,7 @@ access: ExplorerAccess;
         pdfAnswerPlacement,
       );
       setPdfStatusKind("success");
-      trackProductEvent("pdf_export_success", { bank, questionCount: exportQuestions.length, content: pdfContent });
+      trackProductEvent("pdf_export_success", { bank, questionCount: exportQuestions.length, content: pdfContent, source: worksheetId ? "worksheet" : "save_dialog" });
       if (result.heldRows.length) {
         setPdfStatus(pdfHeldNotice(result.heldRows));
       } else {
@@ -1111,7 +1142,7 @@ access: ExplorerAccess;
         }, 1400);
       }
     } catch (error) {
-      trackProductEvent("pdf_export_error", { bank, questionCount: exportQuestions.length, content: pdfContent });
+      trackProductEvent("pdf_export_error", { bank, questionCount: exportQuestions.length, content: pdfContent, source: worksheetId ? "worksheet" : "save_dialog" });
       setPdfStatusKind("error");
       setPdfStatus(error instanceof Error ? error.message : "The worksheet could not be built. Check your connection and try again.");
       shakeElement(pdfBuildButtonRef.current);
@@ -1220,7 +1251,7 @@ access: ExplorerAccess;
               const unlocked = resolvedAccess.bankAccess || isPreviewQuestion(question.bankSlug, question.id);
               const questionAsset = signedAssets.get(signedAssetKey(question.id, "question"));
               const answerAsset = signedAssets.get(signedAssetKey(question.id, "answer"));
-              return <Fragment key={question.id}><QuestionCard question={question} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} freeAnswer={!localPreview && isPreviewQuestion(question.bankSlug, question.id)} priority={index === 0} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAsset={(asset) => {
+              return <Fragment key={question.id}><QuestionCard question={question} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} freeAnswer={!localPreview && isPreviewQuestion(question.bankSlug, question.id)} priority={index === 0} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAssetError={() => trackAssetLoadFailure(bank ?? "unknown", question.id, "answer", "failed", answerAsset?.urls[0])} onAnswerAsset={(asset) => {
                 setSignedAssets((current) => new Map(current).set(signedAssetKey(question.id, "answer"), asset));
                 if (asset.details) setCatalogQuestions((current) => current.map((item) => item.id === question.id ? mergeQuestionRichDetails(item, asset.details!) : item));
               }} selected={selectedIds.has(question.id)} selectable={!savedWorksheetView && !sharedSetView} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => toggleSaved(question.id)} onAttempt={() => recordAttempt(question.id)} onReveal={() => recordReveal(question.id)} locked={nudgesActive ? { title: `${question.year} paper · on any plan`, body: indexLoaded ? `Unlock ${paidCount.toLocaleString()} more ${bankShortName} questions with mark schemes and PDFs.` : `Unlock every ${bankShortName} question with mark schemes and PDFs.`, href: upgradeLink("locked_card"), onClick: () => trackUpgrade("click", nudgeBank, "locked_card") } : undefined} />{nudgesActive && milestoneQuestionId === question.id && <PracticeMilestone bank={nudgeBank} facts={yearFacts} href={upgradeLink("practice_milestone")} onDismiss={() => setMilestoneQuestionId("")} />}{renderFeedSlot(index + 1, index === shownQuestions.length - 1)}</Fragment>;
@@ -1250,12 +1281,12 @@ access: ExplorerAccess;
           <p>{selectionIsExplicit ? "Using your selected questions." : filtered.length > MAX_PDF_QUESTIONS ? `PDFs are limited to ${MAX_PDF_QUESTIONS} questions. Narrow your filters or select questions.` : "Nothing selected, so this uses every current result."}</p>
           <label className="worksheet-name-field">Name<input aria-label="PDF name" maxLength={80} value={worksheetName} onChange={(event) => setWorksheetName(event.target.value)} placeholder="e.g. Algebra revision" /></label>
           <div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div>
-          <div className="worksheet-actions only-save"><button type="button" className="button primary" disabled={!resolvedAccess.bankAccess || !worksheetReady || worksheetLoading || worksheetSaving || !exportQuestions.length || !worksheetName.trim()} onClick={saveWorksheet}>{worksheetSaving ? "Saving…" : "Save PDF"}</button></div>
-          <small className="pdf-save-note">Saved to My Worksheets.</small>
+          <div className="worksheet-actions only-save"><button type="button" className="button primary" disabled={!resolvedAccess.bankAccess || !worksheetReady || worksheetLoading || worksheetSaving || !exportQuestions.length || !worksheetName.trim()} onClick={saveWorksheet}>{worksheetSaving ? "Saving…" : "Save PDF"}</button><button ref={pdfBuildButtonRef} type="button" className="pdf-direct-download" aria-label="Download PDF without saving" title="Download PDF" disabled={!resolvedAccess.canExportPdf || !exportQuestions.length || (pdfStatusKind === "progress" && Boolean(pdfStatus))} onClick={handleDownload}><DownloadSimple aria-hidden="true" weight="bold" /></button></div>
+          {pdfStatus ? <small ref={pdfStatusRef} role="status" aria-live="polite" className={pdfStatusKind === "progress" ? "" : pdfStatusKind === "error" ? "is-error" : "is-success"}>{pdfStatus}</small> : <small className="pdf-save-note">Saved to My Worksheets.</small>}
           {worksheetStatus && <p role={worksheetStatus.endsWith("…") ? "status" : "alert"}>{worksheetStatus}</p>}
         </>}
       </section></div>}
-      {pdfUpgradeOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfUpgradeDialogRef} className="pdf-dialog access-upgrade-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-upgrade-title"><button className="pdf-close" aria-label="Close PDF access message" onClick={() => setPdfUpgradeOpen(false)}><X /></button><span className="access-upgrade-icon"><DownloadSimple aria-hidden="true" weight="bold" /></span><h2 id="pdf-upgrade-title">Saving PDFs needs paid access</h2><p>Save and download PDFs with paid access to this question bank.</p><Link className="button primary" href={upgradeLink("pdf_dialog")} onClick={() => { if (bank) trackUpgrade("click", bank, "pdf_dialog"); }}>{PLANS_LABEL}</Link></section></div>}
+      {pdfUpgradeOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfUpgradeDialogRef} className="pdf-dialog access-upgrade-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-upgrade-title"><button className="pdf-close" aria-label="Close PDF access message" onClick={() => setPdfUpgradeOpen(false)}><X /></button><span className="access-upgrade-icon"><DownloadSimple aria-hidden="true" weight="bold" /></span><h2 id="pdf-upgrade-title">Saving PDFs needs paid access</h2><p>Save and download PDFs with paid access to this question bank.</p><Testimonial testimonial={PDF_TESTIMONIAL} variant="inline" signedOutOnly /><Link className="button primary" href={upgradeLink("pdf_dialog")} onClick={() => { if (bank) trackUpgrade("click", bank, "pdf_dialog"); }}>{PLANS_LABEL}</Link></section></div>}
     </section>
   );
 }
@@ -1266,7 +1297,7 @@ function FilterGroup({ label, filterKey, values, selected, onToggle, bank }: { l
   return <div className="filter-group" role="group" aria-labelledby={headingId}><h3 id={headingId}>{label}</h3><div className="filter-options">{values.map((value) => { const publicLabel = formatPublicLabel(bank === "igcse" || bank === "igcse-additional" ? formatMathsPickerLabel(bank, value) : value); return <label key={value}><input aria-label={`${label}: ${publicLabel}`} type="checkbox" checked={selected.includes(value)} onChange={() => onToggle(filterKey, value)} /><span>{publicLabel}</span></label>; })}</div></div>;
 }
 
-function QuestionCard({ question, unlocked, authenticated, localPreview, freeAnswer, priority = false, questionAsset, answerAsset, onQuestionAssetError, onAnswerAsset, selected, selectable, onSelect, saved, attempted, onToggleSaved, onAttempt, onReveal, locked }: {
+function QuestionCard({ question, unlocked, authenticated, localPreview, freeAnswer, priority = false, questionAsset, answerAsset, onQuestionAssetError, onAnswerAssetError, onAnswerAsset, selected, selectable, onSelect, saved, attempted, onToggleSaved, onAttempt, onReveal, locked }: {
   question: UnifiedQuestion;
   unlocked: boolean;
   authenticated: boolean;
@@ -1276,6 +1307,7 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, freeAns
   questionAsset?: SignedAsset;
   answerAsset?: SignedAsset;
   onQuestionAssetError: () => void;
+  onAnswerAssetError: () => void;
   onAnswerAsset: (asset: SignedAsset) => void;
   selected: boolean;
   selectable: boolean;
@@ -1292,6 +1324,37 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, freeAns
   const [answerLoading, setAnswerLoading] = useState(false);
   const [answerError, setAnswerError] = useState("");
   const answerRequestRef = useRef<{ promise: Promise<SignedAsset>; expiresAt: number } | null>(null);
+  const [explanation, setExplanation] = useState<Explanation | null>(null);
+  const [explanationOpen, setExplanationOpen] = useState(false);
+  const [explanationLoading, setExplanationLoading] = useState(false);
+  const [explanationError, setExplanationError] = useState("");
+  const explanationRequestRef = useRef(false);
+  const showExplanationButton = unlocked && Boolean(question.hasExplanation) && !localPreview;
+  const toggleExplanation = async () => {
+    // React's disabled state is not synchronous; protect quota before starting the request.
+    if (explanationRequestRef.current) return;
+    if (explanationOpen) { setExplanationOpen(false); return; }
+    trackProductEvent("explanation_open", { bank: question.bankSlug, freePreview: isPreviewQuestion(question.bankSlug, question.id) });
+    if (!explanation) {
+      explanationRequestRef.current = true;
+      setExplanationLoading(true);
+      setExplanationError("");
+      try {
+        setExplanation(await fetchExplanation(question.bankSlug, question.id, { free: freeAnswer }));
+      } catch (error) {
+        // Only surface this known public error, not arbitrary storage/API details.
+        setExplanationError(error instanceof Error && error.message === "Daily explanation limit reached. Try again tomorrow."
+          ? error.message : "The explanation could not load. Try again.");
+        return;
+      } finally {
+        explanationRequestRef.current = false;
+        setExplanationLoading(false);
+      }
+    }
+    setExplanationOpen(true);
+    onReveal();
+    if (authenticated) void onAttempt();
+  };
   const hasFreshAnswerAsset = () => isSignedAssetFresh(answerAsset);
   const loadAnswer = () => {
     if (hasFreshAnswerAsset()) return Promise.resolve(answerAsset!);
@@ -1349,10 +1412,11 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, freeAns
       <div className="question-topic"><strong>{formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, question.primaryTopic) : question.primaryTopic)}</strong>{displayedQuestionSubtopics(question).slice(0, 4).map((topic) => <span key={topic}>{formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, topic) : topic)}</span>)}</div>
       {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <SourceCropImage key={source} bankSlug={question.bankSlug} questionId={question.id} src={source} priority={priority && index === 0} crop={questionAsset.displayCrops?.[index]} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} onError={onQuestionAssetError} />) : <div className="asset-placeholder" role="status"><span className="placeholder-shimmer" aria-hidden="true" /><span className="placeholder-bars" aria-hidden="true"><i /><i /><i /><i /></span><span className="sr-only">Loading original question</span></div>}{question.accessibleText ? <p className="sr-only question-transcript">{question.accessibleText}</p> : null}</div> : <div className="question-locked"><strong>{locked?.title ?? "Paid plan required"}</strong><span>{locked?.body ?? "Unlock this bank’s full question set, answers, and PDF export."}</span><Link className={locked ? "button primary question-locked-upgrade" : "question-locked-action"} href={locked?.href ?? plansHrefFor(authenticated)} onClick={locked?.onClick}>{locked ? `Unlock from ${UPGRADE_PRICE_LABEL}` : PLANS_LABEL}</Link></div>}
       <div className="question-actions">
-        <div className="question-action-buttons">{unlocked ? ((question.solution || question.markschemeImageCount > 0) ? <button className="answer-toggle" disabled={answerLoading} aria-expanded={answerOpen} onClick={toggleAnswer} onPointerEnter={prefetchAnswer} onFocus={prefetchAnswer} onTouchStart={prefetchAnswer}>{answerLoading ? "Loading answer..." : answerOpen ? "Hide answer" : "Show answer"}</button> : <span className="muted">Answer coming soon</span>) : null}{answerError && <span className="muted" role="alert">{answerError}</span>}</div>
+        <div className="question-action-buttons">{unlocked ? ((question.solution || question.markschemeImageCount > 0) ? <button className="answer-toggle" disabled={answerLoading} aria-expanded={answerOpen} onClick={toggleAnswer} onPointerEnter={prefetchAnswer} onFocus={prefetchAnswer} onTouchStart={prefetchAnswer}>{answerLoading ? "Loading answer..." : answerOpen ? "Hide answer" : "Show answer"}</button> : <span className="muted">Answer coming soon</span>) : null}{showExplanationButton && <button className="answer-toggle" disabled={explanationLoading} aria-expanded={explanationOpen} onClick={toggleExplanation}>{explanationLoading ? "Loading explanation..." : explanationOpen ? "Hide explanation" : "Explanation"}</button>}{answerError && <span className="muted" role="alert">{answerError}</span>}{explanationError && <span className="muted" role="alert">{explanationError}</span>}</div>
         <div className="source-links">{attempted && <span className="study-state"><CheckCircle weight="fill" /> Practised</span>}{authenticated && unlocked && <button className={`study-icon-button ${saved ? "is-saved" : ""}`} title={saved ? "Remove from saved" : "Save question"} aria-label={saved ? `Remove question from saved ${question.id}` : `Save question ${question.id}`} onClick={onToggleSaved}><BookmarkSimple weight={saved ? "fill" : "regular"} aria-hidden="true" /></button>}</div>
       </div>
-      {answerOpen && <div className="answer-panel">{answerAsset?.urls.length ? <p className="answer-panel-label">Mark scheme</p> : null}{answerAsset?.urls.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Official mark scheme page ${index + 1}`} />)}{question.solution && (answerAsset?.urls.length ? <div className="solution-wrap"><button className="text-button" aria-expanded={solutionOpen} onClick={() => setSolutionOpen((open) => !open)}>{solutionOpen ? "Hide worked text" : "Show worked text"}</button>{solutionOpen && <p>{question.solution}</p>}</div> : <p>{question.solution}</p>)}</div>}
+      {answerOpen && <div className="answer-panel">{answerAsset?.urls.length ? <p className="answer-panel-label">Mark scheme</p> : null}{answerAsset?.urls.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Official mark scheme page ${index + 1}`} onError={onAnswerAssetError} />)}{question.solution && (answerAsset?.urls.length ? <div className="solution-wrap"><button className="text-button" aria-expanded={solutionOpen} onClick={() => setSolutionOpen((open) => !open)}>{solutionOpen ? "Hide worked text" : "Show worked text"}</button>{solutionOpen && <p>{question.solution}</p>}</div> : <p>{question.solution}</p>)}</div>}
+      {explanationOpen && explanation && <div className="answer-panel explanation-panel"><p className="answer-panel-label">Explanation</p><ExplanationPanel explanation={explanation} /></div>}
     </article>
   );
 }

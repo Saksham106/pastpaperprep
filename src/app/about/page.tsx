@@ -3,6 +3,8 @@ import Link from "next/link";
 import { ArrowRight, CheckCircle, Compass, ShieldCheck } from "@phosphor-icons/react/dist/ssr";
 import { JsonLd } from "@/components/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { Testimonial } from "@/components/Testimonial";
+import { ABOUT_TESTIMONIAL } from "@/lib/testimonials";
 
 export const metadata: Metadata = {
   title: "About us",
@@ -119,6 +121,7 @@ export default function AboutPage() {
             <li>Tutors assembling focused homework and printable practice sets.</li>
             <li>Teachers looking for source-aware questions across past sessions.</li>
           </ul>
+          <Testimonial testimonial={ABOUT_TESTIMONIAL} />
         </div>
         <div className="about-workflow" aria-labelledby="about-workflow-title">
           <p className="eyebrow">The workflow</p>

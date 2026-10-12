@@ -1,39 +1,54 @@
 import "server-only";
 import { captureServerException } from "@/lib/server-error-tracking";
+import { serverLog } from "@/lib/server-logs";
 
-const SAFE_REASON = /^[\x20-\x7E’]{1,80}$/;
-// Static route messages only: anything resembling an address or an identifier is dropped.
-const UNSAFE_REASON = /@|\d{4,}/;
-const PARSE_TIMEOUT = Symbol("timeout");
+export type FailureDiagnostics = {
+  bank: string;
+  stage: "manifest" | "signing" | "entitlement" | "quota" | "response";
+  storage_provider: "local" | "supabase" | "r2" | "unknown";
+  error_code: "manifest_unavailable" | "signing_failed" | "entitlement_unavailable" | "quota_unavailable" | "response_failed";
+};
+const diagnostics = new WeakMap<Response, FailureDiagnostics>();
+const reported = new WeakSet<Response>();
 
-/**
- * Wraps an API route handler so 5xx responses it returns on purpose (caught failures
- * answered with a polite error) still reach error tracking. Unhandled throws keep
- * propagating to `onRequestError`, which already reports them. Never changes the response.
- */
-export function withFailureReporting<Args extends unknown[]>(route: string, handler: (...args: Args) => Promise<Response>) {
-  return async (...args: Args): Promise<Response> => {
-    const response = await handler(...args);
-    if (response.status >= 500) await reportHandledFailure(route, response);
-    return response;
-  };
+/** Internal-only annotations: never read diagnostic fields from a client body or headers. */
+export function annotateFailureResponse<T extends Response>(response: T, metadata: FailureDiagnostics): T {
+  diagnostics.set(response, { ...metadata });
+  return response;
 }
 
-async function reportHandledFailure(route: string, response: Response) {
-  try {
-    const metadata: Record<string, string> = { error_source: "handled_response", route, error_code: String(response.status) };
-    if (response.headers.get("content-type")?.includes("application/json")) {
-      // Never hold the response on its body: give the copy 50 ms, then let it go.
-      const copy = response.clone();
-      let timer: ReturnType<typeof setTimeout> | undefined;
-      const body = await Promise.race([
-        copy.json().catch(() => undefined),
-        new Promise<typeof PARSE_TIMEOUT>((resolve) => { timer = setTimeout(() => resolve(PARSE_TIMEOUT), 50); }),
-      ]).finally(() => clearTimeout(timer));
-      if (body === PARSE_TIMEOUT) void copy.body?.cancel().catch(() => {});
-      const reason = body && typeof body === "object" && "error" in body ? (body as { error: unknown }).error : undefined;
-      if (typeof reason === "string" && SAFE_REASON.test(reason) && !UNSAFE_REASON.test(reason)) metadata.reason = reason;
+/**
+ * Logs every request (route pattern, method, status, duration) to PostHog Logs and reports
+ * returned 5xx failures once, without reading their bodies. A reported failure carries its
+ * correlation id in `x-correlation-id`, so the browser's failure event points at it.
+ * Thrown failures propagate to onRequestError.
+ */
+export function withFailureReporting<Args extends unknown[], R extends Response>(route: string, handler: (...args: Args) => Promise<R>) {
+  return async (...args: Args): Promise<R> => {
+    const started = performance.now();
+    const method = args[0] instanceof Request ? args[0].method : undefined;
+    let response: R;
+    try { response = await handler(...args); }
+    catch (error) {
+      serverLog("error", "api_request", { route, method, status: 500, duration_ms: Math.round(performance.now() - started), outcome: "thrown" });
+      throw error;
     }
-    captureServerException(new Error("Handled server failure"), metadata);
-  } catch { /* telemetry is best effort */ }
+    let correlationId: string | undefined;
+    if (response.status >= 500 && !reported.has(response)) {
+      reported.add(response);
+      try {
+        correlationId = captureServerException(new Error("Handled server failure"), {
+          error_source: "handled_response", route, http_status: String(response.status),
+          error_code: "response_failed", ...diagnostics.get(response),
+        });
+        if (correlationId) response.headers.set("x-correlation-id", correlationId);
+      } catch { /* Telemetry must never change the response; immutable headers stay as they are. */ }
+    }
+    const failure = diagnostics.get(response);
+    serverLog(response.status >= 500 ? "error" : response.status >= 400 ? "warn" : "info", "api_request", {
+      route, method, status: response.status, duration_ms: Math.round(performance.now() - started),
+      correlation_id: correlationId, bank: failure?.bank, stage: failure?.stage, storage_provider: failure?.storage_provider,
+    });
+    return response;
+  };
 }

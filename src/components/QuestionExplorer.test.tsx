@@ -434,7 +434,9 @@ describe("QuestionExplorer", () => {
     const dialog = screen.getByRole("dialog", { name: /save 2 questions as a pdf/i });
     const nameField = within(dialog).getByRole("textbox", { name: "PDF name" });
     expect((nameField as HTMLInputElement).value).toMatch(/^IB SL /);
-    expect(within(dialog).queryByRole("button", { name: /download/i })).not.toBeInTheDocument();
+    // Save is the main action; downloading without saving is only a quiet icon beside it.
+    expect(within(dialog).getAllByRole("button", { name: /download/i })).toHaveLength(1);
+    expect(within(dialog).getByRole("button", { name: "Download PDF without saving" })).toHaveClass("pdf-direct-download");
     expect(within(dialog).queryByRole("radio", { name: /each question followed/i })).not.toBeInTheDocument();
     fireEvent.click(within(dialog).getByRole("radio", { name: "Answers" }));
     fireEvent.change(nameField, { target: { value: "My set" } });

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { withFailureReporting } from "@/lib/route-failure-reporting";
+import { serverLog } from "@/lib/server-logs";
 import type Stripe from "stripe";
 import { processReferralInvoicePaid, processReferralChargeRefunded, processReferralDisputeChanged } from "@/lib/referral-events";
 import { createStripeClient } from "@/lib/stripe";
@@ -32,6 +33,8 @@ async function handlePOST(request: Request) {
   } catch {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
+  // Event types are Stripe's enumerated names; ids, customers and amounts stay out of logs.
+  serverLog("info", "stripe_webhook", { event_type: /^[a-z_.]{1,60}$/.test(event.type) ? event.type : "other", livemode: event.livemode });
 
   const admin = createAdminClient();
   if (event.type === "checkout.session.expired") {

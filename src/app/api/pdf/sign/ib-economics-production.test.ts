@@ -1,16 +1,18 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-const { createClient, getClaims, from, rpc, createSignedUrls } = vi.hoisted(() => ({
+const { createClient, getClaims, from, rpc, createSignedUrls, getSignedUrl } = vi.hoisted(() => ({
   createClient: vi.fn(),
   getClaims: vi.fn(),
   from: vi.fn(),
   rpc: vi.fn(),
   createSignedUrls: vi.fn(),
+  getSignedUrl: vi.fn(),
 }));
 
 vi.mock("server-only", () => ({}));
 vi.mock("@/lib/supabase/server", () => ({ createClient }));
 vi.mock("@/lib/supabase/admin", () => ({ createAdminClient: () => ({ storage: { from: () => ({ createSignedUrls }) } }) }));
+vi.mock("@aws-sdk/s3-request-presigner", () => ({ getSignedUrl }));
 
 import { POST } from "@/app/api/pdf/sign/route";
 
@@ -26,6 +28,10 @@ describe("IB Economics production PDF entitlement and quota gates", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.stubEnv("ASSET_STORAGE_PROVIDER", "supabase");
+    vi.stubEnv("R2_ACCOUNT_ID", "a".repeat(32));
+    vi.stubEnv("R2_ACCESS_KEY_ID", "test-access");
+    vi.stubEnv("R2_SECRET_ACCESS_KEY", "test-secret");
+    vi.stubEnv("R2_BUCKET_NAME", "pastpaperprep-assets");
     vi.stubEnv("NODE_ENV", "production");
     vi.stubEnv("PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION", "true");
     vi.stubEnv("PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED", "true");
@@ -38,6 +44,7 @@ describe("IB Economics production PDF entitlement and quota gates", () => {
     rpc.mockImplementation(async (name: string) => ({ data: name === "get_custom_bundle_access" ? [] : true, error: null }));
     createClient.mockResolvedValue({ auth: { getClaims }, from, rpc });
     createSignedUrls.mockImplementation(async (paths: string[]) => ({ data: paths.map((path) => ({ path, signedUrl: `https://assets.example/${path}` })), error: null }));
+    getSignedUrl.mockImplementation(async (_client: unknown, command: { input: { Key: string } }) => `https://r2.example/${command.input.Key}`);
   });
 
   afterEach(() => vi.unstubAllEnvs());
@@ -49,6 +56,7 @@ describe("IB Economics production PDF entitlement and quota gates", () => {
     const response = await POST(request({ bank: "ib-economics-hl", questionIds: ["2021-may-none-hl-p2-q01"], content: "questions" }));
     expect(response.status).toBe(403);
     expect(createSignedUrls).not.toHaveBeenCalled();
+    expect(getSignedUrl).not.toHaveBeenCalled();
     expect(rpc).toHaveBeenCalledExactlyOnceWith("get_custom_bundle_access", { p_user_id: "user-id" });
   });
 
@@ -58,14 +66,16 @@ describe("IB Economics production PDF entitlement and quota gates", () => {
     const response = await POST(request({ bank: "ib-economics-hl", questionIds: ["2025-may-none-hl-p3-q01"], content: "questions" }));
     expect(response.status).toBe(200);
     expect(response.headers.get("cache-control")).toBe("private, no-store, max-age=0");
-    expect(createSignedUrls).toHaveBeenCalledOnce();
+    expect(createSignedUrls).not.toHaveBeenCalled();
+    expect(getSignedUrl).toHaveBeenCalledTimes(7);
     expect(rpc).toHaveBeenCalledWith("consume_download_allowance", { p_asset_count: 7, p_pdf_question_count: 1 });
   });
 
   it("does not charge the paid allowance for the explicit free exam year", async () => {
     const response = await POST(request({ bank: "ib-economics-hl", questionIds: ["2021-may-none-hl-p2-q01"], content: "questions" }));
     expect(response.status).toBe(200);
-    expect(createSignedUrls).toHaveBeenCalledOnce();
+    expect(createSignedUrls).not.toHaveBeenCalled();
+    expect(getSignedUrl).toHaveBeenCalled();
     expect(rpc).toHaveBeenCalledWith("consume_download_allowance", { p_asset_count: 0, p_pdf_question_count: 1 });
   });
 

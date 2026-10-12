@@ -1,11 +1,12 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { isPreviewQuestion } from "@/lib/access";
 import { loadBankAssetManifest } from "@/lib/asset-manifest";
+import { assetPathsForKind, isAssetKind } from "@/lib/asset-kinds";
 import { getBank, type BankSlug } from "@/lib/banks";
-import { previewAssetSignOptions, signPrivateAssetUrls } from "@/lib/private-assets";
+import { explanationAssetSignOptions, previewAssetSignOptions, resolvedAssetSignProvider, signPrivateAssetUrls } from "@/lib/private-assets";
 import { richDetailsFor } from "@/lib/question-delivery";
 import { reviewedBlankTailForSignedAsset } from "@/lib/reviewed-blank-tails";
-import { withFailureReporting } from "@/lib/route-failure-reporting";
+import { annotateFailureResponse, withFailureReporting } from "@/lib/route-failure-reporting";
 import { FREE_ASSET_CDN_FRESH, FREE_ASSET_CDN_MAX_AGE, FREE_ASSET_CDN_STALE, FREE_ASSET_EXPIRES_IN } from "@/lib/signed-assets";
 
 export const runtime = "nodejs";
@@ -14,7 +15,7 @@ const NO_STORE = { headers: { "Cache-Control": "private, no-store, max-age=0" } 
 const SHARED = { headers: { "Cache-Control": `public, max-age=0, s-maxage=${FREE_ASSET_CDN_FRESH}, stale-while-revalidate=${FREE_ASSET_CDN_STALE}` } } as const;
 
 /**
- * Free-year question and answer images only. It reads no cookies, so one CDN entry serves
+ * Free-year question and answer images, and their worked explanations, only. It reads no cookies, so one CDN entry serves
  * every visitor. Paid assets stay on POST /api/assets/sign with entitlement and allowance checks.
  */
 async function handleGET(request: NextRequest) {
@@ -22,7 +23,7 @@ async function handleGET(request: NextRequest) {
   const bankParam = params.get("bank");
   const questionId = params.get("id");
   const kind = params.get("kind");
-  if (!bankParam || !getBank(bankParam) || !questionId || (kind !== "question" && kind !== "answer")) {
+  if (!bankParam || !getBank(bankParam) || !questionId || !isAssetKind(kind)) {
     return NextResponse.json({ error: "Invalid asset request" }, { status: 400, ...NO_STORE });
   }
   const bank = bankParam as BankSlug;
@@ -30,16 +31,19 @@ async function handleGET(request: NextRequest) {
     return NextResponse.json({ error: "Access required" }, { status: 403, ...NO_STORE });
   }
   const manifest = await loadBankAssetManifest(bank).catch(() => null);
-  if (!manifest) return NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503, ...NO_STORE });
+  if (!manifest) return annotateFailureResponse(NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503, ...NO_STORE }), { bank, stage: "manifest", storage_provider: "local", error_code: "manifest_unavailable" });
   const entry = manifest.get(questionId);
   if (!entry) return NextResponse.json({ error: "Unknown question" }, { status: 404, ...NO_STORE });
 
-  const paths = kind === "question" ? entry.questionAssetPaths : entry.markschemeAssetPaths;
+  const paths = assetPathsForKind(entry, kind);
   let urlByPath: Awaited<ReturnType<typeof signPrivateAssetUrls>>;
+  let provider: "r2" | "supabase" | "unknown" = "unknown";
   try {
-    urlByPath = await signPrivateAssetUrls(paths, FREE_ASSET_EXPIRES_IN, { ...previewAssetSignOptions(bank), longLived: true });
+    const options = { ...(kind === "explanation" ? explanationAssetSignOptions() : previewAssetSignOptions(bank)), longLived: true };
+    provider = resolvedAssetSignProvider(options);
+    urlByPath = await signPrivateAssetUrls(paths, FREE_ASSET_EXPIRES_IN, options);
   } catch {
-    return NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503, ...NO_STORE });
+    return annotateFailureResponse(NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503, ...NO_STORE }), { bank, stage: "signing", storage_provider: provider, error_code: "signing_failed" });
   }
   return NextResponse.json({
     expiresIn: FREE_ASSET_EXPIRES_IN,

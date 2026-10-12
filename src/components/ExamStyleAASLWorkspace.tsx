@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { FilePdf } from "@phosphor-icons/react/dist/ssr";
 import { ExamStylePdfViewer } from "@/components/ExamStylePdfViewer";
 import { EXAM_STYLE_TRIGONOMETRY_SETS } from "@/lib/exam-style-trigonometry";
@@ -13,6 +13,7 @@ type Option = WorksheetOption | TrigonometryOption;
 const worksheets = EXAM_STYLE_COURSES["ib-math-aa-sl"].worksheets.map((worksheet): WorksheetOption => ({ type: "worksheet", worksheet }));
 const trigonometry = EXAM_STYLE_TRIGONOMETRY_SETS.map((set): TrigonometryOption => ({ type: "trigonometry", ...set }));
 const OPTIONS: Option[] = [...trigonometry, ...worksheets];
+const worksheetSections = [...new Set(worksheets.map(({ worksheet }) => worksheet.section ?? "Probability distributions"))];
 
 function getSlug(option: Option) {
   return option.type === "worksheet" ? option.worksheet.slug : option.slug;
@@ -38,11 +39,15 @@ export function ExamStyleAASLWorkspace() {
             <FilePdf aria-hidden="true" weight="duotone" /><span><strong>{set.title}</strong><small>{set.count} questions</small></span>
           </button>
         ))}
-        <h2 className="exam-style-topic-heading">Probability distributions</h2>
-        {worksheets.map(({ worksheet }) => (
-          <button className={`exam-style-set-option${worksheet.slug === getSlug(selected) ? " is-selected" : ""}`} key={worksheet.slug} type="button" aria-pressed={worksheet.slug === getSlug(selected)} onClick={() => setSelectedSlug(worksheet.slug)}>
-            <FilePdf aria-hidden="true" weight="duotone" /><span><strong>{worksheet.title}</strong><small>{worksheet.topics.join(" · ")}</small></span>
-          </button>
+        {worksheetSections.map((section) => (
+          <Fragment key={section}>
+            <h2 className="exam-style-topic-heading">{section}</h2>
+            {worksheets.filter(({ worksheet }) => (worksheet.section ?? "Probability distributions") === section).map(({ worksheet }) => (
+              <button className={`exam-style-set-option${worksheet.slug === getSlug(selected) ? " is-selected" : ""}`} key={worksheet.slug} type="button" aria-pressed={worksheet.slug === getSlug(selected)} onClick={() => setSelectedSlug(worksheet.slug)}>
+                <FilePdf aria-hidden="true" weight="duotone" /><span><strong>{worksheet.title}</strong><small>{worksheet.topics.join(" · ")}</small></span>
+              </button>
+            ))}
+          </Fragment>
         ))}
       </div>
       <div className="exam-style-viewer">
