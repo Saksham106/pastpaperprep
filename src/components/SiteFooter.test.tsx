@@ -62,4 +62,13 @@ describe("SiteFooter", () => {
     expect(rule).toMatch(/bottom: calc\(-\.128em - max\(var\(--sky-h\) \* 22 \/ 140, 100vw \* 22 \/ 1440\)\)/);
     expect(rule).toMatch(/height: var\(--sky-h\)/);
   });
+
+  it("draws the skyline as a soft solid silhouette behind solid letters", () => {
+    const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+    expect(css).toMatch(/\.footer-mark \.footer-skyline-line \{[^}]*display: none/);
+    expect(css).toMatch(/\.footer-mark \.footer-skyline-fill \{[^}]*fill: color-mix\(in srgb, var\(--ink\) 5%, transparent\)/);
+    const wordmark = css.match(/\.footer-mark \.footer-wordmark \{([^}]*)\}/)?.[1] ?? "";
+    expect(wordmark).toMatch(/color: color-mix\(in srgb, var\(--ink\) 17%, var\(--paper-warm\)\)/);
+    expect(wordmark).not.toMatch(/background-clip/);
+  });
 });
