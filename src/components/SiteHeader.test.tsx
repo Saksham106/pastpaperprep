@@ -97,6 +97,17 @@ describe("SiteHeader", () => {
     expect(nav).toHaveAttribute("data-open", "false");
   });
 
+  it("focuses the opened menu and returns keyboard focus on Escape", () => {
+    render(<SiteHeader />);
+    const toggle = screen.getByRole("button", { name: "Open menu" });
+    toggle.focus();
+    fireEvent.click(toggle);
+    expect(screen.getByRole("link", { name: "Question banks" })).toHaveFocus();
+    fireEvent.keyDown(document.activeElement!, { key: "Escape" });
+    expect(toggle).toHaveFocus();
+    expect(toggle).toHaveAttribute("aria-expanded", "false");
+  });
+
   it("gives the menu button a 44px target and animates the panel only when motion is allowed", () => {
     const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
     expect(css).toMatch(/\.menu-toggle \{[^}]*width: 44px; height: 44px;/);
@@ -152,6 +163,14 @@ describe("SiteHeader", () => {
     expect(desktop).toMatch(/\.site-header \.site-menu \{[^}]*grid-template-columns: subgrid/);
     const menu = css.slice(css.indexOf("@media (max-width: 1099px)"));
     expect(menu).toMatch(/\.menu-toggle \{[^}]*display: inline-flex/);
+  });
+
+  it("places desktop groups on the parent grid when subgrid is unavailable", () => {
+    const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+    const fallback = css.slice(css.indexOf("@supports not (grid-template-columns: subgrid)"));
+    expect(fallback).toMatch(/\.site-header \.site-menu \{[^}]*display: contents;/);
+    expect(fallback).toMatch(/\.site-header \.nav-pages \{[^}]*grid-column: 2;[^}]*grid-row: 1;/);
+    expect(fallback).toMatch(/\.site-header \.nav-actions \{[^}]*grid-column: 3;[^}]*grid-row: 1;/);
   });
 
   it("marks the current page with a soft tint, not a white pill with an outline", () => {

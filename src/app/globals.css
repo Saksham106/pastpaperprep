@@ -2309,6 +2309,11 @@ main { min-height: 72vh; }
   .site-header .site-menu { grid-column: 2 / 4; display: grid; grid-template-columns: subgrid; align-items: center; }
   .site-header .nav-pages { justify-self: center; gap: 4px; }
   .site-header .nav-actions { justify-self: end; }
+  @supports not (grid-template-columns: subgrid) {
+    .site-header .site-menu { display: contents; }
+    .site-header .nav-pages { grid-column: 2; grid-row: 1; }
+    .site-header .nav-actions { grid-column: 3; grid-row: 1; }
+  }
 }
 
 /* Footer art: a hand-drawn skyline along the top edge and an oversized wordmark that the page edge crops. */

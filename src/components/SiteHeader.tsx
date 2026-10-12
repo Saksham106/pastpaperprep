@@ -13,6 +13,7 @@ export function SiteHeader({ authenticated = false }: { authenticated?: boolean 
   const [menuOpen, setMenuOpen] = useState(false);
   const sentinelRef = useRef<HTMLSpanElement>(null);
   const headerRef = useRef<HTMLElement>(null);
+  const menuToggleRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     const sentinel = sentinelRef.current;
     if (!sentinel || typeof IntersectionObserver === "undefined") return;
@@ -23,7 +24,10 @@ export function SiteHeader({ authenticated = false }: { authenticated?: boolean 
   // Phone menu: Escape or a tap outside the header closes it; choosing a link closes it too.
   useEffect(() => {
     if (!menuOpen) return;
-    const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") setMenuOpen(false); };
+    headerRef.current?.querySelector<HTMLAnchorElement>("#site-menu a")?.focus();
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") { setMenuOpen(false); menuToggleRef.current?.focus(); }
+    };
     const onPointerDown = (event: PointerEvent) => { if (!headerRef.current?.contains(event.target as Node)) setMenuOpen(false); };
     document.addEventListener("keydown", onKeyDown);
     document.addEventListener("pointerdown", onPointerDown);
@@ -43,7 +47,7 @@ export function SiteHeader({ authenticated = false }: { authenticated?: boolean 
         <HeaderNavigation authenticated={authenticated} menuOpen={menuOpen} onNavigate={() => setMenuOpen(false)} workspaceIcon={<SquaresFour data-testid="workspace-icon" aria-hidden="true" weight="bold" />} trailing={<ThemeToggle showLabel />} />
         {/* Phones: the bar keeps the one action that matters, opening the question banks. */}
         <Link transitionTypes={PAGE_NAVIGATION} className="nav-quick" href="/dashboard" aria-label="Open question banks" title="Open question banks" onClick={() => setMenuOpen(false)}><SquaresFour aria-hidden="true" weight="bold" /></Link>
-        <button className="menu-toggle" type="button" aria-expanded={menuOpen} aria-controls="site-menu" aria-label={menuOpen ? "Close menu" : "Open menu"} onClick={() => setMenuOpen((open) => !open)}>
+        <button ref={menuToggleRef} className="menu-toggle" type="button" aria-expanded={menuOpen} aria-controls="site-menu" aria-label={menuOpen ? "Close menu" : "Open menu"} onClick={() => setMenuOpen((open) => !open)}>
           <span className="menu-toggle-bars" aria-hidden="true"><i /><i /></span>
         </button>
       </div>
