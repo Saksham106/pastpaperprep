@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, type RefObject } from "react";
 import { useFormStatus } from "react-dom";
 import { signInWithGoogle } from "@/app/auth/actions";
 
@@ -14,8 +15,9 @@ function GoogleMark() {
   );
 }
 
-function SubmitButton() {
+function SubmitButton({ submittingRef }: { submittingRef: RefObject<boolean> }) {
   const { pending } = useFormStatus();
+  useEffect(() => { if (!pending) submittingRef.current = false; }, [pending, submittingRef]);
   return (
     <button className="google-button" type="submit" disabled={pending}>
       <GoogleMark />
@@ -25,10 +27,14 @@ function SubmitButton() {
 }
 
 export function GoogleSignInButton({ next }: { next: string }) {
+  const submittingRef = useRef(false);
   return (
-    <form className="google-sign-in" action={signInWithGoogle}>
+    <form className="google-sign-in" action={signInWithGoogle} onSubmit={(event) => {
+      if (submittingRef.current) { event.preventDefault(); return; }
+      submittingRef.current = true;
+    }}>
       <input type="hidden" name="next" value={next} />
-      <SubmitButton />
+      <SubmitButton submittingRef={submittingRef} />
     </form>
   );
 }
