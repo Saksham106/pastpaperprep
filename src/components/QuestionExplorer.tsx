@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useId, useMemo, useRef, useState, useSyncExternalStore, type KeyboardEvent as ReactKeyboardEvent } from "react";
+import { Fragment, useCallback, useEffect, useId, useMemo, useRef, useState, useSyncExternalStore, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { CALCULATOR_FILTER_BANKS } from "@/lib/calculator-policy.mjs";
 import Image from "next/image";
 import dynamic from "next/dynamic";
@@ -22,7 +22,7 @@ import type { AssetRequest } from "@/lib/asset-access";
 import type { BankSlug } from "@/lib/banks";
 import { fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, lapsedSignedAssetExpiry, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
 import { pulseSuccess, shakeElement } from "@/lib/button-feedback";
-import { documentHasSupabaseAuthCookie } from "@/lib/supabase/auth-cookie";
+import { documentHasSupabaseAuthCookie, subscribeToSessionChanges } from "@/lib/supabase/auth-cookie";
 import { forgetAsset, readCachedAccess, readCachedAssets, rememberAssets, sessionFingerprint, writeCachedAccess } from "@/lib/member-session-cache";
 import { mergeQuestionRichDetails, publicMetadataToQuestion, type PublicBankIndex } from "@/lib/question-index";
 import { matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
@@ -201,11 +201,32 @@ const sessionRank = (session: string) => Math.max(0, SESSION_ORDER.findIndex((ke
 const questionTopicLabel = (question: UnifiedQuestion) => formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, question.primaryTopic) : question.primaryTopic);
 
 const readAuthCookiePresent = () => documentHasSupabaseAuthCookie(document.cookie);
-/** Whose per-tab caches this page may use: the login session, or "anonymous". */
-const cacheOwner = () => sessionFingerprint(document.cookie) ?? "anonymous";
+/** Unknown/ambiguous cookies are not an anonymous private-cache owner. */
+const cacheOwner = () => sessionFingerprint(document.cookie);
 const serverHasNoAuthCookie = () => false;
+const anonymousAccess: ExplorerAccess = { authenticated: false, bankAccess: false, canExportPdf: false };
 
-export function QuestionExplorer({
+export function QuestionExplorer(props: Parameters<typeof SessionQuestionExplorer>[0]) {
+  const observedOwner = useSyncExternalStore(subscribeToSessionChanges, cacheOwner, () => null);
+  const hydrated = useSyncExternalStore(subscribeToNothing, hydratedSnapshot, serverSnapshot);
+  const [initialOwner] = useState(() => typeof document === "undefined" ? null : cacheOwner());
+  const owner = hydrated ? observedOwner : initialOwner;
+  const ownerChanged = owner !== initialOwner;
+  // A lifecycle boundary clears URLs, rich details, answers, study state and pending keys
+  // together. Remounts also prevent B from waiting on A's outstanding signer.
+  const safeQuestions = useMemo(() => ownerChanged ? props.questions.map((question) => (
+    isPreviewQuestion(question.bankSlug, question.id) ? question : {
+      ...question, summary: "", accessibleText: "", solution: null,
+      sourceQuestionUrl: null, sourceMarkSchemeUrl: null,
+    }
+  )) : props.questions, [ownerChanged, props.questions]);
+  return <SessionQuestionExplorer {...props} key={`${props.bankSlug ?? props.questions[0]?.bankSlug}:${owner ?? "unknown"}`}
+    questions={safeQuestions} access={ownerChanged ? anonymousAccess : props.access}
+    studyState={ownerChanged ? EMPTY_STUDY_STATE : props.studyState}
+    exportMarker={ownerChanged ? undefined : props.exportMarker} />;
+}
+
+function SessionQuestionExplorer({
   questions,
   bankSlug,
   localPreview = false,
@@ -231,6 +252,13 @@ access: ExplorerAccess;
   /** Filters a topic or paper route implies, e.g. `{ topic: "Algebra and graphs" }`. */
   routePreset?: ExplorerSearchParams;
 }) {
+  const [scopeOwner] = useState(() => typeof document === "undefined" ? null : cacheOwner());
+  const activeScopeRef = useRef(true);
+  useEffect(() => {
+    activeScopeRef.current = true;
+    return () => { activeScopeRef.current = false; };
+  }, []);
+  const scopeIsCurrent = useCallback(() => activeScopeRef.current && cacheOwner() === scopeOwner, [scopeOwner]);
   const [search, setSearch] = useState(initialState.search);
   const [catalogQuestions, setCatalogQuestions] = useState(questions);
   const [indexError, setIndexError] = useState("");
@@ -449,7 +477,7 @@ access: ExplorerAccess;
   };
   const [milestoneQuestionId, setMilestoneQuestionId] = useState("");
   const recordReveal = (questionId: string) => {
-    if (!nudgesActive) return;
+    if (!scopeIsCurrent() || !nudgesActive) return;
     try {
       const revealedKey = `ppp:revealed:${nudgeBank}`;
       const shownKey = `ppp:milestone-shown:${nudgeBank}`;
@@ -526,7 +554,7 @@ access: ExplorerAccess;
     if (!documentHasSupabaseAuthCookie(document.cookie)) {
       // No session cookie: the server would answer "anonymous" without touching Supabase.
       queueMicrotask(() => {
-        if (cancelled) return;
+        if (cancelled || !scopeIsCurrent()) return;
         setResolvedAccess({ authenticated: false, bankAccess: false, canExportPdf: false });
         setResolvedExportMarker(undefined);
         setBootstrapPending(false);
@@ -536,10 +564,10 @@ access: ExplorerAccess;
     // A member's access for this bank, remembered by this tab: show and sign straight away,
     // then confirm in the background. The server still checks every paid request.
     const owner = cacheOwner();
-    const cached = bank ? readCachedAccess(bank, owner) : null;
+    const cached = bank && owner ? readCachedAccess(bank, owner) : null;
     if (cached) {
       queueMicrotask(() => {
-        if (cancelled) return;
+        if (cancelled || !scopeIsCurrent()) return;
         setResolvedAccess(cached.access);
         setResolvedExportMarker(cached.exportMarker);
         if (cached.access.bankAccess) setFreeOnly(false);
@@ -552,13 +580,13 @@ access: ExplorerAccess;
         return response.json() as Promise<{ access: ExplorerAccess; exportMarker?: string; studyState: ExplorerStudyState; studyStateUnavailable?: boolean }>;
       })
       .then((payload) => {
-        if (cancelled) return;
+        if (cancelled || !scopeIsCurrent()) return;
         if (!payload?.access || !payload?.studyState || !Array.isArray(payload.studyState.savedIds) || !Array.isArray(payload.studyState.attemptedIds)) {
           throw new Error("Invalid member state");
         }
         setResolvedAccess(payload.access);
         setResolvedExportMarker(payload.exportMarker);
-        if (bank) writeCachedAccess(bank, owner, { access: payload.access, ...(payload.exportMarker ? { exportMarker: payload.exportMarker } : {}) });
+        if (bank && owner) writeCachedAccess(bank, owner, { access: payload.access, ...(payload.exportMarker ? { exportMarker: payload.exportMarker } : {}) });
         setSavedIds(new Set(payload.studyState.savedIds));
         setAttemptedIds(new Set(payload.studyState.attemptedIds));
         if (payload.studyStateUnavailable) {
@@ -567,16 +595,16 @@ access: ExplorerAccess;
         if (payload.access.bankAccess) setFreeOnly(false);
       })
       .catch(() => {
-        if (cancelled) return;
+        if (cancelled || !scopeIsCurrent()) return;
         setResolvedAccess({ authenticated: false, bankAccess: false, canExportPdf: false });
         setResolvedExportMarker(undefined);
         setFreeOnly(true);
       })
       .finally(() => {
-        if (!cancelled) setBootstrapPending(false);
+        if (!cancelled && scopeIsCurrent()) setBootstrapPending(false);
       });
     return () => { cancelled = true; };
-  }, [bank, bootstrapUrl]);
+  }, [bank, bootstrapUrl, scopeIsCurrent]);
 
   useEffect(() => {
     if (!bank || !indexUrl) return;
@@ -790,9 +818,9 @@ access: ExplorerAccess;
     window.history.replaceState(window.history.state, "", nextUrl);
   }, [bootstrapPending, effectiveCourseRoute, effectiveFreeOnly, filters, locationHydrated, resolvedAccess.bankAccess, routePreset, savedOnly, search, sharedSetView, sort, visible, worksheetId, worksheetMode]);
 
-  const applySignedAssets = (assets: Map<string, SignedAsset>, owner: string) => {
-    if (!assets.size) return;
-    if (bank) rememberAssets(owner, bank, assets);
+  const applySignedAssets = (assets: Map<string, SignedAsset>, owner: string | null) => {
+    if (!scopeIsCurrent() || !assets.size) return;
+    if (bank && owner) rememberAssets(owner, bank, assets);
     setSignedAssets((current) => new Map([...current, ...assets]));
     const detailsById = new Map([...assets.values()].flatMap((asset) => asset.details ? [[asset.questionId, asset.details] as const] : []));
     if (detailsById.size) {
@@ -808,9 +836,9 @@ access: ExplorerAccess;
    * allowance spent), free-year assets use the CDN-cached route, and the rest use the paid signer.
    */
   const signAssets = (requests: readonly AssetRequest[], route: "free" | "paid", speculative = false) => {
-    if (!bank) return;
-    const owner = cacheOwner();
-    const remembered = readCachedAssets(owner, bank);
+    if (!bank || !scopeIsCurrent()) return;
+    const owner = scopeOwner;
+    const remembered = owner ? readCachedAssets(owner, bank) : new Map<string, SignedAsset>();
     const pending = requests.filter((request) => !signingAssetKeysRef.current.has(signedAssetKey(request.questionId, request.kind)));
     const reused = new Map(pending.flatMap((request) => {
       const key = signedAssetKey(request.questionId, request.kind);
@@ -822,11 +850,12 @@ access: ExplorerAccess;
     if (!toSign.length) return;
     const pendingKeys = toSign.map((request) => signedAssetKey(request.questionId, request.kind));
     for (const key of pendingKeys) signingAssetKeysRef.current.add(key);
-    const finished = () => { for (const key of pendingKeys) signingAssetKeysRef.current.delete(key); };
+    const finished = () => { if (!scopeIsCurrent()) return; for (const key of pendingKeys) signingAssetKeysRef.current.delete(key); };
     if (route === "free") {
       let failedPrefetch = false;
       fetchFreeAssets(bank, toSign)
         .then(({ assets, failedKeys }) => {
+          if (!scopeIsCurrent()) return;
           applySignedAssets(assets, owner);
           failedPrefetch = speculative && failedKeys.length > 0;
           if (failedKeys.length && !speculative) {
@@ -835,6 +864,7 @@ access: ExplorerAccess;
           }
         })
         .finally(() => {
+          if (!scopeIsCurrent()) return;
           finished();
           // Activation may have happened while the speculative request was pending.
           // Release its keys and re-evaluate visible demand; offscreen failures stay quiet.
@@ -844,10 +874,12 @@ access: ExplorerAccess;
     }
     fetchSignedAssets(bank, toSign, fetch, localPreview)
       .then((assets) => {
+        if (!scopeIsCurrent()) return;
         applySignedAssets(assets, owner);
         setAssetError("");
       })
       .catch(() => {
+        if (!scopeIsCurrent()) return;
         setFailedAssetKeys((current) => new Set([...current, ...pendingKeys]));
         setAssetError("Some question images could not load.");
       })
@@ -1096,7 +1128,7 @@ access: ExplorerAccess;
   };
 
   const updateStudyState = async (questionId: string, action: "save" | "unsave" | "attempt") => {
-    if (!bank || !resolvedAccess.authenticated) return;
+    if (!scopeIsCurrent() || !bank || !resolvedAccess.authenticated) return;
     const response = await fetch("/api/study-state", {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -1110,6 +1142,7 @@ access: ExplorerAccess;
     setStudyError("");
     try {
       await updateStudyState(questionId, saving ? "save" : "unsave");
+      if (!scopeIsCurrent()) return;
       setSavedIds((current) => {
         const next = new Set(current);
         if (saving) next.add(questionId); else next.delete(questionId);
@@ -1121,9 +1154,10 @@ access: ExplorerAccess;
   };
 
   const recordAttempt = async (questionId: string) => {
-    if (attemptedIds.has(questionId)) return;
+    if (!scopeIsCurrent() || attemptedIds.has(questionId)) return;
     try {
       await updateStudyState(questionId, "attempt");
+      if (!scopeIsCurrent()) return;
       setAttemptedIds((current) => new Set(current).add(questionId));
     } catch {
       setStudyError("Your answer opened, but progress could not be saved.");
@@ -1299,6 +1333,7 @@ access: ExplorerAccess;
               const questionAsset = signedAssets.get(signedAssetKey(question.id, "question"));
               const answerAsset = signedAssets.get(signedAssetKey(question.id, "answer"));
               return <Fragment key={question.id}><QuestionCard question={question} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} freeAnswer={!localPreview && isPreviewQuestion(question.bankSlug, question.id)} priority={index === 0} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAssetError={() => trackAssetLoadFailure(bank ?? "unknown", question.id, "answer", "failed", answerAsset?.urls[0])} onAnswerAsset={(asset) => {
+                if (!scopeIsCurrent()) return;
                 setSignedAssets((current) => new Map(current).set(signedAssetKey(question.id, "answer"), asset));
                 if (asset.details) setCatalogQuestions((current) => current.map((item) => item.id === question.id ? mergeQuestionRichDetails(item, asset.details!) : item));
               }} selected={selectedIds.has(question.id)} selectable={!savedWorksheetView && !sharedSetView} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => toggleSaved(question.id)} onAttempt={() => recordAttempt(question.id)} onReveal={() => recordReveal(question.id)} locked={nudgesActive ? { title: `${question.year} paper · on any plan`, body: indexLoaded ? `Unlock ${paidCount.toLocaleString()} more ${bankShortName} questions with mark schemes and PDFs.` : `Unlock every ${bankShortName} question with mark schemes and PDFs.`, href: upgradeLink("locked_card"), onClick: () => trackUpgrade("click", nudgeBank, "locked_card") } : undefined} />{nudgesActive && milestoneQuestionId === question.id && <PracticeMilestone bank={nudgeBank} facts={yearFacts} href={upgradeLink("practice_milestone")} onDismiss={() => setMilestoneQuestionId("")} />}{renderFeedSlot(index + 1, index === shownQuestions.length - 1)}</Fragment>;
