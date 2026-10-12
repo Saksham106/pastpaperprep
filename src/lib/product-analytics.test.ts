@@ -253,23 +253,6 @@ describe("PostHog product analytics", () => {
     });
   });
 
-  it("scrubs browser error telemetry to a bounded category and URL-free stack frames", async () => {
-    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
-    const { initializeProductAnalytics, captureBrowserError } = await import("@/lib/product-analytics");
-    initializeProductAnalytics();
-    captureBrowserError({
-      name: "TypeError",
-      filename: "https://example.test/_next/static/chunks/app.js?token=secret#hash",
-      lineno: 12,
-      colno: 34,
-    });
-    await vi.waitFor(() => expect(posthog.capture).toHaveBeenCalledWith("browser_error", {
-      category: "TypeError",
-      frame: "app.js:12:34",
-    }));
-    expect(JSON.stringify(posthog.capture.mock.calls)).not.toContain("secret");
-  });
-
   it("removes query strings and auth fragments before events leave the browser", async () => {
     const { sanitizeAnalyticsEvent } = await import("@/lib/product-analytics");
     const result = sanitizeAnalyticsEvent({ event: "$pageview", properties: {
@@ -284,13 +267,9 @@ describe("PostHog product analytics", () => {
     });
   });
 
-  it("drops invalid analytics URLs and arbitrary error names", async () => {
-    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
-    const { sanitizeAnalyticsEvent, captureBrowserError, initializeProductAnalytics } = await import("@/lib/product-analytics");
-    await initializeProductAnalytics();
+  it("drops invalid analytics URLs", async () => {
+    const { sanitizeAnalyticsEvent } = await import("@/lib/product-analytics");
     expect(sanitizeAnalyticsEvent({ properties: { $current_url: "javascript:private", count: 2 } })?.properties).toEqual({ count: 2 });
-    captureBrowserError({ name: "PrivateCustomerNameError", filename: "https://example.test/alice.email.js?token=private" });
-    await vi.waitFor(() => expect(posthog.capture).toHaveBeenCalledWith("browser_error", { category: "UnhandledError", frame: "" }));
   });
 
   it("scrubs nested Web Vitals navigation and resource URLs", async () => {
@@ -311,7 +290,9 @@ describe("PostHog product analytics", () => {
     }] } });
     expect(JSON.stringify(result)).not.toMatch(/alice|hunter2|secret|page\\?/);
     expect(JSON.stringify(result)).toContain("https://app.test/_next/static/chunks/app.js");
-    expect(result?.properties.$exception_list).toBeDefined();
+    expect(result?.properties.$exception_message).toBeUndefined();
+    // Unknown exception text is omitted; safe diagnostic templates remain readable.
+    expect((result?.properties.$exception_list as Array<{ value?: string }>)[0].value).toBeUndefined();
   });
 
   it("rejects sensitive static paths and caps structured exception frames", async () => {
@@ -338,6 +319,66 @@ describe("PostHog product analytics", () => {
     expect(captured.stack).not.toMatch(/alice|secret|access_token/);
     expect(captured.stack).toContain("/_next/static/chunks/app.js");
     expect(captured.stack).toContain(":2:3");
+  });
+
+  it("keeps a React production error's code and links a server render digest", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    const { initializeProductAnalytics, captureAppException } = await import("@/lib/product-analytics");
+    await initializeProductAnalytics();
+    captureAppException(Object.assign(new Error("Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]=Alice"), { digest: "2918384837" }));
+    await vi.waitFor(() => expect(posthog.captureException).toHaveBeenCalledTimes(1));
+    const [captured, properties] = posthog.captureException.mock.calls[0] as [Error, Record<string, string>];
+    expect(captured.message).toBe("React error #418");
+    expect(properties).toEqual({ digest: "2918384837" });
+  });
+
+  it("reports programming crashes containing control-flow keywords once per error", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    const { captureAppException } = await import("@/lib/product-analytics");
+    const reference = new ReferenceError("cooldown is not defined");
+    captureAppException(reference);
+    captureAppException(reference);
+    captureAppException(new TypeError("Cannot read properties of undefined (reading 'cooldown')"));
+    await vi.waitFor(() => expect(posthog.captureException).toHaveBeenCalledTimes(2));
+    expect(posthog.captureException.mock.calls.map(call => (call[0] as Error).name)).toEqual(["ReferenceError", "TypeError"]);
+  });
+
+  it("keeps private string rejection text out of the anonymous outgoing payload", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    document.cookie = "ppp_analytics_consent=v2.rejected; Path=/";
+    const listeners = vi.spyOn(window, "addEventListener");
+    const originalFetch = window.fetch;
+    try {
+      await import("../instrumentation-client");
+      const event = Object.assign(new Event("unhandledrejection", { cancelable: true }), { reason: "Failed to load SyntheticPrivateName homework" });
+      event.preventDefault();
+      window.dispatchEvent(event);
+      await vi.waitFor(() => expect(posthog.captureException).toHaveBeenCalledOnce());
+      const error = posthog.captureException.mock.calls[0][0] as Error;
+      const beforeSend = posthog.init.mock.calls[0][1].before_send;
+      const outgoing = beforeSend({ event: "$exception", properties: { $exception_list: [{ type: error.name, value: error.message }] } });
+      expect(error.name).toBe("UnhandledRejection");
+      expect(JSON.stringify(outgoing)).not.toContain("SyntheticPrivateName");
+      expect(outgoing.properties.$exception_list[0].value).toBe("Application exception");
+      expect(posthog.init.mock.calls[0][1]).toMatchObject({ cookieless_mode: "always", disable_cookie: true, person_profiles: "never" });
+      expect(posthogConsented.identify).not.toHaveBeenCalled();
+    } finally {
+      for (const [type, listener] of listeners.mock.calls) {
+        if (type === "error" || type === "unhandledrejection") window.removeEventListener(type, listener);
+      }
+      listeners.mockRestore();
+      window.fetch = originalFetch;
+    }
+  });
+
+  it("excludes explicit expected outcomes without hiding keyword-bearing programming errors", async () => {
+    const { isExpectedControlFlow } = await import("@/lib/product-analytics");
+    expect(isExpectedControlFlow(Object.assign(new Error("Rejected"), { code: "invalid_credentials" }))).toBe(true);
+    expect(isExpectedControlFlow(new Error("Rate limit exceeded"))).toBe(true);
+    expect(isExpectedControlFlow(new Error("Cooldown service crashed"))).toBe(false);
+    expect(isExpectedControlFlow(new ReferenceError("Invalid credentials"))).toBe(false);
+    expect(isExpectedControlFlow(Object.assign(new TypeError("Rate limit exceeded"), { code: "invalid_credentials" }))).toBe(false);
+    expect(isExpectedControlFlow(Object.assign(new Error("missing"), { digest: "NEXT_HTTP_ERROR_FALLBACK;404" }))).toBe(true);
   });
 
   it("does not capture expected Next control-flow exceptions", async () => {

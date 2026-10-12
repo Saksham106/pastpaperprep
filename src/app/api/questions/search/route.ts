@@ -5,6 +5,7 @@ import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { loadBankQuestions } from "@/lib/question-loader";
 import { searchQuestionIds } from "@/lib/question-search";
 import { createClient } from "@/lib/supabase/server";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 
 export const runtime = "nodejs";
 
@@ -17,7 +18,7 @@ function response(body: Record<string, unknown>, status = 200): NextResponse {
   });
 }
 
-export async function GET(request: Request) {
+async function handleGET(request: Request) {
   const url = new URL(request.url);
   const bankParam = url.searchParams.get("bank");
   const query = url.searchParams.get("q")?.trim() ?? "";
@@ -45,3 +46,5 @@ export async function GET(request: Request) {
   const ids = searchQuestionIds(await loadBankQuestions(bankParam as BankSlug), query, entitlements);
   return response({ ids });
 }
+
+export const GET = withFailureReporting("/api/questions/search", handleGET);

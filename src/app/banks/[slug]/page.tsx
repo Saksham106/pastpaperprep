@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BankQuestionExplorer } from "@/components/BankQuestionExplorer";
 import { BankSeoContent } from "@/components/BankSeoContent";
+import { Testimonial } from "@/components/Testimonial";
+import { bankTestimonial } from "@/lib/testimonials";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { loadBankExplorer } from "@/lib/bank-explorer";
@@ -79,6 +81,7 @@ export default async function BankPage({ params }: { params: Promise<{ slug: str
           <h1>{bank.title}</h1>
           <p>{bank.description}</p>
           {slug === "ib-hl" ? <p>Select real AA HL questions by topic and turn them into a printable practice set with eligible bank access. <Link href="#bank-guide-heading">See worksheet and PDF options</Link>.</p> : null}
+          <Testimonial testimonial={bankTestimonial(slug)} variant="inline" signedOutOnly />
           <div className="bank-hero-meta"><div className="bank-hero-stats"><span><strong>{bank.questionCount.toLocaleString()}</strong> questions</span><span><strong>{bank.paperCount}</strong> papers</span><span><strong>{bank.years}</strong> coverage</span></div><Link className="button secondary bank-hero-build" href={`/worksheets/build?bank=${slug}`}>Build a paper</Link></div>
         </div>
       </section>

@@ -1,0 +1,33 @@
+.parts { display: grid; gap: 22px; }
+
+.part { display: grid; gap: 10px; min-width: 0; }
+.part + .part { padding-top: 20px; border-top: 1px solid var(--line); }
+
+.partHeader { display: flex; align-items: baseline; gap: 10px; }
+.partHeader strong { color: var(--ink); font: 400 1.05rem/1.2 var(--font-serif); }
+.partHeader span { color: var(--muted); font: 600 .72rem/1 var(--font-mono); letter-spacing: .04em; }
+
+.approach { margin: 0; color: var(--ink-soft); max-width: 68ch; }
+
+.steps { margin: 0; padding: 0; display: grid; gap: 8px; list-style: none; counter-reset: step; }
+.step { counter-increment: step; display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 4px 10px; align-items: start; padding: 10px 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+.step::before { content: counter(step); padding-top: 3px; color: var(--muted); font: 600 .74rem/1.4 var(--font-mono); }
+.stepBody { min-width: 0; overflow-wrap: anywhere; }
+.display { margin: 6px 0 0; overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+.display :global(.katex-display) { margin: 0; text-align: left; }
+.display :global(.katex-display > .katex) { text-align: left; }
+
+.marks { display: inline-flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px; padding-top: 2px; }
+.marks b { padding: 1px 6px; color: var(--success); background: var(--success-soft); border-radius: 5px; font: 600 .7rem/1.5 var(--font-mono); white-space: nowrap; }
+
+.answer, .mistake { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: baseline; padding: 10px 12px; border-radius: 8px; overflow-wrap: anywhere; }
+.tag { font: 700 .66rem/1.6 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
+.answer { background: var(--success-soft); }
+.answer .tag { color: var(--success); }
+.mistake { background: var(--danger-soft); }
+.mistake .tag { color: var(--danger); }
+
+@media (max-width: 560px) {
+  .step { grid-template-columns: 20px minmax(0, 1fr); }
+  .marks { grid-column: 2; justify-content: flex-start; }
+}

@@ -45,7 +45,13 @@
 .pdf-dialog .worksheet-actions:not(.only-download):not(.only-save) { grid-template-columns: minmax(0, 1.35fr) minmax(0, .85fr); }
 .pdf-dialog .worksheet-actions .pdf-download { color: var(--ink); background: var(--surface); border: 1px solid var(--line-strong); font-weight: 700; box-shadow: none; }
 .pdf-dialog .worksheet-actions .pdf-download:hover { color: var(--ink); background: var(--surface-raised); border-color: var(--cobalt); }
-.pdf-dialog .worksheet-actions.only-download, .pdf-dialog .worksheet-actions.only-save { grid-template-columns: 1fr; }
+.pdf-dialog .worksheet-actions.only-download { grid-template-columns: 1fr; }
+/* Save stays the obvious action; download is a quiet icon for people who really want the file now. */
+.pdf-dialog .worksheet-actions.only-save { grid-template-columns: minmax(0, 1fr) 48px; }
+.pdf-direct-download { width: 48px; min-height: 48px; padding: 0; display: grid; place-items: center; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; cursor: pointer; transition: color 140ms ease, border-color 140ms ease; }
+.pdf-direct-download:hover:not(:disabled) { color: var(--ink); border-color: var(--line-strong); }
+.pdf-direct-download:focus-visible { outline: 3px solid color-mix(in srgb, var(--cobalt) 45%, transparent); outline-offset: 2px; }
+.pdf-direct-download:disabled { opacity: .45; cursor: default; }
 .pdf-save-note { color: var(--muted); }
 .worksheet-saved-notice { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin: 12px 0 20px; padding: 14px 17px; color: var(--ink); background: color-mix(in srgb, var(--success) 10%, var(--surface-raised)); border: 1px solid var(--success); border-radius: 10px; }
 .worksheet-saved-notice > svg { color: var(--success); }

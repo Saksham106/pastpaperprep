@@ -1,0 +1,34 @@
+import type { BankSlug } from "@/lib/banks";
+import { parseExplanation, type Explanation } from "@/lib/explanation-format";
+import { fetchFreeAssets, fetchSignedAssets, signedAssetKey } from "@/lib/signed-assets";
+
+type Fetcher = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+
+/**
+ * Loads one question's worked explanation: a signed link from the same routes and access rules as
+ * the mark scheme, then the JSON itself. Free-year questions use the CDN-cached free route.
+ * Development only: NEXT_PUBLIC_EXPLANATIONS_DEV=1 reads public/dev-explanations/<bank>/<id>.json.
+ */
+export async function fetchExplanation(
+  bank: BankSlug,
+  questionId: string,
+  { free, fetcher = fetch }: { free: boolean; fetcher?: Fetcher },
+): Promise<Explanation> {
+  let url: string | undefined;
+  if (process.env.NODE_ENV !== "production" && process.env.NEXT_PUBLIC_EXPLANATIONS_DEV === "1") {
+    url = `/dev-explanations/${encodeURIComponent(bank)}/${encodeURIComponent(questionId)}.json`;
+  } else {
+    const request = [{ questionId, kind: "explanation" as const }];
+    const key = signedAssetKey(questionId, "explanation");
+    const asset = free
+      ? (await fetchFreeAssets(bank, request, fetcher)).assets.get(key)
+      : (await fetchSignedAssets(bank, request, fetcher)).get(key);
+    url = asset?.urls[0];
+  }
+  if (!url) throw new Error("Explanation unavailable");
+  const response = await fetcher(url, { mode: "cors", cache: "no-store" });
+  if (!response.ok) throw new Error("Explanation unavailable");
+  const explanation = parseExplanation(await response.json().catch(() => null), bank, questionId);
+  if (!explanation) throw new Error("Explanation unavailable");
+  return explanation;
+}

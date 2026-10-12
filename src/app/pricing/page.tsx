@@ -8,6 +8,8 @@ import { getBillingBanks, getEntitlementBanks, type BankSlug } from "@/lib/banks
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { SOCIAL_IMAGE } from "@/lib/seo";
 import { createClient } from "@/lib/supabase/server";
+import { isFutureIssuedJwtError } from "@/lib/access-recovery";
+import { captureServerException } from "@/lib/server-error-tracking";
 
 export const metadata: Metadata = {
   title: "Pricing",
@@ -59,8 +61,11 @@ export default async function PricingPage({ searchParams }: { searchParams: Prom
       // PostgREST 14.5 can retain a stale JWT validation clock. Its PGRST303
       // may outlast the bounded read retry; never guess the subscriber's access
       // or offer checkout when the access lookup could not be completed.
-      const error = result.error as { code?: unknown; message?: unknown };
-      if (error.code === "PGRST303" && error.message === "JWT issued at future") {
+      if (isFutureIssuedJwtError(result.error)) {
+        captureServerException(new Error("Access verification failed"), {
+          route: "/pricing", route_type: "render", stage: "entitlement",
+          storage_provider: "supabase", error_code: "PGRST303",
+        });
         return <div className="public-surface"><section className="auth-page shell"><div className="auth-card" role="alert">
           <p className="eyebrow">Access check delayed</p>
           <h1>We couldn&apos;t check your access.</h1>

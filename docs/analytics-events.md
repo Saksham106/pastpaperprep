@@ -19,8 +19,9 @@ No email, name or account ID is ever sent without consent.
 | `$pageview` | every page | (path) |
 | `question_filter_change` | bank page | `bank`, `filter` |
 | `answer_reveal` | bank page | `bank`, `freePreview` |
+| `explanation_open` | bank page, Explanation button | `bank`, `freePreview` |
 | `pdf_builder_open` | Save PDF / Download PDF | `bank`, `questionCount` |
-| `pdf_export_attempt` / `_success` / `_error` | Download PDF | `bank`, `questionCount`, `content` |
+| `pdf_export_attempt` / `_success` / `_error` | Download PDF | `bank`, `questionCount`, `content`, `source` (`worksheet` = My Worksheets, `save_dialog` = icon in the Save PDF card) |
 | `pdf_upgrade_view` | PDF prompt for people without access | `bank` |
 | `upgrade_prompt_view` / `_click` / `_dismiss` | upgrade prompts | `bank`, `placement` |
 | `free_gate_view` / `_elevated` / `_dismiss` / `_signup_click` / `_signin_click` | 20-question sign-up prompt | `bank`, `limit`, `remainingCount` |
@@ -30,7 +31,9 @@ No email, name or account ID is ever sent without consent.
 | `checkout_start` / `checkout_auth_required` / `checkout_redirect` / `checkout_error` | checkout buttons | `interval`, `productId` |
 | `checkout_cancelled` | pricing with `?checkout=cancelled` (Stripe cancel) | none |
 | `checkout_returned` | account with `?checkout=success` or `lifetime-pending` | `status` |
-| `browser_error` | uncaught browser errors | sanitized |
+| `$exception` | uncaught browser errors, unhandled rejections, error boundaries | scrubbed message (`safeErrorMessage`), stack, `digest?` (matches the server render error) |
+| `api_request_failed` | any own `/api/*` call answering 5xx, 400, 408, 413 or 429, or failing on the network (`api-failure-monitor`) | `route` (ids as `[id]`), `method`, `status` (0 = network), `outcome`, `duration_ms`, `correlation_id?` |
+| `asset_load_failed` | a question or mark-scheme image failing to load | `bank`, `question_id`, `kind`, `outcome` (`expired_resign` or `failed`), `host` (`r2`, `supabase`, `self`, `other`) |
 | `past_paper_search` | past-paper search box (Enter or a suggestion) | `found` |
 | `past_paper_open` | free paper page | `bank`, `paper` |
 | `past_paper_timer_start` | paper timer | `bank` |
@@ -47,8 +50,8 @@ No email, name or account ID is ever sent without consent.
 | Event | Source | Properties |
 |---|---|---|
 | `conversion_outcome` | sign-up confirmation, Stripe `invoice.paid`, lifetime checkout | `outcome` (`signup_confirmed`, `payment_initial_paid`, `payment_renewal_paid`, `lifetime_paid`), `product?`, `interval?`, `identified` |
-| `$exception` | unhandled server errors (`onRequestError`) | `route`, `router_kind`, `route_type`, `error_code` |
-| `$exception` with `error_source: handled_response` | a key API route answered 5xx (`withFailureReporting`) | `route`, `error_code` (HTTP status), `reason` (the route's error message) |
+| `$exception` | unhandled server errors (`onRequestError`) | scrubbed message, `route`, `router_kind`, `route_type`, `error_code?`, `digest?`, `correlation_id` |
+| `$exception` with `error_source: handled_response` | an API route answered 5xx (`withFailureReporting`) | `route`, `http_status`, `error_code`, `bank?`, `stage?`, `storage_provider?`, `correlation_id` (also sent as the `x-correlation-id` response header) |
 | `$exception` with `error_source: auth_provider` | auth provider failures | `auth_phase`, `provider_code` |
 
 `conversion_outcome` carries a stable `$insert_id` per purchase or sign-up. Without consent, that ID is a keyed hash that can't be traced back to the account.
@@ -71,3 +74,22 @@ Browser events and server conversions never share an ID. Browser events are cook
 7. `$exception` where `error_source = handled_response`, broken down by `route` and `reason`. Alert on spikes for `/api/assets/sign` and `/api/billing/checkout`.
 
 For revenue counts, count distinct `$insert_id` on `conversion_outcome`. A Stripe delivery that had to be retried is normally counted once, and that keeps it exact.
+
+## Server logs (PostHog Logs)
+
+Vercel Hobby keeps runtime logs for about an hour, so production and preview servers also send structured logs to PostHog Logs (`src/lib/server-logs.ts`, OTLP, 14-day retention, free up to 10 GB a month). Values are code-controlled only: route patterns, enumerated outcomes, counts and durations. Uploads have a two-second abort deadline and run after responses. Every logging caller registers a drain in its own request lifecycle; the first drain snapshots the bounded shared buffer, so an open request cannot prevent a completed request from delivering its records. Empty drains do not POST and ingestion failures remain best-effort.
+
+| Log | Level | Attributes |
+| --- | --- | --- |
+| `api_request` | info, warn (4xx), error (5xx or thrown) | `route`, `method`, `status`, `duration_ms`, `correlation_id?`, `bank?`, `stage?`, `storage_provider?` |
+| `server_exception` | error | scrubbed `message`, `error_name`, and the exception's properties |
+| `asset_signing` | info, error | `provider`, `bank`, `assets`, `long_lived`, `duration_ms`, `outcome`, `message?` |
+| `entitlement_read_retry` / `_recovered` / `_failed` | warn, info, error | `attempt(s)`, `error_code` (PGRST303 is Supabase's clock bug) |
+| `stripe_webhook` | info | `event_type`, `livemode` |
+
+To trace a failure: take `correlation_id` from `api_request_failed` (browser) or the `x-correlation-id` header, then search it in Logs and Error tracking. Render errors match on `digest`.
+
+Messages pass through `safeErrorMessage`, which returns only fixed diagnostics or normalized templates. Arbitrary text is omitted and exception producers use a generic fallback; parser inputs, dynamic property names outside a small code-controlled vocabulary, quoted secrets and personal prose are never retained as messages. React production errors keep only their code (`React error #418`). Known diagnostic outputs remain readable through a second SDK sanitization pass. Server exception names also use an explicit category allowlist.
+
+Expected Next navigation/access markers and explicit auth/limit outcomes are excluded on both browser and server. A keyword such as `cooldown` inside a `ReferenceError` or `TypeError` is not an expected outcome: programming crashes still emit one exception per error object.
+

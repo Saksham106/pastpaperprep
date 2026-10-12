@@ -48,6 +48,27 @@ describe("POST /api/pdf/sign", () => {
     expect(createClient).not.toHaveBeenCalled();
   });
 
+  it("rejects explanation content before authentication, signing, or any quota mutation", async () => {
+    const response = await POST(request({ bank: "ib-sl", questionIds: ["m26-math-aasl-p2-tza-q2"], content: "explanation" }));
+    expect(response.status).toBe(400);
+    expect(createClient).not.toHaveBeenCalled();
+    expect(createSignedUrls).not.toHaveBeenCalled();
+    expect(rpc).not.toHaveBeenCalled();
+  });
+
+  it("does not export explanations when client asset requests are smuggled into a PDF request", async () => {
+    const response = await POST(request({
+      bank: "ib-sl", questionIds: ["m26-math-aasl-p2-tza-q2"], content: "questions",
+      requests: [{ questionId: "m26-math-aasl-p2-tza-q2", kind: "explanation" }],
+      paths: ["explanations/ib-sl/m26-math-aasl-p2-tza-q2.json"],
+    }));
+    expect(response.status).toBe(200);
+    const body = await response.json();
+    expect(body.assets.every((asset: { kind: string }) => asset.kind === "question")).toBe(true);
+    expect(createSignedUrls.mock.calls[0][0].every((path: string) => path.endsWith(".webp"))).toBe(true);
+    expect(rpc).not.toHaveBeenCalledWith("consume_explanation_allowance", expect.anything());
+  });
+
   it("requires authentication", async () => {
     getClaims.mockResolvedValueOnce({ data: { claims: {} } });
     const response = await POST(request({ bank: "ib-sl", questionIds: ["m26-math-aasl-p2-tza-q2"], content: "questions" }));

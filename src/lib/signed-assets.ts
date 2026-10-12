@@ -1,4 +1,5 @@
 import type { AssetKind, AssetRequest } from "@/lib/asset-access";
+import { isAssetKind } from "@/lib/asset-kinds";
 import type { QuestionRichDetails } from "@/lib/questions";
 import type { BankSlug } from "@/lib/banks";
 import type { SourcePrintSegment } from "@/lib/print-geometry";
@@ -6,12 +7,17 @@ import type { VisibleImageCrop } from "@/lib/reviewed-blank-tails";
 
 const SIGN_BATCH_SIZE = 20;
 /**
- * Free-year links: signed for a day and shared by the CDN for up to 20 hours, so each free
- * image is signed by a function about once a day per region instead of four times an hour.
+ * Free-year links: signed for a week (the R2 presign maximum). The CDN keeps a response fresh
+ * for four days and may serve it for two more while refreshing in the background. Within that
+ * window, links retain a day of validity (less the client's safety margin). Vercel scopes this
+ * response cache by deployment, so a new deploy uses new entries; it does not purge old ones.
  * Only free-year questions use these; paid assets keep 10-minute links behind sign-in.
  */
-export const FREE_ASSET_EXPIRES_IN = 86_400;
-export const FREE_ASSET_CDN_MAX_AGE = 72_000;
+export const FREE_ASSET_EXPIRES_IN = 7 * 24 * 60 * 60;
+export const FREE_ASSET_CDN_FRESH = 4 * 24 * 60 * 60;
+export const FREE_ASSET_CDN_STALE = 2 * 24 * 60 * 60;
+/** The oldest copy the CDN may hand out; the client expires links assuming this age. */
+export const FREE_ASSET_CDN_MAX_AGE = FREE_ASSET_CDN_FRESH + FREE_ASSET_CDN_STALE;
 
 type Fetcher = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
 
@@ -90,7 +96,7 @@ function validAsset(value: unknown, localPreview = false): value is AssetRequest
   const asset = value as Record<string, unknown>;
   return (
     typeof asset.questionId === "string" &&
-    (asset.kind === "question" || asset.kind === "answer") &&
+    isAssetKind(asset.kind) &&
     Array.isArray(asset.urls) &&
     asset.urls.every((url) => typeof url === "string" && (/^https:\/\//.test(url) || (localPreview && /^\/api\/local-preview-assets\//.test(url)))) &&
     (asset.printSizesPt === undefined || (Array.isArray(asset.printSizesPt) &&
@@ -216,20 +222,28 @@ export async function fetchFreeAssets(
     const key = signedAssetKey(request.questionId, request.kind);
     try {
       const query = new URLSearchParams({ bank, id: request.questionId, kind: request.kind });
-      const response = await fetcher(`/api/assets/free?${query}`);
-      const payload = await response.json().catch(() => null) as Record<string, unknown> | null;
-      if (
-        !response.ok || !payload ||
-        typeof payload.expiresIn !== "number" || typeof payload.maxAge !== "number" ||
-        !validAsset(payload.asset) ||
-        signedAssetKey(payload.asset.questionId, payload.asset.kind) !== key
-      ) throw new Error("Invalid free asset response");
-      // A CDN copy is normally at most maxAge old; trust a larger Age header if the CDN reports
-      // one, so a stale copy can never hand out a link that is already dead.
-      const reportedAge = Number(response.headers?.get("age"));
-      const age = Math.max(Number.isFinite(reportedAge) ? reportedAge : 0, payload.maxAge);
-      const lifetime = Math.max(payload.expiresIn - age - FREE_ASSET_SAFETY_SECONDS, 1);
-      return { key, asset: { ...payload.asset, expiresAt: Date.now() + lifetime * 1000 } as SignedAsset };
+      for (let attempt = 0; attempt < 2; attempt += 1) {
+        const response = await fetcher(`/api/assets/free?${query}`, attempt ? { cache: "reload", headers: { "cache-control": "no-cache", pragma: "no-cache" } } : undefined);
+        const payload = await response.json().catch(() => null) as Record<string, unknown> | null;
+        if (
+          !response.ok || !payload ||
+          typeof payload.expiresIn !== "number" || !Number.isSafeInteger(payload.expiresIn) ||
+          payload.expiresIn <= FREE_ASSET_SAFETY_SECONDS || payload.expiresIn > FREE_ASSET_EXPIRES_IN ||
+          typeof payload.maxAge !== "number" || !Number.isSafeInteger(payload.maxAge) ||
+          payload.maxAge < 0 || payload.maxAge >= payload.expiresIn - FREE_ASSET_SAFETY_SECONDS ||
+          !validAsset(payload.asset) ||
+          signedAssetKey(payload.asset.questionId, payload.asset.kind) !== key
+        ) throw new Error("Invalid free asset response");
+        // Assume the full CDN window even without Age; honor a reported older copy too.
+        const reportedAge = Number(response.headers?.get("age"));
+        const age = Math.max(Number.isFinite(reportedAge) ? reportedAge : 0, payload.maxAge);
+        const lifetime = payload.expiresIn - age - FREE_ASSET_SAFETY_SECONDS;
+        // Never turn an expired link into a one-second success: it can trigger a refetch loop.
+        // Try one synchronous revalidation, then surface a normal per-asset failure.
+        if (lifetime <= 0) continue;
+        return { key, asset: { ...payload.asset, expiresAt: Date.now() + lifetime * 1000 } as SignedAsset };
+      }
+      throw new Error("Expired free asset response");
     } catch {
       return { key, asset: null };
     }

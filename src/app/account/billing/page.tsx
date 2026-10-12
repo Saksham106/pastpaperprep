@@ -5,6 +5,9 @@ import { hasComplimentaryAllAccess } from "@/lib/complimentary-access";
 import { hasBankAccess, type AccessEntitlement } from "@/lib/access";
 import { BANKS } from "@/lib/banks";
 import { AccountBillingHub, type HubAccess } from "@/components/AccountBillingHub";
+import { AccessReadRecovery } from "@/components/AccessReadRecovery";
+import { isFutureIssuedJwtError } from "@/lib/access-recovery";
+import { captureServerException } from "@/lib/server-error-tracking";
 export const metadata = { title: "Subscription & billing" };
 export default async function BillingPage() {
  const supabase=await createClient();
@@ -12,7 +15,16 @@ export default async function BillingPage() {
  const userId=data?.claims?.sub;
  if (!userId) redirect("/login?next=/account/billing");
  const result=await fetchAccessEntitlements(supabase as never,userId);
- if (result.error) throw result.error;
+ if (result.error) {
+  if (isFutureIssuedJwtError(result.error)) {
+   captureServerException(new Error("Access verification failed"), {
+    route: "/account/billing", route_type: "render", stage: "entitlement",
+    storage_provider: "supabase", error_code: "PGRST303",
+   });
+   return <AccessReadRecovery retryPath="/account/billing" />;
+  }
+  throw result.error;
+ }
  const rows=result.rows as (AccessEntitlement & {source?:unknown})[];
  const manual=rows.filter(row=>row.source === "manual");
  const lifetime=rows.filter(row=>row.productId === "lifetime_all_access");

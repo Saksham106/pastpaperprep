@@ -3,17 +3,20 @@ import "server-only";
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { QUESTION_ASSET_BUCKET } from "@/lib/assets";
+import { safeErrorMessage } from "@/lib/error-privacy";
+import { isExplanationObjectPath } from "@/lib/explanations";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getPrivateBankObjectPrefix as getMappedPrivateBankObjectPrefix } from "@/lib/private-runtime-mapping";
 import type { BankSlug } from "@/lib/banks";
 import type { AssetStorageProvider, SignPrivateAssetOptions } from "@/lib/private-asset-providers";
+import { serverLog } from "@/lib/server-logs";
 
 export function getPrivateBankObjectPrefix(bank: BankSlug): string {
   return getMappedPrivateBankObjectPrefix(bank);
 }
 
 export type { AssetStorageProvider } from "@/lib/private-asset-providers";
-export { previewAssetSignOptions, premiumAssetSignOptions } from "@/lib/private-asset-providers";
+export { explanationAssetSignOptions, previewAssetSignOptions, premiumAssetSignOptions } from "@/lib/private-asset-providers";
 
 type R2Config = {
   accountId: string;
@@ -47,14 +50,14 @@ function getR2Config(): R2Config {
 }
 
 const MAX_EXPIRES_IN = 3600;
-const MAX_LONG_LIVED_EXPIRES_IN = 86_400;
+const MAX_LONG_LIVED_EXPIRES_IN = 7 * 24 * 60 * 60; // SigV4 presign maximum
 
 function validateRequest(paths: string[], expiresIn: number, longLived = false) {
   const maxExpiresIn = longLived ? MAX_LONG_LIVED_EXPIRES_IN : MAX_EXPIRES_IN;
   if (!Number.isInteger(expiresIn) || expiresIn < 1 || expiresIn > maxExpiresIn) {
     throw new Error("Signed URL expiry is invalid");
   }
-  if (paths.some((path) => (
+  if (paths.some((path) => !isExplanationObjectPath(path) && (
     !path.endsWith(".webp") ||
     path.startsWith("/") ||
     path.split("/").some((segment) => !segment || segment === "." || segment === "..")
@@ -119,7 +122,19 @@ export async function signPrivateAssetUrls(
 ) {
   validateRequest(paths, expiresIn, options.longLived);
   if (!paths.length) return new Map<string, string>();
-  return getProvider(options.provider) === "r2"
-    ? signWithR2(paths, expiresIn)
-    : signWithSupabase(paths, expiresIn);
+  const provider = getProvider(options.provider);
+  // Object keys start with the bank's folder; nothing else from the path is logged.
+  const bank = paths[0].split("/")[0];
+  const started = performance.now();
+  try {
+    const urls = await (provider === "r2" ? signWithR2(paths, expiresIn) : signWithSupabase(paths, expiresIn));
+    serverLog("info", "asset_signing", { provider, bank, assets: paths.length, long_lived: Boolean(options.longLived), duration_ms: Math.round(performance.now() - started), outcome: "signed" });
+    return urls;
+  } catch (error) {
+    serverLog("error", "asset_signing", {
+      provider, bank, assets: paths.length, long_lived: Boolean(options.longLived), duration_ms: Math.round(performance.now() - started), outcome: "failed",
+      message: safeErrorMessage(error instanceof Error ? error.message : (error as { message?: unknown } | null)?.message),
+    });
+    throw error;
+  }
 }

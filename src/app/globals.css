@@ -2317,3 +2317,20 @@ main { min-height: 72vh; }
   .site-menu .theme-toggle-labeled { width: 100%; min-height: 50px; margin: 6px 0 0; padding: 0 16px; gap: 10px; justify-content: flex-start; color: var(--ink); background: transparent; border: 0; border-top: 1px solid color-mix(in srgb, var(--line-strong) 50%, transparent); border-radius: 0; font-size: 1rem; }
   .site-menu .theme-toggle-labeled > span { display: inline; }
 }
+
+/* Customer quotes (src/components/Testimonial.tsx) */
+.testimonial { margin: 0; }
+.testimonial blockquote { margin: 0; }
+.testimonial blockquote p { margin: 0; color: var(--ink); }
+.testimonial figcaption { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; color: var(--muted); font-size: .82rem; line-height: 1.35; }
+.testimonial figcaption strong { color: var(--ink); font-weight: 700; }
+.testimonial-card { padding-top: 20px; display: grid; gap: 14px; align-content: start; border-top: 1px solid var(--line); }
+.testimonial-card blockquote p { font: 400 clamp(1.12rem, 1.6vw, 1.3rem)/1.38 var(--font-serif); letter-spacing: -.01em; }
+.testimonial-card figcaption { flex-direction: column; gap: 2px; }
+.testimonial-inline { margin-top: 14px; padding-left: 14px; display: grid; gap: 4px; max-width: 640px; border-left: 2px solid color-mix(in srgb, var(--course-accent, var(--cobalt)) 55%, transparent); text-align: left; }
+.testimonial-inline blockquote p { font: 400 1rem/1.42 var(--font-serif); }
+.testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px 32px; }
+.pricing-page .testimonial-grid { margin-top: 44px; }
+.about-audience .testimonial-card { margin-top: 22px; }
+.access-upgrade-dialog .testimonial-inline { margin: 2px auto 18px; }
+:root[data-session] [data-signed-out-only] { display: none; }
