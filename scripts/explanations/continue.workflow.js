@@ -73,13 +73,21 @@ Do not edit any other file. Do not touch Git. Return one result per task.`
 const needsFix = (v) => v && (v.verdict !== 'pass' || v.issues.some(i => i.severity === 'critical'))
 const isCritical = (v) => v && (v.verdict === 'fail' || v.issues.some(i => i.severity === 'critical'))
 
+// Per-job model/effort by role: job.genModel, job.genEffort, job.fixModel, job.fixEffort,
+// job.verifyModel, job.verifyEffort. Unset model inherits the session model; effort defaults to high.
+const cfg = (job, role) => {
+  const model = job[role + 'Model']
+  const effort = job[role + 'Effort'] || 'high'
+  return model ? { model, effort } : { effort }
+}
+
 async function repair(job, tag, verified) {
   const toFix = verified.filter(needsFix)
   if (!toFix.length) return
   await agent(fixPrompt(idsRef(job, toFix.map(v => v.questionId)), JSON.stringify(toFix.map(v => ({ questionId: v.questionId, verdict: v.verdict, issues: v.issues })), null, 1)),
-    { label: `fix ${tag}`, phase: 'Fix', schema: FIX_SCHEMA, effort: 'high' })
+    { label: `fix ${tag}`, phase: 'Fix', schema: FIX_SCHEMA, ...cfg(job, 'fix') })
   const crit = toFix.filter(isCritical).map(v => v.questionId)
-  if (crit.length) await agent(verifyPrompt(idsRef(job, crit)), { label: `re-verify ${tag}`, phase: 'Re-verify', schema: VERIFY_SCHEMA, effort: 'high' })
+  if (crit.length) await agent(verifyPrompt(idsRef(job, crit)), { label: `re-verify ${tag}`, phase: 'Re-verify', schema: VERIFY_SCHEMA, ...cfg(job, 'verify') })
 }
 
 const items = []
@@ -93,13 +101,13 @@ await pipeline(items, async (it) => {
   const { job, stage, k } = it
   const tag = `${job.bank} ${stage[0]}${k}`
   if (stage === 'fix') {
-    const r = await agent(fixPrompt(planRef(job, 'fix', k), `(The issues are in the plan file's "fix" chunk ${k}, as the "issues" array of each entry.)`), { label: `fix ${tag}`, phase: 'Fix', schema: FIX_SCHEMA, effort: 'high' })
+    const r = await agent(fixPrompt(planRef(job, 'fix', k), `(The issues are in the plan file's "fix" chunk ${k}, as the "issues" array of each entry.)`), { label: `fix ${tag}`, phase: 'Fix', schema: FIX_SCHEMA, ...cfg(job, 'fix') })
     const crit = r ? r.results.filter(x => x.hadCriticalIssue).map(x => x.questionId) : []
-    if (crit.length) await agent(verifyPrompt(idsRef(job, crit)), { label: `re-verify ${tag}`, phase: 'Re-verify', schema: VERIFY_SCHEMA, effort: 'high' })
+    if (crit.length) await agent(verifyPrompt(idsRef(job, crit)), { label: `re-verify ${tag}`, phase: 'Re-verify', schema: VERIFY_SCHEMA, ...cfg(job, 'verify') })
     return
   }
-  if (stage === 'generate') await agent(genPrompt(planRef(job, 'generate', k)), { label: `generate ${tag}`, phase: 'Generate', schema: GEN_SCHEMA, effort: 'high' })
-  const v = await agent(verifyPrompt(planRef(job, stage, k)), { label: `verify ${tag}`, phase: 'Verify', schema: VERIFY_SCHEMA, effort: 'high' })
+  if (stage === 'generate') await agent(genPrompt(planRef(job, 'generate', k)), { label: `generate ${tag}`, phase: 'Generate', schema: GEN_SCHEMA, ...cfg(job, 'gen') })
+  const v = await agent(verifyPrompt(planRef(job, stage, k)), { label: `verify ${tag}`, phase: 'Verify', schema: VERIFY_SCHEMA, ...cfg(job, 'verify') })
   if (v) await repair(job, tag, v.results)
 })
 log('Done. Rebuild ledgers with scripts/explanations/ledger-from-journal.mjs using this run\'s journal.')
