@@ -87,6 +87,62 @@ it('rejects cross-level and current AA/AI course mismatches while allowing pre-A
   const legacyPair={...pair,id:'2017-may-tz1-p1'};
   expect(assemblePaper('ib-hl',legacyPair,rows as never,doc('Mathematics Higher level Paper 1 May 2017 2 hours Maximum marks: 80',[30,50]),doc('Mathematics Higher level Paper 1 May 2017')).evidence.identityValid).toBe(true);
 });
+it('rejects the actual chemistry TZ1 pair whose slash codes print TZ2 and TZ0',()=>{
+  const p={...pair,id:'chemistry-2023-may-tz1-hl-p2-english'};
+  const q=doc('M23/4/CHEMI/HP2/ENG/TZ2/XX Chemistry Higher level Paper 2 May 2023 2 hours Maximum marks: 80',[30,50]);
+  const m=doc('M23/4/CHEMI/HP2/ENG/TZ0/XX/M Chemistry Higher level Paper 2 May 2023');
+  const result=assemblePaper('ib-chemistry-hl',p,rows as never,q,m);
+  expect(result.evidence.identityValid).toBe(false);
+  expect(result.evidence.examCodesAgree).toBe(false);
+  expect(result.evidence.qCover.examCode).toBe('M23/4/CHEMI/HP2/ENG/TZ2/XX');
+  expect(result.evidence.mCover.examCode).toBe('M23/4/CHEMI/HP2/ENG/TZ0/XX');
+  expect(result.entry.summary.metadataVerified).toBe(false);
+});
+it('does not let a later prose-only cover erase a printed timezone contradiction',()=>{
+  const p={...pair,id:'chemistry-2023-may-tz1-hl-p2-english'};
+  const q=doc('M23/4/CHEMI/HP2/ENG/TZ1/XX Chemistry Higher level Paper 2 May 2023 2 hours Maximum marks: 80',[30,50]);
+  const m={...doc('M23/4/CHEMI/HP2/ENG/TZ2/XX/M Markscheme'),text:['M23/4/CHEMI/HP2/ENG/TZ2/XX/M Markscheme','Chemistry Higher level Paper 2 May 2023 Maximum marks: 80']};
+  const result=assemblePaper('ib-chemistry-hl',p,rows as never,q,m);
+  expect(result.evidence.identityValid).toBe(false);
+  expect(result.entry.summary.metadataVerified).toBe(false);
+  expect(result.entry.summary.reportAvailable).toBe(false);
+});
+it('keeps a complete verified cover authoritative over later running-header codes',()=>{
+  const p={...pair,id:'chemistry-2017-may-tz2-hl-p1-english'};
+  const q=doc('M17/4/CHEMI/HPM/ENG/TZ2/XX Chemistry Higher level Paper 1 May 2017 1 hour Maximum marks: 80',[30,50]);
+  const m={...doc('M17/4/CHEMI/HPM/ENG/TZ2/XX/M Markscheme Chemistry Higher level Paper 1 May 2017'),text:['M17/4/CHEMI/HPM/ENG/TZ2/XX/M Markscheme Chemistry Higher level Paper 1 May 2017','M17/4/CHEMI/HPM/ENG/TZ0/XX/M']};
+  expect(assemblePaper('ib-chemistry-hl',p,rows as never,q,m).evidence.identityValid).toBe(true);
+});
+it('rejects matching but wrong numeric timezones without rewriting the expected TZ1 identity',()=>{
+  const p={...pair,id:'chemistry-2023-may-tz1-hl-p2-english'};
+  const text='M23/4/CHEMI/HP2/ENG/TZ2/XX Chemistry Higher level Paper 2 May 2023';
+  const result=assemblePaper('ib-chemistry-hl',p,rows as never,doc(text),doc(text.replace('/XX','/XX/M')));
+  expect(result.evidence.examCodesAgree).toBe(true);
+  expect(result.evidence.identityValid).toBe(false);
+  expect(result.evidence.identity.variant).toBe('tz1');
+});
+it('compares full normalized slash codes even when the timezone is not mappable',()=>{
+  const p={...pair,id:'chemistry-2023-may-none-hl-p2-english'};
+  const text='M23/4/CHEMI/HP2/ENG/TZ0/XX Chemistry Higher level Paper 2 May 2023';
+  const q=doc(text.replace('M23/4/CHEMI/HP2/ENG/TZ0/XX','M 2 3 / 4 / C H E M I / H P 2 / E N G / T Z 0 / X X'));
+  const m=doc(text.replace('/XX','/XX/M'));
+  expect(assemblePaper('ib-chemistry-hl',p,rows as never,q,m).evidence).toMatchObject({identityValid:true,examCodesAgree:true});
+  expect(assemblePaper('ib-chemistry-hl',p,rows as never,q,doc(m.text[0].replace('CHEMI/','PHYSI/'))).evidence).toMatchObject({identityValid:false,examCodesAgree:false});
+});
+it('preserves IB identity exceptions only for both unchanged source hashes',()=>{
+  const p={...pair,id:'chemistry-2023-may-tz1-hl-p2-english'};
+  const text='M23/4/CHEMI/HP2/ENG/TZ2/XX Chemistry Higher level Paper 2 May 2023';
+  const q=doc(text),m=doc(text.replace('/XX','/XX/M'));
+  const review={bankSlug:'ib-chemistry-hl',paperId:p.id,questionSha256:q.sha256,markschemeSha256:m.sha256,verdict:'valid-pair',visualEvidence:[]};
+  expect(assemblePaper('ib-chemistry-hl',p,rows as never,q,m,review as never).evidence.identityValid).toBe(true);
+  expect(()=>assemblePaper('ib-chemistry-hl',p,rows as never,{...q,sha256:'b'.repeat(64)},m,review as never)).toThrow('Identity review source binding mismatch');
+});
+it('retains numeric modern QP and legacy slash MS without inventing a cross-format mapping',()=>{
+  const p={...pair,id:'chemistry-2023-may-tz1-hl-p2-english'};
+  const q=doc('2223 – 6108 Chemistry Higher level Paper 2 May 2023 2 hours Maximum marks: 80',[30,50]);
+  const m=doc('M23/4/CHEMI/HP2/ENG/TZ1/XX/M Chemistry Higher level Paper 2 May 2023');
+  expect(assemblePaper('ib-chemistry-hl',p,rows as never,q,m).evidence.identityValid).toBe(true);
+});
 it('verifies legacy HL option markschemes by the exact printed option code instead of requiring a missing Mathematics title',()=>{
   const p={...pair,id:'2017-may-tz0-p3-calculus'};
   const q=doc('M17/5/MATHL/HP3/ENG/TZ0/SE Mathematics Higher level Paper 3 calculus May 2017 1 hour Maximum Mark: 50',[25,25]);

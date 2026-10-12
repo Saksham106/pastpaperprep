@@ -98,13 +98,27 @@ export function parseHeader(source: string, identity: Identity) {
   const levelValid = !identity.level || (identity.level==='hlsl'?/higher level and standard level/i.test(text):new RegExp(identity.level==='hl'?'higher level':'standard level','i').test(text));
   const durationMinutes=duration?Number(duration[1]??0)*60+Number(duration[2]??duration[3]??0):null;
   const sharedDuration=identity.paper.length>1&&/\[\s*Paper\s+1A\s+and\s+Paper\s+1B\s*\]/i.test(text);
+  // Legacy IB slash codes encode numeric timezones directly; modern numeric
+  // codes do not. Normalize only the matched printed code, never source IDs.
+  const slashCode=identity.family==='ib' ? /\b[MN]\s*\d\s*\d\s*\/\s*\d\s*\/\s*(?:[A-Z]\s*){3,8}\/\s*[HS]\s*P\s*(?:[123](?:\s*[AB])?|M)\s*\/\s*E\s*N\s*G\s*\/\s*T\s*Z\s*[0123ABC]\s*\/\s*(?:[A-Z]\s*){2}(?:\/\s*M)?\b/i.exec(text)?.[0].replace(/\s/g,'').toUpperCase().replace(/\/M$/,'') : undefined;
+  const slashFields=slashCode?.split('/');
+  const slashIdentityValid=!slashFields || (
+    slashFields[0]===`${identity.sessionCode==='may'?'M':'N'}${String(identity.year).slice(-2)}` &&
+    // HPM/SPM print no numeric component; retain the cover-prose check.
+    (slashFields[3].endsWith('M')||slashFields[3].slice(1)===identity.component) &&
+    (!identity.level||identity.level==='hlsl'||slashFields[3][0]===(identity.level==='sl'?'S':'H')) &&
+    (!/^tz[0123]$/.test(identity.variant)||slashFields[5]===identity.variant.toUpperCase())
+  );
   const printedExamCode=/(\b\d\s*\d\s*\d\s*\d)\s*[–−-]\s*(\d\s*\d\s*\d\s*\d)(?:M)?\b/.exec(text);
   const examCode=printedExamCode ? [printedExamCode[0],printedExamCode[1].replace(/\s/g,''),printedExamCode[2].replace(/\s/g,'')] : null;
-  return {identityValid:yearValid&&(sessionPattern.test(text)||(identity.family==='ib'&&identity.sessionCode==='may'&&/\bApril\b/i.test(text)&&examCode?.[1]===`22${String(identity.year).slice(-2)}`)||(identity.family==='ib'&&identity.sessionCode==='nov'&&/\bOctober\b/i.test(text)&&examCode?.[1]===`88${String(identity.year).slice(-2)}`))&&componentValid&&levelValid,durationMinutes:sharedDuration?null:durationMinutes,sharedDurationMinutes:sharedDuration?durationMinutes:null,maxMarks:maximum?Number(maximum[1]):null,examCode:examCode?`${examCode[1]}-${examCode[2]}`:null,optionalChoice:/answer\s+(?:any\s+)?(?:one|two|three|four|\d+)\s+(?:of\s+(?:the\s+)?)?questions?|choose\s+(?:one|two|three)|option\s+[A-D]\b|questions\s+from\s+one\s+of\s+the\s+options/i.test(text)};
+  return {printedIdentityValid:slashIdentityValid,identityValid:yearValid&&(sessionPattern.test(text)||(identity.family==='ib'&&identity.sessionCode==='may'&&/\bApril\b/i.test(text)&&examCode?.[1]===`22${String(identity.year).slice(-2)}`)||(identity.family==='ib'&&identity.sessionCode==='nov'&&/\bOctober\b/i.test(text)&&examCode?.[1]===`88${String(identity.year).slice(-2)}`))&&componentValid&&levelValid&&slashIdentityValid,durationMinutes:sharedDuration?null:durationMinutes,sharedDurationMinutes:sharedDuration?durationMinutes:null,maxMarks:maximum?Number(maximum[1]):null,examCode:slashCode??(examCode?`${examCode[1]}-${examCode[2]}`:null),optionalChoice:/answer\s+(?:any\s+)?(?:one|two|three|four|\d+)\s+(?:of\s+(?:the\s+)?)?questions?|choose\s+(?:one|two|three)|option\s+[A-D]\b|questions\s+from\s+one\s+of\s+the\s+options/i.test(text)};
 }
 export function findCover(pages:string[],identity:Identity) {
   const candidates=pages.slice(0,3).map((raw,i)=>{const text=normalizeHeaderText(raw);return {text,page:i+1,header:parseHeader(text,identity)};});
-  const exact=candidates.find(candidate=>candidate.header.identityValid);
+  // The first complete cover (or printed contradiction) owns identity. Later
+  // running headers cannot override a verified cover or erase a rejected one.
+  const exact=candidates.find(candidate=>candidate.header.identityValid||!candidate.header.printedIdentityValid);
+  if(exact&&!exact.header.printedIdentityValid)return exact;
   // A few split-component schemes label the cover only Paper 1 and clarify
   // 1A/1B in Subject Details on page three; require the aggregate identity.
   if(!exact&&identity.family==='ib'&&/Markscheme/i.test(pages[0]??'')) {

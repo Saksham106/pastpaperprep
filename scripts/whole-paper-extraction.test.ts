@@ -70,6 +70,28 @@ it('recognizes source-coded November exams administered in October without accep
   expect(findCover(['Licensing text',cover],identity)).toMatchObject({page:2,header:{identityValid:true}});
   expect(parseHeader(cover.replace('8817','2217'),identity).identityValid).toBe(false);
 });
+it.each(['N23/4/CHEMI/HP2/ENG/TZ1/XX','M22/4/CHEMI/HP2/ENG/TZ1/XX','M23/4/CHEMI/SP2/ENG/TZ1/XX','M23/4/CHEMI/HP1/ENG/TZ1/XX'])('rejects conflicting legacy code %s despite matching cover prose',code=>{
+  expect(parseHeader(`${code} Chemistry Higher level Paper 2 May 2023`,parseIdentity('chemistry-2023-may-tz1-hl-p2-english')).identityValid).toBe(false);
+});
+it('verifies numeric timezones in legacy HPM multiple-choice codes without guessing their component mapping',()=>{
+  const identity=parseIdentity('physics-2018-may-tz1-hl-p1-english');
+  const text='M18/4/PHYSI/HPM/ENG/TZ2/XX Physics Higher level Paper 1 May 2018';
+  expect(parseHeader(text,identity).identityValid).toBe(false);
+  expect(parseHeader(text.replace('TZ2','TZ1'),identity)).toMatchObject({identityValid:true,examCode:'M18/4/PHYSI/HPM/ENG/TZ1/XX'});
+});
+it('normalizes split slash-code glyphs and strips only the markscheme suffix',()=>{
+  const identity=parseIdentity('chemistry-2023-may-tz1-hl-p2-english');
+  const code='M 2 3 / 4 / C H E M I / H P 2 / E N G / T Z 1 / X X / M';
+  expect(parseHeader(`${code} Chemistry Higher level Paper 2 May 2023`,identity)).toMatchObject({identityValid:true,examCode:'M23/4/CHEMI/HP2/ENG/TZ1/XX'});
+});
+it('does not infer numeric timezones from modern codes, ABC scheduling, tzn or none',()=>{
+  const modern='Chemistry Higher level Paper 2 May 2023 Zone A afternoon Zone B morning Zone C afternoon';
+  expect(parseHeader(modern,parseIdentity('chemistry-2023-may-tz1-hl-p2-english')).identityValid).toBe(true);
+  expect(parseHeader(`${modern} 2223 – 6108`,parseIdentity('chemistry-2023-may-tz2-hl-p2-english')).identityValid).toBe(true);
+  expect(parseHeader('M17/5/MATHL/SP2/ENG/TZ0/XX Mathematics Standard level Paper 2 November 2017',parseIdentity('2017-november-p2-tzn')).identityValid).toBe(false); // session conflicts, not a fabricated tzn mapping
+  expect(parseHeader('N17/5/MATHL/SP2/ENG/TZ0/XX Mathematics Standard level Paper 2 November 2017',parseIdentity('2017-november-p2-tzn')).identityValid).toBe(true);
+  expect(parseHeader('M23/4/CHEMI/HP2/ENG/TZ0/XX '+modern,parseIdentity('chemistry-2023-may-none-hl-p2-english')).identityValid).toBe(true);
+});
 it('holds optional-choice layouts and verifies IB level, session, paper and year', () => {
   const identity=parseIdentity('2023-may-tz1-hl-p2');
   expect(parseHeader('Chemistry Higher level Paper 2 May 2023 2 hours 15 minutes Maximum marks: 95 Answer two questions from Section B.',identity)).toMatchObject({identityValid:true,durationMinutes:135,maxMarks:95,optionalChoice:true});

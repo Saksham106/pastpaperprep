@@ -164,7 +164,10 @@ export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestio
   const legacyCode=legacyToken ? new RegExp(`\\b${legacyToken.split('').join('\\s*')}\\b`,'i') : null;
   const legacyOptionValid=!legacyOption || Boolean(legacyCode?.test(qFound.text)&&legacyCode.test(mFound.text)&&mFound.text.replace(/[\s,]/g,'').toLowerCase().includes(legacyOption.title));
   const subjectValid=subjectPattern.test(qFound.text)&&(subjectPattern.test(mFound.text)||Boolean(legacyOption&&legacyOptionValid));
-  const examCodesAgree=!qCover.examCode||!mCover.examCode||qCover.examCode===mCover.examCode;
+  // Compare like printed formats only: there is no evidenced translation
+  // between modern numeric codes and legacy slash codes (or ABC zones).
+  const comparableCodes=Boolean(qCover.examCode&&mCover.examCode&&qCover.examCode.includes('/')===mCover.examCode.includes('/'));
+  const examCodesAgree=!comparableCodes||qCover.examCode===mCover.examCode;
   const coursePattern=bank.subject==='Mathematics AA'?/analysis\s+and\s+approaches/i:bank.subject==='Mathematics AI'?/applications\s+and\s+interpretation/i:null;
   const legacyMathematics=coursePattern!==null&&identity.year<2021;
   const courseValid=!coursePattern||legacyMathematics||(coursePattern.test(qFound.text)&&coursePattern.test(mFound.text));
