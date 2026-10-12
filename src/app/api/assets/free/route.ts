@@ -3,10 +3,10 @@ import { isPreviewQuestion } from "@/lib/access";
 import { loadBankAssetManifest } from "@/lib/asset-manifest";
 import { assetPathsForKind, isAssetKind } from "@/lib/asset-kinds";
 import { getBank, type BankSlug } from "@/lib/banks";
-import { explanationAssetSignOptions, previewAssetSignOptions, signPrivateAssetUrls } from "@/lib/private-assets";
+import { explanationAssetSignOptions, previewAssetSignOptions, resolvedAssetSignProvider, signPrivateAssetUrls } from "@/lib/private-assets";
 import { richDetailsFor } from "@/lib/question-delivery";
 import { reviewedBlankTailForSignedAsset } from "@/lib/reviewed-blank-tails";
-import { withFailureReporting } from "@/lib/route-failure-reporting";
+import { annotateFailureResponse, withFailureReporting } from "@/lib/route-failure-reporting";
 import { FREE_ASSET_CDN_MAX_AGE, FREE_ASSET_EXPIRES_IN } from "@/lib/signed-assets";
 
 export const runtime = "nodejs";
@@ -31,17 +31,19 @@ async function handleGET(request: NextRequest) {
     return NextResponse.json({ error: "Access required" }, { status: 403, ...NO_STORE });
   }
   const manifest = await loadBankAssetManifest(bank).catch(() => null);
-  if (!manifest) return NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503, ...NO_STORE });
+  if (!manifest) return annotateFailureResponse(NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503, ...NO_STORE }), { bank, stage: "manifest", storage_provider: "local", error_code: "manifest_unavailable" });
   const entry = manifest.get(questionId);
   if (!entry) return NextResponse.json({ error: "Unknown question" }, { status: 404, ...NO_STORE });
 
   const paths = assetPathsForKind(entry, kind);
   let urlByPath: Awaited<ReturnType<typeof signPrivateAssetUrls>>;
+  let provider: "r2" | "supabase" | "unknown" = "unknown";
   try {
-    const options = kind === "explanation" ? explanationAssetSignOptions() : previewAssetSignOptions(bank);
-    urlByPath = await signPrivateAssetUrls(paths, FREE_ASSET_EXPIRES_IN, { ...options, longLived: true });
+    const options = { ...(kind === "explanation" ? explanationAssetSignOptions() : previewAssetSignOptions(bank)), longLived: true };
+    provider = resolvedAssetSignProvider(options);
+    urlByPath = await signPrivateAssetUrls(paths, FREE_ASSET_EXPIRES_IN, options);
   } catch {
-    return NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503, ...NO_STORE });
+    return annotateFailureResponse(NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503, ...NO_STORE }), { bank, stage: "signing", storage_provider: provider, error_code: "signing_failed" });
   }
   return NextResponse.json({
     expiresIn: FREE_ASSET_EXPIRES_IN,

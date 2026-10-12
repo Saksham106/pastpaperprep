@@ -3,6 +3,9 @@ import { redirect } from "next/navigation";
 import { signOut } from "@/app/auth/actions";
 import { AccountPlanOverview } from "@/components/AccountPlanOverview";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { AccessReadRecovery } from "@/components/AccessReadRecovery";
+import { isFutureIssuedJwtError } from "@/lib/access-recovery";
+import { captureServerException } from "@/lib/server-error-tracking";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { hasBankAccess, type AccessEntitlement } from "@/lib/access";
 import { getEntitlementBanks } from "@/lib/banks";
@@ -29,7 +32,16 @@ export default async function AccountPage({
     supabase.auth.getUser(),
     fetchAccessEntitlements(supabase as never, claimsData.claims.sub),
   ]);
-  if (accessResult.error) throw accessResult.error;
+  if (accessResult.error) {
+    if (isFutureIssuedJwtError(accessResult.error)) {
+      captureServerException(new Error("Access verification failed"), {
+        route: "/account", route_type: "render", stage: "entitlement",
+        storage_provider: "supabase", error_code: "PGRST303",
+      });
+      return <AccessReadRecovery retryPath="/account" />;
+    }
+    throw accessResult.error;
+  }
   const entitlements = accessResult.rows as AccessEntitlement[];
   const hasAnyBankAccess = getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, entitlements));
 

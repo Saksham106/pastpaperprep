@@ -2,9 +2,31 @@ import "server-only";
 import { after } from "next/server";
 import { PostHog } from "posthog-node";
 import { scrubStack } from "@/lib/error-privacy";
+import { BANK_CATALOG } from "@/lib/catalog";
+import { safeServerErrorCode } from "@/lib/safe-server-error-code";
 
 const AUTH_PHASES = new Set(["signup_result", "magic_link_result", "resend_result", "password_signin_result", "confirmation_result"]);
-const SAFE_PROPERTY_KEYS = new Set(["router_kind", "route_type", "route", "auth_phase", "provider_code", "error_source", "error_code", "reason"]);
+const ENUMS: Record<string, Set<string>> = {
+  router_kind: new Set(["App Router", "Pages Router"]),
+  route_type: new Set(["render", "route", "action", "middleware"]),
+  auth_phase: AUTH_PHASES,
+  provider_code: new Set(["unexpected_failure", "smtp_error"]),
+  error_source: new Set(["handled_response", "auth_provider"]),
+  stage: new Set(["manifest", "signing", "entitlement", "quota", "response"]),
+  storage_provider: new Set(["local", "supabase", "r2", "unknown"]),
+  bank: new Set(BANK_CATALOG.map((bank) => bank.slug)),
+};
+function safeMetadata(metadata: Record<string, unknown>) {
+  const properties: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(metadata)) {
+    if (typeof value !== "string" || value.length > 80) continue;
+    if (Object.prototype.hasOwnProperty.call(ENUMS, key) && ENUMS[key].has(value)
+      || key === "error_code" && safeServerErrorCode(value)
+      || key === "http_status" && /^5\d{2}$/.test(value)
+      || key === "route" && /^\/[A-Za-z0-9_\-/[\].()]*$/.test(value)) properties[key] = value;
+  }
+  return properties;
+}
 const PROVIDER_FAILURE_CODES = new Set(["unexpected_failure", "smtp_error"]);
 let client: PostHog | null = null;
 
@@ -26,14 +48,27 @@ function sanitizeError(error: unknown): Error | null {
 export function captureServerException(error: unknown, metadata: Record<string, unknown> = {}) {
   const safe = sanitizeError(error);
   const posthog = getClient();
-  if (!safe || !posthog) return;
-  const properties: Record<string, unknown> = Object.fromEntries(Object.entries(metadata).filter(([key, value]) => SAFE_PROPERTY_KEYS.has(key) && typeof value === "string" && value.length <= 80));
+  if (!safe) return;
+  const properties = safeMetadata(metadata);
   // Preview deploys share the PostHog project; tag the environment so their failures stay separable.
   const vercelEnv = process.env.VERCEL_ENV;
   if (vercelEnv === "production" || vercelEnv === "preview" || vercelEnv === "development") properties.vercel_env = vercelEnv;
+  const environment = typeof properties.vercel_env === "string" ? properties.vercel_env : process.env.NODE_ENV === "production" ? "production" : process.env.NODE_ENV === "test" ? "test" : "development";
+  properties.signal_kind = "server";
+  properties.correlation_id = globalThis.crypto.randomUUID();
+  properties.$process_person_profile = false;
+  // Public SDK additionalProperties supports these documented ingestion properties.
+  // Exclude the occurrence ID (and release) so a new occurrence/deploy does not split an issue.
+  const group = [environment, properties.route ?? "unknown", properties.error_source ?? "request", properties.auth_phase ?? "", properties.stage ?? "", properties.bank ?? "", properties.storage_provider ?? "", properties.error_code ?? properties.provider_code ?? safe.name];
+  // Unknown failures retain the SDK's scrubbed-frame grouping, rather than merging
+  // every unrelated render exception on the same route into one generic issue.
+  if (properties.error_code || properties.provider_code) properties.$exception_fingerprint = `server:v1:${JSON.stringify(group)}`;
+  properties.$issue_name = `Server ${properties.route ?? "unknown"} ${properties.stage ?? properties.auth_phase ?? "request"}: ${properties.error_code ?? properties.provider_code ?? safe.name}`;
+  try { console.error("server_exception", properties); } catch { /* Logging is best effort too. */ }
+  if (!posthog) return;
   try {
     after(async () => {
-      try { await posthog.captureExceptionImmediate(safe, `server:${globalThis.crypto.randomUUID()}`, { ...properties, $process_person_profile: false }); }
+      try { await posthog.captureExceptionImmediate(safe, `server:pastpaperprep:${environment}`, { ...properties, $process_person_profile: false }); }
       catch { /* Provider outages must not affect authentication or request handling. */ }
     });
   } catch { /* Request telemetry is best effort. */ }
