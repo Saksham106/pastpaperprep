@@ -213,3 +213,21 @@ test('a single-bank declaration is refused when the journal names another bank o
  const foreign=[{type:'started',agentId:'a',label:'verify g1'},{type:'result',agentId:'a',result:{results:[{questionId:'other-bank-q9',verdict:'pass',issues:[]}]}}];
  assert.match(replayFixture(foreign, undefined, {singleBank:true,expectStatus:1}).run.stderr,/not in ib-hl/);
 });
+test('--replace only accepts IDs whose ledger row is a re-checked correction', () => {
+ const {projects,dir,id}=replayFixture([]);
+ const doc={schemaVersion:1,bank:'ib-hl',questionId:id,totalMarks:5,parts:[{label:'',marks:5,approach:'Test',answer:'Test',steps:[{text:'Test',marks:[]}]}]};
+ writeFileSync(join(dir,id+'.json'),JSON.stringify(doc));
+ const publish=(status, args)=>{
+  writeFileSync(join(dir,'_ledger.json'),JSON.stringify({bank:'ib-hl',bankEvidenceVersion:1,rows:[{questionId:id,status,bank:'ib-hl',bankEvidenceVersion:1}]}));
+  const env={...process.env,PPP_PROJECTS_ROOT:projects};
+  for(const key of ['R2_ACCOUNT_ID','R2_SYNC_ACCESS_KEY_ID','R2_SYNC_SECRET_ACCESS_KEY']) delete env[key];
+  return spawnSync(process.execPath,[script,'--bank','ib-hl',...args],{encoding:'utf8',env});
+ };
+ assert.match(publish('pass',['--apply','--replace',id]).stderr,/is not a re-checked correction/);
+ assert.match(publish('pass-after-fix',['--replace',id]).stderr,/--replace needs --apply/);
+ assert.match(publish('pass-after-fix',['--apply','--replace','unknown-id']).stderr,/not publishable/);
+ // A correction passes the guard and only then needs storage credentials.
+ const allowed=publish('pass-after-minor-fix',['--apply','--replace',id]);
+ assert.doesNotMatch(allowed.stderr,/re-checked correction|not publishable/);
+ assert.match(allowed.stderr,/R2_ACCOUNT_ID/);
+});

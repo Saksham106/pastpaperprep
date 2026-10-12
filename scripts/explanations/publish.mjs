@@ -5,6 +5,8 @@
 //   node scripts/explanations/publish.mjs --bank ib-hl                 dry run: what would be published
 //   node scripts/explanations/publish.mjs --bank ib-hl --apply         upload + read back + write available.json
 //   node scripts/explanations/publish.mjs --bank ib-hl --verify-only   read back only, then write available.json
+//   ... --apply --replace id1,id2   deliberately replace those objects: only IDs whose ledger row is
+//                                   pass-after-fix / pass-after-minor-fix (corrected, then re-checked)
 //
 // Uploading needs owner approval. Two ways to reach R2:
 //   default         a temporary bucket-scoped token as R2_SYNC_ACCESS_KEY_ID / R2_SYNC_SECRET_ACCESS_KEY
@@ -32,6 +34,8 @@ const bank = argv[argv.indexOf("--bank") + 1];
 const apply = argv.includes("--apply");
 const verifyOnly = argv.includes("--verify-only");
 const viaWrangler = argv.includes("--via-wrangler");
+const replaceIds = argv.includes("--replace") ? new Set(String(argv[argv.indexOf("--replace") + 1] ?? "").split(",").filter(Boolean)) : new Set();
+const CORRECTED = new Set(["pass-after-fix", "pass-after-minor-fix"]);
 
 const sha256 = (text) => createHash("sha256").update(text).digest("hex");
 const SAFE = /^[A-Za-z0-9._-]+$/;
@@ -72,7 +76,7 @@ function publishable() {
     // Publish only the student-facing fields.
     const body = JSON.stringify({ schemaVersion: 1, bank, questionId: row.questionId, totalMarks: doc.totalMarks, parts: doc.parts });
     objectKey(row.questionId);
-    out.push({ id: row.questionId, body, hash: sha256(body) });
+    out.push({ id: row.questionId, body, hash: sha256(body), status: row.status });
   }
   return { out, skipped };
 }
@@ -89,6 +93,7 @@ function s3Store(bucket) {
   const s3 = client();
   return {
     putIfAbsent: (key, body) => s3.send(new PutObjectCommand({ Bucket: bucket, Key: key, Body: body, IfNoneMatch: "*", ContentType: "application/json", CacheControl: "private, max-age=600" })),
+    replace: (key, body) => s3.send(new PutObjectCommand({ Bucket: bucket, Key: key, Body: body, ContentType: "application/json", CacheControl: "private, max-age=600" })),
     get: async (key) => (await s3.send(new GetObjectCommand({ Bucket: bucket, Key: key }))).Body.transformToString(),
     close: () => {},
   };
@@ -116,14 +121,18 @@ function wranglerStore(bucket) {
   };
   const missing = (error) => /does not exist|NoSuchKey|\b404\b|not found/i.test(`${error?.stderr ?? ""} ${error?.stdout ?? ""} ${error?.message ?? ""}`);
   const seen = new Map();
+  const upload = async (key, body) => {
+    writeFileSync(file(key), body);
+    await wrangler(["r2", "object", "put", `${bucket}/${key}`, "--file", file(key), "--content-type", "application/json", "--cache-control", "private, max-age=600", "--remote"]);
+  };
   return {
+    replace: upload,
     // Never replace: an existing object is reported as a precondition failure, and publishSet
     // then accepts it only if its bytes match. A brief look-then-put window remains.
     putIfAbsent: async (key, body) => {
       try { seen.set(key, await read(key)); } catch (error) {
         if (!missing(error)) throw error;
-        writeFileSync(file(key), body);
-        await wrangler(["r2", "object", "put", `${bucket}/${key}`, "--file", file(key), "--content-type", "application/json", "--cache-control", "private, max-age=600", "--remote"]);
+        await upload(key, body);
         return;
       }
       throw Object.assign(new Error("Object already exists"), { name: "PreconditionFailed" });
@@ -140,6 +149,13 @@ async function main() {
   if (!bank || !/^[a-z0-9-]+$/.test(bank)) throw new Error("Pass --bank <safe slug>");
   if (apply && verifyOnly) throw new Error("--apply and --verify-only are mutually exclusive");
   const { out, skipped } = publishable();
+  const byId = new Map(out.map((item) => [item.id, item]));
+  for (const id of replaceIds) {
+    const item = byId.get(id);
+    if (!item) throw new Error(`--replace ${id}: not publishable`);
+    if (!CORRECTED.has(item.status)) throw new Error(`--replace ${id}: ledger status ${item.status} is not a re-checked correction`);
+  }
+  if (replaceIds.size && !apply) throw new Error("--replace needs --apply");
   console.log(`${bank}: ${out.length} publishable, ${skipped.length} held back`);
   for (const line of skipped) console.log(`  held: ${line}`);
   if (!apply && !verifyOnly) { console.log("Dry run. Pass --apply to upload."); return; }
@@ -154,6 +170,10 @@ async function main() {
   const receiptPath = join(receiptDir, `${setHash}-${randomUUID()}.json`);
   let verified;
   try {
+    for (const id of replaceIds) {
+      await store.replace(objectKey(id), byId.get(id).body);
+      console.log(`  replaced ${objectKey(id)}`);
+    }
     const keys = await publishSet(expected, store, { apply, receipt: (state) => {
       const temp = `${receiptPath}.${process.pid}.tmp`;
       writeFileSync(temp, `${JSON.stringify({ bank, bucket, setHash, ...state }, null, 2)}\n`, { flush: true, flag: "wx" });
