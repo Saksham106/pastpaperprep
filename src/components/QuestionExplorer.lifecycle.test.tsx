@@ -35,6 +35,23 @@ describe("QuestionExplorer session lifecycle", () => {
     expect(fetcher.mock.calls.filter(([url]) => url === "/member")).toHaveLength(1);
   });
 
+  it("still isolates mounted sessions when platform randomness is unavailable", async () => {
+    const randomness = vi.spyOn(crypto, "randomUUID").mockImplementation(() => { throw new Error("randomness unavailable"); });
+    try {
+      const pendingB = deferred();
+      let bootstraps = 0;
+      const fetcher = vi.fn(async (url: RequestInfo | URL, init?: RequestInit) => String(url) === "/member"
+        ? (++bootstraps === 1 ? member() : pendingB.promise) : signed(init, "A"));
+      vi.stubGlobal("fetch", fetcher);
+      render(<QuestionExplorer questions={[question]} bankSlug="igcse" access={anonymous} bootstrapUrl="/member" />);
+      await screen.findByRole("img", { name: /original question/i });
+      act(() => owner("B"));
+      await waitFor(() => expect(screen.queryByRole("img", { name: /original question/i })).toBeNull());
+      expect(bootstraps).toBe(2);
+      await act(async () => pendingB.resolve(member(anonymous)));
+    } finally { randomness.mockRestore(); }
+  });
+
   it("starts B's signer without awaiting A and discards A's late links and rich details", async () => {
     const late = deferred();
     let firstInit: RequestInit | undefined;

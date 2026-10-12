@@ -7,6 +7,7 @@ import {
   readCachedAssets,
   rememberAssets,
   sessionFingerprint,
+  sessionLifecycleOwner,
   writeCachedAccess,
 } from "@/lib/member-session-cache";
 import type { SignedAsset } from "@/lib/signed-assets";
@@ -59,6 +60,18 @@ describe("sessionFingerprint", () => {
     expect(readCachedAssets(owner, "ib-sl").size).toBe(0);
     writeCachedAccess("ib-sl", owner, member);
     expect(readCachedAccess("ib-sl", owner)).toBeNull();
+  });
+
+  it("distinguishes lifecycle changes in duplicate-cookie precedence without enabling cache reuse", () => {
+    const a = "sb-x-auth-token=A; sb-x-auth-token=B";
+    const b = "sb-x-auth-token=B; sb-x-auth-token=A";
+    const first = sessionLifecycleOwner(a);
+    const second = sessionLifecycleOwner(b);
+    expect(second).not.toBe(first);
+    expect(sessionLifecycleOwner(b)).toBe(second);
+    expect(sessionFingerprint(b)).toBeNull();
+    writeCachedAccess("ib-sl", second, member);
+    expect(readCachedAccess("ib-sl", second)).toBeNull();
   });
 
   it("invalidates captured generations on an intentional clear", () => {

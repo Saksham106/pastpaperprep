@@ -18,6 +18,7 @@ const MAX_REMEMBERED_ASSETS = 600;
 // Exact cookie identity lives only in this module's RAM, never in storage.
 let sessionSnapshot: string | undefined;
 let sessionOwner: string | null = null;
+let sessionGeneration = 0;
 
 /**
  * Opaque document-lifetime cache generation, NOT a JWT or authentication authority.
@@ -26,12 +27,13 @@ let sessionOwner: string | null = null;
  */
 export function sessionFingerprint(cookieHeader: string): string | null {
   const parts = cookieHeader.split(";").map((part) => part.trim())
-    .filter((part) => isSupabaseAuthCookieName(part.split("=")[0] ?? ""))
-    .sort();
+    .filter((part) => isSupabaseAuthCookieName(part.split("=")[0] ?? ""));
   const names = parts.map((part) => part.split("=")[0]);
   const ambiguous = new Set(names).size !== names.length;
-  const snapshot = JSON.stringify(parts);
+  // Duplicate-cookie order can change which value Supabase reads first.
+  const snapshot = JSON.stringify(ambiguous ? parts : parts.sort());
   if (snapshot !== sessionSnapshot) {
+    sessionGeneration += 1;
     sessionSnapshot = snapshot;
     sessionOwner = null;
     if (parts.length && !ambiguous) {
@@ -42,6 +44,11 @@ export function sessionFingerprint(cookieHeader: string): string | null {
     assetOwner = null;
   }
   return sessionOwner;
+}
+
+/** Lifecycle identity remains distinct even when private cache reuse is disabled. */
+export function sessionLifecycleOwner(cookieHeader: string): string {
+  return sessionFingerprint(cookieHeader) ?? `uncacheable:${sessionGeneration}`;
 }
 
 function validAccess(value: unknown): value is MemberAccess {

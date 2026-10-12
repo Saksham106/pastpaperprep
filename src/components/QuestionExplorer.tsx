@@ -23,7 +23,7 @@ import type { BankSlug } from "@/lib/banks";
 import { fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, lapsedSignedAssetExpiry, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
 import { pulseSuccess, shakeElement } from "@/lib/button-feedback";
 import { documentHasSupabaseAuthCookie, subscribeToSessionChanges } from "@/lib/supabase/auth-cookie";
-import { forgetAsset, readCachedAccess, readCachedAssets, rememberAssets, sessionFingerprint, writeCachedAccess } from "@/lib/member-session-cache";
+import { forgetAsset, readCachedAccess, readCachedAssets, rememberAssets, sessionLifecycleOwner, writeCachedAccess } from "@/lib/member-session-cache";
 import { mergeQuestionRichDetails, publicMetadataToQuestion, type PublicBankIndex } from "@/lib/question-index";
 import { matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
@@ -202,7 +202,7 @@ const questionTopicLabel = (question: UnifiedQuestion) => formatPublicLabel(ques
 
 const readAuthCookiePresent = () => documentHasSupabaseAuthCookie(document.cookie);
 /** Unknown/ambiguous cookies are not an anonymous private-cache owner. */
-const cacheOwner = () => sessionFingerprint(document.cookie);
+const cacheOwner = (): string | null => sessionLifecycleOwner(document.cookie);
 const serverHasNoAuthCookie = () => false;
 const anonymousAccess: ExplorerAccess = { authenticated: false, bankAccess: false, canExportPdf: false };
 
