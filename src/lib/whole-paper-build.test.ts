@@ -1,7 +1,11 @@
 // @vitest-environment node
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 describe('whole-paper build boundary',()=>{
+ it('routes Chemistry through the same manifest and activation gate as the other eighteen banks',()=>{
+  for(const file of ['page.tsx','[paperId]/page.tsx','[paperId]/document/route.ts']) expect(existsSync(`src/app/past-papers/igcse-chemistry-0620/${file}`)).toBe(false);
+  expect(existsSync('src/app/past-papers/[bankSlug]/[paperId]/document/route.ts')).toBe(true);
+ });
  it('bundles approved compact manifests and verified remote receipt but excludes local originals and source bindings',()=>{
   const config=readFileSync('next.config.ts','utf8');
   expect(config).toContain('"/past-papers/**"');

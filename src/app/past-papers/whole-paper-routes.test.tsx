@@ -20,6 +20,13 @@ describe('all-bank whole-paper routes',()=>{
   await expect(BankPage({params:Promise.resolve({bankSlug:'ib-ai-sl'})})).rejects.toThrow('NOT_FOUND');
   await expect(PaperPage({params:Promise.resolve({bankSlug:'ib-ai-sl',paperId:fixture.summary.id})})).rejects.toThrow('NOT_FOUND');
  });
+ it('uses the shared validated manifest for Chemistry rather than the retired local archive',async()=>{
+  const chemistry={...fixture.summary,bankSlug:'igcse-chemistry-0620',id:'0620-2023-w-42',title:'Chemistry 0620 · October/November 2023 · Paper 42'};
+  archive.summaries.mockResolvedValue([chemistry]);
+  render(await BankPage({params:Promise.resolve({bankSlug:'igcse-chemistry-0620'})}));
+  expect(archive.summaries).toHaveBeenCalledWith('igcse-chemistry-0620');
+  expect(screen.getByRole('heading',{name:/Chemistry 0620 past papers/})).toBeInTheDocument();
+ });
  it('renders the actual bank-specific reader and scoring workspace',async()=>{
   render(await PaperPage({params:Promise.resolve({bankSlug:'ib-ai-sl',paperId:fixture.summary.id})}));
   expect(screen.getByTestId('reader')).toHaveTextContent('ib-ai-sl 90');

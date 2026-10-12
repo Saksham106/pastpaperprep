@@ -10,7 +10,8 @@ import type { BankSlug } from '@/lib/catalog';
 export type WholePaperBrowserBank = { slug: BankSlug; title: string; qualification: string; syllabusCode: string };
 type DirectoryFilters = { q: string; year: string; session: string; paper: string; variant: string; route: string };
 const EMPTY: DirectoryFilters = { q:"", year:"", session:"", paper:"", variant:"", route:"" };
-const sessionOrder: Record<string, number> = { w:3, s:2, m:1 };
+const sessionOrder: Record<string, number> = { w:3, s:2, m:1, nov:3, may:2 };
+const paperLabel = (p: WholePaperSummary) => p.qualification === 'IB Diploma' ? p.paper.toUpperCase() : p.component;
 
 function readFilters(papers: readonly WholePaperSummary[]): DirectoryFilters {
   const query = new URLSearchParams(window.location.search);
@@ -59,9 +60,9 @@ export function WholePaperBrowser({ bank, papers, localPreview = true }: { bank:
     <div className={styles.refinements}>{routes.length > 1 && <label>Course route<select aria-label="Course route" value={filters.route} onChange={e=>change({...filters,route:e.target.value})}><option value="">All routes</option>{routes.map(route=><option key={route} value={route}>{route}</option>)}</select></label>}<span>{sorted.length} matching {sorted.length===1 ? "paper" : "papers"}</span><button type="button" onClick={()=>change(EMPTY)}>Clear filters</button></div>
     <div className={styles.results}>
       {sorted.length===0 && <p className={styles.empty}>No papers match these filters.</p>}
-      {[...groups].map(([name,items])=><section key={name} className={styles.group}><h2>{name}</h2><div>{items.map(paper=><Link key={paper.id} className={styles.paper} href={`${BASE}/${paper.id}`} aria-label={`Open Paper ${paper.component}, ${paper.session} ${paper.year}`}>
-        <span className={styles.paperIdentity}><FilePdf aria-hidden="true"/><span><strong>Paper {paper.component}</strong><span>{paper.subject}{paper.route && paper.route !== "Shared" ? ` · ${paper.route}` : ""}</span></span></span>
-        <span className={styles.paperFacts}>{paper.variant && <span>{paper.variant.startsWith("TZ") ? paper.variant : `Variant ${paper.variant}`}</span>}<span>{paper.durationMinutes === null ? "Duration unverified" : `${paper.durationMinutes} min`}</span><span>{paper.maxMarks === null ? "Marks unverified" : `${paper.maxMarks} marks`}</span></span>
+      {[...groups].map(([name,items])=><section key={name} className={styles.group}><h2>{name}</h2><div>{items.map(paper=><Link key={paper.id} className={styles.paper} href={`${BASE}/${paper.id}`} aria-label={`Open Paper ${paperLabel(paper)}, ${paper.session} ${paper.year}`}>
+        <span className={styles.paperIdentity}><FilePdf aria-hidden="true"/><span><strong>Paper {paperLabel(paper)}</strong><span>{paper.subject}{paper.route && paper.route !== "Shared" ? ` · ${paper.route}` : ""}</span></span></span>
+        <span className={styles.paperFacts}>{paper.variant && <span>{/^tz/i.test(paper.variant) ? paper.variant.toUpperCase() : `Variant ${paper.variant}`}</span>}<span>{paper.durationMinutes === null ? "Duration unverified" : `${paper.durationMinutes} min`}</span><span>{paper.maxMarks === null ? "Marks unverified" : `${paper.maxMarks} marks`}</span></span>
         <span className={styles.paperStatus}>{paper.reportAvailable ? "Practise & self-mark" : (paper.durationMinutes === null ? "PDFs only" : "PDFs & timer only")}{!paper.reportAvailable && <small>{paper.reportReason}</small>}</span><ArrowRight className={styles.arrow} aria-hidden="true"/>
       </Link>)}</div></section>)}
     </div>

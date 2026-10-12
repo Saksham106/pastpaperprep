@@ -1,0 +1,116 @@
+// @vitest-environment node
+import { execFileSync } from 'node:child_process';
+import fs from 'node:fs/promises';
+import { expect, it } from 'vitest';
+import path from 'node:path';
+import { assemblePaper, validateInventory, runtimeRelativeFile, parseCli, buildWholePaperArchives } from './build-whole-paper-archives.mjs';
+import type { ExtractedDocument } from './whole-paper-extraction.mjs';
+it('accepts repeatable inventories and rejects unknown or missing CLI arguments',()=>{
+  expect(parseCli(['--inventory','one.json','--inventory','two.json','--bank',bank.slug])).toEqual({inventoryFiles:['one.json','two.json'],bank:bank.slug});
+  expect(()=>parseCli(['--inventory'])).toThrow();
+  expect(()=>parseCli(['--inventry','one.json'])).toThrow();
+  expect(()=>parseCli([])).toThrow();
+});
+it('runs an empty portable cohort deterministically with private-only bindings and receipt',async()=>{
+  const dir=await fs.mkdtemp(path.join(process.env.TMPDIR??process.cwd(),'whole-paper-fixture-'));
+  try {
+    const runtime=path.join(dir,runtimeRelativeFile(bank.slug));await fs.mkdir(path.dirname(runtime),{recursive:true});await fs.writeFile(runtime,JSON.stringify({questions:[]}));
+    await fs.mkdir(path.join(dir,'src/lib'),{recursive:true});await fs.writeFile(path.join(dir,'src/lib/question-loader.ts'),`import('@/data/production/${bank.slug}.json')`);
+    const inventoryFile=path.join(dir,'inventory.json');await fs.writeFile(inventoryFile,JSON.stringify({banks:[{...bank,runtimeFile:runtime,pairs:[]}]}));
+    const cli=execFileSync(path.resolve('node_modules/.bin/tsx'),['--tsconfig',path.resolve('tsconfig.json'),path.resolve('scripts/build-whole-paper-archives.mts'),'--inventory',inventoryFile],{cwd:dir,encoding:'utf8'});
+    expect(JSON.parse(cli.trim())).toMatchObject([{bankSlug:bank.slug,paired:0}]);
+    await buildWholePaperArchives({root:dir,inventoryFiles:[inventoryFile]});
+    const manifestPath=path.join(dir,'src/data/paper-archives',bank.slug+'.json');const first=await fs.readFile(manifestPath,'utf8');
+    expect(JSON.parse(first)).toMatchObject({bankSlug:bank.slug,papers:[],coverage:{paired:0,reports:0,held:0,unpaired:0,runtimeWithoutPair:0}});
+    await buildWholePaperArchives({root:dir,inventoryFiles:[inventoryFile]});expect(await fs.readFile(manifestPath,'utf8')).toBe(first);
+    expect(JSON.parse(await fs.readFile(path.join(dir,'private/paper-archives/source-bindings.json'),'utf8'))).toEqual({roots:[],documents:[]});
+    expect(JSON.parse(await fs.readFile(path.join(dir,'private/paper-archives/receipt.json'),'utf8')).banks).toHaveLength(1);
+  } finally {await fs.rm(dir,{recursive:true,force:true});}
+});
+const pair={id:'0620-2023-w-42',runtimePaperId:'0620-2023-w-42',questionPath:'/original/question.pdf',markschemePath:'/original/markscheme.pdf',runtimeQuestionIds:['0620-2023-w-42-q1','0620-2023-w-42-q2']};
+const bank={slug:'igcse-chemistry-0620',runtimeFile:path.resolve('src/data/production/igcse-chemistry-0620.json'),pairs:[pair],unpaired:[],runtimeWithoutPair:[],notes:[]};
+const doc=(text:string,totals:number[]=[]):ExtractedDocument=>({sha256:'a'.repeat(64),bytes:123,pages:2,text:[text],questions:totals.map((maxMarks,i)=>({number:i+1,page:2,text:`[Total: ${maxMarks}]`,maxMarks}))});
+const qp=doc('CHEMISTRY 0620/42 Paper 4 Theory Extended October/November 2023 1 hour 15 minutes The total mark for this paper is 80.',[30,50]);
+const ms=doc('CHEMISTRY 0620/42 October/November 2023 Maximum Mark: 80');
+const rows=pair.runtimeQuestionIds.map((id,i)=>({id,number:i+1,marks:1,primaryTopic:'Chemical reactions',secondaryTopics:[]}));
+it('publishes only contract metadata and source-corrected exact runtime IDs',()=>{
+  const result=assemblePaper(bank.slug,pair,rows as never,qp,ms);
+  expect(result.entry.summary).toMatchObject({paper:'4',variant:'2',durationMinutes:75,maxMarks:80,reportAvailable:true,metadataVerified:true});
+  expect(result.entry.questions.map(q=>q.maxMarks)).toEqual([30,50]);
+  expect(result.entry.questions.map(q=>q.id)).toEqual(pair.runtimeQuestionIds);
+  expect(result.corrections).toHaveLength(2);
+  expect(JSON.stringify(result.entry)).not.toMatch(/original|Total:|questionPath|provenance|https?:/);
+  expect(assemblePaper(bank.slug,pair,rows as never,qp,ms).entry).toEqual(result.entry);
+});
+it('never recommends an operational section-review bucket as an assessed topic',()=>{
+  const input=rows.map(q=>({...q,secondaryTopics:['Questions needing section review']}));
+  const result=assemblePaper(bank.slug,pair,input as never,qp,ms);
+  expect(result.entry.summary.reportAvailable).toBe(true);
+  expect(result.entry.questions.flatMap(q=>q.topics)).not.toContain('Questions needing section review');
+  const unclassified=input.map(q=>({...q,primaryTopic:'Questions needing section review',secondaryTopics:[]}));
+  expect(assemblePaper(bank.slug,pair,unclassified as never,qp,ms).entry.summary.reportAvailable).toBe(false);
+});
+it('uses the actual thirty-question MCQ inventory and explicit one-mark rule, not a science default',()=>{
+  const mcPair={...pair,id:'0455-2019-m-12',runtimeQuestionIds:Array.from({length:30},(_,i)=>`0455-2019-m-12-q${i+1}`)};
+  const mcRows=mcPair.runtimeQuestionIds.map((id,i)=>({...rows[0],id,number:i+1,marks:1,primaryTopic:'The basic economic problem'}));
+  const question=doc('ECONOMICS 0455/12 February/March 2019 Paper 1 Multiple Choice 45 minutes There are thirty questions. Each correct answer will score one mark.',Array(30).fill(0));
+  const scheme=doc('ECONOMICS 0455/12 March 2019 Maximum Mark: 30');
+  expect(assemblePaper('igcse-economics-0455',mcPair,mcRows as never,question,scheme).entry).toMatchObject({summary:{maxMarks:30,questionCount:30,reportAvailable:true}});
+});
+it('rejects cross-level and current AA/AI course mismatches while allowing pre-AA legacy Mathematics',()=>{
+  const ibPair={...pair,id:'chemistry-2023-may-tz1-hl-p2-english'};
+  const q=doc('Chemistry Higher level Paper 2 May 2023 2 hours Maximum marks: 80',[30,50]),m=doc('Chemistry Higher level Paper 2 May 2023');
+  expect(assemblePaper('ib-chemistry-sl',ibPair,rows as never,q,m).evidence.identityValid).toBe(false);
+  const mathPair={...pair,id:'2023-may-tz1-p1'};
+  const mq=doc('Mathematics: applications and interpretation Higher level Paper 1 May 2023 2 hours Maximum marks: 80',[30,50]),mm=doc('Mathematics: applications and interpretation Higher level Paper 1 May 2023');
+  expect(assemblePaper('ib-hl',mathPair,rows as never,mq,mm).evidence.identityValid).toBe(false);
+  const legacyPair={...pair,id:'2017-may-tz1-p1'};
+  expect(assemblePaper('ib-hl',legacyPair,rows as never,doc('Mathematics Higher level Paper 1 May 2017 2 hours Maximum marks: 80',[30,50]),doc('Mathematics Higher level Paper 1 May 2017')).evidence.identityValid).toBe(true);
+});
+it('verifies legacy HL option markschemes by the exact printed option code instead of requiring a missing Mathematics title',()=>{
+  const p={...pair,id:'2017-may-tz0-p3-calculus'};
+  const q=doc('M17/5/MATHL/HP3/ENG/TZ0/SE Mathematics Higher level Paper 3 calculus May 2017 1 hour Maximum Mark: 50',[25,25]);
+  const m=doc('M17/5/MATHL/HP3/ENG/TZ0/SE/M Markscheme May 2017 Calculus Higher level Paper 3');
+  const result=assemblePaper('ib-hl',p,rows as never,q,m);
+  expect(result.evidence.identityValid,JSON.stringify(result.evidence)).toBe(true);
+  const spaced={...q,text:[q.text[0].replace('M17/5/MATHL/HP3/ENG/TZ0/SE','M 17 / 5 / MATHL/ H P 3 / E N G /TZ 0 /SE')]};
+  expect(assemblePaper('ib-hl',p,rows as never,spaced,m).evidence.identityValid).toBe(true);
+  const wrong={...m,text:[m.text[0].replace('/SE/M','/SG/M')]};
+  expect(assemblePaper('ib-hl',p,rows as never,q,wrong).evidence.identityValid).toBe(false);
+});
+it('matches source-confirmed split glyph headers and the singular official 0654 markscheme title',()=>{
+  const spaced={...qp,text:[qp.text[0].replace('CHEMISTRY','C h e m i s t r y')]};
+  expect(assemblePaper(bank.slug,pair,rows as never,spaced,ms).evidence.identityValid).toBe(true);
+  const sciencePair={...pair,id:'0654-2020-winter-41'};
+  const q=doc('CO-ORDINATED SCIENCES 0654/41 Paper 4 Theory Extended October/November 2020 2 hours The total mark for this paper is 120.',[60,60]);
+  const m=doc('CO - ORDINATED SCIENCE 0654/41 October/November 2020 Maximum Mark: 120');
+  expect(assemblePaper('igcse-coordinated-sciences-0654',sciencePair,rows as never,q,m).evidence.identityValid).toBe(true);
+});
+it('holds mismatched subjects even when code, year and component agree',()=>{
+  expect(assemblePaper(bank.slug,pair,rows as never,{...qp,text:[qp.text[0].replace('CHEMISTRY','PHYSICS')]},ms).entry.summary.metadataVerified).toBe(false);
+});
+it('compares simple printed MS question maxima in addition to the cover maximum',()=>{
+  const scheme={...ms,questions:[{number:1,page:2,text:'[Maximum mark: 29]',maxMarks:29},{number:2,page:3,text:'[Maximum mark: 51]',maxMarks:51}]};
+  expect(assemblePaper(bank.slug,pair,rows as never,qp,scheme).entry.summary.reportAvailable).toBe(false);
+});
+it('holds incomplete inventory, optional choice and markscheme maximum disagreements',()=>{
+  expect(assemblePaper(bank.slug,pair,rows.slice(0,1) as never,qp,ms).entry.summary.reportAvailable).toBe(false);
+  const choice={...qp,text:[qp.text[0]+' Answer two questions from Section B.']};
+  expect(assemblePaper(bank.slug,pair,rows as never,choice,ms).entry).toMatchObject({summary:{reportAvailable:false,durationMinutes:75},questions:[]});
+  expect(assemblePaper(bank.slug,pair,rows as never,qp,doc(ms.text[0].replace('80','90'))).entry.summary.reportAvailable).toBe(false);
+});
+it('retains paired sources without runtime membership and enforces source-safe IDs',()=>{
+  expect(()=>validateInventory({banks:[{...bank,pairs:[{...pair,runtimePaperId:null,runtimeQuestionIds:[]}]}]})).not.toThrow();
+  expect(()=>validateInventory({banks:[{...bank,pairs:[{...pair,id:'bad%identity'}]}]})).toThrow(/identity/);
+});
+it('rejects duplicate pair IDs, duplicate persisted qids and nonabsolute originals',()=>{
+  expect(()=>validateInventory({banks:[bank]})).not.toThrow();
+  expect(()=>validateInventory({banks:[{...bank,pairs:[pair,pair]}]})).toThrow(/Duplicate/);
+  expect(()=>validateInventory({banks:[{...bank,pairs:[{...pair,runtimeQuestionIds:[rows[0].id,rows[0].id]}]}]})).toThrow(/Duplicate/);
+  expect(()=>validateInventory({banks:[{...bank,pairs:[{...pair,questionPath:'relative.pdf'}]}]})).toThrow(/absolute/);
+});
+it('traces the deployed loader cohort rather than candidate or production IB science artifacts',()=>{
+  expect(runtimeRelativeFile('ib-chemistry-hl')).toBe('src/data/raw/ib-chemistry-hl.json');
+  expect(runtimeRelativeFile('igcse-chemistry-0620')).toBe('src/data/production/igcse-chemistry-0620.json');
+  expect(runtimeRelativeFile('ib-economics-hl')).toBe('src/data/production/ib-economics-hl.json');
+});

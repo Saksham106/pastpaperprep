@@ -20,6 +20,12 @@ describe('whole-paper bank browser',()=>{
   expect(screen.getByText('PDFs only')).toBeInTheDocument();
   expect(screen.queryByText('75 min')).not.toBeInTheDocument();
  });
+ it('orders November before May and formats IB components without a duplicated Paper prefix',()=>{
+  render(<WholePaperBrowser bank={{slug:'ib-ai-hl',qualification:'IB Diploma',title:'IB Mathematics AI Higher Level',syllabusCode:'AI'}} papers={[{...base,component:'P1',variant:'tz2'},{...base,id:'2025-nov-hl-p1-tz2',component:'P1',variant:'tz2',session:'November',sessionCode:'nov'}]}/>);
+  const links=screen.getAllByRole('link',{name:/Open Paper/});
+  expect(links[0]).toHaveAccessibleName('Open Paper 1, November 2025');
+  expect(screen.getAllByText('TZ2')).toHaveLength(2);
+ });
  it('filters IB paper components and timezone values through the shareable bank URL',()=>{
   render(<WholePaperBrowser bank={{slug:'ib-ai-hl',qualification:'IB Diploma',title:'IB Mathematics AI Higher Level',syllabusCode:'AI'}} papers={[base,{...base,id:'2025-may-hl-p2-tz1',component:'2',paper:'2',variant:'TZ1'}]}/>);
   fireEvent.change(screen.getByRole('combobox',{name:'Paper'}),{target:{value:'1'}});
