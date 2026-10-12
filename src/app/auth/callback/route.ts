@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { validOAuthFlowId } from "@/lib/oauth-pkce";
 import { safeNextPath } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { bindReferralToAuthenticatedUser } from "@/lib/referral-account";
@@ -16,18 +17,36 @@ export async function GET(request: NextRequest) {
   const code = url.searchParams.get("code");
   const next = safeNextPath(url.searchParams.get("next"));
 
-  if (code) {
+  const flowIds = url.searchParams.getAll("sb_flow_id");
+  const flowId = flowIds[0];
+  const google = url.searchParams.get("provider") === "google" || flowIds.length > 0;
+  const failureUrl = new URL("/login", url.origin);
+  failureUrl.searchParams.set("error", google ? "google" : "callback");
+  if (google) failureUrl.searchParams.set("next", next);
+  const failure = () => NextResponse.redirect(failureUrl);
+  if (!code || url.searchParams.has("error") || flowIds.length > 1 || (flowIds.length === 1 && !validOAuthFlowId(flowId))) return failure();
+
+  try {
     const supabase = await createClient();
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
-    if (!error) {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user?.id && user.created_at) await bindReferralToAuthenticatedUser(user.id, user.created_at, request.cookies.get(REFERRAL_COOKIE)?.value);
-      if (user?.id && isFirstOAuthSignIn(user)) {
+    const { error, data } = flowId === undefined
+      ? await supabase.auth.exchangeCodeForSession(code)
+      : await supabase.auth.exchangeCodeForSession(code, { flowId });
+    if (error) return failure();
+    const recovery = data && "redirectType" in data && data.redirectType === "recovery";
+    const destination = recovery || url.searchParams.get("type") === "recovery" ? "/account/password" : next;
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (userError || !user?.id) return failure();
+    // Optional bookkeeping must not turn an established session into an auth failure.
+    try {
+      if (user.created_at) await bindReferralToAuthenticatedUser(user.id, user.created_at, request.cookies.get(REFERRAL_COOKIE)?.value);
+    } catch { /* best effort; no raw provider/user details */ }
+    try {
+      if (isFirstOAuthSignIn(user)) {
         await captureConversionOutcome({ outcome: "signup_confirmed", eventKey: `signup:${user.id}`, userId: user.id, occurredAt: user.created_at });
       }
-      return NextResponse.redirect(new URL(next, url.origin));
-    }
+    } catch { /* best effort */ }
+    return NextResponse.redirect(new URL(destination, url.origin));
+  } catch {
+    return failure();
   }
-
-  return NextResponse.redirect(new URL("/login?error=callback", url.origin));
 }

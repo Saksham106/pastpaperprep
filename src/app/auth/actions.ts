@@ -8,6 +8,7 @@ import { createClient } from "@/lib/supabase/server";
 import { captureConversionOutcome } from "@/lib/server-conversion-analytics";
 import { ANALYTICS_CONSENT_VERSION, parseAnalyticsConsent } from "@/lib/analytics-consent";
 import { createAuthAttemptId, logAuthDiagnostic } from "@/lib/auth-diagnostics";
+import { googleAuthorizationUrl } from "@/lib/oauth-pkce";
 import { completeEmailVerification } from "@/lib/email-verification";
 
 export async function requestMagicLink(
@@ -233,12 +234,12 @@ export async function signInWithGoogle(formData: FormData) {
   try {
     const supabase = await createClient();
     const { data, error } = await supabase.auth.signInWithOAuth({ provider: "google", options: { redirectTo: callbackUrl.toString() } });
-    if (!error) url = data.url;
-    else logAuthDiagnostic({ attemptId, phase: "oauth_result", outcome: "rejected", providerCode: error.code ?? "unknown" });
+    if (!error && data.url) url = googleAuthorizationUrl(data.url, callbackUrl, data.flowId);
+    else logAuthDiagnostic({ attemptId, phase: "oauth_result", outcome: "rejected", providerCode: error?.code ?? "unknown" });
   } catch {
     logAuthDiagnostic({ attemptId, phase: "oauth_result", outcome: "rejected", providerCode: "unexpected_failure" });
   }
-  if (!url) redirect("/login?error=google");
+  if (!url) redirect(`/login?${new URLSearchParams({ error: "google", next })}`);
   logAuthDiagnostic({ attemptId, phase: "oauth_result", outcome: "accepted" });
   redirect(url);
 }
@@ -253,11 +254,13 @@ export async function requestPasswordReset(
     return { status: "error", message: "Enter a valid email address." };
   }
 
-  const supabase = await createClient();
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-  const callbackUrl = new URL("/auth/callback", siteUrl);
-  callbackUrl.searchParams.set("next", "/account/password");
-  await supabase.auth.resetPasswordForEmail(email, { redirectTo: callbackUrl.toString() });
+  try {
+    const supabase = await createClient();
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+    const callbackUrl = new URL("/auth/callback", siteUrl);
+    callbackUrl.searchParams.set("next", "/account/password");
+    await supabase.auth.resetPasswordForEmail(email, { redirectTo: callbackUrl.toString() });
+  } catch { /* Keep reset requests neutral; never expose account/provider details. */ }
 
   return { status: "success", message: "If that account exists, a password-reset link is on its way." };
 }

@@ -369,9 +369,9 @@ describe("signInWithGoogle", () => {
   it("returns to login with a Google error when Supabase refuses or fails", async () => {
     createClient.mockResolvedValue({ auth: { signInWithOAuth: vi.fn().mockResolvedValue({ data: { url: null }, error: { code: "validation_failed" } }) } });
     await expect(signInWithGoogle(form({ next: "/account" }))).rejects.toThrow("NEXT_REDIRECT");
-    expect(redirect).toHaveBeenCalledWith("/login?error=google");
+    expect(redirect).toHaveBeenCalledWith("/login?error=google&next=%2Faccount");
     createClient.mockRejectedValue(new Error("network"));
     await expect(signInWithGoogle(form({ next: "/account" }))).rejects.toThrow("NEXT_REDIRECT");
-    expect(redirect).toHaveBeenLastCalledWith("/login?error=google");
+    expect(redirect).toHaveBeenLastCalledWith("/login?error=google&next=%2Faccount");
   });
 });
