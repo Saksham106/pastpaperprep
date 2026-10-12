@@ -4,6 +4,7 @@ import { assetPathsForKind, isAssetKind } from "@/lib/asset-kinds";
 import { parseExplanation } from "@/lib/explanation-format";
 import { explanationObjectPath, hasExplanation, isExplanationObjectPath } from "@/lib/explanations";
 import { formatPartLabel, renderInlineMath } from "@/components/ExplanationPanel";
+import available from "@/data/explanations/available.json";
 
 const doc = {
   schemaVersion: 1,
@@ -14,10 +15,13 @@ const doc = {
 };
 
 describe("explanation paths", () => {
-  it("holds AI HL IDs with only AI SL verification without hiding the AI SL explanation", () => {
-    const sharedId = "2021-may-tz1-p1-q10";
-    expect(hasExplanation("ib-ai-hl", sharedId)).toBe(false);
+  it("answers per bank, so a question ID shared by AI SL and AI HL never borrows the other bank's explanation", () => {
+    // Both banks contain this question; only AI SL has a published explanation for it.
+    const sharedId = "2021-november-tz0-p1-q4";
+    expect(available["ib-ai-sl"]).toContain(sharedId);
+    expect(available["ib-ai-hl"]).not.toContain(sharedId);
     expect(hasExplanation("ib-ai-sl", sharedId)).toBe(true);
+    expect(hasExplanation("ib-ai-hl", sharedId)).toBe(false);
   });
 
   it("builds R2 keys under the explanations prefix only", () => {

@@ -1,6 +1,6 @@
 // @vitest-environment node
 import { spawnSync } from "node:child_process";
-import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { afterEach, expect, test } from "vitest";
@@ -9,7 +9,9 @@ const roots = [];
 afterEach(() => roots.splice(0).forEach((root) => rmSync(root, { recursive: true, force: true })));
 
 function buildSandbox() {
-  const root = mkdtempSync(join(tmpdir(), "explanation-build-guard-"));
+  // Real path: on macOS tmpdir() is a symlink, and next-build.mjs only runs its main block
+  // when import.meta.url matches argv[1].
+  const root = mkdtempSync(join(realpathSync(tmpdir()), "explanation-build-guard-"));
   roots.push(root);
   mkdirSync(join(root, "scripts"));
   copyFileSync(new URL("./next-build.mjs", import.meta.url), join(root, "scripts/next-build.mjs"));
