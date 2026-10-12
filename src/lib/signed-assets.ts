@@ -115,15 +115,21 @@ function validAsset(value: unknown, localPreview = false): value is AssetRequest
   );
 }
 
+function assertCurrentScope(isCurrent: () => boolean): void {
+  if (!isCurrent()) throw new DOMException("Asset request scope expired", "AbortError");
+}
+
 export async function fetchSignedAssets(
   bank: BankSlug,
   requests: readonly AssetRequest[],
   fetcher: Fetcher = fetch,
   localPreview = false,
+  isCurrent: () => boolean = () => true,
 ): Promise<Map<string, SignedAsset>> {
   const signed = new Map<string, SignedAsset>();
 
   for (let index = 0; index < requests.length; index += SIGN_BATCH_SIZE) {
+    assertCurrentScope(isCurrent);
     const batch = requests.slice(index, index + SIGN_BATCH_SIZE);
     const expected = new Set(batch.map((request) => signedAssetKey(request.questionId, request.kind)));
     const response = await fetcher(localPreview ? "/api/local-preview-assets/sign" : "/api/assets/sign", {
@@ -131,7 +137,9 @@ export async function fetchSignedAssets(
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ bank, requests: batch }),
     });
+    assertCurrentScope(isCurrent);
     const payload = await response.json().catch(() => null) as Record<string, unknown> | null;
+    assertCurrentScope(isCurrent);
 
     if (!response.ok) {
       const message = typeof payload?.error === "string" ? payload.error : "Could not load private assets";
@@ -167,7 +175,9 @@ export async function fetchPdfAssets(
   content: "questions" | "answers" | "both",
   fetcher: Fetcher = fetch,
   localPreview = false,
+  isCurrent: () => boolean = () => true,
 ): Promise<Map<string, SignedAsset>> {
+  assertCurrentScope(isCurrent);
   const expectedQuestions = new Set(questionIds);
   // Every released 0606 question has exactly one source QP and one source MS.
   // Other banks can legitimately have text-only answers, so do not require those there.
@@ -180,7 +190,9 @@ export async function fetchPdfAssets(
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ bank, questionIds, content }),
   });
+  assertCurrentScope(isCurrent);
   const payload = await response.json().catch(() => null) as Record<string, unknown> | null;
+  assertCurrentScope(isCurrent);
   if (!response.ok) {
     const message = typeof payload?.error === "string" ? payload.error : "Could not authorize PDF assets";
     throw new Error(message);

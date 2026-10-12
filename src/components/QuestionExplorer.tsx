@@ -922,7 +922,7 @@ access: ExplorerAccess;
         });
       return;
     }
-    fetchSignedAssets(bank, toSign, fetch, localPreview)
+    fetchSignedAssets(bank, toSign, fetch, localPreview, scopeIsCurrent)
       .then((assets) => {
         if (!scopeIsCurrent()) return;
         applySignedAssets(assets, owner);
@@ -1252,23 +1252,30 @@ access: ExplorerAccess;
     setPdfOpen(true);
   };
   const handleDownload = async () => {
-    if (!resolvedAccess.canExportPdf || !bank || !exportQuestions.length || Boolean(worksheetId && (worksheetLoadFailed || !worksheetReady))) return;
+    if (!scopeIsCurrent() || !resolvedAccess.canExportPdf || !bank || !exportQuestions.length || Boolean(worksheetId && (worksheetLoadFailed || !worksheetReady))) return;
     trackProductEvent("pdf_export_attempt", { bank, questionCount: exportQuestions.length, content: pdfContent, source: worksheetId ? "worksheet" : "save_dialog" });
     setPdfStatusKind("progress");
     setPdfStatus(`Preparing ${exportQuestions.length} questions...`);
     try {
       const [{ attachPdfAssetMetadata, downloadQuestionPdf, pdfHeldNotice }, assets] = await Promise.all([
         import("@/lib/pdf-export"),
-        fetchPdfAssets(bank, exportQuestions.map((question) => question.id), pdfContent, fetch, localPreview),
+        fetchPdfAssets(bank, exportQuestions.map((question) => question.id), pdfContent, fetch, localPreview, scopeIsCurrent),
       ]);
+      if (!scopeIsCurrent()) return;
       const securedQuestions = attachPdfAssetMetadata(exportQuestions, assets);
       const result = await downloadQuestionPdf(
         securedQuestions,
         pdfContent,
-        (complete, total) => setPdfStatus(`Preparing ${complete} of ${total}...`),
+        (complete, total) => {
+          // The exporter reports progress before its final synchronous save; throwing
+          // here also cancels a build whose image loads outlive the captured scope.
+          if (!scopeIsCurrent()) throw new DOMException("PDF request scope expired", "AbortError");
+          setPdfStatus(`Preparing ${complete} of ${total}...`);
+        },
         resolvedExportMarker,
         pdfAnswerPlacement,
       );
+      if (!scopeIsCurrent()) return;
       setPdfStatusKind("success");
       trackProductEvent("pdf_export_success", { bank, questionCount: exportQuestions.length, content: pdfContent, source: worksheetId ? "worksheet" : "save_dialog" });
       if (result.heldRows.length) {
@@ -1277,11 +1284,13 @@ access: ExplorerAccess;
         setPdfStatus(`Worksheet ready — ${exportQuestions.length} question${exportQuestions.length === 1 ? "" : "s"} downloaded.`);
         pulseSuccess(pdfBuildButtonRef.current);
         window.setTimeout(() => {
+          if (!scopeIsCurrent()) return;
           setPdfOpen(false);
           setPdfStatus("");
         }, 1400);
       }
     } catch (error) {
+      if (!scopeIsCurrent()) return;
       trackProductEvent("pdf_export_error", { bank, questionCount: exportQuestions.length, content: pdfContent, source: worksheetId ? "worksheet" : "save_dialog" });
       setPdfStatusKind("error");
       setPdfStatus(error instanceof Error ? error.message : "The worksheet could not be built. Check your connection and try again.");
@@ -1391,7 +1400,7 @@ access: ExplorerAccess;
               const unlocked = resolvedAccess.bankAccess || isPreviewQuestion(question.bankSlug, question.id);
               const questionAsset = signedAssets.get(signedAssetKey(question.id, "question"));
               const answerAsset = signedAssets.get(signedAssetKey(question.id, "answer"));
-              return <Fragment key={question.id}><QuestionCard question={question} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} freeAnswer={!localPreview && isPreviewQuestion(question.bankSlug, question.id)} priority={index === 0} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAssetError={() => trackAssetLoadFailure(bank ?? "unknown", question.id, "answer", "failed", answerAsset?.urls[0])} onAnswerAsset={(asset) => {
+              return <Fragment key={question.id}><QuestionCard question={question} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} scopeIsCurrent={scopeIsCurrent} freeAnswer={!localPreview && isPreviewQuestion(question.bankSlug, question.id)} priority={index === 0} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAssetError={() => trackAssetLoadFailure(bank ?? "unknown", question.id, "answer", "failed", answerAsset?.urls[0])} onAnswerAsset={(asset) => {
                 if (!scopeIsCurrent()) return;
                 setSignedAssets((current) => new Map(current).set(signedAssetKey(question.id, "answer"), asset));
                 if (asset.details) setCatalogQuestions((current) => current.map((item) => item.id === question.id ? mergeQuestionRichDetails(item, asset.details!) : item));
@@ -1438,12 +1447,13 @@ function FilterGroup({ label, filterKey, values, selected, onToggle, bank }: { l
   return <div className="filter-group" role="group" aria-labelledby={headingId}><h3 id={headingId}>{label}</h3><div className="filter-options">{values.map((value) => { const publicLabel = formatPublicLabel(bank === "igcse" || bank === "igcse-additional" ? formatMathsPickerLabel(bank, value) : value); return <label key={value}><input aria-label={`${label}: ${publicLabel}`} type="checkbox" checked={selected.includes(value)} onChange={() => onToggle(filterKey, value)} /><span>{publicLabel}</span></label>; })}</div></div>;
 }
 
-function QuestionCard({ question, unlocked, authenticated, localPreview, freeAnswer, priority = false, questionAsset, answerAsset, onQuestionAssetError, onAnswerAssetError, onAnswerAsset, selected, selectable, onSelect, saved, attempted, onToggleSaved, onAttempt, onReveal, locked }: {
+function QuestionCard({ question, unlocked, authenticated, localPreview, scopeIsCurrent, freeAnswer, priority = false, questionAsset, answerAsset, onQuestionAssetError, onAnswerAssetError, onAnswerAsset, selected, selectable, onSelect, saved, attempted, onToggleSaved, onAttempt, onReveal, locked }: {
   question: UnifiedQuestion;
   unlocked: boolean;
   authenticated: boolean;
   localPreview: boolean;
   freeAnswer: boolean;
+  scopeIsCurrent: () => boolean;
   priority?: boolean;
   questionAsset?: SignedAsset;
   answerAsset?: SignedAsset;
@@ -1503,8 +1513,9 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, freeAns
     if (!answerRequestRef.current) {
       const request = (freeAnswer
         ? fetchFreeAssets(question.bankSlug, [{ questionId: question.id, kind: "answer" }]).then(({ assets }) => assets.get(signedAssetKey(question.id, "answer")))
-        : fetchSignedAssets(question.bankSlug, [{ questionId: question.id, kind: "answer" }], fetch, localPreview).then((assets) => assets.get(signedAssetKey(question.id, "answer"))))
+        : fetchSignedAssets(question.bankSlug, [{ questionId: question.id, kind: "answer" }], fetch, localPreview, scopeIsCurrent).then((assets) => assets.get(signedAssetKey(question.id, "answer"))))
         .then((asset) => {
+          if (!scopeIsCurrent()) throw new DOMException("Answer request scope expired", "AbortError");
           if (!asset) throw new Error("Missing answer asset");
           if (answerRequestRef.current?.promise === request) answerRequestRef.current.expiresAt = asset.expiresAt;
           onAnswerAsset(asset);
@@ -1523,11 +1534,12 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, freeAns
   const prefetchAnswer = () => {
     if (!freeAnswer || answerOpen || hasFreshAnswerAsset() || question.markschemeImageCount < 1) return;
     void loadAnswer().then((asset) => {
-      if (asset.urls[0]) new window.Image().src = asset.urls[0];
+      if (scopeIsCurrent() && asset.urls[0]) new window.Image().src = asset.urls[0];
     }).catch(() => {});
   };
 
   const toggleAnswer = async () => {
+    if (!scopeIsCurrent()) return;
     if (answerOpen) { setAnswerOpen(false); return; }
     trackProductEvent("answer_reveal", { bank: question.bankSlug, freePreview: isPreviewQuestion(question.bankSlug, question.id) });
     if (question.markschemeImageCount > 0 && !hasFreshAnswerAsset()) {
@@ -1535,7 +1547,9 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, freeAns
       setAnswerError("");
       try {
         await loadAnswer();
+        if (!scopeIsCurrent()) return;
       } catch {
+        if (!scopeIsCurrent()) return;
         setAnswerError("The answer could not load. Try again.");
         setAnswerLoading(false);
         return;

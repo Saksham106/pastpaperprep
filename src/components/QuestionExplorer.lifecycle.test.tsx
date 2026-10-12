@@ -65,6 +65,31 @@ describe("QuestionExplorer session lifecycle", () => {
     expect(readCachedAssets(b, "igcse").size).toBe(1);
   });
 
+  it("stops A's remaining paid batches after B owns the mounted explorer", async () => {
+    const questions = loadBankQuestions("ib-sl").filter((q) => !isPreviewQuestion(q.bankSlug, q.id)).slice(0, 24);
+    const late = deferred();
+    let firstInit: RequestInit | undefined;
+    const batches: Array<{ owner: string; count: number }> = [];
+    const fetcher = vi.fn(async (url: RequestInfo | URL, init?: RequestInit) => {
+      if (String(url) === "/member") return member();
+      const { requests } = JSON.parse(String(init?.body));
+      batches.push({ owner: document.cookie, count: requests.length });
+      if (batches.length === 1) { firstInit = init; return late.promise; }
+      return signed(init, "B");
+    });
+    vi.stubGlobal("fetch", fetcher);
+    window.history.replaceState({}, "", "/banks/ib-sl?free=0");
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={anonymous} bootstrapUrl="/member" initialState={{ search: "", sort: "paper", filters: {}, freeOnly: false, savedOnly: false, courseRoute: "all", visible: 24 }} hydrateFromLocation />);
+    await waitFor(() => expect(batches).toHaveLength(1));
+    act(() => owner("B"));
+    await waitFor(() => expect(batches).toHaveLength(3));
+    await act(async () => late.resolve(signed(firstInit, "A")));
+    expect(batches.map(({ count }) => count)).toEqual([20, 20, 4]);
+    expect(batches[0].owner).toContain("=A");
+    expect(batches.slice(1).every(({ owner }) => owner.includes("=B"))).toBe(true);
+    expect(JSON.stringify([...readCachedAssets(sessionFingerprint(document.cookie)!, "ib-sl").values()])).not.toContain("private A");
+  });
+
   it("starts B's signer without awaiting A and discards A's late links and rich details", async () => {
     const late = deferred();
     let firstInit: RequestInit | undefined;
@@ -161,6 +186,26 @@ describe("QuestionExplorer session lifecycle", () => {
     await act(async () => late.resolve(signed(firstInit, "revived-old-A")));
     expect(screen.getByRole("img", { name: /original question/i }).getAttribute("src")).toContain("generation-3");
     expect(JSON.stringify([...readCachedAssets(sessionFingerprint(document.cookie)!, "igcse").values()])).not.toContain("revived-old-A");
+  });
+
+  it.each([true, false])("abandons an answer after unobserved cookie turnover, success=%s", async (success) => {
+    const late = deferred();
+    let answerInit: RequestInit | undefined;
+    const fetcher = vi.fn(async (url: RequestInfo | URL, init?: RequestInit) => {
+      if (String(url) === "/member") return member();
+      const { requests } = JSON.parse(String(init?.body));
+      if (requests[0].kind === "answer") { answerInit = init; return late.promise; }
+      return signed(init, "A");
+    });
+    vi.stubGlobal("fetch", fetcher);
+    render(<QuestionExplorer questions={[question]} bankSlug="igcse" access={anonymous} bootstrapUrl="/member" />);
+    fireEvent.click(await screen.findByRole("button", { name: "Show answer" }));
+    await waitFor(() => expect(answerInit).toBeDefined());
+    document.cookie = "sb-lifecycle-auth-token=B; path=/";
+    await act(async () => late.resolve(success ? signed(answerInit, "answer-A") : response({ error: "Old answer error" })));
+    expect(screen.queryByRole("button", { name: "Hide answer" })).toBeNull();
+    expect(screen.queryByText("The answer could not load. Try again.")).toBeNull();
+    expect(fetcher.mock.calls.filter(([url]) => url === "/api/study-state")).toHaveLength(0);
   });
 
   it("does not record A's late answer against the current account", async () => {

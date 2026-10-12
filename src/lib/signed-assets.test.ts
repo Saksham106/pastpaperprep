@@ -7,6 +7,45 @@ const requests = Array.from({ length: 21 }, (_, index) => ({
 }));
 
 describe("fetchSignedAssets", () => {
+  it.each(["signed", "pdf"] as const)("does not dispatch an already obsolete %s scope", async (kind) => {
+    const fetcher = vi.fn(async () => Response.json({ expiresIn: 600, assets: [] }));
+    const pending = kind === "signed"
+      ? fetchSignedAssets("ib-sl", requests, fetcher, false, () => false)
+      : fetchPdfAssets("ib-sl", ["question-1"], "questions", fetcher, false, () => false);
+    await expect(pending).rejects.toMatchObject({ name: "AbortError" });
+    expect(fetcher).not.toHaveBeenCalled();
+  });
+
+  it.each(["signed", "pdf"] as const)("abandons %s payloads parsed after scope turnover", async (kind) => {
+    let current = true;
+    const fetcher = vi.fn(async () => ({ ok: true, json: async () => {
+      current = false;
+      return { expiresIn: 600, assets: [{ ...requests[0], urls: ["https://signed.test/q"] }] };
+    } }) as Response);
+    const pending = kind === "signed"
+      ? fetchSignedAssets("ib-sl", requests.slice(0, 1), fetcher, false, () => current)
+      : fetchPdfAssets("ib-sl", ["question-1"], "questions", fetcher, false, () => current);
+    await expect(pending).rejects.toMatchObject({ name: "AbortError" });
+    expect(fetcher).toHaveBeenCalledOnce();
+  });
+
+  it("abandons a PDF response before parsing it when the scope expires", async () => {
+    let current = true;
+    const json = vi.fn(async () => ({ expiresIn: 600, assets: [] }));
+    const fetcher = vi.fn(async () => { current = false; return { ok: true, json } as unknown as Response; });
+    await expect(fetchPdfAssets("ib-sl", ["question-1"], "questions", fetcher, false, () => current)).rejects.toMatchObject({ name: "AbortError" });
+    expect(json).not.toHaveBeenCalled();
+  });
+  it("abandons a paid batch response before dispatching the next batch when its scope expires", async () => {
+    let current = true;
+    const fetcher = vi.fn(async (_input: RequestInfo | URL, init?: RequestInit) => {
+      current = false;
+      const { requests: batch } = JSON.parse(String(init?.body));
+      return Response.json({ expiresIn: 600, assets: batch.map((request: object) => ({ ...request, urls: ["https://signed.test/q"] })) });
+    });
+    await expect(fetchSignedAssets("ib-sl", requests, fetcher, false, () => current)).rejects.toMatchObject({ name: "AbortError" });
+    expect(fetcher).toHaveBeenCalledOnce();
+  });
   it("splits requests into authorized batches and indexes returned URLs", async () => {
     const fetcher = vi.fn(async (_input: RequestInfo | URL, init?: RequestInit) => {
       const body = JSON.parse(String(init?.body)) as { requests: typeof requests };
