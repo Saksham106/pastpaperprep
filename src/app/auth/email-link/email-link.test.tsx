@@ -75,6 +75,13 @@ describe("scanner-safe magic-link handoff", () => {
     expect(renderToStaticMarkup(safeFallback)).toContain('name="next" value="/pricing"');
   });
 
+  it.each(["magic-link", "confirm-sign-up"])("%s template offers the link and a copyable code, also in the inbox preview", (name) => {
+    const template = readFileSync(resolve(process.cwd(), `supabase/templates/${name}.html`), "utf8");
+    expect(template).toContain("Or enter this code:");
+    expect(template.match(/\{\{ \.Token \}\}/g)).toHaveLength(2);
+    expect(template).toContain("user-select:all");
+  });
+
   it("uses scanner-safe token hash handoffs for both login and signup emails", () => {
     const magicLinkTemplate = readFileSync(resolve(process.cwd(), "supabase/templates/magic-link.html"), "utf8");
     expect(magicLinkTemplate).toContain("{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email");
@@ -83,5 +90,7 @@ describe("scanner-safe magic-link handoff", () => {
     const signupTemplate = readFileSync(resolve(process.cwd(), "supabase/templates/confirm-sign-up.html"), "utf8");
     expect(signupTemplate).toContain("{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=signup");
     expect(signupTemplate).not.toContain(".ConfirmationURL");
+    expect(magicLinkTemplate).toContain("{{ .Token }}");
+    expect(signupTemplate).toContain("{{ .Token }}");
   });
 });

@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-const trackProductEvent = vi.hoisted(() => vi.fn());
-vi.mock("@/lib/product-analytics", () => ({ trackProductEvent }));
+const { trackProductEvent, browserAccountId } = vi.hoisted(() => ({ trackProductEvent: vi.fn(), browserAccountId: vi.fn((): string | undefined => undefined) }));
+vi.mock("@/lib/product-analytics", () => ({ trackProductEvent, browserAccountId }));
 
 import { apiRoutePattern, installApiFailureMonitor } from "./api-failure-monitor";
 
@@ -65,6 +65,13 @@ describe("installApiFailureMonitor", () => {
     original.mockResolvedValueOnce(new Response(null, { status: 500 }));
     await target.fetch("/banks/igcse");
     expect(trackProductEvent).not.toHaveBeenCalled();
+  });
+
+  it("links the failure to the signed-in account id", async () => {
+    browserAccountId.mockReturnValueOnce("7f1b6a2e-0000-4000-8000-000000000000");
+    original.mockResolvedValue(new Response(null, { status: 500 }));
+    await target.fetch("/api/worksheets");
+    expect(trackProductEvent).toHaveBeenCalledWith("api_request_failed", expect.objectContaining({ user_id: "7f1b6a2e-0000-4000-8000-000000000000" }));
   });
 
   it("installs once", () => {

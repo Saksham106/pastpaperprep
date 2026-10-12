@@ -22,7 +22,7 @@ export default async function DashboardPage() {
       if (isFutureIssuedJwtError(result.error)) {
         captureServerException(new Error("Access verification failed"), {
           route: "/dashboard", route_type: "render", stage: "entitlement",
-          storage_provider: "supabase", error_code: "PGRST303",
+          storage_provider: "supabase", error_code: "PGRST303", user_id: userId,
         });
         return <AccessReadRecovery retryPath="/dashboard" />;
       }

@@ -1,6 +1,7 @@
 import "server-only";
 import { captureServerException } from "@/lib/server-error-tracking";
 import { serverLog } from "@/lib/server-logs";
+import { accountIdFromCookieHeader } from "@/lib/supabase/auth-cookie";
 
 export type FailureDiagnostics = {
   bank: string;
@@ -27,10 +28,11 @@ export function withFailureReporting<Args extends unknown[], R extends Response>
   return async (...args: Args): Promise<R> => {
     const started = performance.now();
     const method = args[0] instanceof Request ? args[0].method : undefined;
+    const userId = args[0] instanceof Request ? accountIdFromCookieHeader(args[0].headers.get("cookie")) : undefined;
     let response: R;
     try { response = await handler(...args); }
     catch (error) {
-      serverLog("error", "api_request", { route, method, status: 500, duration_ms: Math.round(performance.now() - started), outcome: "thrown" });
+      serverLog("error", "api_request", { route, method, status: 500, duration_ms: Math.round(performance.now() - started), outcome: "thrown", user_id: userId });
       throw error;
     }
     let correlationId: string | undefined;
@@ -39,7 +41,7 @@ export function withFailureReporting<Args extends unknown[], R extends Response>
       try {
         correlationId = captureServerException(new Error("Handled server failure"), {
           error_source: "handled_response", route, http_status: String(response.status),
-          error_code: "response_failed", ...diagnostics.get(response),
+          error_code: "response_failed", ...diagnostics.get(response), ...(userId ? { user_id: userId } : {}),
         });
         if (correlationId) response.headers.set("x-correlation-id", correlationId);
       } catch { /* Telemetry must never change the response; immutable headers stay as they are. */ }
@@ -47,7 +49,7 @@ export function withFailureReporting<Args extends unknown[], R extends Response>
     const failure = diagnostics.get(response);
     serverLog(response.status >= 500 ? "error" : response.status >= 400 ? "warn" : "info", "api_request", {
       route, method, status: response.status, duration_ms: Math.round(performance.now() - started),
-      correlation_id: correlationId, bank: failure?.bank, stage: failure?.stage, storage_provider: failure?.storage_provider,
+      correlation_id: correlationId, user_id: userId, bank: failure?.bank, stage: failure?.stage, storage_provider: failure?.storage_provider,
     });
     return response;
   };

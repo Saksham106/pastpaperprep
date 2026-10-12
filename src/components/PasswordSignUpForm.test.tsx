@@ -3,11 +3,12 @@ import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { PasswordSignUpForm } from "@/components/PasswordSignUpForm";
 
-const { createAccountWithPassword, resendSignupConfirmation } = vi.hoisted(() => ({
+const { createAccountWithPassword, resendSignupConfirmation, verifyEmailCode } = vi.hoisted(() => ({
   createAccountWithPassword: vi.fn(),
   resendSignupConfirmation: vi.fn(),
+  verifyEmailCode: vi.fn(),
 }));
-vi.mock("@/app/auth/actions", () => ({ createAccountWithPassword, resendSignupConfirmation }));
+vi.mock("@/app/auth/actions", () => ({ createAccountWithPassword, resendSignupConfirmation, verifyEmailCode }));
 
 describe("PasswordSignUpForm", () => {
   beforeEach(() => {
@@ -29,12 +30,11 @@ describe("PasswordSignUpForm", () => {
 
     expect(await screen.findByRole("heading", { name: /check your email/i })).toBeInTheDocument();
     expect(screen.getByText("student@example.com")).toBeInTheDocument();
-    expect(screen.getByText(/spam or junk/i)).toBeInTheDocument();
-    expect(screen.getByText(/newest email/i)).toBeInTheDocument();
+    expect(screen.getByText(/for a link and code/i)).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /check your email/i })).toHaveFocus();
     expect(screen.queryByLabelText("Password")).not.toBeInTheDocument();
     expect(screen.queryByText(/confirm account/i)).not.toBeInTheDocument();
-    const resend = screen.getByRole("button", { name: /resend available in/i });
+    const resend = screen.getByRole("button", { name: /resend in/i });
     expect(resend).toBeDisabled();
     await user.click(screen.getByRole("button", { name: /change email/i }));
     expect(screen.getByLabelText("Email address")).toHaveValue("student@example.com");
@@ -52,7 +52,7 @@ describe("PasswordSignUpForm", () => {
     expect(screen.getByRole("heading", { name: /check your email/i })).toBeInTheDocument();
 
     await act(async () => { vi.advanceTimersByTime(60_000); });
-    const resend = screen.getByRole("button", { name: /resend confirmation/i });
+    const resend = screen.getByRole("button", { name: /^resend email$/i });
     expect(resend).toBeEnabled();
     await act(async () => { fireEvent.click(resend); });
     await act(async () => { await Promise.resolve(); });
@@ -111,5 +111,33 @@ describe("PasswordSignUpForm", () => {
     expect(createAccountWithPassword).toHaveBeenCalledTimes(2);
     expect(screen.getByLabelText("Password")).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /resend/i })).not.toBeInTheDocument();
+  });
+
+  it("offers a typed signup code next to the emailed link", async () => {
+    verifyEmailCode.mockResolvedValue({ status: "error", message: "That code didn’t work. Use the code from the newest email, or request a new one." });
+    const user = userEvent.setup();
+    render(<PasswordSignUpForm next="/banks/ib-hl" />);
+    await user.type(screen.getByLabelText("Email address"), "student@gmail.com");
+    await user.type(screen.getByLabelText("Password"), "three calm otters");
+    await user.type(screen.getByLabelText("Confirm password"), "three calm otters");
+    await user.click(screen.getByRole("button", { name: "Create account" }));
+    await screen.findByRole("heading", { name: /check your email/i });
+    expect(screen.queryByRole("note")).not.toBeInTheDocument();
+    await user.type(screen.getByLabelText("Enter the code"), "1234 5678");
+    await user.click(screen.getByRole("button", { name: "Confirm" }));
+    expect([...verifyEmailCode.mock.calls[0][1].entries()]).toEqual([["email", "student@gmail.com"], ["type", "signup"], ["next", "/banks/ib-hl"], ["code", "1234 5678"]]);
+    expect(await screen.findByRole("alert")).toHaveTextContent(/newest email/);
+  });
+
+  it("warns school and work addresses up front and lets them switch to a personal email", async () => {
+    const user = userEvent.setup();
+    render(<PasswordSignUpForm />);
+    await user.type(screen.getByLabelText("Email address"), "student@pupils.school.example");
+    await user.type(screen.getByLabelText("Password"), "three calm otters");
+    await user.type(screen.getByLabelText("Confirm password"), "three calm otters");
+    await user.click(screen.getByRole("button", { name: "Create account" }));
+    expect(await screen.findByRole("note")).toHaveTextContent(/school email/i);
+    await user.click(screen.getByRole("button", { name: "Use a personal email" }));
+    expect(screen.getByLabelText("Email address")).toHaveValue("");
   });
 });

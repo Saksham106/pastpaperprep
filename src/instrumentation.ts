@@ -1,6 +1,7 @@
 import { captureServerException } from "@/lib/server-error-tracking";
 import { safeServerErrorCode } from "@/lib/safe-server-error-code";
 import { isExpectedRequestError } from "@/lib/expected-request-error";
+import { accountIdFromCookieHeader } from "@/lib/supabase/auth-cookie";
 
 // Route file patterns such as /banks/[slug] identify the failing page without any request data.
 const ROUTE_PATTERN = /^\/[A-Za-z0-9_\-/[\].()@]*$/;
@@ -20,18 +21,28 @@ function errorCode(error: unknown): string | undefined {
   return undefined;
 }
 
-export async function onRequestError(error: unknown, _request: Request, context: { routerKind: string; routePath: string; routeType: string }) {
+// Next passes headers as a plain object; tests and older callers may pass a Request.
+function cookieHeader(request: unknown): string | undefined {
+  const headers = request && typeof request === "object" && "headers" in request ? (request as { headers: unknown }).headers : undefined;
+  if (headers instanceof Headers) return headers.get("cookie") ?? undefined;
+  const cookie = headers && typeof headers === "object" ? (headers as Record<string, unknown>).cookie : undefined;
+  return Array.isArray(cookie) ? cookie.join("; ") : typeof cookie === "string" ? cookie : undefined;
+}
+
+export async function onRequestError(error: unknown, request: unknown, context: { routerKind: string; routePath: string; routeType: string }) {
   if (isExpectedRequestError(error)) return;
   const digest = error && typeof error === "object" && "digest" in error && typeof error.digest === "string" ? error.digest : "";
   const route = context.routePath.length <= 80 && ROUTE_PATTERN.test(context.routePath)
     ? context.routePath
     : context.routeType === "route" ? "/api/[route]" : "/[route]";
   const code = errorCode(error);
+  const userId = accountIdFromCookieHeader(cookieHeader(request));
   captureServerException(error, {
     router_kind: context.routerKind.slice(0, 20),
     route_type: context.routeType.slice(0, 20),
     route,
     ...(code ? { error_code: code } : {}),
     ...(digest ? { digest } : {}),
+    ...(userId ? { user_id: userId } : {}),
   });
 }
