@@ -1,7 +1,7 @@
 import "server-only";
 import { after } from "next/server";
 import { PostHog } from "posthog-node";
-import { safeErrorMessage, scrubStack } from "@/lib/error-privacy";
+import { safeErrorMessage, safeErrorName, scrubStack } from "@/lib/error-privacy";
 import { BANK_CATALOG } from "@/lib/catalog";
 import { safeServerErrorCode } from "@/lib/safe-server-error-code";
 import { serverLog } from "@/lib/server-logs";
@@ -45,7 +45,7 @@ function getClient() {
 function sanitizeError(error: unknown): Error | null {
   if (!(error instanceof Error)) return null;
   const safe = new Error(safeErrorMessage(error.message) ?? "Application server exception");
-  safe.name = /^[A-Za-z]+Error$/.test(error.name) && error.name.length <= 40 ? error.name : "Error";
+  safe.name = safeErrorName(error.name);
   safe.stack = scrubStack(error.stack, safe.name)?.replace(": Application exception", ": Application server exception");
   return safe;
 }

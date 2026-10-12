@@ -32,8 +32,8 @@ describe("signPrivateAssetUrls", () => {
     expect(serverLog).toHaveBeenCalledWith("info", "asset_signing", expect.objectContaining({ provider: "supabase", bank: "ib-economics-hl", assets: 2, outcome: "signed", long_lived: false }));
     createSignedUrls.mockResolvedValueOnce({ data: null, error: Object.assign(new Error("Object not found for alice@example.com"), { statusCode: "404" }) });
     await expect(signPrivateAssetUrls(["ib-economics-hl/questions/q1/question-01.webp"], 600, { provider: "supabase" })).rejects.toThrow();
-    expect(serverLog).toHaveBeenLastCalledWith("error", "asset_signing", expect.objectContaining({ provider: "supabase", bank: "ib-economics-hl", outcome: "failed", message: "Object not found for <email>" }));
-    expect(JSON.stringify(serverLog.mock.calls)).not.toContain("questions/q1");
+    expect(serverLog).toHaveBeenLastCalledWith("error", "asset_signing", expect.objectContaining({ provider: "supabase", bank: "ib-economics-hl", outcome: "failed", message: undefined }));
+    expect(JSON.stringify(serverLog.mock.calls)).not.toMatch(/alice|questions\/q1/);
   });
 
   it("uses Supabase unless R2 is explicitly enabled", async () => {

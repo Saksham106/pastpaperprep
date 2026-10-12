@@ -14,6 +14,19 @@ describe("server exception privacy boundary", () => {
     vi.stubEnv("VERCEL_ENV", "");
   });
 
+  it("does not forward private text disguised as a custom error name to exceptions or logs", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test");
+    vi.stubEnv("VERCEL_ENV", "production");
+    const upload = vi.fn(async () => new Response(null, { status: 200 }));
+    vi.stubGlobal("fetch", upload);
+    try {
+      const { captureServerException } = await import("./server-error-tracking");
+      captureServerException(Object.assign(new Error("SyntheticPrivateName"), { name: "SyntheticPrivateNameError" }));
+      expect((captureExceptionImmediate.mock.calls[0][0] as Error).name).toBe("Error");
+      expect(JSON.stringify([captureExceptionImmediate.mock.calls, upload.mock.calls])).not.toContain("SyntheticPrivateName");
+    } finally { vi.unstubAllGlobals(); }
+  });
+
   it("uses structured SDK exception capture with redacted error text and bounded metadata", async () => {
     vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
     const { captureServerException } = await import("./server-error-tracking");
@@ -22,7 +35,7 @@ describe("server exception privacy boundary", () => {
     captureServerException(error, { route: "/[route]", arbitrary: "alice@example.com", provider_code: "unexpected_failure" });
     expect(captureExceptionImmediate).toHaveBeenCalledTimes(1);
     const [safe] = captureExceptionImmediate.mock.calls[0] as [Error, string, Record<string, string>];
-    expect(safe.message).toBe("account <email> token=<value>");
+    expect(safe.message).toBe("Application server exception");
     expect(safe.stack).not.toMatch(/alice|secret/);
     expect(safe.stack).toContain("/_next/static/chunks/main.js:11:9");
     expect(captureExceptionImmediate.mock.calls[0][2]).toMatchObject({ route: "/[route]", provider_code: "unexpected_failure", $process_person_profile: false });

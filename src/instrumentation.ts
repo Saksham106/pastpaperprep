@@ -1,5 +1,6 @@
 import { captureServerException } from "@/lib/server-error-tracking";
 import { safeServerErrorCode } from "@/lib/safe-server-error-code";
+import { isExpectedRequestError } from "@/lib/expected-request-error";
 
 // Route file patterns such as /banks/[slug] identify the failing page without any request data.
 const ROUTE_PATTERN = /^\/[A-Za-z0-9_\-/[\].()@]*$/;
@@ -20,10 +21,8 @@ function errorCode(error: unknown): string | undefined {
 }
 
 export async function onRequestError(error: unknown, _request: Request, context: { routerKind: string; routePath: string; routeType: string }) {
-  const message = error instanceof Error ? error.message : "";
-  if (/(?:rate.?limit|cooldown|too many requests|invalid credentials|invalid login credentials)/i.test(message)) return;
+  if (isExpectedRequestError(error)) return;
   const digest = error && typeof error === "object" && "digest" in error && typeof error.digest === "string" ? error.digest : "";
-  if (digest.startsWith("NEXT_REDIRECT") || digest.startsWith("NEXT_NOT_FOUND")) return;
   const route = context.routePath.length <= 80 && ROUTE_PATTERN.test(context.routePath)
     ? context.routePath
     : context.routeType === "route" ? "/api/[route]" : "/[route]";

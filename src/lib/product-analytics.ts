@@ -2,6 +2,8 @@
 
 import { readBrowserAnalyticsConsent, stableAnalyticsDistinctId } from "@/lib/analytics-consent";
 import { boundExceptionFrames, safeErrorMessage, scrubStack } from "@/lib/error-privacy";
+import { isExpectedRequestError as isExpectedControlFlow } from "@/lib/expected-request-error";
+export { isExpectedRequestError as isExpectedControlFlow } from "@/lib/expected-request-error";
 
 type ProductEventProperties = Record<string, string | number | boolean | null | undefined>;
 type PostHogClient = typeof import("posthog-js").default;
@@ -108,14 +110,6 @@ export function captureAppException(error: unknown) {
     if (!client) return;
     try { client.captureException(safe, properties); } catch { /* Never affect application behavior. */ }
   });
-}
-
-export function isExpectedControlFlow(error: unknown) {
-  if (!error || typeof error !== "object") return false;
-  const value = error as { digest?: unknown; message?: unknown };
-  const digest = typeof value.digest === "string" ? value.digest : "";
-  return digest.startsWith("NEXT_REDIRECT") || digest.startsWith("NEXT_NOT_FOUND") ||
-    (typeof value.message === "string" && /(?:rate.?limit|cooldown|invalid credentials)/i.test(value.message));
 }
 
 function clearLegacyAnalyticsStorage() {

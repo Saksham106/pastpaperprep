@@ -47,6 +47,18 @@ describe("onRequestError telemetry", () => {
     expect(JSON.stringify(captureServerException.mock.calls.map((call) => call[1]))).not.toMatch(/secret|alice/);
   });
 
+  it("reports server programming failures even when their messages mention cooldown", async () => {
+    const context = { routerKind: "App Router", routePath: "/account", routeType: "render" };
+    await onRequestError(new ReferenceError("cooldown is not defined"), request, context);
+    await onRequestError(new TypeError("Cannot read properties of undefined (reading 'cooldown')"), request, context);
+    expect(captureServerException).toHaveBeenCalledTimes(2);
+  });
+
+  it("ignores the installed Next HTTP access fallback digest", async () => {
+    await onRequestError(Object.assign(new Error("NEXT_HTTP_ERROR_FALLBACK;404"), { digest: "NEXT_HTTP_ERROR_FALLBACK;404" }), request, { routerKind: "App Router", routePath: "/account", routeType: "render" });
+    expect(captureServerException).not.toHaveBeenCalled();
+  });
+
   it("still ignores redirects and expected auth noise", async () => {
     await onRequestError(Object.assign(new Error("NEXT_REDIRECT"), { digest: "NEXT_REDIRECT;replace;/login;307;" }), request, { routerKind: "App Router", routePath: "/account", routeType: "render" });
     await onRequestError(new Error("Invalid login credentials"), request, { routerKind: "App Router", routePath: "/login", routeType: "action" });

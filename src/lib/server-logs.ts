@@ -9,8 +9,8 @@ type LogRecord = { timeUnixNano: string; severityNumber: number; severityText: s
 const SEVERITY: Record<LogLevel, number> = { info: 9, warn: 13, error: 17 };
 const KEY = /^[a-z][a-z0-9_.]{0,39}$/;
 const MAX_PENDING = 500;
+const UPLOAD_TIMEOUT_MS = 2_000;
 let pending: LogRecord[] = [];
-let flushScheduled = false;
 
 function enabled() {
   const environment = process.env.VERCEL_ENV;
@@ -42,14 +42,13 @@ export function serverLog(level: LogLevel, event: string, attributes: LogAttribu
   };
   if (pending.length >= MAX_PENDING) pending.shift();
   pending.push(record);
-  if (flushScheduled) return;
-  flushScheduled = true;
+  // Register in every caller's lifecycle: an open request must not own another's drain.
+  // The first callback snapshots the batch synchronously; subsequent empty drains are no-ops.
   try { after(flushServerLogs); }
   catch { void flushServerLogs(); } // Outside a request scope: send straight away.
 }
 
 export async function flushServerLogs() {
-  flushScheduled = false;
   const logRecords = pending;
   pending = [];
   const token = process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN;
@@ -60,11 +59,16 @@ export async function flushServerLogs() {
     { key: "deployment.environment", value: { stringValue: process.env.VERCEL_ENV ?? "unknown" } },
     ...(process.env.VERCEL_GIT_COMMIT_SHA ? [{ key: "service.version", value: { stringValue: process.env.VERCEL_GIT_COMMIT_SHA } }] : []),
   ];
+  const controller = new AbortController();
+  // Bound the after callback's lifetime even when the ingest endpoint stalls.
+  const timeout = setTimeout(() => controller.abort(), UPLOAD_TIMEOUT_MS);
   try {
     await fetch(`${host}/i/v1/logs`, {
+      signal: controller.signal,
       method: "POST",
       headers: { "content-type": "application/json", authorization: `Bearer ${token}` },
       body: JSON.stringify({ resourceLogs: [{ resource: { attributes: resource }, scopeLogs: [{ scope: { name: "pastpaperprep" }, logRecords }] }] }),
     });
   } catch { /* Logs are best effort; a PostHog outage must never affect a request. */ }
+  finally { clearTimeout(timeout); }
 }

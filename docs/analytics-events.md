@@ -69,7 +69,7 @@ For revenue counts, count distinct `$insert_id` on `conversion_outcome`. A Strip
 
 ## Server logs (PostHog Logs)
 
-Vercel Hobby keeps runtime logs for about an hour, so production and preview servers also send structured logs to PostHog Logs (`src/lib/server-logs.ts`, OTLP, 14-day retention, free up to 10 GB a month). Values are code-controlled only: route patterns, enumerated outcomes, counts and durations.
+Vercel Hobby keeps runtime logs for about an hour, so production and preview servers also send structured logs to PostHog Logs (`src/lib/server-logs.ts`, OTLP, 14-day retention, free up to 10 GB a month). Values are code-controlled only: route patterns, enumerated outcomes, counts and durations. Uploads have a two-second abort deadline and run after responses. Every logging caller registers a drain in its own request lifecycle; the first drain snapshots the bounded shared buffer, so an open request cannot prevent a completed request from delivering its records. Empty drains do not POST and ingestion failures remain best-effort.
 
 | Log | Level | Attributes |
 | --- | --- | --- |
@@ -81,5 +81,7 @@ Vercel Hobby keeps runtime logs for about an hour, so production and preview ser
 
 To trace a failure: take `correlation_id` from `api_request_failed` (browser) or the `x-correlation-id` header, then search it in Logs and Error tracking. Render errors match on `digest`.
 
-Messages pass through `safeErrorMessage`: emails, URLs, ids, `key=value` pairs, long numbers, tokens, free text in quotes and non-ASCII text become placeholders, and React production errors keep only their code (`React error #418`).
+Messages pass through `safeErrorMessage`, which returns only fixed diagnostics or normalized templates. Arbitrary text is omitted and exception producers use a generic fallback; parser inputs, dynamic property names outside a small code-controlled vocabulary, quoted secrets and personal prose are never retained as messages. React production errors keep only their code (`React error #418`). Known diagnostic outputs remain readable through a second SDK sanitization pass. Server exception names also use an explicit category allowlist.
+
+Expected Next navigation/access markers and explicit auth/limit outcomes are excluded on both browser and server. A keyword such as `cooldown` inside a `ReferenceError` or `TypeError` is not an expected outcome: programming crashes still emit one exception per error object.
 
