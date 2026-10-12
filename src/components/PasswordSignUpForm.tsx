@@ -88,7 +88,7 @@ export function PasswordSignUpForm({ next = "/pricing" }: { next?: string }) {
             <button className="text-button" type="button" disabled={lock.busy} onClick={() => edit()}>Change email</button>
           </div>
         </div>
-        {showResendFeedback && !resending && resendState.message && <p className={`form-message ${resendState.status}`} role={resendState.status === "error" ? "alert" : "status"}>{resendState.status === "success" ? "Resend request accepted. Use the newest email; delivery isn’t confirmed." : resendState.message}</p>}
+        {showResendFeedback && !resending && resendState.message && <p className={`form-message ${resendState.status}`} role={resendState.status === "error" ? "alert" : "status"}>{resendState.status === "success" ? "Requested again. Use the newest email." : resendState.message}</p>}
       </section>
     );
   }

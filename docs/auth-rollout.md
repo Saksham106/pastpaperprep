@@ -4,9 +4,9 @@
 
 The production project `wrigscheuwsooyvayclz` has email confirmation and Google enabled. Its email OTP policy was read back as **8 digits / 3,600 seconds**. Those settings were not changed.
 
-Both `supabase/templates/confirm-sign-up.html` and `magic-link.html` were installed with owner authorization and reloaded from Supabase; full body bytes match the repository templates. Subjects were preserved. No credentials, OAuth-provider settings, redirect permissions or user records were changed by template installation.
+An interim version of `supabase/templates/confirm-sign-up.html` and `magic-link.html` was installed with owner authorization before the app shipped code entry; it added a conditional "if your sign-in screen offers code entry" sentence. The repository templates drop that sentence and must be pushed to Supabase (owner approval) after the app deploy. Subjects stay unchanged.
 
-The emails preserve the existing scanner-safe `.RedirectTo` + `.TokenHash` link and token type. They now also expose `.Token`, instruct Continue on the linked page, and explain newest-email usage. Code-entry instructions are conditional so the primary link remains usable while the application PR is still unmerged. Email-code UI requires these templates; code fallback cannot recover mail that never reaches the recipient.
+The emails preserve the existing scanner-safe `.RedirectTo` + `.TokenHash` link and token type, and also expose `.Token` in the preheader and a tap-to-select box. Code fallback cannot recover mail that never reaches the recipient.
 
 ## Application gate
 

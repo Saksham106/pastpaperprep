@@ -41,9 +41,6 @@ export function CheckEmailHeader({ id, headingRef, email, what }: { id: string; 
       <div>
         <h2 id={id} ref={headingRef} tabIndex={-1}>Check your email</h2>
         <p>Look for {what} at <strong>{email}</strong></p>
-        <p>Open the link and choose Continue, or enter the code here.</p>
-        <p>Use the newest email. Check spam or junk if it hasn’t arrived.</p>
-        <p>Request accepted. This doesn’t confirm email delivery.</p>
       </div>
     </div>
   );

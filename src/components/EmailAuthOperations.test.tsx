@@ -50,7 +50,7 @@ it.each([
 });
 it.each(["error", "success"] as const)("clears signup resend %s feedback after a new recipient succeeds", async (status) => {
   actions.resendSignupConfirmation.mockResolvedValueOnce({ status, message: "Old recipient resend accepted" });
-  const feedback = status === "success" ? "Resend request accepted. Use the newest email; delivery isn’t confirmed." : "Old recipient resend accepted";
+  const feedback = status === "success" ? "Requested again. Use the newest email." : "Old recipient resend accepted";
   render(<PasswordSignUpForm />); await request("signup");
   await act(async () => { vi.advanceTimersByTime(60_000); });
   await act(async () => { fireEvent.submit(screen.getByRole("button", { name: "Resend email" }).closest("form")!); });
@@ -60,18 +60,18 @@ it.each(["error", "success"] as const)("clears signup resend %s feedback after a
   expect(screen.getByText("other@gmail.com")).toBeInTheDocument();
   expect(screen.queryByText(feedback)).not.toBeInTheDocument();
 });
-it.each(["magic", "signup"] as const)("explains %s link-or-code confirmation without claiming delivery", async (kind) => {
+it.each(["magic", "signup"] as const)("keeps %s check-email copy short and offers the code without claiming delivery", async (kind) => {
   render(kind === "magic" ? <MagicLinkForm /> : <PasswordSignUpForm />); await request(kind);
-  expect(screen.getByText(/open the link.*continue.*or enter the code here/i)).toBeInTheDocument();
-  expect(screen.getByText(/newest email.*spam or junk/i)).toBeInTheDocument();
-  expect(screen.getByText(/request accepted.*doesn.t confirm email delivery/i)).toBeInTheDocument();
+  expect(screen.getByText(/link and code at/i)).toBeInTheDocument();
+  expect(screen.getByLabelText("Enter the code")).toBeInTheDocument();
+  expect(screen.queryByText(/sent|delivered/i)).not.toBeInTheDocument();
   expect(screen.queryByRole("link", { name: /continue/i })).not.toBeInTheDocument();
 });
 it.each(["magic", "signup"] as const)("describes %s resend acceptance rather than delivery", async (kind) => {
   render(kind === "magic" ? <MagicLinkForm /> : <PasswordSignUpForm />); await request(kind);
   await act(async () => { vi.advanceTimersByTime(60_000); });
   await act(async () => { fireEvent.submit(screen.getByRole("button", { name: "Resend email" }).closest("form")!); });
-  expect(screen.getByRole("status")).toHaveTextContent("Resend request accepted. Use the newest email; delivery isn’t confirmed.");
+  expect(screen.getByRole("status")).toHaveTextContent("Requested again. Use the newest email.");
 });
 it.each(["Change email", "Use a personal email"])("focuses the signup recipient after %s", async (button) => {
   render(<PasswordSignUpForm />); await request("signup");

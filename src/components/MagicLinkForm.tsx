@@ -65,7 +65,7 @@ function CheckEmail({ email, next, onEdit, onUsePersonal }: { email: string; nex
         </div>
       </div>
       {state.status === "error" && <p ref={alert} tabIndex={-1} className="form-message error" role="alert">{state.message}</p>}
-      {state.status === "success" && <p className="form-message success" role="status">Resend request accepted. Use the newest email; delivery isn’t confirmed.</p>}
+      {state.status === "success" && <p className="form-message success" role="status">Requested again. Use the newest email.</p>}
     </section>
   );
 }
