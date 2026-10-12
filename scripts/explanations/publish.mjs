@@ -103,12 +103,14 @@ function wranglerStore(bucket) {
   const [bin, ...prefix] = process.env.WRANGLER ? [process.env.WRANGLER] : ["npx", "-y", "wrangler@4"];
   const dir = mkdtempSync(join(tmpdir(), "explanations-"));
   const file = (key) => join(dir, key.replaceAll("/", "__"));
+  const missing = (error) => /does not exist|NoSuchKey|\b404\b|not found/i.test(`${error?.stderr ?? ""} ${error?.stdout ?? ""} ${error?.message ?? ""}`);
   // Cloudflare's API occasionally answers 5xx; retry with backoff instead of failing the whole run.
   const wrangler = async (args) => {
     for (let attempt = 1; ; attempt += 1) {
       try { return await run(bin, [...prefix, ...args], { maxBuffer: 1 << 24 }); }
       catch (error) {
-        if (attempt >= 5) throw error;
+        // "Does not exist" is an answer, not a transient failure: never retry it.
+        if (attempt >= 5 || missing(error)) throw error;
         await new Promise((resolveWait) => setTimeout(resolveWait, 1500 * attempt));
       }
     }
@@ -118,7 +120,6 @@ function wranglerStore(bucket) {
     await wrangler(["r2", "object", "get", `${bucket}/${key}`, "--file", target, "--remote"]);
     return readFileSync(target, "utf8");
   };
-  const missing = (error) => /does not exist|NoSuchKey|\b404\b|not found/i.test(`${error?.stderr ?? ""} ${error?.stdout ?? ""} ${error?.message ?? ""}`);
   const seen = new Map();
   const upload = async (key, body) => {
     writeFileSync(file(key), body);
