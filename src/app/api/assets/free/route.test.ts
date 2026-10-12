@@ -27,18 +27,18 @@ describe("GET /api/assets/free", () => {
     createAdminClient.mockReturnValue({ storage: { from: vi.fn(() => ({ createSignedUrls })) } });
   });
 
-  it("signs a free question for a day and lets the CDN share it for 20 hours", async () => {
+  it("signs a free question for a week and lets the CDN share it for four days, refreshing in the background for two more", async () => {
     const response = await GET(request("bank=ib-sl&id=2017-may-p1-tz1-q1&kind=question"));
 
     expect(response.status).toBe(200);
-    expect(response.headers.get("cache-control")).toBe("public, max-age=0, s-maxage=72000");
+    expect(response.headers.get("cache-control")).toBe("public, max-age=0, s-maxage=345600, stale-while-revalidate=172800");
     const body = await response.json();
-    expect(body.expiresIn).toBe(86_400);
-    expect(body.maxAge).toBe(72_000);
+    expect(body.expiresIn).toBe(604_800);
+    expect(body.maxAge).toBe(518_400);
     expect(body.asset).toMatchObject({ questionId: "2017-may-p1-tz1-q1", kind: "question" });
     expect(body.asset.urls).toEqual([
-      "https://assets.example/ib-sl/questions/2017-may-p1-tz1-q1-page-2.webp?e=86400",
-      "https://assets.example/ib-sl/questions/2017-may-p1-tz1-q1-page-3.webp?e=86400",
+      "https://assets.example/ib-sl/questions/2017-may-p1-tz1-q1-page-2.webp?e=604800",
+      "https://assets.example/ib-sl/questions/2017-may-p1-tz1-q1-page-3.webp?e=604800",
     ]);
     expect(body.asset.displayCrops).toHaveLength(2);
     expect(createClient).not.toHaveBeenCalled();
@@ -48,7 +48,7 @@ describe("GET /api/assets/free", () => {
     const response = await GET(request("bank=ib-sl&id=2017-may-p1-tz1-q1&kind=answer"));
 
     expect(response.status).toBe(200);
-    expect((await response.json()).asset.urls).toEqual(["https://assets.example/ib-sl/markschemes/2017-may-p1-tz1-q1-page-7.webp?e=86400"]);
+    expect((await response.json()).asset.urls).toEqual(["https://assets.example/ib-sl/markschemes/2017-may-p1-tz1-q1-page-7.webp?e=604800"]);
   });
 
   it("rejects paid ids even with a session cookie", async () => {
