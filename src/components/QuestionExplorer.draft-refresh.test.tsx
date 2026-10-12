@@ -47,6 +47,25 @@ it('reviewer acceptance: preserves unsaved saved-worksheet draft after same-acco
   expect(await screen.findByRole('dialog', { name: 'Unsaved worksheet changes' })).toBeTruthy();
 });
 
+it('does not submit an obsolete draft under a changed cookie before session observation', async () => {
+  const patches: unknown[] = [];
+  vi.stubGlobal('fetch', vi.fn(async (url: RequestInfo | URL, init?: RequestInit) => {
+    if (String(url) === '/member') return json({ accountId: 'verified-A', access: paid, studyState: { savedIds: [], attemptedIds: [] } });
+    if (String(url).startsWith('/api/worksheets/')) {
+      if (init?.method === 'PATCH') { patches.push(JSON.parse(String(init.body))); return new Response(JSON.stringify({ error: 'Conflict' }), { status: 409 }); }
+      return json({ worksheet: { bank_slug: 'ib-sl', title: 'Original title', question_ids: [questions[0].id], content_mode: 'both', revision: 1 } });
+    }
+    if (String(url) === '/api/assets/sign') { const { requests } = JSON.parse(String(init?.body)); return json({ expiresIn: 600, assets: requests.map((r: object) => ({ ...r, urls: ['https://assets.example/q.webp'] })) }); }
+    return new Response(null, { status: 404 });
+  }));
+  render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={anon} bootstrapUrl="/member" initialState={state} hydrateFromLocation />);
+  fireEvent.change(await screen.findByDisplayValue('Original title'), { target: { value: 'Private A draft' } });
+  document.cookie = 'sb-final-auth-token=B; path=/';
+  fireEvent.click(screen.getByRole('button', { name: 'Save changes' }));
+  await act(async () => {});
+  expect(patches).toHaveLength(0);
+});
+
 it.each(['different account', 'anonymous', 'missing identity', 'transient failure', 'signout', 'rapid signout/signin', 'different worksheet', 'stale bootstrap'] as const)('quarantines draft until server identity is confirmed: %s', async (scenario) => {
   let release!: (response: Response) => void;
   let boots = 0;

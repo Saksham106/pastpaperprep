@@ -1036,6 +1036,7 @@ access: ExplorerAccess;
   }, [worksheetDirty]);
 
   const finishWorksheetAction = (action: NonNullable<typeof pendingWorksheetAction>) => {
+    if (!scopeIsCurrent()) return;
     setPendingWorksheetAction(null);
     setFailedLeaveSave(false);
     setConfirmDiscard(false);
@@ -1056,6 +1057,7 @@ access: ExplorerAccess;
   };
 
   const saveWorksheet = async (): Promise<boolean> => {
+    if (!scopeIsCurrent()) return false;
     if (!bank || !resolvedAccess.bankAccess || !exportQuestions.length || !worksheetName.trim() || !worksheetReady || worksheetLoadFailed || worksheetSavingRef.current) return false;
     worksheetSavingRef.current = true;
     setWorksheetSaving(true);
@@ -1067,7 +1069,9 @@ access: ExplorerAccess;
         method: worksheetId ? "PATCH" : "POST", headers: { "content-type": "application/json" },
         body: JSON.stringify({ bank, name: worksheetName, questionIds: orderedIds, contentMode: pdfContent, ...(worksheetId ? { revision: worksheetRevision } : {}) }),
       });
+      if (!scopeIsCurrent()) return false;
       const payload = await response.json();
+      if (!scopeIsCurrent()) return false;
       if (!response.ok) throw new Error(payload.error || "Worksheet could not be saved. Try again.");
       const saved = payload.worksheet;
       setWorksheetName(saved.title);
@@ -1084,8 +1088,13 @@ access: ExplorerAccess;
         setPdfOpen(false);
       }
       return true;
-    } catch (error) { setWorksheetStatus(error instanceof Error ? error.message : "Worksheet could not be saved. Try again."); return false; }
-    finally { worksheetSavingRef.current = false; setWorksheetSaving(false); }
+    } catch (error) {
+      if (scopeIsCurrent()) setWorksheetStatus(error instanceof Error ? error.message : "Worksheet could not be saved. Try again.");
+      return false;
+    } finally {
+      worksheetSavingRef.current = false;
+      if (scopeIsCurrent()) setWorksheetSaving(false);
+    }
   };
 
   const toggle = (key: MultiKey, value: string) => {
