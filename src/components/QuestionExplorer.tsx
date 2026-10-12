@@ -27,7 +27,7 @@ import { matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } fr
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 import { getMathsPickerGroups, getMathsPickerTopics, isCleanMathsBank, isMathsEarlierToken } from "@/lib/maths-picker";
 import { displayedQuestionSubtopics, formatMathsPickerLabel, formatPublicLabel } from "@/lib/presentation";
-import { trackProductEvent } from "@/lib/product-analytics";
+import { browserAccountId, trackProductEvent } from "@/lib/product-analytics";
 import { ANONYMOUS_FREE_QUESTION_LIMIT, getFreeQuestionGate } from "@/lib/free-question-gate";
 import { FreeQuestionSignupGate } from "@/components/FreeQuestionSignupGate";
 import { Testimonial } from "@/components/Testimonial";
@@ -190,7 +190,7 @@ function assetHost(url: string | undefined) {
 }
 // R2 signing never checks an object exists, so a missing image is only visible here.
 function trackAssetLoadFailure(bank: string, questionId: string, kind: "question" | "answer", outcome: "expired_resign" | "failed", url: string | undefined) {
-  trackProductEvent("asset_load_failed", { bank, question_id: questionId.slice(0, 120), kind, outcome, host: assetHost(url) });
+  trackProductEvent("asset_load_failed", { bank, question_id: questionId.slice(0, 120), kind, outcome, host: assetHost(url), user_id: browserAccountId() });
 }
 const hydratedSnapshot = () => true;
 const serverSnapshot = () => false;

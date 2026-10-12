@@ -32,8 +32,8 @@ No email, name or account ID is ever sent without consent.
 | `checkout_cancelled` | pricing with `?checkout=cancelled` (Stripe cancel) | none |
 | `checkout_returned` | account with `?checkout=success` or `lifetime-pending` | `status` |
 | `$exception` | uncaught browser errors, unhandled rejections, error boundaries | scrubbed message (`safeErrorMessage`), stack, `digest?` (matches the server render error) |
-| `api_request_failed` | any own `/api/*` call answering 5xx, 400, 408, 413 or 429, or failing on the network (`api-failure-monitor`) | `route` (ids as `[id]`), `method`, `status` (0 = network), `outcome`, `duration_ms`, `correlation_id?` |
-| `asset_load_failed` | a question or mark-scheme image failing to load | `bank`, `question_id`, `kind`, `outcome` (`expired_resign` or `failed`), `host` (`r2`, `supabase`, `self`, `other`) |
+| `api_request_failed` | any own `/api/*` call answering 5xx, 400, 408, 413 or 429, or failing on the network (`api-failure-monitor`) | `route` (ids as `[id]`), `method`, `status` (0 = network), `outcome`, `duration_ms`, `correlation_id?`, `user_id?` |
+| `asset_load_failed` | a question or mark-scheme image failing to load | `bank`, `question_id`, `kind`, `outcome` (`expired_resign` or `failed`), `host` (`r2`, `supabase`, `self`, `other`), `user_id?` |
 
 `placement` is one of `top_note`, `feed_teaser`, `feed_timeline`, `locked_card`, `practice_milestone`, `signup_gate`, `pdf_dialog`. The same value travels to pricing as `?from=`, so `pricing_view.from` shows which prompt sent the visitor.
 
@@ -73,7 +73,7 @@ Vercel Hobby keeps runtime logs for about an hour, so production and preview ser
 
 | Log | Level | Attributes |
 | --- | --- | --- |
-| `api_request` | info, warn (4xx), error (5xx or thrown) | `route`, `method`, `status`, `duration_ms`, `correlation_id?`, `bank?`, `stage?`, `storage_provider?` |
+| `api_request` | info, warn (4xx), error (5xx or thrown) | `route`, `method`, `status`, `duration_ms`, `correlation_id?`, `user_id?`, `bank?`, `stage?`, `storage_provider?` |
 | `server_exception` | error | scrubbed `message`, `error_name`, and the exception's properties |
 | `asset_signing` | info, error | `provider`, `bank`, `assets`, `long_lived`, `duration_ms`, `outcome`, `message?` |
 | `entitlement_read_retry` / `_recovered` / `_failed` | warn, info, error | `attempt(s)`, `error_code` (PGRST303 is Supabase's clock bug) |
@@ -84,4 +84,6 @@ To trace a failure: take `correlation_id` from `api_request_failed` (browser) or
 Messages pass through `safeErrorMessage`, which returns only fixed diagnostics or normalized templates. Arbitrary text is omitted and exception producers use a generic fallback; parser inputs, dynamic property names outside a small code-controlled vocabulary, quoted secrets and personal prose are never retained as messages. React production errors keep only their code (`React error #418`). Known diagnostic outputs remain readable through a second SDK sanitization pass. Server exception names also use an explicit category allowlist.
 
 Expected Next navigation/access markers and explicit auth/limit outcomes are excluded on both browser and server. A keyword such as `cooldown` inside a `ReferenceError` or `TypeError` is not an expected outcome: programming crashes still emit one exception per error object.
+
+`user_id` is the signed-in account's Supabase id (a UUID), added automatically to exceptions, `api_request_failed`, `asset_load_failed`, `api_request` and `entitlement_read_*` from the session cookie (`accountIdFromCookieHeader`, decoded without verification, so telemetry only). Signed-out traffic has none. It never splits an issue's grouping. Look the id up in Supabase when you need the person; names and emails never go to PostHog through this path (disclosed in /privacy).
 
