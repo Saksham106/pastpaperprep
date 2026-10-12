@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { getCatalogBank, type BankSlug } from '../src/lib/catalog';
 import { normalizeBankQuestions, type UnifiedQuestion } from '../src/lib/questions';
 import type { WholePaperEntry, WholePaperManifest, WholePaperLocalBindings } from '../src/lib/whole-paper-types';
-import { EXTRACTOR_VERSION, sha256, parseIdentity, parseHeader, findCover, extractPdf, atomicJson, type ExtractedDocument } from './whole-paper-extraction.mjs';
+import { EXTRACTOR_VERSION, sha256, parseIdentity, findCover, extractPdf, atomicJson, type ExtractedDocument } from './whole-paper-extraction.mjs';
 
 export type BuildOptions={inventoryFiles:string[];bank?:string;root?:string;outputRoot?:string};
 export function parseCli(args:string[]):BuildOptions {
