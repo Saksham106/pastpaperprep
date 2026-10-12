@@ -52,6 +52,19 @@ describe("QuestionExplorer session lifecycle", () => {
     } finally { randomness.mockRestore(); }
   });
 
+  it("does not let an unobserved stale image error evict the next owner's fresh link", async () => {
+    vi.stubGlobal("fetch", vi.fn(async (_url: RequestInfo | URL, init?: RequestInit) => signed(init, "A")));
+    render(<QuestionExplorer questions={[question]} bankSlug="igcse" access={paid} />);
+    const oldImage = await screen.findByRole("img", { name: /original question/i });
+    document.cookie = "sb-lifecycle-auth-token=B; path=/";
+    const b = sessionFingerprint(document.cookie)!;
+    const key = `${question.id}:question`;
+    rememberAssets(b, "igcse", new Map([[key, { questionId: question.id, kind: "question", urls: ["https://assets.example/B.webp"], expiresAt: Date.now() + 600_000 }]]));
+    expect(readCachedAssets(b, "igcse").size).toBe(1);
+    await act(async () => { fireEvent.error(oldImage); });
+    expect(readCachedAssets(b, "igcse").size).toBe(1);
+  });
+
   it("starts B's signer without awaiting A and discards A's late links and rich details", async () => {
     const late = deferred();
     let firstInit: RequestInit | undefined;

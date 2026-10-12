@@ -1108,11 +1108,12 @@ access: ExplorerAccess;
   };
 
   const markQuestionAssetFailed = (questionId: string) => {
+    if (!scopeIsCurrent()) return;
     const key = signedAssetKey(questionId, "question");
     const expiredAt = lapsedSignedAssetExpiry(signedAssets.get(key));
     const retrying = expiredAt !== undefined && resignedExpiryRef.current.get(key) !== expiredAt;
     trackAssetLoadFailure(bank ?? "unknown", questionId, "question", retrying ? "expired_resign" : "failed", signedAssets.get(key)?.urls[0]);
-    if (bank) forgetAsset(bank, key);
+    if (bank) forgetAsset(bank, key, scopeOwner ?? undefined);
     setSignedAssets((current) => {
       const next = new Map(current);
       next.delete(key);
