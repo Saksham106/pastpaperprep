@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { isValidEmail, isValidPassword, safeNextPath } from "./auth";
+import { isLikelyOrganizationEmail, isValidEmail, isValidEmailCode, isValidPassword, normalizeEmailCode, safeNextPath } from "./auth";
 
 describe("safeNextPath", () => {
   it("allows an internal application path", () => {
@@ -49,5 +49,25 @@ describe("isValidPassword", () => {
   it("rejects short and oversized passwords", () => {
     expect(isValidPassword("short123")).toBe(false);
     expect(isValidPassword("x".repeat(73))).toBe(false);
+  });
+});
+
+describe("email codes", () => {
+  it("accepts pasted codes with spaces or dashes and rejects anything that is not digits", () => {
+    expect(normalizeEmailCode(" 1234 5678 ")).toBe("12345678");
+    expect(normalizeEmailCode("1234-5678")).toBe("12345678");
+    expect(isValidEmailCode("12345678")).toBe(true);
+    expect(isValidEmailCode("12345")).toBe(false);
+    expect(isValidEmailCode("1234567a")).toBe(false);
+  });
+});
+
+describe("isLikelyOrganizationEmail", () => {
+  it("flags school and work domains but not personal providers", () => {
+    expect(isLikelyOrganizationEmail("student@pupils.school.example")).toBe(true);
+    expect(isLikelyOrganizationEmail("teacher@school.example")).toBe(true);
+    expect(isLikelyOrganizationEmail("Student@Gmail.com")).toBe(false);
+    expect(isLikelyOrganizationEmail("someone@outlook.com")).toBe(false);
+    expect(isLikelyOrganizationEmail("not-an-email")).toBe(false);
   });
 });

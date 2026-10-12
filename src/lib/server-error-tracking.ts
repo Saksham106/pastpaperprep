@@ -6,7 +6,7 @@ import { BANK_CATALOG } from "@/lib/catalog";
 import { safeServerErrorCode } from "@/lib/safe-server-error-code";
 import { serverLog } from "@/lib/server-logs";
 
-const AUTH_PHASES = new Set(["signup_result", "magic_link_result", "resend_result", "password_signin_result", "confirmation_result"]);
+const AUTH_PHASES = new Set(["signup_result", "magic_link_result", "resend_result", "password_signin_result", "confirmation_result", "code_result", "oauth_result"]);
 const ENUMS: Record<string, Set<string>> = {
   router_kind: new Set(["App Router", "Pages Router"]),
   route_type: new Set(["render", "route", "action", "middleware"]),

@@ -126,6 +126,14 @@ describe("server exception privacy boundary", () => {
     log.mockRestore();
   });
 
+  it.each(["code_result", "oauth_result"])("captures unexpected %s failures through the real auth diagnostic producer", async (phase) => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test");
+    const { logAuthDiagnostic } = await import("./auth-diagnostics");
+    logAuthDiagnostic({ attemptId: "7f1b6a2e-0000-4000-8000-000000000000", phase: phase as "code_result" | "oauth_result", outcome: "rejected", providerCode: "unexpected_failure" });
+    expect(captureExceptionImmediate).toHaveBeenCalledOnce();
+    expect(captureExceptionImmediate.mock.calls[0][2]).toMatchObject({ error_source: "auth_provider", auth_phase: phase, provider_code: "unexpected_failure" });
+  });
+
   it("keeps different auth provider codes in separate issue groups", async () => {
     vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test");
     const { captureAuthProviderFailure } = await import("./server-error-tracking");

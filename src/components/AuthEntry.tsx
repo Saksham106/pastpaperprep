@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { GoogleSignInButton } from "@/components/GoogleSignInButton";
 import { PasswordSignUpForm } from "@/components/PasswordSignUpForm";
 import { SignInMethods } from "@/components/SignInMethods";
 
 type AuthMode = "sign-in" | "sign-up";
 
-export function AuthEntry({ next, hasLinkError = false, initialMode = "sign-in" }: { next: string; hasLinkError?: boolean; initialMode?: AuthMode }) {
+export function AuthEntry({ next, hasLinkError = false, hasGoogleError = false, initialMode = "sign-in" }: { next: string; hasLinkError?: boolean; hasGoogleError?: boolean; initialMode?: AuthMode }) {
   const [mode, setMode] = useState<AuthMode>(initialMode);
   const signingIn = mode === "sign-in";
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -31,6 +32,11 @@ export function AuthEntry({ next, hasLinkError = false, initialMode = "sign-in" 
           That sign-in link is invalid or expired. Request a fresh one below.
         </p>
       )}
+
+      {hasGoogleError && <p className="form-message error auth-link-error" role="alert">Google sign-in didn’t finish. Try again.</p>}
+
+      <GoogleSignInButton next={next} />
+      <div className="auth-divider"><span>or use email</span></div>
 
       {signingIn ? <SignInMethods next={next} /> : <PasswordSignUpForm next={next} />}
 
