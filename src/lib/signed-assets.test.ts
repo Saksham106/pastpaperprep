@@ -230,6 +230,24 @@ describe("fetchSignedAssets", () => {
   });
 });
 
+describe("fetchSignedAssets batching", () => {
+  it("sends every batch at once instead of waiting for the previous one", async () => {
+    const requests = Array.from({ length: 24 }, (_, index) => ({ questionId: `q${index}`, kind: "question" as const }));
+    const pending: Array<() => void> = [];
+    const fetcher = vi.fn((_input: RequestInfo | URL, init?: RequestInit) => new Promise<Response>((resolve) => {
+      const body = JSON.parse(String(init?.body)) as { requests: Array<{ questionId: string; kind: string }> };
+      pending.push(() => resolve(new Response(JSON.stringify({ expiresIn: 600, assets: body.requests.map((request) => ({ ...request, urls: [`https://assets.example/${request.questionId}.webp`] })) }))));
+    }));
+
+    const result = fetchSignedAssets("ib-sl", requests, fetcher);
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    expect(fetcher).toHaveBeenCalledTimes(2);
+    pending.forEach((release) => release());
+    expect([...(await result).keys()]).toEqual(requests.map((request) => `${request.questionId}:question`));
+  });
+});
+
 describe("fetchFreeAssets", () => {
   const ok = (questionId: string, kind: string) => new Response(JSON.stringify({
     expiresIn: 3600,
