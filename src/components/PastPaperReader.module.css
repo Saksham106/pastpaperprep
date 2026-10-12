@@ -1,5 +1,5 @@
 /* PDF viewer: one sticky toolbar row over a scrolling page stage. */
-.reader { min-width: 0; color: var(--ink); }
+.reader { min-width: 0; color: var(--ink); container-type: inline-size; }
 .reader button { cursor: pointer; font: inherit; color: inherit; }
 .viewer { position: static; display: block; width: 100%; max-width: none; max-height: none; min-width: 0; margin: 0; padding: 0; color: inherit; background: transparent; border: 0; }
 .viewer.focused { position: fixed; inset: 16px; display: flex; flex-direction: column; gap: 10px; width: calc(100% - 32px); max-width: 1150px; height: calc(100dvh - 32px); max-height: none; margin: auto; padding: 14px 18px 18px; overflow: hidden; background: var(--paper); border: 1px solid var(--line); border-radius: 18px; }
@@ -49,12 +49,18 @@
 .reader :is(button, a, input, select, summary):focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
 .reader button:disabled { opacity: .38; cursor: not-allowed; }
 
+@container (max-width: 800px) {
+  .view summary span { display: none; }
+  .tabs [role=tab] { padding: 0 10px; }
+  .toolbar { gap: 6px; }
+}
 @media (max-width: 760px) {
   .toolbar { position: static; padding: 6px; gap: 6px; }
-  .tabs { order: 1; flex: 1 1 100%; }
+  .tabs { order: -1; flex: 1 1 100%; }
   .tabs [role=tab] { flex: 1; }
-  .pagination { order: 2; margin-left: 0; }
-  .view { order: 3; margin-left: auto; }
+  /* The stage scrolls by touch and fills the screen, so page numbers and focus view add little on phones. */
+  .pagination, .iconButton[aria-label="Focus view"] { display: none; }
+  .view { margin-left: auto; }
   .stage { height: 72dvh; min-height: 360px; }
   .canvasSlot { padding: 10px 8px; }
   .viewer.focused { inset: 8px; width: calc(100% - 16px); height: calc(100dvh - 16px); padding: 10px; }

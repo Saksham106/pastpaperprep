@@ -24,6 +24,7 @@ export function PaperMarkingWorkspace({ paper = PAPER_MARKING_PREVIEW, onClose }
 
 function PaperMarkingSession({ paper, onClose }: { paper: PaperMarkingPaper; onClose?: () => void }) {
   const [values, setValues] = useState<Record<string, string>>({});
+  const latest = useRef<Record<string, string>>({});
   const [showReport, setShowReport] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const [confirmClear, setConfirmClear] = useState(false);
@@ -50,8 +51,8 @@ function PaperMarkingSession({ paper, onClose }: { paper: PaperMarkingPaper; onC
         if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('Invalid saved marks');
         createPaperMarkingReport(restorePaper.current, parsed as QuestionMarks);
         // Hydration starts blank on server/client; restore external device state once after mount.
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setValues(Object.fromEntries(Object.entries(parsed).map(([id, value]) => [id, value === null ? '' : String(value)])));
+        latest.current = Object.fromEntries(Object.entries(parsed).map(([id, value]) => [id, value === null ? '' : String(value)]));
+        setValues(latest.current);
       }
     } catch { /* Corrupt/unavailable storage must never block marking. */ }
     restored.current = true;
@@ -66,20 +67,25 @@ function PaperMarkingSession({ paper, onClose }: { paper: PaperMarkingPaper; onC
     try { localStorage.setItem(storageKey, JSON.stringify(nextMarks)); setStorageFailure(false); }
     catch { setStorageFailure(true); }
   }
-  function update(id: string, value: string) {
-    const next = { ...values, [id]: value };
+  /** Builds on the latest marks (not the last render's), so several taps before a re-render all count. */
+  function change(id: string, value: (previous: string | undefined) => string) {
+    const next = { ...latest.current, [id]: value(latest.current[id]) };
+    latest.current = next;
     setValues(next);
     save(next);
   }
+  const update = (id: string, value: string) => change(id, () => value);
   /** − from blank means "no marks"; + from blank means one mark. Always clamped to the question's maximum. */
   function step(id: string, maxMarks: number, delta: 1 | -1) {
-    const current = Number(values[id]);
-    const base = values[id]?.trim() && Number.isInteger(current) ? current : delta === 1 ? 0 : 1;
-    update(id, String(Math.min(maxMarks, Math.max(0, base + delta))));
+    change(id, previous => {
+      const current = Number(previous);
+      const base = previous?.trim() && Number.isInteger(current) ? current : delta === 1 ? 0 : 1;
+      return String(Math.min(maxMarks, Math.max(0, base + delta)));
+    });
   }
   function closeClear() { setConfirmClear(false); clearButton.current?.focus(); }
   function clear() {
-    setValues({}); setShowReport(false); setShowAll(false);
+    latest.current = {}; setValues({}); setShowReport(false); setShowAll(false);
     save({}); closeClear();
   }
   const marks: QuestionMarks = Object.fromEntries(paper.questions.map(q => [q.id, values[q.id]?.trim() ? Number(values[q.id]) : null]));

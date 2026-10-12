@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { PaperMarkingWorkspace } from './PaperMarkingWorkspace';
 
 const analytics = vi.hoisted(() => ({ trackProductEvent: vi.fn() }));
@@ -171,5 +171,13 @@ describe('self marking workspace', () => {
     render(<PaperMarkingWorkspace onClose={onClose} />);
     fireEvent.click(screen.getByRole('button', { name: 'Back to paper' }));
     expect(onClose).toHaveBeenCalledTimes(1);
+  });
+  it('keeps every mark when several steps land before a re-render', () => {
+    render(<PaperMarkingWorkspace />);
+    const add = (n: number) => screen.getByRole('button', { name: `Add a mark to question ${n}` });
+    act(() => { add(1).click(); add(1).click(); add(2).click(); });
+    expect(screen.getByLabelText('Question 1 marks')).toHaveValue('2');
+    expect(screen.getByLabelText('Question 2 marks')).toHaveValue('1');
+    expect(JSON.parse(localStorage.getItem('pastpaperprep:marks:igcse-chemistry-0620:0620-2023-w-42:question-topic-review-v1')!)).toMatchObject({ '0620-2023-w-42-q1': 2, '0620-2023-w-42-q2': 1 });
   });
 });

@@ -277,7 +277,7 @@ describe("PastPaperReader", () => {
   it("keeps reading options in a compact View menu", async () => {
     render(<PastPaperReader />);
     await screen.findByRole("img", { name: /Question paper, page 1/ });
-    expect(screen.getByText("View", { selector: "summary" })).toBeInTheDocument();
+    expect(screen.getByLabelText("View options").tagName).toBe("SUMMARY");
     expect(screen.getByRole("combobox", { name: "Reading mode" }).closest("details")).not.toBeNull();
     expect(screen.getByRole("link", { name: "Download question paper PDF" })).toHaveAttribute("download");
   });

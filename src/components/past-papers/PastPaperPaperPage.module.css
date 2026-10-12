@@ -1,7 +1,7 @@
 .page { padding-bottom: 64px; }
 .head { margin-top: 20px; }
 .eyebrow { margin: 0; color: var(--muted); font: 600 .7rem/1.3 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; }
-.head h1 { margin: 10px 0 0; font: 400 clamp(2rem, 4vw, 3rem)/1.04 var(--font-serif); letter-spacing: -.025em; }
+.head h1 { margin: 10px 0 0; font: 400 clamp(2rem, 4vw, 3rem)/1.04 var(--font-serif); letter-spacing: -.025em; text-wrap: balance; }
 .facts { margin: 14px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; list-style: none; }
 .facts li { padding: 5px 11px; color: var(--ink-soft); background: var(--surface-raised); border: 1px solid var(--line); border-radius: 999px; font-size: .82rem; font-weight: 650; }
 
@@ -12,7 +12,8 @@
 .pill a + a { box-shadow: -1px 0 0 color-mix(in srgb, var(--course-pastel, var(--line)) 90%, #fff); }
 .pill a:hover { color: var(--course-accent, var(--cobalt)); background: var(--surface-raised); }
 .pill a[aria-current="page"] { color: var(--surface); background: var(--ink); box-shadow: none; }
-.neighbours div { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.neighbours div { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 8px; }
+.neighbours div > span:empty { display: none; }
 .neighbours a { min-width: 0; padding: 10px 12px; display: grid; gap: 4px; border: 1px solid var(--line); border-radius: 12px; transition: border-color 150ms ease; }
 .neighbours a:hover { border-color: var(--course-accent, var(--cobalt)); }
 .neighbours small { display: flex; align-items: center; gap: 4px; color: var(--muted); font-size: .74rem; font-weight: 600; }
@@ -34,5 +35,4 @@
 
 @media (max-width: 760px) {
   .questions ol { grid-template-columns: 1fr; }
-  .neighbours div { grid-template-columns: 1fr; }
 }

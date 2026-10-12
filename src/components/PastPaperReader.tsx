@@ -133,7 +133,7 @@ function PastPaperReaderSession({ paper, kind: controlledKind, onKindChange, ana
           <label><span className={styles.visuallyHidden}>Page</span><input aria-label="Page number" type="number" inputMode="numeric" min={1} max={pdf?.numPages || 1} disabled={!pdf} value={draft} onChange={event => setEditing({ kind, page: pageNumber, value: event.target.value })} onBlur={() => goTo(Number(draft))} onKeyDown={event => { if (event.key === "Enter") goTo(Number(draft)); }} /></label><span>/ {pdf?.numPages ?? "…"}</span>
           <button type="button" aria-label="Next page" disabled={!pdf || pageNumber === pdf.numPages} onClick={() => goTo(pageNumber + 1)}><CaretRight aria-hidden="true" weight="bold" /></button>
         </div>
-        <details className={styles.view}><summary><SlidersHorizontal aria-hidden="true" />View</summary><div className={styles.viewMenu}>
+        <details className={styles.view}><summary aria-label="View options"><SlidersHorizontal aria-hidden="true" /><span>View</span></summary><div className={styles.viewMenu}>
           <label>Pages<select aria-label="Reading mode" value={mode} onChange={event => setMode(event.target.value as "scroll" | "single")}><option value="scroll">Scroll pages</option><option value="single">Single page</option></select></label>
           <label>Size<select aria-label="PDF zoom" value={zoom} onChange={event => setZoom(event.target.value as "fit" | "actual")}><option value="fit">Fit width</option><option value="actual">100%</option></select></label>
         </div></details>

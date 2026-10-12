@@ -1,12 +1,12 @@
 /* Reader + rail on desktop; reader, rail and a floating dock on phones. */
 .workspace { margin-top: 22px; display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; align-items: start; }
 .workspace[data-marking] { grid-template-columns: minmax(0, 1fr) 420px; }
-.main { min-width: 0; }
+.main { min-width: 0; scroll-margin-top: 78px; }
 .rail { position: sticky; top: 78px; display: grid; gap: 14px; }
 .finished { padding: 20px; background: var(--subject-panel-tint, var(--cobalt-faint)); border: 1px solid color-mix(in srgb, var(--course-pastel, var(--cobalt-soft)) 70%, var(--line)); border-radius: 18px; }
 .finished h2 { margin: 0; font: 400 1.3rem/1.2 var(--font-serif); }
 .finished p { margin: 6px 0 14px; color: var(--ink-soft); font-size: .9rem; line-height: 1.45; }
-.markButton, .dockMark { min-height: 46px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; color: #fff; background: var(--cobalt); border: 0; border-radius: 12px; box-shadow: 0 8px 20px -10px rgb(47 91 234 / .7); font: 760 .95rem/1 var(--font-body); cursor: pointer; transition: background-color 150ms ease; }
+.markButton, .dockMark { min-height: 46px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; color: var(--accent-contrast); background: var(--cobalt); border: 0; border-radius: 12px; box-shadow: 0 8px 20px -10px rgb(47 91 234 / .7); font: 760 .95rem/1 var(--font-body); cursor: pointer; transition: background-color 150ms ease; }
 .markButton { width: 100%; }
 .markButton svg, .dockMark svg { width: 17px; height: 17px; }
 .markButton:hover, .dockMark:hover { background: var(--cobalt-strong); }
@@ -21,11 +21,11 @@
 }
 @media (max-width: 760px) {
   .workspace { padding-bottom: 84px; }
-  .markPanel { position: fixed; z-index: 40; left: 0; right: 0; bottom: 0; max-height: 62dvh; border-radius: 20px 20px 0 0; border-bottom: 0; box-shadow: 0 -24px 60px -24px rgb(0 0 0 / .45); }
+  .markPanel { position: fixed; z-index: 40; left: 0; right: 0; bottom: 0; max-height: 55dvh; border-radius: 20px 20px 0 0; border-bottom: 0; box-shadow: 0 -24px 60px -24px rgb(0 0 0 / .45); }
   .dock { position: fixed; z-index: 30; left: 50%; bottom: 14px; transform: translateX(-50%); padding: 6px; display: flex; align-items: center; gap: 6px; background: #191917; border-radius: 16px; box-shadow: 0 20px 50px -16px rgb(0 0 0 / .55); }
   .workspace[data-marking] .dock { display: none; }
   .dockSwitch { padding: 3px; display: flex; gap: 2px; background: #2c2c29; border-radius: 11px; }
   .dockSwitch button { min-height: 38px; padding: 0 14px; color: #aaa79e; background: transparent; border: 0; border-radius: 8px; font: 700 .86rem/1 var(--font-body); }
   .dockSwitch button[aria-pressed="true"] { color: #191917; background: #fafaf7; }
-  .dockMark { min-height: 44px; padding: 0 16px; }
+  .dockMark { min-height: 44px; padding: 0 16px; white-space: nowrap; }
 }

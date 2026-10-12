@@ -23,11 +23,11 @@
 .stepper button svg { width: 13px; height: 13px; }
 .stepper input { width: 30px; height: 34px; padding: 0; text-align: right; color: var(--ink); background: transparent; border: 0; outline: 0; font: 600 .9rem/1 var(--font-mono); }
 .stepper input[aria-invalid="true"] { color: var(--danger); }
-.stepper span { padding-left: 3px; color: var(--muted); font: 500 .8rem/1 var(--font-mono); white-space: nowrap; }
+.stepper span { min-width: 34px; padding-left: 3px; color: var(--muted); font: 500 .8rem/1 var(--font-mono); white-space: nowrap; }
 .error { grid-column: 1 / -1; margin: 0; color: var(--danger); font-size: .78rem; font-weight: 600; }
 
 .footer { padding: 14px 18px 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
-.primary { min-height: 46px; padding: 0 18px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; color: #fff; background: var(--cobalt); border: 0; border-radius: 12px; box-shadow: 0 8px 20px -10px rgb(47 91 234 / .7); font-weight: 760 !important; font-size: .95rem !important; transition: background-color 150ms ease; }
+.primary { min-height: 46px; padding: 0 18px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; color: var(--accent-contrast); background: var(--cobalt); border: 0; border-radius: 12px; box-shadow: 0 8px 20px -10px rgb(47 91 234 / .7); font-weight: 760 !important; font-size: .95rem !important; transition: background-color 150ms ease; }
 .primary:hover { background: var(--cobalt-strong); }
 .primary:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; }
 .primary svg { width: 16px; height: 16px; }

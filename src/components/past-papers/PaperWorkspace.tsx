@@ -13,6 +13,7 @@ export function PaperWorkspace({ reader, marking, bank, children }: { reader: Pa
   const [kind, setKind] = useState<PaperDocumentKind>('question');
   const [markingOpen, setMarkingOpen] = useState(false);
   const markButton = useRef<HTMLButtonElement>(null);
+  const main = useRef<HTMLDivElement>(null);
   const reopened = useRef(false);
   useEffect(() => { trackProductEvent('past_paper_open', { bank, paper: reader.id }); }, [bank, reader.id]);
   useEffect(() => {
@@ -20,10 +21,12 @@ export function PaperWorkspace({ reader, marking, bank, children }: { reader: Pa
   }, [markingOpen]);
   function openMarking() {
     setMarkingOpen(true); setKind('markscheme'); reopened.current = true;
+    // On phones the sheet covers the lower screen, so bring the mark scheme to the top above it.
+    if (window.matchMedia?.('(max-width: 760px)').matches) main.current?.scrollIntoView?.({ block: 'start' });
     trackProductEvent('past_paper_mark_open', { bank });
   }
   return <div className={styles.workspace} data-marking={markingOpen || undefined}>
-    <div className={styles.main}><PastPaperReader paper={reader} kind={kind} onKindChange={setKind} analyticsBank={bank} /></div>
+    <div ref={main} className={styles.main}><PastPaperReader paper={reader} kind={kind} onKindChange={setKind} analyticsBank={bank} /></div>
     <aside className={styles.rail} aria-label={markingOpen ? 'Marking' : 'About this paper'}>
       {markingOpen && marking ? <div className={styles.markPanel}><PaperMarkingWorkspace paper={marking} onClose={() => setMarkingOpen(false)} /></div> : <>
         {marking ? <section className={styles.finished}>
