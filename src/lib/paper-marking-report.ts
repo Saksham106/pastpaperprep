@@ -8,7 +8,7 @@ export const TOPIC_REVIEW_POLICY = 'net-loss-evidence/repeated-loss/mean-questio
 
 export function topicPracticeHref(topic: string, bankSlug = 'igcse-chemistry-0620'): string {
   const params = serializeExplorerState(parseExplorerState({ topic, free: '1' }));
-  return `https://pastpaperprep.com/banks/${encodeURIComponent(bankSlug)}?${params}`;
+  return `/banks/${encodeURIComponent(bankSlug)}?${params}`;
 }
 
 function compareReview(a: TopicReview, b: TopicReview): number {

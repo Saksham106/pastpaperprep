@@ -55,8 +55,9 @@ describe('whole-question marking', () => {
   });
   it('links the exact topic and free preview using explorer state', () => {
     const topic = 'Experimental techniques and chemical analysis';
-    const url = new URL(topicPracticeHref(topic));
-    expect(url.origin + url.pathname).toBe('https://pastpaperprep.com/banks/igcse-chemistry-0620');
+    expect(topicPracticeHref(topic)).toMatch(/^\/banks\/igcse-chemistry-0620\?/);
+    const url = new URL(topicPracticeHref(topic), 'https://pastpaperprep.com');
+    expect(url.pathname).toBe('/banks/igcse-chemistry-0620');
     expect(url.searchParams.getAll('topic')).toEqual([topic]);
     expect(url.searchParams.get('free')).toBe('1');
     expect(parseExplorerState(Object.fromEntries(url.searchParams))).toMatchObject({ filters: { topics: [topic] }, freeOnly: true });
