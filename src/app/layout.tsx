@@ -3,6 +3,7 @@ import { Geist, IBM_Plex_Mono, Young_Serif } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SessionAwareSiteHeader } from "@/components/SessionAwareSiteHeader";
+import { pastPaperLinksEnabled } from "@/lib/past-paper-nav";
 import { SiteTelemetry } from "@/components/SiteTelemetry";
 import { BankNavigationFeedback } from "@/components/BankNavigationFeedback";
 import { PageTransition } from "@/components/PageTransition";
@@ -61,7 +62,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className={`${geist.variable} ${mono.variable} ${youngSerif.variable}`} suppressHydrationWarning>
       <body data-build-revision={process.env.NEXT_PUBLIC_BUILD_REVISION ?? "local"}>
         <ThemeProvider attribute="data-theme" defaultTheme="light" enableColorScheme storageKey="pastpaperprep-theme" disableTransitionOnChange>
-          <SessionAwareSiteHeader />
+          <SessionAwareSiteHeader pastPapers={pastPaperLinksEnabled()} />
           <BankNavigationFeedback />
           <main><PageTransition>{children}</PageTransition></main>
           <SiteFooter />

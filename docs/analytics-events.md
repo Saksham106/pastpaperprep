@@ -31,8 +31,16 @@ No email, name or account ID is ever sent without consent.
 | `checkout_cancelled` | pricing with `?checkout=cancelled` (Stripe cancel) | none |
 | `checkout_returned` | account with `?checkout=success` or `lifetime-pending` | `status` |
 | `browser_error` | uncaught browser errors | sanitized |
+| `past_paper_search` | past-paper search box (Enter or a suggestion) | `found` |
+| `past_paper_open` | free paper page | `bank`, `paper` |
+| `past_paper_timer_start` | paper timer | `bank` |
+| `past_paper_mark_open` | "Mark this paper" / "Mark it" | `bank` |
+| `past_paper_report_view` | "See where your marks went" | `bank`, `complete` |
+| `past_paper_practice_click` | the report's one practice button | `bank` |
 
 `placement` is one of `top_note`, `feed_teaser`, `feed_timeline`, `locked_card`, `practice_milestone`, `signup_gate`, `pdf_dialog`. The same value travels to pricing as `?from=`, so `pricing_view.from` shows which prompt sent the visitor.
+
+**Free past papers funnel (everyone, ratios of totals):** `past_paper_open` → `past_paper_mark_open` → `past_paper_report_view` → `past_paper_practice_click` → `pricing_view`, broken down by `bank`. Linking to `conversion_outcome` needs analytics consent, like the other funnels.
 
 ## Server events
 
