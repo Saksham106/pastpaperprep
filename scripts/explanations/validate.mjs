@@ -83,7 +83,14 @@ function main() {
     const manifest = JSON.parse(readFileSync(argv[1], "utf8"));
     jobs = manifest.tasks.map((t) => ({ file: t.outputPath, expected: { bank: t.bank, questionId: t.questionId, marks: t.marks } }));
   } else {
-    jobs = argv.map((file) => ({ file, expected: {} }));
+    // A file at <research>/<bank>/<questionId>.json must name that bank and question.
+    jobs = argv.map((file) => {
+      const parts = file.split("/");
+      const name = parts.at(-1) ?? "";
+      const dir = parts.at(-2) ?? "";
+      const bankDir = /^(ib|igcse)[a-z0-9-]*$/.test(dir);
+      return { file, expected: bankDir && name.endsWith(".json") ? { bank: dir, questionId: name.slice(0, -5) } : {} };
+    });
   }
   let failed = 0;
   for (const { file, expected } of jobs) {

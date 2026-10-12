@@ -231,3 +231,14 @@ test('--replace only accepts named IDs that are publishable now', () => {
  assert.doesNotMatch(allowed.stderr,/not publishable/);
  assert.match(allowed.stderr,/R2_ACCOUNT_ID/);
 });
+test('validate.mjs infers the expected bank and question from a file\'s location', () => {
+ const root=mkdtempSync(join(realpathSync(tmpdir()),'explanation-validate-'));
+ const dir=join(root,'ib-physics-hl');mkdirSync(dir);
+ const id='2025-may-tz1-hl-p1a-q1';
+ const doc={schemaVersion:1,bank:'ib-hl',questionId:id,totalMarks:1,parts:[{label:'',marks:1,approach:'Test',answer:'Test',steps:[{text:'Test',marks:['A1']}]}]};
+ writeFileSync(join(dir,id+'.json'),JSON.stringify(doc));
+ const run=()=>spawnSync(process.execPath,[join(import.meta.dirname,'validate.mjs'),join(dir,id+'.json')],{encoding:'utf8'});
+ assert.match(run().stdout,/bank ib-hl != ib-physics-hl/);
+ writeFileSync(join(dir,id+'.json'),JSON.stringify({...doc,bank:'ib-physics-hl'}));
+ assert.match(run().stdout,/"failed":0/);
+});
