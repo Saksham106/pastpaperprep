@@ -3,9 +3,10 @@
 import { startTransition, useActionState, useEffect, useRef, useState, type FormEvent } from "react";
 import { PaperPlaneTilt } from "@phosphor-icons/react";
 import { requestMagicLink } from "@/app/auth/actions";
-import { initialMagicLinkState } from "@/lib/auth";
+import { initialMagicLinkState, isLikelyOrganizationEmail } from "@/lib/auth";
+import { EmailCodeForm, OrganizationEmailNotice } from "@/components/CheckEmailHelp";
 
-function CheckEmail({ email, next, onEdit }: { email: string; next: string; onEdit: () => void }) {
+function CheckEmail({ email, next, onEdit, onUsePersonal }: { email: string; next: string; onEdit: () => void; onUsePersonal: () => void }) {
   const [state, action, pending] = useActionState(requestMagicLink, initialMagicLinkState);
   const [cooldown, setCooldown] = useState(60);
   const deadline = useRef(0);
@@ -39,9 +40,9 @@ function CheckEmail({ email, next, onEdit }: { email: string; next: string; onEd
   return (
     <section className="auth-form" aria-labelledby="magic-link-success-heading">
       <h2 id="magic-link-success-heading" ref={heading} tabIndex={-1}>Check your email</h2>
-      <p>Look for a PastPaperPrep email at <strong>{email}</strong>. Check your spam or junk folder too.</p>
-      <p>Open the link in that email, then press Continue on the page it opens to finish signing in.</p>
-      <p>If you requested more than one, use the newest email; older links may stop working.</p>
+      <p>Look for a PastPaperPrep email at <strong>{email}</strong>. Open it and press Continue, or enter its code below. Check spam or junk too.</p>
+      {isLikelyOrganizationEmail(email) && <OrganizationEmailNotice onUsePersonal={onUsePersonal} />}
+      <EmailCodeForm email={email} type="email" next={next} />
       <form action={action} onSubmit={resend}>
         <input type="hidden" name="email" value={email} />
         <input type="hidden" name="next" value={next} />
@@ -52,6 +53,8 @@ function CheckEmail({ email, next, onEdit }: { email: string; next: string; onEd
       </form>
       {state.status === "error" && <p ref={alert} tabIndex={-1} className="form-message error" role="alert">{state.message}</p>}
       {state.status === "success" && <p className="form-message success" role="status">Another link was requested. Check your inbox and use the newest email.</p>}
+      {cooldown === 0 && !isLikelyOrganizationEmail(email) && <p className="auth-fine-print">Nothing yet? Check spam or junk, or try a different email.</p>}
+      <p className="auth-fine-print">If you request another, use the newest email; older links and codes stop working.</p>
       <button className="auth-mode-switch" type="button" disabled={pending} onClick={onEdit}>Use a different email</button>
     </section>
   );
@@ -86,7 +89,7 @@ export function MagicLinkForm({ next = "/pricing" }: { next?: string }) {
   }
 
   if (state.status === "success" && !editing && !pending) {
-    return <CheckEmail email={email} next={next} onEdit={() => setEditing(true)} />;
+    return <CheckEmail email={email} next={next} onEdit={() => setEditing(true)} onUsePersonal={() => { setEmail(""); setEditing(true); }} />;
   }
   const hasError = state.status === "error" && !pending;
   return (

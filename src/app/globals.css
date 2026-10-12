@@ -951,6 +951,21 @@ main { min-height: 72vh; }
   .auth-mode-switch { grid-template-columns: 1fr; text-align: center; }
   .auth-mode-switch button { width: 100%; }
 }
+.email-code-form { margin-top: 6px; display: grid; gap: 8px; }
+.email-code-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+.auth-form .email-code-row input { font-size: 1.08rem; font-variant-numeric: tabular-nums; letter-spacing: .14em; }
+.auth-form .email-code-row input::placeholder { letter-spacing: normal; }
+.auth-form .email-code-row .button { width: auto; min-width: 116px; margin-top: 0; }
+.email-code-form.has-error input { border-color: var(--danger); }
+.auth-inbox-notice { padding: 13px 14px; display: grid; gap: 10px; color: var(--ink); background: color-mix(in srgb, var(--cobalt) 6%, var(--paper)); border: 1px solid color-mix(in srgb, var(--cobalt) 22%, var(--line)); border-radius: 10px; font-size: .92rem; line-height: 1.5; }
+.auth-inbox-notice p { margin: 0; }
+.auth-inbox-notice button { justify-self: start; min-height: 40px; padding: 0 14px; color: var(--cobalt-strong); background: var(--surface); border: 1px solid color-mix(in srgb, var(--cobalt) 55%, var(--line)); border-radius: 8px; font: inherit; font-weight: 850; }
+.auth-inbox-notice button:hover { color: var(--surface); background: var(--cobalt-strong); border-color: var(--cobalt-strong); }
+.auth-inbox-notice button:focus-visible { outline: 3px solid color-mix(in srgb, var(--cobalt) 35%, transparent); outline-offset: 2px; }
+@media (max-width: 420px) {
+  .email-code-row { grid-template-columns: 1fr; }
+  .auth-form .email-code-row .button, .auth-inbox-notice button { width: 100%; }
+}
 .password-reset { margin-top: 16px; color: var(--muted); }
 .password-reset:not([open]) > :not(summary) { display: none; }
 .password-reset summary { width: fit-content; color: var(--cobalt); font-weight: 800; }

@@ -83,5 +83,7 @@ describe("scanner-safe magic-link handoff", () => {
     const signupTemplate = readFileSync(resolve(process.cwd(), "supabase/templates/confirm-sign-up.html"), "utf8");
     expect(signupTemplate).toContain("{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=signup");
     expect(signupTemplate).not.toContain(".ConfirmationURL");
+    expect(magicLinkTemplate).toContain("{{ .Token }}");
+    expect(signupTemplate).toContain("{{ .Token }}");
   });
 });

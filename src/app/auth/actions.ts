@@ -3,11 +3,12 @@
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { REFERRAL_COOKIE } from "@/lib/referral";
-import { isValidEmail, isValidPassword, safeNextPath, type MagicLinkState } from "@/lib/auth";
+import { isValidEmail, isValidEmailCode, isValidPassword, normalizeEmailCode, safeNextPath, type MagicLinkState } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { captureConversionOutcome } from "@/lib/server-conversion-analytics";
 import { ANALYTICS_CONSENT_VERSION, parseAnalyticsConsent } from "@/lib/analytics-consent";
 import { createAuthAttemptId, logAuthDiagnostic } from "@/lib/auth-diagnostics";
+import { completeEmailVerification } from "@/lib/email-verification";
 
 export async function requestMagicLink(
   _previousState: MagicLinkState,
@@ -171,6 +172,39 @@ export async function resendSignupConfirmation(
   }
   logAuthDiagnostic({ attemptId, phase: "resend_result", outcome: "accepted" });
   return { status: "success", message: "If the signup is pending, a confirmation email is on its way." };
+}
+
+// Typed-code fallback for the emailed link: works when a filter rewrites or blocks the link, or the email opens on another device.
+export async function verifyEmailCode(
+  _previousState: MagicLinkState,
+  formData: FormData,
+): Promise<MagicLinkState> {
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  const code = normalizeEmailCode(String(formData.get("code") ?? ""));
+  const type = formData.get("type") === "signup" ? "signup" : "email";
+  const next = safeNextPath(String(formData.get("next") ?? "/pricing"));
+  if (!isValidEmail(email) || !isValidEmailCode(code)) {
+    return { status: "error", message: "Enter the code from the email." };
+  }
+
+  const attemptId = createAuthAttemptId();
+  logAuthDiagnostic({ attemptId, phase: "code_requested" });
+  let supabase: Awaited<ReturnType<typeof createClient>>;
+  let error: { code?: string } | null;
+  try {
+    supabase = await createClient();
+    ({ error } = await supabase.auth.verifyOtp({ email, token: code, type }));
+  } catch {
+    logAuthDiagnostic({ attemptId, phase: "code_result", outcome: "rejected", providerCode: "unexpected_failure" });
+    return { status: "error", message: "We couldn’t check that code. Try again in a minute." };
+  }
+  if (error) {
+    logAuthDiagnostic({ attemptId, phase: "code_result", outcome: "rejected", providerCode: error.code ?? "invalid_code" });
+    return { status: "error", message: "That code didn’t work. Use the code from the newest email, or request a new one." };
+  }
+  logAuthDiagnostic({ attemptId, phase: "code_result", outcome: "verified" });
+  await completeEmailVerification(supabase, type, (await cookies()).get(REFERRAL_COOKIE)?.value);
+  redirect(next);
 }
 
 export async function requestPasswordReset(

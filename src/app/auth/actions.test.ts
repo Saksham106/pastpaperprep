@@ -21,7 +21,7 @@ vi.mock("@/lib/referral-account", () => ({ bindReferralToAuthenticatedUser: bind
 vi.mock("@/lib/server-conversion-analytics", () => ({ captureConversionOutcome }));
 vi.mock("@/lib/supabase/server", () => ({ createClient }));
 
-import { createAccountWithPassword, resendSignupConfirmation, requestMagicLink, requestPasswordReset, signInWithPassword, updatePassword } from "./actions";
+import { createAccountWithPassword, resendSignupConfirmation, requestMagicLink, requestPasswordReset, signInWithPassword, updatePassword, verifyEmailCode } from "./actions";
 import { initialMagicLinkState } from "@/lib/auth";
 
 function form(values: Record<string, string>) {
@@ -253,5 +253,56 @@ describe("password authentication actions", () => {
     }));
     expect(success.status).toBe("success");
     expect(updateUser).toHaveBeenCalledWith({ password: "three calm otters" });
+  });
+});
+
+describe("verifyEmailCode", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    vi.spyOn(console, "info").mockImplementation(() => {});
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    captureConversionOutcome.mockResolvedValue(undefined);
+  });
+
+  it("confirms a signup code, counts the signup once, binds the referral, and continues to a safe path", async () => {
+    const verifyOtp = vi.fn().mockResolvedValue({ error: null });
+    const user = { id: "user-1", created_at: "2026-10-12T00:00:00Z", email_confirmed_at: "2026-10-12T00:01:00Z" };
+    createClient.mockResolvedValue({ auth: { verifyOtp, getUser: vi.fn().mockResolvedValue({ data: { user } }) } });
+    await expect(verifyEmailCode(initialMagicLinkState, form({ email: " Student@School.edu ", code: "1234 5678", type: "signup", next: "/banks/ib-hl" }))).rejects.toThrow("NEXT_REDIRECT");
+    expect(verifyOtp).toHaveBeenCalledWith({ email: "student@school.edu", token: "12345678", type: "signup" });
+    expect(bindReferral).toHaveBeenCalledWith("user-1", "2026-10-12T00:00:00Z", "signed-referral");
+    expect(captureConversionOutcome).toHaveBeenCalledWith(expect.objectContaining({ outcome: "signup_confirmed", eventKey: "signup:user-1" }));
+    expect(redirect).toHaveBeenCalledWith("/banks/ib-hl");
+  });
+
+  it("treats sign-in codes as email codes and never counts them as signups", async () => {
+    const verifyOtp = vi.fn().mockResolvedValue({ error: null });
+    createClient.mockResolvedValue({ auth: { verifyOtp, getUser: vi.fn().mockResolvedValue({ data: { user: { id: "user-1", created_at: "2026-10-12T00:00:00Z" } } }) } });
+    await expect(verifyEmailCode(initialMagicLinkState, form({ email: "student@gmail.com", code: "12345678", type: "invite", next: "//evil.example" }))).rejects.toThrow("NEXT_REDIRECT");
+    expect(verifyOtp).toHaveBeenCalledWith({ email: "student@gmail.com", token: "12345678", type: "email" });
+    expect(captureConversionOutcome).not.toHaveBeenCalled();
+    expect(redirect).toHaveBeenCalledWith("/pricing");
+  });
+
+  it("rejects malformed input without contacting Supabase", async () => {
+    const result = await verifyEmailCode(initialMagicLinkState, form({ email: "student@gmail.com", code: "12ab", type: "signup" }));
+    expect(result).toEqual({ status: "error", message: "Enter the code from the email." });
+    expect(createClient).not.toHaveBeenCalled();
+  });
+
+  it("explains a wrong or expired code without redirecting or leaking provider detail", async () => {
+    createClient.mockResolvedValue({ auth: { verifyOtp: vi.fn().mockResolvedValue({ error: { code: "otp_expired", message: "Token has expired or is invalid" } }) } });
+    const result = await verifyEmailCode(initialMagicLinkState, form({ email: "student@gmail.com", code: "12345678", type: "signup" }));
+    expect(result.status).toBe("error");
+    expect(result.message).toMatch(/newest email/);
+    expect(redirect).not.toHaveBeenCalled();
+    expect(console.warn).toHaveBeenCalledWith(expect.objectContaining({ phase: "code_result", outcome: "rejected", providerCode: "otp_expired" }));
+  });
+
+  it("fails neutrally when Supabase is unreachable", async () => {
+    createClient.mockResolvedValue({ auth: { verifyOtp: vi.fn().mockRejectedValue(new Error("network")) } });
+    const result = await verifyEmailCode(initialMagicLinkState, form({ email: "student@gmail.com", code: "12345678", type: "email" }));
+    expect(result).toEqual({ status: "error", message: "We couldn’t check that code. Try again in a minute." });
   });
 });

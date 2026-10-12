@@ -1,7 +1,7 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-const { requestMagicLink } = vi.hoisted(() => ({ requestMagicLink: vi.fn() }));
-vi.mock("@/app/auth/actions", () => ({ requestMagicLink }));
+const { requestMagicLink, verifyEmailCode } = vi.hoisted(() => ({ requestMagicLink: vi.fn(), verifyEmailCode: vi.fn() }));
+vi.mock("@/app/auth/actions", () => ({ requestMagicLink, verifyEmailCode }));
 import { MagicLinkForm } from "./MagicLinkForm";
 
 async function submitEmail(email = "student@example.com") {
@@ -74,5 +74,14 @@ describe("email-link next step", () => {
     await act(async () => { vi.advanceTimersByTime(60000); });
     await act(async () => { fireEvent.submit(screen.getByRole("button", { name: "Request another link" }).closest("form")!); });
     expect(requestMagicLink).toHaveBeenCalledTimes(3);
+  });
+
+  it("offers a typed sign-in code and a personal-email switch for school addresses", async () => {
+    render(<MagicLinkForm next="/account" />);
+    await submitEmail("teacher@school.example");
+    expect(screen.getByLabelText(/code from the email/i)).toHaveAttribute("autocomplete", "one-time-code");
+    expect(screen.getByRole("note")).toHaveTextContent(/school or work email/i);
+    fireEvent.click(screen.getByRole("button", { name: "Use a personal email" }));
+    expect(screen.getByLabelText("Email address")).toHaveValue("");
   });
 });

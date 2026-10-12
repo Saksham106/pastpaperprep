@@ -2,12 +2,12 @@ import "server-only";
 import { randomUUID } from "node:crypto";
 import { captureAuthProviderFailure } from "@/lib/server-error-tracking";
 
-const PHASES = ["signup_requested", "signup_result", "magic_link_requested", "magic_link_result", "resend_requested", "resend_result", "email_link_rendered", "confirmation_requested", "confirmation_result", "password_signin_requested", "password_signin_result"] as const;
+const PHASES = ["signup_requested", "signup_result", "magic_link_requested", "magic_link_result", "resend_requested", "resend_result", "email_link_rendered", "confirmation_requested", "confirmation_result", "password_signin_requested", "password_signin_result", "code_requested", "code_result"] as const;
 const OUTCOMES = ["accepted", "rejected", "verified"] as const;
 const PROVIDER_CODES = new Set([
   "otp_expired", "over_email_send_rate_limit", "over_request_rate_limit", "email_not_confirmed",
   "invalid_credentials", "email_address_invalid", "weak_password", "user_already_exists",
-  "unexpected_failure", "request_timeout", "validation_failed", "smtp_error",
+  "unexpected_failure", "request_timeout", "validation_failed", "smtp_error", "invalid_code",
 ]);
 
 type AuthDiagnostic = {

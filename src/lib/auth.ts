@@ -19,6 +19,27 @@ export function isValidEmail(value: string) {
   return email.length <= MAX_EMAIL_LENGTH && EMAIL_PATTERN.test(email);
 }
 
+// Supabase issues 8-digit email codes (mailer_otp_length); accept 6-10 so a length change can't lock people out.
+export function normalizeEmailCode(value: string) {
+  return value.replace(/[\s-]/g, "");
+}
+
+export function isValidEmailCode(value: string) {
+  return /^\d{6,10}$/.test(value);
+}
+
+const PERSONAL_EMAIL_DOMAINS = new Set([
+  "gmail.com", "googlemail.com", "outlook.com", "hotmail.com", "hotmail.co.uk", "live.com", "msn.com",
+  "icloud.com", "me.com", "mac.com", "yahoo.com", "yahoo.co.uk", "ymail.com", "aol.com",
+  "proton.me", "protonmail.com", "qq.com", "163.com", "126.com", "naver.com", "gmx.com", "mail.ru", "yandex.com",
+]);
+
+// School and work inboxes (usually Microsoft 365) often quarantine mail from new senders before it reaches junk.
+export function isLikelyOrganizationEmail(email: string) {
+  const domain = email.trim().toLowerCase().split("@")[1];
+  return Boolean(domain) && !PERSONAL_EMAIL_DOMAINS.has(domain);
+}
+
 export function isValidPassword(value: string) {
   return value.length >= MIN_PASSWORD_LENGTH && value.length <= MAX_PASSWORD_LENGTH;
 }

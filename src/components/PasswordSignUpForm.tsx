@@ -3,7 +3,8 @@
 import { useActionState, useEffect, useRef, useState } from "react";
 import { UserPlus } from "@phosphor-icons/react";
 import { createAccountWithPassword, resendSignupConfirmation } from "@/app/auth/actions";
-import { initialMagicLinkState } from "@/lib/auth";
+import { initialMagicLinkState, isLikelyOrganizationEmail } from "@/lib/auth";
+import { EmailCodeForm, OrganizationEmailNotice } from "@/components/CheckEmailHelp";
 
 const RESEND_COOLDOWN_MS = 60_000;
 
@@ -49,9 +50,9 @@ export function PasswordSignUpForm({ next = "/pricing" }: { next?: string }) {
     return (
       <section className="auth-form" aria-labelledby="signup-check-email-title">
         <h2 id="signup-check-email-title" ref={checkEmailHeading} tabIndex={-1}>Check your email</h2>
-        <p>A confirmation email has been requested for <strong>{submittedEmail}</strong>.</p>
-        <p>Check your inbox, including spam or junk. Open the link, then press Continue to finish creating your account.</p>
-        <p>If you request another link, use the newest email.</p>
+        <p>We requested a confirmation email for <strong>{submittedEmail}</strong>. Open it and press Continue, or enter its code below. Check spam or junk too.</p>
+        {isLikelyOrganizationEmail(submittedEmail) && <OrganizationEmailNotice onUsePersonal={() => { setSubmittedEmail(""); setEditing(true); }} />}
+        <EmailCodeForm email={submittedEmail} type="signup" next={next} />
         <form action={resendAction} onSubmit={(event) => {
           if (resendingRef.current || Date.now() < cooldownUntil) { event.preventDefault(); return; }
           resendingRef.current = true;
@@ -60,11 +61,13 @@ export function PasswordSignUpForm({ next = "/pricing" }: { next?: string }) {
         }}>
           <input type="hidden" name="email" value={submittedEmail} />
           <input type="hidden" name="next" value={next} />
-          <button className="button primary auth-submit" type="submit" disabled={seconds > 0 || resending}>
+          <button className="button secondary auth-submit" type="submit" disabled={seconds > 0 || resending}>
             {resending ? "Sending…" : seconds > 0 ? `Resend available in ${seconds}s` : "Resend confirmation email"}
           </button>
           {resendState.message && <p className={`form-message ${resendState.status}`} role={resendState.status === "error" ? "alert" : "status"}>{resendState.message}</p>}
         </form>
+        {seconds === 0 && !isLikelyOrganizationEmail(submittedEmail) && <p className="auth-fine-print">Nothing yet? Check spam or junk, or try a different email.</p>}
+        <p className="auth-fine-print">If you request another, use the newest email.</p>
         <button className="button secondary" type="button" onClick={() => setEditing(true)}>Change email</button>
       </section>
     );
