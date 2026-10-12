@@ -4,7 +4,8 @@ import { describe, expect, it } from 'vitest';
 describe('whole-paper build boundary',()=>{
  it('routes Chemistry through the same manifest and activation gate as the other eighteen banks',()=>{
   for(const file of ['page.tsx','[paperId]/page.tsx','[paperId]/document/route.ts']) expect(existsSync(`src/app/past-papers/igcse-chemistry-0620/${file}`)).toBe(false);
-  expect(existsSync('src/app/past-papers/[bankSlug]/[paperId]/document/route.ts')).toBe(true);
+  expect(existsSync('src/app/past-papers/[slug]/[entry]/document/route.ts')).toBe(true);
+  expect(existsSync('src/app/past-papers/[bankSlug]')).toBe(false);
  });
  it('bundles approved compact manifests and verified remote receipt but excludes local originals and source bindings',()=>{
   const config=readFileSync('next.config.ts','utf8');
