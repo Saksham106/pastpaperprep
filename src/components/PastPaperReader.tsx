@@ -137,7 +137,7 @@ function PastPaperReaderSession({ paper, kind: controlledKind, onKindChange, ana
           <label>Pages<select aria-label="Reading mode" value={mode} onChange={event => setMode(event.target.value as "scroll" | "single")}><option value="scroll">Scroll pages</option><option value="single">Single page</option></select></label>
           <label>Size<select aria-label="PDF zoom" value={zoom} onChange={event => setZoom(event.target.value as "fit" | "actual")}><option value="fit">Fit width</option><option value="actual">100%</option></select></label>
         </div></details>
-        <a className={styles.iconButton} href={src} download={`${paper.id}_${kind === "question" ? "qp" : "ms"}.pdf`} aria-label={`Download ${title.toLowerCase()} PDF`} title={`Download ${title.toLowerCase()}`}><DownloadSimple aria-hidden="true" weight="bold" /></a>
+        <a className={styles.iconButton} href={src} rel="nofollow" download={`${paper.id}_${kind === "question" ? "qp" : "ms"}.pdf`} aria-label={`Download ${title.toLowerCase()} PDF`} title={`Download ${title.toLowerCase()}`}><DownloadSimple aria-hidden="true" weight="bold" /></a>
         <button className={styles.iconButton} type="button" ref={focusButton} hidden={focused} aria-label="Focus view" title="Focus view" onClick={() => setFocused(true)}><ArrowsOut aria-hidden="true" weight="bold" /></button>
       </div>
       <div ref={stageRef} onScroll={() => {

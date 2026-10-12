@@ -30,7 +30,7 @@ function ChipRow({ label, papers, current, text }: { label: string; papers: Whol
 }
 
 export function PastPaperPaperPage({ view }: { view: PaperView }) {
-  const { bank, detail, all } = view;
+  const { bank, detail, all, practice } = view;
   const p = detail.summary;
   const subject = subjectSlugForBank(bank.slug);
   const name = subjectSearchName(bank);
@@ -64,7 +64,7 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
       <h1>{copy.h1}</h1>
       <ul className={styles.facts} aria-label="Paper facts">{facts.map(fact => <li key={fact}>{fact}</li>)}</ul>
     </header>
-    <PaperWorkspace reader={reader} marking={marking} bank={bank.slug}>
+    <PaperWorkspace reader={reader} marking={marking} bank={bank.slug} practice={practice}>
       <section className={styles.box} aria-label="Related papers">
         {variants.length > 1 && <ChipRow label="Other variants" papers={variants} current={p.id} text={chipLabel} />}
         {session.length > 0 && <ChipRow label="Same session" papers={session} text={shortName} />}
@@ -75,7 +75,7 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
         </nav>}
         <div className={styles.more}><Link href={`/past-papers/${subject}/${p.year}`}>All {p.year} papers</Link><Link href={`/past-papers/${subject}/${paperNumberSlug(p.paper)}`}>Every Paper {paperNumber}</Link></div>
       </section>
-      <Link className={styles.practice} href={`/banks/${bank.slug}?paper=${encodeURIComponent(String(parseInt(p.paper, 10)))}`}>Practise Paper {paperNumber} questions by topic <ArrowRight aria-hidden="true" weight="bold" /></Link>
+      {practice && <Link className={styles.practice} href={`/banks/${bank.slug}?paper=${encodeURIComponent(String(parseInt(p.paper, 10)))}`}>Practise Paper {paperNumber} questions by topic <ArrowRight aria-hidden="true" weight="bold" /></Link>}
     </PaperWorkspace>
     {detail.questions.length > 0 && <section className={styles.questions} aria-labelledby="paper-questions">
       <h2 id="paper-questions">What&apos;s in this paper</h2>

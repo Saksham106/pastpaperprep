@@ -1,5 +1,5 @@
 import 'server-only';
-import { BANK_CATALOG, getCatalogBank, type BankSlug, type CatalogBank } from './catalog';
+import { BANK_CATALOG, getCatalogBank, getCatalogBanksForDisplay, type BankSlug, type CatalogBank } from './catalog';
 import { courseToneForBank, type CourseTone } from '@/components/CourseIcon';
 import { bankForSubjectSlug, paperNumberSlug, paperSlug, qualificationOfBank, subjectSlugForBank, type PastPaperQualification } from './past-paper-catalog';
 import { subjectSearchName, yearRange } from './past-paper-seo';
@@ -9,10 +9,11 @@ import type { WholePaperDetail, WholePaperSummary } from './whole-paper-types';
 /** Resolves public /past-papers URLs for pages, static params and the sitemap.
  * Everything is empty while the archive gate is closed, so no page is built or linked. */
 export type HubBank = { bankSlug: BankSlug; subjectSlug: string; name: string; qualification: PastPaperQualification; paperCount: number; years: string; tone: CourseTone };
-export type SubjectView = { kind: 'subject'; bank: CatalogBank; papers: WholePaperSummary[] };
-export type YearView = { kind: 'year'; bank: CatalogBank; year: number; papers: WholePaperSummary[]; all: WholePaperSummary[] };
-export type PaperNumberView = { kind: 'paperNumber'; bank: CatalogBank; paper: string; papers: WholePaperSummary[]; all: WholePaperSummary[] };
-export type PaperView = { kind: 'paper'; bank: CatalogBank; detail: WholePaperDetail; all: WholePaperSummary[] };
+/** `practice` is false for banks whose /banks page isn't published yet, so no link points at a 404. */
+export type SubjectView = { kind: 'subject'; bank: CatalogBank; papers: WholePaperSummary[]; practice: boolean };
+export type YearView = { kind: 'year'; bank: CatalogBank; year: number; papers: WholePaperSummary[]; all: WholePaperSummary[]; practice: boolean };
+export type PaperNumberView = { kind: 'paperNumber'; bank: CatalogBank; paper: string; papers: WholePaperSummary[]; all: WholePaperSummary[]; practice: boolean };
+export type PaperView = { kind: 'paper'; bank: CatalogBank; detail: WholePaperDetail; all: WholePaperSummary[]; practice: boolean };
 export type ListView = SubjectView | YearView | PaperNumberView;
 
 async function availableBanks(): Promise<{ bank: CatalogBank; papers: WholePaperSummary[] }[]> {
@@ -31,24 +32,24 @@ export async function resolveSubject(slug: string): Promise<SubjectView | null> 
   const bank = bankSlug ? getCatalogBank(bankSlug) : undefined;
   if (!bank || !await wholePaperArchiveEnabled()) return null;
   const papers = getWholePaperSummaries(bank.slug);
-  return papers.length ? { kind: 'subject', bank, papers } : null;
+  return papers.length ? { kind: 'subject', bank, papers, practice: getCatalogBanksForDisplay().some(b => b.slug === bank.slug) } : null;
 }
 
 export async function resolveEntry(slug: string, entry: string): Promise<YearView | PaperNumberView | PaperView | null> {
   const subject = await resolveSubject(slug);
   if (!subject) return null;
-  const { bank, papers: all } = subject;
+  const { bank, papers: all, practice } = subject;
   if (/^\d{4}$/.test(entry)) {
     const papers = all.filter(p => p.year === Number(entry));
-    return papers.length ? { kind: 'year', bank, year: Number(entry), papers, all } : null;
+    return papers.length ? { kind: 'year', bank, year: Number(entry), papers, all, practice } : null;
   }
   const number = /^paper-([0-9a-z]+)$/.exec(entry)?.[1];
   if (number) {
     const papers = all.filter(p => p.paper.toLowerCase() === number);
-    return papers.length ? { kind: 'paperNumber', bank, paper: papers[0].paper, papers, all } : null;
+    return papers.length ? { kind: 'paperNumber', bank, paper: papers[0].paper, papers, all, practice } : null;
   }
   const detail = findWholePaperBySlug(bank.slug, entry);
-  return detail ? { kind: 'paper', bank, detail, all } : null;
+  return detail ? { kind: 'paper', bank, detail, all, practice } : null;
 }
 
 function entriesFor(papers: readonly WholePaperSummary[]): string[] {

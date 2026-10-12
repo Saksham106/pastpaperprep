@@ -1,4 +1,6 @@
+import type { Metadata } from 'next';
 import type { CatalogBank } from './catalog';
+import { SOCIAL_IMAGE, SOCIAL_IMAGE_URL } from './seo';
 import { paperName, sessionRank, subjectSlugForBank, type PastPaperQualification } from './past-paper-catalog';
 import type { WholePaperSummary } from './whole-paper-types';
 
@@ -47,7 +49,7 @@ export function subjectCopy(bank: CatalogBank, papers: readonly WholePaperSummar
   return {
     title: `${name} Past Papers & Mark Schemes (${yearRange(papers)})`,
     h1: `${name} past papers`,
-    description: `Every ${name} past paper from ${yearRange(papers)} with its ${scheme(bank)}. Time it, mark it and see which topics to fix. Free, no sign-up.`,
+    description: `Every ${name} past paper from ${yearRange(papers)} with its ${scheme(bank)}.${papers.some(p => p.reportAvailable) ? ' Time it, mark it and see which topics to fix.' : ''} Free, no sign-up.`,
     answer: `${n} ${fullName(bank)} past ${n === 1 ? 'paper' : 'papers'} ${fromYears(papers)}, ${n === 1 ? 'with its' : 'each with its'} ${scheme(bank)}. Free, no sign-up.`,
   };
 }
@@ -76,6 +78,12 @@ export function paperNumberCopy(bank: CatalogBank, paper: string, papers: readon
   };
 }
 
+/** Only mention the timer and self-marking when this paper actually has them. */
+function paperTail(p: WholePaperSummary): string {
+  if (p.reportAvailable) return p.durationMinutes !== null ? ' Time it, mark it and see which topics to fix.' : ' Mark it and see which topics to fix.';
+  return p.durationMinutes !== null ? ' Time yourself with the real exam duration.' : '';
+}
+
 export function paperCopy(bank: CatalogBank, p: WholePaperSummary): PageCopy {
   const name = subjectSearchName(bank), label = paperName(p);
   const facts = [p.durationMinutes !== null && formatDuration(p.durationMinutes), p.maxMarks !== null && plural(p.maxMarks, 'mark')].filter(Boolean).join(', ');
@@ -83,7 +91,7 @@ export function paperCopy(bank: CatalogBank, p: WholePaperSummary): PageCopy {
   return {
     title: isIb(bank) ? `${name} ${p.session} ${p.year} ${label}: Paper & Markscheme` : `${p.syllabusCode}/${p.component} ${p.session} ${p.year}: ${name.replace(` ${bank.syllabusCode}`, '')} Paper ${p.paper.toUpperCase()} & Mark Scheme`,
     h1: `${p.session} ${p.year} ${label}`,
-    description: `${who} ${label}, ${p.session} ${p.year}, with its ${scheme(bank)}.${facts ? ` ${facts}.` : ''} Time it, mark it and see which topics to fix.`,
+    description: `${who} ${label}, ${p.session} ${p.year}, with its ${scheme(bank)}.${facts ? ` ${facts}.` : ''}${paperTail(p)}`,
     answer: `${who} ${label} from ${p.session} ${p.year}, with its ${scheme(bank)}.`,
   };
 }
@@ -100,11 +108,11 @@ export function subjectFaq(bank: CatalogBank, papers: readonly WholePaperSummary
   const code = isIb(bank) ? subjectSearchName(bank) : bank.syllabusCode;
   const faq: FaqItem[] = [{ q: `Where can I find ${code} past papers with ${scheme(bank)}s?`, a: `Here: ${subjectCopy(bank, papers).answer.replace(' Free, no sign-up.', '')} Open any paper free, with no sign-up.` }];
   const example = papers.find(p => /^\d\d$/.test(p.component));
-  if (!isIb(bank) && example) faq.push({ q: `What do the ${code} paper numbers mean?`, a: `The first digit is the paper and the second is the variant: ${example.component} is Paper ${example.component[0]}, variant ${example.component[1]}. Variants are set for different time zones and are equally hard.` });
-  if (isIb(bank) && papers.some(p => /^tz[1-9]$/i.test(p.variant))) faq.push({ q: 'What do TZ1 and TZ2 mean on IB papers?', a: 'IB sets different papers for different time zones. They cover the same syllabus and are marked the same way.' });
+  if (!isIb(bank) && example) faq.push({ q: `What do the ${code} paper numbers mean?`, a: `The first digit is the paper and the second is the variant: ${example.component} is Paper ${example.component[0]}, variant ${example.component[1]}. Each variant is a separate paper set for different time zones, with its own mark scheme.` });
+  if (isIb(bank) && papers.some(p => /^tz[1-9]$/i.test(p.variant))) faq.push({ q: 'What do TZ1 and TZ2 mean on IB papers?', a: 'IB sets separate papers for different time zones. Each has its own markscheme.' });
   const routes = routeAnswer(papers);
   if (routes) faq.push({ q: `Which ${code} papers do Core and Extended students take?`, a: routes });
-  faq.push({ q: 'How do I mark a past paper here?', a: 'Open a paper, switch to the mark scheme, then tap Mark this paper and enter your marks for each question. Your marks stay on this device.' });
+  if (papers.some(p => p.reportAvailable)) faq.push({ q: 'How do I mark a past paper here?', a: 'Open a paper, switch to the mark scheme, then tap Mark this paper and enter your marks for each question. Your marks stay on this device.' });
   return faq;
 }
 
@@ -126,5 +134,16 @@ export function paperJsonLd(bank: CatalogBank, p: WholePaperSummary, path: strin
     learningResourceType: 'Past exam paper', educationalLevel: isIb(bank) ? 'IB Diploma Programme' : 'Cambridge IGCSE', about: subjectSearchName(bank),
     inLanguage: 'en', isAccessibleForFree: true, ...(time ? { timeRequired: time } : {}),
     isPartOf: { '@type': 'CollectionPage', url: absolute(`/past-papers/${subjectSlugForBank(bank.slug)}`) },
+  };
+}
+
+/** Page metadata with the layout's full social card. A page-level openGraph replaces the layout's object, so rebuild it. */
+export function pastPaperMetadata(copy: Pick<PageCopy, 'title' | 'description'>, path: string): Metadata {
+  return {
+    title: copy.title,
+    description: copy.description,
+    alternates: { canonical: path },
+    openGraph: { siteName: 'PastPaperPrep', type: 'website', locale: 'en_US', url: path, title: copy.title, description: copy.description, images: [SOCIAL_IMAGE] },
+    twitter: { card: 'summary_large_image', title: copy.title, description: copy.description, images: [SOCIAL_IMAGE_URL] },
   };
 }

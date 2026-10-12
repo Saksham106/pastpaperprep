@@ -61,6 +61,7 @@
   /* The stage scrolls by touch and fills the screen, so page numbers and focus view add little on phones. */
   .pagination, .iconButton[aria-label="Focus view"] { display: none; }
   .view { margin-left: auto; }
+  .viewMenu select { font-size: 16px; }
   .stage { height: 72dvh; min-height: 360px; }
   .canvasSlot { padding: 10px 8px; }
   .viewer.focused { inset: 8px; width: calc(100% - 16px); height: calc(100dvh - 16px); padding: 10px; }

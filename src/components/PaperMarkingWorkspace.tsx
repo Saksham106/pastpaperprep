@@ -18,11 +18,11 @@ function TopicEvidence({ topic }: { topic: TopicReview }) {
   </li>;
 }
 
-export function PaperMarkingWorkspace({ paper = PAPER_MARKING_PREVIEW, onClose }: { paper?: PaperMarkingPaper; onClose?: () => void }) {
-  return <PaperMarkingSession key={JSON.stringify([paper.bankSlug, paper.id, paper.version])} paper={paper} onClose={onClose} />;
+export function PaperMarkingWorkspace({ paper = PAPER_MARKING_PREVIEW, onClose, practice = true }: { paper?: PaperMarkingPaper; onClose?: () => void; practice?: boolean }) {
+  return <PaperMarkingSession key={JSON.stringify([paper.bankSlug, paper.id, paper.version])} paper={paper} onClose={onClose} practice={practice} />;
 }
 
-function PaperMarkingSession({ paper, onClose }: { paper: PaperMarkingPaper; onClose?: () => void }) {
+function PaperMarkingSession({ paper, onClose, practice }: { paper: PaperMarkingPaper; onClose?: () => void; practice: boolean }) {
   const [values, setValues] = useState<Record<string, string>>({});
   const latest = useRef<Record<string, string>>({});
   const [showReport, setShowReport] = useState(false);
@@ -132,7 +132,7 @@ function PaperMarkingSession({ paper, onClose }: { paper: PaperMarkingPaper; onC
         <h4 className={styles.label}>Topics to review</h4>
         <ol className={styles.topics} aria-label="Topics to review">{(showAll ? report.priorities : report.priorities.slice(0, 3)).map(topic => <TopicEvidence key={topic.topic} topic={topic} />)}</ol>
         {report.priorities.length > 3 && <button type="button" className={styles.quiet} onClick={() => setShowAll(!showAll)}>{showAll ? 'Show top 3 only' : `Show all ${report.priorities.length} topics`}</button>}
-        {top && <a className={styles.primary} href={topicPracticeHref(top.topic, paper.bankSlug)} onClick={() => trackProductEvent('past_paper_practice_click', { bank: paper.bankSlug })}>Practise {top.topic}<ArrowRight aria-hidden="true" weight="bold" /></a>}
+        {top && practice && <a className={styles.primary} href={topicPracticeHref(top.topic, paper.bankSlug)} onClick={() => trackProductEvent('past_paper_practice_click', { bank: paper.bankSlug })}>Practise {top.topic}<ArrowRight aria-hidden="true" weight="bold" /></a>}
       </> : <p>No revision priorities from the marked questions.</p>}
       {report.successfulTopics.length > 0 && <details className={styles.details}><summary>Topics with full marks</summary><ul>{report.successfulTopics.map(topic => <li key={topic.topic}>{topic.topic}: {topic.fullMarkEvidence.map(q => `Q${q.number}`).join(', ')}</li>)}</ul></details>}
       <details className={styles.details}><summary>How topics are ranked</summary><p>Topics where more questions lost marks than got full marks come first, then repeated losses, then average loss. It looks at whole questions, so it can&apos;t tell which part lost the mark.</p></details>

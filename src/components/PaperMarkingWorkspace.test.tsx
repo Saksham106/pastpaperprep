@@ -180,4 +180,11 @@ describe('self marking workspace', () => {
     expect(screen.getByLabelText('Question 2 marks')).toHaveValue('1');
     expect(JSON.parse(localStorage.getItem('pastpaperprep:marks:igcse-chemistry-0620:0620-2023-w-42:question-topic-review-v1')!)).toMatchObject({ '0620-2023-w-42-q1': 2, '0620-2023-w-42-q2': 1 });
   });
+  it('lists topics to review without a practice button when practice is unavailable', () => {
+    render(<PaperMarkingWorkspace practice={false} />);
+    fireEvent.change(screen.getByLabelText('Question 1 marks'), { target: { value: '0' } });
+    fireEvent.click(screen.getByRole('button', { name: 'See where your marks went' }));
+    expect(screen.getByRole('list', { name: 'Topics to review' })).toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: /^Practise / })).not.toBeInTheDocument();
+  });
 });

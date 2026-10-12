@@ -280,5 +280,6 @@ describe("PastPaperReader", () => {
     expect(screen.getByLabelText("View options").tagName).toBe("SUMMARY");
     expect(screen.getByRole("combobox", { name: "Reading mode" }).closest("details")).not.toBeNull();
     expect(screen.getByRole("link", { name: "Download question paper PDF" })).toHaveAttribute("download");
+    expect(screen.getByRole("link", { name: "Download question paper PDF" })).toHaveAttribute("rel", "nofollow");
   });
 });

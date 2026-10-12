@@ -51,7 +51,7 @@ export function PastPaperListPage({ view }: { view: ListView }) {
       <nav aria-label="Browse by year"><h2>Browse by year</h2><div>{years.map(y => <Link key={y} href={`${subjectPath}/${y}`} aria-current={view.kind === 'year' && view.year === y ? 'page' : undefined}>{y}</Link>)}</div></nav>
       <nav aria-label="Browse by paper"><h2>Browse by paper</h2><div>{columns.map(c => <Link key={c.paper} href={c.href} aria-current={view.kind === 'paperNumber' && view.paper === c.paper ? 'page' : undefined}>{c.label}{c.note && <small>{c.note}</small>}</Link>)}</div></nav>
     </div>
-    <Link className={styles.practice} href={`/banks/${bank.slug}`}>Practise {name} questions by topic <ArrowRight aria-hidden="true" weight="bold" /></Link>
+    {view.practice && <Link className={styles.practice} href={`/banks/${bank.slug}`}>Practise {name} questions by topic <ArrowRight aria-hidden="true" weight="bold" /></Link>}
     {faq.length > 0 && <section className={styles.faq} aria-labelledby="past-paper-faq">
       <h2 id="past-paper-faq">Questions</h2>
       {faq.map(item => <details key={item.q}><summary>{item.q}<CaretDown aria-hidden="true" /></summary><p>{item.a}</p></details>)}

@@ -67,5 +67,6 @@ describe('free past-paper routes', () => {
     for (const m of all) expect(String(m.title)).not.toMatch(/PastPaperPrep/);
     expect(all[2]).toMatchObject({ title: 'IGCSE Maths 0580 Past Papers & Mark Schemes (2024)', alternates: { canonical: '/past-papers/igcse-maths-0580' } });
     expect(all[3]).toMatchObject({ title: '0580/42 May/June 2024: IGCSE Maths Paper 4 & Mark Scheme', alternates: { canonical: '/past-papers/igcse-maths-0580/2024-may-june-42' } });
+    for (const m of all) expect(m).toMatchObject({ openGraph: { siteName: 'PastPaperPrep', type: 'website', images: [expect.objectContaining({ url: expect.any(String) })] }, twitter: { card: 'summary_large_image', title: m.title } });
   });
 });

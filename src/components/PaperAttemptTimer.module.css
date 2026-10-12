@@ -16,4 +16,7 @@
 .hint { font-weight: 500; }
 .timer .text { height: 34px; padding: 0 10px; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 9px; font-weight: 650; }
 .timer :is(button, input):focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
-@media (max-width: 760px) { .hint { display: none; } }
+@media (max-width: 760px) {
+  .hint { display: none; }
+  .custom input { font-size: 16px; }
+}

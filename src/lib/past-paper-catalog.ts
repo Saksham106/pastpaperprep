@@ -43,7 +43,7 @@ const OPTION_LABELS: Record<string, string> = { calculus: 'Calculus', 'discrete-
 /** IB papers with several options in one sitting (AA HL Paper 3, 2017–18) carry the option at the end of the ID. */
 function option(p: WholePaperSummary): string | null {
   const raw = /-p\d[a-z]?-([a-z][a-z-]*)$/.exec(p.id)?.[1];
-  return !raw || raw === 'english' || /^tz\d$/.test(raw) ? null : raw;
+  return !raw || raw === 'english' || /^(tz[0-9n]|none)$/.test(raw) ? null : raw;
 }
 const optionLabel = (raw: string) => OPTION_LABELS[raw] ?? raw.charAt(0).toUpperCase() + raw.split('-')[0].slice(1);
 
@@ -102,16 +102,17 @@ export function buildPaperMatrix(papers: readonly WholePaperSummary[], subjectSl
 
 export type PaperQuery = { code?: string; year?: number; session?: 'feb-march' | 'may-june' | 'oct-nov'; component?: string; paper?: string; tz?: string };
 const SESSION_LETTER = { m: 'feb-march', s: 'may-june', w: 'oct-nov' } as const;
-const SESSION_WORDS: [RegExp, NonNullable<PaperQuery['session']>][] = [
-  [/\b(feb(ruary)?|mar(ch)?|f\/m)\b/, 'feb-march'],
-  [/\b(may|june?|summer|m\/j)\b/, 'may-june'],
-  [/\b(oct(ober)?|nov(ember)?|winter|o\/n)\b/, 'oct-nov'],
+const SESSION_WORDS: [string, NonNullable<PaperQuery['session']>][] = [
+  ['feb(?:ruary)?|mar(?:ch)?|f\\/m|fm', 'feb-march'],
+  ['may|june?|summer|m\\/j|mj', 'may-june'],
+  ['oct(?:ober)?|nov(?:ember)?|winter|o\\/n|on(?=\\s*\\d{2}\\b)', 'oct-nov'],
 ];
 
-/** Reads paper codes the ways students type them: 0580/42/M/J/24, 0580_s24_qp_42, "s24 42", "may 2024 paper 1 tz2". */
+/** Reads paper codes the ways students type them: 0580/42/M/J/24, 0580_s24_qp_42, "s24 p42", "june 24 42", "may 2024 paper 1 tz2".
+ * Anything left over that looks like a number means the code wasn't understood, so it matches nothing rather than the wrong paper. */
 export function parsePaperQuery(input: string): PaperQuery {
   let q = input.toLowerCase().replace(/\s+/g, ' ').trim().slice(0, 120);
-  const slash = /\b(\d{4})\s*\/\s*(\d{2})\s*\/\s*(f\s*\/\s*m|m\s*\/\s*j|o\s*\/\s*n)\s*\/\s*(\d{2})\b/.exec(q);
+  const slash = /\b(\d{4})\s*\/\s*(\d{2})\s*\/\s*(f\s*\/?\s*m|m\s*\/?\s*j|o\s*\/?\s*n)\s*\/\s*(\d{2})\b/.exec(q);
   if (slash) return { code: slash[1], component: slash[2], paper: slash[2][0], session: ({ f: 'feb-march', m: 'may-june', o: 'oct-nov' } as const)[slash[3][0] as 'f' | 'm' | 'o'], year: 2000 + Number(slash[4]) };
   const file = /\b(\d{4})_([msw])(\d{2})_(?:qp|ms)_(\d{2})\b/.exec(q);
   if (file) return { code: file[1], session: SESSION_LETTER[file[2] as 'm' | 's' | 'w'], year: 2000 + Number(file[3]), component: file[4], paper: file[4][0] };
@@ -121,14 +122,17 @@ export function parsePaperQuery(input: string): PaperQuery {
   const year = take(/\b(20\d{2})\b/); if (year) out.year = Number(year[1]);
   const short = out.year ? null : take(/\b([msw])(\d{2})\b/);
   if (short) { out.year = 2000 + Number(short[2]); out.session = SESSION_LETTER[short[1] as 'm' | 's' | 'w']; }
-  for (const [re, session] of SESSION_WORDS) {
-    if (!out.session && re.test(q)) out.session = session;
-    q = q.replace(new RegExp(re.source, 'g'), ' ');
+  for (const [words, session] of SESSION_WORDS) {
+    // A two-digit number straight after a session word is the year: "june 24", "m/j 24", "on 23".
+    const withYear = !out.year ? take(new RegExp(`(?:^|\\s)(?:${words})\\s*\\/?\\s*(\\d{2})\\b`)) : null;
+    if (withYear) { out.year = 2000 + Number(withYear[1]); out.session ??= session; }
+    if (!out.session && new RegExp(`(?:^|\\s)(?:${words})(?=\\s|$)`).test(q)) out.session = session;
+    q = q.replace(new RegExp(`(?:^|\\s)(?:${words})(?=\\s|$)`, 'g'), ' ');
   }
   const tz = take(/\btz\s*([0-3])\b/); if (tz) out.tz = `tz${tz[1]}`;
-  const paper = take(/\b(?:paper|p)\s*(\d[ab]?)\b/); if (paper) out.paper = paper[1];
-  const component = take(/\b([1-6][1-3])\b/); if (component) { out.component = component[1]; out.paper ??= component[1][0]; }
-  return out;
+  const component = take(/\b(?:paper|p)?\s*([1-6][1-3])\b/); if (component) { out.component = component[1]; out.paper = component[1][0]; }
+  const paper = out.paper ? null : take(/\b(?:paper|p)\s*(\d[ab]?)\b/); if (paper) out.paper = paper[1];
+  return /\d/.test(q) ? {} : out;
 }
 
 const sessionGroup = (s: string) => s.startsWith('Feb') ? 'feb-march' : s.startsWith('May') ? 'may-june' : 'oct-nov';

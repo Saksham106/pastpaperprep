@@ -6,7 +6,7 @@ import type { WholePaperDetail } from '@/lib/whole-paper-types';
 import { PastPaperPaperPage } from './PastPaperPaperPage';
 import { IGCSE_PAPERS } from './fixtures';
 
-vi.mock('./PaperWorkspace', () => ({ PaperWorkspace: ({ marking, children }: { marking: unknown; children: ReactNode }) => <div data-testid="workspace" data-marking={marking ? 'yes' : 'no'}>{children}</div> }));
+vi.mock('./PaperWorkspace', () => ({ PaperWorkspace: ({ marking, practice, children }: { marking: unknown; practice: boolean; children: ReactNode }) => <div data-testid="workspace" data-marking={marking ? 'yes' : 'no'} data-practice={String(practice)}>{children}</div> }));
 afterEach(() => cleanup());
 const bank = getCatalogBank('igcse')!;
 const summary = IGCSE_PAPERS.find(p => p.id === '0580-2024-june-42')!;
@@ -16,7 +16,7 @@ const ldTypes = (container: HTMLElement) => [...container.querySelectorAll('scri
 
 describe('PastPaperPaperPage', () => {
   it('names the paper, its facts and Cambridge file names', () => {
-    const { container } = render(<PastPaperPaperPage view={{ kind: 'paper', bank, detail, all: siblings }} />);
+    const { container } = render(<PastPaperPaperPage view={{ kind: 'paper', bank, detail, all: siblings, practice: true }} />);
     expect(screen.getByRole('heading', { level: 1, name: 'May/June 2024 Paper 42' })).toBeInTheDocument();
     const facts = screen.getByRole('list', { name: 'Paper facts' });
     for (const fact of ['Extended', '2 hours', '6 marks', 'Variant 2']) expect(within(facts).getByText(fact)).toBeInTheDocument();
@@ -26,7 +26,7 @@ describe('PastPaperPaperPage', () => {
   });
 
   it('lists the questions with their topics and marks', () => {
-    render(<PastPaperPaperPage view={{ kind: 'paper', bank, detail, all: siblings }} />);
+    render(<PastPaperPaperPage view={{ kind: 'paper', bank, detail, all: siblings, practice: true }} />);
     const list = screen.getByRole('list', { name: 'Questions in this paper' });
     expect(within(list).getAllByRole('listitem')).toHaveLength(2);
     expect(within(list).getByText('Algebra and graphs, Coordinate geometry')).toBeInTheDocument();
@@ -34,7 +34,7 @@ describe('PastPaperPaperPage', () => {
   });
 
   it('links variants, the same session, neighbouring sessions and practice', () => {
-    render(<PastPaperPaperPage view={{ kind: 'paper', bank, detail, all: siblings }} />);
+    render(<PastPaperPaperPage view={{ kind: 'paper', bank, detail, all: siblings, practice: true }} />);
     const variants = screen.getByRole('navigation', { name: 'Other variants' });
     expect(within(variants).getByRole('link', { name: '41' })).toHaveAttribute('href', '/past-papers/igcse-maths-0580/2024-may-june-41');
     expect(within(variants).getByRole('link', { name: '42' })).toHaveAttribute('aria-current', 'page');
@@ -48,9 +48,14 @@ describe('PastPaperPaperPage', () => {
 
   it('offers no marking for held papers and never shows the internal reason', () => {
     const held = { ...detail, summary: { ...detail.summary, reportAvailable: false, reportReason: 'Printed and runtime question inventories do not reconcile.' }, questions: [] };
-    render(<PastPaperPaperPage view={{ kind: 'paper', bank, detail: held, all: siblings }} />);
+    render(<PastPaperPaperPage view={{ kind: 'paper', bank, detail: held, all: siblings, practice: true }} />);
     expect(screen.getByTestId('workspace')).toHaveAttribute('data-marking', 'no');
     expect(screen.queryByText(/reconcile/)).not.toBeInTheDocument();
     expect(screen.queryByRole('list', { name: 'Questions in this paper' })).not.toBeInTheDocument();
+  });
+  it('leaves out practice links when the bank has no question-bank page yet', () => {
+    render(<PastPaperPaperPage view={{ kind: 'paper', bank, detail, all: siblings, practice: false }} />);
+    expect(screen.queryByRole('link', { name: /questions by topic/ })).not.toBeInTheDocument();
+    expect(screen.getByTestId('workspace')).toHaveAttribute('data-practice', 'false');
   });
 });

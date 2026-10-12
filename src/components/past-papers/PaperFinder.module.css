@@ -11,3 +11,6 @@
 .option small { color: var(--muted); font-weight: 500; font-size: .8rem; }
 .option[aria-selected="true"] { background: var(--subject-panel-tint, var(--cobalt-faint)); color: var(--course-accent, var(--cobalt-strong)); }
 .empty { margin: 0; padding: 10px 12px; color: var(--muted); font-size: .9rem; }
+@media (max-width: 760px) {
+  .box input { font-size: 16px; }
+}

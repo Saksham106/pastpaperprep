@@ -14,7 +14,7 @@ describe("search crawler routes", () => {
     expect(result.rules).toEqual({
       userAgent: "*",
       allow: "/",
-      disallow: "/api/",
+      disallow: ["/api/", "/past-papers/*/*/document"],
     });
   });
 

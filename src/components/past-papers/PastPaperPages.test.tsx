@@ -41,7 +41,7 @@ describe('PastPaperHub', () => {
 
 describe('PastPaperListPage', () => {
   it('renders a subject page that answers the query, links years and papers, and has an FAQ', () => {
-    const { container } = render(<PastPaperListPage view={{ kind: 'subject', bank, papers: IGCSE_PAPERS }} />);
+    const { container } = render(<PastPaperListPage view={{ kind: 'subject', bank, papers: IGCSE_PAPERS, practice: true }} />);
     expect(screen.getByRole('heading', { level: 1, name: 'IGCSE Maths 0580 past papers' })).toBeInTheDocument();
     expect(screen.getByText('5 Cambridge IGCSE Mathematics (0580) past papers from 2024 to 2026, each with its mark scheme. Free, no sign-up.')).toBeInTheDocument();
     const years = screen.getByRole('navigation', { name: 'Browse by year' });
@@ -53,7 +53,7 @@ describe('PastPaperListPage', () => {
   });
 
   it('renders a year page with neighbouring years and no FAQ', () => {
-    render(<PastPaperListPage view={{ kind: 'year', bank, year: 2025, papers: IGCSE_PAPERS.filter(p => p.year === 2025), all: IGCSE_PAPERS }} />);
+    render(<PastPaperListPage view={{ kind: 'year', bank, year: 2025, papers: IGCSE_PAPERS.filter(p => p.year === 2025), all: IGCSE_PAPERS, practice: true }} />);
     expect(screen.getByRole('heading', { level: 1, name: 'IGCSE Maths 0580 past papers 2025' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Previous year: 2024/ })).toHaveAttribute('href', '/past-papers/igcse-maths-0580/2024');
     expect(screen.getByRole('link', { name: /Next year: 2026/ })).toHaveAttribute('href', '/past-papers/igcse-maths-0580/2026');
@@ -63,9 +63,13 @@ describe('PastPaperListPage', () => {
   });
 
   it('renders a paper-number page with only that paper', () => {
-    render(<PastPaperListPage view={{ kind: 'paperNumber', bank, paper: '4', papers: IGCSE_PAPERS.filter(p => p.paper === '4'), all: IGCSE_PAPERS }} />);
+    render(<PastPaperListPage view={{ kind: 'paperNumber', bank, paper: '4', papers: IGCSE_PAPERS.filter(p => p.paper === '4'), all: IGCSE_PAPERS, practice: true }} />);
     expect(screen.getByRole('heading', { level: 1, name: 'IGCSE Maths 0580 Paper 4 past papers' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: '41' })).toBeInTheDocument();
     expect(screen.queryByRole('link', { name: '21' })).not.toBeInTheDocument();
+  });
+  it('leaves out the practice link when the bank has no question-bank page yet', () => {
+    render(<PastPaperListPage view={{ kind: 'subject', bank, papers: IGCSE_PAPERS, practice: false }} />);
+    expect(screen.queryByRole('link', { name: /questions by topic/ })).not.toBeInTheDocument();
   });
 });

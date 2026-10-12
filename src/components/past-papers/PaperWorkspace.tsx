@@ -9,7 +9,7 @@ import { trackProductEvent } from '@/lib/product-analytics';
 import styles from './PaperWorkspace.module.css';
 
 /** Paper page client shell: the reader, a rail (server-rendered children) and marking, which replaces the rail. */
-export function PaperWorkspace({ reader, marking, bank, children }: { reader: PaperReaderConfig; marking: PaperMarkingPaper | null; bank: string; children: ReactNode }) {
+export function PaperWorkspace({ reader, marking, bank, practice = true, children }: { reader: PaperReaderConfig; marking: PaperMarkingPaper | null; bank: string; practice?: boolean; children: ReactNode }) {
   const [kind, setKind] = useState<PaperDocumentKind>('question');
   const [markingOpen, setMarkingOpen] = useState(false);
   const markButton = useRef<HTMLButtonElement>(null);
@@ -28,7 +28,7 @@ export function PaperWorkspace({ reader, marking, bank, children }: { reader: Pa
   return <div className={styles.workspace} data-marking={markingOpen || undefined}>
     <div ref={main} className={styles.main}><PastPaperReader paper={reader} kind={kind} onKindChange={setKind} analyticsBank={bank} /></div>
     <aside className={styles.rail} aria-label={markingOpen ? 'Marking' : 'About this paper'}>
-      {markingOpen && marking ? <div className={styles.markPanel}><PaperMarkingWorkspace paper={marking} onClose={() => setMarkingOpen(false)} /></div> : <>
+      {markingOpen && marking ? <div className={styles.markPanel}><PaperMarkingWorkspace paper={marking} practice={practice} onClose={() => setMarkingOpen(false)} /></div> : <>
         {marking ? <section className={styles.finished}>
           <h2>Finished?</h2>
           <p>Mark it with the scheme and see which topics cost you marks.</p>

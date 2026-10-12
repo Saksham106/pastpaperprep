@@ -48,7 +48,7 @@ describe('page copy', () => {
 
   it('mentions duration and marks only when verified', () => {
     expect(paperCopy(bank, ext).description).toBe('Cambridge IGCSE Mathematics 0580 Paper 42, May/June 2024, with its mark scheme. 2 hours 30 minutes, 130 marks. Time it, mark it and see which topics to fix.');
-    expect(paperCopy(bank, { ...ext, durationMinutes: null, maxMarks: null }).description).toBe('Cambridge IGCSE Mathematics 0580 Paper 42, May/June 2024, with its mark scheme. Time it, mark it and see which topics to fix.');
+    expect(paperCopy(bank, { ...ext, durationMinutes: null, maxMarks: null }).description).toBe('Cambridge IGCSE Mathematics 0580 Paper 42, May/June 2024, with its mark scheme. Mark it and see which topics to fix.');
   });
 
   it('labels a qualification hub', () => {
@@ -93,5 +93,26 @@ describe('structured data', () => {
     const copy = subjectCopy(bank, [ext]);
     expect(collectionJsonLd(copy, '/past-papers/igcse-maths-0580', [{ name: 'Paper 42', path: '/p' }])).toMatchObject({ '@type': 'CollectionPage', name: copy.title, mainEntity: { '@type': 'ItemList', numberOfItems: 1, itemListElement: [{ '@type': 'ListItem', position: 1, url: 'https://pastpaperprep.com/p' }] } });
     expect(faqJsonLd([{ q: 'Q?', a: 'A.' }])).toMatchObject({ '@type': 'FAQPage', mainEntity: [{ '@type': 'Question', name: 'Q?', acceptedAnswer: { '@type': 'Answer', text: 'A.' } }] });
+  });
+});
+
+describe('copy only promises what a paper has', () => {
+  it('drops marking for held papers and timing when the duration is unknown', () => {
+    expect(paperCopy(bank, { ...ext, reportAvailable: false }).description).toBe('Cambridge IGCSE Mathematics 0580 Paper 42, May/June 2024, with its mark scheme. 2 hours 30 minutes, 130 marks. Time yourself with the real exam duration.');
+    expect(paperCopy(bank, { ...ext, durationMinutes: null }).description).toBe('Cambridge IGCSE Mathematics 0580 Paper 42, May/June 2024, with its mark scheme. 130 marks. Mark it and see which topics to fix.');
+    expect(paperCopy(bank, { ...ext, reportAvailable: false, durationMinutes: null }).description).toBe('Cambridge IGCSE Mathematics 0580 Paper 42, May/June 2024, with its mark scheme. 130 marks.');
+  });
+
+  it('leaves marking out of subject copy and FAQ when no paper can be self-marked', () => {
+    const held = [{ ...ext, reportAvailable: false }, { ...core, reportAvailable: false }];
+    expect(subjectCopy(bank, held).description).toBe('Every IGCSE Maths 0580 past paper from 2016–2024 with its mark scheme. Free, no sign-up.');
+    expect(subjectFaq(bank, held).some(f => /mark a past paper/.test(f.q))).toBe(false);
+    expect(subjectFaq(bank, [ext, core]).some(f => /mark a past paper/.test(f.q))).toBe(true);
+  });
+
+  it('describes variants and timezones without claiming they are equal', () => {
+    const variants = subjectFaq(bank, [ext]).find(f => f.q.includes('paper numbers'))!.a;
+    expect(variants).toBe('The first digit is the paper and the second is the variant: 42 is Paper 4, variant 2. Each variant is a separate paper set for different time zones, with its own mark scheme.');
+    expect(subjectFaq(getCatalogBank('ib-hl')!, [ib]).find(f => f.q.includes('TZ1'))!.a).toBe('IB sets separate papers for different time zones. Each has its own markscheme.');
   });
 });

@@ -42,6 +42,8 @@ describe('public past-paper slugs', () => {
     expect(chipLabel(option)).toBe('Calculus');
     expect(paperName(option)).toBe('Paper 3 Calculus');
     expect(paperSlug(papers('ib-biology-hl').find(p => p.paper === '1a')!)).toMatch(/-paper-1a(-tz\d)?$/);
+    const noZone = find('ib-sl', '2017-november-p1-tzn');
+    expect([paperSlug(noZone), chipLabel(noZone), paperName(noZone)]).toEqual(['2017-november-paper-1', 'P1', 'Paper 1']);
   });
 });
 
@@ -87,6 +89,14 @@ describe('paper code search', () => {
     ['s24 42', '2024-may-june-42'],
     ['may june 2024 42', '2024-may-june-42'],
     ['feb march 2025 paper 2', '2025-feb-march-22'],
+    ['s24 p42', '2024-may-june-42'],
+    ['0580 s24 p42', '2024-may-june-42'],
+    ['p42 2024 june', '2024-may-june-42'],
+    ['0580/42/MJ/24', '2024-may-june-42'],
+    ['0580 42 mj 24', '2024-may-june-42'],
+    ['june 24 42', '2024-may-june-42'],
+    ['42 m/j 24', '2024-may-june-42'],
+    ['paper 42 on 23', '2023-oct-nov-42'],
   ])('finds %s', (q, slug) => { expect(top(q)[0]).toBe(slug); });
 
   it('lists every variant for a partial query', () => {
@@ -97,6 +107,8 @@ describe('paper code search', () => {
     expect(top('')).toEqual([]);
     expect(top('banana')).toEqual([]);
     expect(top('1999 paper 9')).toEqual([]);
+    expect(top('asdf 99')).toEqual([]);
+    expect(top('0580 7')).toEqual([]);
   });
 
   it('understands IB sessions and timezones', () => {
