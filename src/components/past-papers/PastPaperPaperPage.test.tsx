@@ -1,8 +1,10 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, render, screen, within } from '@testing-library/react';
 import type { ReactNode } from 'react';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { getCatalogBank } from '@/lib/catalog';
-import type { WholePaperDetail } from '@/lib/whole-paper-types';
+import type { WholePaperDetail, WholePaperManifest } from '@/lib/whole-paper-types';
 import { PastPaperPaperPage } from './PastPaperPaperPage';
 import { IGCSE_PAPERS } from './fixtures';
 
@@ -44,6 +46,15 @@ describe('PastPaperPaperPage', () => {
     expect(screen.getByRole('link', { name: 'Every Paper 4' })).toHaveAttribute('href', '/past-papers/igcse-maths-0580/paper-4');
     expect(screen.getByRole('link', { name: /Practise Paper 4 questions by topic/ })).toHaveAttribute('href', '/banks/igcse?paper=4');
     expect(screen.getByTestId('workspace')).toHaveAttribute('data-marking', 'yes');
+  });
+
+  it('keeps the selected legacy IB Paper 3 option in neighbouring sessions', () => {
+    const manifest = JSON.parse(readFileSync(join(process.cwd(), 'src/data/paper-archives/ib-hl.json'), 'utf8')) as WholePaperManifest;
+    const entry = manifest.papers.find(p => p.summary.id === '2018-may-tz0-p3-discrete-mathematics')!;
+    render(<PastPaperPaperPage view={{ kind: 'paper', bank: getCatalogBank('ib-hl')!, detail: { ...entry, sources: detail.sources }, all: manifest.papers.map(p => p.summary), practice: true }} />);
+    const nav = screen.getByRole('navigation', { name: 'Paper 3 in other sessions' });
+    expect(within(nav).getByRole('link', { name: /Previous/ })).toHaveAttribute('href', '/past-papers/ib-math-aa-hl/2017-november-paper-3-discrete-mathematics');
+    expect(within(nav).getByRole('link', { name: /Next/ })).toHaveAttribute('href', '/past-papers/ib-math-aa-hl/2018-november-paper-3-discrete-mathematics');
   });
 
   it('offers no marking for held papers and never shows the internal reason', () => {

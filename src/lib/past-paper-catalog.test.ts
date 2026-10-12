@@ -83,6 +83,9 @@ describe('paper code search', () => {
   const list = papers('igcse');
   const top = (q: string, n = 3) => matchPapers(list, parsePaperQuery(q), n).map(paperSlug);
   it.each([
+    ['May/June 2024 Paper 42', '2024-may-june-42'],
+    ['February/March 2024 Paper 42', '2024-feb-march-42'],
+    ['October/November 2024 Paper 42', '2024-oct-nov-42'],
     ['0580/42/M/J/24', '2024-may-june-42'],
     ['0580_s24_qp_42', '2024-may-june-42'],
     ['0580_w23_ms_41', '2023-oct-nov-41'],
@@ -109,6 +112,15 @@ describe('paper code search', () => {
     expect(top('1999 paper 9')).toEqual([]);
     expect(top('asdf 99')).toEqual([]);
     expect(top('0580 7')).toEqual([]);
+  });
+
+  it.each([
+    ['discrete mathematics', 'discrete-mathematics'],
+    ['sets relations and groups', 'sets-relations-and-groups'],
+    ['statistics and probability', 'statistics-and-probability'],
+  ])('preserves the requested IB Paper 3 option %s', (name, slug) => {
+    const found = matchPapers(papers('ib-hl'), parsePaperQuery(`May 2018 paper 3 ${name}`));
+    expect(found.map(paperSlug)).toEqual([`2018-may-paper-3-${slug}`]);
   });
 
   it('understands IB sessions and timezones', () => {

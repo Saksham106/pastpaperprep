@@ -41,7 +41,7 @@ const isIgcse = (p: WholePaperSummary) => p.qualification === 'Cambridge IGCSE';
 const timezone = (p: WholePaperSummary) => /^tz[1-9]$/i.test(p.variant) ? p.variant.toUpperCase() : null;
 const OPTION_LABELS: Record<string, string> = { calculus: 'Calculus', 'discrete-mathematics': 'Discrete', 'sets-relations-and-groups': 'Sets', 'statistics-and-probability': 'Statistics' };
 /** IB papers with several options in one sitting (AA HL Paper 3, 2017–18) carry the option at the end of the ID. */
-function option(p: WholePaperSummary): string | null {
+export function paperOption(p: WholePaperSummary): string | null {
   const raw = /-p\d[a-z]?-([a-z][a-z-]*)$/.exec(p.id)?.[1];
   return !raw || raw === 'english' || /^(tz[0-9n]|none)$/.test(raw) ? null : raw;
 }
@@ -49,16 +49,16 @@ const optionLabel = (raw: string) => OPTION_LABELS[raw] ?? raw.charAt(0).toUpper
 
 export function paperSlug(p: WholePaperSummary): string {
   if (isIgcse(p)) return `${p.year}-${SESSION_SLUG[p.session]}-${p.component}`;
-  return [p.year, SESSION_SLUG[p.session], 'paper', p.paper.toLowerCase(), timezone(p)?.toLowerCase(), option(p)].filter(Boolean).join('-');
+  return [p.year, SESSION_SLUG[p.session], 'paper', p.paper.toLowerCase(), timezone(p)?.toLowerCase(), paperOption(p)].filter(Boolean).join('-');
 }
 export function chipLabel(p: WholePaperSummary): string {
   if (isIgcse(p)) return p.component;
-  const raw = option(p);
+  const raw = paperOption(p);
   return raw ? optionLabel(raw) : timezone(p) ?? `P${p.paper.toUpperCase()}`;
 }
 export function paperName(p: WholePaperSummary): string {
   if (isIgcse(p)) return `Paper ${p.component}`;
-  const raw = option(p);
+  const raw = paperOption(p);
   return [`Paper ${p.paper.toUpperCase()}`, timezone(p), raw && optionLabel(raw)].filter(Boolean).join(' ');
 }
 export const paperNumberSlug = (paper: string) => `paper-${paper.toLowerCase()}`;
@@ -113,7 +113,7 @@ export function filterMatrixByTier(data: PaperMatrixData, tier: MatrixTier): Pap
   return { ...data, columns: keep.map(i => data.columns[i]), years, total: years.reduce((n, y) => n + y.rows.reduce((m, r) => m + r.cells.flat().length, 0), 0) };
 }
 
-export type PaperQuery = { code?: string; year?: number; session?: 'feb-march' | 'may-june' | 'oct-nov'; component?: string; paper?: string; tz?: string };
+export type PaperQuery = { code?: string; year?: number; session?: 'feb-march' | 'may-june' | 'oct-nov'; component?: string; paper?: string; tz?: string; option?: string };
 const SESSION_LETTER = { m: 'feb-march', s: 'may-june', w: 'oct-nov' } as const;
 const SESSION_WORDS: [string, NonNullable<PaperQuery['session']>][] = [
   ['feb(?:ruary)?|mar(?:ch)?|f\\/m|fm', 'feb-march'],
@@ -130,6 +130,10 @@ export function parsePaperQuery(input: string): PaperQuery {
   const file = /\b(\d{4})_([msw])(\d{2})_(?:qp|ms)_(\d{2})\b/.exec(q);
   if (file) return { code: file[1], session: SESSION_LETTER[file[2] as 'm' | 's' | 'w'], year: 2000 + Number(file[3]), component: file[4], paper: file[4][0] };
   const out: PaperQuery = {};
+  // Students paste the same slash-form session names printed in the matrix.
+  q = q.replace(/\b(feb(?:ruary)?)\s*\/\s*(mar(?:ch)?)\b/g, '$1 $2')
+    .replace(/\b(may)\s*\/\s*(jun(?:e)?)\b/g, '$1 $2')
+    .replace(/\b(oct(?:ober)?)\s*\/\s*(nov(?:ember)?)\b/g, '$1 $2');
   const take = (re: RegExp) => { const m = re.exec(q); if (m) q = q.replace(m[0], ' '); return m; };
   const code = take(/\b(0\d{3})\b/); if (code) out.code = code[1];
   const year = take(/\b(20\d{2})\b/); if (year) out.year = Number(year[1]);
@@ -145,6 +149,12 @@ export function parsePaperQuery(input: string): PaperQuery {
   const tz = take(/\btz\s*([0-3])\b/); if (tz) out.tz = `tz${tz[1]}`;
   const component = take(/\b(?:paper|p)?\s*([1-6][1-3])\b/); if (component) { out.component = component[1]; out.paper = component[1][0]; }
   const paper = out.paper ? null : take(/\b(?:paper|p)\s*(\d[ab]?)\b/); if (paper) out.paper = paper[1];
+  for (const [slug, label] of Object.entries(OPTION_LABELS)) {
+    if (take(new RegExp(`\\b(?:${slug.split('-').join('[\\s-]+')}|${label.toLowerCase()})\\b`))) {
+      if (out.option) return {}; // Conflicting option names must not choose an arbitrary paper.
+      out.option = slug;
+    }
+  }
   return /\d/.test(q) ? {} : out;
 }
 
@@ -154,6 +164,7 @@ export function matchPapers<T extends WholePaperSummary>(papers: readonly T[], q
   return papers.filter(p =>
     (!query.code || p.syllabusCode === query.code) && (!query.year || p.year === query.year) &&
     (!query.session || sessionGroup(p.session) === query.session) && (!query.component || p.component === query.component) &&
-    (!query.paper || p.paper.toLowerCase() === query.paper) && (!query.tz || p.variant.toLowerCase() === query.tz),
+    (!query.paper || p.paper.toLowerCase() === query.paper) && (!query.tz || p.variant.toLowerCase() === query.tz) &&
+    (!query.option || paperOption(p) === query.option),
   ).sort((a, b) => b.year - a.year || sessionRank(b.session) - sessionRank(a.session) || a.component.localeCompare(b.component, undefined, { numeric: true }) || a.variant.localeCompare(b.variant)).slice(0, limit);
 }

@@ -3,7 +3,7 @@ import { ArrowLeft, ArrowRight } from '@phosphor-icons/react/dist/ssr';
 import { courseToneForBank } from '@/components/CourseIcon';
 import { JsonLd } from '@/components/JsonLd';
 import type { PaperReaderConfig } from '@/lib/paper-reader-config';
-import { chipLabel, fileAliases, paperHref, paperName, paperNumberSlug, qualificationOfBank, sessionRank, shortSession, subjectSlugForBank } from '@/lib/past-paper-catalog';
+import { chipLabel, fileAliases, paperHref, paperName, paperNumberSlug, paperOption, qualificationOfBank, sessionRank, shortSession, subjectSlugForBank } from '@/lib/past-paper-catalog';
 import type { PaperView } from '@/lib/past-paper-pages';
 import { breadcrumbJsonLd, formatDuration, paperCopy, paperJsonLd, subjectSearchName } from '@/lib/past-paper-seo';
 import type { WholePaperSummary } from '@/lib/whole-paper-types';
@@ -18,7 +18,7 @@ const shortName = (p: WholePaperSummary) => p.qualification === 'Cambridge IGCSE
 
 /** The same paper number in the nearest earlier or later session, preferring the same variant. */
 function neighbour(all: readonly WholePaperSummary[], p: WholePaperSummary, direction: 1 | -1): WholePaperSummary | undefined {
-  const candidates = all.filter(o => o.paper === p.paper && Math.sign(sessionKey(o) - sessionKey(p)) === direction);
+  const candidates = all.filter(o => o.paper === p.paper && paperOption(o) === paperOption(p) && Math.sign(sessionKey(o) - sessionKey(p)) === direction);
   if (!candidates.length) return undefined;
   const nearest = direction === 1 ? Math.min(...candidates.map(sessionKey)) : Math.max(...candidates.map(sessionKey));
   const session = candidates.filter(o => sessionKey(o) === nearest);
