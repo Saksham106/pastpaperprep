@@ -7,7 +7,7 @@ vi.mock("@/lib/server-error-tracking", () => ({ captureServerException: mocks.ca
 vi.mock("@/lib/asset-manifest", () => ({ loadBankAssetManifest: mocks.manifest, authorizeManifestAssetRequests: () => [{ questionId: "paid", kind: "question", paths: ["paid.webp"], details: {} }] }));
 vi.mock("@/lib/access", () => ({ isPreviewQuestion: (_bank: string, id: string) => id === "free", hasBankAccess: () => true }));
 vi.mock("@/lib/custom-bundle-access", () => ({ fetchAccessEntitlements: mocks.entitlements }));
-vi.mock("@/lib/private-assets", () => ({ signPrivateAssetUrls: mocks.sign, previewAssetSignOptions: () => ({ provider: "r2" }), premiumAssetSignOptions: () => ({ provider: "r2" }), resolvedAssetSignProvider: (options: { provider: string }) => options.provider }));
+vi.mock("@/lib/private-assets", () => ({ signPrivateAssetUrls: mocks.sign, previewAssetSignOptions: () => ({ provider: "r2" }), premiumAssetSignOptions: () => ({ provider: "r2" }), explanationAssetSignOptions: () => ({ provider: "r2" }), resolvedAssetSignProvider: (options: { provider: string }) => options.provider }));
 vi.mock("@/lib/supabase/server", () => ({ createClient: async () => ({ auth: { getClaims: async () => ({ data: { claims: { sub: "private-user" } } }) }, rpc: mocks.rpc }) }));
 vi.mock("@/lib/question-delivery", () => ({ richDetailsFor: mocks.details }));
 vi.mock("@/lib/reviewed-blank-tails", () => ({ reviewedBlankTailForSignedAsset: () => null }));

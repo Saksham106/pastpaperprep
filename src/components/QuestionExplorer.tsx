@@ -3,10 +3,13 @@
 import { Fragment, useEffect, useId, useMemo, useRef, useState, useSyncExternalStore, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { CALCULATOR_FILTER_BANKS } from "@/lib/calculator-policy.mjs";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { BookmarkSimple, CaretDown, Check, CheckCircle, DownloadSimple, FilePlus, Funnel, MagnifyingGlass, ShareNetwork, X } from "@phosphor-icons/react";
 import type { PdfAnswerPlacement, PdfContent } from "@/lib/pdf-export";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
+import { fetchExplanation } from "@/lib/explanation-client";
+import type { Explanation } from "@/lib/explanation-format";
 import { hasFreeTier, isPreviewQuestion } from "@/lib/access";
 import { BANK_CATALOG } from "@/lib/catalog";
 import { bankYearFacts, upgradeHref, UPGRADE_PRICE_LABEL, UPGRADE_PRICE_MONTH, type UpgradePlacement } from "@/lib/upgrade-copy";
@@ -34,6 +37,9 @@ import "./worksheet-workspace.css";
 
 type MultiKey = ExplorerFilterKey;
 
+
+// KaTeX loads only when someone opens an explanation.
+const ExplanationPanel = dynamic(() => import("@/components/ExplanationPanel"), { ssr: false, loading: () => <p className="muted" role="status">Loading explanation…</p> });
 const SECONDARY_FILTER_KEYS: MultiKey[] = [
   "sessions", "components", "calculator", "subjects", "courseEras", "options", "zones", "granularLabels", "officialCodeRefs", "retrievalFacets",
 ];
@@ -1292,6 +1298,37 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, freeAns
   const [answerLoading, setAnswerLoading] = useState(false);
   const [answerError, setAnswerError] = useState("");
   const answerRequestRef = useRef<{ promise: Promise<SignedAsset>; expiresAt: number } | null>(null);
+  const [explanation, setExplanation] = useState<Explanation | null>(null);
+  const [explanationOpen, setExplanationOpen] = useState(false);
+  const [explanationLoading, setExplanationLoading] = useState(false);
+  const [explanationError, setExplanationError] = useState("");
+  const explanationRequestRef = useRef(false);
+  const showExplanationButton = unlocked && Boolean(question.hasExplanation) && !localPreview;
+  const toggleExplanation = async () => {
+    // React's disabled state is not synchronous; protect quota before starting the request.
+    if (explanationRequestRef.current) return;
+    if (explanationOpen) { setExplanationOpen(false); return; }
+    trackProductEvent("explanation_open", { bank: question.bankSlug, freePreview: isPreviewQuestion(question.bankSlug, question.id) });
+    if (!explanation) {
+      explanationRequestRef.current = true;
+      setExplanationLoading(true);
+      setExplanationError("");
+      try {
+        setExplanation(await fetchExplanation(question.bankSlug, question.id, { free: freeAnswer }));
+      } catch (error) {
+        // Only surface this known public error, not arbitrary storage/API details.
+        setExplanationError(error instanceof Error && error.message === "Daily explanation limit reached. Try again tomorrow."
+          ? error.message : "The explanation could not load. Try again.");
+        return;
+      } finally {
+        explanationRequestRef.current = false;
+        setExplanationLoading(false);
+      }
+    }
+    setExplanationOpen(true);
+    onReveal();
+    if (authenticated) void onAttempt();
+  };
   const hasFreshAnswerAsset = () => isSignedAssetFresh(answerAsset);
   const loadAnswer = () => {
     if (hasFreshAnswerAsset()) return Promise.resolve(answerAsset!);
@@ -1349,10 +1386,11 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, freeAns
       <div className="question-topic"><strong>{formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, question.primaryTopic) : question.primaryTopic)}</strong>{displayedQuestionSubtopics(question).slice(0, 4).map((topic) => <span key={topic}>{formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, topic) : topic)}</span>)}</div>
       {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <SourceCropImage key={source} bankSlug={question.bankSlug} questionId={question.id} src={source} priority={priority && index === 0} crop={questionAsset.displayCrops?.[index]} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} onError={onQuestionAssetError} />) : <div className="asset-placeholder" role="status"><span className="placeholder-shimmer" aria-hidden="true" /><span className="placeholder-bars" aria-hidden="true"><i /><i /><i /><i /></span><span className="sr-only">Loading original question</span></div>}{question.accessibleText ? <p className="sr-only question-transcript">{question.accessibleText}</p> : null}</div> : <div className="question-locked"><strong>{locked?.title ?? "Paid plan required"}</strong><span>{locked?.body ?? "Unlock this bank’s full question set, answers, and PDF export."}</span><Link className={locked ? "button primary question-locked-upgrade" : "question-locked-action"} href={locked?.href ?? plansHrefFor(authenticated)} onClick={locked?.onClick}>{locked ? `Unlock from ${UPGRADE_PRICE_LABEL}` : PLANS_LABEL}</Link></div>}
       <div className="question-actions">
-        <div className="question-action-buttons">{unlocked ? ((question.solution || question.markschemeImageCount > 0) ? <button className="answer-toggle" disabled={answerLoading} aria-expanded={answerOpen} onClick={toggleAnswer} onPointerEnter={prefetchAnswer} onFocus={prefetchAnswer} onTouchStart={prefetchAnswer}>{answerLoading ? "Loading answer..." : answerOpen ? "Hide answer" : "Show answer"}</button> : <span className="muted">Answer coming soon</span>) : null}{answerError && <span className="muted" role="alert">{answerError}</span>}</div>
+        <div className="question-action-buttons">{unlocked ? ((question.solution || question.markschemeImageCount > 0) ? <button className="answer-toggle" disabled={answerLoading} aria-expanded={answerOpen} onClick={toggleAnswer} onPointerEnter={prefetchAnswer} onFocus={prefetchAnswer} onTouchStart={prefetchAnswer}>{answerLoading ? "Loading answer..." : answerOpen ? "Hide answer" : "Show answer"}</button> : <span className="muted">Answer coming soon</span>) : null}{showExplanationButton && <button className="answer-toggle" disabled={explanationLoading} aria-expanded={explanationOpen} onClick={toggleExplanation}>{explanationLoading ? "Loading explanation..." : explanationOpen ? "Hide explanation" : "Explanation"}</button>}{answerError && <span className="muted" role="alert">{answerError}</span>}{explanationError && <span className="muted" role="alert">{explanationError}</span>}</div>
         <div className="source-links">{attempted && <span className="study-state"><CheckCircle weight="fill" /> Practised</span>}{authenticated && unlocked && <button className={`study-icon-button ${saved ? "is-saved" : ""}`} title={saved ? "Remove from saved" : "Save question"} aria-label={saved ? `Remove question from saved ${question.id}` : `Save question ${question.id}`} onClick={onToggleSaved}><BookmarkSimple weight={saved ? "fill" : "regular"} aria-hidden="true" /></button>}</div>
       </div>
       {answerOpen && <div className="answer-panel">{answerAsset?.urls.length ? <p className="answer-panel-label">Mark scheme</p> : null}{answerAsset?.urls.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Official mark scheme page ${index + 1}`} />)}{question.solution && (answerAsset?.urls.length ? <div className="solution-wrap"><button className="text-button" aria-expanded={solutionOpen} onClick={() => setSolutionOpen((open) => !open)}>{solutionOpen ? "Hide worked text" : "Show worked text"}</button>{solutionOpen && <p>{question.solution}</p>}</div> : <p>{question.solution}</p>)}</div>}
+      {explanationOpen && explanation && <div className="answer-panel explanation-panel"><p className="answer-panel-label">Explanation</p><ExplanationPanel explanation={explanation} /></div>}
     </article>
   );
 }

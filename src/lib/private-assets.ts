@@ -3,6 +3,7 @@ import "server-only";
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { QUESTION_ASSET_BUCKET } from "@/lib/assets";
+import { isExplanationObjectPath } from "@/lib/explanations";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getPrivateBankObjectPrefix as getMappedPrivateBankObjectPrefix } from "@/lib/private-runtime-mapping";
 import type { BankSlug } from "@/lib/banks";
@@ -13,7 +14,7 @@ export function getPrivateBankObjectPrefix(bank: BankSlug): string {
 }
 
 export type { AssetStorageProvider } from "@/lib/private-asset-providers";
-export { previewAssetSignOptions, premiumAssetSignOptions } from "@/lib/private-asset-providers";
+export { explanationAssetSignOptions, previewAssetSignOptions, premiumAssetSignOptions } from "@/lib/private-asset-providers";
 
 type R2Config = {
   accountId: string;
@@ -54,7 +55,7 @@ function validateRequest(paths: string[], expiresIn: number, longLived = false) 
   if (!Number.isInteger(expiresIn) || expiresIn < 1 || expiresIn > maxExpiresIn) {
     throw new Error("Signed URL expiry is invalid");
   }
-  if (paths.some((path) => (
+  if (paths.some((path) => !isExplanationObjectPath(path) && (
     !path.endsWith(".webp") ||
     path.startsWith("/") ||
     path.split("/").some((segment) => !segment || segment === "." || segment === "..")

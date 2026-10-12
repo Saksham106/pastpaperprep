@@ -26,6 +26,7 @@ export type PublicQuestionMetadata = {
   marks: number | null;
   questionImageCount: number;
   markschemeImageCount: number;
+  hasExplanation?: true;
 };
 
 export type PublicBankIndex = {
@@ -56,6 +57,7 @@ export function toPublicQuestionMetadata(question: UnifiedQuestion): PublicQuest
     marks: question.marks,
     questionImageCount: question.questionImageCount,
     markschemeImageCount: question.markschemeImageCount,
+    ...(question.hasExplanation ? { hasExplanation: true as const } : {}),
   } satisfies PublicQuestionMetadata;
 }
 

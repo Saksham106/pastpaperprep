@@ -1,4 +1,5 @@
 import approved from "@/data/reviewed-blank-tails-0606.json";
+import type { AssetKind } from "@/lib/asset-kinds";
 import type { BankSlug } from "@/lib/banks";
 
 export type VisibleImageCrop = {
@@ -18,7 +19,7 @@ type ReviewedTail = {
 
 /** Only 19 hash-pinned, source/visually-reviewed 0606 final BLANK PAGE segments. */
 export function reviewedBlankTailForSignedAsset(
-  bank: BankSlug, questionId: string, kind: "question" | "answer", path: string,
+  bank: BankSlug, questionId: string, kind: AssetKind, path: string,
 ): VisibleImageCrop | null {
   if (bank !== "igcse-additional" || kind !== "question") return null;
   const item = (approved.entries as unknown as Record<string, ReviewedTail>)[questionId];
@@ -29,7 +30,7 @@ export function reviewedBlankTailForSignedAsset(
   return { imageSha256: item.imageSha256, fullWidthPx, fullHeightPx, visibleHeightPx: item.visibleHeightPx };
 }
 
-export function reviewedBlankTailHash(bank: BankSlug, questionId: string, kind: "question" | "answer", path: string): string | null {
+export function reviewedBlankTailHash(bank: BankSlug, questionId: string, kind: AssetKind, path: string): string | null {
   return reviewedBlankTailForSignedAsset(bank, questionId, kind, path)?.imageSha256 ?? null;
 }
 

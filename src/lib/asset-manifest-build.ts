@@ -8,6 +8,7 @@ export function buildBankAssetManifest(questions: readonly UnifiedQuestion[]): R
     manifest[question.id] = {
       questionAssetPaths: question.questionAssetPaths,
       markschemeAssetPaths: question.markschemeAssetPaths,
+      ...(question.explanationAssetPaths?.length ? { explanationAssetPaths: question.explanationAssetPaths } : {}),
       details: {
         summary: question.summary,
         accessibleText: question.accessibleText,

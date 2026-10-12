@@ -24,6 +24,17 @@ const aaOverlay = JSON.parse(await readFile(join(root, "src", "data", "aa-offici
 const biologyOfficialTaxonomy = JSON.parse(await readFile(join(root, "src", "data", "ib-biology-official-subtopics", "taxonomy.json"), "utf8"));
 const biologyOfficialOverlay = JSON.parse(await readFile(join(root, "src", "data", "ib-biology-official-subtopics", "overlay.json"), "utf8"));
 
+const explanationIds = new Map(Object.entries(JSON.parse(await readFile(join(root, "src", "data", "explanations", "available.json"), "utf8")))
+  .map(([bank, ids]) => [bank, new Set(ids)]));
+// Local preview only (never set in Vercel): flag questions that have a file in public/dev-explanations/<bank>/.
+if (process.env.NEXT_PUBLIC_EXPLANATIONS_DEV === "1") {
+  const devRoot = join(root, "public", "dev-explanations");
+  for (const bank of await readdir(devRoot).catch(() => [])) {
+    const ids = explanationIds.get(bank) ?? new Set();
+    for (const file of await readdir(join(devRoot, bank)).catch(() => [])) if (file.endsWith(".json")) ids.add(file.slice(0, -5));
+    explanationIds.set(bank, ids);
+  }
+}
 const reviewedBlankPages = JSON.parse(await readFile(join(root, "src", "data", "reviewed-blank-qp.json"), "utf8"));
 const scienceAnswerRepairs = JSON.parse(await readFile(join(root, "src", "data", "reviewed-science-mcq-answer-repairs.json"), "utf8"));
 const writtenAnswerRepairs = JSON.parse(await readFile(join(root, "src", "data", "reviewed-biology-written-answer-repairs.json"), "utf8"));
@@ -105,7 +116,7 @@ const banks = bankSources.map(({ bank }) => bank);
 const forbiddenKeys = [
   "summary", "accessibleText", "searchText", "solution", "sourceQuestionUrl",
   "sourceMarkSchemeUrl", "questionImages", "markschemeImages", "questionAssetPaths",
-  "markschemeAssetPaths", "courseEra",
+  "markschemeAssetPaths", "courseEra", "explanationAssetPaths",
 ];
 
 function strings(value) {
@@ -205,6 +216,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     markschemeImageCount: activeMarkschemeImageCount(bank, raw) ?? (normalizedProduction
       ? (strings(officialMarkscheme.images).length || strings(raw.markschemeImages).length)
       : strings(raw.markschemeImages).length + strings(officialMarkscheme.images).length),
+    ...(explanationIds.get(bank)?.has(raw.id) ? { hasExplanation: true } : {}),
   };
   return metadata;
 }

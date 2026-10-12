@@ -1,4 +1,5 @@
 import { economicsStorageObjectPath, storageObjectPath } from "@/lib/assets";
+import { explanationObjectPath, hasExplanation } from "@/lib/explanations";
 import { calculatorAllowed } from "@/lib/calculator-policy.mjs";
 import { getBank, isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
 import { isPrivateRuntimeBank, privateStorageObjectPath } from "@/lib/private-runtime-mapping";
@@ -143,6 +144,9 @@ export type UnifiedQuestion = {
   markschemeImageCount: number;
   questionAssetPaths: string[];
   markschemeAssetPaths: string[];
+  /** True when a verified worked explanation is published for this question. */
+  hasExplanation?: boolean;
+  explanationAssetPaths?: string[];
   solution: string | null;
   sourceQuestionUrl: string | null;
   sourceMarkSchemeUrl: string | null;
@@ -330,6 +334,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     markschemeAssetPaths: isPrivateRuntimeBank(slug)
       ? markschemeImages
       : markschemeImages.map((path) => storageObjectPath(slug, path)),
+    ...(hasExplanation(slug, text(raw.id)) ? { hasExplanation: true, explanationAssetPaths: [explanationObjectPath(slug, text(raw.id))] } : {}),
     solution,
     sourceQuestionUrl: nullableText(raw.sourceQuestionUrl) ?? nullableText(raw.sourceUrl) ?? nullableText(raw.pdfUrl),
     sourceMarkSchemeUrl: nullableText(raw.sourceMarkSchemeUrl) ?? nullableText(raw.markschemeUrl),

@@ -102,12 +102,16 @@ async function handlePOST(request: Request) {
         signPrivateAssetUrls(premiumPaths, 600, premiumAssetSignOptions(bank)),
       ]);
       const urlByPath = new Map([...previewUrls, ...premiumUrls]);
-      assets = authorized.map((item) => ({
-        questionId: item.questionId,
-        kind: item.kind,
-        urls: item.paths.map((path) => urlByPath.get(path)),
-        ...printGeometryForSignedAssets(bank, item.questionId, item.kind, item.paths),
-      }));
+      // PDFs only ever request question and answer images (see assetRequests above).
+      assets = authorized.map((item) => {
+        const kind = item.kind === "question" ? "question" : "answer";
+        return {
+          questionId: item.questionId,
+          kind,
+          urls: item.paths.map((path) => urlByPath.get(path)),
+          ...printGeometryForSignedAssets(bank, item.questionId, kind, item.paths),
+        };
+      });
     }
 
     const { data: allowed, error: quotaError } = await supabase.rpc("consume_download_allowance", {

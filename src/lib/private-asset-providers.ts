@@ -33,3 +33,8 @@ export function previewAssetSignOptions(bank: BankSlug): SignPrivateAssetOptions
 export function premiumAssetSignOptions(bank: BankSlug): SignPrivateAssetOptions {
   return R2_PRIVATE_BANKS.has(bank) ? { provider: "r2" } : {};
 }
+
+/** Worked explanations live only in R2 (`explanations/<bank>/`), for free and paid questions alike. */
+export function explanationAssetSignOptions(): SignPrivateAssetOptions {
+  return { provider: "r2" };
+}

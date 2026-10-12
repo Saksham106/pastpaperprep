@@ -68,6 +68,31 @@ describe("signPrivateAssetUrls", () => {
   });
 
 
+  it("signs explanation JSON from R2 with a bounded GET signature", async () => {
+    vi.stubEnv("R2_ACCOUNT_ID", "92278648535014b5231edfe207b9391d");
+    vi.stubEnv("R2_ACCESS_KEY_ID", "a".repeat(32));
+    vi.stubEnv("R2_SECRET_ACCESS_KEY", "b".repeat(64));
+    vi.stubEnv("R2_BUCKET_NAME", "pastpaperprep-assets");
+    const path = "explanations/ib-hl/2025-may-tz1-p1-q1.json";
+    const urls = await signPrivateAssetUrls([path], 600, { provider: "r2" });
+    const url = new URL(urls.get(path)!);
+    expect(url.pathname).toBe(`/pastpaperprep-assets/${path}`);
+    expect(url.searchParams.get("X-Amz-Expires")).toBe("600");
+    expect(createAdminClient).not.toHaveBeenCalled();
+  });
+
+  it.each([
+    "explanations/ib-hl/../secret.json",
+    "explanations/ib-hl/%2e%2e%2fsecret.json",
+    "/explanations/ib-hl/q1.json",
+    "explanations/ib-hl/nested/q1.json",
+    "ib-hl/markschemes/q1.json",
+    "explanations/ib-hl/q1.json?other=secret",
+  ])("rejects noncanonical explanation key %s before contacting any provider", async (path) => {
+    await expect(signPrivateAssetUrls([path], 600, { provider: "r2" })).rejects.toThrow("Private asset path is invalid");
+    expect(createAdminClient).not.toHaveBeenCalled();
+  });
+
   it("keeps signed links to an hour unless the caller opts into long-lived free links", async () => {
     await expect(signPrivateAssetUrls(["ib-sl/questions/a.webp"], 3601)).rejects.toThrow("Signed URL expiry is invalid");
     await expect(signPrivateAssetUrls(["ib-sl/questions/a.webp"], 86_401, { longLived: true })).rejects.toThrow("Signed URL expiry is invalid");
