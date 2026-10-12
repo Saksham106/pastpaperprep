@@ -1,9 +1,15 @@
 import { describe, expect, it } from "vitest";
-import { bankTestimonial, HOME_TESTIMONIALS, PRICING_TESTIMONIALS } from "@/lib/testimonials";
+import { bankTestimonial, HOME_TESTIMONIALS, PRICING_TESTIMONIALS, topicTestimonial } from "@/lib/testimonials";
 
 describe("testimonials", () => {
   it("shows a bank's own quote when it has one", () => {
     expect(bankTestimonial("igcse-chemistry-0620").name).toBe("Leah W.");
+  });
+
+  it("shows Carlos's biology quote on the 0610 bank and its topic pages only", () => {
+    expect(bankTestimonial("igcse-biology-0610").name).toBe("Carlos V.");
+    expect(topicTestimonial("igcse-biology-0610").name).toBe("Carlos V.");
+    expect(topicTestimonial("igcse").name).toBe("Ji-woo P.");
   });
 
   it("picks the same general quote for a bank every time", () => {
