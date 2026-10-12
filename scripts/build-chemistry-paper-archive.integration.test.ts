@@ -6,11 +6,14 @@ import { describe, expect, it } from 'vitest';
 import type { PaperArchiveDetail, PaperArchiveSummary } from '../src/lib/paper-archive-types';
 import { inventorySources, SOURCE_ROOT } from './build-chemistry-paper-archive.mjs';
 import { CHEMISTRY_0620_TOPICS, CHEMISTRY_0620_PRACTICAL_TOPIC } from '../src/lib/igcse-0620-official.mjs';
+import { existsSync } from 'node:fs';
+// Needs private source files that exist only on the owner's machine; CI skips these cases.
+const HAS_PRIVATE_SOURCES = existsSync('private/chemistry-paper-archive/archive.json') && existsSync(SOURCE_ROOT);
 type Evidence = {sha256:string;bytes:number;pageCount:number;cover:{identityValid:boolean;maxMarks:number|null};totals?:number[]};
 type ArchiveEntry={summary:PaperArchiveSummary;detail:PaperArchiveDetail;source:{id:string;question:string;markscheme:string};evidence:{question:Evidence;markscheme:Evidence};reconciliation:{marks:number[];available:boolean;runtimeQuestionCount:number;sourceQuestionCount:number}};
 const load=async()=>JSON.parse(await fs.readFile('private/chemistry-paper-archive/archive.json','utf8')) as {papers:ArchiveEntry[];receipt:{sourceCount:number;runtimeQuestionCount:number;runtimePaperCount:number;identityFailures:string[];reportAvailableCount:number;sourceQuestionCount:number;missingQuestionCount:number;missingClassificationSearch:unknown[];corrections:{id:string;to:number;questionSha256:string}[];discrepancies:{id:string;missingQuestionIds:string[]}[]}};
 
-describe('generated whole-bank source reconciliation', () => {
+describe.skipIf(!HAS_PRIVATE_SOURCES)('generated whole-bank source reconciliation', () => {
   it('accounts for 314 originals, 312 runtime papers, and every exact report holdback', async () => {
     const archive=await load();
     expect(archive.papers.map(p=>p.summary.id)).toEqual((await inventorySources()).map(s=>s.id));

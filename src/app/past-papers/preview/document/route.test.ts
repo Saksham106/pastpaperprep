@@ -1,5 +1,8 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { GET } from "./route";
+import { existsSync } from "node:fs";
+// Needs private source files that exist only on the owner's machine; CI skips these cases.
+const HAS_PRIVATE_SOURCES = existsSync('private/paper-preview/question.pdf');
 
 afterEach(() => vi.unstubAllEnvs());
 const request = (kind = "question") => new Request(`http://localhost/past-papers/preview/document?kind=${kind}`);
@@ -20,7 +23,7 @@ describe("local paper fixture boundary", () => {
     vi.stubEnv("LOCAL_PAPER_PREVIEW", "true");
     expect((await GET(request("../../secret"))).status).toBe(404);
   });
-  it("serves the real local question paper with no-store and noindex", async () => {
+  it.skipIf(!HAS_PRIVATE_SOURCES)("serves the real local question paper with no-store and noindex", async () => {
     vi.stubEnv("NODE_ENV", "development");
     vi.stubEnv("LOCAL_PAPER_PREVIEW", "true");
     const response = await GET(request());

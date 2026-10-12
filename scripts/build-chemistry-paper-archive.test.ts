@@ -1,8 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { parseCover, reconcileQuestions, inventorySources, sourceQuestionMarks } from './build-chemistry-paper-archive.mjs';
+import { existsSync } from 'node:fs';
+import { SOURCE_ROOT } from './build-chemistry-paper-archive.mjs';
+// Needs private source files that exist only on the owner's machine; CI skips these cases.
+const HAS_PRIVATE_SOURCES = existsSync(SOURCE_ROOT);
 
 describe('source paper metadata', () => {
-  it('accounts for all 628 originals with exact complete pairs', async () => {
+  it.skipIf(!HAS_PRIVATE_SOURCES)('accounts for all 628 originals with exact complete pairs', async () => {
     const sources = await inventorySources();
     expect(sources).toHaveLength(314);
     expect(new Set(sources.map(s=>s.id)).size).toBe(314);
