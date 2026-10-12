@@ -39,7 +39,7 @@ test('local reader rejects traversal and a symlinked explanation file', async ()
 
 const script = join(import.meta.dirname, 'publish.mjs');
 
-function replayFixture(entries, previous) {
+function replayFixture(entries, previous, { singleBank = false, expectStatus = 0 } = {}) {
  const projects=mkdtempSync(join(realpathSync(tmpdir()),'explanation-provenance-'));
  const dir=join(projects,'research/explanations/ib-hl');mkdirSync(dir,{recursive:true});
  const id='2025-may-tz1-p1-q1';
@@ -47,8 +47,9 @@ function replayFixture(entries, previous) {
  if(previous) writeFileSync(join(dir,'_ledger.json'),JSON.stringify(previous));
  const manifest=join(projects,'manifest.json');writeFileSync(manifest,JSON.stringify({bank:'ib-hl',tasks:[{bank:'ib-hl',questionId:id}]}));
  const journal=join(projects,'journal.jsonl');writeFileSync(journal,entries.map(JSON.stringify).join('\n'));
- const run=spawnSync(process.execPath,[join(import.meta.dirname,'ledger-from-journal.mjs'),'--bank','ib-hl','--manifest',manifest,journal],{encoding:'utf8',env:{...process.env,PPP_PROJECTS_ROOT:projects}});
- assert.equal(run.status,0,run.stderr);
+ const run=spawnSync(process.execPath,[join(import.meta.dirname,'ledger-from-journal.mjs'),'--bank','ib-hl','--manifest',manifest,...(singleBank?['--single-bank-journal']:[]),journal],{encoding:'utf8',env:{...process.env,PPP_PROJECTS_ROOT:projects}});
+ assert.equal(run.status,expectStatus,run.stderr);
+ if(expectStatus!==0) return {run};
  return {projects,dir,id,ledger:JSON.parse(readFileSync(join(dir,'_ledger.json')))};
 }
 function outcome(label, bank) {
@@ -197,4 +198,18 @@ test('publisher rejects a symlinked bank directory before reading private conten
  const run=spawnSync(process.execPath,[script,'--bank','ib-hl'],{encoding:'utf8',env:{...process.env,PPP_PROJECTS_ROOT:projects}});
  assert.notEqual(run.status,0,'must not trust a symlinked ancestor');
  assert.match(run.stderr,/symlink|canonical|Unsafe/i);
+});
+
+test('a declared single-bank journal settles its unlabelled results for that bank only', () => {
+ const {ledger}=replayFixture(outcome('verify g3',undefined), undefined, {singleBank:true});
+ assert.equal(ledger.rows[0].status,'pass');
+ assert.equal(ledger.rows[0].bankEvidenceVersion,1);
+ // The same unlabelled journal without the declaration is still not evidence.
+ assert.equal(replayFixture(outcome('verify g3',undefined)).ledger.rows[0].status,'needs-verify');
+});
+test('a single-bank declaration is refused when the journal names another bank or its questions', () => {
+ const {run}=replayFixture(outcome('verify ib-ai-sl v0',undefined), undefined, {singleBank:true,expectStatus:1});
+ assert.match(run.stderr,/not single-bank/);
+ const foreign=[{type:'started',agentId:'a',label:'verify g1'},{type:'result',agentId:'a',result:{results:[{questionId:'other-bank-q9',verdict:'pass',issues:[]}]}}];
+ assert.match(replayFixture(foreign, undefined, {singleBank:true,expectStatus:1}).run.stderr,/not in ib-hl/);
 });

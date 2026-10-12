@@ -8,7 +8,8 @@
 //
 // Uploading needs owner approval. Two ways to reach R2:
 //   default         a temporary bucket-scoped token as R2_SYNC_ACCESS_KEY_ID / R2_SYNC_SECRET_ACCESS_KEY
-//   --via-wrangler  read-back only via logged-in Wrangler; set WRANGLER to a local binary to skip npx
+//   --via-wrangler  the owner's logged-in Wrangler. Create-if-absent is checked (look, then put), not atomic:
+//                   safe for one operator publishing at a time. Set WRANGLER to a local binary to skip npx.
 // A question is publishable when the ledger marks it verified and validate.mjs passes.
 import { createHash, randomUUID } from "node:crypto";
 import { execFile } from "node:child_process";
@@ -108,11 +109,28 @@ function wranglerStore(bucket) {
       }
     }
   };
+  const read = async (key) => {
+    const target = `${file(key)}.read`;
+    await wrangler(["r2", "object", "get", `${bucket}/${key}`, "--file", target, "--remote"]);
+    return readFileSync(target, "utf8");
+  };
+  const missing = (error) => /does not exist|NoSuchKey|\b404\b|not found/i.test(`${error?.stderr ?? ""} ${error?.stdout ?? ""} ${error?.message ?? ""}`);
+  const seen = new Map();
   return {
+    // Never replace: an existing object is reported as a precondition failure, and publishSet
+    // then accepts it only if its bytes match. A brief look-then-put window remains.
+    putIfAbsent: async (key, body) => {
+      try { seen.set(key, await read(key)); } catch (error) {
+        if (!missing(error)) throw error;
+        writeFileSync(file(key), body);
+        await wrangler(["r2", "object", "put", `${bucket}/${key}`, "--file", file(key), "--content-type", "application/json", "--cache-control", "private, max-age=600", "--remote"]);
+        return;
+      }
+      throw Object.assign(new Error("Object already exists"), { name: "PreconditionFailed" });
+    },
     get: async (key) => {
-      const target = `${file(key)}.read`;
-      await wrangler(["r2", "object", "get", `${bucket}/${key}`, "--file", target, "--remote"]);
-      return readFileSync(target, "utf8");
+      if (seen.has(key)) { const body = seen.get(key); seen.delete(key); return body; }
+      return read(key);
     },
     close: () => rmSync(dir, { recursive: true, force: true }),
   };
@@ -121,7 +139,6 @@ function wranglerStore(bucket) {
 async function main() {
   if (!bank || !/^[a-z0-9-]+$/.test(bank)) throw new Error("Pass --bank <safe slug>");
   if (apply && verifyOnly) throw new Error("--apply and --verify-only are mutually exclusive");
-  if (apply && viaWrangler) throw new Error("Wrangler uploads cannot enforce conditional create; use the scoped S3 token. --via-wrangler --verify-only remains supported.");
   const { out, skipped } = publishable();
   console.log(`${bank}: ${out.length} publishable, ${skipped.length} held back`);
   for (const line of skipped) console.log(`  held: ${line}`);

@@ -2,6 +2,9 @@
 // Rebuilds a bank's verification ledger from one or more workflow journals, merging with any existing
 // ledger, and lists what is still to do.
 // Usage: node scripts/explanations/ledger-from-journal.mjs --bank ib-hl --manifest <manifest.json> <journal.jsonl> [...]
+//        [--single-bank-journal <journal.jsonl>]  an early run that only ever processed this bank, from before
+//        labels carried the bank: its unlabelled results count for --bank. Refused if any label names another
+//        bank or any result ID is missing from this bank's manifest.
 // Writes <research>/explanations/<bank>/_ledger.json and _todo.json.
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
@@ -15,6 +18,17 @@ const manifest = JSON.parse(readFileSync(flag("--manifest"), "utf8"));
 if (manifest.bank !== bank || !Array.isArray(manifest.tasks) || manifest.tasks.some(t => t.bank !== bank || typeof t.questionId !== "string" || !/^[A-Za-z0-9._-]+$/.test(t.questionId) || [".", ".."].includes(t.questionId))) throw new Error("Manifest bank/IDs do not match requested bank");
 if (new Set(manifest.tasks.map(t => t.questionId)).size !== manifest.tasks.length) throw new Error("Duplicate manifest question IDs");
 const journals = argv.filter((arg, i) => arg.endsWith(".jsonl") && argv[i - 1] !== "--manifest");
+const singleBank = new Set(argv.filter((arg, i) => argv[i - 1] === "--single-bank-journal"));
+const manifestIds = new Set(manifest.tasks.map((t) => t.questionId));
+for (const file of singleBank) {
+  for (const line of readFileSync(file, "utf8").split("\n")) {
+    if (!line.trim()) continue;
+    const entry = JSON.parse(line);
+    const named = /^(?:generate|verify|fix|re-verify)\s+((?:ib|igcse)[a-z0-9-]*)(?:\s|$)/.exec(entry.label ?? "")?.[1];
+    if (named && named !== bank) throw new Error(`${file} is not single-bank: label names ${named}`);
+    for (const r of entry.result?.results ?? []) if (!manifestIds.has(r.questionId)) throw new Error(`${file} has ${r.questionId}, not in ${bank}`);
+  }
+}
 
 const critical = (v) => v.verdict === "fail" || v.issues.some((i) => i.severity === "critical");
 const needsFix = (v) => v.verdict !== "pass" || v.issues.some((i) => i.severity === "critical");
@@ -32,7 +46,7 @@ for (const file of journals) {
     if (entry.type !== "result" || !entry.result?.results) continue;
     const label = labels.get(entry.agentId) ?? "";
     // Multi-bank workflows reuse question IDs. Never borrow another bank's verdict.
-    const labelledBank = /^(?:generate|verify|fix|re-verify)\s+((?:ib|igcse)[a-z0-9-]*)(?:\s|$)/.exec(label)?.[1];
+    const labelledBank = /^(?:generate|verify|fix|re-verify)\s+((?:ib|igcse)[a-z0-9-]*)(?:\s|$)/.exec(label)?.[1] ?? (singleBank.has(file) ? bank : undefined);
     if (labelledBank && labelledBank !== bank) continue;
     for (const r of entry.result.results) {
       // Missing scope is not evidence. If both scopes exist they must agree.
