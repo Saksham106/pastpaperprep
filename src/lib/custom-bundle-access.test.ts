@@ -22,6 +22,54 @@ describe("per-subscription custom bundle access", () => {
     expect(rpc).toHaveBeenCalledTimes(2);
   });
 
+  it("recovers on the final allowed attempt when both reads initially reject the JWT", async () => {
+    vi.useFakeTimers();
+    const futureJwt = { code: "PGRST303", message: "JWT issued at future" };
+    const query = vi.fn().mockResolvedValueOnce({ data: null, error: futureJwt })
+      .mockResolvedValueOnce({ data: null, error: futureJwt })
+      .mockResolvedValue({ data: [row("bank_igcse", "manual")], error: null });
+    const rpc = vi.fn().mockResolvedValueOnce({ data: null, error: futureJwt })
+      .mockResolvedValueOnce({ data: null, error: futureJwt })
+      .mockResolvedValue({ data: [], error: null });
+    const pending = fetchAccessEntitlements({ from: () => ({ select: () => ({ eq: query }) }), rpc }, "owner");
+    await vi.runAllTimersAsync();
+    expect((await pending).error).toBeNull();
+    expect((await pending).rows).toHaveLength(1);
+    expect(query).toHaveBeenCalledTimes(3);
+    expect(rpc).toHaveBeenCalledTimes(3);
+  });
+
+  it("stops retrying immediately when the error changes after a clock rejection", async () => {
+    vi.useFakeTimers();
+    const denied = { code: "42501", message: "permission denied" };
+    const query = vi.fn().mockResolvedValueOnce({ data: null, error: { code: "PGRST303", message: "JWT issued at future" } })
+      .mockResolvedValue({ data: null, error: denied });
+    const rpc = vi.fn().mockResolvedValue({ data: [], error: null });
+    const pending = fetchAccessEntitlements({ from: () => ({ select: () => ({ eq: query }) }), rpc }, "owner");
+    await vi.runAllTimersAsync();
+    expect(await pending).toEqual({ rows: [], error: denied });
+    expect(query).toHaveBeenCalledTimes(2);
+  });
+
+  it("stops within the original budget even if a later replay might succeed", async () => {
+    vi.useFakeTimers();
+    const futureJwt = { code: "PGRST303", message: "JWT issued at future" };
+    const query = vi.fn().mockResolvedValueOnce({ data: null, error: futureJwt })
+      .mockResolvedValueOnce({ data: null, error: futureJwt })
+      .mockResolvedValueOnce({ data: null, error: futureJwt })
+      .mockResolvedValue({ data: [row("bank_igcse", "manual")], error: null });
+    const rpc = vi.fn().mockResolvedValue({ data: [], error: null });
+    const start = Date.now();
+    const pending = fetchAccessEntitlements({ from: () => ({ select: () => ({ eq: query }) }), rpc }, "owner");
+    await vi.runAllTimersAsync();
+    expect(await pending).toEqual({ rows: [], error: futureJwt });
+    expect(Date.now() - start).toBe(3000);
+    expect(query).toHaveBeenCalledTimes(3);
+    expect(rpc).toHaveBeenCalledTimes(3);
+    expect(query).toHaveBeenLastCalledWith("user_id", "owner");
+    expect(rpc).toHaveBeenLastCalledWith("get_custom_bundle_access", { p_user_id: "owner" });
+  });
+
   it("retries when only the subscription RPC has the future-issued JWT error", async () => {
     vi.useFakeTimers();
     const futureJwt = { code: "PGRST303", message: "JWT issued at future" };
@@ -59,8 +107,21 @@ describe("per-subscription custom bundle access", () => {
     const rpc = vi.fn().mockResolvedValue({ data: null, error: { code: "42501", message: "permission denied" } });
     const result = await fetchAccessEntitlements({ from: () => ({ select: () => ({ eq: query }) }), rpc }, "owner");
     expect(result.rows).toEqual([]);
+    expect(result.error).toEqual({ code: "42501", message: "permission denied" });
     expect(query).toHaveBeenCalledTimes(1);
   });
+  it("does not retry or offer clock recovery when the other read is malformed", async () => {
+    vi.useFakeTimers();
+    const query = vi.fn().mockResolvedValue({ data: null, error: { code: "PGRST303", message: "JWT issued at future" } });
+    const rpc = vi.fn().mockResolvedValue({ data: null, error: null });
+    const pending = fetchAccessEntitlements({ from: () => ({ select: () => ({ eq: query }) }), rpc }, "owner");
+    await vi.runAllTimersAsync();
+    const result = await pending;
+    expect(result.error).toEqual(new Error("Invalid billing access response"));
+    expect(result.rows).toEqual([]);
+    expect(query).toHaveBeenCalledTimes(1);
+  });
+
   it("keeps independent expiries for two disjoint subscriptions", () => {
     const result = mergeCustomBundleAccess(
       [row("bundle_custom", "stripe", { selected_bank_ids: ["ib-sl"] })],
