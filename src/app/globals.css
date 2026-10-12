@@ -2317,10 +2317,13 @@ main { min-height: 72vh; }
 .footer-wordmark { grid-column: 1 / -1; margin: 12px 0 -.2em; color: transparent; background: linear-gradient(180deg, color-mix(in srgb, var(--ink) 16%, transparent), color-mix(in srgb, var(--ink) 4%, transparent)); -webkit-background-clip: text; background-clip: text; font: 400 clamp(2.8rem, 11.6vw, 10.4rem)/.82 var(--font-serif); letter-spacing: -.04em; text-align: center; white-space: nowrap; user-select: none; pointer-events: none; }
 .footer-base { position: relative; z-index: 1; }
 .footer-mark { grid-column: 1 / -1; position: relative; margin-top: 40px; display: grid; align-items: end; font: 400 clamp(2.8rem, 11.6vw, 10.4rem)/.82 var(--font-serif); pointer-events: none; }
-.footer-mark .footer-skyline { position: absolute; z-index: 0; left: 50%; bottom: .18em; width: 100vw; height: 190px; margin: 0; border: 0; transform: translateX(-50%); opacity: .55; }
+/* The skyline's ground (y=118 of its 140-unit viewBox, kept at the bottom by xMidYMax slice) lands on the wordmark's
+   baseline, .128em below the wordmark box. The ground's height follows whichever of height or width scales the drawing. */
+.footer-mark { --sky-h: 190px; }
+.footer-mark .footer-skyline { position: absolute; z-index: 0; left: 50%; bottom: calc(-.128em - max(var(--sky-h) * 22 / 140, 100vw * 22 / 1440)); width: 100vw; height: var(--sky-h); margin: 0; border: 0; transform: translateX(-50%); opacity: .55; }
 .footer-mark .footer-wordmark { position: relative; z-index: 1; margin: 0 0 -.2em; background: linear-gradient(180deg, color-mix(in srgb, var(--ink) 20%, transparent), color-mix(in srgb, var(--ink) 7%, transparent)); -webkit-background-clip: text; background-clip: text; }
 @media (max-width: 1100px) { .footer-links { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (max-width: 640px) { .footer-links { grid-template-columns: repeat(2, minmax(0, 1fr)); } .footer-wordmark { font-size: 12.4vw; } .footer-mark { margin-top: 20px; font-size: 12.4vw; } .footer-mark .footer-skyline { height: 96px; } }
+@media (max-width: 640px) { .footer-links { grid-template-columns: repeat(2, minmax(0, 1fr)); } .footer-wordmark { font-size: 12.4vw; } .footer-mark { --sky-h: 96px; margin-top: 20px; font-size: 12.4vw; } }
 
 /* Phone bar: question-banks shortcut instead of the theme switch, which moves into the menu.
    On desktop the switch sits at the end of the nav as an icon. The open menu is glass, like the bar. */
