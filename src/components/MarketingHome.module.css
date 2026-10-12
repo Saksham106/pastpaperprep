@@ -78,6 +78,10 @@
 .study > a svg { transition: transform 160ms ease; }
 .study > a:hover svg { transform: translateX(3px); }
 
+/* 4b. Student quotes, just before the plan choice */
+.voices { padding: 96px 0 0; display: grid; gap: 22px; }
+.voices .eyebrow { text-align: center; }
+
 /* 5. Free vs plan: two plain cards */
 .planSection { padding: 96px 0 8px; display: grid; justify-items: center; gap: 32px; text-align: center; }
 .planSection h2 { margin: 0; color: var(--ink); font: 400 clamp(2.2rem, 4.2vw, 3.6rem)/1.02 var(--font-serif); letter-spacing: -.03em; }
@@ -135,7 +139,7 @@
   .pickerGo { justify-content: center; }
   .tiers { grid-template-columns: 1fr; }
   .proofBand { padding: 64px 0 72px; }
-  .planSection { padding-top: 72px; }
+  .planSection, .voices { padding-top: 72px; }
   .cta { flex-direction: column; align-items: stretch; margin-block: 64px 80px; padding: 32px 24px; }
 }
 @media (max-width: 640px) {
@@ -145,7 +149,8 @@
 
 /* Dark theme: sections below the hero follow the theme; the hero illustration does not. */
 :global(:root[data-theme="dark"]) .home { background: var(--paper); }
-:global(:root[data-theme="dark"]) .faqIntro .eyebrow { color: var(--burgundy); }
+:global(:root[data-theme="dark"]) .faqIntro .eyebrow,
+:global(:root[data-theme="dark"]) .voices .eyebrow { color: var(--burgundy); }
 :global(:root[data-theme="dark"]) .subjectHead h3 { color: var(--ink); }
 :global(:root[data-theme="dark"]) .bankRow { background: color-mix(in srgb, var(--surface) 80%, transparent); border-color: var(--line-strong); }
 :global(:root[data-theme="dark"]) .faqQuestions,
