@@ -152,18 +152,19 @@ export async function fetchSignedAssets(
     ) {
       throw new Error("Invalid signed asset response");
     }
-    return { batch, payload: payload as { expiresIn: number; assets: Array<AssetRequest & Omit<SignedAsset, "expiresAt" | keyof AssetRequest>> } };
+    const expiresAt = Date.now() + Math.max(payload.expiresIn - 30, 1) * 1000;
+    return { batch, expiresAt, payload: payload as { expiresIn: number; assets: Array<AssetRequest & Omit<SignedAsset, "expiresAt" | keyof AssetRequest>> } };
   };
 
   // Batches go out together: a page of questions shouldn't wait on one round trip per 20 images.
   const batches: AssetRequest[][] = [];
   for (let index = 0; index < requests.length; index += SIGN_BATCH_SIZE) batches.push(requests.slice(index, index + SIGN_BATCH_SIZE));
   const results = await Promise.all(batches.map(signBatch));
+  assertCurrentScope(isCurrent);
 
   const signed = new Map<string, SignedAsset>();
-  for (const { batch, payload } of results) {
+  for (const { batch, payload, expiresAt } of results) {
     const expected = new Set(batch.map((request) => signedAssetKey(request.questionId, request.kind)));
-    const expiresAt = Date.now() + Math.max(payload.expiresIn - 30, 1) * 1000;
     for (const asset of payload.assets) {
       const key = signedAssetKey(asset.questionId, asset.kind);
       if (!expected.delete(key) || signed.has(key)) throw new Error("Invalid signed asset response");

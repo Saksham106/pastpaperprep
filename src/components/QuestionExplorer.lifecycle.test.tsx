@@ -65,7 +65,7 @@ describe("QuestionExplorer session lifecycle", () => {
     expect(readCachedAssets(b, "igcse").size).toBe(1);
   });
 
-  it("stops A's remaining paid batches after B owns the mounted explorer", async () => {
+  it("rejects A's late parallel batches without issuing any new batch under B", async () => {
     const questions = loadBankQuestions("ib-sl").filter((q) => !isPreviewQuestion(q.bankSlug, q.id)).slice(0, 24);
     const late = deferred();
     let firstInit: RequestInit | undefined;
@@ -80,13 +80,13 @@ describe("QuestionExplorer session lifecycle", () => {
     vi.stubGlobal("fetch", fetcher);
     window.history.replaceState({}, "", "/banks/ib-sl?free=0");
     render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={anonymous} bootstrapUrl="/member" initialState={{ search: "", sort: "paper", filters: {}, freeOnly: false, savedOnly: false, courseRoute: "all", visible: 24 }} hydrateFromLocation />);
-    await waitFor(() => expect(batches).toHaveLength(1));
+    await waitFor(() => expect(batches).toHaveLength(2));
     act(() => owner("B"));
-    await waitFor(() => expect(batches).toHaveLength(3));
+    await waitFor(() => expect(batches).toHaveLength(4));
     await act(async () => late.resolve(signed(firstInit, "A")));
-    expect(batches.map(({ count }) => count)).toEqual([20, 20, 4]);
-    expect(batches[0].owner).toContain("=A");
-    expect(batches.slice(1).every(({ owner }) => owner.includes("=B"))).toBe(true);
+    expect(batches.map(({ count }) => count)).toEqual([20, 4, 20, 4]);
+    expect(batches.slice(0, 2).every(({ owner }) => owner.includes("=A"))).toBe(true);
+    expect(batches.slice(2).every(({ owner }) => owner.includes("=B"))).toBe(true);
     expect(JSON.stringify([...readCachedAssets(sessionFingerprint(document.cookie)!, "ib-sl").values()])).not.toContain("private A");
   });
 

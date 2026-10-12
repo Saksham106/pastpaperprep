@@ -231,6 +231,30 @@ describe("fetchSignedAssets", () => {
 });
 
 describe("fetchSignedAssets batching", () => {
+  it("anchors each batch's expiry before waiting for slower parallel batches", async () => {
+    vi.useFakeTimers();
+    const start = Date.now();
+    vi.setSystemTime(start);
+    try {
+      const requests = Array.from({ length: 24 }, (_, i) => ({ questionId: `q${i}`, kind: "question" as const }));
+      let calls = 0;
+      let release!: () => void;
+      const fetcher = vi.fn((_input: RequestInfo | URL, init?: RequestInit) => {
+        const body = JSON.parse(String(init?.body));
+        const response = () => new Response(JSON.stringify({ expiresIn: 60, assets: body.requests.map((r: object) => ({ ...r, urls: ["https://assets.example/q.webp"] })) }));
+        if (++calls === 1) return Promise.resolve(response());
+        return new Promise<Response>(resolve => { release = () => resolve(response()); });
+      });
+      const result = fetchSignedAssets("ib-sl", requests, fetcher);
+      await vi.advanceTimersByTimeAsync(0);
+      vi.setSystemTime(start + 40_000);
+      release();
+      const assets = await result;
+      expect(assets.get("q0:question")?.expiresAt).toBe(start + 30_000);
+      expect(assets.get("q20:question")?.expiresAt).toBe(start + 70_000);
+    } finally { vi.useRealTimers(); }
+  });
+
   it("sends every batch at once instead of waiting for the previous one", async () => {
     const requests = Array.from({ length: 24 }, (_, index) => ({ questionId: `q${index}`, kind: "question" as const }));
     const pending: Array<() => void> = [];
