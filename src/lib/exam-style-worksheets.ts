@@ -5,6 +5,7 @@ export type ExamStyleWorksheet = {
   fileName: string;
   course: ExamStyleCourse;
   topics: readonly string[];
+  section?: string;
 };
 
 export const EXAM_STYLE_COURSES: Record<ExamStyleCourse, { label: string; route: string; worksheets: readonly ExamStyleWorksheet[] }> = {
@@ -15,6 +16,7 @@ export const EXAM_STYLE_COURSES: Record<ExamStyleCourse, { label: string; route:
       { course: "ib-math-aa-sl", slug: "binomial-distribution-worksheet", title: "Binomial Distribution", fileName: "binomial-distribution-worksheet.pdf", topics: ["Binomial distribution", "Discrete random variables", "Expected value"] },
       { course: "ib-math-aa-sl", slug: "normal-distribution-worksheet", title: "Normal Distribution", fileName: "normal-distribution-worksheet.pdf", topics: ["Normal distribution", "Continuous random variables", "Probability"] },
       { course: "ib-math-aa-sl", slug: "probability-distributions-mixed-exam-practice", title: "Probability Distributions: Mixed Exam Practice", fileName: "probability-distributions-mixed-exam-practice.pdf", topics: ["Discrete random variables", "Expected value", "Binomial distribution", "Normal distribution", "Mixed probability distributions"] },
+      { course: "ib-math-aa-sl", slug: "sets-venn-conditional-probability", title: "Sets, Venn Diagrams and Conditional Probability", fileName: "sets-venn-conditional-probability.pdf", section: "Probability", topics: ["Sets and Venn diagrams", "Conditional probability", "Independent events", "Probability trees"] },
     ],
   },
   "igcse-0580": {

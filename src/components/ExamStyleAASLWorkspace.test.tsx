@@ -15,12 +15,17 @@ describe("IB Mathematics AA SL exam-style PDF workspace", () => {
 
     expect(screen.getByTestId("pdf-viewer")).toHaveAttribute("data-src", "/api/exam-style/trigonometry/trigonometric-graphs");
     const choices = screen.getAllByRole("button");
-    expect(choices).toHaveLength(8);
+    expect(choices).toHaveLength(9);
     expect(screen.getByRole("heading", { name: "Trigonometry" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Probability distributions" })).toBeInTheDocument();
     for (const name of ["Trigonometric Graphs", "Modelling Trigonometric Functions", "Trigonometric Relations and Values", "Trigonometric Equations and Identities", "Trigonometric Transformations", "Binomial Distribution", "Normal Distribution", "Probability Distributions: Mixed Exam Practice"]) {
       expect(screen.getByRole("button", { name: new RegExp(name) })).toBeInTheDocument();
     }
+
+    expect(screen.getByRole("heading", { name: "Probability" })).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: /Sets, Venn Diagrams and Conditional Probability/ }));
+    expect(screen.getByTestId("pdf-viewer")).toHaveAttribute("data-src", "/api/exam-style/worksheets/ib-math-aa-sl/sets-venn-conditional-probability");
+    expect(screen.getByTestId("pdf-viewer")).toHaveTextContent("Sets, Venn Diagrams and Conditional Probability");
 
     await user.click(screen.getByRole("button", { name: /Probability Distributions: Mixed Exam Practice/ }));
     expect(screen.getByTestId("pdf-viewer")).toHaveAttribute("data-src", "/api/exam-style/worksheets/ib-math-aa-sl/probability-distributions-mixed-exam-practice");
