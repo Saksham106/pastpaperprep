@@ -50,7 +50,7 @@ export function PasswordSignUpForm({ next = "/pricing" }: { next?: string }) {
     return (
       <section className="auth-form" aria-labelledby="signup-check-email-title">
         <h2 id="signup-check-email-title" ref={checkEmailHeading} tabIndex={-1}>Check your email</h2>
-        <p>We requested a confirmation email for <strong>{submittedEmail}</strong>. Open it and press Continue, or enter its code below. Check spam or junk too.</p>
+        <p>Check <strong>{submittedEmail}</strong> for a link and code.</p>
         {isLikelyOrganizationEmail(submittedEmail) && <OrganizationEmailNotice onUsePersonal={() => { setSubmittedEmail(""); setEditing(true); }} />}
         <EmailCodeForm email={submittedEmail} type="signup" next={next} />
         <form action={resendAction} onSubmit={(event) => {
@@ -66,8 +66,7 @@ export function PasswordSignUpForm({ next = "/pricing" }: { next?: string }) {
           </button>
           {resendState.message && <p className={`form-message ${resendState.status}`} role={resendState.status === "error" ? "alert" : "status"}>{resendState.message}</p>}
         </form>
-        {seconds === 0 && !isLikelyOrganizationEmail(submittedEmail) && <p className="auth-fine-print">Nothing yet? Check spam or junk, or try a different email.</p>}
-        <p className="auth-fine-print">If you request another, use the newest email.</p>
+        {seconds === 0 && !isLikelyOrganizationEmail(submittedEmail) && <p className="auth-fine-print">Nothing yet? Check spam.</p>}
         <button className="button secondary" type="button" onClick={() => setEditing(true)}>Change email</button>
       </section>
     );

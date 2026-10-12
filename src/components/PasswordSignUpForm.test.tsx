@@ -30,8 +30,7 @@ describe("PasswordSignUpForm", () => {
 
     expect(await screen.findByRole("heading", { name: /check your email/i })).toBeInTheDocument();
     expect(screen.getByText("student@example.com")).toBeInTheDocument();
-    expect(screen.getByText(/spam or junk/i)).toBeInTheDocument();
-    expect(screen.getByText(/newest email/i)).toBeInTheDocument();
+    expect(screen.getByText(/for a link and code/i)).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /check your email/i })).toHaveFocus();
     expect(screen.queryByLabelText("Password")).not.toBeInTheDocument();
     expect(screen.queryByText(/confirm account/i)).not.toBeInTheDocument();
@@ -124,7 +123,7 @@ describe("PasswordSignUpForm", () => {
     await user.click(screen.getByRole("button", { name: "Create account" }));
     await screen.findByRole("heading", { name: /check your email/i });
     expect(screen.queryByRole("note")).not.toBeInTheDocument();
-    await user.type(screen.getByLabelText(/code from the email/i), "1234 5678");
+    await user.type(screen.getByLabelText("Or enter the code"), "1234 5678");
     await user.click(screen.getByRole("button", { name: "Confirm" }));
     expect([...verifyEmailCode.mock.calls[0][1].entries()]).toEqual([["email", "student@gmail.com"], ["type", "signup"], ["next", "/banks/ib-hl"], ["code", "1234 5678"]]);
     expect(await screen.findByRole("alert")).toHaveTextContent(/newest email/);
@@ -137,7 +136,7 @@ describe("PasswordSignUpForm", () => {
     await user.type(screen.getByLabelText("Password"), "three calm otters");
     await user.type(screen.getByLabelText("Confirm password"), "three calm otters");
     await user.click(screen.getByRole("button", { name: "Create account" }));
-    expect(await screen.findByRole("note")).toHaveTextContent(/school or work email/i);
+    expect(await screen.findByRole("note")).toHaveTextContent(/school email/i);
     await user.click(screen.getByRole("button", { name: "Use a personal email" }));
     expect(screen.getByLabelText("Email address")).toHaveValue("");
   });

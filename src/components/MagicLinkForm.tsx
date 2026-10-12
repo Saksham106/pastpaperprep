@@ -40,7 +40,7 @@ function CheckEmail({ email, next, onEdit, onUsePersonal }: { email: string; nex
   return (
     <section className="auth-form" aria-labelledby="magic-link-success-heading">
       <h2 id="magic-link-success-heading" ref={heading} tabIndex={-1}>Check your email</h2>
-      <p>Look for a PastPaperPrep email at <strong>{email}</strong>. Open it and press Continue, or enter its code below. Check spam or junk too.</p>
+      <p>Check <strong>{email}</strong> for a sign-in link and code.</p>
       {isLikelyOrganizationEmail(email) && <OrganizationEmailNotice onUsePersonal={onUsePersonal} />}
       <EmailCodeForm email={email} type="email" next={next} />
       <form action={action} onSubmit={resend}>
@@ -53,8 +53,7 @@ function CheckEmail({ email, next, onEdit, onUsePersonal }: { email: string; nex
       </form>
       {state.status === "error" && <p ref={alert} tabIndex={-1} className="form-message error" role="alert">{state.message}</p>}
       {state.status === "success" && <p className="form-message success" role="status">Another link was requested. Check your inbox and use the newest email.</p>}
-      {cooldown === 0 && !isLikelyOrganizationEmail(email) && <p className="auth-fine-print">Nothing yet? Check spam or junk, or try a different email.</p>}
-      <p className="auth-fine-print">If you request another, use the newest email; older links and codes stop working.</p>
+      {cooldown === 0 && !isLikelyOrganizationEmail(email) && <p className="auth-fine-print">Nothing yet? Check spam.</p>}
       <button className="auth-mode-switch" type="button" disabled={pending} onClick={onEdit}>Use a different email</button>
     </section>
   );

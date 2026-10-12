@@ -22,8 +22,7 @@ describe("email-link next step", () => {
     await submitEmail();
     expect(screen.getByRole("heading", { name: "Check your email" })).toHaveFocus();
     expect(screen.getByText("student@example.com")).toBeInTheDocument();
-    expect(screen.getByText(/spam or junk/)).toBeInTheDocument();
-    expect(screen.getByText(/newest email/)).toBeInTheDocument();
+    expect(screen.getByText(/sign-in link and code/)).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Send sign-in link" })).not.toBeInTheDocument();
     expect(screen.queryByRole("link", { name: /continue/i })).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: /resend available in/i })).toBeDisabled();
@@ -79,8 +78,8 @@ describe("email-link next step", () => {
   it("offers a typed sign-in code and a personal-email switch for school addresses", async () => {
     render(<MagicLinkForm next="/account" />);
     await submitEmail("teacher@school.example");
-    expect(screen.getByLabelText(/code from the email/i)).toHaveAttribute("autocomplete", "one-time-code");
-    expect(screen.getByRole("note")).toHaveTextContent(/school or work email/i);
+    expect(screen.getByLabelText("Or enter the code")).toHaveAttribute("autocomplete", "one-time-code");
+    expect(screen.getByRole("note")).toHaveTextContent(/school email/i);
     fireEvent.click(screen.getByRole("button", { name: "Use a personal email" }));
     expect(screen.getByLabelText("Email address")).toHaveValue("");
   });
