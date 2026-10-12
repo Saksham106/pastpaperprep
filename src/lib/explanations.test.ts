@@ -16,12 +16,12 @@ const doc = {
 
 describe("explanation paths", () => {
   it("answers per bank, so a question ID shared by AI SL and AI HL never borrows the other bank's explanation", () => {
-    // Both banks contain this question; only AI SL has a published explanation for it.
-    const sharedId = "2021-november-tz0-p1-q4";
-    expect(available["ib-ai-sl"]).toContain(sharedId);
-    expect(available["ib-ai-hl"]).not.toContain(sharedId);
-    expect(hasExplanation("ib-ai-sl", sharedId)).toBe(true);
-    expect(hasExplanation("ib-ai-hl", sharedId)).toBe(false);
+    // Both banks contain this question; AI HL publishes its explanation while AI SL's copy is held.
+    const sharedId = "2025-may-tz2-p2-q3";
+    expect(available["ib-ai-hl"]).toContain(sharedId);
+    expect(available["ib-ai-sl"]).not.toContain(sharedId);
+    expect(hasExplanation("ib-ai-hl", sharedId)).toBe(true);
+    expect(hasExplanation("ib-ai-sl", sharedId)).toBe(false);
   });
 
   it("builds R2 keys under the explanations prefix only", () => {
