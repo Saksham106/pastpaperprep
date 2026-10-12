@@ -10,6 +10,8 @@ import { bankEntryHref, hasFreeTier } from "@/lib/access";
 import { bankYearFacts } from "@/lib/upgrade-copy";
 import { formatPrice, priceForBankCount } from "@/lib/pricing-model";
 import { FAQS } from "@/components/FaqContent";
+import { TestimonialGrid } from "@/components/Testimonial";
+import { HOME_TESTIMONIALS } from "@/lib/testimonials";
 import styles from "./MarketingHome.module.css";
 
 type SubjectGroup = { name: string; tone: CourseTone; banks: Bank[] };
@@ -93,6 +95,11 @@ export function MarketingHome({ environment = process.env }: { environment?: Rec
           </article>)}
         </div>
       </div>
+    </section>
+
+    <section className={`shell ${styles.voices}`} data-home-section="testimonials" aria-labelledby="testimonials-heading">
+      <h2 className={styles.eyebrow} id="testimonials-heading">From students</h2>
+      <TestimonialGrid testimonials={HOME_TESTIMONIALS} label="What students say" />
     </section>
 
     <section className={`shell ${styles.planSection}`} data-home-section="plan" aria-labelledby="plan-heading">

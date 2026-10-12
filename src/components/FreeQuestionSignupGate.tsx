@@ -6,6 +6,8 @@ import { ANONYMOUS_FREE_QUESTION_LIMIT } from "@/lib/free-question-gate";
 import { trackProductEvent } from "@/lib/product-analytics";
 import { trackUpgrade } from "@/components/UpgradeNudges";
 import { UPGRADE_PRICE_MONTH } from "@/lib/upgrade-copy";
+import { Testimonial } from "@/components/Testimonial";
+import { SIGNUP_GATE_TESTIMONIAL } from "@/lib/testimonials";
 
 type GateProps = {
   bankSlug: string;
@@ -30,6 +32,7 @@ function GateMessage({ bankSlug, remainingCount, signupHref, signinHref, plansHr
       <p className="free-question-gate-description">
         Create a free account for the other {remainingCount.toLocaleString()} free questions. {plansLine}
       </p>
+      <Testimonial testimonial={SIGNUP_GATE_TESTIMONIAL} variant="inline" />
       <div className="free-question-gate-actions">
         <Link className="button primary" href={signupHref} onClick={() => trackProductEvent("free_gate_signup_click", eventProperties)}>
           Create free account

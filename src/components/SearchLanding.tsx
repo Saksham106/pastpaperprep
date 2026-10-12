@@ -10,6 +10,8 @@ import { JsonLd } from "@/components/JsonLd";
 import { assessmentGuideFor } from "@/lib/assessment-guides";
 import type { AssessmentPaper } from "@/lib/assessment-guides";
 import { topicLandingCopy } from "@/lib/search-landing-topic-content";
+import { Testimonial } from "@/components/Testimonial";
+import { TOPIC_TESTIMONIAL } from "@/lib/testimonials";
 import {
   courseOverview,
   officialQualificationSource,
@@ -174,6 +176,7 @@ export function SearchDetail({ bank, eyebrow, title, kind, label, canonicalPath,
       </header>
       {stats.breakdown.length ? <p className="detail-breakdown"><strong>{kind === "topic" ? "Appears in" : "Most-tested topics"}</strong>{stats.breakdown.map((item) => <span key={item.label}>{item.label} <small>{item.count.toLocaleString()}</small></span>)}</p> : null}
       {children}
+      {kind === "topic" && <Testimonial testimonial={TOPIC_TESTIMONIAL} variant="inline" />}
       {bank.slug === "igcse-chemistry-0620" && kind === "topic" && label === "Stoichiometry" && <p className="access-footnote">Need more revision context? Read our <Link transitionTypes={PAGE_NAVIGATION} href="/articles/best-igcse-chemistry-0620-question-banks">IGCSE Chemistry 0620 question-bank guide</Link>.</p>}
       {related.length ? <nav className="detail-related" aria-label={`More ${bank.shortName} practice`}><h2>More {bank.shortName} {kind === "topic" ? "topics" : "papers"}</h2><div className="paper-link-grid">{related.map((item) => <Link transitionTypes={PAGE_NAVIGATION} key={item.href} href={item.href}>{kind === "topic" ? <Target aria-hidden="true" /> : <FileText aria-hidden="true" />}<span><strong>{item.label}</strong><small>{item.count.toLocaleString()} questions</small></span><ArrowRight weight="bold" /></Link>)}</div><Link transitionTypes={PAGE_NAVIGATION} className="text-button" href={`/syllabus/${bank.slug}`}>Read the {bank.shortName} syllabus guide <ArrowRight weight="bold" /></Link></nav> : null}
     </div>

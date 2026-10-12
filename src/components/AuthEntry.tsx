@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { PasswordSignUpForm } from "@/components/PasswordSignUpForm";
 import { SignInMethods } from "@/components/SignInMethods";
+import { Testimonial } from "@/components/Testimonial";
+import { SIGNUP_TESTIMONIAL } from "@/lib/testimonials";
 
 type AuthMode = "sign-in" | "sign-up";
 
@@ -25,6 +27,7 @@ export function AuthEntry({ next, hasLinkError = false, initialMode = "sign-in" 
       <p>{signingIn
         ? "Your saved questions, filters, and progress are waiting."
         : "Save questions, track progress, and keep your revision in one place."}</p>
+      {!signingIn && <Testimonial testimonial={SIGNUP_TESTIMONIAL} variant="inline" />}
 
       {signingIn && hasLinkError && (
         <p className="form-message error auth-link-error" role="alert">
