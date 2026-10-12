@@ -9,8 +9,12 @@ vi.mock("@/lib/supabase/server", () => ({ createClient: async () => ({
 vi.mock("@/app/auth/actions", () => ({ signOut: vi.fn() }));
 vi.mock("next/navigation", () => ({ redirect: vi.fn() }));
 vi.mock("@/components/DashboardContent", () => ({ DashboardContent: () => <div>Normal dashboard</div> }));
+vi.mock("@/components/AccountBillingHub", () => ({ AccountBillingHub: () => <div>Normal billing</div> }));
+vi.mock("@/components/PaperBuilder", () => ({ PaperBuilder: () => <div>Normal builder</div> }));
 import DashboardPage from "@/app/dashboard/page";
 import AccountPage from "@/app/account/page";
+import BillingPage from "@/app/account/billing/page";
+import BuildPage from "@/app/worksheets/build/page";
 const futureJwt = { code: "PGRST303", message: "JWT issued at future" };
 beforeEach(() => {
   mocks.capture.mockReset();
@@ -19,10 +23,17 @@ beforeEach(() => {
   mocks.rpc.mockReset().mockResolvedValue({ data: [], error: null });
 });
 afterEach(() => vi.useRealTimers());
+const NORMAL: Record<string, string> = {
+  "dashboard": "Normal dashboard", "account": "Your access and security.",
+  "account/billing": "Normal billing", "worksheets/build": "Normal builder",
+};
 describe.each([
-  ["dashboard", () => DashboardPage()],
-  ["account", () => AccountPage({ searchParams: Promise.resolve({ checkout: "success" }) })],
-] as const)("%s access recovery", (route, page) => {
+  ["dashboard", "/dashboard", () => DashboardPage()],
+  ["account", "/account", () => AccountPage({ searchParams: Promise.resolve({ checkout: "success" }) })],
+  ["account/billing", "/account/billing", () => BillingPage()],
+  // The retry keeps the requested bank so the builder reopens where the student was.
+  ["worksheets/build", "/worksheets/build?bank=ib-economics-hl", () => BuildPage({ searchParams: Promise.resolve({ bank: "ib-economics-hl" }) })],
+] as const)("%s access recovery", (route, retryPath, page) => {
   it("shows only manual recovery after the real read retry budget is exhausted", async () => {
     vi.useFakeTimers();
     const pending = page();
@@ -33,9 +44,9 @@ describe.each([
     expect(result.error).toBeNull();
     const html = renderToStaticMarkup(result.value);
     expect(html).toContain("We couldn&#x27;t check your access");
-    expect(html).toContain(`href="/${route}"`);
+    expect(html).toContain(`href="${retryPath}"`);
     expect(html).toContain("Try again");
-    expect(html).not.toMatch(/Checkout|Finishing your plan|Normal dashboard|unpaid|Upgrade|student@example.com/);
+    expect(html).not.toMatch(/Checkout|Finishing your plan|Normal (?:dashboard|billing|builder)|unpaid|Upgrade|student@example.com/);
     expect(mocks.query).toHaveBeenCalledTimes(3);
     expect(mocks.rpc).toHaveBeenCalledTimes(3);
     expect(mocks.capture).toHaveBeenCalledExactlyOnceWith(expect.any(Error), {
@@ -75,7 +86,7 @@ describe.each([
     const pending = page();
     await vi.runAllTimersAsync();
     const html = renderToStaticMarkup(await pending);
-    expect(html).toContain(route === "dashboard" ? "Normal dashboard" : "Your access and security.");
+    expect(html).toContain(NORMAL[route]);
     expect(html).not.toContain("We couldn&#x27;t check your access");
     expect(mocks.query).toHaveBeenCalledTimes(2);
     expect(mocks.capture).not.toHaveBeenCalled();
@@ -85,6 +96,6 @@ describe.each([
     mocks.query.mockResolvedValue({ data: [], error: null });
     const html = renderToStaticMarkup(await page());
     expect(html).not.toContain("We couldn&#x27;t check your access");
-    expect(html).toContain(route === "dashboard" ? "Normal dashboard" : "Your access and security.");
+    expect(html).toContain(NORMAL[route]);
   });
 });

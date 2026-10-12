@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { AccessReadRecovery } from "@/components/AccessReadRecovery";
 import { PaperBuilder } from "@/components/PaperBuilder";
 import { hasBankAccess } from "@/lib/access";
 import { getAvailableBanks, type BankSlug } from "@/lib/banks";
 import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
+import { isFutureIssuedJwtError } from "@/lib/access-recovery";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { publicBankIndexUrl } from "@/lib/question-index";
+import { captureServerException } from "@/lib/server-error-tracking";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = { title: "Build a paper", robots: { index: false, follow: false } };
@@ -19,7 +22,16 @@ export default async function BuildPage({ searchParams }: { searchParams: Promis
   const userId = data?.claims?.sub;
   if (typeof userId !== "string") redirect(`/login?next=${encodeURIComponent(`/worksheets/build${requestedBank ? `?bank=${requestedBank}` : ""}`)}`);
   const access = await fetchAccessEntitlements(supabase as never, userId);
-  if (access.error) throw access.error;
+  if (access.error) {
+    if (isFutureIssuedJwtError(access.error)) {
+      captureServerException(new Error("Access verification failed"), {
+        route: "/worksheets/build", route_type: "render", stage: "entitlement",
+        storage_provider: "supabase", error_code: "PGRST303",
+      });
+      return <AccessReadRecovery retryPath={requestedBank ? `/worksheets/build?bank=${requestedBank}` : "/worksheets/build"} />;
+    }
+    throw access.error;
+  }
   const banks = getAvailableBanks()
     .filter((bank) => hasBankAccess(bank.slug, access.rows as never) && bank.slug in PUBLIC_BANK_INDEX_FILES)
     .map((bank) => ({ slug: bank.slug, label: bank.shortName, indexUrl: publicBankIndexUrl(bank.slug) }));

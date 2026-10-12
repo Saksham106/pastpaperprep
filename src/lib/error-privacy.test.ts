@@ -1,5 +1,16 @@
 import { describe, expect, it } from "vitest";
-import { scrubStack } from "./error-privacy";
+import { boundExceptionFrames, scrubStack } from "./error-privacy";
+
+describe("boundExceptionFrames", () => {
+  it("keeps the posthog-js frame platform, which PostHog needs to group and symbolicate", () => {
+    const [frame] = boundExceptionFrames([{ filename: "https://pastpaperprep.com/_next/static/immutable/chunks/2-1lhd-k82oxe.js", lineno: 1, colno: 3739, platform: "web:javascript", function: "O" }]);
+    expect(frame.platform).toBe("web:javascript");
+  });
+  it("still drops a platform that is not a plain identifier", () => {
+    const [frame] = boundExceptionFrames([{ filename: "https://pastpaperprep.com/_next/static/immutable/chunks/2-1lhd-k82oxe.js", platform: "web:javascript user@example.com" }]);
+    expect(frame.platform).toBeUndefined();
+  });
+});
 
 describe("real browser and server frame formats", () => {
   it("retains the immutable chunk prefix served by the actual Vercel build", () => {

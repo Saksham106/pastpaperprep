@@ -1,5 +1,5 @@
 /** A deliberate full page navigation re-runs the RLS reads; no automatic refresh. */
-export function AccessReadRecovery({ retryPath }: { retryPath: "/account" | "/dashboard" }) {
+export function AccessReadRecovery({ retryPath }: { retryPath: "/account" | "/dashboard" | "/account/billing" | `/worksheets/build${"" | `?bank=${string}`}` }) {
   return (
     <section className="auth-page shell">
       <article className="auth-card">
