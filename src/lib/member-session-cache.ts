@@ -3,9 +3,9 @@ import { isSignedAssetFresh, type SignedAsset } from "@/lib/signed-assets";
 
 /**
  * Per-tab memory that lets a signed-in member skip waiting on work this tab already did.
- * Both caches belong to one login session (a fingerprint of the Supabase auth cookie), so a
- * sign-out or a different account never sees them. They are hints only: the server still
- * checks access on every paid request.
+ * Both caches belong to one document-lifetime generation of the exact Supabase auth-cookie
+ * snapshot, so sign-out, token changes, or a different account never reuse them. They are
+ * hints only: the server still checks access on every paid request.
  */
 
 export type MemberAccess = { authenticated: boolean; bankAccess: boolean; canExportPdf: boolean };
@@ -15,15 +15,33 @@ export const ACCESS_CACHE_TTL_MS = 30 * 60 * 1000;
 const ACCESS_KEY = (bank: string) => `ppp:member-access:${bank}`;
 const MAX_REMEMBERED_ASSETS = 600;
 
-/** FNV-1a over the session's auth cookies; changes with the account (and on token refresh). */
+// Exact cookie identity lives only in this module's RAM, never in storage.
+let sessionSnapshot: string | undefined;
+let sessionOwner: string | null = null;
+
+/**
+ * Opaque document-lifetime cache generation, NOT a JWT or authentication authority.
+ * Equivalent cookie orderings retain the generation; token changes rotate it.
+ * A hard reload intentionally cold-misses persisted access flags.
+ */
 export function sessionFingerprint(cookieHeader: string): string | null {
   const parts = cookieHeader.split(";").map((part) => part.trim())
     .filter((part) => isSupabaseAuthCookieName(part.split("=")[0] ?? ""))
     .sort();
-  if (!parts.length) return null;
-  let hash = 0x811c9dc5;
-  for (const char of parts.join(";")) hash = Math.imul(hash ^ char.charCodeAt(0), 0x01000193);
-  return (hash >>> 0).toString(16);
+  const names = parts.map((part) => part.split("=")[0]);
+  const ambiguous = new Set(names).size !== names.length;
+  const snapshot = JSON.stringify(parts);
+  if (snapshot !== sessionSnapshot) {
+    sessionSnapshot = snapshot;
+    sessionOwner = null;
+    if (parts.length && !ambiguous) {
+      try { sessionOwner = crypto.randomUUID().replaceAll("-", ""); }
+      catch { /* No platform randomness: disable reuse, never fall back to a cookie hash. */ }
+    }
+    assets.clear();
+    assetOwner = null;
+  }
+  return sessionOwner;
 }
 
 function validAccess(value: unknown): value is MemberAccess {
@@ -34,6 +52,7 @@ function validAccess(value: unknown): value is MemberAccess {
 
 /** Access flags only (no question data, no links), kept for this tab and bank. */
 export function readCachedAccess(bank: string, owner: string): CachedMemberAccess | null {
+  if (owner !== sessionOwner) return null;
   try {
     const stored = JSON.parse(sessionStorage.getItem(ACCESS_KEY(bank)) ?? "null") as Record<string, unknown> | null;
     if (!stored || stored.owner !== owner || typeof stored.savedAt !== "number") return null;
@@ -46,6 +65,7 @@ export function readCachedAccess(bank: string, owner: string): CachedMemberAcces
 }
 
 export function writeCachedAccess(bank: string, owner: string, value: CachedMemberAccess): void {
+  if (owner !== sessionOwner) return;
   try {
     sessionStorage.setItem(ACCESS_KEY(bank), JSON.stringify({ owner, savedAt: Date.now(), ...value }));
   } catch { /* storage unavailable: just slower next time */ }
@@ -55,15 +75,22 @@ export function writeCachedAccess(bank: string, owner: string, value: CachedMemb
 let assetOwner: string | null = null;
 const assets = new Map<string, SignedAsset>();
 
+function isCurrentOwner(owner: string): boolean {
+  return owner === sessionOwner || (owner === "anonymous" && sessionSnapshot === "[]");
+}
+
 function adoptOwner(owner: string) {
   if (assetOwner === owner) return;
   assets.clear();
   assetOwner = owner;
 }
 
-export function rememberAssets(owner: string, bank: string, signed: ReadonlyMap<string, SignedAsset>): void {
+/** Anonymous writes require IDs confirmed free by the caller's route data, not auth authority. */
+export function rememberAssets(owner: string, bank: string, signed: ReadonlyMap<string, SignedAsset>, freeQuestionIds?: ReadonlySet<string>): void {
+  if (!isCurrentOwner(owner)) return;
   adoptOwner(owner);
   for (const [key, asset] of signed) {
+    if (owner === "anonymous" && !freeQuestionIds?.has(asset.questionId)) continue;
     const cacheKey = `${bank}|${key}`;
     assets.delete(cacheKey);
     assets.set(cacheKey, asset);
@@ -73,6 +100,7 @@ export function rememberAssets(owner: string, bank: string, signed: ReadonlyMap<
 
 /** Still-valid links this session signed for the bank, keyed like signedAssetKey. */
 export function readCachedAssets(owner: string, bank: string): Map<string, SignedAsset> {
+  if (!isCurrentOwner(owner)) return new Map();
   adoptOwner(owner);
   const prefix = `${bank}|`;
   const fresh = new Map<string, SignedAsset>();
@@ -85,11 +113,16 @@ export function readCachedAssets(owner: string, bank: string): Map<string, Signe
 }
 
 /** A link that failed to load must be re-signed, not reused. */
-export function forgetAsset(bank: string, key: string): void {
+export function forgetAsset(bank: string, key: string, expectedOwner?: string): void {
+  if (expectedOwner !== undefined && !isCurrentOwner(expectedOwner)) return;
   assets.delete(`${bank}|${key}`);
 }
 
-export function clearMemberCaches(): void {
+/** Pass a captured owner for async failures; omit only for an intentional global clear. */
+export function clearMemberCaches(expectedOwner?: string): void {
+  if (expectedOwner !== undefined && !isCurrentOwner(expectedOwner)) return;
+  sessionSnapshot = undefined;
+  sessionOwner = null;
   assets.clear();
   assetOwner = null;
   try {
