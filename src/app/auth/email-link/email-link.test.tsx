@@ -75,6 +75,13 @@ describe("scanner-safe magic-link handoff", () => {
     expect(renderToStaticMarkup(safeFallback)).toContain('name="next" value="/pricing"');
   });
 
+  it.each(["magic-link", "confirm-sign-up"])("%s template teaches both redemption options and newest-email guidance", (name) => {
+    const template = readFileSync(resolve(process.cwd(), `supabase/templates/${name}.html`), "utf8");
+    expect(template).toContain("then press Continue");
+    expect(template).toContain("Use the newest email");
+    expect(template).toContain("{{ .Token }}");
+  });
+
   it("uses scanner-safe token hash handoffs for both login and signup emails", () => {
     const magicLinkTemplate = readFileSync(resolve(process.cwd(), "supabase/templates/magic-link.html"), "utf8");
     expect(magicLinkTemplate).toContain("{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email");
