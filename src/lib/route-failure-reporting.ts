@@ -1,5 +1,6 @@
 import "server-only";
 import { captureServerException } from "@/lib/server-error-tracking";
+import { serverLog } from "@/lib/server-logs";
 
 export type FailureDiagnostics = {
   bank: string;
@@ -16,19 +17,38 @@ export function annotateFailureResponse<T extends Response>(response: T, metadat
   return response;
 }
 
-/** Thrown failures propagate to onRequestError. Returned failures are reported once, without reading their bodies. */
-export function withFailureReporting<Args extends unknown[]>(route: string, handler: (...args: Args) => Promise<Response>) {
-  return async (...args: Args): Promise<Response> => {
-    const response = await handler(...args);
+/**
+ * Logs every request (route pattern, method, status, duration) to PostHog Logs and reports
+ * returned 5xx failures once, without reading their bodies. A reported failure carries its
+ * correlation id in `x-correlation-id`, so the browser's failure event points at it.
+ * Thrown failures propagate to onRequestError.
+ */
+export function withFailureReporting<Args extends unknown[], R extends Response>(route: string, handler: (...args: Args) => Promise<R>) {
+  return async (...args: Args): Promise<R> => {
+    const started = performance.now();
+    const method = args[0] instanceof Request ? args[0].method : undefined;
+    let response: R;
+    try { response = await handler(...args); }
+    catch (error) {
+      serverLog("error", "api_request", { route, method, status: 500, duration_ms: Math.round(performance.now() - started), outcome: "thrown" });
+      throw error;
+    }
+    let correlationId: string | undefined;
     if (response.status >= 500 && !reported.has(response)) {
       reported.add(response);
       try {
-        captureServerException(new Error("Handled server failure"), {
+        correlationId = captureServerException(new Error("Handled server failure"), {
           error_source: "handled_response", route, http_status: String(response.status),
           error_code: "response_failed", ...diagnostics.get(response),
         });
-      } catch { /* Telemetry must never change the response. */ }
+        if (correlationId) response.headers.set("x-correlation-id", correlationId);
+      } catch { /* Telemetry must never change the response; immutable headers stay as they are. */ }
     }
+    const failure = diagnostics.get(response);
+    serverLog(response.status >= 500 ? "error" : response.status >= 400 ? "warn" : "info", "api_request", {
+      route, method, status: response.status, duration_ms: Math.round(performance.now() - started),
+      correlation_id: correlationId, bank: failure?.bank, stage: failure?.stage, storage_provider: failure?.storage_provider,
+    });
     return response;
   };
 }

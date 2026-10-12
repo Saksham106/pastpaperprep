@@ -253,23 +253,6 @@ describe("PostHog product analytics", () => {
     });
   });
 
-  it("scrubs browser error telemetry to a bounded category and URL-free stack frames", async () => {
-    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
-    const { initializeProductAnalytics, captureBrowserError } = await import("@/lib/product-analytics");
-    initializeProductAnalytics();
-    captureBrowserError({
-      name: "TypeError",
-      filename: "https://example.test/_next/static/chunks/app.js?token=secret#hash",
-      lineno: 12,
-      colno: 34,
-    });
-    await vi.waitFor(() => expect(posthog.capture).toHaveBeenCalledWith("browser_error", {
-      category: "TypeError",
-      frame: "app.js:12:34",
-    }));
-    expect(JSON.stringify(posthog.capture.mock.calls)).not.toContain("secret");
-  });
-
   it("removes query strings and auth fragments before events leave the browser", async () => {
     const { sanitizeAnalyticsEvent } = await import("@/lib/product-analytics");
     const result = sanitizeAnalyticsEvent({ event: "$pageview", properties: {
@@ -284,13 +267,9 @@ describe("PostHog product analytics", () => {
     });
   });
 
-  it("drops invalid analytics URLs and arbitrary error names", async () => {
-    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
-    const { sanitizeAnalyticsEvent, captureBrowserError, initializeProductAnalytics } = await import("@/lib/product-analytics");
-    await initializeProductAnalytics();
+  it("drops invalid analytics URLs", async () => {
+    const { sanitizeAnalyticsEvent } = await import("@/lib/product-analytics");
     expect(sanitizeAnalyticsEvent({ properties: { $current_url: "javascript:private", count: 2 } })?.properties).toEqual({ count: 2 });
-    captureBrowserError({ name: "PrivateCustomerNameError", filename: "https://example.test/alice.email.js?token=private" });
-    await vi.waitFor(() => expect(posthog.capture).toHaveBeenCalledWith("browser_error", { category: "UnhandledError", frame: "" }));
   });
 
   it("scrubs nested Web Vitals navigation and resource URLs", async () => {
@@ -311,7 +290,9 @@ describe("PostHog product analytics", () => {
     }] } });
     expect(JSON.stringify(result)).not.toMatch(/alice|hunter2|secret|page\\?/);
     expect(JSON.stringify(result)).toContain("https://app.test/_next/static/chunks/app.js");
-    expect(result?.properties.$exception_list).toBeDefined();
+    expect(result?.properties.$exception_message).toBeUndefined();
+    // The exception's own value is kept, scrubbed, so PostHog can title the issue.
+    expect((result?.properties.$exception_list as Array<{ value?: string }>)[0].value).toBe("failed for <email> password=<value>");
   });
 
   it("rejects sensitive static paths and caps structured exception frames", async () => {
@@ -334,10 +315,21 @@ describe("PostHog product analytics", () => {
     captureAppException(error);
     await vi.waitFor(() => expect(posthog.captureException).toHaveBeenCalledTimes(1));
     const captured = posthog.captureException.mock.calls[0][0] as Error;
-    expect(captured.message).toBe("Application exception");
+    expect(captured.message).toBe("account <email> token=<value>");
     expect(captured.stack).not.toMatch(/alice|secret|access_token/);
     expect(captured.stack).toContain("/_next/static/chunks/app.js");
     expect(captured.stack).toContain(":2:3");
+  });
+
+  it("keeps a React production error's code and links a server render digest", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    const { initializeProductAnalytics, captureAppException } = await import("@/lib/product-analytics");
+    await initializeProductAnalytics();
+    captureAppException(Object.assign(new Error("Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]=Alice"), { digest: "2918384837" }));
+    await vi.waitFor(() => expect(posthog.captureException).toHaveBeenCalledTimes(1));
+    const [captured, properties] = posthog.captureException.mock.calls[0] as [Error, Record<string, string>];
+    expect(captured.message).toBe("React error #418");
+    expect(properties).toEqual({ digest: "2918384837" });
   });
 
   it("does not capture expected Next control-flow exceptions", async () => {

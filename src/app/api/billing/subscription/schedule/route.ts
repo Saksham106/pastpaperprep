@@ -7,6 +7,7 @@ import { createStripeClient } from "@/lib/stripe";
 import { getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 export const runtime = "nodejs";
 const headers = { "Cache-Control": "private, no-store, max-age=0", "Referrer-Policy": "no-referrer" };
 const json = (body: unknown, status = 200) => NextResponse.json(body, { status, headers });
@@ -15,7 +16,7 @@ const customerOf = (x: string | { id: string }) => typeof x === "string" ? x : x
 const sameMetadata = (actual: Record<string, string> | null | undefined, expected: Record<string, string>) =>
   !!actual && JSON.stringify(Object.entries(actual).sort(([a], [b]) => a.localeCompare(b))) === JSON.stringify(Object.entries(expected).sort(([a], [b]) => a.localeCompare(b)));
 const priceId = (price: string | { id: string }) => typeof price === "string" ? price : price.id;
-export async function POST(request: Request) {
+async function handlePOST(request: Request) {
   if (request.headers.get("origin") !== new URL(request.url).origin) return json({ error: "Origin not allowed" }, 403);
   if (process.env.STRIPE_PLAN_EDITOR_ENABLED !== "true") return json({ error: "Plan scheduling is unavailable" }, 404);
   const supabase = await createClient(); const { data: { user } } = await supabase.auth.getUser();
@@ -99,3 +100,5 @@ export async function POST(request: Request) {
     console.error("Stripe subscription schedule failed",error instanceof Error?{name:error.name,message:error.message}:{type:typeof error}); return json({error:"Subscription scheduling is temporarily unavailable"},503);
   }
 }
+
+export const POST = withFailureReporting("/api/billing/subscription/schedule", handlePOST);

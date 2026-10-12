@@ -1,4 +1,6 @@
 import { isFutureIssuedJwtError } from "@/lib/access-recovery";
+import { safeServerErrorCode } from "@/lib/safe-server-error-code";
+import { serverLog } from "@/lib/server-logs";
 import type { AccessEntitlement } from "@/lib/access";
 import { normalizeEntitlements } from "@/lib/entitlements";
 
@@ -50,9 +52,13 @@ export async function fetchAccessEntitlements(client: {
     if (errors.length) {
       const futureJwt = errors.every(isFutureIssuedJwtError);
       if (futureJwt && attempt < delays.length) {
+        // Logged even when a later attempt succeeds: how often Supabase's clock bug bites.
+        serverLog("warn", "entitlement_read_retry", { attempt: attempt + 1, error_code: "PGRST303" });
         await new Promise((resolve) => setTimeout(resolve, delays[attempt]));
         continue;
       }
+      const code = errors.map((error) => safeServerErrorCode((error as { code?: unknown } | null)?.code)).find(Boolean);
+      serverLog("error", "entitlement_read_failed", { attempts: attempt + 1, error_code: code ?? "other" });
       // Preserve an unrelated parallel failure rather than disguising it as
       // the recoverable clock error on the page.
       return { rows: [], error: errors.find((error) => !isFutureIssuedJwtError(error)) ?? errors[0] };
@@ -60,6 +66,7 @@ export async function fetchAccessEntitlements(client: {
     if (!Array.isArray(entitlements.data) || !Array.isArray(customBundles.data)) {
       return { rows: [], error: new Error("Invalid billing access response") };
     }
+    if (attempt > 0) serverLog("info", "entitlement_read_recovered", { attempts: attempt + 1 });
     return { rows: mergeCustomBundleAccess(entitlements.data, customBundles.data), error: null };
   }
 }

@@ -1,5 +1,32 @@
 import { describe, expect, it } from "vitest";
-import { boundExceptionFrames, scrubStack } from "./error-privacy";
+import { boundExceptionFrames, safeErrorMessage, scrubStack } from "./error-privacy";
+
+describe("safeErrorMessage", () => {
+  it("keeps only the code of a production React error, whose args can carry rendered text", () => {
+    expect(safeErrorMessage("Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]=Alice for the full message")).toBe("React error #418");
+  });
+  it("keeps ordinary diagnostic messages, including code identifiers in quotes", () => {
+    expect(safeErrorMessage("Cannot read properties of undefined (reading 'questionAssetPaths')")).toBe("Cannot read properties of undefined (reading 'questionAssetPaths')");
+    expect(safeErrorMessage("Failed to fetch")).toBe("Failed to fetch");
+    expect(safeErrorMessage("JWT issued at future")).toBe("JWT issued at future");
+  });
+  it("redacts emails, URLs, ids, key=value secrets, long numbers, tokens and free text in quotes", () => {
+    const safe = safeErrorMessage("account alice@example.com token=secret at https://pastpaperprep.com/r/abc?x=1 user 7f1b6a2e-0000-4000-8000-000000000000 card 4242424242424242 jwt eyJhbGciOiJIUzI1NiIsInR5cCI6 said \"my name is Alice Smith\"");
+    expect(safe).toBe("account <email> token=<value> at <url> user <id> card <n> jwt <token> said \"<text>\"");
+  });
+  it("redacts Stripe object ids and Postgres key values, which look like identifiers", () => {
+    expect(safeErrorMessage("No such customer: 'cus_NffrFeUfNV2Hib'")).toBe("No such customer: '<stripe-id>'");
+    expect(safeErrorMessage("Key (display_name)=(Alice Smith) already exists.")).toBe("Key (display_name)=(<value>) already exists.");
+  });
+  it("drops non-ASCII text and bounds the length", () => {
+    expect(safeErrorMessage("Ошибка for Zoë")).toBe("... for Zo...");
+    expect(safeErrorMessage(`x ${"word ".repeat(100)}`)!.length).toBeLessThanOrEqual(200);
+  });
+  it("rejects non-strings and empty messages", () => {
+    expect(safeErrorMessage(undefined)).toBeUndefined();
+    expect(safeErrorMessage("   ")).toBeUndefined();
+  });
+});
 
 describe("boundExceptionFrames", () => {
   it("keeps the posthog-js frame platform, which PostHog needs to group and symbolicate", () => {

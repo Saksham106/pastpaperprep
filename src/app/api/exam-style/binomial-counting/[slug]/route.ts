@@ -3,11 +3,12 @@ import { join } from "node:path";
 import { NextResponse } from "next/server";
 import { getExamStyleBinomialCountingSet } from "@/lib/exam-style-binomial-counting";
 import { createClient } from "@/lib/supabase/server";
+import { withFailureReporting } from "@/lib/route-failure-reporting";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function GET(_request: Request, { params }: { params: Promise<{ slug: string }> }) {
+async function handleGET(_request: Request, { params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const set = getExamStyleBinomialCountingSet(slug);
   if (!set) return NextResponse.json({ error: "Practice set not found" }, { status: 404 });
@@ -26,3 +27,5 @@ export async function GET(_request: Request, { params }: { params: Promise<{ slu
     return NextResponse.json({ error: "Practice set temporarily unavailable" }, { status: 503, headers: { "Cache-Control": "private, no-store, max-age=0" } });
   }
 }
+
+export const GET = withFailureReporting("/api/exam-style/binomial-counting/[slug]", handleGET);

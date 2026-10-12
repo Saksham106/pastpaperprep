@@ -1,11 +1,15 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
+
+const serverLog = vi.hoisted(() => vi.fn());
+vi.mock("@/lib/server-logs", () => ({ serverLog }));
+
 import { fetchAccessEntitlements, mergeCustomBundleAccess } from "@/lib/custom-bundle-access";
 
 const row = (product_id: string, source: string | null, overrides: Record<string, unknown> = {}) => ({
   product_id, source, status: "active", starts_at: "2026-01-01T00:00:00Z", expires_at: "2026-12-01T00:00:00Z", ...overrides,
 });
 
-afterEach(() => vi.useRealTimers());
+afterEach(() => { vi.useRealTimers(); serverLog.mockReset(); });
 
 describe("per-subscription custom bundle access", () => {
   it("retries only transient future-issued JWT failures before showing access", async () => {
@@ -20,6 +24,11 @@ describe("per-subscription custom bundle access", () => {
     expect(result.rows).toHaveLength(1);
     expect(query).toHaveBeenCalledTimes(2);
     expect(rpc).toHaveBeenCalledTimes(2);
+    // Recovered retries are invisible to the page, so they are logged.
+    expect(serverLog.mock.calls).toEqual([
+      ["warn", "entitlement_read_retry", { attempt: 1, error_code: "PGRST303" }],
+      ["info", "entitlement_read_recovered", { attempts: 2 }],
+    ]);
   });
 
   it("recovers on the final allowed attempt when both reads initially reject the JWT", async () => {
@@ -100,6 +109,7 @@ describe("per-subscription custom bundle access", () => {
     await vi.runAllTimersAsync();
     expect(await promise).toEqual({ rows: [], error: futureJwt });
     expect(query).toHaveBeenCalledTimes(3);
+    expect(serverLog).toHaveBeenLastCalledWith("error", "entitlement_read_failed", { attempts: 3, error_code: "PGRST303" });
   });
 
   it("does not retry an unrelated error when another parallel query has a future-issued JWT", async () => {
