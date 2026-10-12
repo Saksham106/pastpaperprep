@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { ArrowsOut, CaretLeft, CaretRight, DownloadSimple, SlidersHorizontal } from "@phosphor-icons/react/dist/ssr";
 import type { PDFDocumentProxy } from "pdfjs-dist";
 import { PaperAttemptTimer } from "./PaperAttemptTimer";
 import { PastPaperPdfPage } from "./PastPaperPdfPage";
@@ -11,15 +11,16 @@ import styles from "./PastPaperReader.module.css";
 export type { PaperReaderConfig } from "../lib/paper-reader-config";
 import { DEFAULT_PAPER_READER_CONFIG, type PaperReaderConfig } from "../lib/paper-reader-config";
 
-export function PastPaperReader({ paper = DEFAULT_PAPER_READER_CONFIG }: { paper?: PaperReaderConfig }) {
-  return <PastPaperReaderSession key={paper.id} paper={paper} />;
+export type PaperDocumentKind = "question" | "markscheme";
+type ReaderProps = { paper?: PaperReaderConfig; kind?: PaperDocumentKind; onKindChange?: (kind: PaperDocumentKind) => void; analyticsBank?: string };
+
+/** The PDF viewer: one toolbar row and the page stage. Page identity, facts and links live in the page around it.
+ * Pass `kind` + `onKindChange` to let a parent (the marking workspace) choose the document. */
+export function PastPaperReader({ paper = DEFAULT_PAPER_READER_CONFIG, ...rest }: ReaderProps) {
+  return <PastPaperReaderSession key={paper.id} paper={paper} {...rest} />;
 }
 
-function PastPaperReaderSession({ paper }: { paper: PaperReaderConfig }) {
-  const hours = paper.durationMinutes === null ? 0 : Math.floor(paper.durationMinutes / 60);
-  const minutes = paper.durationMinutes === null ? 0 : paper.durationMinutes % 60;
-  const duration = paper.durationMinutes === null ? 'Duration unverified' : [hours ? `${hours} hour${hours === 1 ? "" : "s"}` : "", minutes ? `${minutes} minute${minutes === 1 ? "" : "s"}` : ""].filter(Boolean).join(" ");
-  const componentLabel = `${paper.component}${paper.variant ? (/^\d$/.test(paper.variant) && paper.qualification === 'Cambridge IGCSE' ? paper.variant : ` · ${paper.variant}`) : ''}`;
+function PastPaperReaderSession({ paper, kind: controlledKind, onKindChange, analyticsBank }: ReaderProps & { paper: PaperReaderConfig }) {
   const [focused, setFocused] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const focusButton = useRef<HTMLButtonElement>(null);
@@ -43,7 +44,8 @@ function PastPaperReaderSession({ paper }: { paper: PaperReaderConfig }) {
   }, [focused]);
   const [loaded, setLoaded] = useState<{ src: string; retry: number; pdf: PDFDocumentProxy | null; error: boolean } | null>(null);
   const [retry, setRetry] = useState(0);
-  const [kind, setKind] = useState<"question" | "markscheme">("question");
+  const [ownKind, setOwnKind] = useState<PaperDocumentKind>("question");
+  const kind = controlledKind ?? ownKind;
   const title = kind === "question" ? "Question paper" : "Mark scheme";
   const src = paper.sources[kind];
   const current = loaded?.src === src && loaded.retry === retry ? loaded : null;
@@ -59,7 +61,9 @@ function PastPaperReaderSession({ paper }: { paper: PaperReaderConfig }) {
   const pageNumber = Math.min(positions[kind], pdf?.numPages || positions[kind]);
   const draft = editing.kind === kind && editing.page === pageNumber ? editing.value : String(pageNumber);
   function selectDocument(next: "question" | "markscheme") {
-    if (next !== kind) { setKind(next); setRetry(value => value + 1); }
+    if (next === kind) return;
+    if (onKindChange) onKindChange(next); else setOwnKind(next);
+    setRetry(value => value + 1);
   }
   function goTo(value: number) {
     const next = Math.max(1, Math.min(pdf?.numPages || 1, Number.isFinite(value) ? Math.trunc(value) : pageNumber));
@@ -114,45 +118,39 @@ function PastPaperReaderSession({ paper }: { paper: PaperReaderConfig }) {
     return () => observer.disconnect();
   }, [pdf, kind, mode]);
   return <article className={styles.reader}>
-    <nav aria-label="Breadcrumb" className={styles.breadcrumb}><Link href="/">Home</Link><span aria-hidden="true">/</span>{paper.archiveHref ? <Link href={paper.archiveHref}>Past papers</Link> : <span>Past papers</span>}<span aria-hidden="true">/</span><span>{paper.qualification}</span></nav>
-    <header className={styles.header}>
-      <p className={styles.eyebrow}>{paper.qualification} <span>{paper.syllabusCode}</span></p>
-      <h1>{paper.subject}</h1>
-      <div className={styles.identity}><strong>{paper.sessionLabel}</strong><span>Paper {componentLabel}</span><span className={styles.paperName}>{paper.paperName}</span></div>
-    </header>
-    <div className={styles.layout}>
-      <dialog ref={dialogRef} open aria-label={focused ? `${paper.title} · Focus view` : "Paper reader"} aria-modal={focused ? true : undefined} className={`${styles.viewer} ${focused ? styles.focused : ""}`} onCancel={event => { event.preventDefault(); setFocused(false); }} onKeyDown={event => { if (event.key === "Escape" && focused) { event.preventDefault(); setFocused(false); } }}>
-        {focused && <div className={styles.focusHeading}><span>{paper.subject} · Paper {componentLabel}</span><button type="button" ref={exitButton} onClick={() => setFocused(false)}>Exit focus view</button></div>}
-        <div className={styles.documentHeading}><div role="tablist" aria-label="Document">{(["question", "markscheme"] as const).map(type => <button key={type} id={`paper-tab-${type}`} role="tab" aria-selected={kind === type} aria-controls="paper-panel" tabIndex={kind === type ? 0 : -1} onClick={() => selectDocument(type)} onKeyDown={event => {
+    <dialog ref={dialogRef} open aria-label={focused ? `${paper.title} · Focus view` : "Paper reader"} aria-modal={focused ? true : undefined} className={`${styles.viewer} ${focused ? styles.focused : ""}`} onCancel={event => { event.preventDefault(); setFocused(false); }} onKeyDown={event => { if (event.key === "Escape" && focused) { event.preventDefault(); setFocused(false); } }}>
+      {focused && <div className={styles.focusHeading}><span>{paper.title}</span><button type="button" ref={exitButton} onClick={() => setFocused(false)}>Exit focus view</button></div>}
+      <div className={styles.toolbar} aria-label="Paper tools">
+        <div role="tablist" aria-label="Document" className={styles.tabs}>{(["question", "markscheme"] as const).map(type => <button key={type} id={`paper-tab-${type}`} role="tab" aria-selected={kind === type} aria-controls="paper-panel" tabIndex={kind === type ? 0 : -1} onClick={() => selectDocument(type)} onKeyDown={event => {
           if (["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
             event.preventDefault(); const next = event.key === "Home" ? "question" : event.key === "End" ? "markscheme" : type === "question" ? "markscheme" : "question";
             selectDocument(next); window.document.getElementById(`paper-tab-${next}`)?.focus();
           }
-        }}>{type === "question" ? "Question paper" : "Mark scheme"}</button>)}</div><button className={styles.focusButton} type="button" ref={focusButton} hidden={focused} onClick={() => setFocused(true)}>Focus view <span aria-hidden="true">↗</span></button></div>
-        {paper.durationMinutes !== null && <PaperAttemptTimer durationMinutes={paper.durationMinutes} />}
-        <div className={styles.toolbar} aria-label="Page controls"><div className={styles.pagination}>
-          <button type="button" aria-label="Previous page" disabled={!pdf || pageNumber === 1} onClick={() => goTo(pageNumber - 1)}>←</button>
-          <label>Page <input aria-label="Page number" type="number" inputMode="numeric" min={1} max={pdf?.numPages || 1} disabled={!pdf} value={draft} onChange={event => setEditing({ kind, page: pageNumber, value: event.target.value })} onBlur={() => goTo(Number(draft))} onKeyDown={event => { if (event.key === "Enter") goTo(Number(draft)); }} /></label><span>of {pdf?.numPages ?? "…"}</span>
-          <button type="button" aria-label="Next page" disabled={!pdf || pageNumber === pdf.numPages} onClick={() => goTo(pageNumber + 1)}>→</button>
-        </div><div className={styles.viewControls}><select className={styles.zoom} aria-label="Reading mode" value={mode} onChange={event => setMode(event.target.value as "scroll" | "single")}><option value="scroll">Scroll pages</option><option value="single">Single page</option></select><select className={styles.zoom} aria-label="PDF zoom" value={zoom} onChange={event => setZoom(event.target.value as "fit" | "actual")}><option value="fit">Fit width</option><option value="actual">100%</option></select></div></div>
-        <div ref={stageRef} onScroll={() => {
-          const stage = stageRef.current;
-          if (mode !== "scroll" || !stage || !pdf) return;
-          scrollPositions.current[kind] = stage.scrollTop;
-          const node = [...stage.querySelectorAll<HTMLElement>("[data-paper-page]")].find(page => page.offsetHeight > 0 && page.offsetTop <= stage.scrollTop && page.offsetTop + page.offsetHeight > stage.scrollTop);
-          if (node) scrollAnchors.current[kind] = { page: Number(node.dataset.paperPage), fraction: (stage.scrollTop - node.offsetTop) / node.offsetHeight };
-        }} className={styles.stage} id="paper-panel" role="tabpanel" tabIndex={0} aria-labelledby={`paper-tab-${kind}`}>
-          {error ? <div className={styles.error} role="alert">The PDF could not be loaded. Please try again.<button type="button" onClick={() => setRetry(value => value + 1)}>Retry PDF</button></div> : pdf ? mode === "single" ? <PastPaperPdfPage key={src} pdf={pdf} number={pageNumber} title={title} zoom={zoom} /> : <div className={`${styles.pageStack} ${zoom === "actual" ? styles.actualStack : ""}`}>{Array.from({ length: pdf.numPages }, (_, index) => index + 1).map(number => <div key={`${src}-${number}`} data-paper-page={number} className={styles.scrollPage} aria-label={`${title}, page ${number}`}>
-            {Math.abs(number - pageNumber) <= 1 ? <PastPaperPdfPage pdf={pdf} number={number} title={title} zoom={zoom} /> : <span className={styles.pagePlaceholder}>Page {number}</span>}
-          </div>)}</div> : <div className={styles.skeleton} role="status">Loading original PDF…</div>}
+        }}>{type === "question" ? "Question paper" : "Mark scheme"}</button>)}</div>
+        {paper.durationMinutes !== null && <PaperAttemptTimer durationMinutes={paper.durationMinutes} analyticsBank={analyticsBank} />}
+        <div className={styles.pagination} aria-label="Page controls">
+          <button type="button" aria-label="Previous page" disabled={!pdf || pageNumber === 1} onClick={() => goTo(pageNumber - 1)}><CaretLeft aria-hidden="true" weight="bold" /></button>
+          <label><span className={styles.visuallyHidden}>Page</span><input aria-label="Page number" type="number" inputMode="numeric" min={1} max={pdf?.numPages || 1} disabled={!pdf} value={draft} onChange={event => setEditing({ kind, page: pageNumber, value: event.target.value })} onBlur={() => goTo(Number(draft))} onKeyDown={event => { if (event.key === "Enter") goTo(Number(draft)); }} /></label><span>/ {pdf?.numPages ?? "…"}</span>
+          <button type="button" aria-label="Next page" disabled={!pdf || pageNumber === pdf.numPages} onClick={() => goTo(pageNumber + 1)}><CaretRight aria-hidden="true" weight="bold" /></button>
         </div>
-        <div className={styles.documentNote}><span>Original PDF · {paper.qualification} examination document</span><a href={src} download={`${paper.id}_${kind === "question" ? "qp" : "ms"}.pdf`}>Download {title.toLowerCase()}</a></div>
-      </dialog>
-      <aside className={styles.sidebar} aria-label="Paper details">
-        <section><p className={styles.eyebrow}>The examination</p><h2>Paper details</h2><dl><div><dt>Qualification</dt><dd>{paper.qualification}</dd></div><div><dt>Subject</dt><dd>{paper.subject} · {paper.syllabusCode}</dd></div><div><dt>Component</dt><dd>Paper {paper.component} · {paper.paperName}</dd></div><div><dt>Variant</dt><dd>{paper.variant}</dd></div><div><dt>Duration</dt><dd>{duration}</dd></div><div><dt>Total marks</dt><dd>{paper.maxMarks === null ? 'Marks unverified' : paper.maxMarks}</dd></div></dl></section>
-        {paper.reportAvailable !== false && <section className={styles.practice}><h2>Finished the paper?</h2><p>Use the mark scheme, enter your marks and get a free revision report.</p><a href="#paper-self-marking">Mark this paper <span aria-hidden="true">↓</span></a></section>}
-        <section className={styles.practice}><p className={styles.eyebrow}>A more focused next step</p><h2>Practise by topic.</h2><p>Full papers are free. Topic practice, saved sets and custom worksheets are available in paid plans.</p><a href={`https://pastpaperprep.com/banks/${encodeURIComponent(paper.bankSlug ?? 'igcse-chemistry-0620')}?free=1`}>Try topic practice <span aria-hidden="true">↗</span></a><small>Free preview available.</small></section>
-      </aside>
-    </div>
+        <details className={styles.view}><summary><SlidersHorizontal aria-hidden="true" />View</summary><div className={styles.viewMenu}>
+          <label>Pages<select aria-label="Reading mode" value={mode} onChange={event => setMode(event.target.value as "scroll" | "single")}><option value="scroll">Scroll pages</option><option value="single">Single page</option></select></label>
+          <label>Size<select aria-label="PDF zoom" value={zoom} onChange={event => setZoom(event.target.value as "fit" | "actual")}><option value="fit">Fit width</option><option value="actual">100%</option></select></label>
+        </div></details>
+        <a className={styles.iconButton} href={src} download={`${paper.id}_${kind === "question" ? "qp" : "ms"}.pdf`} aria-label={`Download ${title.toLowerCase()} PDF`} title={`Download ${title.toLowerCase()}`}><DownloadSimple aria-hidden="true" weight="bold" /></a>
+        <button className={styles.iconButton} type="button" ref={focusButton} hidden={focused} aria-label="Focus view" title="Focus view" onClick={() => setFocused(true)}><ArrowsOut aria-hidden="true" weight="bold" /></button>
+      </div>
+      <div ref={stageRef} onScroll={() => {
+        const stage = stageRef.current;
+        if (mode !== "scroll" || !stage || !pdf) return;
+        scrollPositions.current[kind] = stage.scrollTop;
+        const node = [...stage.querySelectorAll<HTMLElement>("[data-paper-page]")].find(page => page.offsetHeight > 0 && page.offsetTop <= stage.scrollTop && page.offsetTop + page.offsetHeight > stage.scrollTop);
+        if (node) scrollAnchors.current[kind] = { page: Number(node.dataset.paperPage), fraction: (stage.scrollTop - node.offsetTop) / node.offsetHeight };
+      }} className={styles.stage} id="paper-panel" role="tabpanel" tabIndex={0} aria-labelledby={`paper-tab-${kind}`}>
+        {error ? <div className={styles.error} role="alert">The PDF could not be loaded. Please try again.<button type="button" onClick={() => setRetry(value => value + 1)}>Retry PDF</button></div> : pdf ? mode === "single" ? <PastPaperPdfPage key={src} pdf={pdf} number={pageNumber} title={title} zoom={zoom} /> : <div className={`${styles.pageStack} ${zoom === "actual" ? styles.actualStack : ""}`}>{Array.from({ length: pdf.numPages }, (_, index) => index + 1).map(number => <div key={`${src}-${number}`} data-paper-page={number} className={styles.scrollPage} aria-label={`${title}, page ${number}`}>
+          {Math.abs(number - pageNumber) <= 1 ? <PastPaperPdfPage pdf={pdf} number={number} title={title} zoom={zoom} /> : <span className={styles.pagePlaceholder}>Page {number}</span>}
+        </div>)}</div> : <div className={styles.skeleton} role="status">Loading original PDF…</div>}
+      </div>
+    </dialog>
   </article>;
 }

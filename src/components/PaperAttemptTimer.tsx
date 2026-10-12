@@ -1,15 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { DotsThree, Pause, Play, Stop } from "@phosphor-icons/react/dist/ssr";
 import { startTimer, pauseTimer, resumeTimer, finishTimer, remainingMs, type PaperAttemptTimer as TimerState } from "../lib/paper-attempt-timer";
+import { trackProductEvent } from "@/lib/product-analytics";
 import styles from "./PaperAttemptTimer.module.css";
 
 /** One persistent owner in the reader; changing PDF or Focus view never remounts it. */
-export function PaperAttemptTimer({ durationMinutes = 75 }: { durationMinutes?: number }) {
-  return <PaperAttemptTimerSession key={durationMinutes} durationMinutes={durationMinutes} />;
+export function PaperAttemptTimer({ durationMinutes = 75, analyticsBank }: { durationMinutes?: number; analyticsBank?: string }) {
+  return <PaperAttemptTimerSession key={durationMinutes} durationMinutes={durationMinutes} analyticsBank={analyticsBank} />;
 }
 
-function PaperAttemptTimerSession({ durationMinutes }: { durationMinutes: number }) {
+const clock = (seconds: number) => `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
+
+function PaperAttemptTimerSession({ durationMinutes, analyticsBank }: { durationMinutes: number; analyticsBank?: string }) {
   const [timer, setTimer] = useState<TimerState | null>(null);
   const [now, setNow] = useState(0);
   const [custom, setCustom] = useState(false);
@@ -19,7 +23,8 @@ function PaperAttemptTimerSession({ durationMinutes }: { durationMinutes: number
     try {
       const time = Date.now();
       const next = startTimer(custom ? Number(minutes) : durationMinutes, time);
-      setNow(time); setTimer(next); setError("");
+      setNow(time); setTimer(next); setError(""); setCustom(false);
+      if (analyticsBank) trackProductEvent("past_paper_timer_start", { bank: analyticsBank });
     } catch { setError("Choose 1–360 whole minutes."); }
   }
   const left = timer ? remainingMs(timer, now) : 0;
@@ -38,15 +43,23 @@ function PaperAttemptTimerSession({ durationMinutes }: { durationMinutes: number
       window.removeEventListener("focus", refresh);
     };
   }, [timer, ended]);
+  const planned = custom && Number.isInteger(Number(minutes)) && Number(minutes) > 0 ? Number(minutes) : durationMinutes;
   return <section className={styles.timer} aria-label="Practice timer">
-    {!timer ? <><span>Optional timer · {durationMinutes} minutes</span><button type="button" onClick={start}>Start timer</button><button type="button" aria-expanded={custom} onClick={() => setCustom(value => !value)}>Custom duration</button>
-      {custom && <label className={styles.custom}>Minutes <input aria-label="Timer minutes" type="number" inputMode="numeric" min={1} max={360} step={1} value={minutes} onChange={event => setMinutes(event.target.value)} /> <small>1–360 whole minutes</small></label>}
-      {error && <span role="alert">{error}</span>}
+    {!timer ? <>
+      <button type="button" className={styles.start} aria-label="Start timer" onClick={start}><Play aria-hidden="true" weight="fill" /><span>{clock(planned * 60)}</span></button>
+      <button type="button" className={styles.more} aria-label="Custom duration" aria-expanded={custom} onClick={() => setCustom(value => !value)}><DotsThree aria-hidden="true" weight="bold" /></button>
+      {custom && <label className={styles.custom}>Minutes <input aria-label="Timer minutes" type="number" inputMode="numeric" min={1} max={360} step={1} value={minutes} onChange={event => setMinutes(event.target.value)} /></label>}
+      {error && <span className={styles.alert} role="alert">{error}</span>}
     </> : <>
-      <div className={styles.readout}><span>Practice timer</span><strong aria-label="Time remaining">{Math.floor(seconds / 60)}:{String(seconds % 60).padStart(2, "0")}</strong></div>
-      <span>{timer.status === "paused" ? "Paused" : ended ? (expired ? "Time is up" : "Practice finished") : "Remaining"}</span>
-      {!ended && <><button type="button" aria-label={timer.status === "paused" ? "Resume timer" : "Pause timer"} onClick={() => { const time = Date.now(); setNow(time); setTimer(timer.status === "paused" ? resumeTimer(timer, time) : pauseTimer(timer, time)); }}>{timer.status === "paused" ? "Resume" : "Pause"}</button><button type="button" onClick={() => { const time = Date.now(); setNow(time); setTimer(finishTimer(timer, time)); }}>Finish practice</button></>}
-      {ended && <><button type="button" onClick={() => setTimer(null)}>New timer</button><span role="status">{expired ? "Time is up." : "Practice finished."} You can keep reading and self-marking.</span></>}
+      <strong className={`${styles.readout} ${timer.status === "paused" ? styles.paused : ""} ${ended ? styles.ended : ""}`} aria-label="Time remaining">{clock(seconds)}</strong>
+      {!ended && <>
+        <button type="button" className={styles.icon} aria-label={timer.status === "paused" ? "Resume timer" : "Pause timer"} onClick={() => { const time = Date.now(); setNow(time); setTimer(timer.status === "paused" ? resumeTimer(timer, time) : pauseTimer(timer, time)); }}>{timer.status === "paused" ? <Play aria-hidden="true" weight="fill" /> : <Pause aria-hidden="true" weight="fill" />}</button>
+        <button type="button" className={styles.icon} aria-label="Finish practice" onClick={() => { const time = Date.now(); setNow(time); setTimer(finishTimer(timer, time)); }}><Stop aria-hidden="true" weight="fill" /></button>
+      </>}
+      {ended && <>
+        <span className={styles.status} role="status">{expired ? "Time is up." : "Practice finished."}<span className={styles.hint}> Keep reading and marking.</span></span>
+        <button type="button" className={styles.text} onClick={() => setTimer(null)}>New timer</button>
+      </>}
     </>}
   </section>;
 }

@@ -1,9 +1,19 @@
-.timer { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 8px 0; border-top: 1px solid var(--line, #d6d1c7); color: var(--ink, #192b3c); font-size: 12px; }
-.timer > span:first-child { margin-right: auto; }
-.timer button, .timer summary { min-height: 44px; display: inline-flex; align-items: center; padding: 8px 12px; border: 1px solid var(--line, #d6d1c7); border-radius: 4px; background: var(--surface, #eeece6); color: inherit; cursor: pointer; font: inherit; }
-.custom { flex-basis: 100%; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
-.custom input { width: 70px; min-height: 44px; padding: 8px; color: inherit; background: var(--surface, #eeece6); border: 1px solid var(--line, #d6d1c7); border-radius: 4px; }
-.timer [role=alert] { flex-basis: 100%; color: var(--burgundy, #7f253a); }
-.readout { display: flex; align-items: center; gap: 12px; }
-.readout strong { font-size: 16px; font-variant-numeric: tabular-nums; color: var(--burgundy, #7f253a); }
-.timer [role=status] { flex-basis: 100%; color: var(--muted, #6c7075); line-height: 1.6; }
+/* Compact timer pill for the reader toolbar and phone dock. */
+.timer { position: relative; display: inline-flex; align-items: center; gap: 4px; color: var(--ink); font-size: .84rem; }
+.timer button { cursor: pointer; font: inherit; }
+.start { height: 38px; padding: 0 12px; display: inline-flex; align-items: center; gap: 7px; color: var(--surface); background: var(--ink); border: 0; border-radius: 10px; font-weight: 700 !important; font-variant-numeric: tabular-nums; }
+.start svg { width: 13px; height: 13px; }
+.more, .icon { width: 34px; height: 34px; display: inline-grid; place-items: center; color: var(--muted); background: transparent; border: 1px solid var(--line); border-radius: 9px; }
+.more svg, .icon svg { width: 16px; height: 16px; }
+.more:hover, .icon:hover, .more[aria-expanded="true"] { color: var(--ink); background: var(--surface); }
+.custom { position: absolute; z-index: 10; top: calc(100% + 8px); left: 0; padding: 10px 12px; display: flex; align-items: center; gap: 8px; white-space: nowrap; color: var(--muted); background: var(--surface-raised); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow-sm); font-weight: 600; }
+.custom input { width: 72px; height: 36px; padding: 0 8px; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; font: inherit; }
+.alert { position: absolute; top: calc(100% + 62px); left: 0; padding: 6px 10px; white-space: nowrap; color: var(--danger); background: var(--danger-soft); border-radius: 8px; font-size: .78rem; font-weight: 600; }
+.readout { min-width: 64px; height: 38px; padding: 0 12px; display: inline-grid; place-items: center; color: var(--surface); background: var(--ink); border-radius: 10px; font-variant-numeric: tabular-nums; font-weight: 700; }
+.paused { color: var(--ink); background: var(--surface); border: 1px solid var(--line); }
+.ended { color: var(--success); background: var(--success-soft); }
+.status { margin-left: 4px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+.hint { font-weight: 500; }
+.text { height: 34px; padding: 0 10px; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 9px; font-weight: 650; }
+.timer :is(button, input):focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
+@media (max-width: 760px) { .hint { display: none; } }

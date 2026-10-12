@@ -21,28 +21,22 @@ describe("PastPaperReader", () => {
     const view = render(<PastPaperReader paper={paper} />);
     await screen.findByRole("img", { name: /Question paper, page 1/ });
     expect(fetch).toHaveBeenCalledWith(paper.sources.question, expect.anything());
-    expect(screen.getByText("May / June 2024")).toBeInTheDocument();
-    expect(screen.getByText("Paper 1 · Multiple Choice (Core)")).toBeInTheDocument();
-    expect(screen.getByText("45 minutes")).toBeInTheDocument();
-    expect(screen.getByText("40")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Past papers" })).toHaveAttribute("href", paper.archiveHref);
-    fireEvent.click(screen.getByText("Start timer"));
+    fireEvent.click(screen.getByRole("button", { name: "Start timer" }));
     expect(screen.getByLabelText("Time remaining")).toHaveTextContent("45:00");
     fireEvent.click(screen.getByLabelText("Next page"));
     fireEvent.click(screen.getByRole("tab", { name: "Mark scheme" }));
     await screen.findByRole("img", { name: /Mark scheme, page 1/ });
     expect(fetch).toHaveBeenCalledWith(paper.sources.markscheme, expect.anything());
     expect(screen.getByLabelText("Page number")).toHaveAttribute("max", "10");
-    expect(screen.getByRole("link", { name: "Download mark scheme" })).toHaveAttribute("href", paper.sources.markscheme);
-    fireEvent.click(screen.getByText("Focus view"));
+    expect(screen.getByRole("link", { name: /Download mark scheme/ })).toHaveAttribute("href", paper.sources.markscheme);
+    fireEvent.click(screen.getByRole("button", { name: "Focus view" }));
     expect(screen.getByRole("dialog", { name: `${paper.title} · Focus view` })).toBeInTheDocument();
     view.rerender(<PastPaperReader paper={{ ...paper, id: "0620-2024-s-42", component: "4", paperName: "Theory (Extended)", durationMinutes: 75, maxMarks: 80, sources: { question: "/archive/42/question", markscheme: "/archive/42/markscheme" } }} />);
     await screen.findByRole("img", { name: /Question paper, page 1/ });
     expect(screen.getByLabelText("Page number")).toHaveValue(1);
-    expect(screen.getByText("Optional timer · 75 minutes")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Start timer" })).toHaveTextContent("75:00");
     expect(document.body.style.overflow).not.toBe("hidden");
     expect(screen.queryByLabelText("Time remaining")).not.toBeInTheDocument();
-    expect(screen.getByText("Paper 42")).toBeInTheDocument();
   });
   it("observes the scroll viewport, updates the current page and keeps canvases bounded", async () => {
     let notify!: IntersectionObserverCallback;
@@ -106,7 +100,7 @@ describe("PastPaperReader", () => {
     const clock = vi.spyOn(Date, "now").mockReturnValue(1000);
     render(<PastPaperReader />);
     await screen.findByRole("img", { name: /Question paper, page 1/ });
-    fireEvent.click(screen.getByText("Custom duration"));
+    fireEvent.click(screen.getByRole("button", { name: "Custom duration" }));
     const minutes = screen.getByRole("spinbutton", { name: "Timer minutes" });
     fireEvent.change(minutes, { target: { value: "0" } });
     fireEvent.click(screen.getByRole("button", { name: "Start timer" }));
@@ -250,11 +244,6 @@ describe("PastPaperReader", () => {
     render(<PastPaperReader paper={{ ...DEFAULT_PAPER_READER_CONFIG, id: 'ib-ai-sl-2025-may-p1', subject: 'Mathematics AI', syllabusCode: 'AI', qualification: 'IB Diploma', component: '1', variant: 'TZ2', durationMinutes: null, maxMarks: null, bankSlug: 'ib-ai-sl', reportAvailable: false }} />);
     await waitFor(() => expect(screen.getByRole('img', { name: /Question paper, page 1/ })).toBeInTheDocument());
     expect(screen.queryByRole('button', { name: 'Start timer' })).not.toBeInTheDocument();
-    expect(screen.getByText('Duration unverified')).toBeInTheDocument();
-    expect(screen.getByText('Marks unverified')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /Try topic practice/ })).toHaveAttribute('href', 'https://pastpaperprep.com/banks/ib-ai-sl?free=1');
-    expect(screen.getByText('Paper 1 · TZ2')).toBeInTheDocument();
-    expect(screen.getByRole('navigation', { name: 'Breadcrumb' })).toHaveTextContent('IB Diploma');
   });
   it("does not promise self-marking when paper metadata declares no report", async () => {
     render(<PastPaperReader paper={{ ...DEFAULT_PAPER_READER_CONFIG, reportAvailable: false }} />);
@@ -265,11 +254,31 @@ describe("PastPaperReader", () => {
   });
   it("introduces the real paper and renders its original PDF", async () => {
     render(<PastPaperReader />);
-    expect(screen.getByRole("heading", { name: "Chemistry", level: 1 })).toBeInTheDocument();
-    expect(screen.getByText("1 hour 15 minutes")).toBeInTheDocument();
     expect(screen.getByRole("tab", { name: "Question paper" })).toHaveAttribute("aria-selected", "true");
     await waitFor(() => expect(screen.getByRole("img", { name: /Question paper, page 1/ })).toBeInTheDocument());
     expect(screen.getByRole("link", { name: /Download question paper/ })).toHaveAttribute("href", "/past-papers/preview/document?kind=question");
-    expect(screen.getByRole("link", { name: /Try topic practice/ })).toHaveAttribute("href", "https://pastpaperprep.com/banks/igcse-chemistry-0620?free=1");
+  });
+  it("follows a controlled document choice from its parent", async () => {
+    const view = render(<PastPaperReader kind="question" onKindChange={() => {}} />);
+    await screen.findByRole("img", { name: /Question paper, page 1/ });
+    view.rerender(<PastPaperReader kind="markscheme" onKindChange={() => {}} />);
+    await screen.findByRole("img", { name: /Mark scheme, page 1/ });
+    expect(screen.getByRole("tab", { name: "Mark scheme" })).toHaveAttribute("aria-selected", "true");
+    expect(screen.getByRole("link", { name: "Download mark scheme PDF" })).toHaveAttribute("href", "/past-papers/preview/document?kind=markscheme");
+  });
+  it("asks the parent to switch documents instead of switching itself", async () => {
+    const onKindChange = vi.fn();
+    render(<PastPaperReader kind="question" onKindChange={onKindChange} />);
+    await screen.findByRole("img", { name: /Question paper, page 1/ });
+    fireEvent.click(screen.getByRole("tab", { name: "Mark scheme" }));
+    expect(onKindChange).toHaveBeenCalledWith("markscheme");
+    expect(screen.getByRole("tab", { name: "Question paper" })).toHaveAttribute("aria-selected", "true");
+  });
+  it("keeps reading options in a compact View menu", async () => {
+    render(<PastPaperReader />);
+    await screen.findByRole("img", { name: /Question paper, page 1/ });
+    expect(screen.getByText("View", { selector: "summary" })).toBeInTheDocument();
+    expect(screen.getByRole("combobox", { name: "Reading mode" }).closest("details")).not.toBeNull();
+    expect(screen.getByRole("link", { name: "Download question paper PDF" })).toHaveAttribute("download");
   });
 });

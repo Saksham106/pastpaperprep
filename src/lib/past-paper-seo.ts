@@ -27,7 +27,7 @@ const fromYears = (papers: readonly WholePaperSummary[]) => {
 const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
 const list = (items: readonly string[]) => items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} and ${items.at(-1)}`;
 const papersPhrase = (numbers: readonly string[]) => `${numbers.length === 1 ? 'Paper' : 'Papers'} ${list(numbers)}`;
-function duration(minutes: number): string {
+export function formatDuration(minutes: number): string {
   const h = Math.floor(minutes / 60), m = minutes % 60;
   return [h && plural(h, 'hour'), m && plural(m, 'minute')].filter(Boolean).join(' ');
 }
@@ -78,7 +78,7 @@ export function paperNumberCopy(bank: CatalogBank, paper: string, papers: readon
 
 export function paperCopy(bank: CatalogBank, p: WholePaperSummary): PageCopy {
   const name = subjectSearchName(bank), label = paperName(p);
-  const facts = [p.durationMinutes !== null && duration(p.durationMinutes), p.maxMarks !== null && plural(p.maxMarks, 'mark')].filter(Boolean).join(', ');
+  const facts = [p.durationMinutes !== null && formatDuration(p.durationMinutes), p.maxMarks !== null && plural(p.maxMarks, 'mark')].filter(Boolean).join(', ');
   const who = isIb(bank) ? bank.title : `Cambridge IGCSE ${bank.subject} ${bank.syllabusCode}`;
   return {
     title: isIb(bank) ? `${name} ${p.session} ${p.year} ${label}: Paper & Markscheme` : `${p.syllabusCode}/${p.component} ${p.session} ${p.year}: ${name.replace(` ${bank.syllabusCode}`, '')} Paper ${p.paper.toUpperCase()} & Mark Scheme`,

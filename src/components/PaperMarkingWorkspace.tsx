@@ -19,11 +19,11 @@ function TopicEvidence({ topic, bankSlug }: { topic: TopicReview; bankSlug: stri
   </li>;
 }
 
-export function PaperMarkingWorkspace({ paper = PAPER_MARKING_PREVIEW }: { paper?: PaperMarkingPaper }) {
-  return <PaperMarkingSession key={JSON.stringify([paper.bankSlug, paper.id, paper.version])} paper={paper} />;
+export function PaperMarkingWorkspace({ paper = PAPER_MARKING_PREVIEW, onClose }: { paper?: PaperMarkingPaper; onClose?: () => void }) {
+  return <PaperMarkingSession key={JSON.stringify([paper.bankSlug, paper.id, paper.version])} paper={paper} onClose={onClose} />;
 }
 
-function PaperMarkingSession({ paper }: { paper: PaperMarkingPaper }) {
+function PaperMarkingSession({ paper, onClose }: { paper: PaperMarkingPaper; onClose?: () => void }) {
   const [values, setValues] = useState<Record<string, string>>({});
   const [showReport, setShowReport] = useState(false);
   const [showAll, setShowAll] = useState(false);
