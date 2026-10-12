@@ -1,0 +1,41 @@
+.browser { width: min(1132px, calc(100% - 48px)); margin: 0 auto; padding: 28px 0 64px; color: var(--ink); }
+.breadcrumb { display:flex; flex-wrap:wrap; gap:10px; align-items:center; color:var(--muted); font-size:12px; }
+.breadcrumb a { text-decoration:underline; text-underline-offset:3px; }
+.heading { padding:32px 0 30px; }
+.course { margin:0 0 12px; font-size:11px; text-transform:uppercase; letter-spacing:.12em; font-weight:600; color:var(--muted); }
+.course span { margin-left:12px; }
+.heading h1 { margin:0; font:400 clamp(36px,5vw,58px)/1.15 var(--font-paper-editorial,Georgia),serif; letter-spacing:-.04em; }
+.lede { color:var(--muted); font-size:15px; margin:16px 0 24px; line-height:1.6; }
+.facts { display:flex; flex-wrap:wrap; gap:10px 24px; font-size:12px; color:var(--muted); }
+.facts span:first-child { color:var(--ink); font-weight:600; }
+.filters { display:grid; grid-template-columns:minmax(220px,1.6fr) .65fr 1fr .75fr .75fr; align-items:end; gap:12px; padding:22px 0 8px; border-top:1px solid var(--line); }
+.filters label { display:grid; gap:8px; min-width:0; color:var(--muted); font-size:12px; }
+.filters :is(select,input) { min-height:44px; min-width:0; max-width:100%; padding:10px 12px; border:1px solid var(--line-strong); border-radius:4px; color:var(--ink); background:var(--surface); font:inherit; }
+.search > div { display:flex; gap:8px; align-items:center; padding:0 12px; min-height:44px; border:1px solid var(--line-strong); border-radius:4px; background:var(--surface); }
+.search svg { width:17px; height:17px; flex-shrink:0; }
+.search input { width:100%; padding:0; border:0; background:transparent; }
+.refinements { display:flex; align-items:center; gap:16px; padding:10px 0 6px; color:var(--muted); font-size:12px; }
+.refinements label { display:flex; align-items:center; gap:10px; }
+.refinements select { min-height:44px; padding:8px 10px; border:1px solid var(--line-strong); border-radius:4px; color:var(--ink); background:var(--surface); font:inherit; }
+.refinements button { margin-left:auto; min-height:44px; padding:10px 12px; border:0; color:var(--burgundy); background:transparent; font:inherit; }
+.empty { padding:40px 0; color:var(--muted); }
+@media(max-width:800px) { .filters { grid-template-columns:repeat(2,minmax(0,1fr)); } .search { grid-column:1/-1; } .refinements { flex-wrap:wrap; gap:8px 14px; } }
+.group { margin-top:30px; }
+.group h2 { margin:0; padding:0 0 14px; font:400 24px/1.2 var(--font-paper-editorial,Georgia),serif; letter-spacing:-.02em; border-bottom:1px solid var(--line-strong); }
+.paper { display:grid; grid-template-columns:minmax(230px,1fr) minmax(170px,.65fr) minmax(170px,.7fr) 24px; align-items:center; gap:20px; padding:19px 8px; border-bottom:1px solid var(--line); transition:background-color 150ms ease; }
+.paper:hover { background:var(--surface); }
+.paperIdentity { display:flex; align-items:center; gap:14px; min-width:0; }
+.paperIdentity > svg { width:25px; height:25px; color:var(--burgundy); flex-shrink:0; }
+.paperIdentity > span { display:grid; gap:5px; }
+.paperIdentity strong { font-size:15px; font-weight:650; }
+.paperIdentity span span { color:var(--muted); font-size:12px; }
+.paperFacts { display:flex; flex-wrap:wrap; gap:5px 12px; font-size:12px; color:var(--muted); }
+.paperStatus { font-size:12px; color:var(--burgundy); }
+.paperStatus small { display:block; font-size:11px; color:var(--muted); margin-top:5px; line-height:1.5; }
+.arrow { width:18px; height:18px; color:var(--muted); }
+.more { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:28px 0; font-size:12px; color:var(--muted); }
+.more button { min-height:44px; border:1px solid var(--line-strong); border-radius:4px; padding:10px 18px; color:var(--ink); background:var(--surface); font:inherit; }
+.disclosure { border-top:1px solid var(--line); margin-top:24px; padding-top:20px; font-size:12px; color:var(--muted); line-height:1.7; }
+.browser :is(a,button,input,select):focus-visible { outline:2px solid var(--burgundy); outline-offset:3px; }
+@media(max-width:800px) { .paper { grid-template-columns:minmax(0,1fr) 24px; gap:10px; } .paperFacts { grid-column:1; padding-left:39px; } .paperStatus { grid-column:1; padding-left:39px; } .arrow { grid-column:2; grid-row:1/4; } }
+@media(max-width:480px) { .browser { width:calc(100% - 32px); padding-top:20px; } .heading { padding:26px 0; } .facts { gap:10px; flex-direction:column; } .group h2 { font-size:21px; } .more { align-items:flex-start; flex-direction:column; } }

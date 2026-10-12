@@ -1,0 +1,32 @@
+.workspace { color: var(--ink); border-top: 1px solid var(--line); padding: clamp(24px, 4vw, 48px) 0; font-family: var(--font-body, "Geist", sans-serif); }
+.workspace h2, .workspace h3, .workspace h4 { font-family: var(--font-paper-editorial), Georgia, serif; font-weight: 400; }
+.workspace h2 { font-size: clamp(28px, 4vw, 40px); line-height: 1.15; margin: 6px 0 18px; }
+.workspace h3 { font-size: 26px; margin: 20px 0 12px; }
+.workspace h4 { font-size: 23px; margin: 0 0 8px; }
+.workspace p { line-height: 1.6; }
+.kicker { color: var(--burgundy); text-transform: uppercase; font-size: 12px; letter-spacing: .12em; margin: 0; }
+.inputs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 32px; margin: 24px 0; }
+.inputs label { display: block; font-size: 14px; margin-bottom: 8px; }
+.inputRow { display: flex; align-items: center; gap: 12px; color: var(--muted); }
+.inputRow input { width: 100%; min-width: 0; max-width: 130px; padding: 10px 12px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 4px; font: inherit; }
+.inputRow input[aria-invalid="true"] { border-color: var(--burgundy); }
+.workspace button, .practice { min-height: 44px; font: inherit; cursor: pointer; }
+.primary { border: 1px solid var(--burgundy); border-radius: 4px; padding: 12px 20px; background: var(--burgundy); color: var(--surface); }
+.primary:disabled { opacity: .5; cursor: not-allowed; }
+.secondary { color: var(--ink); background: transparent; border: 1px solid var(--line); padding: 10px 16px; border-radius: 4px; }
+.resultHeading { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+.resultHeading h3 { margin-top: 0; }
+.note { color: var(--muted); font-size: 13px; }
+.error { color: var(--burgundy); font-size: 13px; margin: 8px 0 0; }
+.topics { padding: 0; list-style: none; counter-reset: topics; }
+.topic { border-top: 1px solid var(--line); padding: 22px 0; }
+.practice { display: inline-flex; align-items: center; gap: 12px; padding: 8px 14px; border: 1px solid var(--burgundy); border-radius: 4px; color: var(--burgundy); font-size: 14px; font-weight: 600; text-decoration: none; margin-top: 10px; white-space: nowrap; }
+.workspace summary { cursor: pointer; line-height: 1.5; padding: 8px 0; }
+.workspace details ul { padding-left: 20px; line-height: 1.8; }
+.storage { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.confirm { border-left: 2px solid var(--burgundy); background: var(--paper-warm); padding: 12px 18px; margin-top: 12px; }
+.confirm p { margin-top: 0; }
+.success, .policy { margin-top: 20px; }
+.workspace :is(button, input, a, summary):focus-visible { outline: 2px solid var(--burgundy); outline-offset: 4px; }
+@media (max-width: 680px) { .inputs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; } .resultHeading { align-items: flex-start; flex-direction: column; } }
+@media (max-width: 360px) { .inputs { grid-template-columns: 1fr; } }
