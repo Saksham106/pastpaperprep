@@ -14,7 +14,7 @@ describe('whole-paper bank browser',()=>{
   expect(screen.getByRole('link',{name:'Free past papers'})).toHaveAttribute('href','/past-papers');
  });
  it('holds unknown timing and scoring explicitly instead of showing guessed defaults',()=>{
-  render(<WholePaperBrowser bank={{slug:'ib-ai-hl',qualification:'IB Diploma',title:'IB Mathematics AI Higher Level',syllabusCode:'AI'}} papers={[{...base,durationMinutes:null,maxMarks:null,reportAvailable:false,reportReason:'Source maxima need review'}]}/>);
+  render(<WholePaperBrowser bank={{slug:'ib-ai-hl',qualification:'IB Diploma',title:'IB Mathematics AI Higher Level',syllabusCode:'AI'}} papers={[{...base,durationMinutes:null,maxMarks:null,questionCount:0,reportAvailable:false,reportReason:'Source maxima need review'}]}/>);
   expect(screen.getByText('Duration unverified')).toBeInTheDocument();
   expect(screen.getByText('Marks unverified')).toBeInTheDocument();
   expect(screen.getByText('PDFs only')).toBeInTheDocument();

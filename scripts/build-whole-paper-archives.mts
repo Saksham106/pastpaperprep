@@ -6,13 +6,36 @@ import { normalizeBankQuestions, type UnifiedQuestion } from '../src/lib/questio
 import type { WholePaperEntry, WholePaperManifest, WholePaperLocalBindings } from '../src/lib/whole-paper-types';
 import { EXTRACTOR_VERSION, sha256, parseIdentity, findCover, extractPdf, atomicJson, type ExtractedDocument } from './whole-paper-extraction.mjs';
 
-export type BuildOptions={inventoryFiles:string[];bank?:string;root?:string;outputRoot?:string};
+export type BuildOptions={inventoryFiles:string[];identityReviewFiles?:string[];bank?:string;root?:string;outputRoot?:string};
+type IdentityReview={bankSlug:string;paperId:string;questionSha256:string;markschemeSha256:string;verdict:'valid-pair';visualEvidence:{document:'question'|'markscheme';sourcePdfSha256:string;page:number;imagePath:string;imageSha256:string}[];[key:string]:unknown};
+async function loadIdentityReviews(files:string[],root:string) {
+  const reviews=new Map<string,IdentityReview>();
+  for(const filename of files) {
+    const bytes=await fs.readFile(path.resolve(root,filename));
+    if(bytes.length>32*1024*1024)throw new Error('Identity review exceeds size limit');
+    const payload=JSON.parse(bytes.toString());
+    if(!Array.isArray(payload.cases))throw new Error('Invalid identity review cases');
+    for(const review of payload.cases as IdentityReview[]) {
+      if(!getCatalogBank(review.bankSlug)||!/^[a-z0-9][a-z0-9-]{0,159}$/.test(review.paperId)||review.verdict!=='valid-pair'||![review.questionSha256,review.markschemeSha256].every(h=>/^[a-f0-9]{64}$/.test(h)))throw new Error('Invalid identity review binding');
+      if(!Array.isArray(review.visualEvidence)||!['question','markscheme'].every(kind=>review.visualEvidence.some(image=>image.document===kind)))throw new Error('Identity review needs both source images');
+      for(const image of review.visualEvidence) {
+        const expected=image.document==='question'?review.questionSha256:image.document==='markscheme'?review.markschemeSha256:null;
+        if(!expected||image.sourcePdfSha256!==expected||!Number.isSafeInteger(image.page)||image.page<1||!path.isAbsolute(image.imagePath)||!/^[a-f0-9]{64}$/.test(image.imageSha256)||sha256(await fs.readFile(image.imagePath))!==image.imageSha256)throw new Error('Identity review image binding mismatch');
+      }
+      const key=JSON.stringify([review.bankSlug,review.paperId]);
+      if(reviews.has(key))throw new Error('Duplicate identity review');
+      reviews.set(key,review);
+    }
+  }
+  return reviews;
+}
 export function parseCli(args:string[]):BuildOptions {
   const options:BuildOptions={inventoryFiles:[]};
   for(let i=0;i<args.length;i++) {
     const arg=args[i],value=args[++i];
     if(!value||value.startsWith('--'))throw new Error(`Missing value for ${arg}`);
     if(arg==='--inventory')options.inventoryFiles.push(value);
+    else if(arg==='--identity-review')(options.identityReviewFiles??=[]).push(value);
     else if(arg==='--bank'){if(options.bank)throw new Error('Only one --bank is supported');options.bank=value;}
     else throw new Error(`Unknown argument ${arg}`);
   }
@@ -33,6 +56,7 @@ export async function buildWholePaperArchives(options:BuildOptions) {
     const parsed:unknown=JSON.parse(await fs.readFile(path.resolve(root,filename),'utf8'));validateInventory(parsed);inventory.banks.push(...parsed.banks);
   }
   validateInventory(inventory);
+  const identityReviews=await loadIdentityReviews(options.identityReviewFiles??[],root);
   const selected=inventory.banks.filter(bank=>!options.bank||options.bank===bank.slug).sort((a,b)=>a.slug.localeCompare(b.slug));
   if(options.bank&&!selected.length)throw new Error(`Bank not in inventory: ${options.bank}`);
   const privateRoot=path.join(outputRoot,'private/paper-archives');
@@ -67,7 +91,7 @@ export async function buildWholePaperArchives(options:BuildOptions) {
       const actualIds=normalized.filter(q=>q.id.replace(/-q\d+$/,'')===pair.runtimePaperId).map(q=>q.id).sort();
       if(JSON.stringify(actualIds)!==JSON.stringify([...pair.runtimeQuestionIds].sort()))throw new Error(`Inventory qids differ from exact runtime paper ${pair.runtimePaperId}`);
       const rows=pair.runtimeQuestionIds.map(id=>{const q=byId.get(id);if(!q)throw new Error(`Missing exact runtime qid ${id}`);return q;});
-      const assembled=assemblePaper(bank.slug,pair,rows,qp,ms);
+      const assembled=assemblePaper(bank.slug,pair,rows,qp,ms,identityReviews.get(JSON.stringify([bank.slug,pair.id])));
       details.push({id:pair.id,runtimePaperId:pair.runtimePaperId,sourceMetadata:pair.metadata??null,inventoryRecord:pair,questionPath:pair.questionPath,markschemePath:pair.markschemePath,documents:assembled.entry.documents,reportReason:assembled.entry.summary.reportReason??null,corrections:assembled.corrections,evidence:assembled.evidence});
       if(!assembled.evidence.identityValid)throw new Error(`${assembled.entry.summary.reportReason} Not promoted to public manifest.`);
       papers.push(assembled.entry);
@@ -127,7 +151,7 @@ export function runtimeRelativeFile(slug:string) {
   const cohort=slug.startsWith('igcse-')&&slug!=='igcse-additional'||slug.startsWith('ib-economics-')?'production':'raw';
   return `src/data/${cohort}/${slug}.json`;
 }
-export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestion[],qp:ExtractedDocument,ms:ExtractedDocument) {
+export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestion[],qp:ExtractedDocument,ms:ExtractedDocument,identityReview?:IdentityReview) {
   const bank=getCatalogBank(slug);if(!bank)throw new Error(`Unknown bank ${slug}`);
   const identity=parseIdentity(pair.metadata?.sourceIdentity??pair.id);
   if(identity.family==='ib')identity.level??=bank.level.toLowerCase();
@@ -145,7 +169,9 @@ export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestio
   const legacyMathematics=coursePattern!==null&&identity.year<2021;
   const courseValid=!coursePattern||legacyMathematics||(coursePattern.test(qFound.text)&&coursePattern.test(mFound.text));
   const bankLevelValid=identity.family!=='ib'||identity.level===bank.level.toLowerCase()||identity.level==='hlsl';
-  const identityValid=qCover.identityValid&&mCover.identityValid&&subjectValid&&examCodesAgree&&courseValid&&bankLevelValid&&legacyOptionValid&&(identity.family!=='igcse'||identity.syllabusCode===bank.syllabusCode);
+  const reviewMatches=Boolean(identityReview&&identityReview.bankSlug===slug&&identityReview.paperId===pair.id&&identityReview.questionSha256===qp.sha256&&identityReview.markschemeSha256===ms.sha256&&identityReview.verdict==='valid-pair');
+  if(identityReview&&!reviewMatches)throw new Error('Identity review source binding mismatch');
+  const identityValid=reviewMatches||(qCover.identityValid&&mCover.identityValid&&subjectValid&&examCodesAgree&&courseValid&&bankLevelValid&&legacyOptionValid&&(identity.family!=='igcse'||identity.syllabusCode===bank.syllabusCode));
   const maxMarks=qCover.identityValid?qCover.maxMarks??(mCover.identityValid?mCover.maxMarks:null):null;
   const sorted=[...rows].sort((a,b)=>a.number-b.number||a.id.localeCompare(b.id));
   const mcqLayout=/Multiple\s+Choice|For each question,?\s*choose the answer/i.test(qFound.text);
@@ -168,7 +194,7 @@ export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestio
   const document=(source:ExtractedDocument)=>({sha256:source.sha256,bytes:source.bytes,pages:source.pages});
   const summary:WholePaperEntry['summary']={id:pair.id,bankSlug:bank.slug,title:`${bank.title} · ${identity.session} ${identity.year} · Paper ${identity.component}`,qualification:bank.qualification,subject:bank.subject,syllabusCode:bank.syllabusCode,year:identity.year,session:identity.session,sessionCode:identity.sessionCode,component:identity.component,paper:identity.paper,variant:identity.variant,route,durationMinutes:qCover.identityValid?qCover.durationMinutes:null,maxMarks,questionCount:printed.length,reportAvailable:!reportReason,...(reportReason?{reportReason}:{}),metadataVerified:identityValid&&maximaAgree&&maxMarks!==null};
   const entry:WholePaperEntry={summary,version:sha256(JSON.stringify([GENERATOR_VERSION,EXTRACTOR_VERSION,qp.sha256,ms.sha256,summary,questions])).slice(0,20),documents:{question:document(qp),markscheme:document(ms)},questions};
-  return {entry,corrections,evidence:{identity,identityValid,subjectValid,courseValid,legacyMathematics,legacyOptionValid,bankLevelValid,examCodesAgree,mcqVerified,questionCoverPage:qFound.page,markschemeCoverPage:mFound.page,qCover,mCover,sourceQuestionCount:printed.length,msQuestionMaximaAgree,sourceTotals:printed.map(q=>q.maxMarks),sourceQuestionPages:printed.map(q=>q.page),runtimeQuestionIds:sorted.map(q=>q.id),runtimeMarks:sorted.map(q=>q.marks),inventoryValid,totalsValid,topicsValid}};
+  return {entry,corrections,evidence:{identity,identityValid,identityReview:identityReview??null,subjectValid,courseValid,legacyMathematics,legacyOptionValid,bankLevelValid,examCodesAgree,mcqVerified,questionCoverPage:qFound.page,markschemeCoverPage:mFound.page,qCover,mCover,sourceQuestionCount:printed.length,msQuestionMaximaAgree,sourceTotals:printed.map(q=>q.maxMarks),sourceQuestionPages:printed.map(q=>q.page),runtimeQuestionIds:sorted.map(q=>q.id),runtimeMarks:sorted.map(q=>q.marks),inventoryValid,totalsValid,topicsValid}};
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
   const manifests=await buildWholePaperArchives(parseCli(process.argv.slice(2)));

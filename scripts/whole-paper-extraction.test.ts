@@ -1,5 +1,21 @@
 import { describe, expect, it } from 'vitest';
-import { parseIdentity, parseHeader, extractQuestionBlocks, findCover, adaptChemistryCheckpoint } from './whole-paper-extraction.mjs';
+import { parseIdentity, parseHeader, extractQuestionBlocks, findCover, adaptChemistryCheckpoint, extractPdf, EXTRACTOR_VERSION, sha256 } from './whole-paper-extraction.mjs';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { tmpdir } from 'node:os';
+
+it.each([
+  {name:'leading binary bytes',bytes:Buffer.concat([Buffer.from([13,13,0,0]),Buffer.from('%PDF-1.7 fixture')])},
+  {name:'high-bit PDF header',bytes:Buffer.from([0xa5,0x50,0x44,0x46,0x2d])},
+])('rejects $name before trusting a matching extraction cache',async({bytes})=>{
+  const root=await fs.mkdtemp(path.join(tmpdir(),'whole-paper-header-'));
+  try {
+    const filename=path.join(root,'source.pdf'),hash=sha256(bytes);
+    await fs.writeFile(filename,bytes);
+    await fs.writeFile(path.join(root,`${hash}-${EXTRACTOR_VERSION}-ib.json`),JSON.stringify({version:EXTRACTOR_VERSION,sha256:hash,bytes:bytes.length,pages:1,text:['cached cover'],questions:[]}));
+    await expect(extractPdf(filename,'ib',root)).rejects.toThrow('Invalid PDF header');
+  } finally {await fs.rm(root,{recursive:true,force:true});}
+});
 
 it('rejects legacy checkpoint reuse unless source hash, bytes, full text and printed totals agree',()=>{
   const old={version:'chemistry-paper-archive-v2',sha256:'a'.repeat(64),bytes:42,pageCount:2,pages:['cover','[Total: 8]'],questions:[{number:1,page:2,text:'[Total: 8]',maxMarks:8}]};

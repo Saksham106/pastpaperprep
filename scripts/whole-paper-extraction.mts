@@ -48,6 +48,7 @@ export function adaptChemistryCheckpoint(input:unknown,hash:string,byteCount:num
 }
 export async function extractPdf(filename: string, family: Identity['family'], cacheDirectory: string,legacyChemistryCache?:string): Promise<ExtractedDocument> {
   const bytes=await fs.readFile(filename), hash=sha256(bytes);
+  if(!bytes.subarray(0,5).equals(Buffer.from('%PDF-')))throw new Error(`Invalid PDF header: ${filename} sha256=${hash}`);
   const cache=path.join(cacheDirectory,`${hash}-${EXTRACTOR_VERSION}-${family}.json`);
   try {const cached=JSON.parse(await fs.readFile(cache,'utf8'));if(cached.sha256===hash&&cached.version===EXTRACTOR_VERSION&&cached.bytes===bytes.length)return cached;} catch(error) {if((error as NodeJS.ErrnoException).code!=='ENOENT' && !(error instanceof SyntaxError))throw error;}
   if(legacyChemistryCache&&family==='igcse'&&/^0620-\d{4}-[msw]-[3-6]\d-question\.pdf$/.test(path.basename(filename))) {

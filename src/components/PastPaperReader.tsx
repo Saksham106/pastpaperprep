@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { PDFDocumentProxy } from "pdfjs-dist";
 import { PaperAttemptTimer } from "./PaperAttemptTimer";
 import { PastPaperPdfPage } from "./PastPaperPdfPage";
+import { loadPaperPdfLibrary } from "../lib/paper-pdf-library";
 import styles from "./PastPaperReader.module.css";
 
 export type { PaperReaderConfig } from "../lib/paper-reader-config";
@@ -79,7 +80,7 @@ function PastPaperReaderSession({ paper }: { paper: PaperReaderConfig }) {
         if (!response.ok || !response.headers.get("content-type")?.includes("application/pdf")) throw new Error("PDF unavailable");
         const data = new Uint8Array(await response.arrayBuffer());
         if (disposed) return;
-        const pdfjs = await import("pdfjs-dist");
+        const pdfjs = await loadPaperPdfLibrary();
         if (disposed) return;
         pdfjs.GlobalWorkerOptions.workerSrc = "/pdfjs/pdf.worker.min.mjs";
         task = pdfjs.getDocument({ data });

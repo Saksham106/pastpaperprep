@@ -4,7 +4,7 @@ import { PastPaperReader } from "./PastPaperReader";
 import { DEFAULT_PAPER_READER_CONFIG } from "@/lib/paper-reader-config";
 
 const mocks = vi.hoisted(() => ({ getDocument: vi.fn() }));
-vi.mock("pdfjs-dist", () => ({ GlobalWorkerOptions: {}, getDocument: mocks.getDocument }));
+vi.mock("../lib/paper-pdf-library", () => ({ loadPaperPdfLibrary: async () => ({ GlobalWorkerOptions: {}, getDocument: mocks.getDocument }) }));
 beforeEach(() => {
   vi.clearAllMocks();
   vi.stubGlobal("fetch", vi.fn().mockImplementation(async (url: string) => ({ ok: true, headers: new Headers({ "content-type": "application/pdf" }), arrayBuffer: async () => new ArrayBuffer(url.includes("markscheme") ? 10 : 16) })));

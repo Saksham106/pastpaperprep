@@ -11,6 +11,26 @@ it('accepts repeatable inventories and rejects unknown or missing CLI arguments'
   expect(()=>parseCli(['--inventry','one.json'])).toThrow();
   expect(()=>parseCli([])).toThrow();
 });
+it('requires both hash-bound review images and rejects duplicate identity adjudications through the real build entry point',async()=>{
+  const dir=await fs.mkdtemp(path.join(process.env.TMPDIR??process.cwd(),'whole-paper-review-fixture-'));
+  try {
+    const inventoryFile=path.join(dir,'inventory.json'),reviewFile=path.join(dir,'review.json');
+    await fs.writeFile(inventoryFile,JSON.stringify({banks:[]}));
+    const review={bankSlug:'igcse-chemistry-0620',paperId:'0620-2023-w-42',questionSha256:'a'.repeat(64),markschemeSha256:'b'.repeat(64),verdict:'valid-pair',visualEvidence:[] as unknown[]};
+    const options={root:dir,inventoryFiles:[inventoryFile],identityReviewFiles:[reviewFile]};
+    await fs.writeFile(reviewFile,JSON.stringify({cases:[review]}));
+    await expect(buildWholePaperArchives(options)).rejects.toThrow('needs both source images');
+    const imagePath=path.join(dir,'cover.png');await fs.writeFile(imagePath,'fixture image bytes');
+    const {createHash}=await import('node:crypto');const imageSha256=createHash('sha256').update('fixture image bytes').digest('hex');
+    review.visualEvidence=['question','markscheme'].map(document=>({document,sourcePdfSha256:document==='question'?review.questionSha256:review.markschemeSha256,page:1,imagePath,imageSha256}));
+    await fs.writeFile(reviewFile,JSON.stringify({cases:[review]}));
+    await expect(buildWholePaperArchives(options)).resolves.toEqual([]);
+    await fs.writeFile(imagePath,'changed image');
+    await expect(buildWholePaperArchives(options)).rejects.toThrow('image binding mismatch');
+    await fs.writeFile(imagePath,'fixture image bytes');await fs.writeFile(reviewFile,JSON.stringify({cases:[review,review]}));
+    await expect(buildWholePaperArchives(options)).rejects.toThrow('Duplicate identity review');
+  } finally {await fs.rm(dir,{recursive:true,force:true});}
+});
 it('runs an empty portable cohort deterministically with private-only bindings and receipt',async()=>{
   const dir=await fs.mkdtemp(path.join(process.env.TMPDIR??process.cwd(),'whole-paper-fixture-'));
   try {
@@ -85,6 +105,15 @@ it('matches source-confirmed split glyph headers and the singular official 0654 
   const q=doc('CO-ORDINATED SCIENCES 0654/41 Paper 4 Theory Extended October/November 2020 2 hours The total mark for this paper is 120.',[60,60]);
   const m=doc('CO - ORDINATED SCIENCE 0654/41 October/November 2020 Maximum Mark: 120');
   expect(assemblePaper('igcse-coordinated-sciences-0654',sciencePair,rows as never,q,m).evidence.identityValid).toBe(true);
+});
+it('accepts an independently reviewed identity only for the exact bank, paper and both source hashes without rewriting source literals',()=>{
+  const typo={...ms,text:[ms.text[0].replace('CHEMISTRY','CHEMSITRY')]};
+  const review={bankSlug:bank.slug,paperId:pair.id,questionSha256:qp.sha256,markschemeSha256:ms.sha256,verdict:'valid-pair',visualEvidence:[],evidence:'source-bound published typo'};
+  const result=assemblePaper(bank.slug,pair,rows as never,qp,typo,review as never);
+  expect(result.evidence.identityValid).toBe(true);
+  expect(result.entry.summary.reportAvailable).toBe(true);
+  expect(JSON.stringify(result.entry)).not.toMatch(/identityReview|source-bound published typo/);
+  expect(()=>assemblePaper(bank.slug,pair,rows as never,qp,typo,{...review,questionSha256:'c'.repeat(64)} as never)).toThrow('Identity review source binding mismatch');
 });
 it('holds mismatched subjects even when code, year and component agree',()=>{
   expect(assemblePaper(bank.slug,pair,rows as never,{...qp,text:[qp.text[0].replace('CHEMISTRY','PHYSICS')]},ms).entry.summary.metadataVerified).toBe(false);
