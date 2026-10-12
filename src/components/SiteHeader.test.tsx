@@ -123,7 +123,7 @@ describe("SiteHeader", () => {
   it("shows the shortcut only on phones and makes the open menu glassy", () => {
     const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
     expect(css).toMatch(/\.nav-quick \{[^}]*display: none/);
-    const phone = css.slice(css.lastIndexOf("@media (max-width: 760px)"));
+    const phone = css.slice(css.lastIndexOf("@media (max-width: 1099px)"));
     expect(phone).toMatch(/\.nav-quick \{[^}]*display: inline-flex/);
     expect(phone).toMatch(/\.site-header \.site-menu \{[^}]*backdrop-filter: blur\(\d+px\)/);
   });
@@ -133,5 +133,33 @@ describe("SiteHeader", () => {
     // which Chrome ignores: the header had no blur outside Safari.
     const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
     expect(css).not.toContain("-webkit-backdrop-filter");
+  });
+
+  it("groups page links for the center and account actions for the right", () => {
+    const { container } = render(<SiteHeader authenticated={false} />);
+    const pages = container.querySelector("#site-menu .nav-pages");
+    const actions = container.querySelector("#site-menu .nav-actions");
+    expect([...(pages?.querySelectorAll("a") ?? [])].map((a) => a.textContent)).toEqual(["Question banks", "Articles", "Pricing"]);
+    expect(actions).toContainElement(screen.getByRole("link", { name: "Log in" }));
+    expect(actions).toContainElement(screen.getByRole("link", { name: /start practising/i }));
+    expect(actions).toContainElement(screen.getByRole("button", { name: /switch to dark theme/i }));
+  });
+
+  it("centers page links on a three-column desktop bar and folds into the menu below 1100px", () => {
+    const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+    const desktop = css.slice(css.indexOf("@media (min-width: 1100px)"));
+    expect(desktop).toMatch(/\.site-header \{[^}]*display: grid;[^}]*grid-template-columns: minmax\(0, 1fr\) auto minmax\(0, 1fr\)/);
+    expect(desktop).toMatch(/\.site-header \.site-menu \{[^}]*grid-template-columns: subgrid/);
+    const menu = css.slice(css.indexOf("@media (max-width: 1099px)"));
+    expect(menu).toMatch(/\.menu-toggle \{[^}]*display: inline-flex/);
+  });
+
+  it("marks the current page with a soft tint, not a white pill with an outline", () => {
+    const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+    const rules = [...css.matchAll(/\.site-menu a\.nav-active:not\(\.nav-cta\)\s*\{([^}]*)\}/g)].map((m) => m[1]);
+    expect(rules.at(-1)).toMatch(/color: var\(--cobalt-strong\)/);
+    expect(rules.at(-1)).toMatch(/background: var\(--cobalt-faint\)/);
+    expect(rules.at(-1)).toMatch(/box-shadow: none/);
+    expect(css).not.toMatch(/nav-active:not\(\.nav-cta\) \{[^}]*inset 0 0 0 1px var\(--line-strong\)/);
   });
 });

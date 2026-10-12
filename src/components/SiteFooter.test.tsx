@@ -47,5 +47,9 @@ describe("SiteFooter", () => {
     expect(skyline).toHaveAttribute("aria-hidden", "true");
     expect(skyline?.querySelector("path")?.getAttribute("d")?.length).toBeGreaterThan(100);
     expect(container.querySelector(".footer-wordmark")).toHaveAttribute("aria-hidden", "true");
+    const mark = container.querySelector(".footer-mark");
+    expect(mark).toContainElement(skyline as HTMLElement);
+    expect(mark).toContainElement(container.querySelector(".footer-wordmark") as HTMLElement);
+    expect(container.querySelector(".site-footer")?.firstElementChild).not.toBe(skyline);
   });
 });
