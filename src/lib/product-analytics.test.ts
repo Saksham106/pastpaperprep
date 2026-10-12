@@ -381,6 +381,22 @@ describe("PostHog product analytics", () => {
     expect(isExpectedControlFlow(Object.assign(new Error("missing"), { digest: "NEXT_HTTP_ERROR_FALLBACK;404" }))).toBe(true);
   });
 
+  it("links a signed-in browser exception to the account id, never the session's other fields", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    const id = "7f1b6a2e-0000-4000-8000-000000000000";
+    document.cookie = `sb-wrig-auth-token=base64-${Buffer.from(JSON.stringify({ user: { id, email: "student@example.com" } })).toString("base64url")}; path=/`;
+    try {
+      const { initializeProductAnalytics, captureAppException } = await import("@/lib/product-analytics");
+      await initializeProductAnalytics();
+      captureAppException(new TypeError("x"));
+      await vi.waitFor(() => expect(posthog.captureException).toHaveBeenCalledTimes(1));
+      expect(posthog.captureException.mock.calls[0][1]).toEqual({ user_id: id });
+      expect(JSON.stringify(posthog.captureException.mock.calls)).not.toContain("student@example.com");
+    } finally {
+      document.cookie = "sb-wrig-auth-token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+    }
+  });
+
   it("does not capture expected Next control-flow exceptions", async () => {
     vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
     const { captureAppException } = await import("@/lib/product-analytics");

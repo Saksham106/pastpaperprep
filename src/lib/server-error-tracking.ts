@@ -6,7 +6,7 @@ import { BANK_CATALOG } from "@/lib/catalog";
 import { safeServerErrorCode } from "@/lib/safe-server-error-code";
 import { serverLog } from "@/lib/server-logs";
 
-const AUTH_PHASES = new Set(["signup_result", "magic_link_result", "resend_result", "password_signin_result", "confirmation_result"]);
+const AUTH_PHASES = new Set(["signup_result", "magic_link_result", "resend_result", "password_signin_result", "confirmation_result", "code_result", "oauth_result"]);
 const ENUMS: Record<string, Set<string>> = {
   router_kind: new Set(["App Router", "Pages Router"]),
   route_type: new Set(["render", "route", "action", "middleware"]),
@@ -27,7 +27,9 @@ function safeMetadata(metadata: Record<string, unknown>) {
       || key === "route" && /^\/[A-Za-z0-9_\-/[\].()]*$/.test(value)
       // Next's render digest also reaches the browser error boundary, which links the two reports.
       || key === "digest" && /^[A-Za-z0-9_-]{1,40}$/.test(value) && !value.startsWith("NEXT_")
-      || key === "correlation_id" && UUID.test(value)) properties[key] = value;
+      || key === "correlation_id" && UUID.test(value)
+      // Signed-in requests link their error reports to the account id (disclosed in /privacy).
+      || key === "user_id" && UUID.test(value)) properties[key] = value;
   }
   return properties;
 }

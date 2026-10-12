@@ -11,6 +11,15 @@ const request = new Request("https://pastpaperprep.com/account?email=alice@examp
 describe("onRequestError telemetry", () => {
   beforeEach(() => captureServerException.mockReset());
 
+  it("links a signed-in render error to the account id from Next's plain header object", async () => {
+    const id = "7f1b6a2e-0000-4000-8000-000000000000";
+    const cookie = `sb-wrig-auth-token=base64-${Buffer.from(JSON.stringify({ user: { id } })).toString("base64url")}`;
+    await onRequestError(new Error("boom"), { path: "/dashboard", method: "GET", headers: { cookie } }, { routerKind: "App Router", routePath: "/dashboard", routeType: "render" });
+    expect(captureServerException.mock.calls[0][1]).toMatchObject({ route: "/dashboard", user_id: id });
+    await onRequestError(new Error("boom"), request, { routerKind: "App Router", routePath: "/account", routeType: "render" });
+    expect(captureServerException.mock.calls[1][1]).not.toHaveProperty("user_id");
+  });
+
   it("records the route file pattern, never the requested URL", async () => {
     await onRequestError(new Error("boom"), request, { routerKind: "App Router", routePath: "/account", routeType: "render" });
     await onRequestError(new Error("boom"), request, { routerKind: "App Router", routePath: "/banks/[slug]/topics/[topicSlug]", routeType: "render" });

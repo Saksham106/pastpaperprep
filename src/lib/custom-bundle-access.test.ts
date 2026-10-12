@@ -26,8 +26,8 @@ describe("per-subscription custom bundle access", () => {
     expect(rpc).toHaveBeenCalledTimes(2);
     // Recovered retries are invisible to the page, so they are logged.
     expect(serverLog.mock.calls).toEqual([
-      ["warn", "entitlement_read_retry", { attempt: 1, error_code: "PGRST303" }],
-      ["info", "entitlement_read_recovered", { attempts: 2 }],
+      ["warn", "entitlement_read_retry", { attempt: 1, error_code: "PGRST303", user_id: "owner" }],
+      ["info", "entitlement_read_recovered", { attempts: 2, user_id: "owner" }],
     ]);
   });
 
@@ -109,7 +109,7 @@ describe("per-subscription custom bundle access", () => {
     await vi.runAllTimersAsync();
     expect(await promise).toEqual({ rows: [], error: futureJwt });
     expect(query).toHaveBeenCalledTimes(3);
-    expect(serverLog).toHaveBeenLastCalledWith("error", "entitlement_read_failed", { attempts: 3, error_code: "PGRST303" });
+    expect(serverLog).toHaveBeenLastCalledWith("error", "entitlement_read_failed", { attempts: 3, error_code: "PGRST303", user_id: "owner" });
   });
 
   it("does not retry an unrelated error when another parallel query has a future-issued JWT", async () => {
