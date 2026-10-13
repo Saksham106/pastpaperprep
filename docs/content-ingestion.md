@@ -470,6 +470,25 @@ Jev could not run for 2026 (TypeSafe HTTP 402). The rows carry the source's manu
 
 The 414 premium WebPs (`igcse/core-questions/0580-2026-*.webp`, `igcse/core-markschemes/0580-2026-*.webp`) are **not uploaded yet**. `docs/igcse-0580-2026-core-r2-upload-plan.json` lists every key, source path, SHA-256, MD5 and size. 2026 is not an igcse free year, so nothing goes to Supabase. Uploading needs owner approval. `npm run r2:sync` resolves igcse files from the sibling main source checkout (`igcse-0580-topic-practice/site`), which does not have these crops until the source branch lands there. Alternatively, point `PASTPAPERPREP_IGCSE_0580_SOURCE_ROOT` at the source worktree's `site/`. Until the upload, the new questions' images return errors. The whole-paper archive (`src/data/paper-archives/igcse.json`) is unchanged, so the eight Core 2026 papers do not appear under Full past papers until a separate whole-paper release.
 
+## Cambridge IGCSE Economics 0455 2026 addition (October 2026)
+
+0455 is a gated release bank (`src/data/production/igcse-economics-0455.json`, served only through the `getIGCSERuntimeArtifact` release gate). It is not a raw bank, so the table above does not list it and the copy-`questions.json` flow does not apply. The candidate holds 106 papers / 1,862 questions / 4,548 private WebPs: the finalized 2019–2025 release (98 papers / 1,723 questions / 4,200 objects, verified readback) plus 8 papers / 139 questions for 2026 (February/March 12 and 22; May/June 11, 12, 13, 21, 22 and 23). `0455-2026-s-11-q26` was officially removed by Cambridge (printed key: removed, mark 0). It is segmented and audited in the source but never served.
+
+The 2019–2025 rows are a frozen baseline: the finalized, Jev-corrected runtime (git blob `4c9bb0b7…`, runtime `585200ac…`, content `1ebc3138…`). They stay byte-identical, in order, and `production`/`classified`. Do not rebuild them with the historical generator path. It still reproduces the original candidate `629eb2cd…` (`--check-historical`), but not the Jev corrections or the finalized states. The 2026 rows label against the 2023_2025 registry: Cambridge's single-year 2026 syllabus has unchanged content (source `research/extension-2026/era-decision-2026.json`). They carry `classificationVersion: economics0455_extension_2026`, the source's blind-census confidence, and `source_paired_review_completed_pending_release` until finalization.
+
+- Regenerate: `ECON0455_SOURCE_ROOT=<source worktree> node scripts/generate-igcse-economics-0455-runtime.mjs [--check]`. It writes the minified runtime and the private index from the baseline plus the 2026 lane (source `feat/2026-acquisition`, `0b7c8e3`; receipt `1a2f1de4…`).
+- Prove the pure insertion: `node scripts/verify-0455-2026-addition.mjs`.
+- Receipt and dry-run upload plan: `PASTPAPERPREP_IGCSE_ECONOMICS_SOURCE_ROOT=<source worktree> node scripts/build-0455-2026-addition-receipt.mjs [--check]` writes `docs/igcse-economics-0455-2026-addition.json` and `docs/igcse-economics-0455-2026-r2-upload-plan.json`.
+- Pins: `src/lib/igcse-runtime.ts` (counts, candidate `c54a9b4c…`, `assert0455Extension2026`), `RELEASE_BANKS` and the 2026 cohort in `scripts/igcse-release.mjs` / `scripts/generate-igcse-release.mjs`, and `src/lib/catalog.ts`.
+
+**Release (owner approval required, not done).** The 348 new objects keep the existing `igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/` prefix, so the 4,200 verified objects are not re-uploaded. `npm run r2:sync` does not handle 0455. Use `scripts/igcse-release.mjs`, which reads `PASTPAPERPREP_IGCSE_ECONOMICS_SOURCE_ROOT` and needs a checkout with both the 2019–2025 lanes and `data/segmentation/full-extension-2026/` (today only the source worktree has the 2026 lane):
+
+1. `node scripts/igcse-release.mjs --upload igcse-economics-0455` rewrites the 4,548-object manifest, uploads the 348 new objects create-only, and GET-verifies all 4,548 into a new receipt.
+2. `node scripts/generate-igcse-release.mjs --finalize igcse-economics-0455` promotes the 2026 rows to `production`/`classified` and seals the runtime as `verified_readback`.
+3. Run the gates and commit the manifest, receipt and finalized runtime together.
+
+Until step 2, the release gate refuses the whole 0455 bank, and a build with `PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS=true` fails at `generate:free-asset-index`. Merge only after finalization. The whole-paper archive (`src/data/paper-archives/igcse-economics-0455.json`) is unchanged, so the 2026 papers do not appear under Full past papers until a separate whole-paper release.
+
 ## Cambridge IGCSE Additional Mathematics 0606 (added August 2026)
 
 The 0606 bank covers 147 verified question-paper/mark-scheme pairs: 2016–2025, June 2026 components 11, 12, 13, 21, and 22, and February/March 2026 components 12 and 22. June 2026 component 23 is explicitly excluded because an official mark scheme was unavailable; do not publish a question-paper-only record.
