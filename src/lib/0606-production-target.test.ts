@@ -1,10 +1,11 @@
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
-import { copyFileSync, existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { copyFileSync, existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { getControlledSubtopics } from "@/lib/taxonomy";
+import { ADDED_0606_QUESTION_IDS, split0606Raw } from "@/lib/igcse-0606-additions.mjs";
 
 const root = process.cwd();
 const audit = join(root, "docs", "audits", "igcse-additional-0606-sources");
@@ -94,7 +95,11 @@ describe("0606 finalized full-bank production target", () => {
     const correctionsById = new Map<string, CorrectionRecord>(corrections.map((record) => [record.id, record]));
     const baseline = load(join(audit, "production-baseline-overlay.json")).records as BaselineRecord[];
     const baselineById = new Map<string, BaselineRecord>(baseline.map((record) => [record.id, record]));
-    const bank = load(join(root, "src", "data", "raw", "igcse-additional.json")).questions as BankQuestion[];
+    // The frozen target covers the historical 1,633-row base; the reviewed 2026 March rows are
+    // verified separately against their own receipt and must be the only other rows.
+    const { base, added } = split0606Raw(load(join(root, "src", "data", "raw", "igcse-additional.json")) as never);
+    expect(added.map((row: { id: string }) => row.id)).toEqual([...ADDED_0606_QUESTION_IDS]);
+    const bank = base.questions as unknown as BankQuestion[];
     const source = load(join(sourceRoot, "site", "data", "questions.json")).questions as SourceQuestion[];
     const sourceById = new Map(source.map((question) => [question.id, question]));
     expect(bank).toHaveLength(1633);
@@ -139,8 +144,15 @@ describe("0606 finalized full-bank production target", () => {
     const dir = mkdtempSync(join(tmpdir(), "0606-apply-"));
     const bankPath = join(dir, "igcse-additional.json");
     try {
+      // The pinned apply script refuses anything but the exact historical base: fail closed on the
+      // merged bank, then prove zero drift and determinism on the reconstructed base.
       copyFileSync(join(root, "src", "data", "raw", "igcse-additional.json"), bankPath);
+      expect(() => execFileSync("python3", [join(root, "scripts", "apply_0606_production_target.py"), "--bank", bankPath], { cwd: root, encoding: "utf8", stdio: "pipe" }))
+        .toThrow(/app bank count drift/);
+      const { base } = split0606Raw(load(bankPath) as never);
+      writeFileSync(bankPath, `${JSON.stringify(base, null, 2)}\n`);
       const before = readFileSync(bankPath);
+      expect(createHash("sha256").update(before).digest("hex")).toBe("4d385d4ee951a313608075415b95e5e7fb63805823760328b1853c3e145ce87f");
       execFileSync("python3", [join(root, "scripts", "apply_0606_production_target.py"), "--bank", bankPath], { cwd: root, encoding: "utf8" });
       const afterFirst = readFileSync(bankPath);
       execFileSync("python3", [join(root, "scripts", "apply_0606_production_target.py"), "--bank", bankPath], { cwd: root, encoding: "utf8" });

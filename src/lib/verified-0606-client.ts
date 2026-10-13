@@ -19,9 +19,14 @@ export async function verify0606PdfMetadata(
   question: PdfExportQuestion, kind: "question" | "answer", index: number,
 ): Promise<void> {
   if (question.bankSlug !== "igcse-additional") return;
-  const source = (await import("@/data/print-geometry-0606.json")).default;
-  const entry = (source.entries as unknown as Record<string, [SourceEntry, SourceEntry]>)[question.id]
-    ?.[kind === "question" ? 0 : 1];
+  const [source, addition] = await Promise.all([
+    import("@/data/print-geometry-0606.json").then((module) => module.default),
+    import("@/data/print-geometry-0606-2026-march.json").then((module) => module.default),
+  ]);
+  const historical = (source.entries as unknown as Record<string, [SourceEntry, SourceEntry]>)[question.id];
+  const added = (addition.entries as unknown as Record<string, [SourceEntry, SourceEntry]>)[question.id];
+  if (historical && added) throw new Error("0606 print geometry addition overlaps the historical receipt");
+  const entry = (historical ?? added)?.[kind === "question" ? 0 : 1];
   const images = kind === "question" ? question.questionImages : question.markschemeImages;
   const sizes = kind === "question" ? question.questionPrintSizesPt : question.markschemePrintSizesPt;
   const rasters = kind === "question" ? question.questionRasterSizesPx : question.markschemeRasterSizesPx;

@@ -1,5 +1,6 @@
 import verified0580 from "@/data/print-geometry-0580.json";
 import verified0606 from "@/data/print-geometry-0606.json";
+import verified0606March2026 from "@/data/print-geometry-0606-2026-march.json";
 import type { BankSlug } from "@/lib/banks";
 import { reviewedBlankTailForSignedAsset, reviewedBlankSourcePage } from "@/lib/reviewed-blank-tails";
 
@@ -22,6 +23,16 @@ type Verified0606Entry = {
   segments: [number, number, number, number][];
 };
 
+/** Historical 1,633-pair receipt plus reviewed additions; an addition may never redefine a pair. */
+const verified0606Entries: Record<string, [Verified0606Entry, Verified0606Entry]> = (() => {
+  const merged = { ...(verified0606.entries as unknown as Record<string, [Verified0606Entry, Verified0606Entry]>) };
+  for (const [id, pair] of Object.entries(verified0606March2026.entries as unknown as Record<string, [Verified0606Entry, Verified0606Entry]>)) {
+    if (merged[id]) throw new Error(`0606 print geometry addition overlaps ${id}`);
+    merged[id] = pair;
+  }
+  return merged;
+})();
+
 /** Only exact, source-audited crop paths may carry physical print dimensions. */
 function geometryForSignedPath(
   bank: BankSlug, questionId: string, kind: "question" | "answer", path: string,
@@ -41,7 +52,7 @@ function geometryForSignedPath(
     };
   }
   if (bank === "igcse-additional") {
-    const pair = (verified0606.entries as unknown as Record<string, [Verified0606Entry, Verified0606Entry]>)[questionId];
+    const pair = verified0606Entries[questionId];
     const folder = kind === "question" ? "questions" : "markschemes";
     const expected = `${folder}/${questionId}.webp`;
     if (!pair || (path !== expected && !path.endsWith(`/${expected}`))) return null;

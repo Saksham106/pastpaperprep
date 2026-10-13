@@ -1,0 +1,439 @@
+{
+  "schemaVersion": 1,
+  "addition": "0606-2026-march",
+  "mode": "dry-run-plan-only",
+  "status": "NOT UPLOADED",
+  "provider": "cloudflare-r2",
+  "bucket": "pastpaperprep-assets",
+  "storageClass": "premium (2026 is not a free-preview year for igcse-additional; no Supabase preview objects)",
+  "method": "localManifest() from scripts/sync-r2-assets.mjs over the merged runtime JSON with the source worktree's site/ root; keys equal normalized questionAssetPaths/markschemeAssetPaths. No client was created and no credentials were read.",
+  "source": {
+    "repository": "Saksham106/igcse-additional-mathematics-0606-topic-practice",
+    "branch": "feat/2026-march-acquisition",
+    "commit": "d184b5e7f7889553f40e994aacf700ec1ba8983f"
+  },
+  "runtimeRawSha256": "6087554d55f8d21d7ce513b1ff9bd0f445b7d0419814f170dc26d344161bef49",
+  "objectCount": 46,
+  "totalBytes": 2229310,
+  "operatorNotes": [
+    "Owner approval is required before any upload.",
+    "scripts/sync-r2-assets.mjs resolves igcse-additional from the sibling main checkout's site/; those 46 files must exist there (merge the source branch) or the sync will fail on missing references.",
+    "After upload, run npm run r2:verify and open one added question and answer through the signed-URL API."
+  ],
+  "objects": [
+    {
+      "key": "igcse-additional/markschemes/0606-2026-march-12-q1.webp",
+      "questionId": "0606-2026-march-12-q1",
+      "kind": "markscheme",
+      "sourcePath": "site/markschemes/0606-2026-march-12-q1.webp",
+      "sha256": "69425716453dfeba37407b7813d95bb75883a297845197f40ae7a20a1aeb461f",
+      "md5": "5582cac83093f098b6100c8705cd7cdc",
+      "bytes": 25222
+    },
+    {
+      "key": "igcse-additional/markschemes/0606-2026-march-12-q10.webp",
+      "questionId": "0606-2026-march-12-q10",
+      "kind": "markscheme",
+      "sourcePath": "site/markschemes/0606-2026-march-12-q10.webp",
+      "sha256": "ead59daa6a9ddddcf21642a6d634b98a565ca2e61d1f234723db030679ef1c75",
+      "md5": "b7e3f43b6ec918fb79b0abd52621b26b",
+      "bytes": 71750
+    },
+    {
+      "key": "igcse-additional/markschemes/0606-2026-march-12-q11.webp",
+      "questionId": "0606-2026-march-12-q11",
+      "kind": "markscheme",
+      "sourcePath": "site/markschemes/0606-2026-march-12-q11.webp",
+      "sha256": "696fcf17a132ca91f3f940859448ceb0962e968065a527341cced5d17f5a2fa6",
+      "md5": "412a34dd93893bac137f3b22e3a9c3af",
+      "bytes": 53292
+    },
+    {
+      "key": "igcse-additional/markschemes/0606-2026-march-12-q12.webp",
+      "questionId": "0606-2026-march-12-q12",
+      "kind": "markscheme",
+      "sourcePath": "site/markschemes/0606-2026-march-12-q12.webp",
+      "sha256": "51ff7efdfcf6c8a79d07a79157991613320c34e6d36f37edb00bfde7eb494138",
+      "md5": "16138bf87901cf4ac3122623d91b81f3",
+      "bytes": 147630
+    },
+    {
+      "key": "igcse-additional/markschemes/0606-2026-march-12-q2.webp",
+      "questionId": "0606-2026-march-12-q2",
+      "kind": "markscheme",
+      "sourcePath": "site/markschemes/0606-2026-march-12-q2.webp",
+      "sha256": "e6568bfda842b38eb345ac8db0b2ca07e4d9072ebda9f1e3af8fbdd11ac18c06",
+      "md5": "2717482e374a96a7f19e510c3a266876",
+      "bytes": 53554
+    },
+    {
+      "key": "igcse-additional/markschemes/0606-2026-march-12-q3.webp",
+      "questionId": "0606-2026-march-12-q3",
+      "kind": "markscheme",
+      "sourcePath": "site/markschemes/0606-2026-march-12-q3.webp",
+      "sha256": "571c6b92750c29aa6a65cc33b0e083dfcb3dd17622009146834182f25d743058",
+      "md5": "475ff845c4aab58728313d7dc1b6980b",
+      "bytes": 15900
+    },
+    {
+      "key": "igcse-additional/markschemes/0606-2026-march-12-q4.webp",
+      "questionId": "0606-2026-march-12-q4",
+      "kind": "markscheme",
+      "sourcePath": "site/markschemes/0606-2026-march-12-q4.webp",
+      "sha256": "467b1888ba2df7cb21cdb465ae549bb3b569e7e81b0c85a82634020e1b2d9a6f",
+      "md5": "823a431e54b822d903de7b7ddfd8abfa",
+      "bytes": 13724
+    },
+    {
+      "key": "igcse-additional/markschemes/0606-2026-march-12-q5.webp",
+      "questionId": "0606-2026-march-12-q5",
+      "kind": "markscheme",
+      "sourcePath": "site/markschemes/0606-2026-march-12-q5.webp",
+      "sha256": "c871337c9fd5759f15bebb56659540e1a48c2793bc2fbbbcf04582ba61c7141e",
+      "md5": "d03927e445c796318ed7ca91b47a2253",
+      "bytes": 49522
+    },
+    {
+      "key": "igcse-additional/markschemes/0606-2026-march-12-q6.webp",
+      "questionId": "0606-2026-march-12-q6",
+      "kind": "markscheme",
+      "sourcePath": "site/markschemes/0606-2026-march-12-q6.webp",
+      "sha256": "ce60ff73a521102dfc8b7c064819684403e174bfff3601b45e0825821e0c3e38",
+      "md5": "6748de961e1cba6451bbaae8530ee304",
+      "bytes": 44308
+    },
+    {
+      "key": "igcse-additional/markschemes/0606-2026-march-12-q7.webp",
+      "questionId": "0606-2026-march-12-q7",
+      "kind": "markscheme",
+      "sourcePath": "site/markschemes/0606-2026-march-12-q7.webp",
+      "sha256": "a876da1d12fb3750df7a0fb99b0909ad3bec1650387d7dc4e333571f5929d34b",
+      "md5": "e3cb0e77ede394dfece7dfb9ce88a10a",
+      "bytes": 11402
+    },
+    {
+      "key": "igcse-additional/markschemes/0606-2026-march-12-q8.webp",
+      "questionId": "0606-2026-march-12-q8",
+      "kind": "markscheme",
+      "sourcePath": "site/markschemes/0606-2026-march-12-q8.webp",
+      "sha256": "47c73226614b6f59abe6b4a25ffadbfb9130d2057ff33cce2698a54cdddb0f69",
+      "md5": "a7b5f49bd490cca9b5f8fa65275c11d4",
+      "bytes": 83724
+    },
+    {
+      "key": "igcse-additional/markschemes/0606-2026-march-12-q9.webp",
+      "questionId": "0606-2026-march-12-q9",
+      "kind": "markscheme",
+      "sourcePath": "site/markschemes/0606-2026-march-12-q9.webp",
+      "sha256": "f1fcef87b223ffcd4d005f332833af3551faf5cfa543df2d2d79127c8390a110",
+      "md5": "19f05a7e1fa7a2115447951d40f27f04",
+      "bytes": 137826
+    },
+    {
+      "key": "igcse-additional/markschemes/0606-2026-march-22-q1.webp",
+      "questionId": "0606-2026-march-22-q1",
+      "kind": "markscheme",
+      "sourcePath": "site/markschemes/0606-2026-march-22-q1.webp",
+      "sha256": "5c3b7ed75b2ff84940b5cada9df158b404d6badd30ee1247eeb18296294090a5",
+      "md5": "f11851926a7bcbf8971f57d93f12c5f6",
+      "bytes": 42622
+    },
+    {
+      "key": "igcse-additional/markschemes/0606-2026-march-22-q10.webp",
+      "questionId": "0606-2026-march-22-q10",
+      "kind": "markscheme",
+      "sourcePath": "site/markschemes/0606-2026-march-22-q10.webp",
+      "sha256": "abd82d943eccaf53917de6a46c94a2631e552868e3ed99d916c849e19a735121",
+      "md5": "866cfa775a351ed6a55f5d1be658325e",
+      "bytes": 54428
+    },
+    {
+      "key": "igcse-additional/markschemes/0606-2026-march-22-q11.webp",
+      "questionId": "0606-2026-march-22-q11",
+      "kind": "markscheme",
+      "sourcePath": "site/markschemes/0606-2026-march-22-q11.webp",
+      "sha256": "7a6e20a0d7ae037cb9755f265251f26761b9b66f63a9d2cdbe97368fe5d5a829",
+      "md5": "22dd84fa70587f523112cbe1f142d0ad",
+      "bytes": 40098
+    },
+    {
+      "key": "igcse-additional/markschemes/0606-2026-march-22-q2.webp",
+      "questionId": "0606-2026-march-22-q2",
+      "kind": "markscheme",
+      "sourcePath": "site/markschemes/0606-2026-march-22-q2.webp",
+      "sha256": "d8615db971df59839cedb23a86631f028dcd4bd4f7bf4a181e5b652d3abeb724",
+      "md5": "bfa6cda4937bc5929715e198c6642b79",
+      "bytes": 32558
+    },
+    {
+      "key": "igcse-additional/markschemes/0606-2026-march-22-q3.webp",
+      "questionId": "0606-2026-march-22-q3",
+      "kind": "markscheme",
+      "sourcePath": "site/markschemes/0606-2026-march-22-q3.webp",
+      "sha256": "fac7ae961f9ac11d65121cb886c364944ff3f8e1b5fb990b2dd583d51594be30",
+      "md5": "3e5138531ccb078d20957eaaf3b3ac95",
+      "bytes": 12816
+    },
+    {
+      "key": "igcse-additional/markschemes/0606-2026-march-22-q4.webp",
+      "questionId": "0606-2026-march-22-q4",
+      "kind": "markscheme",
+      "sourcePath": "site/markschemes/0606-2026-march-22-q4.webp",
+      "sha256": "b5808f68f26095de1f401f32b1bbb5b24b597f73df3bb462ea386259061cfb10",
+      "md5": "18cc686e83b20a8e7d3e489651d7dc24",
+      "bytes": 34272
+    },
+    {
+      "key": "igcse-additional/markschemes/0606-2026-march-22-q5.webp",
+      "questionId": "0606-2026-march-22-q5",
+      "kind": "markscheme",
+      "sourcePath": "site/markschemes/0606-2026-march-22-q5.webp",
+      "sha256": "8ec63b80fe67106cb9be546080fd16dde365f19ad7467febce6639fd63659be6",
+      "md5": "2b5c31cc629da7323b1043fcc4180760",
+      "bytes": 25958
+    },
+    {
+      "key": "igcse-additional/markschemes/0606-2026-march-22-q6.webp",
+      "questionId": "0606-2026-march-22-q6",
+      "kind": "markscheme",
+      "sourcePath": "site/markschemes/0606-2026-march-22-q6.webp",
+      "sha256": "59bde1f59b9e1f5ea627723251aa6eec99b72939da47a3d1c5f1498197621fb4",
+      "md5": "25def6bda784759042923dd4e34ec497",
+      "bytes": 33844
+    },
+    {
+      "key": "igcse-additional/markschemes/0606-2026-march-22-q7.webp",
+      "questionId": "0606-2026-march-22-q7",
+      "kind": "markscheme",
+      "sourcePath": "site/markschemes/0606-2026-march-22-q7.webp",
+      "sha256": "7e0ae5de5ebccba6fa663a42ec26dde7593c6339e22eb812c39e37f916ca8e37",
+      "md5": "0cc07d5a7b2f9927635ad1d13ef08c17",
+      "bytes": 40114
+    },
+    {
+      "key": "igcse-additional/markschemes/0606-2026-march-22-q8.webp",
+      "questionId": "0606-2026-march-22-q8",
+      "kind": "markscheme",
+      "sourcePath": "site/markschemes/0606-2026-march-22-q8.webp",
+      "sha256": "a319d9dea1b1999798ff1c2a90c49811774f2b162e9e7842cdebcbd9fc02bc1b",
+      "md5": "2b3bac9cd9a72e7f32240e692968cf87",
+      "bytes": 51504
+    },
+    {
+      "key": "igcse-additional/markschemes/0606-2026-march-22-q9.webp",
+      "questionId": "0606-2026-march-22-q9",
+      "kind": "markscheme",
+      "sourcePath": "site/markschemes/0606-2026-march-22-q9.webp",
+      "sha256": "5be6d99f0989393ef9d990fba48dce82f846c1e4a0c7ca601ab9b4c1ee468b3a",
+      "md5": "182f313dcf44a5a832776d8079cc8228",
+      "bytes": 47542
+    },
+    {
+      "key": "igcse-additional/questions/0606-2026-march-12-q1.webp",
+      "questionId": "0606-2026-march-12-q1",
+      "kind": "question",
+      "sourcePath": "site/questions/0606-2026-march-12-q1.webp",
+      "sha256": "4ecaff73e15a9394e46d6df29bd4a4464bfd34243475bbfe7f29c0bb4c7ead07",
+      "md5": "a8d2a18f7d18481d34e16f19bef73aa4",
+      "bytes": 14064
+    },
+    {
+      "key": "igcse-additional/questions/0606-2026-march-12-q10.webp",
+      "questionId": "0606-2026-march-12-q10",
+      "kind": "question",
+      "sourcePath": "site/questions/0606-2026-march-12-q10.webp",
+      "sha256": "08d301304e3fea8e6135d14564ca12ccaa2a015ad5694834959efb38004b46cf",
+      "md5": "bcd34a4d83974bc7f042e9b07d4010ea",
+      "bytes": 12724
+    },
+    {
+      "key": "igcse-additional/questions/0606-2026-march-12-q11.webp",
+      "questionId": "0606-2026-march-12-q11",
+      "kind": "question",
+      "sourcePath": "site/questions/0606-2026-march-12-q11.webp",
+      "sha256": "373eb189741a00244e2516e8f91d92dc74e402a4ac7cf608ffcc6bd4f5359ca5",
+      "md5": "b8d9e735bc8e8ab2502ae268bc02466e",
+      "bytes": 20690
+    },
+    {
+      "key": "igcse-additional/questions/0606-2026-march-12-q12.webp",
+      "questionId": "0606-2026-march-12-q12",
+      "kind": "question",
+      "sourcePath": "site/questions/0606-2026-march-12-q12.webp",
+      "sha256": "85d4241f274a354b03a6ac8477d3737c5a8685cdc4358aa045e1eb2702eb568c",
+      "md5": "149013fbeab79ee3c6d7a5f9b209acf0",
+      "bytes": 15054
+    },
+    {
+      "key": "igcse-additional/questions/0606-2026-march-12-q2.webp",
+      "questionId": "0606-2026-march-12-q2",
+      "kind": "question",
+      "sourcePath": "site/questions/0606-2026-march-12-q2.webp",
+      "sha256": "6d554f14ee9d96d7b9c00351fead696a351df7cd7a4e520984b42302e04ddec9",
+      "md5": "84da3657b7ba2095250d61b9ed298500",
+      "bytes": 22048
+    },
+    {
+      "key": "igcse-additional/questions/0606-2026-march-12-q3.webp",
+      "questionId": "0606-2026-march-12-q3",
+      "kind": "question",
+      "sourcePath": "site/questions/0606-2026-march-12-q3.webp",
+      "sha256": "2dce0ed93fa7932bd4fc48f91e766c20d19c1d3b64405bc98f1b7f6f3fb71d7d",
+      "md5": "9742e504047b201bb471b7a4e2197c2a",
+      "bytes": 39758
+    },
+    {
+      "key": "igcse-additional/questions/0606-2026-march-12-q4.webp",
+      "questionId": "0606-2026-march-12-q4",
+      "kind": "question",
+      "sourcePath": "site/questions/0606-2026-march-12-q4.webp",
+      "sha256": "fa349d8b435b96282fed213705afde431ec582774d153286287cc0449636301a",
+      "md5": "d7ebc2089a49c73ca202234d0b577524",
+      "bytes": 17528
+    },
+    {
+      "key": "igcse-additional/questions/0606-2026-march-12-q5.webp",
+      "questionId": "0606-2026-march-12-q5",
+      "kind": "question",
+      "sourcePath": "site/questions/0606-2026-march-12-q5.webp",
+      "sha256": "fa4a1709b4f4fedca35ac6e354cd06613f4fb2eca2bdfbc9b4f672a859301fdc",
+      "md5": "e1143605a732dac39a6da6c06287b7b4",
+      "bytes": 14174
+    },
+    {
+      "key": "igcse-additional/questions/0606-2026-march-12-q6.webp",
+      "questionId": "0606-2026-march-12-q6",
+      "kind": "question",
+      "sourcePath": "site/questions/0606-2026-march-12-q6.webp",
+      "sha256": "9611f4daa5d7987f43036ce81713183694cd8c5562b8457fd9f2a82e95ef942f",
+      "md5": "499faef5847061877bf7ebca590643b4",
+      "bytes": 9744
+    },
+    {
+      "key": "igcse-additional/questions/0606-2026-march-12-q7.webp",
+      "questionId": "0606-2026-march-12-q7",
+      "kind": "question",
+      "sourcePath": "site/questions/0606-2026-march-12-q7.webp",
+      "sha256": "1e19f0ad358bd740e5a566395e850641294a27839bc34fa32b62bd18b3b0451f",
+      "md5": "ed70c1b86e6f6689a3c4536d78c68545",
+      "bytes": 17586
+    },
+    {
+      "key": "igcse-additional/questions/0606-2026-march-12-q8.webp",
+      "questionId": "0606-2026-march-12-q8",
+      "kind": "question",
+      "sourcePath": "site/questions/0606-2026-march-12-q8.webp",
+      "sha256": "e24fdefae8b809e03086320f5c2b35690f523d160992c6f88cf3e86fc4ce33ef",
+      "md5": "3e8cefb72e6a6128960bb24a3b167ccb",
+      "bytes": 29936
+    },
+    {
+      "key": "igcse-additional/questions/0606-2026-march-12-q9.webp",
+      "questionId": "0606-2026-march-12-q9",
+      "kind": "question",
+      "sourcePath": "site/questions/0606-2026-march-12-q9.webp",
+      "sha256": "d7ed92966728f55e5cfb4565099c4186dfddda6df1f4b065389b5fb333e02fe5",
+      "md5": "9055473a2887f5bf1e1b29ecae4c2fcc",
+      "bytes": 62782
+    },
+    {
+      "key": "igcse-additional/questions/0606-2026-march-22-q1.webp",
+      "questionId": "0606-2026-march-22-q1",
+      "kind": "question",
+      "sourcePath": "site/questions/0606-2026-march-22-q1.webp",
+      "sha256": "0e6099382b9045b209ec0659cc3ed7748bce3735d903757a37520f7fb7c949af",
+      "md5": "c8b2b95d3c19f2403159dab06b9a92a7",
+      "bytes": 41612
+    },
+    {
+      "key": "igcse-additional/questions/0606-2026-march-22-q10.webp",
+      "questionId": "0606-2026-march-22-q10",
+      "kind": "question",
+      "sourcePath": "site/questions/0606-2026-march-22-q10.webp",
+      "sha256": "e604c67c072a31c984d1a4ef62966d1bf72e1421c2d341e166483e8eac1940c2",
+      "md5": "1db8c50e71c6c70633b7a9edf623fe93",
+      "bytes": 54020
+    },
+    {
+      "key": "igcse-additional/questions/0606-2026-march-22-q11.webp",
+      "questionId": "0606-2026-march-22-q11",
+      "kind": "question",
+      "sourcePath": "site/questions/0606-2026-march-22-q11.webp",
+      "sha256": "7416ad294fce226d3691e377241624b645581e7280949851db899d90323540ad",
+      "md5": "53c82b1e9a9b5a037242afe5a3899607",
+      "bytes": 26122
+    },
+    {
+      "key": "igcse-additional/questions/0606-2026-march-22-q2.webp",
+      "questionId": "0606-2026-march-22-q2",
+      "kind": "question",
+      "sourcePath": "site/questions/0606-2026-march-22-q2.webp",
+      "sha256": "8af48f547357dcb7c5f47be39420510f7d9294ee64092e0537d9a094529f62c4",
+      "md5": "403cde7504297eb3acc0d5e84cf75e68",
+      "bytes": 23652
+    },
+    {
+      "key": "igcse-additional/questions/0606-2026-march-22-q3.webp",
+      "questionId": "0606-2026-march-22-q3",
+      "kind": "question",
+      "sourcePath": "site/questions/0606-2026-march-22-q3.webp",
+      "sha256": "edb2100bac9ad59918a8827b8df5d34191877537b6197082f4d993e2be3be312",
+      "md5": "384fbf694c7cf7bf968cce1d1f88d3b5",
+      "bytes": 385406
+    },
+    {
+      "key": "igcse-additional/questions/0606-2026-march-22-q4.webp",
+      "questionId": "0606-2026-march-22-q4",
+      "kind": "question",
+      "sourcePath": "site/questions/0606-2026-march-22-q4.webp",
+      "sha256": "5e31afcdc564f5787a86a5f45c69b1ce2d93ec3f34a2070aaa45138742285fef",
+      "md5": "a98feb20abadb92219c8ca10f3a4bc84",
+      "bytes": 46986
+    },
+    {
+      "key": "igcse-additional/questions/0606-2026-march-22-q5.webp",
+      "questionId": "0606-2026-march-22-q5",
+      "kind": "question",
+      "sourcePath": "site/questions/0606-2026-march-22-q5.webp",
+      "sha256": "b87e880b94eee2076920849078c457f5982a1073b1ce9425b9fd932ff2ec42be",
+      "md5": "7b97fb6c63ffcc0fc9c5f8558043fb79",
+      "bytes": 35954
+    },
+    {
+      "key": "igcse-additional/questions/0606-2026-march-22-q6.webp",
+      "questionId": "0606-2026-march-22-q6",
+      "kind": "question",
+      "sourcePath": "site/questions/0606-2026-march-22-q6.webp",
+      "sha256": "26c1b897af8db1ed792e1188dea5843fc52a66cb4a6d0b38b589337624f96e72",
+      "md5": "096a2a71646f76fd4e3cf3797df928d9",
+      "bytes": 143482
+    },
+    {
+      "key": "igcse-additional/questions/0606-2026-march-22-q7.webp",
+      "questionId": "0606-2026-march-22-q7",
+      "kind": "question",
+      "sourcePath": "site/questions/0606-2026-march-22-q7.webp",
+      "sha256": "db949a80f825974b50cb9730f79aec6e8b7c9342b35c718e41dfbb377b9cdae3",
+      "md5": "0846b43cc8a2f2af0cf4e69b1a1060b4",
+      "bytes": 27030
+    },
+    {
+      "key": "igcse-additional/questions/0606-2026-march-22-q8.webp",
+      "questionId": "0606-2026-march-22-q8",
+      "kind": "question",
+      "sourcePath": "site/questions/0606-2026-march-22-q8.webp",
+      "sha256": "99292b0ba59479c2344652f8e863dd6052e65e079937d71369e2d6b37596867f",
+      "md5": "459ca2516326e9b29113565c82166a0a",
+      "bytes": 17650
+    },
+    {
+      "key": "igcse-additional/questions/0606-2026-march-22-q9.webp",
+      "questionId": "0606-2026-march-22-q9",
+      "kind": "question",
+      "sourcePath": "site/questions/0606-2026-march-22-q9.webp",
+      "sha256": "7c6e6470357a35d807d73baaad1053fafc1c4d0e36ea9f1debcb8e0b844c02b5",
+      "md5": "95ec382acef766a6a68e9556cf2cc05b",
+      "bytes": 27698
+    }
+  ]
+}
