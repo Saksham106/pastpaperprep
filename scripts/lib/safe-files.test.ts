@@ -1,8 +1,10 @@
 // @vitest-environment node
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, renameSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import { canonicalRoot, placeConfined, privateStaging, readConfined, safeSegments, workerCount } from "./safe-files";
 
 let scratch: string;
@@ -18,6 +20,52 @@ beforeEach(() => {
 afterEach(() => rmSync(scratch, { recursive: true, force: true }));
 
 describe("confined reads", () => {
+  it("refuses a canonical root replaced by a symlink after approval", () => {
+    const approved = canonicalRoot(root);
+    mkdirSync(join(outside, "a"));
+    writeFileSync(join(outside, "a", "ok.pdf"), "outside");
+    renameSync(root, `${root}-old`);
+    symlinkSync(outside, root, "dir");
+    expect(() => readConfined(approved, "a/ok.pdf", 100)).toThrow(/root/i);
+  });
+  it("refuses a different directory at an approved root path", () => {
+    const approved = canonicalRoot(root);
+    mkdirSync(join(outside, "a"));
+    writeFileSync(join(outside, "a", "ok.pdf"), "outside");
+    renameSync(root, `${root}-old`);
+    renameSync(outside, root);
+    expect(() => readConfined(approved, "a/ok.pdf", 100)).toThrow(/root/i);
+  });
+  it("rechecks the root after opening before reading descriptor bytes", () => {
+    const probe = join(scratch, "open-probe.mts");
+    const helper = fileURLToPath(new URL("./safe-files.ts", import.meta.url));
+    writeFileSync(probe, `
+      import fs from 'node:fs';
+      import { syncBuiltinESMExports } from 'node:module';
+      import { canonicalRoot, readConfined } from ${JSON.stringify(helper)};
+      const root = ${JSON.stringify(root)};
+      const file = ${JSON.stringify(join(root, "a", "ok.pdf"))};
+      canonicalRoot(root);
+      const open = fs.openSync, read = fs.readSync;
+      let reads = 0, changed = false, rejected = false;
+      fs.openSync = (path, ...args) => {
+        if (path === file && !changed) {
+          changed = true;
+          fs.renameSync(root, root + '-old');
+          fs.symlinkSync(root + '-old', root, 'dir');
+        }
+        return open(path, ...args);
+      };
+      fs.readSync = (...args) => { reads++; return read(...args); };
+      syncBuiltinESMExports();
+      try { readConfined(root, 'a/ok.pdf', 100); } catch { rejected = true; }
+      console.log(JSON.stringify({ rejected, reads }));
+    `);
+    const loader = fileURLToPath(new URL("../../node_modules/tsx/dist/loader.mjs", import.meta.url));
+    const result = spawnSync(process.execPath, ["--import", loader, probe], { encoding: "utf8", timeout: 10_000, env: { ...process.env, NODE_OPTIONS: "" } });
+    expect(result.status, result.stderr).toBe(0);
+    expect(JSON.parse(result.stdout)).toEqual({ rejected: true, reads: 0 });
+  });
   it("reads a regular file inside the root", () => {
     expect(readConfined(root, "a/ok.pdf", 100).toString()).toBe("inside");
   });
@@ -48,6 +96,32 @@ describe("confined reads", () => {
 });
 
 describe("private staging and placement", () => {
+  it("refuses placement after the approved root is replaced by a symlink", () => {
+    const approved = canonicalRoot(root);
+    renameSync(root, `${root}-old`);
+    symlinkSync(outside, root, "dir");
+    const staging = privateStaging("safe-files-test-");
+    try {
+      expect(() => placeConfined(approved, "new.pdf", Buffer.from("placed"), staging)).toThrow(/root/i);
+      expect(existsSync(join(outside, "new.pdf"))).toBe(false);
+    } finally { staging.dispose(); }
+  });
+  it.each(["symlink", "directory"] as const)("rechecks a root replaced by a %s while staging", (replacement) => {
+    const approved = canonicalRoot(root);
+    const staging = privateStaging("safe-files-test-");
+    const write = staging.write;
+    staging.write = (bytes) => {
+      renameSync(root, `${root}-old`);
+      if (replacement === "symlink") symlinkSync(outside, root, "dir");
+      else renameSync(outside, root);
+      return write(bytes);
+    };
+    try {
+      expect(() => placeConfined(approved, "new.pdf", Buffer.from("placed"), staging)).toThrow(/root/i);
+      const destination = replacement === "symlink" ? outside : root;
+      expect(existsSync(join(destination, "new.pdf"))).toBe(false);
+    } finally { staging.dispose(); }
+  });
   it("creates a fresh 0700 folder and never writes through a planted symlink", () => {
     const staging = privateStaging("safe-files-test-");
     try {
