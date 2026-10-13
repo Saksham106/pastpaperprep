@@ -17,6 +17,7 @@ import { isPreviewQuestion } from "@/lib/access";
 import { normalizeBankQuestions } from "@/lib/questions";
 import { stableSha256 } from "@/lib/stable-sha256.mjs";
 import { localManifest, SOURCES } from "./sync-r2-assets.mjs";
+import { withUploadStatus } from "./r2-upload-2026-log.mjs";
 
 const ROOT = resolve(import.meta.dirname, "..");
 const RECEIPT = join(ROOT, "docs/igcse-0580-2026-core-addition.json");
@@ -119,7 +120,8 @@ const objects = local.filter((entry: { key: string }) => expectedKeys.has(entry.
   return { key: entry.key, questionId: id, kind, sourcePath: relative(sourceRoot, entry.path), sha256: digest, md5: entry.etag, bytes: entry.size };
 });
 if (objects.length !== 414 || expectedKeys.size !== 414) fail(`expected 414 objects, found ${objects.length}`);
-const plan = {
+// Marked executed only when the committed readback log verifies every planned object.
+const plan = withUploadStatus({
   schemaVersion: 1,
   addition: "0580-2026-core",
   mode: "dry-run-plan-only",
@@ -138,7 +140,7 @@ const plan = {
     "After upload, run npm run r2:verify and open one added question and answer through the signed-URL API.",
   ],
   objects,
-};
+});
 
 const reviewPath = "docs/0580-2026-core-addition-sections-v4.json";
 const geometryPath = "src/data/print-geometry-0580-2026-core.json";

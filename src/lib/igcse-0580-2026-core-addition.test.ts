@@ -108,11 +108,12 @@ describe("0580 Core 2026 reviewed addition", () => {
     expect(overlay.additions).toEqual([expect.objectContaining({ addition: "0580-2026-core", linkedRows: 205, unresolvedIds: UNRESOLVED })]);
   });
 
-  it("pins the reviewed statement input, print geometry and dry-run R2 plan", () => {
+  it("pins the reviewed statement input, print geometry and the executed R2 plan", () => {
     for (const artifact of [receipt.numberedStatementReview!, receipt.printGeometry!, receipt.r2UploadPlan]) {
       expect(sha(readFileSync(artifact.path)), artifact.path).toBe(artifact.sha256);
     }
-    expect(plan).toMatchObject({ mode: "dry-run-plan-only", status: "NOT UPLOADED", bucket: "pastpaperprep-assets", objectCount: 414 });
+    // Uploaded and read back on 13 October 2026; the status is derived from the committed readback log.
+    expect(plan).toMatchObject({ mode: "executed-upload-plan", status: "UPLOADED AND VERIFIED", bucket: "pastpaperprep-assets", objectCount: 414, upload: { objects: 414, createdNew: 414, overwritten: 0, readbackLog: "docs/2026-paper-gaps-r2-upload-log.jsonl" } });
     const rows = loadBankQuestions("igcse").filter((row) => ADDED_0580_QUESTION_IDS.includes(row.id));
     const keys = rows.flatMap((row) => [...row.questionAssetPaths, ...row.markschemeAssetPaths]).sort();
     expect(keys).toHaveLength(414);

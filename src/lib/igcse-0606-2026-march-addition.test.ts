@@ -68,11 +68,12 @@ describe("0606 Feb/March 2026 reviewed addition", () => {
     }
   });
 
-  it("pins the reviewed statement input, print geometry and dry-run R2 plan", () => {
+  it("pins the reviewed statement input, print geometry and the executed R2 plan", () => {
     for (const artifact of [receipt.numberedStatementReview, receipt.printGeometry, receipt.r2UploadPlan]) {
       expect(sha(readFileSync(artifact.path)), artifact.path).toBe(artifact.sha256);
     }
-    expect(plan).toMatchObject({ mode: "dry-run-plan-only", status: "NOT UPLOADED", bucket: "pastpaperprep-assets", objectCount: 46 });
+    // Uploaded and read back on 13 October 2026; the status is derived from the committed readback log.
+    expect(plan).toMatchObject({ mode: "executed-upload-plan", status: "UPLOADED AND VERIFIED", bucket: "pastpaperprep-assets", objectCount: 46, upload: { objects: 46, createdNew: 46, overwritten: 0, readbackLog: "docs/2026-paper-gaps-r2-upload-log.jsonl" } });
     const rows = loadBankQuestions("igcse-additional").filter((row) => ADDED_0606_QUESTION_IDS.includes(row.id));
     const keys = rows.flatMap((row) => [...row.questionAssetPaths, ...row.markschemeAssetPaths]).sort();
     expect(plan.objects.map((object) => object.key).sort()).toEqual(keys);
