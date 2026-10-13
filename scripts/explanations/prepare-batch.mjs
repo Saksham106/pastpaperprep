@@ -64,16 +64,24 @@ const r2Cache = (bank) => join(researchRoot, "_r2src", bank);
 
 // The site serves repaired crops for some questions, so build from exactly what students see:
 // the generated asset manifest's object keys. Release banks need their production flags.
-const RELEASE_FLAGS = { PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true", PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION: "true", PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED: "true" };
+const RELEASE_FLAGS = { NODE_ENV: "production", PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true", PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION: "true", PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED: "true" };
 function servedManifest(bank) {
   const dir = join(repoRoot, "generated", "asset-manifest");
   const find = () => (existsSync(dir) ? readdirSync(dir) : []).find((name) => name.startsWith(`${bank}.`) && name.endsWith(".json") && !name.includes(".local."));
   if (!find()) {
     execFileSync("npx", ["tsx", "scripts/generate-asset-manifest.mts", "--bank", bank], { cwd: repoRoot, stdio: "ignore", env: { ...process.env, ...RELEASE_FLAGS } });
   }
-  const name = find();
+  let name = find();
   if (!name) throw new Error(`No asset manifest for ${bank}`);
-  return JSON.parse(readFileSync(join(dir, name), "utf8"));
+  let manifest = JSON.parse(readFileSync(join(dir, name), "utf8"));
+  // A manifest built without the production flags points at local preview routes; rebuild it.
+  if (JSON.stringify(manifest).includes("/api/local-preview-assets/")) {
+    execFileSync("npx", ["tsx", "scripts/generate-asset-manifest.mts", "--bank", bank], { cwd: repoRoot, stdio: "ignore", env: { ...process.env, ...RELEASE_FLAGS } });
+    name = (readdirSync(dir).filter((n) => n.startsWith(`${bank}.`) && n.endsWith(".json") && !n.includes(".local.")).find((n) => n !== name)) ?? name;
+    manifest = JSON.parse(readFileSync(join(dir, name), "utf8"));
+    if (JSON.stringify(manifest).includes("/api/local-preview-assets/")) throw new Error(`${bank}: production asset manifest unavailable`);
+  }
+  return manifest;
 }
 // An object key like "ib-hl/questions/x.webp" maps to "questions/x.webp" in the source workspace.
 const relOfKey = (bank, key) => key.startsWith(`${bank}/`) ? key.slice(bank.length + 1) : key;
@@ -130,14 +138,23 @@ async function fetchMissing(bank, config, rels) {
   const [bin, ...prefix] = process.env.WRANGLER ? [process.env.WRANGLER] : ["npx", "-y", "wrangler@4"];
   const bucket = process.env.R2_BUCKET_NAME ?? "pastpaperprep-assets";
   console.error(`${bank}: fetching ${missing.length} images from R2`);
+  // Cloudflare's API allows about 4 requests/second per account (shared with any other job), so
+  // keep this small and back off on 429. Only "does not exist" counts as missing.
   const queue = [...missing];
   const failed = [];
-  await Promise.all(Array.from({ length: 12 }, async () => {
+  const sleep = (ms) => new Promise((done) => setTimeout(done, ms));
+  await Promise.all(Array.from({ length: 3 }, async () => {
     for (let rel = queue.shift(); rel; rel = queue.shift()) {
       const target = join(r2Cache(bank), rel);
       mkdirSync(dirname(target), { recursive: true });
-      try { await run(bin, [...prefix, "r2", "object", "get", `${bucket}/${rel}`, "--file", target, "--remote"], { maxBuffer: 1 << 24 }); }
-      catch { failed.push(rel); }
+      for (let attempt = 1; ; attempt += 1) {
+        try { await run(bin, [...prefix, "r2", "object", "get", `${bucket}/${rel}`, "--file", target, "--remote"], { maxBuffer: 1 << 24 }); break; }
+        catch (error) {
+          const text = `${error?.stderr ?? ""} ${error?.stdout ?? ""}`;
+          if (/does not exist|NoSuchKey/i.test(text) || attempt >= 8) { failed.push(rel); break; }
+          await sleep((/429|Too Many Requests|throttl/i.test(text) ? 5000 : 1500) * attempt);
+        }
+      }
     }
   }));
   if (failed.length) throw new Error(`${bank}: ${failed.length} images not in R2, e.g. ${failed.slice(0, 3).join(", ")}`);
