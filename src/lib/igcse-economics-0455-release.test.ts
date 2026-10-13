@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import runtime from "@/data/production/igcse-economics-0455.json";
 import manifest from "../../data/storage/igcse-economics-0455.manifest.json";
 import receipt from "../../data/storage/igcse-economics-0455.receipt.json";
+import addition from "../../docs/igcse-economics-0455-2026-addition.json";
 import { BANK_CATALOG } from "@/lib/catalog";
 import { isPreviewQuestion } from "@/lib/access";
 import { assert0455Extension2026, getIGCSERuntimeArtifact } from "@/lib/igcse-runtime";
@@ -44,6 +45,7 @@ describe("Economics 0455 combined 2019-2026 candidate", () => {
     expect(jsonSha(r.questions.slice(0, 1723))).toBe(r.runtimeArtifact.extension2026.baselineFinalizedContentSha256);
     expect(seal(through2025.map((q) => q.id))).toBe(r.runtimeArtifact.extension2026.baselineCombinedIdSeal);
     expect(through2025.every(finalized)).toBe(true);
+    expect(addition.merged.baselinePrefixContentSha256).toBe(r.runtimeArtifact.extension2026.baselineFinalizedContentSha256);
   });
 
   it("serves the 2026 rows as honest pending candidates on the 2023_2025 registry, never the official removal", () => {
