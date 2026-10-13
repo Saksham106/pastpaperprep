@@ -4,7 +4,7 @@ import { ArrowRight, CaretDown } from "@phosphor-icons/react/dist/ssr";
 import type { Bank } from "@/lib/banks";
 import { getCatalogRuntimeBanks } from "@/lib/catalog";
 import { CourseIcon, type CourseTone } from "@/components/CourseIcon";
-import { HeroPicker, type PickerGroup } from "@/components/HeroPicker";
+import { SmartSearch } from "@/components/SmartSearch";
 import { QualificationTabs } from "@/components/QualificationTabs";
 import { bankEntryHref, hasFreeTier } from "@/lib/access";
 import { bankYearFacts } from "@/lib/upgrade-copy";
@@ -35,26 +35,27 @@ const roundedDown = (count: number) => `${(Math.floor(count / 1000) * 1000).toLo
 
 function groupSubjects(banks: readonly Bank[]): SubjectGroup[] { return SUBJECTS.map((s) => ({ name: s.name, tone: s.tone, banks: banks.filter(s.matches) })).filter((s) => s.banks.length > 0); }
 
-function SubjectCards({ banks }: { banks: readonly Bank[] }) {
+/** Full-paper library facts per bank, from the build-time archive; absent while the library is off. */
+export type HomePaperLinks = Readonly<Record<string, { href: string; count: number }>>;
+
+function SubjectCards({ banks, papers }: { banks: readonly Bank[]; papers: HomePaperLinks }) {
   return <div className={styles.subjectGrid}>{groupSubjects(banks).map((group) => <section className={`${styles.subjectCard} course-tone-${group.tone}`} data-subject-tone={group.tone} key={group.name}>
     <header className={styles.subjectHead}><h3>{group.name}</h3><span className={styles.subjectMark}><CourseIcon tone={group.tone} /></span></header>
-    <div className={styles.bankRows}>{group.banks.map((bank) => <Link className={styles.bankRow} href={bankEntryHref(bank.slug)} data-bank-slug={bank.slug} data-has-free-tier={hasFreeTier(bank.slug) ? "true" : undefined} key={bank.slug}>
-      <strong>{bank.shortName}</strong><span>{bank.questionCount.toLocaleString()} questions</span><ArrowRight aria-hidden="true" weight="bold" />
-    </Link>)}</div>
+    <div className={styles.bankRows}>{group.banks.map((bank) => { const library = papers[bank.slug]; return <div className={styles.bankRow} key={bank.slug}>
+      <strong>{bank.shortName}</strong>
+      <span className={styles.bankLinks}>
+        <Link className={styles.bankLink} href={bankEntryHref(bank.slug)} data-bank-slug={bank.slug} data-has-free-tier={hasFreeTier(bank.slug) ? "true" : undefined}>By topic<span>{bank.questionCount.toLocaleString()} questions</span></Link>
+        {library && <Link className={styles.bankLink} href={library.href} data-papers-slug={bank.slug}>Full papers<span>{library.count.toLocaleString()} papers</span></Link>}
+      </span>
+    </div>; })}</div>
   </section>)}</div>;
 }
 
-const toPickerBanks = (banks: readonly Bank[]) => banks.map((bank) => ({ slug: bank.slug, label: bank.shortName, href: bankEntryHref(bank.slug) }));
-
-export function MarketingHome({ environment = process.env }: { environment?: Record<string, string | undefined> }) {
+export function MarketingHome({ environment = process.env, papers = {} }: { environment?: Record<string, string | undefined>; papers?: HomePaperLinks }) {
   const banks = getCatalogRuntimeBanks(environment);
   const cambridgeBanks = banks.filter((bank) => bank.qualification === "Cambridge IGCSE");
   const ibBanks = banks.filter((bank) => bank.qualification === "International Baccalaureate");
   const totalQuestions = banks.reduce((total, bank) => total + bank.questionCount, 0);
-  const pickerGroups: PickerGroup[] = [
-    { id: "igcse", label: "IGCSE", banks: toPickerBanks(cambridgeBanks) },
-    { id: "ib", label: "IB", banks: toPickerBanks(ibBanks) },
-  ];
   const years = bankYearFacts(SAMPLE_BANK);
 
   return <div className={`${styles.home} landing-editorial`}>
@@ -66,7 +67,7 @@ export function MarketingHome({ environment = process.env }: { environment?: Rec
         <div className={styles.fade} aria-hidden="true" />
       </div>
       <div className={styles.lede}>
-        <HeroPicker groups={pickerGroups} />
+        <SmartSearch />
         <p className={styles.heroLinks}><a href="#question-banks">All {banks.length} banks</a><span aria-hidden="true">·</span><Link href="/pricing">Plans</Link></p>
         <p className={styles.proof}><span><b>{roundedDown(totalQuestions)}</b> questions</span>{years && <span>Papers to <b>{years.latestYear}</b></span>}<span>Sorted by topic</span></p>
       </div>
@@ -74,7 +75,7 @@ export function MarketingHome({ environment = process.env }: { environment?: Rec
 
     <section className={`shell ${styles.banks}`} id="question-banks" data-home-section="banks" aria-labelledby="question-banks-heading">
       <h2 className="sr-only" id="question-banks-heading">Question banks</h2>
-      <QualificationTabs items={[...(cambridgeBanks.length > 0 ? [{ id: "cambridge-catalog", label: "Cambridge IGCSE", panel: <SubjectCards banks={cambridgeBanks} /> }] : []), ...(ibBanks.length > 0 ? [{ id: "ib-catalog", label: "IB Diploma", panel: <SubjectCards banks={ibBanks} /> }] : [])]} />
+      <QualificationTabs items={[...(cambridgeBanks.length > 0 ? [{ id: "cambridge-catalog", label: "Cambridge IGCSE", panel: <SubjectCards banks={cambridgeBanks} papers={papers} /> }] : []), ...(ibBanks.length > 0 ? [{ id: "ib-catalog", label: "IB Diploma", panel: <SubjectCards banks={ibBanks} papers={papers} /> }] : [])]} />
     </section>
 
     <section className={styles.proofBand} data-home-section="proof" aria-labelledby="proof-heading">

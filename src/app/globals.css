@@ -259,7 +259,7 @@ main { min-height: 72vh; }
 .dashboard-bank-grid { display: grid; grid-template-columns: 1fr; grid-template-rows: none; gap: 0; align-content: start; }
 /* Banks are rows inside one tinted study panel, never a card stacked on a card. */
 .dashboard-bank-card { position: relative; padding: 14px 12px; margin-inline: -12px; display: flex; flex-direction: column; background: transparent; border: 0; border-radius: 8px; transition: background-color 160ms ease, box-shadow 160ms ease, color 160ms ease; }
-.dashboard-bank-card + .dashboard-bank-card { box-shadow: inset 0 1px color-mix(in srgb, var(--course-accent, var(--cobalt)) 24%, transparent); }
+.dashboard-bank-item + .dashboard-bank-item { box-shadow: inset 0 1px color-mix(in srgb, var(--course-accent, var(--cobalt)) 24%, transparent); }
 .dashboard-bank-card:hover { background: color-mix(in srgb, var(--surface-raised) 72%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--course-accent, var(--cobalt)) 34%, var(--line-strong)); }
 .dashboard-bank-card:focus-visible { outline: 3px solid color-mix(in srgb, var(--cobalt) 60%, transparent); outline-offset: -1px; }
 
@@ -272,6 +272,10 @@ main { min-height: 72vh; }
 .dashboard-bank-stats { margin-top: auto; padding-top: 14px; justify-content: flex-start; }
 .dashboard-bank-link { margin-top: 7px; display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; color: var(--course-accent, var(--cobalt)); font-weight: 850; }
 .dashboard-bank-link small { color: var(--muted); font-size: .72rem; font-weight: 620; }
+/* Second way in: the subject's full past papers, under the topic-practice card. */
+.dashboard-bank-papers { width: fit-content; margin: -6px 0 0; padding: 4px 0 12px; display: inline-flex; align-items: center; gap: 8px; color: var(--ink); font-size: .86rem; font-weight: 750; }
+.dashboard-bank-papers svg { color: var(--course-accent, var(--cobalt)); }
+.dashboard-bank-papers:hover { color: var(--course-accent, var(--cobalt-strong)); }
 
 /* Question bank workspace */
 .bank-hero { padding: 18px 0 16px; background: var(--surface); border-bottom: 1px solid var(--line); }

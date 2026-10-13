@@ -1,9 +1,11 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { render, fireEvent } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { MarketingHome } from "@/components/MarketingHome";
 import { metadata } from "@/app/page";
 import { BANKS, getAvailableBanks } from "@/lib/banks";
+
+vi.mock("next/navigation", () => ({ useRouter: () => ({ push: vi.fn() }) }));
 
 const liveBankEnvironment = {
   NODE_ENV: "production",
@@ -14,12 +16,13 @@ const liveBankEnvironment = {
 };
 
 describe("home page", () => {
-  it("leads with the layered headline, the picker and data-driven proof", () => {
+  it("leads with the layered headline, the search and data-driven proof", () => {
     const markup = renderToStaticMarkup(<MarketingHome environment={{}} />);
 
     expect(BANKS.reduce((total, bank) => total + bank.questionCount, 0)).toBe(17694);
     expect(markup).toContain("Past papers,");
     expect(markup).toContain("by topic.");
+    expect(markup).toContain("Search a subject, topic or paper code");
     expect(markup).toContain("17,000+");
     expect(markup).not.toContain("17,694");
     expect(markup).toContain('href="/banks/igcse?free=1"');
@@ -29,8 +32,12 @@ describe("home page", () => {
     expect(markup).not.toMatch(/^<main/);
   });
 
-  it("shows every enabled bank as one full-row link inside its subject card", () => {
-    const { container } = render(<MarketingHome environment={liveBankEnvironment} />);
+  it("gives every enabled bank a by-topic link, plus full papers where the library has them", () => {
+    const { container } = render(<MarketingHome environment={liveBankEnvironment} papers={{ igcse: { href: "/past-papers/igcse-mathematics-0580", count: 312 } }} />);
+    const papers = [...container.querySelectorAll<HTMLAnchorElement>("#question-banks a[data-papers-slug]")];
+    expect(papers).toHaveLength(1);
+    expect(papers[0].getAttribute("href")).toBe("/past-papers/igcse-mathematics-0580");
+    expect(papers[0].textContent).toBe("Full papers312 papers");
     const rows = [...container.querySelectorAll<HTMLAnchorElement>("#question-banks a[data-bank-slug]")];
 
     expect(getAvailableBanks(liveBankEnvironment)).toHaveLength(19);

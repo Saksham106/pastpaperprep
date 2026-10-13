@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { PAGE_NAVIGATION } from "@/components/PageTransition";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight, CaretDown, Gear, Key } from "@phosphor-icons/react/dist/ssr";
 import { QualificationTabs } from "@/components/QualificationTabs";
 import { CourseIcon, courseToneForBank, type CourseTone } from "@/components/CourseIcon";
 import { bankEntryHref, hasFreeTier } from "@/lib/access";
 import { BANKS, type Bank, type BankSlug } from "@/lib/banks";
 import { UPGRADE_PRICE_MONTH } from "@/lib/upgrade-copy";
+import { SEARCH_SUBJECTS_PATH, validSearchSubjects } from "@/lib/site-search";
 
 type BankGroup = { name: string; className: string; tone: CourseTone; banks: Bank[] };
 /**
@@ -23,10 +24,27 @@ function displayBankName(bank: Bank): string {
   return bank.subject;
 }
 
+type PaperLinks = Record<string, { href: string }>;
+
+/** Full-paper links per bank from the static search file, so this per-request page never reads the paper archive. */
+function usePaperLinks(): PaperLinks {
+  const [links, setLinks] = useState<PaperLinks>({});
+  useEffect(() => {
+    let live = true;
+    fetch(SEARCH_SUBJECTS_PATH).then((response) => response.ok ? response.json() : null).then((value) => {
+      if (!live || !validSearchSubjects(value)) return;
+      setLinks(Object.fromEntries(value.subjects.filter((subject) => subject.papersHref).map((subject) => [subject.bank, { href: subject.papersHref! }])));
+    }).catch(() => {});
+    return () => { live = false; };
+  }, []);
+  return links;
+}
+
 export function DashboardContent({ authenticated, accessibleBanks, availableBanks = BANKS }: { authenticated: boolean; accessibleBanks: BankSlug[]; availableBanks?: readonly Bank[] }) {
   const worksheetTrigger = useRef<HTMLButtonElement>(null);
   const worksheetDialog = useRef<HTMLDialogElement>(null);
   const accessible = new Set(accessibleBanks);
+  const paperLinks = usePaperLinks();
   const hasPaidAccess = accessibleBanks.length > 0;
   const cambridgeSubjects = [...new Set(availableBanks.filter((bank) => bank.qualification === "Cambridge IGCSE").map((bank) => bank.subject.replace(/\s+\d{4}$/, "")))];
   const cambridgeGroups: BankGroup[] = cambridgeSubjects.map((subject) => ({
@@ -53,7 +71,7 @@ export function DashboardContent({ authenticated, accessibleBanks, availableBank
     label: qualification.label,
     panel: <div className={`dashboard-bank-groups${qualification.id === "cambridge-igcse" ? " dashboard-cambridge-subject-grid" : ""}`}>{qualification.groups.map((group) => <section className={`dashboard-bank-family dashboard-bank-family-${group.className} course-tone-${group.tone}`} data-subject-tone={group.tone} key={group.name} aria-labelledby={`dashboard-${group.className}`}>
       <header><div className="dashboard-bank-family-title"><CourseIcon tone={group.tone} /><h2 id={`dashboard-${group.className}`}>{group.name}</h2></div><span>{group.banks.length} banks</span></header>
-      <div className="dashboard-bank-grid">{[...group.banks].sort((a, b) => Number(accessible.has(b.slug)) - Number(accessible.has(a.slug))).map((bank) => { const included = accessible.has(bank.slug); const free = hasFreeTier(bank.slug); const openCopy = included ? { label: "Open the full bank", hint: "All questions and mark schemes" } : free ? { label: "Start free", hint: "Free exam years" } : { label: "Open bank", hint: "Unlocks with any plan" }; return <Link transitionTypes={PAGE_NAVIGATION} className={`dashboard-bank-card course-tone-${courseToneForBank(bank)} ${bank.accent}${included ? " is-included" : ""}`} href={included || !free ? `/banks/${bank.slug}` : bankEntryHref(bank.slug)} data-has-free-tier={free ? "true" : undefined} aria-label={`${included || !free ? "Open" : "Start free"} ${bank.shortName}`} key={bank.slug}><div className="dashboard-bank-meta"><strong>{included ? "Included" : free ? "Free exam years" : "Paid bank"}</strong></div><h3>{displayBankName(bank)}</h3><div className="dashboard-bank-stats"><span>{bank.questionCount.toLocaleString()} questions</span><span>{bank.paperCount} papers</span></div><span className="dashboard-bank-link">{openCopy.label}<small>{openCopy.hint}</small><ArrowRight weight="bold" /></span></Link>; })}</div>
+      <div className="dashboard-bank-grid">{[...group.banks].sort((a, b) => Number(accessible.has(b.slug)) - Number(accessible.has(a.slug))).map((bank) => { const included = accessible.has(bank.slug); const free = hasFreeTier(bank.slug); const openCopy = included ? { label: "Open the full bank", hint: "All questions and mark schemes" } : free ? { label: "Start free", hint: "Free exam years" } : { label: "Open bank", hint: "Unlocks with any plan" }; return <div className="dashboard-bank-item" key={bank.slug}><Link transitionTypes={PAGE_NAVIGATION} className={`dashboard-bank-card course-tone-${courseToneForBank(bank)} ${bank.accent}${included ? " is-included" : ""}`} href={included || !free ? `/banks/${bank.slug}` : bankEntryHref(bank.slug)} data-has-free-tier={free ? "true" : undefined} aria-label={`${included || !free ? "Open" : "Start free"} ${bank.shortName}`}><div className="dashboard-bank-meta"><strong>{included ? "Included" : free ? "Free exam years" : "Paid bank"}</strong></div><h3>{displayBankName(bank)}</h3><div className="dashboard-bank-stats"><span>{bank.questionCount.toLocaleString()} questions</span><span>{bank.paperCount} papers</span></div><span className="dashboard-bank-link">{openCopy.label}<small>{openCopy.hint}</small><ArrowRight weight="bold" /></span></Link>{paperLinks[bank.slug] && <Link transitionTypes={PAGE_NAVIGATION} className="dashboard-bank-papers" href={paperLinks[bank.slug].href}>Full past papers<ArrowRight weight="bold" /></Link>}</div>; })}</div>
       <span className="dashboard-bank-family-watermark" data-subject-watermark="true" aria-hidden="true"><CourseIcon tone={group.tone} marker={false} /></span>
     </section>)}</div>,
   }));
