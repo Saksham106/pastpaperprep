@@ -46,6 +46,18 @@ export function loadBankQuestionMap(slug: BankSlug): Promise<ReadonlyMap<string,
   return index;
 }
 
+/** The bank's source rows for this environment, before normalization (server-only fields intact). */
+export function loadBankRawQuestions(slug: BankSlug): Promise<ReadonlyArray<Record<string, unknown>>> {
+  const productionEconomics = isLocalEconomicsBank(slug) && isEconomicsProductionEnabled();
+  const productionIGCSE = isIGCSEReleaseBank(slug) && isIGCSEReleaseEnabled();
+  return (productionEconomics
+    ? Promise.resolve(getEconomicsRuntimeArtifact(slug) as unknown as RawBank)
+    : productionIGCSE
+      ? import("@/lib/igcse-runtime").then(({ getIGCSERuntimeArtifact }) => getIGCSERuntimeArtifact(slug) as unknown as RawBank)
+    : loaders[slug]())
+    .then((raw) => raw.questions);
+}
+
 export function loadBankQuestions(slug: BankSlug): Promise<UnifiedQuestion[]> {
   const productionEconomics = isLocalEconomicsBank(slug) && isEconomicsProductionEnabled();
   const productionIGCSE = isIGCSEReleaseBank(slug) && isIGCSEReleaseEnabled();
@@ -54,12 +66,8 @@ export function loadBankQuestions(slug: BankSlug): Promise<UnifiedQuestion[]> {
   const cached = cache.get(cacheKey);
   if (cached) return cached;
 
-  const questions = (productionEconomics
-    ? Promise.resolve(getEconomicsRuntimeArtifact(slug) as unknown as RawBank)
-    : productionIGCSE
-      ? import("@/lib/igcse-runtime").then(({ getIGCSERuntimeArtifact }) => getIGCSERuntimeArtifact(slug) as unknown as RawBank)
-    : loaders[slug]())
-    .then((raw) => normalizeBankQuestions(slug, raw.questions, {
+  const questions = loadBankRawQuestions(slug)
+    .then((rows) => normalizeBankQuestions(slug, rows as Array<Record<string, unknown>>, {
       economicsAssetMode: production ? "private" : "local",
       applyReviewedBlankPages: productionIGCSE || slug === 'igcse' || slug === 'igcse-additional',
     }));

@@ -331,6 +331,16 @@ NODE
 
 For the current corpus, this must report 853 papers, 12,332 questions, and 31,697 unique bank-prefixed referenced assets. The hybrid retention split is 4,386 Supabase preview objects (including the 2020 Biology, Chemistry, and Physics preview years) and 27,311 premium objects eligible for R2 after production verification.
 
+#### Multiple-choice answer letters
+
+On MCQ rows with a verified letter, "Show answer" and PDF answers show the letter instead of the mark-scheme crop. Letters come from the production `answer` field (IGCSE 0610/0620/0625/0654, official provenance only) and from `src/data/reviewed-mcq-answer-letters.json`, which overrides it:
+
+```json
+{ "version": 1, "banks": { "ib-chemistry-hl": { "2016-may-tz0-hl-p1-q1": { "answers": ["B"], "note": null } } } }
+```
+
+`answers` holds one letter, or several when the board accepted more than one; `note` is a short official exception or `null`. Import a reviewed file with `npx tsx scripts/import-reviewed-mcq-answer-letters.mts <file>`: it keeps only rows this checkout has, drops removed questions (`answers: []`), and must be re-run once new papers land (receipt: [reviewed-mcq-answer-letters.md](reviewed-mcq-answer-letters.md)). `src/lib/mcq-answer-letters.ts` decides MCQ rows from data (one-mark questions on IGCSE science components 1x/2x, 0455 `P1`, IB science `P1`/`P1A`) and fails the build on an unknown bank or question ID, a non-MCQ row, or anything other than unique letters A–D. Letters reach readers only through the server-only asset manifest (sign and free routes, the static free index for free years) and the PDF signer, never the bank index.
+
 ### 8. Upload private assets
 
 The current storage model is hybrid: premium assets live in the private Cloudflare R2 bucket, while free-preview assets remain in the private Supabase bucket. Start by confirming the reviewed local baseline:
