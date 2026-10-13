@@ -8,7 +8,7 @@ This is the operational source of truth for adding or rebuilding PastPaperPrep q
 
 | Bank | Source repository | Papers | Questions | Referenced WebP assets |
 | --- | --- | ---: | ---: | ---: |
-| Cambridge IGCSE Mathematics 0580 | `Saksham106/igcse-0580-topic-practice` | 217 | 3,967 | 7,934 |
+| Cambridge IGCSE Mathematics 0580 | `Saksham106/igcse-0580-topic-practice` | 225 | 4,174 | 8,348 |
 | IB Mathematics HL / AA HL | `Saksham106/ib-maths-aa-hl-topic-practice` | 104 | 841 | 3,022 |
 | IB Mathematics SL / AA SL | `Saksham106/ib-maths-aa-topic-finder` | 62 | 578 | 1,463 |
 | IB Mathematics AI HL | `Saksham106/ib-maths-ai-hl-topic-practice` | 48 | 409 | 1,353 |
@@ -20,7 +20,7 @@ This is the operational source of truth for adding or rebuilding PastPaperPrep q
 | IB Physics SL | `Saksham106/ib-physics-topic-practice` | 51 | 774 | 2,087 |
 | IB Biology HL | `Saksham106/ib-biology-topic-practice` | 51 | 1,139 | 3,107 |
 | IB Biology SL | `Saksham106/ib-biology-topic-practice` | 54 | 936 | 2,443 |
-| **Total** |  | **925** | **13,638** | **34,309** |
+| **Total** |  | **933** | **13,845** | **34,723** |
 
 The application copies each source bank's generated `site/data/questions.json` to:
 
@@ -453,6 +453,22 @@ Pipeline commands match "#### IB HL" above, run inside each AI repository.
 - Migration `20260826220000_add_ib_maths_ai_banks.sql` was applied and read back in production.
 - `bundle_all` covers both banks; separate Stripe prices are unnecessary unless individual-bank sales are introduced later.
 - Verified counts: AI HL 48 papers / 409 questions / 1,353 assets; AI SL 38 papers / 334 questions / 1,002 assets.
+
+## Cambridge IGCSE Mathematics 0580 Core 2026 addition (October 2026)
+
+The 0580 bank serves 225 papers / 4,174 questions / 8,348 WebPs: the historical 217 papers / 3,967 questions (Extended 2016–2026 plus Core 2021–2025) and 8 Core 2026 papers / 207 questions (February/March 12 and 32; May/June 11, 12, 13, 31, 32 and 33; 80 marks each). Do not copy the source `site/data/questions.json` over `src/data/raw/igcse.json`: 22 Extended rows and `extendedRuntimeSha256` carry app-side corrections. Import only `route == "Core"` rows and papers for the new year, as the 2021–2025 Core import did.
+
+The 3,967-row bank is a frozen historical baseline (SHA-256 `74f919b5…`): the section overlay v3/v4 inputs, legacy filter seal, public baseline, calibrated model overlay, classification-v2 release and print geometry stay pinned to it. The 207 rows and 8 papers were inserted verbatim from source branch `feat/2026-core-acquisition` (`c4fc802`) at the existing within-year position: after the Extended February/March papers and before `0580-2026-june-21`. The header gains `coreClassificationArtifacts`, which lists both Core lanes. `coreClassificationArtifact` and `coreClassificationSha256` are unchanged and still name the 2021–2025 Jev lane.
+
+Jev could not run for 2026 (TypeSafe HTTP 402). The rows carry the source's manual two-pass review, a first pass, a blind second pass and written adjudication, labelled `manual-two-pass-review-v1` with `reviewStatus: manually-classified-mvp`. Never relabel them as Jev. `src/lib/igcse-0580-core-release.test.ts` requires Jev `jev-1.13.0` for 2021–2025 and the manual provenance for exactly the 207 pinned 2026 IDs.
+
+- Receipt: `docs/igcse-0580-2026-core-addition.json` (base/merged hashes, insertion position, header addition, row and crop hashes). `src/lib/igcse-0580-additions.mjs` splits the merged bank back to the base: `reconstruct0580BaseText` byte for byte, `split0580Raw` by semantic hash. The historical tests run on that base plus "exactly these 207 rows". `python3 scripts/verify-0580-2026-core-merge.py [--base-ref origin/main]` proves every historical row, paper and header value is unchanged and in order, and that removing the additions reproduces the old file's bytes.
+- Numbered statements: `docs/0580-2026-core-addition-sections-v4.json` holds part-level QP/MS evidence against the official Core statements (model review of the original crops, corroborated by the source classification and adjudications). It is not independent gold. `python3 scripts/build-0580-direct-source-v4.py [--check]` appends it to `src/data/igcse-0580-section-retrieval-v3.json` without changing any historical row or the v4 report. Links show as `source_image_model_0580_v4`. 205 rows are linked (282 links). `0580-2026-june-12-q4` and `0580-2026-march-32-q2` (estimate an irregular area by counting squares; no Core statement) stay unresolved and keep topic/legacy retrieval only.
+- Print geometry: `node scripts/build-print-geometry-0580-addition.mjs --source <source worktree> [--check]` writes `src/data/print-geometry-0580-2026-core.json`. It also re-derives `src/data/print-geometry-0580.json` exactly from the same worktree.
+- Receipt and dry-run upload plan: `npx tsx scripts/build-0580-2026-core-addition-receipt.mts --source <source worktree> [--check]`.
+- `node scripts/reconcile-0580-sections-v3.mjs` reconciles the reconstructed base and still reproduces `docs/0580-section-reconciliation-v3.json` byte for byte.
+
+The 414 premium WebPs (`igcse/core-questions/0580-2026-*.webp`, `igcse/core-markschemes/0580-2026-*.webp`) are **not uploaded yet**. `docs/igcse-0580-2026-core-r2-upload-plan.json` lists every key, source path, SHA-256, MD5 and size. 2026 is not an igcse free year, so nothing goes to Supabase. Uploading needs owner approval. `npm run r2:sync` resolves igcse files from the sibling main source checkout (`igcse-0580-topic-practice/site`), which does not have these crops until the source branch lands there. Alternatively, point `PASTPAPERPREP_IGCSE_0580_SOURCE_ROOT` at the source worktree's `site/`. Until the upload, the new questions' images return errors. The whole-paper archive (`src/data/paper-archives/igcse.json`) is unchanged, so the eight Core 2026 papers do not appear under Full past papers until a separate whole-paper release.
 
 ## Cambridge IGCSE Additional Mathematics 0606 (added August 2026)
 
