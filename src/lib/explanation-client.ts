@@ -1,6 +1,7 @@
 import type { BankSlug } from "@/lib/banks";
 import { parseExplanation, type Explanation } from "@/lib/explanation-format";
-import { fetchFreeAssets, fetchSignedAssets, signedAssetKey } from "@/lib/signed-assets";
+import { isFreePublicAssetUrl } from "@/lib/free-asset-index";
+import { fetchFreeAssets, fetchSignedAssets, preferSignedFreeAssets, signedAssetKey } from "@/lib/signed-assets";
 
 type Fetcher = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
 
@@ -26,8 +27,14 @@ export async function fetchExplanation(
     url = asset?.urls[0];
   }
   if (!url) throw new Error("Explanation unavailable");
-  const response = await fetcher(url, { mode: "cors", cache: "no-store" });
-  if (!response.ok) throw new Error("Explanation unavailable");
+  let response = await fetcher(url, { mode: "cors", cache: "no-store" }).catch(() => null);
+  if (free && isFreePublicAssetUrl(url) && !response?.ok) {
+    // The public copy is missing or unreachable: fall back to a signed link once.
+    preferSignedFreeAssets(bank);
+    const signed = (await fetchFreeAssets(bank, [{ questionId, kind: "explanation" }], fetcher)).assets.get(signedAssetKey(questionId, "explanation"))?.urls[0];
+    response = signed ? await fetcher(signed, { mode: "cors", cache: "no-store" }).catch(() => null) : null;
+  }
+  if (!response?.ok) throw new Error("Explanation unavailable");
   const explanation = parseExplanation(await response.json().catch(() => null), bank, questionId);
   if (!explanation) throw new Error("Explanation unavailable");
   return explanation;
