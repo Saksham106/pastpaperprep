@@ -368,6 +368,15 @@ Do not use the legacy `scripts/upload-question-assets.mjs` uploader for current 
 
 Never paste real credentials into documentation, shared command history, Git, or chat. Keep production secrets in the provider dashboard or an ignored local environment.
 
+**Gated release banks (0455, 0610, 0620, 0625, 0654)** are not covered by `r2:sync`. Upload their reviewed additions with `scripts/igcse-release.mjs --upload <bank>`, or, as for the October 2026 gap papers, a create-only CLI upload:
+
+1. Check each key is absent.
+2. Upload it with `image/webp` and `private, max-age=31536000, immutable`.
+3. Read it back and compare SHA-256 and size.
+4. Log one line per object: key, SHA-256, size, no secrets. Commit the log under `docs/`.
+
+Then compose a `verified_readback` receipt over the full regenerated manifest. Carry earlier objects over only when they are byte-identical to the previous verified receipt's manifest; accept new objects only with a matching readback line. Run `generate-igcse-release.mjs --finalize <bank>` and commit the manifest, receipt, finalized runtime and log together. See `docs/2026-paper-gaps-r2-upload-receipt.md` and `scripts/igcse-2026-release-finalization.mjs` for the proof pattern. Finalized candidate-state tests then run against the exactly reconstructed candidate, never a weakened copy.
+
 For a corrected asset that keeps the same key, use a separate reviewed replacement operation, verify the remote object hash/content, then exercise the exact question and answer through the signed-URL API before release.
 
 ### 9. Verify the commercial application
@@ -468,7 +477,7 @@ Jev could not run for 2026 (TypeSafe HTTP 402). The rows carry the source's manu
 - Receipt and dry-run upload plan: `npx tsx scripts/build-0580-2026-core-addition-receipt.mts --source <source worktree> [--check]`.
 - `node scripts/reconcile-0580-sections-v3.mjs` reconciles the reconstructed base and still reproduces `docs/0580-section-reconciliation-v3.json` byte for byte.
 
-The 414 premium WebPs (`igcse/core-questions/0580-2026-*.webp`, `igcse/core-markschemes/0580-2026-*.webp`) are **not uploaded yet**. `docs/igcse-0580-2026-core-r2-upload-plan.json` lists every key, source path, SHA-256, MD5 and size. 2026 is not an igcse free year, so nothing goes to Supabase. Uploading needs owner approval. `npm run r2:sync` resolves igcse files from the sibling main source checkout (`igcse-0580-topic-practice/site`), which does not have these crops until the source branch lands there. Alternatively, point `PASTPAPERPREP_IGCSE_0580_SOURCE_ROOT` at the source worktree's `site/`. Until the upload, the new questions' images return errors. The whole-paper archive (`src/data/paper-archives/igcse.json`) is unchanged, so the eight Core 2026 papers do not appear under Full past papers until a separate whole-paper release.
+The 414 premium WebPs (`igcse/core-questions/0580-2026-*.webp`, `igcse/core-markschemes/0580-2026-*.webp`) were **uploaded and read back on 13 October 2026** (`docs/2026-paper-gaps-r2-upload-receipt.md`). `docs/igcse-0580-2026-core-r2-upload-plan.json` lists every key, source path, SHA-256, MD5 and size, and is marked executed only because the committed readback log verifies each object. 2026 is not an igcse free year, so nothing went to Supabase. `npm run r2:sync` resolves igcse files from the sibling main source checkout (`igcse-0580-topic-practice/site`), which now includes the Core 2026 branch. The whole-paper archive (`src/data/paper-archives/igcse.json`) is unchanged, so the eight Core 2026 papers do not appear under Full past papers until a separate whole-paper release.
 
 ## Cambridge IGCSE Economics 0455 2026 addition (October 2026)
 
@@ -481,13 +490,7 @@ The 2019–2025 rows are a frozen baseline: the finalized, Jev-corrected runtime
 - Receipt and dry-run upload plan: `PASTPAPERPREP_IGCSE_ECONOMICS_SOURCE_ROOT=<source worktree> node scripts/build-0455-2026-addition-receipt.mjs [--check]` writes `docs/igcse-economics-0455-2026-addition.json` and `docs/igcse-economics-0455-2026-r2-upload-plan.json`.
 - Pins: `src/lib/igcse-runtime.ts` (counts, candidate `c54a9b4c…`, `assert0455Extension2026`), `RELEASE_BANKS` and the 2026 cohort in `scripts/igcse-release.mjs` / `scripts/generate-igcse-release.mjs`, and `src/lib/catalog.ts`.
 
-**Release (owner approval required, not done).** The 348 new objects keep the existing `igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/` prefix, so the 4,200 verified objects are not re-uploaded. `npm run r2:sync` does not handle 0455. Use `scripts/igcse-release.mjs`, which reads `PASTPAPERPREP_IGCSE_ECONOMICS_SOURCE_ROOT` and needs a checkout with both the 2019–2025 lanes and `data/segmentation/full-extension-2026/` (today only the source worktree has the 2026 lane):
-
-1. `node scripts/igcse-release.mjs --upload igcse-economics-0455` rewrites the 4,548-object manifest, uploads the 348 new objects create-only, and GET-verifies all 4,548 into a new receipt.
-2. `node scripts/generate-igcse-release.mjs --finalize igcse-economics-0455` promotes the 2026 rows to `production`/`classified` and seals the runtime as `verified_readback`.
-3. Run the gates and commit the manifest, receipt and finalized runtime together.
-
-Until step 2, the release gate refuses the whole 0455 bank, and a build with `PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS=true` fails at `generate:free-asset-index`. Merge only after finalization. The whole-paper archive (`src/data/paper-archives/igcse-economics-0455.json`) is unchanged, so the 2026 papers do not appear under Full past papers until a separate whole-paper release.
+**Release (done 13 October 2026).** With owner approval, the 348 new objects were uploaded create-only and read back (`docs/2026-paper-gaps-r2-upload-receipt.md`) under the existing `igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/` prefix, so the 4,200 verified objects were not re-uploaded. `data/storage/igcse-economics-0455.manifest.json` now holds all 4,548 objects, and its `verified_readback` receipt combines the earlier verified receipt with the readback log. `--finalize` sealed runtime `8f173933…`: the 139 2026 rows are `production`/`classified`, and `assert0455Extension2026` pins the finalized content, manifest and receipt seals. `node scripts/igcse-2026-release-finalization.mjs` proves the receipt and that the committed runtime is exactly `finalizeRelease()` over the candidate; the candidate itself (`c54a9b4c…`) is reconstructed exactly for the candidate-state tests and `--check` tooling. `npm run r2:sync` does not handle 0455. A later reviewed addition goes through `scripts/igcse-release.mjs --upload` and `generate-igcse-release.mjs --finalize` (or an equivalent create-only upload with a receipt the same proof accepts). The whole-paper archive (`src/data/paper-archives/igcse-economics-0455.json`) is unchanged, so the 2026 papers do not appear under Full past papers until a separate whole-paper release.
 
 ## Cambridge IGCSE Biology 0610 May/June 2026 addition (October 2026)
 
@@ -502,13 +505,7 @@ The finalized 4,913 rows are a frozen baseline: main's finalized file (`0a0b224`
 - Receipt and dry-run upload plan: `PASTPAPERPREP_IGCSE_BIOLOGY_SOURCE_ROOT=<source worktree> node scripts/build-0610-2026-mj-addition-receipt.mjs [--check]` writes `docs/igcse-biology-0610-2026-mj-addition.json` and `docs/igcse-biology-0610-2026-mj-r2-upload-plan.json`.
 - Pins: `src/lib/igcse-runtime.ts` (counts, candidate `d2c34543…`, source candidate `efaea7d9…`, `assert0610Extension2026MayJune`, the prefix-aware Pollution and secondaries asserts), `RELEASE_BANKS` and `BIOLOGY_COHORTS` in `scripts/igcse-release.mjs`, the cohorts in `scripts/generate-igcse-release.mjs` (2021–2025 3,441 and extension 1,472 stay finalized; May/June 298 `eb34baa1…`; whole extension 1,770 `f257b8f0…`), and `src/lib/catalog.ts`. The free year stays 2021.
 
-**Release (owner approval required, not done).** The 780 new objects (443 QP, 337 MS; 11,990,894 bytes) keep the existing `igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/` prefix, so the 13,953 verified objects are not re-uploaded. `npm run r2:sync` does not handle 0610. Use `scripts/igcse-release.mjs`, which reads `PASTPAPERPREP_IGCSE_BIOLOGY_SOURCE_ROOT` and needs a checkout with `data/segmentation/full-ms-repair/`, `data/segmentation/full-extension/`, the batch94 mark-scheme repair and `data/segmentation/full-extension-2026-mj/` (today only the source worktree has the May/June lane):
-
-1. `node scripts/igcse-release.mjs --upload igcse-biology-0610` rewrites the 14,733-object manifest, uploads the 780 new objects create-only, and GET-verifies all 14,733 into a new receipt.
-2. `node scripts/generate-igcse-release.mjs --finalize igcse-biology-0610` promotes the 298 rows to `production`/`classified` and seals the runtime as `verified_readback`.
-3. Run the gates and commit the manifest, receipt and finalized runtime together.
-
-Until step 2, the release gate refuses the whole 0610 bank, and a build with `PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS=true` fails at `generate:free-asset-index`. Merge only after finalization. The whole-paper archive (`src/data/paper-archives/igcse-biology-0610.json`) is unchanged, so the May/June papers do not appear under Full past papers until a separate whole-paper release.
+**Release (done 13 October 2026).** With owner approval, the 780 new objects (443 QP, 337 MS; 11,990,894 bytes) were uploaded create-only and read back (`docs/2026-paper-gaps-r2-upload-receipt.md`) under the existing `igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/` prefix, so the 13,953 verified objects were not re-uploaded. `data/storage/igcse-biology-0610.manifest.json` now holds all 14,733 objects, and its `verified_readback` receipt combines the earlier verified receipt with the readback log. `--finalize` sealed runtime `d27b4dbb…` (written minified, as `--finalize` does): the 298 May/June rows are `production`/`classified`, and `assert0610Extension2026MayJune` pins the finalized content, manifest and receipt seals. The Pollution and secondaries checks still pin the 4,913-row prefix and the storage pair the addition recorded. `node scripts/igcse-2026-release-finalization.mjs` proves the receipt and that the committed runtime is exactly `finalizeRelease()` over the candidate. The candidate itself (`d2c34543…`, pretty-printed) is reconstructed exactly for the candidate-state tests and for `--check` in the generator, verifier and receipt builder. The historical verified manifest/receipt pair is read from main (`0a0b224`). `npm run r2:sync` does not handle 0610. The whole-paper archive (`src/data/paper-archives/igcse-biology-0610.json`) is unchanged, so the May/June papers do not appear under Full past papers until a separate whole-paper release.
 
 ## Cambridge IGCSE Additional Mathematics 0606 (added August 2026)
 
@@ -526,7 +523,7 @@ The 1,633-row bank above is a frozen historical baseline: the production target,
 - Offline ledger: `node scripts/0606-offline-reconciliation.mjs`.
 - Receipt and dry-run upload plan: `npx tsx scripts/build-0606-2026-march-addition-receipt.mts --source <source worktree> [--check]`.
 
-The 46 premium WebPs are **not uploaded yet**. `docs/igcse-0606-2026-march-r2-upload-plan.json` lists every key, source path, SHA-256, MD5 and size. Uploading needs owner approval, and `npm run r2:sync` resolves 0606 files from the sibling main source checkout, so the source branch must land there first. Until then the new questions' images return errors. The whole-paper archive (`src/data/paper-archives/igcse-additional.json`) still lists the 145 historical papers, so the two March papers do not appear under Full past papers until a separate whole-paper release.
+The 46 premium WebPs were **uploaded and read back on 13 October 2026** (`docs/2026-paper-gaps-r2-upload-receipt.md`). `docs/igcse-0606-2026-march-r2-upload-plan.json` lists every key, source path, SHA-256, MD5 and size, and is marked executed only because the committed readback log verifies each object. The sibling main source checkout now includes the March branch, so `npm run r2:sync` resolves these files. The whole-paper archive (`src/data/paper-archives/igcse-additional.json`) still lists the 145 historical papers, so the two March papers do not appear under Full past papers until a separate whole-paper release.
 
 Production assets were uploaded and hash-verified under `igcse-additional/questions/` and
 `igcse-additional/markschemes/`. Migration `20260826230000_add_igcse_additional_bank.sql`
