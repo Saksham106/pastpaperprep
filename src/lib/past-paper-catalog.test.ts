@@ -156,3 +156,23 @@ describe('matrix years and tiers', () => {
     expect(filterMatrixByTier(chem, 'ext').columns.map(c => c.label)).toEqual(['Paper 2', 'Paper 4', 'Paper 5', 'Paper 6']);
   });
 });
+
+describe('displayed search codes', () => {
+  it('every code shown on a committed paper finds that paper in its subject', async () => {
+    const { paperCodes } = await import('./past-paper-seo');
+    const { getCatalogBank } = await import('./catalog');
+    let checked = 0;
+    const misses: string[] = [];
+    for (const bank of BANK_CATALOG) {
+      let manifest: WholePaperManifest;
+      try { manifest = JSON.parse(readFileSync(join('src/data/paper-archives', `${bank.slug}.json`), 'utf8')); } catch { continue; }
+      const papers = manifest.papers.map(p => p.summary);
+      for (const p of papers) for (const code of paperCodes(getCatalogBank(bank.slug)!, p)) {
+        checked++;
+        if (!matchPapers(papers, parsePaperQuery(code), 1000).some(m => m.id === p.id)) misses.push(`${bank.slug} ${code}`);
+      }
+    }
+    expect(checked).toBeGreaterThan(2000);
+    expect(misses.slice(0, 10)).toEqual([]);
+  });
+});

@@ -70,6 +70,32 @@ export function fileAliases(p: WholePaperSummary): { question: string; markschem
   return { question: `${stem}_qp_${p.component}`, markscheme: `${stem}_ms_${p.component}` };
 }
 
+const SLASH_SESSION: Record<string, string> = { m: 'F/M', s: 'M/J', w: 'O/N' };
+/** Cambridge's printed code on the paper's cover: 0580/42/M/J/24. */
+export function slashCode(p: WholePaperSummary): string | null {
+  if (!isIgcse(p) || !SLASH_SESSION[p.sessionCode]) return null;
+  return `${p.syllabusCode}/${p.component}/${SLASH_SESSION[p.sessionCode]}/${String(p.year).slice(-2)}`;
+}
+/**
+ * Every way students type this paper into a search box, most common first. IGCSE: the cover code
+ * (0580/42/M/J/24), its spaced form, Cambridge's file names and their spaced forms. IB: the full
+ * name; IB doesn't publish one universal paper code, and only forms the paper finder can parse
+ * back to this paper are listed (past-paper-catalog.test.ts checks every committed paper).
+ */
+export function paperSearchCodes(p: WholePaperSummary, subjectName: string): string[] {
+  const yy = String(p.year).slice(-2);
+  if (isIgcse(p)) {
+    const slash = slashCode(p), files = fileAliases(p);
+    return [...new Set([
+      slash, slash && `${p.syllabusCode}/${p.component} ${SLASH_SESSION[p.sessionCode]} ${yy}`,
+      files?.question, files?.markscheme,
+      files && `${p.syllabusCode} ${p.sessionCode}${yy} qp ${p.component}`,
+      `${p.syllabusCode} ${p.session} ${p.year} Paper ${p.component}`,
+    ].filter((code): code is string => !!code))];
+  }
+  return [`${subjectName} ${p.session} ${p.year} ${paperName(p)}`];
+}
+
 export type MatrixRoute = 'Core' | 'Extended' | 'Shared' | null;
 export type MatrixLink = { href: string; label: string; title: string; markPrefix: string; route: MatrixRoute };
 export type MatrixColumn = { paper: string; label: string; note: string; href: string; route: MatrixRoute };

@@ -3,9 +3,9 @@ import { ArrowLeft, ArrowRight } from '@phosphor-icons/react/dist/ssr';
 import { courseToneForBank } from '@/components/CourseIcon';
 import { JsonLd } from '@/components/JsonLd';
 import type { PaperReaderConfig } from '@/lib/paper-reader-config';
-import { chipLabel, fileAliases, paperHref, paperName, paperNumberSlug, paperOption, qualificationOfBank, sessionRank, shortSession, subjectSlugForBank } from '@/lib/past-paper-catalog';
+import { chipLabel, paperHref, paperName, paperNumberSlug, paperOption, qualificationOfBank, sessionRank, shortSession, subjectSlugForBank } from '@/lib/past-paper-catalog';
 import type { PaperView } from '@/lib/past-paper-pages';
-import { breadcrumbJsonLd, formatDuration, paperCopy, paperJsonLd, subjectSearchName } from '@/lib/past-paper-seo';
+import { breadcrumbJsonLd, formatDuration, paperCodes, paperCopy, paperCourseTitle, paperJsonLd, subjectSearchName } from '@/lib/past-paper-seo';
 import type { WholePaperSummary } from '@/lib/whole-paper-types';
 import { PaperWorkspace } from './PaperWorkspace';
 import shell from './PastPaperPages.module.css';
@@ -47,8 +47,8 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
   const previous = neighbour(all, p, -1), next = neighbour(all, p, 1);
   const tz = /^tz[1-9]$/i.test(p.variant) ? p.variant.toUpperCase() : null;
   const facts = [p.route === 'Core' || p.route === 'Extended' ? p.route : null, p.durationMinutes !== null ? formatDuration(p.durationMinutes) : null, p.maxMarks !== null ? `${p.maxMarks} marks` : null, p.qualification === 'Cambridge IGCSE' && /^\d$/.test(p.variant) ? `Variant ${p.variant}` : tz].filter((fact): fact is string => !!fact);
-  const aliases = fileAliases(p);
-  const reader: PaperReaderConfig = { id: p.id, title: `${name} · ${copy.h1}`, subject: p.subject, syllabusCode: p.syllabusCode, qualification: p.qualification, sessionLabel: `${p.session} ${p.year}`, component: p.paper, paperName: label, variant: p.variant, durationMinutes: p.durationMinutes, maxMarks: p.maxMarks, sources: detail.sources, bankSlug: bank.slug, reportAvailable: p.reportAvailable };
+  const codes = paperCodes(bank, p);
+  const reader: PaperReaderConfig = { id: p.id, title: copy.h1, subject: p.subject, syllabusCode: p.syllabusCode, qualification: p.qualification, sessionLabel: `${p.session} ${p.year}`, component: p.paper, paperName: label, variant: p.variant, durationMinutes: p.durationMinutes, maxMarks: p.maxMarks, sources: detail.sources, bankSlug: bank.slug, reportAvailable: p.reportAvailable };
   const marking = p.reportAvailable && p.maxMarks !== null ? { id: p.id, version: detail.version, bankSlug: bank.slug, title: copy.h1, maxMarks: p.maxMarks, questions: detail.questions } : null;
   const paperNumber = p.paper.toUpperCase();
   return <article className={`${shell.page} ${styles.page}`} data-subject-tone={courseToneForBank(bank)}>
@@ -62,7 +62,7 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
       <span>{label}</span>
     </nav>
     <header className={styles.head}>
-      <p className={styles.eyebrow}>{p.qualification === 'Cambridge IGCSE' ? `${name} · ${p.syllabusCode}/${p.component}` : name}</p>
+      <p className={styles.eyebrow}>{p.qualification === 'Cambridge IGCSE' ? `Cambridge IGCSE · ${codes[0]}` : `IB Diploma · ${paperCourseTitle(bank, p)}`}</p>
       <h1>{copy.h1}</h1>
       <ul className={styles.facts} aria-label="Paper facts">{facts.map(fact => <li key={fact}>{fact}</li>)}</ul>
     </header>
@@ -84,6 +84,6 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
       <p>{detail.questions.length} questions{p.maxMarks !== null && ` · ${p.maxMarks} marks`}. Topics come from our question bank.</p>
       <ol aria-label="Questions in this paper">{detail.questions.map(q => <li key={q.id}><b>Q{q.number}</b><span>{q.topics.join(', ')}</span><em>{q.maxMarks} {q.maxMarks === 1 ? 'mark' : 'marks'}</em></li>)}</ol>
     </section>}
-    {aliases && <p className={styles.aliases}><span>Cambridge file names</span>{aliases.question} · {aliases.markscheme}</p>}
+    <p className={styles.aliases}><span>Also listed as</span>{codes.join(' · ')}</p>
   </article>;
 }

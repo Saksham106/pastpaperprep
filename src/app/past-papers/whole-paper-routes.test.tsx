@@ -64,9 +64,12 @@ describe('free past-paper routes', () => {
   it('writes canonical metadata without doubling the site name', async () => {
     pages.resolveEntry.mockResolvedValue({ kind: 'paper', bank, detail, all: [paper] });
     const all = [await hubMetadata(), await slugMetadata(params({ slug: 'igcse' })), await slugMetadata(params({ slug: 'igcse-maths-0580' })), await entryMetadata(params({ slug: 'igcse-maths-0580', entry: '2024-may-june-42' }))];
-    for (const m of all) expect(String(m.title)).not.toMatch(/PastPaperPrep/);
-    expect(all[2]).toMatchObject({ title: 'IGCSE Maths 0580 Past Papers & Mark Schemes (2024)', alternates: { canonical: '/past-papers/igcse-maths-0580' } });
-    expect(all[3]).toMatchObject({ title: '0580/42 May/June 2024: IGCSE Maths Paper 4 & Mark Scheme', alternates: { canonical: '/past-papers/igcse-maths-0580/2024-may-june-42' } });
-    for (const m of all) expect(m).toMatchObject({ openGraph: { siteName: 'PastPaperPrep', type: 'website', images: [expect.objectContaining({ url: expect.any(String) })] }, twitter: { card: 'summary_large_image', title: m.title } });
+    const text = (title: unknown) => typeof title === 'string' ? title : (title as { absolute: string }).absolute;
+    for (const m of all) expect(text(m.title)).not.toMatch(/PastPaperPrep/);
+    // Titles that would run past 60 characters with " | PastPaperPrep" skip the suffix.
+    for (const m of all) if (typeof m.title === 'string') expect(`${m.title} | PastPaperPrep`.length).toBeLessThanOrEqual(60);
+    expect(all[2]).toMatchObject({ title: { absolute: 'IGCSE Maths 0580 Past Papers & Mark Schemes (2024)' }, alternates: { canonical: '/past-papers/igcse-maths-0580' } });
+    expect(all[3]).toMatchObject({ title: { absolute: '0580/42 May/June 2024: IGCSE Maths Paper 4 & Mark Scheme' }, alternates: { canonical: '/past-papers/igcse-maths-0580/2024-may-june-42' } });
+    for (const m of all) expect(m).toMatchObject({ openGraph: { siteName: 'PastPaperPrep', type: 'website', images: [expect.objectContaining({ url: expect.any(String) })] }, twitter: { card: 'summary_large_image', title: text(m.title) } });
   });
 });
