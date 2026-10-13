@@ -18,7 +18,6 @@ const MAX_REMEMBERED_ASSETS = 600;
 // Exact cookie identity lives only in this module's RAM, never in storage.
 let sessionSnapshot: string | undefined;
 let sessionOwner: string | null = null;
-let sessionGeneration = 0;
 
 /**
  * Opaque document-lifetime cache generation, NOT a JWT or authentication authority.
@@ -33,7 +32,6 @@ export function sessionFingerprint(cookieHeader: string): string | null {
   // Duplicate-cookie order can change which value Supabase reads first.
   const snapshot = JSON.stringify(ambiguous ? parts : parts.sort());
   if (snapshot !== sessionSnapshot) {
-    sessionGeneration += 1;
     sessionSnapshot = snapshot;
     sessionOwner = null;
     if (parts.length && !ambiguous) {
@@ -46,9 +44,22 @@ export function sessionFingerprint(cookieHeader: string): string | null {
   return sessionOwner;
 }
 
-/** Lifecycle identity remains distinct even when private cache reuse is disabled. */
+let lifecyclePresent: boolean | undefined;
+let lifecycleGeneration = 0;
+
+/**
+ * Page lifecycle identity: changes only when the tab signs in or out. Supabase rewrites the
+ * auth cookie about hourly for the same person, so a token refresh must not reset an open page
+ * (closing answers and re-signing paid images). Private caches still follow the exact cookie via
+ * sessionFingerprint, so they reset on any cookie change.
+ */
 export function sessionLifecycleOwner(cookieHeader: string): string {
-  return sessionFingerprint(cookieHeader) ?? `uncacheable:${sessionGeneration}`;
+  const present = cookieHeader.split(";").some((part) => isSupabaseAuthCookieName(part.trim().split("=")[0] ?? ""));
+  if (present !== lifecyclePresent) {
+    lifecyclePresent = present;
+    lifecycleGeneration += 1;
+  }
+  return `${present ? "member" : "signed-out"}:${lifecycleGeneration}`;
 }
 
 function validAccess(value: unknown): value is MemberAccess {
@@ -119,10 +130,11 @@ export function readCachedAssets(owner: string, bank: string): Map<string, Signe
   return fresh;
 }
 
-/** A link that failed to load must be re-signed, not reused. */
-export function forgetAsset(bank: string, key: string, expectedOwner?: string): void {
-  if (expectedOwner !== undefined && !isCurrentOwner(expectedOwner)) return;
-  assets.delete(`${bank}|${key}`);
+/** A link that failed to load must be re-signed, not reused. Only that exact link is forgotten. */
+export function forgetAsset(bank: string, key: string, failedUrl?: string): void {
+  const cacheKey = `${bank}|${key}`;
+  if (failedUrl !== undefined && assets.get(cacheKey)?.urls[0] !== failedUrl) return;
+  assets.delete(cacheKey);
 }
 
 /** Pass a captured owner for async failures; omit only for an intentional global clear. */
@@ -130,6 +142,7 @@ export function clearMemberCaches(expectedOwner?: string): void {
   if (expectedOwner !== undefined && !isCurrentOwner(expectedOwner)) return;
   sessionSnapshot = undefined;
   sessionOwner = null;
+  lifecyclePresent = undefined;
   assets.clear();
   assetOwner = null;
   try {

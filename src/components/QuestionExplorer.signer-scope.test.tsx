@@ -33,13 +33,13 @@ function mount(pdf: Promise<Response>) {
   fireEvent.click(screen.getByRole("radio", { name: "Questions" }));
   fireEvent.click(screen.getByRole("button", { name: "Download PDF without saving" }));
 }
-it.each([true, false])("abandons PDF authorization after raw cookie turnover, success=%s", async (success) => {
+it.each([true, false])("abandons PDF authorization after an unobserved sign-out, success=%s", async (success) => {
   const pending = deferred<Response>();
   mocks.download.mockResolvedValue({ heldRows: [] });
   mount(pending.promise);
   await waitFor(() => expect(mocks.track).toHaveBeenCalledWith("pdf_export_attempt", expect.anything()));
-  // No observation event: the captured predicate must still reject current-cookie mismatch.
-  document.cookie = "sb-signerscope-auth-token=B; path=/";
+  // No observation event: the captured predicate must still notice the sign-out.
+  document.cookie = "sb-signerscope-auth-token=; Max-Age=0; path=/";
   await act(async () => pending.resolve(success ? pdfResponse() : Response.json({ error: "Old private error" }, { status: 403 })));
   expect(mocks.download).not.toHaveBeenCalled();
   expect(mocks.track.mock.calls.map(([event]) => event)).not.toContain("pdf_export_error");
@@ -58,7 +58,7 @@ it("cancels PDF generation at its progress boundary before the final save", asyn
   });
   mount(Promise.resolve(pdfResponse()));
   await waitFor(() => expect(mocks.download).toHaveBeenCalledOnce());
-  document.cookie = "sb-signerscope-auth-token=B; path=/";
+  document.cookie = "sb-signerscope-auth-token=; Max-Age=0; path=/";
   await act(async () => generating.resolve());
   expect(mocks.saved).not.toHaveBeenCalled();
   expect(mocks.track.mock.calls.map(([event]) => event)).not.toContain("pdf_export_error");

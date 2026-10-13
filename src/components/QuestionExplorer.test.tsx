@@ -1298,6 +1298,27 @@ describe("QuestionExplorer asset loading", () => {
   const fullBank = { search: "", sort: "paper" as const, filters: {}, freeOnly: false, savedOnly: false, courseRoute: "all" as const, visible: 24 };
   const signedIds = (fetchMock: ReturnType<typeof vi.fn>) => signBodies(fetchMock).flatMap((body) => body.requests.map((request) => request.questionId));
 
+  it("keeps a member's open page through a token refresh", async () => {
+    document.cookie = "sb-test-auth-token=token-1; path=/";
+    const fetchMock = assetFetch(memberBootstrap);
+    vi.stubGlobal("fetch", fetchMock);
+    render(<QuestionExplorer questions={[paidQuestion]} bankSlug="ib-sl" access={anonymous} initialState={fullBank} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+    await waitFor(() => expect(screen.getByRole("img", { name: /original question/i })).toBeInTheDocument());
+    fireEvent.click(screen.getByRole("button", { name: "Show answer" }));
+    await screen.findByRole("button", { name: "Hide answer" });
+    const signs = signBodies(fetchMock).length;
+
+    // Supabase rewrites the auth cookie roughly hourly; that is the same person, not a new session.
+    document.cookie = "sb-test-auth-token=token-2; path=/";
+    fireEvent(window, new Event("focus"));
+    await new Promise((resolve) => setTimeout(resolve, 200));
+
+    expect(screen.getByRole("button", { name: "Hide answer" })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: /original question/i })).toHaveAttribute("src", expect.stringContaining(`paid-${paidQuestion.id}-question`));
+    expect(signBodies(fetchMock)).toHaveLength(signs);
+    expect(fetchMock.mock.calls.filter(([input]) => String(input).startsWith("/api/banks/bootstrap"))).toHaveLength(1);
+  });
+
   it("signs paid questions from this tab's cached access without waiting for bootstrap", async () => {
     document.cookie = "sb-test-auth-token=x; path=/";
     writeCachedAccess("ib-sl", sessionFingerprint(document.cookie)!, { access: member });

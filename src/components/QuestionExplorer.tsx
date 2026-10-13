@@ -23,7 +23,7 @@ import type { BankSlug } from "@/lib/banks";
 import { fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, lapsedSignedAssetExpiry, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
 import { pulseSuccess, shakeElement } from "@/lib/button-feedback";
 import { documentHasSupabaseAuthCookie, subscribeToSessionChanges } from "@/lib/supabase/auth-cookie";
-import { forgetAsset, readCachedAccess, readCachedAssets, rememberAssets, sessionLifecycleOwner, writeCachedAccess } from "@/lib/member-session-cache";
+import { forgetAsset, readCachedAccess, readCachedAssets, rememberAssets, sessionFingerprint, sessionLifecycleOwner, writeCachedAccess } from "@/lib/member-session-cache";
 import { mergeQuestionRichDetails, publicMetadataToQuestion, type PublicBankIndex } from "@/lib/question-index";
 import { matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
@@ -201,44 +201,23 @@ const sessionRank = (session: string) => Math.max(0, SESSION_ORDER.findIndex((ke
 const questionTopicLabel = (question: UnifiedQuestion) => formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, question.primaryTopic) : question.primaryTopic);
 
 const readAuthCookiePresent = () => documentHasSupabaseAuthCookie(document.cookie);
-/** Unknown/ambiguous cookies are not an anonymous private-cache owner. */
+/** Which signed-in/out period this page belongs to; unchanged by token refreshes. */
 const cacheOwner = (): string | null => sessionLifecycleOwner(document.cookie);
+/** Private caches follow the exact login cookie; null means don't reuse anything. */
+const privateCacheOwner = (): string | null => sessionFingerprint(document.cookie);
 const serverHasNoAuthCookie = () => false;
 const anonymousAccess: ExplorerAccess = { authenticated: false, bankAccess: false, canExportPdf: false };
 
-type WorksheetDraft = {
-  bank: BankSlug | undefined;
-  worksheetId: string;
-  mode: "view" | "edit";
-  name: string;
-  ids: string[];
-  content: PdfContent;
-  baseline: string;
-  revision: number;
-  explicit: boolean;
-};
-type WorksheetDraftHandoff = {
-  accountId: string | null;
-  owner: string | null;
-  draft: WorksheetDraft | null;
-};
-
-export function QuestionExplorer(props: Omit<Parameters<typeof SessionQuestionExplorer>[0], "draftHandoffRef">) {
-  // RAM only. A nonce change remounts/quarantines the editor, not this draft-only handoff.
-  // No signed URLs, question details, access or study state cross this boundary.
-  const draftHandoffRef = useRef<WorksheetDraftHandoff>({ accountId: null, owner: null, draft: null });
-  const subscribeToOwner = useCallback((listener: () => void) => subscribeToSessionChanges(() => {
-    // Observe definitive signout even if React batches a subsequent signin into one render.
-    if (!readAuthCookiePresent()) draftHandoffRef.current = { accountId: null, owner: null, draft: null };
-    listener();
-  }), []);
+export function QuestionExplorer(props: Parameters<typeof SessionQuestionExplorer>[0]) {
+  const subscribeToOwner = useCallback((listener: () => void) => subscribeToSessionChanges(listener), []);
   const observedOwner = useSyncExternalStore(subscribeToOwner, cacheOwner, () => null);
   const hydrated = useSyncExternalStore(subscribeToNothing, hydratedSnapshot, serverSnapshot);
   const [initialOwner] = useState(() => typeof document === "undefined" ? null : cacheOwner());
   const owner = hydrated ? observedOwner : initialOwner;
   const ownerChanged = owner !== initialOwner;
-  // A lifecycle boundary clears URLs, rich details, answers, study state and pending keys
-  // together. Remounts also prevent B from waiting on A's outstanding signer.
+  // Signing in or out remounts the explorer: links, rich details, answers, study state and
+  // pending work all reset together, and late responses from before are discarded. Token
+  // refreshes keep the same owner, so an open page is left alone.
   const safeQuestions = useMemo(() => ownerChanged ? props.questions.map((question) => (
     isPreviewQuestion(question.bankSlug, question.id) ? question : {
       ...question, summary: "", accessibleText: "", solution: null,
@@ -246,7 +225,6 @@ export function QuestionExplorer(props: Omit<Parameters<typeof SessionQuestionEx
     }
   )) : props.questions, [ownerChanged, props.questions]);
   return <SessionQuestionExplorer {...props} key={`${props.bankSlug ?? props.questions[0]?.bankSlug}:${owner ?? "unknown"}`}
-    draftHandoffRef={draftHandoffRef}
     questions={safeQuestions} access={ownerChanged ? anonymousAccess : props.access}
     studyState={ownerChanged ? EMPTY_STUDY_STATE : props.studyState}
     exportMarker={ownerChanged ? undefined : props.exportMarker} />;
@@ -264,7 +242,6 @@ function SessionQuestionExplorer({
   bootstrapUrl,
   hydrateFromLocation = false,
   routePreset,
-  draftHandoffRef,
 }: {
 questions: UnifiedQuestion[];
 bankSlug?: BankSlug;
@@ -278,7 +255,6 @@ access: ExplorerAccess;
   hydrateFromLocation?: boolean;
   /** Filters a topic or paper route implies, e.g. `{ topic: "Algebra and graphs" }`. */
   routePreset?: ExplorerSearchParams;
-  draftHandoffRef: { current: WorksheetDraftHandoff };
 }) {
   const [scopeOwner] = useState(() => typeof document === "undefined" ? null : cacheOwner());
   const activeScopeRef = useRef(true);
@@ -585,7 +561,6 @@ access: ExplorerAccess;
       queueMicrotask(() => {
         if (cancelled || !scopeIsCurrent()) return;
         setResolvedAccess({ authenticated: false, bankAccess: false, canExportPdf: false });
-        draftHandoffRef.current = { accountId: null, owner: null, draft: null };
         setIdentityResolved(true);
         setResolvedExportMarker(undefined);
         setBootstrapPending(false);
@@ -594,7 +569,7 @@ access: ExplorerAccess;
     }
     // A member's access for this bank, remembered by this tab: show and sign straight away,
     // then confirm in the background. The server still checks every paid request.
-    const owner = cacheOwner();
+    const owner = privateCacheOwner();
     const cached = bank && owner ? readCachedAccess(bank, owner) : null;
     if (cached) {
       queueMicrotask(() => {
@@ -608,27 +583,13 @@ access: ExplorerAccess;
     fetch(bootstrapUrl, { cache: "no-store", credentials: "same-origin" })
       .then(async (response) => {
         if (!response.ok) throw new Error("Member state unavailable");
-        return response.json() as Promise<{ accountId?: string; access: ExplorerAccess; exportMarker?: string; studyState: ExplorerStudyState; studyStateUnavailable?: boolean }>;
+        return response.json() as Promise<{ access: ExplorerAccess; exportMarker?: string; studyState: ExplorerStudyState; studyStateUnavailable?: boolean }>;
       })
       .then((payload) => {
         if (cancelled || !scopeIsCurrent()) return;
         if (!payload?.access || !payload?.studyState || !Array.isArray(payload.studyState.savedIds) || !Array.isArray(payload.studyState.attemptedIds)) {
           throw new Error("Invalid member state");
         }
-        const accountId = payload.access.authenticated && typeof payload.accountId === "string" && payload.accountId ? payload.accountId : null;
-        const previous = draftHandoffRef.current;
-        const draft = accountId && previous.accountId === accountId ? previous.draft : null;
-        if (draft && draft.bank === bank && draft.worksheetId === worksheetId && draft.mode === worksheetMode && payload.access.bankAccess) {
-          setWorksheetName(draft.name);
-          setSelectedIds(new Set(draft.ids));
-          setPdfContent(draft.content);
-          setWorksheetBaseline(draft.baseline);
-          // Keep the original revision so intervening server edits still produce a 409.
-          setWorksheetRevision(draft.revision);
-          setSelectionIsExplicit(draft.explicit);
-          setWorksheetReady(true);
-        }
-        draftHandoffRef.current = { accountId, owner: scopeOwner, draft: null };
         setIdentityResolved(true);
         setResolvedAccess(payload.access);
         setResolvedExportMarker(payload.exportMarker);
@@ -642,7 +603,6 @@ access: ExplorerAccess;
       })
       .catch(() => {
         if (cancelled || !scopeIsCurrent()) return;
-        // A transient error is not identity proof: keep the draft quarantined in RAM.
         setIdentityResolved(true);
         setResolvedAccess({ authenticated: false, bankAccess: false, canExportPdf: false });
         setResolvedExportMarker(undefined);
@@ -652,9 +612,7 @@ access: ExplorerAccess;
         if (!cancelled && scopeIsCurrent()) setBootstrapPending(false);
       });
     return () => { cancelled = true; };
-  // Worksheet identity/mode here are the mounted URL, not later editor UI changes.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bank, bootstrapUrl, scopeIsCurrent, draftHandoffRef]);
+  }, [bank, bootstrapUrl, scopeIsCurrent]);
 
   useEffect(() => {
     if (!bank || !indexUrl) return;
@@ -887,7 +845,7 @@ access: ExplorerAccess;
    */
   const signAssets = (requests: readonly AssetRequest[], route: "free" | "paid", speculative = false) => {
     if (!bank || !scopeIsCurrent()) return;
-    const owner = scopeOwner;
+    const owner = privateCacheOwner();
     const remembered = owner ? readCachedAssets(owner, bank) : new Map<string, SignedAsset>();
     const pending = requests.filter((request) => !signingAssetKeysRef.current.has(signedAssetKey(request.questionId, request.kind)));
     const reused = new Map(pending.flatMap((request) => {
@@ -956,14 +914,6 @@ access: ExplorerAccess;
 
   const worksheetDefinition = () => JSON.stringify({ name: worksheetName.trim(), ids: [...selectedIds], content: pdfContent });
   const worksheetDirty = worksheetId ? Boolean(worksheetMode === "edit" && worksheetBaseline && worksheetBaseline !== worksheetDefinition()) : Boolean(selectionIsExplicit && worksheetName.trim() && (worksheetBaseline ? worksheetBaseline !== worksheetDefinition() : selectedIds.size));
-  useEffect(() => {
-    const handoff = draftHandoffRef.current;
-    if (!scopeIsCurrent() || handoff.owner !== scopeOwner || !handoff.accountId) return;
-    draftHandoffRef.current = { ...handoff, draft: worksheetDirty && worksheetReady && !worksheetLoadFailed ? {
-      bank, worksheetId, mode: worksheetMode, name: worksheetName, ids: [...selectedIds],
-      content: pdfContent, baseline: worksheetBaseline, revision: worksheetRevision, explicit: selectionIsExplicit,
-    } : null };
-  }, [bank, draftHandoffRef, pdfContent, scopeIsCurrent, scopeOwner, selectedIds, selectionIsExplicit, worksheetBaseline, worksheetDirty, worksheetId, worksheetLoadFailed, worksheetMode, worksheetName, worksheetReady, worksheetRevision]);
   useEffect(() => {
     if (!pendingWorksheetAction) return;
     const dialog = worksheetUnsavedDialogRef.current;
@@ -1180,7 +1130,7 @@ access: ExplorerAccess;
     const expiredAt = lapsedSignedAssetExpiry(signedAssets.get(key));
     const retrying = expiredAt !== undefined && resignedExpiryRef.current.get(key) !== expiredAt;
     trackAssetLoadFailure(bank ?? "unknown", questionId, "question", retrying ? "expired_resign" : "failed", signedAssets.get(key)?.urls[0]);
-    if (bank) forgetAsset(bank, key, scopeOwner ?? undefined);
+    if (bank) forgetAsset(bank, key, signedAssets.get(key)?.urls[0] ?? "");
     setSignedAssets((current) => {
       const next = new Map(current);
       next.delete(key);

@@ -16,6 +16,11 @@ function owner(value: string | null) {
   document.cookie = value ? `sb-lifecycle-auth-token=${value}; path=/` : "sb-lifecycle-auth-token=; Max-Age=0; path=/";
   setSessionHint(Boolean(value));
 }
+/** A real account switch: the app signs out (cookie removed) before the next sign-in. */
+function switchAccount(value: string) {
+  owner(null);
+  owner(value);
+}
 function signed(init: RequestInit | undefined, label: string) {
   const { requests } = JSON.parse(String(init?.body));
   return response({ expiresIn: 600, assets: requests.map((r: object) => ({ ...r, urls: [`https://assets.example/${label}.webp`], details: { summary: `private ${label}`, accessibleText: `private ${label}`, solution: label, sourceQuestionUrl: null, sourceMarkSchemeUrl: null } })) });
@@ -45,7 +50,7 @@ describe("QuestionExplorer session lifecycle", () => {
       vi.stubGlobal("fetch", fetcher);
       render(<QuestionExplorer questions={[question]} bankSlug="igcse" access={anonymous} bootstrapUrl="/member" />);
       await screen.findByRole("img", { name: /original question/i });
-      act(() => owner("B"));
+      act(() => switchAccount("B"));
       await waitFor(() => expect(screen.queryByRole("img", { name: /original question/i })).toBeNull());
       expect(bootstraps).toBe(2);
       await act(async () => pendingB.resolve(member(anonymous)));
@@ -81,7 +86,7 @@ describe("QuestionExplorer session lifecycle", () => {
     window.history.replaceState({}, "", "/banks/ib-sl?free=0");
     render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={anonymous} bootstrapUrl="/member" initialState={{ search: "", sort: "paper", filters: {}, freeOnly: false, savedOnly: false, courseRoute: "all", visible: 24 }} hydrateFromLocation />);
     await waitFor(() => expect(batches).toHaveLength(2));
-    act(() => owner("B"));
+    act(() => switchAccount("B"));
     await waitFor(() => expect(batches).toHaveLength(4));
     await act(async () => late.resolve(signed(firstInit, "A")));
     expect(batches.map(({ count }) => count)).toEqual([20, 4, 20, 4]);
@@ -102,7 +107,7 @@ describe("QuestionExplorer session lifecycle", () => {
     vi.stubGlobal("fetch", fetcher);
     render(<QuestionExplorer questions={[question]} bankSlug="igcse" access={anonymous} bootstrapUrl="/member" />);
     await waitFor(() => expect(signing).toBe(1));
-    act(() => owner("B"));
+    act(() => switchAccount("B"));
     await waitFor(() => expect(screen.getByRole("img", { name: /original question/i }).getAttribute("src")).toContain("B.webp"));
     await act(async () => late.resolve(signed(firstInit, "A")));
     expect(screen.getByRole("img", { name: /original question/i }).getAttribute("src")).toContain("B.webp");
@@ -136,7 +141,7 @@ describe("QuestionExplorer session lifecycle", () => {
     await screen.findByRole("img", { name: /official mark scheme/i });
     expect(screen.getByRole("button", { name: /remove question from saved/i })).toBeTruthy();
     expect(screen.getByText("Practised")).toBeTruthy();
-    act(() => owner("B"));
+    act(() => switchAccount("B"));
     expect(screen.queryByText("Practised")).toBeNull();
     expect(screen.queryByRole("button", { name: /remove question from saved/i })).toBeNull();
     expect(screen.queryByText("private A")).toBeNull();
@@ -179,16 +184,16 @@ describe("QuestionExplorer session lifecycle", () => {
     vi.stubGlobal("fetch", fetcher);
     render(<QuestionExplorer questions={[question]} bankSlug="igcse" access={anonymous} bootstrapUrl="/member" />);
     await waitFor(() => expect(signing).toBe(1));
-    act(() => owner("B"));
+    act(() => switchAccount("B"));
     await waitFor(() => expect(screen.getByRole("img", { name: /original question/i }).getAttribute("src")).toContain("generation-2"));
-    act(() => owner("A"));
+    act(() => switchAccount("A"));
     await waitFor(() => expect(screen.getByRole("img", { name: /original question/i }).getAttribute("src")).toContain("generation-3"));
     await act(async () => late.resolve(signed(firstInit, "revived-old-A")));
     expect(screen.getByRole("img", { name: /original question/i }).getAttribute("src")).toContain("generation-3");
     expect(JSON.stringify([...readCachedAssets(sessionFingerprint(document.cookie)!, "igcse").values()])).not.toContain("revived-old-A");
   });
 
-  it.each([true, false])("abandons an answer after unobserved cookie turnover, success=%s", async (success) => {
+  it.each([true, false])("abandons an answer after an unobserved sign-out, success=%s", async (success) => {
     const late = deferred();
     let answerInit: RequestInit | undefined;
     const fetcher = vi.fn(async (url: RequestInfo | URL, init?: RequestInit) => {
@@ -201,7 +206,7 @@ describe("QuestionExplorer session lifecycle", () => {
     render(<QuestionExplorer questions={[question]} bankSlug="igcse" access={anonymous} bootstrapUrl="/member" />);
     fireEvent.click(await screen.findByRole("button", { name: "Show answer" }));
     await waitFor(() => expect(answerInit).toBeDefined());
-    document.cookie = "sb-lifecycle-auth-token=B; path=/";
+    document.cookie = "sb-lifecycle-auth-token=; Max-Age=0; path=/";
     await act(async () => late.resolve(success ? signed(answerInit, "answer-A") : response({ error: "Old answer error" })));
     expect(screen.queryByRole("button", { name: "Hide answer" })).toBeNull();
     expect(screen.queryByText("The answer could not load. Try again.")).toBeNull();
@@ -222,14 +227,14 @@ describe("QuestionExplorer session lifecycle", () => {
     render(<QuestionExplorer questions={[question]} bankSlug="igcse" access={anonymous} bootstrapUrl="/member" />);
     fireEvent.click(await screen.findByRole("button", { name: "Show answer" }));
     await waitFor(() => expect(answerInit).toBeDefined());
-    act(() => owner("B"));
+    act(() => switchAccount("B"));
     await screen.findByRole("button", { name: "Show answer" });
     await act(async () => late.resolve(signed(answerInit, "answer-A")));
     expect(fetcher.mock.calls.filter(([url]) => url === "/api/study-state")).toHaveLength(0);
     expect(screen.queryByRole("img", { name: /official mark scheme/i })).toBeNull();
   });
 
-  it.each(["focus", "visibilitychange", "cookieStore"])("observes cookie changes through %s without polling auth", async (observation) => {
+  it.each(["focus", "visibilitychange", "cookieStore"])("observes sign-out and sign-in through %s without polling auth", async (observation) => {
     const cookieStore = new EventTarget();
     if (observation === "cookieStore") Object.defineProperty(window, "cookieStore", { configurable: true, value: cookieStore });
     let bootstraps = 0;
@@ -242,6 +247,9 @@ describe("QuestionExplorer session lifecycle", () => {
       : observation === "visibilitychange" ? document.dispatchEvent(new Event(observation)) : window.dispatchEvent(new Event(observation));
     act(notify);
     expect(bootstraps).toBe(1);
+    document.cookie = "sb-lifecycle-auth-token=; Max-Age=0; path=/";
+    act(notify);
+    await waitFor(() => expect(screen.queryByRole("img", { name: /original question/i })).toBeNull());
     document.cookie = "sb-lifecycle-auth-token=B; path=/";
     act(notify);
     await waitFor(() => expect(screen.getByRole("img", { name: /original question/i }).getAttribute("src")).toContain("B.webp"));

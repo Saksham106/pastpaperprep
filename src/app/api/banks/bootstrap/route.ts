@@ -15,8 +15,6 @@ const PRIVATE_RESPONSE_INIT = {
 
 function payload(bank: BankSlug, authenticated = false, entitlements: readonly AccessEntitlement[] = [], savedIds: string[] = [], attemptedIds: string[] = [], userId?: string, studyStateUnavailable = false) {
   return {
-    // Private response only; identity comes from verified server claims, never cookie decoding.
-    accountId: userId,
     access: {
       authenticated,
       bankAccess: hasBankAccess(bank, entitlements),

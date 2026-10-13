@@ -1,5 +1,13 @@
 # PR229 explorer lifecycle verification
 
+> **Revised before merge.** The explorer now remounts only when the tab signs in or out, not on
+> every auth-cookie change. Supabase rewrites the cookie about hourly for the same person, and
+> treating that as a new session closed open answers and re-signed paid images (spending daily
+> allowance) for every member once an hour. Private caches still reset on any cookie change.
+> The worksheet-draft handoff and the bootstrap `accountId` field existed only to survive those
+> resets and were removed. Account-switch tests now sign out before signing in, as the app does.
+> The record below describes the earlier design.
+
 Baseline: `af99676` (this worker's isolated worktree). No provider calls, real browser cookies, generated bank sources, or full-repository gates were used.
 
 ## RED

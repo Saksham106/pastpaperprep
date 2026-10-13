@@ -38,7 +38,7 @@ describe("bank member bootstrap", () => {
     expect(createClient).not.toHaveBeenCalled();
   });
 
-  it("returns the server-verified account identity in a private no-store member response", async () => {
+  it("returns authenticated entitlements and study state without exposing the user id", async () => {
     hasSupabaseAuthCookie.mockReturnValue(true);
     const tables = {
       entitlements: table([{ product_id: "bank_ib_sl", selected_bank_ids: null, status: "active", starts_at: "2026-01-01T00:00:00Z", expires_at: null }]),
@@ -57,8 +57,7 @@ describe("bank member bootstrap", () => {
     expect(body.access).toEqual({ authenticated: true, bankAccess: true, canExportPdf: true });
     expect(body.studyState).toEqual({ savedIds: ["saved-1"], attemptedIds: ["attempted-1"] });
     expect(body.exportMarker).toMatch(/^[A-F0-9]{10}$/);
-    expect(body.accountId).toBe("user-secret-id");
-    expect(response.headers.get("cache-control")).toBe("private, no-store, max-age=0");
+    expect(JSON.stringify(body)).not.toContain("user-secret-id");
   });
 
   it("preserves verified access but reports unavailable study state", async () => {

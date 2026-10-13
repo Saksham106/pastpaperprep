@@ -62,16 +62,16 @@ describe("sessionFingerprint", () => {
     expect(readCachedAccess("ib-sl", owner)).toBeNull();
   });
 
-  it("distinguishes lifecycle changes in duplicate-cookie precedence without enabling cache reuse", () => {
-    const a = "sb-x-auth-token=A; sb-x-auth-token=B";
-    const b = "sb-x-auth-token=B; sb-x-auth-token=A";
-    const first = sessionLifecycleOwner(a);
-    const second = sessionLifecycleOwner(b);
-    expect(second).not.toBe(first);
-    expect(sessionLifecycleOwner(b)).toBe(second);
-    expect(sessionFingerprint(b)).toBeNull();
-    writeCachedAccess("ib-sl", second, member);
-    expect(readCachedAccess("ib-sl", second)).toBeNull();
+  it("keeps the page lifecycle through token refreshes and rotates it on sign-out and sign-in", () => {
+    const first = sessionLifecycleOwner("sb-x-auth-token=token-1");
+    expect(sessionLifecycleOwner("sb-x-auth-token=token-2")).toBe(first);
+    const signedOut = sessionLifecycleOwner("");
+    expect(signedOut).not.toBe(first);
+    expect(sessionLifecycleOwner("sb-x-auth-token=token-3")).not.toBe(first);
+  });
+
+  it("refuses private cache reuse when duplicate cookies make the session ambiguous", () => {
+    expect(sessionFingerprint("sb-x-auth-token=B; sb-x-auth-token=A")).toBeNull();
   });
 
   it("invalidates captured generations on an intentional clear", () => {
@@ -194,13 +194,12 @@ describe("remembered signed assets", () => {
     expect(readCachedAssets(owner, "ib-sl").size).toBe(0);
   });
 
-  it("ignores a late previous-generation failed-link eviction", () => {
-    const current = sessionFingerprint("sb-x-auth-token=B")!;
-    rememberAssets(current, "ib-sl", new Map([["a:question", asset("a")]]));
-    forgetAsset("ib-sl", "a:question", owner);
-    expect(readCachedAssets(current, "ib-sl").size).toBe(1);
-    forgetAsset("ib-sl", "a:question", current);
-    expect(readCachedAssets(current, "ib-sl").size).toBe(0);
+  it("ignores a late failure for a link that has since been replaced", () => {
+    rememberAssets(owner, "ib-sl", new Map([["a:question", asset("a")]]));
+    forgetAsset("ib-sl", "a:question", "https://assets.example/old-a.webp");
+    expect(readCachedAssets(owner, "ib-sl").size).toBe(1);
+    forgetAsset("ib-sl", "a:question", "https://assets.example/a.webp");
+    expect(readCachedAssets(owner, "ib-sl").size).toBe(0);
   });
 
   it("forgets a link that failed to load", () => {
