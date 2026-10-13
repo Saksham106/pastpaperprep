@@ -7,11 +7,12 @@ describe('whole-paper build boundary',()=>{
   expect(existsSync('src/app/past-papers/[slug]/[entry]/document/route.ts')).toBe(true);
   expect(existsSync('src/app/past-papers/[bankSlug]')).toBe(false);
  });
- it('bundles approved compact manifests and verified remote receipt but excludes local originals and source bindings',()=>{
+ it('bundles approved compact manifests and the committed public readback receipt but excludes local originals and source bindings',()=>{
   const config=readFileSync('next.config.ts','utf8');
   expect(config).toContain('"/past-papers/**"');
   expect(config).toContain('./src/data/paper-archives/*.json');
-  expect(config).toContain('./private/paper-archives/verified-readback.json');
+  expect(config).toContain('./src/data/paper-archive-readback.json');
+  expect(config).not.toContain('verified-readback.json');
   expect(config).toContain('outputFileTracingExcludes');
   expect(config).toContain('./private/paper-archives/source-bindings.json');
   expect(config).toContain('./private/paper-archives/checkpoints/**');

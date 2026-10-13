@@ -2,9 +2,9 @@ import 'server-only';
 import { lstatSync, realpathSync, openSync, fstatSync, closeSync, readSync, constants } from 'node:fs';
 import { join, resolve, relative, isAbsolute, parse, sep } from 'node:path';
 import { createHash } from 'node:crypto';
-import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { BANK_CATALOG, type BankSlug } from './catalog';
 import { paperSlug, subjectSlugForBank } from './past-paper-catalog';
+import { paperObjectUrl, paperObjectsDigest, validPublicReadback } from './whole-paper-public';
 import type { WholePaperManifest, WholePaperBankSummary, WholePaperSummary, WholePaperDetail } from './whole-paper-types';
 
 export function wholePaperPreviewEnabled() { return process.env.NODE_ENV === 'development' && process.env.LOCAL_PAPER_PREVIEW === 'true'; }
@@ -69,6 +69,7 @@ export function getWholePaperBanks(): WholePaperBankSummary[] {
 export function getWholePaper(slug: string, id: string): WholePaperDetail | null {
   const entry = readManifest(slug)?.papers.find(p => p.summary.id === id);
   if (!entry) return null;
+  if (!wholePaperPreviewEnabled()) return { ...entry, sources: { question: paperObjectUrl(entry.documents.question.sha256), markscheme: paperObjectUrl(entry.documents.markscheme.sha256) } };
   const base = `/past-papers/${subjectSlugForBank(entry.summary.bankSlug)}/${paperSlug(entry.summary)}/document`;
   return { ...entry, sources: { question: `${base}?kind=question`, markscheme: `${base}?kind=markscheme` } };
 }
@@ -122,88 +123,39 @@ function validBindings(value: unknown): value is import('./whole-paper-types').W
   }
   return true;
 }
-/** Private immutable receipt: byte SHA of each compact manifest and every distinct approved PDF.
- * Pin SHA-256 of this receipt's exact UTF-8 bytes in PAPER_ARCHIVE_RECEIPT_SHA256.
- * Generating a receipt is NOT remote verification; a separately authorized uploader must GET
- * every object and record its measured hash/length before issuing verified_readback.
- */
-export type WholePaperReadbackReceipt = {
-  version: 1; status: 'verified_readback'; provider: 'r2'; accountId: string;
-  bucket: 'pastpaperprep-assets'; verifiedAt: string;
-  manifests: { bankSlug: import('./catalog').BankSlug; sha256: string }[];
-  objects: { key: string; sha256: string; bytes: number }[];
-};
-const digest = (bytes: Buffer) => createHash('sha256').update(bytes).digest('hex');
-function productionConfig() {
-  if (process.env.NODE_ENV !== 'production' || process.env.PAPER_ARCHIVE_ENABLED !== 'true' || process.env.PAPER_ARCHIVE_STORAGE_VERIFIED !== 'true') return null;
-  const accountId = process.env.R2_ACCOUNT_ID?.trim(); const accessKeyId = process.env.R2_ACCESS_KEY_ID?.trim();
-  const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY?.trim(); const bucket = process.env.R2_BUCKET_NAME?.trim();
-  const pin = process.env.PAPER_ARCHIVE_RECEIPT_SHA256;
-  if (!accountId || !/^[a-f0-9]{32}$/.test(accountId) || !accessKeyId || !secretAccessKey || bucket !== 'pastpaperprep-assets' || !pin || !SHA256.test(pin)) return null;
+/** Every distinct approved PDF across the committed manifests; null if any manifest is invalid or a hash has two sizes. */
+function approvedObjects(): Map<string, number> | null {
+  const approved = new Map<string, number>();
+  for (const bank of BANK_CATALOG) {
+    const path = join(process.cwd(), 'src/data/paper-archives', `${bank.slug}.json`);
+    try { lstatSync(path); } catch (error) { if ((error as NodeJS.ErrnoException).code === 'ENOENT') continue; throw error; }
+    const manifest = readManifest(bank.slug);
+    if (!manifest) return null;
+    for (const paper of manifest.papers) for (const doc of Object.values(paper.documents)) {
+      if (approved.has(doc.sha256) && approved.get(doc.sha256) !== doc.bytes) return null;
+      approved.set(doc.sha256, doc.bytes);
+    }
+  }
+  return approved;
+}
+/** Production opens only when the committed receipt proves that every approved PDF was read back,
+ * byte for byte, from free.pastpaperprep.com. Any manifest change closes it until a new readback. */
+function productionEnabled(): boolean {
+  if (process.env.NODE_ENV !== 'production' || process.env.PAPER_ARCHIVE_ENABLED !== 'true' || process.env.PAPER_ARCHIVE_STORAGE_VERIFIED !== 'true') return false;
   try {
-    const raw = checkedRead(join(process.cwd(), 'private/paper-archives/verified-readback.json'), 32 * 1024 * 1024);
-    if (digest(raw) !== pin) return null;
-    const receipt: unknown = JSON.parse(raw.toString('utf8'));
-    if (!object(receipt, ['version', 'status', 'provider', 'accountId', 'bucket', 'verifiedAt', 'manifests', 'objects']) || receipt.version !== 1 || receipt.status !== 'verified_readback' || receipt.provider !== 'r2' || receipt.accountId !== accountId || receipt.bucket !== bucket || !text(receipt.verifiedAt) || !Number.isFinite(Date.parse(receipt.verifiedAt)) || !Array.isArray(receipt.manifests) || !Array.isArray(receipt.objects)) return null;
-    const manifests = new Map<string, string>();
-    const approved = new Map<string, number>();
-    for (const bank of BANK_CATALOG) {
-      const path = join(process.cwd(), 'src/data/paper-archives', `${bank.slug}.json`);
-      try { lstatSync(path); } catch (error) { if ((error as NodeJS.ErrnoException).code === 'ENOENT') continue; throw error; }
-      const bytes = checkedRead(path, 16 * 1024 * 1024);
-      const manifest: unknown = JSON.parse(bytes.toString('utf8'));
-      if (!validManifest(manifest, bank.slug)) return null;
-      manifests.set(bank.slug, digest(bytes));
-      for (const paper of manifest.papers) for (const doc of Object.values(paper.documents)) {
-        if (approved.has(doc.sha256) && approved.get(doc.sha256) !== doc.bytes) return null;
-        approved.set(doc.sha256, doc.bytes);
-      }
-    }
-    if (!approved.size || receipt.manifests.length !== manifests.size || receipt.objects.length !== approved.size) return null;
-    for (const m of receipt.manifests) {
-      if (!object(m, ['bankSlug', 'sha256']) || typeof m.bankSlug !== 'string' || manifests.get(m.bankSlug) !== m.sha256) return null;
-      manifests.delete(m.bankSlug);
-    }
-    const objects = new Map(approved);
-    for (const o of receipt.objects) {
-      if (!object(o, ['key', 'sha256', 'bytes']) || typeof o.sha256 !== 'string' || !SHA256.test(o.sha256) || o.key !== `whole-papers/v1/${o.sha256}.pdf` || approved.get(o.sha256) !== o.bytes) return null;
-      approved.delete(o.sha256);
-    }
-    return { accountId, bucket, accessKeyId, secretAccessKey, objects };
-  } catch { return null; }
+    const receipt: unknown = JSON.parse(checkedRead(join(process.cwd(), 'src/data/paper-archive-readback.json'), 64 * 1024).toString('utf8'));
+    const approved = approvedObjects();
+    return validPublicReadback(receipt) && !!approved?.size && receipt.objectCount === approved.size && receipt.objectsSha256 === paperObjectsDigest(approved);
+  } catch { return false; }
 }
 /** Metadata alone is not a production activation proof. Does not perform a network call. */
-export async function wholePaperArchiveEnabled(): Promise<boolean> { return wholePaperPreviewEnabled() || productionConfig() !== null; }
-async function readProductionDocument(approved: import('./whole-paper-types').WholePaperDocument): Promise<Buffer | null> {
-  const config = productionConfig();
-  if (!config || config.objects.get(approved.sha256) !== approved.bytes) return null;
-  const client = new S3Client({ region: 'auto', endpoint: `https://${config.accountId}.r2.cloudflarestorage.com`, forcePathStyle: true, maxAttempts: 1, credentials: { accessKeyId: config.accessKeyId, secretAccessKey: config.secretAccessKey } });
-  try {
-    const response = await client.send(new GetObjectCommand({ Bucket: config.bucket, Key: `whole-papers/v1/${approved.sha256}.pdf` }), { abortSignal: AbortSignal.timeout(10_000) });
-    const body = response.Body;
-    if (!body || !(Symbol.asyncIterator in body)) return null;
-    try {
-      if (response.ContentLength !== approved.bytes) return null;
-      const chunks: Buffer[] = []; let length = 0;
-      for await (const chunk of body as AsyncIterable<Uint8Array>) {
-        if (!(chunk instanceof Uint8Array)) return null;
-        length += chunk.byteLength;
-        if (length > approved.bytes) return null;
-        chunks.push(Buffer.from(chunk));
-      }
-      const bytes = Buffer.concat(chunks, length);
-      return length === approved.bytes && bytes.subarray(0, 5).equals(Buffer.from('%PDF-')) && digest(bytes) === approved.sha256 ? bytes : null;
-    } finally { if ('destroy' in body && typeof body.destroy === 'function') body.destroy(); }
-  } catch { return null; } finally { client.destroy(); }
-}
+export async function wholePaperArchiveEnabled(): Promise<boolean> { return wholePaperPreviewEnabled() || productionEnabled(); }
+/** Local preview only. Production pages link the public bucket directly, so this route never runs there. */
 export async function getWholePaperDocument(slug: string, id: string, kind: string): Promise<{bytes: Buffer; filename: string} | null> {
   if (!SAFE_ID.test(id) || (kind !== 'question' && kind !== 'markscheme')) return null;
   const entry = getWholePaper(slug, id);
   if (!entry) return null;
-  if (!wholePaperPreviewEnabled()) {
-    const bytes = await readProductionDocument(entry.documents[kind]);
-    return bytes ? { bytes, filename: `${id}-${kind}.pdf` } : null;
-  }
+  if (!wholePaperPreviewEnabled()) return null;
   try {
     const bindings: unknown = JSON.parse(checkedRead(join(process.cwd(), 'private/paper-archives/source-bindings.json'), 32 * 1024 * 1024).toString('utf8'));
     if (!validBindings(bindings)) return null;
