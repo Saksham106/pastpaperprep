@@ -395,7 +395,7 @@ describe("fetchFreeAssets with the static free index", () => {
   const signed = (id: string) => new Response(JSON.stringify({ expiresIn: 3600, maxAge: 900, asset: { questionId: id, kind: "question", urls: [`https://assets.example/${id}.webp`] } }));
 
   it("serves listed questions from public links without calling the signing route", async () => {
-    const fetcher = vi.fn(async () => index("ib-hl"));
+    const fetcher = vi.fn<(input: RequestInfo | URL) => Promise<Response>>(async () => index("ib-hl"));
     const { assets, failedKeys } = await fetchFreeAssets("ib-hl", [{ questionId: "a", kind: "question" }], fetcher);
     expect(fetcher.mock.calls.map(([input]) => String(input))).toEqual(["/free-assets/ib-hl.json"]);
     expect(assets.get("a:question")).toMatchObject({ urls: [publicUrl("a")], details });
