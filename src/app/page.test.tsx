@@ -39,7 +39,7 @@ describe("home page", () => {
     expect(papers[0].getAttribute("href")).toBe("/past-papers/igcse-mathematics-0580");
     expect(papers[0].textContent).toContain("312 papers");
     expect(papers[0].dataset.modeItem).toBe("papers");
-    expect(container.querySelector(".practice-mode-switch")?.textContent).toBe("By topicFull papers");
+    expect(container.querySelector(".practice-mode-switch")?.textContent).toBe("Practice by topicFull past papers");
     const rows = [...container.querySelectorAll<HTMLAnchorElement>("#question-banks a[data-bank-slug]")];
 
     expect(getAvailableBanks(liveBankEnvironment)).toHaveLength(19);
