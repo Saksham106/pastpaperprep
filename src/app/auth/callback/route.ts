@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { validOAuthFlowId } from "@/lib/oauth-pkce";
+import { postAuthDestination } from "@/lib/post-auth-destination";
 import { safeNextPath } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { bindReferralToAuthenticatedUser } from "@/lib/referral-account";
@@ -33,9 +34,9 @@ export async function GET(request: NextRequest) {
       : await supabase.auth.exchangeCodeForSession(code, { flowId });
     if (error) return failure();
     const recovery = data && "redirectType" in data && data.redirectType === "recovery";
-    const destination = recovery || url.searchParams.get("type") === "recovery" ? "/account/password" : next;
     const { data: { user }, error: userError } = await supabase.auth.getUser();
     if (userError || !user?.id) return failure();
+    const destination = recovery || url.searchParams.get("type") === "recovery" ? "/account/password" : await postAuthDestination(supabase, user.id, next);
     // Optional bookkeeping must not turn an established session into an auth failure.
     try {
       if (user.created_at) await bindReferralToAuthenticatedUser(user.id, user.created_at, request.cookies.get(REFERRAL_COOKIE)?.value);

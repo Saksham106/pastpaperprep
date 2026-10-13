@@ -21,14 +21,14 @@ export function SiteFooter() {
   }
   return (
     <footer className="site-footer">
-      <FooterSkyline />
       <div className="footer-brand"><Link href="/" aria-label="PastPaperPrep home"><BookOpenText weight="bold" /><strong>PastPaperPrep</strong></Link><p>Focused practice for Cambridge IGCSE and IB Diploma question banks.</p></div>
       <nav className="footer-links" aria-label="Footer navigation">
         {[...groups.entries()].map(([title, links]) => <FooterGroup title={title} links={links} key={title} />)}
         <FooterGroup title="Exam-style practice" links={[["/banks/ib-sl/exam-style", "IB Math AA SL"], ["/banks/ib-hl/exam-style", "IB Math AA HL"], ["/banks/igcse/exam-style", "IGCSE 0580"], ["/banks/igcse-additional/exam-style", "IGCSE 0606"]]} />
         <FooterGroup title="Resources" links={[...(pastPaperLinksEnabled() ? [["/past-papers", "Free past papers"] as const] : []), ["/cambridge-igcse", "Cambridge IGCSE hub"], ["/ib", "IB Diploma hub"], ["/about", "About PastPaperPrep"], ["/articles", "Revision guides"], ["/faq", "Frequently asked questions"]]} />
       </nav>
-      <p className="footer-wordmark" aria-hidden="true">PastPaperPrep</p>
+      {/* The skyline stands behind the wordmark, on the same ground line. */}
+      <div className="footer-mark" aria-hidden="true"><FooterSkyline /><p className="footer-wordmark" aria-hidden="true">PastPaperPrep</p></div>
       <div className="footer-base"><small>Independent practice platform. Exam-board names identify the relevant qualifications.</small><div className="footer-policy-links"><Link href="/terms">Terms</Link><Link href="/privacy">Privacy</Link><Link href="/refund-policy">Refunds</Link><CookieSettingsLink /><a href="mailto:hello@pastpaperprep.com">hello@pastpaperprep.com</a></div></div>
     </footer>
   );

@@ -40,21 +40,26 @@ export function HeaderNavigation({ authenticated, workspaceIcon, menuOpen = fals
 
   return (
     <nav id="site-menu" className="site-menu" data-open={menuOpen ? "true" : "false"} aria-label="Main navigation" onClick={(event) => { if ((event.target as Element).closest("a")) onNavigate?.(); }}>
-      {pastPapers && <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "papers") ? "nav-active" : undefined} aria-current={current(pathname, "papers") ? "page" : undefined} href="/past-papers">Past papers</Link>}
-      <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "banks", banksHashActive) ? "nav-active" : undefined} aria-current={current(pathname, "banks", banksHashActive) ? "page" : undefined} href={banksHref} onClick={openLandingBanks}>Question banks</Link>
-      <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "articles") ? "nav-active" : undefined} aria-current={current(pathname, "articles") ? "page" : undefined} href="/articles">Articles</Link>
-      <Link transitionTypes={PAGE_NAVIGATION} className={`nav-pricing${current(pathname, "pricing") ? " nav-active" : ""}`} aria-current={current(pathname, "pricing") ? "page" : undefined} href="/pricing">Pricing</Link>
-      <Link transitionTypes={PAGE_NAVIGATION} className={`${authenticated ? "" : "nav-login "}${current(pathname, authenticated ? "account" : "login") ? "nav-active" : ""}`.trim() || undefined} aria-current={current(pathname, authenticated ? "account" : "login") ? "page" : undefined} href={authenticated ? "/account" : "/login?next=/pricing"}>{authenticated ? "My account" : "Log in"}</Link>
-      <Link transitionTypes={PAGE_NAVIGATION}
-        className={`nav-cta${current(pathname, "dashboard") ? " nav-active" : ""}`}
-        aria-current={current(pathname, "dashboard") ? "page" : undefined}
-        href="/dashboard"
-        title="Open question banks"
-      >
-        <span className="nav-cta-label">{authenticated ? "Dashboard" : "Start practising"}</span>
-        {workspaceIcon}
-      </Link>
-      {trailing}
+      {/* Desktop: page links sit in the bar's center column, account actions on the right. The phone menu lists both. */}
+      <div className="nav-pages">
+        {pastPapers && <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "papers") ? "nav-active" : undefined} aria-current={current(pathname, "papers") ? "page" : undefined} href="/past-papers">Past papers</Link>}
+        <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "banks", banksHashActive) ? "nav-active" : undefined} aria-current={current(pathname, "banks", banksHashActive) ? "page" : undefined} href={banksHref} onClick={openLandingBanks}>Question banks</Link>
+        <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "articles") ? "nav-active" : undefined} aria-current={current(pathname, "articles") ? "page" : undefined} href="/articles">Articles</Link>
+        <Link transitionTypes={PAGE_NAVIGATION} className={`nav-pricing${current(pathname, "pricing") ? " nav-active" : ""}`} aria-current={current(pathname, "pricing") ? "page" : undefined} href="/pricing">Pricing</Link>
+      </div>
+      <div className="nav-actions">
+        <Link transitionTypes={PAGE_NAVIGATION} className={`${authenticated ? "" : "nav-login "}${current(pathname, authenticated ? "account" : "login") ? "nav-active" : ""}`.trim() || undefined} aria-current={current(pathname, authenticated ? "account" : "login") ? "page" : undefined} href={authenticated ? "/account" : "/login?next=/pricing"}>{authenticated ? "My account" : "Log in"}</Link>
+        <Link transitionTypes={PAGE_NAVIGATION}
+          className={`nav-cta${current(pathname, "dashboard") ? " nav-active" : ""}`}
+          aria-current={current(pathname, "dashboard") ? "page" : undefined}
+          href="/dashboard"
+          title="Open question banks"
+        >
+          <span className="nav-cta-label">{authenticated ? "Dashboard" : "Start practising"}</span>
+          {workspaceIcon}
+        </Link>
+        {trailing}
+      </div>
     </nav>
   );
 }

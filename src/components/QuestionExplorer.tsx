@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useId, useMemo, useRef, useState, useSyncExternalStore, type KeyboardEvent as ReactKeyboardEvent } from "react";
+import { Fragment, useCallback, useEffect, useId, useMemo, useRef, useState, useSyncExternalStore, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { CALCULATOR_FILTER_BANKS } from "@/lib/calculator-policy.mjs";
 import Image from "next/image";
 import dynamic from "next/dynamic";
@@ -18,10 +18,12 @@ import { filterQuestions, questionZoneValue } from "@/lib/question-filter";
 import { EXPLORER_PAGE_SIZE, parseExplorerState, serializeExplorerState, preserveClearedRoutePreset, stripRoutePreset, withRoutePreset, type ExplorerFilterKey, type ExplorerSearchParams, type ExplorerState } from "@/lib/explorer-state";
 import { encodeSharedSet, parseSharedSet } from "@/lib/shared-question-set";
 import type { QuestionFilters, QuestionSort, UnifiedQuestion } from "@/lib/questions";
+import type { AssetRequest } from "@/lib/asset-access";
 import type { BankSlug } from "@/lib/banks";
 import { fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, lapsedSignedAssetExpiry, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
 import { pulseSuccess, shakeElement } from "@/lib/button-feedback";
-import { documentHasSupabaseAuthCookie } from "@/lib/supabase/auth-cookie";
+import { documentHasSupabaseAuthCookie, subscribeToSessionChanges } from "@/lib/supabase/auth-cookie";
+import { forgetAsset, readCachedAccess, readCachedAssets, rememberAssets, sessionFingerprint, sessionLifecycleOwner, writeCachedAccess } from "@/lib/member-session-cache";
 import { mergeQuestionRichDetails, publicMetadataToQuestion, type PublicBankIndex } from "@/lib/question-index";
 import { matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
@@ -199,9 +201,36 @@ const sessionRank = (session: string) => Math.max(0, SESSION_ORDER.findIndex((ke
 const questionTopicLabel = (question: UnifiedQuestion) => formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, question.primaryTopic) : question.primaryTopic);
 
 const readAuthCookiePresent = () => documentHasSupabaseAuthCookie(document.cookie);
+/** Which signed-in/out period this page belongs to; unchanged by token refreshes. */
+const cacheOwner = (): string | null => sessionLifecycleOwner(document.cookie);
+/** Private caches follow the exact login cookie; null means don't reuse anything. */
+const privateCacheOwner = (): string | null => sessionFingerprint(document.cookie);
 const serverHasNoAuthCookie = () => false;
+const anonymousAccess: ExplorerAccess = { authenticated: false, bankAccess: false, canExportPdf: false };
 
-export function QuestionExplorer({
+export function QuestionExplorer(props: Parameters<typeof SessionQuestionExplorer>[0]) {
+  const subscribeToOwner = useCallback((listener: () => void) => subscribeToSessionChanges(listener), []);
+  const observedOwner = useSyncExternalStore(subscribeToOwner, cacheOwner, () => null);
+  const hydrated = useSyncExternalStore(subscribeToNothing, hydratedSnapshot, serverSnapshot);
+  const [initialOwner] = useState(() => typeof document === "undefined" ? null : cacheOwner());
+  const owner = hydrated ? observedOwner : initialOwner;
+  const ownerChanged = owner !== initialOwner;
+  // Signing in or out remounts the explorer: links, rich details, answers, study state and
+  // pending work all reset together, and late responses from before are discarded. Token
+  // refreshes keep the same owner, so an open page is left alone.
+  const safeQuestions = useMemo(() => ownerChanged ? props.questions.map((question) => (
+    isPreviewQuestion(question.bankSlug, question.id) ? question : {
+      ...question, summary: "", accessibleText: "", solution: null,
+      sourceQuestionUrl: null, sourceMarkSchemeUrl: null,
+    }
+  )) : props.questions, [ownerChanged, props.questions]);
+  return <SessionQuestionExplorer {...props} key={`${props.bankSlug ?? props.questions[0]?.bankSlug}:${owner ?? "unknown"}`}
+    questions={safeQuestions} access={ownerChanged ? anonymousAccess : props.access}
+    studyState={ownerChanged ? EMPTY_STUDY_STATE : props.studyState}
+    exportMarker={ownerChanged ? undefined : props.exportMarker} />;
+}
+
+function SessionQuestionExplorer({
   questions,
   bankSlug,
   localPreview = false,
@@ -227,6 +256,13 @@ access: ExplorerAccess;
   /** Filters a topic or paper route implies, e.g. `{ topic: "Algebra and graphs" }`. */
   routePreset?: ExplorerSearchParams;
 }) {
+  const [scopeOwner] = useState(() => typeof document === "undefined" ? null : cacheOwner());
+  const activeScopeRef = useRef(true);
+  useEffect(() => {
+    activeScopeRef.current = true;
+    return () => { activeScopeRef.current = false; };
+  }, []);
+  const scopeIsCurrent = useCallback(() => activeScopeRef.current && cacheOwner() === scopeOwner, [scopeOwner]);
   const [search, setSearch] = useState(initialState.search);
   const [catalogQuestions, setCatalogQuestions] = useState(questions);
   const [indexError, setIndexError] = useState("");
@@ -298,6 +334,7 @@ access: ExplorerAccess;
   const [resolvedExportMarker, setResolvedExportMarker] = useState(exportMarker);
   const [locationHydrated, setLocationHydrated] = useState(!hydrateFromLocation);
   const [bootstrapPending, setBootstrapPending] = useState(Boolean(bootstrapUrl));
+  const [identityResolved, setIdentityResolved] = useState(!bootstrapUrl);
   // Server HTML assumes no session; the browser reads the real cookie without a hydration mismatch.
   const authCookiePresent = useSyncExternalStore(subscribeToNothing, readAuthCookiePresent, serverHasNoAuthCookie);
   const filterTriggerRef = useRef<HTMLButtonElement>(null);
@@ -445,7 +482,7 @@ access: ExplorerAccess;
   };
   const [milestoneQuestionId, setMilestoneQuestionId] = useState("");
   const recordReveal = (questionId: string) => {
-    if (!nudgesActive) return;
+    if (!scopeIsCurrent() || !nudgesActive) return;
     try {
       const revealedKey = `ppp:revealed:${nudgeBank}`;
       const shownKey = `ppp:milestone-shown:${nudgeBank}`;
@@ -522,12 +559,26 @@ access: ExplorerAccess;
     if (!documentHasSupabaseAuthCookie(document.cookie)) {
       // No session cookie: the server would answer "anonymous" without touching Supabase.
       queueMicrotask(() => {
-        if (cancelled) return;
+        if (cancelled || !scopeIsCurrent()) return;
         setResolvedAccess({ authenticated: false, bankAccess: false, canExportPdf: false });
+        setIdentityResolved(true);
         setResolvedExportMarker(undefined);
         setBootstrapPending(false);
       });
       return () => { cancelled = true; };
+    }
+    // A member's access for this bank, remembered by this tab: show and sign straight away,
+    // then confirm in the background. The server still checks every paid request.
+    const owner = privateCacheOwner();
+    const cached = bank && owner ? readCachedAccess(bank, owner) : null;
+    if (cached) {
+      queueMicrotask(() => {
+        if (cancelled || !scopeIsCurrent()) return;
+        setResolvedAccess(cached.access);
+        setResolvedExportMarker(cached.exportMarker);
+        if (cached.access.bankAccess) setFreeOnly(false);
+        setBootstrapPending(false);
+      });
     }
     fetch(bootstrapUrl, { cache: "no-store", credentials: "same-origin" })
       .then(async (response) => {
@@ -535,12 +586,14 @@ access: ExplorerAccess;
         return response.json() as Promise<{ access: ExplorerAccess; exportMarker?: string; studyState: ExplorerStudyState; studyStateUnavailable?: boolean }>;
       })
       .then((payload) => {
-        if (cancelled) return;
+        if (cancelled || !scopeIsCurrent()) return;
         if (!payload?.access || !payload?.studyState || !Array.isArray(payload.studyState.savedIds) || !Array.isArray(payload.studyState.attemptedIds)) {
           throw new Error("Invalid member state");
         }
+        setIdentityResolved(true);
         setResolvedAccess(payload.access);
         setResolvedExportMarker(payload.exportMarker);
+        if (bank && owner) writeCachedAccess(bank, owner, { access: payload.access, ...(payload.exportMarker ? { exportMarker: payload.exportMarker } : {}) });
         setSavedIds(new Set(payload.studyState.savedIds));
         setAttemptedIds(new Set(payload.studyState.attemptedIds));
         if (payload.studyStateUnavailable) {
@@ -549,16 +602,17 @@ access: ExplorerAccess;
         if (payload.access.bankAccess) setFreeOnly(false);
       })
       .catch(() => {
-        if (cancelled) return;
+        if (cancelled || !scopeIsCurrent()) return;
+        setIdentityResolved(true);
         setResolvedAccess({ authenticated: false, bankAccess: false, canExportPdf: false });
         setResolvedExportMarker(undefined);
         setFreeOnly(true);
       })
       .finally(() => {
-        if (!cancelled) setBootstrapPending(false);
+        if (!cancelled && scopeIsCurrent()) setBootstrapPending(false);
       });
     return () => { cancelled = true; };
-  }, [bootstrapUrl]);
+  }, [bank, bootstrapUrl, scopeIsCurrent]);
 
   useEffect(() => {
     if (!bank || !indexUrl) return;
@@ -598,10 +652,14 @@ access: ExplorerAccess;
         });
     };
 
-    const idleId = typeof window.requestIdleCallback === "function"
+    // Visitors already have their first questions in the HTML, so the full index waits for idle
+    // time. A signed-in member's paid questions only exist in the index, so load it now.
+    const member = readAuthCookiePresent();
+    const idleId = !member && typeof window.requestIdleCallback === "function"
       ? window.requestIdleCallback(loadIndex, { timeout: 800 })
       : undefined;
-    if (idleId === undefined) fallbackTimer = window.setTimeout(loadIndex, 200);
+    if (member) loadIndex();
+    else if (idleId === undefined) fallbackTimer = window.setTimeout(loadIndex, 200);
 
     return () => {
       cancelled = true;
@@ -772,7 +830,9 @@ access: ExplorerAccess;
     window.history.replaceState(window.history.state, "", nextUrl);
   }, [bootstrapPending, effectiveCourseRoute, effectiveFreeOnly, filters, locationHydrated, resolvedAccess.bankAccess, routePreset, savedOnly, search, sharedSetView, sort, visible, worksheetId, worksheetMode]);
 
-  const applySignedAssets = (assets: Map<string, SignedAsset>) => {
+  const applySignedAssets = (assets: Map<string, SignedAsset>, owner: string | null) => {
+    if (!scopeIsCurrent() || !assets.size) return;
+    if (bank && owner) rememberAssets(owner, bank, assets);
     setSignedAssets((current) => new Map([...current, ...assets]));
     const detailsById = new Map([...assets.values()].flatMap((asset) => asset.details ? [[asset.questionId, asset.details] as const] : []));
     if (detailsById.size) {
@@ -783,48 +843,78 @@ access: ExplorerAccess;
     }
   };
 
-  useEffect(() => {
-    if (!bank) return;
-    const pendingRequests = questionAssetRequests.filter((request) => (
-      !signingAssetKeysRef.current.has(signedAssetKey(request.questionId, request.kind))
-    ));
-    if (!pendingRequests.length) return;
-    const pendingKeys = pendingRequests.map((request) => signedAssetKey(request.questionId, request.kind));
+  /**
+   * Signs what isn't signed yet: links this session already holds are reused (no request, no
+   * allowance spent), free-year assets use the CDN-cached route, and the rest use the paid signer.
+   */
+  const signAssets = (requests: readonly AssetRequest[], route: "free" | "paid", speculative = false) => {
+    if (!bank || !scopeIsCurrent()) return;
+    const owner = privateCacheOwner();
+    const remembered = owner ? readCachedAssets(owner, bank) : new Map<string, SignedAsset>();
+    const pending = requests.filter((request) => !signingAssetKeysRef.current.has(signedAssetKey(request.questionId, request.kind)));
+    const reused = new Map(pending.flatMap((request) => {
+      const key = signedAssetKey(request.questionId, request.kind);
+      const asset = remembered.get(key);
+      return asset ? [[key, asset] as const] : [];
+    }));
+    applySignedAssets(reused, owner);
+    const toSign = pending.filter((request) => !reused.has(signedAssetKey(request.questionId, request.kind)));
+    if (!toSign.length) return;
+    const pendingKeys = toSign.map((request) => signedAssetKey(request.questionId, request.kind));
     for (const key of pendingKeys) signingAssetKeysRef.current.add(key);
-    fetchSignedAssets(bank, pendingRequests, fetch, localPreview)
+    const finished = () => { if (!scopeIsCurrent()) return; for (const key of pendingKeys) signingAssetKeysRef.current.delete(key); };
+    if (route === "free") {
+      let failedPrefetch = false;
+      fetchFreeAssets(bank, toSign)
+        .then(({ assets, failedKeys }) => {
+          if (!scopeIsCurrent()) return;
+          applySignedAssets(assets, owner);
+          failedPrefetch = speculative && failedKeys.length > 0;
+          if (failedKeys.length && !speculative) {
+            setFailedAssetKeys((current) => new Set([...current, ...failedKeys]));
+            setAssetError("Some question images could not load.");
+          }
+        })
+        .finally(() => {
+          if (!scopeIsCurrent()) return;
+          finished();
+          // Activation may have happened while the speculative request was pending.
+          // Release its keys and re-evaluate visible demand; offscreen failures stay quiet.
+          if (failedPrefetch) setAssetEpoch((current) => Math.max(Date.now(), current + 1));
+        });
+      return;
+    }
+    fetchSignedAssets(bank, toSign, fetch, localPreview, scopeIsCurrent)
       .then((assets) => {
-        applySignedAssets(assets);
+        if (!scopeIsCurrent()) return;
+        applySignedAssets(assets, owner);
         setAssetError("");
       })
       .catch(() => {
+        if (!scopeIsCurrent()) return;
         setFailedAssetKeys((current) => new Set([...current, ...pendingKeys]));
         setAssetError("Some question images could not load.");
       })
-      .finally(() => {
-        for (const key of pendingKeys) signingAssetKeysRef.current.delete(key);
-      });
-  }, [bank, localPreview, questionAssetRequests]);
+      .finally(finished);
+  };
 
-  useEffect(() => {
-    if (!bank) return;
-    const pendingRequests = freeAssetRequests.filter((request) => (
-      !signingAssetKeysRef.current.has(signedAssetKey(request.questionId, request.kind))
-    ));
-    if (!pendingRequests.length) return;
-    const pendingKeys = pendingRequests.map((request) => signedAssetKey(request.questionId, request.kind));
-    for (const key of pendingKeys) signingAssetKeysRef.current.add(key);
-    fetchFreeAssets(bank, pendingRequests)
-      .then(({ assets, failedKeys }) => {
-        applySignedAssets(assets);
-        if (failedKeys.length) {
-          setFailedAssetKeys((current) => new Set([...current, ...failedKeys]));
-          setAssetError("Some question images could not load.");
-        }
-      })
-      .finally(() => {
-        for (const key of pendingKeys) signingAssetKeysRef.current.delete(key);
-      });
-  }, [bank, freeAssetRequests]);
+  // signAssets only reads refs and calls state setters.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { signAssets(questionAssetRequests, "paid"); }, [bank, localPreview, questionAssetRequests]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { signAssets(freeAssetRequests, "free"); }, [bank, freeAssetRequests]);
+
+  /** A member about to press "Show 24 more": sign that page now so it appears signed. */
+  const prefetchNextPage = () => {
+    if (!locationHydrated || bootstrapPending || anonymous || localPreview) return;
+    const unsigned = resultQuestions.slice(visible, visible + EXPLORER_PAGE_SIZE)
+      .filter((question) => !failedAssetKeys.has(signedAssetKey(question.id, "question")))
+      .filter((question) => !isSignedAssetFresh(signedAssets.get(signedAssetKey(question.id, "question"))));
+    const toRequest = (questions: UnifiedQuestion[]) => questions.map((question) => ({ questionId: question.id, kind: "question" as const }));
+    // Paid signatures consume a daily allowance: acquire them only on activation.
+    // Free links are quota-neutral and can safely be warmed on intent.
+    signAssets(toRequest(unsigned.filter((question) => isPreviewQuestion(question.bankSlug, question.id))), "free", true);
+  };
 
   const worksheetDefinition = () => JSON.stringify({ name: worksheetName.trim(), ids: [...selectedIds], content: pdfContent });
   const worksheetDirty = worksheetId ? Boolean(worksheetMode === "edit" && worksheetBaseline && worksheetBaseline !== worksheetDefinition()) : Boolean(selectionIsExplicit && worksheetName.trim() && (worksheetBaseline ? worksheetBaseline !== worksheetDefinition() : selectedIds.size));
@@ -844,7 +934,7 @@ access: ExplorerAccess;
     return () => { document.removeEventListener("keydown", onKeyDown); previousFocus?.focus(); };
   }, [pendingWorksheetAction]);
   useEffect(() => {
-    if (!worksheetId || !indexLoaded || indexError || bootstrapPending || worksheetReady) return;
+    if (!worksheetId || !indexLoaded || indexError || bootstrapPending || !identityResolved || worksheetReady) return;
     let cancelled = false;
     queueMicrotask(() => { if (!cancelled) setWorksheetLoading(true); });
     fetch(`/api/worksheets/${encodeURIComponent(worksheetId)}`, { cache: "no-store" }).then(async (response) => {
@@ -864,7 +954,7 @@ access: ExplorerAccess;
     }).catch((error: unknown) => { if (!cancelled) { setWorksheetStatus(error instanceof Error ? error.message : "Saved worksheet unavailable"); setWorksheetLoadFailed(true); setWorksheetReady(true); } })
       .finally(() => { if (!cancelled) setWorksheetLoading(false); });
     return () => { cancelled = true; };
-  }, [worksheetId, indexLoaded, indexError, bootstrapPending, worksheetReady, worksheetBaseline, bank, catalogQuestions]);
+  }, [worksheetId, indexLoaded, indexError, bootstrapPending, identityResolved, worksheetReady, worksheetBaseline, bank, catalogQuestions]);
   useEffect(() => {
     if (!worksheetDirty) return;
     const warn = (event: BeforeUnloadEvent) => { if (allowWorksheetExitRef.current) return; event.preventDefault(); event.returnValue = ""; };
@@ -900,6 +990,7 @@ access: ExplorerAccess;
   }, [worksheetDirty]);
 
   const finishWorksheetAction = (action: NonNullable<typeof pendingWorksheetAction>) => {
+    if (!scopeIsCurrent()) return;
     setPendingWorksheetAction(null);
     setFailedLeaveSave(false);
     setConfirmDiscard(false);
@@ -920,6 +1011,7 @@ access: ExplorerAccess;
   };
 
   const saveWorksheet = async (): Promise<boolean> => {
+    if (!scopeIsCurrent()) return false;
     if (!bank || !resolvedAccess.bankAccess || !exportQuestions.length || !worksheetName.trim() || !worksheetReady || worksheetLoadFailed || worksheetSavingRef.current) return false;
     worksheetSavingRef.current = true;
     setWorksheetSaving(true);
@@ -931,7 +1023,9 @@ access: ExplorerAccess;
         method: worksheetId ? "PATCH" : "POST", headers: { "content-type": "application/json" },
         body: JSON.stringify({ bank, name: worksheetName, questionIds: orderedIds, contentMode: pdfContent, ...(worksheetId ? { revision: worksheetRevision } : {}) }),
       });
+      if (!scopeIsCurrent()) return false;
       const payload = await response.json();
+      if (!scopeIsCurrent()) return false;
       if (!response.ok) throw new Error(payload.error || "Worksheet could not be saved. Try again.");
       const saved = payload.worksheet;
       setWorksheetName(saved.title);
@@ -948,8 +1042,13 @@ access: ExplorerAccess;
         setPdfOpen(false);
       }
       return true;
-    } catch (error) { setWorksheetStatus(error instanceof Error ? error.message : "Worksheet could not be saved. Try again."); return false; }
-    finally { worksheetSavingRef.current = false; setWorksheetSaving(false); }
+    } catch (error) {
+      if (scopeIsCurrent()) setWorksheetStatus(error instanceof Error ? error.message : "Worksheet could not be saved. Try again.");
+      return false;
+    } finally {
+      worksheetSavingRef.current = false;
+      if (scopeIsCurrent()) setWorksheetSaving(false);
+    }
   };
 
   const toggle = (key: MultiKey, value: string) => {
@@ -1030,10 +1129,12 @@ access: ExplorerAccess;
   };
 
   const markQuestionAssetFailed = (questionId: string) => {
+    if (!scopeIsCurrent()) return;
     const key = signedAssetKey(questionId, "question");
     const expiredAt = lapsedSignedAssetExpiry(signedAssets.get(key));
     const retrying = expiredAt !== undefined && resignedExpiryRef.current.get(key) !== expiredAt;
     trackAssetLoadFailure(bank ?? "unknown", questionId, "question", retrying ? "expired_resign" : "failed", signedAssets.get(key)?.urls[0]);
+    if (bank) forgetAsset(bank, key, signedAssets.get(key)?.urls[0] ?? "");
     setSignedAssets((current) => {
       const next = new Map(current);
       next.delete(key);
@@ -1049,7 +1150,7 @@ access: ExplorerAccess;
   };
 
   const updateStudyState = async (questionId: string, action: "save" | "unsave" | "attempt") => {
-    if (!bank || !resolvedAccess.authenticated) return;
+    if (!scopeIsCurrent() || !bank || !resolvedAccess.authenticated) return;
     const response = await fetch("/api/study-state", {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -1063,6 +1164,7 @@ access: ExplorerAccess;
     setStudyError("");
     try {
       await updateStudyState(questionId, saving ? "save" : "unsave");
+      if (!scopeIsCurrent()) return;
       setSavedIds((current) => {
         const next = new Set(current);
         if (saving) next.add(questionId); else next.delete(questionId);
@@ -1074,9 +1176,10 @@ access: ExplorerAccess;
   };
 
   const recordAttempt = async (questionId: string) => {
-    if (attemptedIds.has(questionId)) return;
+    if (!scopeIsCurrent() || attemptedIds.has(questionId)) return;
     try {
       await updateStudyState(questionId, "attempt");
+      if (!scopeIsCurrent()) return;
       setAttemptedIds((current) => new Set(current).add(questionId));
     } catch {
       setStudyError("Your answer opened, but progress could not be saved.");
@@ -1112,23 +1215,30 @@ access: ExplorerAccess;
     setPdfOpen(true);
   };
   const handleDownload = async () => {
-    if (!resolvedAccess.canExportPdf || !bank || !exportQuestions.length || Boolean(worksheetId && (worksheetLoadFailed || !worksheetReady))) return;
+    if (!scopeIsCurrent() || !resolvedAccess.canExportPdf || !bank || !exportQuestions.length || Boolean(worksheetId && (worksheetLoadFailed || !worksheetReady))) return;
     trackProductEvent("pdf_export_attempt", { bank, questionCount: exportQuestions.length, content: pdfContent, source: worksheetId ? "worksheet" : "save_dialog" });
     setPdfStatusKind("progress");
     setPdfStatus(`Preparing ${exportQuestions.length} questions...`);
     try {
       const [{ attachPdfAssetMetadata, downloadQuestionPdf, pdfHeldNotice }, assets] = await Promise.all([
         import("@/lib/pdf-export"),
-        fetchPdfAssets(bank, exportQuestions.map((question) => question.id), pdfContent, fetch, localPreview),
+        fetchPdfAssets(bank, exportQuestions.map((question) => question.id), pdfContent, fetch, localPreview, scopeIsCurrent),
       ]);
+      if (!scopeIsCurrent()) return;
       const securedQuestions = attachPdfAssetMetadata(exportQuestions, assets);
       const result = await downloadQuestionPdf(
         securedQuestions,
         pdfContent,
-        (complete, total) => setPdfStatus(`Preparing ${complete} of ${total}...`),
+        (complete, total) => {
+          // The exporter reports progress before its final synchronous save; throwing
+          // here also cancels a build whose image loads outlive the captured scope.
+          if (!scopeIsCurrent()) throw new DOMException("PDF request scope expired", "AbortError");
+          setPdfStatus(`Preparing ${complete} of ${total}...`);
+        },
         resolvedExportMarker,
         pdfAnswerPlacement,
       );
+      if (!scopeIsCurrent()) return;
       setPdfStatusKind("success");
       trackProductEvent("pdf_export_success", { bank, questionCount: exportQuestions.length, content: pdfContent, source: worksheetId ? "worksheet" : "save_dialog" });
       if (result.heldRows.length) {
@@ -1137,11 +1247,13 @@ access: ExplorerAccess;
         setPdfStatus(`Worksheet ready — ${exportQuestions.length} question${exportQuestions.length === 1 ? "" : "s"} downloaded.`);
         pulseSuccess(pdfBuildButtonRef.current);
         window.setTimeout(() => {
+          if (!scopeIsCurrent()) return;
           setPdfOpen(false);
           setPdfStatus("");
         }, 1400);
       }
     } catch (error) {
+      if (!scopeIsCurrent()) return;
       trackProductEvent("pdf_export_error", { bank, questionCount: exportQuestions.length, content: pdfContent, source: worksheetId ? "worksheet" : "save_dialog" });
       setPdfStatusKind("error");
       setPdfStatus(error instanceof Error ? error.message : "The worksheet could not be built. Check your connection and try again.");
@@ -1251,7 +1363,8 @@ access: ExplorerAccess;
               const unlocked = resolvedAccess.bankAccess || isPreviewQuestion(question.bankSlug, question.id);
               const questionAsset = signedAssets.get(signedAssetKey(question.id, "question"));
               const answerAsset = signedAssets.get(signedAssetKey(question.id, "answer"));
-              return <Fragment key={question.id}><QuestionCard question={question} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} freeAnswer={!localPreview && isPreviewQuestion(question.bankSlug, question.id)} priority={index === 0} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAssetError={() => trackAssetLoadFailure(bank ?? "unknown", question.id, "answer", "failed", answerAsset?.urls[0])} onAnswerAsset={(asset) => {
+              return <Fragment key={question.id}><QuestionCard question={question} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} scopeIsCurrent={scopeIsCurrent} freeAnswer={!localPreview && isPreviewQuestion(question.bankSlug, question.id)} priority={index === 0} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAssetError={() => trackAssetLoadFailure(bank ?? "unknown", question.id, "answer", "failed", answerAsset?.urls[0])} onAnswerAsset={(asset) => {
+                if (!scopeIsCurrent()) return;
                 setSignedAssets((current) => new Map(current).set(signedAssetKey(question.id, "answer"), asset));
                 if (asset.details) setCatalogQuestions((current) => current.map((item) => item.id === question.id ? mergeQuestionRichDetails(item, asset.details!) : item));
               }} selected={selectedIds.has(question.id)} selectable={!savedWorksheetView && !sharedSetView} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => toggleSaved(question.id)} onAttempt={() => recordAttempt(question.id)} onReveal={() => recordReveal(question.id)} locked={nudgesActive ? { title: `${question.year} paper · on any plan`, body: indexLoaded ? `Unlock ${paidCount.toLocaleString()} more ${bankShortName} questions with mark schemes and PDFs.` : `Unlock every ${bankShortName} question with mark schemes and PDFs.`, href: upgradeLink("locked_card"), onClick: () => trackUpgrade("click", nudgeBank, "locked_card") } : undefined} />{nudgesActive && milestoneQuestionId === question.id && <PracticeMilestone bank={nudgeBank} facts={yearFacts} href={upgradeLink("practice_milestone")} onDismiss={() => setMilestoneQuestionId("")} />}{renderFeedSlot(index + 1, index === shownQuestions.length - 1)}</Fragment>;
@@ -1259,7 +1372,7 @@ access: ExplorerAccess;
           </div>
           {!savedWorksheetView && !sharedSetView && filtered.length === 0 && <div className="empty-state"><strong>No questions match that combination.</strong><span>Clear a filter and try again.</span></div>}
           {!savedWorksheetView && !sharedError && !missingSharedCount && freeGate.active && bankSlug && <FreeQuestionSignupGate bankSlug={bankSlug} remainingCount={freeGate.remainingCount} signupHref={signupHref} signinHref={signinHref} plansHref={upgradeLink("signup_gate")} plansLine={yearFacts ? `Want ${yearFacts.newerPaidLabel} too? Plans start at ${UPGRADE_PRICE_MONTH}.` : `Want every year? Plans start at ${UPGRADE_PRICE_MONTH}.`} />}
-          {!savedWorksheetView && !sharedSetView && !freeGate.active && visible < filtered.length && <button className="load-more" onClick={() => setVisible((count) => count + EXPLORER_PAGE_SIZE)}>Show 24 more questions</button>}
+          {!savedWorksheetView && !sharedSetView && !freeGate.active && visible < filtered.length && <button className="load-more" onPointerEnter={prefetchNextPage} onFocus={prefetchNextPage} onTouchStart={prefetchNextPage} onClick={() => setVisible((count) => count + EXPLORER_PAGE_SIZE)}>Show 24 more questions</button>}
         </div>
       </div>
 
@@ -1297,12 +1410,13 @@ function FilterGroup({ label, filterKey, values, selected, onToggle, bank }: { l
   return <div className="filter-group" role="group" aria-labelledby={headingId}><h3 id={headingId}>{label}</h3><div className="filter-options">{values.map((value) => { const publicLabel = formatPublicLabel(bank === "igcse" || bank === "igcse-additional" ? formatMathsPickerLabel(bank, value) : value); return <label key={value}><input aria-label={`${label}: ${publicLabel}`} type="checkbox" checked={selected.includes(value)} onChange={() => onToggle(filterKey, value)} /><span>{publicLabel}</span></label>; })}</div></div>;
 }
 
-function QuestionCard({ question, unlocked, authenticated, localPreview, freeAnswer, priority = false, questionAsset, answerAsset, onQuestionAssetError, onAnswerAssetError, onAnswerAsset, selected, selectable, onSelect, saved, attempted, onToggleSaved, onAttempt, onReveal, locked }: {
+function QuestionCard({ question, unlocked, authenticated, localPreview, scopeIsCurrent, freeAnswer, priority = false, questionAsset, answerAsset, onQuestionAssetError, onAnswerAssetError, onAnswerAsset, selected, selectable, onSelect, saved, attempted, onToggleSaved, onAttempt, onReveal, locked }: {
   question: UnifiedQuestion;
   unlocked: boolean;
   authenticated: boolean;
   localPreview: boolean;
   freeAnswer: boolean;
+  scopeIsCurrent: () => boolean;
   priority?: boolean;
   questionAsset?: SignedAsset;
   answerAsset?: SignedAsset;
@@ -1362,8 +1476,9 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, freeAns
     if (!answerRequestRef.current) {
       const request = (freeAnswer
         ? fetchFreeAssets(question.bankSlug, [{ questionId: question.id, kind: "answer" }]).then(({ assets }) => assets.get(signedAssetKey(question.id, "answer")))
-        : fetchSignedAssets(question.bankSlug, [{ questionId: question.id, kind: "answer" }], fetch, localPreview).then((assets) => assets.get(signedAssetKey(question.id, "answer"))))
+        : fetchSignedAssets(question.bankSlug, [{ questionId: question.id, kind: "answer" }], fetch, localPreview, scopeIsCurrent).then((assets) => assets.get(signedAssetKey(question.id, "answer"))))
         .then((asset) => {
+          if (!scopeIsCurrent()) throw new DOMException("Answer request scope expired", "AbortError");
           if (!asset) throw new Error("Missing answer asset");
           if (answerRequestRef.current?.promise === request) answerRequestRef.current.expiresAt = asset.expiresAt;
           onAnswerAsset(asset);
@@ -1382,11 +1497,12 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, freeAns
   const prefetchAnswer = () => {
     if (!freeAnswer || answerOpen || hasFreshAnswerAsset() || question.markschemeImageCount < 1) return;
     void loadAnswer().then((asset) => {
-      if (asset.urls[0]) new window.Image().src = asset.urls[0];
+      if (scopeIsCurrent() && asset.urls[0]) new window.Image().src = asset.urls[0];
     }).catch(() => {});
   };
 
   const toggleAnswer = async () => {
+    if (!scopeIsCurrent()) return;
     if (answerOpen) { setAnswerOpen(false); return; }
     trackProductEvent("answer_reveal", { bank: question.bankSlug, freePreview: isPreviewQuestion(question.bankSlug, question.id) });
     if (question.markschemeImageCount > 0 && !hasFreshAnswerAsset()) {
@@ -1394,7 +1510,9 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, freeAns
       setAnswerError("");
       try {
         await loadAnswer();
+        if (!scopeIsCurrent()) return;
       } catch {
+        if (!scopeIsCurrent()) return;
         setAnswerError("The answer could not load. Try again.");
         setAnswerLoading(false);
         return;

@@ -115,23 +115,27 @@ function validAsset(value: unknown, localPreview = false): value is AssetRequest
   );
 }
 
+function assertCurrentScope(isCurrent: () => boolean): void {
+  if (!isCurrent()) throw new DOMException("Asset request scope expired", "AbortError");
+}
+
 export async function fetchSignedAssets(
   bank: BankSlug,
   requests: readonly AssetRequest[],
   fetcher: Fetcher = fetch,
   localPreview = false,
+  isCurrent: () => boolean = () => true,
 ): Promise<Map<string, SignedAsset>> {
-  const signed = new Map<string, SignedAsset>();
-
-  for (let index = 0; index < requests.length; index += SIGN_BATCH_SIZE) {
-    const batch = requests.slice(index, index + SIGN_BATCH_SIZE);
-    const expected = new Set(batch.map((request) => signedAssetKey(request.questionId, request.kind)));
+  const signBatch = async (batch: readonly AssetRequest[]) => {
+    assertCurrentScope(isCurrent);
     const response = await fetcher(localPreview ? "/api/local-preview-assets/sign" : "/api/assets/sign", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ bank, requests: batch }),
     });
+    assertCurrentScope(isCurrent);
     const payload = await response.json().catch(() => null) as Record<string, unknown> | null;
+    assertCurrentScope(isCurrent);
 
     if (!response.ok) {
       const message = typeof payload?.error === "string" ? payload.error : "Could not load private assets";
@@ -148,8 +152,19 @@ export async function fetchSignedAssets(
     ) {
       throw new Error("Invalid signed asset response");
     }
-
     const expiresAt = Date.now() + Math.max(payload.expiresIn - 30, 1) * 1000;
+    return { batch, expiresAt, payload: payload as { expiresIn: number; assets: Array<AssetRequest & Omit<SignedAsset, "expiresAt" | keyof AssetRequest>> } };
+  };
+
+  // Batches go out together: a page of questions shouldn't wait on one round trip per 20 images.
+  const batches: AssetRequest[][] = [];
+  for (let index = 0; index < requests.length; index += SIGN_BATCH_SIZE) batches.push(requests.slice(index, index + SIGN_BATCH_SIZE));
+  const results = await Promise.all(batches.map(signBatch));
+  assertCurrentScope(isCurrent);
+
+  const signed = new Map<string, SignedAsset>();
+  for (const { batch, payload, expiresAt } of results) {
+    const expected = new Set(batch.map((request) => signedAssetKey(request.questionId, request.kind)));
     for (const asset of payload.assets) {
       const key = signedAssetKey(asset.questionId, asset.kind);
       if (!expected.delete(key) || signed.has(key)) throw new Error("Invalid signed asset response");
@@ -167,7 +182,9 @@ export async function fetchPdfAssets(
   content: "questions" | "answers" | "both",
   fetcher: Fetcher = fetch,
   localPreview = false,
+  isCurrent: () => boolean = () => true,
 ): Promise<Map<string, SignedAsset>> {
+  assertCurrentScope(isCurrent);
   const expectedQuestions = new Set(questionIds);
   // Every released 0606 question has exactly one source QP and one source MS.
   // Other banks can legitimately have text-only answers, so do not require those there.
@@ -180,7 +197,9 @@ export async function fetchPdfAssets(
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ bank, questionIds, content }),
   });
+  assertCurrentScope(isCurrent);
   const payload = await response.json().catch(() => null) as Record<string, unknown> | null;
+  assertCurrentScope(isCurrent);
   if (!response.ok) {
     const message = typeof payload?.error === "string" ? payload.error : "Could not authorize PDF assets";
     throw new Error(message);

@@ -1,4 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { SiteFooter } from "@/components/SiteFooter";
 
@@ -57,5 +59,26 @@ describe("SiteFooter", () => {
     expect(skyline).toHaveAttribute("aria-hidden", "true");
     expect(skyline?.querySelector("path")?.getAttribute("d")?.length).toBeGreaterThan(100);
     expect(container.querySelector(".footer-wordmark")).toHaveAttribute("aria-hidden", "true");
+    const mark = container.querySelector(".footer-mark");
+    expect(mark).toContainElement(skyline as HTMLElement);
+    expect(mark).toContainElement(container.querySelector(".footer-wordmark") as HTMLElement);
+    expect(container.querySelector(".site-footer")?.firstElementChild).not.toBe(skyline);
+  });
+
+  it("stands the wordmark on the skyline's ground line", () => {
+    // The skyline path's ground is at y=118 of a 140-unit viewBox; the wordmark's baseline sits .128em below its box.
+    const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+    const rule = css.match(/\.footer-mark \.footer-skyline \{([^}]*)\}/)?.[1] ?? "";
+    expect(rule).toMatch(/bottom: calc\(-\.128em - max\(var\(--sky-h\) \* 22 \/ 140, 100vw \* 22 \/ 1440\)\)/);
+    expect(rule).toMatch(/height: var\(--sky-h\)/);
+  });
+
+  it("draws the skyline as a soft solid silhouette behind solid letters", () => {
+    const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+    expect(css).toMatch(/\.footer-mark \.footer-skyline-line \{[^}]*display: none/);
+    expect(css).toMatch(/\.footer-mark \.footer-skyline-fill \{[^}]*fill: color-mix\(in srgb, var\(--ink\) 5%, transparent\)/);
+    const wordmark = css.match(/\.footer-mark \.footer-wordmark \{([^}]*)\}/)?.[1] ?? "";
+    expect(wordmark).toMatch(/color: color-mix\(in srgb, var\(--ink\) 17%, var\(--paper-warm\)\)/);
+    expect(wordmark).not.toMatch(/background-clip/);
   });
 });

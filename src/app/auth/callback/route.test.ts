@@ -83,6 +83,15 @@ describe("GET /auth/callback", () => {
     expect(captureConversionOutcome).not.toHaveBeenCalled();
   });
 
+  it("sends paid users from the default pricing destination to their dashboard, but keeps it for free users", async () => {
+    getUser.mockResolvedValue({ data: { user: { id: "u1", app_metadata: { provider: "google" }, created_at: "2026-09-01T10:00:00Z", last_sign_in_at: "2026-10-12T10:00:00Z" } } });
+    const entitlements = (rows: unknown[]) => ({ from: () => ({ select: () => ({ eq: async () => ({ data: rows, error: null }) }) }), rpc: async () => ({ data: [], error: null }) });
+    createClient.mockResolvedValue({ auth: { exchangeCodeForSession, getUser }, ...entitlements([{ product_id: "bundle_all", status: "active", starts_at: "2026-01-01T00:00:00Z", expires_at: null }]) });
+    expect((await GET(request("code=abc&next=/pricing"))).headers.get("location")).toBe("https://pastpaperprep.com/dashboard");
+    createClient.mockResolvedValue({ auth: { exchangeCodeForSession, getUser }, ...entitlements([]) });
+    expect((await GET(request("code=abc&next=/pricing"))).headers.get("location")).toBe("https://pastpaperprep.com/pricing");
+  });
+
   it("sends failed or missing codes back to login and ignores unsafe next paths", async () => {
     exchangeCodeForSession.mockResolvedValue({ error: { code: "bad_code" } });
     expect((await GET(request("code=abc"))).headers.get("location")).toBe("https://pastpaperprep.com/login?error=callback");

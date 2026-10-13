@@ -13,6 +13,7 @@ import { toPublicQuestionMetadata } from "@/lib/question-index";
 import { loadBankQuestions } from "@/lib/question-fixtures";
 import { loadBankQuestions as loadEconomicsBankQuestions } from "@/lib/question-loader";
 import { freeAssetIds, freeAssetResponse, isFreeAssetRequest } from "../../test/free-asset-fetch";
+import { sessionFingerprint, writeCachedAccess } from "@/lib/member-session-cache";
 
 describe("QuestionExplorer", () => {
   beforeEach(() => {
@@ -1101,6 +1102,26 @@ describe("QuestionExplorer", () => {
     expect(screen.getByRole("checkbox", { name: /years:/i })).toBeInTheDocument();
   });
 
+  it("loads the full index straight away for a signed-in member, whose paid questions depend on it", async () => {
+    document.cookie = "sb-test-auth-token=x; path=/";
+    try {
+      const all = loadBankQuestions("ib-sl");
+      const index = { version: 1, bank: "ib-sl", questions: all.slice(0, 2).map(toPublicQuestionMetadata) };
+      vi.stubGlobal("requestIdleCallback", vi.fn(() => 1));
+      vi.stubGlobal("cancelIdleCallback", vi.fn());
+      vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL) => String(input).startsWith("/bank-index/")
+        ? new Response(JSON.stringify(index), { status: 200 })
+        : new Response(JSON.stringify({ access: fullAccess, studyState: { savedIds: [], attemptedIds: [] } }), { status: 200 })));
+
+      render(<QuestionExplorer questions={prepareQuestionsForDelivery(all.slice(0, 1), [])} bankSlug="ib-sl" indexUrl="/bank-index/ib-sl.v1-test.json" access={{ authenticated: false, bankAccess: false, canExportPdf: false }} />);
+
+      await waitFor(() => expect(fetch).toHaveBeenCalledWith("/bank-index/ib-sl.v1-test.json", expect.anything()));
+      expect(requestIdleCallback).not.toHaveBeenCalled();
+    } finally {
+      document.cookie = "sb-test-auth-token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+    }
+  });
+
   it("does not request the same question signature twice while the first request is still in flight", async () => {
     const all = loadBankQuestions("ib-sl");
     const initial = prepareQuestionsForDelivery(all.slice(0, 1), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
@@ -1293,6 +1314,162 @@ describe("QuestionExplorer asset loading", () => {
     window.history.replaceState({}, "", "/banks/ib-sl");
   });
 
+  const paidQuestions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").filter((question) => !freeIds.has(question.id)).slice(0, 30), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+  const fullBank = { search: "", sort: "paper" as const, filters: {}, freeOnly: false, savedOnly: false, courseRoute: "all" as const, visible: 24 };
+  const signedIds = (fetchMock: ReturnType<typeof vi.fn>) => signBodies(fetchMock).flatMap((body) => body.requests.map((request) => request.questionId));
+
+  it("keeps a member's open page through a token refresh", async () => {
+    document.cookie = "sb-test-auth-token=token-1; path=/";
+    const fetchMock = assetFetch(memberBootstrap);
+    vi.stubGlobal("fetch", fetchMock);
+    render(<QuestionExplorer questions={[paidQuestion]} bankSlug="ib-sl" access={anonymous} initialState={fullBank} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+    await waitFor(() => expect(screen.getByRole("img", { name: /original question/i })).toBeInTheDocument());
+    fireEvent.click(screen.getByRole("button", { name: "Show answer" }));
+    await screen.findByRole("button", { name: "Hide answer" });
+    const signs = signBodies(fetchMock).length;
+
+    // Supabase rewrites the auth cookie roughly hourly; that is the same person, not a new session.
+    document.cookie = "sb-test-auth-token=token-2; path=/";
+    fireEvent(window, new Event("focus"));
+    await new Promise((resolve) => setTimeout(resolve, 200));
+
+    expect(screen.getByRole("button", { name: "Hide answer" })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: /original question/i })).toHaveAttribute("src", expect.stringContaining(`paid-${paidQuestion.id}-question`));
+    expect(signBodies(fetchMock)).toHaveLength(signs);
+    expect(fetchMock.mock.calls.filter(([input]) => String(input).startsWith("/api/banks/bootstrap"))).toHaveLength(1);
+  });
+
+  it("signs paid questions from this tab's cached access without waiting for bootstrap", async () => {
+    document.cookie = "sb-test-auth-token=x; path=/";
+    writeCachedAccess("ib-sl", sessionFingerprint(document.cookie)!, { access: member });
+    const fetchMock = assetFetch(() => new Promise<Response>(() => {}));
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(<QuestionExplorer questions={[paidQuestion]} bankSlug="ib-sl" access={anonymous} initialState={fullBank} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+
+    await waitFor(() => expect(signedIds(fetchMock)).toEqual([paidQuestion.id]));
+    expect(fetchMock.mock.calls.some(([input]) => String(input).startsWith("/api/banks/bootstrap"))).toBe(true);
+  });
+
+  it("reuses this session's signed links when the bank opens again", async () => {
+    document.cookie = "sb-test-auth-token=x; path=/";
+    const fetchMock = assetFetch(memberBootstrap);
+    vi.stubGlobal("fetch", fetchMock);
+    const first = render(<QuestionExplorer questions={[paidQuestion]} bankSlug="ib-sl" access={anonymous} initialState={fullBank} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+    await waitFor(() => expect(signBodies(fetchMock)).toHaveLength(1));
+    first.unmount();
+
+    render(<QuestionExplorer questions={[paidQuestion]} bankSlug="ib-sl" access={anonymous} initialState={fullBank} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+
+    await waitFor(() => expect(screen.getByRole("img", { name: /original question/i })).toHaveAttribute("src", expect.stringContaining(`paid-${paidQuestion.id}-question`)));
+    expect(signBodies(fetchMock)).toHaveLength(1);
+  });
+
+  it("does not reuse links after the login session changes", async () => {
+    document.cookie = "sb-test-auth-token=x; path=/";
+    const fetchMock = assetFetch(memberBootstrap);
+    vi.stubGlobal("fetch", fetchMock);
+    const first = render(<QuestionExplorer questions={[paidQuestion]} bankSlug="ib-sl" access={anonymous} initialState={fullBank} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+    await waitFor(() => expect(signBodies(fetchMock)).toHaveLength(1));
+    first.unmount();
+
+    document.cookie = "sb-test-auth-token=y; path=/";
+    render(<QuestionExplorer questions={[paidQuestion]} bankSlug="ib-sl" access={anonymous} initialState={fullBank} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+
+    await waitFor(() => expect(signBodies(fetchMock)).toHaveLength(2));
+  });
+
+  it("signs a fresh link on retry instead of reusing one that failed to load", async () => {
+    document.cookie = "sb-test-auth-token=x; path=/";
+    const fetchMock = assetFetch(memberBootstrap);
+    vi.stubGlobal("fetch", fetchMock);
+    render(<QuestionExplorer questions={[paidQuestion]} bankSlug="ib-sl" access={anonymous} initialState={fullBank} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+    fireEvent.error(await screen.findByRole("img", { name: /original question/i }));
+
+    fireEvent.click(await screen.findByRole("button", { name: "Retry images" }));
+
+    await waitFor(() => expect(signBodies(fetchMock)).toHaveLength(2));
+  });
+
+  it("does not spend paid allowance on pagination intent before activation", async () => {
+    document.cookie = "sb-test-auth-token=x; path=/";
+    const fetchMock = assetFetch(memberBootstrap);
+    vi.stubGlobal("fetch", fetchMock);
+    render(<QuestionExplorer questions={paidQuestions} bankSlug="ib-sl" access={anonymous} initialState={fullBank} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+    await waitFor(() => expect(signedIds(fetchMock)).toHaveLength(24));
+    const more = await screen.findByRole("button", { name: /show 24 more questions/i });
+    await act(async () => { fireEvent.pointerEnter(more); fireEvent.focus(more); fireEvent.touchStart(more); });
+    expect(signedIds(fetchMock)).toHaveLength(24);
+    fireEvent.click(more);
+    await waitFor(() => expect(signedIds(fetchMock)).toHaveLength(30));
+    await waitFor(() => expect(screen.getAllByRole("img", { name: /original question/i })).toHaveLength(30));
+  });
+
+  it("warms free pagination assets on intent and reuses them on activation", async () => {
+    document.cookie = "sb-test-auth-token=x; path=/";
+    const freePage = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").filter((question) => freeIds.has(question.id)).slice(0, 30), []);
+    expect(freePage).toHaveLength(30);
+    const fetchMock = assetFetch(memberBootstrap);
+    vi.stubGlobal("fetch", fetchMock);
+    render(<QuestionExplorer questions={freePage} bankSlug="ib-sl" access={anonymous} initialState={fullBank} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+    await waitFor(() => expect(freeCalls(fetchMock)).toHaveLength(24));
+    const more = await screen.findByRole("button", { name: /show 24 more questions/i });
+
+    fireEvent.pointerEnter(more);
+
+    await waitFor(() => expect(freeCalls(fetchMock)).toHaveLength(30));
+    expect(signBodies(fetchMock)).toHaveLength(0);
+    fireEvent.click(more);
+    await waitFor(() => expect(screen.getAllByRole("img", { name: /original question/i })).toHaveLength(30));
+    expect(freeCalls(fetchMock)).toHaveLength(30);
+  });
+
+  it("does not poison visible loading when free pagination prefetch fails", async () => {
+    document.cookie = "sb-test-auth-token=x; path=/";
+    const freePage = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").filter((question) => freeIds.has(question.id)).slice(0, 30), []);
+    const nextIds = new Set(freePage.slice(24).map(question => question.id));
+    let failPrefetch = true;
+    const baseFetch = assetFetch(memberBootstrap);
+    const fetchMock = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      const url = String(input);
+      if (failPrefetch && url.startsWith("/api/assets/free?") && nextIds.has(new URL(url, "https://app.test").searchParams.get("id")!)) return new Response(null, { status: 503 });
+      return baseFetch(input, init);
+    });
+    vi.stubGlobal("fetch", fetchMock);
+    render(<QuestionExplorer questions={freePage} bankSlug="ib-sl" access={anonymous} initialState={fullBank} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+    await waitFor(() => expect(screen.getAllByRole("img", { name: /original question/i })).toHaveLength(24));
+    const more = screen.getByRole("button", { name: /show 24 more questions/i });
+    await act(async () => { fireEvent.pointerEnter(more); });
+    expect(screen.queryByRole("button", { name: "Retry images" })).not.toBeInTheDocument();
+    failPrefetch = false;
+    fireEvent.click(more);
+    await waitFor(() => expect(screen.getAllByRole("img", { name: /original question/i })).toHaveLength(30));
+  });
+
+  it("retries committed free pagination after its in-flight speculative request fails", async () => {
+    document.cookie = "sb-test-auth-token=x; path=/";
+    const freePage = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").filter((question) => freeIds.has(question.id)).slice(0, 30), []);
+    const nextIds = new Set(freePage.slice(24).map(question => question.id));
+    const pending: Array<() => void> = [];
+    let speculative = true;
+    const baseFetch = assetFetch(memberBootstrap);
+    const fetchMock = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      const url = String(input);
+      if (speculative && url.startsWith("/api/assets/free?") && nextIds.has(new URL(url, "https://app.test").searchParams.get("id")!)) return new Promise<Response>(resolve => { pending.push(() => resolve(new Response(null, { status: 503 }))); });
+      return baseFetch(input, init);
+    });
+    vi.stubGlobal("fetch", fetchMock);
+    render(<QuestionExplorer questions={freePage} bankSlug="ib-sl" access={anonymous} initialState={fullBank} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+    await waitFor(() => expect(screen.getAllByRole("img", { name: /original question/i })).toHaveLength(24));
+    const more = screen.getByRole("button", { name: /show 24 more questions/i });
+    fireEvent.pointerEnter(more);
+    await waitFor(() => expect(pending).toHaveLength(6));
+    fireEvent.click(more);
+    speculative = false;
+    await act(async () => { pending.forEach(resolve => resolve()); });
+    await waitFor(() => expect(screen.getAllByRole("img", { name: /original question/i })).toHaveLength(30));
+  });
+
   it("skips bootstrap and signs free questions through the free route when no auth cookie exists", async () => {
     const fetchMock = assetFetch();
     vi.stubGlobal("fetch", fetchMock);
@@ -1370,8 +1547,9 @@ describe("QuestionExplorer asset loading", () => {
     fireEvent.error(await screen.findByRole("img", { name: /original question/i }));
     const later = baseTime + 41 * 60 * 1000;
     vi.spyOn(Date, "now").mockReturnValue(later);
+    const signedBeforeRetry = freeCalls(fetchMock).length;
     fireEvent.click(screen.getByRole("button", { name: "Retry images" }));
-    await waitFor(() => expect(freeCalls(fetchMock)).toHaveLength(3));
+    await waitFor(() => expect(freeCalls(fetchMock)).toHaveLength(signedBeforeRetry + 1));
 
     fireEvent.click(toggle);
     await waitFor(() => expect(freeCalls(fetchMock, "answer")).toHaveLength(2));
