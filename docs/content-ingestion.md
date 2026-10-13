@@ -13,14 +13,14 @@ This is the operational source of truth for adding or rebuilding PastPaperPrep q
 | IB Mathematics SL / AA SL | `Saksham106/ib-maths-aa-topic-finder` | 62 | 578 | 1,463 |
 | IB Mathematics AI HL | `Saksham106/ib-maths-ai-hl-topic-practice` | 48 | 409 | 1,353 |
 | IB Mathematics AI SL | `Saksham106/ib-maths-ai-sl-topic-practice` | 38 | 334 | 1,002 |
-| Cambridge IGCSE Additional Mathematics 0606 | `Saksham106/igcse-additional-mathematics-0606-topic-practice` | 145 | 1,633 | 3,266 |
+| Cambridge IGCSE Additional Mathematics 0606 | `Saksham106/igcse-additional-mathematics-0606-topic-practice` | 147 | 1,656 | 3,312 |
 | IB Chemistry HL | `Saksham106/ib-chemistry-topic-practice` | 51 | 1,083 | 3,234 |
 | IB Chemistry SL | `Saksham106/ib-chemistry-topic-practice` | 51 | 810 | 2,243 |
 | IB Physics HL | `Saksham106/ib-physics-topic-practice` | 51 | 1,111 | 3,109 |
 | IB Physics SL | `Saksham106/ib-physics-topic-practice` | 51 | 774 | 2,087 |
 | IB Biology HL | `Saksham106/ib-biology-topic-practice` | 51 | 1,139 | 3,107 |
 | IB Biology SL | `Saksham106/ib-biology-topic-practice` | 54 | 936 | 2,443 |
-| **Total** |  | **923** | **13,615** | **34,263** |
+| **Total** |  | **925** | **13,638** | **34,309** |
 
 The application copies each source bank's generated `site/data/questions.json` to:
 
@@ -456,9 +456,21 @@ Pipeline commands match "#### IB HL" above, run inside each AI repository.
 
 ## Cambridge IGCSE Additional Mathematics 0606 (added August 2026)
 
-The 0606 source repository covers 145 verified question-paper/mark-scheme pairs from 2016–2025 plus June 2026 components 11, 12, 13, 21, and 22. June 2026 component 23 is explicitly excluded because an official mark scheme was unavailable; do not publish a question-paper-only record.
+The 0606 bank covers 147 verified question-paper/mark-scheme pairs: 2016–2025, June 2026 components 11, 12, 13, 21, and 22, and February/March 2026 components 12 and 22. June 2026 component 23 is explicitly excluded because an official mark scheme was unavailable; do not publish a question-paper-only record.
 
-The bank contains 1,633 questions and 3,266 question/mark-scheme WebPs. Crop generation uses reviewed per-paper overrides only where the PDF text layer cannot reliably expose top-level question or mark-scheme boundaries. A forced deterministic rebuild must reproduce the complete manifests and pass bounded visual samples before release.
+The bank contains 1,656 questions and 3,312 question/mark-scheme WebPs. Crop generation uses reviewed per-paper overrides only where the PDF text layer cannot reliably expose top-level question or mark-scheme boundaries. A forced deterministic rebuild must reproduce the complete manifests and pass bounded visual samples before release.
+
+### February/March 2026 addition (October 2026)
+
+The 1,633-row bank above is a frozen historical baseline: the production target, consensus reconciliation, legacy filter seal, direct-source v4 bundle and offline ledger stay pinned to its SHA-256 (`4d385d4e…`). The 23 Feb/March 2026 rows (components 12 and 22, 80 marks each) are a separate reviewed addition, inserted verbatim from the source repository's `site/data/app-additions/igcse-additional-2026-march.json` before `0606-2026-june-11-q1` (papers after `0606-2026-june-22`). They keep the delivered `reviewStatus: source-structured-draft`.
+
+- Receipt: `docs/igcse-0606-2026-march-addition.json` (base/merged hashes, row hashes, per-row text and crop hashes). `src/lib/igcse-0606-additions.mjs` splits the merged bank back to the pinned base, and the historical tests run against that base.
+- Numbered statements: `docs/0606-2026-march-addition-sections-v4.json` (part-level QP/MS evidence, model review corroborated by the source adjudications); `python3 scripts/build-0606-direct-source-v4.py [--check]` appends it to `src/data/igcse-0606-section-retrieval-v3.json` without changing any historical row. `0606-2026-march-12-q10` uses a reviewed current-era topic projection (see `docs/igcse-0606-current-era-review.md`).
+- Print geometry: `node scripts/build-print-geometry-0606-addition.mjs --source <source worktree> [--check]` writes `src/data/print-geometry-0606-2026-march.json`; `--validate-sidecar` re-derives all 1,633 historical pairs exactly.
+- Offline ledger: `node scripts/0606-offline-reconciliation.mjs`.
+- Receipt and dry-run upload plan: `npx tsx scripts/build-0606-2026-march-addition-receipt.mts --source <source worktree> [--check]`.
+
+The 46 premium WebPs are **not uploaded yet**. `docs/igcse-0606-2026-march-r2-upload-plan.json` lists every key, source path, SHA-256, MD5 and size. Uploading needs owner approval, and `npm run r2:sync` resolves 0606 files from the sibling main source checkout, so the source branch must land there first. Until then the new questions' images return errors. The whole-paper archive (`src/data/paper-archives/igcse-additional.json`) still lists the 145 historical papers, so the two March papers do not appear under Full past papers until a separate whole-paper release.
 
 Production assets were uploaded and hash-verified under `igcse-additional/questions/` and
 `igcse-additional/markschemes/`. Migration `20260826230000_add_igcse_additional_bank.sql`
