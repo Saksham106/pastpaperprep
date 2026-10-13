@@ -683,6 +683,20 @@ main { min-height: 72vh; }
 .transcript-icon-button, .study-icon-button { width: 34px; height: 34px; display: grid; place-items: center; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 9px; }
 .transcript-icon-button:hover, .transcript-icon-button[aria-expanded="true"], .study-icon-button:hover, .study-icon-button.is-saved { color: var(--cobalt); border-color: var(--cobalt); }
 .study-state { display: inline-flex; align-items: center; gap: 4px; color: var(--success); font-size: .75rem; }
+/* Report a problem: quiet flag that opens upward over the question (cards clip overflow). */
+.question-report { position: relative; display: inline-flex; }
+.question-report-trigger[aria-expanded="true"] { color: var(--cobalt); border-color: var(--cobalt); }
+.question-report-popover { position: absolute; z-index: 14; right: 0; bottom: calc(100% + 7px); width: max-content; max-width: min(290px, calc(100vw - 40px)); padding: 6px; color: var(--ink); background: var(--surface-raised); border: 1px solid var(--line-strong); border-radius: 9px; box-shadow: var(--shadow-lg); }
+.question-report-label { margin: 0; padding: 6px 10px 5px; color: var(--muted); font: 700 .66rem/1.2 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+.question-report-menu { display: grid; gap: 2px; }
+.question-report-option { min-height: 42px; padding: 8px 10px; color: var(--ink); background: transparent; border: 0; border-radius: 6px; font-size: .86rem; line-height: 1.3; text-align: left; }
+.question-report-option:hover, .question-report-option:focus-visible { background: var(--cobalt-faint); }
+.question-report-option:focus-visible { outline-offset: -2px; }
+.question-report-thanks { color: var(--muted); font-size: .78rem; white-space: nowrap; }
+/* On phones the thanks line drops below the buttons instead of squeezing them. */
+.question-actions:has(.question-report-thanks) { flex-wrap: wrap; row-gap: 8px; }
+.question-actions:has(.question-report-thanks) .source-links { margin-left: auto; }
+.question-report-thanks:focus { outline: none; }
 .answer-panel { margin: 0 16px 16px; padding: clamp(16px, 3vw, 28px); display: grid; gap: 14px; background: var(--cobalt-faint); border: 1px solid color-mix(in srgb, var(--cobalt) 22%, var(--line)); border-radius: 8px; line-height: 1.65; }
 .solution-wrap { padding-top: 8px; border-top: 1px solid var(--line); }
 .transcript-panel { margin: 0 16px 16px; padding: 14px; color: var(--muted); background: var(--paper); border-left: 3px solid var(--cobalt); border-radius: 8px; white-space: pre-line; line-height: 1.55; }
