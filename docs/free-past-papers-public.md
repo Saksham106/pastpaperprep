@@ -18,6 +18,9 @@ Never put these PDFs in the private `pastpaperprep-assets` bucket, and never mak
 - Objects carry `Content-Disposition: attachment; filename="0580_s23_qp_42.pdf"` (IB:
   `ib-math-aa-hl-2021-may-paper-1-tz1_qp.pdf`), because browsers ignore `download=` on
   cross-origin links. The reader fetches with pdf.js, which the header does not affect.
+- A Cloudflare response-header Transform Rule on the `pastpaperprep.com` zone sends
+  `X-Robots-Tag: noindex` for `free.pastpaperprep.com/papers/*`, so search lands on the paper
+  pages rather than the bare PDFs. It does not touch `images/`.
 
 ## Publishing (owner approval required: this publishes the PDFs)
 
