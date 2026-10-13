@@ -1102,6 +1102,26 @@ describe("QuestionExplorer", () => {
     expect(screen.getByRole("checkbox", { name: /years:/i })).toBeInTheDocument();
   });
 
+  it("loads the full index straight away for a signed-in member, whose paid questions depend on it", async () => {
+    document.cookie = "sb-test-auth-token=x; path=/";
+    try {
+      const all = loadBankQuestions("ib-sl");
+      const index = { version: 1, bank: "ib-sl", questions: all.slice(0, 2).map(toPublicQuestionMetadata) };
+      vi.stubGlobal("requestIdleCallback", vi.fn(() => 1));
+      vi.stubGlobal("cancelIdleCallback", vi.fn());
+      vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL) => String(input).startsWith("/bank-index/")
+        ? new Response(JSON.stringify(index), { status: 200 })
+        : new Response(JSON.stringify({ access: fullAccess, studyState: { savedIds: [], attemptedIds: [] } }), { status: 200 })));
+
+      render(<QuestionExplorer questions={prepareQuestionsForDelivery(all.slice(0, 1), [])} bankSlug="ib-sl" indexUrl="/bank-index/ib-sl.v1-test.json" access={{ authenticated: false, bankAccess: false, canExportPdf: false }} />);
+
+      await waitFor(() => expect(fetch).toHaveBeenCalledWith("/bank-index/ib-sl.v1-test.json", expect.anything()));
+      expect(requestIdleCallback).not.toHaveBeenCalled();
+    } finally {
+      document.cookie = "sb-test-auth-token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+    }
+  });
+
   it("does not request the same question signature twice while the first request is still in flight", async () => {
     const all = loadBankQuestions("ib-sl");
     const initial = prepareQuestionsForDelivery(all.slice(0, 1), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);

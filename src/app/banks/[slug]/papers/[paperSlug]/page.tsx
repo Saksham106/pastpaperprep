@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BankQuestionExplorer } from "@/components/BankQuestionExplorer";
 import { SearchDetail } from "@/components/SearchLanding";
+import { FullPapersLink } from "@/components/past-papers/FullPapersLink";
 import { loadBankExplorer } from "@/lib/bank-explorer";
 import { getCatalogBank, getCatalogBanksForDisplay } from "@/lib/catalog";
 import {
@@ -71,6 +72,7 @@ export default async function PaperPage({
         .map((item) => ({ label: item.label, href: paperPath(bank.slug, item), count: item.count }))}
     >
       <BankQuestionExplorer slug={bank.slug} explorer={explorer} routePreset={routePreset} />
+      <FullPapersLink bankSlug={bank.slug} paper={paper.paper} />
     </SearchDetail>
   );
 }

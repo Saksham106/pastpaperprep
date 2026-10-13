@@ -1,0 +1,190 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { act, fireEvent, render, screen } from '@testing-library/react';
+import { PaperMarkingWorkspace } from './PaperMarkingWorkspace';
+
+const analytics = vi.hoisted(() => ({ trackProductEvent: vi.fn() }));
+vi.mock('@/lib/product-analytics', () => analytics);
+const href = (link: HTMLElement) => new URL(link.getAttribute('href')!, 'https://pastpaperprep.com');
+
+describe('self marking workspace', () => {
+  beforeEach(() => localStorage.clear());
+  it('marks forty MCQs with per-paper totals, bank links and isolated restored state', () => {
+    const paper = { id: 'mcq-12', version: 'v1', bankSlug: 'igcse-physics-0625', title: 'Physics · Paper 12', maxMarks: 40, questions: Array.from({ length: 40 }, (_, i) => ({ id: `q${i + 1}`, number: i + 1, maxMarks: 1, topics: ['Motion & forces'] })) };
+    const view = render(<PaperMarkingWorkspace paper={paper} />);
+    expect(screen.getByText(paper.title)).toBeInTheDocument();
+    expect(screen.getAllByRole('textbox')).toHaveLength(40);
+    for (let i = 1; i <= 40; i++) fireEvent.change(screen.getByLabelText(`Question ${i} marks`), { target: { value: '0' } });
+    expect(JSON.parse(localStorage.getItem('pastpaperprep:marks:igcse-physics-0625:mcq-12:v1')!)).toMatchObject({ q1: 0, q40: 0 });
+    fireEvent.click(screen.getByText('See where your marks went'));
+    expect(screen.getByText('0 / 40 paper marks')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Practise Motion & forces' }).getAttribute('href')).toMatch(/^\/banks\//);
+    const url = href(screen.getByRole('link', { name: 'Practise Motion & forces' }));
+    expect(url.pathname).toBe('/banks/igcse-physics-0625');
+    expect(url.searchParams.get('topic')).toBe('Motion & forces');
+    expect(url.searchParams.get('free')).toBe('1');
+    const second = { ...paper, id: 'theory-42', title: 'Physics · Paper 42', maxMarks: 80, questions: [{ id: 'q1', number: 1, maxMarks: 80, topics: ['Energy'] }] };
+    view.rerender(<PaperMarkingWorkspace paper={second} />);
+    expect(screen.queryByText('0 / 40 paper marks')).not.toBeInTheDocument();
+    expect(screen.getByLabelText('Question 1 marks')).toHaveValue('');
+    fireEvent.change(screen.getByLabelText('Question 1 marks'), { target: { value: '70' } });
+    fireEvent.click(screen.getByText('See where your marks went'));
+    expect(screen.getByText('70 / 80 paper marks')).toBeInTheDocument();
+    expect(JSON.parse(localStorage.getItem('pastpaperprep:marks:igcse-physics-0625:theory-42:v1')!)).toEqual({ q1: 70 });
+    view.rerender(<PaperMarkingWorkspace paper={paper} />);
+    expect(screen.getByLabelText('Question 1 marks')).toHaveValue('0');
+    expect(screen.queryByText('70 / 80 paper marks')).not.toBeInTheDocument();
+    view.rerender(<PaperMarkingWorkspace paper={{ ...paper, version: 'v2' }} />);
+    expect(screen.getByLabelText('Question 1 marks')).toHaveValue('');
+    expect(localStorage.getItem('pastpaperprep:marks:igcse-physics-0625:mcq-12:v2')).toBeNull();
+  });
+  it('keeps identical paper IDs and versions isolated across different banks', () => {
+    const paper = { id: '2025-may-p1', version: 'v1', bankSlug: 'ib-ai-hl', title: 'AI HL', maxMarks: 1, questions: [{id:'q1',number:1,maxMarks:1,topics:['Functions']}] };
+    const view = render(<PaperMarkingWorkspace paper={paper}/>);
+    fireEvent.change(screen.getByLabelText('Question 1 marks'),{target:{value:'1'}});
+    view.rerender(<PaperMarkingWorkspace paper={{...paper,bankSlug:'ib-ai-sl',title:'AI SL'}}/>);
+    expect(screen.getByLabelText('Question 1 marks')).toHaveValue('');
+    fireEvent.change(screen.getByLabelText('Question 1 marks'),{target:{value:'0'}});
+    view.rerender(<PaperMarkingWorkspace paper={paper}/>);
+    expect(screen.getByLabelText('Question 1 marks')).toHaveValue('1');
+  });
+  it('keeps invalid unsaved drafts when the same paper props are recreated', () => {
+    const paper = { id: 'same', version: 'v1', bankSlug: 'igcse-chemistry-0620', title: 'Same paper', maxMarks: 1, questions: [{ id: 'q1', number: 1, maxMarks: 1, topics: ['Metals'] }] };
+    const view = render(<PaperMarkingWorkspace paper={paper} />);
+    fireEvent.change(screen.getByLabelText('Question 1 marks'), { target: { value: '1' } });
+    fireEvent.change(screen.getByLabelText('Question 1 marks'), { target: { value: '2' } });
+    view.rerender(<PaperMarkingWorkspace paper={{ ...paper }} />);
+    expect(screen.getByLabelText('Question 1 marks')).toHaveValue('2');
+    expect(screen.getByLabelText('Question 1 marks')).toHaveAttribute('aria-invalid', 'true');
+  });
+  it('restores persisted marks without overwriting before restore and saves updates', () => {
+    const key = 'pastpaperprep:marks:igcse-chemistry-0620:0620-2023-w-42:question-topic-review-v1';
+    localStorage.setItem(key, JSON.stringify({ '0620-2023-w-42-q1': 4 }));
+    const write = vi.spyOn(Storage.prototype, 'setItem');
+    const view = render(<PaperMarkingWorkspace />);
+    expect(screen.getByLabelText('Question 1 marks')).toHaveValue('4');
+    expect(write).not.toHaveBeenCalled();
+    fireEvent.change(screen.getByLabelText('Question 1 marks'), { target: { value: '5' } });
+    expect(JSON.parse(localStorage.getItem(key)!)).toMatchObject({ '0620-2023-w-42-q1': 5, '0620-2023-w-42-q2': null });
+    view.unmount();
+    render(<PaperMarkingWorkspace />);
+    expect(screen.getByLabelText('Question 1 marks')).toHaveValue('5');
+    write.mockRestore();
+  });
+  it('requires explicit clear confirmation and cancellation preserves marks', () => {
+    render(<PaperMarkingWorkspace />);
+    fireEvent.change(screen.getByLabelText('Question 1 marks'), { target: { value: '4' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Clear marks' }));
+    expect(screen.getByRole('group', { name: 'Clear all marks for this paper?' })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Keep marks' }));
+    expect(screen.getByLabelText('Question 1 marks')).toHaveValue('4');
+    fireEvent.click(screen.getByRole('button', { name: 'Clear marks' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Yes, clear marks' }));
+    expect(screen.getByLabelText('Question 1 marks')).toHaveValue('');
+    expect(screen.getByRole('button', { name: 'See where your marks went' })).toBeDisabled();
+  });
+  it('ignores corrupt storage and survives denied access or quota', () => {
+    localStorage.setItem('pastpaperprep:marks:igcse-chemistry-0620:0620-2023-w-42:question-topic-review-v1', '{broken');
+    const view = render(<PaperMarkingWorkspace />);
+    expect(screen.getByLabelText('Question 1 marks')).toHaveValue('');
+    view.unmount();
+    const read = vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => { throw new Error('denied'); });
+    const write = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => { throw new Error('quota'); });
+    render(<PaperMarkingWorkspace />);
+    fireEvent.change(screen.getByLabelText('Question 1 marks'), { target: { value: '4' } });
+    expect(screen.getByText('Marks work here, but could not be saved on this device.')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'See where your marks went' }));
+    expect(screen.getByText('4 / 8 marks on marked questions')).toBeInTheDocument();
+    read.mockRestore(); write.mockRestore();
+  });
+  it('moves keyboard focus to the report and back to marks when editing', () => {
+    render(<PaperMarkingWorkspace />);
+    fireEvent.change(screen.getByLabelText('Question 1 marks'), { target: { value: '3' } });
+    fireEvent.click(screen.getByRole('button', { name: 'See where your marks went' }));
+    expect(screen.getByRole('heading', { name: '3 / 8 marks on marked questions' })).toHaveFocus();
+    fireEvent.click(screen.getByRole('button', { name: 'Edit marks' }));
+    expect(screen.getByLabelText('Question 1 marks')).toHaveFocus();
+  });
+  it.each(['-1', '1.5', '9', 'NaN', 'Infinity', 'abc'])('blocks invalid mark %s with an associated inline error', value => {
+    render(<PaperMarkingWorkspace />);
+    const input = screen.getByLabelText('Question 1 marks');
+    fireEvent.change(input, { target: { value } });
+    expect(input).toHaveAttribute('aria-invalid', 'true');
+    expect(input).toHaveAccessibleDescription('/ 8 Enter a whole number from 0 to 8.');
+    expect(screen.getByRole('button', { name: 'See where your marks went' })).toBeDisabled();
+  });
+  it('shows the top three topics, expands the rest, and offers one practice button', () => {
+    render(<PaperMarkingWorkspace />);
+    fireEvent.change(screen.getByLabelText('Question 1 marks'), { target: { value: '0' } });
+    fireEvent.change(screen.getByLabelText('Question 2 marks'), { target: { value: '14' } });
+    fireEvent.change(screen.getByLabelText('Question 3 marks'), { target: { value: '0' } });
+    fireEvent.click(screen.getByRole('button', { name: 'See where your marks went' }));
+    const topics = screen.getByRole('list', { name: 'Topics to review' });
+    expect(topics.querySelectorAll(':scope > li')).toHaveLength(3);
+    fireEvent.click(screen.getByRole('button', { name: 'Show all 4 topics' }));
+    expect(topics.querySelectorAll(':scope > li')).toHaveLength(4);
+    const practice = screen.getAllByRole('link', { name: /^Practise / });
+    expect(practice).toHaveLength(1);
+    const url = href(practice[0]);
+    expect(url.searchParams.get('topic')).toBe(practice[0].textContent!.replace('Practise ', '').trim());
+    expect(url.searchParams.get('free')).toBe('1');
+    expect(screen.getAllByText(/^Lost marks in \d of \d questions?$/).length).toBeGreaterThanOrEqual(3);
+    fireEvent.click(practice[0]);
+    expect(analytics.trackProductEvent).toHaveBeenCalledWith('past_paper_practice_click', { bank: 'igcse-chemistry-0620' });
+  });
+  it('shows complete paper result only after all six questions are marked', () => {
+    render(<PaperMarkingWorkspace />);
+    for (const number of [1, 2, 3, 4, 5, 6]) fireEvent.change(screen.getByLabelText(`Question ${number} marks`), { target: { value: '0' } });
+    fireEvent.click(screen.getByRole('button', { name: 'See where your marks went' }));
+    expect(screen.getByText('0 / 80 paper marks')).toBeInTheDocument();
+    expect(screen.queryByText(/This is a partial report/)).not.toBeInTheDocument();
+  });
+  it('takes marks through report, edit and honest recomputation', () => {
+    render(<PaperMarkingWorkspace />);
+    expect(screen.getByLabelText('Question 1 marks')).toHaveValue('');
+    expect(screen.getByRole('button', { name: 'See where your marks went' })).toBeDisabled();
+    fireEvent.change(screen.getByLabelText('Question 1 marks'), { target: { value: '3' } });
+    fireEvent.click(screen.getByRole('button', { name: 'See where your marks went' }));
+    expect(screen.getByText('3 / 8 marks on marked questions')).toBeInTheDocument();
+    expect(screen.getByText('5 questions unmarked. This is a partial report, not a paper score.')).toBeInTheDocument();
+    expect(screen.getAllByText('Lost marks in 1 of 1 question')).toHaveLength(2);
+    expect(screen.getByRole('link', { name: /^Practise / })).toHaveAttribute('href', expect.stringContaining('free=1'));
+    expect(analytics.trackProductEvent).toHaveBeenCalledWith('past_paper_report_view', { bank: 'igcse-chemistry-0620', complete: false });
+    fireEvent.click(screen.getByRole('button', { name: 'Edit marks' }));
+    fireEvent.change(screen.getByLabelText('Question 1 marks'), { target: { value: '8' } });
+    fireEvent.click(screen.getByRole('button', { name: 'See where your marks went' }));
+    expect(screen.getByText('8 / 8 marks on marked questions')).toBeInTheDocument();
+    expect(screen.getByText('No revision priorities from the marked questions.')).toBeInTheDocument();
+  });
+  it('steps marks up and down within the question maximum', () => {
+    render(<PaperMarkingWorkspace />);
+    const input = screen.getByLabelText('Question 1 marks');
+    fireEvent.click(screen.getByRole('button', { name: 'Remove a mark from question 1' }));
+    expect(input).toHaveValue('0');
+    fireEvent.click(screen.getByRole('button', { name: 'Remove a mark from question 1' }));
+    expect(input).toHaveValue('0');
+    for (let i = 0; i < 12; i++) fireEvent.click(screen.getByRole('button', { name: 'Add a mark to question 1' }));
+    expect(input).toHaveValue('8');
+    expect(screen.getByLabelText('Marks so far')).toHaveTextContent('8 / 80');
+  });
+  it('offers a way back to the paper when opened from it', () => {
+    const onClose = vi.fn();
+    render(<PaperMarkingWorkspace onClose={onClose} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Back to paper' }));
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+  it('keeps every mark when several steps land before a re-render', () => {
+    render(<PaperMarkingWorkspace />);
+    const add = (n: number) => screen.getByRole('button', { name: `Add a mark to question ${n}` });
+    act(() => { add(1).click(); add(1).click(); add(2).click(); });
+    expect(screen.getByLabelText('Question 1 marks')).toHaveValue('2');
+    expect(screen.getByLabelText('Question 2 marks')).toHaveValue('1');
+    expect(JSON.parse(localStorage.getItem('pastpaperprep:marks:igcse-chemistry-0620:0620-2023-w-42:question-topic-review-v1')!)).toMatchObject({ '0620-2023-w-42-q1': 2, '0620-2023-w-42-q2': 1 });
+  });
+  it('lists topics to review without a practice button when practice is unavailable', () => {
+    render(<PaperMarkingWorkspace practice={false} />);
+    fireEvent.change(screen.getByLabelText('Question 1 marks'), { target: { value: '0' } });
+    fireEvent.click(screen.getByRole('button', { name: 'See where your marks went' }));
+    expect(screen.getByRole('list', { name: 'Topics to review' })).toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: /^Practise / })).not.toBeInTheDocument();
+  });
+});

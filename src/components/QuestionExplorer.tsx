@@ -653,10 +653,14 @@ access: ExplorerAccess;
         });
     };
 
-    const idleId = typeof window.requestIdleCallback === "function"
+    // Visitors already have their first questions in the HTML, so the full index waits for idle
+    // time. A signed-in member's paid questions only exist in the index, so load it now.
+    const member = readAuthCookiePresent();
+    const idleId = !member && typeof window.requestIdleCallback === "function"
       ? window.requestIdleCallback(loadIndex, { timeout: 800 })
       : undefined;
-    if (idleId === undefined) fallbackTimer = window.setTimeout(loadIndex, 200);
+    if (member) loadIndex();
+    else if (idleId === undefined) fallbackTimer = window.setTimeout(loadIndex, 200);
 
     return () => {
       cancelled = true;

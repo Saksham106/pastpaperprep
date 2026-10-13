@@ -1,0 +1,68 @@
+/* PDF viewer: one sticky toolbar row over a scrolling page stage. */
+.reader { min-width: 0; color: var(--ink); container-type: inline-size; }
+.reader button { cursor: pointer; font: inherit; color: inherit; }
+.viewer { position: static; display: block; width: 100%; max-width: none; max-height: none; min-width: 0; margin: 0; padding: 0; color: inherit; background: transparent; border: 0; }
+.viewer.focused { position: fixed; inset: 16px; display: flex; flex-direction: column; gap: 10px; width: calc(100% - 32px); max-width: 1150px; height: calc(100dvh - 32px); max-height: none; margin: auto; padding: 14px 18px 18px; overflow: hidden; background: var(--paper); border: 1px solid var(--line); border-radius: 18px; }
+.viewer::backdrop { background: rgb(16 24 35 / .7); backdrop-filter: blur(3px); }
+.focusHeading { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-weight: 650; font-size: .9rem; }
+.focusHeading button { min-height: 40px; padding: 0 14px; background: var(--surface-raised); border: 1px solid var(--line); border-radius: 10px; font-weight: 650; font-size: .84rem; }
+
+.toolbar { position: sticky; z-index: 5; top: 78px; padding: 7px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: color-mix(in srgb, var(--surface-raised) 92%, transparent); backdrop-filter: blur(10px); border: 1px solid var(--line); border-radius: 14px; }
+.focused .toolbar { position: static; }
+.tabs { padding: 3px; display: flex; gap: 2px; background: var(--surface); border-radius: 11px; }
+.tabs [role=tab] { min-height: 34px; padding: 0 13px; color: var(--muted); background: transparent; border: 0; border-radius: 8px; font-weight: 700; font-size: .84rem; white-space: nowrap; transition: background-color 150ms ease, color 150ms ease; }
+.tabs [role=tab]:hover { color: var(--ink); }
+.tabs [role=tab][aria-selected=true] { color: var(--surface); background: var(--ink); }
+.pagination { margin-left: auto; display: flex; align-items: center; gap: 4px; color: var(--muted); font: 600 .8rem/1 var(--font-mono); }
+.pagination label { display: flex; }
+.pagination button, .iconButton { width: 36px; height: 36px; display: inline-grid; place-items: center; color: var(--ink-soft); background: transparent; border: 1px solid var(--line); border-radius: 9px; transition: background-color 150ms ease, color 150ms ease; }
+.pagination button svg, .iconButton svg { width: 16px; height: 16px; }
+.pagination button:hover:not(:disabled), .iconButton:hover { color: var(--ink); background: var(--surface); }
+.pagination input { width: 44px; height: 36px; padding: 0; text-align: center; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 9px; font: inherit; appearance: textfield; -moz-appearance: textfield; }
+.pagination input::-webkit-inner-spin-button, .pagination input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.iconButton[hidden] { display: none; }
+.view { position: relative; }
+.view summary { height: 36px; padding: 0 11px; display: inline-flex; align-items: center; gap: 6px; color: var(--ink-soft); border: 1px solid var(--line); border-radius: 9px; cursor: pointer; list-style: none; font-weight: 650; font-size: .82rem; }
+.view summary::-webkit-details-marker { display: none; }
+.view summary svg { width: 15px; height: 15px; }
+.view[open] summary, .view summary:hover { color: var(--ink); background: var(--surface); }
+.viewMenu { position: absolute; z-index: 10; top: calc(100% + 8px); right: 0; width: 220px; padding: 12px; display: grid; gap: 10px; background: var(--surface-raised); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow-sm); }
+.viewMenu label { display: grid; gap: 5px; color: var(--muted); font: 600 .66rem/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+.viewMenu select { height: 38px; padding: 0 8px; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; font: 600 .86rem/1 var(--font-body); letter-spacing: 0; text-transform: none; }
+.visuallyHidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.stage { position: relative; height: calc(100dvh - 176px); min-height: 420px; margin-top: 10px; overflow: auto; overscroll-behavior: contain; scrollbar-gutter: stable; background: color-mix(in srgb, var(--surface) 70%, var(--paper)); border: 1px solid var(--line); border-radius: 14px; }
+.focused .stage { flex: 1; height: auto; min-height: 180px; margin: 0; }
+.focused > :not(.stage) { flex-shrink: 0; }
+.pageArea { position: relative; min-height: 380px; }
+.canvasSlot { width: 100%; padding: 18px 16px; }
+.canvasSlot canvas { display: block; margin: 0 auto; background: white; border-radius: 2px; box-shadow: 0 10px 28px -14px rgb(24 35 59 / .35); }
+.pageStack { width: 100%; padding: 4px 0; }
+.actualStack { min-width: 826px; }
+.scrollPage { position: relative; width: min(100%, 852px); margin: 0 auto 4px; aspect-ratio: 595 / 842; min-height: 0; }
+.scrollPage .pageArea { position: absolute; inset: 0; min-height: 0; }
+.pagePlaceholder { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: .76rem; }
+.skeleton { min-height: 380px; display: grid; place-items: center; color: var(--muted); font-size: .84rem; }
+.pageArea > .skeleton { position: absolute; inset: 0; }
+.error { padding: 56px 24px; text-align: center; font-size: .9rem; }
+.error button { display: block; margin: 16px auto 0; min-height: 44px; padding: 8px 18px; background: var(--surface-raised); border: 1px solid var(--line); border-radius: 10px; font-weight: 650; }
+.reader :is(button, a, input, select, summary):focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
+.reader button:disabled { opacity: .38; cursor: not-allowed; }
+
+@container (max-width: 800px) {
+  .view summary span { display: none; }
+  .tabs [role=tab] { padding: 0 10px; }
+  .toolbar { gap: 6px; }
+}
+@media (max-width: 760px) {
+  .toolbar { position: static; padding: 6px; gap: 6px; }
+  .tabs { order: -1; flex: 1 1 100%; }
+  .tabs [role=tab] { flex: 1; }
+  /* The stage scrolls by touch and fills the screen, so page numbers and focus view add little on phones. */
+  .pagination, .iconButton[aria-label="Focus view"] { display: none; }
+  .view { margin-left: auto; }
+  .viewMenu select { font-size: 16px; }
+  .stage { height: 72dvh; min-height: 360px; }
+  .canvasSlot { padding: 10px 8px; }
+  .viewer.focused { inset: 8px; width: calc(100% - 16px); height: calc(100dvh - 16px); padding: 10px; }
+}
