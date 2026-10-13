@@ -117,7 +117,7 @@
 :global(:root[data-theme="dark"]) .home { background: var(--paper); }
 :global(:root[data-theme="dark"]) .faqIntro .eyebrow,
 :global(:root[data-theme="dark"]) .voices .eyebrow { color: var(--burgundy); }
-:global(:root[data-theme="dark"]) :global(:root[data-theme="dark"]) :global(:root[data-theme="dark"]) .faqQuestions,
+:global(:root[data-theme="dark"]) .faqQuestions,
 :global(:root[data-theme="dark"]) .faqQuestions details { border-color: var(--line-strong); }
 :global(:root[data-theme="dark"]) .faqQuestions summary { color: var(--ink); }
 :global(:root[data-theme="dark"]) .faqQuestions summary svg { color: var(--burgundy); }

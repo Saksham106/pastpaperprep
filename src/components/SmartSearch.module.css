@@ -30,6 +30,7 @@
 .pairLink[data-active="true"] { border-color: var(--course-accent, var(--cobalt)); background: var(--subject-panel-tint, var(--cobalt-faint)); }
 
 .empty { margin: 0; padding: 14px 12px; color: var(--muted); }
+.retry { padding: 0; border: 0; background: none; color: var(--cobalt-strong); font: inherit; font-weight: 750; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 
 @media (max-width: 620px) {
   .go { display: none; }
