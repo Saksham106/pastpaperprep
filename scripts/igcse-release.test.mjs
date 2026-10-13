@@ -35,21 +35,13 @@ function sealedRuntime(bank, question) {
   return runtime;
 }
 
+/** The committed 0455 runtime is the 2019-2026 candidate: 2019-2025 finalized, the 2026 lane pending. */
 function economicsCandidateFixture(runtime) {
   const copy = structuredClone(runtime);
-  for (const question of copy.questions) {
-    if (question.year <= 2020) {
-      question.publicationStatus = "authorized_production_candidate";
-      question.classificationReviewStatus = "source_paired_review_completed_pending_release";
-    }
+  if (copy.releaseStatus !== "authorized_production_candidate" || copy.runtimeArtifact.assetVerification !== "pending_storage_release") {
+    throw new Error("expected the committed Economics runtime to be the pending 2026 candidate");
   }
-  copy.releaseStatus = "authorized_production_candidate";
-  copy.publicationStatus = "authorized_production_candidate";
-  copy.runtimeArtifact.assetVerification = "pending_storage_release";
-  copy.runtimeArtifact.storageReceiptSha256 = null;
-  copy.runtimeArtifact.assetManifestSha256 = null;
-  copy.runtimeArtifact.runtimeSha256 = null;
-  copy.runtimeArtifact.runtimeSha256 = runtimeSha256(copy);
+  if (copy.runtimeArtifact.runtimeSha256 !== runtimeSha256(copy)) throw new Error("Economics candidate self-seal mismatch");
   return copy;
 }
 
@@ -131,6 +123,8 @@ describe("IGCSE storage release tooling", () => {
   it.each([
     ["igcse-biology-0610", "markschemes/0610-2025-w-23/q2-row1-1.webp", "data/classification/full-coverage-batch-repairs/batch94-ms/assets/0610-2025-w-23/markscheme/q2-row1-1.v2.webp"],
     ["igcse-economics-0455", "markschemes/0455-2025-s-22/q5-3-29.webp", "data/segmentation/full-repaired/assets/0455-2025-s-22/markscheme/q5-3-29.webp"],
+    ["igcse-economics-0455", "questions/0455-2020-s-21/q1-1-2.webp", "data/segmentation/full-extension/assets/0455-2020-s-21/question/q1-1-2.webp"],
+    ["igcse-economics-0455", "questions/0455-2026-s-21/q1-1-2.webp", "data/segmentation/full-extension-2026/assets/0455-2026-s-21/question/q1-1-2.webp"],
   ])("uses the exact %s repair overlay", async (bank, reference, relativeSource) => {
     const root = await mkdtemp(join(tmpdir(), "igcse-release-"));
     temporary.push(root);
@@ -144,6 +138,16 @@ describe("IGCSE storage release tooling", () => {
     const manifest = await buildReleaseManifest({ bank, runtimePath, sourceRoot: root });
     expect(manifest.assets).toHaveLength(1);
     expect(manifest.assets[0].sourcePath).toBe(await realpath(source));
+  });
+
+  it("refuses an Economics reference outside the 2019-2026 source lanes", async () => {
+    const root = await mkdtemp(join(tmpdir(), "igcse-release-"));
+    temporary.push(root);
+    const runtimePath = join(root, "runtime.json");
+    await writeFile(runtimePath, JSON.stringify(sealedRuntime("igcse-economics-0455", {
+      questionImages: ["questions/0455-2027-s-11/q1-1-2.webp"], markschemeImages: [], officialMarkscheme: { images: [] },
+    })));
+    await expect(buildReleaseManifest({ bank: "igcse-economics-0455", runtimePath, sourceRoot: root })).rejects.toThrow(/No Economics 0455 source lane/);
   });
 
   it("uploads create-only, resumes identical objects, and verifies full GET hashes", async () => {
@@ -206,8 +210,26 @@ describe("IGCSE storage release tooling", () => {
   it("normalizes only the authorized Economics candidate state", async () => {
     const runtime = economicsCandidateFixture(JSON.parse(await readFile(join(import.meta.dirname, "../src/data/production/igcse-economics-0455.json"), "utf8")));
     finalizeQuestionStates(runtime, "igcse-economics-0455");
-    expect(runtime.questions).toHaveLength(1723);
+    expect(runtime.questions).toHaveLength(1862);
     expect(runtime.questions.every((question) => question.publicationStatus === "production" && question.classificationReviewStatus === "classified")).toBe(true);
+  });
+
+  it("refuses an Economics candidate whose 2026 lane, 2019-2025 rows or year set drifted", async () => {
+    const committed = JSON.parse(await readFile(join(import.meta.dirname, "../src/data/production/igcse-economics-0455.json"), "utf8"));
+    const substituted = economicsCandidateFixture(committed);
+    substituted.questions[substituted.questions.findIndex((question) => question.year === 2026)].id = "0455-2026-unauthorized-row";
+    expect(() => finalizeQuestionStates(substituted, "igcse-economics-0455")).toThrow(/2026 lane does not match/);
+    const reverted = economicsCandidateFixture(committed);
+    const extension = reverted.questions.find((question) => question.year === 2020);
+    extension.publicationStatus = "authorized_production_candidate";
+    extension.classificationReviewStatus = "source_paired_review_completed_pending_release";
+    expect(() => finalizeQuestionStates(reverted, "igcse-economics-0455")).toThrow(/rewritten/);
+    const unknownState = economicsCandidateFixture(committed);
+    unknownState.questions.find((question) => question.year === 2026).classificationReviewStatus = "candidate_not_approved";
+    expect(() => finalizeQuestionStates(unknownState, "igcse-economics-0455")).toThrow(/2026 lane contains an unknown/);
+    const extraYear = economicsCandidateFixture(committed);
+    extraYear.questions.push({ ...extraYear.questions.at(-1), id: "0455-2027-s-11-q1", year: 2027 });
+    expect(() => finalizeQuestionStates(extraYear, "igcse-economics-0455")).toThrow(/outside the authorized cohorts/);
   });
 
   it("accepts only the exact preserved Biology base ID set in a mixed candidate", async () => {
