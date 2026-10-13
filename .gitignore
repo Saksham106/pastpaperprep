@@ -53,6 +53,11 @@ supabase/.temp/
 # generated bank metadata
 /public/bank-index/
 
+# Local-only paper design fixtures. Never commit original examination PDFs.
+/private/paper-preview/
+/private/chemistry-paper-archive/
+/private/paper-archives/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

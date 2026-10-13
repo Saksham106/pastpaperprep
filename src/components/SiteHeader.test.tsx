@@ -13,6 +13,16 @@ beforeEach(() => {
 });
 
 describe("SiteHeader", () => {
+  it("links the free past-paper library only when it is switched on", () => {
+    const view = render(<SiteHeader authenticated={false} />);
+    expect(screen.queryByRole("link", { name: "Past papers" })).not.toBeInTheDocument();
+    view.rerender(<SiteHeader authenticated={false} pastPapers />);
+    expect(screen.getByRole("link", { name: "Past papers" })).toHaveAttribute("href", "/past-papers");
+    usePathname.mockReturnValue("/past-papers/igcse-maths-0580");
+    view.rerender(<SiteHeader authenticated pastPapers />);
+    expect(screen.getByRole("link", { name: "Past papers" })).toHaveAttribute("aria-current", "page");
+  });
+
   it("keeps pricing discoverable once a user is signed in", () => {
     render(<SiteHeader authenticated />);
 

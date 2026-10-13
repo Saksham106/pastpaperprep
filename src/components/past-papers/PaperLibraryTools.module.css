@@ -1,0 +1,11 @@
+.tools { width: min(700px, 100%); margin: 24px auto 0; display: flex; align-items: center; gap: 10px; }
+.toggle { flex: 0 0 auto; padding: 4px; display: flex; gap: 2px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.toggle button { min-height: 38px; padding: 0 14px; color: var(--muted); background: transparent; border: 0; border-radius: 9px; font: 760 .86rem/1 var(--font-body); cursor: pointer; transition: background-color 150ms ease, color 150ms ease; }
+.toggle button:hover { color: var(--ink); }
+.toggle button[aria-pressed="true"] { color: var(--surface); background: var(--ink); }
+.toggle button:focus-visible { outline: 3px solid color-mix(in srgb, var(--cobalt) 55%, transparent); outline-offset: 2px; }
+@media (max-width: 760px) {
+  .tools { flex-wrap: wrap; }
+  .toggle { width: 100%; }
+  .toggle button { flex: 1; }
+}

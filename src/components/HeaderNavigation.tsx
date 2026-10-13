@@ -5,7 +5,8 @@ import { PAGE_NAVIGATION } from "@/components/PageTransition";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
 
-function current(pathname: string, destination: "banks" | "articles" | "pricing" | "account" | "dashboard" | "login", banksHashActive = false) {
+function current(pathname: string, destination: "papers" | "banks" | "articles" | "pricing" | "account" | "dashboard" | "login", banksHashActive = false) {
+  if (destination === "papers") return pathname === "/past-papers" || pathname.startsWith("/past-papers/");
   if (destination === "banks") return pathname.startsWith("/banks/") || (pathname === "/" && banksHashActive);
   if (destination === "articles") return pathname === "/articles" || pathname.startsWith("/articles/");
   if (destination === "pricing") return pathname === "/pricing";
@@ -14,7 +15,7 @@ function current(pathname: string, destination: "banks" | "articles" | "pricing"
   return pathname === "/dashboard";
 }
 
-export function HeaderNavigation({ authenticated, workspaceIcon, menuOpen = false, onNavigate, trailing }: { authenticated: boolean; workspaceIcon: ReactNode; menuOpen?: boolean; onNavigate?: () => void; trailing?: ReactNode }) {
+export function HeaderNavigation({ authenticated, workspaceIcon, menuOpen = false, onNavigate, trailing, pastPapers = false }: { authenticated: boolean; workspaceIcon: ReactNode; menuOpen?: boolean; onNavigate?: () => void; trailing?: ReactNode; pastPapers?: boolean }) {
   const pathname = usePathname();
   const banksHref = authenticated ? "/dashboard" : "/#question-banks";
   const [banksHashActive, setBanksHashActive] = useState(false);
@@ -41,6 +42,7 @@ export function HeaderNavigation({ authenticated, workspaceIcon, menuOpen = fals
     <nav id="site-menu" className="site-menu" data-open={menuOpen ? "true" : "false"} aria-label="Main navigation" onClick={(event) => { if ((event.target as Element).closest("a")) onNavigate?.(); }}>
       {/* Desktop: page links sit in the bar's center column, account actions on the right. The phone menu lists both. */}
       <div className="nav-pages">
+        {pastPapers && <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "papers") ? "nav-active" : undefined} aria-current={current(pathname, "papers") ? "page" : undefined} href="/past-papers">Past papers</Link>}
         <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "banks", banksHashActive) ? "nav-active" : undefined} aria-current={current(pathname, "banks", banksHashActive) ? "page" : undefined} href={banksHref} onClick={openLandingBanks}>Question banks</Link>
         <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "articles") ? "nav-active" : undefined} aria-current={current(pathname, "articles") ? "page" : undefined} href="/articles">Articles</Link>
         <Link transitionTypes={PAGE_NAVIGATION} className={`nav-pricing${current(pathname, "pricing") ? " nav-active" : ""}`} aria-current={current(pathname, "pricing") ? "page" : undefined} href="/pricing">Pricing</Link>

@@ -1,0 +1,20 @@
+/* Compact timer pill for the reader toolbar and phone dock. */
+.timer { position: relative; display: inline-flex; align-items: center; gap: 4px; color: var(--ink); font-size: .84rem; }
+.timer button { cursor: pointer; font: inherit; }
+.timer .start { height: 38px; padding: 0 12px; display: inline-flex; align-items: center; gap: 7px; color: var(--surface); background: var(--ink); border: 0; border-radius: 10px; font-weight: 700 !important; font-variant-numeric: tabular-nums; }
+.start svg { width: 13px; height: 13px; }
+.timer :is(.more, .icon) { width: 34px; height: 34px; display: inline-grid; place-items: center; color: var(--muted); background: transparent; border: 1px solid var(--line); border-radius: 9px; }
+.more svg, .icon svg { width: 16px; height: 16px; }
+.timer :is(.more, .icon):hover, .timer .more[aria-expanded="true"] { color: var(--ink); background: var(--surface); }
+.custom { position: absolute; z-index: 10; top: calc(100% + 8px); left: 0; padding: 10px 12px; display: flex; align-items: center; gap: 8px; white-space: nowrap; color: var(--muted); background: var(--surface-raised); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow-sm); font-weight: 600; }
+.custom input { width: 72px; height: 36px; padding: 0 8px; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; font: inherit; }
+.alert { position: absolute; top: calc(100% + 62px); left: 0; padding: 6px 10px; white-space: nowrap; color: var(--danger); background: var(--danger-soft); border-radius: 8px; font-size: .78rem; font-weight: 600; }
+.readout { min-width: 64px; height: 38px; padding: 0 12px; display: inline-grid; place-items: center; color: var(--surface); background: var(--ink); border-radius: 10px; font-variant-numeric: tabular-nums; font-weight: 700; }
+.paused { color: var(--ink); background: var(--surface); border: 1px solid var(--line); }
+.ended { color: var(--success); background: var(--success-soft); }
+.visuallyHidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.timer .text { height: 34px; padding: 0 10px; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 9px; font-weight: 650; }
+.timer :is(button, input):focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
+@media (max-width: 760px) {
+  .custom input { font-size: 16px; }
+}

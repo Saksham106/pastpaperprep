@@ -5,7 +5,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { createClient } from "@/lib/supabase/browser";
 import { setSessionHint } from "@/lib/supabase/auth-cookie";
 
-export function SessionAwareSiteHeader() {
+export function SessionAwareSiteHeader({ pastPapers = false }: { pastPapers?: boolean }) {
   const [authenticated, setAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -26,5 +26,5 @@ export function SessionAwareSiteHeader() {
     };
   }, []);
 
-  return <SiteHeader authenticated={authenticated} />;
+  return <SiteHeader authenticated={authenticated} pastPapers={pastPapers} />;
 }

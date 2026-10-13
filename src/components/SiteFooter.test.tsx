@@ -1,10 +1,20 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { SiteFooter } from "@/components/SiteFooter";
 
 describe("SiteFooter", () => {
+  afterEach(() => vi.unstubAllEnvs());
+  it("links the free past-paper library only when it is switched on", () => {
+    const view = render(<SiteFooter />);
+    expect(screen.queryByRole("link", { name: "Free past papers" })).not.toBeInTheDocument();
+    view.unmount();
+    vi.stubEnv("NODE_ENV", "development"); vi.stubEnv("LOCAL_PAPER_PREVIEW", "true");
+    render(<SiteFooter />);
+    expect(screen.getByRole("link", { name: "Free past papers" })).toHaveAttribute("href", "/past-papers");
+  });
+
   it("reopens the consent banner via the cookie settings control", () => {
     const dispatch = vi.spyOn(window, "dispatchEvent");
     render(<SiteFooter />);

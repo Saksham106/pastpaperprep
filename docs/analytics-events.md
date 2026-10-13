@@ -34,8 +34,16 @@ No email, name or account ID is ever sent without consent.
 | `$exception` | uncaught browser errors, unhandled rejections, error boundaries | scrubbed message (`safeErrorMessage`), stack, `digest?` (matches the server render error) |
 | `api_request_failed` | any own `/api/*` call answering 5xx, 400, 408, 413 or 429, or failing on the network (`api-failure-monitor`) | `route` (ids as `[id]`), `method`, `status` (0 = network), `outcome`, `duration_ms`, `correlation_id?`, `user_id?` |
 | `asset_load_failed` | a question or mark-scheme image failing to load | `bank`, `question_id`, `kind`, `outcome` (`expired_resign` or `failed`), `host` (`r2`, `supabase`, `self`, `other`), `user_id?` |
+| `past_paper_search` | past-paper search box (Enter or a suggestion) | `found` |
+| `past_paper_open` | free paper page | `bank`, `paper` |
+| `past_paper_timer_start` | paper timer | `bank` |
+| `past_paper_mark_open` | "Mark this paper" / "Mark it" | `bank` |
+| `past_paper_report_view` | "See where your marks went" | `bank`, `complete` |
+| `past_paper_practice_click` | the report's one practice button | `bank` |
 
 `placement` is one of `top_note`, `feed_teaser`, `feed_timeline`, `locked_card`, `practice_milestone`, `signup_gate`, `pdf_dialog`. The same value travels to pricing as `?from=`, so `pricing_view.from` shows which prompt sent the visitor.
+
+**Free past papers funnel (everyone, ratios of totals):** `past_paper_open` → `past_paper_mark_open` → `past_paper_report_view` → `past_paper_practice_click` → `pricing_view`, broken down by `bank`. Linking to `conversion_outcome` needs analytics consent, like the other funnels.
 
 ## Server events
 
