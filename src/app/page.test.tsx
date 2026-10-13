@@ -17,11 +17,11 @@ describe("home page", () => {
   it("leads with the layered headline, the picker and data-driven proof", () => {
     const markup = renderToStaticMarkup(<MarketingHome environment={{}} />);
 
-    expect(BANKS.reduce((total, bank) => total + bank.questionCount, 0)).toBe(17717);
+    expect(BANKS.reduce((total, bank) => total + bank.questionCount, 0)).toBe(17924);
     expect(markup).toContain("Past papers,");
     expect(markup).toContain("by topic.");
     expect(markup).toContain("17,000+");
-    expect(markup).not.toContain("17,717");
+    expect(markup).not.toContain("17,924");
     expect(markup).toContain('href="/banks/igcse?free=1"');
     expect(markup).not.toContain("Practice the");
     expect(markup).not.toContain("Choose where to begin.");
