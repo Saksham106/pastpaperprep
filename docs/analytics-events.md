@@ -20,6 +20,7 @@ No email, name or account ID is ever sent without consent.
 | `question_filter_change` | bank page | `bank`, `filter` |
 | `answer_reveal` | bank page | `bank`, `freePreview` |
 | `explanation_open` | bank page, Explanation button | `bank`, `freePreview` |
+| `question_report` | bank page, flag on an unlocked question card ("Report a problem"); once per question per page session | `bank`, `questionId`, `issue` (`question_image`, `mark_scheme`, `explanation`, `other`), `freePreview`, `hasExplanation`. No free text. |
 | `pdf_builder_open` | Save PDF / Download PDF | `bank`, `questionCount` |
 | `pdf_export_attempt` / `_success` / `_error` | Download PDF | `bank`, `questionCount`, `content`, `source` (`worksheet` = My Worksheets, `save_dialog` = icon in the Save PDF card) |
 | `pdf_upgrade_view` | PDF prompt for people without access | `bank` |
@@ -69,6 +70,8 @@ Browser events and server conversions never share an ID. Browser events are cook
 4. **Which prompts bring buyers to pricing:** `pricing_view` broken down by `from`.
 5. **Pricing to paid:** `conversion_outcome` (`payment_initial_paid` + `lifetime_paid`) ÷ `pricing_view`, per week.
 6. **Checkout drop-off (browser only, a real funnel works):** `pricing_view` → `checkout_start` → `checkout_returned`, with `checkout_cancelled` as a trend alongside.
+
+**Problem reports (data-quality queue):** a Trends insight on `question_report` (total count), broken down by `bank`, `questionId` and `issue`, shown as a table over the last 30 days. Sort by count; a question reported by several students is the first to check. `consented_question_report` duplicates these for consented visitors, so count only `question_report`.
 
 **Reliability:**
 7. `$exception` where `error_source = handled_response`, broken down by `route` and `reason`. Alert on spikes for `/api/assets/sign` and `/api/billing/checkout`.
