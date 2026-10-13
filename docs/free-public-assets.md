@@ -19,9 +19,11 @@ bucket (and Supabase) behind `/api/assets/sign`; the public bucket never holds t
 ## After adding free questions or changing the free years
 
 `scripts/publish-free-assets.mts` computes the free set itself from the manifests and the free-year
-rules (no hand-edited list), refuses unsafe paths, seals every download (SHA-256 and size), uploads
-only the sealed bytes, logs path+hash so changed bytes upload again, and exits nonzero unless every
-phase covered exactly the free set. Needs `npx wrangler login` and the linked Supabase CLI.
+rules (no hand-edited list), refuses unsafe paths and symlinks anywhere in the work folder, seals
+every download (SHA-256 and size), re-checks each file against its seal before reusing it or
+trusting the resume log (path+hash+size), stages uploads in a fresh private temp folder, rejects a
+`JOBS` outside 1–32, and exits nonzero unless each phase actually completed the whole free set
+(`scripts/lib/safe-files.ts`). Needs `npx wrangler login` and the linked Supabase CLI.
 
 ```bash
 export PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS=true PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED=true \
