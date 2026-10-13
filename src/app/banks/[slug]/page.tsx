@@ -12,7 +12,7 @@ import { getAvailableBanks, getBank, type BankSlug } from "@/lib/banks";
 import { getCatalogBank, getCatalogBanksForDisplay } from "@/lib/catalog";
 import { resolveSubject } from "@/lib/past-paper-pages";
 import { subjectSlugForBank } from "@/lib/past-paper-catalog";
-import { pageTitle, subjectSearchName } from "@/lib/past-paper-seo";
+import { fitTitle, pageTitle, subjectSearchName } from "@/lib/past-paper-seo";
 import { getLandingManifest, topicPath } from "@/lib/search-landing";
 import { SOCIAL_IMAGE, SOCIAL_IMAGE_URL } from "@/lib/seo";
 
@@ -25,7 +25,7 @@ function topicalCopy(slug: BankSlug, fallbackName: string) {
   const name = catalog ? subjectSearchName(catalog) : fallbackName;
   return {
     name,
-    title: `${name} Topical Past Paper Questions`,
+    title: fitTitle(`${name} Topical Past Paper Questions`, `${name} Topical Past Papers`),
     description: `${name} topical past paper questions: real exam questions sorted by syllabus topic, year, paper and marks, with answers.`,
   };
 }

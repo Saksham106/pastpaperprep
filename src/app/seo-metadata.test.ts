@@ -73,7 +73,8 @@ describe("canonical search metadata", () => {
     for (const bank of BANKS) {
       const metadata = await generateBankMetadata({ params: Promise.resolve({ slug: bank.slug }) });
       const title = typeof metadata.title === "string" ? metadata.title : (metadata.title as { absolute: string }).absolute;
-      expect(title).toMatch(/ Topical Past Paper Questions$/);
+      expect(title).toMatch(/ Topical Past Papers?(?: Questions)?$/);
+      expect(typeof metadata.title === "string" ? `${title} | PastPaperPrep`.length : title.length).toBeLessThanOrEqual(60);
       expect(title).not.toMatch(/Past Papers by Topic|& Mark Schemes/);
       expect(metadata.alternates?.canonical).toBe(`/banks/${bank.slug}`);
       expect(metadata.openGraph).toMatchObject({

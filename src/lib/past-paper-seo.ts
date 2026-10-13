@@ -15,6 +15,12 @@ export type PageCopy = { title: string; description: string; h1: string; answer:
 export type FaqItem = { q: string; a: string };
 
 const isIb = (bank: CatalogBank) => bank.qualification === 'IB Diploma';
+/** IB Mathematics: Analysis and Approaches was first examined in May 2021; earlier papers in the AA
+ * banks are the previous Mathematics HL/SL course, so name them that way on paper pages. */
+const FIRST_AA_YEAR = 2021;
+const legacyMaths = (bank: CatalogBank, p: WholePaperSummary) => (bank.slug === 'ib-hl' || bank.slug === 'ib-sl') && p.year < FIRST_AA_YEAR;
+const paperSubjectName = (bank: CatalogBank, p: WholePaperSummary) => legacyMaths(bank, p) ? `IB Math ${bank.level}` : subjectSearchName(bank);
+export const paperCourseTitle = (bank: CatalogBank, p: WholePaperSummary) => legacyMaths(bank, p) ? `IB Mathematics ${bank.level === 'HL' ? 'Higher' : 'Standard'} Level` : bank.title;
 /** The first wording that fits a search result in full; the most descriptive comes first. */
 export const fitTitle = (...candidates: string[]) => candidates.find(c => c.length <= TITLE_LIMIT) ?? candidates.at(-1)!;
 /** Same for descriptions, which search results cut at about 160 characters. */
@@ -57,7 +63,7 @@ export function hubCopy(paperCount: number, qualification?: PastPaperQualificati
 /** Board-level questions for the IGCSE and IB hubs; every claim is general and true for the whole board. */
 export function hubFaq(qualification: PastPaperQualification): FaqItem[] {
   if (qualification === 'igcse') return [
-    { q: 'Are these Cambridge IGCSE past papers free?', a: 'Yes. Every question paper and its mark scheme opens free, with no sign-up. You can also time a paper and mark it here.' },
+    { q: 'Are these Cambridge IGCSE past papers free?', a: 'Yes. Every question paper and its mark scheme opens free, with no sign-up. Most papers can also be timed and self-marked here.' },
     { q: 'What does a code like 0580/42/M/J/24 mean?', a: '0580 is the syllabus (Mathematics), 42 is Paper 4 variant 2, M/J is the May/June series and 24 is 2024. F/M is February/March and O/N is October/November.' },
     { q: 'What do file names like 0580_s24_qp_42 mean?', a: 'They are Cambridge\'s own file names: s is May/June (summer), w is October/November (winter) and m is February/March, followed by the year. qp is the question paper and ms is the mark scheme; the last number is the paper and variant.' },
     { q: 'Which variant should I practise?', a: 'Any of them. Variants such as 41, 42 and 43 are separate papers set for different time zones, at the same level and each with its own mark scheme, so each one is extra practice.' },
@@ -65,10 +71,10 @@ export function hubFaq(qualification: PastPaperQualification): FaqItem[] {
     { q: 'Can I practise past-paper questions by topic instead?', a: 'Yes. The question banks sort real past-paper questions by syllabus topic, so you can drill one topic across many years.' },
   ];
   return [
-    { q: 'Are these IB past papers free?', a: 'Yes. Every paper and its markscheme opens free, with no sign-up. You can also time a paper and mark it here.' },
+    { q: 'Are these IB past papers free?', a: 'Yes. Every paper and its markscheme opens free, with no sign-up. Most papers can also be timed and self-marked here.' },
     { q: 'What do TZ1 and TZ2 mean on IB papers?', a: 'IB sets different papers for different time zones in the same session. TZ1 and TZ2 are separate papers at the same level, each with its own markscheme, so both are useful practice. TZ0 means one paper for every time zone.' },
     { q: 'When are IB exams sat?', a: 'IB Diploma exams run in two sessions: May, sat by most schools, and November, sat mainly by schools in the southern hemisphere. Papers from both are here.' },
-    { q: 'Do HL and SL take the same papers?', a: 'No. Higher Level and Standard Level have their own papers and markschemes, though some papers share questions. Pick the subject page for your level.' },
+    { q: 'Do HL and SL take the same papers?', a: 'Mostly not. Most subjects set separate Higher Level and Standard Level papers, each with its own markscheme, but some papers are sat by both levels, such as recent Economics Paper 2. Pick the subject page for your level; shared papers appear on both.' },
     { q: 'Why is it spelled markscheme?', a: 'That is the IB\'s own spelling; it means the same as a mark scheme.' },
     { q: 'Can I practise past-paper questions by topic instead?', a: 'Yes. The question banks sort real past-paper questions by syllabus topic, so you can drill one topic across many years.' },
   ];
@@ -115,13 +121,13 @@ function paperTail(p: WholePaperSummary): string {
 }
 
 export function paperCopy(bank: CatalogBank, p: WholePaperSummary): PageCopy {
-  const name = subjectSearchName(bank), label = paperName(p);
+  const name = paperSubjectName(bank, p), label = paperName(p);
   const facts = [p.durationMinutes !== null && formatDuration(p.durationMinutes), p.maxMarks !== null && plural(p.maxMarks, 'mark')].filter(Boolean).join(', ');
   if (isIb(bank)) return {
     title: fitTitle(`${name} ${p.session} ${p.year} ${label}: Paper & Markscheme`, `${name} ${shortIbSession(p.session)} ${p.year} ${label}: Paper & Markscheme`, `${name} ${shortIbSession(p.session)} ${p.year} ${label} & Markscheme`, `${name} ${shortIbSession(p.session)} ${p.year} ${label}`),
     h1: `${name} ${p.session} ${p.year} ${label}`,
-    description: `${bank.title} ${label}, ${p.session} ${p.year}, with its markscheme.${facts ? ` ${facts}.` : ''}${paperTail(p)}`,
-    answer: `${bank.title} ${label} from ${p.session} ${p.year}, with its markscheme.`,
+    description: `${paperCourseTitle(bank, p)} ${label}, ${p.session} ${p.year}, with its markscheme.${facts ? ` ${facts}.` : ''}${paperTail(p)}`,
+    answer: `${paperCourseTitle(bank, p)} ${label} from ${p.session} ${p.year}, with its markscheme.`,
   };
   const subject = name.replace(` ${bank.syllabusCode}`, '');
   const code = slashCode(p);
@@ -143,7 +149,7 @@ export function paperCopy(bank: CatalogBank, p: WholePaperSummary): PageCopy {
 }
 
 /** Every code and name this paper is searched by (see paperSearchCodes). */
-export const paperCodes = (bank: CatalogBank, p: WholePaperSummary) => paperSearchCodes(p, subjectSearchName(bank));
+export const paperCodes = (bank: CatalogBank, p: WholePaperSummary) => paperSearchCodes(p, paperSubjectName(bank, p));
 
 function routeAnswer(papers: readonly WholePaperSummary[]): string | null {
   const numbers = (route: WholePaperSummary['route']) => [...new Set(papers.filter(p => p.route === route).map(p => p.paper.toUpperCase()))].sort((a, b) => parseInt(a, 10) - parseInt(b, 10) || a.localeCompare(b));
@@ -180,7 +186,7 @@ export function paperJsonLd(bank: CatalogBank, p: WholePaperSummary, path: strin
   const time = p.durationMinutes === null ? null : `PT${Math.floor(p.durationMinutes / 60) ? `${Math.floor(p.durationMinutes / 60)}H` : ''}${p.durationMinutes % 60 ? `${p.durationMinutes % 60}M` : ''}`;
   return {
     '@context': 'https://schema.org', '@type': 'LearningResource', name: copy.title, alternateName: paperCodes(bank, p), description: copy.description, url: absolute(path),
-    learningResourceType: 'Past exam paper', educationalLevel: isIb(bank) ? 'IB Diploma Programme' : 'Cambridge IGCSE', about: subjectSearchName(bank),
+    learningResourceType: 'Past exam paper', educationalLevel: isIb(bank) ? 'IB Diploma Programme' : 'Cambridge IGCSE', about: paperSubjectName(bank, p),
     inLanguage: 'en', isAccessibleForFree: true, ...(time ? { timeRequired: time } : {}),
     isPartOf: { '@type': 'CollectionPage', url: absolute(`/past-papers/${subjectSlugForBank(bank.slug)}`) },
   };

@@ -44,7 +44,16 @@ describe('page copy', () => {
     const copy = paperCopy(getCatalogBank('ib-hl')!, ib);
     expect(copy.title).toBe('IB Math AA HL May 2024 Paper 1 TZ1: Paper & Markscheme');
     expect(copy.h1).toBe('IB Math AA HL May 2024 Paper 1 TZ1');
-    expect(paperCodes(getCatalogBank('ib-hl')!, ib)).toEqual(['IB Math AA HL May 2024 Paper 1 TZ1', 'M24 Paper 1 TZ1']);
+    expect(paperCodes(getCatalogBank('ib-hl')!, ib)).toEqual(['IB Math AA HL May 2024 Paper 1 TZ1']);
+  });
+
+  it('names pre-2021 AA-bank papers as the previous Mathematics HL/SL course', () => {
+    const legacy = { ...ib, year: 2019, session: 'November', sessionCode: 'nov' } as WholePaperSummary;
+    const copy = paperCopy(getCatalogBank('ib-hl')!, legacy);
+    expect(copy.h1).toBe('IB Math HL November 2019 Paper 1 TZ1');
+    expect(copy.description).toMatch(/^IB Mathematics Higher Level Paper 1 TZ1, November 2019/);
+    expect(paperCodes(getCatalogBank('ib-hl')!, legacy)).toEqual(['IB Math HL November 2019 Paper 1 TZ1']);
+    expect(paperCopy(getCatalogBank('ib-hl')!, ib).h1).toMatch(/^IB Math AA HL /);
   });
 
   it('names IGCSE papers with subject, code and session, and lists every searched code', () => {
@@ -72,6 +81,8 @@ describe('page copy', () => {
   it('answers board-level questions on the IGCSE and IB hubs', () => {
     expect(hubFaq('igcse').map(f => f.q)).toContain('What does a code like 0580/42/M/J/24 mean?');
     expect(hubFaq('ib').map(f => f.q)).toContain('What do TZ1 and TZ2 mean on IB papers?');
+    expect(hubFaq('ib').find(f => f.q === 'Do HL and SL take the same papers?')!.a).toMatch(/Economics Paper 2/);
+    for (const f of [...hubFaq('igcse'), ...hubFaq('ib')]) expect(f.a).not.toMatch(/You can also time a paper and mark it/);
     for (const f of [...hubFaq('igcse'), ...hubFaq('ib')]) expect(f.a.length).toBeGreaterThan(40);
   });
 

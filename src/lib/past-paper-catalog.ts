@@ -78,8 +78,9 @@ export function slashCode(p: WholePaperSummary): string | null {
 }
 /**
  * Every way students type this paper into a search box, most common first. IGCSE: the cover code
- * (0580/42/M/J/24), its spaced form, Cambridge's file names and their spaced forms. IB: the
- * session-short name ("M24 Paper 1 TZ1"); IB doesn't publish one universal paper code.
+ * (0580/42/M/J/24), its spaced form, Cambridge's file names and their spaced forms. IB: the full
+ * name; IB doesn't publish one universal paper code, and only forms the paper finder can parse
+ * back to this paper are listed (past-paper-catalog.test.ts checks every committed paper).
  */
 export function paperSearchCodes(p: WholePaperSummary, subjectName: string): string[] {
   const yy = String(p.year).slice(-2);
@@ -92,8 +93,7 @@ export function paperSearchCodes(p: WholePaperSummary, subjectName: string): str
       `${p.syllabusCode} ${p.session} ${p.year} Paper ${p.component}`,
     ].filter((code): code is string => !!code))];
   }
-  const short = `${p.session.startsWith('Nov') ? 'N' : 'M'}${yy}`;
-  return [...new Set([`${subjectName} ${p.session} ${p.year} ${paperName(p)}`, `${short} ${paperName(p)}`])];
+  return [`${subjectName} ${p.session} ${p.year} ${paperName(p)}`];
 }
 
 export type MatrixRoute = 'Core' | 'Extended' | 'Shared' | null;

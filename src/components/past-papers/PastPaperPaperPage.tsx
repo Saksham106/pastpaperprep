@@ -5,7 +5,7 @@ import { JsonLd } from '@/components/JsonLd';
 import type { PaperReaderConfig } from '@/lib/paper-reader-config';
 import { chipLabel, paperHref, paperName, paperNumberSlug, paperOption, qualificationOfBank, sessionRank, shortSession, subjectSlugForBank } from '@/lib/past-paper-catalog';
 import type { PaperView } from '@/lib/past-paper-pages';
-import { breadcrumbJsonLd, formatDuration, paperCodes, paperCopy, paperJsonLd, subjectSearchName } from '@/lib/past-paper-seo';
+import { breadcrumbJsonLd, formatDuration, paperCodes, paperCopy, paperCourseTitle, paperJsonLd, subjectSearchName } from '@/lib/past-paper-seo';
 import type { WholePaperSummary } from '@/lib/whole-paper-types';
 import { PaperWorkspace } from './PaperWorkspace';
 import shell from './PastPaperPages.module.css';
@@ -62,7 +62,7 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
       <span>{label}</span>
     </nav>
     <header className={styles.head}>
-      <p className={styles.eyebrow}>{p.qualification === 'Cambridge IGCSE' ? `Cambridge IGCSE · ${codes[0]}` : `IB Diploma · ${bank.title}`}</p>
+      <p className={styles.eyebrow}>{p.qualification === 'Cambridge IGCSE' ? `Cambridge IGCSE · ${codes[0]}` : `IB Diploma · ${paperCourseTitle(bank, p)}`}</p>
       <h1>{copy.h1}</h1>
       <ul className={styles.facts} aria-label="Paper facts">{facts.map(fact => <li key={fact}>{fact}</li>)}</ul>
     </header>

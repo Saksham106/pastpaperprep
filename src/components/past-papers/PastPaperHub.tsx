@@ -14,11 +14,11 @@ const QUALIFICATION_NAME = { igcse: 'Cambridge IGCSE', ib: 'IB' } as const;
 const GUIDE = {
   igcse: {
     title: 'How Cambridge IGCSE papers are named',
-    body: 'Cambridge sits IGCSE exams in three series: February/March, May/June and October/November. Each paper has a code like 0580/42/M/J/24: syllabus 0580, Paper 4 variant 2, May/June 2024. Cambridge\'s files use the same facts as 0580_s24_qp_42 for the question paper and 0580_s24_ms_42 for the mark scheme. Search either form above to jump straight to a paper.',
+    body: 'Cambridge sits IGCSE exams in three series: February/March, May/June and October/November. Each paper has a code like 0580/42/M/J/24: syllabus 0580, Paper 4 variant 2, May/June 2024. Cambridge\'s files use the same facts as 0580_s24_qp_42 for the question paper and 0580_s24_ms_42 for the mark scheme. Search either form above to find a paper.',
   },
   ib: {
     title: 'How IB papers are organised',
-    body: 'IB Diploma exams run in May and November. Each subject has separate Higher Level and Standard Level papers, numbered Paper 1, Paper 2 and so on, and many sessions have time-zone versions marked TZ1 and TZ2, each with its own markscheme. Search a session and paper above, like "May 2024 paper 1 TZ1", to jump straight to it.',
+    body: 'IB Diploma exams run in May and November. Each subject has separate Higher Level and Standard Level papers, numbered Paper 1, Paper 2 and so on, and many sessions have time-zone versions marked TZ1 and TZ2, each with its own markscheme. Pick your subject above, then search a session and paper on its page, like "May 2024 paper 1 TZ1".',
   },
 } as const;
 
@@ -51,7 +51,7 @@ export function PastPaperHub({ banks, qualification }: { banks: HubBank[]; quali
     })}</div>
     {qualification && <section className={styles.faq} aria-labelledby="hub-overview">
       <h2 id="hub-overview">{QUALIFICATION_NAME[qualification]} subjects</h2>
-      <p>{banks.map(b => `${b.name} (${b.paperCount.toLocaleString('en-US')} papers, ${b.years})`).join(' · ')}. Every paper opens free with its {qualification === 'ib' ? 'markscheme' : 'mark scheme'}, with a timer and self-marking.</p>
+      <p>{banks.map(b => `${b.name} (${b.paperCount.toLocaleString('en-US')} papers, ${b.years})`).join(' · ')}. Every paper opens free with its {qualification === 'ib' ? 'markscheme' : 'mark scheme'}; most also have a timer and self-marking.</p>
       <h2>{GUIDE[qualification].title}</h2>
       <p>{GUIDE[qualification].body}</p>
     </section>}
