@@ -16,8 +16,11 @@ const fromGitAt = (ref, name) => JSON.parse(execFileSync("git", ["show", `${ref}
 const fromGit = (name) => fromGitAt(BASE, name);
 const baseline = fromGit("src/data/production/igcse-biology-0610.json");
 const oldIndex = fromGit("src/data/private-index/igcse-biology-0610.json");
-const manifestText = readFileSync("data/storage/igcse-biology-0610.manifest.json", "utf8");
-const receiptText = readFileSync("data/storage/igcse-biology-0610.receipt.json", "utf8");
+// The verified storage pair this reseal was sealed against; the committed files have since moved on to the
+// 2026 May/June release (14,733 objects), so read the pair from the commit the reseal was built on.
+const textAt = (ref, name) => execFileSync("git", ["show", `${ref}:${name}`], { encoding: "utf8", maxBuffer: 50_000_000 });
+const manifestText = textAt(BASE, "data/storage/igcse-biology-0610.manifest.json");
+const receiptText = textAt(BASE, "data/storage/igcse-biology-0610.receipt.json");
 const inputs = { baseline, manifestText, receiptText };
 
 describe("0610 one-row, source-bound Pollution reseal", () => {

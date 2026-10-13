@@ -1,8 +1,19 @@
 {
   "schemaVersion": 1,
   "addition": "0455-2026",
-  "mode": "dry-run-plan-only",
-  "status": "NOT UPLOADED",
+  "mode": "executed-upload-plan",
+  "status": "UPLOADED AND VERIFIED",
+  "upload": {
+    "method": "wrangler r2 object put/get --remote (logged-in CLI, no API keys): each key checked absent, uploaded with image/webp and private, max-age=31536000, immutable, then read back and compared by SHA-256 and size",
+    "objects": 348,
+    "createdNew": 348,
+    "overwritten": 0,
+    "firstVerifiedAt": "2026-10-13T23:00:07.534Z",
+    "lastVerifiedAt": "2026-10-13T23:06:33.628Z",
+    "readbackLog": "docs/2026-paper-gaps-r2-upload-log.jsonl",
+    "readbackLogSha256": "6675677211b31fbd2ee316845afec05a875a231995663c63b4287f427605d8be",
+    "receipt": "docs/2026-paper-gaps-r2-upload-receipt.md"
+  },
   "provider": "cloudflare-r2",
   "bucket": "pastpaperprep-assets",
   "storageClass": "premium private release objects (2026 is not a 0455 free year; free year is 2021). No Supabase objects.",

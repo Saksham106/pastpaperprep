@@ -10,6 +10,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { BASELINE_4913, LANE_2026_MJ, loadBaseline, serializeRuntime } from './generate-igcse-biology-0610-extension-candidate.mjs';
 import { FROZEN_PATH, readBaselineIndex, resealPrivateIndex } from './reseal-biology-0610-secondaries.mjs';
+import { committedCandidateText } from './igcse-2026-release-finalization.mjs';
 
 const BANK = 'igcse-biology-0610';
 const sha = (b) => createHash('sha256').update(b).digest('hex');
@@ -18,7 +19,8 @@ const arg = (name) => { const i = process.argv.indexOf(name); return i > 0 ? pro
 
 const base = await loadBaseline();
 const baseText = serializeRuntime(base);
-const nextText = readFileSync(`src/data/production/${BANK}.json`, 'utf8');
+// After --finalize this is the exact reconstruction of the candidate (the finalized file is finalizeRelease(candidate)).
+const nextText = await committedCandidateText(BANK);
 const next = JSON.parse(nextText);
 const baseRef = arg('--base-ref');
 if (baseRef) {

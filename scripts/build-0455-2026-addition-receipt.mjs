@@ -1,12 +1,16 @@
 #!/usr/bin/env node
-// Writes the 0455 2026 addition receipt and the dry-run R2 upload plan. Reads only local files:
-// no storage client is created and no credentials are read.
+// Writes the 0455 2026 addition receipt and the R2 upload plan. Reads only local files: no storage client is
+// created and no credentials are read. The plan is marked executed only from the committed readback log; once
+// finalized, the receipt records the release. The candidate is the committed runtime while pending, else its
+// exact reconstruction; the historical verified manifest/receipt pair comes from main.
 // Usage: PASTPAPERPREP_IGCSE_ECONOMICS_SOURCE_ROOT=<source worktree> node scripts/build-0455-2026-addition-receipt.mjs [--check]
 import { createHash } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
 import { relative, resolve } from "node:path";
 import { BASELINE_2019_2025, LANE_2026 } from "./generate-igcse-economics-0455-runtime.mjs";
 import { buildReleaseManifest, manifestSha256, RELEASE_BANKS } from "./igcse-release.mjs";
+import { committedCandidateText, readHistoricalStorage } from "./igcse-2026-release-finalization.mjs";
+import { UPLOAD_RECEIPT_DOC, withUploadStatus } from "./r2-upload-2026-log.mjs";
 
 const BANK = "igcse-economics-0455";
 const repo = resolve(import.meta.dirname, "..");
@@ -14,10 +18,12 @@ const sourceRoot = process.env[RELEASE_BANKS[BANK].sourceRootEnv];
 if (!sourceRoot) throw new Error(`${RELEASE_BANKS[BANK].sourceRootEnv} is required`);
 const hash = (algorithm, bytes) => createHash(algorithm).update(bytes).digest("hex");
 const runtimePath = resolve(repo, "src/data/production", `${BANK}.json`);
-const runtimeText = await readFile(runtimePath, "utf8");
+const committedRuntime = JSON.parse(await readFile(runtimePath, "utf8"));
+const runtimeText = await committedCandidateText(BANK);
 const runtime = JSON.parse(runtimeText);
-const committedManifest = JSON.parse(await readFile(resolve(repo, "data/storage", `${BANK}.manifest.json`), "utf8"));
-const committedReceipt = JSON.parse(await readFile(resolve(repo, "data/storage", `${BANK}.receipt.json`), "utf8"));
+const historical = readHistoricalStorage(BANK);
+const committedManifest = JSON.parse(historical.manifestText);
+const committedReceipt = JSON.parse(historical.receiptText);
 // The Jev corrections (#62) rewrote only the committed manifest's contentSha256 after finalization;
 // restoring the pre-Jev value must reproduce the manifest seal the readback receipt verified.
 const PRE_JEV_MANIFEST_CONTENT_SHA256 = "8ac5ead6373bbdbac361c530254c799f4786d1e1c22570bb977b1c623f2e0c5e";
@@ -52,7 +58,7 @@ const questions = objects.filter((o) => o.kind === "question").length;
 if (objects.length !== LANE_2026.questionAssets + LANE_2026.markschemeAssets || questions !== LANE_2026.questionAssets) throw new Error("new object counts are not exact");
 
 const added = runtime.questions.filter((q) => q.year === 2026);
-const plan = {
+const plan = withUploadStatus({
   schemaVersion: 1,
   addition: "0455-2026",
   mode: "dry-run-plan-only",
@@ -78,12 +84,13 @@ const plan = {
     "Then node scripts/generate-igcse-release.mjs --finalize igcse-economics-0455, rerun npm test, and commit the manifest, receipt and finalized runtime together. Merge only after that: until finalized, the release gate keeps the whole 0455 bank closed (it requires verified_readback).",
   ],
   objects,
-};
+});
 
+const released = committedRuntime.runtimeArtifact.assetVerification === "verified_readback";
 const receipt = {
   schemaVersion: 1,
   addition: "0455-2026",
-  status: "authorized_production_candidate; storage upload and --finalize pending (operator-gated)",
+  status: released ? "production; 348 objects uploaded and read back, receipt verified_readback, finalized" : "authorized_production_candidate; storage upload and --finalize pending (operator-gated)",
   method: "pure insertion: the finalized 2019-2025 runtime is kept byte-identical and in order; 139 2026 rows are appended. Proof: node scripts/verify-0455-2026-addition.mjs",
   baseline: { ...BASELINE_2019_2025 },
   merged: {
@@ -93,6 +100,13 @@ const receipt = {
     combinedIdSeal: runtime.runtimeArtifact.combinedIdSeal,
     baselinePrefixContentSha256: hash("sha256", JSON.stringify(runtime.questions.slice(0, BASELINE_2019_2025.questionCount))),
   },
+  ...(released ? { release: {
+    runtimeFileSha256: hash("sha256", await readFile(runtimePath, "utf8")), runtimeSha256: committedRuntime.runtimeArtifact.runtimeSha256,
+    finalizedContentSha256: committedRuntime.runtimeArtifact.finalizedContentSha256, assetManifestSha256: committedRuntime.runtimeArtifact.assetManifestSha256,
+    storageReceiptSha256: committedRuntime.runtimeArtifact.storageReceiptSha256, manifestAssets: manifest.assets.length,
+    method: "node scripts/generate-igcse-release.mjs --finalize over this candidate; proof: node scripts/igcse-2026-release-finalization.mjs",
+    uploadReceipt: UPLOAD_RECEIPT_DOC,
+  } } : {}),
   lane2026: {
     ...runtime.runtimeArtifact.extension2026,
     papers: [...new Set(added.map((q) => q.id.replace(/-q\d+$/, "")))].map((paper) => ({ paper, questions: added.filter((q) => q.id.startsWith(`${paper}-`)).length })),

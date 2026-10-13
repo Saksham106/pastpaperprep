@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import {
-  BASELINE, CHANGED_FIELDS, FROZEN_PATH, freeze, readBaseline, readBaselineIndex, reseal, resealPrivateIndex,
+  BASELINE, CHANGED_FIELDS, FROZEN_PATH, freeze, readBaseline, readBaselineIndex, readBaselineStorage, reseal, resealPrivateIndex,
 } from "./reseal-biology-0610-secondaries.mjs";
 import { EXTENSION_ASSEMBLY, TAXONOMY_V2_PATH, defaultSourceRoot, loadExtensionAssembly } from "./generate-igcse-biology-0610-extension-candidate.mjs";
 import { assert0610PollutionRepair, assert0610SecondaryTopicsRepair } from "../src/lib/igcse-runtime.ts";
@@ -13,8 +13,8 @@ const BANK = "igcse-biology-0610";
 const baseline = readBaseline();
 const baselineIndex = readBaselineIndex();
 const frozen = JSON.parse(readFileSync(FROZEN_PATH, "utf8"));
-const manifestText = readFileSync(`data/storage/${BANK}.manifest.json`, "utf8");
-const receiptText = readFileSync(`data/storage/${BANK}.receipt.json`, "utf8");
+// The verified pair of the 4,913-row release on main; the committed files now describe the 2026 release.
+const { manifestText, receiptText } = readBaselineStorage();
 const inputs = { baseline, frozen, manifestText, receiptText };
 const current = JSON.parse(readFileSync(`src/data/production/${BANK}.json`, "utf8"));
 const currentIndex = JSON.parse(readFileSync(`src/data/private-index/${BANK}.json`, "utf8"));

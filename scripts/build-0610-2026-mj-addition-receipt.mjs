@@ -1,12 +1,17 @@
 #!/usr/bin/env node
-// Writes the 0610 May/June 2026 addition receipt and the dry-run R2 upload plan. Reads only local files:
-// no storage client is created and no credentials are read, and the committed manifest/receipt are not touched.
+// Writes the 0610 May/June 2026 addition receipt and the R2 upload plan. Reads only local files: no storage
+// client is created and no credentials are read, and the committed manifest/receipt are not touched. The plan
+// is marked executed only from the committed readback log; once finalized, the receipt records the release.
+// The candidate is the committed runtime while pending, else its exact reconstruction; the historical verified
+// manifest/receipt pair comes from main.
 // Usage: PASTPAPERPREP_IGCSE_BIOLOGY_SOURCE_ROOT=<source worktree> node scripts/build-0610-2026-mj-addition-receipt.mjs [--check]
 import { createHash } from 'node:crypto';
 import { readFile, realpath, writeFile } from 'node:fs/promises';
 import { relative, resolve } from 'node:path';
 import { BASELINE_4913, LANE_2026_MJ } from './generate-igcse-biology-0610-extension-candidate.mjs';
 import { assertExactBiologyCohortSeals, buildReleaseManifest, manifestSha256, RELEASE_BANKS } from './igcse-release.mjs';
+import { committedCandidateText, readHistoricalStorage } from './igcse-2026-release-finalization.mjs';
+import { UPLOAD_RECEIPT_DOC, withUploadStatus } from './r2-upload-2026-log.mjs';
 
 const BANK = 'igcse-biology-0610';
 const repo = resolve(import.meta.dirname, '..');
@@ -14,13 +19,13 @@ const sourceRoot = process.env[RELEASE_BANKS[BANK].sourceRootEnv];
 if (!sourceRoot) throw new Error(`${RELEASE_BANKS[BANK].sourceRootEnv} is required`);
 const hash = (algorithm, bytes) => createHash(algorithm).update(bytes).digest('hex');
 const runtimePath = resolve(repo, 'src/data/production', `${BANK}.json`);
-const runtimeText = await readFile(runtimePath, 'utf8');
+const committedRuntime = JSON.parse(await readFile(runtimePath, 'utf8'));
+const runtimeText = await committedCandidateText(BANK);
 const runtime = JSON.parse(runtimeText);
-const committedManifestText = await readFile(resolve(repo, 'data/storage', `${BANK}.manifest.json`), 'utf8');
-const committedReceiptText = await readFile(resolve(repo, 'data/storage', `${BANK}.receipt.json`), 'utf8');
+const { manifestText: committedManifestText, receiptText: committedReceiptText } = readHistoricalStorage(BANK);
 const committedManifest = JSON.parse(committedManifestText);
 const committedReceipt = JSON.parse(committedReceiptText);
-// The committed manifest/receipt stay the historical verified pair of the 4,913-row release.
+// The historical verified pair of the 4,913-row release the addition builds on.
 if (manifestSha256(committedManifest) !== BASELINE_4913.assetManifestSha256 || hash('sha256', committedReceiptText) !== BASELINE_4913.storageReceiptSha256
   || committedReceipt.assetManifestSha256 !== BASELINE_4913.assetManifestSha256 || committedReceipt.storageState !== 'verified_readback' || committedReceipt.failed.length !== 0
   || JSON.stringify([...committedReceipt.completed].sort()) !== JSON.stringify(committedManifest.assets.map((asset) => asset.objectKey).sort())
@@ -65,7 +70,7 @@ const addition = runtime.runtimeArtifact.extension2026MayJune;
 if (objects.length !== LANE_2026_MJ.assets || questionObjects !== addition.questionAssetCount || objects.length - questionObjects !== addition.markschemeAssetCount
   || manifest.assets.length !== BASELINE_4913.assetCount + LANE_2026_MJ.assets || hashesByReference.size !== LANE_2026_MJ.assets || assemblySha.size !== LANE_2026_MJ.assets) throw new Error('new object counts are not exact');
 
-const plan = {
+const plan = withUploadStatus({
   schemaVersion: 1,
   addition: '0610-2026-may-june',
   mode: 'dry-run-plan-only',
@@ -91,12 +96,13 @@ const plan = {
     `Then node scripts/generate-igcse-release.mjs --finalize ${BANK}, rerun the gates, and commit the manifest, receipt and finalized runtime together. Merge only after that: until finalized, the release gate keeps the whole 0610 bank closed (it requires verified_readback).`,
   ],
   objects,
-};
+});
 
+const released = committedRuntime.runtimeArtifact.assetVerification === 'verified_readback';
 const receipt = {
   schemaVersion: 1,
   addition: '0610-2026-may-june',
-  status: 'authorized_production_candidate; storage upload and --finalize pending (operator-gated)',
+  status: released ? 'production; 780 objects uploaded and read back, receipt verified_readback, finalized' : 'authorized_production_candidate; storage upload and --finalize pending (operator-gated)',
   method: 'pure insertion: the finalized, secondaries-resealed 4,913-row runtime is kept byte-identical and in order; 298 May/June 2026 rows are appended. Proof: node scripts/verify-0610-2026-mj-addition.mjs',
   baseline: { ...BASELINE_4913, manifestFileSha256: hash('sha256', committedManifestText) },
   merged: {
@@ -106,6 +112,13 @@ const receipt = {
     contentSha256: runtime.runtimeArtifact.contentSha256,
     baselinePrefixContentSha256: hash('sha256', JSON.stringify(runtime.questions.slice(0, BASELINE_4913.questionCount))),
   },
+  ...(released ? { release: {
+    runtimeFileSha256: hash('sha256', await readFile(runtimePath, 'utf8')), runtimeSha256: committedRuntime.runtimeArtifact.runtimeSha256,
+    finalizedContentSha256: committedRuntime.runtimeArtifact.finalizedContentSha256, assetManifestSha256: committedRuntime.runtimeArtifact.assetManifestSha256,
+    storageReceiptSha256: committedRuntime.runtimeArtifact.storageReceiptSha256, manifestAssets: manifest.assets.length,
+    method: 'node scripts/generate-igcse-release.mjs --finalize over this candidate; proof: node scripts/igcse-2026-release-finalization.mjs',
+    uploadReceipt: UPLOAD_RECEIPT_DOC,
+  } } : {}),
   lane2026MayJune: {
     ...addition,
     papers: [...new Set(added.map((q) => q.id.replace(/-q\d+$/, '')))].map((paper) => {

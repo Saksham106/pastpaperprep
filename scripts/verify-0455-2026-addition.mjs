@@ -7,6 +7,7 @@ import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { BASELINE_2019_2025, LANE_2026 } from "./generate-igcse-economics-0455-runtime.mjs";
+import { committedCandidateText } from "./igcse-2026-release-finalization.mjs";
 
 const sha = (b) => createHash("sha256").update(b).digest("hex");
 const blob = (spec) => execFileSync("git", ["cat-file", "blob", spec], { maxBuffer: 64 * 1024 * 1024 });
@@ -15,7 +16,8 @@ const fail = (message) => { throw new Error(message); };
 const baseBytes = blob(BASELINE_2019_2025.gitBlob);
 if (sha(baseBytes) !== BASELINE_2019_2025.fileSha256) fail("baseline blob SHA256 mismatch");
 const baseText = baseBytes.toString("utf8");
-const nextText = readFileSync("src/data/production/igcse-economics-0455.json", "utf8");
+// After --finalize this is the exact reconstruction of the candidate (the finalized file is finalizeRelease(candidate)).
+const nextText = await committedCandidateText("igcse-economics-0455");
 const base = JSON.parse(baseText);
 const next = JSON.parse(nextText);
 

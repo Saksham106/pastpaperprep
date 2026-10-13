@@ -308,12 +308,10 @@ const refsOf = (q) => [...q.questionImages, ...q.markschemeImages];
 
 /** Rebuild the addition's baseline from main's finalized file plus the committed reseal, and prove its seals. */
 export async function loadBaseline() {
-  const { reseal, readBaseline, FROZEN_PATH } = await import('./reseal-biology-0610-secondaries.mjs');
-  const [frozenText, manifestText, receiptText] = await Promise.all([
-    readFile(resolve(repo, FROZEN_PATH), 'utf8'),
-    readFile(resolve(repo, `data/storage/${BANK}.manifest.json`), 'utf8'),
-    readFile(resolve(repo, `data/storage/${BANK}.receipt.json`), 'utf8'),
-  ]);
+  const { reseal, readBaseline, readBaselineStorage, FROZEN_PATH } = await import('./reseal-biology-0610-secondaries.mjs');
+  const frozenText = await readFile(resolve(repo, FROZEN_PATH), 'utf8');
+  // The verified pre-2026 manifest/receipt pair on main; the committed files describe the release since.
+  const { manifestText, receiptText } = readBaselineStorage();
   const baseline = reseal({ baseline: readBaseline(), frozen: JSON.parse(frozenText), manifestText, receiptText });
   const ra = baseline.runtimeArtifact;
   if (ra.runtimeSha256 !== BASELINE_4913.runtimeSha256 || runtimeSha256(baseline) !== ra.runtimeSha256) throw new Error('baseline runtime seal mismatch');
@@ -490,7 +488,10 @@ async function main() {
   const { runtime, seals } = await buildRuntime2026MayJune();
   const outputs = [[`src/data/production/${BANK}.json`, serializeRuntime(runtime)], [`src/data/private-index/${BANK}.json`, await serializePrivateIndex(runtime)]];
   if (process.argv.includes('--check')) {
-    for (const [file, text] of outputs) if (await readFile(resolve(repo, file), 'utf8') !== text) throw new Error(`${file} is not the regenerated May/June 2026 candidate`);
+    // Once finalized, the committed runtime is checked as finalizeRelease(candidate): compare the exact reconstruction.
+    const { committedCandidateText } = await import('./igcse-2026-release-finalization.mjs');
+    const committed = [await committedCandidateText(BANK), await readFile(resolve(repo, outputs[1][0]), 'utf8')];
+    outputs.forEach(([file, text], i) => { if (committed[i] !== text) throw new Error(`${file} is not the regenerated May/June 2026 candidate`); });
   } else {
     for (const [file, text] of outputs) await writeFile(resolve(repo, file), text);
   }

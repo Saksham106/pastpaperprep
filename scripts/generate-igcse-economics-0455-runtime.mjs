@@ -323,7 +323,10 @@ if (process.argv[1] && path.basename(process.argv[1]) === path.basename(import.m
     const { artifact, seals } = await buildRuntime2026({ baselinePath: baselineArg > 0 ? process.argv[baselineArg + 1] : undefined });
     const outputs = [["src/data/production/igcse-economics-0455.json", serializeRuntime(artifact)], ["src/data/private-index/igcse-economics-0455.json", serializePrivateIndex(artifact)]];
     if (process.argv.includes("--check")) {
-      for (const [file, text] of outputs) if (await readFile(file, "utf8") !== text) throw new Error(`${file} is not the regenerated 2026 candidate`);
+      // Once finalized, the committed runtime is checked as finalizeRelease(candidate): compare the exact reconstruction.
+      const { committedCandidateText } = await import("./igcse-2026-release-finalization.mjs");
+      const committed = [await committedCandidateText(BANK), await readFile(outputs[1][0], "utf8")];
+      outputs.forEach(([file, text], i) => { if (committed[i] !== text) throw new Error(`${file} is not the regenerated 2026 candidate`); });
     } else {
       for (const [file, text] of outputs) await writeFile(file, text);
     }

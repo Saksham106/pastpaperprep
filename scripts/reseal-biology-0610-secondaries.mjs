@@ -159,6 +159,8 @@ export function resealPrivateIndex(index, frozen) {
 const git = (file) => execFileSync('git', ['show', `${BASELINE.gitCommit}:${file}`], { cwd: root, encoding: 'utf8', maxBuffer: 200_000_000 });
 export const readBaseline = () => JSON.parse(git(`src/data/production/${BANK}.json`));
 export const readBaselineIndex = () => JSON.parse(git(`src/data/private-index/${BANK}.json`));
+/** The verified manifest/receipt pair of the 4,913-row release, as committed on main at the baseline. */
+export const readBaselineStorage = () => ({ manifestText: git(`data/storage/${BANK}.manifest.json`), receiptText: git(`data/storage/${BANK}.receipt.json`) });
 export const serializeRuntime = (runtime) => `${JSON.stringify(runtime, null, 2)}\n`;
 export const serializeIndex = (index) => `${JSON.stringify(index)}\n`;
 export const serializeFrozen = (frozen) => `${JSON.stringify(frozen, null, 1)}\n`;
@@ -182,10 +184,7 @@ async function main() {
   }
   const frozenText = await readFile(frozenFile, 'utf8');
   const frozen = JSON.parse(frozenText);
-  const [manifestText, receiptText] = await Promise.all([
-    readFile(path.join(root, `data/storage/${BANK}.manifest.json`), 'utf8'),
-    readFile(path.join(root, `data/storage/${BANK}.receipt.json`), 'utf8'),
-  ]);
+  const { manifestText, receiptText } = readBaselineStorage();
   const runtime = reseal({ baseline, frozen, manifestText, receiptText });
   const index = resealPrivateIndex(readBaselineIndex(), frozen);
   const outputs = [[`src/data/production/${BANK}.json`, serializeRuntime(runtime)], [`src/data/private-index/${BANK}.json`, serializeIndex(index)]];

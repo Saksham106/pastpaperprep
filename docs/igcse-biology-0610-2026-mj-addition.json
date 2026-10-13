@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "addition": "0610-2026-may-june",
-  "status": "authorized_production_candidate; storage upload and --finalize pending (operator-gated)",
+  "status": "production; 780 objects uploaded and read back, receipt verified_readback, finalized",
   "method": "pure insertion: the finalized, secondaries-resealed 4,913-row runtime is kept byte-identical and in order; 298 May/June 2026 rows are appended. Proof: node scripts/verify-0610-2026-mj-addition.mjs",
   "baseline": {
     "mainGitCommit": "0a0b2246e269c03f81669548947d011c4f68b741",
@@ -29,6 +29,16 @@
     "sourceCandidateSha256": "efaea7d9f6c60f75c442d9b295810efc85f7ba1e2797825b987187fc0caa9a8f",
     "contentSha256": "63b650fbfa500c4864bfaf4f260c5ab2671dff5b76ea42128f183c58aeccc2b1",
     "baselinePrefixContentSha256": "b72e02463e6648f232996bbaa4846aa5560124476797a94239ae45e592bf7910"
+  },
+  "release": {
+    "runtimeFileSha256": "9f56e77bb7fe7734061ebc5c5b264c5231548da2ac91683ead7bb3c752440e38",
+    "runtimeSha256": "d27b4dbbbf38d4d24db2f574a3ebae9dff178e6dda215048c51915de2314a3d1",
+    "finalizedContentSha256": "09cf937ac5c2af87a8fefb7b470178ada63f000bfca4c245ecef69692cc099ed",
+    "assetManifestSha256": "5dfe4e11aaca04d7b434726c7b522524f49a4fbfab37d844e2aeec85d6b9891b",
+    "storageReceiptSha256": "001e9d9d56d937c9bad60aa3fadf33425d0f03f93a6ae1d67a18d4a5b3fdf15c",
+    "manifestAssets": 14733,
+    "method": "node scripts/generate-igcse-release.mjs --finalize over this candidate; proof: node scripts/igcse-2026-release-finalization.mjs",
+    "uploadReceipt": "docs/2026-paper-gaps-r2-upload-receipt.md"
   },
   "lane2026MayJune": {
     "method": "pure insertion: the finalized, secondaries-resealed 4,913-row runtime is kept verbatim and in order; the 298 May/June 2026 rows are appended",

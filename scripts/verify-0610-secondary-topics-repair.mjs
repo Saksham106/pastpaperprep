@@ -65,8 +65,15 @@ if (!addition) {
   headerBefore.runtimeArtifact = null; headerAfter.runtimeArtifact = null;
   if (JSON.stringify(headerBefore) !== JSON.stringify(headerAfter)) fail('runtime header changed outside runtimeArtifact');
 }
-for (const file of [`data/storage/${BANK}.manifest.json`, `data/storage/${BANK}.receipt.json`]) {
-  if (sha(git(file)) !== sha(readFileSync(path.join(root, file), 'utf8'))) fail(`${file} changed`);
+if (!addition) {
+  for (const file of [`data/storage/${BANK}.manifest.json`, `data/storage/${BANK}.receipt.json`]) {
+    if (sha(git(file)) !== sha(readFileSync(path.join(root, file), 'utf8'))) fail(`${file} changed`);
+  }
+} else {
+  // The 2026 May/June release moved the committed storage files on; the reseal itself left the verified pair
+  // untouched, which the addition recorded as its baseline storage seals.
+  if (addition.baselineStorageReceiptSha256 !== sha(git(`data/storage/${BANK}.receipt.json`)) || addition.baselineStorageReceiptSha256 !== before.runtimeArtifact.storageReceiptSha256
+    || addition.baselineAssetManifestSha256 !== before.runtimeArtifact.assetManifestSha256) fail('the addition does not record the untouched verified storage pair');
 }
 
 const indexBefore = JSON.parse(git(`src/data/private-index/${BANK}.json`));
@@ -88,6 +95,6 @@ console.log(JSON.stringify({
   status: 'PASS', baseline: BASE, rows: 4913, changedRows: changedIds.length, byteIdenticalRows: 4913 - changedIds.length,
   changedFieldCounts, years: Object.fromEntries([2019, 2020, 2026].map((year) => [year, changedIds.filter((id) => id.startsWith(`0610-${year}-`)).length])),
   secondaryLabels: questions.filter((q) => targets.has(q.id)).reduce((total, q) => total + q.secondaryTopicIds.length, 0),
-  assetReferences: refs(questions).length, manifestAndReceipt: 'byte-identical', indexChangedRows: indexChanged,
+  assetReferences: refs(questions).length, manifestAndReceipt: addition ? 'untouched by the reseal (recorded as the addition baseline)' : 'byte-identical', indexChangedRows: indexChanged,
   runtimeSha256: { before: before.runtimeArtifact.runtimeSha256, after: addition ? '(addition present; prefix checked)' : after.runtimeArtifact.runtimeSha256 },
 }, null, 1));

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "addition": "0455-2026",
-  "status": "authorized_production_candidate; storage upload and --finalize pending (operator-gated)",
+  "status": "production; 348 objects uploaded and read back, receipt verified_readback, finalized",
   "method": "pure insertion: the finalized 2019-2025 runtime is kept byte-identical and in order; 139 2026 rows are appended. Proof: node scripts/verify-0455-2026-addition.mjs",
   "baseline": {
     "gitBlob": "4c9bb0b7f1bcb09722315c479fcc34bffcde9092",
@@ -25,6 +25,16 @@
     "contentSha256": "f658f2376104f2f981edfaee1ef3ebd84f93d4158bbe72a06f9c5cb2eac510a7",
     "combinedIdSeal": "8192d0f1758760131eae1ecb2f82d4c239a4734a2313f90d00d73cb36d64d2ea",
     "baselinePrefixContentSha256": "1ebc313836458e69546b20cc87bdc05459154d36bfab3445d02a9b9eebbc2efd"
+  },
+  "release": {
+    "runtimeFileSha256": "1ee2ac893150f61f38ed331a0561249b0a7f215f1fe0994411318874975ce710",
+    "runtimeSha256": "8f173933148a4cdbf5e53fee34263507043a9bb9f5ad06dbdefbed2537e39373",
+    "finalizedContentSha256": "7f9ec89bf5bc6a18ea2a223fd1cf99c84bee8775707787e633119bd2c508ebe2",
+    "assetManifestSha256": "b88a640c8335852d9fc57e003b795438e49e333ffc42d0140a983eb96684227d",
+    "storageReceiptSha256": "1ecdfccc7200a3503514503f04ee78d5d072bc177cf0209e3d4b83abc510db3f",
+    "manifestAssets": 4548,
+    "method": "node scripts/generate-igcse-release.mjs --finalize over this candidate; proof: node scripts/igcse-2026-release-finalization.mjs",
+    "uploadReceipt": "docs/2026-paper-gaps-r2-upload-receipt.md"
   },
   "lane2026": {
     "method": "pure insertion: the finalized 2019-2025 runtime (baseline) is kept verbatim and in order; 2026 rows are appended",

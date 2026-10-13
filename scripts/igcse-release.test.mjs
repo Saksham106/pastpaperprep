@@ -17,6 +17,7 @@ import {
   verifyRelease,
 } from "./igcse-release.mjs";
 import { finalizeQuestionStates, finalizeRelease } from "./generate-igcse-release.mjs";
+import { reconstructCandidate } from "./igcse-2026-release-finalization.mjs";
 
 const temporary = [];
 afterEach(async () => Promise.all(temporary.splice(0).map((path) => rm(path, { recursive: true, force: true }))));
@@ -35,9 +36,12 @@ function sealedRuntime(bank, question) {
   return runtime;
 }
 
-/** The committed 0455 runtime is the 2019-2026 candidate: 2019-2025 finalized, the 2026 lane pending. */
+/**
+ * The 2019-2026 0455 candidate (2019-2025 finalized, the 2026 lane pending). Once the committed runtime is
+ * finalized, it is the exact reconstruction proven against the pinned candidate file and runtime seals.
+ */
 function economicsCandidateFixture(runtime) {
-  const copy = structuredClone(runtime);
+  const copy = runtime.runtimeArtifact.assetVerification === "verified_readback" ? reconstructCandidate("igcse-economics-0455", runtime) : structuredClone(runtime);
   if (copy.releaseStatus !== "authorized_production_candidate" || copy.runtimeArtifact.assetVerification !== "pending_storage_release") {
     throw new Error("expected the committed Economics runtime to be the pending 2026 candidate");
   }
@@ -248,13 +252,17 @@ describe("IGCSE storage release tooling", () => {
   });
 
   it("accepts only the exact preserved Biology cohorts and the May/June 2026 candidates", async () => {
-    const load = async () => JSON.parse(await readFile(join(import.meta.dirname, "../src/data/production/igcse-biology-0610.json"), "utf8"));
+    // The pre-finalize candidate: the committed finalized runtime reversed exactly (proven against its pinned file and seals).
+    const committed = JSON.parse(await readFile(join(import.meta.dirname, "../src/data/production/igcse-biology-0610.json"), "utf8"));
+    expect(committed.questions.every((question) => question.publicationStatus === "production" && question.classificationReviewStatus === "classified")).toBe(true);
+    const load = async () => reconstructCandidate("igcse-biology-0610", committed);
     const mayJune = (question) => question.year === 2026 && question.session === "June";
     const runtime = await load();
     expect(runtime.questions.filter((question) => question.publicationStatus === "authorized_production_candidate")).toHaveLength(298);
     expect(runtime.questions.filter((question) => question.publicationStatus === "authorized_production_candidate").every(mayJune)).toBe(true);
     finalizeQuestionStates(runtime, "igcse-biology-0610");
     expect(runtime.questions.every((question) => question.publicationStatus === "production" && question.classificationReviewStatus === "classified")).toBe(true);
+    expect(runtime.questions).toEqual(committed.questions);
 
     const tampered = await load();
     const baseIndex = tampered.questions.findIndex((question) => question.year >= 2021 && question.year <= 2025);

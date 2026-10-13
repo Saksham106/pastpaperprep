@@ -476,7 +476,27 @@ const EXTENSION_0610_2026_MJ = {
   sourceAssemblySha256: "4ef5a5fe6669e8d4cd27fd20dcb8b5ab54c350740205e0d9bbfe6b7313187944",
   sourceReconciliationReceiptSha256: "98b3cda42383dc4833be36fd56d35bde4636dfd66d25955dfc1aed1d56d6159d",
   paperExceptionQuestionId: "0610-2026-s-43-q5",
+  /** Finalized after the 780 objects were uploaded and read back (docs/2026-paper-gaps-r2-upload-receipt.md). */
+  finalizedContentSha256: "09cf937ac5c2af87a8fefb7b470178ada63f000bfca4c245ecef69692cc099ed",
+  assetManifestSha256: "5dfe4e11aaca04d7b434726c7b522524f49a4fbfab37d844e2aeec85d6b9891b",
+  storageReceiptSha256: "001e9d9d56d937c9bad60aa3fadf33425d0f03f93a6ae1d67a18d4a5b3fdf15c",
 } as const;
+
+/**
+ * A finalized combined release must carry exactly the pinned post-upload seals; the pending candidate
+ * (tests, tooling) must carry none. Either way every row's state matches the release state.
+ */
+function additionReleaseStateHolds(artifact: IGCSEArtifact, pins: { finalizedContentSha256: string; assetManifestSha256: string; storageReceiptSha256: string }, isAddition: (q: Record<string, unknown>) => boolean, candidateReviewStatus: string): boolean {
+  const seal = artifact.runtimeArtifact;
+  const finalized = (q: Record<string, unknown>) => q.publicationStatus === "production" && q.classificationReviewStatus === "classified";
+  if (seal?.assetVerification === "verified_readback") {
+    return seal.finalizedContentSha256 === pins.finalizedContentSha256 && canonicalSha256(artifact.questions) === pins.finalizedContentSha256 &&
+      seal.assetManifestSha256 === pins.assetManifestSha256 && seal.storageReceiptSha256 === pins.storageReceiptSha256 &&
+      artifact.questions.every(finalized);
+  }
+  return seal?.finalizedContentSha256 === null && seal?.assetManifestSha256 === null && seal?.storageReceiptSha256 === null &&
+    artifact.questions.every((q) => isAddition(q) ? q.publicationStatus === "authorized_production_candidate" && q.classificationReviewStatus === candidateReviewStatus : finalized(q));
+}
 
 /** The finalized 4,913 rows stay a byte-identical prefix; exactly the pinned 298 May/June 2026 rows follow. */
 export function assert0610Extension2026MayJune(artifact: IGCSEArtifact): void {
@@ -503,7 +523,8 @@ export function assert0610Extension2026MayJune(artifact: IGCSEArtifact): void {
     idsSha(added) !== EXTENSION_0610_2026_MJ.idsSha256 ||
     idsSha(artifact.questions.filter((q) => !(typeof q.year === "number" && q.year >= 2021 && q.year <= 2025))) !== EXTENSION_0610_2026_MJ.extensionThroughMayJuneIdsSha256 ||
     added.some((q) => q.year !== 2026 || q.session !== "June" || q.courseEra !== "2026_2028") ||
-    exception?.marks !== 15 || exception?.maxMarks !== 15
+    exception?.marks !== 15 || exception?.maxMarks !== 15 ||
+    !additionReleaseStateHolds(artifact, EXTENSION_0610_2026_MJ, (q) => q.year === 2026 && q.session === "June", "candidate_not_approved")
   ) throw new Error("IGCSE 0610 May/June 2026 addition provenance or baseline content mismatch");
 }
 
@@ -541,6 +562,10 @@ const EXTENSION_0455_2026 = {
   idSeal: "cae509582a634bbc1376899aab8d4d4deb93992ae4a1cf24df3d79040ab5388a",
   sourceReconciliationReceiptSha256: "1a2f1de492284a43301ac5407117cdcc636a692909e27691ce731f50e497a587",
   excludedQuestionId: "0455-2026-s-11-q26",
+  /** Finalized after the 348 objects were uploaded and read back (docs/2026-paper-gaps-r2-upload-receipt.md). */
+  finalizedContentSha256: "7f9ec89bf5bc6a18ea2a223fd1cf99c84bee8775707787e633119bd2c508ebe2",
+  assetManifestSha256: "b88a640c8335852d9fc57e003b795438e49e333ffc42d0140a983eb96684227d",
+  storageReceiptSha256: "1ecdfccc7200a3503514503f04ee78d5d072bc177cf0209e3d4b83abc510db3f",
 } as const;
 
 /** The finalized 2019-2025 rows stay a byte-identical prefix; exactly the pinned 2026 rows follow; the official removal is never served. */
@@ -564,7 +589,8 @@ export function assert0455Extension2026(artifact: IGCSEArtifact): void {
     canonicalSha256(baseline.map((q) => q.id).sort()) !== EXTENSION_0455_2026.baselineCombinedIdSeal ||
     canonicalSha256(added.map((q) => q.id).sort()) !== EXTENSION_0455_2026.idSeal ||
     added.some((q) => q.year !== 2026 || q.courseEra !== "2023_2025") ||
-    artifact.questions.some((q) => q.id === EXTENSION_0455_2026.excludedQuestionId)
+    artifact.questions.some((q) => q.id === EXTENSION_0455_2026.excludedQuestionId) ||
+    !additionReleaseStateHolds(artifact, EXTENSION_0455_2026, (q) => q.year === 2026, "source_paired_review_completed_pending_release")
   ) throw new Error("IGCSE 0455 2026 addition provenance or baseline content mismatch");
 }
 
