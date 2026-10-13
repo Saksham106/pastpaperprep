@@ -3,10 +3,13 @@
 // Usage:
 //   node scripts/explanations/prepare-batch.mjs --bank ib-hl --sample 12 [--seed calib1]
 //   node scripts/explanations/prepare-batch.mjs --bank ib-hl --ids id1,id2
-//   node scripts/explanations/prepare-batch.mjs --bank ib-hl --all [--pending]
+//   node scripts/explanations/prepare-batch.mjs --bank ib-hl --all [--pending] [--years 2026,2025]
+// Images come from the bank's source workspace; any that are missing locally are fetched from R2
+// (read-only, owner's Wrangler login; set WRANGLER to a local binary) into research/explanations/_r2src.
 // Writes <research>/explanations/<bank>/_manifests/<name>.json and prints its path.
 import { createHash } from "node:crypto";
-import { execFileSync } from "node:child_process";
+import { execFile, execFileSync } from "node:child_process";
+import { promisify } from "node:util";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -42,7 +45,22 @@ export const BANKS = {
     extension: { publicRoot: "https://saksham106.github.io/ib-physics-topic-practice/", repositoryRoot: join(projectsRoot, "ib-physics-topic-practice"), manifest: "docs/ib-science-storage/ib-physics-hl.pending-upload-manifest.json" },
   },
   "igcse": { data: "src/data/raw/igcse.json", imageRoot: site("igcse-0580-topic-practice"), calculator: calculator("igcse") },
+  "igcse-additional": { data: "src/data/raw/igcse-additional.json", imageRoot: join(projectsRoot, "igcse-additional-mathematics-0606-topic-practice/.worktrees/pr1/site"), calculator: calculator("igcse-additional") },
+  "ib-chemistry-hl": { data: "src/data/raw/ib-chemistry-hl.json", imageRoot: site("ib-chemistry-topic-practice"), calculator: calculator("ib-chemistry-hl") },
+  "ib-chemistry-sl": { data: "src/data/raw/ib-chemistry-sl.json", imageRoot: site("ib-chemistry-topic-practice"), calculator: calculator("ib-chemistry-sl") },
+  "ib-physics-sl": { data: "src/data/raw/ib-physics-sl.json", imageRoot: site("ib-physics-topic-practice"), calculator: calculator("ib-physics-sl") },
+  "ib-biology-hl": { data: "src/data/raw/ib-biology-hl.json", imageRoot: site("ib-biology-topic-practice"), calculator: calculator("ib-biology-hl") },
+  "ib-biology-sl": { data: "src/data/raw/ib-biology-sl.json", imageRoot: site("ib-biology-topic-practice"), calculator: calculator("ib-biology-sl") },
+  "ib-economics-hl": { data: "src/data/production/ib-economics-hl.json", imageRoot: join(projectsRoot, "ib-economics-topic-practice/site/assets/ib-economics"), calculator: calculator("ib-economics-hl"), r2Prefix: "ib-economics-hl/" },
+  "ib-economics-sl": { data: "src/data/production/ib-economics-sl.json", imageRoot: join(projectsRoot, "ib-economics-topic-practice/site/assets/ib-economics"), calculator: calculator("ib-economics-sl"), r2Prefix: "ib-economics-sl/" },
+  // IGCSE release banks: images live only under their R2 release prefix (src/lib/private-runtime-mapping.ts).
+  "igcse-physics-0625": { data: "src/data/production/igcse-physics-0625.json", calculator: calculator("igcse-physics-0625"), r2Prefix: "igcse-physics-0625/releases/repaired-v2-d95657a79bfc/" },
+  "igcse-chemistry-0620": { data: "src/data/production/igcse-chemistry-0620.json", calculator: calculator("igcse-chemistry-0620"), r2Prefix: "igcse-chemistry-0620/releases/candidate-v2-6eeb3fccddb4/" },
+  "igcse-biology-0610": { data: "src/data/production/igcse-biology-0610.json", calculator: calculator("igcse-biology-0610"), r2Prefix: "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/" },
+  "igcse-coordinated-sciences-0654": { data: "src/data/production/igcse-coordinated-sciences-0654.json", calculator: calculator("igcse-coordinated-sciences-0654"), r2Prefix: "igcse-coordinated-sciences-0654/releases/full4721-v1-6b161eb9e580/" },
+  "igcse-economics-0455": { data: "src/data/production/igcse-economics-0455.json", calculator: calculator("igcse-economics-0455"), r2Prefix: "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/" },
 };
+const r2Cache = (bank) => join(researchRoot, "_r2src", bank);
 
 function args(argv) {
   const out = {};
@@ -60,7 +78,10 @@ export const outputPathFor = (bank, id) => join(researchRoot, bank, `${id}.json`
 
 const extensionSources = new Map();
 function sourceFile(bank, config, rel) {
-  if (!/^https?:/.test(rel)) return join(config.imageRoot, rel);
+  if (!/^https?:/.test(rel)) {
+    const local = config.imageRoot && join(config.imageRoot, rel);
+    return local && existsSync(local) ? local : join(r2Cache(bank), rel);
+  }
   const ext = config.extension;
   if (!ext || !rel.startsWith(ext.publicRoot)) throw new Error(`Unmapped image URL ${rel}`);
   if (!extensionSources.has(bank)) {
@@ -83,6 +104,28 @@ function toPng(bank, config, rel) {
     execFileSync("sips", ["-s", "format", "png", src, "--out", dest], { stdio: "ignore" });
   }
   return dest;
+}
+
+// Download any images missing locally from R2 (read-only), a few at a time.
+async function fetchMissing(bank, config, rels) {
+  const missing = [...new Set(rels)].filter((rel) => !/^https?:/.test(rel) && !existsSync(sourceFile(bank, config, rel)));
+  if (!missing.length) return;
+  const run = promisify(execFile);
+  const [bin, ...prefix] = process.env.WRANGLER ? [process.env.WRANGLER] : ["npx", "-y", "wrangler@4"];
+  const bucket = process.env.R2_BUCKET_NAME ?? "pastpaperprep-assets";
+  const keyPrefix = config.r2Prefix ?? `${bank}/`;
+  console.error(`${bank}: fetching ${missing.length} images from R2`);
+  const queue = [...missing];
+  const failed = [];
+  await Promise.all(Array.from({ length: 12 }, async () => {
+    for (let rel = queue.shift(); rel; rel = queue.shift()) {
+      const target = join(r2Cache(bank), rel);
+      mkdirSync(dirname(target), { recursive: true });
+      try { await run(bin, [...prefix, "r2", "object", "get", `${bucket}/${keyPrefix}${rel}`, "--file", target, "--remote"], { maxBuffer: 1 << 24 }); }
+      catch { failed.push(rel); }
+    }
+  }));
+  if (failed.length) throw new Error(`${bank}: ${failed.length} images not in R2, e.g. ${failed.slice(0, 3).join(", ")}`);
 }
 
 function marksBand(m) {
@@ -112,7 +155,7 @@ function sample(questions, n, seed) {
   return picked;
 }
 
-function main() {
+async function main() {
   const a = args(process.argv.slice(2));
   const bank = a.bank;
   const config = BANKS[bank];
@@ -120,6 +163,10 @@ function main() {
   const raw = JSON.parse(readFileSync(join(repoRoot, config.data), "utf8"));
   let questions = raw.questions ?? raw;
   if (a.pending) questions = questions.filter((q) => !existsSync(outputPathFor(bank, q.id)));
+  if (a.years) {
+    const years = new Set(String(a.years).split(",").map(Number));
+    questions = questions.filter((q) => years.has(q.year));
+  }
 
   let chosen;
   let name;
@@ -140,7 +187,9 @@ function main() {
   const msImagesOf = (q) => q.officialMarkscheme?.images ?? q.markschemeImages ?? [];
   const skipped = chosen.filter((q) => !msImagesOf(q).length).map((q) => q.id);
   if (skipped.length && !a.all) throw new Error(`No mark scheme images for ${skipped.join(", ")}`);
-  const tasks = chosen.filter((q) => msImagesOf(q).length).map((q) => {
+  const usable = chosen.filter((q) => msImagesOf(q).length);
+  await fetchMissing(bank, config, usable.flatMap((q) => [...(q.questionImages ?? []), ...msImagesOf(q)]));
+  const tasks = usable.map((q) => {
     const msImages = msImagesOf(q);
     return {
       bank,
@@ -154,7 +203,7 @@ function main() {
       questionImages: (q.questionImages ?? []).map((p) => toPng(bank, config, p)),
       markschemeImages: msImages.map((p) => toPng(bank, config, p)),
       questionText: q.accessibleText ?? q.summary ?? "",
-      markschemeText: q.markschemeTranscript ?? "",
+      markschemeText: q.markschemeTranscript ?? q.markschemeText ?? "",
       outputPath: outputPathFor(bank, q.id),
     };
   });
@@ -167,4 +216,4 @@ function main() {
   console.log(`${tasks.length} tasks: ${tasks.map((t) => `${t.questionId} [${t.marks}]`).join(", ")}`);
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) main();
+if (import.meta.url === `file://${process.argv[1]}`) await main();
