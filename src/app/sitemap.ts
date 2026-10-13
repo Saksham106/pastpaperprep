@@ -3,6 +3,7 @@ import { ARTICLES } from "@/lib/articles";
 import { getCatalogBanksForDisplay } from "@/lib/catalog";
 import { getLandingManifests, paperPath, topicPath } from "@/lib/search-landing";
 import { pastPaperSitemapPaths } from "@/lib/past-paper-pages";
+import { PAST_PAPER_PAGES_UPDATED } from "@/lib/past-paper-seo";
 
 const SITE_URL = "https://pastpaperprep.com";
 
@@ -28,6 +29,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ...manifest.topics.map((topic) => ({ url: `${SITE_URL}${topicPath(manifest.bankSlug, topic)}` })),
       ...manifest.papers.map((paper) => ({ url: `${SITE_URL}${paperPath(manifest.bankSlug, paper)}` })),
     ]),
-    ...pastPapers.map((path) => ({ url: `${SITE_URL}${path}` })),
+    ...pastPapers.map((path) => ({ url: `${SITE_URL}${path}`, lastModified: PAST_PAPER_PAGES_UPDATED })),
   ];
 }

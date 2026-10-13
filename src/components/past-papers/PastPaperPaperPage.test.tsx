@@ -17,12 +17,15 @@ const siblings = [...IGCSE_PAPERS, { ...summary, id: '0580-2024-june-41', compon
 const ldTypes = (container: HTMLElement) => [...container.querySelectorAll('script[type="application/ld+json"]')].map(s => JSON.parse(s.textContent ?? '{}')['@type']);
 
 describe('PastPaperPaperPage', () => {
-  it('names the paper, its facts and Cambridge file names', () => {
+  it('names the paper with subject and code, its facts and every searched code', () => {
     const { container } = render(<PastPaperPaperPage view={{ kind: 'paper', bank, detail, all: siblings, practice: true }} />);
-    expect(screen.getByRole('heading', { level: 1, name: 'May/June 2024 Paper 42' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'IGCSE Maths 0580/42 May/June 2024' })).toBeInTheDocument();
     const facts = screen.getByRole('list', { name: 'Paper facts' });
     for (const fact of ['Extended', '2 hours', '6 marks', 'Variant 2']) expect(within(facts).getByText(fact)).toBeInTheDocument();
-    expect(screen.getByText('0580_s24_qp_42 · 0580_s24_ms_42')).toBeInTheDocument();
+    expect(screen.getByText('0580/42/M/J/24 · 0580/42 M/J 24 · 0580_s24_qp_42 · 0580_s24_ms_42 · 0580 s24 qp 42 · 0580 May/June 2024 Paper 42')).toBeInTheDocument();
+    expect(screen.getByText('Cambridge IGCSE · 0580/42/M/J/24')).toBeInTheDocument();
+    const resource = [...container.querySelectorAll('script[type="application/ld+json"]')].map(s => JSON.parse(s.textContent ?? '{}')).find(d => d['@type'] === 'LearningResource');
+    expect(resource.alternateName).toContain('0580/42/M/J/24');
     expect(ldTypes(container)).toEqual(['BreadcrumbList', 'LearningResource']);
     expect(screen.getByRole('navigation', { name: 'Breadcrumb' })).toHaveTextContent('Past papers/Cambridge IGCSE/IGCSE Maths 0580/2024/Paper 42');
   });

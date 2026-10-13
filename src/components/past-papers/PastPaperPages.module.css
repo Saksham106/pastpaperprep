@@ -60,6 +60,8 @@
 .faq summary svg { flex: 0 0 auto; color: var(--muted); transition: transform 180ms ease; }
 .faq details[open] summary svg { transform: rotate(180deg); }
 .faq details p { margin: 0 0 18px; max-width: 70ch; color: var(--ink-soft); line-height: 1.6; }
+.faq > p { margin: 6px 0 0; max-width: 70ch; color: var(--ink-soft); line-height: 1.6; }
+.faq > p + h2 { margin-top: 32px; }
 
 :global(:root[data-theme="dark"]) .subjectHead h2 { color: var(--ink); }
 :global(:root[data-theme="dark"]) .bankRow { background: color-mix(in srgb, var(--surface) 80%, transparent); border-color: var(--line-strong); }

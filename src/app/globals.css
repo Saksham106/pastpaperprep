@@ -447,6 +447,8 @@ main { min-height: 72vh; }
 }
 .bank-hero h1 { max-width: 1040px; margin: 4px 0 6px; font: 850 clamp(2rem, 3.2vw, 2.8rem)/.97 var(--font-display); letter-spacing: -.06em; }
 .bank-hero .shell > p:not(.eyebrow) { max-width: 720px; margin: 0; color: var(--muted); line-height: 1.52; }
+.bank-hero-papers a { color: var(--cobalt-strong); font-weight: 700; text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); text-underline-offset: 3px; }
+.bank-hero-papers a:hover { text-decoration-color: currentColor; }
 .bank-hero-meta { margin-top: 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px 20px; flex-wrap: wrap; }
 .bank-hero-stats { margin-top: 0; display: flex; gap: 8px 20px; flex-wrap: wrap; color: var(--muted); font-size: .82rem; }
 .bank-hero-build { display: inline-flex; margin-top: 0; min-height: 40px; }
