@@ -4,6 +4,8 @@ import runtime from "@/data/production/igcse-biology-0610.json";
 import privateIndex from "@/data/private-index/igcse-biology-0610.json";
 import manifest from "../../data/storage/igcse-biology-0610.manifest.json";
 import receipt from "../../data/storage/igcse-biology-0610.receipt.json";
+import addition from "../../docs/igcse-biology-0610-2026-mj-addition.json";
+import plan from "../../docs/igcse-biology-0610-2026-mj-r2-upload-plan.json";
 import { getCatalogBank } from "@/lib/catalog";
 import { isPreviewQuestion } from "@/lib/access";
 import { assert0610Extension2026MayJune, assert0610PollutionRepair, assert0610SecondaryTopicsRepair, getIGCSERuntimeArtifact } from "@/lib/igcse-runtime";
@@ -59,6 +61,7 @@ describe("IGCSE Biology 0610 combined 2019-2026 candidate (finalized 4,913 rows 
     expect(jsonSha(finalizedRelease)).toBe("b72e02463e6648f232996bbaa4846aa5560124476797a94239ae45e592bf7910");
     expect(jsonSha(finalizedRelease)).toBe(r.runtimeArtifact.extension2026MayJune.baselineFinalizedContentSha256);
     expect(finalizedRelease.every(finalized)).toBe(true);
+    expect(addition.merged.baselinePrefixContentSha256).toBe(r.runtimeArtifact.extension2026MayJune.baselineFinalizedContentSha256);
     expect(() => assert0610PollutionRepair(r as never)).not.toThrow();
     expect(() => assert0610SecondaryTopicsRepair(r as never)).not.toThrow();
   });
@@ -120,6 +123,17 @@ describe("IGCSE Biology 0610 combined 2019-2026 candidate (finalized 4,913 rows 
     expect(jsonSha(manifest)).toBe(r.runtimeArtifact.extension2026MayJune.baselineAssetManifestSha256);
     expect(manifest.assets.some((a) => a.objectKey.includes("/0610-2026-s-"))).toBe(false);
     expect(getPrivateBankObjectPrefix("igcse-biology-0610")).toBe(manifest.objectPrefix);
+  });
+
+  it("plans exactly the 780 new May/June objects under the same prefix, nothing else", () => {
+    expect(plan.status).toBe("NOT UPLOADED");
+    expect(plan.objectPrefix).toBe(manifest.objectPrefix);
+    expect(plan.fullReleaseManifest).toMatchObject({ assetCount: 14733, alreadyVerified: 13953, new: 780 });
+    expect(plan.objects).toHaveLength(780);
+    const verified = new Set(manifest.assets.map((a) => a.objectKey));
+    const referenced = new Set(mayJune.flatMap((q) => [...q.questionImages, ...q.markschemeImages]).map((ref) => plan.objectPrefix + ref));
+    expect(plan.objects.every((o) => referenced.has(o.key) && !verified.has(o.key) && o.sourcePath.startsWith("data/segmentation/full-extension-2026-mj/assets/0610-2026-s-") && /^[a-f0-9]{64}$/.test(o.sha256) && /^[a-f0-9]{32}$/.test(o.md5) && o.bytes > 0)).toBe(true);
+    expect(new Set(plan.objects.map((o) => o.key))).toEqual(referenced);
   });
 
   it("finalizes the May/June lane into the same production state without touching the finalized release", () => {
