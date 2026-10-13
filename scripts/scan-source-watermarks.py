@@ -16,6 +16,9 @@ import pymupdf
 BRANDS = re.compile(rb'papa\s*cambridge|bestexamhelp|studyhatch|xtremepape|dynamicpapers|papersdaddy|exam-easy|savemyexams|physicsandmathstutor|trace id: pc-', re.I)
 DOMAIN = re.compile(r'\b[a-z0-9-]+(?:\.[a-z0-9-]+)*\.(?:com|net|rs|io|info|co\.uk)\b', re.I)
 ALLOWED = ('cambridgeinternational.org', 'cambridge.org', 'ibo.org', 'ucles.org')
+# Exam boards credit image and text sources (Shutterstock, journals) on a closing page; those
+# domains are citations, not stamps. Brand matches still count there.
+CREDITS = re.compile(r'^\s*(?:References|Acknowledg(?:e)?ments?|Sources)\s*:?\s*$', re.I | re.M)
 
 
 def findings(path: Path) -> list[str]:
@@ -25,7 +28,7 @@ def findings(path: Path) -> list[str]:
             found.append('metadata')
         for number, page in enumerate(doc, 1):
             text = page.get_text()
-            foreign = {d.lower() for d in DOMAIN.findall(text) if not d.lower().endswith(ALLOWED)}
+            foreign = set() if CREDITS.search(text) else {d.lower() for d in DOMAIN.findall(text) if not d.lower().endswith(ALLOWED)}
             linked = any(BRANDS.search((link.get('uri') or '').encode()) for link in page.get_links())
             if BRANDS.search(text.encode()) or foreign or linked:
                 pages.append(number)

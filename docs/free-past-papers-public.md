@@ -66,3 +66,17 @@ Custom Purge) before `verify`, or it will read the old copy.
 - 2026-10-13, review fixes: the 16 PDFs shared by IB Economics HL and SL were re-uploaded with
   level-neutral filenames and purged from Cloudflare's cache; a third complete readback (bytes,
   type and filename) passed for all 4,910 and wrote the v3 receipt with the bank/paper/role seal.
+- 2026-10-13, PapaCambridge repair (#278): the 72 May/June 2026 Biology 0610 and Chemistry 0620
+  PDFs were replaced with clean copies; all 4,910 re-verified.
+- 2026-10-14, missing papers: four papers that were left out are added (8 PDFs), and all 4,918
+  re-verified.
+  - IB Biology May 2022 Paper 1 (HL TZ2, SL TZ1, SL TZ2): IB Docs serves those mark schemes with
+    20 junk bytes before `%PDF-`, so the builder rejected them. Clean, text-identical copies come
+    from papers.xtremepape.rs.
+  - 0580 June 2021 Paper 33: its sources were missing locally. Cambridge's published mark scheme
+    prints `0580/31` on every page, but it is a different file from the 0580/31 scheme and its
+    answers match 0580/33. It was accepted through a reviewed identity case (category
+    `published-component-label`) in `private/paper-archives/identity-review.json`.
+  - The publish tool's IB Maths and 0580 Core sources live in
+    `../research/papacambridge-clean-20261013/restored/`, restored by hash after a scratch cache
+    was cleared.
