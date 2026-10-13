@@ -1,6 +1,8 @@
 // @vitest-environment node
 import { describe, expect, it } from 'vitest';
 import { createHash } from 'node:crypto';
+import { readFileSync, readdirSync } from 'node:fs';
+import { join } from 'node:path';
 import { FREE_PAPER_ORIGIN, paperDownloadName, paperObjectKey, paperObjectUrl, paperObjectsDigest, validPublicReadback } from './whole-paper-public';
 import type { WholePaperSummary } from './whole-paper-types';
 
@@ -36,5 +38,18 @@ describe('public readback receipt', () => {
     for (const bad of [{ ...receipt, status: 'pending_upload' }, { ...receipt, origin: 'https://example.com' }, { ...receipt, prefix: 'images/' }, { ...receipt, version: 1 }, { ...receipt, objectCount: 0 }, { ...receipt, objectsSha256: 'A'.repeat(64) }, { ...receipt, verifiedAt: 'soon' }, { ...receipt, extra: true }, null, []]) {
       expect(validPublicReadback(bad)).toBe(false);
     }
+  });
+});
+
+describe('committed public readback', () => {
+  it('covers exactly the PDFs the committed manifests approve (re-publish and re-verify after any manifest change)', () => {
+    const dir = 'src/data/paper-archives';
+    const objects = new Map<string, number>();
+    for (const file of readdirSync(dir).filter(f => f.endsWith('.json'))) {
+      for (const paper of JSON.parse(readFileSync(join(dir, file), 'utf8')).papers) for (const doc of Object.values(paper.documents) as { sha256: string; bytes: number }[]) objects.set(doc.sha256, doc.bytes);
+    }
+    const receipt: unknown = JSON.parse(readFileSync('src/data/paper-archive-readback.json', 'utf8'));
+    expect(validPublicReadback(receipt)).toBe(true);
+    expect(receipt).toMatchObject({ objectCount: objects.size, objectsSha256: paperObjectsDigest(objects) });
   });
 });

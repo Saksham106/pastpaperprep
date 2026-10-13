@@ -39,3 +39,10 @@ all match; commit the receipt with the change that needs it.
 
 **If a paper stops being free**, delete its object from `pastpaperprep-free` in the same change
 (owner approval needed). Removing it from a manifest alone leaves the old link working.
+
+## Receipts
+
+- 2026-10-13: 4,910 PDFs (3.88 GB) uploaded and verified byte for byte from
+  `free.pastpaperprep.com`. The first readback caught one object (`0620_m21_ms_62.pdf`) whose
+  public download stopped at 128 KiB although R2 held the full file; re-uploading it fixed it, and a
+  second complete readback passed. Noindex rule added the same day.
