@@ -1,0 +1,5087 @@
+{
+ "schema": "igcse-biology-0610.extension-material-secondaries.v1",
+ "sourceRepository": "igcse-biology-0610-topic-practice",
+ "sourceAssemblyPath": "data/classification/extension-2019-2020-2026/assembly/release/assembly.json",
+ "sourceAssemblySha256": "92132de006cb98dcd7f7feef193be05d6cf0233addcaa41b045f6b7771490de1",
+ "taxonomyPath": "src/data/classification/igcse-biology-0610-official-taxonomy-v2.json",
+ "taxonomySha256": "eca50637775ba738c9cdf5675a8d011c65a33f0e811307007a09b896187ea0ea",
+ "baselineGitCommit": "0a0b2246e269c03f81669548947d011c4f68b741",
+ "baselineRuntimeSha256": "f20c50d65c9ef68e22a3b52a64f3cbfb7092dad23da5373feb2bb511e589ef2f",
+ "targetIdsSha256": "8ef3cc308d8b3ebeab740fd7d52bfbab140b8e9157a37ad7aff7008bf05e3368",
+ "method": "source assembly classification.final.material_secondaries mapped as the official-rebuild path maps 2021-2025 secondaries: taxonomy v2 by era and normalized subtopic id (2026_2028 via 2023_2025), parent topic titles, ids and subtopic titles, deduplicated, primary excluded; metadata only, no asset or key change",
+ "rows": [
+  {
+   "id": "0610-2019-m-32-q10",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_15_drugs.15.1",
+   "primarySubtopic": "15.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_11_gas_exchange_in_humans.11.1|11.1|core",
+    "2020_2021|topic_15_drugs.15.2|15.2|core",
+    "2020_2021|topic_15_drugs.15.3|15.3|core"
+   ],
+   "secondaryTopics": [
+    "Gas exchange in humans",
+    "Drugs"
+   ],
+   "secondaryTopicIds": [
+    "topic_11_gas_exchange_in_humans.11.1",
+    "topic_15_drugs.15.2",
+    "topic_15_drugs.15.3"
+   ],
+   "secondarySubtopics": [
+    "Gas exchange in humans",
+    "Medicinal drugs",
+    "Misused drugs"
+   ],
+   "subtopics": [
+    "15.1",
+    "Gas exchange in humans",
+    "Medicinal drugs",
+    "Misused drugs"
+   ]
+  },
+  {
+   "id": "0610-2019-m-32-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_14_coordination_and_response.14.3",
+   "primarySubtopic": "14.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_14_coordination_and_response.14.1|14.1|core",
+    "2020_2021|topic_14_coordination_and_response.14.2|14.2|core"
+   ],
+   "secondaryTopics": [
+    "Coordination and response"
+   ],
+   "secondaryTopicIds": [
+    "topic_14_coordination_and_response.14.1",
+    "topic_14_coordination_and_response.14.2"
+   ],
+   "secondarySubtopics": [
+    "Nervous control in humans",
+    "Sense organs"
+   ],
+   "subtopics": [
+    "14.3",
+    "Nervous control in humans",
+    "Sense organs"
+   ]
+  },
+  {
+   "id": "0610-2019-m-32-q4",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_20_human_influences_on_ecosystems.21.1",
+   "primarySubtopic": "21.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_20_human_influences_on_ecosystems.21.2|21.2|core"
+   ],
+   "secondaryTopics": [
+    "Human influences on ecosystems"
+   ],
+   "secondaryTopicIds": [
+    "topic_20_human_influences_on_ecosystems.21.2"
+   ],
+   "secondarySubtopics": [
+    "Habitat destruction"
+   ],
+   "subtopics": [
+    "21.1",
+    "Habitat destruction"
+   ]
+  },
+  {
+   "id": "0610-2019-m-32-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_03_movement_into_and_out_of_cells.3.3",
+   "primarySubtopic": "3.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_03_movement_into_and_out_of_cells.3.2|3.2|core",
+    "2020_2021|topic_08_transport_in_plants.8.3|8.3|core"
+   ],
+   "secondaryTopics": [
+    "Movement in and out of cells",
+    "Transport in plants"
+   ],
+   "secondaryTopicIds": [
+    "topic_03_movement_into_and_out_of_cells.3.2",
+    "topic_08_transport_in_plants.8.3"
+   ],
+   "secondarySubtopics": [
+    "Osmosis",
+    "Transpiration"
+   ],
+   "subtopics": [
+    "3.3",
+    "Osmosis",
+    "Transpiration"
+   ]
+  },
+  {
+   "id": "0610-2019-m-32-q9",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_10_diseases_and_immunity.10.1",
+   "primarySubtopic": "10.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_21_biotechnology_and_genetic_modification.20.2|20.2|core"
+   ],
+   "secondaryTopics": [
+    "Biotechnology and genetic engineering"
+   ],
+   "secondaryTopicIds": [
+    "topic_21_biotechnology_and_genetic_modification.20.2"
+   ],
+   "secondarySubtopics": [
+    "Biotechnology"
+   ],
+   "subtopics": [
+    "10.1",
+    "Biotechnology"
+   ]
+  },
+  {
+   "id": "0610-2019-m-42-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_13_excretion_in_humans.13.1",
+   "primarySubtopic": "13.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_17_inheritance.17.2|17.2|supplement"
+   ],
+   "secondaryTopics": [
+    "Inheritance"
+   ],
+   "secondaryTopicIds": [
+    "topic_17_inheritance.17.2"
+   ],
+   "secondarySubtopics": [
+    "Chromosomes, genes and proteins"
+   ],
+   "subtopics": [
+    "13.1",
+    "Chromosomes, genes and proteins"
+   ]
+  },
+  {
+   "id": "0610-2019-m-42-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_16_reproduction.16.3",
+   "primarySubtopic": "16.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_17_inheritance.17.5|17.5|supplement"
+   ],
+   "secondaryTopics": [
+    "Inheritance"
+   ],
+   "secondaryTopicIds": [
+    "topic_17_inheritance.17.5"
+   ],
+   "secondarySubtopics": [
+    "Monohybrid inheritance"
+   ],
+   "subtopics": [
+    "16.3",
+    "Monohybrid inheritance"
+   ]
+  },
+  {
+   "id": "0610-2019-m-42-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_14_coordination_and_response.14.1",
+   "primarySubtopic": "14.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_15_drugs.15.3|15.3|core"
+   ],
+   "secondaryTopics": [
+    "Drugs"
+   ],
+   "secondaryTopicIds": [
+    "topic_15_drugs.15.3"
+   ],
+   "secondarySubtopics": [
+    "Misused drugs"
+   ],
+   "subtopics": [
+    "14.1",
+    "Misused drugs"
+   ]
+  },
+  {
+   "id": "0610-2019-m-42-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_10_diseases_and_immunity.10.1",
+   "primarySubtopic": "10.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_01_characteristics_and_classification.1.3|1.3|supplement"
+   ],
+   "secondaryTopics": [
+    "Characteristics and classification of living organisms"
+   ],
+   "secondaryTopicIds": [
+    "topic_01_characteristics_and_classification.1.3"
+   ],
+   "secondarySubtopics": [
+    "Features of organisms"
+   ],
+   "subtopics": [
+    "10.1",
+    "Features of organisms"
+   ]
+  },
+  {
+   "id": "0610-2019-m-52-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_05_enzymes.5.1",
+   "primarySubtopic": "5.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|core",
+    "2020_2021|topic_03_movement_into_and_out_of_cells.3.1|3.1|core"
+   ],
+   "secondaryTopics": [
+    "Biological molecules",
+    "Movement in and out of cells"
+   ],
+   "secondaryTopicIds": [
+    "topic_04_biological_molecules.4.1",
+    "topic_03_movement_into_and_out_of_cells.3.1"
+   ],
+   "secondarySubtopics": [
+    "Biological molecules",
+    "Diffusion"
+   ],
+   "subtopics": [
+    "5.1",
+    "Biological molecules",
+    "Diffusion"
+   ]
+  },
+  {
+   "id": "0610-2019-m-52-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_11_gas_exchange_in_humans.11.1",
+   "primarySubtopic": "11.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_02_organisation.2.3|2.3|core",
+    "2020_2021|topic_09_transport_in_animals.9.2|9.2|core",
+    "2020_2021|topic_02_organisation.2.3|2.3|supplement"
+   ],
+   "secondaryTopics": [
+    "Organisation of the organism",
+    "Transport in animals"
+   ],
+   "secondaryTopicIds": [
+    "topic_02_organisation.2.3",
+    "topic_09_transport_in_animals.9.2"
+   ],
+   "secondarySubtopics": [
+    "Size of specimens",
+    "Heart"
+   ],
+   "subtopics": [
+    "11.1",
+    "Size of specimens",
+    "Heart"
+   ]
+  },
+  {
+   "id": "0610-2019-m-62-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_05_enzymes.5.1",
+   "primarySubtopic": "5.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|core",
+    "2020_2021|topic_03_movement_into_and_out_of_cells.3.1|3.1|core"
+   ],
+   "secondaryTopics": [
+    "Biological molecules",
+    "Movement in and out of cells"
+   ],
+   "secondaryTopicIds": [
+    "topic_04_biological_molecules.4.1",
+    "topic_03_movement_into_and_out_of_cells.3.1"
+   ],
+   "secondarySubtopics": [
+    "Biological molecules",
+    "Diffusion"
+   ],
+   "subtopics": [
+    "5.1",
+    "Biological molecules",
+    "Diffusion"
+   ]
+  },
+  {
+   "id": "0610-2019-m-62-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_11_gas_exchange_in_humans.11.1",
+   "primarySubtopic": "11.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_02_organisation.2.3|2.3|core",
+    "2020_2021|topic_09_transport_in_animals.9.2|9.2|core",
+    "2020_2021|topic_02_organisation.2.3|2.3|supplement"
+   ],
+   "secondaryTopics": [
+    "Organisation of the organism",
+    "Transport in animals"
+   ],
+   "secondaryTopicIds": [
+    "topic_02_organisation.2.3",
+    "topic_09_transport_in_animals.9.2"
+   ],
+   "secondarySubtopics": [
+    "Size of specimens",
+    "Heart"
+   ],
+   "subtopics": [
+    "11.1",
+    "Size of specimens",
+    "Heart"
+   ]
+  },
+  {
+   "id": "0610-2019-s-31-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_01_characteristics_and_classification.1.1",
+   "primarySubtopic": "1.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_01_characteristics_and_classification.1.3|1.3|core",
+    "2020_2021|topic_12_respiration.12.2|12.2|core"
+   ],
+   "secondaryTopics": [
+    "Characteristics and classification of living organisms",
+    "Respiration"
+   ],
+   "secondaryTopicIds": [
+    "topic_01_characteristics_and_classification.1.3",
+    "topic_12_respiration.12.2"
+   ],
+   "secondarySubtopics": [
+    "Features of organisms",
+    "Aerobic respiration"
+   ],
+   "subtopics": [
+    "1.1",
+    "Features of organisms",
+    "Aerobic respiration"
+   ]
+  },
+  {
+   "id": "0610-2019-s-31-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_07_human_nutrition.7.2",
+   "primarySubtopic": "7.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_10_diseases_and_immunity.10.1|10.1|core"
+   ],
+   "secondaryTopics": [
+    "Diseases and immunity"
+   ],
+   "secondaryTopicIds": [
+    "topic_10_diseases_and_immunity.10.1"
+   ],
+   "secondarySubtopics": [
+    "Diseases and immunity"
+   ],
+   "subtopics": [
+    "7.2",
+    "Diseases and immunity"
+   ]
+  },
+  {
+   "id": "0610-2019-s-31-q4",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_03_movement_into_and_out_of_cells.3.2",
+   "primarySubtopic": "3.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_02_organisation.2.1|2.1|core",
+    "2020_2021|topic_08_transport_in_plants.8.1|8.1|core"
+   ],
+   "secondaryTopics": [
+    "Organisation of the organism",
+    "Transport in plants"
+   ],
+   "secondaryTopicIds": [
+    "topic_02_organisation.2.1",
+    "topic_08_transport_in_plants.8.1"
+   ],
+   "secondarySubtopics": [
+    "Cell structure and organisation",
+    "Transport in plants"
+   ],
+   "subtopics": [
+    "3.2",
+    "Cell structure and organisation",
+    "Transport in plants"
+   ]
+  },
+  {
+   "id": "0610-2019-s-31-q5",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_19_organisms_and_environment.19.4",
+   "primarySubtopic": "19.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_19_organisms_and_environment.19.2|19.2|core"
+   ],
+   "secondaryTopics": [
+    "Organisms and their environment"
+   ],
+   "secondaryTopicIds": [
+    "topic_19_organisms_and_environment.19.2"
+   ],
+   "secondarySubtopics": [
+    "Food chains and food webs"
+   ],
+   "subtopics": [
+    "19.4",
+    "Food chains and food webs"
+   ]
+  },
+  {
+   "id": "0610-2019-s-31-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_16_reproduction.16.6",
+   "primarySubtopic": "16.6",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_17_inheritance.17.2|17.2|core"
+   ],
+   "secondaryTopics": [
+    "Inheritance"
+   ],
+   "secondaryTopicIds": [
+    "topic_17_inheritance.17.2"
+   ],
+   "secondarySubtopics": [
+    "Chromosomes, genes and proteins"
+   ],
+   "subtopics": [
+    "16.6",
+    "Chromosomes, genes and proteins"
+   ]
+  },
+  {
+   "id": "0610-2019-s-31-q7",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_09_transport_in_animals.9.3",
+   "primarySubtopic": "9.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_09_transport_in_animals.9.4|9.4|core"
+   ],
+   "secondaryTopics": [
+    "Transport in animals"
+   ],
+   "secondaryTopicIds": [
+    "topic_09_transport_in_animals.9.4"
+   ],
+   "secondarySubtopics": [
+    "Blood"
+   ],
+   "subtopics": [
+    "9.3",
+    "Blood"
+   ]
+  },
+  {
+   "id": "0610-2019-s-32-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_07_human_nutrition.7.2",
+   "primarySubtopic": "7.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_07_human_nutrition.7.4|7.4|core",
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|core"
+   ],
+   "secondaryTopics": [
+    "Human nutrition",
+    "Biological molecules"
+   ],
+   "secondaryTopicIds": [
+    "topic_07_human_nutrition.7.4",
+    "topic_04_biological_molecules.4.1"
+   ],
+   "secondarySubtopics": [
+    "Chemical digestion",
+    "Biological molecules"
+   ],
+   "subtopics": [
+    "7.2",
+    "Chemical digestion",
+    "Biological molecules"
+   ]
+  },
+  {
+   "id": "0610-2019-s-32-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_07_human_nutrition.7.2",
+   "primarySubtopic": "7.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_10_diseases_and_immunity.10.1|10.1|core"
+   ],
+   "secondaryTopics": [
+    "Diseases and immunity"
+   ],
+   "secondaryTopicIds": [
+    "topic_10_diseases_and_immunity.10.1"
+   ],
+   "secondarySubtopics": [
+    "Diseases and immunity"
+   ],
+   "subtopics": [
+    "7.2",
+    "Diseases and immunity"
+   ]
+  },
+  {
+   "id": "0610-2019-s-32-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_02_organisation.2.2",
+   "primarySubtopic": "2.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_08_transport_in_plants.8.1|8.1|core"
+   ],
+   "secondaryTopics": [
+    "Transport in plants"
+   ],
+   "secondaryTopicIds": [
+    "topic_08_transport_in_plants.8.1"
+   ],
+   "secondarySubtopics": [
+    "Transport in plants"
+   ],
+   "subtopics": [
+    "2.2",
+    "Transport in plants"
+   ]
+  },
+  {
+   "id": "0610-2019-s-32-q5",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_16_reproduction.16.2",
+   "primarySubtopic": "16.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_16_reproduction.16.1|16.1|core",
+    "2020_2021|topic_01_characteristics_and_classification.1.1|1.1|core",
+    "2020_2021|topic_02_organisation.2.1|2.1|core"
+   ],
+   "secondaryTopics": [
+    "Reproduction",
+    "Characteristics and classification of living organisms",
+    "Organisation of the organism"
+   ],
+   "secondaryTopicIds": [
+    "topic_16_reproduction.16.1",
+    "topic_01_characteristics_and_classification.1.1",
+    "topic_02_organisation.2.1"
+   ],
+   "secondarySubtopics": [
+    "Asexual reproduction",
+    "Characteristics of living organisms",
+    "Cell structure and organisation"
+   ],
+   "subtopics": [
+    "16.2",
+    "Asexual reproduction",
+    "Characteristics of living organisms",
+    "Cell structure and organisation"
+   ]
+  },
+  {
+   "id": "0610-2019-s-32-q7",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_02_organisation.2.1",
+   "primarySubtopic": "2.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_06_plant_nutrition.6.2|6.2|core"
+   ],
+   "secondaryTopics": [
+    "Plant nutrition"
+   ],
+   "secondaryTopicIds": [
+    "topic_06_plant_nutrition.6.2"
+   ],
+   "secondarySubtopics": [
+    "Leaf structure"
+   ],
+   "subtopics": [
+    "2.1",
+    "Leaf structure"
+   ]
+  },
+  {
+   "id": "0610-2019-s-33-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_02_organisation.2.1",
+   "primarySubtopic": "2.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_15_drugs.15.2|15.2|core",
+    "2020_2021|topic_10_diseases_and_immunity.10.1|10.1|core"
+   ],
+   "secondaryTopics": [
+    "Drugs",
+    "Diseases and immunity"
+   ],
+   "secondaryTopicIds": [
+    "topic_15_drugs.15.2",
+    "topic_10_diseases_and_immunity.10.1"
+   ],
+   "secondarySubtopics": [
+    "Medicinal drugs",
+    "Diseases and immunity"
+   ],
+   "subtopics": [
+    "2.1",
+    "Medicinal drugs",
+    "Diseases and immunity"
+   ]
+  },
+  {
+   "id": "0610-2019-s-33-q4",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_16_reproduction.16.2",
+   "primarySubtopic": "16.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_16_reproduction.16.1|16.1|core",
+    "2020_2021|topic_01_characteristics_and_classification.1.3|1.3|core"
+   ],
+   "secondaryTopics": [
+    "Reproduction",
+    "Characteristics and classification of living organisms"
+   ],
+   "secondaryTopicIds": [
+    "topic_16_reproduction.16.1",
+    "topic_01_characteristics_and_classification.1.3"
+   ],
+   "secondarySubtopics": [
+    "Asexual reproduction",
+    "Features of organisms"
+   ],
+   "subtopics": [
+    "16.2",
+    "Asexual reproduction",
+    "Features of organisms"
+   ]
+  },
+  {
+   "id": "0610-2019-s-33-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_16_reproduction.16.4",
+   "primarySubtopic": "16.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_07_human_nutrition.7.1|7.1|core"
+   ],
+   "secondaryTopics": [
+    "Human nutrition"
+   ],
+   "secondaryTopicIds": [
+    "topic_07_human_nutrition.7.1"
+   ],
+   "secondarySubtopics": [
+    "Diet"
+   ],
+   "subtopics": [
+    "16.4",
+    "Diet"
+   ]
+  },
+  {
+   "id": "0610-2019-s-33-q8",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_19_organisms_and_environment.19.4",
+   "primarySubtopic": "19.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_19_organisms_and_environment.19.2|19.2|core"
+   ],
+   "secondaryTopics": [
+    "Organisms and their environment"
+   ],
+   "secondaryTopicIds": [
+    "topic_19_organisms_and_environment.19.2"
+   ],
+   "secondarySubtopics": [
+    "Food chains and food webs"
+   ],
+   "subtopics": [
+    "19.4",
+    "Food chains and food webs"
+   ]
+  },
+  {
+   "id": "0610-2019-s-41-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_18_variation_and_selection.18.3",
+   "primarySubtopic": "18.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_01_characteristics_and_classification.1.2|1.2|core",
+    "2020_2021|topic_01_characteristics_and_classification.1.3|1.3|core"
+   ],
+   "secondaryTopics": [
+    "Characteristics and classification of living organisms"
+   ],
+   "secondaryTopicIds": [
+    "topic_01_characteristics_and_classification.1.2",
+    "topic_01_characteristics_and_classification.1.3"
+   ],
+   "secondarySubtopics": [
+    "Concept and use of a classification system",
+    "Features of organisms"
+   ],
+   "subtopics": [
+    "18.3",
+    "Concept and use of a classification system",
+    "Features of organisms"
+   ]
+  },
+  {
+   "id": "0610-2019-s-41-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_06_plant_nutrition.6.1",
+   "primarySubtopic": "6.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_06_plant_nutrition.6.2|6.2|supplement"
+   ],
+   "secondaryTopics": [
+    "Plant nutrition"
+   ],
+   "secondaryTopicIds": [
+    "topic_06_plant_nutrition.6.2"
+   ],
+   "secondarySubtopics": [
+    "Leaf structure"
+   ],
+   "subtopics": [
+    "6.1",
+    "Leaf structure"
+   ]
+  },
+  {
+   "id": "0610-2019-s-41-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_14_coordination_and_response.14.1",
+   "primarySubtopic": "14.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_03_movement_into_and_out_of_cells.3.3|3.3|supplement",
+    "2020_2021|topic_15_drugs.15.3|15.3|supplement"
+   ],
+   "secondaryTopics": [
+    "Movement in and out of cells",
+    "Drugs"
+   ],
+   "secondaryTopicIds": [
+    "topic_03_movement_into_and_out_of_cells.3.3",
+    "topic_15_drugs.15.3"
+   ],
+   "secondarySubtopics": [
+    "Active transport",
+    "Misused drugs"
+   ],
+   "subtopics": [
+    "14.1",
+    "Active transport",
+    "Misused drugs"
+   ]
+  },
+  {
+   "id": "0610-2019-s-41-q4",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_16_reproduction.16.4",
+   "primarySubtopic": "16.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_02_organisation.2.2|2.2|core",
+    "2020_2021|topic_17_inheritance.17.2|17.2|supplement",
+    "2020_2021|topic_17_inheritance.17.4|17.4|core"
+   ],
+   "secondaryTopics": [
+    "Organisation of the organism",
+    "Inheritance"
+   ],
+   "secondaryTopicIds": [
+    "topic_02_organisation.2.2",
+    "topic_17_inheritance.17.2",
+    "topic_17_inheritance.17.4"
+   ],
+   "secondarySubtopics": [
+    "Levels of organisation",
+    "Chromosomes, genes and proteins",
+    "Meiosis"
+   ],
+   "subtopics": [
+    "16.4",
+    "Levels of organisation",
+    "Chromosomes, genes and proteins",
+    "Meiosis"
+   ]
+  },
+  {
+   "id": "0610-2019-s-41-q5",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_21_biotechnology_and_genetic_modification.20.3",
+   "primarySubtopic": "20.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_09_transport_in_animals.9.4|9.4|supplement",
+    "2020_2021|topic_17_inheritance.17.2|17.2|supplement",
+    "2020_2021|topic_09_transport_in_animals.9.4|9.4|core"
+   ],
+   "secondaryTopics": [
+    "Transport in animals",
+    "Inheritance"
+   ],
+   "secondaryTopicIds": [
+    "topic_09_transport_in_animals.9.4",
+    "topic_17_inheritance.17.2"
+   ],
+   "secondarySubtopics": [
+    "Blood",
+    "Chromosomes, genes and proteins"
+   ],
+   "subtopics": [
+    "20.3",
+    "Blood",
+    "Chromosomes, genes and proteins"
+   ]
+  },
+  {
+   "id": "0610-2019-s-41-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_17_inheritance.17.2",
+   "primarySubtopic": "17.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_14_coordination_and_response.14.5|14.5|supplement",
+    "2020_2021|topic_02_organisation.2.1|2.1|supplement"
+   ],
+   "secondaryTopics": [
+    "Coordination and response",
+    "Organisation of the organism"
+   ],
+   "secondaryTopicIds": [
+    "topic_14_coordination_and_response.14.5",
+    "topic_02_organisation.2.1"
+   ],
+   "secondarySubtopics": [
+    "Tropic responses",
+    "Cell structure and organisation"
+   ],
+   "subtopics": [
+    "17.2",
+    "Tropic responses",
+    "Cell structure and organisation"
+   ]
+  },
+  {
+   "id": "0610-2019-s-42-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_06_plant_nutrition.6.1",
+   "primarySubtopic": "6.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_06_plant_nutrition.6.2|6.2|supplement",
+    "2020_2021|topic_20_human_influences_on_ecosystems.21.3|21.3|supplement",
+    "2020_2021|topic_11_gas_exchange_in_humans.11.1|11.1|core"
+   ],
+   "secondaryTopics": [
+    "Plant nutrition",
+    "Human influences on ecosystems",
+    "Gas exchange in humans"
+   ],
+   "secondaryTopicIds": [
+    "topic_06_plant_nutrition.6.2",
+    "topic_20_human_influences_on_ecosystems.21.3",
+    "topic_11_gas_exchange_in_humans.11.1"
+   ],
+   "secondarySubtopics": [
+    "Leaf structure",
+    "Pollution",
+    "Gas exchange in humans"
+   ],
+   "subtopics": [
+    "6.1",
+    "Leaf structure",
+    "Pollution",
+    "Gas exchange in humans"
+   ]
+  },
+  {
+   "id": "0610-2019-s-42-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_20_human_influences_on_ecosystems.21.3",
+   "primarySubtopic": "21.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_06_plant_nutrition.6.3|6.3|supplement",
+    "2020_2021|topic_19_organisms_and_environment.19.3|19.3|supplement",
+    "2020_2021|topic_19_organisms_and_environment.19.2|19.2|core"
+   ],
+   "secondaryTopics": [
+    "Plant nutrition",
+    "Organisms and their environment"
+   ],
+   "secondaryTopicIds": [
+    "topic_06_plant_nutrition.6.3",
+    "topic_19_organisms_and_environment.19.3",
+    "topic_19_organisms_and_environment.19.2"
+   ],
+   "secondarySubtopics": [
+    "Mineral requirements",
+    "Nutrient cycles",
+    "Food chains and food webs"
+   ],
+   "subtopics": [
+    "21.3",
+    "Mineral requirements",
+    "Nutrient cycles",
+    "Food chains and food webs"
+   ]
+  },
+  {
+   "id": "0610-2019-s-42-q5",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_02_organisation.2.2",
+   "primarySubtopic": "2.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_16_reproduction.16.4|16.4|core",
+    "2020_2021|topic_17_inheritance.17.4|17.4|core",
+    "2020_2021|topic_16_reproduction.16.5|16.5|core"
+   ],
+   "secondaryTopics": [
+    "Reproduction",
+    "Inheritance"
+   ],
+   "secondaryTopicIds": [
+    "topic_16_reproduction.16.4",
+    "topic_17_inheritance.17.4",
+    "topic_16_reproduction.16.5"
+   ],
+   "secondarySubtopics": [
+    "Sexual reproduction in humans",
+    "Meiosis",
+    "Sex hormones in humans"
+   ],
+   "subtopics": [
+    "2.2",
+    "Sexual reproduction in humans",
+    "Meiosis",
+    "Sex hormones in humans"
+   ]
+  },
+  {
+   "id": "0610-2019-s-42-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_16_reproduction.16.1",
+   "primarySubtopic": "16.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_01_characteristics_and_classification.1.2|1.2|core",
+    "2020_2021|topic_06_plant_nutrition.6.1|6.1|supplement"
+   ],
+   "secondaryTopics": [
+    "Characteristics and classification of living organisms",
+    "Plant nutrition"
+   ],
+   "secondaryTopicIds": [
+    "topic_01_characteristics_and_classification.1.2",
+    "topic_06_plant_nutrition.6.1"
+   ],
+   "secondarySubtopics": [
+    "Concept and use of a classification system",
+    "Photosynthesis"
+   ],
+   "subtopics": [
+    "16.1",
+    "Concept and use of a classification system",
+    "Photosynthesis"
+   ]
+  },
+  {
+   "id": "0610-2019-s-43-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_19_organisms_and_environment.19.4",
+   "primarySubtopic": "19.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_01_characteristics_and_classification.1.3|1.3|supplement",
+    "2020_2021|topic_21_biotechnology_and_genetic_modification.20.2|20.2|supplement"
+   ],
+   "secondaryTopics": [
+    "Characteristics and classification of living organisms",
+    "Biotechnology and genetic engineering"
+   ],
+   "secondaryTopicIds": [
+    "topic_01_characteristics_and_classification.1.3",
+    "topic_21_biotechnology_and_genetic_modification.20.2"
+   ],
+   "secondarySubtopics": [
+    "Features of organisms",
+    "Biotechnology"
+   ],
+   "subtopics": [
+    "19.4",
+    "Features of organisms",
+    "Biotechnology"
+   ]
+  },
+  {
+   "id": "0610-2019-s-43-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_17_inheritance.17.2",
+   "primarySubtopic": "17.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_21_biotechnology_and_genetic_modification.20.3|20.3|supplement"
+   ],
+   "secondaryTopics": [
+    "Biotechnology and genetic engineering"
+   ],
+   "secondaryTopicIds": [
+    "topic_21_biotechnology_and_genetic_modification.20.3"
+   ],
+   "secondarySubtopics": [
+    "Genetic engineering"
+   ],
+   "subtopics": [
+    "17.2",
+    "Genetic engineering"
+   ]
+  },
+  {
+   "id": "0610-2019-s-43-q4",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_09_transport_in_animals.9.2",
+   "primarySubtopic": "9.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_09_transport_in_animals.9.4|9.4|supplement",
+    "2020_2021|topic_09_transport_in_animals.9.3|9.3|core"
+   ],
+   "secondaryTopics": [
+    "Transport in animals"
+   ],
+   "secondaryTopicIds": [
+    "topic_09_transport_in_animals.9.4",
+    "topic_09_transport_in_animals.9.3"
+   ],
+   "secondarySubtopics": [
+    "Blood",
+    "Blood and lymphatic vessels"
+   ],
+   "subtopics": [
+    "9.2",
+    "Blood",
+    "Blood and lymphatic vessels"
+   ]
+  },
+  {
+   "id": "0610-2019-s-43-q5",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_18_variation_and_selection.18.3",
+   "primarySubtopic": "18.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_17_inheritance.17.5|17.5|core",
+    "2020_2021|topic_18_variation_and_selection.18.1|18.1|core",
+    "2020_2021|topic_01_characteristics_and_classification.1.2|1.2|core"
+   ],
+   "secondaryTopics": [
+    "Inheritance",
+    "Variation and selection",
+    "Characteristics and classification of living organisms"
+   ],
+   "secondaryTopicIds": [
+    "topic_17_inheritance.17.5",
+    "topic_18_variation_and_selection.18.1",
+    "topic_01_characteristics_and_classification.1.2"
+   ],
+   "secondarySubtopics": [
+    "Monohybrid inheritance",
+    "Variation",
+    "Concept and use of a classification system"
+   ],
+   "subtopics": [
+    "18.3",
+    "Monohybrid inheritance",
+    "Variation",
+    "Concept and use of a classification system"
+   ]
+  },
+  {
+   "id": "0610-2019-s-43-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_07_human_nutrition.7.4",
+   "primarySubtopic": "7.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_02_organisation.2.1|2.1|supplement"
+   ],
+   "secondaryTopics": [
+    "Organisation of the organism"
+   ],
+   "secondaryTopicIds": [
+    "topic_02_organisation.2.1"
+   ],
+   "secondarySubtopics": [
+    "Cell structure and organisation"
+   ],
+   "subtopics": [
+    "7.4",
+    "Cell structure and organisation"
+   ]
+  },
+  {
+   "id": "0610-2019-s-51-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_06_plant_nutrition.6.2",
+   "primarySubtopic": "6.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_02_organisation.2.3|2.3|core",
+    "2020_2021|topic_02_organisation.2.3|2.3|supplement",
+    "2020_2021|topic_06_plant_nutrition.6.1|6.1|core"
+   ],
+   "secondaryTopics": [
+    "Organisation of the organism",
+    "Plant nutrition"
+   ],
+   "secondaryTopicIds": [
+    "topic_02_organisation.2.3",
+    "topic_06_plant_nutrition.6.1"
+   ],
+   "secondarySubtopics": [
+    "Size of specimens",
+    "Photosynthesis"
+   ],
+   "subtopics": [
+    "6.2",
+    "Size of specimens",
+    "Photosynthesis"
+   ]
+  },
+  {
+   "id": "0610-2019-s-52-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_12_respiration.12.3",
+   "primarySubtopic": "12.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_21_biotechnology_and_genetic_modification.20.2|20.2|core",
+    "2020_2021|topic_05_enzymes.5.1|5.1|core"
+   ],
+   "secondaryTopics": [
+    "Biotechnology and genetic engineering",
+    "Enzymes"
+   ],
+   "secondaryTopicIds": [
+    "topic_21_biotechnology_and_genetic_modification.20.2",
+    "topic_05_enzymes.5.1"
+   ],
+   "secondarySubtopics": [
+    "Biotechnology",
+    "Enzymes"
+   ],
+   "subtopics": [
+    "12.3",
+    "Biotechnology",
+    "Enzymes"
+   ]
+  },
+  {
+   "id": "0610-2019-s-52-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_16_reproduction.16.3",
+   "primarySubtopic": "16.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_02_organisation.2.3|2.3|core",
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|core"
+   ],
+   "secondaryTopics": [
+    "Organisation of the organism",
+    "Biological molecules"
+   ],
+   "secondaryTopicIds": [
+    "topic_02_organisation.2.3",
+    "topic_04_biological_molecules.4.1"
+   ],
+   "secondarySubtopics": [
+    "Size of specimens",
+    "Biological molecules"
+   ],
+   "subtopics": [
+    "16.3",
+    "Size of specimens",
+    "Biological molecules"
+   ]
+  },
+  {
+   "id": "0610-2019-s-53-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_04_biological_molecules.4.1",
+   "primarySubtopic": "4.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_05_enzymes.5.1|5.1|core"
+   ],
+   "secondaryTopics": [
+    "Enzymes"
+   ],
+   "secondaryTopicIds": [
+    "topic_05_enzymes.5.1"
+   ],
+   "secondarySubtopics": [
+    "Enzymes"
+   ],
+   "subtopics": [
+    "4.1",
+    "Enzymes"
+   ]
+  },
+  {
+   "id": "0610-2019-s-53-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_09_transport_in_animals.9.3",
+   "primarySubtopic": "9.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_09_transport_in_animals.9.2|9.2|core",
+    "2020_2021|topic_02_organisation.2.3|2.3|core"
+   ],
+   "secondaryTopics": [
+    "Transport in animals",
+    "Organisation of the organism"
+   ],
+   "secondaryTopicIds": [
+    "topic_09_transport_in_animals.9.2",
+    "topic_02_organisation.2.3"
+   ],
+   "secondarySubtopics": [
+    "Heart",
+    "Size of specimens"
+   ],
+   "subtopics": [
+    "9.3",
+    "Heart",
+    "Size of specimens"
+   ]
+  },
+  {
+   "id": "0610-2019-s-61-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_06_plant_nutrition.6.2",
+   "primarySubtopic": "6.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_02_organisation.2.3|2.3|core",
+    "2020_2021|topic_02_organisation.2.3|2.3|supplement",
+    "2020_2021|topic_06_plant_nutrition.6.1|6.1|core"
+   ],
+   "secondaryTopics": [
+    "Organisation of the organism",
+    "Plant nutrition"
+   ],
+   "secondaryTopicIds": [
+    "topic_02_organisation.2.3",
+    "topic_06_plant_nutrition.6.1"
+   ],
+   "secondarySubtopics": [
+    "Size of specimens",
+    "Photosynthesis"
+   ],
+   "subtopics": [
+    "6.2",
+    "Size of specimens",
+    "Photosynthesis"
+   ]
+  },
+  {
+   "id": "0610-2019-s-62-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_12_respiration.12.3",
+   "primarySubtopic": "12.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_21_biotechnology_and_genetic_modification.20.2|20.2|core",
+    "2020_2021|topic_12_respiration.12.2|12.2|core"
+   ],
+   "secondaryTopics": [
+    "Biotechnology and genetic engineering",
+    "Respiration"
+   ],
+   "secondaryTopicIds": [
+    "topic_21_biotechnology_and_genetic_modification.20.2",
+    "topic_12_respiration.12.2"
+   ],
+   "secondarySubtopics": [
+    "Biotechnology",
+    "Aerobic respiration"
+   ],
+   "subtopics": [
+    "12.3",
+    "Biotechnology",
+    "Aerobic respiration"
+   ]
+  },
+  {
+   "id": "0610-2019-s-62-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_16_reproduction.16.3",
+   "primarySubtopic": "16.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_02_organisation.2.3|2.3|core",
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|core"
+   ],
+   "secondaryTopics": [
+    "Organisation of the organism",
+    "Biological molecules"
+   ],
+   "secondaryTopicIds": [
+    "topic_02_organisation.2.3",
+    "topic_04_biological_molecules.4.1"
+   ],
+   "secondarySubtopics": [
+    "Size of specimens",
+    "Biological molecules"
+   ],
+   "subtopics": [
+    "16.3",
+    "Size of specimens",
+    "Biological molecules"
+   ]
+  },
+  {
+   "id": "0610-2019-s-63-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_04_biological_molecules.4.1",
+   "primarySubtopic": "4.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_05_enzymes.5.1|5.1|core"
+   ],
+   "secondaryTopics": [
+    "Enzymes"
+   ],
+   "secondaryTopicIds": [
+    "topic_05_enzymes.5.1"
+   ],
+   "secondarySubtopics": [
+    "Enzymes"
+   ],
+   "subtopics": [
+    "4.1",
+    "Enzymes"
+   ]
+  },
+  {
+   "id": "0610-2019-s-63-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_09_transport_in_animals.9.3",
+   "primarySubtopic": "9.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_09_transport_in_animals.9.2|9.2|core",
+    "2020_2021|topic_02_organisation.2.3|2.3|core"
+   ],
+   "secondaryTopics": [
+    "Transport in animals",
+    "Organisation of the organism"
+   ],
+   "secondaryTopicIds": [
+    "topic_09_transport_in_animals.9.2",
+    "topic_02_organisation.2.3"
+   ],
+   "secondarySubtopics": [
+    "Heart",
+    "Size of specimens"
+   ],
+   "subtopics": [
+    "9.3",
+    "Heart",
+    "Size of specimens"
+   ]
+  },
+  {
+   "id": "0610-2019-w-31-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_07_human_nutrition.7.1",
+   "primarySubtopic": "7.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_18_variation_and_selection.18.2|18.2|core",
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|core"
+   ],
+   "secondaryTopics": [
+    "Variation and selection",
+    "Biological molecules"
+   ],
+   "secondaryTopicIds": [
+    "topic_18_variation_and_selection.18.2",
+    "topic_04_biological_molecules.4.1"
+   ],
+   "secondarySubtopics": [
+    "Adaptive features",
+    "Biological molecules"
+   ],
+   "subtopics": [
+    "7.1",
+    "Adaptive features",
+    "Biological molecules"
+   ]
+  },
+  {
+   "id": "0610-2019-w-31-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_18_variation_and_selection.18.2",
+   "primarySubtopic": "18.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_18_variation_and_selection.18.1|18.1|core",
+    "2020_2021|topic_16_reproduction.16.4|16.4|core"
+   ],
+   "secondaryTopics": [
+    "Variation and selection",
+    "Reproduction"
+   ],
+   "secondaryTopicIds": [
+    "topic_18_variation_and_selection.18.1",
+    "topic_16_reproduction.16.4"
+   ],
+   "secondarySubtopics": [
+    "Variation",
+    "Sexual reproduction in humans"
+   ],
+   "subtopics": [
+    "18.2",
+    "Variation",
+    "Sexual reproduction in humans"
+   ]
+  },
+  {
+   "id": "0610-2019-w-31-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_16_reproduction.16.3",
+   "primarySubtopic": "16.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_06_plant_nutrition.6.3|6.3|core"
+   ],
+   "secondaryTopics": [
+    "Plant nutrition"
+   ],
+   "secondaryTopicIds": [
+    "topic_06_plant_nutrition.6.3"
+   ],
+   "secondarySubtopics": [
+    "Mineral requirements"
+   ],
+   "subtopics": [
+    "16.3",
+    "Mineral requirements"
+   ]
+  },
+  {
+   "id": "0610-2019-w-31-q4",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_16_reproduction.16.5",
+   "primarySubtopic": "16.5",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_14_coordination_and_response.14.3|14.3|core"
+   ],
+   "secondaryTopics": [
+    "Coordination and response"
+   ],
+   "secondaryTopicIds": [
+    "topic_14_coordination_and_response.14.3"
+   ],
+   "secondarySubtopics": [
+    "Hormones in humans"
+   ],
+   "subtopics": [
+    "16.5",
+    "Hormones in humans"
+   ]
+  },
+  {
+   "id": "0610-2019-w-31-q5",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_12_respiration.12.3",
+   "primarySubtopic": "12.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_12_respiration.12.1|12.1|core",
+    "2020_2021|topic_15_drugs.15.3|15.3|core"
+   ],
+   "secondaryTopics": [
+    "Respiration",
+    "Drugs"
+   ],
+   "secondaryTopicIds": [
+    "topic_12_respiration.12.1",
+    "topic_15_drugs.15.3"
+   ],
+   "secondarySubtopics": [
+    "Respiration",
+    "Misused drugs"
+   ],
+   "subtopics": [
+    "12.3",
+    "Respiration",
+    "Misused drugs"
+   ]
+  },
+  {
+   "id": "0610-2019-w-31-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_09_transport_in_animals.9.2",
+   "primarySubtopic": "9.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_09_transport_in_animals.9.3|9.3|core",
+    "2020_2021|topic_09_transport_in_animals.9.4|9.4|core"
+   ],
+   "secondaryTopics": [
+    "Transport in animals"
+   ],
+   "secondaryTopicIds": [
+    "topic_09_transport_in_animals.9.3",
+    "topic_09_transport_in_animals.9.4"
+   ],
+   "secondarySubtopics": [
+    "Blood and lymphatic vessels",
+    "Blood"
+   ],
+   "subtopics": [
+    "9.2",
+    "Blood and lymphatic vessels",
+    "Blood"
+   ]
+  },
+  {
+   "id": "0610-2019-w-31-q7",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_20_human_influences_on_ecosystems.21.1",
+   "primarySubtopic": "21.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_18_variation_and_selection.18.3|18.3|core"
+   ],
+   "secondaryTopics": [
+    "Variation and selection"
+   ],
+   "secondaryTopicIds": [
+    "topic_18_variation_and_selection.18.3"
+   ],
+   "secondarySubtopics": [
+    "Selection"
+   ],
+   "subtopics": [
+    "21.1",
+    "Selection"
+   ]
+  },
+  {
+   "id": "0610-2019-w-31-q9",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_20_human_influences_on_ecosystems.21.3",
+   "primarySubtopic": "21.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_19_organisms_and_environment.19.3|19.3|core"
+   ],
+   "secondaryTopics": [
+    "Organisms and their environment"
+   ],
+   "secondaryTopicIds": [
+    "topic_19_organisms_and_environment.19.3"
+   ],
+   "secondarySubtopics": [
+    "Nutrient cycles"
+   ],
+   "subtopics": [
+    "21.3",
+    "Nutrient cycles"
+   ]
+  },
+  {
+   "id": "0610-2019-w-32-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_07_human_nutrition.7.2",
+   "primarySubtopic": "7.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_07_human_nutrition.7.4|7.4|core",
+    "2020_2021|topic_07_human_nutrition.7.5|7.5|core"
+   ],
+   "secondaryTopics": [
+    "Human nutrition"
+   ],
+   "secondaryTopicIds": [
+    "topic_07_human_nutrition.7.4",
+    "topic_07_human_nutrition.7.5"
+   ],
+   "secondarySubtopics": [
+    "Chemical digestion",
+    "Absorption"
+   ],
+   "subtopics": [
+    "7.2",
+    "Chemical digestion",
+    "Absorption"
+   ]
+  },
+  {
+   "id": "0610-2019-w-32-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_17_inheritance.17.3",
+   "primarySubtopic": "17.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_17_inheritance.17.4|17.4|core"
+   ],
+   "secondaryTopics": [
+    "Inheritance"
+   ],
+   "secondaryTopicIds": [
+    "topic_17_inheritance.17.4"
+   ],
+   "secondarySubtopics": [
+    "Meiosis"
+   ],
+   "subtopics": [
+    "17.3",
+    "Meiosis"
+   ]
+  },
+  {
+   "id": "0610-2019-w-32-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_09_transport_in_animals.9.3",
+   "primarySubtopic": "9.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_09_transport_in_animals.9.2|9.2|core"
+   ],
+   "secondaryTopics": [
+    "Transport in animals"
+   ],
+   "secondaryTopicIds": [
+    "topic_09_transport_in_animals.9.2"
+   ],
+   "secondarySubtopics": [
+    "Heart"
+   ],
+   "subtopics": [
+    "9.3",
+    "Heart"
+   ]
+  },
+  {
+   "id": "0610-2019-w-32-q5",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_14_coordination_and_response.14.5",
+   "primarySubtopic": "14.5",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_06_plant_nutrition.6.1|6.1|core",
+    "2020_2021|topic_06_plant_nutrition.6.3|6.3|core"
+   ],
+   "secondaryTopics": [
+    "Plant nutrition"
+   ],
+   "secondaryTopicIds": [
+    "topic_06_plant_nutrition.6.1",
+    "topic_06_plant_nutrition.6.3"
+   ],
+   "secondarySubtopics": [
+    "Photosynthesis",
+    "Mineral requirements"
+   ],
+   "subtopics": [
+    "14.5",
+    "Photosynthesis",
+    "Mineral requirements"
+   ]
+  },
+  {
+   "id": "0610-2019-w-32-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_11_gas_exchange_in_humans.11.1",
+   "primarySubtopic": "11.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_15_drugs.15.3|15.3|core"
+   ],
+   "secondaryTopics": [
+    "Drugs"
+   ],
+   "secondaryTopicIds": [
+    "topic_15_drugs.15.3"
+   ],
+   "secondarySubtopics": [
+    "Misused drugs"
+   ],
+   "subtopics": [
+    "11.1",
+    "Misused drugs"
+   ]
+  },
+  {
+   "id": "0610-2019-w-32-q8",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_14_coordination_and_response.14.1",
+   "primarySubtopic": "14.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_14_coordination_and_response.14.2|14.2|core"
+   ],
+   "secondaryTopics": [
+    "Coordination and response"
+   ],
+   "secondaryTopicIds": [
+    "topic_14_coordination_and_response.14.2"
+   ],
+   "secondarySubtopics": [
+    "Sense organs"
+   ],
+   "subtopics": [
+    "14.1",
+    "Sense organs"
+   ]
+  },
+  {
+   "id": "0610-2019-w-32-q9",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_14_coordination_and_response.14.4",
+   "primarySubtopic": "14.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_08_transport_in_plants.8.2|8.2|core"
+   ],
+   "secondaryTopics": [
+    "Transport in plants"
+   ],
+   "secondaryTopicIds": [
+    "topic_08_transport_in_plants.8.2"
+   ],
+   "secondarySubtopics": [
+    "Water uptake"
+   ],
+   "subtopics": [
+    "14.4",
+    "Water uptake"
+   ]
+  },
+  {
+   "id": "0610-2019-w-33-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_02_organisation.2.2",
+   "primarySubtopic": "2.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_16_reproduction.16.4|16.4|core"
+   ],
+   "secondaryTopics": [
+    "Reproduction"
+   ],
+   "secondaryTopicIds": [
+    "topic_16_reproduction.16.4"
+   ],
+   "secondarySubtopics": [
+    "Sexual reproduction in humans"
+   ],
+   "subtopics": [
+    "2.2",
+    "Sexual reproduction in humans"
+   ]
+  },
+  {
+   "id": "0610-2019-w-33-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_04_biological_molecules.4.1",
+   "primarySubtopic": "4.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_14_coordination_and_response.14.1|14.1|core"
+   ],
+   "secondaryTopics": [
+    "Coordination and response"
+   ],
+   "secondaryTopicIds": [
+    "topic_14_coordination_and_response.14.1"
+   ],
+   "secondarySubtopics": [
+    "Nervous control in humans"
+   ],
+   "subtopics": [
+    "4.1",
+    "Nervous control in humans"
+   ]
+  },
+  {
+   "id": "0610-2019-w-33-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_02_organisation.2.1",
+   "primarySubtopic": "2.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_17_inheritance.17.3|17.3|core",
+    "2020_2021|topic_17_inheritance.17.2|17.2|core"
+   ],
+   "secondaryTopics": [
+    "Inheritance"
+   ],
+   "secondaryTopicIds": [
+    "topic_17_inheritance.17.3",
+    "topic_17_inheritance.17.2"
+   ],
+   "secondarySubtopics": [
+    "Mitosis",
+    "Chromosomes, genes and proteins"
+   ],
+   "subtopics": [
+    "2.1",
+    "Mitosis",
+    "Chromosomes, genes and proteins"
+   ]
+  },
+  {
+   "id": "0610-2019-w-33-q5",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_16_reproduction.16.5",
+   "primarySubtopic": "16.5",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_14_coordination_and_response.14.3|14.3|core"
+   ],
+   "secondaryTopics": [
+    "Coordination and response"
+   ],
+   "secondaryTopicIds": [
+    "topic_14_coordination_and_response.14.3"
+   ],
+   "secondarySubtopics": [
+    "Hormones in humans"
+   ],
+   "subtopics": [
+    "16.5",
+    "Hormones in humans"
+   ]
+  },
+  {
+   "id": "0610-2019-w-33-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_12_respiration.12.3",
+   "primarySubtopic": "12.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_12_respiration.12.2|12.2|core",
+    "2020_2021|topic_09_transport_in_animals.9.2|9.2|core",
+    "2020_2021|topic_09_transport_in_animals.9.3|9.3|core"
+   ],
+   "secondaryTopics": [
+    "Respiration",
+    "Transport in animals"
+   ],
+   "secondaryTopicIds": [
+    "topic_12_respiration.12.2",
+    "topic_09_transport_in_animals.9.2",
+    "topic_09_transport_in_animals.9.3"
+   ],
+   "secondarySubtopics": [
+    "Aerobic respiration",
+    "Heart",
+    "Blood and lymphatic vessels"
+   ],
+   "subtopics": [
+    "12.3",
+    "Aerobic respiration",
+    "Heart",
+    "Blood and lymphatic vessels"
+   ]
+  },
+  {
+   "id": "0610-2019-w-33-q7",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_06_plant_nutrition.6.1",
+   "primarySubtopic": "6.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_16_reproduction.16.3|16.3|core",
+    "2020_2021|topic_03_movement_into_and_out_of_cells.3.2|3.2|core"
+   ],
+   "secondaryTopics": [
+    "Reproduction",
+    "Movement in and out of cells"
+   ],
+   "secondaryTopicIds": [
+    "topic_16_reproduction.16.3",
+    "topic_03_movement_into_and_out_of_cells.3.2"
+   ],
+   "secondarySubtopics": [
+    "Sexual reproduction in plants",
+    "Osmosis"
+   ],
+   "subtopics": [
+    "6.1",
+    "Sexual reproduction in plants",
+    "Osmosis"
+   ]
+  },
+  {
+   "id": "0610-2019-w-41-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_01_characteristics_and_classification.1.3",
+   "primarySubtopic": "1.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_01_characteristics_and_classification.1.2|1.2|core"
+   ],
+   "secondaryTopics": [
+    "Characteristics and classification of living organisms"
+   ],
+   "secondaryTopicIds": [
+    "topic_01_characteristics_and_classification.1.2"
+   ],
+   "secondarySubtopics": [
+    "Concept and use of a classification system"
+   ],
+   "subtopics": [
+    "1.3",
+    "Concept and use of a classification system"
+   ]
+  },
+  {
+   "id": "0610-2019-w-41-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_06_plant_nutrition.6.1",
+   "primarySubtopic": "6.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_08_transport_in_plants.8.1|8.1|core",
+    "2020_2021|topic_08_transport_in_plants.8.4|8.4|supplement",
+    "2020_2021|topic_21_biotechnology_and_genetic_modification.20.3|20.3|core",
+    "2020_2021|topic_16_reproduction.16.3|16.3|core"
+   ],
+   "secondaryTopics": [
+    "Transport in plants",
+    "Biotechnology and genetic engineering",
+    "Reproduction"
+   ],
+   "secondaryTopicIds": [
+    "topic_08_transport_in_plants.8.1",
+    "topic_08_transport_in_plants.8.4",
+    "topic_21_biotechnology_and_genetic_modification.20.3",
+    "topic_16_reproduction.16.3"
+   ],
+   "secondarySubtopics": [
+    "Transport in plants",
+    "Translocation",
+    "Genetic engineering",
+    "Sexual reproduction in plants"
+   ],
+   "subtopics": [
+    "6.1",
+    "Transport in plants",
+    "Translocation",
+    "Genetic engineering",
+    "Sexual reproduction in plants"
+   ]
+  },
+  {
+   "id": "0610-2019-w-41-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_03_movement_into_and_out_of_cells.3.3",
+   "primarySubtopic": "3.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_13_excretion_in_humans.13.1|13.1|supplement",
+    "2020_2021|topic_13_excretion_in_humans.13.1|13.1|core",
+    "2020_2021|topic_03_movement_into_and_out_of_cells.3.2|3.2|core"
+   ],
+   "secondaryTopics": [
+    "Excretion in humans",
+    "Movement in and out of cells"
+   ],
+   "secondaryTopicIds": [
+    "topic_13_excretion_in_humans.13.1",
+    "topic_03_movement_into_and_out_of_cells.3.2"
+   ],
+   "secondarySubtopics": [
+    "Excretion in humans",
+    "Osmosis"
+   ],
+   "subtopics": [
+    "3.3",
+    "Excretion in humans",
+    "Osmosis"
+   ]
+  },
+  {
+   "id": "0610-2019-w-41-q4",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_10_diseases_and_immunity.10.1",
+   "primarySubtopic": "10.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_15_drugs.15.2|15.2|core"
+   ],
+   "secondaryTopics": [
+    "Drugs"
+   ],
+   "secondaryTopicIds": [
+    "topic_15_drugs.15.2"
+   ],
+   "secondarySubtopics": [
+    "Medicinal drugs"
+   ],
+   "subtopics": [
+    "10.1",
+    "Medicinal drugs"
+   ]
+  },
+  {
+   "id": "0610-2019-w-41-q5",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_09_transport_in_animals.9.2",
+   "primarySubtopic": "9.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_09_transport_in_animals.9.4|9.4|supplement"
+   ],
+   "secondaryTopics": [
+    "Transport in animals"
+   ],
+   "secondaryTopicIds": [
+    "topic_09_transport_in_animals.9.4"
+   ],
+   "secondarySubtopics": [
+    "Blood"
+   ],
+   "subtopics": [
+    "9.2",
+    "Blood"
+   ]
+  },
+  {
+   "id": "0610-2019-w-41-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_20_human_influences_on_ecosystems.21.4",
+   "primarySubtopic": "21.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_07_human_nutrition.7.1|7.1|supplement"
+   ],
+   "secondaryTopics": [
+    "Human nutrition"
+   ],
+   "secondaryTopicIds": [
+    "topic_07_human_nutrition.7.1"
+   ],
+   "secondarySubtopics": [
+    "Diet"
+   ],
+   "subtopics": [
+    "21.4",
+    "Diet"
+   ]
+  },
+  {
+   "id": "0610-2019-w-41-q7",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_19_organisms_and_environment.19.3",
+   "primarySubtopic": "19.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_13_excretion_in_humans.13.1|13.1|supplement",
+    "2020_2021|topic_02_organisation.2.1|2.1|supplement"
+   ],
+   "secondaryTopics": [
+    "Excretion in humans",
+    "Organisation of the organism"
+   ],
+   "secondaryTopicIds": [
+    "topic_13_excretion_in_humans.13.1",
+    "topic_02_organisation.2.1"
+   ],
+   "secondarySubtopics": [
+    "Excretion in humans",
+    "Cell structure and organisation"
+   ],
+   "subtopics": [
+    "19.3",
+    "Excretion in humans",
+    "Cell structure and organisation"
+   ]
+  },
+  {
+   "id": "0610-2019-w-42-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_18_variation_and_selection.18.2",
+   "primarySubtopic": "18.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_01_characteristics_and_classification.1.3|1.3|core",
+    "2020_2021|topic_20_human_influences_on_ecosystems.21.4|21.4|core",
+    "2020_2021|topic_01_characteristics_and_classification.1.2|1.2|supplement"
+   ],
+   "secondaryTopics": [
+    "Characteristics and classification of living organisms",
+    "Human influences on ecosystems"
+   ],
+   "secondaryTopicIds": [
+    "topic_01_characteristics_and_classification.1.3",
+    "topic_20_human_influences_on_ecosystems.21.4",
+    "topic_01_characteristics_and_classification.1.2"
+   ],
+   "secondarySubtopics": [
+    "Features of organisms",
+    "Conservation",
+    "Concept and use of a classification system"
+   ],
+   "subtopics": [
+    "18.2",
+    "Features of organisms",
+    "Conservation",
+    "Concept and use of a classification system"
+   ]
+  },
+  {
+   "id": "0610-2019-w-42-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_08_transport_in_plants.8.4",
+   "primarySubtopic": "8.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_03_movement_into_and_out_of_cells.3.2|3.2|supplement",
+    "2020_2021|topic_08_transport_in_plants.8.1|8.1|core"
+   ],
+   "secondaryTopics": [
+    "Movement in and out of cells",
+    "Transport in plants"
+   ],
+   "secondaryTopicIds": [
+    "topic_03_movement_into_and_out_of_cells.3.2",
+    "topic_08_transport_in_plants.8.1"
+   ],
+   "secondarySubtopics": [
+    "Osmosis",
+    "Transport in plants"
+   ],
+   "subtopics": [
+    "8.4",
+    "Osmosis",
+    "Transport in plants"
+   ]
+  },
+  {
+   "id": "0610-2019-w-42-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_07_human_nutrition.7.4",
+   "primarySubtopic": "7.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_07_human_nutrition.7.2|7.2|core",
+    "2020_2021|topic_17_inheritance.17.3|17.3|supplement",
+    "2020_2021|topic_07_human_nutrition.7.5|7.5|supplement"
+   ],
+   "secondaryTopics": [
+    "Human nutrition",
+    "Inheritance"
+   ],
+   "secondaryTopicIds": [
+    "topic_07_human_nutrition.7.2",
+    "topic_17_inheritance.17.3",
+    "topic_07_human_nutrition.7.5"
+   ],
+   "secondarySubtopics": [
+    "Alimentary canal",
+    "Mitosis",
+    "Absorption"
+   ],
+   "subtopics": [
+    "7.4",
+    "Alimentary canal",
+    "Mitosis",
+    "Absorption"
+   ]
+  },
+  {
+   "id": "0610-2019-w-42-q4",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_15_drugs.15.3",
+   "primarySubtopic": "15.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_10_diseases_and_immunity.10.1|10.1|supplement",
+    "2020_2021|topic_11_gas_exchange_in_humans.11.1|11.1|supplement",
+    "2020_2021|topic_15_drugs.15.2|15.2|supplement"
+   ],
+   "secondaryTopics": [
+    "Diseases and immunity",
+    "Gas exchange in humans",
+    "Drugs"
+   ],
+   "secondaryTopicIds": [
+    "topic_10_diseases_and_immunity.10.1",
+    "topic_11_gas_exchange_in_humans.11.1",
+    "topic_15_drugs.15.2"
+   ],
+   "secondarySubtopics": [
+    "Diseases and immunity",
+    "Gas exchange in humans",
+    "Medicinal drugs"
+   ],
+   "subtopics": [
+    "15.3",
+    "Diseases and immunity",
+    "Gas exchange in humans",
+    "Medicinal drugs"
+   ]
+  },
+  {
+   "id": "0610-2019-w-42-q5",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_16_reproduction.16.3",
+   "primarySubtopic": "16.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_18_variation_and_selection.18.3|18.3|core",
+    "2020_2021|topic_20_human_influences_on_ecosystems.21.1|21.1|supplement"
+   ],
+   "secondaryTopics": [
+    "Variation and selection",
+    "Human influences on ecosystems"
+   ],
+   "secondaryTopicIds": [
+    "topic_18_variation_and_selection.18.3",
+    "topic_20_human_influences_on_ecosystems.21.1"
+   ],
+   "secondarySubtopics": [
+    "Selection",
+    "Food supply"
+   ],
+   "subtopics": [
+    "16.3",
+    "Selection",
+    "Food supply"
+   ]
+  },
+  {
+   "id": "0610-2019-w-42-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_20_human_influences_on_ecosystems.21.3",
+   "primarySubtopic": "21.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_19_organisms_and_environment.19.3|19.3|core"
+   ],
+   "secondaryTopics": [
+    "Organisms and their environment"
+   ],
+   "secondaryTopicIds": [
+    "topic_19_organisms_and_environment.19.3"
+   ],
+   "secondarySubtopics": [
+    "Nutrient cycles"
+   ],
+   "subtopics": [
+    "21.3",
+    "Nutrient cycles"
+   ]
+  },
+  {
+   "id": "0610-2019-w-43-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_01_characteristics_and_classification.1.3",
+   "primarySubtopic": "1.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_01_characteristics_and_classification.1.2|1.2|core",
+    "2020_2021|topic_19_organisms_and_environment.19.2|19.2|core",
+    "2020_2021|topic_01_characteristics_and_classification.1.2|1.2|supplement"
+   ],
+   "secondaryTopics": [
+    "Characteristics and classification of living organisms",
+    "Organisms and their environment"
+   ],
+   "secondaryTopicIds": [
+    "topic_01_characteristics_and_classification.1.2",
+    "topic_19_organisms_and_environment.19.2"
+   ],
+   "secondarySubtopics": [
+    "Concept and use of a classification system",
+    "Food chains and food webs"
+   ],
+   "subtopics": [
+    "1.3",
+    "Concept and use of a classification system",
+    "Food chains and food webs"
+   ]
+  },
+  {
+   "id": "0610-2019-w-43-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_03_movement_into_and_out_of_cells.3.2",
+   "primarySubtopic": "3.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_08_transport_in_plants.8.4|8.4|supplement",
+    "2020_2021|topic_06_plant_nutrition.6.1|6.1|supplement",
+    "2020_2021|topic_08_transport_in_plants.8.1|8.1|core"
+   ],
+   "secondaryTopics": [
+    "Transport in plants",
+    "Plant nutrition"
+   ],
+   "secondaryTopicIds": [
+    "topic_08_transport_in_plants.8.4",
+    "topic_06_plant_nutrition.6.1",
+    "topic_08_transport_in_plants.8.1"
+   ],
+   "secondarySubtopics": [
+    "Translocation",
+    "Photosynthesis",
+    "Transport in plants"
+   ],
+   "subtopics": [
+    "3.2",
+    "Translocation",
+    "Photosynthesis",
+    "Transport in plants"
+   ]
+  },
+  {
+   "id": "0610-2019-w-43-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_07_human_nutrition.7.4",
+   "primarySubtopic": "7.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_07_human_nutrition.7.1|7.1|core",
+    "2020_2021|topic_09_transport_in_animals.9.2|9.2|core",
+    "2020_2021|topic_13_excretion_in_humans.13.1|13.1|supplement",
+    "2020_2021|topic_07_human_nutrition.7.1|7.1|core"
+   ],
+   "secondaryTopics": [
+    "Human nutrition",
+    "Transport in animals",
+    "Excretion in humans"
+   ],
+   "secondaryTopicIds": [
+    "topic_07_human_nutrition.7.1",
+    "topic_09_transport_in_animals.9.2",
+    "topic_13_excretion_in_humans.13.1"
+   ],
+   "secondarySubtopics": [
+    "Diet",
+    "Heart",
+    "Excretion in humans"
+   ],
+   "subtopics": [
+    "7.4",
+    "Diet",
+    "Heart",
+    "Excretion in humans"
+   ]
+  },
+  {
+   "id": "0610-2019-w-43-q4",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_20_human_influences_on_ecosystems.21.2",
+   "primarySubtopic": "21.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_20_human_influences_on_ecosystems.21.4|21.4|supplement"
+   ],
+   "secondaryTopics": [
+    "Human influences on ecosystems"
+   ],
+   "secondaryTopicIds": [
+    "topic_20_human_influences_on_ecosystems.21.4"
+   ],
+   "secondarySubtopics": [
+    "Conservation"
+   ],
+   "subtopics": [
+    "21.2",
+    "Conservation"
+   ]
+  },
+  {
+   "id": "0610-2019-w-43-q5",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_21_biotechnology_and_genetic_modification.20.3",
+   "primarySubtopic": "20.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_21_biotechnology_and_genetic_modification.20.2|20.2|core",
+    "2020_2021|topic_17_inheritance.17.2|17.2|core"
+   ],
+   "secondaryTopics": [
+    "Biotechnology and genetic engineering",
+    "Inheritance"
+   ],
+   "secondaryTopicIds": [
+    "topic_21_biotechnology_and_genetic_modification.20.2",
+    "topic_17_inheritance.17.2"
+   ],
+   "secondarySubtopics": [
+    "Biotechnology",
+    "Chromosomes, genes and proteins"
+   ],
+   "subtopics": [
+    "20.3",
+    "Biotechnology",
+    "Chromosomes, genes and proteins"
+   ]
+  },
+  {
+   "id": "0610-2019-w-43-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_09_transport_in_animals.9.4",
+   "primarySubtopic": "9.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_17_inheritance.17.5|17.5|supplement",
+    "2020_2021|topic_17_inheritance.17.5|17.5|core"
+   ],
+   "secondaryTopics": [
+    "Inheritance"
+   ],
+   "secondaryTopicIds": [
+    "topic_17_inheritance.17.5"
+   ],
+   "secondarySubtopics": [
+    "Monohybrid inheritance"
+   ],
+   "subtopics": [
+    "9.4",
+    "Monohybrid inheritance"
+   ]
+  },
+  {
+   "id": "0610-2019-w-51-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_06_plant_nutrition.6.1",
+   "primarySubtopic": "6.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_02_organisation.2.3|2.3|core",
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|core"
+   ],
+   "secondaryTopics": [
+    "Organisation of the organism",
+    "Biological molecules"
+   ],
+   "secondaryTopicIds": [
+    "topic_02_organisation.2.3",
+    "topic_04_biological_molecules.4.1"
+   ],
+   "secondarySubtopics": [
+    "Size of specimens",
+    "Biological molecules"
+   ],
+   "subtopics": [
+    "6.1",
+    "Size of specimens",
+    "Biological molecules"
+   ]
+  },
+  {
+   "id": "0610-2019-w-51-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_09_transport_in_animals.9.4",
+   "primarySubtopic": "9.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_07_human_nutrition.7.1|7.1|core",
+    "2020_2021|topic_02_organisation.2.3|2.3|supplement"
+   ],
+   "secondaryTopics": [
+    "Human nutrition",
+    "Organisation of the organism"
+   ],
+   "secondaryTopicIds": [
+    "topic_07_human_nutrition.7.1",
+    "topic_02_organisation.2.3"
+   ],
+   "secondarySubtopics": [
+    "Diet",
+    "Size of specimens"
+   ],
+   "subtopics": [
+    "9.4",
+    "Diet",
+    "Size of specimens"
+   ]
+  },
+  {
+   "id": "0610-2019-w-52-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_05_enzymes.5.1",
+   "primarySubtopic": "5.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|core",
+    "2020_2021|topic_07_human_nutrition.7.4|7.4|core"
+   ],
+   "secondaryTopics": [
+    "Biological molecules",
+    "Human nutrition"
+   ],
+   "secondaryTopicIds": [
+    "topic_04_biological_molecules.4.1",
+    "topic_07_human_nutrition.7.4"
+   ],
+   "secondarySubtopics": [
+    "Biological molecules",
+    "Chemical digestion"
+   ],
+   "subtopics": [
+    "5.1",
+    "Biological molecules",
+    "Chemical digestion"
+   ]
+  },
+  {
+   "id": "0610-2019-w-52-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_06_plant_nutrition.6.1",
+   "primarySubtopic": "6.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_02_organisation.2.3|2.3|core",
+    "2020_2021|topic_08_transport_in_plants.8.3|8.3|core"
+   ],
+   "secondaryTopics": [
+    "Organisation of the organism",
+    "Transport in plants"
+   ],
+   "secondaryTopicIds": [
+    "topic_02_organisation.2.3",
+    "topic_08_transport_in_plants.8.3"
+   ],
+   "secondarySubtopics": [
+    "Size of specimens",
+    "Transpiration"
+   ],
+   "subtopics": [
+    "6.1",
+    "Size of specimens",
+    "Transpiration"
+   ]
+  },
+  {
+   "id": "0610-2019-w-53-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_06_plant_nutrition.6.1",
+   "primarySubtopic": "6.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_12_respiration.12.1|12.1|core",
+    "2020_2021|topic_05_enzymes.5.1|5.1|core"
+   ],
+   "secondaryTopics": [
+    "Respiration",
+    "Enzymes"
+   ],
+   "secondaryTopicIds": [
+    "topic_12_respiration.12.1",
+    "topic_05_enzymes.5.1"
+   ],
+   "secondarySubtopics": [
+    "Respiration",
+    "Enzymes"
+   ],
+   "subtopics": [
+    "6.1",
+    "Respiration",
+    "Enzymes"
+   ]
+  },
+  {
+   "id": "0610-2019-w-53-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_06_plant_nutrition.6.2",
+   "primarySubtopic": "6.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_08_transport_in_plants.8.3|8.3|core",
+    "2020_2021|topic_02_organisation.2.3|2.3|core"
+   ],
+   "secondaryTopics": [
+    "Transport in plants",
+    "Organisation of the organism"
+   ],
+   "secondaryTopicIds": [
+    "topic_08_transport_in_plants.8.3",
+    "topic_02_organisation.2.3"
+   ],
+   "secondarySubtopics": [
+    "Transpiration",
+    "Size of specimens"
+   ],
+   "subtopics": [
+    "6.2",
+    "Transpiration",
+    "Size of specimens"
+   ]
+  },
+  {
+   "id": "0610-2019-w-61-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_06_plant_nutrition.6.1",
+   "primarySubtopic": "6.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|core",
+    "2020_2021|topic_03_movement_into_and_out_of_cells.3.1|3.1|core"
+   ],
+   "secondaryTopics": [
+    "Biological molecules",
+    "Movement in and out of cells"
+   ],
+   "secondaryTopicIds": [
+    "topic_04_biological_molecules.4.1",
+    "topic_03_movement_into_and_out_of_cells.3.1"
+   ],
+   "secondarySubtopics": [
+    "Biological molecules",
+    "Diffusion"
+   ],
+   "subtopics": [
+    "6.1",
+    "Biological molecules",
+    "Diffusion"
+   ]
+  },
+  {
+   "id": "0610-2019-w-61-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_09_transport_in_animals.9.4",
+   "primarySubtopic": "9.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_07_human_nutrition.7.1|7.1|core",
+    "2020_2021|topic_02_organisation.2.3|2.3|supplement"
+   ],
+   "secondaryTopics": [
+    "Human nutrition",
+    "Organisation of the organism"
+   ],
+   "secondaryTopicIds": [
+    "topic_07_human_nutrition.7.1",
+    "topic_02_organisation.2.3"
+   ],
+   "secondarySubtopics": [
+    "Diet",
+    "Size of specimens"
+   ],
+   "subtopics": [
+    "9.4",
+    "Diet",
+    "Size of specimens"
+   ]
+  },
+  {
+   "id": "0610-2019-w-62-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_05_enzymes.5.1",
+   "primarySubtopic": "5.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|core",
+    "2020_2021|topic_07_human_nutrition.7.4|7.4|core"
+   ],
+   "secondaryTopics": [
+    "Biological molecules",
+    "Human nutrition"
+   ],
+   "secondaryTopicIds": [
+    "topic_04_biological_molecules.4.1",
+    "topic_07_human_nutrition.7.4"
+   ],
+   "secondarySubtopics": [
+    "Biological molecules",
+    "Chemical digestion"
+   ],
+   "subtopics": [
+    "5.1",
+    "Biological molecules",
+    "Chemical digestion"
+   ]
+  },
+  {
+   "id": "0610-2019-w-62-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_06_plant_nutrition.6.1",
+   "primarySubtopic": "6.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_02_organisation.2.3|2.3|core",
+    "2020_2021|topic_08_transport_in_plants.8.3|8.3|core"
+   ],
+   "secondaryTopics": [
+    "Organisation of the organism",
+    "Transport in plants"
+   ],
+   "secondaryTopicIds": [
+    "topic_02_organisation.2.3",
+    "topic_08_transport_in_plants.8.3"
+   ],
+   "secondarySubtopics": [
+    "Size of specimens",
+    "Transpiration"
+   ],
+   "subtopics": [
+    "6.1",
+    "Size of specimens",
+    "Transpiration"
+   ]
+  },
+  {
+   "id": "0610-2019-w-63-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_06_plant_nutrition.6.1",
+   "primarySubtopic": "6.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_05_enzymes.5.1|5.1|core",
+    "2020_2021|topic_12_respiration.12.1|12.1|core"
+   ],
+   "secondaryTopics": [
+    "Enzymes",
+    "Respiration"
+   ],
+   "secondaryTopicIds": [
+    "topic_05_enzymes.5.1",
+    "topic_12_respiration.12.1"
+   ],
+   "secondarySubtopics": [
+    "Enzymes",
+    "Respiration"
+   ],
+   "subtopics": [
+    "6.1",
+    "Enzymes",
+    "Respiration"
+   ]
+  },
+  {
+   "id": "0610-2019-w-63-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_06_plant_nutrition.6.2",
+   "primarySubtopic": "6.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_08_transport_in_plants.8.3|8.3|core",
+    "2020_2021|topic_02_organisation.2.3|2.3|core"
+   ],
+   "secondaryTopics": [
+    "Transport in plants",
+    "Organisation of the organism"
+   ],
+   "secondaryTopicIds": [
+    "topic_08_transport_in_plants.8.3",
+    "topic_02_organisation.2.3"
+   ],
+   "secondarySubtopics": [
+    "Transpiration",
+    "Size of specimens"
+   ],
+   "subtopics": [
+    "6.2",
+    "Transpiration",
+    "Size of specimens"
+   ]
+  },
+  {
+   "id": "0610-2020-m-32-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_01_characteristics_and_classification.1.2",
+   "primarySubtopic": "1.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_01_characteristics_and_classification.1.3|1.3|core",
+    "2020_2021|topic_02_organisation.2.1|2.1|core"
+   ],
+   "secondaryTopics": [
+    "Characteristics and classification of living organisms",
+    "Organisation of the organism"
+   ],
+   "secondaryTopicIds": [
+    "topic_01_characteristics_and_classification.1.3",
+    "topic_02_organisation.2.1"
+   ],
+   "secondarySubtopics": [
+    "Features of organisms",
+    "Cell structure and organisation"
+   ],
+   "subtopics": [
+    "1.2",
+    "Features of organisms",
+    "Cell structure and organisation"
+   ]
+  },
+  {
+   "id": "0610-2020-m-32-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_17_inheritance.17.5",
+   "primarySubtopic": "17.5",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_18_variation_and_selection.18.1|18.1|core"
+   ],
+   "secondaryTopics": [
+    "Variation and selection"
+   ],
+   "secondaryTopicIds": [
+    "topic_18_variation_and_selection.18.1"
+   ],
+   "secondarySubtopics": [
+    "Variation"
+   ],
+   "subtopics": [
+    "17.5",
+    "Variation"
+   ]
+  },
+  {
+   "id": "0610-2020-m-32-q4",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_16_reproduction.16.6",
+   "primarySubtopic": "16.6",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_16_reproduction.16.7|16.7|core"
+   ],
+   "secondaryTopics": [
+    "Reproduction"
+   ],
+   "secondaryTopicIds": [
+    "topic_16_reproduction.16.7"
+   ],
+   "secondarySubtopics": [
+    "Sexually transmitted infections (STIs)"
+   ],
+   "subtopics": [
+    "16.6",
+    "Sexually transmitted infections (STIs)"
+   ]
+  },
+  {
+   "id": "0610-2020-m-32-q5",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_20_human_influences_on_ecosystems.21.4",
+   "primarySubtopic": "21.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_01_characteristics_and_classification.1.3|1.3|core",
+    "2020_2021|topic_19_organisms_and_environment.19.4|19.4|core"
+   ],
+   "secondaryTopics": [
+    "Characteristics and classification of living organisms",
+    "Organisms and their environment"
+   ],
+   "secondaryTopicIds": [
+    "topic_01_characteristics_and_classification.1.3",
+    "topic_19_organisms_and_environment.19.4"
+   ],
+   "secondarySubtopics": [
+    "Features of organisms",
+    "Population size"
+   ],
+   "subtopics": [
+    "21.4",
+    "Features of organisms",
+    "Population size"
+   ]
+  },
+  {
+   "id": "0610-2020-m-32-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_08_transport_in_plants.8.3",
+   "primarySubtopic": "8.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_08_transport_in_plants.8.1|8.1|core",
+    "2020_2021|topic_08_transport_in_plants.8.2|8.2|core"
+   ],
+   "secondaryTopics": [
+    "Transport in plants"
+   ],
+   "secondaryTopicIds": [
+    "topic_08_transport_in_plants.8.1",
+    "topic_08_transport_in_plants.8.2"
+   ],
+   "secondarySubtopics": [
+    "Transport in plants",
+    "Water uptake"
+   ],
+   "subtopics": [
+    "8.3",
+    "Transport in plants",
+    "Water uptake"
+   ]
+  },
+  {
+   "id": "0610-2020-m-32-q7",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_07_human_nutrition.7.2",
+   "primarySubtopic": "7.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_07_human_nutrition.7.1|7.1|core"
+   ],
+   "secondaryTopics": [
+    "Human nutrition"
+   ],
+   "secondaryTopicIds": [
+    "topic_07_human_nutrition.7.1"
+   ],
+   "secondarySubtopics": [
+    "Diet"
+   ],
+   "subtopics": [
+    "7.2",
+    "Diet"
+   ]
+  },
+  {
+   "id": "0610-2020-m-32-q8",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_20_human_influences_on_ecosystems.21.1",
+   "primarySubtopic": "21.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_20_human_influences_on_ecosystems.21.3|21.3|core"
+   ],
+   "secondaryTopics": [
+    "Human influences on ecosystems"
+   ],
+   "secondaryTopicIds": [
+    "topic_20_human_influences_on_ecosystems.21.3"
+   ],
+   "secondarySubtopics": [
+    "Pollution"
+   ],
+   "subtopics": [
+    "21.1",
+    "Pollution"
+   ]
+  },
+  {
+   "id": "0610-2020-m-42-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_15_drugs.15.3",
+   "primarySubtopic": "15.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_11_gas_exchange_in_humans.11.1|11.1|supplement"
+   ],
+   "secondaryTopics": [
+    "Gas exchange in humans"
+   ],
+   "secondaryTopicIds": [
+    "topic_11_gas_exchange_in_humans.11.1"
+   ],
+   "secondarySubtopics": [
+    "Gas exchange in humans"
+   ],
+   "subtopics": [
+    "15.3",
+    "Gas exchange in humans"
+   ]
+  },
+  {
+   "id": "0610-2020-m-42-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_09_transport_in_animals.9.3",
+   "primarySubtopic": "9.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_14_coordination_and_response.14.4|14.4|supplement",
+    "2020_2021|topic_12_respiration.12.2|12.2|core",
+    "2020_2021|topic_09_transport_in_animals.9.4|9.4|core"
+   ],
+   "secondaryTopics": [
+    "Coordination and response",
+    "Respiration",
+    "Transport in animals"
+   ],
+   "secondaryTopicIds": [
+    "topic_14_coordination_and_response.14.4",
+    "topic_12_respiration.12.2",
+    "topic_09_transport_in_animals.9.4"
+   ],
+   "secondarySubtopics": [
+    "Homeostasis",
+    "Aerobic respiration",
+    "Blood"
+   ],
+   "subtopics": [
+    "9.3",
+    "Homeostasis",
+    "Aerobic respiration",
+    "Blood"
+   ]
+  },
+  {
+   "id": "0610-2020-m-42-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_14_coordination_and_response.14.3",
+   "primarySubtopic": "14.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_14_coordination_and_response.14.4|14.4|supplement",
+    "2020_2021|topic_14_coordination_and_response.14.2|14.2|core"
+   ],
+   "secondaryTopics": [
+    "Coordination and response"
+   ],
+   "secondaryTopicIds": [
+    "topic_14_coordination_and_response.14.4",
+    "topic_14_coordination_and_response.14.2"
+   ],
+   "secondarySubtopics": [
+    "Homeostasis",
+    "Sense organs"
+   ],
+   "subtopics": [
+    "14.3",
+    "Homeostasis",
+    "Sense organs"
+   ]
+  },
+  {
+   "id": "0610-2020-m-42-q4",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_07_human_nutrition.7.1",
+   "primarySubtopic": "7.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_07_human_nutrition.7.2|7.2|core",
+    "2020_2021|topic_07_human_nutrition.7.2|7.2|core"
+   ],
+   "secondaryTopics": [
+    "Human nutrition"
+   ],
+   "secondaryTopicIds": [
+    "topic_07_human_nutrition.7.2"
+   ],
+   "secondarySubtopics": [
+    "Alimentary canal"
+   ],
+   "subtopics": [
+    "7.1",
+    "Alimentary canal"
+   ]
+  },
+  {
+   "id": "0610-2020-m-42-q5",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_16_reproduction.16.4",
+   "primarySubtopic": "16.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_17_inheritance.17.3|17.3|supplement",
+    "2020_2021|topic_17_inheritance.17.4|17.4|supplement"
+   ],
+   "secondaryTopics": [
+    "Inheritance"
+   ],
+   "secondaryTopicIds": [
+    "topic_17_inheritance.17.3",
+    "topic_17_inheritance.17.4"
+   ],
+   "secondarySubtopics": [
+    "Mitosis",
+    "Meiosis"
+   ],
+   "subtopics": [
+    "16.4",
+    "Mitosis",
+    "Meiosis"
+   ]
+  },
+  {
+   "id": "0610-2020-m-42-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_18_variation_and_selection.18.3",
+   "primarySubtopic": "18.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_20_human_influences_on_ecosystems.21.4|21.4|supplement",
+    "2020_2021|topic_18_variation_and_selection.18.2|18.2|supplement"
+   ],
+   "secondaryTopics": [
+    "Human influences on ecosystems",
+    "Variation and selection"
+   ],
+   "secondaryTopicIds": [
+    "topic_20_human_influences_on_ecosystems.21.4",
+    "topic_18_variation_and_selection.18.2"
+   ],
+   "secondarySubtopics": [
+    "Conservation",
+    "Adaptive features"
+   ],
+   "subtopics": [
+    "18.3",
+    "Conservation",
+    "Adaptive features"
+   ]
+  },
+  {
+   "id": "0610-2020-s-31-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_13_excretion_in_humans.13.1",
+   "primarySubtopic": "13.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_12_respiration.12.2|12.2|core",
+    "2020_2021|topic_09_transport_in_animals.9.4|9.4|core"
+   ],
+   "secondaryTopics": [
+    "Respiration",
+    "Transport in animals"
+   ],
+   "secondaryTopicIds": [
+    "topic_12_respiration.12.2",
+    "topic_09_transport_in_animals.9.4"
+   ],
+   "secondarySubtopics": [
+    "Aerobic respiration",
+    "Blood"
+   ],
+   "subtopics": [
+    "13.1",
+    "Aerobic respiration",
+    "Blood"
+   ]
+  },
+  {
+   "id": "0610-2020-s-31-q4",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_06_plant_nutrition.6.1",
+   "primarySubtopic": "6.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_06_plant_nutrition.6.2|6.2|core",
+    "2020_2021|topic_08_transport_in_plants.8.1|8.1|core"
+   ],
+   "secondaryTopics": [
+    "Plant nutrition",
+    "Transport in plants"
+   ],
+   "secondaryTopicIds": [
+    "topic_06_plant_nutrition.6.2",
+    "topic_08_transport_in_plants.8.1"
+   ],
+   "secondarySubtopics": [
+    "Leaf structure",
+    "Transport in plants"
+   ],
+   "subtopics": [
+    "6.1",
+    "Leaf structure",
+    "Transport in plants"
+   ]
+  },
+  {
+   "id": "0610-2020-s-31-q5",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_15_drugs.15.3",
+   "primarySubtopic": "15.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_16_reproduction.16.4|16.4|core"
+   ],
+   "secondaryTopics": [
+    "Reproduction"
+   ],
+   "secondaryTopicIds": [
+    "topic_16_reproduction.16.4"
+   ],
+   "secondarySubtopics": [
+    "Sexual reproduction in humans"
+   ],
+   "subtopics": [
+    "15.3",
+    "Sexual reproduction in humans"
+   ]
+  },
+  {
+   "id": "0610-2020-s-31-q7",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_20_human_influences_on_ecosystems.21.2",
+   "primarySubtopic": "21.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_20_human_influences_on_ecosystems.21.3|21.3|core"
+   ],
+   "secondaryTopics": [
+    "Human influences on ecosystems"
+   ],
+   "secondaryTopicIds": [
+    "topic_20_human_influences_on_ecosystems.21.3"
+   ],
+   "secondarySubtopics": [
+    "Pollution"
+   ],
+   "subtopics": [
+    "21.2",
+    "Pollution"
+   ]
+  },
+  {
+   "id": "0610-2020-s-32-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_11_gas_exchange_in_humans.11.1",
+   "primarySubtopic": "11.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_03_movement_into_and_out_of_cells.3.3|3.3|core",
+    "2020_2021|topic_03_movement_into_and_out_of_cells.3.1|3.1|core"
+   ],
+   "secondaryTopics": [
+    "Movement in and out of cells"
+   ],
+   "secondaryTopicIds": [
+    "topic_03_movement_into_and_out_of_cells.3.3",
+    "topic_03_movement_into_and_out_of_cells.3.1"
+   ],
+   "secondarySubtopics": [
+    "Active transport",
+    "Diffusion"
+   ],
+   "subtopics": [
+    "11.1",
+    "Active transport",
+    "Diffusion"
+   ]
+  },
+  {
+   "id": "0610-2020-s-32-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_12_respiration.12.3",
+   "primarySubtopic": "12.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_21_biotechnology_and_genetic_modification.20.2|20.2|core",
+    "2020_2021|topic_12_respiration.12.2|12.2|core"
+   ],
+   "secondaryTopics": [
+    "Biotechnology and genetic engineering",
+    "Respiration"
+   ],
+   "secondaryTopicIds": [
+    "topic_21_biotechnology_and_genetic_modification.20.2",
+    "topic_12_respiration.12.2"
+   ],
+   "secondarySubtopics": [
+    "Biotechnology",
+    "Aerobic respiration"
+   ],
+   "subtopics": [
+    "12.3",
+    "Biotechnology",
+    "Aerobic respiration"
+   ]
+  },
+  {
+   "id": "0610-2020-s-32-q5",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_01_characteristics_and_classification.1.3",
+   "primarySubtopic": "1.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_16_reproduction.16.3|16.3|core",
+    "2020_2021|topic_02_organisation.2.1|2.1|core"
+   ],
+   "secondaryTopics": [
+    "Reproduction",
+    "Organisation of the organism"
+   ],
+   "secondaryTopicIds": [
+    "topic_16_reproduction.16.3",
+    "topic_02_organisation.2.1"
+   ],
+   "secondarySubtopics": [
+    "Sexual reproduction in plants",
+    "Cell structure and organisation"
+   ],
+   "subtopics": [
+    "1.3",
+    "Sexual reproduction in plants",
+    "Cell structure and organisation"
+   ]
+  },
+  {
+   "id": "0610-2020-s-32-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_14_coordination_and_response.14.3",
+   "primarySubtopic": "14.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_16_reproduction.16.5|16.5|core"
+   ],
+   "secondaryTopics": [
+    "Reproduction"
+   ],
+   "secondaryTopicIds": [
+    "topic_16_reproduction.16.5"
+   ],
+   "secondarySubtopics": [
+    "Sex hormones in humans"
+   ],
+   "subtopics": [
+    "14.3",
+    "Sex hormones in humans"
+   ]
+  },
+  {
+   "id": "0610-2020-s-32-q7",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_06_plant_nutrition.6.3",
+   "primarySubtopic": "6.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_19_organisms_and_environment.19.1|19.1|core"
+   ],
+   "secondaryTopics": [
+    "Organisms and their environment"
+   ],
+   "secondaryTopicIds": [
+    "topic_19_organisms_and_environment.19.1"
+   ],
+   "secondarySubtopics": [
+    "Energy flow"
+   ],
+   "subtopics": [
+    "6.3",
+    "Energy flow"
+   ]
+  },
+  {
+   "id": "0610-2020-s-32-q8",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_20_human_influences_on_ecosystems.21.4",
+   "primarySubtopic": "21.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_20_human_influences_on_ecosystems.21.3|21.3|core"
+   ],
+   "secondaryTopics": [
+    "Human influences on ecosystems"
+   ],
+   "secondaryTopicIds": [
+    "topic_20_human_influences_on_ecosystems.21.3"
+   ],
+   "secondarySubtopics": [
+    "Pollution"
+   ],
+   "subtopics": [
+    "21.4",
+    "Pollution"
+   ]
+  },
+  {
+   "id": "0610-2020-s-41-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_11_gas_exchange_in_humans.11.1",
+   "primarySubtopic": "11.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_02_organisation.2.2|2.2|core"
+   ],
+   "secondaryTopics": [
+    "Organisation of the organism"
+   ],
+   "secondaryTopicIds": [
+    "topic_02_organisation.2.2"
+   ],
+   "secondarySubtopics": [
+    "Levels of organisation"
+   ],
+   "subtopics": [
+    "11.1",
+    "Levels of organisation"
+   ]
+  },
+  {
+   "id": "0610-2020-s-41-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_05_enzymes.5.1",
+   "primarySubtopic": "5.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_07_human_nutrition.7.4|7.4|core",
+    "2020_2021|topic_01_characteristics_and_classification.1.2|1.2|supplement"
+   ],
+   "secondaryTopics": [
+    "Human nutrition",
+    "Characteristics and classification of living organisms"
+   ],
+   "secondaryTopicIds": [
+    "topic_07_human_nutrition.7.4",
+    "topic_01_characteristics_and_classification.1.2"
+   ],
+   "secondarySubtopics": [
+    "Chemical digestion",
+    "Concept and use of a classification system"
+   ],
+   "subtopics": [
+    "5.1",
+    "Chemical digestion",
+    "Concept and use of a classification system"
+   ]
+  },
+  {
+   "id": "0610-2020-s-41-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_02_organisation.2.1",
+   "primarySubtopic": "2.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_07_human_nutrition.7.2|7.2|supplement",
+    "2020_2021|topic_03_movement_into_and_out_of_cells.3.1|3.1|supplement"
+   ],
+   "secondaryTopics": [
+    "Human nutrition",
+    "Movement in and out of cells"
+   ],
+   "secondaryTopicIds": [
+    "topic_07_human_nutrition.7.2",
+    "topic_03_movement_into_and_out_of_cells.3.1"
+   ],
+   "secondarySubtopics": [
+    "Alimentary canal",
+    "Diffusion"
+   ],
+   "subtopics": [
+    "2.1",
+    "Alimentary canal",
+    "Diffusion"
+   ]
+  },
+  {
+   "id": "0610-2020-s-41-q4",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_16_reproduction.16.3",
+   "primarySubtopic": "16.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_17_inheritance.17.4|17.4|supplement",
+    "2020_2021|topic_16_reproduction.16.2|16.2|supplement",
+    "2020_2021|topic_12_respiration.12.1|12.1|core"
+   ],
+   "secondaryTopics": [
+    "Inheritance",
+    "Reproduction",
+    "Respiration"
+   ],
+   "secondaryTopicIds": [
+    "topic_17_inheritance.17.4",
+    "topic_16_reproduction.16.2",
+    "topic_12_respiration.12.1"
+   ],
+   "secondarySubtopics": [
+    "Meiosis",
+    "Sexual reproduction",
+    "Respiration"
+   ],
+   "subtopics": [
+    "16.3",
+    "Meiosis",
+    "Sexual reproduction",
+    "Respiration"
+   ]
+  },
+  {
+   "id": "0610-2020-s-41-q5",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_10_diseases_and_immunity.10.1",
+   "primarySubtopic": "10.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_19_organisms_and_environment.19.3|19.3|supplement",
+    "2020_2021|topic_01_characteristics_and_classification.1.2|1.2|core",
+    "2020_2021|topic_01_characteristics_and_classification.1.3|1.3|supplement"
+   ],
+   "secondaryTopics": [
+    "Organisms and their environment",
+    "Characteristics and classification of living organisms"
+   ],
+   "secondaryTopicIds": [
+    "topic_19_organisms_and_environment.19.3",
+    "topic_01_characteristics_and_classification.1.2",
+    "topic_01_characteristics_and_classification.1.3"
+   ],
+   "secondarySubtopics": [
+    "Nutrient cycles",
+    "Concept and use of a classification system",
+    "Features of organisms"
+   ],
+   "subtopics": [
+    "10.1",
+    "Nutrient cycles",
+    "Concept and use of a classification system",
+    "Features of organisms"
+   ]
+  },
+  {
+   "id": "0610-2020-s-41-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_17_inheritance.17.5",
+   "primarySubtopic": "17.5",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_18_variation_and_selection.18.1|18.1|core",
+    "2020_2021|topic_17_inheritance.17.1|17.1|core"
+   ],
+   "secondaryTopics": [
+    "Variation and selection",
+    "Inheritance"
+   ],
+   "secondaryTopicIds": [
+    "topic_18_variation_and_selection.18.1",
+    "topic_17_inheritance.17.1"
+   ],
+   "secondarySubtopics": [
+    "Variation",
+    "Inheritance"
+   ],
+   "subtopics": [
+    "17.5",
+    "Variation",
+    "Inheritance"
+   ]
+  },
+  {
+   "id": "0610-2020-s-42-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_14_coordination_and_response.14.4",
+   "primarySubtopic": "14.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_12_respiration.12.1|12.1|core"
+   ],
+   "secondaryTopics": [
+    "Respiration"
+   ],
+   "secondaryTopicIds": [
+    "topic_12_respiration.12.1"
+   ],
+   "secondarySubtopics": [
+    "Respiration"
+   ],
+   "subtopics": [
+    "14.4",
+    "Respiration"
+   ]
+  },
+  {
+   "id": "0610-2020-s-42-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_18_variation_and_selection.18.2",
+   "primarySubtopic": "18.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_17_inheritance.17.5|17.5|supplement",
+    "2020_2021|topic_20_human_influences_on_ecosystems.21.4|21.4|core",
+    "2020_2021|topic_01_characteristics_and_classification.1.2|1.2|supplement"
+   ],
+   "secondaryTopics": [
+    "Inheritance",
+    "Human influences on ecosystems",
+    "Characteristics and classification of living organisms"
+   ],
+   "secondaryTopicIds": [
+    "topic_17_inheritance.17.5",
+    "topic_20_human_influences_on_ecosystems.21.4",
+    "topic_01_characteristics_and_classification.1.2"
+   ],
+   "secondarySubtopics": [
+    "Monohybrid inheritance",
+    "Conservation",
+    "Concept and use of a classification system"
+   ],
+   "subtopics": [
+    "18.2",
+    "Monohybrid inheritance",
+    "Conservation",
+    "Concept and use of a classification system"
+   ]
+  },
+  {
+   "id": "0610-2020-s-42-q4",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_20_human_influences_on_ecosystems.21.3",
+   "primarySubtopic": "21.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_20_human_influences_on_ecosystems.21.1|21.1|core",
+    "2020_2021|topic_14_coordination_and_response.14.5|14.5|supplement",
+    "2020_2021|topic_06_plant_nutrition.6.3|6.3|core"
+   ],
+   "secondaryTopics": [
+    "Human influences on ecosystems",
+    "Coordination and response",
+    "Plant nutrition"
+   ],
+   "secondaryTopicIds": [
+    "topic_20_human_influences_on_ecosystems.21.1",
+    "topic_14_coordination_and_response.14.5",
+    "topic_06_plant_nutrition.6.3"
+   ],
+   "secondarySubtopics": [
+    "Food supply",
+    "Tropic responses",
+    "Mineral requirements"
+   ],
+   "subtopics": [
+    "21.3",
+    "Food supply",
+    "Tropic responses",
+    "Mineral requirements"
+   ]
+  },
+  {
+   "id": "0610-2020-s-42-q5",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_18_variation_and_selection.18.3",
+   "primarySubtopic": "18.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_01_characteristics_and_classification.1.2|1.2|core"
+   ],
+   "secondaryTopics": [
+    "Characteristics and classification of living organisms"
+   ],
+   "secondaryTopicIds": [
+    "topic_01_characteristics_and_classification.1.2"
+   ],
+   "secondarySubtopics": [
+    "Concept and use of a classification system"
+   ],
+   "subtopics": [
+    "18.3",
+    "Concept and use of a classification system"
+   ]
+  },
+  {
+   "id": "0610-2020-s-42-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_08_transport_in_plants.8.4",
+   "primarySubtopic": "8.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_02_organisation.2.1|2.1|supplement",
+    "2020_2021|topic_06_plant_nutrition.6.3|6.3|core"
+   ],
+   "secondaryTopics": [
+    "Organisation of the organism",
+    "Plant nutrition"
+   ],
+   "secondaryTopicIds": [
+    "topic_02_organisation.2.1",
+    "topic_06_plant_nutrition.6.3"
+   ],
+   "secondarySubtopics": [
+    "Cell structure and organisation",
+    "Mineral requirements"
+   ],
+   "subtopics": [
+    "8.4",
+    "Cell structure and organisation",
+    "Mineral requirements"
+   ]
+  },
+  {
+   "id": "0610-2020-s-43-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_07_human_nutrition.7.2",
+   "primarySubtopic": "7.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_15_drugs.15.3|15.3|core",
+    "2020_2021|topic_16_reproduction.16.4|16.4|supplement",
+    "2020_2021|topic_12_respiration.12.3|12.3|supplement"
+   ],
+   "secondaryTopics": [
+    "Drugs",
+    "Reproduction",
+    "Respiration"
+   ],
+   "secondaryTopicIds": [
+    "topic_15_drugs.15.3",
+    "topic_16_reproduction.16.4",
+    "topic_12_respiration.12.3"
+   ],
+   "secondarySubtopics": [
+    "Misused drugs",
+    "Sexual reproduction in humans",
+    "Anaerobic respiration"
+   ],
+   "subtopics": [
+    "7.2",
+    "Misused drugs",
+    "Sexual reproduction in humans",
+    "Anaerobic respiration"
+   ]
+  },
+  {
+   "id": "0610-2020-s-43-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_20_human_influences_on_ecosystems.21.4",
+   "primarySubtopic": "21.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_21_biotechnology_and_genetic_modification.20.2|20.2|core",
+    "2020_2021|topic_19_organisms_and_environment.19.4|19.4|core"
+   ],
+   "secondaryTopics": [
+    "Biotechnology and genetic engineering",
+    "Organisms and their environment"
+   ],
+   "secondaryTopicIds": [
+    "topic_21_biotechnology_and_genetic_modification.20.2",
+    "topic_19_organisms_and_environment.19.4"
+   ],
+   "secondarySubtopics": [
+    "Biotechnology",
+    "Population size"
+   ],
+   "subtopics": [
+    "21.4",
+    "Biotechnology",
+    "Population size"
+   ]
+  },
+  {
+   "id": "0610-2020-s-43-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_18_variation_and_selection.18.1",
+   "primarySubtopic": "18.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_17_inheritance.17.5|17.5|supplement",
+    "2020_2021|topic_01_characteristics_and_classification.1.2|1.2|supplement"
+   ],
+   "secondaryTopics": [
+    "Inheritance",
+    "Characteristics and classification of living organisms"
+   ],
+   "secondaryTopicIds": [
+    "topic_17_inheritance.17.5",
+    "topic_01_characteristics_and_classification.1.2"
+   ],
+   "secondarySubtopics": [
+    "Monohybrid inheritance",
+    "Concept and use of a classification system"
+   ],
+   "subtopics": [
+    "18.1",
+    "Monohybrid inheritance",
+    "Concept and use of a classification system"
+   ]
+  },
+  {
+   "id": "0610-2020-s-43-q4",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_18_variation_and_selection.18.2",
+   "primarySubtopic": "18.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_20_human_influences_on_ecosystems.21.3|21.3|supplement"
+   ],
+   "secondaryTopics": [
+    "Human influences on ecosystems"
+   ],
+   "secondaryTopicIds": [
+    "topic_20_human_influences_on_ecosystems.21.3"
+   ],
+   "secondarySubtopics": [
+    "Pollution"
+   ],
+   "subtopics": [
+    "18.2",
+    "Pollution"
+   ]
+  },
+  {
+   "id": "0610-2020-s-43-q5",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_18_variation_and_selection.18.3",
+   "primarySubtopic": "18.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_15_drugs.15.2|15.2|supplement",
+    "2020_2021|topic_01_characteristics_and_classification.1.3|1.3|supplement"
+   ],
+   "secondaryTopics": [
+    "Drugs",
+    "Characteristics and classification of living organisms"
+   ],
+   "secondaryTopicIds": [
+    "topic_15_drugs.15.2",
+    "topic_01_characteristics_and_classification.1.3"
+   ],
+   "secondarySubtopics": [
+    "Medicinal drugs",
+    "Features of organisms"
+   ],
+   "subtopics": [
+    "18.3",
+    "Medicinal drugs",
+    "Features of organisms"
+   ]
+  },
+  {
+   "id": "0610-2020-s-43-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_20_human_influences_on_ecosystems.21.1",
+   "primarySubtopic": "21.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_20_human_influences_on_ecosystems.21.3|21.3|core"
+   ],
+   "secondaryTopics": [
+    "Human influences on ecosystems"
+   ],
+   "secondaryTopicIds": [
+    "topic_20_human_influences_on_ecosystems.21.3"
+   ],
+   "secondarySubtopics": [
+    "Pollution"
+   ],
+   "subtopics": [
+    "21.1",
+    "Pollution"
+   ]
+  },
+  {
+   "id": "0610-2020-s-51-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_07_human_nutrition.7.4",
+   "primarySubtopic": "7.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|core"
+   ],
+   "secondaryTopics": [
+    "Biological molecules"
+   ],
+   "secondaryTopicIds": [
+    "topic_04_biological_molecules.4.1"
+   ],
+   "secondarySubtopics": [
+    "Biological molecules"
+   ],
+   "subtopics": [
+    "7.4",
+    "Biological molecules"
+   ]
+  },
+  {
+   "id": "0610-2020-s-52-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_03_movement_into_and_out_of_cells.3.1",
+   "primarySubtopic": "3.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|core"
+   ],
+   "secondaryTopics": [
+    "Biological molecules"
+   ],
+   "secondaryTopicIds": [
+    "topic_04_biological_molecules.4.1"
+   ],
+   "secondarySubtopics": [
+    "Biological molecules"
+   ],
+   "subtopics": [
+    "3.1",
+    "Biological molecules"
+   ]
+  },
+  {
+   "id": "0610-2020-s-53-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_19_organisms_and_environment.19.2",
+   "primarySubtopic": "19.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|core"
+   ],
+   "secondaryTopics": [
+    "Biological molecules"
+   ],
+   "secondaryTopicIds": [
+    "topic_04_biological_molecules.4.1"
+   ],
+   "secondarySubtopics": [
+    "Biological molecules"
+   ],
+   "subtopics": [
+    "19.2",
+    "Biological molecules"
+   ]
+  },
+  {
+   "id": "0610-2020-s-61-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_07_human_nutrition.7.4",
+   "primarySubtopic": "7.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|core"
+   ],
+   "secondaryTopics": [
+    "Biological molecules"
+   ],
+   "secondaryTopicIds": [
+    "topic_04_biological_molecules.4.1"
+   ],
+   "secondarySubtopics": [
+    "Biological molecules"
+   ],
+   "subtopics": [
+    "7.4",
+    "Biological molecules"
+   ]
+  },
+  {
+   "id": "0610-2020-s-62-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_03_movement_into_and_out_of_cells.3.1",
+   "primarySubtopic": "3.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|core"
+   ],
+   "secondaryTopics": [
+    "Biological molecules"
+   ],
+   "secondaryTopicIds": [
+    "topic_04_biological_molecules.4.1"
+   ],
+   "secondarySubtopics": [
+    "Biological molecules"
+   ],
+   "subtopics": [
+    "3.1",
+    "Biological molecules"
+   ]
+  },
+  {
+   "id": "0610-2020-s-62-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_03_movement_into_and_out_of_cells.3.2",
+   "primarySubtopic": "3.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_11_gas_exchange_in_humans.11.1|11.1|core"
+   ],
+   "secondaryTopics": [
+    "Gas exchange in humans"
+   ],
+   "secondaryTopicIds": [
+    "topic_11_gas_exchange_in_humans.11.1"
+   ],
+   "secondarySubtopics": [
+    "Gas exchange in humans"
+   ],
+   "subtopics": [
+    "3.2",
+    "Gas exchange in humans"
+   ]
+  },
+  {
+   "id": "0610-2020-s-63-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_19_organisms_and_environment.19.2",
+   "primarySubtopic": "19.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|core"
+   ],
+   "secondaryTopics": [
+    "Biological molecules"
+   ],
+   "secondaryTopicIds": [
+    "topic_04_biological_molecules.4.1"
+   ],
+   "secondarySubtopics": [
+    "Biological molecules"
+   ],
+   "subtopics": [
+    "19.2",
+    "Biological molecules"
+   ]
+  },
+  {
+   "id": "0610-2020-w-31-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_20_human_influences_on_ecosystems.21.4",
+   "primarySubtopic": "21.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_01_characteristics_and_classification.1.3|1.3|core"
+   ],
+   "secondaryTopics": [
+    "Characteristics and classification of living organisms"
+   ],
+   "secondaryTopicIds": [
+    "topic_01_characteristics_and_classification.1.3"
+   ],
+   "secondarySubtopics": [
+    "Features of organisms"
+   ],
+   "subtopics": [
+    "21.4",
+    "Features of organisms"
+   ]
+  },
+  {
+   "id": "0610-2020-w-31-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_10_diseases_and_immunity.10.1",
+   "primarySubtopic": "10.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_09_transport_in_animals.9.2|9.2|core",
+    "2020_2021|topic_07_human_nutrition.7.1|7.1|core"
+   ],
+   "secondaryTopics": [
+    "Transport in animals",
+    "Human nutrition"
+   ],
+   "secondaryTopicIds": [
+    "topic_09_transport_in_animals.9.2",
+    "topic_07_human_nutrition.7.1"
+   ],
+   "secondarySubtopics": [
+    "Heart",
+    "Diet"
+   ],
+   "subtopics": [
+    "10.1",
+    "Heart",
+    "Diet"
+   ]
+  },
+  {
+   "id": "0610-2020-w-31-q4",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_03_movement_into_and_out_of_cells.3.3",
+   "primarySubtopic": "3.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_14_coordination_and_response.14.5|14.5|core",
+    "2020_2021|topic_06_plant_nutrition.6.3|6.3|core"
+   ],
+   "secondaryTopics": [
+    "Coordination and response",
+    "Plant nutrition"
+   ],
+   "secondaryTopicIds": [
+    "topic_14_coordination_and_response.14.5",
+    "topic_06_plant_nutrition.6.3"
+   ],
+   "secondarySubtopics": [
+    "Tropic responses",
+    "Mineral requirements"
+   ],
+   "subtopics": [
+    "3.3",
+    "Tropic responses",
+    "Mineral requirements"
+   ]
+  },
+  {
+   "id": "0610-2020-w-31-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_21_biotechnology_and_genetic_modification.20.2",
+   "primarySubtopic": "20.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_05_enzymes.5.1|5.1|core",
+    "2020_2021|topic_07_human_nutrition.7.4|7.4|core"
+   ],
+   "secondaryTopics": [
+    "Enzymes",
+    "Human nutrition"
+   ],
+   "secondaryTopicIds": [
+    "topic_05_enzymes.5.1",
+    "topic_07_human_nutrition.7.4"
+   ],
+   "secondarySubtopics": [
+    "Enzymes",
+    "Chemical digestion"
+   ],
+   "subtopics": [
+    "20.2",
+    "Enzymes",
+    "Chemical digestion"
+   ]
+  },
+  {
+   "id": "0610-2020-w-31-q7",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_16_reproduction.16.1",
+   "primarySubtopic": "16.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_16_reproduction.16.3|16.3|core",
+    "2020_2021|topic_16_reproduction.16.2|16.2|core"
+   ],
+   "secondaryTopics": [
+    "Reproduction"
+   ],
+   "secondaryTopicIds": [
+    "topic_16_reproduction.16.3",
+    "topic_16_reproduction.16.2"
+   ],
+   "secondarySubtopics": [
+    "Sexual reproduction in plants",
+    "Sexual reproduction"
+   ],
+   "subtopics": [
+    "16.1",
+    "Sexual reproduction in plants",
+    "Sexual reproduction"
+   ]
+  },
+  {
+   "id": "0610-2020-w-31-q9",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_20_human_influences_on_ecosystems.21.1",
+   "primarySubtopic": "21.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_20_human_influences_on_ecosystems.21.4|21.4|core"
+   ],
+   "secondaryTopics": [
+    "Human influences on ecosystems"
+   ],
+   "secondaryTopicIds": [
+    "topic_20_human_influences_on_ecosystems.21.4"
+   ],
+   "secondarySubtopics": [
+    "Conservation"
+   ],
+   "subtopics": [
+    "21.1",
+    "Conservation"
+   ]
+  },
+  {
+   "id": "0610-2020-w-32-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_01_characteristics_and_classification.1.1",
+   "primarySubtopic": "1.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_01_characteristics_and_classification.1.3|1.3|core"
+   ],
+   "secondaryTopics": [
+    "Characteristics and classification of living organisms"
+   ],
+   "secondaryTopicIds": [
+    "topic_01_characteristics_and_classification.1.3"
+   ],
+   "secondarySubtopics": [
+    "Features of organisms"
+   ],
+   "subtopics": [
+    "1.1",
+    "Features of organisms"
+   ]
+  },
+  {
+   "id": "0610-2020-w-32-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_03_movement_into_and_out_of_cells.3.2",
+   "primarySubtopic": "3.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_02_organisation.2.1|2.1|core"
+   ],
+   "secondaryTopics": [
+    "Organisation of the organism"
+   ],
+   "secondaryTopicIds": [
+    "topic_02_organisation.2.1"
+   ],
+   "secondarySubtopics": [
+    "Cell structure and organisation"
+   ],
+   "subtopics": [
+    "3.2",
+    "Cell structure and organisation"
+   ]
+  },
+  {
+   "id": "0610-2020-w-32-q4",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_20_human_influences_on_ecosystems.21.1",
+   "primarySubtopic": "21.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_20_human_influences_on_ecosystems.21.3|21.3|core"
+   ],
+   "secondaryTopics": [
+    "Human influences on ecosystems"
+   ],
+   "secondaryTopicIds": [
+    "topic_20_human_influences_on_ecosystems.21.3"
+   ],
+   "secondarySubtopics": [
+    "Pollution"
+   ],
+   "subtopics": [
+    "21.1",
+    "Pollution"
+   ]
+  },
+  {
+   "id": "0610-2020-w-32-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_15_drugs.15.2",
+   "primarySubtopic": "15.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_10_diseases_and_immunity.10.1|10.1|core",
+    "2020_2021|topic_15_drugs.15.1|15.1|core"
+   ],
+   "secondaryTopics": [
+    "Diseases and immunity",
+    "Drugs"
+   ],
+   "secondaryTopicIds": [
+    "topic_10_diseases_and_immunity.10.1",
+    "topic_15_drugs.15.1"
+   ],
+   "secondarySubtopics": [
+    "Diseases and immunity",
+    "Drugs"
+   ],
+   "subtopics": [
+    "15.2",
+    "Diseases and immunity",
+    "Drugs"
+   ]
+  },
+  {
+   "id": "0610-2020-w-32-q7",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_16_reproduction.16.4",
+   "primarySubtopic": "16.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_16_reproduction.16.5|16.5|core"
+   ],
+   "secondaryTopics": [
+    "Reproduction"
+   ],
+   "secondaryTopicIds": [
+    "topic_16_reproduction.16.5"
+   ],
+   "secondarySubtopics": [
+    "Sex hormones in humans"
+   ],
+   "subtopics": [
+    "16.4",
+    "Sex hormones in humans"
+   ]
+  },
+  {
+   "id": "0610-2020-w-32-q8",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_19_organisms_and_environment.19.3",
+   "primarySubtopic": "19.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_06_plant_nutrition.6.1|6.1|core",
+    "2020_2021|topic_06_plant_nutrition.6.2|6.2|core",
+    "2020_2021|topic_06_plant_nutrition.6.3|6.3|core"
+   ],
+   "secondaryTopics": [
+    "Plant nutrition"
+   ],
+   "secondaryTopicIds": [
+    "topic_06_plant_nutrition.6.1",
+    "topic_06_plant_nutrition.6.2",
+    "topic_06_plant_nutrition.6.3"
+   ],
+   "secondarySubtopics": [
+    "Photosynthesis",
+    "Leaf structure",
+    "Mineral requirements"
+   ],
+   "subtopics": [
+    "19.3",
+    "Photosynthesis",
+    "Leaf structure",
+    "Mineral requirements"
+   ]
+  },
+  {
+   "id": "0610-2020-w-33-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_19_organisms_and_environment.19.3",
+   "primarySubtopic": "19.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_06_plant_nutrition.6.1|6.1|core"
+   ],
+   "secondaryTopics": [
+    "Plant nutrition"
+   ],
+   "secondaryTopicIds": [
+    "topic_06_plant_nutrition.6.1"
+   ],
+   "secondarySubtopics": [
+    "Photosynthesis"
+   ],
+   "subtopics": [
+    "19.3",
+    "Photosynthesis"
+   ]
+  },
+  {
+   "id": "0610-2020-w-33-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_16_reproduction.16.4",
+   "primarySubtopic": "16.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_16_reproduction.16.6|16.6|core"
+   ],
+   "secondaryTopics": [
+    "Reproduction"
+   ],
+   "secondaryTopicIds": [
+    "topic_16_reproduction.16.6"
+   ],
+   "secondarySubtopics": [
+    "Methods of birth control in humans"
+   ],
+   "subtopics": [
+    "16.4",
+    "Methods of birth control in humans"
+   ]
+  },
+  {
+   "id": "0610-2020-w-33-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_20_human_influences_on_ecosystems.21.4",
+   "primarySubtopic": "21.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_01_characteristics_and_classification.1.3|1.3|core"
+   ],
+   "secondaryTopics": [
+    "Characteristics and classification of living organisms"
+   ],
+   "secondaryTopicIds": [
+    "topic_01_characteristics_and_classification.1.3"
+   ],
+   "secondarySubtopics": [
+    "Features of organisms"
+   ],
+   "subtopics": [
+    "21.4",
+    "Features of organisms"
+   ]
+  },
+  {
+   "id": "0610-2020-w-33-q5",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_09_transport_in_animals.9.3",
+   "primarySubtopic": "9.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_03_movement_into_and_out_of_cells.3.3|3.3|core"
+   ],
+   "secondaryTopics": [
+    "Movement in and out of cells"
+   ],
+   "secondaryTopicIds": [
+    "topic_03_movement_into_and_out_of_cells.3.3"
+   ],
+   "secondarySubtopics": [
+    "Active transport"
+   ],
+   "subtopics": [
+    "9.3",
+    "Active transport"
+   ]
+  },
+  {
+   "id": "0610-2020-w-33-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_13_excretion_in_humans.13.1",
+   "primarySubtopic": "13.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_07_human_nutrition.7.4|7.4|core",
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|core"
+   ],
+   "secondaryTopics": [
+    "Human nutrition",
+    "Biological molecules"
+   ],
+   "secondaryTopicIds": [
+    "topic_07_human_nutrition.7.4",
+    "topic_04_biological_molecules.4.1"
+   ],
+   "secondarySubtopics": [
+    "Chemical digestion",
+    "Biological molecules"
+   ],
+   "subtopics": [
+    "13.1",
+    "Chemical digestion",
+    "Biological molecules"
+   ]
+  },
+  {
+   "id": "0610-2020-w-33-q7",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_15_drugs.15.3",
+   "primarySubtopic": "15.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_09_transport_in_animals.9.2|9.2|core",
+    "2020_2021|topic_16_reproduction.16.4|16.4|core"
+   ],
+   "secondaryTopics": [
+    "Transport in animals",
+    "Reproduction"
+   ],
+   "secondaryTopicIds": [
+    "topic_09_transport_in_animals.9.2",
+    "topic_16_reproduction.16.4"
+   ],
+   "secondarySubtopics": [
+    "Heart",
+    "Sexual reproduction in humans"
+   ],
+   "subtopics": [
+    "15.3",
+    "Heart",
+    "Sexual reproduction in humans"
+   ]
+  },
+  {
+   "id": "0610-2020-w-41-q4",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_16_reproduction.16.3",
+   "primarySubtopic": "16.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_21_biotechnology_and_genetic_modification.20.3|20.3|supplement"
+   ],
+   "secondaryTopics": [
+    "Biotechnology and genetic engineering"
+   ],
+   "secondaryTopicIds": [
+    "topic_21_biotechnology_and_genetic_modification.20.3"
+   ],
+   "secondarySubtopics": [
+    "Genetic engineering"
+   ],
+   "subtopics": [
+    "16.3",
+    "Genetic engineering"
+   ]
+  },
+  {
+   "id": "0610-2020-w-41-q5",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_07_human_nutrition.7.1",
+   "primarySubtopic": "7.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_16_reproduction.16.4|16.4|supplement",
+    "2020_2021|topic_05_enzymes.5.1|5.1|supplement"
+   ],
+   "secondaryTopics": [
+    "Reproduction",
+    "Enzymes"
+   ],
+   "secondaryTopicIds": [
+    "topic_16_reproduction.16.4",
+    "topic_05_enzymes.5.1"
+   ],
+   "secondarySubtopics": [
+    "Sexual reproduction in humans",
+    "Enzymes"
+   ],
+   "subtopics": [
+    "7.1",
+    "Sexual reproduction in humans",
+    "Enzymes"
+   ]
+  },
+  {
+   "id": "0610-2020-w-42-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_19_organisms_and_environment.19.2",
+   "primarySubtopic": "19.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_20_human_influences_on_ecosystems.21.1|21.1|core",
+    "2020_2021|topic_20_human_influences_on_ecosystems.21.2|21.2|supplement"
+   ],
+   "secondaryTopics": [
+    "Human influences on ecosystems"
+   ],
+   "secondaryTopicIds": [
+    "topic_20_human_influences_on_ecosystems.21.1",
+    "topic_20_human_influences_on_ecosystems.21.2"
+   ],
+   "secondarySubtopics": [
+    "Food supply",
+    "Habitat destruction"
+   ],
+   "subtopics": [
+    "19.2",
+    "Food supply",
+    "Habitat destruction"
+   ]
+  },
+  {
+   "id": "0610-2020-w-42-q4",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_06_plant_nutrition.6.1",
+   "primarySubtopic": "6.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_02_organisation.2.1|2.1|core",
+    "2020_2021|topic_12_respiration.12.3|12.3|supplement",
+    "2020_2021|topic_21_biotechnology_and_genetic_modification.20.2|20.2|core"
+   ],
+   "secondaryTopics": [
+    "Organisation of the organism",
+    "Respiration",
+    "Biotechnology and genetic engineering"
+   ],
+   "secondaryTopicIds": [
+    "topic_02_organisation.2.1",
+    "topic_12_respiration.12.3",
+    "topic_21_biotechnology_and_genetic_modification.20.2"
+   ],
+   "secondarySubtopics": [
+    "Cell structure and organisation",
+    "Anaerobic respiration",
+    "Biotechnology"
+   ],
+   "subtopics": [
+    "6.1",
+    "Cell structure and organisation",
+    "Anaerobic respiration",
+    "Biotechnology"
+   ]
+  },
+  {
+   "id": "0610-2020-w-42-q5",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_16_reproduction.16.6",
+   "primarySubtopic": "16.6",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_16_reproduction.16.5|16.5|supplement"
+   ],
+   "secondaryTopics": [
+    "Reproduction"
+   ],
+   "secondaryTopicIds": [
+    "topic_16_reproduction.16.5"
+   ],
+   "secondarySubtopics": [
+    "Sex hormones in humans"
+   ],
+   "subtopics": [
+    "16.6",
+    "Sex hormones in humans"
+   ]
+  },
+  {
+   "id": "0610-2020-w-42-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_17_inheritance.17.2",
+   "primarySubtopic": "17.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|supplement"
+   ],
+   "secondaryTopics": [
+    "Biological molecules"
+   ],
+   "secondaryTopicIds": [
+    "topic_04_biological_molecules.4.1"
+   ],
+   "secondarySubtopics": [
+    "Biological molecules"
+   ],
+   "subtopics": [
+    "17.2",
+    "Biological molecules"
+   ]
+  },
+  {
+   "id": "0610-2020-w-43-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_14_coordination_and_response.14.5",
+   "primarySubtopic": "14.5",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_14_coordination_and_response.14.1|14.1|core",
+    "2020_2021|topic_01_characteristics_and_classification.1.1|1.1|core"
+   ],
+   "secondaryTopics": [
+    "Coordination and response",
+    "Characteristics and classification of living organisms"
+   ],
+   "secondaryTopicIds": [
+    "topic_14_coordination_and_response.14.1",
+    "topic_01_characteristics_and_classification.1.1"
+   ],
+   "secondarySubtopics": [
+    "Nervous control in humans",
+    "Characteristics of living organisms"
+   ],
+   "subtopics": [
+    "14.5",
+    "Nervous control in humans",
+    "Characteristics of living organisms"
+   ]
+  },
+  {
+   "id": "0610-2020-w-43-q2",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_07_human_nutrition.7.4",
+   "primarySubtopic": "7.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_02_organisation.2.1|2.1|supplement",
+    "2020_2021|topic_07_human_nutrition.7.2|7.2|core"
+   ],
+   "secondaryTopics": [
+    "Organisation of the organism",
+    "Human nutrition"
+   ],
+   "secondaryTopicIds": [
+    "topic_02_organisation.2.1",
+    "topic_07_human_nutrition.7.2"
+   ],
+   "secondarySubtopics": [
+    "Cell structure and organisation",
+    "Alimentary canal"
+   ],
+   "subtopics": [
+    "7.4",
+    "Cell structure and organisation",
+    "Alimentary canal"
+   ]
+  },
+  {
+   "id": "0610-2020-w-43-q3",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_19_organisms_and_environment.19.2",
+   "primarySubtopic": "19.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_01_characteristics_and_classification.1.2|1.2|supplement",
+    "2020_2021|topic_20_human_influences_on_ecosystems.21.2|21.2|core"
+   ],
+   "secondaryTopics": [
+    "Characteristics and classification of living organisms",
+    "Human influences on ecosystems"
+   ],
+   "secondaryTopicIds": [
+    "topic_01_characteristics_and_classification.1.2",
+    "topic_20_human_influences_on_ecosystems.21.2"
+   ],
+   "secondarySubtopics": [
+    "Concept and use of a classification system",
+    "Habitat destruction"
+   ],
+   "subtopics": [
+    "19.2",
+    "Concept and use of a classification system",
+    "Habitat destruction"
+   ]
+  },
+  {
+   "id": "0610-2020-w-43-q4",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_21_biotechnology_and_genetic_modification.20.2",
+   "primarySubtopic": "20.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_19_organisms_and_environment.19.4|19.4|supplement"
+   ],
+   "secondaryTopics": [
+    "Organisms and their environment"
+   ],
+   "secondaryTopicIds": [
+    "topic_19_organisms_and_environment.19.4"
+   ],
+   "secondarySubtopics": [
+    "Population size"
+   ],
+   "subtopics": [
+    "20.2",
+    "Population size"
+   ]
+  },
+  {
+   "id": "0610-2020-w-43-q5",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_16_reproduction.16.6",
+   "primarySubtopic": "16.6",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_16_reproduction.16.4|16.4|core"
+   ],
+   "secondaryTopics": [
+    "Reproduction"
+   ],
+   "secondaryTopicIds": [
+    "topic_16_reproduction.16.4"
+   ],
+   "secondarySubtopics": [
+    "Sexual reproduction in humans"
+   ],
+   "subtopics": [
+    "16.6",
+    "Sexual reproduction in humans"
+   ]
+  },
+  {
+   "id": "0610-2020-w-43-q6",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_20_human_influences_on_ecosystems.21.3",
+   "primarySubtopic": "21.3",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_15_drugs.15.3|15.3|core",
+    "2020_2021|topic_20_human_influences_on_ecosystems.21.1|21.1|core"
+   ],
+   "secondaryTopics": [
+    "Drugs",
+    "Human influences on ecosystems"
+   ],
+   "secondaryTopicIds": [
+    "topic_15_drugs.15.3",
+    "topic_20_human_influences_on_ecosystems.21.1"
+   ],
+   "secondarySubtopics": [
+    "Misused drugs",
+    "Food supply"
+   ],
+   "subtopics": [
+    "21.3",
+    "Misused drugs",
+    "Food supply"
+   ]
+  },
+  {
+   "id": "0610-2020-w-51-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_07_human_nutrition.7.4",
+   "primarySubtopic": "7.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|core",
+    "2020_2021|topic_05_enzymes.5.1|5.1|core"
+   ],
+   "secondaryTopics": [
+    "Biological molecules",
+    "Enzymes"
+   ],
+   "secondaryTopicIds": [
+    "topic_04_biological_molecules.4.1",
+    "topic_05_enzymes.5.1"
+   ],
+   "secondarySubtopics": [
+    "Biological molecules",
+    "Enzymes"
+   ],
+   "subtopics": [
+    "7.4",
+    "Biological molecules",
+    "Enzymes"
+   ]
+  },
+  {
+   "id": "0610-2020-w-52-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_21_biotechnology_and_genetic_modification.20.2",
+   "primarySubtopic": "20.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|core",
+    "2020_2021|topic_11_gas_exchange_in_humans.11.1|11.1|core"
+   ],
+   "secondaryTopics": [
+    "Biological molecules",
+    "Gas exchange in humans"
+   ],
+   "secondaryTopicIds": [
+    "topic_04_biological_molecules.4.1",
+    "topic_11_gas_exchange_in_humans.11.1"
+   ],
+   "secondarySubtopics": [
+    "Biological molecules",
+    "Gas exchange in humans"
+   ],
+   "subtopics": [
+    "20.2",
+    "Biological molecules",
+    "Gas exchange in humans"
+   ]
+  },
+  {
+   "id": "0610-2020-w-53-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_05_enzymes.5.1",
+   "primarySubtopic": "5.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|core"
+   ],
+   "secondaryTopics": [
+    "Biological molecules"
+   ],
+   "secondaryTopicIds": [
+    "topic_04_biological_molecules.4.1"
+   ],
+   "secondarySubtopics": [
+    "Biological molecules"
+   ],
+   "subtopics": [
+    "5.1",
+    "Biological molecules"
+   ]
+  },
+  {
+   "id": "0610-2020-w-61-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_07_human_nutrition.7.4",
+   "primarySubtopic": "7.4",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|core",
+    "2020_2021|topic_05_enzymes.5.1|5.1|core"
+   ],
+   "secondaryTopics": [
+    "Biological molecules",
+    "Enzymes"
+   ],
+   "secondaryTopicIds": [
+    "topic_04_biological_molecules.4.1",
+    "topic_05_enzymes.5.1"
+   ],
+   "secondarySubtopics": [
+    "Biological molecules",
+    "Enzymes"
+   ],
+   "subtopics": [
+    "7.4",
+    "Biological molecules",
+    "Enzymes"
+   ]
+  },
+  {
+   "id": "0610-2020-w-62-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_21_biotechnology_and_genetic_modification.20.2",
+   "primarySubtopic": "20.2",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|core",
+    "2020_2021|topic_11_gas_exchange_in_humans.11.1|11.1|core"
+   ],
+   "secondaryTopics": [
+    "Biological molecules",
+    "Gas exchange in humans"
+   ],
+   "secondaryTopicIds": [
+    "topic_04_biological_molecules.4.1",
+    "topic_11_gas_exchange_in_humans.11.1"
+   ],
+   "secondarySubtopics": [
+    "Biological molecules",
+    "Gas exchange in humans"
+   ],
+   "subtopics": [
+    "20.2",
+    "Biological molecules",
+    "Gas exchange in humans"
+   ]
+  },
+  {
+   "id": "0610-2020-w-63-q1",
+   "era": "2020_2021",
+   "primaryTopicId": "topic_05_enzymes.5.1",
+   "primarySubtopic": "5.1",
+   "materialSecondaryLabelKeys": [
+    "2020_2021|topic_04_biological_molecules.4.1|4.1|core"
+   ],
+   "secondaryTopics": [
+    "Biological molecules"
+   ],
+   "secondaryTopicIds": [
+    "topic_04_biological_molecules.4.1"
+   ],
+   "secondarySubtopics": [
+    "Biological molecules"
+   ],
+   "subtopics": [
+    "5.1",
+    "Biological molecules"
+   ]
+  },
+  {
+   "id": "0610-2026-m-32-q1",
+   "era": "2026_2028",
+   "primaryTopicId": "topic_01_characteristics_and_classification.1.2",
+   "primarySubtopic": "1.2",
+   "materialSecondaryLabelKeys": [
+    "2026_2028|topic_01_characteristics_and_classification.1.3|1.3|core"
+   ],
+   "secondaryTopics": [
+    "Characteristics and classification of living organisms"
+   ],
+   "secondaryTopicIds": [
+    "topic_01_characteristics_and_classification.1.3"
+   ],
+   "secondarySubtopics": [
+    "Features of organisms"
+   ],
+   "subtopics": [
+    "1.2",
+    "Features of organisms"
+   ]
+  },
+  {
+   "id": "0610-2026-m-32-q2",
+   "era": "2026_2028",
+   "primaryTopicId": "topic_06_plant_nutrition.6.1",
+   "primarySubtopic": "6.1",
+   "materialSecondaryLabelKeys": [
+    "2026_2028|topic_06_plant_nutrition.6.2|6.2|core",
+    "2026_2028|topic_12_respiration.12.2|12.2|core"
+   ],
+   "secondaryTopics": [
+    "Plant nutrition",
+    "Respiration"
+   ],
+   "secondaryTopicIds": [
+    "topic_06_plant_nutrition.6.2",
+    "topic_12_respiration.12.2"
+   ],
+   "secondarySubtopics": [
+    "Leaf structure",
+    "Aerobic respiration"
+   ],
+   "subtopics": [
+    "6.1",
+    "Leaf structure",
+    "Aerobic respiration"
+   ]
+  },
+  {
+   "id": "0610-2026-m-32-q3",
+   "era": "2026_2028",
+   "primaryTopicId": "topic_11_gas_exchange_in_humans.11.1",
+   "primarySubtopic": "11.1",
+   "materialSecondaryLabelKeys": [
+    "2026_2028|topic_02_organisation.2.1|2.1|core"
+   ],
+   "secondaryTopics": [
+    "Organisation of the organism"
+   ],
+   "secondaryTopicIds": [
+    "topic_02_organisation.2.1"
+   ],
+   "secondarySubtopics": [
+    "Cell structure"
+   ],
+   "subtopics": [
+    "11.1",
+    "Cell structure"
+   ]
+  },
+  {
+   "id": "0610-2026-m-32-q4",
+   "era": "2026_2028",
+   "primaryTopicId": "topic_14_coordination_and_response.14.5",
+   "primarySubtopic": "14.5",
+   "materialSecondaryLabelKeys": [
+    "2026_2028|topic_16_reproduction.16.3|16.3|core"
+   ],
+   "secondaryTopics": [
+    "Reproduction"
+   ],
+   "secondaryTopicIds": [
+    "topic_16_reproduction.16.3"
+   ],
+   "secondarySubtopics": [
+    "Sexual reproduction in plants"
+   ],
+   "subtopics": [
+    "14.5",
+    "Sexual reproduction in plants"
+   ]
+  },
+  {
+   "id": "0610-2026-m-32-q6",
+   "era": "2026_2028",
+   "primaryTopicId": "topic_17_inheritance.17.4",
+   "primarySubtopic": "17.4",
+   "materialSecondaryLabelKeys": [
+    "2026_2028|topic_17_inheritance.17.1|17.1|core",
+    "2026_2028|topic_18_variation_and_selection.18.1|18.1|core"
+   ],
+   "secondaryTopics": [
+    "Inheritance",
+    "Variation and selection"
+   ],
+   "secondaryTopicIds": [
+    "topic_17_inheritance.17.1",
+    "topic_18_variation_and_selection.18.1"
+   ],
+   "secondarySubtopics": [
+    "Chromosomes, genes and proteins",
+    "Variation"
+   ],
+   "subtopics": [
+    "17.4",
+    "Chromosomes, genes and proteins",
+    "Variation"
+   ]
+  },
+  {
+   "id": "0610-2026-m-32-q7",
+   "era": "2026_2028",
+   "primaryTopicId": "topic_19_organisms_and_environment.19.2",
+   "primarySubtopic": "19.2",
+   "materialSecondaryLabelKeys": [
+    "2026_2028|topic_19_organisms_and_environment.19.1|19.1|core"
+   ],
+   "secondaryTopics": [
+    "Organisms and their environment"
+   ],
+   "secondaryTopicIds": [
+    "topic_19_organisms_and_environment.19.1"
+   ],
+   "secondarySubtopics": [
+    "Energy flow"
+   ],
+   "subtopics": [
+    "19.2",
+    "Energy flow"
+   ]
+  },
+  {
+   "id": "0610-2026-m-42-q1",
+   "era": "2026_2028",
+   "primaryTopicId": "topic_01_characteristics_and_classification.1.3",
+   "primarySubtopic": "1.3",
+   "materialSecondaryLabelKeys": [
+    "2026_2028|topic_04_biological_molecules.4.1|4.1|supplement",
+    "2026_2028|topic_01_characteristics_and_classification.1.2|1.2|supplement",
+    "2026_2028|topic_02_organisation.2.1|2.1|core",
+    "2026_2028|topic_02_organisation.2.2|2.2|core"
+   ],
+   "secondaryTopics": [
+    "Biological molecules",
+    "Characteristics and classification of living organisms",
+    "Organisation of the organism"
+   ],
+   "secondaryTopicIds": [
+    "topic_04_biological_molecules.4.1",
+    "topic_01_characteristics_and_classification.1.2",
+    "topic_02_organisation.2.1",
+    "topic_02_organisation.2.2"
+   ],
+   "secondarySubtopics": [
+    "Biological molecules",
+    "Concept and uses of classification systems",
+    "Cell structure",
+    "Size of specimens"
+   ],
+   "subtopics": [
+    "1.3",
+    "Biological molecules",
+    "Concept and uses of classification systems",
+    "Cell structure",
+    "Size of specimens"
+   ]
+  },
+  {
+   "id": "0610-2026-m-42-q3",
+   "era": "2026_2028",
+   "primaryTopicId": "topic_09_transport_in_animals.9.3",
+   "primarySubtopic": "9.3",
+   "materialSecondaryLabelKeys": [
+    "2026_2028|topic_09_transport_in_animals.9.4|9.4|supplement"
+   ],
+   "secondaryTopics": [
+    "Transport in animals"
+   ],
+   "secondaryTopicIds": [
+    "topic_09_transport_in_animals.9.4"
+   ],
+   "secondarySubtopics": [
+    "Blood"
+   ],
+   "subtopics": [
+    "9.3",
+    "Blood"
+   ]
+  },
+  {
+   "id": "0610-2026-m-42-q5",
+   "era": "2026_2028",
+   "primaryTopicId": "topic_17_inheritance.17.2",
+   "primarySubtopic": "17.2",
+   "materialSecondaryLabelKeys": [
+    "2026_2028|topic_17_inheritance.17.4|17.4|supplement",
+    "2026_2028|topic_17_inheritance.17.1|17.1|supplement"
+   ],
+   "secondaryTopics": [
+    "Inheritance"
+   ],
+   "secondaryTopicIds": [
+    "topic_17_inheritance.17.4",
+    "topic_17_inheritance.17.1"
+   ],
+   "secondarySubtopics": [
+    "Monohybrid inheritance",
+    "Chromosomes, genes and proteins"
+   ],
+   "subtopics": [
+    "17.2",
+    "Monohybrid inheritance",
+    "Chromosomes, genes and proteins"
+   ]
+  },
+  {
+   "id": "0610-2026-m-42-q6",
+   "era": "2026_2028",
+   "primaryTopicId": "topic_19_organisms_and_environment.19.2",
+   "primarySubtopic": "19.2",
+   "materialSecondaryLabelKeys": [
+    "2026_2028|topic_01_characteristics_and_classification.1.3|1.3|core"
+   ],
+   "secondaryTopics": [
+    "Characteristics and classification of living organisms"
+   ],
+   "secondaryTopicIds": [
+    "topic_01_characteristics_and_classification.1.3"
+   ],
+   "secondarySubtopics": [
+    "Features of organisms"
+   ],
+   "subtopics": [
+    "19.2",
+    "Features of organisms"
+   ]
+  },
+  {
+   "id": "0610-2026-m-52-q1",
+   "era": "2026_2028",
+   "primaryTopicId": "topic_05_enzymes.5.1",
+   "primarySubtopic": "5.1",
+   "materialSecondaryLabelKeys": [
+    "2026_2028|topic_04_biological_molecules.4.1|4.1|core"
+   ],
+   "secondaryTopics": [
+    "Biological molecules"
+   ],
+   "secondaryTopicIds": [
+    "topic_04_biological_molecules.4.1"
+   ],
+   "secondarySubtopics": [
+    "Biological molecules"
+   ],
+   "subtopics": [
+    "5.1",
+    "Biological molecules"
+   ]
+  },
+  {
+   "id": "0610-2026-m-62-q1",
+   "era": "2026_2028",
+   "primaryTopicId": "topic_05_enzymes.5.1",
+   "primarySubtopic": "5.1",
+   "materialSecondaryLabelKeys": [
+    "2026_2028|topic_04_biological_molecules.4.1|4.1|core"
+   ],
+   "secondaryTopics": [
+    "Biological molecules"
+   ],
+   "secondaryTopicIds": [
+    "topic_04_biological_molecules.4.1"
+   ],
+   "secondarySubtopics": [
+    "Biological molecules"
+   ],
+   "subtopics": [
+    "5.1",
+    "Biological molecules"
+   ]
+  }
+ ]
+}

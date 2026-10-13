@@ -8,6 +8,7 @@ import coordinated from "@/data/production/igcse-coordinated-sciences-0654.json"
 import economicsTaxonomy from "@/data/igcse-economics-0455-taxonomy.json";
 import chemistryTaxonomy from "@/data/igcse-chemistry-0620-official-taxonomy.json";
 import chemistryOtherTargets from "../../scripts/data/0620-other-retrieval-targets.json";
+import biologySecondaryTargets from "../../scripts/data/0610-extension-material-secondaries.json";
 import physicsTaxonomy from "@/data/igcse-physics-0625-official-taxonomy.json";
 import coordinatedTaxonomy from "@/data/igcse-coordinated-sciences-0654-taxonomy.json";
 import { isIGCSEReleaseEnabled, type IGCSEReleaseBankSlug } from "@/lib/banks";
@@ -84,6 +85,19 @@ type IGCSEArtifact = {
       idSeal?: string;
       sourceReconciliationReceiptSha256?: string;
       excludedFromPractice?: { id: string; reason: string }[];
+    };
+    secondaryTopicsRepair?: {
+      baselineGitCommit?: string;
+      baselineRuntimeSha256?: string;
+      baselineFinalizedContentSha256?: string;
+      sourceAssemblySha256?: string;
+      taxonomySha256?: string;
+      frozenCohortSha256?: string;
+      targetIdsSha256?: string;
+      changedCount?: number;
+      secondaryLabelCount?: number;
+      changedFields?: string[];
+      method?: string;
     };
     mcqRetrievalRepair?: {
       baselineGitCommit?: string;
@@ -366,9 +380,60 @@ export function assert0610PollutionRepair(artifact: IGCSEArtifact): void {
     repair?.examYearSyllabusSha256 !== REPAIR_0610_POLLUTION.examYearSyllabusSha256 ||
     seal?.assetManifestSha256 !== REPAIR_0610_POLLUTION.assetManifestSha256 ||
     seal?.storageReceiptSha256 !== REPAIR_0610_POLLUTION.storageReceiptSha256 ||
-    seal?.finalizedContentSha256 !== REPAIR_0610_POLLUTION.finalizedContentSha256 ||
-    canonicalSha256(artifact.questions) !== REPAIR_0610_POLLUTION.finalizedContentSha256
+    (seal?.secondaryTopicsRepair
+      ? seal.secondaryTopicsRepair.baselineFinalizedContentSha256 !== REPAIR_0610_POLLUTION.finalizedContentSha256 ||
+        seal.finalizedContentSha256 !== REPAIR_0610_SECONDARIES.finalizedContentSha256 ||
+        canonicalSha256(artifact.questions) !== REPAIR_0610_SECONDARIES.finalizedContentSha256
+      : seal?.finalizedContentSha256 !== REPAIR_0610_POLLUTION.finalizedContentSha256 ||
+        canonicalSha256(artifact.questions) !== REPAIR_0610_POLLUTION.finalizedContentSha256)
   ) throw new Error("IGCSE 0610 pollution repair provenance or finalized content mismatch");
+}
+
+const REPAIR_0610_SECONDARIES = {
+  baselineGitCommit: "0a0b2246e269c03f81669548947d011c4f68b741",
+  baselineRuntimeSha256: "f20c50d65c9ef68e22a3b52a64f3cbfb7092dad23da5373feb2bb511e589ef2f",
+  sourceAssemblySha256: "92132de006cb98dcd7f7feef193be05d6cf0233addcaa41b045f6b7771490de1",
+  frozenCohortSha256: "540fecab8367de297c649151521fde1f9d18c6272ed29286a53ba28f81c076f6",
+  targetIdsSha256: "8ef3cc308d8b3ebeab740fd7d52bfbab140b8e9157a37ad7aff7008bf05e3368",
+  finalizedContentSha256: "b72e02463e6648f232996bbaa4846aa5560124476797a94239ae45e592bf7910",
+} as const;
+
+/**
+ * Second metadata-only overlay on the finalized 0610 release: the extension rows' material secondaries.
+ * Exactly the 200 frozen rows carry them, mapped as the 2021-2025 rows are; storage seals stay the
+ * verified pair and the Pollution content seal is the chained baseline.
+ */
+export function assert0610SecondaryTopicsRepair(artifact: IGCSEArtifact): void {
+  const seal = artifact.runtimeArtifact;
+  const repair = seal?.secondaryTopicsRepair;
+  const rows = biologySecondaryTargets.rows;
+  const ids = rows.map((row) => row.id).sort();
+  const byId = new Map(artifact.questions.filter((q) => ids.includes(q.id as string)).map((q) => [q.id as string, q]));
+  const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
+  if (
+    artifact.questions.length !== 4913 || rows.length !== 200 || byId.size !== 200 ||
+    canonicalSha256(biologySecondaryTargets) !== REPAIR_0610_SECONDARIES.frozenCohortSha256 ||
+    biologySecondaryTargets.sourceAssemblySha256 !== REPAIR_0610_SECONDARIES.sourceAssemblySha256 ||
+    createHash("sha256").update(ids.join("\n")).digest("hex") !== REPAIR_0610_SECONDARIES.targetIdsSha256 ||
+    repair?.baselineGitCommit !== REPAIR_0610_SECONDARIES.baselineGitCommit ||
+    repair?.baselineRuntimeSha256 !== REPAIR_0610_SECONDARIES.baselineRuntimeSha256 ||
+    repair?.baselineFinalizedContentSha256 !== REPAIR_0610_POLLUTION.finalizedContentSha256 ||
+    repair?.sourceAssemblySha256 !== REPAIR_0610_SECONDARIES.sourceAssemblySha256 ||
+    repair?.frozenCohortSha256 !== REPAIR_0610_SECONDARIES.frozenCohortSha256 ||
+    repair?.targetIdsSha256 !== REPAIR_0610_SECONDARIES.targetIdsSha256 ||
+    repair?.changedCount !== 200 || repair?.secondaryLabelCount !== 338 ||
+    rows.some((row) => {
+      const q = byId.get(row.id);
+      return q?.primaryTopicId !== row.primaryTopicId || q?.courseEra !== row.era ||
+        !same(q?.secondaryTopics, row.secondaryTopics) || !same(q?.secondaryTopicIds, row.secondaryTopicIds) ||
+        !same(q?.secondarySubtopics, row.secondarySubtopics) || !same(q?.subtopics, row.subtopics) || !same(q?.detailedSubtopics, row.subtopics) ||
+        q?.classificationReviewStatus !== "classified" || (q?.classificationProvenance as { sourceRowId?: string } | undefined)?.sourceRowId !== row.id;
+    }) ||
+    seal?.assetManifestSha256 !== REPAIR_0610_POLLUTION.assetManifestSha256 ||
+    seal?.storageReceiptSha256 !== REPAIR_0610_POLLUTION.storageReceiptSha256 ||
+    seal?.finalizedContentSha256 !== REPAIR_0610_SECONDARIES.finalizedContentSha256 ||
+    canonicalSha256(artifact.questions) !== REPAIR_0610_SECONDARIES.finalizedContentSha256
+  ) throw new Error("IGCSE 0610 material-secondaries repair provenance or finalized content mismatch");
 }
 
 /** The original candidate seal describes the pre-repair release; this pins the corrected content separately. */
@@ -452,7 +517,10 @@ export function getIGCSERuntimeArtifact(bank: IGCSEReleaseBankSlug, environment:
     )
   );
   if (artifact.questions.length !== questions || artifact.paperCount !== papers || metadata?.assetVerification !== "verified_readback" || typeof metadata?.storageReceiptSha256 !== "string" || typeof metadata?.assetManifestSha256 !== "string" || !taxonomySealed || !candidateSealed || !runtimeSealed || !questionStatesSealed) throw new Error("IGCSE runtime is not backed by verified storage, candidate, runtime, taxonomy, and question-state seals");
-  if (bank === "igcse-biology-0610") assert0610PollutionRepair(artifact);
+  if (bank === "igcse-biology-0610") {
+    assert0610PollutionRepair(artifact);
+    assert0610SecondaryTopicsRepair(artifact);
+  }
   if (bank === "igcse-economics-0455") assert0455Extension2026(artifact);
   if (bank === "igcse-chemistry-0620") {
     assert0620OtherRetrievalRepair(artifact);

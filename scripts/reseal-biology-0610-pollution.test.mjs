@@ -7,9 +7,13 @@ import { normalizeBankQuestions } from "../src/lib/questions.ts";
 import { filterQuestions } from "../src/lib/question-filter.ts";
 
 const BASE = "10ed3bfbb290d07b3d7a46d5010b464f58030b25";
+// The commit that published this reseal. Later metadata-only overlays (material secondaries) chain on
+// top of it, so the replay is compared with the published output, not the current file.
+const PUBLISHED = "0a0b2246e269c03f81669548947d011c4f68b741";
 const ID = "0610-2022-w-43-q5";
 const Q42 = "0610-2022-w-42-q4";
-const fromGit = (name) => JSON.parse(execFileSync("git", ["show", `${BASE}:${name}`], { maxBuffer: 50_000_000 }));
+const fromGitAt = (ref, name) => JSON.parse(execFileSync("git", ["show", `${ref}:${name}`], { maxBuffer: 50_000_000 }));
+const fromGit = (name) => fromGitAt(BASE, name);
 const baseline = fromGit("src/data/production/igcse-biology-0610.json");
 const oldIndex = fromGit("src/data/private-index/igcse-biology-0610.json");
 const manifestText = readFileSync("data/storage/igcse-biology-0610.manifest.json", "utf8");
@@ -20,7 +24,7 @@ describe("0610 one-row, source-bound Pollution reseal", () => {
   it("replays byte-identically and changes only four classification fields of Q43", () => {
     const a = reseal(inputs);
     expect(a).toEqual(reseal(inputs));
-    expect(a).toEqual(JSON.parse(readFileSync("src/data/production/igcse-biology-0610.json", "utf8")));
+    expect(a).toEqual(fromGitAt(PUBLISHED, "src/data/production/igcse-biology-0610.json"));
     expect(a.questions).toHaveLength(4913);
     const changed = a.questions.filter((q, i) => JSON.stringify(q) !== JSON.stringify(baseline.questions[i]));
     expect(changed.map((q) => q.id)).toEqual([ID]);
@@ -42,7 +46,7 @@ describe("0610 one-row, source-bound Pollution reseal", () => {
   }, 30000);
 
   it("preserves all other private-index rows and reaches the real Pollution filter", () => {
-    const index = JSON.parse(readFileSync("src/data/private-index/igcse-biology-0610.json", "utf8"));
+    const index = fromGitAt(PUBLISHED, "src/data/private-index/igcse-biology-0610.json");
     expect(index.questions).toHaveLength(4913);
     const changed = index.questions.filter((q, i) => JSON.stringify(q) !== JSON.stringify(oldIndex.questions[i]));
     expect(changed.map((q) => q.id)).toEqual([ID]);
