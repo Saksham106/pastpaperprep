@@ -64,9 +64,11 @@ pages, timings and coverage are identical, and the other 594 papers are byte-ide
 
 ## Release order (owner approval for each storage step)
 
-1. Upload the 635 crops with `CLEAN_SOURCE_UPLOAD_CONFIG=<0600 scoped R2 config> node scripts/upload-clean-source-crops.mjs`,
-   or `WRANGLER=1` to use the `wrangler login` session (each key must be absent, or already hold the same bytes, before the put).
-   It writes `data/storage/clean-source-crops.receipt.json` only after a full GET readback.
+1. Upload the 635 crops with `CLEAN_SOURCE_UPLOAD_CONFIG=<0600 scoped R2 config> npx tsx scripts/upload-clean-source-crops.mts`:
+   create-only puts, then a full GET readback into `data/storage/clean-source-crops.receipt.json`.
+   It refuses a projection that no longer hashes to its namespace, and reads sources only from inside
+   one canonical folder (no symlinks). `WRANGLER=1` re-verifies every object read-only; wrangler has
+   no conditional put, so it never uploads.
 2. Publish and verify the 72 clean PDFs with the steps in `docs/free-past-papers-public.md`, which
    rewrites `src/data/paper-archive-readback.json`. **Merging the manifest change before this closes
    the whole past-paper library**, because production requires a receipt that matches the manifests.
@@ -76,8 +78,10 @@ pages, timings and coverage are identical, and the other 594 papers are byte-ide
 
 ## Receipts
 
-- 2026-10-13: 635 clean crops uploaded with `WRANGLER=1` and read back byte for byte from
-  `pastpaperprep-assets` (`data/storage/clean-source-crops.receipt.json`).
+- 2026-10-13: 635 clean crops uploaded through wrangler (absence check, then put) into a new
+  content-addressed namespace and read back byte for byte. Review found that check-then-put is not
+  atomic, so the uploader now only writes with S3 create-only puts; every object was then re-read
+  with the read-only `WRANGLER=1` mode (`data/storage/clean-source-crops.receipt.json`).
 - 2026-10-13: 72 clean PDFs published to `pastpaperprep-free`. The publish tool's sources for IB Maths
   (242 PDFs) and 0580 Core (138) had been cleared from a scratch cache, so they were restored by hash:
   IB Maths from `free.pastpaperprep.com`, 0580 Core from the source workspace. `verify` then
