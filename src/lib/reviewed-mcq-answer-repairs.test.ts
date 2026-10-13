@@ -7,6 +7,7 @@ import { createHash } from 'node:crypto';
 import runtime from '@/data/production/igcse-biology-0610.json';
 import repairs from '@/data/reviewed-mcq-answer-repairs.json';
 import { normalizeBankQuestions } from '@/lib/questions';
+import { loadBankQuestions } from '@/lib/question-loader';
 const sha = (v: Buffer) => createHash('sha256').update(v).digest('hex');
 
 describe('source-verified MCQ answer crop repair projection', () => {
@@ -18,11 +19,11 @@ describe('source-verified MCQ answer crop repair projection', () => {
     expect(q.markschemeAssetPaths).toEqual(entry.newPaths.map(path=>'igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/'+path));
     expect(JSON.stringify(raw)).toBe(before);
   });
-  it('preserves 4913 IDs and the exact 99 MCQ repairs alongside reviewed written repairs', () => {
+  it('preserves all 5211 IDs and the exact 99 MCQ repairs alongside reviewed written repairs', () => {
     const before=normalizeBankQuestions('igcse-biology-0610',runtime.questions as Array<Record<string,unknown>>,{economicsAssetMode:'private'});
     const after=normalizeBankQuestions('igcse-biology-0610',runtime.questions as Array<Record<string,unknown>>,{economicsAssetMode:'private',applyReviewedBlankPages:true});
     expect(after.map(q=>q.id)).toEqual(before.map(q=>q.id));
-    expect(after).toHaveLength(4913);
+    expect(after).toHaveLength(5211);
     const changed=after.filter((q,i)=>JSON.stringify(q.markschemeAssetPaths)!==JSON.stringify(before[i].markschemeAssetPaths));
     const writtenIds=Object.keys(JSON.parse(readFileSync('src/data/reviewed-biology-written-answer-repairs.json','utf8')));
     expect(changed.map(q=>q.id).sort()).toEqual([...Object.keys(repairs.entries),...writtenIds].sort());
@@ -38,8 +39,18 @@ describe('source-verified MCQ answer crop repair projection', () => {
     vi.stubEnv('PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED','true');
     try {
       const request=[{questionId:'0610-2026-m-12-q1',kind:'answer' as const}];
+      const entitled=[{productId:BANK_PRODUCTS['igcse-biology-0610']!,status:'active' as const,startsAt:'2020-01-01T00:00:00.000Z',expiresAt:null}];
       await expect(authorizeAssetRequests('igcse-biology-0610',request,[])).rejects.toThrow();
-      const signed=await authorizeAssetRequests('igcse-biology-0610',request,[{productId:BANK_PRODUCTS['igcse-biology-0610']!,status:'active',startsAt:'2020-01-01T00:00:00.000Z',expiresAt:null}]);
+      // A pending storage release (the May/June 2026 addition until --finalize) keeps the whole bank closed,
+      // even to an entitled user; the signer's path is then checked through the loader's exact normalization.
+      if((runtime as unknown as {runtimeArtifact:{assetVerification:string}}).runtimeArtifact.assetVerification!=='verified_readback'){
+        await expect(authorizeAssetRequests('igcse-biology-0610',request,entitled)).rejects.toThrow(/not backed by verified storage/);
+        await expect(loadBankQuestions('igcse-biology-0610')).rejects.toThrow(/not backed by verified storage/);
+        const q=normalizeBankQuestions('igcse-biology-0610',runtime.questions as Array<Record<string,unknown>>,{economicsAssetMode:'private',applyReviewedBlankPages:true}).find(row=>row.id==='0610-2026-m-12-q1')!;
+        expect(q.markschemeAssetPaths[0]).toContain(repairs.entries['0610-2026-m-12-q1'].newPaths[0]);
+        return;
+      }
+      const signed=await authorizeAssetRequests('igcse-biology-0610',request,entitled);
       expect(signed[0].paths[0]).toContain(repairs.entries['0610-2026-m-12-q1'].newPaths[0]);
     } finally { vi.unstubAllEnvs(); }
   });

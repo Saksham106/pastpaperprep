@@ -189,14 +189,27 @@ async function main() {
   const runtime = reseal({ baseline, frozen, manifestText, receiptText });
   const index = resealPrivateIndex(readBaselineIndex(), frozen);
   const outputs = [[`src/data/production/${BANK}.json`, serializeRuntime(runtime)], [`src/data/private-index/${BANK}.json`, serializeIndex(index)]];
+  // Once the May/June 2026 rows are appended, this reseal is the addition's baseline: the committed
+  // files then hold it as their exact 4,913-row prefix, and rewriting them here would drop the addition.
+  const committed = JSON.parse(await readFile(path.join(root, outputs[0][0]), 'utf8'));
+  const addition = committed.runtimeArtifact?.extension2026MayJune;
   if (mode === '--check') {
     let sourceChecked = false;
     try { await access(path.join(defaultSourceRoot(), EXTENSION_ASSEMBLY)); sourceChecked = true; } catch { /* source workspace absent (CI) */ }
     if (sourceChecked) assert(serializeFrozen(await freezeFromSource(baseline)) === frozenText, 'frozen cohort no longer re-derives from the pinned source assembly');
+    if (addition) {
+      const committedIndex = JSON.parse(await readFile(path.join(root, outputs[1][0]), 'utf8'));
+      assert(addition.baselineRuntimeSha256 === runtime.runtimeArtifact.runtimeSha256 && addition.baselineFinalizedContentSha256 === runtime.runtimeArtifact.finalizedContentSha256, 'the addition does not record this reseal as its baseline');
+      assert(JSON.stringify(committed.questions.slice(0, 4913)) === JSON.stringify(runtime.questions), 'committed runtime does not keep the resealed rows as its prefix');
+      assert(JSON.stringify(committedIndex.questions.slice(0, 4913)) === JSON.stringify(index.questions), 'committed private index does not keep the resealed entries as its prefix');
+      console.log(JSON.stringify({ status: 'PASS', sourceChecked, changed: TARGET_COUNT, checked: 'prefix of the May/June 2026 candidate', runtimeSha256: runtime.runtimeArtifact.runtimeSha256, finalizedContentSha256: runtime.runtimeArtifact.finalizedContentSha256 }));
+      return;
+    }
     for (const [file, text] of outputs) assert(await readFile(path.join(root, file), 'utf8') === text, `${file} is not the resealed output`);
     console.log(JSON.stringify({ status: 'PASS', sourceChecked, changed: TARGET_COUNT, runtimeSha256: runtime.runtimeArtifact.runtimeSha256, finalizedContentSha256: runtime.runtimeArtifact.finalizedContentSha256 }));
     return;
   }
+  assert(!addition, 'the committed runtime already carries the May/June 2026 addition; regenerate it with generate-igcse-biology-0610-extension-candidate.mjs instead');
   for (const [file, text] of outputs) await writeFile(path.join(root, file), text);
   console.log(JSON.stringify({ changed: TARGET_COUNT, runtimeSha256: runtime.runtimeArtifact.runtimeSha256, finalizedContentSha256: runtime.runtimeArtifact.finalizedContentSha256, assetManifestSha256: runtime.runtimeArtifact.assetManifestSha256, storageReceiptSha256: runtime.runtimeArtifact.storageReceiptSha256 }));
 }

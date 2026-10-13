@@ -7,9 +7,10 @@ import { GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3
 
 export const RELEASE_BANKS = {
   'igcse-biology-0610': {
+    // The May/June 2026 rows keep the verified 4,913-row release prefix, so its 13,953 objects are not re-uploaded.
     prefix: 'igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_BIOLOGY_SOURCE_ROOT',
-    originalCandidateRuntimeSha256: '9e97cd0c0455ae865b1d14dc462f74ce22d1c66fb734e7d4a8baaf414e0ff961',
+    originalCandidateRuntimeSha256: 'd2c345435e4a27fe90146b4d40a27d7562b92800eb8b291bfca2a5b3273ccc7b',
   },
   'igcse-economics-0455': {
     prefix: 'igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d',
@@ -113,6 +114,19 @@ function economicsLane(paper) {
   throw new Error(`No Economics 0455 source lane for ${paper}`);
 }
 
+/**
+ * 0610 source lanes: 2021-2025 MS-repair build, 2019/2020 and Feb/March 2026 extension, May/June 2026
+ * extension (fail closed otherwise).
+ */
+function biologyLane(paper) {
+  const [, yearText, session] = paper.split('-');
+  const year = Number(yearText);
+  if (year >= 2021 && year <= 2025) return 'data/segmentation/full-ms-repair';
+  if (year === 2019 || year === 2020 || (year === 2026 && session === 'm')) return 'data/segmentation/full-extension';
+  if (year === 2026 && session === 's') return 'data/segmentation/full-extension-2026-mj';
+  throw new Error(`No Biology 0610 source lane for ${paper}`);
+}
+
 function sourceRelativePath(bank, reference, coordinatedLane) {
   const parts = reference.split('/');
   if (parts.length !== 3) throw new Error(`Unsupported referenced asset layout: ${reference}`);
@@ -132,11 +146,7 @@ function sourceRelativePath(bank, reference, coordinatedLane) {
       return `${lane}/assets/${paper}/question/${file}`;
     }
     if (bank === 'igcse-economics-0455') return `${economicsLane(paper)}/assets/${paper}/question/${file}`;
-    if (bank === 'igcse-biology-0610') {
-      const year = Number(paper.split('-')[1]);
-      const lane = (year >= 2019 && year <= 2020) || year === 2026 ? 'data/segmentation/full-extension' : 'data/segmentation/full-ms-repair';
-      return `${lane}/assets/${paper}/question/${file}`;
-    }
+    if (bank === 'igcse-biology-0610') return `${biologyLane(paper)}/assets/${paper}/question/${file}`;
     return `data/segmentation/full/assets/${paper}/question/${file}`;
   }
   if (kind === 'markschemes') {
@@ -147,11 +157,7 @@ function sourceRelativePath(bank, reference, coordinatedLane) {
       return `${lane}/assets/${paper}/markscheme/${file}`;
     }
     if (bank === 'igcse-economics-0455') return `${economicsLane(paper)}/assets/${paper}/markscheme/${file}`;
-    if (bank === 'igcse-biology-0610') {
-      const year = Number(paper.split('-')[1]);
-      const lane = (year >= 2019 && year <= 2020) || year === 2026 ? 'data/segmentation/full-extension' : 'data/segmentation/full-ms-repair';
-      return `${lane}/assets/${paper}/markscheme/${file}`;
-    }
+    if (bank === 'igcse-biology-0610') return `${biologyLane(paper)}/assets/${paper}/markscheme/${file}`;
     return `data/segmentation/full/assets/${paper}/markscheme/${file}`;
   }
   throw new Error(`Unsupported referenced asset layout: ${reference}`);
@@ -195,6 +201,42 @@ export function assertExactCohortSeals(runtime) {
     || q.classificationReviewStatus !== 'source_paired_review_completed_pending_release'))) throw new Error('2026 cohort state mismatch');
 }
 
+/** sha256(sorted ids joined by "\n"), the cohort formula shared with generate-igcse-release.mjs. */
+const idsSha256 = (questions) => sha256(questions.map((q) => q.id).sort().join('\n'));
+export const BIOLOGY_COHORTS = {
+  base2021To2025: { count: 3441, idsSha256: 'ac7402d11f008ca2e76d44eaa67aba85a79039d07f88214b1bbe020f2377543f' },
+  extensionFinalized: { count: 1472, idsSha256: '310bf7a7f3f0d36b82acacc709e511eda0d52864c57420cc0027c924384f74dc' },
+  mayJune2026: { count: 298, idsSha256: 'eb34baa109216fa30293c71262fa2fa05420908aeaf610f3d7215902b4048a99' },
+  extensionThroughMayJune2026: { count: 1770, idsSha256: 'f257b8f0e664914344fca4f1f5dbcc405ec3c0bfcea7c4ac03a789540286bb41' },
+};
+export const BIOLOGY_COMBINED_COUNT = 5211;
+const isBiologyMayJune2026 = (q) => q.year === 2026 && q.session === 'June';
+
+/**
+ * 2021-2025 (3,441) and the 2019/2020/Feb-March-2026 extension (1,472) were finalized in the 4,913-row
+ * release and must stay production/classified. The 298 May/June 2026 rows are authorized candidates
+ * until --finalize, then production/classified like the rest.
+ */
+export function assertExactBiologyCohortSeals(runtime) {
+  const base = runtime.questions.filter((q) => q.year >= 2021 && q.year <= 2025);
+  const extension = runtime.questions.filter((q) => !(q.year >= 2021 && q.year <= 2025));
+  const finalizedExtension = extension.filter((q) => !isBiologyMayJune2026(q));
+  const mayJune = extension.filter(isBiologyMayJune2026);
+  const exact = (rows, { count, idsSha256: seal }, label) => {
+    if (rows.length !== count || new Set(rows.map((q) => q.id)).size !== count || idsSha256(rows) !== seal) throw new Error(`${label} cohort seal mismatch`);
+  };
+  exact(base, BIOLOGY_COHORTS.base2021To2025, 'Biology 2021-2025');
+  exact(finalizedExtension, BIOLOGY_COHORTS.extensionFinalized, 'Biology finalized extension');
+  exact(mayJune, BIOLOGY_COHORTS.mayJune2026, 'Biology May/June 2026');
+  exact(extension, BIOLOGY_COHORTS.extensionThroughMayJune2026, 'Biology extension through May/June 2026');
+  if (runtime.questions.length !== BIOLOGY_COMBINED_COUNT) throw new Error('Biology combined cohort seal mismatch');
+  const finalized = (q) => q.publicationStatus === 'production' && q.classificationReviewStatus === 'classified';
+  if ([...base, ...finalizedExtension].some((q) => !finalized(q))) throw new Error('Biology finalized cohort state mismatch');
+  const released = runtime.runtimeArtifact?.assetVerification === 'verified_readback';
+  if (mayJune.some((q) => (released ? !finalized(q) : (q.publicationStatus !== 'authorized_production_candidate'
+    || q.classificationReviewStatus !== 'candidate_not_approved')))) throw new Error('Biology May/June 2026 cohort state mismatch');
+}
+
 export async function buildReleaseManifest({ bank, runtimePath, sourceRoot }) {
   const config = RELEASE_BANKS[bank];
   if (!config) throw new Error(`Unknown release bank: ${bank}`);
@@ -203,6 +245,7 @@ export async function buildReleaseManifest({ bank, runtimePath, sourceRoot }) {
     throw new Error(`${bank} original candidate runtime seal mismatch`);
   }
   if (bank === 'igcse-economics-0455' && (runtime.questions?.length ?? 0) === ECONOMICS_COMBINED_COUNT) assertExactCohortSeals(runtime);
+  if (bank === 'igcse-biology-0610' && (runtime.questions?.length ?? 0) === BIOLOGY_COMBINED_COUNT) assertExactBiologyCohortSeals(runtime);
   const actualRuntimeSha = runtimeSha256(runtime);
   if (runtime.runtimeArtifact?.runtimeSha256 !== actualRuntimeSha) {
     throw new Error(`${bank} production runtime SHA256 mismatch: expected ${runtime.runtimeArtifact?.runtimeSha256}, got ${actualRuntimeSha}`);

@@ -99,6 +99,23 @@ type IGCSEArtifact = {
       changedFields?: string[];
       method?: string;
     };
+    extension2026MayJune?: {
+      baselineRuntimeSha256?: string;
+      baselineOriginalCandidateRuntimeSha256?: string;
+      baselineSourceCandidateSha256?: string;
+      baselineFinalizedContentSha256?: string;
+      baselineAssetManifestSha256?: string;
+      baselineStorageReceiptSha256?: string;
+      baselineQuestionCount?: number;
+      questionCount?: number;
+      paperCount?: number;
+      assetCount?: number;
+      idsSha256?: string;
+      extensionThroughMayJuneIdsSha256?: string;
+      sourceAssemblySha256?: string;
+      sourceReconciliationReceiptSha256?: string;
+      paperException?: { question_id?: string; qp_printed_total?: number };
+    };
     mcqRetrievalRepair?: {
       baselineGitCommit?: string;
       baselineRuntimeSha256?: string;
@@ -114,7 +131,7 @@ type IGCSEArtifact = {
 };
 
 export const IGCSE_RUNTIME_COUNTS = {
-  "igcse-biology-0610": [4913, 298],
+  "igcse-biology-0610": [5211, 316],
   "igcse-economics-0455": [1862, 106],
   "igcse-chemistry-0620": [5129, 314],
   "igcse-physics-0625": [5789, 317],
@@ -136,7 +153,7 @@ const RUNTIME_TAXONOMIES: Record<IGCSEReleaseBankSlug, unknown> = {
 };
 
 const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
-  "igcse-biology-0610": "9e97cd0c0455ae865b1d14dc462f74ce22d1c66fb734e7d4a8baaf414e0ff961",
+  "igcse-biology-0610": "d2c345435e4a27fe90146b4d40a27d7562b92800eb8b291bfca2a5b3273ccc7b",
   "igcse-economics-0455": "c54a9b4caa427d542b8c9f16f003f6de09fd08a82e3d082c918a67af4c205a66",
   "igcse-chemistry-0620": "81c706903aa94c6865336cf40027c26b33e0ba514082f4d8da2c576b9bb2cf87",
   "igcse-physics-0625": "d95657a79bfcf5d80b9c7e9660c1d7795ea2026435610bb3e96ba2203e3d8cf7",
@@ -144,7 +161,7 @@ const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
 };
 
 const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
-  "igcse-biology-0610": "ae8d6aef098c380bcb3d221e152474d2ef10d666d61c472ee42b6d4077cd4e25",
+  "igcse-biology-0610": "efaea7d9f6c60f75c442d9b295810efc85f7ba1e2797825b987187fc0caa9a8f",
   "igcse-economics-0455": "c54a9b4caa427d542b8c9f16f003f6de09fd08a82e3d082c918a67af4c205a66",
   "igcse-chemistry-0620": "81c706903aa94c6865336cf40027c26b33e0ba514082f4d8da2c576b9bb2cf87",
   "igcse-physics-0625": "14b6756ed65b6f264f601519a4dba5b5a43ef0f0480bc849924cc037644c79e8",
@@ -354,14 +371,27 @@ const REPAIR_0610_POLLUTION = {
   examYearSyllabusSha256: "cbad4f7771aa7af6edeb19c7190c8b4e23d2fe2c52585ac3ae6e59a5fa8945c6",
 } as const;
 
+/**
+ * The finalized 4,913-row 0610 release the repairs below seal. Once the May/June 2026 addition is
+ * appended it is the byte-identical 4,913-row prefix, and its storage/content seals are the ones the
+ * addition recorded as its baseline (the live seals then describe the combined release).
+ */
+function finalized0610Release(artifact: IGCSEArtifact) {
+  const seal = artifact.runtimeArtifact;
+  const addition = seal?.extension2026MayJune;
+  if (!addition) return { questions: artifact.questions, assetManifestSha256: seal?.assetManifestSha256, storageReceiptSha256: seal?.storageReceiptSha256, finalizedContentSha256: seal?.finalizedContentSha256 };
+  return { questions: artifact.questions.slice(0, 4913), assetManifestSha256: addition.baselineAssetManifestSha256, storageReceiptSha256: addition.baselineStorageReceiptSha256, finalizedContentSha256: addition.baselineFinalizedContentSha256 };
+}
+
 /** Original candidate provenance remains historical; this pins the one-row repaired content. */
 export function assert0610PollutionRepair(artifact: IGCSEArtifact): void {
   const seal = artifact.runtimeArtifact;
   const repair = seal?.taxonomyRepair;
-  const q = artifact.questions.filter((item) => item.id === REPAIR_0610_POLLUTION.id);
+  const release = finalized0610Release(artifact);
+  const q = release.questions.filter((item) => item.id === REPAIR_0610_POLLUTION.id);
   const proof = q[0]?.classificationProvenance as { sourceEvidence?: { questionPaper?: { sha256?: string }; markScheme?: { sha256?: string } }; originalPrimaryTopicId?: string } | undefined;
   if (
-    q.length !== 1 || artifact.questions.length !== 4913 ||
+    q.length !== 1 || release.questions.length !== 4913 ||
     q[0].primaryTopic !== "Human influences on ecosystems" ||
     q[0].primaryTopicId !== "topic_20_human_influences_on_ecosystems.21.3" ||
     JSON.stringify(q[0].subtopics) !== JSON.stringify(["Pollution"]) ||
@@ -378,14 +408,14 @@ export function assert0610PollutionRepair(artifact: IGCSEArtifact): void {
     repair?.questionPaperSha256 !== REPAIR_0610_POLLUTION.questionPaperSha256 ||
     repair?.markSchemeSha256 !== REPAIR_0610_POLLUTION.markSchemeSha256 ||
     repair?.examYearSyllabusSha256 !== REPAIR_0610_POLLUTION.examYearSyllabusSha256 ||
-    seal?.assetManifestSha256 !== REPAIR_0610_POLLUTION.assetManifestSha256 ||
-    seal?.storageReceiptSha256 !== REPAIR_0610_POLLUTION.storageReceiptSha256 ||
+    release.assetManifestSha256 !== REPAIR_0610_POLLUTION.assetManifestSha256 ||
+    release.storageReceiptSha256 !== REPAIR_0610_POLLUTION.storageReceiptSha256 ||
     (seal?.secondaryTopicsRepair
       ? seal.secondaryTopicsRepair.baselineFinalizedContentSha256 !== REPAIR_0610_POLLUTION.finalizedContentSha256 ||
-        seal.finalizedContentSha256 !== REPAIR_0610_SECONDARIES.finalizedContentSha256 ||
-        canonicalSha256(artifact.questions) !== REPAIR_0610_SECONDARIES.finalizedContentSha256
-      : seal?.finalizedContentSha256 !== REPAIR_0610_POLLUTION.finalizedContentSha256 ||
-        canonicalSha256(artifact.questions) !== REPAIR_0610_POLLUTION.finalizedContentSha256)
+        release.finalizedContentSha256 !== REPAIR_0610_SECONDARIES.finalizedContentSha256 ||
+        canonicalSha256(release.questions) !== REPAIR_0610_SECONDARIES.finalizedContentSha256
+      : release.finalizedContentSha256 !== REPAIR_0610_POLLUTION.finalizedContentSha256 ||
+        canonicalSha256(release.questions) !== REPAIR_0610_POLLUTION.finalizedContentSha256)
   ) throw new Error("IGCSE 0610 pollution repair provenance or finalized content mismatch");
 }
 
@@ -406,12 +436,13 @@ const REPAIR_0610_SECONDARIES = {
 export function assert0610SecondaryTopicsRepair(artifact: IGCSEArtifact): void {
   const seal = artifact.runtimeArtifact;
   const repair = seal?.secondaryTopicsRepair;
+  const release = finalized0610Release(artifact);
   const rows = biologySecondaryTargets.rows;
   const ids = rows.map((row) => row.id).sort();
-  const byId = new Map(artifact.questions.filter((q) => ids.includes(q.id as string)).map((q) => [q.id as string, q]));
+  const byId = new Map(release.questions.filter((q) => ids.includes(q.id as string)).map((q) => [q.id as string, q]));
   const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
   if (
-    artifact.questions.length !== 4913 || rows.length !== 200 || byId.size !== 200 ||
+    release.questions.length !== 4913 || rows.length !== 200 || byId.size !== 200 ||
     canonicalSha256(biologySecondaryTargets) !== REPAIR_0610_SECONDARIES.frozenCohortSha256 ||
     biologySecondaryTargets.sourceAssemblySha256 !== REPAIR_0610_SECONDARIES.sourceAssemblySha256 ||
     createHash("sha256").update(ids.join("\n")).digest("hex") !== REPAIR_0610_SECONDARIES.targetIdsSha256 ||
@@ -429,11 +460,51 @@ export function assert0610SecondaryTopicsRepair(artifact: IGCSEArtifact): void {
         !same(q?.secondarySubtopics, row.secondarySubtopics) || !same(q?.subtopics, row.subtopics) || !same(q?.detailedSubtopics, row.subtopics) ||
         q?.classificationReviewStatus !== "classified" || (q?.classificationProvenance as { sourceRowId?: string } | undefined)?.sourceRowId !== row.id;
     }) ||
-    seal?.assetManifestSha256 !== REPAIR_0610_POLLUTION.assetManifestSha256 ||
-    seal?.storageReceiptSha256 !== REPAIR_0610_POLLUTION.storageReceiptSha256 ||
-    seal?.finalizedContentSha256 !== REPAIR_0610_SECONDARIES.finalizedContentSha256 ||
-    canonicalSha256(artifact.questions) !== REPAIR_0610_SECONDARIES.finalizedContentSha256
+    release.assetManifestSha256 !== REPAIR_0610_POLLUTION.assetManifestSha256 ||
+    release.storageReceiptSha256 !== REPAIR_0610_POLLUTION.storageReceiptSha256 ||
+    release.finalizedContentSha256 !== REPAIR_0610_SECONDARIES.finalizedContentSha256 ||
+    canonicalSha256(release.questions) !== REPAIR_0610_SECONDARIES.finalizedContentSha256
   ) throw new Error("IGCSE 0610 material-secondaries repair provenance or finalized content mismatch");
+}
+
+const EXTENSION_0610_2026_MJ = {
+  baselineRuntimeSha256: "b93df7a1feb6a65677ee8a7ff94b2b13f339ee626a2aaaa84e49de7321605d49",
+  baselineOriginalCandidateRuntimeSha256: "9e97cd0c0455ae865b1d14dc462f74ce22d1c66fb734e7d4a8baaf414e0ff961",
+  baselineSourceCandidateSha256: "ae8d6aef098c380bcb3d221e152474d2ef10d666d61c472ee42b6d4077cd4e25",
+  idsSha256: "eb34baa109216fa30293c71262fa2fa05420908aeaf610f3d7215902b4048a99",
+  extensionThroughMayJuneIdsSha256: "f257b8f0e664914344fca4f1f5dbcc405ec3c0bfcea7c4ac03a789540286bb41",
+  sourceAssemblySha256: "4ef5a5fe6669e8d4cd27fd20dcb8b5ab54c350740205e0d9bbfe6b7313187944",
+  sourceReconciliationReceiptSha256: "98b3cda42383dc4833be36fd56d35bde4636dfd66d25955dfc1aed1d56d6159d",
+  paperExceptionQuestionId: "0610-2026-s-43-q5",
+} as const;
+
+/** The finalized 4,913 rows stay a byte-identical prefix; exactly the pinned 298 May/June 2026 rows follow. */
+export function assert0610Extension2026MayJune(artifact: IGCSEArtifact): void {
+  const addition = artifact.runtimeArtifact?.extension2026MayJune;
+  const baseline = artifact.questions.slice(0, 4913);
+  const added = artifact.questions.slice(4913);
+  const idsSha = (rows: readonly Record<string, unknown>[]) => createHash("sha256").update(rows.map((q) => q.id as string).sort().join("\n")).digest("hex");
+  const exception = added.find((q) => q.id === EXTENSION_0610_2026_MJ.paperExceptionQuestionId);
+  if (
+    artifact.questions.length !== 5211 || added.length !== 298 ||
+    addition?.baselineRuntimeSha256 !== EXTENSION_0610_2026_MJ.baselineRuntimeSha256 ||
+    addition?.baselineOriginalCandidateRuntimeSha256 !== EXTENSION_0610_2026_MJ.baselineOriginalCandidateRuntimeSha256 ||
+    addition?.baselineSourceCandidateSha256 !== EXTENSION_0610_2026_MJ.baselineSourceCandidateSha256 ||
+    addition?.baselineFinalizedContentSha256 !== REPAIR_0610_SECONDARIES.finalizedContentSha256 ||
+    addition?.baselineAssetManifestSha256 !== REPAIR_0610_POLLUTION.assetManifestSha256 ||
+    addition?.baselineStorageReceiptSha256 !== REPAIR_0610_POLLUTION.storageReceiptSha256 ||
+    addition?.baselineQuestionCount !== 4913 || addition?.questionCount !== 298 || addition?.paperCount !== 18 || addition?.assetCount !== 780 ||
+    addition?.idsSha256 !== EXTENSION_0610_2026_MJ.idsSha256 ||
+    addition?.extensionThroughMayJuneIdsSha256 !== EXTENSION_0610_2026_MJ.extensionThroughMayJuneIdsSha256 ||
+    addition?.sourceAssemblySha256 !== EXTENSION_0610_2026_MJ.sourceAssemblySha256 ||
+    addition?.sourceReconciliationReceiptSha256 !== EXTENSION_0610_2026_MJ.sourceReconciliationReceiptSha256 ||
+    addition?.paperException?.question_id !== EXTENSION_0610_2026_MJ.paperExceptionQuestionId || addition?.paperException?.qp_printed_total !== 15 ||
+    canonicalSha256(baseline) !== REPAIR_0610_SECONDARIES.finalizedContentSha256 ||
+    idsSha(added) !== EXTENSION_0610_2026_MJ.idsSha256 ||
+    idsSha(artifact.questions.filter((q) => !(typeof q.year === "number" && q.year >= 2021 && q.year <= 2025))) !== EXTENSION_0610_2026_MJ.extensionThroughMayJuneIdsSha256 ||
+    added.some((q) => q.year !== 2026 || q.session !== "June" || q.courseEra !== "2026_2028") ||
+    exception?.marks !== 15 || exception?.maxMarks !== 15
+  ) throw new Error("IGCSE 0610 May/June 2026 addition provenance or baseline content mismatch");
 }
 
 /** The original candidate seal describes the pre-repair release; this pins the corrected content separately. */
@@ -520,6 +591,7 @@ export function getIGCSERuntimeArtifact(bank: IGCSEReleaseBankSlug, environment:
   if (bank === "igcse-biology-0610") {
     assert0610PollutionRepair(artifact);
     assert0610SecondaryTopicsRepair(artifact);
+    assert0610Extension2026MayJune(artifact);
   }
   if (bank === "igcse-economics-0455") assert0455Extension2026(artifact);
   if (bank === "igcse-chemistry-0620") {

@@ -20,7 +20,7 @@ describe('source-grid verified written Biology answers',()=>{
     const after=normalizeBankQuestions('igcse-biology-0610',biology.questions as Array<Record<string,unknown>>,{economicsAssetMode:'private',applyReviewedBlankPages:true});
     const writtenChanged=after.filter((q,i)=>repairs[q.id]&&JSON.stringify(q.markschemeAssetPaths)!==JSON.stringify(before[i].markschemeAssetPaths));
     expect(writtenChanged.map(q=>q.id).sort()).toEqual(Object.keys(repairs).sort());
-    expect(writtenChanged).toHaveLength(182);expect(after).toHaveLength(4913);
+    expect(writtenChanged).toHaveLength(182);expect(after).toHaveLength(5211);
     expect(after.map(q=>q.id)).toEqual(before.map(q=>q.id));
     for(let i=0;i<after.length;i++)expect(stable(after[i])).toEqual(stable(before[i]));
     for(const q of writtenChanged){expect(q.markschemeAssetPaths).toEqual(repairs[q.id].newPaths.map(p=>'igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/'+p));expect(q.markschemeImageCount).toBe(repairs[q.id].newPaths.length);}

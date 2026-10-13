@@ -13,7 +13,18 @@ import { normalizeBankQuestions } from "@/lib/questions";
 
 const biology = JSON.parse(readFileSync(path.join(process.cwd(), "src/data/production/igcse-biology-0610.json"), "utf8")) as {
   questions: Array<{ id: string; questionImages: string[]; markschemeImages: string[] }>;
+  runtimeArtifact: { assetVerification: string };
 };
+/**
+ * A pending storage release (0610's May/June 2026 addition until --finalize) stays closed through the
+ * production loader and signer; its rows are then checked through the loader's exact normalization.
+ */
+const pendingBank = (bank: string) => bank === "igcse-biology-0610" && biology.runtimeArtifact.assetVerification !== "verified_readback";
+async function releaseQuestions(bank: keyof typeof reviewed.entries) {
+  if (!pendingBank(bank)) return loadBankQuestions(bank);
+  await expect(loadBankQuestions(bank)).rejects.toThrow(/not backed by verified storage/);
+  return normalizeBankQuestions(bank, biology.questions as unknown as Array<Record<string, unknown>>, { economicsAssetMode: "private", applyReviewedBlankPages: true });
+}
 
 describe("source- and receipt-reviewed whole BLANK PAGE assets", () => {
   it("pins exactly 887 question-paper images across four banks; never touches mark schemes", () => {
@@ -61,10 +72,15 @@ describe("source- and receipt-reviewed whole BLANK PAGE assets", () => {
       for (const bank of Object.keys(reviewed.entries) as Array<keyof typeof reviewed.entries>) {
         const [qid, hidden] = Object.entries(reviewed.entries[bank])[0];
         const expectedPath = hidden[0].path;
-        const normalized = (await loadBankQuestions(bank)).find((item) => item.id === qid)!;
-        const authorization = await authorizeAssetRequests(bank, [{ questionId: qid, kind: "question" }], [
-          { productId: BANK_PRODUCTS[bank]!, status: "active", startsAt: "2020-01-01T00:00:00.000Z", expiresAt: null },
-        ]);
+        const normalized = (await releaseQuestions(bank)).find((item) => item.id === qid)!;
+        const entitled = [{ productId: BANK_PRODUCTS[bank]!, status: "active" as const, startsAt: "2020-01-01T00:00:00.000Z", expiresAt: null }];
+        if (pendingBank(bank)) {
+          await expect(authorizeAssetRequests(bank, [{ questionId: qid, kind: "question" }], entitled)).rejects.toThrow(/not backed by verified storage/);
+          expect(normalized.questionImageCount).toBeGreaterThan(0);
+          expect(normalized.questionAssetPaths.some((url) => url.endsWith(expectedPath))).toBe(false);
+          continue;
+        }
+        const authorization = await authorizeAssetRequests(bank, [{ questionId: qid, kind: "question" }], entitled);
         expect(normalized.questionImageCount).toBeGreaterThan(0);
         expect(normalized.questionAssetPaths).toEqual(authorization[0].paths);
         expect(authorization[0].paths.some((url) => url.endsWith(expectedPath))).toBe(false);
@@ -106,7 +122,7 @@ describe("source- and receipt-reviewed whole BLANK PAGE assets", () => {
         const served = JSON.parse(readFileSync(path.join(process.cwd(), "public/bank-index", PUBLIC_BANK_INDEX_FILES[bank]), "utf8")) as {
           questions: Array<{ id: string; questionImageCount: number; markschemeImageCount: number }>;
         };
-        const privateIndex = createPublicBankIndex(bank, await loadBankQuestions(bank));
+        const privateIndex = createPublicBankIndex(bank, await releaseQuestions(bank));
         // The 0610 public generator also projects official section names; the private
         // normalizer keeps raw labels. This gate compares only the asset-count contract.
         const byId = new Map(privateIndex.questions.map((row) => [row.id, row]));

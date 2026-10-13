@@ -15,7 +15,8 @@ const source = (JSON.parse(readFileSync(join(process.cwd(), "src/data/production
 const questions = normalizeBankQuestions("igcse-biology-0610", source);
 const byId = new Map(questions.map((question) => [question.id, question]));
 /**
- * 624 rows carry an earlier-syllabus label through their primary (or no stored address); mapping the
+ * 624 rows carry an earlier-syllabus label through their primary (or no stored address); no 2026 row
+ * can (its 2026_2028 codes must be current headings, or the projection throws). Mapping the
  * extension rows' material secondaries adds exactly 57 more, all of them among the 200 secondary rows,
  * because a 2019/2020 secondary heading without a current equivalent goes to the earlier bucket just
  * as it does for a 2021-2025 row.
@@ -25,7 +26,7 @@ const secondaryIds = new Set(secondaryTargets.rows.map((row) => row.id));
 
 describe("0610 official 2026 student projection", () => {
   it("shows the full 21-topic/61-section current map plus one compact earlier group", () => {
-    expect(source).toHaveLength(4913);
+    expect(source).toHaveLength(5211);
     expect(BIOLOGY_0610_TOPICS).toHaveLength(21);
     expect(BIOLOGY_0610_SECTIONS).toHaveLength(61);
     expect(official.sections.map((row) => row.code)).toEqual(BIOLOGY_0610_SECTIONS.map((row) => row.code));
@@ -58,7 +59,7 @@ describe("0610 official 2026 student projection", () => {
       if (projected.historical) historical++;
       if (raw.year === 2026) { extension++; expect(projected.codeRefs.every((ref) => ref.startsWith("2026_2028:"))).toBe(true); }
     }
-    expect(extension).toBe(99);
+    expect(extension).toBe(397); // 99 February/March + 298 May/June 2026 rows, all on current 2026_2028 headings
     expect(historical).toBe(EARLIER_ROWS);
     const primaryOnly = source.filter((raw) => project0610Sections(secondaryIds.has(raw.id) ? { ...raw, secondaryTopics: [], subtopics: raw.subtopics.slice(0, 1) } : raw).historical);
     expect(primaryOnly).toHaveLength(624);

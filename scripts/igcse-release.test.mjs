@@ -122,6 +122,11 @@ describe("IGCSE storage release tooling", () => {
 
   it.each([
     ["igcse-biology-0610", "markschemes/0610-2025-w-23/q2-row1-1.webp", "data/classification/full-coverage-batch-repairs/batch94-ms/assets/0610-2025-w-23/markscheme/q2-row1-1.v2.webp"],
+    ["igcse-biology-0610", "questions/0610-2024-s-11/q1-2-1.webp", "data/segmentation/full-ms-repair/assets/0610-2024-s-11/question/q1-2-1.webp"],
+    ["igcse-biology-0610", "questions/0610-2020-w-41/q1-2-1.webp", "data/segmentation/full-extension/assets/0610-2020-w-41/question/q1-2-1.webp"],
+    ["igcse-biology-0610", "markschemes/0610-2026-m-42/q2-ms-8-1.webp", "data/segmentation/full-extension/assets/0610-2026-m-42/markscheme/q2-ms-8-1.webp"],
+    ["igcse-biology-0610", "questions/0610-2026-s-43/q5-16-1.webp", "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-43/question/q5-16-1.webp"],
+    ["igcse-biology-0610", "markschemes/0610-2026-s-11/q1-row1-2.webp", "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-11/markscheme/q1-row1-2.webp"],
     ["igcse-economics-0455", "markschemes/0455-2025-s-22/q5-3-29.webp", "data/segmentation/full-repaired/assets/0455-2025-s-22/markscheme/q5-3-29.webp"],
     ["igcse-economics-0455", "questions/0455-2020-s-21/q1-1-2.webp", "data/segmentation/full-extension/assets/0455-2020-s-21/question/q1-1-2.webp"],
     ["igcse-economics-0455", "questions/0455-2026-s-21/q1-1-2.webp", "data/segmentation/full-extension-2026/assets/0455-2026-s-21/question/q1-1-2.webp"],
@@ -148,6 +153,16 @@ describe("IGCSE storage release tooling", () => {
       questionImages: ["questions/0455-2027-s-11/q1-1-2.webp"], markschemeImages: [], officialMarkscheme: { images: [] },
     })));
     await expect(buildReleaseManifest({ bank: "igcse-economics-0455", runtimePath, sourceRoot: root })).rejects.toThrow(/No Economics 0455 source lane/);
+  });
+
+  it.each(["questions/0610-2027-s-11/q1-2-1.webp", "questions/0610-2026-w-41/q1-2-1.webp", "markschemes/0610-2018-s-11/q1-row1-1.webp"])("refuses a Biology reference outside the 0610 source lanes (%s)", async (reference) => {
+    const root = await mkdtemp(join(tmpdir(), "igcse-release-"));
+    temporary.push(root);
+    const runtimePath = join(root, "runtime.json");
+    await writeFile(runtimePath, JSON.stringify(sealedRuntime("igcse-biology-0610", {
+      questionImages: [], markschemeImages: [reference], officialMarkscheme: { images: [reference] },
+    })));
+    await expect(buildReleaseManifest({ bank: "igcse-biology-0610", runtimePath, sourceRoot: root })).rejects.toThrow(/No Biology 0610 source lane/);
   });
 
   it("uploads create-only, resumes identical objects, and verifies full GET hashes", async () => {
@@ -232,41 +247,37 @@ describe("IGCSE storage release tooling", () => {
     expect(() => finalizeQuestionStates(extraYear, "igcse-economics-0455")).toThrow(/outside the authorized cohorts/);
   });
 
-  it("accepts only the exact preserved Biology base ID set in a mixed candidate", async () => {
-    const runtime = JSON.parse(await readFile(join(import.meta.dirname, "../src/data/production/igcse-biology-0610.json"), "utf8"));
-    for (const question of runtime.questions) {
-      if ([2019, 2020, 2026].includes(question.year)) {
-        question.publicationStatus = "authorized_production_candidate";
-        question.classificationReviewStatus = "candidate_not_approved";
-      }
-    }
+  it("accepts only the exact preserved Biology cohorts and the May/June 2026 candidates", async () => {
+    const load = async () => JSON.parse(await readFile(join(import.meta.dirname, "../src/data/production/igcse-biology-0610.json"), "utf8"));
+    const mayJune = (question) => question.year === 2026 && question.session === "June";
+    const runtime = await load();
+    expect(runtime.questions.filter((question) => question.publicationStatus === "authorized_production_candidate")).toHaveLength(298);
+    expect(runtime.questions.filter((question) => question.publicationStatus === "authorized_production_candidate").every(mayJune)).toBe(true);
     finalizeQuestionStates(runtime, "igcse-biology-0610");
-    expect(runtime.questions.every((question) => question.publicationStatus === "production")).toBe(true);
+    expect(runtime.questions.every((question) => question.publicationStatus === "production" && question.classificationReviewStatus === "classified")).toBe(true);
 
-    const tampered = JSON.parse(await readFile(join(import.meta.dirname, "../src/data/production/igcse-biology-0610.json"), "utf8"));
+    const tampered = await load();
     const baseIndex = tampered.questions.findIndex((question) => question.year >= 2021 && question.year <= 2025);
-    tampered.questions[baseIndex] = {
-      ...tampered.questions[baseIndex],
-      id: "0610-unauthorized-production-row",
-    };
-    for (const question of tampered.questions) {
-      if ([2019, 2020, 2026].includes(question.year)) {
-        question.publicationStatus = "authorized_production_candidate";
-        question.classificationReviewStatus = "candidate_not_approved";
-      }
-    }
+    tampered.questions[baseIndex] = { ...tampered.questions[baseIndex], id: "0610-unauthorized-production-row" };
     expect(() => finalizeQuestionStates(tampered, "igcse-biology-0610")).toThrow(/preserved Biology base/i);
 
-    const tamperedExtension = JSON.parse(await readFile(join(import.meta.dirname, "../src/data/production/igcse-biology-0610.json"), "utf8"));
-    const extensionIndex = tamperedExtension.questions.findIndex((question) => [2019, 2020, 2026].includes(question.year));
-    for (const question of tamperedExtension.questions) {
-      if ([2019, 2020, 2026].includes(question.year)) {
-        question.publicationStatus = "authorized_production_candidate";
-        question.classificationReviewStatus = "candidate_not_approved";
-      }
-    }
-    tamperedExtension.questions[extensionIndex].id = "0610-unauthorized-extension-row";
-    expect(() => finalizeQuestionStates(tamperedExtension, "igcse-biology-0610")).toThrow(/Biology extension/i);
+    const tamperedExtension = await load();
+    tamperedExtension.questions[tamperedExtension.questions.findIndex((question) => question.year === 2019)].id = "0610-unauthorized-extension-row";
+    expect(() => finalizeQuestionStates(tamperedExtension, "igcse-biology-0610")).toThrow(/preserved Biology extension/i);
+
+    const reopened = await load();
+    const finalizedExtension = reopened.questions.find((question) => question.year === 2020);
+    finalizedExtension.publicationStatus = "authorized_production_candidate";
+    finalizedExtension.classificationReviewStatus = "candidate_not_approved";
+    expect(() => finalizeQuestionStates(reopened, "igcse-biology-0610")).toThrow(/preserved Biology extension/i);
+
+    const substituted = await load();
+    substituted.questions[substituted.questions.findIndex(mayJune)].id = "0610-2026-s-99-q1";
+    expect(() => finalizeQuestionStates(substituted, "igcse-biology-0610")).toThrow(/May\/June 2026/);
+
+    const extraRow = await load();
+    extraRow.questions.push({ ...extraRow.questions.at(-1), id: "0610-2026-s-63-q99" });
+    expect(() => finalizeQuestionStates(extraRow, "igcse-biology-0610")).toThrow(/May\/June 2026|extension/);
   });
 
   it("fails closed for unknown candidate states", async () => {
