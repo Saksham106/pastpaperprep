@@ -8,7 +8,6 @@ import { HeaderNavigation } from "@/components/HeaderNavigation";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 export function SiteHeader({ authenticated = false, pastPapers = false }: { authenticated?: boolean; pastPapers?: boolean }) {
-  const homeHref = authenticated ? "/dashboard" : "/";
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const sentinelRef = useRef<HTMLSpanElement>(null);
@@ -39,7 +38,7 @@ export function SiteHeader({ authenticated = false, pastPapers = false }: { auth
   return <>
     <span ref={sentinelRef} className="header-scroll-sentinel" aria-hidden="true" />
     <header ref={headerRef} className={`site-header${scrolled ? " is-scrolled" : ""}${menuOpen ? " menu-open" : ""}`}>
-      <Link transitionTypes={PAGE_NAVIGATION} className="brand" href={homeHref} aria-label="PastPaperPrep home">
+      <Link transitionTypes={PAGE_NAVIGATION} className="brand" href="/" aria-label="PastPaperPrep home">
         <span className="brand-mark"><BookOpenText weight="bold" /></span>
         <span>PastPaperPrep</span>
       </Link>
