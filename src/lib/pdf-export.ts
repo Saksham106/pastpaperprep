@@ -1,5 +1,6 @@
 import type { UnifiedQuestion } from "@/lib/questions";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
+import { formatMcqAnswer, type McqAnswer } from "@/lib/mcq-answer";
 import type { SignedAsset } from "@/lib/signed-assets";
 import type { SourcePrintSegment } from "@/lib/print-geometry";
 import { fetchVerifiedImageBlob } from "@/lib/verified-asset-bytes";
@@ -17,6 +18,8 @@ export type PdfExportQuestion = UnifiedQuestion & {
   markschemePrintSegments?: Array<SourcePrintSegment[] | null>;
   questionRasterSizesPx?: Array<[number, number] | null>;
   markschemeRasterSizesPx?: Array<[number, number] | null>;
+  /** Verified multiple-choice letter: printed as one short line instead of the mark-scheme crop. */
+  mcqAnswer?: McqAnswer;
 };
 
 export function attachPdfAssetMetadata(
@@ -36,6 +39,7 @@ export function attachPdfAssetMetadata(
       markschemePrintSegments: answerAsset?.printSegments,
       questionRasterSizesPx: questionAsset?.rasterSizesPx,
       markschemeRasterSizesPx: answerAsset?.rasterSizesPx,
+      ...(answerAsset?.mcqAnswer ? { mcqAnswer: answerAsset.mcqAnswer } : {}),
     };
   });
 }
@@ -130,6 +134,8 @@ const PDF_REVIEW_SCALE = 0.8;
 const PDF_LABEL_SHRINK_LIMIT = 0.97;
 const PDF_BOTTOM_MM = 13;
 const PDF_SIDE_MM = 8;
+const PDF_MCQ_ROW_MM = 7;
+const PDF_MCQ_ANSWER_X = 80;
 const PDF_FALLBACK_DPI = 150;
 const SOURCE_RENDER_DPI = new Set([108, 126, 144]);
 
@@ -351,6 +357,33 @@ export async function downloadQuestionPdf(
     }
   };
 
+  // One compact line per MCQ answer, e.g. "2025 March / Paper 12 / Q1   Answer  B", with any official note below.
+  const placeMcqAnswer = (answer: McqAnswer, label: string) => {
+    pdf.setFont("helvetica", "normal");
+    pdf.setFontSize(7);
+    const noteLines: string[] = answer.note ? pdf.splitTextToSize(answer.note, 210 - PDF_SIDE_MM - PDF_MCQ_ANSWER_X) : [];
+    const height = PDF_MCQ_ROW_MM + noteLines.length * 3.2;
+    const current = pageSpecs[pages - 1];
+    if (startAnswerPage || !current || nextImageY + height > current.height - PDF_BOTTOM_MM + 0.001) addPage();
+    const baseline = nextImageY + 4;
+    pdf.setFontSize(8);
+    pdf.setTextColor(76, 88, 85);
+    pdf.text(label, PDF_SIDE_MM, baseline);
+    pdf.text("Answer", PDF_MCQ_ANSWER_X, baseline);
+    pdf.setFont("helvetica", "bold");
+    pdf.setFontSize(11);
+    pdf.setTextColor(21, 52, 48);
+    pdf.text(formatMcqAnswer(answer.answers), PDF_MCQ_ANSWER_X + 13, baseline + 0.3);
+    if (noteLines.length) {
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(7);
+      pdf.setTextColor(76, 88, 85);
+      pdf.text(noteLines, PDF_MCQ_ANSWER_X, baseline + 3.6, { lineHeightFactor: 1.3 });
+    }
+    pdf.setFont("helvetica", "normal");
+    nextImageY += height;
+  };
+
   const addImagePage = async (
     bankSlug: UnifiedQuestion["bankSlug"], questionId: string, kind: "question" | "answer", imageIndex: number, source: string,
     label: string, marks: number | null, calculator: boolean | null,
@@ -436,6 +469,8 @@ export async function downloadQuestionPdf(
         await addImagePage(question.bankSlug, question.id, "question", index, source, label, question.marks, question.calculator ?? null,
           question.questionPrintSizesPt?.[index], question.questionPrintSegments?.[index], question.questionRasterSizesPx?.[index]);
       }
+    } else if (question.mcqAnswer) {
+      placeMcqAnswer(question.mcqAnswer, label);
     } else {
       if (question.markschemeImages.length) {
         for (const [index, source] of question.markschemeImages.entries()) {
