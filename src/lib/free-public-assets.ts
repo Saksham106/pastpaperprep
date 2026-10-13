@@ -1,5 +1,5 @@
 import { isPreviewQuestion } from "@/lib/access";
-import { ASSET_KINDS, assetPathsForKind, type AssetKind } from "@/lib/asset-kinds";
+import { ASSET_KINDS, assetPathsForKind, deliveredAssetPaths, type AssetKind } from "@/lib/asset-kinds";
 import type { AssetManifest } from "@/lib/asset-manifest";
 import type { BankSlug } from "@/lib/banks";
 import { explanationAssetSignOptions, previewAssetSignOptions } from "@/lib/private-asset-providers";
@@ -57,11 +57,13 @@ export function buildFreeAssetIndex(
     if (!isPreviewQuestion(bank, questionId)) continue;
     const question: FreeAssetIndex["questions"][string] = { details: freeDetails(questionId, entry.details) };
     for (const kind of ASSET_KINDS) {
-      const paths = assetPathsForKind(entry, kind);
-      if (!paths.length) continue;
+      const paths = deliveredAssetPaths(entry, kind);
+      const mcqAnswer = kind === "answer" ? entry.mcqAnswer : undefined;
+      if (!paths.length && !mcqAnswer) continue;
       question[kind] = {
         urls: paths.map(freePublicAssetUrl),
         displayCrops: paths.map((path) => reviewedBlankTailForSignedAsset(bank, questionId, kind, path)),
+        ...(mcqAnswer ? { mcqAnswer } : {}),
       };
     }
     questions[questionId] = question;

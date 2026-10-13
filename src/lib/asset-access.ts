@@ -5,12 +5,14 @@ import {
 } from "@/lib/access";
 import { assetPathsForKind, isAssetKind, type AssetKind } from "@/lib/asset-kinds";
 import { isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
+import type { McqAnswer } from "@/lib/mcq-answer";
+import { loadBankMcqAnswers } from "@/lib/mcq-answer-letters";
 import { loadBankQuestionMap } from "@/lib/question-loader";
 import type { UnifiedQuestion } from "@/lib/questions";
 
 export { ASSET_KINDS, isAssetKind, type AssetKind } from "@/lib/asset-kinds";
 export type AssetRequest = { questionId: string; kind: AssetKind };
-export type AuthorizedAssetRequest = AssetRequest & { paths: string[]; question: UnifiedQuestion };
+export type AuthorizedAssetRequest = AssetRequest & { paths: string[]; question: UnifiedQuestion; mcqAnswer?: McqAnswer };
 
 export async function authorizeAssetRequests(
   bankSlug: BankSlug,
@@ -22,7 +24,7 @@ export async function authorizeAssetRequests(
     throw new Error("Asset request batch must contain between 1 and 20 items");
   }
 
-  const questions = await loadBankQuestionMap(bankSlug);
+  const [questions, mcqAnswers] = await Promise.all([loadBankQuestionMap(bankSlug), loadBankMcqAnswers(bankSlug)]);
   const seen = new Set<string>();
 
   return requests.map((request) => {
@@ -42,10 +44,13 @@ export async function authorizeAssetRequests(
       : canViewAnswer(bankSlug, request.questionId, entitlements, now);
     if (!allowed) throw new Error("User is not authorized for this asset");
 
+    // Released only after the answer check: an MCQ with a verified letter answers with the letter alone.
+    const mcqAnswer = request.kind === "answer" ? mcqAnswers.get(request.questionId) : undefined;
     return {
       ...request,
       question,
-      paths: assetPathsForKind(question, request.kind),
+      paths: mcqAnswer ? [] : assetPathsForKind(question, request.kind),
+      ...(mcqAnswer ? { mcqAnswer } : {}),
     };
   });
 }

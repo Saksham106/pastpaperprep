@@ -49,7 +49,10 @@ describe('exact active science MCQ row projection',()=>{
         const request=[{questionId,kind:'answer' as const}];
         await expect(authorizeAssetRequests(bank,request,[])).rejects.toThrow();
         const signed=await authorizeAssetRequests(bank,request,[{productId:BANK_PRODUCTS[bank]!,status:'active',startsAt:'2020-01-01T00:00:00.000Z',expiresAt:null}]);
-        expect(signed[0].paths).toEqual(repairs[bank][questionId].newPaths.map(p=>manifest.banks[bank].objectPrefix+p));
+        // The repaired crop stays projected; a verified letter is delivered instead of signing it.
+        expect(signed[0].question.markschemeAssetPaths).toEqual(repairs[bank][questionId].newPaths.map(p=>manifest.banks[bank].objectPrefix+p));
+        expect(signed[0].paths).toEqual([]);
+        expect(signed[0].mcqAnswer).toEqual({answers:[expect.stringMatching(/^[A-D]$/)],note:null});
       }finally{vi.unstubAllEnvs();}
     });
   }

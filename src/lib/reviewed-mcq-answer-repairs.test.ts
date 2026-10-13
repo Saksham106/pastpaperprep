@@ -40,7 +40,10 @@ describe('source-verified MCQ answer crop repair projection', () => {
       const request=[{questionId:'0610-2026-m-12-q1',kind:'answer' as const}];
       await expect(authorizeAssetRequests('igcse-biology-0610',request,[])).rejects.toThrow();
       const signed=await authorizeAssetRequests('igcse-biology-0610',request,[{productId:BANK_PRODUCTS['igcse-biology-0610']!,status:'active',startsAt:'2020-01-01T00:00:00.000Z',expiresAt:null}]);
-      expect(signed[0].paths[0]).toContain(repairs.entries['0610-2026-m-12-q1'].newPaths[0]);
+      // The repaired crop stays projected; a verified letter is delivered instead of signing it.
+      expect(signed[0].question.markschemeAssetPaths[0]).toContain(repairs.entries['0610-2026-m-12-q1'].newPaths[0]);
+      expect(signed[0].paths).toEqual([]);
+      expect(signed[0].mcqAnswer).toEqual({answers:[runtime.questions.find(q=>q.id==='0610-2026-m-12-q1')!.answer],note:null});
     } finally { vi.unstubAllEnvs(); }
   });
   it('rejects stale source paths and never repairs another bank', () => {

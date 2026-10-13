@@ -458,3 +458,38 @@ describe("fetchFreeAssets with the static free index", () => {
     expect(assets.get("a:question")?.urls).toEqual(["https://assets.example/a.webp"]);
   });
 });
+
+describe("MCQ letters on answer assets", () => {
+  const letter = { answers: ["B"], note: null };
+  const signedAnswer = (asset: Record<string, unknown>) => vi.fn(async () => Response.json({ expiresIn: 600, assets: [{ questionId: "q1", kind: "answer", urls: [], ...asset }] }));
+
+  it("keeps a valid letter on an answer asset", async () => {
+    const signed = await fetchSignedAssets("igcse-chemistry-0620", [{ questionId: "q1", kind: "answer" }], signedAnswer({ mcqAnswer: letter }));
+    expect(signed.get("q1:answer")).toMatchObject({ urls: [], mcqAnswer: letter });
+  });
+
+  it.each([
+    ["a letter outside A–D", { mcqAnswer: { answers: ["E"], note: null } }],
+    ["a bare string", { mcqAnswer: "B" }],
+    ["a letter on a question image", { kind: "question", mcqAnswer: letter }],
+  ])("rejects %s", async (_label, asset) => {
+    const request = { questionId: "q1", kind: (asset as { kind?: "question" }).kind ?? "answer" as const };
+    await expect(fetchSignedAssets("igcse-chemistry-0620", [request], signedAnswer(asset))).rejects.toThrow("Invalid signed asset response");
+  });
+
+  it("reads a free-year letter from the static free index without calling a route", async () => {
+    const details = { summary: "s", accessibleText: "a", solution: null, sourceQuestionUrl: null, sourceMarkSchemeUrl: null };
+    const fetcher = vi.fn<(input: RequestInfo | URL) => Promise<Response>>(async () => new Response(JSON.stringify({ version: 1, bank: "igcse-physics-0625", questions: {
+      q1: { details, answer: { urls: [], displayCrops: [], mcqAnswer: letter } },
+    } })));
+    const { assets } = await fetchFreeAssets("igcse-physics-0625", [{ questionId: "q1", kind: "answer" }], fetcher);
+    expect(fetcher.mock.calls.map(([input]) => String(input))).toEqual(["/free-assets/igcse-physics-0625.json"]);
+    expect(assets.get("q1:answer")).toMatchObject({ urls: [], mcqAnswer: letter });
+  });
+
+  it("carries the letter from the PDF signer", async () => {
+    const fetcher = vi.fn(async () => Response.json({ expiresIn: 600, assets: [{ questionId: "q1", kind: "answer", urls: [], printSizesPt: [], printSegments: [], rasterSizesPx: [], mcqAnswer: letter }] }));
+    const signed = await fetchPdfAssets("igcse-chemistry-0620", ["q1"], "answers", fetcher);
+    expect(signed.get("q1:answer")?.mcqAnswer).toEqual(letter);
+  });
+});
