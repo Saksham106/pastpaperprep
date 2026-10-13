@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Fragment } from "react";
 import Image from "next/image";
 import { ArrowRight, CaretDown } from "@phosphor-icons/react/dist/ssr";
 import type { Bank } from "@/lib/banks";
@@ -23,6 +24,7 @@ const SUBJECTS: readonly { name: string; tone: CourseTone; matches: (bank: Bank)
   { name: "Economics", tone: "economics", matches: (bank) => bank.subject.includes("Economics") },
   { name: "Co-ordinated Sciences", tone: "coordinated", matches: (bank) => bank.subject.includes("Co-ordinated") },
 ];
+const PRACTICE_MODES = [{ id: "topics", label: "By topic" }, { id: "papers", label: "Full papers" }];
 const HOME_FAQS = [FAQS[1], FAQS[2], FAQS[3], FAQS[5]];
 const SAMPLE_BANK = "igcse";
 const STUDIES = [
@@ -41,13 +43,14 @@ export type HomePaperLinks = Readonly<Record<string, { href: string; count: numb
 function SubjectCards({ banks, papers }: { banks: readonly Bank[]; papers: HomePaperLinks }) {
   return <div className={styles.subjectGrid}>{groupSubjects(banks).map((group) => <section className={`${styles.subjectCard} course-tone-${group.tone}`} data-subject-tone={group.tone} key={group.name}>
     <header className={styles.subjectHead}><h3>{group.name}</h3><span className={styles.subjectMark}><CourseIcon tone={group.tone} /></span></header>
-    <div className={styles.bankRows}>{group.banks.map((bank) => { const library = papers[bank.slug]; return <div className={styles.bankRow} key={bank.slug}>
-      <strong>{bank.shortName}</strong>
-      <span className={styles.bankLinks}>
-        <Link className={styles.bankLink} href={bankEntryHref(bank.slug)} data-bank-slug={bank.slug} data-has-free-tier={hasFreeTier(bank.slug) ? "true" : undefined}>By topic<span>{bank.questionCount.toLocaleString()} questions</span></Link>
-        {library && <Link className={styles.bankLink} href={library.href} data-papers-slug={bank.slug}>Full papers<span>{library.count.toLocaleString()} papers</span></Link>}
-      </span>
-    </div>; })}</div>
+    <div className={styles.bankRows}>{group.banks.map((bank) => { const library = papers[bank.slug]; return <Fragment key={bank.slug}>
+      <Link className={styles.bankRow} href={bankEntryHref(bank.slug)} data-bank-slug={bank.slug} data-mode-item={library ? "topics" : undefined} data-has-free-tier={hasFreeTier(bank.slug) ? "true" : undefined}>
+        <strong>{bank.shortName}</strong><span>{bank.questionCount.toLocaleString()} questions</span><ArrowRight aria-hidden="true" weight="bold" />
+      </Link>
+      {library && <Link className={styles.bankRow} href={library.href} data-papers-slug={bank.slug} data-mode-item="papers">
+        <strong>{bank.shortName}</strong><span>{library.count.toLocaleString()} papers</span><ArrowRight aria-hidden="true" weight="bold" />
+      </Link>}
+    </Fragment>; })}</div>
   </section>)}</div>;
 }
 
@@ -75,7 +78,7 @@ export function MarketingHome({ environment = process.env, papers = {} }: { envi
 
     <section className={`shell ${styles.banks}`} id="question-banks" data-home-section="banks" aria-labelledby="question-banks-heading">
       <h2 className="sr-only" id="question-banks-heading">Question banks</h2>
-      <QualificationTabs items={[...(cambridgeBanks.length > 0 ? [{ id: "cambridge-catalog", label: "Cambridge IGCSE", panel: <SubjectCards banks={cambridgeBanks} papers={papers} /> }] : []), ...(ibBanks.length > 0 ? [{ id: "ib-catalog", label: "IB Diploma", panel: <SubjectCards banks={ibBanks} papers={papers} /> }] : [])]} />
+      <QualificationTabs modes={Object.keys(papers).length ? PRACTICE_MODES : undefined} items={[...(cambridgeBanks.length > 0 ? [{ id: "cambridge-catalog", label: "Cambridge IGCSE", panel: <SubjectCards banks={cambridgeBanks} papers={papers} /> }] : []), ...(ibBanks.length > 0 ? [{ id: "ib-catalog", label: "IB Diploma", panel: <SubjectCards banks={ibBanks} papers={papers} /> }] : [])]} />
     </section>
 
     <section className={styles.proofBand} data-home-section="proof" aria-labelledby="proof-heading">

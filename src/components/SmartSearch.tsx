@@ -16,8 +16,6 @@ import styles from "./SmartSearch.module.css";
 type Option = { href: string; kind: "paper" | "topics" | "papers" | "topic" };
 type Section = "paper" | "subject" | "topic";
 
-const HINTS = ["0580", "quadratic", "0580/42/M/J/24", "IB Chemistry HL"];
-
 let indexLoad: Promise<SearchIndex | null> | null = null;
 let papersLoad: Promise<SearchPapers | null> | null = null;
 const loadJson = <T,>(path: string, valid: (value: unknown) => value is T) =>
@@ -67,7 +65,6 @@ export function SmartSearch() {
     trackProductEvent("home_search", { found: !!option, kind: option?.kind ?? "none", intent: results?.intent ?? "none" });
     if (option) router.push(option.href);
   }
-  function choose(hint: string) { setQ(hint); setActive(0); setOpen(true); warm(); input.current?.focus(); }
   const link = (href: string, kind: Option["kind"], className: string, children: React.ReactNode) => {
     const i = position(href, kind);
     return <a id={optionId(i)} role="option" aria-selected={i === current} href={href} className={className} data-active={i === current ? "true" : undefined}
@@ -91,7 +88,6 @@ export function SmartSearch() {
       />
       <button type="submit" className={styles.go}>Search</button>
     </form>
-    <div className={styles.hints} aria-label="Try">{HINTS.map(hint => <button key={hint} type="button" onClick={() => choose(hint)}>{hint}</button>)}</div>
     <div className={styles.popover} hidden={!ready}>
       <div role="listbox" id={`${id}-list`} aria-label="Search results">
         {sections.map(section => <div key={section} role="group" aria-label={section === "paper" ? "Papers" : section === "topic" ? "Topics" : "Subjects"} className={styles.group}>

@@ -259,7 +259,7 @@ main { min-height: 72vh; }
 .dashboard-bank-grid { display: grid; grid-template-columns: 1fr; grid-template-rows: none; gap: 0; align-content: start; }
 /* Banks are rows inside one tinted study panel, never a card stacked on a card. */
 .dashboard-bank-card { position: relative; padding: 14px 12px; margin-inline: -12px; display: flex; flex-direction: column; background: transparent; border: 0; border-radius: 8px; transition: background-color 160ms ease, box-shadow 160ms ease, color 160ms ease; }
-.dashboard-bank-item + .dashboard-bank-item { box-shadow: inset 0 1px color-mix(in srgb, var(--course-accent, var(--cobalt)) 24%, transparent); }
+.dashboard-bank-card + .dashboard-bank-card { box-shadow: inset 0 1px color-mix(in srgb, var(--course-accent, var(--cobalt)) 24%, transparent); }
 .dashboard-bank-card:hover { background: color-mix(in srgb, var(--surface-raised) 72%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--course-accent, var(--cobalt)) 34%, var(--line-strong)); }
 .dashboard-bank-card:focus-visible { outline: 3px solid color-mix(in srgb, var(--cobalt) 60%, transparent); outline-offset: -1px; }
 
@@ -272,10 +272,6 @@ main { min-height: 72vh; }
 .dashboard-bank-stats { margin-top: auto; padding-top: 14px; justify-content: flex-start; }
 .dashboard-bank-link { margin-top: 7px; display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; color: var(--course-accent, var(--cobalt)); font-weight: 850; }
 .dashboard-bank-link small { color: var(--muted); font-size: .72rem; font-weight: 620; }
-/* Second way in: the subject's full past papers, under the topic-practice card. */
-.dashboard-bank-papers { width: fit-content; margin: -6px 0 0; padding: 4px 0 12px; display: inline-flex; align-items: center; gap: 8px; color: var(--ink); font-size: .86rem; font-weight: 750; }
-.dashboard-bank-papers svg { color: var(--course-accent, var(--cobalt)); }
-.dashboard-bank-papers:hover { color: var(--course-accent, var(--cobalt-strong)); }
 
 /* Question bank workspace */
 .bank-hero { padding: 18px 0 16px; background: var(--surface); border-bottom: 1px solid var(--line); }
@@ -1885,6 +1881,19 @@ main { min-height: 72vh; }
 @media (max-width: 620px) {
   .qualification-tabs-prominent [role="tablist"] { gap: 6px; margin-bottom: 22px; }
   .qualification-tabs-prominent [role="tab"] { min-height: 48px; padding: 12px 14px; font-size: .9rem; }
+}
+
+/* By topic / Full papers: a quiet segmented switch beside the qualification tabs. */
+.qualification-tab-bar { position: relative; }
+.practice-mode-switch { position: absolute; top: 4px; right: 0; display: flex; gap: 2px; padding: 3px; background: var(--surface); border: 1px solid var(--line); border-radius: 11px; }
+.practice-mode-switch button { min-height: 40px; padding: 0 14px; color: var(--muted); background: transparent; border: 0; border-radius: 8px; font: 750 .86rem/1 var(--font-body); cursor: pointer; transition: background-color 140ms ease, color 140ms ease; }
+.practice-mode-switch button:hover { color: var(--ink); }
+.practice-mode-switch button[aria-pressed="true"] { color: var(--ink); background: var(--paper-warm); box-shadow: inset 0 0 0 1px var(--line-strong); }
+.practice-mode-switch button:focus-visible { outline: 3px solid color-mix(in srgb, var(--cobalt) 55%, transparent); outline-offset: 1px; }
+@media (max-width: 850px) {
+  .qualification-tab-bar { display: grid; justify-items: center; gap: 12px; margin-bottom: 22px; }
+  .qualification-tab-bar [role="tablist"] { margin-bottom: 0 !important; }
+  .practice-mode-switch { position: static; }
 }
 
 /* 2. Dashboard study panels carry the landing page's subject tone + watermark. */

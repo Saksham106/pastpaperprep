@@ -41,13 +41,15 @@
 .subjectMark :global(.course-icon) { width: 64px; height: 64px; color: var(--course-accent); background: none; border: 0; }
 .subjectMark :global(.course-icon) svg { width: 60px; height: 60px; }
 .bankRows { padding: 14px; display: grid; align-content: start; gap: 8px; }
-.bankRow { min-width: 0; padding: 12px; display: grid; gap: 10px; color: var(--ink); background: rgb(255 255 255 / .75); border: 1px solid color-mix(in srgb, var(--course-pastel) 80%, #fff); border-radius: 12px; }
-.bankRow strong { min-width: 0; padding-left: 2px; font: 650 .98rem/1.25 var(--font-body); }
-.bankLinks { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-.bankLink { min-height: 44px; padding: 6px 10px; display: grid; align-content: center; gap: 3px; color: var(--ink); background: var(--surface); border: 1px solid color-mix(in srgb, var(--course-pastel) 70%, var(--line)); border-radius: 9px; font: 700 .8rem/1 var(--font-body); white-space: nowrap; transition: border-color 150ms ease, box-shadow 150ms ease; }
-.bankLink span { color: var(--course-accent); font: 600 .64rem/1 var(--font-mono); }
-.bankLink:hover { border-color: var(--course-accent); box-shadow: 0 8px 18px -14px var(--course-accent); }
-.bankLink:focus-visible { outline: 3px solid color-mix(in srgb, var(--course-accent) 55%, transparent); outline-offset: 2px; }
+.bankRow { min-width: 0; min-height: 52px; padding: 12px 14px; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 10px; color: var(--ink); background: rgb(255 255 255 / .75); border: 1px solid color-mix(in srgb, var(--course-pastel) 80%, #fff); border-radius: 12px; transition: border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease; }
+.bankRow strong { min-width: 0; font: 650 .98rem/1.25 var(--font-body); }
+.bankRow span { color: var(--course-accent); font: 600 .7rem/1 var(--font-mono); white-space: nowrap; }
+.bankRow svg { color: var(--course-accent); }
+.bankRow:hover { border-color: var(--course-accent); transform: translateY(-2px); box-shadow: 0 12px 24px -16px var(--course-accent); }
+.bankRow:focus-visible { outline: 3px solid color-mix(in srgb, var(--course-accent) 55%, transparent); outline-offset: 2px; }
+/* The By topic / Full papers switch shows one link per course. */
+.bankRow[data-mode-item="papers"], :global([data-mode="papers"]) .bankRow[data-mode-item="topics"] { display: none; }
+:global([data-mode="papers"]) .bankRow[data-mode-item="papers"] { display: grid; }
 
 /* 4. Proof: archive size and the research behind retrieval practice */
 .proofBand { padding: 88px 0 96px; color: #eef0f6; background: #18233b; }
@@ -137,7 +139,6 @@
 :global(:root[data-theme="dark"]) .voices .eyebrow { color: var(--burgundy); }
 :global(:root[data-theme="dark"]) .subjectHead h3 { color: var(--ink); }
 :global(:root[data-theme="dark"]) .bankRow { background: color-mix(in srgb, var(--surface) 80%, transparent); border-color: var(--line-strong); }
-:global(:root[data-theme="dark"]) .bankLink { border-color: var(--line-strong); }
 :global(:root[data-theme="dark"]) .faqQuestions,
 :global(:root[data-theme="dark"]) .faqQuestions details { border-color: var(--line-strong); }
 :global(:root[data-theme="dark"]) .faqQuestions summary { color: var(--ink); }

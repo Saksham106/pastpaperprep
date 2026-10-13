@@ -9,9 +9,6 @@
 .go { height: 44px; padding: 0 18px; border: 0; border-radius: 11px; background: var(--cobalt); color: var(--accent-contrast); font-weight: 750; cursor: pointer; }
 .go:active { transform: translateY(1px); }
 
-.hints { margin-top: 12px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-.hints button { min-height: 34px; padding: 0 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--muted); font: 650 .84rem/1 var(--font-body); cursor: pointer; }
-.hints button:hover { color: var(--ink); border-color: var(--line-strong); }
 
 .popover { position: absolute; z-index: 30; top: 62px; left: 0; right: 0; max-height: min(70vh, 520px); overflow: auto; padding: 8px; background: var(--surface-raised, var(--surface)); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 24px 50px -24px rgb(24 35 59 / .5); }
 .popover[hidden] { display: none; }

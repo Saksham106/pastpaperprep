@@ -141,21 +141,19 @@ describe("landing subject cards read as coloured, clickable blocks", () => {
   const card = styleFor(homeBlocks, ".subjectCard", "all");
   const head = styleFor(homeBlocks, ".subjectHead", "all");
   const row = styleFor(homeBlocks, ".bankRow", "all");
-  const link = styleFor(homeBlocks, ".bankLink", "all");
-  const hover = styleFor(homeBlocks, ".bankLink:hover", "all");
+  const hover = styleFor(homeBlocks, ".bankRow:hover", "all");
 
   it("paints the tinted body and the pastel header from the shared tokens", () => {
     expect(normalize(card.background)).toContain("--subject-panel-tint");
     expect(normalize(head.background)).toContain("--course-pastel");
   });
 
-  it("draws a box around every bank row, and gives its links a hover state and a 44px target", () => {
+  it("draws a box around every bank row with a hover state and a 44px target", () => {
     expect(paintsSomething(row.background)).toBe(true);
     expect(drawsNoEdge(row)).toBe(false);
     expect(paintsSomething(row["border-radius"])).toBe(true);
-    expect(drawsNoEdge(link)).toBe(false);
     expect(paintsSomething(hover["border-color"])).toBe(true);
-    expect(Number.parseFloat(link["min-height"] ?? "0")).toBeGreaterThanOrEqual(44);
+    expect(Number.parseFloat(row["min-height"] ?? "0")).toBeGreaterThanOrEqual(44);
   });
 });
 

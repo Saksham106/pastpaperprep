@@ -32,12 +32,14 @@ describe("home page", () => {
     expect(markup).not.toMatch(/^<main/);
   });
 
-  it("gives every enabled bank a by-topic link, plus full papers where the library has them", () => {
+  it("gives every enabled bank a by-topic row, plus a full-papers row behind the switch where the library has them", () => {
     const { container } = render(<MarketingHome environment={liveBankEnvironment} papers={{ igcse: { href: "/past-papers/igcse-mathematics-0580", count: 312 } }} />);
     const papers = [...container.querySelectorAll<HTMLAnchorElement>("#question-banks a[data-papers-slug]")];
     expect(papers).toHaveLength(1);
     expect(papers[0].getAttribute("href")).toBe("/past-papers/igcse-mathematics-0580");
-    expect(papers[0].textContent).toBe("Full papers312 papers");
+    expect(papers[0].textContent).toContain("312 papers");
+    expect(papers[0].dataset.modeItem).toBe("papers");
+    expect(container.querySelector(".practice-mode-switch")?.textContent).toBe("By topicFull papers");
     const rows = [...container.querySelectorAll<HTMLAnchorElement>("#question-banks a[data-bank-slug]")];
 
     expect(getAvailableBanks(liveBankEnvironment)).toHaveLength(19);
