@@ -4,6 +4,7 @@ import type { QuestionRichDetails } from "@/lib/questions";
 import type { BankSlug } from "@/lib/banks";
 import type { SourcePrintSegment } from "@/lib/print-geometry";
 import type { VisibleImageCrop } from "@/lib/reviewed-blank-tails";
+import { FREE_ASSET_INDEX_VERSION, freeAssetIndexPath, isFreePublicAssetUrl, type FreeAssetIndex } from "@/lib/free-asset-index";
 
 const SIGN_BATCH_SIZE = 20;
 /**
@@ -230,15 +231,69 @@ export async function fetchPdfAssets(
 }
 
 const FREE_ASSET_SAFETY_SECONDS = 300;
+/** Public links never expire; re-read the static index daily so a long-open tab picks up a deploy. */
+const FREE_PUBLIC_ASSET_LIFETIME_MS = 24 * 60 * 60 * 1000;
 
-/** Free-year assets through the CDN-cached GET route; one request per asset so cache keys ignore filters. */
+type LoadedIndex = { loadedAt: number; index: Promise<FreeAssetIndex | null> };
+const freeIndexes = new WeakMap<Fetcher, Map<BankSlug, LoadedIndex>>();
+const signedFallbackBanks = new Set<BankSlug>();
+
+/**
+ * Stop using free.pastpaperprep.com for a bank in this tab, after one of its public images failed
+ * to load; later requests go back to the signing route, which reads the private stores.
+ */
+export function preferSignedFreeAssets(bank: BankSlug): void {
+  signedFallbackBanks.add(bank);
+}
+
+/**
+ * The bank's static index, re-read once it is a day old so a long-open tab picks up a deploy.
+ * A failed or invalid read isn't kept: the next request tries again.
+ */
+function loadFreeAssetIndex(bank: BankSlug, fetcher: Fetcher): LoadedIndex {
+  let byBank = freeIndexes.get(fetcher);
+  if (!byBank) freeIndexes.set(fetcher, byBank = new Map());
+  const cached = byBank.get(bank);
+  if (cached && Date.now() - cached.loadedAt < FREE_PUBLIC_ASSET_LIFETIME_MS) return cached;
+  const loaded: LoadedIndex = {
+    loadedAt: Date.now(),
+    index: fetcher(freeAssetIndexPath(bank))
+      .then(async (response) => {
+        const index = response.ok ? await response.json().catch(() => null) as FreeAssetIndex | null : null;
+        return index && index.version === FREE_ASSET_INDEX_VERSION && index.bank === bank && index.questions && typeof index.questions === "object" ? index : null;
+      })
+      .catch(() => null),
+  };
+  byBank.set(bank, loaded);
+  void loaded.index.then((index) => { if (!index && byBank.get(bank) === loaded) byBank.delete(bank); });
+  return loaded;
+}
+
+/** A public link lives as long as the index read it came from. */
+function publicFreeAsset(index: FreeAssetIndex | null, loadedAt: number, request: AssetRequest): SignedAsset | null {
+  const question = index?.questions[request.questionId];
+  const entry = question?.[request.kind];
+  if (!question || !entry) return null;
+  const asset = { questionId: request.questionId, kind: request.kind, urls: entry.urls, displayCrops: entry.displayCrops, details: question.details };
+  if (!validAsset(asset) || !asset.urls.every(isFreePublicAssetUrl)) return null;
+  return { ...asset, expiresAt: loadedAt + FREE_PUBLIC_ASSET_LIFETIME_MS };
+}
+
+/**
+ * Free-year assets: public links from the static per-bank index when it has them, otherwise
+ * the CDN-cached signing route (one request per asset so cache keys ignore filters).
+ */
 export async function fetchFreeAssets(
   bank: BankSlug,
   requests: readonly AssetRequest[],
   fetcher: Fetcher = fetch,
 ): Promise<{ assets: Map<string, SignedAsset>; failedKeys: string[] }> {
+  const loaded = signedFallbackBanks.has(bank) ? null : loadFreeAssetIndex(bank, fetcher);
+  const index = loaded ? await loaded.index : null;
   const results = await Promise.all(requests.map(async (request) => {
     const key = signedAssetKey(request.questionId, request.kind);
+    const publicAsset = loaded ? publicFreeAsset(index, loaded.loadedAt, request) : null;
+    if (publicAsset) return { key, asset: publicAsset };
     try {
       const query = new URLSearchParams({ bank, id: request.questionId, kind: request.kind });
       for (let attempt = 0; attempt < 2; attempt += 1) {

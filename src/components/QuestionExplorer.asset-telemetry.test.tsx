@@ -5,6 +5,7 @@ const trackProductEvent = vi.hoisted(() => vi.fn());
 vi.mock("@/lib/product-analytics", async (importOriginal) => ({ ...(await importOriginal<typeof import("@/lib/product-analytics")>()), trackProductEvent }));
 
 import { QuestionExplorer } from "@/components/QuestionExplorer";
+import { isPreviewQuestion } from "@/lib/access";
 import { prepareQuestionsForDelivery } from "@/lib/question-delivery";
 import { loadBankQuestions } from "@/lib/question-fixtures";
 
@@ -50,5 +51,25 @@ describe("QuestionExplorer image failure telemetry", () => {
     fireEvent.click(await screen.findByRole("button", { name: "Show answer" }));
     fireEvent.error(await screen.findByRole("img", { name: /official mark scheme page 1/i }));
     expect(failures()).toContainEqual({ bank: "igcse", question_id: question.id, kind: "answer", outcome: "failed", host: "supabase" });
+  });
+  it("switches a free question to a signed link by itself when its public link fails", async () => {
+    const [question] = prepareQuestionsForDelivery(loadBankQuestions("igcse").filter((item) => isPreviewQuestion("igcse", item.id)).slice(0, 1), []);
+    const details = { summary: "", accessibleText: "", solution: null, sourceQuestionUrl: null, sourceMarkSchemeUrl: null };
+    const publicUrl = `https://free.pastpaperprep.com/images/igcse/questions/${question.id}.webp`;
+    const fetcher = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url === "/free-assets/igcse.json") return new Response(JSON.stringify({ version: 1, bank: "igcse", questions: { [question.id]: { details, question: { urls: [publicUrl], displayCrops: [null] } } } }));
+      if (url.startsWith("/api/assets/free?")) return new Response(JSON.stringify({ expiresIn: 3600, maxAge: 900, asset: { questionId: question.id, kind: "question", urls: [`https://wrig.supabase.co/${question.id}.webp`] } }));
+      return new Response(JSON.stringify({ access: { authenticated: false, bankAccess: false, canExportPdf: false }, studyState: { savedIds: [], attemptedIds: [] } }));
+    });
+    vi.stubGlobal("fetch", fetcher);
+    render(<QuestionExplorer questions={[question]} bankSlug="igcse" access={{ authenticated: false, bankAccess: false, canExportPdf: false }} />);
+
+    const image = await screen.findByRole("img", { name: /original question/i });
+    expect(image.getAttribute("src")).toContain("free.pastpaperprep.com");
+    fireEvent.error(image);
+    await waitFor(() => expect(screen.getByRole("img", { name: /original question/i }).getAttribute("src")).toContain("wrig.supabase.co"));
+    expect(screen.queryByText("Some question images could not load.")).toBeNull();
+    expect(failures()).toEqual([{ bank: "igcse", question_id: question.id, kind: "question", outcome: "public_fallback", host: "free" }]);
   });
 });

@@ -34,7 +34,7 @@ No email, name or account ID is ever sent without consent.
 | `checkout_returned` | account with `?checkout=success` or `lifetime-pending` | `status` |
 | `$exception` | uncaught browser errors, unhandled rejections, error boundaries | scrubbed message (`safeErrorMessage`), stack, `digest?` (matches the server render error) |
 | `api_request_failed` | any own `/api/*` call answering 5xx, 400, 408, 413 or 429, or failing on the network (`api-failure-monitor`) | `route` (ids as `[id]`), `method`, `status` (0 = network), `outcome`, `duration_ms`, `correlation_id?`, `user_id?` |
-| `asset_load_failed` | a question or mark-scheme image failing to load | `bank`, `question_id`, `kind`, `outcome` (`expired_resign` or `failed`), `host` (`r2`, `supabase`, `self`, `other`), `user_id?` |
+| `asset_load_failed` | a question or mark-scheme image failing to load | `bank`, `question_id`, `kind`, `outcome` (`expired_resign`, `public_fallback` when a free.pastpaperprep.com link failed and the bank switched to signed links, or `failed`), `host` (`r2`, `supabase`, `free`, `self`, `other`), `user_id?` |
 | `past_paper_search` | past-paper search box (Enter or a suggestion) | `found` |
 | `past_paper_open` | free paper page | `bank`, `paper` |
 | `past_paper_timer_start` | paper timer | `bank` |

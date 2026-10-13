@@ -20,7 +20,8 @@ import { encodeSharedSet, parseSharedSet } from "@/lib/shared-question-set";
 import type { QuestionFilters, QuestionSort, UnifiedQuestion } from "@/lib/questions";
 import type { AssetRequest } from "@/lib/asset-access";
 import type { BankSlug } from "@/lib/banks";
-import { fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, lapsedSignedAssetExpiry, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
+import { fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, lapsedSignedAssetExpiry, preferSignedFreeAssets, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
+import { FREE_PUBLIC_ASSET_ORIGIN, isFreePublicAssetUrl } from "@/lib/free-asset-index";
 import { pulseSuccess, shakeElement } from "@/lib/button-feedback";
 import { documentHasSupabaseAuthCookie, subscribeToSessionChanges } from "@/lib/supabase/auth-cookie";
 import { forgetAsset, readCachedAccess, readCachedAssets, rememberAssets, sessionFingerprint, sessionLifecycleOwner, writeCachedAccess } from "@/lib/member-session-cache";
@@ -188,11 +189,11 @@ const subscribeToNothing = () => () => {};
 function assetHost(url: string | undefined) {
   try {
     const host = new URL(url ?? "").hostname;
-    return host.endsWith(".r2.cloudflarestorage.com") ? "r2" : host.endsWith(".supabase.co") ? "supabase" : host === window.location.hostname ? "self" : "other";
+    return host.endsWith(".r2.cloudflarestorage.com") ? "r2" : host.endsWith(".supabase.co") ? "supabase" : host === new URL(FREE_PUBLIC_ASSET_ORIGIN).hostname ? "free" : host === window.location.hostname ? "self" : "other";
   } catch { return "unknown"; }
 }
 // R2 signing never checks an object exists, so a missing image is only visible here.
-function trackAssetLoadFailure(bank: string, questionId: string, kind: "question" | "answer", outcome: "expired_resign" | "failed", url: string | undefined) {
+function trackAssetLoadFailure(bank: string, questionId: string, kind: "question" | "answer", outcome: "expired_resign" | "public_fallback" | "failed", url: string | undefined) {
   trackProductEvent("asset_load_failed", { bank, question_id: questionId.slice(0, 120), kind, outcome, host: assetHost(url), user_id: browserAccountId() });
 }
 const hydratedSnapshot = () => true;
@@ -1134,13 +1135,18 @@ access: ExplorerAccess;
     const key = signedAssetKey(questionId, "question");
     const expiredAt = lapsedSignedAssetExpiry(signedAssets.get(key));
     const retrying = expiredAt !== undefined && resignedExpiryRef.current.get(key) !== expiredAt;
-    trackAssetLoadFailure(bank ?? "unknown", questionId, "question", retrying ? "expired_resign" : "failed", signedAssets.get(key)?.urls[0]);
+    // A public free link that fails (for example a resolver that can't see free.pastpaperprep.com)
+    // switches this bank to signed links and re-queues the question, without asking the visitor.
+    const publicLinkFailed = Boolean(bank && isFreePublicAssetUrl(signedAssets.get(key)?.urls[0]));
+    trackAssetLoadFailure(bank ?? "unknown", questionId, "question", retrying ? "expired_resign" : publicLinkFailed ? "public_fallback" : "failed", signedAssets.get(key)?.urls[0]);
+    if (bank && publicLinkFailed) preferSignedFreeAssets(bank);
     if (bank) forgetAsset(bank, key, signedAssets.get(key)?.urls[0] ?? "");
     setSignedAssets((current) => {
       const next = new Map(current);
       next.delete(key);
       return next;
     });
+    if (publicLinkFailed) return;
     if (retrying) {
       // Dropping the stale entry puts the question back in the signing queue.
       resignedExpiryRef.current.set(key, expiredAt);
@@ -1364,7 +1370,7 @@ access: ExplorerAccess;
               const unlocked = resolvedAccess.bankAccess || isPreviewQuestion(question.bankSlug, question.id);
               const questionAsset = signedAssets.get(signedAssetKey(question.id, "question"));
               const answerAsset = signedAssets.get(signedAssetKey(question.id, "answer"));
-              return <Fragment key={question.id}><QuestionCard question={question} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} scopeIsCurrent={scopeIsCurrent} freeAnswer={!localPreview && isPreviewQuestion(question.bankSlug, question.id)} priority={index === 0} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAssetError={() => trackAssetLoadFailure(bank ?? "unknown", question.id, "answer", "failed", answerAsset?.urls[0])} onAnswerAsset={(asset) => {
+              return <Fragment key={question.id}><QuestionCard question={question} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} scopeIsCurrent={scopeIsCurrent} freeAnswer={!localPreview && isPreviewQuestion(question.bankSlug, question.id)} priority={index === 0} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAssetError={() => trackAssetLoadFailure(bank ?? "unknown", question.id, "answer", isFreePublicAssetUrl(answerAsset?.urls[0]) ? "public_fallback" : "failed", answerAsset?.urls[0])} onAnswerAsset={(asset) => {
                 if (!scopeIsCurrent()) return;
                 setSignedAssets((current) => new Map(current).set(signedAssetKey(question.id, "answer"), asset));
                 if (asset.details) setCatalogQuestions((current) => current.map((item) => item.id === question.id ? mergeQuestionRichDetails(item, asset.details!) : item));
@@ -1493,6 +1499,17 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, scopeIs
     }
     return answerRequestRef.current.promise;
   };
+  // A public free answer link that fails: switch the bank to signed links and load it again.
+  const answerAssetFailed = () => {
+    onAnswerAssetError();
+    if (!freeAnswer || !isFreePublicAssetUrl(answerAsset?.urls[0])) return;
+    preferSignedFreeAssets(question.bankSlug);
+    answerRequestRef.current = null;
+    void fetchFreeAssets(question.bankSlug, [{ questionId: question.id, kind: "answer" }]).then(({ assets }) => {
+      const asset = assets.get(signedAssetKey(question.id, "answer"));
+      if (asset && scopeIsCurrent()) onAnswerAsset(asset);
+    });
+  };
   // Free answers are public and CDN-cached, so warm them on intent; paid answers sign on click
   // only, because each signature spends the member's daily allowance.
   const prefetchAnswer = () => {
@@ -1534,7 +1551,7 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, scopeIs
         <div className="question-action-buttons">{unlocked ? ((question.solution || question.markschemeImageCount > 0) ? <button className="answer-toggle" disabled={answerLoading} aria-expanded={answerOpen} onClick={toggleAnswer} onPointerEnter={prefetchAnswer} onFocus={prefetchAnswer} onTouchStart={prefetchAnswer}>{answerLoading ? "Loading answer..." : answerOpen ? "Hide answer" : "Show answer"}</button> : <span className="muted">Answer coming soon</span>) : null}{showExplanationButton && <button className="answer-toggle" disabled={explanationLoading} aria-expanded={explanationOpen} onClick={toggleExplanation}>{explanationLoading ? "Loading explanation..." : explanationOpen ? "Hide explanation" : "Explanation"}</button>}{answerError && <span className="muted" role="alert">{answerError}</span>}{explanationError && <span className="muted" role="alert">{explanationError}</span>}</div>
         <div className="source-links">{attempted && <span className="study-state"><CheckCircle weight="fill" /> Practised</span>}{authenticated && unlocked && <button className={`study-icon-button ${saved ? "is-saved" : ""}`} title={saved ? "Remove from saved" : "Save question"} aria-label={saved ? `Remove question from saved ${question.id}` : `Save question ${question.id}`} onClick={onToggleSaved}><BookmarkSimple weight={saved ? "fill" : "regular"} aria-hidden="true" /></button>}{unlocked && <QuestionReport bank={question.bankSlug} questionId={question.id} hasExplanation={Boolean(question.hasExplanation)} freePreview={isPreviewQuestion(question.bankSlug, question.id)} />}</div>
       </div>
-      {answerOpen && <div className="answer-panel">{answerAsset?.urls.length ? <p className="answer-panel-label">Mark scheme</p> : null}{answerAsset?.urls.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Official mark scheme page ${index + 1}`} onError={onAnswerAssetError} />)}{question.solution && (answerAsset?.urls.length ? <div className="solution-wrap"><button className="text-button" aria-expanded={solutionOpen} onClick={() => setSolutionOpen((open) => !open)}>{solutionOpen ? "Hide worked text" : "Show worked text"}</button>{solutionOpen && <p>{question.solution}</p>}</div> : <p>{question.solution}</p>)}</div>}
+      {answerOpen && <div className="answer-panel">{answerAsset?.urls.length ? <p className="answer-panel-label">Mark scheme</p> : null}{answerAsset?.urls.map((source, index) => <Image unoptimized width={1400} height={1000} key={source} src={source} alt={`Official mark scheme page ${index + 1}`} onError={answerAssetFailed} />)}{question.solution && (answerAsset?.urls.length ? <div className="solution-wrap"><button className="text-button" aria-expanded={solutionOpen} onClick={() => setSolutionOpen((open) => !open)}>{solutionOpen ? "Hide worked text" : "Show worked text"}</button>{solutionOpen && <p>{question.solution}</p>}</div> : <p>{question.solution}</p>)}</div>}
       {explanationOpen && explanation && <div className="answer-panel explanation-panel"><p className="answer-panel-label">Explanation</p><ExplanationPanel explanation={explanation} /></div>}
     </article>
   );
