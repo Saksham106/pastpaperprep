@@ -1,6 +1,7 @@
 import {describe,it,expect} from 'vitest';
 import {loadBankQuestions} from './question-fixtures';
 import {filterQuestions} from './question-filter';
+import {ADDED_0580_QUESTION_IDS} from './igcse-0580-additions.mjs';
 import {generatePaper} from './paper-builder';
 import {getMathsPickerGroups as getSubtopicGroups,getMathsPickerTopics as getTopicOptions} from './maths-picker';
 import {getMathsPickerSections,isEarlierMathsQuestion,mathsEarlierToken,mathsSubtopicMatches,mathsPickerLabel} from './maths-picker';
@@ -20,7 +21,9 @@ describe('one clean syllabus-aligned maths picker',()=>{
   }
  });
  it('preserves exact old broad indices retrieval while historical tokens are distinct',()=>{
-  const rows=loadBankQuestions('igcse');expect(filterQuestions(rows,{subtopics:['Indices and surds']})).toHaveLength(180);
+  // Historical 180 plus the eight reviewed Core 2026 rows labelled Indices and surds at source.
+  const rows=loadBankQuestions('igcse');const indices=filterQuestions(rows,{subtopics:['Indices and surds']});
+  expect(indices.filter(q=>!ADDED_0580_QUESTION_IDS.includes(q.id))).toHaveLength(180);expect(indices).toHaveLength(188);
   const token=mathsEarlierToken('igcse','Matrix operations and algebra');const result=filterQuestions(rows,{subtopics:[token]});
   expect(result.length).toBeGreaterThan(0);expect(result.every(isEarlierMathsQuestion)).toBe(true);
  });

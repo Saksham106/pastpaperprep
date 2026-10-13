@@ -7,6 +7,7 @@ import { loadBankQuestions } from "@/lib/question-fixtures";
 import { getControlledSubtopics } from "@/lib/taxonomy";
 import { getControlledSubtopics as getDisplayedSubtopics } from "@/lib/taxonomy-router";
 import { ADDED_0606_QUESTION_IDS, ADDITIONS_0606 } from "@/lib/igcse-0606-additions.mjs";
+import { ADDED_0580_QUESTION_IDS, split0580Raw } from "@/lib/igcse-0580-additions.mjs";
 
 type AuditManifest = {
   manifestVersion: string;
@@ -1339,9 +1340,12 @@ describe("new-bank classification quality", () => {
       releaseGate: { status: "PASS", unresolvedTaxonomyGaps: 0 },
     });
     const extendedQuestions = raw.questions.filter((question) => question.route !== "Core");
-    expect(raw.questions).toHaveLength(3967);
+    // 3,967 historical rows plus the reviewed Core 2026 addition; the v2 release covers Extended only.
+    expect(raw.questions).toHaveLength(4174);
+    expect(split0580Raw(raw).base.questions).toHaveLength(3967);
+    expect(raw.questions.filter((question) => ADDED_0580_QUESTION_IDS.includes(question.id)).every((question) => question.route === "Core")).toBe(true);
     expect(extendedQuestions).toHaveLength(2684);
-    expect(new Set(raw.questions.map((question) => question.id)).size).toBe(3967);
+    expect(new Set(raw.questions.map((question) => question.id)).size).toBe(4174);
     expect(release.overlay.questionsSha256).toBe(manifest.questionsSha256);
     expect(manifest).toMatchObject({
       overlayVersion: "classification-v2-0580-overlay-1.0",
