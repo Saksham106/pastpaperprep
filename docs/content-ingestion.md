@@ -120,7 +120,7 @@ The manifest is a reviewed inventory, not a scrape cache. Confirm the expected p
 
 Current source policies:
 
-- IGCSE uses verified Best Exam Help or Exam Easy sources with PapaCambridge as an independent fallback.
+- IGCSE uses verified Best Exam Help or Exam Easy sources. PapaCambridge stamps a tiled watermark, licence footer and trace ID into its PDFs, and some hosts (studyhatch.com) rehost those copies, so never publish bytes from either. See `docs/papacambridge-watermark-repairs.md`.
 - IB uses exact IB Docs PDF records from the reviewed manifest.
 - IGCSE May/June 2020 released papers are retained but marked as cancelled-examination releases.
 - IB May 2020 is excluded because the examinations were cancelled.
@@ -148,7 +148,13 @@ uv run --with pymupdf python scripts/acquire_manifest.py
 
 Use the reviewed `data/source-manifest-*.json` files and the bank's `scripts/acquire_manifest.py`. Keep 2017–2021, 2022–2025, and 2026 source groups separate because their layouts and mark-scheme availability differ.
 
-After acquisition, verify that every expected file is a non-empty, decodable PDF. Never commit `data/raw/`.
+After acquisition, verify that every expected file is a non-empty, decodable PDF, and that none carries a third-party watermark:
+
+```bash
+python3 -I scripts/scan-source-watermarks.py <raw-pdf-directory>
+```
+
+It exits nonzero and lists any file with another site's metadata, page text, links or stamps. Best Exam Help's cover-page stamp on older papers is flagged too; it never reaches topic crops. Never commit `data/raw/`.
 
 ### 3. Detect question boundaries and render crops
 

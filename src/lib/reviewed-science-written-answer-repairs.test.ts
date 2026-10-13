@@ -2,6 +2,7 @@ import{describe,test,expect,vi}from'vitest';
 import{readFileSync}from'node:fs';
 import{createHash}from'node:crypto';
 import{reviewedMarkschemePaths}from'@/lib/reviewed-mcq-answer-repairs';
+import{cleanSourceCropPaths}from'@/lib/clean-source-crops';
 import{loadBankQuestions}from'@/lib/question-loader';
 import{getPrivateBankObjectPrefix}from'@/lib/private-runtime-mapping';
 import{metadataFromRaw}from'../../scripts/generate-bank-index.mjs';
@@ -24,7 +25,7 @@ describe('reviewed science written-answer source repairs',()=>{
     const old=new Map(normalizeBankQuestions(bank,raw,{economicsAssetMode:'private',applyReviewedBlankPages:true}).map(q=>[q.id,q]));const before=JSON.stringify(raw);const after=new Map((await loadBankQuestions(bank)).map(q=>[q.id,q]));
     for(const [qid,entry]of Object.entries(repairs[bank])){
      expect(reviewedMarkschemePaths(bank,qid,entry.oldPaths)).toEqual(entry.newPaths);
-     expect(after.get(qid)?.markschemeAssetPaths).toEqual(entry.newPaths.map(p=>getPrivateBankObjectPrefix(bank)+p));
+     expect(after.get(qid)?.markschemeAssetPaths).toEqual(cleanSourceCropPaths(bank,entry.newPaths).map(p=>getPrivateBankObjectPrefix(bank)+p));
      expect(after.get(qid)?.markschemeImageCount).toBe(entry.newPaths.length);
      expect(metadataFromRaw(raw.find((q:{id:string})=>q.id===qid),{bank,normalizedProduction:true}).markschemeImageCount).toBe(entry.newPaths.length);
      expect(after.get(qid)?.questionAssetPaths).toEqual(old.get(qid)?.questionAssetPaths);
