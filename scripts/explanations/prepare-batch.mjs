@@ -10,7 +10,7 @@
 import { createHash } from "node:crypto";
 import { execFile, execFileSync } from "node:child_process";
 import { promisify } from "node:util";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { calculatorAllowed } from "../../src/lib/calculator-policy.mjs";
@@ -62,6 +62,22 @@ export const BANKS = {
 };
 const r2Cache = (bank) => join(researchRoot, "_r2src", bank);
 
+// The site serves repaired crops for some questions, so build from exactly what students see:
+// the generated asset manifest's object keys. Release banks need their production flags.
+const RELEASE_FLAGS = { PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true", PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION: "true", PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED: "true" };
+function servedManifest(bank) {
+  const dir = join(repoRoot, "generated", "asset-manifest");
+  const find = () => (existsSync(dir) ? readdirSync(dir) : []).find((name) => name.startsWith(`${bank}.`) && name.endsWith(".json") && !name.includes(".local."));
+  if (!find()) {
+    execFileSync("npx", ["tsx", "scripts/generate-asset-manifest.mts", "--bank", bank], { cwd: repoRoot, stdio: "ignore", env: { ...process.env, ...RELEASE_FLAGS } });
+  }
+  const name = find();
+  if (!name) throw new Error(`No asset manifest for ${bank}`);
+  return JSON.parse(readFileSync(join(dir, name), "utf8"));
+}
+// An object key like "ib-hl/questions/x.webp" maps to "questions/x.webp" in the source workspace.
+const relOfKey = (bank, key) => key.startsWith(`${bank}/`) ? key.slice(bank.length + 1) : key;
+
 function args(argv) {
   const out = {};
   for (let i = 0; i < argv.length; i += 1) {
@@ -79,7 +95,7 @@ export const outputPathFor = (bank, id) => join(researchRoot, bank, `${id}.json`
 const extensionSources = new Map();
 function sourceFile(bank, config, rel) {
   if (!/^https?:/.test(rel)) {
-    const local = config.imageRoot && join(config.imageRoot, rel);
+    const local = config.imageRoot && join(config.imageRoot, relOfKey(bank, rel));
     return local && existsSync(local) ? local : join(r2Cache(bank), rel);
   }
   const ext = config.extension;
@@ -113,7 +129,6 @@ async function fetchMissing(bank, config, rels) {
   const run = promisify(execFile);
   const [bin, ...prefix] = process.env.WRANGLER ? [process.env.WRANGLER] : ["npx", "-y", "wrangler@4"];
   const bucket = process.env.R2_BUCKET_NAME ?? "pastpaperprep-assets";
-  const keyPrefix = config.r2Prefix ?? `${bank}/`;
   console.error(`${bank}: fetching ${missing.length} images from R2`);
   const queue = [...missing];
   const failed = [];
@@ -121,7 +136,7 @@ async function fetchMissing(bank, config, rels) {
     for (let rel = queue.shift(); rel; rel = queue.shift()) {
       const target = join(r2Cache(bank), rel);
       mkdirSync(dirname(target), { recursive: true });
-      try { await run(bin, [...prefix, "r2", "object", "get", `${bucket}/${keyPrefix}${rel}`, "--file", target, "--remote"], { maxBuffer: 1 << 24 }); }
+      try { await run(bin, [...prefix, "r2", "object", "get", `${bucket}/${rel}`, "--file", target, "--remote"], { maxBuffer: 1 << 24 }); }
       catch { failed.push(rel); }
     }
   }));
@@ -184,11 +199,13 @@ async function main() {
     throw new Error("Pass --ids, --sample N or --all");
   }
 
-  const msImagesOf = (q) => q.officialMarkscheme?.images ?? q.markschemeImages ?? [];
+  const served = servedManifest(bank);
+  const questionImagesOf = (q) => served[q.id]?.questionAssetPaths ?? [];
+  const msImagesOf = (q) => served[q.id]?.markschemeAssetPaths ?? [];
   const skipped = chosen.filter((q) => !msImagesOf(q).length).map((q) => q.id);
   if (skipped.length && !a.all) throw new Error(`No mark scheme images for ${skipped.join(", ")}`);
   const usable = chosen.filter((q) => msImagesOf(q).length);
-  await fetchMissing(bank, config, usable.flatMap((q) => [...(q.questionImages ?? []), ...msImagesOf(q)]));
+  await fetchMissing(bank, config, usable.flatMap((q) => [...questionImagesOf(q), ...msImagesOf(q)]));
   const tasks = usable.map((q) => {
     const msImages = msImagesOf(q);
     return {
@@ -200,7 +217,7 @@ async function main() {
       session: q.session,
       marks: q.marks ?? q.maxMarks ?? q.maximumMarks,
       calculator: config.calculator(q),
-      questionImages: (q.questionImages ?? []).map((p) => toPng(bank, config, p)),
+      questionImages: questionImagesOf(q).map((p) => toPng(bank, config, p)),
       markschemeImages: msImages.map((p) => toPng(bank, config, p)),
       questionText: q.accessibleText ?? q.summary ?? "",
       markschemeText: q.markschemeTranscript ?? q.markschemeText ?? "",
