@@ -4,6 +4,7 @@ import { safeNextPath } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { REFERRAL_COOKIE } from "@/lib/referral";
 import { completeEmailVerification } from "@/lib/email-verification";
+import { postAuthDestination } from "@/lib/post-auth-destination";
 import { createAuthAttemptId, logAuthDiagnostic, validAuthAttemptId } from "@/lib/auth-diagnostics";
 
 const ALLOWED_CONFIRMATION_TYPES = new Set<EmailOtpType>(["email", "signup", "recovery"]);
@@ -68,8 +69,9 @@ export async function POST(request: NextRequest) {
   }
   if (!error) {
     logAuthDiagnostic({ attemptId, phase: "confirmation_result", outcome: "verified" });
-    if (type !== "recovery") await completeEmailVerification(supabase, type, request.cookies.get(REFERRAL_COOKIE)?.value);
-    return NextResponse.redirect(new URL(next, url.origin), 303);
+    if (type === "recovery") return NextResponse.redirect(new URL(next, url.origin), 303);
+    const userId = await completeEmailVerification(supabase, type, request.cookies.get(REFERRAL_COOKIE)?.value);
+    return NextResponse.redirect(new URL(await postAuthDestination(supabase, userId, next), url.origin), 303);
   }
 
   logAuthDiagnostic({ attemptId, phase: "confirmation_result", outcome: "rejected", providerCode: error.code ?? "unknown" });

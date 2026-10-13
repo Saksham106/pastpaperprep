@@ -21,11 +21,11 @@ describe("post-verification ancillary completion", () => {
   });
   it("allows completion when conversion transport throws", async () => {
     captureConversionOutcome.mockRejectedValue(new Error("private analytics failure"));
-    await expect(completeEmailVerification(client(), "signup", undefined)).resolves.toBeUndefined();
+    await expect(completeEmailVerification(client(), "signup", undefined)).resolves.toBe("verified-user");
   });
   it("does not strand a verified session or suppress conversion when referral transport throws", async () => {
     bindReferral.mockRejectedValue(new Error("private transport failure"));
-    await expect(completeEmailVerification(client(), "signup", "signed-referral")).resolves.toBeUndefined();
+    await expect(completeEmailVerification(client(), "signup", "signed-referral")).resolves.toBe("verified-user");
     expect(captureConversionOutcome).toHaveBeenCalledWith({ outcome: "signup_confirmed", eventKey: "signup:verified-user", userId: user.id, occurredAt: user.email_confirmed_at });
   });
 });
