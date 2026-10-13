@@ -24,7 +24,7 @@ describe("question normalization", () => {
 
   it("loads every source bank without dropping questions", () => {
     expect(loadBankQuestions("igcse")).toHaveLength(3967);
-    expect(loadBankQuestions("igcse-additional")).toHaveLength(1633);
+    expect(loadBankQuestions("igcse-additional")).toHaveLength(1656); // 1,633 historical + 23 reviewed Feb/March 2026 rows
     expect(loadBankQuestions("ib-hl")).toHaveLength(841);
     expect(loadBankQuestions("ib-sl")).toHaveLength(578);
     expect(loadBankQuestions("ib-ai-hl")).toHaveLength(409);
