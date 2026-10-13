@@ -33,12 +33,16 @@ Needs `npx wrangler login` and the private source bindings from the archive buil
 
 ```bash
 npx tsx scripts/publish-free-papers.mts list private/paper-archives/source-bindings.json /tmp/free-papers
-JOBS=3 npx tsx scripts/publish-free-papers.mts upload /tmp/free-papers
-npx tsx scripts/publish-free-papers.mts verify /tmp/free-papers
+JOBS=3 npx tsx scripts/publish-free-papers.mts upload private/paper-archives/source-bindings.json /tmp/free-papers
+npx tsx scripts/publish-free-papers.mts verify private/paper-archives/source-bindings.json /tmp/free-papers
 ```
 
-`list` hash-checks every local source inside its binding root. `upload` and `verify` refuse a
-work list that doesn't match the committed manifests exactly (hashes, sizes, names, full coverage).
+`list` hash-checks every local source inside its binding root. Rows keep the binding root and a
+plain relative path, and `upload` and `verify` refuse a work list that doesn't match the committed
+manifests and bindings exactly (hashes, sizes, names, sources, full coverage). Sources are read
+without following symlinks below the canonical root, staged copies go to a fresh private temp
+folder, and a symlinked work file or a `JOBS` outside 1–32 stops the run
+(`scripts/lib/safe-files.ts`).
 `upload` hash-checks a staged copy of each source and uploads that copy, so a file changed after
 `list` is refused, keeps to about 3 parallel puts (Cloudflare throttles faster runs), retries
 failures, and skips only objects already uploaded with the same name. `verify` downloads every
