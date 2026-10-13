@@ -2,7 +2,8 @@
 // Prebuild, after generate:asset-manifest: one static public/free-assets/<bank>.json per bank
 // listing its free-year questions with links into the public free bucket (see
 // src/lib/free-public-assets.ts). Static files are served by the CDN, so free questions cost no
-// function time. Fails the build if anything outside the free years would be listed.
+// function time. Fails the build if an enabled bank has no manifest or anything outside the free
+// years would be listed.
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { isPreviewQuestion } from "@/lib/access";
@@ -17,11 +18,12 @@ await rm(join(root, "free-assets"), { recursive: true, force: true });
 await mkdir(join(root, "free-assets"), { recursive: true });
 
 for (const bank of getAvailableBanks()) {
-  const manifest = await loadBankAssetManifest(bank.slug).catch(() => null);
-  if (!manifest) {
-    console.log(`${bank.slug}: no asset manifest, skipped`);
-    continue;
-  }
+  // Every enabled bank gets an index: a missing one would quietly send its free questions back to
+  // the signing route, so a missing or unreadable manifest fails the build instead.
+  const manifest = await loadBankAssetManifest(bank.slug).catch((error: unknown) => {
+    throw new Error(`${bank.slug}: asset manifest missing or invalid; run generate:asset-manifest first`, { cause: error });
+  });
+  if (!manifest.size) throw new Error(`${bank.slug}: asset manifest is empty`);
   const index = buildFreeAssetIndex(bank.slug, manifest, (questionId, details) => richDetailsFor(bank.slug, questionId, details, []));
   const leaked = Object.keys(index.questions).filter((questionId) => !isPreviewQuestion(bank.slug, questionId));
   if (leaked.length) throw new Error(`${bank.slug}: free asset index lists paid questions (${leaked.slice(0, 3).join(", ")})`);

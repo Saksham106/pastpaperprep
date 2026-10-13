@@ -234,7 +234,8 @@ const FREE_ASSET_SAFETY_SECONDS = 300;
 /** Public links never expire; re-read the static index daily so a long-open tab picks up a deploy. */
 const FREE_PUBLIC_ASSET_LIFETIME_MS = 24 * 60 * 60 * 1000;
 
-const freeIndexes = new WeakMap<Fetcher, Map<BankSlug, Promise<FreeAssetIndex | null>>>();
+type LoadedIndex = { loadedAt: number; index: Promise<FreeAssetIndex | null> };
+const freeIndexes = new WeakMap<Fetcher, Map<BankSlug, LoadedIndex>>();
 const signedFallbackBanks = new Set<BankSlug>();
 
 /**
@@ -245,29 +246,37 @@ export function preferSignedFreeAssets(bank: BankSlug): void {
   signedFallbackBanks.add(bank);
 }
 
-function loadFreeAssetIndex(bank: BankSlug, fetcher: Fetcher): Promise<FreeAssetIndex | null> {
+/**
+ * The bank's static index, re-read once it is a day old so a long-open tab picks up a deploy.
+ * A failed or invalid read isn't kept: the next request tries again.
+ */
+function loadFreeAssetIndex(bank: BankSlug, fetcher: Fetcher): LoadedIndex {
   let byBank = freeIndexes.get(fetcher);
   if (!byBank) freeIndexes.set(fetcher, byBank = new Map());
-  let loading = byBank.get(bank);
-  if (!loading) {
-    loading = fetcher(freeAssetIndexPath(bank))
+  const cached = byBank.get(bank);
+  if (cached && Date.now() - cached.loadedAt < FREE_PUBLIC_ASSET_LIFETIME_MS) return cached;
+  const loaded: LoadedIndex = {
+    loadedAt: Date.now(),
+    index: fetcher(freeAssetIndexPath(bank))
       .then(async (response) => {
         const index = response.ok ? await response.json().catch(() => null) as FreeAssetIndex | null : null;
         return index && index.version === FREE_ASSET_INDEX_VERSION && index.bank === bank && index.questions && typeof index.questions === "object" ? index : null;
       })
-      .catch(() => null);
-    byBank.set(bank, loading);
-  }
-  return loading;
+      .catch(() => null),
+  };
+  byBank.set(bank, loaded);
+  void loaded.index.then((index) => { if (!index && byBank.get(bank) === loaded) byBank.delete(bank); });
+  return loaded;
 }
 
-function publicFreeAsset(index: FreeAssetIndex | null, request: AssetRequest): SignedAsset | null {
+/** A public link lives as long as the index read it came from. */
+function publicFreeAsset(index: FreeAssetIndex | null, loadedAt: number, request: AssetRequest): SignedAsset | null {
   const question = index?.questions[request.questionId];
   const entry = question?.[request.kind];
   if (!question || !entry) return null;
   const asset = { questionId: request.questionId, kind: request.kind, urls: entry.urls, displayCrops: entry.displayCrops, details: question.details };
   if (!validAsset(asset) || !asset.urls.every(isFreePublicAssetUrl)) return null;
-  return { ...asset, expiresAt: Date.now() + FREE_PUBLIC_ASSET_LIFETIME_MS };
+  return { ...asset, expiresAt: loadedAt + FREE_PUBLIC_ASSET_LIFETIME_MS };
 }
 
 /**
@@ -279,10 +288,11 @@ export async function fetchFreeAssets(
   requests: readonly AssetRequest[],
   fetcher: Fetcher = fetch,
 ): Promise<{ assets: Map<string, SignedAsset>; failedKeys: string[] }> {
-  const index = signedFallbackBanks.has(bank) ? null : await loadFreeAssetIndex(bank, fetcher);
+  const loaded = signedFallbackBanks.has(bank) ? null : loadFreeAssetIndex(bank, fetcher);
+  const index = loaded ? await loaded.index : null;
   const results = await Promise.all(requests.map(async (request) => {
     const key = signedAssetKey(request.questionId, request.kind);
-    const publicAsset = publicFreeAsset(index, request);
+    const publicAsset = loaded ? publicFreeAsset(index, loaded.loadedAt, request) : null;
     if (publicAsset) return { key, asset: publicAsset };
     try {
       const query = new URLSearchParams({ bank, id: request.questionId, kind: request.kind });

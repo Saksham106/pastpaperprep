@@ -21,13 +21,22 @@ function sourceFor(bank: BankSlug, kind: AssetKind): "r2" | "supabase" {
   return options.provider === "r2" ? "r2" : "supabase";
 }
 
+/** A private object path that is safe to publish as `images/<path>`: plain segments, an image or explanation. */
+const SAFE_ASSET_PATH = /^[a-z0-9][a-z0-9-]*(?:\/[A-Za-z0-9][A-Za-z0-9._-]*)+\.(?:webp|json)$/;
+export function isSafeFreeAssetPath(path: string): boolean {
+  return SAFE_ASSET_PATH.test(path) && !path.split("/").some((segment) => segment === "." || segment === ".." || segment.includes(".."));
+}
+
 /** Every free-year file for one bank, with the private store it is copied from. */
 export function listFreePublicAssets(bank: BankSlug, manifest: AssetManifest): FreePublicAsset[] {
   const assets: FreePublicAsset[] = [];
   for (const [questionId, entry] of manifest) {
     if (!isPreviewQuestion(bank, questionId)) continue;
     for (const kind of ASSET_KINDS) {
-      for (const path of assetPathsForKind(entry, kind)) assets.push({ bank, questionId, kind, source: sourceFor(bank, kind), path });
+      for (const path of assetPathsForKind(entry, kind)) {
+        if (!isSafeFreeAssetPath(path)) throw new Error(`${bank}: unsafe asset path for ${questionId}`);
+        assets.push({ bank, questionId, kind, source: sourceFor(bank, kind), path });
+      }
     }
   }
   return assets;

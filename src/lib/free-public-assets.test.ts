@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { isPreviewQuestion } from "@/lib/access";
 import type { AssetManifest, AssetManifestEntry } from "@/lib/asset-manifest";
-import { buildFreeAssetIndex, listFreePublicAssets } from "@/lib/free-public-assets";
+import { buildFreeAssetIndex, isSafeFreeAssetPath, listFreePublicAssets } from "@/lib/free-public-assets";
 
 const details = { summary: "s", accessibleText: "a", solution: null, sourceQuestionUrl: null, sourceMarkSchemeUrl: null };
 const entry = (id: string, explanation = true): AssetManifestEntry => ({
@@ -41,6 +41,16 @@ describe("free public assets", () => {
       answer: { urls: [`https://free.pastpaperprep.com/images/bank/markschemes/${FREE}.webp`], displayCrops: [null] },
       explanation: { urls: [`https://free.pastpaperprep.com/images/explanations/bank/${FREE}.json`], displayCrops: [null] },
     });
+  });
+
+  it("accepts only plain image and explanation paths", () => {
+    for (const ok of ["igcse/questions/0580-2016-june-21-q1.webp", "explanations/ib-hl/2017-may-tz1-p1-q1.json", "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/questions/0610-2021-m-12/q1-2-1.webp"]) expect(isSafeFreeAssetPath(ok)).toBe(true);
+    for (const bad of ["../igcse/questions/a.webp", "igcse/../../etc/passwd.webp", "/igcse/a.webp", "igcse/a.png", "igcse//a.webp", "igcse/a..b.webp", "igcse"]) expect(isSafeFreeAssetPath(bad)).toBe(false);
+  });
+
+  it("refuses to list an unsafe path", () => {
+    const bad: AssetManifest = new Map([[FREE, { ...entry(FREE), questionAssetPaths: ["../../private/paid.webp"] }]]);
+    expect(() => listFreePublicAssets("igcse", bad)).toThrow(/unsafe asset path/);
   });
 
   it("omits kinds a question has no files for", () => {

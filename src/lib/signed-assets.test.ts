@@ -419,6 +419,37 @@ describe("fetchFreeAssets with the static free index", () => {
     expect((await fetchFreeAssets("ib-physics-hl", [{ questionId: "a", kind: "question" }], foreign)).assets.get("a:question")?.urls).toEqual(["https://assets.example/a.webp"]);
   });
 
+  it("re-reads a day-old index instead of reusing its links, and gives links the index's remaining life", async () => {
+    vi.useFakeTimers({ now: 5_000_000 });
+    try {
+      let version = 0;
+      const fetcher = vi.fn(async () => {
+        version += 1;
+        return new Response(JSON.stringify({ version: 1, bank: "ib-ai-hl", questions: { a: { details, question: { urls: [publicUrl(`a-v${version}`)], displayCrops: [null] } } } }));
+      });
+      const first = await fetchFreeAssets("ib-ai-hl", [{ questionId: "a", kind: "question" }], fetcher);
+      expect(first.assets.get("a:question")!.expiresAt).toBe(5_000_000 + 24 * 60 * 60 * 1000);
+      vi.setSystemTime(5_000_000 + 23 * 60 * 60 * 1000);
+      const sameDay = await fetchFreeAssets("ib-ai-hl", [{ questionId: "a", kind: "question" }], fetcher);
+      expect(sameDay.assets.get("a:question")!.expiresAt).toBe(5_000_000 + 24 * 60 * 60 * 1000);
+      vi.setSystemTime(5_000_000 + 48 * 60 * 60 * 1000);
+      const later = await fetchFreeAssets("ib-ai-hl", [{ questionId: "a", kind: "question" }], fetcher);
+      expect(fetcher).toHaveBeenCalledTimes(2);
+      expect(later.assets.get("a:question")?.urls).toEqual([publicUrl("a-v2")]);
+    } finally { vi.useRealTimers(); }
+  });
+
+  it("does not keep a failed index read", async () => {
+    let calls = 0;
+    const fetcher = vi.fn(async (input: RequestInfo | URL) => {
+      if (!String(input).startsWith("/free-assets/")) return signed("a");
+      calls += 1;
+      return calls === 1 ? new Response(null, { status: 503 }) : index("ib-chemistry-hl");
+    });
+    expect((await fetchFreeAssets("ib-chemistry-hl", [{ questionId: "a", kind: "question" }], fetcher)).assets.get("a:question")?.urls).toEqual(["https://assets.example/a.webp"]);
+    expect((await fetchFreeAssets("ib-chemistry-hl", [{ questionId: "a", kind: "question" }], fetcher)).assets.get("a:question")?.urls).toEqual([publicUrl("a")]);
+  });
+
   it("goes back to signed links for a bank once a public link has failed", async () => {
     const fetcher = vi.fn(async (input: RequestInfo | URL) => String(input).startsWith("/free-assets/") ? index("ib-biology-hl") : signed("a"));
     preferSignedFreeAssets("ib-biology-hl");

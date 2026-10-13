@@ -27,15 +27,17 @@ export async function fetchExplanation(
     url = asset?.urls[0];
   }
   if (!url) throw new Error("Explanation unavailable");
-  let response = await fetcher(url, { mode: "cors", cache: "no-store" }).catch(() => null);
-  if (free && isFreePublicAssetUrl(url) && !response?.ok) {
-    // The public copy is missing or unreachable: fall back to a signed link once.
+  const read = async (from: string) => {
+    const response = await fetcher(from, { mode: "cors", cache: "no-store" }).catch(() => null);
+    return response?.ok ? parseExplanation(await response.json().catch(() => null), bank, questionId) : null;
+  };
+  let explanation = await read(url);
+  if (!explanation && free && isFreePublicAssetUrl(url)) {
+    // The public copy is missing, unreachable or not this question's: fall back to a signed link once.
     preferSignedFreeAssets(bank);
     const signed = (await fetchFreeAssets(bank, [{ questionId, kind: "explanation" }], fetcher)).assets.get(signedAssetKey(questionId, "explanation"))?.urls[0];
-    response = signed ? await fetcher(signed, { mode: "cors", cache: "no-store" }).catch(() => null) : null;
+    explanation = signed ? await read(signed) : null;
   }
-  if (!response?.ok) throw new Error("Explanation unavailable");
-  const explanation = parseExplanation(await response.json().catch(() => null), bank, questionId);
   if (!explanation) throw new Error("Explanation unavailable");
   return explanation;
 }

@@ -152,7 +152,25 @@ describe("explanation client with public free links", () => {
     expect(fetcher.mock.calls.map(([input]) => String(input))).toEqual(["/free-assets/ib-hl.json", publicUrl]);
   });
 
-  // Runs last: a failed public link switches the bank to signed links for the rest of the tab.
+  // These run last: a failed public link switches the bank to signed links for the rest of the tab.
+  it.each([
+    ["malformed", "ib-sl", () => new Response("not JSON")],
+    ["another question's", "ib-ai-sl", () => new Response(JSON.stringify({ ...doc, questionId: "other" }))],
+  ] as const)("falls back to a signed link when the public copy is %s", async (_label, bank, publicResponse) => {
+    vi.stubEnv("NEXT_PUBLIC_EXPLANATIONS_DEV", "0");
+    const url = `https://free.pastpaperprep.com/images/explanations/${bank}/${doc.questionId}.json`;
+    const signedUrl = "https://assets.example/explanation.json";
+    const fetcher = vi.fn()
+      .mockResolvedValueOnce(new Response(JSON.stringify({ version: 1, bank, questions: {
+        [doc.questionId]: { details: { summary: "", accessibleText: "", solution: null, sourceQuestionUrl: null, sourceMarkSchemeUrl: null }, explanation: { urls: [url], displayCrops: [null] } },
+      } })))
+      .mockResolvedValueOnce(publicResponse())
+      .mockResolvedValueOnce(new Response(JSON.stringify({ expiresIn: 86400, maxAge: 72000, asset: { questionId: doc.questionId, kind: "explanation", urls: [signedUrl] } })))
+      .mockResolvedValueOnce(new Response(JSON.stringify({ ...doc, bank })));
+    expect(await fetchExplanation(bank, doc.questionId, { free: true, fetcher })).toEqual({ ...doc, bank });
+    expect(fetcher.mock.calls.map(([input]) => String(input))).toEqual([`/free-assets/${bank}.json`, url, `/api/assets/free?bank=${bank}&id=${doc.questionId}&kind=explanation`, signedUrl]);
+  });
+
   it("falls back to a signed link once when the public copy is missing", async () => {
     vi.stubEnv("NEXT_PUBLIC_EXPLANATIONS_DEV", "0");
     const signedUrl = "https://assets.example/explanation.json";

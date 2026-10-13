@@ -18,23 +18,25 @@ bucket (and Supabase) behind `/api/assets/sign`; the public bucket never holds t
 
 ## After adding free questions or changing the free years
 
-Copies are byte-for-byte and resumable. Needs `npx wrangler login` and the linked Supabase CLI.
+`scripts/publish-free-assets.mts` computes the free set itself from the manifests and the free-year
+rules (no hand-edited list), refuses unsafe paths, seals every download (SHA-256 and size), uploads
+only the sealed bytes, logs path+hash so changed bytes upload again, and exits nonzero unless every
+phase covered exactly the free set. Needs `npx wrangler login` and the linked Supabase CLI.
 
 ```bash
-PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS=true PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED=true \
-PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION=true PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED=true \
-NODE_ENV=production npm run generate:asset-manifest
-# same variables:
-NODE_ENV=production npx tsx scripts/list-free-public-assets.mts > /tmp/free/list.tsv
-# Supabase banks: bulk copy first (per-file CLI calls are rate limited)
+export PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS=true PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED=true \
+  PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION=true PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED=true NODE_ENV=production
+npm run generate:asset-manifest
+# Supabase banks: bulk copy first (per-file CLI calls are rate limited), from the linked checkout
 supabase --experimental storage cp -r ss:///question-assets/<bank> /tmp/free/supabase-all/ --linked -j 16
-JOBS=3 scripts/copy-free-public-assets.sh /tmp/free/list.tsv /tmp/free download
-JOBS=3 scripts/copy-free-public-assets.sh /tmp/free/list.tsv /tmp/free upload
-scripts/copy-free-public-assets.sh /tmp/free/list.tsv /tmp/free verify
+SUPABASE_WORKDIR=<linked checkout> npx tsx scripts/publish-free-assets.mts download /tmp/free
+npx tsx scripts/publish-free-assets.mts upload /tmp/free     # about 3 parallel; Cloudflare throttles faster runs
+npx tsx scripts/publish-free-assets.mts verify /tmp/free     # every object from free.pastpaperprep.com
 ```
 
-Keep uploads at about 3 parallel jobs: Cloudflare's API throttles faster runs (the script logs
-throttled files to `upload-failed.txt`; rerunning skips everything already uploaded).
+Files are cached at Cloudflare's edge for up to a week. **If you replace an existing object** (same
+path, new bytes or headers), purge those URLs in Cloudflare (Caching → Configuration → Custom Purge)
+before `verify`, or it will read the old copy.
 
 **If a year stops being free**, delete its files from `pastpaperprep-free` in the same change
 (owner approval needed). The build stops listing them, but the bucket would otherwise keep
@@ -44,3 +46,5 @@ serving them to anyone with the old link.
 
 - 2026-10-13: bucket created, custom domain connected, 11,556 free files (12 Supabase banks,
   7 R2 banks plus explanations) copied and verified byte-for-byte from the public URL.
+- 2026-10-13: after the review fixes, the existing copies were sealed and the new `verify` read all
+  11,556 back from the public URL: 11,556 of 11,556 matched.
