@@ -18,6 +18,13 @@
 .row[data-mode-item="papers"], :global([data-mode="papers"]) .row[data-mode-item="topics"] { display: none; }
 :global([data-mode="papers"]) .row[data-mode-item="papers"] { display: grid; }
 
+/* Rows ease in when the switch or a tab reveals them (display: none → grid restarts the animation). */
+@media (prefers-reduced-motion: no-preference) {
+  .row { animation: row-in 260ms cubic-bezier(.2, .8, .2, 1) backwards; }
+  .card { animation: row-in 300ms cubic-bezier(.2, .8, .2, 1) backwards; }
+}
+@keyframes row-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
 @media (max-width: 980px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
 
