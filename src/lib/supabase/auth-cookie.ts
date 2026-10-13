@@ -58,4 +58,22 @@ export const SESSION_HINT_SCRIPT = `try{if(/(?:^|;\\s*)sb-[^=;]+-auth-token(?:\\
 export function setSessionHint(signedIn: boolean) {
   if (signedIn) document.documentElement.dataset.session = "1";
   else delete document.documentElement.dataset.session;
+  window.dispatchEvent(new Event("ppp:session-change"));
+}
+
+/** Cookie-only observation: never creates a Supabase client or refreshes auth. */
+export function subscribeToSessionChanges(listener: () => void): () => void {
+  const cookieStore = (window as Window & { cookieStore?: EventTarget }).cookieStore;
+  window.addEventListener("ppp:session-change", listener);
+  window.addEventListener("focus", listener);
+  window.addEventListener("storage", listener);
+  document.addEventListener("visibilitychange", listener);
+  cookieStore?.addEventListener("change", listener);
+  return () => {
+    window.removeEventListener("ppp:session-change", listener);
+    window.removeEventListener("focus", listener);
+    window.removeEventListener("storage", listener);
+    document.removeEventListener("visibilitychange", listener);
+    cookieStore?.removeEventListener("change", listener);
+  };
 }

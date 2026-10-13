@@ -7,6 +7,45 @@ const requests = Array.from({ length: 21 }, (_, index) => ({
 }));
 
 describe("fetchSignedAssets", () => {
+  it.each(["signed", "pdf"] as const)("does not dispatch an already obsolete %s scope", async (kind) => {
+    const fetcher = vi.fn(async () => Response.json({ expiresIn: 600, assets: [] }));
+    const pending = kind === "signed"
+      ? fetchSignedAssets("ib-sl", requests, fetcher, false, () => false)
+      : fetchPdfAssets("ib-sl", ["question-1"], "questions", fetcher, false, () => false);
+    await expect(pending).rejects.toMatchObject({ name: "AbortError" });
+    expect(fetcher).not.toHaveBeenCalled();
+  });
+
+  it.each(["signed", "pdf"] as const)("abandons %s payloads parsed after scope turnover", async (kind) => {
+    let current = true;
+    const fetcher = vi.fn(async () => ({ ok: true, json: async () => {
+      current = false;
+      return { expiresIn: 600, assets: [{ ...requests[0], urls: ["https://signed.test/q"] }] };
+    } }) as Response);
+    const pending = kind === "signed"
+      ? fetchSignedAssets("ib-sl", requests.slice(0, 1), fetcher, false, () => current)
+      : fetchPdfAssets("ib-sl", ["question-1"], "questions", fetcher, false, () => current);
+    await expect(pending).rejects.toMatchObject({ name: "AbortError" });
+    expect(fetcher).toHaveBeenCalledOnce();
+  });
+
+  it("abandons a PDF response before parsing it when the scope expires", async () => {
+    let current = true;
+    const json = vi.fn(async () => ({ expiresIn: 600, assets: [] }));
+    const fetcher = vi.fn(async () => { current = false; return { ok: true, json } as unknown as Response; });
+    await expect(fetchPdfAssets("ib-sl", ["question-1"], "questions", fetcher, false, () => current)).rejects.toMatchObject({ name: "AbortError" });
+    expect(json).not.toHaveBeenCalled();
+  });
+  it("abandons a paid batch response before dispatching the next batch when its scope expires", async () => {
+    let current = true;
+    const fetcher = vi.fn(async (_input: RequestInfo | URL, init?: RequestInit) => {
+      current = false;
+      const { requests: batch } = JSON.parse(String(init?.body));
+      return Response.json({ expiresIn: 600, assets: batch.map((request: object) => ({ ...request, urls: ["https://signed.test/q"] })) });
+    });
+    await expect(fetchSignedAssets("ib-sl", requests, fetcher, false, () => current)).rejects.toMatchObject({ name: "AbortError" });
+    expect(fetcher).toHaveBeenCalledOnce();
+  });
   it("splits requests into authorized batches and indexes returned URLs", async () => {
     const fetcher = vi.fn(async (_input: RequestInfo | URL, init?: RequestInit) => {
       const body = JSON.parse(String(init?.body)) as { requests: typeof requests };
@@ -188,6 +227,48 @@ describe("fetchSignedAssets", () => {
 
     expect(isSignedAssetFresh(asset, 1_999)).toBe(true);
     expect(isSignedAssetFresh(asset, 2_000)).toBe(false);
+  });
+});
+
+describe("fetchSignedAssets batching", () => {
+  it("anchors each batch's expiry before waiting for slower parallel batches", async () => {
+    vi.useFakeTimers();
+    const start = Date.now();
+    vi.setSystemTime(start);
+    try {
+      const requests = Array.from({ length: 24 }, (_, i) => ({ questionId: `q${i}`, kind: "question" as const }));
+      let calls = 0;
+      let release!: () => void;
+      const fetcher = vi.fn((_input: RequestInfo | URL, init?: RequestInit) => {
+        const body = JSON.parse(String(init?.body));
+        const response = () => new Response(JSON.stringify({ expiresIn: 60, assets: body.requests.map((r: object) => ({ ...r, urls: ["https://assets.example/q.webp"] })) }));
+        if (++calls === 1) return Promise.resolve(response());
+        return new Promise<Response>(resolve => { release = () => resolve(response()); });
+      });
+      const result = fetchSignedAssets("ib-sl", requests, fetcher);
+      await vi.advanceTimersByTimeAsync(0);
+      vi.setSystemTime(start + 40_000);
+      release();
+      const assets = await result;
+      expect(assets.get("q0:question")?.expiresAt).toBe(start + 30_000);
+      expect(assets.get("q20:question")?.expiresAt).toBe(start + 70_000);
+    } finally { vi.useRealTimers(); }
+  });
+
+  it("sends every batch at once instead of waiting for the previous one", async () => {
+    const requests = Array.from({ length: 24 }, (_, index) => ({ questionId: `q${index}`, kind: "question" as const }));
+    const pending: Array<() => void> = [];
+    const fetcher = vi.fn((_input: RequestInfo | URL, init?: RequestInit) => new Promise<Response>((resolve) => {
+      const body = JSON.parse(String(init?.body)) as { requests: Array<{ questionId: string; kind: string }> };
+      pending.push(() => resolve(new Response(JSON.stringify({ expiresIn: 600, assets: body.requests.map((request) => ({ ...request, urls: [`https://assets.example/${request.questionId}.webp`] })) }))));
+    }));
+
+    const result = fetchSignedAssets("ib-sl", requests, fetcher);
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    expect(fetcher).toHaveBeenCalledTimes(2);
+    pending.forEach((release) => release());
+    expect([...(await result).keys()]).toEqual(requests.map((request) => `${request.questionId}:question`));
   });
 });
 
