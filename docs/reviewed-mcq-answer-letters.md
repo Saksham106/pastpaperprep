@@ -103,9 +103,10 @@ The research files above (`evidence.json`, `review-renders/`, `scripts/`, …) s
 | | |
 |---|---|
 | Source overlay SHA-256 | `15d10333310abe4420463ffa924912234ff7d9e98509d90be27c57775cd2170e` (8,127 entries) |
-| Imported overlay SHA-256 | `92a76ee3d8f7ba2fce100577f767633321b85a8f9ac82e74c450174263b4f7e9` (7,767 entries) |
+| Imported overlay SHA-256 | `a97275a9a5b0f5e09fa5db7a59ef7558989e09ae22687733c0a6fe2a28aebb91` (7,767 entries) |
 | Kept | 0455 1,465 · IB Biology HL 1,200 / SL 930 · IB Chemistry HL 1,200 / SL 900 · IB Physics HL 1,200 / SL 872 |
 | Dropped, rows not landed yet | 359: `0455-2026-{m-12,s-11,s-12,s-13}` (119) and `0610-2026-s-{11,12,13,21,22,23}` (240). Re-run the import once those papers are on `main`. |
 | Dropped, removed by the board | `0455-2026-s-11-q26` (`answers: []`); the loader still rejects empty `answers`. |
+| Notes normalized | A note that only restates a multi-letter answer is set to `null`, since the chip already reads "A or C": the four IB Chemistry November 2023 "A or C accepted" rows. |
 
 The three excluded IB Physics SL rows have no entry, so they keep showing the official mark-scheme image. `src/lib/mcq-answer-letters.test.ts` pins the imported SHA-256.

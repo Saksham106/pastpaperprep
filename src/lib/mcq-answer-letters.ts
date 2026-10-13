@@ -1,7 +1,7 @@
 import reviewedLetters from "@/data/reviewed-mcq-answer-letters.json";
 import { bankRuntimeCacheKey } from "@/lib/bank-runtime-key";
 import type { BankSlug } from "@/lib/banks";
-import { isMcqAnswer, MCQ_ANSWER_LETTERS, type McqAnswer, type McqLetter } from "@/lib/mcq-answer";
+import { formatMcqAnswer, isMcqAnswer, MCQ_ANSWER_LETTERS, type McqAnswer, type McqLetter } from "@/lib/mcq-answer";
 import { loadBankRawQuestions } from "@/lib/question-loader";
 
 // Server-only. Letters reach a reader only on an authorized answer asset: the asset manifest
@@ -132,6 +132,18 @@ export type McqAnswerLetterImport = {
 };
 
 /**
+ * The chip already reads "A or C", so a note that only restates a multi-letter answer
+ * ("A or C accepted") is dropped. Any other note is kept as written.
+ */
+function withoutRestatedNote<T extends { answers?: unknown; note?: unknown }>(entry: T): T {
+  const { answers, note } = entry;
+  if (!Array.isArray(answers) || answers.length < 2 || typeof note !== "string") return entry;
+  const restated = formatMcqAnswer(answers as McqLetter[]).toLowerCase();
+  const normalized = note.trim().replace(/\.$/, "").replace(/\s+/g, " ").toLowerCase();
+  return normalized === restated || normalized === `${restated} accepted` ? { ...entry, note: null } : entry;
+}
+
+/**
  * Narrows a full reviewed-letters file to the rows this checkout has. Only two kinds of entry are
  * dropped (rows not landed yet, removed questions); everything kept must pass the strict checks.
  */
@@ -153,7 +165,7 @@ export function importReviewedMcqAnswerLetters(
     for (const [questionId, entry] of Object.entries(entries ?? {})) {
       if (Array.isArray(entry?.answers) && entry.answers.length === 0) removed.push(`${bank}:${questionId}`);
       else if (!ids.has(questionId)) unknown.push(`${bank}:${questionId}`);
-      else kept[questionId] = entry;
+      else kept[questionId] = withoutRestatedNote(entry);
     }
     if (Object.keys(kept).length) banks[bank] = kept;
   }

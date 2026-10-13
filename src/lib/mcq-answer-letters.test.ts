@@ -72,7 +72,7 @@ describe("MCQ detection", () => {
 
 const OVERLAY_PATH = join(process.cwd(), "src", "data", "reviewed-mcq-answer-letters.json");
 // Imported 2026-10-13 from ../research/mcq-answer-letters-2026-10 (receipt: docs/reviewed-mcq-answer-letters.md).
-const OVERLAY_SHA256 = "92a76ee3d8f7ba2fce100577f767633321b85a8f9ac82e74c450174263b4f7e9";
+const OVERLAY_SHA256 = "a97275a9a5b0f5e09fa5db7a59ef7558989e09ae22687733c0a6fe2a28aebb91";
 // The research folder sits beside the repository; from a worktree under .worktrees/ it is three levels up.
 const SOURCE_PATH = [["..", "research"], ["..", "..", "..", "research"]]
   .map((up) => join(process.cwd(), ...up, "mcq-answer-letters-2026-10", "reviewed-mcq-answer-letters.json"))
@@ -109,7 +109,8 @@ describe("reviewed MCQ answer letters file", () => {
     ] as const;
     for (const [bank, id] of chemistry) {
       const entry = REVIEWED_MCQ_ANSWER_LETTERS.banks[bank]![id];
-      expect(entry).toEqual({ answers: ["A", "C"], note: "A or C accepted" });
+      // The source note "A or C accepted" only restates the chip, so the import drops it.
+      expect(entry).toEqual({ answers: ["A", "C"], note: null });
       expect(formatMcqAnswer(entry.answers)).toBe("A or C");
     }
     const physicsSl = REVIEWED_MCQ_ANSWER_LETTERS.banks["ib-physics-sl"]!;
@@ -181,6 +182,21 @@ describe("reviewed letters import", () => {
     expect(result.letters).toEqual({ version: 1, banks: { "ib-chemistry-hl": { "2016-may-tz0-hl-p1-q1": { answers: ["C"], note: null } } } });
     expect(result.unknown).toEqual(["ib-chemistry-hl:2099-may-tz1-hl-p1-q1"]);
     expect(result.removed).toEqual(["ib-chemistry-hl:2025-may-tz1-hl-p1a-q1"]);
+  });
+
+  it("drops a note that only restates a multi-letter answer, and keeps real notes", () => {
+    const result = importReviewedMcqAnswerLetters(source({
+      "2016-may-tz0-hl-p1-q1": { answers: ["A", "C"], note: "A or C accepted" },
+      "2016-may-tz0-hl-p1-q2": { answers: ["B", "D"], note: "B or D." },
+      "2016-may-tz0-hl-p1-q3": { answers: ["A", "B"], note: "Question removed; all candidates credited" },
+      "2016-may-tz0-hl-p1-q4": { answers: ["C"], note: "C accepted" },
+    }), chemistryRows);
+    expect(result.letters.banks["ib-chemistry-hl"]).toEqual({
+      "2016-may-tz0-hl-p1-q1": { answers: ["A", "C"], note: null },
+      "2016-may-tz0-hl-p1-q2": { answers: ["B", "D"], note: null },
+      "2016-may-tz0-hl-p1-q3": { answers: ["A", "B"], note: "Question removed; all candidates credited" },
+      "2016-may-tz0-hl-p1-q4": { answers: ["C"], note: "C accepted" },
+    });
   });
 
   it("stops on anything else instead of dropping it", () => {
