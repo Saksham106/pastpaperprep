@@ -13,8 +13,8 @@ const nextConfig: NextConfig = {
     "/api/assets/sign": ["./generated/asset-manifest/**"],
     "/api/assets/free": ["./generated/asset-manifest/**"],
     "/api/study-state": ["./generated/asset-manifest/**"],
-    "/past-papers": ["./src/data/paper-archives/*.json", "./private/paper-archives/verified-readback.json"],
-    "/past-papers/**": ["./src/data/paper-archives/*.json", "./private/paper-archives/verified-readback.json"],
+    "/past-papers": ["./src/data/paper-archives/*.json", "./src/data/paper-archive-readback.json"],
+    "/past-papers/**": ["./src/data/paper-archives/*.json", "./src/data/paper-archive-readback.json"],
   },
   outputFileTracingExcludes: {
     "/past-papers": ["./private/paper-archives/source-bindings.json", "./private/paper-archives/checkpoints/**", "./private/paper-archives/receipt.json", "./private/paper-preview/**", "./private/chemistry-paper-archive/**"],

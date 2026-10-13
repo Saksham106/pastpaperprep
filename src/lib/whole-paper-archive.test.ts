@@ -5,12 +5,6 @@ import { mkdtempSync, mkdirSync, writeFileSync, rmSync, symlinkSync, realpathSyn
 import { join } from 'node:path';
 import { createHash } from 'node:crypto';
 import { BANK_CATALOG } from './catalog';
-import { Readable } from 'node:stream';
-const remote = vi.hoisted(() => ({ send: vi.fn(), requests: [] as unknown[] }));
-vi.mock('@aws-sdk/client-s3', () => ({
-  S3Client: class { constructor(config: unknown) { remote.requests.push(config); } send = remote.send; destroy() {} },
-  GetObjectCommand: class { constructor(public input: unknown) {} },
-}));
 import { getWholePaperBanks, getWholePaperSummaries, getWholePaper, getWholePaperDocument, wholePaperPreviewEnabled, wholePaperArchiveEnabled, findWholePaperBySlug } from './whole-paper-archive';
 
 let root: string;
@@ -25,7 +19,6 @@ function manifest(value = fixture(), slug = value.bankSlug) {
   writeFileSync(join(root, 'src/data/paper-archives', `${slug}.json`), JSON.stringify(value));
 }
 beforeEach(() => {
-  remote.send.mockReset(); remote.requests.length = 0;
   const scratch = realpathSync(tmpdir());
   root = mkdtempSync(join(scratch, 'whole-paper-test-'));
   vi.spyOn(process, 'cwd').mockReturnValue(root);
@@ -35,60 +28,68 @@ beforeEach(() => {
 });
 afterEach(() => { vi.restoreAllMocks(); vi.unstubAllEnvs(); rmSync(root, { recursive: true, force: true }); });
 
-function productionReceipt() {
+const RECEIPT = 'src/data/paper-archive-readback.json';
+type Ref = { bank: string; paper: string; kind: 'question' | 'markscheme'; sha: string; bytes: number };
+const defaultRefs = (): Ref[] => (['question', 'markscheme'] as const).map(kind => ({ bank: 'igcse', paper: 'paper-2025-21', kind, sha: hash(pdf), bytes: pdf.length }));
+function productionReceipt(refs: Ref[] = defaultRefs()) {
   vi.stubEnv('NODE_ENV', 'production'); vi.stubEnv('PAPER_ARCHIVE_ENABLED', 'true'); vi.stubEnv('PAPER_ARCHIVE_STORAGE_VERIFIED', 'true');
-  vi.stubEnv('R2_ACCOUNT_ID', 'a'.repeat(32)); vi.stubEnv('R2_ACCESS_KEY_ID', 'fixture-key'); vi.stubEnv('R2_SECRET_ACCESS_KEY', 'fixture-secret'); vi.stubEnv('R2_BUCKET_NAME', 'pastpaperprep-assets');
-  const receipt = { version: 1, status: 'verified_readback', provider: 'r2', accountId: 'a'.repeat(32), bucket: 'pastpaperprep-assets', verifiedAt: '2026-01-01T00:00:00.000Z', manifests: [{ bankSlug: 'igcse', sha256: hash(JSON.stringify(fixture())) }], objects: [{ key: `whole-papers/v1/${hash(pdf)}.pdf`, sha256: hash(pdf), bytes: pdf.length }] };
+  const objects = new Map(refs.map(r => [r.sha, r.bytes]));
+  const mapping = hash(refs.map(r => `${r.bank}/${r.paper}/${r.kind} ${r.sha} ${r.bytes}\n`).sort().join(''));
+  const receipt = { version: 3, status: 'verified_public_readback', origin: 'https://free.pastpaperprep.com', prefix: 'papers/v1/', verifiedAt: '2026-10-13T00:00:00.000Z', objectCount: objects.size, objectsSha256: hash([...objects].sort().map(([sha, bytes]) => `${sha} ${bytes}\n`).join('')), mappingSha256: mapping };
   saveReceipt(receipt);
   return receipt;
 }
 function saveReceipt(receipt: ReturnType<typeof productionReceipt>) {
-  const raw = JSON.stringify(receipt); mkdirSync(join(root, 'private/paper-archives'), { recursive: true });
-  writeFileSync(join(root, 'private/paper-archives/verified-readback.json'), raw);
-  vi.stubEnv('PAPER_ARCHIVE_RECEIPT_SHA256', hash(raw));
+  mkdirSync(join(root, 'src/data'), { recursive: true });
+  writeFileSync(join(root, RECEIPT), JSON.stringify(receipt));
 }
-describe('production readback-gated content-addressed delivery', () => {
-  it('reads only the exact allowlisted object after a pinned complete receipt', async () => {
+describe('production delivery from the public free bucket', () => {
+  it('opens after a complete public readback and links each document straight to free.pastpaperprep.com', async () => {
     manifest(); productionReceipt();
-    remote.send.mockResolvedValue({ Body: Readable.from([pdf]), ContentLength: pdf.length });
-    expect(await getWholePaperDocument('igcse', 'paper-2025-21', 'question')).toEqual({ bytes: pdf, filename: 'paper-2025-21-question.pdf' });
-    expect(remote.send.mock.calls[0][0].input).toEqual({ Bucket: 'pastpaperprep-assets', Key: `whole-papers/v1/${hash(pdf)}.pdf` });
-    expect(remote.requests[0]).toMatchObject({ endpoint: `https://${'a'.repeat(32)}.r2.cloudflarestorage.com`, region: 'auto', forcePathStyle: true });
     expect(await wholePaperArchiveEnabled()).toBe(true);
+    const url = `https://free.pastpaperprep.com/papers/v1/${hash(pdf)}.pdf`;
+    expect(getWholePaper('igcse', 'paper-2025-21')?.sources).toEqual({ question: url, markscheme: url });
   });
-  it.each(['flag', 'verification', 'pin', 'manifest', 'object', 'extraObject', 'duplicate', 'bucket', 'account', 'state', 'newManifest', 'removedManifest'])('does not construct a storage client for invalid %s proof', async mutation => {
+  it('never streams PDFs through the app in production', async () => {
+    manifest(); bindings(); productionReceipt();
+    expect(await getWholePaperDocument('igcse', 'paper-2025-21', 'question')).toBeNull();
+  });
+  it.each(['flag', 'verification', 'missing', 'malformed', 'digest', 'mapping', 'count', 'status', 'origin', 'newManifest', 'removedManifest', 'resized', 'conflict'])('stays closed for invalid %s proof', async mutation => {
     manifest(); const receipt = productionReceipt();
-    if (mutation === 'manifest') receipt.manifests[0].sha256 = 'b'.repeat(64);
-    if (mutation === 'object') receipt.objects[0].bytes++;
-    if (mutation === 'extraObject') receipt.objects.push({ key: `whole-papers/v1/${'b'.repeat(64)}.pdf`, sha256: 'b'.repeat(64), bytes: 5 });
-    if (mutation === 'duplicate') receipt.objects.push(receipt.objects[0]);
-    if (mutation === 'bucket') receipt.bucket = 'other';
-    if (mutation === 'account') receipt.accountId = 'b'.repeat(32);
-    if (mutation === 'state') receipt.status = 'pending_upload';
+    if (mutation === 'digest') receipt.objectsSha256 = 'b'.repeat(64);
+    if (mutation === 'mapping') receipt.mappingSha256 = 'b'.repeat(64);
+    if (mutation === 'count') receipt.objectCount++;
+    if (mutation === 'status') Object.assign(receipt, { status: 'pending_upload' });
+    if (mutation === 'origin') Object.assign(receipt, { origin: 'https://pastpaperprep.com' });
     saveReceipt(receipt);
     if (mutation === 'flag') vi.stubEnv('PAPER_ARCHIVE_ENABLED', 'false');
     if (mutation === 'verification') vi.stubEnv('PAPER_ARCHIVE_STORAGE_VERIFIED', 'false');
-    if (mutation === 'pin') vi.stubEnv('PAPER_ARCHIVE_RECEIPT_SHA256', 'b'.repeat(64));
-    if (mutation === 'newManifest') manifest(fixture('ib-hl'));
+    if (mutation === 'missing') rmSync(join(root, RECEIPT));
+    if (mutation === 'malformed') writeFileSync(join(root, RECEIPT), '{broken');
+    if (mutation === 'newManifest') { const other = fixture('ib-hl'); const bytes = Buffer.from('%PDF-1.7\nanother'); other.papers[0].documents.question = { sha256: hash(bytes), bytes: bytes.length, pages: 1 }; manifest(other); }
     if (mutation === 'removedManifest') rmSync(join(root, 'src/data/paper-archives/igcse.json'));
-    expect(await wholePaperArchiveEnabled()).toBe(false);
-    expect(await getWholePaperDocument('igcse', 'paper-2025-21', 'question')).toBeNull();
-    expect(remote.requests).toEqual([]); expect(remote.send).not.toHaveBeenCalled();
-  });
-  it.each(['hash', 'header', 'overflow', 'truncated', 'wrongLength', 'failure'])('rejects remote %s bytes', async mutation => {
-    const m = fixture();
-    if (mutation === 'header') { const bad = Buffer.from('invalid-but-pinned'); m.papers[0].documents.question = { sha256: hash(bad), bytes: bad.length, pages: 1 }; }
-    manifest(m); const receipt = productionReceipt();
-    if (mutation === 'header') {
-      receipt.manifests[0].sha256 = hash(JSON.stringify(m));
-      receipt.objects.push({ key: `whole-papers/v1/${m.papers[0].documents.question.sha256}.pdf`, ...m.papers[0].documents.question });
-      Reflect.deleteProperty(receipt.objects[1], 'pages'); saveReceipt(receipt);
+    if (mutation === 'resized' || mutation === 'conflict') {
+      const m = fixture(); m.papers[0].documents.markscheme = { ...m.papers[0].documents.markscheme, bytes: pdf.length + 1 };
+      if (mutation === 'resized') m.papers[0].documents.question = m.papers[0].documents.markscheme;
+      manifest(m);
     }
-    const actual = mutation === 'hash' ? Buffer.from('%PDF-1.7\nfixture only\n%%BAD') : mutation === 'header' ? Buffer.from('invalid-but-pinned') : mutation === 'overflow' ? Buffer.concat([pdf, pdf]) : mutation === 'truncated' ? pdf.subarray(0, 10) : pdf;
-    remote.send.mockResolvedValue({ Body: Readable.from([actual]), ContentLength: mutation === 'wrongLength' ? 1 : m.papers[0].documents.question.bytes });
-    if (mutation === 'failure') remote.send.mockRejectedValue(new Error('offline'));
-    expect(await getWholePaperDocument('igcse', 'paper-2025-21', 'question')).toBeNull();
-    expect(remote.send).toHaveBeenCalledTimes(1);
+    expect(await wholePaperArchiveEnabled()).toBe(false);
+  });
+  it('accepts a second bank only once the receipt covers its documents', async () => {
+    const other = fixture('ib-hl'); const bytes = Buffer.from('%PDF-1.7\nanother'); other.papers[0].documents.question = { sha256: hash(bytes), bytes: bytes.length, pages: 1 };
+    manifest(); manifest(other);
+    productionReceipt([...defaultRefs(), { bank: 'ib-hl', paper: 'paper-2025-21', kind: 'question', sha: hash(bytes), bytes: bytes.length }, { bank: 'ib-hl', paper: 'paper-2025-21', kind: 'markscheme', sha: hash(pdf), bytes: pdf.length }]);
+    expect(await wholePaperArchiveEnabled()).toBe(true);
+  });
+  it('stays closed when a question paper and mark scheme swap PDFs after the readback', async () => {
+    const ms = Buffer.from('%PDF-1.7\nmark scheme');
+    const m = fixture(); m.papers[0].documents.markscheme = { sha256: hash(ms), bytes: ms.length, pages: 1 };
+    manifest(m);
+    productionReceipt([{ bank: 'igcse', paper: 'paper-2025-21', kind: 'question', sha: hash(pdf), bytes: pdf.length }, { bank: 'igcse', paper: 'paper-2025-21', kind: 'markscheme', sha: hash(ms), bytes: ms.length }]);
+    expect(await wholePaperArchiveEnabled()).toBe(true);
+    const swapped = fixture(); swapped.papers[0].documents.question = m.papers[0].documents.markscheme; swapped.papers[0].documents.markscheme = m.papers[0].documents.question;
+    manifest(swapped);
+    expect(await wholePaperArchiveEnabled()).toBe(false);
   });
 });
 
@@ -175,7 +176,7 @@ describe('whole-paper public registry', () => {
     expect(available.map(b => b.bankSlug)).toEqual(BANK_CATALOG.map(b => b.slug));
     expect(available.every(b => b.paperCount === 1 && b.reportCount === 1 && b.available)).toBe(true);
   });
-  it('enumerates every canonical bank, reads compact metadata and uses only internal document URLs', () => {
+  it('enumerates every canonical bank, reads compact metadata and uses internal document URLs in local preview', () => {
     manifest();
     expect(getWholePaperBanks().map(b => b.bankSlug)).toEqual(BANK_CATALOG.map(b => b.slug));
     expect(getWholePaperBanks().find(b => b.bankSlug === 'igcse')).toMatchObject({ paperCount: 1, reportCount: 1, available: true, years: '2025' });
