@@ -242,3 +242,12 @@ test('validate.mjs infers the expected bank and question from a file\'s location
  writeFileSync(join(dir,id+'.json'),JSON.stringify({...doc,bank:'ib-physics-hl'}));
  assert.match(run().stdout,/"failed":0/);
 });
+test('next.mjs plans near-shippable work first and stays within the agent budget', async () => {
+ const { planJobs } = await import('./next.mjs');
+ const plans=[{bank:'a',plan:{generate:[[1],[2],[3]],verify:[[4]],fix:[[5]]}},{bank:'b',plan:{generate:[[6]],verify:[[7],[8]],fix:[]}}];
+ const all=planJobs(plans,100);
+ assert.deepEqual(Object.fromEntries(all.counts),{a:{generate:3,verify:1,fix:1},b:{generate:1,verify:2,fix:0}});
+ const tight=planJobs(plans,7);
+ assert.deepEqual(Object.fromEntries(tight.counts),{a:{generate:0,verify:1,fix:1},b:{generate:0,verify:2,fix:0}});
+ assert.ok(tight.spent<=7);
+});
