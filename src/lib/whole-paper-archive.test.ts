@@ -29,9 +29,13 @@ beforeEach(() => {
 afterEach(() => { vi.restoreAllMocks(); vi.unstubAllEnvs(); rmSync(root, { recursive: true, force: true }); });
 
 const RECEIPT = 'src/data/paper-archive-readback.json';
-function productionReceipt(objects = new Map([[hash(pdf), pdf.length]])) {
+type Ref = { bank: string; paper: string; kind: 'question' | 'markscheme'; sha: string; bytes: number };
+const defaultRefs = (): Ref[] => (['question', 'markscheme'] as const).map(kind => ({ bank: 'igcse', paper: 'paper-2025-21', kind, sha: hash(pdf), bytes: pdf.length }));
+function productionReceipt(refs: Ref[] = defaultRefs()) {
   vi.stubEnv('NODE_ENV', 'production'); vi.stubEnv('PAPER_ARCHIVE_ENABLED', 'true'); vi.stubEnv('PAPER_ARCHIVE_STORAGE_VERIFIED', 'true');
-  const receipt = { version: 2, status: 'verified_public_readback', origin: 'https://free.pastpaperprep.com', prefix: 'papers/v1/', verifiedAt: '2026-10-13T00:00:00.000Z', objectCount: objects.size, objectsSha256: hash([...objects].sort().map(([sha, bytes]) => `${sha} ${bytes}\n`).join('')) };
+  const objects = new Map(refs.map(r => [r.sha, r.bytes]));
+  const mapping = hash(refs.map(r => `${r.bank}/${r.paper}/${r.kind} ${r.sha} ${r.bytes}\n`).sort().join(''));
+  const receipt = { version: 3, status: 'verified_public_readback', origin: 'https://free.pastpaperprep.com', prefix: 'papers/v1/', verifiedAt: '2026-10-13T00:00:00.000Z', objectCount: objects.size, objectsSha256: hash([...objects].sort().map(([sha, bytes]) => `${sha} ${bytes}\n`).join('')), mappingSha256: mapping };
   saveReceipt(receipt);
   return receipt;
 }
@@ -50,9 +54,10 @@ describe('production delivery from the public free bucket', () => {
     manifest(); bindings(); productionReceipt();
     expect(await getWholePaperDocument('igcse', 'paper-2025-21', 'question')).toBeNull();
   });
-  it.each(['flag', 'verification', 'missing', 'malformed', 'digest', 'count', 'status', 'origin', 'newManifest', 'removedManifest', 'resized', 'conflict'])('stays closed for invalid %s proof', async mutation => {
+  it.each(['flag', 'verification', 'missing', 'malformed', 'digest', 'mapping', 'count', 'status', 'origin', 'newManifest', 'removedManifest', 'resized', 'conflict'])('stays closed for invalid %s proof', async mutation => {
     manifest(); const receipt = productionReceipt();
     if (mutation === 'digest') receipt.objectsSha256 = 'b'.repeat(64);
+    if (mutation === 'mapping') receipt.mappingSha256 = 'b'.repeat(64);
     if (mutation === 'count') receipt.objectCount++;
     if (mutation === 'status') Object.assign(receipt, { status: 'pending_upload' });
     if (mutation === 'origin') Object.assign(receipt, { origin: 'https://pastpaperprep.com' });
@@ -73,8 +78,18 @@ describe('production delivery from the public free bucket', () => {
   it('accepts a second bank only once the receipt covers its documents', async () => {
     const other = fixture('ib-hl'); const bytes = Buffer.from('%PDF-1.7\nanother'); other.papers[0].documents.question = { sha256: hash(bytes), bytes: bytes.length, pages: 1 };
     manifest(); manifest(other);
-    productionReceipt(new Map([[hash(pdf), pdf.length], [hash(bytes), bytes.length]]));
+    productionReceipt([...defaultRefs(), { bank: 'ib-hl', paper: 'paper-2025-21', kind: 'question', sha: hash(bytes), bytes: bytes.length }, { bank: 'ib-hl', paper: 'paper-2025-21', kind: 'markscheme', sha: hash(pdf), bytes: pdf.length }]);
     expect(await wholePaperArchiveEnabled()).toBe(true);
+  });
+  it('stays closed when a question paper and mark scheme swap PDFs after the readback', async () => {
+    const ms = Buffer.from('%PDF-1.7\nmark scheme');
+    const m = fixture(); m.papers[0].documents.markscheme = { sha256: hash(ms), bytes: ms.length, pages: 1 };
+    manifest(m);
+    productionReceipt([{ bank: 'igcse', paper: 'paper-2025-21', kind: 'question', sha: hash(pdf), bytes: pdf.length }, { bank: 'igcse', paper: 'paper-2025-21', kind: 'markscheme', sha: hash(ms), bytes: ms.length }]);
+    expect(await wholePaperArchiveEnabled()).toBe(true);
+    const swapped = fixture(); swapped.papers[0].documents.question = m.papers[0].documents.markscheme; swapped.papers[0].documents.markscheme = m.papers[0].documents.question;
+    manifest(swapped);
+    expect(await wholePaperArchiveEnabled()).toBe(false);
   });
 });
 

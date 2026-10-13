@@ -4,7 +4,7 @@ import { join, resolve, relative, isAbsolute, parse, sep } from 'node:path';
 import { createHash } from 'node:crypto';
 import { BANK_CATALOG, type BankSlug } from './catalog';
 import { paperSlug, subjectSlugForBank } from './past-paper-catalog';
-import { paperObjectUrl, paperObjectsDigest, validPublicReadback } from './whole-paper-public';
+import { approvedPapers, paperMappingDigest, paperObjectUrl, paperObjectsDigest, validPublicReadback } from './whole-paper-public';
 import type { WholePaperManifest, WholePaperBankSummary, WholePaperSummary, WholePaperDetail } from './whole-paper-types';
 
 export function wholePaperPreviewEnabled() { return process.env.NODE_ENV === 'development' && process.env.LOCAL_PAPER_PREVIEW === 'true'; }
@@ -123,29 +123,31 @@ function validBindings(value: unknown): value is import('./whole-paper-types').W
   }
   return true;
 }
-/** Every distinct approved PDF across the committed manifests; null if any manifest is invalid or a hash has two sizes. */
-function approvedObjects(): Map<string, number> | null {
-  const approved = new Map<string, number>();
+/** Every committed manifest, validated; null if any one is invalid. */
+function committedManifests(): WholePaperManifest[] | null {
+  const manifests: WholePaperManifest[] = [];
   for (const bank of BANK_CATALOG) {
     const path = join(process.cwd(), 'src/data/paper-archives', `${bank.slug}.json`);
     try { lstatSync(path); } catch (error) { if ((error as NodeJS.ErrnoException).code === 'ENOENT') continue; throw error; }
     const manifest = readManifest(bank.slug);
     if (!manifest) return null;
-    for (const paper of manifest.papers) for (const doc of Object.values(paper.documents)) {
-      if (approved.has(doc.sha256) && approved.get(doc.sha256) !== doc.bytes) return null;
-      approved.set(doc.sha256, doc.bytes);
-    }
+    manifests.push(manifest);
   }
-  return approved;
+  return manifests;
 }
 /** Production opens only when the committed receipt proves that every approved PDF was read back,
- * byte for byte, from free.pastpaperprep.com. Any manifest change closes it until a new readback. */
+ * byte for byte, from free.pastpaperprep.com, and seals which PDF serves each bank/paper/role.
+ * Any manifest change, including swapping two documents, closes it until a new readback. */
 function productionEnabled(): boolean {
   if (process.env.NODE_ENV !== 'production' || process.env.PAPER_ARCHIVE_ENABLED !== 'true' || process.env.PAPER_ARCHIVE_STORAGE_VERIFIED !== 'true') return false;
   try {
     const receipt: unknown = JSON.parse(checkedRead(join(process.cwd(), 'src/data/paper-archive-readback.json'), 64 * 1024).toString('utf8'));
-    const approved = approvedObjects();
-    return validPublicReadback(receipt) && !!approved?.size && receipt.objectCount === approved.size && receipt.objectsSha256 === paperObjectsDigest(approved);
+    const manifests = committedManifests();
+    if (!manifests || !validPublicReadback(receipt)) return false;
+    const { sizes, refs } = approvedPapers(manifests);
+    return sizes.size > 0 && receipt.objectCount === sizes.size
+      && receipt.objectsSha256 === paperObjectsDigest(sizes)
+      && receipt.mappingSha256 === paperMappingDigest(refs);
   } catch { return false; }
 }
 /** Metadata alone is not a production activation proof. Does not perform a network call. */
