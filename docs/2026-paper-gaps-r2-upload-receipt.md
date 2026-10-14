@@ -40,3 +40,20 @@ The owner approved the upload of the four reviewed 2026 dry-run plans to the pri
 - that each committed runtime is byte-for-byte `finalizeRelease()` over its exactly reconstructed candidate.
 
 `scripts/igcse-2026-release-finalization.test.mjs` runs the same checks in CI. It also proves `--finalize` rejects a receipt that is missing any key, even when padded to the same length. The four plans carry `status: UPLOADED AND VERIFIED` only because `scripts/r2-upload-2026-log.mjs` finds a matching readback line for every planned object.
+
+## 0610 mark-scheme ownership repair (14 October 2026 UTC)
+
+The PR #282 review found that 21 written/practical May/June 2026 Biology questions had mark-scheme crops that also showed a neighbouring question's rows. The cause was whole-page bands on pages shared by two questions. The source pipeline re-cut those 24 crops at the printed question boundary. The owner approved publishing the repaired images, provided nothing was overwritten.
+
+- **Plan:** `docs/igcse-biology-0610-2026-mj-ms-ownership-r2-upload-plan.json`. It lists 24 objects (334,006 bytes) and, for each, the key it replaces. Every key is content-addressed (`…-<sha256[:12]>.webp`) and new; none appears in the first log.
+- **Upload:** same tool and rules as above (copied as `wrangler-upload-2026-0610-ms-ownership.mjs`): key checked absent, `put --remote` with `image/webp` and `private, max-age=31536000, immutable`, read back, then SHA-256 and size compared; at most 3 at a time. All 24 were created (`existedBefore: false`) and verified, 03:13–03:14 UTC.
+- **Log:** `docs/2026-0610-ms-ownership-r2-upload-log.jsonl`, 24 lines, same format, SHA-256 `2f535945fe914636b4bd2ce5bc46249793a38da6965d51fdad469ea9a88f58cb`.
+- **Replaced objects:** the 24 earlier crops stay in the bucket, unreferenced. Deleting them needs owner approval.
+
+The rebuilt candidate (`3f2ec8f2…`) produced a manifest with the same 14,733 object count. 14,709 objects are byte-identical to the previous verified receipt (`001e9d9d…`, manifest `5dfe4e11…`) and are carried over through it. The 24 new objects are backed by the new log. The 24 replaced keys drop out. `readbackProvenance` records both sources and the dropped count.
+
+| Bank | Candidate runtime | Finalized runtime | Asset manifest | Receipt |
+| --- | --- | --- | --- | --- |
+| 0610 (after repair) | `70b7a9a6…` | `495712c9…` | `651baec5…` | `155a454e…` |
+
+`node scripts/igcse-2026-release-finalization.mjs` rebuilds the first 0610 release's manifest and receipt byte-exactly from main's verified pair and the first log. It then checks that every current object is either unchanged from that release or a repaired crop with a create-only readback line and a reviewed plan entry, and that every dropped object is a replacement the plan names.
