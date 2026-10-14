@@ -71,8 +71,10 @@ Custom Purge) before `verify`, or it will read the old copy.
 - 2026-10-14, missing papers: four papers that were left out are added (8 PDFs), and all 4,918
   re-verified.
   - IB Biology May 2022 Paper 1 (HL TZ2, SL TZ1, SL TZ2): IB Docs serves those mark schemes with
-    20 junk bytes before `%PDF-`, so the builder rejected them. Clean, text-identical copies come
-    from papers.xtremepape.rs.
+    21 junk bytes before `%PDF-`, so the builder rejected them. Stripping only that prefix gives the
+    IB's own files (Word/Distiller producers, no repair, text identical). The papers.xtremepape.rs
+    copies first used here carry an `xtremepape.rs` footer drawn as vector outlines, so they were
+    replaced; `scan-source-watermarks.py` now flags such margin stamps.
   - 0580 June 2021 Paper 33: its sources were missing locally. Cambridge's published mark scheme
     prints `0580/31` on every page, but it is a different file from the 0580/31 scheme and its
     answers match 0580/33. It was accepted through a reviewed identity case (category

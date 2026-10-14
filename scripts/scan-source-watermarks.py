@@ -3,7 +3,8 @@
 
     python3 -I scripts/scan-source-watermarks.py <pdf-or-directory>...
 
-Checks metadata, page text, link targets and decompressed streams. Needs PyMuPDF.
+Checks metadata, page text, link targets, decompressed streams and vector-drawn margin stamps
+(text drawn as outlines, e.g. a footer URL). Needs PyMuPDF.
 Exit 1 lists every flagged file; exit 0 means none were found.
 """
 import re
@@ -16,23 +17,41 @@ import pymupdf
 BRANDS = re.compile(rb'papa\s*cambridge|bestexamhelp|studyhatch|xtremepape|dynamicpapers|papersdaddy|exam-easy|savemyexams|physicsandmathstutor|trace id: pc-', re.I)
 DOMAIN = re.compile(r'\b[a-z0-9-]+(?:\.[a-z0-9-]+)*\.(?:com|net|rs|io|info|co\.uk)\b', re.I)
 ALLOWED = ('cambridgeinternational.org', 'cambridge.org', 'ibo.org', 'ucles.org')
-# Exam boards credit image and text sources (Shutterstock, journals) on a closing page; those
-# domains are citations, not stamps. Brand matches still count there.
+# Exam boards credit image and text sources (Shutterstock, journals) after a heading on the closing
+# page; domains below that heading there are citations, not stamps. Brand matches always count.
 CREDITS = re.compile(r'^\s*(?:References|Acknowledg(?:e)?ments?|Sources)\s*:?\s*$', re.I | re.M)
+# A rehost footer drawn as glyph outlines: a dense vector cluster in the bottom-left margin.
+MARGIN_PT, MIN_PATH_ITEMS = 22, 50
+
+
+def foreign_domains(text: str, closing_page: bool) -> set[str]:
+    heading = CREDITS.search(text) if closing_page else None
+    checked = text[:heading.start()] if heading else text
+    return {d.lower() for d in DOMAIN.findall(checked) if not d.lower().endswith(ALLOWED)}
+
+
+def margin_stamp(page: pymupdf.Page) -> bool:
+    bottom = page.rect.height - MARGIN_PT
+    return any(d['rect'].y0 > bottom and d['rect'].x1 < page.rect.width / 3 and len(d['items']) > MIN_PATH_ITEMS
+               for d in page.get_drawings())
 
 
 def findings(path: Path) -> list[str]:
-    found, pages, domains = [], [], set()
+    found, pages, domains, stamped = [], [], set(), []
     with pymupdf.open(path) as doc:
         if BRANDS.search(str(doc.metadata).encode()):
             found.append('metadata')
         for number, page in enumerate(doc, 1):
             text = page.get_text()
-            foreign = set() if CREDITS.search(text) else {d.lower() for d in DOMAIN.findall(text) if not d.lower().endswith(ALLOWED)}
+            foreign = foreign_domains(text, number == doc.page_count)
             linked = any(BRANDS.search((link.get('uri') or '').encode()) for link in page.get_links())
             if BRANDS.search(text.encode()) or foreign or linked:
                 pages.append(number)
                 domains |= foreign
+            if margin_stamp(page):
+                stamped.append(number)
+        if stamped:
+            found.append(f'vector margin stamp on {len(stamped)}/{doc.page_count} pages (first p{stamped[0]})')
         if pages:
             found.append(f'{len(pages)}/{doc.page_count} pages (first p{pages[0]})' + (f': {", ".join(sorted(domains))}' if domains else ''))
         for xref in range(1, doc.xref_length()):
