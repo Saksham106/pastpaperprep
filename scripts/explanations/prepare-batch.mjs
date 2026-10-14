@@ -10,7 +10,7 @@
 import { createHash } from "node:crypto";
 import { execFile, execFileSync } from "node:child_process";
 import { promisify } from "node:util";
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { calculatorAllowed } from "../../src/lib/calculator-policy.mjs";
@@ -65,22 +65,17 @@ const r2Cache = (bank) => join(researchRoot, "_r2src", bank);
 // The site serves repaired crops for some questions, so build from exactly what students see:
 // the generated asset manifest's object keys. Release banks need their production flags.
 const RELEASE_FLAGS = { NODE_ENV: "production", PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true", PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION: "true", PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED: "true" };
-function servedManifest(bank) {
-  const dir = join(repoRoot, "generated", "asset-manifest");
-  const find = () => (existsSync(dir) ? readdirSync(dir) : []).find((name) => name.startsWith(`${bank}.`) && name.endsWith(".json") && !name.includes(".local."));
-  if (!find()) {
-    execFileSync("npx", ["tsx", "scripts/generate-asset-manifest.mts", "--bank", bank], { cwd: repoRoot, stdio: "ignore", env: { ...process.env, ...RELEASE_FLAGS } });
-  }
-  let name = find();
-  if (!name) throw new Error(`No asset manifest for ${bank}`);
-  let manifest = JSON.parse(readFileSync(join(dir, name), "utf8"));
-  // A manifest built without the production flags points at local preview routes; rebuild it.
-  if (JSON.stringify(manifest).includes("/api/local-preview-assets/")) {
-    execFileSync("npx", ["tsx", "scripts/generate-asset-manifest.mts", "--bank", bank], { cwd: repoRoot, stdio: "ignore", env: { ...process.env, ...RELEASE_FLAGS } });
-    name = (readdirSync(dir).filter((n) => n.startsWith(`${bank}.`) && n.endsWith(".json") && !n.includes(".local.")).find((n) => n !== name)) ?? name;
-    manifest = JSON.parse(readFileSync(join(dir, name), "utf8"));
-    if (JSON.stringify(manifest).includes("/api/local-preview-assets/")) throw new Error(`${bank}: production asset manifest unavailable`);
-  }
+// The file name only records the runtime mode, not the data it was built from, so never reuse one:
+// rebuild from the current bank data every time and read exactly the file the generator reports.
+const generateManifest = (bank) => execFileSync("npx", ["tsx", "scripts/generate-asset-manifest.mts", "--bank", bank], { cwd: repoRoot, encoding: "utf8", stdio: ["ignore", "pipe", "inherit"], env: { ...process.env, ...RELEASE_FLAGS } });
+export function servedManifest(bank, { dir = join(repoRoot, "generated", "asset-manifest"), generate = generateManifest } = {}) {
+  mkdirSync(dir, { recursive: true });
+  const out = generate(bank);
+  const name = new RegExp(`^${bank}: .* -> (\\S+\\.json)$`, "m").exec(out)?.[1];
+  if (!name) throw new Error(`${bank}: asset manifest was not generated (${out.trim()})`);
+  const manifest = JSON.parse(readFileSync(join(dir, name), "utf8"));
+  // Without the production flags the manifest points at local preview routes, not served objects.
+  if (JSON.stringify(manifest).includes("/api/local-preview-assets/")) throw new Error(`${bank}: production asset manifest unavailable`);
   return manifest;
 }
 // An object key like "ib-hl/questions/x.webp" maps to "questions/x.webp" in the source workspace.

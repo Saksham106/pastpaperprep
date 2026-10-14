@@ -3,14 +3,15 @@
 //   node scripts/explanations/next.mjs [--wave wave1] [--banks a,b] [--budget 900]
 // For every bank with research/explanations/<bank>/_manifests/<wave>.json it:
 //   1. rebuilds the bank ledger from every workflow journal on disk (all sessions, oldest run first),
-//   2. writes a new <wave>.next-<time>.plan.json (never overwriting a plan a running workflow reads): fix chunks, then verify chunks (unchecked or re-fixed files), then write chunks
+//   2. writes a new, uniquely named <wave>.next-<time>-<id>.plan.json (created exclusively, never rewritten): fix chunks, then verify chunks (unchecked or re-fixed files), then write chunks
 //      (missing files, or files that no longer validate),
 //   3. writes _next-jobs.json and prints the Workflow args for continue.workflow.js, capped near --budget agents,
 //   4. lists banks with verified explanations not yet live, with their publish command.
 // Run it once no explanation workflow is running, or it re-plans their in-flight chunks.
 // A new wave is a new manifest: prepare-batch.mjs --bank <b> --all --years 2024 --name wave2, then --wave wave2.
+import { randomUUID } from "node:crypto";
 import { execFileSync } from "node:child_process";
-import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -23,6 +24,13 @@ const SIZES = { generate: 8, verify: 10, fix: 10 };
 // Expected agents per chunk: each chunk is verified in the same run, and some need a fix and a re-check.
 const COST = { fix: 1.3, verify: 1.7, generate: 2.7 };
 const PASSED = new Set(["pass", "pass-after-fix", "pass-after-minor-fix"]);
+
+// A running workflow reads its plan by path, so every plan gets its own name and is never rewritten.
+export function writePlan(dir, wave, plan) {
+  const file = join(dir, `${wave}.next-${new Date().toISOString().replace(/[-:.]/g, "")}-${randomUUID().slice(0, 8)}.plan.json`);
+  writeFileSync(file, `${JSON.stringify(plan, null, 1)}\n`, { flag: "wx" });
+  return file;
+}
 
 const chunk = (list, size) => Array.from({ length: Math.ceil(list.length / size) }, (_, i) => list.slice(i * size, (i + 1) * size));
 
@@ -52,8 +60,8 @@ function journals() {
       if (existsSync(file)) files.push(file);
     }
   }
-  // Later runs override earlier verdicts, so order by when each run started.
-  return files.sort((a, b) => statSync(a).birthtimeMs - statSync(b).birthtimeMs);
+  // Order does not matter: the ledger replays every result by when its agent finished.
+  return files;
 }
 
 function main() {
@@ -66,7 +74,6 @@ function main() {
   const runJournals = journals();
   const available = JSON.parse(readFileSync(join(repoRoot, "src/data/explanations/available.json"), "utf8"));
 
-  const stamp = new Date().toISOString().replace(/[-:]/g, "").slice(0, 13);
   const plans = [];
   const publish = [];
   for (const bank of banks) {
@@ -88,8 +95,7 @@ function main() {
       verify: chunk(unchecked.filter(valid), SIZES.verify),
       fix: chunk(todo.fix.filter((f) => tasks.has(f.questionId)), SIZES.fix),
     };
-    const planFile = join(researchRoot, bank, "_manifests", `${wave}.next-${stamp}.plan.json`);
-    writeFileSync(planFile, `${JSON.stringify(plan, null, 1)}\n`);
+    const planFile = writePlan(join(researchRoot, bank, "_manifests"), wave, plan);
     plans.push({ bank, manifest, planFile, plan });
 
     const waveRows = ledger.rows.filter((r) => tasks.has(r.questionId));
