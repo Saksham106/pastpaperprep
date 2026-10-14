@@ -11,6 +11,7 @@ import { project0455Sections } from "@/lib/igcse-0455-official.mjs";
 import { activeQuestionImagePaths } from "@/lib/reviewed-blank-qp";
 import { activeQuestionCropPaths } from "@/lib/retired-crops";
 import { reviewedMarkschemePaths } from "@/lib/reviewed-mcq-answer-repairs";
+import { historicalMarks, historicalQuestionPaths } from "@/lib/reviewed-biology-historical-crops";
 import { cleanSourceCropPaths } from "@/lib/clean-source-crops";
 import granularOverlay from "@/data/math-granular-label-overlay.json";
 import aaTaxonomy from "@/data/aa-official-subtopics/taxonomy.json";
@@ -276,7 +277,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
   const solution = nullableText(raw.solution) ?? nullableText(raw.independentSolution);
   const sourceQuestionImages = strings(raw.questionImages);
   const questionImages = cleanSourceCropPaths(slug, applyReviewedBlankPages
-    ? activeQuestionCropPaths(slug, text(raw.id), activeQuestionImagePaths(slug, text(raw.id), sourceQuestionImages))
+    ? historicalQuestionPaths(slug, text(raw.id), activeQuestionCropPaths(slug, text(raw.id), activeQuestionImagePaths(slug, text(raw.id), sourceQuestionImages)))
     : sourceQuestionImages).map((path) => assetUrl(slug, path, economicsAssetMode));
   const markschemeImagePaths = isPrivateRuntimeBank(slug)
     ? Array.from(new Set([...strings(raw.markschemeImages), ...strings(officialMarkscheme.images)]))
@@ -321,7 +322,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     zone: text(raw.timezone) || text(raw.zone),
     component: text(raw.component),
     calculator: calculatorAllowed(slug, { paper, year: integer(raw.year) }),
-    marks: typeof raw.marks === "number" ? raw.marks : null,
+    marks: historicalMarks(slug, text(raw.id), typeof raw.marks === "number" ? raw.marks : null),
     summary,
     accessibleText,
     searchText: searchable,

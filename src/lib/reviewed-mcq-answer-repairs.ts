@@ -7,6 +7,7 @@ import economicsWrittenRepairs from '@/data/reviewed-economics-written-answer-re
 import ibMatrixRepairs from '@/data/reviewed-ib-matrix-head-repairs.json';
 import ibBoundaryRepairs from '@/data/reviewed-ib-boundary-batch-repairs.json';
 import type { BankSlug } from '@/lib/banks';
+import { historicalMarkschemePaths } from '@/lib/reviewed-biology-historical-crops';
 
 type Repair = { oldPaths: string[]; newPaths: string[]; sha256: string };
 const entries = repairs.entries as Record<string, Repair>;
@@ -80,7 +81,10 @@ export function reviewedMarkschemePaths(bank: BankSlug, questionId: string, path
     }
     return [...repair.newPaths];
   }
+  const historical = historicalMarkschemePaths(bank, questionId, paths);
   const written = writtenEntries[questionId];
+  if (historical && (written || entries[questionId])) throw new Error(`Two reviewed answer repairs for ${bank}:${questionId}`);
+  if (historical) return historical;
   if (written) {
     if (JSON.stringify(paths) !== JSON.stringify(written.oldPaths) || written.newPaths.length < 1 ||
         written.newPaths.length !== written.sha256.length || new Set(written.newPaths).size !== written.newPaths.length ||
