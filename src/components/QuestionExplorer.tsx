@@ -17,6 +17,7 @@ import { bankYearFacts, upgradeHref, UPGRADE_PRICE_LABEL, UPGRADE_PRICE_MONTH, t
 import { filterQuestions, questionZoneValue } from "@/lib/question-filter";
 import { EXPLORER_PAGE_SIZE, parseExplorerState, serializeExplorerState, preserveClearedRoutePreset, stripRoutePreset, withRoutePreset, type ExplorerFilterKey, type ExplorerSearchParams, type ExplorerState } from "@/lib/explorer-state";
 import { encodeSharedSet, parseSharedSet } from "@/lib/shared-question-set";
+import { currentQuestionIds } from "@/lib/question-id-aliases";
 import type { QuestionFilters, QuestionSort, UnifiedQuestion } from "@/lib/questions";
 import type { AssetRequest } from "@/lib/asset-access";
 import type { BankSlug } from "@/lib/banks";
@@ -539,7 +540,7 @@ access: ExplorerAccess;
       }
       const next = parseExplorerState(routePreset && !locationParams.has("set") && !locationParams.has("worksheet") ? withRoutePreset(raw, routePreset) : raw, { defaultFreeOnly: !access.bankAccess });
       if (locationParams.has("set") && !locationParams.has("worksheet")) {
-        try { setSharedIds(parseSharedSet(locationParams.get("set") ?? "")); setSharedError(""); }
+        try { setSharedIds(currentQuestionIds(bank ?? "", parseSharedSet(locationParams.get("set") ?? ""))); setSharedError(""); }
         catch { setSharedIds(null); setSharedError("This shared question link is invalid."); }
       }
       setSearch(next.search);

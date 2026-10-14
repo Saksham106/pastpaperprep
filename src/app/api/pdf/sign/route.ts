@@ -7,6 +7,7 @@ import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
 import { premiumAssetSignOptions, previewAssetSignOptions, signPrivateAssetUrls } from "@/lib/private-assets";
 import { loadBankQuestionMap } from "@/lib/question-loader";
+import { currentQuestionIds } from "@/lib/question-id-aliases";
 import { printGeometryForSignedAssets } from "@/lib/print-geometry";
 import { createClient } from "@/lib/supabase/server";
 
@@ -46,7 +47,8 @@ async function handlePOST(request: Request) {
 
   const bank = body.bank as BankSlug;
   const canonicalById = await loadBankQuestionMap(bank);
-  const questions = body.questionIds.map((id) => canonicalById.get(id));
+  const questionIds = currentQuestionIds(bank, body.questionIds);
+  const questions = questionIds.map((id) => canonicalById.get(id));
   if (questions.some((question) => !question)) {
     return NextResponse.json({ error: "Invalid PDF export request" }, { status: 400 });
   }
@@ -116,7 +118,7 @@ async function handlePOST(request: Request) {
 
     const { data: allowed, error: quotaError } = await supabase.rpc("consume_download_allowance", {
       p_asset_count: premiumPathCount,
-      p_pdf_question_count: body.questionIds.length,
+      p_pdf_question_count: questionIds.length,
     });
     if (quotaError) return NextResponse.json({ error: "Could not verify export allowance" }, { status: 503 });
     if (!allowed) return NextResponse.json({ error: "Daily worksheet limit reached. Try again tomorrow." }, { status: 429 });

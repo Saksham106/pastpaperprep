@@ -6,6 +6,7 @@ import { getBank, type BankSlug } from "@/lib/banks";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { hasSupabaseAuthCookie } from "@/lib/supabase/proxy";
 import { createClient } from "@/lib/supabase/server";
+import { currentQuestionIds } from "@/lib/question-id-aliases";
 
 export const runtime = "nodejs";
 
@@ -64,8 +65,8 @@ async function handleGET(request: NextRequest) {
     bank,
     true,
     entitlements,
-    (savedRows ?? []).map((row) => row.question_id),
-    (attemptRows ?? []).map((row) => row.question_id),
+    currentQuestionIds(bank, (savedRows ?? []).map((row) => row.question_id)),
+    currentQuestionIds(bank, (attemptRows ?? []).map((row) => row.question_id)),
     userId,
     Boolean(savedError || attemptError),
   ), PRIVATE_RESPONSE_INIT);

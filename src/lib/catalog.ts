@@ -40,7 +40,7 @@ export const BANK_CATALOG = [
   bank({ slug: "igcse-coordinated-sciences-0654", qualification: "Cambridge IGCSE", subject: "Co-ordinated Sciences", title: "Co-ordinated Sciences 0654", shortName: "Co-ordinated Sciences 0654", syllabusCode: "0654", level: "Core and Extended", questionCount: 4721, paperCount: 238, years: "2020-2025", access: "paid-bank", productId: "bank_igcse_coordinated_sciences_0654", release: "gated", delivery: "hosted" }),
   ...(["ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "ib-chemistry-hl", "ib-chemistry-sl", "ib-physics-hl", "ib-physics-sl", "ib-biology-hl", "ib-biology-sl"] as const).map((slug) => {
     const table: Record<string, [string, string, string, number, number, string]> = {
-      "ib-hl": ["Mathematics AA", "Mathematics AA Higher Level", "HL", 841, 104, "2017-2026"], "ib-sl": ["Mathematics AA", "Mathematics AA Standard Level", "SL", 578, 62, "2017-2026"],
+      "ib-hl": ["Mathematics AA", "Mathematics AA Higher Level", "HL", 893, 110, "2017-2026"], "ib-sl": ["Mathematics AA", "Mathematics AA Standard Level", "SL", 596, 64, "2017-2026"],
       "ib-ai-hl": ["Mathematics AI", "Mathematics AI Higher Level", "HL", 409, 48, "2021-2025"], "ib-ai-sl": ["Mathematics AI", "Mathematics AI Standard Level", "SL", 334, 38, "2021-2025"],
       "ib-chemistry-hl": ["Chemistry", "Chemistry Higher Level", "HL", 1872, 84, "2016-2025"], "ib-chemistry-sl": ["Chemistry", "Chemistry Standard Level", "SL", 1412, 84, "2016-2025"],
       "ib-physics-hl": ["Physics", "Physics Higher Level", "HL", 1875, 84, "2016-2025"], "ib-physics-sl": ["Physics", "Physics Standard Level", "SL", 1314, 84, "2016-2025"],

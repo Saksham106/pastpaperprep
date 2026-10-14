@@ -10,7 +10,7 @@ import aaReport from "@/data/aa-official-subtopics/report.json";
 import granularOverlay from "@/data/math-granular-label-overlay.json";
 
 const raw = {
-  id: "m26-math-aasl-p1-tza-q4",
+  id: "2026-may-p1-tz1-q4",
   subject: "Mathematics: analysis and approaches SL",
   courseEra: "aa-sl",
   primaryTopic: "Number and algebra",
@@ -68,7 +68,7 @@ describe("official AA normal subtopics", () => {
     expect(question.subtopics).toContain("Standard form and orders of magnitude");
     expect(question.primaryTopic).toBe("Number and algebra");
     expect(question.granularLabels).toEqual([]);
-    expect(question.classificationProvenance?.oldSubtopics).toEqual(["Number systems and notation", "Sequences and series"]);
+    expect(question.classificationProvenance?.oldSubtopics).toEqual(["Sequences and series", "Number systems and notation"]);
   });
 
   it("composes official subtopic and secondary-topic filtering", () => {
@@ -127,7 +127,7 @@ describe("official AA normal subtopics", () => {
       expect(row.classificationProvenance?.oldSubtopics.length).toBeGreaterThan(0);
     }
     expect(aaOverlay.records.filter((record) => record.level === "SL" && record.status === "blocked")).toHaveLength(0);
-    expect(aaOverlay.records.filter((record) => record.level === "HL" && record.status === "blocked")).toHaveLength(6);
+    expect(aaOverlay.records.filter((record) => record.level === "HL" && record.status === "blocked")).toHaveLength(3);
   });
 
   it("covers exactly the current AA universe and keeps legacy granular assignments", () => {
@@ -135,13 +135,13 @@ describe("official AA normal subtopics", () => {
     const hl = normalizeBankQuestions("ib-hl", (rawHl as { questions: unknown[] }).questions as never[]);
     const currentSl = new Set(aaOverlay.records.filter((row) => row.level === "SL").map((row) => row.id));
     const currentHl = new Set(aaOverlay.records.filter((row) => row.level === "HL").map((row) => row.id));
-    expect(sl.filter((row) => currentSl.has(row.id))).toHaveLength(378);
-    expect(hl.filter((row) => currentHl.has(row.id))).toHaveLength(489);
-    expect(aaOverlay.records.filter((row) => row.status === "accepted")).toHaveLength(861);
-    expect(aaOverlay.records.filter((row) => row.status === "blocked")).toHaveLength(6);
+    expect(sl.filter((row) => currentSl.has(row.id))).toHaveLength(396);
+    expect(hl.filter((row) => currentHl.has(row.id))).toHaveLength(541);
+    expect(aaOverlay.records.filter((row) => row.status === "accepted")).toHaveLength(934);
+    expect(aaOverlay.records.filter((row) => row.status === "blocked")).toHaveLength(3);
     expect(aaReport.counts.primaryTopicCorrections).toBe(35);
     expect(aaReport.counts.crossTopicRows).toBe(2);
-    expect([...sl, ...hl].filter((question) => question.classificationProvenance?.legacyGranularLabels.length).length).toBe(69);
+    expect([...sl, ...hl].filter((question) => question.classificationProvenance?.legacyGranularLabels.length).length).toBe(66);
     for (const question of [...sl, ...hl]) {
       if (currentSl.has(question.id) || currentHl.has(question.id)) expect(question.granularLabels).toEqual([]);
     }

@@ -74,7 +74,7 @@ describe("POST /api/assets/sign", () => {
   it("signs paid assets and then atomically consumes the daily allowance", async () => {
     const response = await POST(new Request("https://pastpaperprep.com/api/assets/sign", {
       method: "POST",
-      body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "m26-math-aasl-p2-tza-q2", kind: "question" }] }),
+      body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "2026-may-p2-tz1-q2", kind: "question" }] }),
       headers: { "content-type": "application/json" },
     }));
 
@@ -112,7 +112,7 @@ describe("POST /api/assets/sign", () => {
       method: "POST",
       body: JSON.stringify({ bank: "ib-sl", requests: [
         { questionId: "2017-may-p1-tz1-q1", kind: "question" },
-        { questionId: "m26-math-aasl-p2-tza-q2", kind: "question" },
+        { questionId: "2026-may-p2-tz1-q2", kind: "question" },
       ] }),
       headers: { "content-type": "application/json" },
     }));
@@ -144,7 +144,7 @@ describe("POST /api/assets/sign", () => {
     rpc.mockImplementation((name: string) => Promise.resolve(name === "get_custom_bundle_access" ? { data: [], error: null } : { data: false, error: null }));
     const response = await POST(new Request("https://pastpaperprep.com/api/assets/sign", {
       method: "POST",
-      body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "m26-math-aasl-p1-tza-q4", kind: "question" }] }),
+      body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "2026-may-p1-tz1-q4", kind: "question" }] }),
       headers: { "content-type": "application/json" },
     }));
 
@@ -161,7 +161,7 @@ describe("POST /api/assets/sign", () => {
 
     const response = await POST(new Request("https://pastpaperprep.com/api/assets/sign", {
       method: "POST",
-      body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "m26-math-aasl-p2-tza-q2", kind: "question" }] }),
+      body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "2026-may-p2-tz1-q2", kind: "question" }] }),
       headers: { "content-type": "application/json" },
     }));
 
@@ -176,7 +176,7 @@ describe("POST /api/assets/sign", () => {
     createSignedUrls.mockRejectedValueOnce(new Error("NotFound"));
     const response = await POST(new Request("https://pastpaperprep.com/api/assets/sign", {
       method: "POST",
-      body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "m26-math-aasl-p2-tza-q2", kind: "question" }] }),
+      body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "2026-may-p2-tz1-q2", kind: "question" }] }),
       headers: { "content-type": "application/json" },
     }));
 

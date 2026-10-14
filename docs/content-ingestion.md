@@ -9,8 +9,8 @@ This is the operational source of truth for adding or rebuilding PastPaperPrep q
 | Bank | Source repository | Papers | Questions | Referenced WebP assets |
 | --- | --- | ---: | ---: | ---: |
 | Cambridge IGCSE Mathematics 0580 | `Saksham106/igcse-0580-topic-practice` | 217 | 3,967 | 7,934 |
-| IB Mathematics HL / AA HL | `Saksham106/ib-maths-aa-hl-topic-practice` | 104 | 841 | 3,022 |
-| IB Mathematics SL / AA SL | `Saksham106/ib-maths-aa-topic-finder` | 62 | 578 | 1,463 |
+| IB Mathematics HL / AA HL | `Saksham106/ib-maths-aa-hl-topic-practice` | 110 | 893 | 3,291 |
+| IB Mathematics SL / AA SL | `Saksham106/ib-maths-aa-topic-finder` | 64 | 596 | 1,560 |
 | IB Mathematics AI HL | `Saksham106/ib-maths-ai-hl-topic-practice` | 48 | 409 | 1,353 |
 | IB Mathematics AI SL | `Saksham106/ib-maths-ai-sl-topic-practice` | 38 | 334 | 1,002 |
 | Cambridge IGCSE Additional Mathematics 0606 | `Saksham106/igcse-additional-mathematics-0606-topic-practice` | 145 | 1,633 | 3,266 |
