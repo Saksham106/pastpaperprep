@@ -113,4 +113,3 @@ describe("IB Biology official syllabus subtopics", () => {
     expect(filterQuestions(hl, { topics: ["Populations, ecosystems and environmental change"] }).map((q) => q.id)).not.toContain("2024-may-tz2-hl-p3-q2");
   });
 });
-
