@@ -75,6 +75,14 @@ Custom Purge) before `verify`, or it will read the old copy.
     IB's own files (Word/Distiller producers, no repair, text identical). The papers.xtremepape.rs
     copies first used here carry an `xtremepape.rs` footer drawn as vector outlines, so they were
     replaced; `scan-source-watermarks.py` now flags such margin stamps.
+- 2026-10-14, xtremepape.rs footers: 167 Chemistry 0620 full-paper PDFs (mostly 2019-2020) carried a
+  vector-drawn `https://xtremepape.rs/` footer on every page. Topic crops were unaffected (all crops
+  end above the footer). 152 were replaced with Cambridge originals from Exam Easy and Best Exam Help.
+  For 15, every copy found was stamped (Best Exam Help on every page, Dynamic Papers, or Exam Easy's
+  regenerated FPDF files), and one Exam Easy copy (0620_s19_qp_21) broke question extraction. For
+  those 16, only the footer block was removed from our existing copy, and every rendered pixel
+  outside the footer was checked to be unchanged. Only document hashes changed, and all 4,918 PDFs
+  were re-verified.
   - 0580 June 2021 Paper 33: its sources were missing locally. Cambridge's published mark scheme
     prints `0580/31` on every page, but it is a different file from the 0580/31 scheme and its
     answers match 0580/33. It was accepted through a reviewed identity case (category

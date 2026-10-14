@@ -31,9 +31,12 @@ def foreign_domains(text: str, closing_page: bool) -> set[str]:
 
 
 def margin_stamp(page: pymupdf.Page) -> bool:
-    bottom = page.rect.height - MARGIN_PT
-    return any(d['rect'].y0 > bottom and d['rect'].x1 < page.rect.width / 3 and len(d['items']) > MIN_PATH_ITEMS
-               for d in page.get_drawings())
+    height = page.rect.height
+    corner = pymupdf.Rect(0, height - MARGIN_PT, page.rect.width / 3, height)
+    if not any(corner.contains(d['rect']) and len(d['items']) > MIN_PATH_ITEMS for d in page.get_drawings()):
+        return False
+    # Some originals carry clipped or off-page paths there; only count marks that actually render.
+    return min(page.get_pixmap(clip=corner, dpi=72, colorspace=pymupdf.csGRAY).samples) < 235
 
 
 def findings(path: Path) -> list[str]:
