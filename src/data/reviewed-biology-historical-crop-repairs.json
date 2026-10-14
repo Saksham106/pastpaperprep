@@ -4,9 +4,9 @@
  "namespace": "repairs/historical-crops-v1-08cb6b182b98620f",
  "source": {
   "repository": "igcse-biology-0610-topic-practice",
-  "commit": "a8360089723bc3278b9aab43dcb05d9ed2251656",
+  "commit": "b895cbefa422358b4bd49cb76ac630e1abec342a",
   "package": "data/segmentation/historical-crop-repairs/repairs.json",
-  "packageSha256": "08cb6b182b98620f4461bb356b6f5ee44bf3bedd77ebca9debc79723d48eedad"
+  "packageSha256": "5363acf52b4fbb93192656544402c9b144f8014012cd6f425dd2cf258799931c"
  },
  "entries": {
   "0610-2019-m-32-q1": {
@@ -3773,10 +3773,12 @@
      "6a91cb773227d35034b64a76aaf76ea3bbdf1084384bb6dc0a1c818dcd7cda24"
     ],
     "newPaths": [
+     "repairs/historical-crops-v1-08cb6b182b98620f/3462b4d1cd3ffc8fde945baf036fd8a1c57c5024c0a9321359e3772fcb141108.webp",
      "repairs/historical-crops-v1-08cb6b182b98620f/ae35c1a9231ba59273152893ed82f3813c9f683136731c25d67f45f26b7dc50d.webp",
      "repairs/historical-crops-v1-08cb6b182b98620f/5c45d3f5b8cde96d2e0a38b5026f7c8f9d2f0a6a20df00e807837f409a0544cb.webp"
     ],
     "sha256": [
+     "3462b4d1cd3ffc8fde945baf036fd8a1c57c5024c0a9321359e3772fcb141108",
      "ae35c1a9231ba59273152893ed82f3813c9f683136731c25d67f45f26b7dc50d",
      "5c45d3f5b8cde96d2e0a38b5026f7c8f9d2f0a6a20df00e807837f409a0544cb"
     ]

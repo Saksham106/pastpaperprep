@@ -2,7 +2,7 @@
   "schemaVersion": "reviewed-biology-historical-crop-repairs-readback-v1",
   "bank": "igcse-biology-0610",
   "storageState": "verified_readback",
-  "manifestSha256": "f320f0191d44305a417b61d4840e743b8e5edbe4b27fb561f5f68bc592e5ccd6",
+  "manifestSha256": "bba9edd61b8856b48744c5ec826dd15c0b64d58692223b4ebf8cfc5bc1bd1276",
   "completed": [
     "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2021-m-42/q1-ms-5-1.webp",
     "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2021-m-42/q3-ms-7-2.webp",
@@ -289,6 +289,7 @@
     "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/repairs/historical-crops-v1-08cb6b182b98620f/32ca5025f51b416aa32b2e6787ecff48dac3cdda7e29ea2e98fe31059f61f8dc.webp",
     "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/repairs/historical-crops-v1-08cb6b182b98620f/32e10934915f12012fea58a0072529d8424496f6e1d177418fe912f8a5275cb5.webp",
     "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/repairs/historical-crops-v1-08cb6b182b98620f/33b88bbee01b0261b8d308be18800fcb2c8eab684f8e34725bedf7781ce52f14.webp",
+    "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/repairs/historical-crops-v1-08cb6b182b98620f/3462b4d1cd3ffc8fde945baf036fd8a1c57c5024c0a9321359e3772fcb141108.webp",
     "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/repairs/historical-crops-v1-08cb6b182b98620f/34ac5bd937d75f852c7eba5a665a67af1d9fea9154043ae4d4eb582f760fd6d3.webp",
     "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/repairs/historical-crops-v1-08cb6b182b98620f/3567ca2de61f3473fa412ffcb832ab26b906cd227639c82980ab5a2a8969e261.webp",
     "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/repairs/historical-crops-v1-08cb6b182b98620f/357f7342699ea9e69e84fcee56df6b46e88fd98dad1014ec12efca7141fb6bcb.webp",
@@ -806,7 +807,7 @@
       "note": "byte-identical key/SHA-256/size in the finalized 0610 release manifest, covered by its verified receipt"
     },
     {
-      "scope": "repaired historical crops (new content-addressed keys)",
+      "scope": "repaired historical crops, first upload (new content-addressed keys)",
       "count": 626,
       "createdNew": 626,
       "method": "wrangler r2 object get --remote (OAuth): each key checked absent, uploaded create-only, then read back and compared by SHA-256 and size; no object overwritten",
@@ -815,6 +816,19 @@
       "readbackDates": [
         "2026-10-14"
       ]
+    },
+    {
+      "scope": "PR #292 review fix: 0610-2019-w-63-q1 mark-scheme page 4 (new content-addressed key)",
+      "count": 1,
+      "createdNew": 1,
+      "method": "wrangler r2 object get --remote (OAuth): each key checked absent, uploaded create-only, then read back and compared by SHA-256 and size; no object overwritten. check-absent, put, full read-back by SHA-256 and size, serialized by one local writer (an exclusive lock per uploader). Detects pre-existing different bytes before writing and corrupt bytes after writing. Not an atomic create: wrangler r2 object put has no conditional-create option, so a concurrent foreign writer between the check and the put cannot be ruled out.",
+      "readbackLog": "docs/0610-historical-crops-w63-r2-upload-log.jsonl",
+      "readbackLogSha256": "fad73a8af2fbf25f005bf3fca9f9c40e330ea018e19e66aca74ab26ceb330554",
+      "readbackDates": [
+        "2026-10-14"
+      ],
+      "uploadPlan": "docs/0610-historical-crops-w63-r2-upload-plan.json",
+      "uploadPlanSha256": "766ea0557f56bea715536d68a5e033b3192d94a0e359e6f67ca8fd0b0b749344"
     }
   ]
 }

@@ -14,6 +14,13 @@ Source: `igcse-biology-0610-topic-practice`, branch `fix/0610-historical-crops`.
 - **Also fixed in the same pass:**
   - `0610-2019-s-32-q6`: the answer `6 (g) ;` was read as a row, so Q6's mark scheme also showed Q9's page.
   - `0610-2023-w-31-q2`: a split had cut off the drawn 2(c) answer. Splits now close at the row's own table rule.
+- **First answer page (PR #292 review).** `0610-2019-w-63` heads its mark-scheme table `Question | Mark scheme | Mark | Guidance`. The source lane found the first answer page only by `Question | Answer`, so it fell back to page 5 and skipped page 4: 1(a)(i)–(iv), 1(b) and 1(c)(i), 10 of Q1's 18 marks. The lane now reads the header row itself and fails closed when no page prints one, or when a part row prints before it. `0610-2019-w-63-q1` serves MS pages 4–6.
+
+## Census (PR #292 review)
+
+- **Header variants.** All 210 written/practical mark schemes (2019–2026) print one of `Question | Answer | Marks | Guidance` (195), `Question | Answer | Marks` (11), `Question | Answer | Mark | Guidance` (2), `Question | Answer | Marks | Guidance Notes` (1, `0610-2019-w-41`) or `Question | Mark scheme | Mark | Guidance` (1, `0610-2019-w-63`). Only `0610-2019-w-63` had a wrong first answer page.
+- **Own-label coverage.** Checked for all 913 written/practical rows, as the app serves them (182 written-answer repair, 419 this overlay, 312 release crops). Each printed part row of the question in its original mark scheme must sit inside a served crop. Before the fix, 1 row failed: `0610-2019-w-63-q1`, 1(a)(i)–1(c)(i) on page 4. After the fix, none fail.
+- **Effect.** Only `0610-2019-w-63-q1` changes. Its page 5 and 6 crops are byte-identical, and every other crop, list and object is unchanged.
 
 ## Marks and text
 
@@ -27,7 +34,7 @@ The `paperException` header in the finalized runtime is historical and unchanged
 
 I chose an overlay over rebuilding the runtime. The 4,913 rows are a frozen, finalized baseline. Their runtime, the storage manifest/receipt pair and the private-index prefix are pinned by the May/June addition proof, by the Pollution and secondaries reseals, and by the written-answer repair test. The overlay leaves all of them byte-identical, as the written-answer repair did.
 
-- `src/data/reviewed-biology-historical-crop-repairs.json`: for each question it maps the exact live crop list to the repaired list. Kept crops keep their released key. New crops use `repairs/historical-crops-v1-08cb6b182b98620f/<sha256>.webp`, where the namespace is taken from the package SHA-256.
+- `src/data/reviewed-biology-historical-crop-repairs.json`: for each question it maps the exact live crop list to the repaired list. Kept crops keep their released key. New crops use `repairs/historical-crops-v1-08cb6b182b98620f/<sha256>.webp`. The namespace is the first package's SHA-256 prefix and is pinned: objects under it are content-addressed, so the review fix reuses the 626 uploaded objects and adds one.
 - `src/lib/reviewed-biology-historical-crops.ts` applies it in `normalizeQuestion`, so the viewer, signer, PDF export, asset manifest and free index all use it:
   - question crops, after the BLANK PAGE and furniture projections;
   - mark schemes, through `reviewedMarkschemePaths`;
@@ -48,9 +55,9 @@ That is 425 questions in total.
 
 ## Storage
 
-The upload plan is `data/storage/biology-historical-crop-repairs.manifest.json`: 626 new objects (9,519,292 bytes) plus 165 kept released objects.
+The upload plan is `data/storage/biology-historical-crop-repairs.manifest.json`: 627 new objects (9,540,034 bytes) plus 165 kept released objects.
 
-The 626 objects were uploaded create-only with the logged-in wrangler CLI, at concurrency 2 with backoff. For each object:
+The first 626 objects were uploaded create-only with the logged-in wrangler CLI, at concurrency 2 with backoff. For each object:
 
 1. The key was checked absent first: `get` exits 1 with "The specified key does not exist".
 2. It was uploaded with `--remote`, `image/webp` and `private, max-age=31536000, immutable`.
@@ -58,7 +65,9 @@ The 626 objects were uploaded create-only with the logged-in wrangler CLI, at co
 
 The readback log is `docs/0610-historical-crops-r2-upload-log.jsonl`, with one `verified` line per object.
 
-`data/storage/biology-historical-crop-repairs.receipt.json` is `verified_readback`. New objects are covered by the readback log, and the 165 kept objects by the finalized release receipt (`155a454e…`, manifest `651baec5…`), byte-identical.
+The review fix added one object, the `0610-2019-w-63-q1` page 4 crop (`3462b4d1…`, 20,742 bytes). Its plan is `docs/0610-historical-crops-w63-r2-upload-plan.json` (the manifest's new objects not verified in the first log) and its log `docs/0610-historical-crops-w63-r2-upload-log.jsonl`. Same rules, plus the single-writer lock from PR #288. The guarantee: check-absent, put, read-back by SHA-256 and size, serialized by one writer on this machine. It is not an atomic create, because `wrangler r2 object put` has no conditional create.
+
+`data/storage/biology-historical-crop-repairs.receipt.json` is `verified_readback` over 792 objects. New objects are covered by the two readback logs, and the 165 kept objects by the finalized release receipt (`155a454e…`, manifest `651baec5…`), byte-identical.
 
 Nothing was overwritten or deleted. The 1,848 released keys that the overlay stops serving are listed in `docs/0610-historical-crops-superseded-keys.json`. They stay in the bucket and in the finalized release manifest; deleting them needs owner approval.
 

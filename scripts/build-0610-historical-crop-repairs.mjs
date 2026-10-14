@@ -8,7 +8,10 @@
 // data/segmentation/historical-crop-repairs/repairs.json), built from the reviewed crop-override
 // ledgers. For every repaired question and role it lists the live crops and the repaired crops;
 // a repaired crop is either a live crop kept as is (it keeps its released key) or a new crop,
-// published under `repairs/historical-crops-v1-<package sha256[:16]>/<sha256>.webp`.
+// published under `repairs/historical-crops-v1-08cb6b182b98620f/<sha256>.webp`. The namespace was
+// taken from the first package's SHA-256 and is pinned: objects under it are content-addressed, so a
+// later package revision (the PR #292 review fix for 0610-2019-w-63-q1) reuses the uploaded objects
+// and adds only new ones.
 //
 // Writes:
 //   src/data/reviewed-biology-historical-crop-repairs.json   the overlay read by the app
@@ -40,7 +43,7 @@ const packageBytes = readFileSync(join(SOURCE, PACKAGE));
 const pkg = JSON.parse(packageBytes);
 if (pkg.artifact !== 'biology0610_historical_crop_repairs' || pkg.schema_version !== 1) throw new Error('unexpected source package');
 const packageSha256 = sha256(packageBytes);
-const namespace = `repairs/historical-crops-v1-${packageSha256.slice(0, 16)}`;
+const namespace = 'repairs/historical-crops-v1-08cb6b182b98620f'; // first package; pinned (see above)
 const sourceCommit = execFileSync('git', ['-C', SOURCE, 'log', '-1', '--format=%H', '--', PACKAGE], { encoding: 'utf8' }).trim();
 
 const runtimeBytes = read(`src/data/production/${BANK}.json`);

@@ -6,9 +6,9 @@
   "namespace": "repairs/historical-crops-v1-08cb6b182b98620f",
   "source": {
     "repository": "igcse-biology-0610-topic-practice",
-    "commit": "a8360089723bc3278b9aab43dcb05d9ed2251656",
+    "commit": "b895cbefa422358b4bd49cb76ac630e1abec342a",
     "package": "data/segmentation/historical-crop-repairs/repairs.json",
-    "packageSha256": "08cb6b182b98620f4461bb356b6f5ee44bf3bedd77ebca9debc79723d48eedad"
+    "packageSha256": "5363acf52b4fbb93192656544402c9b144f8014012cd6f425dd2cf258799931c"
   },
   "runtimeSha256": "2e5205370a81a2068bba1ab77deb887d5355229cc9cbdc638560c098a3c1a05f",
   "releaseAssetManifestSha256": "441957c5a03d0b7695108068aa2c4f685a10d369545f69a359f082b1093e97fd",
@@ -18,8 +18,8 @@
     "questionLists": 21,
     "markschemeLists": 419,
     "marks": 1,
-    "newObjects": 626,
-    "newBytes": 9519292,
+    "newObjects": 627,
+    "newBytes": 9540034,
     "keptObjects": 165,
     "supersededKeys": 1848,
     "markschemeDeferredToWrittenAnswerRepair": 182
@@ -1167,6 +1167,14 @@
       "sourcePath": "data/segmentation/historical-crop-repairs/assets/0610-2020-s-42/question/33b88bbee01b0261b8d308be18800fcb2c8eab684f8e34725bedf7781ce52f14.webp",
       "sha256": "33b88bbee01b0261b8d308be18800fcb2c8eab684f8e34725bedf7781ce52f14",
       "size": 25808,
+      "contentType": "image/webp"
+    },
+    {
+      "objectKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/repairs/historical-crops-v1-08cb6b182b98620f/3462b4d1cd3ffc8fde945baf036fd8a1c57c5024c0a9321359e3772fcb141108.webp",
+      "relativePath": "repairs/historical-crops-v1-08cb6b182b98620f/3462b4d1cd3ffc8fde945baf036fd8a1c57c5024c0a9321359e3772fcb141108.webp",
+      "sourcePath": "data/segmentation/historical-crop-repairs/assets/0610-2019-w-63/markscheme/3462b4d1cd3ffc8fde945baf036fd8a1c57c5024c0a9321359e3772fcb141108.webp",
+      "sha256": "3462b4d1cd3ffc8fde945baf036fd8a1c57c5024c0a9321359e3772fcb141108",
+      "size": 20742,
       "contentType": "image/webp"
     },
     {
