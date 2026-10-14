@@ -101,4 +101,15 @@ describe("IB Biology official syllabus subtopics", () => {
     const community = slArchive.papers.find((p) => p.summary.id === "biology-2022-may-tz1-sl-p1-english")!.questions.find((q) => q.id === "2022-may-tz1-sl-p1-q17");
     expect(community?.topics).toEqual(["Populations, ecosystems and environmental change"]);
   });
+
+  it("retrieves the printed-source corrections from the #286 review", () => {
+    const sl = normalizeBankQuestions("ib-biology-sl", ibBiologySlData.questions);
+    const hl = normalizeBankQuestions("ib-biology-hl", ibBiologyHlData.questions);
+    // 2021 SL P2 Q5(c) is a 3-mark autosomal recessive cross.
+    expect(filterQuestions(sl, { subtopics: ["Cell division and inheritance"] }).map((q) => q.id)).toContain("2021-may-tz2-sl-p2-q5");
+    // 2024 HL P3 Q2 assesses osmolarity and osmosis only; bacterial density is just a graph variable.
+    const osmosis = hl.find((q) => q.id === "2024-may-tz2-hl-p3-q2")!;
+    expect(osmosis.subtopics).toEqual(["Membranes and transport"]);
+    expect(filterQuestions(hl, { topics: ["Populations, ecosystems and environmental change"] }).map((q) => q.id)).not.toContain("2024-may-tz2-hl-p3-q2");
+  });
 });
