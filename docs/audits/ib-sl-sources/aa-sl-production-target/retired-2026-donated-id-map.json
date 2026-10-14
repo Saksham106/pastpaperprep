@@ -1,0 +1,54 @@
+{
+  "note": "The 36 May 2026 AA SL questions previously built from student-donated scans (m26-* ids, Zones A and C) are retired and replaced by the official IB May 2026 papers. Each old id maps to the official question with identical content: donated Zone A = official TZ1 and donated Zone C = official TZ3, same question number. Verified per question by matching the retired accessible transcript against the text inside the official question crop (every question's best match is its own number; marks equal) and by visual comparison of every question with the official PDF. Official TZ2 (18 questions) has no donated predecessor.",
+  "content_differences": [
+    {
+      "oldId": "m26-math-aasl-p1-c-q1",
+      "newId": "2026-may-p1-tz3-q1",
+      "difference": "The donated-scan transcript gave Grade 9 = 115 and Grade 10 = 178 students; the official paper prints 114 and 179 (total still 600). The official values are used; answers are unaffected."
+    },
+    {
+      "oldId": "m26-math-aasl-p2-tza-q9",
+      "newId": "2026-may-p2-tz1-q9",
+      "difference": "Wording of the net-gain example aligned with the official paper; question 9 is now an original official page image instead of the verified reconstruction."
+    }
+  ],
+  "mismatches": [],
+  "map": {
+    "m26-math-aasl-p1-tza-q1": "2026-may-p1-tz1-q1",
+    "m26-math-aasl-p1-tza-q2": "2026-may-p1-tz1-q2",
+    "m26-math-aasl-p1-tza-q3": "2026-may-p1-tz1-q3",
+    "m26-math-aasl-p1-tza-q4": "2026-may-p1-tz1-q4",
+    "m26-math-aasl-p1-tza-q5": "2026-may-p1-tz1-q5",
+    "m26-math-aasl-p1-tza-q6": "2026-may-p1-tz1-q6",
+    "m26-math-aasl-p1-tza-q7": "2026-may-p1-tz1-q7",
+    "m26-math-aasl-p1-tza-q8": "2026-may-p1-tz1-q8",
+    "m26-math-aasl-p1-tza-q9": "2026-may-p1-tz1-q9",
+    "m26-math-aasl-p1-c-q1": "2026-may-p1-tz3-q1",
+    "m26-math-aasl-p1-c-q2": "2026-may-p1-tz3-q2",
+    "m26-math-aasl-p1-c-q3": "2026-may-p1-tz3-q3",
+    "m26-math-aasl-p1-c-q4": "2026-may-p1-tz3-q4",
+    "m26-math-aasl-p1-c-q5": "2026-may-p1-tz3-q5",
+    "m26-math-aasl-p1-c-q6": "2026-may-p1-tz3-q6",
+    "m26-math-aasl-p1-c-q7": "2026-may-p1-tz3-q7",
+    "m26-math-aasl-p1-c-q8": "2026-may-p1-tz3-q8",
+    "m26-math-aasl-p1-c-q9": "2026-may-p1-tz3-q9",
+    "m26-math-aasl-p2-tza-q1": "2026-may-p2-tz1-q1",
+    "m26-math-aasl-p2-tza-q2": "2026-may-p2-tz1-q2",
+    "m26-math-aasl-p2-tza-q3": "2026-may-p2-tz1-q3",
+    "m26-math-aasl-p2-tza-q4": "2026-may-p2-tz1-q4",
+    "m26-math-aasl-p2-tza-q5": "2026-may-p2-tz1-q5",
+    "m26-math-aasl-p2-tza-q6": "2026-may-p2-tz1-q6",
+    "m26-math-aasl-p2-tza-q7": "2026-may-p2-tz1-q7",
+    "m26-math-aasl-p2-tza-q8": "2026-may-p2-tz1-q8",
+    "m26-math-aasl-p2-tza-q9": "2026-may-p2-tz1-q9",
+    "m26-math-aasl-p2-tzc-q1": "2026-may-p2-tz3-q1",
+    "m26-math-aasl-p2-tzc-q2": "2026-may-p2-tz3-q2",
+    "m26-math-aasl-p2-tzc-q3": "2026-may-p2-tz3-q3",
+    "m26-math-aasl-p2-tzc-q4": "2026-may-p2-tz3-q4",
+    "m26-math-aasl-p2-tzc-q5": "2026-may-p2-tz3-q5",
+    "m26-math-aasl-p2-tzc-q6": "2026-may-p2-tz3-q6",
+    "m26-math-aasl-p2-tzc-q7": "2026-may-p2-tz3-q7",
+    "m26-math-aasl-p2-tzc-q8": "2026-may-p2-tz3-q8",
+    "m26-math-aasl-p2-tzc-q9": "2026-may-p2-tz3-q9"
+  }
+}

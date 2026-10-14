@@ -2,8 +2,8 @@
 export const PUBLIC_BANK_INDEX_FILES = {
   "igcse": "igcse.v1-814b5b7a94f3.json",
   "igcse-additional": "igcse-additional.v1-c96b92f5c925.json",
-  "ib-hl": "ib-hl.v1-87d8fefdf821.json",
-  "ib-sl": "ib-sl.v1-2c25a684b6ce.json",
+  "ib-hl": "ib-hl.v1-e43f23851e1c.json",
+  "ib-sl": "ib-sl.v1-9f1cc94472d3.json",
   "ib-ai-hl": "ib-ai-hl.v1-9c41ae23c997.json",
   "ib-ai-sl": "ib-ai-sl.v1-903037e27239.json",
   "ib-chemistry-hl": "ib-chemistry-hl.v1-9fe83285a847.json",

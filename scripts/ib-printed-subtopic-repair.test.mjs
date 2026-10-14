@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import aliases from "../src/data/question-id-aliases.json" with { type: "json" };
 
 const root=process.cwd();
 const base="5e6abbe33cb1a0d23f5148f39824390ed58312dd";
@@ -16,12 +17,17 @@ const pinned=(path)=>JSON.parse(execFileSync("git",["show",`${base}:${path}`],{c
 describe("source-confirmed IB subtopic repair",()=>{
  it.each(pairs)("changes precisely the approved rows in %s",(path,ids)=>{
   const before=pinned(path),after=get(path),key=path.includes("aa-official")?"records":"rows";
-  expect(after[key].length).toBe(before[key].length);
+  // Later, separately reviewed change: the donated May 2026 AA rows were retired for the official papers.
+  const retired=path.includes("aa-official")?new Set(Object.values(aliases.banks).flatMap(map=>Object.keys(map))):new Set();
+  const added=after[key].filter(row=>row.provenance?.officialReview);
+  expect(new Set(before[key].filter(row=>!after[key].some(next=>next.id===row.id)).map(row=>row.id))).toEqual(retired);
+  expect(after[key].length).toBe(before[key].length-retired.size+added.length);
   const old=new Map(before[key].map(row=>[row.id,row]));
-  const changed=new Set(after[key].filter(row=>JSON.stringify(row)!==JSON.stringify(old.get(row.id))).map(row=>row.id));
+  const kept=after[key].filter(row=>!row.provenance?.officialReview);
+  const changed=new Set(kept.filter(row=>JSON.stringify(row)!==JSON.stringify(old.get(row.id))).map(row=>row.id));
   for(const id of ids)expect(changed.has(id)).toBe(true);
   if(path.includes("aa-official"))expect(changed).toEqual(ids);
-  for(const row of after[key]){
+  for(const row of kept){
    expect(old.has(row.id)).toBe(true);
    if(ids.has(row.id)){
     expect(row.provenance).toEqual(old.get(row.id).provenance);

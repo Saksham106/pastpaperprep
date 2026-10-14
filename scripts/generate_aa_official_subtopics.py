@@ -4,7 +4,7 @@ from __future__ import annotations
 import argparse, hashlib, json
 from pathlib import Path
 
-EXPECTED = {"SL": 378, "HL": 489}
+EXPECTED = {"SL": 396, "HL": 541}
 
 def sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -28,7 +28,7 @@ def main() -> None:
     if len(ids) != len(set(ids)):
         raise SystemExit("duplicate classification IDs")
     counts = {level: sum(record["level"] == level for record in records) for level in EXPECTED}
-    if counts != EXPECTED or len(records) != 867:
+    if counts != EXPECTED or len(records) != 937:
         raise SystemExit(f"target coverage drift: {counts}")
     raw_sl = json.loads((repo / "src/data/raw/ib-sl.json").read_text())["questions"]
     raw_hl = json.loads((repo / "src/data/raw/ib-hl.json").read_text())["questions"]
