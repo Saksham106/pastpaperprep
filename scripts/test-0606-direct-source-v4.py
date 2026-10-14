@@ -4,7 +4,7 @@ spec=importlib.util.spec_from_file_location('builder',HERE/'build-0606-direct-so
 class SourceBuildTests(unittest.TestCase):
  @classmethod
  def setUpClass(cls):
-  cls.bundle=json.loads((m.ROOT/'docs/0606-direct-source-input-v4.json').read_text());cls.raw=(m.ROOT/'src/data/raw/igcse-additional.json').read_bytes();cls.registry=json.loads((m.ROOT/'src/data/igcse-0606-numbered-subtopics.json').read_text())
+  cls.bundle=json.loads((m.ROOT/'docs/0606-direct-source-input-v4.json').read_text());cls.merged=(m.ROOT/'src/data/raw/igcse-additional.json').read_bytes();cls.receipts=[json.loads((m.ROOT/r).read_text()) for r,_ in m.ADDITIONS];cls.raw,cls.byraw=m.split_base(cls.merged,cls.receipts);cls.registry=json.loads((m.ROOT/'src/data/igcse-0606-numbered-subtopics.json').read_text())
  def test_exact_review_inventory_and_old_links(self):
   output,report=m.build(self.bundle,self.raw,self.registry);self.assertEqual(report['frozenReviewed'],623);self.assertEqual(report['inventory'],1633)
   by={r['id']:r for r in output['rows']}
@@ -36,6 +36,17 @@ class SourceBuildTests(unittest.TestCase):
  def test_self_consistent_source_tamper_is_rejected(self):
   b=copy.deepcopy(self.bundle);r=b['reviews'][0];r['sourceHashes']['QP']='0'*64;b['sourceBindings'][r['id']]['QP']='0'*64
   with self.assertRaisesRegex(AssertionError,'source binding seal drift'):m.build(b,self.raw,self.registry)
+ def test_additions_keep_historical_rows_and_reject_drift(self):
+  output,_=m.build(self.bundle,self.raw,self.registry);before=m.encoded(output['rows'])
+  receipt=self.receipts[0];path=m.ROOT/m.ADDITIONS[0][1];doc=json.loads(path.read_text());sha=m.digest(path.read_bytes())
+  merged=m.add_reviews(copy.deepcopy(output),receipt,doc,sha,self.byraw,self.registry)
+  old={r['id'] for r in output['rows']};self.assertEqual(m.encoded([r for r in merged['rows'] if r['id'] in old]),before)
+  self.assertEqual(sorted(r['id'] for r in merged['rows'] if r['id'] not in old),sorted(receipt['addedQuestionIds']))
+  bad=copy.deepcopy(doc);bad['reviews'][0]['sourceHashes']['QP']='0'*64
+  with self.assertRaisesRegex(AssertionError,'source hash drift'):m.add_reviews(copy.deepcopy(output),receipt,bad,sha,self.byraw,self.registry)
+  with self.assertRaisesRegex(AssertionError,'review input drift'):m.add_reviews(copy.deepcopy(output),receipt,doc,'0'*64,self.byraw,self.registry)
+  with self.assertRaisesRegex(AssertionError,'(base reconstruction|merged raw) drift'):m.split_base(self.merged.replace(b'"marks": 4,',b'"marks": 5,',1),self.receipts)
+  with self.assertRaisesRegex(AssertionError,'(base reconstruction|merged raw) drift'):m.split_base(self.merged.replace(b'0606-2016-june-11-q1"',b'0606-2016-june-11-q1x"',1),self.receipts)
  def test_byte_identical(self):
   one=m.build(self.bundle,self.raw,self.registry);two=m.build(self.bundle,self.raw,self.registry);self.assertEqual(m.encoded(one),m.encoded(two))
 if __name__=='__main__':unittest.main()

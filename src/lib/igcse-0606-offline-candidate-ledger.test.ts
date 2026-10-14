@@ -11,6 +11,7 @@ import { filterQuestions } from "./question-filter";
 import { loadBankQuestions } from "./question-fixtures";
 import { project0606Sections } from "./igcse-0606-subtopics.mjs";
 import { validateSourceIds } from "../../scripts/0606-offline-reconciliation.mjs";
+import { ADDED_0606_QUESTION_IDS, BASE_0606_RAW_SHA256 } from "./igcse-0606-additions.mjs";
 
 const root = process.cwd();
 const sha = (path: string) => createHash("sha256").update(readFileSync(resolve(root, path))).digest("hex");
@@ -36,6 +37,8 @@ describe("0606 offline candidate ledger", () => {
 
   test("pins exact source and rebuilds byte-identically without model calls", () => {
     expect(sha(ledger.sourceRaw.path)).toBe(ledger.sourceRaw.sha256);
+    expect(ledger.sourceRaw.baseSha256).toBe(BASE_0606_RAW_SHA256);
+    expect(ledger.sourceRaw.baseRowCount).toBe(1633);
     for (const input of Object.values(ledger.inputs)) expect(sha(input.path)).toBe(input.sha256);
     const script = resolve(root, "scripts/0606-offline-reconciliation.mjs");
     const first = execFileSync(process.execPath, [script], { encoding: "utf8" });
@@ -79,6 +82,9 @@ describe("0606 offline candidate ledger", () => {
       expect(sorted(filterQuestions(projected, { subtopics: [section.displayTitle] }).map(q => q.id)), section.code).toEqual(sorted(expected));
       for (const q of raw.questions) expect(rows.get(q.id)?.statementCodes.includes(section.code)).toBe(projections.get(q.id)!.codes.includes(section.code));
     }
-    expect(filterQuestions(loadBankQuestions("igcse-additional"), { subtopics: ["Calculus"] })).toHaveLength(454);
+    const calculus = filterQuestions(loadBankQuestions("igcse-additional"), { subtopics: ["Calculus"] });
+    // Historical 454 plus the seven reviewed Feb/March 2026 calculus rows.
+    expect(calculus.filter(q => !ADDED_0606_QUESTION_IDS.includes(q.id))).toHaveLength(454);
+    expect(calculus).toHaveLength(461);
   });
 });

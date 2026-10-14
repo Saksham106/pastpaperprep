@@ -35,6 +35,8 @@ describe("source-confirmed Biology furniture projection", () => {
     expect(q6.questionImageCount).toBe(2);
     expect(before.get(ids[1])).toHaveLength(4);
     expect(before.get(ids[2])).toHaveLength(5);
-    expect(receipt.completed).toHaveLength(13953);
+    // Hidden crops are omitted from viewing only: every original object stays in the verified 14,733-object release.
+    expect(receipt.completed).toHaveLength(14733);
+    for (const file of [...before.values()].flat()) expect(receipt.completed).toContain(`igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/${file}`);
   });
 });

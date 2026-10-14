@@ -1,5 +1,6 @@
 import { describe,expect,it } from 'vitest';
 import { readFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import type { BankSlug } from '@/lib/banks';
 import { normalizeBankQuestions,type UnifiedQuestion } from '@/lib/questions';
@@ -19,7 +20,7 @@ describe('source-grid verified written Biology answers',()=>{
     const after=normalizeBankQuestions('igcse-biology-0610',biology.questions as Array<Record<string,unknown>>,{economicsAssetMode:'private',applyReviewedBlankPages:true});
     const writtenChanged=after.filter((q,i)=>repairs[q.id]&&JSON.stringify(q.markschemeAssetPaths)!==JSON.stringify(before[i].markschemeAssetPaths));
     expect(writtenChanged.map(q=>q.id).sort()).toEqual(Object.keys(repairs).sort());
-    expect(writtenChanged).toHaveLength(182);expect(after).toHaveLength(4913);
+    expect(writtenChanged).toHaveLength(182);expect(after).toHaveLength(5211);
     expect(after.map(q=>q.id)).toEqual(before.map(q=>q.id));
     for(let i=0;i<after.length;i++)expect(stable(after[i])).toEqual(stable(before[i]));
     for(const q of writtenChanged){expect(q.markschemeAssetPaths).toEqual(repairs[q.id].newPaths.map(p=>'igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/'+p));expect(q.markschemeImageCount).toBe(repairs[q.id].newPaths.length);}
@@ -43,7 +44,13 @@ describe('source-grid verified written Biology answers',()=>{
     const receipt=JSON.parse(readFileSync('data/storage/biology-written-answer-repairs.receipt.json','utf8'))as{state:string;count:number;expectedCount:number;manifestSha256:string;completed:Array<Asset&{contentType:string}>};
     expect(receipt.state).toBe('verified_readback');expect(receipt.count).toBe(999);expect(receipt.expectedCount).toBe(999);expect(receipt.completed).toHaveLength(999);
     expect(receipt.manifestSha256).toBe(createHash('sha256').update(bytes).digest('hex'));
-    expect(manifest.runtimeSha256).toBe(createHash('sha256').update(readFileSync('src/data/production/igcse-biology-0610.json')).digest('hex'));
+    // The replacements were built against the finalized runtime published at 0a0b224 (main). Later
+    // metadata-only overlays and the pending 2026 May/June addition rewrite the file, so pin those bytes
+    // and require every repaired row to keep exactly the mark-scheme references it was built against.
+    const builtAgainst=execFileSync('git',['show','0a0b2246e269c03f81669548947d011c4f68b741:src/data/production/igcse-biology-0610.json'],{maxBuffer:200_000_000});
+    expect(manifest.runtimeSha256).toBe(createHash('sha256').update(builtAgainst).digest('hex'));
+    const builtRows=new Map((JSON.parse(builtAgainst.toString()).questions as Array<{id:string;markschemeImages:string[]}>).map(q=>[q.id,q.markschemeImages]));
+    for(const q of biology.questions as Array<{id:string;markschemeImages:string[]}>)if(repairs[q.id])expect(q.markschemeImages).toEqual(builtRows.get(q.id));
     expect(manifest.replacementCount).toBe(182);expect(manifest.logicalCropCount).toBe(1006);expect(manifest.uniqueObjectCount).toBe(999);
     const remote=new Map(receipt.completed.map(a=>[a.objectKey,a]));expect(remote.size).toBe(999);
     for(const a of manifest.assets)expect(remote.get(a.objectKey)).toEqual(expect.objectContaining({sha256:a.sha256,size:a.size,contentType:'image/webp'}));

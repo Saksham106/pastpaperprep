@@ -14,7 +14,8 @@ const byId = new Map(questions.map((question) => [question.id, question]));
 
 describe("0455 official 2026 section projection", () => {
   it("keeps every production ID, six topics, 39 official sections, and one honest earlier bucket", () => {
-    expect(source).toHaveLength(1723);
+    expect(source).toHaveLength(1862);
+    expect(source.filter((q) => q.year === 2026)).toHaveLength(139);
     expect(questions).toHaveLength(source.length);
     expect(new Set(questions.map((q) => q.id))).toEqual(new Set(source.map((q) => q.id)));
     expect(official.topics).toHaveLength(6);

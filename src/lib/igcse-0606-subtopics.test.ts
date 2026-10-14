@@ -19,7 +19,7 @@ describe("0606 additive source-backed subtopics", () => {
   });
   it("preserves every original subtopic's exact question IDs and runtime/index parity", () => {
     const rows = loadBankQuestions("igcse-additional");
-    expect(rows).toHaveLength(1633);
+    expect(rows).toHaveLength(1656); // 1,633 historical + 23 reviewed Feb/March 2026 rows
     const byId = new Map(rows.map(q => [q.id, q]));
     for (const label of new Set(raw.questions.flatMap(q => q.subtopics))) {
         expect(filterQuestions(rows, { subtopics: [label] }).map(q => q.id).sort()).toEqual(raw.questions.filter(q => q.subtopics.includes(label)).map(q => q.id).sort());

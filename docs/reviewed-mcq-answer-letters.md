@@ -109,4 +109,6 @@ The research files above (`evidence.json`, `review-renders/`, `scripts/`, …) s
 | Dropped, removed by the board | `0455-2026-s-11-q26` (`answers: []`); the loader still rejects empty `answers`. |
 | Notes normalized | A note that only restates a multi-letter answer is set to `null`, since the chip already reads "A or C": the four IB Chemistry November 2023 "A or C accepted" rows. |
 
+Re-import of 2026-10-14, once the 2026 papers landed with PR #282: same source overlay (`15d10333…`), imported overlay SHA-256 `56f8b685ae1f7e3752888775d25ff71627b6522fc419d5f81664b14232556849` (8,126 entries). It adds the 119 Economics 0455 2026 letters and the 240 Biology 0610 May/June 2026 letters (which agree with the official `answer` on those rows); `0455-2026-s-11-q26` is still dropped as removed by the board, and no row is dropped as not landed.
+
 The three excluded IB Physics SL rows have no entry, so they keep showing the official mark-scheme image. `src/lib/mcq-answer-letters.test.ts` pins the imported SHA-256.

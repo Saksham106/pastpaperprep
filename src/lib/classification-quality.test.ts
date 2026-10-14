@@ -6,6 +6,8 @@ import { filterQuestions } from "@/lib/question-filter";
 import { loadBankQuestions } from "@/lib/question-fixtures";
 import { getControlledSubtopics } from "@/lib/taxonomy";
 import { getControlledSubtopics as getDisplayedSubtopics } from "@/lib/taxonomy-router";
+import { ADDED_0606_QUESTION_IDS, ADDITIONS_0606 } from "@/lib/igcse-0606-additions.mjs";
+import { ADDED_0580_QUESTION_IDS, split0580Raw } from "@/lib/igcse-0580-additions.mjs";
 
 type AuditManifest = {
   manifestVersion: string;
@@ -232,7 +234,9 @@ describe("new-bank classification quality", () => {
   it("keeps every 0606 question in the controlled two-level syllabus taxonomy", () => {
     const questions = loadBankQuestions("igcse-additional");
 
-    expect(questions).toHaveLength(1633);
+    // 1,633 historical rows plus the reviewed Feb/March 2026 addition; every row is checked.
+    expect(questions).toHaveLength(1656);
+    expect(questions.filter((question) => ADDED_0606_QUESTION_IDS.includes(question.id))).toHaveLength(23);
     for (const question of questions) {
       const controlled = new Set(
         [question.primaryTopic, ...question.secondaryTopics].flatMap((topic) =>
@@ -287,11 +291,18 @@ describe("new-bank classification quality", () => {
       readFileSync(join(process.cwd(), "docs", "audits", `${bankSlug}-classification-2026-08.json`), "utf8"),
     ) as AuditManifest;
 
+    // The 2026-08 manifest is a historical receipt. Rows added after it are covered, row for row,
+    // by their own reviewed addition receipt; nothing may be covered by neither or both.
+    const additionRows = bankSlug === "igcse-additional"
+      ? new Map(ADDITIONS_0606.flatMap((addition) => addition.rows).map((row) => [row.id, row]))
+      : new Map<string, { sourceTextSha256: string }>();
     expect(manifest.reviewedQuestionCount).toBe(expectedCount);
     expect(Object.keys(manifest.corrections)).toHaveLength(expectedCount);
-    expect(new Set(Object.keys(manifest.corrections))).toEqual(new Set(questions.map((question) => question.id)));
+    expect(new Set([...Object.keys(manifest.corrections), ...additionRows.keys()])).toEqual(new Set(questions.map((question) => question.id)));
+    expect(Object.keys(manifest.corrections).filter((id) => additionRows.has(id))).toEqual([]);
+    expect(questions).toHaveLength(expectedCount + additionRows.size);
     for (const question of questions) {
-      const correction = manifest.corrections[question.id];
+      const correction = manifest.corrections[question.id] ?? additionRows.get(question.id);
       expect(correction?.sourceTextSha256, question.id).toBe(
         createHash("sha256").update(question.accessibleText).digest("hex"),
       );
@@ -1329,9 +1340,12 @@ describe("new-bank classification quality", () => {
       releaseGate: { status: "PASS", unresolvedTaxonomyGaps: 0 },
     });
     const extendedQuestions = raw.questions.filter((question) => question.route !== "Core");
-    expect(raw.questions).toHaveLength(3967);
+    // 3,967 historical rows plus the reviewed Core 2026 addition; the v2 release covers Extended only.
+    expect(raw.questions).toHaveLength(4174);
+    expect(split0580Raw(raw).base.questions).toHaveLength(3967);
+    expect(raw.questions.filter((question) => ADDED_0580_QUESTION_IDS.includes(question.id)).every((question) => question.route === "Core")).toBe(true);
     expect(extendedQuestions).toHaveLength(2684);
-    expect(new Set(raw.questions.map((question) => question.id)).size).toBe(3967);
+    expect(new Set(raw.questions.map((question) => question.id)).size).toBe(4174);
     expect(release.overlay.questionsSha256).toBe(manifest.questionsSha256);
     expect(manifest).toMatchObject({
       overlayVersion: "classification-v2-0580-overlay-1.0",

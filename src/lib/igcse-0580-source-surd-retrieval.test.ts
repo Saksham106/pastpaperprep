@@ -6,14 +6,19 @@ import { filterQuestions } from './question-filter';
 import { getSubtopicGroups } from './taxonomy-router';
 import { verified0580RetrievalAdditions } from './igcse-0580-source-retrieval.mjs';
 import { metadataFromRaw } from '../../scripts/generate-bank-index.mjs';
+import { ADDED_0580_QUESTION_IDS } from './igcse-0580-additions.mjs';
+// The reviewed Core 2026 rows are a later, receipt-pinned addition; their own source labels count.
+const added=new Set<string>(ADDED_0580_QUESTION_IDS);
 const raw = JSON.parse(readFileSync('src/data/raw/igcse.json','utf8')).questions;
 const targetIds = ['0580-2025-march-22-q18','0580-2025-november-22-q17'];
 test('source-owned geometric surds remain geometry questions and also retrieve under the existing Number filter',()=>{
  const before=JSON.stringify(raw);
  const qs=normalizeBankQuestions('igcse',raw);
- const oldIds=raw.filter((q:{subtopics:string[]})=>q.subtopics.includes('Indices and surds')).map((q:{id:string})=>q.id);
+ const labelled=raw.filter((q:{subtopics:string[]})=>q.subtopics.includes('Indices and surds')).map((q:{id:string})=>q.id);
+ const oldIds=labelled.filter((id:string)=>!added.has(id));
  expect(oldIds).toHaveLength(178);
- const expected=[...oldIds,...targetIds].sort();
+ expect(labelled.filter((id:string)=>added.has(id))).toHaveLength(8);
+ const expected=[...labelled,...targetIds].sort();
  expect(filterQuestions(qs,{subtopics:['Indices and surds']}).map(q=>q.id).sort()).toEqual(expected);
  for(const id of targetIds){
   const q=qs.find(q=>q.id===id)!;
@@ -27,7 +32,7 @@ test('source-owned geometric surds remain geometry questions and also retrieve u
   expect(indexed.subtopics).toEqual(q.subtopics);
   expect(indexed.skills).toEqual(q.skills);
  }
- expect(qs).toHaveLength(3967);
+ expect(qs).toHaveLength(4174);
  expect(getSubtopicGroups(qs,[],[]).all.filter(label=>!/^\d+\.\d+\s/.test(label))).toHaveLength(51);
  expect(JSON.stringify(raw)).toBe(before);
 });
@@ -51,7 +56,7 @@ test('changes only the declared runtime fields, with no aliases and independent 
   view.searchText=[view.primaryTopic,...view.secondaryTopics,...view.subtopics,...view.skills,view.summary,view.accessibleText,view.solution??''].join(' ').toLocaleLowerCase();
   return view;
  });
- expect(hash(legacyView.filter(q=>!targetIds.includes(q.id)))).toBe(sealed.unaffectedRowsSha256);
+ expect(hash(legacyView.filter(q=>!targetIds.includes(q.id)&&!added.has(q.id)))).toBe(sealed.unaffectedRowsSha256);
  for(const before of sealed.records){
   const q=legacyView.find(q=>q.id===before.id)!;
   expect(Object.keys(q).sort()).toEqual(before.keys);

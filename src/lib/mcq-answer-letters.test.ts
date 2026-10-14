@@ -72,7 +72,7 @@ describe("MCQ detection", () => {
 
 const OVERLAY_PATH = join(process.cwd(), "src", "data", "reviewed-mcq-answer-letters.json");
 // Imported 2026-10-13 from ../research/mcq-answer-letters-2026-10 (receipt: docs/reviewed-mcq-answer-letters.md).
-const OVERLAY_SHA256 = "a97275a9a5b0f5e09fa5db7a59ef7558989e09ae22687733c0a6fe2a28aebb91";
+const OVERLAY_SHA256 = "56f8b685ae1f7e3752888775d25ff71627b6522fc419d5f81664b14232556849";
 // The research folder sits beside the repository; from a worktree under .worktrees/ it is three levels up.
 const SOURCE_PATH = [["..", "research"], ["..", "..", "..", "research"]]
   .map((up) => join(process.cwd(), ...up, "mcq-answer-letters-2026-10", "reviewed-mcq-answer-letters.json"))
@@ -95,7 +95,8 @@ describe("reviewed MCQ answer letters file", () => {
     expect(receipt).toContain(SOURCE_SHA256);
     const counts = Object.fromEntries(Object.entries(REVIEWED_MCQ_ANSWER_LETTERS.banks).map(([bank, entries]) => [bank, Object.keys(entries ?? {}).length]));
     expect(counts).toEqual({
-      "igcse-economics-0455": 1465,
+      // 0455 includes its 119 2026 Paper 1 letters; 0610 is only the 240 May/June 2026 MCQs.
+      "igcse-economics-0455": 1584, "igcse-biology-0610": 240,
       "ib-biology-hl": 1200, "ib-biology-sl": 930,
       "ib-chemistry-hl": 1200, "ib-chemistry-sl": 900,
       "ib-physics-hl": 1200, "ib-physics-sl": 872,
@@ -127,8 +128,8 @@ describe("reviewed MCQ answer letters file", () => {
     const result = importReviewedMcqAnswerLetters(JSON.parse(source.toString("utf8")), (bank) => rows.get(bank) ?? []);
     expect(formatReviewedMcqAnswerLetters(result.letters)).toBe(readFileSync(OVERLAY_PATH, "utf8"));
     expect(result.removed).toEqual(["igcse-economics-0455:0455-2026-s-11-q26"]);
-    expect(result.unknown).toHaveLength(359);
-    expect(result.unknown.every((key) => /^(?:igcse-economics-0455:0455-2026-|igcse-biology-0610:0610-2026-s-)/.test(key))).toBe(true);
+    // Every reviewed row has landed: the 359 2026 rows held back at first import are in the bank now.
+    expect(result.unknown).toEqual([]);
   });
 
   it("names only existing multiple-choice questions", async () => {
@@ -245,7 +246,8 @@ describe("MCQ letter map", () => {
       for (const question of lettered) expect(map.get(question.id as string)).toEqual({ answers: [question.answer], note: null });
       total += map.size;
     }
-    expect(total).toBe(15_556);
+    // 15,556 before the 240 Biology 0610 May/June 2026 MCQs landed.
+    expect(total).toBe(15_796);
   });
 
   it("is empty for banks without MCQ papers", async () => {

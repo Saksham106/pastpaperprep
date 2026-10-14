@@ -1,12 +1,18 @@
 import { describe, expect, it } from "vitest";
 import source0606 from "@/data/print-geometry-0606.json";
+import addition0606 from "@/data/print-geometry-0606-2026-march.json";
+import { ADDED_0606_QUESTION_IDS } from "@/lib/igcse-0606-additions.mjs";
 import { planWholePdfImage } from "@/lib/pdf-export";
 import { printGeometryForSignedAssets } from "@/lib/print-geometry";
 
 describe("verified 0606 full-bank worksheet geometry", () => {
   it("joins and physically fits every source-backed QP and MS image without resizing or arbitrary slicing", () => {
-    const entries = Object.entries(source0606.entries);
-    expect(entries).toHaveLength(1633);
+    // Historical 1,633-pair receipt is unchanged; the reviewed 2026 March addition is a separate,
+    // non-overlapping file covering exactly the 23 added questions.
+    expect(Object.keys(source0606.entries)).toHaveLength(1633);
+    expect(Object.keys(addition0606.entries).sort()).toEqual([...ADDED_0606_QUESTION_IDS].sort());
+    expect(Object.keys(addition0606.entries).filter((id) => id in source0606.entries)).toEqual([]);
+    const entries = [...Object.entries(source0606.entries), ...Object.entries(addition0606.entries)];
     let tested = 0;
     let omitted = 0;
     for (const [questionId, pair] of entries) {
@@ -29,7 +35,7 @@ describe("verified 0606 full-bank worksheet geometry", () => {
         tested += 1;
       }
     }
-    expect(tested).toBe(3266);
+    expect(tested).toBe(3312);
     expect(omitted).toBe(19);
   });
 });

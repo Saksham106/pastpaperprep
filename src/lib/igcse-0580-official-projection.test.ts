@@ -18,8 +18,8 @@ const REVIEW = "Section not yet verified";
 
 describe("0580 official topic-first section projection", () => {
   it("keeps nine topics and all 51 legacy filters beside the accepted 72-section additive tree", () => {
-    expect(raw).toHaveLength(3967);
-    expect(new Set(questions.map((question) => question.id)).size).toBe(3967);
+    expect(raw).toHaveLength(4174); // 3,967 historical + 207 reviewed Core 2026 rows
+    expect(new Set(questions.map((question) => question.id)).size).toBe(4174);
     const topics = getTopicOptions(questions);
     expect(topics.slice(0, 9)).toEqual(["Number", "Algebra and graphs", "Coordinate geometry", "Geometry", "Mensuration", "Trigonometry", "Transformations and vectors", "Probability", "Statistics"]);
     expect(topics).toHaveLength(9);

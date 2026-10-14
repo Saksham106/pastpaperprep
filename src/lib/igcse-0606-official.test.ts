@@ -13,7 +13,7 @@ const historical = new Set(EARLIER_0606_SUBTOPICS);
 
 describe("0606 official topic projection", () => {
   it("preserves all source IDs, all 14 official headings, and the earlier-only group", () => {
-    expect(normalized).toHaveLength(1633);
+    expect(normalized).toHaveLength(1656); // 1,633 historical + 23 reviewed Feb/March 2026 rows
     expect(new Set(normalized.map((q) => q.id))).toEqual(new Set(source.map((q) => q.id)));
     expect(getTopicOptions(normalized)).toEqual([...OFFICIAL_0606_TOPICS, EARLIER_0606_TOPIC]);
     expect(source.every((q) => q.subtopics.length > 0 && q.subtopics.every((s) => current.has(s) || historical.has(s)))).toBe(true);
@@ -21,6 +21,7 @@ describe("0606 official topic projection", () => {
       const reviewedEquationIds = new Set([
         "0606-2025-march-22-q3", "0606-2025-june-11-q4",
         "0606-2025-june-12-q2", "0606-2025-june-23-q13",
+        "0606-2026-march-12-q10",
       ]);
       const expected = source.filter((q) => q.subtopics.includes(label)
         || (label === "Equations, inequalities and graphs" && reviewedEquationIds.has(q.id)))
@@ -82,5 +83,12 @@ describe("0606 official topic projection", () => {
     const reviewed = source.find((q) => q.id === "0606-2025-march-22-q3")!;
     expect(() => project0606Topics({ ...reviewed, year: 2026 })).toThrow(/source identity changed/);
     expect(() => project0606Topics({ ...reviewed, subtopics: ["Matrices"] })).toThrow(/source identity changed/);
+    const added = source.find((q) => q.id === "0606-2026-march-12-q10")!;
+    expect(project0606Topics(added)).toMatchObject({
+      primaryTopic: "Logarithmic and exponential functions",
+      secondaryTopics: expect.arrayContaining(["Equations, inequalities and graphs"]),
+    });
+    expect(() => project0606Topics({ ...added, year: 2025 })).toThrow(/source identity changed/);
+    expect(() => project0606Topics({ ...added, subtopics: ["Indices and surds", "Logarithmic and exponential functions"] })).toThrow(/source identity changed/);
   });
 });

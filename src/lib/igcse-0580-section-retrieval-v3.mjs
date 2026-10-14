@@ -9,7 +9,7 @@ export function inputFingerprint(raw) {
   for (const byte of new TextEncoder().encode(input)) hash = Math.imul(hash ^ byte, 0x01000193);
   return hex(hash);
 }
-if (overlay.schemaVersion !== 1 || overlay.expectedInventoryCount !== 3967 || overlay.officialSyllabusSha256 !== syllabus.sourcePdfSha256 || IGCSE_0580_TOPICS.length !== 9 || IGCSE_0580_SECTIONS.length !== 72) throw new Error("0580 section inventory/source drift");
+if (overlay.schemaVersion !== 1 || overlay.expectedInventoryCount !== 4174 || overlay.officialSyllabusSha256 !== syllabus.sourcePdfSha256 || IGCSE_0580_TOPICS.length !== 9 || IGCSE_0580_SECTIONS.length !== 72) throw new Error("0580 section inventory/source drift");
 const rows = new Map();
 for (const row of overlay.rows) {
   if (rows.has(row.id)) throw new Error(`Duplicate 0580 section overlay ID ${row.id}`);

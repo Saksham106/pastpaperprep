@@ -22,6 +22,7 @@ import { getAvailableBanks, isPrivateBankIndexEnabled } from "@/lib/banks";
 import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
 import { createPublicBankIndex, publicBankIndexUrl } from "@/lib/question-index";
 import { loadBankQuestions } from "@/lib/question-loader";
+import { normalizeBankQuestions } from "@/lib/questions";
 import { ensureAssetManifestForCurrentEnvironment } from "../../test/asset-manifest-fixture";
 import coordinatedRuntime from "@/data/production/igcse-coordinated-sciences-0654.json";
 import biologyRuntime from "@/data/production/igcse-biology-0610.json";
@@ -39,8 +40,8 @@ const RELEASE_ENVIRONMENT: Record<string, string> = {
 
 /** Frozen free-tier census for the private release banks: one documented older exam year each. */
 const PRIVATE_FREE = {
-  "igcse-biology-0610": { total: 4913, free: 685, unfinalized: true },
-  "igcse-economics-0455": { total: 1723, free: 241, unfinalized: true },
+  "igcse-biology-0610": { total: 5211, free: 685, unfinalized: true },
+  "igcse-economics-0455": { total: 1862, free: 241, unfinalized: true },
   "igcse-chemistry-0620": { total: 5129, free: 709 },
   "igcse-physics-0625": { total: 5789, free: 766 },
   "ib-economics-hl": { total: 111, free: 26 },
@@ -170,7 +171,16 @@ describe("private-bank free funnel", () => {
     for (const slug of slugs) {
       const filename = PUBLIC_BANK_INDEX_FILES[slug];
       const payload = JSON.parse(readFileSync(join(process.cwd(), "public", "bank-index", filename), "utf8"));
-      expect(payload).toEqual(createPublicBankIndex(slug, await loadBankQuestions(slug)));
+      // A pending storage release (the 0455 2026 addition until --finalize) must stay closed through
+      // the production loader; its static index is then checked against the sealed candidate,
+      // normalized exactly as the production loader would.
+      const pending = slug === "igcse-economics-0455"
+        && (economicsRuntime as unknown as { runtimeArtifact: { assetVerification: string } }).runtimeArtifact.assetVerification !== "verified_readback";
+      if (pending) await expect(loadBankQuestions(slug)).rejects.toThrow(/not backed by verified storage/);
+      const questions = pending
+        ? normalizeBankQuestions(slug, (economicsRuntime as unknown as { questions: never[] }).questions, { economicsAssetMode: "private", applyReviewedBlankPages: true })
+        : await loadBankQuestions(slug);
+      expect(payload).toEqual(createPublicBankIndex(slug, questions));
       const serialized = JSON.stringify(payload);
       for (const key of PROTECTED_INDEX_KEYS) expect(serialized).not.toContain(`"${key}"`);
     }

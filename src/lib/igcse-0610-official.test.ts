@@ -8,15 +8,25 @@ import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 import { displayedQuestionSubtopics } from "@/lib/presentation";
 import { metadataFromRaw } from "../../scripts/generate-bank-index.mjs";
 import { BIOLOGY_0610_EARLIER, BIOLOGY_0610_EARLIER_TOPIC, BIOLOGY_0610_SECTIONS, BIOLOGY_0610_TOPICS, project0610Sections } from "@/lib/igcse-0610-official.mjs";
+import secondaryTargets from "../../scripts/data/0610-extension-material-secondaries.json";
 
 type SourceRow = Parameters<typeof normalizeBankQuestions>[1][number] & { id: string; year: number; courseEra: string; primaryTopic: string; subtopics: string[]; secondaryTopics: string[] };
 const source = (JSON.parse(readFileSync(join(process.cwd(), "src/data/production/igcse-biology-0610.json"), "utf8")) as { questions: SourceRow[] }).questions;
 const questions = normalizeBankQuestions("igcse-biology-0610", source);
 const byId = new Map(questions.map((question) => [question.id, question]));
+/**
+ * 624 rows carry an earlier-syllabus label through their primary (or no stored address); no 2026 row
+ * can (its 2026_2028 codes must be current headings, or the projection throws). Mapping the
+ * extension rows' material secondaries adds exactly 57 more, all of them among the 200 secondary rows,
+ * because a 2019/2020 secondary heading without a current equivalent goes to the earlier bucket just
+ * as it does for a 2021-2025 row.
+ */
+const EARLIER_ROWS = 681;
+const secondaryIds = new Set(secondaryTargets.rows.map((row) => row.id));
 
 describe("0610 official 2026 student projection", () => {
   it("shows the full 21-topic/61-section current map plus one compact earlier group", () => {
-    expect(source).toHaveLength(4913);
+    expect(source).toHaveLength(5211);
     expect(BIOLOGY_0610_TOPICS).toHaveLength(21);
     expect(BIOLOGY_0610_SECTIONS).toHaveLength(61);
     expect(official.sections.map((row) => row.code)).toEqual(BIOLOGY_0610_SECTIONS.map((row) => row.code));
@@ -49,8 +59,13 @@ describe("0610 official 2026 student projection", () => {
       if (projected.historical) historical++;
       if (raw.year === 2026) { extension++; expect(projected.codeRefs.every((ref) => ref.startsWith("2026_2028:"))).toBe(true); }
     }
-    expect(extension).toBe(99);
-    expect(historical).toBe(624);
+    expect(extension).toBe(397); // 99 February/March + 298 May/June 2026 rows, all on current 2026_2028 headings
+    expect(historical).toBe(EARLIER_ROWS);
+    const primaryOnly = source.filter((raw) => project0610Sections(secondaryIds.has(raw.id) ? { ...raw, secondaryTopics: [], subtopics: raw.subtopics.slice(0, 1) } : raw).historical);
+    expect(primaryOnly).toHaveLength(624);
+    const viaSecondary = source.filter((raw) => project0610Sections(raw).historical && !primaryOnly.includes(raw));
+    expect(viaSecondary).toHaveLength(57);
+    expect(viaSecondary.every((raw) => secondaryIds.has(raw.id))).toBe(true);
   }, 60_000);
 
   it("retrieves source-backed current sections without dropping old URL or search aliases", () => {
@@ -59,14 +74,35 @@ describe("0610 official 2026 student projection", () => {
       expect(filterQuestions([...questions], { subtopics: [section.title] }).map((row) => row.id).sort()).toEqual(expected);
       expect(getSubtopicGroups(questions, [section.topic], []).relevant).toContain(section.title);
     }
-    expect(filterQuestions([...questions], { subtopics: [BIOLOGY_0610_EARLIER] })).toHaveLength(624);
-    expect(filterQuestions([...questions], { topics: [BIOLOGY_0610_EARLIER_TOPIC] })).toHaveLength(624);
+    expect(filterQuestions([...questions], { subtopics: [BIOLOGY_0610_EARLIER] })).toHaveLength(EARLIER_ROWS);
+    expect(filterQuestions([...questions], { topics: [BIOLOGY_0610_EARLIER_TOPIC] })).toHaveLength(EARLIER_ROWS);
     const old = source.find((raw) => raw.courseEra === "2020_2021" && raw.subtopics.includes("Cell structure and organisation"))!;
     const question = byId.get(old.id)!;
     expect(filterQuestions([...questions], { subtopics: ["Cell structure and organisation"] }).some((row) => row.id === old.id)).toBe(true);
     expect(filterQuestions([...questions], { search: "Cell structure and organisation" }).some((row) => row.id === old.id)).toBe(true);
     expect(displayedQuestionSubtopics(question)).not.toContain("Cell structure and organisation");
   }, 60_000);
+
+  it("retrieves 0610-2026-s-42-q4 under Homeostasis and its materially assessed secondaries (PR #282)", () => {
+    // 4(a) [1] elements in carbohydrates (4.1); 4(b)(i) [1+1] urea from the liver (13.1) and pepsin from the
+    // stomach (7.4); 4(b)(iii) [1] adrenaline (14.3). Homeostasis stays the primary.
+    const id = "0610-2026-s-42-q4";
+    const raw = source.find((row) => row.id === id)!;
+    const projected = project0610Sections(raw);
+    expect(projected.primaryTopic).toBe("Coordination and response");
+    expect(projected.visibleTitles[0]).toBe("Homeostasis");
+    expect(projected.codeRefs).toEqual(["2026_2028:14.4", "2026_2028:4.1", "2026_2028:13.1", "2026_2028:7.4", "2026_2028:14.3"]);
+    expect(byId.get(id)!.officialCodeRefs).toEqual(projected.codeRefs);
+    const found = (filters: Parameters<typeof filterQuestions>[1]) => filterQuestions([...questions], filters).some((row) => row.id === id);
+    for (const [code, title, topic] of [["14.4", "Homeostasis", "Coordination and response"], ["4.1", "Biological molecules", "Biological molecules"], ["13.1", "Excretion in humans", "Excretion in humans"], ["7.4", "Chemical digestion", "Human nutrition"]]) {
+      expect(BIOLOGY_0610_SECTIONS.find((section) => section.code === code)).toMatchObject({ title, topic });
+      expect(projected.visibleTitles).toContain(title);
+      expect(found({ subtopics: [title] })).toBe(true);
+      expect(found({ topics: [topic] })).toBe(true);
+      expect(found({ topics: [topic], subtopics: [title] })).toBe(true);
+    }
+    expect(found({ subtopics: ["Mitosis"] })).toBe(false);
+  });
 
   it("fails closed on changed section identity, missing address, or reused code across eras", () => {
     const current = source.find((raw) => raw.year === 2026)!;

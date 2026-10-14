@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 1,
+  "addition": "0606-2026-march",
+  "bank": "igcse-additional",
+  "field": "accessibleText",
+  "status": "reviewed",
+  "reviewedOn": "2026-10-13",
+  "method": "Each row was transcribed by reading its question crop (questionImage, a path in the source repository; questionImageSha256 is the crop registry hash). Wording, part labels and mark brackets follow the printed question; maths uses linear notation; diagrams get a short bracketed description of what is printed, never the answer. Page furniture (page numbers, barcodes, 'Question N is on the back page.') is omitted.",
+  "reason": "The delivered accessibleText was PDF text extraction: flattened maths (for example 'y x x 2 3 2 = - -' for y = |x^2 - 2x - 3|) and barcode control characters (U+0001 to U+0008). QuestionExplorer serves accessibleText as the screen-reader transcript.",
+  "supersedes": {
+    "path": "site/data/app-additions/igcse-additional-2026-march.json",
+    "sha256": "890ab91dc2868ad11081809d8958635b29ad9f30282e62b4f3ab625b48f8b091",
+    "note": "The app serves these transcriptions in place of the delivered accessibleText. The source repository file is unchanged and still hash-pinned; every other field of every delivered row is served verbatim."
+  },
+  "conventions": [
+    "Powers: x^2, e^(x-2), 8^(2x+1); inverse functions g^-1(x); units km h^-1, cm^2.",
+    "Fractions: a/b, with brackets around compound parts: (x^2 - 8)/(3 - x), 1/(2x).",
+    "Minus is the ASCII hyphen-minus; spaces around top-level operators, none inside exponent brackets.",
+    "Symbols as in the bank's well-formed maths rows: √, ≤, ≥, °, π, θ, ×, ∫; modulus |...|; log_5 x for a logarithm to base 5.",
+    "Column vectors are written (top, bottom) and noted as column vectors; a vector RS is written 'vector RS'.",
+    "Diagrams: [Diagram: ...] at the position they are printed."
+  ],
+  "rows": [
+    {
+      "id": "0606-2026-march-12-q1",
+      "questionImage": "site/questions/0606-2026-march-12-q1.webp",
+      "questionImageSha256": "4ecaff73e15a9394e46d6df29bd4a4464bfd34243475bbfe7f29c0bb4c7ead07",
+      "deliveredTextSha256": "d9cb26b759e07ac190b5bb19a05c19c8f5f03a4b1f695da808646cffd34cab5d",
+      "accessibleText": "1 A polynomial p is given by p(x) = 4x^3 + 8x^2 - x - 2. (a) Show that x + 2 is a factor of p(x). [1] (b) Solve the equation p(x) = 0. [3]"
+    },
+    {
+      "id": "0606-2026-march-12-q2",
+      "questionImage": "site/questions/0606-2026-march-12-q2.webp",
+      "questionImageSha256": "6d554f14ee9d96d7b9c00351fead696a351df7cd7a4e520984b42302e04ddec9",
+      "deliveredTextSha256": "6896a42d53c5f2df0167836ed0f8e4148bc1d11addc1c5d14dcb5e066d32ff3e",
+      "accessibleText": "2 (a) On the axes, sketch the graph of y = |x^2 - 2x - 3|. State the intercepts with the coordinate axes. [4] [Diagram: blank axes for the sketch, with the x-axis horizontal, the y-axis vertical and the origin O.] (b) The function g is defined by g(x) = 4e^(x-2) - 1 for all real x. Find an expression for g^-1(x). [2]"
+    },
+    {
+      "id": "0606-2026-march-12-q3",
+      "questionImage": "site/questions/0606-2026-march-12-q3.webp",
+      "questionImageSha256": "2dce0ed93fa7932bd4fc48f91e766c20d19c1d3b64405bc98f1b7f6f3fb71d7d",
+      "deliveredTextSha256": "861f27fedd4d1f29a290d0d237b4256638c89454d2a025e283e96c4b4d45bd19",
+      "accessibleText": "3 In this question, time t is in seconds and displacement s is in metres. A particle starts from rest at the origin O and moves in a straight line with constant positive acceleration. When t = 4, s = 6. (a) Draw the velocity-time graph for 0 ≤ t ≤ 4. [2] [Diagram: a grid with velocity on the vertical axis, marked 0, 2, 4 and 6, and time on the horizontal axis, marked 0, 2 and 4.] (b) Hence find the acceleration. [1]"
+    },
+    {
+      "id": "0606-2026-march-12-q4",
+      "questionImage": "site/questions/0606-2026-march-12-q4.webp",
+      "questionImageSha256": "fa349d8b435b96282fed213705afde431ec582774d153286287cc0449636301a",
+      "deliveredTextSha256": "705c34ddd14210a07cc52b313458d341ad4f64416a6c4760c711e81d7a376de8",
+      "accessibleText": "4 In an arithmetic progression: • the common difference is -2 • the sum of the first 4 terms is equal to the sum of the first 10 terms. Find the first term. [3]"
+    },
+    {
+      "id": "0606-2026-march-12-q5",
+      "questionImage": "site/questions/0606-2026-march-12-q5.webp",
+      "questionImageSha256": "fa4a1709b4f4fedca35ac6e354cd06613f4fb2eca2bdfbc9b4f672a859301fdc",
+      "deliveredTextSha256": "831ab090ccc13d0d95d1f379bd84860243a6ff44b69f8f5aa4b206f94a8a2f2d",
+      "accessibleText": "5 A curve has equation y = (x^2 - 8)/(3 - x). P and Q are the stationary points on the curve. Find dy/dx and the exact length of the line PQ. [7]"
+    },
+    {
+      "id": "0606-2026-march-12-q6",
+      "questionImage": "site/questions/0606-2026-march-12-q6.webp",
+      "questionImageSha256": "9611f4daa5d7987f43036ce81713183694cd8c5562b8457fd9f2a82e95ef942f",
+      "deliveredTextSha256": "424e729545ba20bb290f2af20778234b277fa435f4403ec519c8714a2ccf39da",
+      "accessibleText": "6 (a) Solve the equation |3x + 2| = 7. [3] (b) Solve the inequality |2x - 4| > |x + 1|. [4]"
+    },
+    {
+      "id": "0606-2026-march-12-q7",
+      "questionImage": "site/questions/0606-2026-march-12-q7.webp",
+      "questionImageSha256": "1e19f0ad358bd740e5a566395e850641294a27839bc34fa32b62bd18b3b0451f",
+      "deliveredTextSha256": "d994bcfb1d2ef6a42667e56f924493cd765fca28c0095ead3449e07a6b79a3e2",
+      "accessibleText": "7 The variables x and y are related by y = 3√x + 1/√x. Use calculus to find the approximate change in y when x increases from 4 to 4 + h, where h is small. [4]"
+    },
+    {
+      "id": "0606-2026-march-12-q8",
+      "questionImage": "site/questions/0606-2026-march-12-q8.webp",
+      "questionImageSha256": "e24fdefae8b809e03086320f5c2b35690f523d160992c6f88cf3e86fc4ce33ef",
+      "deliveredTextSha256": "b2e888494e437c346dcaa47778e1e416f3cc5ba611bd005522ce79cf661e4167",
+      "accessibleText": "8 A curve has equation y = xe^(2x+1). (a) Find dy/dx. [3] (b) The line L is the tangent to the curve at the point where x = 1/2. Find the exact coordinates of the two points where L meets the axes. [5] (c) Use your answer to 8(a) to find ∫ xe^(2x+1) dx. [4]"
+    },
+    {
+      "id": "0606-2026-march-12-q9",
+      "questionImage": "site/questions/0606-2026-march-12-q9.webp",
+      "questionImageSha256": "d7ed92966728f55e5cfb4565099c4186dfddda6df1f4b065389b5fb333e02fe5",
+      "deliveredTextSha256": "8f9955fa14115712c3afdc3ea061065fb8e5dc4a8ec662eafc402d4a846f095a",
+      "accessibleText": "9 (a) In this question, time is in seconds and distances are in metres. At time t = 0, particle A starts at the origin and moves with velocity (2, 1). At the same time, particle B starts from the point with position vector (-3, 4) and moves with velocity (4, -2). [The vectors are printed as column vectors.] (i) Write down the position vector of B at time t. [1] (ii) Determine whether or not the particles collide. [4] (b) The point Q has position vector 3i + 2j. The point R has position vector -i + 4j. The point S has position vector ai + bj, where a and b are integers. It is given that: • S lies on the straight line QR • |vector RS| = √5. Find the possible values of a and b. [5]"
+    },
+    {
+      "id": "0606-2026-march-12-q10",
+      "questionImage": "site/questions/0606-2026-march-12-q10.webp",
+      "questionImageSha256": "08d301304e3fea8e6135d14564ca12ccaa2a015ad5694834959efb38004b46cf",
+      "deliveredTextSha256": "149deab361f82c6bdf8ad11fa4da6f57a634e2e127a7553b45545f8fabed4d5c",
+      "accessibleText": "10 (a) Given that log_5(x^2) - log_5 x - 3 log_x 5 = 2, find x. [6] (b) Solve the equation 2 × 8^(2x+1) - 3 × 2^(3x+4) - 64 = 0. [4]"
+    },
+    {
+      "id": "0606-2026-march-12-q11",
+      "questionImage": "site/questions/0606-2026-march-12-q11.webp",
+      "questionImageSha256": "373eb189741a00244e2516e8f91d92dc74e402a4ac7cf608ffcc6bd4f5359ca5",
+      "deliveredTextSha256": "985d253032ea7103f47be72bd95eda3a8e0c704fbaade8ae2b9281ae68396cbd",
+      "accessibleText": "11 A curve has equation y = -x^2 + 3ax - 2a^2 where a is a positive constant. The area of the region enclosed by the curve and the x-axis is 9/16. Find the value of a. [6]"
+    },
+    {
+      "id": "0606-2026-march-12-q12",
+      "questionImage": "site/questions/0606-2026-march-12-q12.webp",
+      "questionImageSha256": "85d4241f274a354b03a6ac8477d3737c5a8685cdc4358aa045e1eb2702eb568c",
+      "deliveredTextSha256": "bf19526a1d45ad80d22f4444fad5e217c5afc61c63680ded346cdcfa4e199722",
+      "accessibleText": "12 Find the coordinates of the points of intersection of the circles with equations x^2 + 2x + y^2 - 4y - 20 = 0 and x^2 - 12x + y^2 - 6y + 20 = 0. [8]"
+    },
+    {
+      "id": "0606-2026-march-22-q1",
+      "questionImage": "site/questions/0606-2026-march-22-q1.webp",
+      "questionImageSha256": "0e6099382b9045b209ec0659cc3ed7748bce3735d903757a37520f7fb7c949af",
+      "deliveredTextSha256": "41604e86fd0ac3e5084b892c7a77b1f8cea74f50f3c06994f995b0057afc2a2c",
+      "accessibleText": "1 The function f is defined by f(x) = 2x^2 - 6x + 4 for all real values of x. (a) Write f(x) in the form a(x + b)^2 + c where a, b and c are constants. [3] (b) Hence find the range of f. [1] (c) The function g is defined by g(x) = 2x^2 - 6x + 4 for x ≤ k, where k is a constant. Given that g has an inverse, state the largest possible value of k. [1] (d) The function h is defined by h(x) = e^(3x) - 1 for x ≤ 0. Given that gh(x) exists, find gh(x), simplifying your answer. [3]"
+    },
+    {
+      "id": "0606-2026-march-22-q2",
+      "questionImage": "site/questions/0606-2026-march-22-q2.webp",
+      "questionImageSha256": "8af48f547357dcb7c5f47be39420510f7d9294ee64092e0537d9a094529f62c4",
+      "deliveredTextSha256": "dcc195aff761ea3cac523955a33e9ff4f03da2e873b88b8e44e3e7f0cd8cf0eb",
+      "accessibleText": "2 Points A and B have coordinates (1, 3) and (-7, 1). The point P with coordinates (2, a) lies on the perpendicular bisector of AB. (a) Find the value of a. [4] (b) The point Q is the reflection of P in the line AB. Find the coordinates of Q. [2]"
+    },
+    {
+      "id": "0606-2026-march-22-q3",
+      "questionImage": "site/questions/0606-2026-march-22-q3.webp",
+      "questionImageSha256": "edb2100bac9ad59918a8827b8df5d34191877537b6197082f4d993e2be3be312",
+      "deliveredTextSha256": "10546875ac710694cb566ee6cc3710b0232254d99046a180d0deffcfdcd7cdf5",
+      "accessibleText": "3 [Diagram: a grid with x marked from -4 to 4 and y marked from -6 to 8, showing the cubic curve, which crosses the x-axis at x = -2, x = 1 and x = 3 and the y-axis at y = 6.] The diagram shows the graph of y = (x + 2)(x - 1)(x - 3). By drawing a suitable line on the diagram, solve the inequality (x + 2)(x - 1)(x - 3) > 7. [4]"
+    },
+    {
+      "id": "0606-2026-march-22-q4",
+      "questionImage": "site/questions/0606-2026-march-22-q4.webp",
+      "questionImageSha256": "5e31afcdc564f5787a86a5f45c69b1ce2d93ec3f34a2070aaa45138742285fef",
+      "deliveredTextSha256": "dbbd51464b45c18bf428e6975b6ac2fd26383dd19e72a734a9cdc2554f61e00d",
+      "accessibleText": "4 (a) A 6-digit number is to be formed from the digits 1, 2, 3, 4, 5, 6, 7, 8, 9. No digit may be used more than once in any 6-digit number. Find how many 6-digit numbers can be formed in the following cases. (i) There are no further restrictions. [1] (ii) The 6-digit number includes the digit 4. [2] (b) A class contains 10 girls and 12 boys. A group of 6 students is to be selected from the class. There must be at least 2 girls and at least 2 boys in the group. Find the number of different selections that can be made. [3]"
+    },
+    {
+      "id": "0606-2026-march-22-q5",
+      "questionImage": "site/questions/0606-2026-march-22-q5.webp",
+      "questionImageSha256": "b87e880b94eee2076920849078c457f5982a1073b1ce9425b9fd932ff2ec42be",
+      "deliveredTextSha256": "8e5e29ffed69a0b65fd6846b44bcd3052570930d52c3ffb93efec4955885dd53",
+      "accessibleText": "5 The diagram shows a design for a badge. [Diagram: triangle ABC, with C at the top, drawn with dashed sides; each side is replaced by a circular arc bulging outwards, and the width from A to B is labelled x cm.] ABC is an equilateral triangle with side x cm. The arcs BC, CA and AB are parts of the circles with centres A, B and C respectively. (a) Write down the size of angle ABC in radians. Give your answer in terms of π. [1] (b) The area of the badge is 2(π - √3) cm^2. Find x. [5]"
+    },
+    {
+      "id": "0606-2026-march-22-q6",
+      "questionImage": "site/questions/0606-2026-march-22-q6.webp",
+      "questionImageSha256": "26c1b897af8db1ed792e1188dea5843fc52a66cb4a6d0b38b589337624f96e72",
+      "deliveredTextSha256": "48b653b50261105fda99f10f8a877202bb7ab98b3993dc1f169013322c77a3ff",
+      "accessibleText": "6 (a) The diagram shows part of the graph of y = 1 + tan((1/2)x) where x is measured in degrees. [Diagram: a grid with no scale marked, showing repeating branches of the curve separated by dashed vertical asymptotes; the asymptote labelled A is the second one to the right of the y-axis.] (i) Write down the period of 1 + tan((1/2)x). [1] (ii) Write down the equation of the asymptote A. [1] (b) On the axes below, sketch the graph of y = 3 cos 2x + 1 for -180° ≤ x ≤ 180°. [3] [Diagram: a blank grid with x marked at -180°, -90°, 0, 90° and 180°, and y marked from -6 to 6.]"
+    },
+    {
+      "id": "0606-2026-march-22-q7",
+      "questionImage": "site/questions/0606-2026-march-22-q7.webp",
+      "questionImageSha256": "db949a80f825974b50cb9730f79aec6e8b7c9342b35c718e41dfbb377b9cdae3",
+      "deliveredTextSha256": "62d43116b1147ca2296c93833060588e62c9f867936aba1d7ae03a1fd7449084",
+      "accessibleText": "7 A ship is sailing with speed v km h^-1. The sailing cost per hour, $C, is given by C = v^2 + 3000/v + 100. (a) Find the speed that makes C a minimum. Justify that this value of C is a minimum. [5] (b) Hence find the minimum sailing cost for a journey of 150 km. [3]"
+    },
+    {
+      "id": "0606-2026-march-22-q8",
+      "questionImage": "site/questions/0606-2026-march-22-q8.webp",
+      "questionImageSha256": "99292b0ba59479c2344652f8e863dd6052e65e079937d71369e2d6b37596867f",
+      "deliveredTextSha256": "6e44bee88cb0f0b086724ebce788d4edeac741376b0972a1f83bc523f42eaafa",
+      "accessibleText": "8 A circle has centre (-2, 0) and radius 5. A line has equation y = 2x + k, where k is a constant. The line does not meet the circle. Find the set of possible values of k. [8]"
+    },
+    {
+      "id": "0606-2026-march-22-q9",
+      "questionImage": "site/questions/0606-2026-march-22-q9.webp",
+      "questionImageSha256": "7c6e6470357a35d807d73baaad1053fafc1c4d0e36ea9f1debcb8e0b844c02b5",
+      "deliveredTextSha256": "1a2fbcb129cabce5d2cd316a9788b72688524122edb98bb3637514529119e18b",
+      "accessibleText": "9 (a) Show that tan θ + cot θ + 2 sec θ can be written as (1 + 2 sin θ)/(sin θ cos θ). [3] (b) Hence solve the equation tan 2x + cot 2x + 2 sec 2x = 0 for -180° ≤ x ≤ 180°. [4] (c) Solve the equation 3 sec(x - 1) - 1 = tan^2(x - 1) where x is in radians and -1 < x < 3. [5]"
+    },
+    {
+      "id": "0606-2026-march-22-q10",
+      "questionImage": "site/questions/0606-2026-march-22-q10.webp",
+      "questionImageSha256": "e604c67c072a31c984d1a4ef62966d1bf72e1421c2d341e166483e8eac1940c2",
+      "deliveredTextSha256": "86969e7c43aa1a4a0d7754d833511a742d8e8f17dd3cbea1388181da37991ec2",
+      "accessibleText": "10 In this question time t is in seconds and displacement s is in metres. For t ≥ 0, a particle moves on the positive x-axis. At time t the acceleration of the particle is 2t - 9. At time t = 7 the velocity of the particle is 4. (a) Find the times when the velocity of the particle is 0. [4] (b) At time t = 12, the displacement of the particle from the origin O is 150. (i) Find an expression for the displacement of the particle at time t. [3] (ii) Find the distance travelled by the particle in the first 6 seconds. [3]"
+    },
+    {
+      "id": "0606-2026-march-22-q11",
+      "questionImage": "site/questions/0606-2026-march-22-q11.webp",
+      "questionImageSha256": "7416ad294fce226d3691e377241624b645581e7280949851db899d90323540ad",
+      "deliveredTextSha256": "72ef8e33fe4cb136f90c7546de528ac2a7fd67d4d5f997b2518dffb256b83117",
+      "accessibleText": "11 (a) Find, in descending powers of x, the first three terms in the expansion of (x^2 + 1/(2x))^9. Give each term in its simplest form. [3] (b) The expansion of (x^2 + 1/(2x))^n, where n is a positive integer, has a term that is independent of x. Show that n is divisible by 3. [4]"
+    }
+  ]
+}

@@ -4,6 +4,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SECTIONS_0606, project0606Sections } from "../src/lib/igcse-0606-subtopics.mjs";
+import { ADDITIONS_0606, split0606Raw } from "../src/lib/igcse-0606-additions.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const paths = {
@@ -12,8 +13,12 @@ const paths = {
   multiOverlay: "src/data/igcse-0606-multilabel-section-overlay.json",
   granularOverlay: "src/data/math-granular-label-overlay.json",
 };
+// The historical source pin is the 1,633-row base bank; reviewed additions are verified by
+// split0606Raw against their receipts (docs/igcse-0606-2026-march-addition.json).
+const BASE_SOURCE_SHA256 = "4d385d4ee951a313608075415b95e5e7fb63805823760328b1853c3e145ce87f";
+const MERGED = ADDITIONS_0606.at(-1).merged;
 const expected = {
-  source: "4d385d4ee951a313608075415b95e5e7fb63805823760328b1853c3e145ce87f",
+  source: MERGED.rawSha256,
   taxonomy: "d6c30fcb6afce7545be125c1baee2c77c93f1b9ab748649a06cdc9e83d8f3772",
   multiOverlay: "04f5d04045909e026ae5a467a48fd27dddb379698a7d181da79d74e3b1483c83",
   granularOverlay: "b6e4d6d62baada65de7a9f9e6fd84275f4e011c3835cdf456994944774daf6e3",
@@ -21,12 +26,15 @@ const expected = {
 const load = (p) => JSON.parse(readFileSync(resolve(root, p), "utf8"));
 const hash = (p) => createHash("sha256").update(readFileSync(resolve(root, p))).digest("hex");
 export function validateSourceIds(ids) {
-  if (ids.length !== 1633 || ids.some((id) => !id) || new Set(ids).size !== 1633) throw new Error("0606 raw source row/ID integrity failure");
+  if (ids.length !== MERGED.questionCount || ids.some((id) => !id) || new Set(ids).size !== MERGED.questionCount) throw new Error("0606 raw source row/ID integrity failure");
   return true;
 }
 export function buildLedger() {
   for (const [key, path] of Object.entries(paths)) if (hash(path) !== expected[key]) throw new Error(`${key} source hash drift: ${hash(path)}`);
-  const raw = load(paths.source).questions;
+  const payload = load(paths.source);
+  const { base } = split0606Raw(payload);
+  if (ADDITIONS_0606.some((addition) => addition.base.rawSha256 !== BASE_SOURCE_SHA256) || base.questions.length !== 1633) throw new Error("0606 historical base pin drift");
+  const raw = payload.questions;
   const taxonomy = load(paths.taxonomy);
   const ids = raw.map((q) => q.id);
   validateSourceIds(ids);
@@ -61,7 +69,8 @@ export function buildLedger() {
   return {
     schemaVersion: "0606-offline-candidate-reconciliation-v2", candidateOnly: true, releaseEnabled: false,
     syllabus: { url: taxonomy.sourcePdfUrl, sha256: taxonomy.sourcePdfSha256, examYears: [2025, 2026, 2027], topicCount: 14, numberedStatementCount: 67 },
-    sourceRaw: { path: paths.source, sha256: expected.source, rowCount: raw.length },
+    sourceRaw: { path: paths.source, sha256: expected.source, rowCount: raw.length, baseSha256: BASE_SOURCE_SHA256, baseRowCount: base.questions.length,
+      additions: ADDITIONS_0606.map((addition) => ({ addition: addition.addition, receipt: "docs/igcse-0606-2026-march-addition.json", rowCount: addition.addedQuestionCount })) },
     inputs: Object.fromEntries(Object.entries(paths).map(([k,p]) => [k, { path:p, sha256:expected[k] }])),
     method: "Pinned raw source plus existing deterministic projector and overlays; stored model overlay links are explicit unapproved proposals; no new model calls.",
     counts: { sourceQuestionRows: rows.length, uniqueQuestionIds: new Set(ids).size, topics: 14, statements: 67, oldFineFilterSet: fineFilters, anyProjectionCandidate: rows.filter((r) => r.statementCodes.length).length, deterministicProjectionCandidate: rows.filter((r) => r.deterministicRuleEvidence.codes.length).length, modelProposalCandidate: rows.filter(r=>r.modelProposals.length).length, unresolvedNoSupportedSection: rows.filter((r) => !r.statementCodes.length).length, sourceAdjudicated: 0, perStatementCandidateRows, perOfficialTopicRows }, rows,
