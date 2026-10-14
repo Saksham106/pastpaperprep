@@ -38,6 +38,23 @@ describe("cleanAccessibleText", () => {
     expect(cleanAccessibleText("1. [Maximum mark: 6]\n\nIn a group of 20 students\n\n\n\n(a) Find")).toBe("1. [Maximum mark: 6]\n\nIn a group of 20 students\n\n(a) Find");
   });
 
+  const NOTICE = "Permission to reproduce items where third-party owned material protected by copyright is included has been sought and cleared where possible. Every reasonable effort has been made by the publisher (UCLES) to trace copyright holders, but if any items requiring clearance have unwittingly been included, the publisher will be pleased to make amends at the earliest possible opportunity. To avoid the issue of disclosure of answer-related information to candidates, all copyright acknowledgements are reproduced online in the Cambridge Assessment International Education Copyright Acknowledgements Booklet. This is produced for each series of examinations and is freely available to download at www.cambridgeinternational.org after the live examination series. Cambridge Assessment International Education is part of the Cambridge Assessment Group. Cambridge Assessment is the brand name of the University of Cambridge Local Examinations Syndicate (UCLES), which itself is a department of the University of Cambridge.";
+
+  it("keeps a whole question that the extractor placed after the copyright notice (review: 0625-2021-s-33-q11)", () => {
+    const question = "11 Nitrogen-13 is a radioactive isotope. The table shows the count rate. Calculate the half-life. [5]";
+    expect(cleanAccessibleText(`${NOTICE} ${question}`)).toBe(question);
+  });
+
+  it("keeps a continuation that sits between the notice sentences and after them", () => {
+    const [first, ...rest] = NOTICE.split(". ");
+    const text = `2 (a) Describe the test. [2] ${first}. (b) Calculate the percentage of water. [3] ${rest.join(". ")} (c) State the reagent. [1]`;
+    expect(cleanAccessibleText(text)).toBe("2 (a) Describe the test. [2] (b) Calculate the percentage of water. [3] (c) State the reagent. [1]");
+  });
+
+  it("removes the newer Cambridge University Press & Assessment notice with typographic hyphens and ligatures", () => {
+    expect(cleanAccessibleText(`D 30 years ${"Permission to reproduce items where third‑party owned material protected by copyright is included has been sought and cleared where possible. Every reasonable eﬀort has been made by the publisher (Cambridge University Press & Assessment) to trace copyright holders, but if any items requiring clearance have unwittingly been included, the publisher will be pleased to make amends at the earliest possible opportunity. To avoid the issue of disclosure of answer‑related information to candidates, all copyright acknowledgements are reproduced online in our Copyright Acknowledgements Booklet. This is produced for each series of examinations and is freely available to download at www.cambridgeinternational.org after the live examination series. Cambridge International Education is the name of our awarding body and a part of Cambridge University Press & Assessment, which is a department of the University of Cambridge."} BLANK PAGE`)).toBe("D 30 years");
+  });
+
   it("does not treat a short run of accented letters as a barcode", () => {
     expect(cleanAccessibleText("Łódź is a city.")).toBe("Łódź is a city.");
   });
