@@ -20,6 +20,7 @@ export const PRICING_TESTIMONIALS: readonly Testimonial[] = [
 
 const BANK_TESTIMONIALS: readonly Testimonial[] = [
   { quote: "Best part: the questions are grouped by topic so I can drill my weak spots.", name: "Emre Y.", detail: "IB DP Year 1, Turkey" },
+  { quote: "The mark schemes being right there saved me so much arguing with myself.", name: "Hana K.", detail: "IB DP Year 2, Japan" },
 ];
 
 const BIOLOGY_TOPIC_TESTIMONIAL: Testimonial = { quote: "Cambridge IGCSE biology topic search is scary accurate.", name: "Carlos V.", detail: "Cambridge IGCSE Biology, Mexico" };

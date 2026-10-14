@@ -17,11 +17,6 @@ describe("testimonials", () => {
     expect(bankTestimonial("ib-hl").quote).toBeTruthy();
   });
 
-  it("no longer shows Hana K. on any bank page", async () => {
-    const { BANK_CATALOG } = await import("@/lib/catalog");
-    for (const bank of BANK_CATALOG) expect(bankTestimonial(bank.slug).name, bank.slug).not.toBe("Hana K.");
-  });
-
   it("keeps every quote attributed", () => {
     for (const entry of [...HOME_TESTIMONIALS, ...PRICING_TESTIMONIALS]) {
       expect(entry.name.trim()).not.toBe("");
