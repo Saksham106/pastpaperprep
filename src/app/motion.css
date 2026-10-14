@@ -20,11 +20,10 @@
   .question-images img, .answer-panel img { animation: motion-fade-in 240ms ease-out both; }
 
   /* Press feedback on study controls and bank cards. */
-  .answer-toggle, .load-more, .text-button, .study-icon-button, .mobile-filter-button, .more-filters-button,
-  .dashboard-bank-card, .search-bank-card, .curriculum-bank-links a { transition: transform 120ms ease; }
+  .answer-toggle, .load-more, .text-button, .study-icon-button, .mobile-filter-button, .more-filters-button, .search-bank-card, .curriculum-bank-links a { transition: transform 120ms ease; }
   .answer-toggle:active, .load-more:active, .text-button:active, .study-icon-button:active,
   .mobile-filter-button:active, .more-filters-button:active { transform: scale(.97); }
-  .dashboard-bank-card:active, .search-bank-card:active, .curriculum-bank-links a:active { transform: scale(.99); }
+  .search-bank-card:active, .curriculum-bank-links a:active { transform: scale(.99); }
 
   /* Image placeholder sweep: transform instead of background-position, so it stays on the compositor. */
   .asset-placeholder .placeholder-shimmer { background-size: 100% 100%; animation: motion-sweep 1.4s ease-in-out infinite; }

@@ -4,6 +4,7 @@ import { createHash } from 'node:crypto';
 import type { BankSlug } from '@/lib/banks';
 import { normalizeBankQuestions, type UnifiedQuestion } from '@/lib/questions';
 import { reviewedMarkschemePaths } from '@/lib/reviewed-mcq-answer-repairs';
+import { cleanSourceCropPaths } from '@/lib/clean-source-crops';
 import { authorizeAssetRequests } from '@/lib/asset-access';
 import { BANK_PRODUCTS, canViewAnswer } from '@/lib/access';
 import { metadataFromRaw } from '../../scripts/generate-bank-index.mjs';
@@ -33,7 +34,7 @@ describe('exact active science MCQ row projection',()=>{
       for(let i=0;i<after.length;i++)expect(stable(after[i])).toEqual(stable(before[i]));
       const rawById=new Map(raw.questions.map(q=>[q.id,q]));
       for(const q of changed){
-        expect(q.markschemeAssetPaths).toEqual(repairs[bank][q.id].newPaths.map(p=>manifest.banks[bank].objectPrefix+p));
+        expect(q.markschemeAssetPaths).toEqual(cleanSourceCropPaths(bank,repairs[bank][q.id].newPaths).map(p=>manifest.banks[bank].objectPrefix+p));
         expect(q.markschemeImageCount).toBe(1);
         expect(metadataFromRaw(rawById.get(q.id),{bank,normalizedProduction:true}).markschemeImageCount).toBe(1);
       }

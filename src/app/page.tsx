@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { MarketingHome } from "@/components/MarketingHome";
+import { MarketingHome, type HomePaperLinks } from "@/components/MarketingHome";
+import { hubBanks } from "@/lib/past-paper-pages";
 import { InviteHandoff } from "@/components/InviteHandoff";
 import { JsonLd } from "@/components/JsonLd";
 import { SOCIAL_IMAGE } from "@/lib/seo";
@@ -17,7 +18,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
+  // Read at build: the page stays static.
+  const papers: HomePaperLinks = Object.fromEntries((await hubBanks()).map((bank) => [bank.bankSlug, { href: `/past-papers/${bank.subjectSlug}`, count: bank.paperCount }]));
   return (
     <>
       <InviteHandoff />
@@ -41,7 +44,7 @@ export default function Home() {
           },
         ],
       }} />
-      <MarketingHome />
+      <MarketingHome papers={papers} />
     </>
   );
 }

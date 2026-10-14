@@ -27,40 +27,12 @@
   }
 }
 
-/* Picker bar (HeroPicker) */
-.picker { width: min(640px, 100%); padding: 6px; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 6px; background: #fafaf7; border: 1px solid #d8d8d1; border-radius: 16px; box-shadow: 0 18px 40px -26px rgb(24 35 59 / .45); text-align: left; }
-.pickerToggle { display: grid; grid-auto-flow: column; gap: 2px; }
-.pickerToggle button { min-height: 44px; padding: 0 16px; color: #66645f; background: transparent; border: 0; border-radius: 10px; font: 820 .9rem/1 var(--font-body); cursor: pointer; transition: background-color 140ms ease, color 140ms ease; }
-.pickerToggle button:hover { color: #191917; background: #efe9dd; }
-.pickerToggle button[aria-pressed="true"] { color: #fafaf7; background: #191917; }
-.pickerField { position: relative; min-width: 0; padding: 4px 12px; border-left: 1px solid #d8d8d1; }
-.pickerField label { display: block; color: #66645f; font: 700 .62rem/1 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; }
-.pickerField select { width: 100%; min-height: 36px; padding: 2px 22px 0 0; color: #191917; background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 256 256'%3E%3Cpath fill='%2366645f' d='M216.49 104.49l-80 80a12 12 0 0 1-17 0l-80-80a12 12 0 0 1 17-17L128 159l71.51-71.52a12 12 0 0 1 17 17Z'/%3E%3C/svg%3E") no-repeat right 2px center; border: 0; appearance: none; font: 650 1rem/1.2 var(--font-body); cursor: pointer; }
-.pickerToggle button:focus-visible, .pickerField select:focus-visible, .pickerGo:focus-visible { outline: 3px solid color-mix(in srgb, #2f5bea 55%, transparent); outline-offset: 2px; }
-.pickerGo { min-height: 48px; padding: 0 20px; display: inline-flex; align-items: center; gap: 8px; color: #fff; background: #2f5bea; border-radius: 11px; font-weight: 800; white-space: nowrap; box-shadow: 0 8px 20px -10px rgb(47 91 234 / .7); transition: background-color 140ms ease, transform 140ms ease; }
-.pickerGo:hover { background: #2347bd; }
-.pickerGo:active { transform: translateY(1px); }
 
 /* 3. Catalog: toggle and colour-block subject cards */
 .banks { padding: 40px 0 96px; scroll-margin-top: 86px; }
 .qualificationTabs { display: flex; gap: 8px; margin-bottom: 18px; }
 .qualificationTab { min-height: 48px; font: 700 .75rem/1 var(--font-mono); }
 .qualificationSwitcher, .tabPanel { min-width: 0; }
-.subjectGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.subjectCard { min-width: 0; overflow: hidden; display: grid; grid-template-rows: auto 1fr; background: var(--subject-panel-tint); border: 1px solid color-mix(in srgb, var(--course-pastel) 60%, var(--line)); border-radius: 18px; box-shadow: 0 18px 40px -32px rgb(24 35 59 / .5); }
-.subjectHead { position: relative; min-height: 104px; padding: 20px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; background: var(--course-pastel); }
-.subjectHead h3 { margin: 0; color: #18233b; font: 400 1.65rem/1.05 var(--font-serif); letter-spacing: -.02em; }
-.subjectMark { align-self: flex-start; }
-.subjectMark :global(.course-icon) { width: 64px; height: 64px; color: var(--course-accent); background: none; border: 0; }
-.subjectMark :global(.course-icon) svg { width: 60px; height: 60px; }
-.bankRows { padding: 14px; display: grid; align-content: start; gap: 8px; }
-.bankRow { min-width: 0; min-height: 52px; padding: 12px 14px; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 10px; color: var(--ink); background: rgb(255 255 255 / .75); border: 1px solid color-mix(in srgb, var(--course-pastel) 80%, #fff); border-radius: 12px; transition: border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease; }
-.bankRow strong { min-width: 0; font: 650 .98rem/1.25 var(--font-body); }
-.bankRow span { color: var(--course-accent); font: 600 .7rem/1 var(--font-mono); white-space: nowrap; }
-.bankRow svg { color: var(--course-accent); }
-.bankRow:hover { border-color: var(--course-accent); transform: translateY(-2px); box-shadow: 0 12px 24px -16px var(--course-accent); }
-.bankRow:focus-visible { outline: 3px solid color-mix(in srgb, var(--course-accent) 55%, transparent); outline-offset: 2px; }
-
 /* 4. Proof: archive size and the research behind retrieval practice */
 .proofBand { padding: 88px 0 96px; color: #eef0f6; background: #18233b; }
 .proofBand .eyebrow { margin-top: 56px; color: #e9a1ae; }
@@ -125,34 +97,26 @@
   .stats div:nth-child(2) { border-right: 0; }
   .stats div:nth-child(-n+2) { border-bottom: 1px solid rgb(255 255 255 / .14); }
   .studies { grid-template-columns: 1fr; }
-  .subjectGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .faqIntro { position: static; }
+    .faqIntro { position: static; }
 }
 @media (max-width: 700px) {
   .stage { --header-band: 76px; height: calc(100vw + var(--header-band)); }
   .back, .front { object-position: 50% 100%; }
   .headline { inset: calc(var(--header-band) + 16%) 12px auto; font-size: clamp(2.6rem, 12.6vw, 4.4rem); }
   .lede { margin-top: -64px; padding-bottom: 48px; }
-  .picker { grid-template-columns: 1fr; padding: 8px; }
-  .pickerToggle { padding: 4px; grid-auto-columns: 1fr; background: #efe9dd; border-radius: 12px; }
-  .pickerField { padding: 10px 10px 8px; border-left: 0; border-top: 1px solid #d8d8d1; }
-  .pickerGo { justify-content: center; }
   .tiers { grid-template-columns: 1fr; }
   .proofBand { padding: 64px 0 72px; }
   .planSection, .voices { padding-top: 72px; }
   .cta { flex-direction: column; align-items: stretch; margin-block: 64px 80px; padding: 32px 24px; }
 }
 @media (max-width: 640px) {
-  .subjectGrid { grid-template-columns: 1fr; }
-  .faqPreview { padding-top: 72px; gap: 34px; }
+    .faqPreview { padding-top: 72px; gap: 34px; }
 }
 
 /* Dark theme: sections below the hero follow the theme; the hero illustration does not. */
 :global(:root[data-theme="dark"]) .home { background: var(--paper); }
 :global(:root[data-theme="dark"]) .faqIntro .eyebrow,
 :global(:root[data-theme="dark"]) .voices .eyebrow { color: var(--burgundy); }
-:global(:root[data-theme="dark"]) .subjectHead h3 { color: var(--ink); }
-:global(:root[data-theme="dark"]) .bankRow { background: color-mix(in srgb, var(--surface) 80%, transparent); border-color: var(--line-strong); }
 :global(:root[data-theme="dark"]) .faqQuestions,
 :global(:root[data-theme="dark"]) .faqQuestions details { border-color: var(--line-strong); }
 :global(:root[data-theme="dark"]) .faqQuestions summary { color: var(--ink); }

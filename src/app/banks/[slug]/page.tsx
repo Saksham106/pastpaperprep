@@ -94,11 +94,14 @@ export default async function BankPage({ params }: { params: Promise<{ slug: str
           <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: bank.shortName }]} />
           <p className="eyebrow">{bank.qualification}</p>
           <h1>{topical.name}: questions by topic</h1>
-          <p>{bank.description}</p>
-          {fullPapers ? <p className="bank-hero-papers">Want whole papers instead? <Link href={`/past-papers/${subjectSlugForBank(slug)}`}>{topical.name} full past papers with mark schemes</Link>.</p> : null}
-          {slug === "ib-hl" ? <p>Select real AA HL questions by topic and turn them into a printable practice set with eligible bank access. <Link href="#bank-guide-heading">See worksheet and PDF options</Link>.</p> : null}
+          <div className="bank-hero-meta">
+            <p className="bank-hero-stats"><span><strong>{bank.questionCount.toLocaleString()}</strong> questions</span><span><strong>{bank.paperCount}</strong> papers</span><span><strong>{bank.years}</strong></span></p>
+            <div className="bank-hero-actions">
+              {fullPapers ? <Link className="button secondary" href={`/past-papers/${subjectSlugForBank(slug)}`}>Full past papers</Link> : null}
+              <Link className="button secondary bank-hero-build" href={`/worksheets/build?bank=${slug}`}>Build a paper</Link>
+            </div>
+          </div>
           <Testimonial testimonial={bankTestimonial(slug)} variant="inline" signedOutOnly />
-          <div className="bank-hero-meta"><div className="bank-hero-stats"><span><strong>{bank.questionCount.toLocaleString()}</strong> questions</span><span><strong>{bank.paperCount}</strong> papers</span><span><strong>{bank.years}</strong> coverage</span></div><Link className="button secondary bank-hero-build" href={`/worksheets/build?bank=${slug}`}>Build a paper</Link></div>
         </div>
       </section>
       <div className="shell">
