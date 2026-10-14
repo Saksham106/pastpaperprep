@@ -50,7 +50,8 @@ describe("site search topic links", () => {
       }
     }
     const { topics } = await topicsFor("igcse");
-    expect(topics.find(t => t.label === "Number")?.count).toBe(1540);
-    expect(topics.find(t => t.label === "Coordinate geometry")?.count).toBe(187);
+    // 1540 and 187 before the 2026 Core papers, which add 103 Number and 6 Coordinate geometry rows.
+    expect(topics.find(t => t.label === "Number")?.count).toBe(1643);
+    expect(topics.find(t => t.label === "Coordinate geometry")?.count).toBe(193);
   });
 });
