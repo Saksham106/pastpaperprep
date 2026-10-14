@@ -9,6 +9,7 @@ import type { McqAnswer } from "@/lib/mcq-answer";
 import { loadBankMcqAnswers } from "@/lib/mcq-answer-letters";
 import { premiumAssetSignOptions, previewAssetSignOptions, signPrivateAssetUrls } from "@/lib/private-assets";
 import { loadBankQuestionMap } from "@/lib/question-loader";
+import { currentQuestionId, currentQuestionIds } from "@/lib/question-id-aliases";
 import { printGeometryForSignedAssets } from "@/lib/print-geometry";
 import { createClient } from "@/lib/supabase/server";
 
@@ -48,7 +49,10 @@ async function handlePOST(request: Request) {
 
   const bank = body.bank as BankSlug;
   const [canonicalById, mcqAnswers] = await Promise.all([loadBankQuestionMap(bank), loadBankMcqAnswers(bank)]);
-  const questions = body.questionIds.map((id) => canonicalById.get(id));
+  const questionIds = currentQuestionIds(bank, body.questionIds);
+  // Answer under the id the client asked for, so a page opened before a question was retired accepts it.
+  const requestedIds = new Map(body.questionIds.map((id) => [currentQuestionId(bank, id), id] as const).reverse());
+  const questions = questionIds.map((id) => canonicalById.get(id));
   if (questions.some((question) => !question)) {
     return NextResponse.json({ error: "Invalid PDF export request" }, { status: 400 });
   }
@@ -109,7 +113,7 @@ async function handlePOST(request: Request) {
       assets = authorized.map((item) => {
         const kind = item.kind === "question" ? "question" : "answer";
         return {
-          questionId: item.questionId,
+          questionId: requestedIds.get(item.questionId) ?? item.questionId,
           kind,
           urls: item.paths.map((path) => urlByPath.get(path)),
           ...printGeometryForSignedAssets(bank, item.questionId, kind, item.paths),
@@ -120,7 +124,7 @@ async function handlePOST(request: Request) {
 
     const { data: allowed, error: quotaError } = await supabase.rpc("consume_download_allowance", {
       p_asset_count: premiumPathCount,
-      p_pdf_question_count: body.questionIds.length,
+      p_pdf_question_count: questionIds.length,
     });
     if (quotaError) return NextResponse.json({ error: "Could not verify export allowance" }, { status: 503 });
     if (!allowed) return NextResponse.json({ error: "Daily worksheet limit reached. Try again tomorrow." }, { status: 429 });

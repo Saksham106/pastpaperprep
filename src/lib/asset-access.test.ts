@@ -20,7 +20,7 @@ describe("asset request authorization", () => {
 
     const allowed = await authorizeAssetRequests("ib-sl", [{ questionId, kind: "question" }], [], now);
     expect(allowed[0].question).toBe(firstMap.get(questionId));
-    await expect(authorizeAssetRequests("ib-sl", [{ questionId: "m26-math-aasl-p1-tza-q4", kind: "question" }], [], now))
+    await expect(authorizeAssetRequests("ib-sl", [{ questionId: "2026-may-p1-tz1-q4", kind: "question" }], [], now))
       .rejects.toThrow("not authorized");
   });
   it("authorizes a public preview question and answer", async () => {
@@ -40,7 +40,7 @@ describe("asset request authorization", () => {
   it("denies a non-preview question without access", async () => {
     await expect(authorizeAssetRequests(
       "ib-sl",
-      [{ questionId: "m26-math-aasl-p1-tza-q4", kind: "question" }],
+      [{ questionId: "2026-may-p1-tz1-q4", kind: "question" }],
       [],
       now,
     )).rejects.toThrow("not authorized");
@@ -49,13 +49,13 @@ describe("asset request authorization", () => {
   it("authorizes paid bank assets but not another bank", async () => {
     await expect(authorizeAssetRequests(
       "ib-sl",
-      [{ questionId: "m26-math-aasl-p1-tza-q4", kind: "question" }],
+      [{ questionId: "2026-may-p1-tz1-q4", kind: "question" }],
       paid,
       now,
     )).resolves.toHaveLength(1);
     await expect(authorizeAssetRequests(
       "ib-hl",
-      [{ questionId: "2026-may-tza-p1-q4", kind: "question" }],
+      [{ questionId: "2026-may-tz1-p1-q4", kind: "question" }],
       paid,
       now,
     )).rejects.toThrow("not authorized");
@@ -64,8 +64,8 @@ describe("asset request authorization", () => {
   it("rejects unknown questions, duplicate requests, and oversized batches", async () => {
     await expect(authorizeAssetRequests("ib-sl", [{ questionId: "missing", kind: "question" }], paid, now)).rejects.toThrow("Unknown question");
     await expect(authorizeAssetRequests("ib-sl", [
-      { questionId: "m26-math-aasl-p1-tza-q4", kind: "question" },
-      { questionId: "m26-math-aasl-p1-tza-q4", kind: "question" },
+      { questionId: "2026-may-p1-tz1-q4", kind: "question" },
+      { questionId: "2026-may-p1-tz1-q4", kind: "question" },
     ], paid, now)).rejects.toThrow("Duplicate");
     await expect(authorizeAssetRequests(
       "ib-sl",

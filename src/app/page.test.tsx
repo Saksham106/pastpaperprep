@@ -19,7 +19,7 @@ describe("home page", () => {
   it("leads with the layered headline, the search and data-driven proof", () => {
     const markup = renderToStaticMarkup(<MarketingHome environment={{}} />);
 
-    expect(BANKS.reduce((total, bank) => total + bank.questionCount, 0)).toBe(17924);
+    expect(BANKS.reduce((total, bank) => total + bank.questionCount, 0)).toBe(17994);
     expect(markup).toContain("Past papers,");
     expect(markup).toContain("by topic.");
     expect(markup).toContain("Search a subject, topic or paper code");
