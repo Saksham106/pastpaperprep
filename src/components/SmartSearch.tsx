@@ -26,7 +26,7 @@ const loadPapers = () => papersLoad ??= loadJson(SEARCH_PAPERS_PATH, validSearch
 
 const toneFor = (bank: string) => { const catalog = getCatalogBank(bank as never); return catalog ? courseToneForBank(catalog) : "math"; };
 const sectionsFor = (results: SearchResults): Section[] =>
-  (results.intent === "paper" ? ["paper", "subject"] : results.intent === "topic" ? ["topic", "subject"] : ["subject", "topic"] as Section[])
+  (results.intent === "paper" ? ["paper", "subject"] as Section[] : results.intent === "topic" ? ["topic", "subject"] as Section[] : ["subject", "topic"] as Section[])
     .filter(section => section === "paper" ? results.papers.length : section === "topic" ? results.topics.length : results.subjects.length);
 /** Every link in the dropdown, in the order the sections show them. */
 function optionsFor(results: SearchResults | null): Option[] {
@@ -60,9 +60,7 @@ export function SmartSearch() {
   const fetchPapers = () => loadPapers().then(value => { if (value) setPapers(value); else setPapersFailed(true); return value; });
   const paperLike = looksLikePaper(q);
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- starts a fetch; state lands when it answers
     if (open && paperLike && !papers && !papersFailed) void fetchPapers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, paperLike, papers, papersFailed]);
 
   // Results follow the text, not focus: the Search button blurs the box but must still open them.

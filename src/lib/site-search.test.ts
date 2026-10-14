@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { looksLikePaper, matchTopics, searchSite, subjectTerms, type SearchIndex, type SearchPaper, type SearchPapers, type SearchSubject } from "@/lib/site-search";
+import { SEARCH_INDEX_VERSION, looksLikePaper, matchTopics, searchSite, subjectTerms, type SearchIndex, type SearchPaper, type SearchPapers, type SearchSubject } from "@/lib/site-search";
 
 const subject = (bank: string, name: string, extra: string[], papers = 10): SearchSubject => ({
   bank, name, qualification: bank.startsWith("ib") ? "ib" : "igcse", practiceHref: `/banks/${bank}`, questionCount: 100,
   papersHref: papers ? `/past-papers/${bank}` : null, paperCount: papers, terms: subjectTerms(name, ...extra),
 });
 const index: SearchIndex = {
-  version: 1,
+  version: SEARCH_INDEX_VERSION,
   subjects: [
     subject("igcse", "IGCSE Mathematics 0580", ["Cambridge IGCSE"]),
     subject("igcse-chemistry-0620", "IGCSE Chemistry 0620", ["Cambridge IGCSE"]),
@@ -26,7 +26,7 @@ const paper = (id: string, bankSlug: string, syllabusCode: string, year: number,
   paper: component.replace(/^P/, "")[0], variant, route, href: `/past-papers/${id}`, title: id, detail: "",
 } as SearchPaper);
 const papers: SearchPapers = {
-  version: 1,
+  version: SEARCH_INDEX_VERSION,
   papers: [
     paper("0580-s24-42", "igcse", "0580", 2024, "May/June", "42", "2", "Extended"),
     paper("0580-s24-41", "igcse", "0580", 2024, "May/June", "41", "1", "Extended"),
