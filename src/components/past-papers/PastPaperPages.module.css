@@ -9,10 +9,13 @@
 .hubHead h1 { margin: 0; font: 400 clamp(2.5rem, 6vw, 4.2rem)/1 var(--font-serif); letter-spacing: -.03em; text-wrap: balance; }
 .hubHead > p { margin: 14px 0 0; color: var(--ink-soft); font-size: 1.1rem; }
 .hubFind { width: min(680px, 100%); margin: 24px auto 0; display: flex; align-items: center; gap: 10px; text-align: left; }
-.scopes { flex: 0 0 auto; padding: 4px; display: flex; gap: 2px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
-.scopes a { min-height: 38px; padding: 0 14px; display: inline-flex; align-items: center; color: var(--muted); border-radius: 9px; font: 760 .86rem/1 var(--font-body); transition: color 150ms ease, background-color 150ms ease; }
+.scopes { position: relative; flex: 0 0 auto; padding: 4px; display: grid; grid-template-columns: repeat(var(--scope-count, 3), minmax(64px, 1fr)); background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+/* The dark thumb slides under the chosen scope; the labels sit above it. */
+.scopeThumb { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc((100% - 8px) / var(--scope-count, 3)); background: var(--ink); border-radius: 9px; transform: translateX(calc(var(--scope-index, 0) * 100%)); transition: transform 240ms cubic-bezier(.3, .7, .2, 1); }
+.scopes a { position: relative; z-index: 1; min-height: 38px; padding: 0 14px; display: inline-flex; align-items: center; justify-content: center; color: var(--muted); border-radius: 9px; font: 760 .86rem/1 var(--font-body); transition: color 200ms ease; }
 .scopes a:hover { color: var(--ink); }
-.scopes a[aria-current="page"] { color: var(--surface); background: var(--ink); }
+.scopes a[data-active="true"] { color: var(--surface); }
+@media (prefers-reduced-motion: reduce) { .scopeThumb { transition: none; } }
 .subjectGrid { margin-top: 40px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .subjectCard { min-width: 0; overflow: hidden; display: grid; grid-template-rows: auto 1fr; background: var(--subject-panel-tint); border: 1px solid color-mix(in srgb, var(--course-pastel) 60%, var(--line)); border-radius: 18px; box-shadow: 0 18px 40px -32px rgb(24 35 59 / .5); }
 .subjectHead { min-height: 96px; padding: 18px 20px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; background: var(--course-pastel); }
@@ -70,7 +73,6 @@
 @media (max-width: 760px) {
   .page { width: calc(100% - 28px); padding-top: 12px; }
   .hubFind { flex-direction: column; align-items: stretch; }
-  .scopes a { flex: 1; justify-content: center; }
   .subjectGrid, .why, .browse { grid-template-columns: 1fr; }
   .why { gap: 18px; }
 }

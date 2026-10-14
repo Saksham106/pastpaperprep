@@ -6,6 +6,7 @@ import type { PastPaperQualification } from '@/lib/past-paper-catalog';
 import type { HubBank } from '@/lib/past-paper-pages';
 import { breadcrumbJsonLd, collectionJsonLd, faqJsonLd, hubCopy, hubFaq } from '@/lib/past-paper-seo';
 import { PaperFinder } from './PaperFinder';
+import { ScopeSwitch } from './ScopeSwitch';
 import styles from './PastPaperPages.module.css';
 
 const GROUPS: [CourseTone, string][] = [['math', 'Mathematics'], ['chemistry', 'Chemistry'], ['physics', 'Physics'], ['biology', 'Biology'], ['coordinated', 'Co-ordinated Sciences'], ['economics', 'Economics']];
@@ -36,7 +37,7 @@ export function PastPaperHub({ banks, qualification }: { banks: HubBank[]; quali
       <h1>{copy.h1}</h1>
       <p>{copy.answer}</p>
       <div className={styles.hubFind}>
-        <nav aria-label="Qualification" className={styles.scopes}>{SCOPES.map(([label, href, scope]) => <Link key={href} href={href} aria-current={scope === qualification ? 'page' : undefined}>{label}</Link>)}</nav>
+        <ScopeSwitch scopes={SCOPES.map(([label, href]) => ({ label, href }))} current={SCOPES.findIndex(([, , scope]) => scope === qualification)} />
         <PaperFinder mode="subjects" subjects={banks.map(b => ({ name: b.name, code: /\b(0\d{3})$/.exec(b.name)?.[1] ?? '', href: `/past-papers/${b.subjectSlug}` }))} />
       </div>
     </header>
