@@ -40,7 +40,7 @@ describe("POST /api/study-state", () => {
 
   it("rejects unauthenticated and non-canonical question mutations", async () => {
     getClaims.mockResolvedValueOnce({ data: { claims: {} } });
-    const unauthenticated = await POST(request({ bank: "ib-sl", questionId: "m26-math-aasl-p1-tza-q1", action: "save" }));
+    const unauthenticated = await POST(request({ bank: "ib-sl", questionId: "2026-may-p1-tz1-q1", action: "save" }));
     const invalid = await POST(request({ bank: "ib-sl", questionId: "made-up", action: "save" }));
 
     expect(unauthenticated.status).toBe(401);
@@ -56,25 +56,25 @@ describe("POST /api/study-state", () => {
   });
 
   it("saves a trusted question for the authenticated user", async () => {
-    const response = await POST(request({ bank: "ib-sl", questionId: "m26-math-aasl-p1-tza-q1", action: "save" }));
+    const response = await POST(request({ bank: "ib-sl", questionId: "2026-may-p1-tz1-q1", action: "save" }));
 
     expect(response.status).toBe(200);
     expect(savedUpsert).toHaveBeenCalledWith({
       user_id: "user-id",
       bank_slug: "ib-sl",
-      question_id: "m26-math-aasl-p1-tza-q1",
+      question_id: "2026-may-p1-tz1-q1",
     }, { onConflict: "user_id,bank_slug,question_id", ignoreDuplicates: true });
     await expect(response.json()).resolves.toEqual({ saved: true, attempted: false });
   });
 
   it("records at most one lightweight attempt per question", async () => {
-    const response = await POST(request({ bank: "ib-sl", questionId: "m26-math-aasl-p1-tza-q1", action: "attempt" }));
+    const response = await POST(request({ bank: "ib-sl", questionId: "2026-may-p1-tz1-q1", action: "attempt" }));
 
     expect(response.status).toBe(200);
     expect(attemptUpsert).toHaveBeenCalledWith({
       user_id: "user-id",
       bank_slug: "ib-sl",
-      question_id: "m26-math-aasl-p1-tza-q1",
+      question_id: "2026-may-p1-tz1-q1",
     }, { onConflict: "user_id,bank_slug,question_id", ignoreDuplicates: true });
     await expect(response.json()).resolves.toEqual({ saved: false, attempted: true });
   });

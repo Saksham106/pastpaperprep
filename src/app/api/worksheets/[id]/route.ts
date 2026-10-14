@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { loadBankQuestions } from "@/lib/question-loader";
 import { hasBankAccess } from "@/lib/access";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
-import { validateWorksheet } from "@/lib/worksheets";
+import { validateWorksheet, withCurrentQuestionIds } from "@/lib/worksheets";
 
 async function handleGET(_request: Request, context: { params: Promise<{ id: string }> }) {
   const { id } = await context.params;
@@ -18,7 +18,7 @@ async function handleGET(_request: Request, context: { params: Promise<{ id: str
   const access = await fetchAccessEntitlements(client as never, userId);
   if (access.error) return NextResponse.json({ error: "Access could not be verified" }, { status: 503 });
   if (!hasBankAccess(data.bank_slug, access.rows as never)) return NextResponse.json({ error: "A current bank subscription is required" }, { status: 403 });
-  return NextResponse.json({ worksheet: data });
+  return NextResponse.json({ worksheet: withCurrentQuestionIds(data) });
 }
 
 async function handlePATCH(request: Request, context: { params: Promise<{ id: string }> }) {
@@ -52,7 +52,7 @@ async function handlePATCH(request: Request, context: { params: Promise<{ id: st
   const { data, error } = await client.from("saved_worksheets").update(updates).eq("id", id).eq("user_id", userId).eq("revision", Number(body.revision)).select("id,bank_slug,title,question_ids,content_mode,revision,created_at,updated_at").maybeSingle();
   if (error) return NextResponse.json({ error: "Worksheet could not be updated" }, { status: 503 });
   if (!data) return NextResponse.json({ error: "Worksheet changed elsewhere; reload before saving" }, { status: 409 });
-  return NextResponse.json({ worksheet: data });
+  return NextResponse.json({ worksheet: withCurrentQuestionIds(data) });
 }
 
 async function handleDELETE(_request: Request, context: { params: Promise<{ id: string }> }) {

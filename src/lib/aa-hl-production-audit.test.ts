@@ -8,11 +8,11 @@ type Tuple = { primaryTopic: string; secondaryTopics: string[]; skills: string[]
 
 const auditRoot = resolve(process.cwd(), "docs/audits/ib-hl-sources/aa-hl-production-target");
 const bank = JSON.parse(readFileSync(resolve(process.cwd(), "src/data/raw/ib-hl.json"), "utf8"));
-const target = JSON.parse(readFileSync(resolve(auditRoot, "reviewed-production-target-841.json"), "utf8"));
+const target = JSON.parse(readFileSync(resolve(auditRoot, "reviewed-production-target-893.json"), "utf8"));
 const baseline = JSON.parse(readFileSync(resolve(auditRoot, "production-baseline-overlay.json"), "utf8"));
 
-const TARGET_SHA256 = "a949ef162921455b8150778e8c4861f4e96b496e78d56d88b3171da9a9760731";
-const CORRECTIONS_SHA256 = "4a0c3918cd3cefc97812f792fe8447c3f9cd6872d3942c3ceaf283b48b2de92b";
+const TARGET_SHA256 = "152a91ecc0e8b44bd85c6d76b10d464c8c8c2bf815ebb44c3e7e5a46b1330cad";
+const CORRECTIONS_SHA256 = "a729149b0092adf5c34386c18af49cb76f3ea656a75d03092021ac2c913ac981";
 const classificationFields = new Set([
   "primaryTopic", "secondaryTopics", "skills", "subtopics", "detailedSubtopics",
   "classificationEvidence", "classificationConfidence", "classificationReviewStatus",
@@ -45,14 +45,14 @@ function tuple(question: Record<string, unknown>): Tuple {
 
 describe("AA HL reviewed production target", () => {
   it("covers the exact ordered bank and matches the pinned target", () => {
-    expect(fileSha(resolve(auditRoot, "reviewed-production-target-841.json"))).toBe(TARGET_SHA256);
+    expect(fileSha(resolve(auditRoot, "reviewed-production-target-893.json"))).toBe(TARGET_SHA256);
     expect(fileSha(resolve(auditRoot, "latest-final-corrections.json"))).toBe(CORRECTIONS_SHA256);
     expect(target.status).toBe("PASS");
-    expect(target.questionCount).toBe(841);
-    expect(target.netChangedCount).toBe(214);
-    expect(bank.questions).toHaveLength(841);
-    expect(target.records).toHaveLength(841);
-    expect(baseline.records).toHaveLength(841);
+    expect(target.questionCount).toBe(893);
+    expect(target.netChangedCount).toBe(207);
+    expect(bank.questions).toHaveLength(893);
+    expect(target.records).toHaveLength(893);
+    expect(baseline.records).toHaveLength(893);
 
     let changed = 0;
     for (const [index, question] of bank.questions.entries()) {
@@ -75,6 +75,6 @@ describe("AA HL reviewed production target", () => {
       const preserved = Object.fromEntries(Object.entries(question).filter(([key]) => !classificationFields.has(key)));
       expect(sha(preserved)).toBe(baseline.records[index].nonClassificationSha256);
     }
-    expect(changed).toBe(214);
+    expect(changed).toBe(207);
   });
 });
