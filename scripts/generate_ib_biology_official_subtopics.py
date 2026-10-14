@@ -8,7 +8,8 @@ import json
 from pathlib import Path
 from typing import Any
 
-EXPECTED = {"rows": 3459, "HL": 1911, "SL": 1548, "legacy": 2983, "current": 476, "blocked": 30}
+# 26 blocked: four rows were unblocked by source reassessment (#139) and are carried over verbatim.
+EXPECTED = {"rows": 3459, "HL": 1911, "SL": 1548, "legacy": 2983, "current": 476, "blocked": 26}
 EXPECTED_TAXONOMY = {"atomicEntries": 114, "curatedGroups": 21}
 BANKS = {"HL": "ib-biology-hl", "SL": "ib-biology-sl"}
 
@@ -52,6 +53,9 @@ def build(research_root: Path, repo_root: Path) -> dict[str, Any]:
     if len(groups) != EXPECTED_TAXONOMY["curatedGroups"] or len(atomic) != EXPECTED_TAXONOMY["atomicEntries"]:
         raise ValueError("taxonomy count drift")
     rows_by_id = {row["id"]: (level, row) for level, rows in source_rows.items() for row in rows}
+    # Rows re-checked against the printed paper (#139) override the reviewed overlay; keep them as committed.
+    current_path = repo_root / "src/data/ib-biology-official-subtopics/overlay.json"
+    reassessed = {row["id"]: row for row in read(current_path)["rows"] if "sourceReassessment" in row} if current_path.exists() else {}
     if len(rows_by_id) != EXPECTED["rows"]:
         raise ValueError("raw source row count or duplicate-id drift")
     if len(source_overlay["rows"]) != EXPECTED["rows"]:
@@ -77,15 +81,22 @@ def build(research_root: Path, repo_root: Path) -> dict[str, Any]:
                 raise ValueError(f"invalid level applicability: {question_id}")
             if atomic[label["officialAtomicId"]]["era"] != era:
                 raise ValueError(f"cross-era label: {question_id}")
-        groups_for_row: list[dict[str, Any]] = []
+        if question_id in reassessed:
+            emitted.append(reassessed[question_id])
+            continue
+        # A syllabus item belongs to several curated groups (membership came from observed row/code
+        # pairs), so the group is the one this question was reviewed into, never the first listed.
+        candidates: dict[str, dict[str, Any]] = {}
         for label in labels:
             owners = group_by_atomic.get(label["officialAtomicId"], [])
             if not owners:
                 raise ValueError(f"atomic label has no curated group: {label['officialAtomicId']}")
-            owner = owners[0]
-            if owner["id"] not in {group["id"] for group in groups_for_row}:
-                groups_for_row.append(owner)
+            for owner in owners:
+                candidates.setdefault(owner["studentFacingName"], owner)
+        groups_for_row = [candidates[name] for name in source.get("subtopics", []) if name in candidates]
         blocked = bool(reviewed["blocked"])
+        if labels and not blocked and not groups_for_row:
+            raise ValueError(f"no curated group matches the reviewed subtopics: {question_id}")
         if blocked and groups_for_row:
             raise ValueError(f"blocked row has labels: {question_id}")
         provenance = {

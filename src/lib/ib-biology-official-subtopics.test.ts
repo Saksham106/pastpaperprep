@@ -43,9 +43,10 @@ describe("IB Biology official syllabus subtopics", () => {
     expect(new Set(questions.flatMap((q) => q.subtopics))).toEqual(new Set([
       "Biological molecules and water", "Cells and ultrastructure", "Membranes and transport", "Metabolism and energy", "Nucleic acids and gene expression",
       "Digestion and nutrition", "Gas exchange and transport", "Neural and chemical signalling", "Defence against disease", "Homeostasis and reproduction",
-      "DNA, genes and chromosomes", "Evolution and speciation", "Biotechnology and gene editing",
-      "Populations and communities", "Adaptation and ecological niches", "Conservation and biodiversity",
+      "DNA, genes and chromosomes", "Cell division and inheritance", "Evolution and speciation", "Diversity and classification", "Biotechnology and gene editing",
+      "Populations and communities", "Energy and matter cycles", "Adaptation and ecological niches", "Conservation and biodiversity", "Climate change and ecosystem stability",
     ]));
+    // Muscle and movement is HL-only material; no SL question is reviewed into it.
   });
 
   it("repairs four printed-source extension blanks without restoring HL-only codes", () => {

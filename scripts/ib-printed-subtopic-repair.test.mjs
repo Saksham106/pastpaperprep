@@ -18,13 +18,19 @@ describe("source-confirmed IB subtopic repair",()=>{
   expect(after[key].length).toBe(before[key].length);
   const old=new Map(before[key].map(row=>[row.id,row]));
   const changed=new Set(after[key].filter(row=>JSON.stringify(row)!==JSON.stringify(old.get(row.id))).map(row=>row.id));
-  expect(changed).toEqual(ids);
+  for(const id of ids)expect(changed.has(id)).toBe(true);
+  if(path.includes("aa-official"))expect(changed).toEqual(ids);
   for(const row of after[key]){
    expect(old.has(row.id)).toBe(true);
    if(ids.has(row.id)){
     expect(row.provenance).toEqual(old.get(row.id).provenance);
     expect(row.sourceReassessment).toBeTruthy();
     expect(row.blocked ?? row.status==="blocked").toBe(false);
+   } else if(!path.includes("aa-official")&&!row.blocked&&!old.get(row.id).blocked){
+    // Later, separately reviewed fix: Biology groups follow each question's reviewed subtopics
+    // instead of the first group listing the syllabus item. Only primary/secondary may differ.
+    const withoutGroups=value=>Object.fromEntries(Object.entries(value).filter(([field])=>field!=="primary"&&field!=="secondary"));
+    expect(withoutGroups(row)).toEqual(withoutGroups(old.get(row.id)));
    } else expect(row).toEqual(old.get(row.id));
   }
  });
