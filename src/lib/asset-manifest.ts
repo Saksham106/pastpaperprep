@@ -2,14 +2,16 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { canViewAnswer, canViewQuestionAsset, type AccessEntitlement } from "@/lib/access";
 import type { AssetRequest } from "@/lib/asset-access";
-import { assetPathsForKind, isAssetKind } from "@/lib/asset-kinds";
+import { deliveredAssetPaths, isAssetKind } from "@/lib/asset-kinds";
 import { bankRuntimeCacheKey } from "@/lib/bank-runtime-key";
 import type { BankSlug } from "@/lib/banks";
+import type { McqAnswer } from "@/lib/mcq-answer";
 import type { QuestionRichDetails } from "@/lib/questions";
 
 // Server-only: entries hold premium text. Nothing here may import the question loader, so the
 // routes that read manifests stay small instead of bundling the whole corpus.
-export type AssetManifestEntry = { questionAssetPaths: string[]; markschemeAssetPaths: string[]; explanationAssetPaths?: string[]; details: QuestionRichDetails };
+// `mcqAnswer` is the verified letter of a multiple-choice question; it is released only with an authorized answer.
+export type AssetManifestEntry = { questionAssetPaths: string[]; markschemeAssetPaths: string[]; explanationAssetPaths?: string[]; mcqAnswer?: McqAnswer; details: QuestionRichDetails };
 export type AssetManifest = ReadonlyMap<string, AssetManifestEntry>;
 
 /** The runtime mode is part of the name, so a flag flip never reads a manifest built for the other mode. */
@@ -37,7 +39,7 @@ export function loadBankAssetManifest(
   return loaded;
 }
 
-export type ManifestAuthorizedAssetRequest = AssetRequest & { paths: string[]; details: QuestionRichDetails };
+export type ManifestAuthorizedAssetRequest = AssetRequest & { paths: string[]; details: QuestionRichDetails; mcqAnswer?: McqAnswer };
 
 /** Same checks as authorizeAssetRequests, against a prebuilt manifest. */
 export function authorizeManifestAssetRequests(
@@ -68,7 +70,9 @@ export function authorizeManifestAssetRequests(
       questionId: request.questionId,
       kind: request.kind,
       details: entry.details,
-      paths: assetPathsForKind(entry, request.kind),
+      paths: deliveredAssetPaths(entry, request.kind),
+      // Only after the answer check above: a question-only grant never carries the letter.
+      ...(request.kind === "answer" && entry.mcqAnswer ? { mcqAnswer: entry.mcqAnswer } : {}),
     };
   });
 }

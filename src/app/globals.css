@@ -607,7 +607,8 @@ main { min-height: 72vh; }
 .question-images { margin-top: 12px; padding: 18px clamp(16px, 4vw, 42px); display: grid; gap: 12px; border-block: 1px solid var(--line); }
 .question-images:has(img) { background: #fefefe; }
 .question-images img { width: 100%; max-width: 900px; height: auto; margin: 0 auto; background: #fefefe; border: 0; border-radius: 0; }
-.answer-panel img { width: 100%; max-width: 900px; height: auto; margin: 0 auto; background: #fefefe; border: 1px solid var(--line); border-radius: 6px; }
+/* Natural size, never enlarged: a one-line crop stays small, a full-page crop still fills the card. */
+.answer-panel img { width: auto; max-width: min(100%, 900px); height: auto; margin: 0 auto; background: #fefefe; border: 1px solid var(--line); border-radius: 6px; }
 .source-tail-clipped { width: 100%; max-width: 900px; overflow: hidden; margin: 0 auto; background: #fefefe; border: 1px solid var(--line); border-radius: 6px; }
 .question-images .source-tail-clipped img, .paper-preview-images .source-tail-clipped img { display: block; width: 100%; max-width: none; height: auto; margin: 0; border: 0; border-radius: 0; }
 .asset-placeholder { position: relative; min-height: 200px; display: grid; align-content: center; justify-items: center; gap: 12px; overflow: hidden; color: var(--muted); background: var(--paper); border-radius: 10px; }
@@ -653,6 +654,12 @@ main { min-height: 72vh; }
 .answer-toggle:hover { border-color: var(--cobalt); }
 .answer-toggle[aria-expanded="true"] { background: transparent; }
 .answer-panel-label { margin: 0; color: var(--success); font: 700 .68rem/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
+.mcq-answer { display: grid; gap: 6px; }
+.mcq-answer-row { margin: 0; display: flex; align-items: center; gap: 12px; }
+.mcq-answer-letters { display: inline-flex; align-items: center; gap: 8px; }
+.mcq-answer-chip { min-width: 40px; height: 40px; padding: 0 10px; display: inline-grid; place-items: center; color: var(--success); background: var(--success-soft); border: 1px solid color-mix(in srgb, var(--success) 35%, var(--line)); border-radius: 8px; font: 400 1.35rem/1 var(--font-serif); }
+.mcq-answer-or { color: var(--muted); font-size: .85rem; }
+.mcq-answer-note { margin: 0; color: var(--muted); font-size: .8rem; line-height: 1.45; }
 .source-links a { display: inline-flex; align-items: center; gap: 5px; color: var(--muted); font-size: .78rem; white-space: nowrap; }
 .source-links a:hover { color: var(--cobalt); }
 .transcript-icon-button, .study-icon-button { width: 34px; height: 34px; display: grid; place-items: center; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 9px; }
