@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import questionIdAliases from "@/data/question-id-aliases.json";
 import { filterQuestions } from "@/lib/question-filter";
 import { loadBankQuestions } from "@/lib/question-fixtures";
 import { getControlledSubtopics } from "@/lib/taxonomy";
@@ -280,16 +281,22 @@ describe("new-bank classification quality", () => {
   });
 
   it.each([
-    ["igcse-additional", 1633],
-    ["ib-hl", 841],
-    ["ib-sl", 578],
-    ["ib-ai-hl", 409],
-    ["ib-ai-sl", 334],
-  ] as const)("keeps a complete source-hashed review manifest for %s", (bankSlug, expectedCount) => {
+    ["igcse-additional", 1633, 0],
+    ["ib-hl", 841, 78],
+    ["ib-sl", 578, 54],
+    ["ib-ai-hl", 409, 0],
+    ["ib-ai-sl", 334, 0],
+  ] as const)("keeps a complete source-hashed review manifest for %s", (bankSlug, expectedCount, official2026Count) => {
     const questions = loadBankQuestions(bankSlug);
     const manifest = JSON.parse(
       readFileSync(join(process.cwd(), "docs", "audits", `${bankSlug}-classification-2026-08.json`), "utf8"),
     ) as AuditManifest;
+    // The 2026-08 audit is historical. Its donated May 2026 AA rows were retired (question-id-aliases.json)
+    // and the official replacements carry their own review manifest.
+    const retired = new Set(Object.keys((questionIdAliases.banks as Record<string, Record<string, string>>)[bankSlug] ?? {}));
+    const official2026 = official2026Count ? JSON.parse(
+      readFileSync(join(process.cwd(), "docs", "audits", `${bankSlug}-official-2026-review.json`), "utf8"),
+    ) as AuditManifest : null;
 
     // The 2026-08 manifest is a historical receipt. Rows added after it are covered, row for row,
     // by their own reviewed addition receipt; nothing may be covered by neither or both.
@@ -298,11 +305,17 @@ describe("new-bank classification quality", () => {
       : new Map<string, { sourceTextSha256: string }>();
     expect(manifest.reviewedQuestionCount).toBe(expectedCount);
     expect(Object.keys(manifest.corrections)).toHaveLength(expectedCount);
-    expect(new Set([...Object.keys(manifest.corrections), ...additionRows.keys()])).toEqual(new Set(questions.map((question) => question.id)));
-    expect(Object.keys(manifest.corrections).filter((id) => additionRows.has(id))).toEqual([]);
-    expect(questions).toHaveLength(expectedCount + additionRows.size);
+    expect(official2026?.reviewedQuestionCount ?? 0).toBe(official2026Count);
+    expect(Object.keys(official2026?.corrections ?? {})).toHaveLength(official2026Count);
+    expect([...retired].every((id) => id in manifest.corrections)).toBe(true);
+    const later = { ...official2026?.corrections, ...Object.fromEntries(additionRows) };
+    expect(Object.keys(later)).toHaveLength(official2026Count + additionRows.size);
+    expect(Object.keys(manifest.corrections).filter((id) => id in later)).toEqual([]);
+    const corrections = { ...Object.fromEntries(Object.entries(manifest.corrections).filter(([id]) => !retired.has(id))), ...later };
+    expect(questions).toHaveLength(expectedCount - retired.size + official2026Count + additionRows.size);
+    expect(new Set(Object.keys(corrections))).toEqual(new Set(questions.map((question) => question.id)));
     for (const question of questions) {
-      const correction = manifest.corrections[question.id] ?? additionRows.get(question.id);
+      const correction = corrections[question.id];
       expect(correction?.sourceTextSha256, question.id).toBe(
         createHash("sha256").update(question.accessibleText).digest("hex"),
       );
@@ -918,8 +931,11 @@ describe("new-bank classification quality", () => {
       retainedCurrent: number;
     } };
 
-    expect(raw.questions).toHaveLength(841);
-    expect(new Set(raw.questions.map((question) => question.id)).size).toBe(841);
+    // The audit saw 841 questions; its 26 donated May 2026 rows were later retired for the official
+    // papers (question-id-aliases.json), so bank-side checks cover the audited questions still live.
+    const retiredHl = new Set(Object.keys(questionIdAliases.banks["ib-hl"]));
+    expect(raw.questions).toHaveLength(893);
+    expect(new Set(raw.questions.map((question) => question.id)).size).toBe(893);
     expect(report).toMatchObject({
       reportVersion: "ib-hl-consensus-reconciliation-2026.08.1",
       bank: "ib-hl",
@@ -1127,7 +1143,7 @@ describe("new-bank classification quality", () => {
 
     const byId = new Map(raw.questions.map((question) => [question.id, question]));
     const productionTarget = JSON.parse(readFileSync(
-      join(process.cwd(), "docs", "audits", "ib-hl-sources", "aa-hl-production-target", "reviewed-production-target-841.json"),
+      join(process.cwd(), "docs", "audits", "ib-hl-sources", "aa-hl-production-target", "reviewed-production-target-893.json"),
       "utf8",
     )) as { records: Array<{ id: string; targetTuple: { primaryTopic: string; secondaryTopics: string[]; skills: string[] } }> };
     const productionTargetById = new Map(productionTarget.records.map((record) => [record.id, record.targetTuple]));
@@ -1151,8 +1167,13 @@ describe("new-bank classification quality", () => {
           : reviewedFinal;
       expect(decision.final, judgment.id).toEqual(expectedFinal);
     }
+    const auditedIds = new Set(report.decisions.map((decision) => decision.id));
+    expect(new Set([...auditedIds].filter((id) => !byId.has(id)))).toEqual(retiredHl);
+    const auditedQuestions = raw.questions.filter((question) => auditedIds.has(question.id));
+    expect(auditedQuestions).toHaveLength(841 - retiredHl.size);
     for (const decision of report.decisions) {
       const followupDecision = followup.get(decision.id);
+      if (retiredHl.has(decision.id)) continue;
       const expected = productionTargetById.get(decision.id) ?? followupDecision?.final ?? decision.final;
       expect(byId.get(decision.id), decision.id).toMatchObject({
         primaryTopic: expected.primaryTopic,
@@ -1170,10 +1191,9 @@ describe("new-bank classification quality", () => {
     const reconciliationOverlay = raw.questions.filter(
       (question) => Boolean(question.classificationEvidence?.reconciliation),
     );
-    expect(reconciliationOverlay).toHaveLength(655);
-    expect(new Set(reconciliationOverlay.map((question) => question.id))).toEqual(new Set(
-      report.decisions.filter((decision) => decision.applied).map((decision) => decision.id),
-    ));
+    const appliedLive = report.decisions.filter((decision) => decision.applied && !retiredHl.has(decision.id));
+    expect(reconciliationOverlay).toHaveLength(appliedLive.length);
+    expect(new Set(reconciliationOverlay.map((question) => question.id))).toEqual(new Set(appliedLive.map((decision) => decision.id)));
     const reconstructedBaseline = report.decisions.map((decision) => ({
       id: decision.id,
       primaryTopic: decision.current.primaryTopic,
@@ -1183,16 +1203,17 @@ describe("new-bank classification quality", () => {
     expect(stableSha256(reconstructedBaseline)).toBe("7f23fd66d2b29320fba76e48d0d59d75cfbba13912a26fe707f169d81d4d0c3c");
     const finalClassifications = report.decisions.map((decision) => ({ id: decision.id, ...decision.final }));
     expect(stableSha256(finalClassifications)).toBe("373458f34c7cb7171f3f1b79022d38fb1d85a1210b0a8d0fd75237df4f5aed32");
-    const originalEvidence = raw.questions.map((question) => {
+    const originalEvidence = auditedQuestions.map((question) => {
       const evidence = { ...(question.classificationEvidence ?? {}) };
       delete evidence.reconciliation;
       return { id: question.id, classificationEvidence: evidence };
     });
-    expect(stableSha256(originalEvidence)).toBe("5eeb6161ae6f028a56f763d86815a75630825b6e23d2c560034cda4ce9be6c01");
-    const preserved = raw.questions.map((question) => Object.fromEntries(
+    // Hashes over the 815 audited questions still live; identical to the same subset of the 841-question bank the audit saw.
+    expect(stableSha256(originalEvidence)).toBe("ec0b9f22d7980a63fbb1c58cb589c3b2a27ffa12fcfb41d7431e89d8f4e112b2");
+    const preserved = auditedQuestions.map((question) => Object.fromEntries(
       Object.entries(question).filter(([key]) => !CLASSIFICATION_FIELDS.has(key)),
     ));
-    expect(stableSha256(preserved)).toBe("2aa6effeac1546dfe24c5279d62c69532bc6c68fdb0b421e6a33bbeec6581c53");
+    expect(stableSha256(preserved)).toBe("e30082cab084f9e0ed7ae8ca3b13dba1a4085a5b2613ddbea05e5807fbe7a904");
   });
 
   it("keeps the AA SL historical audit evidence alongside the pinned production target", () => {
@@ -1200,10 +1221,14 @@ describe("new-bank classification quality", () => {
     const target = JSON.parse(readFileSync(join(process.cwd(), "docs", "audits", "ib-sl-sources", "aa-sl-production-target", "final-production-target.json"), "utf8"));
     expect(report).toMatchObject({ reportVersion: "ib-sl-consensus-reconciliation-2026.08.1", bank: "ib-sl", questionCount: 578 });
     expect(report.decisions).toHaveLength(578);
-    expect(target).toMatchObject({ schema: "aa-sl-final-production-target-1.0", status: "complete", count: 578, reviewed_count: 408, unreviewed_count: 170 });
+    expect(target).toMatchObject({ schema: "aa-sl-final-production-target-1.0", status: "complete", count: 596, reviewed_count: 430, unreviewed_count: 166 });
     // The full-bank production target is the current release authority; the
-    // historical reconciliation remains immutable audit evidence only.
-    expect(target.records).toHaveLength(578);
+    // historical reconciliation remains immutable audit evidence only. It covers the 36 donated
+    // May 2026 rows retired for the official papers; the target replaces them with 54 official ones.
+    expect(target.records).toHaveLength(596);
+    const retiredSl = new Set(Object.keys(questionIdAliases.banks["ib-sl"]));
+    const targetIds = new Set(target.records.map((record: { id: string }) => record.id));
+    expect(new Set(report.decisions.map((decision: { id: string }) => decision.id).filter((id: string) => !targetIds.has(id)))).toEqual(retiredSl);
   });
 
   it.each(["ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl"] as const)("classifies duplicate %s evidence consistently", (bankSlug) => {

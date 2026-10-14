@@ -12,6 +12,21 @@ const { createClient, createAdminClient, getClaims, from, rpc, createSignedUrls 
 vi.mock("server-only", () => ({}));
 vi.mock("@/lib/supabase/server", () => ({ createClient }));
 vi.mock("@/lib/supabase/admin", () => ({ createAdminClient }));
+// No live question is solution-only since the official May 2026 AA papers replaced the donated
+// reconstructions, so the answer-only path is exercised with a copy that has no mark-scheme images.
+const SOLUTION_ONLY = "2026-may-p1-tz1-q99";
+vi.mock("@/lib/question-loader", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/lib/question-loader")>();
+  return {
+    ...actual,
+    loadBankQuestionMap: async (bank: Parameters<typeof actual.loadBankQuestionMap>[0]) => {
+      const map = new Map(await actual.loadBankQuestionMap(bank));
+      const base = bank === "ib-sl" ? map.get("2026-may-p1-tz1-q1") : undefined;
+      if (base) map.set(SOLUTION_ONLY, { ...base, id: SOLUTION_ONLY, markschemeImages: [], markschemeImageCount: 0, markschemeAssetPaths: [] });
+      return map;
+    },
+  };
+});
 
 import { POST } from "./route";
 import reviewed0606 from "@/data/reviewed-blank-tails-0606.json";
@@ -49,7 +64,7 @@ describe("POST /api/pdf/sign", () => {
   });
 
   it("rejects explanation content before authentication, signing, or any quota mutation", async () => {
-    const response = await POST(request({ bank: "ib-sl", questionIds: ["m26-math-aasl-p2-tza-q2"], content: "explanation" }));
+    const response = await POST(request({ bank: "ib-sl", questionIds: ["2026-may-p2-tz1-q2"], content: "explanation" }));
     expect(response.status).toBe(400);
     expect(createClient).not.toHaveBeenCalled();
     expect(createSignedUrls).not.toHaveBeenCalled();
@@ -58,9 +73,9 @@ describe("POST /api/pdf/sign", () => {
 
   it("does not export explanations when client asset requests are smuggled into a PDF request", async () => {
     const response = await POST(request({
-      bank: "ib-sl", questionIds: ["m26-math-aasl-p2-tza-q2"], content: "questions",
-      requests: [{ questionId: "m26-math-aasl-p2-tza-q2", kind: "explanation" }],
-      paths: ["explanations/ib-sl/m26-math-aasl-p2-tza-q2.json"],
+      bank: "ib-sl", questionIds: ["2026-may-p2-tz1-q2"], content: "questions",
+      requests: [{ questionId: "2026-may-p2-tz1-q2", kind: "explanation" }],
+      paths: ["explanations/ib-sl/2026-may-p2-tz1-q2.json"],
     }));
     expect(response.status).toBe(200);
     const body = await response.json();
@@ -71,7 +86,7 @@ describe("POST /api/pdf/sign", () => {
 
   it("requires authentication", async () => {
     getClaims.mockResolvedValueOnce({ data: { claims: {} } });
-    const response = await POST(request({ bank: "ib-sl", questionIds: ["m26-math-aasl-p2-tza-q2"], content: "questions" }));
+    const response = await POST(request({ bank: "ib-sl", questionIds: ["2026-may-p2-tz1-q2"], content: "questions" }));
     expect(response.status).toBe(401);
   });
 
@@ -82,13 +97,13 @@ describe("POST /api/pdf/sign", () => {
     };
     from.mockReturnValueOnce(entitlementQuery);
 
-    const response = await POST(request({ bank: "ib-sl", questionIds: ["m26-math-aasl-p2-tza-q2"], content: "questions" }));
+    const response = await POST(request({ bank: "ib-sl", questionIds: ["2026-may-p2-tz1-q2"], content: "questions" }));
     expect(response.status).toBe(403);
     await expect(response.json()).resolves.toEqual({ error: "Paid access to this question bank is required for PDF export" });
   });
 
   it("derives and atomically consumes exact question and asset counts after signing", async () => {
-    const response = await POST(request({ bank: "ib-sl", questionIds: ["m26-math-aasl-p2-tza-q2"], content: "questions" }));
+    const response = await POST(request({ bank: "ib-sl", questionIds: ["2026-may-p2-tz1-q2"], content: "questions" }));
     expect(response.status).toBe(200);
     expect(response.headers.get("cache-control")).toBe("private, no-store, max-age=0");
     expect(createSignedUrls).toHaveBeenCalledOnce();
@@ -98,8 +113,17 @@ describe("POST /api/pdf/sign", () => {
     });
   });
 
+  it("exports a retired question id from an already-open page through its replacement", async () => {
+    const { fetchPdfAssets } = await import("@/lib/signed-assets");
+    const fetcher = (async (_url: string, init?: RequestInit) => POST(new Request("https://pastpaperprep.com/api/pdf/sign", { method: "POST", body: init?.body, headers: { "content-type": "application/json" } }))) as unknown as typeof fetch;
+    const signed = await fetchPdfAssets("ib-sl", ["m26-math-aasl-p2-tza-q2"], "both", fetcher);
+    expect([...signed.keys()].sort()).toEqual(["m26-math-aasl-p2-tza-q2:answer", "m26-math-aasl-p2-tza-q2:question"]);
+    expect(signed.get("m26-math-aasl-p2-tza-q2:question")?.urls[0]).toContain("ib-sl/questions/2026-may-p2-tz1-q2");
+    expect(rpc).toHaveBeenCalledWith("consume_download_allowance", expect.objectContaining({ p_pdf_question_count: 1 }));
+  });
+
   it("counts answer-only solution questions without requiring an image", async () => {
-    const response = await POST(request({ bank: "ib-sl", questionIds: ["m26-math-aasl-p1-tza-q1"], content: "answers" }));
+    const response = await POST(request({ bank: "ib-sl", questionIds: [SOLUTION_ONLY], content: "answers" }));
     expect(response.status).toBe(200);
     expect(createSignedUrls).not.toHaveBeenCalled();
     expect(rpc).toHaveBeenCalledWith("consume_download_allowance", {
@@ -111,14 +135,14 @@ describe("POST /api/pdf/sign", () => {
 
   it("does not return signed assets after the worksheet allowance is exhausted", async () => {
     rpc.mockImplementation((name: string) => Promise.resolve(name === "get_custom_bundle_access" ? { data: [], error: null } : { data: false, error: null }));
-    const response = await POST(request({ bank: "ib-sl", questionIds: ["m26-math-aasl-p2-tza-q2"], content: "questions" }));
+    const response = await POST(request({ bank: "ib-sl", questionIds: ["2026-may-p2-tz1-q2"], content: "questions" }));
     expect(response.status).toBe(429);
     expect(createSignedUrls).toHaveBeenCalledOnce();
   });
 
   it("does not consume worksheet allowance when private signing fails", async () => {
     createSignedUrls.mockRejectedValueOnce(new Error("NotFound"));
-    const response = await POST(request({ bank: "ib-sl", questionIds: ["m26-math-aasl-p2-tza-q2"], content: "questions" }));
+    const response = await POST(request({ bank: "ib-sl", questionIds: ["2026-may-p2-tz1-q2"], content: "questions" }));
 
     expect(response.status).toBe(503);
     expect(rpc).not.toHaveBeenCalledWith("consume_download_allowance", expect.anything());
@@ -152,7 +176,7 @@ describe("POST /api/pdf/sign", () => {
 
     const response = await POST(request({
       bank: "ib-sl",
-      questionIds: ["2017-may-p1-tz1-q1", "m26-math-aasl-p2-tza-q2"],
+      questionIds: ["2017-may-p1-tz1-q1", "2026-may-p2-tz1-q2"],
       content: "questions",
     }));
 
