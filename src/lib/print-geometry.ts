@@ -1,9 +1,11 @@
 import verified0580 from "@/data/print-geometry-0580.json";
 import verified0580Core2026 from "@/data/print-geometry-0580-2026-core.json";
+import verified0580CoreCropRepairs from "@/data/print-geometry-0580-core-crop-repairs.json";
 import verified0606 from "@/data/print-geometry-0606.json";
 import verified0606March2026 from "@/data/print-geometry-0606-2026-march.json";
 import type { BankSlug } from "@/lib/banks";
 import { reviewedBlankTailForSignedAsset, reviewedBlankSourcePage } from "@/lib/reviewed-blank-tails";
+import { reviewed0606RightEdgeGeometry } from "@/lib/reviewed-0606-ms-right-edge-repairs";
 
 export type PhysicalSizePt = readonly [number, number];
 export type SourcePrintSegment = {
@@ -34,6 +36,9 @@ const verified0580Entries: Record<string, [Verified0580Entry | null, Verified058
   return merged;
 })();
 
+/** Geometry of the reviewed 0580 Core crop repairs, keyed to their new immutable paths only. */
+const repaired0580Entries = verified0580CoreCropRepairs.entries as unknown as Record<string, [Verified0580Entry | null, Verified0580Entry | null]>;
+
 /** Historical 1,633-pair receipt plus reviewed additions; an addition may never redefine a pair. */
 const verified0606Entries: Record<string, [Verified0606Entry, Verified0606Entry]> = (() => {
   const merged = { ...(verified0606.entries as unknown as Record<string, [Verified0606Entry, Verified0606Entry]>) };
@@ -49,8 +54,10 @@ function geometryForSignedPath(
   bank: BankSlug, questionId: string, kind: "question" | "answer", path: string,
 ): { size: PhysicalSizePt; rasterSize?: [number, number]; segments?: SourcePrintSegment[] } | null {
   if (bank === "igcse") {
-    const entry = verified0580Entries[questionId]?.[kind === "question" ? 0 : 1];
-    if (!entry || (path !== entry[0] && !path.endsWith(`/${entry[0]}`))) return null;
+    const index = kind === "question" ? 0 : 1;
+    const entry = [repaired0580Entries[questionId]?.[index], verified0580Entries[questionId]?.[index]]
+      .find((candidate) => candidate && (path === candidate[0] || path.endsWith(`/${candidate[0]}`)));
+    if (!entry) return null;
     const [, imageSha256, widthPx, heightPx, widthPt, heightPt, segments] = entry;
     return {
       size: [widthPt, heightPt],
@@ -62,6 +69,15 @@ function geometryForSignedPath(
     };
   }
   if (bank === "igcse-additional") {
+    // A reviewed edge repair keeps the historical vertical geometry at its wider width.
+    const repaired = kind === "answer" ? reviewed0606RightEdgeGeometry(questionId, path) : null;
+    if (repaired) {
+      return {
+        size: repaired.physicalSizePt,
+        rasterSize: repaired.imageDimensions,
+        segments: repaired.segments.map(([sourceY, sourceHeight, physicalHeightPt, sourcePage]) => ({ sourceY, sourceHeight, physicalHeightPt, sourcePage })),
+      };
+    }
     const pair = verified0606Entries[questionId];
     const folder = kind === "question" ? "questions" : "markschemes";
     const expected = `${folder}/${questionId}.webp`;

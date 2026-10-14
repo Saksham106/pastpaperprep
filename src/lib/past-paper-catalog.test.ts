@@ -58,9 +58,11 @@ describe('paper matrix', () => {
     expect(m.years[1].rows.map(r => r.label)).toEqual(['Oct/Nov', 'May/June', 'Feb/March']);
     const may26 = m.years[0].rows[0];
     expect(may26.cells[1].map(l => l.label)).toEqual(['21', '22', '23']);
-    expect(may26.cells[0]).toEqual([]);
+    expect(may26.cells[0].map(l => l.label)).toEqual(['11', '12', '13']);
+    expect(may26.cells[0][0]).toMatchObject({ href: '/past-papers/igcse-maths-0580/2026-may-june-11', route: 'Core', title: 'Paper 11, May/June 2026' });
+    expect(may26.cells[2].map(l => l.label)).toEqual(['31', '32', '33']);
     expect(may26.cells[1][0]).toMatchObject({ href: '/past-papers/igcse-maths-0580/2026-may-june-21', markPrefix: 'pastpaperprep:marks:igcse:0580-2026-june-21:', route: 'Extended', title: 'Paper 21, May/June 2026' });
-    expect(m.total).toBe(217);
+    expect(m.total).toBe(225);
     expect(m.tiers).toBe(true);
   });
 
@@ -143,7 +145,7 @@ describe('matrix years and tiers', () => {
     expect(core.columns.map(c => c.label)).toEqual(['Paper 1', 'Paper 3']);
     expect(links(core).every(l => l.route === 'Core')).toBe(true);
     expect(core.total).toBe(links(core).length);
-    expect(core.years[0].year).toBe(2025);
+    expect(core.years[0].year).toBe(2026);
     expect(core.years.every(y => y.rows.every(r => r.cells.length === 2 && r.cells.some(c => c.length > 0)))).toBe(true);
   });
   it('keeps only Extended columns for Extended and everything for All', () => {

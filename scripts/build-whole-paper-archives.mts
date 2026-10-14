@@ -29,6 +29,27 @@ async function loadIdentityReviews(files:string[],root:string) {
   }
   return reviews;
 }
+/**
+ * Reviewed report holds (data/paper-archives/report-holds.json): a paper whose sources reconcile but whose
+ * official mark scheme amends the printed paper (e.g. a withdrawn part) keeps its PDFs and stays
+ * report-held with the reviewed reason. Read on every build, bound to both source hashes, so a rebuild
+ * can't drop it; a hold that no longer matches its paper fails the build.
+ */
+export const REPORT_HOLDS_FILE='data/paper-archives/report-holds.json';
+export type ReportHold={bankSlug:string;paperId:string;questionSha256:string;markschemeSha256:string;reason:string;review:{date:string;evidence:string}};
+export async function loadReportHolds(root:string) {
+  const payload=await readOptionalJson<{schema?:string;holds?:ReportHold[]}>(path.join(root,REPORT_HOLDS_FILE),{schema:'whole-paper-report-holds-v1',holds:[]});
+  if(payload.schema!=='whole-paper-report-holds-v1'||!Array.isArray(payload.holds))throw new Error('Invalid report holds file');
+  const holds=new Map<string,ReportHold>();
+  for(const hold of payload.holds) {
+    if(!getCatalogBank(hold.bankSlug)||!/^[a-z0-9][a-z0-9-]{0,159}$/.test(hold.paperId)||![hold.questionSha256,hold.markschemeSha256].every(h=>/^[a-f0-9]{64}$/.test(h)))throw new Error('Invalid report hold binding');
+    if(typeof hold.reason!=='string'||!/^\S.{10,300}\.$/.test(hold.reason)||!hold.review||!/^\d{4}-\d{2}-\d{2}$/.test(hold.review.date)||typeof hold.review.evidence!=='string'||!hold.review.evidence.trim())throw new Error(`Report hold needs a reason and review evidence: ${hold.paperId}`);
+    const key=JSON.stringify([hold.bankSlug,hold.paperId]);
+    if(holds.has(key))throw new Error('Duplicate report hold');
+    holds.set(key,hold);
+  }
+  return holds;
+}
 export function parseCli(args:string[]):BuildOptions {
   const options:BuildOptions={inventoryFiles:[]};
   for(let i=0;i<args.length;i++) {
@@ -57,6 +78,7 @@ export async function buildWholePaperArchives(options:BuildOptions) {
   }
   validateInventory(inventory);
   const identityReviews=await loadIdentityReviews(options.identityReviewFiles??[],root);
+  const reportHolds=await loadReportHolds(root);
   const selected=inventory.banks.filter(bank=>!options.bank||options.bank===bank.slug).sort((a,b)=>a.slug.localeCompare(b.slug));
   if(options.bank&&!selected.length)throw new Error(`Bank not in inventory: ${options.bank}`);
   const privateRoot=path.join(outputRoot,'private/paper-archives');
@@ -91,7 +113,7 @@ export async function buildWholePaperArchives(options:BuildOptions) {
       const actualIds=normalized.filter(q=>q.id.replace(/-q\d+$/,'')===pair.runtimePaperId).map(q=>q.id).sort();
       if(JSON.stringify(actualIds)!==JSON.stringify([...pair.runtimeQuestionIds].sort()))throw new Error(`Inventory qids differ from exact runtime paper ${pair.runtimePaperId}`);
       const rows=pair.runtimeQuestionIds.map(id=>{const q=byId.get(id);if(!q)throw new Error(`Missing exact runtime qid ${id}`);return q;});
-      const assembled=assemblePaper(bank.slug,pair,rows,qp,ms,identityReviews.get(JSON.stringify([bank.slug,pair.id])));
+      const assembled=assemblePaper(bank.slug,pair,rows,qp,ms,identityReviews.get(JSON.stringify([bank.slug,pair.id])),reportHolds.get(JSON.stringify([bank.slug,pair.id])));
       details.push({id:pair.id,runtimePaperId:pair.runtimePaperId,sourceMetadata:pair.metadata??null,inventoryRecord:pair,questionPath:pair.questionPath,markschemePath:pair.markschemePath,documents:assembled.entry.documents,reportReason:assembled.entry.summary.reportReason??null,corrections:assembled.corrections,evidence:assembled.evidence});
       if(!assembled.evidence.identityValid)throw new Error(`${assembled.entry.summary.reportReason} Not promoted to public manifest.`);
       papers.push(assembled.entry);
@@ -110,6 +132,8 @@ export async function buildWholePaperArchives(options:BuildOptions) {
       }
     }
     if(papers.length+failures.length!==bank.pairs.length||bankBindings.length!==papers.length*2)throw new Error(`Paired count mismatch: ${bank.slug}`);
+    const unusedHolds=[...reportHolds.values()].filter(hold=>hold.bankSlug===bank.slug&&!papers.some(p=>p.summary.id===hold.paperId));
+    if(unusedHolds.length)throw new Error(`Report holds match no built paper: ${unusedHolds.map(h=>h.paperId).join(', ')}`);
     const reports=papers.filter(p=>p.summary.reportAvailable).length;
     const manifest:WholePaperManifest={version:GENERATOR_VERSION,bankSlug:bank.slug,runtimeSha256:sha256(runtimeBytes),papers,coverage:{paired:papers.length,reports,held:papers.length-reports,unpaired:bank.unpaired.length,runtimeWithoutPair:bank.runtimeWithoutPair.length}};
     bindings.documents=[...bindings.documents.filter(doc=>doc.bankSlug!==bank.slug),...bankBindings].sort((a,b)=>`${a.bankSlug}/${a.paperId}/${a.kind}`.localeCompare(`${b.bankSlug}/${b.paperId}/${b.kind}`));
@@ -151,7 +175,7 @@ export function runtimeRelativeFile(slug:string) {
   const cohort=slug.startsWith('igcse-')&&slug!=='igcse-additional'||slug.startsWith('ib-economics-')?'production':'raw';
   return `src/data/${cohort}/${slug}.json`;
 }
-export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestion[],qp:ExtractedDocument,ms:ExtractedDocument,identityReview?:IdentityReview) {
+export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestion[],qp:ExtractedDocument,ms:ExtractedDocument,identityReview?:IdentityReview,reportHold?:ReportHold) {
   const bank=getCatalogBank(slug);if(!bank)throw new Error(`Unknown bank ${slug}`);
   const identity=parseIdentity(pair.metadata?.sourceIdentity??pair.id);
   if(identity.family==='ib')identity.level??=bank.level.toLowerCase();
@@ -174,6 +198,7 @@ export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestio
   const bankLevelValid=identity.family!=='ib'||identity.level===bank.level.toLowerCase()||identity.level==='hlsl';
   const reviewMatches=Boolean(identityReview&&identityReview.bankSlug===slug&&identityReview.paperId===pair.id&&identityReview.questionSha256===qp.sha256&&identityReview.markschemeSha256===ms.sha256&&identityReview.verdict==='valid-pair');
   if(identityReview&&!reviewMatches)throw new Error('Identity review source binding mismatch');
+  if(reportHold&&!(reportHold.bankSlug===slug&&reportHold.paperId===pair.id&&reportHold.questionSha256===qp.sha256&&reportHold.markschemeSha256===ms.sha256))throw new Error('Report hold source binding mismatch');
   const identityValid=reviewMatches||(qCover.identityValid&&mCover.identityValid&&subjectValid&&examCodesAgree&&courseValid&&bankLevelValid&&legacyOptionValid&&(identity.family!=='igcse'||identity.syllabusCode===bank.syllabusCode));
   const maxMarks=qCover.identityValid?qCover.maxMarks??(mCover.identityValid?mCover.maxMarks:null):null;
   const sorted=[...rows].sort((a,b)=>a.number-b.number||a.id.localeCompare(b.id));
@@ -191,13 +216,13 @@ export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestio
   const msQuestionMaximaAgree=simpleMs.every(q=>printed.some(source=>source.number===q.number&&source.maxMarks===q.maxMarks));
   const topics=sorted.map(q=>[...new Set([q.primaryTopic,...q.secondaryTopics])].filter(topic=>Boolean(topic)&&topic!=='Questions needing section review'));
   const topicsValid=topics.every(t=>t.length>0&&!t.some(topic=>/^(?:other|unclassified|unknown)$/i.test(topic)));
-  const reportReason=!mFound.text.trim()?'Original markscheme cover text is unavailable for identity verification.':!qFound.text.trim()?'Original question cover text is unavailable for identity verification.':!identityValid?'Source document identities need review.':qCover.optionalChoice||mCover.optionalChoice?'Optional question choices need review.':!maximaAgree||!msQuestionMaximaAgree?'Question and markscheme maxima disagree.':!inventoryValid?'Printed and runtime question inventories do not reconcile.':!totalsValid?'Printed question maxima do not reconcile.':!topicsValid?'Reviewed question topics are unavailable.':undefined;
+  const reportReason=!mFound.text.trim()?'Original markscheme cover text is unavailable for identity verification.':!qFound.text.trim()?'Original question cover text is unavailable for identity verification.':!identityValid?'Source document identities need review.':qCover.optionalChoice||mCover.optionalChoice?'Optional question choices need review.':!maximaAgree||!msQuestionMaximaAgree?'Question and markscheme maxima disagree.':!inventoryValid?'Printed and runtime question inventories do not reconcile.':!totalsValid?'Printed question maxima do not reconcile.':!topicsValid?'Reviewed question topics are unavailable.':reportHold?.reason;
   const questions=!reportReason?sorted.map((q,i)=>{const source=printed[i];if(q.marks!==source.maxMarks)corrections.push({id:q.id,from:q.marks,to:source.maxMarks,questionPage:source.page});return {id:q.id,number:q.number,maxMarks:source.maxMarks,topics:topics[i],questionPage:source.page};}):[];
   const route:WholePaperEntry['summary']['route']=identity.family==='ib'?(bank.level==='HL'?'HL':bank.level==='SL'?'SL':null):/\bExtended\b/i.test(qFound.text)?'Extended':/\bCore\b/i.test(qFound.text)?'Core':/Alternative\s+to\s+Practical|Practical\s+Test/i.test(qFound.text)?'Shared':null;
   const document=(source:ExtractedDocument)=>({sha256:source.sha256,bytes:source.bytes,pages:source.pages});
   const summary:WholePaperEntry['summary']={id:pair.id,bankSlug:bank.slug,title:`${bank.title} · ${identity.session} ${identity.year} · Paper ${identity.component}`,qualification:bank.qualification,subject:bank.subject,syllabusCode:bank.syllabusCode,year:identity.year,session:identity.session,sessionCode:identity.sessionCode,component:identity.component,paper:identity.paper,variant:identity.variant,route,durationMinutes:qCover.identityValid?qCover.durationMinutes:null,maxMarks,questionCount:printed.length,reportAvailable:!reportReason,...(reportReason?{reportReason}:{}),metadataVerified:identityValid&&maximaAgree&&maxMarks!==null};
   const entry:WholePaperEntry={summary,version:sha256(JSON.stringify([GENERATOR_VERSION,EXTRACTOR_VERSION,qp.sha256,ms.sha256,summary,questions])).slice(0,20),documents:{question:document(qp),markscheme:document(ms)},questions};
-  return {entry,corrections,evidence:{identity,identityValid,identityReview:identityReview??null,subjectValid,courseValid,legacyMathematics,legacyOptionValid,bankLevelValid,examCodesAgree,mcqVerified,questionCoverPage:qFound.page,markschemeCoverPage:mFound.page,qCover,mCover,sourceQuestionCount:printed.length,msQuestionMaximaAgree,sourceTotals:printed.map(q=>q.maxMarks),sourceQuestionPages:printed.map(q=>q.page),runtimeQuestionIds:sorted.map(q=>q.id),runtimeMarks:sorted.map(q=>q.marks),inventoryValid,totalsValid,topicsValid}};
+  return {entry,corrections,evidence:{identity,identityValid,identityReview:identityReview??null,reportHold:reportHold??null,subjectValid,courseValid,legacyMathematics,legacyOptionValid,bankLevelValid,examCodesAgree,mcqVerified,questionCoverPage:qFound.page,markschemeCoverPage:mFound.page,qCover,mCover,sourceQuestionCount:printed.length,msQuestionMaximaAgree,sourceTotals:printed.map(q=>q.maxMarks),sourceQuestionPages:printed.map(q=>q.page),runtimeQuestionIds:sorted.map(q=>q.id),runtimeMarks:sorted.map(q=>q.marks),inventoryValid,totalsValid,topicsValid}};
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
   const manifests=await buildWholePaperArchives(parseCli(process.argv.slice(2)));

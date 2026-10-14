@@ -12,6 +12,9 @@ import { activeQuestionImagePaths } from "@/lib/reviewed-blank-qp";
 import { activeQuestionCropPaths } from "@/lib/retired-crops";
 import { reviewedMarkschemePaths } from "@/lib/reviewed-mcq-answer-repairs";
 import { historicalMarks, historicalQuestionPaths } from "@/lib/reviewed-biology-historical-crops";
+import { reviewed0606RightEdgePaths } from "@/lib/reviewed-0606-ms-right-edge-repairs";
+import { reviewed0580CoreQuestionPaths } from "@/lib/reviewed-0580-core-crop-repairs";
+import { reviewedEconomicsQuestionPaths } from "@/lib/reviewed-economics-question-crops";
 import { cleanSourceCropPaths } from "@/lib/clean-source-crops";
 import granularOverlay from "@/data/math-granular-label-overlay.json";
 import aaTaxonomy from "@/data/aa-official-subtopics/taxonomy.json";
@@ -277,13 +280,14 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
   const solution = nullableText(raw.solution) ?? nullableText(raw.independentSolution);
   const sourceQuestionImages = strings(raw.questionImages);
   const questionImages = cleanSourceCropPaths(slug, applyReviewedBlankPages
-    ? historicalQuestionPaths(slug, text(raw.id), activeQuestionCropPaths(slug, text(raw.id), activeQuestionImagePaths(slug, text(raw.id), sourceQuestionImages)))
+    // Bank-scoped reviewed question-crop repairs; each returns other banks' paths unchanged.
+    ? reviewed0580CoreQuestionPaths(slug, text(raw.id), historicalQuestionPaths(slug, text(raw.id), activeQuestionCropPaths(slug, text(raw.id), activeQuestionImagePaths(slug, text(raw.id), reviewedEconomicsQuestionPaths(slug, text(raw.id), sourceQuestionImages)))))
     : sourceQuestionImages).map((path) => assetUrl(slug, path, economicsAssetMode));
   const markschemeImagePaths = isPrivateRuntimeBank(slug)
     ? Array.from(new Set([...strings(raw.markschemeImages), ...strings(officialMarkscheme.images)]))
     : [...strings(raw.markschemeImages), ...strings(officialMarkscheme.images)];
   const activeMarkschemePaths = applyReviewedBlankPages || slug === 'ib-ai-hl' || slug === 'ib-hl'
-    ? reviewedMarkschemePaths(slug, text(raw.id), markschemeImagePaths) : markschemeImagePaths;
+    ? reviewed0606RightEdgePaths(slug, text(raw.id), reviewedMarkschemePaths(slug, text(raw.id), markschemeImagePaths)) : markschemeImagePaths;
   const markschemeImages = cleanSourceCropPaths(slug, activeMarkschemePaths).map((path) => assetUrl(slug, path, economicsAssetMode));
   const searchable = [
     primaryTopic,
