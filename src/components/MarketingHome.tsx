@@ -15,7 +15,12 @@ import { TestimonialGrid } from "@/components/Testimonial";
 import { HOME_TESTIMONIALS } from "@/lib/testimonials";
 import styles from "./MarketingHome.module.css";
 
-const HOME_FAQS = [FAQS[1], FAQS[2], FAQS[3], FAQS[5]];
+const HOME_FAQS = FAQS.filter(({ question }) => [
+  "What can I use for free?",
+  "How do PDF worksheets work?",
+  "Are worked explanations available?",
+  "How do I manage or cancel a subscription?",
+].includes(question));
 const SAMPLE_BANK = "igcse";
 const STUDIES = [
   { figure: "+25%", outcome: "exam scores from regular quizzing", source: "J. Educ. Psychology, 2011", href: "https://doi.org/10.1037/a0021782" },
@@ -38,6 +43,7 @@ export function MarketingHome({ environment = process.env, papers = {} }: { envi
   const ibBanks = banks.filter((bank) => bank.qualification === "International Baccalaureate");
   const totalQuestions = banks.reduce((total, bank) => total + bank.questionCount, 0);
   const years = bankYearFacts(SAMPLE_BANK);
+  const hasFullPapers = Object.keys(papers).length > 0;
 
   return <div className={`${styles.home} landing-editorial`}>
     <section className={styles.hero} data-home-section="hero">
@@ -85,18 +91,19 @@ export function MarketingHome({ environment = process.env, papers = {} }: { envi
     </section>
 
     <section className={`shell ${styles.planSection}`} data-home-section="plan" aria-labelledby="plan-heading">
-      <h2 id="plan-heading">Start free. <em>Upgrade for the newest papers.</em></h2>
+      <h2 id="plan-heading">{hasFullPapers ? "Full papers are free." : "Start free."} <em>{hasFullPapers ? "Go deeper by topic." : "Upgrade for the newest papers."}</em></h2>
+      <p className={styles.accessNote}>Practise by topic, check the official answer and use worked explanations on supported questions. Custom worksheets and recent topical questions need eligible bank access.</p>
       <div className={styles.tiers}>
         <div className={styles.tier} data-plan-tier="free">
           <p className={styles.tierName}>Free</p>
           <p className={styles.tierPrice}>$0</p>
-          <ul><li>Older exam years on every bank</li><li>Answers included</li><li>No card needed</li></ul>
-          <Link className="button secondary" href={bankEntryHref(SAMPLE_BANK)}>Start free</Link>
+          <ul>{hasFullPapers ? <li>Full papers and mark schemes, no sign-up</li> : null}<li>Older exam years in topical banks</li><li>No card needed</li></ul>
+          <Link className="button secondary" href={hasFullPapers ? "/past-papers" : bankEntryHref(SAMPLE_BANK)}>{hasFullPapers ? "Browse free full papers" : "Start free"}</Link>
         </div>
         <div className={`${styles.tier} ${styles.tierPlan}`} data-plan-tier="plan">
           <p className={styles.tierName}>Plan</p>
           <p className={styles.tierPrice}><small>from </small>{formatPrice(priceForBankCount("monthly", 1))}<small>/mo</small></p>
-          <ul><li>{years ? `Every year up to ${years.latestYear}` : "Every exam year"}</li><li>Every official mark scheme</li><li>Cancel any time</li></ul>
+          <ul><li>{years ? `Topical questions up to ${years.latestYear}` : "Full available topical bank"}</li><li>Saved sets and custom PDF worksheets</li><li>Cancel any time</li></ul>
           <Link className="button primary" href="/pricing">See plans <ArrowRight weight="bold" /></Link>
         </div>
       </div>

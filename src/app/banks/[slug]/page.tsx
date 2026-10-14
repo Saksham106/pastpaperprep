@@ -15,6 +15,7 @@ import { subjectSlugForBank } from "@/lib/past-paper-catalog";
 import { fitTitle, pageTitle, subjectSearchName } from "@/lib/past-paper-seo";
 import { getLandingManifest, topicPath } from "@/lib/search-landing";
 import { SOCIAL_IMAGE, SOCIAL_IMAGE_URL } from "@/lib/seo";
+import { hasPublishedExplanations } from "@/lib/explanations";
 
 export const dynamicParams = false;
 export function generateStaticParams() { return getAvailableBanks().map(({ slug }) => ({ slug })); }
@@ -26,7 +27,9 @@ function topicalCopy(slug: BankSlug, fallbackName: string) {
   return {
     name,
     title: fitTitle(`${name} Topical Past Paper Questions`, `${name} Topical Past Papers`),
-    description: `${name} topical past paper questions: real exam questions sorted by syllabus topic, year, paper and marks, with answers.`,
+    description: hasPublishedExplanations(slug)
+      ? `${name} topical past-paper questions by topic, year, paper and marks. Official answers plus selected worked explanations where published.`
+      : `${name} topical past-paper questions: real exams sorted by topic, year, paper and marks, with official answers.`,
   };
 }
 
@@ -72,7 +75,7 @@ export default async function BankPage({ params }: { params: Promise<{ slug: str
             "@id": `https://pastpaperprep.com/banks/${bank.slug}#page`,
             url: `https://pastpaperprep.com/banks/${bank.slug}`,
             name: topical.title,
-            description: bank.description,
+            description: topical.description,
             isPartOf: { "@id": "https://pastpaperprep.com/#website" },
             about: {
               "@type": "Course",

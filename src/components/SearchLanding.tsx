@@ -12,6 +12,7 @@ import type { AssessmentPaper } from "@/lib/assessment-guides";
 import { topicLandingCopy } from "@/lib/search-landing-topic-content";
 import { Testimonial } from "@/components/Testimonial";
 import { topicTestimonial } from "@/lib/testimonials";
+import { BankWorkedExample } from "@/components/BankWorkedExample";
 import {
   courseOverview,
   officialQualificationSource,
@@ -65,9 +66,14 @@ export function QualificationHub({ qualification, title, intro }: { qualificatio
       {qualification === "IB Diploma" ? (
         <section className="landing-method" aria-labelledby="ib-resources-heading">
           <div><Target aria-hidden="true" /><h2 id="ib-resources-heading">More IB study resources</h2></div>
-          <p>Comparing revision platforms? See our <Link transitionTypes={PAGE_NAVIGATION} href="/articles/best-revision-village-alternatives">Revision Village alternatives</Link> guide alongside the official course resources.</p>
+          <p>Comparing revision platforms? Read <Link transitionTypes={PAGE_NAVIGATION} href="/articles/revisiondojo-vs-save-my-exams">RevisionDojo vs Save My Exams</Link> or our <Link transitionTypes={PAGE_NAVIGATION} href="/articles/best-revision-village-alternatives">Revision Village alternatives</Link> guide alongside the official course resources.</p>
         </section>
-      ) : null}
+      ) : (
+        <section className="landing-method" aria-labelledby="igcse-resources-heading">
+          <div><Target aria-hidden="true" /><h2 id="igcse-resources-heading">Choose a free past-paper archive</h2></div>
+          <p>Need complete papers rather than a topic set? Compare the <Link transitionTypes={PAGE_NAVIGATION} href="/articles/best-free-igcse-past-paper-websites">best free IGCSE past-paper websites</Link> by exam board, subject and access.</p>
+        </section>
+      )}
     </main>
   );
 }
@@ -95,7 +101,7 @@ function ArchiveStats({ bank, manifest }: { bank: CatalogBank; manifest: Landing
   </aside>;
 }
 
-export function SyllabusLanding({ bank, manifest }: { bank: CatalogBank; manifest: LandingManifest }) {
+export function SyllabusLanding({ bank, manifest, fullPapersHref }: { bank: CatalogBank; manifest: LandingManifest; fullPapersHref?: string }) {
   const canonicalPath = `/syllabus/${bank.slug}`;
   const guide = assessmentGuideFor(bank);
   const groupedPapers = assessmentGroups(guide.papers);
@@ -157,6 +163,12 @@ export function SyllabusLanding({ bank, manifest }: { bank: CatalogBank; manifes
         </section>
 
         <section className="landing-method"><div><Target aria-hidden="true" /><h2>Use the map without overthinking it</h2></div><ol><li>Repair one narrow topic.</li><li>Remove the label and mix methods.</li><li>Finish with the correct paper under timed conditions.</li></ol></section>
+        <nav className="bank-seo-links" aria-label={`${bank.shortName} revision resources`}>
+          {fullPapersHref ? <Link transitionTypes={PAGE_NAVIGATION} href={fullPapersHref}>Free full papers and mark schemes</Link> : null}
+          {bank.qualification === "IB Diploma"
+            ? <Link transitionTypes={PAGE_NAVIGATION} href="/articles/revisiondojo-vs-save-my-exams">RevisionDojo vs Save My Exams</Link>
+            : <Link transitionTypes={PAGE_NAVIGATION} href="/articles/best-free-igcse-past-paper-websites">Compare free IGCSE archives</Link>}
+        </nav>
         <p className="official-source"><a href={officialQualificationSource(bank)} target="_blank" rel="noreferrer">Read the official {bank.qualification} course source <ArrowRight weight="bold" /></a></p>
       </section>
     </main>
@@ -176,6 +188,7 @@ export function SearchDetail({ bank, eyebrow, title, kind, label, canonicalPath,
       </header>
       {stats.breakdown.length ? <p className="detail-breakdown"><strong>{kind === "topic" ? "Appears in" : "Most-tested topics"}</strong>{stats.breakdown.map((item) => <span key={item.label}>{item.label} <small>{item.count.toLocaleString()}</small></span>)}</p> : null}
       {children}
+      {kind === "topic" ? <BankWorkedExample bankSlug={bank.slug} topic={label} /> : null}
       {kind === "topic" && <Testimonial testimonial={topicTestimonial(bank.slug)} variant="inline" signedOutOnly />}
       {bank.slug === "igcse-chemistry-0620" && kind === "topic" && label === "Stoichiometry" && <p className="access-footnote">Need more revision context? Read our <Link transitionTypes={PAGE_NAVIGATION} href="/articles/best-igcse-chemistry-0620-question-banks">IGCSE Chemistry 0620 question-bank guide</Link>.</p>}
       {related.length ? <nav className="detail-related" aria-label={`More ${bank.shortName} practice`}><h2>More {bank.shortName} {kind === "topic" ? "topics" : "papers"}</h2><div className="paper-link-grid">{related.map((item) => <Link transitionTypes={PAGE_NAVIGATION} key={item.href} href={item.href}>{kind === "topic" ? <Target aria-hidden="true" /> : <FileText aria-hidden="true" />}<span><strong>{item.label}</strong><small>{item.count.toLocaleString()} questions</small></span><ArrowRight weight="bold" /></Link>)}</div><Link transitionTypes={PAGE_NAVIGATION} className="text-button" href={`/syllabus/${bank.slug}`}>Read the {bank.shortName} syllabus guide <ArrowRight weight="bold" /></Link></nav> : null}

@@ -128,9 +128,31 @@ export const IGCSE_SCIENCE_CHEM_PHYSICS: readonly Article[] = [
     "answer": "For Cambridge IGCSE Chemistry 0620 stoichiometry, PMT is a useful free route to topic-sorted multiple-choice and theory questions with mark schemes; Save My Exams adds structured topic PDFs and worked explanations, while exam-mate offers online topical practice. PastPaperPrep is for real past-paper questions you can filter by topic and paper and assemble into a printable set. Check Core or Extended and the 2026–2028 syllabus before choosing questions: a quiz or formula drill is not a substitute for written working and mark-scheme review.",
     "answerLink": { "href": "/banks/igcse-chemistry-0620", "label": "PastPaperPrep" },
     "publishedAt": "2026-09-15",
-    "updatedAt": "2026-10-07",
+    "updatedAt": "2026-10-14",
     "readingMinutes": 4,
     "sections": [
+      {
+        "heading": "Free whole papers, then targeted practice",
+        "paragraphs": [
+          "Whole papers in PastPaperPrep’s supported subject archives are free to use without signup, with the question paper and matching official mark scheme together.",
+        "The topical bank has a different access rule: guests see up to 20 matching free questions, and a free account unlocks the rest of the older free selection. Newer topical inventory requires eligible bank access. Custom PDF worksheets require eligible bank access and follow the plan’s download allowance.",
+          "For free papers across Cambridge subjects, compare the archive websites in the linked guide. Check the subject code and syllabus before using an older paper."
+        ],
+        "links": [
+          {
+            "href": "/past-papers/igcse-chemistry-0620",
+            "label": "IGCSE Chemistry 0620 whole papers"
+          },
+          {
+            "href": "/banks/igcse-chemistry-0620?free=1",
+            "label": "Practise IGCSE Chemistry 0620 by topic: free topic practice"
+          },
+          {
+            "href": "/articles/best-free-igcse-past-paper-websites",
+            "label": "Compare free IGCSE paper websites across subjects"
+          }
+        ]
+      },
       {
         "heading": "The short answer",
         "paragraphs": [
@@ -179,7 +201,7 @@ export const IGCSE_SCIENCE_CHEM_PHYSICS: readonly Article[] = [
     "faqs": [
       {
         "question": "Which Chemistry 0620 site is free?",
-        "answer": "Cambridge’s public papers and PMT are useful free foundations. Save My Exams and exam-mate have a mixture of free and paid material, so check access on the individual resource."
+        "answer": "PastPaperPrep’s Chemistry 0620 whole-paper archive is free without signup, with matching official mark schemes. Its topical bank has a separate older free selection. Cambridge’s public selection and PMT are also useful free foundations. Other platforms have course- and resource-specific free limits."
       },
       {
         "question": "Should I practise Core and Extended questions together?",
@@ -246,9 +268,31 @@ export const IGCSE_SCIENCE_CHEM_PHYSICS: readonly Article[] = [
     "answer": "PastPaperPrep is a focused option for real IGCSE Physics 0625 questions by topic: practise mechanics or electricity, check the available mark scheme and build a printable set with eligible bank access. A formula quiz can rehearse recall, but it does not stand in for full exam-style questions that make you choose a method, show working and apply it in context. Start with targeted calculation practice, then use full papers to test whether you can choose the right method without a topic prompt. PMT is useful for free paper archives; Save My Exams adds guided explanations.",
     "answerLink": { "href": "/banks/igcse-physics-0625", "label": "PastPaperPrep" },
     "publishedAt": "2026-09-15",
-    "updatedAt": "2026-10-07",
+    "updatedAt": "2026-10-14",
     "readingMinutes": 4,
     "sections": [
+      {
+        "heading": "Free whole papers, then targeted practice",
+        "paragraphs": [
+          "Whole papers in PastPaperPrep’s supported subject archives are free to use without signup, with the question paper and matching official mark scheme together.",
+        "The topical bank has a different access rule: guests see up to 20 matching free questions, and a free account unlocks the rest of the older free selection. Newer topical inventory requires eligible bank access. Custom PDF worksheets require eligible bank access and follow the plan’s download allowance.",
+          "For free papers across Cambridge subjects, compare the archive websites in the linked guide. Check the subject code and syllabus before using an older paper."
+        ],
+        "links": [
+          {
+            "href": "/past-papers/igcse-physics-0625",
+            "label": "IGCSE Physics 0625 whole papers"
+          },
+          {
+            "href": "/banks/igcse-physics-0625?free=1",
+            "label": "Practise IGCSE Physics 0625 by topic: free topic practice"
+          },
+          {
+            "href": "/articles/best-free-igcse-past-paper-websites",
+            "label": "Compare free IGCSE paper websites across subjects"
+          }
+        ]
+      },
       {
         "heading": "Physics 0625 calculation questions by topic",
         "paragraphs": [

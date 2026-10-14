@@ -58,6 +58,7 @@
 .planSection { padding: 96px 0 8px; display: grid; justify-items: center; gap: 32px; text-align: center; }
 .planSection h2 { margin: 0; color: var(--ink); font: 400 clamp(2.2rem, 4.2vw, 3.6rem)/1.02 var(--font-serif); letter-spacing: -.03em; }
 .planSection h2 em { display: block; color: var(--burgundy); }
+.accessNote { max-width: 66ch; margin: -12px 0 0; color: var(--muted); line-height: 1.65; }
 .tiers { width: min(820px, 100%); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; text-align: left; }
 .tier { padding: 28px; display: grid; gap: 14px; align-content: start; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; }
 .tierPlan { background: color-mix(in srgb, var(--cobalt) 6%, var(--surface)); border-color: color-mix(in srgb, var(--cobalt) 45%, var(--line)); box-shadow: 0 24px 50px -32px rgb(47 91 234 / .55); }

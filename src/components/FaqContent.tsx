@@ -1,13 +1,20 @@
 import Link from "next/link";
 
-export const FAQS = [
+type PublicFaq = {
+  question: string;
+  answer: string;
+  links?: readonly { href: string; label: string }[];
+};
+
+export const FAQS: readonly PublicFaq[] = [
   {
     question: "What is PastPaperPrep?",
-    answer: "PastPaperPrep organises real Cambridge IGCSE and IB past-paper questions into searchable question banks. Choose a course, filter to the exact topic you need, practise the original question, and check the available mark scheme.",
+    answer: "PastPaperPrep offers free Cambridge IGCSE and IB full past papers with matching mark schemes, plus searchable questions by topic. Choose a course, practise the original questions, check the official answer, and use a worked explanation where one has been published.",
   },
   {
     question: "What can I use for free?",
-    answer: "Every live bank includes free exam years that you can practise without paid access. Paid access unlocks the full available bank, mark schemes, and PDF worksheet export for the bank or bundle you choose.",
+    answer: "Full papers and their matching mark schemes in the free past-paper library can be opened without signing up. In the separate topical question banks, guests can view up to 20 matching free questions; a free account unlocks the rest of the bank's free selection. Recent paid questions, saved worksheets and custom PDF export require eligible bank access and follow the relevant allowances.",
+    links: [{ href: "/past-papers", label: "Browse free full papers" }],
   },
   {
     question: "Which courses are available?",
@@ -19,7 +26,15 @@ export const FAQS = [
   },
   {
     question: "Are mark schemes included?",
-    answer: "Official mark-scheme extracts are shown where they are available in the bank. You can view them while practising and include them when building a PDF with the relevant access.",
+    answer: "Full papers in the free library are paired with their matching mark schemes. Topical questions show the official answer or mark-scheme extract where available, under the same free or paid access as the question. Eligible worksheet access lets you include those answers in a custom PDF.",
+  },
+  {
+    question: "Are worked explanations available?",
+    answer: "Yes, on selected questions in supported banks. The Explanation button walks through how to reach the answer. These are PastPaperPrep explanations, not official exam-board mark schemes, and they do not replace a complete course or video lessons. Availability is per question, and access follows that question's free or paid status. Paid explanations have a separate daily allowance rather than using the image-download allowance.",
+    links: [
+      { href: "/banks/ib-hl#worked-example", label: "See a public Maths worked example" },
+      { href: "/banks/ib-physics-hl#worked-example", label: "See a public Physics worked example" },
+    ],
   },
   {
     question: "How do I manage or cancel a subscription?",
@@ -29,7 +44,7 @@ export const FAQS = [
     question: "Is PastPaperPrep affiliated with an exam board?",
     answer: "No. PastPaperPrep is an independent practice platform. Exam-board names are used only to identify the relevant qualifications and source material.",
   },
-] as const;
+];
 
 export function FaqContent() {
   return (
@@ -38,7 +53,7 @@ export function FaqContent() {
       <header className="faq-hero">
         <p className="eyebrow">Help centre</p>
         <h1>Frequently asked questions</h1>
-        <p>Clear answers about free access, question banks, mark schemes, PDFs, and billing.</p>
+        <p>Clear answers about free papers, topical practice, worked explanations, PDFs, and billing.</p>
       </header>
 
       <section className="faq-list" aria-label="PastPaperPrep frequently asked questions">
@@ -46,6 +61,7 @@ export function FaqContent() {
           <article key={faq.question}>
             <h2>{faq.question}</h2>
             <p>{faq.answer}</p>
+            {faq.links ? <p>{faq.links.map((link, index) => <span key={link.href}>{index ? " · " : ""}<Link href={link.href}>{link.label}</Link></span>)}</p> : null}
           </article>
         ))}
       </section>

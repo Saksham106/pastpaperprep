@@ -92,4 +92,15 @@ describe("canonical search metadata", () => {
     expectPrivate(authMetadata);
     expectPrivate(dashboardMetadata);
   });
+
+  it("advertises worked explanations only for banks with published question-level coverage", async () => {
+    const supported = await generateBankMetadata({ params: Promise.resolve({ slug: "ib-hl" }) });
+    const unsupported = await generateBankMetadata({ params: Promise.resolve({ slug: "ib-biology-hl" }) });
+    expect(supported.description).toContain("selected worked explanations");
+    expect(unsupported.description).not.toContain("worked explanations");
+    for (const bank of BANKS) {
+      const metadata = await generateBankMetadata({ params: Promise.resolve({ slug: bank.slug }) });
+      expect(metadata.description!.length).toBeLessThanOrEqual(160);
+    }
+  });
 });

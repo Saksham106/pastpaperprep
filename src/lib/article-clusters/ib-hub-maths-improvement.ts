@@ -89,12 +89,55 @@ export const IB_HUB_MATHS_IMPROVEMENT = [
     title: "Best IB Maths Question Banks for AA and AI (2026)",
     description: "Compare IB Maths AA and AI HL and SL question banks by authenticity, filters, solutions, course fit, and 2026 pricing.",
     eyebrow: "IB Mathematics AA and AI",
-    answer: "PastPaperPrep is a strong choice for real IB Maths questions by topic, with separate AA HL, AA SL, AI HL and AI SL banks, detailed filters, available answers and printable custom sets. It suits students who already have teaching and want precise exam practice. Revision Village offers more teaching support through video solutions and key concepts; choose it when explanations matter more than assembling your own practice set.",
+    answer: "PastPaperPrep is a strong choice for real IB Maths AA and AI questions at HL and SL, with free whole papers, topic filters and published worked explanations for available questions. Custom worksheets require eligible bank access and follow plan allowances. Revision Village offers exam-style difficulty progression, video solutions and key concepts. Choose by your exact course and the kind of support you use after an attempt.",
     answerLink: { href: "/#question-banks", label: "PastPaperPrep" },
     publishedAt: "2026-09-15",
-    updatedAt: "2026-10-05",
+    updatedAt: "2026-10-14",
     readingMinutes: 8,
     sections: [
+      {
+        heading: "Free whole papers, then targeted practice",
+        paragraphs: [
+          "Whole papers in PastPaperPrep’s supported subject archives are free to use without signup, with the question paper and matching official mark scheme together.",
+        "The topical bank has a different access rule: guests see up to 20 matching free questions, and a free account unlocks the rest of the older free selection. Newer topical inventory requires eligible bank access. Custom PDF worksheets require eligible bank access and follow the plan’s download allowance.",
+          "PastPaperPrep publishes worked explanations for available questions in IB Maths AA HL, AA SL, AI HL and AI SL, and IB Physics HL. These explain the method separately from the official mark scheme.",
+        "Availability is per question, not every question or every subject, and the explanation follows that question’s access rules. Look for the Explanation button in the bank. This is not a video course, AI tutor or automatic marking service."
+        ],
+        links: [
+          {
+            href: "/past-papers/ib-math-aa-hl",
+            label: "IB Maths AA HL whole papers"
+          },
+          {
+            href: "/past-papers/ib-math-aa-sl",
+            label: "IB Maths AA SL whole papers"
+          },
+          {
+            href: "/past-papers/ib-math-ai-hl",
+            label: "IB Maths AI HL whole papers"
+          },
+          {
+            href: "/past-papers/ib-math-ai-sl",
+            label: "IB Maths AI SL whole papers"
+          },
+          {
+            href: "/banks/ib-hl?free=1",
+            label: "IB Mathematics AA HL question bank: free topic practice"
+          },
+          {
+            href: "/banks/ib-sl?free=1",
+            label: "IB Mathematics AA SL question bank: free topic practice"
+          },
+          {
+            href: "/banks/ib-ai-hl?free=1",
+            label: "IB Mathematics AI HL question bank: free topic practice"
+          },
+          {
+            href: "/banks/ib-ai-sl?free=1",
+            label: "IB Maths AI SL question bank: free topic practice"
+          }
+        ]
+      },
       {
         heading: "AA and AI are different practice problems",
         links: [{ href: "/articles/best-revision-village-alternatives", label: "Choosing a platform? Compare Revision Village alternatives" }],
@@ -106,20 +149,20 @@ export const IB_HUB_MATHS_IMPROVEMENT = [
       {
         heading: "PastPaperPrep: best for authentic, filterable practice",
         paragraphs: [
-          "PastPaperPrep keeps four live IB Maths routes: AA HL, AA SL, AI HL, and AI SL. The bank is designed around real past-paper questions, with granular filters that help you move from a broad course to a narrow topic or source detail. Answers or mark schemes are included when the source provides them, and selected questions can be turned into printable custom sets.",
+          "PastPaperPrep separates AA HL, AA SL, AI HL and AI SL. Each has a free whole-paper archive and a topical real-question bank. Official mark schemes are available with papers; the bank also offers PastPaperPrep’s published worked explanations on available questions. These are different resources. Older legacy Maths papers need a current-course compatibility check.",
           "That makes it useful at three different points in revision. First, isolate a topic while rebuilding a method. Next, create a mixed set so the topic label does not reveal the method. Finally, use source-based or timed sets to test pacing and written communication. The tool does not decide which gap matters; your marked work should supply that diagnosis.",
         ],
         bullets: [
           "AA HL, AA SL, AI HL, and AI SL are separate bank choices.",
           "Use topic and source filters for diagnosis, then mixed sets for transfer.",
-          "Printable sets are useful for independent study, tutoring, and class review.",
+          "Custom printable sets require eligible bank access and follow the plan download allowance.",
         ],
       },
       {
         heading: "Revision Village: best for difficulty and video support",
         paragraphs: [
           "Revision Village’s primary IB Math Questionbank page says its questions are organised by topic, sub-topic, and difficulty, with mark schemes and video solutions. Its course-specific AA and AI pages describe a progression from easier to harder exam-style questions and link to key concepts and practice exams.",
-          "This is a genuine advantage when your main problem is knowing how a solution works after an attempt. Video explanation can make a difficult method more accessible, and difficulty ordering can give a student a clear next step. The trade-off is that the product is centred on exam-style questionbank content rather than PastPaperPrep’s narrower promise of retrieving real past-paper questions into custom sets. Check which kind of authenticity you need.",
+          "Video walkthroughs and difficulty progression are useful when watching a method helps you understand it. PastPaperPrep also has written worked explanations where published, so the choice is not explanations versus no explanations. Compare video-led exam-style practice with real-question retrieval and the exact support available on your course.",
         ],
       },
       {

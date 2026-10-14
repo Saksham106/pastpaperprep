@@ -152,11 +152,37 @@ export const TUTORS_PRICING_IGCSE_MATHS: readonly Article[] = [
     title: "Best IGCSE Maths Past-Paper Websites for 0580 and 0606",
     description: "Compare official Cambridge PDFs, PMT, MathsGenie, and PastPaperPrep for Cambridge IGCSE Maths 0580 and Additional Maths 0606.",
     eyebrow: "Buyer guide",
-    answer: "For Cambridge IGCSE Maths 0580 and Additional Maths 0606, start with Cambridge International for official PDFs and syllabus context. Use Physics & Maths Tutor for a broad free archive of papers and mark schemes, and MathsGenie for free practice where its coverage matches your course. Choose PastPaperPrep when you want live-bank filtering by topic, paper, year, marks, and other available metadata instead of manually opening many PDFs.",
+    answer: "For Cambridge IGCSE Maths 0580 and Additional Maths 0606, PastPaperPrep offers free whole papers and matching official mark schemes without signup, plus a separate topical question bank. Use Cambridge International for syllabus context and its official public selection, PMT for a broad free archive, and MathsGenie where its clearly labelled specification matches your course. Custom PastPaperPrep worksheets require eligible bank access.",
     publishedAt: "2026-09-15",
-    updatedAt: "2026-09-15",
+    updatedAt: "2026-10-14",
     readingMinutes: 7,
     sections: [
+      {
+        heading: "Free whole papers, then targeted practice",
+        paragraphs: [
+          "Whole papers in PastPaperPrep’s supported subject archives are free to use without signup, with the question paper and matching official mark scheme together.",
+        "The topical bank has a different access rule: guests see up to 20 matching free questions, and a free account unlocks the rest of the older free selection. Newer topical inventory requires eligible bank access. Custom PDF worksheets require eligible bank access and follow the plan’s download allowance. Revising more than Maths? The cross-subject guide below compares free IGCSE archives."
+        ],
+        links: [
+        {href: "/articles/best-free-igcse-past-paper-websites", label: "Compare free IGCSE paper websites across subjects"},
+          {
+            href: "/past-papers/igcse-maths-0580",
+            label: "IGCSE Maths 0580 whole papers"
+          },
+          {
+            href: "/past-papers/igcse-additional-maths-0606",
+            label: "IGCSE Additional Maths 0606 whole papers"
+          },
+          {
+            href: "/banks/igcse?free=1",
+            label: "PastPaperPrep IGCSE 0580 bank: free topic practice"
+          },
+          {
+            href: "/banks/igcse-additional?free=1",
+            label: "PastPaperPrep IGCSE Additional 0606 bank: free topic practice"
+          }
+        ]
+      },
       {
         heading: "First check the exact Cambridge code",
         paragraphs: [
@@ -188,15 +214,15 @@ export const TUTORS_PRICING_IGCSE_MATHS: readonly Article[] = [
       {
         heading: "PastPaperPrep: filtering instead of PDF hunting",
         paragraphs: [
-          "PastPaperPrep is the paid option in this comparison. Its value is the live-bank workflow: open /banks/igcse for 0580 or /banks/igcse-additional for 0606, filter using the controls available on that bank, select questions, and build or download a practice set. The bank can make topic, paper, year, marks, and similar metadata easier to use than a folder of PDFs.",
-          "Choose it when your main problem is selection rather than access to any paper at all. A tutor can make a focused worksheet, and a learner can move from topic practice to mixed or timed work without manually assembling every question. It does not replace Cambridge's official syllabus check, and it does not make a free archive unnecessary for every user.",
+          "PastPaperPrep offers two routes for 0580 and 0606. Its whole-paper archives are free without signup and pair question papers with official mark schemes. Its topical banks let you filter real questions by the available topic, paper, year and marks metadata. Start with free practice; custom printable worksheets require eligible bank access and follow plan download allowances.",
+          "Use the archive for a timed sitting and the bank for focused repair between papers. A whole-paper mark scheme shows the credited working, but is not a full teaching explanation. Do not assume an IGCSE question has a published PastPaperPrep worked explanation simply because those are available in selected IB banks. Cambridge’s syllabus and specimen materials remain the alignment check.",
         ],
       },
       {
         heading: "A practical choice by use case",
         paragraphs: [
           "Choose Cambridge International when you need the authoritative syllabus context, official public PDFs, specimen papers, examiner reports, or a final check that a paper belongs to 0580 or 0606. Choose PMT when you want a broad free archive for full papers and mark schemes. Choose MathsGenie when its clearly labelled specification matches your learner. Choose PastPaperPrep when you want searchable, filterable selection and printable-set building.",
-          "Many learners can use more than one. A sensible combination is Cambridge for alignment, PMT for free full-paper volume, and PastPaperPrep for targeted sets between full papers. The best website is the one that matches the job you need done, not the one with the longest list of PDFs.",
+          "A practical combination is Cambridge for syllabus alignment, PastPaperPrep or PMT for free whole papers, and the matching topical bank for the weak skill found after marking. The best site is the one that makes your next practice task easier.",
         ],
       },
     ],
@@ -205,7 +231,7 @@ export const TUTORS_PRICING_IGCSE_MATHS: readonly Article[] = [
       { question: "Where should I get official 0606 past papers?", answer: "Use Cambridge International's Cambridge IGCSE Additional Mathematics 0606 past-paper page. Check the syllabus and specimen materials because older papers may not reflect the current syllabus." },
       { question: "Is PMT free for Cambridge IGCSE Maths?", answer: "PMT provides a broad free archive of downloadable Cambridge IGCSE Maths papers and mark schemes. Check the paper code and session before using a file." },
       { question: "Does MathsGenie cover Cambridge 0580 and 0606?", answer: "Check the exact qualification on each resource. Its visible IGCSE hub is centered on Edexcel IGCSE Maths, so do not assume every resource matches Cambridge 0580 or 0606." },
-      { question: "Why pay for PastPaperPrep if official PDFs are free?", answer: "Pay for the filtering workflow if you need to select questions by available metadata, build focused printable sets, and spend less time hunting through separate PDF files. Free official sources remain useful for alignment and full-paper practice." },
+      { question: "Why pay for PastPaperPrep if official PDFs are free?", answer: "You do not need to pay for PastPaperPrep’s whole-paper workspace. Paid bank access is useful if you need newer topical inventory or custom PDF worksheets with the plan’s allowances. Free whole papers and the older free topical selection remain separate ways to practise." },
     ],
     relatedBanks: [
       { href: "/banks/igcse", label: "PastPaperPrep IGCSE 0580 bank" },
