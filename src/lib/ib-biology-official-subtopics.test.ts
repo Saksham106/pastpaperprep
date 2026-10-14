@@ -3,6 +3,9 @@ import ibBiologyHlData from "@/data/raw/ib-biology-hl.json";
 import ibBiologySlData from "@/data/raw/ib-biology-sl.json";
 import biology0610Runtime from "@/data/production/igcse-biology-0610.json";
 import { normalizeBankQuestions } from "@/lib/questions";
+import { filterQuestions } from "@/lib/question-filter";
+import hlArchive from "@/data/paper-archives/ib-biology-hl.json";
+import slArchive from "@/data/paper-archives/ib-biology-sl.json";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 
 const expectedTopics = [
@@ -43,9 +46,10 @@ describe("IB Biology official syllabus subtopics", () => {
     expect(new Set(questions.flatMap((q) => q.subtopics))).toEqual(new Set([
       "Biological molecules and water", "Cells and ultrastructure", "Membranes and transport", "Metabolism and energy", "Nucleic acids and gene expression",
       "Digestion and nutrition", "Gas exchange and transport", "Neural and chemical signalling", "Defence against disease", "Homeostasis and reproduction",
-      "DNA, genes and chromosomes", "Evolution and speciation", "Biotechnology and gene editing",
-      "Populations and communities", "Adaptation and ecological niches", "Conservation and biodiversity",
+      "DNA, genes and chromosomes", "Cell division and inheritance", "Evolution and speciation", "Diversity and classification", "Biotechnology and gene editing",
+      "Populations and communities", "Energy and matter cycles", "Adaptation and ecological niches", "Conservation and biodiversity", "Climate change and ecosystem stability",
     ]));
+    // Muscle and movement is HL-only material; no SL question is reviewed into it.
   });
 
   it("repairs four printed-source extension blanks without restoring HL-only codes", () => {
@@ -72,5 +76,29 @@ describe("IB Biology official syllabus subtopics", () => {
     const row = questions.find((q) => q.classificationProvenance?.oldSubtopics.length && q.subtopics.join("|") !== q.classificationProvenance.oldSubtopics.join("|"));
     expect(row?.classificationProvenance?.oldSubtopics.length).toBeGreaterThan(0);
     expect(row?.subtopics).not.toEqual(row?.classificationProvenance?.oldSubtopics);
+  });
+
+  it("files the printed-source triglyceride question under biological molecules, not nucleic acids", () => {
+    const sl = normalizeBankQuestions("ib-biology-sl", ibBiologySlData.questions);
+    const q = sl.find((row) => row.id === "2025-may-tz3-sl-p2-q2");
+    expect(q?.primaryTopic).toBe("Molecules and cells");
+    expect(q?.subtopics).toEqual(["Biological molecules and water"]);
+    const found = filterQuestions(sl, { topics: ["Molecules and cells"], subtopics: ["Biological molecules and water"] });
+    expect(found.map((row) => row.id)).toContain("2025-may-tz3-sl-p2-q2");
+    expect(filterQuestions(sl, { subtopics: ["Nucleic acids and gene expression"] }).map((row) => row.id)).not.toContain("2025-may-tz3-sl-p2-q2");
+  });
+
+  it("full-paper reports recommend the same topics as topic practice", () => {
+    for (const [slug, data, archive] of [["ib-biology-hl", ibBiologyHlData, hlArchive], ["ib-biology-sl", ibBiologySlData, slArchive]] as const) {
+      const byId = new Map(normalizeBankQuestions(slug, data.questions).map((q) => [q.id, q]));
+      for (const paper of archive.papers) {
+        for (const q of paper.questions) {
+          const row = byId.get(q.id)!;
+          expect(q.topics, q.id).toEqual([...new Set([row.primaryTopic, ...row.secondaryTopics])]);
+        }
+      }
+    }
+    const community = slArchive.papers.find((p) => p.summary.id === "biology-2022-may-tz1-sl-p1-english")!.questions.find((q) => q.id === "2022-may-tz1-sl-p1-q17");
+    expect(community?.topics).toEqual(["Populations, ecosystems and environmental change"]);
   });
 });
