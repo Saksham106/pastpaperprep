@@ -11,7 +11,8 @@ const pairs=[
  ["src/data/ib-biology-official-subtopics/overlay.json",new Set(["2019-may-tz1-sl-p1-q30","2019-may-tz1-sl-p3-q16","2019-may-tz2-sl-p1-q30","2019-november-tz0-sl-p3-q2"])],
 ];
 const get=(path)=>JSON.parse(readFileSync(join(root,path),"utf8"));
-const laterCorrections=new Set(get("scripts/data/ib-biology-reviewed-subtopic-corrections.json").corrections.map(entry=>entry.id).filter(id=>!pairs[1][1].has(id)));
+const correctionEntries=new Map(get("scripts/data/ib-biology-reviewed-subtopic-corrections.json").corrections.map(entry=>[entry.id,entry]));
+const laterCorrections=new Set([...correctionEntries.keys()].filter(id=>!pairs[1][1].has(id)));
 const pinned=(path)=>JSON.parse(execFileSync("git",["show",`${base}:${path}`],{cwd:root,maxBuffer:100_000_000}).toString());
 
 describe("source-confirmed IB subtopic repair",()=>{
@@ -35,8 +36,11 @@ describe("source-confirmed IB subtopic repair",()=>{
     expect(row.blocked ?? row.status==="blocked").toBe(false);
    } else if(!path.includes("aa-official")&&laterCorrections.has(row.id)){
     // Later printed-source correction, pinned in the generator's corrections file.
-    const withoutReview=value=>Object.fromEntries(Object.entries(value).filter(([field])=>!["primary","secondary","sourceReassessment"].includes(field)));
+    // Codes may change only to exactly the pinned correction's codes.
+    const withoutReview=value=>Object.fromEntries(Object.entries(value).filter(([field])=>!["primary","secondary","sourceReassessment","officialAtomicIds","officialCodes","blockedReasons"].includes(field)));
     expect(row.sourceReassessment?.questionPdfSha256).toMatch(/^[a-f0-9]{64}$/);
+    expect(row.officialAtomicIds).toEqual(correctionEntries.get(row.id).officialAtomicIds);
+    expect([row.primary,...row.secondary].map(group=>group.id)).toEqual(correctionEntries.get(row.id).groupIds);
     expect(withoutReview(row)).toEqual(withoutReview(old.get(row.id)));
    } else if(!path.includes("aa-official")&&!row.blocked&&!old.get(row.id).blocked){
     // Later, separately reviewed fix: Biology groups follow each question's reviewed subtopics
