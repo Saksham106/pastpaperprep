@@ -55,6 +55,7 @@ function parseStyleSheet(source: string): StyleBlock[] {
 const PROJECT_ROOT = process.cwd();
 const globalBlocks = parseStyleSheet(readFileSync(path.join(PROJECT_ROOT, "src/app/globals.css"), "utf8"));
 const homeBlocks = parseStyleSheet(readFileSync(path.join(PROJECT_ROOT, "src/components/MarketingHome.module.css"), "utf8"));
+const courseBlocks = parseStyleSheet(readFileSync(path.join(PROJECT_ROOT, "src/components/CourseCards.module.css"), "utf8"));
 
 /** Cascade winner for a selector: "all" includes every media query, "base" only top level. */
 function styleFor(blocks: StyleBlock[], selector: string, media: "all" | "base" | string = "all"): Declaration {
@@ -137,11 +138,11 @@ describe("qualification tabs carry no wide tray", () => {
   });
 });
 
-describe("landing subject cards read as coloured, clickable blocks", () => {
-  const card = styleFor(homeBlocks, ".subjectCard", "all");
-  const head = styleFor(homeBlocks, ".subjectHead", "all");
-  const row = styleFor(homeBlocks, ".bankRow", "all");
-  const hover = styleFor(homeBlocks, ".bankRow:hover", "all");
+describe("subject cards (landing and dashboard) read as coloured, clickable blocks", () => {
+  const card = styleFor(courseBlocks, ".card", "all");
+  const head = styleFor(courseBlocks, ".head", "all");
+  const row = styleFor(courseBlocks, ".row", "all");
+  const hover = styleFor(courseBlocks, ".row:hover", "all");
 
   it("paints the tinted body and the pastel header from the shared tokens", () => {
     expect(normalize(card.background)).toContain("--subject-panel-tint");
@@ -157,25 +158,8 @@ describe("landing subject cards read as coloured, clickable blocks", () => {
   });
 });
 
-describe("dashboard study panels are flattened onto the landing subject tones", () => {
-  const card = styleFor(globalBlocks, ".dashboard-bank-card", "all");
-  const included = styleFor(globalBlocks, ".dashboard-bank-card.is-included", "all");
-  const family = styleFor(globalBlocks, ".dashboard-bank-family[data-subject-tone]", "all");
-
-  it("stops drawing a card inside the subject panel", () => {
-    expect(paintsNothing(card.background)).toBe(true);
-    expect(drawsNoEdge(card)).toBe(true);
-    expect(paintsNothing(card["box-shadow"])).toBe(true);
-    expect(paintsNothing(included.background)).toBe(true);
-  });
-
-  it("keeps a hover affordance on each full-tile bank link", () => {
-    const hover = styleFor(globalBlocks, ".dashboard-bank-card:hover", "all");
-    expect(paintsSomething(hover.background)).toBe(true);
-  });
-
-  it("paints the panel with the shared subject-tone token", () => {
-    expect(normalize(family.background)).toContain("--subject-panel-tint");
+describe("subject tones", () => {
+  it("give every subject a panel tint, in both themes", () => {
     for (const tone of ["math", "chemistry", "physics", "biology", "economics", "coordinated"]) {
       expect(styleFor(globalBlocks, `[data-subject-tone="${tone}"]`, "all")["--subject-panel-tint"]).toBeTruthy();
     }
