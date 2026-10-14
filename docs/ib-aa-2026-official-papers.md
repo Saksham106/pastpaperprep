@@ -30,5 +30,5 @@ None of these papers appeared in the full past papers, because the archive requi
 
 ## Owner follow-ups
 
-- Delete the 62 retired 2026 images from `pastpaperprep-assets`: `ib-hl/questions/2026-may-tza-*` and `ib-sl/questions/m26-math-aasl-*`. `npm run r2:verify` reports them as unexpected until then.
+- Delete the 64 images of the 62 retired questions (26 HL, 38 SL) from `pastpaperprep-assets`: `ib-hl/questions/2026-may-tza-*` and `ib-sl/questions/m26-math-aasl-*` (script: `../research/official-sources-20261013/owner-cleanup/delete-retired-aa-2026-images.sh`). `npm run r2:verify` reports them as unexpected until then.
 - No worked explanations exist yet for the new 2026 ids. The retired ones had none either.

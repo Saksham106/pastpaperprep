@@ -113,6 +113,15 @@ describe("POST /api/pdf/sign", () => {
     });
   });
 
+  it("exports a retired question id from an already-open page through its replacement", async () => {
+    const { fetchPdfAssets } = await import("@/lib/signed-assets");
+    const fetcher = (async (_url: string, init?: RequestInit) => POST(new Request("https://pastpaperprep.com/api/pdf/sign", { method: "POST", body: init?.body, headers: { "content-type": "application/json" } }))) as unknown as typeof fetch;
+    const signed = await fetchPdfAssets("ib-sl", ["m26-math-aasl-p2-tza-q2"], "both", fetcher);
+    expect([...signed.keys()].sort()).toEqual(["m26-math-aasl-p2-tza-q2:answer", "m26-math-aasl-p2-tza-q2:question"]);
+    expect(signed.get("m26-math-aasl-p2-tza-q2:question")?.urls[0]).toContain("ib-sl/questions/2026-may-p2-tz1-q2");
+    expect(rpc).toHaveBeenCalledWith("consume_download_allowance", expect.objectContaining({ p_pdf_question_count: 1 }));
+  });
+
   it("counts answer-only solution questions without requiring an image", async () => {
     const response = await POST(request({ bank: "ib-sl", questionIds: [SOLUTION_ONLY], content: "answers" }));
     expect(response.status).toBe(200);

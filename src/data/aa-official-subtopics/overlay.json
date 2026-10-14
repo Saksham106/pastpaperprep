@@ -24,7 +24,7 @@
     },
     "rawHL": {
       "path": "/Users/sakshamgoel/Documents/ProjectsInternships/pastpaperprep-release-worktrees/aa-official-subtopics/src/data/raw/ib-hl.json",
-      "sha256": "ad40131a2b96223f0ed0e0f3357e5fcffa4d3207ab6f0b9b88d7939b366ea405",
+      "sha256": "737bd854e6ed1ce051ffc4f46ea08c486c264304858afbe1cd17c868a0f6607a",
       "selectedPredicate": "courseEra == 'aa-hl' and course == 'Mathematics: Analysis and Approaches HL'",
       "count": 541
     }
@@ -25344,13 +25344,15 @@
         "ib-aa.filter.reciprocal-inverse-trig",
         "ib-aa.filter.graph-transformations",
         "ib-aa.filter.composite-inverse-functions",
-        "ib-aa.filter.integration-and-area"
+        "ib-aa.filter.integration-and-area",
+        "ib-aa.filter.differentiation-and-tangents"
       ],
       "subtopics": [
         "ib-aa.filter.reciprocal-inverse-trig",
         "ib-aa.filter.graph-transformations",
         "ib-aa.filter.composite-inverse-functions",
-        "ib-aa.filter.integration-and-area"
+        "ib-aa.filter.integration-and-area",
+        "ib-aa.filter.differentiation-and-tangents"
       ],
       "status": "accepted",
       "blockedReason": null,
@@ -25388,7 +25390,8 @@
           "source": "official May 2026 paper and markscheme",
           "confidence": "medium",
           "rationale": "Sketches 2 arctan(x - 1) + pi/2 and describes its transformations from arctan x (7), finds the inverse and its domain and intersections (6), then a tangent and the enclosed area by integration (6).",
-          "priorRetiredId": null
+          "priorRetiredId": null,
+          "reviewAddition": "Review (PR #286): part (d) asks for the tangent equation at x = 3 [2], used again in (e) (QP p17)."
         }
       }
     },
@@ -26094,12 +26097,16 @@
       "bank": "ib-aa",
       "level": "HL",
       "primaryTopic": "Number and algebra",
-      "secondaryTopics": [],
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
       "groupIds": [
-        "ib-aa.filter.complex-numbers"
+        "ib-aa.filter.complex-numbers",
+        "ib-aa.filter.three-dimensional-measurement"
       ],
       "subtopics": [
-        "ib-aa.filter.complex-numbers"
+        "ib-aa.filter.complex-numbers",
+        "ib-aa.filter.three-dimensional-measurement"
       ],
       "status": "accepted",
       "blockedReason": null,
@@ -26132,7 +26139,8 @@
           "source": "official May 2026 paper and markscheme",
           "confidence": "high",
           "rationale": "Products with conjugates, real/imaginary parts and moduli of complex numbers generate the integer cuboid dimensions, with inequality constraints on c.",
-          "priorRetiredId": null
+          "priorRetiredId": null,
+          "reviewAddition": "Review (PR #286): part (a) finds a cuboid interior diagonal from dimensions 9, 2, 6 [2] (QP p7, MS p14)."
         }
       }
     },
@@ -26200,17 +26208,22 @@
       "level": "HL",
       "primaryTopic": "Calculus",
       "secondaryTopics": [
-        "Statistics and probability"
+        "Statistics and probability",
+        "Geometry and trigonometry"
       ],
       "groupIds": [
         "ib-aa.filter.derivative-applications",
         "ib-aa.filter.differential-equations",
-        "ib-aa.filter.continuous-random-variables"
+        "ib-aa.filter.continuous-random-variables",
+        "ib-aa.filter.circular-function-graphs",
+        "ib-aa.filter.trig-equations"
       ],
       "subtopics": [
         "ib-aa.filter.derivative-applications",
         "ib-aa.filter.differential-equations",
-        "ib-aa.filter.continuous-random-variables"
+        "ib-aa.filter.continuous-random-variables",
+        "ib-aa.filter.circular-function-graphs",
+        "ib-aa.filter.trig-equations"
       ],
       "status": "accepted",
       "blockedReason": null,
@@ -26248,7 +26261,8 @@
           "source": "official May 2026 paper and markscheme",
           "confidence": "medium",
           "rationale": "Simple harmonic motion kinematics (velocity, acceleration, maximum speed), solving v dv/ds = -n^2 s (5), and the displacement density: probability via arcsin integral, k and E(S) (10).",
-          "priorRetiredId": null
+          "priorRetiredId": null,
+          "reviewAddition": "Review (PR #286): part (a) assesses sine-model amplitude [1], initial displacement [2] and first crossing time [2] (QP p5)."
         }
       }
     },

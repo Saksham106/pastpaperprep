@@ -154,4 +154,18 @@ describe("official AA normal subtopics", () => {
     }
     expect(legacyExpected.size).toBeGreaterThan(0);
   });
+
+  it("retrieves reviewed assessed facets of May 2026 HL questions", () => {
+    const hl = normalizeBankQuestions("ib-hl", (rawHl as { questions: unknown[] }).questions as never[]);
+    const cases = [
+      ["2026-may-tz2-p3-q2", "Geometry and trigonometry", "Three-dimensional measurement and angles"],
+      ["2026-may-tz2-p2-q12", "Calculus", "Differentiation and tangents"],
+      ["2026-may-tz3-p3-q2", "Geometry and trigonometry", "Circular-function graphs and models"],
+      ["2026-may-tz3-p3-q2", "Geometry and trigonometry", "Trigonometric equations"],
+    ] as const;
+    for (const [id, topic, subtopic] of cases) {
+      expect(filterQuestions(hl, { topics: [topic], subtopics: [subtopic] }).map((q) => q.id), `${id} ${subtopic}`).toContain(id);
+    }
+  });
 });
+

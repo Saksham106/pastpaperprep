@@ -89,6 +89,15 @@ describe("POST /api/assets/sign", () => {
     expect(payload.assets[0].details).not.toHaveProperty("searchText");
   });
 
+  it("signs a retired question id from an already-open page through its replacement", async () => {
+    const { fetchSignedAssets } = await import("@/lib/signed-assets");
+    const fetcher = (async (_url: string, init?: RequestInit) => POST(new Request("https://pastpaperprep.com/api/assets/sign", { method: "POST", body: init?.body, headers: { "content-type": "application/json" } }))) as unknown as typeof fetch;
+    const signed = await fetchSignedAssets("ib-hl", [{ questionId: "2026-may-tza-p1-q1", kind: "question" }, { questionId: "2026-may-tza-p1-q1", kind: "answer" }], fetcher);
+    expect([...signed.keys()].sort()).toEqual(["2026-may-tza-p1-q1:answer", "2026-may-tza-p1-q1:question"]);
+    expect(signed.get("2026-may-tza-p1-q1:question")?.urls[0]).toContain("ib-hl/questions/2026-may-tz1-p1-q1");
+    expect(signed.get("2026-may-tza-p1-q1:answer")?.urls[0]).toContain("ib-hl/markschemes/2026-may-tz1-p1-q1");
+  });
+
   it("signs the reviewed 0606 blank-tail display crop without altering the original asset URL", async () => {
     const response = await POST(new Request("https://pastpaperprep.com/api/assets/sign", {
       method: "POST",

@@ -2006,8 +2006,8 @@
       ],
       "imageStatus": "original",
       "marks": 5,
-      "summary": "Consider the function f (x) = 3 (x − 2) (x − q) , where x ∈  and q is a real constant.",
-      "accessibleText": "1.\n[Maximum mark: 5]\nConsider the function f (x) = 3 (x − 2) (x − q) , where x ∈  and q is a real constant.\nThe axis of symmetry of the graph of f has equation x = 4 .\n(a)\n\u0007Show that q = 6 .\n[2]\n(b)\n\u0007Find the coordinates of the vertex of the graph of f .\n[2]\n(c)\n\u0007Hence, write down the range of f .\n[1]",
+      "summary": "Consider the function f(x) = 3(x − 2)(x − q), where x ∈ ℝ and q is a real constant.",
+      "accessibleText": "1.\n[Maximum mark: 5]\nConsider the function f(x) = 3(x − 2)(x − q), where x ∈ ℝ and q is a real constant.\nThe axis of symmetry of the graph of f has equation x = 4.\n(a)\nShow that q = 6.\n[2]\n(b)\nFind the coordinates of the vertex of the graph of f.\n[2]\n(c)\nHence, write down the range of f.\n[1]",
       "labels": [
         "Trigonometry",
         "Functions - Roots",
@@ -2067,8 +2067,8 @@
       ],
       "imageStatus": "original",
       "marks": 5,
-      "summary": "A particle P is travelling along a straight line, with displacement measured relative to a",
-      "accessibleText": "2.\n[Maximum mark: 5]\nA particle P is travelling along a straight line, with displacement measured relative to a\npoint O on the line. The velocity, v m s−1 , of the particle at time t seconds is given by\nv\nt\nt\n1\n1\ne\n, where t ≥ 0 .\n(a)\nFind\n1\n1\nt\nt\nt\n\u001b\n\u001a\u0019\n\u0018\n\u0017\ne\nd .\n[2]\nInitially the particle is at O .\n(b)\nFind an expression for the displacement, s metres, in terms of t .\n[3]",
+      "summary": "A particle P is travelling along a straight line, with displacement measured relative to a point O on the line. The velocity, v m s⁻¹, of the particle at time t seconds is given by",
+      "accessibleText": "2.\n[Maximum mark: 5]\nA particle P is travelling along a straight line, with displacement measured relative to a point O on the line. The velocity, v m s⁻¹, of the particle at time t seconds is given by\nv = 1/(t + 1) + e^(−t), where t ≥ 0.\n(a)\nFind ∫ (1/(t + 1) + e^(−t)) dt.\n[2]\nInitially the particle is at O.\n(b)\nFind an expression for the displacement, s metres, in terms of t.\n[3]",
       "labels": [
         "Kinematics"
       ],
@@ -2125,8 +2125,8 @@
       ],
       "imageStatus": "original",
       "marks": 6,
-      "summary": "Consider a geometric sequence, un , with common ratio r , where each term in the sequence",
-      "accessibleText": "3.\n[Maximum mark: 6]\nConsider a geometric sequence, un , with common ratio r , where each term in the sequence\nis positive.\nIt is given that u6 = 1.6 × 105 and u8 = 6.4 × 105 .\n(a)\n\u0007Find the value of r .\n[3]\n(b)\n\u0007Find the value of u1 , giving your answer in the form a × 10k , where 1 ≤ a < 10\nand k ∈  .\n[3]",
+      "summary": "Consider a geometric sequence, uₙ, with common ratio r, where each term in the sequence is positive.",
+      "accessibleText": "3.\n[Maximum mark: 6]\nConsider a geometric sequence, uₙ, with common ratio r, where each term in the sequence is positive.\nIt is given that u₆ = 1.6 × 10⁵ and u₈ = 6.4 × 10⁵.\n(a)\nFind the value of r.\n[3]\n(b)\nFind the value of u₁, giving your answer in the form a × 10ᵏ, where 1 ≤ a < 10 and k ∈ ℤ.\n[3]",
       "labels": [
         "Sequences - Series"
       ],
@@ -2185,8 +2185,8 @@
       ],
       "imageStatus": "original",
       "marks": 7,
-      "summary": "Show that log25 (81x2) = log5 9 + log5 x for x > 0 .",
-      "accessibleText": "4.\n[Maximum mark: 7]\n(a)\nShow that log25 (81x2) = log5 9 + log5 x for x > 0 .\n[4]\n(b)\n\u0007Hence, solve the equation log\nlog\nlog\n5\n3\n25\n2\n5\n81\n4\nx\nx\n, where x > 0 .\n[3]\nPlease do not write on this page.\nAnswers written on this page\nwill not be marked.\n2226 – 5015",
+      "summary": "Show that log₂₅(81x²) = log₅ 9 + log₅ x for x > 0.",
+      "accessibleText": "4.\n[Maximum mark: 7]\n(a)\nShow that log₂₅(81x²) = log₅ 9 + log₅ x for x > 0.\n[4]\n(b)\nHence, solve the equation log₅ ∛x = log₂₅(81x²) − log₅ 4, where x > 0.\n[3]",
       "labels": [
         "Exponentials - Logarithms"
       ],
@@ -2244,8 +2244,8 @@
       ],
       "imageStatus": "original",
       "marks": 9,
-      "summary": "Consider two events, A and B .",
-      "accessibleText": "5.\n[Maximum mark: 9]\nConsider two events, A and B .\nIt is given that P(\n)\nA\nB'\nx\n5\n24\n, P(\n)\nA\nB\nx\n7\n12\nand P(\n)\nA'\nB\n1\n6\n, where 0 ≤ x ≤ 7 .\n(a)\nShow that P( )\nA\nx\n19\n24\n.\n[3]\nIt is given that A and B are independent.\n(b)\n\u0007Find the possible values of x .\n[6]",
+      "summary": "Consider two events, A and B.",
+      "accessibleText": "5.\n[Maximum mark: 9]\nConsider two events, A and B.\nIt is given that P(A ∩ B′) = (5 + x)/24, P(A ∩ B) = (7 − x)/12 and P(A′ ∩ B) = 1/6, where 0 ≤ x ≤ 7.\n(a)\nShow that P(A) = (19 − x)/24.\n[3]\nIt is given that A and B are independent.\n(b)\nFind the possible values of x.\n[6]",
       "labels": [
         "Functions - Roots"
       ],
@@ -2304,8 +2304,8 @@
       ],
       "imageStatus": "original",
       "marks": 4,
-      "summary": "Consider a piece of paper in the shape of a circle with centre O and radius r cm ,",
-      "accessibleText": "6.\n[Maximum mark: 4]\nConsider a piece of paper in the shape of a circle with centre O and radius r cm ,\nwhere r > 6 . A second circle with centre O and radius 6 cm is drawn inside the first and\nshaded, as shown in the following diagram.\ndiagram not to scale\nO\n6\nr\nThe points A and B are on the circumference of the larger circle such that the acute\nangle AÔB = π\n3\n. The paper is cut along the lines AO and BO and the sector AOB with\na central angle of π\n3\nis removed as shown on the following diagram.\ndiagram not to scale\nO\n6\nr\nπ\n3\nA\nB\n(This question continues on the following page)\n2226 – 5015\n(Question 6 continued)\nAfter removing the sector, it is now given that\nthe area of the unshaded region\nthe area of the shaded region = 2\n3\n.\nFind the value of r , giving your answer in the form\nk , where k ∈  .",
+      "summary": "Consider a piece of paper in the shape of a circle with centre O and radius r cm, where r > 6. A second circle with centre O and radius 6 cm is drawn inside the first and shaded, as shown in the following diagram.",
+      "accessibleText": "6.\n[Maximum mark: 4]\nConsider a piece of paper in the shape of a circle with centre O and radius r cm, where r > 6. A second circle with centre O and radius 6 cm is drawn inside the first and shaded, as shown in the following diagram.\n[diagram not to scale: two concentric circles with centre O; the inner shaded circle has radius 6 and the outer circle has radius r]\nThe points A and B are on the circumference of the larger circle such that the acute angle AÔB = π/3. The paper is cut along the lines AO and BO and the sector AOB with a central angle of π/3 is removed as shown on the following diagram.\n[diagram not to scale: the two circles with sector AOB of angle π/3 removed; OA and OB have length r, inner radius 6]\nAfter removing the sector, it is now given that\n(the area of the unshaded region)/(the area of the shaded region) = 2/3.\nFind the value of r, giving your answer in the form √k, where k ∈ ℤ.",
       "labels": [
         "Trigonometry",
         "Radian"
@@ -2365,7 +2365,7 @@
       "imageStatus": "original",
       "marks": 6,
       "summary": "Reyn is investigating the fertility of a group of adult female foxes.",
-      "accessibleText": "7.\n[Maximum mark: 6]\nReyn is investigating the fertility of a group of adult female foxes.\nHe has developed a clinical test that aims to identify whether or not a given fox is pregnant,\nand he wants to evaluate the reliability of this test.\nReyn knows that\n• 40 % of the foxes in the group are pregnant\n• if a fox is pregnant, the probability that it will test positive is 90 %\n• if a fox is not pregnant, the probability it will test positive is 20 % .\n(a)\n\u0007Find the probability that a randomly selected fox from the group will test positive.\n[3]\n(b)\n\u0007Find the probability that a randomly selected fox from the group is pregnant, given that\nit tested positive.\n[3]",
+      "accessibleText": "7.\n[Maximum mark: 6]\nReyn is investigating the fertility of a group of adult female foxes.\nHe has developed a clinical test that aims to identify whether or not a given fox is pregnant, and he wants to evaluate the reliability of this test.\nReyn knows that\n• 40% of the foxes in the group are pregnant\n• if a fox is pregnant, the probability that it will test positive is 90%\n• if a fox is not pregnant, the probability it will test positive is 20%.\n(a)\nFind the probability that a randomly selected fox from the group will test positive.\n[3]\n(b)\nFind the probability that a randomly selected fox from the group is pregnant, given that it tested positive.\n[3]",
       "labels": [
         "Probability",
         "Sets - Relations - Groups"
@@ -2423,8 +2423,8 @@
       ],
       "imageStatus": "original",
       "marks": 8,
-      "summary": "Consider the polynomial p (z) = 3z5 − 7z4 + cz3 + dz2 + ez − 26 , where z ∈  and c , d , e ∈  .",
-      "accessibleText": "8.\n[Maximum mark: 8]\nConsider the polynomial p (z) = 3z5 − 7z4 + cz3 + dz2 + ez − 26 , where z ∈  and c , d , e ∈  .\nThree of the roots of p (z) are 1\n3\n2\n,\n,\na\nb\ni\ni , where a , b ∈  , b > 1 .\n(a)\n\u0007By considering the sum and the product of the roots of p (z) ,\n(i)\n\u0007show that a = −1 ;\n(ii)\n\u0007find the value of b .\n[5]\n(b)\n\u0007Show that p (z) = (Az + B) (z2 + Cz + D) (z2 + Ez + F ) , where A , B , C , D , E , F are\nintegers to be determined.\n[3]",
+      "summary": "Consider the polynomial p(z) = 3z⁵ − 7z⁴ + cz³ + dz² + ez − 26, where z ∈ ℂ and c, d, e ∈ ℝ.",
+      "accessibleText": "8.\n[Maximum mark: 8]\nConsider the polynomial p(z) = 3z⁵ − 7z⁴ + cz³ + dz² + ez − 26, where z ∈ ℂ and c, d, e ∈ ℝ.\nThree of the roots of p(z) are 1/3, a − i, 2 + bi, where a, b ∈ ℝ, b > 1.\n(a)\nBy considering the sum and the product of the roots of p(z),\n(i)\nshow that a = −1;\n(ii)\nfind the value of b.\n[5]\n(b)\nShow that p(z) = (Az + B)(z² + Cz + D)(z² + Ez + F), where A, B, C, D, E, F are integers to be determined.\n[3]",
       "labels": [
         "Complex Numbers",
         "Functions - Roots",
@@ -2486,8 +2486,8 @@
       ],
       "imageStatus": "original",
       "marks": 8,
-      "summary": "Consider non-zero vectors a , b and c in three-dimensional space.",
-      "accessibleText": "9.\n[Maximum mark: 8]\nConsider non-zero vectors a , b and c in three-dimensional space.\nThe non-zero vector v is defined as v = (a • c) b − (a • b) c .\n(a)\n\u0007Show that v • a = 0 .\n[2]\nIt is given that b × c and a × (b × c) are non-zero vectors.\n(b)\n\u0007(i)\nJustify why b • (b × c) = 0 .\n(ii)\n\u0007Show that v • (b × c) = 0 .\n[4]\n(c)\n\u0007Hence, state the geometrical relationship between v and a × (b × c) , briefly justifying\nyour answer.\n[2]\n2226 – 5015\nAnswer all questions in the answer booklet provided. Please start each question on a new page.",
+      "summary": "Consider non-zero vectors a, b and c in three-dimensional space.",
+      "accessibleText": "9.\n[Maximum mark: 8]\nConsider non-zero vectors a, b and c in three-dimensional space.\nThe non-zero vector v is defined as v = (a • c)b − (a • b)c.\n(a)\nShow that v • a = 0.\n[2]\nIt is given that b × c and a × (b × c) are non-zero vectors.\n(b)\n(i)\nJustify why b • (b × c) = 0.\n(ii)\nShow that v • (b × c) = 0.\n[4]\n(c)\nHence, state the geometrical relationship between v and a × (b × c), briefly justifying your answer.\n[2]",
       "labels": [
         "Vectors - Lines - Planes",
         "Sequences - Series",
@@ -2550,8 +2550,8 @@
       ],
       "imageStatus": "original",
       "marks": 15,
-      "summary": "Consider the function f (x) = ax3 + bx2 + cx + d , where x ∈  and where a , b , c and d are",
-      "accessibleText": "10.\n[Maximum mark: 15]\nConsider the function f (x) = ax3 + bx2 + cx + d , where x ∈  and where a , b , c and d are\nreal constants.\nThe graph of f has a point of inflexion at (-2 , -2c + d + 24) .\n(a)\n\u0007Show that a = 3\n2\nand b = 9 .\n[6]\nIt is given that the tangents to the graph of f at x = -3 and x = k are horizontal.\n(b)\n\u0007 (i)\nShow that c = 27\n2\n.\n(ii)\n\u0007Find the value of k .\n(iii)\n\u0007State whether f has a local maximum or a local minimum at x = k , justifying\nyour answer.\n[7]\nThe graph of f intersects the y-axis at the point P .\n(c)\n\u0007Show that the tangent to the graph of f at x = -3 passes through P .\n[2]\n2226 – 5015",
+      "summary": "Consider the function f(x) = ax³ + bx² + cx + d, where x ∈ ℝ and where a, b, c and d are real constants.",
+      "accessibleText": "10.\n[Maximum mark: 15]\nConsider the function f(x) = ax³ + bx² + cx + d, where x ∈ ℝ and where a, b, c and d are real constants.\nThe graph of f has a point of inflexion at (−2, −2c + d + 24).\n(a)\nShow that a = 3/2 and b = 9.\n[6]\nIt is given that the tangents to the graph of f at x = −3 and x = k are horizontal.\n(b)\n(i)\nShow that c = 27/2.\n(ii)\nFind the value of k.\n(iii)\nState whether f has a local maximum or a local minimum at x = k, justifying your answer.\n[7]\nThe graph of f intersects the y-axis at the point P.\n(c)\nShow that the tangent to the graph of f at x = −3 passes through P.\n[2]",
       "labels": [
         "Differentiation",
         "Trigonometry",
@@ -2616,8 +2616,8 @@
       ],
       "imageStatus": "original",
       "marks": 19,
-      "summary": "\u0007Hence, solve the equation",
-      "accessibleText": "11.\n[Maximum mark: 19]\n(a)\n\u0007Prove the identity cot\ncot\ncot\n2\n1\n2\n1\n\u001b\u001a\n\u0019\n\u0018\u0017.\n[3]\n(b)\n\u0007Hence, solve the equation\ncot\ncot\n2\n3\n2\n1\n2\n\u001b\ncot\nfor 0 < θ < π where\n2\n.\n[6]\n(c)\n\u0007By differentiating both sides of the identity in part (a), show that\n4cosec22θ ≡ cosec2θ + sec2 θ .\n[5]\nConsider the right-angled triangle ∆PQR , where RP̂Q = π\n2\n.\nPR = cosec θ , QR = 2cosec 2θ , where 0\n2\nand all lengths are given in metres.\nThis is shown in the following diagram.\ndiagram not to scale\nP\nQ\nR\nθ\n2cosec 2\nθ\ncosec\nQR has length L metres and ∆PQR has area A square metres.\n(d)\n\u0007Calculate the ratio L : A in the form n : 1 , where n ∈ + .\n[5]\n2226 – 5015",
+      "summary": "Prove the identity cot 2θ ≡ (1/2)(cot θ − 1/(cot θ)).",
+      "accessibleText": "11.\n[Maximum mark: 19]\n(a)\nProve the identity cot 2θ ≡ (1/2)(cot θ − 1/(cot θ)).\n[3]\n(b)\nHence, solve the equation\ncot 2θ = (3/2) cot θ (cot²θ − 1) for 0 < θ < π where θ ≠ π/2.\n[6]\n(c)\nBy differentiating both sides of the identity in part (a), show that\n4cosec²2θ ≡ cosec²θ + sec²θ.\n[5]\nConsider the right-angled triangle ∆PQR, where RP̂Q = π/2.\nPR = cosec θ, QR = 2cosec 2θ, where 0 < θ < π/2 and all lengths are given in metres.\nThis is shown in the following diagram.\n[diagram not to scale: right-angled triangle PQR with the right angle at P; PR = cosec θ, QR = 2cosec 2θ]\nQR has length L metres and ∆PQR has area A square metres.\n(d)\nCalculate the ratio L : A in the form n : 1, where n ∈ ℤ⁺.\n[5]",
       "labels": [
         "Differentiation",
         "Trigonometry"
@@ -2690,7 +2690,7 @@
       "imageStatus": "original",
       "marks": 18,
       "summary": "Rowan is investigating the spread of an infection through a population of rabbits.",
-      "accessibleText": "12.\n[Maximum mark: 18]\nRowan is investigating the spread of an infection through a population of rabbits.\nHe models N , the number (in thousands) of infected rabbits in the population, at time t days.\nRowan models the spread of the infection by the differential equation\nd\nd\nN\nt\nk\nN\nN\n\u001b\n3\n4\n2 , where t ≥ 0 and k ∈ + .\nInitially, 1500 rabbits are infected.\n(a)\n\u0007Express\n1\n3\n4\n2\nx\nx\nin the form\nA\nx\nB\nx\n1\n3\n, where A , B ∈  .\n[3]\n(b)\n\u0007Hence, show that ln\nln\nN\nN\nkt\np\n\u001b\n\u001a\u0019 \u0018\n1\n3\n2\n, where p ∈ + is a constant to be determined.\n[8]\n(c)\n\u0007Find an expression for N in the form N\na\nb\nc\nkt\nkt\ne\ne\n2\n2\n1\n, where a , b , c ∈  .\n[5]\nAccording to Rowan’s model, the number of infected rabbits approaches a limit, L , over the\nlong term.\n(d)\n\u0007Find the value of L .\n[2]\nDisclaimer:",
+      "accessibleText": "12.\n[Maximum mark: 18]\nRowan is investigating the spread of an infection through a population of rabbits.\nHe models N, the number (in thousands) of infected rabbits in the population, at time t days.\nRowan models the spread of the infection by the differential equation\ndN/dt = k(−3 + 4N − N²), where t ≥ 0 and k ∈ ℝ⁺.\nInitially, 1500 rabbits are infected.\n(a)\nExpress 1/(−3 + 4x − x²) in the form A/(x − 1) + B/(3 − x), where A, B ∈ ℝ.\n[3]\n(b)\nHence, show that ln((N − 1)/(3 − N)) = 2kt − ln p, where p ∈ ℝ⁺ is a constant to be determined.\n[8]\n(c)\nFind an expression for N in the form N = (a + be^(−2kt))/(1 + ce^(−2kt)), where a, b, c ∈ ℤ.\n[5]\nAccording to Rowan’s model, the number of infected rabbits approaches a limit, L, over the long term.\n(d)\nFind the value of L.\n[2]",
       "labels": [
         "Differential Equations",
         "Trigonometry",
@@ -2760,8 +2760,8 @@
       ],
       "imageStatus": "original",
       "marks": 6,
-      "summary": "A sector AOB of radius r cm , where AÔB = 1.5 radians, is shown in the following diagram.",
-      "accessibleText": "1.\n[Maximum mark: 6]\nA sector AOB of radius r cm , where AÔB = 1.5 radians, is shown in the following diagram.\ndiagram not to scale\nA\nO\nB\nr\n1.5\n(a)\n(i)\nFind an expression for the length of arc AB in terms of r .\n(ii)\nHence, find an expression for the perimeter of sector AOB in terms of r .\n[2]\n(b)\nGiven that the perimeter of the sector AOB is 14 cm , find the value of r .\n[2]\n(c)\nHence, find the area of sector AOB .\n[2]\n(This question continues on the following page)\n2226 – 5020\n(Question 1 continued)",
+      "summary": "A sector AOB of radius r cm, where AÔB = 1.5 radians, is shown in the following diagram.",
+      "accessibleText": "1.\n[Maximum mark: 6]\nA sector AOB of radius r cm, where AÔB = 1.5 radians, is shown in the following diagram.\ndiagram not to scale\n[diagram: sector AOB with centre O, radius r and angle 1.5 at O]\n(a)\n(i)\nFind an expression for the length of arc AB in terms of r.\n(ii)\nHence, find an expression for the perimeter of sector AOB in terms of r.\n[2]\n(b)\nGiven that the perimeter of the sector AOB is 14 cm, find the value of r.\n[2]\n(c)\nHence, find the area of sector AOB.\n[2]",
       "labels": [
         "Radian"
       ],
@@ -2819,8 +2819,8 @@
       ],
       "imageStatus": "original",
       "marks": 6,
-      "summary": "Consider the function f (x) = 3 + cos bx for 0 ≤ x ≤ 2π , where b ∈ + .",
-      "accessibleText": "2.\n[Maximum mark: 6]\nConsider the function f (x) = 3 + cos bx for 0 ≤ x ≤ 2π , where b ∈ + .\nThe graph of y = f (x) is shown in the following diagram.\n0\n0\nπ\n2π\n1\n2\n3\n4\n5\ny\nx\n(0 , 4)\n(2π , 2)\nThe points (0 , 4) and (2π , 2) are the maximum and minimum points, respectively, on the\ngraph of y = f (x) .\n(a)\nShow that b = 1\n2\n.\n[1]\n(b)\n\u0007Find the area enclosed by the graph of y = f (x) , the coordinate axes and the line x = 2π . [5]",
+      "summary": "Consider the function f(x) = 3 + cos bx for 0 ≤ x ≤ 2π, where b ∈ ℝ⁺.",
+      "accessibleText": "2.\n[Maximum mark: 6]\nConsider the function f(x) = 3 + cos bx for 0 ≤ x ≤ 2π, where b ∈ ℝ⁺.\nThe graph of y = f(x) is shown in the following diagram.\n[diagram: graph of y = f(x) from (0, 4) to (2π, 2); x-axis marked 0, π, 2π; y-axis marked 0 to 5]\nThe points (0, 4) and (2π, 2) are the maximum and minimum points, respectively, on the graph of y = f(x).\n(a)\nShow that b = 1/2.\n[1]\n(b)\nFind the area enclosed by the graph of y = f(x), the coordinate axes and the line x = 2π.\n[5]",
       "labels": [
         "Trigonometry",
         "Functions - Roots",
@@ -2880,7 +2880,7 @@
       "imageStatus": "original",
       "marks": 6,
       "summary": "The functions f and g are defined by",
-      "accessibleText": "3.\n[Maximum mark: 6]\nThe functions f and g are defined by\nf (x) = x2 + 5x , x ∈ \ng (x) = ex − 10 , x ∈  .\nFind the value of x for which ( f o g) (x) = 50 .",
+      "accessibleText": "3.\n[Maximum mark: 6]\nThe functions f and g are defined by\nf(x) = x² + 5x, x ∈ ℝ\ng(x) = eˣ − 10, x ∈ ℝ.\nFind the value of x for which (f ∘ g)(x) = 50.",
       "labels": [
         "Functions - Roots"
       ],
@@ -2940,8 +2940,8 @@
       ],
       "imageStatus": "original",
       "marks": 6,
-      "summary": "Consider the function f (x) = x3 + 3x2 − 2 , where x ∈  .",
-      "accessibleText": "4.\n[Maximum mark: 6]\nConsider the function f (x) = x3 + 3x2 − 2 , where x ∈  .\nThe following diagram shows part of the curve y = f (x) .\n5\n5\n−5\n−5\n−5\ny\nx\nOne root of the equation f (x) = 0 is x = −1 .\n(a)\n\u0007Find the values of the other two roots of the equation f (x) = 0 .\n[4]\n(b)\n\u0007Hence, write down the three roots of the equation f\nx\n2\n0\n\u001b\u001a \u0019\n.\n[2]",
+      "summary": "Consider the function f(x) = x³ + 3x² − 2, where x ∈ ℝ.",
+      "accessibleText": "4.\n[Maximum mark: 6]\nConsider the function f(x) = x³ + 3x² − 2, where x ∈ ℝ.\nThe following diagram shows part of the curve y = f(x).\n[diagram: graph of y = f(x) on a grid; both axes marked from −5 to 5]\nOne root of the equation f(x) = 0 is x = −1.\n(a)\nFind the values of the other two roots of the equation f(x) = 0.\n[4]\n(b)\nHence, write down the three roots of the equation f(x/2) = 0.\n[2]",
       "labels": [
         "Functions - Roots"
       ],
@@ -3002,8 +3002,8 @@
       ],
       "imageStatus": "original",
       "marks": 6,
-      "summary": ", where a is a constant to be determined, a ∈ + .",
-      "accessibleText": "5.\n[Maximum mark: 6]\nConsider\nln\nln\nln\n...\nln\n1\n1\n1\n1\n2\n1\n1\n3\n1\n1\n8\n2\n8\n\u001b\n\u001a\u0019 \u0018\n\u001b\n\u001a\u0019 \u0017\n\u001b\n\u001a\u0019 \u0017\n\u0017\n\u001b\n\u0018\u0016\nn\nn\n\u001a\u0019 , where n ∈ + .\n(a)\nShow that\nln\nln\n1\n1\n2\n8\n\u001b\n\u001a\u0019 \u0018\n\u0018\u0017\nn\na\nn\n, where a is a constant to be determined, a ∈ + .\n[5]\n(b)\nHence, write down the value of\nln 1\n1\n2\n2026\n\u001b\n\u001a\u0019\n\u0018\u0017\nn\nn\n.\n[1]",
+      "summary": "Σ_{n=2}^{8} ln(1 − 1/n) = ln(1 − 1/2) + ln(1 − 1/3) + ... + ln(1 − 1/8), where n ∈ ℤ⁺.",
+      "accessibleText": "5.\n[Maximum mark: 6]\nConsider\nΣ_{n=2}^{8} ln(1 − 1/n) = ln(1 − 1/2) + ln(1 − 1/3) + ... + ln(1 − 1/8), where n ∈ ℤ⁺.\n(a)\nShow that Σ_{n=2}^{8} ln(1 − 1/n) = −ln a, where a is a constant to be determined, a ∈ ℤ⁺.\n[5]\n(b)\nHence, write down the value of Σ_{n=2}^{2026} ln(1 − 1/n).\n[1]",
       "labels": [
         "Trigonometry",
         "Exponentials - Logarithms"
@@ -3062,7 +3062,7 @@
       "imageStatus": "original",
       "marks": 5,
       "summary": "A committee of 3 teachers and 2 students is to be selected from 5 teachers and 4 students.",
-      "accessibleText": "6.\n[Maximum mark: 5]\nA committee of 3 teachers and 2 students is to be selected from 5 teachers and 4 students.\nFind the number of possible committees that can be formed, if 2 particular students cannot\nbe on the committee together.",
+      "accessibleText": "6.\n[Maximum mark: 5]\nA committee of 3 teachers and 2 students is to be selected from 5 teachers and 4 students.\nFind the number of possible committees that can be formed, if 2 particular students cannot be on the committee together.",
       "labels": [
         "Functions - Roots"
       ],
@@ -3118,8 +3118,8 @@
       ],
       "imageStatus": "original",
       "marks": 7,
-      "summary": "Prove by mathematical induction that n3 + 5n is a multiple of 6 for n ∈ + .",
-      "accessibleText": "7.\n[Maximum mark: 7]\nProve by mathematical induction that n3 + 5n is a multiple of 6 for n ∈ + .",
+      "summary": "Prove by mathematical induction that n³ + 5n is a multiple of 6 for n ∈ ℤ⁺.",
+      "accessibleText": "7.\n[Maximum mark: 7]\nProve by mathematical induction that n³ + 5n is a multiple of 6 for n ∈ ℤ⁺.",
       "labels": [
         "Mathematical Induction"
       ],
@@ -3175,8 +3175,8 @@
       ],
       "imageStatus": "original",
       "marks": 7,
-      "summary": "A curve C is given by 2y + 3xy2 − 2x2 + 4 = 0 , for x ≥",
-      "accessibleText": "8.\n[Maximum mark: 7]\nA curve C is given by 2y + 3xy2 − 2x2 + 4 = 0 , for x ≥\n2 .\n(a)\n\u0007Find d\nd\ny\nx\nin terms of x and y .\n[4]\nThe point P(2 , −1) lies on C . A particle travels along C such that, at P , the instantaneous\nrate of change of the y-coordinate with respect to time is −6 units per second.\n(b)\n\u0007Find the rate of change of the x-coordinate with respect to time at P .\n[3]",
+      "summary": "A curve C is given by 2y + 3xy² − 2x² + 4 = 0, for x ≥ √2.",
+      "accessibleText": "8.\n[Maximum mark: 7]\nA curve C is given by 2y + 3xy² − 2x² + 4 = 0, for x ≥ √2.\n(a)\nFind dy/dx in terms of x and y.\n[4]\nThe point P(2, −1) lies on C. A particle travels along C such that, at P, the instantaneous rate of change of the y-coordinate with respect to time is −6 units per second.\n(b)\nFind the rate of change of the x-coordinate with respect to time at P.\n[3]",
       "labels": [
         "Trigonometry",
         "Kinematics"
@@ -3239,8 +3239,8 @@
       ],
       "imageStatus": "original",
       "marks": 7,
-      "summary": "Solve the differential equation xy y",
-      "accessibleText": "9.\n[Maximum mark: 7]\nSolve the differential equation xy y\nx\ny\nd\nd\n1\n2 , given that y = 0 when x = 2 .\nGive your answer in the form y2 = f (x) .\n2226 – 5020\nAnswer all questions in the answer booklet provided. Please start each question on a new page.",
+      "summary": "Solve the differential equation xy dy/dx = 1 + y², given that y = 0 when x = 2.",
+      "accessibleText": "9.\n[Maximum mark: 7]\nSolve the differential equation xy dy/dx = 1 + y², given that y = 0 when x = 2.\nGive your answer in the form y² = f(x).",
       "labels": [
         "Differential Equations"
       ],
@@ -3304,8 +3304,8 @@
       ],
       "imageStatus": "original",
       "marks": 15,
-      "summary": "A trapezoid ABCD is inscribed in a semicircle centred at O , of radius 2 cm .",
-      "accessibleText": "10.\n[Maximum mark: 15]\nA trapezoid ABCD is inscribed in a semicircle centred at O , of radius 2 cm .\nThe longer parallel side [AD] is along the diameter of the semicircle.\nThe trapezoid is defined by the angle, θ , when the radius is rotated anticlockwise\n(counterclockwise) from the positive x-axis where 0\n2\n.\nThis is shown in the following diagram.\ndiagram not to scale\nθ\n2 cm\nx\nA\nB\nO\nC\nD\nThe area of the trapezoid can be considered as the sum of the area of three triangles.\n(a)\n\u0007Find the area of the trapezoid when\n6\n.\n[4]\n(b)\n\u0007Find an expression for the area of the trapezoid A (θ ) , in terms of θ . Give your answer\nin the form a sin θ + b sin 2θ , where a , b ∈ + .\n[3]\n(c)\n\u0007(i)\nFind A′(θ ) .\n(ii)\n\u0007Hence, find the maximum possible area of the trapezoid.\n[6]\nConsider the case when θ approaches π\n2\n.\n(d)\n(i)\nDescribe the effect on the shape of ABCD .\n(ii)\n\u0007The area of ABCD approaches the value k . Find the value of k .\n[2]\n2226 – 5020",
+      "summary": "A trapezoid ABCD is inscribed in a semicircle centred at O, of radius 2 cm.",
+      "accessibleText": "10.\n[Maximum mark: 15]\nA trapezoid ABCD is inscribed in a semicircle centred at O, of radius 2 cm.\nThe longer parallel side [AD] is along the diameter of the semicircle.\nThe trapezoid is defined by the angle, θ, when the radius is rotated anticlockwise (counterclockwise) from the positive x-axis where 0 < θ < π/2.\nThis is shown in the following diagram.\ndiagram not to scale\n[diagram: semicircle centred at O on the x-axis, radius 2 cm; trapezoid ABCD with A and D on the diameter and B and C on the arc; dashed radii OB and OC; angle θ at O between the positive x-axis and OC]\nThe area of the trapezoid can be considered as the sum of the area of three triangles.\n(a)\nFind the area of the trapezoid when θ = π/6.\n[4]\n(b)\nFind an expression for the area of the trapezoid A(θ), in terms of θ. Give your answer in the form a sin θ + b sin 2θ, where a, b ∈ ℤ⁺.\n[3]\n(c)\n(i)\nFind A′(θ).\n(ii)\nHence, find the maximum possible area of the trapezoid.\n[6]\nConsider the case when θ approaches π/2.\n(d)\n(i)\nDescribe the effect on the shape of ABCD.\n(ii)\nThe area of ABCD approaches the value k. Find the value of k.\n[2]",
       "labels": [
         "Trigonometry"
       ],
@@ -3372,8 +3372,8 @@
       ],
       "imageStatus": "original",
       "marks": 17,
-      "summary": ", where x ∈  , x ≠ −3 , x ≠ −1 .",
-      "accessibleText": "11.\n[Maximum mark: 17]\nConsider the function f x\nx\nx\nx\n( )\n7\n4\n3\n2\n, where x ∈  , x ≠ −3 , x ≠ −1 .\n(a)\n\u0007Use partial fractions to show that f (x) can be expressed as\n2\n3\n3\n1\nx\nx\n.\n[3]\n(b)\n\u0007Show that the area of the region enclosed by the graph of y = f (x) , the x-axis and the\nlines x = 0 and x = 1 is ln 9\n2\n.\n[5]\n(c)\n\u0007Show that the binomial expansion of f (x) up to and including the x2 term is\n7\n3\n25\n9\n79\n27\n2\nx\nx .\n[4]\n(d)\n\u0007(i)\nUse the result from part (c) to find an approximation of\nf x\nx\n( )d\n0\n1\n∫\n.\n(ii)\n\u0007Hence, write down the area enclosed by the x-axis, the graph of\ny\nx\nx\n7\n3\n25\n9\n79\n27\n2 and the lines x = 0 and x = 1 .\n[3]\nThe value of ln 9\n2\ncorrect to three significant figures is 1.50 .\n(e)\nDetermine whether the binomial expansion approximation is an underestimate or an\noverestimate of the area found in part (b). Justify your answer.\n[2]\n2226 – 5020",
+      "summary": "Consider the function f(x) = (−x − 7)/(x² + 4x + 3), where x ∈ ℝ, x ≠ −3, x ≠ −1.",
+      "accessibleText": "11.\n[Maximum mark: 17]\nConsider the function f(x) = (−x − 7)/(x² + 4x + 3), where x ∈ ℝ, x ≠ −3, x ≠ −1.\n(a)\nUse partial fractions to show that f(x) can be expressed as 2/(3 + x) − 3/(1 + x).\n[3]\n(b)\nShow that the area of the region enclosed by the graph of y = f(x), the x-axis and the lines x = 0 and x = 1 is ln(9/2).\n[5]\n(c)\nShow that the binomial expansion of f(x) up to and including the x² term is −7/3 + (25/9)x − (79/27)x².\n[4]\n(d)\n(i)\nUse the result from part (c) to find an approximation of ∫₀¹ f(x) dx.\n(ii)\nHence, write down the area enclosed by the x-axis, the graph of y = −7/3 + (25/9)x − (79/27)x² and the lines x = 0 and x = 1.\n[3]\nThe value of ln(9/2) correct to three significant figures is 1.50.\n(e)\nDetermine whether the binomial expansion approximation is an underestimate or an overestimate of the area found in part (b). Justify your answer.\n[2]",
       "labels": [
         "Probability",
         "Exponentials - Logarithms",
@@ -3444,8 +3444,8 @@
       ],
       "imageStatus": "original",
       "marks": 22,
-      "summary": "Consider the quadratic polynomial Q z",
-      "accessibleText": "12.\n[Maximum mark: 22]\nConsider the quadratic polynomial Q z\nz\nz\n( )\n2\n2 3\n4 , where z ∈  .\n(a)\n\u0007Find the roots of Q (z) = 0 ,\n(i)\n\u0007in Cartesian form;\n(ii)\n\u0007in modulus-argument form.\n[6]\nNow consider the polynomial P (z) = z6 + 64 , where z ∈  .\n(b)\n\u0007Solve P (z) = 0 . Give your answers in modulus-argument form.\n[5]\n(c)\n\u0007Plot the roots of the equation P (z) = 0 on an Argand diagram. Clearly label each\nroot z1 , z2 , ... , z6 , where z2 is the root located on the positive imaginary axis.\n[2]\n(d)\n\u0007Verify that z2 + 4 is a factor of P (z) .\n[2]\nThe polynomial P (z) can be written as the product of three quadratic factors with real coefficients.\n(e)\n\u0007Find the other two quadratic factors of P (z) .\n[4]\nLine segments are drawn from z2 to each of the other roots.\n(f)\n\u0007Find the sum of the lengths of these line segments.\n[3]\nDisclaimer:\nPlease do not write on this page.\nAnswers written on this page\nwill not be marked.",
+      "summary": "Consider the quadratic polynomial Q(z) = z² − 2√3 z + 4, where z ∈ ℂ.",
+      "accessibleText": "12.\n[Maximum mark: 22]\nConsider the quadratic polynomial Q(z) = z² − 2√3 z + 4, where z ∈ ℂ.\n(a)\nFind the roots of Q(z) = 0,\n(i)\nin Cartesian form;\n(ii)\nin modulus-argument form.\n[6]\nNow consider the polynomial P(z) = z⁶ + 64, where z ∈ ℂ.\n(b)\nSolve P(z) = 0. Give your answers in modulus-argument form.\n[5]\n(c)\nPlot the roots of the equation P(z) = 0 on an Argand diagram. Clearly label each root z₁, z₂, ..., z₆, where z₂ is the root located on the positive imaginary axis.\n[2]\n(d)\nVerify that z² + 4 is a factor of P(z).\n[2]\nThe polynomial P(z) can be written as the product of three quadratic factors with real coefficients.\n(e)\nFind the other two quadratic factors of P(z).\n[4]\nLine segments are drawn from z₂ to each of the other roots.\n(f)\nFind the sum of the lengths of these line segments.\n[3]",
       "labels": [
         "Complex Numbers",
         "Quadratics",
@@ -3517,7 +3517,7 @@
       "imageStatus": "original",
       "marks": 6,
       "summary": "A school has 600 students across four grade levels as shown in the following table.",
-      "accessibleText": "1.\n[Maximum mark: 6]\nA school has 600 students across four grade levels as shown in the following table.\nGrade\nNumber of students\n9\n114\n10\n179\n11\n137\n12\n170\nA group of 60 students was surveyed using a stratified sampling technique, such that each\ngrade in the sample was proportional to the population. Each student was asked how much\nallowance, in Singapore dollars ($), they received per week.\n(a)\nFind the number of Grade 12 students in the sample.\n[2]\nThe results of the survey are summarized in the following box and whisker diagram.\n28\na\n110\n66\n80\nSurvey of allowances from 60 students\n(b)\nState the median.\n[1]\nThe interquartile range is $24.\n(c)\nWrite down the value of a .\n[1]\nAn outlier is a value that is less than Q1 - 1.5 × IQR or greater than Q3 + 1.5 × IQR .\n(d)\nDetermine the smallest possible allowance, from the sample, that is not an outlier.\n[2]\n(This question continues on the following page)\n2226 – 5025\n(Question 1 continued)",
+      "accessibleText": "1.\n[Maximum mark: 6]\nA school has 600 students across four grade levels as shown in the following table.\nTable: Grade | Number of students\n9 | 114\n10 | 179\n11 | 137\n12 | 170\nA group of 60 students was surveyed using a stratified sampling technique, such that each grade in the sample was proportional to the population. Each student was asked how much allowance, in Singapore dollars ($), they received per week.\n(a)\nFind the number of Grade 12 students in the sample.\n[2]\nThe results of the survey are summarized in the following box and whisker diagram.\n[diagram: box and whisker diagram, \"Survey of allowances from 60 students\", with values marked 28, 66, 80, a, 110]\n(b)\nState the median.\n[1]\nThe interquartile range is $24.\n(c)\nWrite down the value of a.\n[1]\nAn outlier is a value that is less than Q₁ − 1.5 × IQR or greater than Q₃ + 1.5 × IQR.\n(d)\nDetermine the smallest possible allowance, from the sample, that is not an outlier.\n[2]",
       "labels": [
         "Trigonometry",
         "Functions - Roots",
@@ -3575,8 +3575,8 @@
       ],
       "imageStatus": "original",
       "marks": 7,
-      "summary": "The following diagram shows triangle ABC . It is known that AB = 5 cm , BC = 6 cm , and",
-      "accessibleText": "2.\n[Maximum mark: 7]\nThe following diagram shows triangle ABC . It is known that AB = 5 cm , BC = 6 cm , and\n1\nˆ\ncosABC\n5\n=\nwhere AB̂C is acute.\ndiagram not to scale\nA\nC\nB\n5\n6\n(a)\nFind AC .\n[3]\n(b)\n(i)\nShow that sin ABC = 2 6\n5\nˆ\n.\n(ii)\nHence, find the area of triangle ABC .\n[4]",
+      "summary": "The following diagram shows triangle ABC. It is known that AB = 5 cm, BC = 6 cm, and cos AB̂C = 1/5 where AB̂C is acute.",
+      "accessibleText": "2.\n[Maximum mark: 7]\nThe following diagram shows triangle ABC. It is known that AB = 5 cm, BC = 6 cm, and cos AB̂C = 1/5 where AB̂C is acute.\n[diagram: triangle ABC with AB = 5 and BC = 6; diagram not to scale]\n(a)\nFind AC.\n[3]\n(b)\n(i)\nShow that sin AB̂C = (2√6)/5.\n(ii)\nHence, find the area of triangle ABC.\n[4]",
       "labels": [
         "Trigonometry"
       ],
@@ -3633,8 +3633,8 @@
       ],
       "imageStatus": "original",
       "marks": 6,
-      "summary": "In this question, p and r are positive integers greater than 1 .",
-      "accessibleText": "3.\n[Maximum mark: 6]\nIn this question, p and r are positive integers greater than 1 .\n(a)\nGiven that log3 p = 3 + log3 r , show that p = 27r .\n[2]\n(b)\nHence, find the value of r and the value of p that satisfy these simultaneous equations:\nlog3 p = 3 + log3 r\nlog r p = 4\n[4]",
+      "summary": "In this question, p and r are positive integers greater than 1.",
+      "accessibleText": "3.\n[Maximum mark: 6]\nIn this question, p and r are positive integers greater than 1.\n(a)\nGiven that log₃ p = 3 + log₃ r, show that p = 27r.\n[2]\n(b)\nHence, find the value of r and the value of p that satisfy these simultaneous equations:\nlog₃ p = 3 + log₃ r\nlogᵣ p = 4\n[4]",
       "labels": [
         "Trigonometry",
         "Exponentials - Logarithms"
@@ -3692,8 +3692,8 @@
       ],
       "imageStatus": "original",
       "marks": 5,
-      "summary": "Find the exact value of sec 75° . Express your answer in the form",
-      "accessibleText": "4.\n[Maximum mark: 5]\nFind the exact value of sec 75° . Express your answer in the form\nm\nn\n+\n, where m , n ∈ + .",
+      "summary": "Find the exact value of sec 75°. Express your answer in the form √m + √n, where m, n ∈ ℤ⁺.",
+      "accessibleText": "4.\n[Maximum mark: 5]\nFind the exact value of sec 75°. Express your answer in the form √m + √n, where m, n ∈ ℤ⁺.",
       "labels": [
         "Functions - Roots"
       ],
@@ -3753,8 +3753,8 @@
       ],
       "imageStatus": "original",
       "marks": 5,
-      "summary": "Hence, or otherwise, find ∫ (x4 - sin 4x)7 (x3 - cos 4x) dx .",
-      "accessibleText": "5.\n[Maximum mark: 5]\nLet y = x4 - sin 4x .\n(a)\nFind d\nd\ny\nx\n.\n[2]\n(b)\nHence, or otherwise, find ∫ (x4 - sin 4x)7 (x3 - cos 4x) dx .\n[3]",
+      "summary": "Hence, or otherwise, find ∫ (x⁴ − sin 4x)⁷ (x³ − cos 4x) dx.",
+      "accessibleText": "5.\n[Maximum mark: 5]\nLet y = x⁴ − sin 4x.\n(a)\nFind dy/dx.\n[2]\n(b)\nHence, or otherwise, find ∫ (x⁴ − sin 4x)⁷ (x³ − cos 4x) dx.\n[3]",
       "labels": [
         "Trigonometry"
       ],
@@ -3811,8 +3811,8 @@
       ],
       "imageStatus": "original",
       "marks": 6,
-      "summary": "The function f is defined by f x",
-      "accessibleText": "6.\n[Maximum mark: 6]\nThe function f is defined by f x\nx\n( )\n4\n7\n3\n2\n, where x ∈  , x\n2\n3\n.\n(a)\nFind an expression for f -1(x) .\n[3]\nThe function g is defined such that f\ng\nx\nx\n\n\u001b\n\u001a\n\u0019\u0018 \u0017\n3\n.\n(b)\nUsing your answer to part (a) or otherwise, find an expression for g (x) .\n[3]",
+      "summary": "The function f is defined by f(x) = 4 − 7/(3x + 2), where x ∈ ℝ, x ≠ −2/3.",
+      "accessibleText": "6.\n[Maximum mark: 6]\nThe function f is defined by f(x) = 4 − 7/(3x + 2), where x ∈ ℝ, x ≠ −2/3.\n(a)\nFind an expression for f⁻¹(x).\n[3]\nThe function g is defined such that (f ∘ g)(x/3) = x.\n(b)\nUsing your answer to part (a) or otherwise, find an expression for g(x).\n[3]",
       "labels": [
         "Trigonometry",
         "Functions - Roots"
@@ -3871,8 +3871,8 @@
       ],
       "imageStatus": "original",
       "marks": 6,
-      "summary": "Consider an infinite convergent geometric sequence, with first three terms u1 , u2 , u3 .",
-      "accessibleText": "7.\n[Maximum mark: 6]\nConsider an infinite convergent geometric sequence, with first three terms u1 , u2 , u3 .\nThe sum of the first k terms of this sequence is equal to half of the sum of the infinite\ngeometric sequence.\nIt is given that uk\n1\n1\n16\n.\n(a)\nShow that u1\n1\n8\n=\n.\n[4]\n(b)\nFind u2k + 1 .\n[2]",
+      "summary": "Consider an infinite convergent geometric sequence, with first three terms u₁, u₂, u₃.",
+      "accessibleText": "7.\n[Maximum mark: 6]\nConsider an infinite convergent geometric sequence, with first three terms u₁, u₂, u₃.\nThe sum of the first k terms of this sequence is equal to half of the sum of the infinite geometric sequence.\nIt is given that u_(k+1) = 1/16.\n(a)\nShow that u₁ = 1/8.\n[4]\n(b)\nFind u_(2k+1).\n[2]",
       "labels": [
         "Sequences - Series"
       ],
@@ -3931,7 +3931,7 @@
       "imageStatus": "original",
       "marks": 6,
       "summary": "Consider the complex number",
-      "accessibleText": "8.\n[Maximum mark: 6]\nConsider the complex number\nz = 3 + ki ,\nwhere k ∈  , k < 0 , and -π < arg (z) ≤ π .\nGiven that z5 is a real number, find the values of k in the form a tan bπ , where a , b ∈  , b < 0 .",
+      "accessibleText": "8.\n[Maximum mark: 6]\nConsider the complex number\nz = 3 + ki,\nwhere k ∈ ℝ, k < 0, and −π < arg(z) ≤ π.\nGiven that z⁵ is a real number, find the values of k in the form a tan bπ, where a, b ∈ ℝ, b < 0.",
       "labels": [
         "Complex Numbers",
         "Trigonometry"
@@ -3991,8 +3991,8 @@
       ],
       "imageStatus": "original",
       "marks": 8,
-      "summary": "Prove by mathematical induction that",
-      "accessibleText": "9.\n[Maximum mark: 8]\nProve by mathematical induction that\n1\n1\n1\n2\n1\n3\n1\n2\n7\n12\nn\nn\nn\nn\n\n, for n ∈ + , n ≥ 2 .\n2226 – 5025\nAnswer all questions in the answer booklet provided. Please start each question on a new page.",
+      "summary": "Prove by mathematical induction that 1/(n + 1) + 1/(n + 2) + 1/(n + 3) + … + 1/(2n) ≥ 7/12, for n ∈ ℤ⁺, n ≥ 2.",
+      "accessibleText": "9.\n[Maximum mark: 8]\nProve by mathematical induction that 1/(n + 1) + 1/(n + 2) + 1/(n + 3) + … + 1/(2n) ≥ 7/12, for n ∈ ℤ⁺, n ≥ 2.",
       "labels": [
         "Mathematical Induction"
       ],
@@ -4056,7 +4056,7 @@
       "imageStatus": "original",
       "marks": 16,
       "summary": "The functions f and g are defined for 0 ≤ x ≤ π by",
-      "accessibleText": "10.\n[Maximum mark: 16]\nThe functions f and g are defined for 0 ≤ x ≤ π by\nf (x) = sin 2x\ng (x) = 1 - cos 2x .\n(a)\nSolve the equation f (x) = g (x) for 0 ≤ x ≤ π .\n[6]\n(b)\nSketch the graphs of y = f (x) and y = g (x) on the same set of axes, clearly labelling\nthe points of intersection with their coordinates.\n[4]\nThe graphs of f and g intersect at x = a and x = b , where 0 < a < b .\n(c)\nFind the area of the region enclosed by the graphs of f and g for a ≤ x ≤ b .\n[6]\n2226 – 5025",
+      "accessibleText": "10.\n[Maximum mark: 16]\nThe functions f and g are defined for 0 ≤ x ≤ π by\nf(x) = sin 2x\ng(x) = 1 − cos 2x.\n(a)\nSolve the equation f(x) = g(x) for 0 ≤ x ≤ π.\n[6]\n(b)\nSketch the graphs of y = f(x) and y = g(x) on the same set of axes, clearly labelling the points of intersection with their coordinates.\n[4]\nThe graphs of f and g intersect at x = a and x = b, where 0 < a < b.\n(c)\nFind the area of the region enclosed by the graphs of f and g for a ≤ x ≤ b.\n[6]",
       "labels": [
         "Trigonometry",
         "Functions - Roots",
@@ -4123,8 +4123,8 @@
       ],
       "imageStatus": "original",
       "marks": 20,
-      "summary": "The equation of the plane Π has the form 2x + y + az = b , where a and b are real constants.",
-      "accessibleText": "11.\n[Maximum mark: 20]\nThe equation of the plane Π has the form 2x + y + az = b , where a and b are real constants.\nThe line L1 is parallel to Π but does not lie on Π .\nL1 passes through the point A (7 , -1 , 1) and has direction vector\n0\n2\n1\n\u001b\n\u001a\n\u001a\u001a\n.\n(a)\n(i)\nShow that a = -2 .\n(ii)\nDeduce the range of possible values of b .\n[4]\nIt is then given that b = 2 .\nThe line L2 passes through the point A and has direction vector\n1\n1\n1\n\u001b\n\u001a\n\u0019\n\u0019\u0019\n.\nL2 intersects Π at the point N .\n(b)\nFind the coordinates of N .\n[5]\nThe acute angle between L2 and Π is α .\n(c)\nFind the exact value of sin α .\n[4]\n(d)\nGiven that AN = 9 3\n5\n, find the distance between L1 and Π .\n[2]\n(e)\nFind the vector equation of the line formed when L1 is reflected in Π .\n[5]\n2226 – 5025",
+      "summary": "The equation of the plane Π has the form 2x + y + az = b, where a and b are real constants.",
+      "accessibleText": "11.\n[Maximum mark: 20]\nThe equation of the plane Π has the form 2x + y + az = b, where a and b are real constants.\nThe line L₁ is parallel to Π but does not lie on Π.\nL₁ passes through the point A(7, −1, 1) and has direction vector column vector (0, 2, 1).\n(a)\n(i)\nShow that a = −2.\n(ii)\nDeduce the range of possible values of b.\n[4]\nIt is then given that b = 2.\nThe line L₂ passes through the point A and has direction vector column vector (1, 1, −1).\nL₂ intersects Π at the point N.\n(b)\nFind the coordinates of N.\n[5]\nThe acute angle between L₂ and Π is α.\n(c)\nFind the exact value of sin α.\n[4]\n(d)\nGiven that AN = (9√3)/5, find the distance between L₁ and Π.\n[2]\n(e)\nFind the vector equation of the line formed when L₁ is reflected in Π.\n[5]",
       "labels": [
         "Vectors - Lines - Planes",
         "Trigonometry",
@@ -4193,8 +4193,8 @@
       ],
       "imageStatus": "original",
       "marks": 19,
-      "summary": "Consider y = tan (1 - e3x) .",
-      "accessibleText": "12.\n[Maximum mark: 19]\nConsider y = tan (1 - e3x) .\n(a)\nShow that d\nd\ne\ny\nx\ny\nx\n\u001b\n3\n1\n3\n2 .\n[4]\n(b)\nShow that d\nd\n2\n2\n9\ny\nx\n, when x = 0 .\n[5]\nThe function f is defined by f (x) = tan (1 - e3x) , where -0.2 ≤ x ≤ 0.2 .\n(c)\nFind the Maclaurin series for f (x) , up to and including the term in x2 .\n[2]\n(d)\nHence, or otherwise, find lim\ntan\nx\nx\nx\n0\n3\n1 e\n.\n[3]\nThe answer to part (c) is equal to the first two non-zero terms in the series expansion\nof\nx\na\nbx\n+\n, where a , b ∈  .\n(e)\nFind the value of a and the value of b .\n[5]\nPlease do not write on this page.\nAnswers written on this page\nwill not be marked.\nPlease do not write on this page.\nAnswers written on this page\nwill not be marked.",
+      "summary": "Consider y = tan(1 − e^(3x)).",
+      "accessibleText": "12.\n[Maximum mark: 19]\nConsider y = tan(1 − e^(3x)).\n(a)\nShow that dy/dx = −3e^(3x)(1 + y²).\n[4]\n(b)\nShow that d²y/dx² = −9, when x = 0.\n[5]\nThe function f is defined by f(x) = tan(1 − e^(3x)), where −0.2 ≤ x ≤ 0.2.\n(c)\nFind the Maclaurin series for f(x), up to and including the term in x².\n[2]\n(d)\nHence, or otherwise, find lim_(x→0) (tan(1 − e^(3x)))/x.\n[3]\nThe answer to part (c) is equal to the first two non-zero terms in the series expansion of x/(a + bx), where a, b ∈ ℚ.\n(e)\nFind the value of a and the value of b.\n[5]",
       "labels": [
         "Trigonometry",
         "Sequences - Series",
@@ -4266,8 +4266,8 @@
       ],
       "imageStatus": "original",
       "marks": 7,
-      "summary": "A group of 52 students have their heights measured in cm . The cumulative frequency graph",
-      "accessibleText": "1.\n[Maximum mark: 7]\nA group of 52 students have their heights measured in cm . The cumulative frequency graph\nfor the heights of the students is shown in the following diagram.\n0\n5\n10\n15\n20\n25\n30\n35\n40\n45\n50\n55\n150\n155\n160\n165\n170\n175\n180\nCumulative frequency\nHeight / cm\n(a)\n\u0007Use the graph to find an estimate of the median height.\n[2]\n(This question continues on the following page)\n2226 – 5016\n(Question 1 continued)\nThe heights of the students are shown in the following frequency table where p , q ∈  .\nHeight ( h cm )\nFrequency\n155 ≤ h < 160\n3\n160 ≤ h < 165\n8\n165 ≤ h < 170\n14\n170 ≤ h < 175\np\n175 ≤ h < 180\nq\n(b)\n\u0007 (i)\nFind the value of p and the value of q .\n(ii)\n\u0007Use the frequency table to find an estimate of the mean height, giving your\nanswer to four significant figures.\n[5]\nPlease do not write on this page.\nAnswers written on this page\nwill not be marked.\n2226 – 5016",
+      "summary": "A group of 52 students have their heights measured in cm. The cumulative frequency graph for the heights of the students is shown in the following diagram.",
+      "accessibleText": "1.\n[Maximum mark: 7]\nA group of 52 students have their heights measured in cm. The cumulative frequency graph for the heights of the students is shown in the following diagram.\n[diagram: cumulative frequency graph; horizontal axis Height / cm from 150 to 180; vertical axis Cumulative frequency from 0 to 55; the curve rises from 0 at 155 to 52 at 180]\n(a)\nUse the graph to find an estimate of the median height.\n[2]\nThe heights of the students are shown in the following frequency table where p, q ∈ ℕ.\nTable: Height (h cm) | Frequency\n155 ≤ h < 160 | 3\n160 ≤ h < 165 | 8\n165 ≤ h < 170 | 14\n170 ≤ h < 175 | p\n175 ≤ h < 180 | q\n(b)\n(i)\nFind the value of p and the value of q.\n(ii)\nUse the frequency table to find an estimate of the mean height, giving your answer to four significant figures.\n[5]",
       "labels": [
         "Statistics",
         "Graphs",
@@ -4325,8 +4325,8 @@
       ],
       "imageStatus": "original",
       "marks": 4,
-      "summary": "Consider a function f which has a first derivative given by f ' (x) = x2 − x − 1 , where x ∈  .",
-      "accessibleText": "2.\n[Maximum mark: 4]\nConsider a function f which has a first derivative given by f ' (x) = x2 − x − 1 , where x ∈  .\nFind the range of values of x for which f is decreasing.\n[4]",
+      "summary": "Consider a function f which has a first derivative given by f′(x) = x² − x − 1, where x ∈ ℝ.",
+      "accessibleText": "2.\n[Maximum mark: 4]\nConsider a function f which has a first derivative given by f′(x) = x² − x − 1, where x ∈ ℝ.\nFind the range of values of x for which f is decreasing.\n[4]",
       "labels": [
         "Differentiation",
         "Trigonometry",
@@ -4388,8 +4388,8 @@
       ],
       "imageStatus": "original",
       "marks": 6,
-      "summary": "A Ferris wheel with radius 20 metres rotates at a constant speed. The centre of the wheel",
-      "accessibleText": "3.\n[Maximum mark: 6]\nA Ferris wheel with radius 20 metres rotates at a constant speed. The centre of the wheel\nis 23 metres above the ground, as shown in the following diagram. P is a point on the wheel.\nThe wheel starts moving with P at the lowest point and completes one revolution in 4 minutes.\ndiagram not to scale\n23 m\n20 m\nP\nThe height, h metres, of P above the ground after t minutes is given by\nh = a − b cos (ct)° , where a , b , c ∈ + .\n(a)\n\u0007Find the value of a , the value of b and the value of c .\n[4]\nThe height can also be given as h (t ) = a − b sin (c (t + d ))° , where d ∈ + .\n(b)\n\u0007Find the smallest positive value of d .\n[2]",
+      "summary": "A Ferris wheel with radius 20 metres rotates at a constant speed. The centre of the wheel is 23 metres above the ground, as shown in the following diagram. P is a point on the wheel. The wheel starts moving with P at the",
+      "accessibleText": "3.\n[Maximum mark: 6]\nA Ferris wheel with radius 20 metres rotates at a constant speed. The centre of the wheel is 23 metres above the ground, as shown in the following diagram. P is a point on the wheel. The wheel starts moving with P at the lowest point and completes one revolution in 4 minutes.\ndiagram not to scale\n[diagram: Ferris wheel with radius 20 m, centre 23 m above the ground, point P on the wheel]\nThe height, h metres, of P above the ground after t minutes is given by\nh = a − b cos(ct)°, where a, b, c ∈ ℤ⁺.\n(a)\nFind the value of a, the value of b and the value of c.\n[4]\nThe height can also be given as h(t) = a − b sin(c(t + d))°, where d ∈ ℤ⁺.\n(b)\nFind the smallest positive value of d.\n[2]",
       "labels": [
         "Trigonometry"
       ],
@@ -4445,8 +4445,8 @@
       ],
       "imageStatus": "original",
       "marks": 7,
-      "summary": "Consider the function g defined as g (x) = x3 − 3x + 2sin x , where x ∈  .",
-      "accessibleText": "4.\n[Maximum mark: 7]\nConsider the function g defined as g (x) = x3 − 3x + 2sin x , where x ∈  .\nThe graph of g has a local maximum at point A and a local minimum at point B . The line\n(AB) passes through the origin O at (0 , 0) .\nThe region R is enclosed by the graph of g and the line segment [OB] , as shown on the\nfollowing diagram.\nA\nB\nR\n−1\n1\n0\nx\ny\nO\ny = g ( x )\n(a)\nFind the coordinates of point A and the coordinates of point B .\n[2]\n(b)\nFind the area of R .\n[5]",
+      "summary": "Consider the function g defined as g(x) = x³ − 3x + 2sin x, where x ∈ ℝ.",
+      "accessibleText": "4.\n[Maximum mark: 7]\nConsider the function g defined as g(x) = x³ − 3x + 2sin x, where x ∈ ℝ.\nThe graph of g has a local maximum at point A and a local minimum at point B. The line (AB) passes through the origin O at (0, 0).\nThe region R is enclosed by the graph of g and the line segment [OB], as shown on the following diagram.\n[diagram: graph of y = g(x) for x from about −1 to 1, with local maximum A, local minimum B, the line through A, O and B, and the shaded region R between the curve and [OB]]\n(a)\nFind the coordinates of point A and the coordinates of point B.\n[2]\n(b)\nFind the area of R.\n[5]",
       "labels": [
         "Trigonometry",
         "Functions - Roots",
@@ -4507,8 +4507,8 @@
       ],
       "imageStatus": "original",
       "marks": 7,
-      "summary": "A large group of adults have their heights measured. The heights of the adults are normally",
-      "accessibleText": "5.\n[Maximum mark: 7]\nA large group of adults have their heights measured. The heights of the adults are normally\ndistributed with mean µ cm and standard deviation σ cm .\nThe probability that one of the adults chosen at random has a height greater than 171 cm is 0.4 .\nIf one of the adults with a height greater than 171 cm is chosen at random, the probability\nthat their height is greater than 175 cm is 0.35 .\nFind the value of µ and the value of σ .",
+      "summary": "A large group of adults have their heights measured. The heights of the adults are normally distributed with mean μ cm and standard deviation σ cm.",
+      "accessibleText": "5.\n[Maximum mark: 7]\nA large group of adults have their heights measured. The heights of the adults are normally distributed with mean μ cm and standard deviation σ cm.\nThe probability that one of the adults chosen at random has a height greater than 171 cm is 0.4.\nIf one of the adults with a height greater than 171 cm is chosen at random, the probability that their height is greater than 175 cm is 0.35.\nFind the value of μ and the value of σ.",
       "labels": [
         "Differentiation",
         "Probability",
@@ -4568,8 +4568,8 @@
       ],
       "imageStatus": "original",
       "marks": 4,
-      "summary": "The air inside an airtight syringe is compressed so that its volume, V cm3 , decreases.",
-      "accessibleText": "6.\n[Maximum mark: 4]\nThe air inside an airtight syringe is compressed so that its volume, V cm3 , decreases.\nair\nThe air pressure, P Newtons per cm2 , within the syringe is inversely proportional to the\nvolume so that PV = 135 .\nAt a given time, the volume of air is 20 cm3 and is decreasing at a rate of 8 cm3 per minute.\nFind the rate of increase in the air pressure at this time.",
+      "summary": "The air inside an airtight syringe is compressed so that its volume, V cm³, decreases.",
+      "accessibleText": "6.\n[Maximum mark: 4]\nThe air inside an airtight syringe is compressed so that its volume, V cm³, decreases.\n[diagram: syringe with the air inside labelled \"air\"]\nThe air pressure, P Newtons per cm², within the syringe is inversely proportional to the volume so that PV = 135.\nAt a given time, the volume of air is 20 cm³ and is decreasing at a rate of 8 cm³ per minute.\nFind the rate of increase in the air pressure at this time.",
       "labels": [
         "Trigonometry",
         "Functions - Roots"
@@ -4628,7 +4628,7 @@
       "imageStatus": "original",
       "marks": 6,
       "summary": "The continuous random variable X has a probability distribution f defined as",
-      "accessibleText": "7.\n[Maximum mark: 6]\nThe continuous random variable X has a probability distribution f defined as\nf x\nb\na x\nx\na\nb\na\nx\na\nx\n( )\n,\n(\n),\n\u001b\n\u001a\n\u0019\u0019\n\u0018\n\u0019\n\u0019\n0\n5\n5\n5\nwhere 0 < a < 5 and b ∈ + .\nThe graph of f is shown in the following diagram.\nx\n5\na\nb\n0\nf (x)\n(a)\n\u0007Show that b = 0.4 .\n[2]\nIt is given that E (X ) = 3.2 .\n(b)\n\u0007Find the value of a .\n[4]",
+      "accessibleText": "7.\n[Maximum mark: 6]\nThe continuous random variable X has a probability distribution f defined as\nf(x) = (b/a)x, 0 ≤ x ≤ a\nf(x) = (b/(a − 5))(x − 5), a < x ≤ 5\nwhere 0 < a < 5 and b ∈ ℚ⁺.\nThe graph of f is shown in the following diagram.\n[diagram: graph of f(x) rising in a straight line from (0, 0) to (a, b), then falling in a straight line to (5, 0)]\n(a)\nShow that b = 0.4.\n[2]\nIt is given that E(X) = 3.2.\n(b)\nFind the value of a.\n[4]",
       "labels": [
         "Probability",
         "Graphs"
@@ -4687,8 +4687,8 @@
       ],
       "imageStatus": "original",
       "marks": 8,
-      "summary": "Consider the equation z3 = c , where z ∈  and c is a positive constant.",
-      "accessibleText": "8.\n[Maximum mark: 8]\nConsider the equation z3 = c , where z ∈  and c is a positive constant.\nOne of the solutions of the equation is z\n2\n2\n3\ni\n.\n(a)\n\u0007Find the value of c .\n[2]\n(b)\n\u0007Write down the other two solutions of z3 = c giving your answers in the form a + bi ,\nwhere a , b ∈  .\n[2]\n(c)\n\u0007Find the solutions of (iz)3 = c giving your answers in the form a + bi , where a , b ∈  .\n[2]\nThe solutions of (iz)3 = c can be represented on an Argand diagram by three points A , B and C .\n(d)\n\u0007Find the area of the triangle ABC .\n[2]",
+      "summary": "Consider the equation z³ = c, where z ∈ ℂ and c is a positive constant.",
+      "accessibleText": "8.\n[Maximum mark: 8]\nConsider the equation z³ = c, where z ∈ ℂ and c is a positive constant.\nOne of the solutions of the equation is z = −2 + 2i√3.\n(a)\nFind the value of c.\n[2]\n(b)\nWrite down the other two solutions of z³ = c giving your answers in the form a + bi, where a, b ∈ ℝ.\n[2]\n(c)\nFind the solutions of (iz)³ = c giving your answers in the form a + bi, where a, b ∈ ℝ.\n[2]\nThe solutions of (iz)³ = c can be represented on an Argand diagram by three points A, B and C.\n(d)\nFind the area of the triangle ABC.\n[2]",
       "labels": [
         "Complex Numbers",
         "Trigonometry"
@@ -4753,8 +4753,8 @@
       ],
       "imageStatus": "original",
       "marks": 8,
-      "summary": "Consider the curve (x − d )2 + (y − 2)2 = 4 where x , y ∈  and d > 2 , shown in the",
-      "accessibleText": "9.\n[Maximum mark: 8]\nConsider the curve (x − d )2 + (y − 2)2 = 4 where x , y ∈  and d > 2 , shown in the\nfollowing diagram.\ny\nx\n0\n2\n4\nd\nThe region enclosed by the curve is rotated through 2π radians around the y-axis to form a\nsolid, S .\n(a)\n\u0007Show that the volume of S is given by 4\n4\n2 2\n0\n4\nd\ny\ny\n(\n) d .\n[6]\nIt is given that the volume of S is 50π2 cm3 .\n(b)\n\u0007Find the value of d .\n[2]\n2226 – 5016\nAnswer all questions in the answer booklet provided. Please start each question on a new page.",
+      "summary": "Consider the curve (x − d)² + (y − 2)² = 4 where x, y ∈ ℝ and d > 2, shown in the following diagram.",
+      "accessibleText": "9.\n[Maximum mark: 8]\nConsider the curve (x − d)² + (y − 2)² = 4 where x, y ∈ ℝ and d > 2, shown in the following diagram.\n[diagram: circle with centre (d, 2) touching the x-axis at d, with y-axis marks 2 and 4]\nThe region enclosed by the curve is rotated through 2π radians around the y-axis to form a solid, S.\n(a)\nShow that the volume of S is given by 4πd ∫₀⁴ √(4 − (y − 2)²) dy.\n[6]\nIt is given that the volume of S is 50π² cm³.\n(b)\nFind the value of d.\n[2]",
       "labels": [
         "Radian"
       ],
@@ -4816,8 +4816,8 @@
       ],
       "imageStatus": "original",
       "marks": 13,
-      "summary": "At the start of 2026, Lavinia receives a gift of $ 15 000 . She wants to buy a boat which",
-      "accessibleText": "10.\n[Maximum mark: 13]\nAt the start of 2026, Lavinia receives a gift of $ 15 000 . She wants to buy a boat which\ncosts $ 28 000 so she decides to invest her money.\nOn 1 January 2026 Lavinia invests her money in a bank account which pays interest at a\nnominal annual rate of 4.8 % , compounded quarterly. The interest is paid into her account\non the last day of each quarter. She makes no further deposits to, or withdrawals from,\nthe account.\n(a)\n\u0007Find the amount of money Lavinia will have in her bank account on 1 January 2031.\nGive your answer correct to the nearest dollar.\n[3]\n(b)\n\u0007Show that Lavinia will first have more than $ 28 000 in her bank account during the\nyear 2039.\n[3]\nThe cost of the boat at the start of 2026 was $ 28 000 , and it depreciates at a constant\nannual rate of r % . After one year the cost of the boat is $ 26 222 .\n(c)\n\u0007Find the value of r .\n[2]\nDue to this depreciation, Lavinia will be able to buy the boat before 2039. She will buy the\nboat as soon as she has enough money in her bank account to pay for it.\n(d)\n\u0007Determine the year during which Lavinia will buy the boat.\n[5]\n2226 – 5016",
+      "summary": "At the start of 2026, Lavinia receives a gift of $15 000. She wants to buy a boat which costs $28 000 so she decides to invest her money.",
+      "accessibleText": "10.\n[Maximum mark: 13]\nAt the start of 2026, Lavinia receives a gift of $15 000. She wants to buy a boat which costs $28 000 so she decides to invest her money.\nOn 1 January 2026 Lavinia invests her money in a bank account which pays interest at a nominal annual rate of 4.8%, compounded quarterly. The interest is paid into her account on the last day of each quarter. She makes no further deposits to, or withdrawals from, the account.\n(a)\nFind the amount of money Lavinia will have in her bank account on 1 January 2031. Give your answer correct to the nearest dollar.\n[3]\n(b)\nShow that Lavinia will first have more than $28 000 in her bank account during the year 2039.\n[3]\nThe cost of the boat at the start of 2026 was $28 000, and it depreciates at a constant annual rate of r%. After one year the cost of the boat is $26 222.\n(c)\nFind the value of r.\n[2]\nDue to this depreciation, Lavinia will be able to buy the boat before 2039. She will buy the boat as soon as she has enough money in her bank account to pay for it.\n(d)\nDetermine the year during which Lavinia will buy the boat.\n[5]",
       "labels": [
         "Trigonometry"
       ],
@@ -4883,8 +4883,8 @@
       ],
       "imageStatus": "original",
       "marks": 19,
-      "summary": "A child’s toy is made from a solid right cone and a solid hemisphere of equal radius. The",
-      "accessibleText": "11.\n[Maximum mark: 19]\nA child’s toy is made from a solid right cone and a solid hemisphere of equal radius. The\ncircular faces of each solid are joined to form a single circle C . The point P lies on the\ncircumference of C , and the point V is the vertex of the cone as shown in the following diagram.\ndiagram not to scale\nC\nP\nV\nIn this question, all units are given in cm .\nThe toy is positioned so that the circle C lies completely within the plane defined by x + 2y − z = 5 .\nThe point P has coordinates (−3 , 6 , 4) and the point V has coordinates (4 , 16 , −5) .\n(a)\n\u0007Find a vector equation for the line passing through V and the centre of C .\n[3]\n(b)\n\u0007Find the coordinates of the centre of C .\n[3]\n(c)\n\u0007 (i)\nShow that the radius of C is 14 cm .\n(ii)\n\u0007 Find the total surface area of the toy.\n[6]\nThe toy is rotated so that the position of the vertex is fixed at V and the image P' of the\npoint P has coordinates (−9 , 11 , 1) .\n(d)\n\u0007Find angle PV̂P' , giving your answer in degrees.\n[3]\n(e)\n\u0007Find an equation of the plane containing the points P , V and P' , giving your answer in\nthe form ax + by + cz = d , where a , b, c , d ∈  .\n[4]\n2226 – 5016",
+      "summary": "A child’s toy is made from a solid right cone and a solid hemisphere of equal radius. The circular faces of each solid are joined to form a single circle C. The point P lies on the circumference of C, and the point V is",
+      "accessibleText": "11.\n[Maximum mark: 19]\nA child’s toy is made from a solid right cone and a solid hemisphere of equal radius. The circular faces of each solid are joined to form a single circle C. The point P lies on the circumference of C, and the point V is the vertex of the cone as shown in the following diagram.\ndiagram not to scale\n[diagram: toy made of a cone with vertex V joined to a hemisphere along circle C, with P on the circumference of C]\nIn this question, all units are given in cm.\nThe toy is positioned so that the circle C lies completely within the plane defined by x + 2y − z = 5.\nThe point P has coordinates (−3, 6, 4) and the point V has coordinates (4, 16, −5).\n(a)\nFind a vector equation for the line passing through V and the centre of C.\n[3]\n(b)\nFind the coordinates of the centre of C.\n[3]\n(c)\n(i)\nShow that the radius of C is √14 cm.\n(ii)\nFind the total surface area of the toy.\n[6]\nThe toy is rotated so that the position of the vertex is fixed at V and the image P′ of the point P has coordinates (−9, 11, 1).\n(d)\nFind angle PV̂P′, giving your answer in degrees.\n[3]\n(e)\nFind an equation of the plane containing the points P, V and P′, giving your answer in the form ax + by + cz = d, where a, b, c, d ∈ ℤ.\n[4]",
       "labels": [
         "Complex Numbers",
         "Vectors - Lines - Planes",
@@ -4948,8 +4948,8 @@
       ],
       "imageStatus": "original",
       "marks": 21,
-      "summary": "The function f is defined as f x",
-      "accessibleText": "12.\n[Maximum mark: 21]\nThe function f is defined as f x\nx\nax\nb\nx\n( )\n2\n1\n, where x ≠ −1 and a , b ∈  .\nFirst consider the case where lim\n( )\nx\nf x\n1\nis finite.\n(a)\n\u0007(i)\nShow that b = a − 1 .\n(ii)\n\u0007Find lim\n( )\nx\nf x\n1\nin terms of a .\n[4]\nNow consider the case where the graph of f has a vertical asymptote, an oblique asymptote\nwith equation y = x − 4 , and at least one point of zero gradient.\n(b)\n\u0007Write down the equation of the vertical asymptote.\n[1]\n(c)\n\u0007Show that a = −3 .\n[3]\n(d)\n\u0007Show that b ≥ −3 .\n[6]\n(e)\n\u0007In the case where a = −3 and b = 1\n(i)\n\u0007sketch the graph of y = f (| x |) , showing any asymptotes with their equations, the\nvalue of the intercept with the y-axis, and the coordinates of any local maximum\nor minimum points;\n(ii)\n\u0007solve f (| x |) < f (x) .\n[7]\nDisclaimer:",
+      "summary": "The function f is defined as f(x) = (x² + ax + b)/(x + 1), where x ≠ −1 and a, b ∈ ℤ.",
+      "accessibleText": "12.\n[Maximum mark: 21]\nThe function f is defined as f(x) = (x² + ax + b)/(x + 1), where x ≠ −1 and a, b ∈ ℤ.\nFirst consider the case where lim_(x→−1) f(x) is finite.\n(a)\n(i)\nShow that b = a − 1.\n(ii)\nFind lim_(x→−1) f(x) in terms of a.\n[4]\nNow consider the case where the graph of f has a vertical asymptote, an oblique asymptote with equation y = x − 4, and at least one point of zero gradient.\n(b)\nWrite down the equation of the vertical asymptote.\n[1]\n(c)\nShow that a = −3.\n[3]\n(d)\nShow that b ≥ −3.\n[6]\n(e)\nIn the case where a = −3 and b = 1\n(i)\nsketch the graph of y = f(|x|), showing any asymptotes with their equations, the value of the intercept with the y-axis, and the coordinates of any local maximum or minimum points;\n(ii)\nsolve f(|x|) < f(x).\n[7]",
       "labels": [
         "Differentiation",
         "Functions - Roots",
@@ -5019,8 +5019,8 @@
       ],
       "imageStatus": "original",
       "marks": 6,
-      "summary": "The following table shows the number of books read by a group of students at a certain",
-      "accessibleText": "1.\n[Maximum mark: 6]\nThe following table shows the number of books read by a group of students at a certain\nschool in a month.\nBooks read\nFrequency\n0\n3\n1\n8\n2\n12\n3\n15\n4\n10\n5\n7\n6\n4\n7\n1\n(a)\n\u0007Write down the mode.\n[1]\n(b)\n\u0007Find\n(i)\n\u0007the mean;\n(ii)\n\u0007the median;\n(iii)\n\u0007the standard deviation.\n[3]\n(This question continues on the following page)\n2226 – 5021\n(Question 1 continued)\n(c)\n\u0007Draw a box and whisker diagram that represents the number of books read on the\nscale below.\n[2]\n0\n1\n2\n3\n4\n5\n6\n7\nbooks read",
+      "summary": "The following table shows the number of books read by a group of students at a certain school in a month.",
+      "accessibleText": "1.\n[Maximum mark: 6]\nThe following table shows the number of books read by a group of students at a certain school in a month.\nTable: Books read | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7\nFrequency | 3 | 8 | 12 | 15 | 10 | 7 | 4 | 1\n(a)\nWrite down the mode.\n[1]\n(b)\nFind\n(i)\nthe mean;\n(ii)\nthe median;\n(iii)\nthe standard deviation.\n[3]\n(c)\nDraw a box and whisker diagram that represents the number of books read on the scale below.\n[2]\n[diagram: horizontal scale labelled \"books read\", marked 0, 1, 2, 3, 4, 5, 6, 7]",
       "labels": [
         "Statistics",
         "Trigonometry",
@@ -5078,8 +5078,8 @@
       ],
       "imageStatus": "original",
       "marks": 6,
-      "summary": "A closed cylindrical container has base radius r cm and height h cm . The container has a",
-      "accessibleText": "2.\n[Maximum mark: 6]\nA closed cylindrical container has base radius r cm and height h cm . The container has a\nvolume of 500 cm3 .\n(a)\nShow that h\nr\n500\n2\n.\n[1]\nLet the total external surface area of the cylinder be A cm2 .\n(b)\nShow that A\nr\nr\n2\n1000\n2\n.\n[2]\n(c)\nBy using a graph, or otherwise,\n(i)\nfind the minimum value of A ;\n(ii)\nwrite down the corresponding value of r .\n[3]",
+      "summary": "A closed cylindrical container has base radius r cm and height h cm. The container has a volume of 500 cm³.",
+      "accessibleText": "2.\n[Maximum mark: 6]\nA closed cylindrical container has base radius r cm and height h cm. The container has a volume of 500 cm³.\n(a)\nShow that h = 500/(πr²).\n[1]\nLet the total external surface area of the cylinder be A cm².\n(b)\nShow that A = 2πr² + 1000/r.\n[2]\n(c)\nBy using a graph, or otherwise,\n(i)\nfind the minimum value of A;\n(ii)\nwrite down the corresponding value of r.\n[3]",
       "labels": [
         "Trigonometry",
         "Graphs"
@@ -5139,8 +5139,8 @@
       ],
       "imageStatus": "original",
       "marks": 5,
-      "summary": "The velocity, v m s-1 , of a particle at time t seconds, is given by v",
-      "accessibleText": "3.\n[Maximum mark: 5]\nThe velocity, v m s-1 , of a particle at time t seconds, is given by v\nt\nt\n\u001b\n\u001a\n\u0019\u0018\n10 5\n2\n0 2\ne\n.\nfor t ≥ 0 .\n(a)\nFind the initial velocity of the particle.\n[1]\n(b)\nFind the distance travelled by the particle in the first five seconds.\n[2]\n(c)\nFind the time when the acceleration of the particle is 19.3 m s−2 .\n[2]",
+      "summary": "The velocity, v m s⁻¹, of a particle at time t seconds, is given by v = 10(t²/5 − e^(−0.2t)) for t ≥ 0.",
+      "accessibleText": "3.\n[Maximum mark: 5]\nThe velocity, v m s⁻¹, of a particle at time t seconds, is given by v = 10(t²/5 − e^(−0.2t)) for t ≥ 0.\n(a)\nFind the initial velocity of the particle.\n[1]\n(b)\nFind the distance travelled by the particle in the first five seconds.\n[2]\n(c)\nFind the time when the acceleration of the particle is 19.3 m s⁻².\n[2]",
       "labels": [
         "Trigonometry",
         "Kinematics"
@@ -5198,8 +5198,8 @@
       ],
       "imageStatus": "original",
       "marks": 6,
-      "summary": "Consider a binomial random variable, X , such that X ~ B (15 , p) , where p ≠ 0 .",
-      "accessibleText": "4.\n[Maximum mark: 6]\nConsider a binomial random variable, X , such that X ~ B (15 , p) , where p ≠ 0 .\nThe mean of the distribution is three times as large as the standard deviation.\n(a)\n\u0007Find p .\n[3]\n(b)\n\u0007Find P (X = 9 | X > 6) .\n[3]",
+      "summary": "Consider a binomial random variable, X, such that X ~ B(15, p), where p ≠ 0.",
+      "accessibleText": "4.\n[Maximum mark: 6]\nConsider a binomial random variable, X, such that X ~ B(15, p), where p ≠ 0.\nThe mean of the distribution is three times as large as the standard deviation.\n(a)\nFind p.\n[3]\n(b)\nFind P(X = 9 | X > 6).\n[3]",
       "labels": [
         "Probability",
         "Statistics",
@@ -5258,8 +5258,8 @@
       ],
       "imageStatus": "original",
       "marks": 5,
-      "summary": "between point A (1 , 10) and point B (4 , 4) is rotated 360° about",
-      "accessibleText": "5.\n[Maximum mark: 5]\nPart of the curve of y\nx\n20\n1\nbetween point A (1 , 10) and point B (4 , 4) is rotated 360° about\nthe y-axis to form a solid of revolution.\nFind the volume of the solid formed.",
+      "summary": "Part of the curve of y = 20/(x + 1) between point A(1, 10) and point B(4, 4) is rotated 360° about the y-axis to form a solid of revolution.",
+      "accessibleText": "5.\n[Maximum mark: 5]\nPart of the curve of y = 20/(x + 1) between point A(1, 10) and point B(4, 4) is rotated 360° about the y-axis to form a solid of revolution.\nFind the volume of the solid formed.",
       "labels": [
         "Functions - Roots"
       ],
@@ -5316,7 +5316,7 @@
       "imageStatus": "original",
       "marks": 5,
       "summary": "A continuous random variable X has a probability density function given by",
-      "accessibleText": "6.\n[Maximum mark: 5]\nA continuous random variable X has a probability density function given by\nf x\nx\na\nx\n( )\ncos\n,\n,\n\u001b\u001a\n\u0019\u001a\n1\n2\n0\n0\n\u0018\notherwise\nwhere a > 0 .\n(a)\n\u0007Find the exact value of a .\n[2]\n(b)\n\u0007Find Var (X ) .\n[3]",
+      "accessibleText": "6.\n[Maximum mark: 5]\nA continuous random variable X has a probability density function given by\nf(x) = (1 − cos 2x)/a, 0 ≤ x ≤ π\nf(x) = 0, otherwise\nwhere a > 0.\n(a)\nFind the exact value of a.\n[2]\n(b)\nFind Var(X).\n[3]",
       "labels": [
         "Probability",
         "Trigonometry",
@@ -5378,7 +5378,7 @@
       "imageStatus": "original",
       "marks": 6,
       "summary": "Consider the following system of linear equations",
-      "accessibleText": "7.\n[Maximum mark: 6]\nConsider the following system of linear equations\n2x − y + z = 1\n2x − 3y − z = 3\n4x − 3y + z = k\n(a)\n\u0007Find the value of k for which the system of equations has an infinite number\nof solutions.\n[3]\nFor the value of k found in part (a),\n(b)\n\u0007(i)\ninterpret this result geometrically;\n(ii)\n\u0007express the solution to the system of equations in parametric form.\n[3]",
+      "accessibleText": "7.\n[Maximum mark: 6]\nConsider the following system of linear equations\n2x − y + z = 1\n2x − 3y − z = 3\n4x − 3y + z = k\n(a)\nFind the value of k for which the system of equations has an infinite number of solutions.\n[3]\nFor the value of k found in part (a),\n(b)\n(i)\ninterpret this result geometrically;\n(ii)\nexpress the solution to the system of equations in parametric form.\n[3]",
       "labels": [
         "Complex Numbers",
         "Sequences - Series"
@@ -5438,8 +5438,8 @@
       ],
       "imageStatus": "original",
       "marks": 8,
-      "summary": "Consider the function defined by f x",
-      "accessibleText": "8.\n[Maximum mark: 8]\nConsider the function defined by f x\nax\nbx\nc\n( )\n2\nfor x ∈  , where a , b , c > 0 .\n(a)\n\u0007Show algebraically that f (x) is an odd function.\n[2]\nThe graph of y = f (x) is shown below. Point (1 , 2) is a local maximum and point (−1 , −2) is\na local minimum.\n−6\n−4\n−2\n−2\n−4\n2\n2\n4\n4\n6\ny\nx\n(1 , 2)\n(−1 , −2)\n(b)\n\u0007(i)\nShow that b = c and a = 4b .\n(ii)\n\u0007Hence, deduce that f x\nx\nx\n( )\n4\n1\n2\n.\n[6]",
+      "summary": "Consider the function defined by f(x) = ax/(bx² + c) for x ∈ ℝ, where a, b, c > 0.",
+      "accessibleText": "8.\n[Maximum mark: 8]\nConsider the function defined by f(x) = ax/(bx² + c) for x ∈ ℝ, where a, b, c > 0.\n(a)\nShow algebraically that f(x) is an odd function.\n[2]\nThe graph of y = f(x) is shown below. Point (1, 2) is a local maximum and point (−1, −2) is a local minimum.\n[diagram: graph of y = f(x) on a grid, x from −6 to 6, y from −4 to 4, passing through the origin, with local maximum (1, 2) and local minimum (−1, −2) marked]\n(b)\n(i)\nShow that b = c and a = 4b.\n(ii)\nHence, deduce that f(x) = 4x/(x² + 1).\n[6]",
       "labels": [
         "Functions - Roots",
         "Graphs"
@@ -5508,8 +5508,8 @@
       ],
       "imageStatus": "original",
       "marks": 8,
-      "summary": "\u0007Use the result from part (a) and the substitution u = sin x to find ∫ sec x dx .",
-      "accessibleText": "9.\n[Maximum mark: 8]\n(a)\n\u0007Show that\ncos\n(\nsin )(\nsin )\nsec\nx\nx\nx\nx\n1\n1\n, where x\nn\nn\n\u001b\n2\n1 2\n\u001a ,\n.\n[2]\n(b)\n\u0007Use the result from part (a) and the substitution u = sin x to find ∫ sec x dx .\n[6]\nPlease do not write on this page.\nAnswers written on this page\nwill not be marked.\n2226 – 5021\n2226 – 5021\nAnswer all questions in the answer booklet provided. Please start each question on a new page.",
+      "summary": "Show that cos x/((1 − sin x)(1 + sin x)) ≡ sec x, where x ≠ (2n + 1)π/2, n ∈ ℤ.",
+      "accessibleText": "9.\n[Maximum mark: 8]\n(a)\nShow that cos x/((1 − sin x)(1 + sin x)) ≡ sec x, where x ≠ (2n + 1)π/2, n ∈ ℤ.\n[2]\n(b)\nUse the result from part (a) and the substitution u = sin x to find ∫ sec x dx.\n[6]",
       "labels": [
         "Trigonometry"
       ],
@@ -5573,8 +5573,8 @@
       ],
       "imageStatus": "original",
       "marks": 15,
-      "summary": "The weights of red potatoes are normally distributed with mean 173 grams and standard",
-      "accessibleText": "10.\n[Maximum mark: 15]\nThe weights of red potatoes are normally distributed with mean 173 grams and standard\ndeviation 21 grams.\n(a)\n\u0007Find the probability that a randomly selected red potato weighs\n(i)\n\u0007less than 180 grams;\n(ii)\n\u0007between 180 grams and 200 grams;\n(iii)\n\u0007between 180 grams and 200 grams given it weighs more than 180 grams.\n[6]\nThe weights of purple potatoes are normally distributed with mean µ grams and standard\ndeviation σ grams.\nThe probability that a purple potato weighs less than 170 grams is 0.62102 .\nThe probability that a purple potato weighs between 170 grams and 180 grams is 0.23799 .\n(b)\n\u0007Find the mean, µ , and standard deviation, σ , of purple potatoes.\n[6]\nJoli has one bag of red potatoes and one bag of purple potatoes.\nJoli randomly selects one potato from each bag.\n(c)\n\u0007Find the probability that at least one of these potatoes weighs more than 180 grams.\n[3]\n2226 – 5021",
+      "summary": "The weights of red potatoes are normally distributed with mean 173 grams and standard deviation 21 grams.",
+      "accessibleText": "10.\n[Maximum mark: 15]\nThe weights of red potatoes are normally distributed with mean 173 grams and standard deviation 21 grams.\n(a)\nFind the probability that a randomly selected red potato weighs\n(i)\nless than 180 grams;\n(ii)\nbetween 180 grams and 200 grams;\n(iii)\nbetween 180 grams and 200 grams given it weighs more than 180 grams.\n[6]\nThe weights of purple potatoes are normally distributed with mean μ grams and standard deviation σ grams.\nThe probability that a purple potato weighs less than 170 grams is 0.62102.\nThe probability that a purple potato weighs between 170 grams and 180 grams is 0.23799.\n(b)\nFind the mean, μ, and standard deviation, σ, of purple potatoes.\n[6]\nJoli has one bag of red potatoes and one bag of purple potatoes.\nJoli randomly selects one potato from each bag.\n(c)\nFind the probability that at least one of these potatoes weighs more than 180 grams.\n[3]",
       "labels": [
         "Differentiation",
         "Probability",
@@ -5643,8 +5643,8 @@
       ],
       "imageStatus": "original",
       "marks": 21,
-      "summary": "Consider the points A (1 , 2 , 3) , B (2 , −1 , 5) and C (4 , 1 , 3) .",
-      "accessibleText": "11.\n[Maximum mark: 21]\nConsider the points A (1 , 2 , 3) , B (2 , −1 , 5) and C (4 , 1 , 3) .\n(a)\n(i)\nFind AB\nAC\n.\n(ii)\n\u0007Hence, or otherwise, find the area of triangle ABC .\n[5]\nThe points A , B and C form the triangular base of a right-pyramid with vertex H . This is\nshown in the following diagram.\ndiagram not to scale\nH\nK\nM\nA (1 , 2 , 3)\nC (4 , 1 , 3)\nB (2 , −1 , 5)\nM is the midpoint of [BC] and point K lies on [AM] such that AK\nAM\n2\n3\n.\n(b)\n\u0007Show that K has coordinates 7\n3\n2\n3\n11\n3\n,\n,\n\u001b\u001a .\n[3]\n(This question continues on the following page)\n2226 – 5021\n(Question 11 continued)\nThe plane ∏ contains the points A , B and C .\nThe Cartesian equation of ∏ is x + 3y + 4z = 19 .\nThe line L1 is perpendicular to ∏ and passes through K .\n(c)\n\u0007Write down a vector equation of L1 in the form r = p + sd , where s ∈  .\n[1]\nThe point H 2\n1\n3\n7\n3\n,\n,\n\u001b\n\u001a\u0019 lies on L1 .\n(d)\n\u0007Find the volume of the pyramid ABCH .\n[3]\nThe line L2 has vector equation r\nt\n\u001b\n\u001a\n\u0019\n\u0019\u0019\n\u0018\n\u0017\n\u0017\n\u001b\n\u001a\n\u0019\n\u0019\u0019\n1\n2\n3\n1\n3\n2\nwhere t ∈  .\nLet α be the acute angle that L2 makes with ∏ .\n(e)\n\u0007Find α , correct to the nearest degree.\n[3]\n(f)\n\u0007Show that the lines L1 and L2 are skew.\n[6]\n2226 – 5021",
+      "summary": "Consider the points A(1, 2, 3), B(2, −1, 5) and C(4, 1, 3).",
+      "accessibleText": "11.\n[Maximum mark: 21]\nConsider the points A(1, 2, 3), B(2, −1, 5) and C(4, 1, 3).\n(a)\n(i)\nFind vector AB × vector AC.\n(ii)\nHence, or otherwise, find the area of triangle ABC.\n[5]\nThe points A, B and C form the triangular base of a right-pyramid with vertex H. This is shown in the following diagram.\n[diagram not to scale: pyramid with base triangle A(1, 2, 3), B(2, −1, 5), C(4, 1, 3) and vertex H; M on [BC], K on [AM]]\nM is the midpoint of [BC] and point K lies on [AM] such that vector AK = (2/3) vector AM.\n(b)\nShow that K has coordinates (7/3, 2/3, 11/3).\n[3]\nThe plane ∏ contains the points A, B and C.\nThe Cartesian equation of ∏ is x + 3y + 4z = 19.\nThe line L₁ is perpendicular to ∏ and passes through K.\n(c)\nWrite down a vector equation of L₁ in the form r = p + sd, where s ∈ ℝ.\n[1]\nThe point H(2, −1/3, 7/3) lies on L₁.\n(d)\nFind the volume of the pyramid ABCH.\n[3]\nThe line L₂ has vector equation r = column vector (1, 2, 3) + t column vector (1, −3, −2) where t ∈ ℝ.\nLet α be the acute angle that L₂ makes with ∏.\n(e)\nFind α, correct to the nearest degree.\n[3]\n(f)\nShow that the lines L₁ and L₂ are skew.\n[6]",
       "labels": [
         "Vectors - Lines - Planes",
         "Trigonometry"
@@ -5708,8 +5708,8 @@
       ],
       "imageStatus": "original",
       "marks": 19,
-      "summary": "\u0007Sketch the graph of y = f (x) , clearly indicating any asymptotes with their equations.",
-      "accessibleText": "Disclaimer:\n12.\n[Maximum mark: 19]\nConsider the function f x\nx\n( )\narctan (\n)\n2\n1\n2\nwhere x ∈  .\n(a)\n\u0007Sketch the graph of y = f (x) , clearly indicating any asymptotes with their equations.\n[3]\n(b)\n\u0007(i)\n\u0007Describe a sequence of transformations that transform the graph of\ny = arctan x to the graph of y\nx\n2\n1\n2\narctan (\n)\nfor x ∈  .\n(ii)\n\u0007Write down the coordinates of the point of inflexion on the graph of y = f (x) .\n[4]\n(c)\n\u0007(i)\nFind f −1(x) and state its domain.\n(ii)\n\u0007Find the coordinates of the point of intersection of the graphs y = f (x)\nand y = f −1(x) for x > 0 .\n[6]\n(d)\n\u0007Find the equation of the tangent to the graph of y = f (x) at x = 3 .\n[2]\nThis tangent intersects the graph of y = f (x) at the point P .\n(e)\n\u0007(i)\nFind the coordinates of P .\n(ii)\n\u0007Find the area enclosed by the tangent and the graph of y = f (x) .\n[4]",
+      "summary": "Consider the function f(x) = 2 arctan(x − 1) + π/2 where x ∈ ℝ.",
+      "accessibleText": "12.\n[Maximum mark: 19]\nConsider the function f(x) = 2 arctan(x − 1) + π/2 where x ∈ ℝ.\n(a)\nSketch the graph of y = f(x), clearly indicating any asymptotes with their equations.\n[3]\n(b)\n(i)\nDescribe a sequence of transformations that transform the graph of y = arctan x to the graph of y = 2 arctan(x − 1) + π/2 for x ∈ ℝ.\n(ii)\nWrite down the coordinates of the point of inflexion on the graph of y = f(x).\n[4]\n(c)\n(i)\nFind f⁻¹(x) and state its domain.\n(ii)\nFind the coordinates of the point of intersection of the graphs y = f(x) and y = f⁻¹(x) for x > 0.\n[6]\n(d)\nFind the equation of the tangent to the graph of y = f(x) at x = 3.\n[2]\nThis tangent intersects the graph of y = f(x) at the point P.\n(e)\n(i)\nFind the coordinates of P.\n(ii)\nFind the area enclosed by the tangent and the graph of y = f(x).\n[4]",
       "labels": [
         "Differentiation",
         "Trigonometry",
@@ -5780,8 +5780,8 @@
       ],
       "imageStatus": "original",
       "marks": 6,
-      "summary": "Eight students run a 400-metre race. Their race time, T , and the length, L , of their legs are",
-      "accessibleText": "1.\n[Maximum mark: 6]\nEight students run a 400-metre race. Their race time, T , and the length, L , of their legs are\nshown in the table.\nLeg length ( L cm)\n85\n82\n78\n91\n76\n84\n80\n88\nRace time ( T seconds)\n65.2\n67.3\n70.0\n60.8\n72.5\n66.1\n68.9\n62.4\nThe equation of the regression line of T on L for this data can be written in the form T = aL + b .\n(a)\nFind the value of a and the value of b .\n[2]\n(b)\nWrite down the value of the Pearson’s product-moment correlation coefficient, r .\n[1]\n(c)\nUse the equation of the regression line of T on L to predict the time of a student with a\nleg length of 79 cm .\n[2]\nThe equation of the regression line of L on T for this data can be written in the form L = pT + q .\n(d)\nFind the value of p and the value of q .\n[1]\n(This question continues on the following page)\n2226 – 5026\n(Question 1 continued)",
+      "summary": "Eight students run a 400-metre race. Their race time, T, and the length, L, of their legs are shown in the table.",
+      "accessibleText": "1.\n[Maximum mark: 6]\nEight students run a 400-metre race. Their race time, T, and the length, L, of their legs are shown in the table.\nTable:\nLeg length (L cm) | 85 | 82 | 78 | 91 | 76 | 84 | 80 | 88\nRace time (T seconds) | 65.2 | 67.3 | 70.0 | 60.8 | 72.5 | 66.1 | 68.9 | 62.4\nThe equation of the regression line of T on L for this data can be written in the form T = aL + b.\n(a)\nFind the value of a and the value of b.\n[2]\n(b)\nWrite down the value of the Pearson’s product-moment correlation coefficient, r.\n[1]\n(c)\nUse the equation of the regression line of T on L to predict the time of a student with a leg length of 79 cm.\n[2]\nThe equation of the regression line of L on T for this data can be written in the form L = pT + q.\n(d)\nFind the value of p and the value of q.\n[1]",
       "labels": [
         "Statistics",
         "Sets - Relations - Groups"
@@ -5842,7 +5842,7 @@
       "imageStatus": "original",
       "marks": 6,
       "summary": "A ship is sailing directly towards a vertical cliff of height h metres.",
-      "accessibleText": "2.\n[Maximum mark: 6]\nA ship is sailing directly towards a vertical cliff of height h metres.\ndiagram not to scale\nx\nh\n70\nA\nC\nB\n15°\n40°\ntop of\ncliff\nWhen the ship is at point A , the angle of elevation to the top of the cliff is 15° . After sailing\na further 70 metres towards the cliff, the ship reaches point B , and the angle of elevation to\nthe top of the cliff is 40° .\nPoint C is at the base of the cliff, and BC = x metres.\n(a)\nFind an expression in terms of h and x for\n(i)\ntan 40° ;\n(ii)\ntan 15° .\n[2]\n(b)\nHence, find the value of x .\n[2]\n(c)\nFind the value of h .\n[2]\n(This question continues on the following page)\n2226 – 5026\n(Question 2 continued)",
+      "accessibleText": "2.\n[Maximum mark: 6]\nA ship is sailing directly towards a vertical cliff of height h metres.\n[diagram not to scale: points A, B and C on horizontal ground in a line, AB = 70 and BC = x; vertical cliff of height h at C with a right angle at C; dashed lines from A and from B to the top of the cliff, with angles of elevation 15° at A and 40° at B]\nWhen the ship is at point A, the angle of elevation to the top of the cliff is 15°. After sailing a further 70 metres towards the cliff, the ship reaches point B, and the angle of elevation to the top of the cliff is 40°.\nPoint C is at the base of the cliff, and BC = x metres.\n(a)\nFind an expression in terms of h and x for\n(i)\ntan 40°;\n(ii)\ntan 15°.\n[2]\n(b)\nHence, find the value of x.\n[2]\n(c)\nFind the value of h.\n[2]",
       "labels": [
         "Trigonometry"
       ],
@@ -5898,8 +5898,8 @@
       ],
       "imageStatus": "original",
       "marks": 5,
-      "summary": "The volume of air inside a balloon, V , measured in cubic metres, after t minutes is given by",
-      "accessibleText": "3.\n[Maximum mark: 5]\nThe volume of air inside a balloon, V , measured in cubic metres, after t minutes is given by\nV = 5 + 20e-kt , where t ≥ 0 and k is a positive constant.\n(a)\nWrite down the initial volume of air inside the balloon.\n[1]\nAfter 4 minutes, the volume of air inside the balloon is half the initial volume.\n(b)\nFind the value of k .\n[2]\n(c)\nFind the time at which the volume of air inside the balloon is 8 cubic metres.\n[2]",
+      "summary": "The volume of air inside a balloon, V, measured in cubic metres, after t minutes is given by",
+      "accessibleText": "3.\n[Maximum mark: 5]\nThe volume of air inside a balloon, V, measured in cubic metres, after t minutes is given by\nV = 5 + 20e^(−kt), where t ≥ 0 and k is a positive constant.\n(a)\nWrite down the initial volume of air inside the balloon.\n[1]\nAfter 4 minutes, the volume of air inside the balloon is half the initial volume.\n(b)\nFind the value of k.\n[2]\n(c)\nFind the time at which the volume of air inside the balloon is 8 cubic metres.\n[2]",
       "labels": [
         "Trigonometry"
       ],
@@ -5955,8 +5955,8 @@
       ],
       "imageStatus": "original",
       "marks": 7,
-      "summary": "Two circles have a common centre, O . Points A and B lie on the circumference of the",
-      "accessibleText": "4.\n[Maximum mark: 7]\nTwo circles have a common centre, O . Points A and B lie on the circumference of the\nlarger circle, which has radius OA = R . Points C and D lie on [OB] and [OA] respectively,\nand they also lie on the circumference of the smaller circle. The smaller circle has\nradius OC = r and the acute angle DÔC = AÔB = θ radians.\nThis is shown in the following diagram.\ndiagram not to scale\nA\nC\nB\nD\nR\nr\nO\nθ\nThe area of the sector OAB is 50 cm2 and its perimeter is 40 cm . The area of the\nsector ODC is 18 cm2 .\n(a)\nFind the value of θ .\n[5]\n(b)\nHence, find the value of r .\n[2]",
+      "summary": "Two circles have a common centre, O. Points A and B lie on the circumference of the larger circle, which has radius OA = R. Points C and D lie on [OB] and [OA] respectively, and they also lie on the circumference of the",
+      "accessibleText": "4.\n[Maximum mark: 7]\nTwo circles have a common centre, O. Points A and B lie on the circumference of the larger circle, which has radius OA = R. Points C and D lie on [OB] and [OA] respectively, and they also lie on the circumference of the smaller circle. The smaller circle has radius OC = r and the acute angle DÔC = AÔB = θ radians.\nThis is shown in the following diagram.\n[diagram not to scale: two concentric circles with centre O; radius OA = R of the larger circle passes through D on the smaller circle; radius OB passes through C on the smaller circle; OC = r; angle θ at O between OA and OB]\nThe area of the sector OAB is 50 cm² and its perimeter is 40 cm. The area of the sector ODC is 18 cm².\n(a)\nFind the value of θ.\n[5]\n(b)\nHence, find the value of r.\n[2]",
       "labels": [
         "Trigonometry",
         "Radian"
@@ -6013,8 +6013,8 @@
       ],
       "imageStatus": "original",
       "marks": 7,
-      "summary": "A particle moves along a straight line with an initial displacement at O . Its velocity, v m s-1 ,",
-      "accessibleText": "5.\n[Maximum mark: 7]\nA particle moves along a straight line with an initial displacement at O . Its velocity, v m s-1 ,\nat time t seconds is given by\nv (t ) = (3t 2 - 10t + 4) e-0.5t - 4 cos t , where 0 ≤ t ≤ 6 .\n(a)\nFind the maximum displacement of the particle.\n[4]\n(b)\nDetermine the intervals of time when the acceleration of the particle is negative.\n[3]",
+      "summary": "A particle moves along a straight line with an initial displacement at O. Its velocity, v m s⁻¹, at time t seconds is given by",
+      "accessibleText": "5.\n[Maximum mark: 7]\nA particle moves along a straight line with an initial displacement at O. Its velocity, v m s⁻¹, at time t seconds is given by\nv(t) = (3t² − 10t + 4)e^(−0.5t) − 4 cos t, where 0 ≤ t ≤ 6.\n(a)\nFind the maximum displacement of the particle.\n[4]\n(b)\nDetermine the intervals of time when the acceleration of the particle is negative.\n[3]",
       "labels": [
         "Trigonometry",
         "Kinematics"
@@ -6074,8 +6074,8 @@
       ],
       "imageStatus": "original",
       "marks": 6,
-      "summary": "The following graph shows the curve y",
-      "accessibleText": "6.\n[Maximum mark: 6]\nThe following graph shows the curve y\nx\n\u001b\n\u001a\n\u0019\u0018\n9 1\n4\n2\nfor 0 ≤ x ≤ 2 .\nThe curve intersects the y-axis at the point (0 , a) .\ndiagram not to scale\nx\ny\n0\n(0 , a)\nR\n(a)\nWrite down the value of a .\n[1]\nThe region R is bounded by the curve, the x-axis and the y-axis. R is rotated through 360°\nabout the y-axis to form a solid.\n(b)\nFind the volume of this solid.\n[5]",
+      "summary": "The following graph shows the curve y = √(9(1 − x²/4)) for 0 ≤ x ≤ 2.",
+      "accessibleText": "6.\n[Maximum mark: 6]\nThe following graph shows the curve y = √(9(1 − x²/4)) for 0 ≤ x ≤ 2.\nThe curve intersects the y-axis at the point (0, a).\n[diagram not to scale: the curve in the first quadrant, decreasing from (0, a) on the y-axis to the x-axis; region R lies between the curve, the x-axis and the y-axis]\n(a)\nWrite down the value of a.\n[1]\nThe region R is bounded by the curve, the x-axis and the y-axis. R is rotated through 360° about the y-axis to form a solid.\n(b)\nFind the volume of this solid.\n[5]",
       "labels": [
         "Graphs"
       ],
@@ -6131,8 +6131,8 @@
       ],
       "imageStatus": "original",
       "marks": 7,
-      "summary": "The continuous random variable X has a probability density function f , given by",
-      "accessibleText": "7.\n[Maximum mark: 7]\nThe continuous random variable X has a probability density function f , given by\nf x\nx\nx\nx\n( )\n(\n)\n\u001b\u001a\n\u0019\u001a\n3\n4\n2\n0\n2\n0\n2\notherwise.\n(a)\nFind P (0.5 ≤ X < 1.5) .\n[2]\nThe discrete random variable Y is defined as the continuous random variable X rounded to\nthe nearest integer. Hence, Y can only take the value 0 , 1 or 2 .\nThe probability distribution for Y is given in the following table.\ny\n0\n1\n2\nP (Y = y)\na\nb\nc\n(b)\n(i)\nWrite down the value of b .\n(ii)\nFind the value of a and the value of c .\n[3]\n(c)\nFind E (Y ) .\n[2]",
+      "summary": "The continuous random variable X has a probability density function f, given by",
+      "accessibleText": "7.\n[Maximum mark: 7]\nThe continuous random variable X has a probability density function f, given by\nf(x) = (3/4)x²(2 − x) for 0 ≤ x ≤ 2\nf(x) = 0 otherwise.\n(a)\nFind P(0.5 ≤ X < 1.5).\n[2]\nThe discrete random variable Y is defined as the continuous random variable X rounded to the nearest integer. Hence, Y can only take the value 0, 1 or 2.\nThe probability distribution for Y is given in the following table.\nTable:\ny | 0 | 1 | 2\nP(Y = y) | a | b | c\n(b)\n(i)\nWrite down the value of b.\n(ii)\nFind the value of a and the value of c.\n[3]\n(c)\nFind E(Y).\n[2]",
       "labels": [
         "Probability",
         "Functions - Roots"
@@ -6191,7 +6191,7 @@
       "imageStatus": "original",
       "marks": 7,
       "summary": "A bowl in the shape of a hemisphere with radius 15 cm is being filled with water.",
-      "accessibleText": "8.\n[Maximum mark: 7]\nA bowl in the shape of a hemisphere with radius 15 cm is being filled with water.\nThe water in the bowl has depth h cm and surface radius r cm .\nThis information is shown in the following diagrams.\ndiagrams not to scale\n2D diagram\n3D diagram\n15\nr\nh\nh\nr\n(a)\nShow that r\nh\nh\n30\n2 .\n[2]\nWater is poured into the bowl at a constant rate of 20 cm3 per minute.\nThe volume of water in the bowl is given by V\nh\nh\n\u001b\n3 45\n2\n3 .\n(b)\nFind the rate of change of r when h = 5 cm .\n[5]",
+      "accessibleText": "8.\n[Maximum mark: 7]\nA bowl in the shape of a hemisphere with radius 15 cm is being filled with water.\nThe water in the bowl has depth h cm and surface radius r cm.\nThis information is shown in the following diagrams.\n[diagrams not to scale: 2D diagram — cross-section of the hemispherical bowl with radius 15, water surface radius r and water depth h; 3D diagram — the bowl partly filled with water, showing surface radius r and depth h]\n(a)\nShow that r = √(30h − h²).\n[2]\nWater is poured into the bowl at a constant rate of 20 cm³ per minute.\nThe volume of water in the bowl is given by V = (π/3)(45h² − h³).\n(b)\nFind the rate of change of r when h = 5 cm.\n[5]",
       "labels": [
         "Trigonometry"
       ],
@@ -6255,7 +6255,7 @@
       "imageStatus": "original",
       "marks": 6,
       "summary": "Seven girls and three boys sit on a bench in a single row for a group photo.",
-      "accessibleText": "9.\n[Maximum mark: 6]\nSeven girls and three boys sit on a bench in a single row for a group photo.\nDetermine the number of possible arrangements of the children, given that\n(a)\nno boy sits next to any other boy;\n[3]\n(b)\nno boy sits next to any other boy and no girl sits at an end of the bench.\n[3]\nend of bench\nend of bench\n2226 – 5026\nAnswer all questions in the answer booklet provided. Please start each question on a new page.",
+      "accessibleText": "9.\n[Maximum mark: 6]\nSeven girls and three boys sit on a bench in a single row for a group photo.\nDetermine the number of possible arrangements of the children, given that\n(a)\nno boy sits next to any other boy;\n[3]\n(b)\nno boy sits next to any other boy and no girl sits at an end of the bench.\n[3]\n[diagram: ten children seated in a single row on a bench, with each end labelled \"end of bench\"]",
       "labels": [
         "Trigonometry",
         "Functions - Roots",
@@ -6319,8 +6319,8 @@
       ],
       "imageStatus": "original",
       "marks": 18,
-      "summary": "The waiting time, T minutes, of patients at a clinic can be modelled by a normal distribution",
-      "accessibleText": "10.\n[Maximum mark: 18]\nThe waiting time, T minutes, of patients at a clinic can be modelled by a normal distribution\nwith mean µ and standard deviation σ . The waiting times of all patients are independent of\neach other.\n3.8 % of the patients have a waiting time of less than 20 minutes, while 7.3 % of the patients\nhave a waiting time of more than 30 minutes.\n(a)\n(i)\nFind the value of µ and the value of σ .\n(ii)\nHence, find the probability that a patient chosen at random has a waiting time of\nbetween 15 and 22 minutes.\n[7]\nThe doctor at the clinic only sees patients with an appointment.\nRecords show that 82.6 % of patients attend their appointment.\nThe probability of a patient attending their appointment is independent of any other patient.\n(b)\nOn a particular day, 20 patients each made an appointment to see the doctor.\n(i)\nFind the probability that at least 13 of these patients attended their appointment.\n(ii)\nGiven that at least 13 of these patients attended their appointment, find the\nprobability that more than 2 patients did not attend their appointment.\n[7]\nOn any day, the doctor can see a maximum of 40 patients.\nSome patients do not attend their appointments. The clinic decides to allow more than 40\nappointments to be made each day.\nThe clinic aims for a probability of at least 99 % that the doctor sees all the patients who\narrive for their appointment.\n(c)\nFind the greatest number of appointments that can be made to achieve the clinic’s aim.\n[4]\n2226 – 5026",
+      "summary": "The waiting time, T minutes, of patients at a clinic can be modelled by a normal distribution with mean μ and standard deviation σ. The waiting times of all patients are independent of each other.",
+      "accessibleText": "10.\n[Maximum mark: 18]\nThe waiting time, T minutes, of patients at a clinic can be modelled by a normal distribution with mean μ and standard deviation σ. The waiting times of all patients are independent of each other.\n3.8% of the patients have a waiting time of less than 20 minutes, while 7.3% of the patients have a waiting time of more than 30 minutes.\n(a)\n(i)\nFind the value of μ and the value of σ.\n(ii)\nHence, find the probability that a patient chosen at random has a waiting time of between 15 and 22 minutes.\n[7]\nThe doctor at the clinic only sees patients with an appointment.\nRecords show that 82.6% of patients attend their appointment.\nThe probability of a patient attending their appointment is independent of any other patient.\n(b)\nOn a particular day, 20 patients each made an appointment to see the doctor.\n(i)\nFind the probability that at least 13 of these patients attended their appointment.\n(ii)\nGiven that at least 13 of these patients attended their appointment, find the probability that more than 2 patients did not attend their appointment.\n[7]\nOn any day, the doctor can see a maximum of 40 patients.\nSome patients do not attend their appointments. The clinic decides to allow more than 40 appointments to be made each day.\nThe clinic aims for a probability of at least 99% that the doctor sees all the patients who arrive for their appointment.\n(c)\nFind the greatest number of appointments that can be made to achieve the clinic’s aim.\n[4]",
       "labels": [
         "Differentiation",
         "Probability",
@@ -6387,7 +6387,7 @@
       "imageStatus": "original",
       "marks": 17,
       "summary": "The function f is defined by",
-      "accessibleText": "11.\n[Maximum mark: 17]\nThe function f is defined by\nf x\nx\nbx\nc\nx\nd\n( )\n2\n,\nwhere x ∈  , x ≠ -d and b , c , d ∈  .\nThe graph of y = f (x) has asymptotes x = 3 and y = x + 7 .\n(a)\nWrite down the value of d .\n[1]\n(b)\nShow that b = 4 .\n[2]\nThe graph of y = f (x) has a local maximum at x = -3 .\n(c)\nFind the value of c .\n[4]\n(d)\nSketch the graph of y = f (x) for -30 ≤ x ≤ 30 . Show the values of any axis intercepts\nand the coordinates of any local maxima and minima, and label the asymptotes.\n[4]\nThe equation | f (x) | = k has four solutions.\n(e)\nFind the range of possible values of k .\n[2]\nThe graph of y = g (x) is obtained from the graph of y = f (x) by a translation of 2\n3\n\u001b\u001a.\n(f)\nFind the equations of the vertical asymptotes of y\ng x\n=\n1\n( )\n.\n[4]\n2226 – 5026",
+      "accessibleText": "11.\n[Maximum mark: 17]\nThe function f is defined by\nf(x) = (x² + bx + c)/(x + d),\nwhere x ∈ ℝ, x ≠ −d and b, c, d ∈ ℤ.\nThe graph of y = f(x) has asymptotes x = 3 and y = x + 7.\n(a)\nWrite down the value of d.\n[1]\n(b)\nShow that b = 4.\n[2]\nThe graph of y = f(x) has a local maximum at x = −3.\n(c)\nFind the value of c.\n[4]\n(d)\nSketch the graph of y = f(x) for −30 ≤ x ≤ 30. Show the values of any axis intercepts and the coordinates of any local maxima and minima, and label the asymptotes.\n[4]\nThe equation |f(x)| = k has four solutions.\n(e)\nFind the range of possible values of k.\n[2]\nThe graph of y = g(x) is obtained from the graph of y = f(x) by a translation of column vector (2, 3).\n(f)\nFind the equations of the vertical asymptotes of y = 1/g(x).\n[4]",
       "labels": [
         "Functions - Roots",
         "Graphs"
@@ -6456,8 +6456,8 @@
       ],
       "imageStatus": "original",
       "marks": 18,
-      "summary": "Consider the differential equation d",
-      "accessibleText": "12.\n[Maximum mark: 18]\nConsider the differential equation d\nd\ny\nx\ny\ny\nx\n3\n, for x , y > 0 . It is given that y = 2 when x = 1 .\n(a)\nUse Euler’s method with a step length of 0.01 to find an approximate value\nof y when x = 1.05 .\n[3]\n(b)\nBy using the substitution 1\n2\n2y\nz\n, show that the differential equation can be\nexpressed as d\nd\nz\nx\nz\nx\n2\n1.\n[4]\n(c)\nHence, solve the differential equation, giving your answer in the form y = f (x) .\n[7]\n(d)\nFind the domain and range of f (x) .\n[3]\n(e)\nBy considering the shape of the graph of f (x) , explain whether Euler’s method gives\nan overestimate or underestimate of the value of y when x = 1.05 .\n[1]\nPlease do not write on this page.\nAnswers written on this page\nwill not be marked.",
+      "summary": "Consider the differential equation dy/dx = y³ − y/x, for x, y > 0. It is given that y = 2 when x = 1.",
+      "accessibleText": "12.\n[Maximum mark: 18]\nConsider the differential equation dy/dx = y³ − y/x, for x, y > 0. It is given that y = 2 when x = 1.\n(a)\nUse Euler’s method with a step length of 0.01 to find an approximate value of y when x = 1.05.\n[3]\n(b)\nBy using the substitution 1/y² = −2z, show that the differential equation can be expressed as dz/dx − 2z/x = 1.\n[4]\n(c)\nHence, solve the differential equation, giving your answer in the form y = f(x).\n[7]\n(d)\nFind the domain and range of f(x).\n[3]\n(e)\nBy considering the shape of the graph of f(x), explain whether Euler’s method gives an overestimate or underestimate of the value of y when x = 1.05.\n[1]",
       "labels": [
         "Differential Equations",
         "Trigonometry",
@@ -6530,7 +6530,7 @@
       "imageStatus": "original",
       "marks": 30,
       "summary": "This question considers different methods of summing powers of integers.",
-      "accessibleText": "1.\n[Maximum mark: 30]\nThis question considers different methods of summing powers of integers.\nThe sum of the first n positive integers, each raised to the power zero, is given by\nS0 (n) = 10 + 20 + … + n0 where n ∈ + .\n(a)\n\u0007(i)\nFind the value of S0 (4) .\n[1]\n(ii)\n\u0007Write down a simplified expression for S0 (n) .\n[1]\nThe sum of the first n positive integers, each raised to the power 1 , is given by\nS1 (n) = 11 + 21 + … + n1 where n ∈ + .\n(b)\n\u0007Use the fact that S1 (n) is the sum of n terms of an arithmetic sequence to show\nthat S\nn\nn\nn\n1\n2\n2\n2\n.\n[3]\n(This question continues on the following page)\n2226 – 5017\n(Question 1 continued)\nThe sum of the first n square numbers is given by\nS2 (n) = 12 + 22 + 32 … + n2 where n ∈ + .\n(c)\n\u0007Find S2 (5) .\n[1]\n(d)\n\u0007The following graph shows three rectangles, where the heights of the rectangles are\nconsecutive square numbers, and the width of each rectangle is 1 .\nThe graph may be extended in a similar way to include any number of rectangles.\nThe curve y = f (x) passes through the top right corner of each rectangle.\n1\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n2\n3\ny\nx\nf\n(i)\n\u0007Write down an expression for f (x) .\n[1]\n(ii)\n\u0007By considering the total area of the first n rectangles and the area under the\ncurve, show that S\nn\nn\n2\n3\n3\n.\n[4]\n(iii)\n\u0007Use a similar method to show that S\nn\nn\nn\nn\n2\n3\n2\n3\n.\n[4]\n(This question continues on the following page)\n2226 – 5017\n(Question 1 continued)\nConsider the sequence un = n3 − (n − 1)3 for n ∈ + . Some of the values of un and\nr\nn\nru\n1\nare\nshown in the following table.\nn\nun\nr\nn\nru\n1\n1\n1\n1\n2\n7\n8\n3\na\nb\n4\n37\n64\n(e)\n\u0007Find the value of\n(i)\n\u0007a ;\n[1]\n(ii)\n\u0007b .\n[1]\n(f)\n\u0007(i)\nSuggest an expression for\nr\nn\nru\n1\nin terms of n .\n[1]\n(ii)\n\u0007Use the definition of un to prove that your suggestion is true.\n[3]\n(g)\n\u0007(i)\nFind a quadratic expression for un .\n[2]\n(ii)\n\u0007Hence, write\nr\nn\nru\n1\nin terms of S2 (n) , S1 (n) and S0 (n) .\n[2]\n(iii)\n\u0007Hence, show that S\nn\nn\nn\nn\n2\n3\n2\n3\n2\n6\n.\n[3]\n(iv)\n\u0007Show that the expression for S2 (n) given in (g)(iii) is consistent with the\ninequalities in part (d).\n[2]",
+      "accessibleText": "1.\n[Maximum mark: 30]\nThis question considers different methods of summing powers of integers.\nThe sum of the first n positive integers, each raised to the power zero, is given by\nS₀(n) = 1⁰ + 2⁰ + … + n⁰ where n ∈ ℤ⁺.\n(a)\n(i)\nFind the value of S₀(4).\n[1]\n(ii)\nWrite down a simplified expression for S₀(n).\n[1]\nThe sum of the first n positive integers, each raised to the power 1, is given by\nS₁(n) = 1¹ + 2¹ + … + n¹ where n ∈ ℤ⁺.\n(b)\nUse the fact that S₁(n) is the sum of n terms of an arithmetic sequence to show that S₁(n) = (n²)/2 + n/2.\n[3]\nThe sum of the first n square numbers is given by\nS₂(n) = 1² + 2² + 3² … + n² where n ∈ ℤ⁺.\n(c)\nFind S₂(5).\n[1]\n(d)\nThe following graph shows three rectangles, where the heights of the rectangles are consecutive square numbers, and the width of each rectangle is 1.\nThe graph may be extended in a similar way to include any number of rectangles.\nThe curve y = f(x) passes through the top right corner of each rectangle.\n[diagram: graph with x-axis marked 0, 1, 2, 3 and y-axis marked 1 to 9; three shaded rectangles of width 1 on [0, 1], [1, 2] and [2, 3] with heights 1, 4 and 9; the curve f starts at the origin and passes through the top right corner of each rectangle]\n(i)\nWrite down an expression for f(x).\n[1]\n(ii)\nBy considering the total area of the first n rectangles and the area under the curve, show that S₂(n) > (n³)/3.\n[4]\n(iii)\nUse a similar method to show that S₂(n) < (n³)/3 + n² + n.\n[4]\nConsider the sequence uₙ = n³ − (n − 1)³ for n ∈ ℤ⁺. Some of the values of uₙ and Σ_{r=1}^{n} uᵣ are shown in the following table.\nTable: n | uₙ | Σ_{r=1}^{n} uᵣ\n1 | 1 | 1\n2 | 7 | 8\n3 | a | b\n4 | 37 | 64\n(e)\nFind the value of\n(i)\na;\n[1]\n(ii)\nb.\n[1]\n(f)\n(i)\nSuggest an expression for Σ_{r=1}^{n} uᵣ in terms of n.\n[1]\n(ii)\nUse the definition of uₙ to prove that your suggestion is true.\n[3]\n(g)\n(i)\nFind a quadratic expression for uₙ.\n[2]\n(ii)\nHence, write Σ_{r=1}^{n} uᵣ in terms of S₂(n), S₁(n) and S₀(n).\n[2]\n(iii)\nHence, show that S₂(n) = (n³)/3 + (n²)/2 + n/6.\n[3]\n(iv)\nShow that the expression for S₂(n) given in (g)(iii) is consistent with the inequalities in part (d).\n[2]",
       "labels": [
         "Integration",
         "Trigonometry",
@@ -6609,8 +6609,8 @@
       ],
       "imageStatus": "original",
       "marks": 25,
-      "summary": "This question asks you to explore curves in the complex plane defined",
-      "accessibleText": "2.\n[Maximum mark: 25]\nThis question asks you to explore curves in the complex plane defined\nby r = a + b sinθ , where a and b are real constants.\nA complex number z can be represented by a point in the complex plane whose position is\ndetermined by the modulus, r , and the argument, θ , of z .\nThe set of points which satisfy a given relationship between r and θ form a curve in the\ncomplex plane.\nConsider a family of curves defined by r = a + b sinθ , where a and b are real constants.\nFirst consider the case where a = 4 and b = 0 so that r = 4 .\nThe curve defined by r = 4 is the set of points in the complex plane which represent complex\nnumbers with a modulus of 4 .\n(a)\n\u0007Suppose that z is a complex number such that r = 4 .\nFind all possible values of z such that\n(i)\n\u0007z is purely real;\n[1]\n(ii)\n\u0007z is purely imaginary;\n[1]\n(iii)\n\u0007the argument of z is π\n4\n.\n[1]\n(b)\n\u0007Sketch the curve defined by r = 4 on an Argand diagram, showing clearly the values of\nthe intercepts with the real and imaginary axes.\n[2]\nNow consider the case where a = 0 and b = 4 so that r = 4 sinθ , where 0 ≤ θ ≤ π .\n(c)\n\u0007Suppose that z is a complex number such that r = 4 sinθ , where 0 ≤ θ ≤ π .\n(i)\n\u0007Write down the greatest possible value of r .\n[1]\n(ii)\n\u0007For this value of r , find z .\n[2]\n(d)\n\u0007Use the identities x ≡ r cosθ and y ≡ r sinθ to show that the points on the curve defined\nby r = 4 sinθ lie on the curve x2 + ( y − 2)2 = 4 , where x = Re (z) and y = Im (z) .\n[4]\n(This question continues on the following page)\n2226 – 5017\n(Question 2 continued)\n(e)\n\u0007Consider the curve x2 + ( y − 2)2 = 4 .\n(i)\n\u0007Find an expression for d\nd\ny\nx\nin terms of x and y .\n[3]\n(ii)\n\u0007Hence or otherwise, find the values of x for which the gradient of the curve\nis undefined.\n[2]\n(f)\n\u0007The curve defined by r = 4 sinθ , where 0 ≤ θ ≤ π , is a circle.\nSketch this curve on an Argand diagram, showing clearly the values of any intercepts\nwith the real and imaginary axes.\n[1]\n(This question continues on the following page)\n2226 – 5017\n(Question 2 continued)\nFinally, consider the case where a = 4 and b = 4 .\nThe curve defined by r = 4 + 4 sinθ , where 0 ≤ θ ≤ 2π , is shown on the following Argand\ndiagram. The curve has a horizontal tangent at point A , point B and point C . The real parts\nof the numbers represented by A , B and C are negative, positive and zero, respectively.\n−2\n−2\n2\n2\n0\n4\n6\n8\n4\n−4\nA\nB\nC\nIm\nRe\n(g)\n\u0007Use the identities x ≡ r cosθ and y ≡ r sinθ to show that the gradient of the curve at the\npoint (r cosθ , r sinθ ) is given by d\nd\ny\nx\n\u001b\n\u001b\ncos\nsin\nsin\nsin\n\u001a\n\u001a\n\u001a\n\u001a\n1\n2\n1\n2\n2\n.\n[5]\n(h)\n\u0007Hence, find the value of θ which corresponds to the point A .\n[2]\nDisclaimer:",
+      "summary": "This question asks you to explore curves in the complex plane defined by r = a + b sin θ, where a and b are real constants.",
+      "accessibleText": "2.\n[Maximum mark: 25]\nThis question asks you to explore curves in the complex plane defined by r = a + b sin θ, where a and b are real constants.\nA complex number z can be represented by a point in the complex plane whose position is determined by the modulus, r, and the argument, θ, of z.\nThe set of points which satisfy a given relationship between r and θ form a curve in the complex plane.\nConsider a family of curves defined by r = a + b sin θ, where a and b are real constants.\nFirst consider the case where a = 4 and b = 0 so that r = 4.\nThe curve defined by r = 4 is the set of points in the complex plane which represent complex numbers with a modulus of 4.\n(a)\nSuppose that z is a complex number such that r = 4.\nFind all possible values of z such that\n(i)\nz is purely real;\n[1]\n(ii)\nz is purely imaginary;\n[1]\n(iii)\nthe argument of z is π/4.\n[1]\n(b)\nSketch the curve defined by r = 4 on an Argand diagram, showing clearly the values of the intercepts with the real and imaginary axes.\n[2]\nNow consider the case where a = 0 and b = 4 so that r = 4 sin θ, where 0 ≤ θ ≤ π.\n(c)\nSuppose that z is a complex number such that r = 4 sin θ, where 0 ≤ θ ≤ π.\n(i)\nWrite down the greatest possible value of r.\n[1]\n(ii)\nFor this value of r, find z.\n[2]\n(d)\nUse the identities x ≡ r cos θ and y ≡ r sin θ to show that the points on the curve defined by r = 4 sin θ lie on the curve x² + (y − 2)² = 4, where x = Re(z) and y = Im(z).\n[4]\n(e)\nConsider the curve x² + (y − 2)² = 4.\n(i)\nFind an expression for dy/dx in terms of x and y.\n[3]\n(ii)\nHence or otherwise, find the values of x for which the gradient of the curve is undefined.\n[2]\n(f)\nThe curve defined by r = 4 sin θ, where 0 ≤ θ ≤ π, is a circle.\nSketch this curve on an Argand diagram, showing clearly the values of any intercepts with the real and imaginary axes.\n[1]\nFinally, consider the case where a = 4 and b = 4.\nThe curve defined by r = 4 + 4 sin θ, where 0 ≤ θ ≤ 2π, is shown on the following Argand diagram. The curve has a horizontal tangent at point A, point B and point C. The real parts of the numbers represented by A, B and C are negative, positive and zero, respectively.\n[diagram: Argand diagram (Re and Im axes; Re axis marked −4, −2, 2, 4; Im axis marked −2, 2, 4, 6, 8) showing the curve r = 4 + 4 sin θ, which passes through 0, meets the Re axis at −4 and 4 and the Im axis at 8; point C is at 8 on the Im axis, point A is on the lower-left loop below −2 on the Re axis and point B is on the lower-right loop below 2 on the Re axis]\n(g)\nUse the identities x ≡ r cos θ and y ≡ r sin θ to show that the gradient of the curve at the point (r cos θ, r sin θ) is given by dy/dx = (cos θ(1 + 2 sin θ))/(1 − sin θ − 2 sin² θ).\n[5]\n(h)\nHence, find the value of θ which corresponds to the point A.\n[2]",
       "labels": [
         "Differentiation",
         "Complex Numbers",
@@ -6695,7 +6695,7 @@
       "imageStatus": "original",
       "marks": 26,
       "summary": "This question asks you to explore a game of chance.",
-      "accessibleText": "1.\n[Maximum mark: 26]\nThis question asks you to explore a game of chance.\nA game of chance involves attempting to win sweets from a basket through a series of\nrounds. The rules of the game are:\n• The player starts the game with at least one sweet.\n• At the start of each round the player spins a spinner.\n• If the spinner shows “win”, the player wins a sweet from the basket; otherwise, they must\nreturn one sweet to the basket.\n• The game is played until either all the sweets are won, or the player has no sweets remaining.\nInitially, consider the case where there is a total of three sweets in the game.\nFiona starts the game with one sweet and there are two sweets in the basket to win.\nThe probability of obtaining a “win” in any round is 1\n4\n, independent of any other spin.\n(This question continues on the following page)\n2226 – 5022\n(Question 1 continued)\nThe following diagram shows the possible number of sweets that Fiona has at the start of\neach round, and the possible outcomes of the initial rounds.\n0\n1\n2\n3\nStart of\nround 1\nStart of\nround 2\nStart of\nround 3\nStart of\nround 4\nStart of\nround 5\nNumber of sweets\na\nb\n1\n4\n3\n4\n1\n4\n3\n4\nIf Fiona wins round 1 she will have exactly two sweets at the start of round 2 .\nIf she loses round 1 , she will have no sweets remaining at the start of round 2 and the\ngame ends.\nThe probability of Fiona having exactly one sweet at the start of round 3 is a , and the\nprobability of her having three sweets at the start of round 5 is b .\n(a)\n(i)\nShow that a = 3\n16\n.\n[1]\n(ii)\nFind the value of b .\n[2]\nAt the start of round 5 , Fiona has exactly one sweet.\n(b)\nWrite down the probability that she will still have one sweet after two more rounds.\n[2]\n(This question continues on the following page)\n2226 – 5022\n(Question 1 continued)\nNow consider the case where there is a total of w sweets in the game.\nLet Rn denote the probability that Fiona will eventually have all w sweets, when she starts a\nround with n sweets.\nIf Fiona finishes a round with no sweets, n = 0 , the probability that she will eventually have\nall the sweets, R0 , is zero and the game ends.\nFor n > 0 , if Fiona wins the next round, she will have n + 1 sweets and the probability of her\neventually having all w sweets is now Rn + 1 .\nSimilarly, if Fiona loses the next round, she will have n - 1 sweets and the probability of her\neventually having all w sweets is now Rn - 1 .\nThe probability that the spinner shows “win” is now p , where 0 < p < 1 , and the probability\nthat it shows “not win” is q , where q = 1 - p and p ≠ q .\nAt the start of each round, Rn is given by\nRn = qRn - 1 + pRn + 1 , where n > 0 .\nConsider the case where w = 4 and p = 1\n4\n.\n(c)\nWrite down an expression for R2 in terms of R1 and R3 .\n[1]\n(d)\nIt is known that when Fiona starts a round with exactly one sweet, the probability\nthat she will win the game is R1 = 0.025 . When she starts a round with exactly three\nsweets, the probability that she will win the game is R3 = 0.325 .\nFind the value of R2 .\n[2]\n(This question continues on the following page)\n2226 – 5022\n(Question 1 continued)\nFor the following parts of this question, consider the case where there is a total of w sweets\nin the game and the probability that the spinner shows “win” is p .\n(e)\nBy expressing Rn as ( p + q)Rn , show that R\nR\nq\np R\nR\nn\nn\nn\nn\n\u001b\n1\n1 .\n[2]\n(f)\n(i)\nHence, find an expression for R2 − R1 in terms of p , q and R1 .\n[1]\n(ii)\nShow that R\nR\nq\np\nR\n3\n2\n2\n1\n\u001b\n\u001a\n\u0019\u0018\n.\n[2]\n(iii)\nDeduce an expression for Rn − Rn−1 in terms of n , p , q and R1 .\n[1]\n(g)\n(i)\n\u0007By considering (R2 − R1) + (R3 − R2) + (R4 − R3) + … + (Rn − Rn−1) , or otherwise,\nshow that\nR\nR\nq\np\nq\np\nq\np\nn\nn\n\u001b\n\u001a\n\u0019\u0018\n\u001b\n\u001a\n\u0019\u0018\n\u001b\u001b\n\u001a\n\u0019\n\u0018\u0018\n\u0017\n1\n1\n2\n1\n...\n.\n[4]\n(ii)\nHence, given that R\nq\np\nq\np\nw\n1\n1\n1\n\u001b\n\u001a\n\u0019\u0018\n, show that R\nq\np\nq\np\nn\nn\nw\n\u001b\n\u001a\n\u0019\u0018\n\u001b\n\u001a\n\u0019\u0018\n1\n1\n.\n[4]\nThere is now a large number of sweets in the game.\nFiona starts a game with m sweets, where p = 0.495 .\nOnce she has obtained 10 additional sweets, she will have all the sweets and the game ends.\n(h)\nDetermine the minimum value of m for Fiona to have at least an 80 % chance of\nwinning 10 additional sweets.\n[4]",
+      "accessibleText": "1.\n[Maximum mark: 26]\nThis question asks you to explore a game of chance.\nA game of chance involves attempting to win sweets from a basket through a series of rounds. The rules of the game are:\n• The player starts the game with at least one sweet.\n• At the start of each round the player spins a spinner.\n• If the spinner shows “win”, the player wins a sweet from the basket; otherwise, they must return one sweet to the basket.\n• The game is played until either all the sweets are won, or the player has no sweets remaining.\nInitially, consider the case where there is a total of three sweets in the game.\nFiona starts the game with one sweet and there are two sweets in the basket to win.\nThe probability of obtaining a “win” in any round is 1/4, independent of any other spin.\nThe following diagram shows the possible number of sweets that Fiona has at the start of each round, and the possible outcomes of the initial rounds.\n[diagram: grid with columns \"Number of sweets\" 0, 1, 2, 3 and rows \"Start of round 1\" to \"Start of round 5\". Paths: from 1 sweet at the start of round 1, a line labelled 3/4 goes to 0 at round 2 and a line labelled 1/4 goes to 2 at round 2; from 2 at round 2, a line labelled 3/4 goes to 1 at round 3 (marked a) and a line labelled 1/4 goes to 3 at round 3; from 1 at round 3 (a), lines go to 0 and to 2 at round 4; from 2 at round 4, lines go to 1 and to 3 at round 5 (marked b).]\nIf Fiona wins round 1 she will have exactly two sweets at the start of round 2.\nIf she loses round 1, she will have no sweets remaining at the start of round 2 and the game ends.\nThe probability of Fiona having exactly one sweet at the start of round 3 is a, and the probability of her having three sweets at the start of round 5 is b.\n(a)\n(i)\nShow that a = 3/16.\n[1]\n(ii)\nFind the value of b.\n[2]\nAt the start of round 5, Fiona has exactly one sweet.\n(b)\nWrite down the probability that she will still have one sweet after two more rounds.\n[2]\nNow consider the case where there is a total of w sweets in the game.\nLet Rₙ denote the probability that Fiona will eventually have all w sweets, when she starts a round with n sweets.\nIf Fiona finishes a round with no sweets, n = 0, the probability that she will eventually have all the sweets, R₀, is zero and the game ends.\nFor n > 0, if Fiona wins the next round, she will have n + 1 sweets and the probability of her eventually having all w sweets is now Rₙ₊₁.\nSimilarly, if Fiona loses the next round, she will have n − 1 sweets and the probability of her eventually having all w sweets is now Rₙ₋₁.\nThe probability that the spinner shows “win” is now p, where 0 < p < 1, and the probability that it shows “not win” is q, where q = 1 − p and p ≠ q.\nAt the start of each round, Rₙ is given by\nRₙ = qRₙ₋₁ + pRₙ₊₁, where n > 0.\nConsider the case where w = 4 and p = 1/4.\n(c)\nWrite down an expression for R₂ in terms of R₁ and R₃.\n[1]\n(d)\nIt is known that when Fiona starts a round with exactly one sweet, the probability that she will win the game is R₁ = 0.025. When she starts a round with exactly three sweets, the probability that she will win the game is R₃ = 0.325.\nFind the value of R₂.\n[2]\nFor the following parts of this question, consider the case where there is a total of w sweets in the game and the probability that the spinner shows “win” is p.\n(e)\nBy expressing Rₙ as (p + q)Rₙ, show that Rₙ₊₁ − Rₙ = (q/p)(Rₙ − Rₙ₋₁).\n[2]\n(f)\n(i)\nHence, find an expression for R₂ − R₁ in terms of p, q and R₁.\n[1]\n(ii)\nShow that R₃ − R₂ = (q/p)² R₁.\n[2]\n(iii)\nDeduce an expression for Rₙ − Rₙ₋₁ in terms of n, p, q and R₁.\n[1]\n(g)\n(i)\nBy considering (R₂ − R₁) + (R₃ − R₂) + (R₄ − R₃) + … + (Rₙ − Rₙ₋₁), or otherwise, show that\nRₙ = R₁(1 + q/p + (q/p)² + ... + (q/p)ⁿ⁻¹).\n[4]\n(ii)\nHence, given that R₁ = (1 − q/p)/(1 − (q/p)ʷ), show that Rₙ = (1 − (q/p)ⁿ)/(1 − (q/p)ʷ).\n[4]\nThere is now a large number of sweets in the game.\nFiona starts a game with m sweets, where p = 0.495.\nOnce she has obtained 10 additional sweets, she will have all the sweets and the game ends.\n(h)\nDetermine the minimum value of m for Fiona to have at least an 80% chance of winning 10 additional sweets.\n[4]",
       "labels": [
         "Probability",
         "Trigonometry",
@@ -6774,8 +6774,8 @@
       ],
       "imageStatus": "original",
       "marks": 29,
-      "summary": "This question asks you to explore the relationship between complex numbers and a",
-      "accessibleText": "2.\n[Maximum marks: 29]\nThis question asks you to explore the relationship between complex numbers and a\ncuboid whose dimensions and interior diagonal are all integer lengths. This cuboid is\ncalled a Pythagorean box.\nA Pythagorean box, denoted as PB (u , v , w , t ) , is a cuboid with dimensions u × v × w and\nan interior diagonal of length t , where u , v , w , t ∈ + . This is shown in the following diagram.\ndiagram not to scale\nu\nw\nv\nt\n(a)\nFor the case where u = 9 , v = 2 and w = 6 , find the value of t .\n[2]\nThe complex numbers z1 and z2 are used to generate a Pythagorean box, PB (u , v , w , t ) , if\nu = 2 Re (z1z2*) , v = 2 Im (z1z2*) , w = | z1 |\n2 - | z2 |\n2 and t = | z1 |\n2 + | z2 |\n2 , where u , v , w , t ∈ + .\nConversely, for any Pythagorean box, PB (u , v , w , t ) , there exist two complex numbers,\nz1 and z2 , which satisfy u , v , w and t as defined above.\nConsider the two complex numbers z1 = a + bi and z2 = c + di , where a , b , c , d ∈ + .\n(b)\n(i)\nFind an expression for z1z2* in terms of a , b , c and d .\n[2]\n(ii)\nHence, find an expression for v in terms of a , b , c and d .\n[1]\n(c)\nConsider the case where z1 = 3 + 7i and z2 = c + 6i are used to generate a\nPythagorean box.\n(i)\nShow that v = 14c - 36 .\n[1]\n(ii)\nShow that the only possible values of c are 3 and 4 .\n[4]\n(iii)\nFor c = 4 , find the values of u , v , w and t .\n[5]\n(This question continues on the following page)\n2226 – 5022\n(Question 2 continued)\nThere are three Pythagorean boxes with an interior diagonal of length 23 .\n(d)\nGiven that 23 = 12 + 22 + 32 + 32 , determine the dimensions of one of these\nPythagorean boxes.\n[6]\nThe dimensions and interior diagonal of the Pythagorean box, PB (u , v , w , t ) , can be used\nto form a complex number, z , such that z\nu\nv\nt\nw\ni .\nConsider the Pythagorean box PB (26 , 38 , 43 , 63) .\n(e)\nShow that, for this Pythagorean box, z\n13 19\n10\ni .\n[1]\nThe complex number z can also be written as z\nz\n1\n2\n, where z1 and z2 generate the\nPythagorean box PB (26 , 38 , 43 , 63) .\nIt is given that z\nz\n1\n2\ncan be expressed as z\nz\nz\n1 2\n2\n2\n*\n.\n(f)\n(i)\nBy considering t − w , show that c2 + d 2 = 10 .\n[2]\n(ii)\nHence, given that c > d , find z1 and z2 .\n[5]\nDisclaimer:",
+      "summary": "This question asks you to explore the relationship between complex numbers and a cuboid whose dimensions and interior diagonal are all integer lengths. This cuboid is called a Pythagorean box.",
+      "accessibleText": "2.\n[Maximum mark: 29]\nThis question asks you to explore the relationship between complex numbers and a cuboid whose dimensions and interior diagonal are all integer lengths. This cuboid is called a Pythagorean box.\nA Pythagorean box, denoted as PB(u, v, w, t), is a cuboid with dimensions u × v × w and an interior diagonal of length t, where u, v, w, t ∈ ℤ⁺. This is shown in the following diagram.\n[diagram not to scale: cuboid with edges labelled u, v and w, and interior diagonal labelled t]\n(a)\nFor the case where u = 9, v = 2 and w = 6, find the value of t.\n[2]\nThe complex numbers z₁ and z₂ are used to generate a Pythagorean box, PB(u, v, w, t), if\nu = 2 Re(z₁z₂*), v = 2 Im(z₁z₂*), w = |z₁|² − |z₂|² and t = |z₁|² + |z₂|², where u, v, w, t ∈ ℤ⁺.\nConversely, for any Pythagorean box, PB(u, v, w, t), there exist two complex numbers, z₁ and z₂, which satisfy u, v, w and t as defined above.\nConsider the two complex numbers z₁ = a + bi and z₂ = c + di, where a, b, c, d ∈ ℤ⁺.\n(b)\n(i)\nFind an expression for z₁z₂* in terms of a, b, c and d.\n[2]\n(ii)\nHence, find an expression for v in terms of a, b, c and d.\n[1]\n(c)\nConsider the case where z₁ = 3 + 7i and z₂ = c + 6i are used to generate a Pythagorean box.\n(i)\nShow that v = 14c − 36.\n[1]\n(ii)\nShow that the only possible values of c are 3 and 4.\n[4]\n(iii)\nFor c = 4, find the values of u, v, w and t.\n[5]\nThere are three Pythagorean boxes with an interior diagonal of length 23.\n(d)\nGiven that 23 = 1² + 2² + 3² + 3², determine the dimensions of one of these Pythagorean boxes.\n[6]\nThe dimensions and interior diagonal of the Pythagorean box, PB(u, v, w, t), can be used to form a complex number, z, such that z = (u + vi)/(t − w).\nConsider the Pythagorean box PB(26, 38, 43, 63).\n(e)\nShow that, for this Pythagorean box, z = (13 + 19i)/10.\n[1]\nThe complex number z can also be written as z₁/z₂, where z₁ and z₂ generate the Pythagorean box PB(26, 38, 43, 63).\nIt is given that z₁/z₂ can be expressed as (z₁z₂*)/|z₂|².\n(f)\n(i)\nBy considering t − w, show that c² + d² = 10.\n[2]\n(ii)\nHence, given that c > d, find z₁ and z₂.\n[5]",
       "labels": [
         "Complex Numbers",
         "Sets - Relations - Groups"
@@ -6843,8 +6843,8 @@
       ],
       "imageStatus": "original",
       "marks": 30,
-      "summary": "This question asks you to investigate some graphical and algebraic properties of a",
-      "accessibleText": "1.\n[Maximum mark: 30]\nThis question asks you to investigate some graphical and algebraic properties of a\nfamily of quartics of the form f (x) = x4 + bx2 + d .\nThe function f is defined by\nf (x) = x4 + bx2 + d , where b ∈  and d ∈  , d ≠ 0 .\n(a)\nConsider the case where b = 1 and d = 1 .\n(i)\nSketch the curve y = x4 + x2 + 1 , labelling any axes intercepts.\n[2]\n(ii)\nHence, state why the equation x4 + x2 + 1 = 0 has no real roots.\n[1]\n(b)\nConsider the case where b = -2 and d = 1 .\nSketch the curve y = x4 - 2x2 + 1 , labelling any axes intercepts.\n[2]\nIn parts (c) to (g), consider\nf (x) = x4 + bx2 + d , where b ∈  and d ∈  , d ≠ 0 .\n(c)\n(i)\nWrite down an expression for f ′(x) .\n[2]\n(ii)\nShow that f ′ is an odd function.\n[3]\nA root α is defined as a double root of an equation f (x) = 0 if both f (α) = 0 and f ′(α) = 0 .\n(d)\nState a feature of the graph of y = f (x) that indicates whether the equation f (x) = 0\nhas a double root α .\n[1]\nIn parts (e) to (g), consider the case where the equation f (x) = 0 has a double root α .\n(e)\nShow that -α is also a double root of the equation f (x) = 0 .\n[4]\n(This question continues on the following page)\n2226 – 5027\n(Question 1 continued)\n(f)\n(i)\nBy considering f ′(α) = 0 , or otherwise, show that 2\n2\nb .\n[3]\n(ii)\nHence, show that d\nb\n=\n2\n4\n.\n[2]\n(g)\nDeduce the set of values of b for which the equation f (x) = 0 has\n(i)\nreal roots;\n[1]\n(ii)\npurely imaginary roots.\n[1]\nIn parts (h) and (i), consider\nf (x) = x4 + bx2 + d , where b ∈  , b < 0 and d ∈  , d ≠ 0 .\n(h)\nShow that the solutions to the equation f ″(x) = 0 are x\nb\n6\n.\n[3]\nThe curve y = f (x) has a point of inflexion at x\nb\n6\n.\nThe equation of the tangent to the curve y = f (x) at x\nb\n6\nhas the form\ny\nb\nx\nc\n\u001b\n2 6\n9\n3\n2\n.\n(i)\nShow that c\nb\nd\n2\n12\n.\n[5]",
+      "summary": "This question asks you to investigate some graphical and algebraic properties of a family of quartics of the form f(x) = x⁴ + bx² + d.",
+      "accessibleText": "1.\n[Maximum mark: 30]\nThis question asks you to investigate some graphical and algebraic properties of a family of quartics of the form f(x) = x⁴ + bx² + d.\nThe function f is defined by\nf(x) = x⁴ + bx² + d, where b ∈ ℝ and d ∈ ℝ, d ≠ 0.\n(a)\nConsider the case where b = 1 and d = 1.\n(i)\nSketch the curve y = x⁴ + x² + 1, labelling any axes intercepts.\n[2]\n(ii)\nHence, state why the equation x⁴ + x² + 1 = 0 has no real roots.\n[1]\n(b)\nConsider the case where b = −2 and d = 1.\nSketch the curve y = x⁴ − 2x² + 1, labelling any axes intercepts.\n[2]\nIn parts (c) to (g), consider\nf(x) = x⁴ + bx² + d, where b ∈ ℝ and d ∈ ℝ, d ≠ 0.\n(c)\n(i)\nWrite down an expression for f′(x).\n[2]\n(ii)\nShow that f′ is an odd function.\n[3]\nA root α is defined as a double root of an equation f(x) = 0 if both f(α) = 0 and f′(α) = 0.\n(d)\nState a feature of the graph of y = f(x) that indicates whether the equation f(x) = 0 has a double root α.\n[1]\nIn parts (e) to (g), consider the case where the equation f(x) = 0 has a double root α.\n(e)\nShow that −α is also a double root of the equation f(x) = 0.\n[4]\n(f)\n(i)\nBy considering f′(α) = 0, or otherwise, show that α² = −b/2.\n[3]\n(ii)\nHence, show that d = b²/4.\n[2]\n(g)\nDeduce the set of values of b for which the equation f(x) = 0 has\n(i)\nreal roots;\n[1]\n(ii)\npurely imaginary roots.\n[1]\nIn parts (h) and (i), consider\nf(x) = x⁴ + bx² + d, where b ∈ ℝ, b < 0 and d ∈ ℝ, d ≠ 0.\n(h)\nShow that the solutions to the equation f″(x) = 0 are x = ±√(−b/6).\n[3]\nThe curve y = f(x) has a point of inflexion at x = √(−b/6).\nThe equation of the tangent to the curve y = f(x) at x = √(−b/6) has the form\ny = −(2√6/9)(−b)^(3/2) x + c.\n(i)\nShow that c = b²/12 + d.\n[5]",
       "labels": [
         "Differentiation",
         "Trigonometry",
@@ -6928,8 +6928,8 @@
       ],
       "imageStatus": "original",
       "marks": 25,
-      "summary": "This question asks you to investigate the motion of a particle moving back and forth in",
-      "accessibleText": "2.\n[Maximum mark: 25]\nThis question asks you to investigate the motion of a particle moving back and forth in\na horizontal line between two end points.\nA particle moves back and forth in a horizontal line between two end points.\nA fixed origin O is the midpoint between these end points.\nThe particle’s displacement, x metres, from O at time t seconds is given by\nx\nt\n\u001b\n\u001a\n\u0019\u0018\n4\n2\n3\nsin\n\u0017\n, for 0 ≤ t ≤ π .\n(a)\nDetermine\n(i)\nthe amplitude of the particle’s motion;\n[1]\n(ii)\nthe particle’s initial displacement from O ;\n[2]\n(iii)\nthe value of t when the particle first passes through O .\n[2]\nNow consider the general case of a particle moving back and forth in a horizontal line\nbetween two end points.\nThe particle’s acceleration is always directed towards a fixed origin O at the midpoint of\nthese end points.\nThe particle’s acceleration, a , at a displacement, s , from O satisfies the differential equation\na = -n2s , where n > 0 .\nThe particle’s displacement, s , from O at time t is given by\ns = A sin (nt + b) , where t ≥ 0 , A , n > 0 and -π ≤ b ≤ π .\n(b)\nBy finding expressions for d\nd\ns\nt\nand d\nd\n2\n2\ns\nt\n, verify that s = A sin (nt + b) satisfies\nthe differential equation a = -n2s .\n[2]\n(This question continues on the following page)\n2226 – 5027\n(Question 2 continued)\n(c)\n(i)\nUse the chain rule to show that a\nv v\ns\n=\nd\nd\n, where v is velocity.\n[1]\n(ii)\nBy solving the differential equation, v v\ns\nn s\nd\nd\n2 , show that v2 = n2 (A2 - s2) .\n[5]\n(iii)\nHence, or otherwise, find the particle’s maximum speed.\n[2]\nThe continuous random variable S denotes the particle’s displacement, s , from O at time t .\nThe probability density function f of S is defined by\nf s\nA\ns\nA\ns\nA\n( )\n,\n,\n\u001b\u001a\n\u0019\u001a\n1\n0\n2\n2\n\u0018\notherwise.\n(d)\nShow that P\n\u001b\n\u001a\n\u0019\u0018 \u0017\nA\nS\nA\n2\n2\n1\n3\n.\n[4]\nFor -A < s < A , the function f (s) can be expressed in the form\nk\nv s( )\n, where k > 0 and v (s)\nis the particle’s velocity at a displacement, s , from O .\n(e)\nFind the value of k .\n[3]\n(f)\n(i)\nDetermine E (S ) , justifying your answer.\n[2]\n(ii)\nInterpret the result found in part (f)(i) in the context of the particle’s motion.\n[1]",
+      "summary": "This question asks you to investigate the motion of a particle moving back and forth in a horizontal line between two end points.",
+      "accessibleText": "2.\n[Maximum mark: 25]\nThis question asks you to investigate the motion of a particle moving back and forth in a horizontal line between two end points.\nA particle moves back and forth in a horizontal line between two end points.\nA fixed origin O is the midpoint between these end points.\nThe particle’s displacement, x metres, from O at time t seconds is given by\nx = 4 sin(2t + π/3), for 0 ≤ t ≤ π.\n(a)\nDetermine\n(i)\nthe amplitude of the particle’s motion;\n[1]\n(ii)\nthe particle’s initial displacement from O;\n[2]\n(iii)\nthe value of t when the particle first passes through O.\n[2]\nNow consider the general case of a particle moving back and forth in a horizontal line between two end points.\nThe particle’s acceleration is always directed towards a fixed origin O at the midpoint of these end points.\nThe particle’s acceleration, a, at a displacement, s, from O satisfies the differential equation\na = −n²s, where n > 0.\nThe particle’s displacement, s, from O at time t is given by\ns = A sin(nt + b), where t ≥ 0, A, n > 0 and −π ≤ b ≤ π.\n(b)\nBy finding expressions for ds/dt and d²s/dt², verify that s = A sin(nt + b) satisfies the differential equation a = −n²s.\n[2]\n(c)\n(i)\nUse the chain rule to show that a = v dv/ds, where v is velocity.\n[1]\n(ii)\nBy solving the differential equation, v dv/ds = −n²s, show that v² = n²(A² − s²).\n[5]\n(iii)\nHence, or otherwise, find the particle’s maximum speed.\n[2]\nThe continuous random variable S denotes the particle’s displacement, s, from O at time t.\nThe probability density function f of S is defined by\nf(s) = { 1/(π√(A² − s²)), −A < s < A; 0, otherwise.\n(d)\nShow that P(−A/2 ≤ S ≤ A/2) = 1/3.\n[4]\nFor −A < s < A, the function f(s) can be expressed in the form k/|v(s)|, where k > 0 and v(s) is the particle’s velocity at a displacement, s, from O.\n(e)\nFind the value of k.\n[3]\n(f)\n(i)\nDetermine E(S), justifying your answer.\n[2]\n(ii)\nInterpret the result found in part (f)(i) in the context of the particle’s motion.\n[1]",
       "labels": [
         "Differential Equations",
         "Probability",
