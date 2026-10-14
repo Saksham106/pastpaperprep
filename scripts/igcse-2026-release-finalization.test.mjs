@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   RELEASES_2026, readHistoricalStorage, reconstructCandidate, replayFinalize, verifyFinalizedBank, verifyReceiptComposition,
 } from "./igcse-2026-release-finalization.mjs";
-import { readUploadLog, UPLOAD_LOG_COUNTS, UPLOAD_LOG_PATH, withUploadStatus } from "./r2-upload-2026-log.mjs";
+import { readRepairLog, readUploadLog, REPAIR_LOG_PATH, REPAIR_PLAN_PATH, UPLOAD_LOG_COUNTS, UPLOAD_LOG_PATH, withRepairUploadStatus, withUploadStatus } from "./r2-upload-2026-log.mjs";
 import { manifestSha256, runtimeSha256 } from "./igcse-release.mjs";
 
 const read = (file) => readFileSync(file, "utf8");
@@ -103,5 +103,47 @@ describe.each(banks)("%s 2026 release finalization", (bank) => {
     expect(() => verifyReceiptComposition(bank, composition(bank, { receiptText: JSON.stringify(short) }))).toThrow(/completed set is not exactly the manifest/);
     const resealed = { ...receipt, assetManifestSha256: "0".repeat(64) };
     expect(() => verifyReceiptComposition(bank, composition(bank, { receiptText: JSON.stringify(resealed) }))).toThrow(/does not seal this manifest/);
+  });
+});
+
+describe("0610 May/June 2026 mark-scheme ownership repair (PR #282)", () => {
+  const bank = "igcse-biology-0610";
+
+  it("re-cut 24 crops under new keys, created and read back; the first release reconstructs exactly", () => {
+    const { rows } = readRepairLog();
+    const first = readUploadLog().byKey;
+    expect(rows).toHaveLength(24);
+    expect(rows.every((row) => row.bank === bank && row.status === "verified" && row.existedBefore === false && row.key.includes("/markschemes/0610-2026-s-")
+      && row.key.endsWith(`-${row.sha256.slice(0, 12)}.webp`) && !first.has(row.key))).toBe(true);
+    const committed = JSON.parse(read(REPAIR_PLAN_PATH));
+    expect(committed).toMatchObject({ mode: "executed-upload-plan", status: "UPLOADED AND VERIFIED", objectCount: 24, upload: { objects: 24, createdNew: 24, overwritten: 0, readbackLog: REPAIR_LOG_PATH } });
+    const dryRun = { ...committed, mode: "dry-run-plan-only", status: "NOT UPLOADED" };
+    delete dryRun.upload;
+    expect(withRepairUploadStatus(dryRun)).toEqual(committed);
+    expect(() => withRepairUploadStatus({ ...dryRun, objects: dryRun.objects.slice(1) })).toThrow(/not exactly this plan/);
+    const manifest = JSON.parse(read(`data/storage/${bank}.manifest.json`));
+    const keys = new Set(manifest.assets.map((asset) => asset.objectKey));
+    expect(committed.replaces.every((r) => keys.has(r.key) && !keys.has(r.replacesKey) && first.get(r.replacesKey)?.sha256 === r.replacesSha256)).toBe(true);
+    expect(verifyReceiptComposition(bank, composition(bank))).toMatchObject({ previouslyVerified: 13953, added: 780, total: 14733, repairCarried: 14709, repairReplaced: 24 });
+  });
+
+  it("fails closed on a changed repair log, an unreviewed replacement, a changed carried object or provenance", () => {
+    const base = composition(bank);
+    const repairLogText = read(REPAIR_LOG_PATH);
+    const repairPlanText = read(REPAIR_PLAN_PATH);
+    const shortLog = repairLogText.split("\n").filter(Boolean).slice(1).join("\n") + "\n";
+    expect(() => verifyReceiptComposition(bank, { ...base, repairLogText: shortLog, repairPlanText })).toThrow(/repair readback log changed/);
+    const plan = JSON.parse(repairPlanText);
+    plan.replaces[0].replacesSha256 = "0".repeat(64);
+    expect(() => verifyReceiptComposition(bank, { ...base, repairLogText, repairPlanText: JSON.stringify(plan) })).toThrow(/not a reviewed replacement/);
+    const manifest = JSON.parse(base.manifestText);
+    const historical = new Set(JSON.parse(base.previousManifestText).assets.map((asset) => asset.objectKey));
+    const repaired = new Set(JSON.parse(repairPlanText).objects.map((o) => o.key));
+    const carried = manifest.assets.find((asset) => !historical.has(asset.objectKey) && !repaired.has(asset.objectKey));
+    carried.sha256 = "0".repeat(64);
+    expect(() => verifyReceiptComposition(bank, { ...base, manifestText: JSON.stringify(manifest), repairLogText, repairPlanText })).toThrow(/first release object changed/);
+    const receipt = JSON.parse(base.receiptText);
+    receipt.readbackProvenance[0].droppedUnreferenced = 0;
+    expect(() => verifyReceiptComposition(bank, { ...base, receiptText: JSON.stringify(receipt), repairLogText, repairPlanText })).toThrow(/readback provenance/);
   });
 });

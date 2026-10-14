@@ -11,7 +11,7 @@ import { relative, resolve } from 'node:path';
 import { BASELINE_4913, LANE_2026_MJ } from './generate-igcse-biology-0610-extension-candidate.mjs';
 import { assertExactBiologyCohortSeals, buildReleaseManifest, manifestSha256, RELEASE_BANKS } from './igcse-release.mjs';
 import { committedCandidateText, readHistoricalStorage } from './igcse-2026-release-finalization.mjs';
-import { UPLOAD_RECEIPT_DOC, withUploadStatus } from './r2-upload-2026-log.mjs';
+import { readUploadLog, REPAIR_LOG_PATH, REPAIR_LOG_SHA256, REPAIR_PLAN_PATH, UPLOAD_RECEIPT_DOC, withRepairUploadStatus, withUploadStatus } from './r2-upload-2026-log.mjs';
 
 const BANK = 'igcse-biology-0610';
 const repo = resolve(import.meta.dirname, '..');
@@ -70,6 +70,44 @@ const addition = runtime.runtimeArtifact.extension2026MayJune;
 if (objects.length !== LANE_2026_MJ.assets || questionObjects !== addition.questionAssetCount || objects.length - questionObjects !== addition.markschemeAssetCount
   || manifest.assets.length !== BASELINE_4913.assetCount + LANE_2026_MJ.assets || hashesByReference.size !== LANE_2026_MJ.assets || assemblySha.size !== LANE_2026_MJ.assets) throw new Error('new object counts are not exact');
 
+// PR #282 repair: crops re-cut to their own question rows carry content-addressed names; each replaces the
+// earlier object of the same stem, which the first upload created and which drops out of the release.
+const firstUpload = readUploadLog().byKey;
+const repaired = objects.filter((o) => !firstUpload.has(o.key));
+const replaces = repaired.map((o) => {
+  const old = o.key.replace(/-[0-9a-f]{12}\.webp$/, '.webp');
+  const row = firstUpload.get(old);
+  if (o.kind !== 'markscheme' || old === o.key || !o.key.endsWith(`-${o.sha256.slice(0, 12)}.webp`) || !row || row.bank !== BANK || manifest.assets.some((asset) => asset.objectKey === old)) throw new Error(`unexpected repaired object ${o.key}`);
+  return { key: o.key, questionId: o.questionId, replacesKey: old, replacesSha256: row.sha256, replacesBytes: row.bytes };
+});
+const supersededKeys = [...firstUpload.values()].filter((row) => row.bank === BANK && !objects.some((o) => o.key === row.key)).map((row) => row.key).sort();
+if (repaired.length !== 24 || JSON.stringify(supersededKeys) !== JSON.stringify(replaces.map((r) => r.replacesKey).sort())) throw new Error('repaired/superseded objects are not the 24 reviewed crops');
+const repairPlanDraft = {
+  schemaVersion: 1,
+  addition: '0610-2026-may-june-ms-ownership-repair',
+  mode: 'dry-run-plan-only',
+  status: 'NOT UPLOADED',
+  provider: 'cloudflare-r2',
+  bucket: 'pastpaperprep-assets',
+  reason: 'PR #282 review: whole-page mark-scheme bands put neighbouring questions\' rows into 21 questions\' crops. The source pipeline re-cut those 24 crops at the printed question boundary (ms_question_row_ownership overrides) and gave them content-addressed names, so no uploaded key is reused.',
+  method: `The 0610 release manifest minus every object the earlier verified receipt covers (${(manifest.assets.length - repaired.length).toLocaleString('en-US')} unchanged). Create-only: each key must be absent; the ${repaired.length} replaced objects stay in the bucket, unreferenced (deleting them needs owner approval).`,
+  objectPrefix: manifest.objectPrefix,
+  source: { repository: 'igcse-biology-0610-topic-practice', branch: LANE_2026_MJ.sourceBranch, commit: LANE_2026_MJ.sourceCommitAtBuild, lane: LANE_2026_MJ.segmentationLane },
+  runtimeOriginalCandidateSha256: runtime.runtimeArtifact.originalCandidateRuntimeSha256,
+  objectCount: repaired.length,
+  totalBytes: repaired.reduce((sum, o) => sum + o.bytes, 0),
+  replaces,
+  objects: repaired,
+};
+const repairUploaded = REPAIR_LOG_SHA256 !== 'PENDING_UPLOAD';
+if (!repairUploaded) {
+  // Before the repair upload only its dry-run plan can be written; the release plan and receipt need the readback log.
+  await writeFile(resolve(repo, REPAIR_PLAN_PATH), `${JSON.stringify(repairPlanDraft, null, 2)}\n`);
+  console.log(JSON.stringify({ repairPlan: REPAIR_PLAN_PATH, objects: repaired.length, totalBytes: repairPlanDraft.totalBytes, status: 'NOT UPLOADED' }));
+  process.exit(0);
+}
+const repairPlan = withRepairUploadStatus(repairPlanDraft);
+
 const plan = withUploadStatus({
   schemaVersion: 1,
   addition: '0610-2026-may-june',
@@ -102,7 +140,7 @@ const released = committedRuntime.runtimeArtifact.assetVerification === 'verifie
 const receipt = {
   schemaVersion: 1,
   addition: '0610-2026-may-june',
-  status: released ? 'production; 780 objects uploaded and read back, receipt verified_readback, finalized' : 'authorized_production_candidate; storage upload and --finalize pending (operator-gated)',
+  status: released ? 'production; 780 objects uploaded and read back (24 of them re-cut mark-scheme crops from the PR #282 repair upload), receipt verified_readback, finalized' : 'authorized_production_candidate; storage upload and --finalize pending (operator-gated)',
   method: 'pure insertion: the finalized, secondaries-resealed 4,913-row runtime is kept byte-identical and in order; 298 May/June 2026 rows are appended. Proof: node scripts/verify-0610-2026-mj-addition.mjs',
   baseline: { ...BASELINE_4913, manifestFileSha256: hash('sha256', committedManifestText) },
   merged: {
@@ -119,6 +157,14 @@ const receipt = {
     method: 'node scripts/generate-igcse-release.mjs --finalize over this candidate; proof: node scripts/igcse-2026-release-finalization.mjs',
     uploadReceipt: UPLOAD_RECEIPT_DOC,
   } } : {}),
+  msOwnershipRepair: {
+    reason: repairPlan.reason,
+    repairedObjects: repaired.length,
+    supersededObjects: supersededKeys.length,
+    plan: REPAIR_PLAN_PATH,
+    readbackLog: REPAIR_LOG_PATH,
+    readbackLogSha256: REPAIR_LOG_SHA256,
+  },
   lane2026MayJune: {
     ...addition,
     papers: [...new Set(added.map((q) => q.id.replace(/-q\d+$/, '')))].map((paper) => {
@@ -136,6 +182,7 @@ const receipt = {
 };
 
 const outputs = [
+  [resolve(repo, REPAIR_PLAN_PATH), `${JSON.stringify(repairPlan, null, 2)}\n`],
   [resolve(repo, 'docs/igcse-biology-0610-2026-mj-r2-upload-plan.json'), `${JSON.stringify(plan, null, 2)}\n`],
   [resolve(repo, 'docs/igcse-biology-0610-2026-mj-addition.json'), `${JSON.stringify(receipt, null, 2)}\n`],
 ];

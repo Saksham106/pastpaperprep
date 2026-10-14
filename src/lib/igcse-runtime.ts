@@ -153,7 +153,7 @@ const RUNTIME_TAXONOMIES: Record<IGCSEReleaseBankSlug, unknown> = {
 };
 
 const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
-  "igcse-biology-0610": "d2c345435e4a27fe90146b4d40a27d7562b92800eb8b291bfca2a5b3273ccc7b",
+  "igcse-biology-0610": "3f2ec8f2254978715de2ff63de39dc50ad0c8d77d14858fa94d17d0bafaedbe9",
   "igcse-economics-0455": "c54a9b4caa427d542b8c9f16f003f6de09fd08a82e3d082c918a67af4c205a66",
   "igcse-chemistry-0620": "81c706903aa94c6865336cf40027c26b33e0ba514082f4d8da2c576b9bb2cf87",
   "igcse-physics-0625": "d95657a79bfcf5d80b9c7e9660c1d7795ea2026435610bb3e96ba2203e3d8cf7",
@@ -161,7 +161,7 @@ const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
 };
 
 const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
-  "igcse-biology-0610": "efaea7d9f6c60f75c442d9b295810efc85f7ba1e2797825b987187fc0caa9a8f",
+  "igcse-biology-0610": "c2dcc1d721e5ccfd828d3c8666113f09c7393e86ff6cacbf404e55c717c25b30",
   "igcse-economics-0455": "c54a9b4caa427d542b8c9f16f003f6de09fd08a82e3d082c918a67af4c205a66",
   "igcse-chemistry-0620": "81c706903aa94c6865336cf40027c26b33e0ba514082f4d8da2c576b9bb2cf87",
   "igcse-physics-0625": "14b6756ed65b6f264f601519a4dba5b5a43ef0f0480bc849924cc037644c79e8",
@@ -473,13 +473,16 @@ const EXTENSION_0610_2026_MJ = {
   baselineSourceCandidateSha256: "ae8d6aef098c380bcb3d221e152474d2ef10d666d61c472ee42b6d4077cd4e25",
   idsSha256: "eb34baa109216fa30293c71262fa2fa05420908aeaf610f3d7215902b4048a99",
   extensionThroughMayJuneIdsSha256: "f257b8f0e664914344fca4f1f5dbcc405ec3c0bfcea7c4ac03a789540286bb41",
-  sourceAssemblySha256: "4ef5a5fe6669e8d4cd27fd20dcb8b5ab54c350740205e0d9bbfe6b7313187944",
-  sourceReconciliationReceiptSha256: "98b3cda42383dc4833be36fd56d35bde4636dfd66d25955dfc1aed1d56d6159d",
+  sourceAssemblySha256: "1676df5b079f32eca5213131ac7bcf6d6d861d41e837d374416fa7424f239e96",
+  sourceReconciliationReceiptSha256: "2351a01d6682ab56cbb389f029a22d10af8d48993d9ac37dd063c730040e13be",
   paperExceptionQuestionId: "0610-2026-s-43-q5",
-  /** Finalized after the 780 objects were uploaded and read back (docs/2026-paper-gaps-r2-upload-receipt.md). */
-  finalizedContentSha256: "09cf937ac5c2af87a8fefb7b470178ada63f000bfca4c245ecef69692cc099ed",
-  assetManifestSha256: "5dfe4e11aaca04d7b434726c7b522524f49a4fbfab37d844e2aeec85d6b9891b",
-  storageReceiptSha256: "001e9d9d56d937c9bad60aa3fadf33425d0f03f93a6ae1d67a18d4a5b3fdf15c",
+  /**
+   * Finalized after the 780 objects were uploaded and read back, then re-finalized after the PR #282 repair
+   * re-cut 24 mark-scheme crops (new keys, read back) and added secondaries (docs/2026-paper-gaps-r2-upload-receipt.md).
+   */
+  finalizedContentSha256: "6606b21ce2414f706bec27ca6ede7aea2b87ae3c66a1ddf1f715d86fdce0d5a3",
+  assetManifestSha256: "651baec59ac69182aced5d2189f601850620db22a30170de41fe8974d4c87bf9",
+  storageReceiptSha256: "155a454e3a701f7032185552b65b03c32020e661ce4648e3d4040e462d6b3309",
 } as const;
 
 /**

@@ -280,12 +280,12 @@ export const BASELINE_4913 = {
 };
 export const LANE_2026_MJ = {
   assembly: 'data/classification/extension-2026-mj/assembly/release/assembly.json',
-  assemblySha256: '4ef5a5fe6669e8d4cd27fd20dcb8b5ab54c350740205e0d9bbfe6b7313187944',
+  assemblySha256: '1676df5b079f32eca5213131ac7bcf6d6d861d41e837d374416fa7424f239e96',
   receipt: 'data/classification/extension-2026-mj/assembly/release/reconciliation-receipt.json',
-  receiptSha256: '98b3cda42383dc4833be36fd56d35bde4636dfd66d25955dfc1aed1d56d6159d',
+  receiptSha256: '2351a01d6682ab56cbb389f029a22d10af8d48993d9ac37dd063c730040e13be',
   segmentationLane: 'data/segmentation/full-extension-2026-mj',
   sourceBranch: 'feat/2026-may-june-acquisition',
-  sourceCommitAtBuild: 'a80ad4b36be4b4c8889b587d0332e52cce68b0cc',
+  sourceCommitAtBuild: 'fce6f05dee61cd49113d412fd7e8b23fe6550603',
   selectedSource: 'extension-2026-mj',
   era: '2026_2028',
   rows: 298,
@@ -293,7 +293,8 @@ export const LANE_2026_MJ = {
   mcq: 240,
   structured: 58,
   assets: 780,
-  materialSecondaryRows: 36,
+  /** 46 since the PR #282 secondaries re-check (36 before), 98 secondary labels. */
+  materialSecondaryRows: 46,
   /** sha256(sorted ids joined by "\n"): the release-script cohort formula. */
   idsSha256: 'eb34baa109216fa30293c71262fa2fa05420908aeaf610f3d7215902b4048a99',
   /** The whole non-2021-2025 extension after this addition (1,472 finalized + 298 candidates). */

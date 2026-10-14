@@ -56,7 +56,7 @@ describe("IGCSE Biology 0610 combined 2019-2026 release (4,913 rows + May/June 2
     expect(idsSha(mayJune)).toBe("eb34baa109216fa30293c71262fa2fa05420908aeaf610f3d7215902b4048a99");
     expect(new Set(mayJune.map((q) => q.id.replace(/-q\d+$/, ""))).size).toBe(18);
     expect(mayJune.filter((q) => q.marks === 1 && q.id.match(/-s-[12]\d-/))).toHaveLength(240);
-    expect(mayJune.filter((q) => q.secondaryTopicIds?.length)).toHaveLength(36);
+    expect(mayJune.filter((q) => q.secondaryTopicIds?.length)).toHaveLength(46);
     expect(new Set(mayJune.flatMap((q) => q.questionImages)).size).toBe(r.runtimeArtifact.extension2026MayJune.questionAssetCount);
     expect(new Set(mayJune.flatMap((q) => q.markschemeImages)).size).toBe(r.runtimeArtifact.extension2026MayJune.markschemeAssetCount);
     expect(new Set(r.questions.flatMap((q) => [...q.questionImages, ...q.markschemeImages])).size).toBe(14733);
@@ -125,8 +125,8 @@ describe("IGCSE Biology 0610 combined 2019-2026 release (4,913 rows + May/June 2
     expect(r.runtimeArtifact.finalizedContentSha256).toBe(jsonSha(r.questions));
     expect(r.runtimeArtifact.contentSha256).toBe(jsonSha(candidate.questions));
     expect(r.runtimeArtifact.runtimeSha256).toBe(runtimeSeal(r));
-    expect(r.runtimeArtifact.runtimeSha256).toBe("d27b4dbbbf38d4d24db2f574a3ebae9dff178e6dda215048c51915de2314a3d1");
-    expect(r.runtimeArtifact.originalCandidateRuntimeSha256).toBe("d2c345435e4a27fe90146b4d40a27d7562b92800eb8b291bfca2a5b3273ccc7b");
+    expect(r.runtimeArtifact.runtimeSha256).toBe("495712c9c642d02e778be7aeeeb848612f99ce4c89d45a26e654a56636b57ace");
+    expect(r.runtimeArtifact.originalCandidateRuntimeSha256).toBe("3f2ec8f2254978715de2ff63de39dc50ad0c8d77d14858fa94d17d0bafaedbe9");
     expect(r.runtimeArtifact.extension2026MayJune.baselineOriginalCandidateRuntimeSha256).toBe("9e97cd0c0455ae865b1d14dc462f74ce22d1c66fb734e7d4a8baaf414e0ff961");
     expect(r.runtimeArtifact.sourceAssemblySha256).toBe("92132de006cb98dcd7f7feef193be05d6cf0233addcaa41b045f6b7771490de1");
     expect(r.runtimeArtifact.sourceReconciliationReceiptSha256).toBe("c708d4b0116b3559fd550481a355d0964a722f7027962dfc6297eea1408bcbbd");
@@ -151,7 +151,7 @@ describe("IGCSE Biology 0610 combined 2019-2026 release (4,913 rows + May/June 2
     expect(receipt.completed).toEqual(manifest.assets.map((asset) => asset.objectKey).sort());
     expect(receipt.assetManifestSha256).toBe(jsonSha(manifest));
     expect(receipt.assetManifestSha256).toBe(r.runtimeArtifact.assetManifestSha256);
-    expect(receipt.readbackProvenance.map((entry) => entry.count)).toEqual([13953, 780]);
+    expect(receipt.readbackProvenance.map((entry) => entry.count)).toEqual([14709, 24]);
     expect(getPrivateBankObjectPrefix("igcse-biology-0610")).toBe(PREFIX);
   });
 

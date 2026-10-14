@@ -14,13 +14,14 @@
  * Usage: node scripts/igcse-2026-release-finalization.mjs   (prints a PASS summary or throws)
  */
 import { execFileSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { manifestSha256, runtimeSha256, sha256 } from './igcse-release.mjs';
 import { finalizeRelease } from './generate-igcse-release.mjs';
-import { readUploadLog, UPLOAD_LOG_COUNTS, UPLOAD_LOG_PATH, UPLOAD_LOG_SHA256 } from './r2-upload-2026-log.mjs';
+import { readRepairLog, readUploadLog, REPAIR_LOG_PATH, REPAIR_LOG_SHA256, REPAIR_PLAN_PATH, UPLOAD_LOG_COUNTS, UPLOAD_LOG_PATH, UPLOAD_LOG_SHA256 } from './r2-upload-2026-log.mjs';
 
 export { UPLOAD_LOG_PATH, UPLOAD_LOG_SHA256 };
 
@@ -36,21 +37,42 @@ export const RELEASES_2026 = {
     candidateClassificationReviewStatus: 'candidate_not_approved',
     /** The 0610 candidate was committed pretty-printed; --finalize writes minified. */
     serializeCandidate: (runtime) => `${JSON.stringify(runtime, null, 2)}\n`,
+    /** Rebuilt after the PR #282 crop-ownership and secondaries repairs (first candidate: d2c34543, see repair.firstRelease). */
     candidate: {
-      fileSha256: 'f71e49469160ba3892d17656bc64d07a7ce166f9306b1ad9daccf78500535033',
-      runtimeSha256: 'e8087662eaaba194aeb801844e5545b79ce8a410ba3c8e5e9d438793eb55f906',
-      originalCandidateRuntimeSha256: 'd2c345435e4a27fe90146b4d40a27d7562b92800eb8b291bfca2a5b3273ccc7b',
-      contentSha256: '63b650fbfa500c4864bfaf4f260c5ab2671dff5b76ea42128f183c58aeccc2b1',
+      fileSha256: '59bc6bbc9ab78b408ff0af5d958595bf20594320a86140b90e90be92e12fbab6',
+      runtimeSha256: '70b7a9a65f10484e2ed7d7aabc5f6e317126ba61cc606033f143fe77a3309074',
+      originalCandidateRuntimeSha256: '3f2ec8f2254978715de2ff63de39dc50ad0c8d77d14858fa94d17d0bafaedbe9',
+      contentSha256: '5b918276fc6a3ca689d62e45833bf85950c4b1befb5ea72e018df440165cd4ce',
     },
     previous: { assets: 13953, assetManifestSha256: '4984902a3db4fc7e0599d1c646aabcfb023d958370d529861283c5d37189e3d9', receiptFileSha256: '2def116660b15df52777805496d024d4799826da0cdee59eabddadab29e622a2' },
     added: 780,
+    /**
+     * PR #282 repair: 24 mark-scheme crops re-cut to their own question rows, uploaded create-only under new
+     * content-addressed keys (repair log). The first verified release of the addition (candidate d2c34543,
+     * manifest 5dfe4e11, receipt 001e9d9d) is reconstructed exactly from main's pair and the first log; its
+     * objects carry over unchanged except the 24 replaced ones, which drop out of the manifest.
+     */
+    repair: {
+      replaced: 24,
+      plan: REPAIR_PLAN_PATH,
+      firstRelease: {
+        originalCandidateRuntimeSha256: 'd2c345435e4a27fe90146b4d40a27d7562b92800eb8b291bfca2a5b3273ccc7b',
+        contentSha256: '63b650fbfa500c4864bfaf4f260c5ab2671dff5b76ea42128f183c58aeccc2b1',
+        assetManifestSha256: '5dfe4e11aaca04d7b434726c7b522524f49a4fbfab37d844e2aeec85d6b9891b',
+        receiptFileSha256: '001e9d9d56d937c9bad60aa3fadf33425d0f03f93a6ae1d67a18d4a5b3fdf15c',
+        /** realpath of the source checkout the first manifest was built from. */
+        sourceRoot: '/Users/sakshamgoel/Documents/ProjectsInternships/igcse-biology-0610-topic-practice',
+        lane: 'data/segmentation/full-extension-2026-mj',
+        readbackDate: '2026-10-13',
+      },
+    },
     finalized: {
-      fileSha256: '9f56e77bb7fe7734061ebc5c5b264c5231548da2ac91683ead7bb3c752440e38',
-      runtimeSha256: 'd27b4dbbbf38d4d24db2f574a3ebae9dff178e6dda215048c51915de2314a3d1',
-      finalizedContentSha256: '09cf937ac5c2af87a8fefb7b470178ada63f000bfca4c245ecef69692cc099ed',
-      assetManifestSha256: '5dfe4e11aaca04d7b434726c7b522524f49a4fbfab37d844e2aeec85d6b9891b',
-      manifestFileSha256: '5474a4bf14699628c604fa2144a7c6f9c1351e4d526596ff27cada4ae05ce1b3',
-      storageReceiptSha256: '001e9d9d56d937c9bad60aa3fadf33425d0f03f93a6ae1d67a18d4a5b3fdf15c',
+      fileSha256: '2e5205370a81a2068bba1ab77deb887d5355229cc9cbdc638560c098a3c1a05f',
+      runtimeSha256: '495712c9c642d02e778be7aeeeb848612f99ce4c89d45a26e654a56636b57ace',
+      finalizedContentSha256: '6606b21ce2414f706bec27ca6ede7aea2b87ae3c66a1ddf1f715d86fdce0d5a3',
+      assetManifestSha256: '651baec59ac69182aced5d2189f601850620db22a30170de41fe8974d4c87bf9',
+      manifestFileSha256: '441957c5a03d0b7695108068aa2c4f685a10d369545f69a359f082b1093e97fd',
+      storageReceiptSha256: '155a454e3a701f7032185552b65b03c32020e661ce4648e3d4040e462d6b3309',
     },
   },
   'igcse-economics-0455': {
@@ -128,7 +150,9 @@ export async function replayFinalize(bank, candidate, manifestText, receiptText)
 }
 
 /** Independent re-check of the composed receipt (see the module comment). */
-export function verifyReceiptComposition(bank, { manifestText, receiptText, previousManifestText, previousReceiptText, logText, planText }) {
+export function verifyReceiptComposition(bank, { manifestText, receiptText, previousManifestText, previousReceiptText, logText, planText,
+  repairLogText = RELEASES_2026[bank]?.repair ? readFileSync(join(repo, REPAIR_LOG_PATH), 'utf8') : null,
+  repairPlanText = RELEASES_2026[bank]?.repair ? readFileSync(join(repo, RELEASES_2026[bank].repair.plan), 'utf8') : null }) {
   const config = RELEASES_2026[bank];
   const manifest = JSON.parse(manifestText);
   const receipt = JSON.parse(receiptText);
@@ -153,8 +177,9 @@ export function verifyReceiptComposition(bank, { manifestText, receiptText, prev
   const log = new Map(logRows.map((row) => [row.key, row]));
   const planned = new Map(plan.objects.map((o) => [o.key, o]));
   if (added.length !== config.added || log.size !== config.added || logRows.length !== config.added || planned.size !== config.added) fail(bank, 'new object counts');
+  const repair = config.repair ? verifyRepairChain(bank, { manifest, previousManifest, previousReceiptText, logText, logRows, repairLogText, repairPlanText }) : null;
   for (const a of added) {
-    const row = log.get(a.objectKey);
+    const row = log.get(a.objectKey) ?? repair?.log.get(a.objectKey);
     const p = planned.get(a.objectKey);
     if (!row || row.status !== 'verified' || row.existedBefore !== false || row.sha256 !== a.sha256 || row.bytes !== a.size) fail(bank, `no matching verified readback: ${a.objectKey}`);
     if (!p || p.sha256 !== a.sha256 || p.bytes !== a.size || p.contentType !== a.contentType) fail(bank, `new object differs from the reviewed plan: ${a.objectKey}`);
@@ -164,9 +189,70 @@ export function verifyReceiptComposition(bank, { manifestText, receiptText, prev
   if (receipt.assetManifestSha256 !== manifestSha256(manifest)) fail(bank, 'receipt does not seal this manifest');
   if (JSON.stringify(receipt.completed) !== JSON.stringify(manifest.assets.map((a) => a.objectKey).sort())) fail(bank, 'receipt completed set is not exactly the manifest');
   const [old, fresh] = receipt.readbackProvenance ?? [];
-  if (old?.count !== config.previous.assets || old.previousReceiptSha256 !== config.previous.receiptFileSha256 || old.previousAssetManifestSha256 !== config.previous.assetManifestSha256
+  if (repair) {
+    const first = config.repair.firstRelease;
+    if (receipt.readbackProvenance.length !== 2 || old?.count !== repair.carried || old.previousReceiptSha256 !== first.receiptFileSha256 || old.previousAssetManifestSha256 !== first.assetManifestSha256
+      || old.droppedUnreferenced !== config.repair.replaced || fresh?.count !== config.repair.replaced || fresh.readbackLogSha256 !== REPAIR_LOG_SHA256) fail(bank, 'readback provenance');
+  } else if (old?.count !== config.previous.assets || old.previousReceiptSha256 !== config.previous.receiptFileSha256 || old.previousAssetManifestSha256 !== config.previous.assetManifestSha256
     || fresh?.count !== config.added || fresh.readbackLogSha256 !== UPLOAD_LOG_SHA256) fail(bank, 'readback provenance');
-  return { bank, previouslyVerified: previousManifest.assets.length, added: added.length, total: manifest.assets.length, assetManifestSha256: receipt.assetManifestSha256 };
+  return { bank, previouslyVerified: previousManifest.assets.length, added: added.length, total: manifest.assets.length, assetManifestSha256: receipt.assetManifestSha256, ...(repair ? { repairCarried: repair.carried, repairReplaced: repair.replaced } : {}) };
+}
+
+/**
+ * The repair chain: rebuild the first verified release of the addition (manifest and receipt, byte-exact,
+ * from main's pair plus the first log), then require every object of the current manifest to be either
+ * unchanged from it or a repaired crop with a create-only repair readback and a reviewed repair-plan entry,
+ * and every dropped object to be a replaced crop the repair plan names.
+ */
+function verifyRepairChain(bank, { manifest, previousManifest, previousReceiptText, logText, logRows, repairLogText, repairPlanText }) {
+  const { repair: config } = RELEASES_2026[bank];
+  const first = config.firstRelease;
+  if (sha256(repairLogText) !== REPAIR_LOG_SHA256) fail(bank, 'repair readback log changed');
+  const repairRows = repairLogText.split('\n').filter(Boolean).map((line) => JSON.parse(line));
+  const repairLog = new Map(repairRows.map((row) => [row.key, row]));
+  const repairPlan = JSON.parse(repairPlanText);
+  const reference = (key) => key.slice(manifest.objectPrefix.length).split('/');
+  const firstAssets = [...previousManifest.assets, ...logRows.map((row) => {
+    const [kind, paper, file] = reference(row.key);
+    return { objectKey: row.key, sourcePath: `${first.sourceRoot}/${first.lane}/assets/${paper}/${kind === 'questions' ? 'question' : 'markscheme'}/${file}`, sha256: row.sha256, size: row.bytes, contentType: 'image/webp' };
+  })].sort((a, b) => a.objectKey.localeCompare(b.objectKey));
+  const firstManifest = { schemaVersion: 'igcse-private-assets-v1', bank, objectPrefix: manifest.objectPrefix, storageState: 'pending_upload', originalCandidateRuntimeSha256: first.originalCandidateRuntimeSha256, contentSha256: first.contentSha256, assets: firstAssets };
+  if (manifestSha256(firstManifest) !== first.assetManifestSha256) fail(bank, 'first release manifest does not reconstruct');
+  const previousReceipt = JSON.parse(previousReceiptText);
+  const firstReceipt = {
+    schemaVersion: 'igcse-upload-receipt-v1', bank, storageState: 'verified_readback', assetManifestSha256: first.assetManifestSha256,
+    completed: firstAssets.map((a) => a.objectKey).sort(), failed: [],
+    readbackProvenance: [
+      { scope: 'previously released objects', count: previousManifest.assets.length, previousReceiptSha256: sha256(previousReceiptText), previousAssetManifestSha256: previousReceipt.assetManifestSha256, note: 'byte-identical key/SHA-256/size in this manifest' },
+      { scope: '2026 additions', count: logRows.length, method: 'wrangler r2 object get --remote (OAuth), SHA-256 and size compared after upload; no object overwritten', readbackLogSha256: sha256(logText), readbackDate: first.readbackDate },
+    ],
+  };
+  if (sha256(`${JSON.stringify(firstReceipt, null, 2)}\n`) !== first.receiptFileSha256) fail(bank, 'first release receipt does not reconstruct');
+  const now = new Map(manifest.assets.map((a) => [a.objectKey, a]));
+  const firstByKey = new Map(firstAssets.map((a) => [a.objectKey, a]));
+  const planned = new Map(repairPlan.objects.map((o) => [o.key, o]));
+  const replaces = new Map(repairPlan.replaces.map((r) => [r.replacesKey, r]));
+  let carried = 0;
+  for (const a of manifest.assets) {
+    const was = firstByKey.get(a.objectKey);
+    if (was) {
+      if (was.sha256 !== a.sha256 || was.size !== a.size || was.contentType !== a.contentType) fail(bank, `no matching verified readback (first release object changed): ${a.objectKey}`);
+      carried++;
+      continue;
+    }
+    const row = repairLog.get(a.objectKey);
+    const p = planned.get(a.objectKey);
+    if (!row || row.bank !== bank || row.status !== 'verified' || row.existedBefore !== false || row.sha256 !== a.sha256 || row.bytes !== a.size || !a.objectKey.endsWith(`-${a.sha256.slice(0, 12)}.webp`)) fail(bank, `no matching verified readback (repair): ${a.objectKey}`);
+    if (!p || p.sha256 !== a.sha256 || p.bytes !== a.size || p.contentType !== a.contentType) fail(bank, `repaired object differs from the reviewed repair plan: ${a.objectKey}`);
+  }
+  const dropped = firstAssets.filter((a) => !now.has(a.objectKey));
+  if (dropped.length !== config.replaced || repairRows.length !== config.replaced || planned.size !== config.replaced || replaces.size !== config.replaced
+    || manifest.assets.length !== firstAssets.length || carried !== firstAssets.length - config.replaced) fail(bank, 'repair object counts');
+  for (const a of dropped) {
+    const r = replaces.get(a.objectKey);
+    if (!r || previousManifest.assets.some((old) => old.objectKey === a.objectKey) || r.replacesSha256 !== a.sha256 || !now.has(r.key) || r.key.replace(/-[0-9a-f]{12}\.webp$/, '.webp') !== a.objectKey) fail(bank, `dropped object is not a reviewed replacement: ${a.objectKey}`);
+  }
+  return { log: repairLog, carried, replaced: dropped.length };
 }
 
 /** Full check of one bank against the committed files. */
@@ -201,7 +287,8 @@ export async function committedCandidateText(bank) {
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const { rows } = readUploadLog();
+  const repair = readRepairLog();
   const results = [];
   for (const bank of Object.keys(RELEASES_2026)) results.push(await verifyFinalizedBank(bank));
-  console.log(JSON.stringify({ status: 'PASS', log: { sha256: UPLOAD_LOG_SHA256, objects: rows.length, counts: UPLOAD_LOG_COUNTS }, banks: results }, null, 1));
+  console.log(JSON.stringify({ status: 'PASS', log: { sha256: UPLOAD_LOG_SHA256, objects: rows.length, counts: UPLOAD_LOG_COUNTS }, repairLog: { path: REPAIR_LOG_PATH, sha256: REPAIR_LOG_SHA256, objects: repair.rows.length }, banks: results }, null, 1));
 }

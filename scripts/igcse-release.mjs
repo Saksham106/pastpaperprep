@@ -10,7 +10,7 @@ export const RELEASE_BANKS = {
     // The May/June 2026 rows keep the verified 4,913-row release prefix, so its 13,953 objects are not re-uploaded.
     prefix: 'igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_BIOLOGY_SOURCE_ROOT',
-    originalCandidateRuntimeSha256: 'd2c345435e4a27fe90146b4d40a27d7562b92800eb8b291bfca2a5b3273ccc7b',
+    originalCandidateRuntimeSha256: '3f2ec8f2254978715de2ff63de39dc50ad0c8d77d14858fa94d17d0bafaedbe9',
   },
   'igcse-economics-0455': {
     prefix: 'igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d',

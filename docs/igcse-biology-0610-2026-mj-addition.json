@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "addition": "0610-2026-may-june",
-  "status": "production; 780 objects uploaded and read back, receipt verified_readback, finalized",
+  "status": "production; 780 objects uploaded and read back (24 of them re-cut mark-scheme crops from the PR #282 repair upload), receipt verified_readback, finalized",
   "method": "pure insertion: the finalized, secondaries-resealed 4,913-row runtime is kept byte-identical and in order; 298 May/June 2026 rows are appended. Proof: node scripts/verify-0610-2026-mj-addition.mjs",
   "baseline": {
     "mainGitCommit": "0a0b2246e269c03f81669548947d011c4f68b741",
@@ -23,22 +23,30 @@
     "questionCount": 5211,
     "paperCount": 316,
     "years": "2019-2026",
-    "fileSha256": "f71e49469160ba3892d17656bc64d07a7ce166f9306b1ad9daccf78500535033",
-    "runtimeSha256": "e8087662eaaba194aeb801844e5545b79ce8a410ba3c8e5e9d438793eb55f906",
-    "originalCandidateRuntimeSha256": "d2c345435e4a27fe90146b4d40a27d7562b92800eb8b291bfca2a5b3273ccc7b",
-    "sourceCandidateSha256": "efaea7d9f6c60f75c442d9b295810efc85f7ba1e2797825b987187fc0caa9a8f",
-    "contentSha256": "63b650fbfa500c4864bfaf4f260c5ab2671dff5b76ea42128f183c58aeccc2b1",
+    "fileSha256": "59bc6bbc9ab78b408ff0af5d958595bf20594320a86140b90e90be92e12fbab6",
+    "runtimeSha256": "70b7a9a65f10484e2ed7d7aabc5f6e317126ba61cc606033f143fe77a3309074",
+    "originalCandidateRuntimeSha256": "3f2ec8f2254978715de2ff63de39dc50ad0c8d77d14858fa94d17d0bafaedbe9",
+    "sourceCandidateSha256": "c2dcc1d721e5ccfd828d3c8666113f09c7393e86ff6cacbf404e55c717c25b30",
+    "contentSha256": "5b918276fc6a3ca689d62e45833bf85950c4b1befb5ea72e018df440165cd4ce",
     "baselinePrefixContentSha256": "b72e02463e6648f232996bbaa4846aa5560124476797a94239ae45e592bf7910"
   },
   "release": {
-    "runtimeFileSha256": "9f56e77bb7fe7734061ebc5c5b264c5231548da2ac91683ead7bb3c752440e38",
-    "runtimeSha256": "d27b4dbbbf38d4d24db2f574a3ebae9dff178e6dda215048c51915de2314a3d1",
-    "finalizedContentSha256": "09cf937ac5c2af87a8fefb7b470178ada63f000bfca4c245ecef69692cc099ed",
-    "assetManifestSha256": "5dfe4e11aaca04d7b434726c7b522524f49a4fbfab37d844e2aeec85d6b9891b",
-    "storageReceiptSha256": "001e9d9d56d937c9bad60aa3fadf33425d0f03f93a6ae1d67a18d4a5b3fdf15c",
+    "runtimeFileSha256": "2e5205370a81a2068bba1ab77deb887d5355229cc9cbdc638560c098a3c1a05f",
+    "runtimeSha256": "495712c9c642d02e778be7aeeeb848612f99ce4c89d45a26e654a56636b57ace",
+    "finalizedContentSha256": "6606b21ce2414f706bec27ca6ede7aea2b87ae3c66a1ddf1f715d86fdce0d5a3",
+    "assetManifestSha256": "651baec59ac69182aced5d2189f601850620db22a30170de41fe8974d4c87bf9",
+    "storageReceiptSha256": "155a454e3a701f7032185552b65b03c32020e661ce4648e3d4040e462d6b3309",
     "manifestAssets": 14733,
     "method": "node scripts/generate-igcse-release.mjs --finalize over this candidate; proof: node scripts/igcse-2026-release-finalization.mjs",
     "uploadReceipt": "docs/2026-paper-gaps-r2-upload-receipt.md"
+  },
+  "msOwnershipRepair": {
+    "reason": "PR #282 review: whole-page mark-scheme bands put neighbouring questions' rows into 21 questions' crops. The source pipeline re-cut those 24 crops at the printed question boundary (ms_question_row_ownership overrides) and gave them content-addressed names, so no uploaded key is reused.",
+    "repairedObjects": 24,
+    "supersededObjects": 24,
+    "plan": "docs/igcse-biology-0610-2026-mj-ms-ownership-r2-upload-plan.json",
+    "readbackLog": "docs/2026-0610-ms-ownership-r2-upload-log.jsonl",
+    "readbackLogSha256": "2f535945fe914636b4bd2ce5bc46249793a38da6965d51fdad469ea9a88f58cb"
   },
   "lane2026MayJune": {
     "method": "pure insertion: the finalized, secondaries-resealed 4,913-row runtime is kept verbatim and in order; the 298 May/June 2026 rows are appended",
@@ -60,7 +68,7 @@
     "assetCount": 780,
     "questionAssetCount": 443,
     "markschemeAssetCount": 337,
-    "materialSecondaryRows": 36,
+    "materialSecondaryRows": 46,
     "idsSha256": "eb34baa109216fa30293c71262fa2fa05420908aeaf610f3d7215902b4048a99",
     "extensionThroughMayJuneIdsSha256": "f257b8f0e664914344fca4f1f5dbcc405ec3c0bfcea7c4ac03a789540286bb41",
     "courseEra": "2026_2028",
@@ -76,9 +84,9 @@
     },
     "sourceRepository": "igcse-biology-0610-topic-practice",
     "sourceBranch": "feat/2026-may-june-acquisition",
-    "sourceCommitAtBuild": "a80ad4b36be4b4c8889b587d0332e52cce68b0cc",
-    "sourceAssemblySha256": "4ef5a5fe6669e8d4cd27fd20dcb8b5ab54c350740205e0d9bbfe6b7313187944",
-    "sourceReconciliationReceiptSha256": "98b3cda42383dc4833be36fd56d35bde4636dfd66d25955dfc1aed1d56d6159d",
+    "sourceCommitAtBuild": "fce6f05dee61cd49113d412fd7e8b23fe6550603",
+    "sourceAssemblySha256": "1676df5b079f32eca5213131ac7bcf6d6d861d41e837d374416fa7424f239e96",
+    "sourceReconciliationReceiptSha256": "2351a01d6682ab56cbb389f029a22d10af8d48993d9ac37dd063c730040e13be",
     "segmentationLane": "data/segmentation/full-extension-2026-mj",
     "papers": [
       {
@@ -5267,7 +5275,9 @@
       "primaryTopic": "Characteristics and classification of living organisms",
       "primaryTopicId": "topic_01_characteristics_and_classification.1.3",
       "labelKey": "2026_2028|topic_01_characteristics_and_classification.1.3|1.3|core",
-      "secondaryTopicIds": [],
+      "secondaryTopicIds": [
+        "topic_01_characteristics_and_classification.1.2"
+      ],
       "answer": null,
       "questionImages": [
         {
@@ -5281,8 +5291,8 @@
       ],
       "markschemeImages": [
         {
-          "reference": "markschemes/0610-2026-s-31/q1-ms-8-1.webp",
-          "sha256": "6bbb04ed2583ba198b9d53b536afd18d3147ad1308ff5e402ea86d6921d790fb"
+          "reference": "markschemes/0610-2026-s-31/q1-ms-8-1-4721e09e4771.webp",
+          "sha256": "4721e09e4771cc8d5415bf6c6180717b3fd1a8c4b5cfc32f5d027eef48f29c01"
         }
       ]
     },
@@ -5293,7 +5303,10 @@
       "primaryTopicId": "topic_08_transport_in_plants.8.3",
       "labelKey": "2026_2028|topic_08_transport_in_plants.8.3|8.3|core",
       "secondaryTopicIds": [
-        "topic_08_transport_in_plants.8.2"
+        "topic_08_transport_in_plants.8.2",
+        "topic_08_transport_in_plants.8.1",
+        "topic_06_plant_nutrition.6.2",
+        "topic_03_movement_into_and_out_of_cells.3.2"
       ],
       "answer": null,
       "questionImages": [
@@ -5316,12 +5329,12 @@
       ],
       "markschemeImages": [
         {
-          "reference": "markschemes/0610-2026-s-31/q2-ms-8-1.webp",
-          "sha256": "6bbb04ed2583ba198b9d53b536afd18d3147ad1308ff5e402ea86d6921d790fb"
+          "reference": "markschemes/0610-2026-s-31/q2-ms-8-1-628e07ab4a8c.webp",
+          "sha256": "628e07ab4a8c09cc2c52d3b60e995c18e581175e3aa5de29de7f3bbc7927bce1"
         },
         {
-          "reference": "markschemes/0610-2026-s-31/q2-ms-9-2.webp",
-          "sha256": "129b8d47b26fe13298ef69caf1b337ab21a1c4807339b01f0acd7ec5a67bce99"
+          "reference": "markschemes/0610-2026-s-31/q2-ms-9-2-064b820bee1b.webp",
+          "sha256": "064b820bee1b21f5609665ab9fef5fb83dd0aef536fd92be4f56464fbc3520c6"
         }
       ]
     },
@@ -5345,12 +5358,12 @@
       ],
       "markschemeImages": [
         {
-          "reference": "markschemes/0610-2026-s-31/q3-ms-9-1.webp",
-          "sha256": "129b8d47b26fe13298ef69caf1b337ab21a1c4807339b01f0acd7ec5a67bce99"
+          "reference": "markschemes/0610-2026-s-31/q3-ms-9-1-354588a6bb9a.webp",
+          "sha256": "354588a6bb9a79fca0044ab7138bbccba45138727d50e7b1cab46e945ffe4f4f"
         },
         {
-          "reference": "markschemes/0610-2026-s-31/q3-ms-10-2.webp",
-          "sha256": "d3f37faa5208bae90582d921cef205982ab3ba88ab0bb3c124288c63e194435a"
+          "reference": "markschemes/0610-2026-s-31/q3-ms-10-2-7f2c27ac2689.webp",
+          "sha256": "7f2c27ac2689ddc97f9eca04d72a48aaab1231840f218635418a525ad52e87a2"
         }
       ]
     },
@@ -5360,7 +5373,9 @@
       "primaryTopic": "Inheritance",
       "primaryTopicId": "topic_17_inheritance.17.4",
       "labelKey": "2026_2028|topic_17_inheritance.17.4|17.4|core",
-      "secondaryTopicIds": [],
+      "secondaryTopicIds": [
+        "topic_17_inheritance.17.1"
+      ],
       "answer": null,
       "questionImages": [
         {
@@ -5374,8 +5389,8 @@
       ],
       "markschemeImages": [
         {
-          "reference": "markschemes/0610-2026-s-31/q4-ms-10-1.webp",
-          "sha256": "d3f37faa5208bae90582d921cef205982ab3ba88ab0bb3c124288c63e194435a"
+          "reference": "markschemes/0610-2026-s-31/q4-ms-10-1-cddbce39d2ee.webp",
+          "sha256": "cddbce39d2ee6550c071da04028ab5167a276da72f754da5e844bdad73b9b50a"
         }
       ]
     },
@@ -5385,7 +5400,11 @@
       "primaryTopic": "Movement into and out of cells",
       "primaryTopicId": "topic_03_movement_into_and_out_of_cells.3.1",
       "labelKey": "2026_2028|topic_03_movement_into_and_out_of_cells.3.1|3.1|core",
-      "secondaryTopicIds": [],
+      "secondaryTopicIds": [
+        "topic_03_movement_into_and_out_of_cells.3.3",
+        "topic_12_respiration.12.1",
+        "topic_02_organisation.2.1"
+      ],
       "answer": null,
       "questionImages": [
         {
@@ -5399,8 +5418,8 @@
       ],
       "markschemeImages": [
         {
-          "reference": "markschemes/0610-2026-s-31/q5-ms-11-1.webp",
-          "sha256": "c0c90e1140f1dd4ada179ec4f661c9d24bf82723e918eaba34478af4db3c8559"
+          "reference": "markschemes/0610-2026-s-31/q5-ms-11-1-0a25e9f295e1.webp",
+          "sha256": "0a25e9f295e1357b1d3562e39dffeddeb944ebe2f06ba093fd3dd31fa5b5e31e"
         }
       ]
     },
@@ -5410,7 +5429,9 @@
       "primaryTopic": "Coordination and response",
       "primaryTopicId": "topic_14_coordination_and_response.14.3",
       "labelKey": "2026_2028|topic_14_coordination_and_response.14.3|14.3|core",
-      "secondaryTopicIds": [],
+      "secondaryTopicIds": [
+        "topic_14_coordination_and_response.14.2"
+      ],
       "answer": null,
       "questionImages": [
         {
@@ -5432,8 +5453,8 @@
       ],
       "markschemeImages": [
         {
-          "reference": "markschemes/0610-2026-s-31/q6-ms-11-1.webp",
-          "sha256": "c0c90e1140f1dd4ada179ec4f661c9d24bf82723e918eaba34478af4db3c8559"
+          "reference": "markschemes/0610-2026-s-31/q6-ms-11-1-dac1f18b9d43.webp",
+          "sha256": "dac1f18b9d4344fd55965f2b51ecd339a54d9db1d364dc10ceceb3cd77f30d21"
         },
         {
           "reference": "markschemes/0610-2026-s-31/q6-ms-12-2.webp",
@@ -5449,7 +5470,9 @@
       "labelKey": "2026_2028|topic_19_organisms_and_environment.19.4|19.4|core",
       "secondaryTopicIds": [
         "topic_21_biotechnology_and_genetic_modification.21.1",
-        "topic_02_organisation.2.1"
+        "topic_02_organisation.2.1",
+        "topic_14_coordination_and_response.14.4",
+        "topic_21_biotechnology_and_genetic_modification.21.3"
       ],
       "answer": null,
       "questionImages": [
@@ -5476,7 +5499,9 @@
       "primaryTopicId": "topic_20_human_influences_on_ecosystems.20.4",
       "labelKey": "2026_2028|topic_20_human_influences_on_ecosystems.20.4|20.4|core",
       "secondaryTopicIds": [
-        "topic_19_organisms_and_environment.19.4"
+        "topic_19_organisms_and_environment.19.4",
+        "topic_01_characteristics_and_classification.1.2",
+        "topic_01_characteristics_and_classification.1.1"
       ],
       "answer": null,
       "questionImages": [
@@ -5516,7 +5541,8 @@
       "labelKey": "2026_2028|topic_05_enzymes.5.1|5.1|core",
       "secondaryTopicIds": [
         "topic_21_biotechnology_and_genetic_modification.21.2",
-        "topic_21_biotechnology_and_genetic_modification.21.1"
+        "topic_21_biotechnology_and_genetic_modification.21.1",
+        "topic_06_plant_nutrition.6.1"
       ],
       "answer": null,
       "questionImages": [
@@ -5531,8 +5557,8 @@
       ],
       "markschemeImages": [
         {
-          "reference": "markschemes/0610-2026-s-32/q1-ms-8-1.webp",
-          "sha256": "185d1acd83993bc079753f1ba796e5da5240c57cf3419ec510dc3949a95d1ac3"
+          "reference": "markschemes/0610-2026-s-32/q1-ms-8-1-5217cb92d052.webp",
+          "sha256": "5217cb92d0523f3a396ff66a6d19cfe5d93235a37c85f95f1cc2a47c29942787"
         }
       ]
     },
@@ -5566,8 +5592,8 @@
       ],
       "markschemeImages": [
         {
-          "reference": "markschemes/0610-2026-s-32/q2-ms-8-1.webp",
-          "sha256": "185d1acd83993bc079753f1ba796e5da5240c57cf3419ec510dc3949a95d1ac3"
+          "reference": "markschemes/0610-2026-s-32/q2-ms-8-1-ee64941f0b63.webp",
+          "sha256": "ee64941f0b634fbf2428850948ad628e26f8b5906536ed2972cbff8529286a44"
         },
         {
           "reference": "markschemes/0610-2026-s-32/q2-ms-9-2.webp",
@@ -5582,7 +5608,8 @@
       "primaryTopicId": "topic_08_transport_in_plants.8.2",
       "labelKey": "2026_2028|topic_08_transport_in_plants.8.2|8.2|core",
       "secondaryTopicIds": [
-        "topic_08_transport_in_plants.8.1"
+        "topic_08_transport_in_plants.8.1",
+        "topic_02_organisation.2.1"
       ],
       "answer": null,
       "questionImages": [
@@ -5597,8 +5624,8 @@
       ],
       "markschemeImages": [
         {
-          "reference": "markschemes/0610-2026-s-32/q3-ms-10-1.webp",
-          "sha256": "98f8fd808e02833f3c33cc7295a5a7ad92615ccd4082c6fc03e61a2b42e3471c"
+          "reference": "markschemes/0610-2026-s-32/q3-ms-10-1-95a101b2616a.webp",
+          "sha256": "95a101b2616a06aabed7945e1e056be63f5913cc2dbf049528bcc1c71b0bfa5d"
         }
       ]
     },
@@ -5622,8 +5649,8 @@
       ],
       "markschemeImages": [
         {
-          "reference": "markschemes/0610-2026-s-32/q4-ms-10-1.webp",
-          "sha256": "98f8fd808e02833f3c33cc7295a5a7ad92615ccd4082c6fc03e61a2b42e3471c"
+          "reference": "markschemes/0610-2026-s-32/q4-ms-10-1-16a4553c9e86.webp",
+          "sha256": "16a4553c9e86bd557a57522b8ba91f557dcb55299d9fe480f17645c9f82da0b4"
         }
       ]
     },
@@ -5634,7 +5661,8 @@
       "primaryTopicId": "topic_16_reproduction.16.4",
       "labelKey": "2026_2028|topic_16_reproduction.16.4|16.4|core",
       "secondaryTopicIds": [
-        "topic_16_reproduction.16.5"
+        "topic_16_reproduction.16.5",
+        "topic_17_inheritance.17.1"
       ],
       "answer": null,
       "questionImages": [
@@ -5662,7 +5690,9 @@
       "labelKey": "2026_2028|topic_20_human_influences_on_ecosystems.20.2|20.2|core",
       "secondaryTopicIds": [
         "topic_19_organisms_and_environment.19.2",
-        "topic_20_human_influences_on_ecosystems.20.3"
+        "topic_20_human_influences_on_ecosystems.20.3",
+        "topic_01_characteristics_and_classification.1.2",
+        "topic_01_characteristics_and_classification.1.3"
       ],
       "answer": null,
       "questionImages": [
@@ -5700,7 +5730,10 @@
       "primaryTopic": "Organisation of the organism",
       "primaryTopicId": "topic_02_organisation.2.1",
       "labelKey": "2026_2028|topic_02_organisation.2.1|2.1|core",
-      "secondaryTopicIds": [],
+      "secondaryTopicIds": [
+        "topic_14_coordination_and_response.14.4",
+        "topic_20_human_influences_on_ecosystems.20.1"
+      ],
       "answer": null,
       "questionImages": [
         {
@@ -5782,7 +5815,8 @@
       "primaryTopicId": "topic_02_organisation.2.1",
       "labelKey": "2026_2028|topic_02_organisation.2.1|2.1|core",
       "secondaryTopicIds": [
-        "topic_06_plant_nutrition.6.2"
+        "topic_06_plant_nutrition.6.2",
+        "topic_08_transport_in_plants.8.1"
       ],
       "answer": null,
       "questionImages": [
@@ -5808,7 +5842,10 @@
       "primaryTopic": "Enzymes",
       "primaryTopicId": "topic_05_enzymes.5.1",
       "labelKey": "2026_2028|topic_05_enzymes.5.1|5.1|core",
-      "secondaryTopicIds": [],
+      "secondaryTopicIds": [
+        "topic_04_biological_molecules.4.1",
+        "topic_07_human_nutrition.7.4"
+      ],
       "answer": null,
       "questionImages": [
         {
@@ -5833,7 +5870,9 @@
       "primaryTopic": "Transport in animals",
       "primaryTopicId": "topic_09_transport_in_animals.9.2",
       "labelKey": "2026_2028|topic_09_transport_in_animals.9.2|9.2|core",
-      "secondaryTopicIds": [],
+      "secondaryTopicIds": [
+        "topic_14_coordination_and_response.14.3"
+      ],
       "answer": null,
       "questionImages": [
         {
@@ -5895,8 +5934,8 @@
       ],
       "markschemeImages": [
         {
-          "reference": "markschemes/0610-2026-s-33/q7-ms-14-1.webp",
-          "sha256": "9f6aa9413df70a56d43ea9d6745ed1ca654e4c5057875af53e69b974af91ed23"
+          "reference": "markschemes/0610-2026-s-33/q7-ms-14-1-f2f8ad9c2ece.webp",
+          "sha256": "f2f8ad9c2ece23d691fdc909c28088b1be2c7d4e3575645254e9eb3e74fa35d9"
         }
       ]
     },
@@ -5926,8 +5965,8 @@
       ],
       "markschemeImages": [
         {
-          "reference": "markschemes/0610-2026-s-33/q8-ms-14-1.webp",
-          "sha256": "9f6aa9413df70a56d43ea9d6745ed1ca654e4c5057875af53e69b974af91ed23"
+          "reference": "markschemes/0610-2026-s-33/q8-ms-14-1-a4ae9cc7fa93.webp",
+          "sha256": "a4ae9cc7fa93ad7797dfce0252a5186d17862569f276582ab1432754067c8c6b"
         },
         {
           "reference": "markschemes/0610-2026-s-33/q8-ms-15-2.webp",
@@ -5942,7 +5981,8 @@
       "primaryTopicId": "topic_20_human_influences_on_ecosystems.20.1",
       "labelKey": "2026_2028|topic_20_human_influences_on_ecosystems.20.1|20.1|core",
       "secondaryTopicIds": [
-        "topic_01_characteristics_and_classification.1.3"
+        "topic_01_characteristics_and_classification.1.3",
+        "topic_01_characteristics_and_classification.1.2"
       ],
       "answer": null,
       "questionImages": [
@@ -5973,7 +6013,8 @@
       "primaryTopicId": "topic_03_movement_into_and_out_of_cells.3.2",
       "labelKey": "2026_2028|topic_03_movement_into_and_out_of_cells.3.2|3.2|supplement",
       "secondaryTopicIds": [
-        "topic_03_movement_into_and_out_of_cells.3.1"
+        "topic_03_movement_into_and_out_of_cells.3.1",
+        "topic_03_movement_into_and_out_of_cells.3.3"
       ],
       "answer": null,
       "questionImages": [
@@ -5992,8 +6033,8 @@
           "sha256": "766403393a59049940181d4f77642ce058cf9212995ef6ed4d17204191442771"
         },
         {
-          "reference": "markschemes/0610-2026-s-41/q1-ms-9-2.webp",
-          "sha256": "a62e387a3cebd8bad393cf2c78a766d4a2de3c5dfab18954763c477b8c2e77cd"
+          "reference": "markschemes/0610-2026-s-41/q1-ms-9-2-ef73ede114e8.webp",
+          "sha256": "ef73ede114e8b4011b4625bcb834c81b3dad7f8498c92f0121b13c3e71452406"
         }
       ]
     },
@@ -6021,16 +6062,16 @@
       ],
       "markschemeImages": [
         {
-          "reference": "markschemes/0610-2026-s-41/q2-ms-9-1.webp",
-          "sha256": "a62e387a3cebd8bad393cf2c78a766d4a2de3c5dfab18954763c477b8c2e77cd"
+          "reference": "markschemes/0610-2026-s-41/q2-ms-9-1-10b62df9f738.webp",
+          "sha256": "10b62df9f73804de5cf52a63ca379b6998f44a5102d507db26179a96b3836254"
         },
         {
           "reference": "markschemes/0610-2026-s-41/q2-ms-10-2.webp",
           "sha256": "6c670c6b33240f679b022d6764d509348e62d2375257d6ee1fa453d9e2cc93ac"
         },
         {
-          "reference": "markschemes/0610-2026-s-41/q2-ms-11-3.webp",
-          "sha256": "9fdeaac2363d3374a115205835a4fec99f2fc65b0b00ce37d9c4a308dbe29e87"
+          "reference": "markschemes/0610-2026-s-41/q2-ms-11-3-e1524d3c278e.webp",
+          "sha256": "e1524d3c278e9d54e323adabe1a5ae824836653f5473bca50b08259297f67dd5"
         }
       ]
     },
@@ -6065,8 +6106,8 @@
       ],
       "markschemeImages": [
         {
-          "reference": "markschemes/0610-2026-s-41/q3-ms-11-1.webp",
-          "sha256": "9fdeaac2363d3374a115205835a4fec99f2fc65b0b00ce37d9c4a308dbe29e87"
+          "reference": "markschemes/0610-2026-s-41/q3-ms-11-1-8594a3e2ed7b.webp",
+          "sha256": "8594a3e2ed7b0e790e73aceb7adab46fc6d1e0b4f6f40826ea13914322de1712"
         },
         {
           "reference": "markschemes/0610-2026-s-41/q3-ms-12-2.webp",
@@ -6218,7 +6259,10 @@
       "primaryTopicId": "topic_20_human_influences_on_ecosystems.20.4",
       "labelKey": "2026_2028|topic_20_human_influences_on_ecosystems.20.4|20.4|core",
       "secondaryTopicIds": [
-        "topic_19_organisms_and_environment.19.1"
+        "topic_19_organisms_and_environment.19.1",
+        "topic_06_plant_nutrition.6.1",
+        "topic_07_human_nutrition.7.1",
+        "topic_20_human_influences_on_ecosystems.20.3"
       ],
       "answer": null,
       "questionImages": [
@@ -6280,8 +6324,8 @@
           "sha256": "7eecfae37c436c5976011328b57c8d34d0e1f0e0b0f5e637271aaeccbbc842fc"
         },
         {
-          "reference": "markschemes/0610-2026-s-42/q3-ms-13-2.webp",
-          "sha256": "65054df0c3d7d6f2947fc776f0c7b6757f69379f88bb96bbbe82635c87f8479e"
+          "reference": "markschemes/0610-2026-s-42/q3-ms-13-2-7a157f61fc3e.webp",
+          "sha256": "7a157f61fc3ea5f0793aff6eb1981c89ee8c444c161c7625e6b3286dcdc5b99b"
         }
       ]
     },
@@ -6291,7 +6335,12 @@
       "primaryTopic": "Coordination and response",
       "primaryTopicId": "topic_14_coordination_and_response.14.4",
       "labelKey": "2026_2028|topic_14_coordination_and_response.14.4|14.4|supplement",
-      "secondaryTopicIds": [],
+      "secondaryTopicIds": [
+        "topic_04_biological_molecules.4.1",
+        "topic_13_excretion_in_humans.13.1",
+        "topic_07_human_nutrition.7.4",
+        "topic_14_coordination_and_response.14.3"
+      ],
       "answer": null,
       "questionImages": [
         {
@@ -6313,8 +6362,8 @@
       ],
       "markschemeImages": [
         {
-          "reference": "markschemes/0610-2026-s-42/q4-ms-13-1.webp",
-          "sha256": "65054df0c3d7d6f2947fc776f0c7b6757f69379f88bb96bbbe82635c87f8479e"
+          "reference": "markschemes/0610-2026-s-42/q4-ms-13-1-0e6b70ca784e.webp",
+          "sha256": "0e6b70ca784e012de484f9d928e507be35b1538588e20d1926e3515b0ee098d7"
         },
         {
           "reference": "markschemes/0610-2026-s-42/q4-ms-14-2.webp",
@@ -6330,7 +6379,8 @@
       "labelKey": "2026_2028|topic_03_movement_into_and_out_of_cells.3.2|3.2|supplement",
       "secondaryTopicIds": [
         "topic_17_inheritance.17.2",
-        "topic_03_movement_into_and_out_of_cells.3.3"
+        "topic_03_movement_into_and_out_of_cells.3.3",
+        "topic_06_plant_nutrition.6.1"
       ],
       "answer": null,
       "questionImages": [
@@ -6349,8 +6399,8 @@
           "sha256": "7134cf214d773b994cbb68f685849f366e937e72238f7a18b53a18d11b2780bd"
         },
         {
-          "reference": "markschemes/0610-2026-s-42/q5-ms-16-2.webp",
-          "sha256": "656b66d215d8185b4b5f337f7c0938a63088ff055d6c8d44b09181aebe1d6e04"
+          "reference": "markschemes/0610-2026-s-42/q5-ms-16-2-685a9d1ae6c3.webp",
+          "sha256": "685a9d1ae6c398ba91225b736d69eef345aa3096bf48fd7c3c90950facf15fc9"
         }
       ]
     },
@@ -6361,7 +6411,8 @@
       "primaryTopicId": "topic_09_transport_in_animals.9.1",
       "labelKey": "2026_2028|topic_09_transport_in_animals.9.1|9.1|supplement",
       "secondaryTopicIds": [
-        "topic_09_transport_in_animals.9.2"
+        "topic_09_transport_in_animals.9.2",
+        "topic_09_transport_in_animals.9.3"
       ],
       "answer": null,
       "questionImages": [
@@ -6388,8 +6439,8 @@
       ],
       "markschemeImages": [
         {
-          "reference": "markschemes/0610-2026-s-42/q6-ms-16-1.webp",
-          "sha256": "656b66d215d8185b4b5f337f7c0938a63088ff055d6c8d44b09181aebe1d6e04"
+          "reference": "markschemes/0610-2026-s-42/q6-ms-16-1-28e37bf9c924.webp",
+          "sha256": "28e37bf9c924a9a47846c7de06ba2c5fac964e3618ad3ae5ed672ccdad1be686"
         },
         {
           "reference": "markschemes/0610-2026-s-42/q6-ms-17-2.webp",
@@ -6405,7 +6456,9 @@
       "labelKey": "2026_2028|topic_01_characteristics_and_classification.1.3|1.3|supplement",
       "secondaryTopicIds": [
         "topic_02_organisation.2.1",
-        "topic_16_reproduction.16.4"
+        "topic_16_reproduction.16.4",
+        "topic_06_plant_nutrition.6.1",
+        "topic_01_characteristics_and_classification.1.1"
       ],
       "answer": null,
       "questionImages": [
@@ -6436,7 +6489,9 @@
       "primaryTopicId": "topic_07_human_nutrition.7.2",
       "labelKey": "2026_2028|topic_07_human_nutrition.7.2|7.2|core",
       "secondaryTopicIds": [
-        "topic_13_excretion_in_humans.13.1"
+        "topic_13_excretion_in_humans.13.1",
+        "topic_06_plant_nutrition.6.1",
+        "topic_12_respiration.12.2"
       ],
       "answer": null,
       "questionImages": [
@@ -6475,7 +6530,8 @@
       "primaryTopicId": "topic_16_reproduction.16.4",
       "labelKey": "2026_2028|topic_16_reproduction.16.4|16.4|core",
       "secondaryTopicIds": [
-        "topic_16_reproduction.16.5"
+        "topic_16_reproduction.16.5",
+        "topic_09_transport_in_animals.9.4"
       ],
       "answer": null,
       "questionImages": [
@@ -6534,8 +6590,8 @@
           "sha256": "ec8a9b3163019b1e9f2725251b0d0c18fc2341a1f7d8895ce7a9347aac1c53eb"
         },
         {
-          "reference": "markschemes/0610-2026-s-43/q4-ms-13-2.webp",
-          "sha256": "8efba1dc6775769a40d7bcea82fc7948709a01e23ad1743f7f433dfc02b8b646"
+          "reference": "markschemes/0610-2026-s-43/q4-ms-13-2-ab4982ea6831.webp",
+          "sha256": "ab4982ea6831b73206c98d361cad11b430a7ec19eabe2c5698f813d23ef8268b"
         }
       ]
     },
@@ -6569,8 +6625,8 @@
       ],
       "markschemeImages": [
         {
-          "reference": "markschemes/0610-2026-s-43/q5-ms-13-1.webp",
-          "sha256": "8efba1dc6775769a40d7bcea82fc7948709a01e23ad1743f7f433dfc02b8b646"
+          "reference": "markschemes/0610-2026-s-43/q5-ms-13-1-368db2707d9f.webp",
+          "sha256": "368db2707d9fbab8aaec0aee5cc815c76e069104201e01e524992223600608d7"
         },
         {
           "reference": "markschemes/0610-2026-s-43/q5-ms-14-2.webp",
@@ -6585,7 +6641,9 @@
       "primaryTopicId": "topic_05_enzymes.5.1",
       "labelKey": "2026_2028|topic_05_enzymes.5.1|5.1|core",
       "secondaryTopicIds": [
-        "topic_07_human_nutrition.7.4"
+        "topic_07_human_nutrition.7.4",
+        "topic_07_human_nutrition.7.3",
+        "topic_07_human_nutrition.7.2"
       ],
       "answer": null,
       "questionImages": [
@@ -6835,7 +6893,9 @@
       "primaryTopic": "Movement into and out of cells",
       "primaryTopicId": "topic_03_movement_into_and_out_of_cells.3.2",
       "labelKey": "2026_2028|topic_03_movement_into_and_out_of_cells.3.2|3.2|core",
-      "secondaryTopicIds": [],
+      "secondaryTopicIds": [
+        "topic_04_biological_molecules.4.1"
+      ],
       "answer": null,
       "questionImages": [
         {
@@ -6873,7 +6933,8 @@
       "primaryTopicId": "topic_05_enzymes.5.1",
       "labelKey": "2026_2028|topic_05_enzymes.5.1|5.1|core",
       "secondaryTopicIds": [
-        "topic_02_organisation.2.2"
+        "topic_02_organisation.2.2",
+        "topic_04_biological_molecules.4.1"
       ],
       "answer": null,
       "questionImages": [
@@ -7168,7 +7229,9 @@
       "primaryTopic": "Movement into and out of cells",
       "primaryTopicId": "topic_03_movement_into_and_out_of_cells.3.2",
       "labelKey": "2026_2028|topic_03_movement_into_and_out_of_cells.3.2|3.2|core",
-      "secondaryTopicIds": [],
+      "secondaryTopicIds": [
+        "topic_04_biological_molecules.4.1"
+      ],
       "answer": null,
       "questionImages": [
         {
@@ -7210,7 +7273,8 @@
       "primaryTopicId": "topic_05_enzymes.5.1",
       "labelKey": "2026_2028|topic_05_enzymes.5.1|5.1|core",
       "secondaryTopicIds": [
-        "topic_02_organisation.2.2"
+        "topic_02_organisation.2.2",
+        "topic_04_biological_molecules.4.1"
       ],
       "answer": null,
       "questionImages": [
