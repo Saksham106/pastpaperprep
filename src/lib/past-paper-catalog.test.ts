@@ -60,7 +60,7 @@ describe('paper matrix', () => {
     expect(may26.cells[1].map(l => l.label)).toEqual(['21', '22', '23']);
     expect(may26.cells[0]).toEqual([]);
     expect(may26.cells[1][0]).toMatchObject({ href: '/past-papers/igcse-maths-0580/2026-may-june-21', markPrefix: 'pastpaperprep:marks:igcse:0580-2026-june-21:', route: 'Extended', title: 'Paper 21, May/June 2026' });
-    expect(m.total).toBe(216);
+    expect(m.total).toBe(217);
     expect(m.tiers).toBe(true);
   });
 
