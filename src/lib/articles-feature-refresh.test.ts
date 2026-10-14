@@ -76,6 +76,14 @@ describe("existing article feature refresh", () => {
     expect(sectionLinks(article(slug))).toContainEqual(expect.objectContaining({ href: "/articles/best-free-igcse-past-paper-websites" }));
   });
 
+  it.each(["physics-and-maths-tutor-vs-save-my-exams", "exam-mate-vs-save-my-exams"])("%s preserves current SME Free, Essential and Premium boundaries", (slug) => {
+    const text = copy(article(slug));
+    expect(text).not.toMatch(/limited (?:access to )?past papers|one or two (?:subjects unlocked|unlocked subjects)/i);
+    expect(text).toContain("unlimited downloads of available past papers and their official mark schemes");
+    expect(text).toMatch(/Essential provides unlimited core revision notes, exam questions and Mock Exams/);
+    expect(text).toMatch(/Premium adds unlimited model answers and Target Tests/);
+  });
+
   it("keeps the PPP and SME table aligned with both access paths", () => {
     const table = JSON.stringify(article("pastpaperprep-vs-save-my-exams").comparison);
     expect(table).toMatch(/whole papers.*without signup/i);

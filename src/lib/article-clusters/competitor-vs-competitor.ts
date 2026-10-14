@@ -107,7 +107,7 @@ const PMT_VS_SAVE_MY_EXAMS: Article = {
     {
       heading: "What Save My Exams gives away, and what it charges for",
       paragraphs: [
-        "Save My Exams' free plan is real but thin: a limited selection of topic questions per subject, sample notes, limited access to past papers, and one or two subjects unlocked. Premium unlocks every topic question and mark scheme, revision notes, model answers written by teachers and examiners, SmartMark marking, Target Tests and Mock Exams.",
+        "Save My Exams' Free plan includes selected revision notes and exam questions, plus unlimited downloads of available past papers and their official mark schemes. Essential provides unlimited core revision notes, exam questions and Mock Exams. Premium adds unlimited model answers and Target Tests, plus PDF downloads of revision notes and exam questions.",
         "Printing is where the two sites get confused, so check the detail. Save My Exams says its past papers and their mark schemes, plus the question papers for its topic questions, can be downloaded and printed. Its own mark schemes and model answers for exam questions cannot be downloaded or edited, for copyright reasons. So “you cannot print from Save My Exams” is wrong, and so is “you can print everything”.",
         "The Free, Essential and Premium guide, checked on 14 October 2026, distinguishes core revision access from additional model-answer and feedback tools. It lists a seven-day trial for Premium, while Essential is charged at signup. For the current amount, currency and billing period, open the plans page. Older price quotes are not a current purchase recommendation.",
       ],
@@ -488,7 +488,7 @@ const EXAM_MATE_VS_SAVE_MY_EXAMS: Article = {
     {
       heading: "What Save My Exams gives you instead",
       paragraphs: [
-        "Save My Exams sells structure around the question bank. The free plan covers a limited selection of topic questions per subject, sample notes, limited past papers and one or two unlocked subjects. Premium opens every topic question and mark scheme, the revision notes, model answers, SmartMark feedback, Target Tests and mock exams.",
+        "Save My Exams sells structure around the question bank. Free includes selected revision notes and exam questions, plus unlimited downloads of available past papers and their official mark schemes. Essential provides unlimited core revision notes, exam questions and Mock Exams. Premium adds unlimited model answers and Target Tests, plus PDF downloads of revision notes and exam questions.",
         "For printing, its join page says past papers and their mark schemes, plus the question papers for its topic questions, can be downloaded and printed, while its own mark schemes and model answers for exam questions cannot be downloaded or edited for copyright reasons. That makes Save My Exams the friendlier of the two for a student who wants finished, printable topic question papers, even though those questions are written by Save My Exams rather than lifted from past sessions.",
         "The Free, Essential and Premium guide, checked on 14 October 2026, distinguishes core revision access from additional model-answer and feedback tools. It lists a seven-day trial for Premium, while Essential is charged at signup. For the current amount, currency and billing period, open the plans page. Older price quotes are not a current purchase recommendation.",
       ],

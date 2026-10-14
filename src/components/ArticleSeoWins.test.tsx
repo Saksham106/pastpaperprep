@@ -23,7 +23,7 @@ describe("targeted article SEO improvements", () => {
     expect(copy).toContain("$249");
     expect(copy).toContain("$140");
     expect(copy).not.toContain("payment is shown as a one-time charge");
-    expect(article.updatedAt).toBe("2026-10-05");
+    expect(article.updatedAt).toBe("2026-10-14");
   });
 
   it.each(["pastpaperprep-vs-revision-village", "best-ib-maths-question-banks-aa-ai"])("links the indexed %s guide to RV alternatives before the FAQ", slug => {
