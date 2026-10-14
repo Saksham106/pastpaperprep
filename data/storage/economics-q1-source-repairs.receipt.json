@@ -1,0 +1,195 @@
+{
+ "schema": "economics-q1-source-repairs-readback-v1",
+ "state": "verified_readback",
+ "bucket": "pastpaperprep-assets",
+ "method": "wrangler r2 object get/put --remote (logged-in CLI): key checked absent, put image/webp + private, max-age=31536000, immutable, full GET readback SHA-256 + size",
+ "manifestSha256": "921714e6c96c284d99d52e019fdbe85c3ee7fcf885f1349d28fa81b969ccb67c",
+ "objectCount": 13,
+ "uploaded": 13,
+ "overwritten": 0,
+ "logSha256": "2ed344f8ab8d81e5da11e82b0e0d2de4b7b6ab2f75cc9e760604813aa8324570",
+ "records": [
+  {
+   "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/repairs/economics-q1-source-v1-2dd7ef88064cdc04/002a41b249f9b4a61ac6f137f1d31e0d1e06338238b9933bc1de46da3bdf4579.webp",
+   "sha256": "002a41b249f9b4a61ac6f137f1d31e0d1e06338238b9933bc1de46da3bdf4579",
+   "bytes": 37220,
+   "contentType": "image/webp",
+   "cacheControl": "private, max-age=31536000, immutable",
+   "existedBefore": false,
+   "verifiedAt": "2026-10-14T05:51:39.498Z",
+   "supersedes": {
+    "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/questions/0455-2022-m-22/q1-2-3.webp",
+    "sha256": "9e38c20d3e03826d06f3f80a5327b8205a05c6dd0f8d7347e117ecd9220b6569",
+    "verifiedUnchanged": true
+   }
+  },
+  {
+   "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/repairs/economics-q1-source-v1-2dd7ef88064cdc04/17651ddd87640ed0f2ad0f747e55ef9ad622e98807a159450e30457c5f81d938.webp",
+   "sha256": "17651ddd87640ed0f2ad0f747e55ef9ad622e98807a159450e30457c5f81d938",
+   "bytes": 32078,
+   "contentType": "image/webp",
+   "cacheControl": "private, max-age=31536000, immutable",
+   "existedBefore": false,
+   "verifiedAt": "2026-10-14T05:52:02.184Z",
+   "supersedes": {
+    "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/questions/0455-2025-s-22/q1-2-3.webp",
+    "sha256": "a7d12be66448e7111eebc6a46a32a32885d59ad10adea78bc46e90e217a6953a",
+    "verifiedUnchanged": true
+   }
+  },
+  {
+   "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/repairs/economics-q1-source-v1-2dd7ef88064cdc04/2c2f0bce38299ac93e7ba0cff0fd2c648653d8a0552a2ab934d3fc89d27edafa.webp",
+   "sha256": "2c2f0bce38299ac93e7ba0cff0fd2c648653d8a0552a2ab934d3fc89d27edafa",
+   "bytes": 27868,
+   "contentType": "image/webp",
+   "cacheControl": "private, max-age=31536000, immutable",
+   "existedBefore": false,
+   "verifiedAt": "2026-10-14T05:51:59.548Z",
+   "supersedes": {
+    "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/questions/0455-2025-s-21/q1-2-3.webp",
+    "sha256": "9af6bff16628a3c2a1b437a0a6736ef5545d42f070e6ed8a7488b85b939296b5",
+    "verifiedUnchanged": true
+   }
+  },
+  {
+   "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/repairs/economics-q1-source-v1-2dd7ef88064cdc04/3b3bbc2121f91ac73cef65063934eb7b16a692d114885062a8401fa0e093eb33.webp",
+   "sha256": "3b3bbc2121f91ac73cef65063934eb7b16a692d114885062a8401fa0e093eb33",
+   "bytes": 32856,
+   "contentType": "image/webp",
+   "cacheControl": "private, max-age=31536000, immutable",
+   "existedBefore": false,
+   "verifiedAt": "2026-10-14T05:52:04.586Z",
+   "supersedes": {
+    "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/questions/0455-2025-w-21/q1-2-3.webp",
+    "sha256": "b61f43f04e63654fbfbf53573918ee5e0d9088ecc0f31e59346904faeb9978af",
+    "verifiedUnchanged": true
+   }
+  },
+  {
+   "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/repairs/economics-q1-source-v1-2dd7ef88064cdc04/450b132e28fc9c08bd0c7cca1c9ef043949d20c06906c2f71bde315ea06656bb.webp",
+   "sha256": "450b132e28fc9c08bd0c7cca1c9ef043949d20c06906c2f71bde315ea06656bb",
+   "bytes": 24984,
+   "contentType": "image/webp",
+   "cacheControl": "private, max-age=31536000, immutable",
+   "existedBefore": false,
+   "verifiedAt": "2026-10-14T05:52:06.714Z",
+   "supersedes": {
+    "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/questions/0455-2025-w-22/q1-2-3.webp",
+    "sha256": "5fb71a7f913e109303ba8fb51f6c6648f8f9c764dc8ce6c1db56e36aa97dc73e",
+    "verifiedUnchanged": true
+   }
+  },
+  {
+   "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/repairs/economics-q1-source-v1-2dd7ef88064cdc04/76a4a80214f8feecbf0842eb14088906ad88519720295e681bf9338885b0ed38.webp",
+   "sha256": "76a4a80214f8feecbf0842eb14088906ad88519720295e681bf9338885b0ed38",
+   "bytes": 34790,
+   "contentType": "image/webp",
+   "cacheControl": "private, max-age=31536000, immutable",
+   "existedBefore": false,
+   "verifiedAt": "2026-10-14T05:51:49.270Z",
+   "supersedes": {
+    "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/questions/0455-2024-w-21/q1-2-3.webp",
+    "sha256": "89c8f829352efabcb64b27392648d83bd369031b6e51f9d3ee49bc77ccf5195c",
+    "verifiedUnchanged": true
+   }
+  },
+  {
+   "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/repairs/economics-q1-source-v1-2dd7ef88064cdc04/8fd7d2a2e796b34db17da5af32386fe9f93bd0b6440acd62ada87b725dcad6ee.webp",
+   "sha256": "8fd7d2a2e796b34db17da5af32386fe9f93bd0b6440acd62ada87b725dcad6ee",
+   "bytes": 27816,
+   "contentType": "image/webp",
+   "cacheControl": "private, max-age=31536000, immutable",
+   "existedBefore": false,
+   "verifiedAt": "2026-10-14T05:51:53.031Z",
+   "supersedes": {
+    "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/questions/0455-2024-w-22/q1-2-3.webp",
+    "sha256": "923739c2809397619904d0bd809db626b03ca75b083759ce84c12662e266a80f",
+    "verifiedUnchanged": true
+   }
+  },
+  {
+   "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/repairs/economics-q1-source-v1-2dd7ef88064cdc04/994df18d4c88e8d89082e72e1938ea7577f45585bc2a6bb1ee74002be9c854e1.webp",
+   "sha256": "994df18d4c88e8d89082e72e1938ea7577f45585bc2a6bb1ee74002be9c854e1",
+   "bytes": 27114,
+   "contentType": "image/webp",
+   "cacheControl": "private, max-age=31536000, immutable",
+   "existedBefore": false,
+   "verifiedAt": "2026-10-14T05:51:57.238Z",
+   "supersedes": {
+    "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/questions/0455-2025-m-22/q1-2-3.webp",
+    "sha256": "49339f2e7ba5590a1733eef848ada5185fc3bcc11857523b8427e427173fbf3d",
+    "verifiedUnchanged": true
+   }
+  },
+  {
+   "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/repairs/economics-q1-source-v1-2dd7ef88064cdc04/b32cb64f447d0675a4c7e88556b3d0d7ee5241194b43d947f7d5927d1b29cea0.webp",
+   "sha256": "b32cb64f447d0675a4c7e88556b3d0d7ee5241194b43d947f7d5927d1b29cea0",
+   "bytes": 31458,
+   "contentType": "image/webp",
+   "cacheControl": "private, max-age=31536000, immutable",
+   "existedBefore": false,
+   "verifiedAt": "2026-10-14T05:51:48.321Z",
+   "supersedes": {
+    "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/questions/0455-2024-s-22/q1-2-3.webp",
+    "sha256": "15501ed749158a80f9d6677f15489ae66a99d6966105dd4e439ceb49d84c1a08",
+    "verifiedUnchanged": true
+   }
+  },
+  {
+   "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/repairs/economics-q1-source-v1-2dd7ef88064cdc04/c5ea87556c2b65cd30cce2e6e2da946cebdcc8da66a3b8ad0862687d81eff6f2.webp",
+   "sha256": "c5ea87556c2b65cd30cce2e6e2da946cebdcc8da66a3b8ad0862687d81eff6f2",
+   "bytes": 27218,
+   "contentType": "image/webp",
+   "cacheControl": "private, max-age=31536000, immutable",
+   "existedBefore": false,
+   "verifiedAt": "2026-10-14T05:51:39.503Z",
+   "supersedes": {
+    "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/questions/0455-2020-w-23/q1-2-3.webp",
+    "sha256": "1798c0322b664cb89640e30fb5a7bbb8b70d2d202310939ae47b5d2b87c07cb0",
+    "verifiedUnchanged": true
+   }
+  },
+  {
+   "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/repairs/economics-q1-source-v1-2dd7ef88064cdc04/d82eb415bebe0c03a92860178f606b1984f24dccc04d612d6e22f84d4332465c.webp",
+   "sha256": "d82eb415bebe0c03a92860178f606b1984f24dccc04d612d6e22f84d4332465c",
+   "bytes": 26254,
+   "contentType": "image/webp",
+   "cacheControl": "private, max-age=31536000, immutable",
+   "existedBefore": false,
+   "verifiedAt": "2026-10-14T05:51:45.083Z",
+   "supersedes": {
+    "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/questions/0455-2022-s-22/q1-2-3.webp",
+    "sha256": "c0744d5d810a57c9667268c0833c0cb7f768a2fd192b960692cc693f66a5ce0f",
+    "verifiedUnchanged": true
+   }
+  },
+  {
+   "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/repairs/economics-q1-source-v1-2dd7ef88064cdc04/ef417199ac8fd16816528e36319f6bd68501bf47dbc8935e2758297ad7226452.webp",
+   "sha256": "ef417199ac8fd16816528e36319f6bd68501bf47dbc8935e2758297ad7226452",
+   "bytes": 29790,
+   "contentType": "image/webp",
+   "cacheControl": "private, max-age=31536000, immutable",
+   "existedBefore": false,
+   "verifiedAt": "2026-10-14T05:51:44.089Z",
+   "supersedes": {
+    "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/questions/0455-2022-w-21/q1-2-3.webp",
+    "sha256": "66898e75d282ec7f3e069137dc4cc9aa531e44e366ba874fa15e34986fa46a82",
+    "verifiedUnchanged": true
+   }
+  },
+  {
+   "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/repairs/economics-q1-source-v1-2dd7ef88064cdc04/ff9d0dde9a35cc1d649996613446005eac186963da8a2d022db7f28d775c490f.webp",
+   "sha256": "ff9d0dde9a35cc1d649996613446005eac186963da8a2d022db7f28d775c490f",
+   "bytes": 29158,
+   "contentType": "image/webp",
+   "cacheControl": "private, max-age=31536000, immutable",
+   "existedBefore": false,
+   "verifiedAt": "2026-10-14T05:51:54.342Z",
+   "supersedes": {
+    "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/questions/0455-2024-w-23/q1-2-3.webp",
+    "sha256": "ff2f9dee3b6db8789e9634ae498a7078eaeffb8502f43b95ede9fc3fe8bc6411",
+    "verifiedUnchanged": true
+   }
+  }
+ ]
+}
