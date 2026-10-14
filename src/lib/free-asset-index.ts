@@ -1,5 +1,6 @@
 import type { AssetKind } from "@/lib/asset-kinds";
 import type { BankSlug } from "@/lib/banks";
+import type { McqAnswer } from "@/lib/mcq-answer";
 import type { QuestionRichDetails } from "@/lib/questions";
 import type { VisibleImageCrop } from "@/lib/reviewed-blank-tails";
 
@@ -8,7 +9,8 @@ export const FREE_PUBLIC_ASSET_ORIGIN = "https://free.pastpaperprep.com";
 export const FREE_PUBLIC_ASSET_PREFIX = "images/";
 export const FREE_ASSET_INDEX_VERSION = 1;
 
-export type FreeAssetIndexEntry = { urls: string[]; displayCrops: Array<VisibleImageCrop | null> };
+/** `mcqAnswer` appears only on the answer entry of a free-year multiple-choice question. */
+export type FreeAssetIndexEntry = { urls: string[]; displayCrops: Array<VisibleImageCrop | null>; mcqAnswer?: McqAnswer };
 export type FreeAssetIndex = {
   version: typeof FREE_ASSET_INDEX_VERSION;
   bank: BankSlug;

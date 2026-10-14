@@ -54,4 +54,16 @@ describe("bank route fail-closed behaviour", () => {
     expect(source).toContain("href={`/worksheets/build?bank=${slug}`}");
     expect(source).toContain(">Build a paper</Link>");
   });
+
+  it("keeps the hero to title, stats and actions: no restated description or extra paragraphs", () => {
+    const source = readFileSync(join(process.cwd(), "src/app/banks/[slug]/page.tsx"), "utf8");
+    const hero = source.slice(source.indexOf('<section className={`bank-hero'), source.indexOf("</section>", source.indexOf('<section className={`bank-hero')));
+    expect(hero).not.toContain("{bank.description}");
+    expect(hero).not.toContain("Want whole papers instead?");
+    expect(hero).not.toContain("printable practice set");
+    // Full papers is a button beside Build a paper, so it shows on phones too.
+    const actions = hero.slice(hero.indexOf('className="bank-hero-actions"'));
+    expect(actions).toContain(">Full past papers</Link>");
+    expect(actions).toContain(">Build a paper</Link>");
+  });
 });

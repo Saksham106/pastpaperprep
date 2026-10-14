@@ -14,6 +14,8 @@ describe('practice links only where a bank page exists', () => {
     expect((await resolveSubject('igcse-maths-0580'))?.practice).toBe(true);
   });
   it('withholds practice for banks without a /banks page', async () => {
+    // 0610 has no /banks page while its release gate is off; pin that regardless of the ambient env.
+    vi.stubEnv('PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS', 'false');
     expect((await resolveSubject('igcse-biology-0610'))?.practice).toBe(false);
     expect((await resolveEntry('igcse-biology-0610', '2024'))?.practice).toBe(false);
   });

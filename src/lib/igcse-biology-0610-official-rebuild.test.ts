@@ -107,7 +107,7 @@ describe("IGCSE Biology 0610 official rebuild", () => {
   it("keeps the public 0610 index safe and taxonomy-bearing without rich or private fields", () => {
     const filename = PUBLIC_BANK_INDEX_FILES["igcse-biology-0610"];
     const index = JSON.parse(readFileSync(path.join(process.cwd(), "public/bank-index", filename), "utf8"));
-    expect(index.questions).toHaveLength(4913);
+    expect(index.questions).toHaveLength(5211);
     expect(JSON.stringify(index)).not.toMatch(/summary|accessibleText|questionImages|markschemeImages|courseEra|rightsStatus|classificationProvenance/);
     expect(index.questions.some((question: { primaryTopic: string; subtopics: string[] }) => question.primaryTopic === "Characteristics and classification of living organisms" && question.subtopics.includes("Characteristics of living organisms"))).toBe(true);
   });

@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { ADDED_0606_QUESTION_IDS, split0606Raw } from "@/lib/igcse-0606-additions.mjs";
 
 const CLASSIFICATION_FIELDS = new Set([
   "classification",
@@ -42,7 +43,14 @@ describe("IGCSE Additional Mathematics reconciliation", () => {
     const reportPath = join(process.cwd(), "docs", "audits", "igcse-0606-consensus-reconciliation-2026-08.json");
     const baselinePath = join(process.cwd(), "docs", "audits", "igcse-0606-production-baseline-nonclassification-2026-08.json");
     const manifestPath = join(process.cwd(), "docs", "audits", "igcse-additional-classification-2026-08.json");
-    const raw = JSON.parse(readFileSync(rawPath, "utf8")) as { questions: Array<Record<string, unknown> & {
+    // This reconciliation is a historical receipt for the 1,633-row bank. Verify it against the
+    // reconstructed base (pinned SHA-256), and require that the only other rows are exactly the
+    // reviewed Feb/March 2026 addition (hash-pinned in docs/igcse-0606-2026-march-addition.json).
+    const merged = JSON.parse(readFileSync(rawPath, "utf8"));
+    const split = split0606Raw(merged);
+    expect(merged.questions).toHaveLength(1656);
+    expect(split.added.map((row: { id: string }) => row.id)).toEqual([...ADDED_0606_QUESTION_IDS]);
+    const raw = split.base as { questions: Array<Record<string, unknown> & {
       id: string;
       accessibleText: string;
       primaryTopic: string;

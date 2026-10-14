@@ -15,8 +15,8 @@ export type AssetRetentionPlan = {
 
 /** Canonical retained-asset census for the current runtime bank corpus. */
 export const EXPECTED_ASSET_COUNTS = {
-  igcse: { preview: 1436, premium: 6498, all: 7934 },
-  "igcse-additional": { preview: 956, premium: 2310, all: 3266 },
+  igcse: { preview: 1436, premium: 6912, all: 8348 },
+  "igcse-additional": { preview: 956, premium: 2356, all: 3312 },
   // Six source-owned foreign-only tails retired; restoration objects replace old images one-for-one.
   // May 2026: donated reconstructions retired for the official TZ1-TZ3 papers and markschemes.
   "ib-hl": { preview: 314, premium: 2971, all: 3285 },

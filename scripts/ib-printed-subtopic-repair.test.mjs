@@ -11,6 +11,7 @@ const pairs=[
  ["src/data/ib-biology-official-subtopics/overlay.json",new Set(["2019-may-tz1-sl-p1-q30","2019-may-tz1-sl-p3-q16","2019-may-tz2-sl-p1-q30","2019-november-tz0-sl-p3-q2"])],
 ];
 const get=(path)=>JSON.parse(readFileSync(join(root,path),"utf8"));
+const laterCorrections=new Set(get("scripts/data/ib-biology-reviewed-subtopic-corrections.json").corrections.map(entry=>entry.id).filter(id=>!pairs[1][1].has(id)));
 const pinned=(path)=>JSON.parse(execFileSync("git",["show",`${base}:${path}`],{cwd:root,maxBuffer:100_000_000}).toString());
 
 describe("source-confirmed IB subtopic repair",()=>{
@@ -24,13 +25,24 @@ describe("source-confirmed IB subtopic repair",()=>{
   const old=new Map(before[key].map(row=>[row.id,row]));
   const kept=after[key].filter(row=>!row.provenance?.officialReview);
   const changed=new Set(kept.filter(row=>JSON.stringify(row)!==JSON.stringify(old.get(row.id))).map(row=>row.id));
-  expect(changed).toEqual(ids);
+  for(const id of ids)expect(changed.has(id)).toBe(true);
+  if(path.includes("aa-official"))expect(changed).toEqual(ids);
   for(const row of kept){
    expect(old.has(row.id)).toBe(true);
    if(ids.has(row.id)){
     expect(row.provenance).toEqual(old.get(row.id).provenance);
     expect(row.sourceReassessment).toBeTruthy();
     expect(row.blocked ?? row.status==="blocked").toBe(false);
+   } else if(!path.includes("aa-official")&&laterCorrections.has(row.id)){
+    // Later printed-source correction, pinned in the generator's corrections file.
+    const withoutReview=value=>Object.fromEntries(Object.entries(value).filter(([field])=>!["primary","secondary","sourceReassessment"].includes(field)));
+    expect(row.sourceReassessment?.questionPdfSha256).toMatch(/^[a-f0-9]{64}$/);
+    expect(withoutReview(row)).toEqual(withoutReview(old.get(row.id)));
+   } else if(!path.includes("aa-official")&&!row.blocked&&!old.get(row.id).blocked){
+    // Later, separately reviewed fix: Biology groups follow each question's reviewed subtopics
+    // instead of the first group listing the syllabus item. Only primary/secondary may differ.
+    const withoutGroups=value=>Object.fromEntries(Object.entries(value).filter(([field])=>field!=="primary"&&field!=="secondary"));
+    expect(withoutGroups(row)).toEqual(withoutGroups(old.get(row.id)));
    } else expect(row).toEqual(old.get(row.id));
   }
  });

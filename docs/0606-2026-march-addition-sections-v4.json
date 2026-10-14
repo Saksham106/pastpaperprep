@@ -1,0 +1,748 @@
+{
+  "schemaVersion": 1,
+  "addition": "0606-2026-march",
+  "registry": "src/data/igcse-0606-numbered-subtopics.json",
+  "scope": "Model review of the original question and official mark-scheme crops against the 2025-2027 numbered syllabus statements, corroborated by the source repository adjudications. Not independent gold; conservative assessed-operation links only.",
+  "sourceCommit": "d184b5e",
+  "reviews": [
+    {
+      "id": "0606-2026-march-12-q1",
+      "parts": [
+        {
+          "part": "(a)",
+          "printed_operation": "Show x+2 is a factor of p(x)=4x^3+8x^2-x-2.",
+          "codes": [
+            "3.1"
+          ],
+          "qp_evidence": "(a) Show that x+2 is a factor of p(x). [1]",
+          "ms_evidence": "B1: p(-2)=0 shown (factor theorem; remainder of 0 by division also accepted)."
+        },
+        {
+          "part": "(b)",
+          "printed_operation": "Solve the cubic equation p(x)=0 using the factor.",
+          "codes": [
+            "3.2",
+            "3.3"
+          ],
+          "qp_evidence": "(b) Solve the equation p(x)=0. [3]",
+          "ms_evidence": "B1 (x+2)(4x^2-1); M1 factorise to (x+2)(2x+1)(2x-1); A1 x=-2, +/-1/2."
+        }
+      ],
+      "disposition": "official-mapping",
+      "reason": "Factor theorem, then factorising and solving the cubic.",
+      "sourceHashes": {
+        "QP": "4ecaff73e15a9394e46d6df29bd4a4464bfd34243475bbfe7f29c0bb4c7ead07",
+        "MS": "69425716453dfeba37407b7813d95bb75883a297845197f40ae7a20a1aeb461f"
+      },
+      "evidenceClass": "source-adjudication-and-original-crop-model-review",
+      "sourceAdjudication": {
+        "path": null,
+        "evidence_summary": "Rule-only source classification; parts and mark allocations read directly from the original QP/MS crops."
+      }
+    },
+    {
+      "id": "0606-2026-march-12-q2",
+      "parts": [
+        {
+          "part": "(a)",
+          "printed_operation": "Sketch y=|x^2-2x-3| with axis intercepts.",
+          "codes": [
+            "1.4"
+          ],
+          "qp_evidence": "(a) Sketch the graph of y=|x^2-2x-3|; state intercepts. [4]",
+          "ms_evidence": "B2 modulus curve shape (cusps, reflected maximum), B1 y-intercept 3, B1 roots -1 and 3."
+        },
+        {
+          "part": "(b)",
+          "printed_operation": "Find the inverse of g(x)=4e^(x-2)-1.",
+          "codes": [
+            "1.6",
+            "6.1"
+          ],
+          "qp_evidence": "(b) Find an expression for g^-1(x). [2]",
+          "ms_evidence": "M1 swap variables and change subject; A1 2+ln((x+1)/4): inverse needs the exponential-logarithm relationship."
+        }
+      ],
+      "disposition": "official-mapping",
+      "reason": "Modulus graph of a quadratic; inverse of an exponential function via ln.",
+      "sourceHashes": {
+        "QP": "6d554f14ee9d96d7b9c00351fead696a351df7cd7a4e520984b42302e04ddec9",
+        "MS": "e6568bfda842b38eb345ac8db0b2ca07e4d9072ebda9f1e3af8fbdd11ac18c06"
+      },
+      "evidenceClass": "source-adjudication-and-original-crop-model-review",
+      "sourceAdjudication": {
+        "path": "data/classification-manual-reviews.json",
+        "evidence_summary": "Question crop: (a) sketch y=|x^2-2x-3| with intercepts (modulus graph of a function, 4 marks); (b) find g^-1(x) for g(x)=4e^(x-2)-1. Official mark scheme: B2/B1/B1 for the modulus curve shape and intercepts; M1 for swapping variables and changing the subject to 2+ln((x+1)/4), so the inverse needs the exponential-logarithm relationship."
+      }
+    },
+    {
+      "id": "0606-2026-march-12-q3",
+      "parts": [
+        {
+          "part": "(a)(b)",
+          "printed_operation": "Draw the velocity-time graph from rest with constant acceleration and s=6 at t=4; hence find the acceleration.",
+          "codes": [
+            "14.15"
+          ],
+          "qp_evidence": "(a) Draw the velocity-time graph for 0<=t<=4. [2] (b) Hence find the acceleration. [1]",
+          "ms_evidence": "B2 straight line (0,0) to (4,3) using area under the v-t graph; B1 FT gradient 3/4."
+        }
+      ],
+      "disposition": "official-mapping",
+      "reason": "Kinematics graph drawing and interpretation (area and gradient of v-t graph).",
+      "sourceHashes": {
+        "QP": "2dce0ed93fa7932bd4fc48f91e766c20d19c1d3b64405bc98f1b7f6f3fb71d7d",
+        "MS": "571c6b92750c29aa6a65cc33b0e083dfcb3dd17622009146834182f25d743058"
+      },
+      "evidenceClass": "source-adjudication-and-original-crop-model-review",
+      "sourceAdjudication": {
+        "path": "data/classification-manual-reviews.json",
+        "evidence_summary": "Question crop: particle starts from rest with constant acceleration, s=6 at t=4; draw the velocity-time graph and hence find the acceleration. Official mark scheme: B2 for the straight line (0,0) to (4,3) using area under the v-t graph, B1 FT for gradient 3/4. Kinematics graph interpretation (calculus kinematics strand); the rule's 'displacement' match to vectors is wrong."
+      }
+    },
+    {
+      "id": "0606-2026-march-12-q4",
+      "parts": [
+        {
+          "part": "whole question",
+          "printed_operation": "Find the first term of an AP with d=-2 where S4=S10.",
+          "codes": [
+            "12.4"
+          ],
+          "qp_evidence": "Arithmetic progression: common difference -2, sum of first 4 terms equals sum of first 10 terms; find the first term. [3]",
+          "ms_evidence": "M2 for (4/2)(2a+3(-2)) = (10/2)(2a+9(-2)) oe; A1 a=13."
+        }
+      ],
+      "disposition": "official-mapping",
+      "reason": "Arithmetic progression sum formula.",
+      "sourceHashes": {
+        "QP": "fa349d8b435b96282fed213705afde431ec582774d153286287cc0449636301a",
+        "MS": "467b1888ba2df7cb21cdb465ae549bb3b569e7e81b0c85a82634020e1b2d9a6f"
+      },
+      "evidenceClass": "source-adjudication-and-original-crop-model-review",
+      "sourceAdjudication": {
+        "path": null,
+        "evidence_summary": "Rule-only source classification; parts and mark allocations read directly from the original QP/MS crops."
+      }
+    },
+    {
+      "id": "0606-2026-march-12-q5",
+      "parts": [
+        {
+          "part": "whole question",
+          "printed_operation": "Differentiate y=(x^2-8)/(3-x), find the stationary points P and Q, then the exact length PQ.",
+          "codes": [
+            "14.4",
+            "14.6",
+            "7.3"
+          ],
+          "qp_evidence": "Find dy/dx and the exact length of the line PQ joining the stationary points. [7]",
+          "ms_evidence": "M1 A1 quotient/product rule; M1 dy/dx=0 to x^2-6x+8=0, M1 solve, A1 x=4,2, A1 y=-8,-4; A1 FT distance formula sqrt20."
+        }
+      ],
+      "disposition": "official-mapping",
+      "reason": "Quotient rule and stationary points; the final mark is the length of a line segment.",
+      "sourceHashes": {
+        "QP": "fa4a1709b4f4fedca35ac6e354cd06613f4fb2eca2bdfbc9b4f672a859301fdc",
+        "MS": "c871337c9fd5759f15bebb56659540e1a48c2793bc2fbbbcf04582ba61c7141e"
+      },
+      "evidenceClass": "source-adjudication-and-original-crop-model-review",
+      "sourceAdjudication": {
+        "path": null,
+        "evidence_summary": "Rule-only source classification; parts and mark allocations read directly from the original QP/MS crops."
+      }
+    },
+    {
+      "id": "0606-2026-march-12-q6",
+      "parts": [
+        {
+          "part": "(a)",
+          "printed_operation": "Solve |3x+2|=7.",
+          "codes": [
+            "4.1"
+          ],
+          "qp_evidence": "(a) Solve the equation |3x+2|=7. [3]",
+          "ms_evidence": "M1 A2 x=5/3, -3."
+        },
+        {
+          "part": "(b)",
+          "printed_operation": "Solve |2x-4|>|x+1|.",
+          "codes": [
+            "4.2"
+          ],
+          "qp_evidence": "(b) Solve the inequality |2x-4|>|x+1|. [4]",
+          "ms_evidence": "M1 A2 critical values 5 and 1, A1 x>5, x<1 (or squaring alternative)."
+        }
+      ],
+      "disposition": "official-mapping",
+      "reason": "Modulus equation and modulus inequality.",
+      "sourceHashes": {
+        "QP": "9611f4daa5d7987f43036ce81713183694cd8c5562b8457fd9f2a82e95ef942f",
+        "MS": "ce60ff73a521102dfc8b7c064819684403e174bfff3601b45e0825821e0c3e38"
+      },
+      "evidenceClass": "source-adjudication-and-original-crop-model-review",
+      "sourceAdjudication": {
+        "path": "data/classification-manual-reviews.json",
+        "evidence_summary": "Question crop: (a) solve |3x+2|=7; (b) solve |2x-4|>|x+1|. Official mark scheme: M1 A2 for x=5/3, -3 and M1 A2 A1 for critical values 5, 1 and x>5, x<1 (or squaring alternative). Modulus equations and inequalities."
+      }
+    },
+    {
+      "id": "0606-2026-march-12-q7",
+      "parts": [
+        {
+          "part": "whole question",
+          "printed_operation": "Use calculus to find the approximate change in y=3sqrt(x)+1/sqrt(x) when x increases from 4 to 4+h.",
+          "codes": [
+            "14.7",
+            "14.3"
+          ],
+          "qp_evidence": "Use calculus to find the approximate change in y when x increases from 4 to 4+h. [4]",
+          "ms_evidence": "B2 dy/dx of the power terms; M1 dy ~ (dy/dx)h at x=4; A1 11h/16."
+        }
+      ],
+      "disposition": "official-mapping",
+      "reason": "Small increments and approximations using standard power derivatives.",
+      "sourceHashes": {
+        "QP": "1e19f0ad358bd740e5a566395e850641294a27839bc34fa32b62bd18b3b0451f",
+        "MS": "a876da1d12fb3750df7a0fb99b0909ad3bec1650387d7dc4e333571f5929d34b"
+      },
+      "evidenceClass": "source-adjudication-and-original-crop-model-review",
+      "sourceAdjudication": {
+        "path": "data/classification-manual-reviews.json",
+        "evidence_summary": "Question crop: y=3sqrt(x)+1/sqrt(x); use calculus to find the approximate change in y when x increases from 4 to 4+h. Official mark scheme: B2 for dy/dx, M1 for dy approx (dy/dx)h at x=4, A1 11h/16. Small increments and approximations; no rule keyword matched, so this row needed adjudication."
+      }
+    },
+    {
+      "id": "0606-2026-march-12-q8",
+      "parts": [
+        {
+          "part": "(a)",
+          "printed_operation": "Differentiate y=xe^(2x+1).",
+          "codes": [
+            "14.4",
+            "14.3"
+          ],
+          "qp_evidence": "(a) Find dy/dx. [3]",
+          "ms_evidence": "Product rule B1 M1 with the derivative of e^(2x+1)."
+        },
+        {
+          "part": "(b)",
+          "printed_operation": "Tangent at x=1/2 and its axis intercepts.",
+          "codes": [
+            "14.5"
+          ],
+          "qp_evidence": "(b) L is the tangent at x=1/2; find the exact coordinates where L meets the axes. [5]",
+          "ms_evidence": "M1 B1 M1 A2 tangent gradient, equation and intercepts."
+        },
+        {
+          "part": "(c)",
+          "printed_operation": "Use 8(a) to integrate xe^(2x+1).",
+          "codes": [
+            "14.10"
+          ],
+          "qp_evidence": "(c) Use your answer to 8(a) to find the integral of xe^(2x+1). [4]",
+          "ms_evidence": "B4 by reversing the derivative from (a)."
+        }
+      ],
+      "disposition": "official-mapping",
+      "reason": "Product rule, tangent, and integration as the reverse of differentiation.",
+      "sourceHashes": {
+        "QP": "e24fdefae8b809e03086320f5c2b35690f523d160992c6f88cf3e86fc4ce33ef",
+        "MS": "47c73226614b6f59abe6b4a25ffadbfb9130d2057ff33cce2698a54cdddb0f69"
+      },
+      "evidenceClass": "source-adjudication-and-original-crop-model-review",
+      "sourceAdjudication": {
+        "path": "data/classification-manual-reviews.json",
+        "evidence_summary": "Question crop: y=xe^(2x+1); (a) find dy/dx; (b) tangent at x=1/2 and its axis intercepts; (c) use 8(a) to find the integral of xe^(2x+1). Official mark scheme: product rule B1 M1, tangent gradient/equation M1 B1 M1 A2, integration B4 by reversing the derivative. All credit is differentiation, tangents and integration; the rule's generic equation/curve match is wrong."
+      }
+    },
+    {
+      "id": "0606-2026-march-12-q9",
+      "parts": [
+        {
+          "part": "(a)(i)",
+          "printed_operation": "Write the position vector of B at time t.",
+          "codes": [
+            "13.2"
+          ],
+          "qp_evidence": "(a)(i) B starts at (-3,4) with velocity (4,-2); write down the position vector of B at time t. [1]",
+          "ms_evidence": "B1 (-3,4)+t(4,-2)."
+        },
+        {
+          "part": "(a)(ii)",
+          "printed_operation": "Decide whether particles A and B with constant velocities collide.",
+          "codes": [
+            "13.4",
+            "13.2"
+          ],
+          "qp_evidence": "(a)(ii) Determine whether or not the particles collide. [4]",
+          "ms_evidence": "B1 r_A=t(2,1); M1 equate position vectors; M1 pair of component equations; A1 t=3/2 and t=4/3, do not collide."
+        },
+        {
+          "part": "(b)",
+          "printed_operation": "Use |RS|=sqrt5 with S on line QR to find integer a, b.",
+          "codes": [
+            "13.3",
+            "13.2"
+          ],
+          "qp_evidence": "(b) Q=3i+2j, R=-i+4j, S=ai+bj on QR with |RS|=sqrt5; find a and b. [5]",
+          "ms_evidence": "B1 QR=-4i+2j, B2 |QR|=2sqrt5 and S(1,3), B1 RS=-2i+j, B1 a=1,b=3 or a=-3,b=5."
+        }
+      ],
+      "disposition": "official-mapping",
+      "reason": "Position vectors, relative motion of particles with velocities, vector magnitude.",
+      "sourceHashes": {
+        "QP": "d7ed92966728f55e5cfb4565099c4186dfddda6df1f4b065389b5fb333e02fe5",
+        "MS": "f1fcef87b223ffcd4d005f332833af3551faf5cfa543df2d2d79127c8390a110"
+      },
+      "evidenceClass": "source-adjudication-and-original-crop-model-review",
+      "sourceAdjudication": {
+        "path": null,
+        "evidence_summary": "Rule-only source classification; parts and mark allocations read directly from the original QP/MS crops."
+      }
+    },
+    {
+      "id": "0606-2026-march-12-q10",
+      "parts": [
+        {
+          "part": "(a)",
+          "printed_operation": "Solve log5(x^2)-log5 x-3 log_x 5=2.",
+          "codes": [
+            "6.2",
+            "4.3"
+          ],
+          "qp_evidence": "(a) Given log5(x^2)-log5 x-3 log_x 5=2, find x. [6]",
+          "ms_evidence": "M2 change of base; A1 (log5 x)^2-2log5 x-3=0; M1 solve the quadratic in log5 x; A1 A1 x=125, 1/5."
+        },
+        {
+          "part": "(b)",
+          "printed_operation": "Solve 2x8^(2x+1)-3x2^(3x+4)-64=0.",
+          "codes": [
+            "4.3",
+            "6.3"
+          ],
+          "qp_evidence": "(b) Solve the equation 2x8^(2x+1)-3x2^(3x+4)-64=0. [4]",
+          "ms_evidence": "B1 16(2^(3x))^2-48x2^(3x)-64=0; M1 solve quadratic in 2^(3x); A1 2^(3x)=4; A1 x=2/3."
+        }
+      ],
+      "disposition": "official-mapping",
+      "reason": "Laws of logarithms with change of base; substitution to a quadratic; exponential equation.",
+      "sourceHashes": {
+        "QP": "08d301304e3fea8e6135d14564ca12ccaa2a015ad5694834959efb38004b46cf",
+        "MS": "ead59daa6a9ddddcf21642a6d634b98a565ca2e61d1f234723db030679ef1c75"
+      },
+      "evidenceClass": "source-adjudication-and-original-crop-model-review",
+      "sourceAdjudication": {
+        "path": "data/classification-manual-reviews.json",
+        "evidence_summary": "Question crop: (a) given log5(x^2)-log5 x-3 log_x 5=2, find x; (b) solve 2x8^(2x+1)-3x2^(3x+4)-64=0. Official mark scheme: (a) change of base M2 A1, quadratic in log5 x M1 A1, x=125, 1/5 A1; (b) B1 for rewriting as 16(2^(3x))^2-48x2^(3x)-64 using index laws, M1 A1 A1 for 2^(3x)=4, x=2/3. Logarithms primary; index-law rewriting earns explicit credit in (b)."
+      }
+    },
+    {
+      "id": "0606-2026-march-12-q11",
+      "parts": [
+        {
+          "part": "whole question",
+          "printed_operation": "Find a so that the area enclosed by y=-x^2+3ax-2a^2 and the x-axis is 9/16.",
+          "codes": [
+            "14.13",
+            "14.11"
+          ],
+          "qp_evidence": "The area of the region enclosed by the curve and the x-axis is 9/16; find a. [6]",
+          "ms_evidence": "M1 A1 roots a and 2a; M1 A1 M1 A1 integrate and evaluate the definite integral between the roots, a=3/2."
+        }
+      ],
+      "disposition": "official-mapping",
+      "reason": "Definite integration of a polynomial for a plane area.",
+      "sourceHashes": {
+        "QP": "373eb189741a00244e2516e8f91d92dc74e402a4ac7cf608ffcc6bd4f5359ca5",
+        "MS": "696fcf17a132ca91f3f940859448ceb0962e968065a527341cced5d17f5a2fa6"
+      },
+      "evidenceClass": "source-adjudication-and-original-crop-model-review",
+      "sourceAdjudication": {
+        "path": "data/classification-manual-reviews.json",
+        "evidence_summary": "Question crop: y=-x^2+3ax-2a^2 with a>0; the area enclosed by the curve and the x-axis is 9/16; find a. Official mark scheme: M1 A1 for roots x=a, 2a, then M1 A1 M1 A1 for the definite integral between the roots set equal to 9/16, giving a=3/2. Definite integration for plane area; the rule's generic equation/curve match is wrong."
+      }
+    },
+    {
+      "id": "0606-2026-march-12-q12",
+      "parts": [
+        {
+          "part": "whole question",
+          "printed_operation": "Find the intersection points of two circles.",
+          "codes": [
+            "8.4"
+          ],
+          "qp_evidence": "Find the coordinates of the points of intersection of x^2+2x+y^2-4y-20=0 and x^2-12x+y^2-6y+20=0. [8]",
+          "ms_evidence": "Subtract to obtain the common chord 14x+2y-40=0, substitute, solve 50x^2-250x+300=0: (3,-1) and (2,6)."
+        }
+      ],
+      "disposition": "official-mapping",
+      "reason": "Intersection of two circles.",
+      "sourceHashes": {
+        "QP": "85d4241f274a354b03a6ac8477d3737c5a8685cdc4358aa045e1eb2702eb568c",
+        "MS": "51ff7efdfcf6c8a79d07a79157991613320c34e6d36f37edb00bfde7eb494138"
+      },
+      "evidenceClass": "source-adjudication-and-original-crop-model-review",
+      "sourceAdjudication": {
+        "path": "data/classification-manual-reviews.json",
+        "evidence_summary": "Question crop: find the coordinates of the points of intersection of the circles x^2+2x+y^2-4y-20=0 and x^2-12x+y^2-6y+20=0. Official mark scheme: subtract to get the common chord 14x+2y-40=0, substitute, solve 50x^2-250x+300=0, giving (3,-1) and (2,6). Intersection of two circles; the rule's 'intersection' match to set language is wrong."
+      }
+    },
+    {
+      "id": "0606-2026-march-22-q1",
+      "parts": [
+        {
+          "part": "(a)",
+          "printed_operation": "Complete the square for f(x)=2x^2-6x+4.",
+          "codes": [
+            "2.1"
+          ],
+          "qp_evidence": "(a) Write f(x) in the form a(x+b)^2+c. [3]",
+          "ms_evidence": "B3 2(x-3/2)^2-1/2."
+        },
+        {
+          "part": "(b)",
+          "printed_operation": "Range of f from its minimum value.",
+          "codes": [
+            "2.2"
+          ],
+          "qp_evidence": "(b) Hence find the range of f. [1]",
+          "ms_evidence": "B1 f(x)>=-1/2."
+        },
+        {
+          "part": "(c)",
+          "printed_operation": "Largest k so that g(x)=2x^2-6x+4, x<=k, is one-one and has an inverse.",
+          "codes": [
+            "1.1"
+          ],
+          "qp_evidence": "(c) Given that g has an inverse, state the largest possible value of k. [1]",
+          "ms_evidence": "B1 k=3/2."
+        },
+        {
+          "part": "(d)",
+          "printed_operation": "Form the composite hg(x) with h(x)=e^(3x)-1.",
+          "codes": [
+            "1.7"
+          ],
+          "qp_evidence": "(d) Given that hg(x) exists, find hg(x), simplifying. [3]",
+          "ms_evidence": "M1 substitute, M1 expand, A1 2e^(6x)-10e^(3x)+12 oe."
+        }
+      ],
+      "disposition": "official-mapping",
+      "reason": "Completing the square and range; one-one restriction for an inverse; composite function.",
+      "sourceHashes": {
+        "QP": "0e6099382b9045b209ec0659cc3ed7748bce3735d903757a37520f7fb7c949af",
+        "MS": "5c3b7ed75b2ff84940b5cada9df158b404d6badd30ee1247eeb18296294090a5"
+      },
+      "evidenceClass": "source-adjudication-and-original-crop-model-review",
+      "sourceAdjudication": {
+        "path": "data/classification-manual-reviews.json",
+        "evidence_summary": "Question crop: f(x)=2x^2-6x+4; (a) write in the form a(x+b)^2+c; (b) range of f; (c) largest k for which g(x)=2x^2-6x+4, x<=k has an inverse; (d) find gh(x) for h(x)=e^(3x)-1. Official mark scheme: B3 completing the square, B1 range f(x)>=-1/2, B1 k=3/2, M1 M1 A1 composite. Function range, inverse existence and composition with completing the square."
+      }
+    },
+    {
+      "id": "0606-2026-march-22-q2",
+      "parts": [
+        {
+          "part": "(a)",
+          "printed_operation": "P(2,a) lies on the perpendicular bisector of AB; find a.",
+          "codes": [
+            "7.3",
+            "7.2",
+            "7.1"
+          ],
+          "qp_evidence": "(a) A(1,3), B(-7,1); P(2,a) lies on the perpendicular bisector of AB; find a. [4]",
+          "ms_evidence": "B1 midpoint (-3,2), B1 perpendicular gradient -4, M1 line equation, A1 a=-18."
+        },
+        {
+          "part": "(b)",
+          "printed_operation": "Reflect P in the line AB.",
+          "codes": [
+            "7.3"
+          ],
+          "qp_evidence": "(b) Q is the reflection of P in the line AB; find Q. [2]",
+          "ms_evidence": "B2 (-8,22)."
+        }
+      ],
+      "disposition": "official-mapping",
+      "reason": "Midpoints, perpendicular gradients and perpendicular bisectors.",
+      "sourceHashes": {
+        "QP": "8af48f547357dcb7c5f47be39420510f7d9294ee64092e0537d9a094529f62c4",
+        "MS": "d8615db971df59839cedb23a86631f028dcd4bd4f7bf4a181e5b652d3abeb724"
+      },
+      "evidenceClass": "source-adjudication-and-original-crop-model-review",
+      "sourceAdjudication": {
+        "path": "data/classification-manual-reviews.json",
+        "evidence_summary": "Question crop: A(1,3), B(-7,1); P(2,a) lies on the perpendicular bisector of AB; (a) find a; (b) Q is the reflection of P in AB, find Q. Official mark scheme: midpoint (-3,2) B1, perpendicular gradient -4 B1, line equation M1, a=-18 A1; (b) (-8,22) B2. Midpoints, perpendicular bisectors and reflection; the rule's 'sector' match is a false positive from 'bisector'."
+      }
+    },
+    {
+      "id": "0606-2026-march-22-q3",
+      "parts": [
+        {
+          "part": "whole question",
+          "printed_operation": "Solve (x+2)(x-1)(x-3)>7 graphically by drawing y=7.",
+          "codes": [
+            "4.5"
+          ],
+          "qp_evidence": "By drawing a suitable line on the printed graph of y=(x+2)(x-1)(x-3), solve (x+2)(x-1)(x-3)>7. [4]",
+          "ms_evidence": "B1 y=7 meets the curve three times, B1 -1.3, -0.2, 3.5, B1 -1.3<x<-0.2, B1 x>3.5."
+        }
+      ],
+      "disposition": "official-mapping",
+      "reason": "Graphical cubic inequality of the syllabus form f(x)>d.",
+      "sourceHashes": {
+        "QP": "edb2100bac9ad59918a8827b8df5d34191877537b6197082f4d993e2be3be312",
+        "MS": "fac7ae961f9ac11d65121cb886c364944ff3f8e1b5fb990b2dd583d51594be30"
+      },
+      "evidenceClass": "source-adjudication-and-original-crop-model-review",
+      "sourceAdjudication": {
+        "path": "data/classification-manual-reviews.json",
+        "evidence_summary": "Question crop: printed graph of y=(x+2)(x-1)(x-3); by drawing a suitable line solve (x+2)(x-1)(x-3)>7. Official mark scheme: B1 for y=7 meeting the curve three times, B1 -1.3, -0.2, 3.5, B1 -1.3<x<-0.2, B1 x>3.5. Graphical cubic inequality."
+      }
+    },
+    {
+      "id": "0606-2026-march-22-q4",
+      "parts": [
+        {
+          "part": "(a)(b)",
+          "printed_operation": "Count 6-digit arrangements without repetition and selections of 6 with at least 2 girls and 2 boys.",
+          "codes": [
+            "11.3"
+          ],
+          "qp_evidence": "(a)(i)(ii) 6-digit numbers from digits 1-9, no repetition; (b) groups of 6 from 10 girls and 12 boys with at least 2 of each. [6]",
+          "ms_evidence": "60480 B1; 40320 B2; 62535 B3 via sums of products of combinations."
+        }
+      ],
+      "disposition": "official-mapping",
+      "reason": "Arrangement and selection problems.",
+      "sourceHashes": {
+        "QP": "5e31afcdc564f5787a86a5f45c69b1ce2d93ec3f34a2070aaa45138742285fef",
+        "MS": "b5808f68f26095de1f401f32b1bbb5b24b597f73df3bb462ea386259061cfb10"
+      },
+      "evidenceClass": "source-adjudication-and-original-crop-model-review",
+      "sourceAdjudication": {
+        "path": "data/classification-manual-reviews.json",
+        "evidence_summary": "Question crop: (a) 6-digit numbers from digits 1-9 without repetition, (i) no restriction, (ii) including the digit 4; (b) groups of 6 from 10 girls and 12 boys with at least 2 of each. Official mark scheme: 60480 B1, 40320 B2, 62535 B3 via sums of products of combinations. Arrangements and selections."
+      }
+    },
+    {
+      "id": "0606-2026-march-22-q5",
+      "parts": [
+        {
+          "part": "(a)(b)",
+          "printed_operation": "Angle in radians and badge area from sectors on an equilateral triangle.",
+          "codes": [
+            "9.1"
+          ],
+          "qp_evidence": "(a) Angle ABC in radians in terms of pi. [1] (b) Area of the badge is 2(pi-sqrt3); find x. [5]",
+          "ms_evidence": "B1 pi/3; M1 triangle area, M1 sector area (1/2)x^2(pi/3), M1 plan, A1 A1 x=2."
+        }
+      ],
+      "disposition": "official-mapping",
+      "reason": "Radian measure and sector areas.",
+      "sourceHashes": {
+        "QP": "b87e880b94eee2076920849078c457f5982a1073b1ce9425b9fd932ff2ec42be",
+        "MS": "8ec63b80fe67106cb9be546080fd16dde365f19ad7467febce6639fd63659be6"
+      },
+      "evidenceClass": "source-adjudication-and-original-crop-model-review",
+      "sourceAdjudication": {
+        "path": "data/classification-manual-reviews.json",
+        "evidence_summary": "Question crop: badge formed from equilateral triangle ABC of side x cm with arcs centred at the vertices; (a) angle ABC in radians; (b) area 2(pi-sqrt3) cm^2, find x. Official mark scheme: pi/3 B1; M1 for triangle area (1/2)x^2 sin(pi/3), M1 for sector area (1/2)x^2(pi/3), M1 plan, A1 A1 x=2. Radian sector areas with a trigonometric triangle-area term."
+      }
+    },
+    {
+      "id": "0606-2026-march-22-q6",
+      "parts": [
+        {
+          "part": "(a)",
+          "printed_operation": "Period and asymptote of y=1+tan(x/2).",
+          "codes": [
+            "10.2",
+            "10.3"
+          ],
+          "qp_evidence": "(a)(i) Write down the period of 1+tan(x/2). [1] (ii) Write down the equation of the asymptote A. [1]",
+          "ms_evidence": "B1 360 degrees; B1 x=540."
+        },
+        {
+          "part": "(b)",
+          "printed_operation": "Sketch y=3cos2x+1 for -180<=x<=180.",
+          "codes": [
+            "10.3",
+            "10.2"
+          ],
+          "qp_evidence": "(b) Sketch the graph of y=3cos2x+1 for -180<=x<=180. [3]",
+          "ms_evidence": "B2 cosine shape over 2 cycles with midline y=1; B1 consistent amplitude 3."
+        }
+      ],
+      "disposition": "official-mapping",
+      "reason": "Period, amplitude and graphs of trigonometric functions.",
+      "sourceHashes": {
+        "QP": "26c1b897af8db1ed792e1188dea5843fc52a66cb4a6d0b38b589337624f96e72",
+        "MS": "59bde1f59b9e1f5ea627723251aa6eec99b72939da47a3d1c5f1498197621fb4"
+      },
+      "evidenceClass": "source-adjudication-and-original-crop-model-review",
+      "sourceAdjudication": {
+        "path": null,
+        "evidence_summary": "Rule-only source classification; parts and mark allocations read directly from the original QP/MS crops."
+      }
+    },
+    {
+      "id": "0606-2026-march-22-q7",
+      "parts": [
+        {
+          "part": "(a)(b)",
+          "printed_operation": "Minimise sailing cost C=v^2+3000/v+100 with a derivative test, then cost of a 150 km journey.",
+          "codes": [
+            "14.8",
+            "14.9"
+          ],
+          "qp_evidence": "(a) Find the speed that makes C a minimum; justify that it is a minimum. [5] (b) Hence find the minimum sailing cost for a journey of 150 km. [3]",
+          "ms_evidence": "B2 dC/dv, M1 dC/dv=0, A1 v=cube root 1500, B1 justification; M1 M1 A1 time and cost."
+        }
+      ],
+      "disposition": "official-mapping",
+      "reason": "Practical optimisation with a first/second derivative test.",
+      "sourceHashes": {
+        "QP": "db949a80f825974b50cb9730f79aec6e8b7c9342b35c718e41dfbb377b9cdae3",
+        "MS": "7e0ae5de5ebccba6fa663a42ec26dde7593c6339e22eb812c39e37f916ca8e37"
+      },
+      "evidenceClass": "source-adjudication-and-original-crop-model-review",
+      "sourceAdjudication": {
+        "path": "data/classification-manual-reviews.json",
+        "evidence_summary": "Question crop: sailing cost per hour C=v^2+3000/v+100; (a) find the speed that makes C a minimum and justify it is a minimum; (b) hence find the minimum cost of a 150 km journey. Official mark scheme: B2 dC/dv, M1 dC/dv=0, A1 v=cube root 1500, B1 justification; M1 M1 A1 for time and cost. Practical optimisation with a derivative test; no rule keyword matched, so this row needed adjudication."
+      }
+    },
+    {
+      "id": "0606-2026-march-22-q8",
+      "parts": [
+        {
+          "part": "whole question",
+          "printed_operation": "Find k so that the line y=2x+k does not meet the circle centre (-2,0) radius 5.",
+          "codes": [
+            "8.1",
+            "8.2",
+            "2.3",
+            "2.5"
+          ],
+          "qp_evidence": "A circle has centre (-2,0) and radius 5; y=2x+k does not meet the circle; find the set of possible values of k. [8]",
+          "ms_evidence": "B1 circle equation, M1 A1 substitute to 5x^2+4(k+1)x+k^2-21=0, M1 A1 discriminant condition, M1 A1 A1 solve the quadratic inequality k<4-5sqrt5, k>4+5sqrt5."
+        }
+      ],
+      "disposition": "official-mapping",
+      "reason": "Circle equation, circle-line intersection condition via the discriminant, quadratic inequality.",
+      "sourceHashes": {
+        "QP": "99292b0ba59479c2344652f8e863dd6052e65e079937d71369e2d6b37596867f",
+        "MS": "a319d9dea1b1999798ff1c2a90c49811774f2b162e9e7842cdebcbd9fc02bc1b"
+      },
+      "evidenceClass": "source-adjudication-and-original-crop-model-review",
+      "sourceAdjudication": {
+        "path": "data/classification-manual-reviews.json",
+        "evidence_summary": "Question crop: circle centre (-2,0) radius 5; line y=2x+k does not meet the circle; find the set of possible values of k. Official mark scheme: B1 circle equation, M1 A1 substitute to 5x^2+4(k+1)x+k^2-21=0, M1 A1 discriminant condition, M1 A1 A1 solve the quadratic inequality k<4-5sqrt5, k>4+5sqrt5. Circle-line intersection condition via the discriminant; the rule's set-language match is a false positive."
+      }
+    },
+    {
+      "id": "0606-2026-march-22-q9",
+      "parts": [
+        {
+          "part": "(a)",
+          "printed_operation": "Prove tan t+cot t+2sec t=(1+2sin t)/(sin t cos t).",
+          "codes": [
+            "10.6"
+          ],
+          "qp_evidence": "(a) Show that tan t+cot t+2sec t can be written as (1+2sin t)/(sin t cos t). [3]",
+          "ms_evidence": "B1 M1 A1 identity proof."
+        },
+        {
+          "part": "(b)",
+          "printed_operation": "Hence solve tan2x+cot2x+2sec2x=0 in degrees.",
+          "codes": [
+            "10.5"
+          ],
+          "qp_evidence": "(b) Hence solve tan2x+cot2x+2sec2x=0 for -180<=x<=180. [4]",
+          "ms_evidence": "B1 M1 A2."
+        },
+        {
+          "part": "(c)",
+          "printed_operation": "Solve 3sec(x-1)-1=tan^2(x-1) in radians using sec^2=1+tan^2.",
+          "codes": [
+            "10.4",
+            "10.5"
+          ],
+          "qp_evidence": "(c) Solve 3sec(x-1)-1=tan^2(x-1), x in radians, -1<x<3. [5]",
+          "ms_evidence": "M1 M1 A1 A1 via sec^2=1+tan^2."
+        }
+      ],
+      "disposition": "official-mapping",
+      "reason": "Trigonometric proof, identities and equations.",
+      "sourceHashes": {
+        "QP": "7c6e6470357a35d807d73baaad1053fafc1c4d0e36ea9f1debcb8e0b844c02b5",
+        "MS": "5be6d99f0989393ef9d990fba48dce82f846c1e4a0c7ca601ab9b4c1ee468b3a"
+      },
+      "evidenceClass": "source-adjudication-and-original-crop-model-review",
+      "sourceAdjudication": {
+        "path": "data/classification-manual-reviews.json",
+        "evidence_summary": "Question crop: (a) show tan t+cot t+2 sec t=(1+2 sin t)/(sin t cos t); (b) hence solve tan2x+cot2x+2sec2x=0 for -180<=x<=180; (c) solve 3sec(x-1)-1=tan^2(x-1), x in radians, -1<x<3. Official mark scheme: identity proof B1 M1 A1, equations B1 M1 A2 and M1 M1 A1 A1 via sec^2=1+tan^2. Trigonometric identities and equations; radian domain does not make this circular measure."
+      }
+    },
+    {
+      "id": "0606-2026-march-22-q10",
+      "parts": [
+        {
+          "part": "(a)(b)",
+          "printed_operation": "Integrate acceleration 2t-9 to velocity and displacement; times at rest; distance in first 6 s.",
+          "codes": [
+            "14.14"
+          ],
+          "qp_evidence": "(a) Find the times when the velocity is 0. [4] (b)(i) Find the displacement at time t. [3] (ii) Distance travelled in the first 6 seconds. [3]",
+          "ms_evidence": "Integrate for v and s with constants (M1 M1 M1 A1, M1 M1 A1); distance 27.0 B1 B1 B1."
+        }
+      ],
+      "disposition": "official-mapping",
+      "reason": "Calculus in straight-line kinematics.",
+      "sourceHashes": {
+        "QP": "e604c67c072a31c984d1a4ef62966d1bf72e1421c2d341e166483e8eac1940c2",
+        "MS": "abd82d943eccaf53917de6a46c94a2631e552868e3ed99d916c849e19a735121"
+      },
+      "evidenceClass": "source-adjudication-and-original-crop-model-review",
+      "sourceAdjudication": {
+        "path": "data/classification-manual-reviews.json",
+        "evidence_summary": "Question crop: particle on the x-axis, acceleration 2t-9, v=4 at t=7; (a) times when v=0; (b) s=150 at t=12, (i) displacement expression, (ii) distance travelled in the first 6 s. Official mark scheme: integrate for v and s with constants (M1 M1 M1 A1, M1 M1 A1), distance 27.0 B1 B1 B1. Calculus kinematics; the rule's 'displacement' match to vectors is wrong."
+      }
+    },
+    {
+      "id": "0606-2026-march-22-q11",
+      "parts": [
+        {
+          "part": "(a)",
+          "printed_operation": "First three terms of (x^2+1/(2x))^9.",
+          "codes": [
+            "12.1"
+          ],
+          "qp_evidence": "(a) Find, in descending powers of x, the first three terms of the expansion of (x^2+1/(2x))^9. [3]",
+          "ms_evidence": "B1 each term: x^18+4.5x^15+9x^12."
+        },
+        {
+          "part": "(b)",
+          "printed_operation": "Use the general term to show n is divisible by 3 when a term is independent of x.",
+          "codes": [
+            "12.2"
+          ],
+          "qp_evidence": "(b) The expansion of (x^2+1/(2x))^n has a term independent of x; show n is divisible by 3. [4]",
+          "ms_evidence": "M1 general term, M1 2(n-r)=r, A1 r=2n/3, A1 conclusion."
+        }
+      ],
+      "disposition": "official-mapping",
+      "reason": "Binomial expansion and its general term.",
+      "sourceHashes": {
+        "QP": "7416ad294fce226d3691e377241624b645581e7280949851db899d90323540ad",
+        "MS": "7a6e20a0d7ae037cb9755f265251f26761b9b66f63a9d2cdbe97368fe5d5a829"
+      },
+      "evidenceClass": "source-adjudication-and-original-crop-model-review",
+      "sourceAdjudication": {
+        "path": null,
+        "evidence_summary": "Rule-only source classification; parts and mark allocations read directly from the original QP/MS crops."
+      }
+    }
+  ]
+}

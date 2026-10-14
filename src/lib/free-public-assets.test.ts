@@ -58,3 +58,22 @@ describe("free public assets", () => {
     expect(index.questions[FREE].explanation).toBeUndefined();
   });
 });
+
+describe("free index MCQ letters", () => {
+  const BANK = "igcse-chemistry-0620";
+  const FREE_MCQ = "0620-2021-m-12-q1";
+  const PAID_MCQ = "0620-2025-m-12-q1";
+  const mcq = (id: string, answers: Array<"A" | "D">): AssetManifestEntry => ({ ...entry(id, false), mcqAnswer: { answers, note: null } });
+
+  it("lists a free-year letter in place of its answer crop, and nothing for paid years", () => {
+    const index = buildFreeAssetIndex(BANK, new Map([[FREE_MCQ, mcq(FREE_MCQ, ["D"])], [PAID_MCQ, mcq(PAID_MCQ, ["A"])]]), (_id, value) => value);
+    expect(Object.keys(index.questions)).toEqual([FREE_MCQ]);
+    expect(JSON.stringify(index)).not.toContain(PAID_MCQ);
+    expect(index.questions[FREE_MCQ].answer).toEqual({ urls: [], displayCrops: [], mcqAnswer: { answers: ["D"], note: null } });
+    expect(index.questions[FREE_MCQ].question).toEqual({ urls: [`https://free.pastpaperprep.com/images/bank/questions/${FREE_MCQ}.webp`], displayCrops: [null] });
+  });
+
+  it("still publishes the answer crop file so the letter can be withdrawn without a re-upload", () => {
+    expect(listFreePublicAssets(BANK, new Map([[FREE_MCQ, mcq(FREE_MCQ, ["D"])]])).map((asset) => asset.kind)).toEqual(["question", "answer"]);
+  });
+});

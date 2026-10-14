@@ -14,7 +14,6 @@
   font-size: 0.875rem;
 }
 
-
 /* Exam Studio: cool paper, graphite, and one cobalt action color. */
 :root,
 :root[data-theme="light"] {
@@ -217,7 +216,6 @@ main { min-height: 72vh; }
 .study-method-copy li strong { font: 650 1.08rem/1.25 var(--font-display); }
 .study-method-copy li span { color: var(--muted); line-height: 1.5; }
 
-
 .pricing-invite { margin-bottom: clamp(82px, 10vw, 130px); padding: clamp(30px, 5vw, 58px); display: flex; align-items: center; justify-content: space-between; gap: 46px; color: var(--surface-raised); background: var(--ink); border-radius: 12px; }
 .pricing-invite h2 { max-width: 760px; color: var(--surface-raised); font-size: clamp(2rem, 4.2vw, 3.8rem); }
 .pricing-invite p { color: color-mix(in srgb, var(--surface-raised) 72%, transparent); }
@@ -247,31 +245,6 @@ main { min-height: 72vh; }
 .dashboard-qualification-tabs button { min-height: 48px; padding: 0 14px; color: var(--muted); background: transparent; border: 0; border-bottom: 3px solid transparent; font-weight: 800; }
 .dashboard-qualification-tabs button[aria-selected="true"] { color: var(--burgundy); border-bottom-color: var(--burgundy); }
 .dashboard-qualification-panel { min-width: 0; }
-.dashboard-bank-groups { margin-top: 24px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; align-items: stretch; }
-.dashboard-bank-family { min-width: 0; padding: 14px; display: grid; grid-template-rows: auto 1fr; background: var(--subject-panel-tint, var(--surface-raised)); border: 1px solid color-mix(in srgb, var(--course-accent, var(--cobalt)) 30%, var(--line-strong)); border-radius: 12px; }
-.dashboard-bank-family > header { min-height: 46px; margin-bottom: 10px; display: flex; align-items: start; justify-content: space-between; gap: 12px; }
-.dashboard-bank-family-title { min-width: 0; display: flex; align-items: center; gap: 10px; }
-.dashboard-bank-family-title .course-icon { width: 32px; height: 32px; border-radius: 8px; }
-.dashboard-bank-family-title .course-icon svg { width: 18px; height: 18px; }
-.dashboard-bank-family > header h2 { margin: 0; font: 840 1.35rem/1.1 var(--font-display); letter-spacing: -.035em; }
-.dashboard-bank-family > header > span { margin: 0; color: var(--muted); font-size: .78rem; }
-.dashboard-bank-family > header > span { white-space: nowrap; }
-.dashboard-bank-grid { display: grid; grid-template-columns: 1fr; grid-template-rows: none; gap: 0; align-content: start; }
-/* Banks are rows inside one tinted study panel, never a card stacked on a card. */
-.dashboard-bank-card { position: relative; padding: 14px 12px; margin-inline: -12px; display: flex; flex-direction: column; background: transparent; border: 0; border-radius: 8px; transition: background-color 160ms ease, box-shadow 160ms ease, color 160ms ease; }
-.dashboard-bank-card + .dashboard-bank-card { box-shadow: inset 0 1px color-mix(in srgb, var(--course-accent, var(--cobalt)) 24%, transparent); }
-.dashboard-bank-card:hover { background: color-mix(in srgb, var(--surface-raised) 72%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--course-accent, var(--cobalt)) 34%, var(--line-strong)); }
-.dashboard-bank-card:focus-visible { outline: 3px solid color-mix(in srgb, var(--cobalt) 60%, transparent); outline-offset: -1px; }
-
-.dashboard-bank-card.is-included { background: transparent; }
-.dashboard-bank-meta, .dashboard-bank-stats { display: flex; align-items: center; justify-content: space-between; gap: 14px; color: var(--muted); font-size: .75rem; }
-.dashboard-bank-meta .course-icon { width: 34px; height: 34px; border-radius: 8px; }
-.dashboard-bank-meta .course-icon svg { width: 18px; height: 18px; }
-.dashboard-bank-meta strong { padding: 5px 8px; color: var(--course-accent, var(--cobalt-strong)); background: color-mix(in srgb, var(--course-accent, var(--cobalt)) 10%, var(--surface)); border-radius: 7px; font-size: .68rem; }
-.dashboard-bank-card h3 { margin: 10px 0 6px; font: 850 clamp(1.4rem, 2.4vw, 1.8rem)/1.03 var(--font-display); letter-spacing: -.05em; }
-.dashboard-bank-stats { margin-top: auto; padding-top: 14px; justify-content: flex-start; }
-.dashboard-bank-link { margin-top: 7px; display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; color: var(--course-accent, var(--cobalt)); font-weight: 850; }
-.dashboard-bank-link small { color: var(--muted); font-size: .72rem; font-weight: 620; }
 
 /* Question bank workspace */
 .bank-hero { padding: 18px 0 16px; background: var(--surface); border-bottom: 1px solid var(--line); }
@@ -447,11 +420,10 @@ main { min-height: 72vh; }
   .about-workflow li span { grid-column: 2; }
 }
 .bank-hero h1 { max-width: 1040px; margin: 4px 0 6px; font: 850 clamp(2rem, 3.2vw, 2.8rem)/.97 var(--font-display); letter-spacing: -.06em; }
-.bank-hero .shell > p:not(.eyebrow) { max-width: 720px; margin: 0; color: var(--muted); line-height: 1.52; }
-.bank-hero-papers a { color: var(--cobalt-strong); font-weight: 700; text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); text-underline-offset: 3px; }
-.bank-hero-papers a:hover { text-decoration-color: currentColor; }
 .bank-hero-meta { margin-top: 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px 20px; flex-wrap: wrap; }
-.bank-hero-stats { margin-top: 0; display: flex; gap: 8px 20px; flex-wrap: wrap; color: var(--muted); font-size: .82rem; }
+.bank-hero-stats { margin: 0; display: flex; gap: 8px 20px; flex-wrap: wrap; color: var(--muted); font-size: .82rem; }
+.bank-hero-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.bank-hero-actions .button { min-height: 40px; }
 .bank-hero-build { display: inline-flex; margin-top: 0; min-height: 40px; }
 .bank-hero-stats strong { color: var(--ink); }
 .bank-hero-beta-link { width: fit-content; margin-top: 13px; display: inline-flex; align-items: center; gap: 8px; color: var(--cobalt-strong); font-size: .78rem; font-weight: 780; }
@@ -635,7 +607,8 @@ main { min-height: 72vh; }
 .question-images { margin-top: 12px; padding: 18px clamp(16px, 4vw, 42px); display: grid; gap: 12px; border-block: 1px solid var(--line); }
 .question-images:has(img) { background: #fefefe; }
 .question-images img { width: 100%; max-width: 900px; height: auto; margin: 0 auto; background: #fefefe; border: 0; border-radius: 0; }
-.answer-panel img { width: 100%; max-width: 900px; height: auto; margin: 0 auto; background: #fefefe; border: 1px solid var(--line); border-radius: 6px; }
+/* Natural size, never enlarged: a one-line crop stays small, a full-page crop still fills the card. */
+.answer-panel img { width: auto; max-width: min(100%, 900px); height: auto; margin: 0 auto; background: #fefefe; border: 1px solid var(--line); border-radius: 6px; }
 .source-tail-clipped { width: 100%; max-width: 900px; overflow: hidden; margin: 0 auto; background: #fefefe; border: 1px solid var(--line); border-radius: 6px; }
 .question-images .source-tail-clipped img, .paper-preview-images .source-tail-clipped img { display: block; width: 100%; max-width: none; height: auto; margin: 0; border: 0; border-radius: 0; }
 .asset-placeholder { position: relative; min-height: 200px; display: grid; align-content: center; justify-items: center; gap: 12px; overflow: hidden; color: var(--muted); background: var(--paper); border-radius: 10px; }
@@ -681,6 +654,12 @@ main { min-height: 72vh; }
 .answer-toggle:hover { border-color: var(--cobalt); }
 .answer-toggle[aria-expanded="true"] { background: transparent; }
 .answer-panel-label { margin: 0; color: var(--success); font: 700 .68rem/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
+.mcq-answer { display: grid; gap: 6px; }
+.mcq-answer-row { margin: 0; display: flex; align-items: center; gap: 12px; }
+.mcq-answer-letters { display: inline-flex; align-items: center; gap: 8px; }
+.mcq-answer-chip { min-width: 40px; height: 40px; padding: 0 10px; display: inline-grid; place-items: center; color: var(--success); background: var(--success-soft); border: 1px solid color-mix(in srgb, var(--success) 35%, var(--line)); border-radius: 8px; font: 400 1.35rem/1 var(--font-serif); }
+.mcq-answer-or { color: var(--muted); font-size: .85rem; }
+.mcq-answer-note { margin: 0; color: var(--muted); font-size: .8rem; line-height: 1.45; }
 .source-links a { display: inline-flex; align-items: center; gap: 5px; color: var(--muted); font-size: .78rem; white-space: nowrap; }
 .source-links a:hover { color: var(--cobalt); }
 .transcript-icon-button, .study-icon-button { width: 34px; height: 34px; display: grid; place-items: center; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 9px; }
@@ -1469,10 +1448,6 @@ main { min-height: 72vh; }
   .dashboard-heading { grid-template-columns: 1fr; align-items: start; }
   .dashboard-settings { width: 100%; }
   .dashboard-settings .dashboard-actions { left: 0; right: auto; }
-  .dashboard-bank-groups { grid-template-columns: 1fr 1fr; }
-  .dashboard-bank-family-ib-aa, .dashboard-bank-family-ib-ai { margin-top: 0; }
-  .dashboard-bank-family-cambridge { grid-column: 1 / -1; }
-  .dashboard-bank-family-cambridge .dashboard-bank-grid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 850px) {
@@ -1486,9 +1461,6 @@ main { min-height: 72vh; }
   .article-card:last-child { grid-column: auto; }
   .article-bank-cta { grid-template-columns: 1fr; align-items: start; }
   .site-header .site-menu a:not(.nav-cta):not(.nav-pricing):not(.nav-login) { display: none; }
-  .dashboard-bank-groups { grid-template-columns: 1fr; }
-  .dashboard-bank-family-cambridge { grid-column: auto; }
-  .dashboard-bank-family-cambridge .dashboard-bank-grid { grid-template-columns: 1fr; }
   .explorer-toolbar { position: static; grid-template-columns: minmax(220px, 1fr) auto minmax(150px, 190px) 48px auto; }
   .course-route-picker { min-width: 220px; }
   .course-route-options { width: 100%; grid-template-columns: repeat(3, 1fr); }
@@ -1565,8 +1537,6 @@ main { min-height: 72vh; }
   .study-method-copy li { min-height: 0; }
   .pricing-invite { margin-bottom: 82px; padding: 26px; align-items: stretch; flex-direction: column; }
   .pricing-invite .button { width: 100%; }
-  .dashboard-bank-family > header { align-items: flex-start; }
-  .dashboard-bank-family > header > span { display: none; }
   .dashboard-page { padding-top: 30px; }
   .dashboard-heading { position: relative; padding-bottom: 16px; gap: 10px; }
   .dashboard-heading h1 { margin-block: 7px 9px; font-size: 2.35rem; }
@@ -1574,13 +1544,8 @@ main { min-height: 72vh; }
 
   .pricing-free-strip { align-items: stretch; flex-direction: column; }
   .pricing-free-strip .button { width: 100%; }
-  .dashboard-bank-groups { margin-top: 17px; gap: 22px; }
-  .dashboard-bank-family { padding-top: 16px; }
-  .dashboard-bank-card { padding: 13px 11px; }
-  .dashboard-bank-card h3 { margin-top: 7px; }
   .bank-hero { padding-block: 18px 15px; }
   .bank-hero h1 { margin-block: 4px 6px; font-size: 1.8rem; }
-  .bank-hero .shell > p:not(.eyebrow) { display: none; }
   .bank-hero-stats { display: flex; gap: 6px 14px; font-size: .75rem; }
   .explorer { padding-top: 9px; }
   .explorer-toolbar .search-field,
@@ -1663,12 +1628,7 @@ main { min-height: 72vh; }
 
 .auth-page { grid-template-columns: 1fr; justify-items: center; }
 .auth-page .auth-card { width: min(460px, 100%); padding: 34px; border-left: 1px solid var(--line-strong); box-shadow: var(--shadow-sm); }
-.dashboard-cambridge-subject-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-@media (max-width: 900px) {
-  .dashboard-cambridge-subject-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
 @media (max-width: 620px) {
-  .dashboard-cambridge-subject-grid { grid-template-columns: 1fr; }
   .auth-page .auth-card { padding: 28px 22px; }
 }
 .article-index-row .article-card-meta { width: auto; min-width: max-content; }
@@ -1679,12 +1639,6 @@ main { min-height: 72vh; }
 @media (max-width: 620px) { .article-featured { padding: 20px; } }
 
 /* Final review refinements: prominent tabs, compact directories, archival plans. */
-.dashboard-bank-groups { align-items: start; }
-.dashboard-bank-family {
-  align-self: start;
-  grid-template-rows: auto auto;
-}
-.dashboard-bank-card { padding: 14px 12px; }
 
 .pricing-option {
   background: color-mix(in srgb, var(--surface) 94%, var(--paper-warm));
@@ -1816,23 +1770,13 @@ main { min-height: 72vh; }
     border-radius: 0;
   }
 
-
   .pricing-page .pricing-option-popular .plan-description,
   .pricing-page .pricing-option-popular .custom-bundle-selection-note,
   .pricing-page .pricing-option-popular .pricing-plan-access-note { background: transparent; }
 
 .auth-page { background: transparent; }
-.dashboard-bank-family { padding: 14px; }
-.dashboard-bank-family > header { min-height: 0; margin-bottom: 8px; }
-.dashboard-bank-card { padding: 13px 12px; }
-.dashboard-bank-card h3 { margin: 7px 0 2px; font-size: 1.38rem; }
-.dashboard-bank-stats { padding-top: 7px; }
-.dashboard-bank-link { margin-top: 7px; }
 
 @media (max-width: 620px) {
-  .dashboard-bank-family { padding: 12px; }
-  .dashboard-bank-card { padding: 12px 11px; }
-  .dashboard-bank-card h3 { font-size: 1.3rem; }
   .auth-page { width: min(100% - 24px, 500px); padding-block: 34px 54px; }
   .auth-page .auth-card { padding: 26px 20px; }
   .auth-page .auth-card h1 { font-size: clamp(2.1rem, 11vw, 2.8rem); }
@@ -1883,27 +1827,28 @@ main { min-height: 72vh; }
   .qualification-tabs-prominent [role="tab"] { min-height: 48px; padding: 12px 14px; font-size: .9rem; }
 }
 
-/* 2. Dashboard study panels carry the landing page's subject tone + watermark. */
-.dashboard-bank-family[data-subject-tone] {
-  position: relative;
-  overflow: hidden;
-  background: var(--subject-panel-tint, var(--surface-raised));
+/* With a practice switch, the switch leads (big pair) and the qualification tabs turn into quiet text. */
+.qualification-tab-bar.has-modes { margin: 0 auto 30px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 28px; }
+.qualification-tab-bar.has-modes [role="tablist"] { margin: 0; padding-left: 18px; gap: 4px; align-items: center; border-left: 1px solid var(--line-strong); }
+.qualification-tab-bar.has-modes [role="tab"] { min-height: 44px; padding: 0 10px; color: var(--muted); background: transparent; border: 0; box-shadow: none; font: 750 .95rem/1 var(--font-body); }
+.qualification-tab-bar.has-modes [role="tab"]:hover { color: var(--ink); background: transparent; }
+.qualification-tab-bar.has-modes [role="tab"][aria-selected="true"] { color: var(--ink); background: transparent; box-shadow: none; }
+/* One track, two options, a dark thumb that slides to the chosen one: reads as a choice at a glance. */
+.practice-mode-switch { position: relative; display: grid; grid-template-columns: 1fr 1fr; padding: 4px; background: color-mix(in srgb, var(--paper-warm) 70%, var(--surface)); border: 1px solid var(--line-strong); border-radius: 14px; box-shadow: inset 0 1px 2px rgb(24 35 59 / .08); }
+.practice-mode-switch::before { content: ""; position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px); background: var(--ink); border-radius: 10px; box-shadow: 0 6px 14px -6px rgb(25 25 23 / .45); transition: transform 220ms cubic-bezier(.3, .7, .2, 1); }
+.practice-mode-switch[data-active="1"]::before { transform: translateX(100%); }
+.practice-mode-switch button { position: relative; z-index: 1; min-height: 46px; padding: 0 18px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; color: var(--muted); background: transparent; border: 0; border-radius: 10px; font: 820 .95rem/1 var(--font-display); white-space: nowrap; cursor: pointer; transition: color 160ms ease; }
+.practice-mode-switch button svg { width: 18px; height: 18px; flex: none; }
+.practice-mode-switch button:hover { color: var(--ink); }
+.practice-mode-switch button[aria-checked="true"] { color: var(--paper); }
+.practice-mode-switch button:focus-visible { outline: 3px solid color-mix(in srgb, var(--cobalt) 55%, transparent); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .practice-mode-switch::before { transition: none; } }
+@media (max-width: 620px) {
+  .qualification-tab-bar.has-modes { gap: 10px; margin-bottom: 22px; flex-direction: column; }
+  .qualification-tab-bar.has-modes [role="tablist"] { padding-left: 0; border-left: 0; }
+  .practice-mode-switch { width: 100%; }
+  .practice-mode-switch button { min-height: 46px; padding: 0 10px; font-size: .88rem; }
 }
-.dashboard-bank-family[data-subject-tone] > header,
-.dashboard-bank-family[data-subject-tone] .dashboard-bank-grid { position: relative; z-index: 1; }
-.dashboard-bank-family-watermark {
-  position: absolute;
-  z-index: 0;
-  right: -22px;
-  bottom: -30px;
-  display: block;
-  color: var(--course-accent);
-  opacity: .13;
-  pointer-events: none;
-  transform: rotate(-11deg);
-}
-.dashboard-bank-family-watermark .course-icon { width: 158px; height: 158px; display: grid; place-items: center; background: transparent; border: 0; border-radius: 0; }
-.dashboard-bank-family-watermark .course-icon svg { width: 136px; height: 136px; }
 
 /* 3. Plan artwork: keep the represented figures' heads inside the visible, unmasked band. */
 .plan-art {
@@ -2277,7 +2222,6 @@ main { min-height: 72vh; }
   .explorer-toolbar:has(.course-route-picker) .mobile-filter-button { grid-column: 1 / 3; grid-row: 3; }
   .explorer-toolbar:has(.course-route-picker) .sort-field { grid-column: 3 / -1; grid-row: 3; }
 }
-
 
 /* Pricing refresh: cards size to their content (no artwork), the billing toggle stays in
    the page flow instead of floating over the plans, stats and table. */

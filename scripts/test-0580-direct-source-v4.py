@@ -4,7 +4,7 @@ spec=importlib.util.spec_from_file_location('builder',HERE/'build-0580-direct-so
 class SourceBuildTests(unittest.TestCase):
  @classmethod
  def setUpClass(cls):
-  cls.b=json.loads((m.ROOT/'docs/0580-direct-source-input-v4.json').read_text());cls.raw=(m.ROOT/'src/data/raw/igcse.json').read_bytes();cls.reg=json.loads((m.ROOT/'src/data/igcse-0580-official-2025.json').read_text())
+  cls.b=json.loads((m.ROOT/'docs/0580-direct-source-input-v4.json').read_text());cls.merged=(m.ROOT/'src/data/raw/igcse.json').read_bytes();cls.receipts=[json.loads((m.ROOT/r).read_text()) for r,_ in m.ADDITIONS];cls.raw,cls.byraw=m.split_base(cls.merged,cls.receipts);cls.reg=json.loads((m.ROOT/'src/data/igcse-0580-official-2025.json').read_text())
  def test_complete_scope_and_preservation(self):
   output,report=m.build(self.b,self.raw,self.reg);self.assertEqual(report['reviewedUnique'],1277);self.assertEqual(report['inventory'],3967);by={r['id']:r for r in output['rows']}
   for old in self.b['baselineOverlay']['rows']:
@@ -41,5 +41,18 @@ class SourceBuildTests(unittest.TestCase):
   self.assertNotIn(b'ms_evidence',m.encoded(output));self.assertNotIn(b'qp_evidence',m.encoded(output))
   self.assertEqual(len(report['sourceEvidenceByLink']),len(report['addedLinks']))
   self.assertTrue(all(e['parts'] for e in report['sourceEvidenceByLink'].values()))
+ def test_additions_keep_historical_rows_and_reject_drift(self):
+  output,_=m.build(self.b,self.raw,self.reg);before=m.encoded(output['rows'])
+  receipt=self.receipts[0];path=m.ROOT/m.ADDITIONS[0][1];doc=json.loads(path.read_text());sha=m.digest(path.read_bytes())
+  merged=m.add_reviews(copy.deepcopy(output),receipt,doc,sha,self.byraw,self.reg)
+  old={r['id'] for r in output['rows']};self.assertEqual(m.encoded([r for r in merged['rows'] if r['id'] in old]),before)
+  new=sorted(r['id'] for r in merged['rows'] if r['id'] not in old);self.assertEqual(len(new),205);self.assertTrue(set(new)<=set(receipt['addedQuestionIds']))
+  self.assertEqual(merged['additions'][0]['unresolvedIds'],['0580-2026-june-12-q4','0580-2026-march-32-q2'])
+  bad=copy.deepcopy(doc);bad['reviews'][0]['sourceHashes']['QP']='0'*64
+  with self.assertRaisesRegex(AssertionError,'source hash drift'):m.add_reviews(copy.deepcopy(output),receipt,bad,sha,self.byraw,self.reg)
+  bad=copy.deepcopy(doc);bad['reviews'][0]['parts'][0]['codes']=['E1.1']
+  with self.assertRaisesRegex(AssertionError,'invalid code/tier'):m.add_reviews(copy.deepcopy(output),receipt,bad,sha,self.byraw,self.reg)
+  with self.assertRaisesRegex(AssertionError,'review input drift'):m.add_reviews(copy.deepcopy(output),receipt,doc,'0'*64,self.byraw,self.reg)
+  with self.assertRaisesRegex(AssertionError,'(base reconstruction|merged raw) drift'):m.split_base(self.merged.replace(b'"marks": 4,',b'"marks": 5,',1),self.receipts)
  def test_byte_identical(self):self.assertEqual(m.encoded(m.build(self.b,self.raw,self.reg)),m.encoded(m.build(self.b,self.raw,self.reg)))
 if __name__=='__main__':unittest.main()

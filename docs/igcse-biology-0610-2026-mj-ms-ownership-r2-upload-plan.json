@@ -1,0 +1,444 @@
+{
+  "schemaVersion": 1,
+  "addition": "0610-2026-may-june-ms-ownership-repair",
+  "mode": "executed-upload-plan",
+  "status": "UPLOADED AND VERIFIED",
+  "upload": {
+    "scope": "May/June 2026 mark-scheme crops re-cut to their own question rows (PR #282); new content-addressed keys",
+    "objects": 24,
+    "createdNew": 24,
+    "overwritten": 0,
+    "supersededObjectsLeftUnreferenced": 24,
+    "firstVerifiedAt": "2026-10-14T03:13:44.424Z",
+    "lastVerifiedAt": "2026-10-14T03:14:07.499Z",
+    "readbackLog": "docs/2026-0610-ms-ownership-r2-upload-log.jsonl",
+    "readbackLogSha256": "2f535945fe914636b4bd2ce5bc46249793a38da6965d51fdad469ea9a88f58cb",
+    "receipt": "docs/2026-paper-gaps-r2-upload-receipt.md"
+  },
+  "provider": "cloudflare-r2",
+  "bucket": "pastpaperprep-assets",
+  "reason": "PR #282 review: whole-page mark-scheme bands put neighbouring questions' rows into 21 questions' crops. The source pipeline re-cut those 24 crops at the printed question boundary (ms_question_row_ownership overrides) and gave them content-addressed names, so no uploaded key is reused.",
+  "method": "The 0610 release manifest minus every object the earlier verified receipt covers (14,709 unchanged). Create-only: each key must be absent; the 24 replaced objects stay in the bucket, unreferenced (deleting them needs owner approval).",
+  "objectPrefix": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/",
+  "source": {
+    "repository": "igcse-biology-0610-topic-practice",
+    "branch": "feat/2026-may-june-acquisition",
+    "commit": "fce6f05dee61cd49113d412fd7e8b23fe6550603",
+    "lane": "data/segmentation/full-extension-2026-mj"
+  },
+  "runtimeOriginalCandidateSha256": "3f2ec8f2254978715de2ff63de39dc50ad0c8d77d14858fa94d17d0bafaedbe9",
+  "objectCount": 24,
+  "totalBytes": 334006,
+  "replaces": [
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q1-ms-8-1-4721e09e4771.webp",
+      "questionId": "0610-2026-s-31-q1",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q1-ms-8-1.webp",
+      "replacesSha256": "6bbb04ed2583ba198b9d53b536afd18d3147ad1308ff5e402ea86d6921d790fb",
+      "replacesBytes": 21674
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q2-ms-8-1-628e07ab4a8c.webp",
+      "questionId": "0610-2026-s-31-q2",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q2-ms-8-1.webp",
+      "replacesSha256": "6bbb04ed2583ba198b9d53b536afd18d3147ad1308ff5e402ea86d6921d790fb",
+      "replacesBytes": 21674
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q2-ms-9-2-064b820bee1b.webp",
+      "questionId": "0610-2026-s-31-q2",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q2-ms-9-2.webp",
+      "replacesSha256": "129b8d47b26fe13298ef69caf1b337ab21a1c4807339b01f0acd7ec5a67bce99",
+      "replacesBytes": 23074
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q3-ms-10-2-7f2c27ac2689.webp",
+      "questionId": "0610-2026-s-31-q3",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q3-ms-10-2.webp",
+      "replacesSha256": "d3f37faa5208bae90582d921cef205982ab3ba88ab0bb3c124288c63e194435a",
+      "replacesBytes": 14024
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q3-ms-9-1-354588a6bb9a.webp",
+      "questionId": "0610-2026-s-31-q3",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q3-ms-9-1.webp",
+      "replacesSha256": "129b8d47b26fe13298ef69caf1b337ab21a1c4807339b01f0acd7ec5a67bce99",
+      "replacesBytes": 23074
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q4-ms-10-1-cddbce39d2ee.webp",
+      "questionId": "0610-2026-s-31-q4",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q4-ms-10-1.webp",
+      "replacesSha256": "d3f37faa5208bae90582d921cef205982ab3ba88ab0bb3c124288c63e194435a",
+      "replacesBytes": 14024
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q5-ms-11-1-0a25e9f295e1.webp",
+      "questionId": "0610-2026-s-31-q5",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q5-ms-11-1.webp",
+      "replacesSha256": "c0c90e1140f1dd4ada179ec4f661c9d24bf82723e918eaba34478af4db3c8559",
+      "replacesBytes": 32418
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q6-ms-11-1-dac1f18b9d43.webp",
+      "questionId": "0610-2026-s-31-q6",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q6-ms-11-1.webp",
+      "replacesSha256": "c0c90e1140f1dd4ada179ec4f661c9d24bf82723e918eaba34478af4db3c8559",
+      "replacesBytes": 32418
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-32/q1-ms-8-1-5217cb92d052.webp",
+      "questionId": "0610-2026-s-32-q1",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-32/q1-ms-8-1.webp",
+      "replacesSha256": "185d1acd83993bc079753f1ba796e5da5240c57cf3419ec510dc3949a95d1ac3",
+      "replacesBytes": 23938
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-32/q2-ms-8-1-ee64941f0b63.webp",
+      "questionId": "0610-2026-s-32-q2",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-32/q2-ms-8-1.webp",
+      "replacesSha256": "185d1acd83993bc079753f1ba796e5da5240c57cf3419ec510dc3949a95d1ac3",
+      "replacesBytes": 23938
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-32/q3-ms-10-1-95a101b2616a.webp",
+      "questionId": "0610-2026-s-32-q3",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-32/q3-ms-10-1.webp",
+      "replacesSha256": "98f8fd808e02833f3c33cc7295a5a7ad92615ccd4082c6fc03e61a2b42e3471c",
+      "replacesBytes": 25130
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-32/q4-ms-10-1-16a4553c9e86.webp",
+      "questionId": "0610-2026-s-32-q4",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-32/q4-ms-10-1.webp",
+      "replacesSha256": "98f8fd808e02833f3c33cc7295a5a7ad92615ccd4082c6fc03e61a2b42e3471c",
+      "replacesBytes": 25130
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-33/q7-ms-14-1-f2f8ad9c2ece.webp",
+      "questionId": "0610-2026-s-33-q7",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-33/q7-ms-14-1.webp",
+      "replacesSha256": "9f6aa9413df70a56d43ea9d6745ed1ca654e4c5057875af53e69b974af91ed23",
+      "replacesBytes": 20848
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-33/q8-ms-14-1-a4ae9cc7fa93.webp",
+      "questionId": "0610-2026-s-33-q8",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-33/q8-ms-14-1.webp",
+      "replacesSha256": "9f6aa9413df70a56d43ea9d6745ed1ca654e4c5057875af53e69b974af91ed23",
+      "replacesBytes": 20848
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-41/q1-ms-9-2-ef73ede114e8.webp",
+      "questionId": "0610-2026-s-41-q1",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-41/q1-ms-9-2.webp",
+      "replacesSha256": "a62e387a3cebd8bad393cf2c78a766d4a2de3c5dfab18954763c477b8c2e77cd",
+      "replacesBytes": 26474
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-41/q2-ms-11-3-e1524d3c278e.webp",
+      "questionId": "0610-2026-s-41-q2",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-41/q2-ms-11-3.webp",
+      "replacesSha256": "9fdeaac2363d3374a115205835a4fec99f2fc65b0b00ce37d9c4a308dbe29e87",
+      "replacesBytes": 27132
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-41/q2-ms-9-1-10b62df9f738.webp",
+      "questionId": "0610-2026-s-41-q2",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-41/q2-ms-9-1.webp",
+      "replacesSha256": "a62e387a3cebd8bad393cf2c78a766d4a2de3c5dfab18954763c477b8c2e77cd",
+      "replacesBytes": 26474
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-41/q3-ms-11-1-8594a3e2ed7b.webp",
+      "questionId": "0610-2026-s-41-q3",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-41/q3-ms-11-1.webp",
+      "replacesSha256": "9fdeaac2363d3374a115205835a4fec99f2fc65b0b00ce37d9c4a308dbe29e87",
+      "replacesBytes": 27132
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-42/q3-ms-13-2-7a157f61fc3e.webp",
+      "questionId": "0610-2026-s-42-q3",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-42/q3-ms-13-2.webp",
+      "replacesSha256": "65054df0c3d7d6f2947fc776f0c7b6757f69379f88bb96bbbe82635c87f8479e",
+      "replacesBytes": 35018
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-42/q4-ms-13-1-0e6b70ca784e.webp",
+      "questionId": "0610-2026-s-42-q4",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-42/q4-ms-13-1.webp",
+      "replacesSha256": "65054df0c3d7d6f2947fc776f0c7b6757f69379f88bb96bbbe82635c87f8479e",
+      "replacesBytes": 35018
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-42/q5-ms-16-2-685a9d1ae6c3.webp",
+      "questionId": "0610-2026-s-42-q5",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-42/q5-ms-16-2.webp",
+      "replacesSha256": "656b66d215d8185b4b5f337f7c0938a63088ff055d6c8d44b09181aebe1d6e04",
+      "replacesBytes": 29050
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-42/q6-ms-16-1-28e37bf9c924.webp",
+      "questionId": "0610-2026-s-42-q6",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-42/q6-ms-16-1.webp",
+      "replacesSha256": "656b66d215d8185b4b5f337f7c0938a63088ff055d6c8d44b09181aebe1d6e04",
+      "replacesBytes": 29050
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-43/q4-ms-13-2-ab4982ea6831.webp",
+      "questionId": "0610-2026-s-43-q4",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-43/q4-ms-13-2.webp",
+      "replacesSha256": "8efba1dc6775769a40d7bcea82fc7948709a01e23ad1743f7f433dfc02b8b646",
+      "replacesBytes": 34024
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-43/q5-ms-13-1-368db2707d9f.webp",
+      "questionId": "0610-2026-s-43-q5",
+      "replacesKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-43/q5-ms-13-1.webp",
+      "replacesSha256": "8efba1dc6775769a40d7bcea82fc7948709a01e23ad1743f7f433dfc02b8b646",
+      "replacesBytes": 34024
+    }
+  ],
+  "objects": [
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q1-ms-8-1-4721e09e4771.webp",
+      "questionId": "0610-2026-s-31-q1",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-31/markscheme/q1-ms-8-1-4721e09e4771.webp",
+      "sha256": "4721e09e4771cc8d5415bf6c6180717b3fd1a8c4b5cfc32f5d027eef48f29c01",
+      "md5": "7daa27ff4f8f4d7d2a5ce595528c9aaa",
+      "bytes": 9496,
+      "contentType": "image/webp"
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q2-ms-8-1-628e07ab4a8c.webp",
+      "questionId": "0610-2026-s-31-q2",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-31/markscheme/q2-ms-8-1-628e07ab4a8c.webp",
+      "sha256": "628e07ab4a8c09cc2c52d3b60e995c18e581175e3aa5de29de7f3bbc7927bce1",
+      "md5": "87d3ba1bf1592688285d97a77b8dcf2c",
+      "bytes": 14074,
+      "contentType": "image/webp"
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q2-ms-9-2-064b820bee1b.webp",
+      "questionId": "0610-2026-s-31-q2",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-31/markscheme/q2-ms-9-2-064b820bee1b.webp",
+      "sha256": "064b820bee1b21f5609665ab9fef5fb83dd0aef536fd92be4f56464fbc3520c6",
+      "md5": "8cd22f321d7dc0e101483620dc173f9a",
+      "bytes": 6768,
+      "contentType": "image/webp"
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q3-ms-10-2-7f2c27ac2689.webp",
+      "questionId": "0610-2026-s-31-q3",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-31/markscheme/q3-ms-10-2-7f2c27ac2689.webp",
+      "sha256": "7f2c27ac2689ddc97f9eca04d72a48aaab1231840f218635418a525ad52e87a2",
+      "md5": "64617e518745c247f13cf2a1590ee655",
+      "bytes": 1760,
+      "contentType": "image/webp"
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q3-ms-9-1-354588a6bb9a.webp",
+      "questionId": "0610-2026-s-31-q3",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-31/markscheme/q3-ms-9-1-354588a6bb9a.webp",
+      "sha256": "354588a6bb9a79fca0044ab7138bbccba45138727d50e7b1cab46e945ffe4f4f",
+      "md5": "360d879bab3416239cd05c7f84956de5",
+      "bytes": 18404,
+      "contentType": "image/webp"
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q4-ms-10-1-cddbce39d2ee.webp",
+      "questionId": "0610-2026-s-31-q4",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-31/markscheme/q4-ms-10-1-cddbce39d2ee.webp",
+      "sha256": "cddbce39d2ee6550c071da04028ab5167a276da72f754da5e844bdad73b9b50a",
+      "md5": "273e4afe1264adb330d57e802f5f39a9",
+      "bytes": 12708,
+      "contentType": "image/webp"
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q5-ms-11-1-0a25e9f295e1.webp",
+      "questionId": "0610-2026-s-31-q5",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-31/markscheme/q5-ms-11-1-0a25e9f295e1.webp",
+      "sha256": "0a25e9f295e1357b1d3562e39dffeddeb944ebe2f06ba093fd3dd31fa5b5e31e",
+      "md5": "f564645655e35476e95b77e43efd664a",
+      "bytes": 20138,
+      "contentType": "image/webp"
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-31/q6-ms-11-1-dac1f18b9d43.webp",
+      "questionId": "0610-2026-s-31-q6",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-31/markscheme/q6-ms-11-1-dac1f18b9d43.webp",
+      "sha256": "dac1f18b9d4344fd55965f2b51ecd339a54d9db1d364dc10ceceb3cd77f30d21",
+      "md5": "46a23dc926f6cf0681d30c6a7f4da63f",
+      "bytes": 14962,
+      "contentType": "image/webp"
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-32/q1-ms-8-1-5217cb92d052.webp",
+      "questionId": "0610-2026-s-32-q1",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-32/markscheme/q1-ms-8-1-5217cb92d052.webp",
+      "sha256": "5217cb92d0523f3a396ff66a6d19cfe5d93235a37c85f95f1cc2a47c29942787",
+      "md5": "df96cae8866a022add999aa3b6139966",
+      "bytes": 14298,
+      "contentType": "image/webp"
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-32/q2-ms-8-1-ee64941f0b63.webp",
+      "questionId": "0610-2026-s-32-q2",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-32/markscheme/q2-ms-8-1-ee64941f0b63.webp",
+      "sha256": "ee64941f0b634fbf2428850948ad628e26f8b5906536ed2972cbff8529286a44",
+      "md5": "cccb91f7d28f49f3d02860a3ec49e628",
+      "bytes": 11390,
+      "contentType": "image/webp"
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-32/q3-ms-10-1-95a101b2616a.webp",
+      "questionId": "0610-2026-s-32-q3",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-32/markscheme/q3-ms-10-1-95a101b2616a.webp",
+      "sha256": "95a101b2616a06aabed7945e1e056be63f5913cc2dbf049528bcc1c71b0bfa5d",
+      "md5": "e5afcffdacad50e61f9e79ef4e2ed962",
+      "bytes": 12874,
+      "contentType": "image/webp"
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-32/q4-ms-10-1-16a4553c9e86.webp",
+      "questionId": "0610-2026-s-32-q4",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-32/markscheme/q4-ms-10-1-16a4553c9e86.webp",
+      "sha256": "16a4553c9e86bd557a57522b8ba91f557dcb55299d9fe480f17645c9f82da0b4",
+      "md5": "7bee708132c8d65396f1408d2dfaeab5",
+      "bytes": 14440,
+      "contentType": "image/webp"
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-33/q7-ms-14-1-f2f8ad9c2ece.webp",
+      "questionId": "0610-2026-s-33-q7",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-33/markscheme/q7-ms-14-1-f2f8ad9c2ece.webp",
+      "sha256": "f2f8ad9c2ece23d691fdc909c28088b1be2c7d4e3575645254e9eb3e74fa35d9",
+      "md5": "b321789cb26ab8befdea8964f821aec3",
+      "bytes": 14708,
+      "contentType": "image/webp"
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-33/q8-ms-14-1-a4ae9cc7fa93.webp",
+      "questionId": "0610-2026-s-33-q8",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-33/markscheme/q8-ms-14-1-a4ae9cc7fa93.webp",
+      "sha256": "a4ae9cc7fa93ad7797dfce0252a5186d17862569f276582ab1432754067c8c6b",
+      "md5": "de59b2dc7f19efd53bbc97c63ffa8acc",
+      "bytes": 6806,
+      "contentType": "image/webp"
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-41/q1-ms-9-2-ef73ede114e8.webp",
+      "questionId": "0610-2026-s-41-q1",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-41/markscheme/q1-ms-9-2-ef73ede114e8.webp",
+      "sha256": "ef73ede114e8b4011b4625bcb834c81b3dad7f8498c92f0121b13c3e71452406",
+      "md5": "1dddb9942ea2be7414ead8f21cd45134",
+      "bytes": 21428,
+      "contentType": "image/webp"
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-41/q2-ms-11-3-e1524d3c278e.webp",
+      "questionId": "0610-2026-s-41-q2",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-41/markscheme/q2-ms-11-3-e1524d3c278e.webp",
+      "sha256": "e1524d3c278e9d54e323adabe1a5ae824836653f5473bca50b08259297f67dd5",
+      "md5": "98d042a8523963387e00b7db7afc8aab",
+      "bytes": 9120,
+      "contentType": "image/webp"
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-41/q2-ms-9-1-10b62df9f738.webp",
+      "questionId": "0610-2026-s-41-q2",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-41/markscheme/q2-ms-9-1-10b62df9f738.webp",
+      "sha256": "10b62df9f73804de5cf52a63ca379b6998f44a5102d507db26179a96b3836254",
+      "md5": "2a07acd7c56256077dad6cf0afd0de4e",
+      "bytes": 5358,
+      "contentType": "image/webp"
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-41/q3-ms-11-1-8594a3e2ed7b.webp",
+      "questionId": "0610-2026-s-41-q3",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-41/markscheme/q3-ms-11-1-8594a3e2ed7b.webp",
+      "sha256": "8594a3e2ed7b0e790e73aceb7adab46fc6d1e0b4f6f40826ea13914322de1712",
+      "md5": "3afc18e6a83a3f2f899fad0120ddd38d",
+      "bytes": 20570,
+      "contentType": "image/webp"
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-42/q3-ms-13-2-7a157f61fc3e.webp",
+      "questionId": "0610-2026-s-42-q3",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-42/markscheme/q3-ms-13-2-7a157f61fc3e.webp",
+      "sha256": "7a157f61fc3ea5f0793aff6eb1981c89ee8c444c161c7625e6b3286dcdc5b99b",
+      "md5": "8d0ab04191212bd1a21caf524ab15be2",
+      "bytes": 20328,
+      "contentType": "image/webp"
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-42/q4-ms-13-1-0e6b70ca784e.webp",
+      "questionId": "0610-2026-s-42-q4",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-42/markscheme/q4-ms-13-1-0e6b70ca784e.webp",
+      "sha256": "0e6b70ca784e012de484f9d928e507be35b1538588e20d1926e3515b0ee098d7",
+      "md5": "0117183d594bb0cc2d25eb8d95238d41",
+      "bytes": 17278,
+      "contentType": "image/webp"
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-42/q5-ms-16-2-685a9d1ae6c3.webp",
+      "questionId": "0610-2026-s-42-q5",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-42/markscheme/q5-ms-16-2-685a9d1ae6c3.webp",
+      "sha256": "685a9d1ae6c398ba91225b736d69eef345aa3096bf48fd7c3c90950facf15fc9",
+      "md5": "0182d6f13de384493447de5ad6fb3efc",
+      "bytes": 21762,
+      "contentType": "image/webp"
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-42/q6-ms-16-1-28e37bf9c924.webp",
+      "questionId": "0610-2026-s-42-q6",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-42/markscheme/q6-ms-16-1-28e37bf9c924.webp",
+      "sha256": "28e37bf9c924a9a47846c7de06ba2c5fac964e3618ad3ae5ed672ccdad1be686",
+      "md5": "f3e420415e22c7ed74caf870a645c939",
+      "bytes": 8432,
+      "contentType": "image/webp"
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-43/q4-ms-13-2-ab4982ea6831.webp",
+      "questionId": "0610-2026-s-43-q4",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-43/markscheme/q4-ms-13-2-ab4982ea6831.webp",
+      "sha256": "ab4982ea6831b73206c98d361cad11b430a7ec19eabe2c5698f813d23ef8268b",
+      "md5": "9497df08b345738e84890edcf71cfc21",
+      "bytes": 17240,
+      "contentType": "image/webp"
+    },
+    {
+      "key": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/markschemes/0610-2026-s-43/q5-ms-13-1-368db2707d9f.webp",
+      "questionId": "0610-2026-s-43-q5",
+      "kind": "markscheme",
+      "sourcePath": "data/segmentation/full-extension-2026-mj/assets/0610-2026-s-43/markscheme/q5-ms-13-1-368db2707d9f.webp",
+      "sha256": "368db2707d9fbab8aaec0aee5cc815c76e069104201e01e524992223600608d7",
+      "md5": "dc66edf38f8ca4c583cf1d3056d4691f",
+      "bytes": 19664,
+      "contentType": "image/webp"
+    }
+  ]
+}

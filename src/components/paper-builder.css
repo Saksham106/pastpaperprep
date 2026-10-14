@@ -60,6 +60,7 @@
 .paper-preview-images { max-width: 910px; margin: 18px auto; padding: 12px; background: #fff; border: 1px solid var(--line); border-radius: 8px; }
 .paper-preview-images img { width: 100%; height: auto; margin: 0 auto 8px; object-fit: contain; }
 .paper-preview-images img:last-child { margin-bottom: 0; }
+.paper-preview-answer .paper-preview-images img { display: block; width: auto; max-width: 100%; }
 .paper-preview-images p { color: #34332f; }
 .paper-preview-answer { max-width: 910px; margin: 20px auto; }
 .paper-preview-navigation { max-width: 910px; margin: 25px auto 0; display: flex; justify-content: space-between; align-items: center; gap: 10px; font-variant-numeric: tabular-nums; }

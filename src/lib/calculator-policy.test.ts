@@ -27,7 +27,7 @@ describe("calculator policy", () => {
 
   it("agrees with every reviewed 0580 calculator value", () => {
     const questions = raw("igcse.json");
-    expect(questions).toHaveLength(3967);
+    expect(questions).toHaveLength(4174); // 3,967 historical + 207 Core 2026 rows (Papers 1 and 3)
     expect(questions.filter((question) => calculatorAllowed("igcse", question) !== question.calculator)).toEqual([]);
   });
 

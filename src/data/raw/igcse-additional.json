@@ -4054,9 +4054,1234 @@
         "https://d.exam-easy.com/pdf/0606_s26_ms_22.pdf",
         "https://pastpapers.papacambridge.com/directories/CAIE/CAIE-pastpapers/upload/0606_s26_ms_22.pdf"
       ]
+    },
+    {
+      "id": "0606-2026-march-12",
+      "qualification": "Cambridge IGCSE Additional Mathematics",
+      "syllabus": "0606",
+      "route": "Additional",
+      "year": 2026,
+      "session": "February/March",
+      "component": "12",
+      "paper": 1,
+      "title": "Paper 1",
+      "calculator": false,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "syllabusVersion": "2025-2027",
+      "sessionStatus": "held",
+      "questionPaperUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_12.pdf",
+      "markSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_12.pdf",
+      "questionUrls": [
+        "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_12.pdf"
+      ],
+      "markSchemeUrls": [
+        "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_12.pdf"
+      ]
+    },
+    {
+      "id": "0606-2026-march-22",
+      "qualification": "Cambridge IGCSE Additional Mathematics",
+      "syllabus": "0606",
+      "route": "Additional",
+      "year": 2026,
+      "session": "February/March",
+      "component": "22",
+      "paper": 2,
+      "title": "Paper 2",
+      "calculator": true,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "syllabusVersion": "2025-2027",
+      "sessionStatus": "held",
+      "questionPaperUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_22.pdf",
+      "markSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_22.pdf",
+      "questionUrls": [
+        "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_22.pdf"
+      ],
+      "markSchemeUrls": [
+        "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_22.pdf"
+      ]
     }
   ],
   "questions": [
+    {
+      "id": "0606-2026-march-12-q1",
+      "paperId": "0606-2026-march-12",
+      "number": 1,
+      "marks": 4,
+      "year": 2026,
+      "session": "February/March",
+      "component": "12",
+      "paper": 1,
+      "variant": "2",
+      "calculator": false,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "pages": [
+        3
+      ],
+      "questionImages": [
+        "questions/0606-2026-march-12-q1.webp"
+      ],
+      "markschemePages": [
+        7
+      ],
+      "markschemeImages": [
+        "markschemes/0606-2026-march-12-q1.webp"
+      ],
+      "accessibleText": "1 A polynomial p is given by p(x) = 4x^3 + 8x^2 - x - 2. (a) Show that x + 2 is a factor of p(x). [1] (b) Solve the equation p(x) = 0. [3]",
+      "primaryTopic": "Algebra",
+      "secondaryTopics": [],
+      "subtopics": [
+        "Factors of polynomials"
+      ],
+      "detailedSubtopics": [
+        "Factors of polynomials"
+      ],
+      "classificationEvidence": {
+        "terms": [
+          "polynomial"
+        ],
+        "method": "question-paper text is primary; official mark-scheme/explanation prose is never used as generic label evidence; source crop is authoritative",
+        "confidence": "high",
+        "reviewStatus": "question-text-evidence",
+        "version": "0606-taxonomy-historical-union-reconciled-v4"
+      },
+      "reviewStatus": "source-structured-draft",
+      "independentSolution": null,
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_12.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_12.pdf",
+      "sessionStatus": "held",
+      "classificationVersion": "0606-taxonomy-historical-union-reconciled-v4"
+    },
+    {
+      "id": "0606-2026-march-12-q2",
+      "paperId": "0606-2026-march-12",
+      "number": 2,
+      "marks": 6,
+      "year": 2026,
+      "session": "February/March",
+      "component": "12",
+      "paper": 1,
+      "variant": "2",
+      "calculator": false,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "pages": [
+        4
+      ],
+      "questionImages": [
+        "questions/0606-2026-march-12-q2.webp"
+      ],
+      "markschemePages": [
+        7
+      ],
+      "markschemeImages": [
+        "markschemes/0606-2026-march-12-q2.webp"
+      ],
+      "accessibleText": "2 (a) On the axes, sketch the graph of y = |x^2 - 2x - 3|. State the intercepts with the coordinate axes. [4] [Diagram: blank axes for the sketch, with the x-axis horizontal, the y-axis vertical and the origin O.] (b) The function g is defined by g(x) = 4e^(x-2) - 1 for all real x. Find an expression for g^-1(x). [2]",
+      "primaryTopic": "Sets and functions",
+      "secondaryTopics": [
+        "Algebra"
+      ],
+      "subtopics": [
+        "Functions",
+        "Logarithmic and exponential functions"
+      ],
+      "detailedSubtopics": [
+        "Functions"
+      ],
+      "classificationEvidence": {
+        "terms": [
+          "Question crop: (a) sketch y=|x^2-2x-3| with intercepts (modulus graph of a function, 4 marks); (b) find g^-1(x) for g(x)=4e^(x-2)-1. Official mark scheme: B2/B1/B1 for the modulus curve shape and intercepts; M1 for swapping variables and changing the subject to 2+ln((x+1)/4), so the inverse needs the exponential-logarithm relationship."
+        ],
+        "method": "manual adjudication using question crop and official mark-scheme evidence",
+        "confidence": "high",
+        "reviewStatus": "manually-reviewed",
+        "version": "0606-taxonomy-historical-union-reconciled-v4"
+      },
+      "reviewStatus": "source-structured-draft",
+      "independentSolution": null,
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_12.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_12.pdf",
+      "sessionStatus": "held",
+      "classificationVersion": "0606-taxonomy-historical-union-reconciled-v4"
+    },
+    {
+      "id": "0606-2026-march-12-q3",
+      "paperId": "0606-2026-march-12",
+      "number": 3,
+      "marks": 3,
+      "year": 2026,
+      "session": "February/March",
+      "component": "12",
+      "paper": 1,
+      "variant": "2",
+      "calculator": false,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "pages": [
+        5
+      ],
+      "questionImages": [
+        "questions/0606-2026-march-12-q3.webp"
+      ],
+      "markschemePages": [
+        7
+      ],
+      "markschemeImages": [
+        "markschemes/0606-2026-march-12-q3.webp"
+      ],
+      "accessibleText": "3 In this question, time t is in seconds and displacement s is in metres. A particle starts from rest at the origin O and moves in a straight line with constant positive acceleration. When t = 4, s = 6. (a) Draw the velocity-time graph for 0 ≤ t ≤ 4. [2] [Diagram: a grid with velocity on the vertical axis, marked 0, 2, 4 and 6, and time on the horizontal axis, marked 0, 2 and 4.] (b) Hence find the acceleration. [1]",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "subtopics": [
+        "Calculus"
+      ],
+      "detailedSubtopics": [
+        "Calculus"
+      ],
+      "classificationEvidence": {
+        "terms": [
+          "Question crop: particle starts from rest with constant acceleration, s=6 at t=4; draw the velocity-time graph and hence find the acceleration. Official mark scheme: B2 for the straight line (0,0) to (4,3) using area under the v-t graph, B1 FT for gradient 3/4. Kinematics graph interpretation (calculus kinematics strand); the rule's 'displacement' match to vectors is wrong."
+        ],
+        "method": "manual adjudication using question crop and official mark-scheme evidence",
+        "confidence": "high",
+        "reviewStatus": "manually-reviewed",
+        "version": "0606-taxonomy-historical-union-reconciled-v4"
+      },
+      "reviewStatus": "source-structured-draft",
+      "independentSolution": null,
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_12.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_12.pdf",
+      "sessionStatus": "held",
+      "classificationVersion": "0606-taxonomy-historical-union-reconciled-v4"
+    },
+    {
+      "id": "0606-2026-march-12-q4",
+      "paperId": "0606-2026-march-12",
+      "number": 4,
+      "marks": 3,
+      "year": 2026,
+      "session": "February/March",
+      "component": "12",
+      "paper": 1,
+      "variant": "2",
+      "calculator": false,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "pages": [
+        6
+      ],
+      "questionImages": [
+        "questions/0606-2026-march-12-q4.webp"
+      ],
+      "markschemePages": [
+        7
+      ],
+      "markschemeImages": [
+        "markschemes/0606-2026-march-12-q4.webp"
+      ],
+      "accessibleText": "4 In an arithmetic progression: • the common difference is -2 • the sum of the first 4 terms is equal to the sum of the first 10 terms. Find the first term. [3]",
+      "primaryTopic": "Combinatorics and series",
+      "secondaryTopics": [],
+      "subtopics": [
+        "Series"
+      ],
+      "detailedSubtopics": [
+        "Series"
+      ],
+      "classificationEvidence": {
+        "terms": [
+          "arithmetic progression"
+        ],
+        "method": "question-paper text is primary; official mark-scheme/explanation prose is never used as generic label evidence; source crop is authoritative",
+        "confidence": "high",
+        "reviewStatus": "question-text-evidence",
+        "version": "0606-taxonomy-historical-union-reconciled-v4"
+      },
+      "reviewStatus": "source-structured-draft",
+      "independentSolution": null,
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_12.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_12.pdf",
+      "sessionStatus": "held",
+      "classificationVersion": "0606-taxonomy-historical-union-reconciled-v4"
+    },
+    {
+      "id": "0606-2026-march-12-q5",
+      "paperId": "0606-2026-march-12",
+      "number": 5,
+      "marks": 7,
+      "year": 2026,
+      "session": "February/March",
+      "component": "12",
+      "paper": 1,
+      "variant": "2",
+      "calculator": false,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "pages": [
+        7
+      ],
+      "questionImages": [
+        "questions/0606-2026-march-12-q5.webp"
+      ],
+      "markschemePages": [
+        8
+      ],
+      "markschemeImages": [
+        "markschemes/0606-2026-march-12-q5.webp"
+      ],
+      "accessibleText": "5 A curve has equation y = (x^2 - 8)/(3 - x). P and Q are the stationary points on the curve. Find dy/dx and the exact length of the line PQ. [7]",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "subtopics": [
+        "Calculus"
+      ],
+      "detailedSubtopics": [
+        "Calculus"
+      ],
+      "classificationEvidence": {
+        "terms": [
+          "stationary"
+        ],
+        "method": "question-paper text is primary; official mark-scheme/explanation prose is never used as generic label evidence; source crop is authoritative",
+        "confidence": "high",
+        "reviewStatus": "question-text-evidence",
+        "version": "0606-taxonomy-historical-union-reconciled-v4"
+      },
+      "reviewStatus": "source-structured-draft",
+      "independentSolution": null,
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_12.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_12.pdf",
+      "sessionStatus": "held",
+      "classificationVersion": "0606-taxonomy-historical-union-reconciled-v4"
+    },
+    {
+      "id": "0606-2026-march-12-q6",
+      "paperId": "0606-2026-march-12",
+      "number": 6,
+      "marks": 7,
+      "year": 2026,
+      "session": "February/March",
+      "component": "12",
+      "paper": 1,
+      "variant": "2",
+      "calculator": false,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "pages": [
+        8
+      ],
+      "questionImages": [
+        "questions/0606-2026-march-12-q6.webp"
+      ],
+      "markschemePages": [
+        8,
+        9
+      ],
+      "markschemeImages": [
+        "markschemes/0606-2026-march-12-q6.webp"
+      ],
+      "accessibleText": "6 (a) Solve the equation |3x + 2| = 7. [3] (b) Solve the inequality |2x - 4| > |x + 1|. [4]",
+      "primaryTopic": "Algebra",
+      "secondaryTopics": [],
+      "subtopics": [
+        "Equations, inequalities and graphs"
+      ],
+      "detailedSubtopics": [
+        "Equations, inequalities and graphs"
+      ],
+      "classificationEvidence": {
+        "terms": [
+          "Question crop: (a) solve |3x+2|=7; (b) solve |2x-4|>|x+1|. Official mark scheme: M1 A2 for x=5/3, -3 and M1 A2 A1 for critical values 5, 1 and x>5, x<1 (or squaring alternative). Modulus equations and inequalities."
+        ],
+        "method": "manual adjudication using question crop and official mark-scheme evidence",
+        "confidence": "high",
+        "reviewStatus": "manually-reviewed",
+        "version": "0606-taxonomy-historical-union-reconciled-v4"
+      },
+      "reviewStatus": "source-structured-draft",
+      "independentSolution": null,
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_12.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_12.pdf",
+      "sessionStatus": "held",
+      "classificationVersion": "0606-taxonomy-historical-union-reconciled-v4"
+    },
+    {
+      "id": "0606-2026-march-12-q7",
+      "paperId": "0606-2026-march-12",
+      "number": 7,
+      "marks": 4,
+      "year": 2026,
+      "session": "February/March",
+      "component": "12",
+      "paper": 1,
+      "variant": "2",
+      "calculator": false,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "pages": [
+        9
+      ],
+      "questionImages": [
+        "questions/0606-2026-march-12-q7.webp"
+      ],
+      "markschemePages": [
+        9
+      ],
+      "markschemeImages": [
+        "markschemes/0606-2026-march-12-q7.webp"
+      ],
+      "accessibleText": "7 The variables x and y are related by y = 3√x + 1/√x. Use calculus to find the approximate change in y when x increases from 4 to 4 + h, where h is small. [4]",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "subtopics": [
+        "Calculus"
+      ],
+      "detailedSubtopics": [
+        "Calculus"
+      ],
+      "classificationEvidence": {
+        "terms": [
+          "Question crop: y=3sqrt(x)+1/sqrt(x); use calculus to find the approximate change in y when x increases from 4 to 4+h. Official mark scheme: B2 for dy/dx, M1 for dy approx (dy/dx)h at x=4, A1 11h/16. Small increments and approximations; no rule keyword matched, so this row needed adjudication."
+        ],
+        "method": "manual adjudication using question crop and official mark-scheme evidence",
+        "confidence": "high",
+        "reviewStatus": "manually-reviewed",
+        "version": "0606-taxonomy-historical-union-reconciled-v4"
+      },
+      "reviewStatus": "source-structured-draft",
+      "independentSolution": null,
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_12.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_12.pdf",
+      "sessionStatus": "held",
+      "classificationVersion": "0606-taxonomy-historical-union-reconciled-v4"
+    },
+    {
+      "id": "0606-2026-march-12-q8",
+      "paperId": "0606-2026-march-12",
+      "number": 8,
+      "marks": 12,
+      "year": 2026,
+      "session": "February/March",
+      "component": "12",
+      "paper": 1,
+      "variant": "2",
+      "calculator": false,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "pages": [
+        10,
+        11
+      ],
+      "questionImages": [
+        "questions/0606-2026-march-12-q8.webp"
+      ],
+      "markschemePages": [
+        9,
+        10
+      ],
+      "markschemeImages": [
+        "markschemes/0606-2026-march-12-q8.webp"
+      ],
+      "accessibleText": "8 A curve has equation y = xe^(2x+1). (a) Find dy/dx. [3] (b) The line L is the tangent to the curve at the point where x = 1/2. Find the exact coordinates of the two points where L meets the axes. [5] (c) Use your answer to 8(a) to find ∫ xe^(2x+1) dx. [4]",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "subtopics": [
+        "Calculus"
+      ],
+      "detailedSubtopics": [
+        "Calculus"
+      ],
+      "classificationEvidence": {
+        "terms": [
+          "Question crop: y=xe^(2x+1); (a) find dy/dx; (b) tangent at x=1/2 and its axis intercepts; (c) use 8(a) to find the integral of xe^(2x+1). Official mark scheme: product rule B1 M1, tangent gradient/equation M1 B1 M1 A2, integration B4 by reversing the derivative. All credit is differentiation, tangents and integration; the rule's generic equation/curve match is wrong."
+        ],
+        "method": "manual adjudication using question crop and official mark-scheme evidence",
+        "confidence": "high",
+        "reviewStatus": "manually-reviewed",
+        "version": "0606-taxonomy-historical-union-reconciled-v4"
+      },
+      "reviewStatus": "source-structured-draft",
+      "independentSolution": null,
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_12.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_12.pdf",
+      "sessionStatus": "held",
+      "classificationVersion": "0606-taxonomy-historical-union-reconciled-v4"
+    },
+    {
+      "id": "0606-2026-march-12-q9",
+      "paperId": "0606-2026-march-12",
+      "number": 9,
+      "marks": 10,
+      "year": 2026,
+      "session": "February/March",
+      "component": "12",
+      "paper": 1,
+      "variant": "2",
+      "calculator": false,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "pages": [
+        12,
+        13
+      ],
+      "questionImages": [
+        "questions/0606-2026-march-12-q9.webp"
+      ],
+      "markschemePages": [
+        10,
+        11,
+        12
+      ],
+      "markschemeImages": [
+        "markschemes/0606-2026-march-12-q9.webp"
+      ],
+      "accessibleText": "9 (a) In this question, time is in seconds and distances are in metres. At time t = 0, particle A starts at the origin and moves with velocity (2, 1). At the same time, particle B starts from the point with position vector (-3, 4) and moves with velocity (4, -2). [The vectors are printed as column vectors.] (i) Write down the position vector of B at time t. [1] (ii) Determine whether or not the particles collide. [4] (b) The point Q has position vector 3i + 2j. The point R has position vector -i + 4j. The point S has position vector ai + bj, where a and b are integers. It is given that: • S lies on the straight line QR • |vector RS| = √5. Find the possible values of a and b. [5]",
+      "primaryTopic": "Vectors and matrices",
+      "secondaryTopics": [],
+      "subtopics": [
+        "Vectors in two dimensions"
+      ],
+      "detailedSubtopics": [
+        "Vectors in two dimensions"
+      ],
+      "classificationEvidence": {
+        "terms": [
+          "vector",
+          "position vector"
+        ],
+        "method": "question-paper text is primary; official mark-scheme/explanation prose is never used as generic label evidence; source crop is authoritative",
+        "confidence": "high",
+        "reviewStatus": "question-text-evidence",
+        "version": "0606-taxonomy-historical-union-reconciled-v4"
+      },
+      "reviewStatus": "source-structured-draft",
+      "independentSolution": null,
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_12.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_12.pdf",
+      "sessionStatus": "held",
+      "classificationVersion": "0606-taxonomy-historical-union-reconciled-v4"
+    },
+    {
+      "id": "0606-2026-march-12-q10",
+      "paperId": "0606-2026-march-12",
+      "number": 10,
+      "marks": 10,
+      "year": 2026,
+      "session": "February/March",
+      "component": "12",
+      "paper": 1,
+      "variant": "2",
+      "calculator": false,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "pages": [
+        14
+      ],
+      "questionImages": [
+        "questions/0606-2026-march-12-q10.webp"
+      ],
+      "markschemePages": [
+        13
+      ],
+      "markschemeImages": [
+        "markschemes/0606-2026-march-12-q10.webp"
+      ],
+      "accessibleText": "10 (a) Given that log_5(x^2) - log_5 x - 3 log_x 5 = 2, find x. [6] (b) Solve the equation 2 × 8^(2x+1) - 3 × 2^(3x+4) - 64 = 0. [4]",
+      "primaryTopic": "Algebra",
+      "secondaryTopics": [],
+      "subtopics": [
+        "Logarithmic and exponential functions",
+        "Indices and surds"
+      ],
+      "detailedSubtopics": [
+        "Indices and surds",
+        "Logarithmic and exponential functions"
+      ],
+      "classificationEvidence": {
+        "terms": [
+          "Question crop: (a) given log5(x^2)-log5 x-3 log_x 5=2, find x; (b) solve 2x8^(2x+1)-3x2^(3x+4)-64=0. Official mark scheme: (a) change of base M2 A1, quadratic in log5 x M1 A1, x=125, 1/5 A1; (b) B1 for rewriting as 16(2^(3x))^2-48x2^(3x)-64 using index laws, M1 A1 A1 for 2^(3x)=4, x=2/3. Logarithms primary; index-law rewriting earns explicit credit in (b)."
+        ],
+        "method": "manual adjudication using question crop and official mark-scheme evidence",
+        "confidence": "high",
+        "reviewStatus": "manually-reviewed",
+        "version": "0606-taxonomy-historical-union-reconciled-v4"
+      },
+      "reviewStatus": "source-structured-draft",
+      "independentSolution": null,
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_12.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_12.pdf",
+      "sessionStatus": "held",
+      "classificationVersion": "0606-taxonomy-historical-union-reconciled-v4"
+    },
+    {
+      "id": "0606-2026-march-12-q11",
+      "paperId": "0606-2026-march-12",
+      "number": 11,
+      "marks": 6,
+      "year": 2026,
+      "session": "February/March",
+      "component": "12",
+      "paper": 1,
+      "variant": "2",
+      "calculator": false,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "pages": [
+        15
+      ],
+      "questionImages": [
+        "questions/0606-2026-march-12-q11.webp"
+      ],
+      "markschemePages": [
+        14
+      ],
+      "markschemeImages": [
+        "markschemes/0606-2026-march-12-q11.webp"
+      ],
+      "accessibleText": "11 A curve has equation y = -x^2 + 3ax - 2a^2 where a is a positive constant. The area of the region enclosed by the curve and the x-axis is 9/16. Find the value of a. [6]",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "subtopics": [
+        "Calculus"
+      ],
+      "detailedSubtopics": [
+        "Calculus"
+      ],
+      "classificationEvidence": {
+        "terms": [
+          "Question crop: y=-x^2+3ax-2a^2 with a>0; the area enclosed by the curve and the x-axis is 9/16; find a. Official mark scheme: M1 A1 for roots x=a, 2a, then M1 A1 M1 A1 for the definite integral between the roots set equal to 9/16, giving a=3/2. Definite integration for plane area; the rule's generic equation/curve match is wrong."
+        ],
+        "method": "manual adjudication using question crop and official mark-scheme evidence",
+        "confidence": "high",
+        "reviewStatus": "manually-reviewed",
+        "version": "0606-taxonomy-historical-union-reconciled-v4"
+      },
+      "reviewStatus": "source-structured-draft",
+      "independentSolution": null,
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_12.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_12.pdf",
+      "sessionStatus": "held",
+      "classificationVersion": "0606-taxonomy-historical-union-reconciled-v4"
+    },
+    {
+      "id": "0606-2026-march-12-q12",
+      "paperId": "0606-2026-march-12",
+      "number": 12,
+      "marks": 8,
+      "year": 2026,
+      "session": "February/March",
+      "component": "12",
+      "paper": 1,
+      "variant": "2",
+      "calculator": false,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "pages": [
+        16
+      ],
+      "questionImages": [
+        "questions/0606-2026-march-12-q12.webp"
+      ],
+      "markschemePages": [
+        15,
+        16
+      ],
+      "markschemeImages": [
+        "markschemes/0606-2026-march-12-q12.webp"
+      ],
+      "accessibleText": "12 Find the coordinates of the points of intersection of the circles with equations x^2 + 2x + y^2 - 4y - 20 = 0 and x^2 - 12x + y^2 - 6y + 20 = 0. [8]",
+      "primaryTopic": "Coordinate geometry",
+      "secondaryTopics": [],
+      "subtopics": [
+        "Coordinate geometry of the circle"
+      ],
+      "detailedSubtopics": [
+        "Coordinate geometry of the circle"
+      ],
+      "classificationEvidence": {
+        "terms": [
+          "Question crop: find the coordinates of the points of intersection of the circles x^2+2x+y^2-4y-20=0 and x^2-12x+y^2-6y+20=0. Official mark scheme: subtract to get the common chord 14x+2y-40=0, substitute, solve 50x^2-250x+300=0, giving (3,-1) and (2,6). Intersection of two circles; the rule's 'intersection' match to set language is wrong."
+        ],
+        "method": "manual adjudication using question crop and official mark-scheme evidence",
+        "confidence": "high",
+        "reviewStatus": "manually-reviewed",
+        "version": "0606-taxonomy-historical-union-reconciled-v4"
+      },
+      "reviewStatus": "source-structured-draft",
+      "independentSolution": null,
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_12.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_12.pdf",
+      "sessionStatus": "held",
+      "classificationVersion": "0606-taxonomy-historical-union-reconciled-v4"
+    },
+    {
+      "id": "0606-2026-march-22-q1",
+      "paperId": "0606-2026-march-22",
+      "number": 1,
+      "marks": 8,
+      "year": 2026,
+      "session": "February/March",
+      "component": "22",
+      "paper": 2,
+      "variant": "2",
+      "calculator": true,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "pages": [
+        3
+      ],
+      "questionImages": [
+        "questions/0606-2026-march-22-q1.webp"
+      ],
+      "markschemePages": [
+        7
+      ],
+      "markschemeImages": [
+        "markschemes/0606-2026-march-22-q1.webp"
+      ],
+      "accessibleText": "1 The function f is defined by f(x) = 2x^2 - 6x + 4 for all real values of x. (a) Write f(x) in the form a(x + b)^2 + c where a, b and c are constants. [3] (b) Hence find the range of f. [1] (c) The function g is defined by g(x) = 2x^2 - 6x + 4 for x ≤ k, where k is a constant. Given that g has an inverse, state the largest possible value of k. [1] (d) The function h is defined by h(x) = e^(3x) - 1 for x ≤ 0. Given that gh(x) exists, find gh(x), simplifying your answer. [3]",
+      "primaryTopic": "Sets and functions",
+      "secondaryTopics": [
+        "Algebra"
+      ],
+      "subtopics": [
+        "Functions",
+        "Quadratic functions"
+      ],
+      "detailedSubtopics": [
+        "Functions"
+      ],
+      "classificationEvidence": {
+        "terms": [
+          "Question crop: f(x)=2x^2-6x+4; (a) write in the form a(x+b)^2+c; (b) range of f; (c) largest k for which g(x)=2x^2-6x+4, x<=k has an inverse; (d) find gh(x) for h(x)=e^(3x)-1. Official mark scheme: B3 completing the square, B1 range f(x)>=-1/2, B1 k=3/2, M1 M1 A1 composite. Function range, inverse existence and composition with completing the square."
+        ],
+        "method": "manual adjudication using question crop and official mark-scheme evidence",
+        "confidence": "high",
+        "reviewStatus": "manually-reviewed",
+        "version": "0606-taxonomy-historical-union-reconciled-v4"
+      },
+      "reviewStatus": "source-structured-draft",
+      "independentSolution": null,
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_22.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_22.pdf",
+      "sessionStatus": "held",
+      "classificationVersion": "0606-taxonomy-historical-union-reconciled-v4"
+    },
+    {
+      "id": "0606-2026-march-22-q2",
+      "paperId": "0606-2026-march-22",
+      "number": 2,
+      "marks": 6,
+      "year": 2026,
+      "session": "February/March",
+      "component": "22",
+      "paper": 2,
+      "variant": "2",
+      "calculator": true,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "pages": [
+        4
+      ],
+      "questionImages": [
+        "questions/0606-2026-march-22-q2.webp"
+      ],
+      "markschemePages": [
+        7
+      ],
+      "markschemeImages": [
+        "markschemes/0606-2026-march-22-q2.webp"
+      ],
+      "accessibleText": "2 Points A and B have coordinates (1, 3) and (-7, 1). The point P with coordinates (2, a) lies on the perpendicular bisector of AB. (a) Find the value of a. [4] (b) The point Q is the reflection of P in the line AB. Find the coordinates of Q. [2]",
+      "primaryTopic": "Coordinate geometry",
+      "secondaryTopics": [],
+      "subtopics": [
+        "Straight-line graphs"
+      ],
+      "detailedSubtopics": [
+        "Straight-line graphs"
+      ],
+      "classificationEvidence": {
+        "terms": [
+          "Question crop: A(1,3), B(-7,1); P(2,a) lies on the perpendicular bisector of AB; (a) find a; (b) Q is the reflection of P in AB, find Q. Official mark scheme: midpoint (-3,2) B1, perpendicular gradient -4 B1, line equation M1, a=-18 A1; (b) (-8,22) B2. Midpoints, perpendicular bisectors and reflection; the rule's 'sector' match is a false positive from 'bisector'."
+        ],
+        "method": "manual adjudication using question crop and official mark-scheme evidence",
+        "confidence": "high",
+        "reviewStatus": "manually-reviewed",
+        "version": "0606-taxonomy-historical-union-reconciled-v4"
+      },
+      "reviewStatus": "source-structured-draft",
+      "independentSolution": null,
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_22.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_22.pdf",
+      "sessionStatus": "held",
+      "classificationVersion": "0606-taxonomy-historical-union-reconciled-v4"
+    },
+    {
+      "id": "0606-2026-march-22-q3",
+      "paperId": "0606-2026-march-22",
+      "number": 3,
+      "marks": 4,
+      "year": 2026,
+      "session": "February/March",
+      "component": "22",
+      "paper": 2,
+      "variant": "2",
+      "calculator": true,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "pages": [
+        5
+      ],
+      "questionImages": [
+        "questions/0606-2026-march-22-q3.webp"
+      ],
+      "markschemePages": [
+        8
+      ],
+      "markschemeImages": [
+        "markschemes/0606-2026-march-22-q3.webp"
+      ],
+      "accessibleText": "3 [Diagram: a grid with x marked from -4 to 4 and y marked from -6 to 8, showing the cubic curve, which crosses the x-axis at x = -2, x = 1 and x = 3 and the y-axis at y = 6.] The diagram shows the graph of y = (x + 2)(x - 1)(x - 3). By drawing a suitable line on the diagram, solve the inequality (x + 2)(x - 1)(x - 3) > 7. [4]",
+      "primaryTopic": "Algebra",
+      "secondaryTopics": [],
+      "subtopics": [
+        "Equations, inequalities and graphs"
+      ],
+      "detailedSubtopics": [
+        "Equations, inequalities and graphs"
+      ],
+      "classificationEvidence": {
+        "terms": [
+          "Question crop: printed graph of y=(x+2)(x-1)(x-3); by drawing a suitable line solve (x+2)(x-1)(x-3)>7. Official mark scheme: B1 for y=7 meeting the curve three times, B1 -1.3, -0.2, 3.5, B1 -1.3<x<-0.2, B1 x>3.5. Graphical cubic inequality."
+        ],
+        "method": "manual adjudication using question crop and official mark-scheme evidence",
+        "confidence": "high",
+        "reviewStatus": "manually-reviewed",
+        "version": "0606-taxonomy-historical-union-reconciled-v4"
+      },
+      "reviewStatus": "source-structured-draft",
+      "independentSolution": null,
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_22.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_22.pdf",
+      "sessionStatus": "held",
+      "classificationVersion": "0606-taxonomy-historical-union-reconciled-v4"
+    },
+    {
+      "id": "0606-2026-march-22-q4",
+      "paperId": "0606-2026-march-22",
+      "number": 4,
+      "marks": 6,
+      "year": 2026,
+      "session": "February/March",
+      "component": "22",
+      "paper": 2,
+      "variant": "2",
+      "calculator": true,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "pages": [
+        6
+      ],
+      "questionImages": [
+        "questions/0606-2026-march-22-q4.webp"
+      ],
+      "markschemePages": [
+        8
+      ],
+      "markschemeImages": [
+        "markschemes/0606-2026-march-22-q4.webp"
+      ],
+      "accessibleText": "4 (a) A 6-digit number is to be formed from the digits 1, 2, 3, 4, 5, 6, 7, 8, 9. No digit may be used more than once in any 6-digit number. Find how many 6-digit numbers can be formed in the following cases. (i) There are no further restrictions. [1] (ii) The 6-digit number includes the digit 4. [2] (b) A class contains 10 girls and 12 boys. A group of 6 students is to be selected from the class. There must be at least 2 girls and at least 2 boys in the group. Find the number of different selections that can be made. [3]",
+      "primaryTopic": "Combinatorics and series",
+      "secondaryTopics": [],
+      "subtopics": [
+        "Permutations and combinations"
+      ],
+      "detailedSubtopics": [
+        "Permutations and combinations"
+      ],
+      "classificationEvidence": {
+        "terms": [
+          "Question crop: (a) 6-digit numbers from digits 1-9 without repetition, (i) no restriction, (ii) including the digit 4; (b) groups of 6 from 10 girls and 12 boys with at least 2 of each. Official mark scheme: 60480 B1, 40320 B2, 62535 B3 via sums of products of combinations. Arrangements and selections."
+        ],
+        "method": "manual adjudication using question crop and official mark-scheme evidence",
+        "confidence": "high",
+        "reviewStatus": "manually-reviewed",
+        "version": "0606-taxonomy-historical-union-reconciled-v4"
+      },
+      "reviewStatus": "source-structured-draft",
+      "independentSolution": null,
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_22.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_22.pdf",
+      "sessionStatus": "held",
+      "classificationVersion": "0606-taxonomy-historical-union-reconciled-v4"
+    },
+    {
+      "id": "0606-2026-march-22-q5",
+      "paperId": "0606-2026-march-22",
+      "number": 5,
+      "marks": 6,
+      "year": 2026,
+      "session": "February/March",
+      "component": "22",
+      "paper": 2,
+      "variant": "2",
+      "calculator": true,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "pages": [
+        7
+      ],
+      "questionImages": [
+        "questions/0606-2026-march-22-q5.webp"
+      ],
+      "markschemePages": [
+        8
+      ],
+      "markschemeImages": [
+        "markschemes/0606-2026-march-22-q5.webp"
+      ],
+      "accessibleText": "5 The diagram shows a design for a badge. [Diagram: triangle ABC, with C at the top, drawn with dashed sides; each side is replaced by a circular arc bulging outwards, and the width from A to B is labelled x cm.] ABC is an equilateral triangle with side x cm. The arcs BC, CA and AB are parts of the circles with centres A, B and C respectively. (a) Write down the size of angle ABC in radians. Give your answer in terms of π. [1] (b) The area of the badge is 2(π - √3) cm^2. Find x. [5]",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [],
+      "subtopics": [
+        "Circular measure",
+        "Trigonometry"
+      ],
+      "detailedSubtopics": [
+        "Circular measure",
+        "Trigonometry"
+      ],
+      "classificationEvidence": {
+        "terms": [
+          "Question crop: badge formed from equilateral triangle ABC of side x cm with arcs centred at the vertices; (a) angle ABC in radians; (b) area 2(pi-sqrt3) cm^2, find x. Official mark scheme: pi/3 B1; M1 for triangle area (1/2)x^2 sin(pi/3), M1 for sector area (1/2)x^2(pi/3), M1 plan, A1 A1 x=2. Radian sector areas with a trigonometric triangle-area term."
+        ],
+        "method": "manual adjudication using question crop and official mark-scheme evidence",
+        "confidence": "high",
+        "reviewStatus": "manually-reviewed",
+        "version": "0606-taxonomy-historical-union-reconciled-v4"
+      },
+      "reviewStatus": "source-structured-draft",
+      "independentSolution": null,
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_22.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_22.pdf",
+      "sessionStatus": "held",
+      "classificationVersion": "0606-taxonomy-historical-union-reconciled-v4"
+    },
+    {
+      "id": "0606-2026-march-22-q6",
+      "paperId": "0606-2026-march-22",
+      "number": 6,
+      "marks": 5,
+      "year": 2026,
+      "session": "February/March",
+      "component": "22",
+      "paper": 2,
+      "variant": "2",
+      "calculator": true,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "pages": [
+        8,
+        9
+      ],
+      "questionImages": [
+        "questions/0606-2026-march-22-q6.webp"
+      ],
+      "markschemePages": [
+        8,
+        9
+      ],
+      "markschemeImages": [
+        "markschemes/0606-2026-march-22-q6.webp"
+      ],
+      "accessibleText": "6 (a) The diagram shows part of the graph of y = 1 + tan((1/2)x) where x is measured in degrees. [Diagram: a grid with no scale marked, showing repeating branches of the curve separated by dashed vertical asymptotes; the asymptote labelled A is the second one to the right of the y-axis.] (i) Write down the period of 1 + tan((1/2)x). [1] (ii) Write down the equation of the asymptote A. [1] (b) On the axes below, sketch the graph of y = 3 cos 2x + 1 for -180° ≤ x ≤ 180°. [3] [Diagram: a blank grid with x marked at -180°, -90°, 0, 90° and 180°, and y marked from -6 to 6.]",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [],
+      "subtopics": [
+        "Trigonometry"
+      ],
+      "detailedSubtopics": [
+        "Trigonometry"
+      ],
+      "classificationEvidence": {
+        "terms": [
+          "tan"
+        ],
+        "method": "question-paper text is primary; official mark-scheme/explanation prose is never used as generic label evidence; source crop is authoritative",
+        "confidence": "high",
+        "reviewStatus": "question-text-evidence",
+        "version": "0606-taxonomy-historical-union-reconciled-v4"
+      },
+      "reviewStatus": "source-structured-draft",
+      "independentSolution": null,
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_22.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_22.pdf",
+      "sessionStatus": "held",
+      "classificationVersion": "0606-taxonomy-historical-union-reconciled-v4"
+    },
+    {
+      "id": "0606-2026-march-22-q7",
+      "paperId": "0606-2026-march-22",
+      "number": 7,
+      "marks": 8,
+      "year": 2026,
+      "session": "February/March",
+      "component": "22",
+      "paper": 2,
+      "variant": "2",
+      "calculator": true,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "pages": [
+        10
+      ],
+      "questionImages": [
+        "questions/0606-2026-march-22-q7.webp"
+      ],
+      "markschemePages": [
+        9
+      ],
+      "markschemeImages": [
+        "markschemes/0606-2026-march-22-q7.webp"
+      ],
+      "accessibleText": "7 A ship is sailing with speed v km h^-1. The sailing cost per hour, $C, is given by C = v^2 + 3000/v + 100. (a) Find the speed that makes C a minimum. Justify that this value of C is a minimum. [5] (b) Hence find the minimum sailing cost for a journey of 150 km. [3]",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "subtopics": [
+        "Calculus"
+      ],
+      "detailedSubtopics": [
+        "Calculus"
+      ],
+      "classificationEvidence": {
+        "terms": [
+          "Question crop: sailing cost per hour C=v^2+3000/v+100; (a) find the speed that makes C a minimum and justify it is a minimum; (b) hence find the minimum cost of a 150 km journey. Official mark scheme: B2 dC/dv, M1 dC/dv=0, A1 v=cube root 1500, B1 justification; M1 M1 A1 for time and cost. Practical optimisation with a derivative test; no rule keyword matched, so this row needed adjudication."
+        ],
+        "method": "manual adjudication using question crop and official mark-scheme evidence",
+        "confidence": "high",
+        "reviewStatus": "manually-reviewed",
+        "version": "0606-taxonomy-historical-union-reconciled-v4"
+      },
+      "reviewStatus": "source-structured-draft",
+      "independentSolution": null,
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_22.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_22.pdf",
+      "sessionStatus": "held",
+      "classificationVersion": "0606-taxonomy-historical-union-reconciled-v4"
+    },
+    {
+      "id": "0606-2026-march-22-q8",
+      "paperId": "0606-2026-march-22",
+      "number": 8,
+      "marks": 8,
+      "year": 2026,
+      "session": "February/March",
+      "component": "22",
+      "paper": 2,
+      "variant": "2",
+      "calculator": true,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "pages": [
+        11
+      ],
+      "questionImages": [
+        "questions/0606-2026-march-22-q8.webp"
+      ],
+      "markschemePages": [
+        10
+      ],
+      "markschemeImages": [
+        "markschemes/0606-2026-march-22-q8.webp"
+      ],
+      "accessibleText": "8 A circle has centre (-2, 0) and radius 5. A line has equation y = 2x + k, where k is a constant. The line does not meet the circle. Find the set of possible values of k. [8]",
+      "primaryTopic": "Coordinate geometry",
+      "secondaryTopics": [
+        "Algebra"
+      ],
+      "subtopics": [
+        "Coordinate geometry of the circle",
+        "Quadratic functions"
+      ],
+      "detailedSubtopics": [
+        "Coordinate geometry of the circle"
+      ],
+      "classificationEvidence": {
+        "terms": [
+          "Question crop: circle centre (-2,0) radius 5; line y=2x+k does not meet the circle; find the set of possible values of k. Official mark scheme: B1 circle equation, M1 A1 substitute to 5x^2+4(k+1)x+k^2-21=0, M1 A1 discriminant condition, M1 A1 A1 solve the quadratic inequality k<4-5sqrt5, k>4+5sqrt5. Circle-line intersection condition via the discriminant; the rule's set-language match is a false positive."
+        ],
+        "method": "manual adjudication using question crop and official mark-scheme evidence",
+        "confidence": "high",
+        "reviewStatus": "manually-reviewed",
+        "version": "0606-taxonomy-historical-union-reconciled-v4"
+      },
+      "reviewStatus": "source-structured-draft",
+      "independentSolution": null,
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_22.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_22.pdf",
+      "sessionStatus": "held",
+      "classificationVersion": "0606-taxonomy-historical-union-reconciled-v4"
+    },
+    {
+      "id": "0606-2026-march-22-q9",
+      "paperId": "0606-2026-march-22",
+      "number": 9,
+      "marks": 12,
+      "year": 2026,
+      "session": "February/March",
+      "component": "22",
+      "paper": 2,
+      "variant": "2",
+      "calculator": true,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "pages": [
+        12,
+        13
+      ],
+      "questionImages": [
+        "questions/0606-2026-march-22-q9.webp"
+      ],
+      "markschemePages": [
+        10,
+        11
+      ],
+      "markschemeImages": [
+        "markschemes/0606-2026-march-22-q9.webp"
+      ],
+      "accessibleText": "9 (a) Show that tan θ + cot θ + 2 sec θ can be written as (1 + 2 sin θ)/(sin θ cos θ). [3] (b) Hence solve the equation tan 2x + cot 2x + 2 sec 2x = 0 for -180° ≤ x ≤ 180°. [4] (c) Solve the equation 3 sec(x - 1) - 1 = tan^2(x - 1) where x is in radians and -1 < x < 3. [5]",
+      "primaryTopic": "Geometry and trigonometry",
+      "secondaryTopics": [],
+      "subtopics": [
+        "Trigonometry"
+      ],
+      "detailedSubtopics": [
+        "Trigonometry"
+      ],
+      "classificationEvidence": {
+        "terms": [
+          "Question crop: (a) show tan t+cot t+2 sec t=(1+2 sin t)/(sin t cos t); (b) hence solve tan2x+cot2x+2sec2x=0 for -180<=x<=180; (c) solve 3sec(x-1)-1=tan^2(x-1), x in radians, -1<x<3. Official mark scheme: identity proof B1 M1 A1, equations B1 M1 A2 and M1 M1 A1 A1 via sec^2=1+tan^2. Trigonometric identities and equations; radian domain does not make this circular measure."
+        ],
+        "method": "manual adjudication using question crop and official mark-scheme evidence",
+        "confidence": "high",
+        "reviewStatus": "manually-reviewed",
+        "version": "0606-taxonomy-historical-union-reconciled-v4"
+      },
+      "reviewStatus": "source-structured-draft",
+      "independentSolution": null,
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_22.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_22.pdf",
+      "sessionStatus": "held",
+      "classificationVersion": "0606-taxonomy-historical-union-reconciled-v4"
+    },
+    {
+      "id": "0606-2026-march-22-q10",
+      "paperId": "0606-2026-march-22",
+      "number": 10,
+      "marks": 10,
+      "year": 2026,
+      "session": "February/March",
+      "component": "22",
+      "paper": 2,
+      "variant": "2",
+      "calculator": true,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "pages": [
+        14,
+        15
+      ],
+      "questionImages": [
+        "questions/0606-2026-march-22-q10.webp"
+      ],
+      "markschemePages": [
+        11
+      ],
+      "markschemeImages": [
+        "markschemes/0606-2026-march-22-q10.webp"
+      ],
+      "accessibleText": "10 In this question time t is in seconds and displacement s is in metres. For t ≥ 0, a particle moves on the positive x-axis. At time t the acceleration of the particle is 2t - 9. At time t = 7 the velocity of the particle is 4. (a) Find the times when the velocity of the particle is 0. [4] (b) At time t = 12, the displacement of the particle from the origin O is 150. (i) Find an expression for the displacement of the particle at time t. [3] (ii) Find the distance travelled by the particle in the first 6 seconds. [3]",
+      "primaryTopic": "Calculus",
+      "secondaryTopics": [],
+      "subtopics": [
+        "Calculus"
+      ],
+      "detailedSubtopics": [
+        "Calculus"
+      ],
+      "classificationEvidence": {
+        "terms": [
+          "Question crop: particle on the x-axis, acceleration 2t-9, v=4 at t=7; (a) times when v=0; (b) s=150 at t=12, (i) displacement expression, (ii) distance travelled in the first 6 s. Official mark scheme: integrate for v and s with constants (M1 M1 M1 A1, M1 M1 A1), distance 27.0 B1 B1 B1. Calculus kinematics; the rule's 'displacement' match to vectors is wrong."
+        ],
+        "method": "manual adjudication using question crop and official mark-scheme evidence",
+        "confidence": "high",
+        "reviewStatus": "manually-reviewed",
+        "version": "0606-taxonomy-historical-union-reconciled-v4"
+      },
+      "reviewStatus": "source-structured-draft",
+      "independentSolution": null,
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_22.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_22.pdf",
+      "sessionStatus": "held",
+      "classificationVersion": "0606-taxonomy-historical-union-reconciled-v4"
+    },
+    {
+      "id": "0606-2026-march-22-q11",
+      "paperId": "0606-2026-march-22",
+      "number": 11,
+      "marks": 7,
+      "year": 2026,
+      "session": "February/March",
+      "component": "22",
+      "paper": 2,
+      "variant": "2",
+      "calculator": true,
+      "durationMinutes": 120,
+      "maximumMarks": 80,
+      "pages": [
+        16
+      ],
+      "questionImages": [
+        "questions/0606-2026-march-22-q11.webp"
+      ],
+      "markschemePages": [
+        12
+      ],
+      "markschemeImages": [
+        "markschemes/0606-2026-march-22-q11.webp"
+      ],
+      "accessibleText": "11 (a) Find, in descending powers of x, the first three terms in the expansion of (x^2 + 1/(2x))^9. Give each term in its simplest form. [3] (b) The expansion of (x^2 + 1/(2x))^n, where n is a positive integer, has a term that is independent of x. Show that n is divisible by 3. [4]",
+      "primaryTopic": "Combinatorics and series",
+      "secondaryTopics": [],
+      "subtopics": [
+        "Series"
+      ],
+      "detailedSubtopics": [
+        "Series"
+      ],
+      "classificationEvidence": {
+        "terms": [
+          "expansion",
+          "descending powers"
+        ],
+        "method": "question-paper text is primary; official mark-scheme/explanation prose is never used as generic label evidence; source crop is authoritative",
+        "confidence": "high",
+        "reviewStatus": "question-text-evidence",
+        "version": "0606-taxonomy-historical-union-reconciled-v4"
+      },
+      "reviewStatus": "source-structured-draft",
+      "independentSolution": null,
+      "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_qp_22.pdf",
+      "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/mathematics-additional-0606/2026/0606_m26_ms_22.pdf",
+      "sessionStatus": "held",
+      "classificationVersion": "0606-taxonomy-historical-union-reconciled-v4"
+    },
     {
       "id": "0606-2026-june-11-q1",
       "paperId": "0606-2026-june-11",

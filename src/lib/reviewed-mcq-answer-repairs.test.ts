@@ -18,11 +18,11 @@ describe('source-verified MCQ answer crop repair projection', () => {
     expect(q.markschemeAssetPaths).toEqual(entry.newPaths.map(path=>'igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/'+path));
     expect(JSON.stringify(raw)).toBe(before);
   });
-  it('preserves 4913 IDs and the exact 99 MCQ repairs alongside reviewed written repairs', () => {
+  it('preserves all 5211 IDs and the exact 99 MCQ repairs alongside reviewed written repairs', () => {
     const before=normalizeBankQuestions('igcse-biology-0610',runtime.questions as Array<Record<string,unknown>>,{economicsAssetMode:'private'});
     const after=normalizeBankQuestions('igcse-biology-0610',runtime.questions as Array<Record<string,unknown>>,{economicsAssetMode:'private',applyReviewedBlankPages:true});
     expect(after.map(q=>q.id)).toEqual(before.map(q=>q.id));
-    expect(after).toHaveLength(4913);
+    expect(after).toHaveLength(5211);
     const changed=after.filter((q,i)=>JSON.stringify(q.markschemeAssetPaths)!==JSON.stringify(before[i].markschemeAssetPaths));
     const writtenIds=Object.keys(JSON.parse(readFileSync('src/data/reviewed-biology-written-answer-repairs.json','utf8')));
     expect(changed.map(q=>q.id).sort()).toEqual([...Object.keys(repairs.entries),...writtenIds].sort());
@@ -38,9 +38,13 @@ describe('source-verified MCQ answer crop repair projection', () => {
     vi.stubEnv('PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED','true');
     try {
       const request=[{questionId:'0610-2026-m-12-q1',kind:'answer' as const}];
+      const entitled=[{productId:BANK_PRODUCTS['igcse-biology-0610']!,status:'active' as const,startsAt:'2020-01-01T00:00:00.000Z',expiresAt:null}];
       await expect(authorizeAssetRequests('igcse-biology-0610',request,[])).rejects.toThrow();
-      const signed=await authorizeAssetRequests('igcse-biology-0610',request,[{productId:BANK_PRODUCTS['igcse-biology-0610']!,status:'active',startsAt:'2020-01-01T00:00:00.000Z',expiresAt:null}]);
-      expect(signed[0].paths[0]).toContain(repairs.entries['0610-2026-m-12-q1'].newPaths[0]);
+      const signed=await authorizeAssetRequests('igcse-biology-0610',request,entitled);
+      // The repaired crop stays projected; a verified letter is delivered instead of signing it.
+      expect(signed[0].question.markschemeAssetPaths[0]).toContain(repairs.entries['0610-2026-m-12-q1'].newPaths[0]);
+      expect(signed[0].paths).toEqual([]);
+      expect(signed[0].mcqAnswer).toEqual({answers:[runtime.questions.find(q=>q.id==='0610-2026-m-12-q1')!.answer],note:null});
     } finally { vi.unstubAllEnvs(); }
   });
   it('rejects stale source paths and never repairs another bank', () => {
