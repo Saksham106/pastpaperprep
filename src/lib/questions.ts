@@ -11,6 +11,7 @@ import { project0455Sections } from "@/lib/igcse-0455-official.mjs";
 import { activeQuestionImagePaths } from "@/lib/reviewed-blank-qp";
 import { activeQuestionCropPaths } from "@/lib/retired-crops";
 import { reviewedMarkschemePaths } from "@/lib/reviewed-mcq-answer-repairs";
+import { historicalMarks, historicalQuestionPaths } from "@/lib/reviewed-biology-historical-crops";
 import { reviewed0606RightEdgePaths } from "@/lib/reviewed-0606-ms-right-edge-repairs";
 import { reviewed0580CoreQuestionPaths } from "@/lib/reviewed-0580-core-crop-repairs";
 import { reviewedEconomicsQuestionPaths } from "@/lib/reviewed-economics-question-crops";
@@ -279,7 +280,8 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
   const solution = nullableText(raw.solution) ?? nullableText(raw.independentSolution);
   const sourceQuestionImages = strings(raw.questionImages);
   const questionImages = cleanSourceCropPaths(slug, applyReviewedBlankPages
-    ? reviewed0580CoreQuestionPaths(slug, text(raw.id), activeQuestionCropPaths(slug, text(raw.id), activeQuestionImagePaths(slug, text(raw.id), reviewedEconomicsQuestionPaths(slug, text(raw.id), sourceQuestionImages))))
+    // Bank-scoped reviewed question-crop repairs; each returns other banks' paths unchanged.
+    ? reviewed0580CoreQuestionPaths(slug, text(raw.id), historicalQuestionPaths(slug, text(raw.id), activeQuestionCropPaths(slug, text(raw.id), activeQuestionImagePaths(slug, text(raw.id), reviewedEconomicsQuestionPaths(slug, text(raw.id), sourceQuestionImages)))))
     : sourceQuestionImages).map((path) => assetUrl(slug, path, economicsAssetMode));
   const markschemeImagePaths = isPrivateRuntimeBank(slug)
     ? Array.from(new Set([...strings(raw.markschemeImages), ...strings(officialMarkscheme.images)]))
@@ -324,7 +326,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     zone: text(raw.timezone) || text(raw.zone),
     component: text(raw.component),
     calculator: calculatorAllowed(slug, { paper, year: integer(raw.year) }),
-    marks: typeof raw.marks === "number" ? raw.marks : null,
+    marks: historicalMarks(slug, text(raw.id), typeof raw.marks === "number" ? raw.marks : null),
     summary,
     accessibleText,
     searchText: searchable,
