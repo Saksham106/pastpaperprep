@@ -11,6 +11,7 @@ import { project0455Sections } from "@/lib/igcse-0455-official.mjs";
 import { activeQuestionImagePaths } from "@/lib/reviewed-blank-qp";
 import { activeQuestionCropPaths } from "@/lib/retired-crops";
 import { reviewedMarkschemePaths } from "@/lib/reviewed-mcq-answer-repairs";
+import { reviewed0606RightEdgePaths } from "@/lib/reviewed-0606-ms-right-edge-repairs";
 import { reviewed0580CoreQuestionPaths } from "@/lib/reviewed-0580-core-crop-repairs";
 import { reviewedEconomicsQuestionPaths } from "@/lib/reviewed-economics-question-crops";
 import { cleanSourceCropPaths } from "@/lib/clean-source-crops";
@@ -284,7 +285,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     ? Array.from(new Set([...strings(raw.markschemeImages), ...strings(officialMarkscheme.images)]))
     : [...strings(raw.markschemeImages), ...strings(officialMarkscheme.images)];
   const activeMarkschemePaths = applyReviewedBlankPages || slug === 'ib-ai-hl' || slug === 'ib-hl'
-    ? reviewedMarkschemePaths(slug, text(raw.id), markschemeImagePaths) : markschemeImagePaths;
+    ? reviewed0606RightEdgePaths(slug, text(raw.id), reviewedMarkschemePaths(slug, text(raw.id), markschemeImagePaths)) : markschemeImagePaths;
   const markschemeImages = cleanSourceCropPaths(slug, activeMarkschemePaths).map((path) => assetUrl(slug, path, economicsAssetMode));
   const searchable = [
     primaryTopic,
