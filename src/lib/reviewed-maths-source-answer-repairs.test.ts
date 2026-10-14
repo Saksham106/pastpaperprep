@@ -5,6 +5,7 @@ const manifest = JSON.parse(readFileSync('data/storage/maths-source-answer-repai
 const maths = JSON.parse(readFileSync('src/data/raw/igcse.json','utf8'));
 const additional = JSON.parse(readFileSync('src/data/raw/igcse-additional.json','utf8'));
 import { reviewedMarkschemePaths } from '@/lib/reviewed-mcq-answer-repairs';
+import { reviewed0606RightEdgePaths } from '@/lib/reviewed-0606-ms-right-edge-repairs';
 import { loadBankQuestions } from '@/lib/question-loader';
 import { normalizeBankQuestions } from '@/lib/questions';
 import type { BankSlug } from '@/lib/banks';
@@ -20,7 +21,10 @@ describe('reviewed IGCSE maths source-answer repairs', () => {
       for (const [qid, entry] of Object.entries(repairs[bank])) {
         const row=rows.find(q=>q.id===qid)!;
         expect(reviewedMarkschemePaths(bank,qid,row.markschemeImages)).toEqual(entry.newPaths);
-        expect(normalized.get(qid)?.markschemeAssetPaths).toEqual(entry.newPaths.map(p=>`${bank}/${p}`));
+        // A later reviewed 0606 edge repair may supersede individual images, bound to these exact paths.
+        const active = reviewed0606RightEdgePaths(bank,qid,entry.newPaths);
+        expect(active).toHaveLength(entry.newPaths.length);
+        expect(normalized.get(qid)?.markschemeAssetPaths).toEqual(active.map(p=>`${bank}/${p}`));
         expect(normalized.get(qid)?.markschemeImageCount).toBe(entry.newPaths.length);
         count++;
       }
@@ -38,7 +42,7 @@ describe('reviewed IGCSE maths source-answer repairs', () => {
       const raw=(bank==='igcse'?maths:additional).questions;
       const original=new Map(normalizeBankQuestions(bank,raw).map(q=>[q.id,q]));
       for(const [qid,q]of loaded)expect(q.questionAssetPaths).toEqual(original.get(qid)?.questionAssetPaths);
-      for(const [qid,entry]of Object.entries(repairs[bank]))expect(loaded.get(qid)?.markschemeAssetPaths).toEqual(entry.newPaths.map(p=>`${bank}/${p}`));
+      for(const [qid,entry]of Object.entries(repairs[bank]))expect(loaded.get(qid)?.markschemeAssetPaths).toEqual(reviewed0606RightEdgePaths(bank,qid,entry.newPaths).map(p=>`${bank}/${p}`));
     }
   });
   test('stale exact old paths fail closed',()=> {

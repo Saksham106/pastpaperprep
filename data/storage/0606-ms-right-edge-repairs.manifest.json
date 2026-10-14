@@ -1,0 +1,3762 @@
+{
+ "schema": "0606-ms-right-edge-repairs-storage-v1",
+ "namespace": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95",
+ "sourceResultsSha256": "8193a71201e5fb95dc4afcf46499f8dcb02975d343369f8a5d98d1053dd0ff17",
+ "privateBucket": "pastpaperprep-assets",
+ "supabaseBucket": "question-assets",
+ "publicFreeBucket": "pastpaperprep-free",
+ "freeYears": [
+  2016,
+  2017,
+  2018
+ ],
+ "objectCount": 267,
+ "freeObjectCount": 123,
+ "objectBytes": 10072732,
+ "objects": [
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/00739ed0d7539097612310cbbd3bdac54dd4888146db1e3b1b548eaa71d174e0.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/00739ed0d7539097612310cbbd3bdac54dd4888146db1e3b1b548eaa71d174e0.webp",
+   "questionIds": [
+    "0606-2019-march-22-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-march-22-q7.webp",
+   "sha256": "00739ed0d7539097612310cbbd3bdac54dd4888146db1e3b1b548eaa71d174e0",
+   "bytes": 36636,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 614,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/00e5e4a992d65b6ac0e7300fc6464208554a3790813bbb08af793412b75e75fd.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/00e5e4a992d65b6ac0e7300fc6464208554a3790813bbb08af793412b75e75fd.webp",
+   "questionIds": [
+    "0606-2018-june-22-q9"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-june-22-q9.webp",
+   "sha256": "00e5e4a992d65b6ac0e7300fc6464208554a3790813bbb08af793412b75e75fd",
+   "bytes": 44992,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 814,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/038f4236b9e9ce8fcbab1ff06d1725b91ca82942697e72234a7ecaf7c432eba5.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/038f4236b9e9ce8fcbab1ff06d1725b91ca82942697e72234a7ecaf7c432eba5.webp",
+   "questionIds": [
+    "0606-2021-november-23-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2021-november-23-q5.webp",
+   "sha256": "038f4236b9e9ce8fcbab1ff06d1725b91ca82942697e72234a7ecaf7c432eba5",
+   "bytes": 71088,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1091,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/03abaf2addb6745a02447726edea84f9e67d278556babed529941d049d0847b1.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/03abaf2addb6745a02447726edea84f9e67d278556babed529941d049d0847b1.webp",
+   "questionIds": [
+    "0606-2022-november-13-q3"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-november-13-q3.webp",
+   "sha256": "03abaf2addb6745a02447726edea84f9e67d278556babed529941d049d0847b1",
+   "bytes": 49606,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 747,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/07bc9fbe6931c0c6cfba5e91d1512db190b85f27d212924393a159ae6c6d8159.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/07bc9fbe6931c0c6cfba5e91d1512db190b85f27d212924393a159ae6c6d8159.webp",
+   "questionIds": [
+    "0606-2025-june-21-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-21-q5.webp",
+   "sha256": "07bc9fbe6931c0c6cfba5e91d1512db190b85f27d212924393a159ae6c6d8159",
+   "bytes": 41226,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 655,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/08d6e3dff6adcda42d04af3dcf2c483b33de426c2e5649303fa85bf939184107.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/08d6e3dff6adcda42d04af3dcf2c483b33de426c2e5649303fa85bf939184107.webp",
+   "questionIds": [
+    "0606-2017-june-23-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-23-q4.webp",
+   "sha256": "08d6e3dff6adcda42d04af3dcf2c483b33de426c2e5649303fa85bf939184107",
+   "bytes": 20084,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 512,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/0a12b6171d5f21d56664bce35a97a8f06895b420ab18d56912162f6ad88dd6e5.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/0a12b6171d5f21d56664bce35a97a8f06895b420ab18d56912162f6ad88dd6e5.webp",
+   "questionIds": [
+    "0606-2021-november-23-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2021-november-23-q2.webp",
+   "sha256": "0a12b6171d5f21d56664bce35a97a8f06895b420ab18d56912162f6ad88dd6e5",
+   "bytes": 39688,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 525,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/0a38c47b2edb7b561982108d2b10d6f70d3a79149681381582638b50a9dc146c.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/0a38c47b2edb7b561982108d2b10d6f70d3a79149681381582638b50a9dc146c.webp",
+   "questionIds": [
+    "0606-2025-june-21-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-21-q1.webp",
+   "sha256": "0a38c47b2edb7b561982108d2b10d6f70d3a79149681381582638b50a9dc146c",
+   "bytes": 29844,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 398,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/0a4205938e53c5a5431b19992af748c521c9b666936694cfbc45f06fee1310af.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/0a4205938e53c5a5431b19992af748c521c9b666936694cfbc45f06fee1310af.webp",
+   "questionIds": [
+    "0606-2019-june-22-q6"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-june-22-q6.webp",
+   "sha256": "0a4205938e53c5a5431b19992af748c521c9b666936694cfbc45f06fee1310af",
+   "bytes": 29842,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 390,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/0b10ea6f37a972a92596fe988114acca93dedff56f1411d9954b3588d7402b57.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/0b10ea6f37a972a92596fe988114acca93dedff56f1411d9954b3588d7402b57.webp",
+   "questionIds": [
+    "0606-2017-june-23-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-23-q7.webp",
+   "sha256": "0b10ea6f37a972a92596fe988114acca93dedff56f1411d9954b3588d7402b57",
+   "bytes": 43876,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 744,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/0b329baaebce3b6973f18341d58986cfc4ccfd256633f904cd5e9a5da5429d63.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/0b329baaebce3b6973f18341d58986cfc4ccfd256633f904cd5e9a5da5429d63.webp",
+   "questionIds": [
+    "0606-2017-june-21-q11"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-21-q11.webp",
+   "sha256": "0b329baaebce3b6973f18341d58986cfc4ccfd256633f904cd5e9a5da5429d63",
+   "bytes": 42918,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 682,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/0b69ce84d0fbc5b93452843192be60a79395ec0a9690996ce419a2477b49d19a.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/0b69ce84d0fbc5b93452843192be60a79395ec0a9690996ce419a2477b49d19a.webp",
+   "questionIds": [
+    "0606-2019-november-12-q3"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-november-12-q3.webp",
+   "sha256": "0b69ce84d0fbc5b93452843192be60a79395ec0a9690996ce419a2477b49d19a",
+   "bytes": 25986,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 348,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/0b9e88896e2626f5b892a5b9c4b845d60a1ae95f486364baf350b4bd907664ae.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/0b9e88896e2626f5b892a5b9c4b845d60a1ae95f486364baf350b4bd907664ae.webp",
+   "questionIds": [
+    "0606-2018-june-21-q7",
+    "0606-2018-june-23-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-june-21-q7.webp",
+   "sha256": "0b9e88896e2626f5b892a5b9c4b845d60a1ae95f486364baf350b4bd907664ae",
+   "bytes": 18578,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 393,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/0e12843781f02413dedb11d09ce62c4cd3b1d3414bc80e1de07bad54fe1b38b7.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/0e12843781f02413dedb11d09ce62c4cd3b1d3414bc80e1de07bad54fe1b38b7.webp",
+   "questionIds": [
+    "0606-2019-november-11-q11"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-november-11-q11.webp",
+   "sha256": "0e12843781f02413dedb11d09ce62c4cd3b1d3414bc80e1de07bad54fe1b38b7",
+   "bytes": 37538,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 493,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/0e1ed7dd695f0c0bb2b9b6ef5daff5b1cdac5b8d11072248301efefafba01ef6.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/0e1ed7dd695f0c0bb2b9b6ef5daff5b1cdac5b8d11072248301efefafba01ef6.webp",
+   "questionIds": [
+    "0606-2025-june-21-q3"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-21-q3.webp",
+   "sha256": "0e1ed7dd695f0c0bb2b9b6ef5daff5b1cdac5b8d11072248301efefafba01ef6",
+   "bytes": 20262,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 645,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/0f837e78ed6b551d7d2c1be18ec451133b95378295c86db9cfce92b689a18191.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/0f837e78ed6b551d7d2c1be18ec451133b95378295c86db9cfce92b689a18191.webp",
+   "questionIds": [
+    "0606-2018-june-12-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-june-12-q1.webp",
+   "sha256": "0f837e78ed6b551d7d2c1be18ec451133b95378295c86db9cfce92b689a18191",
+   "bytes": 25626,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 387,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/0fbb27c69bf0614362ef23a84d0eea0f0e342b90fe5427a81e0fefcfe090fcdd.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/0fbb27c69bf0614362ef23a84d0eea0f0e342b90fe5427a81e0fefcfe090fcdd.webp",
+   "questionIds": [
+    "0606-2017-november-21-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-21-q7.webp",
+   "sha256": "0fbb27c69bf0614362ef23a84d0eea0f0e342b90fe5427a81e0fefcfe090fcdd",
+   "bytes": 13800,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 409,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/1056ea9bcd10270882c7ca76d2746f76d9de7d87caf14dbec0c6b9e1fb3a5a2e.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/1056ea9bcd10270882c7ca76d2746f76d9de7d87caf14dbec0c6b9e1fb3a5a2e.webp",
+   "questionIds": [
+    "0606-2019-march-22-q6"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-march-22-q6.webp",
+   "sha256": "1056ea9bcd10270882c7ca76d2746f76d9de7d87caf14dbec0c6b9e1fb3a5a2e",
+   "bytes": 46410,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 731,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/10c706674724e922b4a6c92637dbf367c1e64d015b8352832e5e787f8fbbbe18.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/10c706674724e922b4a6c92637dbf367c1e64d015b8352832e5e787f8fbbbe18.webp",
+   "questionIds": [
+    "0606-2024-november-13-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2024-november-13-q4.webp",
+   "sha256": "10c706674724e922b4a6c92637dbf367c1e64d015b8352832e5e787f8fbbbe18",
+   "bytes": 39014,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 547,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/10d2dbb27fdc7a6f16b470c0eaf30c287055766a4c5aaacf1ed60d1a212f498d.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/10d2dbb27fdc7a6f16b470c0eaf30c287055766a4c5aaacf1ed60d1a212f498d.webp",
+   "questionIds": [
+    "0606-2017-june-12-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-12-q1.webp",
+   "sha256": "10d2dbb27fdc7a6f16b470c0eaf30c287055766a4c5aaacf1ed60d1a212f498d",
+   "bytes": 13152,
+   "contentType": "image/webp",
+   "width": 1166,
+   "height": 410,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/10e5a3b7ce53a3c9d91b4807d591e9ade7547ba0f13b30c9827bb0ab6765ccc9.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/10e5a3b7ce53a3c9d91b4807d591e9ade7547ba0f13b30c9827bb0ab6765ccc9.webp",
+   "questionIds": [
+    "0606-2017-november-23-q10"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-23-q10.webp",
+   "sha256": "10e5a3b7ce53a3c9d91b4807d591e9ade7547ba0f13b30c9827bb0ab6765ccc9",
+   "bytes": 54100,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 825,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/119ba2f1daa7de887cdc72ca45da169175d00a13f4c71a42cfb0a66bf84bba1e.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/119ba2f1daa7de887cdc72ca45da169175d00a13f4c71a42cfb0a66bf84bba1e.webp",
+   "questionIds": [
+    "0606-2018-november-23-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-november-23-q4.webp",
+   "sha256": "119ba2f1daa7de887cdc72ca45da169175d00a13f4c71a42cfb0a66bf84bba1e",
+   "bytes": 22118,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 493,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/12abaec8e2eafc1576e12eef45a76d59c619ebc8570426625a8f01e0e2ba25bd.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/12abaec8e2eafc1576e12eef45a76d59c619ebc8570426625a8f01e0e2ba25bd.webp",
+   "questionIds": [
+    "0606-2022-june-22-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-june-22-q2.webp",
+   "sha256": "12abaec8e2eafc1576e12eef45a76d59c619ebc8570426625a8f01e0e2ba25bd",
+   "bytes": 93682,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1195,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/1344f203802cd97d4eb7d1cb5c725e5e27348e466dfc63f2a95f42043eb92341.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/1344f203802cd97d4eb7d1cb5c725e5e27348e466dfc63f2a95f42043eb92341.webp",
+   "questionIds": [
+    "0606-2019-november-13-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-november-13-q7.webp",
+   "sha256": "1344f203802cd97d4eb7d1cb5c725e5e27348e466dfc63f2a95f42043eb92341",
+   "bytes": 35674,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 533,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/144969beef446486c3f9db1f022c94497788fd21766f38d0ca59a9f70fab297a.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/144969beef446486c3f9db1f022c94497788fd21766f38d0ca59a9f70fab297a.webp",
+   "questionIds": [
+    "0606-2017-november-21-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-21-q4.webp",
+   "sha256": "144969beef446486c3f9db1f022c94497788fd21766f38d0ca59a9f70fab297a",
+   "bytes": 34020,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 882,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/1504e2b32f9ddfa7322200c698951baa837a327d0b6cb0bad68633532df2f614.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/1504e2b32f9ddfa7322200c698951baa837a327d0b6cb0bad68633532df2f614.webp",
+   "questionIds": [
+    "0606-2022-november-13-q9"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-november-13-q9.webp",
+   "sha256": "1504e2b32f9ddfa7322200c698951baa837a327d0b6cb0bad68633532df2f614",
+   "bytes": 12374,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 260,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/157c639b42862ec466a128c2340d505ce89898f9c81408565edb6deb1946239b.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/157c639b42862ec466a128c2340d505ce89898f9c81408565edb6deb1946239b.webp",
+   "questionIds": [
+    "0606-2025-june-21-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-21-q4.webp",
+   "sha256": "157c639b42862ec466a128c2340d505ce89898f9c81408565edb6deb1946239b",
+   "bytes": 37972,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 520,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/1621625d27ff95f225f52390b9724a17f27ffc595341e3c64997175bea1e2941.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/1621625d27ff95f225f52390b9724a17f27ffc595341e3c64997175bea1e2941.webp",
+   "questionIds": [
+    "0606-2018-june-12-q9"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-june-12-q9.webp",
+   "sha256": "1621625d27ff95f225f52390b9724a17f27ffc595341e3c64997175bea1e2941",
+   "bytes": 37082,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 665,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/17873b7563d871f44016706c385c262897c7dffdbd404d0683b141b6884df37c.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/17873b7563d871f44016706c385c262897c7dffdbd404d0683b141b6884df37c.webp",
+   "questionIds": [
+    "0606-2019-november-13-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-november-13-q2.webp",
+   "sha256": "17873b7563d871f44016706c385c262897c7dffdbd404d0683b141b6884df37c",
+   "bytes": 31376,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 425,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/17c1dcc51e865128493d245108f5aebceb21f5c9361caf957db7dcefd6d754eb.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/17c1dcc51e865128493d245108f5aebceb21f5c9361caf957db7dcefd6d754eb.webp",
+   "questionIds": [
+    "0606-2019-november-11-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-november-11-q2.webp",
+   "sha256": "17c1dcc51e865128493d245108f5aebceb21f5c9361caf957db7dcefd6d754eb",
+   "bytes": 32168,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 407,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/17f37fcfe9d86534578270c8bb2215257b247f9ebeb57c262d3ed060e5727a4a.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/17f37fcfe9d86534578270c8bb2215257b247f9ebeb57c262d3ed060e5727a4a.webp",
+   "questionIds": [
+    "0606-2017-june-23-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-23-q5.webp",
+   "sha256": "17f37fcfe9d86534578270c8bb2215257b247f9ebeb57c262d3ed060e5727a4a",
+   "bytes": 16976,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 233,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/187e44452d036b99dc2bd54bd6172388cbd4dab066ee7c89e1961ad4de6d6dcc.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/187e44452d036b99dc2bd54bd6172388cbd4dab066ee7c89e1961ad4de6d6dcc.webp",
+   "questionIds": [
+    "0606-2017-november-21-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-21-q2.webp",
+   "sha256": "187e44452d036b99dc2bd54bd6172388cbd4dab066ee7c89e1961ad4de6d6dcc",
+   "bytes": 21752,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 401,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/1af4aaae701b07617c5c7acc606744aa6cfb5323ad9c7908ce4f45540fadfe14.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/1af4aaae701b07617c5c7acc606744aa6cfb5323ad9c7908ce4f45540fadfe14.webp",
+   "questionIds": [
+    "0606-2025-june-23-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-23-q4.webp",
+   "sha256": "1af4aaae701b07617c5c7acc606744aa6cfb5323ad9c7908ce4f45540fadfe14",
+   "bytes": 56524,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1140,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/1bbbc51bec801bffb0c2144c5638dfc011ffdac4960f65ee786ff36bafd51394.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/1bbbc51bec801bffb0c2144c5638dfc011ffdac4960f65ee786ff36bafd51394.webp",
+   "questionIds": [
+    "0606-2017-november-23-q3"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-23-q3.webp",
+   "sha256": "1bbbc51bec801bffb0c2144c5638dfc011ffdac4960f65ee786ff36bafd51394",
+   "bytes": 27366,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 302,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/1be4abaa68f8f34c6f02aa9d3001f0f5936a3ee0ee46759e880feebbce07d84f.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/1be4abaa68f8f34c6f02aa9d3001f0f5936a3ee0ee46759e880feebbce07d84f.webp",
+   "questionIds": [
+    "0606-2018-june-21-q2",
+    "0606-2018-june-23-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-june-21-q2.webp",
+   "sha256": "1be4abaa68f8f34c6f02aa9d3001f0f5936a3ee0ee46759e880feebbce07d84f",
+   "bytes": 11096,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 406,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/1dad9aca4b300a417ac059790ce52c5948f878f54a77642d1ea6a6a86fc48bf6.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/1dad9aca4b300a417ac059790ce52c5948f878f54a77642d1ea6a6a86fc48bf6.webp",
+   "questionIds": [
+    "0606-2022-june-21-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-june-21-q7.webp",
+   "sha256": "1dad9aca4b300a417ac059790ce52c5948f878f54a77642d1ea6a6a86fc48bf6",
+   "bytes": 29344,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 553,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/1dc869694af3ad47fb79521aff80d5b2bae57ed6652f423c8faf81aa0df45ba9.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/1dc869694af3ad47fb79521aff80d5b2bae57ed6652f423c8faf81aa0df45ba9.webp",
+   "questionIds": [
+    "0606-2017-june-21-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-21-q5.webp",
+   "sha256": "1dc869694af3ad47fb79521aff80d5b2bae57ed6652f423c8faf81aa0df45ba9",
+   "bytes": 46096,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 478,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/1df413f068ca133b909df4fb693ba2931f13c71b9dd05a6bc7f051330bddd82c.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/1df413f068ca133b909df4fb693ba2931f13c71b9dd05a6bc7f051330bddd82c.webp",
+   "questionIds": [
+    "0606-2017-march-22-q6"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-march-22-q6.webp",
+   "sha256": "1df413f068ca133b909df4fb693ba2931f13c71b9dd05a6bc7f051330bddd82c",
+   "bytes": 51744,
+   "contentType": "image/webp",
+   "width": 1151,
+   "height": 1007,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/1ebc708104ced59191456dba10deaf36090eb7887d5703baabe912f6fb5345fb.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/1ebc708104ced59191456dba10deaf36090eb7887d5703baabe912f6fb5345fb.webp",
+   "questionIds": [
+    "0606-2025-june-23-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-23-q5.webp",
+   "sha256": "1ebc708104ced59191456dba10deaf36090eb7887d5703baabe912f6fb5345fb",
+   "bytes": 40162,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 567,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/20915c8c0902d651d3fbfd1cf9f0e60b0c4c08d784293d9c5f2de0d590633453.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/20915c8c0902d651d3fbfd1cf9f0e60b0c4c08d784293d9c5f2de0d590633453.webp",
+   "questionIds": [
+    "0606-2019-november-11-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-november-11-q1.webp",
+   "sha256": "20915c8c0902d651d3fbfd1cf9f0e60b0c4c08d784293d9c5f2de0d590633453",
+   "bytes": 4832,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 117,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/21ee4a335da704ced96b78e2f8d2369c27d9f46912a1fc971e8782ce1eac1ad8.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/21ee4a335da704ced96b78e2f8d2369c27d9f46912a1fc971e8782ce1eac1ad8.webp",
+   "questionIds": [
+    "0606-2017-november-23-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-23-q8.webp",
+   "sha256": "21ee4a335da704ced96b78e2f8d2369c27d9f46912a1fc971e8782ce1eac1ad8",
+   "bytes": 21912,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 559,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/229df3f4201bc624f6c4cc0e43bfa1c52573c6b9f9f2706f262c7ef9a3492a20.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/229df3f4201bc624f6c4cc0e43bfa1c52573c6b9f9f2706f262c7ef9a3492a20.webp",
+   "questionIds": [
+    "0606-2019-november-12-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-november-12-q2.webp",
+   "sha256": "229df3f4201bc624f6c4cc0e43bfa1c52573c6b9f9f2706f262c7ef9a3492a20",
+   "bytes": 21358,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 433,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/22e2fa4b427f25aa3d1172908f53b1100e3924eae9f20fec4220ea7e6886fa6f.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/22e2fa4b427f25aa3d1172908f53b1100e3924eae9f20fec4220ea7e6886fa6f.webp",
+   "questionIds": [
+    "0606-2017-june-12-q6"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-12-q6.webp",
+   "sha256": "22e2fa4b427f25aa3d1172908f53b1100e3924eae9f20fec4220ea7e6886fa6f",
+   "bytes": 96898,
+   "contentType": "image/webp",
+   "width": 1166,
+   "height": 1998,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/23a2ed05b1c7b300825a9fb98a901faf9375ba79b37424c374c2fa0c7bc63c9d.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/23a2ed05b1c7b300825a9fb98a901faf9375ba79b37424c374c2fa0c7bc63c9d.webp",
+   "questionIds": [
+    "0606-2023-november-22-q6"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2023-november-22-q6.webp",
+   "sha256": "23a2ed05b1c7b300825a9fb98a901faf9375ba79b37424c374c2fa0c7bc63c9d",
+   "bytes": 26500,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 528,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/24ee48a3658563412e8c324265d35cc043236b27f3c2bdab7ad6771e7c0dd95c.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/24ee48a3658563412e8c324265d35cc043236b27f3c2bdab7ad6771e7c0dd95c.webp",
+   "questionIds": [
+    "0606-2017-june-12-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-12-q7.webp",
+   "sha256": "24ee48a3658563412e8c324265d35cc043236b27f3c2bdab7ad6771e7c0dd95c",
+   "bytes": 114928,
+   "contentType": "image/webp",
+   "width": 1166,
+   "height": 1793,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/25ff9d1f31794e5052d9110051cf79b0995c0707ea2a2ff5c56e5fd4a5ad5311.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/25ff9d1f31794e5052d9110051cf79b0995c0707ea2a2ff5c56e5fd4a5ad5311.webp",
+   "questionIds": [
+    "0606-2018-june-22-q6"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-june-22-q6.webp",
+   "sha256": "25ff9d1f31794e5052d9110051cf79b0995c0707ea2a2ff5c56e5fd4a5ad5311",
+   "bytes": 27836,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 379,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/2792baad00572565ced03cc382247fccb4b92e7f07020e7aaa9d9ae737f28839.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/2792baad00572565ced03cc382247fccb4b92e7f07020e7aaa9d9ae737f28839.webp",
+   "questionIds": [
+    "0606-2023-november-13-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2023-november-13-q4.webp",
+   "sha256": "2792baad00572565ced03cc382247fccb4b92e7f07020e7aaa9d9ae737f28839",
+   "bytes": 58308,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 710,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/2869263f94bc2bfc2baf0b789d28f724e8c4c4ccb8ead4e72cf9c50db8b5ddb2.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/2869263f94bc2bfc2baf0b789d28f724e8c4c4ccb8ead4e72cf9c50db8b5ddb2.webp",
+   "questionIds": [
+    "0606-2019-march-22-q11"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-march-22-q11.webp",
+   "sha256": "2869263f94bc2bfc2baf0b789d28f724e8c4c4ccb8ead4e72cf9c50db8b5ddb2",
+   "bytes": 30554,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1466,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/286dd3a0090ecde28de879d396105843bb57fdd53e2097e35c31cfc9ddba218a.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/286dd3a0090ecde28de879d396105843bb57fdd53e2097e35c31cfc9ddba218a.webp",
+   "questionIds": [
+    "0606-2018-march-22-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-march-22-q1.webp",
+   "sha256": "286dd3a0090ecde28de879d396105843bb57fdd53e2097e35c31cfc9ddba218a",
+   "bytes": 27198,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 396,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/28ad9d4550cd858175fff68b50c7ec91ef1494ef1d5648b6a5cced4172e318f9.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/28ad9d4550cd858175fff68b50c7ec91ef1494ef1d5648b6a5cced4172e318f9.webp",
+   "questionIds": [
+    "0606-2024-november-22-q6"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2024-november-22-q6.webp",
+   "sha256": "28ad9d4550cd858175fff68b50c7ec91ef1494ef1d5648b6a5cced4172e318f9",
+   "bytes": 36268,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 594,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/294b9b1da7f8e010fb79df34eae7cc2386274743d475b3f022f207a722982b44.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/294b9b1da7f8e010fb79df34eae7cc2386274743d475b3f022f207a722982b44.webp",
+   "questionIds": [
+    "0606-2023-june-13-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2023-june-13-q5.webp",
+   "sha256": "294b9b1da7f8e010fb79df34eae7cc2386274743d475b3f022f207a722982b44",
+   "bytes": 15090,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 263,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/2985f552230049ff1bed0fece3d80c3ef554085408241e9c3501be1ca4a6d834.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/2985f552230049ff1bed0fece3d80c3ef554085408241e9c3501be1ca4a6d834.webp",
+   "questionIds": [
+    "0606-2017-june-12-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-12-q8.webp",
+   "sha256": "2985f552230049ff1bed0fece3d80c3ef554085408241e9c3501be1ca4a6d834",
+   "bytes": 80194,
+   "contentType": "image/webp",
+   "width": 1166,
+   "height": 1387,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/298f0551d22fec19622e992bf6b9bb9dacd6cb2238b0bd32464b52759b6b1d80.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/298f0551d22fec19622e992bf6b9bb9dacd6cb2238b0bd32464b52759b6b1d80.webp",
+   "questionIds": [
+    "0606-2018-march-22-q6"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-march-22-q6.webp",
+   "sha256": "298f0551d22fec19622e992bf6b9bb9dacd6cb2238b0bd32464b52759b6b1d80",
+   "bytes": 16302,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 335,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/2a04bd485255b4200917754b7525fd7cec1fb0bfe5d03a9113ee3a980b22bccf.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/2a04bd485255b4200917754b7525fd7cec1fb0bfe5d03a9113ee3a980b22bccf.webp",
+   "questionIds": [
+    "0606-2021-november-23-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2021-november-23-q1.webp",
+   "sha256": "2a04bd485255b4200917754b7525fd7cec1fb0bfe5d03a9113ee3a980b22bccf",
+   "bytes": 62212,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 638,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/2a8f2cdfcff476f767b3e76c73ba18d9a6de24353eabff05899d5e32691383cf.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/2a8f2cdfcff476f767b3e76c73ba18d9a6de24353eabff05899d5e32691383cf.webp",
+   "questionIds": [
+    "0606-2022-june-22-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-june-22-q7.webp",
+   "sha256": "2a8f2cdfcff476f767b3e76c73ba18d9a6de24353eabff05899d5e32691383cf",
+   "bytes": 36252,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 614,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/2ab9455f5a54ef1d6a196476da63e50115581579803c9e6d36d942424726c671.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/2ab9455f5a54ef1d6a196476da63e50115581579803c9e6d36d942424726c671.webp",
+   "questionIds": [
+    "0606-2022-march-22-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-march-22-q1.webp",
+   "sha256": "2ab9455f5a54ef1d6a196476da63e50115581579803c9e6d36d942424726c671",
+   "bytes": 13158,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 328,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/2e3ef6b5d8f41c9e9854e0bcb620290dc0ab4c631f10425a99355e39ab944de8.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/2e3ef6b5d8f41c9e9854e0bcb620290dc0ab4c631f10425a99355e39ab944de8.webp",
+   "questionIds": [
+    "0606-2019-june-13-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-june-13-q2.webp",
+   "sha256": "2e3ef6b5d8f41c9e9854e0bcb620290dc0ab4c631f10425a99355e39ab944de8",
+   "bytes": 3704,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 221,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/2ec2288f86af6787d158e07a7ef8d1157d6d7e68624c8a3e2355317a2a542a68.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/2ec2288f86af6787d158e07a7ef8d1157d6d7e68624c8a3e2355317a2a542a68.webp",
+   "questionIds": [
+    "0606-2023-march-22-q6"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2023-march-22-q6.webp",
+   "sha256": "2ec2288f86af6787d158e07a7ef8d1157d6d7e68624c8a3e2355317a2a542a68",
+   "bytes": 28006,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 601,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/2ec5925dd7a7a29b94713f8e7eae2c8eaa0fb5d5690174467d03d43873ac3aad.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/2ec5925dd7a7a29b94713f8e7eae2c8eaa0fb5d5690174467d03d43873ac3aad.webp",
+   "questionIds": [
+    "0606-2023-june-22-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2023-june-22-q4.webp",
+   "sha256": "2ec5925dd7a7a29b94713f8e7eae2c8eaa0fb5d5690174467d03d43873ac3aad",
+   "bytes": 45464,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 825,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/314dc27ab8176ffde5576e14bee61bbcc914571ec6865d15e7359f71e60ee444.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/314dc27ab8176ffde5576e14bee61bbcc914571ec6865d15e7359f71e60ee444.webp",
+   "questionIds": [
+    "0606-2017-march-22-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-march-22-q8.webp",
+   "sha256": "314dc27ab8176ffde5576e14bee61bbcc914571ec6865d15e7359f71e60ee444",
+   "bytes": 33984,
+   "contentType": "image/webp",
+   "width": 1151,
+   "height": 976,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/31b2c827da4f578ab12d7cbce2fcbaaa0279622769e719b9c2f3605d22eeea57.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/31b2c827da4f578ab12d7cbce2fcbaaa0279622769e719b9c2f3605d22eeea57.webp",
+   "questionIds": [
+    "0606-2017-november-23-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-23-q2.webp",
+   "sha256": "31b2c827da4f578ab12d7cbce2fcbaaa0279622769e719b9c2f3605d22eeea57",
+   "bytes": 9024,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 177,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/3389ee3ddbcd1e5d59ff8bc118b8e6effa307d3ba59b3485289df983574d3634.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/3389ee3ddbcd1e5d59ff8bc118b8e6effa307d3ba59b3485289df983574d3634.webp",
+   "questionIds": [
+    "0606-2017-june-12-q10"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-12-q10.webp",
+   "sha256": "3389ee3ddbcd1e5d59ff8bc118b8e6effa307d3ba59b3485289df983574d3634",
+   "bytes": 319066,
+   "contentType": "image/webp",
+   "width": 1166,
+   "height": 3858,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/339cb85a59214eeb80780d97578874cf7f68366c622b15c5028151ce0fe31291.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/339cb85a59214eeb80780d97578874cf7f68366c622b15c5028151ce0fe31291.webp",
+   "questionIds": [
+    "0606-2022-june-21-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-june-21-q2.webp",
+   "sha256": "339cb85a59214eeb80780d97578874cf7f68366c622b15c5028151ce0fe31291",
+   "bytes": 29586,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 470,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/33ac4efcb13ba18185a4b644675a6984ee4646a907924461f8778b449dc0671f.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/33ac4efcb13ba18185a4b644675a6984ee4646a907924461f8778b449dc0671f.webp",
+   "questionIds": [
+    "0606-2019-november-13-q10"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-november-13-q10.webp",
+   "sha256": "33ac4efcb13ba18185a4b644675a6984ee4646a907924461f8778b449dc0671f",
+   "bytes": 52746,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 2280,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/34f08d76eea7c68b5f370277fed9ce9e530474e52bf4c4255a4a53432b9686b9.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/34f08d76eea7c68b5f370277fed9ce9e530474e52bf4c4255a4a53432b9686b9.webp",
+   "questionIds": [
+    "0606-2017-november-21-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-21-q8.webp",
+   "sha256": "34f08d76eea7c68b5f370277fed9ce9e530474e52bf4c4255a4a53432b9686b9",
+   "bytes": 24170,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 400,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/352ef152c9c18661af4022f780d182b9e31258367cd0ea15d70752ffcfd0fae5.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/352ef152c9c18661af4022f780d182b9e31258367cd0ea15d70752ffcfd0fae5.webp",
+   "questionIds": [
+    "0606-2019-march-22-q3"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-march-22-q3.webp",
+   "sha256": "352ef152c9c18661af4022f780d182b9e31258367cd0ea15d70752ffcfd0fae5",
+   "bytes": 35244,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 426,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/35c977683ff479c41177c7754b719d2a570671211d542a02a70f47693e9adbef.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/35c977683ff479c41177c7754b719d2a570671211d542a02a70f47693e9adbef.webp",
+   "questionIds": [
+    "0606-2019-june-22-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-june-22-q2.webp",
+   "sha256": "35c977683ff479c41177c7754b719d2a570671211d542a02a70f47693e9adbef",
+   "bytes": 22378,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 401,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/366f8dee3ecc9cd5c58be8f5b7d78751334b03f00036d8f7b570113f7ff66553.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/366f8dee3ecc9cd5c58be8f5b7d78751334b03f00036d8f7b570113f7ff66553.webp",
+   "questionIds": [
+    "0606-2017-june-23-q3"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-23-q3.webp",
+   "sha256": "366f8dee3ecc9cd5c58be8f5b7d78751334b03f00036d8f7b570113f7ff66553",
+   "bytes": 43936,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 811,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/38477259c7e44dd6f73ad1064f9db407a7f6218360dbc3b8c7a7ad9dc58a0805.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/38477259c7e44dd6f73ad1064f9db407a7f6218360dbc3b8c7a7ad9dc58a0805.webp",
+   "questionIds": [
+    "0606-2017-june-13-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-13-q1.webp",
+   "sha256": "38477259c7e44dd6f73ad1064f9db407a7f6218360dbc3b8c7a7ad9dc58a0805",
+   "bytes": 9430,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 461,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/38b3cb5897cc6d220495aa3fc78bf48e309b2fefa56ae26c6150adc1c8a61733.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/38b3cb5897cc6d220495aa3fc78bf48e309b2fefa56ae26c6150adc1c8a61733.webp",
+   "questionIds": [
+    "0606-2016-november-13-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-november-13-q1.webp",
+   "sha256": "38b3cb5897cc6d220495aa3fc78bf48e309b2fefa56ae26c6150adc1c8a61733",
+   "bytes": 27492,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 298,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/3a1be52ee1fa3896ccecc22657b8fabe11a0d9a2aaabfbff768798894f8dbb58.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/3a1be52ee1fa3896ccecc22657b8fabe11a0d9a2aaabfbff768798894f8dbb58.webp",
+   "questionIds": [
+    "0606-2019-november-12-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-november-12-q4.webp",
+   "sha256": "3a1be52ee1fa3896ccecc22657b8fabe11a0d9a2aaabfbff768798894f8dbb58",
+   "bytes": 49604,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 952,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/3ba266666b91fbbfb55ea4f191036f3eb8b31cc34078ed7e56a31f1300bbf94f.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/3ba266666b91fbbfb55ea4f191036f3eb8b31cc34078ed7e56a31f1300bbf94f.webp",
+   "questionIds": [
+    "0606-2025-june-23-q11"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-23-q11.webp",
+   "sha256": "3ba266666b91fbbfb55ea4f191036f3eb8b31cc34078ed7e56a31f1300bbf94f",
+   "bytes": 25116,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 666,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/3ce4c4c53815f5bfe78249258939ae2a33f9584aaf4766f249b2cecab7652703.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/3ce4c4c53815f5bfe78249258939ae2a33f9584aaf4766f249b2cecab7652703.webp",
+   "questionIds": [
+    "0606-2019-november-13-q9"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-november-13-q9.webp",
+   "sha256": "3ce4c4c53815f5bfe78249258939ae2a33f9584aaf4766f249b2cecab7652703",
+   "bytes": 72594,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1294,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/3d89268237225586e6f6ae8fb0efd613843826882fccc5af3432a850ce2e3aa2.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/3d89268237225586e6f6ae8fb0efd613843826882fccc5af3432a850ce2e3aa2.webp",
+   "questionIds": [
+    "0606-2017-june-22-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-22-q2.webp",
+   "sha256": "3d89268237225586e6f6ae8fb0efd613843826882fccc5af3432a850ce2e3aa2",
+   "bytes": 120562,
+   "contentType": "image/webp",
+   "width": 1166,
+   "height": 2552,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/3dfa423b29c469fd622bb721c187ac0f0f688f6a2b16fbfb3e0d461117bd6076.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/3dfa423b29c469fd622bb721c187ac0f0f688f6a2b16fbfb3e0d461117bd6076.webp",
+   "questionIds": [
+    "0606-2017-november-21-q10"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-21-q10.webp",
+   "sha256": "3dfa423b29c469fd622bb721c187ac0f0f688f6a2b16fbfb3e0d461117bd6076",
+   "bytes": 24738,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 541,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/3eca69b58ff9a8e2e809baa4c8feabfbac265c19d4f5c76729b6dd6c86496918.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/3eca69b58ff9a8e2e809baa4c8feabfbac265c19d4f5c76729b6dd6c86496918.webp",
+   "questionIds": [
+    "0606-2017-november-11-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-11-q4.webp",
+   "sha256": "3eca69b58ff9a8e2e809baa4c8feabfbac265c19d4f5c76729b6dd6c86496918",
+   "bytes": 15754,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 406,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/3edc51b8cad87ca5fe7f38f67e3196049214b43d8e1790d6e929152223c185a7.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/3edc51b8cad87ca5fe7f38f67e3196049214b43d8e1790d6e929152223c185a7.webp",
+   "questionIds": [
+    "0606-2019-november-11-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-november-11-q7.webp",
+   "sha256": "3edc51b8cad87ca5fe7f38f67e3196049214b43d8e1790d6e929152223c185a7",
+   "bytes": 52994,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 665,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/41102245e62daa9e3fb57a9975c9a87edfb1aa7fc178b2078ce9c3ea3cdc105b.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/41102245e62daa9e3fb57a9975c9a87edfb1aa7fc178b2078ce9c3ea3cdc105b.webp",
+   "questionIds": [
+    "0606-2022-november-13-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-november-13-q1.webp",
+   "sha256": "41102245e62daa9e3fb57a9975c9a87edfb1aa7fc178b2078ce9c3ea3cdc105b",
+   "bytes": 28842,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 484,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/41853672825a6087cc1ac7f1d8568e5e949b0d736be2ffcd67a4608f576bdf41.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/41853672825a6087cc1ac7f1d8568e5e949b0d736be2ffcd67a4608f576bdf41.webp",
+   "questionIds": [
+    "0606-2019-november-11-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-november-11-q5.webp",
+   "sha256": "41853672825a6087cc1ac7f1d8568e5e949b0d736be2ffcd67a4608f576bdf41",
+   "bytes": 39622,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 516,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/41972f6d6aab1dad95593f3fa43ce00bb0c4a225335067f5ca47bacb00a3c297.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/41972f6d6aab1dad95593f3fa43ce00bb0c4a225335067f5ca47bacb00a3c297.webp",
+   "questionIds": [
+    "0606-2023-november-22-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2023-november-22-q4.webp",
+   "sha256": "41972f6d6aab1dad95593f3fa43ce00bb0c4a225335067f5ca47bacb00a3c297",
+   "bytes": 57908,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1049,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/4429d65fd17d3ad31686f90f27a200b2fa5b0efaec22f04e755c104eda899fb8.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/4429d65fd17d3ad31686f90f27a200b2fa5b0efaec22f04e755c104eda899fb8.webp",
+   "questionIds": [
+    "0606-2017-june-11-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-11-q7.webp",
+   "sha256": "4429d65fd17d3ad31686f90f27a200b2fa5b0efaec22f04e755c104eda899fb8",
+   "bytes": 42122,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 706,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/443a30fd2276ed5bb0fff33701f1c4437487f67992c11e3fb82082fd3fc5237b.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/443a30fd2276ed5bb0fff33701f1c4437487f67992c11e3fb82082fd3fc5237b.webp",
+   "questionIds": [
+    "0606-2016-november-23-q6"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-november-23-q6.webp",
+   "sha256": "443a30fd2276ed5bb0fff33701f1c4437487f67992c11e3fb82082fd3fc5237b",
+   "bytes": 36324,
+   "contentType": "image/webp",
+   "width": 1166,
+   "height": 717,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/44b9445f3894c7eb10c5bb711d499098dcd8e8aae421cc93a14a160f41353212.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/44b9445f3894c7eb10c5bb711d499098dcd8e8aae421cc93a14a160f41353212.webp",
+   "questionIds": [
+    "0606-2022-november-13-q10"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-november-13-q10.webp",
+   "sha256": "44b9445f3894c7eb10c5bb711d499098dcd8e8aae421cc93a14a160f41353212",
+   "bytes": 37754,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 485,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/44bcd8f48676f944f1df6ab74d1203161ef43f6c3534591e051763dd05237c42.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/44bcd8f48676f944f1df6ab74d1203161ef43f6c3534591e051763dd05237c42.webp",
+   "questionIds": [
+    "0606-2017-june-21-q6"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-21-q6.webp",
+   "sha256": "44bcd8f48676f944f1df6ab74d1203161ef43f6c3534591e051763dd05237c42",
+   "bytes": 48038,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 614,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/4542131ee4a45242793d109b9d5f1f41b1e8dbe71d1c371f46cc53365442bdf1.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/4542131ee4a45242793d109b9d5f1f41b1e8dbe71d1c371f46cc53365442bdf1.webp",
+   "questionIds": [
+    "0606-2019-march-22-q9"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-march-22-q9.webp",
+   "sha256": "4542131ee4a45242793d109b9d5f1f41b1e8dbe71d1c371f46cc53365442bdf1",
+   "bytes": 78140,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 966,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/45c743c8b0fa9befea5650ac70102c05a22a740b241e244d0d526f96ce71778c.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/45c743c8b0fa9befea5650ac70102c05a22a740b241e244d0d526f96ce71778c.webp",
+   "questionIds": [
+    "0606-2017-june-21-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-21-q1.webp",
+   "sha256": "45c743c8b0fa9befea5650ac70102c05a22a740b241e244d0d526f96ce71778c",
+   "bytes": 16602,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 280,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/45ebf67205c187f1dc3af7401c9ca5b800a96821aa3ee0fd4bc68df00065aeec.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/45ebf67205c187f1dc3af7401c9ca5b800a96821aa3ee0fd4bc68df00065aeec.webp",
+   "questionIds": [
+    "0606-2023-november-21-q10"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2023-november-21-q10.webp",
+   "sha256": "45ebf67205c187f1dc3af7401c9ca5b800a96821aa3ee0fd4bc68df00065aeec",
+   "bytes": 43160,
+   "contentType": "image/webp",
+   "width": 1145,
+   "height": 667,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/4619125bc9ac308963acf878a63ddfbf1aca867e8ac2d8d2014c127e281d8eae.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/4619125bc9ac308963acf878a63ddfbf1aca867e8ac2d8d2014c127e281d8eae.webp",
+   "questionIds": [
+    "0606-2025-june-11-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-11-q7.webp",
+   "sha256": "4619125bc9ac308963acf878a63ddfbf1aca867e8ac2d8d2014c127e281d8eae",
+   "bytes": 56532,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 960,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/4cd3f6da57835dc74f662002a4f0bb7b3e1642cba24ade21ba2ff6c0637cafae.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/4cd3f6da57835dc74f662002a4f0bb7b3e1642cba24ade21ba2ff6c0637cafae.webp",
+   "questionIds": [
+    "0606-2016-november-22-q10"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-november-22-q10.webp",
+   "sha256": "4cd3f6da57835dc74f662002a4f0bb7b3e1642cba24ade21ba2ff6c0637cafae",
+   "bytes": 34712,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 358,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/4e029437192e015bef79107e2758887c745a4eb81f97bab562eb08ff76a76031.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/4e029437192e015bef79107e2758887c745a4eb81f97bab562eb08ff76a76031.webp",
+   "questionIds": [
+    "0606-2024-november-22-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2024-november-22-q7.webp",
+   "sha256": "4e029437192e015bef79107e2758887c745a4eb81f97bab562eb08ff76a76031",
+   "bytes": 18692,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 322,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/4f3e4255fa3445cd9d894c1007447b726b88bef67786eb615eb58edb8b6b1614.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/4f3e4255fa3445cd9d894c1007447b726b88bef67786eb615eb58edb8b6b1614.webp",
+   "questionIds": [
+    "0606-2016-march-22-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-march-22-q1.webp",
+   "sha256": "4f3e4255fa3445cd9d894c1007447b726b88bef67786eb615eb58edb8b6b1614",
+   "bytes": 14730,
+   "contentType": "image/webp",
+   "width": 1170,
+   "height": 265,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/4f3fc1596ef3d24189a413f63d3480e4aef781575acc67cf0a0e761b1e3a314b.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/4f3fc1596ef3d24189a413f63d3480e4aef781575acc67cf0a0e761b1e3a314b.webp",
+   "questionIds": [
+    "0606-2016-november-13-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-november-13-q8.webp",
+   "sha256": "4f3fc1596ef3d24189a413f63d3480e4aef781575acc67cf0a0e761b1e3a314b",
+   "bytes": 96808,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1439,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/4f8d11d9c26d6a8435974b748e042d08f1523d16e35255ded409c3ca8b8f54a6.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/4f8d11d9c26d6a8435974b748e042d08f1523d16e35255ded409c3ca8b8f54a6.webp",
+   "questionIds": [
+    "0606-2018-june-21-q11",
+    "0606-2018-june-23-q11"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-june-21-q11.webp",
+   "sha256": "4f8d11d9c26d6a8435974b748e042d08f1523d16e35255ded409c3ca8b8f54a6",
+   "bytes": 45778,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 698,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/50246fe009b2d0fe4d0d4f847b6a03f32518ee1e1cc01abd1a4a9eb62a257a3f.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/50246fe009b2d0fe4d0d4f847b6a03f32518ee1e1cc01abd1a4a9eb62a257a3f.webp",
+   "questionIds": [
+    "0606-2017-june-13-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-13-q8.webp",
+   "sha256": "50246fe009b2d0fe4d0d4f847b6a03f32518ee1e1cc01abd1a4a9eb62a257a3f",
+   "bytes": 33496,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 624,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/505da3d918a26819d6d81df5bac521cbcf94a87f389c1a44d2e8438c20163786.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/505da3d918a26819d6d81df5bac521cbcf94a87f389c1a44d2e8438c20163786.webp",
+   "questionIds": [
+    "0606-2019-november-13-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-november-13-q1.webp",
+   "sha256": "505da3d918a26819d6d81df5bac521cbcf94a87f389c1a44d2e8438c20163786",
+   "bytes": 52948,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 504,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/506f97305774152ff51ddec8ad8f486df29a3be07b5c6006438f07829b6de0a1.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/506f97305774152ff51ddec8ad8f486df29a3be07b5c6006438f07829b6de0a1.webp",
+   "questionIds": [
+    "0606-2017-june-13-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-13-q7.webp",
+   "sha256": "506f97305774152ff51ddec8ad8f486df29a3be07b5c6006438f07829b6de0a1",
+   "bytes": 104916,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1893,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/517e78aeb5b166062a810ac87b152462aca521ff3a16ac2020637ac3ac78db2e.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/517e78aeb5b166062a810ac87b152462aca521ff3a16ac2020637ac3ac78db2e.webp",
+   "questionIds": [
+    "0606-2017-november-23-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-23-q1.webp",
+   "sha256": "517e78aeb5b166062a810ac87b152462aca521ff3a16ac2020637ac3ac78db2e",
+   "bytes": 17722,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 339,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/51e38a537044d50ee45abdbd5e229f741c04491f2b433631dffb0fcea2ef9958.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/51e38a537044d50ee45abdbd5e229f741c04491f2b433631dffb0fcea2ef9958.webp",
+   "questionIds": [
+    "0606-2025-june-23-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-23-q7.webp",
+   "sha256": "51e38a537044d50ee45abdbd5e229f741c04491f2b433631dffb0fcea2ef9958",
+   "bytes": 14984,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 260,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/52049e98779a798aa02c24dac5b30c6a2f679f07df3a273b99a6047a112a8a88.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/52049e98779a798aa02c24dac5b30c6a2f679f07df3a273b99a6047a112a8a88.webp",
+   "questionIds": [
+    "0606-2025-june-23-q13"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-23-q13.webp",
+   "sha256": "52049e98779a798aa02c24dac5b30c6a2f679f07df3a273b99a6047a112a8a88",
+   "bytes": 24100,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 851,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/52cc276563ca328df9ed639b14d7080a6c6f665fc5661b33543def29b8f0fd85.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/52cc276563ca328df9ed639b14d7080a6c6f665fc5661b33543def29b8f0fd85.webp",
+   "questionIds": [
+    "0606-2019-june-13-q3"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-june-13-q3.webp",
+   "sha256": "52cc276563ca328df9ed639b14d7080a6c6f665fc5661b33543def29b8f0fd85",
+   "bytes": 31222,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 361,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/5374ae641a8b66ad77ea9d48206aadf4d913b647ae2d84c08c54415e3cc9b6fc.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/5374ae641a8b66ad77ea9d48206aadf4d913b647ae2d84c08c54415e3cc9b6fc.webp",
+   "questionIds": [
+    "0606-2019-november-13-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-november-13-q4.webp",
+   "sha256": "5374ae641a8b66ad77ea9d48206aadf4d913b647ae2d84c08c54415e3cc9b6fc",
+   "bytes": 23442,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 552,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/54526f1d7737840a216c82cb771d6d09f520baa06e28d6a5ba9ddf45ac606a39.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/54526f1d7737840a216c82cb771d6d09f520baa06e28d6a5ba9ddf45ac606a39.webp",
+   "questionIds": [
+    "0606-2017-june-13-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-13-q2.webp",
+   "sha256": "54526f1d7737840a216c82cb771d6d09f520baa06e28d6a5ba9ddf45ac606a39",
+   "bytes": 4544,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 137,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/54764c80e895da19b3b6f59167cd4af2462e24ed644146ef57c864d2fa0e887e.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/54764c80e895da19b3b6f59167cd4af2462e24ed644146ef57c864d2fa0e887e.webp",
+   "questionIds": [
+    "0606-2025-june-11-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-11-q2.webp",
+   "sha256": "54764c80e895da19b3b6f59167cd4af2462e24ed644146ef57c864d2fa0e887e",
+   "bytes": 23958,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 264,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/569ff494088376b7bfd9bd202b7ec86ea335a715251ca45068ccaed71e50d47e.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/569ff494088376b7bfd9bd202b7ec86ea335a715251ca45068ccaed71e50d47e.webp",
+   "questionIds": [
+    "0606-2025-june-21-q6"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-21-q6.webp",
+   "sha256": "569ff494088376b7bfd9bd202b7ec86ea335a715251ca45068ccaed71e50d47e",
+   "bytes": 29148,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 400,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/5775df7cd8756ba806a59ec86f9c06bb38a18b72b4bad9acea4815385647d830.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/5775df7cd8756ba806a59ec86f9c06bb38a18b72b4bad9acea4815385647d830.webp",
+   "questionIds": [
+    "0606-2019-june-23-q3"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-june-23-q3.webp",
+   "sha256": "5775df7cd8756ba806a59ec86f9c06bb38a18b72b4bad9acea4815385647d830",
+   "bytes": 19832,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 521,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/578017c72f067461407718306342f10d8c9adff8e74c75971c2f915174a5a022.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/578017c72f067461407718306342f10d8c9adff8e74c75971c2f915174a5a022.webp",
+   "questionIds": [
+    "0606-2019-june-23-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-june-23-q2.webp",
+   "sha256": "578017c72f067461407718306342f10d8c9adff8e74c75971c2f915174a5a022",
+   "bytes": 16554,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 414,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/578ca061142fd2fad45d9d445827f76ef6d944b6ede3129ff8464e3f4810570f.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/578ca061142fd2fad45d9d445827f76ef6d944b6ede3129ff8464e3f4810570f.webp",
+   "questionIds": [
+    "0606-2019-june-11-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-june-11-q2.webp",
+   "sha256": "578ca061142fd2fad45d9d445827f76ef6d944b6ede3129ff8464e3f4810570f",
+   "bytes": 34576,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 469,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/59c4ec4b1ebc023db7f647caf1ecbc7419546de04adb6ab856c5bdd23c044323.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/59c4ec4b1ebc023db7f647caf1ecbc7419546de04adb6ab856c5bdd23c044323.webp",
+   "questionIds": [
+    "0606-2017-november-12-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-12-q8.webp",
+   "sha256": "59c4ec4b1ebc023db7f647caf1ecbc7419546de04adb6ab856c5bdd23c044323",
+   "bytes": 84866,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1427,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/5acb577b59dccb909ea7e94e5db8e56128885b29cd0e04975f3c80b7af530fc8.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/5acb577b59dccb909ea7e94e5db8e56128885b29cd0e04975f3c80b7af530fc8.webp",
+   "questionIds": [
+    "0606-2025-june-21-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-21-q7.webp",
+   "sha256": "5acb577b59dccb909ea7e94e5db8e56128885b29cd0e04975f3c80b7af530fc8",
+   "bytes": 69520,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 929,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/5bce0a9f3f307366cf90c973c2f915cefc496f92cce71619cda44573faa0ef47.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/5bce0a9f3f307366cf90c973c2f915cefc496f92cce71619cda44573faa0ef47.webp",
+   "questionIds": [
+    "0606-2017-november-21-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-21-q5.webp",
+   "sha256": "5bce0a9f3f307366cf90c973c2f915cefc496f92cce71619cda44573faa0ef47",
+   "bytes": 19354,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 490,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/5bd3c841d28af666569176a501aee3ac82c5a16e73ede88a64323a9c809e328c.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/5bd3c841d28af666569176a501aee3ac82c5a16e73ede88a64323a9c809e328c.webp",
+   "questionIds": [
+    "0606-2025-june-23-q12"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-23-q12.webp",
+   "sha256": "5bd3c841d28af666569176a501aee3ac82c5a16e73ede88a64323a9c809e328c",
+   "bytes": 98728,
+   "contentType": "image/webp",
+   "width": 1173,
+   "height": 2084,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/5c79f872f597f2dbbf50e24153be1580f5a10433597542f2bd8310348f343581.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/5c79f872f597f2dbbf50e24153be1580f5a10433597542f2bd8310348f343581.webp",
+   "questionIds": [
+    "0606-2017-november-21-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-21-q1.webp",
+   "sha256": "5c79f872f597f2dbbf50e24153be1580f5a10433597542f2bd8310348f343581",
+   "bytes": 8014,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 223,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/5e9ef24bb153699bb8d2b0c05d1bc9e116ce59410004a148f0cfe33037a87121.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/5e9ef24bb153699bb8d2b0c05d1bc9e116ce59410004a148f0cfe33037a87121.webp",
+   "questionIds": [
+    "0606-2019-march-22-q10"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-march-22-q10.webp",
+   "sha256": "5e9ef24bb153699bb8d2b0c05d1bc9e116ce59410004a148f0cfe33037a87121",
+   "bytes": 108846,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 3433,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/5f220070db73a39a35f76130823c1e7aa54b1c3a04d816d582fa347b03421db3.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/5f220070db73a39a35f76130823c1e7aa54b1c3a04d816d582fa347b03421db3.webp",
+   "questionIds": [
+    "0606-2023-november-21-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2023-november-21-q8.webp",
+   "sha256": "5f220070db73a39a35f76130823c1e7aa54b1c3a04d816d582fa347b03421db3",
+   "bytes": 39624,
+   "contentType": "image/webp",
+   "width": 1145,
+   "height": 807,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/631afbf9a04cf92e3a8b9559a820930b9991951ef8f8fc8aa649a62cc2e19409.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/631afbf9a04cf92e3a8b9559a820930b9991951ef8f8fc8aa649a62cc2e19409.webp",
+   "questionIds": [
+    "0606-2022-june-22-q9"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-june-22-q9.webp",
+   "sha256": "631afbf9a04cf92e3a8b9559a820930b9991951ef8f8fc8aa649a62cc2e19409",
+   "bytes": 75442,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1271,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/63714e9749a0557278753cb316ce22c4d1569dd00901778c44f4642cd24d09af.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/63714e9749a0557278753cb316ce22c4d1569dd00901778c44f4642cd24d09af.webp",
+   "questionIds": [
+    "0606-2022-march-22-q9"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-march-22-q9.webp",
+   "sha256": "63714e9749a0557278753cb316ce22c4d1569dd00901778c44f4642cd24d09af",
+   "bytes": 60288,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1466,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/637f683fb37c84a6beb6b2c5744e411ecf4fcbf64d16fb613afeb9e6f494a527.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/637f683fb37c84a6beb6b2c5744e411ecf4fcbf64d16fb613afeb9e6f494a527.webp",
+   "questionIds": [
+    "0606-2017-march-22-q11"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-march-22-q11.webp",
+   "sha256": "637f683fb37c84a6beb6b2c5744e411ecf4fcbf64d16fb613afeb9e6f494a527",
+   "bytes": 50008,
+   "contentType": "image/webp",
+   "width": 1151,
+   "height": 1164,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/63957f324f21ab312224dcff481f27f703d529398bc5ce4716a003b9b14a1a80.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/63957f324f21ab312224dcff481f27f703d529398bc5ce4716a003b9b14a1a80.webp",
+   "questionIds": [
+    "0606-2025-march-12-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-march-12-q8.webp",
+   "sha256": "63957f324f21ab312224dcff481f27f703d529398bc5ce4716a003b9b14a1a80",
+   "bytes": 32436,
+   "contentType": "image/webp",
+   "width": 1151,
+   "height": 636,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/64f7f01c43cb7950a516fe7bcfb5622faeccedb0818cb5e9be4aa167e8fd0878.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/64f7f01c43cb7950a516fe7bcfb5622faeccedb0818cb5e9be4aa167e8fd0878.webp",
+   "questionIds": [
+    "0606-2018-march-22-q3"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-march-22-q3.webp",
+   "sha256": "64f7f01c43cb7950a516fe7bcfb5622faeccedb0818cb5e9be4aa167e8fd0878",
+   "bytes": 26218,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 367,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/64f9c46c17cc73da1c610f24e47ae217cb600f44e4e3d7f7ef391cd056c171a8.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/64f9c46c17cc73da1c610f24e47ae217cb600f44e4e3d7f7ef391cd056c171a8.webp",
+   "questionIds": [
+    "0606-2017-june-12-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-12-q2.webp",
+   "sha256": "64f9c46c17cc73da1c610f24e47ae217cb600f44e4e3d7f7ef391cd056c171a8",
+   "bytes": 47026,
+   "contentType": "image/webp",
+   "width": 1166,
+   "height": 1057,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/6822df61dfbd3d46f1f10ce9a6780d3d08c436b7aae60da2f2839d718a3229ee.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/6822df61dfbd3d46f1f10ce9a6780d3d08c436b7aae60da2f2839d718a3229ee.webp",
+   "questionIds": [
+    "0606-2017-june-13-q10"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-13-q10.webp",
+   "sha256": "6822df61dfbd3d46f1f10ce9a6780d3d08c436b7aae60da2f2839d718a3229ee",
+   "bytes": 38316,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 755,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/6861d11092db5b5f74dd4bdb8fd763b008d37a4c4393437b8261caf4be55ae1b.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/6861d11092db5b5f74dd4bdb8fd763b008d37a4c4393437b8261caf4be55ae1b.webp",
+   "questionIds": [
+    "0606-2023-june-23-q3"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2023-june-23-q3.webp",
+   "sha256": "6861d11092db5b5f74dd4bdb8fd763b008d37a4c4393437b8261caf4be55ae1b",
+   "bytes": 14090,
+   "contentType": "image/webp",
+   "width": 1155,
+   "height": 232,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/6a01653bdcebb56e007cadd263efc8602e4efc563ee00e8e2b2c6d61f78593a8.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/6a01653bdcebb56e007cadd263efc8602e4efc563ee00e8e2b2c6d61f78593a8.webp",
+   "questionIds": [
+    "0606-2018-november-23-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-november-23-q1.webp",
+   "sha256": "6a01653bdcebb56e007cadd263efc8602e4efc563ee00e8e2b2c6d61f78593a8",
+   "bytes": 4492,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 161,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/6a15a1eb4ec6123712af5498b597bc2df7917e6b60d5abf08e2314d641e22538.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/6a15a1eb4ec6123712af5498b597bc2df7917e6b60d5abf08e2314d641e22538.webp",
+   "questionIds": [
+    "0606-2019-june-11-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-june-11-q1.webp",
+   "sha256": "6a15a1eb4ec6123712af5498b597bc2df7917e6b60d5abf08e2314d641e22538",
+   "bytes": 20230,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 689,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/6aa6daeb5fe7a93fd83b85422ddb24ae7f77629423d07c81b32731f122bd59cc.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/6aa6daeb5fe7a93fd83b85422ddb24ae7f77629423d07c81b32731f122bd59cc.webp",
+   "questionIds": [
+    "0606-2016-november-21-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-november-21-q2.webp",
+   "sha256": "6aa6daeb5fe7a93fd83b85422ddb24ae7f77629423d07c81b32731f122bd59cc",
+   "bytes": 23206,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 326,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/6adce98c5cdd39958fb8e2f297af585040347949151600ab6be25baaade58005.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/6adce98c5cdd39958fb8e2f297af585040347949151600ab6be25baaade58005.webp",
+   "questionIds": [
+    "0606-2024-november-13-q9"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2024-november-13-q9.webp",
+   "sha256": "6adce98c5cdd39958fb8e2f297af585040347949151600ab6be25baaade58005",
+   "bytes": 53108,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 763,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/6aecafd48d959e49d22ace0dda20127badb806b39d5c1c9e691c8de338acfebe.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/6aecafd48d959e49d22ace0dda20127badb806b39d5c1c9e691c8de338acfebe.webp",
+   "questionIds": [
+    "0606-2018-november-23-q9"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-november-23-q9.webp",
+   "sha256": "6aecafd48d959e49d22ace0dda20127badb806b39d5c1c9e691c8de338acfebe",
+   "bytes": 48404,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 723,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/6bb31afec22c2fda1e5b582fbaab17697e402a528a06867a1e1bed16fe125284.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/6bb31afec22c2fda1e5b582fbaab17697e402a528a06867a1e1bed16fe125284.webp",
+   "questionIds": [
+    "0606-2017-november-11-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-11-q8.webp",
+   "sha256": "6bb31afec22c2fda1e5b582fbaab17697e402a528a06867a1e1bed16fe125284",
+   "bytes": 33944,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 731,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/6cffb91bc83a826dc8e2488a92d1f4b921fe345aa8f10786214bf94482b28e56.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/6cffb91bc83a826dc8e2488a92d1f4b921fe345aa8f10786214bf94482b28e56.webp",
+   "questionIds": [
+    "0606-2024-november-13-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2024-november-13-q2.webp",
+   "sha256": "6cffb91bc83a826dc8e2488a92d1f4b921fe345aa8f10786214bf94482b28e56",
+   "bytes": 40872,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 409,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/6e7b3e9b0950a57e406000dd98cdb900b7ebef06972bd48498229690a9398d13.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/6e7b3e9b0950a57e406000dd98cdb900b7ebef06972bd48498229690a9398d13.webp",
+   "questionIds": [
+    "0606-2016-june-12-q10"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-june-12-q10.webp",
+   "sha256": "6e7b3e9b0950a57e406000dd98cdb900b7ebef06972bd48498229690a9398d13",
+   "bytes": 64812,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1345,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/6fe0a74f8ec96aa8753d6c9fce56bb8b62ec782b859cd2e4f09c485a1afbbf5c.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/6fe0a74f8ec96aa8753d6c9fce56bb8b62ec782b859cd2e4f09c485a1afbbf5c.webp",
+   "questionIds": [
+    "0606-2018-june-21-q6",
+    "0606-2018-june-23-q6"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-june-21-q6.webp",
+   "sha256": "6fe0a74f8ec96aa8753d6c9fce56bb8b62ec782b859cd2e4f09c485a1afbbf5c",
+   "bytes": 20492,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 430,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/70fa0ae16486040cbfb85f4fe3257e14f3b81a434f43a0dfd465de81a57f6ef7.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/70fa0ae16486040cbfb85f4fe3257e14f3b81a434f43a0dfd465de81a57f6ef7.webp",
+   "questionIds": [
+    "0606-2025-june-23-q3"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-23-q3.webp",
+   "sha256": "70fa0ae16486040cbfb85f4fe3257e14f3b81a434f43a0dfd465de81a57f6ef7",
+   "bytes": 55568,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1065,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/7143bc93fd2079ea5e82329e698578fbf009c8dc84321a38441616e9f2226aa0.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/7143bc93fd2079ea5e82329e698578fbf009c8dc84321a38441616e9f2226aa0.webp",
+   "questionIds": [
+    "0606-2018-june-21-q5",
+    "0606-2018-june-23-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-june-21-q5.webp",
+   "sha256": "7143bc93fd2079ea5e82329e698578fbf009c8dc84321a38441616e9f2226aa0",
+   "bytes": 27394,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 632,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/74b32c8bb3931c38ca863b65731c645316820758724306882bf77c275e412d72.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/74b32c8bb3931c38ca863b65731c645316820758724306882bf77c275e412d72.webp",
+   "questionIds": [
+    "0606-2025-march-12-q10"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-march-12-q10.webp",
+   "sha256": "74b32c8bb3931c38ca863b65731c645316820758724306882bf77c275e412d72",
+   "bytes": 44890,
+   "contentType": "image/webp",
+   "width": 1151,
+   "height": 726,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/76853a1efa8799e45d1ab7806baa6aecd5670b36d785817bd040d14ec5868ab2.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/76853a1efa8799e45d1ab7806baa6aecd5670b36d785817bd040d14ec5868ab2.webp",
+   "questionIds": [
+    "0606-2025-june-23-q6"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-23-q6.webp",
+   "sha256": "76853a1efa8799e45d1ab7806baa6aecd5670b36d785817bd040d14ec5868ab2",
+   "bytes": 11062,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 169,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/769e7a36070083569789e00f1a1144df47a11ccaaaa04587de23758046387a19.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/769e7a36070083569789e00f1a1144df47a11ccaaaa04587de23758046387a19.webp",
+   "questionIds": [
+    "0606-2025-june-23-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-23-q2.webp",
+   "sha256": "769e7a36070083569789e00f1a1144df47a11ccaaaa04587de23758046387a19",
+   "bytes": 5654,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 80,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/787972c6707d3005c38a38ac7c0609571b14e5553dbfd49092b240159b512592.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/787972c6707d3005c38a38ac7c0609571b14e5553dbfd49092b240159b512592.webp",
+   "questionIds": [
+    "0606-2017-november-23-q6"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-23-q6.webp",
+   "sha256": "787972c6707d3005c38a38ac7c0609571b14e5553dbfd49092b240159b512592",
+   "bytes": 42522,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 793,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/7b6e99e4a091c962eaf36992d7a18d9ee6a54781564fd8534e896ddca490ad59.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/7b6e99e4a091c962eaf36992d7a18d9ee6a54781564fd8534e896ddca490ad59.webp",
+   "questionIds": [
+    "0606-2023-november-13-q3"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2023-november-13-q3.webp",
+   "sha256": "7b6e99e4a091c962eaf36992d7a18d9ee6a54781564fd8534e896ddca490ad59",
+   "bytes": 41640,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 443,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/7b773e3b48dac72413196f2360f9e87759ff0f1f6d13a09d9b489936f54a88c6.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/7b773e3b48dac72413196f2360f9e87759ff0f1f6d13a09d9b489936f54a88c6.webp",
+   "questionIds": [
+    "0606-2023-november-23-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2023-november-23-q7.webp",
+   "sha256": "7b773e3b48dac72413196f2360f9e87759ff0f1f6d13a09d9b489936f54a88c6",
+   "bytes": 100866,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1678,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/7d0e52c96e1f6b3c7c344e3b8d80eedbb47e60d9d3550a00e3d4c2277bb75d83.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/7d0e52c96e1f6b3c7c344e3b8d80eedbb47e60d9d3550a00e3d4c2277bb75d83.webp",
+   "questionIds": [
+    "0606-2023-november-21-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2023-november-21-q4.webp",
+   "sha256": "7d0e52c96e1f6b3c7c344e3b8d80eedbb47e60d9d3550a00e3d4c2277bb75d83",
+   "bytes": 22380,
+   "contentType": "image/webp",
+   "width": 1145,
+   "height": 429,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/7d11fa190e04b9bf23fd1347290cb19be14263e2796efe461f5ede063e50f59d.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/7d11fa190e04b9bf23fd1347290cb19be14263e2796efe461f5ede063e50f59d.webp",
+   "questionIds": [
+    "0606-2017-november-21-q6"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-21-q6.webp",
+   "sha256": "7d11fa190e04b9bf23fd1347290cb19be14263e2796efe461f5ede063e50f59d",
+   "bytes": 17970,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 455,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/7d6670d75f633b9f4ffad1f791e7e9fffb0a87baf660421b87be0d5533aa6d59.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/7d6670d75f633b9f4ffad1f791e7e9fffb0a87baf660421b87be0d5533aa6d59.webp",
+   "questionIds": [
+    "0606-2018-march-22-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-march-22-q5.webp",
+   "sha256": "7d6670d75f633b9f4ffad1f791e7e9fffb0a87baf660421b87be0d5533aa6d59",
+   "bytes": 25170,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 341,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/7d93c54e29c078d10814496d8c0230e4928002857908120f61e9179a2ac7c557.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/7d93c54e29c078d10814496d8c0230e4928002857908120f61e9179a2ac7c557.webp",
+   "questionIds": [
+    "0606-2016-november-21-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-november-21-q5.webp",
+   "sha256": "7d93c54e29c078d10814496d8c0230e4928002857908120f61e9179a2ac7c557",
+   "bytes": 44020,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 493,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/7e8f6d4e40b21203257ddc6137f6dab04e17229dcec7a03c8489024eea2d42a3.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/7e8f6d4e40b21203257ddc6137f6dab04e17229dcec7a03c8489024eea2d42a3.webp",
+   "questionIds": [
+    "0606-2016-november-13-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-november-13-q4.webp",
+   "sha256": "7e8f6d4e40b21203257ddc6137f6dab04e17229dcec7a03c8489024eea2d42a3",
+   "bytes": 22544,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 277,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/7f7600b6ebbc57af67a6d76ab34010eb0aca83db0a43c091eb569be22ee054a8.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/7f7600b6ebbc57af67a6d76ab34010eb0aca83db0a43c091eb569be22ee054a8.webp",
+   "questionIds": [
+    "0606-2016-june-12-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-june-12-q7.webp",
+   "sha256": "7f7600b6ebbc57af67a6d76ab34010eb0aca83db0a43c091eb569be22ee054a8",
+   "bytes": 44360,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 628,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/7fd9d48c398110e27cee9842deb14f746211a21069e5da9725870136a6c8ee15.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/7fd9d48c398110e27cee9842deb14f746211a21069e5da9725870136a6c8ee15.webp",
+   "questionIds": [
+    "0606-2018-june-12-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-june-12-q7.webp",
+   "sha256": "7fd9d48c398110e27cee9842deb14f746211a21069e5da9725870136a6c8ee15",
+   "bytes": 12488,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 316,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/819b3a540821a438027b7be483cdabe800e1be1a18918fb2bc255da1cc01dfee.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/819b3a540821a438027b7be483cdabe800e1be1a18918fb2bc255da1cc01dfee.webp",
+   "questionIds": [
+    "0606-2016-november-22-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-november-22-q1.webp",
+   "sha256": "819b3a540821a438027b7be483cdabe800e1be1a18918fb2bc255da1cc01dfee",
+   "bytes": 16814,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 277,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/81c4ef48308fdf3ffb3889f4fdac2f770829d6af24f26fcaf18528e5df7b62b0.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/81c4ef48308fdf3ffb3889f4fdac2f770829d6af24f26fcaf18528e5df7b62b0.webp",
+   "questionIds": [
+    "0606-2022-march-22-q3"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-march-22-q3.webp",
+   "sha256": "81c4ef48308fdf3ffb3889f4fdac2f770829d6af24f26fcaf18528e5df7b62b0",
+   "bytes": 9006,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 256,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/82d1b696fd233370c512c69c118a3d543a7d9cdbaaeb2b9c0015333326f1465e.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/82d1b696fd233370c512c69c118a3d543a7d9cdbaaeb2b9c0015333326f1465e.webp",
+   "questionIds": [
+    "0606-2025-june-21-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-21-q2.webp",
+   "sha256": "82d1b696fd233370c512c69c118a3d543a7d9cdbaaeb2b9c0015333326f1465e",
+   "bytes": 25350,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 426,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/8396ff1936140e158b2d2651703c973f3a50e10a784a86c9a5c11f069f5e74c8.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/8396ff1936140e158b2d2651703c973f3a50e10a784a86c9a5c11f069f5e74c8.webp",
+   "questionIds": [
+    "0606-2022-november-13-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-november-13-q5.webp",
+   "sha256": "8396ff1936140e158b2d2651703c973f3a50e10a784a86c9a5c11f069f5e74c8",
+   "bytes": 38674,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 704,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/83d015f7d970a14af4b6c3986ad34f9b62187cd31442e430ab7cf0da48fab458.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/83d015f7d970a14af4b6c3986ad34f9b62187cd31442e430ab7cf0da48fab458.webp",
+   "questionIds": [
+    "0606-2024-november-13-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2024-november-13-q1.webp",
+   "sha256": "83d015f7d970a14af4b6c3986ad34f9b62187cd31442e430ab7cf0da48fab458",
+   "bytes": 52660,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 750,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/8625f9b31584bc3bf12aad224c0197a80ce82aa8db18333178c89a6fc29b86f3.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/8625f9b31584bc3bf12aad224c0197a80ce82aa8db18333178c89a6fc29b86f3.webp",
+   "questionIds": [
+    "0606-2017-june-21-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-21-q7.webp",
+   "sha256": "8625f9b31584bc3bf12aad224c0197a80ce82aa8db18333178c89a6fc29b86f3",
+   "bytes": 47130,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 692,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/862777730a203f6ce02691d66f39153bd5f2249af42ab879cd538d9c88363722.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/862777730a203f6ce02691d66f39153bd5f2249af42ab879cd538d9c88363722.webp",
+   "questionIds": [
+    "0606-2019-november-13-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-november-13-q5.webp",
+   "sha256": "862777730a203f6ce02691d66f39153bd5f2249af42ab879cd538d9c88363722",
+   "bytes": 26362,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 667,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/868bdaaf4becf9457b6bbcd308926d1493be6a0cd77a5d9dfc79589ac02113ee.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/868bdaaf4becf9457b6bbcd308926d1493be6a0cd77a5d9dfc79589ac02113ee.webp",
+   "questionIds": [
+    "0606-2019-november-11-q3"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-november-11-q3.webp",
+   "sha256": "868bdaaf4becf9457b6bbcd308926d1493be6a0cd77a5d9dfc79589ac02113ee",
+   "bytes": 33570,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 462,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/8698a3754661ae4fcb6c317b0272c18493fcfe08040232cfb094b5733da0825d.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/8698a3754661ae4fcb6c317b0272c18493fcfe08040232cfb094b5733da0825d.webp",
+   "questionIds": [
+    "0606-2019-june-22-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-june-22-q5.webp",
+   "sha256": "8698a3754661ae4fcb6c317b0272c18493fcfe08040232cfb094b5733da0825d",
+   "bytes": 28618,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 275,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/86d795b74d5bfcf8ef1f4f2d796cb417f6506a3019dbf5c86d25d81680b3415e.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/86d795b74d5bfcf8ef1f4f2d796cb417f6506a3019dbf5c86d25d81680b3415e.webp",
+   "questionIds": [
+    "0606-2019-june-22-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-june-22-q1.webp",
+   "sha256": "86d795b74d5bfcf8ef1f4f2d796cb417f6506a3019dbf5c86d25d81680b3415e",
+   "bytes": 36870,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1066,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/8a0a32462b85a13129bf3c0d944944aa96170d5e6e7d7f2c847adb50ce87f8c6.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/8a0a32462b85a13129bf3c0d944944aa96170d5e6e7d7f2c847adb50ce87f8c6.webp",
+   "questionIds": [
+    "0606-2022-june-21-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-june-21-q1.webp",
+   "sha256": "8a0a32462b85a13129bf3c0d944944aa96170d5e6e7d7f2c847adb50ce87f8c6",
+   "bytes": 21834,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 497,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/8ae3919a0154aebe006ca6705831380266e996863619c8d030b6f5cc1d6fb5d9.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/8ae3919a0154aebe006ca6705831380266e996863619c8d030b6f5cc1d6fb5d9.webp",
+   "questionIds": [
+    "0606-2019-june-11-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-june-11-q8.webp",
+   "sha256": "8ae3919a0154aebe006ca6705831380266e996863619c8d030b6f5cc1d6fb5d9",
+   "bytes": 46510,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 802,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/8c1a904cc1721c8e399379e3bbf7711fd1ff4749ac73b39e1b827e8bc95d7711.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/8c1a904cc1721c8e399379e3bbf7711fd1ff4749ac73b39e1b827e8bc95d7711.webp",
+   "questionIds": [
+    "0606-2018-march-22-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-march-22-q7.webp",
+   "sha256": "8c1a904cc1721c8e399379e3bbf7711fd1ff4749ac73b39e1b827e8bc95d7711",
+   "bytes": 20060,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 408,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/8c510ec96bba13ba164125965c004199fa6ba206a7987cfb5182fce214c51300.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/8c510ec96bba13ba164125965c004199fa6ba206a7987cfb5182fce214c51300.webp",
+   "questionIds": [
+    "0606-2016-november-21-q10"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-november-21-q10.webp",
+   "sha256": "8c510ec96bba13ba164125965c004199fa6ba206a7987cfb5182fce214c51300",
+   "bytes": 34794,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 358,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/8eb816305ea242e28f13e4a9a57434549f9a05496891d5da7e87e5abc7943b15.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/8eb816305ea242e28f13e4a9a57434549f9a05496891d5da7e87e5abc7943b15.webp",
+   "questionIds": [
+    "0606-2019-march-22-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-march-22-q2.webp",
+   "sha256": "8eb816305ea242e28f13e4a9a57434549f9a05496891d5da7e87e5abc7943b15",
+   "bytes": 20820,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 503,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/907f110ca510a041a9efcc68d0a496c582fb5e1e671747676813058eae2d89ac.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/907f110ca510a041a9efcc68d0a496c582fb5e1e671747676813058eae2d89ac.webp",
+   "questionIds": [
+    "0606-2018-march-22-q11"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-march-22-q11.webp",
+   "sha256": "907f110ca510a041a9efcc68d0a496c582fb5e1e671747676813058eae2d89ac",
+   "bytes": 37608,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 693,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/9082a84be02d19d304103e97a9d2a5fecce1e92b3fba13c8feb2c4610b7db533.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/9082a84be02d19d304103e97a9d2a5fecce1e92b3fba13c8feb2c4610b7db533.webp",
+   "questionIds": [
+    "0606-2017-november-11-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-11-q5.webp",
+   "sha256": "9082a84be02d19d304103e97a9d2a5fecce1e92b3fba13c8feb2c4610b7db533",
+   "bytes": 28012,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 489,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/9164deaa150f81fb30f5e72c51cab01c6d26378c3bbbf80950454a4c30171fb5.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/9164deaa150f81fb30f5e72c51cab01c6d26378c3bbbf80950454a4c30171fb5.webp",
+   "questionIds": [
+    "0606-2016-march-22-q3"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-march-22-q3.webp",
+   "sha256": "9164deaa150f81fb30f5e72c51cab01c6d26378c3bbbf80950454a4c30171fb5",
+   "bytes": 24074,
+   "contentType": "image/webp",
+   "width": 1170,
+   "height": 511,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/916a08e82425b69db42f1dcba9d57e2fef7caf7ab2797498bae1cca67b9876bc.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/916a08e82425b69db42f1dcba9d57e2fef7caf7ab2797498bae1cca67b9876bc.webp",
+   "questionIds": [
+    "0606-2022-november-13-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-november-13-q7.webp",
+   "sha256": "916a08e82425b69db42f1dcba9d57e2fef7caf7ab2797498bae1cca67b9876bc",
+   "bytes": 25276,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 388,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/9342baf96d5e1d2072ca2e6ed93e6c67de62d5319492e7e225fe3985774ca215.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/9342baf96d5e1d2072ca2e6ed93e6c67de62d5319492e7e225fe3985774ca215.webp",
+   "questionIds": [
+    "0606-2017-november-11-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-11-q1.webp",
+   "sha256": "9342baf96d5e1d2072ca2e6ed93e6c67de62d5319492e7e225fe3985774ca215",
+   "bytes": 5296,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 160,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/947e1c3ac58c7449127ba6e790d2ff5cc02ed7f992fa74b2bfadc28bfd1b1b32.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/947e1c3ac58c7449127ba6e790d2ff5cc02ed7f992fa74b2bfadc28bfd1b1b32.webp",
+   "questionIds": [
+    "0606-2019-june-11-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-june-11-q4.webp",
+   "sha256": "947e1c3ac58c7449127ba6e790d2ff5cc02ed7f992fa74b2bfadc28bfd1b1b32",
+   "bytes": 30788,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 536,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/9522c8bc2519b9e334ef670692d1e41be9879dfdad0747f687a7a2eaec26376e.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/9522c8bc2519b9e334ef670692d1e41be9879dfdad0747f687a7a2eaec26376e.webp",
+   "questionIds": [
+    "0606-2024-november-22-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2024-november-22-q8-1.webp",
+   "sha256": "9522c8bc2519b9e334ef670692d1e41be9879dfdad0747f687a7a2eaec26376e",
+   "bytes": 25618,
+   "contentType": "image/webp",
+   "width": 1083,
+   "height": 619,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/98466a5da3889ddd8a7d5ce045e388ffb7f8c0e07322e89cdc84d7b9c05e6df5.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/98466a5da3889ddd8a7d5ce045e388ffb7f8c0e07322e89cdc84d7b9c05e6df5.webp",
+   "questionIds": [
+    "0606-2016-june-12-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-june-12-q5.webp",
+   "sha256": "98466a5da3889ddd8a7d5ce045e388ffb7f8c0e07322e89cdc84d7b9c05e6df5",
+   "bytes": 59982,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1201,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/9a5da0aabadb5cb654e35a649e22bc9565f292ecaacc98068aaf47a8ac250aa7.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/9a5da0aabadb5cb654e35a649e22bc9565f292ecaacc98068aaf47a8ac250aa7.webp",
+   "questionIds": [
+    "0606-2019-march-22-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-march-22-q8.webp",
+   "sha256": "9a5da0aabadb5cb654e35a649e22bc9565f292ecaacc98068aaf47a8ac250aa7",
+   "bytes": 32490,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 853,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/9b6377027e751bdd463029a243b703e6b44acb88b04954cc9d4153b74a274363.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/9b6377027e751bdd463029a243b703e6b44acb88b04954cc9d4153b74a274363.webp",
+   "questionIds": [
+    "0606-2018-november-11-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-november-11-q1.webp",
+   "sha256": "9b6377027e751bdd463029a243b703e6b44acb88b04954cc9d4153b74a274363",
+   "bytes": 24798,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 334,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/9c09f3a1cd10000aefdf234bf5c1fbd9a78d92b00caa1b8f9eaca9783183c867.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/9c09f3a1cd10000aefdf234bf5c1fbd9a78d92b00caa1b8f9eaca9783183c867.webp",
+   "questionIds": [
+    "0606-2017-june-21-q3"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-21-q3.webp",
+   "sha256": "9c09f3a1cd10000aefdf234bf5c1fbd9a78d92b00caa1b8f9eaca9783183c867",
+   "bytes": 17946,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 310,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/9c3b042a62eb0453b8e864c42c32608be8ae8353f5db097c69a338bd06c19f5c.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/9c3b042a62eb0453b8e864c42c32608be8ae8353f5db097c69a338bd06c19f5c.webp",
+   "questionIds": [
+    "0606-2019-june-13-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-june-13-q7.webp",
+   "sha256": "9c3b042a62eb0453b8e864c42c32608be8ae8353f5db097c69a338bd06c19f5c",
+   "bytes": 43724,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 618,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/9d491f23aeecfb1d81fa31757ac9db0dcb074e4a05200514bd2b30a2c4e5f8aa.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/9d491f23aeecfb1d81fa31757ac9db0dcb074e4a05200514bd2b30a2c4e5f8aa.webp",
+   "questionIds": [
+    "0606-2018-november-11-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-november-11-q4.webp",
+   "sha256": "9d491f23aeecfb1d81fa31757ac9db0dcb074e4a05200514bd2b30a2c4e5f8aa",
+   "bytes": 28396,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 479,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/9ef043a85ad77613175d0e268a8686a9e017185abffcbb40019a708e922fc325.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/9ef043a85ad77613175d0e268a8686a9e017185abffcbb40019a708e922fc325.webp",
+   "questionIds": [
+    "0606-2025-june-23-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-23-q8.webp",
+   "sha256": "9ef043a85ad77613175d0e268a8686a9e017185abffcbb40019a708e922fc325",
+   "bytes": 48670,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 761,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/a0817757afdc40c1ddfda479615fcf333f701ef0fddc776c023f617430ec43eb.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/a0817757afdc40c1ddfda479615fcf333f701ef0fddc776c023f617430ec43eb.webp",
+   "questionIds": [
+    "0606-2023-november-21-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2023-november-21-q1.webp",
+   "sha256": "a0817757afdc40c1ddfda479615fcf333f701ef0fddc776c023f617430ec43eb",
+   "bytes": 37174,
+   "contentType": "image/webp",
+   "width": 1145,
+   "height": 576,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/a30b7d795d8d459c87567feff76613de85d899583bee3444e8416ef8b1d20e4b.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/a30b7d795d8d459c87567feff76613de85d899583bee3444e8416ef8b1d20e4b.webp",
+   "questionIds": [
+    "0606-2019-november-13-q6"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-november-13-q6.webp",
+   "sha256": "a30b7d795d8d459c87567feff76613de85d899583bee3444e8416ef8b1d20e4b",
+   "bytes": 108672,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1113,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/a4cc83dadfc0a334aef38b88d918e305d0b6a881ce01bfabaea12605e2605f13.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/a4cc83dadfc0a334aef38b88d918e305d0b6a881ce01bfabaea12605e2605f13.webp",
+   "questionIds": [
+    "0606-2019-november-13-q3"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-november-13-q3.webp",
+   "sha256": "a4cc83dadfc0a334aef38b88d918e305d0b6a881ce01bfabaea12605e2605f13",
+   "bytes": 33114,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 788,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/a58f92008d6194d770cccc5c95989bd01debb386e6d6f6b0cc06ed70f82814d3.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/a58f92008d6194d770cccc5c95989bd01debb386e6d6f6b0cc06ed70f82814d3.webp",
+   "questionIds": [
+    "0606-2016-november-22-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-november-22-q5.webp",
+   "sha256": "a58f92008d6194d770cccc5c95989bd01debb386e6d6f6b0cc06ed70f82814d3",
+   "bytes": 44048,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 493,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/a76a82ba5a3aab9a51750c945a92095413e2370d55634d1263e3cc1c3abdd66d.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/a76a82ba5a3aab9a51750c945a92095413e2370d55634d1263e3cc1c3abdd66d.webp",
+   "questionIds": [
+    "0606-2023-june-23-q6"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2023-june-23-q6.webp",
+   "sha256": "a76a82ba5a3aab9a51750c945a92095413e2370d55634d1263e3cc1c3abdd66d",
+   "bytes": 20860,
+   "contentType": "image/webp",
+   "width": 1155,
+   "height": 413,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/a8c4c59eaeae2fe478c0f960bb489ddeb67194ea75ef3cddde243cfcf1c04b48.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/a8c4c59eaeae2fe478c0f960bb489ddeb67194ea75ef3cddde243cfcf1c04b48.webp",
+   "questionIds": [
+    "0606-2023-june-22-q9"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2023-june-22-q9.webp",
+   "sha256": "a8c4c59eaeae2fe478c0f960bb489ddeb67194ea75ef3cddde243cfcf1c04b48",
+   "bytes": 40044,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 746,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/a92e68458d91c29088e47575c2e9c24c006ab95022180d597e4777fe261cf4b9.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/a92e68458d91c29088e47575c2e9c24c006ab95022180d597e4777fe261cf4b9.webp",
+   "questionIds": [
+    "0606-2019-november-13-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-november-13-q8.webp",
+   "sha256": "a92e68458d91c29088e47575c2e9c24c006ab95022180d597e4777fe261cf4b9",
+   "bytes": 37272,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 648,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/a9f89bbe39464efb296273b418c89f1bb1af08ef8c35079713a63e838218d25b.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/a9f89bbe39464efb296273b418c89f1bb1af08ef8c35079713a63e838218d25b.webp",
+   "questionIds": [
+    "0606-2016-november-13-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-november-13-q5.webp",
+   "sha256": "a9f89bbe39464efb296273b418c89f1bb1af08ef8c35079713a63e838218d25b",
+   "bytes": 75292,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1032,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/aa0bb41034a2b506d40ffa276b0b8d01d59b0786f112c244aaf33e50812cc56a.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/aa0bb41034a2b506d40ffa276b0b8d01d59b0786f112c244aaf33e50812cc56a.webp",
+   "questionIds": [
+    "0606-2021-november-23-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2021-november-23-q8.webp",
+   "sha256": "aa0bb41034a2b506d40ffa276b0b8d01d59b0786f112c244aaf33e50812cc56a",
+   "bytes": 36790,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 641,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/ab8c80bd2c3ab78a0386c7461283e70a2cde0464133e655d88595e6a1d83c6d8.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/ab8c80bd2c3ab78a0386c7461283e70a2cde0464133e655d88595e6a1d83c6d8.webp",
+   "questionIds": [
+    "0606-2018-june-12-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-june-12-q2.webp",
+   "sha256": "ab8c80bd2c3ab78a0386c7461283e70a2cde0464133e655d88595e6a1d83c6d8",
+   "bytes": 20828,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 288,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/adc82a24ca714f4065943e13ea0b78619213fcab5aafa6ee6eae8a51c271c854.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/adc82a24ca714f4065943e13ea0b78619213fcab5aafa6ee6eae8a51c271c854.webp",
+   "questionIds": [
+    "0606-2018-june-22-q3"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-june-22-q3.webp",
+   "sha256": "adc82a24ca714f4065943e13ea0b78619213fcab5aafa6ee6eae8a51c271c854",
+   "bytes": 33416,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 420,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/ae7d9cb0752c3b1ecc422eb431375004a35c45c9d940288617ff47104c3f7a5f.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/ae7d9cb0752c3b1ecc422eb431375004a35c45c9d940288617ff47104c3f7a5f.webp",
+   "questionIds": [
+    "0606-2025-june-21-q10"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-21-q10.webp",
+   "sha256": "ae7d9cb0752c3b1ecc422eb431375004a35c45c9d940288617ff47104c3f7a5f",
+   "bytes": 57314,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1385,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b1b947c69fed10cbd2a26e079feb47b174776399431ae0308080c6c781617d90.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b1b947c69fed10cbd2a26e079feb47b174776399431ae0308080c6c781617d90.webp",
+   "questionIds": [
+    "0606-2022-june-21-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-june-21-q5.webp",
+   "sha256": "b1b947c69fed10cbd2a26e079feb47b174776399431ae0308080c6c781617d90",
+   "bytes": 44402,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 598,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b1bbffba41d9733092334c5f3cf9140023d6de8627e4f38162cae77594cc1066.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b1bbffba41d9733092334c5f3cf9140023d6de8627e4f38162cae77594cc1066.webp",
+   "questionIds": [
+    "0606-2018-november-23-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-november-23-q2.webp",
+   "sha256": "b1bbffba41d9733092334c5f3cf9140023d6de8627e4f38162cae77594cc1066",
+   "bytes": 15086,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 470,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b23c9b5216d21154d549dab8f3088f5b005a0e3bdec22bc2aae29a83f40c62b8.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b23c9b5216d21154d549dab8f3088f5b005a0e3bdec22bc2aae29a83f40c62b8.webp",
+   "questionIds": [
+    "0606-2016-november-21-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-november-21-q1.webp",
+   "sha256": "b23c9b5216d21154d549dab8f3088f5b005a0e3bdec22bc2aae29a83f40c62b8",
+   "bytes": 16808,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 277,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b3bbe06e4b373d1cf17741738a4ad0bc2d96b8ed51021afb58a34157920e2360.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b3bbe06e4b373d1cf17741738a4ad0bc2d96b8ed51021afb58a34157920e2360.webp",
+   "questionIds": [
+    "0606-2022-november-13-q12"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-november-13-q12.webp",
+   "sha256": "b3bbe06e4b373d1cf17741738a4ad0bc2d96b8ed51021afb58a34157920e2360",
+   "bytes": 48708,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 784,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b443dd33c6472daffd8cc23a3fd62579431af1ed1551b37e430f56309fef708a.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b443dd33c6472daffd8cc23a3fd62579431af1ed1551b37e430f56309fef708a.webp",
+   "questionIds": [
+    "0606-2019-march-22-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-march-22-q5.webp",
+   "sha256": "b443dd33c6472daffd8cc23a3fd62579431af1ed1551b37e430f56309fef708a",
+   "bytes": 20410,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 539,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b53c783f19be709a7a3c231a1c6d1d1fefd59ab7fda818796b6e76c9d1f50862.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b53c783f19be709a7a3c231a1c6d1d1fefd59ab7fda818796b6e76c9d1f50862.webp",
+   "questionIds": [
+    "0606-2017-june-21-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-21-q8.webp",
+   "sha256": "b53c783f19be709a7a3c231a1c6d1d1fefd59ab7fda818796b6e76c9d1f50862",
+   "bytes": 38422,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 468,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b586addedc7d337d7abd041366ff017e32aec96263f77aa4e678746ce92fbb17.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b586addedc7d337d7abd041366ff017e32aec96263f77aa4e678746ce92fbb17.webp",
+   "questionIds": [
+    "0606-2017-november-12-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-12-q1.webp",
+   "sha256": "b586addedc7d337d7abd041366ff017e32aec96263f77aa4e678746ce92fbb17",
+   "bytes": 27296,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 739,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b73410ab5c2e0fe35dc9a0e0fdc744207ce36958447ffd6919fac647d469900c.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b73410ab5c2e0fe35dc9a0e0fdc744207ce36958447ffd6919fac647d469900c.webp",
+   "questionIds": [
+    "0606-2018-march-22-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-march-22-q2.webp",
+   "sha256": "b73410ab5c2e0fe35dc9a0e0fdc744207ce36958447ffd6919fac647d469900c",
+   "bytes": 26134,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 422,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b7571c84ac52833ffbbccfcb9b1ad31606b63009b5277a4d50a01323a2546eb8.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b7571c84ac52833ffbbccfcb9b1ad31606b63009b5277a4d50a01323a2546eb8.webp",
+   "questionIds": [
+    "0606-2023-march-22-q3"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2023-march-22-q3.webp",
+   "sha256": "b7571c84ac52833ffbbccfcb9b1ad31606b63009b5277a4d50a01323a2546eb8",
+   "bytes": 36902,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 659,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b7dc743eaedde91c64c961697437ed9e87879ba39a43911912e07ea560eee1a1.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b7dc743eaedde91c64c961697437ed9e87879ba39a43911912e07ea560eee1a1.webp",
+   "questionIds": [
+    "0606-2022-june-21-q9"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-june-21-q9.webp",
+   "sha256": "b7dc743eaedde91c64c961697437ed9e87879ba39a43911912e07ea560eee1a1",
+   "bytes": 42026,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 918,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b85cf263131b65bef3af2d163678b97036286260e43f0d28ce37194eb2244eb3.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b85cf263131b65bef3af2d163678b97036286260e43f0d28ce37194eb2244eb3.webp",
+   "questionIds": [
+    "0606-2017-november-23-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-23-q5.webp",
+   "sha256": "b85cf263131b65bef3af2d163678b97036286260e43f0d28ce37194eb2244eb3",
+   "bytes": 25178,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 561,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b8af1c0c5b76bd19b710512b8ca3567d2ea56b31491def4f2e0952dd7fcf01a2.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b8af1c0c5b76bd19b710512b8ca3567d2ea56b31491def4f2e0952dd7fcf01a2.webp",
+   "questionIds": [
+    "0606-2024-november-22-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2024-november-22-q4.webp",
+   "sha256": "b8af1c0c5b76bd19b710512b8ca3567d2ea56b31491def4f2e0952dd7fcf01a2",
+   "bytes": 100140,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 684,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b979bccedb62fb6d2e8ab91400c5e55cb634620419aef3a2c165053dd9d2afb1.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/b979bccedb62fb6d2e8ab91400c5e55cb634620419aef3a2c165053dd9d2afb1.webp",
+   "questionIds": [
+    "0606-2022-june-21-q11"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-june-21-q11.webp",
+   "sha256": "b979bccedb62fb6d2e8ab91400c5e55cb634620419aef3a2c165053dd9d2afb1",
+   "bytes": 33478,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 696,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/ba0a64f6381e41bf62d85a6f9b52e7625f770b28d061c5d4f4ba88d7d615d8e6.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/ba0a64f6381e41bf62d85a6f9b52e7625f770b28d061c5d4f4ba88d7d615d8e6.webp",
+   "questionIds": [
+    "0606-2016-november-21-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-november-21-q4.webp",
+   "sha256": "ba0a64f6381e41bf62d85a6f9b52e7625f770b28d061c5d4f4ba88d7d615d8e6",
+   "bytes": 34760,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 462,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/bdcf9f21a376cdb0d1ed42c2fef1ce0bd26372e0340eb7d3b289b05bd9767586.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/bdcf9f21a376cdb0d1ed42c2fef1ce0bd26372e0340eb7d3b289b05bd9767586.webp",
+   "questionIds": [
+    "0606-2016-march-22-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-march-22-q2.webp",
+   "sha256": "bdcf9f21a376cdb0d1ed42c2fef1ce0bd26372e0340eb7d3b289b05bd9767586",
+   "bytes": 25370,
+   "contentType": "image/webp",
+   "width": 1170,
+   "height": 342,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/be2164dec5e65abfef47edd83f9dd7c94670a524f1bc4f125affe1fc91e9af2f.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/be2164dec5e65abfef47edd83f9dd7c94670a524f1bc4f125affe1fc91e9af2f.webp",
+   "questionIds": [
+    "0606-2019-june-13-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-june-13-q5.webp",
+   "sha256": "be2164dec5e65abfef47edd83f9dd7c94670a524f1bc4f125affe1fc91e9af2f",
+   "bytes": 26380,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 540,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/bf6a0f59435a55ebdf771c77c80c93a9958c890139a8c2158892e31c73a5263b.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/bf6a0f59435a55ebdf771c77c80c93a9958c890139a8c2158892e31c73a5263b.webp",
+   "questionIds": [
+    "0606-2016-june-12-q9"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-june-12-q9.webp",
+   "sha256": "bf6a0f59435a55ebdf771c77c80c93a9958c890139a8c2158892e31c73a5263b",
+   "bytes": 49756,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 854,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/c16046b08ff067bfa24e8a63a21b211162e135014eff7a07836ec6c6137c0735.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/c16046b08ff067bfa24e8a63a21b211162e135014eff7a07836ec6c6137c0735.webp",
+   "questionIds": [
+    "0606-2017-november-12-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-12-q4.webp",
+   "sha256": "c16046b08ff067bfa24e8a63a21b211162e135014eff7a07836ec6c6137c0735",
+   "bytes": 30928,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 464,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/c195c04ab630a91c27d847e3c350966ff2213fb0a395a69c32ff2eb99783de43.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/c195c04ab630a91c27d847e3c350966ff2213fb0a395a69c32ff2eb99783de43.webp",
+   "questionIds": [
+    "0606-2025-june-11-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-11-q1.webp",
+   "sha256": "c195c04ab630a91c27d847e3c350966ff2213fb0a395a69c32ff2eb99783de43",
+   "bytes": 16642,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 235,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/c1e3e7dd8c96d201dfe9029e93066d92c7b4d8f2f9820562bdc23677df076ee1.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/c1e3e7dd8c96d201dfe9029e93066d92c7b4d8f2f9820562bdc23677df076ee1.webp",
+   "questionIds": [
+    "0606-2023-june-13-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2023-june-13-q4.webp",
+   "sha256": "c1e3e7dd8c96d201dfe9029e93066d92c7b4d8f2f9820562bdc23677df076ee1",
+   "bytes": 50180,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 607,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/c1f75a0da1403700b9f27dd8c73d9e7b9c2e09e66faf9358b196ec04fbc3c4ad.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/c1f75a0da1403700b9f27dd8c73d9e7b9c2e09e66faf9358b196ec04fbc3c4ad.webp",
+   "questionIds": [
+    "0606-2023-november-23-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2023-november-23-q4.webp",
+   "sha256": "c1f75a0da1403700b9f27dd8c73d9e7b9c2e09e66faf9358b196ec04fbc3c4ad",
+   "bytes": 27456,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 605,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/c25b24f0b73f7c18df77ac1133efb3f88e4d9e14534250818145a86e22d2f1fd.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/c25b24f0b73f7c18df77ac1133efb3f88e4d9e14534250818145a86e22d2f1fd.webp",
+   "questionIds": [
+    "0606-2017-june-13-q3"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-13-q3.webp",
+   "sha256": "c25b24f0b73f7c18df77ac1133efb3f88e4d9e14534250818145a86e22d2f1fd",
+   "bytes": 18816,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 236,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/c2ff828c5ec1a05b7ea450e96d011a896d9c577771d203f43a542f9dc08cc790.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/c2ff828c5ec1a05b7ea450e96d011a896d9c577771d203f43a542f9dc08cc790.webp",
+   "questionIds": [
+    "0606-2018-june-22-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-june-22-q1.webp",
+   "sha256": "c2ff828c5ec1a05b7ea450e96d011a896d9c577771d203f43a542f9dc08cc790",
+   "bytes": 45038,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 616,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/c462c786c8838a15e607e847721dcc4a9da8d8f5faf9c004bab5a8e17ff9ef89.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/c462c786c8838a15e607e847721dcc4a9da8d8f5faf9c004bab5a8e17ff9ef89.webp",
+   "questionIds": [
+    "0606-2019-november-12-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-november-12-q1.webp",
+   "sha256": "c462c786c8838a15e607e847721dcc4a9da8d8f5faf9c004bab5a8e17ff9ef89",
+   "bytes": 23078,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 365,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/c5497dffe788c0eb2dd7c4304ec5ce60ce277ea79e6fc58307258f5ae7dcf9c7.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/c5497dffe788c0eb2dd7c4304ec5ce60ce277ea79e6fc58307258f5ae7dcf9c7.webp",
+   "questionIds": [
+    "0606-2018-november-11-q6"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-november-11-q6.webp",
+   "sha256": "c5497dffe788c0eb2dd7c4304ec5ce60ce277ea79e6fc58307258f5ae7dcf9c7",
+   "bytes": 33334,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 695,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/c735e068cef6e58b516c6eae7f6fe82a1ad6380f97e82918ff535ff66baf341b.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/c735e068cef6e58b516c6eae7f6fe82a1ad6380f97e82918ff535ff66baf341b.webp",
+   "questionIds": [
+    "0606-2019-june-13-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-june-13-q8.webp",
+   "sha256": "c735e068cef6e58b516c6eae7f6fe82a1ad6380f97e82918ff535ff66baf341b",
+   "bytes": 37138,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 718,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/c996b32c51432f8039b1d9af053d9c44df8b946e2e42ef12e48544573f99c85f.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/c996b32c51432f8039b1d9af053d9c44df8b946e2e42ef12e48544573f99c85f.webp",
+   "questionIds": [
+    "0606-2017-june-11-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-11-q1.webp",
+   "sha256": "c996b32c51432f8039b1d9af053d9c44df8b946e2e42ef12e48544573f99c85f",
+   "bytes": 66094,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 964,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/cbc7018286a1e7b258c661c2a3cc48f23841a97da828cf37d7d5015b9afb69ff.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/cbc7018286a1e7b258c661c2a3cc48f23841a97da828cf37d7d5015b9afb69ff.webp",
+   "questionIds": [
+    "0606-2024-november-13-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2024-november-13-q5.webp",
+   "sha256": "cbc7018286a1e7b258c661c2a3cc48f23841a97da828cf37d7d5015b9afb69ff",
+   "bytes": 44948,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 510,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/cd7132e3c8a23d9db996a9abc284a648081dab728b08d88d4f52184b9ffc8859.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/cd7132e3c8a23d9db996a9abc284a648081dab728b08d88d4f52184b9ffc8859.webp",
+   "questionIds": [
+    "0606-2022-november-13-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-november-13-q8.webp",
+   "sha256": "cd7132e3c8a23d9db996a9abc284a648081dab728b08d88d4f52184b9ffc8859",
+   "bytes": 31412,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 519,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/ced2d17d4e2be9feefe4a0b760284bfe4e1ca981b92fb2a2d6ef18501a091515.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/ced2d17d4e2be9feefe4a0b760284bfe4e1ca981b92fb2a2d6ef18501a091515.webp",
+   "questionIds": [
+    "0606-2025-june-21-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-21-q8.webp",
+   "sha256": "ced2d17d4e2be9feefe4a0b760284bfe4e1ca981b92fb2a2d6ef18501a091515",
+   "bytes": 83258,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1110,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/cf5c2dfa2ecd7422335c3785f41ee787b4da1cf0f1da1c222c6c166e0cb75eeb.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/cf5c2dfa2ecd7422335c3785f41ee787b4da1cf0f1da1c222c6c166e0cb75eeb.webp",
+   "questionIds": [
+    "0606-2019-june-23-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-june-23-q7.webp",
+   "sha256": "cf5c2dfa2ecd7422335c3785f41ee787b4da1cf0f1da1c222c6c166e0cb75eeb",
+   "bytes": 35614,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 666,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/cfa3c3e5aaed976b1a2ee0d9ffe83126f6ad2105a591585025cab8ff5dbde805.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/cfa3c3e5aaed976b1a2ee0d9ffe83126f6ad2105a591585025cab8ff5dbde805.webp",
+   "questionIds": [
+    "0606-2017-june-11-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-11-q2.webp",
+   "sha256": "cfa3c3e5aaed976b1a2ee0d9ffe83126f6ad2105a591585025cab8ff5dbde805",
+   "bytes": 20010,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 326,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/cfe6b5eb91e328a336b32ec102ed3fadaac4bf03415a5ae487fbca5d059b89e1.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/cfe6b5eb91e328a336b32ec102ed3fadaac4bf03415a5ae487fbca5d059b89e1.webp",
+   "questionIds": [
+    "0606-2017-november-13-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-13-q7.webp",
+   "sha256": "cfe6b5eb91e328a336b32ec102ed3fadaac4bf03415a5ae487fbca5d059b89e1",
+   "bytes": 26590,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 386,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d07636118fe7d97f59b22e4ffd3cf43e3061cca555c5fb5a035cf98d8aab647b.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d07636118fe7d97f59b22e4ffd3cf43e3061cca555c5fb5a035cf98d8aab647b.webp",
+   "questionIds": [
+    "0606-2017-june-22-q6"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-22-q6.webp",
+   "sha256": "d07636118fe7d97f59b22e4ffd3cf43e3061cca555c5fb5a035cf98d8aab647b",
+   "bytes": 30928,
+   "contentType": "image/webp",
+   "width": 1166,
+   "height": 647,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d0e919b9ba9a6a9efc572d0e103d3d5a8ef77077e4d70784324bba25edaef127.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d0e919b9ba9a6a9efc572d0e103d3d5a8ef77077e4d70784324bba25edaef127.webp",
+   "questionIds": [
+    "0606-2024-november-13-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2024-november-13-q7.webp",
+   "sha256": "d0e919b9ba9a6a9efc572d0e103d3d5a8ef77077e4d70784324bba25edaef127",
+   "bytes": 21848,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 401,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d161e83d192dc0073e7256203c6660b98ab61dbea5a238f33f95cb1a81f8e358.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d161e83d192dc0073e7256203c6660b98ab61dbea5a238f33f95cb1a81f8e358.webp",
+   "questionIds": [
+    "0606-2019-june-23-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-june-23-q5.webp",
+   "sha256": "d161e83d192dc0073e7256203c6660b98ab61dbea5a238f33f95cb1a81f8e358",
+   "bytes": 15310,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 375,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d1cea913b37173187c55276e7f662778229bbb45f30ec79b1b814711c8973af5.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d1cea913b37173187c55276e7f662778229bbb45f30ec79b1b814711c8973af5.webp",
+   "questionIds": [
+    "0606-2018-november-11-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-november-11-q8.webp",
+   "sha256": "d1cea913b37173187c55276e7f662778229bbb45f30ec79b1b814711c8973af5",
+   "bytes": 43642,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 815,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d23b4d92ceb502f2f75df8749c827d296d08bcf9a764098521be67e2622276e3.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d23b4d92ceb502f2f75df8749c827d296d08bcf9a764098521be67e2622276e3.webp",
+   "questionIds": [
+    "0606-2024-november-22-q10"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2024-november-22-q10.webp",
+   "sha256": "d23b4d92ceb502f2f75df8749c827d296d08bcf9a764098521be67e2622276e3",
+   "bytes": 97536,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1350,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d29e66ca4339de8e04eb53a18221882dd2d2d0f127253eb15e8afebb9f1f0358.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d29e66ca4339de8e04eb53a18221882dd2d2d0f127253eb15e8afebb9f1f0358.webp",
+   "questionIds": [
+    "0606-2018-june-12-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-june-12-q5.webp",
+   "sha256": "d29e66ca4339de8e04eb53a18221882dd2d2d0f127253eb15e8afebb9f1f0358",
+   "bytes": 20790,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 307,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d2e70f5af9158fbd708fec51389dd4c18350eee3b3e07a8b5234967377c04b53.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d2e70f5af9158fbd708fec51389dd4c18350eee3b3e07a8b5234967377c04b53.webp",
+   "questionIds": [
+    "0606-2018-june-12-q3"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-june-12-q3.webp",
+   "sha256": "d2e70f5af9158fbd708fec51389dd4c18350eee3b3e07a8b5234967377c04b53",
+   "bytes": 24266,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 367,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d4acdcec8ce0c61b63d61dc0bf07832352db363748ab4516ab8c58de9fd07ae8.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d4acdcec8ce0c61b63d61dc0bf07832352db363748ab4516ab8c58de9fd07ae8.webp",
+   "questionIds": [
+    "0606-2017-june-21-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-21-q2.webp",
+   "sha256": "d4acdcec8ce0c61b63d61dc0bf07832352db363748ab4516ab8c58de9fd07ae8",
+   "bytes": 43748,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 531,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d6f7560e13f84ec5719232b50d065af1ae7f8cd4683a4805d0d1f42d8689fec2.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d6f7560e13f84ec5719232b50d065af1ae7f8cd4683a4805d0d1f42d8689fec2.webp",
+   "questionIds": [
+    "0606-2016-november-22-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-november-22-q4.webp",
+   "sha256": "d6f7560e13f84ec5719232b50d065af1ae7f8cd4683a4805d0d1f42d8689fec2",
+   "bytes": 34760,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 462,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d71802c39f3c05d5ecba180b79a1a71b6a7fdd55fb0043ab70df349353b3bcf7.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d71802c39f3c05d5ecba180b79a1a71b6a7fdd55fb0043ab70df349353b3bcf7.webp",
+   "questionIds": [
+    "0606-2024-november-22-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2024-november-22-q1.webp",
+   "sha256": "d71802c39f3c05d5ecba180b79a1a71b6a7fdd55fb0043ab70df349353b3bcf7",
+   "bytes": 21294,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 371,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d7c3d242a677025b85f527eb15ed6541dd8f5001fe637e1fc9fa5ef591c03853.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d7c3d242a677025b85f527eb15ed6541dd8f5001fe637e1fc9fa5ef591c03853.webp",
+   "questionIds": [
+    "0606-2023-november-22-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2023-november-22-q1.webp",
+   "sha256": "d7c3d242a677025b85f527eb15ed6541dd8f5001fe637e1fc9fa5ef591c03853",
+   "bytes": 40488,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 845,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d7fb24c5b3d90a3ef578e23b3fbeb443d094a1dceb962346503b9869f92ce751.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d7fb24c5b3d90a3ef578e23b3fbeb443d094a1dceb962346503b9869f92ce751.webp",
+   "questionIds": [
+    "0606-2018-november-23-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-november-23-q7.webp",
+   "sha256": "d7fb24c5b3d90a3ef578e23b3fbeb443d094a1dceb962346503b9869f92ce751",
+   "bytes": 18044,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 395,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d9d38aa1420e30a83bbbc4177956bd6e64bf96a15fe0b9754abc12ce2d7ec6ee.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/d9d38aa1420e30a83bbbc4177956bd6e64bf96a15fe0b9754abc12ce2d7ec6ee.webp",
+   "questionIds": [
+    "0606-2025-june-21-q11"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-21-q11.webp",
+   "sha256": "d9d38aa1420e30a83bbbc4177956bd6e64bf96a15fe0b9754abc12ce2d7ec6ee",
+   "bytes": 25688,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1043,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/dc6752c0fe2c34f1f53d2c5ede0e7941fd994112908fb8223d954d84d64008f8.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/dc6752c0fe2c34f1f53d2c5ede0e7941fd994112908fb8223d954d84d64008f8.webp",
+   "questionIds": [
+    "0606-2016-november-21-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-november-21-q7.webp",
+   "sha256": "dc6752c0fe2c34f1f53d2c5ede0e7941fd994112908fb8223d954d84d64008f8",
+   "bytes": 45432,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 414,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/dcd0393cf8f8bd77a63f1e29701e97ec5ca954bcd1e953d6f1497f19a182d972.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/dcd0393cf8f8bd77a63f1e29701e97ec5ca954bcd1e953d6f1497f19a182d972.webp",
+   "questionIds": [
+    "0606-2019-november-12-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-november-12-q5.webp",
+   "sha256": "dcd0393cf8f8bd77a63f1e29701e97ec5ca954bcd1e953d6f1497f19a182d972",
+   "bytes": 18134,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 295,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/ddf8d9b0e887a81c0366fdd0c55bb5b17f89195c447494fa68eb462a833d3675.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/ddf8d9b0e887a81c0366fdd0c55bb5b17f89195c447494fa68eb462a833d3675.webp",
+   "questionIds": [
+    "0606-2017-november-12-q6"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-12-q6.webp",
+   "sha256": "ddf8d9b0e887a81c0366fdd0c55bb5b17f89195c447494fa68eb462a833d3675",
+   "bytes": 34802,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 526,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/de0302991d20490657a78cc25eb221e32409e459411da7ed1bb223b228f78a64.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/de0302991d20490657a78cc25eb221e32409e459411da7ed1bb223b228f78a64.webp",
+   "questionIds": [
+    "0606-2017-november-13-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-13-q8.webp",
+   "sha256": "de0302991d20490657a78cc25eb221e32409e459411da7ed1bb223b228f78a64",
+   "bytes": 36940,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 634,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/de658d13810d52aa0ace53e58d43f97f2f128ea35562b86511274384cbe5510d.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/de658d13810d52aa0ace53e58d43f97f2f128ea35562b86511274384cbe5510d.webp",
+   "questionIds": [
+    "0606-2018-march-22-q10"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-march-22-q10.webp",
+   "sha256": "de658d13810d52aa0ace53e58d43f97f2f128ea35562b86511274384cbe5510d",
+   "bytes": 73370,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 874,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/df31ba3a2bdd04ed175eea41b7731b4f9597114536f00876c3efba9980aa600b.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/df31ba3a2bdd04ed175eea41b7731b4f9597114536f00876c3efba9980aa600b.webp",
+   "questionIds": [
+    "0606-2017-november-11-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-11-q2.webp",
+   "sha256": "df31ba3a2bdd04ed175eea41b7731b4f9597114536f00876c3efba9980aa600b",
+   "bytes": 30172,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 547,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/e0863b3993981fecf3bb831553d963dbe0d34d6fc1de9be4a892e25515181d66.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/e0863b3993981fecf3bb831553d963dbe0d34d6fc1de9be4a892e25515181d66.webp",
+   "questionIds": [
+    "0606-2017-june-23-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-23-q1.webp",
+   "sha256": "e0863b3993981fecf3bb831553d963dbe0d34d6fc1de9be4a892e25515181d66",
+   "bytes": 28198,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 530,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/e558c033f9638047b937c73a8d1677d4063196893895c66a6d0c5fd127916eb2.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/e558c033f9638047b937c73a8d1677d4063196893895c66a6d0c5fd127916eb2.webp",
+   "questionIds": [
+    "0606-2018-june-12-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-june-12-q8.webp",
+   "sha256": "e558c033f9638047b937c73a8d1677d4063196893895c66a6d0c5fd127916eb2",
+   "bytes": 43486,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 699,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/e66bbdb36577106440d6959bc9e23adfa3c4f6b83801ce1c0a5455949c14607e.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/e66bbdb36577106440d6959bc9e23adfa3c4f6b83801ce1c0a5455949c14607e.webp",
+   "questionIds": [
+    "0606-2018-june-21-q1",
+    "0606-2018-june-23-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-june-21-q1.webp",
+   "sha256": "e66bbdb36577106440d6959bc9e23adfa3c4f6b83801ce1c0a5455949c14607e",
+   "bytes": 16686,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 255,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/e6a7693648fd19555932d0528bd0086c5f8ea4ebdc23a6d4a3b0e9981ddb212e.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/e6a7693648fd19555932d0528bd0086c5f8ea4ebdc23a6d4a3b0e9981ddb212e.webp",
+   "questionIds": [
+    "0606-2019-june-13-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-june-13-q1.webp",
+   "sha256": "e6a7693648fd19555932d0528bd0086c5f8ea4ebdc23a6d4a3b0e9981ddb212e",
+   "bytes": 5300,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 117,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/e75e814489dc2b14157a2007be5be611003e562548821329dc97209b837ce65a.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/e75e814489dc2b14157a2007be5be611003e562548821329dc97209b837ce65a.webp",
+   "questionIds": [
+    "0606-2022-june-22-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-june-22-q1.webp",
+   "sha256": "e75e814489dc2b14157a2007be5be611003e562548821329dc97209b837ce65a",
+   "bytes": 14410,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 272,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/e78ad39cd9fadadb07fb06b31fd864e579b73a93a886eecb2625d273ca54fcfd.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/e78ad39cd9fadadb07fb06b31fd864e579b73a93a886eecb2625d273ca54fcfd.webp",
+   "questionIds": [
+    "0606-2023-june-13-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2023-june-13-q7.webp",
+   "sha256": "e78ad39cd9fadadb07fb06b31fd864e579b73a93a886eecb2625d273ca54fcfd",
+   "bytes": 60628,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 782,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/e935e00e49bcc9a145b6744465362c95d76479ad63390eb34d434b9d2d837f32.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/e935e00e49bcc9a145b6744465362c95d76479ad63390eb34d434b9d2d837f32.webp",
+   "questionIds": [
+    "0606-2025-june-21-q9"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-21-q9.webp",
+   "sha256": "e935e00e49bcc9a145b6744465362c95d76479ad63390eb34d434b9d2d837f32",
+   "bytes": 57502,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1300,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/ed1bb5afdcff7f309063a9679ac4f7630c5fbc1ede64e03632254313c422b455.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/ed1bb5afdcff7f309063a9679ac4f7630c5fbc1ede64e03632254313c422b455.webp",
+   "questionIds": [
+    "0606-2022-june-21-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-june-21-q4.webp",
+   "sha256": "ed1bb5afdcff7f309063a9679ac4f7630c5fbc1ede64e03632254313c422b455",
+   "bytes": 18146,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 286,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/eddea63a3dca1e40d1bb0ab1dc2169fe1e40fca67501be2e564bf4096e060acf.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/eddea63a3dca1e40d1bb0ab1dc2169fe1e40fca67501be2e564bf4096e060acf.webp",
+   "questionIds": [
+    "0606-2025-june-23-q10"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-23-q10.webp",
+   "sha256": "eddea63a3dca1e40d1bb0ab1dc2169fe1e40fca67501be2e564bf4096e060acf",
+   "bytes": 70334,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1073,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/ee77365a939cfaf656219b1dc0ad45f897cff5955d11280acf6f6e8a220089ea.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/ee77365a939cfaf656219b1dc0ad45f897cff5955d11280acf6f6e8a220089ea.webp",
+   "questionIds": [
+    "0606-2025-june-23-q9"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-23-q9.webp",
+   "sha256": "ee77365a939cfaf656219b1dc0ad45f897cff5955d11280acf6f6e8a220089ea",
+   "bytes": 66174,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1478,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/ee7c6adbe3ccda827facae15a0d9a439310a27f12a28632c4b4ab345e236d1a9.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/ee7c6adbe3ccda827facae15a0d9a439310a27f12a28632c4b4ab345e236d1a9.webp",
+   "questionIds": [
+    "0606-2023-march-22-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2023-march-22-q1.webp",
+   "sha256": "ee7c6adbe3ccda827facae15a0d9a439310a27f12a28632c4b4ab345e236d1a9",
+   "bytes": 43298,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 463,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/eec376292c135d5ae88c1d27ebc9db653cc0713c4565a9c2d0261caeffed1bbb.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/eec376292c135d5ae88c1d27ebc9db653cc0713c4565a9c2d0261caeffed1bbb.webp",
+   "questionIds": [
+    "0606-2016-november-22-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-november-22-q2.webp",
+   "sha256": "eec376292c135d5ae88c1d27ebc9db653cc0713c4565a9c2d0261caeffed1bbb",
+   "bytes": 23224,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 326,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/eeedbab4d22787ead2859478cad85b25ba46ae6910e39f9ffd7a54f17405ac9a.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/eeedbab4d22787ead2859478cad85b25ba46ae6910e39f9ffd7a54f17405ac9a.webp",
+   "questionIds": [
+    "0606-2017-november-12-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-november-12-q5.webp",
+   "sha256": "eeedbab4d22787ead2859478cad85b25ba46ae6910e39f9ffd7a54f17405ac9a",
+   "bytes": 68746,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 1524,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f166c0a1a7ca1fc749a1e581bb3c681ee5c78e8045b0f276af8fe1832f8ebed3.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f166c0a1a7ca1fc749a1e581bb3c681ee5c78e8045b0f276af8fe1832f8ebed3.webp",
+   "questionIds": [
+    "0606-2025-june-23-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2025-june-23-q1.webp",
+   "sha256": "f166c0a1a7ca1fc749a1e581bb3c681ee5c78e8045b0f276af8fe1832f8ebed3",
+   "bytes": 6544,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 86,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f19bd7ef4448a18d8f849710dd2a4104570129353e5890f7c6dc1e7f669a608f.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f19bd7ef4448a18d8f849710dd2a4104570129353e5890f7c6dc1e7f669a608f.webp",
+   "questionIds": [
+    "0606-2017-june-22-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-22-q1.webp",
+   "sha256": "f19bd7ef4448a18d8f849710dd2a4104570129353e5890f7c6dc1e7f669a608f",
+   "bytes": 23404,
+   "contentType": "image/webp",
+   "width": 1166,
+   "height": 381,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f23944ead8d400bd7b31695f7699bb8e88fe6c5d27a0816e754166b6c25584bf.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f23944ead8d400bd7b31695f7699bb8e88fe6c5d27a0816e754166b6c25584bf.webp",
+   "questionIds": [
+    "0606-2022-june-22-q3"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-june-22-q3.webp",
+   "sha256": "f23944ead8d400bd7b31695f7699bb8e88fe6c5d27a0816e754166b6c25584bf",
+   "bytes": 28948,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 414,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f27afed76a06ce5a4a4987ab0aa761dec98c497fc1ce4e5a4317223d629f83a6.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f27afed76a06ce5a4a4987ab0aa761dec98c497fc1ce4e5a4317223d629f83a6.webp",
+   "questionIds": [
+    "0606-2016-november-22-q7"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2016-november-22-q7.webp",
+   "sha256": "f27afed76a06ce5a4a4987ab0aa761dec98c497fc1ce4e5a4317223d629f83a6",
+   "bytes": 45460,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 414,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f27f0f5b65d4dcdb78cf68c94374d8599e7c71a3ceb6eb257318bd8e4a2fdda8.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f27f0f5b65d4dcdb78cf68c94374d8599e7c71a3ceb6eb257318bd8e4a2fdda8.webp",
+   "questionIds": [
+    "0606-2019-june-22-q8"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-june-22-q8.webp",
+   "sha256": "f27f0f5b65d4dcdb78cf68c94374d8599e7c71a3ceb6eb257318bd8e4a2fdda8",
+   "bytes": 63144,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 753,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f35f31f8860461458861283f1afe2aa7ad242e90b2efa1fd3be197b1c6d67202.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f35f31f8860461458861283f1afe2aa7ad242e90b2efa1fd3be197b1c6d67202.webp",
+   "questionIds": [
+    "0606-2023-march-22-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2023-march-22-q4.webp",
+   "sha256": "f35f31f8860461458861283f1afe2aa7ad242e90b2efa1fd3be197b1c6d67202",
+   "bytes": 16054,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 389,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f3b37a84c9628c1840b0c183be1b4ec01065acf7bbaf50643373f6e5d8323b4b.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f3b37a84c9628c1840b0c183be1b4ec01065acf7bbaf50643373f6e5d8323b4b.webp",
+   "questionIds": [
+    "0606-2018-june-22-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2018-june-22-q4.webp",
+   "sha256": "f3b37a84c9628c1840b0c183be1b4ec01065acf7bbaf50643373f6e5d8323b4b",
+   "bytes": 31022,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 443,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f52c81aa0c2bc3266ea8f6e8fbcf003d9dc0e2190dd3049a06970ee7ebfabf30.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f52c81aa0c2bc3266ea8f6e8fbcf003d9dc0e2190dd3049a06970ee7ebfabf30.webp",
+   "questionIds": [
+    "0606-2017-june-13-q5"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-13-q5.webp",
+   "sha256": "f52c81aa0c2bc3266ea8f6e8fbcf003d9dc0e2190dd3049a06970ee7ebfabf30",
+   "bytes": 31268,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 623,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f60915c8e288671fd445e30864ac9fb30eab34be3e26577a537f869fe10c3b96.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f60915c8e288671fd445e30864ac9fb30eab34be3e26577a537f869fe10c3b96.webp",
+   "questionIds": [
+    "0606-2017-june-11-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-11-q4.webp",
+   "sha256": "f60915c8e288671fd445e30864ac9fb30eab34be3e26577a537f869fe10c3b96",
+   "bytes": 27566,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 849,
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f6769b931b9373ec352b4f5e0e6ae33bafd7c621df3edc3955f57242da54279f.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f6769b931b9373ec352b4f5e0e6ae33bafd7c621df3edc3955f57242da54279f.webp",
+   "questionIds": [
+    "0606-2019-march-22-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-march-22-q4.webp",
+   "sha256": "f6769b931b9373ec352b4f5e0e6ae33bafd7c621df3edc3955f57242da54279f",
+   "bytes": 25422,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 591,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f7423f69520a012442ebdb71e1dfa6040045ed34c45ace06d43d589c322bd848.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f7423f69520a012442ebdb71e1dfa6040045ed34c45ace06d43d589c322bd848.webp",
+   "questionIds": [
+    "0606-2019-march-22-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2019-march-22-q1.webp",
+   "sha256": "f7423f69520a012442ebdb71e1dfa6040045ed34c45ace06d43d589c322bd848",
+   "bytes": 5786,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 147,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f8430e5ceb3b96a1f9489e5de2b086263870b1fb47fd0cc20fb2da5a1cd54ad3.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f8430e5ceb3b96a1f9489e5de2b086263870b1fb47fd0cc20fb2da5a1cd54ad3.webp",
+   "questionIds": [
+    "0606-2026-june-12-q9"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2026-june-12-q9-2.webp",
+   "sha256": "f8430e5ceb3b96a1f9489e5de2b086263870b1fb47fd0cc20fb2da5a1cd54ad3",
+   "bytes": 37296,
+   "contentType": "image/webp",
+   "width": 1529,
+   "height": 931,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f8ebc8e5abc92a426543880264cf20e177f3074c315987db848b21e5dead9c53.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/f8ebc8e5abc92a426543880264cf20e177f3074c315987db848b21e5dead9c53.webp",
+   "questionIds": [
+    "0606-2022-march-22-q2"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2022-march-22-q2.webp",
+   "sha256": "f8ebc8e5abc92a426543880264cf20e177f3074c315987db848b21e5dead9c53",
+   "bytes": 10964,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 331,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/fb90f546a7c596818eaf9d4bb28e04f46c13657de6325634dd5e9c37fa66e8e6.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/fb90f546a7c596818eaf9d4bb28e04f46c13657de6325634dd5e9c37fa66e8e6.webp",
+   "questionIds": [
+    "0606-2023-june-13-q1"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2023-june-13-q1.webp",
+   "sha256": "fb90f546a7c596818eaf9d4bb28e04f46c13657de6325634dd5e9c37fa66e8e6",
+   "bytes": 13388,
+   "contentType": "image/webp",
+   "width": 1142,
+   "height": 260,
+   "freeYear": false
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-right-edge-v1-8193a71201e5fb95/fc9659b9f281c01e9543aa9862214d30361a1c4c228f93bc3c1100ccdb40ae92.webp",
+   "path": "repairs/0606-ms-right-edge-v1-8193a71201e5fb95/fc9659b9f281c01e9543aa9862214d30361a1c4c228f93bc3c1100ccdb40ae92.webp",
+   "questionIds": [
+    "0606-2017-june-22-q4"
+   ],
+   "sourcePath": "site/repairs/0606-ms-right-edge-v1/0606-2017-june-22-q4.webp",
+   "sha256": "fc9659b9f281c01e9543aa9862214d30361a1c4c228f93bc3c1100ccdb40ae92",
+   "bytes": 29522,
+   "contentType": "image/webp",
+   "width": 1166,
+   "height": 838,
+   "freeYear": true
+  }
+ ]
+}

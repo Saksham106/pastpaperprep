@@ -4,6 +4,7 @@ import verified0606 from "@/data/print-geometry-0606.json";
 import verified0606March2026 from "@/data/print-geometry-0606-2026-march.json";
 import type { BankSlug } from "@/lib/banks";
 import { reviewedBlankTailForSignedAsset, reviewedBlankSourcePage } from "@/lib/reviewed-blank-tails";
+import { reviewed0606RightEdgeGeometry } from "@/lib/reviewed-0606-ms-right-edge-repairs";
 
 export type PhysicalSizePt = readonly [number, number];
 export type SourcePrintSegment = {
@@ -62,6 +63,15 @@ function geometryForSignedPath(
     };
   }
   if (bank === "igcse-additional") {
+    // A reviewed edge repair keeps the historical vertical geometry at its wider width.
+    const repaired = kind === "answer" ? reviewed0606RightEdgeGeometry(questionId, path) : null;
+    if (repaired) {
+      return {
+        size: repaired.physicalSizePt,
+        rasterSize: repaired.imageDimensions,
+        segments: repaired.segments.map(([sourceY, sourceHeight, physicalHeightPt, sourcePage]) => ({ sourceY, sourceHeight, physicalHeightPt, sourcePage })),
+      };
+    }
     const pair = verified0606Entries[questionId];
     const folder = kind === "question" ? "questions" : "markschemes";
     const expected = `${folder}/${questionId}.webp`;
