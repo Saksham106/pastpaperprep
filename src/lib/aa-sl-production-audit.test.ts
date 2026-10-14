@@ -13,8 +13,8 @@ const target = JSON.parse(readFileSync(resolve(auditRoot, "final-production-targ
 const corrections = JSON.parse(readFileSync(resolve(auditRoot, "final-corrections.json"), "utf8"));
 const baseline = JSON.parse(readFileSync(resolve(auditRoot, "production-baseline-overlay.json"), "utf8"));
 const runtime = JSON.parse(readFileSync(resolve(auditRoot, "runtime-taxonomy.json"), "utf8"));
-const TARGET_SHA256 = "8ddecd7634bede343defd82a4de097fe428e41c833b7957925c8e1e11bb7315c";
-const CORRECTIONS_SHA256 = "5c5eff06c0881927164203ae71a9e2da6481052b0731afab72e6fc3f667c9629";
+const TARGET_SHA256 = "ca6f77b76985af826bacb5616eb50f439faced5d7b7389440c8bee37e0045e43";
+const CORRECTIONS_SHA256 = "24669a2197ff93138110828abbbe0eb2b25f7a347c76c92923099667836c2214";
 const RUNTIME_SOURCE_SHA256 = "5d2c4cf5dbc8cb23b8ba85df2b59f170d68bce65979836db52b16f3d682ddd36";
 const classificationFields = new Set([
   "classification", "primaryTopic", "secondaryTopics", "skills", "subtopics", "detailedSubtopics",
@@ -57,26 +57,28 @@ describe("AA SL reviewed production target", () => {
     expect(fileSha(resolve(auditRoot, "final-corrections.json"))).toBe(CORRECTIONS_SHA256);
     expect(target.schema).toBe("aa-sl-final-production-target-1.0");
     expect(target.status).toBe("complete");
-    expect(target.count).toBe(578);
-    expect(target.reviewed_count).toBe(408);
-    expect(target.unreviewed_count).toBe(170);
+    expect(target.count).toBe(596);
+    expect(target.reviewed_count).toBe(430);
+    expect(target.unreviewed_count).toBe(166);
     expect(corrections.schema).toBe("aa-sl-final-corrections-1.0");
     expect(corrections.status).toBe("complete");
-    expect(corrections.count).toBe(408);
-    expect(bank.questions).toHaveLength(578);
-    expect(target.records).toHaveLength(578);
-    expect(baseline.records).toHaveLength(578);
+    expect(corrections.count).toBe(430);
+    expect(bank.questions).toHaveLength(596);
+    expect(target.records).toHaveLength(596);
+    expect(baseline.records).toHaveLength(596);
 
     const changed = target.records.filter((record: Record<string, unknown>) => !sameTuple(tuple(record.currentTuple as Record<string, unknown>), tuple(record))).length;
-    expect(changed).toBe(406);
-    expect(changed + (578 - changed)).toBe(578);
-    expect(target.records.filter((record: Record<string, unknown>) => record.decision === "not_reviewed")).toHaveLength(170);
+    expect(changed).toBe(374);
+    expect(changed + (596 - changed)).toBe(596);
+    expect(target.records.filter((record: Record<string, unknown>) => record.decision === "not_reviewed")).toHaveLength(166);
     const correctionChanged = corrections.records.filter((record: Record<string, unknown>) => !sameTuple(tuple(record.currentTuple as Record<string, unknown>), tuple(record.finalTuple as Record<string, unknown>))).length;
-    expect(correctionChanged).toBe(406);
+    expect(correctionChanged).toBe(374);
   });
 
   it("matches every target tuple, runtime taxonomy ownership, and nonclassification baseline", () => {
     expect(runtime.sourceSha256).toBe(RUNTIME_SOURCE_SHA256);
+    // The canonical Python audit pins the same snapshot; a stale pin there fails `aa_sl_production_audit.py`.
+    expect(readFileSync(resolve(process.cwd(), "scripts/aa_sl_production_audit.py"), "utf8")).toContain(`EXPECTED_RUNTIME_TAXONOMY_SHA256 = "${RUNTIME_SOURCE_SHA256}"`);
     const targetIds = target.records.map((record: Record<string, unknown>) => record.id);
     expect(bank.questions.map((question: Record<string, unknown>) => question.id)).toEqual(targetIds);
     expect(baseline.records.map((record: Record<string, unknown>) => record.id)).toEqual(targetIds);

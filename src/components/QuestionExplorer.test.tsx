@@ -368,7 +368,7 @@ describe("QuestionExplorer", () => {
 
     expect(screen.getByLabelText(/search questions/i)).toHaveValue("tangent");
     expect(screen.getByRole("button", { name: /sort questions: topic/i })).toBeInTheDocument();
-    expect(screen.getByText(/10 questions/i)).toBeInTheDocument();
+    expect(screen.getByText(/6 questions/i)).toBeInTheDocument();
     await waitFor(() => expect(window.location.search).toContain("q=tangent"));
     fireEvent.click(screen.getByRole("button", { name: /copy link to this view/i }));
     await waitFor(() => expect(writeText).toHaveBeenCalled());
@@ -727,13 +727,17 @@ describe("QuestionExplorer", () => {
   });
 
   it("filters the real bank data and reveals a worked answer", async () => {
-    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 40), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    // Every live AA question now has an official mark scheme; drop it from one so the worked answer shows.
+    const bank = loadBankQuestions("ib-sl").slice(0, 40).map((question) => question.id === "2026-may-p1-tz1-q1"
+      ? { ...question, markschemeImages: [], markschemeImageCount: 0, markschemeAssetPaths: [] }
+      : question);
+    const questions = prepareQuestionsForDelivery(bank, [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
     const { container } = render(<QuestionExplorer questions={questions} access={fullAccess} />);
 
     expect(screen.getByText(/40 questions/i)).toBeInTheDocument();
     expect(container.querySelector(".question-paper")).not.toBeNull();
     fireEvent.change(screen.getByLabelText(/search questions/i), { target: { value: "tangent" } });
-    expect(screen.getByText(/10 questions/i)).toBeInTheDocument();
+    expect(screen.getByText(/6 questions/i)).toBeInTheDocument();
 
     fireEvent.click(screen.getAllByText(/show answer/i)[0]);
     expect(await screen.findByText(/the tangent through/i)).toBeInTheDocument();

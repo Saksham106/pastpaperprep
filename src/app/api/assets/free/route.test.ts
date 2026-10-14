@@ -52,7 +52,7 @@ describe("GET /api/assets/free", () => {
   });
 
   it("rejects paid ids even with a session cookie", async () => {
-    const response = await GET(request("bank=ib-sl&id=m26-math-aasl-p2-tza-q2&kind=answer", "sb-abc-auth-token=x"));
+    const response = await GET(request("bank=ib-sl&id=2026-may-p2-tz1-q2&kind=answer", "sb-abc-auth-token=x"));
 
     expect(response.status).toBe(403);
     expect(response.headers.get("cache-control")).toBe("private, no-store, max-age=0");
