@@ -72,9 +72,25 @@ is rewritten in place, because the historical keys are live and pinned by receip
 
 `scripts/upload-reviewed-0606-ms-right-edge-repairs.mjs` (adapted from
 `research/ppp-tools/wrangler-upload-2026.mjs`): logged-in wrangler with `--remote` and the linked
-Supabase CLI, no API keys; key absent first, stop on any different existing object; full GET
-readback compared by SHA-256 and size; concurrency 2 with backoff. Log:
+Supabase CLI, no API keys; concurrency 2 with backoff. Log:
 `docs/0606-ms-right-edge-upload-log.jsonl`.
+
+What it guarantees: check-absent → put → full read-back by SHA-256 and size, serialized on this
+machine by an exclusive writer lock (`scripts/lib/single-writer-lock.mjs`, taken before any storage
+call; a second run from any worktree is refused). It detects pre-existing different bytes before
+writing and corrupt bytes after writing. It is not an atomic create: `wrangler r2 object put` has
+no conditional create (and none is relied on for the Supabase CLI copy), so a concurrent foreign
+writer between the check and the put cannot be ruled out. The rows in the committed log predate the
+writer lock; they were written by a single run with no other writer to this namespace.
+
+- **Resume** skips a store/key only when its log row is in the plan and its SHA-256 and size equal
+  the planned object. Superseded objects: the overlay records only SHA-256, so the hash must match
+  exactly and the size must be positive. Any other row stops the run before any storage call.
+  Resumed rows are reported as historical log evidence, not as a fresh read.
+- **`--verify`** ignores the log, reads every planned object fresh from R2, Supabase, the free
+  bucket and its public URL (plus the superseded R2 objects), checks SHA-256 and size, and writes
+  nothing.
+- Tests: `scripts/upload-reviewed-0606-ms-right-edge-repairs.test.mjs` (inert transports only).
 
 | Store | Objects | Uploaded | Already present | Readback |
 | --- | ---: | ---: | ---: | --- |
