@@ -83,6 +83,27 @@ describe("0610 official 2026 student projection", () => {
     expect(displayedQuestionSubtopics(question)).not.toContain("Cell structure and organisation");
   }, 60_000);
 
+  it("retrieves 0610-2026-s-42-q4 under Homeostasis and its materially assessed secondaries (PR #282)", () => {
+    // 4(a) [1] elements in carbohydrates (4.1); 4(b)(i) [1+1] urea from the liver (13.1) and pepsin from the
+    // stomach (7.4); 4(b)(iii) [1] adrenaline (14.3). Homeostasis stays the primary.
+    const id = "0610-2026-s-42-q4";
+    const raw = source.find((row) => row.id === id)!;
+    const projected = project0610Sections(raw);
+    expect(projected.primaryTopic).toBe("Coordination and response");
+    expect(projected.visibleTitles[0]).toBe("Homeostasis");
+    expect(projected.codeRefs).toEqual(["2026_2028:14.4", "2026_2028:4.1", "2026_2028:13.1", "2026_2028:7.4", "2026_2028:14.3"]);
+    expect(byId.get(id)!.officialCodeRefs).toEqual(projected.codeRefs);
+    const found = (filters: Parameters<typeof filterQuestions>[1]) => filterQuestions([...questions], filters).some((row) => row.id === id);
+    for (const [code, title, topic] of [["14.4", "Homeostasis", "Coordination and response"], ["4.1", "Biological molecules", "Biological molecules"], ["13.1", "Excretion in humans", "Excretion in humans"], ["7.4", "Chemical digestion", "Human nutrition"]]) {
+      expect(BIOLOGY_0610_SECTIONS.find((section) => section.code === code)).toMatchObject({ title, topic });
+      expect(projected.visibleTitles).toContain(title);
+      expect(found({ subtopics: [title] })).toBe(true);
+      expect(found({ topics: [topic] })).toBe(true);
+      expect(found({ topics: [topic], subtopics: [title] })).toBe(true);
+    }
+    expect(found({ subtopics: ["Mitosis"] })).toBe(false);
+  });
+
   it("fails closed on changed section identity, missing address, or reused code across eras", () => {
     const current = source.find((raw) => raw.year === 2026)!;
     expect(() => project0610Sections({ ...current, subtopics: ["99.99"] })).toThrow(/unmapped/);
