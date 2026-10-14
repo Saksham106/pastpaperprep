@@ -5,7 +5,7 @@ import { getBank } from "@/lib/banks";
 import { loadBankQuestions } from "@/lib/question-loader";
 import { hasBankAccess } from "@/lib/access";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
-import { validateWorksheet } from "@/lib/worksheets";
+import { validateWorksheet, withCurrentQuestionIds } from "@/lib/worksheets";
 
 async function identity() {
   const client = await createClient();
@@ -20,7 +20,7 @@ async function handleGET() {
   if (access.error) return NextResponse.json({ error: "Access could not be verified" }, { status: 503 });
   const { data, error } = await client.from("saved_worksheets").select("id,bank_slug,title,question_ids,content_mode,revision,created_at,updated_at").eq("user_id", userId).order("updated_at", { ascending: false });
   if (error) return NextResponse.json({ error: "Worksheets unavailable" }, { status: 503 });
-  return NextResponse.json({ worksheets: (data ?? []).filter((worksheet) => hasBankAccess(worksheet.bank_slug, access.rows as never)) });
+  return NextResponse.json({ worksheets: (data ?? []).filter((worksheet) => hasBankAccess(worksheet.bank_slug, access.rows as never)).map(withCurrentQuestionIds) });
 }
 
 async function handlePOST(request: Request) {

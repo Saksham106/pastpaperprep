@@ -25,8 +25,8 @@ describe("question normalization", () => {
   it("loads every source bank without dropping questions", () => {
     expect(loadBankQuestions("igcse")).toHaveLength(4174); // 3,967 historical + 207 Core 2026 rows
     expect(loadBankQuestions("igcse-additional")).toHaveLength(1656); // 1,633 historical + 23 reviewed Feb/March 2026 rows
-    expect(loadBankQuestions("ib-hl")).toHaveLength(841);
-    expect(loadBankQuestions("ib-sl")).toHaveLength(578);
+    expect(loadBankQuestions("ib-hl")).toHaveLength(893);
+    expect(loadBankQuestions("ib-sl")).toHaveLength(596);
     expect(loadBankQuestions("ib-ai-hl")).toHaveLength(409);
     expect(loadBankQuestions("ib-ai-sl")).toHaveLength(334);
   });
@@ -64,7 +64,7 @@ describe("question normalization", () => {
     expect(igcse.calculator).toBe(false);
     expect(igcse.subtopics).toContain("Fractions, decimals and percentages");
     expect(ibHl[0].courseEra).toBe("aa-hl");
-    expect(ibHl[0].zone).toBe("TZA");
+    expect(ibHl[0].zone).toBe("TZ1");
     expect(markedQuestion?.markschemeImages[0]).toMatch(
       /^https:\/\/saksham106\.github\.io\/ib-maths-aa-hl-topic-practice\/markschemes\//,
     );

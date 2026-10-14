@@ -3,6 +3,7 @@ import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { getBank, type BankSlug } from "@/lib/banks";
 import { loadBankAssetManifest } from "@/lib/asset-manifest";
 import { createClient } from "@/lib/supabase/server";
+import { currentQuestionId, retiredQuestionIds } from "@/lib/question-id-aliases";
 
 type StudyAction = "save" | "unsave" | "attempt";
 type StudyRequest = { bank?: unknown; questionId?: unknown; action?: unknown };
@@ -30,7 +31,7 @@ async function handlePOST(request: Request) {
   }
 
   const bank = body.bank as BankSlug;
-  const questionId = body.questionId;
+  const questionId = currentQuestionId(bank, body.questionId);
   const manifest = await loadBankAssetManifest(bank).catch(() => null);
   if (!manifest) return NextResponse.json({ error: "Study progress could not be updated" }, { status: 503 });
   if (!manifest.has(questionId)) {
@@ -56,7 +57,7 @@ async function handlePOST(request: Request) {
       .delete()
       .eq("user_id", userId)
       .eq("bank_slug", bank)
-      .eq("question_id", questionId));
+      .in("question_id", [questionId, ...retiredQuestionIds(bank, questionId)]));
   } else {
     ({ error } = await supabase.from("attempts").upsert(record, {
       onConflict: "user_id,bank_slug,question_id",
