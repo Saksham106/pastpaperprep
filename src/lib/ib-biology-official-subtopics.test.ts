@@ -3,6 +3,7 @@ import ibBiologyHlData from "@/data/raw/ib-biology-hl.json";
 import ibBiologySlData from "@/data/raw/ib-biology-sl.json";
 import biology0610Runtime from "@/data/production/igcse-biology-0610.json";
 import { normalizeBankQuestions } from "@/lib/questions";
+import { filterQuestions } from "@/lib/question-filter";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 
 const expectedTopics = [
@@ -73,5 +74,15 @@ describe("IB Biology official syllabus subtopics", () => {
     const row = questions.find((q) => q.classificationProvenance?.oldSubtopics.length && q.subtopics.join("|") !== q.classificationProvenance.oldSubtopics.join("|"));
     expect(row?.classificationProvenance?.oldSubtopics.length).toBeGreaterThan(0);
     expect(row?.subtopics).not.toEqual(row?.classificationProvenance?.oldSubtopics);
+  });
+
+  it("files the printed-source triglyceride question under biological molecules, not nucleic acids", () => {
+    const sl = normalizeBankQuestions("ib-biology-sl", ibBiologySlData.questions);
+    const q = sl.find((row) => row.id === "2025-may-tz3-sl-p2-q2");
+    expect(q?.primaryTopic).toBe("Molecules and cells");
+    expect(q?.subtopics).toEqual(["Biological molecules and water"]);
+    const found = filterQuestions(sl, { topics: ["Molecules and cells"], subtopics: ["Biological molecules and water"] });
+    expect(found.map((row) => row.id)).toContain("2025-may-tz3-sl-p2-q2");
+    expect(filterQuestions(sl, { subtopics: ["Nucleic acids and gene expression"] }).map((row) => row.id)).not.toContain("2025-may-tz3-sl-p2-q2");
   });
 });

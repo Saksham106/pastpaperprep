@@ -8,8 +8,16 @@ import json
 from pathlib import Path
 from typing import Any
 
-# 26 blocked: four rows were unblocked by source reassessment (#139) and are carried over verbatim.
+# 26 blocked: four of the reviewed overlay's 30 were unblocked by printed-source review (#139).
 EXPECTED = {"rows": 3459, "HL": 1911, "SL": 1548, "legacy": 2983, "current": 476, "blocked": 26}
+CORRECTIONS_PATH = Path(__file__).resolve().parent / "data/ib-biology-reviewed-subtopic-corrections.json"
+CORRECTIONS_SHA256 = "67caed561e7ecec60c0653c4bf4a922461d0378f945ce0ecd0aa95b23aefe944"
+CORRECTION_IDS = {
+    "2019-may-tz1-sl-p1-q30", "2019-may-tz1-sl-p3-q16", "2019-may-tz2-sl-p1-q30", "2019-november-tz0-sl-p3-q2",
+    "2025-may-tz3-sl-p2-q2",
+}
+CORRECTION_KEYS = {"id", "level", "era", "officialAtomicIds", "groupIds", "origin", "sourceReassessment"}
+REASSESSMENT_KEYS = {"review", "questionPdfSha256", "markschemePdfSha256", "questionPages", "markschemePages", "atomicCode", "oldBlockedReasons", "finding"}
 EXPECTED_TAXONOMY = {"atomicEntries": 114, "curatedGroups": 21}
 BANKS = {"HL": "ib-biology-hl", "SL": "ib-biology-sl"}
 
@@ -29,6 +37,34 @@ def compact_group(group: dict[str, Any]) -> dict[str, Any]:
         "parentTopic": group["parentTopic"],
         "memberAtomicIds": list(group["memberAtomicIds"]),
     }
+
+
+def load_corrections(path: Path, atomic: dict[str, Any], groups: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    """Printed-source corrections: a pinned, committed input, validated entry by entry."""
+    if sha(path) != CORRECTIONS_SHA256:
+        raise ValueError("reviewed corrections hash drift")
+    entries = read(path)["corrections"]
+    if len(entries) != len(CORRECTION_IDS) or {entry["id"] for entry in entries} != CORRECTION_IDS:
+        raise ValueError("reviewed corrections id drift")
+    out = {}
+    for entry in entries:
+        question_id = entry["id"]
+        if set(entry) != CORRECTION_KEYS or not set(entry["sourceReassessment"]) <= REASSESSMENT_KEYS:
+            raise ValueError(f"correction schema drift: {question_id}")
+        if not entry["officialAtomicIds"] or not entry["groupIds"] or len(set(entry["groupIds"])) != len(entry["groupIds"]):
+            raise ValueError(f"empty or duplicate correction: {question_id}")
+        for atomic_id in entry["officialAtomicIds"]:
+            item = atomic.get(atomic_id)
+            if not item or item["era"] != entry["era"] or entry["level"] not in item["applicability"]:
+                raise ValueError(f"correction atomic label invalid for its era/level: {question_id}")
+        chosen = [groups.get(group_id) for group_id in entry["groupIds"]]
+        if None in chosen:
+            raise ValueError(f"correction names an unknown group: {question_id}")
+        for group in chosen:
+            if not set(group["memberAtomicIds"]) & set(entry["officialAtomicIds"]):
+                raise ValueError(f"correction group does not own its official code: {question_id}")
+        out[question_id] = {**entry, "groups": chosen}
+    return out
 
 
 def build(research_root: Path, repo_root: Path) -> dict[str, Any]:
@@ -53,9 +89,7 @@ def build(research_root: Path, repo_root: Path) -> dict[str, Any]:
     if len(groups) != EXPECTED_TAXONOMY["curatedGroups"] or len(atomic) != EXPECTED_TAXONOMY["atomicEntries"]:
         raise ValueError("taxonomy count drift")
     rows_by_id = {row["id"]: (level, row) for level, rows in source_rows.items() for row in rows}
-    # Rows re-checked against the printed paper (#139) override the reviewed overlay; keep them as committed.
-    current_path = repo_root / "src/data/ib-biology-official-subtopics/overlay.json"
-    reassessed = {row["id"]: row for row in read(current_path)["rows"] if "sourceReassessment" in row} if current_path.exists() else {}
+    corrections = load_corrections(CORRECTIONS_PATH, atomic, {group["id"]: group for group in groups})
     if len(rows_by_id) != EXPECTED["rows"]:
         raise ValueError("raw source row count or duplicate-id drift")
     if len(source_overlay["rows"]) != EXPECTED["rows"]:
@@ -81,9 +115,9 @@ def build(research_root: Path, repo_root: Path) -> dict[str, Any]:
                 raise ValueError(f"invalid level applicability: {question_id}")
             if atomic[label["officialAtomicId"]]["era"] != era:
                 raise ValueError(f"cross-era label: {question_id}")
-        if question_id in reassessed:
-            emitted.append(reassessed[question_id])
-            continue
+        correction = corrections.get(question_id)
+        if correction and (correction["level"] != level or correction["era"] != era):
+            raise ValueError(f"correction routing mismatch: {question_id}")
         # A syllabus item belongs to several curated groups (membership came from observed row/code
         # pairs), so the group is the one this question was reviewed into, never the first listed.
         candidates: dict[str, dict[str, Any]] = {}
@@ -95,6 +129,10 @@ def build(research_root: Path, repo_root: Path) -> dict[str, Any]:
                 candidates.setdefault(owner["studentFacingName"], owner)
         groups_for_row = [candidates[name] for name in source.get("subtopics", []) if name in candidates]
         blocked = bool(reviewed["blocked"])
+        if correction:
+            labels = [{"officialAtomicId": atomic_id, "officialCode": atomic[atomic_id]["officialCode"]} for atomic_id in correction["officialAtomicIds"]]
+            groups_for_row = correction["groups"]
+            blocked = False
         if labels and not blocked and not groups_for_row:
             raise ValueError(f"no curated group matches the reviewed subtopics: {question_id}")
         if blocked and groups_for_row:
@@ -108,7 +146,7 @@ def build(research_root: Path, repo_root: Path) -> dict[str, Any]:
             "sourceClassificationVersion": source.get("classificationVersion", ""),
             "sourceClassificationReviewStatus": source.get("classificationReviewStatus", ""),
         }
-        emitted.append({
+        row = {
             "id": question_id,
             "bank": BANKS[level],
             "level": level,
@@ -117,13 +155,16 @@ def build(research_root: Path, repo_root: Path) -> dict[str, Any]:
             "resolvedEra": era,
             "curriculumVersion": reviewed["curriculumVersion"],
             "blocked": blocked,
-            "blockedReasons": list(reviewed.get("blockedReasons", [])),
+            "blockedReasons": [] if correction else list(reviewed.get("blockedReasons", [])),
             "primary": compact_group(groups_for_row[0]) if groups_for_row else None,
             "secondary": [compact_group(group) for group in groups_for_row[1:]],
             "officialAtomicIds": [label["officialAtomicId"] for label in labels],
             "officialCodes": [label["officialCode"] for label in labels],
-            "provenance": provenance,
-        })
+        }
+        if correction:
+            row["sourceReassessment"] = correction["sourceReassessment"]
+        row["provenance"] = provenance
+        emitted.append(row)
     if len(seen) != EXPECTED["rows"]:
         raise ValueError(f"reviewed/source coverage mismatch: {len(seen)}")
     counts = {

@@ -161198,7 +161198,7 @@
       "blockedReasons": [],
       "primary": {
         "id": "ib-biology.group.O5",
-        "studentFacingName": "Homeostasis and reproduction",
+        "name": "Homeostasis and reproduction",
         "parentTopic": "Organisms and body systems",
         "memberAtomicIds": [
           "ib-biology.bio_2016.1.1",
@@ -161237,14 +161237,7 @@
           "ib-biology.bio_2025.D3.1",
           "ib-biology.bio_2025.D3.3",
           "ib-biology.bio_2025.D4.3"
-        ],
-        "provenance": {
-          "kind": "editorial-curated",
-          "source": "current-repo-taxonomy.normalized_topics",
-          "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
-        },
-        "reviewStatus": "reviewed-for-filtering",
-        "emptyMembershipAllowed": true
+        ]
       },
       "secondary": [],
       "officialAtomicIds": [
@@ -162581,7 +162574,7 @@
       "blockedReasons": [],
       "primary": {
         "id": "ib-biology.group.O2",
-        "studentFacingName": "Gas exchange and transport",
+        "name": "Gas exchange and transport",
         "parentTopic": "Organisms and body systems",
         "memberAtomicIds": [
           "ib-biology.bio_2016.1.2",
@@ -162615,14 +162608,7 @@
           "ib-biology.bio_2025.C1.3",
           "ib-biology.bio_2025.D1.2",
           "ib-biology.bio_2025.D2.1"
-        ],
-        "provenance": {
-          "kind": "editorial-curated",
-          "source": "current-repo-taxonomy.normalized_topics",
-          "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
-        },
-        "reviewStatus": "reviewed-for-filtering",
-        "emptyMembershipAllowed": true
+        ]
       },
       "secondary": [],
       "officialAtomicIds": [
@@ -164732,7 +164718,7 @@
       "blockedReasons": [],
       "primary": {
         "id": "ib-biology.group.O5",
-        "studentFacingName": "Homeostasis and reproduction",
+        "name": "Homeostasis and reproduction",
         "parentTopic": "Organisms and body systems",
         "memberAtomicIds": [
           "ib-biology.bio_2016.1.1",
@@ -164771,14 +164757,7 @@
           "ib-biology.bio_2025.D3.1",
           "ib-biology.bio_2025.D3.3",
           "ib-biology.bio_2025.D4.3"
-        ],
-        "provenance": {
-          "kind": "editorial-curated",
-          "source": "current-repo-taxonomy.normalized_topics",
-          "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
-        },
-        "reviewStatus": "reviewed-for-filtering",
-        "emptyMembershipAllowed": true
+        ]
       },
       "secondary": [],
       "officialAtomicIds": [
@@ -169707,7 +169686,7 @@
       "blockedReasons": [],
       "primary": {
         "id": "ib-biology.group.M4",
-        "studentFacingName": "Metabolism and energy",
+        "name": "Metabolism and energy",
         "parentTopic": "Molecules and cells",
         "memberAtomicIds": [
           "ib-biology.bio_2016.1.2",
@@ -169741,14 +169720,7 @@
           "ib-biology.bio_2025.C2.1",
           "ib-biology.bio_2025.C4.2",
           "ib-biology.bio_2025.D3.1"
-        ],
-        "provenance": {
-          "kind": "editorial-curated",
-          "source": "current-repo-taxonomy.normalized_topics",
-          "rule": "Observed row-to-code associations only; no official guide wording is relabeled as an official subtopic."
-        },
-        "reviewStatus": "reviewed-for-filtering",
-        "emptyMembershipAllowed": true
+        ]
       },
       "secondary": [],
       "officialAtomicIds": [
@@ -229449,22 +229421,49 @@
       "blocked": false,
       "blockedReasons": [],
       "primary": {
-        "id": "ib-biology.group.M5",
-        "name": "Nucleic acids and gene expression",
+        "id": "ib-biology.group.M1",
+        "name": "Biological molecules and water",
         "parentTopic": "Molecules and cells",
         "memberAtomicIds": [
-          "ib-biology.bio_2016.1.2",
+          "ib-biology.bio_2016.1.3",
+          "ib-biology.bio_2016.1.4",
+          "ib-biology.bio_2016.10.1",
+          "ib-biology.bio_2016.11.3",
+          "ib-biology.bio_2016.2.1",
+          "ib-biology.bio_2016.2.2",
+          "ib-biology.bio_2016.2.3",
           "ib-biology.bio_2016.2.4",
+          "ib-biology.bio_2016.2.5",
           "ib-biology.bio_2016.2.6",
           "ib-biology.bio_2016.2.7",
+          "ib-biology.bio_2016.2.8",
+          "ib-biology.bio_2016.2.9",
+          "ib-biology.bio_2016.4.2",
+          "ib-biology.bio_2016.4.3",
+          "ib-biology.bio_2016.4.4",
+          "ib-biology.bio_2016.5.3",
           "ib-biology.bio_2016.6.1",
+          "ib-biology.bio_2016.6.3",
+          "ib-biology.bio_2016.6.4",
+          "ib-biology.bio_2016.6.5",
+          "ib-biology.bio_2016.6.6",
           "ib-biology.bio_2016.7.3",
+          "ib-biology.bio_2016.9.1",
+          "ib-biology.bio_2016.9.3",
+          "ib-biology.bio_2016.D.1",
+          "ib-biology.bio_2025.A1.1",
           "ib-biology.bio_2025.A1.2",
-          "ib-biology.bio_2025.A3.2",
           "ib-biology.bio_2025.B1.1",
           "ib-biology.bio_2025.B1.2",
-          "ib-biology.bio_2025.D1.1",
-          "ib-biology.bio_2025.D1.2"
+          "ib-biology.bio_2025.B2.1",
+          "ib-biology.bio_2025.B3.2",
+          "ib-biology.bio_2025.B4.1",
+          "ib-biology.bio_2025.C1.1",
+          "ib-biology.bio_2025.C1.2",
+          "ib-biology.bio_2025.C1.3",
+          "ib-biology.bio_2025.C4.2",
+          "ib-biology.bio_2025.D3.3",
+          "ib-biology.bio_2025.D4.3"
         ]
       },
       "secondary": [],
@@ -229474,6 +229473,20 @@
       "officialCodes": [
         "B1.1"
       ],
+      "sourceReassessment": {
+        "review": "printed QP/MS verified; inherited raw subtopic (Nucleic acids and gene expression) is not assessed",
+        "questionPdfSha256": "ce732b1a2809928108c610786437b9bdc8e24dedae9767b374f70280c99d3d1e",
+        "markschemePdfSha256": "7129bd6c6fe8e6232baef7d389f273c26c863d9e1dad17e8169fa527a7e7ba7d",
+        "questionPages": [
+          7,
+          8
+        ],
+        "markschemePages": [
+          7
+        ],
+        "atomicCode": "B1.1",
+        "finding": "Triglyceride condensation bond, glycerol, unsaturated fatty acid and lipid energy-storage properties (5 marks); no nucleic-acid or gene-expression marks."
+      },
       "provenance": {
         "oldPrimaryTopic": "Molecules and cells",
         "oldSecondaryTopics": [

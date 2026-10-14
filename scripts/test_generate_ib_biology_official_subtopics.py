@@ -61,7 +61,7 @@ def test_groups_follow_each_question_reviewed_subtopics_not_taxonomy_order():
     overlay = json.loads((REPO / "src/data/ib-biology-official-subtopics/overlay.json").read_text())
     raw = _raw_by_id()
     resolved = [row for row in overlay["rows"] if not row["blocked"] and "sourceReassessment" not in row]
-    assert len(resolved) == 3429
+    assert len(resolved) == 3428
     for row in resolved:
         question = raw[row["id"]]
         names = [group["name"] for group in [row["primary"], *row["secondary"]]]
@@ -74,11 +74,54 @@ def test_groups_follow_each_question_reviewed_subtopics_not_taxonomy_order():
     assert food_chain["primary"]["name"] == "Energy and matter cycles"
 
 
-def test_source_reassessed_rows_are_kept_verbatim():
-    before = {row["id"]: row for row in json.loads((REPO / "src/data/ib-biology-official-subtopics/overlay.json").read_text())["rows"]
-              if "sourceReassessment" in row}
+def test_printed_source_corrections_match_their_reviewed_values():
+    import subprocess
     generator.build(RESEARCH, REPO)
     after = {row["id"]: row for row in json.loads((REPO / "src/data/ib-biology-official-subtopics/overlay.json").read_text())["rows"]}
-    assert sorted(before) == ["2019-may-tz1-sl-p1-q30", "2019-may-tz1-sl-p3-q16", "2019-may-tz2-sl-p1-q30", "2019-november-tz0-sl-p3-q2"]
-    for question_id, row in before.items():
-        assert after[question_id] == row
+    assert sorted(row_id for row_id, row in after.items() if "sourceReassessment" in row) == sorted(generator.CORRECTION_IDS)
+    # The four #139 rows must equal the committed #139 output (an independent, hash-addressed baseline).
+    baseline = json.loads(subprocess.check_output(
+        ["git", "show", "76e0566248e4ef7e39ba5c7848e99ef38999cae2:src/data/ib-biology-official-subtopics/overlay.json"], cwd=REPO))
+    group_ids = lambda row: [group["id"] for group in [row["primary"], *row["secondary"]]]
+    without_groups = lambda row: {key: value for key, value in row.items() if key not in ("primary", "secondary")}
+    reviewed = [row for row in baseline["rows"] if "sourceReassessment" in row]
+    assert len(reviewed) == 4
+    for row in reviewed:
+        assert group_ids(after[row["id"]]) == group_ids(row)
+        assert without_groups(after[row["id"]]) == without_groups(row)
+    triglyceride = after["2025-may-tz3-sl-p2-q2"]
+    assert triglyceride["primary"]["name"] == "Biological molecules and water" and triglyceride["secondary"] == []
+
+
+def _with_corrections(tmp_path, monkeypatch, edit):
+    data = json.loads(generator.CORRECTIONS_PATH.read_text())
+    edit(data["corrections"])
+    path = tmp_path / "corrections.json"
+    path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
+    monkeypatch.setattr(generator, "CORRECTIONS_PATH", path)
+    monkeypatch.setattr(generator, "CORRECTIONS_SHA256", generator.sha(path))
+    out = tmp_path / "repo"
+    (out / "src/data/raw").mkdir(parents=True)
+    for level in ("hl", "sl"):
+        (out / f"src/data/raw/ib-biology-{level}.json").write_bytes((REPO / f"src/data/raw/ib-biology-{level}.json").read_bytes())
+    return out
+
+
+@pytest.mark.parametrize("edit, message", [
+    (lambda c: c[0].update(groupIds=["ib-biology.group.P2"]), "does not own"),
+    (lambda c: c[0].update(officialAtomicIds=["ib-biology.bio_2025.B1.1"]), "era/level"),
+    (lambda c: c[0]["sourceReassessment"].update(questionText="leak"), "schema"),
+    (lambda c: c.append({**c[0], "id": "2022-may-tz2-hl-p1-q16"}), "id drift"),
+])
+def test_corrections_fail_closed(tmp_path, monkeypatch, edit, message):
+    repo = _with_corrections(tmp_path, monkeypatch, edit)
+    with pytest.raises(ValueError, match=message):
+        generator.build(RESEARCH, repo)
+
+
+def test_corrections_file_is_hash_pinned(tmp_path, monkeypatch):
+    path = tmp_path / "corrections.json"
+    path.write_text(generator.CORRECTIONS_PATH.read_text().replace("printed QP/MS verified", "edited"))
+    monkeypatch.setattr(generator, "CORRECTIONS_PATH", path)
+    with pytest.raises(ValueError, match="hash drift"):
+        generator.build(RESEARCH, REPO)
