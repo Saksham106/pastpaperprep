@@ -3,7 +3,7 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs/promises';
 import { expect, it } from 'vitest';
 import path from 'node:path';
-import { assemblePaper, validateInventory, runtimeRelativeFile, parseCli, buildWholePaperArchives } from './build-whole-paper-archives.mjs';
+import { assemblePaper, validateInventory, runtimeRelativeFile, parseCli, buildWholePaperArchives, loadReportHolds, REPORT_HOLDS_FILE } from './build-whole-paper-archives.mjs';
 import type { ExtractedDocument } from './whole-paper-extraction.mjs';
 it('accepts repeatable inventories and rejects unknown or missing CLI arguments',()=>{
   expect(parseCli(['--inventory','one.json','--inventory','two.json','--bank',bank.slug])).toEqual({inventoryFiles:['one.json','two.json'],bank:bank.slug});
@@ -170,6 +170,36 @@ it('accepts an independently reviewed identity only for the exact bank, paper an
   expect(result.entry.summary.reportAvailable).toBe(true);
   expect(JSON.stringify(result.entry)).not.toMatch(/identityReview|source-bound published typo/);
   expect(()=>assemblePaper(bank.slug,pair,rows as never,qp,typo,{...review,questionSha256:'c'.repeat(64)} as never)).toThrow('Identity review source binding mismatch');
+});
+it('applies a reviewed report hold only for the exact bank, paper and both source hashes, and versions it',()=>{
+  const hold={bankSlug:bank.slug,paperId:pair.id,questionSha256:qp.sha256,markschemeSha256:ms.sha256,reason:'The mark scheme withdrew Q1(a); held until a scoring policy for withdrawn parts is agreed.',review:{date:'2026-10-14',evidence:'fixture'}};
+  const open=assemblePaper(bank.slug,pair,rows as never,qp,ms);
+  const held=assemblePaper(bank.slug,pair,rows as never,qp,ms,undefined,hold);
+  expect(held.entry).toMatchObject({summary:{reportAvailable:false,reportReason:hold.reason,maxMarks:80,metadataVerified:true},questions:[],documents:open.entry.documents});
+  expect(held.entry.version).not.toBe(open.entry.version);
+  expect(JSON.stringify(held.entry)).not.toMatch(/fixture|review/);
+  expect(()=>assemblePaper(bank.slug,pair,rows as never,qp,ms,undefined,{...hold,markschemeSha256:'c'.repeat(64)})).toThrow('Report hold source binding mismatch');
+  expect(()=>assemblePaper(bank.slug,{...pair,id:'0620-2023-w-41'},rows as never,qp,ms,undefined,hold)).toThrow('Report hold source binding mismatch');
+});
+it('reads report holds on every build and rejects malformed, duplicate or unused holds',async()=>{
+  const dir=await fs.mkdtemp(path.join(process.env.TMPDIR??process.cwd(),'whole-paper-holds-fixture-'));
+  try {
+    const hold={bankSlug:bank.slug,paperId:pair.id,questionSha256:'a'.repeat(64),markschemeSha256:'b'.repeat(64),reason:'The mark scheme withdrew Q1(a); held until a scoring policy for withdrawn parts is agreed.',review:{date:'2026-10-14',evidence:'fixture'}};
+    const write=(holds:unknown[])=>fs.mkdir(path.join(dir,path.dirname(REPORT_HOLDS_FILE)),{recursive:true}).then(()=>fs.writeFile(path.join(dir,REPORT_HOLDS_FILE),JSON.stringify({schema:'whole-paper-report-holds-v1',holds})));
+    expect((await loadReportHolds(dir)).size).toBe(0);
+    await write([hold]);
+    expect([...(await loadReportHolds(dir)).values()]).toEqual([hold]);
+    await write([hold,hold]);await expect(loadReportHolds(dir)).rejects.toThrow('Duplicate report hold');
+    await write([{...hold,reason:''}]);await expect(loadReportHolds(dir)).rejects.toThrow('needs a reason');
+    await write([{...hold,review:undefined}]);await expect(loadReportHolds(dir)).rejects.toThrow('needs a reason');
+    await write([{...hold,markschemeSha256:'nope'}]);await expect(loadReportHolds(dir)).rejects.toThrow('Invalid report hold binding');
+    // A hold for a bank being built must match one of its papers, so a stale hold can't linger silently.
+    await write([hold]);
+    const runtime=path.join(dir,runtimeRelativeFile(bank.slug));await fs.mkdir(path.dirname(runtime),{recursive:true});await fs.writeFile(runtime,JSON.stringify({questions:[]}));
+    await fs.mkdir(path.join(dir,'src/lib'),{recursive:true});await fs.writeFile(path.join(dir,'src/lib/question-loader.ts'),`import('@/data/production/${bank.slug}.json')`);
+    const inventoryFile=path.join(dir,'inventory.json');await fs.writeFile(inventoryFile,JSON.stringify({banks:[{...bank,runtimeFile:runtime,pairs:[]}]}));
+    await expect(buildWholePaperArchives({root:dir,inventoryFiles:[inventoryFile]})).rejects.toThrow(`Report holds match no built paper: ${pair.id}`);
+  } finally {await fs.rm(dir,{recursive:true,force:true});}
 });
 it('holds mismatched subjects even when code, year and component agree',()=>{
   expect(assemblePaper(bank.slug,pair,rows as never,{...qp,text:[qp.text[0].replace('CHEMISTRY','PHYSICS')]},ms).entry.summary.metadataVerified).toBe(false);

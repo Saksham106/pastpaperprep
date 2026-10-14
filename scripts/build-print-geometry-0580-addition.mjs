@@ -13,7 +13,7 @@
 // It also re-derives the historical file from the same source worktree's 2016-2025 registries
 // and fails unless that equals the committed src/data/print-geometry-0580.json.
 import { createHash } from "node:crypto";
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import sharp from "sharp";
 import { buildGeometry } from "./generate-print-geometry-0580.mjs";
@@ -42,8 +42,24 @@ if (sourceIndex < 0 || !args[sourceIndex + 1]) fail("--source <0580 source workt
 const source = resolve(args[sourceIndex + 1]);
 const load = (file) => JSON.parse(readFileSync(join(source, file), "utf8")).images;
 
+// The released 2021-2025 Core crops: the reviewed crop repair (crop-repair-receipt-2026-10-14.json)
+// changed 81 lane crops after release; the historical receipt is re-derived from their recorded
+// pre-repair ("before") geometry, so it stays provable from a repaired source worktree.
+const REPAIR_RECEIPT = "data/core-2021-2025/crop-repair-receipt-2026-10-14.json";
+const released = (() => {
+  if (!existsSync(join(source, REPAIR_RECEIPT))) return new Map();
+  const rows = JSON.parse(readFileSync(join(source, REPAIR_RECEIPT), "utf8")).repaired_crops.rows;
+  return new Map(rows.map((row) => [`${row.kind}:${row.id}`, row.before]));
+})();
+const loadReleased = (kind, file) => load(file).map((image) => {
+  const before = file.startsWith("data/core-2021-2025/") && released.get(`${kind === "question" ? "question" : "markscheme"}:${image.id}`);
+  if (!before) return image;
+  return { id: image.id, path: image.path, source_pages: before.source_pages, bounds_pt: before.bounds_pt,
+    width: before.width, height: before.height, sha256: before.sha256 };
+});
+
 const blanks = JSON.parse(readFileSync(BLANKS, "utf8")).pages;
-const historical = `${JSON.stringify(buildGeometry(HISTORICAL_RECEIPTS.map(([kind, file]) => [kind, load(file)]), blanks))}\n`;
+const historical = `${JSON.stringify(buildGeometry(HISTORICAL_RECEIPTS.map(([kind, file]) => [kind, loadReleased(kind, file)]), blanks))}\n`;
 if (historical !== readFileSync(HISTORICAL, "utf8")) fail("historical 0580 geometry does not re-derive from this source worktree");
 
 const receipt = JSON.parse(readFileSync(RECEIPT, "utf8"));

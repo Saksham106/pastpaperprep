@@ -1,0 +1,1288 @@
+{
+ "schema": "reviewed-0580-core-crop-repairs-v1",
+ "bank": "igcse",
+ "namespace": "repairs/0580-core-crops-v1-080b88626b486cbc",
+ "source": {
+  "repository": "Saksham106/igcse-0580-topic-practice",
+  "receipt": "data/core-2021-2025/crop-repair-receipt-2026-10-14.json",
+  "receiptSha256": "080b88626b486cbcc06ba53b49a35123e250511563689989ea673bf7e29c538d"
+ },
+ "count": 75,
+ "questions": {
+  "0580-2021-june-11-q22": {
+   "oldPaths": [
+    "core-questions/0580-2021-june-11-q22.webp"
+   ],
+   "oldSha256": [
+    "6d1722f43b6781345de9e67ea654eedc592c8e06efff51b16eb509ca9b207e51"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/d008c6772ee11ac90253678e9b5f76ce67738f41a47efb8636c8ea93354a6f87.webp"
+   ],
+   "sha256": [
+    "d008c6772ee11ac90253678e9b5f76ce67738f41a47efb8636c8ea93354a6f87"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2021-june-31-q4": {
+   "oldPaths": [
+    "core-questions/0580-2021-june-31-q4.webp"
+   ],
+   "oldSha256": [
+    "55df6e700279a4f475dbb68100ac32a260ea2b17da0df6c8f154dbbb602a53d0"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/f2d3cc5a7c225be6ce9a79b11c0340938d92b6a00e7976273dbc8d15623d0422.webp"
+   ],
+   "sha256": [
+    "f2d3cc5a7c225be6ce9a79b11c0340938d92b6a00e7976273dbc8d15623d0422"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2021-june-32-q1": {
+   "oldPaths": [
+    "core-questions/0580-2021-june-32-q1.webp"
+   ],
+   "oldSha256": [
+    "a1406825d475d580af915f67c2a4e02420cde191a18b626fac482821b50b31e0"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/8d4848a6f6dddc71d36fbba1ebfe2fcdbf8371544c62f6ed05e30ddd1d32d36a.webp"
+   ],
+   "sha256": [
+    "8d4848a6f6dddc71d36fbba1ebfe2fcdbf8371544c62f6ed05e30ddd1d32d36a"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2021-june-32-q5": {
+   "oldPaths": [
+    "core-questions/0580-2021-june-32-q5.webp"
+   ],
+   "oldSha256": [
+    "6ccfefb7fbf9ec6300d300c730223de78d4977c180d14b0dfac5bcee6d1d3dfb"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/51bd3d6880a53dd4e326035f2a1d623e5535e76f392095d0e58145fc135b3be7.webp"
+   ],
+   "sha256": [
+    "51bd3d6880a53dd4e326035f2a1d623e5535e76f392095d0e58145fc135b3be7"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2021-june-32-q8": {
+   "oldPaths": [
+    "core-questions/0580-2021-june-32-q8.webp"
+   ],
+   "oldSha256": [
+    "c7c5d8ef4691e05947893dc52c7840e8b4c9d2e779adbc9c6233378fb44c2696"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/2eaddd855230782c0a697bc247b0db48a0bba2bb3f1de88e646646c7c85fa899.webp"
+   ],
+   "sha256": [
+    "2eaddd855230782c0a697bc247b0db48a0bba2bb3f1de88e646646c7c85fa899"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2021-june-32-q9": {
+   "oldPaths": [
+    "core-questions/0580-2021-june-32-q9.webp"
+   ],
+   "oldSha256": [
+    "4b5da6593e7db0543383c5892d550989aaf2c5b504579f51f7889395744f4ca2"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/aacf980f411f5383f3d27ed47faf5b8817b0dbbf76af19f6a470828981a31d9f.webp"
+   ],
+   "sha256": [
+    "aacf980f411f5383f3d27ed47faf5b8817b0dbbf76af19f6a470828981a31d9f"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2021-june-33-q10": {
+   "oldPaths": [
+    "core-questions/0580-2021-june-33-q10.webp"
+   ],
+   "oldSha256": [
+    "7a0cb9c6264aff4e4681fe1dbd49d94c14007ae65a8702ff741890761860a3c2"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/80ef2ffc55e0e8ddefb364fdea1bca5c83976e3d57170c94aea62936bc4efdfa.webp"
+   ],
+   "sha256": [
+    "80ef2ffc55e0e8ddefb364fdea1bca5c83976e3d57170c94aea62936bc4efdfa"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2021-june-33-q6": {
+   "oldPaths": [
+    "core-questions/0580-2021-june-33-q6.webp"
+   ],
+   "oldSha256": [
+    "1f6112d88cf58cafdb72b29fc56b2101078dd7fc13960f4bd61cecaeaecb08a3"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/fe5955a5de6e62422be42750cf9ee8d1436e29f45c939900f43d7e6bfe4a1b39.webp"
+   ],
+   "sha256": [
+    "fe5955a5de6e62422be42750cf9ee8d1436e29f45c939900f43d7e6bfe4a1b39"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2021-march-12-q21": {
+   "oldPaths": [
+    "core-questions/0580-2021-march-12-q21.webp"
+   ],
+   "oldSha256": [
+    "374aab3e8d701a5504dc8df3f67a77c99949e7118f45455626ad7480ef5dadf4"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/d50bd12fc186a11a345dbd5c59cdee502a76119f9fae9bbf47b749242a7114fa.webp"
+   ],
+   "sha256": [
+    "d50bd12fc186a11a345dbd5c59cdee502a76119f9fae9bbf47b749242a7114fa"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2021-march-32-q8": {
+   "oldPaths": [
+    "core-questions/0580-2021-march-32-q8.webp"
+   ],
+   "oldSha256": [
+    "b14e76aebcedc349894d9a15b35878c61511e390432e6caf1286bd4379356fae"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/9e17df864651c7893585d521732ae91cf1597c5b1646a4c683875f1c539c872a.webp"
+   ],
+   "sha256": [
+    "9e17df864651c7893585d521732ae91cf1597c5b1646a4c683875f1c539c872a"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2021-march-32-q9": {
+   "oldPaths": [
+    "core-questions/0580-2021-march-32-q9.webp"
+   ],
+   "oldSha256": [
+    "cc7d22d7fc9f58067809e8a2accf35481d5558f3c932d18c76ebef0f26322e10"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/c61b1b05974976ce533440838d61528b091deee8af80c7f8c1d8b396df54e796.webp"
+   ],
+   "sha256": [
+    "c61b1b05974976ce533440838d61528b091deee8af80c7f8c1d8b396df54e796"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2021-november-11-q21": {
+   "oldPaths": [
+    "core-questions/0580-2021-november-11-q21.webp"
+   ],
+   "oldSha256": [
+    "6aa3aad1dcba119deabbbd4a7f9d6e3a4281ee487c4f9b0d341e5a565e283512"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/55709549aab397b550fc8f6ef001c363fe6993f8e62a8f3c0da9896722a95013.webp"
+   ],
+   "sha256": [
+    "55709549aab397b550fc8f6ef001c363fe6993f8e62a8f3c0da9896722a95013"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2021-november-12-q7": {
+   "oldPaths": [
+    "core-questions/0580-2021-november-12-q7.webp"
+   ],
+   "oldSha256": [
+    "27eabff8be9a143b5713bfabc3287621c6ec2f800b2137f4345934cd5d429590"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/a6ba9184748028dbc1796c8c99e69f0b576b585b6b70c30fcc0aff883ce455e7.webp"
+   ],
+   "sha256": [
+    "a6ba9184748028dbc1796c8c99e69f0b576b585b6b70c30fcc0aff883ce455e7"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2021-november-13-q24": {
+   "oldPaths": [
+    "core-questions/0580-2021-november-13-q24.webp"
+   ],
+   "oldSha256": [
+    "0d69e12d4bbee7f8089e2c2cbeb86c3d1645e663ec1b4904d06c99cad042c37f"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/72926ebdc14be797da234e7283b3ef6bdd965d321b9bd09c2f83238d4beabfd7.webp"
+   ],
+   "sha256": [
+    "72926ebdc14be797da234e7283b3ef6bdd965d321b9bd09c2f83238d4beabfd7"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2021-november-31-q10": {
+   "oldPaths": [
+    "core-questions/0580-2021-november-31-q10.webp"
+   ],
+   "oldSha256": [
+    "e4767890a1b507c5abbfc61920c8eac1ef7bd67a63ee9244730df9a29d7b1133"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/fd24f3df901a9d70ba6c9c133a52598bc9ded9d716e74cd0f0b499aed8e036b4.webp"
+   ],
+   "sha256": [
+    "fd24f3df901a9d70ba6c9c133a52598bc9ded9d716e74cd0f0b499aed8e036b4"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2021-november-31-q3": {
+   "oldPaths": [
+    "core-questions/0580-2021-november-31-q3.webp"
+   ],
+   "oldSha256": [
+    "f07796a4c2fd71ebe123165e3512f7c61e1ccb9faa1e111d2766ad1a174b5438"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/a96a63176f4d0229075d64714aa6df78b4db3b3c809923e554931694669560f5.webp"
+   ],
+   "sha256": [
+    "a96a63176f4d0229075d64714aa6df78b4db3b3c809923e554931694669560f5"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2021-november-32-q10": {
+   "oldPaths": [
+    "core-questions/0580-2021-november-32-q10.webp"
+   ],
+   "oldSha256": [
+    "acde9d242219b2e20a0248ec2255ad971d91e0607a7f341e4bbfdc70e5d716bb"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/4aecea5a2d7a2caf220aff5d14ff4c38ebc361371451cb52abc6884e6c86844f.webp"
+   ],
+   "sha256": [
+    "4aecea5a2d7a2caf220aff5d14ff4c38ebc361371451cb52abc6884e6c86844f"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2021-november-32-q4": {
+   "oldPaths": [
+    "core-questions/0580-2021-november-32-q4.webp"
+   ],
+   "oldSha256": [
+    "2d092b7c4faae31d1abb9c63bf22f41b81cbcfed504ec224275d254bbc75571a"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/a0753ef49bc660459058cf8fe5d1ee96b879cf2746e40d674fb34154e6096286.webp"
+   ],
+   "sha256": [
+    "a0753ef49bc660459058cf8fe5d1ee96b879cf2746e40d674fb34154e6096286"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2021-november-33-q2": {
+   "oldPaths": [
+    "core-questions/0580-2021-november-33-q2.webp"
+   ],
+   "oldSha256": [
+    "d763be16051f220cd12697694368dfd7eb63e0e848e56ca5f58be1e8d3270d5f"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/80796ad75fb86ad6e9d76c56686eeda359cfe0874e1613ddc28b1cdc29e20154.webp"
+   ],
+   "sha256": [
+    "80796ad75fb86ad6e9d76c56686eeda359cfe0874e1613ddc28b1cdc29e20154"
+   ],
+   "defects": [
+    "text_cut_at_render_edge"
+   ]
+  },
+  "0580-2021-november-33-q9": {
+   "oldPaths": [
+    "core-questions/0580-2021-november-33-q9.webp"
+   ],
+   "oldSha256": [
+    "d2b07c49d2c5f999cd65364200a8f43f83f5dcbecf42c787faafa328e0d29ea6"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/4cf11c8c0405c6c1b4035507d91d88559190ef738218ec94d4d4ed5ed553fafb.webp"
+   ],
+   "sha256": [
+    "4cf11c8c0405c6c1b4035507d91d88559190ef738218ec94d4d4ed5ed553fafb"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2022-june-11-q4": {
+   "oldPaths": [
+    "core-questions/0580-2022-june-11-q4.webp"
+   ],
+   "oldSha256": [
+    "ddc507cffebd5fa487e4197b97528565827abd483f56756e334caba5bb58f946"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/3cb77eee3f71f3f81c84c0d3cd1e56bf561e26d5c48ef337b59c0fc23558380c.webp"
+   ],
+   "sha256": [
+    "3cb77eee3f71f3f81c84c0d3cd1e56bf561e26d5c48ef337b59c0fc23558380c"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2022-june-12-q15": {
+   "oldPaths": [
+    "core-questions/0580-2022-june-12-q15.webp"
+   ],
+   "oldSha256": [
+    "0e875502b4cf101a9401046024ea86c2c45414e02318c5d96297cecce3dd05ca"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/afeb787dc4c6683fc1d72e83d93fcc949e037d755cf70b731ec4cb79f4f0085d.webp"
+   ],
+   "sha256": [
+    "afeb787dc4c6683fc1d72e83d93fcc949e037d755cf70b731ec4cb79f4f0085d"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2022-june-12-q24": {
+   "oldPaths": [
+    "core-questions/0580-2022-june-12-q24.webp"
+   ],
+   "oldSha256": [
+    "0710d55f25d400e04d9a65606a72ff6c5ab142f9e7eca9e8f7ad503063c7fbb5"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/e7a15846882edf392f1e376d312f083b10fef2fc00b5383a72667412e81bfebe.webp"
+   ],
+   "sha256": [
+    "e7a15846882edf392f1e376d312f083b10fef2fc00b5383a72667412e81bfebe"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2022-june-13-q14": {
+   "oldPaths": [
+    "core-questions/0580-2022-june-13-q14.webp"
+   ],
+   "oldSha256": [
+    "850ed578594d077436d9639bcd0b142028ba28e3c3bdc2b22dfc836a336b278c"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/f57dfaab691dcad9cc121f1a56715827632f4f4934c7c5a670243a1c4b6b8efa.webp"
+   ],
+   "sha256": [
+    "f57dfaab691dcad9cc121f1a56715827632f4f4934c7c5a670243a1c4b6b8efa"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2022-june-13-q23": {
+   "oldPaths": [
+    "core-questions/0580-2022-june-13-q23.webp"
+   ],
+   "oldSha256": [
+    "35840b2a35eb6c6faac9e527318d3c6f5393dfbb34591744a0b4aaa12834f51d"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/61273b5cdfbdbbfcbf131ab73e618aac50b60ce16582fc567d711f02583daf26.webp"
+   ],
+   "sha256": [
+    "61273b5cdfbdbbfcbf131ab73e618aac50b60ce16582fc567d711f02583daf26"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2022-june-31-q2": {
+   "oldPaths": [
+    "core-questions/0580-2022-june-31-q2.webp"
+   ],
+   "oldSha256": [
+    "87182fb4b96466a3d33850ae862ce5de02bcbe9aff1ee035260a440770e136af"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/264632d0a077ed3b6003b994c427d0163c93b7b59989c4b52d65ef0b691b4563.webp"
+   ],
+   "sha256": [
+    "264632d0a077ed3b6003b994c427d0163c93b7b59989c4b52d65ef0b691b4563"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2022-june-31-q9": {
+   "oldPaths": [
+    "core-questions/0580-2022-june-31-q9.webp"
+   ],
+   "oldSha256": [
+    "30df2575fce9a5d17df2f94f9f54b27113ce6d6d9537b667aa28aeb96a90c747"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/ebde6dee7dc4cc76bc1df78f78fca6b0c2a455226430c5c59bd17c971243508b.webp"
+   ],
+   "sha256": [
+    "ebde6dee7dc4cc76bc1df78f78fca6b0c2a455226430c5c59bd17c971243508b"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2022-june-32-q9": {
+   "oldPaths": [
+    "core-questions/0580-2022-june-32-q9.webp"
+   ],
+   "oldSha256": [
+    "2cd56934cd74dc5481295a1a22ef303c5344124473aa561cc344a9338a34a5fe"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/5b367c5391fa7592cdda305e1f2d10e1409ede4298bab54fa0796f75c732fe9f.webp"
+   ],
+   "sha256": [
+    "5b367c5391fa7592cdda305e1f2d10e1409ede4298bab54fa0796f75c732fe9f"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2022-june-33-q9": {
+   "oldPaths": [
+    "core-questions/0580-2022-june-33-q9.webp"
+   ],
+   "oldSha256": [
+    "4972b5dcc2b6737b543a047f247e356bbb104fe7aef706bdda161ee91fef9adf"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/78c7996cc5a5e3f54fe67e4219acec3d066a0be914ac92ace1d5f677300e53da.webp"
+   ],
+   "sha256": [
+    "78c7996cc5a5e3f54fe67e4219acec3d066a0be914ac92ace1d5f677300e53da"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2022-march-12-q24": {
+   "oldPaths": [
+    "core-questions/0580-2022-march-12-q24.webp"
+   ],
+   "oldSha256": [
+    "f2da0ad28523076b3f7319822f08851c947d88e2ab99f7ea99ebad16e8cf9bd2"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/1e84baf6a5d863eca1ad5eee90bc280a1caf5d5eaba1d49c248449b9c4edf05b.webp"
+   ],
+   "sha256": [
+    "1e84baf6a5d863eca1ad5eee90bc280a1caf5d5eaba1d49c248449b9c4edf05b"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2022-march-32-q9": {
+   "oldPaths": [
+    "core-questions/0580-2022-march-32-q9.webp"
+   ],
+   "oldSha256": [
+    "77991811e99ae55c518afdedf24941bee223e8099385c18d0e5b237100595f40"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/020d8d7881b9360db23a5c8b78f9f47e9e044e798efbbbe35e77342385913bff.webp"
+   ],
+   "sha256": [
+    "020d8d7881b9360db23a5c8b78f9f47e9e044e798efbbbe35e77342385913bff"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2022-november-11-q23": {
+   "oldPaths": [
+    "core-questions/0580-2022-november-11-q23.webp"
+   ],
+   "oldSha256": [
+    "6b187f401b9a369d35f2de5da4cd5204b1999d0d59e52bc117ba85d1d233996c"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/5c838f8371ecb3532ce6b457905604859d335e1163234cba2ff1ad983f52e54d.webp"
+   ],
+   "sha256": [
+    "5c838f8371ecb3532ce6b457905604859d335e1163234cba2ff1ad983f52e54d"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2022-november-31-q1": {
+   "oldPaths": [
+    "core-questions/0580-2022-november-31-q1.webp"
+   ],
+   "oldSha256": [
+    "66a7adece951164cedbb68411e65c61d695db12c4ae6f7bb3079359db727dca0"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/7b06e4c81f0ddd9489b058f214ac50a05472e015ef8ac2bac0139e734ca60bd5.webp"
+   ],
+   "sha256": [
+    "7b06e4c81f0ddd9489b058f214ac50a05472e015ef8ac2bac0139e734ca60bd5"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2022-november-32-q9": {
+   "oldPaths": [
+    "core-questions/0580-2022-november-32-q9.webp"
+   ],
+   "oldSha256": [
+    "b216bcce956aa927e0748f7391e61caadd8b40084f99e8cdcf5a96c80690e474"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/5ecbd3d4f2611b837e84a524fb1659dc1435b2618bf6d8e607ee30ae14ab0e25.webp"
+   ],
+   "sha256": [
+    "5ecbd3d4f2611b837e84a524fb1659dc1435b2618bf6d8e607ee30ae14ab0e25"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2022-november-33-q10": {
+   "oldPaths": [
+    "core-questions/0580-2022-november-33-q10.webp"
+   ],
+   "oldSha256": [
+    "4840782da39e736fbd4cb73864aea25e4f93723842e410312f42828a36b28149"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/4038fa8c5c57d84cb02b6b58a376a2c7d0260c2a594daa1a2e06e3086f96f3a1.webp"
+   ],
+   "sha256": [
+    "4038fa8c5c57d84cb02b6b58a376a2c7d0260c2a594daa1a2e06e3086f96f3a1"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2022-november-33-q5": {
+   "oldPaths": [
+    "core-questions/0580-2022-november-33-q5.webp"
+   ],
+   "oldSha256": [
+    "15212dae34c957719b2a3c44a97a9d890ee923aa788df4742048aa3e6f1225ef"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/6d4f544b2a8d80f50ca25d10508ab5289f3d923ff6c0b64cca555df9d0b4f5af.webp"
+   ],
+   "sha256": [
+    "6d4f544b2a8d80f50ca25d10508ab5289f3d923ff6c0b64cca555df9d0b4f5af"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2023-june-11-q25": {
+   "oldPaths": [
+    "core-questions/0580-2023-june-11-q25.webp"
+   ],
+   "oldSha256": [
+    "16eb9051eddd06f22284008ccdaf786b97eb29ab2b85680e06560aaa31ba563d"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/93fdc9419874e2f71559ac0069ed7866a70b6887a83dc5aa45de581311e3d5da.webp"
+   ],
+   "sha256": [
+    "93fdc9419874e2f71559ac0069ed7866a70b6887a83dc5aa45de581311e3d5da"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2023-june-11-q6": {
+   "oldPaths": [
+    "core-questions/0580-2023-june-11-q6.webp"
+   ],
+   "oldSha256": [
+    "df081b62ffdab5b0300d52c9e5ad10f6577baed9c4cac1869a233e90e4353f09"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/e6a842afaf057a56f8c7b5d6bb11a56573e47fda324e734617ca8432b89821ed.webp"
+   ],
+   "sha256": [
+    "e6a842afaf057a56f8c7b5d6bb11a56573e47fda324e734617ca8432b89821ed"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2023-june-13-q25": {
+   "oldPaths": [
+    "core-questions/0580-2023-june-13-q25.webp"
+   ],
+   "oldSha256": [
+    "b8ead0639010bc85d70e72cf34662feb9511ec2593fe60baa1f84dc8fadb77cc"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/34617e675b107d3581f3a2a4a386c2a196563cc41582135397fa262246995488.webp"
+   ],
+   "sha256": [
+    "34617e675b107d3581f3a2a4a386c2a196563cc41582135397fa262246995488"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2023-june-31-q10": {
+   "oldPaths": [
+    "core-questions/0580-2023-june-31-q10.webp"
+   ],
+   "oldSha256": [
+    "1724978c9ea827a783a01ab6e79438dc0f611e98c5f4239f64a5021ed4ed7811"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/c6c4568299ccf43183b099b2a0b0ce8479ab59a92209c1fb2caff281b32d482d.webp"
+   ],
+   "sha256": [
+    "c6c4568299ccf43183b099b2a0b0ce8479ab59a92209c1fb2caff281b32d482d"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2023-june-31-q4": {
+   "oldPaths": [
+    "core-questions/0580-2023-june-31-q4.webp"
+   ],
+   "oldSha256": [
+    "c64af5ff246412679a6c78b7d7792f899f76d3c7998c53cea53cb47c7efe2c54"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/75591b4add1ab0691806263e9bc4e74366f9c580cb38b9dac3be4c0e96ac105d.webp"
+   ],
+   "sha256": [
+    "75591b4add1ab0691806263e9bc4e74366f9c580cb38b9dac3be4c0e96ac105d"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2023-june-32-q9": {
+   "oldPaths": [
+    "core-questions/0580-2023-june-32-q9.webp"
+   ],
+   "oldSha256": [
+    "9af343c519c876cc3230928c24e5d004daf193387df7c4b7f671e9595fdba4ac"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/8c72dfd7aed9ca01e89393e794311206c8ec6b1b6ddc75b151b3b7da752df7be.webp"
+   ],
+   "sha256": [
+    "8c72dfd7aed9ca01e89393e794311206c8ec6b1b6ddc75b151b3b7da752df7be"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2023-june-33-q3": {
+   "oldPaths": [
+    "core-questions/0580-2023-june-33-q3.webp"
+   ],
+   "oldSha256": [
+    "a1d921022b502dc28fa48cda930f3908cd9808bfde437488c3cd36bff7a8af9c"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/1812acf36e50abe19b32aa265619a05f963811ec8a7f032c24d1479d83be3a39.webp"
+   ],
+   "sha256": [
+    "1812acf36e50abe19b32aa265619a05f963811ec8a7f032c24d1479d83be3a39"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2023-june-33-q7": {
+   "oldPaths": [
+    "core-questions/0580-2023-june-33-q7.webp"
+   ],
+   "oldSha256": [
+    "4b90554264d59135cd29124db3288b9e074297e12fdf6ff8b357bbfd059f843f"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/4d4cde516b9d2d0f3b2ab7712a1481dc79a8b13856dc770e7d474329b00a7746.webp"
+   ],
+   "sha256": [
+    "4d4cde516b9d2d0f3b2ab7712a1481dc79a8b13856dc770e7d474329b00a7746"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2023-march-12-q26": {
+   "oldPaths": [
+    "core-questions/0580-2023-march-12-q26.webp"
+   ],
+   "oldSha256": [
+    "164175c07914254b987fc509c5437638c061c0a0d4844dc24ce1dfc7115703ce"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/ef8720dcb9cf792687b1f9f2218d4ed9d3a8c1d184c11395f9ed6d2de97c430b.webp"
+   ],
+   "sha256": [
+    "ef8720dcb9cf792687b1f9f2218d4ed9d3a8c1d184c11395f9ed6d2de97c430b"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2023-march-32-q1": {
+   "oldPaths": [
+    "core-questions/0580-2023-march-32-q1.webp"
+   ],
+   "oldSha256": [
+    "38de777bd7ab535453682c48e9ce3d2f7d8803ee65149edbec4a1ccd30182c99"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/ba736d09829173ee8e50e31afe1ef8d6d20871210eca761acfd0c180120b808f.webp"
+   ],
+   "sha256": [
+    "ba736d09829173ee8e50e31afe1ef8d6d20871210eca761acfd0c180120b808f"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2023-november-11-q25": {
+   "oldPaths": [
+    "core-questions/0580-2023-november-11-q25.webp"
+   ],
+   "oldSha256": [
+    "b2987d16962ab3b81b23642e2f2dcb7eee29e2d6b1c5321720fc085706881849"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/c2e3a7c6ad02c923089b83db99aa230e5588454672da713875973d077663112a.webp"
+   ],
+   "sha256": [
+    "c2e3a7c6ad02c923089b83db99aa230e5588454672da713875973d077663112a"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2023-november-12-q24": {
+   "oldPaths": [
+    "core-questions/0580-2023-november-12-q24.webp"
+   ],
+   "oldSha256": [
+    "541ac5612acf9771b875fec46094f1dbc7fdb07705cd3d0d85a5265233e76880"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/13a0f5c64e9adb6094b21f186ebd5492de9252a9ee067292db2849a5ffc99ba4.webp"
+   ],
+   "sha256": [
+    "13a0f5c64e9adb6094b21f186ebd5492de9252a9ee067292db2849a5ffc99ba4"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2023-november-13-q23": {
+   "oldPaths": [
+    "core-questions/0580-2023-november-13-q23.webp"
+   ],
+   "oldSha256": [
+    "a6cd68e441df88a34f24dab147067d8cbc5221907c4f736fa17693234de5c61b"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/af6cff0f6f433357830a80283b1d6bde4bfb910f7b769e15da98fa07938c98b0.webp"
+   ],
+   "sha256": [
+    "af6cff0f6f433357830a80283b1d6bde4bfb910f7b769e15da98fa07938c98b0"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2023-november-31-q10": {
+   "oldPaths": [
+    "core-questions/0580-2023-november-31-q10.webp"
+   ],
+   "oldSha256": [
+    "31f3e502729971f35d062d28e31106ab80f2edd6ab054d152288af6d8f606bcc"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/a84bd7b52890d19d8487edce886607230e988e39cda69a8253b93f01515f36fd.webp"
+   ],
+   "sha256": [
+    "a84bd7b52890d19d8487edce886607230e988e39cda69a8253b93f01515f36fd"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2023-november-33-q10": {
+   "oldPaths": [
+    "core-questions/0580-2023-november-33-q10.webp"
+   ],
+   "oldSha256": [
+    "6b1bfa56b9317d32db07a3f34c4429d6ebc68ec1115de53901ecbd1052c9e10f"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/b01bed622c19d376f6b3dd01cbbc1451e02b0fc3aaccf5d559cf1eec5f19af4f.webp"
+   ],
+   "sha256": [
+    "b01bed622c19d376f6b3dd01cbbc1451e02b0fc3aaccf5d559cf1eec5f19af4f"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2024-june-11-q25": {
+   "oldPaths": [
+    "core-questions/0580-2024-june-11-q25.webp"
+   ],
+   "oldSha256": [
+    "ec6f057f7149689f44962d96a9c66d6ad9130d4c92f3c017bfe0c7ee31bb9fc4"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/481bb88b49ab0d49157e748acc821e6a107c2047637a1a99ac74522ef0b916dc.webp"
+   ],
+   "sha256": [
+    "481bb88b49ab0d49157e748acc821e6a107c2047637a1a99ac74522ef0b916dc"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2024-june-12-q16": {
+   "oldPaths": [
+    "core-questions/0580-2024-june-12-q16.webp"
+   ],
+   "oldSha256": [
+    "2839d8deab408ba33d63fdb2d5799e2492c2000cb209c1d704532a5cddaa9b62"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/42348533549f38bdc956670f44a227ffb882bcc98b87c030740df5b52cd02665.webp"
+   ],
+   "sha256": [
+    "42348533549f38bdc956670f44a227ffb882bcc98b87c030740df5b52cd02665"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2024-june-12-q8": {
+   "oldPaths": [
+    "core-questions/0580-2024-june-12-q8.webp"
+   ],
+   "oldSha256": [
+    "bdbf2db065c96dd5f782efd2a48b3d65be8ce54e740121b3dcace82861154e20"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/144c992b080acc657df21fa4c6f86a03be5f4ddb9df9ac9d40863676c0c2332a.webp"
+   ],
+   "sha256": [
+    "144c992b080acc657df21fa4c6f86a03be5f4ddb9df9ac9d40863676c0c2332a"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2024-june-13-q23": {
+   "oldPaths": [
+    "core-questions/0580-2024-june-13-q23.webp"
+   ],
+   "oldSha256": [
+    "201fe41b13986b84018248f5cb484d0613b5421f719d3bdb86ae9a9ca4518ca3"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/f4295ea3639e80cfc55fa54dc5fbd78eba707e9eb25f6800daadd9d46aef9f71.webp"
+   ],
+   "sha256": [
+    "f4295ea3639e80cfc55fa54dc5fbd78eba707e9eb25f6800daadd9d46aef9f71"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2024-june-31-q2": {
+   "oldPaths": [
+    "core-questions/0580-2024-june-31-q2.webp"
+   ],
+   "oldSha256": [
+    "1e85bba758f54e947c70f5e47c305871b8dcde26dd0812bf22e4ef125377817c"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/cc9aee51ff5f009f7feb94c2523f85267eae00f630de4162d5f9570cf996ea98.webp"
+   ],
+   "sha256": [
+    "cc9aee51ff5f009f7feb94c2523f85267eae00f630de4162d5f9570cf996ea98"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2024-june-32-q1": {
+   "oldPaths": [
+    "core-questions/0580-2024-june-32-q1.webp"
+   ],
+   "oldSha256": [
+    "b88bf2f221a6ef80ea4ba26db08380336ed3ccccb53c9f6ad12fd5490ea6ba5e"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/acb051a1b85e719ab0319e009443a20b10ebb3b300e20a9de95d7e1116cdb2b2.webp"
+   ],
+   "sha256": [
+    "acb051a1b85e719ab0319e009443a20b10ebb3b300e20a9de95d7e1116cdb2b2"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2024-june-32-q4": {
+   "oldPaths": [
+    "core-questions/0580-2024-june-32-q4.webp"
+   ],
+   "oldSha256": [
+    "31c0327611b5480e098263cd81006a4c6abfc6767b3668e56535b06eaccc346a"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/b68093381673dc55c81ef721e2cac1d843cd8b8f951f36d8d2310a7924ac48b9.webp"
+   ],
+   "sha256": [
+    "b68093381673dc55c81ef721e2cac1d843cd8b8f951f36d8d2310a7924ac48b9"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2024-june-33-q9": {
+   "oldPaths": [
+    "core-questions/0580-2024-june-33-q9.webp"
+   ],
+   "oldSha256": [
+    "af9ec8ddc4f14a6364a1b6307aaf9cf5e86004c4141faa96ec0f289e258e247b"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/8e95bebf9e360d9ec934c960f6636f401f8c931e45c36a63f5a183c7c34ddabf.webp"
+   ],
+   "sha256": [
+    "8e95bebf9e360d9ec934c960f6636f401f8c931e45c36a63f5a183c7c34ddabf"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2024-march-12-q13": {
+   "oldPaths": [
+    "core-questions/0580-2024-march-12-q13.webp"
+   ],
+   "oldSha256": [
+    "ba077ce13f0c4ef2b272315d61e1fde6205b7c0a431c79b513cff01ff9e78e2e"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/18ae219df23d0a68e02fdaedbc2a79cb388569265003d4171e904a706b003262.webp"
+   ],
+   "sha256": [
+    "18ae219df23d0a68e02fdaedbc2a79cb388569265003d4171e904a706b003262"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2024-march-12-q25": {
+   "oldPaths": [
+    "core-questions/0580-2024-march-12-q25.webp"
+   ],
+   "oldSha256": [
+    "3ea27a8c5d05d0b34726c5d316948663a572d360422c708f0ba0e3aed9c211e4"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/3b51b3f3a722bcf662c143806750188df21174bf0e526a5f03a15412c23ba0b7.webp"
+   ],
+   "sha256": [
+    "3b51b3f3a722bcf662c143806750188df21174bf0e526a5f03a15412c23ba0b7"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2024-march-32-q5": {
+   "oldPaths": [
+    "core-questions/0580-2024-march-32-q5.webp"
+   ],
+   "oldSha256": [
+    "8888bce5f692c8dfbfd0eabeecbf4f87d728f331ea4e7f49f9eab7d4a7bac5bb"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/0b2cea1fb14325f33fa06685f9912e9523793cb509a7a2d6a5622acf418279dd.webp"
+   ],
+   "sha256": [
+    "0b2cea1fb14325f33fa06685f9912e9523793cb509a7a2d6a5622acf418279dd"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2024-november-13-q23": {
+   "oldPaths": [
+    "core-questions/0580-2024-november-13-q23.webp"
+   ],
+   "oldSha256": [
+    "db977c3968dd106110501947b94ebf27239ba3f4ed33790df3c0529ae66b7174"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/02a3ad42f9836919453b549474a9974ecacf9129dc3775c47d1370e1c4028d9e.webp"
+   ],
+   "sha256": [
+    "02a3ad42f9836919453b549474a9974ecacf9129dc3775c47d1370e1c4028d9e"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2024-november-13-q24": {
+   "oldPaths": [
+    "core-questions/0580-2024-november-13-q24.webp"
+   ],
+   "oldSha256": [
+    "fd4338301a935d7e42021f79c4a6ee93fea9631411459f5cc2dd3aeb995c3f87"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/81baa6312768575c4cf2eae4712f814639e606ea044b45bd835d859a65aa284e.webp"
+   ],
+   "sha256": [
+    "81baa6312768575c4cf2eae4712f814639e606ea044b45bd835d859a65aa284e"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2024-november-31-q10": {
+   "oldPaths": [
+    "core-questions/0580-2024-november-31-q10.webp"
+   ],
+   "oldSha256": [
+    "e095034c7277a8e9e5caefa552977cb7dc8cf807b22cc9f8f7b699060527b770"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/fb58b192fbfc7135d33dbfde94c98ab10fdaa5b057367f11bb2d2db8922d3013.webp"
+   ],
+   "sha256": [
+    "fb58b192fbfc7135d33dbfde94c98ab10fdaa5b057367f11bb2d2db8922d3013"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2024-november-32-q9": {
+   "oldPaths": [
+    "core-questions/0580-2024-november-32-q9.webp"
+   ],
+   "oldSha256": [
+    "8f4fa36ac9d81e769e974855022bf427d93680d09728597cba7696322ddc67ca"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/9d9f5b8580674f12c13422afce9d962f42d1853cc2b6473b074d0c5c2c6210c6.webp"
+   ],
+   "sha256": [
+    "9d9f5b8580674f12c13422afce9d962f42d1853cc2b6473b074d0c5c2c6210c6"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2024-november-33-q1": {
+   "oldPaths": [
+    "core-questions/0580-2024-november-33-q1.webp"
+   ],
+   "oldSha256": [
+    "b56610603133c2efe98766e26dbea3780604e622b2fea6dff3ca4aad9d3bc43b"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/81cce81dbf67a886149195c3247776f9983c9d780c224e6d3f3ffad2216fcab2.webp"
+   ],
+   "sha256": [
+    "81cce81dbf67a886149195c3247776f9983c9d780c224e6d3f3ffad2216fcab2"
+   ],
+   "defects": [
+    "answer_line_cut_by_footer_margin"
+   ]
+  },
+  "0580-2025-june-12-q25": {
+   "oldPaths": [
+    "core-questions/0580-2025-june-12-q25.webp"
+   ],
+   "oldSha256": [
+    "9878b8645cfec407a4374dfa2093d68fef0d376ea00a53999fdfe051f7ee91f1"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/dfff9c7abfd21b0492cb0b0991d4bfcc409ee4748f508ae5793686fa96b44a2a.webp"
+   ],
+   "sha256": [
+    "dfff9c7abfd21b0492cb0b0991d4bfcc409ee4748f508ae5793686fa96b44a2a"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2025-june-13-q25": {
+   "oldPaths": [
+    "core-questions/0580-2025-june-13-q25.webp"
+   ],
+   "oldSha256": [
+    "ccf6be91ea0bf88e072cb8c917095ad10378e7ccba307a5dafe72324fea70db0"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/fedccef336b3c1d3e1b6f55136440d5e3390239bae7451a2b7644bc5bfdc0f8c.webp"
+   ],
+   "sha256": [
+    "fedccef336b3c1d3e1b6f55136440d5e3390239bae7451a2b7644bc5bfdc0f8c"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2025-june-33-q24": {
+   "oldPaths": [
+    "core-questions/0580-2025-june-33-q24.webp"
+   ],
+   "oldSha256": [
+    "b57858a3584ac2bfc6cbd8cb2fbd6a24231a6ee46b7f0826bc896e81e7a03dc0"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/554f8f009b824f82f6fbc79b94a3f1f4ab8a3cec74abf6b1770bbb7149a4935e.webp"
+   ],
+   "sha256": [
+    "554f8f009b824f82f6fbc79b94a3f1f4ab8a3cec74abf6b1770bbb7149a4935e"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2025-march-12-q26": {
+   "oldPaths": [
+    "core-questions/0580-2025-march-12-q26.webp"
+   ],
+   "oldSha256": [
+    "4e39fc9ebfc671d9e9352c79a2ad058128969e38da40eb9d1cc3a26725d95385"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/2ece42aa58afd02bce36dfd9321e4037e16d19cf252ba6d3478d20ac950115c6.webp"
+   ],
+   "sha256": [
+    "2ece42aa58afd02bce36dfd9321e4037e16d19cf252ba6d3478d20ac950115c6"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2025-march-32-q21": {
+   "oldPaths": [
+    "core-questions/0580-2025-march-32-q21.webp"
+   ],
+   "oldSha256": [
+    "27c8cd56a392b0a37e1b9cc9cdc0c8a32f8409be80c7f9e34864904dfd83c67b"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/0ad47afe10b37557ed88becf1097a83fbc08ffe5661e3c56ed4e3dc9277d221e.webp"
+   ],
+   "sha256": [
+    "0ad47afe10b37557ed88becf1097a83fbc08ffe5661e3c56ed4e3dc9277d221e"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  },
+  "0580-2025-november-12-q17": {
+   "oldPaths": [
+    "core-questions/0580-2025-november-12-q17.webp"
+   ],
+   "oldSha256": [
+    "b108bf304c6338710239b29c673d2bf5880befff02f494f0ec7a720f459e5830"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/44ecc7ed4988538884964014d3ca1815ad1db506a49e8e72374f811849677ad0.webp"
+   ],
+   "sha256": [
+    "44ecc7ed4988538884964014d3ca1815ad1db506a49e8e72374f811849677ad0"
+   ],
+   "defects": [
+    "answer_line_split_at_question_boundary"
+   ]
+  },
+  "0580-2025-november-12-q18": {
+   "oldPaths": [
+    "core-questions/0580-2025-november-12-q18.webp"
+   ],
+   "oldSha256": [
+    "1cb91dc86811e58a4ed94bbabf8e34f81579761c47153ade4da2deb964646388"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/2a29aedb1e741df8249ef91ee583b9d173722d21700cf2f6f8061b747e8f338a.webp"
+   ],
+   "sha256": [
+    "2a29aedb1e741df8249ef91ee583b9d173722d21700cf2f6f8061b747e8f338a"
+   ],
+   "defects": [
+    "answer_line_split_at_question_boundary"
+   ]
+  },
+  "0580-2025-november-12-q27": {
+   "oldPaths": [
+    "core-questions/0580-2025-november-12-q27.webp"
+   ],
+   "oldSha256": [
+    "63613f39a0b12ab314f4c9ebff6cb7f30d0579d274fefdf9ac23594eb26eae9e"
+   ],
+   "newPaths": [
+    "repairs/0580-core-crops-v1-080b88626b486cbc/b81d2ec6365e640bd1d272b243af249bf032397466e3c2b8a021f21fe6167363.webp"
+   ],
+   "sha256": [
+    "b81d2ec6365e640bd1d272b243af249bf032397466e3c2b8a021f21fe6167363"
+   ],
+   "defects": [
+    "trailing_furniture_page"
+   ]
+  }
+ }
+}

@@ -3,6 +3,7 @@ import {
   canViewQuestionAsset,
   type AccessEntitlement,
 } from "@/lib/access";
+import { cleanAccessibleText } from "@/lib/accessible-text";
 import { isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
 import type { UnifiedQuestion, QuestionRichDetails } from "@/lib/questions";
 
@@ -54,8 +55,8 @@ export function prepareQuestionsForDelivery(
       markschemeImages: [],
       questionAssetPaths: [],
       markschemeAssetPaths: [],
-      summary: canViewQuestion ? question.summary : "",
-      accessibleText: canViewQuestion ? question.accessibleText : "",
+      summary: canViewQuestion ? cleanAccessibleText(question.summary) : "",
+      accessibleText: canViewQuestion ? cleanAccessibleText(question.accessibleText) : "",
       solution: canViewQuestionAnswer ? question.solution : null,
       sourceQuestionUrl: canViewQuestion ? question.sourceQuestionUrl : null,
       sourceMarkSchemeUrl: canViewQuestionAnswer ? question.sourceMarkSchemeUrl : null,
@@ -81,7 +82,9 @@ export function getQuestionRichDetails(
   }, entitlements, now, allowLocalPreview);
 }
 
-/** Same gating as prepareQuestionsForDelivery, for callers that hold only manifest fields. */
+/** Same gating as prepareQuestionsForDelivery, for callers that hold only manifest fields.
+ * Text is cleaned of paper furniture here, at delivery; stored text stays as extracted because
+ * classification evidence is hashed against it. */
 export function richDetailsFor(
   bankSlug: BankSlug,
   questionId: string,
@@ -94,8 +97,8 @@ export function richDetailsFor(
   const canViewQuestion = localPreview || canViewQuestionAsset(bankSlug, questionId, entitlements, now);
   const canViewQuestionAnswer = localPreview || canViewAnswer(bankSlug, questionId, entitlements, now);
   return {
-    summary: canViewQuestion ? details.summary : "",
-    accessibleText: canViewQuestion ? details.accessibleText : "",
+    summary: canViewQuestion ? cleanAccessibleText(details.summary) : "",
+    accessibleText: canViewQuestion ? cleanAccessibleText(details.accessibleText) : "",
     solution: canViewQuestionAnswer ? details.solution : null,
     sourceQuestionUrl: canViewQuestion ? details.sourceQuestionUrl : null,
     sourceMarkSchemeUrl: canViewQuestionAnswer ? details.sourceMarkSchemeUrl : null,

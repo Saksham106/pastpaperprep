@@ -11,10 +11,10 @@ from typing import Any
 # 26 blocked: four of the reviewed overlay's 30 were unblocked by printed-source review (#139).
 EXPECTED = {"rows": 3459, "HL": 1911, "SL": 1548, "legacy": 2983, "current": 476, "blocked": 26}
 CORRECTIONS_PATH = Path(__file__).resolve().parent / "data/ib-biology-reviewed-subtopic-corrections.json"
-CORRECTIONS_SHA256 = "67caed561e7ecec60c0653c4bf4a922461d0378f945ce0ecd0aa95b23aefe944"
+CORRECTIONS_SHA256 = "ea88f99f083c2565320f6c9a8977f9e17468a788274ac6459b52d2eb2307aaea"
 CORRECTION_IDS = {
     "2019-may-tz1-sl-p1-q30", "2019-may-tz1-sl-p3-q16", "2019-may-tz2-sl-p1-q30", "2019-november-tz0-sl-p3-q2",
-    "2025-may-tz3-sl-p2-q2",
+    "2025-may-tz3-sl-p2-q2", "2021-may-tz2-sl-p2-q5", "2024-may-tz2-hl-p3-q2",
 }
 CORRECTION_KEYS = {"id", "level", "era", "officialAtomicIds", "groupIds", "origin", "sourceReassessment"}
 REASSESSMENT_KEYS = {"review", "questionPdfSha256", "markschemePdfSha256", "questionPages", "markschemePages", "atomicCode", "oldBlockedReasons", "finding"}
