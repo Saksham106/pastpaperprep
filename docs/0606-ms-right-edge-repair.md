@@ -81,7 +81,7 @@ call; a second run from any worktree is refused). It detects pre-existing differ
 writing and corrupt bytes after writing. It is not an atomic create: `wrangler r2 object put` has
 no conditional create (and none is relied on for the Supabase CLI copy), so a concurrent foreign
 writer between the check and the put cannot be ruled out. The rows in the committed log predate the
-writer lock; they were written by a single run with no other writer to this namespace.
+writer lock; every new-object row records its key as absent before the put (`existedBefore: false`).
 
 - **Resume** skips a store/key only when its log row is in the plan and its SHA-256 and size equal
   the planned object. Superseded objects: the overlay records only SHA-256, so the hash must match
