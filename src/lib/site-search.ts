@@ -64,9 +64,10 @@ export function subjectTerms(...names: string[]): string[] {
 
 /** Words that describe a paper rather than a subject, so subject matching skips them. */
 const PAPERISH = /^(?:\d{4}\/.*|\d{4}_.*|[msw]\d{2}|20\d{2}|\d{1,2}[ab]?|tz\d?|p\d[ab]?|paper|qp|ms|may|june?|nov(?:ember)?|oct(?:ober)?|feb(?:ruary)?|mar(?:ch)?|m\/j|o\/n|f\/m|(?:feb(?:ruary)?|may|oct(?:ober)?)\/(?:mar(?:ch)?|june?|nov(?:ember)?)|summer|winter|core|extended)$/;
-const words = (query: string) => query.toLowerCase().replace(/\btz\s+(\d)\b/g, "tz$1").replace(/[^a-z0-9/_.\-\s]/g, " ").split(/\s+/).filter(Boolean);
+// Spelled the way parsePaperQuery accepts them: "tz 1" is tz1 and "may / june" is may/june.
+const words = (query: string) => query.toLowerCase().replace(/\btz\s+(\d)\b/g, "tz$1").replace(/\s*\/\s*/g, "/").replace(/[^a-z0-9/_.\-\s]/g, " ").split(/\s+/).filter(Boolean);
 /** The parser's IB Paper 3 options, as the words students type for them. */
-const optionWords = (option: string | undefined) => new Set(option ? option.split("-") : []);
+const optionWords = (option: string | undefined) => new Set(option ? [option, ...option.split("-")] : []);
 
 /** Subjects whose terms cover every non-paper word in the query (prefix match), in index order. */
 export function matchSubjects(subjects: readonly SearchSubject[], query: string, option?: string): SearchSubject[] {

@@ -29,9 +29,22 @@ function serve(papersResponse: Promise<SearchPapers | null>) {
 async function mount() {
   vi.resetModules();
   const { SmartSearch } = await import("@/components/SmartSearch");
-  render(<SmartSearch />);
-  return screen.getByRole("combobox");
+  const view = render(<SmartSearch />);
+  return Object.assign(screen.getByRole("combobox"), { unmount: view.unmount });
 }
+/** Submit a paper code while the paper list is still on its way; returns the hand that answers it. */
+async function pendingPaperSubmit() {
+  let answer!: (value: SearchPapers) => void;
+  serve(new Promise(resolve => { answer = resolve; }));
+  const box = await mount();
+  const user = userEvent.setup();
+  await user.type(box, "0580/42/M/J/24");
+  await screen.findByRole("option", { name: /IGCSE Maths 0580.*by topic/i });
+  await user.keyboard("{Enter}");
+  expect(screen.getByText(/finding that paper/i)).toBeInTheDocument();
+  return { box, user, answer };
+}
+const settle = () => new Promise(resolve => setTimeout(resolve, 20));
 
 describe("SmartSearch", () => {
   beforeEach(() => push.mockReset());
@@ -72,6 +85,59 @@ describe("SmartSearch", () => {
     answer(papers);
     await waitFor(() => expect(push).toHaveBeenCalledWith("/past-papers/igcse-maths-0580/2024-may-june-42"));
     expect(push).toHaveBeenCalledTimes(1);
+  });
+
+  it("drops a pending paper submit when Escape clears the box (re-review R1)", async () => {
+    const { user, answer, box } = await pendingPaperSubmit();
+    await user.keyboard("{Escape}");
+    expect(box).toHaveValue("");
+    answer(papers);
+    await settle();
+    expect(push).not.toHaveBeenCalled();
+  });
+
+  it("drops a pending paper submit when the query changes (re-review R1)", async () => {
+    const { user, answer, box } = await pendingPaperSubmit();
+    await user.clear(box);
+    await user.type(box, "chemistry");
+    answer(papers);
+    await settle();
+    expect(push).not.toHaveBeenCalled();
+  });
+
+  it("keeps a newer explicit choice, and goes nowhere after the box unmounts (re-review R1)", async () => {
+    const { user, answer, box } = await pendingPaperSubmit();
+    await user.clear(box);
+    await user.type(box, "chemistry");
+    await user.click(await screen.findByRole("option", { name: "IB Chemistry HL: practice by topic" }));
+    expect(push).toHaveBeenLastCalledWith("/banks/ib-chemistry-hl?free=1");
+    box.unmount();
+    answer(papers);
+    await settle();
+    expect(push).toHaveBeenCalledTimes(1);
+  });
+
+  it("goes nowhere if the box unmounts while a paper submit waits (re-review R1)", async () => {
+    const { answer, box } = await pendingPaperSubmit();
+    box.unmount();
+    answer(papers);
+    await settle();
+    expect(push).not.toHaveBeenCalled();
+  });
+
+  it("waits for the search index too, when Enter comes before it arrives", async () => {
+    let answer!: (value: SearchIndex) => void;
+    const slowIndex = new Promise<SearchIndex>(resolve => { answer = resolve; });
+    vi.stubGlobal("fetch", vi.fn((url: string) => url.endsWith("index.json")
+      ? slowIndex.then(value => ({ ok: true, json: () => Promise.resolve(value) }))
+      : Promise.resolve({ ok: true, json: () => Promise.resolve(papers) })));
+    const box = await mount();
+    const user = userEvent.setup();
+    await user.type(box, "chemistry");
+    await user.keyboard("{Enter}");
+    expect(push).not.toHaveBeenCalled();
+    answer(index);
+    await waitFor(() => expect(push).toHaveBeenCalledWith("/banks/ib-chemistry-hl?free=1"));
   });
 
   it("says when the paper list can't load and offers a retry, without redirecting (review F2)", async () => {

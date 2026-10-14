@@ -86,6 +86,12 @@ describe("site search", () => {
     }
   });
 
+  it("accepts every spelling the parser does: spaced slashes and hyphenated options (re-review R2)", () => {
+    expect(searchSite(index, papers, "IB Chemistry HL May / June 2024 Paper 1 TZ1").papers.map(p => p.id)).toEqual(["chemistry-2024-may-tz1-hl-p1-english"]);
+    expect(searchSite(index, papers, "IB Math AA HL May 2018 Paper 3 discrete-mathematics").papers.map(p => p.id)).toEqual(["2018-may-tz0-p3-discrete-mathematics"]);
+    expect(searchSite(index, papers, "IB Math AA HL May 2018 Paper 3 discrete mathematics").papers.map(p => p.id)).toEqual(["2018-may-tz0-p3-discrete-mathematics"]);
+  });
+
   it("finds numbered syllabus topics by their exact label (review F5)", () => {
     expect(searchSite(index, papers, "1.18 Surds").topics.map(t => t.label)).toEqual(["1.18 Surds"]);
     expect(searchSite(index, papers, "1.18 Surds").intent).toBe("topic");

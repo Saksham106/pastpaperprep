@@ -53,8 +53,12 @@ export function SmartSearch() {
   const [papers, setPapers] = useState<SearchPapers | null>(null);
   const [failed, setFailed] = useState(false);
   const [papersFailed, setPapersFailed] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
   const input = useRef<HTMLInputElement>(null);
+  // A waiting submit may navigate only while it is still the latest thing the visitor asked for.
+  // Typing, Escape, choosing a result and unmounting all retire it.
+  const ticket = useRef(0);
+  const retire = () => { ticket.current += 1; };
+  useEffect(() => retire, []);
 
   const warm = () => { if (!index) void loadIndex().then(value => { if (value) setIndex(value); else setFailed(true); }); };
   const fetchPapers = () => loadPapers().then(value => { if (value) setPapers(value); else setPapersFailed(true); return value; });
@@ -75,18 +79,18 @@ export function SmartSearch() {
   const position = (href: string, kind: Option["kind"]) => options.findIndex(o => o.href === href && o.kind === kind);
 
   function go(option: Option | undefined, intent = results?.intent ?? "none") {
+    retire();
     trackProductEvent("home_search", { found: !!option, kind: option?.kind ?? "none", intent });
     if (option) router.push(option.href);
   }
   /** Enter or Search. A paper code waits for the paper list, so it never falls through to a topic link. */
   async function submit() {
-    if (submitting) return;
-    if (!paperLike || papers) return go(options[current]);
-    setSubmitting(true);
+    if (index && (!paperLike || papers)) return go(options[current]);
+    // Wait for the files this query needs, then act only if nothing newer has happened.
+    const mine = ++ticket.current;
     setOpen(true);
-    const [loadedIndex, loadedPapers] = await Promise.all([index ?? loadIndex(), fetchPapers()]);
-    setSubmitting(false);
-    if (!loadedIndex || !loadedPapers) return;
+    const [loadedIndex, loadedPapers] = await Promise.all([index ?? loadIndex(), paperLike ? papers ?? fetchPapers() : null]);
+    if (mine !== ticket.current || !loadedIndex || (paperLike && !loadedPapers)) return;
     if (!index) setIndex(loadedIndex);
     const fresh = searchSite(loadedIndex, loadedPapers, q);
     go(optionsFor(fresh)[0], fresh.intent);
@@ -105,12 +109,12 @@ export function SmartSearch() {
         ref={input} role="combobox" aria-label="Search subjects, topics and past papers" aria-expanded={options.length > 0} aria-controls={`${id}-list`}
         aria-autocomplete="list" aria-activedescendant={options.length ? optionId(current) : undefined}
         type="search" autoComplete="off" spellCheck={false} maxLength={120} value={q} placeholder="Search a subject, topic or paper code"
-        onChange={event => { setQ(event.target.value); setActive(0); setOpen(true); }}
+        onChange={event => { retire(); setQ(event.target.value); setActive(0); setOpen(true); }}
         onFocus={() => { setOpen(true); warm(); }} onBlur={() => setOpen(false)}
         onKeyDown={event => {
           if (event.key === "ArrowDown" && options.length) { event.preventDefault(); setActive((current + 1) % options.length); }
           else if (event.key === "ArrowUp" && options.length) { event.preventDefault(); setActive((current - 1 + options.length) % options.length); }
-          else if (event.key === "Escape") { setQ(""); setActive(0); setOpen(false); }
+          else if (event.key === "Escape") { retire(); setQ(""); setActive(0); setOpen(false); }
         }}
       />
       <button type="submit" className={styles.go}>Search</button>
