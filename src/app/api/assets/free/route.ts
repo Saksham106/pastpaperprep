@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { isPreviewQuestion } from "@/lib/access";
 import { loadBankAssetManifest } from "@/lib/asset-manifest";
-import { assetPathsForKind, isAssetKind } from "@/lib/asset-kinds";
+import { deliveredAssetPaths, isAssetKind } from "@/lib/asset-kinds";
 import { getBank, type BankSlug } from "@/lib/banks";
 import { explanationAssetSignOptions, previewAssetSignOptions, resolvedAssetSignProvider, signPrivateAssetUrls } from "@/lib/private-assets";
 import { richDetailsFor } from "@/lib/question-delivery";
@@ -35,7 +35,8 @@ async function handleGET(request: NextRequest) {
   const entry = manifest.get(questionId);
   if (!entry) return NextResponse.json({ error: "Unknown question" }, { status: 404, ...NO_STORE });
 
-  const paths = assetPathsForKind(entry, kind);
+  const paths = deliveredAssetPaths(entry, kind);
+  const mcqAnswer = kind === "answer" ? entry.mcqAnswer : undefined;
   let urlByPath: Awaited<ReturnType<typeof signPrivateAssetUrls>>;
   let provider: "r2" | "supabase" | "unknown" = "unknown";
   try {
@@ -54,6 +55,7 @@ async function handleGET(request: NextRequest) {
       details: richDetailsFor(bank, questionId, entry.details, []),
       urls: paths.map((path) => urlByPath.get(path)),
       displayCrops: paths.map((path) => reviewedBlankTailForSignedAsset(bank, questionId, kind, path)),
+      ...(mcqAnswer ? { mcqAnswer } : {}),
     },
   }, SHARED);
 }

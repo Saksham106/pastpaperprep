@@ -167,4 +167,48 @@ describe("POST /api/pdf/sign", () => {
       p_pdf_question_count: 2,
     });
   });
+
+  describe("MCQ letters", () => {
+    beforeEach(() => {
+      vi.stubEnv("PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS", "true");
+      vi.stubEnv("PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED", "true");
+      // Release banks presign through R2; these are format-valid placeholders, signed locally.
+      vi.stubEnv("ASSET_STORAGE_PROVIDER", "r2");
+      vi.stubEnv("R2_ACCOUNT_ID", "92278648535014b5231edfe207b9391d");
+      vi.stubEnv("R2_ACCESS_KEY_ID", "a".repeat(32));
+      vi.stubEnv("R2_SECRET_ACCESS_KEY", "b".repeat(64));
+      vi.stubEnv("R2_BUCKET_NAME", "pastpaperprep-assets");
+    });
+
+    it("exports an MCQ answer as its letter and signs only the written answer", async () => {
+      const response = await POST(request({ bank: "igcse-chemistry-0620", questionIds: ["0620-2025-m-12-q1", "0620-2025-m-42-q1"], content: "answers" }));
+      expect(response.status).toBe(200);
+      const { assets } = await response.json();
+      const [mcq, written] = assets;
+      expect(mcq).toMatchObject({ questionId: "0620-2025-m-12-q1", kind: "answer", urls: [], mcqAnswer: { answers: ["A"], note: null } });
+      expect(written.questionId).toBe("0620-2025-m-42-q1");
+      expect(written.mcqAnswer).toBeUndefined();
+      expect(written.urls.length).toBeGreaterThan(0);
+      expect(rpc).toHaveBeenCalledWith("consume_download_allowance", { p_asset_count: written.urls.length, p_pdf_question_count: 2 });
+    });
+
+    it("exports a letters-only answer sheet without signing anything", async () => {
+      const response = await POST(request({ bank: "igcse-chemistry-0620", questionIds: ["0620-2025-m-12-q1"], content: "answers" }));
+      expect(response.status).toBe(200);
+      expect((await response.json()).assets).toEqual([expect.objectContaining({ urls: [], mcqAnswer: { answers: ["A"], note: null } })]);
+      expect(rpc).toHaveBeenCalledWith("consume_download_allowance", { p_asset_count: 0, p_pdf_question_count: 1 });
+    });
+
+    it("gives signed-out and other-bank users no letter", async () => {
+      getClaims.mockResolvedValueOnce({ data: { claims: null } });
+      const signedOut = await POST(request({ bank: "igcse-chemistry-0620", questionIds: ["0620-2025-m-12-q1"], content: "answers" }));
+      expect(signedOut.status).toBe(401);
+      expect(await signedOut.text()).not.toContain("mcqAnswer");
+      const query = { select: vi.fn(() => query), eq: vi.fn().mockResolvedValue({ data: [{ product_id: "bank_igcse", status: "active", starts_at: "2026-01-01T00:00:00Z", expires_at: null }], error: null }) };
+      from.mockReturnValue(query);
+      const otherBank = await POST(request({ bank: "igcse-chemistry-0620", questionIds: ["0620-2025-m-12-q1"], content: "answers" }));
+      expect(otherBank.status).toBe(403);
+      expect(await otherBank.text()).not.toContain("mcqAnswer");
+    });
+  });
 });

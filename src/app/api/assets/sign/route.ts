@@ -96,6 +96,7 @@ async function handlePOST(request: Request) {
         kind: item.kind,
         details: richDetailsFor(body.bank as BankSlug, item.questionId, item.details, entitlements),
         urls: [],
+        ...(item.mcqAnswer ? { mcqAnswer: item.mcqAnswer } : {}),
       })),
     }, PRIVATE_RESPONSE_INIT);
   }
@@ -149,6 +150,7 @@ async function handlePOST(request: Request) {
         details: richDetailsFor(body.bank as BankSlug, item.questionId, item.details, entitlements),
         urls: item.paths.map((path) => urlByPath.get(path)),
         displayCrops: item.paths.map((path) => reviewedBlankTailForSignedAsset(body.bank as BankSlug, item.questionId, item.kind, path)),
+        ...(item.mcqAnswer ? { mcqAnswer: item.mcqAnswer } : {}),
       })),
     }, PRIVATE_RESPONSE_INIT);
   } catch (error) {

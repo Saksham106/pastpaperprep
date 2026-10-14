@@ -1,5 +1,6 @@
 import type { AssetKind, AssetRequest } from "@/lib/asset-access";
 import { isAssetKind } from "@/lib/asset-kinds";
+import { isMcqAnswer, type McqAnswer } from "@/lib/mcq-answer";
 import type { QuestionRichDetails } from "@/lib/questions";
 import type { BankSlug } from "@/lib/banks";
 import type { SourcePrintSegment } from "@/lib/print-geometry";
@@ -30,6 +31,8 @@ export type SignedAsset = AssetRequest & {
   printSegments?: Array<SourcePrintSegment[] | null>;
   rasterSizesPx?: Array<[number, number] | null>;
   displayCrops?: Array<VisibleImageCrop | null>;
+  /** A verified multiple-choice letter, shown instead of the mark-scheme crop. Answer assets only. */
+  mcqAnswer?: McqAnswer;
 };
 
 export function signedAssetKey(questionId: string, kind: AssetKind): string {
@@ -92,7 +95,7 @@ function validDisplayCrop(value: unknown): value is VisibleImageCrop | null {
     (crop.visibleHeightPx as number) < (crop.fullHeightPx as number);
 }
 
-function validAsset(value: unknown, localPreview = false): value is AssetRequest & { urls: string[]; details?: QuestionRichDetails; printSizesPt?: Array<[number, number] | null>; printSegments?: Array<SourcePrintSegment[] | null>; rasterSizesPx?: Array<[number, number] | null>; displayCrops?: Array<VisibleImageCrop | null> } {
+function validAsset(value: unknown, localPreview = false): value is AssetRequest & { urls: string[]; details?: QuestionRichDetails; printSizesPt?: Array<[number, number] | null>; printSegments?: Array<SourcePrintSegment[] | null>; rasterSizesPx?: Array<[number, number] | null>; displayCrops?: Array<VisibleImageCrop | null>; mcqAnswer?: McqAnswer } {
   if (!value || typeof value !== "object" || Array.isArray(value)) return false;
   const asset = value as Record<string, unknown>;
   return (
@@ -112,7 +115,8 @@ function validAsset(value: unknown, localPreview = false): value is AssetRequest
           validPrintSegments(parts, (asset.printSizesPt as unknown[])[index], (asset.rasterSizesPx as unknown[])[index])))) &&
     (asset.displayCrops === undefined || (Array.isArray(asset.displayCrops) &&
       asset.displayCrops.length === asset.urls.length && asset.displayCrops.every(validDisplayCrop))) &&
-    (asset.details === undefined || validDetails(asset.details))
+    (asset.details === undefined || validDetails(asset.details)) &&
+    (asset.mcqAnswer === undefined || (asset.kind === "answer" && isMcqAnswer(asset.mcqAnswer)))
   );
 }
 
@@ -274,7 +278,7 @@ function publicFreeAsset(index: FreeAssetIndex | null, loadedAt: number, request
   const question = index?.questions[request.questionId];
   const entry = question?.[request.kind];
   if (!question || !entry) return null;
-  const asset = { questionId: request.questionId, kind: request.kind, urls: entry.urls, displayCrops: entry.displayCrops, details: question.details };
+  const asset = { questionId: request.questionId, kind: request.kind, urls: entry.urls, displayCrops: entry.displayCrops, details: question.details, ...(entry.mcqAnswer !== undefined ? { mcqAnswer: entry.mcqAnswer } : {}) };
   if (!validAsset(asset) || !asset.urls.every(isFreePublicAssetUrl)) return null;
   return { ...asset, expiresAt: loadedAt + FREE_PUBLIC_ASSET_LIFETIME_MS };
 }

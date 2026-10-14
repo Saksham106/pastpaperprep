@@ -12,6 +12,7 @@ vi.mock("jspdf", () => ({ jsPDF: class {
   setProperties() {} setFont() {} setFontSize() {} setTextColor() {} text = text;
   setPage() {} setDrawColor() {} setFillColor() {} setLineWidth() {} line() {} textWithLink() {}
   getTextWidth(value: string) { return value.length * 1.5; }
+  splitTextToSize(value: string) { return [value]; }
 } }));
 
 const q16 = {
@@ -44,6 +45,7 @@ describe("real worksheet image placement", () => {
         if (value.includes("0580-q11.webp")) { this.naturalWidth = 1070; this.naturalHeight = 4479; }
         if (value.includes("middle-blank.webp")) { this.naturalWidth = 1070; this.naturalHeight = 4400; }
         if (value.includes("two-short-pages.webp")) { this.naturalWidth = 1070; this.naturalHeight = 1200; }
+        if (value.includes("ib-mcq-crop.webp")) { this.naturalWidth = 122; this.naturalHeight = 52; }
         queueMicrotask(() => this.onload?.(new Event("load")));
       }
     } as unknown as typeof window.Image;
@@ -349,5 +351,43 @@ describe("real worksheet image placement", () => {
     expect(images).toHaveLength(1);
     expect(images[0][5]).toBeCloseTo(576 * 25.4 / 72, 4);
     expect(verifyBytes).not.toHaveBeenCalled();
+  });
+
+  describe("MCQ letters", () => {
+    const mcq = (number: number, answers: Array<"A" | "B" | "C" | "D"> = ["B"], note: string | null = null) => ({
+      ...q16, id: `0620-2025-m-12-q${number}`, bankSlug: "igcse-chemistry-0620", component: "12", number, marks: 1,
+      questionImages: ["https://signed.test/science-full.webp"], questionPrintSizesPt: undefined,
+      markschemeImages: [], mcqAnswer: { answers, note },
+    } as unknown as Parameters<typeof downloadQuestionPdf>[0][number]);
+    const answerText = () => text.mock.calls.filter(([value]) => typeof value === "string" && /^[A-D](?:(?:, [A-D])* or [A-D])?$/.test(value)).map(([value]) => value);
+
+    it("carries the signed letter onto the export question", () => {
+      const signed = new Map([[`${q16.id}:answer`, { questionId: q16.id, kind: "answer" as const, urls: [], expiresAt: Date.now() + 60_000, mcqAnswer: { answers: ["C" as const], note: null } }]]);
+      expect(attachPdfAssetMetadata([q16], signed)[0]).toMatchObject({ markschemeImages: [], mcqAnswer: { answers: ["C"], note: null } });
+    });
+
+    it("prints answers-last MCQs as compact letter lines, many to a page, with no images", async () => {
+      const questions = Array.from({ length: 30 }, (_, index) => mcq(index + 1));
+      await downloadQuestionPdf(questions, "answers");
+      expect(answerText()).toHaveLength(30);
+      expect(text.mock.calls.some(([value]) => value === "2025 November / Paper 12 / Q1")).toBe(true);
+      expect(addImage.mock.calls.filter((call) => call[1] === "JPEG")).toHaveLength(0);
+      expect(addPage).not.toHaveBeenCalled();
+    });
+
+    it("prints the letter right after its question, and shows alternatives and notes", async () => {
+      await downloadQuestionPdf([mcq(1, ["A", "B"], "Question removed; all candidates credited"), mcq(2)], "both", undefined, undefined, "after-each-question");
+      expect(answerText()).toEqual(["A or B", "B"]);
+      expect(text.mock.calls.some(([value]) => Array.isArray(value) && value[0] === "Question removed; all candidates credited")).toBe(true);
+      expect(addImage.mock.calls.filter((call) => call[1] === "JPEG")).toHaveLength(2);
+    });
+
+    it("never enlarges a tiny answer crop that still prints as an image", async () => {
+      const ib = { ...q16, id: "2016-may-tz0-hl-p1-q3", bankSlug: "ib-chemistry-hl", questionImages: [], markschemeImages: ["https://signed.test/ib-mcq-crop.webp"] } as unknown as UnifiedQuestion;
+      await downloadQuestionPdf([ib], "answers");
+      const image = addImage.mock.calls.find((call) => call[1] === "JPEG")!;
+      expect(image[4]).toBeCloseTo(122 * 25.4 / 126, 4);
+      expect(image[5]).toBeCloseTo(52 * 25.4 / 126, 4);
+    });
   });
 });
