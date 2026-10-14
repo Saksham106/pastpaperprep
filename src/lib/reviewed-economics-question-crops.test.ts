@@ -57,7 +57,8 @@ describe('reviewed 0455 Paper 2 Q1 source-material crops', () => {
     expect(manifest.objects.map((o: Record<string, unknown>) => ({ questionId: o.questionId, objectKey: o.objectKey, sha256: o.sha256, supersedes: o.supersedes }))).toEqual(expected);
     const receipt = JSON.parse(readFileSync('data/storage/economics-q1-source-repairs.receipt.json', 'utf8'));
     expect(receipt.state).toBe('verified_readback');
-    expect(receipt.overwritten).toBe(0);
+    expect(receipt.preExistingConflictsDetected).toBe(0);
+    expect(receipt.guarantee).toMatch(/Not an atomic create/);
     expect(receipt.manifestSha256).toBe(createHash('sha256').update(manifestBytes).digest('hex'));
     expect(receipt.records.map((r: { objectKey: string; sha256: string; bytes: number; contentType: string; cacheControl: string }) => [r.objectKey, r.sha256, r.bytes, r.contentType, r.cacheControl]))
       .toEqual([...manifest.objects].sort((a, b) => a.objectKey.localeCompare(b.objectKey)).map((o: { objectKey: string; sha256: string; bytes: number }) => [o.objectKey, o.sha256, o.bytes, 'image/webp', 'private, max-age=31536000, immutable']));

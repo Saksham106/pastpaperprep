@@ -43,6 +43,10 @@ continuation, the "Answer all parts of Question 1" line and parts (a)–(h), wit
 | `0455-2025-w-21-q1` | 8 | 224.0→48 | `questions/0455-2025-w-21/q1-2-3.webp` | `3b3bbc2121f91ac7`… |
 | `0455-2025-w-22-q1` | 4 | 159.5→48 | `questions/0455-2025-w-22/q1-2-3.webp` | `450b132e28fc9c08`… |
 
+**Known limitation (not introduced here):** in `0455-2024-w-22-q1` the publisher's original replaces Table 1.1
+with "Content removed due to copyright restrictions", and part (e) needs that table. The restored prose is correct,
+but that question is still not fully answerable.
+
 ## Delivery: a reviewed overlay, not a new release
 
 The bank is finalized (`verified_readback`, sealed runtime, storage receipt, 2026 addition seals). Like the
@@ -72,10 +76,21 @@ superseded live object is read and must match its recorded SHA-256; the new key 
 different object stops the run); put with `image/webp` and `private, max-age=31536000, immutable`; then a full
 GET compared by SHA-256 and size.
 
-Result (2026-10-14): **13 created, 0 overwritten, 0 already present; 13/13 readback match**; 388,604 bytes.
-All 13 superseded objects were read and were unchanged. Evidence: `data/storage/economics-q1-source-repairs.manifest.json`,
+**What this guarantees.** Check-absent → put → read-back, serialized by one local writer. It detects
+pre-existing different bytes before writing and corrupt bytes after writing. It is not an atomic create:
+`wrangler r2 object put` has no conditional-create option (and we don't use S3 API keys), so a concurrent
+foreign writer between the check and the put can't be ruled out. Since the 2026-10-14 review the script takes an
+exclusive lock (`scripts/lib/single-writer-lock.mjs`, in the git common dir, so it covers every worktree)
+before its first storage call; a second run fails at once and names the holder's pid, host and start time. If
+a run dies without removing it, check that pid is gone, then delete the lock file.
+
+Result (2026-10-14): **13 created (each key absent at its check), 0 already present, 0 pre-existing conflicts
+detected; 13/13 readback match**; 388,604 bytes. That run predates the lock. All 13
+superseded objects were read and were unchanged. Evidence: `data/storage/economics-q1-source-repairs.manifest.json`,
 `data/storage/economics-q1-source-repairs.receipt.json` (pins the manifest and log SHA-256), and
-`docs/economics-q1-source-repairs-r2-upload-log.jsonl`.
+`docs/economics-q1-source-repairs-r2-upload-log.jsonl`. The receipt was re-rendered from the unchanged log with
+`--receipt-only` (no storage calls) to replace `overwritten: 0` with `preExistingConflictsDetected: 0`, a
+`guarantee` note and `writerLock: "none: these rows predate the writer lock"`; its records are unchanged.
 
 **Superseded keys** (left in place, not deleted; the owner can retire them after deploy): the 13
 `igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/questions/<paper>/q1-2-3.webp` objects in the table.

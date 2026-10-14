@@ -1,12 +1,14 @@
 {
- "schema": "economics-q1-source-repairs-readback-v1",
+ "schema": "economics-q1-source-repairs-readback-v2",
  "state": "verified_readback",
  "bucket": "pastpaperprep-assets",
  "method": "wrangler r2 object get/put --remote (logged-in CLI): key checked absent, put image/webp + private, max-age=31536000, immutable, full GET readback SHA-256 + size",
+ "guarantee": "check-absent, put, full read-back by SHA-256 and size, serialized by one local writer (an exclusive lock per uploader). Detects pre-existing different bytes before writing and corrupt bytes after writing. Not an atomic create: wrangler r2 object put has no conditional-create option, so a concurrent foreign writer between the check and the put cannot be ruled out.",
+ "writerLock": "none: these rows predate the writer lock",
  "manifestSha256": "921714e6c96c284d99d52e019fdbe85c3ee7fcf885f1349d28fa81b969ccb67c",
  "objectCount": 13,
  "uploaded": 13,
- "overwritten": 0,
+ "preExistingConflictsDetected": 0,
  "logSha256": "2ed344f8ab8d81e5da11e82b0e0d2de4b7b6ab2f75cc9e760604813aa8324570",
  "records": [
   {
