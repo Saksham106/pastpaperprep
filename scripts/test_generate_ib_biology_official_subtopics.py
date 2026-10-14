@@ -61,7 +61,7 @@ def test_groups_follow_each_question_reviewed_subtopics_not_taxonomy_order():
     overlay = json.loads((REPO / "src/data/ib-biology-official-subtopics/overlay.json").read_text())
     raw = _raw_by_id()
     resolved = [row for row in overlay["rows"] if not row["blocked"] and "sourceReassessment" not in row]
-    assert len(resolved) == 3428
+    assert len(resolved) == 3426
     for row in resolved:
         question = raw[row["id"]]
         names = [group["name"] for group in [row["primary"], *row["secondary"]]]

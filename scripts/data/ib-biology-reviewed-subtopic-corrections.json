@@ -143,6 +143,60 @@
         "atomicCode": "B1.1",
         "finding": "Triglyceride condensation bond, glycerol, unsaturated fatty acid and lipid energy-storage properties (5 marks); no nucleic-acid or gene-expression marks."
       }
+    },
+    {
+      "id": "2021-may-tz2-sl-p2-q5",
+      "level": "SL",
+      "era": "bio_2016",
+      "officialAtomicIds": [
+        "ib-biology.bio_2016.6.1",
+        "ib-biology.bio_2016.3.4"
+      ],
+      "groupIds": [
+        "ib-biology.group.O1",
+        "ib-biology.group.M1",
+        "ib-biology.group.I2"
+      ],
+      "origin": "PR #286 review follow-up",
+      "sourceReassessment": {
+        "review": "printed QP/MS verified; adds the inheritance code the question assesses but the reviewed labels lacked",
+        "questionPdfSha256": "168561eab8b1d05a776f457dff2c7a41ae0e71d31e71489ead122c8453bfe779",
+        "markschemePdfSha256": "0fd1c8e6a35c3dd431e2a1df10965e3eb56225f859d912ed6fce0bdfee5a9a77",
+        "questionPages": [
+          13
+        ],
+        "markschemePages": [
+          12
+        ],
+        "atomicCode": "3.4",
+        "finding": "(a) starch structure [5], (b) digestion and absorption of casein amino acids to the liver [7], (c) autosomal recessive cross for congenital lactase deficiency, 25% chance [3]."
+      }
+    },
+    {
+      "id": "2024-may-tz2-hl-p3-q2",
+      "level": "HL",
+      "era": "bio_2016",
+      "officialAtomicIds": [
+        "ib-biology.bio_2016.1.4"
+      ],
+      "groupIds": [
+        "ib-biology.group.M3"
+      ],
+      "origin": "PR #286 review follow-up",
+      "sourceReassessment": {
+        "review": "printed QP/MS verified; ecology label (4.1) is not assessed",
+        "questionPdfSha256": "0f8ce939c96704a65197bce32db7a5918a1c6aeb2c014c5246d074593b98b265",
+        "markschemePdfSha256": "6f1776f777304d273bc056ad788f0e9955c00472621b2cd8caed73b6807a3393",
+        "questionPages": [
+          5
+        ],
+        "markschemePages": [
+          5,
+          6
+        ],
+        "atomicCode": "1.4",
+        "finding": "(a) define osmolarity [1], (b) effect of external osmolarity on V. fischeri luminescence [2], (c) find tissue osmolarity from mass change [2]. Bacterial density is only a graph variable; no population or community ecology is assessed."
+      }
     }
   ]
 }
