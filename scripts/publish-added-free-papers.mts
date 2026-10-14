@@ -1,6 +1,6 @@
 /**
- * Publishes only the free past-paper PDFs a change adds, create-only, then re-verifies every approved
- * PDF from free.pastpaperprep.com. Uploading publishes the files: owner approval required (AGENTS.md).
+ * Publishes only the free past-paper PDFs a change adds, without re-putting live objects, then
+ * re-verifies every approved PDF from free.pastpaperprep.com. Uploading publishes the files: owner approval required (AGENTS.md).
  * Needs `wrangler login`; no keys.
  *
  *   npx tsx scripts/publish-added-free-papers.mts plan   <base-ref> <source-bindings.json> <work-dir>
@@ -14,7 +14,13 @@
  * `wrangler r2 object get` (an existing object with the same bytes is left alone; different bytes
  * abort the run), puts it with the publisher's headers, and reads it back with wrangler (SHA-256
  * and size). It refuses to run if an existing object's download name would change, because that
- * needs a re-put and a cache purge. `verify` is the publisher's readback: every approved PDF from
+ * needs a re-put and a cache purge.
+ *
+ * Guarantee (SINGLE_WRITER_GUARANTEE): check-absent → put → read-back, serialized by one local writer.
+ * `upload` takes an exclusive lock (scripts/lib/single-writer-lock.mjs) before reading anything, so a
+ * second run fails at once. That detects pre-existing different bytes before writing and corrupt bytes
+ * after writing. It is not an atomic create: wrangler has no conditional put, so a concurrent foreign
+ * writer between the check and the put cannot be ruled out. `verify` is the publisher's readback: every approved PDF from
  * the public origin (bytes, type, filename), and it writes src/data/paper-archive-readback.json only
  * if all match and the manifests didn't change. WRANGLER_BIN picks the wrangler binary; JOBS (default
  * 2) the number of parallel uploads. Every event is logged to <work-dir>/log/*.jsonl; any failure
@@ -22,13 +28,15 @@
  */
 import { createHash } from 'node:crypto';
 import { execFileSync, spawn } from 'node:child_process';
-import { appendFileSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { appendFileSync, existsSync, lstatSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { canonicalRoot, privateStaging, readConfined, safeSegments, workerCount } from './lib/safe-files';
+import { SINGLE_WRITER_GUARANTEE, acquireSingleWriterLock } from './lib/single-writer-lock.mjs';
 import { FREE_PAPER_ORIGIN, approvedPapers, objectDownloadNames, paperMappingDigest, paperObjectKey, paperObjectUrl, paperObjectsDigest, type PublicReadback } from '../src/lib/whole-paper-public';
 import type { WholePaperManifest } from '../src/lib/whole-paper-types';
 
 const BUCKET = 'pastpaperprep-free';
+const LOCK_NAME = 'publish-added-free-papers';
 const DIR = 'src/data/paper-archives';
 const MAX_PDF_BYTES = 100 * 1024 * 1024;
 const SAFE_NAME = /^[A-Za-z0-9][A-Za-z0-9._-]{0,150}\.pdf$/;
@@ -93,9 +101,16 @@ async function pool<T>(items: T[], jobs: number, work: (item: T) => Promise<void
 }
 function workDir(path: string) {
   mkdirSync(join(path, 'log'), { recursive: true });
-  return canonicalRoot(resolve(path));
+  const root = canonicalRoot(resolve(path));
+  if (lstatSync(join(root, 'log')).isSymbolicLink()) throw new Error(`Refusing symlinked log directory in ${root}`);
+  return root;
 }
-const log = (file: string, event: Record<string, unknown>) => appendFileSync(file, JSON.stringify({ at: new Date().toISOString(), ...event }) + '\n');
+/** Local writes (plan, logs, receipt) never follow a symlink. */
+function plainTarget(file: string) {
+  if (lstatSync(file, { throwIfNoEntry: false })?.isSymbolicLink()) throw new Error(`Refusing to write through a symlink: ${file}`);
+  return file;
+}
+const log = (file: string, event: Record<string, unknown>) => appendFileSync(plainTarget(file), JSON.stringify({ at: new Date().toISOString(), ...event }) + '\n');
 
 /** Remote object bytes, or null when the key does not exist. Throws on any other wrangler failure. */
 async function remoteGet(key: string, dest: string): Promise<Buffer | null> {
@@ -122,13 +137,16 @@ function plan(base: string, bindingsPath: string, workPath: string) {
   const work = workDir(workPath);
   const { rows, now } = added(base, bindingsPath);
   for (const r of rows) readSource(r);
-  writeFileSync(join(work, 'plan.json'), JSON.stringify({ base, approvedObjects: now.objects.size, added: rows.map(({ sha256, bytes, name, relativePath }) => ({ sha256, bytes, name, relativePath, key: paperObjectKey(sha256) })) }, null, 1) + '\n');
+  writeFileSync(plainTarget(join(work, 'plan.json')), JSON.stringify({ base, approvedObjects: now.objects.size, added: rows.map(({ sha256, bytes, name, relativePath }) => ({ sha256, bytes, name, relativePath, key: paperObjectKey(sha256) })) }, null, 1) + '\n');
   console.log(`${rows.length} PDFs to add (${(rows.reduce((s, r) => s + r.bytes, 0) / 1e6).toFixed(1)} MB) of ${now.objects.size} approved; every source hash-checked`);
 }
 
 async function upload(base: string, bindingsPath: string, workPath: string) {
+  // One writer at a time, taken before anything is read or any storage call is made.
+  const lock = acquireSingleWriterLock(LOCK_NAME);
   const work = workDir(workPath), logFile = join(work, 'log/upload.jsonl');
   const { rows, now } = added(base, bindingsPath);
+  log(logFile, { event: 'start', base, planned: rows.length, writerLock: lock.path, guarantee: SINGLE_WRITER_GUARANTEE });
   const staging = privateStaging('ppp-added-papers-');
   let aborted = false; const failed: string[] = [];
   try {
@@ -163,7 +181,8 @@ async function upload(base: string, bindingsPath: string, workPath: string) {
   } finally { staging.dispose(); }
   if (seal(current()) !== seal(now)) throw new Error('Manifests changed during upload');
   if (aborted) throw new Error('An existing object has different bytes; upload aborted (see log/upload.jsonl)');
-  console.log(`upload ${failed.length ? 'incomplete' : 'done'}: ${rows.length - failed.length} of ${rows.length} added PDFs present and read back`);
+  console.log(`upload ${failed.length ? 'incomplete' : 'done'}: ${rows.length - failed.length} of ${rows.length} added PDFs present and read back; 0 pre-existing conflicts detected`);
+  console.log(`guarantee: ${SINGLE_WRITER_GUARANTEE}`);
   if (failed.length) process.exitCode = 1;
 }
 
@@ -204,7 +223,7 @@ async function verify(workPath: string) {
     version: 3, status: 'verified_public_readback', origin: FREE_PAPER_ORIGIN, prefix: 'papers/v1/', verifiedAt: new Date().toISOString(),
     objectCount: now.objects.size, objectsSha256: now.objectsSha256, mappingSha256: now.mappingSha256,
   };
-  writeFileSync('src/data/paper-archive-readback.json', JSON.stringify(receipt, null, 2) + '\n');
+  writeFileSync(plainTarget('src/data/paper-archive-readback.json'), JSON.stringify(receipt, null, 2) + '\n');
   console.log(`verified ${now.objects.size} PDFs from ${FREE_PAPER_ORIGIN}; wrote src/data/paper-archive-readback.json`);
 }
 
