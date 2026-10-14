@@ -1,0 +1,32 @@
+{
+  "note": "Retired donated-scan ids (labelled TZA) mapped to the official May 2026 TZ1 questions. Verified 2026-10-13 by content: for each of the 26 retired records (git HEAD 90951da data/papers/2026-may-tza-p*.json) the best text match across all 78 official TZ1/TZ2/TZ3 questions of the same paper is the same-numbered TZ1 question with the same total marks (next-best match far lower), and the stems/parts were read side by side. No mismatches. Known transcription defect in the retired reconstruction, now superseded: 2026-may-tza-p1-q4(a) read log25(81x) = log5 9 + log25 x; the official paper reads log25(81x^2) = log5 9 + log5 x.",
+  "mismatches": [],
+  "mapping": {
+    "2026-may-tza-p1-q1": "2026-may-tz1-p1-q1",
+    "2026-may-tza-p1-q2": "2026-may-tz1-p1-q2",
+    "2026-may-tza-p1-q3": "2026-may-tz1-p1-q3",
+    "2026-may-tza-p1-q4": "2026-may-tz1-p1-q4",
+    "2026-may-tza-p1-q5": "2026-may-tz1-p1-q5",
+    "2026-may-tza-p1-q6": "2026-may-tz1-p1-q6",
+    "2026-may-tza-p1-q7": "2026-may-tz1-p1-q7",
+    "2026-may-tza-p1-q8": "2026-may-tz1-p1-q8",
+    "2026-may-tza-p1-q9": "2026-may-tz1-p1-q9",
+    "2026-may-tza-p1-q10": "2026-may-tz1-p1-q10",
+    "2026-may-tza-p1-q11": "2026-may-tz1-p1-q11",
+    "2026-may-tza-p1-q12": "2026-may-tz1-p1-q12",
+    "2026-may-tza-p2-q1": "2026-may-tz1-p2-q1",
+    "2026-may-tza-p2-q2": "2026-may-tz1-p2-q2",
+    "2026-may-tza-p2-q3": "2026-may-tz1-p2-q3",
+    "2026-may-tza-p2-q4": "2026-may-tz1-p2-q4",
+    "2026-may-tza-p2-q5": "2026-may-tz1-p2-q5",
+    "2026-may-tza-p2-q6": "2026-may-tz1-p2-q6",
+    "2026-may-tza-p2-q7": "2026-may-tz1-p2-q7",
+    "2026-may-tza-p2-q8": "2026-may-tz1-p2-q8",
+    "2026-may-tza-p2-q9": "2026-may-tz1-p2-q9",
+    "2026-may-tza-p2-q10": "2026-may-tz1-p2-q10",
+    "2026-may-tza-p2-q11": "2026-may-tz1-p2-q11",
+    "2026-may-tza-p2-q12": "2026-may-tz1-p2-q12",
+    "2026-may-tza-p3-q1": "2026-may-tz1-p3-q1",
+    "2026-may-tza-p3-q2": "2026-may-tz1-p3-q2"
+  }
+}

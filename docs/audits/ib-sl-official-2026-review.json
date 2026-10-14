@@ -1,0 +1,542 @@
+{
+  "manifestVersion": "ib-sl-official-2026-review.1",
+  "reviewedQuestionCount": 54,
+  "reviewMethod": "Official May 2026 TZ1-TZ3 questions (replacing donated scans): each classified once from the question text and the official IB markscheme, recorded as manual reviews in the source repository, then applied through the reviewed production target. Not part of the 2026-08 blind consensus audit.",
+  "corrections": {
+    "2026-may-p1-tz1-q1": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Differentiation",
+        "Trigonometric functions and identities"
+      ],
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "sourceTextSha256": "ca8c8fc471952fa9f43200918741433859ff9cadab8a6b93110c21a8d7bfd8ab"
+    },
+    "2026-may-p1-tz1-q2": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Roots and polynomial functions",
+        "Graphs and transformations"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "240fb4884b37d5012acd90bab071d8e3550c4bdb780ea542bfe40adc6bfa8644"
+    },
+    "2026-may-p1-tz1-q3": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Integration",
+        "Kinematics",
+        "Exponents and logarithms"
+      ],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "sourceTextSha256": "0e55bfa47bd86b9134a419df75909d82628745723de9c69a7082684b42b44a20"
+    },
+    "2026-may-p1-tz1-q4": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series",
+        "Number systems and notation"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "6a5b6a6c1a175129f317f9efe5826a8045707854845a16599e393e34b26ddb7b"
+    },
+    "2026-may-p1-tz1-q5": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Exponents and logarithms"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "9eb109d09316f72ae92801129c49ed59e0e5a794145c71e6ea0c5bf8f94e1be2"
+    },
+    "2026-may-p1-tz1-q6": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Probability",
+        "Equations and inequalities"
+      ],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "sourceTextSha256": "f441ec7b97bd608f6982ae7ff6710a0a4d3536d6a3601858b7a5c8d2d8f11b3b"
+    },
+    "2026-may-p1-tz1-q7": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Graphs and transformations",
+        "Function composition and inverses"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "05f30f4a3682107c61c67b04f7c9f339e410d4241f4acd17c4e26e509272096b"
+    },
+    "2026-may-p1-tz1-q8": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Differentiation",
+        "Roots and polynomial functions"
+      ],
+      "secondaryTopics": [
+        "Functions"
+      ],
+      "sourceTextSha256": "f04cc62229a19ad81c2b4cb3f16dbf685c6262c687fbc601c4c975501bd3b333"
+    },
+    "2026-may-p1-tz1-q9": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Differentiation",
+        "Trigonometric functions and identities",
+        "Radians and exact values"
+      ],
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "sourceTextSha256": "09eb652889877baf1cb4e78a6be0ebf251f80fef36bcc44d401e7ad902fcd031"
+    },
+    "2026-may-p1-tz2-q1": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Radians and exact values",
+        "Geometry and measurement"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "688d72368053fadbb9e7f7c8e00e305ab742dcfd3a51fc3220365f48ed30cff3"
+    },
+    "2026-may-p1-tz2-q2": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Roots and polynomial functions",
+        "Graphs and transformations"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "c615a4ac50dcd09b8c8efb9e3672c3875c81387473d935316c24564b2b6c415f"
+    },
+    "2026-may-p1-tz2-q3": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Integration",
+        "Trigonometric functions and identities"
+      ],
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "sourceTextSha256": "91f3ee3d1e482adbb2beb8a7a5579274a33c41b6291252e7c3bf09875d066105"
+    },
+    "2026-may-p1-tz2-q4": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Function composition and inverses",
+        "Exponents and logarithms",
+        "Equations and inequalities"
+      ],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "sourceTextSha256": "7a4f3f81d60c35ad2bd8245b19da3bf2148335ee51ee16ad816d5e129c3b83dd"
+    },
+    "2026-may-p1-tz2-q5": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Exponents and logarithms",
+        "Sequences and series"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "955b80cb370bbdbbbb6256d2cd57c8c8161289ef9f0a251fc07821b5adfc9c09"
+    },
+    "2026-may-p1-tz2-q6": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Differentiation",
+        "Trigonometric functions and identities"
+      ],
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "sourceTextSha256": "71be7c83f032a1a114f97b3ed85fbc9eafa08a614886a47292c9e50e7d914480"
+    },
+    "2026-may-p1-tz2-q7": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Graphs and transformations",
+        "Function composition and inverses",
+        "Equations and inequalities"
+      ],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "sourceTextSha256": "3437ff9923108b0599122b1a5fb7dc23ffb62260a898d804ad55e5ff70d6848c"
+    },
+    "2026-may-p1-tz2-q8": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Probability",
+        "Probability distributions"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "200d08713fee7074d80126105793995fca6edf8384edb10ca9c18aa943d2d718"
+    },
+    "2026-may-p1-tz2-q9": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Trigonometric functions and identities",
+        "Geometry and measurement",
+        "Radians and exact values",
+        "Differentiation"
+      ],
+      "secondaryTopics": [
+        "Calculus"
+      ],
+      "sourceTextSha256": "29bd92a8ded089fdd36b223901b9c3ec93f0f9c182cbc25d58032148fa6eeaf0"
+    },
+    "2026-may-p1-tz3-q1": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Descriptive statistics"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "72596dade962935f8388fa6a1ccba72cfc99e8e325b72e8a0520e030f300f158"
+    },
+    "2026-may-p1-tz3-q2": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Trigonometric functions and identities",
+        "Geometry and measurement"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "b89459bc244f482ca53b697b5cf2b91fb2b66815a4742dc182fc388e9492875e"
+    },
+    "2026-may-p1-tz3-q3": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Counting and binomial probability",
+        "Algebraic manipulation"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "4a40dd249456eaa217146c37102bb068b597f715ab9a4cf0c8e5c1fd6263888a"
+    },
+    "2026-may-p1-tz3-q4": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Exponents and logarithms",
+        "Equations and inequalities"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "56d6fd516c846c2c0101a3ce4b98dbd616e260b4b82d9e46175d99c653064c59"
+    },
+    "2026-may-p1-tz3-q5": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Differentiation",
+        "Integration",
+        "Trigonometric functions and identities"
+      ],
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "sourceTextSha256": "7be9f0634f5e71aa2cf1e7bcc0604248cfa31f0d5d900003c511d323179daa53"
+    },
+    "2026-may-p1-tz3-q6": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Function composition and inverses"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "0aaf82460b7789a61346c10bf97e7aa8f60c0688528c5ce2525050db852c47ac"
+    },
+    "2026-may-p1-tz3-q7": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Roots and polynomial functions",
+        "Graphs and transformations",
+        "Equations and inequalities"
+      ],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "sourceTextSha256": "0e6f90f076a8797876b05a900ff4be4005805cb72da7351c23a443b3d3a4b143"
+    },
+    "2026-may-p1-tz3-q8": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Trigonometric functions and identities",
+        "Radians and exact values",
+        "Graphs and transformations",
+        "Integration"
+      ],
+      "secondaryTopics": [
+        "Functions",
+        "Calculus"
+      ],
+      "sourceTextSha256": "de2458b5e1ab30f086113bdca4f524f4e12335351c199c18c13ca47cf79c7309"
+    },
+    "2026-may-p1-tz3-q9": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Differentiation"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "e69fbaf5ab4c5686880b538864988308b69abc9676fde0944d3fbf09787b7277"
+    },
+    "2026-may-p2-tz1-q1": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Functions and modelling",
+        "Exponents and logarithms"
+      ],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "sourceTextSha256": "11ac161936ead51ccaacbaa0309d41e0dd71b84b689b74fd226acab61a21c84e"
+    },
+    "2026-may-p2-tz1-q2": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Descriptive statistics"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "737d98ed9ac20093a2249ac4f8cbf4f5a5c14c6a59a78e4fb5deb64b8497411a"
+    },
+    "2026-may-p2-tz1-q3": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Differentiation",
+        "Equations and inequalities"
+      ],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "sourceTextSha256": "f3a475ec30ec45e2ff237d301a1389ed503ec2a258318408d194036152ba8963"
+    },
+    "2026-may-p2-tz1-q4": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Functions and modelling",
+        "Trigonometric functions and identities",
+        "Graphs and transformations"
+      ],
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "sourceTextSha256": "4f86ded5fda44b979d06c0aaff81545d1e38946f83e1f7ef1806b07d26324509"
+    },
+    "2026-may-p2-tz1-q5": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Differentiation",
+        "Integration"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "9f1ee7265c185e8fadff18fc290788b0eb2966fb35d6c0491bc7ac97a6ca11b0"
+    },
+    "2026-may-p2-tz1-q6": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Probability distributions",
+        "Probability"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "24c605cb4c1f4d207c0b91fb4b4fb59a2d6c8feca53b151786fa368b702a36a7"
+    },
+    "2026-may-p2-tz1-q7": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Vectors",
+        "Geometry and measurement",
+        "Trigonometric functions and identities"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "8c4d829264bf08ab80fb1d1ebb014a45645c98f5acbadb8c5e9c4ba4be8f2cd0"
+    },
+    "2026-may-p2-tz1-q8": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics",
+        "Exponents and logarithms"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "cf14b12f42901d06bcf2efffdd2403bae908c5f77b8c43d288040c13cd2d9295"
+    },
+    "2026-may-p2-tz1-q9": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Probability distributions",
+        "Probability"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "3d48141e3faf9d1c8f90f8343f272c173eb72e8af4c339cc3d34397e3d7fff1a"
+    },
+    "2026-may-p2-tz2-q1": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Descriptive statistics"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "5e39906a53cbcfc14358acbe5a6c4b4f0fdd021fe26c8282693d03c5f1436fd3"
+    },
+    "2026-may-p2-tz2-q2": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Probability"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "0849a9a1b3748eef30d9b54b46866d11cbaee974ba1225a6869ce3420815a6c4"
+    },
+    "2026-may-p2-tz2-q3": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Trigonometric functions and identities",
+        "Geometry and measurement"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "574b4a0edae63df353368cb36f5ad0776e07ffef9e6ffb7dcca6196d4b3598b3"
+    },
+    "2026-may-p2-tz2-q4": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Differentiation",
+        "Geometry and measurement",
+        "Functions and modelling"
+      ],
+      "secondaryTopics": [
+        "Geometry and trigonometry",
+        "Functions"
+      ],
+      "sourceTextSha256": "460d2cfd81ff1e029c21a77692433fada01271753bb5512c168164c885b7c05c"
+    },
+    "2026-may-p2-tz2-q5": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Kinematics",
+        "Integration",
+        "Differentiation"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "3b72ae618041bd64f0cf254a6e4dfe658f2d7d1df7f1336c7111244b73ef96c0"
+    },
+    "2026-may-p2-tz2-q6": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Probability distributions",
+        "Probability"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "b1d74f8ac068dfbea4eed99aeb522151e882dcc519e046ac696ccf3a440b5fcc"
+    },
+    "2026-may-p2-tz2-q7": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "324fdc1fdec775d467d4f909edaa0633c7b48bb53f174b2d473ae516e0154cd1"
+    },
+    "2026-may-p2-tz2-q8": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Probability distributions",
+        "Probability"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "20c94e92c057c2845220e1f708cfc7f793690faaec63dd7fade79c2524533b88"
+    },
+    "2026-may-p2-tz2-q9": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Differentiation",
+        "Integration",
+        "Graphs and transformations"
+      ],
+      "secondaryTopics": [
+        "Functions"
+      ],
+      "sourceTextSha256": "949a93bc199ba60518f5d7c5c37bcd2e85be0ca557442541532c048b7f6fa1f9"
+    },
+    "2026-may-p2-tz3-q1": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Correlation and regression"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "32e8091441c1534ee1e8d47ba8c3669e0690dce77153409fee9c418baa41adb9"
+    },
+    "2026-may-p2-tz3-q2": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Trigonometric functions and identities",
+        "Geometry and measurement"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "2fb2a48d8b2534bb2bb41189708214c32b722c1714f0a6f4e88b953d29d27fdb"
+    },
+    "2026-may-p2-tz3-q3": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Functions and modelling",
+        "Exponents and logarithms"
+      ],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "sourceTextSha256": "6f39509ac597c06ee58d6f79252e575c7c4582ef32c9c912681575d89a308797"
+    },
+    "2026-may-p2-tz3-q4": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Probability distributions"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "b9c17241137a1b1ed12600928338cf23b3a315788655aa4a3886c20d0f3ec00c"
+    },
+    "2026-may-p2-tz3-q5": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Geometry and measurement",
+        "Radians and exact values"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "cb1be0ec9a88b23d4e7face040ec0a9d60c394d873ffbef75503e9bf7186c215"
+    },
+    "2026-may-p2-tz3-q6": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Kinematics",
+        "Integration",
+        "Differentiation"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "47ecba175342973d2c5a39e788cfdd4adfc59ee643b771fe5f123889c7c2df54"
+    },
+    "2026-may-p2-tz3-q7": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Differentiation",
+        "Geometry and measurement"
+      ],
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "sourceTextSha256": "fb5a8fb760da49402ef34c3a183e4c1ff69beb4972cd31e638198f679e4e74e2"
+    },
+    "2026-may-p2-tz3-q8": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Probability distributions",
+        "Probability"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "678b8a795a7f2bb32f857459ffd85eeb7341174fd05cecd97cc5438457d7d117"
+    },
+    "2026-may-p2-tz3-q9": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series",
+        "Exponents and logarithms",
+        "Equations and inequalities"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "bbf23b5b893ada7f22c12d74eb535b6dcbf6194a473bc6c57f282deab8ca6116"
+    }
+  }
+}
